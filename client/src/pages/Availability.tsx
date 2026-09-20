@@ -271,7 +271,7 @@ export default function Availability() {
                       onClick={() => approveMutation.mutate(override.id)}
                       title={t('people:availability.approve')}
                     >
-                      <Check size={18} />
+                      <Check size={14} />
                       {t('people:availability.approve')}
                     </button>
                   )}
@@ -280,7 +280,7 @@ export default function Availability() {
                     onClick={() => handleEdit(override)}
                     title={t('common:edit')}
                   >
-                    <Edit2 size={18} />
+                    <Edit2 size={14} />
                     {t('common:edit')}
                   </button>
                   <button
@@ -292,7 +292,7 @@ export default function Availability() {
                     }}
                     title={t('common:delete')}
                   >
-                    <Trash2 size={18} />
+                    <Trash2 size={14} />
                     {t('common:delete')}
                   </button>
                 </div>

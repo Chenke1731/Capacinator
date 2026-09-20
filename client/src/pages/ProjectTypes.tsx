@@ -151,7 +151,7 @@ export default function ProjectTypes() {
     {
       key: 'actions',
       header: t('common:actions'),
-      width: '340px',
+      width: '290px',
       render: (_, row) => (
         <div className="table-actions">
           <button
@@ -162,7 +162,7 @@ export default function ProjectTypes() {
             }}
             title={t('common:viewDetails')}
           >
-            <Eye size={18} />
+            <Eye size={14} />
             {t('common:viewDetails')}
           </button>
           <button
@@ -173,7 +173,7 @@ export default function ProjectTypes() {
             }}
             title={t('common:edit')}
           >
-            <Edit2 size={18} />
+            <Edit2 size={14} />
             {t('common:edit')}
           </button>
           <button
@@ -184,7 +184,7 @@ export default function ProjectTypes() {
             }}
             title={t('common:delete')}
           >
-            <Trash2 size={18} />
+            <Trash2 size={14} />
             {t('common:delete')}
           </button>
         </div>
@@ -258,7 +258,7 @@ export default function ProjectTypes() {
               onClick={() => navigate(`/project-types/${projectType.id}`)}
               title={t('common:viewDetails')}
             >
-              <Eye size={18} />
+              <Eye size={14} />
               {t('common:viewDetails')}
             </button>
             <button
@@ -266,7 +266,7 @@ export default function ProjectTypes() {
               onClick={() => handleEditProjectType(projectType)}
               title={t('common:edit')}
             >
-              <Edit2 size={18} />
+              <Edit2 size={14} />
               {t('common:edit')}
             </button>
             <button
@@ -274,7 +274,7 @@ export default function ProjectTypes() {
               onClick={() => handleDeleteProjectType(projectType.id, projectType.name)}
               title={t('common:delete')}
             >
-              <Trash2 size={18} />
+              <Trash2 size={14} />
               {t('common:delete')}
             </button>
           </div>

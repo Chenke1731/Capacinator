@@ -196,7 +196,7 @@ export function Projects() {
     {
       key: 'actions',
       header: t('common:actions'),
-      width: '440px',
+      width: '390px',
       render: (_, row) => (
         <div className="table-actions">
           <button
@@ -207,7 +207,7 @@ export function Projects() {
             }}
             title={t('common:viewDetails')}
           >
-            <Eye size={18} />
+            <Eye size={14} />
             {t('common:viewDetails')}
           </button>
           <button
@@ -218,7 +218,7 @@ export function Projects() {
             }}
             title={t('common:edit')}
           >
-            <Edit2 size={18} />
+            <Edit2 size={14} />
             {t('common:edit')}
           </button>
           <button
@@ -229,7 +229,7 @@ export function Projects() {
             }}
             title={t('projects:manageAllocations')}
           >
-            <Users size={18} />
+            <Users size={14} />
             {t('projects:manageAllocations')}
           </button>
           <button
@@ -240,7 +240,7 @@ export function Projects() {
             }}
             title={t('common:delete')}
           >
-            <Trash2 size={18} />
+            <Trash2 size={14} />
             {t('common:delete')}
           </button>
         </div>

@@ -528,7 +528,7 @@ export default function Assignments() {
     {
       key: 'actions',
       header: t('common:actions'),
-      width: '360px',
+      width: '290px',
       render: (_, row) => (
         <div className="table-actions">
           <button
@@ -539,7 +539,7 @@ export default function Assignments() {
             }}
             title={t('assignments:viewProject')}
           >
-            <Eye size={18} />
+            <Eye size={14} />
             {t('assignments:viewProject')}
           </button>
           <button
@@ -550,7 +550,7 @@ export default function Assignments() {
             }}
             title={t('common:edit')}
           >
-            <Edit2 size={18} />
+            <Edit2 size={14} />
             {t('common:edit')}
           </button>
           <button
@@ -561,7 +561,7 @@ export default function Assignments() {
             }}
             title={t('common:delete')}
           >
-            <Trash2 size={18} />
+            <Trash2 size={14} />
             {t('common:delete')}
           </button>
         </div>

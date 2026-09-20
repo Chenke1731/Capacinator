@@ -325,7 +325,7 @@ export default function People() {
     {
       key: 'actions',
       header: t('people:columns.quickActions'),
-      width: '300px',
+      width: '330px',
       render: (_, row) => {
         const insights = getPersonInsights(row.id);
         const ActionIcon = insights.icon;
@@ -344,7 +344,7 @@ export default function People() {
                 }}
                 title={insights.action}
               >
-                <ActionIcon size={18} />
+                <ActionIcon size={14} />
                 {insights.action}
               </button>
             )}
@@ -356,7 +356,7 @@ export default function People() {
               }}
               title={t('common:viewDetails')}
             >
-              <Eye size={18} />
+              <Eye size={14} />
               {t('common:viewDetails')}
             </button>
             <button
@@ -367,7 +367,7 @@ export default function People() {
               }}
               title={t('common:edit')}
             >
-              <Edit2 size={18} />
+              <Edit2 size={14} />
               {t('common:edit')}
             </button>
           </div>

@@ -118,26 +118,30 @@
 }
 
 /* Unified table row action buttons: icon + text label, large enough to read.
-   Used by Roles / Projects / ProjectTypes / Assignments / Locations / Availability. */
+   Used by Roles / Projects / ProjectTypes / Assignments / Locations / Availability.
+   No flex-wrap: a wrappable actions cell collapses under auto table layout
+   (min-content becomes one button), squeezing the column. */
 .table-actions {
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
 }
 
-.table-action-btn {
+/* Higher specificity (.btn.table-action-btn) to override the global
+   .btn { min-height: 40px } touch-target rule inside dense tables. */
+.btn.table-action-btn {
+  min-height: 0;
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem 0.875rem;
-  font-size: 0.9375rem;
-  font-weight: 600;
-  border-radius: 6px;
+  gap: 0.375rem;
+  padding: 0.25rem 0.625rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  border-radius: 4px;
   transition: all 0.2s;
   white-space: nowrap;
 }
 
-.table-action-btn:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 2px 4px var(--shadow-sm);
+.btn.table-action-btn:hover {
+  box-shadow: 0 1px 3px var(--shadow-sm);
 }
 
 .table-action-btn.btn-danger {

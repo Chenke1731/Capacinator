@@ -113,7 +113,7 @@ export default function Roles() {
     {
       key: 'actions',
       header: t('common:actions'),
-      width: '340px',
+      width: '290px',
       render: (_, row) => (
         <div className="table-actions">
           <button
@@ -124,7 +124,7 @@ export default function Roles() {
             }}
             title={t('common:viewDetails')}
           >
-            <Eye size={18} />
+            <Eye size={14} />
             {t('common:viewDetails')}
           </button>
           <button
@@ -135,7 +135,7 @@ export default function Roles() {
             }}
             title={t('common:edit')}
           >
-            <Edit2 size={18} />
+            <Edit2 size={14} />
             {t('common:edit')}
           </button>
           <button
@@ -146,7 +146,7 @@ export default function Roles() {
             }}
             title={t('common:delete')}
           >
-            <Trash2 size={18} />
+            <Trash2 size={14} />
             {t('common:delete')}
           </button>
         </div>

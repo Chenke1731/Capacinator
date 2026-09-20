@@ -138,7 +138,7 @@ export function Locations() {
     {
       key: 'actions',
       header: t('common:actions'),
-      width: '160px',
+      width: '120px',
       render: (_, row) => (
         <div className="table-actions">
           <button
@@ -149,7 +149,7 @@ export function Locations() {
             }}
             title={t('common:delete')}
           >
-            <Trash2 size={18} />
+            <Trash2 size={14} />
             {t('common:delete')}
           </button>
         </div>

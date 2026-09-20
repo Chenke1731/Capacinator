@@ -113,6 +113,18 @@ npx playwright test tests/e2e/suites/crud/          # Playwright folder
 
 ## Important Patterns
 
+### Internationalization (i18n)
+- react-i18next; singleton initialized in `client/src/i18n/index.ts`, imported once in `App.tsx`
+- Languages: `zh-CN` and `en-US`. Detection: `localStorage('capacinator-language')` → browser language → en-US fallback; switch UI in AppHeader and Settings → Appearance
+- Dictionaries live in `client/src/i18n/locales/{en-US,zh-CN}/<namespace>.json` (~19 namespaces: common, navigation, auth, enums, errors, validation, settings, dashboard, projects, people, assignments, scenarios, reports, importExport, locations, auditLog, phases, roles, gitSync)
+- In components use `useTranslation()`; in non-component modules use the `i18n` singleton with call-time `i18n.t()` (never at module top level — module-scope strings don't re-translate)
+- Module-level config constants with display strings must live INSIDE the component body (or `useMemo(..., [t])`) so language switches re-render
+- en-US values must byte-match the original English strings — Jest/Playwright tests run in en-US (jsdom `navigator.language`) and assert English text; `tests/setup.client.js` initializes i18n for standalone component tests
+- Dates: use `getLocale()` from `client/src/i18n` for `toLocaleDateString`/`toLocaleString`, and `getDateFnsLocale()` for date-fns `format` — never hardcode 'en-US'
+- Server enums (status, scenario_type, OVER_ALLOCATED...) render through `client/src/lib/enum-labels.ts` helpers
+- Server English error messages are translated client-side by `client/src/lib/i18n-error.ts`, wired into the api-client response interceptor; unknown messages get a localized prefix plus the original text
+- Form validation messages: `client/src/lib/validation.ts` and `shared` validators return localized strings via i18n
+
 ### Fiscal Weeks
 - System uses fiscal week format: "24FW36-25FW11" (year + FW + week number)
 - Fiscal year starts in September

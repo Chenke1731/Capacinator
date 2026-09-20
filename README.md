@@ -2,6 +2,8 @@
 
 A comprehensive project capacity planning system that replaces Excel-based planning with a modern web application.
 
+> 📖 **使用说明书 / User Manual**:[docs/USER_MANUAL_zh-CN.md](docs/USER_MANUAL_zh-CN.md)(中文,含快速上手、全部页面详解、典型流程与常见问题)
+
 ## Features
 
 - **Project Management**: Track projects, phases, and timelines

@@ -1,9 +1,11 @@
-import React, { useRef, useEffect, useState, useCallback } from 'react';
+import React, { useRef, useEffect, useState, useCallback, useMemo } from 'react';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useTranslation } from 'react-i18next';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 import { api } from '../lib/api-client';
 import { queryKeys } from '../lib/queryKeys';
 import { formatDate } from '../utils/date';
+import { getLocale } from '../i18n';
 import { VisualPhaseManager } from './VisualPhaseManager';
 import { TimelineViewport } from './InteractiveTimeline';
 import { useBookmarkableTabs } from '../hooks/useBookmarkableTabs';
@@ -15,13 +17,6 @@ interface ProjectDemandChartProps {
   projectId: string;
   projectName: string;
 }
-
-// Define chart view tabs configuration
-const chartViewTabs = [
-  { id: 'demand', label: 'Demand' },
-  { id: 'capacity', label: 'Capacity' },
-  { id: 'gaps', label: 'Gaps' }
-];
 
 // Simple Brush Control Component for timeline selection
 const SimpleBrushControl = ({
@@ -37,6 +32,7 @@ const SimpleBrushControl = ({
   brushEnd: number;
   onBrushChange: (start: number, end: number) => void;
 }) => {
+  const { t } = useTranslation();
   const containerRef = useRef<HTMLDivElement>(null);
   const [dragging, setDragging] = useState<{
     type: 'start' | 'end' | 'range' | null;
@@ -221,7 +217,7 @@ const SimpleBrushControl = ({
           transform: 'translateX(-50%)',
           whiteSpace: 'nowrap'
         }}>
-          {dailyData[brushStart]?.date ? formatDate(dailyData[brushStart].date) : 'N/A'}
+          {dailyData[brushStart]?.date ? formatDate(dailyData[brushStart].date) : t('common:na')}
         </div>
 
         <div style={{
@@ -233,7 +229,7 @@ const SimpleBrushControl = ({
           transform: 'translateX(-50%)',
           whiteSpace: 'nowrap'
         }}>
-          {dailyData[brushEnd]?.date ? formatDate(dailyData[brushEnd].date) : 'N/A'}
+          {dailyData[brushEnd]?.date ? formatDate(dailyData[brushEnd].date) : t('common:na')}
         </div>
       </div>
     </div>
@@ -242,7 +238,17 @@ const SimpleBrushControl = ({
 
 export function ProjectDemandChart({ projectId, projectName }: ProjectDemandChartProps) {
   // ALL HOOKS MUST BE CALLED FIRST - before any conditional logic or early returns
+  const { t } = useTranslation();
   const queryClient = useQueryClient();
+  // Chart view tab labels are language-dependent, so build them per render
+  const chartViewTabs = useMemo(
+    () => [
+      { id: 'demand', label: t('projects:demandChart.demand') },
+      { id: 'capacity', label: t('projects:demandChart.capacity') },
+      { id: 'gaps', label: t('projects:demandChart.gaps') }
+    ],
+    [t]
+  );
   const chartContainerRef = useRef<HTMLDivElement>(null);
   const [chartDimensions, setChartDimensions] = useState<{ width: number; left: number; right: number } | null>(null);
   // Use bookmarkable tabs for chart view selection
@@ -775,13 +781,13 @@ export function ProjectDemandChart({ projectId, projectName }: ProjectDemandChar
                 
                 if (granularity === 'weekly') {
                   const date = new Date(value);
-                  return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+                  return date.toLocaleDateString(getLocale(), { month: 'short', day: 'numeric' });
                 } else if (granularity === 'daily') {
                   const date = new Date(value);
-                  return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+                  return date.toLocaleDateString(getLocale(), { month: 'short', day: 'numeric' });
                 } else if (granularity === 'monthly') {
                   const date = new Date(value + '-01');
-                  return date.toLocaleDateString('en-US', { month: 'short', year: '2-digit' });
+                  return date.toLocaleDateString(getLocale(), { month: 'short', year: '2-digit' });
                 } else { // quarterly
                   const date = new Date(value + '-01');
                   return 'Q' + Math.ceil(date.getMonth() / 3 + 1) + ' ' + date.getFullYear().toString().slice(-2);
@@ -793,13 +799,13 @@ export function ProjectDemandChart({ projectId, projectName }: ProjectDemandChar
               fontSize={11}
             />
             <YAxis 
-              label={{ value: 'FTE (People)', angle: -90, position: 'insideLeft' }}
+              label={{ value: t('projects:demandChart.fteAxis'), angle: -90, position: 'insideLeft' }}
             />
             <Tooltip 
               formatter={(value: number, name: string) => [`${value?.toFixed(1)} FTE`, name]}
               labelFormatter={(label) => {
                 const dataPoint = currentData.find(d => d.date === label);
-                if (!dataPoint) return `Date: ${formatDate(label as string)}`;
+                if (!dataPoint) return t('projects:demandChart.dateLabel', { date: formatDate(label as string) });
                 
                 const granularity = dataPoint.granularity || 'daily';
                 
@@ -807,13 +813,16 @@ export function ProjectDemandChart({ projectId, projectName }: ProjectDemandChar
                   const startDate = new Date(label);
                   const endDate = new Date(startDate);
                   endDate.setDate(endDate.getDate() + 6);
-                  return `Week: ${startDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} - ${endDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}`;
+                  return t('projects:demandChart.weekRange', {
+                    start: startDate.toLocaleDateString(getLocale(), { month: 'short', day: 'numeric' }),
+                    end: endDate.toLocaleDateString(getLocale(), { month: 'short', day: 'numeric' }),
+                  });
                 } else if (granularity === 'daily') {
                   const date = new Date(label);
-                  return date.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
+                  return date.toLocaleDateString(getLocale(), { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
                 } else if (granularity === 'monthly') {
                   const date = new Date(label + '-01');
-                  return date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+                  return date.toLocaleDateString(getLocale(), { month: 'long', year: 'numeric' });
                 } else { // quarterly
                   const date = new Date(label + '-01');
                   const quarter = Math.ceil((date.getMonth() + 1) / 3);

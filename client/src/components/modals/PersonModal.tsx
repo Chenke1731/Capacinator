@@ -1,9 +1,12 @@
 import React, { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useQuery } from '@tanstack/react-query';
 import { api } from '../../lib/api-client';
 import { queryKeys } from '../../lib/queryKeys';
+import i18n from '../../i18n';
 import { useModalForm } from '../../hooks/useModalForm';
 import {
+  validateName,
   validateEmail,
   validateDateRange,
   validateAvailabilityPercentage,
@@ -96,16 +99,18 @@ const initialValues: PersonFormData = {
   status: 'active'
 };
 
+// Runs at submit time, so i18n.t() resolves against the active language on each validation
 const validatePerson = (values: PersonFormData): Partial<Record<keyof PersonFormData, string>> => {
   const errors: Partial<Record<keyof PersonFormData, string>> = {};
 
-  if (!values.name.trim()) errors.name = 'Name is required';
+  const nameValidation = validateName(values.name, i18n.t('people:fields.name'));
+  if (nameValidation !== true) errors.name = nameValidation;
 
   // Email validation using utility
   const emailValidation = validateEmail(values.email);
   if (emailValidation !== true) errors.email = emailValidation;
 
-  if (!values.primary_person_role_id) errors.primary_person_role_id = 'Primary role is required';
+  if (!values.primary_person_role_id) errors.primary_person_role_id = i18n.t('people:validation.primaryRoleRequired');
 
   // Availability percentage validation
   if (values.default_availability_percentage) {
@@ -136,6 +141,7 @@ export const PersonModal: React.FC<PersonModalProps> = ({
   onSuccess,
   editingPerson
 }) => {
+  const { t } = useTranslation();
   const {
     values: formData,
     errors,
@@ -237,11 +243,11 @@ export const PersonModal: React.FC<PersonModalProps> = ({
     <Dialog open={isOpen} onOpenChange={(open) => !open && handleClose()}>
       <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle>{isEditing ? 'Edit Person' : 'Add New Person'}</DialogTitle>
+          <DialogTitle>{isEditing ? t('people:editPerson') : t('people:addNewPerson')}</DialogTitle>
           <DialogDescription>
             {isEditing
-              ? 'Update the person\'s information below.'
-              : 'Fill in the information to create a new person.'}
+              ? t('people:editDescription')
+              : t('people:createDescription')}
           </DialogDescription>
         </DialogHeader>
         <div className="py-4">
@@ -250,7 +256,7 @@ export const PersonModal: React.FC<PersonModalProps> = ({
             <Alert variant="destructive" className="mb-6" role="alert" aria-live="assertive">
               <AlertCircle className="h-4 w-4" aria-hidden="true" />
               <AlertDescription>
-                Please fix the errors below before submitting.
+                {t('people:fixErrorsBeforeSubmitting')}
               </AlertDescription>
             </Alert>
           )}
@@ -258,12 +264,12 @@ export const PersonModal: React.FC<PersonModalProps> = ({
           <form onSubmit={handleSubmit} className="space-y-6">
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="name">Name <span aria-hidden="true">*</span><span className="sr-only">(required)</span></Label>
+              <Label htmlFor="name">{t('people:fields.name')} <span aria-hidden="true">*</span><span className="sr-only">{t('people:requiredSrOnly')}</span></Label>
               <Input
                 id="name"
                 value={formData.name}
                 onChange={(e) => handleChange('name', e.target.value)}
-                placeholder="Enter full name"
+                placeholder={t('people:placeholders.fullName')}
                 className={errors.name ? 'border-destructive' : ''}
                 aria-required="true"
                 aria-invalid={!!errors.name}
@@ -273,13 +279,13 @@ export const PersonModal: React.FC<PersonModalProps> = ({
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="email">Email <span aria-hidden="true">*</span><span className="sr-only">(required)</span></Label>
+              <Label htmlFor="email">{t('people:fields.email')} <span aria-hidden="true">*</span><span className="sr-only">{t('people:requiredSrOnly')}</span></Label>
               <Input
                 type="email"
                 id="email"
                 value={formData.email}
                 onChange={(e) => handleChange('email', e.target.value)}
-                placeholder="Enter email address"
+                placeholder={t('people:placeholders.email')}
                 className={errors.email ? 'border-destructive' : ''}
                 aria-required="true"
                 aria-invalid={!!errors.email}
@@ -289,44 +295,44 @@ export const PersonModal: React.FC<PersonModalProps> = ({
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="phone">Phone</Label>
+              <Label htmlFor="phone">{t('people:fields.phone')}</Label>
               <Input
                 type="tel"
                 id="phone"
                 value={formData.phone}
                 onChange={(e) => handleChange('phone', e.target.value)}
-                placeholder="Enter phone number"
+                placeholder={t('people:placeholders.phone')}
               />
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="title">Title</Label>
+              <Label htmlFor="title">{t('people:fields.title')}</Label>
               <Input
                 id="title"
                 value={formData.title}
                 onChange={(e) => handleChange('title', e.target.value)}
-                placeholder="Enter job title"
+                placeholder={t('people:placeholders.title')}
               />
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="department">Department</Label>
+              <Label htmlFor="department">{t('people:fields.department')}</Label>
               <Input
                 id="department"
                 value={formData.department}
                 onChange={(e) => handleChange('department', e.target.value)}
-                placeholder="Enter department"
+                placeholder={t('people:placeholders.department')}
               />
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="location_id">Location</Label>
+              <Label htmlFor="location_id">{t('people:fields.location')}</Label>
               <Select value={formData.location_id || 'none'} onValueChange={(value) => handleChange('location_id', value === 'none' ? '' : value)}>
                 <SelectTrigger id="location_id">
-                  <SelectValue placeholder="Select location" />
+                  <SelectValue placeholder={t('people:placeholders.selectLocation')} />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="none">None</SelectItem>
+                  <SelectItem value="none">{t('common:none')}</SelectItem>
                   {(locations as Location[])?.map((location) => (
                     <SelectItem key={location.id} value={location.id}>
                       {location.name}
@@ -337,7 +343,7 @@ export const PersonModal: React.FC<PersonModalProps> = ({
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="primary_person_role_id">Primary Role <span aria-hidden="true">*</span><span className="sr-only">(required)</span></Label>
+              <Label htmlFor="primary_person_role_id">{t('people:fields.primaryRole')} <span aria-hidden="true">*</span><span className="sr-only">{t('people:requiredSrOnly')}</span></Label>
               <Select
                 value={formData.primary_person_role_id}
                 onValueChange={(value) => handleChange('primary_person_role_id', value)}
@@ -349,7 +355,7 @@ export const PersonModal: React.FC<PersonModalProps> = ({
                   aria-invalid={!!errors.primary_person_role_id}
                   aria-describedby={errors.primary_person_role_id ? 'primary_person_role_id-error' : undefined}
                 >
-                  <SelectValue placeholder="Select primary role" />
+                  <SelectValue placeholder={t('people:placeholders.selectPrimaryRole')} />
                 </SelectTrigger>
                 <SelectContent>
                   {Array.isArray(filteredRoles) ? filteredRoles.map((role) => (
@@ -363,16 +369,16 @@ export const PersonModal: React.FC<PersonModalProps> = ({
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="supervisor_id">Supervisor</Label>
+              <Label htmlFor="supervisor_id">{t('people:fields.supervisor')}</Label>
               <Select value={formData.supervisor_id || 'none'} onValueChange={(value) => handleChange('supervisor_id', value === 'none' ? '' : value)}>
                 <SelectTrigger id="supervisor_id">
-                  <SelectValue placeholder="Select supervisor" />
+                  <SelectValue placeholder={t('people:placeholders.selectSupervisor')} />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="none">None</SelectItem>
+                  <SelectItem value="none">{t('common:none')}</SelectItem>
                   {filteredSupervisors?.map((person) => (
                     <SelectItem key={person.id} value={person.id}>
-                      {person.name} ({person.title || 'No Title'})
+                      {person.name} ({person.title || t('people:select.noTitle')})
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -380,22 +386,22 @@ export const PersonModal: React.FC<PersonModalProps> = ({
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="worker_type">Worker Type</Label>
+              <Label htmlFor="worker_type">{t('people:fields.workerType')}</Label>
               <Select value={formData.worker_type} onValueChange={(value) => handleChange('worker_type', value)}>
                 <SelectTrigger id="worker_type">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="FTE">Full-time Employee</SelectItem>
-                  <SelectItem value="contractor">Contractor</SelectItem>
-                  <SelectItem value="intern">Intern</SelectItem>
-                  <SelectItem value="consultant">Consultant</SelectItem>
+                  <SelectItem value="FTE">{t('people:workerTypeOptions.fullTimeEmployee')}</SelectItem>
+                  <SelectItem value="contractor">{t('people:workerTypeOptions.contractor')}</SelectItem>
+                  <SelectItem value="intern">{t('people:workerTypeOptions.intern')}</SelectItem>
+                  <SelectItem value="consultant">{t('people:workerTypeOptions.consultant')}</SelectItem>
                 </SelectContent>
               </Select>
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="default_availability_percentage">Default Availability (%)</Label>
+              <Label htmlFor="default_availability_percentage">{t('people:fields.defaultAvailability')}</Label>
               <Input
                 type="number"
                 id="default_availability_percentage"
@@ -408,7 +414,7 @@ export const PersonModal: React.FC<PersonModalProps> = ({
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="default_hours_per_day">Default Hours per Day</Label>
+              <Label htmlFor="default_hours_per_day">{t('people:fields.defaultHoursPerDay')}</Label>
               <Input
                 type="number"
                 id="default_hours_per_day"
@@ -422,7 +428,7 @@ export const PersonModal: React.FC<PersonModalProps> = ({
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="start_date">Start Date</Label>
+              <Label htmlFor="start_date">{t('common:startDate')}</Label>
               <Input
                 type="date"
                 id="start_date"
@@ -432,7 +438,7 @@ export const PersonModal: React.FC<PersonModalProps> = ({
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="end_date">End Date</Label>
+              <Label htmlFor="end_date">{t('common:endDate')}</Label>
               <Input
                 type="date"
                 id="end_date"
@@ -442,15 +448,15 @@ export const PersonModal: React.FC<PersonModalProps> = ({
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="status">Status</Label>
+              <Label htmlFor="status">{t('common:status')}</Label>
               <Select value={formData.status} onValueChange={(value) => handleChange('status', value)}>
                 <SelectTrigger id="status">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="active">Active</SelectItem>
-                  <SelectItem value="inactive">Inactive</SelectItem>
-                  <SelectItem value="pending">Pending</SelectItem>
+                  <SelectItem value="active">{t('people:personStatus.active')}</SelectItem>
+                  <SelectItem value="inactive">{t('people:personStatus.inactive')}</SelectItem>
+                  <SelectItem value="pending">{t('people:personStatus.pending')}</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -458,11 +464,11 @@ export const PersonModal: React.FC<PersonModalProps> = ({
 
             <DialogFooter>
               <Button type="button" variant="outline" onClick={handleClose}>
-                Cancel
+                {t('common:cancel')}
               </Button>
               <Button type="submit" disabled={isSubmitting}>
                 {isSubmitting && <Spinner className="mr-2" size="sm" />}
-                {isEditing ? 'Update Person' : 'Create Person'}
+                {isEditing ? t('people:updatePerson') : t('people:createPerson')}
               </Button>
             </DialogFooter>
           </form>

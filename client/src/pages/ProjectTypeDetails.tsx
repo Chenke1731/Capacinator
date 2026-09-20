@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useTranslation } from 'react-i18next';
 import { ArrowLeft, Edit2 } from 'lucide-react';
 import { api } from '../lib/api-client';
 import { queryKeys } from '../lib/queryKeys';
@@ -19,6 +20,7 @@ interface ResourceTemplate {
 }
 
 export default function ProjectTypeDetails() {
+  const { t } = useTranslation();
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
@@ -203,7 +205,7 @@ export default function ProjectTypeDetails() {
       );
     }
 
-    const displayValue = value || placeholder || 'Not specified';
+    const displayValue = value || placeholder || t('projects:projectTypes.notSpecified');
 
     return (
       <div className="info-value inline-editable" onClick={() => setIsEditing(true)} style={{ cursor: 'pointer' }}>
@@ -262,16 +264,16 @@ export default function ProjectTypeDetails() {
   };
 
   if (projectTypeLoading) {
-    return <div className="loading">Loading project type details...</div>;
+    return <div className="loading">{t('projects:projectTypes.loadingDetails')}</div>;
   }
 
   if (projectTypeError || !projectType) {
     return (
       <div className="error-page">
-        <h1>Project Type Not Found</h1>
-        <p>The project type you're looking for doesn't exist or couldn't be loaded.</p>
+        <h1>{t('projects:projectTypes.notFoundTitle')}</h1>
+        <p>{t('projects:projectTypes.notFoundDetail')}</p>
         <button className="btn btn-primary" onClick={() => navigate('/project-types')}>
-          Back to Project Types
+          {t('projects:projectTypes.backToProjectTypes')}
         </button>
       </div>
     );
@@ -286,7 +288,7 @@ export default function ProjectTypeDetails() {
           onClick={() => navigate('/project-types')}
         >
           <ArrowLeft size={16} />
-          Back to Project Types
+          {t('projects:projectTypes.backToProjectTypes')}
         </button>
       </div>
 
@@ -297,10 +299,10 @@ export default function ProjectTypeDetails() {
             <div className="title-section">
               <div className="title-with-color">
                 <h1 className="project-type-title">
-                  <InlineEdit 
-                    field="name" 
-                    value={projectType.name} 
-                    placeholder="Enter project type name"
+                  <InlineEdit
+                    field="name"
+                    value={projectType.name}
+                    placeholder={t('projects:projectTypes.placeholderName')}
                   />
                 </h1>
                 <div className="color-indicator">
@@ -313,11 +315,11 @@ export default function ProjectTypeDetails() {
                 </div>
               </div>
               <div className="description-section">
-                <InlineEdit 
-                  field="description" 
-                  value={projectType.description} 
+                <InlineEdit
+                  field="description"
+                  value={projectType.description}
                   type="textarea"
-                  placeholder="Enter project type description"
+                  placeholder={t('projects:projectTypes.placeholderDescription')}
                 />
               </div>
             </div>
@@ -333,15 +335,15 @@ export default function ProjectTypeDetails() {
         {projectType.parent_id && (
           <section className="parent-info-section">
             <div className="section-header">
-              <h2>Parent Project Type</h2>
+              <h2>{t('projects:projectTypes.parentProjectType')}</h2>
               <p className="text-muted">
-                This project type inherits phases from its parent. Role allocations are defined for this specific project type.
+                {t('projects:projectTypes.parentInfoDescription')}
               </p>
             </div>
             <div className="parent-info-card">
-              <p>Parent: <strong>{projectType.parent_name || 'Unknown'}</strong></p>
-              <p>Inherited Phases: {projectTypePhases?.length || 0}</p>
-              <p>Inheritance: This project type inherits default role allocations from its parent, which can be overridden as needed.</p>
+              <p>{t('projects:projectTypes.parentLabel')} <strong>{projectType.parent_name || t('projects:projectTypes.unknown')}</strong></p>
+              <p>{t('projects:projectTypes.inheritedPhasesLabel')} {projectTypePhases?.length || 0}</p>
+              <p>{t('projects:projectTypes.inheritanceNote')}</p>
             </div>
           </section>
         )}
@@ -359,9 +361,9 @@ export default function ProjectTypeDetails() {
         {/* Projects of this Type Section */}
         <section className="role-info-section">
           <div className="section-header">
-            <h2>Projects of this Type ({projectsOfType?.length || 0})</h2>
+            <h2>{t('projects:projectTypes.projectsOfType', { count: projectsOfType?.length || 0 })}</h2>
             <p className="text-muted">
-              Projects currently using this project type template
+              {t('projects:projectTypes.projectsOfTypeDescription')}
             </p>
           </div>
           <ProjectsTable projects={projectsOfType || []} maxRows={10} />
@@ -370,19 +372,18 @@ export default function ProjectTypeDetails() {
         {/* Resource Templates Section */}
         <section className="resource-templates-section">
           <div className="section-header">
-            <h2>Role Allocations</h2>
+            <h2>{t('projects:projectTypes.roleAllocations')}</h2>
             <p className="text-muted">
-              {projectType.parent_id 
+              {projectType.parent_id
                 ? projectType.is_default
-                  ? "This is a default project type template. Allocations are read-only and automatically sync with the parent project type. To modify allocations, edit the parent project type."
-                  : "Define allocation percentages for each role across the inherited project phases. You can override inherited defaults or create new allocations."
-                : "Define default allocation percentages for each role across project phases. These defaults will be inherited by projects of this type."
+                  ? t('projects:projectTypes.allocationsDefaultDescription')
+                  : t('projects:projectTypes.allocationsInheritedDescription')
+                : t('projects:projectTypes.allocationsDescription')
               }
             </p>
             {projectType.is_default && (
               <div className="read-only-warning">
-                <strong>⚠️ Read-Only Template:</strong> This is an automatically managed default template. 
-                Changes must be made to the parent project type and will be synchronized here automatically.
+                <strong>⚠️ {t('projects:projectTypes.readOnlyTitle')}:</strong> {t('projects:projectTypes.readOnlyDetail')}
               </div>
             )}
           </div>
@@ -402,18 +403,18 @@ export default function ProjectTypeDetails() {
                 <div className="inheritance-legend">
                   <span className="legend-item">
                     <span className="legend-color inherited"></span>
-                    <span>Inherited from parent</span>
+                    <span>{t('projects:projectTypes.inheritedFromParent')}</span>
                   </span>
                   <span className="legend-item">
                     <span className="legend-color custom"></span>
-                    <span>Custom allocation</span>
+                    <span>{t('projects:projectTypes.customAllocation')}</span>
                   </span>
                 </div>
               )}
               <table className="resource-templates-table">
                 <thead>
                   <tr>
-                    <th style={{ minWidth: '200px' }}>Role</th>
+                    <th style={{ minWidth: '200px' }}>{t('common:role')}</th>
                     {Array.isArray(orderedPhases) ? orderedPhases.map(phase => (
                       <th key={phase.id} style={{ minWidth: '120px', textAlign: 'center' }}>
                         {phase.name}
@@ -501,7 +502,7 @@ export default function ProjectTypeDetails() {
                                       padding: '2px 6px',
                                       borderRadius: '8px'
                                     }}>
-                                      Inherited
+                                      {t('projects:projectTypes.inherited')}
                                     </span>
                                   </div>
                                 );
@@ -519,7 +520,7 @@ export default function ProjectTypeDetails() {
             );
           })() : (
             <div className="empty-state">
-              <p>Loading role allocation configuration...</p>
+              <p>{t('projects:projectTypes.loadingAllocations')}</p>
             </div>
           )}
         </section>

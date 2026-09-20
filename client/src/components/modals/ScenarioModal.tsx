@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { GitBranch } from 'lucide-react';
 import { api } from '../../lib/api-client';
@@ -29,6 +30,7 @@ export const CreateScenarioModal: React.FC<CreateScenarioModalProps> = ({
   onClose,
   parentScenario
 }) => {
+  const { t } = useTranslation();
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [scenarioType, setScenarioType] = useState<'branch' | 'sandbox'>('branch');
@@ -67,9 +69,9 @@ export const CreateScenarioModal: React.FC<CreateScenarioModalProps> = ({
     <Dialog open={isOpen} onOpenChange={(open) => !open && handleClose()}>
       <DialogContent className="max-w-md">
         <DialogHeader>
-          <DialogTitle>Create New Scenario</DialogTitle>
+          <DialogTitle>{t('scenarios:modal.createTitle')}</DialogTitle>
           <DialogDescription>
-            Create a new scenario to plan and test different resource allocations.
+            {t('scenarios:modal.createDescription')}
           </DialogDescription>
         </DialogHeader>
         <form onSubmit={handleSubmit}>
@@ -77,36 +79,36 @@ export const CreateScenarioModal: React.FC<CreateScenarioModalProps> = ({
             {parentScenario && (
               <div className="flex items-center gap-2 p-3 bg-blue-50 dark:bg-blue-950 rounded-md" role="status">
                 <GitBranch size={16} aria-hidden="true" />
-                <span className="text-sm">Branching from: <strong>{parentScenario.name}</strong></span>
+                <span className="text-sm">{t('scenarios:modal.branchingFrom')} <strong>{parentScenario.name}</strong></span>
               </div>
             )}
 
             <div className="space-y-2">
-              <Label htmlFor="scenario-name">Scenario Name <span aria-hidden="true">*</span><span className="sr-only">(required)</span></Label>
+              <Label htmlFor="scenario-name">{t('scenarios:modal.scenarioName')} <span aria-hidden="true">*</span><span className="sr-only">{t('scenarios:modal.a11yRequired')}</span></Label>
               <Input
                 id="scenario-name"
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                placeholder="Enter scenario name"
+                placeholder={t('scenarios:modal.namePlaceholder')}
                 required
                 aria-required="true"
               />
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="scenario-description">Description</Label>
+              <Label htmlFor="scenario-description">{t('common:description')}</Label>
               <Textarea
                 id="scenario-description"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
-                placeholder="Describe the purpose of this scenario"
+                placeholder={t('scenarios:modal.descriptionPlaceholder')}
                 rows={3}
               />
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="scenario-type">Scenario Type</Label>
+              <Label htmlFor="scenario-type">{t('scenarios:modal.scenarioType')}</Label>
               <Select
                 value={scenarioType}
                 onValueChange={(value) => setScenarioType(value as 'branch' | 'sandbox')}
@@ -115,8 +117,8 @@ export const CreateScenarioModal: React.FC<CreateScenarioModalProps> = ({
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="branch">Branch - Copy from parent scenario</SelectItem>
-                  <SelectItem value="sandbox">Sandbox - Start fresh</SelectItem>
+                  <SelectItem value="branch">{t('scenarios:modal.typeBranch')}</SelectItem>
+                  <SelectItem value="sandbox">{t('scenarios:modal.typeSandbox')}</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -124,13 +126,13 @@ export const CreateScenarioModal: React.FC<CreateScenarioModalProps> = ({
 
           <DialogFooter>
             <Button type="button" variant="outline" onClick={handleClose}>
-              Cancel
+              {t('common:cancel')}
             </Button>
-            <Button 
+            <Button
               type="submit"
               disabled={!name.trim() || createMutation.isPending}
             >
-              {createMutation.isPending ? 'Creating...' : 'Create Scenario'}
+              {createMutation.isPending ? t('scenarios:modal.creating') : t('scenarios:modal.createScenario')}
             </Button>
           </DialogFooter>
         </form>
@@ -150,6 +152,7 @@ export const EditScenarioModal: React.FC<EditScenarioModalProps> = ({
   onClose,
   scenario
 }) => {
+  const { t } = useTranslation();
   const [name, setName] = useState(scenario?.name || '');
   const [description, setDescription] = useState(scenario?.description || '');
   const queryClient = useQueryClient();
@@ -181,33 +184,33 @@ export const EditScenarioModal: React.FC<EditScenarioModalProps> = ({
     <Dialog open={isOpen} onOpenChange={(open) => !open && handleClose()}>
       <DialogContent className="max-w-md">
         <DialogHeader>
-          <DialogTitle>Edit Scenario</DialogTitle>
+          <DialogTitle>{t('scenarios:modal.editTitle')}</DialogTitle>
           <DialogDescription>
-            Update the scenario details below.
+            {t('scenarios:modal.editDescription')}
           </DialogDescription>
         </DialogHeader>
         <form onSubmit={handleSubmit}>
           <div className="space-y-4 py-4">
             <div className="space-y-2">
-              <Label htmlFor="edit-scenario-name">Scenario Name <span aria-hidden="true">*</span><span className="sr-only">(required)</span></Label>
+              <Label htmlFor="edit-scenario-name">{t('scenarios:modal.scenarioName')} <span aria-hidden="true">*</span><span className="sr-only">{t('scenarios:modal.a11yRequired')}</span></Label>
               <Input
                 id="edit-scenario-name"
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                placeholder="Enter scenario name"
+                placeholder={t('scenarios:modal.namePlaceholder')}
                 required
                 aria-required="true"
               />
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="edit-scenario-description">Description</Label>
+              <Label htmlFor="edit-scenario-description">{t('common:description')}</Label>
               <Textarea
                 id="edit-scenario-description"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
-                placeholder="Describe the purpose of this scenario"
+                placeholder={t('scenarios:modal.descriptionPlaceholder')}
                 rows={3}
               />
             </div>
@@ -215,13 +218,13 @@ export const EditScenarioModal: React.FC<EditScenarioModalProps> = ({
 
           <DialogFooter>
             <Button type="button" variant="outline" onClick={handleClose}>
-              Cancel
+              {t('common:cancel')}
             </Button>
-            <Button 
+            <Button
               type="submit"
               disabled={!name.trim() || updateMutation.isPending}
             >
-              {updateMutation.isPending ? 'Saving...' : 'Save Changes'}
+              {updateMutation.isPending ? t('common:saving') : t('scenarios:modal.saveChanges')}
             </Button>
           </DialogFooter>
         </form>
@@ -243,6 +246,7 @@ export const DeleteConfirmationModal: React.FC<DeleteConfirmationModalProps> = (
   scenario,
   onConfirm
 }) => {
+  const { t } = useTranslation();
   const [confirmText, setConfirmText] = useState('');
   const isDeleteEnabled = confirmText === scenario?.name;
 
@@ -262,47 +266,47 @@ export const DeleteConfirmationModal: React.FC<DeleteConfirmationModalProps> = (
     <Dialog open={isOpen} onOpenChange={(open) => !open && handleClose()}>
       <DialogContent className="max-w-md">
         <DialogHeader>
-          <DialogTitle>Delete Scenario</DialogTitle>
+          <DialogTitle>{t('scenarios:modal.deleteTitle')}</DialogTitle>
           <DialogDescription>
-            Permanently delete this scenario and all associated data.
+            {t('scenarios:modal.deleteDescription')}
           </DialogDescription>
         </DialogHeader>
         <div className="space-y-4 py-4">
           <div className="p-4 bg-red-50 dark:bg-red-950 border border-red-200 dark:border-red-800 rounded-md" role="alert">
             <p className="text-sm text-red-800 dark:text-red-200">
-              <strong>Warning:</strong> This action cannot be undone. This will permanently delete
-              the scenario <strong>{scenario?.name}</strong> and all associated data.
+              <strong>{t('scenarios:modal.warning')}</strong>
+              {' '}{t('scenarios:modal.deleteWarningPrefix')} <strong>{scenario?.name}</strong> {t('scenarios:modal.deleteWarningSuffix')}
             </p>
           </div>
 
           <div className="space-y-2">
             <Label htmlFor="confirm-delete">
-              Type <strong>{scenario?.name}</strong> to confirm deletion <span aria-hidden="true">*</span><span className="sr-only">(required)</span>
+              {t('scenarios:modal.typeToConfirm')} <strong>{scenario?.name}</strong> {t('scenarios:modal.toConfirmDeletion')} <span aria-hidden="true">*</span><span className="sr-only">{t('scenarios:modal.a11yRequired')}</span>
             </Label>
             <Input
               id="confirm-delete"
               type="text"
               value={confirmText}
               onChange={(e) => setConfirmText(e.target.value)}
-              placeholder="Enter scenario name"
+              placeholder={t('scenarios:modal.namePlaceholder')}
               aria-required="true"
               aria-describedby="delete-warning"
             />
-            <span id="delete-warning" className="sr-only">You must type the scenario name exactly to enable the delete button</span>
+            <span id="delete-warning" className="sr-only">{t('scenarios:modal.deleteSrHelp')}</span>
           </div>
         </div>
 
         <DialogFooter>
           <Button type="button" variant="outline" onClick={handleClose}>
-            Cancel
+            {t('common:cancel')}
           </Button>
-          <Button 
+          <Button
             type="button"
             variant="destructive"
             disabled={!isDeleteEnabled}
             onClick={handleConfirm}
           >
-            Delete Scenario
+            {t('scenarios:modal.deleteScenario')}
           </Button>
         </DialogFooter>
       </DialogContent>

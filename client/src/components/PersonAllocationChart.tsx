@@ -1,8 +1,10 @@
 import React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend, Area, AreaChart, Brush } from 'recharts';
+import { useTranslation } from 'react-i18next';
 import { api } from '../lib/api-client';
 import { queryKeys } from '../lib/queryKeys';
+import { getLocale } from '../i18n';
 
 interface PersonAllocationChartProps {
   personId: string;
@@ -13,8 +15,10 @@ interface PersonAllocationChartProps {
 
 
 export function PersonAllocationChart({ personId, personName, startDate, endDate }: PersonAllocationChartProps) {
+  const { t } = useTranslation();
   const [brushStart, setBrushStart] = React.useState<number>(0);
   const [brushEnd, setBrushEnd] = React.useState<number>(0);
+  const availableCapacityLabel = t('people:allocationChart.availableCapacity');
   const { data: timelineData, isLoading, error } = useQuery({
     queryKey: queryKeys.people.timeline(personId),
     queryFn: async () => {
@@ -335,7 +339,7 @@ export function PersonAllocationChart({ personId, personName, startDate, endDate
   if (isLoading) {
     return (
       <div className="chart-container">
-        <div className="chart-loading">Loading allocation data...</div>
+        <div className="chart-loading">{t('people:allocationChart.loading')}</div>
       </div>
     );
   }
@@ -343,7 +347,7 @@ export function PersonAllocationChart({ personId, personName, startDate, endDate
   if (error) {
     return (
       <div className="chart-container">
-        <div className="chart-error">Failed to load allocation data</div>
+        <div className="chart-error">{t('people:allocationChart.failedToLoad')}</div>
       </div>
     );
   }
@@ -351,7 +355,7 @@ export function PersonAllocationChart({ personId, personName, startDate, endDate
   if (!fullRangeData || fullRangeData.length === 0) {
     return (
       <div className="chart-container">
-        <div className="chart-empty">No allocation data available</div>
+        <div className="chart-empty">{t('people:allocationChart.noData')}</div>
       </div>
     );
   }
@@ -359,7 +363,7 @@ export function PersonAllocationChart({ personId, personName, startDate, endDate
   if (validData.length === 0) {
     return (
       <div className="chart-container">
-        <div className="chart-empty">Invalid allocation data format</div>
+        <div className="chart-empty">{t('people:allocationChart.invalidFormat')}</div>
       </div>
     );
   }
@@ -381,9 +385,9 @@ export function PersonAllocationChart({ personId, personName, startDate, endDate
   return (
     <div className="chart-container">
       <div className="chart-header">
-        <h3>Allocation vs Availability Over Time</h3>
+        <h3>{t('people:allocationChart.title')}</h3>
         <p className="chart-subtitle">
-          Showing {personName}'s project allocations stacked over time compared to availability
+          {t('people:allocationChart.subtitle', { name: personName })}
         </p>
       </div>
       
@@ -395,8 +399,8 @@ export function PersonAllocationChart({ personId, personName, startDate, endDate
             margin={{ top: 5, right: 30, left: 20, bottom: 60 }}
           >
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis 
-              dataKey="date" 
+            <XAxis
+              dataKey="date"
               angle={-45}
               textAnchor="end"
               height={80}
@@ -406,31 +410,34 @@ export function PersonAllocationChart({ personId, personName, startDate, endDate
                 // Find the data point by value instead of index for more reliability
                 const dataPoint = displayData.find(d => d.date === value) || displayData[0];
                 if (!dataPoint) return value;
-                
+
                 const granularity = dataPoint.granularity;
-                
+
                 if (granularity === 'weekly') {
                   const date = new Date(value);
-                  return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+                  return date.toLocaleDateString(getLocale(), { month: 'short', day: 'numeric' });
                 } else if (granularity === 'daily') {
                   const date = new Date(value);
-                  return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+                  return date.toLocaleDateString(getLocale(), { month: 'short', day: 'numeric' });
                 } else if (granularity === 'monthly') {
                   const date = new Date(value + '-01');
-                  return date.toLocaleDateString('en-US', { month: 'short', year: '2-digit' });
+                  return date.toLocaleDateString(getLocale(), { month: 'short', year: '2-digit' });
                 } else { // quarterly
                   const date = new Date(value + '-01');
-                  return 'Q' + Math.ceil(date.getMonth() / 3 + 1) + ' ' + date.getFullYear().toString().slice(-2);
+                  return t('people:allocationChart.quarterShort', {
+                    quarter: Math.ceil(date.getMonth() / 3 + 1),
+                    year: date.getFullYear().toString().slice(-2)
+                  });
                 }
               }}
             />
-            <YAxis 
-              label={{ value: 'Percentage (%)', angle: -90, position: 'insideLeft' }}
+            <YAxis
+              label={{ value: t('people:allocationChart.percentageAxis'), angle: -90, position: 'insideLeft' }}
               domain={[0, 'dataMax']}
             />
-            <Tooltip 
+            <Tooltip
               formatter={(value: number, name: string) => {
-                if (name === 'Available Capacity') {
+                if (name === availableCapacityLabel) {
                   return [`${value.toFixed(1)}%`, name];
                 }
                 return [`${value.toFixed(1)}%`, name];
@@ -438,56 +445,68 @@ export function PersonAllocationChart({ personId, personName, startDate, endDate
               labelFormatter={(label) => {
                 const dataPoint = displayData.find(d => d.date === label);
                 if (!dataPoint) return label;
-                
+
                 const granularity = dataPoint.granularity;
-                
+
                 if (granularity === 'weekly') {
                   const startDate = new Date(label);
                   const endDate = new Date(startDate);
                   endDate.setDate(endDate.getDate() + 6);
-                  return `Week: ${startDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} - ${endDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}`;
+                  return t('people:allocationChart.weekLabel', {
+                    start: startDate.toLocaleDateString(getLocale(), { month: 'short', day: 'numeric' }),
+                    end: endDate.toLocaleDateString(getLocale(), { month: 'short', day: 'numeric' })
+                  });
                 } else if (granularity === 'daily') {
                   const date = new Date(label);
-                  return date.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
+                  return date.toLocaleDateString(getLocale(), { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
                 } else if (granularity === 'monthly') {
                   const date = new Date(label + '-01');
-                  return date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+                  return date.toLocaleDateString(getLocale(), { month: 'long', year: 'numeric' });
                 } else { // quarterly
                   const date = new Date(label + '-01');
                   const quarter = Math.ceil((date.getMonth() + 1) / 3);
-                  return `Q${quarter} ${date.getFullYear()}`;
+                  return t('people:allocationChart.quarterShort', { quarter, year: date.getFullYear() });
                 }
               }}
               content={({ active, payload, label }) => {
                 if (!active || !payload) return null;
-                
+
                 const data = payload[0]?.payload;
                 if (!data) return null;
-                
+
                 const dataPoint = displayData.find(d => d.date === label);
                 const granularity = dataPoint?.granularity || 'monthly';
-                
+
                 let formattedPeriod = '';
                 if (granularity === 'weekly') {
                   const startDate = new Date(label);
                   const endDate = new Date(startDate);
                   endDate.setDate(endDate.getDate() + 6);
-                  formattedPeriod = `Week: ${startDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} - ${endDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}`;
+                  formattedPeriod = t('people:allocationChart.weekLabel', {
+                    start: startDate.toLocaleDateString(getLocale(), { month: 'short', day: 'numeric' }),
+                    end: endDate.toLocaleDateString(getLocale(), { month: 'short', day: 'numeric' })
+                  });
                 } else if (granularity === 'daily') {
-                  formattedPeriod = `Day: ${new Date(label).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}`;
+                  formattedPeriod = t('people:allocationChart.dayLabel', {
+                    date: new Date(label).toLocaleDateString(getLocale(), { month: 'short', day: 'numeric' })
+                  });
                 } else if (granularity === 'monthly') {
-                  formattedPeriod = `Month: ${new Date(label + '-01').toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}`;
+                  formattedPeriod = t('people:allocationChart.monthLabel', {
+                    month: new Date(label + '-01').toLocaleDateString(getLocale(), { month: 'long', year: 'numeric' })
+                  });
                 } else {
                   const date = new Date(label + '-01');
                   const quarter = Math.ceil((date.getMonth() + 1) / 3);
-                  formattedPeriod = `Quarter: Q${quarter} ${date.getFullYear()}`;
+                  formattedPeriod = t('people:allocationChart.quarterLabel', {
+                    label: t('people:allocationChart.quarterShort', { quarter, year: date.getFullYear() })
+                  });
                 }
-                
+
                 return (
                   <div className="custom-tooltip">
                     <p className="tooltip-title">{formattedPeriod}</p>
-                    <p className="tooltip-capacity">{`Available: ${data.availability.toFixed(1)}%`}</p>
-                    <p className="tooltip-total">{`Total Allocation: ${data.totalAllocation.toFixed(1)}%`}</p>
+                    <p className="tooltip-capacity">{t('people:allocationChart.available', { value: data.availability.toFixed(1) })}</p>
+                    <p className="tooltip-total">{t('people:allocationChart.totalAllocation', { value: data.totalAllocation.toFixed(1) })}</p>
                     <div className="tooltip-projects">
                       {Object.entries(data.projectBreakdown).map(([project, allocation]: [string, any]) => (
                         <p key={project} className="tooltip-project">
@@ -496,27 +515,27 @@ export function PersonAllocationChart({ personId, personName, startDate, endDate
                       ))}
                     </div>
                     {data.totalAllocation > data.availability && (
-                      <p className="tooltip-warning">⚠️ Over-allocated by {(data.totalAllocation - data.availability).toFixed(1)}%</p>
+                      <p className="tooltip-warning">{t('people:allocationChart.overAllocated', { value: (data.totalAllocation - data.availability).toFixed(1) })}</p>
                     )}
                   </div>
                 );
               }}
             />
-            <Legend 
+            <Legend
               wrapperStyle={{ paddingTop: '20px' }}
               content={({ payload }) => {
                 if (!payload) return null;
-                
+
                 return (
-                  <div style={{ 
-                    display: 'flex', 
-                    flexWrap: 'wrap', 
-                    justifyContent: 'center', 
+                  <div style={{
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    justifyContent: 'center',
                     gap: '20px',
                     fontSize: '14px'
                   }}>
                     {payload.map((entry, index) => {
-                      const isCapacity = entry.value === 'Available Capacity';
+                      const isCapacity = entry.value === availableCapacityLabel;
                       return (
                         <div key={index} style={{ 
                           display: 'flex', 
@@ -554,14 +573,14 @@ export function PersonAllocationChart({ personId, personName, startDate, endDate
             />
             
             {/* Available capacity area - shown at the back with distinct styling */}
-            <Area 
-              type="monotone" 
-              dataKey="availability" 
-              stroke="#10b981" 
+            <Area
+              type="monotone"
+              dataKey="availability"
+              stroke="#10b981"
               strokeWidth={2}
               strokeDasharray="5 5"
               fill="transparent"
-              name="Available Capacity"
+              name={availableCapacityLabel}
               stackId="capacity"
             />
             
@@ -587,7 +606,7 @@ export function PersonAllocationChart({ personId, personName, startDate, endDate
       {validData.length > 2 && (
         <div style={{ marginTop: '20px', padding: '0 20px' }}>
           <div style={{ fontSize: '12px', color: 'var(--text-tertiary)', marginBottom: '8px' }}>
-            Drag handles to zoom into specific time periods
+            {t('people:allocationChart.zoomHint')}
           </div>
           <ResponsiveContainer width="100%" height={80}>
             <AreaChart 
@@ -629,31 +648,31 @@ export function PersonAllocationChart({ personId, personName, startDate, endDate
             <div className="summary-value">
               {displayData.length > 0 ? Math.max(...displayData.map(d => d.totalAllocation || 0)).toFixed(1) : '0.0'}%
             </div>
-            <div className="summary-label">Peak Allocation</div>
+            <div className="summary-label">{t('people:allocationChart.peakAllocation')}</div>
           </div>
           <div className="summary-card">
             <div className="summary-value">
               {displayData.length > 0 ? (displayData.reduce((sum, d) => sum + (d.totalAllocation || 0), 0) / displayData.length).toFixed(1) : '0.0'}%
             </div>
-            <div className="summary-label">Average Allocation</div>
+            <div className="summary-label">{t('people:allocationChart.averageAllocation')}</div>
           </div>
           <div className="summary-card">
             <div className="summary-value">
               {displayData.length > 0 ? Math.max(...displayData.map(d => d.utilization || 0)).toFixed(1) : '0.0'}%
             </div>
-            <div className="summary-label">Peak Utilization</div>
+            <div className="summary-label">{t('people:allocationChart.peakUtilization')}</div>
           </div>
           <div className="summary-card">
             <div className="summary-value">{allProjects.length}</div>
-            <div className="summary-label">Active Projects</div>
+            <div className="summary-label">{t('people:allocationChart.activeProjects')}</div>
           </div>
         </div>
       </div>
-      
+
       {/* Project breakdown */}
       {allProjects.length > 0 && (
         <div className="chart-breakdown">
-          <h4>Project Breakdown</h4>
+          <h4>{t('people:allocationChart.projectBreakdown')}</h4>
           <div className="breakdown-legend">
             {allProjects.map((project, index) => (
               <div key={project} className="breakdown-item">

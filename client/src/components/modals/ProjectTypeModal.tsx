@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useTranslation } from 'react-i18next';
 import { api } from '../../lib/api-client';
 import { queryKeys } from '../../lib/queryKeys';
 import { Button } from '../ui/button';
@@ -51,6 +52,7 @@ export const ProjectTypeModal: React.FC<ProjectTypeModalProps> = ({
   onSuccess,
   editingProjectType 
 }) => {
+  const { t } = useTranslation();
   const queryClient = useQueryClient();
   const isEditing = !!editingProjectType;
   
@@ -116,8 +118,8 @@ export const ProjectTypeModal: React.FC<ProjectTypeModalProps> = ({
     
     // Basic validation
     const newErrors: Record<string, string> = {};
-    if (!formData.name.trim()) newErrors.name = 'Project type name is required';
-    if (formData.name.length > 100) newErrors.name = 'Project type name must be less than 100 characters';
+    if (!formData.name.trim()) newErrors.name = t('projects:projectTypes.validation.nameRequired');
+    if (formData.name.length > 100) newErrors.name = t('projects:projectTypes.validation.nameTooLong');
 
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
@@ -152,11 +154,11 @@ export const ProjectTypeModal: React.FC<ProjectTypeModalProps> = ({
     <Dialog open={isOpen} onOpenChange={(open) => !open && handleClose()}>
       <DialogContent className="max-w-md">
         <DialogHeader>
-          <DialogTitle>{isEditing ? 'Edit Project Type' : 'Create Project Type'}</DialogTitle>
+          <DialogTitle>{isEditing ? t('projects:projectTypes.editTitle') : t('projects:projectTypes.createTitle')}</DialogTitle>
           <DialogDescription>
             {isEditing
-              ? 'Update the project type details below.'
-              : 'Fill in the information to create a new project type.'}
+              ? t('projects:projectTypes.editDescription')
+              : t('projects:projectTypes.createDescription')}
           </DialogDescription>
         </DialogHeader>
         <div className="py-4">
@@ -165,19 +167,19 @@ export const ProjectTypeModal: React.FC<ProjectTypeModalProps> = ({
             <Alert variant="destructive" className="mb-6" role="alert" aria-live="assertive">
               <AlertCircle className="h-4 w-4" aria-hidden="true" />
               <AlertDescription>
-                Please fix the errors below before submitting.
+                {t('projects:fixErrors')}
               </AlertDescription>
             </Alert>
           )}
 
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="space-y-2">
-            <Label htmlFor="name">Name <span aria-hidden="true">*</span><span className="sr-only">(required)</span></Label>
+            <Label htmlFor="name">{t('common:name')} <span aria-hidden="true">*</span><span className="sr-only">{t('projects:a11yRequired')}</span></Label>
             <Input
               id="name"
               value={formData.name}
               onChange={(e) => handleChange('name', e.target.value)}
-              placeholder="Enter project type name"
+              placeholder={t('projects:projectTypes.placeholderName')}
               maxLength={100}
               className={errors.name ? 'border-destructive' : ''}
               aria-required="true"
@@ -188,18 +190,18 @@ export const ProjectTypeModal: React.FC<ProjectTypeModalProps> = ({
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="description">Description</Label>
+            <Label htmlFor="description">{t('common:description')}</Label>
             <Textarea
               id="description"
               value={formData.description}
               onChange={(e) => handleChange('description', e.target.value)}
-              placeholder="Enter project type description (optional)"
+              placeholder={t('projects:projectTypes.placeholderDescriptionOptional')}
               rows={3}
             />
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="color_code">Color</Label>
+            <Label htmlFor="color_code">{t('projects:projectTypes.color')}</Label>
             <div className="space-y-3">
               <div className="flex items-center gap-3">
                 <Input
@@ -212,7 +214,7 @@ export const ProjectTypeModal: React.FC<ProjectTypeModalProps> = ({
                 <span className="text-sm text-muted-foreground">{formData.color_code}</span>
               </div>
               
-              <div className="flex flex-wrap gap-2" role="group" aria-label="Color selection">
+              <div className="flex flex-wrap gap-2" role="group" aria-label={t('projects:projectTypes.colorSelectionAria')}>
                 {DEFAULT_COLORS.map((color) => (
                   <button
                     key={color}
@@ -225,7 +227,7 @@ export const ProjectTypeModal: React.FC<ProjectTypeModalProps> = ({
                     )}
                     style={{ backgroundColor: color }}
                     onClick={() => handleChange('color_code', color)}
-                    aria-label={`Select color ${color}`}
+                    aria-label={t('projects:projectTypes.selectColorAria', { color })}
                     aria-pressed={formData.color_code === color}
                   />
                 ))}
@@ -235,11 +237,11 @@ export const ProjectTypeModal: React.FC<ProjectTypeModalProps> = ({
 
             <DialogFooter>
               <Button type="button" variant="outline" onClick={handleClose}>
-                Cancel
+                {t('common:cancel')}
               </Button>
               <Button type="submit" disabled={isLoading}>
                 {isLoading && <Spinner className="mr-2" size="sm" />}
-                {isEditing ? 'Update Project Type' : 'Create Project Type'}
+                {isEditing ? t('projects:projectTypes.updateButton') : t('projects:projectTypes.createTitle')}
               </Button>
             </DialogFooter>
           </form>

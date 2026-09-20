@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { AlertTriangle, ClipboardList } from 'lucide-react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { ReportSummaryCard, ReportEmptyState, ReportTable, ReportProgressBar } from './index';
@@ -45,14 +46,16 @@ interface UtilizationReportProps {
   CustomTooltip: React.FC<{ active?: boolean; payload?: Array<{ name: string; value: number; color: string }>; label?: string }>;
 }
 
-export const UtilizationReport: React.FC<UtilizationReportProps> = ({ 
-  data, 
-  filters, 
+export const UtilizationReport: React.FC<UtilizationReportProps> = ({
+  data,
+  filters,
   onPersonAction,
-  CustomTooltip 
+  CustomTooltip
 }) => {
-  if (!data) return <div className="loading">Loading utilization report...</div>;
-  
+  const { t } = useTranslation();
+
+  if (!data) return <div className="loading">{t('reports:loaders.utilization')}</div>;
+
   // Debug info
   console.log('UtilizationReport data:', data);
   console.log('Date filters:', filters);
@@ -61,30 +64,30 @@ export const UtilizationReport: React.FC<UtilizationReportProps> = ({
 
   // Define columns for team utilization table
   const utilizationColumns: Column[] = [
-    { header: 'Name', accessor: 'name' },
-    { header: 'Role', accessor: (row) => row.role || 'No Role' },
-    { 
-      header: 'Utilization (%)', 
+    { header: t('common:name'), accessor: 'name' },
+    { header: t('common:role'), accessor: (row) => row.role || t('reports:noRole') },
+    {
+      header: t('reports:utilization.headers.utilization'),
       accessor: 'utilization',
       render: (value, _row) => (
-        <ReportProgressBar 
-          value={value} 
+        <ReportProgressBar
+          value={value}
           variant={value > 100 ? 'danger' : value >= 80 ? 'success' : 'warning'}
         />
       )
     },
-    { 
-      header: 'Available Capacity (%)', 
+    {
+      header: t('reports:utilization.headers.availableCapacityPct'),
       accessor: (row) => Math.max(0, 100 - row.utilization),
       render: (value) => `${value.toFixed(1)}%`
     },
-    { 
-      header: 'Available Hours (Daily)', 
+    {
+      header: t('reports:utilization.headers.availableHoursDaily'),
       accessor: (row) => {
         const availablePercent = Math.max(0, 100 - row.utilization) / 100;
         return (row.availableHours * availablePercent).toFixed(1);
       },
-      render: (value) => `${value} hrs`
+      render: (value) => t('reports:units.hrs', { value })
     }
   ];
 
@@ -95,14 +98,14 @@ export const UtilizationReport: React.FC<UtilizationReportProps> = ({
       actions.push({
         onClick: () => onPersonAction(row, 'reduce'),
         icon: ClipboardList,
-        text: 'Reduce Load',
+        text: t('reports:actions.reduceLoad'),
         variant: 'danger'
       });
     } else if (row.utilization < 80) {
       actions.push({
         onClick: () => onPersonAction(row, 'add'),
         icon: ClipboardList,
-        text: 'Add Projects',
+        text: t('reports:actions.addProjects'),
         variant: 'primary'
       });
     }
@@ -140,32 +143,32 @@ export const UtilizationReport: React.FC<UtilizationReportProps> = ({
     <div className="report-content">
       <div className="report-summary">
         <ReportSummaryCard
-          title="Utilization %"
+          title={t('reports:utilization.summary.utilization')}
           metric={data.averageUtilization || 0}
           unit="%"
         />
         <ReportSummaryCard
-          title="# People Overutilized"
+          title={t('reports:utilization.summary.overutilized')}
           metric={data.overAllocatedCount || 0}
           metricType="danger"
           actionLink={data.overAllocatedCount > 0 ? {
             to: `/assignments?action=manage-overutilized&from=utilization-report&startDate=${filters.startDate || ''}&endDate=${filters.endDate || ''}`,
             icon: ClipboardList,
-            text: 'Manage Assignments'
+            text: t('reports:actions.manageAssignments')
           } : undefined}
         />
         <ReportSummaryCard
-          title="# People Underutilized"
+          title={t('reports:utilization.summary.underutilized')}
           metric={data.underUtilizedCount || 0}
           metricType="warning"
           actionLink={data.underUtilizedCount > 0 ? {
             to: `/assignments?action=find-projects&from=utilization-report&startDate=${filters.startDate || ''}&endDate=${filters.endDate || ''}`,
             icon: ClipboardList,
-            text: 'Find Projects'
+            text: t('reports:actions.findProjects')
           } : undefined}
         />
         <ReportSummaryCard
-          title="# People Optimally Utilized"
+          title={t('reports:utilization.summary.optimal')}
           metric={data.optimalCount || 0}
           metricType="success"
         />
@@ -174,64 +177,64 @@ export const UtilizationReport: React.FC<UtilizationReportProps> = ({
       {(data.averageUtilization || 0) === 0 && (
         <ReportEmptyState
           icon={AlertTriangle}
-          title="No Project Assignments Found"
-          description="Utilization is 0% because no people have been assigned to projects yet."
+          title={t('reports:utilization.empty.title')}
+          description={t('reports:utilization.empty.description')}
           actionLink={{
             to: '/assignments',
-            text: 'Create assignments'
+            text: t('reports:utilization.empty.createAssignments')
           }}
         />
       )}
 
       <div className="charts-grid">
         <div className="chart-container">
-          <h3>Utilization by Person</h3>
+          <h3>{t('reports:utilization.charts.byPerson')}</h3>
           <ResponsiveContainer width="100%" height={300}>
             <BarChart data={data.peopleUtilization?.slice(0, 10) || []}>
               <CartesianGrid strokeDasharray="3 3" stroke="var(--border-color)" />
-              <XAxis 
+              <XAxis
                 dataKey="name"
                 {...CHART_AXIS_CONFIG.angled}
               />
               <YAxis />
               <Tooltip content={<CustomTooltip />} />
-              <Bar dataKey="utilization" fill={getChartColor('utilization', 0)} />
+              <Bar dataKey="utilization" name={t('reports:series.utilization')} fill={getChartColor('utilization', 0)} />
             </BarChart>
           </ResponsiveContainer>
         </div>
 
         <div className="chart-container">
-          <h3>Utilization by Role</h3>
+          <h3>{t('reports:utilization.charts.byRole')}</h3>
           <ResponsiveContainer width="100%" height={300}>
             <BarChart data={roleUtilization}>
               <CartesianGrid strokeDasharray="3 3" stroke="var(--border-color)" />
-              <XAxis 
+              <XAxis
                 dataKey="role"
                 {...CHART_AXIS_CONFIG.angled}
               />
               <YAxis />
               <Tooltip content={<CustomTooltip />} />
-              <Bar dataKey="avgUtilization" fill={getChartColor('utilization', 1)} />
+              <Bar dataKey="avgUtilization" name={t('reports:series.avgUtilization')} fill={getChartColor('utilization', 1)} />
             </BarChart>
           </ResponsiveContainer>
         </div>
 
         <div className="chart-container">
-          <h3>Utilization Distribution</h3>
+          <h3>{t('reports:utilization.charts.distribution')}</h3>
           <ResponsiveContainer width="100%" height={300}>
             <BarChart data={utilizationDistribution}>
               <CartesianGrid strokeDasharray="3 3" stroke="var(--border-color)" />
               <XAxis dataKey="range" />
               <YAxis />
               <Tooltip content={<CustomTooltip />} />
-              <Bar dataKey="count" fill={getChartColor('utilization', 2)} />
+              <Bar dataKey="count" name={t('reports:series.count')} fill={getChartColor('utilization', 2)} />
             </BarChart>
           </ResponsiveContainer>
         </div>
       </div>
 
       <ReportTable
-        title="Team Utilization Details"
+        title={t('reports:utilization.tables.teamDetails')}
         columns={utilizationColumns}
         data={data.peopleUtilization || []}
         rowClassName={(row) => 

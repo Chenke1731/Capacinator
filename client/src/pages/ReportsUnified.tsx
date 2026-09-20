@@ -1,15 +1,8 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { BarChart3, TrendingUp, Users, AlertTriangle } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { UnifiedTabComponent, type UnifiedTabConfig } from '../components/ui/UnifiedTabComponent';
 import { ReportsTabContent } from './ReportsTabContent';
-
-// Define report tabs configuration with icons
-const reportTabs: UnifiedTabConfig[] = [
-  { id: 'demand', label: 'Demand', icon: TrendingUp },
-  { id: 'capacity', label: 'Capacity', icon: Users },
-  { id: 'utilization', label: 'Utilization', icon: BarChart3 },
-  { id: 'gaps', label: 'Gaps Analysis', icon: AlertTriangle }
-];
 
 // Custom component to render the active tab content
 const ReportsContentRenderer: React.FC<{ activeTab: string }> = ({ activeTab }) => {
@@ -17,6 +10,17 @@ const ReportsContentRenderer: React.FC<{ activeTab: string }> = ({ activeTab }) 
 };
 
 export default function ReportsUnified() {
+  const { t } = useTranslation();
+
+  // Define report tabs configuration with icons (inside the component so labels
+  // re-resolve when the UI language changes)
+  const reportTabs = useMemo<UnifiedTabConfig[]>(() => [
+    { id: 'demand', label: t('reports:tabs.demand'), icon: TrendingUp },
+    { id: 'capacity', label: t('reports:tabs.capacity'), icon: Users },
+    { id: 'utilization', label: t('reports:tabs.utilization'), icon: BarChart3 },
+    { id: 'gaps', label: t('reports:tabs.gaps'), icon: AlertTriangle }
+  ], [t]);
+
   return (
     <UnifiedTabComponent
       tabs={reportTabs}
@@ -25,7 +29,7 @@ export default function ReportsUnified() {
       orientation="horizontal"
       variant="primary"
       size="md"
-      ariaLabel="Reports and analytics navigation"
+      ariaLabel={t('reports:aria.navigation')}
       className="reports-unified-container"
       renderContent={true}
     >

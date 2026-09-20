@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 export interface PhaseHandle {
   id: string;
@@ -30,6 +31,8 @@ export function PhaseHandles({
   onHandleClick,
   onHandleMouseDown
 }: PhaseHandlesProps) {
+  const { t } = useTranslation();
+
   return (
     <>
       {handles.map((handle) => {
@@ -88,11 +91,11 @@ export function PhaseHandles({
 
         const getHandleContent = () => {
           if (handle.handleType === 'extend-left') {
-            return { icon: '\u2190', text: 'Extend Left' };
+            return { icon: '\u2190', text: t('phases:handles.extendLeft') };
           } else if (handle.handleType === 'extend-right') {
-            return { icon: '\u2192', text: 'Extend Right' };
+            return { icon: '\u2192', text: t('phases:handles.extendRight') };
           } else {
-            return { icon: '\u2194', text: 'Adjust Both' };
+            return { icon: '\u2194', text: t('phases:handles.adjustBoth') };
           }
         };
 
@@ -114,7 +117,7 @@ export function PhaseHandles({
                 onHandleMouseDown(e, handle);
               }
             }}
-            title={`${content.text} - Click to apply or drag to adjust`}
+            title={t('phases:handles.title', { action: content.text })}
           >
             <span style={{
               fontSize: isHovered ? '14px' : '12px',
@@ -144,7 +147,7 @@ export function PhaseHandles({
             pointerEvents: 'none'
           }}
         >
-          Press Enter or Space to apply
+          {t('phases:handles.pressEnter')}
         </div>
       )}
     </>

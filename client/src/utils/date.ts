@@ -1,11 +1,13 @@
+import i18n, { getLocale } from '../i18n';
+
 export function formatDate(date: string | Date | null | undefined): string {
-  if (!date) return 'N/A';
-  
+  if (!date) return i18n.t('common:na');
+
   const d = typeof date === 'string' ? new Date(date) : date;
-  
-  if (isNaN(d.getTime())) return 'Invalid date';
-  
-  return d.toLocaleDateString('en-US', {
+
+  if (isNaN(d.getTime())) return i18n.t('common:invalidDate');
+
+  return d.toLocaleDateString(getLocale(), {
     year: 'numeric',
     month: 'short',
     day: 'numeric'
@@ -13,13 +15,13 @@ export function formatDate(date: string | Date | null | undefined): string {
 }
 
 export function formatDateTime(date: string | Date | null | undefined): string {
-  if (!date) return 'N/A';
-  
+  if (!date) return i18n.t('common:na');
+
   const d = typeof date === 'string' ? new Date(date) : date;
-  
-  if (isNaN(d.getTime())) return 'Invalid date';
-  
-  return d.toLocaleString('en-US', {
+
+  if (isNaN(d.getTime())) return i18n.t('common:invalidDate');
+
+  return d.toLocaleString(getLocale(), {
     year: 'numeric',
     month: 'short',
     day: 'numeric',
@@ -60,8 +62,8 @@ export function isDateInFuture(date: string | Date): boolean {
 
 export function getMonthYear(date: string | Date): string {
   const d = typeof date === 'string' ? new Date(date) : date;
-  
-  return d.toLocaleDateString('en-US', {
+
+  return d.toLocaleDateString(getLocale(), {
     year: 'numeric',
     month: 'long'
   });
@@ -196,17 +198,17 @@ export function daysBetweenSafe(startDateString: string, endDateString: string):
  * Format date string for display (timezone-safe)
  */
 export function formatDateDisplaySafe(dateString: string): string {
-  if (!dateString) return 'N/A';
-  
+  if (!dateString) return i18n.t('common:na');
+
   try {
     const date = parseDateSafe(dateString);
-    return date.toLocaleDateString('en-US', {
+    return date.toLocaleDateString(getLocale(), {
       year: 'numeric',
       month: 'short',
       day: 'numeric'
     });
   } catch {
-    return 'Invalid date';
+    return i18n.t('common:invalidDate');
   }
 }
 

@@ -1,0 +1,12 @@
+{
+  "dashboard": "Dashboard",
+  "projects": "Projects",
+  "people": "People",
+  "assignments": "Assignments",
+  "scenarios": "Scenarios",
+  "reports": "Reports",
+  "importExport": "Import & Export",
+  "locations": "Locations",
+  "auditLog": "Audit Log",
+  "settings": "Settings"
+}

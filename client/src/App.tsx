@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 // import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import './i18n';
 import { UserProvider, useUser } from './contexts/UserContext';
 import { ScenarioProvider } from './contexts/ScenarioContext';
 import { ThemeProvider } from './contexts/ThemeContext';

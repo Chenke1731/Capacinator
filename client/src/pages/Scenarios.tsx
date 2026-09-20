@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
+import type { TFunction } from 'i18next';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import {
   GitBranch,
@@ -20,6 +22,8 @@ import {
 import { api } from '../lib/api-client';
 import { queryKeys } from '../lib/queryKeys';
 import { Scenario } from '../types';
+import { getLocale } from '../i18n';
+import { scenarioTypeLabel, scenarioStatusLabel } from '../lib/enum-labels';
 import { CreateScenarioModal, EditScenarioModal, DeleteConfirmationModal } from '../components/modals/ScenarioModal';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '../components/ui/dialog';
 import { Button } from '../components/ui/button';
@@ -42,46 +46,46 @@ interface ScenarioCardProps {
 }
 
 // Enhanced timeline utility functions
-const getTimelineDetails = (createdAt: string) => {
+const getTimelineDetails = (createdAt: string, t: TFunction) => {
   const created = new Date(createdAt);
   const now = new Date();
   const diffMs = now.getTime() - created.getTime();
   const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
   const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
   const diffMinutes = Math.floor(diffMs / (1000 * 60));
-  
+
   let timeAgo = '';
   let urgencyLevel = 'fresh';
-  
+
   if (diffMinutes < 60) {
-    timeAgo = diffMinutes <= 1 ? 'Just now' : `${diffMinutes}m ago`;
+    timeAgo = diffMinutes <= 1 ? t('scenarios:timeline.justNow') : t('scenarios:timeline.minutesAgo', { count: diffMinutes });
     urgencyLevel = 'fresh';
   } else if (diffHours < 24) {
-    timeAgo = `${diffHours}h ago`;
+    timeAgo = t('scenarios:timeline.hoursAgo', { count: diffHours });
     urgencyLevel = 'recent';
   } else if (diffDays < 7) {
-    timeAgo = diffDays === 1 ? 'Yesterday' : `${diffDays}d ago`;
+    timeAgo = diffDays === 1 ? t('scenarios:timeline.yesterday') : t('scenarios:timeline.daysAgo', { count: diffDays });
     urgencyLevel = 'recent';
   } else if (diffDays < 30) {
     const weeks = Math.floor(diffDays / 7);
-    timeAgo = weeks === 1 ? '1 week ago' : `${weeks} weeks ago`;
+    timeAgo = weeks === 1 ? t('scenarios:timeline.oneWeekAgo') : t('scenarios:timeline.weeksAgo', { count: weeks });
     urgencyLevel = 'aging';
   } else if (diffDays < 90) {
     const months = Math.floor(diffDays / 30);
-    timeAgo = months === 1 ? '1 month ago' : `${months} months ago`;
+    timeAgo = months === 1 ? t('scenarios:timeline.oneMonthAgo') : t('scenarios:timeline.monthsAgo', { count: months });
     urgencyLevel = 'aging';
   } else {
     const months = Math.floor(diffDays / 30);
-    timeAgo = `${months} months ago`;
+    timeAgo = t('scenarios:timeline.monthsAgo', { count: months });
     urgencyLevel = 'old';
   }
-  
+
   return {
     timeAgo,
     urgencyLevel,
     daysSinceCreated: diffDays,
-    absoluteDate: created.toLocaleDateString(),
-    relativeDate: created.toLocaleDateString('en-US', {
+    absoluteDate: created.toLocaleDateString(getLocale()),
+    relativeDate: created.toLocaleDateString(getLocale(), {
       month: 'short',
       day: 'numeric',
       year: diffDays > 365 ? 'numeric' : undefined
@@ -98,12 +102,13 @@ const ScenarioCard: React.FC<ScenarioCardProps> = ({
   onMerge,
   onCompare
 }) => {
+  const { t } = useTranslation();
   const [isExpanded, setIsExpanded] = useState(false);
   const [showActions, setShowActions] = useState(false);
-   
+
   const isBaseline = scenario.scenario_type === 'baseline';
   const canMerge = scenario.parent_scenario_id && scenario.status === 'active';
-  const timelineInfo = getTimelineDetails(scenario.created_at);
+  const timelineInfo = getTimelineDetails(scenario.created_at, t);
 
   return (
     <div className={`scenario-card ${scenario.scenario_type} ${isExpanded ? 'expanded' : ''}`}>
@@ -115,10 +120,10 @@ const ScenarioCard: React.FC<ScenarioCardProps> = ({
           <h3 className="scenario-name">{scenario.name}</h3>
           <div className="scenario-meta">
             <span className={`scenario-type ${scenario.scenario_type}`}>
-              {scenario.scenario_type}
+              {scenarioTypeLabel(scenario.scenario_type)}
             </span>
             <span className={`scenario-status ${scenario.status}`}>
-              {scenario.status}
+              {scenarioStatusLabel(scenario.status)}
             </span>
             <span className={`timeline-age ${timelineInfo.urgencyLevel}`}>
               {timelineInfo.timeAgo}
@@ -139,7 +144,7 @@ const ScenarioCard: React.FC<ScenarioCardProps> = ({
           <div className="scenario-details">
             <div className="scenario-detail">
               <Users size={14} />
-              <span>Created by {scenario.created_by_name}</span>
+              <span>{t('scenarios:card.createdByName', { name: scenario.created_by_name })}</span>
             </div>
             <div className="scenario-detail timeline-info">
               <Calendar size={14} />
@@ -148,14 +153,14 @@ const ScenarioCard: React.FC<ScenarioCardProps> = ({
             {scenario.branch_point && (
               <div className="scenario-detail">
                 <GitBranch size={14} />
-                <span>Branched {new Date(scenario.branch_point).toLocaleDateString()}</span>
+                <span>{t('scenarios:card.branchedOn', { date: new Date(scenario.branch_point).toLocaleDateString(getLocale()) })}</span>
               </div>
             )}
             {scenario.parent_scenario_name && (
               <div className="scenario-detail parent-connection">
                 <div className="parent-indicator">
                   <GitBranch size={14} />
-                  <span className="connection-label">Branched from</span>
+                  <span className="connection-label">{t('scenarios:card.branchedFrom')}</span>
                 </div>
                 <div className="parent-name">
                   <span className="parent-scenario-name">{scenario.parent_scenario_name}</span>
@@ -166,43 +171,43 @@ const ScenarioCard: React.FC<ScenarioCardProps> = ({
         </div>
       )}
 
-      <div className="scenario-actions" 
+      <div className="scenario-actions"
            onMouseEnter={() => setShowActions(true)}
            onMouseLeave={() => setShowActions(false)}>
         <div className={`actions-content ${showActions || isExpanded ? 'visible' : ''}`}>
         <button
           onClick={() => onBranch(scenario)}
           className="action-button branch"
-          title="Create Branch"
+          title={t('scenarios:actions.createBranchTitle')}
         >
           <GitBranch size={16} />
-          Branch
+          {t('scenarios:actions.branch')}
         </button>
-        
+
         <button
           onClick={() => onCompare(scenario)}
           className="action-button compare"
-          title="Compare Scenarios"
+          title={t('scenarios:actions.compareTitle')}
         >
           <ArrowRightLeft size={16} />
-          Compare
+          {t('scenarios:actions.compare')}
         </button>
 
         {canMerge && (
           <button
             onClick={() => onMerge(scenario)}
             className="action-button merge"
-            title="Merge to Parent"
+            title={t('scenarios:actions.mergeToParentTitle')}
           >
             <Merge size={16} />
-            Merge
+            {t('scenarios:actions.merge')}
           </button>
         )}
 
         <button
           onClick={() => onEdit(scenario)}
           className="action-button edit"
-          title="Edit Scenario"
+          title={t('scenarios:actions.editTitle')}
         >
           <Edit3 size={16} />
         </button>
@@ -211,7 +216,7 @@ const ScenarioCard: React.FC<ScenarioCardProps> = ({
           <button
             onClick={() => onDelete(scenario)}
             className="action-button delete"
-            title="Delete Scenario"
+            title={t('scenarios:actions.deleteTitle')}
           >
             <Trash2 size={16} />
           </button>
@@ -250,6 +255,7 @@ const MergeModal: React.FC<MergeModalProps> = ({
   onClose,
   scenario
 }) => {
+  const { t } = useTranslation();
   const queryClient = useQueryClient();
   const [mergeStrategy, setMergeStrategy] = useState<'favor_source' | 'favor_target' | 'manual'>('favor_source');
   const [confirmMerge, setConfirmMerge] = useState(false);
@@ -285,56 +291,59 @@ const MergeModal: React.FC<MergeModalProps> = ({
     <Dialog open={isOpen} onOpenChange={(open) => !open && handleClose()}>
       <DialogContent className="max-w-2xl">
         <DialogHeader>
-          <DialogTitle>Merge Scenario</DialogTitle>
+          <DialogTitle>{t('scenarios:mergeModal.title')}</DialogTitle>
           <DialogDescription>
-            Merge {scenario.name} back into {scenario.parent_scenario_name || 'the parent scenario'}. This will combine all changes from this scenario.
+            {t('scenarios:mergeModal.description', {
+              source: scenario.name,
+              target: scenario.parent_scenario_name || t('scenarios:mergeModal.theParentScenario')
+            })}
           </DialogDescription>
         </DialogHeader>
-        
+
         <form onSubmit={handleSubmit}>
           {/* Screen reader status announcements */}
-          <div 
-            aria-live="polite" 
-            aria-atomic="true" 
+          <div
+            aria-live="polite"
+            aria-atomic="true"
             className="sr-only"
             id="merge-status"
           >
-            {mergeMutation.isPending 
-              ? 'Merge in progress. Please wait.' 
-              : confirmMerge 
-                ? 'Ready to merge scenario. Click Merge Scenario button to proceed.'
-                : 'Complete the form to enable scenario merge.'
+            {mergeMutation.isPending
+              ? t('scenarios:mergeModal.mergeInProgressSr')
+              : confirmMerge
+                ? t('scenarios:mergeModal.readyToMergeSr')
+                : t('scenarios:mergeModal.completeFormSr')
             }
           </div>
-          
+
           <div className="space-y-6 py-4">
             {/* Merge flow visualization */}
             <div className="merge-info" role="region" aria-labelledby="merge-flow-heading">
-              <h3 id="merge-flow-heading" className="text-lg font-medium mb-4">Merge Overview</h3>
+              <h3 id="merge-flow-heading" className="text-lg font-medium mb-4">{t('scenarios:mergeModal.overview')}</h3>
               <div className="merge-flow">
                 <div className="merge-source">
-                  <h4 className="text-sm font-medium mb-2">Source Scenario</h4>
+                  <h4 className="text-sm font-medium mb-2">{t('scenarios:sourceScenario')}</h4>
                   <div className="scenario-card-mini">
                     <div className="scenario-name">{scenario.name}</div>
                     <div className="scenario-meta">
                       <span className={`scenario-type ${scenario.scenario_type}`}>
-                        {scenario.scenario_type}
+                        {scenarioTypeLabel(scenario.scenario_type)}
                       </span>
                     </div>
                   </div>
                 </div>
-                
+
                 <div className="merge-arrow" aria-hidden="true">
                   <ArrowRightLeft size={24} />
                 </div>
-                
+
                 <div className="merge-target">
-                  <h4 className="text-sm font-medium mb-2">Target Scenario</h4>
+                  <h4 className="text-sm font-medium mb-2">{t('scenarios:targetScenario')}</h4>
                   <div className="scenario-card-mini">
                     <div className="scenario-name">{scenario.parent_scenario_name}</div>
                     <div className="scenario-meta">
                       <span className="scenario-type baseline">
-                        {scenario.parent_scenario_id ? 'parent' : 'baseline'}
+                        {scenario.parent_scenario_id ? t('scenarios:mergeModal.parentLabel') : t('scenarios:mergeModal.baselineLabel')}
                       </span>
                     </div>
                   </div>
@@ -345,14 +354,14 @@ const MergeModal: React.FC<MergeModalProps> = ({
             {/* Conflict resolution strategy */}
             <div className="merge-options" role="region" aria-labelledby="strategy-heading">
               <Label id="strategy-heading" className="text-sm font-medium mb-3 block">
-                Conflict Resolution Strategy
+                {t('scenarios:mergeModal.strategyTitle')}
               </Label>
-              <fieldset 
+              <fieldset
                 className="space-y-3"
                 aria-describedby="strategy-help"
               >
-                <legend className="sr-only">Choose conflict resolution strategy</legend>
-                
+                <legend className="sr-only">{t('scenarios:mergeModal.strategyLegend')}</legend>
+
                 <div className="strategy-option">
                   <div className="flex items-start space-x-3">
                     <input
@@ -366,15 +375,15 @@ const MergeModal: React.FC<MergeModalProps> = ({
                     />
                     <Label htmlFor="favor_source" className="flex-1 cursor-pointer">
                       <div className="strategy-content">
-                        <div className="strategy-title font-medium">Favor Source (Recommended)</div>
+                        <div className="strategy-title font-medium">{t('scenarios:mergeModal.favorSource')}</div>
                         <div className="strategy-description text-sm text-muted-foreground">
-                          When conflicts occur, use changes from "{scenario.name}"
+                          {t('scenarios:mergeModal.favorSourceDescription', { name: scenario.name })}
                         </div>
                       </div>
                     </Label>
                   </div>
                 </div>
-                
+
                 <div className="strategy-option">
                   <div className="flex items-start space-x-3">
                     <input
@@ -388,15 +397,15 @@ const MergeModal: React.FC<MergeModalProps> = ({
                     />
                     <Label htmlFor="favor_target" className="flex-1 cursor-pointer">
                       <div className="strategy-content">
-                        <div className="strategy-title font-medium">Favor Target</div>
+                        <div className="strategy-title font-medium">{t('scenarios:mergeModal.favorTarget')}</div>
                         <div className="strategy-description text-sm text-muted-foreground">
-                          When conflicts occur, keep existing changes in target scenario
+                          {t('scenarios:mergeModal.favorTargetDescription')}
                         </div>
                       </div>
                     </Label>
                   </div>
                 </div>
-                
+
                 <div className="strategy-option">
                   <div className="flex items-start space-x-3">
                     <input
@@ -410,9 +419,9 @@ const MergeModal: React.FC<MergeModalProps> = ({
                     />
                     <Label htmlFor="manual" className="flex-1 cursor-pointer">
                       <div className="strategy-content">
-                        <div className="strategy-title font-medium">Manual Resolution</div>
+                        <div className="strategy-title font-medium">{t('scenarios:mergeModal.manualResolution')}</div>
                         <div className="strategy-description text-sm text-muted-foreground">
-                          Review and resolve each conflict manually (Advanced)
+                          {t('scenarios:mergeModal.manualResolutionDescription')}
                         </div>
                       </div>
                     </Label>
@@ -420,14 +429,14 @@ const MergeModal: React.FC<MergeModalProps> = ({
                 </div>
               </fieldset>
               <p id="strategy-help" className="text-xs text-muted-foreground mt-2">
-                Choose how to handle conflicting changes between scenarios during merge.
+                {t('scenarios:mergeModal.strategyHelp')}
               </p>
             </div>
 
             {/* Confirmation checkbox */}
             <div className="merge-confirmation" role="region" aria-labelledby="confirmation-heading">
               <div className="flex items-start space-x-3">
-                <Checkbox 
+                <Checkbox
                   id="confirm-merge"
                   checked={confirmMerge}
                   onCheckedChange={setConfirmMerge}
@@ -435,10 +444,13 @@ const MergeModal: React.FC<MergeModalProps> = ({
                 />
                 <div className="flex-1">
                   <Label htmlFor="confirm-merge" className="text-sm font-medium cursor-pointer">
-                    I understand this will merge "{scenario.name}" into "{scenario.parent_scenario_name}"
+                    {t('scenarios:mergeModal.confirmMergeLabel', {
+                      source: scenario.name,
+                      target: scenario.parent_scenario_name
+                    })}
                   </Label>
                   <p id="confirm-help" className="text-xs text-muted-foreground mt-1">
-                    This action cannot be undone. The source scenario will be marked as merged.
+                    {t('scenarios:mergeModal.confirmMergeHelp')}
                   </p>
                 </div>
               </div>
@@ -447,14 +459,14 @@ const MergeModal: React.FC<MergeModalProps> = ({
 
           <DialogFooter>
             <Button type="button" variant="outline" onClick={handleClose}>
-              Cancel
+              {t('common:cancel')}
             </Button>
-            <Button 
-              type="submit" 
+            <Button
+              type="submit"
               variant="destructive"
               disabled={!confirmMerge || mergeMutation.isPending}
             >
-              {mergeMutation.isPending ? 'Merging...' : 'Merge Scenario'}
+              {mergeMutation.isPending ? t('scenarios:mergeModal.merging') : t('scenarios:mergeModal.mergeScenario')}
             </Button>
           </DialogFooter>
         </form>
@@ -469,6 +481,7 @@ const CompareModal: React.FC<CompareModalProps> = ({
   scenario,
   scenarios
 }) => {
+  const { t } = useTranslation();
   const [compareToScenario, setCompareToScenario] = useState<string>('');
   const [comparisonResults, setComparisonResults] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -509,61 +522,68 @@ const CompareModal: React.FC<CompareModalProps> = ({
       <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>
-            {comparisonResults 
-              ? `Comparing: ${scenario.name} vs ${selectedScenario?.name || ''}`
-              : 'Compare Scenarios'
+            {comparisonResults
+              ? t('scenarios:compare.comparingTitle', {
+                  source: scenario.name,
+                  target: selectedScenario?.name || ''
+                })
+              : t('scenarios:compare.title')
             }
           </DialogTitle>
           <DialogDescription>
-            {comparisonResults 
-              ? 'View the differences between the selected scenarios'
-              : 'Select two scenarios to analyze their differences'
+            {comparisonResults
+              ? t('scenarios:compare.resultsDescription')
+              : t('scenarios:compare.setupDescription')
             }
           </DialogDescription>
         </DialogHeader>
-        
+
         {/* Screen reader status announcements for comparison */}
-        <div 
-          aria-live="polite" 
-          aria-atomic="true" 
+        <div
+          aria-live="polite"
+          aria-atomic="true"
           className="sr-only"
           id="comparison-announcements"
         >
-          {isLoading 
-            ? 'Comparing scenarios. Please wait.' 
-            : comparisonResults 
-              ? `Comparison completed. Found ${(comparisonResults?.differences?.assignments?.added?.length || 0) + (comparisonResults?.differences?.assignments?.modified?.length || 0) + (comparisonResults?.differences?.assignments?.removed?.length || 0)} total differences.`
-              : compareToScenario 
-                ? 'Scenarios selected. Ready to compare.'
-                : 'Select a scenario to compare against.'
+          {isLoading
+            ? t('scenarios:compare.comparingSr')
+            : comparisonResults
+              ? t('scenarios:compare.completedSr', {
+                  count: (comparisonResults?.differences?.assignments?.added?.length || 0) +
+                    (comparisonResults?.differences?.assignments?.modified?.length || 0) +
+                    (comparisonResults?.differences?.assignments?.removed?.length || 0)
+                })
+              : compareToScenario
+                ? t('scenarios:compare.selectedSr')
+                : t('scenarios:compare.selectTargetSr')
           }
         </div>
-        
+
         <div className="scenarios-comparison-content" style={{ paddingTop: '1rem' }}>
           {!comparisonResults ? (
             <div className="comparison-setup">
               <div className="comparison-scenarios">
                 <div className="scenario-selector">
-                  <h4>Source Scenario</h4>
+                  <h4>{t('scenarios:sourceScenario')}</h4>
                   <div className="scenario-card-mini selected">
                     <div className="scenario-name">{scenario.name}</div>
                     <div className="scenario-meta">
                       <span className={`scenario-type ${scenario.scenario_type}`}>
-                        {scenario.scenario_type}
+                        {scenarioTypeLabel(scenario.scenario_type)}
                       </span>
                       <span className={`scenario-status ${scenario.status}`}>
-                        {scenario.status}
+                        {scenarioStatusLabel(scenario.status)}
                       </span>
                     </div>
                   </div>
                 </div>
-                
+
                 <div className="comparison-arrow">
                   <ArrowRightLeft size={24} />
                 </div>
-                
+
                 <div className="scenario-selector">
-                  <Label htmlFor="compare-scenario-select">Compare To</Label>
+                  <Label htmlFor="compare-scenario-select">{t('scenarios:compare.compareTo')}</Label>
                   <select
                     id="compare-scenario-select"
                     value={compareToScenario}
@@ -572,84 +592,88 @@ const CompareModal: React.FC<CompareModalProps> = ({
                     aria-describedby="compare-scenario-help"
                     aria-required="true"
                   >
-                    <option value="">Select a scenario to compare</option>
+                    <option value="">{t('scenarios:compare.selectPlaceholder')}</option>
                     {availableScenarios.map((s) => (
                       <option key={s.id} value={s.id}>
-                        {s.name} ({s.scenario_type})
+                        {s.name} ({scenarioTypeLabel(s.scenario_type)})
                       </option>
                     ))}
                   </select>
                   <div id="compare-scenario-help" className="help-text" style={{ fontSize: '0.875rem', color: 'var(--text-secondary)', marginTop: '0.25rem' }}>
-                    Choose a scenario to compare against {scenario.name}
+                    {t('scenarios:compare.chooseAgainstHelp', { name: scenario.name })}
                   </div>
-                  
+
                   {selectedScenario && (
                     <div className="scenario-card-mini">
                       <div className="scenario-name">{selectedScenario.name}</div>
                       <div className="scenario-meta">
                         <span className={`scenario-type ${selectedScenario.scenario_type}`}>
-                          {selectedScenario.scenario_type}
+                          {scenarioTypeLabel(selectedScenario.scenario_type)}
                         </span>
                         <span className={`scenario-status ${selectedScenario.status}`}>
-                          {selectedScenario.status}
+                          {scenarioStatusLabel(selectedScenario.status)}
                         </span>
                       </div>
                     </div>
                   )}
                 </div>
               </div>
-              
+
               <div className="comparison-actions">
-                <Button 
+                <Button
                   onClick={handleCompare}
                   disabled={!compareToScenario || isLoading}
                   aria-describedby="comparison-status"
                 >
-                  {isLoading ? 'Comparing...' : 'Run Comparison'}
+                  {isLoading ? t('scenarios:compare.comparing') : t('scenarios:compare.runComparison')}
                 </Button>
                 <div id="comparison-status" className="sr-only" aria-live="polite">
-                  {isLoading ? 'Comparison in progress' : !compareToScenario ? 'Select a scenario to enable comparison' : 'Ready to compare scenarios'}
+                  {isLoading
+                    ? t('scenarios:compare.inProgressSr')
+                    : !compareToScenario
+                      ? t('scenarios:compare.selectToEnableSr')
+                      : t('scenarios:compare.readySr')}
                 </div>
               </div>
             </div>
           ) : (
             <div className="comparison-results" role="region" aria-labelledby="results-heading">
               <div className="results-header">
-                <h4 id="results-heading">Comparison Results</h4>
+                <h4 id="results-heading">{t('scenarios:compare.results')}</h4>
                 <Button onClick={handleReset} variant="outline" size="sm">
-                  New Comparison
+                  {t('scenarios:compare.newComparison')}
                 </Button>
               </div>
-              
+
               <div className="comparison-summary" role="group" aria-labelledby="summary-heading">
-                <h5 id="summary-heading" className="sr-only">Summary of Changes</h5>
+                <h5 id="summary-heading" className="sr-only">{t('scenarios:compare.summarySr')}</h5>
                 <div className="summary-item">
-                  <div className="summary-label">Assignments Added</div>
-                  <div className="summary-value" aria-label={`${comparisonResults?.differences?.assignments?.added?.length || 0} assignments added`}>
+                  <div className="summary-label">{t('scenarios:compare.assignmentsAdded')}</div>
+                  <div className="summary-value" aria-label={t('scenarios:compare.assignmentsAddedAria', { count: comparisonResults?.differences?.assignments?.added?.length || 0 })}>
                     {comparisonResults?.differences?.assignments?.added?.length || 0}
                   </div>
                 </div>
                 <div className="summary-item">
-                  <div className="summary-label">Assignments Modified</div>
-                  <div className="summary-value" aria-label={`${comparisonResults?.differences?.assignments?.modified?.length || 0} assignments modified`}>
+                  <div className="summary-label">{t('scenarios:compare.assignmentsModified')}</div>
+                  <div className="summary-value" aria-label={t('scenarios:compare.assignmentsModifiedAria', { count: comparisonResults?.differences?.assignments?.modified?.length || 0 })}>
                     {comparisonResults?.differences?.assignments?.modified?.length || 0}
                   </div>
                 </div>
                 <div className="summary-item">
-                  <div className="summary-label">Assignments Removed</div>
-                  <div className="summary-value" aria-label={`${comparisonResults?.differences?.assignments?.removed?.length || 0} assignments removed`}>
+                  <div className="summary-label">{t('scenarios:compare.assignmentsRemoved')}</div>
+                  <div className="summary-value" aria-label={t('scenarios:compare.assignmentsRemovedAria', { count: comparisonResults?.differences?.assignments?.removed?.length || 0 })}>
                     {comparisonResults?.differences?.assignments?.removed?.length || 0}
                   </div>
                 </div>
               </div>
-              
+
               <div className="comparison-details">
                 <div className="details-section" role="region" aria-labelledby="differences-heading">
-                  <h5 id="differences-heading">Assignment Differences</h5>
+                  <h5 id="differences-heading">{t('scenarios:compare.differences')}</h5>
                   <div className="differences-list">
                     {comparisonResults?.differences?.assignments?.added?.length > 0 && (
                       <div className="difference-group">
-                        <h6 style={{color: '#10b981'}}>+ Added ({comparisonResults.differences.assignments.added.length})</h6>
+                        <h6 style={{color: '#10b981'}}>+ {t('scenarios:compare.added')} ({comparisonResults.differences.assignments.added.length})</h6>
                         {comparisonResults.differences.assignments.added.slice(0, 5).map((item: any, index: number) => (
                           <div key={`added-${index}`} className="difference-item">
                             <div className="difference-description">{item.details || `${item.person_name} → ${item.project_name}`}</div>
@@ -657,15 +681,15 @@ const CompareModal: React.FC<CompareModalProps> = ({
                         ))}
                         {comparisonResults.differences.assignments.added.length > 5 && (
                           <div className="difference-item">
-                            <div className="difference-description">...and {comparisonResults.differences.assignments.added.length - 5} more</div>
+                            <div className="difference-description">{t('scenarios:compare.andMore', { count: comparisonResults.differences.assignments.added.length - 5 })}</div>
                           </div>
                         )}
                       </div>
                     )}
-                    
+
                     {comparisonResults?.differences?.assignments?.modified?.length > 0 && (
                       <div className="difference-group">
-                        <h6 style={{color: '#3b82f6'}}>≈ Modified ({comparisonResults.differences.assignments.modified.length})</h6>
+                        <h6 style={{color: '#3b82f6'}}>≈ {t('scenarios:compare.modified')} ({comparisonResults.differences.assignments.modified.length})</h6>
                         {comparisonResults.differences.assignments.modified.slice(0, 5).map((item: any, index: number) => (
                           <div key={`modified-${index}`} className="difference-item">
                             <div className="difference-description">{item.details}</div>
@@ -673,10 +697,10 @@ const CompareModal: React.FC<CompareModalProps> = ({
                         ))}
                       </div>
                     )}
-                    
+
                     {comparisonResults?.differences?.assignments?.removed?.length > 0 && (
                       <div className="difference-group">
-                        <h6 style={{color: '#ef4444'}}>- Removed ({comparisonResults.differences.assignments.removed.length})</h6>
+                        <h6 style={{color: '#ef4444'}}>- {t('scenarios:compare.removed')} ({comparisonResults.differences.assignments.removed.length})</h6>
                         {comparisonResults.differences.assignments.removed.slice(0, 5).map((item: any, index: number) => (
                           <div key={`removed-${index}`} className="difference-item">
                             <div className="difference-description">{item.details || `${item.person_name} → ${item.project_name}`}</div>
@@ -684,34 +708,34 @@ const CompareModal: React.FC<CompareModalProps> = ({
                         ))}
                       </div>
                     )}
-                    
-                    {(!comparisonResults?.differences?.assignments?.added?.length && 
-                      !comparisonResults?.differences?.assignments?.modified?.length && 
+
+                    {(!comparisonResults?.differences?.assignments?.added?.length &&
+                      !comparisonResults?.differences?.assignments?.modified?.length &&
                       !comparisonResults?.differences?.assignments?.removed?.length) && (
-                      <div className="no-differences">No assignment differences found</div>
+                      <div className="no-differences">{t('scenarios:compare.noDifferences')}</div>
                     )}
                   </div>
                 </div>
-                
+
                 <div className="details-section" role="region" aria-labelledby="impact-heading">
-                  <h5 id="impact-heading">Impact Analysis</h5>
+                  <h5 id="impact-heading">{t('scenarios:compare.impactAnalysis')}</h5>
                   <div className="impact-metrics" role="group" aria-labelledby="impact-heading">
                     <div className="metric">
-                      <span className="metric-label">Total Allocation Change:</span>
+                      <span className="metric-label">{t('scenarios:compare.totalAllocationChange')}</span>
                       <span className="metric-value">
                         {comparisonResults?.metrics?.utilization_impact?.total_allocation_change > 0 ? '+' : ''}
                         {comparisonResults?.metrics?.utilization_impact?.total_allocation_change || 0}%
                       </span>
                     </div>
                     <div className="metric">
-                      <span className="metric-label">Net Assignment Change:</span>
+                      <span className="metric-label">{t('scenarios:compare.netAssignmentChange')}</span>
                       <span className="metric-value">
                         {comparisonResults?.metrics?.capacity_impact?.net_change > 0 ? '+' : ''}
                         {comparisonResults?.metrics?.capacity_impact?.net_change || 0}
                       </span>
                     </div>
                     <div className="metric">
-                      <span className="metric-label">Projects Affected:</span>
+                      <span className="metric-label">{t('scenarios:compare.projectsAffected')}</span>
                       <span className="metric-value">
                         {comparisonResults?.metrics?.timeline_impact?.projects_affected || 0}
                       </span>
@@ -725,7 +749,7 @@ const CompareModal: React.FC<CompareModalProps> = ({
 
         <DialogFooter>
           <Button type="button" variant="outline" onClick={handleClose}>
-            {comparisonResults ? 'Close' : 'Cancel'}
+            {comparisonResults ? t('common:close') : t('common:cancel')}
           </Button>
         </DialogFooter>
       </DialogContent>
@@ -734,6 +758,7 @@ const CompareModal: React.FC<CompareModalProps> = ({
 };
 
 export const Scenarios: React.FC = () => {
+  const { t } = useTranslation();
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [selectedParentScenario, setSelectedParentScenario] = useState<Scenario | undefined>();
   // Removed view mode selection - now only using list view
@@ -1134,7 +1159,7 @@ export const Scenarios: React.FC = () => {
   const renderListView = () => {
     if (!displayedScenarios || displayedScenarios.length === 0) {
       return <div className="no-scenarios">
-        {hasActiveFilters ? 'No scenarios match your filters' : 'No scenarios found'}
+        {hasActiveFilters ? t('scenarios:noScenariosMatchFilters') : t('scenarios:noScenariosFound')}
       </div>;
     }
 
@@ -1169,13 +1194,24 @@ export const Scenarios: React.FC = () => {
       
       return (
         <div key={scenario.id}>
-          <div 
+          <div
             className={`hierarchy-row ${scenario.scenario_type} ${isFocused ? 'focused' : ''}`}
             role="treeitem"
             aria-expanded={hasChildren ? isExpanded : undefined}
             aria-level={level + 1}
             aria-selected={isFocused}
-            aria-label={`${scenario.name}, ${scenario.scenario_type} scenario, ${scenario.status} status${hasChildren ? `, ${scenario.children.length} child scenarios` : ''}`}
+            aria-label={hasChildren
+              ? t('scenarios:hierarchy.nodeAriaLabelWithChildren', {
+                  name: scenario.name,
+                  type: scenarioTypeLabel(scenario.scenario_type),
+                  status: scenarioStatusLabel(scenario.status),
+                  count: scenario.children.length
+                })
+              : t('scenarios:hierarchy.nodeAriaLabel', {
+                  name: scenario.name,
+                  type: scenarioTypeLabel(scenario.scenario_type),
+                  status: scenarioStatusLabel(scenario.status)
+                })}
             tabIndex={isFocused ? 0 : -1}
             onFocus={() => setFocusedNodeId(scenario.id)}
             onClick={() => setFocusedNodeId(scenario.id)}
@@ -1228,7 +1264,12 @@ export const Scenarios: React.FC = () => {
                             return newSet;
                           });
                         }}
-                        aria-label={`${isExpanded ? 'Collapse' : 'Expand'} ${scenario.name} scenarios`}
+                        aria-label={t(
+                          isExpanded
+                            ? 'scenarios:hierarchy.collapseAriaLabel'
+                            : 'scenarios:hierarchy.expandAriaLabel',
+                          { name: scenario.name }
+                        )}
                         tabIndex={-1}
                       >
                         <ChevronDown 
@@ -1260,51 +1301,51 @@ export const Scenarios: React.FC = () => {
             {/* Type Column */}
             <div className="hierarchy-cell type-column">
               <span className={`scenario-type ${scenario.scenario_type}`}>
-                {scenario.scenario_type}
+                {scenarioTypeLabel(scenario.scenario_type)}
               </span>
             </div>
-            
+
             {/* Status Column */}
             <div className="hierarchy-cell status-column">
               <span className={`scenario-status ${scenario.status}`}>
-                {scenario.status}
+                {scenarioStatusLabel(scenario.status)}
                 {scenario.status === 'merged' && (
-                  <span className="merge-indicator" title="This scenario has been merged back to its parent">
+                  <span className="merge-indicator" title={t('scenarios:hierarchy.mergedIndicatorTitle')}>
                     ✅
                   </span>
                 )}
                 {scenario.status === 'active' && !scenario.parent_scenario_id && scenario.scenario_type === 'branch' && (
-                  <span className="orphan-indicator" title="This branch scenario has no parent and cannot be merged">
+                  <span className="orphan-indicator" title={t('scenarios:hierarchy.orphanIndicatorTitle')}>
                     🔗❌
                   </span>
                 )}
               </span>
             </div>
-            
+
             {/* Created By Column */}
             <div className="hierarchy-cell created-by-column">
               <span className="created-by">{scenario.created_by_name}</span>
             </div>
-            
+
             {/* Created Date Column */}
             <div className="hierarchy-cell created-date-column">
-              <span className="created-date">{new Date(scenario.created_at).toLocaleDateString()}</span>
+              <span className="created-date">{new Date(scenario.created_at).toLocaleDateString(getLocale())}</span>
             </div>
-            
+
             {/* Actions Column */}
             <div className="hierarchy-cell actions-column">
               <div className="hierarchy-actions">
                 <button
                   onClick={() => handleBranch(scenario)}
                   className="action-button branch"
-                  title="Create Branch"
+                  title={t('scenarios:actions.createBranchTitle')}
                 >
                   <GitBranch size={14} />
                 </button>
                 <button
                   onClick={(e) => handleCompare(scenario, e)}
                   className="action-button compare"
-                  title="Compare Scenarios"
+                  title={t('scenarios:actions.compareTitle')}
                 >
                   <ArrowRightLeft size={14} />
                 </button>
@@ -1312,23 +1353,23 @@ export const Scenarios: React.FC = () => {
                   <button
                     onClick={(e) => handleMerge(scenario, e)}
                     className="action-button merge"
-                    title={`Merge to ${scenario.parent_scenario_name}`}
+                    title={t('scenarios:actions.mergeToTitle', { name: scenario.parent_scenario_name })}
                   >
                     <Merge size={14} />
                   </button>
                 ) : (
-                  <div 
+                  <div
                     className="action-button merge disabled"
                     title={
-                      scenario.status === 'merged' 
-                        ? 'Already merged to parent scenario'
+                      scenario.status === 'merged'
+                        ? t('scenarios:hierarchy.alreadyMergedTitle')
                         : scenario.status === 'archived'
-                        ? 'Cannot merge archived scenario'
+                        ? t('scenarios:hierarchy.cannotMergeArchivedTitle')
                         : !scenario.parent_scenario_id && scenario.scenario_type === 'branch'
-                        ? 'Cannot merge: This branch has no parent scenario'
+                        ? t('scenarios:hierarchy.cannotMergeNoParentTitle')
                         : scenario.scenario_type === 'baseline'
-                        ? 'Cannot merge: Baseline scenarios cannot be merged'
-                        : 'Cannot merge this scenario'
+                        ? t('scenarios:hierarchy.cannotMergeBaselineTitle')
+                        : t('scenarios:hierarchy.cannotMergeTitle')
                     }
                   >
                     <Merge size={14} />
@@ -1337,7 +1378,7 @@ export const Scenarios: React.FC = () => {
                 <button
                   onClick={(e) => handleEdit(scenario, e)}
                   className="action-button edit"
-                  title="Edit Scenario"
+                  title={t('scenarios:actions.editTitle')}
                 >
                   <Edit3 size={14} />
                 </button>
@@ -1345,7 +1386,7 @@ export const Scenarios: React.FC = () => {
                   <button
                     onClick={(e) => handleDelete(scenario, e)}
                     className="action-button delete"
-                    title="Delete Scenario"
+                    title={t('scenarios:actions.deleteTitle')}
                   >
                     <Trash2 size={14} />
                   </button>
@@ -1353,10 +1394,10 @@ export const Scenarios: React.FC = () => {
               </div>
             </div>
           </div>
-          
+
           {/* Render children with proper accessibility */}
           {hasChildren && isExpanded && (
-            <div role="group" aria-label={`Child scenarios of ${scenario.name}`}>
+            <div role="group" aria-label={t('scenarios:hierarchy.childScenariosOf', { name: scenario.name })}>
               {scenario.children.map((child: ScenarioTreeNode, index: number) => {
                 const isLastChild = index === scenario.children.length - 1;
                 const newParentLines = [...parentLines, !isLastChild];
@@ -1374,46 +1415,46 @@ export const Scenarios: React.FC = () => {
     return (
       <div className="scenarios-hierarchy">
         <div className="hierarchy-header">
-          <div className="hierarchy-title">Scenario Hierarchy</div>
+          <div className="hierarchy-title">{t('scenarios:hierarchy.title')}</div>
           <div className="hierarchy-legend">
             <div className="legend-item">
               <div className="legend-dot baseline"></div>
-              <span>Baseline</span>
+              <span>{scenarioTypeLabel('baseline')}</span>
             </div>
             <div className="legend-item">
               <div className="legend-dot branch"></div>
-              <span>Branch</span>
+              <span>{scenarioTypeLabel('branch')}</span>
             </div>
             <div className="legend-item">
               <div className="legend-dot sandbox"></div>
-              <span>Sandbox</span>
+              <span>{scenarioTypeLabel('sandbox')}</span>
             </div>
           </div>
         </div>
-        
+
         {/* Column Headers */}
         <div className="hierarchy-column-headers">
-          <div className="column-header name-column">Name</div>
-          <div className="column-header type-column">Type</div>
-          <div className="column-header status-column">Status</div>
-          <div className="column-header created-by-column">Created By</div>
-          <div className="column-header created-date-column">Created</div>
-          <div className="column-header actions-column">Actions</div>
+          <div className="column-header name-column">{t('common:name')}</div>
+          <div className="column-header type-column">{t('scenarios:hierarchy.typeColumn')}</div>
+          <div className="column-header status-column">{t('common:status')}</div>
+          <div className="column-header created-by-column">{t('scenarios:hierarchy.createdByColumn')}</div>
+          <div className="column-header created-date-column">{t('common:created')}</div>
+          <div className="column-header actions-column">{t('common:actions')}</div>
         </div>
-        
-        <div 
+
+        <div
           className="hierarchy-content"
           role="tree"
-          aria-label="Scenario hierarchy tree"
+          aria-label={t('scenarios:hierarchy.treeAriaLabel')}
           aria-describedby="tree-instructions"
           ref={treeRef}
           onKeyDown={handleKeyDown}
           tabIndex={0}
         >
           <div id="tree-instructions" className="sr-only">
-            Use arrow keys to navigate, Enter or Space to expand/collapse, Home/End to go to first/last item.
+            {t('scenarios:hierarchy.instructions')}
           </div>
-          {treeNodes.map((rootScenario, index) => 
+          {treeNodes.map((rootScenario, index) =>
             renderScenarioNode(rootScenario, 0, index === treeNodes.length - 1, [])
           )}
         </div>
@@ -1425,7 +1466,7 @@ export const Scenarios: React.FC = () => {
   if (isLoading) {
     return (
       <div className="scenarios-page">
-        <div className="page-loading">Loading scenarios...</div>
+        <div className="page-loading">{t('common:loadingScenarios')}</div>
       </div>
     );
   }
@@ -1435,8 +1476,8 @@ export const Scenarios: React.FC = () => {
       <div className="scenarios-page">
         <div className="page-error">
           <AlertTriangle size={24} />
-          <h3>Failed to load scenarios</h3>
-          <p>Please try refreshing the page</p>
+          <h3>{t('scenarios:loadFailedTitle')}</h3>
+          <p>{t('scenarios:loadFailedDetail')}</p>
         </div>
       </div>
     );
@@ -1446,12 +1487,12 @@ export const Scenarios: React.FC = () => {
     <div className="scenarios-page">
       <div className="page-header">
         <div className="header-content">
-          <h1>Scenario Planning</h1>
-          <p>Create and manage resource planning scenarios to explore different allocation strategies</p>
+          <h1>{t('scenarios:title')}</h1>
+          <p>{t('scenarios:subtitle')}</p>
         </div>
         <button onClick={(e) => handleCreateNew(e)} className="btn-primary">
           <Plus size={16} />
-          New Scenario
+          {t('scenarios:newScenario')}
         </button>
       </div>
 
@@ -1461,26 +1502,26 @@ export const Scenarios: React.FC = () => {
             <Search size={16} className="search-icon" />
             <input
               type="text"
-              placeholder="Search scenarios..."
+              placeholder={t('scenarios:searchPlaceholder')}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
           </div>
-          
+
           <div className="filter-dropdown" ref={filterDropdownRef}>
             <button
               className={`filter-button ${hasActiveFilters ? 'active' : ''}`}
               onClick={() => setShowFilterDropdown(!showFilterDropdown)}
             >
               <Filter size={16} />
-              Filters
+              {t('common:filters')}
               <ChevronDown size={14} />
             </button>
-            
+
             {showFilterDropdown && (
               <div className="filter-dropdown-content">
                 <div className="filter-section">
-                  <div className="filter-section-title">Type</div>
+                  <div className="filter-section-title">{t('scenarios:filters.type')}</div>
                   {filterOptions.types.map(type => (
                     <div key={type} className="filter-option">
                       <input
@@ -1488,13 +1529,13 @@ export const Scenarios: React.FC = () => {
                         checked={activeFilters.types.includes(type)}
                         onChange={() => toggleFilter('types', type)}
                       />
-                      <span style={{ textTransform: 'capitalize' }}>{type}</span>
+                      <span style={{ textTransform: 'capitalize' }}>{scenarioTypeLabel(type)}</span>
                     </div>
                   ))}
                 </div>
-                
+
                 <div className="filter-section">
-                  <div className="filter-section-title">Status</div>
+                  <div className="filter-section-title">{t('common:status')}</div>
                   {filterOptions.statuses.map(status => (
                     <div key={status} className="filter-option">
                       <input
@@ -1502,13 +1543,13 @@ export const Scenarios: React.FC = () => {
                         checked={activeFilters.statuses.includes(status)}
                         onChange={() => toggleFilter('statuses', status)}
                       />
-                      <span style={{ textTransform: 'capitalize' }}>{status}</span>
+                      <span style={{ textTransform: 'capitalize' }}>{scenarioStatusLabel(status)}</span>
                     </div>
                   ))}
                 </div>
-                
+
                 <div className="filter-section">
-                  <div className="filter-section-title">Creator</div>
+                  <div className="filter-section-title">{t('scenarios:filters.creator')}</div>
                   {filterOptions.creators.map(creator => (
                     <div key={creator} className="filter-option">
                       <input
@@ -1520,26 +1561,26 @@ export const Scenarios: React.FC = () => {
                     </div>
                   ))}
                 </div>
-                
+
                 {hasActiveFilters && (
                   <div className="filter-actions">
-                    <button 
+                    <button
                       onClick={clearAllFilters}
                       className="btn btn-sm btn-secondary"
                     >
-                      Clear All
+                      {t('scenarios:filters.clearAll')}
                     </button>
                   </div>
                 )}
               </div>
             )}
           </div>
-          
+
           {hasActiveFilters && (
             <div className="active-filters">
               {activeFilters.types.map(type => (
                 <div key={`type-${type}`} className="filter-tag">
-                  <span>Type: {type}</span>
+                  <span>{t('scenarios:filters.typeTag', { value: scenarioTypeLabel(type) })}</span>
                   <button onClick={() => removeFilter('types', type)}>
                     <X size={12} />
                   </button>
@@ -1547,7 +1588,7 @@ export const Scenarios: React.FC = () => {
               ))}
               {activeFilters.statuses.map(status => (
                 <div key={`status-${status}`} className="filter-tag">
-                  <span>Status: {status}</span>
+                  <span>{t('scenarios:filters.statusTag', { value: scenarioStatusLabel(status) })}</span>
                   <button onClick={() => removeFilter('statuses', status)}>
                     <X size={12} />
                   </button>
@@ -1555,7 +1596,7 @@ export const Scenarios: React.FC = () => {
               ))}
               {activeFilters.creators.map(creator => (
                 <div key={`creator-${creator}`} className="filter-tag">
-                  <span>By: {creator}</span>
+                  <span>{t('scenarios:filters.creatorTag', { value: creator })}</span>
                   <button onClick={() => removeFilter('creators', creator)}>
                     <X size={12} />
                   </button>
@@ -1564,22 +1605,22 @@ export const Scenarios: React.FC = () => {
             </div>
           )}
         </div>
-        
+
         <div className="view-controls">
           <div className="quick-filters">
             <button
               className={`quick-filter-btn ${hideMergedScenarios ? 'active' : ''}`}
               onClick={() => setHideMergedScenarios(!hideMergedScenarios)}
-              title={hideMergedScenarios ? 'Show merged scenarios' : 'Hide merged scenarios'}
+              title={hideMergedScenarios ? t('scenarios:filters.showMergedTitle') : t('scenarios:filters.hideMergedTitle')}
             >
-              {hideMergedScenarios ? '👁️ Show Merged' : '🚫 Hide Merged'}
+              {hideMergedScenarios ? t('scenarios:filters.showMerged') : t('scenarios:filters.hideMerged')}
             </button>
           </div>
-          
+
           <div className="view-info">
             <span className="view-label">
               <List size={14} />
-              List View
+              {t('scenarios:listView')}
             </span>
           </div>
         </div>

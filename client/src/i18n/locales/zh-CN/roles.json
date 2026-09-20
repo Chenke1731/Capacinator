@@ -1,0 +1,32 @@
+{
+  "title": "角色",
+  "subtitle": "管理角色及其配置",
+  "addRole": "添加角色",
+  "columns": {
+    "name": "角色名称",
+    "externalId": "外部 ID",
+    "people": "人员",
+    "planners": "规划者",
+    "allocations": "分配"
+  },
+  "searchPlaceholder": "搜索角色…",
+  "hasPlanners": "有规划者",
+  "hasPeople": "有人员",
+  "loadFailed": "角色加载失败",
+  "deleteConfirm": "确定要删除角色“{{name}}”吗?此操作无法撤销。",
+  "details": {
+    "notSpecified": "未指定",
+    "loading": "角色详情加载中…",
+    "notFoundTitle": "角色不存在",
+    "notFoundText": "你要查找的角色不存在,或加载失败。",
+    "backToRoles": "返回角色列表",
+    "namePlaceholder": "输入角色名称",
+    "descriptionPlaceholder": "输入角色描述",
+    "infoTitle": "角色信息",
+    "externalIdPlaceholder": "输入外部 ID",
+    "templatesTitle": "资源模板",
+    "templatesSubtitle": "为该角色在不同项目类型和阶段下定义分配比例",
+    "projectType": "项目类型",
+    "templatesLoading": "资源模板配置加载中…"
+  }
+}

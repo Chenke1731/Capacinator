@@ -1,12 +1,14 @@
 import React, { useState, useRef, useCallback } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { Calendar, X, ZoomIn, ZoomOut, Search, ChevronLeft, ChevronRight } from 'lucide-react';
 import { api } from '../lib/api-client';
 import { queryKeys } from '../lib/queryKeys';
 import { LoadingSpinner } from '../components/ui/LoadingSpinner';
 import { ErrorMessage } from '../components/ui/ErrorMessage';
 import InteractiveTimeline, { TimelineItem, TimelineViewport } from '../components/InteractiveTimeline';
+import { getLocale } from '../i18n';
 import type { Project } from '../types';
 import { parseDate, toISODateString } from '../utils/dateUtils';
 import './ProjectRoadmap.css';
@@ -55,6 +57,7 @@ const getPhaseColor = (phaseName: string): string => {
 };
 
 export default function ProjectRoadmap() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const timelineRef = useRef<HTMLDivElement>(null);
@@ -534,7 +537,7 @@ export default function ProjectRoadmap() {
           }}
         >
           <div className="month-label">
-            {date.toLocaleDateString('en-US', { month: 'short' })}
+            {date.toLocaleDateString(getLocale(), { month: 'short' })}
           </div>
         </div>
       );
@@ -573,7 +576,7 @@ export default function ProjectRoadmap() {
               }}
             >
               <div className="month-detail-label">
-                {currentMonth.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
+                {currentMonth.toLocaleDateString(getLocale(), { month: 'long', year: 'numeric' })}
               </div>
             </div>
           );
@@ -760,7 +763,7 @@ export default function ProjectRoadmap() {
   };
 
   if (isLoading) return <LoadingSpinner />;
-  if (error) return <ErrorMessage message="Failed to load project roadmap" />;
+  if (error) return <ErrorMessage message={t('phases:roadmap.loadError')} />;
 
   // Calculate total timeline width
   const totalDays = (viewport.endDate.getTime() - viewport.startDate.getTime()) / (1000 * 60 * 60 * 24);
@@ -778,10 +781,10 @@ export default function ProjectRoadmap() {
         <div className="header-content">
           <h1>
             <Calendar size={24} />
-            Project Roadmap
+            {t('phases:roadmap.title')}
           </h1>
           <p className="subtitle">
-            Visual timeline of all projects and their phases
+            {t('phases:roadmap.subtitle')}
           </p>
         </div>
         
@@ -791,52 +794,52 @@ export default function ProjectRoadmap() {
               <Search size={16} />
               <input
                 type="text"
-                placeholder="Search projects..."
+                placeholder={t('phases:roadmap.searchProjects')}
                 value={filters.search}
                 onChange={(e) => setFilters(prev => ({ ...prev, search: e.target.value }))}
               />
             </div>
-            
+
             <select
               value={filters.status}
               onChange={(e) => setFilters(prev => ({ ...prev, status: e.target.value }))}
             >
-              <option value="">All Statuses</option>
-              <option value="planned">Planned</option>
-              <option value="active">Active</option>
-              <option value="on_hold">On Hold</option>
-              <option value="completed">Completed</option>
+              <option value="">{t('phases:roadmap.allStatuses')}</option>
+              <option value="planned">{t('enums:projectStatus.planned')}</option>
+              <option value="active">{t('enums:projectStatus.active')}</option>
+              <option value="on_hold">{t('enums:projectStatus.on_hold')}</option>
+              <option value="completed">{t('enums:projectStatus.completed')}</option>
             </select>
           </div>
 
           <div className="timeline-controls-group">
             <div className="timeline-info">
               <span className="timeline-range">
-                {viewport.startDate.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })} - {viewport.endDate.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
+                {viewport.startDate.toLocaleDateString(getLocale(), { month: 'short', year: 'numeric' })} - {viewport.endDate.toLocaleDateString(getLocale(), { month: 'short', year: 'numeric' })}
               </span>
             </div>
 
             <div className="navigation-controls">
-              <button 
+              <button
                 onClick={() => scrollTimeline('left')}
                 className="btn btn-sm nav-btn"
-                title="Previous 3 months"
+                title={t('phases:roadmap.prevMonths')}
               >
                 <ChevronLeft size={16} />
               </button>
-              
-              <button 
-                className="btn btn-sm today-btn" 
+
+              <button
+                className="btn btn-sm today-btn"
                 onClick={goToToday}
-                title="Go to today"
+                title={t('phases:roadmap.goToToday')}
               >
-                Today
+                {t('phases:timeline.today')}
               </button>
 
-              <button 
+              <button
                 onClick={() => scrollTimeline('right')}
                 className="btn btn-sm nav-btn"
-                title="Next 3 months"
+                title={t('phases:roadmap.nextMonths')}
               >
                 <ChevronRight size={16} />
               </button>
@@ -859,18 +862,18 @@ export default function ProjectRoadmap() {
                     });
                   }
                 }}
-                title="Jump to specific date"
+                title={t('phases:roadmap.jumpToDate')}
               />
             </div>
 
             <div className="view-controls">
               
               <div className="zoom-controls">
-                <button onClick={() => handleZoom('out')} className="btn btn-sm" title="Zoom out">
+                <button onClick={() => handleZoom('out')} className="btn btn-sm" title={t('phases:timeline.zoomOut')}>
                   <ZoomOut size={16} />
                 </button>
                 <span className="zoom-level">{Math.round(viewport.pixelsPerDay * 50)}%</span>
-                <button onClick={() => handleZoom('in')} className="btn btn-sm" title="Zoom in">
+                <button onClick={() => handleZoom('in')} className="btn btn-sm" title={t('phases:timeline.zoomIn')}>
                   <ZoomIn size={16} />
                 </button>
               </div>
@@ -905,12 +908,14 @@ export default function ProjectRoadmap() {
                   zIndex: 999,
                   pointerEvents: 'none'
                 }}
-                title={`Today: ${today.toLocaleDateString('en-US', { 
-                  weekday: 'long', 
-                  year: 'numeric', 
-                  month: 'long', 
-                  day: 'numeric' 
-                })}`}
+                title={t('phases:roadmap.todayTitle', {
+                  date: today.toLocaleDateString(getLocale(), {
+                    weekday: 'long',
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                  })
+                })}
               >
                 <div className="today-line-indicator" style={{
                   position: 'absolute',
@@ -924,7 +929,7 @@ export default function ProjectRoadmap() {
                   fontWeight: 600,
                   whiteSpace: 'nowrap'
                 }}>
-                  <span className="today-label">Today</span>
+                  <span className="today-label">{t('phases:timeline.today')}</span>
                 </div>
               </div>
             );
@@ -997,41 +1002,44 @@ export default function ProjectRoadmap() {
                   <div className="project-info">
                     <div className="project-header">
                       <div className="project-name-row">
-                        <button 
+                        <button
                           className="project-name-link"
                           onClick={() => navigate(`/projects/${project.id}`)}
-                          title={`${project.name} - Click to view project details`}
+                          title={t('phases:roadmap.projectLinkTitle', { name: project.name })}
                         >
                           {project.name}
                         </button>
                       </div>
                       <div className="project-badges-row">
-                        <span 
+                        <span
                           className={`priority-badge priority-${project.priority <= 1 ? 'high' : project.priority <= 3 ? 'medium' : 'low'}`}
-                          title={`Priority: ${project.priority <= 1 ? 'High' : project.priority <= 3 ? 'Medium' : 'Low'} (${project.priority})`}
+                          title={t('phases:roadmap.priorityTitle', {
+                            level: project.priority <= 1 ? t('phases:roadmap.priorityHigh') : project.priority <= 3 ? t('phases:roadmap.priorityMedium') : t('phases:roadmap.priorityLow'),
+                            priority: project.priority
+                          })}
                         >
                           {project.priority <= 1 ? 'H' : project.priority <= 3 ? 'M' : 'L'}
                         </span>
-                        <span 
-                          className="project-type-compact" 
-                          title={`Project Type: ${project.project_type?.name || project.project_type_name || 'Unknown'}`}
-                          style={{ 
+                        <span
+                          className="project-type-compact"
+                          title={t('phases:roadmap.projectTypeTitle', { name: project.project_type?.name || project.project_type_name || t('phases:common.unknown') })}
+                          style={{
                             backgroundColor: project.project_type?.color_code ? `${project.project_type.color_code}15` : '#eff6ff',
                             color: project.project_type?.color_code || '#1d4ed8',
                             borderLeft: `2px solid ${project.project_type?.color_code || '#1d4ed8'}`
                           }}
                         >
-                          {project.project_type?.name || project.project_type_name || 'Unknown'}
+                          {project.project_type?.name || project.project_type_name || t('phases:common.unknown')}
                         </span>
-                        <span 
+                        <span
                           className={`project-status-compact status-${(project.status || 'planned').toLowerCase()}`}
-                          title={`Status: ${project.status || 'Planned'}`}
+                          title={t('phases:roadmap.statusTitle', { status: project.status || t('enums:projectStatus.planned') })}
                         >
-                          {project.status || 'Planned'}
+                          {project.status || t('enums:projectStatus.planned')}
                         </span>
-                        <span 
+                        <span
                           className="project-phase-count-inline"
-                          title={`${project.phases.length} phase${project.phases.length !== 1 ? 's' : ''}`}
+                          title={t('phases:roadmap.phaseCountTitle', { count: project.phases.length })}
                         >
                           {project.phases.length}p
                         </span>
@@ -1076,24 +1084,24 @@ export default function ProjectRoadmap() {
         <div className="modal-overlay">
           <div className="modal-container">
             <div className="modal-header">
-              <h3>Edit Phase Dates</h3>
+              <h3>{t('phases:roadmap.editPhaseDates')}</h3>
               <button onClick={() => setEditingPhase(null)}>
                 <X size={20} />
               </button>
             </div>
-            
+
             <div className="modal-content">
               <div className="form-group">
-                <label>Start Date</label>
+                <label>{t('common:startDate')}</label>
                 <input
                   type="date"
                   value={editingPhase.startDate}
                   onChange={(e) => setEditingPhase(prev => prev ? { ...prev, startDate: e.target.value } : null)}
                 />
               </div>
-              
+
               <div className="form-group">
-                <label>End Date</label>
+                <label>{t('common:endDate')}</label>
                 <input
                   type="date"
                   value={editingPhase.endDate}
@@ -1101,13 +1109,13 @@ export default function ProjectRoadmap() {
                 />
               </div>
             </div>
-            
+
             <div className="modal-actions">
               <button onClick={() => setEditingPhase(null)} className="btn btn-secondary">
-                Cancel
+                {t('common:cancel')}
               </button>
               <button onClick={savePhaseEdit} className="btn btn-primary">
-                Save Changes
+                {t('phases:common.saveChanges')}
               </button>
             </div>
           </div>

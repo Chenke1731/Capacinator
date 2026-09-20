@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useTranslation } from 'react-i18next';
 import {
   ArrowLeft, Users, Briefcase, Clock,
   MapPin, Target, AlertTriangle, AlertCircle,
@@ -88,6 +89,7 @@ export function ProjectDetail() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
+  const { t } = useTranslation();
   
   const [expandedSections, setExpandedSections] = useState({
     basic: true,
@@ -203,8 +205,8 @@ export function ProjectDetail() {
   // Handle assignment deletion
   const handleAssignmentDelete = () => {
     if (!selectedAssignment) return;
-    
-    if (confirm('Are you sure you want to delete this assignment?')) {
+
+    if (confirm(t('projects:deleteAssignmentConfirm'))) {
       deleteAssignmentMutation.mutate(selectedAssignment.id);
       setSelectedAssignment(null);
     }
@@ -235,11 +237,11 @@ export function ProjectDetail() {
 
   const getPriorityLabel = (priority: number) => {
     switch (priority) {
-      case 1: return 'Critical';
-      case 2: return 'High';
-      case 3: return 'Medium';
-      case 4: return 'Low';
-      default: return 'Unknown';
+      case 1: return t('projects:priorityLevel.critical');
+      case 2: return t('projects:priorityLevel.high');
+      case 3: return t('projects:priorityLevel.medium');
+      case 4: return t('projects:priorityLevel.low');
+      default: return t('projects:priorityLevel.unknown');
     }
   };
 
@@ -311,18 +313,18 @@ export function ProjectDetail() {
       <div className="max-w-7xl mx-auto p-6">
         <Alert variant="destructive">
           <XCircle className="h-4 w-4" />
-          <AlertTitle>Error Loading Project</AlertTitle>
+          <AlertTitle>{t('projects:loadErrorTitle')}</AlertTitle>
           <AlertDescription className="mt-2">
-            Failed to load project details. This could be due to a network issue or the project may not exist.
+            {t('projects:loadErrorDetail')}
           </AlertDescription>
           <div className="mt-4 flex space-x-2">
             <Button variant="outline" size="sm" onClick={() => window.location.reload()}>
               <RefreshCw className="h-4 w-4 mr-2" />
-              Retry
+              {t('common:retry')}
             </Button>
             <Button variant="outline" size="sm" onClick={() => navigate('/projects')}>
               <ArrowLeft className="h-4 w-4 mr-2" />
-              Back to Projects
+              {t('projects:backToProjects')}
             </Button>
           </div>
         </Alert>
@@ -364,14 +366,14 @@ export function ProjectDetail() {
       <div className="space-y-6">
         {/* Basic Information Section */}
         <CollapsibleSection
-          title="Project Information"
+          title={t('projects:projectInformation')}
           icon={Target}
           expanded={expandedSections.basic}
           onToggle={(expanded) => setExpandedSections(prev => ({ ...prev, basic: expanded }))}
         >
           <div className="info-grid">
             <div className="info-item">
-              <label>Project Type</label>
+              <label>{t('projects:projectType')}</label>
               <InlineEdit
                 value={project.project_type_id || ''}
                 onSave={createFieldHandler('project_type_id')}
@@ -380,13 +382,13 @@ export function ProjectDetail() {
                   value: type.id,
                   label: type.name
                 })) : []}
-                placeholder="Select project type"
+                placeholder={t('projects:placeholder.selectProjectType')}
                 disabled={!canEdit}
               />
             </div>
 
             <div className="info-item">
-              <label>Location</label>
+              <label>{t('projects:location')}</label>
               <InlineEdit
                 value={project.location_id || ''}
                 onSave={createFieldHandler('location_id')}
@@ -395,46 +397,46 @@ export function ProjectDetail() {
                   value: loc.id,
                   label: loc.name
                 })) : []}
-                placeholder="Select location"
+                placeholder={t('projects:placeholder.selectLocation')}
                 icon={MapPin}
                 disabled={!canEdit}
               />
             </div>
 
             <div className="info-item">
-              <label>Priority</label>
+              <label>{t('projects:priority')}</label>
               <InlineEdit
                 value={project.priority || ''}
                 onSave={createFieldHandler('priority')}
                 type="select"
                 options={[
-                  { value: 1, label: 'Critical' },
-                  { value: 2, label: 'High' },
-                  { value: 3, label: 'Medium' },
-                  { value: 4, label: 'Low' }
+                  { value: 1, label: t('projects:priorityLevel.critical') },
+                  { value: 2, label: t('projects:priorityLevel.high') },
+                  { value: 3, label: t('projects:priorityLevel.medium') },
+                  { value: 4, label: t('projects:priorityLevel.low') }
                 ]}
-                placeholder="Select priority"
+                placeholder={t('projects:placeholder.selectPriority')}
                 disabled={!canEdit}
               />
             </div>
 
             <div className="info-item">
-              <label>Owner</label>
-              <div className="info-value">{project.owner_name || 'Not assigned'}</div>
+              <label>{t('projects:owner')}</label>
+              <div className="info-value">{project.owner_name || t('projects:notAssigned')}</div>
             </div>
 
             <div className="info-item">
-              <label>External ID</label>
+              <label>{t('projects:externalId')}</label>
               <InlineEdit
                 value={project.external_id || ''}
                 onSave={createFieldHandler('external_id')}
-                placeholder="Enter external ID"
+                placeholder={t('projects:placeholder.enterExternalId')}
                 disabled={!canEdit}
               />
             </div>
 
             <div className="info-item">
-              <label>Include in Demand</label>
+              <label>{t('projects:includeInDemand')}</label>
               <InlineEdit
                 value={project.include_in_demand === 1}
                 onSave={createFieldHandler('include_in_demand')}
@@ -444,23 +446,23 @@ export function ProjectDetail() {
             </div>
 
             <div className="info-item info-item-full">
-              <label>Description</label>
+              <label>{t('common:description')}</label>
               <InlineEdit
                 value={project.description || ''}
                 onSave={createFieldHandler('description')}
                 type="textarea"
-                placeholder="Enter project description"
+                placeholder={t('projects:placeholder.enterProjectDescription')}
                 disabled={!canEdit}
               />
             </div>
 
             <div className="info-item info-item-full">
-              <label>Data Restrictions</label>
+              <label>{t('projects:dataRestrictions')}</label>
               <InlineEdit
                 value={project.data_restrictions || ''}
                 onSave={createFieldHandler('data_restrictions')}
                 type="textarea"
-                placeholder="Enter data restrictions"
+                placeholder={t('projects:placeholder.enterDataRestrictions')}
                 disabled={!canEdit}
               />
             </div>
@@ -469,7 +471,7 @@ export function ProjectDetail() {
 
         {/* Resource Demand Section */}
         <CollapsibleSection
-          title="Resource Demand"
+          title={t('projects:resourceDemand')}
           icon={Briefcase}
           expanded={expandedSections.demand}
           onToggle={(expanded) => setExpandedSections(prev => ({ ...prev, demand: expanded }))}
@@ -479,7 +481,7 @@ export function ProjectDetail() {
 
         {/* Current Assignments Section */}
         <CollapsibleSection
-          title="Team Assignments"
+          title={t('projects:teamAssignments')}
           icon={Users}
           expanded={expandedSections.assignments}
           onToggle={(expanded) => setExpandedSections(prev => ({ ...prev, assignments: expanded }))}
@@ -490,8 +492,8 @@ export function ProjectDetail() {
             onDelete={(assignment) => deleteAssignmentMutation.mutate(assignment.id)}
             canEdit={canEdit}
             canDelete={canDelete}
-            emptyMessage="No team assignments"
-            emptyActionText="Add Assignment"
+            emptyMessage={t('projects:noTeamAssignments')}
+            emptyActionText={t('projects:addAssignment')}
             emptyActionUrl="/assignments"
             showPersonColumn={true}
             showProjectColumn={false}
@@ -500,7 +502,7 @@ export function ProjectDetail() {
 
         {/* History Section */}
         <CollapsibleSection
-          title="History"
+          title={t('projects:history')}
           icon={Clock}
           expanded={expandedSections.history}
           onToggle={(expanded) => setExpandedSections(prev => ({ ...prev, history: expanded }))}
@@ -509,13 +511,13 @@ export function ProjectDetail() {
             <div className="timeline-item">
               <div className="timeline-date">{formatDate(new Date(project.created_at).toISOString())}</div>
               <div className="timeline-content">
-                <strong>Project created</strong>
+                <strong>{t('projects:historyProjectCreated')}</strong>
               </div>
             </div>
             <div className="timeline-item">
               <div className="timeline-date">{formatDate(new Date(project.updated_at).toISOString())}</div>
               <div className="timeline-content">
-                <strong>Last updated</strong>
+                <strong>{t('projects:historyLastUpdated')}</strong>
               </div>
             </div>
           </div>
@@ -534,23 +536,23 @@ export function ProjectDetail() {
           <DialogContent className="max-w-2xl">
             <DialogHeader>
               <DialogTitle>
-                {isEditingAssignment ? 'Edit Assignment' : 'Assignment Details'}
+                {isEditingAssignment ? t('projects:editAssignment') : t('projects:assignmentDetails')}
               </DialogTitle>
               <DialogDescription>
-                {isEditingAssignment ? 'Update assignment details' : 'View assignment information'}
+                {isEditingAssignment ? t('projects:updateAssignmentDetails') : t('projects:viewAssignmentInfo')}
               </DialogDescription>
             </DialogHeader>
-            
+
             <div className="space-y-6">
               {selectedAssignment && (
                 <>
                 <div className="assignment-modal-info">
                   <div className="info-item">
-                    <label>Person</label>
+                    <label>{t('projects:person')}</label>
                     <div className="info-value">{selectedAssignment.person_name}</div>
                   </div>
                   <div className="info-item">
-                    <label>Role</label>
+                    <label>{t('projects:role')}</label>
                     <div className="info-value">{selectedAssignment.role_name}</div>
                   </div>
                 </div>
@@ -558,7 +560,7 @@ export function ProjectDetail() {
                 {isEditingAssignment ? (
                   <form onSubmit={(e) => { e.preventDefault(); handleAssignmentSubmit(); }}>
                     <div className="form-group">
-                      <label className="form-label">Allocation Percentage</label>
+                      <label className="form-label">{t('projects:allocationPercentage')}</label>
                       <input
                         type="number"
                         min="1"
@@ -575,7 +577,7 @@ export function ProjectDetail() {
                     
                     <div className="form-group grid">
                       <div>
-                        <label className="form-label">Start Date</label>
+                        <label className="form-label">{t('common:startDate')}</label>
                         <input
                           type="date"
                           value={assignmentForm.start_date}
@@ -588,7 +590,7 @@ export function ProjectDetail() {
                         />
                       </div>
                       <div>
-                        <label className="form-label">End Date</label>
+                        <label className="form-label">{t('common:endDate')}</label>
                         <input
                           type="date"
                           value={assignmentForm.end_date}
@@ -609,14 +611,14 @@ export function ProjectDetail() {
                         variant="outline"
                         onClick={() => setIsEditingAssignment(false)}
                       >
-                        Cancel
+                        {t('common:cancel')}
                       </Button>
                       <Button
                         type="submit"
                         disabled={updateAssignmentMutation.isPending}
                       >
                         <Save size={16} />
-                        Save Changes
+                        {t('projects:saveChanges')}
                       </Button>
                     </DialogFooter>
                   </form>
@@ -624,29 +626,29 @@ export function ProjectDetail() {
                   <div>
                     <div className="assignment-modal-details">
                       <div className="info-item">
-                        <label>Allocation</label>
+                        <label>{t('projects:allocation')}</label>
                         <div className="info-value">{selectedAssignment.allocation_percentage}%</div>
                       </div>
                       <div className="info-item">
-                        <label>Start Date</label>
+                        <label>{t('common:startDate')}</label>
                         <div className="info-value">
                           {formatDate(new Date(selectedAssignment.start_date).toISOString())}
                         </div>
                       </div>
                       <div className="info-item">
-                        <label>End Date</label>
+                        <label>{t('common:endDate')}</label>
                         <div className="info-value">
                           {formatDate(new Date(selectedAssignment.end_date).toISOString())}
                         </div>
                       </div>
                     </div>
-                    
+
                     <DialogFooter>
                       <Button
                         variant="outline"
                         onClick={() => setSelectedAssignment(null)}
                       >
-                        Close
+                        {t('common:close')}
                       </Button>
                       {canEdit && (
                         <>
@@ -654,14 +656,14 @@ export function ProjectDetail() {
                             onClick={() => setIsEditingAssignment(true)}
                           >
                             <Edit2 size={16} />
-                            Edit
+                            {t('common:edit')}
                           </Button>
                           <Button
                             variant="destructive"
                             onClick={handleAssignmentDelete}
                           >
                             <Trash2 size={16} />
-                            Delete
+                            {t('common:delete')}
                           </Button>
                         </>
                       )}

@@ -1,7 +1,10 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { Eye } from 'lucide-react';
 import type { Project } from '../types';
+import { getLocale } from '../i18n';
+import { projectStatusLabel } from '../lib/enum-labels';
 import './ProjectsTable.css';
 
 interface ProjectsTableProps {
@@ -11,6 +14,7 @@ interface ProjectsTableProps {
 
 export default function ProjectsTable({ projects, maxRows = 10 }: ProjectsTableProps) {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const getStatusBadgeClass = (status: string) => {
     switch (status) {
@@ -25,7 +29,7 @@ export default function ProjectsTable({ projects, maxRows = 10 }: ProjectsTableP
 
   const formatDate = (date: string | null) => {
     if (!date) return '-';
-    return new Date(date).toLocaleDateString('en-US', {
+    return new Date(date).toLocaleDateString(getLocale(), {
       month: 'short',
       day: 'numeric',
       year: 'numeric'
@@ -38,13 +42,13 @@ export default function ProjectsTable({ projects, maxRows = 10 }: ProjectsTableP
   if (projects.length === 0) {
     return (
       <div className="empty-state">
-        <p>No projects of this type yet</p>
-        <p className="text-muted">Projects using this template will appear here</p>
-        <button 
+        <p>{t('projects:miniTable.emptyTitle')}</p>
+        <p className="text-muted">{t('projects:miniTable.emptyHint')}</p>
+        <button
           className="btn btn-primary"
           onClick={() => navigate('/projects/new')}
         >
-          Create First Project
+          {t('projects:miniTable.createFirst')}
         </button>
       </div>
     );
@@ -56,12 +60,12 @@ export default function ProjectsTable({ projects, maxRows = 10 }: ProjectsTableP
         <table className="table">
           <thead>
             <tr>
-              <th>Project Name</th>
-              <th>Location</th>
-              <th>Status</th>
-              <th>Owner</th>
-              <th>Start Date</th>
-              <th>Actions</th>
+              <th>{t('projects:projectName')}</th>
+              <th>{t('projects:location')}</th>
+              <th>{t('common:status')}</th>
+              <th>{t('projects:owner')}</th>
+              <th>{t('common:startDate')}</th>
+              <th>{t('common:actions')}</th>
             </tr>
           </thead>
           <tbody>
@@ -81,7 +85,7 @@ export default function ProjectsTable({ projects, maxRows = 10 }: ProjectsTableP
                 <td>{project.location_name || '-'}</td>
                 <td>
                   <span className={getStatusBadgeClass(project.status || 'planned')}>
-                    {project.status || 'Planned'}
+                    {projectStatusLabel(project.status ?? 'planned')}
                   </span>
                 </td>
                 <td>{project.owner_name || '-'}</td>
@@ -90,7 +94,7 @@ export default function ProjectsTable({ projects, maxRows = 10 }: ProjectsTableP
                   <button
                     className="btn btn-icon btn-sm"
                     onClick={() => navigate(`/projects/${project.id}`)}
-                    title="View Project"
+                    title={t('projects:miniTable.viewProject')}
                   >
                     <Eye size={20} />
                   </button>
@@ -100,14 +104,14 @@ export default function ProjectsTable({ projects, maxRows = 10 }: ProjectsTableP
           </tbody>
         </table>
       </div>
-      
+
       {hasMore && (
         <div className="table-footer">
-          <button 
+          <button
             className="btn btn-secondary btn-sm"
             onClick={() => navigate(`/projects?project_type_id=${projects[0]?.project_type_id}`)}
           >
-            View All {projects.length} Projects →
+            {t('projects:miniTable.viewAll', { count: projects.length })}
           </button>
         </div>
       )}

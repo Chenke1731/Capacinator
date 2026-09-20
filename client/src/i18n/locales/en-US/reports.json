@@ -1,0 +1,197 @@
+{
+  "title": "Reports & Analytics",
+  "tabs": {
+    "demand": "Demand",
+    "capacity": "Capacity",
+    "utilization": "Utilization",
+    "gaps": "Gaps Analysis"
+  },
+  "aria": {
+    "navigation": "Reports and analytics navigation"
+  },
+  "loaders": {
+    "capacity": "Loading capacity report...",
+    "utilization": "Loading utilization report...",
+    "demand": "Loading demand report...",
+    "gaps": "Loading gaps report..."
+  },
+  "filters": {
+    "projectType": "Project Type",
+    "allTypes": "All Types",
+    "location": "Location",
+    "allLocations": "All Locations"
+  },
+  "export": {
+    "csv": "Export as CSV",
+    "excel": "Export as Excel",
+    "json": "Export as JSON"
+  },
+  "period": {
+    "current": "Current",
+    "currentMonth": "Current Month",
+    "nextMonth": "Next Month",
+    "inThreeMonths": "In 3 Months"
+  },
+  "units": {
+    "hours": " hours",
+    "hrs": "{{value}} hrs",
+    "hrsPerDay": "{{value}} hrs/day"
+  },
+  "series": {
+    "default_hours_per_day": "default_hours_per_day",
+    "capacity": "capacity",
+    "demand": "demand",
+    "total_hours": "total_hours",
+    "total_allocation_percentage": "total_allocation_percentage",
+    "gap": "gap",
+    "utilization": "utilization",
+    "avgUtilization": "avgUtilization",
+    "count": "count"
+  },
+  "status": {
+    "available": "AVAILABLE",
+    "fully_allocated": "FULLY ALLOCATED",
+    "over_allocated": "OVER ALLOCATED",
+    "critical": "CRITICAL",
+    "high": "HIGH",
+    "moderate": "MODERATE"
+  },
+  "noRole": "No Role",
+  "actions": {
+    "assignToProject": "Assign to Project",
+    "reduceLoad": "Reduce Load",
+    "viewPeople": "View People",
+    "findPeople": "Find People",
+    "viewProjects": "View Projects",
+    "viewRoles": "View Roles",
+    "addPeople": "Add People",
+    "viewProject": "View Project",
+    "addResources": "Add Resources",
+    "hireMore": "Hire More",
+    "addProjects": "Add Projects",
+    "manageAssignments": "Manage Assignments",
+    "findProjects": "Find Projects"
+  },
+  "summary": {
+    "peakMonth": "Peak Month"
+  },
+  "capacity": {
+    "headers": {
+      "dailyHours": "Daily Hours",
+      "availability": "Availability",
+      "totalCapacityHrs": "Total Capacity (hrs)",
+      "utilizedHrs": "Utilized (hrs)",
+      "availableHrs": "Available (hrs)"
+    },
+    "summary": {
+      "totalCapacity": "Total Capacity",
+      "peopleWithCapacity": "# People with Capacity",
+      "rolesWithCapacity": "# Roles with Capacity"
+    },
+    "empty": {
+      "title": "No Capacity Data Found",
+      "description": "No people or capacity information is available for the selected date range.",
+      "addPeople": "Add people"
+    },
+    "charts": {
+      "byPerson": "Capacity by Person",
+      "byRole": "Capacity by Role",
+      "trend": "Capacity Trend Over Time"
+    },
+    "tables": {
+      "peopleOverview": "People Capacity Overview",
+      "roleAnalysis": "Role Capacity Analysis"
+    }
+  },
+  "utilization": {
+    "headers": {
+      "utilization": "Utilization (%)",
+      "availableCapacityPct": "Available Capacity (%)",
+      "availableHoursDaily": "Available Hours (Daily)"
+    },
+    "summary": {
+      "utilization": "Utilization %",
+      "overutilized": "# People Overutilized",
+      "underutilized": "# People Underutilized",
+      "optimal": "# People Optimally Utilized"
+    },
+    "empty": {
+      "title": "No Project Assignments Found",
+      "description": "Utilization is 0% because no people have been assigned to projects yet.",
+      "createAssignments": "Create assignments"
+    },
+    "charts": {
+      "byPerson": "Utilization by Person",
+      "byRole": "Utilization by Role",
+      "distribution": "Utilization Distribution"
+    },
+    "tables": {
+      "teamDetails": "Team Utilization Details"
+    }
+  },
+  "demand": {
+    "headers": {
+      "project": "Project",
+      "demand": "Demand"
+    },
+    "summary": {
+      "totalDemand": "Total Demand",
+      "projectsWithDemand": "# Projects with Demand",
+      "rolesWithDemand": "# Roles with Demand"
+    },
+    "empty": {
+      "title": "No Demand Data Found",
+      "description": "No project demand information is available for the selected date range.",
+      "createProjects": "Create projects"
+    },
+    "charts": {
+      "byProject": "Demand by Project",
+      "byRole": "Demand by Role",
+      "trend": "Demand Trend Over Time"
+    },
+    "tables": {
+      "highDemandProjects": "High-Demand Projects",
+      "highDemandRoles": "High-Demand Roles",
+      "emptyProjects": "No project demand data available",
+      "emptyRoles": "No role demand data available"
+    }
+  },
+  "gaps": {
+    "summary": {
+      "totalGapHours": "Total Gap in Hours",
+      "projectsWithGaps": "# Projects with Gaps",
+      "rolesWithGaps": "# Roles with Gaps",
+      "unutilizedHours": "# Unutilized Hours"
+    },
+    "empty": {
+      "title": "No Capacity Gaps Found",
+      "description": "Great! Your capacity matches demand perfectly for the selected date range."
+    },
+    "charts": {
+      "byProject": "Gaps by Project",
+      "byRole": "Gaps by Role",
+      "trend": "Gap Trend (Projected)"
+    },
+    "actionable": {
+      "projects": "Actionable Projects",
+      "criticalProjects": "Projects with Critical Gaps",
+      "coveredProjects": "Projects with Adequate Coverage",
+      "roles": "Actionable Roles",
+      "criticalRoles": "Roles with Critical Shortages",
+      "adequateRoles": "Roles with Adequate Capacity"
+    },
+    "percentAllocated": "{{value}}% allocated",
+    "hoursShort": "{{value}} hours short",
+    "hoursExcess": "{{value}} hours excess capacity"
+  },
+  "scenario": {
+    "currentLabel": "Current Scenario:",
+    "branchFrom": "(Branch from {{name}})",
+    "baseline": "Baseline"
+  },
+  "notifications": {
+    "nearlyFullCapacity": "{{name}} is nearly at full capacity ({{utilization}}%) for this timeframe. Only {{remaining}}% capacity remains.",
+    "noDataToExport": "No data available to export for the current tab.",
+    "exportError": "Error exporting data. Please try again."
+  }
+}

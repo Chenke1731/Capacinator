@@ -1,8 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { Plus, Edit2, Trash2, Eye, Calendar, AlertTriangle, Lightbulb, Play, Users, TrendingUp } from 'lucide-react';
 import { useBookmarkableTabs } from '../hooks/useBookmarkableTabs';
+import { getLocale } from '../i18n';
 import { api } from '../lib/api-client';
 import { queryKeys } from '../lib/queryKeys';
 import { DataTable, Column } from '../components/ui/DataTable';
@@ -17,21 +19,22 @@ import type { ProjectAssignment, Role } from '../types';
 import './Assignments.css';
 
 
-// Define assignments tabs configuration
-const assignmentTabs = [
-  { id: 'assignments', label: 'Assignments' },
-  { id: 'recommendations', label: 'Recommendations' }
-];
-
 export default function Assignments() {
   // console.log('Assignments component rendering');
-  
+
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const [searchParams] = useSearchParams();
   const { currentScenario } = useScenario();
   const [contextMessage, setContextMessage] = useState<string | null>(null);
-  
+
+  // Define assignments tabs configuration
+  const assignmentTabs = useMemo(() => [
+    { id: 'assignments', label: t('assignments:tabs.assignments') },
+    { id: 'recommendations', label: t('assignments:tabs.recommendations') }
+  ], [t]);
+
   // Use bookmarkable tabs for assignments
   const { activeTab, setActiveTab, isActiveTab } = useBookmarkableTabs({
     tabs: assignmentTabs,
@@ -60,15 +63,15 @@ export default function Assignments() {
 
     if (action && from) {
       let message = '';
-      
+
       if (action === 'assign' && personName) {
-        message = `Assign work to ${personName} (${status || 'underutilized'})`;
+        message = t('assignments:contextMessage.assign', { name: personName, status: status || t('assignments:contextMessage.underutilized') });
       } else if (action === 'reduce-load' && personName) {
-        message = `Reduce workload for ${personName} (${status || 'overutilized'})`;
+        message = t('assignments:contextMessage.reduceLoad', { name: personName, status: status || t('assignments:contextMessage.overutilized') });
       } else if (action === 'hire' && roleName) {
-        message = `Consider hiring for ${roleName} role`;
+        message = t('assignments:contextMessage.hire', { role: roleName });
       } else if (action === 'add-resources') {
-        message = 'Add resources to address capacity gaps';
+        message = t('assignments:contextMessage.addResources');
       }
       
       if (message) {
@@ -155,12 +158,12 @@ export default function Assignments() {
     },
     onError: (error) => {
       logger.error('Failed to update assignment', { error });
-      alert('Failed to update assignment. Please try again.');
+      alert(t('assignments:errors.updateFailed'));
     }
   });
 
   const handleDeleteAssignment = (assignmentId: string, assignmentInfo: string) => {
-    if (confirm(`Are you sure you want to delete the assignment "${assignmentInfo}"? This action cannot be undone.`)) {
+    if (confirm(t('assignments:deleteConfirm', { name: assignmentInfo }))) {
       deleteAssignmentMutation.mutate(assignmentId);
     }
   };
@@ -190,19 +193,29 @@ export default function Assignments() {
   };
 
   const formatDate = (date: string) => {
-    return new Date(date).toLocaleDateString();
+    return new Date(date).toLocaleDateString(getLocale());
   };
+
+  const getDateModeLabel = (mode?: string) =>
+    mode === 'phase' ? t('assignments:dateMode.phase')
+    : mode === 'project' ? t('assignments:dateMode.project')
+    : t('assignments:dateMode.fixed');
+
+  // Raw (lowercase in English) date-mode value used inside the computed-date tooltip
+  const getComputedDateModeLabel = (mode?: string) =>
+    mode === 'phase' ? t('assignments:computedDateMode.phase')
+    : mode === 'project' ? t('assignments:computedDateMode.project')
+    : t('assignments:computedDateMode.fixed');
 
   const columns: Column<ProjectAssignment>[] = [
     {
       key: 'project_name',
-      header: 'Project',
+      header: t('assignments:columns.project'),
       sortable: true,
       render: (value, row) => {
         const startDate = row.computed_start_date || row.start_date;
         const endDate = row.computed_end_date || row.end_date;
-        const modeLabel = row.assignment_date_mode === 'phase' ? 'Phase' :
-                         row.assignment_date_mode === 'project' ? 'Project' : 'Fixed';
+        const modeLabel = getDateModeLabel(row.assignment_date_mode);
 
         return (
           <div className="project-info" style={{ minWidth: '200px' }}>
@@ -225,7 +238,7 @@ export default function Assignments() {
                   fontWeight: '500',
                   whiteSpace: 'nowrap'
                 }}>
-                  {row.scenario_name || 'Scenario'}
+                  {row.scenario_name || t('assignments:scenario')}
                 </span>
               )}
             </div>
@@ -246,12 +259,12 @@ export default function Assignments() {
     },
     {
       key: 'person_name',
-      header: 'Person',
+      header: t('assignments:columns.person'),
       sortable: true
     },
     {
       key: 'role_name',
-      header: 'Role',
+      header: t('assignments:columns.role'),
       sortable: true,
       render: (value, row) => (
         <InlineEdit
@@ -273,7 +286,7 @@ export default function Assignments() {
     },
     {
       key: 'allocation_percentage',
-      header: 'Allocation',
+      header: t('assignments:columns.allocation'),
       sortable: true,
       render: (value, row) => {
         const getBadgeStyle = (percentage: number) => {
@@ -369,7 +382,7 @@ export default function Assignments() {
     },
     {
       key: 'start_date',
-      header: 'Start Date',
+      header: t('common:startDate'),
       sortable: true,
       render: (value, row) => {
         const dateValue = row.computed_start_date || value;
@@ -406,14 +419,14 @@ export default function Assignments() {
                 e.target.style.background = 'var(--bg-secondary)';
               }
             }}
-            title={isComputed ? `Computed from ${row.assignment_date_mode} dates` : 'Click to edit'}
+            title={isComputed ? t('assignments:computedDateTitle', { mode: getComputedDateModeLabel(row.assignment_date_mode) }) : t('assignments:clickToEdit')}
           />
         );
       }
     },
     {
       key: 'end_date',
-      header: 'End Date',
+      header: t('common:endDate'),
       sortable: true,
       render: (value, row) => {
         const dateValue = row.computed_end_date || value;
@@ -450,14 +463,14 @@ export default function Assignments() {
                 e.target.style.background = 'var(--bg-secondary)';
               }
             }}
-            title={isComputed ? `Computed from ${row.assignment_date_mode} dates` : 'Click to edit'}
+            title={isComputed ? t('assignments:computedDateTitle', { mode: getComputedDateModeLabel(row.assignment_date_mode) }) : t('assignments:clickToEdit')}
           />
         );
       }
     },
     {
       key: 'duration',
-      header: 'Duration',
+      header: t('assignments:columns.duration'),
       render: (_, row) => {
         const startDate = row.computed_start_date || row.start_date;
         const endDate = row.computed_end_date || row.end_date;
@@ -465,17 +478,17 @@ export default function Assignments() {
         const end = new Date(endDate);
         const days = Math.ceil((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24));
         const weeks = Math.round(days / 7);
-        return weeks > 0 ? `${weeks}w` : `${days}d`;
+        return weeks > 0 ? t('assignments:durationWeeks', { weeks }) : t('assignments:durationDays', { days });
       }
     },
     {
       key: 'notes',
-      header: 'Notes',
+      header: t('assignments:columns.notes'),
       render: (value, row) => (
         <input
           type="text"
           defaultValue={value || ''}
-          placeholder="Add notes..."
+          placeholder={t('assignments:notesPlaceholder')}
           onBlur={(e) => {
             const newValue = e.target.value;
             if (newValue !== (value || '')) {
@@ -514,7 +527,7 @@ export default function Assignments() {
     },
     {
       key: 'actions',
-      header: 'Actions',
+      header: t('common:actions'),
       width: '120px',
       render: (_, row) => (
         <div className="table-actions">
@@ -524,7 +537,7 @@ export default function Assignments() {
               e.stopPropagation();
               navigate(`/projects/${row.project_id}`);
             }}
-            title="View Project"
+            title={t('assignments:viewProject')}
           >
             <Eye size={16} />
           </button>
@@ -534,7 +547,7 @@ export default function Assignments() {
               e.stopPropagation();
               handleEditAssignment(row);
             }}
-            title="Edit"
+            title={t('common:edit')}
           >
             <Edit2 size={16} />
           </button>
@@ -544,7 +557,7 @@ export default function Assignments() {
               e.stopPropagation();
               handleDeleteAssignment(row.id, `${row.person_name} - ${row.project_name}`);
             }}
-            title="Delete"
+            title={t('common:delete')}
           >
             <Trash2 size={16} />
           </button>
@@ -556,38 +569,38 @@ export default function Assignments() {
   const filterConfig = [
     {
       name: 'search',
-      label: 'Search',
+      label: t('common:search'),
       type: 'search' as const,
-      placeholder: 'Search assignments...'
+      placeholder: t('assignments:searchPlaceholder')
     },
     {
       name: 'project_id',
-      label: 'Project',
+      label: t('assignments:fields.project'),
       type: 'select' as const,
       options: projects?.data?.map(project => ({ value: project.id, label: project.name })) || []
     },
     {
       name: 'person_id',
-      label: 'Person',
+      label: t('assignments:fields.person'),
       type: 'select' as const,
       options: people?.data?.map(person => ({ value: person.id, label: person.name })) || []
     },
     {
       name: 'role_id',
-      label: 'Role',
+      label: t('assignments:fields.role'),
       type: 'select' as const,
       options: Array.isArray(roles) ? roles.map(role => ({ value: role.id, label: role.name })) : []
     },
     {
       name: 'date_range',
-      label: 'Date Range',
+      label: t('assignments:filters.dateRange'),
       type: 'select' as const,
       options: [
-        { value: 'current', label: 'Current' },
-        { value: 'upcoming', label: 'Upcoming' },
-        { value: 'past', label: 'Past' },
-        { value: 'this_month', label: 'This Month' },
-        { value: 'next_month', label: 'Next Month' }
+        { value: 'current', label: t('assignments:filters.current') },
+        { value: 'upcoming', label: t('assignments:filters.upcoming') },
+        { value: 'past', label: t('assignments:filters.past') },
+        { value: 'this_month', label: t('assignments:filters.thisMonth') },
+        { value: 'next_month', label: t('assignments:filters.nextMonth') }
       ]
     }
   ];
@@ -597,7 +610,7 @@ export default function Assignments() {
   }
 
   if (assignmentsError) {
-    return <ErrorMessage message="Failed to load assignments" details={assignmentsError.message} />;
+    return <ErrorMessage message={t('assignments:errors.loadFailed')} details={assignmentsError.message} />;
   }
 
   const renderAssignmentsTab = () => (
@@ -626,6 +639,12 @@ export default function Assignments() {
     const recommendations = recommendationsData?.recommendations || [];
     const currentState = recommendationsData?.current_state;
 
+    const priorityLabels: Record<string, string> = {
+      high: t('assignments:rec.priority.high'),
+      medium: t('assignments:rec.priority.medium'),
+      low: t('assignments:rec.priority.low')
+    };
+
     return (
       <div className="recommendations-container">
         {/* Current State Summary */}
@@ -639,32 +658,32 @@ export default function Assignments() {
           }}>
             <h3 style={{ margin: '0 0 1rem 0', color: 'var(--text-primary)' }}>
               <TrendingUp size={20} style={{ marginRight: '0.5rem' }} />
-              Current System State
+              {t('assignments:rec.systemState')}
             </h3>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem' }}>
               <div className="state-metric">
                 <div style={{ fontSize: '1.5rem', fontWeight: 'bold', color: currentState.summary?.overallocated_people > 0 ? 'var(--danger)' : 'var(--success)' }}>
                   {currentState.summary?.overallocated_people || 0}
                 </div>
-                <div style={{ fontSize: '0.875rem', color: 'var(--text-secondary)' }}>Overallocated People</div>
+                <div style={{ fontSize: '0.875rem', color: 'var(--text-secondary)' }}>{t('assignments:rec.overallocatedPeople')}</div>
               </div>
               <div className="state-metric">
                 <div style={{ fontSize: '1.5rem', fontWeight: 'bold', color: currentState.summary?.underutilized_people > 0 ? 'var(--warning)' : 'var(--success)' }}>
                   {currentState.summary?.underutilized_people || 0}
                 </div>
-                <div style={{ fontSize: '0.875rem', color: 'var(--text-secondary)' }}>Underutilized People</div>
+                <div style={{ fontSize: '0.875rem', color: 'var(--text-secondary)' }}>{t('assignments:rec.underutilizedPeople')}</div>
               </div>
               <div className="state-metric">
                 <div style={{ fontSize: '1.5rem', fontWeight: 'bold', color: currentState.summary?.capacity_gaps > 0 ? 'var(--danger)' : 'var(--success)' }}>
                   {currentState.summary?.capacity_gaps || 0}
                 </div>
-                <div style={{ fontSize: '0.875rem', color: 'var(--text-secondary)' }}>Capacity Gaps</div>
+                <div style={{ fontSize: '0.875rem', color: 'var(--text-secondary)' }}>{t('assignments:rec.capacityGaps')}</div>
               </div>
               <div className="state-metric">
                 <div style={{ fontSize: '1.5rem', fontWeight: 'bold', color: 'var(--primary)' }}>
                   {currentState.summary?.unassigned_projects || 0}
                 </div>
-                <div style={{ fontSize: '0.875rem', color: 'var(--text-secondary)' }}>Unassigned Projects</div>
+                <div style={{ fontSize: '0.875rem', color: 'var(--text-secondary)' }}>{t('assignments:rec.unassignedProjects')}</div>
               </div>
             </div>
           </div>
@@ -674,57 +693,57 @@ export default function Assignments() {
         {recommendations.length === 0 ? (
           <div style={{ textAlign: 'center', padding: '3rem', color: 'var(--text-secondary)' }}>
             <Lightbulb size={48} style={{ marginBottom: '1rem', opacity: 0.5 }} />
-            <h3>No recommendations available</h3>
-            <p>Your team allocation is already optimized, or there are no actionable recommendations at this time.</p>
+            <h3>{t('assignments:rec.emptyTitle')}</h3>
+            <p>{t('assignments:rec.emptyDescription')}</p>
           </div>
         ) : (
           <div className="table-container">
             <table className="data-table recommendations-table">
               <thead>
                 <tr>
-                  <th style={{ width: '6%', minWidth: '80px' }}>Priority</th>
-                  <th style={{ width: '12%', minWidth: '150px' }}>Person</th>
-                  <th style={{ width: '20%', minWidth: '250px' }}>Project</th>
-                  <th style={{ width: '10%', minWidth: '120px' }}>Role</th>
-                  <th style={{ width: '8%', minWidth: '80px' }}>Allocation</th>
-                  <th style={{ width: '12%', minWidth: '140px' }}>Period</th>
-                  <th style={{ width: '8%', minWidth: '80px' }}>Confidence</th>
-                  <th style={{ width: '18%' }}>Impact</th>
-                  <th style={{ width: '6%', minWidth: '100px' }}>Actions</th>
+                  <th style={{ width: '6%', minWidth: '80px' }}>{t('assignments:rec.headers.priority')}</th>
+                  <th style={{ width: '12%', minWidth: '150px' }}>{t('assignments:columns.person')}</th>
+                  <th style={{ width: '20%', minWidth: '250px' }}>{t('assignments:columns.project')}</th>
+                  <th style={{ width: '10%', minWidth: '120px' }}>{t('assignments:columns.role')}</th>
+                  <th style={{ width: '8%', minWidth: '80px' }}>{t('assignments:columns.allocation')}</th>
+                  <th style={{ width: '12%', minWidth: '140px' }}>{t('assignments:rec.headers.period')}</th>
+                  <th style={{ width: '8%', minWidth: '80px' }}>{t('assignments:rec.headers.confidence')}</th>
+                  <th style={{ width: '18%' }}>{t('assignments:rec.headers.impact')}</th>
+                  <th style={{ width: '6%', minWidth: '100px' }}>{t('common:actions')}</th>
                 </tr>
               </thead>
               <tbody>
                 {recommendations.map((rec) => {
                   // For simple recommendations, extract the first action details
                   const primaryAction = rec.actions[0];
-                  const startDate = primaryAction?.start_date ? new Date(primaryAction.start_date).toLocaleDateString('en-US', { month: 'short', year: 'numeric' }) : '';
-                  const endDate = primaryAction?.end_date ? new Date(primaryAction.end_date).toLocaleDateString('en-US', { month: 'short', year: 'numeric' }) : '';
+                  const startDate = primaryAction?.start_date ? new Date(primaryAction.start_date).toLocaleDateString(getLocale(), { month: 'short', year: 'numeric' }) : '';
+                  const endDate = primaryAction?.end_date ? new Date(primaryAction.end_date).toLocaleDateString(getLocale(), { month: 'short', year: 'numeric' }) : '';
                   
                   return (
                     <tr key={rec.id}>
                       <td>
                         <span className={`priority-badge ${rec.priority}`}>
-                          {rec.priority}
+                          {priorityLabels[rec.priority] || rec.priority}
                         </span>
                       </td>
                       <td>
                         <div className="person-info">
-                          <strong>{primaryAction?.person_name || 'Multiple'}</strong>
+                          <strong>{primaryAction?.person_name || t('assignments:rec.multiple')}</strong>
                           {rec.type === 'complex' && (
-                            <span className="text-secondary text-sm"> +{rec.actions.length - 1} more</span>
+                            <span className="text-secondary text-sm"> {t('assignments:rec.more', { number: rec.actions.length - 1 })}</span>
                           )}
                         </div>
                       </td>
                       <td>
                         <div className="project-info">
                           <span title={primaryAction?.project_name}>
-                            {primaryAction?.project_name || 'Multiple Projects'}
+                            {primaryAction?.project_name || t('assignments:rec.multipleProjects')}
                           </span>
                         </div>
                       </td>
                       <td>
                         <span className="role-badge">
-                          {primaryAction?.role_name || 'Various'}
+                          {primaryAction?.role_name || t('assignments:rec.various')}
                         </span>
                       </td>
                       <td>
@@ -734,7 +753,7 @@ export default function Assignments() {
                       </td>
                       <td>
                         <div className="period-info text-sm">
-                          {startDate && endDate ? `${startDate} - ${endDate}` : 'TBD'}
+                          {startDate && endDate ? `${startDate} - ${endDate}` : t('assignments:rec.tbd')}
                         </div>
                       </td>
                       <td>
@@ -753,8 +772,7 @@ export default function Assignments() {
                             className="btn btn-sm btn-primary"
                             onClick={async () => {
                               const confirmed = window.confirm(
-                                `Are you sure you want to execute "${rec.title}"?\n\n` +
-                                `This will make ${rec.actions.length} changes to assignments.`
+                                t('assignments:rec.executeConfirm', { title: rec.title, number: rec.actions.length })
                               );
                               
                               if (confirmed) {
@@ -764,14 +782,14 @@ export default function Assignments() {
                                   refetchRecommendations();
                                 } catch (error) {
                                   logger.error('Failed to execute recommendation', { error });
-                                  alert('Failed to execute recommendation. Please try again.');
+                                  alert(t('assignments:rec.executeFailed'));
                                 }
                               }
                             }}
                             title={rec.title}
                           >
                             <Play size={14} />
-                            Execute
+                            {t('assignments:rec.execute')}
                           </button>
                         </div>
                       </td>
@@ -790,8 +808,8 @@ export default function Assignments() {
     <div className="page-container">
       <div className="page-header">
         <div>
-          <h1>Assignments</h1>
-          <p className="text-muted">Manage project resource assignments and optimization recommendations</p>
+          <h1>{t('assignments:title')}</h1>
+          <p className="text-muted">{t('assignments:subtitle')}</p>
           {contextMessage && (
             <div className="context-message">
               <AlertTriangle size={16} />
@@ -807,14 +825,14 @@ export default function Assignments() {
                 onClick={() => setIsAddModalOpen(true)}
               >
                 <Plus size={16} />
-                New Assignment
+                {t('assignments:newAssignment')}
               </button>
               <button
                 className="btn btn-secondary"
                 onClick={() => navigate('/assignments/calendar')}
               >
                 <Calendar size={16} />
-                Calendar View
+                {t('assignments:calendarView')}
               </button>
             </>
           )}
@@ -824,7 +842,7 @@ export default function Assignments() {
               onClick={refetchRecommendations}
             >
               <Lightbulb size={16} />
-              Refresh Recommendations
+              {t('assignments:rec.refresh')}
             </button>
           )}
         </div>
@@ -853,7 +871,7 @@ export default function Assignments() {
             }}
           >
             <Users size={16} />
-            Assignments ({assignments?.length || 0})
+            {t('assignments:tabs.assignmentsCount', { number: assignments?.length || 0 })}
           </button>
           <button
             className={`tab-button ${isActiveTab('recommendations') ? 'active' : ''}`}
@@ -872,7 +890,7 @@ export default function Assignments() {
             }}
           >
             <Lightbulb size={16} />
-            Recommendations {recommendationsData?.recommendations?.length > 0 ? `(${recommendationsData.recommendations.length})` : ''}
+            {t('assignments:tabs.recommendations')} {recommendationsData?.recommendations?.length > 0 ? `(${recommendationsData.recommendations.length})` : ''}
           </button>
         </div>
       </div>

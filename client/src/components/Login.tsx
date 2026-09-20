@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
+import { useTranslation } from 'react-i18next';
 import { api } from '../lib/api-client';
 import { queryKeys } from '../lib/queryKeys';
 import type { Person } from '../types';
@@ -14,6 +15,7 @@ interface LoginProps {
 }
 
 export const Login: React.FC<LoginProps> = ({ onClose }) => {
+  const { t } = useTranslation();
   const [selectedPersonId, setSelectedPersonId] = useState<string>('');
   const [loginError, setLoginError] = useState<string | null>(null);
   const [isLoggingIn, setIsLoggingIn] = useState(false);
@@ -50,7 +52,7 @@ export const Login: React.FC<LoginProps> = ({ onClose }) => {
       }
     } catch (err) {
       console.error('Login failed:', err);
-      setLoginError('Failed to log in. Please try again.');
+      setLoginError(t('auth:loginFailed'));
     } finally {
       setIsLoggingIn(false);
     }
@@ -69,13 +71,13 @@ export const Login: React.FC<LoginProps> = ({ onClose }) => {
           onEscapeKeyDown={(e) => e.preventDefault()}
         >
           <DialogHeader className="pb-4">
-            <DialogTitle className="text-xl font-semibold">Select Your Profile</DialogTitle>
+            <DialogTitle className="text-xl font-semibold">{t('auth:selectYourProfile')}</DialogTitle>
             <DialogDescription className="text-muted-foreground">
-              Choose your profile to personalize your experience
+              {t('auth:chooseProfile')}
             </DialogDescription>
           </DialogHeader>
           <div className="flex items-center justify-center py-12">
-            <div className="text-muted-foreground">Loading employees...</div>
+            <div className="text-muted-foreground">{t('auth:loadingEmployees')}</div>
           </div>
         </DialogContent>
       </Dialog>
@@ -91,14 +93,14 @@ export const Login: React.FC<LoginProps> = ({ onClose }) => {
           onEscapeKeyDown={(e) => e.preventDefault()}
         >
           <DialogHeader className="pb-4">
-            <DialogTitle className="text-xl font-semibold">Error</DialogTitle>
+            <DialogTitle className="text-xl font-semibold">{t('common:error')}</DialogTitle>
             <DialogDescription className="text-muted-foreground">
-              Failed to load employee list. Please try again.
+              {t('auth:loadEmployeesFailed')}
             </DialogDescription>
           </DialogHeader>
           <DialogFooter className="pt-6 border-t border-border/50">
             <Button onClick={() => window.location.reload()} className="min-w-[100px]">
-              Retry
+              {t('common:retry')}
             </Button>
           </DialogFooter>
         </DialogContent>
@@ -115,17 +117,17 @@ export const Login: React.FC<LoginProps> = ({ onClose }) => {
         onEscapeKeyDown={(e) => e.preventDefault()}
       >
         <DialogHeader className="space-y-1.5 pb-4">
-          <DialogTitle className="text-lg font-semibold">Select Your Profile</DialogTitle>
+          <DialogTitle className="text-lg font-semibold">{t('auth:selectYourProfile')}</DialogTitle>
           <DialogDescription className="text-sm text-muted-foreground">
-            Choose your profile to personalize your experience
+            {t('auth:chooseProfile')}
           </DialogDescription>
         </DialogHeader>
         <form onSubmit={(e) => { e.preventDefault(); handleLogin(); }} className="space-y-6">
           <div className="space-y-2">
-            <Label htmlFor="person-select" className="text-sm font-medium">Who are you?</Label>
+            <Label htmlFor="person-select" className="text-sm font-medium">{t('auth:whoAreYou')}</Label>
             <Select value={selectedPersonId} onValueChange={handlePersonSelect}>
               <SelectTrigger id="person-select" className="w-full">
-                <SelectValue placeholder="Select your name..." />
+                <SelectValue placeholder={t('auth:selectNamePlaceholder')} />
               </SelectTrigger>
               <SelectContent>
                 {people?.map((person) => (
@@ -148,10 +150,10 @@ export const Login: React.FC<LoginProps> = ({ onClose }) => {
                 disabled={!selectedPersonId || isLoggingIn}
                 className="w-full"
               >
-                {isLoggingIn ? 'Signing in...' : 'Continue'}
+                {isLoggingIn ? t('auth:signingIn') : t('auth:continue')}
               </Button>
               <p className="text-sm text-muted-foreground text-center">
-                Your selection will be saved for future visits
+                {t('auth:savedForFuture')}
               </p>
             </div>
           </DialogFooter>

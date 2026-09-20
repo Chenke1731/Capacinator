@@ -7,6 +7,7 @@
  */
 
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { useGitSync } from '../../contexts/GitSyncContext';
 
 interface SyncButtonProps {
@@ -17,9 +18,10 @@ interface SyncButtonProps {
 
 export const SyncButton: React.FC<SyncButtonProps> = ({
   variant = 'primary',
-  label = 'Save & Sync',
+  label,
   onSyncComplete
 }) => {
+  const { t } = useTranslation();
   const { status, sync, isOnline } = useGitSync();
 
   const handleClick = async () => {
@@ -43,15 +45,15 @@ export const SyncButton: React.FC<SyncButtonProps> = ({
       onClick={handleClick}
       disabled={isDisabled}
       className={`${baseClasses} ${variantClasses}`}
-      title={!isOnline ? 'Cannot sync while offline - changes will be queued' : undefined}
+      title={!isOnline ? t('gitSync:button.offlineTitle') : undefined}
     >
       {status === 'syncing' ? (
         <>
           <span className="inline-block animate-spin mr-2">↻</span>
-          Syncing...
+          {t('gitSync:button.syncing')}
         </>
       ) : (
-        label
+        label ?? t('gitSync:button.label')
       )}
     </button>
   );

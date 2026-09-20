@@ -1,8 +1,10 @@
 import React, { useState, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { ArrowLeft, Save, X } from 'lucide-react';
 import { api } from '../lib/api-client';
+import { validateName } from '../lib/validation';
 import './PersonDetails.css'; // Reuse existing styles
 
 interface PersonFormData {
@@ -23,6 +25,7 @@ interface PersonFormData {
 }
 
 export function PersonNew() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   
@@ -119,10 +122,11 @@ export function PersonNew() {
     
     // Basic validation
     const newErrors: Record<string, string> = {};
-    if (!formData.name.trim()) newErrors.name = 'Name is required';
-    if (!formData.email.trim()) newErrors.email = 'Email is required';
-    if (formData.email && !formData.email.includes('@')) newErrors.email = 'Valid email is required';
-    if (!formData.primary_role_id) newErrors.primary_role_id = 'Primary role is required';
+    const nameValidation = validateName(formData.name, t('people:fields.name'));
+    if (nameValidation !== true) newErrors.name = nameValidation;
+    if (!formData.email.trim()) newErrors.email = t('validation:emailRequired');
+    if (formData.email && !formData.email.includes('@')) newErrors.email = t('people:validation.validEmailRequired');
+    if (!formData.primary_role_id) newErrors.primary_role_id = t('people:validation.primaryRoleRequired');
 
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
@@ -190,20 +194,20 @@ export function PersonNew() {
           <button className="btn btn-icon" onClick={handleCancel}>
             <ArrowLeft size={20} />
           </button>
-          <h1>New Person</h1>
+          <h1>{t('people:newPerson')}</h1>
         </div>
         <div className="header-actions">
           <button className="btn btn-secondary" onClick={handleCancel}>
             <X size={20} />
-            Cancel
+            {t('common:cancel')}
           </button>
-          <button 
-            className="btn btn-primary" 
+          <button
+            className="btn btn-primary"
             onClick={handleSubmit}
             disabled={createPersonMutation.isPending}
           >
             <Save size={20} />
-            {createPersonMutation.isPending ? 'Creating...' : 'Create Person'}
+            {createPersonMutation.isPending ? t('people:creating') : t('people:createPerson')}
           </button>
         </div>
       </div>
@@ -213,25 +217,25 @@ export function PersonNew() {
           {/* Basic Information Section */}
           <div className="detail-section">
             <div className="section-header">
-              <h2>Basic Information</h2>
+              <h2>{t('people:basicInformation')}</h2>
             </div>
-            
+
             <div className="section-content">
               <div className="info-grid">
                 <div className="info-item">
-                  <label>Name *</label>
+                  <label>{t('people:fields.name')} *</label>
                   <input
                     type="text"
                     value={formData.name}
                     onChange={(e) => handleChange('name', e.target.value)}
                     className={`form-input ${errors.name ? 'error' : ''}`}
-                    placeholder="Enter full name"
+                    placeholder={t('people:placeholders.fullName')}
                   />
                   {errors.name && <span className="error-text">{errors.name}</span>}
                 </div>
 
                 <div className="info-item">
-                  <label>Email *</label>
+                  <label>{t('people:fields.email')} *</label>
                   <input
                     type="email"
                     value={formData.email}
@@ -243,46 +247,46 @@ export function PersonNew() {
                 </div>
 
                 <div className="info-item">
-                  <label>Phone</label>
+                  <label>{t('people:fields.phone')}</label>
                   <input
                     type="tel"
                     value={formData.phone}
                     onChange={(e) => handleChange('phone', e.target.value)}
                     className="form-input"
-                    placeholder="Phone number"
+                    placeholder={t('people:placeholders.phoneShort')}
                   />
                 </div>
 
                 <div className="info-item">
-                  <label>Title</label>
+                  <label>{t('people:fields.title')}</label>
                   <input
                     type="text"
                     value={formData.title}
                     onChange={(e) => handleChange('title', e.target.value)}
                     className="form-input"
-                    placeholder="Job title"
+                    placeholder={t('people:placeholders.titleShort')}
                   />
                 </div>
 
                 <div className="info-item">
-                  <label>Department</label>
+                  <label>{t('people:fields.department')}</label>
                   <input
                     type="text"
                     value={formData.department}
                     onChange={(e) => handleChange('department', e.target.value)}
                     className="form-input"
-                    placeholder="Department"
+                    placeholder={t('people:placeholders.departmentShort')}
                   />
                 </div>
 
                 <div className="info-item">
-                  <label>Location</label>
+                  <label>{t('people:fields.location')}</label>
                   <select
                     value={formData.location_id}
                     onChange={(e) => handleChange('location_id', e.target.value)}
                     className="form-select"
                   >
-                    <option value="">Select location</option>
+                    <option value="">{t('people:placeholders.selectLocation')}</option>
                     {locations?.map((loc: any) => (
                       <option key={loc.id} value={loc.id}>{loc.name}</option>
                     ))}
@@ -290,57 +294,57 @@ export function PersonNew() {
                 </div>
 
                 <div className="info-item">
-                  <label>Primary Role *</label>
+                  <label>{t('people:fields.primaryRole')} *</label>
                   <select
                     value={formData.primary_role_id}
                     onChange={(e) => handleChange('primary_role_id', e.target.value)}
                     className={`form-select ${errors.primary_role_id ? 'error' : ''}`}
                   >
-                    <option value="">Select primary role</option>
+                    <option value="">{t('people:placeholders.selectPrimaryRole')}</option>
                     {filteredRoles?.map((role: any) => (
                       <option key={role.id} value={role.id}>{role.name}</option>
                     ))}
                   </select>
                   {errors.primary_role_id && <span className="error-text">{errors.primary_role_id}</span>}
                   {(formData.location_id || formData.department) && filteredRoles.length === 0 && (
-                    <span className="warning-text">No roles available for selected location/department</span>
+                    <span className="warning-text">{t('people:noRolesForSelection')}</span>
                   )}
                 </div>
 
                 <div className="info-item">
-                  <label>Supervisor</label>
+                  <label>{t('people:fields.supervisor')}</label>
                   <select
                     value={formData.supervisor_id}
                     onChange={(e) => handleChange('supervisor_id', e.target.value)}
                     className="form-select"
                   >
-                    <option value="">No supervisor</option>
+                    <option value="">{t('people:select.noSupervisor')}</option>
                     {filteredSupervisors?.map((person: any) => (
                       <option key={person.id} value={person.id}>
-                        {person.name} {person.location_id === formData.location_id ? '(Same Location)' : ''}
+                        {person.name} {person.location_id === formData.location_id ? t('people:select.sameLocation') : ''}
                       </option>
                     ))}
                   </select>
                   {formData.location_id && filteredSupervisors.length === 0 && (
-                    <span className="info-text">No supervisors available for selected location</span>
+                    <span className="info-text">{t('people:noSupervisorsForLocation')}</span>
                   )}
                 </div>
 
                 <div className="info-item">
-                  <label>Worker Type</label>
+                  <label>{t('people:fields.workerType')}</label>
                   <select
                     value={formData.worker_type}
                     onChange={(e) => handleChange('worker_type', e.target.value)}
                     className="form-select"
                   >
-                    <option value="FTE">Full-Time Employee</option>
-                    <option value="CONTRACT">Contractor</option>
-                    <option value="INTERN">Intern</option>
+                    <option value="FTE">{t('people:workerTypeOptions.fullTimeEmployeeTitle')}</option>
+                    <option value="CONTRACT">{t('people:workerTypeOptions.contractor')}</option>
+                    <option value="INTERN">{t('people:workerTypeOptions.intern')}</option>
                   </select>
                 </div>
 
                 <div className="info-item">
-                  <label>Default Availability (%)</label>
+                  <label>{t('people:fields.defaultAvailability')}</label>
                   <input
                     type="number"
                     value={formData.default_availability_percentage}
@@ -352,7 +356,7 @@ export function PersonNew() {
                 </div>
 
                 <div className="info-item">
-                  <label>Default Hours per Day</label>
+                  <label>{t('people:fields.defaultHoursPerDay')}</label>
                   <input
                     type="number"
                     value={formData.default_hours_per_day}
@@ -364,7 +368,7 @@ export function PersonNew() {
                 </div>
 
                 <div className="info-item">
-                  <label>Start Date</label>
+                  <label>{t('common:startDate')}</label>
                   <input
                     type="date"
                     value={formData.start_date}
@@ -374,7 +378,7 @@ export function PersonNew() {
                 </div>
 
                 <div className="info-item">
-                  <label>End Date</label>
+                  <label>{t('common:endDate')}</label>
                   <input
                     type="date"
                     value={formData.end_date}
@@ -384,15 +388,15 @@ export function PersonNew() {
                 </div>
 
                 <div className="info-item">
-                  <label>Status</label>
+                  <label>{t('common:status')}</label>
                   <select
                     value={formData.status}
                     onChange={(e) => handleChange('status', e.target.value)}
                     className="form-select"
                   >
-                    <option value="active">Active</option>
-                    <option value="inactive">Inactive</option>
-                    <option value="on_leave">On Leave</option>
+                    <option value="active">{t('people:personStatus.active')}</option>
+                    <option value="inactive">{t('people:personStatus.inactive')}</option>
+                    <option value="on_leave">{t('people:personStatus.onLeave')}</option>
                   </select>
                 </div>
               </div>
@@ -402,7 +406,7 @@ export function PersonNew() {
           {/* Error display */}
           {createPersonMutation.isError && (
             <div className="error-message">
-              Failed to create person. Please check your inputs and try again.
+              {t('people:createFailed')}
             </div>
           )}
         </form>

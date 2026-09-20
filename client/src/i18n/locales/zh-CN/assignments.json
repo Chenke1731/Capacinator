@@ -1,0 +1,194 @@
+{
+  "title": "分配",
+  "subtitle": "管理项目资源分配与优化建议",
+  "newAssignment": "新建分配",
+  "calendarView": "日历视图",
+  "tabs": {
+    "assignments": "分配",
+    "recommendations": "建议",
+    "assignmentsCount": "分配 ({{number}})"
+  },
+  "columns": {
+    "project": "项目",
+    "person": "人员",
+    "role": "角色",
+    "allocation": "分配比例",
+    "duration": "持续时间",
+    "notes": "备注"
+  },
+  "fields": {
+    "project": "项目",
+    "person": "人员",
+    "role": "角色",
+    "phase": "阶段",
+    "startDate": "开始日期",
+    "endDate": "结束日期"
+  },
+  "dateMode": {
+    "fixed": "固定",
+    "phase": "阶段",
+    "project": "项目"
+  },
+  "dateModeOptions": {
+    "fixed": "固定日期",
+    "phase": "阶段对齐",
+    "project": "项目对齐"
+  },
+  "computedDateMode": {
+    "fixed": "固定",
+    "phase": "阶段",
+    "project": "项目"
+  },
+  "computedDateTitle": "根据{{mode}}日期计算",
+  "clickToEdit": "点击编辑",
+  "scenario": "场景",
+  "durationWeeks": "{{weeks}}周",
+  "durationDays": "{{days}}天",
+  "notesPlaceholder": "添加备注…",
+  "viewProject": "查看项目",
+  "searchPlaceholder": "搜索分配…",
+  "filters": {
+    "dateRange": "日期范围",
+    "current": "当前",
+    "upcoming": "即将开始",
+    "past": "已结束",
+    "thisMonth": "本月",
+    "nextMonth": "下月"
+  },
+  "contextMessage": {
+    "assign": "为 {{name}} 分配工作 ({{status}})",
+    "reduceLoad": "为 {{name}} 减轻工作负荷 ({{status}})",
+    "underutilized": "利用率不足",
+    "overutilized": "超负荷",
+    "hire": "考虑为 {{role}} 角色招聘",
+    "addResources": "添加资源以解决产能缺口"
+  },
+  "errors": {
+    "loadFailed": "加载分配失败",
+    "updateFailed": "更新分配失败,请重试。"
+  },
+  "deleteConfirm": "确定要删除分配“{{name}}”吗?此操作无法撤销。",
+  "modal": {
+    "createTitle": "新建分配",
+    "editTitle": "编辑分配",
+    "createDescription": "填写信息以创建新分配。",
+    "editDescription": "请在下方更新分配详情。",
+    "fixErrors": "请先修正下方的错误再提交。"
+  },
+  "form": {
+    "selectProject": "选择项目",
+    "selectPerson": "选择人员",
+    "selectRole": "选择角色",
+    "selectPhaseOptional": "选择阶段(可选)",
+    "allocationPercent": "分配比例 %",
+    "dateMode": "日期模式",
+    "notes": "备注",
+    "notesPlaceholder": "关于此分配的其他备注…",
+    "notesDescription": "关于此分配的可选补充备注",
+    "billable": "可计费分配",
+    "billableDescription": "将此分配标记为可向客户计费",
+    "requiredSrOnly": "(必填)",
+    "unknownPhase": "未知阶段",
+    "creating": "创建中…",
+    "updating": "更新中…",
+    "create": "创建分配",
+    "update": "更新分配"
+  },
+  "rec": {
+    "refresh": "刷新建议",
+    "systemState": "当前系统状态",
+    "overallocatedPeople": "超负荷人员",
+    "underutilizedPeople": "利用率不足人员",
+    "capacityGaps": "产能缺口",
+    "unassignedProjects": "未分配项目",
+    "emptyTitle": "暂无可用的建议",
+    "emptyDescription": "团队分配已达到最优,当前没有可操作的建议。",
+    "headers": {
+      "priority": "优先级",
+      "period": "时间段",
+      "confidence": "置信度",
+      "impact": "影响"
+    },
+    "priority": {
+      "high": "高",
+      "medium": "中",
+      "low": "低"
+    },
+    "multiple": "多人",
+    "multipleProjects": "多个项目",
+    "various": "多种角色",
+    "more": "+{{number}} 项",
+    "tbd": "待定",
+    "execute": "执行",
+    "executeConfirm": "确定要执行“{{title}}”吗?\n\n这将对分配进行 {{number}} 处更改。",
+    "executeFailed": "执行建议失败,请重试。"
+  },
+  "smart": {
+    "title": "{{name}} 的智能分配",
+    "description": "为 {{name}} 创建新分配",
+    "currentUtilization": "当前利用率",
+    "availableCapacity": "可用产能",
+    "activeAssignments": "项进行中的分配",
+    "tab": {
+      "recommended": "推荐分配",
+      "manual": "手动选择"
+    },
+    "fit": {
+      "excellent": "极佳匹配",
+      "good": "良好匹配",
+      "partial": "部分匹配"
+    },
+    "suggestedAllocation": "建议分配比例:{{allocation}}%",
+    "priorityLabel": "优先级:",
+    "emptyRecommendations": "暂无特定的项目推荐。",
+    "emptyRecommendationsHint": "切换到手动选择可选择任意项目。",
+    "selectedAssignment": "已选分配",
+    "selectToRemove": "请选择要移除的分配:",
+    "removingHint": "移除分配将为 {{name}} 释放产能。",
+    "unknownProject": "未知项目",
+    "unknownRole": "未知角色",
+    "noId": "(无 ID)",
+    "allocationAmount": "{{amount}}% 分配比例",
+    "cannotDeleteMissingId": "无法删除 - 缺少 ID",
+    "removeConfirm": "确定要移除 {{name}} 的分配吗?",
+    "noActiveAssignments": "{{name}} 没有可移除的进行中分配。",
+    "withResourceNeeds": "({{count}} 个有资源需求)",
+    "loadingProjects": "项目加载中…",
+    "noProjectDemand": "暂无有资源需求的项目",
+    "selectProjectWithNeeds": "选择项目(有资源需求)",
+    "rolesNeeded": "({{count}} 个所需角色)",
+    "noRolesNeeded": "此项目没有角色需求",
+    "selectRoleFromDemands": "选择角色(来自项目需求)",
+    "selectProjectFirst": "请先选择项目",
+    "selectRoleFirst": "请先选择角色",
+    "phasesWithRole": "({{count}} 个阶段包含此角色)",
+    "refreshPhaseDates": "刷新阶段日期",
+    "editPhaseDates": "在项目时间线中编辑阶段日期",
+    "noPhasesNeedRole": "没有阶段需要此角色",
+    "noSpecificPhase": "不指定阶段",
+    "phaseLinkedLabel": "阶段联动分配:",
+    "phaseLinkedDescription": "开始和结束日期将自动与所选阶段同步。若阶段日期将来发生变化,此分配将自动更新以保持一致。",
+    "linkedToPhase": "(与阶段联动)",
+    "allocationLabel": "分配比例:{{allocation}}%",
+    "impactTitle": "分配影响",
+    "overallocateMessage": "这将使 {{name}} 超出可用产能 {{percent}}%",
+    "utilizationMessage": "{{name}} 的利用率将达到 {{percent}}%",
+    "thePerson": "该人员",
+    "thePersonCapital": "该人员",
+    "newTotalAllocation": "新的总分配比例:{{allocation}}%",
+    "utilizationLabel": "利用率:{{percent}}%",
+    "done": "完成",
+    "errors": {
+      "missingAssignmentId": "无法删除分配:缺少分配 ID",
+      "deleteFailed": "删除分配失败,请重试。",
+      "selectProject": "请选择项目",
+      "selectRole": "请选择角色",
+      "invalidRole": "所选角色无效,请选择其他角色。",
+      "selectStartDate": "请选择开始日期",
+      "selectEndDate": "请选择结束日期",
+      "createFailed": "错误:{{message}}\n\n详情:{{details}}",
+      "unknownError": "未知错误",
+      "createAssignmentFailed": "创建分配失败"
+    }
+  }
+}

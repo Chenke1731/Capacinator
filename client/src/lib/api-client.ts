@@ -1,5 +1,6 @@
 import axios, { AxiosResponse, InternalAxiosRequestConfig } from 'axios';
 import { logger } from '../services/logger';
+import { translateServerMessage, translateAxiosMessage } from './i18n-error';
 import type {
   Location,
   ProjectType,
@@ -269,6 +270,16 @@ apiClient.interceptors.response.use(
         clearAuthTokens();
         redirectToLogin();
       }
+    }
+
+    // Localize the server-provided error message in place so existing
+    // `err.response?.data?.error` consumers render the translated text.
+    const data = error.response?.data as { error?: unknown } | undefined;
+    if (data && typeof data.error === 'string') {
+      data.error = translateServerMessage(data.error);
+    } else if (!error.response) {
+      // Network-level failure has no response body; localize axios' own message
+      error.message = translateAxiosMessage(error.message);
     }
 
     return Promise.reject(error);

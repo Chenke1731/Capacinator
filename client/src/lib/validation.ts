@@ -3,7 +3,11 @@
  *
  * Cross-field validation utilities for forms throughout the application.
  * These validators return either true (valid) or an error message string (invalid).
+ * Messages are localized via i18n; in the English locale they are identical
+ * to the historical English strings.
  */
+
+import i18n from '../i18n';
 
 /**
  * Validates email format
@@ -11,11 +15,11 @@
  * @returns true if valid, error message if invalid
  */
 export const validateEmail = (email: string): true | string => {
-  if (!email) return 'Email is required';
+  if (!email) return i18n.t('validation:emailRequired');
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (!emailRegex.test(email)) {
-    return 'Invalid email format';
+    return i18n.t('validation:invalidEmailFormat');
   }
 
   return true;
@@ -40,7 +44,7 @@ export const validateDateRange = (
 
   // If only one is provided, it's invalid
   if ((!startDate && endDate) || (startDate && !endDate)) {
-    return 'Both start and end dates are required together';
+    return i18n.t('validation:bothDatesRequired');
   }
 
   // Parse and compare dates
@@ -49,11 +53,11 @@ export const validateDateRange = (
     const end = new Date(endDate);
 
     if (isNaN(start.getTime()) || isNaN(end.getTime())) {
-      return 'Invalid date format';
+      return i18n.t('validation:invalidDateFormat');
     }
 
     if (start >= end) {
-      return 'End date must be after start date';
+      return i18n.t('validation:endAfterStart');
     }
   }
 
@@ -71,11 +75,11 @@ export const validateAllocationPercentage = (
   const value = typeof percentage === 'string' ? parseFloat(percentage) : percentage;
 
   if (isNaN(value)) {
-    return 'Allocation percentage must be a number';
+    return i18n.t('validation:allocationMustBeNumber');
   }
 
   if (value <= 0 || value > 100) {
-    return 'Allocation percentage must be between 1 and 100';
+    return i18n.t('validation:allocationRange');
   }
 
   return true;
@@ -90,11 +94,11 @@ export const validateHoursPerDay = (hours: number | string): true | string => {
   const value = typeof hours === 'string' ? parseFloat(hours) : hours;
 
   if (isNaN(value)) {
-    return 'Hours per day must be a number';
+    return i18n.t('validation:hoursMustBeNumber');
   }
 
   if (value <= 0 || value > 24) {
-    return 'Hours per day must be between 0 and 24';
+    return i18n.t('validation:hoursRange');
   }
 
   return true;
@@ -111,11 +115,11 @@ export const validateAvailabilityPercentage = (
   const value = typeof percentage === 'string' ? parseFloat(percentage) : percentage;
 
   if (isNaN(value)) {
-    return 'Availability percentage must be a number';
+    return i18n.t('validation:availabilityMustBeNumber');
   }
 
   if (value < 0 || value > 100) {
-    return 'Availability percentage must be between 0 and 100';
+    return i18n.t('validation:availabilityRange');
   }
 
   return true;
@@ -134,11 +138,11 @@ export const validateName = (
   maxLength?: number
 ): true | string => {
   if (!name || !name.trim()) {
-    return `${fieldName} is required`;
+    return i18n.t('validation:fieldRequired', { field: fieldName });
   }
 
   if (maxLength && name.length > maxLength) {
-    return `${fieldName} must be less than ${maxLength} characters`;
+    return i18n.t('validation:fieldTooLong', { field: fieldName, count: maxLength });
   }
 
   return true;
@@ -150,7 +154,7 @@ export const validateName = (
  * @returns true if valid, error message if invalid
  */
 export const validateProjectTypeName = (name: string): true | string => {
-  return validateName(name, 'Project type name', 100);
+  return validateName(name, i18n.t('common:projectTypeName'), 100);
 };
 
 /**
@@ -161,7 +165,7 @@ export const validateProjectTypeName = (name: string): true | string => {
  */
 export const validateRequired = (value: string, fieldName = 'Field'): true | string => {
   if (!value || !value.trim()) {
-    return `${fieldName} is required`;
+    return i18n.t('validation:fieldRequired', { field: fieldName });
   }
   return true;
 };
@@ -180,8 +184,14 @@ export const validateDateRangeFields = (
 
   // Check for partial completion
   if ((startDate && !endDate) || (!startDate && endDate)) {
-    errors.start_date = `${fieldNameStart} and ${fieldNameEnd} must both be provided`;
-    errors.end_date = `${fieldNameStart} and ${fieldNameEnd} must both be provided`;
+    errors.start_date = i18n.t('validation:bothFieldsRequired', {
+      fieldA: fieldNameStart,
+      fieldB: fieldNameEnd,
+    });
+    errors.end_date = i18n.t('validation:bothFieldsRequired', {
+      fieldA: fieldNameStart,
+      fieldB: fieldNameEnd,
+    });
     return errors;
   }
 

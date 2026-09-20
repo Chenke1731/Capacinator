@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { GitMerge, AlertTriangle, CheckCircle, ArrowRight, RefreshCw, Eye } from 'lucide-react';
 import { api } from '../../lib/api-client';
 import { Scenario } from '../../types';
@@ -42,6 +43,7 @@ export const ScenarioMergeModal: React.FC<ScenarioMergeModalProps> = ({
   scenario,
   onMergeComplete
 }) => {
+  const { t } = useTranslation();
   const [mergeStrategy, setMergeStrategy] = useState<'manual' | 'use_source' | 'use_target'>('manual');
   const [conflicts, setConflicts] = useState<MergeConflict[]>([]);
   const [conflictResolutions, setConflictResolutions] = useState<Record<string, any>>({});
@@ -67,7 +69,7 @@ export const ScenarioMergeModal: React.FC<ScenarioMergeModalProps> = ({
 
   const initiateMerge = async () => {
     if (!scenario.parent_scenario_id) {
-      setError('Cannot merge scenario without parent');
+      setError(t('scenarios:merge.noParentError'));
       return;
     }
 
@@ -91,7 +93,7 @@ export const ScenarioMergeModal: React.FC<ScenarioMergeModalProps> = ({
         setCurrentStep('complete');
       }
     } catch (err: any) {
-      setError(err.response?.data?.error || 'Failed to initiate merge');
+      setError(err.response?.data?.error || t('scenarios:merge.initiateFailed'));
     } finally {
       setLoading(false);
     }
@@ -140,7 +142,7 @@ export const ScenarioMergeModal: React.FC<ScenarioMergeModalProps> = ({
       // Notify parent component
       onMergeComplete();
     } catch (err: any) {
-      setError(err.response?.data?.error || 'Failed to execute merge');
+      setError(err.response?.data?.error || t('scenarios:merge.executeFailed'));
       setCurrentStep('conflicts');
     } finally {
       setLoading(false);
@@ -152,16 +154,15 @@ export const ScenarioMergeModal: React.FC<ScenarioMergeModalProps> = ({
       <div className="mb-8">
         <h3 className="flex items-center gap-2 text-2xl font-semibold text-foreground mb-3">
           <GitMerge size={20} />
-          Merge Scenario: {scenario.name}
+          {t('scenarios:merge.scenarioName')}: {scenario.name}
         </h3>
         <p className="text-base text-muted-foreground leading-relaxed">
-          This will merge changes from "{scenario.name}" back to its parent scenario.
-          All modifications, assignments, and project changes will be applied to the parent.
+          {t('scenarios:merge.setupDescription', { name: scenario.name })}
         </p>
       </div>
 
       <div className="space-y-3">
-        <Label className="text-base font-semibold" id="merge-strategy-label">Merge Strategy</Label>
+        <Label className="text-base font-semibold" id="merge-strategy-label">{t('scenarios:merge.strategy')}</Label>
         <RadioGroup value={mergeStrategy} onValueChange={(value) => setMergeStrategy(value as any)} aria-labelledby="merge-strategy-label">
           <div className="space-y-3">
             <Label
@@ -174,8 +175,8 @@ export const ScenarioMergeModal: React.FC<ScenarioMergeModalProps> = ({
             >
               <RadioGroupItem value="manual" id="strategy-manual" className="mt-0.5" />
               <div className="flex flex-col gap-1">
-                <span className="font-semibold text-foreground">Manual Resolution</span>
-                <span className="text-sm text-muted-foreground">Review each conflict individually (Recommended)</span>
+                <span className="font-semibold text-foreground">{t('scenarios:merge.manualResolution')}</span>
+                <span className="text-sm text-muted-foreground">{t('scenarios:merge.manualResolutionDescription')}</span>
               </div>
             </Label>
 
@@ -189,8 +190,8 @@ export const ScenarioMergeModal: React.FC<ScenarioMergeModalProps> = ({
             >
               <RadioGroupItem value="use_source" id="strategy-source" className="mt-0.5" />
               <div className="flex flex-col gap-1">
-                <span className="font-semibold text-foreground">Source Priority</span>
-                <span className="text-sm text-muted-foreground">This scenario takes precedence over parent</span>
+                <span className="font-semibold text-foreground">{t('scenarios:merge.sourcePriority')}</span>
+                <span className="text-sm text-muted-foreground">{t('scenarios:merge.sourcePriorityDescription')}</span>
               </div>
             </Label>
 
@@ -204,8 +205,8 @@ export const ScenarioMergeModal: React.FC<ScenarioMergeModalProps> = ({
             >
               <RadioGroupItem value="use_target" id="strategy-target" className="mt-0.5" />
               <div className="flex flex-col gap-1">
-                <span className="font-semibold text-foreground">Target Priority</span>
-                <span className="text-sm text-muted-foreground">Parent scenario takes precedence</span>
+                <span className="font-semibold text-foreground">{t('scenarios:merge.targetPriority')}</span>
+                <span className="text-sm text-muted-foreground">{t('scenarios:merge.targetPriorityDescription')}</span>
               </div>
             </Label>
           </div>
@@ -214,10 +215,10 @@ export const ScenarioMergeModal: React.FC<ScenarioMergeModalProps> = ({
 
       <div className="flex justify-between gap-3 mt-6">
         <Button variant="outline" onClick={onClose}>
-          Cancel
+          {t('common:cancel')}
         </Button>
         <Button onClick={initiateMerge} disabled={loading}>
-          {loading ? 'Analyzing...' : 'Analyze Conflicts'}
+          {loading ? t('scenarios:merge.analyzing') : t('scenarios:merge.analyzeConflicts')}
         </Button>
       </div>
 
@@ -239,7 +240,7 @@ export const ScenarioMergeModal: React.FC<ScenarioMergeModalProps> = ({
         <div className="flex justify-between items-center mb-6 pb-4 border-b">
           <h3 className="flex items-center gap-2 text-xl font-semibold text-destructive m-0">
             <AlertTriangle size={20} />
-            Resolve Merge Conflicts ({resolvedCount}/{conflicts.length})
+            {t('scenarios:merge.resolveConflicts')} ({resolvedCount}/{conflicts.length})
           </h3>
           <div className="flex items-center gap-3">
             <Button
@@ -248,10 +249,10 @@ export const ScenarioMergeModal: React.FC<ScenarioMergeModalProps> = ({
               onClick={() => setCurrentConflictIndex(Math.max(0, currentConflictIndex - 1))}
               disabled={currentConflictIndex === 0}
             >
-              Previous
+              {t('common:previous')}
             </Button>
             <span className="text-sm text-muted-foreground font-medium px-2">
-              {currentConflictIndex + 1} of {conflicts.length}
+              {t('scenarios:merge.conflictOf', { current: currentConflictIndex + 1, total: conflicts.length })}
             </span>
             <Button
               size="sm"
@@ -259,7 +260,7 @@ export const ScenarioMergeModal: React.FC<ScenarioMergeModalProps> = ({
               onClick={() => setCurrentConflictIndex(Math.min(conflicts.length - 1, currentConflictIndex + 1))}
               disabled={currentConflictIndex === conflicts.length - 1}
             >
-              Next
+              {t('common:next')}
             </Button>
           </div>
         </div>
@@ -268,18 +269,18 @@ export const ScenarioMergeModal: React.FC<ScenarioMergeModalProps> = ({
           <div className="bg-muted border rounded-lg p-5 mb-6">
             <div className="mb-5">
               <h4 className="text-lg font-semibold text-foreground mb-2">
-                Conflict: {currentConflict.type.replace('_', ' ').toUpperCase()}
+                {t('scenarios:merge.conflict')}: {currentConflict.type.replace('_', ' ').toUpperCase()}
               </h4>
               <p className="text-muted-foreground mb-2">{currentConflict.conflict_description}</p>
               <div className="text-xs text-muted-foreground font-mono">
-                Entity ID: {currentConflict.entity_id}
+                {t('scenarios:merge.entityId')}: {currentConflict.entity_id}
               </div>
             </div>
 
             <div className="flex gap-6 mb-5">
               <div className="flex-1 bg-background border rounded-md p-4">
                 <h5 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-3">
-                  Source (This Scenario)
+                  {t('scenarios:merge.sourceThisScenario')}
                 </h5>
                 <div className="bg-muted/50 border rounded p-3 mb-3 min-h-[100px]">
                   {renderConflictData(currentConflict.source_data)}
@@ -289,7 +290,7 @@ export const ScenarioMergeModal: React.FC<ScenarioMergeModalProps> = ({
                   className="w-full"
                   onClick={() => resolveConflict(currentConflict.entity_id, 'source')}
                 >
-                  Use Source
+                  {t('scenarios:merge.useSource')}
                 </Button>
               </div>
 
@@ -299,7 +300,7 @@ export const ScenarioMergeModal: React.FC<ScenarioMergeModalProps> = ({
 
               <div className="flex-1 bg-background border rounded-md p-4">
                 <h5 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-3">
-                  Target (Parent Scenario)
+                  {t('scenarios:merge.targetParentScenario')}
                 </h5>
                 <div className="bg-muted/50 border rounded p-3 mb-3 min-h-[100px]">
                   {renderConflictData(currentConflict.target_data)}
@@ -309,7 +310,7 @@ export const ScenarioMergeModal: React.FC<ScenarioMergeModalProps> = ({
                   className="w-full"
                   onClick={() => resolveConflict(currentConflict.entity_id, 'target')}
                 >
-                  Use Target
+                  {t('scenarios:merge.useTarget')}
                 </Button>
               </div>
             </div>
@@ -317,7 +318,9 @@ export const ScenarioMergeModal: React.FC<ScenarioMergeModalProps> = ({
             {conflictResolutions[currentConflict.entity_id] && (
               <div className="flex items-center gap-2 text-green-600 dark:text-green-400 font-medium bg-green-50 dark:bg-green-950/50 p-2 rounded">
                 <CheckCircle size={16} />
-                Resolved: Using {conflictResolutions[currentConflict.entity_id].resolution} data
+                {conflictResolutions[currentConflict.entity_id].resolution === 'target'
+                  ? t('scenarios:merge.resolvedUsingTarget')
+                  : t('scenarios:merge.resolvedUsingSource')}
               </div>
             )}
           </div>
@@ -325,10 +328,10 @@ export const ScenarioMergeModal: React.FC<ScenarioMergeModalProps> = ({
 
         <div className="flex justify-between gap-3 mt-6">
           <Button variant="outline" onClick={() => setCurrentStep('setup')}>
-            Back to Setup
+            {t('scenarios:merge.backToSetup')}
           </Button>
           <Button onClick={proceedToPreview} disabled={!canProceed}>
-            {canProceed ? 'Preview Merge' : `Resolve ${conflicts.length - resolvedCount} more conflicts`}
+            {canProceed ? t('scenarios:merge.previewMerge') : t('scenarios:merge.resolveMore', { count: conflicts.length - resolvedCount })}
           </Button>
         </div>
       </div>
@@ -340,22 +343,24 @@ export const ScenarioMergeModal: React.FC<ScenarioMergeModalProps> = ({
       <div className="mb-6">
         <h3 className="flex items-center gap-2 text-xl font-semibold text-foreground mb-2">
           <Eye size={20} />
-          Merge Preview
+          {t('scenarios:merge.preview')}
         </h3>
-        <p className="text-muted-foreground">Review the changes that will be applied during the merge</p>
+        <p className="text-muted-foreground">{t('scenarios:merge.previewDescription')}</p>
       </div>
 
       <div className="flex flex-col gap-6 mb-8">
         <div className="bg-muted border rounded-lg p-5">
           <h4 className="text-base font-semibold text-muted-foreground mb-4">
-            Conflict Resolutions ({Object.keys(conflictResolutions).length})
+            {t('scenarios:merge.conflictResolutions')} ({Object.keys(conflictResolutions).length})
           </h4>
           <div className="flex flex-col gap-2">
             {Object.entries(conflictResolutions).map(([entityId, resolution]) => (
               <div key={entityId} className="flex justify-between items-center p-2 bg-background border rounded">
                 <div className="font-mono text-xs text-muted-foreground">{entityId}</div>
                 <div className="text-green-600 dark:text-green-400 font-medium text-sm">
-                  Using {resolution.resolution} data
+                  {resolution.resolution === 'target'
+                    ? t('scenarios:merge.usingTargetData')
+                    : t('scenarios:merge.usingSourceData')}
                 </div>
               </div>
             ))}
@@ -363,22 +368,22 @@ export const ScenarioMergeModal: React.FC<ScenarioMergeModalProps> = ({
         </div>
 
         <div className="bg-muted border rounded-lg p-5">
-          <h4 className="text-base font-semibold text-muted-foreground mb-4">Impact Summary</h4>
+          <h4 className="text-base font-semibold text-muted-foreground mb-4">{t('scenarios:merge.impactSummary')}</h4>
           <div className="flex flex-col gap-2">
             <div className="flex justify-between items-center py-2 border-b last:border-b-0">
-              <span className="text-muted-foreground font-medium">Assignments affected:</span>
+              <span className="text-muted-foreground font-medium">{t('scenarios:merge.assignmentsAffected')}</span>
               <span className="text-foreground font-semibold font-mono">
                 {conflicts.filter(c => c.type === 'assignment').length}
               </span>
             </div>
             <div className="flex justify-between items-center py-2 border-b last:border-b-0">
-              <span className="text-muted-foreground font-medium">Phase timelines affected:</span>
+              <span className="text-muted-foreground font-medium">{t('scenarios:merge.phaseTimelinesAffected')}</span>
               <span className="text-foreground font-semibold font-mono">
                 {conflicts.filter(c => c.type === 'phase_timeline').length}
               </span>
             </div>
             <div className="flex justify-between items-center py-2 border-b last:border-b-0">
-              <span className="text-muted-foreground font-medium">Project details affected:</span>
+              <span className="text-muted-foreground font-medium">{t('scenarios:merge.projectDetailsAffected')}</span>
               <span className="text-foreground font-semibold font-mono">
                 {conflicts.filter(c => c.type === 'project_details').length}
               </span>
@@ -389,10 +394,10 @@ export const ScenarioMergeModal: React.FC<ScenarioMergeModalProps> = ({
 
       <div className="flex justify-between gap-3 mt-6">
         <Button variant="outline" onClick={() => setCurrentStep('conflicts')}>
-          Back to Conflicts
+          {t('scenarios:merge.backToConflicts')}
         </Button>
         <Button variant="destructive" onClick={executeMerge} disabled={loading}>
-          {loading ? 'Executing...' : 'Execute Merge'}
+          {loading ? t('scenarios:merge.executing') : t('scenarios:merge.executeMerge')}
         </Button>
       </div>
     </div>
@@ -402,8 +407,8 @@ export const ScenarioMergeModal: React.FC<ScenarioMergeModalProps> = ({
     <div className="py-16 px-6 text-center">
       <div className="flex flex-col items-center gap-4">
         <RefreshCw size={48} className="animate-spin text-primary" />
-        <h3 className="text-2xl font-semibold text-foreground">Executing Merge...</h3>
-        <p className="text-base text-muted-foreground">Applying changes to parent scenario. Please wait...</p>
+        <h3 className="text-2xl font-semibold text-foreground">{t('scenarios:merge.executingTitle')}</h3>
+        <p className="text-base text-muted-foreground">{t('scenarios:merge.executingDescription')}</p>
       </div>
     </div>
   );
@@ -412,25 +417,25 @@ export const ScenarioMergeModal: React.FC<ScenarioMergeModalProps> = ({
     <div className="py-10 px-6 text-center">
       <div className="mb-8">
         <CheckCircle size={48} className="text-green-600 dark:text-green-400 mb-4 inline-block" />
-        <h3 className="text-2xl font-semibold text-foreground mb-2">Merge Completed Successfully</h3>
-        <p className="text-base text-muted-foreground">All changes have been applied to the parent scenario.</p>
+        <h3 className="text-2xl font-semibold text-foreground mb-2">{t('scenarios:merge.completedTitle')}</h3>
+        <p className="text-base text-muted-foreground">{t('scenarios:merge.completedDescription')}</p>
       </div>
 
       {mergeResult && (
         <div className="bg-primary/10 border border-primary rounded-lg p-5 mb-8 text-left">
-          <h4 className="text-base font-semibold text-primary mb-4">Merge Summary</h4>
+          <h4 className="text-base font-semibold text-primary mb-4">{t('scenarios:merge.summary')}</h4>
           <div className="flex flex-col gap-2">
             <div className="flex justify-between items-center py-2 border-b last:border-b-0">
-              <span className="text-primary font-medium">Source Scenario:</span>
+              <span className="text-primary font-medium">{t('scenarios:sourceScenario')}:</span>
               <span className="text-primary font-semibold">{scenario.name}</span>
             </div>
             <div className="flex justify-between items-center py-2 border-b last:border-b-0">
-              <span className="text-primary font-medium">Conflicts Resolved:</span>
+              <span className="text-primary font-medium">{t('scenarios:merge.conflictsResolved')}</span>
               <span className="text-primary font-semibold">{Object.keys(conflictResolutions).length}</span>
             </div>
             <div className="flex justify-between items-center py-2 border-b last:border-b-0">
-              <span className="text-primary font-medium">Status:</span>
-              <span className="text-green-600 dark:text-green-400 font-semibold">Merged Successfully</span>
+              <span className="text-primary font-medium">{t('common:status')}:</span>
+              <span className="text-green-600 dark:text-green-400 font-semibold">{t('scenarios:merge.mergedSuccessfully')}</span>
             </div>
           </div>
         </div>
@@ -438,14 +443,14 @@ export const ScenarioMergeModal: React.FC<ScenarioMergeModalProps> = ({
 
       <div className="flex justify-center mt-6">
         <Button onClick={onClose}>
-          Close
+          {t('common:close')}
         </Button>
       </div>
     </div>
   );
 
   const renderConflictData = (data: any) => {
-    if (!data) return <div className="text-muted-foreground italic text-center py-5">No data</div>;
+    if (!data) return <div className="text-muted-foreground italic text-center py-5">{t('scenarios:merge.noData')}</div>;
 
     return (
       <div className="flex flex-col gap-1.5">
@@ -470,10 +475,10 @@ export const ScenarioMergeModal: React.FC<ScenarioMergeModalProps> = ({
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             <GitMerge size={20} aria-hidden="true" />
-            Scenario Merge
+            {t('scenarios:merge.title')}
           </DialogTitle>
           <DialogDescription>
-            Merge changes from this scenario back to its parent scenario.
+            {t('scenarios:merge.description')}
           </DialogDescription>
         </DialogHeader>
 

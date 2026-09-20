@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useQuery } from '@tanstack/react-query';
 import {
   Users,
@@ -10,6 +11,7 @@ import { api } from '../lib/api-client';
 import { queryKeys } from '../lib/queryKeys';
 import { useScenario } from '../contexts/ScenarioContext';
 import { getDefaultReportDateRange } from '../utils/date';
+import { getLocale } from '../i18n';
 import {
   ReportSummaryCard,
   ReportEmptyState,
@@ -135,7 +137,7 @@ const formatMonthYear = (monthStr: string): string => {
   if (!monthStr || !monthStr.includes('-')) return monthStr;
   const [year, month] = monthStr.split('-');
   const date = new Date(parseInt(year, 10), parseInt(month, 10) - 1);
-  return date.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+  return date.toLocaleDateString(getLocale(), { month: 'short', year: 'numeric' });
 };
 
 // Custom tooltip component for charts
@@ -167,6 +169,7 @@ interface ReportsTabContentProps {
 }
 
 export const ReportsTabContent: React.FC<ReportsTabContentProps> = ({ activeReport }) => {
+  const { t } = useTranslation();
   const { currentScenario } = useScenario();
   const [filters, setFilters] = useState<ReportFilters>(getDefaultReportDateRange());
   const [showExportDropdown, setShowExportDropdown] = useState(false);
@@ -249,9 +252,9 @@ export const ReportsTabContent: React.FC<ReportsTabContentProps> = ({ activeRepo
         
         // Add chart-friendly capacity over time data
         const capacityOverTime = [
-          { period: 'Current Month', capacity: totalCapacity },
-          { period: 'Next Month', capacity: Math.round(totalCapacity * 1.02) },
-          { period: 'In 3 Months', capacity: Math.round(totalCapacity * 1.05) }
+          { period: t('reports:period.currentMonth'), capacity: totalCapacity },
+          { period: t('reports:period.nextMonth'), capacity: Math.round(totalCapacity * 1.02) },
+          { period: t('reports:period.inThreeMonths'), capacity: Math.round(totalCapacity * 1.05) }
         ];
         
         return {
@@ -289,7 +292,7 @@ export const ReportsTabContent: React.FC<ReportsTabContentProps> = ({ activeRepo
         const peopleUtilization: PersonUtilizationData[] = ((data.utilizationData || []) as UtilizationApiItem[]).map((person) => ({
           id: person.person_id,
           name: person.person_name,
-          role: person.primary_role_name || 'No Role',
+          role: person.primary_role_name || t('reports:noRole'),
           utilization: person.total_allocation_percentage || 0,
           availableHours: person.available_hours || 8,
           projectCount: person.project_count || 0,
@@ -386,9 +389,9 @@ export const ReportsTabContent: React.FC<ReportsTabContentProps> = ({ activeRepo
           } else if (trendOverTime.length === 0) {
             // Fallback for no data
             trendOverTime = [
-              { month: 'Current', total_hours: data.summary?.total_hours || 0 },
-              { month: 'Next Month', total_hours: Math.round((data.summary?.total_hours || 0) * 0.95) },
-              { month: 'In 3 Months', total_hours: Math.round((data.summary?.total_hours || 0) * 0.90) }
+              { month: t('reports:period.current'), total_hours: data.summary?.total_hours || 0 },
+              { month: t('reports:period.nextMonth'), total_hours: Math.round((data.summary?.total_hours || 0) * 0.95) },
+              { month: t('reports:period.inThreeMonths'), total_hours: Math.round((data.summary?.total_hours || 0) * 0.90) }
             ];
           }
         }
@@ -397,7 +400,7 @@ export const ReportsTabContent: React.FC<ReportsTabContentProps> = ({ activeRepo
         const peakMonth = trendOverTime.reduce((peak: DemandTrendData | null, current: DemandTrendData) =>
           current.total_hours > (peak?.total_hours || 0) ? current : peak,
           null
-        )?.month || 'N/A';
+        )?.month || t('common:na');
         
         return {
           ...data,
@@ -442,9 +445,9 @@ export const ReportsTabContent: React.FC<ReportsTabContentProps> = ({ activeRepo
 
         // Calculate trend over time
         const gapTrend: GapTrendData[] = [
-          { period: 'Current', gap: data.summary?.totalGapHours || 0 },
-          { period: 'Next Month', gap: Math.round((data.summary?.totalGapHours || 0) * 0.8) },
-          { period: 'In 3 Months', gap: Math.round((data.summary?.totalGapHours || 0) * 0.5) }
+          { period: t('reports:period.current'), gap: data.summary?.totalGapHours || 0 },
+          { period: t('reports:period.nextMonth'), gap: Math.round((data.summary?.totalGapHours || 0) * 0.8) },
+          { period: t('reports:period.inThreeMonths'), gap: Math.round((data.summary?.totalGapHours || 0) * 0.5) }
         ];
 
         // Calculate total gap hours and other metrics
@@ -574,7 +577,11 @@ export const ReportsTabContent: React.FC<ReportsTabContentProps> = ({ activeRepo
       if (availableCapacity <= 5) {
         _setModalNotification({
           type: 'warning',
-          message: `${person.name} is nearly at full capacity (${person.utilization}%) for this timeframe. Only ${availableCapacity.toFixed(1)}% capacity remains.`
+          message: t('reports:notifications.nearlyFullCapacity', {
+            name: person.name,
+            utilization: person.utilization,
+            remaining: availableCapacity.toFixed(1)
+          })
         });
         return;
       }
@@ -615,7 +622,7 @@ export const ReportsTabContent: React.FC<ReportsTabContentProps> = ({ activeRepo
       if (!data) {
         setModalNotification({
           type: 'warning',
-          message: 'No data available to export for the current tab.'
+          message: t('reports:notifications.noDataToExport')
         });
         return;
       }
@@ -671,7 +678,7 @@ export const ReportsTabContent: React.FC<ReportsTabContentProps> = ({ activeRepo
       console.error('Export error:', error);
       _setModalNotification({
         type: 'error',
-        message: 'Error exporting data. Please try again.'
+        message: t('reports:notifications.exportError')
       });
     }
   };
@@ -685,19 +692,19 @@ export const ReportsTabContent: React.FC<ReportsTabContentProps> = ({ activeRepo
 
   // Render capacity report using standardized components
   const renderCapacityReport = () => {
-    if (capacityLoading || !capacityReport) return <div className="loading">Loading capacity report...</div>;
+    if (capacityLoading || !capacityReport) return <div className="loading">{t('reports:loaders.capacity')}</div>;
 
     // Define columns for people capacity table
     const peopleCapacityColumns: Column[] = [
-      { header: 'Name', accessor: 'person_name', render: (value) => <strong>{value}</strong> },
-      { header: 'Daily Hours', accessor: 'available_hours', render: (value) => `${value} hrs/day` },
-      { header: 'Availability', accessor: 'default_availability_percentage', render: (value) => `${value}%` },
-      { 
-        header: 'Status', 
+      { header: t('common:name'), accessor: 'person_name', render: (value) => <strong>{value}</strong> },
+      { header: t('reports:capacity.headers.dailyHours'), accessor: 'available_hours', render: (value) => t('reports:units.hrsPerDay', { value }) },
+      { header: t('reports:capacity.headers.availability'), accessor: 'default_availability_percentage', render: (value) => `${value}%` },
+      {
+        header: t('common:status'),
         accessor: 'allocation_status',
         render: (value) => {
-          const variant = value === 'AVAILABLE' ? 'success' : 
-                         value === 'FULLY_ALLOCATED' ? 'warning' : 
+          const variant = value === 'AVAILABLE' ? 'success' :
+                         value === 'FULLY_ALLOCATED' ? 'warning' :
                          value === 'OVER_ALLOCATED' ? 'danger' : 'default';
           return <ReportStatusBadge status={value.replace(/_/g, ' ')} variant={variant} />;
         }
@@ -709,33 +716,33 @@ export const ReportsTabContent: React.FC<ReportsTabContentProps> = ({ activeRepo
         return [{
           to: `/assignments?person=${encodeURIComponent(row.person_name)}&action=assign&from=capacity-report&startDate=${filters.startDate || ''}&endDate=${filters.endDate || ''}`,
           icon: ClipboardList,
-          text: 'Assign to Project',
+          text: t('reports:actions.assignToProject'),
           variant: 'primary'
         }];
       } else if (row.allocation_status === 'OVER_ALLOCATED') {
         return [{
           to: `/assignments?person=${encodeURIComponent(row.person_name)}&action=reduce-load&from=capacity-report&startDate=${filters.startDate || ''}&endDate=${filters.endDate || ''}`,
           icon: AlertTriangle,
-          text: 'Reduce Load',
+          text: t('reports:actions.reduceLoad'),
           variant: 'danger'
         }];
       }
       return [{
         to: `/people/${row.person_id}?from=capacity-report&startDate=${filters.startDate || ''}&endDate=${filters.endDate || ''}`,
         icon: User,
-        text: 'View Details',
+        text: t('common:viewDetails'),
         variant: 'outline'
       }];
     };
 
     // Define columns for role capacity table
     const roleCapacityColumns: Column[] = [
-      { header: 'Role', accessor: 'role' },
-      { header: 'Total Capacity (hrs)', accessor: 'capacity' },
-      { header: 'Utilized (hrs)', accessor: (row) => row.utilized || 0 },
-      { header: 'Available (hrs)', accessor: (row) => row.capacity - (row.utilized || 0) },
-      { 
-        header: 'Status', 
+      { header: t('common:role'), accessor: 'role' },
+      { header: t('reports:capacity.headers.totalCapacityHrs'), accessor: 'capacity' },
+      { header: t('reports:capacity.headers.utilizedHrs'), accessor: (row) => row.utilized || 0 },
+      { header: t('reports:capacity.headers.availableHrs'), accessor: (row) => row.capacity - (row.utilized || 0) },
+      {
+        header: t('common:status'),
         accessor: (row) => {
           const utilizationRate = row.capacity > 0 ? ((row.utilized || 0) / row.capacity) * 100 : 0;
           if (utilizationRate >= 90) return 'CRITICAL';
@@ -756,7 +763,7 @@ export const ReportsTabContent: React.FC<ReportsTabContentProps> = ({ activeRepo
     const roleCapacityActions = (row: RoleCapacityData): ActionButton[] => [{
       to: `/people?role=${encodeURIComponent(row.role)}&from=capacity-report&startDate=${filters.startDate || ''}&endDate=${filters.endDate || ''}`,
       icon: Users,
-      text: 'View People',
+      text: t('reports:actions.viewPeople'),
       variant: 'outline'
     }];
 
@@ -764,77 +771,77 @@ export const ReportsTabContent: React.FC<ReportsTabContentProps> = ({ activeRepo
       <div className="report-content">
         <div className="report-summary">
           <ReportSummaryCard
-            title="Total Capacity"
+            title={t('reports:capacity.summary.totalCapacity')}
             metric={capacityReport.totalCapacity || 0}
-            unit=" hours"
+            unit={t('reports:units.hours')}
           />
           <ReportSummaryCard
-            title="# People with Capacity"
+            title={t('reports:capacity.summary.peopleWithCapacity')}
             metric={capacityReport.personUtilization?.length || 0}
             actionLink={{
               to: `/people?from=capacity-report&action=view-capacity&startDate=${filters.startDate || ''}&endDate=${filters.endDate || ''}`,
               icon: Users,
-              text: 'View People'
+              text: t('reports:actions.viewPeople')
             }}
           />
           <ReportSummaryCard
-            title="# Roles with Capacity"
+            title={t('reports:capacity.summary.rolesWithCapacity')}
             metric={capacityReport.byRole?.length || 0}
           />
           <ReportSummaryCard
-            title="Peak Month"
-            metric="N/A"
+            title={t('reports:summary.peakMonth')}
+            metric={t('common:na')}
           />
         </div>
 
         {(!capacityReport.personUtilization || capacityReport.personUtilization.length === 0) && (
           <ReportEmptyState
             icon={AlertTriangle}
-            title="No Capacity Data Found"
-            description="No people or capacity information is available for the selected date range."
+            title={t('reports:capacity.empty.title')}
+            description={t('reports:capacity.empty.description')}
             actionLink={{
               to: '/people',
-              text: 'Add people'
+              text: t('reports:capacity.empty.addPeople')
             }}
           />
         )}
 
         <div className="charts-grid">
           <div className="chart-container">
-            <h3>Capacity by Person</h3>
+            <h3>{t('reports:capacity.charts.byPerson')}</h3>
             <ResponsiveContainer width="100%" height={300}>
               <BarChart data={capacityReport.personUtilization?.slice(0, 10) || []}>
                 <CartesianGrid strokeDasharray="3 3" stroke="var(--border-color)" />
                 <XAxis dataKey="person_name" />
                 <YAxis />
                 <Tooltip content={<CustomTooltip />} />
-                <Bar dataKey="default_hours_per_day" fill={getChartColor('capacity', 0)} />
+                <Bar dataKey="default_hours_per_day" name={t('reports:series.default_hours_per_day')} fill={getChartColor('capacity', 0)} />
               </BarChart>
             </ResponsiveContainer>
           </div>
 
           <div className="chart-container">
-            <h3>Capacity by Role</h3>
+            <h3>{t('reports:capacity.charts.byRole')}</h3>
             <ResponsiveContainer width="100%" height={300}>
               <BarChart data={capacityReport.byRole || []}>
                 <CartesianGrid strokeDasharray="3 3" stroke="var(--border-color)" />
                 <XAxis dataKey="role" />
                 <YAxis />
                 <Tooltip content={<CustomTooltip />} />
-                <Bar dataKey="capacity" fill={getChartColor('capacity', 1)} />
+                <Bar dataKey="capacity" name={t('reports:series.capacity')} fill={getChartColor('capacity', 1)} />
               </BarChart>
             </ResponsiveContainer>
           </div>
 
           <div className="chart-container">
-            <h3>Capacity Trend Over Time</h3>
+            <h3>{t('reports:capacity.charts.trend')}</h3>
             <ResponsiveContainer width="100%" height={300}>
               <LineChart data={capacityReport.capacityOverTime || []}>
                 <CartesianGrid strokeDasharray="3 3" stroke="var(--border-color)" />
                 <XAxis dataKey="period" />
                 <YAxis />
                 <Tooltip content={<CustomTooltip />} />
-                <Line type="monotone" dataKey="capacity" stroke={getChartColor('capacity', 2)} strokeWidth={2} />
+                <Line type="monotone" dataKey="capacity" name={t('reports:series.capacity')} stroke={getChartColor('capacity', 2)} strokeWidth={2} />
               </LineChart>
             </ResponsiveContainer>
           </div>
@@ -842,10 +849,10 @@ export const ReportsTabContent: React.FC<ReportsTabContentProps> = ({ activeRepo
 
         <div className="full-width-tables">
           <ReportTable
-            title="People Capacity Overview"
+            title={t('reports:capacity.tables.peopleOverview')}
             columns={peopleCapacityColumns}
             data={capacityReport.utilizationData || []}
-            rowClassName={(row) => 
+            rowClassName={(row) =>
               row.allocation_status === 'AVAILABLE' ? 'report-table-row-success' :
               row.allocation_status === 'FULLY_ALLOCATED' ? 'report-table-row-warning' :
               row.allocation_status === 'OVER_ALLOCATED' ? 'report-table-row-danger' : ''
@@ -854,7 +861,7 @@ export const ReportsTabContent: React.FC<ReportsTabContentProps> = ({ activeRepo
           />
 
           <ReportTable
-            title="Role Capacity Analysis"
+            title={t('reports:capacity.tables.roleAnalysis')}
             columns={roleCapacityColumns}
             data={capacityReport.byRole || []}
             rowClassName={(row) => {
@@ -875,22 +882,22 @@ export const ReportsTabContent: React.FC<ReportsTabContentProps> = ({ activeRepo
   return (
     <div className="reports-tab-content">
       <div className="page-header">
-        <h1>Reports & Analytics</h1>
+        <h1>{t('reports:title')}</h1>
         <div className="header-actions">
           <div className="dropdown">
-            <button 
+            <button
               className="btn btn-secondary"
               onClick={() => setShowExportDropdown(!showExportDropdown)}
             >
               <Download size={16} />
-              Export
+              {t('common:export')}
               <ChevronDown size={16} />
             </button>
             {showExportDropdown && (
               <div className="dropdown-menu">
-                <button onClick={() => handleExport('csv')}>Export as CSV</button>
-                <button onClick={() => handleExport('xlsx')}>Export as Excel</button>
-                <button onClick={() => handleExport('json')}>Export as JSON</button>
+                <button onClick={() => handleExport('csv')}>{t('reports:export.csv')}</button>
+                <button onClick={() => handleExport('xlsx')}>{t('reports:export.excel')}</button>
+                <button onClick={() => handleExport('json')}>{t('reports:export.json')}</button>
               </div>
             )}
           </div>
@@ -899,46 +906,46 @@ export const ReportsTabContent: React.FC<ReportsTabContentProps> = ({ activeRepo
 
       <div className="report-filters">
         <div className="filter-group">
-          <label>Start Date</label>
-          <input 
-            type="date" 
+          <label>{t('common:startDate')}</label>
+          <input
+            type="date"
             value={filters.startDate}
             onChange={(e) => handleFilterChange('startDate', e.target.value)}
           />
         </div>
         <div className="filter-group">
-          <label>End Date</label>
-          <input 
-            type="date" 
+          <label>{t('common:endDate')}</label>
+          <input
+            type="date"
             value={filters.endDate}
             onChange={(e) => handleFilterChange('endDate', e.target.value)}
           />
         </div>
         <div className="filter-group">
-          <label>Project Type</label>
-          <select 
+          <label>{t('reports:filters.projectType')}</label>
+          <select
             value={filters.projectTypeId || ''}
             onChange={(e) => handleFilterChange('projectTypeId', e.target.value)}
           >
-            <option value="">All Types</option>
+            <option value="">{t('reports:filters.allTypes')}</option>
             {filterOptions.projectTypes?.map((type) => (
               <option key={type.id} value={type.id}>{type.name}</option>
             ))}
           </select>
         </div>
         <div className="filter-group">
-          <label>Location</label>
-          <select 
+          <label>{t('reports:filters.location')}</label>
+          <select
             value={filters.locationId || ''}
             onChange={(e) => handleFilterChange('locationId', e.target.value)}
           >
-            <option value="">All Locations</option>
+            <option value="">{t('reports:filters.allLocations')}</option>
             {filterOptions.locations?.map((loc) => (
               <option key={loc.id} value={loc.id}>{loc.name}</option>
             ))}
           </select>
         </div>
-        <button 
+        <button
           className="btn btn-primary"
           onClick={() => {
             if (activeReport === 'capacity') refetchCapacity();
@@ -949,7 +956,7 @@ export const ReportsTabContent: React.FC<ReportsTabContentProps> = ({ activeRepo
           disabled={isLoading}
         >
           <RefreshCw size={16} />
-          Refresh
+          {t('common:refresh')}
         </button>
       </div>
 

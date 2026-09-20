@@ -1,4 +1,5 @@
 import React, { useState, useMemo, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import {
   AlertTriangle, CheckCircle, Info, Calendar, Users,
@@ -6,6 +7,7 @@ import {
 } from 'lucide-react';
 import { api } from '../../lib/api-client';
 import { queryKeys } from '../../lib/queryKeys';
+import { getLocale } from '../../i18n';
 import { calculatePhaseDurationWeeks } from '../../utils/phaseDurations';
 import { useAssignmentRecommendations, ProjectRecommendation } from '../../hooks/useAssignmentRecommendations';
 import {
@@ -124,6 +126,7 @@ export function SmartAssignmentModal({
   triggerContext = 'manual_add',
   actionType
 }: SmartAssignmentModalProps) {
+  const { t } = useTranslation();
   const queryClient = useQueryClient();
   const isDarkMode = document.documentElement.classList.contains('dark');
   const [activeTab, setActiveTab] = useState(triggerContext === 'manual_add' ? 'manual' : 'recommended');
@@ -336,10 +339,16 @@ export function SmartAssignmentModal({
       utilizationPercentage,
       isOverallocated: newUtilization > utilizationData.availability,
       message: newUtilization > utilizationData.availability
-        ? `This will overallocate ${person?.name || 'the person'} by ${newUtilization - utilizationData.availability}%`
-        : `${person?.name || 'The person'} will be at ${utilizationPercentage.toFixed(0)}% utilization`
+        ? t('assignments:smart.overallocateMessage', {
+            name: person?.name || t('assignments:smart.thePerson'),
+            percent: newUtilization - utilizationData.availability
+          })
+        : t('assignments:smart.utilizationMessage', {
+            name: person?.name || t('assignments:smart.thePersonCapital'),
+            percent: utilizationPercentage.toFixed(0)
+          })
     };
-  }, [utilizationData, formData.allocation_percentage, selectedRecommendation, person]);
+  }, [utilizationData, formData.allocation_percentage, selectedRecommendation, person, t]);
 
   // Create assignment mutation
   const createAssignmentMutation = useMutation({
@@ -379,9 +388,12 @@ export function SmartAssignmentModal({
                           error.response?.data?.message ||
                           error.response?.data?.details ||
                           error.message ||
-                          'Failed to create assignment';
+                          t('assignments:smart.errors.createAssignmentFailed');
 
-      alert(`Error: ${errorMessage}\n\nDetails: ${error.response?.data?.details || 'Unknown error'}`);
+      alert(t('assignments:smart.errors.createFailed', {
+        message: errorMessage,
+        details: error.response?.data?.details || t('assignments:smart.errors.unknownError')
+      }));
     }
   });
 
@@ -400,7 +412,7 @@ export function SmartAssignmentModal({
     },
     onError: (error: ApiError) => {
       console.error('Failed to delete assignment:', error);
-      alert('Failed to delete assignment. Please try again.');
+      alert(t('assignments:smart.errors.deleteFailed'));
     }
   });
 
@@ -427,34 +439,34 @@ export function SmartAssignmentModal({
     
     // Validate required fields
     if (!formData.project_id && !selectedRecommendation) {
-      alert('Please select a project');
+      alert(t('assignments:smart.errors.selectProject'));
       return;
     }
-    
+
     if (!formData.role_id) {
-      alert('Please select a role');
+      alert(t('assignments:smart.errors.selectRole'));
       return;
     }
-    
+
     // Validate role exists in database
     const rolesData = roles || [];
     const roleExists = (rolesData as Role[]).some((r) => r.id === formData.role_id);
     if (!roleExists) {
       console.error('Invalid role ID:', formData.role_id);
       console.error('Available roles:', rolesData);
-      alert('Selected role is invalid. Please select a different role.');
+      alert(t('assignments:smart.errors.invalidRole'));
       return;
     }
-    
+
     // Only validate dates if not using phase mode
     if (!formData.phase_id) {
       if (!formData.start_date) {
-        alert('Please select a start date');
+        alert(t('assignments:smart.errors.selectStartDate'));
         return;
       }
-      
+
       if (!formData.end_date) {
-        alert('Please select an end date');
+        alert(t('assignments:smart.errors.selectEndDate'));
         return;
       }
     }
@@ -541,10 +553,10 @@ export function SmartAssignmentModal({
         <DialogHeader>
           <DialogTitle className="text-lg font-semibold leading-none tracking-tight flex items-center gap-2">
             <Sparkles size={20} />
-            Smart Assignment for {personName || person?.name}
+            {t('assignments:smart.title', { name: personName || person?.name })}
           </DialogTitle>
           <DialogDescription className="sr-only">
-            Create a new assignment for {personName || person?.name}
+            {t('assignments:smart.description', { name: personName || person?.name })}
           </DialogDescription>
         </DialogHeader>
 
@@ -552,15 +564,15 @@ export function SmartAssignmentModal({
         <div className="status-bar">
           <div className="status-item">
             <BarChart3 size={20} />
-            <span>Current Utilization: <strong>{utilizationData.currentUtilization}%</strong></span>
+            <span>{t('assignments:smart.currentUtilization')}: <strong>{utilizationData.currentUtilization}%</strong></span>
           </div>
           <div className="status-item">
             <Users size={20} />
-            <span>Available Capacity: <strong>{utilizationData.remainingCapacity}%</strong></span>
+            <span>{t('assignments:smart.availableCapacity')}: <strong>{utilizationData.remainingCapacity}%</strong></span>
           </div>
           <div className="status-item">
             <Clock size={20} />
-            <span><strong>{utilizationData.activeAssignments?.length || 0}</strong> Active Assignments</span>
+            <span><strong>{utilizationData.activeAssignments?.length || 0}</strong> {t('assignments:smart.activeAssignments')}</span>
           </div>
         </div>
 
@@ -569,11 +581,11 @@ export function SmartAssignmentModal({
             <TabsList className="grid w-full grid-cols-2">
               <TabsTrigger value="recommended">
                 <TrendingUp className="mr-2" size={16} />
-                Recommended Assignments
+                {t('assignments:smart.tab.recommended')}
               </TabsTrigger>
               <TabsTrigger value="manual">
                 <Calendar className="mr-2" size={16} />
-                Manual Selection
+                {t('assignments:smart.tab.manual')}
               </TabsTrigger>
             </TabsList>
 
@@ -593,14 +605,17 @@ export function SmartAssignmentModal({
                       <div className="recommendation-header">
                         <h4>{rec.project.name}</h4>
                         <span className={`fit-badge ${rec.fitLevel}`}>
-                          {rec.fitLevel === 'excellent' ? 'Excellent Fit' : 
-                           rec.fitLevel === 'good' ? 'Good Fit' : 'Partial Fit'}
+                          {rec.fitLevel === 'excellent'
+                            ? t('assignments:smart.fit.excellent')
+                            : rec.fitLevel === 'good'
+                              ? t('assignments:smart.fit.good')
+                              : t('assignments:smart.fit.partial')}
                         </span>
                       </div>
                       <p className="recommendation-reason">{rec.reason}</p>
                       <div className="recommendation-details">
-                        <span>Suggested allocation: {rec.suggestedAllocation}%</span>
-                        <span>Priority: {rec.project.priority}</span>
+                        <span>{t('assignments:smart.suggestedAllocation', { allocation: rec.suggestedAllocation })}</span>
+                        <span>{t('assignments:smart.priorityLabel')} {rec.project.priority}</span>
                       </div>
                     </div>
                   ))}
@@ -608,26 +623,26 @@ export function SmartAssignmentModal({
               ) : (
                 <div className="empty-recommendations">
                   <Info size={48} />
-                  <p>No specific project recommendations available.</p>
-                  <p>Switch to manual selection to choose any project.</p>
+                  <p>{t('assignments:smart.emptyRecommendations')}</p>
+                  <p>{t('assignments:smart.emptyRecommendationsHint')}</p>
                 </div>
               )}
-              
+
               {/* Show selected recommendation details */}
               {selectedRecommendation && (
                 <div className="selected-recommendation-info">
-                  <h4>Selected Assignment</h4>
+                  <h4>{t('assignments:smart.selectedAssignment')}</h4>
                   <div className="assignment-summary">
                     <div className="summary-item">
-                      <span className="summary-label">Project:</span>
+                      <span className="summary-label">{t('assignments:fields.project')}:</span>
                       <span className="summary-value">{selectedRecommendation.project.name}</span>
                     </div>
                     <div className="summary-item">
-                      <span className="summary-label">Role:</span>
+                      <span className="summary-label">{t('assignments:fields.role')}:</span>
                       <span className="summary-value">{selectedRecommendation.suggestedRole.name}</span>
                     </div>
                     <div className="summary-item">
-                      <span className="summary-label">Allocation:</span>
+                      <span className="summary-label">{t('common:allocation')}:</span>
                       <span className="summary-value">{selectedRecommendation.suggestedAllocation}%</span>
                     </div>
                   </div>
@@ -647,9 +662,9 @@ export function SmartAssignmentModal({
                     borderRadius: '0.375rem',
                     color: isDarkMode ? '#fca5a5' : '#dc2626'
                   }}>
-                    <strong>Select assignments to remove:</strong>
+                    <strong>{t('assignments:smart.selectToRemove')}</strong>
                     <p style={{ fontSize: '0.875rem', marginTop: '0.25rem' }}>
-                      Removing assignments will free up capacity for {personName}.
+                      {t('assignments:smart.removingHint', { name: personName })}
                     </p>
                   </div>
                   
@@ -668,26 +683,26 @@ export function SmartAssignmentModal({
                         }}>
                           <div>
                             <div style={{ fontWeight: 600, marginBottom: '0.25rem' }}>
-                              {assignment.project_name || 'Unknown Project'}
-                              {!assignment.id && <span style={{ color: 'red', fontSize: '0.75rem', marginLeft: '0.5rem' }}>(No ID)</span>}
+                              {assignment.project_name || t('assignments:smart.unknownProject')}
+                              {!assignment.id && <span style={{ color: 'red', fontSize: '0.75rem', marginLeft: '0.5rem' }}>{t('assignments:smart.noId')}</span>}
                             </div>
                             <div style={{ fontSize: '0.875rem', color: isDarkMode ? '#9ca3af' : '#6b7280' }}>
-                              {assignment.role_name || 'Unknown Role'} • {assignment.allocation_percentage || 0}% allocation
+                              {assignment.role_name || t('assignments:smart.unknownRole')} • {t('assignments:smart.allocationAmount', { amount: assignment.allocation_percentage || 0 })}
                               {assignment.phase_name && ` • ${assignment.phase_name}`}
                             </div>
                             <div style={{ fontSize: '0.75rem', color: isDarkMode ? '#9ca3af' : '#6b7280', marginTop: '0.25rem' }}>
-                              {new Date(assignment.computed_start_date || assignment.start_date).toLocaleDateString()} - 
-                              {new Date(assignment.computed_end_date || assignment.end_date).toLocaleDateString()}
+                              {new Date(assignment.computed_start_date || assignment.start_date).toLocaleDateString(getLocale())} -
+                              {new Date(assignment.computed_end_date || assignment.end_date).toLocaleDateString(getLocale())}
                             </div>
                           </div>
                           <button
                             type="button"
                             onClick={() => {
                               if (!assignment.id) {
-                                alert('Cannot delete assignment: Missing assignment ID');
+                                alert(t('assignments:smart.errors.missingAssignmentId'));
                                 return;
                               }
-                              if (confirm(`Are you sure you want to remove the assignment to ${assignment.project_name}?`)) {
+                              if (confirm(t('assignments:smart.removeConfirm', { name: assignment.project_name }))) {
                                 deleteAssignmentMutation.mutate(assignment.id);
                               }
                             }}
@@ -700,10 +715,10 @@ export function SmartAssignmentModal({
                               opacity: !assignment.id ? 0.5 : 1,
                               cursor: !assignment.id ? 'not-allowed' : 'pointer'
                             }}
-                            title={!assignment.id ? 'Cannot delete - missing ID' : undefined}
+                            title={!assignment.id ? t('assignments:smart.cannotDeleteMissingId') : undefined}
                           >
                             <Trash2 size={16} />
-                            Remove
+                            {t('common:remove')}
                           </button>
                         </div>
                       ))}
@@ -715,7 +730,7 @@ export function SmartAssignmentModal({
                       color: isDarkMode ? '#9ca3af' : '#6b7280'
                     }}>
                       <Info size={48} style={{ margin: '0 auto 1rem', opacity: 0.5 }} />
-                      <p>{personName} has no active assignments to remove.</p>
+                      <p>{t('assignments:smart.noActiveAssignments', { name: personName })}</p>
                     </div>
                   )}
                 </div>
@@ -724,10 +739,10 @@ export function SmartAssignmentModal({
                 <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label htmlFor="project-select">
-                    Project <span aria-hidden="true">*</span><span className="sr-only">(required)</span>
+                    {t('assignments:fields.project')} <span aria-hidden="true">*</span><span className="sr-only">{t('common:forms.requiredSrOnly')}</span>
                     {!isLoadingAllocations && projectsWithDemand.length > 0 && projectsWithDemand.length < (projects?.data?.length || 0) && (
                       <span className="text-xs text-muted-foreground font-normal ml-2">
-                        ({projectsWithDemand.length} with resource needs)
+                        {t('assignments:smart.withResourceNeeds', { count: projectsWithDemand.length })}
                       </span>
                     )}
                   </Label>
@@ -739,10 +754,10 @@ export function SmartAssignmentModal({
                     <SelectTrigger id="project-select" aria-required="true">
                       <SelectValue placeholder={
                         isLoadingAllocations
-                          ? 'Loading projects...'
+                          ? t('assignments:smart.loadingProjects')
                           : projectsWithDemand.length === 0
-                            ? 'No projects have resource needs'
-                            : 'Select a project (with resource needs)'
+                            ? t('assignments:smart.noProjectDemand')
+                            : t('assignments:smart.selectProjectWithNeeds')
                       } />
                     </SelectTrigger>
                     <SelectContent>
@@ -757,10 +772,10 @@ export function SmartAssignmentModal({
 
                 <div className="space-y-2">
                   <Label htmlFor="role-select">
-                    Role <span aria-hidden="true">*</span><span className="sr-only">(required)</span>
+                    {t('assignments:fields.role')} <span aria-hidden="true">*</span><span className="sr-only">{t('common:forms.requiredSrOnly')}</span>
                     {formData.project_id && projectRoles.length > 0 && (
                       <span className="text-xs text-muted-foreground font-normal ml-2">
-                        ({projectRoles.length} roles needed)
+                        {t('assignments:smart.rolesNeeded', { count: projectRoles.length })}
                       </span>
                     )}
                   </Label>
@@ -772,10 +787,10 @@ export function SmartAssignmentModal({
                     <SelectTrigger id="role-select" aria-required="true">
                       <SelectValue placeholder={
                         formData.project_id && projectRoles.length === 0
-                          ? 'No roles needed for this project'
+                          ? t('assignments:smart.noRolesNeeded')
                           : formData.project_id
-                            ? 'Select a role (from project demands)'
-                            : 'Select a project first'
+                            ? t('assignments:smart.selectRoleFromDemands')
+                            : t('assignments:smart.selectProjectFirst')
                       } />
                     </SelectTrigger>
                     <SelectContent>
@@ -791,10 +806,10 @@ export function SmartAssignmentModal({
                 <div className="space-y-2 col-span-2">
                   <div className="flex justify-between items-center">
                     <Label htmlFor="phase-select">
-                      Phase
+                      {t('assignments:fields.phase')}
                       {formData.role_id && filteredPhases.length > 0 && (
                         <span className="text-xs text-muted-foreground font-normal ml-2">
-                          ({filteredPhases.length} phases with this role)
+                          {t('assignments:smart.phasesWithRole', { count: filteredPhases.length })}
                         </span>
                       )}
                     </Label>
@@ -803,7 +818,7 @@ export function SmartAssignmentModal({
                         <button
                           type="button"
                           onClick={() => refetchPhases()}
-                          title="Refresh phase dates"
+                          title={t('assignments:smart.refreshPhaseDates')}
                           className="p-1 text-muted-foreground hover:text-primary transition-colors"
                         >
                           <RefreshCw size={14} />
@@ -812,7 +827,7 @@ export function SmartAssignmentModal({
                           href={`/projects/${formData.project_id}?tab=timeline`}
                           target="_blank"
                           rel="noopener noreferrer"
-                          title="Edit phase dates in project timeline"
+                          title={t('assignments:smart.editPhaseDates')}
                           className="p-1 text-muted-foreground hover:text-primary transition-colors flex items-center"
                         >
                           <ExternalLink size={14} />
@@ -828,18 +843,18 @@ export function SmartAssignmentModal({
                     <SelectTrigger id="phase-select">
                       <SelectValue placeholder={
                         !formData.project_id
-                          ? 'Select a project first'
+                          ? t('assignments:smart.selectProjectFirst')
                           : !formData.role_id
-                            ? 'Select a role first'
+                            ? t('assignments:smart.selectRoleFirst')
                             : filteredPhases.length === 0
-                              ? 'No phases need this role'
-                              : 'No specific phase'
+                              ? t('assignments:smart.noPhasesNeedRole')
+                              : t('assignments:smart.noSpecificPhase')
                       } />
                     </SelectTrigger>
                     <SelectContent>
                       {filteredPhases?.map((phase: FilteredPhase) => (
                         <SelectItem key={phase.id} value={phase.id}>
-                          {phase.name} ({new Date(phase.start_date).toLocaleDateString()} - {new Date(phase.end_date).toLocaleDateString()})
+                          {phase.name} ({new Date(phase.start_date).toLocaleDateString(getLocale())} - {new Date(phase.end_date).toLocaleDateString(getLocale())})
                         </SelectItem>
                       ))}
                     </SelectContent>
@@ -850,15 +865,14 @@ export function SmartAssignmentModal({
                   <div className="col-span-2 p-3 bg-primary/10 border border-primary/30 rounded-md text-sm text-primary flex items-center gap-2 mb-2">
                     <Link2 size={16} className="flex-shrink-0" />
                     <div>
-                      <strong>Phase-linked assignment:</strong> The start and end dates are automatically synchronized with the selected phase.
-                      If the phase dates change in the future, this assignment will automatically update to match.
+                      <strong>{t('assignments:smart.phaseLinkedLabel')}</strong> {t('assignments:smart.phaseLinkedDescription')}
                     </div>
                   </div>
                 )}
 
                 <div className="space-y-2 col-span-2">
                   <Label htmlFor="allocation-slider">
-                    Allocation: {formData.allocation_percentage}%
+                    {t('assignments:smart.allocationLabel', { allocation: formData.allocation_percentage })}
                   </Label>
                   <input
                     id="allocation-slider"
@@ -876,17 +890,17 @@ export function SmartAssignmentModal({
                   </div>
                   <div className="allocation-available">
                     <span className="guide-text available">
-                      {utilizationData.remainingCapacity}% available
+                      {t('common:forms.percentAvailable', { available: utilizationData.remainingCapacity })}
                     </span>
                   </div>
                 </div>
 
                 <div className="space-y-2">
                   <Label htmlFor="start-date">
-                    Start Date <span aria-hidden="true">*</span><span className="sr-only">(required)</span>
+                    {t('common:startDate')} <span aria-hidden="true">*</span><span className="sr-only">{t('common:forms.requiredSrOnly')}</span>
                     {formData.phase_id && (
                       <span className="text-xs text-primary font-normal ml-2">
-                        (Linked to phase)
+                        {t('assignments:smart.linkedToPhase')}
                       </span>
                     )}
                   </Label>
@@ -904,10 +918,10 @@ export function SmartAssignmentModal({
 
                 <div className="space-y-2">
                   <Label htmlFor="end-date">
-                    End Date <span aria-hidden="true">*</span><span className="sr-only">(required)</span>
+                    {t('common:endDate')} <span aria-hidden="true">*</span><span className="sr-only">{t('common:forms.requiredSrOnly')}</span>
                     {formData.phase_id && (
                       <span className="text-xs text-primary font-normal ml-2">
-                        (Linked to phase)
+                        {t('assignments:smart.linkedToPhase')}
                       </span>
                     )}
                   </Label>
@@ -940,26 +954,26 @@ export function SmartAssignmentModal({
                 ) : (
                   <CheckCircle size={20} aria-hidden="true" />
                 )}
-                <h4>Assignment Impact</h4>
+                <h4>{t('assignments:smart.impactTitle')}</h4>
               </div>
               <p>{impactPreview.message}</p>
               <div className="impact-details">
-                <span>New total allocation: {impactPreview.newUtilization}%</span>
-                <span>Utilization: {impactPreview.utilizationPercentage.toFixed(0)}%</span>
+                <span>{t('assignments:smart.newTotalAllocation', { allocation: impactPreview.newUtilization })}</span>
+                <span>{t('assignments:smart.utilizationLabel', { percent: impactPreview.utilizationPercentage.toFixed(0) })}</span>
               </div>
             </div>
           )}
 
           <DialogFooter>
             <Button type="button" variant="outline" onClick={onClose}>
-              {actionType === 'reduce_workload' ? 'Done' : 'Cancel'}
+              {actionType === 'reduce_workload' ? t('assignments:smart.done') : t('common:cancel')}
             </Button>
             {actionType !== 'reduce_workload' && (
               <Button
                 type="submit"
                 disabled={createAssignmentMutation.isPending || (!selectedRecommendation && !formData.project_id)}
               >
-                {createAssignmentMutation.isPending ? 'Creating...' : 'Create Assignment'}
+                {createAssignmentMutation.isPending ? t('common:creating') : t('assignments:form.create')}
               </Button>
             )}
           </DialogFooter>

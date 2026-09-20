@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useTranslation } from 'react-i18next';
 import { Plus, Calendar, Trash2, ArrowUp, ArrowDown, Edit2, Save, X } from 'lucide-react';
 import { api } from '../lib/api-client';
 import { queryKeys } from '../lib/queryKeys';
+import { getLocale } from '../i18n';
 import type { ProjectPhaseTimeline, ProjectPhase } from '../types';
 import './ProjectPhaseManager.css';
 
@@ -43,6 +45,7 @@ export const ProjectPhaseManager: React.FC<ProjectPhaseManagerProps> = ({
   projectId,
   _projectName
 }) => {
+  const { t } = useTranslation();
   const queryClient = useQueryClient();
   const [showAddPhase, setShowAddPhase] = useState(false);
   const [addPhaseMode, setAddPhaseMode] = useState<'existing' | 'duplicate' | 'custom'>('existing');
@@ -111,7 +114,7 @@ export const ProjectPhaseManager: React.FC<ProjectPhaseManagerProps> = ({
     },
     onError: (error: any) => {
       console.error('Error creating custom phase:', error);
-      alert(`Error creating custom phase: ${error.message || 'Unknown error'}`);
+      alert(t('phases:manager.errorCreatingCustomPhase', { message: error.message || t('phases:manager.unknownError') }));
     }
   });
 
@@ -134,7 +137,7 @@ export const ProjectPhaseManager: React.FC<ProjectPhaseManagerProps> = ({
     },
     onError: (error: any) => {
       console.error('Error duplicating phase:', error);
-      alert(`Error duplicating phase: ${error.message || 'Unknown error'}`);
+      alert(t('phases:manager.errorDuplicatingPhase', { message: error.message || t('phases:manager.unknownError') }));
     }
   });
 
@@ -197,7 +200,7 @@ export const ProjectPhaseManager: React.FC<ProjectPhaseManagerProps> = ({
     const sourcePhaseId = selectedSourcePhase || formData.get('source_phase') as string;
     const sourcePhase = projectPhases?.find(p => p.phase_id === sourcePhaseId);
     if (!sourcePhase) {
-      alert('Please select a phase to duplicate');
+      alert(t('phases:manager.selectPhaseToDuplicateAlert'));
       return;
     }
       
@@ -315,8 +318,8 @@ export const ProjectPhaseManager: React.FC<ProjectPhaseManagerProps> = ({
           } catch (error: any) {
             console.error('Error adjusting overlapping phases:', error);
             console.error('Error response:', error.response?.data);
-            const errorMessage = error.response?.data?.error || error.message || 'Unknown error';
-            alert(`Phase created successfully, but there was an error adjusting overlapping phases: ${errorMessage}\n\nYou may need to manually adjust phase dates.`);
+            const errorMessage = error.response?.data?.error || error.message || t('phases:manager.unknownError');
+            alert(t('phases:manager.adjustError', { message: errorMessage }));
             // Continue anyway - the phase was created successfully
           }
           
@@ -336,7 +339,7 @@ export const ProjectPhaseManager: React.FC<ProjectPhaseManagerProps> = ({
   };
 
   const handleDeletePhase = (phaseTimelineId: string, phaseName: string) => {
-    if (confirm(`Are you sure you want to remove the "${phaseName}" phase from this project? This will also remove any associated resource allocations.`)) {
+    if (confirm(t('phases:manager.deleteConfirm', { name: phaseName }))) {
       deletePhaseMutation.mutate(phaseTimelineId);
     }
   };
@@ -456,24 +459,24 @@ export const ProjectPhaseManager: React.FC<ProjectPhaseManagerProps> = ({
   const formatDate = (dateString: string) => {
     // Parse the date string as local date, not UTC
     const [year, month, day] = dateString.split('-').map(Number);
-    return new Date(year, month - 1, day).toLocaleDateString();
+    return new Date(year, month - 1, day).toLocaleDateString(getLocale());
   };
 
   if (phasesLoading) {
-    return <div className="loading">Loading project phases...</div>;
+    return <div className="loading">{t('phases:manager.loadingPhases')}</div>;
   }
 
   return (
     <div className="project-phase-manager">
       <div className="section-header">
-        <h3>Project Phases</h3>
+        <h3>{t('phases:manager.title')}</h3>
         <div className="header-actions">
           <button
             className="btn btn-sm btn-primary"
             onClick={() => setShowAddPhase(true)}
           >
             <Plus size={16} />
-            Add Phase
+            {t('phases:manager.addPhase')}
           </button>
         </div>
       </div>
@@ -485,12 +488,12 @@ export const ProjectPhaseManager: React.FC<ProjectPhaseManagerProps> = ({
             <table className="table">
               <thead>
                 <tr>
-                  <th style={{ width: '60px' }}>Order</th>
-                  <th>Phase</th>
-                  <th>Start Date</th>
-                  <th>End Date</th>
-                  <th>Duration (Days)</th>
-                  <th>Actions</th>
+                  <th style={{ width: '60px' }}>{t('phases:manager.order')}</th>
+                  <th>{t('phases:manager.phaseColumn')}</th>
+                  <th>{t('common:startDate')}</th>
+                  <th>{t('common:endDate')}</th>
+                  <th>{t('phases:manager.durationDays')}</th>
+                  <th>{t('common:actions')}</th>
                 </tr>
               </thead>
               <tbody>
@@ -511,7 +514,7 @@ export const ProjectPhaseManager: React.FC<ProjectPhaseManagerProps> = ({
                               className="btn btn-icon btn-sm"
                               onClick={() => movePhase(index, index - 1)}
                               disabled={index === 0 || bulkUpdateMutation.isPending || isEditing}
-                              title="Move phase earlier"
+                              title={t('phases:manager.moveEarlier')}
                             >
                               <ArrowUp size={14} />
                             </button>
@@ -519,7 +522,7 @@ export const ProjectPhaseManager: React.FC<ProjectPhaseManagerProps> = ({
                               className="btn btn-icon btn-sm"
                               onClick={() => movePhase(index, index + 1)}
                               disabled={index === sortedArray.length - 1 || bulkUpdateMutation.isPending || isEditing}
-                              title="Move phase later"
+                              title={t('phases:manager.moveLater')}
                             >
                               <ArrowDown size={14} />
                             </button>
@@ -533,18 +536,18 @@ export const ProjectPhaseManager: React.FC<ProjectPhaseManagerProps> = ({
                               onChange={(e) => handlePhaseFieldChange(phase.id, 'phase_name', e.target.value)}
                               className="form-input"
                               style={{ minWidth: '200px' }}
-                              placeholder="Custom phase name"
+                              placeholder={t('phases:manager.customPhaseNamePlaceholder')}
                             />
                           ) : (
                             <div>
                               <strong>{phase.phase_name}</strong>
                               {phase.is_custom_phase === 1 && (
-                                <small className="text-muted"> (Custom)</small>
+                                <small className="text-muted">{t('phases:manager.customTag')}</small>
                               )}
                             </div>
                           )}
                           {(bulkUpdateMutation.isPending || updatePhaseMutation.isPending) && (
-                            <small className="text-muted"> (Updating...)</small>
+                            <small className="text-muted">{t('phases:manager.updatingTag')}</small>
                           )}
                         </td>
                         <td>
@@ -571,7 +574,7 @@ export const ProjectPhaseManager: React.FC<ProjectPhaseManagerProps> = ({
                             formatDate(phase.end_date)
                           )}
                         </td>
-                        <td>{duration} days</td>
+                        <td>{t('phases:manager.days', { count: duration })}</td>
                         <td>
                           <div className="phase-actions">
                             {isEditing ? (
@@ -579,7 +582,7 @@ export const ProjectPhaseManager: React.FC<ProjectPhaseManagerProps> = ({
                                 <button
                                   className="btn btn-icon btn-sm btn-primary"
                                   onClick={() => handleSavePhase(phase.id)}
-                                  title="Save changes"
+                                  title={t('phases:manager.saveChangesTooltip')}
                                   disabled={updatePhaseMutation.isPending}
                                 >
                                   <Save size={14} />
@@ -587,7 +590,7 @@ export const ProjectPhaseManager: React.FC<ProjectPhaseManagerProps> = ({
                                 <button
                                   className="btn btn-icon btn-sm btn-secondary"
                                   onClick={() => handleCancelEdit(phase.id)}
-                                  title="Cancel editing"
+                                  title={t('phases:manager.cancelEditing')}
                                   disabled={updatePhaseMutation.isPending}
                                 >
                                   <X size={14} />
@@ -598,15 +601,15 @@ export const ProjectPhaseManager: React.FC<ProjectPhaseManagerProps> = ({
                                 <button
                                   className="btn btn-icon btn-sm"
                                   onClick={() => handleEditPhase(phase.id, phase)}
-                                  title="Edit phase"
+                                  title={t('phases:manager.editPhaseTooltip')}
                                   disabled={bulkUpdateMutation.isPending || updatePhaseMutation.isPending}
                                 >
                                   <Edit2 size={14} />
                                 </button>
                                 <button
                                   className="btn btn-icon btn-sm btn-danger"
-                                  onClick={() => handleDeletePhase(phase.id, phase.phase_name || 'Unknown')}
-                                  title="Remove phase from project"
+                                  onClick={() => handleDeletePhase(phase.id, phase.phase_name || t('phases:common.unknown'))}
+                                  title={t('phases:manager.removePhaseTooltip')}
                                   disabled={bulkUpdateMutation.isPending || updatePhaseMutation.isPending}
                                 >
                                   <Trash2 size={14} />
@@ -624,8 +627,8 @@ export const ProjectPhaseManager: React.FC<ProjectPhaseManagerProps> = ({
         ) : (
           <div className="empty-state">
             <Calendar size={48} className="text-muted" />
-            <p>No phases configured for this project.</p>
-            <p className="text-muted">Add phases to define the project timeline and resource requirements.</p>
+            <p>{t('phases:manager.noPhases')}</p>
+            <p className="text-muted">{t('phases:manager.noPhasesHint')}</p>
           </div>
         )}
       </div>      {/* Consolidated Add Phase Modal */}
@@ -633,7 +636,7 @@ export const ProjectPhaseManager: React.FC<ProjectPhaseManagerProps> = ({
         <div className="modal-overlay">
           <div className="modal-container" style={{ maxWidth: '600px' }} role="dialog" aria-modal="true" aria-labelledby="modal-title">
             <div className="modal-header">
-              <h4 id="modal-title">Add Phase</h4>
+              <h4 id="modal-title">{t('phases:manager.addPhase')}</h4>
               <button
                 className="btn btn-icon"
                 onClick={() => {
@@ -660,46 +663,46 @@ export const ProjectPhaseManager: React.FC<ProjectPhaseManagerProps> = ({
               {/* Phase Type Selection */}
               <div className="form-group">
                 <label style={{ fontWeight: 500, marginBottom: '0.75rem', display: 'block' }}>
-                  What type of phase would you like to add?
+                  {t('phases:manager.addPhaseTypeQuestion')}
                 </label>
                 <div className="radio-group">
-                  <div 
+                  <div
                     className="selection-card"
                     data-selected={addPhaseMode === 'existing'}
                     onClick={() => setAddPhaseMode('existing')}
                   >
                     <div style={{ flex: 1 }}>
-                      <div style={{ fontWeight: 500 }}>Add Missing Phase</div>
+                      <div style={{ fontWeight: 500 }}>{t('phases:manager.modeExisting')}</div>
                       <div style={{ fontSize: '0.875rem', color: 'var(--text-tertiary)', marginTop: '0.125rem' }}>
-                        Select from standard phases that aren't in this project yet
+                        {t('phases:manager.modeExistingDesc')}
                       </div>
                     </div>
                   </div>
-                  
-                  <div 
+
+                  <div
                     className="selection-card"
                     data-selected={addPhaseMode === 'duplicate'}
                     onClick={() => setAddPhaseMode('duplicate')}
                   >
                     <div style={{ flex: 1 }}>
                       <div style={{ fontWeight: 500 }}>
-                        Duplicate Existing Phase
+                        {t('phases:manager.modeDuplicate')}
                       </div>
                       <div style={{ fontSize: '0.875rem', color: 'var(--text-tertiary)', marginTop: '0.125rem' }}>
-                        Copy an existing phase with all its resource allocations
+                        {t('phases:manager.modeDuplicateDesc')}
                       </div>
                     </div>
                   </div>
-                  
-                  <div 
+
+                  <div
                     className="selection-card"
                     data-selected={addPhaseMode === 'custom'}
                     onClick={() => setAddPhaseMode('custom')}
                   >
                     <div>
-                      <div style={{ fontWeight: 500 }}>Create Custom Phase</div>
+                      <div style={{ fontWeight: 500 }}>{t('phases:manager.modeCustom')}</div>
                       <div style={{ fontSize: '0.875rem', color: 'var(--text-tertiary)', marginTop: '0.25rem' }}>
-                        Define a new phase specific to this project
+                        {t('phases:manager.modeCustomDesc')}
                       </div>
                     </div>
                   </div>
@@ -712,14 +715,14 @@ export const ProjectPhaseManager: React.FC<ProjectPhaseManagerProps> = ({
               {addPhaseMode === 'existing' && (
                 <form onSubmit={handleAddPhase} id="addPhaseForm">
                   <div className="form-group">
-                    <label htmlFor="phase_id">Select Phase *</label>
+                    <label htmlFor="phase_id">{t('phases:manager.selectPhaseLabel')}</label>
                     <select
                       name="phase_id"
                       id="phase_id"
                       className="form-select"
                       required
                     >
-                      <option value="">Select a phase</option>
+                      <option value="">{t('phases:manager.selectPhaseOption')}</option>
                       {getAvailablePhases().map((phase) => (
                         <option key={phase.id} value={phase.id}>
                           {phase.name}
@@ -728,7 +731,7 @@ export const ProjectPhaseManager: React.FC<ProjectPhaseManagerProps> = ({
                     </select>
                   </div>
                   <div className="form-group">
-                    <label htmlFor="start_date">Start Date *</label>
+                    <label htmlFor="start_date">{t('phases:manager.startDateRequired')}</label>
                     <input
                       type="date"
                       name="start_date"
@@ -738,7 +741,7 @@ export const ProjectPhaseManager: React.FC<ProjectPhaseManagerProps> = ({
                     />
                   </div>
                   <div className="form-group">
-                    <label htmlFor="end_date">End Date *</label>
+                    <label htmlFor="end_date">{t('phases:manager.endDateRequired')}</label>
                     <input
                       type="date"
                       name="end_date"
@@ -754,7 +757,7 @@ export const ProjectPhaseManager: React.FC<ProjectPhaseManagerProps> = ({
                 <form onSubmit={handleDuplicatePhase} id="duplicatePhaseForm">
                   {/* Source Phase Selection */}
                   <div className="form-group">
-                    <label htmlFor="source_phase">Select Phase to Duplicate *</label>
+                    <label htmlFor="source_phase">{t('phases:manager.selectPhaseToDuplicateLabel')}</label>
                     <select
                       name="source_phase"
                       id="source_phase"
@@ -778,7 +781,7 @@ export const ProjectPhaseManager: React.FC<ProjectPhaseManagerProps> = ({
                       }}
                       required
                     >
-                      <option value="">Select a phase to duplicate</option>
+                      <option value="">{t('phases:manager.selectPhaseToDuplicateOption')}</option>
                       {projectPhases?.map((phase) => (
                         <option key={phase.id} value={phase.phase_id}>
                           {phase.phase_name}
@@ -789,14 +792,14 @@ export const ProjectPhaseManager: React.FC<ProjectPhaseManagerProps> = ({
 
                   {/* Placement Section */}
                   <div className="form-group">
-                    <label>Placement</label>
+                    <label>{t('phases:manager.placement')}</label>
                     <div className="radio-group">
-                      <div 
+                      <div
                         className="selection-card-inline"
                         data-selected={placementMode === 'after_phase'}
                         onClick={() => setPlacementMode('after_phase')}
                       >
-                        <span>After</span>
+                        <span>{t('phases:manager.placementAfter')}</span>
                         <select
                           name="after_phase_id"
                           value={placementAfterPhaseId}
@@ -810,7 +813,7 @@ export const ProjectPhaseManager: React.FC<ProjectPhaseManagerProps> = ({
                           disabled={placementMode !== 'after_phase'}
                           required={placementMode === 'after_phase'}
                         >
-                          <option value="">Select phase...</option>
+                          <option value="">{t('phases:manager.selectPhaseDots')}</option>
                           {projectPhases?.map(phase => (
                             <option key={phase.id} value={phase.id}>
                               {phase.phase_name}
@@ -819,20 +822,20 @@ export const ProjectPhaseManager: React.FC<ProjectPhaseManagerProps> = ({
                         </select>
                       </div>
                       
-                      <div 
+                      <div
                         className="selection-card-inline"
                         data-selected={placementMode === 'beginning'}
                         onClick={() => setPlacementMode('beginning')}
                       >
-                        <span>At project beginning</span>
+                        <span>{t('phases:manager.placementBeginning')}</span>
                       </div>
-                      
-                      <div 
+
+                      <div
                         className="selection-card-inline"
                         data-selected={placementMode === 'custom'}
                         onClick={() => setPlacementMode('custom')}
                       >
-                        <span>Custom dates</span>
+                        <span>{t('phases:manager.placementCustom')}</span>
                       </div>
                     </div>
                   </div>
@@ -841,7 +844,7 @@ export const ProjectPhaseManager: React.FC<ProjectPhaseManagerProps> = ({
                   {placementMode === 'custom' && (
                     <>
                       <div className="form-group">
-                        <label htmlFor="start_date">Start Date *</label>
+                        <label htmlFor="start_date">{t('phases:manager.startDateRequired')}</label>
                         <input
                           type="date"
                           name="start_date"
@@ -852,7 +855,7 @@ export const ProjectPhaseManager: React.FC<ProjectPhaseManagerProps> = ({
                         />
                       </div>
                       <div className="form-group">
-                        <label htmlFor="end_date">End Date *</label>
+                        <label htmlFor="end_date">{t('phases:manager.endDateRequired')}</label>
                         <input
                           type="date"
                           name="end_date"
@@ -867,14 +870,14 @@ export const ProjectPhaseManager: React.FC<ProjectPhaseManagerProps> = ({
 
                   {/* Name field */}
                   <div className="form-group">
-                    <label htmlFor="custom_name">Name (Optional)</label>
+                    <label htmlFor="custom_name">{t('phases:manager.nameOptional')}</label>
                     <input
                       type="text"
                       name="custom_name"
                       className="form-input"
                       value={duplicatePhaseForm.custom_name}
                       onChange={(e) => setDuplicatePhaseForm(prev => ({ ...prev, custom_name: e.target.value }))}
-                      placeholder={duplicatePhaseForm.custom_name || 'Enter a name for the duplicated phase'}
+                      placeholder={duplicatePhaseForm.custom_name || t('phases:manager.duplicateNamePlaceholder')}
                     />
                   </div>
 
@@ -888,9 +891,9 @@ export const ProjectPhaseManager: React.FC<ProjectPhaseManagerProps> = ({
                         style={{ marginTop: '0.125rem' }}
                       />
                       <div>
-                        <div>Automatically adjust overlapping phases</div>
+                        <div>{t('phases:manager.adjustOverlapping')}</div>
                         <div style={{ fontSize: '0.875rem', color: 'var(--text-tertiary)', marginTop: '0.25rem' }}>
-                          Shift subsequent phases to prevent date conflicts
+                          {t('phases:manager.adjustOverlappingDesc')}
                         </div>
                       </div>
                     </label>
@@ -901,28 +904,28 @@ export const ProjectPhaseManager: React.FC<ProjectPhaseManagerProps> = ({
               {addPhaseMode === 'custom' && (
                 <form onSubmit={handleCreateCustomPhase} id="customPhaseForm">
                   <div className="form-group">
-                    <label htmlFor="phase_name">Phase Name *</label>
+                    <label htmlFor="phase_name">{t('phases:manager.phaseNameRequired')}</label>
                     <input
                       type="text"
                       name="phase_name"
                       id="phase_name"
                       className="form-input"
-                      placeholder="e.g., Additional Testing Round"
+                      placeholder={t('phases:manager.phaseNamePlaceholder')}
                       required
                     />
                   </div>
                   <div className="form-group">
-                    <label htmlFor="description">Description</label>
+                    <label htmlFor="description">{t('common:description')}</label>
                     <textarea
                       name="description"
                       id="description"
                       className="form-textarea"
-                      placeholder="Describe the purpose of this custom phase"
+                      placeholder={t('phases:manager.customPhaseDescPlaceholder')}
                       rows={3}
                     />
                   </div>
                   <div className="form-group">
-                    <label htmlFor="start_date">Start Date *</label>
+                    <label htmlFor="start_date">{t('phases:manager.startDateRequired')}</label>
                     <input
                       type="date"
                       name="start_date"
@@ -932,7 +935,7 @@ export const ProjectPhaseManager: React.FC<ProjectPhaseManagerProps> = ({
                     />
                   </div>
                   <div className="form-group">
-                    <label htmlFor="end_date">End Date *</label>
+                    <label htmlFor="end_date">{t('phases:manager.endDateRequired')}</label>
                     <input
                       type="date"
                       name="end_date"
@@ -965,7 +968,7 @@ export const ProjectPhaseManager: React.FC<ProjectPhaseManagerProps> = ({
                   });
                 }}
               >
-                Cancel
+                {t('common:cancel')}
               </button>
               <button
                 type="submit"
@@ -977,9 +980,9 @@ export const ProjectPhaseManager: React.FC<ProjectPhaseManagerProps> = ({
                   (addPhaseMode === 'custom' && createCustomPhaseMutation.isPending)
                 }
               >
-                {addPhaseMode === 'existing' && (addPhaseMutation.isPending ? 'Adding...' : 'Add Phase')}
-                {addPhaseMode === 'duplicate' && (duplicatePhaseMutation.isPending ? 'Duplicating...' : 'Duplicate Phase')}
-                {addPhaseMode === 'custom' && (createCustomPhaseMutation.isPending ? 'Creating...' : 'Create Phase')}
+                {addPhaseMode === 'existing' && (addPhaseMutation.isPending ? t('phases:manager.adding') : t('phases:manager.addPhase'))}
+                {addPhaseMode === 'duplicate' && (duplicatePhaseMutation.isPending ? t('phases:manager.duplicating') : t('phases:manager.duplicatePhase'))}
+                {addPhaseMode === 'custom' && (createCustomPhaseMutation.isPending ? t('phases:manager.creating') : t('phases:manager.createPhase'))}
               </button>
             </div>
           </div>

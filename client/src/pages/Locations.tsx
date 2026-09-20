@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useTranslation } from 'react-i18next';
 import { Plus, Trash2, MapPin, Building } from 'lucide-react';
 import { Location } from '../types';
 import { api } from '../lib/api-client';
 import { queryKeys } from '../lib/queryKeys';
+import { getLocale } from '../i18n';
 import { DataTable, Column } from '../components/ui/DataTable';
 import { InlineEdit } from '../components/ui/InlineEdit';
 import { LocationModal } from '../components/modals/LocationModal';
@@ -13,6 +15,7 @@ import { ErrorMessage } from '../components/ui/ErrorMessage';
 import './Locations.css';
 
 export function Locations() {
+  const { t } = useTranslation();
   const queryClient = useQueryClient();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [deleteConfirm, setDeleteConfirm] = useState<{ isOpen: boolean; location: Location | null }>({
@@ -40,7 +43,7 @@ export function Locations() {
     },
     onError: (error) => {
       console.error('Failed to update location:', error);
-      alert('Failed to update location. Please try again.');
+      alert(t('locations:updateFailed'));
     }
   });
 
@@ -55,7 +58,7 @@ export function Locations() {
     },
     onError: (error) => {
       console.error('Failed to delete location:', error);
-      alert('Failed to delete location. Please try again.');
+      alert(t('locations:deleteFailed'));
     }
   });
 
@@ -82,7 +85,7 @@ export function Locations() {
   const columns: Column<Location>[] = [
     {
       key: 'name',
-      header: 'Location Name',
+      header: t('locations:columns.name'),
       sortable: true,
       render: (value, row) => (
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
@@ -96,14 +99,14 @@ export function Locations() {
               });
             }}
             type="text"
-            placeholder="Location name"
+            placeholder={t('locations:placeholders.name')}
           />
         </div>
       )
     },
     {
       key: 'description',
-      header: 'Description',
+      header: t('locations:columns.description'),
       render: (value, row) => (
         <InlineEdit
           value={row.description || ''}
@@ -114,18 +117,18 @@ export function Locations() {
             });
           }}
           type="textarea"
-          placeholder="Add description..."
+          placeholder={t('locations:placeholders.description')}
           rows={2}
         />
       )
     },
     {
       key: 'created_at',
-      header: 'Created',
+      header: t('locations:columns.created'),
       sortable: true,
       render: (value) => {
         if (!value) return '-';
-        return new Date(value).toLocaleDateString('en-US', {
+        return new Date(value).toLocaleDateString(getLocale(), {
           year: 'numeric',
           month: 'short',
           day: 'numeric'
@@ -134,7 +137,7 @@ export function Locations() {
     },
     {
       key: 'actions',
-      header: 'Actions',
+      header: t('common:actions'),
       width: '100px',
       render: (_, row) => (
         <div className="table-actions">
@@ -144,7 +147,7 @@ export function Locations() {
               e.stopPropagation();
               handleDelete(row);
             }}
-            title="Delete"
+            title={t('common:delete')}
           >
             <Trash2 size={16} />
           </button>
@@ -158,7 +161,7 @@ export function Locations() {
   }
 
   if (error) {
-    return <ErrorMessage message="Failed to load locations" details={(error as Error).message} />;
+    return <ErrorMessage message={t('locations:loadFailed')} details={(error as Error).message} />;
   }
 
   return (
@@ -167,20 +170,20 @@ export function Locations() {
         <div>
           <h1>
             <MapPin size={24} style={{ marginRight: '0.5rem', verticalAlign: 'middle' }} />
-            Locations
+            {t('locations:title')}
           </h1>
-          <p className="text-muted">Manage organizational locations where people and projects are based</p>
+          <p className="text-muted">{t('locations:subtitle')}</p>
         </div>
         <button className="btn btn-primary" onClick={handleCreate}>
           <Plus size={16} />
-          Add Location
+          {t('locations:addLocation')}
         </button>
       </div>
 
       <DataTable
         data={locations || []}
         columns={columns}
-        emptyMessage="No locations found. Start by creating your first location to organize people and projects."
+        emptyMessage={t('locations:emptyMessage')}
         itemsPerPage={20}
       />
 
@@ -194,9 +197,9 @@ export function Locations() {
 
       <ConfirmDialog
         isOpen={deleteConfirm.isOpen}
-        title="Delete Location"
-        message={`Are you sure you want to delete "${deleteConfirm.location?.name}"? This action cannot be undone.`}
-        confirmText="Delete"
+        title={t('locations:deleteTitle')}
+        message={t('locations:deleteMessage', { name: deleteConfirm.location?.name ?? '' })}
+        confirmText={t('common:delete')}
         onConfirm={confirmDelete}
         onCancel={() => setDeleteConfirm({ isOpen: false, location: null })}
         variant="danger"

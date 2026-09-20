@@ -7,6 +7,7 @@
  */
 
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import * as Dialog from '@radix-ui/react-dialog';
 import type { Conflict } from '../../../../shared/types/git-entities';
 
@@ -31,6 +32,7 @@ export const ConflictResolutionModal: React.FC<ConflictResolutionModalProps> = (
   onResolveLater,
   overAllocationWarning,
 }) => {
+  const { t } = useTranslation();
   const [selectedResolution, setSelectedResolution] = useState<'accept_local' | 'accept_remote' | 'custom'>('accept_local');
   const [customValue, setCustomValue] = useState('');
   const [isResolving, setIsResolving] = useState(false);
@@ -70,15 +72,15 @@ export const ConflictResolutionModal: React.FC<ConflictResolutionModalProps> = (
         <Dialog.Content className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg shadow-xl max-w-4xl w-full max-h-[90vh] overflow-auto">
           <div className="p-6">
             <Dialog.Title className="text-xl font-semibold mb-4">
-              Resolve Conflict
+              {t('gitSync:conflicts.resolveTitle')}
             </Dialog.Title>
 
             {/* Entity Info */}
             <div className="mb-6 p-4 bg-gray-50 rounded-lg">
-              <div className="text-sm text-gray-600">Entity</div>
+              <div className="text-sm text-gray-600">{t('gitSync:conflicts.entity')}</div>
               <div className="font-medium">{conflict.entityName}</div>
               <div className="text-sm text-gray-500 mt-1">
-                {conflict.entityType} · Field: <span className="font-mono">{conflict.field}</span>
+                {conflict.entityType} · {t('gitSync:conflicts.field')}: <span className="font-mono">{conflict.field}</span>
               </div>
             </div>
 
@@ -91,15 +93,17 @@ export const ConflictResolutionModal: React.FC<ConflictResolutionModalProps> = (
                   </div>
                   <div className="ml-3">
                     <h3 className="text-sm font-medium text-yellow-800">
-                      Over-allocation Warning
+                      {t('gitSync:conflicts.overAllocationWarning')}
                     </h3>
                     <div className="mt-2 text-sm text-yellow-700">
                       <p>
-                        {overAllocationWarning.personName} will be allocated at{' '}
-                        <strong>{overAllocationWarning.totalAllocation}%</strong> if this conflict is resolved.
+                        {t('gitSync:conflicts.overAllocationDetail', {
+                          name: overAllocationWarning.personName,
+                          total: overAllocationWarning.totalAllocation,
+                        })}
                       </p>
                       <div className="mt-2">
-                        <p className="font-medium">Affected assignments:</p>
+                        <p className="font-medium">{t('gitSync:conflicts.affectedAssignments')}:</p>
                         <ul className="mt-1 list-disc list-inside">
                           {overAllocationWarning.affectedAssignments.map((a, idx) => (
                             <li key={idx}>
@@ -120,7 +124,7 @@ export const ConflictResolutionModal: React.FC<ConflictResolutionModalProps> = (
                 {/* BASE */}
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Base (Common Ancestor)
+                    {t('gitSync:conflicts.base')}
                   </label>
                   <div className="p-3 bg-gray-100 rounded border border-gray-300 min-h-[100px] font-mono text-sm whitespace-pre-wrap break-all">
                     {String(conflict.baseValue ?? 'null')}
@@ -138,7 +142,7 @@ export const ConflictResolutionModal: React.FC<ConflictResolutionModalProps> = (
                       onChange={() => setSelectedResolution('accept_local')}
                       className="mr-2"
                     />
-                    <span className="text-blue-700">Local (Your Version)</span>
+                    <span className="text-blue-700">{t('gitSync:conflicts.localVersion')}</span>
                   </label>
                   <div
                     className={`p-3 rounded border min-h-[100px] font-mono text-sm whitespace-pre-wrap break-all cursor-pointer transition-colors ${
@@ -163,7 +167,7 @@ export const ConflictResolutionModal: React.FC<ConflictResolutionModalProps> = (
                       onChange={() => setSelectedResolution('accept_remote')}
                       className="mr-2"
                     />
-                    <span className="text-green-700">Remote (Their Version)</span>
+                    <span className="text-green-700">{t('gitSync:conflicts.remoteVersion')}</span>
                   </label>
                   <div
                     className={`p-3 rounded border min-h-[100px] font-mono text-sm whitespace-pre-wrap break-all cursor-pointer transition-colors ${
@@ -190,7 +194,7 @@ export const ConflictResolutionModal: React.FC<ConflictResolutionModalProps> = (
                   onChange={() => setSelectedResolution('custom')}
                   className="mr-2"
                 />
-                <span>Custom Value</span>
+                <span>{t('gitSync:conflicts.customValue')}</span>
               </label>
               <input
                 type="text"
@@ -201,7 +205,7 @@ export const ConflictResolutionModal: React.FC<ConflictResolutionModalProps> = (
                 }}
                 onFocus={() => setSelectedResolution('custom')}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 font-mono text-sm"
-                placeholder="Enter custom value..."
+                placeholder={t('gitSync:conflicts.customPlaceholder')}
               />
             </div>
 
@@ -216,7 +220,7 @@ export const ConflictResolutionModal: React.FC<ConflictResolutionModalProps> = (
                   }}
                   className="px-4 py-2 text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200 transition-colors"
                 >
-                  Resolve Later
+                  {t('gitSync:conflicts.resolveLater')}
                 </button>
               )}
 
@@ -224,7 +228,7 @@ export const ConflictResolutionModal: React.FC<ConflictResolutionModalProps> = (
                 onClick={handleCancel}
                 className="px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 transition-colors"
               >
-                Cancel
+                {t('common:cancel')}
               </button>
 
               <button
@@ -232,7 +236,7 @@ export const ConflictResolutionModal: React.FC<ConflictResolutionModalProps> = (
                 disabled={isResolving || (selectedResolution === 'custom' && !customValue.trim())}
                 className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
               >
-                {isResolving ? 'Resolving...' : 'Apply Resolution'}
+                {isResolving ? t('gitSync:conflicts.resolving') : t('gitSync:conflicts.applyResolution')}
               </button>
             </div>
           </div>

@@ -5,6 +5,7 @@
  */
 
 import * as React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
 import { Spinner } from '@/components/ui/spinner';
 import { cn } from '@/lib/utils';
@@ -30,20 +31,21 @@ export const FormActions = React.forwardRef<HTMLDivElement, FormActionsProps>(
       isSubmitting,
       isEditing,
       onCancel,
-      createText = 'Create',
-      updateText = 'Update',
-      cancelText = 'Cancel',
+      createText,
+      updateText,
+      cancelText,
       className,
     },
     ref
   ) => {
-    const submitText = isEditing ? updateText : createText;
-    const loadingText = isEditing ? 'Updating...' : 'Creating...';
+    const { t } = useTranslation();
+    const submitText = isEditing ? (updateText ?? t('common:update')) : (createText ?? t('common:create'));
+    const loadingText = isEditing ? t('common:updating') : t('common:creating');
 
     return (
       <div ref={ref} className={cn('flex justify-end gap-2', className)}>
         <Button type="button" variant="outline" onClick={onCancel}>
-          {cancelText}
+          {cancelText ?? t('common:cancel')}
         </Button>
         <Button type="submit" disabled={isSubmitting}>
           {isSubmitting ? (

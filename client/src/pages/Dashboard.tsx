@@ -14,6 +14,8 @@ import {
 import { api } from '../lib/api-client';
 import { queryKeys } from '../lib/queryKeys';
 import { useScenario } from '../contexts/ScenarioContext';
+import { useTranslation } from 'react-i18next';
+import { healthStatusLabel, allocationStatusLabel, capacityHealthLabel } from '../lib/enum-labels';
 import { DashboardSummary } from '../types';
 import { Card } from '../components/ui/CustomCard';
 import { StatCard } from '../components/ui/StatCard';
@@ -39,6 +41,7 @@ const COLORS = {
 export function Dashboard() {
   const navigate = useNavigate();
   const { currentScenario } = useScenario();
+  const { t } = useTranslation();
   
   // Date range state for time-based filtering
   const [dateRange, setDateRange] = React.useState({
@@ -60,39 +63,40 @@ export function Dashboard() {
   const { alerts, hasAlerts } = useCriticalAlerts();
 
   if (isLoading) return <LoadingSpinner />;
-  if (error) return <ErrorMessage message="Failed to load dashboard data" />;
+  if (error) return <ErrorMessage message={t('dashboard:errors.loadFailed')} />;
   if (!dashboard) return null;
 
   // Prepare data for charts with defensive checks
   const projectHealthData = dashboard.projectHealth && Object.keys(dashboard.projectHealth).length > 0
     ? Object.entries(dashboard.projectHealth).map(([status, count]) => ({
-        name: status.replace('_', ' '),
+        status,
+        name: healthStatusLabel(status),
         value: count,
       }))
-    : [{ name: 'No Projects', value: 0 }];
+    : [{ status: '', name: t('dashboard:noProjects'), value: 0 }];
 
   // Handle empty utilization data gracefully
-  const utilizationData = dashboard.utilization && Object.keys(dashboard.utilization).length > 0 
+  const utilizationData = dashboard.utilization && Object.keys(dashboard.utilization).length > 0
     ? Object.entries(dashboard.utilization).map(([status, count]) => ({
-        name: status === 'NO_ASSIGNMENTS' ? 'No Assignments Yet' : status.replace(/_/g, ' '),
+        name: status === 'NO_ASSIGNMENTS' ? t('dashboard:noAssignmentsYet') : allocationStatusLabel(status),
         value: count,
       }))
-    : [{ name: 'No Data', value: 0 }];
+    : [{ name: t('dashboard:noData'), value: 0 }];
 
   const capacityData = dashboard.capacityGaps && Object.keys(dashboard.capacityGaps).length > 0
     ? Object.entries(dashboard.capacityGaps).map(([status, count]) => ({
-        name: status,
+        name: capacityHealthLabel(status),
         value: count,
         color: status === 'GAP' ? COLORS.danger : status === 'TIGHT' ? COLORS.warning : COLORS.success,
       }))
-    : [{ name: 'No Data', value: 0, color: COLORS.primary }];
+    : [{ name: t('dashboard:noData'), value: 0, color: COLORS.primary }];
 
   return (
     <div className="page-container">
       <header className="page-header" role="banner">
         <div>
-          <h1>Dashboard</h1>
-          <p className="page-subtitle">Overview of your project capacity planning</p>
+          <h1>{t('dashboard:title')}</h1>
+          <p className="page-subtitle">{t('dashboard:subtitle')}</p>
         </div>
       </header>
 
@@ -107,44 +111,44 @@ export function Dashboard() {
       {/* Critical Alerts Panel */}
       {hasAlerts && (
         <section className="mb-6" role="region" aria-labelledby="alerts-heading">
-          <h2 id="alerts-heading" className="sr-only">Critical Alerts and Notifications</h2>
+          <h2 id="alerts-heading" className="sr-only">{t('dashboard:srHeadings.alerts')}</h2>
           <CriticalAlertsPanel alerts={alerts} />
         </section>
       )}
 
       <section className="stats-grid" role="region" aria-labelledby="stats-heading">
-        <h2 id="stats-heading" className="sr-only">Key Metrics Overview</h2>
+        <h2 id="stats-heading" className="sr-only">{t('dashboard:srHeadings.stats')}</h2>
         <StatCard
-          title="Current Projects"
+          title={t('dashboard:stats.currentProjects')}
           value={dashboard.summary.projects}
           icon={FolderKanban}
           color="primary"
           onClick={() => navigate('/projects')}
-          aria-label={`${dashboard.summary.projects} current projects. Click to view all projects.`}
+          aria-label={t('dashboard:stats.currentProjectsAria', { count: dashboard.summary.projects })}
         />
         <StatCard
-          title="Total People"
+          title={t('dashboard:stats.totalPeople')}
           value={dashboard.summary.people}
           icon={Users}
           color="success"
           onClick={() => navigate('/people')}
-          aria-label={`${dashboard.summary.people} total people. Click to view people directory.`}
+          aria-label={t('dashboard:stats.totalPeopleAria', { count: dashboard.summary.people })}
         />
         <StatCard
-          title="Total Roles"
+          title={t('dashboard:stats.totalRoles')}
           value={dashboard.summary.roles}
           icon={Briefcase}
           color="purple"
           onClick={() => navigate('/people')}
-          aria-label={`${dashboard.summary.roles} total roles defined. Click to view people and roles.`}
+          aria-label={t('dashboard:stats.totalRolesAria', { count: dashboard.summary.roles })}
         />
         <StatCard
-          title="Capacity Gaps"
+          title={t('dashboard:stats.capacityGaps')}
           value={dashboard.capacityGaps?.GAP || 0}
           icon={AlertTriangle}
           color="danger"
           onClick={() => navigate('/reports')}
-          aria-label={`${dashboard.capacityGaps?.GAP || 0} capacity gaps detected. Click to view detailed reports.`}
+          aria-label={t('dashboard:stats.capacityGapsAria', { count: dashboard.capacityGaps?.GAP || 0 })}
         />
       </section>
 
@@ -152,15 +156,17 @@ export function Dashboard() {
       <EnhancedKPIs dashboard={dashboard} className="mb-6" />
 
       <div className="charts-grid" role="region" aria-labelledby="charts-heading">
-        <h2 id="charts-heading" className="sr-only">Dashboard Charts and Analytics</h2>
-        <Card 
-          title="Current Project Health"
+        <h2 id="charts-heading" className="sr-only">{t('dashboard:srHeadings.charts')}</h2>
+        <Card
+          title={t('dashboard:charts.projectHealth')}
           onClick={() => navigate('/projects')}
         >
-          <div 
-            className="chart-container" 
-            role="img" 
-            aria-label={`Project health breakdown: ${projectHealthData.map(item => `${item.name} ${item.value} projects`).join(', ')}. Click to view all projects.`}
+          <div
+            className="chart-container"
+            role="img"
+            aria-label={t('dashboard:charts.healthBreakdownAria', {
+              items: projectHealthData.map(item => t('dashboard:charts.healthBreakdownItem', { name: item.name, count: item.value })).join(', '),
+            })}
             tabIndex={0}
             onKeyDown={(e) => {
               if (e.key === 'Enter' || e.key === ' ') {
@@ -176,7 +182,7 @@ export function Dashboard() {
                   cx="50%"
                   cy="50%"
                   labelLine={false}
-                  label={({ name, value }) => `${name}: ${value}`}
+                  label={({ name, value }) => t('dashboard:charts.pieLabel', { name, value })}
                   outerRadius={100}
                   fill="#8884d8"
                   dataKey="value"
@@ -187,9 +193,9 @@ export function Dashboard() {
                     <Cell
                       key={`cell-${index}`}
                       fill={
-                        entry.name.includes('OVERDUE') ? COLORS.danger :
-                        entry.name.includes('ACTIVE') ? COLORS.success :
-                        entry.name.includes('PLANNING') ? COLORS.warning :
+                        entry.status.includes('OVERDUE') ? COLORS.danger :
+                        entry.status.includes('ACTIVE') ? COLORS.success :
+                        entry.status.includes('PLANNING') ? COLORS.warning :
                         COLORS.primary
                       }
                     />
@@ -201,14 +207,16 @@ export function Dashboard() {
           </div>
         </Card>
 
-        <Card 
-          title="Resource Utilization"
+        <Card
+          title={t('dashboard:charts.resourceUtilization')}
           onClick={() => navigate('/people')}
         >
-          <div 
-            className="chart-container" 
-            role="img" 
-            aria-label={`Resource utilization breakdown: ${utilizationData.map(item => `${item.name} ${item.value} people`).join(', ')}. Click to view people directory.`}
+          <div
+            className="chart-container"
+            role="img"
+            aria-label={t('dashboard:charts.utilizationBreakdownAria', {
+              items: utilizationData.map(item => t('dashboard:charts.utilizationBreakdownItem', { name: item.name, count: item.value })).join(', '),
+            })}
             tabIndex={0}
             onKeyDown={(e) => {
               if (e.key === 'Enter' || e.key === ' ') {
@@ -234,22 +242,22 @@ export function Dashboard() {
           </div>
         </Card>
 
-        <Card 
-          title="Capacity Status by Role"
+        <Card
+          title={t('dashboard:charts.capacityByRole')}
           onClick={() => navigate('/reports')}
         >
-          <div 
-            className="capacity-summary" 
+          <div
+            className="capacity-summary"
             role="list"
-            aria-label="Capacity status breakdown by role type"
+            aria-label={t('dashboard:charts.capacityListAria')}
           >
             {capacityData.map((item, _index) => (
-              <div 
-                key={item.name} 
+              <div
+                key={item.name}
                 className="capacity-item capacity-item-clickable"
                 role="listitem"
                 tabIndex={0}
-                aria-label={`${item.name} status: ${item.value} roles. Click to view detailed reports.`}
+                aria-label={t('dashboard:charts.capacityItemAria', { name: item.name, count: item.value })}
                 onClick={(e) => {
                   e.stopPropagation();
                   navigate('/reports');
@@ -262,27 +270,27 @@ export function Dashboard() {
                 }}
               >
                 <div className="capacity-label">
-                  <span 
-                    className="capacity-status" 
+                  <span
+                    className="capacity-status"
                     style={{ backgroundColor: item.color }}
                     role="img"
-                    aria-label={`Status indicator for ${item.name}`}
+                    aria-label={t('dashboard:charts.statusIndicatorAria', { name: item.name })}
                   ></span>
                   <span>{item.name}</span>
                 </div>
-                <span className="capacity-value">{item.value} roles</span>
+                <span className="capacity-value">{t('dashboard:charts.rolesCount', { count: item.value })}</span>
               </div>
             ))}
           </div>
         </Card>
 
-        <Card title="Quick Stats">
-          <div className="quick-stats" role="list" aria-label="Quick availability and utilization statistics">
-            <div 
-              className="stat-item stat-item-clickable" 
+        <Card title={t('dashboard:charts.quickStats')}>
+          <div className="quick-stats" role="list" aria-label={t('dashboard:quickStats.listAria')}>
+            <div
+              className="stat-item stat-item-clickable"
               role="listitem"
               tabIndex={0}
-              aria-label={`${dashboard.availability?.AVAILABLE || 0} people available. Click to view people directory.`}
+              aria-label={t('dashboard:quickStats.availableAria', { count: dashboard.availability?.AVAILABLE || 0 })}
               onClick={() => navigate('/people')}
               onKeyDown={(e) => {
                 if (e.key === 'Enter' || e.key === ' ') {
@@ -294,14 +302,14 @@ export function Dashboard() {
               <UserCheck className="stat-icon" color={COLORS.success} aria-hidden="true" />
               <div>
                 <div className="stat-value">{dashboard.availability?.AVAILABLE || 0}</div>
-                <div className="stat-label">Available</div>
+                <div className="stat-label">{t('dashboard:quickStats.available')}</div>
               </div>
             </div>
-            <div 
-              className="stat-item stat-item-clickable" 
+            <div
+              className="stat-item stat-item-clickable"
               role="listitem"
               tabIndex={0}
-              aria-label={`${dashboard.availability?.UNAVAILABLE || 0} people on leave. Click to view people directory.`}
+              aria-label={t('dashboard:quickStats.onLeaveAria', { count: dashboard.availability?.UNAVAILABLE || 0 })}
               onClick={() => navigate('/people')}
               onKeyDown={(e) => {
                 if (e.key === 'Enter' || e.key === ' ') {
@@ -313,14 +321,14 @@ export function Dashboard() {
               <UserX className="stat-icon" color={COLORS.danger} aria-hidden="true" />
               <div>
                 <div className="stat-value">{dashboard.availability?.UNAVAILABLE || 0}</div>
-                <div className="stat-label">On Leave</div>
+                <div className="stat-label">{t('dashboard:quickStats.onLeave')}</div>
               </div>
             </div>
-            <div 
-              className="stat-item stat-item-clickable" 
+            <div
+              className="stat-item stat-item-clickable"
               role="listitem"
               tabIndex={0}
-              aria-label={`${dashboard.availability?.LIMITED || 0} people with limited capacity. Click to view people directory.`}
+              aria-label={t('dashboard:quickStats.limitedAria', { count: dashboard.availability?.LIMITED || 0 })}
               onClick={() => navigate('/people')}
               onKeyDown={(e) => {
                 if (e.key === 'Enter' || e.key === ' ') {
@@ -332,14 +340,14 @@ export function Dashboard() {
               <Activity className="stat-icon" color={COLORS.warning} aria-hidden="true" />
               <div>
                 <div className="stat-value">{dashboard.availability?.LIMITED || 0}</div>
-                <div className="stat-label">Limited Capacity</div>
+                <div className="stat-label">{t('dashboard:quickStats.limitedCapacity')}</div>
               </div>
             </div>
-            <div 
-              className="stat-item stat-item-clickable" 
+            <div
+              className="stat-item stat-item-clickable"
               role="listitem"
               tabIndex={0}
-              aria-label={`${dashboard.utilization?.OVER_ALLOCATED || 0} people over allocated. Click to view people directory.`}
+              aria-label={t('dashboard:quickStats.overAllocatedAria', { count: dashboard.utilization?.OVER_ALLOCATED || 0 })}
               onClick={() => navigate('/people')}
               onKeyDown={(e) => {
                 if (e.key === 'Enter' || e.key === ' ') {
@@ -351,7 +359,7 @@ export function Dashboard() {
               <TrendingUp className="stat-icon" color={COLORS.primary} aria-hidden="true" />
               <div>
                 <div className="stat-value">{dashboard.utilization?.OVER_ALLOCATED || 0}</div>
-                <div className="stat-label">Over Allocated</div>
+                <div className="stat-label">{t('dashboard:quickStats.overAllocated')}</div>
               </div>
             </div>
           </div>

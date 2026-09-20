@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import {
   AlertTriangle,
   Clock,
@@ -10,6 +11,7 @@ import {
 } from 'lucide-react';
 import { Alert, AlertTitle, AlertDescription } from '../ui/alert';
 import { Card } from '../ui/CustomCard';
+import { getLocale } from '../../i18n';
 import './Dashboard.css';
 
 interface CriticalAlert {
@@ -73,6 +75,7 @@ const SEVERITY_CONFIG = {
 
 export function CriticalAlertsPanel({ alerts, className = '' }: CriticalAlertsPanelProps) {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   // Sort alerts by severity (critical first)
   const sortedAlerts = [...alerts].sort((a, b) => 
@@ -92,14 +95,14 @@ export function CriticalAlertsPanel({ alerts, className = '' }: CriticalAlertsPa
 
   if (alerts.length === 0) {
     return (
-      <Card title="System Status" className={`dashboard-alerts-panel ${className}`}>
+      <Card title={t('dashboard:alerts.systemStatus')} className={`dashboard-alerts-panel ${className}`}>
         <div className="dashboard-healthy-state">
           <div className="dashboard-healthy-icon">
             <Users className="w-6 h-6" />
           </div>
-          <p className="text-sm font-medium">All Systems Healthy</p>
+          <p className="text-sm font-medium">{t('dashboard:alerts.allHealthy')}</p>
           <p className="text-xs text-muted-foreground mt-1">
-            No critical capacity issues detected
+            {t('dashboard:alerts.noIssues')}
           </p>
         </div>
       </Card>
@@ -107,16 +110,16 @@ export function CriticalAlertsPanel({ alerts, className = '' }: CriticalAlertsPa
   }
 
   return (
-    <Card 
-      title="Critical Alerts" 
+    <Card
+      title={t('dashboard:alerts.title')}
       className={`dashboard-alerts-panel ${className}`}
       actions={
         <span className="text-xs text-muted-foreground">
-          {alerts.length} issue{alerts.length !== 1 ? 's' : ''} requiring attention
+          {t('dashboard:alerts.issueCount', { count: alerts.length })}
         </span>
       }
     >
-      <div className="space-y-3" role="list" aria-label="Critical capacity planning alerts">
+      <div className="space-y-3" role="list" aria-label={t('dashboard:alerts.listAria')}>
         {sortedAlerts.map((alert) => {
           const config = ALERT_CONFIG[alert.type];
           const severityConfig = SEVERITY_CONFIG[alert.severity];
@@ -131,7 +134,12 @@ export function CriticalAlertsPanel({ alerts, className = '' }: CriticalAlertsPa
               tabIndex={0}
               onKeyDown={(e) => handleKeyDown(e, alert)}
               role="listitem"
-              aria-label={`${alert.severity} alert: ${alert.title}. ${alert.description}. Click to ${alert.actionText.toLowerCase()}.`}
+              aria-label={t('dashboard:alerts.itemAria', {
+                severity: t(`dashboard:alerts.severity.${alert.severity}`),
+                title: alert.title,
+                description: alert.description,
+                action: alert.actionText.toLowerCase(),
+              })}
             >
               <div className="flex items-start gap-3">
                 <div className={`dashboard-alert-icon p-2 rounded-full ${config.bgColor}`}>
@@ -153,7 +161,7 @@ export function CriticalAlertsPanel({ alerts, className = '' }: CriticalAlertsPa
                     <p className="text-sm text-muted-foreground">{alert.description}</p>
                     {alert.dueDate && (
                       <p className="text-xs text-muted-foreground mt-1">
-                        Due: {new Date(alert.dueDate).toLocaleDateString()}
+                        {t('dashboard:alerts.due')} {new Date(alert.dueDate).toLocaleDateString(getLocale())}
                       </p>
                     )}
                     <div className="flex items-center gap-1 mt-2 text-xs font-medium">

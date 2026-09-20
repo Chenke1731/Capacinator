@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Plus, Trash2, X, ArrowRight, AlertTriangle } from 'lucide-react';
 import { InlineEdit } from './InlineEdit';
 import type { Phase, Dependency } from '../../hooks/usePhaseTimelineData';
@@ -48,6 +49,8 @@ export function PhaseTimelineTable({
   onValidate,
   onCalculateCorrection
 }: PhaseTimelineTableProps) {
+  const { t } = useTranslation();
+
   const getDependenciesForPhase = (phaseId: string) => {
     return dependencies.filter((dep: Dependency) => dep.successor_phase_timeline_id === phaseId);
   };
@@ -69,11 +72,11 @@ export function PhaseTimelineTable({
       <table className="data-table">
         <thead>
           <tr>
-            <th>Phase</th>
-            <th>Start Date</th>
-            <th>End Date</th>
-            <th>Dependencies</th>
-            <th width="100">Actions</th>
+            <th>{t('phases:manager.phaseColumn')}</th>
+            <th>{t('common:startDate')}</th>
+            <th>{t('common:endDate')}</th>
+            <th>{t('phases:table.dependencies')}</th>
+            <th width="100">{t('common:actions')}</th>
           </tr>
         </thead>
         <tbody>
@@ -145,7 +148,7 @@ export function PhaseTimelineTable({
                   <div
                     className="dependencies-cell clickable-dependencies"
                     onClick={() => onAddDependencyClick(phase.id)}
-                    title="Click to add dependency"
+                    title={t('phases:table.clickToAddDependency')}
                   >
                     {phaseDependencies.length > 0 ? (
                       <div className="dependencies-list">
@@ -167,7 +170,7 @@ export function PhaseTimelineTable({
                                   e.stopPropagation();
                                   onDeleteDependency(dep.id);
                                 }}
-                                title="Remove dependency"
+                                title={t('phases:table.removeDependency')}
                               >
                                 <X size={10} />
                               </button>
@@ -176,13 +179,13 @@ export function PhaseTimelineTable({
                         })}
                         <div className="add-dependency-hint">
                           <Plus size={12} />
-                          <span>Add dependency</span>
+                          <span>{t('phases:table.addDependency')}</span>
                         </div>
                       </div>
                     ) : (
                       <div className="empty-dependencies">
                         <Plus size={14} />
-                        <span>Add dependency</span>
+                        <span>{t('phases:table.addDependency')}</span>
                       </div>
                     )}
                   </div>
@@ -192,11 +195,11 @@ export function PhaseTimelineTable({
                     <button
                       className="btn-icon btn-danger btn-sm"
                       onClick={() => {
-                        if (confirm('Are you sure you want to delete this phase?')) {
+                        if (confirm(t('phases:manager.deletePhaseConfirm'))) {
                           onDeletePhase(phase.id);
                         }
                       }}
-                      title="Delete phase"
+                      title={t('phases:manager.deletePhaseTooltip')}
                     >
                       <Trash2 size={14} />
                     </button>

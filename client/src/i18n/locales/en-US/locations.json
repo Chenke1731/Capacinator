@@ -1,0 +1,31 @@
+{
+  "title": "Locations",
+  "subtitle": "Manage organizational locations where people and projects are based",
+  "addLocation": "Add Location",
+  "columns": {
+    "name": "Location Name",
+    "description": "Description",
+    "created": "Created"
+  },
+  "placeholders": {
+    "name": "Location name",
+    "description": "Add description..."
+  },
+  "loadFailed": "Failed to load locations",
+  "updateFailed": "Failed to update location. Please try again.",
+  "deleteFailed": "Failed to delete location. Please try again.",
+  "emptyMessage": "No locations found. Start by creating your first location to organize people and projects.",
+  "deleteTitle": "Delete Location",
+  "deleteMessage": "Are you sure you want to delete \"{{name}}\"? This action cannot be undone.",
+  "modal": {
+    "editTitle": "Edit Location",
+    "createTitle": "Add Location",
+    "editDescription": "Update the location details below.",
+    "createDescription": "Fill in the information to create a new location.",
+    "save": "Save Location",
+    "nameRequired": "Name is required",
+    "saveFailed": "Failed to save location",
+    "namePlaceholder": "e.g., New York City, Remote, London",
+    "descriptionPlaceholder": "Brief description of this location..."
+  }
+}

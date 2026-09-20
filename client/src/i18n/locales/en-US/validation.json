@@ -1,0 +1,16 @@
+{
+  "emailRequired": "Email is required",
+  "invalidEmailFormat": "Invalid email format",
+  "bothDatesRequired": "Both start and end dates are required together",
+  "invalidDateFormat": "Invalid date format",
+  "endAfterStart": "End date must be after start date",
+  "allocationMustBeNumber": "Allocation percentage must be a number",
+  "allocationRange": "Allocation percentage must be between 1 and 100",
+  "hoursMustBeNumber": "Hours per day must be a number",
+  "hoursRange": "Hours per day must be between 0 and 24",
+  "availabilityMustBeNumber": "Availability percentage must be a number",
+  "availabilityRange": "Availability percentage must be between 0 and 100",
+  "fieldRequired": "{{field}} is required",
+  "fieldTooLong": "{{field}} must be less than {{count}} characters",
+  "bothFieldsRequired": "{{fieldA}} and {{fieldB}} must both be provided"
+}

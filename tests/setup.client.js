@@ -5,6 +5,11 @@
 const React = require('react');
 global.React = React;
 
+// Initialize the i18n singleton (normally imported by App.tsx) so that any
+// component rendered standalone in tests gets real translations. jsdom's
+// navigator.language is en-US, so tests render English exactly as before.
+require('../client/src/i18n');
+
 // Add TextEncoder/TextDecoder polyfills
 const { TextEncoder, TextDecoder } = require('util');
 global.TextEncoder = TextEncoder;

@@ -7,6 +7,7 @@
  */
 
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { api } from '../../lib/api-client';
 
 interface ScenarioDifference {
@@ -42,6 +43,7 @@ export const ScenarioComparisonView: React.FC<ScenarioComparisonViewProps> = ({
   targetBranch,
   onClose,
 }) => {
+  const { t } = useTranslation();
   const [comparison, setComparison] = useState<ComparisonResult | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -62,7 +64,7 @@ export const ScenarioComparisonView: React.FC<ScenarioComparisonViewProps> = ({
         setComparison(result.data);
       }
     } catch (err) {
-      setError((err as Error).message || 'Failed to load comparison');
+      setError((err as Error).message || t('gitSync:compare.loadFailed'));
     } finally {
       setLoading(false);
     }
@@ -80,12 +82,13 @@ export const ScenarioComparisonView: React.FC<ScenarioComparisonViewProps> = ({
 
   const getEntityTypeLabel = (type: string): string => {
     const labels: Record<string, string> = {
-      project: 'Projects',
-      person: 'People',
-      assignment: 'Assignments',
-      project_phase: 'Project Phases',
+      project: 'gitSync:entityTypes.projects',
+      person: 'gitSync:entityTypes.people',
+      assignment: 'gitSync:entityTypes.assignments',
+      project_phase: 'gitSync:entityTypes.projectPhases',
     };
-    return labels[type] || type;
+    const key = labels[type];
+    return key ? t(key) : type;
   };
 
   const getDifferenceTypeColor = (type: string): string => {
@@ -111,7 +114,7 @@ export const ScenarioComparisonView: React.FC<ScenarioComparisonViewProps> = ({
       <div className="flex items-center justify-center py-12">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-          <p className="text-gray-600">Comparing scenarios...</p>
+          <p className="text-gray-600">{t('gitSync:compare.comparing')}</p>
         </div>
       </div>
     );
@@ -120,7 +123,7 @@ export const ScenarioComparisonView: React.FC<ScenarioComparisonViewProps> = ({
   if (error) {
     return (
       <div className="p-6 bg-red-50 border border-red-200 rounded-lg text-red-700">
-        <p className="font-medium">Error loading comparison</p>
+        <p className="font-medium">{t('gitSync:compare.errorTitle')}</p>
         <p className="text-sm mt-1">{error}</p>
       </div>
     );
@@ -135,9 +138,9 @@ export const ScenarioComparisonView: React.FC<ScenarioComparisonViewProps> = ({
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-2xl font-bold">Scenario Comparison</h2>
+          <h2 className="text-2xl font-bold">{t('gitSync:compare.title')}</h2>
           <p className="text-gray-600 mt-1">
-            Comparing <strong>{baseBranch}</strong> → <strong>{targetBranch}</strong>
+            {t('gitSync:compare.comparingPrefix')} <strong>{baseBranch}</strong> {t('gitSync:compare.comparingMiddle')} <strong>{targetBranch}</strong>
           </p>
         </div>
         {onClose && (
@@ -145,7 +148,7 @@ export const ScenarioComparisonView: React.FC<ScenarioComparisonViewProps> = ({
             onClick={onClose}
             className="px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50"
           >
-            Close
+            {t('common:close')}
           </button>
         )}
       </div>
@@ -154,15 +157,15 @@ export const ScenarioComparisonView: React.FC<ScenarioComparisonViewProps> = ({
       <div className="grid grid-cols-3 gap-4">
         <div className="bg-green-50 border border-green-200 rounded-lg p-4">
           <div className="text-3xl font-bold text-green-700">{comparison.summary.added}</div>
-          <div className="text-sm text-green-600 mt-1">Added</div>
+          <div className="text-sm text-green-600 mt-1">{t('gitSync:compare.added')}</div>
         </div>
         <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
           <div className="text-3xl font-bold text-blue-700">{comparison.summary.modified}</div>
-          <div className="text-sm text-blue-600 mt-1">Modified</div>
+          <div className="text-sm text-blue-600 mt-1">{t('gitSync:compare.modified')}</div>
         </div>
         <div className="bg-red-50 border border-red-200 rounded-lg p-4">
           <div className="text-3xl font-bold text-red-700">{comparison.summary.removed}</div>
-          <div className="text-sm text-red-600 mt-1">Removed</div>
+          <div className="text-sm text-red-600 mt-1">{t('gitSync:compare.removed')}</div>
         </div>
       </div>
 
@@ -183,7 +186,7 @@ export const ScenarioComparisonView: React.FC<ScenarioComparisonViewProps> = ({
               filterType === 'added' ? 'bg-green-600 text-white' : 'bg-white text-gray-700 hover:bg-gray-100'
             }`}
           >
-            Added ({comparison.summary.added})
+            {t('gitSync:compare.added')} ({comparison.summary.added})
           </button>
           <button
             onClick={() => setFilterType('modified')}
@@ -191,7 +194,7 @@ export const ScenarioComparisonView: React.FC<ScenarioComparisonViewProps> = ({
               filterType === 'modified' ? 'bg-blue-600 text-white' : 'bg-white text-gray-700 hover:bg-gray-100'
             }`}
           >
-            Modified ({comparison.summary.modified})
+            {t('gitSync:compare.modified')} ({comparison.summary.modified})
           </button>
           <button
             onClick={() => setFilterType('removed')}
@@ -199,7 +202,7 @@ export const ScenarioComparisonView: React.FC<ScenarioComparisonViewProps> = ({
               filterType === 'removed' ? 'bg-red-600 text-white' : 'bg-white text-gray-700 hover:bg-gray-100'
             }`}
           >
-            Removed ({comparison.summary.removed})
+            {t('gitSync:compare.removed')} ({comparison.summary.removed})
           </button>
         </div>
 
@@ -209,11 +212,11 @@ export const ScenarioComparisonView: React.FC<ScenarioComparisonViewProps> = ({
             onChange={(e) => setSelectedEntityType(e.target.value)}
             className="px-3 py-1.5 border border-gray-300 rounded text-sm"
           >
-            <option value="all">All Types</option>
-            <option value="project">Projects</option>
-            <option value="person">People</option>
-            <option value="assignment">Assignments</option>
-            <option value="project_phase">Project Phases</option>
+            <option value="all">{t('gitSync:compare.allTypes')}</option>
+            <option value="project">{t('gitSync:entityTypes.projects')}</option>
+            <option value="person">{t('gitSync:entityTypes.people')}</option>
+            <option value="assignment">{t('gitSync:entityTypes.assignments')}</option>
+            <option value="project_phase">{t('gitSync:entityTypes.projectPhases')}</option>
           </select>
         </div>
       </div>
@@ -222,7 +225,7 @@ export const ScenarioComparisonView: React.FC<ScenarioComparisonViewProps> = ({
       <div className="space-y-2">
         {filteredDifferences.length === 0 ? (
           <div className="text-center py-8 text-gray-500">
-            No differences found with current filters
+            {t('gitSync:compare.noDifferences')}
           </div>
         ) : (
           filteredDifferences.map((diff, index) => (
@@ -243,7 +246,7 @@ export const ScenarioComparisonView: React.FC<ScenarioComparisonViewProps> = ({
                   </div>
                   {diff.differenceType === 'modified' && diff.modifiedFields && (
                     <div className="text-sm mt-2">
-                      <span className="font-medium">Modified fields:</span>{' '}
+                      <span className="font-medium">{t('gitSync:compare.modifiedFields')}:</span>{' '}
                       {diff.modifiedFields.join(', ')}
                     </div>
                   )}

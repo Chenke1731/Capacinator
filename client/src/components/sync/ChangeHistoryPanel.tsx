@@ -7,7 +7,9 @@
  */
 
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { api } from '../../lib/api-client';
+import { getLocale } from '../../i18n';
 
 interface Commit {
   hash: string;
@@ -28,6 +30,7 @@ export const ChangeHistoryPanel: React.FC<ChangeHistoryPanelProps> = ({
   entityId,
   maxCount = 20,
 }) => {
+  const { t } = useTranslation();
   const [commits, setCommits] = useState<Commit[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -52,7 +55,7 @@ export const ChangeHistoryPanel: React.FC<ChangeHistoryPanelProps> = ({
         setCommits(result.data);
       }
     } catch (err) {
-      setError((err as Error).message || 'Failed to load history');
+      setError((err as Error).message || t('gitSync:history.loadFailed'));
     } finally {
       setLoading(false);
     }
@@ -65,13 +68,13 @@ export const ChangeHistoryPanel: React.FC<ChangeHistoryPanelProps> = ({
     const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
 
     if (diffDays === 0) {
-      return 'Today at ' + date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      return t('gitSync:history.todayAt', { time: date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) });
     } else if (diffDays === 1) {
-      return 'Yesterday at ' + date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      return t('gitSync:history.yesterdayAt', { time: date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) });
     } else if (diffDays < 7) {
-      return `${diffDays} days ago`;
+      return t('gitSync:history.daysAgo', { count: diffDays });
     } else {
-      return date.toLocaleDateString([], { month: 'short', day: 'numeric', year: 'numeric' });
+      return date.toLocaleDateString(getLocale(), { month: 'short', day: 'numeric', year: 'numeric' });
     }
   };
 
@@ -95,7 +98,7 @@ export const ChangeHistoryPanel: React.FC<ChangeHistoryPanelProps> = ({
   if (error) {
     return (
       <div className="p-4 bg-red-50 border border-red-200 rounded-lg text-red-700">
-        <p className="font-medium">Error loading history</p>
+        <p className="font-medium">{t('gitSync:history.errorTitle')}</p>
         <p className="text-sm">{error}</p>
       </div>
     );
@@ -105,7 +108,7 @@ export const ChangeHistoryPanel: React.FC<ChangeHistoryPanelProps> = ({
     return (
       <div className="text-center py-8 text-gray-500">
         <div className="text-4xl mb-2">📜</div>
-        <p>No change history available</p>
+        <p>{t('gitSync:history.empty')}</p>
       </div>
     );
   }
@@ -113,13 +116,13 @@ export const ChangeHistoryPanel: React.FC<ChangeHistoryPanelProps> = ({
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between mb-4">
-        <h3 className="text-lg font-semibold">Change History</h3>
+        <h3 className="text-lg font-semibold">{t('gitSync:history.changeHistory')}</h3>
         <button
           onClick={loadHistory}
           disabled={loading}
           className="text-sm text-blue-600 hover:text-blue-700 disabled:opacity-50"
         >
-          {loading ? 'Refreshing...' : '↻ Refresh'}
+          {loading ? t('gitSync:history.refreshing') : `↻ ${t('common:refresh')}`}
         </button>
       </div>
 
@@ -168,7 +171,7 @@ export const ChangeHistoryPanel: React.FC<ChangeHistoryPanelProps> = ({
 
       {commits.length >= maxCount && (
         <div className="text-center pt-4 text-sm text-gray-500">
-          Showing latest {maxCount} changes
+          {t('gitSync:history.showingLatest', { count: maxCount })}
         </div>
       )}
     </div>

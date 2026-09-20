@@ -1,6 +1,7 @@
 import React, { useRef, useCallback, useEffect, useState } from 'react';
 import { format, startOfWeek, startOfMonth } from 'date-fns';
 import { useTimelineEvents } from '../hooks/useTimelineEvents';
+import { getLocale, getDateFnsLocale } from '../i18n';
 import {
   TimelineGrid,
   DependencyLines,
@@ -134,8 +135,8 @@ export function InteractiveTimeline({
           const isFirstOrLast = index === 0 || index === chartTimeData.length - 1;
           const isMonthStart = date.getDate() <= 7;
           const label = isFirstOrLast || isMonthStart
-            ? date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
-            : date.toLocaleDateString('en-US', { day: 'numeric' });
+            ? date.toLocaleDateString(getLocale(), { month: 'short', day: 'numeric' })
+            : date.toLocaleDateString(getLocale(), { day: 'numeric' });
           lines.push({ date, label, type: (isFirstOrLast || isMonthStart) ? 'major' : 'minor' });
         }
       });
@@ -150,7 +151,7 @@ export function InteractiveTimeline({
         const isWeekStart = current.getDay() === 0;
         lines.push({
           date: new Date(current),
-          label: format(current, isWeekStart ? 'MMM d' : 'd'),
+          label: format(current, isWeekStart ? 'MMM d' : 'd', { locale: getDateFnsLocale() }),
           type: isWeekStart ? 'major' : 'minor'
         });
         current.setDate(current.getDate() + 1);
@@ -161,7 +162,7 @@ export function InteractiveTimeline({
         const isMonthStart = weekStart.getDate() <= 7;
         lines.push({
           date: new Date(weekStart),
-          label: format(weekStart, isMonthStart ? 'MMM' : 'd'),
+          label: format(weekStart, isMonthStart ? 'MMM' : 'd', { locale: getDateFnsLocale() }),
           type: isMonthStart ? 'major' : 'minor'
         });
         current.setDate(current.getDate() + 7);
@@ -172,7 +173,7 @@ export function InteractiveTimeline({
         const isYearStart = monthStart.getMonth() === 0;
         lines.push({
           date: new Date(monthStart),
-          label: format(monthStart, isYearStart ? 'yyyy' : 'MMM'),
+          label: format(monthStart, isYearStart ? 'yyyy' : 'MMM', { locale: getDateFnsLocale() }),
           type: isYearStart ? 'major' : 'minor'
         });
         current.setMonth(current.getMonth() + 1);

@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { X, Save } from 'lucide-react';
 import { DependencyFormData, DependencyType, PhaseDependency } from './types';
 import { TimelineItem } from '../InteractiveTimeline';
@@ -22,6 +23,8 @@ export function DependencyModal({
   onSubmit,
   onClose
 }: DependencyModalProps) {
+  const { t } = useTranslation();
+
   if (!isOpen) return null;
 
   return (
@@ -29,7 +32,7 @@ export function DependencyModal({
       <div className="modal-content">
         <div className="modal-header">
           <h3 className="modal-title">
-            {editingDependency ? 'Edit' : 'Add'} Phase Dependency
+            {editingDependency ? t('phases:dependency.modalTitleEdit') : t('phases:dependency.modalTitleAdd')}
           </h3>
           <button
             onClick={onClose}
@@ -42,7 +45,7 @@ export function DependencyModal({
         <form className="modal-form" onSubmit={onSubmit}>
           <div className="form-group">
             <label className="form-label">
-              Predecessor Phase (must complete first)
+              {t('phases:dependency.predecessorLabel')}
             </label>
             <select
               value={formData.predecessor_phase_timeline_id}
@@ -50,7 +53,7 @@ export function DependencyModal({
               required
               className="form-select"
             >
-              <option value="">Select predecessor phase...</option>
+              <option value="">{t('phases:dependency.selectPredecessor')}</option>
               {timelineItems.map(item => (
                 <option key={item.id} value={item.id}>
                   {item.name}
@@ -61,7 +64,7 @@ export function DependencyModal({
 
           <div className="form-group">
             <label className="form-label">
-              Successor Phase (depends on predecessor)
+              {t('phases:dependency.successorLabel')}
             </label>
             <select
               value={formData.successor_phase_timeline_id}
@@ -69,7 +72,7 @@ export function DependencyModal({
               required
               className="form-select"
             >
-              <option value="">Select successor phase...</option>
+              <option value="">{t('phases:dependency.selectSuccessor')}</option>
               {timelineItems.map(item => (
                 <option key={item.id} value={item.id}>
                   {item.name}
@@ -80,7 +83,7 @@ export function DependencyModal({
 
           <div className="form-group">
             <label className="form-label">
-              Dependency Type
+              {t('phases:dependency.typeLabel')}
             </label>
             <select
               value={formData.dependency_type}
@@ -88,16 +91,16 @@ export function DependencyModal({
               className="form-select"
               disabled
             >
-              <option value="FS">Finish-to-Start (FS)</option>
+              <option value="FS">{t('phases:dependency.finishToStartFS')}</option>
             </select>
             <div style={{ fontSize: '12px', color: 'hsl(var(--muted-foreground))', marginTop: '4px' }}>
-              Successor phase starts after predecessor phase finishes
+              {t('phases:dependency.fsHint')}
             </div>
           </div>
 
           <div className="form-group">
             <label className="form-label">
-              Lag Days (optional delay)
+              {t('phases:dependency.lagLabel')}
             </label>
             <input
               type="number"
@@ -108,7 +111,7 @@ export function DependencyModal({
               className="form-input"
             />
             <div style={{ fontSize: '12px', color: 'hsl(var(--muted-foreground))', marginTop: '4px' }}>
-              Positive values add delay, negative values create overlap
+              {t('phases:dependency.lagHint')}
             </div>
           </div>
 
@@ -118,7 +121,7 @@ export function DependencyModal({
               onClick={onClose}
               className="btn btn-secondary"
             >
-              Cancel
+              {t('common:cancel')}
             </button>
             <button
               type="submit"
@@ -126,7 +129,7 @@ export function DependencyModal({
               className="btn btn-primary"
             >
               <Save size={16} />
-              {editingDependency ? 'Update' : 'Create'} Dependency
+              {editingDependency ? t('phases:dependency.updateDependency') : t('phases:dependency.createDependency')}
             </button>
           </div>
         </form>

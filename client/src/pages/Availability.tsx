@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { Calendar, Plus, Edit2, Trash2, Check, ChevronLeft, ChevronRight } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { api } from '../lib/api-client';
 import { queryKeys } from '../lib/queryKeys';
 import { useBookmarkableTabs } from '../hooks/useBookmarkableTabs';
+import { getLocale } from '../i18n';
 import type { Person, PersonAvailabilityOverride } from '../types';
 
 interface OverrideForm {
@@ -16,15 +18,17 @@ interface OverrideForm {
   is_approved: boolean;
 }
 
-// Define availability view tabs configuration
-const availabilityViewTabs = [
-  { id: 'calendar', label: 'Calendar' },
-  { id: 'list', label: 'List View' }
-];
-
 export default function Availability() {
   const queryClient = useQueryClient();
+  const { t } = useTranslation();
   const [selectedPerson, setSelectedPerson] = useState<string>('');
+
+  // Define availability view tabs configuration (inside the component so labels
+  // re-resolve when the UI language changes)
+  const availabilityViewTabs = useMemo(() => [
+    { id: 'calendar', label: t('people:availability.calendar') },
+    { id: 'list', label: t('people:availability.listView') }
+  ], [t]);
   
   // Use bookmarkable tabs for view mode selection
   const { activeTab, setActiveTab, isActiveTab } = useBookmarkableTabs({
@@ -170,14 +174,14 @@ export default function Availability() {
     return (
       <div className="calendar-view">
         <div className="calendar-header">
-          <button 
+          <button
             className="btn-icon"
             onClick={() => setCurrentMonth(new Date(year, month - 1))}
           >
             <ChevronLeft size={20} />
           </button>
-          <h3>{currentMonth.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}</h3>
-          <button 
+          <h3>{currentMonth.toLocaleDateString(getLocale(), { month: 'long', year: 'numeric' })}</h3>
+          <button
             className="btn-icon"
             onClick={() => setCurrentMonth(new Date(year, month + 1))}
           >
@@ -186,9 +190,11 @@ export default function Availability() {
         </div>
         <div className="calendar-grid">
           <div className="calendar-weekdays">
-            {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(day => (
-              <div key={day} className="weekday">{day}</div>
-            ))}
+            {/* 2023-01-01 is a Sunday; derive localized weekday abbreviations from the locale */}
+            {[0, 1, 2, 3, 4, 5, 6].map(i => {
+              const day = new Date(2023, 0, 1 + i).toLocaleDateString(getLocale(), { weekday: 'short' });
+              return <div key={day} className="weekday">{day}</div>;
+            })}
           </div>
           <div className="calendar-days">
             {days.map((day, index) => {
@@ -227,14 +233,14 @@ export default function Availability() {
       <table className="table">
         <thead>
           <tr>
-            <th>Person</th>
-            <th>Type</th>
-            <th>Start Date</th>
-            <th>End Date</th>
-            <th>Hours/Day</th>
-            <th>Reason</th>
-            <th>Status</th>
-            <th>Actions</th>
+            <th>{t('people:availability.person')}</th>
+            <th>{t('people:columns.type')}</th>
+            <th>{t('common:startDate')}</th>
+            <th>{t('common:endDate')}</th>
+            <th>{t('people:columns.hoursPerDay')}</th>
+            <th>{t('people:details.reason')}</th>
+            <th>{t('common:status')}</th>
+            <th>{t('common:actions')}</th>
           </tr>
         </thead>
         <tbody>
@@ -246,42 +252,42 @@ export default function Availability() {
                   {override.override_type}
                 </span>
               </td>
-              <td>{new Date(override.start_date).toLocaleDateString()}</td>
-              <td>{new Date(override.end_date).toLocaleDateString()}</td>
+              <td>{new Date(override.start_date).toLocaleDateString(getLocale())}</td>
+              <td>{new Date(override.end_date).toLocaleDateString(getLocale())}</td>
               <td>{override.hours_per_day}</td>
               <td>{override.reason}</td>
               <td>
                 {override.is_approved ? (
-                  <span className="badge badge-success">Approved</span>
+                  <span className="badge badge-success">{t('people:availability.approved')}</span>
                 ) : (
-                  <span className="badge badge-warning">Pending</span>
+                  <span className="badge badge-warning">{t('people:availability.pending')}</span>
                 )}
               </td>
               <td>
                 {!override.is_approved && (
-                  <button 
+                  <button
                     className="btn-icon"
                     onClick={() => approveMutation.mutate(override.id)}
-                    title="Approve"
+                    title={t('people:availability.approve')}
                   >
                     <Check size={16} />
                   </button>
                 )}
-                <button 
+                <button
                   className="btn-icon"
                   onClick={() => handleEdit(override)}
-                  title="Edit"
+                  title={t('common:edit')}
                 >
                   <Edit2 size={16} />
                 </button>
-                <button 
+                <button
                   className="btn-icon btn-danger"
                   onClick={() => {
-                    if (confirm('Delete this override?')) {
+                    if (confirm(t('people:availability.deleteConfirm'))) {
                       deleteMutation.mutate(override.id);
                     }
                   }}
-                  title="Delete"
+                  title={t('common:delete')}
                 >
                   <Trash2 size={16} />
                 </button>
@@ -294,17 +300,17 @@ export default function Availability() {
   );
 
   if (isLoading) {
-    return <div className="loading">Loading availability...</div>;
+    return <div className="loading">{t('people:availability.loading')}</div>;
   }
 
   return (
     <div className="page-container">
       <div className="page-header">
-        <h1>Availability Management</h1>
+        <h1>{t('people:availability.title')}</h1>
         <div className="header-actions">
           <div className="view-toggle">
             {availabilityViewTabs.map((tab) => (
-              <button 
+              <button
                 key={tab.id}
                 className={`btn ${isActiveTab(tab.id) ? 'btn-primary' : 'btn-secondary'}`}
                 onClick={() => setActiveTab(tab.id)}
@@ -314,25 +320,25 @@ export default function Availability() {
               </button>
             ))}
           </div>
-          <button 
+          <button
             className="btn btn-primary"
             onClick={() => setShowAddForm(true)}
           >
             <Plus size={20} />
-            Add Override
+            {t('people:availability.addOverride')}
           </button>
         </div>
       </div>
 
       <div className="filter-section">
         <div className="filter-group">
-          <label>Person</label>
-          <select 
-            value={selectedPerson} 
+          <label>{t('people:availability.person')}</label>
+          <select
+            value={selectedPerson}
             onChange={(e) => setSelectedPerson(e.target.value)}
             className="form-select"
           >
-            <option value="">All People</option>
+            <option value="">{t('people:availability.allPeople')}</option>
             {people?.map(person => (
               <option key={person.id} value={person.id}>{person.name}</option>
             ))}
@@ -343,40 +349,40 @@ export default function Availability() {
       {showAddForm && (
         <div className="modal">
           <div className="modal-content">
-            <h2>{editingId ? 'Edit' : 'Add'} Availability Override</h2>
+            <h2>{editingId ? t('people:availability.editTitle') : t('people:availability.addTitle')}</h2>
             <form onSubmit={handleSubmit}>
               <div className="form-grid">
                 <div className="form-group">
-                  <label>Person</label>
+                  <label>{t('people:availability.person')}</label>
                   <select
                     value={formData.person_id}
                     onChange={(e) => setFormData({...formData, person_id: e.target.value})}
                     className="form-select"
                     required
                   >
-                    <option value="">Select Person</option>
+                    <option value="">{t('people:availability.selectPerson')}</option>
                     {people?.map(person => (
                       <option key={person.id} value={person.id}>{person.name}</option>
                     ))}
                   </select>
                 </div>
                 <div className="form-group">
-                  <label>Type</label>
+                  <label>{t('people:columns.type')}</label>
                   <select
                     value={formData.override_type}
                     onChange={(e) => setFormData({...formData, override_type: e.target.value as any})}
                     className="form-select"
                     required
                   >
-                    <option value="vacation">Vacation</option>
-                    <option value="training">Training</option>
-                    <option value="partial">Partial Availability</option>
-                    <option value="medical">Medical Leave</option>
-                    <option value="other">Other</option>
+                    <option value="vacation">{t('people:availability.overrideType.vacation')}</option>
+                    <option value="training">{t('people:availability.overrideType.training')}</option>
+                    <option value="partial">{t('people:availability.overrideType.partial')}</option>
+                    <option value="medical">{t('people:availability.overrideType.medical')}</option>
+                    <option value="other">{t('people:availability.overrideType.other')}</option>
                   </select>
                 </div>
                 <div className="form-group">
-                  <label>Start Date</label>
+                  <label>{t('common:startDate')}</label>
                   <input
                     type="date"
                     value={formData.start_date}
@@ -386,7 +392,7 @@ export default function Availability() {
                   />
                 </div>
                 <div className="form-group">
-                  <label>End Date</label>
+                  <label>{t('common:endDate')}</label>
                   <input
                     type="date"
                     value={formData.end_date}
@@ -396,7 +402,7 @@ export default function Availability() {
                   />
                 </div>
                 <div className="form-group">
-                  <label>Hours per Day</label>
+                  <label>{t('people:details.hoursPerDay')}</label>
                   <input
                     type="number"
                     value={formData.hours_per_day}
@@ -408,7 +414,7 @@ export default function Availability() {
                   />
                 </div>
                 <div className="form-group full-width">
-                  <label>Reason</label>
+                  <label>{t('people:details.reason')}</label>
                   <textarea
                     value={formData.reason}
                     onChange={(e) => setFormData({...formData, reason: e.target.value})}
@@ -419,9 +425,9 @@ export default function Availability() {
               </div>
               <div className="form-actions">
                 <button type="submit" className="btn btn-primary">
-                  {editingId ? 'Update' : 'Create'}
+                  {editingId ? t('common:update') : t('common:create')}
                 </button>
-                <button 
+                <button
                   type="button"
                   className="btn btn-secondary"
                   onClick={() => {
@@ -430,7 +436,7 @@ export default function Availability() {
                     resetForm();
                   }}
                 >
-                  Cancel
+                  {t('common:cancel')}
                 </button>
               </div>
             </form>

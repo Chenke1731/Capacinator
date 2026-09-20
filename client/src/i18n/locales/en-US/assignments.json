@@ -1,0 +1,194 @@
+{
+  "title": "Assignments",
+  "subtitle": "Manage project resource assignments and optimization recommendations",
+  "newAssignment": "New Assignment",
+  "calendarView": "Calendar View",
+  "tabs": {
+    "assignments": "Assignments",
+    "recommendations": "Recommendations",
+    "assignmentsCount": "Assignments ({{number}})"
+  },
+  "columns": {
+    "project": "Project",
+    "person": "Person",
+    "role": "Role",
+    "allocation": "Allocation",
+    "duration": "Duration",
+    "notes": "Notes"
+  },
+  "fields": {
+    "project": "Project",
+    "person": "Person",
+    "role": "Role",
+    "phase": "Phase",
+    "startDate": "Start date",
+    "endDate": "End date"
+  },
+  "dateMode": {
+    "fixed": "Fixed",
+    "phase": "Phase",
+    "project": "Project"
+  },
+  "dateModeOptions": {
+    "fixed": "Fixed Dates",
+    "phase": "Phase-aligned",
+    "project": "Project-aligned"
+  },
+  "computedDateMode": {
+    "fixed": "fixed",
+    "phase": "phase",
+    "project": "project"
+  },
+  "computedDateTitle": "Computed from {{mode}} dates",
+  "clickToEdit": "Click to edit",
+  "scenario": "Scenario",
+  "durationWeeks": "{{weeks}}w",
+  "durationDays": "{{days}}d",
+  "notesPlaceholder": "Add notes...",
+  "viewProject": "View Project",
+  "searchPlaceholder": "Search assignments...",
+  "filters": {
+    "dateRange": "Date Range",
+    "current": "Current",
+    "upcoming": "Upcoming",
+    "past": "Past",
+    "thisMonth": "This Month",
+    "nextMonth": "Next Month"
+  },
+  "contextMessage": {
+    "assign": "Assign work to {{name}} ({{status}})",
+    "reduceLoad": "Reduce workload for {{name}} ({{status}})",
+    "underutilized": "underutilized",
+    "overutilized": "overutilized",
+    "hire": "Consider hiring for {{role}} role",
+    "addResources": "Add resources to address capacity gaps"
+  },
+  "errors": {
+    "loadFailed": "Failed to load assignments",
+    "updateFailed": "Failed to update assignment. Please try again."
+  },
+  "deleteConfirm": "Are you sure you want to delete the assignment \"{{name}}\"? This action cannot be undone.",
+  "modal": {
+    "createTitle": "Create New Assignment",
+    "editTitle": "Edit Assignment",
+    "createDescription": "Fill in the information to create a new assignment.",
+    "editDescription": "Update the assignment details below.",
+    "fixErrors": "Please fix the errors below before submitting."
+  },
+  "form": {
+    "selectProject": "Select project",
+    "selectPerson": "Select person",
+    "selectRole": "Select role",
+    "selectPhaseOptional": "Select phase (optional)",
+    "allocationPercent": "Allocation %",
+    "dateMode": "Date Mode",
+    "notes": "Notes",
+    "notesPlaceholder": "Additional notes about this assignment...",
+    "notesDescription": "Optional additional notes about this assignment",
+    "billable": "Billable assignment",
+    "billableDescription": "Mark this assignment as billable to client",
+    "requiredSrOnly": "(required)",
+    "unknownPhase": "Unknown Phase",
+    "creating": "Creating...",
+    "updating": "Updating...",
+    "create": "Create Assignment",
+    "update": "Update Assignment"
+  },
+  "rec": {
+    "refresh": "Refresh Recommendations",
+    "systemState": "Current System State",
+    "overallocatedPeople": "Overallocated People",
+    "underutilizedPeople": "Underutilized People",
+    "capacityGaps": "Capacity Gaps",
+    "unassignedProjects": "Unassigned Projects",
+    "emptyTitle": "No recommendations available",
+    "emptyDescription": "Your team allocation is already optimized, or there are no actionable recommendations at this time.",
+    "headers": {
+      "priority": "Priority",
+      "period": "Period",
+      "confidence": "Confidence",
+      "impact": "Impact"
+    },
+    "priority": {
+      "high": "high",
+      "medium": "medium",
+      "low": "low"
+    },
+    "multiple": "Multiple",
+    "multipleProjects": "Multiple Projects",
+    "various": "Various",
+    "more": "+{{number}} more",
+    "tbd": "TBD",
+    "execute": "Execute",
+    "executeConfirm": "Are you sure you want to execute \"{{title}}\"?\n\nThis will make {{number}} changes to assignments.",
+    "executeFailed": "Failed to execute recommendation. Please try again."
+  },
+  "smart": {
+    "title": "Smart Assignment for {{name}}",
+    "description": "Create a new assignment for {{name}}",
+    "currentUtilization": "Current Utilization",
+    "availableCapacity": "Available Capacity",
+    "activeAssignments": "Active Assignments",
+    "tab": {
+      "recommended": "Recommended Assignments",
+      "manual": "Manual Selection"
+    },
+    "fit": {
+      "excellent": "Excellent Fit",
+      "good": "Good Fit",
+      "partial": "Partial Fit"
+    },
+    "suggestedAllocation": "Suggested allocation: {{allocation}}%",
+    "priorityLabel": "Priority:",
+    "emptyRecommendations": "No specific project recommendations available.",
+    "emptyRecommendationsHint": "Switch to manual selection to choose any project.",
+    "selectedAssignment": "Selected Assignment",
+    "selectToRemove": "Select assignments to remove:",
+    "removingHint": "Removing assignments will free up capacity for {{name}}.",
+    "unknownProject": "Unknown Project",
+    "unknownRole": "Unknown Role",
+    "noId": "(No ID)",
+    "allocationAmount": "{{amount}}% allocation",
+    "cannotDeleteMissingId": "Cannot delete - missing ID",
+    "removeConfirm": "Are you sure you want to remove the assignment to {{name}}?",
+    "noActiveAssignments": "{{name}} has no active assignments to remove.",
+    "withResourceNeeds": "({{count}} with resource needs)",
+    "loadingProjects": "Loading projects...",
+    "noProjectDemand": "No projects have resource needs",
+    "selectProjectWithNeeds": "Select a project (with resource needs)",
+    "rolesNeeded": "({{count}} roles needed)",
+    "noRolesNeeded": "No roles needed for this project",
+    "selectRoleFromDemands": "Select a role (from project demands)",
+    "selectProjectFirst": "Select a project first",
+    "selectRoleFirst": "Select a role first",
+    "phasesWithRole": "({{count}} phases with this role)",
+    "refreshPhaseDates": "Refresh phase dates",
+    "editPhaseDates": "Edit phase dates in project timeline",
+    "noPhasesNeedRole": "No phases need this role",
+    "noSpecificPhase": "No specific phase",
+    "phaseLinkedLabel": "Phase-linked assignment:",
+    "phaseLinkedDescription": "The start and end dates are automatically synchronized with the selected phase. If the phase dates change in the future, this assignment will automatically update to match.",
+    "linkedToPhase": "(Linked to phase)",
+    "allocationLabel": "Allocation: {{allocation}}%",
+    "impactTitle": "Assignment Impact",
+    "overallocateMessage": "This will overallocate {{name}} by {{percent}}%",
+    "utilizationMessage": "{{name}} will be at {{percent}}% utilization",
+    "thePerson": "the person",
+    "thePersonCapital": "The person",
+    "newTotalAllocation": "New total allocation: {{allocation}}%",
+    "utilizationLabel": "Utilization: {{percent}}%",
+    "done": "Done",
+    "errors": {
+      "missingAssignmentId": "Cannot delete assignment: Missing assignment ID",
+      "deleteFailed": "Failed to delete assignment. Please try again.",
+      "selectProject": "Please select a project",
+      "selectRole": "Please select a role",
+      "invalidRole": "Selected role is invalid. Please select a different role.",
+      "selectStartDate": "Please select a start date",
+      "selectEndDate": "Please select an end date",
+      "createFailed": "Error: {{message}}\n\nDetails: {{details}}",
+      "unknownError": "Unknown error",
+      "createAssignmentFailed": "Failed to create assignment"
+    }
+  }
+}

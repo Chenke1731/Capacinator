@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   User,
   GitBranch,
@@ -13,6 +14,9 @@ import {
 import { useUser } from '../contexts/UserContext';
 import { useScenario } from '../contexts/ScenarioContext';
 import { useTheme } from '../contexts/ThemeContext';
+import { useLanguage } from '../hooks/useLanguage';
+import { getLocale } from '../i18n';
+import { scenarioStatusLabel, scenarioTypeLabel } from '../lib/enum-labels';
 import { useQuery } from '@tanstack/react-query';
 import { api } from '../lib/api-client';
 import { queryKeys } from '../lib/queryKeys';
@@ -20,9 +24,11 @@ import { SyncStatusIndicator } from './sync/SyncStatusIndicator';
 import './AppHeader.css';
 
 export const AppHeader: React.FC = () => {
+  const { t } = useTranslation();
   const { currentUser, logout } = useUser();
   const { currentScenario, scenarios, setCurrentScenario, isLoading } = useScenario();
   const { theme, toggleTheme } = useTheme();
+  const { language, setLanguage } = useLanguage();
   const [currentTime, setCurrentTime] = useState(new Date());
   const [isOnline, setIsOnline] = useState(navigator.onLine);
   const [isScenarioDropdownOpen, setIsScenarioDropdownOpen] = useState(false);
@@ -96,10 +102,10 @@ export const AppHeader: React.FC = () => {
   };
 
   const formatTime = (date: Date) => {
-    return date.toLocaleTimeString('en-US', { 
-      hour: '2-digit', 
+    return date.toLocaleTimeString(getLocale(), {
+      hour: '2-digit',
       minute: '2-digit',
-      hour12: true 
+      hour12: getLocale() === 'en-US'
     });
   };
 
@@ -121,10 +127,10 @@ export const AppHeader: React.FC = () => {
             className={`scenario-button ${isLoading ? 'disabled' : ''}`}
             onClick={() => !isLoading && setIsScenarioDropdownOpen(!isScenarioDropdownOpen)}
             disabled={isLoading}
-            title={currentScenario ? `Current Scenario: ${currentScenario.name}` : 'Select scenario'}
+            title={currentScenario ? t('common:currentScenario', { name: currentScenario.name }) : t('common:selectScenario')}
           >
             <span className="scenario-name">
-              {isLoading ? 'Loading...' : currentScenario?.name || 'Select scenario...'}
+              {isLoading ? t('common:loading') : currentScenario?.name || t('common:selectScenario')}
             </span>
             <ChevronDown size={12} className={`chevron ${isScenarioDropdownOpen ? 'open' : ''}`} />
           </button>
@@ -148,10 +154,10 @@ export const AppHeader: React.FC = () => {
                           <span className="baseline-star">★</span>
                         )}
                         <span className={`scenario-type-badge ${scenario.scenario_type}`}>
-                          {scenario.scenario_type}
+                          {scenarioTypeLabel(scenario.scenario_type)}
                         </span>
                         <span className={`scenario-status-badge ${scenario.status}`}>
-                          {scenario.status}
+                          {scenarioStatusLabel(scenario.status)}
                         </span>
                       </div>
                     </div>
@@ -159,7 +165,7 @@ export const AppHeader: React.FC = () => {
                 ))
               ) : (
                 <div className="scenario-option" style={{ padding: '0.75rem', opacity: 0.6 }}>
-                  {scenarios === undefined ? 'Loading scenarios...' : 'No scenarios available'}
+                  {scenarios === undefined ? t('common:loadingScenarios') : t('common:noScenariosAvailable')}
                 </div>
               )}
             </div>
@@ -172,19 +178,27 @@ export const AppHeader: React.FC = () => {
           <button
             className="theme-toggle"
             onClick={toggleTheme}
-            title={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
+            title={theme === 'light' ? t('common:switchToDarkMode') : t('common:switchToLightMode')}
           >
             {theme === 'light' ? '🌙' : '☀️'}
+          </button>
+
+          <button
+            className="theme-toggle"
+            onClick={() => setLanguage(language === 'zh-CN' ? 'en-US' : 'zh-CN')}
+            title={t('common:switchLanguage')}
+          >
+            {language === 'zh-CN' ? 'EN' : '中'}
           </button>
 
           <div className="status-indicators">
             {/* Git Sync Status (Feature: 001-git-sync-integration) */}
             {import.meta.env.VITE_ENABLE_GIT_SYNC === 'true' && <SyncStatusIndicator />}
 
-            <div className={`status-indicator ${isOnline ? 'online' : 'offline'}`} title={isOnline ? 'Online' : 'Offline'}>
+            <div className={`status-indicator ${isOnline ? 'online' : 'offline'}`} title={isOnline ? t('common:online') : t('common:offline')}>
               {isOnline ? <Wifi size={12} /> : <WifiOff size={12} />}
             </div>
-            <div className={`status-indicator ${isHealthy ? 'healthy' : 'unhealthy'}`} title={isHealthy ? 'System Healthy' : 'System Issues'}>
+            <div className={`status-indicator ${isHealthy ? 'healthy' : 'unhealthy'}`} title={isHealthy ? t('common:systemHealthy') : t('common:systemIssues')}>
               {healthLoading ? <RefreshCw size={12} className="spinning" /> : <Activity size={12} />}
             </div>
           </div>
@@ -196,7 +210,7 @@ export const AppHeader: React.FC = () => {
                 onClick={() => setIsProfileDropdownOpen(!isProfileDropdownOpen)}
               >
                 <User size={14} />
-                <span className="profile-name">{currentUser.name?.split(' ')[0] || 'User'}</span>
+                <span className="profile-name">{currentUser.name?.split(' ')[0] || t('common:user')}</span>
                 <ChevronDown size={12} className={`chevron ${isProfileDropdownOpen ? 'open' : ''}`} />
               </button>
 
@@ -216,7 +230,7 @@ export const AppHeader: React.FC = () => {
                   <div className="profile-dropdown-actions">
                     <button className="profile-action" onClick={handleLogout}>
                       <LogOut size={14} />
-                      Log Out
+                      {t('common:logOut')}
                     </button>
                   </div>
                 </div>

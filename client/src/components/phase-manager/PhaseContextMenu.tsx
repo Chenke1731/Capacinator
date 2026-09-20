@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { ContextMenuPosition, ProjectPhaseTimeline } from './types';
 
 interface PhaseContextMenuProps {
@@ -18,6 +19,7 @@ export function PhaseContextMenu({
   onDelete,
   onClose
 }: PhaseContextMenuProps) {
+  const { t } = useTranslation();
   const phase = phases.find((p) => p.id === contextMenu.phaseId);
 
   const handleEdit = () => {
@@ -57,19 +59,19 @@ export function PhaseContextMenu({
         className="context-menu-item"
         onClick={handleEdit}
       >
-        Edit Phase
+        {t('phases:context.editPhase')}
       </button>
       <button
         className="context-menu-item"
         onClick={handleDuplicate}
       >
-        Duplicate Phase
+        {t('phases:manager.duplicatePhase')}
       </button>
       <button
         className="context-menu-item danger"
         onClick={handleDelete}
       >
-        Delete Phase
+        {t('phases:context.deletePhase')}
       </button>
     </div>
   );

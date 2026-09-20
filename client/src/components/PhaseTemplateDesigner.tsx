@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useMutation, useQuery } from '@tanstack/react-query';
+import { useTranslation } from 'react-i18next';
 import {
   Plus,
   Trash2,
@@ -34,6 +35,7 @@ interface PhaseTemplateDesignerProps {
 }
 
 export default function PhaseTemplateDesigner({ projectTypeId, phases }: PhaseTemplateDesignerProps) {
+  const { t } = useTranslation();
   const [localPhases, setLocalPhases] = useState<ProjectTypePhase[]>([]);
   const [showAddPhase, setShowAddPhase] = useState(false);
 
@@ -102,7 +104,7 @@ export default function PhaseTemplateDesigner({ projectTypeId, phases }: PhaseTe
   };
 
   const handleRemovePhase = (phaseId: string) => {
-    if (confirm('Are you sure you want to remove this phase from the template?')) {
+    if (confirm(t('phases:template.removeConfirm'))) {
       // Find the phase to get its actual phase_id
       const phaseToRemove = localPhases.find(p => p.id === phaseId);
       if (phaseToRemove) {
@@ -246,10 +248,10 @@ export default function PhaseTemplateDesigner({ projectTypeId, phases }: PhaseTe
 
     const displayValue = phase[field as keyof ProjectTypePhase] as number;
     return (
-      <div 
+      <div
         className="inline-duration-display"
         onClick={() => setIsEditing(true)}
-        title={`Click to edit ${placeholder.toLowerCase()}`}
+        title={t('phases:template.clickToEdit', { field: placeholder.toLowerCase() })}
       >
         {displayValue || <span className="placeholder-text">{placeholder}</span>}
       </div>
@@ -261,8 +263,8 @@ export default function PhaseTemplateDesigner({ projectTypeId, phases }: PhaseTe
   return (
     <div className="phase-template-designer">
       <div className="designer-header">
-        <h3>Phase Template Configuration</h3>
-        <p>Define the phases that projects of this type will inherit, including constraints and ordering rules.</p>
+        <h3>{t('phases:template.title')}</h3>
+        <p>{t('phases:template.subtitle')}</p>
       </div>
 
       {sortedPhases.length > 0 ? (
@@ -270,14 +272,14 @@ export default function PhaseTemplateDesigner({ projectTypeId, phases }: PhaseTe
           <table className="phases-table">
             <thead>
               <tr>
-                <th style={{ width: '60px' }}>Order</th>
-                <th style={{ minWidth: '200px' }}>Phase Name</th>
-                <th style={{ width: '80px', textAlign: 'center' }}>Mandatory</th>
-                <th style={{ width: '80px', textAlign: 'center' }}>Locked</th>
-                <th style={{ width: '100px', textAlign: 'center' }}>Default Days</th>
-                <th style={{ width: '100px', textAlign: 'center' }}>Min Days</th>
-                <th style={{ width: '100px', textAlign: 'center' }}>Max Days</th>
-                <th style={{ width: '120px', textAlign: 'center' }}>Actions</th>
+                <th style={{ width: '60px' }}>{t('phases:manager.order')}</th>
+                <th style={{ minWidth: '200px' }}>{t('phases:manager.phaseName')}</th>
+                <th style={{ width: '80px', textAlign: 'center' }}>{t('phases:template.mandatory')}</th>
+                <th style={{ width: '80px', textAlign: 'center' }}>{t('phases:template.locked')}</th>
+                <th style={{ width: '100px', textAlign: 'center' }}>{t('phases:template.defaultDays')}</th>
+                <th style={{ width: '100px', textAlign: 'center' }}>{t('phases:template.minDays')}</th>
+                <th style={{ width: '100px', textAlign: 'center' }}>{t('phases:template.maxDays')}</th>
+                <th style={{ width: '120px', textAlign: 'center' }}>{t('common:actions')}</th>
               </tr>
             </thead>
             <tbody>
@@ -291,7 +293,7 @@ export default function PhaseTemplateDesigner({ projectTypeId, phases }: PhaseTe
                     </td>
                     <td className="phase-name-cell">
                       <div className="phase-name">
-                        {phaseInfo?.name || 'Unknown Phase'}
+                        {phaseInfo?.name || t('phases:template.unknownPhase')}
                       </div>
                       {phaseInfo?.description && (
                         <div className="phase-description-hint">
@@ -300,38 +302,38 @@ export default function PhaseTemplateDesigner({ projectTypeId, phases }: PhaseTe
                       )}
                     </td>
                     <td className="checkbox-cell">
-                      <InlineCheckbox 
-                        phase={templatePhase} 
-                        field="is_mandatory" 
-                        label="Mandatory Phase" 
+                      <InlineCheckbox
+                        phase={templatePhase}
+                        field="is_mandatory"
+                        label={t('phases:template.mandatoryPhase')}
                       />
                     </td>
                     <td className="checkbox-cell">
-                      <InlineCheckbox 
-                        phase={templatePhase} 
-                        field="is_locked_order" 
-                        label="Locked Order" 
+                      <InlineCheckbox
+                        phase={templatePhase}
+                        field="is_locked_order"
+                        label={t('phases:template.lockedOrder')}
                       />
                     </td>
                     <td className="duration-cell">
-                      <InlineDurationInput 
-                        phase={templatePhase} 
-                        field="default_duration_days" 
-                        placeholder="30" 
+                      <InlineDurationInput
+                        phase={templatePhase}
+                        field="default_duration_days"
+                        placeholder="30"
                       />
                     </td>
                     <td className="duration-cell">
-                      <InlineDurationInput 
-                        phase={templatePhase} 
-                        field="min_duration_days" 
-                        placeholder="Min" 
+                      <InlineDurationInput
+                        phase={templatePhase}
+                        field="min_duration_days"
+                        placeholder={t('phases:template.min')}
                       />
                     </td>
                     <td className="duration-cell">
-                      <InlineDurationInput 
-                        phase={templatePhase} 
-                        field="max_duration_days" 
-                        placeholder="Max" 
+                      <InlineDurationInput
+                        phase={templatePhase}
+                        field="max_duration_days"
+                        placeholder={t('phases:template.max')}
                       />
                     </td>
                     <td className="actions-cell">
@@ -340,7 +342,7 @@ export default function PhaseTemplateDesigner({ projectTypeId, phases }: PhaseTe
                           onClick={() => handleMovePhase(templatePhase.id, 'up')}
                           disabled={index === 0}
                           className="btn btn-icon btn-sm"
-                          title="Move up"
+                          title={t('phases:template.moveUp')}
                         >
                           <ArrowUp size={20} />
                         </button>
@@ -348,14 +350,14 @@ export default function PhaseTemplateDesigner({ projectTypeId, phases }: PhaseTe
                           onClick={() => handleMovePhase(templatePhase.id, 'down')}
                           disabled={index === sortedPhases.length - 1}
                           className="btn btn-icon btn-sm"
-                          title="Move down"
+                          title={t('phases:template.moveDown')}
                         >
                           <ArrowDown size={20} />
                         </button>
                         <button
                           onClick={() => handleRemovePhase(templatePhase.id)}
                           className="btn btn-icon btn-sm btn-danger"
-                          title="Remove from template"
+                          title={t('phases:template.removeFromTemplate')}
                         >
                           <Trash2 size={20} />
                         </button>
@@ -371,7 +373,7 @@ export default function PhaseTemplateDesigner({ projectTypeId, phases }: PhaseTe
 
       {showAddPhase ? (
         <div className="add-phase-panel">
-          <h4>Add Phase to Template</h4>
+          <h4>{t('phases:template.addPhaseToTemplate')}</h4>
           <div className="available-phases">
             {getAvailablePhases().map(phase => (
               <div key={phase.id} className="available-phase">
@@ -384,14 +386,14 @@ export default function PhaseTemplateDesigner({ projectTypeId, phases }: PhaseTe
                   className="btn btn-primary"
                 >
                   <Plus size={16} />
-                  Add
+                  {t('common:add')}
                 </button>
               </div>
             ))}
           </div>
           <div className="panel-actions">
             <button onClick={() => setShowAddPhase(false)} className="btn btn-secondary">
-              Cancel
+              {t('common:cancel')}
             </button>
           </div>
         </div>
@@ -402,15 +404,15 @@ export default function PhaseTemplateDesigner({ projectTypeId, phases }: PhaseTe
           disabled={getAvailablePhases().length === 0}
         >
           <Plus size={16} />
-          Add Phase to Template
+          {t('phases:template.addPhaseToTemplate')}
         </button>
       )}
 
       {localPhases.length === 0 && (
         <div className="empty-state">
           <Info size={24} />
-          <h4>No Template Phases Configured</h4>
-          <p>Add phases to create a template that new projects will inherit.</p>
+          <h4>{t('phases:template.noTemplatePhases')}</h4>
+          <p>{t('phases:template.noTemplatePhasesHint')}</p>
         </div>
       )}
     </div>

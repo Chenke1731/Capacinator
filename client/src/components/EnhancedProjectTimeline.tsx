@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useMutation, useQueryClient, useQuery } from '@tanstack/react-query';
+import { useTranslation } from 'react-i18next';
 import {
   Calendar,
   Clock,
@@ -15,6 +16,7 @@ import {
 } from 'lucide-react';
 import { api } from '../lib/api-client';
 import { queryKeys } from '../lib/queryKeys';
+import { getLocale } from '../i18n';
 
 interface ProjectPhaseTimeline {
   id: string;
@@ -52,6 +54,7 @@ interface EnhancedProjectTimelineProps {
 }
 
 export default function EnhancedProjectTimeline({ projectId }: EnhancedProjectTimelineProps) {
+  const { t } = useTranslation();
   const [editingPhase, setEditingPhase] = useState<string | null>(null);
   const [showAddCustomPhase, setShowAddCustomPhase] = useState(false);
   const [validationResult, setValidationResult] = useState<ValidationResult | null>(null);
@@ -63,7 +66,7 @@ export default function EnhancedProjectTimeline({ projectId }: EnhancedProjectTi
     queryKey: queryKeys.projects.timeline(projectId),
     queryFn: async () => {
       const response = await fetch(`/api/projects/${projectId}/timeline`);
-      if (!response.ok) throw new Error('Failed to fetch timeline');
+      if (!response.ok) throw new Error(t('phases:enhanced.fetchError'));
       const result = await response.json();
       const timelineData = result.data || result || [];
       
@@ -140,7 +143,7 @@ export default function EnhancedProjectTimeline({ projectId }: EnhancedProjectTi
   };
 
   const formatDate = (timestamp: number) => {
-    return new Date(timestamp).toLocaleDateString();
+    return new Date(timestamp).toLocaleDateString(getLocale());
   };
 
 
@@ -161,14 +164,14 @@ export default function EnhancedProjectTimeline({ projectId }: EnhancedProjectTi
   const getConstraintBadge = (status: string) => {
     switch (status) {
       case 'compliant':
-        return <span className="badge badge-success"><CheckCircle size={12} /> Template</span>;
+        return <span className="badge badge-success"><CheckCircle size={12} /> {t('phases:enhanced.badgeTemplate')}</span>;
       case 'customized':
-        return <span className="badge badge-warning"><Edit2 size={12} /> Customized</span>;
+        return <span className="badge badge-warning"><Edit2 size={12} /> {t('phases:enhanced.badgeCustomized')}</span>;
       case 'custom':
-        return <span className="badge badge-info"><Plus size={12} /> Custom</span>;
+        return <span className="badge badge-info"><Plus size={12} /> {t('phases:enhanced.badgeCustom')}</span>;
       case 'violation-min':
       case 'violation-max':
-        return <span className="badge badge-danger"><AlertTriangle size={12} /> Constraint Violation</span>;
+        return <span className="badge badge-danger"><AlertTriangle size={12} /> {t('phases:enhanced.badgeViolation')}</span>;
       default:
         return null;
     }
@@ -207,7 +210,7 @@ export default function EnhancedProjectTimeline({ projectId }: EnhancedProjectTi
       <div className="phase-editor">
         <div className="editor-fields">
           <div className="field-group">
-            <label>Start Date</label>
+            <label>{t('common:startDate')}</label>
             <input
               type="date"
               value={editData.start_date}
@@ -215,9 +218,9 @@ export default function EnhancedProjectTimeline({ projectId }: EnhancedProjectTi
               className="form-input"
             />
           </div>
-          
+
           <div className="field-group">
-            <label>Duration (days)</label>
+            <label>{t('phases:enhanced.durationDays')}</label>
             <input
               type="number"
               value={editData.duration_days}
@@ -227,16 +230,16 @@ export default function EnhancedProjectTimeline({ projectId }: EnhancedProjectTi
               className="form-input"
             />
             {phase.template_min_duration_days && (
-              <small>Min: {phase.template_min_duration_days} days</small>
+              <small>{t('phases:enhanced.minDays', { count: phase.template_min_duration_days })}</small>
             )}
             {phase.template_max_duration_days && (
-              <small>Max: {phase.template_max_duration_days} days</small>
+              <small>{t('phases:enhanced.maxDays', { count: phase.template_max_duration_days })}</small>
             )}
           </div>
 
           {phase.phase_source === 'custom' && (
             <div className="field-group">
-              <label>Phase Name</label>
+              <label>{t('phases:manager.phaseName')}</label>
               <input
                 type="text"
                 value={editData.name}
@@ -250,17 +253,17 @@ export default function EnhancedProjectTimeline({ projectId }: EnhancedProjectTi
         <div className="editor-actions">
           <button onClick={handleSave} className="btn btn-primary">
             <Save size={16} />
-            Save Changes
+            {t('phases:common.saveChanges')}
           </button>
           <button onClick={() => setEditingPhase(null)} className="btn btn-secondary">
             <X size={16} />
-            Cancel
+            {t('common:cancel')}
           </button>
         </div>
 
         {validationResult && !validationResult.isValid && (
           <div className="validation-errors">
-            <h5>Validation Errors:</h5>
+            <h5>{t('phases:enhanced.validationErrors')}</h5>
             {validationResult.violations.map((violation, index) => (
               <div key={index} className="error-item">
                 <AlertTriangle size={14} />
@@ -309,32 +312,32 @@ export default function EnhancedProjectTimeline({ projectId }: EnhancedProjectTi
 
     return (
       <div className="add-phase-form">
-        <h4>Add Custom Phase</h4>
-        
+        <h4>{t('phases:enhanced.addCustomPhase')}</h4>
+
         <div className="form-fields">
           <div className="field-group">
-            <label>Phase Name *</label>
+            <label>{t('phases:manager.phaseNameRequired')}</label>
             <input
               type="text"
               value={newPhase.name}
               onChange={(e) => setNewPhase(prev => ({ ...prev, name: e.target.value }))}
               className="form-input"
-              placeholder="Enter phase name"
+              placeholder={t('phases:enhanced.enterPhaseName')}
             />
           </div>
-          
+
           <div className="field-group">
-            <label>Description</label>
+            <label>{t('common:description')}</label>
             <textarea
               value={newPhase.description}
               onChange={(e) => setNewPhase(prev => ({ ...prev, description: e.target.value }))}
               className="form-textarea"
-              placeholder="Describe this phase..."
+              placeholder={t('phases:enhanced.describePhase')}
             />
           </div>
-          
+
           <div className="field-group">
-            <label>Duration (days)</label>
+            <label>{t('phases:enhanced.durationDays')}</label>
             <input
               type="number"
               value={newPhase.durationDays}
@@ -343,9 +346,9 @@ export default function EnhancedProjectTimeline({ projectId }: EnhancedProjectTi
               className="form-input"
             />
           </div>
-          
+
           <div className="field-group">
-            <label>Insert Position</label>
+            <label>{t('phases:enhanced.insertPosition')}</label>
             <select
               value={newPhase.insertIndex}
               onChange={(e) => setNewPhase(prev => ({ ...prev, insertIndex: Number(e.target.value) }))}
@@ -353,10 +356,10 @@ export default function EnhancedProjectTimeline({ projectId }: EnhancedProjectTi
             >
               {(timeline && Array.isArray(timeline)) && timeline.map((phase, index) => (
                 <option key={index} value={index}>
-                  Before "{phase.phase_name}"
+                  {t('phases:enhanced.beforePhase', { name: phase.phase_name })}
                 </option>
               ))}
-              <option value={(timeline && Array.isArray(timeline)) ? timeline.length : 0}>At the end</option>
+              <option value={(timeline && Array.isArray(timeline)) ? timeline.length : 0}>{t('phases:enhanced.atTheEnd')}</option>
             </select>
           </div>
         </div>
@@ -364,10 +367,10 @@ export default function EnhancedProjectTimeline({ projectId }: EnhancedProjectTi
         <div className="form-actions">
           <button onClick={handleAdd} className="btn btn-primary">
             <Plus size={16} />
-            Add Phase
+            {t('phases:manager.addPhase')}
           </button>
           <button onClick={() => setShowAddCustomPhase(false)} className="btn btn-secondary">
-            Cancel
+            {t('common:cancel')}
           </button>
         </div>
       </div>
@@ -382,27 +385,27 @@ export default function EnhancedProjectTimeline({ projectId }: EnhancedProjectTi
     <div className="enhanced-project-timeline">
       <div className="timeline-header">
         <div className="header-info">
-          <h3>Project Timeline</h3>
-          <p>Manage project phases with template constraint awareness</p>
+          <h3>{t('phases:enhanced.title')}</h3>
+          <p>{t('phases:enhanced.subtitle')}</p>
         </div>
-        
+
         {compliance && (
           <div className="compliance-summary">
             <div className="compliance-stat">
-              <label>Template Compliance</label>
+              <label>{t('phases:enhanced.templateCompliance')}</label>
               <span className={`compliance-percentage ${compliance.compliancePercentage >= 80 ? 'good' : 'warning'}`}>
                 {Math.round(compliance.compliancePercentage)}%
               </span>
             </div>
             <div className="phase-counts">
               <span className="phase-count">
-                <span className="count">{compliance.templatePhases}</span> Template
+                <span className="count">{compliance.templatePhases}</span> {t('phases:enhanced.countTemplate')}
               </span>
               <span className="phase-count">
-                <span className="count">{compliance.customPhases}</span> Custom
+                <span className="count">{compliance.customPhases}</span> {t('phases:enhanced.countCustom')}
               </span>
               <span className="phase-count">
-                <span className="count">{compliance.customizedPhases}</span> Modified
+                <span className="count">{compliance.customizedPhases}</span> {t('phases:enhanced.countModified')}
               </span>
             </div>
           </div>
@@ -429,7 +432,7 @@ export default function EnhancedProjectTimeline({ projectId }: EnhancedProjectTi
                       </span>
                       <span className="duration">
                         <Clock size={14} />
-                        {phase.duration_days} days
+                        {t('phases:manager.days', { count: phase.duration_days })}
                       </span>
                       {getConstraintBadge(constraintStatus)}
                     </div>
@@ -440,32 +443,32 @@ export default function EnhancedProjectTimeline({ projectId }: EnhancedProjectTi
                   <button
                     onClick={() => setExpandedPhase(isExpanded ? null : phase.id)}
                     className="btn btn-icon"
-                    title="View details"
+                    title={t('phases:enhanced.viewDetailsTooltip')}
                   >
                     <Info size={16} />
                   </button>
                   <button
                     onClick={() => setEditingPhase(isEditing ? null : phase.id)}
                     className="btn btn-icon"
-                    title="Edit phase"
+                    title={t('phases:manager.editPhaseTooltip')}
                   >
                     <Edit2 size={16} />
                   </button>
                   {phase.is_deletable && (
                     <button
                       onClick={() => {
-                        if (confirm('Are you sure you want to delete this phase?')) {
+                        if (confirm(t('phases:manager.deletePhaseConfirm'))) {
                           deletePhaseMutation.mutate(phase.id);
                         }
                       }}
                       className="btn btn-icon btn-danger"
-                      title="Delete phase"
+                      title={t('phases:manager.deletePhaseTooltip')}
                     >
                       <Trash2 size={16} />
                     </button>
                   )}
                   {!phase.is_deletable && (
-                    <Lock size={16} className="phase-locked" title="Mandatory template phase" />
+                    <Lock size={16} className="phase-locked" title={t('phases:enhanced.mandatoryTemplatePhase')} />
                   )}
                 </div>
               </div>
@@ -473,30 +476,30 @@ export default function EnhancedProjectTimeline({ projectId }: EnhancedProjectTi
               {isExpanded && (
                 <div className="phase-expanded">
                   <div className="phase-constraints">
-                    <h5>Template Constraints</h5>
+                    <h5>{t('phases:enhanced.templateConstraints')}</h5>
                     {phase.phase_source === 'template' ? (
                       <div className="constraint-info">
                         {phase.original_duration_days && (
                           <div className="constraint-item">
-                            <label>Original Duration:</label>
-                            <span>{phase.original_duration_days} days</span>
+                            <label>{t('phases:enhanced.originalDuration')}</label>
+                            <span>{t('phases:manager.days', { count: phase.original_duration_days })}</span>
                           </div>
                         )}
                         {phase.template_min_duration_days && (
                           <div className="constraint-item">
-                            <label>Minimum Duration:</label>
-                            <span>{phase.template_min_duration_days} days</span>
+                            <label>{t('phases:enhanced.minimumDuration')}</label>
+                            <span>{t('phases:manager.days', { count: phase.template_min_duration_days })}</span>
                           </div>
                         )}
                         {phase.template_max_duration_days && (
                           <div className="constraint-item">
-                            <label>Maximum Duration:</label>
-                            <span>{phase.template_max_duration_days} days</span>
+                            <label>{t('phases:enhanced.maximumDuration')}</label>
+                            <span>{t('phases:manager.days', { count: phase.template_max_duration_days })}</span>
                           </div>
                         )}
                       </div>
                     ) : (
-                      <p>No constraints - this is a custom phase</p>
+                      <p>{t('phases:enhanced.noConstraints')}</p>
                     )}
                   </div>
                 </div>
@@ -516,15 +519,15 @@ export default function EnhancedProjectTimeline({ projectId }: EnhancedProjectTi
           className="btn btn-primary add-phase-btn"
         >
           <Plus size={16} />
-          Add Custom Phase
+          {t('phases:enhanced.addCustomPhase')}
         </button>
       )}
 
       {sortedTimeline.length === 0 && (
         <div className="empty-timeline">
           <Info size={24} />
-          <h4>No Timeline Phases</h4>
-          <p>This project doesn't have any phases in its timeline yet.</p>
+          <h4>{t('phases:enhanced.noPhases')}</h4>
+          <p>{t('phases:enhanced.noPhasesDesc')}</p>
         </div>
       )}
     </div>

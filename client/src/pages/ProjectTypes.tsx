@@ -1,9 +1,11 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useTranslation } from 'react-i18next';
 import { Plus, Edit2, Trash2, ChevronRight, ChevronDown, List, GitBranch, Eye } from 'lucide-react';
 import { api } from '../lib/api-client';
 import { queryKeys } from '../lib/queryKeys';
+import { getLocale } from '../i18n';
 import { DataTable, Column } from '../components/ui/DataTable';
 import { FilterBar } from '../components/ui/FilterBar';
 import { LoadingSpinner } from '../components/ui/LoadingSpinner';
@@ -14,19 +16,20 @@ import { useBookmarkableTabs } from '../hooks/useBookmarkableTabs';
 import type { ProjectType } from '../types';
 import './ProjectTypes.css';
 
-// Define project types view tabs configuration
-const projectTypesViewTabs = [
-  { id: 'list', label: 'List' },
-  { id: 'hierarchy', label: 'Hierarchy' }
-];
-
 export default function ProjectTypes() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const [filters, setFilters] = useState({
     search: ''
   });
-  
+
+  // Define project types view tabs configuration
+  const projectTypesViewTabs = useMemo(() => [
+    { id: 'list', label: t('projects:projectTypes.viewList') },
+    { id: 'hierarchy', label: t('projects:projectTypes.viewHierarchy') }
+  ], [t]);
+
   // Use bookmarkable tabs for view mode selection
   const { activeTab, setActiveTab, isActiveTab } = useBookmarkableTabs({
     tabs: projectTypesViewTabs,
@@ -68,7 +71,7 @@ export default function ProjectTypes() {
   });
 
   const handleDeleteProjectType = (projectTypeId: string, projectTypeName: string) => {
-    if (confirm(`Are you sure you want to delete "${projectTypeName}"? This action cannot be undone and may affect existing projects.`)) {
+    if (confirm(t('projects:projectTypes.deleteConfirmation', { name: projectTypeName }))) {
       deleteProjectTypeMutation.mutate(projectTypeId);
     }
   };
@@ -112,7 +115,7 @@ export default function ProjectTypes() {
   const columns: Column<ProjectType>[] = [
     {
       key: 'name',
-      header: 'Project Type',
+      header: t('projects:projectType'),
       sortable: true,
       render: (value, row) => (
         <div className="project-type-name">
@@ -131,23 +134,23 @@ export default function ProjectTypes() {
     },
     {
       key: 'projects_count',
-      header: 'Projects',
+      header: t('projects:projectTypes.projects'),
       sortable: true,
       render: (value) => (
         <span className="count-badge">
-          {value || 0} project{(value || 0) !== 1 ? 's' : ''}
+          {t('projects:projectTypes.projectsCount', { count: value || 0 })}
         </span>
       )
     },
     {
       key: 'created_at',
-      header: 'Created',
+      header: t('common:created'),
       sortable: true,
-      render: (value) => new Date(value).toLocaleDateString()
+      render: (value) => new Date(value).toLocaleDateString(getLocale())
     },
     {
       key: 'actions',
-      header: 'Actions',
+      header: t('common:actions'),
       width: '140px',
       render: (_, row) => (
         <div className="table-actions">
@@ -157,7 +160,7 @@ export default function ProjectTypes() {
               e.stopPropagation();
               navigate(`/project-types/${row.id}`);
             }}
-            title="View Details"
+            title={t('common:viewDetails')}
           >
             <Eye size={16} />
           </button>
@@ -167,7 +170,7 @@ export default function ProjectTypes() {
               e.stopPropagation();
               handleEditProjectType(row);
             }}
-            title="Edit"
+            title={t('common:edit')}
           >
             <Edit2 size={16} />
           </button>
@@ -177,7 +180,7 @@ export default function ProjectTypes() {
               e.stopPropagation();
               handleDeleteProjectType(row.id, row.name);
             }}
-            title="Delete"
+            title={t('common:delete')}
           >
             <Trash2 size={16} />
           </button>
@@ -189,9 +192,9 @@ export default function ProjectTypes() {
   const filterConfig = [
     {
       name: 'search',
-      label: 'Search',
+      label: t('common:search'),
       type: 'search' as const,
-      placeholder: 'Search project types...'
+      placeholder: t('projects:projectTypes.searchPlaceholder')
     }
   ];
 
@@ -226,12 +229,12 @@ export default function ProjectTypes() {
                   style={{ backgroundColor: projectType.color_code || '#6b7280' }}
                 />
                 <span className="name">{projectType.name}</span>
-                {isParentType && <span className="parent-badge">Project Type</span>}
-                {isSubType && <span className="sub-type-badge">Project Sub-Type</span>}
+                {isParentType && <span className="parent-badge">{t('projects:projectType')}</span>}
+                {isSubType && <span className="sub-type-badge">{t('projects:projectTypes.projectSubType')}</span>}
               </div>
               <div className="project-type-meta">
-                <span className="description">{projectType.description || 'No description'}</span>
-                {hasChildren && <span className="level-badge">{projectType.children.length} sub-types</span>}
+                <span className="description">{projectType.description || t('projects:projectTypes.noDescription')}</span>
+                {hasChildren && <span className="level-badge">{t('projects:projectTypes.subTypesCount', { count: projectType.children.length })}</span>}
               </div>
             </div>
           </div>
@@ -241,30 +244,30 @@ export default function ProjectTypes() {
               <button
                 className="btn btn-sm btn-secondary"
                 onClick={() => handleCreateSubType(projectType.id)}
-                title="Add Project Sub-Type"
+                title={t('projects:projectTypes.addSubType')}
               >
                 <Plus size={14} />
-                Sub-Type
+                {t('projects:projectTypes.subType')}
               </button>
             )}
             <button
               className="btn btn-icon btn-sm"
               onClick={() => navigate(`/project-types/${projectType.id}`)}
-              title="View Details"
+              title={t('common:viewDetails')}
             >
               <Eye size={16} />
             </button>
             <button
               className="btn btn-icon btn-sm"
               onClick={() => handleEditProjectType(projectType)}
-              title="Edit"
+              title={t('common:edit')}
             >
               <Edit2 size={16} />
             </button>
             <button
               className="btn btn-icon btn-sm btn-danger"
               onClick={() => handleDeleteProjectType(projectType.id, projectType.name)}
-              title="Delete"
+              title={t('common:delete')}
             >
               <Trash2 size={16} />
             </button>
@@ -291,15 +294,15 @@ export default function ProjectTypes() {
   }
 
   if (projectTypesError) {
-    return <ErrorMessage message="Failed to load project types" details={projectTypesError.message} />;
+    return <ErrorMessage message={t('projects:projectTypes.loadFailed')} details={projectTypesError.message} />;
   }
 
   return (
     <div className="page-container">
       <div className="page-header">
         <div className="header-content">
-          <h1>Project Types</h1>
-          <p className="text-muted">Manage project type definitions and colors</p>
+          <h1>{t('projects:projectTypes.title')}</h1>
+          <p className="text-muted">{t('projects:projectTypes.subtitle')}</p>
         </div>
         <div className="header-actions">
           <div className="view-mode-toggle">
@@ -320,7 +323,7 @@ export default function ProjectTypes() {
             onClick={addProjectTypeModal.open}
           >
             <Plus size={16} />
-            Add Project Type
+            {t('projects:projectTypes.addProjectType')}
           </button>
         </div>
       </div>
@@ -342,7 +345,7 @@ export default function ProjectTypes() {
             </div>
           ) : (
             <div className="empty-state">
-              <p>No project types found</p>
+              <p>{t('projects:projectTypes.noProjectTypesFound')}</p>
             </div>
           )}
         </div>

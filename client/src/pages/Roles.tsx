@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { Plus, Edit2, Trash2, Eye, Users, Settings } from 'lucide-react';
 import { api } from '../lib/api-client';
 import { queryKeys } from '../lib/queryKeys';
@@ -12,6 +13,7 @@ import type { Role } from '../types';
 import './Roles.css';
 
 export default function Roles() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const [filters, setFilters] = useState({
@@ -45,7 +47,7 @@ export default function Roles() {
   });
 
   const handleDeleteRole = (roleId: string, roleName: string) => {
-    if (confirm(`Are you sure you want to delete the role "${roleName}"? This action cannot be undone.`)) {
+    if (confirm(t('roles:deleteConfirm', { name: roleName }))) {
       deleteRoleMutation.mutate(roleId);
     }
   };
@@ -65,7 +67,7 @@ export default function Roles() {
   const columns: Column<Role>[] = [
     {
       key: 'name',
-      header: 'Role Name',
+      header: t('roles:columns.name'),
       sortable: true,
       render: (value, row) => (
         <div className="role-name">
@@ -76,13 +78,13 @@ export default function Roles() {
     },
     {
       key: 'external_id',
-      header: 'External ID',
+      header: t('roles:columns.externalId'),
       sortable: true,
       render: (value) => value || '-'
     },
     {
       key: 'people_count',
-      header: 'People',
+      header: t('roles:columns.people'),
       sortable: true,
       render: (value) => (
         <div className="count-badge">
@@ -93,7 +95,7 @@ export default function Roles() {
     },
     {
       key: 'planners_count',
-      header: 'Planners',
+      header: t('roles:columns.planners'),
       sortable: true,
       render: (value) => (
         <div className="count-badge">
@@ -104,13 +106,13 @@ export default function Roles() {
     },
     {
       key: 'standard_allocations_count',
-      header: 'Allocations',
+      header: t('roles:columns.allocations'),
       sortable: true,
       render: (value) => value || 0
     },
     {
       key: 'actions',
-      header: 'Actions',
+      header: t('common:actions'),
       width: '120px',
       render: (_, row) => (
         <div className="table-actions">
@@ -120,7 +122,7 @@ export default function Roles() {
               e.stopPropagation();
               navigate(`/roles/${row.id}`);
             }}
-            title="View Details"
+            title={t('common:viewDetails')}
           >
             <Eye size={16} />
           </button>
@@ -130,7 +132,7 @@ export default function Roles() {
               e.stopPropagation();
               navigate(`/roles/${row.id}/edit`);
             }}
-            title="Edit"
+            title={t('common:edit')}
           >
             <Edit2 size={16} />
           </button>
@@ -140,7 +142,7 @@ export default function Roles() {
               e.stopPropagation();
               handleDeleteRole(row.id, row.name);
             }}
-            title="Delete"
+            title={t('common:delete')}
           >
             <Trash2 size={16} />
           </button>
@@ -152,26 +154,26 @@ export default function Roles() {
   const filterConfig = [
     {
       name: 'search',
-      label: 'Search',
+      label: t('common:search'),
       type: 'search' as const,
-      placeholder: 'Search roles...'
+      placeholder: t('roles:searchPlaceholder')
     },
     {
       name: 'has_planners',
-      label: 'Has Planners',
+      label: t('roles:hasPlanners'),
       type: 'select' as const,
       options: [
-        { value: 'true', label: 'Yes' },
-        { value: 'false', label: 'No' }
+        { value: 'true', label: t('common:yes') },
+        { value: 'false', label: t('common:no') }
       ]
     },
     {
       name: 'has_people',
-      label: 'Has People',
+      label: t('roles:hasPeople'),
       type: 'select' as const,
       options: [
-        { value: 'true', label: 'Yes' },
-        { value: 'false', label: 'No' }
+        { value: 'true', label: t('common:yes') },
+        { value: 'false', label: t('common:no') }
       ]
     }
   ];
@@ -181,15 +183,15 @@ export default function Roles() {
   }
 
   if (rolesError) {
-    return <ErrorMessage message="Failed to load roles" details={rolesError.message} />;
+    return <ErrorMessage message={t('roles:loadFailed')} details={rolesError.message} />;
   }
 
   return (
     <div className="page-container">
       <div className="page-header">
         <div>
-          <h1>Roles</h1>
-          <p className="text-muted">Manage roles and their configurations</p>
+          <h1>{t('roles:title')}</h1>
+          <p className="text-muted">{t('roles:subtitle')}</p>
         </div>
         <div className="header-actions">
           <button
@@ -197,7 +199,7 @@ export default function Roles() {
             onClick={() => navigate('/roles/new')}
           >
             <Plus size={16} />
-            Add Role
+            {t('roles:addRole')}
           </button>
         </div>
       </div>

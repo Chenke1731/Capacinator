@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Card } from '../components/ui/CustomCard';
 import { DataTable } from '../components/ui/DataTable';
 import { FilterBar } from '../components/ui/FilterBar';
 import { LoadingSpinner } from '../components/ui/LoadingSpinner';
 import { ErrorMessage } from '../components/ui/ErrorMessage';
 import { apiClient } from '../lib/api-client';
+import { getLocale } from '../i18n';
 import './AuditLog.css';
 
 interface AuditEntry {
@@ -32,6 +34,7 @@ interface AuditStats {
 }
 
 export function AuditLog() {
+  const { t } = useTranslation();
   const [entries, setEntries] = useState<AuditEntry[]>([]);
   const [stats, setStats] = useState<AuditStats | null>(null);
   const [loading, setLoading] = useState(true);
@@ -69,7 +72,7 @@ export function AuditLog() {
       setEntries(response.data.data || []);
       setError(null);
     } catch (err) {
-      setError('Failed to load audit data');
+      setError(t('auditLog:loadFailed'));
       console.error('Error loading audit data:', err);
     } finally {
       setLoading(false);
@@ -90,7 +93,7 @@ export function AuditLog() {
   };
 
   const handleUndoChange = async (tableName: string, recordId: string, comment?: string) => {
-    if (!confirm('Are you sure you want to undo the last change to this record?')) {
+    if (!confirm(t('auditLog:undoConfirm'))) {
       return;
     }
 
@@ -98,9 +101,9 @@ export function AuditLog() {
       setUndoingEntry(`${tableName}:${recordId}`);
       await apiClient.post(`/audit/undo/${tableName}/${recordId}`, { comment });
       await loadAuditData();
-      alert('Change undone successfully');
+      alert(t('auditLog:undoSuccess'));
     } catch (err) {
-      alert(`Failed to undo change: ${(err as any).response?.data?.error || 'Unknown error'}`);
+      alert(t('auditLog:undoFailed', { message: (err as any).response?.data?.error || t('auditLog:unknownError') }));
     } finally {
       setUndoingEntry(null);
     }
@@ -115,58 +118,58 @@ export function AuditLog() {
   const formatDate = (dateValue: string | number): string => {
     // Handle both string dates and timestamp numbers
     const date = typeof dateValue === 'number' ? new Date(dateValue) : new Date(dateValue);
-    if (isNaN(date.getTime())) return 'Invalid Date';
-    return date.toLocaleString();
+    if (isNaN(date.getTime())) return t('auditLog:invalidDate');
+    return date.toLocaleString(getLocale());
   };
 
 
   const columns = [
     {
       key: 'changed_at',
-      header: 'Date/Time',
+      header: t('auditLog:columns.dateTime'),
       render: (value: any, _entry: AuditEntry) => {
-        if (value === undefined || value === null) return 'N/A';
+        if (value === undefined || value === null) return t('common:na');
         return formatDate(value);
       }
     },
     {
       key: 'table_name',
-      header: 'Table',
+      header: t('auditLog:columns.table'),
       render: (value: any, _entry: AuditEntry) => {
-        if (!value) return 'N/A';
+        if (!value) return t('common:na');
         return value;
       }
     },
     {
       key: 'action',
-      header: 'Action',
+      header: t('auditLog:columns.action'),
       render: (value: any, _entry: AuditEntry) => {
-        if (!value) return 'UNKNOWN';
+        if (!value) return t('auditLog:actions.UNKNOWN');
         return (
           <span className={`audit-action audit-action--${value.toLowerCase()}`}>
-            {value}
+            {t(`auditLog:actions.${value}`)}
           </span>
         );
       }
     },
     {
       key: 'changed_by',
-      header: 'Changed By',
+      header: t('auditLog:columns.changedBy'),
       render: (value: any, _entry: AuditEntry) => {
-        return value || 'System';
+        return value || t('auditLog:system');
       }
     },
     {
       key: 'changed_fields',
-      header: 'Fields Changed',
+      header: t('auditLog:columns.fieldsChanged'),
       render: (value: any, _entry: AuditEntry) => {
-        if (!value || value.length === 0) return 'N/A';
+        if (!value || value.length === 0) return t('common:na');
         return value.join(', ');
       }
     },
     {
       key: 'actions',
-      header: 'Actions',
+      header: t('common:actions'),
       render: (value: any, entry: AuditEntry) => {
         if (!entry || !entry.id) return null;
         return (
@@ -175,7 +178,7 @@ export function AuditLog() {
               onClick={() => setExpandedEntry(expandedEntry === entry.id ? null : entry.id)}
               className="btn btn--small btn--secondary"
             >
-              {expandedEntry === entry.id ? 'Hide' : 'Details'}
+              {expandedEntry === entry.id ? t('auditLog:hide') : t('auditLog:details')}
             </button>
             {entry.action && entry.action !== 'DELETE' && entry.table_name && entry.record_id && (
               <button
@@ -183,7 +186,7 @@ export function AuditLog() {
                 disabled={undoingEntry === `${entry.table_name}:${entry.record_id}`}
                 className="btn btn--small btn--danger"
               >
-                {undoingEntry === `${entry.table_name}:${entry.record_id}` ? 'Undoing...' : 'Undo'}
+                {undoingEntry === `${entry.table_name}:${entry.record_id}` ? t('auditLog:undoing') : t('auditLog:undo')}
               </button>
             )}
           </div>
@@ -195,39 +198,39 @@ export function AuditLog() {
   const filterOptions = [
     {
       name: 'tableName',
-      label: 'Table',
+      label: t('auditLog:columns.table'),
       type: 'select' as const,
       options: [
-        { value: '', label: 'All Tables' },
-        { value: 'people', label: 'People' },
-        { value: 'projects', label: 'Projects' },
-        { value: 'roles', label: 'Roles' },
-        { value: 'assignments', label: 'Assignments' },
-        { value: 'availability', label: 'Availability' }
+        { value: '', label: t('auditLog:filters.allTables') },
+        { value: 'people', label: t('enums:resources.person') },
+        { value: 'projects', label: t('enums:resources.project') },
+        { value: 'roles', label: t('enums:resources.role') },
+        { value: 'assignments', label: t('enums:resources.assignment') },
+        { value: 'availability', label: t('enums:resources.resource') }
       ]
     },
     {
       name: 'action',
-      label: 'Action',
+      label: t('auditLog:columns.action'),
       type: 'select' as const,
       options: [
-        { value: '', label: 'All Actions' },
-        { value: 'CREATE', label: 'Create' },
-        { value: 'UPDATE', label: 'Update' },
-        { value: 'DELETE', label: 'Delete' }
+        { value: '', label: t('auditLog:filters.allActions') },
+        { value: 'CREATE', label: t('auditLog:filters.create') },
+        { value: 'UPDATE', label: t('auditLog:filters.update') },
+        { value: 'DELETE', label: t('auditLog:filters.delete') }
       ]
     },
     {
       name: 'changedBy',
-      label: 'Changed By',
+      label: t('auditLog:filters.changedBy'),
       type: 'search' as const,
-      placeholder: 'User ID'
+      placeholder: t('auditLog:filters.userId')
     },
     {
       name: 'recordId',
-      label: 'Record ID',
+      label: t('auditLog:filters.recordId'),
       type: 'search' as const,
-      placeholder: 'Record ID'
+      placeholder: t('auditLog:filters.recordId')
     }
   ];
 
@@ -238,43 +241,43 @@ export function AuditLog() {
   return (
     <div className="page-container">
       <div className="audit-log__header">
-        <h1>Audit Log</h1>
-        <p>Track and review all system changes with undo capability</p>
+        <h1>{t('auditLog:title')}</h1>
+        <p>{t('auditLog:subtitle')}</p>
       </div>
 
       {stats && (
         <div className="audit-stats">
           <Card>
-            <h3>Audit Statistics</h3>
+            <h3>{t('auditLog:stats.title')}</h3>
             <div className="audit-stats__grid">
               <div className="audit-stat">
-                <span className="audit-stat__label">Total Entries</span>
-                <span className="audit-stat__value">{stats.totalEntries.toLocaleString()}</span>
+                <span className="audit-stat__label">{t('auditLog:stats.totalEntries')}</span>
+                <span className="audit-stat__value">{stats.totalEntries.toLocaleString(getLocale())}</span>
               </div>
               <div className="audit-stat">
-                <span className="audit-stat__label">Date Range</span>
+                <span className="audit-stat__label">{t('auditLog:stats.dateRange')}</span>
                 <span className="audit-stat__value">
-                  {stats.oldestEntry && stats.newestEntry ? 
-                    `${formatDate(stats.oldestEntry)} - ${formatDate(stats.newestEntry)}` : 
-                    'N/A'
+                  {stats.oldestEntry && stats.newestEntry ?
+                    `${formatDate(stats.oldestEntry)} - ${formatDate(stats.newestEntry)}` :
+                    t('common:na')
                   }
                 </span>
               </div>
             </div>
             <div className="audit-stats__breakdown">
               <div className="audit-breakdown">
-                <h4>By Action</h4>
+                <h4>{t('auditLog:stats.byAction')}</h4>
                 {Object.entries(stats.entriesByAction).map(([action, count]) => (
                   <div key={action} className="audit-breakdown__item">
                     <span className={`audit-action audit-action--${action.toLowerCase()}`}>
-                      {action}
+                      {t(`auditLog:actions.${action}`, { defaultValue: action })}
                     </span>
                     <span>{count}</span>
                   </div>
                 ))}
               </div>
               <div className="audit-breakdown">
-                <h4>By Table</h4>
+                <h4>{t('auditLog:stats.byTable')}</h4>
                 {Object.entries(stats.entriesByTable).map(([table, count]) => (
                   <div key={table} className="audit-breakdown__item">
                     <span>{table}</span>
@@ -300,46 +303,46 @@ export function AuditLog() {
           data={entries}
           columns={columns}
           loading={loading}
-          emptyMessage="No audit entries found"
+          emptyMessage={t('auditLog:emptyMessage')}
         />
 
         {entries.map(entry => (
           expandedEntry === entry.id && (
             <div key={`expanded-${entry.id}`} className="audit-details">
               <Card>
-                <h4>Audit Entry Details</h4>
+                <h4>{t('auditLog:detailsTitle')}</h4>
                 <div className="audit-details__grid">
                   <div className="audit-detail">
-                    <strong>ID:</strong> {entry.id}
+                    <strong>{t('auditLog:detailFields.id')}</strong> {entry.id}
                   </div>
                   <div className="audit-detail">
-                    <strong>Request ID:</strong> {entry.request_id || 'N/A'}
+                    <strong>{t('auditLog:detailFields.requestId')}</strong> {entry.request_id || t('common:na')}
                   </div>
                   <div className="audit-detail">
-                    <strong>IP Address:</strong> {entry.ip_address || 'N/A'}
+                    <strong>{t('auditLog:detailFields.ipAddress')}</strong> {entry.ip_address || t('common:na')}
                   </div>
                   <div className="audit-detail">
-                    <strong>User Agent:</strong> {entry.user_agent || 'N/A'}
+                    <strong>{t('auditLog:detailFields.userAgent')}</strong> {entry.user_agent || t('common:na')}
                   </div>
                   {entry.comment && (
                     <div className="audit-detail audit-detail--full">
-                      <strong>Comment:</strong> {entry.comment}
+                      <strong>{t('auditLog:detailFields.comment')}</strong> {entry.comment}
                     </div>
                   )}
                 </div>
-                
+
                 {entry.old_values && (
                   <div className="audit-values">
-                    <h5>Old Values</h5>
+                    <h5>{t('auditLog:oldValues')}</h5>
                     <pre className="audit-values__json">
                       {formatValue(entry.old_values)}
                     </pre>
                   </div>
                 )}
-                
+
                 {entry.new_values && (
                   <div className="audit-values">
-                    <h5>New Values</h5>
+                    <h5>{t('auditLog:newValues')}</h5>
                     <pre className="audit-values__json">
                       {formatValue(entry.new_values)}
                     </pre>
@@ -356,17 +359,20 @@ export function AuditLog() {
             disabled={filters.offset === 0 || loading}
             className="btn btn--secondary"
           >
-            Previous
+            {t('common:previous')}
           </button>
           <span className="audit-pagination__info">
-            Showing {filters.offset + 1} - {Math.min(filters.offset + filters.limit, filters.offset + entries.length)}
+            {t('auditLog:paginationInfo', {
+              from: filters.offset + 1,
+              to: Math.min(filters.offset + filters.limit, filters.offset + entries.length),
+            })}
           </span>
           <button
             onClick={() => handleFilterChange({ offset: filters.offset + filters.limit })}
             disabled={entries.length < filters.limit || loading}
             className="btn btn--secondary"
           >
-            Next
+            {t('common:next')}
           </button>
         </div>
       </Card>

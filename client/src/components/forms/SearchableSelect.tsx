@@ -6,6 +6,7 @@
  */
 
 import * as React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Label } from '@/components/ui/label';
 import {
   Select,
@@ -43,17 +44,20 @@ export const SearchableSelect = React.forwardRef<HTMLDivElement, SearchableSelec
       value,
       onChange,
       options,
-      placeholder = 'Select an option',
+      placeholder,
       required = false,
       error,
       disabled = false,
       className,
       description,
       showNone = false,
-      noneLabel = 'None',
+      noneLabel,
     },
     ref
   ) => {
+    const { t } = useTranslation();
+    const resolvedPlaceholder = placeholder ?? t('common:forms.selectAnOption');
+    const resolvedNoneLabel = noneLabel ?? t('common:none');
     const errorId = `${id}-error`;
     const descriptionId = description ? `${id}-description` : undefined;
 
@@ -74,7 +78,7 @@ export const SearchableSelect = React.forwardRef<HTMLDivElement, SearchableSelec
               <span aria-hidden="true" className="text-destructive ml-1">
                 *
               </span>
-              <span className="sr-only">(required)</span>
+              <span className="sr-only">{t('common:forms.requiredSrOnly')}</span>
             </>
           )}
         </Label>
@@ -100,11 +104,11 @@ export const SearchableSelect = React.forwardRef<HTMLDivElement, SearchableSelec
               undefined
             }
           >
-            <SelectValue placeholder={placeholder} />
+            <SelectValue placeholder={resolvedPlaceholder} />
           </SelectTrigger>
           <SelectContent>
             {showNone && (
-              <SelectItem value="__none__">{noneLabel}</SelectItem>
+              <SelectItem value="__none__">{resolvedNoneLabel}</SelectItem>
             )}
             {options.map((option) => (
               <SelectItem

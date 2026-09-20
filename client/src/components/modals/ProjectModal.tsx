@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react';
 import { useQuery } from '@tanstack/react-query';
+import { useTranslation } from 'react-i18next';
 import { api } from '../../lib/api-client';
 import { queryKeys } from '../../lib/queryKeys';
 import { useModalForm } from '../../hooks/useModalForm';
@@ -12,6 +13,7 @@ import { Textarea } from '../ui/textarea';
 import { Checkbox } from '../ui/checkbox';
 import { Spinner } from '../ui/spinner';
 import { AlertCircle } from 'lucide-react';
+import i18n from '../../i18n';
 import {
   Dialog,
   DialogContent,
@@ -82,10 +84,10 @@ const initialValues: ProjectFormData = {
 const validateProject = (values: ProjectFormData): Partial<Record<keyof ProjectFormData, string>> => {
   const errors: Partial<Record<keyof ProjectFormData, string>> = {};
 
-  if (!values.name.trim()) errors.name = 'Project name is required';
-  if (!values.project_type_id) errors.project_type_id = 'Project type is required';
-  if (!values.location_id) errors.location_id = 'Location is required';
-  if (!values.owner_id) errors.owner_id = 'Project owner is required';
+  if (!values.name.trim()) errors.name = i18n.t('projects:validation.nameRequired');
+  if (!values.project_type_id) errors.project_type_id = i18n.t('projects:validation.typeRequired');
+  if (!values.location_id) errors.location_id = i18n.t('projects:validation.locationRequired');
+  if (!values.owner_id) errors.owner_id = i18n.t('projects:validation.ownerRequired');
 
   // Note: ProjectModal currently doesn't have date range fields
   // but this validation function is extensible for future date fields
@@ -99,6 +101,8 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
   onSuccess,
   editingProject
 }) => {
+  const { t } = useTranslation();
+
   const {
     values: formData,
     errors,
@@ -208,11 +212,11 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
     <Dialog open={isOpen} onOpenChange={(open) => !open && onCloseWithReset()}>
       <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle>{isEditing ? 'Edit Project' : 'Add New Project'}</DialogTitle>
+          <DialogTitle>{isEditing ? t('projects:editProject') : t('projects:addNewProject')}</DialogTitle>
           <DialogDescription>
             {isEditing
-              ? 'Update the project details below.'
-              : 'Fill in the information to create a new project.'}
+              ? t('projects:editDescription')
+              : t('projects:createDescription')}
           </DialogDescription>
         </DialogHeader>
         <div className="py-4">
@@ -221,7 +225,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
             <Alert variant="destructive" className="mb-6" role="alert" aria-live="assertive">
               <AlertCircle className="h-4 w-4" aria-hidden="true" />
               <AlertDescription>
-                Please fix the errors below before submitting.
+                {t('projects:fixErrors')}
               </AlertDescription>
             </Alert>
           )}
@@ -229,12 +233,12 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
           <form onSubmit={handleSubmit} className="space-y-6">
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="name">Project Name <span aria-hidden="true">*</span><span className="sr-only">(required)</span></Label>
+              <Label htmlFor="name">{t('projects:projectName')} <span aria-hidden="true">*</span><span className="sr-only">{t('projects:a11yRequired')}</span></Label>
               <Input
                 id="name"
                 value={formData.name}
                 onChange={(e) => handleChange('name', e.target.value)}
-                placeholder="Enter project name"
+                placeholder={t('projects:placeholder.enterName')}
                 className={errors.name ? 'border-destructive' : ''}
                 aria-required="true"
                 aria-invalid={!!errors.name}
@@ -244,7 +248,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="project_type_id">Project Type <span aria-hidden="true">*</span><span className="sr-only">(required)</span></Label>
+              <Label htmlFor="project_type_id">{t('projects:projectType')} <span aria-hidden="true">*</span><span className="sr-only">{t('projects:a11yRequired')}</span></Label>
               <Select value={formData.project_type_id} onValueChange={(value) => handleChange('project_type_id', value)}>
                 <SelectTrigger
                   id="project_type_id"
@@ -253,7 +257,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
                   aria-invalid={!!errors.project_type_id}
                   aria-describedby={errors.project_type_id ? 'project_type_id-error' : undefined}
                 >
-                  <SelectValue placeholder="Select project type" />
+                  <SelectValue placeholder={t('projects:placeholder.selectProjectType')} />
                 </SelectTrigger>
                 <SelectContent>
                   {filteredProjectTypes?.map((type) => (
@@ -267,7 +271,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="location_id">Location <span aria-hidden="true">*</span><span className="sr-only">(required)</span></Label>
+              <Label htmlFor="location_id">{t('projects:location')} <span aria-hidden="true">*</span><span className="sr-only">{t('projects:a11yRequired')}</span></Label>
               <Select value={formData.location_id} onValueChange={(value) => handleChange('location_id', value)}>
                 <SelectTrigger
                   id="location_id"
@@ -276,7 +280,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
                   aria-invalid={!!errors.location_id}
                   aria-describedby={errors.location_id ? 'location_id-error' : undefined}
                 >
-                  <SelectValue placeholder="Select location" />
+                  <SelectValue placeholder={t('projects:placeholder.selectLocation')} />
                 </SelectTrigger>
                 <SelectContent>
                   {(locations as Location[])?.map((location) => (
@@ -290,7 +294,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="owner_id">Project Owner <span aria-hidden="true">*</span><span className="sr-only">(required)</span></Label>
+              <Label htmlFor="owner_id">{t('projects:projectOwner')} <span aria-hidden="true">*</span><span className="sr-only">{t('projects:a11yRequired')}</span></Label>
               <Select value={formData.owner_id} onValueChange={(value) => handleChange('owner_id', value)}>
                 <SelectTrigger
                   id="owner_id"
@@ -299,12 +303,12 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
                   aria-invalid={!!errors.owner_id}
                   aria-describedby={errors.owner_id ? 'owner_id-error' : undefined}
                 >
-                  <SelectValue placeholder="Select project owner" />
+                  <SelectValue placeholder={t('projects:placeholder.selectOwner')} />
                 </SelectTrigger>
                 <SelectContent>
                   {filteredOwners?.map((person) => (
                     <SelectItem key={person.id} value={person.id}>
-                      {person.name} ({person.title || 'No Title'})
+                      {person.name} ({person.title || t('projects:noTitle')})
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -313,39 +317,39 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="priority">Priority</Label>
+              <Label htmlFor="priority">{t('projects:priority')}</Label>
               <Select value={formData.priority.toString()} onValueChange={(value) => handleChange('priority', Number(value))}>
                 <SelectTrigger id="priority">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="1">1 - Highest</SelectItem>
-                  <SelectItem value="2">2 - High</SelectItem>
-                  <SelectItem value="3">3 - Medium</SelectItem>
-                  <SelectItem value="4">4 - Low</SelectItem>
-                  <SelectItem value="5">5 - Lowest</SelectItem>
+                  <SelectItem value="1">{`1 - ${t('projects:priorityLevel.highest')}`}</SelectItem>
+                  <SelectItem value="2">{`2 - ${t('projects:priorityLevel.high')}`}</SelectItem>
+                  <SelectItem value="3">{`3 - ${t('projects:priorityLevel.medium')}`}</SelectItem>
+                  <SelectItem value="4">{`4 - ${t('projects:priorityLevel.low')}`}</SelectItem>
+                  <SelectItem value="5">{`5 - ${t('projects:priorityLevel.lowest')}`}</SelectItem>
                 </SelectContent>
               </Select>
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="external_id">External ID</Label>
+              <Label htmlFor="external_id">{t('projects:externalId')}</Label>
               <Input
                 id="external_id"
                 value={formData.external_id}
                 onChange={(e) => handleChange('external_id', e.target.value)}
-                placeholder="External system ID"
+                placeholder={t('projects:placeholder.externalSystemId')}
               />
             </div>
 
             <div className="space-y-2 col-span-2">
-              <Label htmlFor="current_phase_id">Current Phase</Label>
+              <Label htmlFor="current_phase_id">{t('projects:currentPhase')}</Label>
               <Select value={formData.current_phase_id || 'none'} onValueChange={(value) => handleChange('current_phase_id', value === 'none' ? '' : value)}>
                 <SelectTrigger id="current_phase_id">
-                  <SelectValue placeholder="Select current phase" />
+                  <SelectValue placeholder={t('projects:placeholder.selectCurrentPhase')} />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="none">None</SelectItem>
+                  <SelectItem value="none">{t('common:none')}</SelectItem>
                   {(phases?.data as ProjectPhase[])?.map((phase) => (
                     <SelectItem key={phase.id} value={phase.id}>
                       {phase.name}
@@ -357,23 +361,23 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="description">Description</Label>
+            <Label htmlFor="description">{t('common:description')}</Label>
             <Textarea
               id="description"
               value={formData.description}
               onChange={(e) => handleChange('description', e.target.value)}
-              placeholder="Enter project description"
+              placeholder={t('projects:placeholder.enterProjectDescription')}
               rows={3}
             />
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="data_restrictions">Data Restrictions</Label>
+            <Label htmlFor="data_restrictions">{t('projects:dataRestrictions')}</Label>
             <Textarea
               id="data_restrictions"
               value={formData.data_restrictions}
               onChange={(e) => handleChange('data_restrictions', e.target.value)}
-              placeholder="Enter any data restrictions or security requirements"
+              placeholder={t('projects:placeholder.dataRestrictionsSecurity')}
               rows={2}
             />
           </div>
@@ -386,18 +390,18 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
               aria-describedby="include_in_demand-description"
             />
             <Label htmlFor="include_in_demand" className="cursor-pointer">
-              Include in demand planning
+              {t('projects:includeInDemandPlanning')}
             </Label>
-            <span id="include_in_demand-description" className="sr-only">Include this project in demand planning calculations</span>
+            <span id="include_in_demand-description" className="sr-only">{t('projects:includeInDemandSrOnly')}</span>
           </div>
 
             <DialogFooter>
               <Button type="button" variant="outline" onClick={onCloseWithReset}>
-                Cancel
+                {t('common:cancel')}
               </Button>
               <Button type="submit" disabled={isSubmitting}>
                 {isSubmitting && <Spinner className="mr-2" size="sm" />}
-                {isEditing ? 'Update Project' : 'Create Project'}
+                {isEditing ? t('projects:updateProject') : t('projects:createProject')}
               </Button>
             </DialogFooter>
           </form>

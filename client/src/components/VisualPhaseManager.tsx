@@ -1,11 +1,13 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useTranslation } from 'react-i18next';
 import { api } from '../lib/api-client';
 import { queryKeys } from '../lib/queryKeys';
 import InteractiveTimeline, { TimelineItem, TimelineViewport } from './InteractiveTimeline';
 import './InteractiveTimeline.css';
 import { addDays, format } from 'date-fns';
 import { Calendar, Plus } from 'lucide-react';
+import { getLocale, getDateFnsLocale } from '../i18n';
 
 // Import extracted components
 import {
@@ -37,6 +39,7 @@ interface VisualPhaseManagerProps {
 }
 
 export function VisualPhaseManager({ projectId, projectName: _projectName, onPhasesChange, compact = false, externalViewport, onViewportChange, alignmentDimensions, chartTimeData }: VisualPhaseManagerProps) {
+  const { t } = useTranslation();
   // Debug alignment dimensions
   React.useEffect(() => {
     if (alignmentDimensions) {
@@ -277,7 +280,7 @@ export function VisualPhaseManager({ projectId, projectName: _projectName, onPha
       if (err?.response?.data?.validation_errors) {
         const errors = err.response.data.validation_errors;
         console.error('Phase update validation failed:', errors);
-        alert('Dependency validation failed:\n' + errors.join('\n'));
+        alert(t('phases:visual.dependencyValidationFailed') + '\n' + errors.join('\n'));
       } else {
         console.error('Phase update failed:', err);
       }
@@ -351,10 +354,10 @@ export function VisualPhaseManager({ projectId, projectName: _projectName, onPha
 
   // Handle phase deletion
   const handlePhaseDelete = useCallback((itemId: string) => {
-    if (confirm('Are you sure you want to delete this phase? This action cannot be undone.')) {
+    if (confirm(t('phases:manager.deletePhaseConfirmPermanent'))) {
       deletePhaseMutation.mutate(itemId);
     }
-  }, [deletePhaseMutation]);
+  }, [deletePhaseMutation, t]);
 
   // Handle adding new phase
   const handleAddPhase = useCallback((afterItemId?: string, position?: { x: number, date: Date }) => {
@@ -414,7 +417,7 @@ export function VisualPhaseManager({ projectId, projectName: _projectName, onPha
   }, []);
 
   const handleDeleteDependency = useCallback(async (dependencyId: string) => {
-    if (window.confirm('Are you sure you want to delete this dependency?')) {
+    if (window.confirm(t('phases:visual.deleteDependencyConfirm'))) {
       try {
         await api.projectPhaseDependencies.delete(dependencyId);
         refetchDependencies();
@@ -422,7 +425,7 @@ export function VisualPhaseManager({ projectId, projectName: _projectName, onPha
         console.error('Failed to delete dependency:', error);
       }
     }
-  }, [refetchDependencies]);
+  }, [refetchDependencies, t]);
 
   // Close context menu on click outside
   useEffect(() => {
@@ -516,7 +519,7 @@ export function VisualPhaseManager({ projectId, projectName: _projectName, onPha
   if (isLoading) {
     return (
       <div className="visual-phase-manager">
-        <div className="loading">Loading project phases...</div>
+        <div className="loading">{t('phases:manager.loadingPhases')}</div>
       </div>
     );
   }
@@ -544,14 +547,14 @@ export function VisualPhaseManager({ projectId, projectName: _projectName, onPha
         }}>
           <div>
             <div style={{ fontSize: '14px', color: 'hsl(var(--muted-foreground))', marginBottom: '8px' }}>
-              <span>Drag phases to move them • Resize by dragging edges • Double-click to edit • Right-click for more options</span>
+              <span>{t('phases:visual.dragHint')}</span>
             </div>
           </div>
 
           {/* Timeline controls */}
           <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
             <div style={{ fontSize: '12px', color: 'hsl(var(--muted-foreground))', marginRight: '8px' }}>
-              {timelineItems.length} phases
+              {t('phases:visual.phaseCount', { count: timelineItems.length })}
             </div>
             <button
               onClick={() => setShowAddModal(true)}
@@ -567,7 +570,7 @@ export function VisualPhaseManager({ projectId, projectName: _projectName, onPha
                 boxShadow: '0 1px 2px rgba(0, 0, 0, 0.05)'
               }}
             >
-              + Add Phase
+              {t('phases:visual.addPhase')}
             </button>
           </div>
         </div>
@@ -582,7 +585,7 @@ export function VisualPhaseManager({ projectId, projectName: _projectName, onPha
         }}>
           <h4 style={{ margin: '0', fontSize: '14px', color: 'hsl(var(--muted-foreground))', display: 'flex', alignItems: 'center', gap: '8px' }}>
             <Calendar size={16} />
-            Project Phases ({timelineItems.length})
+            {t('phases:visual.compactTitle', { count: timelineItems.length })}
           </h4>
           <button
             onClick={() => setShowAddModal(true)}
@@ -597,7 +600,7 @@ export function VisualPhaseManager({ projectId, projectName: _projectName, onPha
               fontWeight: 500
             }}
           >
-            + Add Phase
+            {t('phases:visual.addPhase')}
           </button>
         </div>
       )}
@@ -689,7 +692,7 @@ export function VisualPhaseManager({ projectId, projectName: _projectName, onPha
                   const leftPos = ((actualStart.getTime() - timelineViewport.startDate.getTime()) / (1000 * 60 * 60 * 24)) * timelineViewport.pixelsPerDay;
                   const width = ((actualEnd.getTime() - actualStart.getTime()) / (1000 * 60 * 60 * 24)) * timelineViewport.pixelsPerDay;
 
-                  const monthName = current.toLocaleDateString('en-US', { month: 'short', year: '2-digit' });
+                  const monthName = current.toLocaleDateString(getLocale(), { month: 'short', year: '2-digit' });
                   const isCurrentMonth = new Date().getMonth() === current.getMonth() && new Date().getFullYear() === current.getFullYear();
 
                   markers.push(
@@ -712,7 +715,7 @@ export function VisualPhaseManager({ projectId, projectName: _projectName, onPha
                         whiteSpace: 'nowrap'
                       }}
                     >
-                      {width > 50 ? monthName : (width > 30 ? current.toLocaleDateString('en-US', { month: 'short' }) : '')}
+                      {width > 50 ? monthName : (width > 30 ? current.toLocaleDateString(getLocale(), { month: 'short' }) : '')}
                     </div>
                   );
 
@@ -759,7 +762,7 @@ export function VisualPhaseManager({ projectId, projectName: _projectName, onPha
             color: 'hsl(var(--muted-foreground))',
             fontSize: '14px'
           }}>
-            {isLoading ? 'Loading project phases...' : 'No project phases found. Click "Add Phase" to create the first phase.'}
+            {isLoading ? t('phases:manager.loadingPhases') : t('phases:visual.noPhases')}
           </div>
         )}
 
@@ -774,7 +777,7 @@ export function VisualPhaseManager({ projectId, projectName: _projectName, onPha
               padding: '0 4px'
             }}>
               <h3 style={{ margin: 0, fontSize: '16px', fontWeight: '600', color: 'hsl(var(--foreground))' }}>
-                Phase Dependencies
+                {t('phases:visual.dependenciesTitle')}
               </h3>
               <button
                 onClick={() => setShowDependencyModal(true)}
@@ -792,7 +795,7 @@ export function VisualPhaseManager({ projectId, projectName: _projectName, onPha
                 }}
               >
                 <Plus size={16} />
-                Add Dependency
+                {t('phases:visual.addDependency')}
               </button>
             </div>
 
@@ -821,7 +824,7 @@ export function VisualPhaseManager({ projectId, projectName: _projectName, onPha
                           {dep.predecessor_phase_name} → {dep.successor_phase_name}
                         </div>
                         <div style={{ fontSize: '12px', color: 'hsl(var(--muted-foreground))' }}>
-                          {dep.dependency_type} {dep.lag_days > 0 && `(+${dep.lag_days} days)`}
+                          {dep.dependency_type} {dep.lag_days > 0 && t('phases:visual.lagDays', { count: dep.lag_days })}
                         </div>
                       </div>
                       <div style={{ display: 'flex', gap: '8px' }}>
@@ -836,7 +839,7 @@ export function VisualPhaseManager({ projectId, projectName: _projectName, onPha
                             cursor: 'pointer'
                           }}
                         >
-                          Edit
+                          {t('common:edit')}
                         </button>
                         <button
                           onClick={() => handleDeleteDependency(dep.id)}
@@ -850,7 +853,7 @@ export function VisualPhaseManager({ projectId, projectName: _projectName, onPha
                             cursor: 'pointer'
                           }}
                         >
-                          Delete
+                          {t('common:delete')}
                         </button>
                       </div>
                     </div>
@@ -863,7 +866,7 @@ export function VisualPhaseManager({ projectId, projectName: _projectName, onPha
                   color: 'hsl(var(--muted-foreground))',
                   fontSize: '14px'
                 }}>
-                  No dependencies defined. Click "Add Dependency" to create phase dependencies.
+                  {t('phases:visual.noDependencies')}
                 </div>
               )}
             </div>
@@ -891,7 +894,7 @@ export function VisualPhaseManager({ projectId, projectName: _projectName, onPha
             {timelineItems.length}
           </div>
           <div style={{ fontSize: '14px', color: 'hsl(var(--muted-foreground))' }}>
-            Total Phases
+            {t('phases:visual.totalPhases')}
           </div>
         </div>
 
@@ -908,7 +911,7 @@ export function VisualPhaseManager({ projectId, projectName: _projectName, onPha
             ) : 0}
           </div>
           <div style={{ fontSize: '14px', color: 'hsl(var(--muted-foreground))' }}>
-            Project Duration (Days)
+            {t('phases:visual.projectDurationDays')}
           </div>
         </div>
 
@@ -919,10 +922,10 @@ export function VisualPhaseManager({ projectId, projectName: _projectName, onPha
           borderRadius: '8px'
         }}>
           <div style={{ fontSize: '24px', fontWeight: 600, color: 'hsl(var(--foreground))' }}>
-            {timelineItems.length > 0 ? format(timelineItems[0].startDate, 'MMM yyyy') : '-'}
+            {timelineItems.length > 0 ? format(timelineItems[0].startDate, 'MMM yyyy', { locale: getDateFnsLocale() }) : '-'}
           </div>
           <div style={{ fontSize: '14px', color: 'hsl(var(--muted-foreground))' }}>
-            Project Start
+            {t('phases:visual.projectStart')}
           </div>
         </div>
 
@@ -933,10 +936,10 @@ export function VisualPhaseManager({ projectId, projectName: _projectName, onPha
           borderRadius: '8px'
         }}>
           <div style={{ fontSize: '24px', fontWeight: 600, color: 'hsl(var(--foreground))' }}>
-            {timelineItems.length > 0 ? format(timelineItems[timelineItems.length - 1].endDate, 'MMM yyyy') : '-'}
+            {timelineItems.length > 0 ? format(timelineItems[timelineItems.length - 1].endDate, 'MMM yyyy', { locale: getDateFnsLocale() }) : '-'}
           </div>
           <div style={{ fontSize: '14px', color: 'hsl(var(--muted-foreground))' }}>
-            Project End
+            {t('phases:visual.projectEnd')}
           </div>
         </div>
         </div>

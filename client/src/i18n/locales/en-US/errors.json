@@ -1,0 +1,45 @@
+{
+  "generic": {
+    "networkError": "Network error. Please check your connection and try again.",
+    "requestFailed": "Request failed",
+    "serverError": "Server error. Please try again later.",
+    "notFound": "The requested resource was not found",
+    "unauthorized": "Your session has expired. Please log in again.",
+    "forbidden": "You do not have permission to perform this action"
+  },
+  "messages": {
+    "authenticationRequired": "Authentication required",
+    "forbidden": "Forbidden",
+    "insufficientPermissions": "Insufficient permissions",
+    "systemAdminRequired": "System admin access required",
+    "loginFailed": "Login failed",
+    "tokenRefreshFailed": "Token refresh failed",
+    "internalServerError": "Internal server error",
+    "validationFailed": "Validation failed",
+    "badRequest": "Bad Request",
+    "unauthorizedShort": "Unauthorized",
+    "notFoundShort": "Not Found",
+    "noFileUploaded": "No file uploaded",
+    "selectExcelFile": "Please select an Excel file to upload",
+    "excelFileType": "File must be an Excel file (.xlsx or .xls)",
+    "excelImportSuccess": "Excel import completed successfully",
+    "excelImportWithErrors": "Excel import completed with errors",
+    "excelImportFailed": "Excel import failed",
+    "getImportSettingsFailed": "Failed to get import settings",
+    "invalidUpdatesArray": "Invalid updates array provided",
+    "phaseNameRequired": "Phase name is required",
+    "missingAssignmentFields": "Missing required fields: project, person and role are required",
+    "allocationPositive": "Allocation percentage must be positive",
+    "allocationMaxExceeded": "Allocation percentage cannot exceed 200%",
+    "invalidAssignmentDateMode": "Invalid assignment date mode. Must be one of: fixed, project, phase",
+    "startBeforeEnd": "Start date must be before or equal to end date",
+    "cannotDetermineDates": "Unable to determine assignment dates. Please provide explicit dates or ensure the project has phases.",
+    "assignmentDeleted": "Assignment deleted successfully",
+    "personIdRequired": "Person ID is required"
+  },
+  "patterns": {
+    "withIdNotFound": "{{resource}} with ID {{id}} was not found",
+    "resourceNotFound": "{{resource}} not found"
+  },
+  "fallbackPrefix": "Operation failed"
+}

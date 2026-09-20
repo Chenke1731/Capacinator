@@ -1,0 +1,197 @@
+{
+  "title": "报表与分析",
+  "tabs": {
+    "demand": "需求",
+    "capacity": "产能",
+    "utilization": "利用率",
+    "gaps": "缺口分析"
+  },
+  "aria": {
+    "navigation": "报表与分析导航"
+  },
+  "loaders": {
+    "capacity": "产能报表加载中…",
+    "utilization": "利用率报表加载中…",
+    "demand": "需求报表加载中…",
+    "gaps": "缺口报表加载中…"
+  },
+  "filters": {
+    "projectType": "项目类型",
+    "allTypes": "所有类型",
+    "location": "地点",
+    "allLocations": "所有地点"
+  },
+  "export": {
+    "csv": "导出为 CSV",
+    "excel": "导出为 Excel",
+    "json": "导出为 JSON"
+  },
+  "period": {
+    "current": "当前",
+    "currentMonth": "本月",
+    "nextMonth": "下月",
+    "inThreeMonths": "3 个月后"
+  },
+  "units": {
+    "hours": " 小时",
+    "hrs": "{{value}} 小时",
+    "hrsPerDay": "{{value}} 小时/天"
+  },
+  "series": {
+    "default_hours_per_day": "每日工时",
+    "capacity": "产能",
+    "demand": "需求",
+    "total_hours": "总工时",
+    "total_allocation_percentage": "分配比例",
+    "gap": "缺口",
+    "utilization": "利用率",
+    "avgUtilization": "平均利用率",
+    "count": "人数"
+  },
+  "status": {
+    "available": "可用",
+    "fully_allocated": "满负荷",
+    "over_allocated": "超负荷",
+    "critical": "严重",
+    "high": "偏高",
+    "moderate": "中等"
+  },
+  "noRole": "无角色",
+  "actions": {
+    "assignToProject": "分配到项目",
+    "reduceLoad": "减少负荷",
+    "viewPeople": "查看人员",
+    "findPeople": "查找人员",
+    "viewProjects": "查看项目",
+    "viewRoles": "查看角色",
+    "addPeople": "添加人员",
+    "viewProject": "查看项目",
+    "addResources": "添加资源",
+    "hireMore": "增聘人员",
+    "addProjects": "添加项目",
+    "manageAssignments": "管理分配",
+    "findProjects": "查找项目"
+  },
+  "summary": {
+    "peakMonth": "峰值月份"
+  },
+  "capacity": {
+    "headers": {
+      "dailyHours": "每日工时",
+      "availability": "可用性",
+      "totalCapacityHrs": "总产能(小时)",
+      "utilizedHrs": "已利用(小时)",
+      "availableHrs": "可用(小时)"
+    },
+    "summary": {
+      "totalCapacity": "总产能",
+      "peopleWithCapacity": "有产能人员数",
+      "rolesWithCapacity": "有产能角色数"
+    },
+    "empty": {
+      "title": "未找到产能数据",
+      "description": "所选日期范围内没有可用的人员或产能信息。",
+      "addPeople": "添加人员"
+    },
+    "charts": {
+      "byPerson": "人员产能",
+      "byRole": "角色产能",
+      "trend": "产能趋势"
+    },
+    "tables": {
+      "peopleOverview": "人员产能总览",
+      "roleAnalysis": "角色产能分析"
+    }
+  },
+  "utilization": {
+    "headers": {
+      "utilization": "利用率(%)",
+      "availableCapacityPct": "可用产能(%)",
+      "availableHoursDaily": "可用工时(每日)"
+    },
+    "summary": {
+      "utilization": "利用率 %",
+      "overutilized": "超负荷人员数",
+      "underutilized": "利用不足人员数",
+      "optimal": "最优利用率人员数"
+    },
+    "empty": {
+      "title": "未找到项目分配",
+      "description": "利用率为 0%,因为尚未将任何人员分配到项目。",
+      "createAssignments": "创建分配"
+    },
+    "charts": {
+      "byPerson": "人员利用率",
+      "byRole": "角色利用率",
+      "distribution": "利用率分布"
+    },
+    "tables": {
+      "teamDetails": "团队利用率明细"
+    }
+  },
+  "demand": {
+    "headers": {
+      "project": "项目",
+      "demand": "需求"
+    },
+    "summary": {
+      "totalDemand": "总需求",
+      "projectsWithDemand": "有需求项目数",
+      "rolesWithDemand": "有需求角色数"
+    },
+    "empty": {
+      "title": "未找到需求数据",
+      "description": "所选日期范围内没有可用的项目需求信息。",
+      "createProjects": "创建项目"
+    },
+    "charts": {
+      "byProject": "项目需求",
+      "byRole": "角色需求",
+      "trend": "需求趋势"
+    },
+    "tables": {
+      "highDemandProjects": "高需求项目",
+      "highDemandRoles": "高需求角色",
+      "emptyProjects": "暂无项目需求数据",
+      "emptyRoles": "暂无角色需求数据"
+    }
+  },
+  "gaps": {
+    "summary": {
+      "totalGapHours": "总缺口(小时)",
+      "projectsWithGaps": "存在缺口项目数",
+      "rolesWithGaps": "存在缺口角色数",
+      "unutilizedHours": "未利用工时数"
+    },
+    "empty": {
+      "title": "未发现产能缺口",
+      "description": "很好!所选日期范围内产能与需求完全匹配。"
+    },
+    "charts": {
+      "byProject": "项目缺口",
+      "byRole": "角色缺口",
+      "trend": "缺口趋势(预测)"
+    },
+    "actionable": {
+      "projects": "可采取行动的项目",
+      "criticalProjects": "存在严重缺口的项目",
+      "coveredProjects": "覆盖充足的项目",
+      "roles": "可采取行动的角色",
+      "criticalRoles": "严重短缺的角色",
+      "adequateRoles": "产能充足的角色"
+    },
+    "percentAllocated": "{{value}}% 已分配",
+    "hoursShort": "缺少 {{value}} 小时",
+    "hoursExcess": "产能富余 {{value}} 小时"
+  },
+  "scenario": {
+    "currentLabel": "当前场景:",
+    "branchFrom": "(分支自 {{name}})",
+    "baseline": "基线"
+  },
+  "notifications": {
+    "nearlyFullCapacity": "{{name}} 在此时间段内已接近满负荷({{utilization}}%),仅剩 {{remaining}}% 可用产能。",
+    "noDataToExport": "当前页签没有可导出的数据。",
+    "exportError": "导出数据出错,请重试。"
+  }
+}

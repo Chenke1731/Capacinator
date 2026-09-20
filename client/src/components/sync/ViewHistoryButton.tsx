@@ -7,6 +7,7 @@
  */
 
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import * as Dialog from '@radix-ui/react-dialog';
 import { ChangeHistoryPanel } from './ChangeHistoryPanel';
 
@@ -23,12 +24,13 @@ export const ViewHistoryButton: React.FC<ViewHistoryButtonProps> = ({
   entityName,
   variant = 'button',
 }) => {
+  const { t } = useTranslation();
   const [showHistory, setShowHistory] = useState(false);
 
   const buttonContent = (
     <>
       <span>📜</span>
-      <span>View History</span>
+      <span>{t('gitSync:history.viewHistory')}</span>
     </>
   );
 
@@ -59,11 +61,11 @@ export const ViewHistoryButton: React.FC<ViewHistoryButtonProps> = ({
           <Dialog.Content className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg shadow-xl max-w-3xl w-full max-h-[90vh] overflow-auto p-6 z-50">
             <div className="mb-4">
               <Dialog.Title className="text-xl font-semibold">
-                Change History
+                {t('gitSync:history.changeHistory')}
                 {entityName && `: ${entityName}`}
               </Dialog.Title>
               <Dialog.Description className="text-sm text-gray-600 mt-1">
-                View all changes made to this {entityType.replace('_', ' ')}
+                {t('gitSync:history.viewAllChanges', { type: entityType.replace('_', ' ') })}
               </Dialog.Description>
             </div>
 
@@ -78,7 +80,7 @@ export const ViewHistoryButton: React.FC<ViewHistoryButtonProps> = ({
                 onClick={() => setShowHistory(false)}
                 className="px-4 py-2 bg-gray-600 text-white rounded-md hover:bg-gray-700 transition-colors"
               >
-                Close
+                {t('common:close')}
               </button>
             </div>
           </Dialog.Content>

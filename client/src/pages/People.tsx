@@ -1,9 +1,11 @@
 import { useState, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate, Link } from 'react-router-dom';
 import { Plus, Edit2, Eye, Users, UserPlus, TrendingUp, AlertTriangle, CheckCircle } from 'lucide-react';
 import { api } from '../lib/api-client';
 import { queryKeys } from '../lib/queryKeys';
+import i18n from '../i18n';
 import { DataTable, Column } from '../components/ui/DataTable';
 import { FilterBar } from '../components/ui/FilterBar';
 import { LoadingSpinner } from '../components/ui/LoadingSpinner';
@@ -15,6 +17,7 @@ import type { Person, Role, Location } from '../types';
 import './People.css';
 
 export default function People() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const [filters, setFilters] = useState({
@@ -86,7 +89,7 @@ export default function People() {
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleDeletePerson = (personId: string, personName: string) => {
-    if (confirm(`Are you sure you want to delete "${personName}"? This action cannot be undone.`)) {
+    if (confirm(t('people:deleteConfirmation', { name: personName }))) {
       deletePersonMutation.mutate(personId);
     }
   };
@@ -123,6 +126,12 @@ export default function People() {
     }
   };
 
+  // Localized display label for a worker type value, falling back to the raw value
+  const workerTypeLabel = (workerType: string) => {
+    const key = `people:workerTypes.${workerType}`;
+    return i18n.exists(key) ? t(key) : workerType;
+  };
+
   const getAvailabilityColor = (availability: number) => {
     if (availability >= 90) return 'text-success';
     if (availability >= 70) return 'text-warning';
@@ -140,21 +149,21 @@ export default function People() {
         status: 'unknown',
         color: 'gray',
         icon: Eye,
-        action: 'View Details',
+        action: t('common:viewDetails'),
         actionType: 'view'
       };
     }
-    
+
     const allocation = utilization.total_allocation;
     const availability = utilization.current_availability_percentage;
     const utilizationPercentage = availability > 0 ? (allocation / availability) * 100 : 0;
-    
+
     if (utilizationPercentage > 100) {
       return {
         status: 'over_allocated',
         color: 'danger',
         icon: AlertTriangle,
-        action: 'Reduce Load',
+        action: t('people:quickActions.reduceLoad'),
         actionType: 'reduce_workload',
         percentage: utilizationPercentage
       };
@@ -163,7 +172,7 @@ export default function People() {
         status: 'fully_allocated',
         color: 'warning',
         icon: TrendingUp,
-        action: 'Monitor',
+        action: t('people:quickActions.monitor'),
         actionType: 'monitor',
         percentage: utilizationPercentage
       };
@@ -172,7 +181,7 @@ export default function People() {
         status: 'under_allocated',
         color: 'info',
         icon: UserPlus,
-        action: 'Assign More',
+        action: t('people:quickActions.assignMore'),
         actionType: 'assign_more',
         percentage: utilizationPercentage
       };
@@ -181,7 +190,7 @@ export default function People() {
         status: 'available',
         color: 'success',
         icon: CheckCircle,
-        action: 'Assign Project',
+        action: t('people:quickActions.assignProject'),
         actionType: 'assign_project',
         percentage: utilizationPercentage
       };
@@ -234,7 +243,7 @@ export default function People() {
   const columns: Column<Person>[] = [
     {
       key: 'name',
-      header: 'Name',
+      header: t('common:name'),
       sortable: true,
       render: (value, row) => (
         <div className="person-name">
@@ -247,28 +256,28 @@ export default function People() {
     },
     {
       key: 'primary_role_name',
-      header: 'Primary Role',
+      header: t('people:columns.primaryRole'),
       sortable: true
     },
     {
       key: 'worker_type',
-      header: 'Type',
+      header: t('people:columns.type'),
       sortable: true,
       render: (value) => (
         <span className={getWorkerTypeBadgeClass(value)}>
-          {value}
+          {workerTypeLabel(value)}
         </span>
       )
     },
     {
       key: 'location_name',
-      header: 'Location',
+      header: t('people:columns.location'),
       sortable: true,
       render: (value) => value || '-'
     },
     {
       key: 'default_availability_percentage',
-      header: 'Availability',
+      header: t('people:columns.availability'),
       sortable: true,
       render: (value) => (
         <span className={getAvailabilityColor(value)}>
@@ -278,18 +287,18 @@ export default function People() {
     },
     {
       key: 'default_hours_per_day',
-      header: 'Hours/Day',
+      header: t('people:columns.hoursPerDay'),
       sortable: true,
       render: (value) => `${value}h`
     },
     {
       key: 'utilization',
-      header: 'Workload',
+      header: t('people:columns.workload'),
       width: '140px',
       render: (_, row) => {
         const insights = getPersonInsights(row.id);
         const IconComponent = insights.icon;
-        
+
         return (
           <div className="workload-status">
             <div className={`status-indicator status-${insights.color}`}>
@@ -301,7 +310,7 @@ export default function People() {
               )}
             </div>
             <span className={`status-label text-${insights.color}`}>
-              {insights.status.replace('_', ' ')}
+              {t(`people:workloadStatus.${insights.status}`)}
             </span>
           </div>
         );
@@ -309,12 +318,12 @@ export default function People() {
     },
     {
       key: 'actions',
-      header: 'Quick Actions',
+      header: t('people:columns.quickActions'),
       width: '180px',
       render: (_, row) => {
         const insights = getPersonInsights(row.id);
         const ActionIcon = insights.icon;
-        
+
         return (
           <div className="table-actions">
             <button
@@ -334,7 +343,7 @@ export default function People() {
                 e.stopPropagation();
                 handleEditPerson(row);
               }}
-              title="Edit"
+              title={t('common:edit')}
             >
               <Edit2 size={16} />
             </button>
@@ -347,29 +356,29 @@ export default function People() {
   const filterConfig = [
     {
       name: 'search',
-      label: 'Search',
+      label: t('common:search'),
       type: 'search' as const,
-      placeholder: 'Search people...'
+      placeholder: t('people:searchPlaceholder')
     },
     {
       name: 'primary_role_id',
-      label: 'Primary Role',
+      label: t('people:columns.primaryRole'),
       type: 'select' as const,
       options: Array.isArray(roles) ? roles.map(role => ({ value: role.id, label: role.name })) : []
     },
     {
       name: 'worker_type',
-      label: 'Worker Type',
+      label: t('people:workerType'),
       type: 'select' as const,
       options: [
-        { value: 'FTE', label: 'Full-time Employee' },
-        { value: 'Contractor', label: 'Contractor' },
-        { value: 'Consultant', label: 'Consultant' }
+        { value: 'FTE', label: t('people:workerTypeOptions.fullTimeEmployee') },
+        { value: 'Contractor', label: t('people:workerTypeOptions.contractor') },
+        { value: 'Consultant', label: t('people:workerTypeOptions.consultant') }
       ]
     },
     {
       name: 'location',
-      label: 'Location',
+      label: t('people:columns.location'),
       type: 'select' as const,
       options: locations?.map(location => ({ value: location.id, label: location.name })) || []
     }
@@ -380,28 +389,28 @@ export default function People() {
   }
 
   if (peopleError) {
-    return <ErrorMessage message="Failed to load people" details={peopleError.message} />;
+    return <ErrorMessage message={t('people:failedToLoad')} details={peopleError.message} />;
   }
 
   return (
     <div className="page-container">
       <div className="page-header">
         <div>
-          <h1>People</h1>
-          <p className="text-muted">Manage team members and their roles</p>
+          <h1>{t('people:title')}</h1>
+          <p className="text-muted">{t('people:subtitle')}</p>
           {teamInsights.total > 0 && (
             <div className="team-insights">
               <div className="insight-summary">
                 <span className="insight-item text-danger">
                   <AlertTriangle size={16} />
-                  {teamInsights.overAllocated} over-allocated
+                  {t('people:insights.overAllocated', { count: teamInsights.overAllocated })}
                 </span>
                 <span className="insight-item text-success">
                   <CheckCircle size={16} />
-                  {teamInsights.available} available
+                  {t('people:insights.available', { count: teamInsights.available })}
                 </span>
                 <span className="insight-item text-muted">
-                  {teamInsights.total} total people
+                  {t('people:insights.totalPeople', { count: teamInsights.total })}
                 </span>
               </div>
             </div>
@@ -413,14 +422,14 @@ export default function People() {
             onClick={addPersonModal.open}
           >
             <Plus size={16} />
-            Add Person
+            {t('people:addPerson')}
           </button>
           <button
             className="btn btn-secondary"
             onClick={() => navigate('/assignments')}
           >
             <Users size={16} />
-            View Assignments
+            {t('people:viewAssignments')}
           </button>
         </div>
       </div>

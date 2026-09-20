@@ -1,0 +1,32 @@
+{
+  "title": "Roles",
+  "subtitle": "Manage roles and their configurations",
+  "addRole": "Add Role",
+  "columns": {
+    "name": "Role Name",
+    "externalId": "External ID",
+    "people": "People",
+    "planners": "Planners",
+    "allocations": "Allocations"
+  },
+  "searchPlaceholder": "Search roles...",
+  "hasPlanners": "Has Planners",
+  "hasPeople": "Has People",
+  "loadFailed": "Failed to load roles",
+  "deleteConfirm": "Are you sure you want to delete the role \"{{name}}\"? This action cannot be undone.",
+  "details": {
+    "notSpecified": "Not specified",
+    "loading": "Loading role details...",
+    "notFoundTitle": "Role Not Found",
+    "notFoundText": "The role you're looking for doesn't exist or couldn't be loaded.",
+    "backToRoles": "Back to Roles",
+    "namePlaceholder": "Enter role name",
+    "descriptionPlaceholder": "Enter role description",
+    "infoTitle": "Role Information",
+    "externalIdPlaceholder": "Enter external ID",
+    "templatesTitle": "Resource Templates",
+    "templatesSubtitle": "Define allocation percentages for this role across different project types and phases",
+    "projectType": "Project Type",
+    "templatesLoading": "Loading resource template configuration..."
+  }
+}

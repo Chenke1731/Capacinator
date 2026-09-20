@@ -1,0 +1,31 @@
+{
+  "title": "地点",
+  "subtitle": "管理人员和项目所在的组织地点",
+  "addLocation": "添加地点",
+  "columns": {
+    "name": "地点名称",
+    "description": "描述",
+    "created": "创建时间"
+  },
+  "placeholders": {
+    "name": "地点名称",
+    "description": "添加描述…"
+  },
+  "loadFailed": "地点加载失败",
+  "updateFailed": "地点更新失败,请重试。",
+  "deleteFailed": "地点删除失败,请重试。",
+  "emptyMessage": "暂无地点。先创建第一个地点,以便组织人员和项目。",
+  "deleteTitle": "删除地点",
+  "deleteMessage": "确定要删除“{{name}}”吗?此操作无法撤销。",
+  "modal": {
+    "editTitle": "编辑地点",
+    "createTitle": "添加地点",
+    "editDescription": "在下方更新地点信息。",
+    "createDescription": "填写以下信息以创建新地点。",
+    "save": "保存地点",
+    "nameRequired": "请填写名称",
+    "saveFailed": "地点保存失败",
+    "namePlaceholder": "例如:New York City、Remote、London",
+    "descriptionPlaceholder": "简要描述该地点…"
+  }
+}

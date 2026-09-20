@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { Plus, Edit2, Trash2, Eye, Calendar, Users } from 'lucide-react';
 import { api } from '../lib/api-client';
 import { queryKeys } from '../lib/queryKeys';
@@ -13,12 +14,15 @@ import ProjectAllocations from '../components/ProjectAllocations';
 import { useModal } from '../hooks/useModal';
 import { useScenario } from '../contexts/ScenarioContext';
 import { getProjectTypeIndicatorStyle } from '../lib/project-colors';
+import { getLocale } from '../i18n';
+import { projectStatusLabel } from '../lib/enum-labels';
 import type { Project, Location, ProjectType } from '../types';
 import './Projects.css';
 
 export function Projects() {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
+  const { t } = useTranslation();
   const { currentScenario } = useScenario();
   const [filters, setFilters] = useState({
     search: '',
@@ -87,7 +91,7 @@ export function Projects() {
   });
 
   const handleDeleteProject = (projectId: string, projectName: string) => {
-    if (confirm(`Are you sure you want to delete the project "${projectName}"? This action cannot be undone.`)) {
+    if (confirm(t('projects:deleteConfirmation', { name: projectName }))) {
       deleteProjectMutation.mutate(projectId);
     }
   };
@@ -139,13 +143,13 @@ export function Projects() {
 
   const formatDate = (date: string | null) => {
     if (!date) return '-';
-    return new Date(date).toLocaleDateString();
+    return new Date(date).toLocaleDateString(getLocale());
   };
 
   const columns: Column<Project>[] = [
     {
       key: 'name',
-      header: 'Project Name',
+      header: t('projects:projectName'),
       sortable: true,
       render: (value, row) => (
         <div className="project-name">
@@ -158,40 +162,40 @@ export function Projects() {
     },
     {
       key: 'project_type.name',
-      header: 'Project Type',
+      header: t('projects:projectType'),
       sortable: true,
       render: (value, row) => (
         <div style={{ display: 'flex', alignItems: 'center' }}>
           <div style={getProjectTypeIndicatorStyle(row)} />
-          <span>{row.project_type?.name || 'Not assigned'}</span>
+          <span>{row.project_type?.name || t('projects:notAssigned')}</span>
         </div>
       )
     },
     {
       key: 'location.name',
-      header: 'Location',
+      header: t('projects:location'),
       sortable: true
     },
     {
       key: 'start_date',
-      header: 'Start Date',
+      header: t('common:startDate'),
       sortable: true,
       render: formatDate
     },
     {
       key: 'end_date',
-      header: 'End Date',
+      header: t('common:endDate'),
       sortable: true,
       render: formatDate
     },
     {
       key: 'current_phase_name',
-      header: 'Current Phase',
+      header: t('projects:currentPhase'),
       render: (value) => value || '-'
     },
     {
       key: 'actions',
-      header: 'Actions',
+      header: t('common:actions'),
       width: '120px',
       render: (_, row) => (
         <div className="table-actions">
@@ -201,7 +205,7 @@ export function Projects() {
               e.stopPropagation();
               navigate(`/projects/${row.id}`);
             }}
-            title="View Details"
+            title={t('common:viewDetails')}
           >
             <Eye size={16} />
           </button>
@@ -211,7 +215,7 @@ export function Projects() {
               e.stopPropagation();
               handleEditProject(row);
             }}
-            title="Edit"
+            title={t('common:edit')}
           >
             <Edit2 size={16} />
           </button>
@@ -221,7 +225,7 @@ export function Projects() {
               e.stopPropagation();
               handleManageAllocations(row);
             }}
-            title="Manage Allocations"
+            title={t('projects:manageAllocations')}
           >
             <Users size={16} />
           </button>
@@ -231,7 +235,7 @@ export function Projects() {
               e.stopPropagation();
               handleDeleteProject(row.id, row.name);
             }}
-            title="Delete"
+            title={t('common:delete')}
           >
             <Trash2 size={16} />
           </button>
@@ -243,19 +247,19 @@ export function Projects() {
   const filterConfig = [
     {
       name: 'search',
-      label: 'Search',
+      label: t('common:search'),
       type: 'search' as const,
-      placeholder: 'Search projects...'
+      placeholder: t('projects:searchPlaceholder')
     },
     {
       name: 'location_id',
-      label: 'Location',
+      label: t('projects:location'),
       type: 'select' as const,
       options: locations?.map(loc => ({ value: loc.id, label: loc.name })) || []
     },
     {
       name: 'project_type_id',
-      label: 'Project Type',
+      label: t('projects:projectType'),
       type: 'select' as const,
       options: projectTypes?.map(type => ({ 
         value: type.id, 
@@ -265,14 +269,14 @@ export function Projects() {
     },
     {
       name: 'status',
-      label: 'Status',
+      label: t('common:status'),
       type: 'select' as const,
       options: [
-        { value: 'planned', label: 'Planned' },
-        { value: 'active', label: 'Active' },
-        { value: 'on_hold', label: 'On Hold' },
-        { value: 'completed', label: 'Completed' },
-        { value: 'cancelled', label: 'Cancelled' }
+        { value: 'planned', label: projectStatusLabel('planned') },
+        { value: 'active', label: projectStatusLabel('active') },
+        { value: 'on_hold', label: projectStatusLabel('on_hold') },
+        { value: 'completed', label: projectStatusLabel('completed') },
+        { value: 'cancelled', label: projectStatusLabel('cancelled') }
       ]
     }
   ];
@@ -282,15 +286,15 @@ export function Projects() {
   }
 
   if (projectsError) {
-    return <ErrorMessage message="Failed to load projects" details={projectsError.message} />;
+    return <ErrorMessage message={t('projects:loadFailed')} details={projectsError.message} />;
   }
 
   return (
     <div className="page-container">
       <div className="page-header">
         <div>
-          <h1>Projects</h1>
-          <p className="text-muted">Manage project timelines and resource allocation</p>
+          <h1>{t('projects:title')}</h1>
+          <p className="text-muted">{t('projects:subtitle')}</p>
         </div>
         <div className="header-actions">
           <button
@@ -298,14 +302,14 @@ export function Projects() {
             onClick={addProjectModal.open}
           >
             <Plus size={16} />
-            New Project
+            {t('projects:newProject')}
           </button>
           <button
             className="btn btn-secondary"
             onClick={() => navigate('/projects/demands')}
           >
             <Calendar size={16} />
-            View Demands
+            {t('projects:viewDemands')}
           </button>
         </div>
       </div>

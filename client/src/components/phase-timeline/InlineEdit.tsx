@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { AlertTriangle, Edit2 } from 'lucide-react';
 import { formatDateDisplaySafe } from '../../utils/date';
 
@@ -35,6 +36,7 @@ export function InlineEdit({
   onAutoCorrect,
   getCurrentDates
 }: InlineEditProps) {
+  const { t } = useTranslation();
   const [isEditing, setIsEditing] = useState(false);
   const [editValue, setEditValue] = useState(value);
   const [showValidation, setShowValidation] = useState(false);
@@ -112,20 +114,20 @@ export function InlineEdit({
           <div className="validation-popup">
             <div className="validation-header">
               <AlertTriangle size={16} />
-              <span>Date Conflict Detected</span>
+              <span>{t('phases:inline.dateConflict')}</span>
             </div>
-            <p>The date you entered conflicts with phase dependencies.</p>
+            <p>{t('phases:inline.dateConflictDesc')}</p>
             <div className="correction-suggestion">
-              <p><strong>Suggested correction:</strong></p>
-              <p>Start: {formatDateForDisplay(correctionSuggestion.startDate)}</p>
-              <p>End: {formatDateForDisplay(correctionSuggestion.endDate)}</p>
+              <p><strong>{t('phases:inline.suggestedCorrection')}</strong></p>
+              <p>{t('phases:inline.startLabel')} {formatDateForDisplay(correctionSuggestion.startDate)}</p>
+              <p>{t('phases:inline.endLabel')} {formatDateForDisplay(correctionSuggestion.endDate)}</p>
             </div>
             <div className="validation-actions">
               <button className="btn btn-primary btn-sm" onClick={handleAutoCorrect}>
-                Apply Correction
+                {t('phases:inline.applyCorrection')}
               </button>
               <button className="btn btn-secondary btn-sm" onClick={handleCancel}>
-                Cancel
+                {t('common:cancel')}
               </button>
             </div>
           </div>

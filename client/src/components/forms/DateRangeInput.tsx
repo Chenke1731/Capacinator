@@ -6,6 +6,7 @@
  */
 
 import * as React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { cn } from '@/lib/utils';
@@ -34,8 +35,8 @@ export const DateRangeInput = React.forwardRef<HTMLDivElement, DateRangeInputPro
       endDate,
       onStartDateChange,
       onEndDateChange,
-      startLabel = 'Start Date',
-      endLabel = 'End Date',
+      startLabel,
+      endLabel,
       startError,
       endError,
       required = false,
@@ -46,6 +47,9 @@ export const DateRangeInput = React.forwardRef<HTMLDivElement, DateRangeInputPro
     },
     ref
   ) => {
+    const { t } = useTranslation();
+    const resolvedStartLabel = startLabel ?? t('common:startDate');
+    const resolvedEndLabel = endLabel ?? t('common:endDate');
     // Ensure date strings are in YYYY-MM-DD format for input[type="date"]
     const formatDateForInput = (date: string): string => {
       if (!date) return '';
@@ -61,13 +65,13 @@ export const DateRangeInput = React.forwardRef<HTMLDivElement, DateRangeInputPro
         {/* Start Date */}
         <div className="space-y-2">
           <Label htmlFor="date-range-start">
-            {startLabel}
+            {resolvedStartLabel}
             {required && (
               <>
                 <span aria-hidden="true" className="text-destructive ml-1">
                   *
                 </span>
-                <span className="sr-only">(required)</span>
+                <span className="sr-only">{t('common:forms.requiredSrOnly')}</span>
               </>
             )}
           </Label>
@@ -101,13 +105,13 @@ export const DateRangeInput = React.forwardRef<HTMLDivElement, DateRangeInputPro
         {/* End Date */}
         <div className="space-y-2">
           <Label htmlFor="date-range-end">
-            {endLabel}
+            {resolvedEndLabel}
             {required && (
               <>
                 <span aria-hidden="true" className="text-destructive ml-1">
                   *
                 </span>
-                <span className="sr-only">(required)</span>
+                <span className="sr-only">{t('common:forms.requiredSrOnly')}</span>
               </>
             )}
           </Label>

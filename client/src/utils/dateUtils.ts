@@ -3,6 +3,8 @@
  * Handles both string dates and timestamp formats for backward compatibility
  */
 
+import { getLocale } from '../i18n';
+
 export interface TimelineDate {
   start_date: string | number;
   end_date: string | number;
@@ -62,7 +64,7 @@ export function formatTimelineDate(
     formatOptions.year = 'numeric';
   }
   
-  return date.toLocaleDateString('en-US', formatOptions);
+  return date.toLocaleDateString(getLocale(), formatOptions);
 }
 
 /**

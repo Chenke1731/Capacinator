@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { X, Calendar, Type, Save } from 'lucide-react';
 import { EditPhaseFormData, ProjectPhaseTimeline } from './types';
 
@@ -19,6 +20,8 @@ export function PhaseEditModal({
   onSubmit,
   onClose
 }: PhaseEditModalProps) {
+  const { t } = useTranslation();
+
   if (!isOpen || !editingPhase) return null;
 
   return (
@@ -26,7 +29,7 @@ export function PhaseEditModal({
       <div className="modal-content">
         <div className="modal-header">
           <h3 className="modal-title">
-            Edit Phase: {editingPhase.phase_name}
+            {t('phases:modal.editPhaseTitle', { name: editingPhase.phase_name })}
           </h3>
           <button
             onClick={onClose}
@@ -40,7 +43,7 @@ export function PhaseEditModal({
           <div className="form-group">
             <label className="form-label">
               <Type size={16} />
-              Phase Type (read-only)
+              {t('phases:modal.phaseTypeReadOnly')}
             </label>
             <input
               type="text"
@@ -54,7 +57,7 @@ export function PhaseEditModal({
             <div>
               <label className="form-label">
                 <Calendar size={16} />
-                Start Date
+                {t('common:startDate')}
               </label>
               <input
                 type="date"
@@ -68,7 +71,7 @@ export function PhaseEditModal({
             <div>
               <label className="form-label">
                 <Calendar size={16} />
-                End Date
+                {t('common:endDate')}
               </label>
               <input
                 type="date"
@@ -87,7 +90,7 @@ export function PhaseEditModal({
               onClick={onClose}
               className="btn btn-secondary"
             >
-              Cancel
+              {t('common:cancel')}
             </button>
             <button
               type="submit"
@@ -95,7 +98,7 @@ export function PhaseEditModal({
               className="btn btn-primary"
             >
               <Save size={16} />
-              Save Changes
+              {t('phases:common.saveChanges')}
             </button>
           </div>
         </form>

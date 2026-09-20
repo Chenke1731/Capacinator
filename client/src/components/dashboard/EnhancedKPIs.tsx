@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import {
   TrendingUp,
   TrendingDown,
@@ -125,6 +126,7 @@ function calculateAllocationAccuracy(dashboard: DashboardSummary): number {
 
 export function EnhancedKPIs({ dashboard, className = '' }: EnhancedKPIsProps) {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const kpis: KPIMetric[] = React.useMemo(() => {
     const resourceEfficiency = calculateResourceEfficiency(dashboard);
@@ -135,70 +137,70 @@ export function EnhancedKPIs({ dashboard, className = '' }: EnhancedKPIsProps) {
     return [
       {
         id: 'resource-efficiency',
-        title: 'Resource Efficiency',
+        title: t('dashboard:kpis.resourceEfficiency.title'),
         value: resourceEfficiency,
         displayValue: `${resourceEfficiency}%`,
         target: 85,
         unit: '%',
         trend: resourceEfficiency >= 85 ? 'up' : resourceEfficiency >= 70 ? 'stable' : 'down',
-        status: resourceEfficiency >= 90 ? 'excellent' : 
-                resourceEfficiency >= 75 ? 'good' : 
+        status: resourceEfficiency >= 90 ? 'excellent' :
+                resourceEfficiency >= 75 ? 'good' :
                 resourceEfficiency >= 60 ? 'warning' : 'critical',
-        description: 'Overall team utilization vs available capacity',
-        actionText: 'Optimize Allocations',
+        description: t('dashboard:kpis.resourceEfficiency.description'),
+        actionText: t('dashboard:kpis.resourceEfficiency.action'),
         navigationPath: '/people?tab=utilization',
         icon: Gauge
       },
       {
         id: 'project-health',
-        title: 'Project Health Score',
+        title: t('dashboard:kpis.projectHealth.title'),
         value: projectHealthScore,
         displayValue: `${projectHealthScore}%`,
         target: 80,
         unit: '%',
         trend: projectHealthScore >= 80 ? 'up' : projectHealthScore >= 60 ? 'stable' : 'down',
-        status: projectHealthScore >= 85 ? 'excellent' : 
-                projectHealthScore >= 70 ? 'good' : 
+        status: projectHealthScore >= 85 ? 'excellent' :
+                projectHealthScore >= 70 ? 'good' :
                 projectHealthScore >= 50 ? 'warning' : 'critical',
-        description: 'Weighted score based on project timeline and resource status',
-        actionText: 'Review Projects',
+        description: t('dashboard:kpis.projectHealth.description'),
+        actionText: t('dashboard:kpis.projectHealth.action'),
         navigationPath: '/projects',
         icon: Target
       },
       {
         id: 'capacity-burn-rate',
-        title: 'Capacity Burn Rate',
+        title: t('dashboard:kpis.capacityBurnRate.title'),
         value: capacityBurnRate,
         displayValue: `${capacityBurnRate}%`,
         target: 70,
         unit: '%',
         trend: capacityBurnRate <= 60 ? 'up' : capacityBurnRate <= 80 ? 'stable' : 'down',
-        status: capacityBurnRate <= 50 ? 'excellent' : 
-                capacityBurnRate <= 70 ? 'good' : 
+        status: capacityBurnRate <= 50 ? 'excellent' :
+                capacityBurnRate <= 70 ? 'good' :
                 capacityBurnRate <= 85 ? 'warning' : 'critical',
-        description: 'Rate at which available capacity is being consumed',
-        actionText: 'View Capacity Report',
+        description: t('dashboard:kpis.capacityBurnRate.description'),
+        actionText: t('dashboard:kpis.capacityBurnRate.action'),
         navigationPath: '/reports?tab=capacity',
         icon: Activity
       },
       {
         id: 'allocation-accuracy',
-        title: 'Allocation Accuracy',
+        title: t('dashboard:kpis.allocationAccuracy.title'),
         value: allocationAccuracy,
         displayValue: `${allocationAccuracy}%`,
         target: 95,
         unit: '%',
         trend: allocationAccuracy >= 95 ? 'up' : allocationAccuracy >= 85 ? 'stable' : 'down',
-        status: allocationAccuracy >= 95 ? 'excellent' : 
-                allocationAccuracy >= 85 ? 'good' : 
+        status: allocationAccuracy >= 95 ? 'excellent' :
+                allocationAccuracy >= 85 ? 'good' :
                 allocationAccuracy >= 70 ? 'warning' : 'critical',
-        description: 'Percentage of people allocated within their capacity limits',
-        actionText: 'Fix Over-allocations',
+        description: t('dashboard:kpis.allocationAccuracy.description'),
+        actionText: t('dashboard:kpis.allocationAccuracy.action'),
         navigationPath: '/people?filter=overallocated',
         icon: Clock
       }
     ];
-  }, [dashboard]);
+  }, [dashboard, t]);
 
   const handleKPIClick = (kpi: KPIMetric) => {
     navigate(kpi.navigationPath);
@@ -213,7 +215,7 @@ export function EnhancedKPIs({ dashboard, className = '' }: EnhancedKPIsProps) {
 
   return (
     <section className={`enhanced-kpis ${className}`} role="region" aria-labelledby="kpis-heading">
-      <h2 id="kpis-heading" className="sr-only">Enhanced Key Performance Indicators</h2>
+      <h2 id="kpis-heading" className="sr-only">{t('dashboard:kpis.srHeading')}</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         {kpis.map((kpi) => {
           const statusConfig = STATUS_CONFIG[kpi.status];
@@ -232,7 +234,12 @@ export function EnhancedKPIs({ dashboard, className = '' }: EnhancedKPIsProps) {
                 tabIndex={0}
                 onKeyDown={(e) => handleKeyDown(e, kpi)}
                 role="button"
-                aria-label={`${kpi.title}: ${kpi.displayValue}. ${kpi.description}. Click to ${kpi.actionText.toLowerCase()}.`}
+                aria-label={t('dashboard:kpis.itemAria', {
+                  title: kpi.title,
+                  value: kpi.displayValue,
+                  description: kpi.description,
+                  action: kpi.actionText.toLowerCase(),
+                })}
               >
                 <div className="flex items-center justify-between mb-3">
                   <div className={`p-2 rounded-lg ${statusConfig.bgColor}`}>
@@ -250,7 +257,7 @@ export function EnhancedKPIs({ dashboard, className = '' }: EnhancedKPIsProps) {
                     <span className="text-2xl font-bold">{kpi.displayValue}</span>
                     {kpi.target && (
                       <span className="text-xs text-muted-foreground">
-                        / {kpi.target}{kpi.unit} target
+                        / {kpi.target}{kpi.unit} {t('dashboard:kpis.target')}
                       </span>
                     )}
                   </div>
@@ -270,7 +277,7 @@ export function EnhancedKPIs({ dashboard, className = '' }: EnhancedKPIsProps) {
                         aria-valuenow={kpi.value}
                         aria-valuemin={0}
                         aria-valuemax={kpi.target}
-                        aria-label={`Progress towards ${kpi.target}${kpi.unit} target`}
+                        aria-label={t('dashboard:kpis.progressAria', { target: kpi.target, unit: kpi.unit })}
                       />
                     </div>
                   )}
@@ -279,7 +286,7 @@ export function EnhancedKPIs({ dashboard, className = '' }: EnhancedKPIsProps) {
 
                   {kpi.value === 0 && kpi.id === 'resource-efficiency' ? (
                     <div className="text-xs text-yellow-600 mt-2 p-2 bg-yellow-50 rounded">
-                      No allocations yet. Start by assigning people to projects →
+                      {t('dashboard:kpis.noAllocations')}
                     </div>
                   ) : (
                     <div className="text-xs font-medium text-blue-600 mt-2">

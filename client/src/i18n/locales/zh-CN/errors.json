@@ -1,0 +1,45 @@
+{
+  "generic": {
+    "networkError": "网络错误,请检查网络连接后重试。",
+    "requestFailed": "请求失败",
+    "serverError": "服务器错误,请稍后重试。",
+    "notFound": "请求的资源不存在",
+    "unauthorized": "登录状态已过期,请重新登录。",
+    "forbidden": "你没有执行此操作的权限"
+  },
+  "messages": {
+    "authenticationRequired": "请先登录",
+    "forbidden": "无权访问",
+    "insufficientPermissions": "权限不足",
+    "systemAdminRequired": "需要系统管理员权限",
+    "loginFailed": "登录失败",
+    "tokenRefreshFailed": "刷新登录状态失败",
+    "internalServerError": "服务器内部错误",
+    "validationFailed": "数据校验失败",
+    "badRequest": "请求参数错误",
+    "unauthorizedShort": "未登录或登录已过期",
+    "notFoundShort": "资源不存在",
+    "noFileUploaded": "未上传文件",
+    "selectExcelFile": "请选择要上传的 Excel 文件",
+    "excelFileType": "文件必须是 Excel 格式(.xlsx 或 .xls)",
+    "excelImportSuccess": "Excel 导入成功",
+    "excelImportWithErrors": "Excel 导入完成,但存在错误",
+    "excelImportFailed": "Excel 导入失败",
+    "getImportSettingsFailed": "获取导入设置失败",
+    "invalidUpdatesArray": "无效的批量更新数据",
+    "phaseNameRequired": "阶段名称不能为空",
+    "missingAssignmentFields": "缺少必填字段:项目、人员和角色均为必填",
+    "allocationPositive": "分配比例必须大于 0",
+    "allocationMaxExceeded": "分配比例不能超过 200%",
+    "invalidAssignmentDateMode": "无效的分配日期模式,只能是 fixed、project 或 phase",
+    "startBeforeEnd": "开始日期必须早于或等于结束日期",
+    "cannotDetermineDates": "无法确定分配日期,请显式指定日期,或确保项目已定义阶段。",
+    "assignmentDeleted": "分配已删除",
+    "personIdRequired": "缺少人员 ID"
+  },
+  "patterns": {
+    "withIdNotFound": "未找到 ID 为 {{id}} 的{{resource}}",
+    "resourceNotFound": "{{resource}}不存在"
+  },
+  "fallbackPrefix": "操作失败"
+}

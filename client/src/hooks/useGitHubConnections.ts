@@ -7,6 +7,7 @@
  */
 
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useTranslation } from 'react-i18next';
 import { api } from '../lib/api-client';
 import { queryKeys } from '../lib/queryKeys';
 import { useToast } from './use-toast';
@@ -41,6 +42,7 @@ export function useGitHubConnections(options?: {
   includeAssociations?: boolean;
 }) {
   const { toast } = useToast();
+  const { t } = useTranslation();
 
   return useQuery({
     queryKey: queryKeys.githubConnections.list(options),
@@ -50,7 +52,7 @@ export function useGitHubConnections(options?: {
     },
     onError: (error: any) => {
       toast({
-        title: 'Failed to load GitHub connections',
+        title: t('gitSync:github.toasts.loadFailed'),
         description: error.response?.data?.error || error.message,
         variant: 'destructive',
       });
@@ -66,6 +68,7 @@ export function useGitHubConnection(
   options?: { includeAssociations?: boolean }
 ) {
   const { toast } = useToast();
+  const { t } = useTranslation();
 
   return useQuery({
     queryKey: queryKeys.githubConnections.detail(id, options),
@@ -77,7 +80,7 @@ export function useGitHubConnection(
     enabled: !!id,
     onError: (error: any) => {
       toast({
-        title: 'Failed to load GitHub connection',
+        title: t('gitSync:github.toasts.loadOneFailed'),
         description: error.response?.data?.error || error.message,
         variant: 'destructive',
       });
@@ -90,6 +93,7 @@ export function useGitHubConnection(
  */
 export function useInitiateOAuth() {
   const { toast } = useToast();
+  const { t } = useTranslation();
 
   return useMutation({
     mutationFn: async (data?: { github_base_url?: string }) => {
@@ -102,7 +106,7 @@ export function useInitiateOAuth() {
     },
     onError: (error: any) => {
       toast({
-        title: 'Failed to initiate GitHub connection',
+        title: t('gitSync:github.toasts.initiateFailed'),
         description: error.response?.data?.error || error.message,
         variant: 'destructive',
       });
@@ -116,6 +120,7 @@ export function useInitiateOAuth() {
 export function useConnectWithPAT() {
   const queryClient = useQueryClient();
   const { toast } = useToast();
+  const { t } = useTranslation();
 
   return useMutation({
     mutationFn: async (data: { token: string; github_base_url?: string }) => {
@@ -125,13 +130,13 @@ export function useConnectWithPAT() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: queryKeys.githubConnections.all });
       toast({
-        title: 'GitHub account connected',
-        description: 'Your GitHub account has been successfully connected.',
+        title: t('gitSync:github.toasts.connected'),
+        description: t('gitSync:github.toasts.connectedDesc'),
       });
     },
     onError: (error: any) => {
       toast({
-        title: 'Failed to connect GitHub account',
+        title: t('gitSync:github.toasts.connectFailed'),
         description: error.response?.data?.error || error.message,
         variant: 'destructive',
       });
@@ -145,6 +150,7 @@ export function useConnectWithPAT() {
 export function useUpdateGitHubConnection() {
   const queryClient = useQueryClient();
   const { toast } = useToast();
+  const { t } = useTranslation();
 
   return useMutation({
     mutationFn: async ({
@@ -160,13 +166,13 @@ export function useUpdateGitHubConnection() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: queryKeys.githubConnections.all });
       toast({
-        title: 'Connection updated',
-        description: 'GitHub connection updated successfully.',
+        title: t('gitSync:github.toasts.updated'),
+        description: t('gitSync:github.toasts.updatedDesc'),
       });
     },
     onError: (error: any) => {
       toast({
-        title: 'Failed to update connection',
+        title: t('gitSync:github.toasts.updateFailed'),
         description: error.response?.data?.error || error.message,
         variant: 'destructive',
       });
@@ -180,6 +186,7 @@ export function useUpdateGitHubConnection() {
 export function useDeleteGitHubConnection() {
   const queryClient = useQueryClient();
   const { toast } = useToast();
+  const { t } = useTranslation();
 
   return useMutation({
     mutationFn: async (id: number) => {
@@ -189,13 +196,13 @@ export function useDeleteGitHubConnection() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: queryKeys.githubConnections.all });
       toast({
-        title: 'Connection removed',
-        description: 'GitHub connection has been removed.',
+        title: t('gitSync:github.toasts.removed'),
+        description: t('gitSync:github.toasts.removedDesc'),
       });
     },
     onError: (error: any) => {
       toast({
-        title: 'Failed to remove connection',
+        title: t('gitSync:github.toasts.removeFailed'),
         description: error.response?.data?.error || error.message,
         variant: 'destructive',
       });
@@ -213,6 +220,7 @@ export function useGitHubAssociations(
   options?: { includeInactive?: boolean }
 ) {
   const { toast } = useToast();
+  const { t } = useTranslation();
 
   return useQuery({
     queryKey: queryKeys.githubConnections.associations(connectionId, options),
@@ -232,7 +240,7 @@ export function useGitHubAssociations(
     enabled: !!connectionId,
     onError: (error: any) => {
       toast({
-        title: 'Failed to load associations',
+        title: t('gitSync:github.toasts.assocLoadFailed'),
         description: error.response?.data?.error || error.message,
         variant: 'destructive',
       });
@@ -248,6 +256,7 @@ export function useGitHubAssociations(
 export function useCreateGitHubAssociation() {
   const queryClient = useQueryClient();
   const { toast } = useToast();
+  const { t } = useTranslation();
 
   return useMutation({
     mutationFn: async ({
@@ -265,13 +274,13 @@ export function useCreateGitHubAssociation() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: queryKeys.githubConnections.all });
       toast({
-        title: 'Association created',
-        description: 'Person has been linked to GitHub account.',
+        title: t('gitSync:github.toasts.assocCreated'),
+        description: t('gitSync:github.toasts.assocCreatedDesc'),
       });
     },
     onError: (error: any) => {
       toast({
-        title: 'Failed to create association',
+        title: t('gitSync:github.toasts.assocCreateFailed'),
         description: error.response?.data?.error || error.message,
         variant: 'destructive',
       });
@@ -287,6 +296,7 @@ export function useCreateGitHubAssociation() {
 export function useDeleteGitHubAssociation() {
   const queryClient = useQueryClient();
   const { toast } = useToast();
+  const { t } = useTranslation();
 
   return useMutation({
     mutationFn: async ({
@@ -302,13 +312,13 @@ export function useDeleteGitHubAssociation() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: queryKeys.githubConnections.all });
       toast({
-        title: 'Association removed',
-        description: 'Person has been unlinked from GitHub account.',
+        title: t('gitSync:github.toasts.assocRemoved'),
+        description: t('gitSync:github.toasts.assocRemovedDesc'),
       });
     },
     onError: (error: any) => {
       toast({
-        title: 'Failed to remove association',
+        title: t('gitSync:github.toasts.assocRemoveFailed'),
         description: error.response?.data?.error || error.message,
         variant: 'destructive',
       });

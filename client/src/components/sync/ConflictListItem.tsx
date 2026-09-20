@@ -7,6 +7,7 @@
  */
 
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import type { Conflict } from '../../../../shared/types/git-entities';
 
 interface ConflictListItemProps {
@@ -20,14 +21,17 @@ export const ConflictListItem: React.FC<ConflictListItemProps> = ({
   onSelect,
   hasOverAllocationWarning = false,
 }) => {
+  const { t } = useTranslation();
+
   const getEntityTypeLabel = (type: string): string => {
     const labels: Record<string, string> = {
-      project: 'Project',
-      person: 'Person',
-      assignment: 'Assignment',
-      project_phase: 'Project Phase',
+      project: 'gitSync:entityTypes.project',
+      person: 'gitSync:entityTypes.person',
+      assignment: 'gitSync:entityTypes.assignment',
+      project_phase: 'gitSync:entityTypes.projectPhase',
     };
-    return labels[type] || type;
+    const key = labels[type];
+    return key ? t(key) : type;
   };
 
   const getEntityTypeColor = (type: string): string => {
@@ -61,7 +65,7 @@ export const ConflictListItem: React.FC<ConflictListItemProps> = ({
 
           {hasOverAllocationWarning && (
             <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-yellow-100 text-yellow-800">
-              ⚠ Over-allocation
+              ⚠ {t('gitSync:conflicts.overAllocation')}
             </span>
           )}
         </div>
@@ -71,18 +75,18 @@ export const ConflictListItem: React.FC<ConflictListItemProps> = ({
         </div>
 
         <div className="text-sm text-gray-500">
-          Field: <span className="font-mono text-xs">{conflict.field}</span>
+          {t('gitSync:conflicts.field')}: <span className="font-mono text-xs">{conflict.field}</span>
         </div>
 
         <div className="flex gap-4 mt-2 text-xs text-gray-600">
           <div className="flex-1">
-            <span className="font-medium">Local:</span>{' '}
+            <span className="font-medium">{t('gitSync:conflicts.local')}:</span>{' '}
             <span className="font-mono bg-gray-100 px-1 rounded">
               {truncateValue(conflict.localValue)}
             </span>
           </div>
           <div className="flex-1">
-            <span className="font-medium">Remote:</span>{' '}
+            <span className="font-medium">{t('gitSync:conflicts.remote')}:</span>{' '}
             <span className="font-mono bg-gray-100 px-1 rounded">
               {truncateValue(conflict.remoteValue)}
             </span>
@@ -98,7 +102,7 @@ export const ConflictListItem: React.FC<ConflictListItemProps> = ({
             onSelect(conflict);
           }}
         >
-          Resolve
+          {t('gitSync:conflicts.resolve')}
         </button>
       </div>
     </div>

@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import type { TimelineViewport } from '../InteractiveTimeline';
 
 interface GridLine {
@@ -15,6 +16,8 @@ interface TimelineGridProps {
 }
 
 export function TimelineGrid({ gridLines, viewport, showToday, timelineWidth }: TimelineGridProps) {
+  const { t } = useTranslation();
+
   return (
     <>
       {/* Grid lines */}
@@ -55,13 +58,13 @@ export function TimelineGrid({ gridLines, viewport, showToday, timelineWidth }: 
 
       {/* Today line */}
       {showToday && (
-        <TodayLine viewport={viewport} timelineWidth={timelineWidth} />
+        <TodayLine viewport={viewport} timelineWidth={timelineWidth} label={t('phases:timeline.today')} />
       )}
     </>
   );
 }
 
-function TodayLine({ viewport, timelineWidth }: { viewport: TimelineViewport; timelineWidth: number }) {
+function TodayLine({ viewport, timelineWidth, label }: { viewport: TimelineViewport; timelineWidth: number; label: string }) {
   const today = new Date();
   const todayPosition = ((today.getTime() - viewport.startDate.getTime()) / (1000 * 60 * 60 * 24)) * viewport.pixelsPerDay;
 
@@ -93,7 +96,7 @@ function TodayLine({ viewport, timelineWidth }: { viewport: TimelineViewport; ti
           whiteSpace: 'nowrap'
         }}
       >
-        Today
+        {label}
       </div>
     </div>
   );

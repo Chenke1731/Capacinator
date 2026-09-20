@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Users, UserCog, Calendar } from 'lucide-react';
 
 // Import existing page components
@@ -15,28 +16,32 @@ import './Roles.css';
 
 // PeopleTab type intentionally not exported, used internally for tab configuration
 
-const tabs: UnifiedTabConfig[] = [
-  {
-    id: 'people',
-    label: 'People',
-    icon: Users,
-    component: People
-  },
-  {
-    id: 'roles',
-    label: 'Roles',
-    icon: UserCog,
-    component: Roles
-  },
-  {
-    id: 'availability',
-    label: 'Availability',
-    icon: Calendar,
-    component: Availability
-  }
-];
-
 export default function PeopleUnified() {
+  const { t } = useTranslation();
+
+  // Tab labels are localized, so the config must live inside the component —
+  // a module-level constant would freeze the labels at import time.
+  const tabs: UnifiedTabConfig[] = [
+    {
+      id: 'people',
+      label: t('people:title'),
+      icon: Users,
+      component: People
+    },
+    {
+      id: 'roles',
+      label: t('people:tabs.roles'),
+      icon: UserCog,
+      component: Roles
+    },
+    {
+      id: 'availability',
+      label: t('people:tabs.availability'),
+      icon: Calendar,
+      component: Availability
+    }
+  ];
+
   return (
     <UnifiedTabComponent
       tabs={tabs}
@@ -45,7 +50,7 @@ export default function PeopleUnified() {
       orientation="horizontal"
       variant="primary"
       size="md"
-      ariaLabel="People management navigation"
+      ariaLabel={t('people:unifiedAriaLabel')}
       className="people-unified-container"
     />
   );

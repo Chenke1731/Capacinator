@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useTranslation } from 'react-i18next';
 import {
   ArrowLeft, Calendar, Briefcase, Users, Clock,
   Mail, Phone, MapPin, AlertCircle, History,
@@ -86,6 +87,7 @@ export default function PersonDetails() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
+  const { t } = useTranslation();
   
   const [expandedSections, setExpandedSections] = useState({
     basic: true,
@@ -124,7 +126,7 @@ export default function PersonDetails() {
   const timeOffColumns: DetailTableColumn<any>[] = [
     {
       key: 'dates',
-      header: 'Dates',
+      header: t('people:details.dates'),
       render: (item) => (
         <span>{formatDate(item.start_date)} - {formatDate(item.end_date)}</span>
       ),
@@ -132,23 +134,27 @@ export default function PersonDetails() {
     },
     {
       key: 'type',
-      header: 'Type',
+      header: t('people:columns.type'),
       render: (item) => (
         <Badge variant={item.override_type === 'pto' ? 'default' : 'secondary'}>
-          {item.override_type === 'pto' ? 'PTO' : item.override_type === 'sick' ? 'Sick Leave' : 'Other'}
+          {item.override_type === 'pto'
+            ? t('people:availability.overrideType.pto')
+            : item.override_type === 'sick'
+              ? t('people:availability.overrideType.sick')
+              : t('people:availability.overrideType.other')}
         </Badge>
       ),
       width: '120px'
     },
     {
       key: 'availability',
-      header: 'Availability',
+      header: t('people:columns.availability'),
       render: (item) => `${item.availability_percentage}%`,
       width: '100px'
     },
     {
       key: 'reason',
-      header: 'Reason',
+      header: t('people:details.reason'),
       render: (item) => item.reason || '-'
     }
   ];
@@ -156,7 +162,7 @@ export default function PersonDetails() {
   const rolesColumns: DetailTableColumn<any>[] = [
     {
       key: 'role',
-      header: 'Role',
+      header: t('common:role'),
       render: (item) => (
         <div>
           <div className="font-medium">{item.role_name}</div>
@@ -168,23 +174,23 @@ export default function PersonDetails() {
     },
     {
       key: 'proficiency',
-      header: 'Proficiency',
+      header: t('people:details.proficiency'),
       render: (item) => (
-        <Badge variant="outline">Level {item.proficiency_level}</Badge>
+        <Badge variant="outline">{t('people:details.level', { level: item.proficiency_level })}</Badge>
       ),
       width: '120px'
     },
     {
       key: 'primary',
-      header: 'Primary',
+      header: t('people:details.primary'),
       render: (item) => (
-        item.is_primary ? <Badge variant="success">Primary</Badge> : null
+        item.is_primary ? <Badge variant="success">{t('people:details.primary')}</Badge> : null
       ),
       width: '100px'
     },
     {
       key: 'since',
-      header: 'Since',
+      header: t('people:details.since'),
       render: (item) => item.start_date ? formatDate(item.start_date) : '-',
       width: '120px'
     }
@@ -193,7 +199,7 @@ export default function PersonDetails() {
   const assignmentsColumns: DetailTableColumn<any>[] = [
     {
       key: 'project',
-      header: 'Project',
+      header: t('common:assignmentsCol.project'),
       render: (item) => (
         <Link to={`/projects/${item.project_id}`} className="text-primary hover:underline">
           {item.project_name}
@@ -202,29 +208,29 @@ export default function PersonDetails() {
     },
     {
       key: 'role',
-      header: 'Role',
+      header: t('common:role'),
       render: (item) => item.role_name,
       width: '150px'
     },
     {
       key: 'allocation',
-      header: 'Allocation',
+      header: t('common:assignmentsCol.allocation'),
       render: (item) => `${item.allocation_percentage}%`,
       width: '100px'
     },
     {
       key: 'billable',
-      header: 'Type',
+      header: t('people:columns.type'),
       render: (item) => (
         <Badge variant={item.billable ? 'success' : 'secondary'}>
-          {item.billable ? 'Billable' : 'Non-billable'}
+          {item.billable ? t('people:details.billable') : t('people:details.nonBillable')}
         </Badge>
       ),
       width: '120px'
     },
     {
       key: 'period',
-      header: 'Period',
+      header: t('people:details.period'),
       render: (item) => (
         <span className="text-sm">
           {formatDate(item.computed_start_date || item.start_date)} - {formatDate(item.computed_end_date || item.end_date)}
@@ -434,7 +440,7 @@ export default function PersonDetails() {
               }}
               autoFocus
             >
-              <option value="">{placeholder || 'Select...'}</option>
+              <option value="">{placeholder || t('people:details.selectPlaceholder')}</option>
               {options.map(option => (
                 <option key={option.value} value={option.value}>
                   {option.label}
@@ -462,8 +468,8 @@ export default function PersonDetails() {
 
     // For display, show the label if it's a select, otherwise show the value
     const displayValue = type === 'select' 
-      ? options.find(opt => opt.value === value)?.label || placeholder || 'Not provided'
-      : value || placeholder || 'Not provided';
+      ? options.find(opt => opt.value === value)?.label || placeholder || t('people:details.notProvided')
+      : value || placeholder || t('people:details.notProvided');
 
     return (
       <div className="info-value inline-editable" onClick={() => canEdit && setIsEditing(true)}>
@@ -533,7 +539,7 @@ export default function PersonDetails() {
   };
 
   const handleDeleteTimeOff = (overrideId: string) => {
-    if (confirm('Are you sure you want to delete this time off entry?')) {
+    if (confirm(t('people:details.deleteTimeOffConfirm'))) {
       deleteOverrideMutation.mutate(overrideId);
     }
   };
@@ -579,7 +585,7 @@ export default function PersonDetails() {
   };
 
   const handleDeleteAssignment = (assignment: any) => {
-    if (window.confirm('Are you sure you want to delete this assignment?')) {
+    if (window.confirm(t('common:deleteAssignmentConfirm'))) {
       deleteAssignmentMutation.mutate(assignment.id);
     }
   };
@@ -632,30 +638,30 @@ export default function PersonDetails() {
       status = 'over_allocated';
       statusColor = 'danger';
       actions = [
-        { label: 'Reduce Workload', action: 'reduce_workload', icon: UserMinus, variant: 'danger' },
-        { label: 'Find Coverage', action: 'find_coverage', icon: Search, variant: 'warning' },
-        { label: 'Extend Timeline', action: 'extend_timeline', icon: Calendar, variant: 'secondary' }
+        { label: t('people:details.actions.reduceWorkload'), action: 'reduce_workload', icon: UserMinus, variant: 'danger' },
+        { label: t('people:details.actions.findCoverage'), action: 'find_coverage', icon: Search, variant: 'warning' },
+        { label: t('people:details.actions.extendTimeline'), action: 'extend_timeline', icon: Calendar, variant: 'secondary' }
       ];
     } else if (utilizationPercentage >= 80) {
       status = 'fully_allocated';
       statusColor = 'warning';
       actions = [
-        { label: 'Monitor Load', action: 'monitor_load', icon: TrendingUp, variant: 'warning' },
-        { label: 'Plan Ahead', action: 'plan_ahead', icon: Target, variant: 'secondary' }
+        { label: t('people:details.actions.monitorLoad'), action: 'monitor_load', icon: TrendingUp, variant: 'warning' },
+        { label: t('people:details.actions.planAhead'), action: 'plan_ahead', icon: Target, variant: 'secondary' }
       ];
     } else if (utilizationPercentage >= 40) {
       status = 'under_allocated';
       statusColor = 'info';
       actions = [
-        { label: 'Assign More Work', action: 'assign_more', icon: UserPlus, variant: 'primary' },
-        { label: 'Find Projects', action: 'find_projects', icon: Search, variant: 'info' }
+        { label: t('people:details.actions.assignMoreWork'), action: 'assign_more', icon: UserPlus, variant: 'primary' },
+        { label: t('people:details.actions.findProjects'), action: 'find_projects', icon: Search, variant: 'info' }
       ];
     } else {
       status = 'available';
       statusColor = 'success';
       actions = [
-        { label: 'Assign to Project', action: 'assign_project', icon: Plus, variant: 'success' },
-        { label: 'View Opportunities', action: 'view_opportunities', icon: Zap, variant: 'primary' }
+        { label: t('people:details.actions.assignToProject'), action: 'assign_project', icon: Plus, variant: 'success' },
+        { label: t('people:details.actions.viewOpportunities'), action: 'view_opportunities', icon: Zap, variant: 'primary' }
       ];
     }
     
@@ -672,10 +678,10 @@ export default function PersonDetails() {
       currentProjects: activeAssignments.length,
       skillsCount: person.roles.length
     };
-  }, [person]);
+  }, [person, t]);
 
-  if (isLoading) return <div className="loading">Loading person details...</div>;
-  if (error || !person) return <div className="error">Failed to load person details</div>;
+  if (isLoading) return <div className="loading">{t('people:details.loading')}</div>;
+  if (error || !person) return <div className="error">{t('people:details.failedToLoad')}</div>;
 
 
   const handleActionClick = (action: string) => {
@@ -718,7 +724,7 @@ export default function PersonDetails() {
           </button>
           <h1>{person.name}</h1>
           <span className={`badge badge-${person.status === 'active' ? 'success' : 'gray'}`}>
-            {person.status || 'Active'}
+            {person.status || t('people:personStatus.active')}
           </span>
         </div>
       </div>
@@ -729,10 +735,10 @@ export default function PersonDetails() {
           <div className="section-header">
             <h2>
               <TrendingUp size={20} />
-              Workload Insights & Actions
+              {t('people:details.workloadInsights')}
             </h2>
           </div>
-          
+
           <div className="section-content">
             <div className="insights-grid">
               <div className="insight-card">
@@ -740,52 +746,54 @@ export default function PersonDetails() {
                   <div className="insight-value">
                     {allocationInsights?.totalAllocation.toFixed(0) ?? 0}%
                   </div>
-                  <div className="insight-label">Total Allocation</div>
+                  <div className="insight-label">{t('people:details.totalAllocation')}</div>
                 </div>
                 <div className="insight-comparison">
-                  vs {allocationInsights?.availability ?? 0}% available
+                  {t('people:details.vsAvailable', { availability: allocationInsights?.availability ?? 0 })}
                 </div>
               </div>
-              
+
               <div className="insight-card">
                 <div className="insight-header">
                   <div className={`insight-value ${getStatusClassName(allocationInsights?.statusColor ?? 'gray')}`}>
                     {allocationInsights?.utilizationPercentage.toFixed(0) ?? 0}%
                   </div>
-                  <div className="insight-label">Utilization</div>
+                  <div className="insight-label">{t('people:details.utilization')}</div>
                 </div>
                 <div className={`insight-status ${getBadgeClassName(allocationInsights?.statusColor ?? 'gray')}`}>
-                  {allocationInsights?.status.replace('_', ' ').toUpperCase() ?? 'UNKNOWN'}
+                  {(allocationInsights
+                    ? t(`people:workloadStatus.${allocationInsights.status}`)
+                    : t('people:workloadStatus.unknown')).toUpperCase()}
                 </div>
               </div>
-              
+
               <div className="insight-card">
                 <div className="insight-header">
                   <div className="insight-value">
                     {allocationInsights?.currentProjects ?? 0}
                   </div>
-                  <div className="insight-label">Active Projects</div>
+                  <div className="insight-label">{t('people:details.activeProjects')}</div>
                 </div>
                 <div className="insight-comparison">
-                  {allocationInsights?.skillsCount ?? 0} skill{(allocationInsights?.skillsCount ?? 0) !== 1 ? 's' : ''}
+                  {t('people:details.skillsCount', { count: allocationInsights?.skillsCount ?? 0 })}
                 </div>
               </div>
-              
+
               {allocationInsights?.hasUpcomingTimeOff && (
                 <div className="insight-card alert-card">
                   <div className="insight-header">
                     <AlertCircle size={16} className="text-warning" />
-                    <div className="insight-label">Upcoming Time Off</div>
+                    <div className="insight-label">{t('people:details.upcomingTimeOff')}</div>
                   </div>
                   <div className="insight-comparison text-warning">
-                    Plan coverage needed
+                    {t('people:details.planCoverageNeeded')}
                   </div>
                 </div>
               )}
             </div>
-            
+
             <div className="quick-actions">
-              <h4>Recommended Actions</h4>
+              <h4>{t('people:details.recommendedActions')}</h4>
               <div className="actions-grid">
                 {allocationInsights?.actions?.map((action, index) => {
                   const IconComponent = action.icon;
@@ -810,56 +818,56 @@ export default function PersonDetails() {
           <div className="section-header" onClick={() => toggleSection('basic')}>
             <h2>
               <Users size={20} />
-              Basic Information
+              {t('people:basicInformation')}
             </h2>
             {expandedSections.basic ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
           </div>
-          
+
           {expandedSections.basic && (
             <div className="section-content">
               <div className="info-grid">
                 <div className="info-item">
-                  <label>Email</label>
+                  <label>{t('people:fields.email')}</label>
                   <InlineEdit
                     field="email"
                     value={person.email}
                     type="email"
-                    placeholder="Enter email"
+                    placeholder={t('people:details.placeholderEmail')}
                     icon={Mail}
                   />
                 </div>
 
                 <div className="info-item">
-                  <label>Phone</label>
+                  <label>{t('people:fields.phone')}</label>
                   <InlineEdit
                     field="phone"
                     value={person.phone}
                     type="tel"
-                    placeholder="Enter phone number"
+                    placeholder={t('people:placeholders.phone')}
                     icon={Phone}
                   />
                 </div>
 
                 <div className="info-item">
-                  <label>Title</label>
+                  <label>{t('people:fields.title')}</label>
                   <InlineEdit
                     field="title"
                     value={person.title}
-                    placeholder="Enter job title"
+                    placeholder={t('people:placeholders.title')}
                   />
                 </div>
 
                 <div className="info-item">
-                  <label>Department</label>
+                  <label>{t('people:fields.department')}</label>
                   <InlineEdit
                     field="department"
                     value={person.department}
-                    placeholder="Enter department"
+                    placeholder={t('people:placeholders.department')}
                   />
                 </div>
 
                 <div className="info-item">
-                  <label>Location</label>
+                  <label>{t('people:fields.location')}</label>
                   <InlineEdit
                     field="location_id"
                     value={person.location_id}
@@ -868,13 +876,13 @@ export default function PersonDetails() {
                       value: location.id,
                       label: location.name
                     })) : []}
-                    placeholder="Select location"
+                    placeholder={t('people:placeholders.selectLocation')}
                     icon={MapPin}
                   />
                 </div>
 
                 <div className="info-item">
-                  <label>Primary Role</label>
+                  <label>{t('people:fields.primaryRole')}</label>
                   <InlineEdit
                     field="primary_person_role_id"
                     value={person.roles.find((role: any) => role.is_primary)?.role_id}
@@ -883,13 +891,13 @@ export default function PersonDetails() {
                       value: role.id,
                       label: role.name
                     })) : []}
-                    placeholder="Select primary role"
+                    placeholder={t('people:placeholders.selectPrimaryRole')}
                     icon={Shield}
                   />
                 </div>
 
                 <div className="info-item">
-                  <label>Supervisor</label>
+                  <label>{t('people:fields.supervisor')}</label>
                   <InlineEdit
                     field="supervisor_id"
                     value={person.supervisor_id}
@@ -898,28 +906,28 @@ export default function PersonDetails() {
                       value: supervisor.id,
                       label: supervisor.name
                     })) : []}
-                    placeholder="No supervisor"
+                    placeholder={t('people:select.noSupervisor')}
                     icon={Users}
                   />
                 </div>
 
                 <div className="info-item">
-                  <label>Worker Type</label>
+                  <label>{t('people:fields.workerType')}</label>
                   <InlineEdit
                     field="worker_type"
                     value={person.worker_type}
                     type="select"
                     options={[
-                      { value: 'FTE', label: 'Full-Time Employee' },
-                      { value: 'CONTRACT', label: 'Contractor' },
-                      { value: 'INTERN', label: 'Intern' }
+                      { value: 'FTE', label: t('people:workerTypeOptions.fullTimeEmployeeTitle') },
+                      { value: 'CONTRACT', label: t('people:workerTypeOptions.contractor') },
+                      { value: 'INTERN', label: t('people:workerTypeOptions.intern') }
                     ]}
-                    placeholder="Full-Time Employee"
+                    placeholder={t('people:workerTypeOptions.fullTimeEmployeeTitle')}
                   />
                 </div>
 
                 <div className="info-item">
-                  <label>Hours per Day</label>
+                  <label>{t('people:details.hoursPerDay')}</label>
                   <InlineEdit
                     field="default_hours_per_day"
                     value={person.default_hours_per_day}
@@ -929,7 +937,7 @@ export default function PersonDetails() {
                 </div>
 
                 <div className="info-item">
-                  <label>Default Availability</label>
+                  <label>{t('people:details.defaultAvailability')}</label>
                   <InlineEdit
                     field="default_availability_percentage"
                     value={person.default_availability_percentage}
@@ -947,32 +955,32 @@ export default function PersonDetails() {
           <div className="section-header" onClick={() => toggleSection('availability')}>
             <h2>
               <Calendar size={20} />
-              Availability & Time Off
+              {t('people:details.availabilityTimeOff')}
             </h2>
             {expandedSections.availability ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
           </div>
-          
+
           {expandedSections.availability && (
             <div className="section-content">
               <div className="availability-summary mb-4">
                 <div className="summary-item">
-                  <label>Default Availability</label>
+                  <label>{t('people:details.defaultAvailability')}</label>
                   <div className="summary-value">{person.default_availability_percentage}%</div>
                 </div>
                 <div className="summary-item">
-                  <label>Default Hours per Day</label>
-                  <div className="summary-value">{person.default_hours_per_day} hours</div>
+                  <label>{t('people:details.defaultHoursPerDay')}</label>
+                  <div className="summary-value">{t('people:details.hours', { count: person.default_hours_per_day })}</div>
                 </div>
               </div>
-              
+
               <DetailTable
                 data={person.availabilityOverrides || []}
                 columns={timeOffColumns}
                 onAdd={handleAddTimeOff}
                 onEdit={handleEditTimeOff}
                 onDelete={(item) => handleDeleteTimeOff(item.id)}
-                addButtonText="Add Time Off"
-                emptyMessage="No scheduled time off"
+                addButtonText={t('people:details.addTimeOff')}
+                emptyMessage={t('people:details.noTimeOff')}
                 canEdit={canEdit}
               />
 
@@ -980,10 +988,10 @@ export default function PersonDetails() {
               {canEdit && isCreatingTimeOff && (
                 <div className="override-item mt-3">
                   <div className="override-edit-form">
-                    <h5>New Time Off Entry</h5>
+                    <h5>{t('people:details.newTimeOffEntry')}</h5>
                     <div className="form-row">
                       <div className="form-group">
-                        <label>Start Date</label>
+                        <label>{t('common:startDate')}</label>
                         <input
                           type="date"
                           value={newTimeOffData?.start_date || ''}
@@ -992,7 +1000,7 @@ export default function PersonDetails() {
                         />
                       </div>
                       <div className="form-group">
-                        <label>End Date</label>
+                        <label>{t('common:endDate')}</label>
                         <input
                           type="date"
                           value={newTimeOffData?.end_date || ''}
@@ -1003,21 +1011,21 @@ export default function PersonDetails() {
                     </div>
                     <div className="form-row">
                       <div className="form-group">
-                        <label>Type</label>
+                        <label>{t('people:columns.type')}</label>
                         <select
                           value={newTimeOffData?.override_type || ''}
                           onChange={(e) => setNewTimeOffData({ ...newTimeOffData, override_type: e.target.value })}
                           className="form-select"
                         >
-                          <option value="vacation">Vacation</option>
-                          <option value="sick">Sick Leave</option>
-                          <option value="training">Training</option>
-                          <option value="conference">Conference</option>
-                          <option value="other">Other</option>
+                          <option value="vacation">{t('people:availability.overrideType.vacation')}</option>
+                          <option value="sick">{t('people:availability.overrideType.sick')}</option>
+                          <option value="training">{t('people:availability.overrideType.training')}</option>
+                          <option value="conference">{t('people:availability.overrideType.conference')}</option>
+                          <option value="other">{t('people:availability.overrideType.other')}</option>
                         </select>
                       </div>
                       <div className="form-group">
-                        <label>Availability %</label>
+                        <label>{t('people:details.availabilityPercent')}</label>
                         <input
                           type="number"
                           value={newTimeOffData?.availability_percentage || ''}
@@ -1029,13 +1037,13 @@ export default function PersonDetails() {
                       </div>
                     </div>
                     <div className="form-group">
-                      <label>Reason (Optional)</label>
+                      <label>{t('people:details.reasonOptional')}</label>
                       <input
                         type="text"
                         value={newTimeOffData?.reason || ''}
                         onChange={(e) => setNewTimeOffData({ ...newTimeOffData, reason: e.target.value })}
                         className="form-input"
-                        placeholder="Optional reason for time off"
+                        placeholder={t('people:details.reasonPlaceholder')}
                       />
                     </div>
                     <div className="form-actions">
@@ -1045,14 +1053,14 @@ export default function PersonDetails() {
                         disabled={createOverrideMutation.isPending}
                       >
                         <Save size={16} />
-                        {createOverrideMutation.isPending ? 'Creating...' : 'Create'}
+                        {createOverrideMutation.isPending ? t('people:creating') : t('common:create')}
                       </button>
                       <button
                         className="btn btn-secondary"
                         onClick={handleCancelNewTimeOff}
                       >
                         <X size={16} />
-                        Cancel
+                        {t('common:cancel')}
                       </button>
                     </div>
                   </div>
@@ -1067,11 +1075,11 @@ export default function PersonDetails() {
           <div className="section-header" onClick={() => toggleSection('roles')}>
             <h2>
               <Award size={20} />
-              Roles & Skills
+              {t('people:details.rolesSkills')}
             </h2>
             {expandedSections.roles ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
           </div>
-          
+
           {expandedSections.roles && (
             <div className="section-content">
               <DetailTable
@@ -1080,8 +1088,8 @@ export default function PersonDetails() {
                 onAdd={handleAddRole}
                 onEdit={handleEditRole}
                 onDelete={(item) => removeRoleMutation.mutate(item.role_id)}
-                addButtonText="Add Role"
-                emptyMessage="No roles assigned"
+                addButtonText={t('people:details.addRole')}
+                emptyMessage={t('people:details.noRoles')}
                 canEdit={canEdit}
               />
             </div>
@@ -1093,11 +1101,11 @@ export default function PersonDetails() {
           <div className="section-header" onClick={() => toggleSection('assignments')}>
             <h2>
               <Briefcase size={20} />
-              Current Assignments
+              {t('people:details.currentAssignments')}
             </h2>
             {expandedSections.assignments ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
           </div>
-          
+
           {expandedSections.assignments && (
             <div className="section-content">
               <DetailTable
@@ -1110,8 +1118,8 @@ export default function PersonDetails() {
                 columns={assignmentsColumns}
                 onAdd={canEdit ? handleAddAssignment : undefined}
                 onDelete={canEdit ? handleDeleteAssignment : undefined}
-                addButtonText="Add Assignment"
-                emptyMessage="No current assignments"
+                addButtonText={t('common:addAssignment')}
+                emptyMessage={t('people:details.noAssignments')}
                 canEdit={canEdit}
               />
             </div>
@@ -1123,7 +1131,7 @@ export default function PersonDetails() {
           <div className="section-header" onClick={() => toggleSection('allocation')}>
             <h2>
               <Clock size={20} />
-              Allocation vs Availability
+              {t('people:details.allocationVsAvailability')}
             </h2>
             {expandedSections.allocation ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
           </div>
@@ -1147,24 +1155,24 @@ export default function PersonDetails() {
           <div className="section-header" onClick={() => toggleSection('history')}>
             <h2>
               <History size={20} />
-              History
+              {t('people:details.history')}
             </h2>
             {expandedSections.history ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
           </div>
-          
+
           {expandedSections.history && (
             <div className="section-content">
               <div className="history-timeline">
                 <div className="timeline-item">
                   <div className="timeline-date">{formatDate(new Date(person.created_at).toISOString())}</div>
                   <div className="timeline-content">
-                    <strong>Profile created</strong>
+                    <strong>{t('people:details.profileCreated')}</strong>
                   </div>
                 </div>
                 <div className="timeline-item">
                   <div className="timeline-date">{formatDate(new Date(person.updated_at).toISOString())}</div>
                   <div className="timeline-content">
-                    <strong>Last updated</strong>
+                    <strong>{t('people:details.lastUpdated')}</strong>
                   </div>
                 </div>
               </div>

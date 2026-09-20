@@ -1,0 +1,50 @@
+{
+  "projectStatus": {
+    "planned": "已计划",
+    "active": "进行中",
+    "on_hold": "已暂停",
+    "completed": "已完成",
+    "cancelled": "已取消"
+  },
+  "scenarioType": {
+    "baseline": "基线",
+    "branch": "分支",
+    "sandbox": "沙箱"
+  },
+  "scenarioStatus": {
+    "active": "活跃",
+    "archived": "已归档",
+    "merged": "已合并"
+  },
+  "allocationStatus": {
+    "OVER_ALLOCATED": "超负荷",
+    "FULLY_ALLOCATED": "满负荷",
+    "PARTIALLY_ALLOCATED": "部分分配",
+    "UNDER_ALLOCATED": "分配不足"
+  },
+  "capacityHealth": {
+    "GAP": "缺口",
+    "TIGHT": "紧张",
+    "OK": "正常"
+  },
+  "healthStatus": {
+    "PLANNING": "规划中",
+    "NOT_STARTED": "未开始",
+    "OVERDUE": "已逾期",
+    "NO_RESOURCES": "缺少资源",
+    "NO_TIMELINE": "无时间计划",
+    "ACTIVE": "进行中"
+  },
+  "resources": {
+    "project": "项目",
+    "person": "人员",
+    "role": "角色",
+    "location": "地点",
+    "projectType": "项目类型",
+    "scenario": "场景",
+    "assignment": "分配",
+    "phase": "阶段",
+    "resource": "资源",
+    "user": "用户"
+  }
+}

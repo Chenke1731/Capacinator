@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Calendar, ChevronDown } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { Card } from '../ui/CustomCard';
+import { getLocale } from '../../i18n';
 
 export type DateRangePreset = 'current' | 'this_week' | 'this_month' | 'next_month' | 'this_quarter' | 'next_quarter' | 'custom';
 
@@ -15,16 +17,6 @@ interface DateRangeSelectorProps {
   onRangeChange: (range: DateRange) => void;
   className?: string;
 }
-
-const DATE_PRESETS = [
-  { value: 'current' as const, label: 'Current Status', description: 'Projects active right now' },
-  { value: 'this_week' as const, label: 'This Week', description: 'Next 7 days' },
-  { value: 'this_month' as const, label: 'This Month', description: 'Current month' },
-  { value: 'next_month' as const, label: 'Next Month', description: 'Following month' },
-  { value: 'this_quarter' as const, label: 'This Quarter', description: 'Current 3 months' },
-  { value: 'next_quarter' as const, label: 'Next Quarter', description: 'Following 3 months' },
-  { value: 'custom' as const, label: 'Custom Range', description: 'Select specific dates' }
-];
 
 function getDateRangeForPreset(preset: DateRangePreset): { startDate: string; endDate: string } {
   const now = new Date();
@@ -88,9 +80,21 @@ function getDateRangeForPreset(preset: DateRangePreset): { startDate: string; en
 }
 
 export function DateRangeSelector({ selectedRange, onRangeChange, className = '' }: DateRangeSelectorProps) {
+  const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   const [customStartDate, setCustomStartDate] = useState(selectedRange.startDate);
   const [customEndDate, setCustomEndDate] = useState(selectedRange.endDate);
+
+  // Re-created each render so labels follow the active language
+  const DATE_PRESETS = [
+    { value: 'current' as const, label: t('dashboard:dateRange.current.label'), description: t('dashboard:dateRange.current.description') },
+    { value: 'this_week' as const, label: t('dashboard:dateRange.thisWeek.label'), description: t('dashboard:dateRange.thisWeek.description') },
+    { value: 'this_month' as const, label: t('dashboard:dateRange.thisMonth.label'), description: t('dashboard:dateRange.thisMonth.description') },
+    { value: 'next_month' as const, label: t('dashboard:dateRange.nextMonth.label'), description: t('dashboard:dateRange.nextMonth.description') },
+    { value: 'this_quarter' as const, label: t('dashboard:dateRange.thisQuarter.label'), description: t('dashboard:dateRange.thisQuarter.description') },
+    { value: 'next_quarter' as const, label: t('dashboard:dateRange.nextQuarter.label'), description: t('dashboard:dateRange.nextQuarter.description') },
+    { value: 'custom' as const, label: t('dashboard:dateRange.custom.label'), description: t('dashboard:dateRange.custom.description') }
+  ];
 
 
   const handlePresetSelect = (preset: DateRangePreset) => {
@@ -122,23 +126,23 @@ export function DateRangeSelector({ selectedRange, onRangeChange, className = ''
 
   const formatDateRange = (range: DateRange) => {
     if (range.preset === 'current') {
-      return 'Current Status';
-    }
-    
-    if (!range.startDate || !range.endDate) {
-      return 'Select date range';
+      return t('dashboard:dateRange.current.label');
     }
 
-    const start = new Date(range.startDate).toLocaleDateString('en-US', { 
-      month: 'short', 
-      day: 'numeric' 
+    if (!range.startDate || !range.endDate) {
+      return t('dashboard:dateRange.selectPrompt');
+    }
+
+    const start = new Date(range.startDate).toLocaleDateString(getLocale(), {
+      month: 'short',
+      day: 'numeric'
     });
-    const end = new Date(range.endDate).toLocaleDateString('en-US', { 
-      month: 'short', 
+    const end = new Date(range.endDate).toLocaleDateString(getLocale(), {
+      month: 'short',
       day: 'numeric',
       year: range.startDate.split('-')[0] !== range.endDate.split('-')[0] ? 'numeric' : undefined
     });
-    
+
     return `${start} - ${end}`;
   };
 
@@ -150,7 +154,7 @@ export function DateRangeSelector({ selectedRange, onRangeChange, className = ''
           onClick={() => setIsOpen(!isOpen)}
           aria-expanded={isOpen}
           aria-haspopup="listbox"
-          aria-label="Select date range for dashboard data"
+          aria-label={t('dashboard:dateRange.selectorAria')}
         >
           <div className="flex items-center gap-2">
             <Calendar className="w-4 h-4 text-muted-foreground" aria-hidden="true" />
@@ -166,7 +170,7 @@ export function DateRangeSelector({ selectedRange, onRangeChange, className = ''
           <div 
             className="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-200 rounded-md shadow-lg z-50"
             role="listbox"
-            aria-label="Date range options"
+            aria-label={t('dashboard:dateRange.optionsAria')}
           >
             <div className="py-1">
               {DATE_PRESETS.map((preset) => (
@@ -189,7 +193,7 @@ export function DateRangeSelector({ selectedRange, onRangeChange, className = ''
                   <div className="space-y-2">
                     <div>
                       <label htmlFor="start-date" className="block text-xs font-medium text-muted-foreground">
-                        Start Date
+                        {t('common:startDate')}
                       </label>
                       <input
                         id="start-date"
@@ -201,7 +205,7 @@ export function DateRangeSelector({ selectedRange, onRangeChange, className = ''
                     </div>
                     <div>
                       <label htmlFor="end-date" className="block text-xs font-medium text-muted-foreground">
-                        End Date
+                        {t('common:endDate')}
                       </label>
                       <input
                         id="end-date"
@@ -216,7 +220,7 @@ export function DateRangeSelector({ selectedRange, onRangeChange, className = ''
                       className="w-full px-2 py-1 text-xs bg-blue-600 text-white rounded hover:bg-blue-700 focus:outline-none focus:ring-1 focus:ring-blue-500"
                       disabled={!customStartDate || !customEndDate}
                     >
-                      Apply Custom Range
+                      {t('dashboard:dateRange.applyCustom')}
                     </button>
                   </div>
                 </div>

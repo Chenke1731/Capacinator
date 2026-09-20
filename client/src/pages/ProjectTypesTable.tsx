@@ -1,9 +1,11 @@
 import React from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { Palette, ExternalLink } from 'lucide-react';
 import { ProjectType } from '../types';
 import { api } from '../lib/api-client';
+import { getLocale } from '../i18n';
 import { InlineDataTable } from '../components/ui/InlineDataTable';
 import { LoadingSpinner } from '../components/ui/LoadingSpinner';
 import { ErrorMessage } from '../components/ui/ErrorMessage';
@@ -11,6 +13,7 @@ import { Column } from '../components/ui/DataTable';
 import '../components/ui/InlineDataTable.css';
 
 export default function ProjectTypesTable() {
+  const { t } = useTranslation();
   const queryClient = useQueryClient();
   const navigate = useNavigate();
 
@@ -60,7 +63,7 @@ export default function ProjectTypesTable() {
   const columns: Column<ProjectType>[] = [
     {
       key: 'name',
-      header: 'Type Name',
+      header: t('projects:projectTypes.typeName'),
       sortable: true,
       render: (value, row) => (
         <div className="project-type-name">
@@ -100,16 +103,16 @@ export default function ProjectTypesTable() {
     },
     {
       key: 'description',
-      header: 'Description',
+      header: t('common:description'),
       render: (value) => (
         <span className="text-muted">
-          {value || 'No description'}
+          {value || t('projects:projectTypes.noDescription')}
         </span>
       )
     },
     {
       key: 'color_code',
-      header: 'Color',
+      header: t('projects:projectTypes.color'),
       render: (value, row) => (
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <input
@@ -129,7 +132,7 @@ export default function ProjectTypesTable() {
               borderRadius: '4px',
               cursor: 'pointer'
             }}
-            title="Click to change color"
+            title={t('projects:projectTypes.clickToChangeColor')}
           />
           <span className="text-muted">{value}</span>
         </div>
@@ -137,8 +140,8 @@ export default function ProjectTypesTable() {
     },
     {
       key: 'created_at',
-      header: 'Created',
-      render: (value) => value ? new Date(value).toLocaleDateString() : '-',
+      header: t('common:created'),
+      render: (value) => value ? new Date(value).toLocaleDateString(getLocale()) : '-',
     }
   ];
 
@@ -147,12 +150,12 @@ export default function ProjectTypesTable() {
       key: 'name' as keyof ProjectType,
       type: 'text' as const,
       required: true,
-      placeholder: 'Type name...',
+      placeholder: t('projects:projectTypes.typeNamePlaceholder'),
     },
     {
       key: 'description' as keyof ProjectType,
       type: 'text' as const,
-      placeholder: 'Description...',
+      placeholder: t('projects:projectTypes.descriptionPlaceholder'),
     },
     {
       key: 'color_code' as keyof ProjectType,
@@ -166,7 +169,7 @@ export default function ProjectTypesTable() {
   }
 
   if (error) {
-    return <ErrorMessage message="Failed to load project types" />;
+    return <ErrorMessage message={t('projects:projectTypes.loadFailed')} />;
   }
 
   return (
@@ -175,9 +178,9 @@ export default function ProjectTypesTable() {
         <div className="header-content">
           <div className="flex items-center gap-3">
             <Palette size={24} />
-            <h1>Project Types</h1>
+            <h1>{t('projects:projectTypes.title')}</h1>
           </div>
-          <p className="text-muted">Manage project type definitions and colors</p>
+          <p className="text-muted">{t('projects:projectTypes.subtitle')}</p>
         </div>
       </div>
       
@@ -189,11 +192,11 @@ export default function ProjectTypesTable() {
         onUpdate={async (id, data) => await updateMutation.mutateAsync({ id, data })}
         onDelete={async (id) => {
           const projectType = projectTypes?.find(pt => pt.id === id);
-          if (projectType && confirm(`Are you sure you want to delete "${projectType.name}"? This action cannot be undone and may affect existing projects.`)) {
+          if (projectType && confirm(t('projects:projectTypes.deleteConfirmation', { name: projectType.name }))) {
             await deleteMutation.mutateAsync(id);
           }
         }}
-        addButtonText="Add Project Type"
+        addButtonText={t('projects:projectTypes.addProjectType')}
         emptyNewRow={{
           name: '',
           description: '',

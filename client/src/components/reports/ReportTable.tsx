@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { LucideIcon } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 interface Column {
   header: string;
@@ -35,10 +36,12 @@ export const ReportTable: React.FC<ReportTableProps> = ({
   data,
   rowClassName,
   actions,
-  emptyMessage = 'No data available',
+  emptyMessage,
   maxRows,
   className = ''
 }) => {
+  const { t } = useTranslation();
+  const resolvedEmptyMessage = emptyMessage ?? t('common:noData');
   const displayData = maxRows ? data.slice(0, maxRows) : data;
   
   const getValue = (row: any, accessor: string | ((row: any) => any)) => {
@@ -70,7 +73,7 @@ export const ReportTable: React.FC<ReportTableProps> = ({
     <div className={`report-table-container ${className}`}>
       <h3>{title}</h3>
       {displayData.length === 0 ? (
-        <div className="table-empty-state">{emptyMessage}</div>
+        <div className="table-empty-state">{resolvedEmptyMessage}</div>
       ) : (
         <table className="report-table">
           <thead>
@@ -80,7 +83,7 @@ export const ReportTable: React.FC<ReportTableProps> = ({
                   {column.header}
                 </th>
               ))}
-              {actions && <th>Actions</th>}
+              {actions && <th>{t('common:actions')}</th>}
             </tr>
           </thead>
           <tbody>

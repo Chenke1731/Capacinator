@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { AlertTriangle, X } from 'lucide-react';
 
 interface ConfirmDialogProps {
@@ -16,12 +17,15 @@ export const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
   isOpen,
   title,
   message,
-  confirmText = 'Confirm',
-  cancelText = 'Cancel',
+  confirmText,
+  cancelText,
   onConfirm,
   onCancel,
   variant = 'default'
 }) => {
+  const { t } = useTranslation();
+  const resolvedConfirmText = confirmText ?? t('common:confirm');
+  const resolvedCancelText = cancelText ?? t('common:cancel');
   const handleBackdropClick = React.useCallback((e: React.MouseEvent) => {
     if (e.target === e.currentTarget) {
       onCancel();
@@ -67,14 +71,14 @@ export const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
 
         <div className="modal-footer">
           <button type="button" className="btn btn-secondary" onClick={onCancel}>
-            {cancelText}
+            {resolvedCancelText}
           </button>
-          <button 
-            type="button" 
+          <button
+            type="button"
             className={`btn ${variant === 'danger' ? 'btn-danger' : 'btn-primary'}`}
             onClick={onConfirm}
           >
-            {confirmText}
+            {resolvedConfirmText}
           </button>
         </div>
       </div>

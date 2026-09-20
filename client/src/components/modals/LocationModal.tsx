@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Location } from '../../types';
 import { api } from '../../lib/api-client';
 import { Input } from '../ui/input';
@@ -27,6 +28,7 @@ interface FormErrors {
 }
 
 export function LocationModal({ location, onSave, onCancel }: LocationModalProps) {
+  const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(true);
   const [formData, setFormData] = useState<FormData>({
     name: '',
@@ -56,7 +58,7 @@ export function LocationModal({ location, onSave, onCancel }: LocationModalProps
     const newErrors: FormErrors = {};
 
     if (!formData.name.trim()) {
-      newErrors.name = 'Name is required';
+      newErrors.name = t('locations:modal.nameRequired');
     }
 
     setErrors(newErrors);
@@ -82,7 +84,7 @@ export function LocationModal({ location, onSave, onCancel }: LocationModalProps
 
       onSave();
     } catch (err) {
-      setErrors({ general: 'Failed to save location' });
+      setErrors({ general: t('locations:modal.saveFailed') });
       console.error('Error saving location:', err);
     } finally {
       setIsSubmitting(false);
@@ -112,11 +114,11 @@ export function LocationModal({ location, onSave, onCancel }: LocationModalProps
 
   return (
     <ModalFormLayout
-      title={isEditing ? 'Edit Location' : 'Add Location'}
+      title={isEditing ? t('locations:modal.editTitle') : t('locations:modal.createTitle')}
       description={
         isEditing
-          ? 'Update the location details below.'
-          : 'Fill in the information to create a new location.'
+          ? t('locations:modal.editDescription')
+          : t('locations:modal.createDescription')
       }
       isOpen={isOpen}
       onClose={handleClose}
@@ -128,8 +130,8 @@ export function LocationModal({ location, onSave, onCancel }: LocationModalProps
           isSubmitting={isSubmitting}
           isEditing={isEditing}
           onCancel={handleClose}
-          createText="Save Location"
-          updateText="Save Location"
+          createText={t('locations:modal.save')}
+          updateText={t('locations:modal.save')}
         />
       }
     >
@@ -137,13 +139,13 @@ export function LocationModal({ location, onSave, onCancel }: LocationModalProps
         <FormValidationErrors hasErrors={true} message={errors.general} />
       )}
 
-      <FormSection label="Name" required error={errors.name} htmlFor="name">
+      <FormSection label={t('common:name')} required error={errors.name} htmlFor="name">
         <Input
           id="name"
           type="text"
           value={formData.name}
           onChange={(e) => handleChange('name', e.target.value)}
-          placeholder="e.g., New York City, Remote, London"
+          placeholder={t('locations:modal.namePlaceholder')}
           className={errors.name ? 'border-destructive' : ''}
           aria-required="true"
           aria-invalid={!!errors.name}
@@ -151,12 +153,12 @@ export function LocationModal({ location, onSave, onCancel }: LocationModalProps
         />
       </FormSection>
 
-      <FormSection label="Description" htmlFor="description">
+      <FormSection label={t('common:description')} htmlFor="description">
         <Textarea
           id="description"
           value={formData.description}
           onChange={(e) => handleChange('description', e.target.value)}
-          placeholder="Brief description of this location..."
+          placeholder={t('locations:modal.descriptionPlaceholder')}
           rows={3}
         />
       </FormSection>

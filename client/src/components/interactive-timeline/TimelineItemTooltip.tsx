@@ -1,5 +1,7 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { format } from 'date-fns';
+import { getDateFnsLocale } from '../../i18n';
 
 interface PhaseData {
   phase_name: string;
@@ -20,6 +22,7 @@ interface TimelineItemTooltipProps {
 }
 
 export function TimelineItemTooltip({ phase, mode }: TimelineItemTooltipProps) {
+  const { t } = useTranslation();
   const startDate = new Date(phase.start_date);
   const endDate = new Date(phase.end_date);
   const duration = Math.ceil((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24));
@@ -61,17 +64,17 @@ export function TimelineItemTooltip({ phase, mode }: TimelineItemTooltipProps) {
           marginBottom: '8px',
           fontStyle: 'italic'
         }}>
-          Project ID: {phase.projectId}
+          {t('phases:tooltip.projectId', { id: phase.projectId })}
         </div>
       )}
 
       {/* Timeline Information */}
       <div style={{ marginBottom: '8px' }}>
         <div style={{ marginBottom: '2px' }}>
-          <span style={{ opacity: 0.8 }}>Start:</span> {format(startDate, 'MMM dd, yyyy (EEE)')}
+          <span style={{ opacity: 0.8 }}>{t('phases:inline.startLabel')}</span> {format(startDate, 'MMM dd, yyyy (EEE)', { locale: getDateFnsLocale() })}
         </div>
         <div style={{ marginBottom: '2px' }}>
-          <span style={{ opacity: 0.8 }}>End:</span> {format(endDate, 'MMM dd, yyyy (EEE)')}
+          <span style={{ opacity: 0.8 }}>{t('phases:inline.endLabel')}</span> {format(endDate, 'MMM dd, yyyy (EEE)', { locale: getDateFnsLocale() })}
         </div>
         <div style={{
           display: 'flex',
@@ -79,8 +82,8 @@ export function TimelineItemTooltip({ phase, mode }: TimelineItemTooltipProps) {
           fontSize: '12px',
           marginTop: '4px'
         }}>
-          <span><span style={{ opacity: 0.8 }}>Duration:</span> {duration} days</span>
-          <span style={{ opacity: 0.7 }}>~{workingDays} work days</span>
+          <span><span style={{ opacity: 0.8 }}>{t('phases:tooltip.durationLabel')}</span> {t('phases:manager.days', { count: duration })}</span>
+          <span style={{ opacity: 0.7 }}>{t('phases:tooltip.workDays', { count: workingDays })}</span>
         </div>
       </div>
 
@@ -93,7 +96,7 @@ export function TimelineItemTooltip({ phase, mode }: TimelineItemTooltipProps) {
             fontWeight: 600,
             marginBottom: '3px'
           }}>
-            Description:
+            {t('phases:tooltip.descriptionLabel')}
           </div>
           <div style={{
             fontSize: '12px',
@@ -114,7 +117,7 @@ export function TimelineItemTooltip({ phase, mode }: TimelineItemTooltipProps) {
             fontWeight: 600,
             marginBottom: '3px'
           }}>
-            Notes:
+            {t('phases:tooltip.notesLabel')}
           </div>
           <div style={{
             fontSize: '12px',
@@ -133,7 +136,7 @@ export function TimelineItemTooltip({ phase, mode }: TimelineItemTooltipProps) {
           opacity: 0.7,
           marginBottom: '8px'
         }}>
-          Phase #{phase.phase_order || phase.order_index} in project sequence
+          {t('phases:tooltip.phaseSequence', { order: phase.phase_order || phase.order_index })}
         </div>
       )}
 
@@ -146,10 +149,10 @@ export function TimelineItemTooltip({ phase, mode }: TimelineItemTooltipProps) {
             fontWeight: 600,
             marginBottom: '3px'
           }}>
-            Dependencies:
+            {t('phases:tooltip.dependenciesLabel')}
           </div>
           <div style={{ fontSize: '11px', opacity: 0.7 }}>
-            {phase.dependencies.length} dependency/dependencies
+            {t('phases:tooltip.dependencyCount', { count: phase.dependencies.length })}
           </div>
         </div>
       )}
@@ -164,8 +167,8 @@ export function TimelineItemTooltip({ phase, mode }: TimelineItemTooltipProps) {
         textAlign: 'center'
       }}>
         {mode === 'phase-manager' ?
-          'Double-click to edit \u2022 Right-click for options' :
-          'Click to view project details'
+          t('phases:tooltip.hintEdit') :
+          t('phases:tooltip.hintView')
         }
       </div>
     </div>

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
+import { useTranslation } from 'react-i18next';
 import { api } from '../../lib/api-client';
 import { queryKeys } from '../../lib/queryKeys';
 import {
@@ -40,14 +41,6 @@ interface PersonRoleModalProps {
   } | null;
 }
 
-const PROFICIENCY_LEVELS = [
-  { value: '1', label: '1 - Novice' },
-  { value: '2', label: '2 - Beginner' },
-  { value: '3', label: '3 - Competent' },
-  { value: '4', label: '4 - Proficient' },
-  { value: '5', label: '5 - Expert' }
-];
-
 const initialValues: PersonRoleFormData = {
   role_id: '',
   proficiency_level: '3',
@@ -63,9 +56,19 @@ export default function PersonRoleModal({
   personId,
   editingRole
 }: PersonRoleModalProps) {
+  const { t } = useTranslation();
   const [formData, setFormData] = useState<PersonRoleFormData>(initialValues);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const isEditing = !!editingRole;
+
+  // Defined inside the component so labels re-resolve when the UI language changes
+  const PROFICIENCY_LEVELS = [
+    { value: '1', label: t('people:roleModal.proficiency.1') },
+    { value: '2', label: t('people:roleModal.proficiency.2') },
+    { value: '3', label: t('people:roleModal.proficiency.3') },
+    { value: '4', label: t('people:roleModal.proficiency.4') },
+    { value: '5', label: t('people:roleModal.proficiency.5') }
+  ];
 
   // Fetch available roles
   const { data: roles, isLoading: rolesLoading } = useQuery({
@@ -137,25 +140,25 @@ export default function PersonRoleModal({
     <Dialog open={isOpen} onOpenChange={(open) => !open && handleClose()}>
       <DialogContent className="max-w-md">
         <DialogHeader>
-          <DialogTitle>{isEditing ? 'Edit Role' : 'Add Role'}</DialogTitle>
+          <DialogTitle>{isEditing ? t('people:roleModal.editTitle') : t('people:roleModal.addTitle')}</DialogTitle>
           <DialogDescription>
             {isEditing
-              ? 'Update the role details for this person.'
-              : 'Add a new role for this person.'}
+              ? t('people:roleModal.editDescription')
+              : t('people:roleModal.addDescription')}
           </DialogDescription>
         </DialogHeader>
         <div className="py-4">
 
           <form onSubmit={handleSubmit} className="space-y-6">
           <div className="space-y-2">
-            <Label htmlFor="role_id">Role <span aria-hidden="true">*</span><span className="sr-only">(required)</span></Label>
+            <Label htmlFor="role_id">{t('common:role')} <span aria-hidden="true">*</span><span className="sr-only">{t('people:requiredSrOnly')}</span></Label>
             <Select
               value={formData.role_id}
               onValueChange={(value) => handleChange('role_id', value)}
               disabled={isSubmitting || rolesLoading}
             >
               <SelectTrigger id="role_id" aria-required="true">
-                <SelectValue placeholder="Select a role..." />
+                <SelectValue placeholder={t('people:roleModal.selectRole')} />
               </SelectTrigger>
               <SelectContent>
                 {Array.isArray(roles) && roles.map((role: any) => (
@@ -168,7 +171,7 @@ export default function PersonRoleModal({
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="proficiency_level">Proficiency Level <span aria-hidden="true">*</span><span className="sr-only">(required)</span></Label>
+            <Label htmlFor="proficiency_level">{t('people:roleModal.proficiencyLevel')} <span aria-hidden="true">*</span><span className="sr-only">{t('people:requiredSrOnly')}</span></Label>
             <Select
               value={formData.proficiency_level}
               onValueChange={(value) => handleChange('proficiency_level', value)}
@@ -197,17 +200,17 @@ export default function PersonRoleModal({
                 aria-describedby="is_primary-description"
               />
               <Label htmlFor="is_primary" className="cursor-pointer">
-                Set as Primary Role
+                {t('people:roleModal.setAsPrimary')}
               </Label>
             </div>
             <p id="is_primary-description" className="text-sm text-muted-foreground">
-              If checked, this role will become the person's primary role.
+              {t('people:roleModal.primaryDescription')}
             </p>
           </div>
 
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="start_date">Start Date</Label>
+              <Label htmlFor="start_date">{t('common:startDate')}</Label>
               <Input
                 type="date"
                 id="start_date"
@@ -218,7 +221,7 @@ export default function PersonRoleModal({
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="end_date">End Date</Label>
+              <Label htmlFor="end_date">{t('common:endDate')}</Label>
               <Input
                 type="date"
                 id="end_date"
@@ -231,11 +234,11 @@ export default function PersonRoleModal({
 
             <DialogFooter>
               <Button type="button" variant="outline" onClick={handleClose} disabled={isSubmitting}>
-                Cancel
+                {t('common:cancel')}
               </Button>
               <Button type="submit" disabled={isSubmitting || !formData.role_id}>
                 {isSubmitting && <Spinner className="mr-2" size="sm" />}
-                {isEditing ? 'Update Role' : 'Add Role'}
+                {isEditing ? t('people:roleModal.updateRole') : t('people:roleModal.addTitle')}
               </Button>
             </DialogFooter>
           </form>

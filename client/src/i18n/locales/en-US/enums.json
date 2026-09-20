@@ -1,0 +1,50 @@
+{
+  "projectStatus": {
+    "planned": "Planned",
+    "active": "Active",
+    "on_hold": "On Hold",
+    "completed": "Completed",
+    "cancelled": "Cancelled"
+  },
+  "scenarioType": {
+    "baseline": "Baseline",
+    "branch": "Branch",
+    "sandbox": "Sandbox"
+  },
+  "scenarioStatus": {
+    "active": "Active",
+    "archived": "Archived",
+    "merged": "Merged"
+  },
+  "allocationStatus": {
+    "OVER_ALLOCATED": "Over-allocated",
+    "FULLY_ALLOCATED": "Fully allocated",
+    "PARTIALLY_ALLOCATED": "Partially allocated",
+    "UNDER_ALLOCATED": "Under-allocated"
+  },
+  "capacityHealth": {
+    "GAP": "Gap",
+    "TIGHT": "Tight",
+    "OK": "OK"
+  },
+  "healthStatus": {
+    "PLANNING": "Planning",
+    "NOT_STARTED": "Not Started",
+    "OVERDUE": "Overdue",
+    "NO_RESOURCES": "No Resources",
+    "NO_TIMELINE": "No Timeline",
+    "ACTIVE": "Active"
+  },
+  "resources": {
+    "project": "Project",
+    "person": "Person",
+    "role": "Role",
+    "location": "Location",
+    "projectType": "Project type",
+    "scenario": "Scenario",
+    "assignment": "Assignment",
+    "phase": "Phase",
+    "resource": "Resource",
+    "user": "User"
+  }
+}

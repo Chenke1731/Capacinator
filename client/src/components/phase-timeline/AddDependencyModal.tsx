@@ -1,10 +1,7 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { X } from 'lucide-react';
 import type { Phase } from '../../hooks/usePhaseTimelineData';
-
-const DEPENDENCY_TYPE_LABELS = {
-  'FS': 'Finish-to-Start'
-};
 
 interface DependencyFormData {
   predecessor_phase_timeline_id: string;
@@ -32,6 +29,13 @@ export function AddDependencyModal({
   onClose,
   isPending = false
 }: AddDependencyModalProps) {
+  const { t } = useTranslation();
+
+  // Moved inside the component so labels follow the active language
+  const DEPENDENCY_TYPE_LABELS = {
+    'FS': t('phases:dependency.finishToStart')
+  };
+
   if (!isOpen) return null;
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -43,7 +47,7 @@ export function AddDependencyModal({
     <div className="modal-overlay">
       <div className="modal-content">
         <div className="modal-header">
-          <h3>Add Dependency</h3>
+          <h3>{t('phases:visual.addDependency')}</h3>
           <button onClick={onClose} className="modal-close">
             <X size={20} />
           </button>
@@ -51,14 +55,14 @@ export function AddDependencyModal({
         <div className="modal-body">
           <form onSubmit={handleSubmit}>
             <div className="form-group">
-              <label className="form-label">Predecessor Phase</label>
+              <label className="form-label">{t('phases:dependency.predecessorPhase')}</label>
               <select
                 value={formData.predecessor_phase_timeline_id}
                 onChange={(e) => onFormChange({ predecessor_phase_timeline_id: e.target.value })}
                 className="form-select"
                 required
               >
-                <option value="">Select predecessor phase</option>
+                <option value="">{t('phases:dependency.selectPredecessorPhase')}</option>
                 {phases.map((phase: Phase) => (
                   <option key={phase.id} value={phase.id}>
                     {phase.phase_name}
@@ -67,14 +71,14 @@ export function AddDependencyModal({
               </select>
             </div>
             <div className="form-group">
-              <label className="form-label">Successor Phase</label>
+              <label className="form-label">{t('phases:dependency.successorPhase')}</label>
               <select
                 value={formData.successor_phase_timeline_id}
                 onChange={(e) => onFormChange({ successor_phase_timeline_id: e.target.value })}
                 className="form-select"
                 required
               >
-                <option value="">Select successor phase</option>
+                <option value="">{t('phases:dependency.selectSuccessorPhase')}</option>
                 {phases
                   .filter((phase: Phase) => phase.id !== formData.predecessor_phase_timeline_id)
                   .map((phase: Phase) => (
@@ -86,7 +90,7 @@ export function AddDependencyModal({
             </div>
             <div className="form-row">
               <div className="form-group">
-                <label className="form-label">Dependency Type</label>
+                <label className="form-label">{t('phases:dependency.typeLabel')}</label>
                 <select
                   value={formData.dependency_type}
                   onChange={(e) =>
@@ -105,7 +109,7 @@ export function AddDependencyModal({
                 </select>
               </div>
               <div className="form-group">
-                <label className="form-label">Lag Days</label>
+                <label className="form-label">{t('phases:dependency.lagDays')}</label>
                 <input
                   type="number"
                   value={formData.lag_days}
@@ -117,10 +121,10 @@ export function AddDependencyModal({
             </div>
             <div className="modal-actions">
               <button type="button" onClick={onClose} className="btn btn-secondary">
-                Cancel
+                {t('common:cancel')}
               </button>
               <button type="submit" className="btn btn-primary" disabled={isPending}>
-                Create Dependency
+                {t('phases:dependency.createDependency')}
               </button>
             </div>
           </form>

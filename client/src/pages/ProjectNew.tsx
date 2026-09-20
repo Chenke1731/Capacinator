@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useTranslation, Trans } from 'react-i18next';
 import { ArrowLeft, Save, X } from 'lucide-react';
 import { api } from '../lib/api-client';
 import { queryKeys } from '../lib/queryKeys';
@@ -21,6 +22,7 @@ interface ProjectFormData {
 export function ProjectNew() {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
+  const { t } = useTranslation();
   
   const [formData, setFormData] = useState<ProjectFormData>({
     name: '',
@@ -93,9 +95,9 @@ export function ProjectNew() {
     
     // Basic validation
     const newErrors: Record<string, string> = {};
-    if (!formData.name.trim()) newErrors.name = 'Project name is required';
-    if (!formData.project_type_id) newErrors.project_type_id = 'Project type is required';
-    if (!formData.location_id) newErrors.location_id = 'Location is required';
+    if (!formData.name.trim()) newErrors.name = t('projects:validation.nameRequired');
+    if (!formData.project_type_id) newErrors.project_type_id = t('projects:validation.typeRequired');
+    if (!formData.location_id) newErrors.location_id = t('projects:validation.locationRequired');
 
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
@@ -181,20 +183,20 @@ export function ProjectNew() {
           <button className="btn btn-icon" onClick={handleCancel}>
             <ArrowLeft size={20} />
           </button>
-          <h1>New Project</h1>
+          <h1>{t('projects:newProject')}</h1>
         </div>
         <div className="header-actions">
           <button className="btn btn-secondary" onClick={handleCancel}>
             <X size={20} />
-            Cancel
+            {t('common:cancel')}
           </button>
-          <button 
-            className="btn btn-primary" 
+          <button
+            className="btn btn-primary"
             onClick={handleSubmit}
             disabled={createProjectMutation.isPending}
           >
             <Save size={20} />
-            {createProjectMutation.isPending ? 'Creating...' : 'Create Project'}
+            {createProjectMutation.isPending ? t('projects:creating') : t('projects:createProject')}
           </button>
         </div>
       </div>
@@ -204,51 +206,51 @@ export function ProjectNew() {
           {/* Basic Information Section */}
           <div className="detail-section">
             <div className="section-header">
-              <h2>Project Information</h2>
+              <h2>{t('projects:projectInformation')}</h2>
             </div>
-            
+
             <div className="section-content">
               <div className="info-grid">
                 <div className="info-item">
-                  <label>Project Name *</label>
+                  <label>{t('projects:projectName')} *</label>
                   <input
                     type="text"
                     value={formData.name}
                     onChange={(e) => handleChange('name', e.target.value)}
                     className={`form-input ${errors.name ? 'error' : ''}`}
-                    placeholder="Enter project name"
+                    placeholder={t('projects:placeholder.enterName')}
                   />
                   {errors.name && <span className="error-text">{errors.name}</span>}
                 </div>
 
                 <div className="info-item">
-                  <label>Project Type *</label>
+                  <label>{t('projects:projectType')} *</label>
                   <select
                     name="project_type_id"
                     value={formData.project_type_id}
                     onChange={(e) => handleChange('project_type_id', e.target.value)}
                     className={`form-select ${errors.project_type_id ? 'error' : ''}`}
                   >
-                    <option value="">Select project type</option>
+                    <option value="">{t('projects:placeholder.selectProjectType')}</option>
                     {filteredProjectTypes?.map((type: any) => (
                       <option key={type.id} value={type.id}>{type.name}</option>
                     ))}
                   </select>
                   {errors.project_type_id && <span className="error-text">{errors.project_type_id}</span>}
                   {formData.location_id && filteredProjectTypes.length === 0 && (
-                    <span className="warning-text">No project types available for selected location</span>
+                    <span className="warning-text">{t('projects:noTypesForLocation')}</span>
                   )}
                 </div>
 
                 <div className="info-item">
-                  <label>Location *</label>
+                  <label>{t('projects:location')} *</label>
                   <select
                     name="location_id"
                     value={formData.location_id}
                     onChange={(e) => handleChange('location_id', e.target.value)}
                     className={`form-select ${errors.location_id ? 'error' : ''}`}
                   >
-                    <option value="">Select location</option>
+                    <option value="">{t('projects:placeholder.selectLocation')}</option>
                     {locations?.map((loc: any) => (
                       <option key={loc.id} value={loc.id}>{loc.name}</option>
                     ))}
@@ -257,52 +259,52 @@ export function ProjectNew() {
                 </div>
 
                 <div className="info-item">
-                  <label>Priority</label>
+                  <label>{t('projects:priority')}</label>
                   <select
                     value={formData.priority}
                     onChange={(e) => handleChange('priority', parseInt(e.target.value, 10))}
                     className="form-select"
                   >
-                    <option value={1}>Critical</option>
-                    <option value={2}>High</option>
-                    <option value={3}>Medium</option>
-                    <option value={4}>Low</option>
+                    <option value={1}>{t('projects:priorityLevel.critical')}</option>
+                    <option value={2}>{t('projects:priorityLevel.high')}</option>
+                    <option value={3}>{t('projects:priorityLevel.medium')}</option>
+                    <option value={4}>{t('projects:priorityLevel.low')}</option>
                   </select>
                 </div>
 
                 <div className="info-item">
-                  <label>Owner</label>
+                  <label>{t('projects:owner')}</label>
                   <select
                     name="owner_id"
                     value={formData.owner_id}
                     onChange={(e) => handleChange('owner_id', e.target.value)}
                     className="form-select"
                   >
-                    <option value="">No owner</option>
+                    <option value="">{t('projects:noOwner')}</option>
                     {filteredOwners?.map((person: any) => (
                       <option key={person.id} value={person.id}>
-                        {person.name} {person.location_id === formData.location_id ? '(Same Location)' : ''}
+                        {person.name} {person.location_id === formData.location_id ? t('projects:sameLocation') : ''}
                       </option>
                     ))}
                   </select>
                   {(formData.location_id || formData.project_type_id) && filteredOwners.length === 0 && (
-                    <span className="info-text">No suitable owners found for selected criteria</span>
+                    <span className="info-text">{t('projects:noSuitableOwners')}</span>
                   )}
                 </div>
 
                 <div className="info-item">
-                  <label>External ID</label>
+                  <label>{t('projects:externalId')}</label>
                   <input
                     type="text"
                     value={formData.external_id}
                     onChange={(e) => handleChange('external_id', e.target.value)}
                     className="form-input"
-                    placeholder="External reference ID"
+                    placeholder={t('projects:placeholder.externalReferenceId')}
                   />
                 </div>
 
                 <div className="info-item">
-                  <label>Include in Demand</label>
+                  <label>{t('projects:includeInDemand')}</label>
                   <input
                     type="checkbox"
                     checked={formData.include_in_demand}
@@ -312,24 +314,24 @@ export function ProjectNew() {
                 </div>
 
                 <div className="info-item info-item-full">
-                  <label>Description</label>
+                  <label>{t('common:description')}</label>
                   <textarea
                     value={formData.description}
                     onChange={(e) => handleChange('description', e.target.value)}
                     className="form-textarea"
                     rows={3}
-                    placeholder="Project description"
+                    placeholder={t('projects:placeholder.projectDescription')}
                   />
                 </div>
 
                 <div className="info-item info-item-full">
-                  <label>Data Restrictions</label>
+                  <label>{t('projects:dataRestrictions')}</label>
                   <textarea
                     value={formData.data_restrictions}
                     onChange={(e) => handleChange('data_restrictions', e.target.value)}
                     className="form-textarea"
                     rows={2}
-                    placeholder="Any data handling restrictions"
+                    placeholder={t('projects:placeholder.dataRestrictionsHint')}
                   />
                 </div>
               </div>
@@ -337,13 +339,25 @@ export function ProjectNew() {
               {/* Project Preview */}
               {formData.name && formData.location_id && formData.project_type_id && (
                 <div className="project-preview">
-                  <h4>Project Preview</h4>
+                  <h4>{t('projects:preview.title')}</h4>
                   <p>
-                    <strong>{formData.name}</strong> will be created as a{' '}
-                    <strong>{projectTypes?.find((t: any) => t.id === formData.project_type_id)?.name}</strong> project
-                    at <strong>{locations?.find((l: any) => l.id === formData.location_id)?.name}</strong>
+                    <Trans
+                      i18nKey="projects:preview.sentence"
+                      t={t}
+                      values={{
+                        name: formData.name,
+                        type: projectTypes?.find((t: any) => t.id === formData.project_type_id)?.name,
+                        location: locations?.find((l: any) => l.id === formData.location_id)?.name
+                      }}
+                      components={{ strong: <strong /> }}
+                    />
                     {formData.owner_id && (
-                      <span> with <strong>{people?.find((p: any) => p.id === formData.owner_id)?.name}</strong> as owner</span>
+                      <Trans
+                        i18nKey="projects:preview.ownerSuffix"
+                        t={t}
+                        values={{ owner: people?.find((p: any) => p.id === formData.owner_id)?.name }}
+                        components={{ strong: <strong /> }}
+                      />
                     )}
                   </p>
                 </div>
@@ -352,16 +366,16 @@ export function ProjectNew() {
               {/* Filtering Information */}
               {(formData.location_id || formData.project_type_id) && (
                 <div className="filtering-info">
-                  <h4>Active Filters</h4>
+                  <h4>{t('projects:activeFilters')}</h4>
                   <ul>
                     {formData.location_id && (
-                      <li>Project types filtered by location: <strong>{locations?.find((l: any) => l.id === formData.location_id)?.name}</strong></li>
+                      <li>{t('projects:filterInfo.typesByLocation')} <strong>{locations?.find((l: any) => l.id === formData.location_id)?.name}</strong></li>
                     )}
                     {formData.location_id && (
-                      <li>Owners prioritized from location: <strong>{locations?.find((l: any) => l.id === formData.location_id)?.name}</strong></li>
+                      <li>{t('projects:filterInfo.ownersByLocation')} <strong>{locations?.find((l: any) => l.id === formData.location_id)?.name}</strong></li>
                     )}
                     {formData.project_type_id && (
-                      <li>Owners filtered by expertise in: <strong>{projectTypes?.find((t: any) => t.id === formData.project_type_id)?.name}</strong></li>
+                      <li>{t('projects:filterInfo.ownersByExpertise')} <strong>{projectTypes?.find((t: any) => t.id === formData.project_type_id)?.name}</strong></li>
                     )}
                   </ul>
                 </div>
@@ -372,7 +386,7 @@ export function ProjectNew() {
           {/* Error display */}
           {createProjectMutation.isError && (
             <div className="error-message">
-              Failed to create project. Please check your inputs and try again.
+              {t('projects:createFailed')}
             </div>
           )}
         </form>

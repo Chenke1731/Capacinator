@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { X } from 'lucide-react';
 
 interface PhaseFormData {
@@ -24,6 +25,8 @@ export function AddPhaseModal({
   onClose,
   isPending = false
 }: AddPhaseModalProps) {
+  const { t } = useTranslation();
+
   if (!isOpen) return null;
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -35,7 +38,7 @@ export function AddPhaseModal({
     <div className="modal-overlay">
       <div className="modal-content">
         <div className="modal-header">
-          <h3>Add New Phase</h3>
+          <h3>{t('phases:modal.addNewPhase')}</h3>
           <button onClick={onClose} className="modal-close">
             <X size={20} />
           </button>
@@ -43,7 +46,7 @@ export function AddPhaseModal({
         <div className="modal-body">
           <form onSubmit={handleSubmit}>
             <div className="form-group">
-              <label className="form-label">Phase Name</label>
+              <label className="form-label">{t('phases:manager.phaseName')}</label>
               <input
                 type="text"
                 value={formData.phase_name}
@@ -54,7 +57,7 @@ export function AddPhaseModal({
             </div>
             <div className="form-row">
               <div className="form-group">
-                <label className="form-label">Start Date</label>
+                <label className="form-label">{t('common:startDate')}</label>
                 <input
                   type="date"
                   value={formData.start_date}
@@ -64,7 +67,7 @@ export function AddPhaseModal({
                 />
               </div>
               <div className="form-group">
-                <label className="form-label">End Date</label>
+                <label className="form-label">{t('common:endDate')}</label>
                 <input
                   type="date"
                   value={formData.end_date}
@@ -77,10 +80,10 @@ export function AddPhaseModal({
             </div>
             <div className="modal-actions">
               <button type="button" onClick={onClose} className="btn btn-secondary">
-                Cancel
+                {t('common:cancel')}
               </button>
               <button type="submit" className="btn btn-primary" disabled={isPending}>
-                Create Phase
+                {t('phases:manager.createPhase')}
               </button>
             </div>
           </form>

@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useSearchParams } from 'react-router-dom';
 import { api } from '../lib/api-client';
 import { useBookmarkableTabs } from '../hooks/useBookmarkableTabs';
+import { getLocale } from '../i18n';
+import { scenarioTypeLabel, scenarioStatusLabel } from '../lib/enum-labels';
 import './ScenarioComparison.css';
 
 interface Scenario {
@@ -70,22 +73,24 @@ interface ComparisonData {
   };
 }
 
-// Define scenario comparison tabs configuration
-const comparisonTabs = [
-  { id: 'summary', label: 'Summary' },
-  { id: 'assignments', label: 'Assignments' },
-  { id: 'phases', label: 'Phases' },
-  { id: 'projects', label: 'Projects' },
-  { id: 'metrics', label: 'Metrics' }
-];
-
 export const ScenarioComparison: React.FC = () => {
+  const { t } = useTranslation();
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const [comparisonData, setComparisonData] = useState<ComparisonData | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  
+
+  // Tab labels are localized, so the config must live inside the component —
+  // a module-level constant would freeze the labels at import time.
+  const comparisonTabs = [
+    { id: 'summary', label: t('scenarios:comparison.tabs.summary') },
+    { id: 'assignments', label: t('scenarios:comparison.tabs.assignments') },
+    { id: 'phases', label: t('scenarios:comparison.tabs.phases') },
+    { id: 'projects', label: t('scenarios:comparison.tabs.projects') },
+    { id: 'metrics', label: t('scenarios:comparison.tabs.metrics') }
+  ];
+
   // Use bookmarkable tabs for scenario comparison
   const { setActiveTab, isActiveTab } = useBookmarkableTabs({
     tabs: comparisonTabs,
@@ -111,7 +116,7 @@ export const ScenarioComparison: React.FC = () => {
       const response = await api.scenarios.compare(sourceId, targetId);
       setComparisonData(response.data);
     } catch (err: any) {
-      setError(err.response?.data?.error || 'Failed to load comparison');
+      setError(err.response?.data?.error || t('scenarios:comparison.loadFailed'));
     } finally {
       setLoading(false);
     }
@@ -138,13 +143,13 @@ export const ScenarioComparison: React.FC = () => {
       <p className="scenario-description">{scenario.description}</p>
       <div className="scenario-badges">
         <span className={`badge scenario-type ${scenario.scenario_type}`}>
-          {scenario.scenario_type.toUpperCase()}
+          {scenarioTypeLabel(scenario.scenario_type).toUpperCase()}
         </span>
         <span className={`badge scenario-status ${scenario.status}`}>
-          {scenario.status.toUpperCase()}
+          {scenarioStatusLabel(scenario.status).toUpperCase()}
         </span>
         <span className="badge scenario-date">
-          {new Date(scenario.created_at).toLocaleDateString()}
+          {new Date(scenario.created_at).toLocaleDateString(getLocale())}
         </span>
       </div>
     </div>
@@ -160,44 +165,44 @@ export const ScenarioComparison: React.FC = () => {
       <div className="summary-tab">
         <div className="summary-cards">
           <div className="summary-card">
-            <h3>Total Changes</h3>
+            <h3>{t('scenarios:comparison.totalChanges')}</h3>
             <div className="summary-number">{totalChanges}</div>
             <div className="summary-breakdown">
-              <div>Assignments: {assignments.added.length + assignments.modified.length + assignments.removed.length}</div>
-              <div>Phases: {phases.added.length + phases.modified.length + phases.removed.length}</div>
-              <div>Projects: {projects.added.length + projects.modified.length + projects.removed.length}</div>
+              <div>{t('scenarios:comparison.assignmentsCount', { count: assignments.added.length + assignments.modified.length + assignments.removed.length })}</div>
+              <div>{t('scenarios:comparison.phasesCount', { count: phases.added.length + phases.modified.length + phases.removed.length })}</div>
+              <div>{t('scenarios:comparison.projectsCount', { count: projects.added.length + projects.modified.length + projects.removed.length })}</div>
             </div>
           </div>
 
           <div className="summary-card">
-            <h3>Assignment Changes</h3>
+            <h3>{t('scenarios:comparison.assignmentChanges')}</h3>
             <div className="change-breakdown">
               <div className="change-item added">
                 <span className="change-count">{assignments.added.length}</span>
-                <span className="change-label">Added</span>
+                <span className="change-label">{t('scenarios:comparison.added')}</span>
               </div>
               <div className="change-item modified">
                 <span className="change-count">{assignments.modified.length}</span>
-                <span className="change-label">Modified</span>
+                <span className="change-label">{t('scenarios:comparison.modified')}</span>
               </div>
               <div className="change-item removed">
                 <span className="change-count">{assignments.removed.length}</span>
-                <span className="change-label">Removed</span>
+                <span className="change-label">{t('scenarios:comparison.removed')}</span>
               </div>
             </div>
           </div>
 
           <div className="summary-card">
-            <h3>Impact Metrics</h3>
+            <h3>{t('scenarios:comparison.impactMetrics')}</h3>
             <div className="metrics-preview">
               {comparisonData.metrics.utilization_impact.team_utilization_change && (
-                <div>Utilization: {comparisonData.metrics.utilization_impact.team_utilization_change}</div>
+                <div>{t('scenarios:comparison.utilization', { value: comparisonData.metrics.utilization_impact.team_utilization_change })}</div>
               )}
               {comparisonData.metrics.timeline_impact.projects_affected !== undefined && (
-                <div>Projects Affected: {comparisonData.metrics.timeline_impact.projects_affected}</div>
+                <div>{t('scenarios:comparison.projectsAffectedCount', { count: comparisonData.metrics.timeline_impact.projects_affected })}</div>
               )}
               {comparisonData.metrics.timeline_impact.projects_at_risk !== undefined && (
-                <div>Projects at Risk: {comparisonData.metrics.timeline_impact.projects_at_risk}</div>
+                <div>{t('scenarios:comparison.projectsAtRiskCount', { count: comparisonData.metrics.timeline_impact.projects_at_risk })}</div>
               )}
             </div>
           </div>
@@ -205,8 +210,8 @@ export const ScenarioComparison: React.FC = () => {
 
         {totalChanges === 0 && (
           <div className="no-changes-message">
-            <h3>No Differences Found</h3>
-            <p>These two scenarios are identical in terms of assignments, phases, and project details.</p>
+            <h3>{t('scenarios:comparison.noDifferencesTitle')}</h3>
+            <p>{t('scenarios:comparison.noDifferencesDetail')}</p>
           </div>
         )}
       </div>
@@ -220,7 +225,7 @@ export const ScenarioComparison: React.FC = () => {
     const totalChanges = assignments.added.length + assignments.modified.length + assignments.removed.length;
 
     if (totalChanges === 0) {
-      return <div className="no-changes">No assignment differences found</div>;
+      return <div className="no-changes">{t('scenarios:compare.noDifferences')}</div>;
     }
 
     return (
@@ -229,7 +234,7 @@ export const ScenarioComparison: React.FC = () => {
           <div className="change-section added">
             <h3 className="change-header">
               <span className="change-icon">+</span>
-              Added Assignments ({assignments.added.length})
+              {t('scenarios:comparison.addedAssignments', { count: assignments.added.length })}
             </h3>
             <div className="assignment-list">
               {assignments.added.map((assignment, index) => (
@@ -242,7 +247,7 @@ export const ScenarioComparison: React.FC = () => {
                     <span className="allocation">{assignment.allocation_percentage}%</span>
                     {assignment.computed_start_date && assignment.computed_end_date && (
                       <span className="dates">
-                        {assignment.computed_start_date} to {assignment.computed_end_date}
+                        {t('scenarios:comparison.dateRange', { start: assignment.computed_start_date, end: assignment.computed_end_date })}
                       </span>
                     )}
                   </div>
@@ -256,7 +261,7 @@ export const ScenarioComparison: React.FC = () => {
           <div className="change-section modified">
             <h3 className="change-header">
               <span className="change-icon">~</span>
-              Modified Assignments ({assignments.modified.length})
+              {t('scenarios:comparison.modifiedAssignments', { count: assignments.modified.length })}
             </h3>
             <div className="assignment-list">
               {assignments.modified.map((assignment, index) => (
@@ -267,7 +272,7 @@ export const ScenarioComparison: React.FC = () => {
                   <div className="assignment-changes">
                     {assignment.allocation_change && (
                       <div className="change-detail">
-                        <span className="change-type">Allocation:</span>
+                        <span className="change-type">{t('scenarios:comparison.allocationLabel')}</span>
                         <span className="old-value">{assignment.old_allocation}%</span>
                         <span className="arrow">→</span>
                         <span className="new-value">{assignment.new_allocation}%</span>
@@ -275,7 +280,7 @@ export const ScenarioComparison: React.FC = () => {
                     )}
                     {assignment.role_change && (
                       <div className="change-detail">
-                        <span className="change-type">Role:</span>
+                        <span className="change-type">{t('scenarios:comparison.roleLabel')}</span>
                         <span className="old-value">{assignment.old_role}</span>
                         <span className="arrow">→</span>
                         <span className="new-value">{assignment.new_role}</span>
@@ -283,7 +288,7 @@ export const ScenarioComparison: React.FC = () => {
                     )}
                     {assignment.date_change && (
                       <div className="change-detail">
-                        <span className="change-type">Dates:</span>
+                        <span className="change-type">{t('scenarios:comparison.datesLabel')}</span>
                         <span className="old-value">{assignment.old_dates}</span>
                         <span className="arrow">→</span>
                         <span className="new-value">{assignment.new_dates}</span>
@@ -300,7 +305,7 @@ export const ScenarioComparison: React.FC = () => {
           <div className="change-section removed">
             <h3 className="change-header">
               <span className="change-icon">-</span>
-              Removed Assignments ({assignments.removed.length})
+              {t('scenarios:comparison.removedAssignments', { count: assignments.removed.length })}
             </h3>
             <div className="assignment-list">
               {assignments.removed.map((assignment, index) => (
@@ -313,7 +318,7 @@ export const ScenarioComparison: React.FC = () => {
                     <span className="allocation">{assignment.allocation_percentage}%</span>
                     {assignment.computed_start_date && assignment.computed_end_date && (
                       <span className="dates">
-                        {assignment.computed_start_date} to {assignment.computed_end_date}
+                        {t('scenarios:comparison.dateRange', { start: assignment.computed_start_date, end: assignment.computed_end_date })}
                       </span>
                     )}
                   </div>
@@ -335,23 +340,23 @@ export const ScenarioComparison: React.FC = () => {
       <div className="metrics-tab">
         <div className="metrics-grid">
           <div className="metric-section">
-            <h3>Utilization Impact</h3>
+            <h3>{t('scenarios:comparison.utilizationImpact')}</h3>
             <div className="metric-items">
               {metrics.utilization_impact.team_utilization_change && (
                 <div className="metric-item">
-                  <span className="metric-label">Team Utilization Change:</span>
+                  <span className="metric-label">{t('scenarios:comparison.teamUtilizationChange')}</span>
                   <span className="metric-value">{metrics.utilization_impact.team_utilization_change}</span>
                 </div>
               )}
               {metrics.utilization_impact.over_allocated_people && (
                 <div className="metric-item">
-                  <span className="metric-label">Over-allocated People:</span>
+                  <span className="metric-label">{t('scenarios:comparison.overAllocatedPeople')}</span>
                   <span className="metric-value">{metrics.utilization_impact.over_allocated_people}</span>
                 </div>
               )}
               {metrics.utilization_impact.available_capacity && (
                 <div className="metric-item">
-                  <span className="metric-label">Available Capacity:</span>
+                  <span className="metric-label">{t('scenarios:comparison.availableCapacity')}</span>
                   <span className="metric-value">{metrics.utilization_impact.available_capacity}</span>
                 </div>
               )}
@@ -359,17 +364,17 @@ export const ScenarioComparison: React.FC = () => {
           </div>
 
           <div className="metric-section">
-            <h3>Capacity Impact</h3>
+            <h3>{t('scenarios:comparison.capacityImpact')}</h3>
             <div className="metric-items">
               {metrics.capacity_impact.additional_resource_needs && (
                 <div className="metric-item">
-                  <span className="metric-label">Additional Resource Needs:</span>
+                  <span className="metric-label">{t('scenarios:comparison.additionalResourceNeeds')}</span>
                   <span className="metric-value">{metrics.capacity_impact.additional_resource_needs}</span>
                 </div>
               )}
               {metrics.capacity_impact.skills_gap && (
                 <div className="metric-item">
-                  <span className="metric-label">Skills Gap:</span>
+                  <span className="metric-label">{t('scenarios:comparison.skillsGap')}</span>
                   <span className="metric-value">{metrics.capacity_impact.skills_gap}</span>
                 </div>
               )}
@@ -377,23 +382,23 @@ export const ScenarioComparison: React.FC = () => {
           </div>
 
           <div className="metric-section">
-            <h3>Timeline Impact</h3>
+            <h3>{t('scenarios:comparison.timelineImpact')}</h3>
             <div className="metric-items">
               {metrics.timeline_impact.projects_affected !== undefined && (
                 <div className="metric-item">
-                  <span className="metric-label">Projects Affected:</span>
+                  <span className="metric-label">{t('scenarios:compare.projectsAffected')}</span>
                   <span className="metric-value">{metrics.timeline_impact.projects_affected}</span>
                 </div>
               )}
               {metrics.timeline_impact.average_timeline_change && (
                 <div className="metric-item">
-                  <span className="metric-label">Average Timeline Change:</span>
+                  <span className="metric-label">{t('scenarios:comparison.averageTimelineChange')}</span>
                   <span className="metric-value">{metrics.timeline_impact.average_timeline_change}</span>
                 </div>
               )}
               {metrics.timeline_impact.projects_at_risk !== undefined && (
                 <div className="metric-item">
-                  <span className="metric-label">Projects at Risk:</span>
+                  <span className="metric-label">{t('scenarios:comparison.projectsAtRisk')}</span>
                   <span className="metric-value">{metrics.timeline_impact.projects_at_risk}</span>
                 </div>
               )}
@@ -404,63 +409,63 @@ export const ScenarioComparison: React.FC = () => {
     );
   };
 
-  if (loading) return <div className="loading">Loading comparison...</div>;
-  if (error) return <div className="error">Error: {error}</div>;
-  if (!comparisonData) return <div className="error">No comparison data available</div>;
+  if (loading) return <div className="loading">{t('scenarios:comparison.loading')}</div>;
+  if (error) return <div className="error">{t('common:error')}: {error}</div>;
+  if (!comparisonData) return <div className="error">{t('scenarios:comparison.noData')}</div>;
 
   return (
     <div className="scenario-comparison">
       <div className="comparison-header">
         <button className="back-button" onClick={goBack}>
-          ← Back to Scenarios
+          {t('scenarios:comparison.backToScenarios')}
         </button>
-        <h1>Scenario Comparison</h1>
+        <h1>{t('scenarios:comparison.title')}</h1>
       </div>
 
       <div className="scenario-headers">
-        {renderScenarioHeader(comparisonData.scenario1, 'Source Scenario')}
+        {renderScenarioHeader(comparisonData.scenario1, t('scenarios:sourceScenario'))}
         <div className="vs-divider">VS</div>
-        {renderScenarioHeader(comparisonData.scenario2, 'Target Scenario')}
+        {renderScenarioHeader(comparisonData.scenario2, t('scenarios:targetScenario'))}
       </div>
 
       <div className="comparison-tabs">
-        <button 
+        <button
           className={`tab ${isActiveTab('summary') ? 'active' : ''}`}
           onClick={() => setActiveTab('summary')}
         >
-          Summary
+          {t('scenarios:comparison.tabs.summary')}
         </button>
-        <button 
+        <button
           className={`tab ${isActiveTab('assignments') ? 'active' : ''}`}
           onClick={() => setActiveTab('assignments')}
         >
-          Assignments ({comparisonData.differences.assignments.added.length + comparisonData.differences.assignments.modified.length + comparisonData.differences.assignments.removed.length})
+          {t('scenarios:comparison.assignmentsTab', { count: comparisonData.differences.assignments.added.length + comparisonData.differences.assignments.modified.length + comparisonData.differences.assignments.removed.length })}
         </button>
-        <button 
+        <button
           className={`tab ${isActiveTab('phases') ? 'active' : ''}`}
           onClick={() => setActiveTab('phases')}
         >
-          Phases ({comparisonData.differences.phases.added.length + comparisonData.differences.phases.modified.length + comparisonData.differences.phases.removed.length})
+          {t('scenarios:comparison.phasesTab', { count: comparisonData.differences.phases.added.length + comparisonData.differences.phases.modified.length + comparisonData.differences.phases.removed.length })}
         </button>
-        <button 
+        <button
           className={`tab ${isActiveTab('projects') ? 'active' : ''}`}
           onClick={() => setActiveTab('projects')}
         >
-          Projects ({comparisonData.differences.projects.added.length + comparisonData.differences.projects.modified.length + comparisonData.differences.projects.removed.length})
+          {t('scenarios:comparison.projectsTab', { count: comparisonData.differences.projects.added.length + comparisonData.differences.projects.modified.length + comparisonData.differences.projects.removed.length })}
         </button>
-        <button 
+        <button
           className={`tab ${isActiveTab('metrics') ? 'active' : ''}`}
           onClick={() => setActiveTab('metrics')}
         >
-          Impact Metrics
+          {t('scenarios:comparison.impactMetricsTab')}
         </button>
       </div>
 
       <div className="comparison-content">
         {isActiveTab('summary') && renderSummaryTab()}
         {isActiveTab('assignments') && renderAssignmentChanges()}
-        {isActiveTab('phases') && <div className="coming-soon">Phase comparison visualization coming soon</div>}
-        {isActiveTab('projects') && <div className="coming-soon">Project comparison visualization coming soon</div>}
+        {isActiveTab('phases') && <div className="coming-soon">{t('scenarios:comparison.phasesComingSoon')}</div>}
+        {isActiveTab('projects') && <div className="coming-soon">{t('scenarios:comparison.projectsComingSoon')}</div>}
         {isActiveTab('metrics') && renderMetricsTab()}
       </div>
     </div>

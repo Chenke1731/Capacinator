@@ -1,0 +1,16 @@
+{
+  "emailRequired": "请填写邮箱",
+  "invalidEmailFormat": "邮箱格式不正确",
+  "bothDatesRequired": "开始和结束日期必须同时填写",
+  "invalidDateFormat": "日期格式不正确",
+  "endAfterStart": "结束日期必须晚于开始日期",
+  "allocationMustBeNumber": "分配比例必须是数字",
+  "allocationRange": "分配比例必须在 1 到 100 之间",
+  "hoursMustBeNumber": "每日工时必须是数字",
+  "hoursRange": "每日工时必须在 0 到 24 之间",
+  "availabilityMustBeNumber": "可用率必须是数字",
+  "availabilityRange": "可用率必须在 0 到 100 之间",
+  "fieldRequired": "请填写{{field}}",
+  "fieldTooLong": "{{field}}长度不能超过 {{count}} 个字符",
+  "bothFieldsRequired": "{{fieldA}}和{{fieldB}}必须同时填写"
+}

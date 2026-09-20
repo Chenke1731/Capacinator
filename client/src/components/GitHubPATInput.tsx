@@ -8,6 +8,7 @@
  */
 
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useConnectWithPAT } from '../hooks/useGitHubConnections';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
@@ -22,6 +23,7 @@ interface GitHubPATInputProps {
 }
 
 export function GitHubPATInput({ onSuccess, onCancel }: GitHubPATInputProps) {
+  const { t } = useTranslation();
   const [token, setToken] = useState('');
   const [githubBaseUrl, setGithubBaseUrl] = useState('');
   const [showAdvanced, setShowAdvanced] = useState(false);
@@ -37,7 +39,7 @@ export function GitHubPATInput({ onSuccess, onCancel }: GitHubPATInputProps) {
     setValidationError(null);
 
     if (!token.trim()) {
-      setValidationError({ message: 'Please enter a token' });
+      setValidationError({ message: t('gitSync:pat.enterToken') });
       return;
     }
 
@@ -56,12 +58,12 @@ export function GitHubPATInput({ onSuccess, onCancel }: GitHubPATInputProps) {
         const errorData = error.response?.data;
         if (errorData?.missingScopes) {
           setValidationError({
-            message: errorData.error || 'Token validation failed',
+            message: errorData.error || t('gitSync:pat.tokenValidationFailed'),
             missingScopes: errorData.missingScopes,
           });
         } else {
           setValidationError({
-            message: errorData?.error || error.message || 'Failed to connect',
+            message: errorData?.error || error.message || t('gitSync:pat.connectFailed'),
           });
         }
       },
@@ -75,10 +77,10 @@ export function GitHubPATInput({ onSuccess, onCancel }: GitHubPATInputProps) {
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <Key className="h-5 w-5" />
-          Connect with Personal Access Token
+          {t('gitSync:pat.title')}
         </CardTitle>
         <CardDescription>
-          Use a GitHub Personal Access Token for headless or automation scenarios
+          {t('gitSync:pat.description')}
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -86,7 +88,7 @@ export function GitHubPATInput({ onSuccess, onCancel }: GitHubPATInputProps) {
           {/* Token Input */}
           <div className="space-y-2">
             <Label htmlFor="pat-token">
-              Personal Access Token
+              {t('gitSync:pat.tokenLabel')}
               <span className="text-destructive ml-1">*</span>
             </Label>
             <Input
@@ -99,14 +101,14 @@ export function GitHubPATInput({ onSuccess, onCancel }: GitHubPATInputProps) {
               className="font-mono"
             />
             <p className="text-xs text-muted-foreground">
-              Your token will be encrypted before storage.{' '}
+              {t('gitSync:pat.tokenEncryptedHint')}{' '}
               <a
                 href="https://github.com/settings/tokens/new"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-primary hover:underline inline-flex items-center gap-1"
               >
-                Create a token
+                {t('gitSync:pat.createToken')}
                 <ExternalLink className="h-3 w-3" />
               </a>
             </p>
@@ -116,7 +118,7 @@ export function GitHubPATInput({ onSuccess, onCancel }: GitHubPATInputProps) {
           <Alert>
             <CheckCircle2 className="h-4 w-4" />
             <AlertDescription>
-              <div className="text-sm font-medium mb-1">Required Scopes:</div>
+              <div className="text-sm font-medium mb-1">{t('gitSync:pat.requiredScopes')}</div>
               <ul className="text-xs space-y-0.5 ml-4 list-disc">
                 {requiredScopes.map((scope) => (
                   <li key={scope}>
@@ -135,7 +137,7 @@ export function GitHubPATInput({ onSuccess, onCancel }: GitHubPATInputProps) {
                 <div className="font-medium mb-1">{validationError.message}</div>
                 {validationError.missingScopes && validationError.missingScopes.length > 0 && (
                   <div className="text-xs mt-2">
-                    <div className="font-medium mb-1">Missing scopes:</div>
+                    <div className="font-medium mb-1">{t('gitSync:pat.missingScopes')}</div>
                     <ul className="ml-4 list-disc">
                       {validationError.missingScopes.map((scope) => (
                         <li key={scope}>
@@ -146,7 +148,7 @@ export function GitHubPATInput({ onSuccess, onCancel }: GitHubPATInputProps) {
                       ))}
                     </ul>
                     <p className="mt-2">
-                      Please create a new token with the required scopes.
+                      {t('gitSync:pat.newTokenHint')}
                     </p>
                   </div>
                 )}
@@ -161,12 +163,12 @@ export function GitHubPATInput({ onSuccess, onCancel }: GitHubPATInputProps) {
               onClick={() => setShowAdvanced(!showAdvanced)}
               className="text-sm text-muted-foreground hover:text-foreground transition-colors"
             >
-              {showAdvanced ? '− Hide' : '+ Show'} advanced options
+              {showAdvanced ? t('gitSync:pat.hideAdvanced') : t('gitSync:pat.showAdvanced')}
             </button>
 
             {showAdvanced && (
               <div className="space-y-2 pl-4 border-l-2">
-                <Label htmlFor="github-base-url">GitHub Enterprise URL (Optional)</Label>
+                <Label htmlFor="github-base-url">{t('gitSync:pat.enterpriseLabel')}</Label>
                 <Input
                   id="github-base-url"
                   type="url"
@@ -176,7 +178,7 @@ export function GitHubPATInput({ onSuccess, onCancel }: GitHubPATInputProps) {
                   disabled={isPending}
                 />
                 <p className="text-xs text-muted-foreground">
-                  Only needed for GitHub Enterprise installations
+                  {t('gitSync:pat.enterpriseHint')}
                 </p>
               </div>
             )}
@@ -188,15 +190,15 @@ export function GitHubPATInput({ onSuccess, onCancel }: GitHubPATInputProps) {
               {isPending ? (
                 <>
                   <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                  Connecting...
+                  {t('gitSync:pat.connecting')}
                 </>
               ) : (
-                'Connect'
+                t('gitSync:pat.connect')
               )}
             </Button>
             {onCancel && (
               <Button type="button" variant="outline" onClick={onCancel} disabled={isPending}>
-                Cancel
+                {t('common:cancel')}
               </Button>
             )}
           </div>

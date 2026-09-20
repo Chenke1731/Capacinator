@@ -1,0 +1,57 @@
+{
+  "title": "审计日志",
+  "subtitle": "跟踪和审查所有系统变更,并支持撤销",
+  "loadFailed": "审计数据加载失败",
+  "columns": {
+    "dateTime": "日期/时间",
+    "table": "数据表",
+    "action": "操作",
+    "changedBy": "操作人",
+    "fieldsChanged": "变更字段"
+  },
+  "system": "系统",
+  "hide": "收起",
+  "details": "详情",
+  "undo": "撤销",
+  "undoing": "撤销中…",
+  "undoConfirm": "确定要撤销该记录的最近一次变更吗?",
+  "undoSuccess": "变更已撤销",
+  "undoFailed": "撤销失败:{{message}}",
+  "unknownError": "未知错误",
+  "filters": {
+    "allTables": "全部数据表",
+    "allActions": "全部操作",
+    "changedBy": "操作人",
+    "userId": "用户 ID",
+    "recordId": "记录 ID",
+    "create": "创建",
+    "update": "更新",
+    "delete": "删除"
+  },
+  "stats": {
+    "title": "审计统计",
+    "totalEntries": "总条目数",
+    "dateRange": "日期范围",
+    "byAction": "按操作",
+    "byTable": "按数据表"
+  },
+  "emptyMessage": "暂无审计记录",
+  "detailsTitle": "审计条目详情",
+  "detailFields": {
+    "id": "ID:",
+    "requestId": "请求 ID:",
+    "ipAddress": "IP 地址:",
+    "userAgent": "User Agent:",
+    "comment": "备注:"
+  },
+  "oldValues": "旧值",
+  "newValues": "新值",
+  "paginationInfo": "显示 {{from}} - {{to}}",
+  "actions": {
+    "CREATE": "创建",
+    "UPDATE": "更新",
+    "DELETE": "删除",
+    "UNKNOWN": "未知"
+  },
+  "invalidDate": "无效日期"
+}

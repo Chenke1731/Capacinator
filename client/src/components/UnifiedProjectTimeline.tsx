@@ -1,5 +1,6 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { useMutation, useQueryClient, useQuery } from '@tanstack/react-query';
+import { useTranslation } from 'react-i18next';
 import {
   Calendar,
   Clock,
@@ -17,6 +18,7 @@ import {
 import { api } from '../lib/api-client';
 import { queryKeys } from '../lib/queryKeys';
 import InteractiveTimeline, { TimelineItem, TimelineViewport } from './InteractiveTimeline';
+import { getLocale } from '../i18n';
 import './EnhancedProjectTimeline.css';
 
 interface ProjectPhaseTimeline {
@@ -75,6 +77,7 @@ const getPhaseColor = (phaseName: string, source: string): string => {
 };
 
 export default function UnifiedProjectTimeline({ projectId, hideHeader = false }: UnifiedProjectTimelineProps) {
+  const { t } = useTranslation();
   const [editingPhase, setEditingPhase] = useState<string | null>(null);
   const [showAddCustomPhase, setShowAddCustomPhase] = useState(false);
   const [validationResult, setValidationResult] = useState<ValidationResult | null>(null);
@@ -101,7 +104,7 @@ export default function UnifiedProjectTimeline({ projectId, hideHeader = false }
     queryKey: queryKeys.projects.timeline(projectId),
     queryFn: async () => {
       const response = await fetch(`/api/projects/${projectId}/timeline`);
-      if (!response.ok) throw new Error('Failed to fetch timeline');
+      if (!response.ok) throw new Error(t('phases:enhanced.fetchError'));
       const result = await response.json();
       const timelineData = result.data || result || [];
       
@@ -131,13 +134,13 @@ export default function UnifiedProjectTimeline({ projectId, hideHeader = false }
   const convertPhasesToTimelineItems = useCallback((phases: ProjectPhaseTimeline[]): TimelineItem[] => {
     return phases.map(phase => ({
       id: phase.id,
-      name: phase.phase_name || `Phase ${phase.phase_id}`,
+      name: phase.phase_name || t('phases:unified.phaseFallback', { id: phase.phase_id }),
       startDate: new Date(phase.start_date),
       endDate: new Date(phase.end_date),
       color: getPhaseColor(phase.phase_name || '', phase.phase_source),
       data: phase
     }));
-  }, []);
+  }, [t]);
 
   // Update phase mutation with optimistic updates
   const updatePhaseMutation = useMutation({
@@ -222,12 +225,12 @@ export default function UnifiedProjectTimeline({ projectId, hideHeader = false }
     const phase = timeline?.find(p => p.id === itemId);
     if (!phase) return;
 
-    if (phase.is_deletable && confirm(`Are you sure you want to delete "${phase.phase_name}"?`)) {
+    if (phase.is_deletable && confirm(t('phases:unified.deleteConfirm', { name: phase.phase_name }))) {
       deletePhaseMutation.mutate(itemId);
     } else if (!phase.is_deletable) {
-      alert('This phase cannot be deleted as it is required by the project template.');
+      alert(t('phases:unified.cannotDelete'));
     }
-  }, [timeline, deletePhaseMutation]);
+  }, [timeline, deletePhaseMutation, t]);
 
   // Handle zoom
   const handleZoom = (direction: 'in' | 'out') => {
@@ -252,7 +255,7 @@ export default function UnifiedProjectTimeline({ projectId, hideHeader = false }
   };
 
   const formatDate = (timestamp: number) => {
-    return new Date(timestamp).toLocaleDateString();
+    return new Date(timestamp).toLocaleDateString(getLocale());
   };
 
   const getConstraintStatus = (phase: ProjectPhaseTimeline) => {
@@ -272,14 +275,14 @@ export default function UnifiedProjectTimeline({ projectId, hideHeader = false }
   const getConstraintBadge = (status: string) => {
     switch (status) {
       case 'compliant':
-        return <span className="badge badge-success"><CheckCircle size={12} /> Template</span>;
+        return <span className="badge badge-success"><CheckCircle size={12} /> {t('phases:enhanced.badgeTemplate')}</span>;
       case 'customized':
-        return <span className="badge badge-warning"><Edit2 size={12} /> Customized</span>;
+        return <span className="badge badge-warning"><Edit2 size={12} /> {t('phases:enhanced.badgeCustomized')}</span>;
       case 'custom':
-        return <span className="badge badge-info"><Plus size={12} /> Custom</span>;
+        return <span className="badge badge-info"><Plus size={12} /> {t('phases:enhanced.badgeCustom')}</span>;
       case 'violation-min':
       case 'violation-max':
-        return <span className="badge badge-danger"><AlertTriangle size={12} /> Constraint Violation</span>;
+        return <span className="badge badge-danger"><AlertTriangle size={12} /> {t('phases:enhanced.badgeViolation')}</span>;
       default:
         return null;
     }
@@ -319,7 +322,7 @@ export default function UnifiedProjectTimeline({ projectId, hideHeader = false }
       <div className="phase-editor">
         <div className="editor-fields">
           <div className="field-group">
-            <label>Start Date</label>
+            <label>{t('common:startDate')}</label>
             <input
               type="date"
               value={editData.start_date}
@@ -327,9 +330,9 @@ export default function UnifiedProjectTimeline({ projectId, hideHeader = false }
               className="form-input"
             />
           </div>
-          
+
           <div className="field-group">
-            <label>Duration (days)</label>
+            <label>{t('phases:enhanced.durationDays')}</label>
             <input
               type="number"
               value={editData.duration_days}
@@ -339,16 +342,16 @@ export default function UnifiedProjectTimeline({ projectId, hideHeader = false }
               className="form-input"
             />
             {phase.template_min_duration_days && (
-              <small>Min: {phase.template_min_duration_days} days</small>
+              <small>{t('phases:enhanced.minDays', { count: phase.template_min_duration_days })}</small>
             )}
             {phase.template_max_duration_days && (
-              <small>Max: {phase.template_max_duration_days} days</small>
+              <small>{t('phases:enhanced.maxDays', { count: phase.template_max_duration_days })}</small>
             )}
           </div>
 
           {phase.phase_source === 'custom' && (
             <div className="field-group">
-              <label>Phase Name</label>
+              <label>{t('phases:manager.phaseName')}</label>
               <input
                 type="text"
                 value={editData.name}
@@ -362,17 +365,17 @@ export default function UnifiedProjectTimeline({ projectId, hideHeader = false }
         <div className="editor-actions">
           <button onClick={handleSave} className="btn btn-primary">
             <Save size={16} />
-            Save Changes
+            {t('phases:common.saveChanges')}
           </button>
           <button onClick={() => setEditingPhase(null)} className="btn btn-secondary">
             <X size={16} />
-            Cancel
+            {t('common:cancel')}
           </button>
         </div>
 
         {validationResult && !validationResult.isValid && (
           <div className="validation-errors">
-            <h5>Validation Errors:</h5>
+            <h5>{t('phases:enhanced.validationErrors')}</h5>
             {validationResult.violations.map((violation, index) => (
               <div key={index} className="error-item">
                 <AlertTriangle size={14} />
@@ -420,32 +423,32 @@ export default function UnifiedProjectTimeline({ projectId, hideHeader = false }
 
     return (
       <div className="add-phase-form">
-        <h4>Add Custom Phase</h4>
-        
+        <h4>{t('phases:enhanced.addCustomPhase')}</h4>
+
         <div className="form-fields">
           <div className="field-group">
-            <label>Phase Name *</label>
+            <label>{t('phases:manager.phaseNameRequired')}</label>
             <input
               type="text"
               value={newPhase.name}
               onChange={(e) => setNewPhase(prev => ({ ...prev, name: e.target.value }))}
               className="form-input"
-              placeholder="Enter phase name"
+              placeholder={t('phases:enhanced.enterPhaseName')}
             />
           </div>
-          
+
           <div className="field-group">
-            <label>Description</label>
+            <label>{t('common:description')}</label>
             <textarea
               value={newPhase.description}
               onChange={(e) => setNewPhase(prev => ({ ...prev, description: e.target.value }))}
               className="form-textarea"
-              placeholder="Describe this phase..."
+              placeholder={t('phases:enhanced.describePhase')}
             />
           </div>
-          
+
           <div className="field-group">
-            <label>Duration (days)</label>
+            <label>{t('phases:enhanced.durationDays')}</label>
             <input
               type="number"
               value={newPhase.durationDays}
@@ -454,9 +457,9 @@ export default function UnifiedProjectTimeline({ projectId, hideHeader = false }
               className="form-input"
             />
           </div>
-          
+
           <div className="field-group">
-            <label>Insert Position</label>
+            <label>{t('phases:enhanced.insertPosition')}</label>
             <select
               value={newPhase.insertIndex}
               onChange={(e) => setNewPhase(prev => ({ ...prev, insertIndex: Number(e.target.value) }))}
@@ -464,10 +467,10 @@ export default function UnifiedProjectTimeline({ projectId, hideHeader = false }
             >
               {(timeline && Array.isArray(timeline)) && timeline.map((phase, index) => (
                 <option key={index} value={index}>
-                  Before "{phase.phase_name}"
+                  {t('phases:enhanced.beforePhase', { name: phase.phase_name })}
                 </option>
               ))}
-              <option value={(timeline && Array.isArray(timeline)) ? timeline.length : 0}>At the end</option>
+              <option value={(timeline && Array.isArray(timeline)) ? timeline.length : 0}>{t('phases:enhanced.atTheEnd')}</option>
             </select>
           </div>
         </div>
@@ -475,10 +478,10 @@ export default function UnifiedProjectTimeline({ projectId, hideHeader = false }
         <div className="form-actions">
           <button onClick={handleAdd} className="btn btn-primary">
             <Plus size={16} />
-            Add Phase
+            {t('phases:manager.addPhase')}
           </button>
           <button onClick={() => setShowAddCustomPhase(false)} className="btn btn-secondary">
-            Cancel
+            {t('common:cancel')}
           </button>
         </div>
       </div>
@@ -496,26 +499,26 @@ export default function UnifiedProjectTimeline({ projectId, hideHeader = false }
             <div className="header-info">
               <h3>
                 <Calendar size={20} />
-                Project Timeline
+                {t('phases:enhanced.title')}
               </h3>
-              <p>Interactive timeline with template compliance and drag-and-drop editing</p>
+              <p>{t('phases:unified.subtitle')}</p>
             </div>
 
             <div className="timeline-controls">
               <button
                 onClick={() => setExpandedControls(!expandedControls)}
                 className="btn btn-secondary"
-                title="Toggle timeline controls"
+                title={t('phases:unified.toggleControls')}
               >
                 <Settings size={16} />
               </button>
 
               <div className="zoom-controls">
-                <button onClick={() => handleZoom('out')} className="btn btn-sm" title="Zoom out">
+                <button onClick={() => handleZoom('out')} className="btn btn-sm" title={t('phases:timeline.zoomOut')}>
                   <ZoomOut size={16} />
                 </button>
                 <span className="zoom-level">{Math.round(viewport.pixelsPerDay * 33)}%</span>
-                <button onClick={() => handleZoom('in')} className="btn btn-sm" title="Zoom in">
+                <button onClick={() => handleZoom('in')} className="btn btn-sm" title={t('phases:timeline.zoomIn')}>
                   <ZoomIn size={16} />
                 </button>
               </div>
@@ -523,10 +526,10 @@ export default function UnifiedProjectTimeline({ projectId, hideHeader = false }
               <button
                 onClick={() => setShowAddCustomPhase(true)}
                 className="btn btn-primary"
-                title="Add custom phase"
+                title={t('phases:unified.addCustomPhaseTooltip')}
               >
                 <Plus size={16} />
-                Add Phase
+                {t('phases:manager.addPhase')}
               </button>
             </div>
           </div>
@@ -535,14 +538,14 @@ export default function UnifiedProjectTimeline({ projectId, hideHeader = false }
           {compliance && (
             <div className="compliance-summary">
               <div className="compliance-stat">
-                <label>Template Compliance</label>
+                <label>{t('phases:enhanced.templateCompliance')}</label>
                 <span className={`compliance-percentage ${compliance.compliancePercentage >= 80 ? 'good' : 'warning'}`}>
                   {Math.round(compliance.compliancePercentage)}%
                 </span>
               </div>
               <div className="compliance-details">
-                <span className="compliant-count">{compliance.compliantPhases} compliant</span>
-                <span className="violations-count">{compliance.violations} violations</span>
+                <span className="compliant-count">{t('phases:unified.compliantCount', { count: compliance.compliantPhases })}</span>
+                <span className="violations-count">{t('phases:unified.violationsCount', { count: compliance.violations })}</span>
               </div>
             </div>
           )}
@@ -551,12 +554,12 @@ export default function UnifiedProjectTimeline({ projectId, hideHeader = false }
           {expandedControls && (
             <div className="expanded-controls">
               <div className="viewport-controls">
-                <label>Timeline Range</label>
-                <span>{viewport.startDate.toLocaleDateString()} - {viewport.endDate.toLocaleDateString()}</span>
+                <label>{t('phases:unified.timelineRange')}</label>
+                <span>{viewport.startDate.toLocaleDateString(getLocale())} - {viewport.endDate.toLocaleDateString(getLocale())}</span>
               </div>
               <div className="phase-summary">
-                <span>{timeline?.length || 0} phases</span>
-                <span>{timeline?.filter(p => p.phase_source === 'custom').length || 0} custom</span>
+                <span>{t('phases:visual.phaseCount', { count: timeline?.length || 0 })}</span>
+                <span>{t('phases:unified.customCount', { count: timeline?.filter(p => p.phase_source === 'custom').length || 0 })}</span>
               </div>
             </div>
           )}
@@ -589,7 +592,7 @@ export default function UnifiedProjectTimeline({ projectId, hideHeader = false }
       {/* Phase Details Panel */}
       {timeline && timeline.length > 0 && (
         <div className="phase-details-panel">
-          <h4>Phase Details</h4>
+          <h4>{t('phases:unified.phaseDetails')}</h4>
           <div className="phase-list">
             {timeline.map((phase, _index) => (
               <div key={phase.id} className={`phase-item ${editingPhase === phase.id ? 'editing' : ''}`}>
@@ -600,14 +603,14 @@ export default function UnifiedProjectTimeline({ projectId, hideHeader = false }
                       {getConstraintBadge(getConstraintStatus(phase))}
                     </div>
                     <div className="phase-meta">
-                      {formatDate(phase.start_date)} - {formatDate(phase.end_date)} ({phase.duration_days} days)
+                      {formatDate(phase.start_date)} - {formatDate(phase.end_date)} ({t('phases:manager.days', { count: phase.duration_days })})
                     </div>
                   </div>
                   <div className="phase-actions">
                     <button 
                       onClick={() => setEditingPhase(editingPhase === phase.id ? null : phase.id)}
                       className="btn btn-sm"
-                      title="Edit phase"
+                      title={t('phases:manager.editPhaseTooltip')}
                     >
                       <Edit2 size={14} />
                     </button>
@@ -615,7 +618,7 @@ export default function UnifiedProjectTimeline({ projectId, hideHeader = false }
                       <button 
                         onClick={() => handlePhaseDelete(phase.id)}
                         className="btn btn-sm btn-danger"
-                        title="Delete phase"
+                        title={t('phases:manager.deletePhaseTooltip')}
                       >
                         <Trash2 size={14} />
                       </button>
@@ -645,7 +648,7 @@ export default function UnifiedProjectTimeline({ projectId, hideHeader = false }
       {!timeline && (
         <div className="timeline-loading">
           <Clock size={24} />
-          <p>Loading project timeline...</p>
+          <p>{t('phases:unified.loading')}</p>
         </div>
       )}
     </div>

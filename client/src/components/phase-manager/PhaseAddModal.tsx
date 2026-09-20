@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { X, Calendar, Type, Save } from 'lucide-react';
 import { AddPhaseFormData, PhaseTemplate } from './types';
 
@@ -19,6 +20,8 @@ export function PhaseAddModal({
   onSubmit,
   onClose
 }: PhaseAddModalProps) {
+  const { t } = useTranslation();
+
   if (!isOpen) return null;
 
   // Normalize phase templates - handle both { data: [...] } and [...] formats
@@ -31,7 +34,7 @@ export function PhaseAddModal({
       <div className="modal-content">
         <div className="modal-header">
           <h3 className="modal-title">
-            Add New Phase
+            {t('phases:modal.addNewPhase')}
           </h3>
           <button
             onClick={onClose}
@@ -45,7 +48,7 @@ export function PhaseAddModal({
           <div className="form-group">
             <label className="form-label">
               <Type size={16} />
-              Phase Type
+              {t('phases:modal.phaseType')}
             </label>
             <select
               value={formData.phase_id}
@@ -53,7 +56,7 @@ export function PhaseAddModal({
               required
               className="form-select"
             >
-              <option value="">Select a phase type...</option>
+              <option value="">{t('phases:modal.selectPhaseType')}</option>
               {templates.map((template: PhaseTemplate) => (
                 <option key={template.id} value={template.id}>
                   {template.name}
@@ -66,7 +69,7 @@ export function PhaseAddModal({
             <div>
               <label className="form-label">
                 <Calendar size={16} />
-                Start Date
+                {t('common:startDate')}
               </label>
               <input
                 type="date"
@@ -80,7 +83,7 @@ export function PhaseAddModal({
             <div>
               <label className="form-label">
                 <Calendar size={16} />
-                End Date
+                {t('common:endDate')}
               </label>
               <input
                 type="date"
@@ -99,7 +102,7 @@ export function PhaseAddModal({
               onClick={onClose}
               className="btn btn-secondary"
             >
-              Cancel
+              {t('common:cancel')}
             </button>
             <button
               type="submit"
@@ -107,7 +110,7 @@ export function PhaseAddModal({
               className="btn btn-primary"
             >
               <Save size={16} />
-              Add Phase
+              {t('phases:manager.addPhase')}
             </button>
           </div>
         </form>

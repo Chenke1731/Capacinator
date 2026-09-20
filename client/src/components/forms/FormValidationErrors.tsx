@@ -5,6 +5,7 @@
  */
 
 import * as React from 'react';
+import { useTranslation } from 'react-i18next';
 import { AlertTriangle } from 'lucide-react';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { cn } from '@/lib/utils';
@@ -25,6 +26,8 @@ export const FormValidationErrors = React.forwardRef<
   HTMLDivElement,
   FormValidationErrorsProps
 >(({ hasErrors, message, className }, ref) => {
+  const { t } = useTranslation();
+
   if (!hasErrors) {
     return null;
   }
@@ -39,7 +42,7 @@ export const FormValidationErrors = React.forwardRef<
     >
       <AlertTriangle className="h-4 w-4" aria-hidden="true" />
       <AlertDescription>
-        {message || 'Please fix the errors below before submitting.'}
+        {message || t('common:forms.fixErrors')}
       </AlertDescription>
     </Alert>
   );

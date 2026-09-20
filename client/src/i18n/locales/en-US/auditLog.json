@@ -1,0 +1,57 @@
+{
+  "title": "Audit Log",
+  "subtitle": "Track and review all system changes with undo capability",
+  "loadFailed": "Failed to load audit data",
+  "columns": {
+    "dateTime": "Date/Time",
+    "table": "Table",
+    "action": "Action",
+    "changedBy": "Changed By",
+    "fieldsChanged": "Fields Changed"
+  },
+  "system": "System",
+  "hide": "Hide",
+  "details": "Details",
+  "undo": "Undo",
+  "undoing": "Undoing...",
+  "undoConfirm": "Are you sure you want to undo the last change to this record?",
+  "undoSuccess": "Change undone successfully",
+  "undoFailed": "Failed to undo change: {{message}}",
+  "unknownError": "Unknown error",
+  "filters": {
+    "allTables": "All Tables",
+    "allActions": "All Actions",
+    "changedBy": "Changed By",
+    "userId": "User ID",
+    "recordId": "Record ID",
+    "create": "Create",
+    "update": "Update",
+    "delete": "Delete"
+  },
+  "stats": {
+    "title": "Audit Statistics",
+    "totalEntries": "Total Entries",
+    "dateRange": "Date Range",
+    "byAction": "By Action",
+    "byTable": "By Table"
+  },
+  "emptyMessage": "No audit entries found",
+  "detailsTitle": "Audit Entry Details",
+  "detailFields": {
+    "id": "ID:",
+    "requestId": "Request ID:",
+    "ipAddress": "IP Address:",
+    "userAgent": "User Agent:",
+    "comment": "Comment:"
+  },
+  "oldValues": "Old Values",
+  "newValues": "New Values",
+  "paginationInfo": "Showing {{from}} - {{to}}",
+  "actions": {
+    "CREATE": "CREATE",
+    "UPDATE": "UPDATE",
+    "DELETE": "DELETE",
+    "UNKNOWN": "UNKNOWN"
+  },
+  "invalidDate": "Invalid Date"
+}

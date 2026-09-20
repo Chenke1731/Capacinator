@@ -6,6 +6,7 @@
  */
 
 import * as React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Label } from '@/components/ui/label';
 import { cn } from '@/lib/utils';
 import type { AllocationSliderProps } from './types';
@@ -30,7 +31,7 @@ export const AllocationSlider = React.forwardRef<HTMLDivElement, AllocationSlide
     {
       value,
       onChange,
-      label = 'Allocation',
+      label,
       required = false,
       error,
       disabled = false,
@@ -42,6 +43,9 @@ export const AllocationSlider = React.forwardRef<HTMLDivElement, AllocationSlide
     },
     ref
   ) => {
+    const { t } = useTranslation();
+    const resolvedLabel = label ?? t('common:allocation');
+
     // Calculate the percentage fill for the visual indicator
     const fillPercentage = ((value - min) / (max - min)) * 100;
 
@@ -51,13 +55,13 @@ export const AllocationSlider = React.forwardRef<HTMLDivElement, AllocationSlide
     return (
       <div ref={ref} className={cn('space-y-2', className)}>
         <Label htmlFor="allocation-slider">
-          {label}: {value}%
+          {resolvedLabel}: {value}%
           {required && (
             <>
               <span aria-hidden="true" className="text-destructive ml-1">
                 *
               </span>
-              <span className="sr-only">(required)</span>
+              <span className="sr-only">{t('common:forms.requiredSrOnly')}</span>
             </>
           )}
         </Label>
@@ -125,10 +129,10 @@ export const AllocationSlider = React.forwardRef<HTMLDivElement, AllocationSlide
           >
             {isOverAllocated ? (
               <span>
-                Over-allocated by {value - availableCapacity}% (available: {availableCapacity}%)
+                {t('common:forms.overAllocatedBy', { amount: value - availableCapacity, available: availableCapacity })}
               </span>
             ) : (
-              <span>{availableCapacity}% available</span>
+              <span>{t('common:forms.percentAvailable', { available: availableCapacity })}</span>
             )}
           </div>
         )}

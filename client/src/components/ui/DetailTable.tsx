@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Edit2, Trash2, Plus } from 'lucide-react';
 import { Button } from './button';
 import {
@@ -34,10 +35,12 @@ export function DetailTable<T extends { id: string | number }>({
   onAdd,
   onEdit,
   onDelete,
-  addButtonText = 'Add New',
-  emptyMessage = 'No data available',
+  addButtonText,
+  emptyMessage,
   canEdit = true
 }: DetailTableProps<T>) {
+  const { t } = useTranslation();
+
   return (
     <div className="detail-table-container">
       <Table>
@@ -49,7 +52,7 @@ export function DetailTable<T extends { id: string | number }>({
               </TableHead>
             ))}
             {canEdit && (onEdit || onDelete) && (
-              <TableHead style={{ width: '100px' }}>Actions</TableHead>
+              <TableHead style={{ width: '100px' }}>{t('common:actions')}</TableHead>
             )}
           </TableRow>
         </TableHeader>
@@ -58,7 +61,7 @@ export function DetailTable<T extends { id: string | number }>({
             <TableRow>
               <TableCell colSpan={columns.length + (canEdit ? 1 : 0)} className="text-center">
                 <div className="py-8 text-muted-foreground">
-                  {emptyMessage}
+                  {emptyMessage ?? t('common:noData')}
                 </div>
               </TableCell>
             </TableRow>
@@ -78,7 +81,7 @@ export function DetailTable<T extends { id: string | number }>({
                           variant="ghost"
                           size="icon"
                           onClick={() => onEdit(item)}
-                          title="Edit"
+                          title={t('common:edit')}
                         >
                           <Edit2 className="h-4 w-4" />
                         </Button>
@@ -88,7 +91,7 @@ export function DetailTable<T extends { id: string | number }>({
                           variant="ghost"
                           size="icon"
                           onClick={() => onDelete(item)}
-                          title="Delete"
+                          title={t('common:delete')}
                           className="text-destructive hover:text-destructive"
                         >
                           <Trash2 className="h-4 w-4" />
@@ -107,7 +110,7 @@ export function DetailTable<T extends { id: string | number }>({
         <div className="mt-4">
           <Button onClick={onAdd} variant="outline">
             <Plus className="h-4 w-4 mr-2" />
-            {addButtonText}
+            {addButtonText ?? t('common:addNew')}
           </Button>
         </div>
       )}

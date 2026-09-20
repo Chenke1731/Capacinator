@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { Users, Plus, Trash2 } from 'lucide-react';
 import { Table, TableHeader, TableBody, TableHead, TableRow, TableCell } from './table';
 import { formatDate } from '../../utils/date';
@@ -49,14 +50,15 @@ export function AssignmentTable({
   canEdit = false,
   canDelete = false,
   loading = false,
-  emptyMessage = 'No assignments found',
-  emptyActionText = 'Add Assignment',
+  emptyMessage,
+  emptyActionText,
   emptyActionUrl = '/assignments',
   className,
   showProjectColumn = false,
   showPersonColumn = true
 }: AssignmentTableProps) {
-  
+  const { t } = useTranslation();
+
   const formatAllocationBadge = (percentage: number) => (
     <span className="inline-flex items-center rounded-md bg-primary/10 px-2 py-1 text-xs font-medium text-primary ring-1 ring-inset ring-primary/20">
       {percentage}%
@@ -65,7 +67,7 @@ export function AssignmentTable({
 
   const handleDeleteClick = (e: React.MouseEvent, assignment: Assignment) => {
     e.stopPropagation();
-    if (onDelete && confirm('Are you sure you want to delete this assignment?')) {
+    if (onDelete && confirm(t('common:deleteAssignmentConfirm'))) {
       onDelete(assignment);
     }
   };
@@ -73,7 +75,7 @@ export function AssignmentTable({
   if (loading) {
     return (
       <div className="flex items-center justify-center py-8">
-        <div className="text-muted-foreground">Loading assignments...</div>
+        <div className="text-muted-foreground">{t('common:loadingAssignments')}</div>
       </div>
     );
   }
@@ -82,11 +84,11 @@ export function AssignmentTable({
     return (
       <div className="empty-state">
         <Users size={48} />
-        <p>{emptyMessage}</p>
+        <p>{emptyMessage ?? t('common:noAssignments')}</p>
         {onAdd ? (
           <button onClick={onAdd} className="btn btn-primary">
             <Plus size={16} />
-            {emptyActionText}
+            {emptyActionText ?? t('common:addAssignment')}
           </button>
         ) : emptyActionUrl ? (
           <Link to={emptyActionUrl} className="btn btn-primary">
@@ -103,14 +105,14 @@ export function AssignmentTable({
       <Table>
         <TableHeader>
           <TableRow>
-            {showPersonColumn && <TableHead>Name</TableHead>}
-            {showProjectColumn && <TableHead>Project</TableHead>}
-            <TableHead>Role</TableHead>
-            <TableHead>Allocation</TableHead>
-            <TableHead>Start Date</TableHead>
-            <TableHead>End Date</TableHead>
+            {showPersonColumn && <TableHead>{t('common:name')}</TableHead>}
+            {showProjectColumn && <TableHead>{t('assignmentsCol.project')}</TableHead>}
+            <TableHead>{t('common:role')}</TableHead>
+            <TableHead>{t('assignmentsCol.allocation')}</TableHead>
+            <TableHead>{t('common:startDate')}</TableHead>
+            <TableHead>{t('common:endDate')}</TableHead>
             {(canEdit || canDelete) && (
-              <TableHead className="text-right text-muted-foreground">Actions</TableHead>
+              <TableHead className="text-right text-muted-foreground">{t('common:actions')}</TableHead>
             )}
           </TableRow>
         </TableHeader>
@@ -171,7 +173,7 @@ export function AssignmentTable({
                           e.stopPropagation();
                           onEdit(assignment);
                         }}
-                        title="Edit assignment"
+                        title={t('common:editAssignment')}
                       >
                         <Plus size={16} />
                       </button>
@@ -180,7 +182,7 @@ export function AssignmentTable({
                       <button
                         className="inline-flex items-center justify-center rounded-md p-2 text-sm font-medium text-destructive hover:bg-destructive/10 transition-colors"
                         onClick={(e) => handleDeleteClick(e, assignment)}
-                        title="Delete assignment"
+                        title={t('common:deleteAssignment')}
                       >
                         <Trash2 size={16} />
                       </button>

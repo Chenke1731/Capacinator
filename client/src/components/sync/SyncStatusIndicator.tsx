@@ -7,38 +7,41 @@
  */
 
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { useGitSync } from '../../contexts/GitSyncContext';
+import { getLocale } from '../../i18n';
 import type { SyncStatus } from '../../../../shared/types/git-entities';
 
-const statusConfig: Record<SyncStatus, { label: string; color: string; icon: string }> = {
+const statusConfig: Record<SyncStatus, { labelKey: string; color: string; icon: string }> = {
   synced: {
-    label: 'Synced',
+    labelKey: 'gitSync:status.synced',
     color: 'text-green-600 bg-green-50',
     icon: '✓',
   },
   pending: {
-    label: 'Pending',
+    labelKey: 'gitSync:status.pending',
     color: 'text-yellow-600 bg-yellow-50',
     icon: '⏳',
   },
   syncing: {
-    label: 'Syncing...',
+    labelKey: 'gitSync:status.syncing',
     color: 'text-blue-600 bg-blue-50',
     icon: '↻',
   },
   conflict: {
-    label: 'Conflicts',
+    labelKey: 'gitSync:status.conflict',
     color: 'text-red-600 bg-red-50',
     icon: '⚠',
   },
   offline: {
-    label: 'Offline',
+    labelKey: 'gitSync:status.offline',
     color: 'text-gray-600 bg-gray-50',
     icon: '○',
   },
 };
 
 export const SyncStatusIndicator: React.FC = () => {
+  const { t } = useTranslation();
   const { status, pendingCount, conflicts, lastSyncAt } = useGitSync();
 
   const config = statusConfig[status];
@@ -46,12 +49,12 @@ export const SyncStatusIndicator: React.FC = () => {
   return (
     <div className={`flex items-center gap-2 px-3 py-1 rounded-md text-sm font-medium ${config.color}`}>
       <span>{config.icon}</span>
-      <span>{config.label}</span>
+      <span>{t(config.labelKey)}</span>
       {pendingCount > 0 && <span className="ml-1 text-xs">({pendingCount})</span>}
-      {conflicts.length > 0 && <span className="ml-1 text-xs">({conflicts.length} conflicts)</span>}
+      {conflicts.length > 0 && <span className="ml-1 text-xs">({conflicts.length} {t('gitSync:status.conflictsCount')})</span>}
       {lastSyncAt && status === 'synced' && (
         <span className="ml-2 text-xs opacity-60">
-          {new Date(lastSyncAt).toLocaleTimeString()}
+          {new Date(lastSyncAt).toLocaleTimeString(getLocale())}
         </span>
       )}
     </div>

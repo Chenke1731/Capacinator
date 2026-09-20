@@ -7,6 +7,7 @@
  */
 
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import * as Select from '@radix-ui/react-select';
 import { api } from '../../lib/api-client';
 
@@ -30,6 +31,7 @@ export const ScenarioBranchSelector: React.FC<ScenarioBranchSelectorProps> = ({
   onBranchChange,
   onCreateBranch,
 }) => {
+  const { t } = useTranslation();
   const [branches, setBranches] = useState<Branch[]>([]);
   const [loading, setLoading] = useState(false);
 
@@ -69,7 +71,7 @@ export const ScenarioBranchSelector: React.FC<ScenarioBranchSelectorProps> = ({
         <Select.Trigger className="inline-flex items-center justify-between gap-2 px-3 py-1.5 bg-white border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 min-w-[150px]">
           <div className="flex items-center gap-2">
             <span className="text-sm">📂</span>
-            <Select.Value placeholder="Select scenario..." />
+            <Select.Value placeholder={t('common:selectScenario')} />
           </div>
           <Select.Icon className="text-gray-400">
             ▼
@@ -101,7 +103,7 @@ export const ScenarioBranchSelector: React.FC<ScenarioBranchSelectorProps> = ({
 
               {branches.length === 0 && (
                 <div className="px-8 py-2 text-sm text-gray-500">
-                  No branches found
+                  {t('gitSync:branches.noneFound')}
                 </div>
               )}
             </Select.Viewport>
@@ -114,7 +116,7 @@ export const ScenarioBranchSelector: React.FC<ScenarioBranchSelectorProps> = ({
           onClick={onCreateBranch}
           className="px-3 py-1.5 text-sm bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
         >
-          + New Scenario
+          + {t('gitSync:branches.newScenario')}
         </button>
       )}
     </div>

@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
+import { useTranslation } from "react-i18next";
 import { CheckCircle, XCircle, RefreshCw, AlertTriangle } from "lucide-react";
 import { ProgressBar, ProgressBarProps } from "./ProgressBar";
 import { Spinner } from "./spinner";
@@ -74,6 +75,7 @@ export function OperationProgress({
   errors,
   warnings,
 }: OperationProgressProps) {
+  const { t } = useTranslation();
   const percentage = total > 0 ? Math.round((current / total) * 100) : 0;
   const isRunning = status === "running";
   const isComplete = status === "success" || status === "error" || status === "warning";
@@ -102,7 +104,7 @@ export function OperationProgress({
         {StatusIcon && <StatusIcon />}
         <div className="flex-1 min-w-0">
           <p className="font-medium text-sm truncate">
-            {message || (isRunning ? "Processing..." : status === "success" ? "Complete" : status === "error" ? "Failed" : "Ready")}
+            {message || (isRunning ? t('common:processing') : status === "success" ? t('common:complete') : status === "error" ? t('common:failed') : t('common:ready'))}
           </p>
           {details && (
             <p className="text-xs text-muted-foreground truncate">{details}</p>
@@ -115,19 +117,19 @@ export function OperationProgress({
             <button
               onClick={onCancel}
               className="btn btn-sm btn-secondary"
-              title="Cancel operation"
+              title={t('common:cancelOperation')}
             >
-              Cancel
+              {t('common:cancel')}
             </button>
           )}
           {canRetry && status === "error" && onRetry && (
             <button
               onClick={onRetry}
               className="btn btn-sm btn-primary flex items-center gap-1"
-              title="Retry operation"
+              title={t('common:retryOperation')}
             >
               <RefreshCw className="h-3 w-3" />
-              Retry
+              {t('common:retry')}
             </button>
           )}
         </div>
@@ -149,9 +151,9 @@ export function OperationProgress({
       <div className="flex justify-between text-xs text-muted-foreground">
         <span>
           {isRunning && total > 0 && `${current} of ${total}`}
-          {isComplete && status === "success" && "Completed successfully"}
-          {isComplete && status === "error" && "Operation failed"}
-          {isComplete && status === "warning" && "Completed with warnings"}
+          {isComplete && status === "success" && t('common:completedSuccessfully')}
+          {isComplete && status === "error" && t('common:operationFailedTitle')}
+          {isComplete && status === "warning" && t('common:completedWithWarnings')}
         </span>
         <span>
           {isRunning && percentage > 0 && `${percentage}%`}

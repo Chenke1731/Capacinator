@@ -6,6 +6,7 @@
  */
 
 import * as React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Label } from '@/components/ui/label';
 import { cn } from '@/lib/utils';
 import type { FormSectionProps } from './types';
@@ -42,6 +43,7 @@ export const FormSection = React.forwardRef<HTMLDivElement, FormSectionProps>(
     },
     ref
   ) => {
+    const { t } = useTranslation();
     const errorId = htmlFor ? `${htmlFor}-error` : undefined;
     const descriptionId = htmlFor && description ? `${htmlFor}-description` : undefined;
 
@@ -54,7 +56,7 @@ export const FormSection = React.forwardRef<HTMLDivElement, FormSectionProps>(
               <span aria-hidden="true" className="text-destructive ml-1">
                 *
               </span>
-              <span className="sr-only">(required)</span>
+              <span className="sr-only">{t('common:forms.requiredSrOnly')}</span>
             </>
           )}
         </Label>

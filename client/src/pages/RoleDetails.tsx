@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useTranslation } from 'react-i18next';
 import { ArrowLeft, Edit2 } from 'lucide-react';
 import { api } from '../lib/api-client';
 import type { Role, ProjectPhase } from '../types';
@@ -14,6 +15,7 @@ interface ResourceTemplate {
 }
 
 export default function RoleDetails() {
+  const { t } = useTranslation();
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
@@ -150,7 +152,7 @@ export default function RoleDetails() {
       );
     }
 
-    const displayValue = value || placeholder || 'Not specified';
+    const displayValue = value || placeholder || t('roles:details.notSpecified');
 
     return (
       <div className="info-value inline-editable" onClick={() => setIsEditing(true)} style={{ cursor: 'pointer' }}>
@@ -209,16 +211,16 @@ export default function RoleDetails() {
   };
 
   if (roleLoading) {
-    return <div className="loading">Loading role details...</div>;
+    return <div className="loading">{t('roles:details.loading')}</div>;
   }
 
   if (roleError || !role) {
     return (
       <div className="error-page">
-        <h1>Role Not Found</h1>
-        <p>The role you're looking for doesn't exist or couldn't be loaded.</p>
+        <h1>{t('roles:details.notFoundTitle')}</h1>
+        <p>{t('roles:details.notFoundText')}</p>
         <button className="btn btn-primary" onClick={() => navigate('/roles')}>
-          Back to Roles
+          {t('roles:details.backToRoles')}
         </button>
       </div>
     );
@@ -228,27 +230,27 @@ export default function RoleDetails() {
     <div className="role-details-page">
       <div className="page-header">
         <div className="header-left">
-          <button 
+          <button
             className="btn btn-secondary btn-sm"
             onClick={() => navigate('/roles')}
           >
             <ArrowLeft size={16} />
-            Back to Roles
+            {t('roles:details.backToRoles')}
           </button>
           <div>
             <h1 style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <InlineEdit 
-                field="name" 
-                value={role.name} 
-                placeholder="Enter role name"
+              <InlineEdit
+                field="name"
+                value={role.name}
+                placeholder={t('roles:details.namePlaceholder')}
               />
             </h1>
             <div style={{ marginTop: '8px' }}>
-              <InlineEdit 
-                field="description" 
-                value={role.description} 
+              <InlineEdit
+                field="description"
+                value={role.description}
                 type="textarea"
-                placeholder="Enter role description"
+                placeholder={t('roles:details.descriptionPlaceholder')}
               />
             </div>
           </div>
@@ -258,14 +260,14 @@ export default function RoleDetails() {
       <div className="role-content">
         {/* Role Information Section */}
         <section className="role-info-section">
-          <h2>Role Information</h2>
+          <h2>{t('roles:details.infoTitle')}</h2>
           <div className="info-grid">
             <div className="info-item">
-              <label>External ID</label>
+              <label>{t('roles:columns.externalId')}</label>
               <InlineEdit
                 field="external_id"
                 value={role.external_id}
-                placeholder="Enter external ID"
+                placeholder={t('roles:details.externalIdPlaceholder')}
               />
             </div>
           </div>
@@ -274,9 +276,9 @@ export default function RoleDetails() {
         {/* Resource Templates Section */}
         <section className="resource-templates-section">
           <div className="section-header">
-            <h2>Resource Templates</h2>
+            <h2>{t('roles:details.templatesTitle')}</h2>
             <p className="text-muted">
-              Define allocation percentages for this role across different project types and phases
+              {t('roles:details.templatesSubtitle')}
             </p>
           </div>
 
@@ -285,7 +287,7 @@ export default function RoleDetails() {
               <table className="resource-templates-table">
                 <thead>
                   <tr>
-                    <th style={{ minWidth: '200px' }}>Project Type</th>
+                    <th style={{ minWidth: '200px' }}>{t('roles:details.projectType')}</th>
                     {phases.map(phase => (
                       <th key={phase.id} style={{ minWidth: '120px', textAlign: 'center' }}>
                         {phase.name}
@@ -351,7 +353,7 @@ export default function RoleDetails() {
             </div>
           ) : (
             <div className="empty-state">
-              <p>Loading resource template configuration...</p>
+              <p>{t('roles:details.templatesLoading')}</p>
             </div>
           )}
         </section>

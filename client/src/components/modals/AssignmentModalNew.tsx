@@ -1,8 +1,10 @@
 import React, { useMemo } from 'react';
 import { useQuery } from '@tanstack/react-query';
+import { useTranslation } from 'react-i18next';
 import { AlertTriangle } from 'lucide-react';
 import { api } from '../../lib/api-client';
 import { useModalForm } from '../../hooks/useModalForm';
+import i18n from '../../i18n';
 import {
   validateDateRange,
   validateAllocationPercentage,
@@ -91,13 +93,23 @@ const initialValues: AssignmentFormData = {
 const validateAssignment = (values: AssignmentFormData): Partial<Record<keyof AssignmentFormData, string>> => {
   const errors: Partial<Record<keyof AssignmentFormData, string>> = {};
 
-  if (!values.project_id) errors.project_id = 'Project is required';
-  if (!values.person_id) errors.person_id = 'Person is required';
-  if (!values.role_id) errors.role_id = 'Role is required';
+  if (!values.project_id) {
+    errors.project_id = i18n.t('validation:fieldRequired', { field: i18n.t('assignments:fields.project') });
+  }
+  if (!values.person_id) {
+    errors.person_id = i18n.t('validation:fieldRequired', { field: i18n.t('assignments:fields.person') });
+  }
+  if (!values.role_id) {
+    errors.role_id = i18n.t('validation:fieldRequired', { field: i18n.t('assignments:fields.role') });
+  }
 
   // Required date fields
-  if (!values.start_date) errors.start_date = 'Start date is required';
-  if (!values.end_date) errors.end_date = 'End date is required';
+  if (!values.start_date) {
+    errors.start_date = i18n.t('validation:fieldRequired', { field: i18n.t('assignments:fields.startDate') });
+  }
+  if (!values.end_date) {
+    errors.end_date = i18n.t('validation:fieldRequired', { field: i18n.t('assignments:fields.endDate') });
+  }
 
   // Date range validation using utility
   if (values.start_date && values.end_date) {
@@ -122,6 +134,7 @@ export const AssignmentModalNew: React.FC<AssignmentModalProps> = ({
   onSuccess,
   editingAssignment
 }) => {
+  const { t } = useTranslation();
   const {
     values: formData,
     errors,
@@ -213,22 +226,22 @@ export const AssignmentModalNew: React.FC<AssignmentModalProps> = ({
       const phaseDetail = (phases as ProjectPhase[]).find((p) => p.id === pp.phase_id);
       return {
         id: pp.phase_id,
-        name: phaseDetail?.name || 'Unknown Phase',
+        name: phaseDetail?.name || t('assignments:form.unknownPhase'),
         start_date: pp.start_date,
         end_date: pp.end_date
       };
     });
-  }, [projectPhases, phases]);
+  }, [projectPhases, phases, t]);
 
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && handleClose()}>
       <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle>{isEditing ? 'Edit Assignment' : 'Create New Assignment'}</DialogTitle>
+          <DialogTitle>{isEditing ? t('assignments:modal.editTitle') : t('assignments:modal.createTitle')}</DialogTitle>
           <DialogDescription>
             {isEditing
-              ? 'Update the assignment details below.'
-              : 'Fill in the information to create a new assignment.'}
+              ? t('assignments:modal.editDescription')
+              : t('assignments:modal.createDescription')}
           </DialogDescription>
         </DialogHeader>
         <div className="py-4">
@@ -237,7 +250,7 @@ export const AssignmentModalNew: React.FC<AssignmentModalProps> = ({
             <Alert variant="destructive" className="mb-4" role="alert" aria-live="assertive">
               <AlertTriangle className="h-4 w-4" aria-hidden="true" />
               <AlertDescription>
-                Please fix the errors below before submitting.
+                {t('assignments:modal.fixErrors')}
               </AlertDescription>
             </Alert>
           )}
@@ -245,7 +258,7 @@ export const AssignmentModalNew: React.FC<AssignmentModalProps> = ({
           <form onSubmit={handleSubmit} className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-2">
-              <Label htmlFor="project_id">Project <span aria-hidden="true">*</span><span className="sr-only">(required)</span></Label>
+              <Label htmlFor="project_id">{t('assignments:fields.project')} <span aria-hidden="true">*</span><span className="sr-only">{t('assignments:form.requiredSrOnly')}</span></Label>
               <Select value={formData.project_id} onValueChange={(value) => handleChange('project_id', value)}>
                 <SelectTrigger
                   id="project_id"
@@ -254,7 +267,7 @@ export const AssignmentModalNew: React.FC<AssignmentModalProps> = ({
                   aria-invalid={!!errors.project_id}
                   aria-describedby={errors.project_id ? 'project_id-error' : undefined}
                 >
-                  <SelectValue placeholder="Select project" />
+                  <SelectValue placeholder={t('assignments:form.selectProject')} />
                 </SelectTrigger>
                 <SelectContent>
                   {(projects?.data as Project[])?.map((project) => (
@@ -268,7 +281,7 @@ export const AssignmentModalNew: React.FC<AssignmentModalProps> = ({
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="person_id">Person <span aria-hidden="true">*</span><span className="sr-only">(required)</span></Label>
+              <Label htmlFor="person_id">{t('assignments:fields.person')} <span aria-hidden="true">*</span><span className="sr-only">{t('assignments:form.requiredSrOnly')}</span></Label>
               <Select value={formData.person_id} onValueChange={(value) => handleChange('person_id', value)}>
                 <SelectTrigger
                   id="person_id"
@@ -277,7 +290,7 @@ export const AssignmentModalNew: React.FC<AssignmentModalProps> = ({
                   aria-invalid={!!errors.person_id}
                   aria-describedby={errors.person_id ? 'person_id-error' : undefined}
                 >
-                  <SelectValue placeholder="Select person" />
+                  <SelectValue placeholder={t('assignments:form.selectPerson')} />
                 </SelectTrigger>
                 <SelectContent>
                   {(people?.data as Person[])?.map((person) => (
@@ -291,7 +304,7 @@ export const AssignmentModalNew: React.FC<AssignmentModalProps> = ({
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="role_id">Role <span aria-hidden="true">*</span><span className="sr-only">(required)</span></Label>
+              <Label htmlFor="role_id">{t('assignments:fields.role')} <span aria-hidden="true">*</span><span className="sr-only">{t('assignments:form.requiredSrOnly')}</span></Label>
               <Select value={formData.role_id} onValueChange={(value) => handleChange('role_id', value)}>
                 <SelectTrigger
                   id="role_id"
@@ -300,7 +313,7 @@ export const AssignmentModalNew: React.FC<AssignmentModalProps> = ({
                   aria-invalid={!!errors.role_id}
                   aria-describedby={errors.role_id ? 'role_id-error' : undefined}
                 >
-                  <SelectValue placeholder="Select role" />
+                  <SelectValue placeholder={t('assignments:form.selectRole')} />
                 </SelectTrigger>
                 <SelectContent>
                   {Array.isArray(roles) && (roles as Role[]).map((role) => (
@@ -314,10 +327,10 @@ export const AssignmentModalNew: React.FC<AssignmentModalProps> = ({
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="phase_id">Phase</Label>
+              <Label htmlFor="phase_id">{t('assignments:fields.phase')}</Label>
               <Select value={formData.phase_id} onValueChange={(value) => handleChange('phase_id', value)}>
                 <SelectTrigger id="phase_id">
-                  <SelectValue placeholder="Select phase (optional)" />
+                  <SelectValue placeholder={t('assignments:form.selectPhaseOptional')} />
                 </SelectTrigger>
                 <SelectContent>
                   {availablePhases?.map((phase: AvailablePhase) => (
@@ -330,7 +343,7 @@ export const AssignmentModalNew: React.FC<AssignmentModalProps> = ({
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="start_date">Start Date <span aria-hidden="true">*</span><span className="sr-only">(required)</span></Label>
+              <Label htmlFor="start_date">{t('common:startDate')} <span aria-hidden="true">*</span><span className="sr-only">{t('assignments:form.requiredSrOnly')}</span></Label>
               <Input
                 type="date"
                 id="start_date"
@@ -345,7 +358,7 @@ export const AssignmentModalNew: React.FC<AssignmentModalProps> = ({
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="end_date">End Date <span aria-hidden="true">*</span><span className="sr-only">(required)</span></Label>
+              <Label htmlFor="end_date">{t('common:endDate')} <span aria-hidden="true">*</span><span className="sr-only">{t('assignments:form.requiredSrOnly')}</span></Label>
               <Input
                 type="date"
                 id="end_date"
@@ -360,7 +373,7 @@ export const AssignmentModalNew: React.FC<AssignmentModalProps> = ({
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="allocation_percentage">Allocation % <span aria-hidden="true">*</span><span className="sr-only">(required)</span></Label>
+              <Label htmlFor="allocation_percentage">{t('assignments:form.allocationPercent')} <span aria-hidden="true">*</span><span className="sr-only">{t('assignments:form.requiredSrOnly')}</span></Label>
               <Input
                 type="number"
                 id="allocation_percentage"
@@ -377,31 +390,31 @@ export const AssignmentModalNew: React.FC<AssignmentModalProps> = ({
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="assignment_date_mode">Date Mode</Label>
+              <Label htmlFor="assignment_date_mode">{t('assignments:form.dateMode')}</Label>
               <Select value={formData.assignment_date_mode} onValueChange={(value: AssignmentDateMode) => handleChange('assignment_date_mode', value)}>
                 <SelectTrigger id="assignment_date_mode">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="fixed">Fixed Dates</SelectItem>
-                  <SelectItem value="phase">Phase-aligned</SelectItem>
-                  <SelectItem value="project">Project-aligned</SelectItem>
+                  <SelectItem value="fixed">{t('assignments:dateModeOptions.fixed')}</SelectItem>
+                  <SelectItem value="phase">{t('assignments:dateModeOptions.phase')}</SelectItem>
+                  <SelectItem value="project">{t('assignments:dateModeOptions.project')}</SelectItem>
                 </SelectContent>
               </Select>
             </div>
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="notes">Notes</Label>
+            <Label htmlFor="notes">{t('assignments:form.notes')}</Label>
             <Textarea
               id="notes"
               value={formData.notes}
               onChange={(e) => handleChange('notes', e.target.value)}
               rows={3}
-              placeholder="Additional notes about this assignment..."
+              placeholder={t('assignments:form.notesPlaceholder')}
               aria-describedby="notes-description"
             />
-            <span id="notes-description" className="sr-only">Optional additional notes about this assignment</span>
+            <span id="notes-description" className="sr-only">{t('assignments:form.notesDescription')}</span>
           </div>
 
           <div className="flex items-center space-x-2">
@@ -411,22 +424,22 @@ export const AssignmentModalNew: React.FC<AssignmentModalProps> = ({
               onCheckedChange={(checked) => handleChange('billable', checked === true)}
               aria-describedby="billable-description"
             />
-            <Label htmlFor="billable">Billable assignment</Label>
-            <span id="billable-description" className="sr-only">Mark this assignment as billable to client</span>
+            <Label htmlFor="billable">{t('assignments:form.billable')}</Label>
+            <span id="billable-description" className="sr-only">{t('assignments:form.billableDescription')}</span>
           </div>
 
             <DialogFooter>
               <Button type="button" variant="outline" onClick={handleClose}>
-                Cancel
+                {t('common:cancel')}
               </Button>
               <Button type="submit" disabled={isSubmitting}>
                 {isSubmitting ? (
                   <>
                     <Spinner className="mr-2 h-4 w-4" />
-                    {isEditing ? 'Updating...' : 'Creating...'}
+                    {isEditing ? t('assignments:form.updating') : t('assignments:form.creating')}
                   </>
                 ) : (
-                  isEditing ? 'Update Assignment' : 'Create Assignment'
+                  isEditing ? t('assignments:form.update') : t('assignments:form.create')
                 )}
               </Button>
             </DialogFooter>

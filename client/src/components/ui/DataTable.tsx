@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { ChevronUp, ChevronDown, ChevronsUpDown, ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from 'lucide-react';
 import {
   Table,
@@ -37,8 +38,9 @@ export function DataTable<T extends Record<string, any>>({
   onRowClick,
   itemsPerPage = 10,
   loading = false,
-  emptyMessage = 'No data available'
+  emptyMessage
 }: DataTableProps<T>) {
+  const { t } = useTranslation();
   const [currentPage, setCurrentPage] = useState(1);
   const [sortColumn, setSortColumn] = useState<string | null>(null);
   const [sortDirection, setSortDirection] = useState<SortDirection>(null);
@@ -119,7 +121,7 @@ export function DataTable<T extends Record<string, any>>({
       <div className="flex h-64 items-center justify-center">
         <div className="flex flex-col items-center gap-3">
           <Spinner size="lg" className="text-primary" />
-          <p className="text-sm text-muted-foreground">Loading data...</p>
+          <p className="text-sm text-muted-foreground">{t('common:loadingData')}</p>
         </div>
       </div>
     );
@@ -128,7 +130,7 @@ export function DataTable<T extends Record<string, any>>({
   if (!Array.isArray(data) || data.length === 0) {
     return (
       <div className="flex h-64 items-center justify-center">
-        <p className="text-muted-foreground">{emptyMessage}</p>
+        <p className="text-muted-foreground">{emptyMessage ?? t('common:noData')}</p>
       </div>
     );
   }
@@ -181,8 +183,11 @@ export function DataTable<T extends Record<string, any>>({
       {totalPages > 1 && (
         <div className="flex items-center justify-between px-2">
           <div className="text-sm text-muted-foreground">
-            Showing {((currentPage - 1) * itemsPerPage) + 1} to{' '}
-            {Math.min(currentPage * itemsPerPage, sortedData.length)} of {sortedData.length} entries
+            {t('common:showing', {
+              from: ((currentPage - 1) * itemsPerPage) + 1,
+              to: Math.min(currentPage * itemsPerPage, sortedData.length),
+              total: sortedData.length,
+            })}
           </div>
           <div className="flex items-center space-x-2">
             <Button
@@ -192,7 +197,7 @@ export function DataTable<T extends Record<string, any>>({
               disabled={currentPage === 1}
             >
               <ChevronsLeft className="h-4 w-4" />
-              <span className="ml-1">First</span>
+              <span className="ml-1">{t('common:first')}</span>
             </Button>
             <Button
               variant="outline"
@@ -201,10 +206,10 @@ export function DataTable<T extends Record<string, any>>({
               disabled={currentPage === 1}
             >
               <ChevronLeft className="h-4 w-4" />
-              <span className="ml-1">Previous</span>
+              <span className="ml-1">{t('common:previous')}</span>
             </Button>
             <span className="text-sm">
-              Page {currentPage} of {totalPages}
+              {t('common:pageInfo', { page: currentPage, totalPages })}
             </span>
             <Button
               variant="outline"
@@ -212,7 +217,7 @@ export function DataTable<T extends Record<string, any>>({
               onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
               disabled={currentPage === totalPages}
             >
-              <span className="mr-1">Next</span>
+              <span className="mr-1">{t('common:next')}</span>
               <ChevronRight className="h-4 w-4" />
             </Button>
             <Button
@@ -221,7 +226,7 @@ export function DataTable<T extends Record<string, any>>({
               onClick={() => setCurrentPage(totalPages)}
               disabled={currentPage === totalPages}
             >
-              <span className="mr-1">Last</span>
+              <span className="mr-1">{t('common:last')}</span>
               <ChevronsRight className="h-4 w-4" />
             </Button>
           </div>

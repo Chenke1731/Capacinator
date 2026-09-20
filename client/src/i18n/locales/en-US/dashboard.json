@@ -1,0 +1,128 @@
+{
+  "title": "Dashboard",
+  "subtitle": "Overview of your project capacity planning",
+  "errors": {
+    "loadFailed": "Failed to load dashboard data"
+  },
+  "noProjects": "No Projects",
+  "noAssignmentsYet": "No Assignments Yet",
+  "noData": "No Data",
+  "srHeadings": {
+    "alerts": "Critical Alerts and Notifications",
+    "stats": "Key Metrics Overview",
+    "charts": "Dashboard Charts and Analytics"
+  },
+  "stats": {
+    "currentProjects": "Current Projects",
+    "currentProjectsAria": "{{count}} current projects. Click to view all projects.",
+    "totalPeople": "Total People",
+    "totalPeopleAria": "{{count}} total people. Click to view people directory.",
+    "totalRoles": "Total Roles",
+    "totalRolesAria": "{{count}} total roles defined. Click to view people and roles.",
+    "capacityGaps": "Capacity Gaps",
+    "capacityGapsAria": "{{count}} capacity gaps detected. Click to view detailed reports."
+  },
+  "charts": {
+    "projectHealth": "Current Project Health",
+    "resourceUtilization": "Resource Utilization",
+    "capacityByRole": "Capacity Status by Role",
+    "quickStats": "Quick Stats",
+    "pieLabel": "{{name}}: {{value}}",
+    "healthBreakdownAria": "Project health breakdown: {{items}}. Click to view all projects.",
+    "healthBreakdownItem": "{{name}} {{count}} projects",
+    "utilizationBreakdownAria": "Resource utilization breakdown: {{items}}. Click to view people directory.",
+    "utilizationBreakdownItem": "{{name}} {{count}} people",
+    "capacityListAria": "Capacity status breakdown by role type",
+    "capacityItemAria": "{{name}} status: {{count}} roles. Click to view detailed reports.",
+    "statusIndicatorAria": "Status indicator for {{name}}",
+    "rolesCount": "{{count}} roles"
+  },
+  "quickStats": {
+    "listAria": "Quick availability and utilization statistics",
+    "available": "Available",
+    "availableAria": "{{count}} people available. Click to view people directory.",
+    "onLeave": "On Leave",
+    "onLeaveAria": "{{count}} people on leave. Click to view people directory.",
+    "limitedCapacity": "Limited Capacity",
+    "limitedAria": "{{count}} people with limited capacity. Click to view people directory.",
+    "overAllocated": "Over Allocated",
+    "overAllocatedAria": "{{count}} people over allocated. Click to view people directory."
+  },
+  "alerts": {
+    "title": "Critical Alerts",
+    "systemStatus": "System Status",
+    "allHealthy": "All Systems Healthy",
+    "noIssues": "No critical capacity issues detected",
+    "issueCount_one": "{{count}} issue requiring attention",
+    "issueCount_other": "{{count}} issues requiring attention",
+    "listAria": "Critical capacity planning alerts",
+    "itemAria": "{{severity}} alert: {{title}}. {{description}}. Click to {{action}}.",
+    "severity": {
+      "critical": "critical",
+      "high": "high",
+      "medium": "medium"
+    },
+    "due": "Due:"
+  },
+  "dateRange": {
+    "current": {
+      "label": "Current Status",
+      "description": "Projects active right now"
+    },
+    "thisWeek": {
+      "label": "This Week",
+      "description": "Next 7 days"
+    },
+    "thisMonth": {
+      "label": "This Month",
+      "description": "Current month"
+    },
+    "nextMonth": {
+      "label": "Next Month",
+      "description": "Following month"
+    },
+    "thisQuarter": {
+      "label": "This Quarter",
+      "description": "Current 3 months"
+    },
+    "nextQuarter": {
+      "label": "Next Quarter",
+      "description": "Following 3 months"
+    },
+    "custom": {
+      "label": "Custom Range",
+      "description": "Select specific dates"
+    },
+    "selectPrompt": "Select date range",
+    "selectorAria": "Select date range for dashboard data",
+    "optionsAria": "Date range options",
+    "applyCustom": "Apply Custom Range"
+  },
+  "kpis": {
+    "srHeading": "Enhanced Key Performance Indicators",
+    "target": "target",
+    "itemAria": "{{title}}: {{value}}. {{description}}. Click to {{action}}.",
+    "progressAria": "Progress towards {{target}}{{unit}} target",
+    "noAllocations": "No allocations yet. Start by assigning people to projects →",
+    "resourceEfficiency": {
+      "title": "Resource Efficiency",
+      "description": "Overall team utilization vs available capacity",
+      "action": "Optimize Allocations"
+    },
+    "projectHealth": {
+      "title": "Project Health Score",
+      "description": "Weighted score based on project timeline and resource status",
+      "action": "Review Projects"
+    },
+    "capacityBurnRate": {
+      "title": "Capacity Burn Rate",
+      "description": "Rate at which available capacity is being consumed",
+      "action": "View Capacity Report"
+    },
+    "allocationAccuracy": {
+      "title": "Allocation Accuracy",
+      "description": "Percentage of people allocated within their capacity limits",
+      "action": "Fix Over-allocations"
+    }
+  }
+}

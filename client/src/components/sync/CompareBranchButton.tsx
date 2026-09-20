@@ -7,11 +7,13 @@
  */
 
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import * as Dialog from '@radix-ui/react-dialog';
 import { ScenarioComparisonView } from './ScenarioComparisonView';
 import { useGitSync } from '../../contexts/GitSyncContext';
 
 export const CompareBranchButton: React.FC = () => {
+  const { t } = useTranslation();
   const { currentBranch } = useGitSync();
   const [showComparison, setShowComparison] = useState(false);
 
@@ -27,7 +29,7 @@ export const CompareBranchButton: React.FC = () => {
         className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors text-sm font-medium"
       >
         <span>↔</span>
-        <span>Compare to Main Scenario</span>
+        <span>{t('gitSync:compare.button')}</span>
       </button>
 
       <Dialog.Root open={showComparison} onOpenChange={setShowComparison}>

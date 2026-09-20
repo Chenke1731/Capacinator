@@ -7,6 +7,7 @@
  */
 
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import * as Dialog from '@radix-ui/react-dialog';
 import { api } from '../../lib/api-client';
 
@@ -23,6 +24,7 @@ export const CreateBranchModal: React.FC<CreateBranchModalProps> = ({
   onBranchCreated,
   currentBranch = 'main',
 }) => {
+  const { t } = useTranslation();
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [isCreating, setIsCreating] = useState(false);
@@ -35,12 +37,12 @@ export const CreateBranchModal: React.FC<CreateBranchModalProps> = ({
     // Validate branch name
     const branchNameRegex = /^[a-zA-Z0-9_-]+$/;
     if (!branchNameRegex.test(name)) {
-      setError('Branch name can only contain letters, numbers, hyphens, and underscores');
+      setError(t('gitSync:branches.nameInvalidChars'));
       return;
     }
 
     if (name === 'main' || name === 'master') {
-      setError('Cannot use "main" or "master" as branch name');
+      setError(t('gitSync:branches.nameReserved'));
       return;
     }
 
@@ -63,7 +65,7 @@ export const CreateBranchModal: React.FC<CreateBranchModalProps> = ({
       setDescription('');
       onClose();
     } catch (err) {
-      setError((err as Error).message || 'Failed to create branch');
+      setError((err as Error).message || t('gitSync:branches.createFailed'));
     } finally {
       setIsCreating(false);
     }
@@ -82,12 +84,11 @@ export const CreateBranchModal: React.FC<CreateBranchModalProps> = ({
         <Dialog.Overlay className="fixed inset-0 bg-black/50" />
         <Dialog.Content className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg shadow-xl max-w-md w-full p-6">
           <Dialog.Title className="text-xl font-semibold mb-4">
-            Create New Scenario Branch
+            {t('gitSync:branches.createTitle')}
           </Dialog.Title>
 
           <Dialog.Description className="text-sm text-gray-600 mb-6">
-            Create a new scenario branch to experiment with different resource allocations without
-            affecting the main scenario.
+            {t('gitSync:branches.createDescription')}
           </Dialog.Description>
 
           <form onSubmit={handleSubmit}>
@@ -99,7 +100,7 @@ export const CreateBranchModal: React.FC<CreateBranchModalProps> = ({
 
             <div className="mb-4">
               <label htmlFor="branch-name" className="block text-sm font-medium text-gray-700 mb-2">
-                Branch Name *
+                {t('gitSync:branches.nameLabel')} *
               </label>
               <input
                 id="branch-name"
@@ -112,19 +113,19 @@ export const CreateBranchModal: React.FC<CreateBranchModalProps> = ({
                 disabled={isCreating}
               />
               <p className="mt-1 text-xs text-gray-500">
-                Only letters, numbers, hyphens, and underscores allowed
+                {t('gitSync:branches.nameHint')}
               </p>
             </div>
 
             <div className="mb-6">
               <label htmlFor="branch-description" className="block text-sm font-medium text-gray-700 mb-2">
-                Description
+                {t('common:description')}
               </label>
               <textarea
                 id="branch-description"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
-                placeholder="Describe what makes this scenario different..."
+                placeholder={t('gitSync:branches.descriptionPlaceholder')}
                 rows={3}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 disabled={isCreating}
@@ -132,9 +133,9 @@ export const CreateBranchModal: React.FC<CreateBranchModalProps> = ({
             </div>
 
             <div className="mb-4 p-3 bg-blue-50 rounded text-sm text-blue-700">
-              <div className="font-medium mb-1">📌 Note</div>
+              <div className="font-medium mb-1">📌 {t('gitSync:branches.note')}</div>
               <div>
-                This branch will be created from: <strong>{currentBranch}</strong>
+                {t('gitSync:branches.createFrom', { branch: currentBranch })}
               </div>
             </div>
 
@@ -145,14 +146,14 @@ export const CreateBranchModal: React.FC<CreateBranchModalProps> = ({
                 disabled={isCreating}
                 className="px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50 transition-colors"
               >
-                Cancel
+                {t('common:cancel')}
               </button>
               <button
                 type="submit"
                 disabled={isCreating || !name.trim()}
                 className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
               >
-                {isCreating ? 'Creating...' : 'Create Branch'}
+                {isCreating ? t('gitSync:branches.creating') : t('gitSync:branches.createButton')}
               </button>
             </div>
           </form>

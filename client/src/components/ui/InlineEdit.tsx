@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Check, X, Edit2 } from 'lucide-react';
 import { cn } from '../../lib/utils';
 
@@ -34,6 +35,7 @@ export function InlineEdit({
   const [isEditing, setIsEditing] = useState(false);
   const [editValue, setEditValue] = useState(value);
   const [error, setError] = useState('');
+  const { t } = useTranslation();
   const inputRef = useRef<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>(null);
 
   useEffect(() => {
@@ -180,14 +182,14 @@ export function InlineEdit({
       <button
         onClick={handleSave}
         className="p-1 text-green-600 hover:text-green-700 dark:text-green-400 dark:hover:text-green-300"
-        title="Save"
+        title={t('common:save')}
       >
         <Check size={16} />
       </button>
       <button
         onClick={handleCancel}
         className="p-1 text-red-600 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300"
-        title="Cancel"
+        title={t('common:cancel')}
       >
         <X size={16} />
       </button>

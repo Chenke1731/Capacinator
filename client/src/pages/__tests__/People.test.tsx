@@ -425,9 +425,9 @@ describe('People Page', () => {
       renderComponent();
 
       await waitFor(() => {
-        // each row now renders two "View Details" entries: the gray
-        // quick-action fallback and the dedicated details button
-        expect(screen.getAllByText('View Details')).toHaveLength(6);
+        // rows without utilization data only render the dedicated details
+        // button (no duplicate gray fallback)
+        expect(screen.getAllByText('View Details')).toHaveLength(3);
       });
     });
 

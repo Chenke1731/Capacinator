@@ -49,12 +49,18 @@ export default function People() {
     }
   });
 
-  // Fetch utilization data for actionable insights
+  // Fetch utilization data for actionable insights.
+  // The endpoint returns a bare array; normalize to { personUtilization } so
+  // downstream consumers always see one shape.
   const { data: utilizationData } = useQuery({
     queryKey: queryKeys.people.utilization(),
     queryFn: async () => {
       const response = await api.people.getUtilization();
-      return response.data;
+      const payload = response.data;
+      if (Array.isArray(payload)) {
+        return { personUtilization: payload };
+      }
+      return payload;
     }
   });
 
@@ -154,7 +160,7 @@ export default function People() {
       };
     }
 
-    const allocation = utilization.total_allocation;
+    const allocation = utilization.total_allocation_percentage ?? utilization.total_allocation ?? 0;
     const availability = utilization.current_availability_percentage;
     const utilizationPercentage = availability > 0 ? (allocation / availability) * 100 : 0;
 
@@ -230,7 +236,7 @@ export default function People() {
     ).length;
     
     const available = utilizationData.personUtilization.filter(
-      (u: any) => u.allocation_status === 'UNDER_ALLOCATED' || u.total_allocation < 40
+      (u: any) => u.allocation_status === 'UNDER_ALLOCATED' || (u.total_allocation_percentage ?? u.total_allocation ?? 0) < 40
     ).length;
     
     return {
@@ -302,7 +308,7 @@ export default function People() {
         return (
           <div className="workload-status">
             <div className={`status-indicator status-${insights.color}`}>
-              <IconComponent size={18} />
+              <IconComponent size={20} />
               {insights.percentage !== undefined && (
                 <span className="status-percentage">
                   {Math.round(insights.percentage)}%
@@ -319,24 +325,29 @@ export default function People() {
     {
       key: 'actions',
       header: t('people:columns.quickActions'),
-      width: '260px',
+      width: '300px',
       render: (_, row) => {
         const insights = getPersonInsights(row.id);
         const ActionIcon = insights.icon;
+        // rows without utilization data have no meaningful quick action —
+        // only show the standard 详情/编辑 pair instead of a duplicate button
+        const hasQuickAction = insights.status !== 'unknown';
 
         return (
           <div className="table-actions">
-            <button
-              className={`btn btn-sm btn-${insights.color} quick-action-btn`}
-              onClick={(e) => {
-                e.stopPropagation();
-                handleQuickAction(insights.actionType, row.id);
-              }}
-              title={insights.action}
-            >
-              <ActionIcon size={16} />
-              {insights.action}
-            </button>
+            {hasQuickAction && (
+              <button
+                className={`btn btn-sm btn-${insights.color} quick-action-btn`}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleQuickAction(insights.actionType, row.id);
+                }}
+                title={insights.action}
+              >
+                <ActionIcon size={18} />
+                {insights.action}
+              </button>
+            )}
             <button
               className="btn btn-outline btn-sm quick-action-btn"
               onClick={(e) => {
@@ -345,7 +356,7 @@ export default function People() {
               }}
               title={t('common:viewDetails')}
             >
-              <Eye size={16} />
+              <Eye size={18} />
               {t('common:viewDetails')}
             </button>
             <button
@@ -356,7 +367,7 @@ export default function People() {
               }}
               title={t('common:edit')}
             >
-              <Edit2 size={16} />
+              <Edit2 size={18} />
               {t('common:edit')}
             </button>
           </div>

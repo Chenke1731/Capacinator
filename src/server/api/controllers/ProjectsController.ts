@@ -68,16 +68,12 @@ export class ProjectsController extends BaseController {
         // Move currentDate to start of next phase
         currentDate = new Date(phaseEnd);
 
-        // Calculate actual duration in days for storage
-        const actualDurationDays = Math.round((phaseEnd.getTime() - phaseStart.getTime()) / (24 * 60 * 60 * 1000));
-
         return {
           id: `phase-timeline-${projectId}-${templatePhase.phase_id}-${Date.now()}-${index}`,
           project_id: projectId,
           phase_id: templatePhase.phase_id,
           start_date: phaseStart.getTime(),
           end_date: phaseEnd.getTime(),
-          duration_days: actualDurationDays,
           // Template tracking fields from new schema
           phase_source: 'template',
           template_phase_id: templatePhase.template_phase_id,

@@ -107,5 +107,6 @@
     "percentAvailable": "{{available}}% available",
     "selectAnOption": "Select an option"
   },
-  "allocation": "Allocation"
+  "allocation": "Allocation",
+  "date": "Date"
 }

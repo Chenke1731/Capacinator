@@ -5,7 +5,8 @@ import { useTranslation } from 'react-i18next';
 import {
   ArrowLeft, Users, Briefcase, Clock,
   MapPin, Target, AlertTriangle, AlertCircle,
-  CheckCircle, XCircle, RefreshCw, Edit2, Trash2, Save
+  CheckCircle, XCircle, RefreshCw, Edit2, Trash2, Save,
+  Calculator
 } from 'lucide-react';
 import {
   Dialog,
@@ -32,6 +33,7 @@ import { ProjectDemandChart } from '../components/ProjectDemandChart';
 import { InlineEdit } from '../components/ui/InlineEdit';
 import { CollapsibleSection } from '../components/ui/CollapsibleSection';
 import { AssignmentTable } from '../components/ui/AssignmentTable';
+import { EstimationPanel } from '../components/estimation/EstimationPanel';
 import './ProjectDetail.css';
 
 interface ProjectDetail {
@@ -95,6 +97,7 @@ export function ProjectDetail() {
     basic: true,
     demand: true,
     assignments: true,
+    estimation: false,
     history: false
   });
 
@@ -498,6 +501,16 @@ export function ProjectDetail() {
             showPersonColumn={true}
             showProjectColumn={false}
           />
+        </CollapsibleSection>
+
+        {/* Estimation Section (Step 1: LOC estimation + deadline check) */}
+        <CollapsibleSection
+          title={t('projects:estimation.title')}
+          icon={Calculator}
+          expanded={expandedSections.estimation}
+          onToggle={(expanded) => setExpandedSections(prev => ({ ...prev, estimation: expanded }))}
+        >
+          <EstimationPanel projectId={project.id} />
         </CollapsibleSection>
 
         {/* History Section */}

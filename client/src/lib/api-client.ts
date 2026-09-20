@@ -67,6 +67,9 @@ import type {
   ProjectAllocationsResponse,
   ProjectAllocationsInitResponse,
   ProjectAllocationOverrideResponse,
+  ProjectEstimation,
+  EstimationCheckResponse,
+  EstimationDeviation,
   ScenarioAssignmentsResponse,
   ScenarioComparisonResponse,
   AuditHistoryResponse,
@@ -721,5 +724,17 @@ export const api = {
 
     deleteAssociation: (id: number, personId: number) =>
       apiClient.delete<GitHubAssociationDeleteResponse>(`/github-connections/${id}/associations/${personId}`),
+  },
+
+  // Estimations (Step 1: LOC-based estimation records + deadline check)
+  estimations: {
+    listByProject: (projectId: string) =>
+      apiClient.get<{ data: ProjectEstimation[] }>(`/estimations/project/${projectId}`),
+    create: (projectId: string, data: Partial<ProjectEstimation>) =>
+      apiClient.post<{ data: ProjectEstimation }>(`/estimations/project/${projectId}`, data),
+    backfill: (id: number, data: Partial<ProjectEstimation>) =>
+      apiClient.post<{ data: ProjectEstimation; deviation: EstimationDeviation }>(`/estimations/${id}/backfill`, data),
+    check: (id: number, body: { deadline?: string; start?: string } = {}) =>
+      apiClient.post<{ data: EstimationCheckResponse }>(`/estimations/${id}/check`, body),
   },
 };

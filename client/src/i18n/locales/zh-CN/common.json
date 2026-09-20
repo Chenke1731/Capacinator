@@ -107,5 +107,6 @@
     "percentAvailable": "可用 {{available}}%",
     "selectAnOption": "请选择"
   },
-  "allocation": "分配比例"
+  "allocation": "分配比例",
+  "date": "日期"
 }

@@ -1157,3 +1157,65 @@ export interface ProjectAllocationsResponse {
     override_count: number;
   };
 }
+
+// ===== Estimation (Step 1: LOC-based estimation + deadline check) =====
+
+export interface ProjectEstimation {
+  id: number;
+  project_id: string;
+  estimated_loc: number;
+  loc_rate_per_pm: number;
+  design_share_pct: number;
+  deviation_low_pct: number;
+  deviation_high_pct: number;
+  expected_delivery_date: string | null;
+  review_notes: string | null;
+  actual_loc: number | null;
+  actual_design_pm: number | null;
+  actual_dev_pm: number | null;
+  actual_delivery_date: string | null;
+  backfilled_at: string | null;
+  created_by: string | null;
+  created_at: string;
+  updated_at: string;
+  /** computed client-side convenience flag: newest record */
+  is_current?: boolean;
+}
+
+export interface EstimationPmInterval {
+  low: number;
+  mid: number;
+  high: number;
+}
+
+export interface EstimationSideCheck {
+  side: 'design' | 'dev';
+  roleNames: string[];
+  teamSize: number;
+  demand: EstimationPmInterval;
+  supplyPm: number;
+  slackPm: number;
+  gapPm: number;
+  verdict: 'feasible' | 'tight' | 'infeasible';
+}
+
+export interface EstimationCheckResponse {
+  window: { start: string; deadline: string; months: number };
+  design: EstimationSideCheck;
+  dev: EstimationSideCheck;
+  overall: { verdict: 'feasible' | 'tight' | 'infeasible' };
+  assumptions: {
+    loc_rate_per_pm: number;
+    design_share_pct: number;
+    deviation_low_pct: number;
+    deviation_high_pct: number;
+    capacity_note: string;
+  };
+}
+
+export interface EstimationDeviation {
+  loc: number | null;
+  design_pm: number | null;
+  dev_pm: number | null;
+  days_late: number | null;
+}

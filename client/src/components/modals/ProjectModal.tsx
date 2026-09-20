@@ -87,8 +87,9 @@ const validateProject = (values: ProjectFormData): Partial<Record<keyof ProjectF
 
   if (!values.name.trim()) errors.name = i18n.t('projects:validation.nameRequired');
   if (!values.project_type_id) errors.project_type_id = i18n.t('projects:validation.typeRequired');
-  if (!values.location_id) errors.location_id = i18n.t('projects:validation.locationRequired');
-  if (!values.owner_id) errors.owner_id = i18n.t('projects:validation.ownerRequired');
+  // location/owner are optional — the data model allows NULL and existing
+  // projects (e.g. reservation pools) carry no location; requiring them made
+  // every edit save (including tag changes) silently fail validation
 
   // Note: ProjectModal currently doesn't have date range fields
   // but this validation function is extensible for future date fields
@@ -299,7 +300,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="location_id">{t('projects:location')} <span aria-hidden="true">*</span><span className="sr-only">{t('projects:a11yRequired')}</span></Label>
+              <Label htmlFor="location_id">{t('projects:location')}</Label>
               <Select value={formData.location_id} onValueChange={(value) => handleChange('location_id', value)}>
                 <SelectTrigger
                   id="location_id"
@@ -322,7 +323,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="owner_id">{t('projects:projectOwner')} <span aria-hidden="true">*</span><span className="sr-only">{t('projects:a11yRequired')}</span></Label>
+              <Label htmlFor="owner_id">{t('projects:projectOwner')}</Label>
               <Select value={formData.owner_id} onValueChange={(value) => handleChange('owner_id', value)}>
                 <SelectTrigger
                   id="owner_id"

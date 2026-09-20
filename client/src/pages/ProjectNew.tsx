@@ -97,7 +97,6 @@ export function ProjectNew() {
     const newErrors: Record<string, string> = {};
     if (!formData.name.trim()) newErrors.name = t('projects:validation.nameRequired');
     if (!formData.project_type_id) newErrors.project_type_id = t('projects:validation.typeRequired');
-    if (!formData.location_id) newErrors.location_id = t('projects:validation.locationRequired');
 
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);

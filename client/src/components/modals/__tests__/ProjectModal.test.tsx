@@ -177,6 +177,44 @@ describe('ProjectModal', () => {
       });
     });
 
+    it('multi-tag chips toggle independently and submit the full tag set', async () => {
+      (api.tags.list as jest.Mock).mockResolvedValue({
+        data: { data: [
+          { id: 1, name: 'Urgent', color: '#ef4444' },
+          { id: 2, name: 'Outsource', color: null },
+          { id: 3, name: 'Internal', color: null }
+        ] }
+      });
+      (api.projects.update as jest.Mock).mockResolvedValue({ data: { data: {} } });
+      renderComponent({
+        editingProject: {
+          ...mockProject,
+          tags: [
+            { id: 1, name: 'Urgent', color: '#ef4444' },
+            { id: 2, name: 'Outsource', color: null }
+          ]
+        }
+      });
+
+      await waitFor(() => expect(screen.getByText('Outsource')).toBeInTheDocument());
+      // initial selection reflects the project's tags
+      expect(screen.getByText('Urgent').className).toContain('tag-chip-selected');
+      expect(screen.getByText('Outsource').className).toContain('tag-chip-selected');
+      expect(screen.getByText('Internal').className).not.toContain('tag-chip-selected');
+
+      // toggle one off, another on — independently
+      fireEvent.click(screen.getByText('Outsource'));
+      fireEvent.click(screen.getByText('Internal'));
+      expect(screen.getByText('Outsource').className).not.toContain('tag-chip-selected');
+      expect(screen.getByText('Internal').className).toContain('tag-chip-selected');
+      expect(screen.getByText('Urgent').className).toContain('tag-chip-selected');
+
+      fireEvent.click(screen.getByRole('button', { name: /Update Project/i }));
+      await waitFor(() => expect(api.projects.update).toHaveBeenCalled());
+      const payload = (api.projects.update as jest.Mock).mock.calls[0][1];
+      expect([...payload.tag_ids].sort()).toEqual([1, 3]);
+    });
+
     it('populates form with project data when editing', async () => {
       renderComponent({ editingProject: mockProject });
       await waitFor(() => {
@@ -277,28 +315,26 @@ describe('ProjectModal', () => {
       });
     });
 
-    it('shows error when submitting without location', async () => {
+    it('does not require location (data model allows NULL)', async () => {
       renderComponent();
       await waitFor(() => {
-        const submitButton = screen.getByRole('button', { name: /Create Project/i });
-        fireEvent.click(submitButton);
+        fireEvent.click(screen.getByRole('button', { name: /Create Project/i }));
       });
-
       await waitFor(() => {
-        expect(screen.getByText('Location is required')).toBeInTheDocument();
+        expect(screen.getByText('Project name is required')).toBeInTheDocument();
       });
+      expect(screen.queryByText('Location is required')).not.toBeInTheDocument();
     });
 
-    it('shows error when submitting without project owner', async () => {
+    it('does not require project owner (data model allows NULL)', async () => {
       renderComponent();
       await waitFor(() => {
-        const submitButton = screen.getByRole('button', { name: /Create Project/i });
-        fireEvent.click(submitButton);
+        fireEvent.click(screen.getByRole('button', { name: /Create Project/i }));
       });
-
       await waitFor(() => {
-        expect(screen.getByText('Project owner is required')).toBeInTheDocument();
+        expect(screen.getByText('Project name is required')).toBeInTheDocument();
       });
+      expect(screen.queryByText('Project owner is required')).not.toBeInTheDocument();
     });
 
     it('shows error alert when there are validation errors', async () => {

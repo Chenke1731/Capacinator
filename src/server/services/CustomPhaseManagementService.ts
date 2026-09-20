@@ -1,5 +1,6 @@
 import type { Knex } from 'knex';
 import { PhaseTemplateValidationService, type PhaseUpdateRequest } from './PhaseTemplateValidationService.js';
+import { toIsoDateString } from '../utils/isoDate.js';
 
 export interface CustomPhaseData {
   name: string;
@@ -80,9 +81,10 @@ export class CustomPhaseManagementService {
         id: `phase-timeline-${projectId}-${phaseId}-${Date.now()}`,
         project_id: projectId,
         phase_id: phaseId,
-        start_date: startDate.getTime(),
-        end_date: endDate.getTime(),
-        duration_days: Math.round((endDate.getTime() - startDate.getTime()) / (24 * 60 * 60 * 1000)),
+        // ISO date strings — canonical column format (epoch-ms breaks
+        // downstream string comparisons, e.g. dashboard stats)
+        start_date: toIsoDateString(startDate),
+        end_date: toIsoDateString(endDate),
         // Custom phase tracking fields
         phase_source: 'custom',
         template_phase_id: null,
@@ -111,8 +113,8 @@ export class CustomPhaseManagementService {
           await trx('project_phases_timeline')
             .where('id', update.id)
             .update({
-              start_date: update.start_date,
-              end_date: update.end_date,
+              start_date: toIsoDateString(new Date(update.start_date)),
+              end_date: toIsoDateString(new Date(update.end_date)),
               updated_at: new Date()
             });
         }
@@ -186,10 +188,9 @@ export class CustomPhaseManagementService {
       if (updateData.durationDays !== undefined) {
         const newEndDate = updateData.startDate || new Date(currentPhase.start_date);
         newEndDate.setTime(newEndDate.getTime() + (updateData.durationDays * 24 * 60 * 60 * 1000));
-        
-        updates.end_date = newEndDate.getTime();
-        updates.duration_days = updateData.durationDays;
-        
+
+        updates.end_date = toIsoDateString(newEndDate);
+
         if (currentPhase.phase_source === 'template') {
           updates.is_duration_customized = true;
         }
@@ -197,11 +198,10 @@ export class CustomPhaseManagementService {
 
       // Handle date updates
       if (updateData.startDate) {
-        updates.start_date = updateData.startDate.getTime();
+        updates.start_date = toIsoDateString(updateData.startDate);
       }
       if (updateData.endDate) {
-        updates.end_date = updateData.endDate.getTime();
-        updates.duration_days = Math.round((updateData.endDate.getTime() - (updateData.startDate?.getTime() || currentPhase.start_date)) / (24 * 60 * 60 * 1000));
+        updates.end_date = toIsoDateString(updateData.endDate);
       }
 
       // Handle name updates (requires updating the phase itself)
@@ -423,14 +423,16 @@ export class CustomPhaseManagementService {
       let currentEndDate = endDate.getTime();
       for (let i = insertIndex; i < currentTimeline.length; i++) {
         const phase = currentTimeline[i];
-        const phaseDurationMs = phase.end_date - phase.start_date;
-        
+        // dates may be stored as ISO strings — parse before arithmetic
+        const phaseDurationMs =
+          new Date(phase.end_date).getTime() - new Date(phase.start_date).getTime();
+
         affectedPhases.push({
           id: phase.id,
           start_date: currentEndDate,
           end_date: currentEndDate + phaseDurationMs
         });
-        
+
         currentEndDate += phaseDurationMs;
       }
       

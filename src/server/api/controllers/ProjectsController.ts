@@ -4,6 +4,7 @@ import { ServiceContainer } from '../../services/ServiceContainer.js';
 import { notificationScheduler } from '../../services/NotificationScheduler.js';
 import { PhaseTemplateValidationService, type PhaseUpdateRequest } from '../../services/PhaseTemplateValidationService.js';
 import { CustomPhaseManagementService, type CustomPhaseData, type PhaseUpdateData } from '../../services/CustomPhaseManagementService.js';
+import { toIsoDateString } from '../../utils/isoDate.js';
 import { logger } from '../../services/logging/config.js';
 
 // Alias for backward compatibility
@@ -72,8 +73,10 @@ export class ProjectsController extends BaseController {
           id: `phase-timeline-${projectId}-${templatePhase.phase_id}-${Date.now()}-${index}`,
           project_id: projectId,
           phase_id: templatePhase.phase_id,
-          start_date: phaseStart.getTime(),
-          end_date: phaseEnd.getTime(),
+          // ISO date strings — the canonical column format; epoch-ms numbers
+          // break every string comparison downstream (e.g. dashboard stats)
+          start_date: toIsoDateString(phaseStart),
+          end_date: toIsoDateString(phaseEnd),
           // Template tracking fields from new schema
           phase_source: 'template',
           template_phase_id: templatePhase.template_phase_id,

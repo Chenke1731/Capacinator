@@ -73,8 +73,11 @@ function calculateResourceEfficiency(dashboard: DashboardSummary): number {
   // If no people, return 0
   if (totalPeople === 0) return 0;
 
-  const overAllocated = dashboard.utilization?.OVER_ALLOCATED || 0;
-  const fullyAllocated = dashboard.utilization?.FULLY_ALLOCATED || 0;
+  // utilization keys come straight from person_utilization_view's
+  // utilization_status ('Over-allocated', 'Fully-allocated', ...);
+  // UPPER_SNAKE kept as fallback for older payload shapes
+  const overAllocated = dashboard.utilization?.OVER_ALLOCATED ?? dashboard.utilization?.['Over-allocated'] ?? 0;
+  const fullyAllocated = dashboard.utilization?.FULLY_ALLOCATED ?? dashboard.utilization?.['Fully-allocated'] ?? 0;
   const allocated = fullyAllocated + overAllocated;
 
   // If no allocations yet, return 0 (not 100, as nothing is allocated)
@@ -117,7 +120,7 @@ function calculateCapacityBurnRate(dashboard: DashboardSummary): number {
 
 function calculateAllocationAccuracy(dashboard: DashboardSummary): number {
   const totalPeople = dashboard.summary?.people || 1;
-  const overAllocated = dashboard.utilization?.OVER_ALLOCATED || 0;
+  const overAllocated = dashboard.utilization?.OVER_ALLOCATED ?? dashboard.utilization?.['Over-allocated'] ?? 0;
 
   // Accuracy = people allocated correctly / total people
   const accuracy = ((totalPeople - overAllocated) / totalPeople) * 100;

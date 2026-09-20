@@ -196,48 +196,52 @@ export function Projects() {
     {
       key: 'actions',
       header: t('common:actions'),
-      width: '120px',
+      width: '440px',
       render: (_, row) => (
         <div className="table-actions">
           <button
-            className="btn btn-icon btn-sm"
+            className="btn table-action-btn"
             onClick={(e) => {
               e.stopPropagation();
               navigate(`/projects/${row.id}`);
             }}
             title={t('common:viewDetails')}
           >
-            <Eye size={16} />
+            <Eye size={18} />
+            {t('common:viewDetails')}
           </button>
           <button
-            className="btn btn-icon btn-sm"
+            className="btn table-action-btn"
             onClick={(e) => {
               e.stopPropagation();
               handleEditProject(row);
             }}
             title={t('common:edit')}
           >
-            <Edit2 size={16} />
+            <Edit2 size={18} />
+            {t('common:edit')}
           </button>
           <button
-            className="btn btn-icon btn-sm btn-secondary"
+            className="btn table-action-btn"
             onClick={(e) => {
               e.stopPropagation();
               handleManageAllocations(row);
             }}
             title={t('projects:manageAllocations')}
           >
-            <Users size={16} />
+            <Users size={18} />
+            {t('projects:manageAllocations')}
           </button>
           <button
-            className="btn btn-icon btn-sm btn-danger"
+            className="btn table-action-btn btn-danger"
             onClick={(e) => {
               e.stopPropagation();
               handleDeleteProject(row.id, row.name);
             }}
             title={t('common:delete')}
           >
-            <Trash2 size={16} />
+            <Trash2 size={18} />
+            {t('common:delete')}
           </button>
         </div>
       )

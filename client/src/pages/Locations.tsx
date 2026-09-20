@@ -138,18 +138,19 @@ export function Locations() {
     {
       key: 'actions',
       header: t('common:actions'),
-      width: '100px',
+      width: '160px',
       render: (_, row) => (
         <div className="table-actions">
           <button
-            className="btn btn-icon btn-sm btn-danger"
+            className="btn table-action-btn btn-danger"
             onClick={(e) => {
               e.stopPropagation();
               handleDelete(row);
             }}
             title={t('common:delete')}
           >
-            <Trash2 size={16} />
+            <Trash2 size={18} />
+            {t('common:delete')}
           </button>
         </div>
       )

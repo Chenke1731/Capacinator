@@ -264,33 +264,38 @@ export default function Availability() {
                 )}
               </td>
               <td>
-                {!override.is_approved && (
+                <div className="table-actions">
+                  {!override.is_approved && (
+                    <button
+                      className="btn table-action-btn"
+                      onClick={() => approveMutation.mutate(override.id)}
+                      title={t('people:availability.approve')}
+                    >
+                      <Check size={18} />
+                      {t('people:availability.approve')}
+                    </button>
+                  )}
                   <button
-                    className="btn-icon"
-                    onClick={() => approveMutation.mutate(override.id)}
-                    title={t('people:availability.approve')}
+                    className="btn table-action-btn"
+                    onClick={() => handleEdit(override)}
+                    title={t('common:edit')}
                   >
-                    <Check size={16} />
+                    <Edit2 size={18} />
+                    {t('common:edit')}
                   </button>
-                )}
-                <button
-                  className="btn-icon"
-                  onClick={() => handleEdit(override)}
-                  title={t('common:edit')}
-                >
-                  <Edit2 size={16} />
-                </button>
-                <button
-                  className="btn-icon btn-danger"
-                  onClick={() => {
-                    if (confirm(t('people:availability.deleteConfirm'))) {
-                      deleteMutation.mutate(override.id);
-                    }
-                  }}
-                  title={t('common:delete')}
-                >
-                  <Trash2 size={16} />
-                </button>
+                  <button
+                    className="btn table-action-btn btn-danger"
+                    onClick={() => {
+                      if (confirm(t('people:availability.deleteConfirm'))) {
+                        deleteMutation.mutate(override.id);
+                      }
+                    }}
+                    title={t('common:delete')}
+                  >
+                    <Trash2 size={18} />
+                    {t('common:delete')}
+                  </button>
+                </div>
               </td>
             </tr>
           ))}

@@ -117,6 +117,35 @@
   border-color: var(--danger);
 }
 
+/* Unified table row action buttons: icon + text label, large enough to read.
+   Used by Roles / Projects / ProjectTypes / Assignments / Locations / Availability. */
+.table-actions {
+  flex-wrap: wrap;
+}
+
+.table-action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.875rem;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  border-radius: 6px;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.table-action-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px var(--shadow-sm);
+}
+
+.table-action-btn.btn-danger {
+  background-color: var(--danger-bg);
+  color: var(--danger);
+  border-color: var(--danger);
+}
+
 /* Form styles */
 .form-group {
   margin-bottom: 1rem;

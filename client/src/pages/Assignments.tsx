@@ -528,38 +528,41 @@ export default function Assignments() {
     {
       key: 'actions',
       header: t('common:actions'),
-      width: '120px',
+      width: '360px',
       render: (_, row) => (
         <div className="table-actions">
           <button
-            className="btn btn-icon btn-sm"
+            className="btn table-action-btn"
             onClick={(e) => {
               e.stopPropagation();
               navigate(`/projects/${row.project_id}`);
             }}
             title={t('assignments:viewProject')}
           >
-            <Eye size={16} />
+            <Eye size={18} />
+            {t('assignments:viewProject')}
           </button>
           <button
-            className="btn btn-icon btn-sm"
+            className="btn table-action-btn"
             onClick={(e) => {
               e.stopPropagation();
               handleEditAssignment(row);
             }}
             title={t('common:edit')}
           >
-            <Edit2 size={16} />
+            <Edit2 size={18} />
+            {t('common:edit')}
           </button>
           <button
-            className="btn btn-icon btn-sm btn-danger"
+            className="btn table-action-btn btn-danger"
             onClick={(e) => {
               e.stopPropagation();
               handleDeleteAssignment(row.id, `${row.person_name} - ${row.project_name}`);
             }}
             title={t('common:delete')}
           >
-            <Trash2 size={16} />
+            <Trash2 size={18} />
+            {t('common:delete')}
           </button>
         </div>
       )

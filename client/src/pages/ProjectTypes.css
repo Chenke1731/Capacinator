@@ -144,17 +144,9 @@
 
 .project-type-actions {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 4px;
-}
-
-.project-type-actions .btn {
-  opacity: 0.7;
-  transition: opacity 0.2s;
-}
-
-.project-type-row:hover .project-type-actions .btn {
-  opacity: 1;
+  gap: 0.5rem;
 }
 
 .project-type-children {

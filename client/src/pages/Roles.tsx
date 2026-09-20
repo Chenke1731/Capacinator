@@ -113,38 +113,41 @@ export default function Roles() {
     {
       key: 'actions',
       header: t('common:actions'),
-      width: '120px',
+      width: '340px',
       render: (_, row) => (
         <div className="table-actions">
           <button
-            className="btn btn-icon btn-sm"
+            className="btn table-action-btn"
             onClick={(e) => {
               e.stopPropagation();
               navigate(`/roles/${row.id}`);
             }}
             title={t('common:viewDetails')}
           >
-            <Eye size={16} />
+            <Eye size={18} />
+            {t('common:viewDetails')}
           </button>
           <button
-            className="btn btn-icon btn-sm"
+            className="btn table-action-btn"
             onClick={(e) => {
               e.stopPropagation();
               navigate(`/roles/${row.id}/edit`);
             }}
             title={t('common:edit')}
           >
-            <Edit2 size={16} />
+            <Edit2 size={18} />
+            {t('common:edit')}
           </button>
           <button
-            className="btn btn-icon btn-sm btn-danger"
+            className="btn table-action-btn btn-danger"
             onClick={(e) => {
               e.stopPropagation();
               handleDeleteRole(row.id, row.name);
             }}
             title={t('common:delete')}
           >
-            <Trash2 size={16} />
+            <Trash2 size={18} />
+            {t('common:delete')}
           </button>
         </div>
       )

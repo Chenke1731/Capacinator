@@ -234,6 +234,15 @@
     "label": "标签",
     "filterLabel": "标签",
     "add": "添加",
-    "newPlaceholder": "新标签名…"
+    "newPlaceholder": "新标签名…",
+    "manageButton": "标签管理",
+    "manageTitle": "标签管理",
+    "manageDescription": "点击标签名称重命名;删除标签会同时移除所有事项上的该标签(不影响事项本身)。",
+    "noneYet": "还没有标签",
+    "rename": "重命名",
+    "delete": "删除",
+    "usageCount": "{{count}} 个事项使用",
+    "deleteTitle": "删除标签",
+    "deleteMessage": "确定删除「{{name}}」?它已标注在 {{count}} 个事项上,删除后这些事项将不再带此标签(事项本身不受影响)。"
   }
 }

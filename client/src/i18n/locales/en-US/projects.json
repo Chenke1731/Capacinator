@@ -236,6 +236,15 @@
     "label": "Tags",
     "filterLabel": "Tag",
     "add": "Add",
-    "newPlaceholder": "New tag…"
+    "newPlaceholder": "New tag…",
+    "manageButton": "Manage tags",
+    "manageTitle": "Manage Tags",
+    "manageDescription": "Click a tag name to rename; deleting a tag removes it from all projects (projects themselves are unaffected).",
+    "noneYet": "No tags yet",
+    "rename": "Rename",
+    "delete": "Delete",
+    "usageCount": "used by {{count}} projects",
+    "deleteTitle": "Delete tag",
+    "deleteMessage": "Delete \"{{name}}\"? It is applied to {{count}} projects; they will simply lose this label."
   }
 }

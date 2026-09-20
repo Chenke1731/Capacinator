@@ -127,3 +127,33 @@
   color: #fff;
   line-height: 1.4;
 }
+
+/* Tag manager dialog */
+.tag-manager-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-height: 24rem;
+  overflow-y: auto;
+}
+
+.tag-manager-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.25rem 0;
+}
+
+.tag-chip-static {
+  cursor: pointer;
+}
+
+.tag-rename-input {
+  width: 12rem;
+}
+
+.tag-usage {
+  font-size: 0.75rem;
+  margin-left: auto;
+  white-space: nowrap;
+}

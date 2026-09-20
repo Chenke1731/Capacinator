@@ -341,6 +341,12 @@ export class ProjectsController extends BaseController {
         return null;
       }
 
+      // Attach tags (consistent with the list endpoint)
+      project.tags = await this.db('project_tags as pt')
+        .join('tags', 'pt.tag_id', 'tags.id')
+        .where('pt.project_id', id)
+        .select('tags.id', 'tags.name', 'tags.color');
+
       // Get phases timeline
       const phases = await this.db('project_phases_timeline')
         .join('project_phases', 'project_phases_timeline.phase_id', 'project_phases.id')

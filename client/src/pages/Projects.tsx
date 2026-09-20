@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Plus, Edit2, Trash2, Eye, Calendar, Users } from 'lucide-react';
+import { Plus, Edit2, Trash2, Eye, Calendar, Users, Tag } from 'lucide-react';
 import { api } from '../lib/api-client';
 import { queryKeys } from '../lib/queryKeys';
 import { DataTable, Column } from '../components/ui/DataTable';
@@ -10,6 +10,7 @@ import { FilterBar } from '../components/ui/FilterBar';
 import { LoadingSpinner } from '../components/ui/LoadingSpinner';
 import { ErrorMessage } from '../components/ui/ErrorMessage';
 import ProjectModal from '../components/modals/ProjectModal';
+import { TagManagerDialog } from '../components/tags/TagManagerDialog';
 import ProjectAllocations from '../components/ProjectAllocations';
 import { useModal } from '../hooks/useModal';
 import { useScenario } from '../contexts/ScenarioContext';
@@ -34,6 +35,7 @@ export function Projects() {
   
   const addProjectModal = useModal();
   const editProjectModal = useModal();
+  const [tagManagerOpen, setTagManagerOpen] = useState(false);
   const allocationModal = useModal();
   const [editingProject, setEditingProject] = useState<Project | null>(null);
   const [selectedProjectForAllocations, setSelectedProjectForAllocations] = useState<Project | null>(null);
@@ -332,6 +334,13 @@ export function Projects() {
         </div>
         <div className="header-actions">
           <button
+            className="btn btn-outline"
+            onClick={() => setTagManagerOpen(true)}
+          >
+            <Tag size={16} />
+            {t('projects:tags.manageButton')}
+          </button>
+          <button
             className="btn btn-primary"
             onClick={addProjectModal.open}
           >
@@ -379,6 +388,9 @@ export function Projects() {
         onSuccess={handleProjectSuccess}
         editingProject={editingProject}
       />
+
+      {/* Tag Management Dialog */}
+      <TagManagerDialog isOpen={tagManagerOpen} onClose={() => setTagManagerOpen(false)} />
 
       {/* Project Allocations Modal */}
       {allocationModal.isOpen && selectedProjectForAllocations && (

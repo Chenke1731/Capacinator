@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import {
   ArrowLeft, Users, Briefcase, Clock,
   MapPin, Target, AlertTriangle, AlertCircle,
-  CheckCircle, XCircle, RefreshCw, Edit2, Trash2, Save,
+  CheckCircle, XCircle, Circle, RefreshCw, Edit2, Trash2, Save,
   Calculator
 } from 'lucide-react';
 import {
@@ -350,6 +350,19 @@ export function ProjectDetail() {
                   style={{ backgroundColor: project.project_type?.color_code || '#6b7280' }}
                 />
                 <CardTitle className="text-2xl font-bold">{project.name}</CardTitle>
+                {(project as any).tags?.length > 0 && (
+                  <span className="flex items-center gap-1.5 ml-2">
+                    {(project as any).tags.map((tag: any) => (
+                      <span
+                        key={tag.id}
+                        className="tag-badge"
+                        style={{ backgroundColor: tag.color || 'var(--text-tertiary)' }}
+                      >
+                        {tag.name}
+                      </span>
+                    ))}
+                  </span>
+                )}
               </div>
             </div>
             <Badge

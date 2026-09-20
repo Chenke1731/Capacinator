@@ -30,6 +30,9 @@ export function Projects() {
     project_type_id: '',
     status: ''
   });
+  // Reservation pools ([预留]-prefixed buffer buckets) hidden by default so
+  // the list matches the dashboard's "active delivery work" number
+  const [showReservations, setShowReservations] = useState(false);
   
   const addProjectModal = useModal();
   const editProjectModal = useModal();
@@ -39,11 +42,12 @@ export function Projects() {
 
   // Fetch projects - will refetch when scenario changes
   const { data: projects, isLoading: projectsLoading, error: projectsError } = useQuery({
-    queryKey: queryKeys.projects.list(filters, currentScenario?.id),
+    queryKey: queryKeys.projects.list({ ...filters, include_reservations: String(showReservations) }, currentScenario?.id),
     queryFn: async () => {
       const params = Object.entries(filters)
         .filter(([_, value]) => value)
         .reduce((acc, [key, value]) => ({ ...acc, [key]: value }), {});
+      params.include_reservations = String(showReservations);
       const response = await api.projects.list(params);
       const rawProjects = response.data.data;
       
@@ -301,6 +305,14 @@ export function Projects() {
           <p className="text-muted">{t('projects:subtitle')}</p>
         </div>
         <div className="header-actions">
+          <label className="reservation-toggle" title={t('projects:showReservationsHint')}>
+            <input
+              type="checkbox"
+              checked={showReservations}
+              onChange={(e) => setShowReservations(e.target.checked)}
+            />
+            {t('projects:showReservations')}
+          </label>
           <button
             className="btn btn-primary"
             onClick={addProjectModal.open}

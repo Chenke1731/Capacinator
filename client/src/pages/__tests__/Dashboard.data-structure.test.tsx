@@ -99,7 +99,7 @@ describe('Dashboard API Response Structure', () => {
     });
 
     // Verify the data is displayed correctly
-    expect(screen.getByText('Current Projects')).toBeInTheDocument();
+    expect(screen.getByText('Active Projects')).toBeInTheDocument();
     expect(screen.getByText('Total People')).toBeInTheDocument();
     expect(screen.getByText('Total Roles')).toBeInTheDocument();
     

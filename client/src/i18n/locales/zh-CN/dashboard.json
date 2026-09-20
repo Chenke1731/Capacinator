@@ -13,8 +13,8 @@
     "charts": "仪表盘图表与分析"
   },
   "stats": {
-    "currentProjects": "当前项目",
-    "currentProjectsAria": "{{count}} 个当前项目。点击查看全部项目。",
+    "currentProjects": "进行中项目",
+    "currentProjectsAria": "{{count}} 个进行中项目(阶段覆盖今天)。点击查看全部项目。",
     "totalPeople": "人员总数",
     "totalPeopleAria": "{{count}} 名人员。点击查看人员目录。",
     "totalRoles": "角色总数",

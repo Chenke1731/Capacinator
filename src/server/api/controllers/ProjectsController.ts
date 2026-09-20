@@ -227,18 +227,29 @@ export class ProjectsController extends BaseController {
           }
         }
       });
+
+      // Reservation pools ([预留]-prefixed capacity buckets, e.g. 问题单支持/
+      // 项目事务) are not real delivery work: the projects list hides them
+      // unless explicitly requested. Other consumers (assignment pickers)
+      // keep the default of including them.
+      if (req.query.include_reservations === 'false') {
+        query.whereNot('projects.name', 'like', '[预留]%');
+      }
+
+      // Count with the same filters as the list (cloned before pagination)
+      const countQuery = query.clone().clearSelect().clearOrder();
       query = this.paginate(query, page, limit);
 
       const projects = await query;
-      
+
       // DEBUG: Test if raw SQL is working
       const testQuery = await this.db('projects')
         .select('id', 'name')
         .select(this.db.raw('(SELECT MIN(start_date) FROM project_phases_timeline WHERE project_id = projects.id) as start_date'))
         .limit(1);
       req.logger.debug('Test query result', { testQuery: testQuery[0] });
-      
-      const total = await this.db('projects').count('* as count').first();
+
+      const total = await countQuery.count('* as count').first();
 
       return {
         data: projects,

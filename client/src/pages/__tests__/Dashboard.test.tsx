@@ -96,7 +96,7 @@ describe('Dashboard Component', () => {
 
     // Wait for the dashboard to load
     await waitFor(() => {
-      expect(screen.getByText('Current Projects')).toBeInTheDocument();
+      expect(screen.getByText('Active Projects')).toBeInTheDocument();
     });
 
     // Verify the data is displayed correctly

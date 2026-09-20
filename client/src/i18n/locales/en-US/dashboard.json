@@ -13,8 +13,8 @@
     "charts": "Dashboard Charts and Analytics"
   },
   "stats": {
-    "currentProjects": "Current Projects",
-    "currentProjectsAria": "{{count}} current projects. Click to view all projects.",
+    "currentProjects": "Active Projects",
+    "currentProjectsAria": "{{count}} active projects (phase covering today). Click to view all projects.",
     "totalPeople": "Total People",
     "totalPeopleAria": "{{count}} total people. Click to view people directory.",
     "totalRoles": "Total Roles",

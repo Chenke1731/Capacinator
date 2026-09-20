@@ -231,5 +231,7 @@
     "currentBadge": "Current",
     "backfilled": "Backfilled",
     "status": "Status"
-  }
+  },
+  "showReservations": "Show reservation pools",
+  "showReservationsHint": "Show [预留]-prefixed standing capacity buffers (problem tickets / project affairs); hidden by default"
 }

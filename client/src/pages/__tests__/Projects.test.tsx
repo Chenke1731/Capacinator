@@ -523,7 +523,7 @@ describe('Projects Page', () => {
       await user.selectOptions(locationFilter, 'loc-1');
 
       await waitFor(() => {
-        expect(api.projects.list).toHaveBeenLastCalledWith({ location_id: 'loc-1' });
+        expect(api.projects.list).toHaveBeenLastCalledWith(expect.objectContaining({ location_id: 'loc-1', include_reservations: 'false' }));
       });
     });
 
@@ -539,7 +539,7 @@ describe('Projects Page', () => {
       await user.selectOptions(typeFilter, 'type-1');
 
       await waitFor(() => {
-        expect(api.projects.list).toHaveBeenLastCalledWith({ project_type_id: 'type-1' });
+        expect(api.projects.list).toHaveBeenLastCalledWith(expect.objectContaining({ project_type_id: 'type-1', include_reservations: 'false' }));
       });
     });
 
@@ -555,7 +555,7 @@ describe('Projects Page', () => {
       await user.selectOptions(statusFilter, 'active');
 
       await waitFor(() => {
-        expect(api.projects.list).toHaveBeenLastCalledWith({ status: 'active' });
+        expect(api.projects.list).toHaveBeenLastCalledWith(expect.objectContaining({ status: 'active', include_reservations: 'false' }));
       });
     });
 
@@ -592,7 +592,7 @@ describe('Projects Page', () => {
       await user.click(screen.getByTestId('reset-filters'));
 
       await waitFor(() => {
-        expect(api.projects.list).toHaveBeenLastCalledWith({});
+        expect(api.projects.list).toHaveBeenLastCalledWith({ include_reservations: 'false' });
       });
     });
   });

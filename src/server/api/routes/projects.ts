@@ -8,7 +8,7 @@ const controller = new ProjectsController();
 router.delete('/test-data', controller.deleteTestData);
 
 // Debug endpoint - must come before /:id route
-router.get('/debug', controller.debugQuery);
+router.get('/debug', (req, res) => controller.debugQuery(req, res));
 
 // Project CRUD operations
 router.get('/', controller.getAll);

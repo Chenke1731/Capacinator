@@ -292,7 +292,6 @@ export function Projects() {
       label: t('projects:reservationFilter.label'),
       type: 'select' as const,
       options: [
-        { value: '', label: t('projects:reservationFilter.all') },
         { value: 'exclude', label: t('projects:reservationFilter.exclude') },
         { value: 'only', label: t('projects:reservationFilter.only') }
       ]

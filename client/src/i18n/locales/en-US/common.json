@@ -108,5 +108,6 @@
     "selectAnOption": "Select an option"
   },
   "allocation": "Allocation",
-  "date": "Date"
+  "date": "Date",
+  "filterAll": "All {{label}}"
 }

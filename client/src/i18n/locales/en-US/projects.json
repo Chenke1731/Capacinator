@@ -233,9 +233,9 @@
     "status": "Status"
   },
   "reservationFilter": {
-    "label": "Reservations",
-    "all": "All projects",
-    "exclude": "Regular only",
-    "only": "Reservation pools only"
+    "label": "Reserved items",
+    "all": "All",
+    "exclude": "Regular items only",
+    "only": "Reserved items only"
   }
 }

@@ -108,5 +108,6 @@
     "selectAnOption": "请选择"
   },
   "allocation": "分配比例",
-  "date": "日期"
+  "date": "日期",
+  "filterAll": "全部"
 }

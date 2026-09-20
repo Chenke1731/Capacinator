@@ -231,9 +231,9 @@
     "status": "状态"
   },
   "reservationFilter": {
-    "label": "预留筛选",
-    "all": "全部项目",
-    "exclude": "仅常规项目",
-    "only": "仅预留缓冲"
+    "label": "预留事项",
+    "all": "全部",
+    "exclude": "仅普通事项",
+    "only": "仅预留事项"
   }
 }

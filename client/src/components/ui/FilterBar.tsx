@@ -1,4 +1,5 @@
 import { Search } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import './FilterBar.css';
 
 interface FilterOption {
@@ -22,6 +23,7 @@ interface FilterBarProps {
 }
 
 export function FilterBar({ filters, values, onChange, onReset }: FilterBarProps) {
+  const { t } = useTranslation();
   const hasActiveFilters = Object.values(values).some(v => v !== '');
 
   return (
@@ -47,7 +49,7 @@ export function FilterBar({ filters, values, onChange, onReset }: FilterBarProps
                 value={values[filter.name] || ''}
                 onChange={(e) => onChange(filter.name, e.target.value)}
               >
-                <option value="">All {filter.label}</option>
+                <option value="">{t('common:filterAll', { label: filter.label })}</option>
                 {filter.options?.map((option) => (
                   <option key={option.value} value={option.value}>
                     {option.label}

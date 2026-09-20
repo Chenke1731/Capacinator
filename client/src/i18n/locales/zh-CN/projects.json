@@ -230,6 +230,10 @@
     "backfilled": "已回填",
     "status": "状态"
   },
-  "showReservations": "显示预留缓冲池",
-  "showReservationsHint": "显示 [预留] 开头的常驻人力缓冲(问题单/事务),默认隐藏"
+  "reservationFilter": {
+    "label": "预留筛选",
+    "all": "全部项目",
+    "exclude": "仅常规项目",
+    "only": "仅预留缓冲"
+  }
 }

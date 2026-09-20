@@ -28,11 +28,9 @@ export function Projects() {
     search: '',
     location_id: '',
     project_type_id: '',
-    status: ''
+    status: '',
+    reservations: ''
   });
-  // Reservation pools ([预留]-prefixed buffer buckets) hidden by default so
-  // the list matches the dashboard's "active delivery work" number
-  const [showReservations, setShowReservations] = useState(false);
   
   const addProjectModal = useModal();
   const editProjectModal = useModal();
@@ -42,12 +40,11 @@ export function Projects() {
 
   // Fetch projects - will refetch when scenario changes
   const { data: projects, isLoading: projectsLoading, error: projectsError } = useQuery({
-    queryKey: queryKeys.projects.list({ ...filters, include_reservations: String(showReservations) }, currentScenario?.id),
+    queryKey: queryKeys.projects.list(filters, currentScenario?.id),
     queryFn: async () => {
       const params = Object.entries(filters)
         .filter(([_, value]) => value)
         .reduce((acc, [key, value]) => ({ ...acc, [key]: value }), {});
-      params.include_reservations = String(showReservations);
       const response = await api.projects.list(params);
       const rawProjects = response.data.data;
       
@@ -129,7 +126,8 @@ export function Projects() {
       search: '',
       location_id: '',
       project_type_id: '',
-      status: ''
+      status: '',
+      reservations: ''
     });
   };
 
@@ -286,6 +284,18 @@ export function Projects() {
         { value: 'completed', label: projectStatusLabel('completed') },
         { value: 'cancelled', label: projectStatusLabel('cancelled') }
       ]
+    },
+    {
+      // Reservation pools are ordinary projects ([预留]-prefixed capacity
+      // buckets); filter them in/out on demand instead of hiding by default
+      name: 'reservations',
+      label: t('projects:reservationFilter.label'),
+      type: 'select' as const,
+      options: [
+        { value: '', label: t('projects:reservationFilter.all') },
+        { value: 'exclude', label: t('projects:reservationFilter.exclude') },
+        { value: 'only', label: t('projects:reservationFilter.only') }
+      ]
     }
   ];
 
@@ -305,14 +315,6 @@ export function Projects() {
           <p className="text-muted">{t('projects:subtitle')}</p>
         </div>
         <div className="header-actions">
-          <label className="reservation-toggle" title={t('projects:showReservationsHint')}>
-            <input
-              type="checkbox"
-              checked={showReservations}
-              onChange={(e) => setShowReservations(e.target.checked)}
-            />
-            {t('projects:showReservations')}
-          </label>
           <button
             className="btn btn-primary"
             onClick={addProjectModal.open}

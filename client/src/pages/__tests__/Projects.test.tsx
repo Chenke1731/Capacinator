@@ -85,6 +85,15 @@ jest.mock('../../components/ui/FilterBar', () => ({
         <option value="type-2">Data Migration</option>
       </select>
       <select
+        value={values.reservations}
+        onChange={(e) => onChange('reservations', e.target.value)}
+        data-testid="reservations-filter"
+      >
+        <option value="">All Projects</option>
+        <option value="exclude">Regular only</option>
+        <option value="only">Reservation pools only</option>
+      </select>
+      <select
         value={values.status}
         onChange={(e) => onChange('status', e.target.value)}
         data-testid="status-filter"
@@ -523,7 +532,7 @@ describe('Projects Page', () => {
       await user.selectOptions(locationFilter, 'loc-1');
 
       await waitFor(() => {
-        expect(api.projects.list).toHaveBeenLastCalledWith(expect.objectContaining({ location_id: 'loc-1', include_reservations: 'false' }));
+        expect(api.projects.list).toHaveBeenLastCalledWith({ location_id: 'loc-1' });
       });
     });
 
@@ -539,7 +548,7 @@ describe('Projects Page', () => {
       await user.selectOptions(typeFilter, 'type-1');
 
       await waitFor(() => {
-        expect(api.projects.list).toHaveBeenLastCalledWith(expect.objectContaining({ project_type_id: 'type-1', include_reservations: 'false' }));
+        expect(api.projects.list).toHaveBeenLastCalledWith({ project_type_id: 'type-1' });
       });
     });
 
@@ -555,7 +564,26 @@ describe('Projects Page', () => {
       await user.selectOptions(statusFilter, 'active');
 
       await waitFor(() => {
-        expect(api.projects.list).toHaveBeenLastCalledWith(expect.objectContaining({ status: 'active', include_reservations: 'false' }));
+        expect(api.projects.list).toHaveBeenLastCalledWith({ status: 'active' });
+      });
+    });
+
+    test('screens reservation pools via the reservations filter', async () => {
+      const user = userEvent.setup();
+      renderComponent();
+
+      await waitFor(() => {
+        expect(screen.getByTestId('reservations-filter')).toBeInTheDocument();
+      });
+
+      await user.selectOptions(screen.getByTestId('reservations-filter'), 'exclude');
+      await waitFor(() => {
+        expect(api.projects.list).toHaveBeenLastCalledWith({ reservations: 'exclude' });
+      });
+
+      await user.selectOptions(screen.getByTestId('reservations-filter'), 'only');
+      await waitFor(() => {
+        expect(api.projects.list).toHaveBeenLastCalledWith({ reservations: 'only' });
       });
     });
 
@@ -592,7 +620,7 @@ describe('Projects Page', () => {
       await user.click(screen.getByTestId('reset-filters'));
 
       await waitFor(() => {
-        expect(api.projects.list).toHaveBeenLastCalledWith({ include_reservations: 'false' });
+        expect(api.projects.list).toHaveBeenLastCalledWith({});
       });
     });
   });

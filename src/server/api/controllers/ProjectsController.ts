@@ -229,11 +229,12 @@ export class ProjectsController extends BaseController {
       });
 
       // Reservation pools ([预留]-prefixed capacity buckets, e.g. 问题单支持/
-      // 项目事务) are not real delivery work: the projects list hides them
-      // unless explicitly requested. Other consumers (assignment pickers)
-      // keep the default of including them.
-      if (req.query.include_reservations === 'false') {
+      // 项目事务) are ordinary list entries by default; the projects page can
+      // screen them via ?reservations=exclude (常规项目) or =only (预留缓冲).
+      if (req.query.reservations === 'exclude') {
         query.whereNot('projects.name', 'like', '[预留]%');
+      } else if (req.query.reservations === 'only') {
+        query.where('projects.name', 'like', '[预留]%');
       }
 
       // Count with the same filters as the list (cloned before pagination)

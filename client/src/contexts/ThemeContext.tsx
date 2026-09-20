@@ -14,7 +14,12 @@ interface ThemeProviderProps {
 }
 
 export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
-  const [theme, setThemeState] = useState<Theme>('light');
+  // Read back the persisted preference on load (otherwise a refresh always
+  // falls back to light until the system scheme changes)
+  const [theme, setThemeState] = useState<Theme>(() => {
+    const stored = typeof window !== 'undefined' ? localStorage.getItem('theme') : null;
+    return stored === 'dark' || stored === 'light' ? stored : 'light';
+  });
 
   // Apply theme to document
   useEffect(() => {

@@ -1,5 +1,5 @@
 .enhanced-project-timeline {
-  background: white;
+  background: var(--bg-primary);
   border-radius: 8px;
   padding: 24px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -94,7 +94,7 @@
 .timeline-phase {
   border-radius: 8px;
   border: 2px solid #e5e7eb;
-  background: #fafafa;
+  background: var(--bg-secondary);
   transition: all 0.2s ease;
   position: relative;
 }
@@ -188,7 +188,7 @@
   padding: 8px 12px;
   border: 1px solid #d1d5db;
   border-radius: 6px;
-  background: white;
+  background: var(--bg-primary);
   color: #374151;
   font-size: 0.875rem;
   font-weight: 500;
@@ -198,7 +198,7 @@
 }
 
 .btn:hover {
-  background: #f9fafb;
+  background: var(--bg-secondary);
   border-color: #9ca3af;
 }
 
@@ -281,7 +281,7 @@
 .phase-expanded {
   border-top: 1px solid #e5e7eb;
   padding: 20px;
-  background: white;
+  background: var(--bg-primary);
   border-radius: 0 0 6px 6px;
 }
 
@@ -303,7 +303,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 8px 12px;
-  background: #f8fafc;
+  background: var(--bg-secondary);
   border-radius: 4px;
   border: 1px solid #e2e8f0;
 }
@@ -323,7 +323,7 @@
 .phase-editor {
   border-top: 1px solid #e5e7eb;
   padding: 20px;
-  background: white;
+  background: var(--bg-primary);
   border-radius: 0 0 6px 6px;
 }
 
@@ -403,7 +403,7 @@
 }
 
 .add-phase-form {
-  background: #f8fafc;
+  background: var(--bg-secondary);
   border: 2px dashed #cbd5e1;
   border-radius: 8px;
   padding: 24px;
@@ -435,7 +435,7 @@
   justify-content: center;
   padding: 16px;
   border: 2px dashed #cbd5e1;
-  background: #f8fafc;
+  background: var(--bg-secondary);
   color: #64748b;
   font-size: 0.9rem;
 }

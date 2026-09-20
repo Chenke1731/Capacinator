@@ -1,5 +1,5 @@
 .phase-template-designer {
-  background: white;
+  background: var(--bg-primary);
   border-radius: 8px;
   padding: 24px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -38,7 +38,7 @@
   border: 1px solid #e5e7eb;
   border-radius: 8px;
   overflow: hidden;
-  background: white;
+  background: var(--bg-primary);
 }
 
 .phases-table {
@@ -48,7 +48,7 @@
 }
 
 .phases-table thead {
-  background: #f9fafb;
+  background: var(--bg-secondary);
   border-bottom: 1px solid #e5e7eb;
 }
 
@@ -72,7 +72,7 @@
 }
 
 .phases-table tbody tr:hover {
-  background: #f9fafb;
+  background: var(--bg-secondary);
 }
 
 .phases-table td {
@@ -150,7 +150,7 @@
   position: relative;
   height: 18px;
   width: 18px;
-  background-color: #ffffff;
+  background-color: var(--bg-primary);
   border: 2px solid #d1d5db;
   border-radius: 4px;
   transition: all 0.2s ease;
@@ -211,7 +211,7 @@
 }
 
 .inline-duration-display:hover {
-  background-color: #f3f4f6;
+  background-color: var(--bg-secondary);
   border-color: #d1d5db;
 }
 
@@ -235,7 +235,7 @@
   text-align: center;
   font-size: 0.875rem;
   outline: none;
-  background: white;
+  background: var(--bg-primary);
 }
 
 .duration-input:focus {
@@ -267,7 +267,7 @@
 .template-phase {
   border: 1px solid #e5e7eb;
   border-radius: 6px;
-  background: #fafafa;
+  background: var(--bg-secondary);
   transition: all 0.2s ease;
 }
 
@@ -357,7 +357,7 @@
   padding: 8px 12px;
   border: 1px solid #d1d5db;
   border-radius: 6px;
-  background: white;
+  background: var(--bg-primary);
   color: #374151;
   font-size: 0.875rem;
   font-weight: 500;
@@ -367,7 +367,7 @@
 }
 
 .btn:hover {
-  background: #f9fafb;
+  background: var(--bg-secondary);
   border-color: #9ca3af;
 }
 
@@ -417,7 +417,7 @@
 .phase-config-panel {
   border-top: 1px solid #e5e7eb;
   padding: 20px;
-  background: white;
+  background: var(--bg-primary);
   border-radius: 0 0 6px 6px;
 }
 
@@ -509,7 +509,7 @@
 }
 
 .add-phase-panel {
-  background: #f8fafc;
+  background: var(--bg-secondary);
   border: 2px dashed #cbd5e1;
   border-radius: 8px;
   padding: 20px;
@@ -535,7 +535,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 12px;
-  background: white;
+  background: var(--bg-primary);
   border: 1px solid #e5e7eb;
   border-radius: 6px;
 }
@@ -563,7 +563,7 @@
   justify-content: center;
   padding: 12px;
   border: 2px dashed #cbd5e1;
-  background: #f8fafc;
+  background: var(--bg-secondary);
   color: #64748b;
 }
 

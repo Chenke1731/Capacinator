@@ -2035,7 +2035,7 @@
   height: 16px;
   border-radius: 50%;
   border: 2px solid;
-  background: white;
+  background: var(--bg-primary);
   cursor: pointer;
   display: flex;
   align-items: center;

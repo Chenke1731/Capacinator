@@ -14,7 +14,7 @@
 }
 
 .projects-mini-table .table th {
-  background: #f9fafb;
+  background: var(--bg-secondary);
   font-weight: 600;
   color: #374151;
   padding: 12px 16px;
@@ -32,7 +32,7 @@
 }
 
 .projects-mini-table .table tbody tr:hover {
-  background: #f9fafb;
+  background: var(--bg-secondary);
 }
 
 .project-name strong {
@@ -72,7 +72,7 @@
 }
 
 .badge-secondary {
-  background: #f3f4f6;
+  background: var(--bg-secondary);
   color: #4b5563;
 }
 
@@ -83,7 +83,7 @@
 
 .table-footer {
   padding: 12px 16px;
-  background: #f9fafb;
+  background: var(--bg-secondary);
   border-top: 1px solid #e5e7eb;
   text-align: center;
 }
@@ -97,14 +97,14 @@
   padding: 6px;
   border: 1px solid #d1d5db;
   border-radius: 6px;
-  background: white;
+  background: var(--bg-primary);
   color: #6b7280;
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
 .btn-icon:hover {
-  background: #f3f4f6;
+  background: var(--bg-secondary);
   color: #374151;
   border-color: #9ca3af;
 }

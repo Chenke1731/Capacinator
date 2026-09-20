@@ -40,7 +40,7 @@
 }
 
 .project-type-row:hover {
-  background-color: #f8fafc;
+  background-color: var(--bg-secondary);
 }
 
 .project-type-content {
@@ -58,7 +58,7 @@
 }
 
 .expand-toggle:hover {
-  background: #f1f5f9 !important;
+  background: var(--bg-secondary) !important;
   color: #475569;
 }
 
@@ -114,7 +114,7 @@
 }
 
 .project-type-row.parent-type {
-  background: #f8fafc;
+  background: var(--bg-secondary);
   border-left: 4px solid #3b82f6;
 }
 
@@ -134,7 +134,7 @@
 }
 
 .level-badge {
-  background: #f1f5f9;
+  background: var(--bg-secondary);
   color: #475569;
   padding: 2px 6px;
   border-radius: 8px;
@@ -150,7 +150,7 @@
 }
 
 .project-type-children {
-  background: #fafbfc;
+  background: var(--bg-secondary);
   border-left: 3px solid #3b82f6;
   margin-left: 20px;
   position: relative;

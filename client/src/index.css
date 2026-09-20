@@ -1323,9 +1323,9 @@ html body .settings-section .checkbox-label,
   --border-color-hover: #d1d5db;
   
   /* Component Specific - Inverse theme for sidebar */
-  --sidebar-bg: #1f2937;
-  --sidebar-text: rgba(255, 255, 255, 0.9);
-  --sidebar-text-hover: #ffffff;
+  --sidebar-bg: #f1f5f9;
+  --sidebar-text: #334155;
+  --sidebar-text-hover: #0f172a;
   --sidebar-active-bg: rgba(79, 70, 229, 0.15);
   --table-header-bg: #f9fafb;
   --table-hover-bg: #f3f4f6;
@@ -1423,11 +1423,11 @@ html body .settings-section .checkbox-label,
   --border-color: #374151;
   --border-color-hover: #4b5563;
   
-  /* Component Specific - Inverse theme (light sidebar in dark mode) */
-  --sidebar-bg: #f9fafb;
-  --sidebar-text: #374151;
-  --sidebar-text-hover: #111827;
-  --sidebar-active-bg: rgba(79, 70, 229, 0.1);
+  /* Component Specific - sidebar stays in the dark family (no inverse) */
+  --sidebar-bg: #1a2233;
+  --sidebar-text: #cbd5e1;
+  --sidebar-text-hover: #f1f5f9;
+  --sidebar-active-bg: rgba(99, 102, 241, 0.18);
   --table-header-bg: #1f2937;
   --table-hover-bg: #374151;
   --input-bg: #1f2937;

@@ -198,7 +198,7 @@
   align-items: center;
   gap: 1rem;
   padding: 1.5rem;
-  background-color: #f3f4f6;
+  background-color: var(--bg-secondary);
   border-radius: 8px;
   margin-bottom: 1.5rem;
 }

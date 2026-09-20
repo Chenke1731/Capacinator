@@ -53,7 +53,7 @@
 
 .insights-section .section-content {
   padding: 1.5rem;
-  background: white;
+  background: var(--bg-primary);
 }
 
 .insights-grid {

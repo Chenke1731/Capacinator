@@ -101,6 +101,6 @@
   transform: translate(-50%, -50%);
   width: 8px;
   height: 2px;
-  background: white;
+  background: var(--bg-primary);
   border-radius: 1px;
 }

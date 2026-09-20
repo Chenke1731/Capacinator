@@ -9,7 +9,7 @@ export async function up(knex: Knex): Promise<void> {
 
     // User relationship
     table.integer('user_id').notNullable()
-      .references('id').inTable('users').onDelete('CASCADE');
+      .references('id').inTable('people').onDelete('CASCADE');
 
     // GitHub account information
     table.integer('github_user_id').notNullable();

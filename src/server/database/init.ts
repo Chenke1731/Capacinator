@@ -44,4 +44,9 @@ async function initDb() {
 //   initDb();
 // }
 
+// Run if called directly
+if (import.meta.url === `file://${process.argv[1]}`) {
+  initDb();
+}
+
 export { initDb };

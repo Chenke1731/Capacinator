@@ -18,7 +18,7 @@ export async function up(knex: Knex): Promise<void> {
     // Association metadata
     table.text('association_type').notNullable(); // 'automatic' or 'manual'
     table.integer('associated_by_user_id').nullable()
-      .references('id').inTable('users').onDelete('SET NULL');
+      .references('id').inTable('people').onDelete('SET NULL');
     table.boolean('active').notNullable().defaultTo(true);
 
     // Timestamps

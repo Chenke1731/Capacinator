@@ -1,7 +1,12 @@
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
 import { Knex } from 'knex';
 import path from 'path';
 import fs from 'fs';
 import e2eConfig from './knexfile.e2e.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 // Determine which config to use based on environment
 const getConfig = (): Knex.Config => {

@@ -210,23 +210,23 @@ describe('Scenarios Component', () => {
 
     test('shows correct status badges', async () => {
       renderWithProviders(<Scenarios />);
-      
+
       await waitFor(() => {
-        // Status badges appear with the correct text
-        const activeStatuses = screen.getAllByText('active');
+        // Status badges appear with the correct localized label text
+        const activeStatuses = screen.getAllByText('Active');
         expect(activeStatuses.length).toBeGreaterThan(0);
-        const mergedStatus = screen.getByText('merged');
+        const mergedStatus = screen.getByText('Merged');
         expect(mergedStatus).toBeInTheDocument();
       });
     });
 
     test('shows correct scenario type badges', async () => {
       renderWithProviders(<Scenarios />);
-      
+
       await waitFor(() => {
         // The mock data has 'baseline' and 'branch' types
-        expect(screen.getByText('baseline')).toBeInTheDocument();
-        expect(screen.getAllByText('branch').length).toBeGreaterThan(0);
+        expect(screen.getByText('Baseline')).toBeInTheDocument();
+        expect(screen.getAllByText('Branch').length).toBeGreaterThan(0);
       });
     });
   });
@@ -352,9 +352,11 @@ describe('Scenarios Component', () => {
       renderWithProviders(<Scenarios />);
 
       await waitFor(() => {
-        const baselineBadge = screen.getByText('baseline');
-        expect(baselineBadge.className).toContain('scenario-type');
-        expect(baselineBadge.className).toContain('baseline');
+        const baselineBadges = screen
+          .getAllByText('Baseline')
+          .filter((el) => el.className.includes('scenario-type'));
+        expect(baselineBadges.length).toBeGreaterThan(0);
+        expect(baselineBadges[0].className).toContain('baseline');
       });
     });
 
@@ -362,7 +364,7 @@ describe('Scenarios Component', () => {
       renderWithProviders(<Scenarios />);
 
       await waitFor(() => {
-        const activeBadge = screen.getAllByText('active')[0];
+        const activeBadge = screen.getAllByText('Active')[0];
         expect(activeBadge.className).toContain('scenario-status');
         expect(activeBadge.className).toContain('active');
       });

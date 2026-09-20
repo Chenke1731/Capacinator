@@ -21,6 +21,17 @@ const BACKUP_FILE = `docs/e2e-data-backup-${new Date().toISOString().slice(0, 10
 
 const log = (...a) => console.log('[step0]', ...a);
 
+// readable ASCII placeholder emails (encodeURIComponent of Chinese names would
+// render as %E6%9D%8E... mojibake in the UI)
+const PLACEHOLDER_EMAILS = {
+  '陈主管': 'manager@placeholder.local',
+  '沈设计': 'se1@placeholder.local', '韩架构': 'se2@placeholder.local',
+  '王开发': 'dev1@placeholder.local', '李后端': 'dev2@placeholder.local',
+  '张前端': 'dev3@placeholder.local', '赵全栈': 'dev4@placeholder.local',
+  '钱后端': 'dev5@placeholder.local', '孙前端': 'dev6@placeholder.local',
+  '周开发': 'dev7@placeholder.local', '吴开发': 'dev8@placeholder.local',
+};
+
 async function req(method, path, body) {
   const res = await fetch(`${API}${path}`, {
     method,
@@ -159,7 +170,7 @@ async function main() {
     const existing = (await listAll('/people')).find((p) => p.name === name);
     if (existing) return existing;
     await req('POST', '/people', {
-      name, email: `${encodeURIComponent(name)}@placeholder.local`,
+      name, email: PLACEHOLDER_EMAILS[name] ?? `user${Math.floor(Math.random() * 1e6)}@placeholder.local`,
       location_id: locHQ.id, worker_type: 'FTE',
       default_availability_percentage: 100, default_hours_per_day: 8,
     });

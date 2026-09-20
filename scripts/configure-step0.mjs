@@ -125,8 +125,8 @@ async function main() {
   };
   const typeDemand = await ensureType('需求交付');
   const typeStd = await ensureType('标准需求', typeDemand.id);
-  const typeTickets = await ensureType('[预留] 问题单支持');
-  const typeAffairs = await ensureType('[预留] 项目事务');
+  const typeTickets = await ensureType('问题单支持');
+  const typeAffairs = await ensureType('项目事务');
   const typeMisc = await ensureType('零星事项');
 
   // project_sub_types: what projects actually reference (belongs to the PARENT type)
@@ -220,8 +220,8 @@ async function main() {
   };
   const typeByName = async (n) => (await listAll('/project-types')).find((t) => t.name === n);
 
-  const pTickets = await ensureProject('[预留] 问题单支持', subTickets.id, { priority: 3, parentTypeId: typeTickets.id, description: '常驻容量预留:按月看单量调整比例' });
-  const pAffairs = await ensureProject('[预留] 项目事务', subAffairs.id, { priority: 3, parentTypeId: typeAffairs.id, description: '常驻容量预留:会议/评审/支持' });
+  const pTickets = await ensureProject('问题单支持', subTickets.id, { priority: 3, parentTypeId: typeTickets.id, description: '常驻容量预留:按月看单量调整比例' });
+  const pAffairs = await ensureProject('项目事务', subAffairs.id, { priority: 3, parentTypeId: typeAffairs.id, description: '常驻容量预留:会议/评审/支持' });
   const pPortal = await ensureProject('客户门户改版', subStd.id, { priority: 1, parentTypeId: typeDemand.id, description: '虚拟高优需求:演示 SE 设计 + 开发投入' });
   const pData = await ensureProject('数据平台升级', subStd.id, { priority: 2, parentTypeId: typeDemand.id, description: '虚拟中优需求:排队中' });
   await ensureProject('移动端改版', subStd.id, { priority: 3, parentTypeId: typeDemand.id, description: '虚拟低优需求:暂不排产' });

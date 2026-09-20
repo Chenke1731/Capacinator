@@ -23,6 +23,10 @@ jest.mock('../../../lib/api-client', () => ({
     },
     phases: {
       list: jest.fn()
+    },
+    tags: {
+      list: jest.fn(),
+      create: jest.fn()
     }
   }
 }));
@@ -89,6 +93,7 @@ describe('ProjectModal', () => {
     (api.locations.list as jest.Mock).mockResolvedValue(mockLocations);
     (api.people.list as jest.Mock).mockResolvedValue(mockPeople);
     (api.phases.list as jest.Mock).mockResolvedValue(mockPhases);
+    (api.tags.list as jest.Mock).mockResolvedValue({ data: { data: [] } });
 
     // Mock scrollIntoView for Radix Select
     Element.prototype.scrollIntoView = jest.fn();

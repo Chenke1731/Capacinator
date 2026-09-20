@@ -70,6 +70,7 @@ import type {
   ProjectEstimation,
   EstimationCheckResponse,
   EstimationDeviation,
+  Tag,
   ScenarioAssignmentsResponse,
   ScenarioComparisonResponse,
   AuditHistoryResponse,
@@ -724,6 +725,14 @@ export const api = {
 
     deleteAssociation: (id: number, personId: number) =>
       apiClient.delete<GitHubAssociationDeleteResponse>(`/github-connections/${id}/associations/${personId}`),
+  },
+
+  // Tags (project classification labels)
+  tags: {
+    list: () => apiClient.get<{ data: Tag[] }>('/tags'),
+    create: (data: Partial<Tag>) => apiClient.post<{ data: Tag }>('/tags', data),
+    update: (id: number, data: Partial<Tag>) => apiClient.put<{ data: Tag }>(`/tags/${id}`, data),
+    delete: (id: number) => apiClient.delete<{ message: string }>(`/tags/${id}`),
   },
 
   // Estimations (Step 1: LOC-based estimation records + deadline check)

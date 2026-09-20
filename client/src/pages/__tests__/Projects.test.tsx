@@ -26,6 +26,9 @@ jest.mock('../../lib/api-client', () => ({
     projectTypes: {
       list: jest.fn(),
     },
+    tags: {
+      list: jest.fn(),
+    },
   },
 }));
 
@@ -85,13 +88,13 @@ jest.mock('../../components/ui/FilterBar', () => ({
         <option value="type-2">Data Migration</option>
       </select>
       <select
-        value={values.reservations}
-        onChange={(e) => onChange('reservations', e.target.value)}
-        data-testid="reservations-filter"
+        value={values.tag_id}
+        onChange={(e) => onChange('tag_id', e.target.value)}
+        data-testid="tag-filter"
       >
-        <option value="">All Projects</option>
-        <option value="exclude">Regular only</option>
-        <option value="only">Reservation pools only</option>
+        <option value="">All Tags</option>
+        <option value="1">Reserved</option>
+        <option value="2">Urgent</option>
       </select>
       <select
         value={values.status}
@@ -568,22 +571,22 @@ describe('Projects Page', () => {
       });
     });
 
-    test('screens reservation pools via the reservations filter', async () => {
+    test('filters projects by tag', async () => {
       const user = userEvent.setup();
       renderComponent();
 
       await waitFor(() => {
-        expect(screen.getByTestId('reservations-filter')).toBeInTheDocument();
+        expect(screen.getByTestId('tag-filter')).toBeInTheDocument();
       });
 
-      await user.selectOptions(screen.getByTestId('reservations-filter'), 'exclude');
+      await user.selectOptions(screen.getByTestId('tag-filter'), '1');
       await waitFor(() => {
-        expect(api.projects.list).toHaveBeenLastCalledWith({ reservations: 'exclude' });
+        expect(api.projects.list).toHaveBeenLastCalledWith({ tag_id: '1' });
       });
 
-      await user.selectOptions(screen.getByTestId('reservations-filter'), 'only');
+      await user.selectOptions(screen.getByTestId('tag-filter'), '');
       await waitFor(() => {
-        expect(api.projects.list).toHaveBeenLastCalledWith({ reservations: 'only' });
+        expect(api.projects.list).toHaveBeenLastCalledWith({});
       });
     });
 

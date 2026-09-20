@@ -287,6 +287,12 @@ export const queryKeys = {
   },
 
   // Reports
+  tags: {
+    all: ['tags'] as const,
+    lists: () => [...queryKeys.tags.all, 'list'] as const,
+    list: (filters?: Record<string, unknown>) => [...queryKeys.tags.lists(), filters] as const,
+  },
+
   reports: {
     all: ['reports'] as const,
     dashboard: (scenarioId?: string) =>

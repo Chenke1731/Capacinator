@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { api } from '../../lib/api-client';
 import { queryKeys } from '../../lib/queryKeys';
@@ -78,7 +78,8 @@ const initialValues: ProjectFormData = {
   include_in_demand: true,
   external_id: '',
   owner_id: '',
-  current_phase_id: ''
+  current_phase_id: '',
+  tag_ids: []
 };
 
 const validateProject = (values: ProjectFormData): Partial<Record<keyof ProjectFormData, string>> => {
@@ -102,6 +103,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
   editingProject
 }) => {
   const { t } = useTranslation();
+  const queryClient = useQueryClient();
 
   const {
     values: formData,
@@ -140,7 +142,8 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
       include_in_demand: item.include_in_demand ?? true,
       external_id: item.external_id || '',
       owner_id: item.owner_id || '',
-      current_phase_id: item.current_phase_id || ''
+      current_phase_id: item.current_phase_id || '',
+      tag_ids: (item.tags || []).map((tag) => tag.id)
     }),
   });
 
@@ -166,6 +169,31 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
     queryFn: async () => {
       const response = await api.people.list();
       return response.data?.data || response.data || [];
+    }
+  });
+
+  const { data: tagsData } = useQuery({
+    queryKey: queryKeys.tags.list(),
+    queryFn: async () => {
+      const response = await api.tags.list();
+      return response.data;
+    }
+  });
+  const allTags: Array<{ id: number; name: string; color: string | null }> = (tagsData?.data as any) || [];
+
+  const [newTagName, setNewTagName] = React.useState('');
+  const createTagMutation = useMutation({
+    mutationFn: async (name: string) => {
+      const response = await api.tags.create({ name });
+      return response.data;
+    },
+    onSuccess: (data: any) => {
+      const tag = data?.data;
+      if (tag) {
+        handleChange('tag_ids', [...formData.tag_ids, tag.id]);
+      }
+      setNewTagName('');
+      queryClient.invalidateQueries({ queryKey: queryKeys.tags.all });
     }
   });
 
@@ -340,6 +368,51 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
                 onChange={(e) => handleChange('external_id', e.target.value)}
                 placeholder={t('projects:placeholder.externalSystemId')}
               />
+            </div>
+
+            <div className="space-y-2 col-span-2">
+              <Label htmlFor="project-tags">{t('projects:tags.label')}</Label>
+              <div id="project-tags" className="flex flex-wrap items-center gap-2" data-testid="project-tags">
+                {allTags.map((tag) => {
+                  const selected = formData.tag_ids.includes(tag.id);
+                  return (
+                    <button
+                      type="button"
+                      key={tag.id}
+                      className={`tag-chip ${selected ? 'tag-chip-selected' : ''}`}
+                      style={selected && tag.color ? { backgroundColor: tag.color, borderColor: tag.color } : undefined}
+                      onClick={() =>
+                        handleChange(
+                          'tag_ids',
+                          selected
+                            ? formData.tag_ids.filter((id) => id !== tag.id)
+                            : [...formData.tag_ids, tag.id]
+                        )
+                      }
+                    >
+                      {tag.name}
+                    </button>
+                  );
+                })}
+                <span className="tag-new">
+                  <input
+                    className="tag-new-input"
+                    value={newTagName}
+                    onChange={(e) => setNewTagName(e.target.value)}
+                    placeholder={t('projects:tags.newPlaceholder')}
+                    data-testid="new-tag-input"
+                  />
+                  <button
+                    type="button"
+                    className="btn btn-sm"
+                    disabled={!newTagName.trim() || createTagMutation.isPending}
+                    onClick={() => createTagMutation.mutate(newTagName.trim())}
+                    data-testid="add-tag-button"
+                  >
+                    {t('projects:tags.add')}
+                  </button>
+                </span>
+              </div>
             </div>
 
             <div className="space-y-2 col-span-2">

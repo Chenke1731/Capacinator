@@ -228,13 +228,15 @@ export class ProjectsController extends BaseController {
         }
       });
 
-      // Reservation pools ([预留]-prefixed capacity buckets, e.g. 问题单支持/
-      // 项目事务) are ordinary list entries by default; the projects page can
-      // screen them via ?reservations=exclude (常规项目) or =only (预留缓冲).
-      if (req.query.reservations === 'exclude') {
-        query.whereNot('projects.name', 'like', '[预留]%');
-      } else if (req.query.reservations === 'only') {
-        query.where('projects.name', 'like', '[预留]%');
+      // Tag filter: ?tag_id=<id> — tags are pure classification (no calc
+      // semantics); the [预留] prefix convention has been retired
+      if (req.query.tag_id) {
+        query.whereExists((sub: any) => {
+          sub.select('*')
+            .from('project_tags as pt')
+            .whereRaw('pt.project_id = projects.id')
+            .where('pt.tag_id', req.query.tag_id);
+        });
       }
 
       // Count with the same filters as the list (cloned before pagination)
@@ -242,6 +244,24 @@ export class ProjectsController extends BaseController {
       query = this.paginate(query, page, limit);
 
       const projects = await query;
+
+      // Attach tags (id/name/color) to each project row
+      const pageIds = projects.map((p: any) => p.id);
+      const tagRows = pageIds.length
+        ? await this.db('project_tags as pt')
+            .join('tags', 'pt.tag_id', 'tags.id')
+            .whereIn('pt.project_id', pageIds)
+            .select('pt.project_id', 'tags.id', 'tags.name', 'tags.color')
+        : [];
+      const tagsByProject = new Map<string, any[]>();
+      for (const row of tagRows) {
+        const list = tagsByProject.get(row.project_id) ?? [];
+        list.push({ id: row.id, name: row.name, color: row.color });
+        tagsByProject.set(row.project_id, list);
+      }
+      for (const project of projects) {
+        project.tags = tagsByProject.get(project.id) ?? [];
+      }
 
       // DEBUG: Test if raw SQL is working
       const testQuery = await this.db('projects')
@@ -376,9 +396,11 @@ export class ProjectsController extends BaseController {
 
       // Generate ID for SQLite compatibility
       const projectId = projectData.id || `project-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
-      
-      // Sanitize foreign key fields - convert empty strings to null
+
+      // tag_ids is a junction-table payload, not a projects column
+      const tagIds: Array<number | string> = Array.isArray(projectData.tag_ids) ? projectData.tag_ids : [];
       const sanitizedData = { ...projectData };
+      delete sanitizedData.tag_ids;
       const nullableForeignKeys = ['owner_id', 'project_sub_type_id', 'current_phase_id'];
       
       nullableForeignKeys.forEach(field => {
@@ -398,7 +420,14 @@ export class ProjectsController extends BaseController {
       };
 
       await this.db('projects').insert(projectToInsert);
-      
+
+      // Apply tags
+      if (tagIds.length > 0) {
+        await this.db('project_tags').insert(
+          tagIds.map((tagId) => ({ project_id: projectId, tag_id: tagId }))
+        );
+      }
+
       // Auto-inherit phases from project type
       await this.inheritProjectPhases(projectId, projectToInsert.project_type_id);
       
@@ -438,8 +467,13 @@ export class ProjectsController extends BaseController {
         await this.validateProjectSubType(typeId, subTypeId);
       }
 
-      // Sanitize foreign key fields - convert empty strings to null
+      // tag_ids is a junction-table payload, not a projects column
+      const tagIdsProvided = Array.isArray(updateData.tag_ids);
+      const tagIds: Array<number | string> = tagIdsProvided ? updateData.tag_ids : [];
       const sanitizedData = { ...updateData };
+      delete sanitizedData.tag_ids;
+
+      // Sanitize foreign key fields - convert empty strings to null
       const nullableForeignKeys = ['owner_id', 'project_sub_type_id', 'current_phase_id'];
       
       nullableForeignKeys.forEach(field => {
@@ -454,6 +488,16 @@ export class ProjectsController extends BaseController {
           ...sanitizedData,
           updated_at: new Date()
         });
+
+      // Replace the project's tag set when tag_ids was provided
+      if (tagIdsProvided) {
+        await this.db('project_tags').where('project_id', id).del();
+        if (tagIds.length > 0) {
+          await this.db('project_tags').insert(
+            tagIds.map((tagId) => ({ project_id: id, tag_id: tagId }))
+          );
+        }
+      }
 
       // Fetch the updated project
       const project = await this.db('projects').where('id', id).first();

@@ -1219,3 +1219,15 @@ export interface EstimationDeviation {
   dev_pm: number | null;
   days_late: number | null;
 }
+
+// ===== Tags (project classification labels — filtering only, no calc semantics) =====
+
+export interface Tag {
+  id: number;
+  name: string;
+  color: string | null;
+  description: string | null;
+  created_at: string;
+  updated_at: string;
+  project_count?: number;
+}

@@ -232,10 +232,10 @@
     "backfilled": "Backfilled",
     "status": "Status"
   },
-  "reservationFilter": {
-    "label": "Reserved items",
-    "all": "All",
-    "exclude": "Regular items only",
-    "only": "Reserved items only"
+  "tags": {
+    "label": "Tags",
+    "filterLabel": "Tag",
+    "add": "Add",
+    "newPlaceholder": "New tag…"
   }
 }

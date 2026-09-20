@@ -29,7 +29,7 @@ export function Projects() {
     location_id: '',
     project_type_id: '',
     status: '',
-    reservations: ''
+    tag_id: ''
   });
   
   const addProjectModal = useModal();
@@ -62,6 +62,15 @@ export function Projects() {
   });
 
   // Fetch locations for filter
+  const { data: tagsData } = useQuery({
+    queryKey: queryKeys.tags.list(),
+    queryFn: async () => {
+      const response = await api.tags.list();
+      return response.data;
+    }
+  });
+  const tags = (tagsData?.data as any[]) || [];
+
   const { data: locations } = useQuery({
     queryKey: queryKeys.locations.list(),
     queryFn: async () => {
@@ -127,7 +136,7 @@ export function Projects() {
       location_id: '',
       project_type_id: '',
       status: '',
-      reservations: ''
+      tag_id: ''
     });
   };
 
@@ -159,6 +168,19 @@ export function Projects() {
             <div style={getProjectTypeIndicatorStyle(row)} />
             <span>{value}</span>
           </div>
+          {row.tags && row.tags.length > 0 && (
+            <div className="project-tag-badges" style={{ display: 'flex', gap: '0.25rem', marginTop: '0.25rem', flexWrap: 'wrap' }}>
+              {row.tags.map((tag: any) => (
+                <span
+                  key={tag.id}
+                  className="tag-badge"
+                  style={{ backgroundColor: tag.color || 'var(--text-tertiary)' }}
+                >
+                  {tag.name}
+                </span>
+              ))}
+            </div>
+          )}
         </div>
       )
     },
@@ -286,15 +308,10 @@ export function Projects() {
       ]
     },
     {
-      // Reservation pools are ordinary projects ([预留]-prefixed capacity
-      // buckets); filter them in/out on demand instead of hiding by default
-      name: 'reservations',
-      label: t('projects:reservationFilter.label'),
+      name: 'tag_id',
+      label: t('projects:tags.filterLabel'),
       type: 'select' as const,
-      options: [
-        { value: 'exclude', label: t('projects:reservationFilter.exclude') },
-        { value: 'only', label: t('projects:reservationFilter.only') }
-      ]
+      options: tags?.map((tag: any) => ({ value: String(tag.id), label: tag.name })) || []
     }
   ];
 

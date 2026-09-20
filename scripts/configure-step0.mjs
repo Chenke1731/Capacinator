@@ -124,7 +124,6 @@ async function main() {
     return (await listAll('/project-types')).find(match);
   };
   const typeDemand = await ensureType('需求交付');
-  const typeStd = await ensureType('标准需求', typeDemand.id);
   const typeTickets = await ensureType('问题单支持');
   const typeAffairs = await ensureType('项目事务');
   const typeMisc = await ensureType('零星事项');
@@ -152,13 +151,15 @@ async function main() {
   await attachPhase(phDesign.id, 1);
   await attachPhase(phDev.id, 2);
 
-  // resource templates live on the child type: SE×设计 50%, 开发×开发 150% (测试/交付零配比)
+  // resource templates live on the parent type + sub-type (projects reference
+  // parent + project_sub_types, NOT a child project_type): SE×设计 50%, 开发×开发 150%
   const ensureTemplate = async (phaseId, roleId, pct) => {
-    const existing = (await listAll(`/resource-templates?project_type_id=${typeStd.id}`))
+    const existing = (await listAll(`/resource-templates?project_type_id=${typeDemand.id}`))
       .find((t) => t.phase_id === phaseId && t.role_id === roleId);
     if (existing) return existing;
     return req('POST', '/resource-templates', {
-      project_type_id: typeStd.id, phase_id: phaseId, role_id: roleId, allocation_percentage: pct,
+      project_type_id: typeDemand.id, project_sub_type_id: subStd.id,
+      phase_id: phaseId, role_id: roleId, allocation_percentage: pct,
     });
   };
   await ensureTemplate(phDesign.id, roleSE.id, 50);

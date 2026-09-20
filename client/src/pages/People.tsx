@@ -302,7 +302,7 @@ export default function People() {
         return (
           <div className="workload-status">
             <div className={`status-indicator status-${insights.color}`}>
-              <IconComponent size={14} />
+              <IconComponent size={18} />
               {insights.percentage !== undefined && (
                 <span className="status-percentage">
                   {Math.round(insights.percentage)}%
@@ -319,7 +319,7 @@ export default function People() {
     {
       key: 'actions',
       header: t('people:columns.quickActions'),
-      width: '180px',
+      width: '260px',
       render: (_, row) => {
         const insights = getPersonInsights(row.id);
         const ActionIcon = insights.icon;
@@ -334,11 +334,22 @@ export default function People() {
               }}
               title={insights.action}
             >
-              <ActionIcon size={14} />
+              <ActionIcon size={16} />
               {insights.action}
             </button>
             <button
-              className="btn btn-icon btn-sm"
+              className="btn btn-outline btn-sm quick-action-btn"
+              onClick={(e) => {
+                e.stopPropagation();
+                navigate(`/people/${row.id}`);
+              }}
+              title={t('common:viewDetails')}
+            >
+              <Eye size={16} />
+              {t('common:viewDetails')}
+            </button>
+            <button
+              className="btn btn-outline btn-sm quick-action-btn"
               onClick={(e) => {
                 e.stopPropagation();
                 handleEditPerson(row);
@@ -346,6 +357,7 @@ export default function People() {
               title={t('common:edit')}
             >
               <Edit2 size={16} />
+              {t('common:edit')}
             </button>
           </div>
         );

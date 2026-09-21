@@ -312,6 +312,18 @@
       "dateAutoHint": "Dates default to the project aspiration window; scheduling creates a pool placeholder that consumes capacity like named staffing.",
       "terminal": "Terminal state",
       "transitionFailed": "Transition failed"
+    },
+    "selectorTitle": "Switch state (flow-free)",
+    "currentLabel": "current",
+    "jumpFailed": "Switch failed",
+    "warningDot": "Lifecycle warnings present",
+    "warningsTitle": "State warnings",
+    "warnings": {
+      "NO_DEV_DEMAND": "Scheduled / in iteration but no dev pool or named dev assignment — capacity not locked",
+      "NO_LOC_ESTIMATE": "Scheduled / in iteration but no LOC estimation — dev demand unknown",
+      "NO_DESIGN_ESTIMATE": "Designing but no rough design estimate recorded",
+      "DESIGN_NOT_BACKFILLED": "Past design but actual design effort never backfilled — rough estimates cannot calibrate",
+      "DELIVERED_NOT_BACKFILLED": "Delivered but actuals never backfilled — deviation cannot be tracked"
     }
   },
   "staffing": {

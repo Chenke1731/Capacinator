@@ -80,13 +80,13 @@ const pools = (await poolResp.json()).data ?? [];
 check('pool created from list (开发×2 open)', pools.some((p) => p.status === 'open' && p.headcount === 2));
 await page.waitForTimeout(1200);
 
-// 4. Badge popover: secondary transitions visible from scheduled
+// 4. Badge popover: full flow-free selector (all 8 states)
 await badge().click();
-await page.waitForSelector('.lc-popover', { timeout: 5000 });
+await page.waitForSelector('.lc-state-list', { timeout: 5000 });
 const popText = await page.textContent('.lc-popover');
-check('badge popover has 退回设计 + 取消', popText.includes('退回设计') && popText.includes('裁决取消'));
-// reopen drill-down three options
-await page.click('.lc-popover button:has-text("退回设计")');
+check('badge popover has full selector', popText.includes('设计中') && popText.includes('裁决取消') && popText.includes('当前'));
+// reopen drill-down via the 设计中 row (dev-side → designing offers the 3 options)
+await page.click('.lc-state-list button:has-text("设计中")');
 await page.waitForTimeout(400);
 const reopenText = await page.textContent('.lc-popover');
 check('reopen 3 options inline', reopenText.includes('暂停开发分配') && reopenText.includes('释放开发分配') && reopenText.includes('仅退回'));

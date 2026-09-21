@@ -48,8 +48,13 @@ export function sideOf(state: LifecycleState): 'design' | 'dev' | null {
   return null; // delivered / cancelled
 }
 
-/** Allowed transitions. Everything not listed here is rejected with 400. */
-export const TRANSITIONS: Record<LifecycleState, LifecycleState[]> = {
+/**
+ * Historical reference: the pre-2026-09-21 guarded flow. The state machine no
+ * longer ENFORCES this path (the human owns the flow, any jump is allowed);
+ * it survives as documentation of the blessed sequence, and the advisory
+ * warnings (computeWarnings) flag jumps whose side effects are missing.
+ */
+export const BLESSED_FLOW: Record<LifecycleState, LifecycleState[]> = {
   pending_rat: ['nok', 'designing', 'cancelled'],
   nok: ['pending_rat', 'designing', 'cancelled'],
   designing: ['nok', 'backlog', 'cancelled'],
@@ -127,8 +132,14 @@ export class LifecycleService {
   }
 
   /**
-   * Execute a guarded transition with its side effects, all in one transaction.
-   * Returns the updated project and the recorded event.
+   * Execute a transition with its side effects, all in one transaction.
+   *
+   * 2026-09-21 revision (user ruling): the human owns the flow — ANY state
+   * may jump to ANY other state. The old hard TRANSITIONS guard is gone;
+   * unreasonable jumps are surfaced as advisory warnings instead
+   * (see computeWarnings). Only same-state and unknown states are rejected,
+   * and target-state semantics (pool creation, pause/release, auto-cancel)
+   * still apply.
    */
   async transition(input: TransitionInput): Promise<{ project: any; event: any }> {
     if (!LIFECYCLE_STATES.includes(input.to)) {
@@ -148,12 +159,6 @@ export class LifecycleService {
       const from = project.lifecycle_state as LifecycleState;
       if (from === input.to) {
         throw new LifecycleError(`project is already in '${STATE_LABELS[from]}'`);
-      }
-      if (!TRANSITIONS[from].includes(input.to)) {
-        throw new LifecycleError(
-          `transition ${STATE_LABELS[from]} → ${STATE_LABELS[input.to]} is not allowed ` +
-          `(allowed: ${TRANSITIONS[from].map((s) => STATE_LABELS[s]).join(', ') || 'none'})`
-        );
       }
 
       const projectUpdate: Record<string, any> = {
@@ -179,8 +184,10 @@ export class LifecycleService {
         }
 
         case 'scheduled': {
-          // 排序的实体化 = 开发池占位. Allow creating the first pool row in the
-          // same call; then require that dev-side demand exists.
+          // 排序即建池 stays the blessed path (body.pool creates it in the
+          // same call), but scheduling WITHOUT dev-side demand is no longer
+          // blocked — it surfaces as the NO_DEV_DEMAND warning instead
+          // (2026-09-21: human owns the flow, system advises).
           if (input.pool) {
             const headcount = Number(input.pool.headcount);
             if (!(headcount > 0 && headcount <= 10)) {
@@ -200,12 +207,6 @@ export class LifecycleService {
               status: 'open',
               created_by: input.actor ?? null
             });
-          }
-          if (!(await this.hasDevSideDemand(trx, input.projectId))) {
-            throw new LifecycleError(
-              'scheduling requires dev-side demand: create a dev pool placeholder ' +
-              '(body.pool) or a named dev assignment first — 排序即建池'
-            );
           }
           break;
         }
@@ -324,5 +325,138 @@ export class LifecycleService {
       .orderBy('created_at', 'desc')
       .orderBy('id', 'desc')
       .select('*');
+  }
+
+  /**
+   * Advisory warnings for the project's CURRENT state (状态告警 — the human
+   * owns the flow; the system flags unreasonable spots, never blocks).
+   * Returns machine codes; the client maps them to localized text.
+   *
+   * Codes:
+   *  - NO_DEV_DEMAND     scheduled/in_iteration without open dev pool or
+   *                      active dev assignment — capacity not locked
+   *  - NO_LOC_ESTIMATE   scheduled/in_iteration without an LOC estimation
+   *  - NO_DESIGN_ESTIMATE designing without a rough design estimate
+   *  - DESIGN_NOT_BACKFILLED dev-side state, design estimate exists but the
+   *                      actual design effort was never backfilled
+   *  - DELIVERED_NOT_BACKFILLED delivered with an LOC estimation but no
+   *                      post-delivery backfill
+   */
+  async computeWarnings(projectId: string): Promise<string[]> {
+    const project = await this.db('projects').where('id', projectId).first();
+    if (!project || project.lifecycle_state == null) return [];
+    const inputs = await this.warningInputs([projectId]);
+    return this.computeWarningsForProject(project, inputs);
+  }
+
+  /** Batched inputs for warning computation across a page of projects. */
+  private async warningInputs(projectIds: string[]): Promise<Map<string, any>> {
+    const inputs = new Map<string, any>();
+    for (const id of projectIds) {
+      inputs.set(id, {
+        hasOpenDevDemand: false,
+        hasDesignEstimate: false,
+        designBackfilled: false,
+        hasLocEstimate: false,
+        locBackfilled: false
+      });
+    }
+    if (projectIds.length === 0) return inputs;
+
+    const devRoleIds = (await this.db('roles').whereIn('name', DEV_SIDE_ROLE_NAMES).select('id'))
+      .map((r: any) => r.id);
+
+    if (devRoleIds.length > 0) {
+      const poolRows = await this.db('project_pool_demands')
+        .whereIn('project_id', projectIds)
+        .where('status', 'open')
+        .whereIn('role_id', devRoleIds)
+        .select('project_id');
+      const spaRows = await this.db('scenario_project_assignments')
+        .whereIn('project_id', projectIds)
+        .where('status', 'active')
+        .whereIn('role_id', devRoleIds)
+        .select('project_id');
+      const paRows = await this.db('project_assignments')
+        .whereIn('project_id', projectIds)
+        .where('status', 'active')
+        .whereIn('role_id', devRoleIds)
+        .select('project_id');
+      const withDemand = new Set(
+        [...poolRows, ...spaRows, ...paRows].map((r: any) => r.project_id)
+      );
+      for (const id of projectIds) {
+        if (withDemand.has(id)) inputs.get(id).hasOpenDevDemand = true;
+      }
+    }
+
+    // Latest design / LOC estimations per project (is-current flag by recency)
+    const designRows = await this.db('project_design_estimations')
+      .whereIn('project_id', projectIds)
+      .select('project_id', 'backfilled_at', 'created_at', 'id');
+    for (const id of projectIds) {
+      const mine = designRows.filter((r: any) => r.project_id === id)
+        .sort((a: any, b: any) => (b.created_at ?? '').localeCompare(a.created_at ?? '') || b.id - a.id);
+      if (mine.length > 0) {
+        inputs.get(id).hasDesignEstimate = true;
+        inputs.get(id).designBackfilled = Boolean(mine[0].backfilled_at);
+      }
+    }
+
+    const locRows = await this.db('project_estimations')
+      .whereIn('project_id', projectIds)
+      .select('project_id', 'backfilled_at', 'created_at', 'id');
+    for (const id of projectIds) {
+      const mine = locRows.filter((r: any) => r.project_id === id)
+        .sort((a: any, b: any) => (b.created_at ?? '').localeCompare(a.created_at ?? '') || b.id - a.id);
+      if (mine.length > 0) {
+        inputs.get(id).hasLocEstimate = true;
+        inputs.get(id).locBackfilled = Boolean(mine[0].backfilled_at);
+      }
+    }
+
+    return inputs;
+  }
+
+  /** Pure check: project row + warning inputs → warning codes (exported for lists). */
+  computeWarningsForProject(
+    project: any,
+    inputs: Map<string, any>
+  ): string[] {
+    const state = project.lifecycle_state;
+    if (!state) return [];
+    const i = inputs.get(project.id);
+    if (!i) return [];
+
+    const warnings: string[] = [];
+    const devSide = ['backlog', 'scheduled', 'in_iteration'].includes(state);
+
+    if ((state === 'scheduled' || state === 'in_iteration') && !i.hasOpenDevDemand) {
+      warnings.push('NO_DEV_DEMAND');
+    }
+    if ((state === 'scheduled' || state === 'in_iteration') && !i.hasLocEstimate) {
+      warnings.push('NO_LOC_ESTIMATE');
+    }
+    if (state === 'designing' && !i.hasDesignEstimate) {
+      warnings.push('NO_DESIGN_ESTIMATE');
+    }
+    if (devSide && i.hasDesignEstimate && !i.designBackfilled) {
+      warnings.push('DESIGN_NOT_BACKFILLED');
+    }
+    if (state === 'delivered' && i.hasLocEstimate && !i.locBackfilled) {
+      warnings.push('DELIVERED_NOT_BACKFILLED');
+    }
+    return warnings;
+  }
+
+  /** Warnings for a page of project rows (batched, list-friendly). */
+  async computeWarningsForProjects(projects: any[]): Promise<Map<string, string[]>> {
+    const ids = projects.filter((p) => p.lifecycle_state != null).map((p) => p.id);
+    const inputs = await this.warningInputs(ids);
+    const out = new Map<string, string[]>();
+    for (const p of projects) {
+      out.set(p.id, this.computeWarningsForProject(p, inputs));
+    }
+    return out;
   }
 }

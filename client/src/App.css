@@ -1509,3 +1509,66 @@ input[type="checkbox"].settings-checkbox,
 .lifecycle-cell-badges {
   flex-wrap: nowrap;
 }
+
+/* Free-state selector list (气泡内全量状态选择) */
+.lc-state-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.lc-state-row {
+  width: 100%;
+  text-align: left;
+  justify-content: flex-start;
+  gap: 8px;
+}
+.lc-state-row--current {
+  border-color: var(--accent-color, #3b82f6);
+  background: rgba(59, 130, 246, 0.08);
+  color: var(--text-primary);
+  cursor: default;
+  display: inline-flex;
+  align-items: center;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 1px solid var(--accent-color, #3b82f6);
+}
+.lc-state-current-tag {
+  margin-left: auto;
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--text-secondary);
+}
+.lc-state-row--danger {
+  border-color: rgba(220, 38, 38, 0.5);
+  color: var(--danger-color, #dc2626);
+}
+
+/* Advisory warning indicators (状态告警) */
+.lifecycle-warning-dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #f59e0b;
+  margin-right: 5px;
+  box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.25);
+}
+
+.lifecycle-warning-strip {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid rgba(245, 158, 11, 0.45);
+  background: rgba(245, 158, 11, 0.08);
+  color: #f59e0b;
+  font-size: 12.5px;
+}
+.lifecycle-warning-strip svg { align-self: center; }
+.lifecycle-warning-title { font-weight: 600; white-space: nowrap; }
+.lifecycle-warning-items { color: var(--text-secondary); }

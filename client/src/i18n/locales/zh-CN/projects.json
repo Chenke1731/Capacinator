@@ -310,6 +310,18 @@
       "dateAutoHint": "日期留空则默认取项目期望起止;排序即建池,池占位与实名同权参与产能计算。",
       "terminal": "终态,无后续流转",
       "transitionFailed": "流转失败"
+    },
+    "selectorTitle": "切换状态(不受流程限制)",
+    "currentLabel": "当前",
+    "jumpFailed": "切换失败",
+    "warningDot": "存在状态告警",
+    "warningsTitle": "状态告警",
+    "warnings": {
+      "NO_DEV_DEMAND": "已排序/迭代中,但开发侧既无池占位也无实名分配——产能未锁定",
+      "NO_LOC_ESTIMATE": "已排序/迭代中,但尚无代码行数评估——开发需求量未知",
+      "NO_DESIGN_ESTIMATE": "设计中,但尚未录入设计粗估人月",
+      "DESIGN_NOT_BACKFILLED": "已进入开发侧,但设计实际人月未回填——粗估无法校准",
+      "DELIVERED_NOT_BACKFILLED": "已交付,但实际值未回填——估算偏差无法统计"
     }
   },
   "staffing": {

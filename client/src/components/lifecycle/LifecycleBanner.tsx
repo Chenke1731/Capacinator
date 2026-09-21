@@ -1,8 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
-import { Check, AlertTriangle, ChevronRight } from 'lucide-react';
+import { Check, AlertTriangle, ChevronRight, ChevronDown } from 'lucide-react';
 import { api } from '../../lib/api-client';
+import { LifecycleStateList } from './LifecycleStateList';
 import { queryKeys } from '../../lib/queryKeys';
 
 /**
@@ -44,8 +45,29 @@ export function LifecycleBanner({ project }: { project: any }) {
   const [error, setError] = useState<string | null>(null);
   const [poolForm, setPoolForm] = useState({ role_id: '', headcount: '2', start_date: '', end_date: '' });
   const [iterDraft, setIterDraft] = useState('');
+  const [stateMenu, setStateMenu] = useState(false);
+  const [menuPos, setMenuPos] = useState({ top: -9999, left: -9999 });
+  const stateBadgeRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => setArDraft(project.ar_number ?? ''), [project.ar_number]);
+
+  // Dismiss the free-state selector popover
+  useEffect(() => {
+    if (!stateMenu) return;
+    const onDown = (e: MouseEvent) => {
+      const target = e.target as Node;
+      if (stateBadgeRef.current?.contains(target)) return;
+      if ((target as HTMLElement).closest?.('.lc-popover')) return;
+      setStateMenu(false);
+    };
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setStateMenu(false); };
+    document.addEventListener('mousedown', onDown);
+    document.addEventListener('keydown', onKey);
+    return () => {
+      document.removeEventListener('mousedown', onDown);
+      document.removeEventListener('keydown', onKey);
+    };
+  }, [stateMenu]);
 
   // Roles for the scheduling pool form (dev side preselected)
   const { data: roles } = useQuery({
@@ -67,6 +89,25 @@ export function LifecycleBanner({ project }: { project: any }) {
     queryClient.invalidateQueries({ queryKey: queryKeys.projects.detail(project.id) });
     queryClient.invalidateQueries({ queryKey: queryKeys.projects.lists() });
     queryClient.invalidateQueries({ queryKey: queryKeys.dashboard.all });
+  };
+
+  const warnings: string[] = Array.isArray(project.lifecycle_warnings)
+    ? project.lifecycle_warnings
+    : [];
+
+  const toggleStateMenu = () => {
+    if (stateMenu) {
+      setStateMenu(false);
+      return;
+    }
+    const rect = stateBadgeRef.current?.getBoundingClientRect();
+    if (rect) {
+      setMenuPos({
+        top: Math.min(rect.bottom + 6, window.innerHeight - 380),
+        left: Math.max(8, Math.min(rect.left, window.innerWidth - 282))
+      });
+    }
+    setStateMenu(true);
   };
 
   const transitionMutation = useMutation({
@@ -118,8 +159,23 @@ export function LifecycleBanner({ project }: { project: any }) {
       {/* Row 1: current state + context + actions */}
       <div className="lifecycle-banner-top">
         <div className="lifecycle-context">
-          <span className={`lifecycle-state-badge lifecycle-state-badge--${state}`}>
-            {t(stateLabelKey(state))}
+          <span ref={stateBadgeRef} style={{ display: 'inline-flex' }}>
+            <button
+              type="button"
+              className={`lifecycle-state-badge lifecycle-state-badge--${state} lifecycle-badge-btn`}
+              onClick={toggleStateMenu}
+              title={
+                warnings.length > 0
+                  ? `${t('projects:lifecycle.warningDot')}: ${warnings.map((w) => t(`projects:lifecycle.warnings.${w}`)).join('；')}`
+                  : t('projects:lifecycle.selectorTitle')
+              }
+            >
+              {warnings.length > 0 && (
+                <span className="lifecycle-warning-dot" title={t('projects:lifecycle.warningDot')} />
+              )}
+              {t(stateLabelKey(state))}
+              <ChevronDown size={11} className="inline ml-0.5 opacity-60" />
+            </button>
           </span>
 
           {inDesignSide && designDeadline && deadlineDays !== null && (
@@ -235,6 +291,34 @@ export function LifecycleBanner({ project }: { project: any }) {
           );
         })}
       </div>
+
+      {/* Advisory warnings (状态告警) — the system flags, the human decides */}
+      {warnings.length > 0 && (
+        <div className="lifecycle-warning-strip">
+          <AlertTriangle size={13} className="flex-shrink-0" />
+          <span className="lifecycle-warning-title">{t('projects:lifecycle.warningsTitle')}</span>
+          <span className="lifecycle-warning-items">
+            {warnings.map((w) => t(`projects:lifecycle.warnings.${w}`)).join('；')}
+          </span>
+        </div>
+      )}
+
+      {/* Free-state selector popover (badge click) */}
+      {stateMenu && (
+        <div className="lc-popover" style={{ top: menuPos.top, left: menuPos.left }}>
+          <LifecycleStateList
+            current={state}
+            isPending={transitionMutation.isPending}
+            onTransition={(to) =>
+              transitionMutation.mutate({ to }, { onSuccess: () => setStateMenu(false) })
+            }
+            onReopen={() => {
+              setStateMenu(false);
+              setExpanded('reopen');
+            }}
+          />
+        </div>
+      )}
 
       {/* Inline: AR number input (design side) */}
       {inDesignSide && (

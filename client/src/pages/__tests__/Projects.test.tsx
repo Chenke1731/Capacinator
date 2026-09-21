@@ -364,7 +364,7 @@ describe('Projects Page', () => {
       });
     });
 
-    test('badge popover exposes secondary transitions', async () => {
+    test('badge popover offers the full flow-free state selector', async () => {
       const user = userEvent.setup();
       (api.projects.list as jest.Mock).mockResolvedValue({
         data: { data: [{ ...mockProjects[0], lifecycle_state: 'designing' }] }
@@ -378,8 +378,16 @@ describe('Projects Page', () => {
 
       await user.click(screen.getByRole('button', { name: /Designing/ }));
 
-      expect(screen.getByText('Mark NOK')).toBeInTheDocument();
-      expect(screen.getByText('Cancel')).toBeInTheDocument();
+      // All 8 states are selectable (flow-free); current one is tagged
+      const selector = within(screen.getByTestId('lc-state-list'));
+      expect(selector.getByText('Pending RAT')).toBeInTheDocument();
+      expect(selector.getByText('NOK')).toBeInTheDocument();
+      expect(selector.getByText('Backlog')).toBeInTheDocument();
+      expect(selector.getByText('Scheduled')).toBeInTheDocument();
+      expect(selector.getByText('In Iteration')).toBeInTheDocument();
+      expect(selector.getByText('Delivered')).toBeInTheDocument();
+      expect(selector.getByText('Cancelled')).toBeInTheDocument();
+      expect(selector.getByText('current')).toBeInTheDocument();
       expect(screen.getByRole('button', { name: 'Admit' })).toBeInTheDocument();
     });
 

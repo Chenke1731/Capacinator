@@ -3,7 +3,6 @@ import { BaseController, RequestWithContext } from './BaseController.js';
 import {
   LifecycleService,
   LIFECYCLE_STATES,
-  TRANSITIONS,
   STATE_LABELS,
   LifecycleError,
   type LifecycleState
@@ -47,7 +46,8 @@ export class LifecycleController extends BaseController {
 
   /**
    * GET /projects/:id/lifecycle
-   * State machine metadata (allowed transitions) + event history.
+   * State metadata + advisory warnings (状态告警) + event history.
+   * Any state may jump to any other — warnings flag unreasonable spots.
    */
   getLifecycle = this.asyncHandler(async (req: RequestWithContext, res: Response) => {
     const project = await this.db('projects').where('id', req.params.id).first();
@@ -56,7 +56,10 @@ export class LifecycleController extends BaseController {
       return;
     }
     const current = project.lifecycle_state as LifecycleState | null;
-    const events = await this.lifecycleService.listEvents(req.params.id);
+    const [events, warnings] = await Promise.all([
+      this.lifecycleService.listEvents(req.params.id),
+      current != null ? this.lifecycleService.computeWarnings(req.params.id) : Promise.resolve([])
+    ]);
 
     res.json({
       success: true,
@@ -65,13 +68,7 @@ export class LifecycleController extends BaseController {
         ar_number: project.ar_number ?? null,
         iteration_label: project.iteration_label ?? null,
         applicable: current != null,
-        allowed_transitions:
-          current != null
-            ? TRANSITIONS[current].reduce<Record<string, string[]>>((acc, to) => {
-                acc[to] = TRANSITIONS[to];
-                return acc;
-              }, {})
-            : {},
+        warnings,
         events
       }
     });

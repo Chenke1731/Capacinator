@@ -5,6 +5,7 @@ import { notificationScheduler } from '../../services/NotificationScheduler.js';
 import { PhaseTemplateValidationService, type PhaseUpdateRequest } from '../../services/PhaseTemplateValidationService.js';
 import { CustomPhaseManagementService, type CustomPhaseData, type PhaseUpdateData } from '../../services/CustomPhaseManagementService.js';
 import { toIsoDateString } from '../../utils/isoDate.js';
+import { LifecycleService } from '../../services/lifecycle/LifecycleService.js';
 import { logger } from '../../services/logging/config.js';
 
 // Alias for backward compatibility
@@ -278,8 +279,14 @@ export class ProjectsController extends BaseController {
         list.push({ id: row.id, name: row.name, color: row.color });
         tagsByProject.set(row.project_id, list);
       }
+
+      // Advisory lifecycle warnings (状态告警) — batched for the page
+      const lifecycleService = new LifecycleService(this.db);
+      const warningsByProject = await lifecycleService.computeWarningsForProjects(projects);
+
       for (const project of projects) {
         project.tags = tagsByProject.get(project.id) ?? [];
+        project.lifecycle_warnings = warningsByProject.get(project.id) ?? [];
       }
 
       // DEBUG: Test if raw SQL is working
@@ -417,12 +424,19 @@ export class ProjectsController extends BaseController {
         .where('project_planners.project_id', id)
         .orderBy('project_planners.is_primary_planner', 'desc');
 
+      // Advisory lifecycle warnings (状态告警)
+      const lifecycleService = new LifecycleService(this.db);
+      const lifecycle_warnings = project.lifecycle_state != null
+        ? await lifecycleService.computeWarnings(id)
+        : [];
+
       return {
         ...project,
         phases,
         assignments,
         pool_demands,
-        planners
+        planners,
+        lifecycle_warnings
       };
     }, req, res, 'Failed to fetch project');
 

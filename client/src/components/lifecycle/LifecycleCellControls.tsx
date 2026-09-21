@@ -6,6 +6,7 @@ import { queryKeys } from '../../lib/queryKeys';
 import { api } from '../../lib/api-client';
 import { useLifecycleTransition } from './useLifecycleTransition';
 import { stateLabelKey } from './LifecycleBanner';
+import { LifecycleStateList } from './LifecycleStateList';
 
 /**
  * LifecycleCellControls — 列表页就地推进生命周期 (2026-09-21 用户裁决:
@@ -31,18 +32,6 @@ const PRIMARY_NEXT: Record<string, { to: string; labelKey: string } | null> = {
   cancelled: null
 };
 
-/** Secondary transitions surfaced in the badge popover */
-const SECONDARY: Record<string, string[]> = {
-  pending_rat: ['nok', 'cancelled'],
-  nok: ['pending_rat', 'cancelled'],
-  designing: ['nok', 'cancelled'],
-  backlog: ['designing', 'cancelled'],
-  scheduled: ['designing', 'cancelled'],
-  in_iteration: ['designing', 'cancelled'],
-  delivered: [],
-  cancelled: []
-};
-
 function daysFromToday(dateStr: string): number {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
@@ -57,7 +46,6 @@ export function LifecycleCellControls({ project }: { project: any }) {
   const transition = useLifecycleTransition(project.id);
 
   const [mode, setMode] = useState<PopoverMode | null>(null);
-  const [confirmingCancel, setConfirmingCancel] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [pos, setPos] = useState({ top: -9999, left: -9999 });
   const anchorRef = useRef<HTMLSpanElement>(null);
@@ -102,13 +90,11 @@ export function LifecycleCellControls({ project }: { project: any }) {
 
   function closePopover() {
     setMode(null);
-    setConfirmingCancel(false);
     setError(null);
   }
 
   function openPopover(next: PopoverMode) {
     anchorRectRef.current = anchorRef.current?.getBoundingClientRect() ?? null;
-    setConfirmingCancel(false);
     setError(null);
     setMode(next);
   }
@@ -141,7 +127,7 @@ export function LifecycleCellControls({ project }: { project: any }) {
 
     const left = Math.max(8, Math.min(rect.left, window.innerWidth - width - 12));
     setPos({ top, left });
-  }, [mode, confirmingCancel]);
+  }, [mode]);
 
   const doTransition = (to: string, extra: Record<string, unknown> = {}) => {
     setError(null);
@@ -156,7 +142,7 @@ export function LifecycleCellControls({ project }: { project: any }) {
   };
 
   const primary = PRIMARY_NEXT[state] ?? null;
-  const secondary = SECONDARY[state] ?? [];
+  const warnings: string[] = Array.isArray(project.lifecycle_warnings) ? project.lifecycle_warnings : [];
   const inDesign = ['pending_rat', 'nok', 'designing'].includes(state);
   const deadline: string | null = project.design_deadline ? String(project.design_deadline).slice(0, 10) : null;
   const overdue = inDesign && deadline && daysFromToday(deadline) < 0;
@@ -175,8 +161,13 @@ export function LifecycleCellControls({ project }: { project: any }) {
           type="button"
           className={`lifecycle-state-badge lifecycle-state-badge--${state} lifecycle-badge-btn`}
           onClick={() => (mode ? closePopover() : openPopover('actions'))}
-          title={t('projects:lifecycle.quick.more')}
+          title={
+            warnings.length > 0
+              ? `${t('projects:lifecycle.warningDot')}: ${warnings.map((w) => t(`projects:lifecycle.warnings.${w}`)).join('；')}`
+              : t('projects:lifecycle.quick.more')
+          }
         >
+          {warnings.length > 0 && <span className="lifecycle-warning-dot" title={t('projects:lifecycle.warningDot')} />}
           {t(stateLabelKey(state))}
           <ChevronDown size={11} className="inline ml-0.5 opacity-60" />
         </button>
@@ -293,52 +284,14 @@ export function LifecycleCellControls({ project }: { project: any }) {
             </>
           )}
 
-          {/* ---- all secondary transitions ---- */}
-          {mode === 'actions' && secondary.length > 0 && (
-            <div className="lc-popover-column">
-              {secondary.map((to) => {
-                if (to === 'cancelled') {
-                  return (
-                    <button
-                      key="cancel"
-                      type="button"
-                      className={confirmingCancel ? 'lifecycle-btn lifecycle-btn-danger lifecycle-btn--confirming' : 'lifecycle-btn lifecycle-btn-danger'}
-                      disabled={transition.isPending}
-                      onClick={() => {
-                        if (!confirmingCancel) {
-                          setConfirmingCancel(true);
-                          setTimeout(() => setConfirmingCancel(false), 3000);
-                          return;
-                        }
-                        doTransition('cancelled');
-                      }}
-                    >
-                      {confirmingCancel
-                        ? t('projects:lifecycle.action.confirmCancel')
-                        : t('projects:lifecycle.action.cancel')}
-                    </button>
-                  );
-                }
-                if (to === 'designing') {
-                  return (
-                    <button key="reopen" type="button" className={btn}
-                            onClick={() => setMode('reopen')}>
-                      {t('projects:lifecycle.action.reopen')}…
-                    </button>
-                  );
-                }
-                return (
-                  <button key={to} type="button" className={btn} disabled={transition.isPending}
-                          onClick={() => doTransition(to)}>
-                    {to === 'nok' && t('projects:lifecycle.action.markNok')}
-                    {to === 'pending_rat' && t('projects:lifecycle.action.backToPendingRat')}
-                  </button>
-                );
-              })}
-            </div>
-          )}
-          {mode === 'actions' && secondary.length === 0 && (
-            <div className="lc-popover-hint">{t('projects:lifecycle.quick.terminal')}</div>
+          {/* ---- full state selector (flow-free, warnings advise) ---- */}
+          {mode === 'actions' && (
+            <LifecycleStateList
+              current={state}
+              isPending={transition.isPending}
+              onTransition={(to) => doTransition(to)}
+              onReopen={() => setMode('reopen')}
+            />
           )}
 
           {error && <div className="lc-popover-error">{error}</div>}

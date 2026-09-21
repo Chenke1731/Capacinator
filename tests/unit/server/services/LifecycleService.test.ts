@@ -4,7 +4,6 @@ import knexFactory from 'knex';
 import {
   LifecycleService,
   LifecycleError,
-  TRANSITIONS,
   LIFECYCLE_STATES
 } from '../../../../src/server/services/lifecycle/LifecycleService';
 
@@ -50,6 +49,18 @@ describe('LifecycleService (in-memory SQLite)', () => {
         from_state TEXT, to_state TEXT NOT NULL, ar_number TEXT,
         iteration_label TEXT, note TEXT, actor TEXT,
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+      )`,
+      `CREATE TABLE project_design_estimations (
+        id INTEGER PRIMARY KEY AUTOINCREMENT, project_id TEXT,
+        estimated_design_pm REAL NOT NULL,
+        deviation_low_pct REAL DEFAULT 20, deviation_high_pct REAL DEFAULT 50,
+        notes TEXT, actual_design_pm REAL, backfilled_at DATETIME,
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+      )`,
+      `CREATE TABLE project_estimations (
+        id INTEGER PRIMARY KEY AUTOINCREMENT, project_id TEXT,
+        estimated_loc REAL, backfilled_at DATETIME,
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP
       )`
     ];
     for (const stmt of ddl) {
@@ -78,17 +89,20 @@ describe('LifecycleService (in-memory SQLite)', () => {
     await db('project_lifecycle_events').del();
   });
 
-  test('state machine constants: 8 states, terminals have no outgoing edges', () => {
+  test('state machine constants: 8 states', () => {
     expect(LIFECYCLE_STATES).toHaveLength(8);
-    expect(TRANSITIONS.delivered).toEqual([]);
-    expect(TRANSITIONS.cancelled).toEqual([]);
   });
 
-  test('rejects illegal jumps with the allowed list in the message', async () => {
+  test('free jump: pending_rat → scheduled succeeds without a pool (2026-09-21 ruling)', async () => {
     await seedProject('p1', 'pending_rat');
-    await expect(
-      service.transition({ projectId: 'p1', to: 'scheduled' })
-    ).rejects.toThrow(/not allowed/);
+    const result = await service.transition({ projectId: 'p1', to: 'scheduled' });
+    expect(result.project.lifecycle_state).toBe('scheduled');
+    // The missing dev-side demand is an advisory warning, not a blocker
+    const inputs = await (service as any).warningInputs(['p1']);
+    const warnings = (service as any).computeWarningsForProject(
+      { id: 'p1', lifecycle_state: 'scheduled' }, inputs
+    );
+    expect(warnings).toContain('NO_DEV_DEMAND');
   });
 
   test('rejects projects without a lifecycle (standing items)', async () => {
@@ -119,12 +133,7 @@ describe('LifecycleService (in-memory SQLite)', () => {
     const withAr = await db('projects').where('id', 'p1').first();
     expect(withAr.ar_number).toBe('AR-123');
 
-    // 排序即建池: scheduling without dev-side demand is rejected
-    await expect(
-      service.transition({ projectId: 'p1', to: 'scheduled' })
-    ).rejects.toThrow(/dev-side demand/);
-
-    // Scheduling with an inline pool succeeds
+    // Scheduling without a pool now succeeds (warning advises instead)
     const scheduled = await service.transition({
       projectId: 'p1',
       to: 'scheduled',
@@ -155,31 +164,21 @@ describe('LifecycleService (in-memory SQLite)', () => {
       'delivered', 'in_iteration', 'scheduled', 'backlog', 'designing'
     ]);
 
-    // Terminal: no further transitions
-    await expect(
-      service.transition({ projectId: 'p1', to: 'designing' })
-    ).rejects.toThrow(/not allowed/);
+    // Free flow: delivered may be left again (premature delivery happens)
+    const revived = await service.transition({ projectId: 'p1', to: 'designing' });
+    expect(revived.project.lifecycle_state).toBe('designing');
   });
 
-  test('scheduling also accepts an existing named dev assignment as demand', async () => {
+  test('scheduled with dev demand raises no NO_DEV_DEMAND warning', async () => {
     await seedProject('p1', 'backlog');
     await db('scenario_project_assignments').insert({
       id: 'a1', project_id: 'p1', role_id: DEV_ROLE, status: 'active'
     });
 
-    const result = await service.transition({ projectId: 'p1', to: 'scheduled' });
-    expect(result.project.lifecycle_state).toBe('scheduled');
-  });
-
-  test('SE-only demand does NOT satisfy the scheduling guard', async () => {
-    await seedProject('p1', 'backlog');
-    await db('project_pool_demands').insert({
-      id: 'pool1', project_id: 'p1', role_id: SE_ROLE, headcount: 1, status: 'open'
-    });
-
-    await expect(
-      service.transition({ projectId: 'p1', to: 'scheduled' })
-    ).rejects.toThrow(/dev-side demand/);
+    await service.transition({ projectId: 'p1', to: 'scheduled' });
+    const warnings = await service.computeWarnings('p1');
+    expect(warnings).not.toContain('NO_DEV_DEMAND');
+    expect(warnings).toContain('NO_LOC_ESTIMATE'); // no LOC estimation yet
   });
 
   test('裁决取消 pauses every active assignment and cancels open pools', async () => {

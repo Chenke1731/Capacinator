@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Plus, Edit2, Trash2, Tag, ChevronDown, ChevronRight, Search, X } from 'lucide-react';
+import { Plus, Minus, Edit2, Trash2, Tag, ChevronDown, ChevronRight, Search, X } from 'lucide-react';
 import { api } from '../lib/api-client';
 import { queryKeys } from '../lib/queryKeys';
 import { LoadingSpinner } from '../components/ui/LoadingSpinner';
@@ -170,16 +170,21 @@ function StaffingCell({ project, onChanged }: { project: any; onChanged: () => v
           <div className="lc-popover-title">{t('projects:staffing.adjustTitle')}</div>
           {sides.map(([label, side, v]) => (
             <div key={label} className="staff-pop-row">
+              <span className={`staff-dot staff-dot--${side}`} />
               <span className="staff-pop-side">{label}</span>
               <span className="staff-pop-named">
                 {t('projects:staffing.namedLabel', { n: fmt(v.named) })}
               </span>
-              <span className="staff-pop-pool">
-                <button className="staff-step-btn" disabled={busy || v.pool <= 0}
-                        onClick={() => step(side, -0.5)} title="-0.5">−</button>
-                <span className="staff-pop-poolnum">{t('projects:staffing.poolLabel', { n: fmt(v.pool) })}</span>
-                <button className="staff-step-btn" disabled={busy}
-                        onClick={() => step(side, 0.5)} title="+0.5">+</button>
+              <span className="staff-stepper">
+                <button className="staff-stepper-btn" disabled={busy || v.pool <= 0}
+                        onClick={() => step(side, -0.5)} title="-0.5">
+                  <Minus size={13} />
+                </button>
+                <span className="staff-stepper-val">{fmt(v.pool)}</span>
+                <button className="staff-stepper-btn" disabled={busy}
+                        onClick={() => step(side, 0.5)} title="+0.5">
+                  <Plus size={13} />
+                </button>
               </span>
             </div>
           ))}

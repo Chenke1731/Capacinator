@@ -1822,35 +1822,53 @@ input[type="checkbox"].settings-checkbox,
   color: var(--text-primary);
 }
 
-/* 调整气泡行 */
+/* 调整气泡: 侧点 + 标签 | 实名 | 一体式步进 pill */
 .staff-pop-row {
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 2px 0;
-}
-.staff-pop-side { font-size: var(--b-fs-body); font-weight: 600; width: 34px; }
-.staff-pop-named { font-size: var(--b-fs-meta); color: var(--text-secondary); flex: 1; }
-.staff-pop-pool { display: inline-flex; align-items: center; gap: 6px; }
-.staff-pop-poolnum {
-  font-size: var(--b-fs-meta);
-  font-variant-numeric: tabular-nums;
-  min-width: 64px;
-  text-align: center;
-  color: #f59e0b;
-}
-.staff-step-btn {
-  min-width: 32px;
   min-height: 32px;
-  border: none;
+}
+.staff-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.staff-dot--design { background: var(--accent-color, #3b82f6); }
+.staff-dot--dev { background: #22c55e; }
+.staff-pop-side { font-size: var(--b-fs-body); font-weight: 600; }
+.staff-pop-named { flex: 1; font-size: var(--b-fs-meta); color: var(--text-secondary); text-align: right; }
+.staff-stepper {
+  display: inline-flex;
+  align-items: center;
+  height: 28px;
+  border-radius: var(--b-r-pill);
   background: var(--bg-secondary, rgba(127, 127, 127, 0.14));
-  color: var(--text-primary);
-  border-radius: var(--b-r-sm);
-  font-size: 16px;
+  padding: 0 2px;
+}
+.staff-stepper-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 24px;
+  border: none;
+  background: none;
+  color: var(--text-secondary);
+  border-radius: var(--b-r-pill);
   cursor: pointer;
 }
-.staff-step-btn:hover:not(:disabled) { background: var(--accent-color, #3b82f6); color: #fff; }
-.staff-step-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+.staff-stepper-btn:hover:not(:disabled) { background: rgba(127, 127, 127, 0.25); color: var(--text-primary); }
+.staff-stepper-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+.staff-stepper-val {
+  min-width: 44px;
+  text-align: center;
+  font-size: var(--b-fs-body);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-primary);
+}
 
 /* 1366 以下隐藏负责人列 */
 @media (max-width: 1440px) {

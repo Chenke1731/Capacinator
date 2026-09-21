@@ -145,7 +145,6 @@ describe('ProjectModal', () => {
       await waitFor(() => {
         expect(screen.getByRole('textbox', { name: /project name/i })).toBeInTheDocument();
         expect(screen.getByRole('combobox', { name: /project type/i })).toBeInTheDocument();
-        expect(screen.getByRole('combobox', { name: /location/i })).toBeInTheDocument();
         expect(screen.getByRole('combobox', { name: /project owner/i })).toBeInTheDocument();
       });
     });
@@ -234,13 +233,6 @@ describe('ProjectModal', () => {
       renderComponent();
       await waitFor(() => {
         expect(api.projectTypes.list).toHaveBeenCalled();
-      });
-    });
-
-    it('fetches locations data', async () => {
-      renderComponent();
-      await waitFor(() => {
-        expect(api.locations.list).toHaveBeenCalled();
       });
     });
 

@@ -17,7 +17,7 @@ import { useScenario } from '../contexts/ScenarioContext';
 import { getProjectTypeIndicatorStyle } from '../lib/project-colors';
 import { getLocale } from '../i18n';
 import { projectStatusLabel } from '../lib/enum-labels';
-import type { Project, Location, ProjectType } from '../types';
+import type { Project, ProjectType } from '../types';
 import './Projects.css';
 
 export function Projects() {
@@ -27,7 +27,6 @@ export function Projects() {
   const { currentScenario } = useScenario();
   const [filters, setFilters] = useState({
     search: '',
-    location_id: '',
     project_type_id: '',
     status: '',
     tag_id: ''
@@ -73,14 +72,7 @@ export function Projects() {
   });
   const tags = (tagsData?.data as any[]) || [];
 
-  const { data: locations } = useQuery({
-    queryKey: queryKeys.locations.list(),
-    queryFn: async () => {
-      const response = await api.locations.list();
-      // Handle both wrapped {data: [...]} and direct array [...] responses
-      return (response.data?.data || response.data || []) as Location[];
-    }
-  });
+  
 
   // Fetch project types for filter
   const { data: projectTypes } = useQuery({
@@ -135,7 +127,6 @@ export function Projects() {
   const handleResetFilters = () => {
     setFilters({
       search: '',
-      location_id: '',
       project_type_id: '',
       status: '',
       tag_id: ''
@@ -280,12 +271,6 @@ export function Projects() {
       label: t('common:search'),
       type: 'search' as const,
       placeholder: t('projects:searchPlaceholder')
-    },
-    {
-      name: 'location_id',
-      label: t('projects:location'),
-      type: 'select' as const,
-      options: locations?.map(loc => ({ value: loc.id, label: loc.name })) || []
     },
     {
       name: 'project_type_id',

@@ -10,7 +10,6 @@ import {
   GitBranch,
   ClipboardList,
   History,
-  MapPin,
   ArrowUpDown,
 } from 'lucide-react';
 import { AppHeader } from './AppHeader';
@@ -28,7 +27,6 @@ const navigation = [
   { nameKey: 'navigation:scenarios', href: '/scenarios', icon: GitBranch },
   { nameKey: 'navigation:reports', href: '/reports', icon: BarChart3 },
   { nameKey: 'navigation:importExport', href: '/import', icon: ArrowUpDown },
-  { nameKey: 'navigation:locations', href: '/locations', icon: MapPin },
   { nameKey: 'navigation:auditLog', href: '/audit-log', icon: History },
   { nameKey: 'navigation:settings', href: '/settings', icon: Settings },
 ];

@@ -27,7 +27,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '.
 import { Alert, AlertDescription } from '../ui/alert';
 import { AlertCircle } from 'lucide-react';
 import { Spinner } from '../ui/spinner';
-import type { Location, Role } from '../../types';
+import type { Role } from '../../types';
 
 // Person with roles for supervisor filtering
 interface PersonWithRoles {
@@ -196,13 +196,7 @@ export const PersonModal: React.FC<PersonModalProps> = ({
     }
   });
 
-  const { data: locations } = useQuery({
-    queryKey: ['locations'],
-    queryFn: async () => {
-      const response = await api.locations.list();
-      return response.data?.data || response.data || [];
-    }
-  });
+  
 
   const { data: people } = useQuery({
     queryKey: ['people'],
@@ -323,23 +317,6 @@ export const PersonModal: React.FC<PersonModalProps> = ({
                 onChange={(e) => handleChange('department', e.target.value)}
                 placeholder={t('people:placeholders.department')}
               />
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="location_id">{t('people:fields.location')}</Label>
-              <Select value={formData.location_id || 'none'} onValueChange={(value) => handleChange('location_id', value === 'none' ? '' : value)}>
-                <SelectTrigger id="location_id">
-                  <SelectValue placeholder={t('people:placeholders.selectLocation')} />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="none">{t('common:none')}</SelectItem>
-                  {(locations as Location[])?.map((location) => (
-                    <SelectItem key={location.id} value={location.id}>
-                      {location.name}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
             </div>
 
             <div className="space-y-2">

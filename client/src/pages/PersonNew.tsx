@@ -58,15 +58,7 @@ export function PersonNew() {
     }
   });
 
-  // Fetch locations for dropdown
-  const { data: locations } = useQuery({
-    queryKey: ['locations'],
-    queryFn: async () => {
-      const response = await api.locations.list();
-      const payload = response.data;
-      return Array.isArray(payload) ? payload : payload?.data || [];
-    }
-  });
+  
 
   // Fetch people for supervisor dropdown
   const { data: people } = useQuery({
@@ -284,20 +276,6 @@ export function PersonNew() {
                     className="form-input"
                     placeholder={t('people:placeholders.departmentShort')}
                   />
-                </div>
-
-                <div className="info-item">
-                  <label>{t('people:fields.location')}</label>
-                  <select
-                    value={formData.location_id}
-                    onChange={(e) => handleChange('location_id', e.target.value)}
-                    className="form-select"
-                  >
-                    <option value="">{t('people:placeholders.selectLocation')}</option>
-                    {locations?.map((loc: any) => (
-                      <option key={loc.id} value={loc.id}>{loc.name}</option>
-                    ))}
-                  </select>
                 </div>
 
                 <div className="info-item">

@@ -248,21 +248,6 @@ export function ProjectNew() {
                   )}
                 </div>
 
-                <div className="info-item">
-                  <label>{t('projects:location')} *</label>
-                  <select
-                    name="location_id"
-                    value={formData.location_id}
-                    onChange={(e) => handleChange('location_id', e.target.value)}
-                    className={`form-select ${errors.location_id ? 'error' : ''}`}
-                  >
-                    <option value="">{t('projects:placeholder.selectLocation')}</option>
-                    {locations?.map((loc: any) => (
-                      <option key={loc.id} value={loc.id}>{loc.name}</option>
-                    ))}
-                  </select>
-                  {errors.location_id && <span className="error-text">{errors.location_id}</span>}
-                </div>
 
                 <div className="info-item">
                   <label>{t('projects:priority')}</label>

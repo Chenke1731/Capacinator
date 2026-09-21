@@ -210,13 +210,6 @@ describe('PersonModal', () => {
       });
     });
 
-    it('fetches locations data', async () => {
-      renderComponent();
-      await waitFor(() => {
-        expect(api.locations.list).toHaveBeenCalled();
-      });
-    });
-
     it('fetches people data for supervisors', async () => {
       renderComponent();
       await waitFor(() => {

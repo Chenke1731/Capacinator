@@ -22,7 +22,7 @@ import {
   DialogDescription,
   DialogFooter,
 } from '../ui/dialog';
-import type { Location, ProjectType, ProjectPhase } from '../../types';
+import type { ProjectType, ProjectPhase } from '../../types';
 
 // Local interface for person with roles (from people API)
 interface PersonWithRoles {
@@ -157,13 +157,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
     }
   });
 
-  const { data: locations } = useQuery({
-    queryKey: ['locations'],
-    queryFn: async () => {
-      const response = await api.locations.list();
-      return response.data?.data || response.data || [];
-    }
-  });
+  
 
   const { data: people } = useQuery({
     queryKey: ['people'],
@@ -297,29 +291,6 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
                 </SelectContent>
               </Select>
               {errors.project_type_id && <p id="project_type_id-error" className="text-sm text-destructive" role="alert">{errors.project_type_id}</p>}
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="location_id">{t('projects:location')}</Label>
-              <Select value={formData.location_id} onValueChange={(value) => handleChange('location_id', value)}>
-                <SelectTrigger
-                  id="location_id"
-                  className={errors.location_id ? 'border-destructive' : ''}
-                  aria-required="true"
-                  aria-invalid={!!errors.location_id}
-                  aria-describedby={errors.location_id ? 'location_id-error' : undefined}
-                >
-                  <SelectValue placeholder={t('projects:placeholder.selectLocation')} />
-                </SelectTrigger>
-                <SelectContent>
-                  {(locations as Location[])?.map((location) => (
-                    <SelectItem key={location.id} value={location.id}>
-                      {location.name}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-              {errors.location_id && <p id="location_id-error" className="text-sm text-destructive" role="alert">{errors.location_id}</p>}
             </div>
 
             <div className="space-y-2">

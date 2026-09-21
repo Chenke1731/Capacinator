@@ -4,7 +4,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import {
   ArrowLeft, Calendar, Briefcase, Users, Clock, UserX,
-  Mail, Phone, MapPin, AlertCircle, History,
+  Mail, Phone, AlertCircle, History,
   Plus, ChevronDown, ChevronUp, UserPlus, UserMinus,
   TrendingUp, Target, Zap, Shield, Award, Edit2, Save, X, Search
 } from 'lucide-react';
@@ -250,14 +250,7 @@ export default function PersonDetails() {
     enabled: !!id
   });
 
-  // Fetch locations for dropdown
-  const { data: locations } = useQuery({
-    queryKey: queryKeys.locations.list(),
-    queryFn: async () => {
-      const response = await api.locations.list();
-      return response.data.data;
-    }
-  });
+  
 
   // Fetch roles for dropdown
   const { data: roles } = useQuery({
@@ -888,21 +881,6 @@ export default function PersonDetails() {
                     field="department"
                     value={person.department}
                     placeholder={t('people:placeholders.department')}
-                  />
-                </div>
-
-                <div className="info-item">
-                  <label>{t('people:fields.location')}</label>
-                  <InlineEdit
-                    field="location_id"
-                    value={person.location_id}
-                    type="select"
-                    options={Array.isArray(locations) ? locations.map((location: any) => ({
-                      value: location.id,
-                      label: location.name
-                    })) : []}
-                    placeholder={t('people:placeholders.selectLocation')}
-                    icon={MapPin}
                   />
                 </div>
 

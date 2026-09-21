@@ -576,14 +576,6 @@ describe('PersonDetails', () => {
       });
     });
 
-    it('fetches locations data', async () => {
-      renderComponent();
-
-      await waitFor(() => {
-        expect(api.locations.list).toHaveBeenCalled();
-      });
-    });
-
     it('fetches roles data', async () => {
       renderComponent();
 

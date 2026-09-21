@@ -214,7 +214,8 @@ export function SmartAssignmentModal({
     queryKey: queryKeys.phases.list(),
     queryFn: async () => {
       const response = await api.phases.list();
-      return response.data;
+      const payload = response.data as any;
+      return Array.isArray(payload) ? payload : payload?.data || [];
     }
   });
 

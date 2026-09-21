@@ -91,7 +91,8 @@ export function VisualPhaseManager({ projectId, projectName: _projectName, onPha
     queryKey: queryKeys.phases.templates(),
     queryFn: async () => {
       const response = await api.phases.list();
-      return response.data;
+      const payload = response.data as any;
+      return Array.isArray(payload) ? payload : payload?.data || [];
     }
   });
 

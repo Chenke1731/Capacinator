@@ -110,7 +110,9 @@ export default function Assignments() {
     queryKey: queryKeys.people.list(),
     queryFn: async () => {
       const response = await api.people.list();
-      return response.data;
+      const payload = response.data as any;
+      // Shared ['people'] cache must always hold an array
+      return Array.isArray(payload) ? payload : payload?.data || [];
     }
   });
 
@@ -599,7 +601,7 @@ export default function Assignments() {
       name: 'person_id',
       label: t('assignments:fields.person'),
       type: 'select' as const,
-      options: people?.data?.map(person => ({ value: person.id, label: person.name })) || []
+      options: (Array.isArray(people) ? people : (people as any)?.data)?.map(person => ({ value: person.id, label: person.name })) || []
     },
     {
       name: 'role_id',

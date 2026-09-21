@@ -51,7 +51,8 @@ export function useVisualPhaseManagerData({ projectId, onPhasesChange }: UseVisu
     queryKey: queryKeys.phases.templates(),
     queryFn: async () => {
       const response = await api.phases.list();
-      return response.data;
+      const payload = response.data as any;
+      return Array.isArray(payload) ? payload : payload?.data || [];
     }
   });
 
@@ -144,7 +145,9 @@ export function useVisualPhaseManagerData({ projectId, onPhasesChange }: UseVisu
 
   const phases: ProjectPhaseTimeline[] = phasesData?.data || [];
   const dependencies: PhaseDependency[] = dependenciesData?.data || [];
-  const templates: PhaseTemplate[] = phaseTemplates?.data || [];
+  const templates: PhaseTemplate[] = Array.isArray(phaseTemplates)
+    ? phaseTemplates
+    : (phaseTemplates as any)?.data || [];
 
   return {
     // Data

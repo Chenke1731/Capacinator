@@ -931,7 +931,8 @@ export const Scenarios: React.FC = () => {
     queryKey: queryKeys.scenarios.list(),
     queryFn: async () => {
       const response = await api.scenarios.list();
-      return response.data as Scenario[];
+      const payload = response.data as any;
+      return Array.isArray(payload) ? payload : payload?.data || [];
     },
   });
 

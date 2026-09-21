@@ -196,7 +196,9 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
     queryKey: ['phases'],
     queryFn: async () => {
       const response = await api.phases.list();
-      return response.data;
+      const payload = response.data as any;
+      // Shared ['phases'] cache must always hold an array
+      return Array.isArray(payload) ? payload : payload?.data || [];
     }
   });
 
@@ -395,7 +397,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="none">{t('common:none')}</SelectItem>
-                  {(phases?.data as ProjectPhase[])?.map((phase) => (
+                  {(Array.isArray(phases) ? phases : (phases as any)?.data)?.map((phase) => (
                     <SelectItem key={phase.id} value={phase.id}>
                       {phase.name}
                     </SelectItem>

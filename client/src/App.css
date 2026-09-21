@@ -1841,3 +1841,11 @@ input[type="checkbox"].settings-checkbox,
 .dashboard-toolbar [class*="shadow"] {
   box-shadow: none !important;
 }
+
+/* 三台页级内边距——旧页面靠 .page-container(1rem 2rem)留呼吸边距,
+   需求/问题单/事项台是裸 div,曾导致表格右边框顶死屏幕右沿 */
+.projects-board,
+.tickets-board,
+.affairs-board {
+  padding: 16px 24px 28px;
+}

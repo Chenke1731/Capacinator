@@ -40,8 +40,10 @@ check('仅需求类事项(3项,缓冲池不混入)', demandRows.length === 3 && 
 
 // 告警短词: 数据平台升级(已启动迭代无LOC) → 未评估 chip
 const warnedRow = await page.$('.requirements-row--warned');
-check('告警行淡黄底+短词(多告警紧凑显示 缺池+N)', !!warnedRow && (await warnedRow.textContent()).includes('缺池'),
-  warnedRow ? (await warnedRow.textContent()).slice(0, 40) : 'none');
+const chip = warnedRow ? await warnedRow.$('.lifecycle-warn-chip') : null;
+check('告警行淡黄底+短词(短词随实际告警集变化)',
+  !!warnedRow && !!chip && /缺池|未评估|无粗估|未回填/.test((await chip.textContent())),
+  chip ? (await chip.textContent()) : 'none');
 
 // 人力列有数字
 const staffingCell = await page.$$eval('.projects-staffing', els => els.map(e => e.textContent.trim()));

@@ -1,9 +1,11 @@
 import React from 'react';
-import { FolderKanban, GanttChart, Palette } from 'lucide-react';
+import { FolderKanban, GanttChart, Palette, Inbox, ListTodo } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 // Import existing page components
 import { Projects } from './Projects';
+import { TicketsBoard } from './TicketsBoard';
+import { AffairsBoard } from './AffairsBoard';
 import ProjectRoadmap from './ProjectRoadmap';
 import ProjectTypes from './ProjectTypes';
 
@@ -15,18 +17,32 @@ import './Projects.css';
 import './ProjectRoadmap.css';
 import './ProjectTypes.css';
 
-// ProjectsTab type intentionally not exported, used internally for tab configuration
-
+/**
+ * 项目导航分流 (2026-09-21 裁决: 计算同权, 呈现分流)。
+ * tab 注册表驱动——新类别在 lib/projectCategories.ts 加一行, 这里加一个 tab。
+ */
 export default function ProjectsUnified() {
   const { t } = useTranslation();
 
   // Tab labels are defined inside the component so they re-evaluate on language switch
   const tabs: UnifiedTabConfig[] = [
     {
-      id: 'list',
-      label: t('projects:title'),
+      id: 'demand',
+      label: t('projects:tabs.demand'),
       icon: FolderKanban,
       component: Projects
+    },
+    {
+      id: 'tickets',
+      label: t('projects:tabs.tickets'),
+      icon: Inbox,
+      component: TicketsBoard
+    },
+    {
+      id: 'affairs',
+      label: t('projects:tabs.affairs'),
+      icon: ListTodo,
+      component: AffairsBoard
     },
     {
       id: 'roadmap',
@@ -45,7 +61,7 @@ export default function ProjectsUnified() {
   return (
     <UnifiedTabComponent
       tabs={tabs}
-      defaultTab="list"
+      defaultTab="demand"
       paramName="tab"
       orientation="horizontal"
       variant="primary"

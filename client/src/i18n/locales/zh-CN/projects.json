@@ -67,7 +67,10 @@
   "tabs": {
     "roadmap": "路线图",
     "projectTypes": "项目类型",
-    "ariaLabel": "项目管理导航"
+    "ariaLabel": "项目管理导航",
+    "demand": "需求",
+    "tickets": "问题单",
+    "affairs": "事项"
   },
   "placeholder": {
     "enterName": "请输入项目名称",
@@ -322,6 +325,14 @@
       "NO_DESIGN_ESTIMATE": "设计中,但尚未录入设计粗估人月",
       "DESIGN_NOT_BACKFILLED": "已进入开发侧,但设计实际人月未回填——粗估无法校准",
       "DELIVERED_NOT_BACKFILLED": "已交付,但实际值未回填——估算偏差无法统计"
+    },
+    "warningShort": {
+      "NO_DEV_DEMAND": "缺池",
+      "NO_LOC_ESTIMATE": "未评估",
+      "NO_DESIGN_ESTIMATE": "无粗估",
+      "DESIGN_NOT_BACKFILLED": "设计未回填",
+      "DELIVERED_NOT_BACKFILLED": "未回填",
+      "GENERIC": "告警"
     }
   },
   "staffing": {
@@ -347,7 +358,10 @@
     "noCandidates": "暂无人员数据",
     "confirmNaming": "确认分配 {{count}} 人",
     "nameFailed": "实名化失败",
-    "poolSaveFailed": "保存池占位失败"
+    "poolSaveFailed": "保存池占位失败",
+    "designShort": "设",
+    "devShort": "开",
+    "summaryTitle": "设计侧: 实名{{dn}} + 池{{dp}} FTE\\n开发侧: 实名{{vn}} + 池{{vp}} FTE"
   },
   "tags": {
     "label": "标签",
@@ -363,5 +377,33 @@
     "usageCount": "{{count}} 个事项使用",
     "deleteTitle": "删除标签",
     "deleteMessage": "确定删除「{{name}}」?它已标注在 {{count}} 个事项上,删除后这些事项将不再带此标签(事项本身不受影响)。"
+  },
+  "board": {
+    "countSummary": "共 {{count}} 项需求",
+    "colName": "项目名称",
+    "colStaffing": "人力",
+    "colVersion": "版本",
+    "colPriority": "优先级",
+    "colOwner": "负责人",
+    "unversionedGroup": "未排版本",
+    "unscheduledGroup": "未排节奏",
+    "groupCount": "({{count}})",
+    "empty": "暂无需求事项"
+  },
+  "version": {
+    "productTitle": "产品版本,点击编辑",
+    "releaseTitle": "交付版本,点击编辑",
+    "productPlaceholder": "产品?",
+    "releasePlaceholder": "26.RP?"
+  },
+  "ticketsBoard": {
+    "ledgerNote": "月度量台账与建议缓冲率将在此登记(暂缓实现);当前为缓冲占用一览——照常参与产能计算。",
+    "empty": "暂无问题单类事项",
+    "stat": "{{people}} 人 · 平均 {{avgPct}}% · 合计 {{fte}} FTE"
+  },
+  "affairsBoard": {
+    "empty": "暂无事项类条目",
+    "peopleStat": "{{people}} 人 · {{fte}} FTE",
+    "monthStat": "本月 {{pm}} 人月"
   }
 }

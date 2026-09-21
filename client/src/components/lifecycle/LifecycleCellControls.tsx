@@ -167,7 +167,17 @@ export function LifecycleCellControls({ project }: { project: any }) {
               : t('projects:lifecycle.quick.more')
           }
         >
-          {warnings.length > 0 && <span className="lifecycle-warning-dot" title={t('projects:lifecycle.warningDot')} />}
+          {warnings.length > 0 && (
+            <span
+              className="lifecycle-warn-chip"
+              title={warnings.map((w) => t(`projects:lifecycle.warnings.${w}`)).join('\n')}
+            >
+              {t(`projects:lifecycle.warningShort.${warnings[0]}`, {
+                defaultValue: t(`projects:lifecycle.warningShort.GENERIC`)
+              })}
+              {warnings.length > 1 ? `+${warnings.length - 1}` : ''}
+            </span>
+          )}
           {t(stateLabelKey(state))}
           <ChevronDown size={11} className="inline ml-0.5 opacity-60" />
         </button>

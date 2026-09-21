@@ -67,7 +67,10 @@
   "tabs": {
     "roadmap": "Roadmap",
     "projectTypes": "Project Types",
-    "ariaLabel": "Project management navigation"
+    "ariaLabel": "Project management navigation",
+    "demand": "Requirements",
+    "tickets": "Tickets",
+    "affairs": "Affairs"
   },
   "placeholder": {
     "enterName": "Enter project name",
@@ -324,6 +327,14 @@
       "NO_DESIGN_ESTIMATE": "Designing but no rough design estimate recorded",
       "DESIGN_NOT_BACKFILLED": "Past design but actual design effort never backfilled — rough estimates cannot calibrate",
       "DELIVERED_NOT_BACKFILLED": "Delivered but actuals never backfilled — deviation cannot be tracked"
+    },
+    "warningShort": {
+      "NO_DEV_DEMAND": "no pool",
+      "NO_LOC_ESTIMATE": "unest.",
+      "NO_DESIGN_ESTIMATE": "no rough est.",
+      "DESIGN_NOT_BACKFILLED": "design unbackfilled",
+      "DELIVERED_NOT_BACKFILLED": "unbackfilled",
+      "GENERIC": "warn"
     }
   },
   "staffing": {
@@ -349,7 +360,10 @@
     "noCandidates": "No people data",
     "confirmNaming": "Assign {{count}} people",
     "nameFailed": "Naming failed",
-    "poolSaveFailed": "Failed to save pool placeholder"
+    "poolSaveFailed": "Failed to save pool placeholder",
+    "designShort": "D",
+    "devShort": "Dev",
+    "summaryTitle": "Design: named {{dn}} + pool {{dp}} FTE\\nDev: named {{vn}} + pool {{vp}} FTE"
   },
   "tags": {
     "label": "Tags",
@@ -365,5 +379,33 @@
     "usageCount": "used by {{count}} projects",
     "deleteTitle": "Delete tag",
     "deleteMessage": "Delete \"{{name}}\"? It is applied to {{count}} projects; they will simply lose this label."
+  },
+  "board": {
+    "countSummary": "{{count}} requirements",
+    "colName": "Name",
+    "colStaffing": "Staffing",
+    "colVersion": "Version",
+    "colPriority": "Priority",
+    "colOwner": "Owner",
+    "unversionedGroup": "Unversioned",
+    "unscheduledGroup": "Unscheduled",
+    "groupCount": "({{count}})",
+    "empty": "No requirements"
+  },
+  "version": {
+    "productTitle": "Product version, click to edit",
+    "releaseTitle": "Release version, click to edit",
+    "productPlaceholder": "prod?",
+    "releasePlaceholder": "26.RP?"
+  },
+  "ticketsBoard": {
+    "ledgerNote": "The monthly volume ledger and suggested buffer rate will live here (deferred); for now this shows the buffer footprint — it keeps consuming capacity as usual.",
+    "empty": "No ticket-pool items",
+    "stat": "{{people}} people · avg {{avgPct}}% · {{fte}} FTE"
+  },
+  "affairsBoard": {
+    "empty": "No affairs",
+    "peopleStat": "{{people}} people · {{fte}} FTE",
+    "monthStat": "{{pm}} PM this month"
   }
 }

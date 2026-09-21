@@ -30,8 +30,8 @@ const tabLabels = await page.$$eval('[role="tab"], .unified-tab, [data-tab]', ()
 check('需求台默认呈现', (await page.$('.requirements-table')) !== null);
 
 const headers = await page.$$eval('.requirements-thead span', els => els.map(e => e.textContent.trim()));
-check('新列集(名称/状态/人力/版本/优先级/负责人/操作)',
-  ['项目名称','状态','人力','版本','优先级','负责人','操作'].every(h => headers.includes(h)),
+check('新列集(名称/标签/状态/人力/版本/交付/优先级/负责人/操作)',
+  ['项目名称','标签','状态','人力','版本','交付计划','优先级','负责人','操作'].every(h => headers.includes(h)),
   headers.join('|'));
 
 const demandRows = await page.$$eval('.requirements-row', els => els.map(e => e.querySelector('.requirements-name-text')?.textContent));
@@ -53,6 +53,25 @@ check('人力两侧条渲染', staffingCell.length >= 3 && staffingCell.some(s =
 // 优先级徽章
 const pBadges = await page.$$eval('.req-pri', els => els.map(e => e.textContent));
 check('优先级徽章', pBadges.length >= 3 && pBadges.every(p => /^P\d$/.test(p)), pBadges.join(','));
+
+// ── 1.5 人力列: 明文 + 就地调整气泡(P3 开发池 0→0.5→还原) ──
+{
+  const p3Row = page.locator('.requirements-row', { hasText: '移动端改版' });
+  const staffText = (await p3Row.locator('.req-staff').textContent()) ?? '';
+  check('人力列明文两行(设计/开发)', staffText.includes('设计') && staffText.includes('开发'), staffText.trim());
+  await p3Row.locator('.req-staff').click();
+  await page.waitForSelector('.staff-pop', { timeout: 5000 });
+  check('点击弹调整气泡', true);
+  const devPlus = page.locator('.staff-pop-row', { hasText: '开发' }).locator('button[title="+0.5"]');
+  await devPlus.click();
+  await page.waitForTimeout(1500);
+  const P3ID = 'project-1789912193228-89aoh4wyx';
+  const poolsResp = await page.request.get(`${API}/api/pool-demands/project/${P3ID}`);
+  const pools = ((await poolsResp.json()).data ?? []).filter((x) => x.status === 'open');
+  check('开发池 +0.5 落库', pools.some((x) => Number(x.headcount) === 0.5),
+    JSON.stringify(pools.map((x) => [x.role_name, x.headcount])));
+  await page.keyboard.press('Escape');
+}
 
 // ── 2. 版本内联编辑 → 分组出现 ────────────────────────
 const p1Row = page.locator('.requirements-row', { hasText: '客户门户改版' });

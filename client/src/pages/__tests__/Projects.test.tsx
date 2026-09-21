@@ -188,7 +188,7 @@ describe('Requirements Board (需求台)', () => {
 
       const header = screen.getByTestId('requirements-table').querySelector('.requirements-thead');
       const headers = Array.from(header?.children ?? []).map((el) => el.textContent);
-      expect(headers).toEqual(['Name', 'Lifecycle', 'Staffing', 'Version', 'Priority', 'Owner', 'Actions']);
+      expect(headers).toEqual(['Name', 'Tags', 'Lifecycle', 'Staffing', 'Version', 'Release', 'Priority', 'Owner', 'Actions']);
     });
 
     test('groups by product version then release, unversioned last', async () => {

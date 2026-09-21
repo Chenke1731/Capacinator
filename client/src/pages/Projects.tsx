@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -25,100 +25,167 @@ import './Projects.css';
  * 砍掉: 起止日期列 / 查看详情按钮(行点击即详情) / 人力分配旧弹窗。
  */
 
-/** 版本两段(产品·RP)各自内联可编辑 */
-function VersionCell({ project, onSaved }: { project: any; onSaved: () => void }) {
-  const { t } = useTranslation();
-  const [editing, setEditing] = useState<null | 'product' | 'release'>(null);
+/** 版本/交付计划各自内联可编辑(两列) */
+function VersionPart({ project, field, placeholder, onSaved }: {
+  project: any; field: 'product_version' | 'release_version'; placeholder: string; onSaved: () => void;
+}) {
+  const [editing, setEditing] = useState(false);
   const [draft, setDraft] = useState('');
-
   const updateMutation = useMutation({
     mutationFn: (patch: Record<string, string | null>) => api.projects.update(project.id, patch),
-    onSuccess: () => {
-      setEditing(null);
-      onSaved();
-    }
+    onSuccess: () => { setEditing(false); onSaved(); }
   });
-
-  const begin = (part: 'product' | 'release') => {
-    setDraft((project[part === 'product' ? 'product_version' : 'release_version'] ?? '') as string);
-    setEditing(part);
-  };
-  const commit = () => {
-    const field = editing === 'product' ? 'product_version' : 'release_version';
-    const trimmed = draft.trim();
-    if (trimmed !== ((project[field] ?? '') as string)) {
-      updateMutation.mutate({ [field]: trimmed || null });
-    } else {
-      setEditing(null);
-    }
-  };
-
+  const value = (project[field] ?? '') as string;
   if (editing) {
     return (
       <input
         className="inline-edit-input"
-        style={{ width: 88 }}
+        style={{ width: 74 }}
         value={draft}
         autoFocus
-        placeholder={editing === 'product' ? t('projects:version.productPlaceholder') : t('projects:version.releasePlaceholder')}
+        placeholder={placeholder}
         onChange={(e) => setDraft(e.target.value)}
-        onBlur={commit}
+        onBlur={() => {
+          const trimmed = draft.trim();
+          if (trimmed !== value) updateMutation.mutate({ [field]: trimmed || null });
+          else setEditing(false);
+        }}
         onKeyDown={(e) => {
           if (e.key === 'Enter') (e.target as HTMLInputElement).blur();
-          if (e.key === 'Escape') setEditing(null);
+          if (e.key === 'Escape') setEditing(false);
         }}
       />
     );
   }
-
   return (
-    <span className="projects-version" onClick={(e) => e.stopPropagation()}>
-      <button type="button" className="projects-version-part" onClick={() => begin('product')}
-              title={t('projects:version.productTitle')}>
-        {project.product_version || <span className="text-muted">{t('projects:version.productPlaceholder')}</span>}
-      </button>
-      <span className="projects-version-sep">·</span>
-      <button type="button" className="projects-version-part" onClick={() => begin('release')}
-              title={t('projects:version.releaseTitle')}>
-        {project.release_version || <span className="text-muted">{t('projects:version.releasePlaceholder')}</span>}
+    <span onClick={(e) => e.stopPropagation()}>
+      <button type="button" className="projects-version-part projects-version-part--single"
+              title={placeholder}
+              onClick={() => { setDraft(value); setEditing(true); }}>
+        {value || <span className="text-muted">{placeholder}</span>}
       </button>
     </span>
   );
 }
 
-/** 人力列: 微条形(长度编码) + 一位小数右对齐数字。
-    named=主题色实心段, pool=琥珀段; 标尺上限 4 FTE。 */
-function StaffingCell({ project }: { project: any }) {
+/** 人力列: 明文两行(设计/开发 实名+池), 点击弹就地调整气泡。
+    池占位是规划杠杆,±0.5 步进直接改;实名分配仍走详情选人。 */
+function StaffingCell({ project, onChanged }: { project: any; onChanged: () => void }) {
   const { t } = useTranslation();
+  const queryClient = useQueryClient();
+  const [open, setOpen] = useState(false);
+  const [busy, setBusy] = useState(false);
+  const cellRef = useRef<HTMLSpanElement>(null);
+  const [pos, setPos] = useState({ top: -9999, left: -9999 });
+
   const s = project.staffing_summary;
-  if (!s) return <span className="text-muted">—</span>;
   const fmt = (n: number) => Number(n ?? 0).toFixed(1);
-  const SCALE = 4;
-  const pct = (n: number) => Math.min(100, (n / SCALE) * 100);
-  const sides: Array<[string, { named: number; pool: number }]> = [
-    [t('projects:staffing.designShort'), s.design],
-    [t('projects:staffing.devShort'), s.dev]
+
+  const { data: roles } = useQuery({
+    queryKey: queryKeys.roles.list(),
+    queryFn: async () => {
+      const response = await api.roles.list();
+      const payload = response.data as any;
+      return Array.isArray(payload) ? payload : payload?.data || [];
+    },
+    enabled: open
+  });
+  const roleList = Array.isArray(roles) ? roles : ((roles as any)?.data ?? []);
+  const seRole = roleList.find((r: any) => r.name === 'SE');
+  const devRole = roleList.find((r: any) => r.name === '开发');
+
+  useEffect(() => {
+    if (!open) return;
+    const onDown = (e: MouseEvent) => {
+      const target = e.target as Node;
+      if (cellRef.current?.contains(target)) return;
+      if ((target as HTMLElement).closest?.('.staff-pop')) return;
+      setOpen(false);
+    };
+    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setOpen(false);
+    document.addEventListener('mousedown', onDown);
+    document.addEventListener('keydown', onKey);
+    return () => {
+      document.removeEventListener('mousedown', onDown);
+      document.removeEventListener('keydown', onKey);
+    };
+  }, [open]);
+
+  const toggle = () => {
+    if (open) { setOpen(false); return; }
+    const r = cellRef.current?.getBoundingClientRect();
+    if (r) setPos({
+      top: Math.min(r.bottom + 6, window.innerHeight - 300),
+      left: Math.max(8, Math.min(r.left, window.innerWidth - 260))
+    });
+    setOpen(true);
+  };
+
+  /** ±0.5 步进池占位: 无行则建,归零则删 */
+  const step = async (side: 'design' | 'dev', delta: number) => {
+    setBusy(true);
+    try {
+      const roleId = side === 'design' ? seRole?.id : devRole?.id;
+      if (!roleId) return;
+      const pools = ((await api.poolDemands.listByProject(project.id)).data as any)?.data ?? [];
+      const mine = pools.find((p: any) => p.status === 'open' && p.role_id === roleId);
+      const current = mine ? Number(mine.headcount) : 0;
+      const next = Math.round(Math.max(0, Math.min(10, current + delta)) * 10) / 10;
+      if (!mine && next > 0) {
+        await api.poolDemands.create(project.id, { role_id: roleId, headcount: next });
+      } else if (mine && next <= 0) {
+        await api.poolDemands.delete(mine.id);
+      } else if (mine) {
+        await api.poolDemands.update(mine.id, { headcount: next });
+      }
+      await queryClient.invalidateQueries({ queryKey: queryKeys.projects.all });
+      onChanged();
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  if (!s) return <span className="text-muted">—</span>;
+  const sides: Array<[string, 'design' | 'dev', { named: number; pool: number }]> = [
+    [t('projects:staffing.designFull'), 'design', s.design],
+    [t('projects:staffing.devFull'), 'dev', s.dev]
   ];
+
   return (
-    <span
-      className="req-staff"
-      title={t('projects:staffing.summaryTitle', {
-        dn: fmt(s.design.named), dp: fmt(s.design.pool),
-        vn: fmt(s.dev.named), vp: fmt(s.dev.pool)
-      })}
-    >
-      {sides.map(([label, side]) => (
-        <span className="req-staff-row" key={label}>
-          <span className="req-staff-label">{label}</span>
-          <span className="req-staff-track">
-            <span className="req-staff-named" style={{ width: `${pct(side.named)}%` }} />
-            {side.pool > 0 && <span className="req-staff-pool" style={{ width: `${pct(side.pool)}%` }} />}
+    <span ref={cellRef} className="req-staff-wrap" onClick={(e) => e.stopPropagation()}>
+      <button type="button" className="req-staff" onClick={toggle}
+              title={t('projects:staffing.adjustHint')}>
+        {sides.map(([label, , side]) => (
+          <span className="req-staff-row" key={label}>
+            <span className="req-staff-label">{label}</span>
+            <span className="req-staff-num">
+              {fmt(side.named)}{side.pool > 0 ? `+${fmt(side.pool)}` : ''}
+            </span>
           </span>
-          <span className="req-staff-num">
-            {fmt(side.named)}{side.pool > 0 ? `+${fmt(side.pool)}` : ''}
-          </span>
-        </span>
-      ))}
+        ))}
+      </button>
+
+      {open && (
+        <div className="lc-popover staff-pop" style={{ top: pos.top, left: pos.left }}>
+          <div className="lc-popover-title">{t('projects:staffing.adjustTitle')}</div>
+          {sides.map(([label, side, v]) => (
+            <div key={label} className="staff-pop-row">
+              <span className="staff-pop-side">{label}</span>
+              <span className="staff-pop-named">
+                {t('projects:staffing.namedLabel', { n: fmt(v.named) })}
+              </span>
+              <span className="staff-pop-pool">
+                <button className="staff-step-btn" disabled={busy || v.pool <= 0}
+                        onClick={() => step(side, -0.5)} title="-0.5">−</button>
+                <span className="staff-pop-poolnum">{t('projects:staffing.poolLabel', { n: fmt(v.pool) })}</span>
+                <button className="staff-step-btn" disabled={busy}
+                        onClick={() => step(side, 0.5)} title="+0.5">+</button>
+              </span>
+            </div>
+          ))}
+          <div className="lc-popover-hint">{t('projects:staffing.adjustHintFooter')}</div>
+        </div>
+      )}
     </span>
   );
 }
@@ -325,9 +392,11 @@ export function Projects() {
       <div className="requirements-table" data-testid="requirements-table">
         <div className="requirements-thead">
           <span>{t('projects:board.colName')}</span>
+          <span>{t('projects:board.colTags')}</span>
           <span>{t('projects:lifecycleColumn')}</span>
           <span>{t('projects:board.colStaffing')}</span>
           <span>{t('projects:board.colVersion')}</span>
+          <span>{t('projects:board.colRelease')}</span>
           <span>{t('projects:board.colPriority')}</span>
           <span>{t('projects:board.colOwner')}</span>
           <span>{t('common:actions')}</span>
@@ -371,24 +440,19 @@ export function Projects() {
                             {project.project_sub_type_name && (
                               <span className="requirements-subtype">· {project.project_sub_type_name}</span>
                             )}
-                            {(project.tags ?? []).slice(0, 3).map((tag: any) => (
-                              <span
-                                key={tag.id}
-                                className="req-tag"
-                                style={{
-                                  color: tag.color || 'var(--text-secondary)',
-                                  background: `${tag.color || '#888888'}1f`
-                                }}
-                              >
+                          </span>
+
+                          <span className="req-tags-cell">
+                            {(project.tags ?? []).slice(0, 2).map((tag: any) => (
+                              <span key={tag.id} className="req-tag"
+                                    style={{ color: tag.color || 'var(--text-secondary)', background: `${tag.color || '#888888'}1f` }}>
                                 {tag.name}
                               </span>
                             ))}
-                            {(project.tags?.length ?? 0) > 3 && (
-                              <span
-                                className="req-tag req-tag--more"
-                                title={(project.tags ?? []).slice(3).map((tg: any) => tg.name).join('、')}
-                              >
-                                +{(project.tags?.length ?? 0) - 3}
+                            {(project.tags?.length ?? 0) > 2 && (
+                              <span className="req-tag req-tag--more"
+                                    title={(project.tags ?? []).slice(2).map((tg: any) => tg.name).join('、')}>
+                                +{(project.tags?.length ?? 0) - 2}
                               </span>
                             )}
                           </span>
@@ -397,11 +461,12 @@ export function Projects() {
                             <LifecycleCellControls project={project} />
                           </span>
 
-                          <StaffingCell project={project} />
+                          <StaffingCell project={project} onChanged={invalidate} />
 
-                          <span onClick={(e) => e.stopPropagation()}>
-                            <VersionCell project={project} onSaved={invalidate} />
-                          </span>
+                          <VersionPart project={project} field="product_version"
+                            placeholder={t('projects:version.productPlaceholder')} onSaved={invalidate} />
+                          <VersionPart project={project} field="release_version"
+                            placeholder={t('projects:version.releasePlaceholder')} onSaved={invalidate} />
 
                           <PriorityBadge priority={project.priority} />
 

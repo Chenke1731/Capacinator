@@ -1693,7 +1693,7 @@ input[type="checkbox"].settings-checkbox,
 
 .requirements-thead {
   display: grid;
-  grid-template-columns: minmax(200px, 1.4fr) 212px 150px 150px 56px 96px 104px;
+  grid-template-columns: minmax(150px, 1.2fr) 148px 236px 128px 88px 88px 52px 88px 96px;
   gap: 8px;
   align-items: center;
   min-height: 36px;
@@ -1743,7 +1743,7 @@ input[type="checkbox"].settings-checkbox,
 
 .requirements-row {
   display: grid;
-  grid-template-columns: minmax(200px, 1.4fr) 212px 150px 150px 56px 96px 104px;
+  grid-template-columns: minmax(150px, 1.2fr) 148px 236px 128px 88px 88px 52px 88px 96px;
   gap: 8px;
   align-items: center;
   min-height: 40px;
@@ -1780,20 +1780,91 @@ input[type="checkbox"].settings-checkbox,
 }
 .req-tag--more { background: var(--bg-secondary, rgba(127, 127, 127, 0.14)); color: var(--text-secondary); cursor: help; }
 
+/* 标签独立列: 最多 2 chip + 溢出号 */
+.req-tags-cell {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+/* 版本单列按钮 */
+.projects-board .projects-version-part--single { width: 100%; }
+
+/* 人力列: 明文两行 + 点击调整 */
+.req-staff-wrap { position: relative; min-width: 0; }
+.req-staff {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 1px;
+  width: 100%;
+  border: none;
+  background: none;
+  padding: 2px 6px 2px 0;
+  border-radius: var(--b-r-sm);
+  cursor: pointer;
+  text-align: left;
+}
+.req-staff:hover { background: var(--bg-secondary, rgba(127, 127, 127, 0.1)); }
+.req-staff-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 6px;
+  line-height: 1.2;
+}
+.req-staff-label { font-size: var(--b-fs-meta); color: var(--text-secondary); }
+.req-staff-num {
+  font-size: var(--b-fs-meta);
+  font-variant-numeric: tabular-nums;
+  color: var(--text-primary);
+}
+
+/* 调整气泡行 */
+.staff-pop-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 2px 0;
+}
+.staff-pop-side { font-size: var(--b-fs-body); font-weight: 600; width: 34px; }
+.staff-pop-named { font-size: var(--b-fs-meta); color: var(--text-secondary); flex: 1; }
+.staff-pop-pool { display: inline-flex; align-items: center; gap: 6px; }
+.staff-pop-poolnum {
+  font-size: var(--b-fs-meta);
+  font-variant-numeric: tabular-nums;
+  min-width: 64px;
+  text-align: center;
+  color: #f59e0b;
+}
+.staff-step-btn {
+  min-width: 32px;
+  min-height: 32px;
+  border: none;
+  background: var(--bg-secondary, rgba(127, 127, 127, 0.14));
+  color: var(--text-primary);
+  border-radius: var(--b-r-sm);
+  font-size: 16px;
+  cursor: pointer;
+}
+.staff-step-btn:hover:not(:disabled) { background: var(--accent-color, #3b82f6); color: #fff; }
+.staff-step-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+
+/* 1366 以下隐藏负责人列 */
+@media (max-width: 1440px) {
+  .requirements-thead,
+  .requirements-row {
+    grid-template-columns: minmax(140px, 1.1fr) 140px 236px 128px 84px 84px 48px 92px;
+  }
+  .requirements-thead > span:nth-child(8),
+  .requirements-row > .requirements-owner { display: none; }
+}
+
 /* 人力: 微条形(长度编码) + 右对齐等宽数字 */
 .req-staff { display: inline-flex; flex-direction: column; gap: 4px; width: 100%; }
-.req-staff-row { display: grid; grid-template-columns: 14px 1fr 52px; align-items: center; gap: 6px; }
 .req-staff-label { font-size: var(--b-fs-meta); color: var(--text-secondary); }
-.req-staff-track {
-  position: relative;
-  height: 4px;
-  border-radius: var(--b-r-pill);
-  background: var(--bg-secondary, rgba(127, 127, 127, 0.18));
-  overflow: hidden;
-  display: flex;
-}
-.req-staff-named { background: var(--accent-color, #3b82f6); height: 100%; }
-.req-staff-pool { background: #f59e0b; height: 100%; }
 .req-staff-num {
   font-size: var(--b-fs-meta);
   font-variant-numeric: tabular-nums;
@@ -1871,7 +1942,9 @@ input[type="checkbox"].settings-checkbox,
 .projects-board .lifecycle-btn { border: none; background: none; }
 .projects-board .lifecycle-quick-btn {
   min-height: 32px;
-  padding: 0 10px;
+  width: 72px;
+  padding: 0 4px;
+  justify-content: center;
   font-size: var(--b-fs-body);
   font-weight: 600;
   color: var(--accent-color, #3b82f6);
@@ -1880,7 +1953,9 @@ input[type="checkbox"].settings-checkbox,
 .projects-board .lifecycle-quick-btn:hover { background: rgba(59, 130, 246, 0.12); }
 .projects-board .lifecycle-badge-btn {
   min-height: 32px;
-  padding: 3px 10px;
+  width: 84px;
+  padding: 3px 4px;
+  justify-content: center;
   font-size: var(--b-fs-body);
   font-weight: 600;
   border-radius: var(--b-r-pill);

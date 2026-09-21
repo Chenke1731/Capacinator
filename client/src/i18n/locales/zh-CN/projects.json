@@ -361,7 +361,14 @@
     "poolSaveFailed": "保存池占位失败",
     "designShort": "设",
     "devShort": "开",
-    "summaryTitle": "设计侧: 实名{{dn}} + 池{{dp}} FTE\\n开发侧: 实名{{vn}} + 池{{vp}} FTE"
+    "summaryTitle": "设计侧: 实名{{dn}} + 池{{dp}} FTE\\n开发侧: 实名{{vn}} + 池{{vp}} FTE",
+    "designFull": "设计",
+    "devFull": "开发",
+    "adjustTitle": "人力调整(池占位 ±0.5)",
+    "adjustHint": "点击调整人力",
+    "adjustHintFooter": "池占位即刻参与产能计算;实名分配请进详情页选人。",
+    "namedLabel": "实名 {{n}}",
+    "poolLabel": "池 {{n}}"
   },
   "tags": {
     "label": "标签",
@@ -389,7 +396,9 @@
     "unscheduledGroup": "未排节奏",
     "groupCount": "({{count}})",
     "empty": "暂无需求事项",
-    "resetFilters": "清除筛选"
+    "resetFilters": "清除筛选",
+    "colTags": "标签",
+    "colRelease": "交付计划"
   },
   "version": {
     "productTitle": "产品版本，点击填写（如 B）",

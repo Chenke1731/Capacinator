@@ -363,7 +363,14 @@
     "poolSaveFailed": "Failed to save pool placeholder",
     "designShort": "D",
     "devShort": "Dev",
-    "summaryTitle": "Design: named {{dn}} + pool {{dp}} FTE\\nDev: named {{vn}} + pool {{vp}} FTE"
+    "summaryTitle": "Design: named {{dn}} + pool {{dp}} FTE\\nDev: named {{vn}} + pool {{vp}} FTE",
+    "designFull": "Design",
+    "devFull": "Dev",
+    "adjustTitle": "Staffing adjust (pool ±0.5)",
+    "adjustHint": "Click to adjust staffing",
+    "adjustHintFooter": "Pool placeholders consume capacity instantly; name people on the detail page.",
+    "namedLabel": "named {{n}}",
+    "poolLabel": "pool {{n}}"
   },
   "tags": {
     "label": "Tags",
@@ -391,7 +398,9 @@
     "unscheduledGroup": "Unscheduled",
     "groupCount": "({{count}})",
     "empty": "No requirements",
-    "resetFilters": "Clear filters"
+    "resetFilters": "Clear filters",
+    "colTags": "Tags",
+    "colRelease": "Release"
   },
   "version": {
     "productTitle": "Product version, click to edit (e.g. B)",

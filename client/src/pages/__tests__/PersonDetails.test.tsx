@@ -209,6 +209,7 @@ describe('PersonDetails', () => {
       await waitFor(() => {
         expect(screen.getByText(/Failed to load person details/i)).toBeInTheDocument();
       });
+      expect(screen.getByText(/Back to People/i)).toBeInTheDocument();
     });
   });
 

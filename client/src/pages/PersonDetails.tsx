@@ -3,7 +3,7 @@ import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import {
-  ArrowLeft, Calendar, Briefcase, Users, Clock,
+  ArrowLeft, Calendar, Briefcase, Users, Clock, UserX,
   Mail, Phone, MapPin, AlertCircle, History,
   Plus, ChevronDown, ChevronUp, UserPlus, UserMinus,
   TrendingUp, Target, Zap, Shield, Award, Edit2, Save, X, Search
@@ -682,7 +682,26 @@ export default function PersonDetails() {
   }, [person, t]);
 
   if (isLoading) return <div className="loading">{t('people:details.loading')}</div>;
-  if (error || !person) return <div className="error">{t('people:details.failedToLoad')}</div>;
+  if (error || !person) {
+    const notFound = (error as any)?.response?.status === 404;
+    return (
+      <div className="page-container" style={{ textAlign: 'center', paddingTop: '4rem' }}>
+        <UserX size={44} style={{ margin: '0 auto 0.75rem', color: 'var(--text-muted)' }} />
+        <h1>{notFound ? t('people:details.notFoundTitle') : t('people:details.failedToLoad')}</h1>
+        <p className="text-muted">
+          {notFound ? t('people:details.notFoundText') : t('people:details.failedToLoadText')}
+        </p>
+        <button
+          className="btn btn-primary"
+          style={{ marginTop: '1.25rem' }}
+          onClick={() => navigate('/people')}
+        >
+          <ArrowLeft size={16} />
+          {t('people:details.backToPeople')}
+        </button>
+      </div>
+    );
+  }
 
 
   const handleActionClick = (action: string) => {

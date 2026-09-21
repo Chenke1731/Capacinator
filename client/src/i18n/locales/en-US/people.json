@@ -162,7 +162,11 @@
     "allocationVsAvailability": "Allocation vs Availability",
     "history": "History",
     "profileCreated": "Profile created",
-    "lastUpdated": "Last updated"
+    "lastUpdated": "Last updated",
+    "notFoundTitle": "Person not found",
+    "notFoundText": "This person may have been deleted, or the link is stale.",
+    "backToPeople": "Back to People",
+    "failedToLoadText": "Failed to load person details. Please try again later."
   },
   "availability": {
     "title": "Availability Management",

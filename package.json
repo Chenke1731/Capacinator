@@ -83,7 +83,8 @@
     "dist:linux": "npm run build && electron-builder --linux",
     "start": "electron .",
     "commands": "npx tsx scripts/list-commands.ts",
-    "verify:smoke": "node scripts/smoke-check.mjs"
+    "verify:smoke": "node scripts/smoke-check.mjs",
+    "preview:client": "npm run build:client && npx vite preview --config client-vite.config.ts --port 3121 --strictPort --host"
   },
   "keywords": [],
   "author": "",

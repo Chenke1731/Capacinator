@@ -33,6 +33,9 @@ const queryClient = new QueryClient({
     queries: {
       staleTime: 5 * 60 * 1000, // 5 minutes
       retry: 1,
+      // switching windows back must not refire every active query —
+      // that was perceived as random stutter
+      refetchOnWindowFocus: false,
     },
   },
 });

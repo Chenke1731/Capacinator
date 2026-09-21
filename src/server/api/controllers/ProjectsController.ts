@@ -117,6 +117,52 @@ export class ProjectsController extends BaseController {
    * Validates that a project has a mandatory project subtype.
    * Projects must be associated with active project sub-types.
    */
+  /**
+   * Per-project side summaries for the list's 人力 column (batched):
+   * named FTE from active assignments (SE → design side, others → dev),
+   * pool FTE from open pool placeholders.
+   */
+  private async attachStaffingSummaries(projects: any[]): Promise<void> {
+    const ids = projects.map((p: any) => p.id);
+    const blank = () => ({ design: { named: 0, pool: 0 }, dev: { named: 0, pool: 0 } });
+    const summaries = new Map<string, any>();
+    for (const p of projects) summaries.set(p.id, blank());
+    if (ids.length === 0) return;
+
+    const sideOf = (roleName: string) => (roleName === 'SE' ? 'design' : 'dev');
+
+    const namedRows = await this.db('assignments_view as av')
+      .join('roles as r', 'av.role_id', 'r.id')
+      .whereIn('av.project_id', ids)
+      .where('av.status', 'active')
+      .select('av.project_id', 'r.name as role_name', 'av.allocation_percentage');
+    for (const row of namedRows) {
+      const s = summaries.get(row.project_id);
+      if (!s) continue;
+      s[sideOf(row.role_name)].named += (row.allocation_percentage ?? 0) / 100;
+    }
+
+    const poolRows = await this.db('project_pool_demands as pmd')
+      .join('roles as r', 'pmd.role_id', 'r.id')
+      .whereIn('pmd.project_id', ids)
+      .where('pmd.status', 'open')
+      .select('pmd.project_id', 'r.name as role_name', 'pmd.headcount');
+    for (const row of poolRows) {
+      const s = summaries.get(row.project_id);
+      if (!s) continue;
+      s[sideOf(row.role_name)].pool += row.headcount ?? 0;
+    }
+
+    const round2 = (n: number) => Math.round(n * 100) / 100;
+    for (const p of projects) {
+      const s = summaries.get(p.id);
+      p.staffing_summary = {
+        design: { named: round2(s.design.named), pool: round2(s.design.pool) },
+        dev: { named: round2(s.dev.named), pool: round2(s.dev.pool) }
+      };
+    }
+  }
+
   private async validateProjectSubType(projectTypeId: string, projectSubTypeId: string): Promise<void> {
     // project_sub_type_id is now mandatory
     if (!projectSubTypeId) {
@@ -195,6 +241,8 @@ export class ProjectsController extends BaseController {
           'projects.external_id',
           'projects.lifecycle_state',
           'projects.ar_number',
+          'projects.product_version',
+          'projects.release_version',
           'projects.iteration_label',
           'projects.created_at',
           'projects.updated_at',
@@ -280,9 +328,10 @@ export class ProjectsController extends BaseController {
         tagsByProject.set(row.project_id, list);
       }
 
-      // Advisory lifecycle warnings (状态告警) — batched for the page
+      // Advisory lifecycle warnings (状态告警) + 人力汇总 — batched for the page
       const lifecycleService = new LifecycleService(this.db);
       const warningsByProject = await lifecycleService.computeWarningsForProjects(projects);
+      await this.attachStaffingSummaries(projects);
 
       for (const project of projects) {
         project.tags = tagsByProject.get(project.id) ?? [];
@@ -341,6 +390,8 @@ export class ProjectsController extends BaseController {
           'projects.external_id',
           'projects.lifecycle_state',
           'projects.ar_number',
+          'projects.product_version',
+          'projects.release_version',
           'projects.iteration_label',
           'projects.created_at',
           'projects.updated_at',
@@ -424,11 +475,13 @@ export class ProjectsController extends BaseController {
         .where('project_planners.project_id', id)
         .orderBy('project_planners.is_primary_planner', 'desc');
 
-      // Advisory lifecycle warnings (状态告警)
+      // Advisory lifecycle warnings (状态告警) + 人力汇总
       const lifecycleService = new LifecycleService(this.db);
       const lifecycle_warnings = project.lifecycle_state != null
         ? await lifecycleService.computeWarnings(id)
         : [];
+      const projectForSummary = [project];
+      await this.attachStaffingSummaries(projectForSummary);
 
       return {
         ...project,
@@ -436,7 +489,8 @@ export class ProjectsController extends BaseController {
         assignments,
         pool_demands,
         planners,
-        lifecycle_warnings
+        lifecycle_warnings,
+        staffing_summary: projectForSummary[0].staffing_summary
       };
     }, req, res, 'Failed to fetch project');
 

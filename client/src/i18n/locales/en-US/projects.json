@@ -393,10 +393,10 @@
     "empty": "No requirements"
   },
   "version": {
-    "productTitle": "Product version, click to edit",
-    "releaseTitle": "Release version, click to edit",
-    "productPlaceholder": "prod?",
-    "releasePlaceholder": "26.RP?"
+    "productTitle": "Product version, click to edit (e.g. B)",
+    "releaseTitle": "Release version, click to edit (e.g. 26.RP4)",
+    "productPlaceholder": "unset",
+    "releasePlaceholder": "unset"
   },
   "ticketsBoard": {
     "ledgerNote": "The monthly volume ledger and suggested buffer rate will live here (deferred); for now this shows the buffer footprint — it keeps consuming capacity as usual.",

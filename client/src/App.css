@@ -1596,7 +1596,7 @@ input[type="checkbox"].settings-checkbox,
 
 .requirements-thead {
   display: grid;
-  grid-template-columns: minmax(220px, 2.2fr) 200px 150px 140px 56px 96px 110px;
+  grid-template-columns: minmax(200px, 1.5fr) 205px 150px 150px 56px 96px 110px;
   gap: 8px;
   padding: 8px 14px;
   background: var(--bg-secondary, rgba(127, 127, 127, 0.08));
@@ -1640,7 +1640,7 @@ input[type="checkbox"].settings-checkbox,
 
 .requirements-row {
   display: grid;
-  grid-template-columns: minmax(220px, 2.2fr) 200px 150px 140px 56px 96px 110px;
+  grid-template-columns: minmax(200px, 1.5fr) 205px 150px 150px 56px 96px 110px;
   gap: 8px;
   align-items: center;
   padding: 7px 14px;

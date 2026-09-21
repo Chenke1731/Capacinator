@@ -391,10 +391,10 @@
     "empty": "暂无需求事项"
   },
   "version": {
-    "productTitle": "产品版本,点击编辑",
-    "releaseTitle": "交付版本,点击编辑",
-    "productPlaceholder": "产品?",
-    "releasePlaceholder": "26.RP?"
+    "productTitle": "产品版本，点击填写（如 B）",
+    "releaseTitle": "交付版本，点击填写（如 26.RP4）",
+    "productPlaceholder": "未排",
+    "releasePlaceholder": "未排"
   },
   "ticketsBoard": {
     "ledgerNote": "月度量台账与建议缓冲率将在此登记(暂缓实现);当前为缓冲占用一览——照常参与产能计算。",

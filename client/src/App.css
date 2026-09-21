@@ -394,10 +394,11 @@
 .gap-4 { gap: 1rem; }
 
 /* Page Layout Styles */
+/* Width intentionally unconstrained: standalone pages fill the space right of
+   the sidebar, matching the unified tab pages. Form/detail pages that need a
+   centered column cap themselves via their own modifiers (see .person-details). */
 .page-container {
   padding: 2rem;
-  max-width: 1400px;
-  margin: 0 auto;
   background-color: var(--bg-primary);
   min-height: 100%;
   box-sizing: border-box;

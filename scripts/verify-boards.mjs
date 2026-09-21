@@ -110,7 +110,26 @@ await page.waitForTimeout(800);
 const affairDetail = await page.$('.affairs-detail');
 check('事项展开分配明细', !!affairDetail);
 
-// ── 5. 全程零错误 + 零弹窗 ────────────────────────────
+// ── 5. 视口预算看护(2026-09-21 教训: 审计粒度=用户消费单位=视口,不是组件) ──
+await page.goto(`${BASE}/projects`, { waitUntil: 'networkidle' });
+await page.waitForTimeout(1500);
+{
+  const toolbar = await page.$('.projects-toolbar');
+  const filter = await page.$('.filter-bar');
+  const firstRow = await page.$('.requirements-row');
+  const rows = await page.$$('.requirements-row');
+  const tb = toolbar ? Math.round((await toolbar.boundingBox()).height) : 0;
+  const fb = filter ? Math.round((await filter.boundingBox()).height) : 0;
+  const ry = firstRow ? Math.round((await firstRow.boundingBox()).y) : 9999;
+  let visible = 0;
+  for (const r of rows) { const b = await r.boundingBox(); if (b.y + b.height <= 900) visible++; }
+  check('首屏包装克制(工具栏+筛选 ≤ 160px)', tb + fb <= 160, `toolbar=${tb} filter=${fb}`);
+  check('首条数据在 y<450 进入视口', ry < 450, `y=${ry}`);
+  check('首屏可见数据行 ≥ 需求总数一半', visible >= Math.ceil(rows.length / 2), `${visible}/${rows.length}`);
+  await page.screenshot({ path: '/tmp/boards-fullpage-1600.png', fullPage: false });
+}
+
+// ── 6. 全程零错误 + 零弹窗 ────────────────────────────
 check('零页面错误', pageErrors.length === 0, pageErrors.slice(0, 2).join(' | '));
 const dialogs = await page.$$('dialog[open], [role="dialog"]');
 check('零模态弹窗', dialogs.length === 0);

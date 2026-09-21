@@ -240,10 +240,12 @@ export function AuditLog() {
 
   return (
     <div className="page-container">
-      <div className="audit-log__header">
-        <h1>{t('auditLog:title')}</h1>
-        <p>{t('auditLog:subtitle')}</p>
-      </div>
+      <header className="page-header" role="banner">
+        <div>
+          <h1>{t('auditLog:title')}</h1>
+          <p className="page-subtitle">{t('auditLog:subtitle')}</p>
+        </div>
+      </header>
 
       {stats && (
         <div className="audit-stats">

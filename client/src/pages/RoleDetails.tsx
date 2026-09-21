@@ -231,11 +231,12 @@ export default function RoleDetails() {
       <div className="page-header">
         <div className="header-left">
           <button
-            className="btn btn-secondary btn-sm"
+            className="btn page-back-btn"
             onClick={() => navigate('/people?tab=roles')}
+            title={t('roles:details.backToRoles')}
+            aria-label={t('roles:details.backToRoles')}
           >
-            <ArrowLeft size={16} />
-            {t('roles:details.backToRoles')}
+            <ArrowLeft size={22} />
           </button>
           <div>
             <h1 style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>

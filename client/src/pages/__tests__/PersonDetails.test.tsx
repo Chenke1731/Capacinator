@@ -207,9 +207,10 @@ describe('PersonDetails', () => {
       renderComponent();
 
       await waitFor(() => {
-        expect(screen.getByText(/Failed to load person details/i)).toBeInTheDocument();
+        // heading + description both carry the phrase
+        expect(screen.getAllByText(/Failed to load person details/i).length).toBeGreaterThan(0);
       });
-      expect(screen.getByText(/Back to People/i)).toBeInTheDocument();
+      expect(screen.getAllByText(/Back to People/i).length).toBeGreaterThan(0);
     });
   });
 

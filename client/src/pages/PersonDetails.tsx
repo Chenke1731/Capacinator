@@ -739,8 +739,13 @@ export default function PersonDetails() {
     <div className="page-container person-details">
       <div className="page-header">
         <div className="header-left">
-          <button className="btn btn-icon" onClick={() => navigate('/people')}>
-            <ArrowLeft size={20} />
+          <button
+            className="btn page-back-btn"
+            onClick={() => navigate('/people')}
+            title={t('people:details.backToPeople')}
+            aria-label={t('people:details.backToPeople')}
+          >
+            <ArrowLeft size={22} />
           </button>
           <h1>{person.name}</h1>
           <span className={`badge badge-${person.status === 'active' ? 'success' : 'gray'}`}>

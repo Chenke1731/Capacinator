@@ -121,6 +121,30 @@
    Used by Roles / Projects / ProjectTypes / Assignments / Locations / Availability.
    No flex-wrap: a wrappable actions cell collapses under auto table layout
    (min-content becomes one button), squeezing the column. */
+/* Detail-page back button: icon-only, but a real visible 40x40 target */
+.page-back-btn {
+  min-height: 44px;
+  min-width: 44px;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-secondary) !important;
+  border: 1px solid var(--border-color) !important;
+  border-radius: 8px;
+  color: var(--text-primary);
+  transition: all 0.15s;
+  flex-shrink: 0;
+}
+
+.page-back-btn:hover {
+  border-color: var(--primary) !important;
+  color: var(--primary);
+  background: var(--bg-hover) !important;
+}
+
 .table-actions {
   flex-wrap: nowrap;
 }

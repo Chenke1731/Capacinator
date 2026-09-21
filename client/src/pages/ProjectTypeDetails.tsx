@@ -272,7 +272,7 @@ export default function ProjectTypeDetails() {
       <div className="error-page">
         <h1>{t('projects:projectTypes.notFoundTitle')}</h1>
         <p>{t('projects:projectTypes.notFoundDetail')}</p>
-        <button className="btn btn-primary" onClick={() => navigate('/project-types')}>
+        <button className="btn btn-primary" onClick={() => navigate('/projects?tab=types')}>
           {t('projects:projectTypes.backToProjectTypes')}
         </button>
       </div>
@@ -283,12 +283,13 @@ export default function ProjectTypeDetails() {
     <div className="role-details-page">
       {/* Navigation Header */}
       <div className="navigation-header">
-        <button 
-          className="btn btn-secondary btn-sm back-button"
-          onClick={() => navigate('/project-types')}
+        <button
+          className="btn page-back-btn"
+          onClick={() => navigate('/projects?tab=types')}
+          title={t('projects:projectTypes.backToProjectTypes')}
+          aria-label={t('projects:projectTypes.backToProjectTypes')}
         >
-          <ArrowLeft size={16} />
-          {t('projects:projectTypes.backToProjectTypes')}
+          <ArrowLeft size={22} />
         </button>
       </div>
 

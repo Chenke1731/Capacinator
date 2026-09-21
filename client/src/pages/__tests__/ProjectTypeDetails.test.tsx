@@ -260,7 +260,8 @@ describe('ProjectTypeDetails', () => {
       const backButton = screen.getByRole('button', { name: /back to project types/i });
       fireEvent.click(backButton);
 
-      expect(mockNavigate).toHaveBeenCalledWith('/project-types');
+      // back goes to the unified types tab now that /project-types redirects
+      expect(mockNavigate).toHaveBeenCalledWith('/projects?tab=types');
     });
   });
 
@@ -286,7 +287,8 @@ describe('ProjectTypeDetails', () => {
       const backButton = screen.getAllByRole('button', { name: /back to project types/i })[0];
       fireEvent.click(backButton);
 
-      expect(mockNavigate).toHaveBeenCalledWith('/project-types');
+      // back goes to the unified types tab now that /project-types redirects
+      expect(mockNavigate).toHaveBeenCalledWith('/projects?tab=types');
     });
   });
 

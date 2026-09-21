@@ -341,9 +341,14 @@ export function ProjectDetail() {
         <CardHeader>
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
-              <Button variant="outline" size="icon" onClick={() => navigate('/projects')}>
-                <ArrowLeft size={20} />
-              </Button>
+              <button
+                className="page-back-btn"
+                onClick={() => navigate('/projects')}
+                title={t('projects:backToProjects')}
+                aria-label={t('projects:backToProjects')}
+              >
+                <ArrowLeft size={22} />
+              </button>
               <div className="flex items-center space-x-3">
                 <div 
                   className="w-4 h-4 rounded-full flex-shrink-0"

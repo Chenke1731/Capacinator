@@ -44,7 +44,7 @@ await page.goto(`${BASE}/projects`, { waitUntil: 'networkidle' });
 await page.waitForTimeout(1800);
 
 // Row-scoped helpers
-const row = () => page.locator('table tbody tr', { hasText: '移动端改版' });
+const row = () => page.locator('.requirements-row', { hasText: '移动端改版' });
 const badge = () => row().locator('.lifecycle-badge-btn');
 const quick = () => row().locator('.lifecycle-quick-btn');
 const badgeText = async () => (await badge().textContent())?.trim();

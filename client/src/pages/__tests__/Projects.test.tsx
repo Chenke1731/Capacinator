@@ -1,17 +1,8 @@
 import React from 'react';
-import { render, screen, waitFor, within, act } from '@testing-library/react';
+import { render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { BrowserRouter, MemoryRouter } from 'react-router-dom';
-import '@testing-library/jest-dom';
 import { Projects } from '../Projects';
-import { api } from '../../lib/api-client';
-import { useScenario } from '../../contexts/ScenarioContext';
-
-// Mock the Scenario Context
-jest.mock('../../contexts/ScenarioContext', () => ({
-  useScenario: jest.fn(),
-}));
 
 // Mock the API client
 jest.mock('../../lib/api-client', () => ({
@@ -19,12 +10,7 @@ jest.mock('../../lib/api-client', () => ({
     projects: {
       list: jest.fn(),
       delete: jest.fn(),
-    },
-    locations: {
-      list: jest.fn(),
-    },
-    projectTypes: {
-      list: jest.fn(),
+      update: jest.fn(),
     },
     tags: {
       list: jest.fn(),
@@ -39,33 +25,6 @@ jest.mock('../../lib/api-client', () => ({
 }));
 
 // Mock the UI components
-jest.mock('../../components/ui/DataTable', () => ({
-  DataTable: ({ data, columns, onRowClick }: any) => (
-    <div data-testid="data-table">
-      <table>
-        <thead>
-          <tr>
-            {columns.map((col: any) => (
-              <th key={col.key}>{col.header}</th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {data?.map((row: any, index: number) => (
-            <tr key={row.id || index} onClick={() => onRowClick?.(row)}>
-              {columns.map((col: any) => (
-                <td key={col.key}>
-                  {col.render ? col.render(row[col.key], row) : row[col.key]}
-                </td>
-              ))}
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  ),
-}));
-
 jest.mock('../../components/ui/FilterBar', () => ({
   FilterBar: ({ filters, values, onChange, onReset }: any) => (
     <div data-testid="filter-bar">
@@ -76,13 +35,13 @@ jest.mock('../../components/ui/FilterBar', () => ({
         data-testid="search-input"
       />
       <select
-        value={values.project_type_id}
-        onChange={(e) => onChange('project_type_id', e.target.value)}
-        data-testid="project-type-filter"
+        value={values.lifecycle_state}
+        onChange={(e) => onChange('lifecycle_state', e.target.value)}
+        data-testid="lifecycle-filter"
       >
-        <option value="">All Types</option>
-        <option value="type-1">Software Development</option>
-        <option value="type-2">Data Migration</option>
+        <option value="">All</option>
+        <option value="designing">Designing</option>
+        <option value="scheduled">Scheduled</option>
       </select>
       <select
         value={values.tag_id}
@@ -91,19 +50,6 @@ jest.mock('../../components/ui/FilterBar', () => ({
       >
         <option value="">All Tags</option>
         <option value="1">Reserved</option>
-        <option value="2">Urgent</option>
-      </select>
-      <select
-        value={values.status}
-        onChange={(e) => onChange('status', e.target.value)}
-        data-testid="status-filter"
-      >
-        <option value="">All Statuses</option>
-        <option value="planned">Planned</option>
-        <option value="active">Active</option>
-        <option value="on_hold">On Hold</option>
-        <option value="completed">Completed</option>
-        <option value="cancelled">Cancelled</option>
       </select>
       <button onClick={onReset} data-testid="reset-filters">
         Reset Filters
@@ -124,43 +70,17 @@ jest.mock('../../components/ui/ErrorMessage', () => ({
 
 jest.mock('../../components/modals/ProjectModal', () => ({
   __esModule: true,
-  default: ({ isOpen, onClose, onSuccess, editingProject }: any) =>
+  default: ({ isOpen, onClose, editingProject }: any) =>
     isOpen ? (
       <div data-testid="project-modal">
         <h2>{editingProject ? 'Edit Project' : 'New Project'}</h2>
         <button onClick={onClose}>Close</button>
-        <button onClick={() => { onSuccess(); onClose(); }}>Save</button>
       </div>
     ) : null,
 }));
 
-jest.mock('../../components/ProjectAllocations', () => ({
-  __esModule: true,
-  default: ({ projectId, projectName, onClose }: any) => (
-    <div data-testid="allocations-modal">
-      <h2>Allocations for {projectName}</h2>
-      <div>Project ID: {projectId}</div>
-      <button onClick={onClose}>Close</button>
-    </div>
-  ),
-}));
-
-jest.mock('../../hooks/useModal', () => ({
-  useModal: () => ({
-    isOpen: false,
-    open: jest.fn(),
-    close: jest.fn(),
-  }),
-}));
-
-jest.mock('../../lib/project-colors', () => ({
-  getProjectTypeIndicatorStyle: (project: any) => ({
-    width: '12px',
-    height: '12px',
-    borderRadius: '50%',
-    backgroundColor: project.project_type?.color_code || '#888',
-    marginRight: '8px',
-  }),
+jest.mock('../../components/tags/TagManagerDialog', () => ({
+  TagManagerDialog: ({ isOpen }: any) => (isOpen ? <div data-testid="tag-manager" /> : null),
 }));
 
 const mockNavigate = jest.fn();
@@ -169,126 +89,127 @@ jest.mock('react-router-dom', () => ({
   useNavigate: () => mockNavigate,
 }));
 
-describe('Projects Page', () => {
+import { api } from '../../lib/api-client';
+import { useScenario } from '../../contexts/ScenarioContext';
+
+jest.mock('../../contexts/ScenarioContext', () => ({
+  useScenario: jest.fn(),
+}));
+
+// 需求台 fixtures — category matching is by seed type name (data-level)
+const mockProjects = [
+  {
+    id: 'proj-1',
+    name: 'Project Alpha',
+    project_type_id: 'type-1',
+    project_type_name: '需求交付',
+    project_sub_type_name: '标准需求',
+    product_version: 'B',
+    release_version: '26.RP4',
+    priority: 2,
+    owner_name: '陈主管',
+    lifecycle_state: 'pending_rat',
+    lifecycle_warnings: ['NO_DEV_DEMAND'],
+    staffing_summary: { design: { named: 0.5, pool: 1 }, dev: { named: 2, pool: 0 } },
+    tags: [{ id: 1, name: 'Reserved', color: '#f59e0b' }],
+  },
+  {
+    id: 'proj-2',
+    name: 'Project Beta',
+    project_type_id: 'type-1',
+    project_type_name: '需求交付',
+    project_sub_type_name: '标准需求',
+    product_version: 'A',
+    release_version: '26.RP3',
+    priority: 1,
+    owner_name: null,
+    lifecycle_state: 'in_iteration',
+    lifecycle_warnings: [],
+    staffing_summary: { design: { named: 0, pool: 0 }, dev: { named: 0, pool: 0 } },
+    tags: [],
+  },
+  // Not a demand item — must NOT appear on the 需求台
+  {
+    id: 'proj-3',
+    name: 'Project Gamma',
+    project_type_id: null,
+    project_type_name: null,
+    lifecycle_state: null,
+    tags: [],
+  },
+  {
+    id: 'proj-4',
+    name: 'Ticket Pool',
+    project_type_id: 'type-9',
+    project_type_name: '问题单支持',
+    lifecycle_state: null,
+    tags: [],
+  },
+];
+
+describe('Requirements Board (需求台)', () => {
   let queryClient: QueryClient;
 
-  const mockProjects = [
-    {
-      id: 'proj-1',
-      name: 'Project Alpha',
-      project_type_id: 'type-1',
-      project_type_name: 'Software Development',
-      project_type_color_code: '#007bff',
-      location: { id: 'loc-1', name: 'New York' },
-      start_date: '2024-01-01',
-      end_date: '2024-06-30',
-      current_phase_name: 'Development',
-      status: 'active',
-    },
-    {
-      id: 'proj-2',
-      name: 'Project Beta',
-      project_type_id: 'type-2',
-      project_type_name: 'Data Migration',
-      project_type_color_code: '#28a745',
-      location: { id: 'loc-2', name: 'San Francisco' },
-      start_date: '2024-02-01',
-      end_date: '2024-08-31',
-      current_phase_name: 'Planning',
-      status: 'planned',
-    },
-    {
-      id: 'proj-3',
-      name: 'Project Gamma',
-      project_type_id: null,
-      project_type_name: null,
-      project_type_color_code: null,
-      location: { id: 'loc-1', name: 'New York' },
-      start_date: '2023-10-01',
-      end_date: '2024-03-31',
-      current_phase_name: null,
-      status: 'completed',
-    },
-  ];
-
-  const mockLocations = [
-    { id: 'loc-1', name: 'New York' },
-    { id: 'loc-2', name: 'San Francisco' },
-  ];
-
-  const mockProjectTypes = [
-    { id: 'type-1', name: 'Software Development', color_code: '#007bff' },
-    { id: 'type-2', name: 'Data Migration', color_code: '#28a745' },
-  ];
-
-  beforeEach(() => {
-    queryClient = new QueryClient({
-      defaultOptions: {
-        queries: { retry: false },
-      },
-    });
-    jest.clearAllMocks();
-
-    // Mock the scenario context
-    (useScenario as jest.Mock).mockReturnValue({
-      currentScenario: {
-        id: 'baseline',
-        name: 'Baseline',
-        status: 'active',
-        scenario_type: 'baseline'
-      },
-      scenarios: [{
-        id: 'baseline',
-        name: 'Baseline', 
-        status: 'active',
-        scenario_type: 'baseline'
-      }],
-      setCurrentScenario: jest.fn(),
-      isLoading: false,
-      error: null
-    });
-
-    // Setup default mock responses
-    (api.projects.list as jest.Mock).mockResolvedValue({
-      data: { data: mockProjects },
-    });
-    (api.locations.list as jest.Mock).mockResolvedValue({
-      data: { data: mockLocations },
-    });
-    (api.projectTypes.list as jest.Mock).mockResolvedValue({
-      data: { data: mockProjectTypes },
-    });
-  });
-
   const renderComponent = () => {
+    queryClient = new QueryClient({
+      defaultOptions: { queries: { retry: false } },
+    });
     return render(
       <QueryClientProvider client={queryClient}>
-        <MemoryRouter>
-          <Projects />
-        </MemoryRouter>
+        <Projects />
       </QueryClientProvider>
     );
   };
 
-  describe('Table Rendering', () => {
-    test('renders projects table with correct headers', async () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+    mockNavigate.mockClear();
+    (api.projects.list as jest.Mock).mockResolvedValue({
+      data: { data: mockProjects },
+    });
+    (api.tags.list as jest.Mock).mockResolvedValue({
+      data: { data: [{ id: 1, name: 'Reserved' }] },
+    });
+    (api.projects.update as jest.Mock).mockResolvedValue({ data: {} });
+    (api.projects.delete as jest.Mock).mockResolvedValue({ data: {} });
+    (api.roles.list as jest.Mock).mockResolvedValue({ data: [] });
+    (useScenario as jest.Mock).mockReturnValue({
+      currentScenario: { id: 'baseline-0000-0000-0000-000000000000', name: 'Baseline' }
+    });
+  });
+
+  describe('Rendering', () => {
+    test('renders the new column set', async () => {
       renderComponent();
 
       await waitFor(() => {
-        expect(screen.getByTestId('data-table')).toBeInTheDocument();
+        expect(screen.getByTestId('requirements-table')).toBeInTheDocument();
       });
 
-      const headers = screen.getAllByRole('columnheader');
-      expect(headers[0]).toHaveTextContent('Project Name');
-      expect(headers[1]).toHaveTextContent('Project Type');
-      expect(headers[2]).toHaveTextContent('Tags');
-      expect(headers[3]).toHaveTextContent('Start Date');
-      expect(headers[4]).toHaveTextContent('End Date');
-      expect(headers[5]).toHaveTextContent('Lifecycle');
-      expect(headers[6]).toHaveTextContent('Actions');
+      const header = screen.getByTestId('requirements-table').querySelector('.requirements-thead');
+      const headers = Array.from(header?.children ?? []).map((el) => el.textContent);
+      expect(headers).toEqual(['Name', 'Lifecycle', 'Staffing', 'Version', 'Priority', 'Owner', 'Actions']);
     });
 
-    test('displays project data correctly', async () => {
+    test('groups by product version then release, unversioned last', async () => {
+      renderComponent();
+
+      await waitFor(() => {
+        expect(screen.getByText('Project Alpha')).toBeInTheDocument();
+      });
+
+      const groupHeaders = await screen.findAllByRole('button', { name: /A|B/ });
+      const groupLabels = groupHeaders
+        .map((g) => g.querySelector('strong')?.textContent)
+        .filter(Boolean);
+      expect(groupLabels).toEqual(['A', 'B']);
+      const releaseHeaders = document.querySelectorAll('.requirements-release-header');
+      expect(releaseHeaders.length).toBe(2);
+      expect(releaseHeaders[0].textContent).toContain('26.RP3');
+      expect(releaseHeaders[1].textContent).toContain('26.RP4');
+    });
+
+    test('shows only demand-category items (tickets/standing excluded)', async () => {
       renderComponent();
 
       await waitFor(() => {
@@ -296,68 +217,59 @@ describe('Projects Page', () => {
       });
 
       expect(screen.getByText('Project Beta')).toBeInTheDocument();
-      expect(screen.getByText('Project Gamma')).toBeInTheDocument();
-      
-      // Check project types in the table (not in the filter)
-      const table = screen.getByTestId('data-table');
-      expect(within(table).getByText('Software Development')).toBeInTheDocument();
-      expect(within(table).getByText('Data Migration')).toBeInTheDocument();
-      expect(within(table).getByText('Not assigned')).toBeInTheDocument();
+      expect(screen.queryByText('Project Gamma')).not.toBeInTheDocument();
+      expect(screen.queryByText('Ticket Pool')).not.toBeInTheDocument();
     });
 
-    test('does not render the retired location column', async () => {
+    test('warning row tint + short-word chip', async () => {
       renderComponent();
 
       await waitFor(() => {
-        expect(screen.getByTestId('data-table')).toBeInTheDocument();
+        expect(screen.getByText('Project Alpha')).toBeInTheDocument();
       });
 
-      // The location dimension was retired from the UI — no column for it
-      const headers = screen.getAllByRole('columnheader');
-      expect(headers.map((h) => h.textContent)).not.toContain('Location');
-      expect(screen.queryByText('New York')).not.toBeInTheDocument();
+      expect(screen.getByText('no pool')).toBeInTheDocument();
+      const alphaRow = screen.getByText('Project Alpha').closest('.requirements-row');
+      expect(alphaRow).toHaveClass('requirements-row--warned');
     });
 
-    test('formats dates correctly', async () => {
+    test('staffing summary renders both sides (named + pool)', async () => {
       renderComponent();
 
       await waitFor(() => {
-        expect(screen.getByTestId('data-table')).toBeInTheDocument();
+        expect(screen.getByText('Project Alpha')).toBeInTheDocument();
       });
 
-      // Check that dates are displayed (exact format depends on locale)
-      const dateElements = screen.getAllByText(/2024|2023/);
-      expect(dateElements.length).toBeGreaterThan(0);
+      const alphaRow = screen.getByText('Project Alpha').closest('.requirements-row')!;
+      const staffing = within(alphaRow).getAllByText(/0\.5/);
+      expect(staffing.length).toBeGreaterThan(0);
     });
 
-    test('displays lifecycle state or dash for standing items', async () => {
+    test('priority badge and owner render', async () => {
       renderComponent();
 
       await waitFor(() => {
-        expect(screen.getByTestId('data-table')).toBeInTheDocument();
+        expect(screen.getByText('Project Alpha')).toBeInTheDocument();
       });
 
-      // Fixtures carry no lifecycle_state — every row shows the standing-item dash
-      const dashElements = screen.getAllByText('—');
-      expect(dashElements.length).toBeGreaterThan(0);
+      expect(screen.getByText('P2')).toBeInTheDocument();
+      expect(screen.getByText('P1')).toBeInTheDocument();
+      expect(screen.getByText('陈主管')).toBeInTheDocument();
     });
+  });
 
-    test('advances lifecycle in place from the list row', async () => {
+  describe('Lifecycle in place', () => {
+    test('advances lifecycle from the row (one click)', async () => {
       const user = userEvent.setup();
-      (api.projects.list as jest.Mock).mockResolvedValue({
-        data: { data: [{ ...mockProjects[0], lifecycle_state: 'pending_rat' }] }
-      });
       (api.lifecycle.transition as jest.Mock).mockResolvedValue({
         data: { project: { lifecycle_state: 'designing' }, event: {} }
       });
-
       renderComponent();
 
       await waitFor(() => {
         expect(screen.getByText('Pending RAT')).toBeInTheDocument();
       });
 
-      // One click on the primary quick-advance button — no detail page, no modal
       await user.click(screen.getByRole('button', { name: 'Start design' }));
 
       await waitFor(() => {
@@ -367,46 +279,140 @@ describe('Projects Page', () => {
 
     test('badge popover offers the full flow-free state selector', async () => {
       const user = userEvent.setup();
-      (api.projects.list as jest.Mock).mockResolvedValue({
-        data: { data: [{ ...mockProjects[0], lifecycle_state: 'designing' }] }
-      });
-
       renderComponent();
 
       await waitFor(() => {
-        expect(screen.getByText('Designing')).toBeInTheDocument();
+        expect(screen.getByText('Pending RAT')).toBeInTheDocument();
       });
 
-      await user.click(screen.getByRole('button', { name: /Designing/ }));
+      await user.click(screen.getByRole('button', { name: /Pending RAT/ }));
 
-      // All 8 states are selectable (flow-free); current one is tagged
       const selector = within(screen.getByTestId('lc-state-list'));
-      expect(selector.getByText('Pending RAT')).toBeInTheDocument();
-      expect(selector.getByText('NOK')).toBeInTheDocument();
-      expect(selector.getByText('Backlog')).toBeInTheDocument();
-      expect(selector.getByText('Scheduled')).toBeInTheDocument();
-      expect(selector.getByText('In Iteration')).toBeInTheDocument();
-      expect(selector.getByText('Delivered')).toBeInTheDocument();
-      expect(selector.getByText('Cancelled')).toBeInTheDocument();
-      expect(selector.getByText('current')).toBeInTheDocument();
-      expect(screen.getByRole('button', { name: 'Admit' })).toBeInTheDocument();
-    });
-
-    test('shows loading state', () => {
-      (api.projects.list as jest.Mock).mockImplementation(
-        () => new Promise(() => {}) // Never resolves
+      ['NOK', 'Designing', 'Backlog', 'Scheduled', 'In Iteration', 'Delivered', 'Cancelled'].forEach(
+        (label) => expect(selector.getByText(label)).toBeInTheDocument()
       );
+      expect(selector.getByText('current')).toBeInTheDocument();
+    });
+  });
 
+  describe('Version inline edit', () => {
+    test('click product part → edit → saved via projects.update', async () => {
+      const user = userEvent.setup();
       renderComponent();
 
+      await waitFor(() => {
+        expect(screen.getByText('Project Alpha')).toBeInTheDocument();
+      });
+
+      const alphaRow = screen.getByText('Project Alpha').closest('.requirements-row')!;
+      await user.click(within(alphaRow).getByText('B'));
+
+      const input = await screen.findByDisplayValue('B');
+      await user.clear(input);
+      await user.type(input, 'C{Enter}');
+
+      await waitFor(() => {
+        expect(api.projects.update).toHaveBeenCalledWith('proj-1', { product_version: 'C' });
+      });
+    });
+  });
+
+  describe('Operations', () => {
+    test('edit icon opens the project modal', async () => {
+      const user = userEvent.setup();
+      renderComponent();
+
+      await waitFor(() => {
+        expect(screen.getByText('Project Alpha')).toBeInTheDocument();
+      });
+
+      const alphaRow = screen.getByText('Project Alpha').closest('.requirements-row')!;
+      await user.click(within(alphaRow).getByTitle('Edit'));
+
+      await waitFor(() => {
+        expect(screen.getByTestId('project-modal')).toBeInTheDocument();
+        expect(screen.getByText('Edit Project')).toBeInTheDocument();
+      });
+    });
+
+    test('delete is a two-click confirm (zero modal)', async () => {
+      const user = userEvent.setup();
+      renderComponent();
+
+      await waitFor(() => {
+        expect(screen.getByText('Project Alpha')).toBeInTheDocument();
+      });
+
+      const alphaRow = screen.getByText('Project Alpha').closest('.requirements-row')!;
+      const deleteBtn = within(alphaRow).getByTitle('Delete');
+      await user.click(deleteBtn);
+
+      // First click arms, second click executes — no window.confirm
+      expect(api.projects.delete).not.toHaveBeenCalled();
+      const confirmBtn = within(alphaRow).getByTitle('Confirm');
+      await user.click(confirmBtn);
+
+      await waitFor(() => {
+        expect(api.projects.delete).toHaveBeenCalledWith('proj-1');
+      });
+    });
+
+    test('row click navigates to project detail', async () => {
+      const user = userEvent.setup();
+      renderComponent();
+
+      await waitFor(() => {
+        expect(screen.getByText('Project Beta')).toBeInTheDocument();
+      });
+
+      await user.click(screen.getByText('Project Beta'));
+      expect(mockNavigate).toHaveBeenCalledWith('/projects/proj-2');
+    });
+  });
+
+  describe('Filters', () => {
+    test('search narrows rows client-side', async () => {
+      const user = userEvent.setup();
+      renderComponent();
+
+      await waitFor(() => {
+        expect(screen.getByText('Project Alpha')).toBeInTheDocument();
+      });
+
+      await user.type(screen.getByTestId('search-input'), 'Alpha');
+      await waitFor(() => {
+        expect(screen.queryByText('Project Beta')).not.toBeInTheDocument();
+      });
+      expect(screen.getByText('Project Alpha')).toBeInTheDocument();
+    });
+
+    test('lifecycle filter passes through to the API', async () => {
+      const user = userEvent.setup();
+      renderComponent();
+
+      await waitFor(() => {
+        expect(screen.getByTestId('lifecycle-filter')).toBeInTheDocument();
+      });
+
+      await user.selectOptions(screen.getByTestId('lifecycle-filter'), 'designing');
+
+      await waitFor(() => {
+        expect(api.projects.list).toHaveBeenLastCalledWith(
+          expect.objectContaining({ lifecycle_state: 'designing' })
+        );
+      });
+    });
+  });
+
+  describe('States', () => {
+    test('shows loading state', () => {
+      (api.projects.list as jest.Mock).mockImplementation(() => new Promise(() => {}));
+      renderComponent();
       expect(screen.getByTestId('loading-spinner')).toBeInTheDocument();
     });
 
     test('shows error state', async () => {
-      (api.projects.list as jest.Mock).mockRejectedValue(
-        new Error('Failed to load projects')
-      );
-
+      (api.projects.list as jest.Mock).mockRejectedValue(new Error('Failed to load'));
       renderComponent();
 
       await waitFor(() => {
@@ -414,357 +420,13 @@ describe('Projects Page', () => {
       });
     });
 
-    test('handles empty project list', async () => {
-      (api.projects.list as jest.Mock).mockResolvedValue({
-        data: { data: [] },
-      });
-
+    test('shows empty state when no demand items', async () => {
+      (api.projects.list as jest.Mock).mockResolvedValue({ data: { data: [] } });
       renderComponent();
 
       await waitFor(() => {
-        expect(screen.getByTestId('data-table')).toBeInTheDocument();
+        expect(screen.getByText('No requirements')).toBeInTheDocument();
       });
-
-      const rows = screen.getAllByRole('row');
-      expect(rows).toHaveLength(1); // Only header row
-    });
-  });
-
-  describe('Project Type Indicators', () => {
-    test('displays project type color indicators', async () => {
-      renderComponent();
-
-      await waitFor(() => {
-        expect(screen.getByTestId('data-table')).toBeInTheDocument();
-      });
-
-      // The component renders color indicators as divs with backgroundColor
-      const table = screen.getByTestId('data-table');
-      const rows = within(table).getAllByRole('row');
-      expect(rows.length).toBeGreaterThan(1); // Header + data rows
-    });
-
-    test('handles projects without project type', async () => {
-      renderComponent();
-
-      await waitFor(() => {
-        expect(screen.getByText('Not assigned')).toBeInTheDocument();
-      });
-
-      // Project Gamma has no project type
-      expect(screen.getByText('Project Gamma')).toBeInTheDocument();
-    });
-  });
-
-  describe('Actions', () => {
-    test('renders action buttons for each project', async () => {
-      renderComponent();
-
-      await waitFor(() => {
-        expect(screen.getByTestId('data-table')).toBeInTheDocument();
-      });
-
-      // Each project should have 4 action buttons
-      const viewButtons = screen.getAllByTitle('View Details');
-      const editButtons = screen.getAllByTitle('Edit');
-      const allocateButtons = screen.getAllByTitle('Manage Allocations');
-      const deleteButtons = screen.getAllByTitle('Delete');
-
-      expect(viewButtons).toHaveLength(3);
-      expect(editButtons).toHaveLength(3);
-      expect(allocateButtons).toHaveLength(3);
-      expect(deleteButtons).toHaveLength(3);
-    });
-
-    test('navigates to project details on view button click', async () => {
-      const user = userEvent.setup();
-      renderComponent();
-
-      await waitFor(() => {
-        expect(screen.getAllByTitle('View Details')[0]).toBeInTheDocument();
-      });
-
-      await user.click(screen.getAllByTitle('View Details')[0]);
-
-      expect(mockNavigate).toHaveBeenCalledWith('/projects/proj-1');
-    });
-
-    test('opens edit modal on edit button click', async () => {
-      const user = userEvent.setup();
-      renderComponent();
-
-      await waitFor(() => {
-        expect(screen.getAllByTitle('Edit')[0]).toBeInTheDocument();
-      });
-
-      // Just verify the button is clickable
-      const editButton = screen.getAllByTitle('Edit')[0];
-      await user.click(editButton);
-    });
-
-    test('opens allocations modal on manage allocations button click', async () => {
-      const user = userEvent.setup();
-      renderComponent();
-
-      await waitFor(() => {
-        expect(screen.getAllByTitle('Manage Allocations')[0]).toBeInTheDocument();
-      });
-
-      // Just verify the button is clickable
-      const allocButton = screen.getAllByTitle('Manage Allocations')[0];
-      await user.click(allocButton);
-    });
-
-    test('deletes project with confirmation', async () => {
-      const user = userEvent.setup();
-      window.confirm = jest.fn(() => true);
-      (api.projects.delete as jest.Mock).mockResolvedValue({});
-
-      renderComponent();
-
-      await waitFor(() => {
-        expect(screen.getAllByTitle('Delete')[0]).toBeInTheDocument();
-      });
-
-      await user.click(screen.getAllByTitle('Delete')[0]);
-
-      expect(window.confirm).toHaveBeenCalledWith(
-        'Are you sure you want to delete the project "Project Alpha"? This action cannot be undone.'
-      );
-      expect(api.projects.delete).toHaveBeenCalledWith('proj-1');
-    });
-
-    test('cancels delete when not confirmed', async () => {
-      const user = userEvent.setup();
-      window.confirm = jest.fn(() => false);
-
-      renderComponent();
-
-      await waitFor(() => {
-        expect(screen.getAllByTitle('Delete')[0]).toBeInTheDocument();
-      });
-
-      await user.click(screen.getAllByTitle('Delete')[0]);
-
-      expect(api.projects.delete).not.toHaveBeenCalled();
-    });
-  });
-
-  describe('Filtering', () => {
-    test('filters projects by search term', async () => {
-      const user = userEvent.setup();
-      renderComponent();
-
-      await waitFor(() => {
-        expect(screen.getByTestId('filter-bar')).toBeInTheDocument();
-      });
-
-      const searchInput = screen.getByTestId('search-input');
-      await user.type(searchInput, 'Alpha');
-
-      await waitFor(() => {
-        // API should be called as user types
-        expect(api.projects.list).toHaveBeenCalled();
-      });
-    });
-
-    test('filters by project type', async () => {
-      const user = userEvent.setup();
-      renderComponent();
-
-      await waitFor(() => {
-        expect(screen.getByTestId('project-type-filter')).toBeInTheDocument();
-      });
-
-      const typeFilter = screen.getByTestId('project-type-filter');
-      await user.selectOptions(typeFilter, 'type-1');
-
-      await waitFor(() => {
-        expect(api.projects.list).toHaveBeenLastCalledWith({ project_type_id: 'type-1' });
-      });
-    });
-
-    test('filters by status', async () => {
-      const user = userEvent.setup();
-      renderComponent();
-
-      await waitFor(() => {
-        expect(screen.getByTestId('status-filter')).toBeInTheDocument();
-      });
-
-      const statusFilter = screen.getByTestId('status-filter');
-      await user.selectOptions(statusFilter, 'active');
-
-      await waitFor(() => {
-        expect(api.projects.list).toHaveBeenLastCalledWith({ status: 'active' });
-      });
-    });
-
-    test('filters projects by tag', async () => {
-      const user = userEvent.setup();
-      renderComponent();
-
-      await waitFor(() => {
-        expect(screen.getByTestId('tag-filter')).toBeInTheDocument();
-      });
-
-      await user.selectOptions(screen.getByTestId('tag-filter'), '1');
-      await waitFor(() => {
-        expect(api.projects.list).toHaveBeenLastCalledWith({ tag_id: '1' });
-      });
-
-      await user.selectOptions(screen.getByTestId('tag-filter'), '');
-      await waitFor(() => {
-        expect(api.projects.list).toHaveBeenLastCalledWith({});
-      });
-    });
-
-    test('applies multiple filters simultaneously', async () => {
-      const user = userEvent.setup();
-      renderComponent();
-
-      await waitFor(() => {
-        expect(screen.getByTestId('filter-bar')).toBeInTheDocument();
-      });
-
-      await user.type(screen.getByTestId('search-input'), 'Project');
-      await user.selectOptions(screen.getByTestId('status-filter'), 'planned');
-
-      await waitFor(() => {
-        expect(api.projects.list).toHaveBeenCalled();
-      });
-    });
-
-    test('resets all filters', async () => {
-      const user = userEvent.setup();
-      renderComponent();
-
-      await waitFor(() => {
-        expect(screen.getByTestId('filter-bar')).toBeInTheDocument();
-      });
-
-      // Apply some filters
-      await user.type(screen.getByTestId('search-input'), 'test');
-      await user.selectOptions(screen.getByTestId('status-filter'), 'active');
-
-      // Reset filters
-      await user.click(screen.getByTestId('reset-filters'));
-
-      await waitFor(() => {
-        expect(api.projects.list).toHaveBeenLastCalledWith({});
-      });
-    });
-  });
-
-  describe('Navigation', () => {
-    test('navigates to project details on row click', async () => {
-      const user = userEvent.setup();
-      renderComponent();
-
-      await waitFor(() => {
-        expect(screen.getByTestId('data-table')).toBeInTheDocument();
-      });
-
-      const firstRow = screen.getAllByRole('row')[1]; // Skip header row
-      await user.click(firstRow);
-
-      expect(mockNavigate).toHaveBeenCalledWith('/projects/proj-1');
-    });
-
-    test('opens new project modal', async () => {
-      const user = userEvent.setup();
-      renderComponent();
-
-      await waitFor(() => {
-        expect(screen.getByRole('button', { name: /new project/i })).toBeInTheDocument();
-      });
-
-      const newProjectButton = screen.getByRole('button', { name: /new project/i });
-      expect(newProjectButton).toBeInTheDocument();
-      await user.click(newProjectButton);
-    });
-
-    test('navigates to demands view', async () => {
-      const user = userEvent.setup();
-      renderComponent();
-
-      await waitFor(() => {
-        expect(screen.getByRole('button', { name: /view demands/i })).toBeInTheDocument();
-      });
-
-      await user.click(screen.getByRole('button', { name: /view demands/i }));
-
-      expect(mockNavigate).toHaveBeenCalledWith('/projects/demands');
-    });
-  });
-
-  describe('Edge Cases', () => {
-    test('handles API response without data wrapper', async () => {
-      // Test direct array response
-      (api.locations.list as jest.Mock).mockResolvedValue({
-        data: mockLocations,
-      });
-      (api.projectTypes.list as jest.Mock).mockResolvedValue({
-        data: mockProjectTypes,
-      });
-
-      renderComponent();
-
-      await waitFor(() => {
-        expect(screen.getByTestId('data-table')).toBeInTheDocument();
-      });
-
-      // Should still render properly
-      expect(screen.getByText('Project Alpha')).toBeInTheDocument();
-    });
-
-    test('handles projects with missing dates', async () => {
-      const projectsWithNullDates = [
-        {
-          ...mockProjects[0],
-          start_date: null,
-          end_date: null,
-        },
-      ];
-      (api.projects.list as jest.Mock).mockResolvedValue({
-        data: { data: projectsWithNullDates },
-      });
-
-      renderComponent();
-
-      await waitFor(() => {
-        expect(screen.getByTestId('data-table')).toBeInTheDocument();
-      });
-
-      // Should show dashes for null dates
-      const dashElements = screen.getAllByText('-');
-      expect(dashElements.length).toBeGreaterThan(0);
-    });
-
-    test('handles API errors gracefully', async () => {
-      const consoleError = jest.spyOn(console, 'error').mockImplementation();
-      (api.projects.list as jest.Mock).mockRejectedValue(new Error('API Error'));
-
-      renderComponent();
-
-      await waitFor(() => {
-        expect(screen.getByTestId('error-message')).toBeInTheDocument();
-      });
-
-      consoleError.mockRestore();
-    });
-
-    test('transforms flat project data to include project_type object', async () => {
-      renderComponent();
-
-      await waitFor(() => {
-        expect(screen.getByTestId('data-table')).toBeInTheDocument();
-      });
-
-      // Verify that project type names are displayed correctly after transformation
-      const table = screen.getByTestId('data-table');
-      expect(within(table).getByText('Software Development')).toBeInTheDocument();
-      expect(within(table).getByText('Data Migration')).toBeInTheDocument();
     });
   });
 });

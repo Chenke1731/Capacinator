@@ -108,6 +108,9 @@ export const Login: React.FC<LoginProps> = ({ onClose }) => {
     );
   }
 
+  // defensive: shared ['people'] cache must never hand us a non-array
+  const peopleList = Array.isArray(people) ? people : [];
+
   return (
     <Dialog open={true} modal>
       <DialogContent 
@@ -130,7 +133,7 @@ export const Login: React.FC<LoginProps> = ({ onClose }) => {
                 <SelectValue placeholder={t('auth:selectNamePlaceholder')} />
               </SelectTrigger>
               <SelectContent>
-                {people?.map((person) => (
+                {peopleList.map((person) => (
                   <SelectItem key={person.id} value={person.id}>
                     {person.name} {person.primary_role_name && `(${person.primary_role_name})`}
                   </SelectItem>

@@ -188,7 +188,10 @@ export const AssignmentModalNew: React.FC<AssignmentModalProps> = ({
     queryKey: ['people'],
     queryFn: async () => {
       const response = await api.people.list();
-      return response.data;
+      // MUST unwrap to the array — this key is shared with Login and other
+      // consumers; a wrapped object here crashes Login's people.map in
+      // production builds (tighter mount timing than dev)
+      return response.data?.data || response.data || [];
     }
   });
 

@@ -128,7 +128,7 @@ export const ChangeHistoryPanel: React.FC<ChangeHistoryPanelProps> = ({
 
       <div className="relative">
         {/* Timeline line */}
-        <div className="absolute left-6 top-0 bottom-0 w-0.5 bg-gray-200"></div>
+        <div className="absolute left-6 top-0 bottom-0 w-0.5 bg-gray-200 dark:bg-gray-700"></div>
 
         {/* Timeline items */}
         <div className="space-y-6">
@@ -153,7 +153,7 @@ export const ChangeHistoryPanel: React.FC<ChangeHistoryPanelProps> = ({
                     </div>
                   </div>
                   <div className="flex-shrink-0 ml-4">
-                    <span className="inline-block px-2 py-1 text-xs font-mono bg-gray-100 text-gray-600 rounded">
+                    <span className="inline-block px-2 py-1 text-xs font-mono bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 rounded">
                       {commit.hash.substring(0, 7)}
                     </span>
                   </div>

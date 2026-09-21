@@ -43,7 +43,8 @@ export function ProjectNew() {
     queryKey: queryKeys.projectTypes.list(),
     queryFn: async () => {
       const response = await api.projectTypes.list();
-      return response.data;
+      const payload = response.data;
+      return Array.isArray(payload) ? payload : payload?.data || [];
     }
   });
 
@@ -52,7 +53,8 @@ export function ProjectNew() {
     queryKey: queryKeys.locations.list(),
     queryFn: async () => {
       const response = await api.locations.list();
-      return response.data;
+      const payload = response.data;
+      return Array.isArray(payload) ? payload : payload?.data || [];
     }
   });
 

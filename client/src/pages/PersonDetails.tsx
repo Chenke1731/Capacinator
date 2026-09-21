@@ -264,7 +264,8 @@ export default function PersonDetails() {
     queryKey: queryKeys.roles.list(),
     queryFn: async () => {
       const response = await api.roles.list();
-      return response.data;
+      const payload = response.data;
+      return Array.isArray(payload) ? payload : payload?.data || [];
     }
   });
 

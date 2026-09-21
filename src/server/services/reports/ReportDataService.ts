@@ -275,7 +275,8 @@ export class ReportDataService {
 
     // Build base query with scenario filtering
     let demandQuery = this.db('project_demands_view').select('*');
-    demandQuery = await this.applyScenarioFilter(demandQuery, scenarioId, includeAllScenarios);
+    const scenarioType = await this.getScenarioType(scenarioId);
+    demandQuery = this.applyScenarioFilter(demandQuery, scenarioId, includeAllScenarios, scenarioType);
     demandQuery = this.applyDateFilter(demandQuery, startDate, endDate);
 
     const demandData = await demandQuery as DemandDataRow[];
@@ -718,24 +719,36 @@ export class ReportDataService {
     return projectsWithGaps;
   }
 
-  private async applyScenarioFilter(
+  /**
+   * NOTE: this must stay synchronous and callers must NOT await its result —
+   * a knex QueryBuilder is thenable, so awaiting a builder returned from an
+   * async function executes the query and yields a row array (which then
+   * crashes the next .where). The scenario type is therefore pre-fetched
+   * separately via getScenarioType.
+   */
+  private applyScenarioFilter(
     query: Knex.QueryBuilder,
     scenarioId?: string,
-    includeAllScenarios?: boolean
-  ): Promise<Knex.QueryBuilder> {
+    includeAllScenarios?: boolean,
+    scenarioType?: string
+  ): Knex.QueryBuilder {
     if (!scenarioId || includeAllScenarios) {
       return query;
     }
 
-    const scenario = await this.db('scenarios').where('id', scenarioId).first();
-
-    if (scenario?.scenario_type === 'baseline') {
+    if (scenarioType === 'baseline') {
       return query.where(function (this: Knex.QueryBuilder) {
         this.whereNull('scenario_id').orWhere('scenario_id', scenarioId);
       });
     } else {
       return query.where('scenario_id', scenarioId);
     }
+  }
+
+  private async getScenarioType(scenarioId?: string): Promise<string | undefined> {
+    if (!scenarioId) return undefined;
+    const scenario = await this.db('scenarios').where('id', scenarioId).first();
+    return scenario?.scenario_type;
   }
 
   private applyDateFilter(
@@ -764,7 +777,8 @@ export class ReportDataService {
       .groupBy('project_id', 'project_name')
       .orderBy('total_hours', 'desc');
 
-    query = await this.applyScenarioFilter(query, scenarioId, includeAllScenarios);
+    const scenarioType = await this.getScenarioType(scenarioId);
+    query = this.applyScenarioFilter(query, scenarioId, includeAllScenarios, scenarioType);
     query = this.applyDateFilter(query, startDate, endDate);
 
     const results = await query;
@@ -784,7 +798,8 @@ export class ReportDataService {
       .groupBy('role_id', 'role_name')
       .orderBy('total_hours', 'desc');
 
-    query = await this.applyScenarioFilter(query, scenarioId, includeAllScenarios);
+    const scenarioType = await this.getScenarioType(scenarioId);
+    query = this.applyScenarioFilter(query, scenarioId, includeAllScenarios, scenarioType);
     query = this.applyDateFilter(query, startDate, endDate);
 
     const results = await query;
@@ -803,7 +818,8 @@ export class ReportDataService {
       .groupBy('project_type_id', 'project_type_name')
       .orderBy('total_hours', 'desc');
 
-    query = await this.applyScenarioFilter(query, scenarioId, includeAllScenarios);
+    const scenarioType = await this.getScenarioType(scenarioId);
+    query = this.applyScenarioFilter(query, scenarioId, includeAllScenarios, scenarioType);
     query = this.applyDateFilter(query, startDate, endDate);
 
     const results = await query;
@@ -844,7 +860,8 @@ export class ReportDataService {
           .where('start_date', '<=', month.monthEnd)
           .andWhere('end_date', '>=', month.monthStart);
 
-        monthQuery = await this.applyScenarioFilter(monthQuery, scenarioId, includeAllScenarios);
+        const scenarioType = await this.getScenarioType(scenarioId);
+    monthQuery = this.applyScenarioFilter(monthQuery, scenarioId, includeAllScenarios, scenarioType);
 
         const monthData = await monthQuery.first();
         timeline.push({
@@ -859,7 +876,8 @@ export class ReportDataService {
         .groupBy(this.db.raw("strftime('%Y-%m', start_date)"))
         .orderBy('month');
 
-      timelineQuery = await this.applyScenarioFilter(timelineQuery, scenarioId, includeAllScenarios);
+      const scenarioType = await this.getScenarioType(scenarioId);
+    timelineQuery = this.applyScenarioFilter(timelineQuery, scenarioId, includeAllScenarios, scenarioType);
 
       const timelineData = await timelineQuery;
       timeline.push(...timelineData.map((month: Record<string, unknown>) => ({
@@ -875,7 +893,8 @@ export class ReportDataService {
     const { scenarioId, includeAllScenarios } = filters;
 
     let query = this.db('project_demands_view').countDistinct('project_id as count');
-    query = await this.applyScenarioFilter(query, scenarioId, includeAllScenarios);
+    const scenarioType = await this.getScenarioType(scenarioId);
+    query = this.applyScenarioFilter(query, scenarioId, includeAllScenarios, scenarioType);
 
     const result = await query.first();
     return (result?.count as number) || 0;
@@ -885,7 +904,8 @@ export class ReportDataService {
     const { scenarioId, includeAllScenarios } = filters;
 
     let query = this.db('project_demands_view').countDistinct('role_id as count');
-    query = await this.applyScenarioFilter(query, scenarioId, includeAllScenarios);
+    const scenarioType = await this.getScenarioType(scenarioId);
+    query = this.applyScenarioFilter(query, scenarioId, includeAllScenarios, scenarioType);
 
     const result = await query.first();
     return (result?.count as number) || 0;

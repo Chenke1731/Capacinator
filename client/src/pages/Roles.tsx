@@ -131,7 +131,9 @@ export default function Roles() {
             className="btn table-action-btn"
             onClick={(e) => {
               e.stopPropagation();
-              navigate(`/roles/${row.id}/edit`);
+              // role editing lives on the details page (inline) — there is
+              // no /roles/:id/edit route
+              navigate(`/roles/${row.id}`);
             }}
             title={t('common:edit')}
           >

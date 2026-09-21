@@ -109,5 +109,10 @@
   },
   "allocation": "分配比例",
   "date": "日期",
-  "filterAll": "全部"
+  "filterAll": "全部",
+  "notFound": {
+    "title": "页面不存在",
+    "description": "你访问的页面不存在或已被移动。",
+    "back": "返回仪表盘"
+  }
 }

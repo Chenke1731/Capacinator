@@ -296,7 +296,7 @@ describe('Roles Page', () => {
       expect(mockNavigate).toHaveBeenCalledWith('/roles/role-1');
     });
 
-    test('navigates to role edit on edit button click', async () => {
+    test('edit button opens the role details page (inline editing lives there)', async () => {
       const user = userEvent.setup();
       renderComponent();
 
@@ -306,7 +306,7 @@ describe('Roles Page', () => {
 
       await user.click(screen.getAllByTitle('Edit')[0]);
 
-      expect(mockNavigate).toHaveBeenCalledWith('/roles/role-1/edit');
+      expect(mockNavigate).toHaveBeenCalledWith('/roles/role-1');
     });
 
     test('deletes role with confirmation', async () => {

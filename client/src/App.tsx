@@ -21,6 +21,7 @@ import { Scenarios } from './pages/Scenarios';
 import { AuditLog } from './pages/AuditLog';
 import ReportsUnified from './pages/ReportsUnified';
 import Settings from './pages/Settings';
+import { NotFound } from './components/NotFound';
 import ImportUnified from './pages/ImportUnified';
 import { Locations } from './pages/Locations';
 import { Toaster } from './components/ui/toaster';
@@ -67,6 +68,7 @@ const AppContent: React.FC = () => {
           <Route path="/import" element={<ImportUnified />} />
           <Route path="/locations" element={<Locations />} />
           <Route path="/settings" element={<Settings />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </Layout>
       {!isLoggedIn && <Login />}

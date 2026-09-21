@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Tailwind v4 ignores tailwind.config.js unless wired below; make the dark:
+   variant follow the app's .dark class (set by ThemeContext) instead of the
+   OS media query, so the in-app theme toggle actually drives dark: utilities */
+@custom-variant dark (&:where(.dark, .dark *));
+
 @layer base {
   /* Light theme - matching existing color scheme */
   :root {

@@ -266,13 +266,13 @@ export function EnhancedKPIs({ dashboard, className = '' }: EnhancedKPIsProps) {
                   </div>
                   
                   {kpi.target && (
-                    <div className="w-full bg-gray-200 rounded-full h-2">
+                    <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
                       <div
                         className={`h-2 rounded-full transition-all ${
                           kpi.value >= kpi.target 
-                            ? 'bg-green-500' 
+                            ? 'bg-green-500 dark:bg-green-400' 
                             : kpi.value >= kpi.target * 0.8 
-                            ? 'bg-yellow-500' 
+                            ? 'bg-yellow-500 dark:bg-yellow-400' 
                             : 'bg-red-500'
                         }`}
                         style={{ width: `${Math.min(100, (kpi.value / kpi.target) * 100)}%` }}

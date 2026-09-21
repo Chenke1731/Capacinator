@@ -41,7 +41,7 @@ export const ConflictListItem: React.FC<ConflictListItemProps> = ({
       assignment: 'bg-purple-100 text-purple-800',
       project_phase: 'bg-orange-100 text-orange-800',
     };
-    return colors[type] || 'bg-gray-100 text-gray-800';
+    return colors[type] || 'bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200';
   };
 
   const truncateValue = (value: any): string => {

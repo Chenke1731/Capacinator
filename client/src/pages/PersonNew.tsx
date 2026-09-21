@@ -53,7 +53,8 @@ export function PersonNew() {
     queryKey: ['roles'],
     queryFn: async () => {
       const response = await api.roles.list();
-      return response.data;
+      const payload = response.data;
+      return Array.isArray(payload) ? payload : payload?.data || [];
     }
   });
 
@@ -62,7 +63,8 @@ export function PersonNew() {
     queryKey: ['locations'],
     queryFn: async () => {
       const response = await api.locations.list();
-      return response.data;
+      const payload = response.data;
+      return Array.isArray(payload) ? payload : payload?.data || [];
     }
   });
 

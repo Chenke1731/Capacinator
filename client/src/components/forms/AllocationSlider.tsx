@@ -77,7 +77,7 @@ export const AllocationSlider = React.forwardRef<HTMLDivElement, AllocationSlide
             onChange={(e) => onChange(parseInt(e.target.value, 10))}
             disabled={disabled}
             className={cn(
-              'w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer',
+              'w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer',
               'dark:bg-slate-700',
               '[&::-webkit-slider-thumb]:appearance-none',
               '[&::-webkit-slider-thumb]:w-4',

@@ -278,6 +278,8 @@ describe('ProjectsController', () => {
       mockDb._queueFirstResult(mockSubType); // get project_type_id from sub-type
       // Phase inheritance queries
       mockDb._queueQueryResult([]); // project_type_phases
+      // Lifecycle default lookup (055): type name decides 待RAT vs standing
+      mockDb._queueFirstResult(mockProjectType);
       // Final project fetch
       mockDb._queueFirstResult(mockCreatedProject);
 

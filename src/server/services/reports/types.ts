@@ -49,6 +49,18 @@ export interface DashboardStats {
     AVAILABLE: number;
     ASSIGNED: number;
   };
+  /** Items in 设计中 whose design deadline is due or overdue */
+  design_watch: Array<{
+    project_id: string;
+    project_name: string;
+    design_deadline: string;
+    rough_design_pm: number | null;
+    days_remaining: number;
+    overdue: boolean;
+    due_soon: boolean;
+  }>;
+  /** Count of lifecycle-tracked items per state (standing items excluded) */
+  lifecycle_summary: Record<string, number>;
 }
 
 // ============================================================================

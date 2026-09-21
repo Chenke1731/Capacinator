@@ -154,9 +154,10 @@ export class CapacityCalculator {
     startDate: string,
     endDate: string
   ): Promise<number> {
-    // Get assignments in the period
+    // Get assignments in the period (paused rows do not consume capacity)
     const assignments = await this.db('project_assignments')
       .where('person_id', personId)
+      .where('status', 'active')
       .where('start_date', '<=', endDate)
       .where('end_date', '>=', startDate)
       .select('*');

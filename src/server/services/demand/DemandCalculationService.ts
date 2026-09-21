@@ -129,11 +129,12 @@ export class DemandCalculationService {
   async getDemandSummary(filters: DemandSummaryFilters): Promise<DemandSummaryData> {
     const { startDate, endDate, locationId, projectTypeId } = filters;
 
-    // Build base query
+    // Build base query (paused assignments are not demand)
     let baseQuery = this.db('project_assignments as pa')
       .join('projects as p', 'pa.project_id', 'p.id')
       .join('roles as r', 'pa.role_id', 'r.id')
-      .where('p.include_in_demand', true);
+      .where('p.include_in_demand', true)
+      .where('pa.status', 'active');
 
     if (startDate) {
       baseQuery = baseQuery.where('pa.end_date', '>=', startDate);

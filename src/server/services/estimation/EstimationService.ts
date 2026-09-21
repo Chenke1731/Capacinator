@@ -114,6 +114,33 @@ interface ExistingAssignment {
   computed_end_date: string | null;
 }
 
+interface PoolDemandRow {
+  project_id: string;
+  headcount: number;
+  start_date: string | null;
+  end_date: string | null;
+}
+
+function poolOverlapMonths(
+  pool: PoolDemandRow,
+  windowStart: Date,
+  windowEnd: Date
+): number {
+  // Pools without dates are treated as consuming throughout the window
+  // (same semantics as assignments without dates)
+  return overlapMonths(
+    {
+      person_id: '',
+      project_id: pool.project_id,
+      allocation_percentage: 100,
+      computed_start_date: pool.start_date,
+      computed_end_date: pool.end_date
+    },
+    windowStart,
+    windowEnd
+  );
+}
+
 function overlapMonths(
   assignment: ExistingAssignment,
   windowStart: Date,
@@ -162,6 +189,26 @@ export interface DeadlineCheckResult {
   assumptions: {
     loc_rate_per_pm: number;
     design_share_pct: number;
+    deviation_low_pct: number;
+    deviation_high_pct: number;
+    capacity_note: string;
+  };
+}
+
+export interface DesignCheckInput {
+  projectId: string;
+  deadline?: string;               // ISO date; defaults to 设计 phase end date
+  start?: string;                  // defaults to today
+  estimated_design_pm: number;     // rough design effort in person-months
+  deviation_low_pct?: number;      // default 20
+  deviation_high_pct?: number;     // default 50
+}
+
+export interface DesignDeadlineCheckResult {
+  window: { start: string; deadline: string; months: number };
+  design: SideCheckResult;
+  overall: { verdict: Verdict };
+  assumptions: {
     deviation_low_pct: number;
     deviation_high_pct: number;
     capacity_note: string;
@@ -219,6 +266,19 @@ export class EstimationService {
       });
   }
 
+  /**
+   * Open pool placeholders for the given roles (any project).
+   * Pool demand consumes side capacity exactly like named assignments.
+   */
+  private async fetchPoolDemands(roleNames: string[]): Promise<PoolDemandRow[]> {
+    if (roleNames.length === 0) return [];
+    return this.db('project_pool_demands as pmd')
+      .join('roles as r', 'pmd.role_id', 'r.id')
+      .where('pmd.status', 'open')
+      .whereIn('r.name', roleNames)
+      .select('pmd.project_id', 'pmd.headcount', 'pmd.start_date', 'pmd.end_date');
+  }
+
   private async checkSide(
     side: 'design' | 'dev',
     roleNames: string[],
@@ -230,6 +290,7 @@ export class EstimationService {
   ): Promise<SideCheckResult> {
     const team = await this.fetchTeam(roleNames);
     const assignments = await this.fetchAssignments(team.map((m: TeamMember) => m.id));
+    const pools = await this.fetchPoolDemands(roleNames);
 
     const allocatedByPerson = new Map<string, number>();
     for (const a of assignments) {
@@ -246,6 +307,15 @@ export class EstimationService {
       const allocated = allocatedByPerson.get(member.id) ?? 0;
       supply += Math.max(0, gross - allocated);
     }
+
+    // Other projects' open pool placeholders reduce the side's free capacity,
+    // symmetric with named assignments. Own project's pools are part of the
+    // demand being evaluated, not the supply.
+    for (const pool of pools) {
+      if (pool.project_id === projectId) continue;
+      supply -= pool.headcount * poolOverlapMonths(pool, windowStart, windowEnd);
+    }
+    supply = Math.max(0, supply);
 
     const { verdict, slackPm, gapPm } = judgeSide(demand, supply);
     return {
@@ -291,7 +361,68 @@ export class EstimationService {
         deviation_low_pct: conversion.deviation_low_pct,
         deviation_high_pct: conversion.deviation_high_pct,
         capacity_note:
-          'supply = availability - existing allocations in window (incl. reservation buffers), this project excluded; 1 PM = 1 FTE for 1 calendar month'
+          'supply = availability - existing allocations in window (incl. reservation buffers and open pool placeholders), this project excluded; 1 PM = 1 FTE for 1 calendar month'
+      }
+    };
+  }
+
+  /**
+   * Design deadline = end date of the project's 设计 phase timeline row.
+   * Returns null when the project has no design phase (or no dates).
+   */
+  async getDesignDeadline(projectId: string): Promise<string | null> {
+    const row = await this.db('project_phases_timeline as ppt')
+      .join('project_phases as pp', 'ppt.phase_id', 'pp.id')
+      .where('ppt.project_id', projectId)
+      .where('pp.name', '设计')
+      .whereNotNull('ppt.end_date')
+      .orderBy('ppt.end_date', 'asc')
+      .first('ppt.end_date');
+    return row?.end_date ?? null;
+  }
+
+  async checkDesignDeadline(input: DesignCheckInput): Promise<DesignDeadlineCheckResult> {
+    let deadline: string | null | undefined = input.deadline;
+    if (!deadline) {
+      deadline = await this.getDesignDeadline(input.projectId);
+    }
+    if (!deadline) {
+      throw new Error('deadline is required (body.deadline or a 设计 phase end date)');
+    }
+
+    const start = input.start ?? new Date().toISOString().slice(0, 10);
+    const months = windowMonths(start, deadline);
+    if (months > 60) {
+      throw new Error('deadline window exceeds 60 months');
+    }
+
+    if (!(input.estimated_design_pm > 0)) {
+      throw new Error('estimated_design_pm must be positive');
+    }
+
+    const lowFactor = 1 - (input.deviation_low_pct ?? 20) / 100;
+    const highFactor = 1 + (input.deviation_high_pct ?? 50) / 100;
+    const demand: PmInterval = {
+      low: input.estimated_design_pm * lowFactor,
+      mid: input.estimated_design_pm,
+      high: input.estimated_design_pm * highFactor
+    };
+
+    const windowStart = new Date(start);
+    const windowEnd = new Date(deadline);
+    const design = await this.checkSide(
+      'design', DESIGN_SIDE_ROLES, demand, windowStart, windowEnd, months, input.projectId
+    );
+
+    return {
+      window: { start, deadline, months: round1(months) },
+      design,
+      overall: { verdict: design.verdict },
+      assumptions: {
+        deviation_low_pct: input.deviation_low_pct ?? 20,
+        deviation_high_pct: input.deviation_high_pct ?? 50,
+        capacity_note:
+          'design-side supply = SE availability - existing allocations in window (incl. buffers and open pool placeholders), this project excluded'
       }
     };
   }

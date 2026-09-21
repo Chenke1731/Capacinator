@@ -192,6 +192,9 @@ export class ProjectsController extends BaseController {
           'projects.include_in_demand',
           'projects.data_restrictions',
           'projects.external_id',
+          'projects.lifecycle_state',
+          'projects.ar_number',
+          'projects.iteration_label',
           'projects.created_at',
           'projects.updated_at',
           'locations.name as location_name',
@@ -202,16 +205,32 @@ export class ProjectsController extends BaseController {
           'current_phase.name as current_phase_name',
           // Calculate start_date and end_date from project phases timeline
           this.db.raw(`(
-            SELECT MIN(start_date) 
-            FROM project_phases_timeline 
+            SELECT MIN(start_date)
+            FROM project_phases_timeline
             WHERE project_id = projects.id
           ) as start_date`),
           this.db.raw(`(
-            SELECT MAX(end_date) 
-            FROM project_phases_timeline 
+            SELECT MAX(end_date)
+            FROM project_phases_timeline
             WHERE project_id = projects.id
-          ) as end_date`)
+          ) as end_date`),
+          // Design deadline = 设计 phase timeline end date (lifecycle banner)
+          this.db.raw(`(
+            SELECT ppt.end_date FROM project_phases_timeline ppt
+            JOIN project_phases pp ON ppt.phase_id = pp.id
+            WHERE ppt.project_id = projects.id AND pp.name = '设计'
+            ORDER BY ppt.end_date ASC LIMIT 1
+          ) as design_deadline`)
         );
+
+      // Lifecycle state filter: 'none' selects standing items without a lifecycle
+      if (req.query.lifecycle_state !== undefined && req.query.lifecycle_state !== '') {
+        if (req.query.lifecycle_state === 'none') {
+          query.whereNull('projects.lifecycle_state');
+        } else {
+          query.where('projects.lifecycle_state', req.query.lifecycle_state);
+        }
+      }
 
       // Apply filters manually to avoid ambiguous column names
       Object.entries(filters).forEach(([key, value]) => {
@@ -313,6 +332,9 @@ export class ProjectsController extends BaseController {
           'projects.include_in_demand',
           'projects.data_restrictions',
           'projects.external_id',
+          'projects.lifecycle_state',
+          'projects.ar_number',
+          'projects.iteration_label',
           'projects.created_at',
           'projects.updated_at',
           'locations.name as location_name',
@@ -323,15 +345,22 @@ export class ProjectsController extends BaseController {
           'current_phase.name as current_phase_name',
           // Calculate start_date and end_date from project phases timeline
           this.db.raw(`(
-            SELECT MIN(start_date) 
-            FROM project_phases_timeline 
+            SELECT MIN(start_date)
+            FROM project_phases_timeline
             WHERE project_id = projects.id
           ) as start_date`),
           this.db.raw(`(
-            SELECT MAX(end_date) 
-            FROM project_phases_timeline 
+            SELECT MAX(end_date)
+            FROM project_phases_timeline
             WHERE project_id = projects.id
-          ) as end_date`)
+          ) as end_date`),
+          // Design deadline = 设计 phase timeline end date (lifecycle banner)
+          this.db.raw(`(
+            SELECT ppt.end_date FROM project_phases_timeline ppt
+            JOIN project_phases pp ON ppt.phase_id = pp.id
+            WHERE ppt.project_id = projects.id AND pp.name = '设计'
+            ORDER BY ppt.end_date ASC LIMIT 1
+          ) as design_deadline`)
         )
         .where('projects.id', id)
         .first();
@@ -358,17 +387,25 @@ export class ProjectsController extends BaseController {
         .where('project_phases_timeline.project_id', id)
         .orderBy('project_phases_timeline.start_date');
 
-      // Get assignments
-      const assignments = await this.db('project_assignments')
-        .join('people', 'project_assignments.person_id', 'people.id')
-        .join('roles', 'project_assignments.role_id', 'roles.id')
+      // Get assignments — from assignments_view so scenario-written rows and
+      // pause status are included (both base and active-scenario rows)
+      const assignments = await this.db('assignments_view as av')
+        .join('people', 'av.person_id', 'people.id')
+        .join('roles', 'av.role_id', 'roles.id')
         .select(
-          'project_assignments.*',
+          'av.*',
           'people.name as person_name',
           'roles.name as role_name'
         )
-        .where('project_assignments.project_id', id)
-        .orderBy('project_assignments.start_date');
+        .where('av.project_id', id)
+        .orderBy('av.computed_start_date');
+
+      // Get pool demands (role-side quantity demand without named persons)
+      const pool_demands = await this.db('project_pool_demands as pmd')
+        .leftJoin('roles as r', 'pmd.role_id', 'r.id')
+        .where('pmd.project_id', id)
+        .orderBy('pmd.created_at', 'desc')
+        .select('pmd.*', 'r.name as role_name');
 
       // Get planners
       const planners = await this.db('project_planners')
@@ -384,6 +421,7 @@ export class ProjectsController extends BaseController {
         ...project,
         phases,
         assignments,
+        pool_demands,
         planners
       };
     }, req, res, 'Failed to fetch project');
@@ -418,14 +456,34 @@ export class ProjectsController extends BaseController {
       const projectToInsert = {
         id: projectId,
         ...sanitizedData,
-        project_type_id: sanitizedData.project_sub_type_id ? 
+        project_type_id: sanitizedData.project_sub_type_id ?
           (await this.db('project_sub_types').where('id', sanitizedData.project_sub_type_id).first())?.project_type_id :
           sanitizedData.project_type_id,
         created_at: new Date(),
         updated_at: new Date()
       };
 
+      // Trackable item types enter the lifecycle at 待RAT; standing types
+      // (问题单支持/项目事务) have no lifecycle (NULL)
+      const typeName = projectToInsert.project_type_id
+        ? (await this.db('project_types').where('id', projectToInsert.project_type_id).first())?.name
+        : null;
+      const lifecycleEnabled = ['需求交付', '零星事项'].includes(typeName);
+      if (lifecycleEnabled) {
+        projectToInsert.lifecycle_state = 'pending_rat';
+      }
+
       await this.db('projects').insert(projectToInsert);
+
+      if (lifecycleEnabled) {
+        await this.db('project_lifecycle_events').insert({
+          project_id: projectId,
+          from_state: null,
+          to_state: 'pending_rat',
+          note: 'auto: project created',
+          actor: req.user?.id ?? null
+        });
+      }
 
       // Apply tags
       if (tagIds.length > 0) {
@@ -478,6 +536,12 @@ export class ProjectsController extends BaseController {
       const tagIds: Array<number | string> = tagIdsProvided ? updateData.tag_ids : [];
       const sanitizedData = { ...updateData };
       delete sanitizedData.tag_ids;
+
+      // Lifecycle fields are owned by the state machine endpoints only
+      // (POST /projects/:id/lifecycle/*) — never by the generic update
+      delete sanitizedData.lifecycle_state;
+      delete sanitizedData.ar_number;
+      delete sanitizedData.iteration_label;
 
       // Sanitize foreign key fields - convert empty strings to null
       const nullableForeignKeys = ['owner_id', 'project_sub_type_id', 'current_phase_id'];

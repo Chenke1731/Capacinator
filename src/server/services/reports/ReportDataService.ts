@@ -74,6 +74,52 @@ export class ReportDataService {
     const utilization = this.calculateUtilizationStats(personUtilizationData);
     const availability = this.calculateAvailability(personUtilizationData);
 
+    // Design watch: items in 设计中 whose design deadline has arrived or is
+    // close (drives the dashboard deadline warnings)
+    const designWatch = await this.db('projects as p')
+      .select(
+        'p.id as project_id',
+        'p.name as project_name',
+        this.db.raw(`(
+          SELECT ppt.end_date FROM project_phases_timeline ppt
+          JOIN project_phases pp ON ppt.phase_id = pp.id
+          WHERE ppt.project_id = p.id AND pp.name = '设计'
+          ORDER BY ppt.end_date ASC LIMIT 1
+        ) as design_deadline`),
+        this.db.raw(`(
+          SELECT de.estimated_design_pm FROM project_design_estimations de
+          WHERE de.project_id = p.id
+          ORDER BY de.created_at DESC, de.id DESC LIMIT 1
+        ) as rough_design_pm`)
+      )
+      .where('p.lifecycle_state', 'designing');
+
+    const design_watch = designWatch
+      .filter((row: any) => row.design_deadline)
+      .map((row: any) => {
+        const daysOffset = Math.round(
+          (new Date(row.design_deadline).getTime() - new Date(currentDate).getTime()) / 86400000
+        );
+        return {
+          ...row,
+          days_remaining: daysOffset,
+          overdue: daysOffset < 0,
+          due_soon: daysOffset >= 0 && daysOffset <= 7
+        };
+      })
+      .filter((row: any) => row.overdue || row.due_soon);
+
+    // Lifecycle summary: count per state (standing items excluded)
+    const lifecycleRows = await this.db('projects')
+      .whereNotNull('lifecycle_state')
+      .count('lifecycle_state as count')
+      .groupBy('lifecycle_state')
+      .select('lifecycle_state');
+    const lifecycle_summary: Record<string, number> = {};
+    for (const row of lifecycleRows) {
+      lifecycle_summary[row.lifecycle_state] = Number(row.count);
+    }
+
     return {
       summary: {
         projects: Number(projectCount?.count) || 0,
@@ -84,6 +130,8 @@ export class ReportDataService {
       capacityGaps,
       utilization,
       availability,
+      design_watch,
+      lifecycle_summary,
     };
   }
 
@@ -180,7 +228,8 @@ export class ReportDataService {
         FROM project_assignments pa
         JOIN projects p ON pa.project_id = p.id
         WHERE
-          COALESCE(pa.start_date, p.aspiration_start) <= ?
+          pa.status = 'active'
+          AND COALESCE(pa.start_date, p.aspiration_start) <= ?
           AND COALESCE(pa.end_date, p.aspiration_finish) >= ?
 
         UNION ALL
@@ -197,6 +246,7 @@ export class ReportDataService {
         JOIN scenarios s ON spa.scenario_id = s.id
         WHERE
           s.status = 'active'
+          AND spa.status = 'active'
           AND COALESCE(spa.start_date, p.aspiration_start) <= ?
           AND COALESCE(spa.end_date, p.aspiration_finish) >= ?
       )

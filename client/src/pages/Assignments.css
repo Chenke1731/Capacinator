@@ -455,6 +455,9 @@
 
 .inline-edit-input:hover:not(:disabled) {
   background: var(--bg-secondary) !important;
+  /* light hover background inside colored badges (allocation pill uses
+     color: white) — switch the text to the theme's dark ink or it vanishes */
+  color: var(--text-primary) !important;
 }
 
 .inline-edit-input:focus {

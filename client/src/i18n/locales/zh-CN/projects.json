@@ -388,7 +388,8 @@
     "unversionedGroup": "未排版本",
     "unscheduledGroup": "未排节奏",
     "groupCount": "({{count}})",
-    "empty": "暂无需求事项"
+    "empty": "暂无需求事项",
+    "resetFilters": "清除筛选"
   },
   "version": {
     "productTitle": "产品版本，点击填写（如 B）",

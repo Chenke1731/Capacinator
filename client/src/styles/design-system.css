@@ -124,12 +124,12 @@ input[type="radio"],
   position: relative;
 }
 
-/* Enhanced hover states */
+/* Enhanced hover states — NO translateY bounce: inline controls made the
+   whole page feel jittery on hover; elevation is reserved for cards/popovers */
 button:hover,
 [role="button"]:hover,
 .interactive:hover {
-  transform: translateY(-1px);
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-sm);
 }
 
 button:active,

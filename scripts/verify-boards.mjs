@@ -46,12 +46,12 @@ check('告警行淡黄底+短词(短词随实际告警集变化)',
   chip ? (await chip.textContent()) : 'none');
 
 // 人力列有数字
-const staffingCell = await page.$$eval('.projects-staffing', els => els.map(e => e.textContent.trim()));
+const staffingCell = await page.$$eval('.req-staff', els => els.map(e => e.textContent.trim()));
 check('人力两侧条渲染', staffingCell.length >= 3 && staffingCell.some(s => /[0-9]/.test(s)),
   staffingCell.slice(0, 3).join(' ; '));
 
 // 优先级徽章
-const pBadges = await page.$$eval('.projects-priority', els => els.map(e => e.textContent));
+const pBadges = await page.$$eval('.req-pri', els => els.map(e => e.textContent));
 check('优先级徽章', pBadges.length >= 3 && pBadges.every(p => /^P\d$/.test(p)), pBadges.join(','));
 
 // ── 2. 版本内联编辑 → 分组出现 ────────────────────────
@@ -125,13 +125,42 @@ await page.waitForTimeout(1500);
   const ry = firstRow ? Math.round((await firstRow.boundingBox()).y) : 9999;
   let visible = 0;
   for (const r of rows) { const b = await r.boundingBox(); if (b.y + b.height <= 900) visible++; }
-  check('首屏包装克制(工具栏+筛选 ≤ 160px)', tb + fb <= 160, `toolbar=${tb} filter=${fb}`);
+  check('首屏包装克制(单行工具栏 ≤ 56px)', tb <= 56, `toolbar=${tb}`);
   check('首条数据在 y<450 进入视口', ry < 450, `y=${ry}`);
   check('首屏可见数据行 ≥ 需求总数一半', visible >= Math.ceil(rows.length / 2), `${visible}/${rows.length}`);
   await page.screenshot({ path: '/tmp/boards-fullpage-1600.png', fullPage: false });
 }
 
-// ── 6. 全程零错误 + 零弹窗 ────────────────────────────
+// ── 6. 视觉秩序 20 维清单抽检(字号/分隔线/行高/圆角/命中目标) ──
+{
+  const metrics = await page.evaluate(() => {
+    const board = document.querySelector('.projects-board');
+    const sizes = new Set(), radii = new Set();
+    let rules = 0, minHit = 999;
+    board.querySelectorAll('*').forEach(el => {
+      const c = getComputedStyle(el);
+      if (el.textContent?.trim() || el.matches('button,input,select')) sizes.add(c.fontSize);
+      if (c.borderRadius !== '0px') radii.add(c.borderRadius);
+      for (const side of ['Top', 'Bottom']) {
+        if (parseFloat(c[`border${side}Width`]) > 0 && c[`border${side}Color`] !== 'rgba(0, 0, 0, 0)') rules++;
+      }
+    });
+    board.querySelectorAll('button').forEach(b => {
+      const r = b.getBoundingClientRect();
+      if (r.width > 0) minHit = Math.min(minHit, Math.round(Math.min(r.width, r.height)));
+    });
+    const rows = Array.from(board.querySelectorAll('.requirements-row')).map(r => Math.round(r.getBoundingClientRect().height));
+    return { fontSizes: sizes.size, radii: radii.size, hRules: rules, minHit, rows };
+  });
+  check(`字号档位 ≤ 6 (${metrics.fontSizes})`, metrics.fontSizes <= 6);
+  check(`圆角档位 ≤ 4 (${metrics.radii})`, metrics.radii <= 4);
+  check(`水平分隔线 ≤ 14 (${metrics.hRules})`, metrics.hRules <= 14);
+  check(`最小命中目标 ≥ 24px (${metrics.minHit})`, metrics.minHit >= 24);
+  const uniform = metrics.rows.length > 0 && metrics.rows.every(h => Math.abs(h - metrics.rows[0]) <= 1);
+  check(`数据行高统一 40±1 (${metrics.rows.join(',')})`, uniform && Math.abs(metrics.rows[0] - 40) <= 1);
+}
+
+// ── 7. 全程零错误 + 零弹窗 ────────────────────────────
 check('零页面错误', pageErrors.length === 0, pageErrors.slice(0, 2).join(' | '));
 const dialogs = await page.$$('dialog[open], [role="dialog"]');
 check('零模态弹窗', dialogs.length === 0);

@@ -205,13 +205,14 @@ export function LifecycleCellControls({ project }: { project: any }) {
         )}
       </span>
 
+      {/* 死线内联在徽章行内(行高统一 40px 的关键); 短格式 MM-DD, tooltip 带全年份 */}
       {inDesign && deadline && (
-        <span className={overdue ? 'lifecycle-deadline lifecycle-deadline--overdue' : 'lifecycle-deadline'}>
-          {t('projects:lifecycle.deadlineShort', { date: deadline })}
+        <span
+          className={overdue ? 'lifecycle-deadline--inline lifecycle-deadline--overdue' : 'lifecycle-deadline--inline'}
+          title={deadline}
+        >
+          {deadline.slice(5)}
         </span>
-      )}
-      {!inDesign && project.iteration_label && (
-        <span className="lifecycle-deadline">{project.iteration_label}</span>
       )}
 
       {mode && (

@@ -267,7 +267,7 @@ describe('Requirements Board (需求台)', () => {
       renderComponent();
 
       await waitFor(() => {
-        expect(screen.getByText('Pending RAT')).toBeInTheDocument();
+        expect(screen.getAllByText('Pending RAT').length).toBeGreaterThan(0);
       });
 
       await user.click(screen.getByRole('button', { name: 'Start design' }));
@@ -282,10 +282,14 @@ describe('Requirements Board (需求台)', () => {
       renderComponent();
 
       await waitFor(() => {
-        expect(screen.getByText('Pending RAT')).toBeInTheDocument();
+        expect(screen.getAllByText('Pending RAT').length).toBeGreaterThan(0);
       });
 
-      await user.click(screen.getByRole('button', { name: /Pending RAT/ }));
+      // the badge is the button (the select option is not a button)
+      const badge = screen
+        .getAllByRole('button', { name: /Pending RAT/ })
+        .find((b) => b.closest('.lifecycle-cell'));
+      await user.click(badge!);
 
       const selector = within(screen.getByTestId('lc-state-list'));
       ['NOK', 'Designing', 'Backlog', 'Scheduled', 'In Iteration', 'Delivered', 'Cancelled'].forEach(

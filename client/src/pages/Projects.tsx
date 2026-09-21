@@ -2,10 +2,9 @@ import { useMemo, useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Plus, Edit2, Trash2, Tag, ChevronDown, ChevronRight } from 'lucide-react';
+import { Plus, Edit2, Trash2, Tag, ChevronDown, ChevronRight, Search, X } from 'lucide-react';
 import { api } from '../lib/api-client';
 import { queryKeys } from '../lib/queryKeys';
-import { FilterBar } from '../components/ui/FilterBar';
 import { LoadingSpinner } from '../components/ui/LoadingSpinner';
 import { ErrorMessage } from '../components/ui/ErrorMessage';
 import ProjectModal from '../components/modals/ProjectModal';
@@ -87,38 +86,46 @@ function VersionCell({ project, onSaved }: { project: any; onSaved: () => void }
   );
 }
 
-/** 人力迷你两侧条: 设 实名+池 │ 开 实名+池 (FTE) */
+/** 人力列: 微条形(长度编码) + 一位小数右对齐数字。
+    named=主题色实心段, pool=琥珀段; 标尺上限 4 FTE。 */
 function StaffingCell({ project }: { project: any }) {
   const { t } = useTranslation();
   const s = project.staffing_summary;
   if (!s) return <span className="text-muted">—</span>;
-  const fmt = (side: { named: number; pool: number }) => {
-    if (side.named === 0 && side.pool === 0) return <span className="text-muted">—</span>;
-    return (
-      <span>
-        {side.named > 0 && <strong>{side.named}</strong>}
-        {side.named > 0 && side.pool > 0 && '+'}
-        {side.pool > 0 && <span className="projects-pool-num">{side.pool}</span>}
-      </span>
-    );
-  };
+  const fmt = (n: number) => Number(n ?? 0).toFixed(1);
+  const SCALE = 4;
+  const pct = (n: number) => Math.min(100, (n / SCALE) * 100);
+  const sides: Array<[string, { named: number; pool: number }]> = [
+    [t('projects:staffing.designShort'), s.design],
+    [t('projects:staffing.devShort'), s.dev]
+  ];
   return (
     <span
-      className="projects-staffing"
+      className="req-staff"
       title={t('projects:staffing.summaryTitle', {
-        dn: s.design.named, dp: s.design.pool, vn: s.dev.named, vp: s.dev.pool
+        dn: fmt(s.design.named), dp: fmt(s.design.pool),
+        vn: fmt(s.dev.named), vp: fmt(s.dev.pool)
       })}
     >
-      <span className="projects-staffing-side">{t('projects:staffing.designShort')} {fmt(s.design)}</span>
-      <span className="projects-staffing-divider">│</span>
-      <span className="projects-staffing-side">{t('projects:staffing.devShort')} {fmt(s.dev)}</span>
+      {sides.map(([label, side]) => (
+        <span className="req-staff-row" key={label}>
+          <span className="req-staff-label">{label}</span>
+          <span className="req-staff-track">
+            <span className="req-staff-named" style={{ width: `${pct(side.named)}%` }} />
+            {side.pool > 0 && <span className="req-staff-pool" style={{ width: `${pct(side.pool)}%` }} />}
+          </span>
+          <span className="req-staff-num">
+            {fmt(side.named)}{side.pool > 0 ? `+${fmt(side.pool)}` : ''}
+          </span>
+        </span>
+      ))}
     </span>
   );
 }
 
 function PriorityBadge({ priority }: { priority: number }) {
   const level = Math.min(5, Math.max(1, Number(priority) || 5));
-  return <span className={`projects-priority projects-priority--${level}`}>P{level}</span>;
+  return <span className={`req-pri req-pri--${level}`}>P{level}</span>;
 }
 
 const UNVERSIONED = '__unversioned__';
@@ -255,64 +262,65 @@ export function Projects() {
 
   const invalidate = () => queryClient.invalidateQueries({ queryKey: queryKeys.projects.all });
 
-  const filterConfig = [
-    {
-      name: 'search',
-      label: t('common:search'),
-      type: 'search' as const,
-      placeholder: t('projects:searchPlaceholder')
-    },
-    {
-      name: 'lifecycle_state',
-      label: t('projects:lifecycle.filterLabel'),
-      type: 'select' as const,
-      options: [
-        { value: 'pending_rat', label: t('projects:lifecycle.state.pending_rat') },
-        { value: 'nok', label: t('projects:lifecycle.state.nok') },
-        { value: 'designing', label: t('projects:lifecycle.state.designing') },
-        { value: 'backlog', label: t('projects:lifecycle.state.backlog') },
-        { value: 'scheduled', label: t('projects:lifecycle.state.scheduled') },
-        { value: 'in_iteration', label: t('projects:lifecycle.state.in_iteration') },
-        { value: 'delivered', label: t('projects:lifecycle.state.delivered') },
-        { value: 'cancelled', label: t('projects:lifecycle.state.cancelled') }
-      ]
-    },
-    {
-      name: 'tag_id',
-      label: t('projects:tags.filterLabel'),
-      type: 'select' as const,
-      options: tags.map((tag) => ({ value: String(tag.id), label: tag.name }))
-    }
-  ];
-
-  // isLoading (not isPending): a disabled query (no scenario context) is not loading
-  if (isLoading) return <LoadingSpinner />;
+  if (isLoading) return <LoadingSpinner />;  if (isLoading) return <LoadingSpinner />;
   if (error) return <ErrorMessage message={(error as any)?.message || t('projects:loadError')} />;
 
   return (
     <div className="projects-board">
-      <div className="projects-toolbar">
-        <div className="projects-toolbar-info">
-          {t('projects:board.countSummary', { count: demandProjects.length })}
+      {/* 单行工具栏(静区): 计数 + 搜索 | 筛选 | 动作 —— 40px 栅格,主色仅"新建"一处 */}
+      <div className="projects-toolbar" data-testid="filter-bar">
+        <span className="board-count">{t('projects:board.countSummary', { count: demandProjects.length })}</span>
+        <div className="board-search">
+          <Search size={14} className="board-search-icon" />
+          <input
+            data-testid="search-input"
+            className="board-search-input"
+            placeholder={t('projects:searchPlaceholder')}
+            value={filters.search}
+            onChange={(e) => setFilters((prev) => ({ ...prev, search: e.target.value }))}
+          />
         </div>
-        <div className="projects-toolbar-actions">
-          <button className="lifecycle-btn" onClick={() => setTagManagerOpen(true)}>
-            <Tag size={14} className="inline mr-1" />
+        <select
+          data-testid="lifecycle-filter"
+          className="board-select"
+          value={filters.lifecycle_state}
+          onChange={(e) => setFilters((prev) => ({ ...prev, lifecycle_state: e.target.value }))}
+        >
+          <option value="">{t('projects:lifecycle.filterLabel')}</option>
+          {['pending_rat', 'nok', 'designing', 'backlog', 'scheduled', 'in_iteration', 'delivered', 'cancelled'].map(
+            (s) => <option key={s} value={s}>{t(`projects:lifecycle.state.${s}`)}</option>
+          )}
+        </select>
+        <select
+          data-testid="tag-filter"
+          className="board-select"
+          value={filters.tag_id}
+          onChange={(e) => setFilters((prev) => ({ ...prev, tag_id: e.target.value }))}
+        >
+          <option value="">{t('projects:tags.filterLabel')}</option>
+          {tags.map((tag) => <option key={String(tag.id)} value={String(tag.id)}>{tag.name}</option>)}
+        </select>
+        {(filters.search || filters.lifecycle_state || filters.tag_id) && (
+          <button
+            data-testid="reset-filters"
+            className="board-reset"
+            title={t('projects:board.resetFilters')}
+            onClick={() => setFilters({ search: '', lifecycle_state: '', tag_id: '' })}
+          >
+            <X size={13} />
+          </button>
+        )}
+        <div className="board-toolbar-right">
+          <button className="board-ghost-btn" onClick={() => setTagManagerOpen(true)}>
+            <Tag size={14} />
             {t('projects:tags.manage')}
           </button>
-          <button className="btn btn-primary" onClick={addProjectModal.open}>
-            <Plus size={14} />
+          <button className="board-primary-btn" onClick={addProjectModal.open}>
+            <Plus size={15} />
             {t('projects:addNewProject')}
           </button>
         </div>
       </div>
-
-      <FilterBar
-        filters={filterConfig}
-        values={filters}
-        onChange={(name: string, value: string) => setFilters((prev) => ({ ...prev, [name]: value }))}
-        onReset={() => setFilters({ search: '', lifecycle_state: '', tag_id: '' })}
-      />
 
       <div className="requirements-table" data-testid="requirements-table">
         <div className="requirements-thead">
@@ -361,13 +369,28 @@ export function Projects() {
                           <span className="requirements-name">
                             <span className="requirements-name-text">{project.name}</span>
                             {project.project_sub_type_name && (
-                              <span className="requirements-subtype">{project.project_sub_type_name}</span>
+                              <span className="requirements-subtype">· {project.project_sub_type_name}</span>
                             )}
                             {(project.tags ?? []).slice(0, 3).map((tag: any) => (
-                              <span key={tag.id} className="tag-badge" style={{ backgroundColor: tag.color || 'var(--text-tertiary)' }}>
+                              <span
+                                key={tag.id}
+                                className="req-tag"
+                                style={{
+                                  color: tag.color || 'var(--text-secondary)',
+                                  background: `${tag.color || '#888888'}1f`
+                                }}
+                              >
                                 {tag.name}
                               </span>
                             ))}
+                            {(project.tags?.length ?? 0) > 3 && (
+                              <span
+                                className="req-tag req-tag--more"
+                                title={(project.tags ?? []).slice(3).map((tg: any) => tg.name).join('、')}
+                              >
+                                +{(project.tags?.length ?? 0) - 3}
+                              </span>
+                            )}
                           </span>
 
                           <span onClick={(e) => e.stopPropagation()}>
@@ -382,18 +405,18 @@ export function Projects() {
 
                           <PriorityBadge priority={project.priority} />
 
-                          <span className="requirements-owner">{project.owner_name || <span className="text-muted">—</span>}</span>
+                          <span className="requirements-owner">{project.owner_name || '—'}</span>
 
                           <span className="requirements-actions" onClick={(e) => e.stopPropagation()}>
                             <button
-                              className="btn table-action-btn"
+                              className="req-icon-btn"
                               title={t('common:edit')}
                               onClick={() => handleEditProject(project)}
                             >
                               <Edit2 size={14} />
                             </button>
                             <button
-                              className={`btn table-action-btn ${confirmingDelete === project.id ? 'projects-delete-confirming' : ''}`}
+                              className={`req-icon-btn ${confirmingDelete === project.id ? 'req-icon-btn--confirm' : ''}`}
                               title={confirmingDelete === project.id ? t('common:confirm') : t('common:delete')}
                               onClick={() => twoClickDelete(project)}
                             >

@@ -1474,7 +1474,7 @@ input[type="checkbox"].settings-checkbox,
 .lc-popover-form input {
   font-size: 13px;
   padding: 5px 8px;
-  border-radius: 6px;
+  border-radius: 4px;
   border: 1px solid var(--border-color);
   background: transparent;
   color: var(--text-primary);
@@ -1574,178 +1574,333 @@ input[type="checkbox"].settings-checkbox,
 .lifecycle-warning-items { color: var(--text-secondary); }
 
 /* ============================================================
-   需求台 (requirements board): 分组表 + 新列
+   需求台 视觉层 (20 维清单令牌制, 2026-09-22)
+   字号 3 档 · 字重 2 档 · 圆角 3 档 · 行高 40 栅格 · 分隔线预算 ≤10
    ============================================================ */
+.projects-board {
+  /* 字阶 */
+  --b-fs-name: 14px;
+  --b-fs-body: 12.5px;
+  --b-fs-meta: 11px;
+  /* 圆角 */
+  --b-r-sm: 4px;
+  --b-r-card: 8px;
+  --b-r-pill: 999px;
+  padding: 16px 24px 28px;
+}
+
+/* 板块内按钮退出全局 44px 触控规则,启用分级命中(24/32/40) */
+.projects-board button,
+.projects-board .btn {
+  min-height: 0;
+  min-width: 0;
+}
+
+/* ── 单行工具栏(静区) ── */
 .projects-toolbar {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  flex-wrap: wrap;
+  gap: 10px;
+  min-height: 40px;
   margin-bottom: 12px;
 }
-.projects-toolbar-info { font-size: 13px; color: var(--text-secondary); }
-.projects-toolbar-actions { display: flex; gap: 8px; align-items: center; }
+.board-count {
+  font-size: var(--b-fs-body);
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+.board-search {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 32px;
+  padding: 0 10px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--b-r-sm);
+  flex: 0 1 220px;
+}
+.board-search:focus-within { border-color: var(--accent-color, #3b82f6); }
+.board-search-icon { color: var(--text-secondary); flex-shrink: 0; }
+.board-search-input {
+  border: none;
+  background: none;
+  outline: none;
+  color: var(--text-primary);
+  font-size: var(--b-fs-body);
+  width: 100%;
+  min-height: 30px;
+}
+.board-select {
+  min-height: 32px;
+  padding: 0 8px;
+  font-size: var(--b-fs-body);
+  color: var(--text-primary);
+  background: transparent;
+  border: 1px solid var(--border-color);
+  border-radius: var(--b-r-sm);
+  max-width: 150px;
+}
+.projects-board .board-reset {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 32px;
+  min-height: 32px;
+  border: none;
+  background: none;
+  color: var(--text-secondary);
+  border-radius: var(--b-r-sm);
+  cursor: pointer;
+}
+.projects-board .board-reset:hover { background: var(--bg-secondary, rgba(127, 127, 127, 0.12)); color: var(--text-primary); }
+.board-toolbar-right { margin-left: auto; display: inline-flex; gap: 8px; align-items: center; }
+.projects-board .board-ghost-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  min-height: 32px;
+  padding: 0 12px;
+  font-size: var(--b-fs-body);
+  color: var(--text-secondary);
+  background: none;
+  border: none;
+  border-radius: var(--b-r-sm);
+  cursor: pointer;
+}
+.projects-board .board-ghost-btn:hover { background: var(--bg-secondary, rgba(127, 127, 127, 0.12)); color: var(--text-primary); }
+.projects-board .board-primary-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  min-height: 40px;
+  padding: 0 16px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #fff;
+  background: var(--accent-color, #3b82f6);
+  border: none;
+  border-radius: var(--b-r-sm);
+  cursor: pointer;
+}
+.projects-board .board-primary-btn:hover { filter: brightness(0.92); }
 
+/* ── 表格: 行高 40 栅格, 行间留白分隔(无线) ── */
 .requirements-table {
   border: 1px solid var(--border-color);
-  border-radius: 8px;
+  border-radius: var(--b-r-card);
   overflow: hidden;
-  font-size: 13px;
 }
 
 .requirements-thead {
   display: grid;
-  grid-template-columns: minmax(200px, 1.5fr) 205px 150px 150px 56px 96px 110px;
+  grid-template-columns: minmax(200px, 1.4fr) 212px 150px 150px 56px 96px 104px;
   gap: 8px;
-  padding: 8px 14px;
-  background: var(--bg-secondary, rgba(127, 127, 127, 0.08));
+  align-items: center;
+  min-height: 36px;
+  padding: 0 14px;
+  font-size: var(--b-fs-meta);
+  font-weight: 400;
   color: var(--text-secondary);
-  font-weight: 600;
+  background: var(--bg-secondary, rgba(127, 127, 127, 0.06));
   border-bottom: 1px solid var(--border-color);
 }
 
-.requirements-group-header {
+.projects-board .requirements-group-header {
   display: flex;
   align-items: center;
   gap: 6px;
   width: 100%;
-  padding: 8px 14px;
-  background: var(--bg-secondary, rgba(127, 127, 127, 0.05));
+  min-height: 36px;
+  padding: 0 14px;
+  background: none;
   border: none;
-  border-bottom: 1px solid var(--border-color);
+  border-top: 1px solid var(--border-color);
   color: var(--text-primary);
   cursor: pointer;
-  font-size: 13.5px;
+  font-size: 13px;
+  font-weight: 600;
   text-align: left;
 }
-.requirements-group-header:hover { background: var(--bg-secondary, rgba(127, 127, 127, 0.1)); }
+.projects-board .requirements-group-header:first-of-type { border-top: none; }
+.projects-board .requirements-group-header:hover { color: var(--accent-color, #3b82f6); }
+.requirements-group-count {
+  font-size: var(--b-fs-meta);
+  font-weight: 400;
+  color: var(--text-secondary);
+}
 
 .requirements-release-header {
   display: flex;
   align-items: center;
   gap: 6px;
-  padding: 5px 14px 5px 30px;
-  font-size: 12px;
-  font-weight: 600;
+  min-height: 28px;
+  padding: 0 14px 0 28px;
+  font-size: var(--b-fs-body);
+  font-weight: 500;
   color: var(--accent-color, #3b82f6);
-  border-bottom: 1px dashed var(--border-color);
-}
-
-.requirements-group-count {
-  font-size: 11.5px;
-  font-weight: 400;
-  color: var(--text-tertiary, var(--text-secondary));
+  border: none;
 }
 
 .requirements-row {
   display: grid;
-  grid-template-columns: minmax(200px, 1.5fr) 205px 150px 150px 56px 96px 110px;
+  grid-template-columns: minmax(200px, 1.4fr) 212px 150px 150px 56px 96px 104px;
   gap: 8px;
   align-items: center;
-  padding: 7px 14px;
-  border-bottom: 1px solid var(--border-color);
+  min-height: 40px;
+  padding: 0 14px;
   cursor: pointer;
 }
 .requirements-row:hover { background: var(--bg-secondary, rgba(127, 127, 127, 0.06)); }
-.requirements-row--warned {
-  background: rgba(245, 158, 11, 0.06);
-  box-shadow: inset 3px 0 0 #f59e0b;
-}
-.requirements-row--warned:hover { background: rgba(245, 158, 11, 0.1); }
+.requirements-row--warned { box-shadow: inset 3px 0 0 #f59e0b; }
+.requirements-row--warned:hover { background: rgba(245, 158, 11, 0.07); }
 
+.requirements-empty {
+  padding: 28px;
+  text-align: center;
+  color: var(--text-secondary);
+}
+
+/* 名称: 14/600 主文 + 点分子类型 + 无边框 tint 标签 */
 .requirements-name {
   display: flex;
   align-items: center;
   gap: 6px;
   min-width: 0;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  overflow: hidden;
 }
-.requirements-name-text { font-weight: 500; }
-.requirements-subtype {
-  font-size: 11px;
-  padding: 1px 6px;
-  border-radius: 4px;
-  border: 1px solid var(--border-color);
+.requirements-name-text { font-size: var(--b-fs-name); font-weight: 600; white-space: nowrap; }
+.requirements-subtype { font-size: var(--b-fs-meta); color: var(--text-secondary); white-space: nowrap; }
+.req-tag {
+  font-size: var(--b-fs-meta);
+  padding: 1px 7px;
+  border-radius: var(--b-r-pill);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.req-tag--more { background: var(--bg-secondary, rgba(127, 127, 127, 0.14)); color: var(--text-secondary); cursor: help; }
+
+/* 人力: 微条形(长度编码) + 右对齐等宽数字 */
+.req-staff { display: inline-flex; flex-direction: column; gap: 4px; width: 100%; }
+.req-staff-row { display: grid; grid-template-columns: 14px 1fr 52px; align-items: center; gap: 6px; }
+.req-staff-label { font-size: var(--b-fs-meta); color: var(--text-secondary); }
+.req-staff-track {
+  position: relative;
+  height: 4px;
+  border-radius: var(--b-r-pill);
+  background: var(--bg-secondary, rgba(127, 127, 127, 0.18));
+  overflow: hidden;
+  display: flex;
+}
+.req-staff-named { background: var(--accent-color, #3b82f6); height: 100%; }
+.req-staff-pool { background: #f59e0b; height: 100%; }
+.req-staff-num {
+  font-size: var(--b-fs-meta);
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+  color: var(--text-primary);
+  white-space: nowrap;
+}
+
+/* 优先级: 纯文字着色,等宽数字 */
+.req-pri {
+  font-size: var(--b-fs-body);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+}
+.req-pri--1 { color: var(--danger-color, #dc2626); }
+.req-pri--2 { color: #f59e0b; }
+.req-pri--3, .req-pri--4, .req-pri--5 { color: var(--text-secondary); font-weight: 400; }
+
+.requirements-owner {
+  font-size: var(--b-fs-body);
+  color: var(--text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 操作: 32px 裸图标(悬停显底) */
+.requirements-actions { display: inline-flex; gap: 8px; align-items: center; justify-content: flex-end; }
+.projects-board .req-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 32px;
+  min-height: 32px;
+  border: none;
+  background: none;
+  border-radius: var(--b-r-sm);
+  color: var(--text-secondary);
+  font-size: var(--b-fs-meta);
+  font-weight: 600;
+  cursor: pointer;
+}
+.projects-board .req-icon-btn:hover { background: var(--bg-secondary, rgba(127, 127, 127, 0.14)); color: var(--text-primary); }
+.projects-board .req-icon-btn--confirm { color: var(--danger-color, #dc2626); }
+
+/* 版本: 文本型编辑点(24px 命中),悬停显底 */
+.projects-version { display: inline-flex; align-items: center; gap: 3px; }
+.projects-board .projects-version-part {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 24px;
+  min-width: 28px;
+  padding: 0 6px;
+  background: none;
+  border: none;
+  border-radius: var(--b-r-sm);
+  color: var(--text-primary);
+  font-size: var(--b-fs-body);
+  font-family: var(--font-mono, monospace);
+  cursor: text;
+}
+.projects-board .projects-version-part:hover { background: var(--bg-secondary, rgba(127, 127, 127, 0.14)); }
+.projects-version-sep { color: var(--text-secondary); }
+
+/* 状态列内联件: 徽章 pill / 快捷键文字型 / 死线内联 / 告警短词去框 */
+.projects-board .lifecycle-cell {
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 4px;
+  min-width: 0;
+}
+.projects-board .lifecycle-btn { border: none; background: none; }
+.projects-board .lifecycle-quick-btn {
+  min-height: 32px;
+  padding: 0 10px;
+  font-size: var(--b-fs-body);
+  font-weight: 600;
+  color: var(--accent-color, #3b82f6);
+  border-radius: var(--b-r-sm);
+}
+.projects-board .lifecycle-quick-btn:hover { background: rgba(59, 130, 246, 0.12); }
+.projects-board .lifecycle-badge-btn {
+  min-height: 32px;
+  padding: 3px 10px;
+  font-size: var(--b-fs-body);
+  font-weight: 600;
+  border-radius: var(--b-r-pill);
+}
+.lifecycle-deadline--inline {
+  font-size: var(--b-fs-meta);
+  font-variant-numeric: tabular-nums;
   color: var(--text-secondary);
   white-space: nowrap;
 }
-
-.requirements-owner { font-size: 12.5px; color: var(--text-secondary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-
-.requirements-actions { display: flex; gap: 6px; }
-.projects-delete-confirming {
-  color: var(--danger-color, #dc2626) !important;
-  border-color: var(--danger-color, #dc2626) !important;
-  font-size: 12px;
-  font-weight: 600;
-}
-
-.requirements-empty {
-  padding: 28px;
-  text-align: center;
-  color: var(--text-tertiary, var(--text-secondary));
-}
-
-/* 版本内联两段 */
-.projects-version {
-  display: inline-flex;
-  align-items: center;
-  gap: 3px;
-}
-.projects-version-part {
-  background: none;
-  border: 1px dashed transparent;
-  border-radius: 5px;
-  padding: 2px 6px;
-  color: var(--text-primary);
-  font-size: 12.5px;
-  font-family: var(--font-mono, monospace);
-  cursor: text;
-  min-height: 0;
-  min-width: 0;
-}
-.projects-version-part:hover { border-color: var(--border-color); background: var(--bg-secondary, rgba(127, 127, 127, 0.08)); }
-.projects-version-sep { color: var(--text-tertiary, var(--text-secondary)); }
-
-/* 人力迷你两侧条 */
-.projects-staffing {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 12.5px;
-  white-space: nowrap;
-}
-.projects-staffing-side strong { color: var(--text-primary); }
-.projects-pool-num { color: #f59e0b; font-weight: 600; }
-.projects-staffing-divider { color: var(--border-color); }
-
-/* 优先级徽章 */
-.projects-priority {
-  display: inline-block;
-  font-size: 11.5px;
-  font-weight: 700;
-  padding: 1px 7px;
-  border-radius: 5px;
-  border: 1px solid var(--border-color);
-}
-.projects-priority--1 { color: #ef4444; border-color: rgba(239, 68, 68, 0.5); background: rgba(239, 68, 68, 0.08); }
-.projects-priority--2 { color: #f59e0b; border-color: rgba(245, 158, 11, 0.5); background: rgba(245, 158, 11, 0.08); }
-.projects-priority--3 { color: var(--text-primary); }
-.projects-priority--4, .projects-priority--5 { color: var(--text-secondary); }
-
-/* 告警短词 chip */
-.lifecycle-warn-chip {
-  display: inline-block;
-  font-size: 10.5px;
-  font-weight: 600;
+.lifecycle-deadline--inline.lifecycle-deadline--overdue { color: #f59e0b; font-weight: 600; }
+.projects-board .lifecycle-warn-chip {
+  border: none;
+  background: rgba(245, 158, 11, 0.12);
   color: #f59e0b;
-  border: 1px solid rgba(245, 158, 11, 0.55);
-  border-radius: 4px;
-  padding: 0 4px;
-  margin-right: 5px;
-  white-space: nowrap;
-  background: rgba(245, 158, 11, 0.08);
+  font-size: var(--b-fs-meta);
+  font-weight: 600;
+  border-radius: var(--b-r-pill);
+  padding: 1px 7px;
+  margin-right: 4px;
 }
 
 /* ============================================================
@@ -1800,24 +1955,6 @@ input[type="checkbox"].settings-checkbox,
 .affairs-stat { font-size: 12.5px; color: var(--text-secondary); }
 .affairs-stat--month { margin-left: auto; color: var(--text-primary); font-weight: 600; }
 .affairs-detail { border-top: none; border-radius: 0 0 8px 8px; }
-
-/* 需求台单根容器 — unified-tab-content 的 > * {flex:1;height:100%} 规则
-   是为单孩子页面设计的; 多兄弟碎片会被均分拉伸(工具栏曾因此撑到 245px)。
-   包一层让 tab 内容回到单孩子前提, 子块自然高度。 */
-.projects-board {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  align-items: stretch;
-}
-.projects-board .filter-bar { flex: none; }
-
-/* 需求台筛选条: 单行紧凑式 — 标签由控件自带(placeholder/“全部XX”首选项),
-   不再上下堆叠占两行 */
-.projects-board .filter-label { display: none; }
-.projects-board .filter-item { min-width: 160px; flex: 0 1 210px; }
-.projects-board .filter-bar { padding: 4px 0; }
-.projects-board .filter-bar .btn { min-height: 0; }
 
 /* 仪表盘紧凑工具栏: 副标题 + 日期选择同一行, 去掉独立标题条 */
 .dashboard-toolbar {

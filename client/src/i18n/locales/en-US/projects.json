@@ -390,7 +390,8 @@
     "unversionedGroup": "Unversioned",
     "unscheduledGroup": "Unscheduled",
     "groupCount": "({{count}})",
-    "empty": "No requirements"
+    "empty": "No requirements",
+    "resetFilters": "Clear filters"
   },
   "version": {
     "productTitle": "Product version, click to edit (e.g. B)",

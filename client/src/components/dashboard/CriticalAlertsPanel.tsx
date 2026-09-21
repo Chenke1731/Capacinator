@@ -34,27 +34,27 @@ interface CriticalAlertsPanelProps {
 const ALERT_CONFIG = {
   capacity_gap: {
     icon: Users,
-    color: 'text-red-600',
-    bgColor: 'bg-red-50',
-    borderColor: 'border-red-200'
+    color: 'text-red-600 dark:text-red-400',
+    bgColor: 'bg-red-50 dark:bg-red-500/15',
+    borderColor: 'border-red-200 dark:border-red-500/30'
   },
   project_risk: {
     icon: AlertTriangle,
-    color: 'text-orange-600',
-    bgColor: 'bg-orange-50',
-    borderColor: 'border-orange-200'
+    color: 'text-orange-600 dark:text-orange-400',
+    bgColor: 'bg-orange-50 dark:bg-orange-500/15',
+    borderColor: 'border-orange-200 dark:border-orange-500/30'
   },
   deadline_warning: {
     icon: Clock,
-    color: 'text-yellow-600',
-    bgColor: 'bg-yellow-50',
-    borderColor: 'border-yellow-200'
+    color: 'text-yellow-600 dark:text-yellow-400',
+    bgColor: 'bg-yellow-50 dark:bg-yellow-500/15',
+    borderColor: 'border-yellow-200 dark:border-yellow-500/30'
   },
   over_allocation: {
     icon: TrendingDown,
-    color: 'text-red-600',
-    bgColor: 'bg-red-50',
-    borderColor: 'border-red-200'
+    color: 'text-red-600 dark:text-red-400',
+    bgColor: 'bg-red-50 dark:bg-red-500/15',
+    borderColor: 'border-red-200 dark:border-red-500/30'
   }
 };
 
@@ -150,7 +150,7 @@ export function CriticalAlertsPanel({ alerts, className = '' }: CriticalAlertsPa
                     <span className="truncate">
                       {alert.title}
                       {alert.count && (
-                        <span className={`dashboard-alert-badge ml-2 bg-white/50 ${config.color}`}>
+                        <span className={`dashboard-alert-badge ml-2 bg-white/50 dark:bg-white/10 ${config.color}`}>
                           {alert.count}
                         </span>
                       )}

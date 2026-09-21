@@ -299,6 +299,17 @@
       "iterationLabel": "迭代号",
       "iterationPlaceholder": "如 Iter-2026-10,可留空",
       "confirm": "确认启动"
+    },
+    "quick": {
+      "admit": "准入",
+      "schedule": "排序",
+      "start": "启动迭代",
+      "deliver": "交付",
+      "more": "全部状态操作",
+      "dateAuto": "留空=项目周期",
+      "dateAutoHint": "日期留空则默认取项目期望起止;排序即建池,池占位与实名同权参与产能计算。",
+      "terminal": "终态,无后续流转",
+      "transitionFailed": "流转失败"
     }
   },
   "staffing": {

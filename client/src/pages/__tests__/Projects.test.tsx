@@ -29,6 +29,12 @@ jest.mock('../../lib/api-client', () => ({
     tags: {
       list: jest.fn(),
     },
+    lifecycle: {
+      transition: jest.fn(),
+    },
+    roles: {
+      list: jest.fn(),
+    },
   },
 }));
 
@@ -333,6 +339,48 @@ describe('Projects Page', () => {
       // Fixtures carry no lifecycle_state — every row shows the standing-item dash
       const dashElements = screen.getAllByText('—');
       expect(dashElements.length).toBeGreaterThan(0);
+    });
+
+    test('advances lifecycle in place from the list row', async () => {
+      const user = userEvent.setup();
+      (api.projects.list as jest.Mock).mockResolvedValue({
+        data: { data: [{ ...mockProjects[0], lifecycle_state: 'pending_rat' }] }
+      });
+      (api.lifecycle.transition as jest.Mock).mockResolvedValue({
+        data: { project: { lifecycle_state: 'designing' }, event: {} }
+      });
+
+      renderComponent();
+
+      await waitFor(() => {
+        expect(screen.getByText('Pending RAT')).toBeInTheDocument();
+      });
+
+      // One click on the primary quick-advance button — no detail page, no modal
+      await user.click(screen.getByRole('button', { name: 'Start design' }));
+
+      await waitFor(() => {
+        expect(api.lifecycle.transition).toHaveBeenCalledWith('proj-1', { to: 'designing' });
+      });
+    });
+
+    test('badge popover exposes secondary transitions', async () => {
+      const user = userEvent.setup();
+      (api.projects.list as jest.Mock).mockResolvedValue({
+        data: { data: [{ ...mockProjects[0], lifecycle_state: 'designing' }] }
+      });
+
+      renderComponent();
+
+      await waitFor(() => {
+        expect(screen.getByText('Designing')).toBeInTheDocument();
+      });
+
+      await user.click(screen.getByRole('button', { name: /Designing/ }));
+
+      expect(screen.getByText('Mark NOK')).toBeInTheDocument();
+      expect(screen.getByText('Cancel')).toBeInTheDocument();
+      expect(screen.getByRole('button', { name: 'Admit' })).toBeInTheDocument();
     });
 
     test('shows loading state', () => {

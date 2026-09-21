@@ -10,6 +10,7 @@ import { FilterBar } from '../components/ui/FilterBar';
 import { LoadingSpinner } from '../components/ui/LoadingSpinner';
 import { ErrorMessage } from '../components/ui/ErrorMessage';
 import ProjectModal from '../components/modals/ProjectModal';
+import { LifecycleCellControls } from '../components/lifecycle/LifecycleCellControls';
 import { TagManagerDialog } from '../components/tags/TagManagerDialog';
 import ProjectAllocations from '../components/ProjectAllocations';
 import { useModal } from '../hooks/useModal';
@@ -205,25 +206,9 @@ export function Projects() {
     {
       key: 'lifecycle_state',
       header: t('projects:lifecycleColumn'),
-      render: (value: string | null, row: any) => {
-        if (!value) return <span className="text-muted">—</span>;
-        const inDesign = ['pending_rat', 'nok', 'designing'].includes(value);
-        const deadline = row.design_deadline ? String(row.design_deadline).slice(0, 10) : null;
-        const overdue =
-          inDesign && deadline && new Date(deadline + 'T00:00:00').getTime() < new Date().setHours(0, 0, 0, 0);
-        return (
-          <span style={{ display: 'inline-flex', flexDirection: 'column', gap: 3 }}>
-            <span className={`lifecycle-state-badge lifecycle-state-badge--${value}`}>
-              {t(`projects:lifecycle.state.${value}`)}
-            </span>
-            {inDesign && deadline && (
-              <span className={overdue ? 'lifecycle-deadline lifecycle-deadline--overdue' : 'lifecycle-deadline'}>
-                {t('projects:lifecycle.deadlineShort', { date: deadline })}
-              </span>
-            )}
-          </span>
-        );
-      }
+      width: '170px',
+      render: (value: string | null, row: any) =>
+        value ? <LifecycleCellControls project={row} /> : <span className="text-muted">—</span>
     },
     {
       key: 'actions',

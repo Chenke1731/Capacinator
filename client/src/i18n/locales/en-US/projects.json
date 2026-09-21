@@ -301,6 +301,17 @@
       "iterationLabel": "Iteration",
       "iterationPlaceholder": "e.g. Iter-2026-10, optional",
       "confirm": "Confirm start"
+    },
+    "quick": {
+      "admit": "Admit",
+      "schedule": "Schedule",
+      "start": "Start",
+      "deliver": "Deliver",
+      "more": "All state actions",
+      "dateAuto": "empty = project window",
+      "dateAutoHint": "Dates default to the project aspiration window; scheduling creates a pool placeholder that consumes capacity like named staffing.",
+      "terminal": "Terminal state",
+      "transitionFailed": "Transition failed"
     }
   },
   "staffing": {

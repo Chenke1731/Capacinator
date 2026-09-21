@@ -369,6 +369,7 @@
     "adjustTitle": "Staffing adjust (pool ±0.5)",
     "adjustHint": "Click to adjust staffing",
     "adjustHintFooter": "Pool placeholders consume capacity instantly; name people on the detail page.",
+    "breakdown": "Named {{named}} + pool {{pool}}",
     "namedLabel": "named {{n}}",
     "poolLabel": "pool {{n}}"
   },
@@ -395,6 +396,7 @@
     "colPriority": "Priority",
     "colOwner": "Owner",
     "unversionedGroup": "Unversioned",
+    "productGroupLabel": "Version {{name}}",
     "unscheduledGroup": "Unscheduled",
     "groupCount": "({{count}})",
     "empty": "No requirements",

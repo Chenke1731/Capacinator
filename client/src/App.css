@@ -1629,6 +1629,7 @@ input[type="checkbox"].settings-checkbox,
   font-size: var(--b-fs-body);
   width: 100%;
   min-height: 30px;
+  border-radius: var(--b-r-sm);
 }
 .board-select {
   min-height: 32px;
@@ -1712,9 +1713,9 @@ input[type="checkbox"].settings-checkbox,
   width: 100%;
   min-height: 36px;
   padding: 0 14px;
-  background: none;
+  background: var(--bg-secondary, rgba(127, 127, 127, 0.06));
   border: none;
-  border-top: 1px solid var(--border-color);
+  border-radius: var(--b-r-sm);
   color: var(--text-primary);
   cursor: pointer;
   font-size: 13px;
@@ -1722,7 +1723,7 @@ input[type="checkbox"].settings-checkbox,
   text-align: left;
 }
 .projects-board .requirements-group-header:first-of-type { border-top: none; }
-.projects-board .requirements-group-header:hover { color: var(--accent-color, #3b82f6); }
+.projects-board .requirements-group-header:hover { background: var(--bg-secondary, rgba(127, 127, 127, 0.14)); }
 .requirements-group-count {
   font-size: var(--b-fs-meta);
   font-weight: 400;
@@ -1735,9 +1736,10 @@ input[type="checkbox"].settings-checkbox,
   gap: 6px;
   min-height: 28px;
   padding: 0 14px 0 28px;
-  font-size: var(--b-fs-body);
-  font-weight: 500;
-  color: var(--accent-color, #3b82f6);
+  font-size: var(--b-fs-meta);
+  font-weight: 600;
+  font-family: var(--font-mono, monospace);
+  color: var(--text-secondary);
   border: none;
 }
 
@@ -1748,6 +1750,7 @@ input[type="checkbox"].settings-checkbox,
   align-items: center;
   min-height: 40px;
   padding: 0 14px;
+  border-bottom: 1px solid var(--border-color, rgba(127, 127, 127, 0.12));
   cursor: pointer;
 }
 .requirements-row:hover { background: var(--bg-secondary, rgba(127, 127, 127, 0.06)); }
@@ -1793,12 +1796,12 @@ input[type="checkbox"].settings-checkbox,
 /* 版本单列按钮 */
 .projects-board .projects-version-part--single { width: 100%; }
 
-/* 人力列: 明文两行 + 点击调整 */
+/* 人力: 明文两行(侧点+标签+实名/池拆分) + 点击调整 */
 .req-staff-wrap { position: relative; min-width: 0; }
 .req-staff {
   display: inline-flex;
   flex-direction: column;
-  gap: 1px;
+  gap: 2px;
   width: 100%;
   border: none;
   background: none;
@@ -1810,17 +1813,25 @@ input[type="checkbox"].settings-checkbox,
 .req-staff:hover { background: var(--bg-secondary, rgba(127, 127, 127, 0.1)); }
 .req-staff-row {
   display: flex;
-  align-items: baseline;
+  align-items: center;
   justify-content: space-between;
   gap: 6px;
   line-height: 1.2;
+  min-height: 14px;
 }
+.req-staff-row .staff-dot { flex: none; }
 .req-staff-label { font-size: var(--b-fs-meta); color: var(--text-secondary); }
 .req-staff-num {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 2px;
+  margin-left: auto;
   font-size: var(--b-fs-meta);
   font-variant-numeric: tabular-nums;
-  color: var(--text-primary);
+  white-space: nowrap;
 }
+.req-staff-named { color: var(--text-primary); font-weight: 600; }
+.req-staff-pool { color: var(--text-secondary); }
 
 /* 调整气泡: 侧点 + 标签 | 实名 | 一体式步进 pill */
 .staff-pop-row {
@@ -1880,17 +1891,6 @@ input[type="checkbox"].settings-checkbox,
   .requirements-row > .requirements-owner { display: none; }
 }
 
-/* 人力: 微条形(长度编码) + 右对齐等宽数字 */
-.req-staff { display: inline-flex; flex-direction: column; gap: 4px; width: 100%; }
-.req-staff-label { font-size: var(--b-fs-meta); color: var(--text-secondary); }
-.req-staff-num {
-  font-size: var(--b-fs-meta);
-  font-variant-numeric: tabular-nums;
-  text-align: right;
-  color: var(--text-primary);
-  white-space: nowrap;
-}
-
 /* 优先级: 纯文字着色,等宽数字 */
 .req-pri {
   font-size: var(--b-fs-body);
@@ -1910,8 +1910,11 @@ input[type="checkbox"].settings-checkbox,
   text-overflow: ellipsis;
 }
 
-/* 操作: 32px 裸图标(悬停显底) */
-.requirements-actions { display: inline-flex; gap: 8px; align-items: center; justify-content: flex-end; }
+/* 操作: 32px 裸图标(悬停显底),与表头/优先级同轴居中 */
+.requirements-actions { display: inline-flex; gap: 8px; align-items: center; justify-content: center; }
+.projects-board .requirements-row > .req-pri { justify-self: center; }
+.projects-board .requirements-thead > span.col-c { text-align: center; }
+.projects-board .req-cell-center { display: flex; justify-content: center; align-items: center; min-width: 0; }
 .projects-board .req-icon-btn {
   display: inline-flex;
   align-items: center;
@@ -1949,12 +1952,12 @@ input[type="checkbox"].settings-checkbox,
 .projects-board .projects-version-part:hover { background: var(--bg-secondary, rgba(127, 127, 127, 0.14)); }
 .projects-version-sep { color: var(--text-secondary); }
 
-/* 状态列内联件: 徽章 pill / 快捷键文字型 / 死线内联 / 告警短词去框 */
+/* 状态列内联件: 徽章实心 pill / 快捷幽灵 pill(同族同圆角) / 死线内联 / 告警短词 pill */
 .projects-board .lifecycle-cell {
   flex-direction: row;
   align-items: center;
   flex-wrap: nowrap;
-  gap: 4px;
+  gap: 6px;
   min-width: 0;
 }
 .projects-board .lifecycle-btn { border: none; background: none; }
@@ -1966,9 +1969,10 @@ input[type="checkbox"].settings-checkbox,
   font-size: var(--b-fs-body);
   font-weight: 600;
   color: var(--accent-color, #3b82f6);
-  border-radius: var(--b-r-sm);
+  border-radius: var(--b-r-pill);
+  background: rgba(59, 130, 246, 0.10);
 }
-.projects-board .lifecycle-quick-btn:hover { background: rgba(59, 130, 246, 0.12); }
+.projects-board .lifecycle-quick-btn:hover { background: rgba(59, 130, 246, 0.18); }
 .projects-board .lifecycle-badge-btn {
   min-height: 32px;
   width: 84px;
@@ -1983,6 +1987,7 @@ input[type="checkbox"].settings-checkbox,
   font-variant-numeric: tabular-nums;
   color: var(--text-secondary);
   white-space: nowrap;
+  margin-left: 6px;
 }
 .lifecycle-deadline--inline.lifecycle-deadline--overdue { color: #f59e0b; font-weight: 600; }
 .projects-board .lifecycle-warn-chip {
@@ -2079,3 +2084,19 @@ input[type="checkbox"].settings-checkbox,
 .affairs-board {
   padding: 16px 24px 28px;
 }
+
+/* ============================================================
+   浅色主题: 需求台色板加深(白底上亮色文字+淡底发虚,统一压深一档)
+   ============================================================ */
+[data-theme='light'] .projects-board .lifecycle-state-badge--designing { color: #1d4ed8; }
+[data-theme='light'] .projects-board .lifecycle-state-badge--pending_rat { color: #475569; }
+[data-theme='light'] .projects-board .lifecycle-state-badge--nok { color: #b45309; }
+[data-theme='light'] .projects-board .lifecycle-state-badge--backlog { color: #64748b; }
+[data-theme='light'] .projects-board .lifecycle-state-badge--scheduled { color: #4f46e5; }
+[data-theme='light'] .projects-board .lifecycle-state-badge--in_iteration { color: #15803d; }
+[data-theme='light'] .projects-board .lifecycle-state-badge--delivered { color: #0f766e; }
+[data-theme='light'] .projects-board .lifecycle-state-badge--cancelled { color: #b91c1c; }
+[data-theme='light'] .projects-board .lifecycle-warn-chip { background: rgba(245, 158, 11, 0.16); color: #b45309; }
+[data-theme='light'] .projects-board .lifecycle-deadline--inline.lifecycle-deadline--overdue { color: #b45309; }
+[data-theme='light'] .projects-board .lifecycle-quick-btn { color: #1d4ed8; background: rgba(59, 130, 246, 0.10); }
+[data-theme='light'] .projects-board .lifecycle-quick-btn:hover { background: rgba(59, 130, 246, 0.18); }

@@ -367,6 +367,7 @@
     "adjustTitle": "人力调整(池占位 ±0.5)",
     "adjustHint": "点击调整人力",
     "adjustHintFooter": "池占位即刻参与产能计算;实名分配请进详情页选人。",
+    "breakdown": "实名 {{named}} + 池 {{pool}}",
     "namedLabel": "实名 {{n}}",
     "poolLabel": "池 {{n}}"
   },
@@ -393,6 +394,7 @@
     "colPriority": "优先级",
     "colOwner": "负责人",
     "unversionedGroup": "未排版本",
+    "productGroupLabel": "{{name}} 版本",
     "unscheduledGroup": "未排节奏",
     "groupCount": "({{count}})",
     "empty": "暂无需求事项",

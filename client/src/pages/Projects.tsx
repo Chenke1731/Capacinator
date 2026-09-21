@@ -155,11 +155,14 @@ function StaffingCell({ project, onChanged }: { project: any; onChanged: () => v
     <span ref={cellRef} className="req-staff-wrap" onClick={(e) => e.stopPropagation()}>
       <button type="button" className="req-staff" onClick={toggle}
               title={t('projects:staffing.adjustHint')}>
-        {sides.map(([label, , side]) => (
-          <span className="req-staff-row" key={label}>
+        {sides.map(([label, side, v]) => (
+          <span className="req-staff-row" key={label}
+                title={t('projects:staffing.breakdown', { named: fmt(v.named), pool: fmt(v.pool) })}>
+            <span className={`staff-dot staff-dot--${side}`} />
             <span className="req-staff-label">{label}</span>
             <span className="req-staff-num">
-              {fmt(side.named)}{side.pool > 0 ? `+${fmt(side.pool)}` : ''}
+              <span className="req-staff-named">{fmt(v.named)}</span>
+              {v.pool > 0 && <span className="req-staff-pool">+{fmt(v.pool)}</span>}
             </span>
           </span>
         ))}
@@ -385,7 +388,7 @@ export function Projects() {
         <div className="board-toolbar-right">
           <button className="board-ghost-btn" onClick={() => setTagManagerOpen(true)}>
             <Tag size={14} />
-            {t('projects:tags.manage')}
+            {t('projects:tags.manageButton')}
           </button>
           <button className="board-primary-btn" onClick={addProjectModal.open}>
             <Plus size={15} />
@@ -398,13 +401,13 @@ export function Projects() {
         <div className="requirements-thead">
           <span>{t('projects:board.colName')}</span>
           <span>{t('projects:board.colTags')}</span>
-          <span>{t('projects:lifecycleColumn')}</span>
+          <span className="col-c">{t('projects:lifecycleColumn')}</span>
           <span>{t('projects:board.colStaffing')}</span>
           <span>{t('projects:board.colVersion')}</span>
           <span>{t('projects:board.colRelease')}</span>
-          <span>{t('projects:board.colPriority')}</span>
+          <span className="col-c">{t('projects:board.colPriority')}</span>
           <span>{t('projects:board.colOwner')}</span>
-          <span>{t('common:actions')}</span>
+          <span className="col-c">{t('common:actions')}</span>
         </div>
 
         {groups.map((group) => {
@@ -418,7 +421,11 @@ export function Projects() {
                 onClick={() => toggleGroup(groupKey)}
               >
                 {isCollapsed ? <ChevronRight size={15} /> : <ChevronDown size={15} />}
-                <strong>{group.product ?? t('projects:board.unversionedGroup')}</strong>
+                <strong>
+                  {group.product
+                    ? t('projects:board.productGroupLabel', { name: group.product })
+                    : t('projects:board.unversionedGroup')}
+                </strong>
                 <span className="requirements-group-count">{t('projects:board.groupCount', { count: group.count })}</span>
               </button>
 
@@ -450,7 +457,7 @@ export function Projects() {
                           <span className="req-tags-cell">
                             {(project.tags ?? []).slice(0, 2).map((tag: any) => (
                               <span key={tag.id} className="req-tag"
-                                    style={{ color: tag.color || 'var(--text-secondary)', background: `${tag.color || '#888888'}1f` }}>
+                                    style={{ color: tag.color || 'var(--text-secondary)', background: `${tag.color || '#888888'}2b` }}>
                                 {tag.name}
                               </span>
                             ))}
@@ -462,7 +469,7 @@ export function Projects() {
                             )}
                           </span>
 
-                          <span onClick={(e) => e.stopPropagation()}>
+                          <span className="req-cell-center" onClick={(e) => e.stopPropagation()}>
                             <LifecycleCellControls project={project} />
                           </span>
 

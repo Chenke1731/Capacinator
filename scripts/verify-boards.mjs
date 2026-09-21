@@ -90,9 +90,17 @@ await page.keyboard.press('Enter');
 await page.waitForTimeout(1500);
 
 const groupHeaders = await page.$$eval('.requirements-group-header strong', els => els.map(e => e.textContent));
-check('版本编辑后出现产品分组', groupHeaders.includes('B') && groupHeaders.includes('未排版本'), groupHeaders.join(','));
+check('版本编辑后出现产品分组', groupHeaders.some(h => h.replace(/\s*版本$/, '') === 'B') && groupHeaders.includes('未排版本'), groupHeaders.join(','));
 const releaseHeaders = await page.$$eval('.requirements-release-header', els => els.map(e => e.textContent.trim()));
 check('RP 交付节奏子分组', releaseHeaders.some(r => r.includes('26.RP4')), releaseHeaders.map(r=>r.slice(0,10)).join(','));
+
+// 工具栏无裸 i18n 键
+const tagBtnText = (await page.$eval('.board-ghost-btn', el => el.textContent.trim())) ?? '';
+check('工具栏文案已翻译(无 tags.manage 裸键)', /^[\u4e00-\u9fa5]/.test(tagBtnText) && !/[a-z]+\.[a-z]/i.test(tagBtnText), tagBtnText);
+
+// 表头与内容同轴(状态/优先级/操作居中)
+const colAligns = await page.$$eval('.requirements-thead span.col-c', els => els.map(e => getComputedStyle(e).textAlign));
+check('表头居中列与内容同轴', colAligns.length === 3 && colAligns.every(a => a === 'center'), colAligns.join(','));
 
 // 分组折叠
 await page.click('.requirements-group-header'); // first group (B)
@@ -159,7 +167,7 @@ await page.waitForTimeout(1500);
     board.querySelectorAll('*').forEach(el => {
       const c = getComputedStyle(el);
       if (el.textContent?.trim() || el.matches('button,input,select')) sizes.add(c.fontSize);
-      if (c.borderRadius !== '0px') radii.add(c.borderRadius);
+      if (c.borderRadius !== '0px' && c.borderRadius !== '50%') radii.add(c.borderRadius);
       for (const side of ['Top', 'Bottom']) {
         if (parseFloat(c[`border${side}Width`]) > 0 && c[`border${side}Color`] !== 'rgba(0, 0, 0, 0)') rules++;
       }
@@ -177,6 +185,24 @@ await page.waitForTimeout(1500);
   check(`最小命中目标 ≥ 24px (${metrics.minHit})`, metrics.minHit >= 24);
   const uniform = metrics.rows.length > 0 && metrics.rows.every(h => Math.abs(h - metrics.rows[0]) <= 1);
   check(`数据行高统一 40±1 (${metrics.rows.join(',')})`, uniform && Math.abs(metrics.rows[0] - 40) <= 1);
+}
+
+// ── 6.5 浅色主题巡检(用户实际使用的主题) ────────────
+{
+  await page.evaluate(() => localStorage.setItem('theme', 'light'));
+  await page.goto(`${BASE}/projects`, { waitUntil: 'networkidle' });
+  await page.waitForTimeout(1800);
+  const lightTagBtn = (await page.$eval('.board-ghost-btn', el => el.textContent.trim())) ?? '';
+  check('浅色: 工具栏文案无裸键', !/[a-z]+\.[a-z]/i.test(lightTagBtn), lightTagBtn);
+  const lum = await page.$eval('.projects-board .lifecycle-state-badge', (el) => {
+    const [r, g, b] = (getComputedStyle(el).color.match(/\d+/g) ?? [0, 0, 0]).map(Number);
+    return (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+  });
+  check('浅色: 状态徽章文字压深(亮度<0.55)', lum < 0.55, `lum=${lum.toFixed(2)}`);
+  const sep = await page.$eval('.requirements-row', el => getComputedStyle(el).borderBottomColor !== 'rgba(0, 0, 0, 0)');
+  check('浅色: 行分隔线可见', sep);
+  await page.screenshot({ path: '/tmp/demand-board-light.png' });
+  await page.evaluate(() => localStorage.setItem('theme', 'dark'));
 }
 
 // ── 7. 全程零错误 + 零弹窗 ────────────────────────────

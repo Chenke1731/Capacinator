@@ -202,7 +202,7 @@ describe('Requirements Board (需求台)', () => {
       const groupLabels = groupHeaders
         .map((g) => g.querySelector('strong')?.textContent)
         .filter(Boolean);
-      expect(groupLabels).toEqual(['A', 'B']);
+      expect(groupLabels).toEqual(['Version A', 'Version B']);
       const releaseHeaders = document.querySelectorAll('.requirements-release-header');
       expect(releaseHeaders.length).toBe(2);
       expect(releaseHeaders[0].textContent).toContain('26.RP3');

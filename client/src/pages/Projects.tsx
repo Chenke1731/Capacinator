@@ -63,7 +63,7 @@ export function Projects() {
     enabled: !!currentScenario
   });
 
-  // Fetch locations for filter
+  // Fetch tags for filter
   const { data: tagsData } = useQuery({
     queryKey: queryKeys.tags.list(),
     queryFn: async () => {
@@ -189,11 +189,6 @@ export function Projects() {
           <span>{row.project_type?.name || t('projects:notAssigned')}</span>
         </div>
       )
-    },
-    {
-      key: 'location.name',
-      header: t('projects:location'),
-      sortable: true
     },
     {
       key: 'start_date',

@@ -4,7 +4,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import {
   ArrowLeft, Users, Briefcase, Clock,
-  MapPin, Target, AlertTriangle, AlertCircle,
+  Target, AlertTriangle, AlertCircle,
   CheckCircle, XCircle, Circle, RefreshCw, Edit2, Trash2, Save,
   Calculator
 } from 'lucide-react';
@@ -132,15 +132,6 @@ export function ProjectDetail() {
     queryFn: async () => {
       const response = await api.projectTypes.list();
       return response.data.data || response.data;
-    }
-  });
-
-  // Fetch locations for dropdown
-  const { data: locations } = useQuery({
-    queryKey: queryKeys.locations.list(),
-    queryFn: async () => {
-      const response = await api.locations.list();
-      return response.data.data;
     }
   });
 
@@ -409,22 +400,6 @@ export function ProjectDetail() {
                   label: type.name
                 })) : []}
                 placeholder={t('projects:placeholder.selectProjectType')}
-                disabled={!canEdit}
-              />
-            </div>
-
-            <div className="info-item">
-              <label>{t('projects:location')}</label>
-              <InlineEdit
-                value={project.location_id || ''}
-                onSave={createFieldHandler('location_id')}
-                type="select"
-                options={Array.isArray(locations) ? locations.map((loc: any) => ({
-                  value: loc.id,
-                  label: loc.name
-                })) : []}
-                placeholder={t('projects:placeholder.selectLocation')}
-                icon={MapPin}
                 disabled={!canEdit}
               />
             </div>

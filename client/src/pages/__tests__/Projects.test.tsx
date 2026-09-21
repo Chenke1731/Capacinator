@@ -70,15 +70,6 @@ jest.mock('../../components/ui/FilterBar', () => ({
         data-testid="search-input"
       />
       <select
-        value={values.location_id}
-        onChange={(e) => onChange('location_id', e.target.value)}
-        data-testid="location-filter"
-      >
-        <option value="">All Locations</option>
-        <option value="loc-1">New York</option>
-        <option value="loc-2">San Francisco</option>
-      </select>
-      <select
         value={values.project_type_id}
         onChange={(e) => onChange('project_type_id', e.target.value)}
         data-testid="project-type-filter"
@@ -284,11 +275,10 @@ describe('Projects Page', () => {
       const headers = screen.getAllByRole('columnheader');
       expect(headers[0]).toHaveTextContent('Project Name');
       expect(headers[1]).toHaveTextContent('Project Type');
-      expect(headers[2]).toHaveTextContent('Location');
-      expect(headers[3]).toHaveTextContent('Start Date');
-      expect(headers[4]).toHaveTextContent('End Date');
-      expect(headers[5]).toHaveTextContent('Lifecycle');
-      expect(headers[6]).toHaveTextContent('Actions');
+      expect(headers[2]).toHaveTextContent('Start Date');
+      expect(headers[3]).toHaveTextContent('End Date');
+      expect(headers[4]).toHaveTextContent('Lifecycle');
+      expect(headers[5]).toHaveTextContent('Actions');
     });
 
     test('displays project data correctly', async () => {
@@ -308,18 +298,17 @@ describe('Projects Page', () => {
       expect(within(table).getByText('Not assigned')).toBeInTheDocument();
     });
 
-    test('displays location information', async () => {
+    test('does not render the retired location column', async () => {
       renderComponent();
 
       await waitFor(() => {
-        const table = screen.getByTestId('data-table');
-        expect(table).toBeInTheDocument();
+        expect(screen.getByTestId('data-table')).toBeInTheDocument();
       });
 
-      // Multiple projects can have same location
-      const newYorkElements = screen.getAllByText('New York');
-      expect(newYorkElements.length).toBeGreaterThan(0);
-      expect(screen.getByText('San Francisco')).toBeInTheDocument();
+      // The location dimension was retired from the UI — no column for it
+      const headers = screen.getAllByRole('columnheader');
+      expect(headers.map((h) => h.textContent)).not.toContain('Location');
+      expect(screen.queryByText('New York')).not.toBeInTheDocument();
     });
 
     test('formats dates correctly', async () => {
@@ -522,22 +511,6 @@ describe('Projects Page', () => {
       });
     });
 
-    test('filters by location', async () => {
-      const user = userEvent.setup();
-      renderComponent();
-
-      await waitFor(() => {
-        expect(screen.getByTestId('location-filter')).toBeInTheDocument();
-      });
-
-      const locationFilter = screen.getByTestId('location-filter');
-      await user.selectOptions(locationFilter, 'loc-1');
-
-      await waitFor(() => {
-        expect(api.projects.list).toHaveBeenLastCalledWith({ location_id: 'loc-1' });
-      });
-    });
-
     test('filters by project type', async () => {
       const user = userEvent.setup();
       renderComponent();
@@ -598,7 +571,6 @@ describe('Projects Page', () => {
       });
 
       await user.type(screen.getByTestId('search-input'), 'Project');
-      await user.selectOptions(screen.getByTestId('location-filter'), 'loc-2');
       await user.selectOptions(screen.getByTestId('status-filter'), 'planned');
 
       await waitFor(() => {
@@ -616,7 +588,7 @@ describe('Projects Page', () => {
 
       // Apply some filters
       await user.type(screen.getByTestId('search-input'), 'test');
-      await user.selectOptions(screen.getByTestId('location-filter'), 'loc-1');
+      await user.selectOptions(screen.getByTestId('status-filter'), 'active');
 
       // Reset filters
       await user.click(screen.getByTestId('reset-filters'));

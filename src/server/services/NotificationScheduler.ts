@@ -13,14 +13,18 @@ export class NotificationScheduler {
   }
 
   private initializeScheduler(): void {
-    // Schedule weekly summary emails for Monday 9 AM
-    this.weeklyEmailTask = cron.schedule('0 9 * * 1', async () => {
+    // Schedule weekly summary emails for Monday 9 AM.
+    // createTask (NOT schedule): node-cron v4 has no scheduled:false flag and
+    // schedule() auto-arms on creation — module import used to silently arm
+    // this cron against the notification feature's never-created tables,
+    // throwing every Monday 9 AM. createTask stays dormant until start().
+    this.weeklyEmailTask = cron.createTask('0 9 * * 1', async () => {
       await this.sendWeeklySummaryEmails();
     }, {
       timezone: 'America/New_York'
     });
 
-    logger.info('Notification scheduler initialized');
+    logger.info('Notification scheduler initialized (dormant until start())');
   }
 
   public start(): void {

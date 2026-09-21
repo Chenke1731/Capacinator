@@ -347,7 +347,7 @@ export function Dashboard() {
               className="stat-item stat-item-clickable"
               role="listitem"
               tabIndex={0}
-              aria-label={t('dashboard:quickStats.overAllocatedAria', { count: dashboard.utilization?.OVER_ALLOCATED || 0 })}
+              aria-label={t('dashboard:quickStats.overAllocatedAria', { count: dashboard.utilization?.OVER_ALLOCATED ?? dashboard.utilization?.['Over-allocated'] ?? 0 })}
               onClick={() => navigate('/people')}
               onKeyDown={(e) => {
                 if (e.key === 'Enter' || e.key === ' ') {
@@ -358,7 +358,7 @@ export function Dashboard() {
             >
               <TrendingUp className="stat-icon" color={COLORS.primary} aria-hidden="true" />
               <div>
-                <div className="stat-value">{dashboard.utilization?.OVER_ALLOCATED || 0}</div>
+                <div className="stat-value">{dashboard.utilization?.OVER_ALLOCATED ?? dashboard.utilization?.['Over-allocated'] ?? 0}</div>
                 <div className="stat-label">{t('dashboard:quickStats.overAllocated')}</div>
               </div>
             </div>

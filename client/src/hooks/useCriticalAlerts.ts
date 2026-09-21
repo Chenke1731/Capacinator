@@ -33,7 +33,7 @@ export function useCriticalAlerts() {
   const { data: capacityReport, isLoading: capacityLoading } = useQuery({
     queryKey: queryKeys.reports.capacity(undefined, currentScenario?.id),
     queryFn: async () => {
-      const response = await api.reporting.getCapacityReport();
+      const response = await api.reporting.getCapacity();
       return response.data.data;
     },
     enabled: !!currentScenario
@@ -60,7 +60,9 @@ export function useCriticalAlerts() {
     }
 
     // Over-allocated people
-    const overAllocated = dashboard.utilization?.OVER_ALLOCATED || 0;
+    // utilization keys come mixed-case ('Over-allocated') from the reporting
+    // dashboard; UPPER_SNAKE kept as fallback for older payload shapes
+    const overAllocated = dashboard.utilization?.OVER_ALLOCATED ?? dashboard.utilization?.['Over-allocated'] ?? 0;
     if (overAllocated > 0) {
       alertList.push({
         id: 'over-allocation',
@@ -90,7 +92,7 @@ export function useCriticalAlerts() {
     }
 
     // High utilization warnings (potential future over-allocation)
-    const fullyAllocated = dashboard.utilization?.FULLY_ALLOCATED || 0;
+    const fullyAllocated = dashboard.utilization?.FULLY_ALLOCATED ?? dashboard.utilization?.['Fully-allocated'] ?? 0;
     const totalPeople = dashboard.summary?.people || 1;
     const highUtilizationRatio = fullyAllocated / totalPeople;
 

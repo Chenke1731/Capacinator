@@ -206,7 +206,7 @@ export function Projects() {
     {
       key: 'lifecycle_state',
       header: t('projects:lifecycleColumn'),
-      width: '170px',
+      width: '195px',
       render: (value: string | null, row: any) =>
         value ? <LifecycleCellControls project={row} /> : <span className="text-muted">—</span>
     },

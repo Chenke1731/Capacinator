@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ChevronDown } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
@@ -59,8 +59,9 @@ export function LifecycleCellControls({ project }: { project: any }) {
   const [mode, setMode] = useState<PopoverMode | null>(null);
   const [confirmingCancel, setConfirmingCancel] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [pos, setPos] = useState({ top: 0, left: 0 });
+  const [pos, setPos] = useState({ top: -9999, left: -9999 });
   const anchorRef = useRef<HTMLSpanElement>(null);
+  const anchorRectRef = useRef<DOMRect | null>(null);
   const popRef = useRef<HTMLDivElement>(null);
 
   // Pool form state (schedule popover)
@@ -106,25 +107,41 @@ export function LifecycleCellControls({ project }: { project: any }) {
   }
 
   function openPopover(next: PopoverMode) {
-    const rect = anchorRef.current?.getBoundingClientRect();
-    if (rect) {
-      const width = 270;
-      const estHeight = 340; // schedule form is the tallest
-      // Flip above the anchor when the popover would overflow the viewport
-      // (bottom rows of the table) — otherwise it renders out of reach
-      const top =
-        rect.bottom + 6 + estHeight > window.innerHeight
-          ? Math.max(8, rect.top - estHeight - 6)
-          : rect.bottom + 6;
-      setPos({
-        top,
-        left: Math.max(8, Math.min(rect.left, window.innerWidth - width - 12))
-      });
-    }
+    anchorRectRef.current = anchorRef.current?.getBoundingClientRect() ?? null;
     setConfirmingCancel(false);
     setError(null);
     setMode(next);
   }
+
+  // Position the popover against its REAL rendered height (same frame, no
+  // flicker). Strategy: below the anchor → above if below doesn't fit → the
+  // roomier side clamped into the viewport when neither fits. The popover
+  // never detaches from its anchor and never leaves the screen.
+  useLayoutEffect(() => {
+    if (!mode) return;
+    const rect = anchorRectRef.current;
+    const el = popRef.current;
+    if (!rect || !el) return;
+
+    const width = 270;
+    const h = el.offsetHeight;
+    const margin = 6;
+    const spaceBelow = window.innerHeight - rect.bottom - margin - 8;
+    const spaceAbove = rect.top - margin - 8;
+
+    let top: number;
+    if (h <= spaceBelow) {
+      top = rect.bottom + margin;
+    } else if (h <= spaceAbove) {
+      top = rect.top - h - margin;
+    } else {
+      top = spaceBelow >= spaceAbove ? rect.bottom + margin : rect.top - h - margin;
+      top = Math.max(8, Math.min(top, window.innerHeight - h - 8));
+    }
+
+    const left = Math.max(8, Math.min(rect.left, window.innerWidth - width - 12));
+    setPos({ top, left });
+  }, [mode, confirmingCancel]);
 
   const doTransition = (to: string, extra: Record<string, unknown> = {}) => {
     setError(null);

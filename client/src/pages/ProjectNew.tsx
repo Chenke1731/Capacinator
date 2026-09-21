@@ -181,8 +181,13 @@ export function ProjectNew() {
     <div className="page-container person-details">
       <div className="page-header">
         <div className="header-left">
-          <button className="btn btn-icon" onClick={handleCancel}>
-            <ArrowLeft size={20} />
+          <button
+            className="btn page-back-btn"
+            onClick={handleCancel}
+            title={t('common:back')}
+            aria-label={t('common:back')}
+          >
+            <ArrowLeft size={22} />
           </button>
           <h1>{t('projects:newProject')}</h1>
         </div>

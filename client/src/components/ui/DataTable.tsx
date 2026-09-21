@@ -162,7 +162,16 @@ export function DataTable<T extends Record<string, any>>({
             {paginatedData.map((row, index) => (
               <TableRow
                 key={index}
-                onClick={() => onRowClick?.(row)}
+                onClick={(e) => {
+                  // clicks on interactive controls are their own interaction —
+                  // don't hijack them with row navigation (it used to remount
+                  // inline-edit inputs mid-focus, making typing impossible)
+                  const target = e.target as HTMLElement;
+                  if (target.closest('input, select, textarea, button, [role="button"], .table-actions')) {
+                    return;
+                  }
+                  onRowClick?.(row);
+                }}
                 className={cn(
                   onRowClick && "cursor-pointer hover:bg-muted/50"
                 )}

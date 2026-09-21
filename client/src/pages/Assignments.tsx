@@ -119,7 +119,10 @@ export default function Assignments() {
     queryKey: queryKeys.roles.list(),
     queryFn: async () => {
       const response = await api.roles.list();
-      return response.data as Role[];
+      const payload = response.data as any;
+      // Shared ['roles'] cache must always hold an array — raw envelopes here
+      // have crashed other consumers (roles?.find is not a function)
+      return Array.isArray(payload) ? payload : payload?.data || [];
     }
   });
 

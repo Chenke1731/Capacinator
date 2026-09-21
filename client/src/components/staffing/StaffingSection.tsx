@@ -105,6 +105,9 @@ function NamingPanel({
     }
   });
 
+  // Defensive: shared ['roles'] cache has historically held raw envelopes
+  const roleList = Array.isArray(roles) ? (roles as any[]) : ((roles as any)?.data ?? []);
+
   // Dedicated key — never share the raw ['people'] key (cache shape poisoning)
   const { data: utilizationRows } = useQuery({
     queryKey: ['people-utilization'],
@@ -165,7 +168,7 @@ function NamingPanel({
           {t('projects:staffing.role')}
           <select value={roleId} onChange={(e) => setRoleId(e.target.value)}>
             <option value="">{t('projects:staffing.selectRole')}</option>
-            {(roles as any[] | undefined)?.map((r) => (
+            {roleList.map((r) => (
               <option key={r.id} value={r.id}>{r.name}</option>
             ))}
           </select>
@@ -262,6 +265,9 @@ function PoolForm({
     }
   });
 
+  // Defensive: shared ['roles'] cache has historically held raw envelopes
+  const roleList = Array.isArray(roles) ? (roles as any[]) : ((roles as any)?.data ?? []);
+
   const mutation = useMutation({
     mutationFn: async () => {
       const body = {
@@ -292,7 +298,7 @@ function PoolForm({
           {t('projects:staffing.role')}
           <select value={roleId} onChange={(e) => setRoleId(e.target.value)}>
             <option value="">{t('projects:staffing.selectRole')}</option>
-            {(roles as any[] | undefined)?.map((r) => (
+            {roleList.map((r) => (
               <option key={r.id} value={r.id}>{r.name}</option>
             ))}
           </select>

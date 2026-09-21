@@ -204,7 +204,8 @@ export function SmartAssignmentModal({
     queryFn: async () => {
       const response = await api.roles.list();
       // console.log('Roles response:', response);
-      return response.data || [];
+      const payload = response.data as any;
+      return Array.isArray(payload) ? payload : payload?.data || [];
     }
   });
 

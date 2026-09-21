@@ -78,7 +78,9 @@ export function LifecycleBanner({ project }: { project: any }) {
       return Array.isArray(payload) ? payload : payload?.data || [];
     }
   });
-  const devRole = (roles as any[] | undefined)?.find((r) => r.name === '开发');
+  // Defensive: the shared ['roles'] cache has historically held raw envelopes
+  const roleList = Array.isArray(roles) ? (roles as any[]) : ((roles as any)?.data ?? []);
+  const devRole = roleList.find((r) => r.name === '开发');
   useEffect(() => {
     if (devRole && !poolForm.role_id) {
       setPoolForm((f) => ({ ...f, role_id: devRole.id }));
@@ -352,7 +354,7 @@ export function LifecycleBanner({ project }: { project: any }) {
                 value={poolForm.role_id}
                 onChange={(e) => setPoolForm({ ...poolForm, role_id: e.target.value })}
               >
-                {(roles as any[] | undefined)?.map((r) => (
+                {roleList.map((r) => (
                   <option key={r.id} value={r.id}>{r.name}</option>
                 ))}
               </select>

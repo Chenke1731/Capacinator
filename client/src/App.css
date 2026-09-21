@@ -1800,3 +1800,21 @@ input[type="checkbox"].settings-checkbox,
 .affairs-stat { font-size: 12.5px; color: var(--text-secondary); }
 .affairs-stat--month { margin-left: auto; color: var(--text-primary); font-weight: 600; }
 .affairs-detail { border-top: none; border-radius: 0 0 8px 8px; }
+
+/* 需求台单根容器 — unified-tab-content 的 > * {flex:1;height:100%} 规则
+   是为单孩子页面设计的; 多兄弟碎片会被均分拉伸(工具栏曾因此撑到 245px)。
+   包一层让 tab 内容回到单孩子前提, 子块自然高度。 */
+.projects-board {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: stretch;
+}
+.projects-board .filter-bar { flex: none; }
+
+/* 需求台筛选条: 单行紧凑式 — 标签由控件自带(placeholder/“全部XX”首选项),
+   不再上下堆叠占两行 */
+.projects-board .filter-label { display: none; }
+.projects-board .filter-item { min-width: 160px; flex: 0 1 210px; }
+.projects-board .filter-bar { padding: 4px 0; }
+.projects-board .filter-bar .btn { min-height: 0; }

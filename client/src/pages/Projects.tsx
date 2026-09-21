@@ -290,7 +290,7 @@ export function Projects() {
   if (error) return <ErrorMessage message={(error as any)?.message || t('projects:loadError')} />;
 
   return (
-    <>
+    <div className="projects-board">
       <div className="projects-toolbar">
         <div className="projects-toolbar-info">
           {t('projects:board.countSummary', { count: demandProjects.length })}
@@ -431,6 +431,6 @@ export function Projects() {
       />
 
       <TagManagerDialog isOpen={tagManagerOpen} onClose={() => setTagManagerOpen(false)} />
-    </>
+    </div>
   );
 }

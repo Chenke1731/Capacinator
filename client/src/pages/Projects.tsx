@@ -15,7 +15,6 @@ import { TagManagerDialog } from '../components/tags/TagManagerDialog';
 import ProjectAllocations from '../components/ProjectAllocations';
 import { useModal } from '../hooks/useModal';
 import { useScenario } from '../contexts/ScenarioContext';
-import { getProjectTypeIndicatorStyle } from '../lib/project-colors';
 import { getLocale } from '../i18n';
 import { projectStatusLabel } from '../lib/enum-labels';
 import type { Project, ProjectType } from '../types';
@@ -158,38 +157,33 @@ export function Projects() {
       key: 'name',
       header: t('projects:projectName'),
       sortable: true,
-      render: (value, row) => (
-        <div className="project-name">
-          <div style={{ display: 'flex', alignItems: 'center' }}>
-            <div style={getProjectTypeIndicatorStyle(row)} />
-            <span>{value}</span>
-          </div>
-          {row.tags && row.tags.length > 0 && (
-            <div className="project-tag-badges" style={{ display: 'flex', gap: '0.25rem', marginTop: '0.25rem', flexWrap: 'wrap' }}>
-              {row.tags.map((tag: any) => (
-                <span
-                  key={tag.id}
-                  className="tag-badge"
-                  style={{ backgroundColor: tag.color || 'var(--text-tertiary)' }}
-                >
-                  {tag.name}
-                </span>
-              ))}
-            </div>
-          )}
-        </div>
-      )
+      render: (value) => <span>{value}</span>
     },
     {
       key: 'project_type.name',
       header: t('projects:projectType'),
       sortable: true,
-      render: (value, row) => (
-        <div style={{ display: 'flex', alignItems: 'center' }}>
-          <div style={getProjectTypeIndicatorStyle(row)} />
-          <span>{row.project_type?.name || t('projects:notAssigned')}</span>
-        </div>
-      )
+      render: (value, row) => <span>{row.project_type?.name || t('projects:notAssigned')}</span>
+    },
+    {
+      key: 'tags',
+      header: t('projects:tags.label'),
+      render: (_, row) =>
+        row.tags && row.tags.length > 0 ? (
+          <div className="project-tag-badges" style={{ display: 'flex', gap: '0.25rem', flexWrap: 'wrap' }}>
+            {row.tags.map((tag: any) => (
+              <span
+                key={tag.id}
+                className="tag-badge"
+                style={{ backgroundColor: tag.color || 'var(--text-tertiary)' }}
+              >
+                {tag.name}
+              </span>
+            ))}
+          </div>
+        ) : (
+          <span className="text-muted">—</span>
+        )
     },
     {
       key: 'start_date',

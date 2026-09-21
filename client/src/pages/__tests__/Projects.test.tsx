@@ -281,10 +281,11 @@ describe('Projects Page', () => {
       const headers = screen.getAllByRole('columnheader');
       expect(headers[0]).toHaveTextContent('Project Name');
       expect(headers[1]).toHaveTextContent('Project Type');
-      expect(headers[2]).toHaveTextContent('Start Date');
-      expect(headers[3]).toHaveTextContent('End Date');
-      expect(headers[4]).toHaveTextContent('Lifecycle');
-      expect(headers[5]).toHaveTextContent('Actions');
+      expect(headers[2]).toHaveTextContent('Tags');
+      expect(headers[3]).toHaveTextContent('Start Date');
+      expect(headers[4]).toHaveTextContent('End Date');
+      expect(headers[5]).toHaveTextContent('Lifecycle');
+      expect(headers[6]).toHaveTextContent('Actions');
     });
 
     test('displays project data correctly', async () => {

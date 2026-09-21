@@ -28,6 +28,7 @@ interface DataTableProps<T> {
   itemsPerPage?: number;
   loading?: boolean;
   emptyMessage?: string;
+  rowClassName?: (row: T) => string | undefined;
 }
 
 type SortDirection = 'asc' | 'desc' | null;
@@ -38,7 +39,8 @@ export function DataTable<T extends Record<string, any>>({
   onRowClick,
   itemsPerPage = 10,
   loading = false,
-  emptyMessage
+  emptyMessage,
+  rowClassName
 }: DataTableProps<T>) {
   const { t } = useTranslation();
   const [currentPage, setCurrentPage] = useState(1);
@@ -173,7 +175,8 @@ export function DataTable<T extends Record<string, any>>({
                   onRowClick?.(row);
                 }}
                 className={cn(
-                  onRowClick && "cursor-pointer hover:bg-muted/50"
+                  onRowClick && "cursor-pointer hover:bg-muted/50",
+                  rowClassName?.(row)
                 )}
               >
                 {columns.map((column) => (

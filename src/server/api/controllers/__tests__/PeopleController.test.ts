@@ -499,8 +499,17 @@ describe('PeopleController', () => {
       await controller.getPersonUtilizationTimeline(mockReq, mockRes);
       await flushPromises(); // Wait for async operations to complete
 
-      expect(mockDb().where).toHaveBeenCalledWith('project_assignments.end_date', '>=', '2025-01-01');
-      expect(mockDb().where).toHaveBeenCalledWith('project_assignments.start_date', '<=', '2025-12-31');
+      // assignments_view columns, undated rows treated as ongoing
+      expect(mockDb().where).toHaveBeenCalledWith('av.person_id', 'person-1');
+      expect(mockDb().where).toHaveBeenCalledWith('av.status', 'active');
+      expect(mockDb().whereRaw).toHaveBeenCalledWith(
+        '(av.computed_end_date IS NULL OR av.computed_end_date >= ?)',
+        ['2025-01-01']
+      );
+      expect(mockDb().whereRaw).toHaveBeenCalledWith(
+        '(av.computed_start_date IS NULL OR av.computed_start_date <= ?)',
+        ['2025-12-31']
+      );
     });
   });
 

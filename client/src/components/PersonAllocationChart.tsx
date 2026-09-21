@@ -23,7 +23,11 @@ export function PersonAllocationChart({ personId, personName, startDate, endDate
     queryKey: queryKeys.people.timeline(personId),
     queryFn: async () => {
       const response = await api.assignments.getTimeline(personId);
-      return response.data;
+      // { success, data: { person_id, timeline } } — unwrap to the payload,
+      // the chart reads .timeline directly (this used to read the envelope,
+      // so the chart never rendered)
+      const payload: any = response.data;
+      return payload?.data ?? payload;
     }
   });
 

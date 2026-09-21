@@ -91,18 +91,25 @@ export class PeopleController extends BaseController {
         )
         .where('person_roles.person_id', id);
 
-      // Get current assignments
-      const assignments = await db('project_assignments')
-        .join('projects', 'project_assignments.project_id', 'projects.id')
-        .join('roles', 'project_assignments.role_id', 'roles.id')
+      // Get current assignments — from assignments_view so rows created via
+      // the API (scenario table) are included too; paused rows kept for
+      // display (greyed in UI, out of capacity math); undated rows count as
+      // ongoing
+      const assignments = await db('assignments_view as av')
+        .join('projects', 'av.project_id', 'projects.id')
+        .join('roles', 'av.role_id', 'roles.id')
         .select(
-          'project_assignments.*',
+          'av.*',
           'projects.name as project_name',
           'roles.name as role_name'
         )
-        .where('project_assignments.person_id', id)
-        .where('project_assignments.end_date', '>=', new Date())
-        .orderBy('project_assignments.start_date');
+        .where('av.person_id', id)
+        .where((builder: any) => {
+          builder
+            .whereNull('av.computed_end_date')
+            .orWhere('av.computed_end_date', '>=', new Date());
+        })
+        .orderBy('av.computed_start_date');
 
       // Get availability overrides
       const availabilityOverrides = await db('person_availability_overrides')
@@ -268,25 +275,36 @@ export class PeopleController extends BaseController {
         return null;
       }
 
-      // Get project assignments for this person with date filtering
-      let assignmentsQuery = db('project_assignments')
-        .join('projects', 'project_assignments.project_id', 'projects.id')
-        .where('project_assignments.person_id', id)
+      // Get project assignments for this person with date filtering.
+      // assignments_view unions base + active-scenario rows, exposes pause
+      // status, and its computed_*_date columns are already COALESCE'd with
+      // the raw dates. Paused rows must not consume the timeline.
+      // (No db.raw() here: the audited-db wrapper misparses raw in select.)
+      let assignmentsQuery = db('assignments_view as av')
+        .join('projects', 'av.project_id', 'projects.id')
+        .where('av.person_id', id)
+        .where('av.status', 'active')
         .select(
-          'project_assignments.allocation_percentage',
-          'project_assignments.start_date',
-          'project_assignments.end_date',
+          'av.allocation_percentage',
+          'av.computed_start_date as start_date',
+          'av.computed_end_date as end_date',
           'projects.name as project_name'
         );
 
       if (startDate) {
-        assignmentsQuery = assignmentsQuery.where('project_assignments.end_date', '>=', startDate);
+        assignmentsQuery = assignmentsQuery.whereRaw(
+          '(av.computed_end_date IS NULL OR av.computed_end_date >= ?)',
+          [startDate as string]
+        );
       }
       if (endDate) {
-        assignmentsQuery = assignmentsQuery.where('project_assignments.start_date', '<=', endDate);
+        assignmentsQuery = assignmentsQuery.whereRaw(
+          '(av.computed_start_date IS NULL OR av.computed_start_date <= ?)',
+          [endDate as string]
+        );
       }
 
-      const assignments = await assignmentsQuery.orderBy('project_assignments.start_date');
+      const assignments = await assignmentsQuery;
 
       // Create timeline data by month
       const timelineStart = new Date(startDate as string || '2023-01-01');

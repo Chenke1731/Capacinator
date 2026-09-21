@@ -165,7 +165,10 @@
     "notFoundTitle": "人员不存在",
     "notFoundText": "该人员可能已被删除,或链接已失效。",
     "backToPeople": "返回人员列表",
-    "failedToLoadText": "加载人员详情时出错,请稍后重试。"
+    "failedToLoadText": "加载人员详情时出错,请稍后重试。",
+    "paused": "已暂停",
+    "pause": "暂停",
+    "resume": "恢复"
   },
   "availability": {
     "title": "可用性管理",

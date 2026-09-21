@@ -56,8 +56,20 @@ function sideOfRole(roleName: string | null | undefined): 'design' | 'dev' {
   return roleName === DESIGN_ROLE ? 'design' : 'dev';
 }
 
-function fmtDate(d: string | null | undefined): string {
-  return d ? d.slice(0, 10) : '—';
+/** Dates may arrive as ISO strings or epoch millis (legacy fixtures/views) */
+function fmtDate(d: unknown): string {
+  if (d == null) return '—';
+  const s = typeof d === 'string' ? d : String(d);
+  if (/^\d{4}-\d{2}-\d{2}/.test(s)) return s.slice(0, 10);
+  const n = Number(d);
+  if (!Number.isNaN(n) && n > 0) return new Date(n).toISOString().slice(0, 10);
+  return s;
+}
+
+/** Value for <input type="date">: '' when absent */
+function toDateInput(d: unknown): string {
+  const s = fmtDate(d);
+  return /^\d{4}-\d{2}-\d{2}$/.test(s) ? s : '';
 }
 
 /** Inline candidate picker with current load — the naming (实名化) flow. */
@@ -504,7 +516,7 @@ export function StaffingSection({
         <NamingPanel
           project={project}
           initialRoleId={namingPool.role_id}
-          initialDates={{ start: (namingPool.start_date || '').slice(0, 10), end: (namingPool.end_date || '').slice(0, 10) }}
+          initialDates={{ start: toDateInput(namingPool.start_date), end: toDateInput(namingPool.end_date) }}
           requiredCount={undefined}
           onFinished={(count) => {
             markPoolMutation.mutate({ pool: namingPool, namedCount: count });

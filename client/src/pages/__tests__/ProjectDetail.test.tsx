@@ -431,7 +431,9 @@ describe('ProjectDetail', () => {
         expect(screen.getByText('No team assignments')).toBeInTheDocument();
       });
 
-      expect(screen.getByText('Add Assignment')).toBeInTheDocument();
+      // In-place staffing (no jump to /assignments): add buttons live in the section
+      expect(screen.getByText('Named')).toBeInTheDocument();
+      expect(screen.getByText('Pool')).toBeInTheDocument();
     });
 
     test('opens assignment modal when assignment is clicked', async () => {
@@ -526,9 +528,9 @@ describe('ProjectDetail', () => {
         expect(screen.getByText('Alice Johnson')).toBeInTheDocument();
       });
 
-      // Click delete button directly in the table
-      const deleteButton = screen.getByTitle('Delete assignment');
-      await user.click(deleteButton);
+      // Delete lives in the mixed staffing table's row actions
+      const row = screen.getByRole('row', { name: /Alice Johnson/ });
+      await user.click(within(row).getByText('Delete'));
 
       await waitFor(() => {
         expect(api.assignments.delete).toHaveBeenCalledWith('assign-1');
@@ -696,8 +698,11 @@ describe('ProjectDetail', () => {
         expect(screen.getByText('Test Project')).toBeInTheDocument();
       });
 
-      // Should show delete button in assignments table
-      expect(screen.getByTitle('Delete assignment')).toBeInTheDocument();
+      // Should show in-place staffing actions and row delete for admins
+      expect(screen.getByText('Named')).toBeInTheDocument();
+      expect(screen.getByText('Pool')).toBeInTheDocument();
+      const row = screen.getByRole('row', { name: /Alice Johnson/ });
+      expect(within(row).getByText('Delete')).toBeInTheDocument();
     });
 
     test('hides edit controls for viewer users', async () => {
@@ -716,8 +721,11 @@ describe('ProjectDetail', () => {
         expect(screen.getByText('Test Project')).toBeInTheDocument();
       });
 
-      // Should not show delete button for viewers
-      expect(screen.queryByTitle('Delete assignment')).not.toBeInTheDocument();
+      // Should not show staffing actions or row delete for viewers
+      expect(screen.queryByText('Named')).not.toBeInTheDocument();
+      expect(screen.queryByText('Pool')).not.toBeInTheDocument();
+      const row = screen.getByRole('row', { name: /Alice Johnson/ });
+      expect(within(row).queryByText('Delete')).not.toBeInTheDocument();
     });
   });
 

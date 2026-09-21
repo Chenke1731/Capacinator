@@ -166,7 +166,10 @@
     "notFoundTitle": "Person not found",
     "notFoundText": "This person may have been deleted, or the link is stale.",
     "backToPeople": "Back to People",
-    "failedToLoadText": "Failed to load person details. Please try again later."
+    "failedToLoadText": "Failed to load person details. Please try again later.",
+    "paused": "Paused",
+    "pause": "Pause",
+    "resume": "Resume"
   },
   "availability": {
     "title": "Availability Management",

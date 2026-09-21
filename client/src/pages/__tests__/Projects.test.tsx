@@ -287,7 +287,7 @@ describe('Projects Page', () => {
       expect(headers[2]).toHaveTextContent('Location');
       expect(headers[3]).toHaveTextContent('Start Date');
       expect(headers[4]).toHaveTextContent('End Date');
-      expect(headers[5]).toHaveTextContent('Current Phase');
+      expect(headers[5]).toHaveTextContent('Lifecycle');
       expect(headers[6]).toHaveTextContent('Actions');
     });
 
@@ -334,16 +334,15 @@ describe('Projects Page', () => {
       expect(dateElements.length).toBeGreaterThan(0);
     });
 
-    test('displays current phase or dash for null', async () => {
+    test('displays lifecycle state or dash for standing items', async () => {
       renderComponent();
 
       await waitFor(() => {
-        expect(screen.getByText('Development')).toBeInTheDocument();
+        expect(screen.getByTestId('data-table')).toBeInTheDocument();
       });
 
-      expect(screen.getByText('Planning')).toBeInTheDocument();
-      // Project Gamma has null current phase
-      const dashElements = screen.getAllByText('-');
+      // Fixtures carry no lifecycle_state — every row shows the standing-item dash
+      const dashElements = screen.getAllByText('—');
       expect(dashElements.length).toBeGreaterThan(0);
     });
 

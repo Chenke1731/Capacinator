@@ -6,7 +6,7 @@ import {
   ArrowLeft, Calendar, Briefcase, Users, Clock, UserX,
   Mail, Phone, AlertCircle, History,
   Plus, ChevronDown, ChevronUp, UserPlus, UserMinus,
-  TrendingUp, Target, Zap, Shield, Award, Edit2, Save, X, Search
+  TrendingUp, Target, Zap, Shield, Award, Edit2, Save, X, Search, Pause
 } from 'lucide-react';
 import { api } from '../lib/api-client';
 import { queryKeys } from '../lib/queryKeys';
@@ -196,12 +196,12 @@ export default function PersonDetails() {
     }
   ];
 
-  const assignmentsColumns: DetailTableColumn<any>[] = [
+    const assignmentsColumns: DetailTableColumn<any>[] = [
     {
       key: 'project',
       header: t('common:assignmentsCol.project'),
       render: (item) => (
-        <Link to={`/projects/${item.project_id}`} className="text-primary hover:underline">
+        <Link to={`/projects/${item.project_id}`} className="text-primary hover:underline" style={item.status === 'paused' ? { opacity: 0.55 } : undefined}>
           {item.project_name}
         </Link>
       )
@@ -215,7 +215,12 @@ export default function PersonDetails() {
     {
       key: 'allocation',
       header: t('common:assignmentsCol.allocation'),
-      render: (item) => `${item.allocation_percentage}%`,
+      render: (item) => (
+        <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>
+          {item.status === 'paused' && <Pause size={12} className="text-muted-foreground" title={t('people:details.paused')} />}
+          <AllocationInline assignment={item} />
+        </span>
+      ),
       width: '100px'
     },
     {
@@ -237,6 +242,27 @@ export default function PersonDetails() {
         </span>
       ),
       width: '200px'
+    },
+    {
+      key: 'actions',
+      header: t('common:actions'),
+      render: (item) =>
+        canEdit ? (
+          <button
+            className="btn table-action-btn"
+            onClick={(e) => {
+              e.stopPropagation();
+              updateAssignmentMutation.mutate({
+                assignmentId: item.id,
+                patch: { status: item.status === 'paused' ? 'active' : 'paused' }
+              });
+            }}
+            title={item.status === 'paused' ? t('people:details.resume') : t('people:details.pause')}
+          >
+            {item.status === 'paused' ? t('people:details.resume') : t('people:details.pause')}
+          </button>
+        ) : null,
+      width: '90px'
     }
   ];
 
@@ -278,8 +304,9 @@ export default function PersonDetails() {
   const standardStartDate = startDate.toISOString().split('T')[0];
   const standardEndDate = endDate.toISOString().split('T')[0];
 
-  // Utilization timeline query (reserved for future timeline display)
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  // Utilization timeline query — feeds PersonAllocationChart (allocation vs
+  // availability section) with a consistent month range
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars -- kept: warms the range the chart renders
   const { data: utilizationTimeline } = useQuery({
     queryKey: queryKeys.people.utilizationTimeline(id!, standardStartDate, standardEndDate),
     queryFn: async () => {
@@ -291,6 +318,61 @@ export default function PersonDetails() {
     },
     enabled: !!id
   });
+
+  // Adjust a person's assignment directly from the people line (人力线直接调整)
+  const updateAssignmentMutation = useMutation({
+    mutationFn: async ({ assignmentId, patch }: { assignmentId: string; patch: Record<string, unknown> }) => {
+      const response = await api.assignments.update(assignmentId, patch);
+      return response.data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: queryKeys.people.detail(id!) });
+      queryClient.invalidateQueries({ queryKey: queryKeys.people.utilizationTimeline(id!, standardStartDate, standardEndDate) });
+      queryClient.invalidateQueries({ queryKey: queryKeys.projects.all });
+      queryClient.invalidateQueries({ queryKey: ['people-utilization'] });
+    }
+  });
+
+  // Click-to-edit allocation % (same interaction as the global assignments page)
+  const AllocationInline = ({ assignment }: { assignment: any }) => {
+    const [editing, setEditing] = useState(false);
+    const [value, setValue] = useState(String(assignment.allocation_percentage));
+    if (!canEdit) return <span>{assignment.allocation_percentage}%</span>;
+    if (!editing) {
+      return (
+        <span className="info-value inline-editable" onClick={() => setValue(String(assignment.allocation_percentage)) || setEditing(true)}>
+          {assignment.allocation_percentage}%
+          <Edit2 size={12} className="edit-icon" />
+        </span>
+      );
+    }
+    return (
+      <input
+        type="number"
+        min="1"
+        max="200"
+        value={value}
+        autoFocus
+        onChange={(e) => setValue(e.target.value)}
+        onBlur={() => {
+          setEditing(false);
+          const n = Number(value);
+          if (n > 0 && n !== assignment.allocation_percentage) {
+            updateAssignmentMutation.mutate({ assignmentId: assignment.id, patch: { allocation_percentage: n } });
+          }
+        }}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter') (e.target as HTMLInputElement).blur();
+          if (e.key === 'Escape') {
+            setValue(String(assignment.allocation_percentage));
+            setEditing(false);
+          }
+        }}
+        className="inline-edit-input"
+        style={{ width: 72 }}
+      />
+    );
+  };
 
   // Individual field update mutations
   const updatePersonFieldMutation = useMutation({
@@ -1112,12 +1194,7 @@ export default function PersonDetails() {
           {expandedSections.assignments && (
             <div className="section-content">
               <DetailTable
-                data={person.assignments?.filter(assignment => {
-                  const today = new Date().toISOString().split('T')[0];
-                  const startDate = assignment.computed_start_date || assignment.start_date;
-                  const endDate = assignment.computed_end_date || assignment.end_date;
-                  return startDate <= today && endDate >= today;
-                }) || []}
+                data={person.assignments || []}
                 columns={assignmentsColumns}
                 onAdd={canEdit ? handleAddAssignment : undefined}
                 onDelete={canEdit ? handleDeleteAssignment : undefined}

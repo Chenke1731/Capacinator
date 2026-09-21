@@ -460,6 +460,15 @@ export class AssignmentsController extends BaseController {
         return null;
       }
 
+      // Validate pause status if provided (lifecycle 退回/裁决取消 or manual pause)
+      if (updateData.status !== undefined) {
+        if (!['active', 'paused'].includes(updateData.status)) {
+          return res.status(400).json({
+            error: "Invalid status. Must be 'active' or 'paused'"
+          });
+        }
+      }
+
       // Validate allocation percentage if provided
       if (updateData.allocation_percentage !== undefined) {
         const allocation = updateData.allocation_percentage;

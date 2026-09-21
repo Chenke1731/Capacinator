@@ -260,7 +260,17 @@ export default function Assignments() {
     {
       key: 'person_name',
       header: t('assignments:columns.person'),
-      sortable: true
+      sortable: true,
+      render: (value, row) => (
+        <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>
+          {value}
+          {(row as any).status === 'paused' && (
+            <span className="lifecycle-state-badge lifecycle-state-badge--nok">
+              {t('people:details.paused')}
+            </span>
+          )}
+        </span>
+      )
     },
     {
       key: 'role_name',
@@ -632,6 +642,8 @@ export default function Assignments() {
         // route, so navigating there was a pointless round trip
         onRowClick={handleEditAssignment}
         itemsPerPage={20}
+        // paused rows stay visible (resumable) but greyed — they left capacity math
+        rowClassName={(row) => (row as any).status === 'paused' ? 'opacity-55' : undefined}
       />
     </>
   );

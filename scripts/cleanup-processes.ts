@@ -18,9 +18,18 @@ const PORTS = [3110, 3120, 3111]; // dev server, dev client, e2e server
 async function main() {
   console.log('🧹 Cleaning up orphaned Capacinator processes...\n');
 
-  // Find and kill orphaned Vite processes
+  // Find and kill orphaned Vite DEV processes.
+  // `vite preview` (port 3121, the production-preview entry) matches the same
+  // pattern — it is a deliberately long-running server, never an orphan.
   console.log('Checking for orphaned Vite processes...');
-  const vitePids = await findProcessesByPattern('vite.*client-vite.config.ts');
+  const allVitePids = await findProcessesByPattern('vite.*client-vite.config.ts');
+  const vitePids: number[] = [];
+  for (const pid of allVitePids) {
+    const isPreview = await findProcessesByPattern(`^\\S+\\s+${pid}\\s+.*preview`)
+      .then((r) => r.length > 0)
+      .catch(() => false);
+    if (!isPreview) vitePids.push(pid);
+  }
 
   if (vitePids.length > 0) {
     console.log(`Found orphaned Vite processes: ${vitePids.join(', ')}`);

@@ -12,7 +12,7 @@ jest.mock('../../lib/api-client', () => ({
   api: {
     reporting: {
       getDashboard: jest.fn(),
-      getCapacityReport: jest.fn()
+      getCapacity: jest.fn()
     }
   }
 }));

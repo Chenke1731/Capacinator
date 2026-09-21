@@ -61,7 +61,39 @@
       "high": "高",
       "medium": "中"
     },
-    "due": "截止日期:"
+    "due": "截止日期:",
+    "types": {
+      "capacityGap": {
+        "title": "关键产能缺口",
+        "description": "{{count}} 个角色的产能无法满足项目需求",
+        "action": "查看产能报表"
+      },
+      "overAllocation": {
+        "title": "资源超配",
+        "description": "{{count}} 人被分配的任务超出其可用产能",
+        "action": "查看人员利用率"
+      },
+      "projectOverdue": {
+        "title": "项目延期",
+        "description": "{{count}} 个项目进度滞后,可能需要重新调配资源",
+        "action": "查看项目状态"
+      },
+      "highUtilization": {
+        "title": "团队利用率过高",
+        "description": "{{percent}}% 的成员已满负荷,承接新项目的弹性有限",
+        "action": "查看利用率分析"
+      },
+      "tightCapacity": {
+        "title": "产能接近上限",
+        "description": "{{count}} 个角色已达到或接近产能上限",
+        "action": "查看产能分析"
+      },
+      "upcomingGaps": {
+        "title": "即将出现人力缺口",
+        "description": "近期项目有 {{hours}} 小时需求尚未落实人力",
+        "action": "查看缺口分析"
+      }
+    }
   },
   "dateRange": {
     "current": {

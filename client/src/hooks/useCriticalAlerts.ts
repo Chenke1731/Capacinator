@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 import { useQuery } from '@tanstack/react-query';
+import { useTranslation } from 'react-i18next';
 import { api } from '../lib/api-client';
 import { queryKeys } from '../lib/queryKeys';
 import { useScenario } from '../contexts/ScenarioContext';
@@ -18,6 +19,7 @@ interface CriticalAlert {
 
 export function useCriticalAlerts() {
   const { currentScenario } = useScenario();
+  const { t } = useTranslation();
 
   // Fetch dashboard data
   const { data: dashboard, isLoading: dashboardLoading, error: dashboardError } = useQuery({
@@ -51,9 +53,9 @@ export function useCriticalAlerts() {
         id: 'capacity-gaps',
         type: 'capacity_gap',
         severity: criticalGaps >= 5 ? 'critical' : criticalGaps >= 2 ? 'high' : 'medium',
-        title: 'Critical Capacity Gaps',
-        description: `${criticalGaps} roles have insufficient capacity to meet project demands`,
-        actionText: 'View Capacity Report',
+        title: t('dashboard:alerts.types.capacityGap.title'),
+        description: t('dashboard:alerts.types.capacityGap.description', { count: criticalGaps }),
+        actionText: t('dashboard:alerts.types.capacityGap.action'),
         navigationPath: '/reports?tab=capacity',
         count: criticalGaps
       });
@@ -68,9 +70,9 @@ export function useCriticalAlerts() {
         id: 'over-allocation',
         type: 'over_allocation',
         severity: overAllocated >= 3 ? 'critical' : overAllocated >= 2 ? 'high' : 'medium',
-        title: 'Over-allocated Resources',
-        description: `${overAllocated} people are allocated beyond their available capacity`,
-        actionText: 'View People Utilization',
+        title: t('dashboard:alerts.types.overAllocation.title'),
+        description: t('dashboard:alerts.types.overAllocation.description', { count: overAllocated }),
+        actionText: t('dashboard:alerts.types.overAllocation.action'),
         navigationPath: '/people?tab=utilization',
         count: overAllocated
       });
@@ -83,9 +85,9 @@ export function useCriticalAlerts() {
         id: 'project-overdue',
         type: 'project_risk',
         severity: overdueProjects >= 3 ? 'critical' : 'high',
-        title: 'Overdue Projects',
-        description: `${overdueProjects} projects are behind schedule and may require resource reallocation`,
-        actionText: 'View Project Status',
+        title: t('dashboard:alerts.types.projectOverdue.title'),
+        description: t('dashboard:alerts.types.projectOverdue.description', { count: overdueProjects }),
+        actionText: t('dashboard:alerts.types.projectOverdue.action'),
         navigationPath: '/projects?filter=overdue',
         count: overdueProjects
       });
@@ -101,9 +103,9 @@ export function useCriticalAlerts() {
         id: 'high-utilization',
         type: 'deadline_warning',
         severity: 'medium',
-        title: 'High Team Utilization',
-        description: `${Math.round(highUtilizationRatio * 100)}% of team is fully allocated. Limited flexibility for new projects`,
-        actionText: 'Review Utilization',
+        title: t('dashboard:alerts.types.highUtilization.title'),
+        description: t('dashboard:alerts.types.highUtilization.description', { percent: Math.round(highUtilizationRatio * 100) }),
+        actionText: t('dashboard:alerts.types.highUtilization.action'),
         navigationPath: '/people?tab=utilization'
       });
     }
@@ -115,9 +117,9 @@ export function useCriticalAlerts() {
         id: 'tight-capacity',
         type: 'deadline_warning',
         severity: 'medium',
-        title: 'Tight Capacity Constraints',
-        description: `${tightCapacity} roles are operating at or near maximum capacity`,
-        actionText: 'View Capacity Analysis',
+        title: t('dashboard:alerts.types.tightCapacity.title'),
+        description: t('dashboard:alerts.types.tightCapacity.description', { count: tightCapacity }),
+        actionText: t('dashboard:alerts.types.tightCapacity.action'),
         navigationPath: '/reports?tab=capacity',
         count: tightCapacity
       });
@@ -131,16 +133,16 @@ export function useCriticalAlerts() {
           id: 'upcoming-gaps',
           type: 'deadline_warning',
           severity: 'high',
-          title: 'Upcoming Staffing Shortfalls',
-          description: `${Math.round(totalGapHours)} hours of unmet demand in upcoming projects`,
-          actionText: 'View Gap Analysis',
+          title: t('dashboard:alerts.types.upcomingGaps.title'),
+          description: t('dashboard:alerts.types.upcomingGaps.description', { hours: Math.round(totalGapHours) }),
+          actionText: t('dashboard:alerts.types.upcomingGaps.action'),
           navigationPath: '/reports?tab=gaps'
         });
       }
     }
 
     return alertList;
-  }, [dashboard, capacityReport]);
+  }, [dashboard, capacityReport, t]);
 
   return {
     alerts,

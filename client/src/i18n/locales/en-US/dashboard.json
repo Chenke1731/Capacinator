@@ -62,7 +62,39 @@
       "high": "high",
       "medium": "medium"
     },
-    "due": "Due:"
+    "due": "Due:",
+    "types": {
+      "capacityGap": {
+        "title": "Critical Capacity Gaps",
+        "description": "{{count}} roles have insufficient capacity to meet project demands",
+        "action": "View Capacity Report"
+      },
+      "overAllocation": {
+        "title": "Over-allocated Resources",
+        "description": "{{count}} people are allocated beyond their available capacity",
+        "action": "View People Utilization"
+      },
+      "projectOverdue": {
+        "title": "Overdue Projects",
+        "description": "{{count}} projects are behind schedule and may require resource reallocation",
+        "action": "View Project Status"
+      },
+      "highUtilization": {
+        "title": "High Team Utilization",
+        "description": "{{percent}}% of team is fully allocated. Limited flexibility for new projects",
+        "action": "Review Utilization"
+      },
+      "tightCapacity": {
+        "title": "Tight Capacity Constraints",
+        "description": "{{count}} roles are operating at or near maximum capacity",
+        "action": "View Capacity Analysis"
+      },
+      "upcomingGaps": {
+        "title": "Upcoming Staffing Shortfalls",
+        "description": "{{hours}} hours of unmet demand in upcoming projects",
+        "action": "View Gap Analysis"
+      }
+    }
   },
   "dateRange": {
     "current": {

@@ -648,7 +648,7 @@ describe('Assignments Page', () => {
   });
 
   describe('Navigation', () => {
-    test('navigates to assignment details on row click', async () => {
+    test('row click opens the edit dialog (/assignments/:id is a redirect-only route)', async () => {
       const user = userEvent.setup();
       renderComponent();
 
@@ -659,7 +659,11 @@ describe('Assignments Page', () => {
       const firstRow = screen.getAllByRole('row')[1]; // Skip header row
       await user.click(firstRow);
 
-      expect(mockNavigate).toHaveBeenCalledWith('/assignments/assign-1');
+      // opens the same dialog the 编辑 button uses, instead of a pointless
+      // navigate → redirect round trip
+      await waitFor(() => {
+        expect(screen.getByTestId('assignment-modal')).toBeInTheDocument();
+      });
     }, 10000);
   });
 

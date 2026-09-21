@@ -628,7 +628,9 @@ export default function Assignments() {
       <DataTable
         data={assignments || []}
         columns={columns}
-        onRowClick={(row) => navigate(`/assignments/${row.id}`)}
+        // clicking a row opens the edit dialog — /assignments/:id is a redirect-only
+        // route, so navigating there was a pointless round trip
+        onRowClick={handleEditAssignment}
         itemsPerPage={20}
       />
     </>

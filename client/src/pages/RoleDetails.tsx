@@ -219,7 +219,7 @@ export default function RoleDetails() {
       <div className="error-page">
         <h1>{t('roles:details.notFoundTitle')}</h1>
         <p>{t('roles:details.notFoundText')}</p>
-        <button className="btn btn-primary" onClick={() => navigate('/roles')}>
+        <button className="btn btn-primary" onClick={() => navigate('/people?tab=roles')}>
           {t('roles:details.backToRoles')}
         </button>
       </div>
@@ -232,7 +232,7 @@ export default function RoleDetails() {
         <div className="header-left">
           <button
             className="btn btn-secondary btn-sm"
-            onClick={() => navigate('/roles')}
+            onClick={() => navigate('/people?tab=roles')}
           >
             <ArrowLeft size={16} />
             {t('roles:details.backToRoles')}

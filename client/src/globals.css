@@ -1,10 +1,11 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* Tailwind v4 canonical entry — the legacy v3 directives (@tailwind base/
+   components/utilities) generated base classes but never loaded the v4
+   default theme, silently killing every md:/lg:/xl: responsive variant
+   app-wide (e.g. enhanced-kpis rendered 4 stacked rows instead of 1×4). */
+@import "tailwindcss";
 
-/* Tailwind v4 ignores tailwind.config.js unless wired below; make the dark:
-   variant follow the app's .dark class (set by ThemeContext) instead of the
-   OS media query, so the in-app theme toggle actually drives dark: utilities */
+/* dark: variant follows the app's .dark class (set by ThemeContext) instead
+   of the OS media query, so the in-app theme toggle actually drives it */
 @custom-variant dark (&:where(.dark, .dark *));
 
 @layer base {

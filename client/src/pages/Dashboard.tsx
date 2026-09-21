@@ -93,15 +93,11 @@ export function Dashboard() {
 
   return (
     <div className="page-container">
-      <header className="page-header" role="banner">
-        <div>
-          <h1>{t('dashboard:title')}</h1>
-          <p className="page-subtitle">{t('dashboard:subtitle')}</p>
-        </div>
-      </header>
-
-      {/* Date Range Filter */}
-      <div className="dashboard-filter-bar">
+      {/* Compact toolbar: the sidebar already says where you are — no 62px
+          title strip; the date-range selector sits in one slim row */}
+      <div className="dashboard-toolbar">
+        <h1 className="sr-only">{t('dashboard:title')}</h1>
+        <p className="page-subtitle dashboard-subtitle">{t('dashboard:subtitle')}</p>
         <DateRangeSelector
           selectedRange={dateRange}
           onRangeChange={setDateRange}

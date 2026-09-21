@@ -1818,3 +1818,26 @@ input[type="checkbox"].settings-checkbox,
 .projects-board .filter-item { min-width: 160px; flex: 0 1 210px; }
 .projects-board .filter-bar { padding: 4px 0; }
 .projects-board .filter-bar .btn { min-height: 0; }
+
+/* 仪表盘紧凑工具栏: 副标题 + 日期选择同一行, 去掉独立标题条 */
+.dashboard-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.dashboard-toolbar .page-subtitle.dashboard-subtitle {
+  margin: 0;
+  font-size: 13px;
+}
+/* DateRangeSelector 自带 Card 包装 — 工具栏里去壳 */
+.dashboard-toolbar > *:last-child {
+  margin-left: auto;
+}
+.dashboard-toolbar [class*="p-3"] {
+  padding: 2px 4px !important;
+}
+.dashboard-toolbar .card,
+.dashboard-toolbar [class*="shadow"] {
+  box-shadow: none !important;
+}

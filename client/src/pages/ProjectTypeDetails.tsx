@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { ArrowLeft, Edit2 } from 'lucide-react';
 import { api } from '../lib/api-client';
 import { queryKeys } from '../lib/queryKeys';
-import type { ProjectType, Role, ProjectPhase } from '../types';
+import type { ProjectType, ProjectPhase } from '../types';
 import PhaseTemplateDesigner from '../components/PhaseTemplateDesigner';
 import ProjectsTable from '../components/ProjectsTable';
 import '../components/PhaseTemplateDesigner.css';

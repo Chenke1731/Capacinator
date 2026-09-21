@@ -22,7 +22,7 @@ import {
   DialogDescription,
   DialogFooter,
 } from '../ui/dialog';
-import type { ProjectType, ProjectPhase } from '../../types';
+import type { ProjectType } from '../../types';
 
 // Local interface for person with roles (from people API)
 interface PersonWithRoles {

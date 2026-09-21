@@ -13,7 +13,7 @@ import { ErrorMessage } from '../components/ui/ErrorMessage';
 import PersonModal from '../components/modals/PersonModal';
 import { SmartAssignmentModal } from '../components/modals/SmartAssignmentModal';
 import { useModal } from '../hooks/useModal';
-import type { Person, Role, Location } from '../types';
+import type { Person, Location } from '../types';
 import './People.css';
 
 export default function People() {

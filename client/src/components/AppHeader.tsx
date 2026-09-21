@@ -121,6 +121,10 @@ export const AppHeader: React.FC = () => {
       </div>
 
       <div className="header-center">
+        {/* 场景切换器:只在存在基线以外的场景(what-if 推演)时才出现——
+            单基线状态下它是一个永远只读的"基线"下拉,纯噪音。
+            排期沙盘落地、用户创建第一个场景后会自动回来 */}
+        {scenarios.filter((s) => s.scenario_type !== 'baseline').length > 0 && (
         <div className="scenario-selector">
           <GitBranch size={12} />
           <button
@@ -171,6 +175,7 @@ export const AppHeader: React.FC = () => {
             </div>
           )}
         </div>
+        )}
       </div>
 
       <div className="header-right">

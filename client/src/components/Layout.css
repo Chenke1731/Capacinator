@@ -41,12 +41,13 @@
   width: 128px;
   height: 128px;
   object-fit: contain;
-  filter: brightness(0) invert(1);
 }
 
-/* Adjust logo filter for dark theme (light sidebar) */
+/* Dark theme: the original logo is dark green (near-invisible on the dark
+   sidebar), so flatten it to a white silhouette. Light theme keeps the
+   brand colors — dark green reads fine on the light sidebar. */
 [data-theme="dark"] .logo-icon {
-  filter: none;
+  filter: brightness(0) invert(1);
 }
 
 .logo-text {

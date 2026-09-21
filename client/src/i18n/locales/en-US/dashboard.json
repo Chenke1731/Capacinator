@@ -93,6 +93,17 @@
         "title": "Upcoming Staffing Shortfalls",
         "description": "{{hours}} hours of unmet demand in upcoming projects",
         "action": "View Gap Analysis"
+      },
+      "designDeadlineOverdue": {
+        "title": "Design deadline overdue: {{name}}",
+        "description": "{{days}} days overdue (deadline {{date}}), scheme not admitted yet"
+      },
+      "designDeadlineSoon": {
+        "title": "Design deadline soon: {{name}}",
+        "description": "{{days}} days left (deadline {{date}})"
+      },
+      "designDeadline": {
+        "action": "Open project"
       }
     }
   },

@@ -746,4 +746,45 @@ export const api = {
     check: (id: number, body: { deadline?: string; start?: string } = {}) =>
       apiClient.post<{ data: EstimationCheckResponse }>(`/estimations/${id}/check`, body),
   },
+
+  // Design estimations (设计粗估: rough design person-months, design-side check)
+  designEstimations: {
+    listByProject: (projectId: string) =>
+      apiClient.get<{ data: any[] }>(`/design-estimations/project/${projectId}`),
+    create: (projectId: string, data: { estimated_design_pm: number; deviation_low_pct?: number; deviation_high_pct?: number; notes?: string | null }) =>
+      apiClient.post<{ data: any }>(`/design-estimations/project/${projectId}`, data),
+    backfill: (id: number, data: { actual_design_pm: number | null }) =>
+      apiClient.post<{ data: any; deviation: { design_pm: number | null } }>(`/design-estimations/${id}/backfill`, data),
+    check: (id: number, body: { deadline?: string; start?: string } = {}) =>
+      apiClient.post<{ data: EstimationCheckResponse }>(`/design-estimations/${id}/check`, body),
+  },
+
+  // Pool demands (池占位: role-side FTE demand without named persons)
+  poolDemands: {
+    listByProject: (projectId: string) =>
+      apiClient.get<{ data: any[] }>(`/pool-demands/project/${projectId}`),
+    create: (projectId: string, data: { role_id: string; headcount: number; start_date?: string | null; end_date?: string | null; notes?: string | null }) =>
+      apiClient.post<{ data: any }>(`/pool-demands/project/${projectId}`, data),
+    update: (id: string, data: Partial<{ role_id: string; headcount: number; start_date: string | null; end_date: string | null; status: string; notes: string | null }>) =>
+      apiClient.patch<{ data: any }>(`/pool-demands/${id}`, data),
+    delete: (id: string) =>
+      apiClient.delete<{ data: { id: string } }>(`/pool-demands/${id}`),
+  },
+
+  // Lifecycle (8-state machine: 待RAT/NOK/设计中/待排序/已排序/已启动迭代/已交付/裁决取消)
+  lifecycle: {
+    get: (projectId: string) =>
+      apiClient.get<{ data: any }>(`/projects/${projectId}/lifecycle`),
+    transition: (projectId: string, data: {
+      to: string;
+      ar_number?: string | null;
+      iteration_label?: string | null;
+      note?: string | null;
+      dev_assignments_action?: 'pause' | 'release' | 'keep';
+      pool?: { role_id: string; headcount: number; start_date?: string | null; end_date?: string | null };
+    }) =>
+      apiClient.post<{ data: { project: any; event: any } }>(`/projects/${projectId}/lifecycle/transition`, data),
+    updateFields: (projectId: string, data: { ar_number?: string | null; iteration_label?: string | null }) =>
+      apiClient.patch<{ data: any }>(`/projects/${projectId}/lifecycle`, data),
+  },
 };

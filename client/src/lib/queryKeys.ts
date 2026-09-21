@@ -148,6 +148,12 @@ export const queryKeys = {
       [...queryKeys.projects.all, 'demand', projectId] as const,
     estimation: (projectId: string) =>
       [...queryKeys.projects.all, 'estimation', projectId] as const,
+    designEstimation: (projectId: string) =>
+      [...queryKeys.projects.all, 'designEstimation', projectId] as const,
+    poolDemands: (projectId: string) =>
+      [...queryKeys.projects.all, 'poolDemands', projectId] as const,
+    lifecycle: (projectId: string) =>
+      [...queryKeys.projects.all, 'lifecycle', projectId] as const,
     roadmap: (filters?: RoadmapFilters) =>
       [...queryKeys.projects.all, 'roadmap', filters] as const,
     health: () => [...queryKeys.projects.all, 'health'] as const,

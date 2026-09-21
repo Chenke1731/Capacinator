@@ -29,7 +29,8 @@ export function Projects() {
     search: '',
     project_type_id: '',
     status: '',
-    tag_id: ''
+    tag_id: '',
+    lifecycle_state: ''
   });
   
   const addProjectModal = useModal();
@@ -129,7 +130,8 @@ export function Projects() {
       search: '',
       project_type_id: '',
       status: '',
-      tag_id: ''
+      tag_id: '',
+      lifecycle_state: ''
     });
   };
 
@@ -206,9 +208,27 @@ export function Projects() {
       render: formatDate
     },
     {
-      key: 'current_phase_name',
-      header: t('projects:currentPhase'),
-      render: (value) => value || '-'
+      key: 'lifecycle_state',
+      header: t('projects:lifecycleColumn'),
+      render: (value: string | null, row: any) => {
+        if (!value) return <span className="text-muted">—</span>;
+        const inDesign = ['pending_rat', 'nok', 'designing'].includes(value);
+        const deadline = row.design_deadline ? String(row.design_deadline).slice(0, 10) : null;
+        const overdue =
+          inDesign && deadline && new Date(deadline + 'T00:00:00').getTime() < new Date().setHours(0, 0, 0, 0);
+        return (
+          <span style={{ display: 'inline-flex', flexDirection: 'column', gap: 3 }}>
+            <span className={`lifecycle-state-badge lifecycle-state-badge--${value}`}>
+              {t(`projects:lifecycle.state.${value}`)}
+            </span>
+            {inDesign && deadline && (
+              <span className={overdue ? 'lifecycle-deadline lifecycle-deadline--overdue' : 'lifecycle-deadline'}>
+                {t('projects:lifecycle.deadlineShort', { date: deadline })}
+              </span>
+            )}
+          </span>
+        );
+      }
     },
     {
       key: 'actions',
@@ -292,6 +312,17 @@ export function Projects() {
         { value: 'on_hold', label: projectStatusLabel('on_hold') },
         { value: 'completed', label: projectStatusLabel('completed') },
         { value: 'cancelled', label: projectStatusLabel('cancelled') }
+      ]
+    },
+    {
+      name: 'lifecycle_state',
+      label: t('projects:lifecycle.filterLabel'),
+      type: 'select' as const,
+      options: [
+        { value: 'none', label: t('projects:lifecycle.standingOption') },
+        ...['pending_rat', 'nok', 'designing', 'backlog', 'scheduled', 'in_iteration', 'delivered', 'cancelled'].map(
+          (s) => ({ value: s, label: t(`projects:lifecycle.state.${s}`) })
+        )
       ]
     },
     {

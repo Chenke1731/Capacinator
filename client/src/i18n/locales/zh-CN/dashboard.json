@@ -92,6 +92,17 @@
         "title": "即将出现人力缺口",
         "description": "近期项目有 {{hours}} 小时需求尚未落实人力",
         "action": "查看缺口分析"
+      },
+      "designDeadlineOverdue": {
+        "title": "设计死线已到期：{{name}}",
+        "description": "已超 {{days}} 天（死线 {{date}}），方案仍未准入"
+      },
+      "designDeadlineSoon": {
+        "title": "设计死线临近：{{name}}",
+        "description": "剩 {{days}} 天（死线 {{date}}）"
+      },
+      "designDeadline": {
+        "action": "去处理"
       }
     }
   },

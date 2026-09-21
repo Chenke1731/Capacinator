@@ -32,8 +32,9 @@ import { formatDate } from '../utils/date';
 import { ProjectDemandChart } from '../components/ProjectDemandChart';
 import { InlineEdit } from '../components/ui/InlineEdit';
 import { CollapsibleSection } from '../components/ui/CollapsibleSection';
-import { AssignmentTable } from '../components/ui/AssignmentTable';
 import { EstimationPanel } from '../components/estimation/EstimationPanel';
+import { LifecycleBanner } from '../components/lifecycle/LifecycleBanner';
+import { StaffingSection } from '../components/staffing/StaffingSection';
 import './ProjectDetail.css';
 
 interface ProjectDetail {
@@ -112,6 +113,7 @@ export function ProjectDetail() {
 
   // Check user permissions
   const canEdit = localStorage.getItem('userRole') !== 'viewer';
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars -- kept for future delete-permission gating
   const canDelete = localStorage.getItem('userRole') === 'admin';
 
   // Fetch project details
@@ -384,6 +386,9 @@ export function ProjectDetail() {
         </CardHeader>
       </Card>
 
+      {/* Lifecycle banner: single state axis driving the whole page (零弹窗推进) */}
+      <LifecycleBanner project={project} />
+
       <div className="space-y-6">
         {/* Basic Information Section */}
         <CollapsibleSection
@@ -500,35 +505,29 @@ export function ProjectDetail() {
           <ProjectDemandChart projectId={project.id} projectName={project.name} />
         </CollapsibleSection>
 
-        {/* Current Assignments Section */}
+        {/* Current Assignments Section: mixed named + pool rows with side summary */}
         <CollapsibleSection
           title={t('projects:teamAssignments')}
           icon={Users}
           expanded={expandedSections.assignments}
           onToggle={(expanded) => setExpandedSections(prev => ({ ...prev, assignments: expanded }))}
         >
-          <AssignmentTable
-            assignments={project.assignments || []}
-            onRowClick={handleAssignmentClick}
-            onDelete={(assignment) => deleteAssignmentMutation.mutate(assignment.id)}
+          <StaffingSection
+            project={project}
             canEdit={canEdit}
-            canDelete={canDelete}
-            emptyMessage={t('projects:noTeamAssignments')}
-            emptyActionText={t('projects:addAssignment')}
-            emptyActionUrl="/assignments"
-            showPersonColumn={true}
-            showProjectColumn={false}
+            onAssignmentClick={handleAssignmentClick}
+            onDeleteAssignment={(assignment) => deleteAssignmentMutation.mutate(assignment.id)}
           />
         </CollapsibleSection>
 
-        {/* Estimation Section (Step 1: LOC estimation + deadline check) */}
+        {/* Estimation Section: design rough estimate while designing, LOC after admit */}
         <CollapsibleSection
           title={t('projects:estimation.title')}
           icon={Calculator}
           expanded={expandedSections.estimation}
           onToggle={(expanded) => setExpandedSections(prev => ({ ...prev, estimation: expanded }))}
         >
-          <EstimationPanel projectId={project.id} />
+          <EstimationPanel projectId={project.id} lifecycleState={project.lifecycle_state ?? null} designDeadline={project.design_deadline ?? null} />
         </CollapsibleSection>
 
         {/* History Section */}

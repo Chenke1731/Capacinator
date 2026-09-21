@@ -16,6 +16,7 @@ import type {
   EstimationDeviation,
   EstimationSideCheck
 } from '../../types';
+import { DesignEstimationPanel } from './DesignEstimationPanel';
 
 interface EstimationFormState {
   estimated_loc: string;
@@ -53,13 +54,13 @@ function computePreview(form: EstimationFormState) {
   };
 }
 
-const VERDICT_VARIANT: Record<string, 'default' | 'secondary' | 'destructive' | 'outline'> = {
+export const VERDICT_VARIANT: Record<string, 'default' | 'secondary' | 'destructive' | 'outline'> = {
   feasible: 'secondary',
   tight: 'outline',
   infeasible: 'destructive'
 };
 
-function SideCheckRow({ side, data }: { side: EstimationSideCheck; data: EstimationSideCheck }) {
+export function SideCheckRow({ side, data }: { side: EstimationSideCheck; data: EstimationSideCheck }) {
   const { t } = useTranslation();
   const sideLabel = side.side === 'design' ? t('projects:estimation.designSide') : t('projects:estimation.devSide');
   return (
@@ -75,7 +76,31 @@ function SideCheckRow({ side, data }: { side: EstimationSideCheck; data: Estimat
   );
 }
 
-export function EstimationPanel({ projectId }: { projectId: string }) {
+/**
+ * State-aware estimation surface: while the item sits on the design side of
+ * the lifecycle (待RAT/NOK/设计中) there is no LOC yet — the rough design
+ * person-month form is shown. After admit (and for items without a
+ * lifecycle) the LOC panel stays in charge. No tabs to mis-click.
+ */
+const DESIGN_SIDE_STATES = ['pending_rat', 'nok', 'designing'];
+
+export function EstimationPanel({
+  projectId,
+  lifecycleState = null,
+  designDeadline = null
+}: {
+  projectId: string;
+  lifecycleState?: string | null;
+  designDeadline?: string | null;
+}) {
+  if (lifecycleState && DESIGN_SIDE_STATES.includes(lifecycleState)) {
+    return <DesignEstimationPanel projectId={projectId} designDeadline={designDeadline} />;
+  }
+
+  return <LocEstimationPanel projectId={projectId} />;
+}
+
+function LocEstimationPanel({ projectId }: { projectId: string }) {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
 

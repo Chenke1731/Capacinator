@@ -182,7 +182,10 @@ export abstract class BaseController {
     if (req?.logger && this.options.enableLogging) {
       req.logger.error('Controller error', error, {
         controller: this.constructor.name,
-        sqlError: error.code === 'SQLITE_ERROR' ? error.message : undefined
+        sqlError: error.code === 'SQLITE_ERROR' ? error.message : undefined,
+        // message-only logging hid the call site (e.g. the demand-report
+        // "query.where is not a function" 500 that could not be reproduced)
+        stack: error instanceof Error ? error.stack : String(error)
       });
     } else {
       // Fallback to logger for backwards compatibility

@@ -82,7 +82,8 @@
     "dist:mac": "npm run build && electron-builder --mac",
     "dist:linux": "npm run build && electron-builder --linux",
     "start": "electron .",
-    "commands": "npx tsx scripts/list-commands.ts"
+    "commands": "npx tsx scripts/list-commands.ts",
+    "verify:smoke": "node scripts/smoke-check.mjs"
   },
   "keywords": [],
   "author": "",

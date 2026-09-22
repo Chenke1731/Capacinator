@@ -7,7 +7,7 @@ import { api } from '../lib/api-client';
 import { queryKeys } from '../lib/queryKeys';
 import { useCellPopover } from '../hooks/useCellPopover';
 import { PriorityCell, OwnerCell, TagsCell, ComponentCell } from '../components/boards/EditableCells';
-import { KlocCell, EffortCell, RoleCell, PrimaryDevCell } from '../components/boards/BoardCells';
+import { KlocCell, EffortCell, RoleCell, PrimaryDevCell, VersionPart, ReleaseCell } from '../components/boards/BoardCells';
 import { LoadingSpinner } from '../components/ui/LoadingSpinner';
 import { ErrorMessage } from '../components/ui/ErrorMessage';
 import ProjectModal from '../components/modals/ProjectModal';
@@ -28,58 +28,6 @@ import './Projects.css';
  * 版本维度改由工具栏筛选表达; 行内只呈现 SR/AR 粒度事项本体; 告警行淡黄底+短词。
  * 砍掉: 起止日期列 / 查看详情按钮(行点击即详情) / 人力分配旧弹窗。
  */
-
-/** 版本/交付计划各自内联可编辑(两列); onSaved 回报字段与新值供跳组高亮 */
-function VersionPart({ project, field, placeholder, hint, onSaved }: {
-  project: any;
-  field: 'product_version' | 'release_version';
-  placeholder: string;
-  /** title 用长文案;placeholder 只管显示(交付列占位改"—"后 title 仍需语义,P9) */
-  hint: string;
-  onSaved: (field: 'product_version' | 'release_version', value: string | null) => void;
-}) {
-  const [editing, setEditing] = useState(false);
-  const [draft, setDraft] = useState('');
-  const updateMutation = useMutation({
-    mutationFn: (patch: Record<string, string | null>) => api.projects.update(project.id, patch),
-    onSuccess: (_data, patch) => {
-      setEditing(false);
-      onSaved(field, (patch[field] as string | null) ?? null);
-    }
-  });
-  const value = (project[field] ?? '') as string;
-  if (editing) {
-    return (
-      <input
-        className="inline-edit-input"
-        style={{ width: '100%' }}
-        value={draft}
-        autoFocus
-        placeholder={placeholder}
-        onChange={(e) => setDraft(e.target.value)}
-        onBlur={() => {
-          const trimmed = draft.trim();
-          if (trimmed !== value) updateMutation.mutate({ [field]: trimmed || null });
-          else setEditing(false);
-        }}
-        onKeyDown={(e) => {
-          if (e.key === 'Enter') (e.target as HTMLInputElement).blur();
-          if (e.key === 'Escape') setEditing(false);
-        }}
-      />
-    );
-  }
-  return (
-    <span className={`req-edit-cell req-edit-cell--${field === 'release_version' ? 'release' : 'version'}`} onClick={(e) => e.stopPropagation()}>
-      <button type="button" className="projects-version-part projects-version-part--single"
-              title={hint}
-              onClick={() => { setDraft(value); setEditing(true); }}>
-        {value || <span className="text-muted">{placeholder}</span>}
-      </button>
-      <Pencil size={10} className="req-pencil" aria-hidden />
-    </span>
-  );
-}
 
 /** 优先级/负责人/标签三列由 EditableCells 提供(锚定气泡就地编辑) */
 
@@ -277,6 +225,17 @@ function aggregateChildren(children: any[]): ProjectTree['agg'] {
       .map(([state, count]) => ({ state, count }))
       .sort((a, b) => b.count - a.count)
   };
+}
+
+
+/** SR 行交付计划尾行: 子行迭代窗口的最早起~最晚止(派生只读,设计 §3) */
+function aggIterWindow(children: any[]): { start: string; end: string; names: string[] } | null {
+  const its = children.map((c) => c.iteration).filter(Boolean);
+  if (its.length === 0) return null;
+  const start = its.map((i) => i.start_date).sort()[0];
+  const end = its.map((i) => i.end_date).sort().reverse()[0];
+  const names = [...new Set(its.map((i) => i.name))];
+  return { start, end, names };
 }
 
 function buildTree(rows: any[]): ProjectTree[] {
@@ -782,10 +741,7 @@ export function Projects() {
                 placeholder={t('projects:version.productPlaceholder')}
                 hint={t('projects:version.productTitle')}
                 onSaved={() => handleCellSaved(project.id)} />
-              <VersionPart project={project} field="release_version"
-                placeholder={t('projects:version.releasePlaceholder')}
-                hint={t('projects:version.releaseTitle')}
-                onSaved={() => handleCellSaved(project.id)} />
+              <ReleaseCell project={project} onSaved={() => handleCellSaved(project.id)} />
 
               <PriorityCell project={project} onSaved={() => handleCellSaved(project.id)} />
 
@@ -885,10 +841,8 @@ export function Projects() {
                 placeholder={t('projects:version.productPlaceholder')}
                 hint={t('projects:version.productTitle')}
                 onSaved={() => handleCellSaved(project.id)} />
-              <VersionPart project={project} field="release_version"
-                placeholder={t('projects:version.releasePlaceholder')}
-                hint={t('projects:version.releaseTitle')}
-                onSaved={() => handleCellSaved(project.id)} />
+              <ReleaseCell project={project} onSaved={() => handleCellSaved(project.id)}
+                readOnlyWindow={aggIterWindow(tree.children)} />
 
               <PriorityCell project={project} onSaved={() => handleCellSaved(project.id)} />
               <span className="req-primary req-primary--agg" title={agg.primaryPersons.join('、') || undefined}>
@@ -953,10 +907,7 @@ export function Projects() {
                       placeholder={t('projects:version.productPlaceholder')}
                       hint={t('projects:version.productTitle')}
                       onSaved={() => handleCellSaved(child.id)} />
-                    <VersionPart project={child} field="release_version"
-                      placeholder={t('projects:version.releasePlaceholder')}
-                      hint={t('projects:version.releaseTitle')}
-                      onSaved={() => handleCellSaved(child.id)} />
+                    <ReleaseCell project={child} onSaved={() => handleCellSaved(child.id)} />
 
                     <PriorityCell project={child} onSaved={() => handleCellSaved(child.id)} />
                     <PrimaryDevCell primary={child.primary_dev} />

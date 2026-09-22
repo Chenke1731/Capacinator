@@ -515,5 +515,16 @@
   "primaryDev": {
     "hint": "Primary dev & window",
     "none": "—"
+  },
+  "iteration": {
+    "pickTitle": "Pick iteration",
+    "pickHint": "Click to attach",
+    "unscheduled": "unscheduled",
+    "empty": "No iterations yet — create below",
+    "detach": "Detach",
+    "createTitle": "New iteration",
+    "namePlaceholder": "e.g. Portal Dec iteration",
+    "createAndAttach": "Create & attach",
+    "itemUnit": " items"
   }
 }

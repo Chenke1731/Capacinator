@@ -513,5 +513,16 @@
   "primaryDev": {
     "hint": "主投入开发与投入窗口",
     "none": "未投入"
+  },
+  "iteration": {
+    "pickTitle": "选择迭代",
+    "pickHint": "点击挂接迭代",
+    "unscheduled": "未排迭代",
+    "empty": "暂无迭代——直接在下面新建",
+    "detach": "解除挂接",
+    "createTitle": "新建迭代",
+    "namePlaceholder": "如：门户项目12月迭代",
+    "createAndAttach": "新建并挂接",
+    "itemUnit": "项"
   }
 }

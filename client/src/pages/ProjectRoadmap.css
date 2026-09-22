@@ -711,7 +711,8 @@
   border-radius: 3px;
   font-weight: 600;
   background: hsl(var(--muted));
-  color: hsl(var(--muted-foreground));
+  /* 8.8px 小字: muted-foreground 浅色仅 3.0:1, 用 foreground@85% 双主题均过 4.5:1 */
+  color: hsl(var(--foreground) / 0.85);
   border: 1px solid hsl(var(--border));
   flex-shrink: 0;
   min-width: 25px;
@@ -1398,7 +1399,11 @@ body.dragging * {
 }
 
 /* Project Name Link Styling */
+/* 名称链接是行内紧凑件: 退出全局 44px 触控规则, 否则被 min-height:44px 撑高,
+   溢出 52px 行头压住下方徽章行(2026-09-22 审计 P0-2, 同 lifecycle-badge-btn 前案) */
 .project-name-link {
+  min-height: 0;
+  min-width: 0;
   background: none;
   border: none;
   padding: 0;
@@ -1422,12 +1427,24 @@ body.dragging * {
   min-width: var(--project-name-min-width);
 }
 
+/* 深色主题: #2563eb 在深底仅 3.1:1, 换 400 档蓝; 悬停底色同步换深色系 */
+[data-theme='dark'] .project-name-link,
+.dark .project-name-link {
+  color: #60a5fa;
+}
 .project-name-link:hover {
   color: #1d4ed8;
   background: #eff6ff;
   padding: 0.125rem 0.25rem;
   margin: -0.125rem -0.25rem;
   border-radius: 3px;
+}
+[data-theme='dark'] .project-name-link:hover,
+.dark .project-name-link:hover,
+[data-theme='dark'] .project-name-link:focus,
+.dark .project-name-link:focus {
+  color: #93c5fd;
+  background: rgba(96, 165, 250, 0.18);
 }
 
 .project-name-link:focus {
@@ -1605,7 +1622,8 @@ body.dragging * {
   top: 0;
   left: 4px;
   transform: translateY(-50%);
-  background: #dc2626;
+  /* 深一档红: todayPulse 会在 0.75-1.0 间变透明度, 白字在任何相位都 ≥4.5:1 */
+  background: #b91c1c;
   color: white;
   padding: 0.25rem 0.5rem;
   border-radius: 4px;
@@ -1618,17 +1636,16 @@ body.dragging * {
 }
 
 .today-label {
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  text-shadow: none;
 }
 
 @keyframes todayPulse {
   0%, 100% {
-    opacity: 1;
     transform: translateY(-50%) scale(1);
   }
   50% {
-    opacity: 0.8;
-    transform: translateY(-50%) scale(1.05);
+    /* 不用 opacity 脉动: 透明度相位会让白字对比度周期性跌破 4.5:1 */
+    transform: translateY(-50%) scale(1.06);
   }
 }
 

@@ -827,7 +827,8 @@ describe('InteractiveTimeline', () => {
         />
       );
 
-      expect(screen.getByText('Short')).toBeInTheDocument();
+      // 2026-09-22 契约: 窄于 32px 的条不渲染文字(标签溢出窄条会压到相邻条), 悬停 tooltip 仍在
+      expect(screen.queryByText('Short')).not.toBeInTheDocument();
     });
 
     it('handles items outside viewport', () => {
@@ -879,8 +880,9 @@ describe('InteractiveTimeline', () => {
         />
       );
 
+      // 2026-09-22 契约: 时间重叠的条只让最早(数组序最前)的显示文字, 后来者让位防标签互撞
       expect(screen.getByText('Phase 1')).toBeInTheDocument();
-      expect(screen.getByText('Phase 2')).toBeInTheDocument();
+      expect(screen.queryByText('Phase 2')).not.toBeInTheDocument();
     });
 
     it('enforces minimum item duration when resizing', () => {

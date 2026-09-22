@@ -921,7 +921,7 @@ export default function ProjectRoadmap() {
                   position: 'absolute',
                   top: '80px', // Position below the header
                   left: '4px',
-                  backgroundColor: '#ef4444',
+                  backgroundColor: '#b91c1c', // 白字 ≥4.5:1(#ef4444 仅 3.9)
                   color: 'white',
                   padding: '2px 6px',
                   borderRadius: '3px',

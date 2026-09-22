@@ -87,6 +87,7 @@
     "verify:smoke": "node scripts/smoke-check.mjs",
     "preview:client": "npm run build:client && npx vite preview --config client-vite.config.ts --port 3121 --strictPort --host",
     "verify:visual": "node scripts/verify-visual.mjs",
+    "verify:site": "node scripts/verify-site.mjs",
     "verify:visual:update": "UPDATE_BASELINES=1 node scripts/verify-visual.mjs"
   },
   "keywords": [],

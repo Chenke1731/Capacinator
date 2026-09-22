@@ -40,6 +40,12 @@ h1 {
   line-height: 1.1;
 }
 
+/* 柔性容器里的图标不允许被挤压为 0 宽(2026-09-22 审计: people 工作负载列 11 行图标
+   整列消失, 与人力气泡加减号同族)。空间不足宁可撑开被守卫抓住, 不可静默消失。 */
+svg {
+  flex-shrink: 0;
+}
+
 button {
   border-radius: 8px;
   border: 1px solid transparent;

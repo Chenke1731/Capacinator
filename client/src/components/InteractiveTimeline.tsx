@@ -310,6 +310,15 @@ export function InteractiveTimeline({
 
     let position = basePosition;
 
+    // 同泳道时间上重叠的条(设计/开发并行是合法排布): 只让重叠簇中最早(数组序最前)
+    // 的条显示文字标签,避免两条都居中放标签时互撞(2026-09-22 路线图审计);
+    // 被让位的条悬停 tooltip 仍显示完整名称。
+    const labelSuppressed = items.some((other, oi) => {
+      if (other.id === item.id || oi > items.indexOf(item)) return false;
+      const op = calculateItemPosition(other, viewport);
+      return op.left < basePosition.left + basePosition.width && basePosition.left < op.left + op.width;
+    });
+
     if (isBeingDragged && dragState.currentX !== undefined && dragState.startX !== undefined) {
       if (dragState.type === 'move') {
         const deltaX = dragState.currentX - dragState.startX;
@@ -388,7 +397,11 @@ export function InteractiveTimeline({
           setTooltip({ visible: false, x: 0, y: 0, content: null });
         }}
       >
-        <span style={{ whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}>{item.name}</span>
+        {/* 窄于 32px 的条不渲染文字(标签溢出窄条会压到相邻条, 2026-09-22 审计路线图 P0-2);
+            悬停 tooltip 仍提供名称。min-width:0 保证 span 永不超出自己的条。 */}
+        {position.width >= 32 && !labelSuppressed && (
+          <span style={{ whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden', minWidth: 0 }}>{item.name}</span>
+        )}
 
         {/* Resize handles */}
         {(mode === 'phase-manager' || mode === 'roadmap') && position.width > 40 && (

@@ -1,0 +1,410 @@
+/* 迭代导航页 v1 (BOARD_REDESIGN_2026-09-23 §B4)
+   排版契约: 字号 14/12.5/11 三档, 行高 20/18/16 栅格;
+   双主题走全局 CSS 变量(--text-x / --bg-x / --border-color);
+   .projects-board 令牌仅参考风格, 本页自有 CSS。 */
+
+.iterations-page {
+  padding: 2rem;
+  max-width: 1080px;
+}
+
+/* ── 页头(骨架复用 App.css 的 .page-header, 此处只补副题) ── */
+.it-subtitle {
+  margin: 0.25rem 0 0 0;
+  font-size: 12.5px;
+  line-height: 18px;
+  color: var(--text-tertiary);
+}
+
+/* ── 通用控件 ── */
+.it-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 4px 12px;
+  font-size: 12.5px;
+  line-height: 18px;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  cursor: pointer;
+}
+
+.it-btn:hover { background: var(--bg-hover); }
+
+.it-btn--primary {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: var(--primary-text);
+}
+
+.it-btn--primary:hover:not(:disabled) {
+  background: var(--primary-hover);
+  border-color: var(--primary-hover);
+}
+
+.it-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.it-input {
+  padding: 4px 8px;
+  font-size: 12.5px;
+  line-height: 18px;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+.it-input:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+/* ── 新建迭代内联表单 ── */
+.it-create-form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  margin-bottom: 1.5rem;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+}
+
+.it-create-name { width: 240px; }
+
+.it-form-error {
+  font-size: 12.5px;
+  line-height: 18px;
+  color: var(--danger);
+}
+
+/* ── 季度分组 ── */
+.it-group { margin-bottom: 1.75rem; }
+
+.it-group-title {
+  margin: 0 0 0.5rem 0;
+  font-size: 12.5px;
+  line-height: 18px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--text-tertiary);
+}
+
+/* ── 迭代卡 ── */
+.it-card {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  margin-bottom: 0.5rem;
+  overflow: hidden;
+}
+
+.it-card--open { border-color: var(--primary); }
+
+.it-card-head {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 10px 14px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.it-card-head:hover { background: var(--bg-hover); }
+
+.it-chevron {
+  display: inline-flex;
+  color: var(--text-tertiary);
+  flex: none;
+}
+
+.it-card-name {
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 600;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+}
+
+.it-card-window {
+  flex: none;
+  font-size: 11px;
+  line-height: 16px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-tertiary);
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  padding: 1px 6px;
+}
+
+.it-card-summary {
+  flex: none;
+  margin-left: auto;
+  font-size: 12.5px;
+  line-height: 18px;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+/* 悬停显编辑/删除(触屏常显由 hover 媒体查询兜底) */
+.it-card-actions {
+  display: none;
+  flex: none;
+  gap: 2px;
+}
+
+.it-card-head:hover .it-card-actions,
+.it-card-head:focus-within .it-card-actions { display: inline-flex; }
+
+.it-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border: none;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--text-tertiary);
+  cursor: pointer;
+}
+
+.it-icon-btn:hover {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
+.it-icon-btn--danger:hover { color: var(--danger); }
+
+.it-card-error {
+  padding: 6px 14px;
+  font-size: 12.5px;
+  line-height: 18px;
+  color: var(--danger);
+  background: var(--danger-bg);
+  border-top: 1px solid var(--border-color);
+}
+
+/* ── 卡体 ── */
+.it-card-body {
+  padding: 10px 14px 12px 34px;
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.it-subhead {
+  font-size: 11px;
+  line-height: 16px;
+  font-weight: 600;
+  color: var(--text-tertiary);
+  margin-bottom: 4px;
+}
+
+/* 状态分布 */
+.it-states-row { display: flex; flex-wrap: wrap; gap: 6px; }
+
+.it-state-chip {
+  font-size: 11px;
+  line-height: 16px;
+  padding: 1px 8px;
+  border-radius: 999px;
+  border: 1px solid var(--border-color);
+  background: var(--bg-primary);
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+/* SE/MDE 负载块: 强度>100% 琥珀(§0.5 防爆表) */
+.it-load-row {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 12.5px;
+  line-height: 18px;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-secondary);
+}
+
+.it-load-row--over {
+  background: rgba(180, 83, 9, 0.08);
+  color: #b45309;
+}
+
+.it-load-role {
+  flex: none;
+  font-size: 11px;
+  line-height: 16px;
+  font-weight: 600;
+  padding: 0 6px;
+  border-radius: 4px;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  color: var(--text-tertiary);
+}
+
+.it-load-row--over .it-load-role {
+  border-color: rgba(180, 83, 9, 0.35);
+  color: #b45309;
+}
+
+/* 深色主题: 琥珀改亮字(#fbbf34), 底改半透明琥珀 */
+.dark .it-load-row--over {
+  background: rgba(251, 191, 52, 0.1);
+  color: #fbbf34;
+}
+
+.dark .it-load-row--over .it-load-role {
+  border-color: rgba(251, 191, 52, 0.35);
+  color: #fbbf34;
+}
+
+/* ── 事项清单 / 未排池共用行 ── */
+.it-item-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 5px 8px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.it-item-row:hover { background: var(--bg-hover); }
+
+.it-item-prio {
+  flex: none;
+  width: 28px;
+  font-size: 11px;
+  line-height: 16px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-tertiary);
+  text-align: center;
+}
+
+.it-item-name {
+  flex: 1 1 auto;
+  min-width: 0;
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.it-item-row:hover .it-item-name { color: var(--primary); }
+
+.it-item-state {
+  flex: none;
+  font-size: 12.5px;
+  line-height: 18px;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+.it-item-dev {
+  flex: none;
+  width: 72px;
+  font-size: 12.5px;
+  line-height: 18px;
+  color: var(--text-tertiary);
+  text-align: right;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.it-items-empty {
+  font-size: 12.5px;
+  line-height: 18px;
+  color: var(--text-muted);
+  padding: 4px 8px;
+}
+
+/* ── 未排迭代沉底区 ── */
+.it-unassigned {
+  margin-top: 2.5rem;
+  padding-top: 1rem;
+  border-top: 1px dashed var(--border-color);
+}
+
+/* ── 空态 ── */
+.it-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 3rem 1rem;
+  border: 1px dashed var(--border-color);
+  border-radius: 8px;
+}
+
+.it-empty-icon { color: var(--text-muted); }
+
+.it-empty-title {
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.it-empty-hint {
+  font-size: 12.5px;
+  line-height: 18px;
+  color: var(--text-muted);
+}
+
+/* ── 编辑表单(卡内就地) ── */
+.it-edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 12px 14px;
+}
+
+.it-edit-name { width: 100%; max-width: 360px; }
+
+.it-edit-dates {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.it-date-sep {
+  font-size: 12.5px;
+  line-height: 18px;
+  color: var(--text-tertiary);
+}
+
+.it-edit-actions { display: flex; gap: 0.5rem; }
+
+/* 触屏设备无 hover: 卡头操作常显 */
+@media (hover: none) {
+  .it-card-actions { display: inline-flex; }
+}
+
+@media (max-width: 768px) {
+  .iterations-page { padding: 1rem; }
+
+  .it-card-head { flex-wrap: wrap; row-gap: 4px; }
+
+  .it-card-summary { margin-left: 0; width: 100%; }
+
+  .it-item-dev { display: none; }
+
+  .it-create-name { width: 100%; }
+}

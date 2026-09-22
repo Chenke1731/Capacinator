@@ -16,6 +16,7 @@ import { PersonNew } from './pages/PersonNew';
 import RoleDetails from './pages/RoleDetails';
 import ProjectTypeDetails from './pages/ProjectTypeDetails';
 import ProjectsUnified from './pages/ProjectsUnified';
+import Iterations from './pages/Iterations';
 import PeopleUnified from './pages/PeopleUnified';
 import Assignments from './pages/Assignments';
 import { Scenarios } from './pages/Scenarios';
@@ -62,6 +63,7 @@ const AppContent: React.FC = () => {
           <Route path="/projects" element={<ProjectsUnified />} />
           <Route path="/projects/new" element={<ProjectNew />} />
           <Route path="/projects/:id" element={<ProjectDetail />} />
+          <Route path="/iterations" element={<Iterations />} />
           <Route path="/roadmap" element={<Navigate to="/projects?tab=roadmap" replace />} />
           <Route path="/people" element={<PeopleUnified />} />
           <Route path="/people/new" element={<PersonNew />} />

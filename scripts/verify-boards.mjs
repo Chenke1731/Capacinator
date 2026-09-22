@@ -160,7 +160,7 @@ check('优先级徽章', pBadges.length >= 3 && pBadges.every(p => /^P\d$/.test(
   }
 }
 
-// ── 2. 版本内联编辑 → 分组出现 ────────────────────────
+// ── 2. 版本内联编辑(平铺) → 工具栏版本筛选 ───────────
 const p1Row = page.locator('.requirements-row', { hasText: '客户门户改版' });
 await p1Row.locator('.projects-version-part').first().click();
 await page.waitForTimeout(300);
@@ -176,10 +176,12 @@ await page.keyboard.type('26.RP4');
 await page.keyboard.press('Enter');
 await page.waitForTimeout(1500);
 
-const groupHeaders = await page.$$eval('.requirements-group-header strong', els => els.map(e => e.textContent));
-check('版本编辑后出现产品分组', groupHeaders.some(h => h.replace(/\s*版本$/, '') === 'B') && groupHeaders.includes('未排版本'), groupHeaders.join(','));
-const releaseHeaders = await page.$$eval('.requirements-release-header', els => els.map(e => e.textContent.trim()));
-check('RP 交付节奏子分组', releaseHeaders.some(r => r.includes('26.RP4')), releaseHeaders.map(r=>r.slice(0,10)).join(','));
+// 2026-09-22 裁决: 不做版本分组头(两列已携带信息),版本维度改由筛选表达
+check('平铺呈现: 无版本分组头',
+  (await page.$('.requirements-group-header')) === null && (await page.$('.requirements-release-header')) === null);
+const verParts = await p1Row.locator('.projects-version-part').allTextContents();
+check('版本两段落库显示(B / 26.RP4)',
+  (verParts[0] ?? '').trim() === 'B' && (verParts[1] ?? '').trim() === '26.RP4', verParts.map(v => v.trim()).join(' | '));
 
 // 工具栏无裸 i18n 键
 const tagBtnText = (await page.$eval('.board-ghost-btn', el => el.textContent.trim())) ?? '';
@@ -189,13 +191,25 @@ check('工具栏文案已翻译(无 tags.manage 裸键)', /^[\u4e00-\u9fa5]/.tes
 const colAligns = await page.$$eval('.requirements-thead span.col-c', els => els.map(e => getComputedStyle(e).textAlign));
 check('表头居中列与内容同轴', colAligns.length === 3 && colAligns.every(a => a === 'center'), colAligns.join(','));
 
-// 分组折叠
-await page.click('.requirements-group-header'); // first group (B)
+// 版本筛选(替代分组): 产品版本=B 只留 B 的树; 未排=筛出未排版本事项; 交付计划同理
+const nameTexts = () => page.$$eval('.requirements-row .requirements-name-text', els => els.map(e => e.textContent.trim()));
+await page.selectOption('[data-testid="product-filter"]', 'B');
 await page.waitForTimeout(400);
-const collapsedHidden = await page.$('.requirements-release');
-check('分组可折叠', collapsedHidden === null || (await page.$$eval('.requirements-group', els => els.some(e => e.querySelector('.requirements-release') === null))));
-await page.click('.requirements-group-header');
-await page.waitForTimeout(300);
+const rowsB = await nameTexts();
+check('产品版本筛选=B(未排事项隐藏)', rowsB.includes('客户门户改版') && !rowsB.includes('数据平台升级'), rowsB.join(','));
+await page.selectOption('[data-testid="product-filter"]', '__none__');
+await page.waitForTimeout(400);
+const rowsNone = await nameTexts();
+check('产品版本筛选=未排(B 树隐藏)', rowsNone.includes('数据平台升级') && !rowsNone.includes('客户门户改版'), rowsNone.join(','));
+await page.selectOption('[data-testid="product-filter"]', ''); // 清产品筛选,单一变量验证交付计划筛选
+await page.selectOption('[data-testid="release-filter"]', '26.RP4');
+await page.waitForTimeout(400);
+const rowsRp = await nameTexts();
+check('交付计划筛选=26.RP4', rowsRp.includes('客户门户改版') && !rowsRp.includes('移动端改版'), rowsRp.join(','));
+await page.click('[data-testid="reset-filters"]');
+await page.waitForTimeout(400);
+const rowsReset = await nameTexts();
+check('重置筛选恢复全量', rowsReset.includes('客户门户改版') && rowsReset.includes('数据平台升级') && rowsReset.includes('移动端改版'), `${rowsReset.length} 行`);
 
 // 状态就地推进仍在(客户门户改版已分解为 SR,快按钮在普通行/子行上)
 const quick = page.locator('.requirements-row:not(.requirements-row--sr) .lifecycle-quick-btn').first();
@@ -268,7 +282,9 @@ await page.waitForTimeout(1500);
   });
   check(`字号档位 ≤ 6 (${metrics.fontSizes})`, metrics.fontSizes <= 6);
   check(`圆角档位 ≤ 4 (${metrics.radii})`, metrics.radii <= 4);
-  check(`水平分隔线 ≤ 16 (${metrics.hRules})`, metrics.hRules <= 16);
+  // 预算 24: 行分隔(行×2)+表头 2+工具栏控件边框(搜索+5 下拉+按钮,控件非分隔线,
+  // 2026-09-22 版本/交付计划筛选上线后 16→20,控件数驱动,非视觉噪声)
+  check(`水平分隔线 ≤ 24 (${metrics.hRules})`, metrics.hRules <= 24);
   check(`最小命中目标 ≥ 24px (${metrics.minHit})`, metrics.minHit >= 24);
   const uniform = metrics.rows.length > 0 && metrics.rows.every(h => Math.abs(h - metrics.rows[0]) <= 1);
   check(`数据行高统一 40±1 (${metrics.rows.join(',')})`, uniform && Math.abs(metrics.rows[0] - 40) <= 1);
@@ -277,7 +293,7 @@ await page.waitForTimeout(1500);
 // ── 6.2 几何碰撞: 可见元素两两不相交(防"内容溢出盒子"型重叠) ──
 const collisionProbe = () => {
   const bad = [];
-  document.querySelectorAll('.requirements-row, .requirements-thead, .board-toolbar, .requirements-group-header').forEach((scope) => {
+  document.querySelectorAll('.requirements-row, .requirements-thead, .board-toolbar').forEach((scope) => {
     const els = Array.from(scope.querySelectorAll('button, span, input, select')).filter((e) => {
       const r = e.getBoundingClientRect();
       if (!r.width || !r.height) return false;

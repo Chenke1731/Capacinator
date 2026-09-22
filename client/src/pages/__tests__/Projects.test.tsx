@@ -247,22 +247,56 @@ describe('Requirements Board (需求台)', () => {
       expect(headers).toEqual(['Name', 'Tags', 'Component', 'Lifecycle', 'Named + pool', 'Scale', 'Version', 'Release', 'Priority', 'Owner', 'Actions']);
     });
 
-    test('groups by product version then release, unversioned last', async () => {
+    test('flat item rows only — no version group headers (2026-09-22 裁决)', async () => {
       renderComponent();
 
       await waitFor(() => {
         expect(screen.getByText('Project Alpha')).toBeInTheDocument();
       });
 
-      const groupHeaders = await screen.findAllByRole('button', { name: /A|B/ });
-      const groupLabels = groupHeaders
-        .map((g) => g.querySelector('strong')?.textContent)
-        .filter(Boolean);
-      expect(groupLabels).toEqual(['Version A', 'Version B']);
-      const releaseHeaders = document.querySelectorAll('.requirements-release-header');
-      expect(releaseHeaders.length).toBe(2);
-      expect(releaseHeaders[0].textContent).toContain('26.RP3');
-      expect(releaseHeaders[1].textContent).toContain('26.RP4');
+      // 版本/交付计划两列已携带分组信息,分组头不再呈现
+      expect(document.querySelectorAll('.requirements-group-header').length).toBe(0);
+      expect(document.querySelectorAll('.requirements-release-header').length).toBe(0);
+      // 行内只有 SR/AR 粒度事项本体: Beta + Alpha(SR) + 2 AR 子行
+      expect(document.querySelectorAll('.requirements-row').length).toBe(4);
+      // 平铺排序: 优先级为第一序轴(Beta P1 先于 Alpha P2),版本次之
+      const names = Array.from(
+        document.querySelectorAll('.requirements-row .requirements-name-text')
+      ).map((el) => el.textContent);
+      expect(names[0]).toBe('Project Beta');
+      expect(names[1]).toBe('Project Alpha');
+    });
+
+    test('product version filter narrows rows client-side', async () => {
+      const user = userEvent.setup();
+      renderComponent();
+
+      await waitFor(() => {
+        expect(screen.getByText('Project Alpha')).toBeInTheDocument();
+      });
+
+      await user.selectOptions(screen.getByTestId('product-filter'), 'A');
+      expect(screen.getByText('Project Beta')).toBeInTheDocument();
+      expect(screen.queryByText('Project Alpha')).not.toBeInTheDocument();
+      expect(screen.queryByText('Portal Login Rework')).not.toBeInTheDocument();
+
+      // "未排"哨兵: 筛出无版本事项(fixture 里没有 → 空态)
+      await user.selectOptions(screen.getByTestId('product-filter'), '__none__');
+      expect(screen.queryByText('Project Beta')).not.toBeInTheDocument();
+      expect(screen.getByText('No requirements')).toBeInTheDocument();
+    });
+
+    test('release version filter narrows rows client-side', async () => {
+      const user = userEvent.setup();
+      renderComponent();
+
+      await waitFor(() => {
+        expect(screen.getByText('Project Alpha')).toBeInTheDocument();
+      });
+
+      await user.selectOptions(screen.getByTestId('release-filter'), '26.RP3');
+      expect(screen.getByText('Project Beta')).toBeInTheDocument();
+      expect(screen.queryByText('Project Alpha')).not.toBeInTheDocument();
     });
 
     test('shows only demand-category items (tickets/standing excluded)', async () => {

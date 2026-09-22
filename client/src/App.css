@@ -1791,43 +1791,6 @@ input[type="checkbox"].settings-checkbox,
   border-bottom: 1px solid var(--border-color);
 }
 
-.projects-board .requirements-group-header {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  width: 100%;
-  min-height: 36px;
-  padding: 0 14px;
-  background: var(--bg-secondary, rgba(127, 127, 127, 0.06));
-  border: none;
-  border-radius: var(--b-r-sm);
-  color: var(--text-primary);
-  cursor: pointer;
-  font-size: 13px;
-  font-weight: 600;
-  text-align: left;
-}
-.projects-board .requirements-group-header:first-of-type { border-top: none; }
-.projects-board .requirements-group-header:hover { background: var(--bg-secondary, rgba(127, 127, 127, 0.14)); }
-.requirements-group-count {
-  font-size: var(--b-fs-meta);
-  font-weight: 400;
-  color: var(--text-secondary);
-}
-
-.requirements-release-header {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  min-height: 28px;
-  padding: 0 14px 0 28px;
-  font-size: var(--b-fs-meta);
-  font-weight: 600;
-  font-family: var(--font-mono, monospace);
-  color: var(--text-secondary);
-  border: none;
-}
-
 .requirements-row {
   display: grid;
   grid-template-columns: minmax(var(--req-w-name, 210px), var(--req-f-name, 1.2fr)) var(--req-w-tags, 112px) var(--req-w-component, 96px) var(--req-w-lifecycle, 224px) var(--req-w-staffing, 124px) var(--req-w-scale, 80px) var(--req-w-version, 72px) var(--req-w-release, 72px) var(--req-w-priority, 48px) var(--req-w-owner, 80px) var(--req-w-actions, 116px) var(--req-spacer, 0fr);
@@ -1846,8 +1809,6 @@ input[type="checkbox"].settings-checkbox,
 .requirements-table { overflow-x: auto; }
 .requirements-thead,
 .requirements-row,
-.requirements-group-header,
-.requirements-release-header,
 .requirements-empty {
   min-width: var(--req-total, 0);
 }
@@ -1884,14 +1845,12 @@ body.req-col-dragging * {
   user-select: none !important;
 }
 
-/* 就地保存反馈: 行 flash 一闪; 版本跳组后目标组头高亮(给行落点) */
+/* 就地保存反馈: 行 flash 一闪 */
 @keyframes reqFlash {
   from { background-color: rgba(59, 130, 246, 0.16); }
   to { background-color: transparent; }
 }
 .requirements-row--flash { animation: reqFlash 0.9s ease-out; }
-.requirements-group-header--flash { animation: reqFlash 1.4s ease-out; }
-.requirements-release-header--flash { animation: reqFlash 1.4s ease-out; }
 
 .requirements-empty {
   padding: 28px;

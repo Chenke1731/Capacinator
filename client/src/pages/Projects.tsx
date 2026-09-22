@@ -23,7 +23,8 @@ import './Projects.css';
  *
  * 信息密度重做: 名称(子类型+标签) | 状态(就地推进) | 人力(两侧实名+池 FTE) |
  * 版本(产品·RP 两段内联可编辑) | 优先级 | 负责人 | 操作(图标+二次确认删除)。
- * 按产品版本 → 交付版本两级分组, 未排版本沉底; 告警行淡黄底+短词。
+ * 平铺不做版本分组(2026-09-22 裁决): 版本/交付计划两列已携带该信息,
+ * 版本维度改由工具栏筛选表达; 行内只呈现 SR/AR 粒度事项本体; 告警行淡黄底+短词。
  * 砍掉: 起止日期列 / 查看详情按钮(行点击即详情) / 人力分配旧弹窗。
  */
 
@@ -258,7 +259,8 @@ function ArPart({ project, onSaved }: { project: any; onSaved: () => void }) {
   );
 }
 
-const UNVERSIONED = '__unversioned__';
+/** 版本筛选"未排"哨兵: 筛出 product_version/release_version 为空的事项 */
+const VERSION_NONE = '__none__';
 
 /** 列宽拖拽: 表头右缘手柄,拖=调宽窄(钳制 min/max),双击=重置该列;localStorage 持久化。
     列宽走 CSS 变量(--req-w-*),thead/row/两断点模板统一引用,一处设置处处生效;
@@ -346,16 +348,6 @@ function ColumnGrip({ colKey, widths, setWidths }: {
   );
 }
 
-interface ReleaseGroup {
-  release: string | null;
-  projects: any[];
-}
-interface ProductGroup {
-  product: string | null;
-  releases: ReleaseGroup[];
-  count: number;
-}
-
 /** SR→AR 树: 无父=顶层(普通需求或 SR),有父=子行(AR)。
     聚合(规模/人力/状态分布)直接由子行数据求和——单一数据源,汇总恒等于子行之和。 */
 interface ProjectTree {
@@ -427,36 +419,18 @@ function buildTree(rows: any[]): ProjectTree[] {
   });
 }
 
-function buildGroups(projects: any[]): ProductGroup[] {
-  const byProduct = new Map<string, any[]>();
-  for (const p of projects) {
-    const key = (p.product_version ?? '').trim() || UNVERSIONED;
-    const list = byProduct.get(key) ?? [];
-    list.push(p);
-    byProduct.set(key, list);
-  }
-
-  const sortKey = (k: string) => (k === UNVERSIONED ? '\uffff' : k);
-  const products = [...byProduct.keys()].sort((a, b) => sortKey(a).localeCompare(sortKey(b)));
-
-  return products.map((product) => {
-    const items = byProduct.get(product)!;
-    const byRelease = new Map<string, any[]>();
-    for (const p of items) {
-      const key = (p.release_version ?? '').trim() || UNVERSIONED;
-      const list = byRelease.get(key) ?? [];
-      list.push(p);
-      byRelease.set(key, list);
-    }
-    const releases = [...byRelease.keys()]
-      .sort((a, b) => sortKey(a).localeCompare(sortKey(b)))
-      .map((release) => ({
-        release: release === UNVERSIONED ? null : release,
-        projects: byRelease.get(release)!.sort(
-          (a, b) => (a.priority ?? 5) - (b.priority ?? 5) || String(a.name).localeCompare(String(b.name))
-        )
-      }));
-    return { product: product === UNVERSIONED ? null : product, releases, count: items.length };
+/** 平铺排序: 优先级 → 产品版本 → 交付版本 → 名称; 未排版本沉底(文本排序天然正确) */
+function sortTrees(trees: ProjectTree[]): ProjectTree[] {
+  const sink = (v: unknown) => String(v ?? '').trim() || '\uffff';
+  return [...trees].sort((a, b) => {
+    const pa = a.project.priority ?? 5;
+    const pb = b.project.priority ?? 5;
+    if (pa !== pb) return pa - pb;
+    const byProduct = sink(a.project.product_version).localeCompare(sink(b.project.product_version));
+    if (byProduct) return byProduct;
+    const byRelease = sink(a.project.release_version).localeCompare(sink(b.project.release_version));
+    if (byRelease) return byRelease;
+    return String(a.project.name).localeCompare(String(b.project.name));
   });
 }
 
@@ -466,15 +440,20 @@ export function Projects() {
   const { t } = useTranslation();
   const { currentScenario } = useScenario();
 
-  const [filters, setFilters] = useState({ search: '', lifecycle_state: '', tag_id: '', component: '' });
-  const [collapsed, setCollapsed] = useState<Set<string>>(new Set());
+  const [filters, setFilters] = useState({
+    search: '',
+    lifecycle_state: '',
+    tag_id: '',
+    component: '',
+    product_version: '',
+    release_version: ''
+  });
   const [collapsedSR, setCollapsedSR] = useState<Set<string>>(new Set());
   const [decomposeParent, setDecomposeParent] = useState<any | null>(null);
   const [confirmingDelete, setConfirmingDelete] = useState<string | null>(null);
   const [tagManagerOpen, setTagManagerOpen] = useState(false);
-  /** 就地保存反馈: 行 flash + 版本跳组后目标组头高亮 */
+  /** 就地保存反馈: 行 flash(版本两列同样走行反馈,平铺后无组头可跳) */
   const [flashId, setFlashId] = useState<string | null>(null);
-  const [flashGroup, setFlashGroup] = useState<string | null>(null);
 
   const addProjectModal = useModal();
   const editProjectModal = useModal();
@@ -513,21 +492,24 @@ export function Projects() {
   });
 
   // Category scoping (需求台) + client filters
-  // 组件选项来自全量需求(不受组件筛选自身影响),排序稳定
-  const componentOptions = useMemo(
-    () =>
-      [...new Set(
-        (projects ?? [])
-          .filter((p: any) => categoryOfTypeName(p.project_type_name) === 'demand')
-          .map((p: any) => String(p.component ?? '').trim())
-          .filter(Boolean)
-      )].sort((a, b) => a.localeCompare(b, 'zh')),
+  // 组件/版本选项来自全量需求(不受各自筛选影响),排序稳定
+  const demandRows = useMemo(
+    () => (projects ?? []).filter((p: any) => categoryOfTypeName(p.project_type_name) === 'demand'),
     [projects]
   );
+  const distinctOf = (field: 'component' | 'product_version' | 'release_version') =>
+    [...new Set(demandRows.map((p: any) => String(p[field] ?? '').trim()).filter(Boolean))]
+      .sort((a, b) => a.localeCompare(b, 'zh'));
+  const componentOptions = useMemo(() => distinctOf('component'), [demandRows]);
+  const productOptions = useMemo(() => distinctOf('product_version'), [demandRows]);
+  const releaseOptions = useMemo(() => distinctOf('release_version'), [demandRows]);
 
-  // SR→AR: 筛选作用于行(父或任一子命中 → 整树保留);树与分组先后:先树后组
+  // SR→AR: 筛选作用于行(父或任一子命中 → 整树保留); 平铺排序 优先级→版本→名称
   const trees = useMemo(() => {
-    const all = (projects ?? []).filter((p: any) => categoryOfTypeName(p.project_type_name) === 'demand');
+    const versionMatch = (value: unknown, filter: string) => {
+      const v = String(value ?? '').trim();
+      return filter === VERSION_NONE ? v === '' : v === filter;
+    };
     const match = (p: any) => {
       if (filters.search) {
         const q = filters.search.toLowerCase();
@@ -535,49 +517,35 @@ export function Projects() {
       }
       if (filters.tag_id && !(p.tags ?? []).some((tag: any) => String(tag.id) === String(filters.tag_id))) return false;
       if (filters.component && String(p.component ?? '') !== filters.component) return false;
+      if (filters.product_version && !versionMatch(p.product_version, filters.product_version)) return false;
+      if (filters.release_version && !versionMatch(p.release_version, filters.release_version)) return false;
       return true;
     };
-    const keepName = filters.search;
-    const keepTag = filters.tag_id;
-    const keepComponent = filters.component;
-    if (!keepName && !keepTag && !keepComponent) return buildTree(all);
+    const anyFilter = filters.search || filters.tag_id || filters.component
+      || filters.product_version || filters.release_version;
+    if (!anyFilter) return sortTrees(buildTree(demandRows));
     // 命中父或任一子 → 父及其全部子行保留
     const childrenOf = new Map<string, any[]>();
-    for (const r of all) {
+    for (const r of demandRows) {
       if (!r.parent_id) continue;
       const list = childrenOf.get(r.parent_id) ?? [];
       list.push(r);
       childrenOf.set(r.parent_id, list);
     }
     // 保留命中的父(或任一子命中的父) + 这些父的全部子行
-    const keptParents = all.filter(
+    const keptParents = demandRows.filter(
       (p: any) => !p.parent_id && (match(p) || (childrenOf.get(p.id) ?? []).some(match))
     );
     const keptIds = new Set(keptParents.map((p: any) => p.id));
-    const keptChildren = all.filter((p: any) => p.parent_id && keptIds.has(p.parent_id));
-    return buildTree([...keptParents, ...keptChildren]);
-  }, [projects, filters.search, filters.tag_id, filters.component]);
-
-  const groups = useMemo(
-    () => buildGroups(trees.map((t) => t.project)),
-    [trees]
-  );
-  const treeById = useMemo(() => new Map(trees.map((t) => [t.project.id, t])), [trees]);
+    const keptChildren = demandRows.filter((p: any) => p.parent_id && keptIds.has(p.parent_id));
+    return sortTrees(buildTree([...keptParents, ...keptChildren]));
+  }, [demandRows, filters.search, filters.tag_id, filters.component, filters.product_version, filters.release_version]);
 
   const toggleSR = (id: string) => {
     setCollapsedSR((prev) => {
       const next = new Set(prev);
       if (next.has(id)) next.delete(id);
       else next.add(id);
-      return next;
-    });
-  };
-
-  const toggleGroup = (key: string) => {
-    setCollapsed((prev) => {
-      const next = new Set(prev);
-      if (next.has(key)) next.delete(key);
-      else next.add(key);
       return next;
     });
   };
@@ -642,22 +610,7 @@ export function Projects() {
     flashRow(projectId);
   };
 
-  /** 版本保存: 行 flash + 目标分组头高亮(行可能跳组,给落点) */
-  const handleVersionSaved = (
-    project: any,
-    field: 'product_version' | 'release_version',
-    value: string | null
-  ) => {
-    flashRow(project.id);
-    const product = String((field === 'product_version' ? value : project.product_version) ?? '').trim() || UNVERSIONED;
-    const release = String((field === 'release_version' ? value : project.release_version) ?? '').trim() || UNVERSIONED;
-    setFlashGroup(`${product}::${release}`);
-    window.setTimeout(() => setFlashGroup(null), 1400);
-  };
-  const flashProduct = flashGroup?.split('::')[0] ?? null;
-  const flashRelease = flashGroup?.split('::')[1] ?? null;
-
-  if (isLoading) return <LoadingSpinner />;  if (isLoading) return <LoadingSpinner />;
+  if (isLoading) return <LoadingSpinner />;
   if (error) return <ErrorMessage message={(error as any)?.message || t('projects:loadError')} />;
 
   return (
@@ -704,12 +657,37 @@ export function Projects() {
           <option value="">{t('projects:board.filterComponent')}</option>
           {componentOptions.map((c) => <option key={c} value={c}>{c}</option>)}
         </select>
-        {(filters.search || filters.lifecycle_state || filters.tag_id || filters.component) && (
+        {/* 版本维度以筛选表达(2026-09-22 裁决: 不做分组头,两列已携带信息) */}
+        <select
+          data-testid="product-filter"
+          className="board-select"
+          value={filters.product_version}
+          onChange={(e) => setFilters((prev) => ({ ...prev, product_version: e.target.value }))}
+        >
+          <option value="">{t('projects:board.colVersion')}</option>
+          {productOptions.map((v) => <option key={v} value={v}>{v}</option>)}
+          <option value={VERSION_NONE}>{t('projects:version.productPlaceholder')}</option>
+        </select>
+        <select
+          data-testid="release-filter"
+          className="board-select"
+          value={filters.release_version}
+          onChange={(e) => setFilters((prev) => ({ ...prev, release_version: e.target.value }))}
+        >
+          <option value="">{t('projects:board.colRelease')}</option>
+          {releaseOptions.map((v) => <option key={v} value={v}>{v}</option>)}
+          <option value={VERSION_NONE}>{t('projects:version.releasePlaceholder')}</option>
+        </select>
+        {(filters.search || filters.lifecycle_state || filters.tag_id || filters.component
+          || filters.product_version || filters.release_version) && (
           <button
             data-testid="reset-filters"
             className="board-reset"
             title={t('projects:board.resetFilters')}
-            onClick={() => setFilters({ search: '', lifecycle_state: '', tag_id: '', component: '' })}
+            onClick={() => setFilters({
+              search: '', lifecycle_state: '', tag_id: '', component: '',
+              product_version: '', release_version: ''
+            })}
           >
             <X size={13} />
           </button>
@@ -750,273 +728,240 @@ export function Projects() {
           ))}
         </div>
 
-        {groups.map((group) => {
-          const groupKey = group.product ?? UNVERSIONED;
-          const isCollapsed = collapsed.has(groupKey);
+        {/* 平铺呈现 SR/AR 粒度事项本体(2026-09-22 裁决: 版本维度走筛选,不做分组头) */}
+        {trees.map((tree) => {
+          const project = tree.project;
+          const warned = (project.lifecycle_warnings ?? []).length > 0;
+          const isSR = tree.children.length > 0;
+          const srCollapsed = collapsedSR.has(project.id);
+
+          if (!isSR) {
           return (
-            <div key={groupKey} className="requirements-group">
-              <button
-                type="button"
-                className={`requirements-group-header ${(group.product ?? UNVERSIONED) === flashProduct ? 'requirements-group-header--flash' : ''}`}
-                onClick={() => toggleGroup(groupKey)}
-              >
-                {isCollapsed ? <ChevronRight size={15} /> : <ChevronDown size={15} />}
-                <strong>
-                  {group.product
-                    ? t('projects:board.productGroupLabel', { name: group.product })
-                    : t('projects:board.unversionedGroup')}
-                </strong>
-                <span className="requirements-group-count">{t('projects:board.groupCount', { count: group.count })}</span>
-              </button>
-
-              {!isCollapsed &&
-                group.releases.map((rg) => (
-                  <div key={rg.release ?? UNVERSIONED} className="requirements-release">
-                    <div className={`requirements-release-header ${(groupKey === flashProduct && (rg.release ?? UNVERSIONED) === flashRelease) ? 'requirements-release-header--flash' : ''}`}>
-                      {rg.release ?? t('projects:board.unscheduledGroup')}
-                      <span className="requirements-group-count">
-                        {t('projects:board.groupCount', { count: rg.projects.length })}
-                      </span>
-                    </div>
-
-                    {rg.projects.map((project) => {
-                      const warned = (project.lifecycle_warnings ?? []).length > 0;
-                      const tree = treeById.get(project.id) ?? { project, children: [], agg: null };
-                      const isSR = tree.children.length > 0;
-                      const srCollapsed = collapsedSR.has(project.id);
-
-                      if (!isSR) {
-                      return (
-                        <div
-                          key={project.id}
-                          className={`requirements-row ${warned ? 'requirements-row--warned' : ''} ${project.id === flashId ? 'requirements-row--flash' : ''}`}
-                          onClick={() => navigate(`/projects/${project.id}`)}
-                        >
-                          <span className="requirements-name">
-                            <span className="requirements-name-text" title={project.name}>{project.name}</span>
-                            {(project.lifecycle_warnings ?? []).length > 0 && (
-                              <span
-                                className="lifecycle-warn-chip"
-                                title={(project.lifecycle_warnings ?? [])
-                                  .map((w: string) => t(`projects:lifecycle.warnings.${w}`))
-                                  .join('\n')}
-                              >
-                                {t(`projects:lifecycle.warningShort.${(project.lifecycle_warnings ?? [])[0]}`, {
-                                  defaultValue: t('projects:lifecycle.warningShort.GENERIC')
-                                })}
-                                {(project.lifecycle_warnings ?? []).length > 1
-                                  ? `+${(project.lifecycle_warnings ?? []).length - 1}`
-                                  : ''}
-                              </span>
-                            )}
-                            {project.project_sub_type_name && (
-                              <span className="requirements-subtype">· {project.project_sub_type_name}</span>
-                            )}
-                          </span>
-
-                          <TagsCell project={project} allTags={tags} onSaved={() => handleCellSaved(project.id)} />
-
-                          <ComponentCell project={project} options={componentOptions} onSaved={() => handleCellSaved(project.id)} />
-
-                          <span className="req-cell-center" onClick={(e) => e.stopPropagation()}>
-                            <LifecycleCellControls project={project} />
-                          </span>
-
-                          <StaffingCell project={project} onChanged={() => handleCellSaved(project.id)} />
-
-                          <ScaleCell project={project} />
-
-                          <VersionPart project={project} field="product_version"
-                            placeholder={t('projects:version.productPlaceholder')}
-                            onSaved={(field, value) => handleVersionSaved(project, field, value)} />
-                          <VersionPart project={project} field="release_version"
-                            placeholder={t('projects:version.releasePlaceholder')}
-                            onSaved={(field, value) => handleVersionSaved(project, field, value)} />
-
-                          <PriorityCell project={project} onSaved={() => handleCellSaved(project.id)} />
-
-                          <OwnerCell project={project} onSaved={() => handleCellSaved(project.id)} />
-
-                          <span className="requirements-actions" onClick={(e) => e.stopPropagation()}>
-                            <button
-                              className="req-icon-btn"
-                              title={t('common:edit')}
-                              onClick={() => handleEditProject(project)}
-                            >
-                              <Edit2 size={14} />
-                            </button>
-                            <button
-                              className={`req-icon-btn ${confirmingDelete === project.id ? 'req-icon-btn--confirm' : ''}`}
-                              title={confirmingDelete === project.id ? t('common:confirm') : t('common:delete')}
-                              onClick={() => twoClickDelete(project)}
-                            >
-                              {confirmingDelete === project.id ? t('common:confirm') : <Trash2 size={14} />}
-                            </button>
-                          </span>
-                        </div>
-                      );
-                      }
-
-                      // ── SR 折叠头行: 汇总只读(=子行之和,同一数据源);状态列=子行分布 ──
-                      const agg = tree.agg!;
-                      const aggStaff = (side: 'design' | 'dev') => (
-                        <span className="req-staff-row req-staff-row--ro" key={side}>
-                          <span className={`staff-dot staff-dot--${side}`} />
-                          <span className="req-staff-label">{t(`projects:staffing.${side === 'design' ? 'designFull' : 'devFull'}`)}</span>
-                          <span className="req-staff-num">
-                            <span className="req-staff-named">{agg[side].named.toFixed(1)}</span>
-                            {agg[side].pool > 0 && <span className="req-staff-pool">+{agg[side].pool.toFixed(1)}</span>}
-                          </span>
-                        </span>
-                      );
-                      return (
-                        <Fragment key={project.id}>
-                        <div
-                          className={`requirements-row requirements-row--sr ${warned ? 'requirements-row--warned' : ''} ${project.id === flashId ? 'requirements-row--flash' : ''}`}
-                          onClick={() => toggleSR(project.id)}
-                          title={t('projects:board.srExpandHint')}
-                        >
-                          <span className="requirements-name">
-                            {srCollapsed ? <ChevronRight size={15} className="req-sr-chevron" /> : <ChevronDown size={15} className="req-sr-chevron" />}
-                            <span className="requirements-name-text" title={project.name}>{project.name}</span>
-                            <span className="req-sr-chip">{t('projects:board.arCount', { count: agg.count })}</span>
-                            {(project.lifecycle_warnings ?? []).length > 0 && (
-                              <span
-                                className="lifecycle-warn-chip"
-                                title={(project.lifecycle_warnings ?? [])
-                                  .map((w: string) => t(`projects:lifecycle.warnings.${w}`))
-                                  .join('\n')}
-                              >
-                                {t(`projects:lifecycle.warningShort.${(project.lifecycle_warnings ?? [])[0]}`, {
-                                  defaultValue: t('projects:lifecycle.warningShort.GENERIC')
-                                })}
-                                {(project.lifecycle_warnings ?? []).length > 1
-                                  ? `+${(project.lifecycle_warnings ?? []).length - 1}`
-                                  : ''}
-                              </span>
-                            )}
-                            {project.project_sub_type_name && (
-                              <span className="requirements-subtype">· {project.project_sub_type_name}</span>
-                            )}
-                          </span>
-
-                          <TagsCell project={project} allTags={tags} onSaved={() => handleCellSaved(project.id)} />
-                          <ComponentCell project={project} options={componentOptions} onSaved={() => handleCellSaved(project.id)} />
-
-                          <span className="req-cell-center req-state-dist">
-                            {agg.states.map((s: any) => (
-                              <span key={s.state ?? 'none'} className="req-state-dist-item">
-                                {s.count}·{s.state ? t(`projects:lifecycle.state.${s.state}`) : '—'}
-                              </span>
-                            ))}
-                          </span>
-
-                          <span className="req-staff req-staff--ro">{aggStaff('design')}{aggStaff('dev')}</span>
-
-                          <span className="req-scale" title={t('projects:scale.srTooltip')}>
-                            {agg.kloc != null ? (
-                              <>
-                                <span className="req-scale-kloc">{agg.kloc}K</span>
-                                <span className="req-scale-pm">{agg.pm}{t('projects:scale.pmUnit')}</span>
-                              </>
-                            ) : <span className="text-muted">—</span>}
-                          </span>
-
-                          <VersionPart project={project} field="product_version"
-                            placeholder={t('projects:version.productPlaceholder')}
-                            onSaved={(field, value) => handleVersionSaved(project, field, value)} />
-                          <VersionPart project={project} field="release_version"
-                            placeholder={t('projects:version.releasePlaceholder')}
-                            onSaved={(field, value) => handleVersionSaved(project, field, value)} />
-
-                          <PriorityCell project={project} onSaved={() => handleCellSaved(project.id)} />
-                          <OwnerCell project={project} onSaved={() => handleCellSaved(project.id)} />
-
-                          <span className="requirements-actions" onClick={(e) => e.stopPropagation()}>
-                            <button
-                              className="req-icon-btn"
-                              title={t('projects:board.decompose')}
-                              onClick={() => setDecomposeParent(project)}
-                            >
-                              <GitBranch size={14} />
-                            </button>
-                            <button
-                              className="req-icon-btn"
-                              title={t('common:edit')}
-                              onClick={() => handleEditProject(project)}
-                            >
-                              <Edit2 size={14} />
-                            </button>
-                            <button
-                              className={`req-icon-btn ${confirmingDelete === project.id ? 'req-icon-btn--confirm' : ''}`}
-                              title={confirmingDelete === project.id ? t('common:confirm') : t('common:delete')}
-                              onClick={() => twoClickDelete(project)}
-                            >
-                              {confirmingDelete === project.id ? t('common:confirm') : <Trash2 size={14} />}
-                            </button>
-                          </span>
-                        </div>
-
-                        {!srCollapsed && (
-                          <div className="requirements-children">
-                            {tree.children.map((child) => (
-                              <div
-                                key={child.id}
-                                className={`requirements-row requirements-row--child ${child.id === flashId ? 'requirements-row--flash' : ''}`}
-                                onClick={() => navigate(`/projects/${child.id}`)}
-                              >
-                                <span className="requirements-name requirements-name--child">
-                                  <CornerDownRight size={13} className="req-child-arrow" />
-                                  <span className="requirements-name-text" title={child.name}>{child.name}</span>
-                                  <ArPart project={child} onSaved={() => handleCellSaved(child.id)} />
-                                </span>
-
-                                <TagsCell project={child} allTags={tags} onSaved={() => handleCellSaved(child.id)} />
-                                <ComponentCell project={child} options={componentOptions} onSaved={() => handleCellSaved(child.id)} />
-
-                                <span className="req-cell-center" onClick={(e) => e.stopPropagation()}>
-                                  <LifecycleCellControls project={child} />
-                                </span>
-
-                                <StaffingCell project={child} onChanged={() => handleCellSaved(child.id)} />
-                                <ScaleCell project={child} />
-
-                                <VersionPart project={child} field="product_version"
-                                  placeholder={t('projects:version.productPlaceholder')}
-                                  onSaved={(field, value) => handleVersionSaved(child, field, value)} />
-                                <VersionPart project={child} field="release_version"
-                                  placeholder={t('projects:version.releasePlaceholder')}
-                                  onSaved={(field, value) => handleVersionSaved(child, field, value)} />
-
-                                <PriorityCell project={child} onSaved={() => handleCellSaved(child.id)} />
-                                <OwnerCell project={child} onSaved={() => handleCellSaved(child.id)} />
-
-                                <span className="requirements-actions" onClick={(e) => e.stopPropagation()}>
-                                  <button
-                                    className="req-icon-btn"
-                                    title={t('common:edit')}
-                                    onClick={() => handleEditProject(child)}
-                                  >
-                                    <Edit2 size={14} />
-                                  </button>
-                                  <button
-                                    className={`req-icon-btn ${confirmingDelete === child.id ? 'req-icon-btn--confirm' : ''}`}
-                                    title={confirmingDelete === child.id ? t('common:confirm') : t('common:delete')}
-                                    onClick={() => twoClickDelete(child)}
-                                  >
-                                    {confirmingDelete === child.id ? t('common:confirm') : <Trash2 size={14} />}
-                                  </button>
-                                </span>
-                              </div>
-                            ))}
-                          </div>
-                        )}
-                        </Fragment>
-                      );
+            <div
+              key={project.id}
+              className={`requirements-row ${warned ? 'requirements-row--warned' : ''} ${project.id === flashId ? 'requirements-row--flash' : ''}`}
+              onClick={() => navigate(`/projects/${project.id}`)}
+            >
+              <span className="requirements-name">
+                <span className="requirements-name-text" title={project.name}>{project.name}</span>
+                {(project.lifecycle_warnings ?? []).length > 0 && (
+                  <span
+                    className="lifecycle-warn-chip"
+                    title={(project.lifecycle_warnings ?? [])
+                      .map((w: string) => t(`projects:lifecycle.warnings.${w}`))
+                      .join('\n')}
+                  >
+                    {t(`projects:lifecycle.warningShort.${(project.lifecycle_warnings ?? [])[0]}`, {
+                      defaultValue: t('projects:lifecycle.warningShort.GENERIC')
                     })}
+                    {(project.lifecycle_warnings ?? []).length > 1
+                      ? `+${(project.lifecycle_warnings ?? []).length - 1}`
+                      : ''}
+                  </span>
+                )}
+                {project.project_sub_type_name && (
+                  <span className="requirements-subtype">· {project.project_sub_type_name}</span>
+                )}
+              </span>
+
+              <TagsCell project={project} allTags={tags} onSaved={() => handleCellSaved(project.id)} />
+
+              <ComponentCell project={project} options={componentOptions} onSaved={() => handleCellSaved(project.id)} />
+
+              <span className="req-cell-center" onClick={(e) => e.stopPropagation()}>
+                <LifecycleCellControls project={project} />
+              </span>
+
+              <StaffingCell project={project} onChanged={() => handleCellSaved(project.id)} />
+
+              <ScaleCell project={project} />
+
+              <VersionPart project={project} field="product_version"
+                placeholder={t('projects:version.productPlaceholder')}
+                onSaved={() => handleCellSaved(project.id)} />
+              <VersionPart project={project} field="release_version"
+                placeholder={t('projects:version.releasePlaceholder')}
+                onSaved={() => handleCellSaved(project.id)} />
+
+              <PriorityCell project={project} onSaved={() => handleCellSaved(project.id)} />
+
+              <OwnerCell project={project} onSaved={() => handleCellSaved(project.id)} />
+
+              <span className="requirements-actions" onClick={(e) => e.stopPropagation()}>
+                <button
+                  className="req-icon-btn"
+                  title={t('common:edit')}
+                  onClick={() => handleEditProject(project)}
+                >
+                  <Edit2 size={14} />
+                </button>
+                <button
+                  className={`req-icon-btn ${confirmingDelete === project.id ? 'req-icon-btn--confirm' : ''}`}
+                  title={confirmingDelete === project.id ? t('common:confirm') : t('common:delete')}
+                  onClick={() => twoClickDelete(project)}
+                >
+                  {confirmingDelete === project.id ? t('common:confirm') : <Trash2 size={14} />}
+                </button>
+              </span>
+            </div>
+          );
+          }
+
+          // ── SR 折叠头行: 汇总只读(=子行之和,同一数据源);状态列=子行分布 ──
+          const agg = tree.agg!;
+          const aggStaff = (side: 'design' | 'dev') => (
+            <span className="req-staff-row req-staff-row--ro" key={side}>
+              <span className={`staff-dot staff-dot--${side}`} />
+              <span className="req-staff-label">{t(`projects:staffing.${side === 'design' ? 'designFull' : 'devFull'}`)}</span>
+              <span className="req-staff-num">
+                <span className="req-staff-named">{agg[side].named.toFixed(1)}</span>
+                {agg[side].pool > 0 && <span className="req-staff-pool">+{agg[side].pool.toFixed(1)}</span>}
+              </span>
+            </span>
+          );
+          return (
+            <Fragment key={project.id}>
+            <div
+              className={`requirements-row requirements-row--sr ${warned ? 'requirements-row--warned' : ''} ${project.id === flashId ? 'requirements-row--flash' : ''}`}
+              onClick={() => toggleSR(project.id)}
+              title={t('projects:board.srExpandHint')}
+            >
+              <span className="requirements-name">
+                {srCollapsed ? <ChevronRight size={15} className="req-sr-chevron" /> : <ChevronDown size={15} className="req-sr-chevron" />}
+                <span className="requirements-name-text" title={project.name}>{project.name}</span>
+                <span className="req-sr-chip">{t('projects:board.arCount', { count: agg.count })}</span>
+                {(project.lifecycle_warnings ?? []).length > 0 && (
+                  <span
+                    className="lifecycle-warn-chip"
+                    title={(project.lifecycle_warnings ?? [])
+                      .map((w: string) => t(`projects:lifecycle.warnings.${w}`))
+                      .join('\n')}
+                  >
+                    {t(`projects:lifecycle.warningShort.${(project.lifecycle_warnings ?? [])[0]}`, {
+                      defaultValue: t('projects:lifecycle.warningShort.GENERIC')
+                    })}
+                    {(project.lifecycle_warnings ?? []).length > 1
+                      ? `+${(project.lifecycle_warnings ?? []).length - 1}`
+                      : ''}
+                  </span>
+                )}
+                {project.project_sub_type_name && (
+                  <span className="requirements-subtype">· {project.project_sub_type_name}</span>
+                )}
+              </span>
+
+              <TagsCell project={project} allTags={tags} onSaved={() => handleCellSaved(project.id)} />
+              <ComponentCell project={project} options={componentOptions} onSaved={() => handleCellSaved(project.id)} />
+
+              <span className="req-cell-center req-state-dist">
+                {agg.states.map((s: any) => (
+                  <span key={s.state ?? 'none'} className="req-state-dist-item">
+                    {s.count}·{s.state ? t(`projects:lifecycle.state.${s.state}`) : '—'}
+                  </span>
+                ))}
+              </span>
+
+              <span className="req-staff req-staff--ro">{aggStaff('design')}{aggStaff('dev')}</span>
+
+              <span className="req-scale" title={t('projects:scale.srTooltip')}>
+                {agg.kloc != null ? (
+                  <>
+                    <span className="req-scale-kloc">{agg.kloc}K</span>
+                    <span className="req-scale-pm">{agg.pm}{t('projects:scale.pmUnit')}</span>
+                  </>
+                ) : <span className="text-muted">—</span>}
+              </span>
+
+              <VersionPart project={project} field="product_version"
+                placeholder={t('projects:version.productPlaceholder')}
+                onSaved={() => handleCellSaved(project.id)} />
+              <VersionPart project={project} field="release_version"
+                placeholder={t('projects:version.releasePlaceholder')}
+                onSaved={() => handleCellSaved(project.id)} />
+
+              <PriorityCell project={project} onSaved={() => handleCellSaved(project.id)} />
+              <OwnerCell project={project} onSaved={() => handleCellSaved(project.id)} />
+
+              <span className="requirements-actions" onClick={(e) => e.stopPropagation()}>
+                <button
+                  className="req-icon-btn"
+                  title={t('projects:board.decompose')}
+                  onClick={() => setDecomposeParent(project)}
+                >
+                  <GitBranch size={14} />
+                </button>
+                <button
+                  className="req-icon-btn"
+                  title={t('common:edit')}
+                  onClick={() => handleEditProject(project)}
+                >
+                  <Edit2 size={14} />
+                </button>
+                <button
+                  className={`req-icon-btn ${confirmingDelete === project.id ? 'req-icon-btn--confirm' : ''}`}
+                  title={confirmingDelete === project.id ? t('common:confirm') : t('common:delete')}
+                  onClick={() => twoClickDelete(project)}
+                >
+                  {confirmingDelete === project.id ? t('common:confirm') : <Trash2 size={14} />}
+                </button>
+              </span>
+            </div>
+
+            {!srCollapsed && (
+              <div className="requirements-children">
+                {tree.children.map((child) => (
+                  <div
+                    key={child.id}
+                    className={`requirements-row requirements-row--child ${child.id === flashId ? 'requirements-row--flash' : ''}`}
+                    onClick={() => navigate(`/projects/${child.id}`)}
+                  >
+                    <span className="requirements-name requirements-name--child">
+                      <CornerDownRight size={13} className="req-child-arrow" />
+                      <span className="requirements-name-text" title={child.name}>{child.name}</span>
+                      <ArPart project={child} onSaved={() => handleCellSaved(child.id)} />
+                    </span>
+
+                    <TagsCell project={child} allTags={tags} onSaved={() => handleCellSaved(child.id)} />
+                    <ComponentCell project={child} options={componentOptions} onSaved={() => handleCellSaved(child.id)} />
+
+                    <span className="req-cell-center" onClick={(e) => e.stopPropagation()}>
+                      <LifecycleCellControls project={child} />
+                    </span>
+
+                    <StaffingCell project={child} onChanged={() => handleCellSaved(child.id)} />
+                    <ScaleCell project={child} />
+
+                    <VersionPart project={child} field="product_version"
+                      placeholder={t('projects:version.productPlaceholder')}
+                      onSaved={() => handleCellSaved(child.id)} />
+                    <VersionPart project={child} field="release_version"
+                      placeholder={t('projects:version.releasePlaceholder')}
+                      onSaved={() => handleCellSaved(child.id)} />
+
+                    <PriorityCell project={child} onSaved={() => handleCellSaved(child.id)} />
+                    <OwnerCell project={child} onSaved={() => handleCellSaved(child.id)} />
+
+                    <span className="requirements-actions" onClick={(e) => e.stopPropagation()}>
+                      <button
+                        className="req-icon-btn"
+                        title={t('common:edit')}
+                        onClick={() => handleEditProject(child)}
+                      >
+                        <Edit2 size={14} />
+                      </button>
+                      <button
+                        className={`req-icon-btn ${confirmingDelete === child.id ? 'req-icon-btn--confirm' : ''}`}
+                        title={confirmingDelete === child.id ? t('common:confirm') : t('common:delete')}
+                        onClick={() => twoClickDelete(child)}
+                      >
+                        {confirmingDelete === child.id ? t('common:confirm') : <Trash2 size={14} />}
+                      </button>
+                    </span>
                   </div>
                 ))}
-            </div>
+              </div>
+            )}
+            </Fragment>
           );
         })}
 

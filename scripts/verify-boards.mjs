@@ -138,14 +138,14 @@ check('优先级徽章', pBadges.length >= 3 && pBadges.every(p => /^P\d$/.test(
     check('SR 计数胶囊 = 子行数', chip.includes(`${childCount}`), `chip=${chip} children=${childCount}`);
     const dist = await srRow.locator('.req-state-dist-item').count();
     check('SR 状态分布渲染', dist >= 1);
-    // 折叠/展开
-    await srRow.locator('.requirements-name-text').click();
+    // 折叠/展开(2026-09-22 修正: 折叠归箭头钮,SR 行点击进详情)
+    await srRow.locator('.req-sr-toggle').click();
     await page.waitForTimeout(250);
     const collapsed = await page.locator('.requirements-row--child').count();
-    await srRow.locator('.requirements-name-text').click();
+    await srRow.locator('.req-sr-toggle').click();
     await page.waitForTimeout(250);
     const reopened = await page.locator('.requirements-row--child').count();
-    check('SR 点击折叠/再展开', collapsed === 0 && reopened === childCount, `${childCount}->${collapsed}->${reopened}`);
+    check('SR 箭头折叠/再展开', collapsed === 0 && reopened === childCount, `${childCount}->${collapsed}->${reopened}`);
     // 汇总=子行之和(规模): SR 的 KLOC = 各子行 KLOC 之和
     const srKloc = await srRow.locator('.req-scale-kloc').textContent().catch(() => null);
     const childKlocs = [];
@@ -249,9 +249,9 @@ check('状态快捷键保留', (await quick.count()) >= 1, (await quick.textCont
 
 // ── 2.5 引用码闭环: 详情页 chip + 搜索定位(2026-09-22 裁决,不加内部编码) ──
 {
-  // SR 聚合行点击=折叠,进详情用普通行
-  const p1 = page.locator('.requirements-row:not(.requirements-row--sr):not(.requirements-row--child)', { hasText: '数据平台升级' });
-  await p1.locator('.requirements-name-text').click(); // 行点击进详情
+  // SR 行点击同样进详情(2026-09-22 修正);顺带覆盖 SR 详情可达性
+  const p1 = page.locator('.requirements-row--sr', { hasText: '客户门户改版' });
+  await p1.locator('.requirements-name-text').click();
   await page.waitForSelector('.project-ref-code', { timeout: 8000 });
   const chip = (await page.$eval('.project-ref-code', el => el.textContent.trim()));
   check('详情页引用码 chip(纯数字序号)', /^#\d+$/.test(chip), chip);
@@ -260,7 +260,17 @@ check('状态快捷键保留', (await quick.count()) >= 1, (await quick.textCont
   await page.fill('[data-testid="search-input"]', chip);
   await page.waitForTimeout(400);
   const hit = await page.$$eval('.requirements-row .requirements-name-text', els => els.map(e => e.textContent.trim()));
-  check('搜索框粘贴引用码 → 精确定位该行', hit.includes('数据平台升级') && !hit.includes('移动端改版'), hit.join(','));
+  check('搜索框粘贴引用码 → 精确定位该行(树保留)', hit.includes('客户门户改版') && !hit.includes('移动端改版'), hit.join(','));
+  await page.fill('[data-testid="search-input"]', '');
+
+  // 空外部号行显示 #序号(截图指代永不落空);外部号可直接搜索
+  const p5 = page.locator('.requirements-row', { hasText: '移动端改版' });
+  const fallback = (await p5.locator('.req-number-part').textContent())?.trim() ?? '';
+  check('编号列空外部号 → 弱化 #序号', /^#\d+$/.test(fallback), fallback);
+  await page.fill('[data-testid="search-input"]', 'SR-26-001'); // 1.8 段刚填的外部号
+  await page.waitForTimeout(400);
+  const hitExt = await page.$$eval('.requirements-row .requirements-name-text', els => els.map(e => e.textContent.trim()));
+  check('搜索外部号(SR-26-001) → 定位 SR 行', hitExt.includes('客户门户改版') && !hitExt.includes('移动端改版'), hitExt.join(','));
   await page.fill('[data-testid="search-input"]', '');
 }
 

@@ -408,11 +408,11 @@
     "colScale": "Scale",
     "filterComponent": "Component",
     "arCount": "{{count}} AR",
-    "srExpandHint": "Click to expand/collapse decomposed ARs",
     "decompose": "Decompose into AR",
     "decomposeInto": "Will be created as an AR of \"{{name}}\"",
     "colNumber": "Number",
-    "filterSubtype": "Subtype"
+    "filterSubtype": "Subtype",
+    "srToggleHint": "Expand/collapse decomposed ARs"
   },
   "version": {
     "productTitle": "Product version, click to edit (e.g. B)",

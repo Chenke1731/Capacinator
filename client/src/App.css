@@ -1965,7 +1965,22 @@ body.req-col-dragging * {
 /* ── SR→AR 折叠行(2026-09-22 真实表借鉴: JDC/SR 分解成 AR) ── */
 .requirements-row--sr { background: rgba(127, 127, 127, 0.045); }
 .requirements-row--sr:hover { background: rgba(127, 127, 127, 0.09); }
-.req-sr-chevron { color: var(--text-secondary); flex: none; }
+/* SR 折叠箭头: 行点击=进详情(与其他行同词汇),折叠归箭头钮(24px 档) */
+.req-sr-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3px;
+  min-height: 24px;
+  min-width: 24px;
+  background: none;
+  border: none;
+  border-radius: 4px;
+  color: var(--text-secondary);
+  flex: none;
+  cursor: pointer;
+}
+.req-sr-toggle:hover { background: rgba(127, 127, 127, 0.12); color: var(--text-primary); }
 .requirements-row--sr .requirements-name-text { font-weight: 600; }
 .req-sr-chip {
   flex: none;

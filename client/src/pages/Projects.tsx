@@ -255,7 +255,8 @@ function NumberPart({ project, onSaved }: { project: any; onSaved: () => void })
   return (
     <button type="button" className="req-number-part req-editable" title={t('projects:number.hint')}
             onClick={(e) => { e.stopPropagation(); setDraft(value); setEditing(true); }}>
-      {value || <span className="text-muted">—</span>}
+      {/* 空外部号时弱化显示 #序号: 列表截图永远携带可指代标识(# 自区分于 SR/AR 号) */}
+      {value || <span className="text-muted">#{project.seq_number}</span>}
     </button>
   );
 }
@@ -525,6 +526,7 @@ export function Projects() {
         const q = filters.search.trim().toLowerCase();
         const byCode = /^#(\d+)$/.exec(q);
         const hit = String(p.name).toLowerCase().includes(q)
+          || String(p.external_number ?? '').toLowerCase().includes(q)
           || (byCode && Number(byCode[1]) === p.seq_number);
         if (!hit) return false;
       }
@@ -846,11 +848,18 @@ export function Projects() {
             <Fragment key={project.id}>
             <div
               className={`requirements-row requirements-row--sr ${warned ? 'requirements-row--warned' : ''} ${project.id === flashId ? 'requirements-row--flash' : ''}`}
-              onClick={() => toggleSR(project.id)}
-              title={t('projects:board.srExpandHint')}
+              onClick={() => navigate(`/projects/${project.id}`)}
             >
               <span className="requirements-name">
-                {srCollapsed ? <ChevronRight size={15} className="req-sr-chevron" /> : <ChevronDown size={15} className="req-sr-chevron" />}
+                <button
+                  type="button"
+                  className="req-sr-toggle"
+                  title={t('projects:board.srToggleHint')}
+                  aria-expanded={!srCollapsed}
+                  onClick={(e) => { e.stopPropagation(); toggleSR(project.id); }}
+                >
+                  {srCollapsed ? <ChevronRight size={15} /> : <ChevronDown size={15} />}
+                </button>
                 <span className="requirements-name-text" title={project.name}>{project.name}</span>
                 <span className="req-sr-chip">{t('projects:board.arCount', { count: agg.count })}</span>
                 {(project.lifecycle_warnings ?? []).length > 0 && (

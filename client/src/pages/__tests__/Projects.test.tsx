@@ -671,7 +671,7 @@ describe('Requirements Board (需求台)', () => {
       expect(within(srRow).getByText('8 pm')).toBeInTheDocument();
     });
 
-    test('clicking SR row collapses and re-expands children', async () => {
+    test('SR chevron toggles children; SR row click opens its detail (same as other rows)', async () => {
       const user = userEvent.setup();
       renderComponent();
 
@@ -680,11 +680,15 @@ describe('Requirements Board (需求台)', () => {
       });
       expect(document.querySelectorAll('.requirements-row--child').length).toBe(2);
 
-      await user.click(screen.getByText('Project Alpha'));
+      // 折叠归箭头钮(2026-09-22 修正: SR 行点击进详情,不再折叠)
+      await user.click(document.querySelector('.req-sr-toggle')!);
       expect(document.querySelectorAll('.requirements-row--child').length).toBe(0);
 
-      await user.click(screen.getByText('Project Alpha'));
+      await user.click(document.querySelector('.req-sr-toggle')!);
       expect(document.querySelectorAll('.requirements-row--child').length).toBe(2);
+
+      await user.click(screen.getByText('Project Alpha'));
+      expect(mockNavigate).toHaveBeenCalledWith('/projects/proj-1');
     });
 
     test('decompose button opens the create modal preset to the parent', async () => {
@@ -709,6 +713,10 @@ describe('Requirements Board (需求台)', () => {
       await waitFor(() => {
         expect(screen.getByText('Portal Home Rework')).toBeInTheDocument();
       });
+
+      // 空外部号 → 弱化 #序号(列表截图永远携带可指代标识)
+      const betaRow2 = screen.getByText('Project Beta').closest('.requirements-row')!;
+      expect(within(betaRow2).getByText('#2')).toBeInTheDocument();
 
       // 子行(AR): 空 → 填 AR 号
       const childRow2 = screen.getByText('Portal Home Rework').closest('.requirements-row')!;
@@ -918,7 +926,21 @@ describe('Requirements Board (需求台)', () => {
       expect(screen.getByText('Project Alpha')).toBeInTheDocument();
     });
 
-    test('search by reference code locates the row (# tail)', async () => {
+    test('search by external number locates the tree (parent or child hit)', async () => {
+      const user = userEvent.setup();
+      renderComponent();
+
+      await waitFor(() => {
+        expect(screen.getByText('Project Alpha')).toBeInTheDocument();
+      });
+
+      await user.type(screen.getByTestId('search-input'), 'AR-2026-101');
+      expect(screen.getByText('Portal Login Rework')).toBeInTheDocument();
+      expect(screen.getByText('Project Alpha')).toBeInTheDocument();
+      expect(screen.queryByText('Project Beta')).not.toBeInTheDocument();
+    });
+
+    test('search by reference code locates the row (#序号)', async () => {
       const user = userEvent.setup();
       renderComponent();
 

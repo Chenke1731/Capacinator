@@ -406,11 +406,11 @@
     "colScale": "规模",
     "filterComponent": "组件",
     "arCount": "{{count}} AR",
-    "srExpandHint": "点击展开/收起分解出的 AR",
     "decompose": "分解出 AR",
     "decomposeInto": "将作为「{{name}}」的 AR 分解项创建",
     "colNumber": "编号",
-    "filterSubtype": "子类型"
+    "filterSubtype": "子类型",
+    "srToggleHint": "展开/收起分解出的 AR"
   },
   "version": {
     "productTitle": "产品版本，点击填写（如 B）",

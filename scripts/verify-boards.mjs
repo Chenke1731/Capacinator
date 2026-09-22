@@ -343,7 +343,7 @@ await page.waitForTimeout(1500);
     const rows = Array.from(board.querySelectorAll('.requirements-row')).map(r => Math.round(r.getBoundingClientRect().height));
     return { fontSizes: sizes.size, radii: radii.size, hRules: rules, minHit, minFont, rows };
   });
-  check(`字号档位 ≤ 4 (${metrics.fontSizes})`, metrics.fontSizes <= 4);
+  check(`字号档位 ≤ 3 (${metrics.fontSizes})`, metrics.fontSizes <= 3);
   // 2026-09-22 .text-muted 被页面 CSS 覆盖压到 9.35px 事故: 最小字号单独设防
   check(`无 11px 以下文字 (min=${Math.round(metrics.minFont * 10) / 10}px)`, metrics.minFont >= 11);
   check(`圆角档位 ≤ 4 (${metrics.radii})`, metrics.radii <= 4);

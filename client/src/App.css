@@ -1702,7 +1702,9 @@ input[type="checkbox"].settings-checkbox,
      有意信息编码, 任何排版统一不得抹平
    ============================================================ */
 .projects-board {
-  /* 字阶 */
+  /* 字阶(2026-09-22 收敛终态): 基线=数据档,容器不继承根 16px——
+     未声明字号的新元素落地即 12.5,不会再突然全板最大 */
+  font-size: var(--b-fs-body);
   --b-fs-name: 14px;
   --b-fs-body: 12.5px;
   --b-fs-meta: 11px;
@@ -2306,6 +2308,7 @@ body.req-col-dragging * {
 .projects-board .requirements-name .lifecycle-warn-chip { flex: none; margin: 0 2px; }
 /* 死线内联可让位: 状态列极限组合下截断(有 tooltip 全文),不再溢出压人力列 */
 .lifecycle-deadline--inline {
+  font-size: var(--b-fs-meta);
   margin-left: 6px;
   flex: 0 1 auto;
   min-width: 0;

@@ -1788,7 +1788,7 @@ input[type="checkbox"].settings-checkbox,
 .requirements-thead > span { position: relative; }
 .requirements-thead {
   display: grid;
-  grid-template-columns: minmax(var(--req-w-name, 210px), var(--req-f-name, 1.2fr)) var(--req-w-tags, 112px) var(--req-w-component, 96px) minmax(var(--req-w-lifecycle, 224px), var(--req-f-lifecycle, 0fr)) var(--req-w-staffing, 124px) var(--req-w-scale, 80px) var(--req-w-version, 72px) var(--req-w-release, 72px) var(--req-w-priority, 48px) var(--req-w-owner, 80px) var(--req-w-actions, 116px);
+  grid-template-columns: minmax(var(--req-w-name, 210px), var(--req-f-name, 1.2fr)) var(--req-w-tags, 112px) var(--req-w-component, 96px) var(--req-w-lifecycle, 224px) var(--req-w-staffing, 124px) var(--req-w-scale, 80px) var(--req-w-version, 72px) var(--req-w-release, 72px) var(--req-w-priority, 48px) var(--req-w-owner, 80px) var(--req-w-actions, 116px) var(--req-spacer, 0fr);
   gap: 8px;
   align-items: center;
   min-height: 36px;
@@ -1839,7 +1839,7 @@ input[type="checkbox"].settings-checkbox,
 
 .requirements-row {
   display: grid;
-  grid-template-columns: minmax(var(--req-w-name, 210px), var(--req-f-name, 1.2fr)) var(--req-w-tags, 112px) var(--req-w-component, 96px) minmax(var(--req-w-lifecycle, 224px), var(--req-f-lifecycle, 0fr)) var(--req-w-staffing, 124px) var(--req-w-scale, 80px) var(--req-w-version, 72px) var(--req-w-release, 72px) var(--req-w-priority, 48px) var(--req-w-owner, 80px) var(--req-w-actions, 116px);
+  grid-template-columns: minmax(var(--req-w-name, 210px), var(--req-f-name, 1.2fr)) var(--req-w-tags, 112px) var(--req-w-component, 96px) var(--req-w-lifecycle, 224px) var(--req-w-staffing, 124px) var(--req-w-scale, 80px) var(--req-w-version, 72px) var(--req-w-release, 72px) var(--req-w-priority, 48px) var(--req-w-owner, 80px) var(--req-w-actions, 116px) var(--req-spacer, 0fr);
   gap: 8px;
   align-items: center;
   min-height: 40px;
@@ -2199,7 +2199,7 @@ body.req-col-dragging * {
 @media (max-width: 1679px) {
   .requirements-thead,
   .requirements-row {
-    grid-template-columns: minmax(var(--req-w-name, 210px), var(--req-f-name, 1.1fr)) var(--req-w-tags, 96px) var(--req-w-component, 84px) minmax(var(--req-w-lifecycle, 224px), var(--req-f-lifecycle, 0fr)) var(--req-w-staffing, 112px) var(--req-w-version, 64px) var(--req-w-release, 64px) var(--req-w-priority, 44px) var(--req-w-owner, 80px) var(--req-w-actions, 116px);
+    grid-template-columns: minmax(var(--req-w-name, 210px), var(--req-f-name, 1.1fr)) var(--req-w-tags, 96px) var(--req-w-component, 84px) var(--req-w-lifecycle, 224px) var(--req-w-staffing, 112px) var(--req-w-version, 64px) var(--req-w-release, 64px) var(--req-w-priority, 44px) var(--req-w-owner, 80px) var(--req-w-actions, 116px) var(--req-spacer, 0fr);
   }
   .requirements-thead > span:nth-child(6),
   .requirements-row > .req-scale { display: none; }
@@ -2209,7 +2209,7 @@ body.req-col-dragging * {
 @media (max-width: 1559px) {
   .requirements-thead,
   .requirements-row {
-    grid-template-columns: minmax(var(--req-w-name, 210px), var(--req-f-name, 1.1fr)) var(--req-w-tags, 92px) var(--req-w-component, 80px) minmax(var(--req-w-lifecycle, 196px), var(--req-f-lifecycle, 0fr)) var(--req-w-staffing, 108px) var(--req-w-version, 62px) var(--req-w-release, 62px) var(--req-w-priority, 44px) var(--req-w-actions, 116px);
+    grid-template-columns: minmax(var(--req-w-name, 210px), var(--req-f-name, 1.1fr)) var(--req-w-tags, 92px) var(--req-w-component, 80px) var(--req-w-lifecycle, 196px) var(--req-w-staffing, 108px) var(--req-w-version, 62px) var(--req-w-release, 62px) var(--req-w-priority, 44px) var(--req-w-actions, 116px) var(--req-spacer, 0fr);
   }
   .requirements-thead > span:nth-child(10),
   .requirements-row > .req-edit-cell--owner { display: none; }

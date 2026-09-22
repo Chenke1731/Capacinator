@@ -66,8 +66,13 @@ check('超宽出现横向滚动(不挤压他列)', overflow.sw > overflow.cw + 2
 const nameNow = await colWidth(0);
 check('拖宽后名称列未被挤压到塌陷', nameNow >= 120, `name=${Math.round(nameNow)}`);
 
-// ── 4.5 拖窄名称列: 钉死生效(不被 fr 吸收),状态列承接余量 ──
+// ── 4.5 拖窄名称列: 钉死生效(不被 fr 吸收);余量由占位轨承接,任何真实列不被撑住 ──
 {
+  // 先重置第 4 步横滚测试钉死的宽值,得到干净默认态
+  for (const key of ['col-grip-lifecycle', 'col-grip-staffing']) {
+    await page.locator(`[data-testid="${key}"]`).dblclick();
+    await page.waitForTimeout(100);
+  }
   const g = await page.locator('[data-testid="col-grip-name"]').boundingBox();
   const nameBefore = await page.evaluate(() => Math.round(document.querySelector('.requirements-row .requirements-name').getBoundingClientRect().width));
   await page.mouse.move(g.x + g.width / 2, g.y + g.height / 2);
@@ -80,7 +85,21 @@ check('拖宽后名称列未被挤压到塌陷', nameNow >= 120, `name=${Math.ro
     lc: Math.round(document.querySelector('.requirements-row .req-cell-center').getBoundingClientRect().width)
   }));
   check('拖窄名称列真正钉死(±6px)', Math.abs(m.name - 150) <= 6, `${nameBefore}→${m.name}`);
-  check('余量转由状态列吸收(行不留尾空)', m.lc >= 224, `lifecycle=${m.lc}`);
+  check('状态列不被余量 fr 撑住(保持默认±10)', Math.abs(m.lc - 224) <= 10, `lifecycle=${m.lc}`);
+  // 用户场景: 名称已钉死,状态列向左拖必须真生效(不被任何 fr 吸收)
+  {
+    const gl = await page.locator('[data-testid="col-grip-lifecycle"]').boundingBox();
+    const lcBefore = m.lc;
+    await page.mouse.move(gl.x + gl.width / 2, gl.y + gl.height / 2);
+    await page.mouse.down();
+    await page.mouse.move(gl.x + gl.width / 2 - 40, gl.y + gl.height / 2, { steps: 6 });
+    await page.mouse.up();
+    await page.waitForTimeout(300);
+    const lcAfter = await page.evaluate(() => Math.round(document.querySelector('.requirements-row .req-cell-center').getBoundingClientRect().width));
+    check('名称钉死时状态列仍可拖窄', lcAfter < lcBefore - 30, `${lcBefore}→${lcAfter}`);
+    await page.locator('[data-testid="col-grip-lifecycle"]').dblclick();
+    await page.waitForTimeout(200);
+  }
   await page.locator('[data-testid="col-grip-name"]').dblclick();
   await page.waitForTimeout(200);
 }

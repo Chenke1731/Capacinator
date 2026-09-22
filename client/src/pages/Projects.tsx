@@ -621,10 +621,11 @@ export function Projects() {
       vars[`--req-w-${c.key}`] = `${w}px`;
       total += w;
     }
-    /* 名称列被用户拖过=钉死宽(fr 归零),余量转由状态列吸收,行不留尾空 */
+    /* 名称列被用户拖过=钉死宽(fr 归零),余量转由尾部不可见占位轨吸收——
+       绝不转给真实列,否则承接列被 fr 撑住"拉不动"(2026-09-22 状态列教训) */
     if (colWidths.name !== undefined) {
       vars['--req-f-name'] = '0fr';
-      vars['--req-f-lifecycle'] = '1fr';
+      vars['--req-spacer'] = '1fr';
     }
     vars['--req-total'] = `${total}px`;
     return vars as React.CSSProperties;

@@ -1772,8 +1772,16 @@ input[type="checkbox"].settings-checkbox,
   flex-wrap: nowrap;
   overflow: hidden;
 }
-.requirements-name-text { font-size: var(--b-fs-name); font-weight: 600; white-space: nowrap; }
-.requirements-subtype { font-size: var(--b-fs-meta); color: var(--text-secondary); white-space: nowrap; }
+.requirements-name-text {
+  font-size: var(--b-fs-name);
+  font-weight: 600;
+  white-space: nowrap;
+  min-width: 0;
+  flex: 0 1 auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.requirements-subtype { font-size: var(--b-fs-meta); color: var(--text-secondary); white-space: nowrap; flex: none; }
 .req-tag {
   font-size: var(--b-fs-meta);
   padding: 1px 7px;

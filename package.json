@@ -84,7 +84,9 @@
     "start": "electron .",
     "commands": "npx tsx scripts/list-commands.ts",
     "verify:smoke": "node scripts/smoke-check.mjs",
-    "preview:client": "npm run build:client && npx vite preview --config client-vite.config.ts --port 3121 --strictPort --host"
+    "preview:client": "npm run build:client && npx vite preview --config client-vite.config.ts --port 3121 --strictPort --host",
+    "verify:visual": "node scripts/verify-visual.mjs",
+    "verify:visual:update": "UPDATE_BASELINES=1 node scripts/verify-visual.mjs"
   },
   "keywords": [],
   "author": "",
@@ -198,6 +200,7 @@
     }
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.13.0",
     "@babel/plugin-transform-react-jsx": "^7.27.1",
     "@eslint/js": "^9.30.1",
     "@faker-js/faker": "^9.9.0",
@@ -229,6 +232,7 @@
     "@typescript-eslint/parser": "^8.36.0",
     "@vitejs/plugin-react": "^4.6.0",
     "autoprefixer": "^10.4.21",
+    "axe-core": "^4.13.0",
     "concurrently": "^9.2.0",
     "cross-env": "^7.0.3",
     "electron": "^37.2.0",
@@ -244,6 +248,8 @@
     "jsdom": "^26.1.0",
     "lint-staged": "^16.2.7",
     "msw": "^2.12.7",
+    "pixelmatch": "^7.2.0",
+    "pngjs": "^7.0.0",
     "postcss": "^8.5.6",
     "puppeteer": "^24.24.0",
     "supertest": "^7.1.3",

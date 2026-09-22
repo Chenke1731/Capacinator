@@ -335,7 +335,8 @@
       "GENERIC": "告警",
       "NO_ITERATION_NUMBER": "未编号"
     },
-    "numberLabel": "编号"
+    "numberLabel": "编号",
+    "advanceHint": "一键推进到：{{to}}"
   },
   "staffing": {
     "designSide": "设计侧(SE)",

@@ -337,7 +337,8 @@
       "GENERIC": "warn",
       "NO_ITERATION_NUMBER": "No №"
     },
-    "numberLabel": "Number"
+    "numberLabel": "Number",
+    "advanceHint": "Advance to {{to}}"
   },
   "staffing": {
     "designSide": "Design side (SE)",

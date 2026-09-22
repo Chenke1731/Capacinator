@@ -1435,6 +1435,29 @@ input[type="checkbox"].settings-checkbox,
   position: relative;
 }
 
+/* B3b 状态单胶囊(设计 §7): 徽章段+›段拼一个胶囊,同底同高 */
+.lifecycle-capsule {
+  display: inline-flex;
+  align-items: stretch;
+  border-radius: 999px;
+  overflow: hidden;
+}
+.lifecycle-capsule .lifecycle-state-badge { border-radius: 0; }
+.lifecycle-advance-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 7px;
+  min-width: 24px;
+  background: none;
+  border: none;
+  color: inherit;
+  opacity: 0.65;
+  cursor: pointer;
+}
+.projects-board .lifecycle-advance-btn { min-width: 24px; min-height: 24px; }
+.lifecycle-advance-btn:hover { opacity: 1; background: rgba(127, 127, 127, 0.12); }
+.lifecycle-advance-btn:disabled { opacity: 0.35; cursor: default; }
 .lifecycle-cell-badges {
   display: inline-flex;
   align-items: center;

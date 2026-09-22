@@ -1,6 +1,6 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ChevronDown } from 'lucide-react';
+import { ChevronRight } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
 import { queryKeys } from '../../lib/queryKeys';
 import { api } from '../../lib/api-client';
@@ -31,12 +31,6 @@ const PRIMARY_NEXT: Record<string, { to: string; labelKey: string } | null> = {
   delivered: null,
   cancelled: null
 };
-
-function daysFromToday(dateStr: string): number {
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-  return Math.round((new Date(dateStr + 'T00:00:00').getTime() - today.getTime()) / 86400000);
-}
 
 type PopoverMode = 'actions' | 'reopen' | 'cancel' | 'schedule';
 
@@ -144,9 +138,6 @@ export function LifecycleCellControls({ project }: { project: any }) {
 
   const primary = PRIMARY_NEXT[state] ?? null;
   const warnings: string[] = Array.isArray(project.lifecycle_warnings) ? project.lifecycle_warnings : [];
-  const inDesign = ['pending_rat', 'nok', 'designing'].includes(state);
-  const deadline: string | null = project.design_deadline ? String(project.design_deadline).slice(0, 10) : null;
-  const overdue = inDesign && deadline && daysFromToday(deadline) < 0;
 
   const btn = 'lifecycle-btn';
   const btnPrimary = 'lifecycle-btn lifecycle-btn-primary';
@@ -157,52 +148,43 @@ export function LifecycleCellControls({ project }: { project: any }) {
       className="lifecycle-cell"
       onClick={(e) => e.stopPropagation()} // row click must not fire from the controls
     >
+      {/* B3b 单胶囊(设计 §7): 徽章段=身份+全量选择, › 段=一键推进主路径。
+          死线已迁出状态列(逾期警示走告警层, B5)。SR 行不进此格(页面侧状态分布)。 */}
       <span className="lifecycle-cell-badges">
-        <button
-          type="button"
-          className={`lifecycle-state-badge lifecycle-state-badge--${state} lifecycle-badge-btn`}
-          onClick={() => (mode ? closePopover() : openPopover('actions'))}
-          title={
-            warnings.length > 0
-              ? `${t('projects:lifecycle.warningDot')}: ${warnings.map((w) => t(`projects:lifecycle.warnings.${w}`)).join('；')}`
-              : t('projects:lifecycle.quick.more')
-          }
-        >
-          {t(stateLabelKey(state))}
-          <ChevronDown size={11} className="inline ml-0.5 opacity-60" />
-        </button>
-
-        {primary && state !== 'backlog' && (
+        <span className={`lifecycle-capsule lifecycle-capsule--${state}`}>
           <button
             type="button"
-            className="lifecycle-btn lifecycle-btn-primary lifecycle-quick-btn"
-            disabled={transition.isPending}
-            onClick={() => doTransition(primary.to)}
+            className={`lifecycle-state-badge lifecycle-state-badge--${state} lifecycle-badge-btn`}
+            onClick={() => (mode ? closePopover() : openPopover('actions'))}
+            title={
+              warnings.length > 0
+                ? `${t('projects:lifecycle.warningDot')}: ${warnings.map((w) => t(`projects:lifecycle.warnings.${w}`)).join('；')}`
+                : t('projects:lifecycle.quick.more')
+            }
           >
-            {t(primary.labelKey)}
+            {t(stateLabelKey(state))}
           </button>
-        )}
-        {state === 'backlog' && (
-          <button
-            type="button"
-            className="lifecycle-btn lifecycle-btn-primary lifecycle-quick-btn"
-            disabled={transition.isPending}
-            onClick={() => (mode === 'schedule' ? closePopover() : openPopover('schedule'))}
-          >
-            {t('projects:lifecycle.quick.schedule')}
-          </button>
-        )}
-      </span>
-
-      {/* 死线内联在徽章行内(行高统一 40px 的关键); 短格式 MM-DD, tooltip 带全年份 */}
-      {inDesign && deadline && (
-        <span
-          className={overdue ? 'lifecycle-deadline--inline lifecycle-deadline--overdue' : 'lifecycle-deadline--inline'}
-          title={deadline}
-        >
-          {deadline.slice(5)}
+          {primary && (
+            <button
+              type="button"
+              className="lifecycle-advance-btn"
+              disabled={transition.isPending}
+              title={
+                state === 'backlog'
+                  ? t('projects:lifecycle.advanceHint', { to: t('projects:lifecycle.quick.schedule') })
+                  : t('projects:lifecycle.advanceHint', { to: t(stateLabelKey(primary.to)) })
+              }
+              onClick={() =>
+                state === 'backlog'
+                  ? (mode === 'schedule' ? closePopover() : openPopover('schedule'))
+                  : doTransition(primary.to)
+              }
+            >
+              <ChevronRight size={12} />
+            </button>
+          )}
         </span>
-      )}
+      </span>
 
       {mode && (
         <div ref={popRef} className="lc-popover" style={{ top: pos.top, left: pos.left }}>

@@ -187,6 +187,84 @@ function StaffingCell({ project, onChanged }: { project: any; onChanged: () => v
 
 const UNVERSIONED = '__unversioned__';
 
+/** 列宽拖拽: 表头右缘手柄,拖=调宽窄(钳制 min/max),双击=重置该列;localStorage 持久化。
+    列宽走 CSS 变量(--req-w-*),thead/row/两断点模板统一引用,一处设置处处生效;
+    总量(--req-total)做行 min-width 兜底——拖宽不挤压他列,超出容器横向滚动。 */
+const REQ_COLUMNS = [
+  { key: 'name', def: [150, 140], min: 120, max: 640 },
+  { key: 'tags', def: [148, 140], min: 80, max: 320 },
+  { key: 'lifecycle', def: [236, 236], min: 170, max: 420 },
+  { key: 'staffing', def: [128, 128], min: 104, max: 220 },
+  { key: 'version', def: [88, 84], min: 56, max: 200 },
+  { key: 'release', def: [88, 84], min: 56, max: 200 },
+  { key: 'priority', def: [52, 48], min: 40, max: 120 },
+  { key: 'owner', def: [88, 0], min: 56, max: 200 },
+  { key: 'actions', def: [96, 92], min: 64, max: 200 }
+] as const;
+type ReqColKey = (typeof REQ_COLUMNS)[number]['key'];
+const REQ_WIDTHS_STORE = 'req-col-widths-v1';
+const clampWidth = (col: (typeof REQ_COLUMNS)[number], w: number) =>
+  Math.round(Math.min(col.max, Math.max(col.min, w)));
+
+function ColumnGrip({ colKey, widths, setWidths }: {
+  colKey: ReqColKey;
+  widths: Partial<Record<ReqColKey, number>>;
+  setWidths: React.Dispatch<React.SetStateAction<Partial<Record<ReqColKey, number>>>>;
+}) {
+  const { t } = useTranslation();
+  const col = REQ_COLUMNS.find((c) => c.key === colKey)!;
+  const persist = (next: Partial<Record<ReqColKey, number>>) =>
+    localStorage.setItem(REQ_WIDTHS_STORE, JSON.stringify(next));
+
+  const onPointerDown = (e: React.PointerEvent<HTMLSpanElement>) => {
+    e.stopPropagation();
+    const el = e.currentTarget;
+    el.setPointerCapture(e.pointerId);
+    el.classList.add('req-col-grip--active');
+    document.body.classList.add('req-col-dragging');
+    const startX = e.clientX;
+    // 从实际渲染宽起步(fr 列也准),拖拽增量叠加
+    const startW = el.parentElement?.getBoundingClientRect().width ?? col.def[0];
+    let last = widths;
+    const move = (ev: PointerEvent) => {
+      const next = clampWidth(col, startW + ev.clientX - startX);
+      setWidths((prev) => {
+        last = { ...prev, [colKey]: next };
+        return last;
+      });
+    };
+    const up = () => {
+      el.classList.remove('req-col-grip--active');
+      document.body.classList.remove('req-col-dragging');
+      el.removeEventListener('pointermove', move);
+      el.removeEventListener('pointerup', up);
+      persist(last);
+    };
+    el.addEventListener('pointermove', move);
+    el.addEventListener('pointerup', up);
+  };
+
+  const reset = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setWidths((prev) => {
+      const next = { ...prev };
+      delete next[colKey];
+      persist(next);
+      return next;
+    });
+  };
+
+  return (
+    <span
+      className="req-col-grip"
+      data-testid={`col-grip-${colKey}`}
+      title={t('projects:board.resizeHint')}
+      onPointerDown={onPointerDown}
+      onDoubleClick={reset}
+    />
+  );
+}
+
 interface ReleaseGroup {
   release: string | null;
   projects: any[];
@@ -322,6 +400,29 @@ export function Projects() {
 
   const invalidate = () => queryClient.invalidateQueries({ queryKey: queryKeys.projects.all });
 
+  // ── 列宽拖拽状态: localStorage 初始化,容器挂 CSS 变量驱动全部行/断点 ──
+  const [colWidths, setColWidths] = useState<Partial<Record<ReqColKey, number>>>(() => {
+    try {
+      return JSON.parse(localStorage.getItem(REQ_WIDTHS_STORE) ?? '{}');
+    } catch {
+      return {};
+    }
+  });
+  const compact = typeof window !== 'undefined' && window.innerWidth < 1440;
+  const colVars = useMemo(() => {
+    const vars: Record<string, string> = {};
+    let total = 28 /* 行左右 padding */ + 8 * 8 /* 列间 gap */;
+    for (const c of REQ_COLUMNS) {
+      const def = compact ? c.def[1] : c.def[0];
+      if (c.key === 'owner' && compact) continue; // <1440 隐藏负责人列
+      const w = colWidths[c.key] ?? def;
+      vars[`--req-w-${c.key}`] = `${w}px`;
+      total += w;
+    }
+    vars['--req-total'] = `${total}px`;
+    return vars as React.CSSProperties;
+  }, [colWidths, compact]);
+
   const flashRow = (id: string) => {
     setFlashId(id);
     window.setTimeout(() => setFlashId((cur) => (cur === id ? null : cur)), 900);
@@ -408,17 +509,26 @@ export function Projects() {
         </div>
       </div>
 
-      <div className="requirements-table" data-testid="requirements-table">
+      <div className="requirements-table" data-testid="requirements-table" style={colVars}>
         <div className="requirements-thead">
-          <span>{t('projects:board.colName')}</span>
-          <span>{t('projects:board.colTags')}</span>
-          <span className="col-c">{t('projects:lifecycleColumn')}</span>
-          <span>{t('projects:board.colStaffing')}</span>
-          <span>{t('projects:board.colVersion')}</span>
-          <span>{t('projects:board.colRelease')}</span>
-          <span className="col-c">{t('projects:board.colPriority')}</span>
-          <span>{t('projects:board.colOwner')}</span>
-          <span className="col-c">{t('common:actions')}</span>
+          {([
+            ['projects:board.colName', 'name'],
+            ['projects:board.colTags', 'tags'],
+            ['projects:lifecycleColumn', 'lifecycle'],
+            ['projects:board.colStaffing', 'staffing'],
+            ['projects:board.colVersion', 'version'],
+            ['projects:board.colRelease', 'release'],
+            ['projects:board.colPriority', 'priority'],
+            ['projects:board.colOwner', 'owner'],
+            ['common:actions', 'actions']
+          ] as const).map(([key, colKey], i) => (
+            <span key={colKey} className={['lifecycle', 'priority', 'actions'].includes(colKey) ? 'col-c' : ''}>
+              {t(key)}
+              {i < 8 && (
+                <ColumnGrip colKey={colKey} widths={colWidths} setWidths={setColWidths} />
+              )}
+            </span>
+          ))}
         </div>
 
         {groups.map((group) => {

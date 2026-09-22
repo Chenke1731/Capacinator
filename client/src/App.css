@@ -1785,9 +1785,10 @@ input[type="checkbox"].settings-checkbox,
   overflow: hidden;
 }
 
+.requirements-thead > span { position: relative; }
 .requirements-thead {
   display: grid;
-  grid-template-columns: minmax(150px, 1.2fr) 148px 236px 128px 88px 88px 52px 88px 96px;
+  grid-template-columns: minmax(var(--req-w-name, 150px), 1.2fr) var(--req-w-tags, 148px) var(--req-w-lifecycle, 236px) var(--req-w-staffing, 128px) var(--req-w-version, 88px) var(--req-w-release, 88px) var(--req-w-priority, 52px) var(--req-w-owner, 88px) var(--req-w-actions, 96px);
   gap: 8px;
   align-items: center;
   min-height: 36px;
@@ -1838,7 +1839,7 @@ input[type="checkbox"].settings-checkbox,
 
 .requirements-row {
   display: grid;
-  grid-template-columns: minmax(150px, 1.2fr) 148px 236px 128px 88px 88px 52px 88px 96px;
+  grid-template-columns: minmax(var(--req-w-name, 150px), 1.2fr) var(--req-w-tags, 148px) var(--req-w-lifecycle, 236px) var(--req-w-staffing, 128px) var(--req-w-version, 88px) var(--req-w-release, 88px) var(--req-w-priority, 52px) var(--req-w-owner, 88px) var(--req-w-actions, 96px);
   gap: 8px;
   align-items: center;
   min-height: 40px;
@@ -1849,6 +1850,48 @@ input[type="checkbox"].settings-checkbox,
 .requirements-row:hover { background: var(--bg-secondary, rgba(127, 127, 127, 0.06)); }
 .requirements-row--warned { box-shadow: inset 3px 0 0 #f59e0b; }
 .requirements-row--warned:hover { background: rgba(245, 158, 11, 0.07); }
+
+/* ── 列宽拖拽(2026-09-22): 表头右缘手柄, 拖=调, 双击=重置; 列宽变量统一驱动两断点 ── */
+.requirements-table { overflow-x: auto; }
+.requirements-thead,
+.requirements-row,
+.requirements-group-header,
+.requirements-release-header,
+.requirements-empty {
+  min-width: var(--req-total, 0);
+}
+.req-col-grip {
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  right: -5px;
+  width: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: col-resize;
+  z-index: 2;
+  touch-action: none;
+}
+.req-col-grip::after {
+  content: '';
+  width: 3px;
+  height: 14px;
+  border-radius: 2px;
+  background: var(--border-color);
+  opacity: 0.8;
+}
+.req-col-grip:hover::after,
+.req-col-grip--active::after {
+  background: var(--accent-color, #3b82f6);
+  height: 22px;
+  opacity: 1;
+}
+body.req-col-dragging,
+body.req-col-dragging * {
+  cursor: col-resize !important;
+  user-select: none !important;
+}
 
 /* 就地保存反馈: 行 flash 一闪; 版本跳组后目标组头高亮(给行落点) */
 @keyframes reqFlash {
@@ -2045,7 +2088,7 @@ input[type="checkbox"].settings-checkbox,
 @media (max-width: 1440px) {
   .requirements-thead,
   .requirements-row {
-    grid-template-columns: minmax(140px, 1.1fr) 140px 236px 128px 84px 84px 48px 92px;
+    grid-template-columns: minmax(var(--req-w-name, 140px), 1.1fr) var(--req-w-tags, 140px) var(--req-w-lifecycle, 236px) var(--req-w-staffing, 128px) var(--req-w-version, 84px) var(--req-w-release, 84px) var(--req-w-priority, 48px) var(--req-w-actions, 92px);
   }
   .requirements-thead > span:nth-child(8),
   .requirements-row > .req-edit-cell--owner { display: none; }

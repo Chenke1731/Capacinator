@@ -404,7 +404,8 @@
     "empty": "No requirements",
     "resetFilters": "Clear filters",
     "colTags": "Tags",
-    "colRelease": "Release"
+    "colRelease": "Release",
+    "resizeHint": "Drag to resize, double-click to reset"
   },
   "version": {
     "productTitle": "Product version, click to edit (e.g. B)",

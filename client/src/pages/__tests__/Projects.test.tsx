@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, waitFor, within } from '@testing-library/react';
+import { render, screen, waitFor, within, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Projects } from '../Projects';
@@ -484,6 +484,75 @@ describe('Requirements Board (需求台)', () => {
       await user.click(within(alphaRow).getByTestId('tags-edit-btn'));
 
       expect(mockNavigate).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('Column resize (列宽拖拽)', () => {
+    const lsStore = new Map<string, string>();
+    beforeEach(() => {
+      // jsdom 默认视口 1024 会走 <1440 紧凑默认;列宽断言统一按宽屏档
+      Object.defineProperty(window, 'innerWidth', { writable: true, configurable: true, value: 1600 });
+      // 本环境 localStorage 是哑实现(setItem 后 getItem 仍 undefined),装功能版
+      lsStore.clear();
+      Object.defineProperty(window, 'localStorage', {
+        configurable: true,
+        value: {
+          getItem: (k: string) => lsStore.get(k) ?? null,
+          setItem: (k: string, v: string) => lsStore.set(k, String(v)),
+          removeItem: (k: string) => lsStore.delete(k),
+          clear: () => lsStore.clear(),
+          key: (i: number) => [...lsStore.keys()][i] ?? null,
+          get length() { return lsStore.size; }
+        }
+      });
+    });
+
+    test('renders a grip on every resizable column header', async () => {
+      renderComponent();
+
+      await waitFor(() => {
+        expect(screen.getByText('Project Alpha')).toBeInTheDocument();
+      });
+
+      // 前 8 列有手柄,最右操作列没有(右缘手柄只到负责人列)
+      const grips = screen.getAllByTestId(/^col-grip-/);
+      expect(grips.map((g) => g.dataset.testid)).toEqual([
+        'col-grip-name', 'col-grip-tags', 'col-grip-lifecycle', 'col-grip-staffing',
+        'col-grip-version', 'col-grip-release', 'col-grip-priority', 'col-grip-owner'
+      ]);
+    });
+
+    test('persisted widths are applied as CSS vars on the table', async () => {
+      localStorage.setItem('req-col-widths-v1', JSON.stringify({ tags: 220, priority: 80 }));
+      renderComponent();
+
+      await waitFor(() => {
+        expect(screen.getByText('Project Alpha')).toBeInTheDocument();
+      });
+
+      const table = screen.getByTestId('requirements-table');
+      expect(table.style.getPropertyValue('--req-w-tags')).toBe('220px');
+      expect(table.style.getPropertyValue('--req-w-priority')).toBe('80px');
+      expect(table.style.getPropertyValue('--req-w-name')).toBe('150px');
+    });
+
+    test('double-click on a grip resets that column and persists the change', async () => {
+      localStorage.setItem('req-col-widths-v1', JSON.stringify({ tags: 220 }));
+      renderComponent();
+
+      await waitFor(() => {
+        expect(screen.getByText('Project Alpha')).toBeInTheDocument();
+      });
+
+      const table = screen.getByTestId('requirements-table');
+      expect(table.style.getPropertyValue('--req-w-tags')).toBe('220px');
+
+      fireEvent.dblClick(screen.getByTestId('col-grip-tags'));
+
+      await waitFor(() => {
+        expect(table.style.getPropertyValue('--req-w-tags')).toBe('148px');
+      });
+      expect(JSON.parse(localStorage.getItem('req-col-widths-v1')!)).toEqual({});
     });
   });
 

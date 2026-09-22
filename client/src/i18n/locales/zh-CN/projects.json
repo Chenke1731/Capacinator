@@ -402,7 +402,8 @@
     "empty": "暂无需求事项",
     "resetFilters": "清除筛选",
     "colTags": "标签",
-    "colRelease": "交付计划"
+    "colRelease": "交付计划",
+    "resizeHint": "拖拽调整列宽，双击重置"
   },
   "version": {
     "productTitle": "产品版本，点击填写（如 B）",

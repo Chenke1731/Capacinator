@@ -1037,6 +1037,25 @@ input[type="checkbox"].settings-checkbox,
   font-weight: 600;
 }
 
+/* 引用码: 详情标题旁弱化 mono chip;点击复制(全局 button 44px 规则需显式压缩) */
+.project-ref-code {
+  font-family: var(--font-mono, monospace);
+  font-size: var(--b-fs-meta);
+  font-weight: 400;
+  color: var(--text-tertiary, var(--text-secondary));
+  background: none;
+  border: 1px dashed var(--border-color);
+  border-radius: 6px;
+  padding: 1px 8px;
+  margin-left: 10px;
+  vertical-align: middle;
+  min-height: 0;
+  min-width: 0;
+  cursor: copy;
+  white-space: nowrap;
+}
+.project-ref-code:hover { color: var(--text-secondary); border-color: var(--border-color-hover, var(--border-color)); }
+
 .lifecycle-number-chip {
   font-size: 12px;
   font-family: var(--font-mono, monospace);

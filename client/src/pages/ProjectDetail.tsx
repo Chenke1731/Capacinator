@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
+import { projectRefCode, copyRefCode } from '../lib/projectRef';
 import {
   ArrowLeft, Users, Briefcase, Clock,
   Target, AlertTriangle, AlertCircle,
@@ -349,7 +350,18 @@ export function ProjectDetail() {
                   className="w-4 h-4 rounded-full flex-shrink-0"
                   style={{ backgroundColor: project.project_type?.color_code || '#6b7280' }}
                 />
-                <CardTitle className="text-2xl font-bold">{project.name}</CardTitle>
+                <CardTitle className="text-2xl font-bold">
+                  {project.name}
+                  {/* 引用码: 截图/口头精确指代;点击复制,搜索框粘贴可定位(不入列表列) */}
+                  <button
+                    type="button"
+                    className="project-ref-code"
+                    title={t('projects:refCode.hint')}
+                    onClick={() => copyRefCode(project.id)}
+                  >
+                    {projectRefCode(project.id)}
+                  </button>
+                </CardTitle>
                 {(project as any).tags?.length > 0 && (
                   <span className="flex items-center gap-1.5 ml-2">
                     {(project as any).tags.map((tag: any) => (

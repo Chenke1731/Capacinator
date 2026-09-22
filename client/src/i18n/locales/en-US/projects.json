@@ -485,5 +485,8 @@
   "number": {
     "placeholder": "SR/AR No.",
     "hint": "Click to fill the number (SR-26-012 / AR-2026-101; annotation, not a gate)"
+  },
+  "refCode": {
+    "hint": "Reference code — click to copy; paste into the board search to locate"
   }
 }

@@ -247,6 +247,23 @@ check('重置筛选恢复全量', rowsReset.includes('客户门户改版') && ro
 const quick = page.locator('.requirements-row:not(.requirements-row--sr) .lifecycle-quick-btn').first();
 check('状态快捷键保留', (await quick.count()) >= 1, (await quick.textContent().catch(() => '')) ?? '');
 
+// ── 2.5 引用码闭环: 详情页 chip + 搜索定位(2026-09-22 裁决,不加内部编码) ──
+{
+  // SR 聚合行点击=折叠,进详情用普通行
+  const p1 = page.locator('.requirements-row:not(.requirements-row--sr):not(.requirements-row--child)', { hasText: '数据平台升级' });
+  await p1.locator('.requirements-name-text').click(); // 行点击进详情
+  await page.waitForSelector('.project-ref-code', { timeout: 8000 });
+  const chip = (await page.$eval('.project-ref-code', el => el.textContent.trim()));
+  check('详情页引用码 chip(#尾6位)', /^#[0-9a-z-]{4,}$/i.test(chip), chip);
+  await page.goBack();
+  await page.waitForTimeout(1200);
+  await page.fill('[data-testid="search-input"]', chip);
+  await page.waitForTimeout(400);
+  const hit = await page.$$eval('.requirements-row .requirements-name-text', els => els.map(e => e.textContent.trim()));
+  check('搜索框粘贴引用码 → 精确定位该行', hit.includes('数据平台升级') && !hit.includes('移动端改版'), hit.join(','));
+  await page.fill('[data-testid="search-input"]', '');
+}
+
 // ── 3. 问题单台 ─────────────────────────────────────
 await page.click('[role="tab"]:has-text("问题单"), a:has-text("问题单"), button:has-text("问题单")').catch(async () => {
   await page.goto(`${BASE}/projects?tab=tickets`, { waitUntil: 'networkidle' });

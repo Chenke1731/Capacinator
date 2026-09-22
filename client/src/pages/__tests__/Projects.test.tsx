@@ -912,6 +912,20 @@ describe('Requirements Board (需求台)', () => {
       expect(screen.getByText('Project Alpha')).toBeInTheDocument();
     });
 
+    test('search by reference code locates the row (# tail)', async () => {
+      const user = userEvent.setup();
+      renderComponent();
+
+      await waitFor(() => {
+        expect(screen.getByText('Project Alpha')).toBeInTheDocument();
+      });
+
+      // #proj-1 = id 'proj-1' 尾 6 位;精确命中 Alpha,不含 proj-1a/1b 的尾码
+      await user.type(screen.getByTestId('search-input'), '#proj-1');
+      expect(screen.getByText('Project Alpha')).toBeInTheDocument();
+      expect(screen.queryByText('Project Beta')).not.toBeInTheDocument();
+    });
+
     test('lifecycle filter passes through to the API', async () => {
       const user = userEvent.setup();
       renderComponent();

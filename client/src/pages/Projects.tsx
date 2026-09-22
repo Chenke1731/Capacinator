@@ -15,6 +15,7 @@ import { TagManagerDialog } from '../components/tags/TagManagerDialog';
 import { useModal } from '../hooks/useModal';
 import { useScenario } from '../contexts/ScenarioContext';
 import { categoryOfTypeName } from '../lib/projectCategories';
+import { refCodeOf } from '../lib/projectRef';
 import type { Project } from '../types';
 import './Projects.css';
 
@@ -521,8 +522,12 @@ export function Projects() {
     };
     const match = (p: any) => {
       if (filters.search) {
-        const q = filters.search.toLowerCase();
-        if (!String(p.name).toLowerCase().includes(q)) return false;
+        // 名称包含,或引用码精确命中(#尾6位,≥4 位防短串误中)——截图指代到检索的闭环
+        const q = filters.search.trim().toLowerCase();
+        const code = q.replace(/^#/, '');
+        const hit = String(p.name).toLowerCase().includes(q)
+          || (code.length >= 4 && refCodeOf(p.id) === code);
+        if (!hit) return false;
       }
       if (filters.tag_id && !(p.tags ?? []).some((tag: any) => String(tag.id) === String(filters.tag_id))) return false;
       if (filters.component && String(p.component ?? '') !== filters.component) return false;

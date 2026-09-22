@@ -1788,7 +1788,7 @@ input[type="checkbox"].settings-checkbox,
 .requirements-thead > span { position: relative; }
 .requirements-thead {
   display: grid;
-  grid-template-columns: minmax(var(--req-w-name, 150px), 1.2fr) var(--req-w-tags, 148px) var(--req-w-component, 112px) var(--req-w-lifecycle, 236px) var(--req-w-staffing, 128px) var(--req-w-scale, 92px) var(--req-w-version, 88px) var(--req-w-release, 88px) var(--req-w-priority, 52px) var(--req-w-owner, 88px) var(--req-w-actions, 96px);
+  grid-template-columns: minmax(var(--req-w-name, 210px), 1.2fr) var(--req-w-tags, 112px) var(--req-w-component, 96px) var(--req-w-lifecycle, 224px) var(--req-w-staffing, 124px) var(--req-w-scale, 80px) var(--req-w-version, 72px) var(--req-w-release, 72px) var(--req-w-priority, 48px) var(--req-w-owner, 80px) var(--req-w-actions, 116px);
   gap: 8px;
   align-items: center;
   min-height: 36px;
@@ -1839,7 +1839,7 @@ input[type="checkbox"].settings-checkbox,
 
 .requirements-row {
   display: grid;
-  grid-template-columns: minmax(var(--req-w-name, 150px), 1.2fr) var(--req-w-tags, 148px) var(--req-w-component, 112px) var(--req-w-lifecycle, 236px) var(--req-w-staffing, 128px) var(--req-w-scale, 92px) var(--req-w-version, 88px) var(--req-w-release, 88px) var(--req-w-priority, 52px) var(--req-w-owner, 88px) var(--req-w-actions, 96px);
+  grid-template-columns: minmax(var(--req-w-name, 210px), 1.2fr) var(--req-w-tags, 112px) var(--req-w-component, 96px) var(--req-w-lifecycle, 224px) var(--req-w-staffing, 124px) var(--req-w-scale, 80px) var(--req-w-version, 72px) var(--req-w-release, 72px) var(--req-w-priority, 48px) var(--req-w-owner, 80px) var(--req-w-actions, 116px);
   gap: 8px;
   align-items: center;
   min-height: 40px;
@@ -1921,18 +1921,31 @@ body.req-col-dragging * {
   font-size: var(--b-fs-name);
   font-weight: 600;
   white-space: nowrap;
-  min-width: 0;
-  flex: 0 1 auto;
+  /* 名称是扫读首轴,格内最后牺牲(2026-09-22 审计: 曾 flex:0 1 auto 被随行元素挤到省略号) */
+  flex: none;
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.requirements-subtype { font-size: var(--b-fs-meta); color: var(--text-secondary); white-space: nowrap; flex: none; }
+/* 子类型最先让位: SR行(箭头15+AR计数40)+告警chip 随行达 ~163px, 空间不足时子类型省略 */
+.requirements-subtype {
+  font-size: var(--b-fs-meta);
+  color: var(--text-secondary);
+  white-space: nowrap;
+  flex: 0 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 .req-tag {
   font-size: var(--b-fs-meta);
   padding: 1px 7px;
   border-radius: var(--b-r-pill);
   white-space: nowrap;
-  flex-shrink: 0;
+  /* 窄列时 chip 文字优雅省略,溢出号(+N)完整保留;不再整 chip 被裁剪成半截 */
+  flex: 0 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .req-tag--more { background: var(--bg-secondary, rgba(127, 127, 127, 0.14)); color: var(--text-secondary); cursor: help; }
 
@@ -2180,14 +2193,25 @@ body.req-col-dragging * {
 }
 
 /* 1366 以下隐藏负责人与规模列(排博弈用大屏,窄屏保组件/人力/版本) */
-@media (max-width: 1440px) {
+/* 三档列预算(2026-09-22 名称截断审计后重算):
+   ≥1680 全 11 列; 1560–1679 十列藏"规模"(用户 1600 主力档); <1560 九列再藏"负责人"。
+   铁律: 每档默认(未拖拽)在对应容器内零横向滚动。 */
+@media (max-width: 1679px) {
   .requirements-thead,
   .requirements-row {
-    grid-template-columns: minmax(var(--req-w-name, 140px), 1.1fr) var(--req-w-tags, 140px) var(--req-w-component, 104px) var(--req-w-lifecycle, 236px) var(--req-w-staffing, 128px) var(--req-w-version, 84px) var(--req-w-release, 84px) var(--req-w-priority, 48px) var(--req-w-actions, 92px);
+    grid-template-columns: minmax(var(--req-w-name, 210px), 1.1fr) var(--req-w-tags, 96px) var(--req-w-component, 84px) var(--req-w-lifecycle, 224px) var(--req-w-staffing, 112px) var(--req-w-version, 64px) var(--req-w-release, 64px) var(--req-w-priority, 44px) var(--req-w-owner, 80px) var(--req-w-actions, 116px);
   }
   .requirements-thead > span:nth-child(6),
+  .requirements-row > .req-scale { display: none; }
+  /* 窄档死线内联仍在: 快捷键按钮收至 64(基础 72px 规则位于本文件更后,需提特异度压过) */
+  .projects-board .requirements-row .lifecycle-quick-btn { min-width: 64px; }
+}
+@media (max-width: 1559px) {
+  .requirements-thead,
+  .requirements-row {
+    grid-template-columns: minmax(var(--req-w-name, 210px), 1.1fr) var(--req-w-tags, 92px) var(--req-w-component, 80px) var(--req-w-lifecycle, 196px) var(--req-w-staffing, 108px) var(--req-w-version, 62px) var(--req-w-release, 62px) var(--req-w-priority, 44px) var(--req-w-actions, 116px);
+  }
   .requirements-thead > span:nth-child(10),
-  .requirements-row > .req-scale,
   .requirements-row > .req-edit-cell--owner { display: none; }
 }
 
@@ -2280,12 +2304,13 @@ body.req-col-dragging * {
 }
 .projects-board .lifecycle-cell-badges > * { flex: none; }
 .projects-board .requirements-name .lifecycle-warn-chip { flex: none; margin: 0 2px; }
+/* 死线内联可让位: 状态列极限组合下截断(有 tooltip 全文),不再溢出压人力列 */
 .lifecycle-deadline--inline {
-  font-size: var(--b-fs-meta);
-  font-variant-numeric: tabular-nums;
-  color: var(--text-secondary);
-  white-space: nowrap;
   margin-left: 6px;
+  flex: 0 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .lifecycle-deadline--inline.lifecycle-deadline--overdue { color: #f59e0b; font-weight: 600; }
 .projects-board .lifecycle-warn-chip {
@@ -2389,7 +2414,7 @@ body.req-col-dragging * {
 [data-theme='light'] .projects-board .lifecycle-state-badge--designing { color: #1d4ed8; }
 [data-theme='light'] .projects-board .lifecycle-state-badge--pending_rat { color: #475569; }
 [data-theme='light'] .projects-board .lifecycle-state-badge--nok { color: #b45309; }
-[data-theme='light'] .projects-board .lifecycle-state-badge--backlog { color: #64748b; }
+[data-theme='light'] .projects-board .lifecycle-state-badge--backlog { color: #475569; }
 [data-theme='light'] .projects-board .lifecycle-state-badge--scheduled { color: #4f46e5; }
 [data-theme='light'] .projects-board .lifecycle-state-badge--in_iteration { color: #166534; }
 [data-theme='light'] .projects-board .lifecycle-state-badge--delivered { color: #0f766e; }

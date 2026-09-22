@@ -26,6 +26,48 @@ await page.addInitScript(() => {
 await page.goto(`${BASE}/projects`, { waitUntil: 'networkidle' });
 await page.waitForTimeout(2000);
 
+// 默认态(无拖拽记录)表格必须零横向滚动——横滚只能由用户主动拖宽触发;
+// 默认列预算按容器重算(2026-09-22 名称截断审计: 曾默认即溢出,名称贴地板 150px)
+{
+  await page.evaluate(() => localStorage.removeItem('req-col-widths-v2'));
+  await page.reload({ waitUntil: 'networkidle' });
+  await page.waitForTimeout(1500);
+  const m = await page.evaluate(() => {
+    const t = document.querySelector('.requirements-table');
+    const name = document.querySelector('.requirements-name');
+    const txt = name?.querySelector('.requirements-name-text');
+    return {
+      scrollW: t.scrollWidth, clientW: t.clientWidth,
+      nameW: Math.round(name.getBoundingClientRect().width),
+      nameTextW: txt ? Math.round(txt.getBoundingClientRect().width) : 0,
+      truncated: txt ? txt.scrollWidth > txt.clientWidth + 1 : false
+    };
+  });
+  check('默认态零横向滚动(1600)', m.scrollW <= m.clientW + 1, `scroll=${m.scrollW}/client=${m.clientW}`);
+  check('名称列默认达内容地板(≥210)', m.nameW >= 210, `name=${m.nameW}`);
+  check('默认态名称文字不截断', !m.truncated, `text=${m.nameTextW}px${m.truncated ? ' 截断' : ''}`);
+}
+// 1366 compact 档同样默认零横滚
+{
+  const p1366 = await browser.newPage({ viewport: { width: 1366, height: 768 } });
+  await p1366.addInitScript(() => {
+    localStorage.setItem('capacinator_current_user', JSON.stringify({ id: 'eb8ecaf7-44a3-4384-a74b-2c18e9e894b1', name: '陈主管' }));
+    localStorage.setItem('capacinator-language', 'zh-CN');
+    localStorage.setItem('theme', 'dark');
+    localStorage.removeItem('req-col-widths-v2');
+  });
+  await p1366.goto(`${BASE}/projects`, { waitUntil: 'networkidle' });
+  await p1366.waitForTimeout(1500);
+  const m = await p1366.evaluate(() => {
+    const t = document.querySelector('.requirements-table');
+    const txt = document.querySelector('.requirements-name-text');
+    return { scrollW: t.scrollWidth, clientW: t.clientWidth, truncated: txt ? txt.scrollWidth > txt.clientWidth + 1 : false };
+  });
+  check('默认态零横向滚动(1366 compact)', m.scrollW <= m.clientW + 1, `scroll=${m.scrollW}/client=${m.clientW}`);
+  check('1366 名称文字不截断', !m.truncated);
+  await p1366.close();
+}
+
 const tabLabels = await page.$$eval('[role="tab"], .unified-tab, [data-tab]', () => []).catch(() => []);
 check('需求台默认呈现', (await page.$('.requirements-table')) !== null);
 
@@ -243,9 +285,25 @@ const collisionProbe = () => {
       if (c.visibility === 'hidden' || c.display === 'none') return false;
       return (e.textContent && e.textContent.trim()) || e.matches('button,input,select');
     });
+    // 可见矩形: 与所有 overflow!=visible 祖先求交——被裁剪的"幽灵矩形"不算碰撞
+    // (2026-09-22: 标签格 +1 被自身 overflow:hidden 裁剪,未裁矩形压到邻列,检测器误报)
+    const visRect = (el) => {
+      let r = el.getBoundingClientRect();
+      let p = el.parentElement;
+      while (p && p !== scope.parentElement) {
+        const s = getComputedStyle(p);
+        if (s.overflow !== 'visible' || s.overflowX !== 'visible' || s.overflowY !== 'visible') {
+          const pr = p.getBoundingClientRect();
+          r = { left: Math.max(r.left, pr.left), right: Math.min(r.right, pr.right), top: Math.max(r.top, pr.top), bottom: Math.min(r.bottom, pr.bottom) };
+        }
+        p = p.parentElement;
+      }
+      return r;
+    };
     for (let a = 0; a < els.length; a++) for (let b = a + 1; b < els.length; b++) {
-      const [A, B] = [els[a].getBoundingClientRect(), els[b].getBoundingClientRect()];
       if (els[a].contains(els[b]) || els[b].contains(els[a])) continue;
+      const [A, B] = [visRect(els[a]), visRect(els[b])];
+      if (A.right - A.left < 2 || B.right - B.left < 2) continue;
       const ox = Math.min(A.right, B.right) - Math.max(A.left, B.left);
       const oy = Math.min(A.bottom, B.bottom) - Math.max(A.top, B.top);
       if (ox > 2 && oy > 2) bad.push(`${(els[a].textContent || '').trim().slice(0, 6)}×${(els[b].textContent || '').trim().slice(0, 6)} ${ox.toFixed(0)}x${oy.toFixed(0)}px`);

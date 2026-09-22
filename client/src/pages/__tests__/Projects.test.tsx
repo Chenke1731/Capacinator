@@ -700,7 +700,7 @@ describe('Requirements Board (需求台)', () => {
     const lsStore = new Map<string, string>();
     beforeEach(() => {
       // jsdom 默认视口 1024 会走 <1440 紧凑默认;列宽断言统一按宽屏档
-      Object.defineProperty(window, 'innerWidth', { writable: true, configurable: true, value: 1600 });
+      Object.defineProperty(window, 'innerWidth', { writable: true, configurable: true, value: 1700 }); // 全列档(≥1680)默认值
       // 本环境 localStorage 是哑实现(setItem 后 getItem 仍 undefined),装功能版
       lsStore.clear();
       Object.defineProperty(window, 'localStorage', {
@@ -733,7 +733,7 @@ describe('Requirements Board (需求台)', () => {
     });
 
     test('persisted widths are applied as CSS vars on the table', async () => {
-      localStorage.setItem('req-col-widths-v1', JSON.stringify({ tags: 220, priority: 80 }));
+      localStorage.setItem('req-col-widths-v2', JSON.stringify({ tags: 220, priority: 80 }));
       renderComponent();
 
       await waitFor(() => {
@@ -743,11 +743,11 @@ describe('Requirements Board (需求台)', () => {
       const table = screen.getByTestId('requirements-table');
       expect(table.style.getPropertyValue('--req-w-tags')).toBe('220px');
       expect(table.style.getPropertyValue('--req-w-priority')).toBe('80px');
-      expect(table.style.getPropertyValue('--req-w-name')).toBe('150px');
+      expect(table.style.getPropertyValue('--req-w-name')).toBe('210px');
     });
 
     test('double-click on a grip resets that column and persists the change', async () => {
-      localStorage.setItem('req-col-widths-v1', JSON.stringify({ tags: 220 }));
+      localStorage.setItem('req-col-widths-v2', JSON.stringify({ tags: 220 }));
       renderComponent();
 
       await waitFor(() => {
@@ -760,9 +760,9 @@ describe('Requirements Board (需求台)', () => {
       fireEvent.dblClick(screen.getByTestId('col-grip-tags'));
 
       await waitFor(() => {
-        expect(table.style.getPropertyValue('--req-w-tags')).toBe('148px');
+        expect(table.style.getPropertyValue('--req-w-tags')).toBe('112px');
       });
-      expect(JSON.parse(localStorage.getItem('req-col-widths-v1')!)).toEqual({});
+      expect(JSON.parse(localStorage.getItem('req-col-widths-v2')!)).toEqual({});
     });
   });
 

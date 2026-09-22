@@ -44,7 +44,7 @@ await page.locator('[data-testid="col-grip-tags"]').dblclick();
 await page.waitForTimeout(300);
 const resetW = await colWidth(1);
 check('双击手柄重置该列', Math.abs(resetW - before) < 4, `${Math.round(resetW)} ≈ 默认 ${Math.round(before)}`);
-const storeAfter = await page.evaluate(() => localStorage.getItem('req-col-widths-v1'));
+const storeAfter = await page.evaluate(() => localStorage.getItem('req-col-widths-v2'));
 check('重置后持久层同步清空', storeAfter === '{}', storeAfter ?? 'null');
 
 // ── 4. 拖宽多列超出容器 → 横向滚动而非挤压 ──
@@ -71,7 +71,7 @@ for (const key of ['col-grip-name', 'col-grip-lifecycle', 'col-grip-staffing', '
   await page.locator(`[data-testid="${key}"]`).dblclick();
   await page.waitForTimeout(100);
 }
-await page.evaluate(() => localStorage.removeItem('req-col-widths-v1'));
+await page.evaluate(() => localStorage.removeItem('req-col-widths-v2'));
 check('清理完成(持久层清空)', true);
 
 await browser.close();

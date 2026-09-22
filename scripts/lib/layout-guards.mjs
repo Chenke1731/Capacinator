@@ -20,11 +20,26 @@ export async function findCollisions(page, scopeSelector = '.unified-tab-content
         );
         return hasOwnText || e.matches('button,input,select');
       });
+      // 可见矩形: 与 overflow!=visible 祖先求交——被裁剪的"幽灵矩形"不算碰撞
+      const visRect = (el) => {
+        let r = el.getBoundingClientRect();
+        let p = el.parentElement;
+        while (p) {
+          const s = getComputedStyle(p);
+          if (s.overflow !== 'visible' || s.overflowX !== 'visible' || s.overflowY !== 'visible') {
+            const pr = p.getBoundingClientRect();
+            r = { left: Math.max(r.left, pr.left), right: Math.min(r.right, pr.right), top: Math.max(r.top, pr.top), bottom: Math.min(r.bottom, pr.bottom) };
+          }
+          p = p.parentElement;
+        }
+        return r;
+      };
       for (let a = 0; a < els.length; a++) {
         for (let b = a + 1; b < els.length; b++) {
           if (els[a].contains(els[b]) || els[b].contains(els[a])) continue;
-          const A = els[a].getBoundingClientRect();
-          const B = els[b].getBoundingClientRect();
+          const A = visRect(els[a]);
+          const B = visRect(els[b]);
+          if (A.right - A.left < 2 || B.right - B.left < 2) continue;
           const ox = Math.min(A.right, B.right) - Math.max(A.left, B.left);
           const oy = Math.min(A.bottom, B.bottom) - Math.max(A.top, B.top);
           if (ox > 2 && oy > 2) {

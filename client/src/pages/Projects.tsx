@@ -48,7 +48,7 @@ function VersionPart({ project, field, placeholder, onSaved }: {
     return (
       <input
         className="inline-edit-input"
-        style={{ width: 74 }}
+        style={{ width: '100%' }}
         value={draft}
         autoFocus
         placeholder={placeholder}
@@ -264,20 +264,26 @@ const UNVERSIONED = '__unversioned__';
     列宽走 CSS 变量(--req-w-*),thead/row/两断点模板统一引用,一处设置处处生效;
     总量(--req-total)做行 min-width 兜底——拖宽不挤压他列,超出容器横向滚动。 */
 const REQ_COLUMNS = [
-  { key: 'name', def: [150, 140], min: 120, max: 640 },
-  { key: 'tags', def: [148, 140], min: 80, max: 320 },
-  { key: 'component', def: [112, 104], min: 72, max: 240 },
-  { key: 'lifecycle', def: [236, 236], min: 170, max: 420 },
-  { key: 'staffing', def: [128, 128], min: 104, max: 220 },
-  { key: 'scale', def: [92, 0], min: 64, max: 200 },
-  { key: 'version', def: [88, 84], min: 56, max: 200 },
-  { key: 'release', def: [88, 84], min: 56, max: 200 },
-  { key: 'priority', def: [52, 48], min: 40, max: 120 },
-  { key: 'owner', def: [88, 0], min: 56, max: 200 },
-  { key: 'actions', def: [96, 92], min: 64, max: 200 }
+  /* name 的 min 是"内容地板"(文字≥5字+黄牌chip+子类型),不是随意下限——地板低于
+     单元格自身必要内容时,缺口全由名称文字省略号吸收(2026-09-22 名称截断审计)。
+     默认预算原则: 默认(未拖拽)布局在 1600/1366 容器内零横向滚动,横滚只能由
+     用户主动拖宽触发。 */
+  /* def: [全列档(≥1680), 中档(1560–1679,藏规模), 窄档(<1560,藏规模+负责人)] */
+  { key: 'name', def: [210, 210, 210], min: 210, max: 640 },
+  { key: 'tags', def: [112, 96, 92], min: 80, max: 320 },
+  { key: 'component', def: [96, 84, 80], min: 72, max: 240 },
+  { key: 'lifecycle', def: [224, 224, 196], min: 170, max: 420 },
+  { key: 'staffing', def: [124, 112, 108], min: 104, max: 220 },
+  { key: 'scale', def: [80, 0, 0], min: 64, max: 200 },
+  { key: 'version', def: [72, 64, 62], min: 56, max: 200 },
+  { key: 'release', def: [72, 64, 62], min: 56, max: 200 },
+  { key: 'priority', def: [48, 44, 44], min: 40, max: 120 },
+  { key: 'owner', def: [80, 80, 0], min: 56, max: 200 },
+  { key: 'actions', def: [116, 116, 116], min: 64, max: 200 }
 ] as const;
 type ReqColKey = (typeof REQ_COLUMNS)[number]['key'];
-const REQ_WIDTHS_STORE = 'req-col-widths-v1';
+/* v2: 列集变更(新增构成/规模列)必须 bump 版本,旧宽度按旧列预算调优,残留会挤压名称列 */
+const REQ_WIDTHS_STORE = 'req-col-widths-v2';
 const clampWidth = (col: (typeof REQ_COLUMNS)[number], w: number) =>
   Math.round(Math.min(col.max, Math.max(col.min, w)));
 
@@ -600,22 +606,24 @@ export function Projects() {
       return {};
     }
   });
-  const compact = typeof window !== 'undefined' && window.innerWidth < 1440;
+  /* 三档与 App.css 断点一致: ≥1680 全列 / [1560,1680) 藏规模 / <1560 藏规模+负责人 */
+  const vw = typeof window !== 'undefined' ? window.innerWidth : 1600;
+  const showAll = vw >= 1680;
+  const compact = vw < 1560;
   const colVars = useMemo(() => {
     const vars: Record<string, string> = {};
-    // <1440 隐藏负责人与规模列(def[1]=0 表示 compact 不显示)
-    const hiddenCompact = ['owner', 'scale'];
-    const visible = REQ_COLUMNS.filter((c) => !(compact && hiddenCompact.includes(c.key)));
+    const hidden = compact ? ['scale', 'owner'] : showAll ? [] : ['scale'];
+    const visible = REQ_COLUMNS.filter((c) => !hidden.includes(c.key));
     let total = 28 /* 行左右 padding */ + 8 * (visible.length - 1) /* 列间 gap */;
     for (const c of visible) {
-      const def = compact ? c.def[1] : c.def[0];
+      const def = showAll ? c.def[0] : compact ? c.def[2] : c.def[1];
       const w = colWidths[c.key] ?? def;
       vars[`--req-w-${c.key}`] = `${w}px`;
       total += w;
     }
     vars['--req-total'] = `${total}px`;
     return vars as React.CSSProperties;
-  }, [colWidths, compact]);
+  }, [colWidths, showAll, compact]);
 
   const flashRow = (id: string) => {
     setFlashId(id);

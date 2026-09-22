@@ -72,8 +72,8 @@ const tabLabels = await page.$$eval('[role="tab"], .unified-tab, [data-tab]', ()
 check('需求台默认呈现', (await page.$('.requirements-table')) !== null);
 
 const headers = await page.$$eval('.requirements-thead span', els => els.map(e => e.textContent.trim()));
-check('新列集(名称/标签/状态/人力/版本/交付/优先级/负责人/操作)',
-  ['项目名称','标签','组件','状态','人力（实＋池）','规模','版本','交付计划','优先级','负责人','操作'].every(h => headers.includes(h)),
+check('新列集(名称/编号/标签/状态/人力/版本/交付/优先级/负责人/操作)',
+  ['项目名称','编号','标签','组件','状态','人力（实＋池）','规模','版本','交付计划','优先级','负责人','操作'].every(h => headers.includes(h)),
   headers.join('|'));
 
 const demandRows = await page.$$eval('.requirements-row', els => els.map(e => e.querySelector('.requirements-name-text')?.textContent));
@@ -85,7 +85,7 @@ check('仅需求类事项(3顶层+2AR子行,缓冲池不混入)',
 const warnedRow = await page.$('.requirements-row--warned');
 const chip = warnedRow ? await warnedRow.$('.lifecycle-warn-chip') : null;
 check('告警行淡黄底+短词(短词随实际告警集变化)',
-  !!warnedRow && !!chip && /缺池|未评估|无粗估|未回填/.test((await chip.textContent())),
+  !!warnedRow && !!chip && /缺池|未评估|无粗估|未回填|未编号/.test((await chip.textContent())),
   chip ? (await chip.textContent()) : 'none');
 
 // 人力列有数字
@@ -158,6 +158,38 @@ check('优先级徽章', pBadges.length >= 3 && pBadges.every(p => /^P\d$/.test(
       childKlocs.length === 0 ? srKloc === null : srKloc != null && parseFloat(srKloc) === sum,
       `SR=${srKloc} Σ子行=${sum}(${childKlocs.join('+')})`);
   }
+}
+
+// ── 1.8 编号列(2026-09-22 裁决: SR/AR 统一,混排世界粒度自述) ──
+{
+  // 子行带 AR 号;数据平台升级(迭代中无编号)应现"未编号"告警短词
+  const childNums = await page.$$eval('.requirements-row--child .req-number-part', els => els.map(e => e.textContent.trim()));
+  check('子行编号列显示 AR 号', childNums.some(n => n.includes('AR-2026')), childNums.join(','));
+
+  const noNum = await page.$$eval('.requirements-row--warned', rows => rows.some(r => r.textContent.includes('未编号')));
+  check('迭代中无编号 → 未编号告警', noNum);
+
+  // 子类型撤内联(常量重复零信息);筛选可用
+  const subInline = await page.$$('.requirements-subtype');
+  check('子类型不再内联名称格', subInline.length === 0);
+  await page.selectOption('[data-testid="subtype-filter"]', '标准需求');
+  await page.waitForTimeout(300);
+  const subRows = await page.$$eval('.requirements-row .requirements-name-text', els => els.map(e => e.textContent.trim()));
+  check('子类型筛选可用(标准需求全量)', subRows.length === 5, `${subRows.length} 行`);
+  await page.selectOption('[data-testid="subtype-filter"]', '');
+
+  // SR 行编号就地填写 SR 号(混排: 顶层/SR/子行行为一致)
+  const srRow2 = page.locator('.requirements-row--sr', { hasText: '客户门户改版' });
+  await srRow2.locator('.req-number-part').click();
+  await page.waitForTimeout(250);
+  await page.keyboard.press('Control+a');
+  await page.keyboard.type('SR-26-001');
+  await page.keyboard.press('Enter');
+  await page.waitForTimeout(1200);
+  const SRID = 'project-1789912193111-zikdnz8c5'; // 客户门户改版
+  const srResp = await page.request.get(`${API}/api/projects/${SRID}`);
+  const srNum = ((await srResp.json()).data?.external_number) ?? null;
+  check('SR 行编号填写落库(SR-26-001)', srNum === 'SR-26-001', `num=${srNum}`);
 }
 
 // ── 2. 版本内联编辑(平铺) → 工具栏版本筛选 ───────────

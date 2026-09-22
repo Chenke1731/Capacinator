@@ -23,7 +23,7 @@ describe('LifecycleService (in-memory SQLite)', () => {
     const ddl = [
       `CREATE TABLE projects (
         id TEXT PRIMARY KEY, name TEXT, lifecycle_state TEXT,
-        ar_number TEXT, iteration_label TEXT,
+        external_number TEXT, iteration_label TEXT,
         updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
       )`,
       `CREATE TABLE roles (id TEXT PRIMARY KEY, name TEXT)`,
@@ -46,7 +46,7 @@ describe('LifecycleService (in-memory SQLite)', () => {
       )`,
       `CREATE TABLE project_lifecycle_events (
         id INTEGER PRIMARY KEY AUTOINCREMENT, project_id TEXT,
-        from_state TEXT, to_state TEXT NOT NULL, ar_number TEXT,
+        from_state TEXT, to_state TEXT NOT NULL, external_number TEXT,
         iteration_label TEXT, note TEXT, actor TEXT,
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP
       )`,
@@ -105,6 +105,23 @@ describe('LifecycleService (in-memory SQLite)', () => {
     expect(warnings).toContain('NO_DEV_DEMAND');
   });
 
+  test('in_iteration without a number warns NO_ITERATION_NUMBER; filled number clears it (2026-09-22 混排裁决)', async () => {
+    await seedProject('p1', 'in_iteration');
+    expect(await service.computeWarnings('p1')).toContain('NO_ITERATION_NUMBER');
+
+    // 前缀自述粒度: SR 号与 AR 号同等对待,填上即消警
+    await service.updateFields('p1', { external_number: 'SR-26-001' });
+    expect(await service.computeWarnings('p1')).not.toContain('NO_ITERATION_NUMBER');
+
+    await service.updateFields('p1', { external_number: 'AR-2026-101' });
+    expect(await service.computeWarnings('p1')).not.toContain('NO_ITERATION_NUMBER');
+  });
+
+  test('non-iteration states never warn NO_ITERATION_NUMBER', async () => {
+    await seedProject('p1', 'backlog');
+    expect(await service.computeWarnings('p1')).not.toContain('NO_ITERATION_NUMBER');
+  });
+
   test('rejects projects without a lifecycle (standing items)', async () => {
     await seedProject('p1', null);
     await expect(
@@ -126,12 +143,12 @@ describe('LifecycleService (in-memory SQLite)', () => {
     // 准入 without AR works (plain items)
     const admitted = await service.transition({ projectId: 'p1', to: 'backlog' });
     expect(admitted.project.lifecycle_state).toBe('backlog');
-    expect(admitted.project.ar_number).toBeNull();
+    expect(admitted.project.external_number).toBeNull();
 
     // Now set AR via the field-only update
-    await service.updateFields('p1', { ar_number: ' AR-123 ' });
+    await service.updateFields('p1', { external_number: ' AR-123 ' });
     const withAr = await db('projects').where('id', 'p1').first();
-    expect(withAr.ar_number).toBe('AR-123');
+    expect(withAr.external_number).toBe('AR-123');
 
     // Scheduling without a pool now succeeds (warning advises instead)
     const scheduled = await service.transition({
@@ -227,7 +244,7 @@ describe('LifecycleService (in-memory SQLite)', () => {
 
   test('退回 with release deletes dev-side assignments, keeps AR', async () => {
     await seedProject('p1', 'scheduled');
-    await db('projects').where('id', 'p1').update({ ar_number: 'AR-9' });
+    await db('projects').where('id', 'p1').update({ external_number: 'AR-9' });
     await db('scenario_project_assignments').insert([
       { id: 'a1', project_id: 'p1', role_id: DEV_ROLE, status: 'active' },
       { id: 'a2', project_id: 'p1', role_id: SE_ROLE, status: 'active' }
@@ -242,7 +259,7 @@ describe('LifecycleService (in-memory SQLite)', () => {
     const remaining = await db('scenario_project_assignments').where('project_id', 'p1');
     expect(remaining.map((r: any) => r.id)).toEqual(['a2']);
     const project = await db('projects').where('id', 'p1').first();
-    expect(project.ar_number).toBe('AR-9');
+    expect(project.external_number).toBe('AR-9');
   });
 
   test('退回 default keeps dev assignments untouched', async () => {
@@ -278,9 +295,9 @@ describe('LifecycleService (in-memory SQLite)', () => {
 
   test('updateFields trims and nulls empty values', async () => {
     await seedProject('p1', 'designing');
-    await service.updateFields('p1', { ar_number: '  AR-7  ', iteration_label: '  ' });
+    await service.updateFields('p1', { external_number: '  AR-7  ', iteration_label: '  ' });
     const project = await db('projects').where('id', 'p1').first();
-    expect(project.ar_number).toBe('AR-7');
+    expect(project.external_number).toBe('AR-7');
     expect(project.iteration_label).toBeNull();
   });
 });

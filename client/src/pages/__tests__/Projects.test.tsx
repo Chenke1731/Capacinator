@@ -126,7 +126,7 @@ const mockProjects = [
     name: 'Project Beta',
     project_type_id: 'type-1',
     project_type_name: '需求交付',
-    project_sub_type_name: '标准需求',
+    project_sub_type_name: '定制需求',
     product_version: 'A',
     release_version: '26.RP3',
     priority: 1,
@@ -153,7 +153,7 @@ const mockProjects = [
     lifecycle_state: 'pending_rat',
     lifecycle_warnings: [],
     staffing_summary: { design: { named: 0.5, pool: 0, named_detail: [{ name: '王后端', fte: 0.5 }] }, dev: { named: 0, pool: 0.5, named_detail: [] } },
-    ar_number: 'AR-2026-101',
+    external_number: 'AR-2026-101',
     tags: [],
   },
   {
@@ -172,7 +172,7 @@ const mockProjects = [
     lifecycle_state: 'in_iteration',
     lifecycle_warnings: [],
     staffing_summary: { design: { named: 0, pool: 0, named_detail: [] }, dev: { named: 1, pool: 0, named_detail: [] } },
-    ar_number: null,
+    external_number: null,
     tags: [],
   },
   // Not a demand item — must NOT appear on the 需求台
@@ -244,7 +244,7 @@ describe('Requirements Board (需求台)', () => {
 
       const header = screen.getByTestId('requirements-table').querySelector('.requirements-thead');
       const headers = Array.from(header?.children ?? []).map((el) => el.textContent);
-      expect(headers).toEqual(['Name', 'Tags', 'Component', 'Lifecycle', 'Named + pool', 'Scale', 'Version', 'Release', 'Priority', 'Owner', 'Actions']);
+      expect(headers).toEqual(['Name', 'Number', 'Tags', 'Component', 'Lifecycle', 'Named + pool', 'Scale', 'Version', 'Release', 'Priority', 'Owner', 'Actions']);
     });
 
     test('flat item rows only — no version group headers (2026-09-22 裁决)', async () => {
@@ -696,7 +696,7 @@ describe('Requirements Board (需求台)', () => {
       expect(hint.textContent).toContain('Project Alpha');
     });
 
-    test('child AR number is inline-editable via projects.update', async () => {
+    test('number cell is inline-editable on every row type (SR/AR unified)', async () => {
       const user = userEvent.setup();
       renderComponent();
 
@@ -704,15 +704,43 @@ describe('Requirements Board (需求台)', () => {
         expect(screen.getByText('Portal Home Rework')).toBeInTheDocument();
       });
 
+      // 子行(AR): 空 → 填 AR 号
       const childRow2 = screen.getByText('Portal Home Rework').closest('.requirements-row')!;
-      await user.click(within(childRow2).getByText('AR—'));
-
-      const input = await within(childRow2).findByDisplayValue('');
+      await user.click(childRow2.querySelector('.req-number-part')!);
+      const input = await within(childRow2).findByRole('textbox');
       await user.type(input, 'AR-2026-999{Enter}');
+      await waitFor(() => {
+        expect(api.projects.update).toHaveBeenCalledWith('proj-1b', { external_number: 'AR-2026-999' });
+      });
+
+      // 顶层行(混排: 本身就可能是 SR 或 AR 粒度): 填 SR 号
+      const betaRow = screen.getByText('Project Beta').closest('.requirements-row')!;
+      await user.click(betaRow.querySelector('.req-number-part')!);
+      const input2 = await within(betaRow).findByRole('textbox');
+      await user.type(input2, 'SR-26-001{Enter}');
+      await waitFor(() => {
+        expect(api.projects.update).toHaveBeenCalledWith('proj-2', { external_number: 'SR-26-001' });
+      });
+    });
+
+    test('subtype is not inline in the name cell and filters via toolbar', async () => {
+      const user = userEvent.setup();
+      renderComponent();
 
       await waitFor(() => {
-        expect(api.projects.update).toHaveBeenCalledWith('proj-1b', { ar_number: 'AR-2026-999' });
+        expect(screen.getByText('Project Alpha')).toBeInTheDocument();
       });
+
+      // 2026-09-22 裁决: 子类型撤内联(常量重复零信息),分类走筛选
+      expect(document.querySelectorAll('.requirements-subtype').length).toBe(0);
+
+      await user.selectOptions(screen.getByTestId('subtype-filter'), '标准需求');
+      expect(screen.getByText('Project Alpha')).toBeInTheDocument();
+      expect(screen.queryByText('Project Beta')).not.toBeInTheDocument();
+
+      await user.selectOptions(screen.getByTestId('subtype-filter'), '定制需求');
+      expect(screen.getByText('Project Beta')).toBeInTheDocument();
+      expect(screen.queryByText('Project Alpha')).not.toBeInTheDocument();
     });
 
     test('search hitting a child keeps the whole tree visible', async () => {
@@ -760,14 +788,14 @@ describe('Requirements Board (需求台)', () => {
       // 前 10 列有手柄,最右操作列没有(右缘手柄只到负责人列)
       const grips = screen.getAllByTestId(/^col-grip-/);
       expect(grips.map((g) => g.dataset.testid)).toEqual([
-        'col-grip-name', 'col-grip-tags', 'col-grip-component', 'col-grip-lifecycle',
+        'col-grip-name', 'col-grip-number', 'col-grip-tags', 'col-grip-component', 'col-grip-lifecycle',
         'col-grip-staffing', 'col-grip-scale', 'col-grip-version', 'col-grip-release',
         'col-grip-priority', 'col-grip-owner'
       ]);
     });
 
     test('persisted widths are applied as CSS vars on the table', async () => {
-      localStorage.setItem('req-col-widths-v2', JSON.stringify({ tags: 220, priority: 80 }));
+      localStorage.setItem('req-col-widths-v3', JSON.stringify({ tags: 220, priority: 80 }));
       renderComponent();
 
       await waitFor(() => {
@@ -781,7 +809,7 @@ describe('Requirements Board (需求台)', () => {
     });
 
     test('pinning the name column kills its fr and hands leftover to the spacer', async () => {
-      localStorage.setItem('req-col-widths-v2', JSON.stringify({ name: 150 }));
+      localStorage.setItem('req-col-widths-v3', JSON.stringify({ name: 150 }));
       renderComponent();
 
       await waitFor(() => {
@@ -796,7 +824,7 @@ describe('Requirements Board (需求台)', () => {
     });
 
     test('double-click on a grip resets that column and persists the change', async () => {
-      localStorage.setItem('req-col-widths-v2', JSON.stringify({ tags: 220 }));
+      localStorage.setItem('req-col-widths-v3', JSON.stringify({ tags: 220 }));
       renderComponent();
 
       await waitFor(() => {
@@ -811,7 +839,7 @@ describe('Requirements Board (需求台)', () => {
       await waitFor(() => {
         expect(table.style.getPropertyValue('--req-w-tags')).toBe('112px');
       });
-      expect(JSON.parse(localStorage.getItem('req-col-widths-v2')!)).toEqual({});
+      expect(JSON.parse(localStorage.getItem('req-col-widths-v3')!)).toEqual({});
     });
   });
 

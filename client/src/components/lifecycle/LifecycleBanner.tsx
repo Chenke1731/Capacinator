@@ -39,7 +39,7 @@ export function LifecycleBanner({ project }: { project: any }) {
   const queryClient = useQueryClient();
   const state: string | null = project.lifecycle_state ?? null;
 
-  const [arDraft, setArDraft] = useState(project.ar_number ?? '');
+  const [numberDraft, setNumberDraft] = useState(project.external_number ?? '');
   const [expanded, setExpanded] = useState<null | 'schedule' | 'reopen' | 'start'>(null);
   const [confirmingCancel, setConfirmingCancel] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -49,7 +49,7 @@ export function LifecycleBanner({ project }: { project: any }) {
   const [menuPos, setMenuPos] = useState({ top: -9999, left: -9999 });
   const stateBadgeRef = useRef<HTMLSpanElement>(null);
 
-  useEffect(() => setArDraft(project.ar_number ?? ''), [project.ar_number]);
+  useEffect(() => setNumberDraft(project.external_number ?? ''), [project.external_number]);
 
   // Dismiss the free-state selector popover
   useEffect(() => {
@@ -125,8 +125,8 @@ export function LifecycleBanner({ project }: { project: any }) {
     }
   });
 
-  const saveArMutation = useMutation({
-    mutationFn: (ar_number: string) => api.lifecycle.updateFields(project.id, { ar_number }),
+  const saveNumberMutation = useMutation({
+    mutationFn: (external_number: string) => api.lifecycle.updateFields(project.id, { external_number }),
     onSuccess: invalidate,
     onError: (err: any) => setError(err?.response?.data?.error || 'save failed')
   });
@@ -188,13 +188,13 @@ export function LifecycleBanner({ project }: { project: any }) {
             </span>
           )}
 
-          {!inDesignSide && project.ar_number && (
-            <span className="lifecycle-ar-chip" title={t('projects:lifecycle.arNumber')}>
-              AR {project.ar_number}
+          {!inDesignSide && project.external_number && (
+            <span className="lifecycle-number-chip" title={t('projects:lifecycle.numberLabel')}>
+              {project.external_number}
             </span>
           )}
           {state === 'in_iteration' && project.iteration_label && (
-            <span className="lifecycle-ar-chip">{project.iteration_label}</span>
+            <span className="lifecycle-number-chip">{project.iteration_label}</span>
           )}
         </div>
 
@@ -223,7 +223,7 @@ export function LifecycleBanner({ project }: { project: any }) {
 
           {state === 'designing' && (
             <>
-              <button className={btnPrimary} onClick={() => doTransition('backlog', { ar_number: arDraft || null })} disabled={transitionMutation.isPending}>
+              <button className={btnPrimary} onClick={() => doTransition('backlog', { external_number: numberDraft || null })} disabled={transitionMutation.isPending}>
                 {t('projects:lifecycle.action.admit')}
               </button>
               <button className={btn} onClick={() => doTransition('nok')} disabled={transitionMutation.isPending}>
@@ -325,15 +325,15 @@ export function LifecycleBanner({ project }: { project: any }) {
       {/* Inline: AR number input (design side) */}
       {inDesignSide && (
         <div className="lifecycle-inline-row">
-          <label className="lifecycle-inline-label">{t('projects:lifecycle.arNumber')}</label>
+          <label className="lifecycle-inline-label">{t('projects:lifecycle.numberLabel')}</label>
           <input
-            className="lifecycle-ar-input"
-            value={arDraft}
+            className="lifecycle-number-input"
+            value={numberDraft}
             placeholder={t('projects:lifecycle.arPlaceholder')}
-            onChange={(e) => setArDraft(e.target.value)}
+            onChange={(e) => setNumberDraft(e.target.value)}
             onBlur={() => {
-              if ((project.ar_number ?? '') !== (arDraft.trim() || '')) {
-                saveArMutation.mutate(arDraft.trim());
+              if ((project.external_number ?? '') !== (numberDraft.trim() || '')) {
+                saveNumberMutation.mutate(numberDraft.trim());
               }
             }}
             onKeyDown={(e) => {

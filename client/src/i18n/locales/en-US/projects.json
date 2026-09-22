@@ -267,8 +267,7 @@
     },
     "deadlineRemaining": "Design deadline {{date}} ({{days}} days left)",
     "deadlineOverdue": "Design deadline {{date}} ({{days}} days overdue)",
-    "arNumber": "AR number",
-    "arPlaceholder": "AR for formal requirements; leave empty for plain items",
+    "arPlaceholder": "Number (SR/AR), optional for plain items",
     "gate": "Admit",
     "gateTitle": "Admit after the scheme matures — enters the dev side",
     "action": {
@@ -297,7 +296,7 @@
       "pauseDev": "Pause dev assignments",
       "releaseDev": "Release dev assignments",
       "keepDev": "Reopen only",
-      "hint": "Pause = rows kept but out of capacity math; release = dev rows deleted; AR number is retained."
+      "hint": "Pause keeps rows but exits capacity math; release deletes dev-side rows; number kept."
     },
     "startForm": {
       "title": "Start iteration",
@@ -326,7 +325,8 @@
       "NO_LOC_ESTIMATE": "Scheduled / in iteration but no LOC estimation — dev demand unknown",
       "NO_DESIGN_ESTIMATE": "Designing but no rough design estimate recorded",
       "DESIGN_NOT_BACKFILLED": "Past design but actual design effort never backfilled — rough estimates cannot calibrate",
-      "DELIVERED_NOT_BACKFILLED": "Delivered but actuals never backfilled — deviation cannot be tracked"
+      "DELIVERED_NOT_BACKFILLED": "Delivered but actuals never backfilled — deviation cannot be tracked",
+      "NO_ITERATION_NUMBER": "In iteration but the SR/AR number is missing — cannot cross-check with the external system"
     },
     "warningShort": {
       "NO_DEV_DEMAND": "no pool",
@@ -334,8 +334,10 @@
       "NO_DESIGN_ESTIMATE": "no rough est.",
       "DESIGN_NOT_BACKFILLED": "design unbackfilled",
       "DELIVERED_NOT_BACKFILLED": "unbackfilled",
-      "GENERIC": "warn"
-    }
+      "GENERIC": "warn",
+      "NO_ITERATION_NUMBER": "No №"
+    },
+    "numberLabel": "Number"
   },
   "staffing": {
     "designSide": "Design side (SE)",
@@ -408,7 +410,9 @@
     "arCount": "{{count}} AR",
     "srExpandHint": "Click to expand/collapse decomposed ARs",
     "decompose": "Decompose into AR",
-    "decomposeInto": "Will be created as an AR of \"{{name}}\""
+    "decomposeInto": "Will be created as an AR of \"{{name}}\"",
+    "colNumber": "Number",
+    "filterSubtype": "Subtype"
   },
   "version": {
     "productTitle": "Product version, click to edit (e.g. B)",
@@ -462,11 +466,6 @@
     "pmUnit": " pm",
     "srTooltip": "Sum of child estimations; edit each on the detail page"
   },
-  "arNumber": {
-    "placeholder": "AR no.",
-    "hint": "Click to set the AR number (annotation only, not a gate)",
-    "none": "AR—"
-  },
   "actuals": {
     "title": "Investment ledger (plan vs actual)",
     "snapshotThis": "Snapshot this month",
@@ -482,5 +481,9 @@
       "snapshot": "snapshot",
       "manual": "manual"
     }
+  },
+  "number": {
+    "placeholder": "SR/AR No.",
+    "hint": "Click to fill the number (SR-26-012 / AR-2026-101; annotation, not a gate)"
   }
 }

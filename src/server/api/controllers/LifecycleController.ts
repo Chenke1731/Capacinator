@@ -10,7 +10,7 @@ import {
 
 interface TransitionBody {
   to?: string;
-  ar_number?: string | null;
+  external_number?: string | null;
   iteration_label?: string | null;
   note?: string | null;
   dev_assignments_action?: 'pause' | 'release' | 'keep';
@@ -24,7 +24,7 @@ interface TransitionBody {
 }
 
 interface FieldUpdateBody {
-  ar_number?: string | null;
+  external_number?: string | null;
   iteration_label?: string | null;
 }
 
@@ -65,7 +65,7 @@ export class LifecycleController extends BaseController {
       success: true,
       data: {
         lifecycle_state: current,
-        ar_number: project.ar_number ?? null,
+        external_number: project.external_number ?? null,
         iteration_label: project.iteration_label ?? null,
         applicable: current != null,
         warnings,
@@ -91,7 +91,7 @@ export class LifecycleController extends BaseController {
       const { project, event } = await this.lifecycleService.transition({
         projectId: req.params.id,
         to: body.to as LifecycleState,
-        ar_number: body.ar_number ?? null,
+        external_number: body.external_number ?? null,
         iteration_label: body.iteration_label ?? null,
         note: body.note ?? null,
         dev_assignments_action: body.dev_assignments_action,

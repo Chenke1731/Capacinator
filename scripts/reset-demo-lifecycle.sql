@@ -2,7 +2,8 @@
 -- P1 客户门户改版 = in_iteration + B·26.RP4(版本分组演示), P2 = in_iteration, P3 = pending_rat
 UPDATE projects SET lifecycle_state='in_iteration', iteration_label=NULL WHERE name='客户门户改版';
 UPDATE projects SET lifecycle_state='in_iteration', iteration_label=NULL WHERE name='数据平台升级';
-UPDATE projects SET lifecycle_state='pending_rat', ar_number=NULL, iteration_label=NULL WHERE name='移动端改版';
+UPDATE projects SET lifecycle_state='pending_rat', external_number=NULL, iteration_label=NULL WHERE name='移动端改版';
+UPDATE projects SET external_number=NULL WHERE name IN ('客户门户改版','数据平台升级'); -- 编号基线为空:演示 NO_ITERATION_NUMBER 告警由 verify 脚本回填
 UPDATE projects SET product_version='B', release_version='26.RP4' WHERE name='客户门户改版';
 UPDATE projects SET product_version=NULL, release_version=NULL WHERE name IN ('数据平台升级','移动端改版');
 DELETE FROM project_lifecycle_events;

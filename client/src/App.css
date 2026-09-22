@@ -1037,7 +1037,7 @@ input[type="checkbox"].settings-checkbox,
   font-weight: 600;
 }
 
-.lifecycle-ar-chip {
+.lifecycle-number-chip {
   font-size: 12px;
   font-family: var(--font-mono, monospace);
   padding: 2px 8px;
@@ -1173,7 +1173,7 @@ input[type="checkbox"].settings-checkbox,
   color: var(--text-secondary);
   white-space: nowrap;
 }
-.lifecycle-ar-input {
+.lifecycle-number-input {
   font-size: 13px;
   font-family: var(--font-mono, monospace);
   padding: 4px 8px;
@@ -1183,7 +1183,7 @@ input[type="checkbox"].settings-checkbox,
   color: var(--text-primary);
   width: 160px;
 }
-.lifecycle-ar-input:focus {
+.lifecycle-number-input:focus {
   outline: none;
   border-color: var(--accent-color, #3b82f6);
 }
@@ -1779,7 +1779,7 @@ input[type="checkbox"].settings-checkbox,
 .requirements-thead > span { position: relative; }
 .requirements-thead {
   display: grid;
-  grid-template-columns: minmax(var(--req-w-name, 210px), var(--req-f-name, 1.2fr)) var(--req-w-tags, 112px) var(--req-w-component, 96px) var(--req-w-lifecycle, 224px) var(--req-w-staffing, 124px) var(--req-w-scale, 80px) var(--req-w-version, 72px) var(--req-w-release, 72px) var(--req-w-priority, 48px) var(--req-w-owner, 80px) var(--req-w-actions, 116px) var(--req-spacer, 0fr);
+  grid-template-columns: minmax(var(--req-w-name, 210px), var(--req-f-name, 1.2fr)) var(--req-w-number, 88px) var(--req-w-tags, 112px) var(--req-w-component, 96px) var(--req-w-lifecycle, 224px) var(--req-w-staffing, 124px) var(--req-w-scale, 80px) var(--req-w-version, 72px) var(--req-w-release, 72px) var(--req-w-priority, 48px) var(--req-w-owner, 80px) var(--req-w-actions, 116px) var(--req-spacer, 0fr);
   gap: 8px;
   align-items: center;
   min-height: 36px;
@@ -1793,7 +1793,7 @@ input[type="checkbox"].settings-checkbox,
 
 .requirements-row {
   display: grid;
-  grid-template-columns: minmax(var(--req-w-name, 210px), var(--req-f-name, 1.2fr)) var(--req-w-tags, 112px) var(--req-w-component, 96px) var(--req-w-lifecycle, 224px) var(--req-w-staffing, 124px) var(--req-w-scale, 80px) var(--req-w-version, 72px) var(--req-w-release, 72px) var(--req-w-priority, 48px) var(--req-w-owner, 80px) var(--req-w-actions, 116px) var(--req-spacer, 0fr);
+  grid-template-columns: minmax(var(--req-w-name, 210px), var(--req-f-name, 1.2fr)) var(--req-w-number, 88px) var(--req-w-tags, 112px) var(--req-w-component, 96px) var(--req-w-lifecycle, 224px) var(--req-w-staffing, 124px) var(--req-w-scale, 80px) var(--req-w-version, 72px) var(--req-w-release, 72px) var(--req-w-priority, 48px) var(--req-w-owner, 80px) var(--req-w-actions, 116px) var(--req-spacer, 0fr);
   gap: 8px;
   align-items: center;
   min-height: 40px;
@@ -1873,16 +1873,6 @@ body.req-col-dragging * {
   white-space: nowrap;
   /* 名称是扫读首轴,格内最后牺牲(2026-09-22 审计: 曾 flex:0 1 auto 被随行元素挤到省略号) */
   flex: none;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-/* 子类型最先让位: SR行(箭头15+AR计数40)+告警chip 随行达 ~163px, 空间不足时子类型省略 */
-.requirements-subtype {
-  font-size: var(--b-fs-meta);
-  color: var(--text-secondary);
-  white-space: nowrap;
-  flex: 0 1 auto;
-  min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
 }
@@ -1986,7 +1976,7 @@ body.req-col-dragging * {
 .requirements-row--child:hover { background: var(--bg-secondary, rgba(127, 127, 127, 0.06)); }
 .requirements-name--child { padding-left: 18px; }
 .req-child-arrow { color: var(--text-tertiary, var(--text-secondary)); flex: none; }
-.req-ar-part {
+.req-number-part {
   flex: none;
   font-family: var(--font-mono, monospace);
   font-size: var(--b-fs-meta);
@@ -1995,11 +1985,11 @@ body.req-col-dragging * {
   padding: 2px 6px;
   margin-left: 2px;
 }
-.req-ar-part:hover { background: rgba(127, 127, 127, 0.1); }
+.req-number-part:hover { background: rgba(127, 127, 127, 0.1); }
 /* .projects-board button { min-height:0 } 特异度更高,命中档位需带前缀重新声明 */
-.projects-board .req-ar-part { min-height: 24px; }
+.projects-board .req-number-part { min-height: 24px; }
 .projects-board .req-tags-cell.req-editable { min-height: 24px; min-width: 24px; }
-.req-ar-input { font-family: var(--font-mono, monospace); font-size: var(--b-fs-meta); }
+.req-number-input { font-family: var(--font-mono, monospace); font-size: var(--b-fs-meta); }
 .requirements-children > .requirements-row { border-bottom: 1px dashed var(--border-color, rgba(127, 127, 127, 0.12)); }
 
 /* 所属组件列(窄列省略号,命中 24px 档) */
@@ -2144,14 +2134,14 @@ body.req-col-dragging * {
 
 /* 1366 以下隐藏负责人与规模列(排博弈用大屏,窄屏保组件/人力/版本) */
 /* 三档列预算(2026-09-22 名称截断审计后重算):
-   ≥1680 全 11 列; 1560–1679 十列藏"规模"(用户 1600 主力档); <1560 九列再藏"负责人"。
+   ≥1680 全 12 列; 1560–1679 十一列藏"规模"(用户 1600 主力档); <1560 九列再藏"负责人"与"编号"。
    铁律: 每档默认(未拖拽)在对应容器内零横向滚动。 */
 @media (max-width: 1679px) {
   .requirements-thead,
   .requirements-row {
-    grid-template-columns: minmax(var(--req-w-name, 210px), var(--req-f-name, 1.1fr)) var(--req-w-tags, 96px) var(--req-w-component, 84px) var(--req-w-lifecycle, 224px) var(--req-w-staffing, 112px) var(--req-w-version, 64px) var(--req-w-release, 64px) var(--req-w-priority, 44px) var(--req-w-owner, 80px) var(--req-w-actions, 116px) var(--req-spacer, 0fr);
+    grid-template-columns: minmax(var(--req-w-name, 210px), var(--req-f-name, 1.1fr)) var(--req-w-number, 80px) var(--req-w-tags, 96px) var(--req-w-component, 84px) var(--req-w-lifecycle, 224px) var(--req-w-staffing, 112px) var(--req-w-version, 64px) var(--req-w-release, 64px) var(--req-w-priority, 44px) var(--req-w-owner, 80px) var(--req-w-actions, 116px) var(--req-spacer, 0fr);
   }
-  .requirements-thead > span:nth-child(6),
+  .requirements-thead > span:nth-child(7),
   .requirements-row > .req-scale { display: none; }
   /* 窄档死线内联仍在: 快捷键按钮收至 64(基础 72px 规则位于本文件更后,需提特异度压过) */
   .projects-board .requirements-row .lifecycle-quick-btn { min-width: 64px; }
@@ -2161,8 +2151,11 @@ body.req-col-dragging * {
   .requirements-row {
     grid-template-columns: minmax(var(--req-w-name, 210px), var(--req-f-name, 1.1fr)) var(--req-w-tags, 92px) var(--req-w-component, 80px) var(--req-w-lifecycle, 196px) var(--req-w-staffing, 108px) var(--req-w-version, 62px) var(--req-w-release, 62px) var(--req-w-priority, 44px) var(--req-w-actions, 116px) var(--req-spacer, 0fr);
   }
-  .requirements-thead > span:nth-child(10),
+  .requirements-thead > span:nth-child(11),
   .requirements-row > .req-edit-cell--owner { display: none; }
+  /* 编号列窄档让位(2026-09-22 裁决): 表头第2格 + 行内编号钮 */
+  .requirements-thead > span:nth-child(2),
+  .requirements-row > .req-number-part { display: none; }
 }
 
 /* 优先级: 纯文字着色,等宽数字(按钮化,命中 24px 档) */

@@ -220,8 +220,9 @@ function ScaleCell({ project }: { project: any }) {
   );
 }
 
-/** 子行(AR)的 AR 号就地编辑: 点击变输入框,mono 小字;AR 是注记不作流程门槛 */
-function ArPart({ project, onSaved }: { project: any; onSaved: () => void }) {
+/** 编号列: 每行(顶层/SR/子行)统一就地编辑,自由文本——前缀(SRxxx/ARxxx)
+    自述粒度,混排世界粒度是事项属性不是树结构位置(2026-09-22 裁决) */
+function NumberPart({ project, onSaved }: { project: any; onSaved: () => void }) {
   const { t } = useTranslation();
   const [editing, setEditing] = useState(false);
   const [draft, setDraft] = useState('');
@@ -229,19 +230,19 @@ function ArPart({ project, onSaved }: { project: any; onSaved: () => void }) {
     mutationFn: (patch: Record<string, string | null>) => api.projects.update(project.id, patch),
     onSuccess: () => { setEditing(false); onSaved(); }
   });
-  const value = (project.ar_number ?? '') as string;
+  const value = (project.external_number ?? '') as string;
   if (editing) {
     return (
       <input
-        className="inline-edit-input req-ar-input"
-        style={{ width: 92 }}
+        className="inline-edit-input req-number-input"
+        style={{ width: 96 }}
         value={draft}
         autoFocus
-        placeholder={t('projects:arNumber.placeholder')}
+        placeholder={t('projects:number.placeholder')}
         onChange={(e) => setDraft(e.target.value)}
         onBlur={() => {
           const trimmed = draft.trim();
-          if (trimmed !== value) updateMutation.mutate({ ar_number: trimmed || null });
+          if (trimmed !== value) updateMutation.mutate({ external_number: trimmed || null });
           else setEditing(false);
         }}
         onKeyDown={(e) => {
@@ -252,9 +253,9 @@ function ArPart({ project, onSaved }: { project: any; onSaved: () => void }) {
     );
   }
   return (
-    <button type="button" className="req-ar-part req-editable" title={t('projects:arNumber.hint')}
+    <button type="button" className="req-number-part req-editable" title={t('projects:number.hint')}
             onClick={(e) => { e.stopPropagation(); setDraft(value); setEditing(true); }}>
-      {value || <span className="text-muted">{t('projects:arNumber.none')}</span>}
+      {value || <span className="text-muted">—</span>}
     </button>
   );
 }
@@ -272,6 +273,8 @@ const REQ_COLUMNS = [
      用户主动拖宽触发。 */
   /* def: [全列档(≥1680), 中档(1560–1679,藏规模), 窄档(<1560,藏规模+负责人)] */
   { key: 'name', def: [210, 210, 210], min: 120, max: 640 },
+  /* 编号: SR/AR 外部编号统一列,mono;窄档(<1560)与规模/负责人同藏(2026-09-22 裁决) */
+  { key: 'number', def: [88, 80, 0], min: 56, max: 200 },
   { key: 'tags', def: [112, 96, 92], min: 80, max: 320 },
   { key: 'component', def: [96, 84, 80], min: 72, max: 240 },
   { key: 'lifecycle', def: [224, 224, 196], min: 170, max: 420 },
@@ -285,7 +288,7 @@ const REQ_COLUMNS = [
 ] as const;
 type ReqColKey = (typeof REQ_COLUMNS)[number]['key'];
 /* v2: 列集变更(新增构成/规模列)必须 bump 版本,旧宽度按旧列预算调优,残留会挤压名称列 */
-const REQ_WIDTHS_STORE = 'req-col-widths-v2';
+const REQ_WIDTHS_STORE = 'req-col-widths-v3';
 const clampWidth = (col: (typeof REQ_COLUMNS)[number], w: number) =>
   Math.round(Math.min(col.max, Math.max(col.min, w)));
 
@@ -445,6 +448,7 @@ export function Projects() {
     lifecycle_state: '',
     tag_id: '',
     component: '',
+    subtype: '',
     product_version: '',
     release_version: ''
   });
@@ -501,6 +505,11 @@ export function Projects() {
     [...new Set(demandRows.map((p: any) => String(p[field] ?? '').trim()).filter(Boolean))]
       .sort((a, b) => a.localeCompare(b, 'zh'));
   const componentOptions = useMemo(() => distinctOf('component'), [demandRows]);
+  const subtypeOptions = useMemo(
+    () => [...new Set(demandRows.map((p: any) => String(p.project_sub_type_name ?? '').trim()).filter(Boolean))]
+      .sort((a, b) => a.localeCompare(b, 'zh')),
+    [demandRows]
+  );
   const productOptions = useMemo(() => distinctOf('product_version'), [demandRows]);
   const releaseOptions = useMemo(() => distinctOf('release_version'), [demandRows]);
 
@@ -517,11 +526,12 @@ export function Projects() {
       }
       if (filters.tag_id && !(p.tags ?? []).some((tag: any) => String(tag.id) === String(filters.tag_id))) return false;
       if (filters.component && String(p.component ?? '') !== filters.component) return false;
+      if (filters.subtype && String(p.project_sub_type_name ?? '') !== filters.subtype) return false;
       if (filters.product_version && !versionMatch(p.product_version, filters.product_version)) return false;
       if (filters.release_version && !versionMatch(p.release_version, filters.release_version)) return false;
       return true;
     };
-    const anyFilter = filters.search || filters.tag_id || filters.component
+    const anyFilter = filters.search || filters.tag_id || filters.component || filters.subtype
       || filters.product_version || filters.release_version;
     if (!anyFilter) return sortTrees(buildTree(demandRows));
     // 命中父或任一子 → 父及其全部子行保留
@@ -539,7 +549,7 @@ export function Projects() {
     const keptIds = new Set(keptParents.map((p: any) => p.id));
     const keptChildren = demandRows.filter((p: any) => p.parent_id && keptIds.has(p.parent_id));
     return sortTrees(buildTree([...keptParents, ...keptChildren]));
-  }, [demandRows, filters.search, filters.tag_id, filters.component, filters.product_version, filters.release_version]);
+  }, [demandRows, filters.search, filters.tag_id, filters.component, filters.subtype, filters.product_version, filters.release_version]);
 
   const toggleSR = (id: string) => {
     setCollapsedSR((prev) => {
@@ -580,7 +590,7 @@ export function Projects() {
   const compact = vw < 1560;
   const colVars = useMemo(() => {
     const vars: Record<string, string> = {};
-    const hidden = compact ? ['scale', 'owner'] : showAll ? [] : ['scale'];
+    const hidden = compact ? ['scale', 'owner', 'number'] : showAll ? [] : ['scale'];
     const visible = REQ_COLUMNS.filter((c) => !hidden.includes(c.key));
     let total = 28 /* 行左右 padding */ + 8 * (visible.length - 1) /* 列间 gap */;
     for (const c of visible) {
@@ -657,6 +667,15 @@ export function Projects() {
           <option value="">{t('projects:board.filterComponent')}</option>
           {componentOptions.map((c) => <option key={c} value={c}>{c}</option>)}
         </select>
+        <select
+          data-testid="subtype-filter"
+          className="board-select"
+          value={filters.subtype}
+          onChange={(e) => setFilters((prev) => ({ ...prev, subtype: e.target.value }))}
+        >
+          <option value="">{t('projects:board.filterSubtype')}</option>
+          {subtypeOptions.map((v) => <option key={v} value={v}>{v}</option>)}
+        </select>
         {/* 版本维度以筛选表达(2026-09-22 裁决: 不做分组头,两列已携带信息) */}
         <select
           data-testid="product-filter"
@@ -678,14 +697,14 @@ export function Projects() {
           {releaseOptions.map((v) => <option key={v} value={v}>{v}</option>)}
           <option value={VERSION_NONE}>{t('projects:version.releasePlaceholder')}</option>
         </select>
-        {(filters.search || filters.lifecycle_state || filters.tag_id || filters.component
+        {(filters.search || filters.lifecycle_state || filters.tag_id || filters.component || filters.subtype
           || filters.product_version || filters.release_version) && (
           <button
             data-testid="reset-filters"
             className="board-reset"
             title={t('projects:board.resetFilters')}
             onClick={() => setFilters({
-              search: '', lifecycle_state: '', tag_id: '', component: '',
+              search: '', lifecycle_state: '', tag_id: '', component: '', subtype: '',
               product_version: '', release_version: ''
             })}
           >
@@ -708,6 +727,7 @@ export function Projects() {
         <div className="requirements-thead">
           {([
             ['projects:board.colName', 'name'],
+            ['projects:board.colNumber', 'number'],
             ['projects:board.colTags', 'tags'],
             ['projects:board.colComponent', 'component'],
             ['projects:lifecycleColumn', 'lifecycle'],
@@ -721,7 +741,7 @@ export function Projects() {
           ] as const).map(([key, colKey], i) => (
             <span key={colKey} className={['lifecycle', 'priority', 'actions'].includes(colKey) ? 'col-c' : ''}>
               {t(key)}
-              {i < 10 && (
+              {i < 11 && (
                 <ColumnGrip colKey={colKey} widths={colWidths} setWidths={setColWidths} />
               )}
             </span>
@@ -759,10 +779,9 @@ export function Projects() {
                       : ''}
                   </span>
                 )}
-                {project.project_sub_type_name && (
-                  <span className="requirements-subtype">· {project.project_sub_type_name}</span>
-                )}
               </span>
+
+              <NumberPart project={project} onSaved={() => handleCellSaved(project.id)} />
 
               <TagsCell project={project} allTags={tags} onSaved={() => handleCellSaved(project.id)} />
 
@@ -845,10 +864,9 @@ export function Projects() {
                       : ''}
                   </span>
                 )}
-                {project.project_sub_type_name && (
-                  <span className="requirements-subtype">· {project.project_sub_type_name}</span>
-                )}
               </span>
+
+              <NumberPart project={project} onSaved={() => handleCellSaved(project.id)} />
 
               <TagsCell project={project} allTags={tags} onSaved={() => handleCellSaved(project.id)} />
               <ComponentCell project={project} options={componentOptions} onSaved={() => handleCellSaved(project.id)} />
@@ -918,8 +936,9 @@ export function Projects() {
                     <span className="requirements-name requirements-name--child">
                       <CornerDownRight size={13} className="req-child-arrow" />
                       <span className="requirements-name-text" title={child.name}>{child.name}</span>
-                      <ArPart project={child} onSaved={() => handleCellSaved(child.id)} />
                     </span>
+
+                    <NumberPart project={child} onSaved={() => handleCellSaved(child.id)} />
 
                     <TagsCell project={child} allTags={tags} onSaved={() => handleCellSaved(child.id)} />
                     <ComponentCell project={child} options={componentOptions} onSaved={() => handleCellSaved(child.id)} />

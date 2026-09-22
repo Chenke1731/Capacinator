@@ -786,14 +786,14 @@ export const api = {
       apiClient.get<{ data: any }>(`/projects/${projectId}/lifecycle`),
     transition: (projectId: string, data: {
       to: string;
-      ar_number?: string | null;
+      external_number?: string | null;
       iteration_label?: string | null;
       note?: string | null;
       dev_assignments_action?: 'pause' | 'release' | 'keep';
       pool?: { role_id: string; headcount: number; start_date?: string | null; end_date?: string | null };
     }) =>
       apiClient.post<{ data: { project: any; event: any } }>(`/projects/${projectId}/lifecycle/transition`, data),
-    updateFields: (projectId: string, data: { ar_number?: string | null; iteration_label?: string | null }) =>
+    updateFields: (projectId: string, data: { external_number?: string | null; iteration_label?: string | null }) =>
       apiClient.patch<{ data: any }>(`/projects/${projectId}/lifecycle`, data),
   },
 };

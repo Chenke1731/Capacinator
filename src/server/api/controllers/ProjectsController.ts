@@ -303,7 +303,7 @@ export class ProjectsController extends BaseController {
           'projects.data_restrictions',
           'projects.external_id',
           'projects.lifecycle_state',
-          'projects.ar_number',
+          'projects.external_number',
           'projects.product_version',
           'projects.release_version',
           'projects.component',
@@ -455,7 +455,7 @@ export class ProjectsController extends BaseController {
           'projects.data_restrictions',
           'projects.external_id',
           'projects.lifecycle_state',
-          'projects.ar_number',
+          'projects.external_number',
           'projects.product_version',
           'projects.release_version',
           'projects.component',
@@ -684,7 +684,7 @@ export class ProjectsController extends BaseController {
 
       // Lifecycle fields are owned by the state machine endpoints only
       // (POST /projects/:id/lifecycle/*) — never by the generic update.
-      // ar_number 例外: 2026-09-22 起允许就地编辑(需求台 AR 号内联),
+      // external_number 例外: 2026-09-22 起允许就地编辑(需求台 AR 号内联),
       // lifecycle 端点的 RAT 回填语义不变。
       delete sanitizedData.lifecycle_state;
       delete sanitizedData.iteration_label;

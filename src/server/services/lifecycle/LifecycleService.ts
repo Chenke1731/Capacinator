@@ -71,7 +71,7 @@ export const DEV_SIDE_ROLE_NAMES = ['开发'];
 export interface TransitionInput {
   projectId: string;
   to: LifecycleState;
-  ar_number?: string | null;
+  external_number?: string | null;
   iteration_label?: string | null;
   note?: string | null;
   /** Only for 退回 (→ designing): what to do with dev-side assignments */
@@ -175,10 +175,11 @@ export class LifecycleService {
 
       switch (input.to) {
         case 'backlog': {
-          // 准入: AR optional — formal requirements carry one, plain items don't
-          if (input.ar_number != null && String(input.ar_number).trim() !== '') {
-            projectUpdate.ar_number = String(input.ar_number).trim();
-            eventRow.ar_number = projectUpdate.ar_number;
+          // 准入: 编号 optional — 前缀(SRxxx/ARxxx)自述粒度,混排世界
+          // 顶层事项既可能是 SR 也可能是 AR(2026-09-22 泛化裁决)
+          if (input.external_number != null && String(input.external_number).trim() !== '') {
+            projectUpdate.external_number = String(input.external_number).trim();
+            eventRow.external_number = projectUpdate.external_number;
           }
           break;
         }
@@ -294,18 +295,18 @@ export class LifecycleService {
     });
   }
 
-  /** Update AR / iteration fields without a state change (inline edits in the banner). */
+  /** Update 编号 / iteration fields without a state change (inline edits in the banner). */
   async updateFields(
     projectId: string,
-    fields: { ar_number?: string | null; iteration_label?: string | null }
+    fields: { external_number?: string | null; iteration_label?: string | null }
   ): Promise<any> {
     const project = await this.db('projects').where('id', projectId).first();
     if (!project) throw new LifecycleError('project not found', 404);
 
     const update: Record<string, any> = { updated_at: this.db.fn.now() };
-    if (fields.ar_number !== undefined) {
-      update.ar_number = fields.ar_number != null && String(fields.ar_number).trim() !== ''
-        ? String(fields.ar_number).trim()
+    if (fields.external_number !== undefined) {
+      update.external_number = fields.external_number != null && String(fields.external_number).trim() !== ''
+        ? String(fields.external_number).trim()
         : null;
     }
     if (fields.iteration_label !== undefined) {
@@ -341,6 +342,10 @@ export class LifecycleService {
    *                      actual design effort was never backfilled
    *  - DELIVERED_NOT_BACKFILLED delivered with an LOC estimation but no
    *                      post-delivery backfill
+   *  - NO_ITERATION_NUMBER in_iteration without an external number — the
+   *                      item entered iteration but its SR/AR number was
+   *                      never filled (2026-09-22 混排裁决: 告警盯编号非空,
+   *                      不区分 SR/AR — 前缀自述粒度)
    */
   async computeWarnings(projectId: string): Promise<string[]> {
     const project = await this.db('projects').where('id', projectId).first();
@@ -445,6 +450,9 @@ export class LifecycleService {
     }
     if (state === 'delivered' && i.hasLocEstimate && !i.locBackfilled) {
       warnings.push('DELIVERED_NOT_BACKFILLED');
+    }
+    if (state === 'in_iteration' && !String(project.external_number ?? '').trim()) {
+      warnings.push('NO_ITERATION_NUMBER');
     }
     return warnings;
   }

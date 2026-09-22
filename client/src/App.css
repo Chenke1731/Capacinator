@@ -1990,6 +1990,55 @@ body.req-col-dragging * {
 .requirements-owner-btn.is-empty { color: var(--text-secondary); font-weight: 400; }
 .requirements-owner-btn:hover { background: rgba(127, 127, 127, 0.1); }
 
+/* ── SR→AR 折叠行(2026-09-22 真实表借鉴: JDC/SR 分解成 AR) ── */
+.requirements-row--sr { background: rgba(127, 127, 127, 0.045); }
+.requirements-row--sr:hover { background: rgba(127, 127, 127, 0.09); }
+.req-sr-chevron { color: var(--text-secondary); flex: none; }
+.requirements-row--sr .requirements-name-text { font-weight: 600; }
+.req-sr-chip {
+  flex: none;
+  font-size: var(--b-fs-meta);
+  color: var(--accent-color, #3b82f6);
+  background: rgba(59, 130, 246, 0.1);
+  border-radius: var(--b-r-pill);
+  padding: 0 7px;
+  line-height: 16px;
+  margin-left: 2px;
+}
+/* SR 状态列: 子行分布(如 2·已启动 1·待RAT) */
+.req-state-dist {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 2px 8px;
+  font-size: var(--b-fs-meta);
+  color: var(--text-secondary);
+  justify-content: center;
+}
+/* SR 人力=子行汇总,只读(无按钮无气泡) */
+.req-staff--ro { cursor: default; padding: 2px 6px 2px 0; }
+.req-staff--ro:hover { background: none; }
+.req-staff-row--ro { opacity: 0.9; }
+/* 子行(AR): 名称缩进+箭头,整行略弱化 */
+.requirements-row--child { background: rgba(127, 127, 127, 0.02); }
+.requirements-row--child:hover { background: var(--bg-secondary, rgba(127, 127, 127, 0.06)); }
+.requirements-name--child { padding-left: 18px; }
+.req-child-arrow { color: var(--text-tertiary, var(--text-secondary)); flex: none; }
+.req-ar-part {
+  flex: none;
+  font-family: var(--font-mono, monospace);
+  font-size: var(--b-fs-meta);
+  color: var(--text-secondary);
+  min-height: 24px;
+  padding: 2px 6px;
+  margin-left: 2px;
+}
+.req-ar-part:hover { background: rgba(127, 127, 127, 0.1); }
+/* .projects-board button { min-height:0 } 特异度更高,命中档位需带前缀重新声明 */
+.projects-board .req-ar-part { min-height: 24px; }
+.projects-board .req-tags-cell.req-editable { min-height: 24px; min-width: 24px; }
+.req-ar-input { font-family: var(--font-mono, monospace); font-size: var(--b-fs-meta); }
+.requirements-children > .requirements-row { border-bottom: 1px dashed var(--border-color, rgba(127, 127, 127, 0.12)); }
+
 /* 所属组件列(窄列省略号,命中 24px 档) */
 .requirements-component-btn {
   font-size: var(--b-fs-body);

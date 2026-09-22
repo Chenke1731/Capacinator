@@ -66,6 +66,9 @@ interface ProjectModalProps {
   onClose: () => void;
   onSuccess?: (project: EditableProject) => void;
   editingProject?: EditableProject;
+  /** SR→AR 分解: 新建即挂到该父(仅一层,服务端校验) */
+  presetParentId?: string;
+  presetParentName?: string;
 }
 
 const initialValues: ProjectFormData = {
@@ -102,7 +105,9 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
   isOpen,
   onClose,
   onSuccess,
-  editingProject
+  editingProject,
+  presetParentId,
+  presetParentName
 }) => {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
@@ -120,7 +125,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
     initialValues,
     validate: validateProject,
     onCreate: async (data) => {
-      const response = await api.projects.create(data);
+      const response = await api.projects.create(presetParentId ? { ...data, parent_id: presetParentId } : data);
       return response.data;
     },
     onUpdate: async (id, data) => {
@@ -257,6 +262,11 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
             </Alert>
           )}
 
+          {presetParentId && (
+            <div className="text-sm text-muted mb-2" data-testid="decompose-hint">
+              {i18n.t('projects:board.decomposeInto', { name: presetParentName ?? '' })}
+            </div>
+          )}
           <form onSubmit={handleSubmit} className="space-y-6">
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">

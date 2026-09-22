@@ -406,7 +406,11 @@
     "resizeHint": "拖拽调整列宽，双击重置",
     "colComponent": "组件",
     "colScale": "规模",
-    "filterComponent": "组件"
+    "filterComponent": "组件",
+    "arCount": "{{count}} AR",
+    "srExpandHint": "点击展开/收起分解出的 AR",
+    "decompose": "分解出 AR",
+    "decomposeInto": "将作为「{{name}}」的 AR 分解项创建"
   },
   "version": {
     "productTitle": "产品版本，点击填写（如 B）",
@@ -457,6 +461,12 @@
   },
   "scale": {
     "tooltip": "口径：最新一次评估（KLOC 与人月由估算 LOC 换算）；评估在详情页做",
-    "pmUnit": "人月"
+    "pmUnit": "人月",
+    "srTooltip": "子行评估之和；各行评估在详情页做"
+  },
+  "arNumber": {
+    "placeholder": "AR号",
+    "hint": "点击填写 AR 号（注记，不作流程门槛）",
+    "none": "AR—"
   }
 }

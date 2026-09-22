@@ -209,6 +209,23 @@ export class ProjectsController extends BaseController {
     }
   }
 
+  /** SR→AR 一层父子: 父必须存在且自身无父(禁止 SR 套 SR),禁止自引用。
+      返回错误文案或 null;调用方以 400 响应(语义错误不是服务器错误)。 */
+  private async validateParent(projectId: string | null, parentId: string | null): Promise<string | null> {
+    if (!parentId) return null;
+    if (parentId && projectId && parentId === projectId) {
+      return 'Project cannot be its own parent';
+    }
+    const parent = await this.db('projects').where('id', parentId).first();
+    if (!parent) {
+      return 'Parent project not found';
+    }
+    if (parent.parent_id) {
+      return 'Only one level of decomposition is allowed (the parent is already an AR child)';
+    }
+    return null;
+  }
+
   private async validateProjectSubType(projectTypeId: string, projectSubTypeId: string): Promise<void> {
     // project_sub_type_id is now mandatory
     if (!projectSubTypeId) {
@@ -290,6 +307,7 @@ export class ProjectsController extends BaseController {
           'projects.product_version',
           'projects.release_version',
           'projects.component',
+          'projects.parent_id',
           'projects.iteration_label',
           'projects.created_at',
           'projects.updated_at',
@@ -441,6 +459,7 @@ export class ProjectsController extends BaseController {
           'projects.product_version',
           'projects.release_version',
           'projects.component',
+          'projects.parent_id',
           'projects.iteration_label',
           'projects.created_at',
           'projects.updated_at',
@@ -555,6 +574,14 @@ export class ProjectsController extends BaseController {
     const result = await this.executeQuery(async () => {
       // Validate project type and sub-type relationship
       await this.validateProjectSubType(projectData.project_type_id, projectData.project_sub_type_id);
+      // SR→AR 分解: 新建即挂父(仅一层)
+      if (projectData.parent_id) {
+        const parentErr = await this.validateParent(null, projectData.parent_id);
+        if (parentErr) {
+          res.status(400).json({ error: 'Validation error', message: parentErr });
+          return null;
+        }
+      }
 
       // Generate ID for SQLite compatibility
       const projectId = projectData.id || `project-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
@@ -656,10 +683,18 @@ export class ProjectsController extends BaseController {
       delete sanitizedData.tag_ids;
 
       // Lifecycle fields are owned by the state machine endpoints only
-      // (POST /projects/:id/lifecycle/*) — never by the generic update
+      // (POST /projects/:id/lifecycle/*) — never by the generic update.
+      // ar_number 例外: 2026-09-22 起允许就地编辑(需求台 AR 号内联),
+      // lifecycle 端点的 RAT 回填语义不变。
       delete sanitizedData.lifecycle_state;
-      delete sanitizedData.ar_number;
       delete sanitizedData.iteration_label;
+      if (sanitizedData.parent_id !== undefined) {
+        const parentErr = await this.validateParent(id, sanitizedData.parent_id);
+        if (parentErr) {
+          res.status(400).json({ error: 'Validation error', message: parentErr });
+          return null;
+        }
+      }
 
       // Sanitize foreign key fields - convert empty strings to null
       const nullableForeignKeys = ['owner_id', 'project_sub_type_id', 'current_phase_id'];
@@ -747,6 +782,16 @@ export class ProjectsController extends BaseController {
       
       if (!project) {
         this.handleNotFound(req, res, 'Project');
+        return null;
+      }
+
+      // SR→AR: 有子行的父(SR)不可直接删——先分解处理子行
+      const childCount = await this.db('projects').where('parent_id', id).count('* as c').first();
+      if (Number(childCount?.c ?? 0) > 0) {
+        res.status(409).json({
+          error: 'Conflict',
+          message: `Project still has ${childCount.c} child items — delete or re-parent them first`
+        });
         return null;
       }
 

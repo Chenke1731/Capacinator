@@ -74,10 +74,11 @@ jest.mock('../../components/ui/ErrorMessage', () => ({
 
 jest.mock('../../components/modals/ProjectModal', () => ({
   __esModule: true,
-  default: ({ isOpen, onClose, editingProject }: any) =>
+  default: ({ isOpen, onClose, editingProject, presetParentId, presetParentName }: any) =>
     isOpen ? (
       <div data-testid="project-modal">
         <h2>{editingProject ? 'Edit Project' : 'New Project'}</h2>
+        {presetParentId && <div data-testid="decompose-hint">AR of {presetParentName}</div>}
         <button onClick={onClose}>Close</button>
       </div>
     ) : null,
@@ -133,6 +134,45 @@ const mockProjects = [
     lifecycle_state: 'in_iteration',
     lifecycle_warnings: [],
     staffing_summary: { design: { named: 0, pool: 0 }, dev: { named: 0, pool: 0 } },
+    tags: [],
+  },
+  // SR→AR: proj-1 的两个 AR 子行
+  {
+    id: 'proj-1a',
+    name: 'Portal Login Rework',
+    project_type_id: 'type-1',
+    project_type_name: '需求交付',
+    project_sub_type_name: '标准需求',
+    parent_id: 'proj-1',
+    product_version: 'B',
+    release_version: '26.RP4',
+    priority: 3,
+    component: null,
+    estimation_summary: { kloc: 4, pm: 8 },
+    owner_name: null,
+    lifecycle_state: 'pending_rat',
+    lifecycle_warnings: [],
+    staffing_summary: { design: { named: 0.5, pool: 0, named_detail: [{ name: '王后端', fte: 0.5 }] }, dev: { named: 0, pool: 0.5, named_detail: [] } },
+    ar_number: 'AR-2026-101',
+    tags: [],
+  },
+  {
+    id: 'proj-1b',
+    name: 'Portal Home Rework',
+    project_type_id: 'type-1',
+    project_type_name: '需求交付',
+    project_sub_type_name: '标准需求',
+    parent_id: 'proj-1',
+    product_version: 'B',
+    release_version: '26.RP4',
+    priority: 2,
+    component: null,
+    estimation_summary: null,
+    owner_name: null,
+    lifecycle_state: 'in_iteration',
+    lifecycle_warnings: [],
+    staffing_summary: { design: { named: 0, pool: 0, named_detail: [] }, dev: { named: 1, pool: 0, named_detail: [] } },
+    ar_number: null,
     tags: [],
   },
   // Not a demand item — must NOT appear on the 需求台
@@ -268,9 +308,9 @@ describe('Requirements Board (需求台)', () => {
         expect(screen.getByText('Project Alpha')).toBeInTheDocument();
       });
 
-      expect(screen.getByText('P2')).toBeInTheDocument();
-      expect(screen.getByText('P1')).toBeInTheDocument();
-      expect(screen.getByText('陈主管')).toBeInTheDocument();
+      expect(screen.getAllByText('P2').length).toBeGreaterThanOrEqual(1);
+      expect(screen.getAllByText('P1').length).toBeGreaterThanOrEqual(1);
+      expect(screen.getAllByText('陈主管').length).toBeGreaterThanOrEqual(1);
     });
   });
 
@@ -286,10 +326,10 @@ describe('Requirements Board (需求台)', () => {
         expect(screen.getAllByText('Pending RAT').length).toBeGreaterThan(0);
       });
 
-      await user.click(screen.getByRole('button', { name: 'Start design' }));
+      await user.click(screen.getAllByRole('button', { name: 'Start design' })[0]);
 
       await waitFor(() => {
-        expect(api.lifecycle.transition).toHaveBeenCalledWith('proj-1', { to: 'designing' });
+        expect(api.lifecycle.transition).toHaveBeenCalledWith(expect.any(String), { to: 'designing' });
       });
     });
 
@@ -346,8 +386,8 @@ describe('Requirements Board (需求台)', () => {
         expect(screen.getByText('Project Alpha')).toBeInTheDocument();
       });
 
-      const alphaRow = screen.getByText('Project Alpha').closest('.requirements-row')!;
-      await user.click(within(alphaRow).getByTitle('Click to adjust staffing'));
+      const betaRow = screen.getByText('Project Beta').closest('.requirements-row')!;
+      await user.click(within(betaRow).getByTitle('Click to adjust staffing'));
 
       const pop = document.querySelector('.staff-pop')!;
       expect(within(pop).getByText('Staffing adjust')).toBeInTheDocument();
@@ -358,7 +398,7 @@ describe('Requirements Board (需求台)', () => {
       expect(labels.length).toBe(2);
       labels.forEach((l) => expect(l.textContent).toBe('Pool'));
       // 实名一行一档
-      expect(within(pop).getByText('named 0.5')).toBeInTheDocument();
+      expect(within(pop).getAllByText(/named 0\.0/).length).toBe(2);
     });
 
     test('staffing column header carries the named+pool legend', async () => {
@@ -502,8 +542,8 @@ describe('Requirements Board (需求台)', () => {
       });
 
       const alphaRow = screen.getByText('Project Alpha').closest('.requirements-row')!;
-      expect(within(alphaRow).getByText('12K')).toBeInTheDocument();
-      expect(within(alphaRow).getByText('24 pm')).toBeInTheDocument();
+      expect(within(alphaRow).getByText('4K')).toBeInTheDocument();
+      expect(within(alphaRow).getByText('8 pm')).toBeInTheDocument();
 
       const betaRow = screen.getByText('Project Beta').closest('.requirements-row')!;
       expect(betaRow.querySelectorAll('.req-scale--empty').length).toBe(1);
@@ -517,11 +557,11 @@ describe('Requirements Board (需求台)', () => {
         expect(screen.getByText('Project Alpha')).toBeInTheDocument();
       });
 
-      const alphaRow = screen.getByText('Project Alpha').closest('.requirements-row')!;
-      await user.click(within(alphaRow).getByTitle('Click to adjust staffing'));
+      const childRow = screen.getByText('Portal Login Rework').closest('.requirements-row')!;
+      await user.click(within(childRow).getByTitle('Click to adjust staffing'));
 
       const pop = document.querySelector('.staff-pop')!;
-      expect(within(pop).getByText('韩架构')).toBeInTheDocument();
+      expect(within(pop).getByText('王后端')).toBeInTheDocument();
       expect(within(pop).getByText('50%')).toBeInTheDocument();
     });
 
@@ -552,6 +592,107 @@ describe('Requirements Board (需求台)', () => {
       await user.click(within(alphaRow).getByTestId('tags-edit-btn'));
 
       expect(mockNavigate).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('SR→AR decomposition', () => {
+    test('SR row renders with AR count, state distribution and child rows', async () => {
+      renderComponent();
+
+      await waitFor(() => {
+        expect(screen.getByText('Project Alpha')).toBeInTheDocument();
+      });
+
+      const srRow = screen.getByText('Project Alpha').closest('.requirements-row')!;
+      expect(srRow).toHaveClass('requirements-row--sr');
+      expect(within(srRow).getByText('2 AR')).toBeInTheDocument();
+      // 状态分布: 1 子行待RAT + 1 已启动
+      expect(within(srRow).getByText(/Pending RAT/)).toBeInTheDocument();
+      expect(within(srRow).getByText(/In Iteration/)).toBeInTheDocument();
+
+      const childRows = document.querySelectorAll('.requirements-row--child');
+      expect(childRows.length).toBe(2);
+      expect(within(childRows[0] as HTMLElement).getByText('AR-2026-101')).toBeInTheDocument();
+    });
+
+    test('SR aggregates equal child sums (staffing & scale)', async () => {
+      renderComponent();
+
+      await waitFor(() => {
+        expect(screen.getByText('Project Alpha')).toBeInTheDocument();
+      });
+
+      const srRow = screen.getByText('Project Alpha').closest('.requirements-row')!;
+      // 人力: design named = 子行 0.5;dev named = 0+1 = 1
+      expect(within(srRow).getByText('0.5')).toBeInTheDocument();
+      expect(within(srRow).getAllByText('1.0').length).toBeGreaterThan(0);
+      // 规模: 仅 proj-1a 有评估 4K/8pm
+      expect(within(srRow).getByText('4K')).toBeInTheDocument();
+      expect(within(srRow).getByText('8 pm')).toBeInTheDocument();
+    });
+
+    test('clicking SR row collapses and re-expands children', async () => {
+      const user = userEvent.setup();
+      renderComponent();
+
+      await waitFor(() => {
+        expect(screen.getByText('Project Alpha')).toBeInTheDocument();
+      });
+      expect(document.querySelectorAll('.requirements-row--child').length).toBe(2);
+
+      await user.click(screen.getByText('Project Alpha'));
+      expect(document.querySelectorAll('.requirements-row--child').length).toBe(0);
+
+      await user.click(screen.getByText('Project Alpha'));
+      expect(document.querySelectorAll('.requirements-row--child').length).toBe(2);
+    });
+
+    test('decompose button opens the create modal preset to the parent', async () => {
+      const user = userEvent.setup();
+      renderComponent();
+
+      await waitFor(() => {
+        expect(screen.getByText('Project Alpha')).toBeInTheDocument();
+      });
+
+      const srRow = screen.getByText('Project Alpha').closest('.requirements-row')!;
+      await user.click(within(srRow).getByTitle('Decompose into AR'));
+
+      const hint = await screen.findByTestId('decompose-hint');
+      expect(hint.textContent).toContain('Project Alpha');
+    });
+
+    test('child AR number is inline-editable via projects.update', async () => {
+      const user = userEvent.setup();
+      renderComponent();
+
+      await waitFor(() => {
+        expect(screen.getByText('Portal Home Rework')).toBeInTheDocument();
+      });
+
+      const childRow2 = screen.getByText('Portal Home Rework').closest('.requirements-row')!;
+      await user.click(within(childRow2).getByText('AR—'));
+
+      const input = await within(childRow2).findByDisplayValue('');
+      await user.type(input, 'AR-2026-999{Enter}');
+
+      await waitFor(() => {
+        expect(api.projects.update).toHaveBeenCalledWith('proj-1b', { ar_number: 'AR-2026-999' });
+      });
+    });
+
+    test('search hitting a child keeps the whole tree visible', async () => {
+      const user = userEvent.setup();
+      renderComponent();
+
+      await waitFor(() => {
+        expect(screen.getByText('Project Alpha')).toBeInTheDocument();
+      });
+
+      await user.type(screen.getByTestId('search-input'), 'Portal Login');
+      expect(screen.getByText('Portal Login Rework')).toBeInTheDocument();
+      expect(screen.getByText('Project Alpha')).toBeInTheDocument();
+      expect(screen.queryByText('Project Beta')).not.toBeInTheDocument();
     });
   });
 

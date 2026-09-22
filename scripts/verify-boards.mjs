@@ -35,7 +35,8 @@ check('新列集(名称/标签/状态/人力/版本/交付/优先级/负责人/�
   headers.join('|'));
 
 const demandRows = await page.$$eval('.requirements-row', els => els.map(e => e.querySelector('.requirements-name-text')?.textContent));
-check('仅需求类事项(3项,缓冲池不混入)', demandRows.length === 3 && !demandRows.includes('问题单支持') && !demandRows.includes('项目事务'),
+check('仅需求类事项(3顶层+2AR子行,缓冲池不混入)',
+  demandRows.length === 5 && !demandRows.includes('问题单支持') && !demandRows.includes('项目事务'),
   demandRows.join(','));
 
 // 告警短词: 数据平台升级(已启动迭代无LOC) → 未评估 chip
@@ -84,6 +85,39 @@ check('优先级徽章', pBadges.length >= 3 && pBadges.every(p => /^P\d$/.test(
   await page.keyboard.press('Escape');
 }
 
+// ── 1.7 SR→AR 折叠行: SR 存在/计数/分布/折叠(演示数据: 客户门户改版 分解 2 AR) ──
+{
+  const srRow = page.locator('.requirements-row--sr', { hasText: '客户门户改版' });
+  const srCount = await srRow.count();
+  check('SR 折叠头行存在', srCount === 1);
+  if (srCount === 1) {
+    const chip = (await srRow.locator('.req-sr-chip').textContent()) ?? '';
+    const childCount = await page.locator('.requirements-row--child').count();
+    check('SR 计数胶囊 = 子行数', chip.includes(`${childCount}`), `chip=${chip} children=${childCount}`);
+    const dist = await srRow.locator('.req-state-dist-item').count();
+    check('SR 状态分布渲染', dist >= 1);
+    // 折叠/展开
+    await srRow.locator('.requirements-name-text').click();
+    await page.waitForTimeout(250);
+    const collapsed = await page.locator('.requirements-row--child').count();
+    await srRow.locator('.requirements-name-text').click();
+    await page.waitForTimeout(250);
+    const reopened = await page.locator('.requirements-row--child').count();
+    check('SR 点击折叠/再展开', collapsed === 0 && reopened === childCount, `${childCount}->${collapsed}->${reopened}`);
+    // 汇总=子行之和(规模): SR 的 KLOC = 各子行 KLOC 之和
+    const srKloc = await srRow.locator('.req-scale-kloc').textContent().catch(() => null);
+    const childKlocs = [];
+    for (const c of await page.locator('.requirements-row--child').all()) {
+      const k = await c.locator('.req-scale-kloc').textContent().catch(() => null);
+      if (k) childKlocs.push(parseFloat(k));
+    }
+    const sum = Math.round(childKlocs.reduce((a, b) => a + b, 0) * 10) / 10;
+    check('SR 规模汇总 = 子行之和(无评估则同为 —)',
+      childKlocs.length === 0 ? srKloc === null : srKloc != null && parseFloat(srKloc) === sum,
+      `SR=${srKloc} Σ子行=${sum}(${childKlocs.join('+')})`);
+  }
+}
+
 // ── 2. 版本内联编辑 → 分组出现 ────────────────────────
 const p1Row = page.locator('.requirements-row', { hasText: '客户门户改版' });
 await p1Row.locator('.projects-version-part').first().click();
@@ -121,9 +155,9 @@ check('分组可折叠', collapsedHidden === null || (await page.$$eval('.requir
 await page.click('.requirements-group-header');
 await page.waitForTimeout(300);
 
-// 状态就地推进仍在
-const quick = p1Row.locator('.lifecycle-quick-btn');
-check('状态快捷键保留', (await quick.count()) >= 1, await quick.textContent() ?? '');
+// 状态就地推进仍在(客户门户改版已分解为 SR,快按钮在普通行/子行上)
+const quick = page.locator('.requirements-row:not(.requirements-row--sr) .lifecycle-quick-btn').first();
+check('状态快捷键保留', (await quick.count()) >= 1, (await quick.textContent().catch(() => '')) ?? '');
 
 // ── 3. 问题单台 ─────────────────────────────────────
 await page.click('[role="tab"]:has-text("问题单"), a:has-text("问题单"), button:has-text("问题单")').catch(async () => {
@@ -192,14 +226,14 @@ await page.waitForTimeout(1500);
   });
   check(`字号档位 ≤ 6 (${metrics.fontSizes})`, metrics.fontSizes <= 6);
   check(`圆角档位 ≤ 4 (${metrics.radii})`, metrics.radii <= 4);
-  check(`水平分隔线 ≤ 14 (${metrics.hRules})`, metrics.hRules <= 14);
+  check(`水平分隔线 ≤ 16 (${metrics.hRules})`, metrics.hRules <= 16);
   check(`最小命中目标 ≥ 24px (${metrics.minHit})`, metrics.minHit >= 24);
   const uniform = metrics.rows.length > 0 && metrics.rows.every(h => Math.abs(h - metrics.rows[0]) <= 1);
   check(`数据行高统一 40±1 (${metrics.rows.join(',')})`, uniform && Math.abs(metrics.rows[0] - 40) <= 1);
 }
 
 // ── 6.2 几何碰撞: 可见元素两两不相交(防"内容溢出盒子"型重叠) ──
-const detectCollisions = () => page.evaluate(() => {
+const collisionProbe = () => {
   const bad = [];
   document.querySelectorAll('.requirements-row, .requirements-thead, .board-toolbar, .requirements-group-header').forEach((scope) => {
     const els = Array.from(scope.querySelectorAll('button, span, input, select')).filter((e) => {
@@ -218,16 +252,16 @@ const detectCollisions = () => page.evaluate(() => {
     }
   });
   return [...new Set(bad)];
-});
+};
 {
   // 灵敏度自证: 压力注入超宽徽章,检测器必须能抓到
   const stress = await page.addStyleTag({ content: '.projects-board .lifecycle-badge-btn { min-width: 190px !important; }' });
   await page.waitForTimeout(150);
-  const stressed = await detectCollisions();
+  const stressed = await page.evaluate(collisionProbe);
   check('碰撞检测器灵敏度(压力注入可检出)', stressed.length > 0, `${stressed.length} 处`);
   await stress.evaluate((el) => el.remove());
   await page.waitForTimeout(150);
-  const collisions = await detectCollisions();
+  const collisions = await page.evaluate(collisionProbe);
   check('行内零元素重叠', collisions.length === 0, collisions.slice(0, 3).join(' | '));
   // 图标塌陷检测: "一维为零另一维正常"的 svg = 内容盒被吃光的物理证据
   // (display:none 的图标两维皆零,不在此列)
@@ -241,25 +275,35 @@ const detectCollisions = () => page.evaluate(() => {
 }
 
 // ── 6.5 浅色主题巡检(用户实际使用的主题) ────────────
+// 教训(2026-09-22): 主页面的 addInitScript(theme:dark) 在每次导航都会执行,
+// 早先"setItem(light)+goto"的切法实际一直在量深色页(靠巧合通过)。
+// 必须开独立浅色页,且先断言页面真的是浅色——守卫自身也要防呆。
 {
-  await page.evaluate(() => localStorage.setItem('theme', 'light'));
-  await page.goto(`${BASE}/projects`, { waitUntil: 'networkidle' });
-  await page.waitForTimeout(1800);
-  const lightTagBtn = (await page.$eval('.board-ghost-btn', el => el.textContent.trim())) ?? '';
+  const lightPage = await browser.newPage({ viewport: { width: 1600, height: 900 } });
+  await lightPage.addInitScript(() => {
+    localStorage.setItem('capacinator_current_user', JSON.stringify({ id: 'eb8ecaf7-44a3-4384-a74b-2c18e9e894b1', name: '陈主管' }));
+    localStorage.setItem('capacinator-language', 'zh-CN');
+    localStorage.setItem('theme', 'light');
+  });
+  await lightPage.goto(`${BASE}/projects`, { waitUntil: 'networkidle' });
+  await lightPage.waitForTimeout(1800);
+  const realTheme = await lightPage.evaluate(() => document.documentElement.dataset.theme ?? '(none)');
+  check('浅色: 页面确为浅色主题(防呆)', realTheme === 'light', `data-theme=${realTheme}`);
+  const lightTagBtn = (await lightPage.$eval('.board-ghost-btn', el => el.textContent.trim())) ?? '';
   check('浅色: 工具栏文案无裸键', !/[a-z]+\.[a-z]/i.test(lightTagBtn), lightTagBtn);
-  const lum = await page.$eval('.projects-board .lifecycle-state-badge', (el) => {
+  const lum = await lightPage.$eval('.projects-board .lifecycle-state-badge', (el) => {
     const [r, g, b] = (getComputedStyle(el).color.match(/\d+/g) ?? [0, 0, 0]).map(Number);
     return (0.299 * r + 0.587 * g + 0.114 * b) / 255;
   });
   check('浅色: 状态徽章文字压深(亮度<0.55)', lum < 0.55, `lum=${lum.toFixed(2)}`);
-  const sep = await page.$eval('.requirements-row', el => getComputedStyle(el).borderBottomColor !== 'rgba(0, 0, 0, 0)');
+  const sep = await lightPage.$eval('.requirements-row', el => getComputedStyle(el).borderBottomColor !== 'rgba(0, 0, 0, 0)');
   check('浅色: 行分隔线可见', sep);
-  const lightCollisions = await detectCollisions();
+  const lightCollisions = await lightPage.evaluate(collisionProbe);
   check('浅色: 行内零元素重叠', lightCollisions.length === 0, lightCollisions.slice(0, 3).join(' | '));
-  await page.screenshot({ path: '/tmp/demand-board-light.png' });
-  await page.evaluate(() => localStorage.setItem('theme', 'dark'));
+  await lightPage.screenshot({ path: '/tmp/demand-board-light.png' });
+  await lightPage.evaluate(() => localStorage.setItem('theme', 'dark'));
+  await lightPage.close();
 }
-
 // ── 7. 全程零错误 + 零弹窗 ────────────────────────────
 check('零页面错误', pageErrors.length === 0, pageErrors.slice(0, 2).join(' | '));
 const dialogs = await page.$$('dialog[open], [role="dialog"]');

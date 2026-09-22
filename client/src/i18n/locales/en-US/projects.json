@@ -408,7 +408,11 @@
     "resizeHint": "Drag to resize, double-click to reset",
     "colComponent": "Component",
     "colScale": "Scale",
-    "filterComponent": "Component"
+    "filterComponent": "Component",
+    "arCount": "{{count}} AR",
+    "srExpandHint": "Click to expand/collapse decomposed ARs",
+    "decompose": "Decompose into AR",
+    "decomposeInto": "Will be created as an AR of \"{{name}}\""
   },
   "version": {
     "productTitle": "Product version, click to edit (e.g. B)",
@@ -459,6 +463,12 @@
   },
   "scale": {
     "tooltip": "From the latest estimation (KLOC & person-months derived from estimated LOC); edit on the detail page",
-    "pmUnit": " pm"
+    "pmUnit": " pm",
+    "srTooltip": "Sum of child estimations; edit each on the detail page"
+  },
+  "arNumber": {
+    "placeholder": "AR no.",
+    "hint": "Click to set the AR number (annotation only, not a gate)",
+    "none": "AR—"
   }
 }

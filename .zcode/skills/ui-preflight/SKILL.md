@@ -12,7 +12,10 @@ description: Capacinator UI 改动的生成前/交付前预检协议。任何要
 1. **判定触及面**：列出本次改动触及的支柱（A-E）与页面。同页被波及的旧交互也算触及面。
 2. **FMEA-lite**：对每根触及支柱列 1-3 个潜在失效模式与设计对策（表格，5-10 分钟）。从"功能会怎么失效"推，不从"以前怎么失败过"推。
 3. **Pre-mortem**：一句话回答"假设两周后用户为这个功能发了红框截图，最可能在圈什么？"取最可能的三个答案变成设计约束。
-4. **红线速查**：自定义控件先查 client/src/index.css 与 client/src/styles/design-system.css 的元素级规则（button 默认 padding/背景/44px 命中）并显式重置；定宽按钮同块必写 padding；写完跑 `npm run lint:ui`。
+4. **红线速查**：
+   - 自定义控件先查 client/src/index.css 与 client/src/styles/design-system.css 的元素级规则（button 默认 padding/背景/44px 命中）并显式重置；定宽按钮同块必写 padding；写完跑 `npm run lint:ui`。
+   - **新浮层/选择器控件优先用已装的 Radix 原语**（dropdown-menu/select/dialog/tabs/toast）——碰撞翻转/键盘/焦点/a11y 免费；手写浮层仅限 useCellPopover 同族扩展。
+   - 视觉决策过契约"视觉战术速查"八条与 Okabe-Ito 默认色板（类别编码专用，同屏 ≤4 色）。
 
 ## 交付前（跑守卫之前）
 

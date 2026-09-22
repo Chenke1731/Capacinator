@@ -40,7 +40,7 @@ See [docs/BUILD_AND_TEST_SETUP.md](docs/BUILD_AND_TEST_SETUP.md) for build syste
 
 ## UI 生成契约（写任何 UI 前必读）
 
-用户用**浅色主题**。契约按**演绎优先**组织：从项目本质（人力主管的排产决策要【正确、快、有把握】）推出五根支柱——A 计算可信（聚合/新鲜度/单位/边界数值/规模）、B 语义透明（域语言/自标注/状态可预测/告警可读）、C 决策流就绪（就地/回路速度/后果可见）、D 呈现健壮（双主题/视口/全局规则兼容/物理可见/i18n/键盘）、E 操作安全（防误触/失败可见/可逆/并发）——历史失败只是各支柱的佐证。写 UI 时先跑 `/ui-preflight`（项目 skill）：FMEA-lite 支柱失效排查 + pre-mortem 红框推演；交付前认知走查四问（想产生此效果吗/看得到操作吗/能联系操作与效果吗/能看到反馈吗）。核心红线：自定义控件先查 index.css/design-system.css 全局元素规则并显式重置（定宽按钮同块必写 padding，`npm run lint:ui` 静态拦截）；交付前双主题渲染人眼看（陌生人三问：看得见吗/知道改什么吗/有反馈吗）。守卫（verify:boards/verify:visual）是兜底，不是第一道防线。全文：[docs/UI_GENERATION_CONTRACT.md](docs/UI_GENERATION_CONTRACT.md)
+用户用**浅色主题**。契约按**演绎优先**组织：从项目本质（人力主管的排产决策要【正确、快、有把握】）推出五根支柱——A 计算可信（聚合/新鲜度/单位/边界数值/规模）、B 语义透明（域语言/自标注/状态可预测/告警可读）、C 决策流就绪（就地/回路速度/后果可见）、D 呈现健壮（双主题/视口/全局规则兼容/物理可见/i18n/键盘）、E 操作安全（防误触/失败可见/可逆/并发）——历史失败只是各支柱的佐证。写 UI 时先跑 `/ui-preflight`（项目 skill）：FMEA-lite 支柱失效排查 + pre-mortem 红框推演；交付前认知走查四问（想产生此效果吗/看得到操作吗/能联系操作与效果吗/能看到反馈吗）。核心红线：自定义控件先查 index.css/design-system.css 全局元素规则并显式重置（定宽按钮同块必写 padding，`npm run lint:ui` 静态拦截）；**新浮层/选择器优先用已装 Radix 原语**；视觉决策过"视觉战术速查"八条与 Okabe-Ito 默认色板；交付前双主题渲染人眼看（陌生人三问：看得见吗/知道改什么吗/有反馈吗）。守卫（verify:boards/verify:visual）是兜底，不是第一道防线。全文：[docs/UI_GENERATION_CONTRACT.md](docs/UI_GENERATION_CONTRACT.md)
 
 ## Project Structure
 

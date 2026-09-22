@@ -278,7 +278,7 @@ const REQ_COLUMNS = [
      默认预算原则: 默认(未拖拽)布局在 1600/1366 容器内零横向滚动,横滚只能由
      用户主动拖宽触发。 */
   /* def: [全列档(≥1680), 中档(1560–1679,藏规模), 窄档(<1560,藏规模+负责人)] */
-  { key: 'name', def: [250, 250, 250], min: 120, max: 640 }, /* Q1-B: 标签迁入名称格,地板吃下腾出预算 */
+  { key: 'name', def: [260, 260, 260], min: 120, max: 640 }, /* 定宽: fr 曾吞掉全部余量(416px 渲染/188 需求),余量归尾部占位轨 */
   /* 编号: SR/AR 外部编号统一列,mono;窄档(<1560)与规模/负责人同藏(2026-09-22 裁决) */
   { key: 'number', def: [84, 80, 0], min: 56, max: 200 },
     { key: 'component', def: [92, 80, 80], min: 72, max: 240 },
@@ -622,12 +622,6 @@ export function Projects() {
       const w = colWidths[c.key] ?? def;
       vars[`--req-w-${c.key}`] = `${w}px`;
       total += w;
-    }
-    /* 名称列被用户拖过=钉死宽(fr 归零),余量转由尾部不可见占位轨吸收——
-       绝不转给真实列,否则承接列被 fr 撑住"拉不动"(2026-09-22 状态列教训) */
-    if (colWidths.name !== undefined) {
-      vars['--req-f-name'] = '0fr';
-      vars['--req-spacer'] = '1fr';
     }
     vars['--req-total'] = `${total}px`;
     return vars as React.CSSProperties;

@@ -819,10 +819,10 @@ describe('Requirements Board (需求台)', () => {
       const table = screen.getByTestId('requirements-table');
       expect(table.style.getPropertyValue('--req-w-version')).toBe('100px');
       expect(table.style.getPropertyValue('--req-w-priority')).toBe('80px');
-      expect(table.style.getPropertyValue('--req-w-name')).toBe('250px');
+      expect(table.style.getPropertyValue('--req-w-name')).toBe('260px');
     });
 
-    test('pinning the name column kills its fr and hands leftover to the spacer', async () => {
+    test('dragging the name column just sets its width (fixed-width, slack to spacer)', async () => {
       localStorage.setItem('req-col-widths-v4', JSON.stringify({ name: 150 }));
       renderComponent();
 
@@ -830,11 +830,9 @@ describe('Requirements Board (需求台)', () => {
         expect(screen.getByText('Project Alpha')).toBeInTheDocument();
       });
 
+      // 2026-09-22 定宽化: 名称不再吞余量(fr 已废除),拖拽=直接定宽
       const table = screen.getByTestId('requirements-table');
-      // 拖窄名称=钉死: 名称 fr 归零,状态列承接余量(2026-09-22 用户"拉不动"修复)
       expect(table.style.getPropertyValue('--req-w-name')).toBe('150px');
-      expect(table.style.getPropertyValue('--req-f-name')).toBe('0fr');
-      expect(table.style.getPropertyValue('--req-spacer')).toBe('1fr');
     });
 
     test('double-click on a grip resets that column and persists the change', async () => {

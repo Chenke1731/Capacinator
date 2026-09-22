@@ -38,14 +38,11 @@ export const SimpleModal: React.FC<SimpleModalProps> = ({
     };
   }, [isOpen, handleEscape]);
 
-  console.log('SimpleModal render - isOpen:', isOpen);
   
   if (!isOpen) {
-    console.log('SimpleModal not rendering - isOpen is false');
     return null;
   }
 
-  console.log('SimpleModal rendering backdrop and content');
   
   return (
     <>
@@ -54,7 +51,6 @@ export const SimpleModal: React.FC<SimpleModalProps> = ({
         className="fixed inset-0 z-50"
         style={{ backgroundColor: 'var(--modal-backdrop)' }}
         onClick={(e) => {
-          console.log('Backdrop clicked!');
           e.stopPropagation();
           onClose();
         }}

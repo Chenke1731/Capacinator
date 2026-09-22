@@ -73,3 +73,4 @@ release/
 
 # Server logs
 server.logtests/visual/__screenshots__/*.diff.png
+.zcode/

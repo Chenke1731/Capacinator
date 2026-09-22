@@ -109,7 +109,6 @@ export default function ProjectTypes() {
 
   const handleCreateSubType = (parentId: string) => {
     // TODO: Implement sub-type creation modal
-    console.log('Create sub-type for:', parentId);
   };
 
   const columns: Column<ProjectType>[] = [

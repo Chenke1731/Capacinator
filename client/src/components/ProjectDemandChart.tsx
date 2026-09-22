@@ -331,27 +331,10 @@ export function ProjectDemandChart({ projectId, projectName }: ProjectDemandChar
       const startDataPoint = currentDailyData[start];
       const endDataPoint = currentDailyData[end];
 
-      console.log('🔄 Brush change - creating dates from:', {
-        start, end,
-        startDataPoint: startDataPoint?.date,
-        endDataPoint: endDataPoint?.date,
-        startIsString: typeof startDataPoint?.date === 'string',
-        endIsString: typeof endDataPoint?.date === 'string'
-      });
 
       const startDate = new Date(startDataPoint.date);
       const endDate = new Date(endDataPoint.date);
 
-      console.log('🔄 Created Date objects:', {
-        startDate,
-        endDate,
-        startDateIsDate: startDate instanceof Date,
-        endDateIsDate: endDate instanceof Date,
-        startDateValid: !isNaN(startDate.getTime()),
-        endDateValid: !isNaN(endDate.getTime()),
-        startDateISO: startDate.toISOString?.(),
-        endDateISO: endDate.toISOString?.()
-      });
 
       // Calculate pixels per day based on the selected range
       const totalDays = Math.max(1, (endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24));
@@ -364,13 +347,6 @@ export function ProjectDemandChart({ projectId, projectName }: ProjectDemandChar
         pixelsPerDay
       };
 
-      console.log('🔄 Brush change updating viewport:', {
-        brushIndices: { start, end },
-        viewport: newViewport,
-        startDateType: typeof newViewport.startDate,
-        endDateType: typeof newViewport.endDate,
-        pixelsPerDay
-      });
 
       setSharedViewport(newViewport);
     }
@@ -397,11 +373,6 @@ export function ProjectDemandChart({ projectId, projectName }: ProjectDemandChar
       const validStartIndex = Math.max(0, startIndex !== -1 ? startIndex : 0);
       const validEndIndex = Math.min(currentDailyData.length - 1, endIndex !== -1 ? endIndex : currentDailyData.length - 1);
       
-      console.log('🔄 Viewport synchronization:', {
-        viewport: { start: startDateStr, end: endDateStr },
-        dailyDataRange: { start: currentDailyData[0]?.date, end: currentDailyData[currentDailyData.length - 1]?.date },
-        brushIndices: { start: validStartIndex, end: validEndIndex }
-      });
       
       setBrushStart(validStartIndex);
       setBrushEnd(validEndIndex);
@@ -444,16 +415,6 @@ export function ProjectDemandChart({ projectId, projectName }: ProjectDemandChar
     const availableWidth = chartDimensions?.width || 800;
     const pixelsPerDay = Math.max(1, Math.min(10, availableWidth / totalDays));
 
-    console.log('📐 Initial viewport calculation:', {
-      brushInitialized,
-      brushStart,
-      brushEnd,
-      startIndex,
-      endIndex,
-      startDate: startDate.toISOString().split('T')[0],
-      endDate: endDate.toISOString().split('T')[0],
-      pixelsPerDay
-    });
 
     return {
       startDate,
@@ -466,7 +427,6 @@ export function ProjectDemandChart({ projectId, projectName }: ProjectDemandChar
   // Synchronize sharedViewport with initialViewport when brush initializes
   React.useEffect(() => {
     if (brushInitialized && (!sharedViewport || !sharedViewport.startDate || Object.keys(sharedViewport.startDate).length === 0)) {
-      console.log('🔄 Synchronizing sharedViewport with initialViewport after brush initialization');
       setSharedViewport(initialViewport);
     }
   }, [brushInitialized, initialViewport, sharedViewport]);
@@ -522,30 +482,6 @@ export function ProjectDemandChart({ projectId, projectName }: ProjectDemandChar
       initialStart = Math.max(0, initialStart);
       initialEnd = Math.min(currentDailyData.length - 1, initialEnd);
 
-      console.log('🎯 Smart brush initialization:', {
-        phaseDateRange: {
-          start: phaseMinDate.toISOString().split('T')[0],
-          end: phaseMaxDate.toISOString().split('T')[0]
-        },
-        fullProjectDateRange: {
-          start: dateRange.start.toISOString().split('T')[0],
-          end: dateRange.end.toISOString().split('T')[0]
-        },
-        withPadding: {
-          start: targetStartStr,
-          end: targetEndStr
-        },
-        brushIndices: { start: initialStart, end: initialEnd },
-        dailyDataRange: {
-          start: currentDailyData[0]?.date,
-          end: currentDailyData[currentDailyData.length - 1]?.date,
-          length: currentDailyData.length
-        },
-        actualBrushRange: {
-          start: currentDailyData[initialStart]?.date,
-          end: currentDailyData[initialEnd]?.date
-        }
-      });
 
       setBrushStart(initialStart);
       setBrushEnd(initialEnd);
@@ -595,16 +531,6 @@ export function ProjectDemandChart({ projectId, projectName }: ProjectDemandChar
             right: actualChartLeft + actualChartWidth
           };
           
-          console.log('📏 Chart dimensions measured (EXACT chart area):', dimensions);
-          console.log('📏 Raw measurements:', { 
-            surfaceRect: surfaceRect.width, 
-            wrapperRect: wrapperRect.width,
-            containerRect: containerRect.width,
-            actualChartLeft,
-            actualChartWidth,
-            cartesianGridFound: !!cartesianGrid,
-            yAxisFound: !!yAxisElement
-          });
           setChartDimensions(dimensions);
         } else {
           // Fallback to container-based calculation
@@ -614,7 +540,6 @@ export function ProjectDemandChart({ projectId, projectName }: ProjectDemandChar
             right: containerRect.width - 30
           };
           
-          console.log('📏 Using fallback dimensions:', fallbackDimensions);
           setChartDimensions(fallbackDimensions);
         }
       }
@@ -647,13 +572,6 @@ export function ProjectDemandChart({ projectId, projectName }: ProjectDemandChar
   // Log what data is actually being sent to the chart
   React.useEffect(() => {
     if (currentData.length > 0) {
-      console.log('📊 Chart currentData (what X-axis sees):', {
-        length: currentData.length,
-        start: currentData[0]?.date,
-        end: currentData[currentData.length - 1]?.date,
-        ALL_DATES: currentData.map(d => d.date),
-        context: 'This is what the AreaChart component receives'
-      });
     }
   }, [currentData]);
 

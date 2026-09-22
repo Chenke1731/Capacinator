@@ -24,10 +24,6 @@ export const DemandReport: React.FC<DemandReportProps> = ({
   if (!data) return <div className="loading">{t('reports:loaders.demand')}</div>;
 
   // Debug logging
-  console.log('DemandReport data:', data);
-  console.log('byProject:', data.byProject);
-  console.log('timeline:', data.timeline);
-  console.log('trendOverTime:', data.trendOverTime);
 
   // Define columns for high-demand projects table
   const projectDemandColumns: Column[] = [

@@ -11,12 +11,10 @@ export const useModal = (initialState: boolean = false): UseModalReturn => {
   const [isOpen, setIsOpen] = useState(initialState);
 
   const open = useCallback(() => {
-    console.log('useModal: open() called');
     setIsOpen(true);
   }, []);
 
   const close = useCallback(() => {
-    console.log('useModal: close() called');
     console.trace('Close called from:');
     setIsOpen(false);
   }, []);

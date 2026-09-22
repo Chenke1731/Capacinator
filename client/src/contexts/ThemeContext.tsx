@@ -26,7 +26,6 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
     const root = document.documentElement;
     const body = document.body;
     
-    // console.log('Theme Context: Applying theme:', theme);
     root.setAttribute('data-theme', theme);
     body.setAttribute('data-theme', theme);
     

@@ -1,4 +1,5 @@
 import i18n, { getLocale } from '../i18n';
+import { toISODateString } from './dateUtils';
 
 export function formatDate(date: string | Date | null | undefined): string {
   if (!date) return i18n.t('common:na');
@@ -90,8 +91,8 @@ export function getDefaultReportDateRange(): { startDate: string; endDate: strin
   const endDate = new Date(today.getFullYear() + 1, today.getMonth(), 0); // Last day of current month next year
   
   return {
-    startDate: startDate.toISOString().split('T')[0],
-    endDate: endDate.toISOString().split('T')[0]
+    startDate: toISODateString(startDate),
+    endDate: toISODateString(endDate)
   };
 }
 

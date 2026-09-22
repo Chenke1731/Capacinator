@@ -1,3 +1,4 @@
+import { toISODateString } from './dateUtils';
 /**
  * Phase Duration Utilities
  *
@@ -62,7 +63,7 @@ export function calculatePhaseDates(
   end.setDate(end.getDate() + (durationWeeks * 7));
 
   return {
-    startDate: start.toISOString().split('T')[0],
-    endDate: end.toISOString().split('T')[0]
+    startDate: toISODateString(start),
+    endDate: toISODateString(end)
   };
 }

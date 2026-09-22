@@ -57,10 +57,6 @@ export const UtilizationReport: React.FC<UtilizationReportProps> = ({
   if (!data) return <div className="loading">{t('reports:loaders.utilization')}</div>;
 
   // Debug info
-  console.log('UtilizationReport data:', data);
-  console.log('Date filters:', filters);
-  console.log('peopleUtilization:', data.peopleUtilization);
-  console.log('roleUtilization:', data.roleUtilization);
 
   // Define columns for team utilization table
   const utilizationColumns: Column[] = [

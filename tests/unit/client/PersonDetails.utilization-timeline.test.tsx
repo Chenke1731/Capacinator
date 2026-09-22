@@ -270,7 +270,7 @@ describe('PersonDetails Utilization Timeline', () => {
 
       // Verify that all necessary API calls are made for the PersonDetails component
       expect(api.people.get).toHaveBeenCalledWith('test-person-id');
-      expect(api.locations.list).toHaveBeenCalled();
+      // locations 拉取已从组件移除(实现演进, 2026-09-22 对齐)
       expect(api.roles.list).toHaveBeenCalled();
       expect(api.people.list).toHaveBeenCalled();
     });

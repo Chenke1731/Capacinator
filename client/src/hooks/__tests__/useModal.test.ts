@@ -35,7 +35,6 @@ describe('useModal', () => {
     });
 
     expect(result.current.isOpen).toBe(true);
-    expect(consoleLogSpy).toHaveBeenCalledWith('useModal: open() called');
   });
 
   it('should close modal when close() is called', () => {
@@ -46,8 +45,6 @@ describe('useModal', () => {
     });
 
     expect(result.current.isOpen).toBe(false);
-    expect(consoleLogSpy).toHaveBeenCalledWith('useModal: close() called');
-    expect(consoleTraceSpy).toHaveBeenCalledWith('Close called from:');
   });
 
   it('should toggle modal state when toggle() is called', () => {

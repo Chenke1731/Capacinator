@@ -25,14 +25,11 @@ export const Login: React.FC<LoginProps> = ({ onClose }) => {
   const { data: people, isLoading, error } = useQuery({
     queryKey: queryKeys.people.all,
     queryFn: async () => {
-      console.log('🔄 Fetching people data...');
       const response = await api.people.list();
-      // console.log('✅ People data received:', response.data.data?.length, 'people');
       return response.data.data as Person[];
     },
   });
 
-  // console.log('👥 Login component state:', { 
   //   peopleCount: people?.length, 
   //   isLoading, 
   //   hasError: !!error,

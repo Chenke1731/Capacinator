@@ -15,7 +15,6 @@ interface TestModalProps {
 }
 
 export const TestModal: React.FC<TestModalProps> = ({ isOpen, onClose }) => {
-  console.log('TestModal render - isOpen:', isOpen);
   
   const handleClose = () => {
     // Give time for animation before calling onClose

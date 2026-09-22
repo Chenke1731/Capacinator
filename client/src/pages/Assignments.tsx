@@ -20,7 +20,6 @@ import './Assignments.css';
 
 
 export default function Assignments() {
-  // console.log('Assignments component rendering');
 
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -924,7 +923,6 @@ export default function Assignments() {
       <AssignmentModalNew
         isOpen={isAddModalOpen}
         onClose={() => {
-          // console.log('Modal close called');
           setIsAddModalOpen(false);
         }}
         onSuccess={handleAssignmentSuccess}

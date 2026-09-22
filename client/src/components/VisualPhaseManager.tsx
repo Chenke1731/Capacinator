@@ -43,9 +43,7 @@ export function VisualPhaseManager({ projectId, projectName: _projectName, onPha
   // Debug alignment dimensions
   React.useEffect(() => {
     if (alignmentDimensions) {
-      console.log('📈 VisualPhaseManager received alignment dimensions:', alignmentDimensions);
     } else {
-      console.log('⚠️ VisualPhaseManager: No alignment dimensions provided');
     }
   }, [alignmentDimensions]);
 
@@ -161,20 +159,12 @@ export function VisualPhaseManager({ projectId, projectName: _projectName, onPha
         pixelsPerDay: fittedPixelsPerDay
       };
 
-      console.log('📈 VisualPhaseManager adjusted viewport for alignment:', {
-        original: externalViewport,
-        adjusted: adjustedViewport,
-        totalDays,
-        availableWidth,
-        fittedPixelsPerDay
-      });
 
       return adjustedViewport;
     }
 
     // ALWAYS use external viewport if provided (for shared timeline control) - but only if valid
     if (externalViewport && isValidViewport(externalViewport)) {
-      console.log('📈 VisualPhaseManager using external viewport:', externalViewport);
       return externalViewport;
     }
 

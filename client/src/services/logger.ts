@@ -109,7 +109,6 @@ export class ClientLogger {
       const timestamp = entry.timestamp.split('T')[1]?.split('.')[0] || '';
       const component = entry.component ? `[${entry.component}]` : '';
       
-      console.log(`${emoji} ${timestamp} ${component} ${entry.message}`, entry.metadata || '');
       
       if (entry.error) {
         console.error('Error details:', entry.error);

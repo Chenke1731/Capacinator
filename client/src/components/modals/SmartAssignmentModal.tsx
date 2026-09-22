@@ -203,7 +203,6 @@ export function SmartAssignmentModal({
     queryKey: queryKeys.roles.list(),
     queryFn: async () => {
       const response = await api.roles.list();
-      // console.log('Roles response:', response);
       const payload = response.data as any;
       return Array.isArray(payload) ? payload : payload?.data || [];
     }
@@ -355,7 +354,6 @@ export function SmartAssignmentModal({
   // Create assignment mutation
   const createAssignmentMutation = useMutation({
     mutationFn: async (data: AssignmentCreateData) => {
-      console.log('Creating assignment with data:', data);
       return api.assignments.create(data);
     },
     onSuccess: (_response) => {
@@ -494,9 +492,6 @@ export function SmartAssignmentModal({
     }
     
     // Log the data for debugging
-    console.log('Submitting role_id:', assignmentData.role_id);
-    console.log('Submitting project_id:', assignmentData.project_id);
-    console.log('Full assignment data:', JSON.stringify(assignmentData, null, 2));
 
     createAssignmentMutation.mutate(assignmentData);
   };

@@ -262,36 +262,4 @@ describe('SimpleModal Component', () => {
     });
   });
 
-  describe('Console Logging (Debug)', () => {
-    it('logs when rendering', () => {
-      render(<SimpleModal {...defaultProps} />);
-      expect(console.log).toHaveBeenCalledWith('SimpleModal render - isOpen:', true);
-      expect(console.log).toHaveBeenCalledWith('SimpleModal rendering backdrop and content');
-    });
-
-    it('logs when not rendering', () => {
-      render(<SimpleModal {...defaultProps} isOpen={false} />);
-      expect(console.log).toHaveBeenCalledWith('SimpleModal render - isOpen:', false);
-      expect(console.log).toHaveBeenCalledWith('SimpleModal not rendering - isOpen is false');
-    });
-
-    it('logs when backdrop is clicked', () => {
-      const { container } = render(<SimpleModal {...defaultProps} />);
-      // Find the backdrop element that has the backgroundColor style
-      let backdrop = null;
-      container.querySelectorAll('[style]').forEach(el => {
-        if (el.getAttribute('style')?.includes('backgroundColor')) {
-          backdrop = el;
-        }
-      });
-      
-      if (backdrop) {
-        fireEvent.click(backdrop);
-        expect(console.log).toHaveBeenCalledWith('Backdrop clicked!');
-      } else {
-        // If no backdrop found, at least verify the component rendered
-        expect(console.log).toHaveBeenCalledWith('SimpleModal rendering backdrop and content');
-      }
-    });
-  });
 });

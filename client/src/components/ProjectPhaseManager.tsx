@@ -310,10 +310,7 @@ export const ProjectPhaseManager: React.FC<ProjectPhaseManagerProps> = ({
           try {
             // Adjust overlapping phases if needed
             if (phasesToAdjust.length > 0 && adjustOverlapping) {
-              console.log(`Adjusting ${phasesToAdjust.length} overlapping phases...`);
-              console.log('Phases to adjust:', phasesToAdjust);
               await bulkUpdateMutation.mutateAsync(phasesToAdjust);
-              console.log('Successfully adjusted overlapping phases');
             }
           } catch (error: any) {
             console.error('Error adjusting overlapping phases:', error);

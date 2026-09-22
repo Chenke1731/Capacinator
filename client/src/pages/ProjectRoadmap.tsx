@@ -297,20 +297,13 @@ export default function ProjectRoadmap() {
 
   // Handle phase move/resize from InteractiveTimeline
   const handlePhaseMove = useCallback((itemId: string, newStartDate: Date, newEndDate: Date) => {
-    console.log('🔄 Phase move/resize requested:', {
-      itemId,
-      newStartDate: newStartDate.toISOString(),
-      newEndDate: newEndDate.toISOString()
-    });
     
     // Find which project this phase belongs to
     const projectWithPhase = projects?.find(p => p.phases.some(ph => ph.id === itemId));
     if (!projectWithPhase) {
-      console.log('⚠️ Could not find project for phase:', itemId);
       return;
     }
     
-    console.log('📦 Found project:', projectWithPhase.name);
 
     // Update in-memory state optimistically (immediate UI feedback)
     queryClient.setQueryData(queryKeys.projects.roadmap(debouncedFilters), (oldData: ProjectWithPhases[] | undefined) => {
@@ -1059,7 +1052,6 @@ export default function ProjectRoadmap() {
                     onItemEdit={handlePhaseEdit}
                     onItemAdd={(afterItemId, position) => {
                       // Handle phase insertion - for now just log
-                      console.log('Insert phase requested:', { afterItemId, position, projectId: project.id });
                       // TODO: Implement phase insertion functionality
                     }}
                     showGrid={false} // Grid is handled by the parent timeline

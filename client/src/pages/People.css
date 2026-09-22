@@ -10,10 +10,10 @@
 
 .person-name .name {
   font-weight: 500;
-  /* 人员名链接为可交互主体信息: 主色文字令牌保证双主题 AA(2026-09-22 全站清零) */
-  color: var(--primary-text) !important;
+  /* 主色文字令牌保证双主题 AA; 跨文件同名规则已从 App.css 删除, 无需 !important */
+  color: var(--primary-text);
 }
-.person-name .name:hover { color: var(--primary-hover) !important; }
+.person-name .name:hover { color: var(--primary-hover); }
 
 
 .person-name .email {

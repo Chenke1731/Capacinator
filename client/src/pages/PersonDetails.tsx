@@ -1,3 +1,4 @@
+import { toISODateString } from '../utils/dateUtils';
 import React, { useState, useMemo } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
@@ -301,8 +302,9 @@ export default function PersonDetails() {
   const currentDate = new Date();
   const startDate = new Date(currentDate.getFullYear() - 1, 0, 1); // Start of previous year
   const endDate = new Date(currentDate.getFullYear() + 1, 11, 31); // End of next year
-  const standardStartDate = startDate.toISOString().split('T')[0];
-  const standardEndDate = endDate.toISOString().split('T')[0];
+  // 本地日历日期(toISOString 是 UTC, 东八区会把首尾各偏一天)
+  const standardStartDate = toISODateString(startDate);
+  const standardEndDate = toISODateString(endDate);
 
   // Utilization timeline query — feeds PersonAllocationChart (allocation vs
   // availability section) with a consistent month range
@@ -806,7 +808,6 @@ export default function PersonDetails() {
         navigate(`/assignments?person=${person.id}&view=timeline`);
         break;
       default:
-        console.log('Action not implemented:', action);
     }
   };
 

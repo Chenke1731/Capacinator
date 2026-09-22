@@ -86,6 +86,8 @@ module.exports = {
     {
       displayName: 'client',
       testEnvironment: 'jsdom',
+      // 框架加载前固定时区: date/dateUtils 按本地日历断言, 容器 TZ=UTC 会跨日
+      setupFiles: ['<rootDir>/tests/setup.tz.js'],
       testMatch: [
         '<rootDir>/tests/unit/client/**/*.test.tsx',
         '<rootDir>/tests/unit/client/**/*.test.ts',

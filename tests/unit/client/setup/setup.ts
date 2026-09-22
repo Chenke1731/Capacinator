@@ -126,12 +126,15 @@ if (typeof document !== 'undefined') {
   } as any;
 }
 
-// Mock localStorage for tests
+// localStorage: 带真实存储语义的实现(i18n 持久化等测试依赖读写回环)。
+// 不用 jest.fn 空壳——setItem 不落盘且会被根配置 resetMocks 清掉实现(2026-09-22
+// 之前 i18n 两项常红的原因); 也无任何测试把它当 spy 断言,普通函数即可。
+const storage = new Map<string, string>();
 const localStorageMock = {
-  getItem: jest.fn(),
-  setItem: jest.fn(),
-  removeItem: jest.fn(),
-  clear: jest.fn(),
+  getItem: (key: string) => (storage.has(key) ? storage.get(key)! : null),
+  setItem: (key: string, value: string) => { storage.set(key, String(value)); },
+  removeItem: (key: string) => { storage.delete(key); },
+  clear: () => { storage.clear(); },
 };
 Object.defineProperty(window, 'localStorage', {
   value: localStorageMock,

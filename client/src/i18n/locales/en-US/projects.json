@@ -410,6 +410,27 @@
     "productPlaceholder": "unset",
     "releasePlaceholder": "unset"
   },
+  "prioritySelect": {
+    "hint": "Click to change priority",
+    "title": "Priority"
+  },
+  "ownerSelect": {
+    "hint": "Click to set owner",
+    "title": "Owner",
+    "searchPlaceholder": "Search name…",
+    "clear": "Clear owner",
+    "empty": "No matching people",
+    "none": "Unassigned"
+  },
+  "tagSelect": {
+    "hint": "Click to edit tags",
+    "title": "Edit tags",
+    "searchPlaceholder": "Search tags…",
+    "empty": "No matching tags",
+    "none": "none",
+    "newPlaceholder": "New tag…",
+    "newAdd": "Create & apply"
+  },
   "ticketsBoard": {
     "ledgerNote": "The monthly volume ledger and suggested buffer rate will live here (deferred); for now this shows the buffer footprint — it keeps consuming capacity as usual.",
     "empty": "No ticket-pool items",

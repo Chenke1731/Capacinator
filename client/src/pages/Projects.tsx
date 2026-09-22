@@ -2,9 +2,11 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Plus, Minus, Edit2, Trash2, Tag, ChevronDown, ChevronRight, Search, X } from 'lucide-react';
+import { Plus, Minus, Edit2, Trash2, Tag, ChevronDown, ChevronRight, Search, X, Pencil } from 'lucide-react';
 import { api } from '../lib/api-client';
 import { queryKeys } from '../lib/queryKeys';
+import { useCellPopover } from '../hooks/useCellPopover';
+import { PriorityCell, OwnerCell, TagsCell } from '../components/boards/EditableCells';
 import { LoadingSpinner } from '../components/ui/LoadingSpinner';
 import { ErrorMessage } from '../components/ui/ErrorMessage';
 import ProjectModal from '../components/modals/ProjectModal';
@@ -25,15 +27,21 @@ import './Projects.css';
  * 砍掉: 起止日期列 / 查看详情按钮(行点击即详情) / 人力分配旧弹窗。
  */
 
-/** 版本/交付计划各自内联可编辑(两列) */
+/** 版本/交付计划各自内联可编辑(两列); onSaved 回报字段与新值供跳组高亮 */
 function VersionPart({ project, field, placeholder, onSaved }: {
-  project: any; field: 'product_version' | 'release_version'; placeholder: string; onSaved: () => void;
+  project: any;
+  field: 'product_version' | 'release_version';
+  placeholder: string;
+  onSaved: (field: 'product_version' | 'release_version', value: string | null) => void;
 }) {
   const [editing, setEditing] = useState(false);
   const [draft, setDraft] = useState('');
   const updateMutation = useMutation({
     mutationFn: (patch: Record<string, string | null>) => api.projects.update(project.id, patch),
-    onSuccess: () => { setEditing(false); onSaved(); }
+    onSuccess: (_data, patch) => {
+      setEditing(false);
+      onSaved(field, (patch[field] as string | null) ?? null);
+    }
   });
   const value = (project[field] ?? '') as string;
   if (editing) {
@@ -58,12 +66,13 @@ function VersionPart({ project, field, placeholder, onSaved }: {
     );
   }
   return (
-    <span onClick={(e) => e.stopPropagation()}>
+    <span className="req-edit-cell req-edit-cell--version" onClick={(e) => e.stopPropagation()}>
       <button type="button" className="projects-version-part projects-version-part--single"
               title={placeholder}
               onClick={() => { setDraft(value); setEditing(true); }}>
         {value || <span className="text-muted">{placeholder}</span>}
       </button>
+      <Pencil size={10} className="req-pencil" aria-hidden />
     </span>
   );
 }
@@ -73,10 +82,8 @@ function VersionPart({ project, field, placeholder, onSaved }: {
 function StaffingCell({ project, onChanged }: { project: any; onChanged: () => void }) {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
-  const [open, setOpen] = useState(false);
+  const pop = useCellPopover('staff-pop', 282, 300);
   const [busy, setBusy] = useState(false);
-  const cellRef = useRef<HTMLSpanElement>(null);
-  const [pos, setPos] = useState({ top: -9999, left: -9999 });
 
   const s = project.staffing_summary;
   const fmt = (n: number) => Number(n ?? 0).toFixed(1);
@@ -88,38 +95,11 @@ function StaffingCell({ project, onChanged }: { project: any; onChanged: () => v
       const payload = response.data as any;
       return Array.isArray(payload) ? payload : payload?.data || [];
     },
-    enabled: open
+    enabled: pop.open
   });
   const roleList = Array.isArray(roles) ? roles : ((roles as any)?.data ?? []);
   const seRole = roleList.find((r: any) => r.name === 'SE');
   const devRole = roleList.find((r: any) => r.name === '开发');
-
-  useEffect(() => {
-    if (!open) return;
-    const onDown = (e: MouseEvent) => {
-      const target = e.target as Node;
-      if (cellRef.current?.contains(target)) return;
-      if ((target as HTMLElement).closest?.('.staff-pop')) return;
-      setOpen(false);
-    };
-    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setOpen(false);
-    document.addEventListener('mousedown', onDown);
-    document.addEventListener('keydown', onKey);
-    return () => {
-      document.removeEventListener('mousedown', onDown);
-      document.removeEventListener('keydown', onKey);
-    };
-  }, [open]);
-
-  const toggle = () => {
-    if (open) { setOpen(false); return; }
-    const r = cellRef.current?.getBoundingClientRect();
-    if (r) setPos({
-      top: Math.min(r.bottom + 6, window.innerHeight - 300),
-      left: Math.max(8, Math.min(r.left, window.innerWidth - 260))
-    });
-    setOpen(true);
-  };
 
   /** ±0.5 步进池占位: 无行则建,归零则删 */
   const step = async (side: 'design' | 'dev', delta: number) => {
@@ -152,8 +132,8 @@ function StaffingCell({ project, onChanged }: { project: any; onChanged: () => v
   ];
 
   return (
-    <span ref={cellRef} className="req-staff-wrap" onClick={(e) => e.stopPropagation()}>
-      <button type="button" className="req-staff" onClick={toggle}
+    <span ref={pop.anchorRef} className="req-staff-wrap" onClick={(e) => e.stopPropagation()}>
+      <button type="button" className="req-staff" onClick={pop.toggle}
               title={t('projects:staffing.adjustHint')}>
         {sides.map(([label, side, v]) => (
           <span className="req-staff-row" key={label}
@@ -168,8 +148,8 @@ function StaffingCell({ project, onChanged }: { project: any; onChanged: () => v
         ))}
       </button>
 
-      {open && (
-        <div className="lc-popover staff-pop" style={{ top: pos.top, left: pos.left }}>
+      {pop.open && (
+        <div className="lc-popover staff-pop" style={pop.style}>
           <div className="lc-popover-title">{t('projects:staffing.adjustTitle')}</div>
           {sides.map(([label, side, v]) => (
             <div key={label} className="staff-pop-row">
@@ -198,10 +178,7 @@ function StaffingCell({ project, onChanged }: { project: any; onChanged: () => v
   );
 }
 
-function PriorityBadge({ priority }: { priority: number }) {
-  const level = Math.min(5, Math.max(1, Number(priority) || 5));
-  return <span className={`req-pri req-pri--${level}`}>P{level}</span>;
-}
+/** 优先级/负责人/标签三列由 EditableCells 提供(锚定气泡就地编辑) */
 
 const UNVERSIONED = '__unversioned__';
 
@@ -258,6 +235,9 @@ export function Projects() {
   const [collapsed, setCollapsed] = useState<Set<string>>(new Set());
   const [confirmingDelete, setConfirmingDelete] = useState<string | null>(null);
   const [tagManagerOpen, setTagManagerOpen] = useState(false);
+  /** 就地保存反馈: 行 flash + 版本跳组后目标组头高亮 */
+  const [flashId, setFlashId] = useState<string | null>(null);
+  const [flashGroup, setFlashGroup] = useState<string | null>(null);
 
   const addProjectModal = useModal();
   const editProjectModal = useModal();
@@ -336,6 +316,32 @@ export function Projects() {
   };
 
   const invalidate = () => queryClient.invalidateQueries({ queryKey: queryKeys.projects.all });
+
+  const flashRow = (id: string) => {
+    setFlashId(id);
+    window.setTimeout(() => setFlashId((cur) => (cur === id ? null : cur)), 900);
+  };
+
+  /** 行内保存统一出口: 刷新 + 行 flash */
+  const handleCellSaved = (projectId: string) => {
+    invalidate();
+    flashRow(projectId);
+  };
+
+  /** 版本保存: 行 flash + 目标分组头高亮(行可能跳组,给落点) */
+  const handleVersionSaved = (
+    project: any,
+    field: 'product_version' | 'release_version',
+    value: string | null
+  ) => {
+    flashRow(project.id);
+    const product = String((field === 'product_version' ? value : project.product_version) ?? '').trim() || UNVERSIONED;
+    const release = String((field === 'release_version' ? value : project.release_version) ?? '').trim() || UNVERSIONED;
+    setFlashGroup(`${product}::${release}`);
+    window.setTimeout(() => setFlashGroup(null), 1400);
+  };
+  const flashProduct = flashGroup?.split('::')[0] ?? null;
+  const flashRelease = flashGroup?.split('::')[1] ?? null;
 
   if (isLoading) return <LoadingSpinner />;  if (isLoading) return <LoadingSpinner />;
   if (error) return <ErrorMessage message={(error as any)?.message || t('projects:loadError')} />;
@@ -417,7 +423,7 @@ export function Projects() {
             <div key={groupKey} className="requirements-group">
               <button
                 type="button"
-                className="requirements-group-header"
+                className={`requirements-group-header ${(group.product ?? UNVERSIONED) === flashProduct ? 'requirements-group-header--flash' : ''}`}
                 onClick={() => toggleGroup(groupKey)}
               >
                 {isCollapsed ? <ChevronRight size={15} /> : <ChevronDown size={15} />}
@@ -432,7 +438,7 @@ export function Projects() {
               {!isCollapsed &&
                 group.releases.map((rg) => (
                   <div key={rg.release ?? UNVERSIONED} className="requirements-release">
-                    <div className="requirements-release-header">
+                    <div className={`requirements-release-header ${(groupKey === flashProduct && (rg.release ?? UNVERSIONED) === flashRelease) ? 'requirements-release-header--flash' : ''}`}>
                       {rg.release ?? t('projects:board.unscheduledGroup')}
                       <span className="requirements-group-count">
                         {t('projects:board.groupCount', { count: rg.projects.length })}
@@ -444,7 +450,7 @@ export function Projects() {
                       return (
                         <div
                           key={project.id}
-                          className={`requirements-row ${warned ? 'requirements-row--warned' : ''}`}
+                          className={`requirements-row ${warned ? 'requirements-row--warned' : ''} ${project.id === flashId ? 'requirements-row--flash' : ''}`}
                           onClick={() => navigate(`/projects/${project.id}`)}
                         >
                           <span className="requirements-name">
@@ -469,35 +475,24 @@ export function Projects() {
                             )}
                           </span>
 
-                          <span className="req-tags-cell">
-                            {(project.tags ?? []).slice(0, 2).map((tag: any) => (
-                              <span key={tag.id} className="req-tag"
-                                    style={{ color: tag.color || 'var(--text-secondary)', background: `${tag.color || '#888888'}2b` }}>
-                                {tag.name}
-                              </span>
-                            ))}
-                            {(project.tags?.length ?? 0) > 2 && (
-                              <span className="req-tag req-tag--more"
-                                    title={(project.tags ?? []).slice(2).map((tg: any) => tg.name).join('、')}>
-                                +{(project.tags?.length ?? 0) - 2}
-                              </span>
-                            )}
-                          </span>
+                          <TagsCell project={project} allTags={tags} onSaved={() => handleCellSaved(project.id)} />
 
                           <span className="req-cell-center" onClick={(e) => e.stopPropagation()}>
                             <LifecycleCellControls project={project} />
                           </span>
 
-                          <StaffingCell project={project} onChanged={invalidate} />
+                          <StaffingCell project={project} onChanged={() => handleCellSaved(project.id)} />
 
                           <VersionPart project={project} field="product_version"
-                            placeholder={t('projects:version.productPlaceholder')} onSaved={invalidate} />
+                            placeholder={t('projects:version.productPlaceholder')}
+                            onSaved={(field, value) => handleVersionSaved(project, field, value)} />
                           <VersionPart project={project} field="release_version"
-                            placeholder={t('projects:version.releasePlaceholder')} onSaved={invalidate} />
+                            placeholder={t('projects:version.releasePlaceholder')}
+                            onSaved={(field, value) => handleVersionSaved(project, field, value)} />
 
-                          <PriorityBadge priority={project.priority} />
+                          <PriorityCell project={project} onSaved={() => handleCellSaved(project.id)} />
 
-                          <span className="requirements-owner">{project.owner_name || '—'}</span>
+                          <OwnerCell project={project} onSaved={() => handleCellSaved(project.id)} />
 
                           <span className="requirements-actions" onClick={(e) => e.stopPropagation()}>
                             <button

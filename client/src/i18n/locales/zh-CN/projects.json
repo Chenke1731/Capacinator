@@ -408,6 +408,27 @@
     "productPlaceholder": "未排",
     "releasePlaceholder": "未排"
   },
+  "prioritySelect": {
+    "hint": "点击调整优先级",
+    "title": "选择优先级"
+  },
+  "ownerSelect": {
+    "hint": "点击选择负责人",
+    "title": "选择负责人",
+    "searchPlaceholder": "搜索姓名…",
+    "clear": "清除负责人",
+    "empty": "无匹配人员",
+    "none": "未指定"
+  },
+  "tagSelect": {
+    "hint": "点击编辑标签",
+    "title": "编辑标签",
+    "searchPlaceholder": "搜索标签…",
+    "empty": "无匹配标签",
+    "none": "无",
+    "newPlaceholder": "新建标签…",
+    "newAdd": "新建并打上"
+  },
   "ticketsBoard": {
     "ledgerNote": "月度量台账与建议缓冲率将在此登记(暂缓实现);当前为缓冲占用一览——照常参与产能计算。",
     "empty": "暂无问题单类事项",

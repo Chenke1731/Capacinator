@@ -1495,6 +1495,98 @@ input[type="checkbox"].settings-checkbox,
   color: var(--danger-color, #dc2626);
 }
 
+/* 气泡内选择列表(优先级/负责人/标签共用): 搜索 + 列表 + 新建行 */
+.cell-pop { width: 262px; }
+.cell-pop.pri-pop { width: 180px; }
+.cell-pop-search {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--b-r-sm);
+  color: var(--text-secondary);
+}
+.cell-pop-search input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  background: none;
+  color: var(--text-primary);
+  font-size: var(--b-fs-body);
+  padding: 2px 0;
+}
+.cell-pop-search input:focus { outline: none; }
+.cell-pop-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  max-height: 236px;
+  overflow-y: auto;
+}
+.cell-pop-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 30px;
+  padding: 2px 8px;
+  border: none;
+  background: none;
+  border-radius: var(--b-r-sm);
+  color: var(--text-primary);
+  font-size: var(--b-fs-body);
+  text-align: left;
+  cursor: pointer;
+}
+.cell-pop-item:hover { background: var(--bg-secondary, rgba(127, 127, 127, 0.14)); }
+.cell-pop-item--active { color: var(--accent-color, #3b82f6); font-weight: 600; }
+.cell-pop-item--danger { color: var(--danger-color, #dc2626); }
+.cell-pop-item-label {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.cell-pop-item-meta { font-size: var(--b-fs-meta); color: var(--text-secondary); font-weight: 400; }
+.cell-pop-check { color: var(--accent-color, #3b82f6); flex: none; }
+.cell-pop-item--danger .cell-pop-check { color: inherit; }
+.cell-pop-tagdot { width: 8px; height: 8px; border-radius: 50%; flex: none; }
+.cell-pop-empty { padding: 8px; font-size: var(--b-fs-meta); color: var(--text-secondary); text-align: center; }
+.cell-pop-new {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  padding-top: 6px;
+  border-top: 1px solid var(--border-color);
+}
+.cell-pop-new input {
+  flex: 1;
+  min-width: 0;
+  font-size: var(--b-fs-body);
+  padding: 4px 8px;
+  border-radius: var(--b-r-sm);
+  border: 1px solid var(--border-color);
+  background: none;
+  color: var(--text-primary);
+}
+.cell-pop-new input:focus { outline: none; border-color: var(--accent-color, #3b82f6); }
+.cell-pop-new-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 28px;
+  min-height: 28px;
+  border: none;
+  background: none;
+  border-radius: var(--b-r-sm);
+  color: var(--accent-color, #3b82f6);
+  cursor: pointer;
+}
+.cell-pop-new-btn:hover:not(:disabled) { background: var(--bg-secondary, rgba(127, 127, 127, 0.14)); }
+.cell-pop-new-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+.pri-pop .req-pri { min-width: 26px; display: inline-flex; justify-content: center; }
+
 /* The global design-system rule gives EVERY button a 44×44 touch target;
    inside the lifecycle cell and its popover that doubles the column height
    (badge and quick button wrap into two 44px lines) and inflates the
@@ -1757,6 +1849,15 @@ input[type="checkbox"].settings-checkbox,
 .requirements-row--warned { box-shadow: inset 3px 0 0 #f59e0b; }
 .requirements-row--warned:hover { background: rgba(245, 158, 11, 0.07); }
 
+/* 就地保存反馈: 行 flash 一闪; 版本跳组后目标组头高亮(给行落点) */
+@keyframes reqFlash {
+  from { background-color: rgba(59, 130, 246, 0.16); }
+  to { background-color: transparent; }
+}
+.requirements-row--flash { animation: reqFlash 0.9s ease-out; }
+.requirements-group-header--flash { animation: reqFlash 1.4s ease-out; }
+.requirements-release-header--flash { animation: reqFlash 1.4s ease-out; }
+
 .requirements-empty {
   padding: 28px;
   text-align: center;
@@ -1791,7 +1892,32 @@ input[type="checkbox"].settings-checkbox,
 }
 .req-tag--more { background: var(--bg-secondary, rgba(127, 127, 127, 0.14)); color: var(--text-secondary); cursor: help; }
 
-/* 标签独立列: 最多 2 chip + 溢出号 */
+/* 行内编辑可供性: cell 包裹层悬停淡底 + 角落铅笔; 呈现态保持只读密度 */
+.req-edit-cell { position: relative; display: inline-flex; align-items: center; min-width: 0; }
+.req-edit-cell:hover { background: rgba(127, 127, 127, 0.08); border-radius: var(--b-r-sm); }
+.req-pencil {
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 1px;
+  color: var(--text-tertiary, var(--text-secondary));
+  pointer-events: none;
+}
+.req-edit-cell:hover > .req-pencil { display: inline-flex; }
+.req-editable {
+  appearance: none;
+  background: none;
+  border: none;
+  font: inherit;
+  line-height: inherit;
+  color: inherit;
+  padding: 0;
+  cursor: pointer;
+  border-radius: var(--b-r-sm);
+  min-height: 24px;
+}
+
+/* 标签独立列: 最多 2 chip + 溢出号(按钮化,悬停显底) */
 .req-tags-cell {
   display: inline-flex;
   align-items: center;
@@ -1799,7 +1925,23 @@ input[type="checkbox"].settings-checkbox,
   min-width: 0;
   overflow: hidden;
   white-space: nowrap;
+  padding: 3px 6px;
 }
+.req-tags-cell:hover { background: rgba(127, 127, 127, 0.1); }
+.cell-pop-empty-trigger { font-size: var(--b-fs-meta); color: var(--text-secondary); }
+
+/* 负责人列(按钮化): 命中 24px 档,未指派弱化 */
+.requirements-owner-btn {
+  font-size: var(--b-fs-body);
+  color: var(--text-primary);
+  padding: 3px 8px;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.requirements-owner-btn.is-empty { color: var(--text-secondary); font-weight: 400; }
+.requirements-owner-btn:hover { background: rgba(127, 127, 127, 0.1); }
 
 /* 版本单列按钮 */
 .projects-board .projects-version-part--single { width: 100%; }
@@ -1896,31 +2038,25 @@ input[type="checkbox"].settings-checkbox,
     grid-template-columns: minmax(140px, 1.1fr) 140px 236px 128px 84px 84px 48px 92px;
   }
   .requirements-thead > span:nth-child(8),
-  .requirements-row > .requirements-owner { display: none; }
+  .requirements-row > .req-edit-cell--owner { display: none; }
 }
 
-/* 优先级: 纯文字着色,等宽数字 */
+/* 优先级: 纯文字着色,等宽数字(按钮化,命中 24px 档) */
 .req-pri {
   font-size: var(--b-fs-body);
   font-weight: 600;
   font-variant-numeric: tabular-nums;
   text-align: center;
 }
+.req-pri.req-editable { padding: 3px 10px; min-width: 44px; }
 .req-pri--1 { color: var(--danger-color, #dc2626); }
 .req-pri--2 { color: #f59e0b; }
 .req-pri--3, .req-pri--4, .req-pri--5 { color: var(--text-secondary); font-weight: 400; }
-
-.requirements-owner {
-  font-size: var(--b-fs-body);
-  color: var(--text-secondary);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
+.req-pri.req-editable:hover { background: rgba(127, 127, 127, 0.1); }
 
 /* 操作: 32px 裸图标(悬停显底),与表头/优先级同轴居中 */
 .requirements-actions { display: inline-flex; gap: 8px; align-items: center; justify-content: center; }
-.projects-board .requirements-row > .req-pri { justify-self: center; }
+.projects-board .requirements-row > .req-edit-cell--pri { justify-self: center; }
 .projects-board .requirements-thead > span.col-c { text-align: center; }
 .projects-board .req-cell-center { display: flex; justify-content: center; align-items: center; min-width: 0; }
 .projects-board .req-icon-btn {

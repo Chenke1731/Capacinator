@@ -14,6 +14,10 @@ jest.mock('../../lib/api-client', () => ({
     },
     tags: {
       list: jest.fn(),
+      create: jest.fn(),
+    },
+    people: {
+      list: jest.fn(),
     },
     lifecycle: {
       transition: jest.fn(),
@@ -107,6 +111,7 @@ const mockProjects = [
     product_version: 'B',
     release_version: '26.RP4',
     priority: 2,
+    owner_id: 'p-1',
     owner_name: '陈主管',
     lifecycle_state: 'pending_rat',
     lifecycle_warnings: ['NO_DEV_DEMAND'],
@@ -173,6 +178,15 @@ describe('Requirements Board (需求台)', () => {
     (api.projects.update as jest.Mock).mockResolvedValue({ data: {} });
     (api.projects.delete as jest.Mock).mockResolvedValue({ data: {} });
     (api.roles.list as jest.Mock).mockResolvedValue({ data: [] });
+    (api.people.list as jest.Mock).mockResolvedValue({
+      data: { data: [
+        { id: 'p-1', name: '陈主管', primary_role_name: 'SE' },
+        { id: 'p-2', name: '李四', primary_role_name: '开发' }
+      ] }
+    });
+    (api.tags.create as jest.Mock).mockResolvedValue({
+      data: { data: { id: 9, name: 'Urgent', color: null } }
+    });
     (useScenario as jest.Mock).mockReturnValue({
       currentScenario: { id: 'baseline-0000-0000-0000-000000000000', name: 'Baseline' }
     });
@@ -318,6 +332,124 @@ describe('Requirements Board (需求台)', () => {
       await waitFor(() => {
         expect(api.projects.update).toHaveBeenCalledWith('proj-1', { product_version: 'C' });
       });
+    });
+  });
+
+  describe('Inline editing (priority / owner / tags)', () => {
+    test('priority popover selects P1 and persists', async () => {
+      const user = userEvent.setup();
+      renderComponent();
+
+      await waitFor(() => {
+        expect(screen.getByText('Project Alpha')).toBeInTheDocument();
+      });
+
+      const alphaRow = screen.getByText('Project Alpha').closest('.requirements-row')!;
+      await user.click(within(alphaRow).getByTestId('priority-edit-btn'));
+
+      const popover = await screen.findByTestId('priority-popover');
+      await user.click(within(popover).getByText('Highest'));
+
+      await waitFor(() => {
+        expect(api.projects.update).toHaveBeenCalledWith('proj-1', { priority: 1 });
+      });
+    });
+
+    test('owner popover lists people (name + primary role) and clears', async () => {
+      const user = userEvent.setup();
+      renderComponent();
+
+      await waitFor(() => {
+        expect(screen.getByText('Project Alpha')).toBeInTheDocument();
+      });
+
+      const alphaRow = screen.getByText('Project Alpha').closest('.requirements-row')!;
+      await user.click(within(alphaRow).getByTestId('owner-edit-btn'));
+
+      const popover = await screen.findByTestId('owner-popover');
+      expect(within(popover).getByText('李四')).toBeInTheDocument();
+      expect(within(popover).getByText('开发')).toBeInTheDocument();
+
+      await user.click(within(popover).getByText('Clear owner'));
+      await waitFor(() => {
+        expect(api.projects.update).toHaveBeenCalledWith('proj-1', { owner_id: null });
+      });
+    });
+
+    test('owner popover assigns from the unassigned row', async () => {
+      const user = userEvent.setup();
+      renderComponent();
+
+      await waitFor(() => {
+        expect(screen.getByText('Project Beta')).toBeInTheDocument();
+      });
+
+      const betaRow = screen.getByText('Project Beta').closest('.requirements-row')!;
+      await user.click(within(betaRow).getByTestId('owner-edit-btn'));
+
+      const popover = await screen.findByTestId('owner-popover');
+      await user.click(within(popover).getByText('李四'));
+
+      await waitFor(() => {
+        expect(api.people.list).toHaveBeenCalled();
+        expect(api.projects.update).toHaveBeenCalledWith('proj-2', { owner_id: 'p-2' });
+      });
+    });
+
+    test('tags popover toggles off and submits the full set', async () => {
+      const user = userEvent.setup();
+      renderComponent();
+
+      await waitFor(() => {
+        expect(screen.getByText('Project Alpha')).toBeInTheDocument();
+      });
+
+      const alphaRow = screen.getByText('Project Alpha').closest('.requirements-row')!;
+      await user.click(within(alphaRow).getByTestId('tags-edit-btn'));
+
+      const popover = await screen.findByTestId('tags-popover');
+      await user.click(within(popover).getByText('Reserved'));
+
+      await waitFor(() => {
+        expect(api.projects.update).toHaveBeenCalledWith('proj-1', { tag_ids: [] });
+      });
+    });
+
+    test('tags popover creates a new tag and applies it', async () => {
+      const user = userEvent.setup();
+      renderComponent();
+
+      await waitFor(() => {
+        expect(screen.getByText('Project Beta')).toBeInTheDocument();
+      });
+
+      const betaRow = screen.getByText('Project Beta').closest('.requirements-row')!;
+      await user.click(within(betaRow).getByTestId('tags-edit-btn'));
+
+      const popover = await screen.findByTestId('tags-popover');
+      const input = within(popover).getByPlaceholderText('New tag…');
+      await user.type(input, 'Urgent{Enter}');
+
+      await waitFor(() => {
+        expect(api.tags.create).toHaveBeenCalledWith({ name: 'Urgent' });
+        expect(api.projects.update).toHaveBeenCalledWith('proj-2', { tag_ids: ['9'] });
+      });
+    });
+
+    test('row click does not fire when clicking edit triggers', async () => {
+      const user = userEvent.setup();
+      renderComponent();
+
+      await waitFor(() => {
+        expect(screen.getByText('Project Alpha')).toBeInTheDocument();
+      });
+
+      const alphaRow = screen.getByText('Project Alpha').closest('.requirements-row')!;
+      await user.click(within(alphaRow).getByTestId('priority-edit-btn'));
+      await user.click(within(alphaRow).getByTestId('owner-edit-btn'));
+      await user.click(within(alphaRow).getByTestId('tags-edit-btn'));
+
+      expect(mockNavigate).not.toHaveBeenCalled();
     });
   });
 

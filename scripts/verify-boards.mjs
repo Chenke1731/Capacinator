@@ -187,6 +187,39 @@ await page.waitForTimeout(1500);
   check(`数据行高统一 40±1 (${metrics.rows.join(',')})`, uniform && Math.abs(metrics.rows[0] - 40) <= 1);
 }
 
+// ── 6.2 几何碰撞: 可见元素两两不相交(防"内容溢出盒子"型重叠) ──
+const detectCollisions = () => page.evaluate(() => {
+  const bad = [];
+  document.querySelectorAll('.requirements-row, .requirements-thead, .board-toolbar, .requirements-group-header').forEach((scope) => {
+    const els = Array.from(scope.querySelectorAll('button, span, input, select')).filter((e) => {
+      const r = e.getBoundingClientRect();
+      if (!r.width || !r.height) return false;
+      const c = getComputedStyle(e);
+      if (c.visibility === 'hidden' || c.display === 'none') return false;
+      return (e.textContent && e.textContent.trim()) || e.matches('button,input,select');
+    });
+    for (let a = 0; a < els.length; a++) for (let b = a + 1; b < els.length; b++) {
+      const [A, B] = [els[a].getBoundingClientRect(), els[b].getBoundingClientRect()];
+      if (els[a].contains(els[b]) || els[b].contains(els[a])) continue;
+      const ox = Math.min(A.right, B.right) - Math.max(A.left, B.left);
+      const oy = Math.min(A.bottom, B.bottom) - Math.max(A.top, B.top);
+      if (ox > 2 && oy > 2) bad.push(`${(els[a].textContent || '').trim().slice(0, 6)}×${(els[b].textContent || '').trim().slice(0, 6)} ${ox.toFixed(0)}x${oy.toFixed(0)}px`);
+    }
+  });
+  return [...new Set(bad)];
+});
+{
+  // 灵敏度自证: 压力注入超宽徽章,检测器必须能抓到
+  const stress = await page.addStyleTag({ content: '.projects-board .lifecycle-badge-btn { min-width: 190px !important; }' });
+  await page.waitForTimeout(150);
+  const stressed = await detectCollisions();
+  check('碰撞检测器灵敏度(压力注入可检出)', stressed.length > 0, `${stressed.length} 处`);
+  await stress.evaluate((el) => el.remove());
+  await page.waitForTimeout(150);
+  const collisions = await detectCollisions();
+  check('行内零元素重叠', collisions.length === 0, collisions.slice(0, 3).join(' | '));
+}
+
 // ── 6.5 浅色主题巡检(用户实际使用的主题) ────────────
 {
   await page.evaluate(() => localStorage.setItem('theme', 'light'));
@@ -201,6 +234,8 @@ await page.waitForTimeout(1500);
   check('浅色: 状态徽章文字压深(亮度<0.55)', lum < 0.55, `lum=${lum.toFixed(2)}`);
   const sep = await page.$eval('.requirements-row', el => getComputedStyle(el).borderBottomColor !== 'rgba(0, 0, 0, 0)');
   check('浅色: 行分隔线可见', sep);
+  const lightCollisions = await detectCollisions();
+  check('浅色: 行内零元素重叠', lightCollisions.length === 0, lightCollisions.slice(0, 3).join(' | '));
   await page.screenshot({ path: '/tmp/demand-board-light.png' });
   await page.evaluate(() => localStorage.setItem('theme', 'dark'));
 }

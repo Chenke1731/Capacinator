@@ -449,6 +449,21 @@ export function Projects() {
                         >
                           <span className="requirements-name">
                             <span className="requirements-name-text">{project.name}</span>
+                            {(project.lifecycle_warnings ?? []).length > 0 && (
+                              <span
+                                className="lifecycle-warn-chip"
+                                title={(project.lifecycle_warnings ?? [])
+                                  .map((w: string) => t(`projects:lifecycle.warnings.${w}`))
+                                  .join('\n')}
+                              >
+                                {t(`projects:lifecycle.warningShort.${(project.lifecycle_warnings ?? [])[0]}`, {
+                                  defaultValue: t('projects:lifecycle.warningShort.GENERIC')
+                                })}
+                                {(project.lifecycle_warnings ?? []).length > 1
+                                  ? `+${(project.lifecycle_warnings ?? []).length - 1}`
+                                  : ''}
+                              </span>
+                            )}
                             {project.project_sub_type_name && (
                               <span className="requirements-subtype">· {project.project_sub_type_name}</span>
                             )}

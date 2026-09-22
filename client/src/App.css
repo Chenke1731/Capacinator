@@ -1963,25 +1963,29 @@ input[type="checkbox"].settings-checkbox,
 .projects-board .lifecycle-btn { border: none; background: none; }
 .projects-board .lifecycle-quick-btn {
   min-height: 32px;
-  width: 72px;
-  padding: 0 4px;
+  min-width: 72px;
+  padding: 0 6px;
   justify-content: center;
   font-size: var(--b-fs-body);
   font-weight: 600;
   color: var(--accent-color, #3b82f6);
   border-radius: var(--b-r-pill);
   background: rgba(59, 130, 246, 0.10);
+  flex: none;
 }
 .projects-board .lifecycle-quick-btn:hover { background: rgba(59, 130, 246, 0.18); }
 .projects-board .lifecycle-badge-btn {
   min-height: 32px;
-  width: 84px;
-  padding: 3px 4px;
+  min-width: 84px;
+  padding: 3px 10px;
   justify-content: center;
   font-size: var(--b-fs-body);
   font-weight: 600;
   border-radius: var(--b-r-pill);
+  flex: none;
 }
+.projects-board .lifecycle-cell-badges > * { flex: none; }
+.projects-board .requirements-name .lifecycle-warn-chip { flex: none; margin: 0 2px; }
 .lifecycle-deadline--inline {
   font-size: var(--b-fs-meta);
   font-variant-numeric: tabular-nums;

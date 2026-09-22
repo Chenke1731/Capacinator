@@ -72,4 +72,4 @@ dist-client/
 release/
 
 # Server logs
-server.log
+server.logtests/visual/__screenshots__/*.diff.png

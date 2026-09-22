@@ -1,12 +1,12 @@
-import { fileURLToPath } from 'url';
-import { dirname } from 'path';
 import { Knex } from 'knex';
 import path from 'path';
 import fs from 'fs';
 import e2eConfig from './knexfile.e2e.js';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+// __dirname 直接可用: tsx 的 ESM 加载器有垫片, Jest 的 CJS 变换原生提供。
+// (此前 ESM 惯用法 fileURLToPath(import.meta.url) 在 Jest 变换下是语法错误,
+//  2026-09-22 之前 21 个测试套件全因此常红。)
+const thisDir = __dirname;
 
 // Determine which config to use based on environment
 const getConfig = (): Knex.Config => {
@@ -50,12 +50,12 @@ if (!process.env.DATABASE_URL && !fs.existsSync(dataPath)) {
     migrations: {
       directory: process.env.NODE_ENV === 'development'
         ? path.resolve(process.cwd(), 'src/server/database/migrations')
-        : path.join(__dirname, 'migrations')
+        : path.join(thisDir, 'migrations')
     },
     seeds: {
       directory: process.env.NODE_ENV === 'development'
         ? path.resolve(process.cwd(), 'src/server/database/seeds')
-        : path.join(__dirname, 'seeds')
+        : path.join(thisDir, 'seeds')
     },
     // SQLite configuration for stability
     pool: {

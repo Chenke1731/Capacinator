@@ -92,15 +92,22 @@ describe('ProjectsController', () => {
           owner_name: 'John Doe',
           current_phase_name: 'Planning',
           start_date: new Date('2024-01-01').getTime(),
-          end_date: new Date('2024-12-31').getTime()
+          end_date: new Date('2024-12-31').getTime(),
+          staffing_summary: {
+            design: { named: 0, pool: 0, named_detail: [] },
+            dev: { named: 0, pool: 0, named_detail: [] }
+          }
         }
       ];
 
       const mockCount = { count: 1 };
 
-      // Queue responses: projects query, test query, count query
+      // Queue responses: projects → tags → staffing(named/pool) → estimations → count
       mockDb._queueQueryResult(mockProjects);
-      mockDb._queueQueryResult([{ id: 'project-1', name: 'Project Alpha', start_date: 1704067200000 }]);
+      mockDb._queueQueryResult([]); // tags
+      mockDb._queueQueryResult([]); // staffing named (assignments_view)
+      mockDb._queueQueryResult([]); // staffing pool (project_pool_demands)
+      mockDb._queueQueryResult([]); // estimations
       mockDb._queueFirstResult(mockCount);
 
       await controller.getAll(mockReq, mockRes);
@@ -205,9 +212,12 @@ describe('ProjectsController', () => {
         }
       ];
 
+      // getById 顺序: project → tags → phases → assignments_view → pool_demands → planners
       mockDb._queueFirstResult(mockProject);
+      mockDb._queueQueryResult([]); // tags
       mockDb._queueQueryResult(mockPhases);
       mockDb._queueQueryResult(mockAssignments);
+      mockDb._queueQueryResult([]); // pool demands
       mockDb._queueQueryResult(mockPlanners);
 
       await controller.getById(mockReq, mockRes);
@@ -219,6 +229,8 @@ describe('ProjectsController', () => {
           ...mockProject,
           phases: mockPhases,
           assignments: mockAssignments,
+          pool_demands: [], // getById 现挂载池需求与生命周期告警(2026-09-22 对齐实现)
+          lifecycle_warnings: [],
           planners: mockPlanners
         }
       });

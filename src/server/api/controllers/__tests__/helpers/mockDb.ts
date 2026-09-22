@@ -84,6 +84,11 @@ export function createMockDb() {
   mock.min = jest.fn().mockReturnValue(mock);
   mock.max = jest.fn().mockReturnValue(mock);
   mock.count = jest.fn().mockReturnValue(mock);
+  // getAll 的 count 用 query.clone().clearSelect().clearOrder() 构建(2026-09-22 之前缺这三个,
+  // 21→5 个红套件中 ProjectsController 的 3 项全断在这里)
+  mock.clone = jest.fn().mockReturnValue(mock);
+  mock.clearSelect = jest.fn().mockReturnValue(mock);
+  mock.clearOrder = jest.fn().mockReturnValue(mock);
   mock.returning = jest.fn().mockReturnValue(mock);
   mock.distinct = jest.fn().mockReturnValue(mock);
   mock.distinctOn = jest.fn().mockReturnValue(mock);

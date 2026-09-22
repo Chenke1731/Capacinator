@@ -416,7 +416,12 @@
     "srToggleHint": "展开/收起分解出的 AR",
     "emptyFiltered": "无匹配事项——调整或清除筛选后再试",
     "clearFilters": "清除筛选",
-    "countSummaryWithAr": "共 {{count}} 项需求 · 含 {{ar}} 个 AR"
+    "countSummaryWithAr": "共 {{count}} 项需求 · 含 {{ar}} 个 AR",
+    "colKloc": "代码规模",
+    "colEffort": "人力(人月)",
+    "colSe": "SE",
+    "colMde": "MDE",
+    "colPrimary": "实名投入"
   },
   "version": {
     "productTitle": "产品版本，点击填写（如 B）",
@@ -471,7 +476,8 @@
   "scale": {
     "tooltip": "口径：最新一次评估（KLOC 与人月由估算 LOC 换算）；评估在详情页做",
     "pmUnit": "人月",
-    "srTooltip": "子行评估之和；各行评估在详情页做"
+    "srTooltip": "子行评估之和；各行评估在详情页做",
+    "empty": "—"
   },
   "actuals": {
     "title": "投入履历（计划 vs 实际）",
@@ -495,5 +501,16 @@
   },
   "refCode": {
     "hint": "引用码，点击复制；需求台搜索框粘贴可直接定位"
+  },
+  "effort": {
+    "tooltip": "评估开发人月（最新评估换算）",
+    "srTooltip": "子行评估人月之和"
+  },
+  "roleCell": {
+    "srTooltip": "{{role}} 子行粗估合计 · 投入：{{persons}}"
+  },
+  "primaryDev": {
+    "hint": "主投入开发与投入窗口",
+    "none": "未投入"
   }
 }

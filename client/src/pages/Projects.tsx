@@ -7,6 +7,7 @@ import { api } from '../lib/api-client';
 import { queryKeys } from '../lib/queryKeys';
 import { useCellPopover } from '../hooks/useCellPopover';
 import { PriorityCell, OwnerCell, TagsCell, ComponentCell } from '../components/boards/EditableCells';
+import { KlocCell, EffortCell, RoleCell, PrimaryDevCell } from '../components/boards/BoardCells';
 import { LoadingSpinner } from '../components/ui/LoadingSpinner';
 import { ErrorMessage } from '../components/ui/ErrorMessage';
 import ProjectModal from '../components/modals/ProjectModal';
@@ -69,7 +70,7 @@ function VersionPart({ project, field, placeholder, hint, onSaved }: {
     );
   }
   return (
-    <span className="req-edit-cell req-edit-cell--version" onClick={(e) => e.stopPropagation()}>
+    <span className={`req-edit-cell req-edit-cell--${field === 'release_version' ? 'release' : 'version'}`} onClick={(e) => e.stopPropagation()}>
       <button type="button" className="projects-version-part projects-version-part--single"
               title={hint}
               onClick={() => { setDraft(value); setEditing(true); }}>
@@ -80,147 +81,7 @@ function VersionPart({ project, field, placeholder, hint, onSaved }: {
   );
 }
 
-/** 人力列: 明文两行(设计/开发 实名+池), 点击弹就地调整气泡。
-    池占位是规划杠杆,±0.5 步进直接改;实名分配仍走详情选人。 */
-function StaffingCell({ project, onChanged }: { project: any; onChanged: () => void }) {
-  const { t } = useTranslation();
-  const queryClient = useQueryClient();
-  const pop = useCellPopover('staff-pop', 282, 300);
-  const [busy, setBusy] = useState(false);
-
-  const s = project.staffing_summary;
-  const fmt = (n: number) => Number(n ?? 0).toFixed(1);
-
-  const { data: roles } = useQuery({
-    queryKey: queryKeys.roles.list(),
-    queryFn: async () => {
-      const response = await api.roles.list();
-      const payload = response.data as any;
-      return Array.isArray(payload) ? payload : payload?.data || [];
-    },
-    enabled: pop.open
-  });
-  const roleList = Array.isArray(roles) ? roles : ((roles as any)?.data ?? []);
-  const seRole = roleList.find((r: any) => r.name === 'SE');
-  const devRole = roleList.find((r: any) => r.name === '开发');
-
-  /** ±0.5 步进池占位: 无行则建,归零则删 */
-  const step = async (side: 'design' | 'dev', delta: number) => {
-    setBusy(true);
-    try {
-      const roleId = side === 'design' ? seRole?.id : devRole?.id;
-      if (!roleId) return;
-      const pools = ((await api.poolDemands.listByProject(project.id)).data as any)?.data ?? [];
-      const mine = pools.find((p: any) => p.status === 'open' && p.role_id === roleId);
-      const current = mine ? Number(mine.headcount) : 0;
-      const next = Math.round(Math.max(0, Math.min(10, current + delta)) * 10) / 10;
-      if (!mine && next > 0) {
-        await api.poolDemands.create(project.id, { role_id: roleId, headcount: next });
-      } else if (mine && next <= 0) {
-        await api.poolDemands.delete(mine.id);
-      } else if (mine) {
-        await api.poolDemands.update(mine.id, { headcount: next });
-      }
-      await queryClient.invalidateQueries({ queryKey: queryKeys.projects.all });
-      onChanged();
-    } finally {
-      setBusy(false);
-    }
-  };
-
-  if (!s) return <span className="text-muted">—</span>;
-  const sides: Array<[string, 'design' | 'dev', { named: number; pool: number }]> = [
-    [t('projects:staffing.designFull'), 'design', s.design],
-    [t('projects:staffing.devFull'), 'dev', s.dev]
-  ];
-
-  return (
-    <span ref={pop.anchorRef} className="req-staff-wrap" onClick={(e) => e.stopPropagation()}>
-      <button type="button" className="req-staff" onClick={pop.toggle}
-              title={t('projects:staffing.adjustHint')}>
-        {sides.map(([label, side, v]) => (
-          <span className="req-staff-row" key={label}
-                title={t('projects:staffing.breakdown', { named: fmt(v.named), pool: fmt(v.pool) })}>
-            <span className={`staff-dot staff-dot--${side}`} />
-            <span className="req-staff-label">{label}</span>
-            <span className="req-staff-num">
-              <span className="req-staff-named">{fmt(v.named)}</span>
-              {v.pool > 0 && <span className="req-staff-pool">+{fmt(v.pool)}</span>}
-            </span>
-          </span>
-        ))}
-      </button>
-      <Pencil size={10} className="req-pencil" aria-hidden />
-
-      {pop.open && (
-        <div className="lc-popover staff-pop" style={pop.style}>
-          <div className="lc-popover-title">{t('projects:staffing.adjustTitle')}</div>
-          <div className="lc-popover-hint">{t('projects:staffing.adjustHow')}</div>
-          {sides.map(([label, side, v]) => (
-            <div key={label} className="staff-pop-group">
-            <div className="staff-pop-row">
-              <span className={`staff-dot staff-dot--${side}`} />
-              <span className="staff-pop-side">{label}</span>
-              <span className="staff-pop-named">
-                {t('projects:staffing.namedLabel', { n: fmt(v.named) })}
-              </span>
-              <span className="staff-stepper-group">
-                <span className="staff-stepper-label">{t('projects:staffing.poolShort')}</span>
-                <span className="staff-stepper">
-                  <button className="staff-stepper-btn" disabled={busy || v.pool <= 0}
-                          onClick={() => step(side, -0.5)} title="-0.5">
-                    <Minus size={14} />
-                  </button>
-                  <span className="staff-stepper-val">{fmt(v.pool)}</span>
-                  <button className="staff-stepper-btn" disabled={busy}
-                          onClick={() => step(side, 0.5)} title="+0.5">
-                    <Plus size={14} />
-                  </button>
-                </span>
-              </span>
-            </div>
-            {(v.named_detail ?? []).length > 0 && (
-              <div className="staff-pop-people">
-                {(v.named_detail ?? []).slice(0, 3).map((d: any) => (
-                  <span key={d.name} className="staff-pop-person">
-                    {d.name}<b>{Math.round(d.fte * 100)}%</b>
-                  </span>
-                ))}
-                {(v.named_detail ?? []).length > 3 && (
-                  <span
-                    className="staff-pop-person staff-pop-person--more"
-                    title={(v.named_detail ?? []).map((d: any) => `${d.name} ${Math.round(d.fte * 100)}%`).join('\n')}
-                  >
-                    +{(v.named_detail ?? []).length - 3}
-                  </span>
-                )}
-              </div>
-            )}
-            </div>
-          ))}
-          <div className="lc-popover-hint">{t('projects:staffing.adjustHintFooter')}</div>
-        </div>
-      )}
-    </span>
-  );
-}
-
 /** 优先级/负责人/标签三列由 EditableCells 提供(锚定气泡就地编辑) */
-
-/** 规模列: 最新评估换算 KLOC/人月,只读(评估仍在详情页)——计算同权,呈现分流 */
-function ScaleCell({ project }: { project: any }) {
-  const { t } = useTranslation();
-  const e = project.estimation_summary;
-  if (!e) {
-    return <span className="req-scale req-scale--empty" title={t('projects:scale.tooltip')}>—</span>;
-  }
-  return (
-    <span className="req-scale" title={t('projects:scale.tooltip')}>
-      <span className="req-scale-kloc">{e.kloc}K</span>
-      <span className="req-scale-pm">{e.pm}{t('projects:scale.pmUnit')}</span>
-    </span>
-  );
-}
 
 /** 编号列: 每行(顶层/SR/子行)统一就地编辑,自由文本——前缀(SRxxx/ARxxx)
     自述粒度,混排世界粒度是事项属性不是树结构位置(2026-09-22 裁决) */
@@ -273,30 +134,22 @@ const VERSION_NONE = '__none__';
     列宽走 CSS 变量(--req-w-*),thead/row/两断点模板统一引用,一处设置处处生效;
     总量(--req-total)做行 min-width 兜底——拖宽不挤压他列,超出容器横向滚动。 */
 const REQ_COLUMNS = [
-  /* name 的 min 是"内容地板"(文字≥5字+黄牌chip+子类型),不是随意下限——地板低于
-     单元格自身必要内容时,缺口全由名称文字省略号吸收(2026-09-22 名称截断审计)。
-     默认预算原则: 默认(未拖拽)布局在 1600/1366 容器内零横向滚动,横滚只能由
-     用户主动拖宽触发。 */
-  /* def: [全列档(≥1680), 中档(1560–1679,藏规模), 窄档(<1560,藏规模+负责人)] */
-  /* 2026-09-22 列宽分配算法(四代定案,声明式三类):
-     定宽(内容长度确定: 编号/版本/交付/优先级/规模/操作)——永不加宽;
-     cap 有界弹性(内容有现实上限, minmax(默认, 上限),舒展到上限即止);
-     elastic 无界弹性(名称,长度不可预期,吸收剩余全部余量)。
-     分配次序由 grid 原生两段机制承担: 定宽不动 → 有界列均匀舒展至上限
-     → 剩余归名称 → 操作列恒贴右缘。拖拽=钉死(有界列上限锁为拖宽,
-     名称 fr 归零),余量自动重分配;双击复原。 */
-  { key: 'name', def: [260, 260, 260], min: 120, max: 640, kind: 'elastic' },
-  /* 编号: SR/AR 外部编号统一列,mono;窄档(<1560)与规模/负责人同藏(2026-09-22 裁决) */
-  { key: 'number', def: [92, 92, 0], min: 56, max: 200 }, /* 实测 SR-2026-100=85px,原 80 已欠 5px 在裁内容 */
-  { key: 'component', def: [92, 80, 80], min: 72, max: 240, kind: 'cap' },
-  { key: 'lifecycle', def: [216, 224, 196], min: 170, max: 420, kind: 'cap' },
-  { key: 'staffing', def: [116, 112, 108], min: 104, max: 220, kind: 'cap' },
-  { key: 'scale', def: [64, 0, 0], min: 56, max: 200 }, /* 实测 ~60px */
-  { key: 'version', def: [58, 58, 56], min: 48, max: 200 }, /* 实测 26.RP4≈45+边距 */
-  { key: 'release', def: [58, 58, 56], min: 48, max: 200 },
-  { key: 'priority', def: [44, 44, 44], min: 36, max: 120 }, /* 实测=徽章命中目标 min-width 44(触控档) */
-  { key: 'owner', def: [72, 80, 0], min: 56, max: 200, kind: 'cap' },
-  { key: 'actions', def: [108, 108, 108], min: 64, max: 200 } /* 3×32 钮+2×6 隙 */
+  /* B3a 列集(设计 §1): 名称|编号|组件|状态|代码规模|人力|SE|MDE|版本规划|交付计划|优先级|实名投入|操作
+     预算(设计 §1 复核): 全列 1374≤1380@1680; 中档藏组件 1282≤1300@1600;
+     紧凑藏 组件/编号/交付/实名 1010≤1066@1366 */
+  { key: 'name', def: [210, 210, 210], min: 120, max: 640 },
+  { key: 'number', def: [84, 80, 0], min: 56, max: 200 },
+  { key: 'component', def: [84, 84, 0], min: 72, max: 240 },
+  { key: 'lifecycle', def: [200, 200, 196], min: 170, max: 420 },
+  { key: 'kloc', def: [64, 64, 64], min: 56, max: 120 },
+  { key: 'effort', def: [64, 64, 64], min: 52, max: 120 },
+  { key: 'se', def: [88, 88, 88], min: 72, max: 160 },
+  { key: 'mde', def: [88, 88, 88], min: 72, max: 160 },
+  { key: 'version', def: [68, 64, 62], min: 56, max: 200 },
+  { key: 'release', def: [76, 68, 62], min: 56, max: 200 },
+  { key: 'priority', def: [44, 44, 44], min: 40, max: 120 },
+  { key: 'primary', def: [88, 80, 0], min: 56, max: 200 },
+  { key: 'actions', def: [92, 92, 92], min: 64, max: 200 }
 ] as const;
 type ReqColKey = (typeof REQ_COLUMNS)[number]['key'];
 /* v2: 列集变更(新增构成/规模列)必须 bump 版本,旧宽度按旧列预算调优,残留会挤压名称列 */
@@ -372,8 +225,12 @@ interface ProjectTree {
     count: number;
     kloc: number | null;
     pm: number | null;
-    design: { named: number; pool: number };
-    dev: { named: number; pool: number };
+    effortPm: number | null;
+    sePm: number | null;
+    mdePm: number | null;
+    sePersons: string[];
+    mdePersons: string[];
+    primaryPersons: string[];
     states: Array<{ state: string | null; count: number }>;
   } | null;
 }
@@ -382,32 +239,40 @@ function aggregateChildren(children: any[]): ProjectTree['agg'] {
   if (children.length === 0) return null;
   const round2 = (n: number) => Math.round(n * 100) / 100;
   let kloc: number | null = null;
-  let pm: number | null = null;
-  const design = { named: 0, pool: 0 };
-  const dev = { named: 0, pool: 0 };
+  let effortPm: number | null = null;
+  let sePm: number | null = null;
+  let mdePm: number | null = null;
+  const sePersons = new Set<string>();
+  const mdePersons = new Set<string>();
+  const primaryPersons = new Set<string>();
   const stateCount = new Map<string | null, number>();
   for (const c of children) {
     const e = c.estimation_summary;
     if (e) {
       kloc = round2((kloc ?? 0) + Number(e.kloc || 0));
-      pm = round2((pm ?? 0) + Number(e.pm || 0));
+      effortPm = round2((effortPm ?? 0) + Number(e.pm || 0));
     }
-    const s = c.staffing_summary;
-    if (s) {
-      design.named += s.design?.named ?? 0;
-      design.pool += s.design?.pool ?? 0;
-      dev.named += s.dev?.named ?? 0;
-      dev.pool += s.dev?.pool ?? 0;
+    const de = c.design_estimates;
+    if (de) {
+      sePm = round2((sePm ?? 0) + Number(de.se ?? 0));
+      mdePm = round2((mdePm ?? 0) + Number(de.mde ?? 0));
     }
+    if (c.se_assignment?.person_name) sePersons.add(c.se_assignment.person_name);
+    if (c.mde_assignment?.person_name) mdePersons.add(c.mde_assignment.person_name);
+    if (c.primary_dev?.person_name) primaryPersons.add(c.primary_dev.person_name);
     const key = c.lifecycle_state ?? null;
     stateCount.set(key, (stateCount.get(key) ?? 0) + 1);
   }
   return {
     count: children.length,
     kloc,
-    pm,
-    design: { named: round2(design.named), pool: round2(design.pool) },
-    dev: { named: round2(dev.named), pool: round2(dev.pool) },
+    pm: effortPm,
+    effortPm,
+    sePm,
+    mdePm,
+    sePersons: [...sePersons],
+    mdePersons: [...mdePersons],
+    primaryPersons: [...primaryPersons],
     states: [...stateCount.entries()]
       .map(([state, count]) => ({ state, count }))
       .sort((a, b) => b.count - a.count)
@@ -666,7 +531,7 @@ export function Projects() {
   const compact = vw < 1560;
   const colVars = useMemo(() => {
     const vars: Record<string, string> = {};
-    const hidden = compact ? ['scale', 'owner', 'number'] : showAll ? [] : ['scale', 'owner'];
+    const hidden = compact ? ['component', 'number', 'release', 'primary'] : showAll ? [] : ['component'];
     const visible = REQ_COLUMNS.filter((c) => !hidden.includes(c.key));
     let total = 28 /* 行左右 padding */ + 8 * (visible.length - 1) /* 列间 gap */;
     for (const c of visible) {
@@ -844,12 +709,14 @@ export function Projects() {
             ['projects:board.colNumber', 'number'],
             ['projects:board.colComponent', 'component'],
             ['projects:lifecycleColumn', 'lifecycle'],
-            ['projects:board.colStaffing', 'staffing'],
-            ['projects:board.colScale', 'scale'],
+            ['projects:board.colKloc', 'kloc'],
+            ['projects:board.colEffort', 'effort'],
+            ['projects:board.colSe', 'se'],
+            ['projects:board.colMde', 'mde'],
             ['projects:board.colVersion', 'version'],
             ['projects:board.colRelease', 'release'],
             ['projects:board.colPriority', 'priority'],
-            ['projects:board.colOwner', 'owner'],
+            ['projects:board.colPrimary', 'primary'],
             ['common:actions', 'actions']
           ] as const).map(([key, colKey], i) => (
             <span key={colKey} className={['lifecycle', 'priority', 'actions'].includes(colKey) ? 'col-c' : colKey === 'staffing' ? 'col-r' : ''}>
@@ -903,9 +770,13 @@ export function Projects() {
                 <LifecycleCellControls project={project} />
               </span>
 
-              <StaffingCell project={project} onChanged={() => handleCellSaved(project.id)} />
+              <KlocCell kloc={project.estimation_summary?.kloc ?? null} />
 
-              <ScaleCell project={project} />
+              <EffortCell pm={project.estimation_summary?.pm ?? null} />
+
+              <RoleCell roleName="se" person={project.se_assignment} pm={project.design_estimates?.se ?? null} />
+
+              <RoleCell roleName="mde" person={project.mde_assignment} pm={project.design_estimates?.mde ?? null} />
 
               <VersionPart project={project} field="product_version"
                 placeholder={t('projects:version.productPlaceholder')}
@@ -918,7 +789,7 @@ export function Projects() {
 
               <PriorityCell project={project} onSaved={() => handleCellSaved(project.id)} />
 
-              <OwnerCell project={project} onSaved={() => handleCellSaved(project.id)} />
+              <PrimaryDevCell primary={project.primary_dev} />
 
               <span className="requirements-actions" onClick={(e) => e.stopPropagation()}>
                 <button
@@ -942,16 +813,6 @@ export function Projects() {
 
           // ── SR 折叠头行: 汇总只读(=子行之和,同一数据源);状态列=子行分布 ──
           const agg = tree.agg!;
-          const aggStaff = (side: 'design' | 'dev') => (
-            <span className="req-staff-row req-staff-row--ro" key={side}>
-              <span className={`staff-dot staff-dot--${side}`} />
-              <span className="req-staff-label">{t(`projects:staffing.${side === 'design' ? 'designFull' : 'devFull'}`)}</span>
-              <span className="req-staff-num">
-                <span className="req-staff-named">{agg[side].named.toFixed(1)}</span>
-                {agg[side].pool > 0 && <span className="req-staff-pool">+{agg[side].pool.toFixed(1)}</span>}
-              </span>
-            </span>
-          );
           return (
             <Fragment key={project.id}>
             <div
@@ -1000,15 +861,24 @@ export function Projects() {
                 ))}
               </span>
 
-              <span className="req-staff req-staff--ro">{aggStaff('design')}{aggStaff('dev')}</span>
+              <span className="req-kloc req-kloc--agg" title={t('projects:scale.srTooltip')}>
+                {agg.kloc != null ? <span className="req-kloc-num">{agg.kloc}K</span> : <span className="text-muted">—</span>}
+              </span>
 
-              <span className="req-scale" title={t('projects:scale.srTooltip')}>
-                {agg.kloc != null ? (
-                  <>
-                    <span className="req-scale-kloc">{agg.kloc}K</span>
-                    <span className="req-scale-pm">{agg.pm}{t('projects:scale.pmUnit')}</span>
-                  </>
-                ) : <span className="text-muted">—</span>}
+              <span className="req-effort req-effort--agg" title={t('projects:effort.srTooltip')}>
+                {agg.effortPm != null ? <span className="req-effort-num">{agg.effortPm}</span> : <span className="text-muted">—</span>}
+              </span>
+
+              <span className="req-role req-role--agg" title={t('projects:roleCell.srTooltip', { role: 'SE', persons: agg.sePersons.join('、') || '—' })}>
+                {agg.sePm != null
+                  ? <span className="req-role-pm">Σ{agg.sePm}{agg.sePersons.length > 1 ? `·${agg.sePersons.length}人` : ''}</span>
+                  : <span className="text-muted">—</span>}
+              </span>
+
+              <span className="req-role req-role--agg" title={t('projects:roleCell.srTooltip', { role: 'MDE', persons: agg.mdePersons.join('、') || '—' })}>
+                {agg.mdePm != null
+                  ? <span className="req-role-pm">Σ{agg.mdePm}{agg.mdePersons.length > 1 ? `·${agg.mdePersons.length}人` : ''}</span>
+                  : <span className="text-muted">—</span>}
               </span>
 
               <VersionPart project={project} field="product_version"
@@ -1021,7 +891,11 @@ export function Projects() {
                 onSaved={() => handleCellSaved(project.id)} />
 
               <PriorityCell project={project} onSaved={() => handleCellSaved(project.id)} />
-              <OwnerCell project={project} onSaved={() => handleCellSaved(project.id)} />
+              <span className="req-primary req-primary--agg" title={agg.primaryPersons.join('、') || undefined}>
+                {agg.primaryPersons.length > 0
+                  ? <span className="req-primary-person">{agg.primaryPersons.length}人</span>
+                  : <span className="text-muted">—</span>}
+              </span>
 
               <span className="requirements-actions" onClick={(e) => e.stopPropagation()}>
                 <button
@@ -1070,8 +944,10 @@ export function Projects() {
                       <LifecycleCellControls project={child} />
                     </span>
 
-                    <StaffingCell project={child} onChanged={() => handleCellSaved(child.id)} />
-                    <ScaleCell project={child} />
+                    <KlocCell kloc={child.estimation_summary?.kloc ?? null} />
+                    <EffortCell pm={child.estimation_summary?.pm ?? null} />
+                    <RoleCell roleName="se" person={child.se_assignment} pm={child.design_estimates?.se ?? null} />
+                    <RoleCell roleName="mde" person={child.mde_assignment} pm={child.design_estimates?.mde ?? null} />
 
                     <VersionPart project={child} field="product_version"
                       placeholder={t('projects:version.productPlaceholder')}
@@ -1083,7 +959,7 @@ export function Projects() {
                       onSaved={() => handleCellSaved(child.id)} />
 
                     <PriorityCell project={child} onSaved={() => handleCellSaved(child.id)} />
-                    <OwnerCell project={child} onSaved={() => handleCellSaved(child.id)} />
+                    <PrimaryDevCell primary={child.primary_dev} />
 
                     <span className="requirements-actions" onClick={(e) => e.stopPropagation()}>
                       <button

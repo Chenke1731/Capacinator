@@ -1848,7 +1848,7 @@ input[type="checkbox"].settings-checkbox,
 .requirements-thead > span { position: relative; }
 .requirements-thead {
   display: grid;
-    grid-template-columns: minmax(var(--req-w-name, 260px), var(--req-f-name, 1fr)) var(--req-w-number, 92px) minmax(var(--req-w-component, 92px), var(--req-cap-component, 130px)) minmax(var(--req-w-lifecycle, 216px), var(--req-cap-lifecycle, 280px)) minmax(var(--req-w-staffing, 116px), var(--req-cap-staffing, 150px)) var(--req-w-scale, 64px) var(--req-w-version, 58px) var(--req-w-release, 58px) var(--req-w-priority, 44px) minmax(var(--req-w-owner, 72px), var(--req-cap-owner, 104px)) var(--req-w-actions, 108px) var(--req-spacer, 0fr);
+    grid-template-columns: minmax(var(--req-w-name, 210px), var(--req-f-name, 1.2fr)) var(--req-w-number, 84px) var(--req-w-component, 84px) var(--req-w-lifecycle, 200px) var(--req-w-kloc, 64px) var(--req-w-effort, 64px) var(--req-w-se, 88px) var(--req-w-mde, 88px) var(--req-w-version, 68px) var(--req-w-release, 76px) var(--req-w-priority, 44px) var(--req-w-primary, 88px) var(--req-w-actions, 92px) var(--req-spacer, 0fr);
   gap: var(--req-gap, 8px); /* 余量优先摊进间距(2026-09-23),媒体档继承 */
   align-items: center;
   min-height: 36px;
@@ -1862,7 +1862,7 @@ input[type="checkbox"].settings-checkbox,
 
 .requirements-row {
   display: grid;
-    grid-template-columns: minmax(var(--req-w-name, 260px), var(--req-f-name, 1fr)) var(--req-w-number, 92px) minmax(var(--req-w-component, 92px), var(--req-cap-component, 130px)) minmax(var(--req-w-lifecycle, 216px), var(--req-cap-lifecycle, 280px)) minmax(var(--req-w-staffing, 116px), var(--req-cap-staffing, 150px)) var(--req-w-scale, 64px) var(--req-w-version, 58px) var(--req-w-release, 58px) var(--req-w-priority, 44px) minmax(var(--req-w-owner, 72px), var(--req-cap-owner, 104px)) var(--req-w-actions, 108px) var(--req-spacer, 0fr);
+    grid-template-columns: minmax(var(--req-w-name, 210px), var(--req-f-name, 1.2fr)) var(--req-w-number, 84px) var(--req-w-component, 84px) var(--req-w-lifecycle, 200px) var(--req-w-kloc, 64px) var(--req-w-effort, 64px) var(--req-w-se, 88px) var(--req-w-mde, 88px) var(--req-w-version, 68px) var(--req-w-release, 76px) var(--req-w-priority, 44px) var(--req-w-primary, 88px) var(--req-w-actions, 92px) var(--req-spacer, 0fr);
   gap: var(--req-gap, 8px); /* 余量优先摊进间距(2026-09-23),媒体档继承 */
   align-items: center;
   min-height: 40px;
@@ -2262,37 +2262,32 @@ body.req-col-dragging * {
 
 /* 1366 以下隐藏负责人与规模列(排博弈用大屏,窄屏保组件/人力/版本) */
 /* 三档列预算(2026-09-22 名称截断审计后重算):
-   ≥1680 全 12 列; 1560–1679 十一列藏 规模+负责人(编号占预算,实测内容宽 1300); <1560 九列再藏 编号。
+   ≥1680 全 13 列(B3a: 名称|编号|组件|状态|代码规模|人力|SE|MDE|版本规划|交付计划|优先级|实名投入|操作); 1560–1679 藏组件; <1560 再藏 编号/交付计划/实名投入。
    铁律: 每档默认(未拖拽)在对应容器内零横向滚动。 */
 /* cap 字面量为首帧兜底,运行时由内容自适应上限覆盖(2026-09-23) */
-/* 中档(1560–1679): 11 列——全列去"规模"再去"负责人"(编号列的预算由负责人
-   让位;2026-09-22 P16 实测: 1600 内容宽 1300,13 列装不下,业主先保编号) */
+/* 中档(1560–1679): 12 列藏组件(B3a 设计 §1: 编号占预算,组件让位有筛选兜底) */
 @media (min-width: 1560px) and (max-width: 1679px) {
   .requirements-thead,
   .requirements-row {
-    grid-template-columns: minmax(var(--req-w-name, 260px), var(--req-f-name, 1fr)) var(--req-w-number, 92px) minmax(var(--req-w-component, 80px), var(--req-cap-component, 130px)) minmax(var(--req-w-lifecycle, 224px), var(--req-cap-lifecycle, 280px)) minmax(var(--req-w-staffing, 112px), var(--req-cap-staffing, 150px)) var(--req-w-version, 58px) var(--req-w-release, 58px) var(--req-w-priority, 44px) var(--req-w-actions, 108px) var(--req-spacer, 0fr);
+    grid-template-columns: minmax(var(--req-w-name, 210px), var(--req-f-name, 1.1fr)) var(--req-w-number, 80px) var(--req-w-lifecycle, 200px) var(--req-w-kloc, 64px) var(--req-w-effort, 64px) var(--req-w-se, 88px) var(--req-w-mde, 88px) var(--req-w-version, 64px) var(--req-w-release, 68px) var(--req-w-priority, 44px) var(--req-w-primary, 80px) var(--req-w-actions, 92px) var(--req-spacer, 0fr);
   }
-  .requirements-thead > span:nth-child(6),
-  .requirements-row > .req-scale,
-  .requirements-thead > span:nth-child(10),
-  .requirements-row > .req-edit-cell--owner { display: none; }
-  /* 窄档死线内联仍在: 快捷键按钮收至 64(基础 72px 规则位于本文件更后,需提特异度压过) */
+  .requirements-thead > span:nth-child(3),
+  .requirements-row > .req-edit-cell--component { display: none; }
   .projects-board .requirements-row .lifecycle-quick-btn { min-width: 64px; }
 }
 @media (max-width: 1559px) {
   .requirements-thead,
   .requirements-row {
-    grid-template-columns: minmax(var(--req-w-name, 260px), var(--req-f-name, 1fr)) minmax(var(--req-w-component, 80px), var(--req-cap-component, 120px)) minmax(var(--req-w-lifecycle, 196px), var(--req-cap-lifecycle, 240px)) minmax(var(--req-w-staffing, 108px), var(--req-cap-staffing, 140px)) var(--req-w-version, 56px) var(--req-w-release, 56px) var(--req-w-priority, 44px) var(--req-w-actions, 108px) var(--req-spacer, 0fr);
+    grid-template-columns: minmax(var(--req-w-name, 210px), var(--req-f-name, 1.1fr)) var(--req-w-lifecycle, 196px) var(--req-w-kloc, 64px) var(--req-w-effort, 64px) var(--req-w-se, 88px) var(--req-w-mde, 88px) var(--req-w-version, 62px) var(--req-w-priority, 44px) var(--req-w-actions, 92px) var(--req-spacer, 0fr);
   }
-  .requirements-thead > span:nth-child(11),
-  .requirements-row > .req-edit-cell--owner { display: none; }
-  /* 编号列窄档让位: 表头第2格 + 行内编号格(P6 加包装后须按包装选择器隐藏) */
   .requirements-thead > span:nth-child(2),
-  .requirements-row > .req-edit-cell--number { display: none; }
-  /* 规模列窄档让位(中档已并入全列档,P16 后由本块独自承担) */
-  .requirements-thead > span:nth-child(6),
-  .requirements-row > .req-scale { display: none; }
-  /* 窄档死线内联仍在: 快捷键按钮收至 64(基础 72px 规则位于本文件更后,需提特异度压过) */
+  .requirements-row > .req-edit-cell--number,
+  .requirements-thead > span:nth-child(3),
+  .requirements-row > .req-edit-cell--component,
+  .requirements-thead > span:nth-child(10),
+  .requirements-row > .req-edit-cell--release,
+  .requirements-thead > span:nth-child(12),
+  .requirements-row > .req-primary { display: none; }
   .projects-board .requirements-row .lifecycle-quick-btn { min-width: 64px; }
 }
 

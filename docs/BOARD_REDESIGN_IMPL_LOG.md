@@ -12,6 +12,20 @@
 - D2 新列组件文件: SE/MDE/实名投入/迭代选择等新格件放
   client/src/components/boards/BoardCells.tsx,避免 Projects.tsx
   （已 1000+ 行）继续膨胀。理由: 文件职责(页面骨架 vs 格件)分离。
+- D4 reset 脚本事故与恢复: "防御清引用"误写 DELETE FROM projects 删掉三个演示
+  项目,从迁移前快照(/tmp/cap-pre063.db)全量恢复(含子表);另发现一字之差
+  ("门户首页改造/改版")导致三条 SQL 静默空转——教训: 幂等脚本的静默 no-op
+  必须靠事后 SELECT 验收兜底。
+- D5 se/mde 分量写入策略: 首次创建分量记录时 estimated_design_pm=分量和;
+  后续更新只写分量列,总量列不动(避免覆盖详情页语义)。
+- D6 IterationsController 集成测试弃用: 控制器 import 链拉起全局库模块,
+  jest 进程级崩溃(tarn aborted);统计口径抽 IterationStats 纯函数单测覆盖,
+  CRUD 由 curl 冒烟 + B4 无头覆盖。
+- D7 【重大】根 tsconfig include 仅 src/**+shared/**——client 从不在
+  typecheck 覆盖内,客户端所有 "typecheck ✓" 均为假阴性(今晚实际靠 vite
+  运行时+playwright 抓错)。待办: 建 client tsconfig 并入 typecheck 脚本。
+- D8 父任务并行合流: 487b3ce(标签 B 案)与 226a4a2(列宽 cap 体系)已在库,
+  B3a 在其上重构;标签列已消亡(名称格内联),B3f 剩余范围=仅 ＋AR 迁移。
 - D3 看板就地改 se/mde 粗估: 走 projects.update 白名单
   （se_estimate_pm/mde_estimate_pm）,服务端映射到最新设计粗估记录
   （无则创建仅含分量的记录）。理由: 看板编辑词汇统一走既有 update
@@ -19,9 +33,9 @@
 
 ## 批次进度
 
-- [ ] B1 迁移 063a-d + MDE 角色种子 + reset 重写
-- [ ] B2 API（迭代 CRUD+装载/白名单/看板 payload）+ 单测
-- [ ] B3a 列序+新列白板化
+- [x] B1 迁移 063a-d + MDE 角色种子 + reset 重写
+- [x] B2 API（迭代 CRUD+装载/白名单/看板 payload）+ 单测
+- [x] B3a 列序+新列白板化(三断点实测过)
 - [ ] B3b 状态格重构
 - [ ] B3c 交付计划格+迭代弹层
 - [ ] B3d SE/MDE 格+弹层

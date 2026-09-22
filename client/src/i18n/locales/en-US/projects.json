@@ -418,7 +418,12 @@
     "srToggleHint": "Expand/collapse decomposed ARs",
     "emptyFiltered": "No matching items — adjust or clear the filters",
     "clearFilters": "Clear filters",
-    "countSummaryWithAr": "{{count}} requirements · {{ar}} AR"
+    "countSummaryWithAr": "{{count}} requirements · {{ar}} AR",
+    "colKloc": "KLOC",
+    "colEffort": "Effort(pm)",
+    "colSe": "SE",
+    "colMde": "MDE",
+    "colPrimary": "Primary Dev"
   },
   "version": {
     "productTitle": "Product version, click to edit (e.g. B)",
@@ -473,7 +478,8 @@
   "scale": {
     "tooltip": "From the latest estimation (KLOC & person-months derived from estimated LOC); edit on the detail page",
     "pmUnit": " pm",
-    "srTooltip": "Sum of child estimations; edit each on the detail page"
+    "srTooltip": "Sum of child estimations; edit each on the detail page",
+    "empty": "—"
   },
   "actuals": {
     "title": "Investment ledger (plan vs actual)",
@@ -497,5 +503,16 @@
   },
   "refCode": {
     "hint": "Reference code — click to copy; paste into the board search to locate"
+  },
+  "effort": {
+    "tooltip": "Estimated dev person-months",
+    "srTooltip": "Sum of children"
+  },
+  "roleCell": {
+    "srTooltip": "{{role}} sum · {{persons}}"
+  },
+  "primaryDev": {
+    "hint": "Primary dev & window",
+    "none": "—"
   }
 }

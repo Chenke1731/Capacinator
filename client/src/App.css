@@ -1467,6 +1467,18 @@ input[type="checkbox"].settings-checkbox,
 .iter-pop-dates input { flex: 1; min-width: 0; }
 .iter-pop-create-btn { min-height: 24px; font-size: var(--b-fs-meta); padding: 2px 8px; }
 
+/* B3f ＋AR 入口: 名称格悬停显现(所有需求行可用,修"仅已分解行有按钮"鸡生蛋) */
+.req-ar-add {
+  display: none;
+  align-items: center; justify-content: center;
+  background: none; border: none; padding: 2px; margin-left: 2px;
+  min-width: 22px; min-height: 22px;
+  color: var(--text-tertiary, var(--text-secondary));
+  border-radius: 4px; cursor: pointer; flex: none;
+}
+.requirements-name:hover .req-ar-add { display: inline-flex; }
+.req-ar-add:hover { background: var(--bg-secondary, rgba(127,127,127,0.12)); color: var(--primary-text); }
+
 /* B3b 状态单胶囊(设计 §7): 徽章段+›段拼一个胶囊,同底同高 */
 .lifecycle-capsule {
   display: inline-flex;

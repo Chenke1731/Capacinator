@@ -719,6 +719,10 @@ export function Projects() {
                   </span>
                 )}
                 <TagsCell project={project} allTags={tags} onSaved={() => handleCellSaved(project.id)} onFilterByTag={toggleTagFilter} activeTagId={filters.tag_id} />
+                <button type="button" className="req-ar-add" title={t('projects:board.decompose')}
+                        onClick={(e) => { e.stopPropagation(); setDecomposeParent(project); }}>
+                  <GitBranch size={12} />
+                </button>
               </span>
 
               <NumberPart project={project} onSaved={() => handleCellSaved(project.id)} />
@@ -787,6 +791,10 @@ export function Projects() {
                 </button>
                 <span className="requirements-name-text" title={project.name}>{project.name}</span>
                 <span className="req-sr-chip">{t('projects:board.arCount', { count: agg.count })}</span>
+                <button type="button" className="req-ar-add" title={t('projects:board.decompose')}
+                        onClick={(e) => { e.stopPropagation(); setDecomposeParent(project); }}>
+                  <GitBranch size={12} />
+                </button>
                 {(project.lifecycle_warnings ?? []).length > 0 && (
                   <span
                     className="lifecycle-warn-chip"
@@ -803,6 +811,10 @@ export function Projects() {
                   </span>
                 )}
                 <TagsCell project={project} allTags={tags} onSaved={() => handleCellSaved(project.id)} onFilterByTag={toggleTagFilter} activeTagId={filters.tag_id} />
+                <button type="button" className="req-ar-add" title={t('projects:board.decompose')}
+                        onClick={(e) => { e.stopPropagation(); setDecomposeParent(project); }}>
+                  <GitBranch size={12} />
+                </button>
               </span>
 
               <NumberPart project={project} onSaved={() => handleCellSaved(project.id)} />
@@ -852,13 +864,6 @@ export function Projects() {
               </span>
 
               <span className="requirements-actions" onClick={(e) => e.stopPropagation()}>
-                <button
-                  className="req-icon-btn"
-                  title={t('projects:board.decompose')}
-                  onClick={() => setDecomposeParent(project)}
-                >
-                  <GitBranch size={14} />
-                </button>
                 <button
                   className="req-icon-btn"
                   title={t('common:edit')}

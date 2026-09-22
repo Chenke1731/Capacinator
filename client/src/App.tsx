@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 // import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import './i18n';
@@ -41,10 +42,19 @@ const queryClient = new QueryClient({
 });
 
 const AppContent: React.FC = () => {
+  // ⚡CapaDebug: dev 专属诊断面板(热键 Ctrl+Shift+D);动态导入使 release
+  // 构建经 DCE 整包剔除(验证: dist 内 grep 不到面板标记)
+  const [DevPanel, setDevPanel] = useState<React.ComponentType | null>(null);
+  useEffect(() => {
+    if (import.meta.env.DEV) {
+      import('./debug/BoardDiagnostics').then((m) => setDevPanel(() => m.BoardDiagnostics));
+    }
+  }, []);
   const { isLoggedIn } = useUser();
 
   return (
     <>
+      {DevPanel && <DevPanel />}
       <Layout>
         <Routes>
           <Route path="/" element={<Navigate to="/dashboard" replace />} />

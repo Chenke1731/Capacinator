@@ -1849,7 +1849,7 @@ input[type="checkbox"].settings-checkbox,
 .requirements-thead {
   display: grid;
     grid-template-columns: minmax(var(--req-w-name, 260px), var(--req-f-name, 1fr)) var(--req-w-number, 92px) minmax(var(--req-w-component, 92px), var(--req-cap-component, 130px)) minmax(var(--req-w-lifecycle, 216px), var(--req-cap-lifecycle, 280px)) minmax(var(--req-w-staffing, 116px), var(--req-cap-staffing, 150px)) var(--req-w-scale, 64px) var(--req-w-version, 58px) var(--req-w-release, 58px) var(--req-w-priority, 44px) minmax(var(--req-w-owner, 72px), var(--req-cap-owner, 104px)) var(--req-w-actions, 108px) var(--req-spacer, 0fr);
-  gap: 8px;
+  gap: var(--req-gap, 8px); /* 余量优先摊进间距(2026-09-23),媒体档继承 */
   align-items: center;
   min-height: 36px;
   padding: 0 14px;
@@ -1863,7 +1863,7 @@ input[type="checkbox"].settings-checkbox,
 .requirements-row {
   display: grid;
     grid-template-columns: minmax(var(--req-w-name, 260px), var(--req-f-name, 1fr)) var(--req-w-number, 92px) minmax(var(--req-w-component, 92px), var(--req-cap-component, 130px)) minmax(var(--req-w-lifecycle, 216px), var(--req-cap-lifecycle, 280px)) minmax(var(--req-w-staffing, 116px), var(--req-cap-staffing, 150px)) var(--req-w-scale, 64px) var(--req-w-version, 58px) var(--req-w-release, 58px) var(--req-w-priority, 44px) minmax(var(--req-w-owner, 72px), var(--req-cap-owner, 104px)) var(--req-w-actions, 108px) var(--req-spacer, 0fr);
-  gap: 8px;
+  gap: var(--req-gap, 8px); /* 余量优先摊进间距(2026-09-23),媒体档继承 */
   align-items: center;
   min-height: 40px;
   padding: 0 14px;

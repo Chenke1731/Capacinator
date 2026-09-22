@@ -568,6 +568,18 @@ export function Projects() {
     return sortTrees(buildTree([...keptParents, ...keptChildren]));
   }, [demandRows, filters.search, filters.tag_id, filters.component, filters.subtype, filters.product_version, filters.release_version]);
 
+  /** 表格容器宽(余量→列间距 分配的基础;jsdom 无 ResizeObserver 时跳过) */
+  const [containerW, setContainerW] = useState(0);
+  const tableRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (typeof ResizeObserver === 'undefined') return;
+    const el = tableRef.current;
+    if (!el) return; // loading 期表未渲染,依赖 projects 数据到位后重挂
+    const ro = new ResizeObserver(() => setContainerW(el.clientWidth));
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [projects]);
+
   /** cap 列内容自适应上限(2026-09-23): 量当下内容+8px 字体方差缓冲,
       不预留未来;更长内容到来随数据刷新自动抬高。钉死列(用户拖过)跳过。 */
   const [autoCaps, setAutoCaps] = useState<Record<string, number>>({});
@@ -675,6 +687,23 @@ export function Projects() {
         vars[`--req-cap-${c.key}`] = `${w}px`;
       }
     }
+    /* 余量分配(2026-09-23 用户裁决"左松右紧"→ 空间节奏再设计):
+       优先均匀摊进列间距(8px 起 24px 封顶,全表左右均衡呼吸),摊不完才
+       归名称弹性——不再单点灌最左列 */
+    if (containerW > 0) {
+      // 轨道和(不含间距): 间距预算 = (容器-轨道和)/nGaps,钳 8..24
+      const fixedTracks = visible.reduce((sum, c) => {
+        const auto = autoCaps[c.key];
+        const def = showAll ? c.def[0] : compact ? c.def[2] : c.def[1];
+        const w = colWidths[c.key] ?? (auto && (c as any).kind === 'cap' ? Math.max(def, auto) : def);
+        return sum + w;
+      }, 28);
+      const nGaps = Math.max(1, visible.length - 1);
+      const fitGap = Math.floor((containerW - fixedTracks) / nGaps);
+      const gap = Math.max(8, Math.min(24, fitGap));
+      if (gap > 8) vars['--req-gap'] = `${gap}px`;
+    }
+
     /* 内容自适应上限: 未钉死的 cap 列用当下实测(CSS 字面量仅首帧兜底) */
     for (const c of visible) {
       if ((c as any).kind !== 'cap') continue;
@@ -685,7 +714,7 @@ export function Projects() {
     }
     vars['--req-total'] = `${total}px`;
     return vars as React.CSSProperties;
-  }, [colWidths, showAll, compact, autoCaps]);
+  }, [colWidths, showAll, compact, autoCaps, containerW]);
 
   const flashRow = (id: string) => {
     setFlashId(id);
@@ -808,7 +837,7 @@ export function Projects() {
         </div>
       </div>
 
-      <div className="requirements-table" data-testid="requirements-table" style={colVars}>
+      <div ref={tableRef} className="requirements-table" data-testid="requirements-table" style={colVars}>
         <div className="requirements-thead">
           {([
             ['projects:board.colName', 'name'],

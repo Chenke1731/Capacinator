@@ -40,7 +40,7 @@ See [docs/BUILD_AND_TEST_SETUP.md](docs/BUILD_AND_TEST_SETUP.md) for build syste
 
 ## UI 生成契约（写任何 UI 前必读）
 
-用户用**浅色主题**。任何自定义控件/交互，动手前过一遍 [docs/UI_GENERATION_CONTRACT.md](docs/UI_GENERATION_CONTRACT.md) 的 12 维度——核心几条：先查 index.css/design-system.css 的全局元素规则（button 默认 padding/44px 命中）并显式重置（定宽按钮必须同块写 padding，否则图标塌 0 宽）；双主题各渲染一次并人眼看；图标物理可见 ≠ 按钮盒达标；可交互必须自报家门（hover 铅笔），新标准立即回审全部旧编辑点；数字带单位标签、编辑控件声明改什么；`npm run lint:ui` 是静态防线，交付前跑。守卫（verify:boards/verify:visual）是兜底，不是第一道防线。
+用户用**浅色主题**。契约按**演绎优先**组织：从项目本质（人力主管的排产决策要【正确、快、有把握】）推出五根支柱——A 计算可信（聚合/新鲜度/单位/边界数值/规模）、B 语义透明（域语言/自标注/状态可预测/告警可读）、C 决策流就绪（就地/回路速度/后果可见）、D 呈现健壮（双主题/视口/全局规则兼容/物理可见/i18n/键盘）、E 操作安全（防误触/失败可见/可逆/并发）——历史失败只是各支柱的佐证。写 UI 时第一问：**本功能触及哪几根支柱、每根在此要求什么**。核心红线：自定义控件先查 index.css/design-system.css 全局元素规则并显式重置（定宽按钮同块必写 padding，`npm run lint:ui` 静态拦截）；交付前双主题渲染人眼看（陌生人三问：看得见吗/知道改什么吗/有反馈吗）。守卫（verify:boards/verify:visual）是兜底，不是第一道防线。全文：[docs/UI_GENERATION_CONTRACT.md](docs/UI_GENERATION_CONTRACT.md)
 
 ## Project Structure
 

@@ -269,7 +269,7 @@ const REQ_COLUMNS = [
      默认预算原则: 默认(未拖拽)布局在 1600/1366 容器内零横向滚动,横滚只能由
      用户主动拖宽触发。 */
   /* def: [全列档(≥1680), 中档(1560–1679,藏规模), 窄档(<1560,藏规模+负责人)] */
-  { key: 'name', def: [210, 210, 210], min: 210, max: 640 },
+  { key: 'name', def: [210, 210, 210], min: 120, max: 640 },
   { key: 'tags', def: [112, 96, 92], min: 80, max: 320 },
   { key: 'component', def: [96, 84, 80], min: 72, max: 240 },
   { key: 'lifecycle', def: [224, 224, 196], min: 170, max: 420 },
@@ -621,6 +621,11 @@ export function Projects() {
       vars[`--req-w-${c.key}`] = `${w}px`;
       total += w;
     }
+    /* 名称列被用户拖过=钉死宽(fr 归零),余量转由状态列吸收,行不留尾空 */
+    if (colWidths.name !== undefined) {
+      vars['--req-f-name'] = '0fr';
+      vars['--req-f-lifecycle'] = '1fr';
+    }
     vars['--req-total'] = `${total}px`;
     return vars as React.CSSProperties;
   }, [colWidths, showAll, compact]);
@@ -787,7 +792,7 @@ export function Projects() {
                           onClick={() => navigate(`/projects/${project.id}`)}
                         >
                           <span className="requirements-name">
-                            <span className="requirements-name-text">{project.name}</span>
+                            <span className="requirements-name-text" title={project.name}>{project.name}</span>
                             {(project.lifecycle_warnings ?? []).length > 0 && (
                               <span
                                 className="lifecycle-warn-chip"
@@ -872,7 +877,7 @@ export function Projects() {
                         >
                           <span className="requirements-name">
                             {srCollapsed ? <ChevronRight size={15} className="req-sr-chevron" /> : <ChevronDown size={15} className="req-sr-chevron" />}
-                            <span className="requirements-name-text">{project.name}</span>
+                            <span className="requirements-name-text" title={project.name}>{project.name}</span>
                             <span className="req-sr-chip">{t('projects:board.arCount', { count: agg.count })}</span>
                             {(project.lifecycle_warnings ?? []).length > 0 && (
                               <span
@@ -961,7 +966,7 @@ export function Projects() {
                               >
                                 <span className="requirements-name requirements-name--child">
                                   <CornerDownRight size={13} className="req-child-arrow" />
-                                  <span className="requirements-name-text">{child.name}</span>
+                                  <span className="requirements-name-text" title={child.name}>{child.name}</span>
                                   <ArPart project={child} onSaved={() => handleCellSaved(child.id)} />
                                 </span>
 

@@ -66,6 +66,25 @@ check('超宽出现横向滚动(不挤压他列)', overflow.sw > overflow.cw + 2
 const nameNow = await colWidth(0);
 check('拖宽后名称列未被挤压到塌陷', nameNow >= 120, `name=${Math.round(nameNow)}`);
 
+// ── 4.5 拖窄名称列: 钉死生效(不被 fr 吸收),状态列承接余量 ──
+{
+  const g = await page.locator('[data-testid="col-grip-name"]').boundingBox();
+  const nameBefore = await page.evaluate(() => Math.round(document.querySelector('.requirements-row .requirements-name').getBoundingClientRect().width));
+  await page.mouse.move(g.x + g.width / 2, g.y + g.height / 2);
+  await page.mouse.down();
+  await page.mouse.move(g.x + g.width / 2 - (nameBefore - 150), g.y + g.height / 2, { steps: 8 });
+  await page.mouse.up();
+  await page.waitForTimeout(400);
+  const m = await page.evaluate(() => ({
+    name: Math.round(document.querySelector('.requirements-row .requirements-name').getBoundingClientRect().width),
+    lc: Math.round(document.querySelector('.requirements-row .req-cell-center').getBoundingClientRect().width)
+  }));
+  check('拖窄名称列真正钉死(±6px)', Math.abs(m.name - 150) <= 6, `${nameBefore}→${m.name}`);
+  check('余量转由状态列吸收(行不留尾空)', m.lc >= 224, `lifecycle=${m.lc}`);
+  await page.locator('[data-testid="col-grip-name"]').dblclick();
+  await page.waitForTimeout(200);
+}
+
 // ── 5. 清理: 重置全部 ──
 for (const key of ['col-grip-name', 'col-grip-lifecycle', 'col-grip-staffing', 'col-grip-tags']) {
   await page.locator(`[data-testid="${key}"]`).dblclick();

@@ -470,5 +470,21 @@
     "placeholder": "AR no.",
     "hint": "Click to set the AR number (annotation only, not a gate)",
     "none": "AR—"
+  },
+  "actuals": {
+    "title": "Investment ledger (plan vs actual)",
+    "snapshotThis": "Snapshot this month",
+    "snapshotHint": "Fills the default actual from effective assignments; manually set months are never overwritten",
+    "hint": "Actuals default from month-end snapshots and can be overridden by clicking the value; deviation = (actual−plan)/plan",
+    "colMonth": "Month",
+    "colPlanned": "Planned FTE",
+    "colActual": "Actual FTE",
+    "colDeviation": "Deviation",
+    "colSource": "Source",
+    "editHint": "Click to override the actual (owner-truth)",
+    "source": {
+      "snapshot": "snapshot",
+      "manual": "manual"
+    }
   }
 }

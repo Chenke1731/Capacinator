@@ -468,5 +468,21 @@
     "placeholder": "AR号",
     "hint": "点击填写 AR 号（注记，不作流程门槛）",
     "none": "AR—"
+  },
+  "actuals": {
+    "title": "投入履历（计划 vs 实际）",
+    "snapshotThis": "快照本月",
+    "snapshotHint": "按当月有效分配生成默认实际值；已改写的月份不会被覆盖",
+    "hint": "实际投入默认由月末快照生成，可点击实际值改写；偏差 =（实际−计划）/计划",
+    "colMonth": "月份",
+    "colPlanned": "计划 FTE",
+    "colActual": "实际 FTE",
+    "colDeviation": "偏差",
+    "colSource": "来源",
+    "editHint": "点击改写实际投入（主管口径为准）",
+    "source": {
+      "snapshot": "快照",
+      "manual": "改写"
+    }
   }
 }

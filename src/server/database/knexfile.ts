@@ -3,10 +3,16 @@ import path from 'path';
 import fs from 'fs';
 import e2eConfig from './knexfile.e2e.js';
 
-// __dirname 直接可用: tsx 的 ESM 加载器有垫片, Jest 的 CJS 变换原生提供。
-// (此前 ESM 惯用法 fileURLToPath(import.meta.url) 在 Jest 变换下是语法错误,
-//  2026-09-22 之前 21 个测试套件全因此常红。)
-const thisDir = __dirname;
+// 双模式目录解析: CJS(Jest 变换/knex CLI)原生 __dirname; ESM(tsx 4.23)无垫片,
+// import.meta.url 又会被 Jest 的 CJS 变换打成语法错误(21 套件常红的旧因)——
+// 故 ESM 分支从错误堆栈解析本文件路径(堆栈在两种模块体系里都含文件位置)。
+function resolveThisDir(): string {
+  if (typeof __dirname !== 'undefined') return __dirname;
+  const line = (new Error().stack ?? '').split('\n').find((l) => l.includes('knexfile')) ?? '';
+  const hit = line.match(/(?:file:\/\/)?(\/[^\s:]+?)\/knexfile\.ts/);
+  return hit?.[1] ?? process.cwd();
+}
+const thisDir = resolveThisDir();
 
 // Determine which config to use based on environment
 const getConfig = (): Knex.Config => {

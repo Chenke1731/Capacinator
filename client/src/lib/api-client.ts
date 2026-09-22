@@ -760,6 +760,15 @@ export const api = {
   },
 
   // Pool demands (池占位: role-side FTE demand without named persons)
+  actualInvestments: {
+    list: (projectId: string) => apiClient.get<{ data: any[] }>(`/actual-investments/project/${projectId}`),
+    snapshot: (projectId: string, month: string) =>
+      apiClient.post<{ data: any }>(`/actual-investments/project/${projectId}/snapshot`, { month }),
+    setManual: (projectId: string, month: string, fte: number) =>
+      apiClient.put<{ data: any }>(`/actual-investments/project/${projectId}`, { month, fte }),
+    remove: (projectId: string, month: string) =>
+      apiClient.delete<{ data: any }>(`/actual-investments/project/${projectId}/${month}`)
+  },
   poolDemands: {
     listByProject: (projectId: string) =>
       apiClient.get<{ data: any[] }>(`/pool-demands/project/${projectId}`),

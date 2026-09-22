@@ -33,6 +33,8 @@ import { ProjectDemandChart } from '../components/ProjectDemandChart';
 import { InlineEdit } from '../components/ui/InlineEdit';
 import { CollapsibleSection } from '../components/ui/CollapsibleSection';
 import { EstimationPanel } from '../components/estimation/EstimationPanel';
+import { ActualInvestmentsPanel } from '../components/actuals/ActualInvestmentsPanel';
+import { CalendarCheck } from 'lucide-react';
 import { LifecycleBanner } from '../components/lifecycle/LifecycleBanner';
 import { StaffingSection } from '../components/staffing/StaffingSection';
 import './ProjectDetail.css';
@@ -503,6 +505,16 @@ export function ProjectDetail() {
           onToggle={(expanded) => setExpandedSections(prev => ({ ...prev, estimation: expanded }))}
         >
           <EstimationPanel projectId={project.id} lifecycleState={project.lifecycle_state ?? null} designDeadline={project.design_deadline ?? null} />
+        </CollapsibleSection>
+
+        {/* 投入履历: 计划 vs 实际(实投入月帐, 2026-09-22 真实表借鉴) */}
+        <CollapsibleSection
+          title={t('projects:actuals.title')}
+          icon={CalendarCheck}
+          expanded={expandedSections.actuals ?? false}
+          onToggle={(expanded) => setExpandedSections(prev => ({ ...prev, actuals: expanded }))}
+        >
+          <ActualInvestmentsPanel projectId={project.id} />
         </CollapsibleSection>
 
         {/* History Section */}

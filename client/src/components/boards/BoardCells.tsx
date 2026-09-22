@@ -15,6 +15,19 @@ import { useCellPopover } from '../../hooks/useCellPopover';
  * 传入聚合值(只读,设计 §1)。
  */
 
+
+/** 区间工作日数(与服务端 IterationStats 同口径,设计 §0.3) */
+function workdaysBetween(start: string, end: string): number {
+  const a = new Date(start + 'T00:00:00');
+  const b = new Date(end + 'T00:00:00');
+  let days = 0;
+  for (let t = new Date(a); t <= b; t.setDate(t.getDate() + 1)) {
+    const dow = t.getDay();
+    if (dow !== 0 && dow !== 6) days++;
+  }
+  return Math.max(days, 1);
+}
+
 /** 代码规模: 最新评估换算 KLOC,只读(评估在详情页) */
 export function KlocCell({ kloc }: { kloc: number | null }) {
   const { t } = useTranslation();
@@ -36,20 +49,171 @@ export function EffortCell({ pm }: { pm: number | null }) {
   );
 }
 
-/** SE/MDE 格: `王工 0.5`(人 primary + 粗估人月 mono 次色,设计 §5)。
-    B3a 白板只读;B3d 点亮弹层(推导式/负载警示/占用%)。 */
+/** SE/MDE 格(B3d,设计 §5): `王工 0.5`——人 primary + 粗估 mono 次色。
+    弹层三段: ①工作量(可改,写最新粗估记录 D3) ②派生窗口(SE=今天→迭代开工;
+    MDE=迭代窗口) ③派给(选人+占用%默认=人月÷工作月,写分配,负载体系吃)。 */
 export function RoleCell({
-  roleName, person, pm, title
-}: { roleName: string; person: { person_name: string; allocation_pct: number } | null; pm: number | null; title?: string }) {
+  roleName, person, pm, project, onSaved
+}: {
+  roleName: 'se' | 'mde';
+  person: { id: string; person_name: string; allocation_pct: number } | null;
+  pm: number | null;
+  project: any;
+  onSaved: () => void;
+}) {
+  const { t } = useTranslation();
+  const queryClient = useQueryClient();
+  const pop = useCellPopover(`role-${roleName}-pop`, 268, 360);
+  const [pmDraft, setPmDraft] = useState('');
+  const [q, setQ] = useState('');
+  const [busy, setBusy] = useState(false);
+  const isSe = roleName === 'se';
+  const label = isSe ? 'SE' : 'MDE';
+
+  const { data: rolesResp } = useQuery({
+    queryKey: queryKeys.roles.list(),
+    queryFn: async () => {
+      const response = await api.roles.list();
+      const payload: any = response.data;
+      return Array.isArray(payload) ? payload : payload?.data || [];
+    },
+    enabled: pop.open
+  });
+  const roleList = Array.isArray(rolesResp) ? rolesResp : ((rolesResp as any)?.data ?? []);
+  const role = roleList.find((r: any) => r.name === label);
+
+  const { data: peopleResp } = useQuery({
+    queryKey: queryKeys.people.list(),
+    queryFn: async () => ((await api.people.list()).data as any)?.data ?? [],
+    enabled: pop.open
+  });
+  const people: any[] = Array.isArray(peopleResp) ? peopleResp : [];
+  const needle = q.trim().toLowerCase();
+  const candidates = people
+    .filter((pe) => !needle || String(pe.name).toLowerCase().includes(needle))
+    .sort((a, b) => Number(b.primary_role_name === label) - Number(a.primary_role_name === label))
+    .slice(0, 8);
+
+  // 派生窗口(SE=今天→迭代开工;MDE=迭代窗口)+工作月推导
+  const iter = project.iteration;
+  const today = new Date();
+  const iso = (d: Date) => d.toISOString().slice(0, 10);
+  const window = isSe
+    ? (iter ? { start: iso(today), end: iter.start_date } : null)
+    : (iter ? { start: iter.start_date, end: iter.end_date } : null);
+  const workdays = window ? workdaysBetween(window.start, window.end) : 0;
+  const months = Math.round((workdays / 21.75) * 100) / 100;
+  const pmVal = pmDraft !== '' ? Number(pmDraft) || 0 : (pm ?? 0);
+  const suggestPct = months > 0 ? Math.min(200, Math.round(((pmVal || 0) / months) * 100)) : 100;
+
+  const invalidate = () => {
+    queryClient.invalidateQueries({ queryKey: queryKeys.projects.all });
+    onSaved();
+  };
+
+  const savePm = async () => {
+    const v = Number(pmDraft);
+    if (!Number.isFinite(v)) return;
+    setBusy(true);
+    try {
+      await api.projects.update(project.id, (isSe ? { se_estimate_pm: v } : { mde_estimate_pm: v }) as any);
+      invalidate();
+    } finally { setBusy(false); }
+  };
+
+  const assign = async (personId: string, pct: number) => {
+    if (!role || !window) return;
+    setBusy(true);
+    try {
+      await api.assignments.create({
+        project_id: project.id,
+        person_id: personId,
+        role_id: role.id,
+        allocation_percentage: pct,
+        assignment_date_mode: 'fixed',
+        start_date: window.start,
+        end_date: window.end,
+        status: 'active'
+      } as any);
+      pop.setOpen(false);
+      invalidate();
+    } finally { setBusy(false); }
+  };
+
+  const detach = async () => {
+    if (!person?.id) return;
+    setBusy(true);
+    try {
+      await api.assignments.delete(person.id);
+      invalidate();
+    } finally { setBusy(false); }
+  };
+
   return (
-    <span className={`req-role req-role--${roleName}`} title={title ?? `${roleName} 投入`}>
-      {person ? (
-        <>
-          <span className="req-role-person">{person.person_name}</span>
-          {pm != null && <span className="req-role-pm">{pm}</span>}
-        </>
-      ) : (
-        <span className="text-muted">—</span>
+    <span ref={pop.anchorRef} onClick={(e) => e.stopPropagation()}>
+      <button type="button" className={`req-role req-role--${roleName} req-editable`}
+              title={person ? `${label} · ${person.person_name}` : t('projects:roleCell.pickHint', { role: label })}
+              onClick={() => { setPmDraft(pm != null ? String(pm) : ''); setQ(''); pop.toggle(); }}>
+        {person ? (
+          <>
+            <span className="req-role-person">{person.person_name}</span>
+            {pm != null && <span className="req-role-pm">{pm}</span>}
+          </>
+        ) : (
+          <span className="text-muted">—</span>
+        )}
+      </button>
+
+      {pop.open && (
+        <div className="lc-popover role-pop" style={pop.style}>
+          <div className="lc-popover-title">{label}{t('projects:roleCell.titleSuffix')}</div>
+          <div className="lc-popover-form role-pop-pm">
+            <label>{t('projects:roleCell.pmLabel')}
+              <input type="number" min="0" step="0.1" value={pmDraft}
+                     onChange={(e) => setPmDraft(e.target.value)} onBlur={savePm} style={{ width: 72 }} />
+              {t('projects:roleCell.pmUnit')}
+            </label>
+            {window ? (
+              <div className="lc-popover-hint">
+                {isSe
+                  ? t('projects:roleCell.seWindow', { end: window.end, days: workdays })
+                  : t('projects:roleCell.mdeWindow', { start: window.start, end: window.end, months })}
+              </div>
+            ) : (
+              <div className="lc-popover-hint">{t('projects:roleCell.noIteration')}</div>
+            )}
+          </div>
+
+          <div className="lc-popover-title">{t('projects:roleCell.assignTitle')}</div>
+          {person && (
+            <div className="role-pop-current">
+              <span>{person.person_name} · {person.allocation_pct}%</span>
+              <button type="button" className="role-pop-detach" disabled={busy} onClick={detach}>
+                {t('projects:roleCell.detach')}
+              </button>
+            </div>
+          )}
+          <div className="cell-pop-search">
+            <input placeholder={t('projects:roleCell.searchPerson')} value={q}
+                   onChange={(e) => setQ(e.target.value)} />
+          </div>
+          <div className="iter-pop-list">
+            {candidates.map((pe) => (
+              <button key={pe.id} type="button" className="cell-pop-item" disabled={busy || !role || !window}
+                      onClick={() => assign(pe.id, suggestPct)}>
+                <span className="cell-pop-item-label">{pe.name}</span>
+                <span className="cell-pop-item-meta">{pe.primary_role_name}</span>
+                {pe.primary_role_name === label && <span className="role-pop-match">{label}</span>}
+              </button>
+            ))}
+            {candidates.length === 0 && <div className="lc-popover-hint">{t('projects:roleCell.noMatch')}</div>}
+          </div>
+          {window && (
+            <div className="lc-popover-hint">
+              {t('projects:roleCell.suggest', { pct: suggestPct, pm: pmVal || 0, months })}
+            </div>
+          )}
+        </div>
       )}
     </span>
   );

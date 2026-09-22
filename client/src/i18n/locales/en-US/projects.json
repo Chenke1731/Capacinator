@@ -510,7 +510,18 @@
     "srTooltip": "Sum of children"
   },
   "roleCell": {
-    "srTooltip": "{{role}} sum · {{persons}}"
+    "pickHint": "Assign {{role}}",
+    "titleSuffix": " staffing",
+    "pmLabel": "Effort",
+    "pmUnit": "pm",
+    "seWindow": "Window: today → {{end}} (iteration start), {{days}} workdays left",
+    "mdeWindow": "Window: {{start}} ~ {{end}} (iteration), ≈{{months}} months",
+    "noIteration": "No iteration attached — attach one in Release first",
+    "assignTitle": "Assign to",
+    "detach": "Detach",
+    "searchPerson": "Search people…",
+    "noMatch": "No match",
+    "suggest": "Suggested {{pct}}% = {{pm}} pm ÷ {{months}} mo"
   },
   "primaryDev": {
     "hint": "Primary dev & window",

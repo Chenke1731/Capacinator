@@ -733,9 +733,9 @@ export function Projects() {
 
               <EffortCell pm={project.estimation_summary?.pm ?? null} />
 
-              <RoleCell roleName="se" person={project.se_assignment} pm={project.design_estimates?.se ?? null} />
+              <RoleCell roleName="se" person={project.se_assignment} pm={project.design_estimates?.se ?? null} project={project} onSaved={() => handleCellSaved(project.id)} />
 
-              <RoleCell roleName="mde" person={project.mde_assignment} pm={project.design_estimates?.mde ?? null} />
+              <RoleCell roleName="mde" person={project.mde_assignment} pm={project.design_estimates?.mde ?? null} project={project} onSaved={() => handleCellSaved(project.id)} />
 
               <VersionPart project={project} field="product_version"
                 placeholder={t('projects:version.productPlaceholder')}
@@ -900,8 +900,8 @@ export function Projects() {
 
                     <KlocCell kloc={child.estimation_summary?.kloc ?? null} />
                     <EffortCell pm={child.estimation_summary?.pm ?? null} />
-                    <RoleCell roleName="se" person={child.se_assignment} pm={child.design_estimates?.se ?? null} />
-                    <RoleCell roleName="mde" person={child.mde_assignment} pm={child.design_estimates?.mde ?? null} />
+                    <RoleCell roleName="se" person={child.se_assignment} pm={child.design_estimates?.se ?? null} project={child} onSaved={() => handleCellSaved(child.id)} />
+                    <RoleCell roleName="mde" person={child.mde_assignment} pm={child.design_estimates?.mde ?? null} project={child} onSaved={() => handleCellSaved(child.id)} />
 
                     <VersionPart project={child} field="product_version"
                       placeholder={t('projects:version.productPlaceholder')}

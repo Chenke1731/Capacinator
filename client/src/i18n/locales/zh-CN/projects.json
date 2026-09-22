@@ -508,7 +508,18 @@
     "srTooltip": "子行评估人月之和"
   },
   "roleCell": {
-    "srTooltip": "{{role}} 子行粗估合计 · 投入：{{persons}}"
+    "pickHint": "点击安排 {{role}} 投入",
+    "titleSuffix": " 投入",
+    "pmLabel": "这件事工作量",
+    "pmUnit": "人月",
+    "seWindow": "窗口(派生)：今天 → {{end}}（迭代开工），剩 {{days}} 工作日",
+    "mdeWindow": "窗口(派生)：{{start}} ~ {{end}}（迭代窗口），约 {{months}} 工作月",
+    "noIteration": "未挂迭代——先在交付计划挂迭代，窗口才能派生",
+    "assignTitle": "派给",
+    "detach": "撤出",
+    "searchPerson": "搜索人员…",
+    "noMatch": "无匹配人员",
+    "suggest": "默认占用 {{pct}}% = {{pm}} 人月 ÷ {{months}} 月（可改）"
   },
   "primaryDev": {
     "hint": "主投入开发与投入窗口",

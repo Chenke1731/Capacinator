@@ -12,9 +12,14 @@ DELETE FROM project_design_estimations WHERE project_id IN (SELECT id FROM proje
 
 -- ═══ 迭代域演示数据(2026-09-23 板卡重构) ═══
 -- MDE 人员(赵设计) — 幂等
+-- primary_person_role_id 指向 person_roles 联接行(不是 roles.id)
+INSERT INTO person_roles (id, person_id, role_id)
+SELECT 'demo-mde-pr-0001', 'demo-mde-person-0001', (SELECT id FROM roles WHERE name='MDE')
+WHERE NOT EXISTS (SELECT 1 FROM person_roles WHERE id='demo-mde-pr-0001');
 INSERT INTO people (id, name, email, primary_person_role_id, worker_type, default_availability_percentage, default_hours_per_day, is_active, created_at, updated_at)
-SELECT 'demo-mde-person-0001', '赵设计', 'mde@demo.local', (SELECT id FROM roles WHERE name='MDE'), 'FTE', 100, 8, 1, datetime('now'), datetime('now')
+SELECT 'demo-mde-person-0001', '赵设计', 'mde@demo.local', 'demo-mde-pr-0001', 'FTE', 100, 8, 1, datetime('now'), datetime('now')
 WHERE NOT EXISTS (SELECT 1 FROM people WHERE id='demo-mde-person-0001');
+UPDATE people SET primary_person_role_id='demo-mde-pr-0001' WHERE id='demo-mde-person-0001' AND (primary_person_role_id IS NULL OR primary_person_role_id NOT IN (SELECT id FROM person_roles));
 
 -- 迭代 ×3(门户项目 10/11/12 月) — 幂等重建
 UPDATE projects SET iteration_id=NULL WHERE iteration_id IN ('iter-2026-10','iter-2026-11','iter-2026-12'); -- 清引用(不是删项目!)再重建迭代

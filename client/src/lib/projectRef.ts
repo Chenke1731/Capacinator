@@ -1,17 +1,17 @@
 /**
- * 短引用码: 事项 id 尾 6 位(2026-09-22 裁决——不加内部自增编码)。
- * 用途: 详情页标题旁展示、截图/口头精确指代、需求台搜索框粘贴直接定位。
- * 不进列表列(不占列预算),不承载域语义(类型/版本/粒度一概不自述)。
+ * 引用码: 创建序号 #N(2026-09-22 裁决数字化——字母组合奇怪,数字可口头指代
+ * "3号需求")。落库 seq_number(migration 062,回填+max+1 递增),稳定不动。
+ * 用途: 详情页标题旁展示、截图/口头精确指代、需求台搜索框 #N 直接定位。
+ * 不进列表列(不占列预算),不承载域语义。
  */
-export const projectRefCode = (id: string): string => `#${id.slice(-6)}`;
-
-/** 裸码(无 #),搜索比对用 */
-export const refCodeOf = (id: string): string => id.slice(-6).toLowerCase();
+export const projectRefCode = (seqNumber: number | null | undefined): string =>
+  seqNumber != null ? `#${seqNumber}` : '';
 
 /** 复制引用码。LAN http 下 navigator.clipboard 不可用(非安全上下文),
  *  回退 execCommand;两者皆败则码本身可选中手抄,不阻塞。 */
-export const copyRefCode = async (id: string): Promise<void> => {
-  const code = projectRefCode(id);
+export const copyRefCode = async (seqNumber: number | null | undefined): Promise<void> => {
+  const code = projectRefCode(seqNumber);
+  if (!code) return;
   try {
     if (navigator.clipboard && window.isSecureContext) {
       await navigator.clipboard.writeText(code);

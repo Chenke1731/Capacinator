@@ -254,7 +254,7 @@ check('状态快捷键保留', (await quick.count()) >= 1, (await quick.textCont
   await p1.locator('.requirements-name-text').click(); // 行点击进详情
   await page.waitForSelector('.project-ref-code', { timeout: 8000 });
   const chip = (await page.$eval('.project-ref-code', el => el.textContent.trim()));
-  check('详情页引用码 chip(#尾6位)', /^#[0-9a-z-]{4,}$/i.test(chip), chip);
+  check('详情页引用码 chip(纯数字序号)', /^#\d+$/.test(chip), chip);
   await page.goBack();
   await page.waitForTimeout(1200);
   await page.fill('[data-testid="search-input"]', chip);

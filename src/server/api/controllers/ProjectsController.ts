@@ -289,6 +289,7 @@ export class ProjectsController extends BaseController {
         .leftJoin('project_phases as current_phase', 'projects.current_phase_id', 'current_phase.id')
         .select(
           'projects.id',
+        'projects.seq_number',
           'projects.name',
           'projects.description',
           'projects.priority',
@@ -441,6 +442,7 @@ export class ProjectsController extends BaseController {
         .leftJoin('project_phases as current_phase', 'projects.current_phase_id', 'current_phase.id')
         .select(
           'projects.id',
+        'projects.seq_number',
           'projects.name',
           'projects.description',
           'projects.priority',
@@ -598,8 +600,13 @@ export class ProjectsController extends BaseController {
         }
       });
       
+      // 引用码序号: max+1(单用户无并发竞争;唯一索引兜底拒绝重复)
+      const maxRow = await this.db('projects').max('seq_number as maxSeq').first();
+      const nextSeq = Number(maxRow?.maxSeq ?? 0) + 1;
+
       const projectToInsert = {
         id: projectId,
+        seq_number: nextSeq,
         ...sanitizedData,
         project_type_id: sanitizedData.project_sub_type_id ?
           (await this.db('project_sub_types').where('id', sanitizedData.project_sub_type_id).first())?.project_type_id :

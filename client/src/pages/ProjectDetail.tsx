@@ -357,9 +357,9 @@ export function ProjectDetail() {
                     type="button"
                     className="project-ref-code"
                     title={t('projects:refCode.hint')}
-                    onClick={() => copyRefCode(project.id)}
+                    onClick={() => copyRefCode((project as any).seq_number)}
                   >
-                    {projectRefCode(project.id)}
+                    {projectRefCode((project as any).seq_number)}
                   </button>
                 </CardTitle>
                 {(project as any).tags?.length > 0 && (

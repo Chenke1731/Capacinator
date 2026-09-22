@@ -105,6 +105,7 @@ jest.mock('../../contexts/ScenarioContext', () => ({
 const mockProjects = [
   {
     id: 'proj-1',
+    seq_number: 1,
     name: 'Project Alpha',
     project_type_id: 'type-1',
     project_type_name: '需求交付',
@@ -123,6 +124,7 @@ const mockProjects = [
   },
   {
     id: 'proj-2',
+    seq_number: 2,
     name: 'Project Beta',
     project_type_id: 'type-1',
     project_type_name: '需求交付',
@@ -139,6 +141,7 @@ const mockProjects = [
   // SR→AR: proj-1 的两个 AR 子行
   {
     id: 'proj-1a',
+    seq_number: 3,
     name: 'Portal Login Rework',
     project_type_id: 'type-1',
     project_type_name: '需求交付',
@@ -158,6 +161,7 @@ const mockProjects = [
   },
   {
     id: 'proj-1b',
+    seq_number: 4,
     name: 'Portal Home Rework',
     project_type_id: 'type-1',
     project_type_name: '需求交付',
@@ -178,6 +182,7 @@ const mockProjects = [
   // Not a demand item — must NOT appear on the 需求台
   {
     id: 'proj-3',
+    seq_number: 5,
     name: 'Project Gamma',
     project_type_id: null,
     project_type_name: null,
@@ -186,6 +191,7 @@ const mockProjects = [
   },
   {
     id: 'proj-4',
+    seq_number: 6,
     name: 'Ticket Pool',
     project_type_id: 'type-9',
     project_type_name: '问题单支持',
@@ -920,8 +926,8 @@ describe('Requirements Board (需求台)', () => {
         expect(screen.getByText('Project Alpha')).toBeInTheDocument();
       });
 
-      // #proj-1 = id 'proj-1' 尾 6 位;精确命中 Alpha,不含 proj-1a/1b 的尾码
-      await user.type(screen.getByTestId('search-input'), '#proj-1');
+      // #1 = seq_number 精确命中 Alpha
+      await user.type(screen.getByTestId('search-input'), '#1');
       expect(screen.getByText('Project Alpha')).toBeInTheDocument();
       expect(screen.queryByText('Project Beta')).not.toBeInTheDocument();
     });

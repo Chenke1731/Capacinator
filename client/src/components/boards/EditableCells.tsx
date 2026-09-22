@@ -306,3 +306,100 @@ export function TagsCell({
     </span>
   );
 }
+
+/** 所属组件: 自由文本 combobox(列出已有值+可输入新值),与版本字段同款裁决 */
+export function ComponentCell({
+  project,
+  options,
+  onSaved
+}: {
+  project: any;
+  options: string[];
+  onSaved: () => void;
+}) {
+  const { t } = useTranslation();
+  const queryClient = useQueryClient();
+  const pop = useCellPopover('component-pop', 262, 320);
+  const [draft, setDraft] = useState('');
+  const [busy, setBusy] = useState(false);
+  const value = String(project.component ?? '').trim();
+
+  const commit = async (v: string) => {
+    pop.setOpen(false);
+    if (v === value) return;
+    setBusy(true);
+    try {
+      await api.projects.update(project.id, { component: v || null });
+      await queryClient.invalidateQueries({ queryKey: queryKeys.projects.all });
+      onSaved();
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const needle = draft.trim().toLowerCase();
+  const visible = needle
+    ? options.filter((c) => c.toLowerCase().includes(needle))
+    : options;
+
+  return (
+    <span ref={pop.anchorRef} className="req-edit-cell req-edit-cell--component" onClick={(e) => e.stopPropagation()}>
+      <button
+        type="button"
+        data-testid="component-edit-btn"
+        className={`requirements-component-btn req-editable ${value ? '' : 'is-empty'}`}
+        disabled={busy}
+        title={t('projects:component.hint')}
+        onClick={pop.toggle}
+      >
+        {value || t('projects:component.none')}
+      </button>
+      <Pencil size={10} className="req-pencil" aria-hidden />
+      {pop.open && (
+        <div className="lc-popover cell-pop component-pop" data-testid="component-popover" style={pop.style}>
+          <div className="lc-popover-title">{t('projects:component.title')}</div>
+          <div className="cell-pop-search">
+            <Search size={12} aria-hidden />
+            <input
+              autoFocus
+              value={draft}
+              placeholder={t('projects:component.searchPlaceholder')}
+              onChange={(e) => setDraft(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') commit(draft.trim());
+              }}
+            />
+          </div>
+          <div className="cell-pop-list">
+            {visible.map((c) => (
+              <button
+                key={c}
+                type="button"
+                className={`cell-pop-item ${c === value ? 'cell-pop-item--active' : ''}`}
+                onClick={() => commit(c)}
+              >
+                <span className="cell-pop-item-label">{c}</span>
+                {c === value && <Check size={13} className="cell-pop-check" />}
+              </button>
+            ))}
+            {needle && !visible.some((c) => c === needle) && (
+              <button type="button" className="cell-pop-item cell-pop-item--create" onClick={() => commit(needle)}>
+                <Plus size={13} />
+                <span className="cell-pop-item-label">{needle}</span>
+              </button>
+            )}
+            {!needle && visible.length === 0 && (
+              <div className="cell-pop-empty">{t('projects:component.empty')}</div>
+            )}
+          </div>
+          {value && (
+            <button type="button" className="cell-pop-item cell-pop-item--danger" onClick={() => commit('')}>
+              <X size={13} />
+              <span className="cell-pop-item-label">{t('projects:component.clear')}</span>
+            </button>
+          )}
+        </div>
+      )}
+    </span>
+  );
+}

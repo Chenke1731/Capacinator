@@ -124,7 +124,10 @@ export class ProjectsController extends BaseController {
    */
   private async attachStaffingSummaries(projects: any[]): Promise<void> {
     const ids = projects.map((p: any) => p.id);
-    const blank = () => ({ design: { named: 0, pool: 0 }, dev: { named: 0, pool: 0 } });
+    const blank = () => ({
+      design: { named: 0, pool: 0, named_detail: [] as any[] },
+      dev: { named: 0, pool: 0, named_detail: [] as any[] }
+    });
     const summaries = new Map<string, any>();
     for (const p of projects) summaries.set(p.id, blank());
     if (ids.length === 0) return;
@@ -133,13 +136,17 @@ export class ProjectsController extends BaseController {
 
     const namedRows = await this.db('assignments_view as av')
       .join('roles as r', 'av.role_id', 'r.id')
+      .join('people as pe', 'av.person_id', 'pe.id')
       .whereIn('av.project_id', ids)
       .where('av.status', 'active')
-      .select('av.project_id', 'r.name as role_name', 'av.allocation_percentage');
+      .select('av.project_id', 'r.name as role_name', 'av.allocation_percentage', 'pe.name as person_name');
     for (const row of namedRows) {
       const s = summaries.get(row.project_id);
       if (!s) continue;
-      s[sideOf(row.role_name)].named += (row.allocation_percentage ?? 0) / 100;
+      const fte = (row.allocation_percentage ?? 0) / 100;
+      const side = s[sideOf(row.role_name)];
+      side.named += fte;
+      side.named_detail.push({ name: row.person_name, fte });
     }
 
     const poolRows = await this.db('project_pool_demands as pmd')
@@ -157,9 +164,48 @@ export class ProjectsController extends BaseController {
     for (const p of projects) {
       const s = summaries.get(p.id);
       p.staffing_summary = {
-        design: { named: round2(s.design.named), pool: round2(s.design.pool) },
-        dev: { named: round2(s.dev.named), pool: round2(s.dev.pool) }
+        design: {
+          named: round2(s.design.named),
+          pool: round2(s.design.pool),
+          named_detail: s.design.named_detail
+            .sort((a: any, b: any) => b.fte - a.fte)
+            .map((d: any) => ({ name: d.name, fte: round2(d.fte) }))
+        },
+        dev: {
+          named: round2(s.dev.named),
+          pool: round2(s.dev.pool),
+          named_detail: s.dev.named_detail
+            .sort((a: any, b: any) => b.fte - a.fte)
+            .map((d: any) => ({ name: d.name, fte: round2(d.fte) }))
+        }
       };
+    }
+  }
+
+  /**
+   * 规模列数据源(2026-09-22 用户真实人力排序表借鉴): 每项目最新一条评估
+   * (project_estimations)换算 KLOC 与人月。只读呈现,评估仍在详情页做——
+   * 计算同权,呈现分流。
+   */
+  private async attachEstimationSummaries(projects: any[]): Promise<void> {
+    const ids = projects.map((p: any) => p.id);
+    if (ids.length === 0) return;
+    const rows = await this.db('project_estimations')
+      .whereIn('project_id', ids)
+      .orderBy('created_at')
+      .select('project_id', 'estimated_loc', 'loc_rate_per_pm');
+    const latest = new Map<string, any>();
+    for (const row of rows) latest.set(row.project_id, row); // 有序遍历,后者覆盖=最新
+    const round2 = (n: number) => Math.round(n * 100) / 100;
+    for (const p of projects) {
+      const e = latest.get(p.id);
+      if (!e || !Number.isFinite(Number(e.estimated_loc))) {
+        p.estimation_summary = null;
+        continue;
+      }
+      const loc = Number(e.estimated_loc);
+      const rate = Number(e.loc_rate_per_pm) || 500;
+      p.estimation_summary = { kloc: round2(loc / 1000), pm: round2(loc / rate) };
     }
   }
 
@@ -243,6 +289,7 @@ export class ProjectsController extends BaseController {
           'projects.ar_number',
           'projects.product_version',
           'projects.release_version',
+          'projects.component',
           'projects.iteration_label',
           'projects.created_at',
           'projects.updated_at',
@@ -332,6 +379,7 @@ export class ProjectsController extends BaseController {
       const lifecycleService = new LifecycleService(this.db);
       const warningsByProject = await lifecycleService.computeWarningsForProjects(projects);
       await this.attachStaffingSummaries(projects);
+      await this.attachEstimationSummaries(projects);
 
       for (const project of projects) {
         project.tags = tagsByProject.get(project.id) ?? [];
@@ -392,6 +440,7 @@ export class ProjectsController extends BaseController {
           'projects.ar_number',
           'projects.product_version',
           'projects.release_version',
+          'projects.component',
           'projects.iteration_label',
           'projects.created_at',
           'projects.updated_at',
@@ -482,6 +531,7 @@ export class ProjectsController extends BaseController {
         : [];
       const projectForSummary = [project];
       await this.attachStaffingSummaries(projectForSummary);
+      await this.attachEstimationSummaries(projectForSummary);
 
       return {
         ...project,

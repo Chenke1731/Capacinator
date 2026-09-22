@@ -79,6 +79,7 @@ const initialValues: ProjectFormData = {
   external_id: '',
   owner_id: '',
   current_phase_id: '',
+  component: '',
   tag_ids: []
 };
 
@@ -144,6 +145,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
       external_id: item.external_id || '',
       owner_id: item.owner_id || '',
       current_phase_id: item.current_phase_id || '',
+      component: (item as any).component || '',
       tag_ids: (item.tags || []).map((tag) => tag.id)
     }),
   });
@@ -341,6 +343,16 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
                 value={formData.external_id}
                 onChange={(e) => handleChange('external_id', e.target.value)}
                 placeholder={t('projects:placeholder.externalSystemId')}
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="component">{t('projects:component.fieldLabel')}</Label>
+              <Input
+                id="component"
+                value={formData.component}
+                onChange={(e) => handleChange('component', e.target.value)}
+                placeholder={t('projects:component.fieldPlaceholder')}
               />
             </div>
 

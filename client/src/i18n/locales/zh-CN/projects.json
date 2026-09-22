@@ -403,7 +403,10 @@
     "resetFilters": "清除筛选",
     "colTags": "标签",
     "colRelease": "交付计划",
-    "resizeHint": "拖拽调整列宽，双击重置"
+    "resizeHint": "拖拽调整列宽，双击重置",
+    "colComponent": "组件",
+    "colScale": "规模",
+    "filterComponent": "组件"
   },
   "version": {
     "productTitle": "产品版本，点击填写（如 B）",
@@ -441,5 +444,19 @@
     "empty": "暂无事项类条目",
     "peopleStat": "{{people}} 人 · {{fte}} FTE",
     "monthStat": "本月 {{pm}} 人月"
+  },
+  "component": {
+    "hint": "点击设置所属组件",
+    "title": "所属组件",
+    "searchPlaceholder": "输入或选择组件…",
+    "none": "—",
+    "empty": "暂无组件，输入即新建",
+    "clear": "清除组件",
+    "fieldLabel": "所属组件",
+    "fieldPlaceholder": "如 HCCL_驱动组"
+  },
+  "scale": {
+    "tooltip": "口径：最新一次评估（KLOC 与人月由估算 LOC 换算）；评估在详情页做",
+    "pmUnit": "人月"
   }
 }

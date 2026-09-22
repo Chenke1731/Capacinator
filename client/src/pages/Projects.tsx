@@ -6,7 +6,7 @@ import { Plus, Minus, Edit2, Trash2, Tag, ChevronDown, ChevronRight, Search, X, 
 import { api } from '../lib/api-client';
 import { queryKeys } from '../lib/queryKeys';
 import { useCellPopover } from '../hooks/useCellPopover';
-import { PriorityCell, OwnerCell, TagsCell } from '../components/boards/EditableCells';
+import { PriorityCell, OwnerCell, TagsCell, ComponentCell } from '../components/boards/EditableCells';
 import { LoadingSpinner } from '../components/ui/LoadingSpinner';
 import { ErrorMessage } from '../components/ui/ErrorMessage';
 import ProjectModal from '../components/modals/ProjectModal';
@@ -154,7 +154,8 @@ function StaffingCell({ project, onChanged }: { project: any; onChanged: () => v
           <div className="lc-popover-title">{t('projects:staffing.adjustTitle')}</div>
           <div className="lc-popover-hint">{t('projects:staffing.adjustHow')}</div>
           {sides.map(([label, side, v]) => (
-            <div key={label} className="staff-pop-row">
+            <div key={label} className="staff-pop-group">
+            <div className="staff-pop-row">
               <span className={`staff-dot staff-dot--${side}`} />
               <span className="staff-pop-side">{label}</span>
               <span className="staff-pop-named">
@@ -175,6 +176,24 @@ function StaffingCell({ project, onChanged }: { project: any; onChanged: () => v
                 </span>
               </span>
             </div>
+            {(v.named_detail ?? []).length > 0 && (
+              <div className="staff-pop-people">
+                {(v.named_detail ?? []).slice(0, 3).map((d: any) => (
+                  <span key={d.name} className="staff-pop-person">
+                    {d.name}<b>{Math.round(d.fte * 100)}%</b>
+                  </span>
+                ))}
+                {(v.named_detail ?? []).length > 3 && (
+                  <span
+                    className="staff-pop-person staff-pop-person--more"
+                    title={(v.named_detail ?? []).map((d: any) => `${d.name} ${Math.round(d.fte * 100)}%`).join('\n')}
+                  >
+                    +{(v.named_detail ?? []).length - 3}
+                  </span>
+                )}
+              </div>
+            )}
+            </div>
           ))}
           <div className="lc-popover-hint">{t('projects:staffing.adjustHintFooter')}</div>
         </div>
@@ -185,6 +204,21 @@ function StaffingCell({ project, onChanged }: { project: any; onChanged: () => v
 
 /** 优先级/负责人/标签三列由 EditableCells 提供(锚定气泡就地编辑) */
 
+/** 规模列: 最新评估换算 KLOC/人月,只读(评估仍在详情页)——计算同权,呈现分流 */
+function ScaleCell({ project }: { project: any }) {
+  const { t } = useTranslation();
+  const e = project.estimation_summary;
+  if (!e) {
+    return <span className="req-scale req-scale--empty" title={t('projects:scale.tooltip')}>—</span>;
+  }
+  return (
+    <span className="req-scale" title={t('projects:scale.tooltip')}>
+      <span className="req-scale-kloc">{e.kloc}K</span>
+      <span className="req-scale-pm">{e.pm}{t('projects:scale.pmUnit')}</span>
+    </span>
+  );
+}
+
 const UNVERSIONED = '__unversioned__';
 
 /** 列宽拖拽: 表头右缘手柄,拖=调宽窄(钳制 min/max),双击=重置该列;localStorage 持久化。
@@ -193,8 +227,10 @@ const UNVERSIONED = '__unversioned__';
 const REQ_COLUMNS = [
   { key: 'name', def: [150, 140], min: 120, max: 640 },
   { key: 'tags', def: [148, 140], min: 80, max: 320 },
+  { key: 'component', def: [112, 104], min: 72, max: 240 },
   { key: 'lifecycle', def: [236, 236], min: 170, max: 420 },
   { key: 'staffing', def: [128, 128], min: 104, max: 220 },
+  { key: 'scale', def: [92, 0], min: 64, max: 200 },
   { key: 'version', def: [88, 84], min: 56, max: 200 },
   { key: 'release', def: [88, 84], min: 56, max: 200 },
   { key: 'priority', def: [52, 48], min: 40, max: 120 },
@@ -314,7 +350,7 @@ export function Projects() {
   const { t } = useTranslation();
   const { currentScenario } = useScenario();
 
-  const [filters, setFilters] = useState({ search: '', lifecycle_state: '', tag_id: '' });
+  const [filters, setFilters] = useState({ search: '', lifecycle_state: '', tag_id: '', component: '' });
   const [collapsed, setCollapsed] = useState<Set<string>>(new Set());
   const [confirmingDelete, setConfirmingDelete] = useState<string | null>(null);
   const [tagManagerOpen, setTagManagerOpen] = useState(false);
@@ -370,8 +406,23 @@ export function Projects() {
     if (filters.tag_id) {
       rows = rows.filter((p: any) => (p.tags ?? []).some((tag: any) => String(tag.id) === String(filters.tag_id)));
     }
+    if (filters.component) {
+      rows = rows.filter((p: any) => String(p.component ?? '') === filters.component);
+    }
     return rows;
-  }, [projects, filters.search, filters.tag_id]);
+  }, [projects, filters.search, filters.tag_id, filters.component]);
+
+  // 组件选项来自全量需求(不受组件筛选自身影响),排序稳定
+  const componentOptions = useMemo(
+    () =>
+      [...new Set(
+        (projects ?? [])
+          .filter((p: any) => categoryOfTypeName(p.project_type_name) === 'demand')
+          .map((p: any) => String(p.component ?? '').trim())
+          .filter(Boolean)
+      )].sort((a, b) => a.localeCompare(b, 'zh')),
+    [projects]
+  );
 
   const groups = useMemo(() => buildGroups(demandProjects), [demandProjects]);
 
@@ -411,10 +462,12 @@ export function Projects() {
   const compact = typeof window !== 'undefined' && window.innerWidth < 1440;
   const colVars = useMemo(() => {
     const vars: Record<string, string> = {};
-    let total = 28 /* 行左右 padding */ + 8 * 8 /* 列间 gap */;
-    for (const c of REQ_COLUMNS) {
+    // <1440 隐藏负责人与规模列(def[1]=0 表示 compact 不显示)
+    const hiddenCompact = ['owner', 'scale'];
+    const visible = REQ_COLUMNS.filter((c) => !(compact && hiddenCompact.includes(c.key)));
+    let total = 28 /* 行左右 padding */ + 8 * (visible.length - 1) /* 列间 gap */;
+    for (const c of visible) {
       const def = compact ? c.def[1] : c.def[0];
-      if (c.key === 'owner' && compact) continue; // <1440 隐藏负责人列
       const w = colWidths[c.key] ?? def;
       vars[`--req-w-${c.key}`] = `${w}px`;
       total += w;
@@ -487,12 +540,21 @@ export function Projects() {
           <option value="">{t('projects:tags.filterLabel')}</option>
           {tags.map((tag) => <option key={String(tag.id)} value={String(tag.id)}>{tag.name}</option>)}
         </select>
-        {(filters.search || filters.lifecycle_state || filters.tag_id) && (
+        <select
+          data-testid="component-filter"
+          className="board-select"
+          value={filters.component}
+          onChange={(e) => setFilters((prev) => ({ ...prev, component: e.target.value }))}
+        >
+          <option value="">{t('projects:board.filterComponent')}</option>
+          {componentOptions.map((c) => <option key={c} value={c}>{c}</option>)}
+        </select>
+        {(filters.search || filters.lifecycle_state || filters.tag_id || filters.component) && (
           <button
             data-testid="reset-filters"
             className="board-reset"
             title={t('projects:board.resetFilters')}
-            onClick={() => setFilters({ search: '', lifecycle_state: '', tag_id: '' })}
+            onClick={() => setFilters({ search: '', lifecycle_state: '', tag_id: '', component: '' })}
           >
             <X size={13} />
           </button>
@@ -514,8 +576,10 @@ export function Projects() {
           {([
             ['projects:board.colName', 'name'],
             ['projects:board.colTags', 'tags'],
+            ['projects:board.colComponent', 'component'],
             ['projects:lifecycleColumn', 'lifecycle'],
             ['projects:board.colStaffing', 'staffing'],
+            ['projects:board.colScale', 'scale'],
             ['projects:board.colVersion', 'version'],
             ['projects:board.colRelease', 'release'],
             ['projects:board.colPriority', 'priority'],
@@ -524,7 +588,7 @@ export function Projects() {
           ] as const).map(([key, colKey], i) => (
             <span key={colKey} className={['lifecycle', 'priority', 'actions'].includes(colKey) ? 'col-c' : ''}>
               {t(key)}
-              {i < 8 && (
+              {i < 10 && (
                 <ColumnGrip colKey={colKey} widths={colWidths} setWidths={setColWidths} />
               )}
             </span>
@@ -592,11 +656,15 @@ export function Projects() {
 
                           <TagsCell project={project} allTags={tags} onSaved={() => handleCellSaved(project.id)} />
 
+                          <ComponentCell project={project} options={componentOptions} onSaved={() => handleCellSaved(project.id)} />
+
                           <span className="req-cell-center" onClick={(e) => e.stopPropagation()}>
                             <LifecycleCellControls project={project} />
                           </span>
 
                           <StaffingCell project={project} onChanged={() => handleCellSaved(project.id)} />
+
+                          <ScaleCell project={project} />
 
                           <VersionPart project={project} field="product_version"
                             placeholder={t('projects:version.productPlaceholder')}

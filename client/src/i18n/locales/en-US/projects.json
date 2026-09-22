@@ -405,7 +405,10 @@
     "resetFilters": "Clear filters",
     "colTags": "Tags",
     "colRelease": "Release",
-    "resizeHint": "Drag to resize, double-click to reset"
+    "resizeHint": "Drag to resize, double-click to reset",
+    "colComponent": "Component",
+    "colScale": "Scale",
+    "filterComponent": "Component"
   },
   "version": {
     "productTitle": "Product version, click to edit (e.g. B)",
@@ -443,5 +446,19 @@
     "empty": "No affairs",
     "peopleStat": "{{people}} people · {{fte}} FTE",
     "monthStat": "{{pm}} PM this month"
+  },
+  "component": {
+    "hint": "Click to set component",
+    "title": "Component",
+    "searchPlaceholder": "Type or pick a component…",
+    "none": "—",
+    "empty": "No components yet — type to create",
+    "clear": "Clear component",
+    "fieldLabel": "Component",
+    "fieldPlaceholder": "e.g. HCCL driver team"
+  },
+  "scale": {
+    "tooltip": "From the latest estimation (KLOC & person-months derived from estimated LOC); edit on the detail page",
+    "pmUnit": " pm"
   }
 }

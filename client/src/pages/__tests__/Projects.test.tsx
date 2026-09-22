@@ -111,11 +111,13 @@ const mockProjects = [
     product_version: 'B',
     release_version: '26.RP4',
     priority: 2,
+    component: 'HCCL_驱动组',
+    estimation_summary: { kloc: 12, pm: 24 },
     owner_id: 'p-1',
     owner_name: '陈主管',
     lifecycle_state: 'pending_rat',
     lifecycle_warnings: ['NO_DEV_DEMAND'],
-    staffing_summary: { design: { named: 0.5, pool: 1 }, dev: { named: 2, pool: 0 } },
+    staffing_summary: { design: { named: 0.5, pool: 1, named_detail: [{ name: '韩架构', fte: 0.5 }] }, dev: { named: 2, pool: 0, named_detail: [] } },
     tags: [{ id: 1, name: 'Reserved', color: '#f59e0b' }],
   },
   {
@@ -202,7 +204,7 @@ describe('Requirements Board (需求台)', () => {
 
       const header = screen.getByTestId('requirements-table').querySelector('.requirements-thead');
       const headers = Array.from(header?.children ?? []).map((el) => el.textContent);
-      expect(headers).toEqual(['Name', 'Tags', 'Lifecycle', 'Named + pool', 'Version', 'Release', 'Priority', 'Owner', 'Actions']);
+      expect(headers).toEqual(['Name', 'Tags', 'Component', 'Lifecycle', 'Named + pool', 'Scale', 'Version', 'Release', 'Priority', 'Owner', 'Actions']);
     });
 
     test('groups by product version then release, unversioned last', async () => {
@@ -470,6 +472,72 @@ describe('Requirements Board (需求台)', () => {
       });
     });
 
+    test('component cell shows value and commits via combobox', async () => {
+      const user = userEvent.setup();
+      renderComponent();
+
+      await waitFor(() => {
+        expect(screen.getByText('Project Alpha')).toBeInTheDocument();
+      });
+
+      const alphaRow = screen.getByText('Project Alpha').closest('.requirements-row')!;
+      expect(within(alphaRow).getByText('HCCL_驱动组')).toBeInTheDocument();
+
+      await user.click(within(alphaRow).getByTestId('component-edit-btn'));
+      const pop = await screen.findByTestId('component-popover');
+      const input = pop.querySelector('.cell-pop-search input') as HTMLInputElement;
+      await user.clear(input);
+      await user.type(input, '调度组{Enter}');
+
+      await waitFor(() => {
+        expect(api.projects.update).toHaveBeenCalledWith('proj-1', { component: '调度组' });
+      });
+    });
+
+    test('scale column renders estimation (KLOC + pm) and em-dash when absent', async () => {
+      renderComponent();
+
+      await waitFor(() => {
+        expect(screen.getByText('Project Alpha')).toBeInTheDocument();
+      });
+
+      const alphaRow = screen.getByText('Project Alpha').closest('.requirements-row')!;
+      expect(within(alphaRow).getByText('12K')).toBeInTheDocument();
+      expect(within(alphaRow).getByText('24 pm')).toBeInTheDocument();
+
+      const betaRow = screen.getByText('Project Beta').closest('.requirements-row')!;
+      expect(betaRow.querySelectorAll('.req-scale--empty').length).toBe(1);
+    });
+
+    test('staffing popover lists named people with percentages', async () => {
+      const user = userEvent.setup();
+      renderComponent();
+
+      await waitFor(() => {
+        expect(screen.getByText('Project Alpha')).toBeInTheDocument();
+      });
+
+      const alphaRow = screen.getByText('Project Alpha').closest('.requirements-row')!;
+      await user.click(within(alphaRow).getByTitle('Click to adjust staffing'));
+
+      const pop = document.querySelector('.staff-pop')!;
+      expect(within(pop).getByText('韩架构')).toBeInTheDocument();
+      expect(within(pop).getByText('50%')).toBeInTheDocument();
+    });
+
+    test('component filter narrows rows client-side', async () => {
+      const user = userEvent.setup();
+      renderComponent();
+
+      await waitFor(() => {
+        expect(screen.getByText('Project Alpha')).toBeInTheDocument();
+      });
+
+      await user.selectOptions(screen.getByTestId('component-filter'), 'HCCL_驱动组');
+      expect(screen.getByText('Project Alpha')).toBeInTheDocument();
+      expect(screen.queryByText('Project Beta')).not.toBeInTheDocument();
+    });
+
     test('row click does not fire when clicking edit triggers', async () => {
       const user = userEvent.setup();
       renderComponent();
@@ -514,11 +582,12 @@ describe('Requirements Board (需求台)', () => {
         expect(screen.getByText('Project Alpha')).toBeInTheDocument();
       });
 
-      // 前 8 列有手柄,最右操作列没有(右缘手柄只到负责人列)
+      // 前 10 列有手柄,最右操作列没有(右缘手柄只到负责人列)
       const grips = screen.getAllByTestId(/^col-grip-/);
       expect(grips.map((g) => g.dataset.testid)).toEqual([
-        'col-grip-name', 'col-grip-tags', 'col-grip-lifecycle', 'col-grip-staffing',
-        'col-grip-version', 'col-grip-release', 'col-grip-priority', 'col-grip-owner'
+        'col-grip-name', 'col-grip-tags', 'col-grip-component', 'col-grip-lifecycle',
+        'col-grip-staffing', 'col-grip-scale', 'col-grip-version', 'col-grip-release',
+        'col-grip-priority', 'col-grip-owner'
       ]);
     });
 

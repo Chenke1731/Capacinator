@@ -31,7 +31,7 @@ check('需求台默认呈现', (await page.$('.requirements-table')) !== null);
 
 const headers = await page.$$eval('.requirements-thead span', els => els.map(e => e.textContent.trim()));
 check('新列集(名称/标签/状态/人力/版本/交付/优先级/负责人/操作)',
-  ['项目名称','标签','状态','人力（实＋池）','版本','交付计划','优先级','负责人','操作'].every(h => headers.includes(h)),
+  ['项目名称','标签','组件','状态','人力（实＋池）','规模','版本','交付计划','优先级','负责人','操作'].every(h => headers.includes(h)),
   headers.join('|'));
 
 const demandRows = await page.$$eval('.requirements-row', els => els.map(e => e.querySelector('.requirements-name-text')?.textContent));

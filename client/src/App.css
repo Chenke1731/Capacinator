@@ -1788,7 +1788,7 @@ input[type="checkbox"].settings-checkbox,
 .requirements-thead > span { position: relative; }
 .requirements-thead {
   display: grid;
-  grid-template-columns: minmax(var(--req-w-name, 150px), 1.2fr) var(--req-w-tags, 148px) var(--req-w-lifecycle, 236px) var(--req-w-staffing, 128px) var(--req-w-version, 88px) var(--req-w-release, 88px) var(--req-w-priority, 52px) var(--req-w-owner, 88px) var(--req-w-actions, 96px);
+  grid-template-columns: minmax(var(--req-w-name, 150px), 1.2fr) var(--req-w-tags, 148px) var(--req-w-component, 112px) var(--req-w-lifecycle, 236px) var(--req-w-staffing, 128px) var(--req-w-scale, 92px) var(--req-w-version, 88px) var(--req-w-release, 88px) var(--req-w-priority, 52px) var(--req-w-owner, 88px) var(--req-w-actions, 96px);
   gap: 8px;
   align-items: center;
   min-height: 36px;
@@ -1839,7 +1839,7 @@ input[type="checkbox"].settings-checkbox,
 
 .requirements-row {
   display: grid;
-  grid-template-columns: minmax(var(--req-w-name, 150px), 1.2fr) var(--req-w-tags, 148px) var(--req-w-lifecycle, 236px) var(--req-w-staffing, 128px) var(--req-w-version, 88px) var(--req-w-release, 88px) var(--req-w-priority, 52px) var(--req-w-owner, 88px) var(--req-w-actions, 96px);
+  grid-template-columns: minmax(var(--req-w-name, 150px), 1.2fr) var(--req-w-tags, 148px) var(--req-w-component, 112px) var(--req-w-lifecycle, 236px) var(--req-w-staffing, 128px) var(--req-w-scale, 92px) var(--req-w-version, 88px) var(--req-w-release, 88px) var(--req-w-priority, 52px) var(--req-w-owner, 88px) var(--req-w-actions, 96px);
   gap: 8px;
   align-items: center;
   min-height: 40px;
@@ -1990,6 +1990,52 @@ body.req-col-dragging * {
 .requirements-owner-btn.is-empty { color: var(--text-secondary); font-weight: 400; }
 .requirements-owner-btn:hover { background: rgba(127, 127, 127, 0.1); }
 
+/* 所属组件列(窄列省略号,命中 24px 档) */
+.requirements-component-btn {
+  font-size: var(--b-fs-body);
+  color: var(--text-primary);
+  padding: 3px 6px;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.requirements-component-btn.is-empty { color: var(--text-secondary); font-weight: 400; }
+.requirements-component-btn:hover { background: rgba(127, 127, 127, 0.1); }
+.req-edit-cell--component { min-width: 0; max-width: 100%; }
+
+/* 规模列: 只读,KLOC 主/人月次,等宽数字 */
+.req-scale {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 5px;
+  font-family: var(--font-mono, monospace);
+  font-variant-numeric: tabular-nums;
+  font-size: var(--b-fs-body);
+  min-width: 0;
+  white-space: nowrap;
+}
+.req-scale-kloc { color: var(--text-primary); font-weight: 600; }
+.req-scale-pm { color: var(--text-secondary); font-size: var(--b-fs-meta); }
+.req-scale--empty { color: var(--text-tertiary, var(--text-secondary)); font-weight: 400; font-family: inherit; }
+
+/* 人力气泡实名名单: 每行姓名+百分比,>3 折叠 */
+.staff-pop-group { display: flex; flex-direction: column; gap: 2px; }
+.staff-pop-people {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 10px;
+  padding: 0 0 2px 16px;
+}
+.staff-pop-person {
+  font-size: var(--b-fs-meta);
+  color: var(--text-primary);
+  display: inline-flex;
+  gap: 4px;
+}
+.staff-pop-person b { color: var(--text-secondary); font-weight: 500; font-variant-numeric: tabular-nums; }
+.staff-pop-person--more { color: var(--text-secondary); cursor: help; }
+
 /* 版本单列按钮 */
 .projects-board .projects-version-part--single { width: 100%; }
 
@@ -2084,13 +2130,15 @@ body.req-col-dragging * {
   color: var(--text-primary);
 }
 
-/* 1366 以下隐藏负责人列 */
+/* 1366 以下隐藏负责人与规模列(排博弈用大屏,窄屏保组件/人力/版本) */
 @media (max-width: 1440px) {
   .requirements-thead,
   .requirements-row {
-    grid-template-columns: minmax(var(--req-w-name, 140px), 1.1fr) var(--req-w-tags, 140px) var(--req-w-lifecycle, 236px) var(--req-w-staffing, 128px) var(--req-w-version, 84px) var(--req-w-release, 84px) var(--req-w-priority, 48px) var(--req-w-actions, 92px);
+    grid-template-columns: minmax(var(--req-w-name, 140px), 1.1fr) var(--req-w-tags, 140px) var(--req-w-component, 104px) var(--req-w-lifecycle, 236px) var(--req-w-staffing, 128px) var(--req-w-version, 84px) var(--req-w-release, 84px) var(--req-w-priority, 48px) var(--req-w-actions, 92px);
   }
-  .requirements-thead > span:nth-child(8),
+  .requirements-thead > span:nth-child(6),
+  .requirements-thead > span:nth-child(10),
+  .requirements-row > .req-scale,
   .requirements-row > .req-edit-cell--owner { display: none; }
 }
 

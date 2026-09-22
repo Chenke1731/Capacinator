@@ -830,9 +830,10 @@ describe('Requirements Board (需求台)', () => {
         expect(screen.getByText('Project Alpha')).toBeInTheDocument();
       });
 
-      // 2026-09-22 定宽化: 名称不再吞余量(fr 已废除),拖拽=直接定宽
+      // 2026-09-22 权重分配: 拖拽=钉死(该列 fr 归零),余量由其余 flex 列分食
       const table = screen.getByTestId('requirements-table');
       expect(table.style.getPropertyValue('--req-w-name')).toBe('150px');
+      expect(table.style.getPropertyValue('--req-f-name')).toBe('0fr');
     });
 
     test('double-click on a grip resets that column and persists the change', async () => {

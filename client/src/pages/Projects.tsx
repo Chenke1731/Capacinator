@@ -278,12 +278,16 @@ const REQ_COLUMNS = [
      默认预算原则: 默认(未拖拽)布局在 1600/1366 容器内零横向滚动,横滚只能由
      用户主动拖宽触发。 */
   /* def: [全列档(≥1680), 中档(1560–1679,藏规模), 窄档(<1560,藏规模+负责人)] */
-  { key: 'name', def: [260, 260, 260], min: 120, max: 640 }, /* 定宽: fr 曾吞掉全部余量(416px 渲染/188 需求),余量归尾部占位轨 */
+  /* 2026-09-22 列宽分配架构(三代教训定案): 余量不再单点吞食——名称 fr 气球
+     (416px/需求188px)与尾部死区(操作列右缘 313px 空白)皆失败。改为按信息
+     价值权重分食: flex 列 minmax(默认, 权重fr) 有比例地舒展,紧凑列定宽,
+     操作列恒贴右缘。拖拽=钉死(该列 fr 归零,余量归其余 flex 列),双击复原。 */
+  { key: 'name', def: [260, 260, 260], min: 120, max: 640, flex: 1.4 },
   /* 编号: SR/AR 外部编号统一列,mono;窄档(<1560)与规模/负责人同藏(2026-09-22 裁决) */
   { key: 'number', def: [84, 80, 0], min: 56, max: 200 },
-    { key: 'component', def: [92, 80, 80], min: 72, max: 240 },
-  { key: 'lifecycle', def: [216, 224, 196], min: 170, max: 420 },
-  { key: 'staffing', def: [116, 112, 108], min: 104, max: 220 },
+  { key: 'component', def: [92, 80, 80], min: 72, max: 240, flex: 1.0 },
+  { key: 'lifecycle', def: [216, 224, 196], min: 170, max: 420, flex: 1.6 },
+  { key: 'staffing', def: [116, 112, 108], min: 104, max: 220, flex: 1.2 },
   { key: 'scale', def: [72, 0, 0], min: 64, max: 200 },
   { key: 'version', def: [68, 64, 62], min: 56, max: 200 },
   { key: 'release', def: [68, 64, 62], min: 56, max: 200 },
@@ -623,6 +627,14 @@ export function Projects() {
       vars[`--req-w-${c.key}`] = `${w}px`;
       total += w;
     }
+    /* 拖过的列=钉死: 该列 fr 归零,余量由其余 flex 列分食;
+       全部 flex 列都被钉时,余量退回尾部占位轨(极端场景兜底) */
+    const flexKeys = visible.filter((c) => (c as any).flex).map((c) => c.key);
+    const allFlexPinned = flexKeys.length > 0 && flexKeys.every((k) => colWidths[k] !== undefined);
+    for (const c of visible) {
+      if (colWidths[c.key] !== undefined) vars[`--req-f-${c.key}`] = '0fr';
+    }
+    if (allFlexPinned) vars['--req-spacer'] = '1fr';
     vars['--req-total'] = `${total}px`;
     return vars as React.CSSProperties;
   }, [colWidths, showAll, compact]);

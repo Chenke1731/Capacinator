@@ -38,6 +38,10 @@ npm run commands         # List all available commands
 See [docs/PLATFORM_AGNOSTIC_SETUP.md](docs/PLATFORM_AGNOSTIC_SETUP.md) for details on the cross-platform architecture.
 See [docs/BUILD_AND_TEST_SETUP.md](docs/BUILD_AND_TEST_SETUP.md) for build system and test configuration.
 
+## UI 生成契约（写任何 UI 前必读）
+
+用户用**浅色主题**。任何自定义控件/交互，动手前过一遍 [docs/UI_GENERATION_CONTRACT.md](docs/UI_GENERATION_CONTRACT.md) 的 12 维度——核心几条：先查 index.css/design-system.css 的全局元素规则（button 默认 padding/44px 命中）并显式重置（定宽按钮必须同块写 padding，否则图标塌 0 宽）；双主题各渲染一次并人眼看；图标物理可见 ≠ 按钮盒达标；可交互必须自报家门（hover 铅笔），新标准立即回审全部旧编辑点；数字带单位标签、编辑控件声明改什么；`npm run lint:ui` 是静态防线，交付前跑。守卫（verify:boards/verify:visual）是兜底，不是第一道防线。
+
 ## Project Structure
 
 ```

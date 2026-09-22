@@ -68,6 +68,7 @@
     "test:scenarios:corruption": "playwright test --config=playwright.scenario.config.ts --project=scenario-corruption-tests",
     "test:scenarios:all": "./scripts/test-scenario-system.sh",
     "lint": "eslint src client/src shared --ext .ts,.tsx",
+    "lint:ui": "node scripts/lint-ui-css.mjs",
     "typecheck": "tsc --noEmit",
     "typecheck:shared": "cd shared && tsc --noEmit",
     "next-issue": "npx tsx scripts/get-next-issue.ts",

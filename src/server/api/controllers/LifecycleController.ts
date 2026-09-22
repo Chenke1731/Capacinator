@@ -12,6 +12,7 @@ interface TransitionBody {
   to?: string;
   external_number?: string | null;
   iteration_label?: string | null;
+  iteration_id?: string | null;
   note?: string | null;
   dev_assignments_action?: 'pause' | 'release' | 'keep';
   pool?: {
@@ -26,6 +27,7 @@ interface TransitionBody {
 interface FieldUpdateBody {
   external_number?: string | null;
   iteration_label?: string | null;
+  iteration_id?: string | null;
 }
 
 export class LifecycleController extends BaseController {
@@ -93,6 +95,7 @@ export class LifecycleController extends BaseController {
         to: body.to as LifecycleState,
         external_number: body.external_number ?? null,
         iteration_label: body.iteration_label ?? null,
+        iteration_id: body.iteration_id ?? null,
         note: body.note ?? null,
         dev_assignments_action: body.dev_assignments_action,
         pool: body.pool,

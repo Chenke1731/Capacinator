@@ -273,6 +273,11 @@ export class ProjectsController extends BaseController {
       p.se_assignment = seBy.get(p.id) ?? null;
       p.mde_assignment = mdeBy.get(p.id) ?? null;
       const pr: any = primaryBy.get(p.id);
+      // 告警推导用的行内事实(告警计算不回表)
+      p.iter_start_date = it?.iter_start ?? null;
+      p.iter_end_date = it?.iter_end ?? null;
+      p.primary_dev_name = pr?.person_name ?? null;
+      p.mde_person_name = mdeBy.get(p.id)?.person_name ?? null;
       p.primary_dev = pr
         ? { id: pr.spa_id, person_name: pr.person_name, role_name: pr.role_name,
             allocation_pct: Number(pr.allocation_percentage ?? 0),

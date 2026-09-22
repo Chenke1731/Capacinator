@@ -11,6 +11,7 @@ import validationEn from './locales/en-US/validation.json';
 import settingsEn from './locales/en-US/settings.json';
 import dashboardEn from './locales/en-US/dashboard.json';
 import projectsEn from './locales/en-US/projects.json';
+import iterationsEn from './locales/en-US/iterations.json';
 import peopleEn from './locales/en-US/people.json';
 import assignmentsEn from './locales/en-US/assignments.json';
 import scenariosEn from './locales/en-US/scenarios.json';
@@ -31,6 +32,7 @@ import validationZh from './locales/zh-CN/validation.json';
 import settingsZh from './locales/zh-CN/settings.json';
 import dashboardZh from './locales/zh-CN/dashboard.json';
 import projectsZh from './locales/zh-CN/projects.json';
+import iterationsZh from './locales/zh-CN/iterations.json';
 import peopleZh from './locales/zh-CN/people.json';
 import assignmentsZh from './locales/zh-CN/assignments.json';
 import scenariosZh from './locales/zh-CN/scenarios.json';
@@ -61,6 +63,7 @@ export const NAMESPACES = [
   'settings',
   'dashboard',
   'projects',
+  'iterations',
   'people',
   'assignments',
   'scenarios',
@@ -83,6 +86,7 @@ const enResources = {
   settings: settingsEn,
   dashboard: dashboardEn,
   projects: projectsEn,
+  iterations: iterationsEn,
   people: peopleEn,
   assignments: assignmentsEn,
   scenarios: scenariosEn,
@@ -105,6 +109,7 @@ const zhResources = {
   settings: settingsZh,
   dashboard: dashboardZh,
   projects: projectsZh,
+  iterations: iterationsZh,
   people: peopleZh,
   assignments: assignmentsZh,
   scenarios: scenariosZh,

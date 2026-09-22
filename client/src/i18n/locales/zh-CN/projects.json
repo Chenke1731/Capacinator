@@ -324,7 +324,11 @@
       "NO_DESIGN_ESTIMATE": "设计中,但尚未录入设计粗估人月",
       "DESIGN_NOT_BACKFILLED": "已进入开发侧,但设计实际人月未回填——粗估无法校准",
       "DELIVERED_NOT_BACKFILLED": "已交付,但实际值未回填——估算偏差无法统计",
-      "NO_ITERATION_NUMBER": "已进入迭代，但编号（SR/AR号）未填——外部系统无法对账"
+      "NO_ITERATION_NUMBER": "已进入迭代，但编号（SR/AR号）未填——外部系统无法对账",
+      "ITER_RHYTHM_MISMATCH": "迭代季度与交付计划(RP)不一致——节奏错位，请对齐",
+      "ITER_OVER_DEADLINE": "迭代窗口末晚于死线——逾期风险",
+      "ITER_ENDED_UNDONE": "迭代窗口已结束但事项未交付——需要转移或收尾",
+      "DEV_NO_MDE": "有开发主投入但无 MDE 结对——新开发交付风险"
     },
     "warningShort": {
       "NO_DEV_DEMAND": "缺池",
@@ -333,7 +337,11 @@
       "DESIGN_NOT_BACKFILLED": "设计未回填",
       "DELIVERED_NOT_BACKFILLED": "未回填",
       "GENERIC": "告警",
-      "NO_ITERATION_NUMBER": "未编号"
+      "NO_ITERATION_NUMBER": "未编号",
+      "ITER_RHYTHM_MISMATCH": "节奏不符",
+      "ITER_OVER_DEADLINE": "逾期风险",
+      "ITER_ENDED_UNDONE": "迭代未清",
+      "DEV_NO_MDE": "无结对"
     },
     "numberLabel": "编号",
     "advanceHint": "一键推进到：{{to}}"

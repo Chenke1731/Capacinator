@@ -326,7 +326,11 @@
       "NO_DESIGN_ESTIMATE": "Designing but no rough design estimate recorded",
       "DESIGN_NOT_BACKFILLED": "Past design but actual design effort never backfilled — rough estimates cannot calibrate",
       "DELIVERED_NOT_BACKFILLED": "Delivered but actuals never backfilled — deviation cannot be tracked",
-      "NO_ITERATION_NUMBER": "In iteration but the SR/AR number is missing — cannot cross-check with the external system"
+      "NO_ITERATION_NUMBER": "In iteration but the SR/AR number is missing — cannot cross-check with the external system",
+      "ITER_RHYTHM_MISMATCH": "Iteration quarter ≠ release plan (RP)",
+      "ITER_OVER_DEADLINE": "Iteration window ends after the deadline",
+      "ITER_ENDED_UNDONE": "Iteration ended but item undelivered",
+      "DEV_NO_MDE": "Primary dev assigned but no MDE pairing"
     },
     "warningShort": {
       "NO_DEV_DEMAND": "no pool",
@@ -335,7 +339,11 @@
       "DESIGN_NOT_BACKFILLED": "design unbackfilled",
       "DELIVERED_NOT_BACKFILLED": "unbackfilled",
       "GENERIC": "warn",
-      "NO_ITERATION_NUMBER": "No №"
+      "NO_ITERATION_NUMBER": "No №",
+      "ITER_RHYTHM_MISMATCH": "Rhythm",
+      "ITER_OVER_DEADLINE": "Overdue",
+      "ITER_ENDED_UNDONE": "Stale iter",
+      "DEV_NO_MDE": "No MDE"
     },
     "numberLabel": "Number",
     "advanceHint": "Advance to {{to}}"

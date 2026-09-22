@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import {
   LayoutDashboard,
   FolderKanban,
+  CalendarRange,
   Users,
   BarChart3,
   Settings,
@@ -22,6 +23,7 @@ interface LayoutProps {
 const navigation = [
   { nameKey: 'navigation:dashboard', href: '/dashboard', icon: LayoutDashboard },
   { nameKey: 'navigation:projects', href: '/projects', icon: FolderKanban },
+  { nameKey: 'navigation:iterations', href: '/iterations', icon: CalendarRange },
   { nameKey: 'navigation:people', href: '/people', icon: Users },
   { nameKey: 'navigation:assignments', href: '/assignments', icon: ClipboardList },
   { nameKey: 'navigation:scenarios', href: '/scenarios', icon: GitBranch },

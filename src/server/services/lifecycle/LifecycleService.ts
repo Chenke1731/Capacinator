@@ -73,6 +73,8 @@ export interface TransitionInput {
   to: LifecycleState;
   external_number?: string | null;
   iteration_label?: string | null;
+  /** 进入迭代时选迭代(吸收 iteration_label 文本,设计 §9) */
+  iteration_id?: string | null;
   note?: string | null;
   /** Only for 退回 (→ designing): what to do with dev-side assignments */
   dev_assignments_action?: 'pause' | 'release' | 'keep';
@@ -213,7 +215,16 @@ export class LifecycleService {
         }
 
         case 'in_iteration': {
-          if (input.iteration_label != null && String(input.iteration_label).trim() !== '') {
+          if (input.iteration_id != null && String(input.iteration_id).trim() !== '') {
+            // 迭代结构化选择(吸收 iteration_label 手填,设计 §9): 写挂接+注记事件
+            const iter = await this.db('iterations').where({ id: input.iteration_id }).first();
+            if (iter) {
+              projectUpdate.iteration_id = iter.id;
+              projectUpdate.iteration_label = null; // 旧文本字段退役,留列兼容历史
+              eventRow.iteration_label = iter.name;
+              eventRow.note = `迭代: ${iter.name}（${iter.start_date}~${iter.end_date}）`;
+            }
+          } else if (input.iteration_label != null && String(input.iteration_label).trim() !== '') {
             projectUpdate.iteration_label = String(input.iteration_label).trim();
             eventRow.iteration_label = projectUpdate.iteration_label;
           }
@@ -342,6 +353,10 @@ export class LifecycleService {
    *                      actual design effort was never backfilled
    *  - DELIVERED_NOT_BACKFILLED delivered with an LOC estimation but no
    *                      post-delivery backfill
+   *  - ITER_RHYTHM_MISMATCH iteration quarter ≠ hand-written RP (B5)
+   *  - ITER_OVER_DEADLINE iteration window end > design deadline (B5)
+   *  - ITER_ENDED_UNDONE iteration window past, item undelivered (B5)
+   *  - DEV_NO_MDE primary dev assigned but no MDE pairing (B5)
    *  - NO_ITERATION_NUMBER in_iteration without an external number — the
    *                      item entered iteration but its SR/AR number was
    *                      never filled (2026-09-22 混排裁决: 告警盯编号非空,
@@ -453,6 +468,26 @@ export class LifecycleService {
     }
     if (state === 'in_iteration' && !String(project.external_number ?? '').trim()) {
       warnings.push('NO_ITERATION_NUMBER');
+    }
+    // ── 迭代域告警(B5,设计 §8;迭代窗口由控制器 join 到行上,无则跳过) ──
+    const iterStart = project.iter_start_date ?? null;
+    const iterEnd = project.iter_end_date ?? null;
+    if (iterStart && iterEnd) {
+      // 节奏不符: 迭代派生季度 ≠ 手填 RP(26.RP4 式)
+      const d = new Date(iterStart + 'T00:00:00');
+      const iterQuarter = `${String(d.getFullYear()).slice(2)}.RP${Math.floor(d.getMonth() / 3) + 1}`;
+      const rp = String(project.release_version ?? '').trim();
+      if (rp && rp !== iterQuarter) warnings.push('ITER_RHYTHM_MISMATCH');
+      // 逾期风险: 迭代窗口末 > 死线(design_deadline,评估派生)
+      const dl = project.design_deadline ? String(project.design_deadline).slice(0, 10) : null;
+      if (dl && iterEnd > dl) warnings.push('ITER_OVER_DEADLINE');
+      // 迭代未清: 窗口已过、需求未交付仍挂靠(设计 G6)
+      const today = new Date().toISOString().slice(0, 10);
+      if (iterEnd < today && state !== 'delivered' && state !== 'cancelled') warnings.push('ITER_ENDED_UNDONE');
+      // 无结对: 有开发主投入但无 MDE 分配(新开发交付风险,评审团一号)
+      if (project.primary_dev_name && !project.mde_person_name && state !== 'delivered' && state !== 'cancelled') {
+        warnings.push('DEV_NO_MDE');
+      }
     }
     return warnings;
   }

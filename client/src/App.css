@@ -2144,7 +2144,7 @@ body.req-col-dragging * {
 .requirements-row .req-state-dist,
 .requirements-row--sr .req-sr-chip { cursor: default; }
 .req-sr-chip {
-  flex: none;
+  flex: 0 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
   font-size: var(--b-fs-meta);
   color: #1d4ed8; /* 深蓝: 11px 小字要过 AA,浅底上主蓝 #3b82f6 只有 ~3.9:1 */
   background: rgba(59, 130, 246, 0.1);
@@ -2352,9 +2352,9 @@ body.req-col-dragging * {
   .requirements-thead > span:nth-child(3),
   .requirements-row > .req-edit-cell--component,
   .requirements-thead > span:nth-child(10),
-  .requirements-row > .req-edit-cell--release,
+  .requirements-row > .req-release,
   .requirements-thead > span:nth-child(12),
-  .requirements-row > .req-primary { display: none; }
+  .requirements-row > .req-primary-wrap { display: none; }
   .projects-board .requirements-row .lifecycle-quick-btn { min-width: 64px; }
 }
 
@@ -2449,7 +2449,7 @@ body.req-col-dragging * {
   flex: none;
 }
 .projects-board .lifecycle-cell-badges > * { flex: none; }
-.projects-board .requirements-name .lifecycle-warn-chip { flex: none; margin: 0 2px; }
+.projects-board .requirements-name .lifecycle-warn-chip { flex: 0 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: none; margin: 0 2px; }
 /* 死线内联可让位: 状态列极限组合下截断(有 tooltip 全文),不再溢出压人力列 */
 .lifecycle-deadline--inline {
   font-size: var(--b-fs-meta);

@@ -376,7 +376,7 @@ export function PrimaryDevCell({ primary, project, onSaved }: {
   };
 
   return (
-    <span ref={pop.anchorRef} onClick={(e) => e.stopPropagation()}>
+    <span ref={pop.anchorRef} className="req-primary-wrap" onClick={(e) => e.stopPropagation()}>
       <button type="button" className="req-primary req-editable"
               title={primary ? t('projects:primaryDev.editHint') : t('projects:primaryDev.hint')}
               onClick={() => { setQ(''); pop.toggle(); }}>

@@ -202,7 +202,7 @@ describe('Requirements Board (需求台)', () => {
 
       const header = screen.getByTestId('requirements-table').querySelector('.requirements-thead');
       const headers = Array.from(header?.children ?? []).map((el) => el.textContent);
-      expect(headers).toEqual(['Name', 'Tags', 'Lifecycle', 'Staffing', 'Version', 'Release', 'Priority', 'Owner', 'Actions']);
+      expect(headers).toEqual(['Name', 'Tags', 'Lifecycle', 'Named + pool', 'Version', 'Release', 'Priority', 'Owner', 'Actions']);
     });
 
     test('groups by product version then release, unversioned last', async () => {
@@ -336,6 +336,40 @@ describe('Requirements Board (需求台)', () => {
   });
 
   describe('Inline editing (priority / owner / tags)', () => {
+    test('staffing popover states its edit model (pool labeled, division of labor up top)', async () => {
+      const user = userEvent.setup();
+      renderComponent();
+
+      await waitFor(() => {
+        expect(screen.getByText('Project Alpha')).toBeInTheDocument();
+      });
+
+      const alphaRow = screen.getByText('Project Alpha').closest('.requirements-row')!;
+      await user.click(within(alphaRow).getByTitle('Click to adjust staffing'));
+
+      const pop = document.querySelector('.staff-pop')!;
+      expect(within(pop).getByText('Staffing adjust')).toBeInTheDocument();
+      // 顶部说明: 单位、此处只调池、实名去哪调
+      expect(within(pop).getByText(/only the pool adjusts here/)).toBeInTheDocument();
+      // 步进器自带"Pool"标签,不靠猜
+      const labels = pop.querySelectorAll('.staff-stepper-label');
+      expect(labels.length).toBe(2);
+      labels.forEach((l) => expect(l.textContent).toBe('Pool'));
+      // 实名一行一档
+      expect(within(pop).getByText('named 0.5')).toBeInTheDocument();
+    });
+
+    test('staffing column header carries the named+pool legend', async () => {
+      renderComponent();
+
+      await waitFor(() => {
+        expect(screen.getByText('Project Alpha')).toBeInTheDocument();
+      });
+
+      const header = screen.getByTestId('requirements-table').querySelector('.requirements-thead');
+      expect(Array.from(header?.children ?? []).map((el) => el.textContent)).toContain('Named + pool');
+    });
+
     test('priority popover selects P1 and persists', async () => {
       const user = userEvent.setup();
       renderComponent();

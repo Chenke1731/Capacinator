@@ -364,12 +364,14 @@
     "summaryTitle": "设计侧: 实名{{dn}} + 池{{dp}} FTE\\n开发侧: 实名{{vn}} + 池{{vp}} FTE",
     "designFull": "设计",
     "devFull": "开发",
-    "adjustTitle": "人力调整(池占位 ±0.5)",
+    "adjustTitle": "人力调整",
     "adjustHint": "点击调整人力",
-    "adjustHintFooter": "池占位即刻参与产能计算;实名分配请进详情页选人。",
+    "adjustHintFooter": "池占位即刻参与产能计算。",
     "breakdown": "实名 {{named}} + 池 {{pool}}",
     "namedLabel": "实名 {{n}}",
-    "poolLabel": "池 {{n}}"
+    "poolLabel": "池 {{n}}",
+    "adjustHow": "单位 FTE · 此处只调池占位（±0.5）；实名在详情页选人",
+    "poolShort": "池"
   },
   "tags": {
     "label": "标签",
@@ -389,7 +391,7 @@
   "board": {
     "countSummary": "共 {{count}} 项需求",
     "colName": "项目名称",
-    "colStaffing": "人力",
+    "colStaffing": "人力（实＋池）",
     "colVersion": "版本",
     "colPriority": "优先级",
     "colOwner": "负责人",

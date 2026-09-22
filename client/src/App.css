@@ -1904,6 +1904,9 @@ input[type="checkbox"].settings-checkbox,
   pointer-events: none;
 }
 .req-edit-cell:hover > .req-pencil { display: inline-flex; }
+/* 人力格两行数字占满右缘,铅笔挂到格角外沿,悬停时不再压数字 */
+.req-staff-wrap > .req-pencil { top: -4px; right: -2px; }
+.req-staff-wrap:hover > .req-pencil { display: inline-flex; }
 .req-editable {
   appearance: none;
   background: none;
@@ -2000,6 +2003,9 @@ input[type="checkbox"].settings-checkbox,
 .staff-dot--dev { background: #22c55e; }
 .staff-pop-side { font-size: var(--b-fs-body); font-weight: 600; }
 .staff-pop-named { flex: 1; font-size: var(--b-fs-meta); color: var(--text-secondary); text-align: right; }
+/* 步进器前明示"池"标签——编辑对象不靠猜 */
+.staff-stepper-group { display: inline-flex; align-items: center; gap: 4px; flex: none; }
+.staff-stepper-label { font-size: var(--b-fs-meta); color: var(--text-secondary); }
 .staff-stepper {
   display: inline-flex;
   align-items: center;
@@ -2014,6 +2020,9 @@ input[type="checkbox"].settings-checkbox,
   justify-content: center;
   width: 26px;
   height: 24px;
+  /* 全局 button 规则带 padding:0.6em 1.2em,border-box 下会吃光 26px 内容盒,
+     svg 收缩为 0 宽 → 加减号物理消失(2026-09-22 用户实测不可见)。必须显式清零。 */
+  padding: 0;
   border: none;
   background: none;
   color: var(--text-secondary);

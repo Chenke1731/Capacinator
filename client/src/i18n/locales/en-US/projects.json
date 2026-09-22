@@ -366,12 +366,14 @@
     "summaryTitle": "Design: named {{dn}} + pool {{dp}} FTE\\nDev: named {{vn}} + pool {{vp}} FTE",
     "designFull": "Design",
     "devFull": "Dev",
-    "adjustTitle": "Staffing adjust (pool ±0.5)",
+    "adjustTitle": "Staffing adjust",
     "adjustHint": "Click to adjust staffing",
-    "adjustHintFooter": "Pool placeholders consume capacity instantly; name people on the detail page.",
+    "adjustHintFooter": "Pool placeholders consume capacity instantly.",
     "breakdown": "Named {{named}} + pool {{pool}}",
     "namedLabel": "named {{n}}",
-    "poolLabel": "pool {{n}}"
+    "poolLabel": "pool {{n}}",
+    "adjustHow": "In FTE · only the pool adjusts here (±0.5); name people on the detail page",
+    "poolShort": "Pool"
   },
   "tags": {
     "label": "Tags",
@@ -391,7 +393,7 @@
   "board": {
     "countSummary": "{{count}} requirements",
     "colName": "Name",
-    "colStaffing": "Staffing",
+    "colStaffing": "Named + pool",
     "colVersion": "Version",
     "colPriority": "Priority",
     "colOwner": "Owner",

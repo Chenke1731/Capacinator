@@ -147,10 +147,12 @@ function StaffingCell({ project, onChanged }: { project: any; onChanged: () => v
           </span>
         ))}
       </button>
+      <Pencil size={10} className="req-pencil" aria-hidden />
 
       {pop.open && (
         <div className="lc-popover staff-pop" style={pop.style}>
           <div className="lc-popover-title">{t('projects:staffing.adjustTitle')}</div>
+          <div className="lc-popover-hint">{t('projects:staffing.adjustHow')}</div>
           {sides.map(([label, side, v]) => (
             <div key={label} className="staff-pop-row">
               <span className={`staff-dot staff-dot--${side}`} />
@@ -158,16 +160,19 @@ function StaffingCell({ project, onChanged }: { project: any; onChanged: () => v
               <span className="staff-pop-named">
                 {t('projects:staffing.namedLabel', { n: fmt(v.named) })}
               </span>
-              <span className="staff-stepper">
-                <button className="staff-stepper-btn" disabled={busy || v.pool <= 0}
-                        onClick={() => step(side, -0.5)} title="-0.5">
-                  <Minus size={13} />
-                </button>
-                <span className="staff-stepper-val">{fmt(v.pool)}</span>
-                <button className="staff-stepper-btn" disabled={busy}
-                        onClick={() => step(side, 0.5)} title="+0.5">
-                  <Plus size={13} />
-                </button>
+              <span className="staff-stepper-group">
+                <span className="staff-stepper-label">{t('projects:staffing.poolShort')}</span>
+                <span className="staff-stepper">
+                  <button className="staff-stepper-btn" disabled={busy || v.pool <= 0}
+                          onClick={() => step(side, -0.5)} title="-0.5">
+                    <Minus size={14} />
+                  </button>
+                  <span className="staff-stepper-val">{fmt(v.pool)}</span>
+                  <button className="staff-stepper-btn" disabled={busy}
+                          onClick={() => step(side, 0.5)} title="+0.5">
+                    <Plus size={14} />
+                  </button>
+                </span>
               </span>
             </div>
           ))}

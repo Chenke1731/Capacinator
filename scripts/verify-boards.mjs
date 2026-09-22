@@ -31,7 +31,7 @@ check('需求台默认呈现', (await page.$('.requirements-table')) !== null);
 
 const headers = await page.$$eval('.requirements-thead span', els => els.map(e => e.textContent.trim()));
 check('新列集(名称/标签/状态/人力/版本/交付/优先级/负责人/操作)',
-  ['项目名称','标签','状态','人力','版本','交付计划','优先级','负责人','操作'].every(h => headers.includes(h)),
+  ['项目名称','标签','状态','人力（实＋池）','版本','交付计划','优先级','负责人','操作'].every(h => headers.includes(h)),
   headers.join('|'));
 
 const demandRows = await page.$$eval('.requirements-row', els => els.map(e => e.querySelector('.requirements-name-text')?.textContent));
@@ -62,6 +62,17 @@ check('优先级徽章', pBadges.length >= 3 && pBadges.every(p => /^P\d$/.test(
   await p3Row.locator('.req-staff').click();
   await page.waitForSelector('.staff-pop', { timeout: 5000 });
   check('点击弹调整气泡', true);
+  // 加减号曾因全局 button padding 未重置被压成 0 宽而物理消失(2026-09-22 用户实测),
+  // 命中断言(按钮盒够大)/axe(不查SVG)/碰撞检测(零宽不相交)三层全部免疫——图标物理尺寸必须单独断言
+  const svgSizes = await page.$$eval('.staff-pop svg', els => els.map(e => {
+    const r = e.getBoundingClientRect();
+    return `${Math.round(r.width)}x${Math.round(r.height)}`;
+  }));
+  check('池步进器加减号物理可见(≥10px)', svgSizes.length >= 4 && svgSizes.every(s => parseInt(s) >= 10), svgSizes.join(' '));
+  const stepperLabels = await page.$$eval('.staff-pop .staff-stepper-label', els => els.map(e => e.textContent.trim()));
+  check('步进器自带"池"标签', stepperLabels.length === 2 && stepperLabels.every(t2 => t2 === '池'), stepperLabels.join(','));
+  const howHint = (await page.$$eval('.staff-pop .lc-popover-hint', els => els.map(e => e.textContent.trim())))[0] ?? '';
+  check('气泡顶部声明编辑模型(FTE/只调池/实名去向)', howHint.includes('池占位') && howHint.includes('实名'), howHint.slice(0, 40));
   const devPlus = page.locator('.staff-pop-row', { hasText: '开发' }).locator('button[title="+0.5"]');
   await devPlus.click();
   await page.waitForTimeout(1500);
@@ -218,6 +229,15 @@ const detectCollisions = () => page.evaluate(() => {
   await page.waitForTimeout(150);
   const collisions = await detectCollisions();
   check('行内零元素重叠', collisions.length === 0, collisions.slice(0, 3).join(' | '));
+  // 图标塌陷检测: "一维为零另一维正常"的 svg = 内容盒被吃光的物理证据
+  // (display:none 的图标两维皆零,不在此列)
+  const collapsedIcons = await page.$$eval('svg', els =>
+    els.filter(e => {
+      const r = e.getBoundingClientRect();
+      return (r.width < 2 && r.height >= 8) || (r.height < 2 && r.width >= 8);
+    }).map(e => e.getAttribute('class') || 'svg')
+  );
+  check('全页无塌陷图标(零宽/零高)', collapsedIcons.length === 0, collapsedIcons.slice(0, 3).join(','));
 }
 
 // ── 6.5 浅色主题巡检(用户实际使用的主题) ────────────

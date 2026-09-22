@@ -3,6 +3,9 @@
 
 :root {
   font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  /* mono 显式栈(2026-09-22 排版收敛): 此前 --font-mono 从未定义,8 处使用
+     全靠浏览器默认回落,码值字宽跨机器不可控 */
+  --font-mono: ui-monospace, 'SF Mono', 'Cascadia Mono', Consolas, Menlo, 'Liberation Mono', monospace;
   line-height: 1.5;
   font-weight: 400;
 

@@ -358,6 +358,14 @@
 .text-muted {
   color: var(--text-tertiary);
 }
+/* 全站唯一定义(2026-09-22 收敛): 页面 CSS 禁止再定义本类——曾有三文件
+   互相覆盖(Locations 缩 0.85em/Import 叠 opacity .8),把全站弱化文字
+   压到 9.35px 并多叠一层透明度 */
+@media (prefers-contrast: more) {
+  .text-muted {
+    color: var(--text-primary);
+  }
+}
 
 .text-sm {
   font-size: 0.875rem;
@@ -1021,7 +1029,7 @@ input[type="checkbox"].settings-checkbox,
 .lifecycle-state-badge--designing { background: rgba(59,130,246,0.18); color: #93c5fc; } /* 深色提亮;浅色在 2405 行压深 */
 .lifecycle-state-badge--pending_rat { background: rgba(107,114,128,0.18); color: var(--text-secondary); }
 .lifecycle-state-badge--nok { background: rgba(245,158,11,0.18); color: #f59e0b; }
-.lifecycle-state-badge--backlog { background: rgba(148,163,184,0.18); color: #94a3b8; }
+.lifecycle-state-badge--backlog { background: rgba(156,163,175,0.18); color: #9ca3af; }
 .lifecycle-state-badge--scheduled { background: rgba(99,102,241,0.18); color: #6366f1; }
 .lifecycle-state-badge--in_iteration { background: rgba(34,197,94,0.18); color: #22c55e; }
 .lifecycle-state-badge--delivered { background: rgba(20,184,166,0.18); color: #14b8a6; }
@@ -1677,8 +1685,21 @@ input[type="checkbox"].settings-checkbox,
 .lifecycle-warning-items { color: var(--text-secondary); }
 
 /* ============================================================
-   需求台 视觉层 (20 维清单令牌制, 2026-09-22)
-   字号 3 档 · 字重 2 档 · 圆角 3 档 · 行高 40 栅格 · 分隔线预算 ≤10
+   需求台 视觉层 · 排版契约 (20 维清单令牌制, 2026-09-22)
+   ── 字号三档 ──
+     14   名称 / 主按钮
+     12.5 一切「值」· 徽章 · 码值 · 表头
+     11   meta: 标签 · 注释 · 编号
+     16   仅容器继承; 板内禁新增字号档位
+   ── mono ── 只用于码值(版本 / 编号 / 引用码), 文本一律比例字体
+   ── 占位与值同号仅变色 ──
+     值 = 主色 · 注记 = 次色 · 占位 = 弱色(.text-muted 只改色不改号)
+   ── 字重 ──
+     400 常规 / 500 强调(码值 · 表头 · 人力数字) / 600 身份(名称 · 徽章)
+   ── 灰阶 ── text-primary / secondary / tertiary 三档单梯度(gray 系, 禁 slate)
+   ── 其他令牌 ── 圆角 3 档 · 数据行 40px 栅格(行高有守卫, 禁改) · 分隔线预算 ≤10
+   ── 红线 ── 优先级(P1/P2 重字重语义色, P3-P5 弱化)与状态徽章颜色是
+     有意信息编码, 任何排版统一不得抹平
    ============================================================ */
 .projects-board {
   /* 字阶 */
@@ -1803,8 +1824,8 @@ input[type="checkbox"].settings-checkbox,
   align-items: center;
   min-height: 36px;
   padding: 0 14px;
-  font-size: var(--b-fs-meta);
-  font-weight: 400;
+  font-size: var(--b-fs-body);
+  font-weight: 500;
   color: var(--text-secondary);
   background: var(--bg-secondary, rgba(127, 127, 127, 0.06));
   border-bottom: 1px solid var(--border-color);
@@ -2014,6 +2035,7 @@ body.req-col-dragging * {
   flex: none;
   font-family: var(--font-mono, monospace);
   font-size: var(--b-fs-meta);
+  font-weight: 500;
   color: var(--text-secondary);
   min-height: 24px;
   padding: 2px 6px;
@@ -2242,6 +2264,7 @@ body.req-col-dragging * {
   color: var(--text-primary);
   font-size: var(--b-fs-body);
   font-family: var(--font-mono, monospace);
+  font-weight: 500;
   cursor: text;
 }
 .projects-board .projects-version-part:hover { background: var(--bg-secondary, rgba(127, 127, 127, 0.14)); }
@@ -2389,9 +2412,9 @@ body.req-col-dragging * {
    浅色主题: 需求台色板加深(白底上亮色文字+淡底发虚,统一压深一档)
    ============================================================ */
 [data-theme='light'] .projects-board .lifecycle-state-badge--designing { color: #1d4ed8; }
-[data-theme='light'] .projects-board .lifecycle-state-badge--pending_rat { color: #475569; }
+[data-theme='light'] .projects-board .lifecycle-state-badge--pending_rat { color: #4b5563; }
 [data-theme='light'] .projects-board .lifecycle-state-badge--nok { color: #b45309; }
-[data-theme='light'] .projects-board .lifecycle-state-badge--backlog { color: #475569; }
+[data-theme='light'] .projects-board .lifecycle-state-badge--backlog { color: #4b5563; }
 [data-theme='light'] .projects-board .lifecycle-state-badge--scheduled { color: #4f46e5; }
 [data-theme='light'] .projects-board .lifecycle-state-badge--in_iteration { color: #166534; }
 [data-theme='light'] .projects-board .lifecycle-state-badge--delivered { color: #0f766e; }

@@ -868,14 +868,6 @@
 }
 
 /* Text Color Utilities */
-.text-muted {
-  color: var(--text-secondary);
-  opacity: 0.8;
-}
-
-.text-muted small {
-  color: inherit;
-}
 
 .text-primary {
   color: var(--text-primary);
@@ -964,10 +956,6 @@ input[type="checkbox"]:focus-visible {
 
 /* Color Contrast Improvements */
 @media (prefers-contrast: more) {
-  .text-muted {
-    opacity: 1;
-    color: var(--text-primary);
-  }
   
   .sheet-badge {
     font-weight: 700;

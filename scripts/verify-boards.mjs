@@ -323,10 +323,14 @@ await page.waitForTimeout(1500);
   const metrics = await page.evaluate(() => {
     const board = document.querySelector('.projects-board');
     const sizes = new Set(), radii = new Set();
-    let rules = 0, minHit = 999;
+    let rules = 0, minHit = 999, minFont = Infinity;
     board.querySelectorAll('*').forEach(el => {
       const c = getComputedStyle(el);
-      if (el.textContent?.trim() || el.matches('button,input,select')) sizes.add(c.fontSize);
+      if (el.textContent?.trim() || el.matches('button,input,select')) {
+        sizes.add(c.fontSize);
+        // 口径与 sizes 一致(有文字或是控件);最小字号单独记账,档位少≠没有超小档
+        minFont = Math.min(minFont, parseFloat(c.fontSize));
+      }
       if (c.borderRadius !== '0px' && c.borderRadius !== '50%') radii.add(c.borderRadius);
       for (const side of ['Top', 'Bottom']) {
         if (parseFloat(c[`border${side}Width`]) > 0 && c[`border${side}Color`] !== 'rgba(0, 0, 0, 0)') rules++;
@@ -337,9 +341,11 @@ await page.waitForTimeout(1500);
       if (r.width > 0) minHit = Math.min(minHit, Math.round(Math.min(r.width, r.height)));
     });
     const rows = Array.from(board.querySelectorAll('.requirements-row')).map(r => Math.round(r.getBoundingClientRect().height));
-    return { fontSizes: sizes.size, radii: radii.size, hRules: rules, minHit, rows };
+    return { fontSizes: sizes.size, radii: radii.size, hRules: rules, minHit, minFont, rows };
   });
-  check(`字号档位 ≤ 6 (${metrics.fontSizes})`, metrics.fontSizes <= 6);
+  check(`字号档位 ≤ 4 (${metrics.fontSizes})`, metrics.fontSizes <= 4);
+  // 2026-09-22 .text-muted 被页面 CSS 覆盖压到 9.35px 事故: 最小字号单独设防
+  check(`无 11px 以下文字 (min=${Math.round(metrics.minFont * 10) / 10}px)`, metrics.minFont >= 11);
   check(`圆角档位 ≤ 4 (${metrics.radii})`, metrics.radii <= 4);
   // 预算 24: 行分隔(行×2)+表头 2+工具栏控件边框(搜索+5 下拉+按钮,控件非分隔线,
   // 2026-09-22 版本/交付计划筛选上线后 16→20,控件数驱动,非视觉噪声)
@@ -431,6 +437,16 @@ const collisionProbe = () => {
   check('浅色: 状态徽章文字压深(亮度<0.55)', lum < 0.55, `lum=${lum.toFixed(2)}`);
   const sep = await lightPage.$eval('.requirements-row', el => getComputedStyle(el).borderBottomColor !== 'rgba(0, 0, 0, 0)');
   check('浅色: 行分隔线可见', sep);
+  // 最小字号在浅色页同口径复查(用户实际主题;主题变量理论上可改字号,不靠深色页兜底)
+  const lightMinFont = await lightPage.evaluate(() => {
+    let min = Infinity;
+    document.querySelectorAll('.projects-board *').forEach(el => {
+      const c = getComputedStyle(el);
+      if (el.textContent?.trim() || el.matches('button,input,select')) min = Math.min(min, parseFloat(c.fontSize));
+    });
+    return min === Infinity ? 0 : Math.round(min * 10) / 10;
+  });
+  check('浅色: 无 11px 以下文字', lightMinFont >= 11, `min=${lightMinFont}px`);
   const lightCollisions = await lightPage.evaluate(collisionProbe);
   check('浅色: 行内零元素重叠', lightCollisions.length === 0, lightCollisions.slice(0, 3).join(' | '));
   await lightPage.screenshot({ path: '/tmp/demand-board-light.png' });

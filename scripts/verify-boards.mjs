@@ -118,6 +118,7 @@ check('新列集(代码规模/人力/SE/MDE/实名投入)',
     return { inSr, inPlain: !!plain?.querySelector('.req-ar-add') };
   });
   check('＋AR 在名称格(SR+普通行)', arCount.inSr && arCount.inPlain);
+  const sr = page.locator('.requirements-row--sr', { hasText: '客户门户改版' });
   await sr.locator('.req-sr-toggle').click(); await page.waitForTimeout(250);
   const folded = await page.locator('.requirements-row--child').count();
   await sr.locator('.req-sr-toggle').click(); await page.waitForTimeout(250);
@@ -157,6 +158,7 @@ check('新列集(代码规模/人力/SE/MDE/实名投入)',
       for (let a = 0; a < els.length; a++) for (let b = a + 1; b < els.length; b++) {
         if (els[a].contains(els[b]) || els[b].contains(els[a])) continue;
         const A = els[a].getBoundingClientRect(), B = els[b].getBoundingClientRect();
+        if (A.width < 8 || B.width < 8) continue; // 省略号裁剪后的窄条不构成可见重叠
         const ox = Math.min(A.right, B.right) - Math.max(A.left, B.left);
         const oy = Math.min(A.bottom, B.bottom) - Math.max(A.top, B.top);
         if (ox > 2 && oy > 2) out.push((els[a].textContent || '').trim().slice(0, 5) + '×' + (els[b].textContent || '').trim().slice(0, 5));

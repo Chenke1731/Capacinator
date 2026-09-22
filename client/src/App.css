@@ -1436,7 +1436,9 @@ input[type="checkbox"].settings-checkbox,
 }
 
 /* B3c 交付计划复合格: 主行 RP + 尾行迭代窗口(mono 11 次色) */
-.req-release { display: flex; flex-direction: column; gap: 0; min-width: 0; align-self: center; }
+.req-release { display: flex; flex-direction: column; gap: 0; min-width: 0; align-self: center; justify-content: center; }
+.req-release .projects-version-part { min-height: 20px; padding: 1px 2px; }
+.req-release-iter { line-height: 14px; }
 .req-release-iter {
   font-family: var(--font-mono, monospace);
   font-size: var(--b-fs-meta);
@@ -2007,7 +2009,8 @@ body.req-col-dragging * {
   flex-wrap: nowrap;
   overflow: hidden;
 }
-.requirements-name-text {
+.requirements-name { overflow: hidden; }
+.requirements-name-text { flex: 0 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
   font-size: var(--b-fs-name);
   font-weight: 600;
   white-space: nowrap;
@@ -2354,7 +2357,8 @@ body.req-col-dragging * {
   .requirements-thead > span:nth-child(10),
   .requirements-row > .req-release,
   .requirements-thead > span:nth-child(12),
-  .requirements-row > .req-primary-wrap { display: none; }
+  .requirements-row > .req-primary-wrap,
+  .requirements-row > .req-primary { display: none; }
   .projects-board .requirements-row .lifecycle-quick-btn { min-width: 64px; }
 }
 

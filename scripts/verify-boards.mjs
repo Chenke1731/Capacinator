@@ -391,6 +391,11 @@ await page.waitForTimeout(1500);
     els.filter(e => e.scrollWidth > e.clientWidth + 1).map(e => String(e.className).split(' ')[0] + ':' + e.textContent.slice(0, 6))
   );
   check('定宽列内容零截断(编号/版本/优先级)', fixedClip.length === 0, fixedClip.join(','));
+  // cap 列自适应上限: 内容零截断(2026-09-23 内容自适应裁决)
+  const capClip = await page.$$eval('.requirements-component-btn, .lifecycle-state-badge, .req-staff', els =>
+    els.filter(e => e.scrollWidth > e.clientWidth + 1).map(e => String(e.className).split(' ')[0])
+  );
+  check('cap 列内容零截断(组件/状态/人力)', capClip.length === 0, capClip.join(','));
   const uniform = metrics.rows.length > 0 && metrics.rows.every(h => Math.abs(h - metrics.rows[0]) <= 1);
   check(`数据行高统一 40±1 (${metrics.rows.join(',')})`, uniform && Math.abs(metrics.rows[0] - 40) <= 1);
 }

@@ -288,14 +288,14 @@ const REQ_COLUMNS = [
   { key: 'name', def: [260, 260, 260], min: 120, max: 640, kind: 'elastic' },
   /* 编号: SR/AR 外部编号统一列,mono;窄档(<1560)与规模/负责人同藏(2026-09-22 裁决) */
   { key: 'number', def: [92, 92, 0], min: 56, max: 200 }, /* 实测 SR-2026-100=85px,原 80 已欠 5px 在裁内容 */
-  { key: 'component', def: [92, 80, 80], min: 72, max: 240, kind: 'cap', cap: [130, 130, 120] },
-  { key: 'lifecycle', def: [216, 224, 196], min: 170, max: 420, kind: 'cap', cap: [280, 280, 240] },
-  { key: 'staffing', def: [116, 112, 108], min: 104, max: 220, kind: 'cap', cap: [150, 150, 140] },
+  { key: 'component', def: [92, 80, 80], min: 72, max: 240, kind: 'cap' },
+  { key: 'lifecycle', def: [216, 224, 196], min: 170, max: 420, kind: 'cap' },
+  { key: 'staffing', def: [116, 112, 108], min: 104, max: 220, kind: 'cap' },
   { key: 'scale', def: [64, 0, 0], min: 56, max: 200 }, /* 实测 ~60px */
   { key: 'version', def: [58, 58, 56], min: 48, max: 200 }, /* 实测 26.RP4≈45+边距 */
   { key: 'release', def: [58, 58, 56], min: 48, max: 200 },
   { key: 'priority', def: [44, 44, 44], min: 36, max: 120 }, /* 实测=徽章命中目标 min-width 44(触控档) */
-  { key: 'owner', def: [72, 80, 0], min: 56, max: 200, kind: 'cap', cap: [104, 104, 0] },
+  { key: 'owner', def: [72, 80, 0], min: 56, max: 200, kind: 'cap' },
   { key: 'actions', def: [108, 108, 108], min: 64, max: 200 } /* 3×32 钮+2×6 隙 */
 ] as const;
 type ReqColKey = (typeof REQ_COLUMNS)[number]['key'];
@@ -568,6 +568,39 @@ export function Projects() {
     return sortTrees(buildTree([...keptParents, ...keptChildren]));
   }, [demandRows, filters.search, filters.tag_id, filters.component, filters.subtype, filters.product_version, filters.release_version]);
 
+  /** cap 列内容自适应上限(2026-09-23): 量当下内容+8px 字体方差缓冲,
+      不预留未来;更长内容到来随数据刷新自动抬高。钉死列(用户拖过)跳过。 */
+  const [autoCaps, setAutoCaps] = useState<Record<string, number>>({});
+  useEffect(() => {
+    if (!projects) return;
+    const board = document.querySelector('.projects-board');
+    const rows = document.querySelectorAll('.requirements-row');
+    if (!board || rows.length === 0) return;
+    const CAP_SEL: Record<string, string> = {
+      component: '.requirements-component-btn',
+      lifecycle: '.req-cell-center',
+      staffing: '.req-staff',
+      owner: '.req-edit-cell--owner > button'
+    };
+    const natural = (el: Element): number => {
+      const c = el.cloneNode(true) as HTMLElement;
+      c.style.cssText += ';position:fixed;visibility:hidden;width:auto;max-width:none;min-width:0;left:-9999px;top:0';
+      board.appendChild(c);
+      const w = c.getBoundingClientRect().width;
+      c.remove();
+      return w;
+    };
+    const next: Record<string, number> = {};
+    for (const [key, sel] of Object.entries(CAP_SEL)) {
+      if (colWidths[key] !== undefined) continue; // 钉死优先
+      let max = 0;
+      rows.forEach((r) => r.querySelectorAll(sel).forEach((e) => { max = Math.max(max, natural(e)); }));
+      if (max > 0) next[key] = Math.round(max) + 8;
+    }
+    setAutoCaps(next);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [projects]);
+
   /** 空态文案分支用: 是否有任何筛选在活跃(与 trees memo 内部口径一致) */
   const anyFilterActive = Boolean(
     filters.search || filters.tag_id || filters.component || filters.subtype
@@ -642,9 +675,17 @@ export function Projects() {
         vars[`--req-cap-${c.key}`] = `${w}px`;
       }
     }
+    /* 内容自适应上限: 未钉死的 cap 列用当下实测(CSS 字面量仅首帧兜底) */
+    for (const c of visible) {
+      if ((c as any).kind !== 'cap') continue;
+      const auto = autoCaps[c.key];
+      if (auto && colWidths[c.key] === undefined) {
+        vars[`--req-cap-${c.key}`] = `${auto}px`;
+      }
+    }
     vars['--req-total'] = `${total}px`;
     return vars as React.CSSProperties;
-  }, [colWidths, showAll, compact]);
+  }, [colWidths, showAll, compact, autoCaps]);
 
   const flashRow = (id: string) => {
     setFlashId(id);

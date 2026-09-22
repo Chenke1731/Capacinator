@@ -287,16 +287,16 @@ const REQ_COLUMNS = [
      名称 fr 归零),余量自动重分配;双击复原。 */
   { key: 'name', def: [260, 260, 260], min: 120, max: 640, kind: 'elastic' },
   /* 编号: SR/AR 外部编号统一列,mono;窄档(<1560)与规模/负责人同藏(2026-09-22 裁决) */
-  { key: 'number', def: [84, 80, 0], min: 56, max: 200 },
+  { key: 'number', def: [92, 92, 0], min: 56, max: 200 }, /* 实测 SR-2026-100=85px,原 80 已欠 5px 在裁内容 */
   { key: 'component', def: [92, 80, 80], min: 72, max: 240, kind: 'cap', cap: [130, 130, 120] },
   { key: 'lifecycle', def: [216, 224, 196], min: 170, max: 420, kind: 'cap', cap: [280, 280, 240] },
   { key: 'staffing', def: [116, 112, 108], min: 104, max: 220, kind: 'cap', cap: [150, 150, 140] },
-  { key: 'scale', def: [72, 0, 0], min: 64, max: 200 },
-  { key: 'version', def: [68, 64, 62], min: 56, max: 200 },
-  { key: 'release', def: [68, 64, 62], min: 56, max: 200 },
-  { key: 'priority', def: [44, 44, 44], min: 40, max: 120 },
+  { key: 'scale', def: [64, 0, 0], min: 56, max: 200 }, /* 实测 ~60px */
+  { key: 'version', def: [58, 58, 56], min: 48, max: 200 }, /* 实测 26.RP4≈45+边距 */
+  { key: 'release', def: [58, 58, 56], min: 48, max: 200 },
+  { key: 'priority', def: [44, 44, 44], min: 36, max: 120 }, /* 实测=徽章命中目标 min-width 44(触控档) */
   { key: 'owner', def: [72, 80, 0], min: 56, max: 200, kind: 'cap', cap: [104, 104, 0] },
-  { key: 'actions', def: [108, 116, 116], min: 64, max: 200 }
+  { key: 'actions', def: [108, 108, 108], min: 64, max: 200 } /* 3×32 钮+2×6 隙 */
 ] as const;
 type ReqColKey = (typeof REQ_COLUMNS)[number]['key'];
 /* v2: 列集变更(新增构成/规模列)必须 bump 版本,旧宽度按旧列预算调优,残留会挤压名称列 */

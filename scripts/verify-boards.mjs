@@ -386,6 +386,11 @@ await page.waitForTimeout(1500);
   // 2026-09-22 版本/交付计划筛选上线后 16→20,控件数驱动,非视觉噪声)
   check(`水平分隔线 ≤ 24 (${metrics.hRules})`, metrics.hRules <= 24);
   check(`最小命中目标 ≥ 24px (${metrics.minHit})`, metrics.minHit >= 24);
+  // 定宽列规则守卫(2026-09-23): 定宽=实测内容+边距+呼吸,内容零截断
+  const fixedClip = await page.$$eval('.req-number-part, .projects-version-part, .req-pri.req-editable', els =>
+    els.filter(e => e.scrollWidth > e.clientWidth + 1).map(e => String(e.className).split(' ')[0] + ':' + e.textContent.slice(0, 6))
+  );
+  check('定宽列内容零截断(编号/版本/优先级)', fixedClip.length === 0, fixedClip.join(','));
   const uniform = metrics.rows.length > 0 && metrics.rows.every(h => Math.abs(h - metrics.rows[0]) <= 1);
   check(`数据行高统一 40±1 (${metrics.rows.join(',')})`, uniform && Math.abs(metrics.rows[0] - 40) <= 1);
 }

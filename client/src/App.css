@@ -1848,7 +1848,7 @@ input[type="checkbox"].settings-checkbox,
 .requirements-thead > span { position: relative; }
 .requirements-thead {
   display: grid;
-    grid-template-columns: minmax(var(--req-w-name, 260px), var(--req-f-name, 1fr)) var(--req-w-number, 84px) minmax(var(--req-w-component, 92px), var(--req-cap-component, 130px)) minmax(var(--req-w-lifecycle, 216px), var(--req-cap-lifecycle, 280px)) minmax(var(--req-w-staffing, 116px), var(--req-cap-staffing, 150px)) var(--req-w-scale, 72px) var(--req-w-version, 68px) var(--req-w-release, 68px) var(--req-w-priority, 44px) minmax(var(--req-w-owner, 72px), var(--req-cap-owner, 104px)) var(--req-w-actions, 108px) var(--req-spacer, 0fr);
+    grid-template-columns: minmax(var(--req-w-name, 260px), var(--req-f-name, 1fr)) var(--req-w-number, 92px) minmax(var(--req-w-component, 92px), var(--req-cap-component, 130px)) minmax(var(--req-w-lifecycle, 216px), var(--req-cap-lifecycle, 280px)) minmax(var(--req-w-staffing, 116px), var(--req-cap-staffing, 150px)) var(--req-w-scale, 64px) var(--req-w-version, 58px) var(--req-w-release, 58px) var(--req-w-priority, 44px) minmax(var(--req-w-owner, 72px), var(--req-cap-owner, 104px)) var(--req-w-actions, 108px) var(--req-spacer, 0fr);
   gap: 8px;
   align-items: center;
   min-height: 36px;
@@ -1862,7 +1862,7 @@ input[type="checkbox"].settings-checkbox,
 
 .requirements-row {
   display: grid;
-    grid-template-columns: minmax(var(--req-w-name, 260px), var(--req-f-name, 1fr)) var(--req-w-number, 84px) minmax(var(--req-w-component, 92px), var(--req-cap-component, 130px)) minmax(var(--req-w-lifecycle, 216px), var(--req-cap-lifecycle, 280px)) minmax(var(--req-w-staffing, 116px), var(--req-cap-staffing, 150px)) var(--req-w-scale, 72px) var(--req-w-version, 68px) var(--req-w-release, 68px) var(--req-w-priority, 44px) minmax(var(--req-w-owner, 72px), var(--req-cap-owner, 104px)) var(--req-w-actions, 108px) var(--req-spacer, 0fr);
+    grid-template-columns: minmax(var(--req-w-name, 260px), var(--req-f-name, 1fr)) var(--req-w-number, 92px) minmax(var(--req-w-component, 92px), var(--req-cap-component, 130px)) minmax(var(--req-w-lifecycle, 216px), var(--req-cap-lifecycle, 280px)) minmax(var(--req-w-staffing, 116px), var(--req-cap-staffing, 150px)) var(--req-w-scale, 64px) var(--req-w-version, 58px) var(--req-w-release, 58px) var(--req-w-priority, 44px) minmax(var(--req-w-owner, 72px), var(--req-cap-owner, 104px)) var(--req-w-actions, 108px) var(--req-spacer, 0fr);
   gap: 8px;
   align-items: center;
   min-height: 40px;
@@ -2269,7 +2269,7 @@ body.req-col-dragging * {
 @media (min-width: 1560px) and (max-width: 1679px) {
   .requirements-thead,
   .requirements-row {
-    grid-template-columns: minmax(var(--req-w-name, 260px), var(--req-f-name, 1fr)) var(--req-w-number, 80px) minmax(var(--req-w-component, 80px), var(--req-cap-component, 130px)) minmax(var(--req-w-lifecycle, 224px), var(--req-cap-lifecycle, 280px)) minmax(var(--req-w-staffing, 112px), var(--req-cap-staffing, 150px)) var(--req-w-version, 64px) var(--req-w-release, 64px) var(--req-w-priority, 44px) var(--req-w-actions, 116px) var(--req-spacer, 0fr);
+    grid-template-columns: minmax(var(--req-w-name, 260px), var(--req-f-name, 1fr)) var(--req-w-number, 92px) minmax(var(--req-w-component, 80px), var(--req-cap-component, 130px)) minmax(var(--req-w-lifecycle, 224px), var(--req-cap-lifecycle, 280px)) minmax(var(--req-w-staffing, 112px), var(--req-cap-staffing, 150px)) var(--req-w-version, 58px) var(--req-w-release, 58px) var(--req-w-priority, 44px) var(--req-w-actions, 108px) var(--req-spacer, 0fr);
   }
   .requirements-thead > span:nth-child(6),
   .requirements-row > .req-scale,
@@ -2281,7 +2281,7 @@ body.req-col-dragging * {
 @media (max-width: 1559px) {
   .requirements-thead,
   .requirements-row {
-    grid-template-columns: minmax(var(--req-w-name, 260px), var(--req-f-name, 1fr)) minmax(var(--req-w-component, 80px), var(--req-cap-component, 120px)) minmax(var(--req-w-lifecycle, 196px), var(--req-cap-lifecycle, 240px)) minmax(var(--req-w-staffing, 108px), var(--req-cap-staffing, 140px)) var(--req-w-version, 62px) var(--req-w-release, 62px) var(--req-w-priority, 44px) var(--req-w-actions, 116px) var(--req-spacer, 0fr);
+    grid-template-columns: minmax(var(--req-w-name, 260px), var(--req-f-name, 1fr)) minmax(var(--req-w-component, 80px), var(--req-cap-component, 120px)) minmax(var(--req-w-lifecycle, 196px), var(--req-cap-lifecycle, 240px)) minmax(var(--req-w-staffing, 108px), var(--req-cap-staffing, 140px)) var(--req-w-version, 56px) var(--req-w-release, 56px) var(--req-w-priority, 44px) var(--req-w-actions, 108px) var(--req-spacer, 0fr);
   }
   .requirements-thead > span:nth-child(11),
   .requirements-row > .req-edit-cell--owner { display: none; }

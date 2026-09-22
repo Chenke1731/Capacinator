@@ -72,8 +72,8 @@ const tabLabels = await page.$$eval('[role="tab"], .unified-tab, [data-tab]', ()
 check('需求台默认呈现', (await page.$('.requirements-table')) !== null);
 
 const headers = await page.$$eval('.requirements-thead span', els => els.map(e => e.textContent.trim()));
-check('新列集(名称/编号/标签/状态/人力/版本/交付/优先级/负责人/操作)',
-  ['项目名称','编号','标签','组件','状态','人力（实＋池）','规模','版本','交付计划','优先级','负责人','操作'].every(h => headers.includes(h)),
+check('新列集(名称/编号/组件/状态/人力/版本/交付/优先级/负责人/操作;标签已迁名称格)',
+  ['项目名称','编号','组件','状态','人力（实＋池）','规模','版本','交付计划','优先级','负责人','操作'].every(h => headers.includes(h)) && !headers.includes('标签'),
   headers.join('|'));
 
 const demandRows = await page.$$eval('.requirements-row', els => els.map(e => e.querySelector('.requirements-name-text')?.textContent));
@@ -208,6 +208,23 @@ check('优先级徽章', pBadges.length >= 3 && pBadges.every(p => /^P\d$/.test(
   const srResp = await page.request.get(`${API}/api/projects/${SRID}`);
   const srNum = ((await srResp.json()).data?.external_number) ?? null;
   check('SR 行编号填写落库(SR-26-001)', srNum === 'SR-26-001', `num=${srNum}`);
+}
+
+// ── 1.9 标签内联(Q1-B): 常态全量可见 + chip 点击过滤(Q3) ──
+{
+  const chips = await page.$$eval('.requirements-name .req-tag--filter', els => els.map(e => e.textContent.trim()));
+  check('标签内联名称格,chip 全量可见(治理后每项 ≤2 枚)', chips.length >= 2 && chips.every(c => c.length >= 2), chips.join(','));
+  const outsourcChip = page.locator('.requirements-name .req-tag--filter', { hasText: '外包' }).first();
+  await outsourcChip.click();
+  await page.waitForTimeout(400);
+  const filtered = await page.$$eval('.requirements-row .requirements-name-text', els => els.map(e => e.textContent.trim()));
+  check('chip 点击 = 按标签过滤(树保留: 外包=SR树3行+数据平台)', filtered.length === 4 && !filtered.includes('移动端改版'), filtered.join(','));
+  const ringOn = await page.$$eval('.req-tag--filtering', els => els.length);
+  check('过滤态 chip 常驻描边', ringOn >= 1);
+  await outsourcChip.click();
+  await page.waitForTimeout(400);
+  const back = await page.$$eval('.requirements-row .requirements-name-text', els => els.map(e => e.textContent.trim()));
+  check('再点同枚取消过滤', back.length === 5, back.length + ' 行');
 }
 
 // ── 2. 版本内联编辑(平铺) → 工具栏版本筛选 ───────────

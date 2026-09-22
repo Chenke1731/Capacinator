@@ -388,7 +388,11 @@
     "delete": "删除",
     "usageCount": "{{count}} 个事项使用",
     "deleteTitle": "删除标签",
-    "deleteMessage": "确定删除「{{name}}」?它已标注在 {{count}} 个事项上,删除后这些事项将不再带此标签(事项本身不受影响)。"
+    "deleteMessage": "确定删除「{{name}}」?它已标注在 {{count}} 个事项上,删除后这些事项将不再带此标签(事项本身不受影响)。",
+    "guideline": "标签只放列里没有的正交补充属性（如：外包、跨团队）；优先级、版本、交付节奏等列已表达的信息不放标签。",
+    "createButton": "新建",
+    "paletteLabel": "标签颜色（Okabe-Ito 色板）",
+    "editColor": "修改颜色"
   },
   "board": {
     "countSummary": "共 {{count}} 项需求",
@@ -399,7 +403,6 @@
     "colOwner": "负责人",
     "empty": "暂无需求事项",
     "resetFilters": "清除筛选",
-    "colTags": "标签",
     "colRelease": "交付计划",
     "resizeHint": "拖拽调整列宽，双击重置",
     "colComponent": "组件",
@@ -440,7 +443,10 @@
     "empty": "无匹配标签",
     "none": "无",
     "newPlaceholder": "新建标签…",
-    "newAdd": "新建并打上"
+    "newAdd": "新建并打上",
+    "filterHint": "点击按此标签筛选，再点取消",
+    "addTitle": "添加标签",
+    "usageCount": "{{count}} 项"
   },
   "ticketsBoard": {
     "ledgerNote": "月度量台账与建议缓冲率将在此登记(暂缓实现);当前为缓冲占用一览——照常参与产能计算。",

@@ -278,11 +278,10 @@ const REQ_COLUMNS = [
      默认预算原则: 默认(未拖拽)布局在 1600/1366 容器内零横向滚动,横滚只能由
      用户主动拖宽触发。 */
   /* def: [全列档(≥1680), 中档(1560–1679,藏规模), 窄档(<1560,藏规模+负责人)] */
-  { key: 'name', def: [210, 210, 210], min: 120, max: 640 },
+  { key: 'name', def: [250, 250, 250], min: 120, max: 640 }, /* Q1-B: 标签迁入名称格,地板吃下腾出预算 */
   /* 编号: SR/AR 外部编号统一列,mono;窄档(<1560)与规模/负责人同藏(2026-09-22 裁决) */
   { key: 'number', def: [84, 80, 0], min: 56, max: 200 },
-  { key: 'tags', def: [104, 92, 92], min: 80, max: 320 },
-  { key: 'component', def: [92, 80, 80], min: 72, max: 240 },
+    { key: 'component', def: [92, 80, 80], min: 72, max: 240 },
   { key: 'lifecycle', def: [216, 224, 196], min: 170, max: 420 },
   { key: 'staffing', def: [116, 112, 108], min: 104, max: 220 },
   { key: 'scale', def: [72, 0, 0], min: 64, max: 200 },
@@ -294,7 +293,7 @@ const REQ_COLUMNS = [
 ] as const;
 type ReqColKey = (typeof REQ_COLUMNS)[number]['key'];
 /* v2: 列集变更(新增构成/规模列)必须 bump 版本,旧宽度按旧列预算调优,残留会挤压名称列 */
-const REQ_WIDTHS_STORE = 'req-col-widths-v3';
+const REQ_WIDTHS_STORE = 'req-col-widths-v4';
 const clampWidth = (col: (typeof REQ_COLUMNS)[number], w: number) =>
   Math.round(Math.min(col.max, Math.max(col.min, w)));
 
@@ -568,6 +567,11 @@ export function Projects() {
     || filters.product_version || filters.release_version || filters.lifecycle_state
   );
 
+  /** Q3: chip 点击=按标签过滤,再点同枚取消(GitHub 式) */
+  const toggleTagFilter = (tagId: string | number) => {
+    setFilters((prev) => ({ ...prev, tag_id: prev.tag_id === String(tagId) ? '' : String(tagId) }));
+  };
+
   const toggleSR = (id: string) => {
     setCollapsedSR((prev) => {
       const next = new Set(prev);
@@ -755,7 +759,6 @@ export function Projects() {
           {([
             ['projects:board.colName', 'name'],
             ['projects:board.colNumber', 'number'],
-            ['projects:board.colTags', 'tags'],
             ['projects:board.colComponent', 'component'],
             ['projects:lifecycleColumn', 'lifecycle'],
             ['projects:board.colStaffing', 'staffing'],
@@ -768,7 +771,7 @@ export function Projects() {
           ] as const).map(([key, colKey], i) => (
             <span key={colKey} className={['lifecycle', 'priority', 'actions'].includes(colKey) ? 'col-c' : colKey === 'staffing' ? 'col-r' : ''}>
               {t(key)}
-              {i < 11 && (
+              {i < 10 && (
                 <ColumnGrip colKey={colKey} widths={colWidths} setWidths={setColWidths} />
               )}
             </span>
@@ -806,11 +809,10 @@ export function Projects() {
                       : ''}
                   </span>
                 )}
+                <TagsCell project={project} allTags={tags} onSaved={() => handleCellSaved(project.id)} onFilterByTag={toggleTagFilter} activeTagId={filters.tag_id} />
               </span>
 
               <NumberPart project={project} onSaved={() => handleCellSaved(project.id)} />
-
-              <TagsCell project={project} allTags={tags} onSaved={() => handleCellSaved(project.id)} />
 
               <ComponentCell project={project} options={componentOptions} onSaved={() => handleCellSaved(project.id)} />
 
@@ -900,11 +902,11 @@ export function Projects() {
                       : ''}
                   </span>
                 )}
+                <TagsCell project={project} allTags={tags} onSaved={() => handleCellSaved(project.id)} onFilterByTag={toggleTagFilter} activeTagId={filters.tag_id} />
               </span>
 
               <NumberPart project={project} onSaved={() => handleCellSaved(project.id)} />
 
-              <TagsCell project={project} allTags={tags} onSaved={() => handleCellSaved(project.id)} />
               <ComponentCell project={project} options={componentOptions} onSaved={() => handleCellSaved(project.id)} />
 
               <span className="req-cell-center req-state-dist">
@@ -974,11 +976,11 @@ export function Projects() {
                     <span className="requirements-name requirements-name--child">
                       <CornerDownRight size={13} className="req-child-arrow" />
                       <span className="requirements-name-text" title={child.name}>{child.name}</span>
+                      <TagsCell project={child} allTags={tags} onSaved={() => handleCellSaved(child.id)} onFilterByTag={toggleTagFilter} activeTagId={filters.tag_id} />
                     </span>
 
                     <NumberPart project={child} onSaved={() => handleCellSaved(child.id)} />
 
-                    <TagsCell project={child} allTags={tags} onSaved={() => handleCellSaved(child.id)} />
                     <ComponentCell project={child} options={componentOptions} onSaved={() => handleCellSaved(child.id)} />
 
                     <span className="req-cell-center" onClick={(e) => e.stopPropagation()}>

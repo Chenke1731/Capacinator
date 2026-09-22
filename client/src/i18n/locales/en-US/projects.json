@@ -381,7 +381,7 @@
     "label": "Tags",
     "filterLabel": "Tag",
     "add": "Add",
-    "newPlaceholder": "New tag…",
+    "newPlaceholder": "New tag name…",
     "manageButton": "Manage tags",
     "manageTitle": "Manage Tags",
     "manageDescription": "Click a tag name to rename; deleting a tag removes it from all projects (projects themselves are unaffected).",
@@ -390,7 +390,11 @@
     "delete": "Delete",
     "usageCount": "used by {{count}} projects",
     "deleteTitle": "Delete tag",
-    "deleteMessage": "Delete \"{{name}}\"? It is applied to {{count}} projects; they will simply lose this label."
+    "deleteMessage": "Delete \"{{name}}\"? It is applied to {{count}} projects; they will simply lose this label.",
+    "guideline": "Tags carry only orthogonal attributes not already in columns (e.g. outsourcing, cross-team); priority, version and release cadence live in their own columns.",
+    "createButton": "Create",
+    "paletteLabel": "Tag color (Okabe-Ito palette)",
+    "editColor": "Edit color"
   },
   "board": {
     "countSummary": "{{count}} requirements",
@@ -401,7 +405,6 @@
     "colOwner": "Owner",
     "empty": "No requirements",
     "resetFilters": "Clear filters",
-    "colTags": "Tags",
     "colRelease": "Release",
     "resizeHint": "Drag to resize, double-click to reset",
     "colComponent": "Component",
@@ -442,7 +445,10 @@
     "empty": "No matching tags",
     "none": "none",
     "newPlaceholder": "New tag…",
-    "newAdd": "Create & apply"
+    "newAdd": "Create & apply",
+    "filterHint": "Click to filter by this tag; click again to clear",
+    "addTitle": "Add tags",
+    "usageCount": "{{count}} items"
   },
   "ticketsBoard": {
     "ledgerNote": "The monthly volume ledger and suggested buffer rate will live here (deferred); for now this shows the buffer footprint — it keeps consuming capacity as usual.",

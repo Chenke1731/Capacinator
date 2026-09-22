@@ -165,11 +165,16 @@ export function OwnerCell({ project, onSaved }: { project: any; onSaved: () => v
 export function TagsCell({
   project,
   allTags,
-  onSaved
+  onSaved,
+  onFilterByTag,
+  activeTagId
 }: {
   project: any;
   allTags: any[];
   onSaved: () => void;
+  /** 2026-09-22 Q3 裁决: chip 点击=按此标签过滤(GitHub 式),再点同枚取消 */
+  onFilterByTag: (tagId: string | number) => void;
+  activeTagId?: string;
 }) {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
@@ -225,39 +230,54 @@ export function TagsCell({
     commit(next);
   };
 
+  const tags: any[] = project.tags ?? [];
+  /* 2026-09-22 Q1-B 裁决: 标签迁入名称格行尾(弹性列吸收长度,不占独立列预算);
+     Q1+Q5 联立: 标签治理(只放正交属性)后常态 1-2 枚全量可见,超出折叠 +N
+     (点击 +N 即达全量编辑弹层,不止 title) */
   return (
-    <span ref={pop.anchorRef} className="req-edit-cell req-edit-cell--tags" onClick={(e) => e.stopPropagation()}>
+    <span ref={pop.anchorRef} className="req-tags-inline" onClick={(e) => e.stopPropagation()}>
+      {tags.slice(0, 2).map((tag: any) => (
+        <button
+          key={tag.id}
+          type="button"
+          className={`req-tag req-tag--filter ${String(activeTagId) === String(tag.id) ? 'req-tag--filtering' : ''}`}
+          title={t('projects:tagSelect.filterHint')}
+          style={{ color: `color-mix(in srgb, ${tag.color || '#888888'} 68%, var(--tag-ink))`, background: `${tag.color || '#888888'}2b` }}
+          onClick={(e) => { e.stopPropagation(); onFilterByTag(tag.id); }}
+        >
+          {tag.name}
+        </button>
+      ))}
+      {tags.length > 2 && (
+        <button
+          type="button"
+          className="req-tag req-tag--more"
+          title={tags.slice(2).map((tg: any) => tg.name).join('、')}
+          onClick={(e) => { e.stopPropagation(); pop.toggle(); }}
+        >
+          +{tags.length - 2}
+        </button>
+      )}
+      {tags.length === 0 && (
+        <button
+          type="button"
+          className="req-tag req-tag--add"
+          title={t('projects:tagSelect.addTitle')}
+          onClick={(e) => { e.stopPropagation(); pop.toggle(); }}
+        >
+          +
+        </button>
+      )}
       <button
         type="button"
         data-testid="tags-edit-btn"
-        className="req-tags-cell req-editable"
-        disabled={busy}
+        className="req-pencil req-pencil--act"
         title={t('projects:tagSelect.hint')}
-        onClick={pop.toggle}
+        onClick={(e) => { e.stopPropagation(); pop.toggle(); }}
+        aria-label={t('projects:tagSelect.hint')}
       >
-        {/* P1(2026-09-22 审计): 96px 列宽装不下 2 枚 chip+N——固定"1 枚完整+N",
-            chip 限宽省略且带 title,截断可恢复;+N title 全文 */}
-        {(project.tags ?? []).slice(0, 1).map((tag: any) => (
-          <span
-            key={tag.id}
-            className="req-tag"
-            title={tag.name}
-            style={{ color: `color-mix(in srgb, ${tag.color || '#888888'} 68%, var(--tag-ink))`, background: `${tag.color || '#888888'}2b` }}
-          >
-            {tag.name}
-          </span>
-        ))}
-        {(project.tags?.length ?? 0) > 1 && (
-          <span
-            className="req-tag req-tag--more"
-            title={(project.tags ?? []).slice(1).map((tg: any) => tg.name).join('、')}
-          >
-            +{(project.tags?.length ?? 0) - 1}
-          </span>
-        )}
-        {(project.tags?.length ?? 0) === 0 && <span className="cell-pop-empty-trigger">{t('projects:tagSelect.none')}</span>}
+        <Pencil size={10} aria-hidden />
       </button>
-      <Pencil size={10} className="req-pencil" aria-hidden />
       {pop.open && (
         <div className="lc-popover cell-pop tags-pop" data-testid="tags-popover" style={pop.style}>
           <div className="lc-popover-title">{t('projects:tagSelect.title')}</div>
@@ -281,6 +301,7 @@ export function TagsCell({
                 >
                   <span className="cell-pop-tagdot" style={{ background: tg.color || 'var(--text-secondary)' }} />
                   <span className="cell-pop-item-label">{tg.name}</span>
+                  <span className="cell-pop-item-meta">{t('projects:tagSelect.usageCount', { count: tg.project_count ?? 0 })}</span>
                   {active && <Check size={13} className="cell-pop-check" />}
                 </button>
               );

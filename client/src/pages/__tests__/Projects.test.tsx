@@ -250,7 +250,7 @@ describe('Requirements Board (需求台)', () => {
 
       const header = screen.getByTestId('requirements-table').querySelector('.requirements-thead');
       const headers = Array.from(header?.children ?? []).map((el) => el.textContent);
-      expect(headers).toEqual(['Name', 'Number', 'Tags', 'Component', 'Lifecycle', 'Named + pool', 'Scale', 'Version', 'Release', 'Priority', 'Owner', 'Actions']);
+      expect(headers).toEqual(['Name', 'Number', 'Component', 'Lifecycle', 'Named + pool', 'Scale', 'Version', 'Release', 'Priority', 'Owner', 'Actions']);
     });
 
     test('flat item rows only — no version group headers (2026-09-22 裁决)', async () => {
@@ -802,14 +802,14 @@ describe('Requirements Board (需求台)', () => {
       // 前 10 列有手柄,最右操作列没有(右缘手柄只到负责人列)
       const grips = screen.getAllByTestId(/^col-grip-/);
       expect(grips.map((g) => g.dataset.testid)).toEqual([
-        'col-grip-name', 'col-grip-number', 'col-grip-tags', 'col-grip-component', 'col-grip-lifecycle',
+        'col-grip-name', 'col-grip-number', 'col-grip-component', 'col-grip-lifecycle',
         'col-grip-staffing', 'col-grip-scale', 'col-grip-version', 'col-grip-release',
         'col-grip-priority', 'col-grip-owner'
       ]);
     });
 
     test('persisted widths are applied as CSS vars on the table', async () => {
-      localStorage.setItem('req-col-widths-v3', JSON.stringify({ tags: 220, priority: 80 }));
+      localStorage.setItem('req-col-widths-v4', JSON.stringify({ version: 100, priority: 80 }));
       renderComponent();
 
       await waitFor(() => {
@@ -817,13 +817,13 @@ describe('Requirements Board (需求台)', () => {
       });
 
       const table = screen.getByTestId('requirements-table');
-      expect(table.style.getPropertyValue('--req-w-tags')).toBe('220px');
+      expect(table.style.getPropertyValue('--req-w-version')).toBe('100px');
       expect(table.style.getPropertyValue('--req-w-priority')).toBe('80px');
-      expect(table.style.getPropertyValue('--req-w-name')).toBe('210px');
+      expect(table.style.getPropertyValue('--req-w-name')).toBe('250px');
     });
 
     test('pinning the name column kills its fr and hands leftover to the spacer', async () => {
-      localStorage.setItem('req-col-widths-v3', JSON.stringify({ name: 150 }));
+      localStorage.setItem('req-col-widths-v4', JSON.stringify({ name: 150 }));
       renderComponent();
 
       await waitFor(() => {
@@ -838,7 +838,7 @@ describe('Requirements Board (需求台)', () => {
     });
 
     test('double-click on a grip resets that column and persists the change', async () => {
-      localStorage.setItem('req-col-widths-v3', JSON.stringify({ tags: 220 }));
+      localStorage.setItem('req-col-widths-v4', JSON.stringify({ component: 150 }));
       renderComponent();
 
       await waitFor(() => {
@@ -846,14 +846,14 @@ describe('Requirements Board (需求台)', () => {
       });
 
       const table = screen.getByTestId('requirements-table');
-      expect(table.style.getPropertyValue('--req-w-tags')).toBe('220px');
+      expect(table.style.getPropertyValue('--req-w-component')).toBe('150px');
 
-      fireEvent.dblClick(screen.getByTestId('col-grip-tags'));
+      fireEvent.dblClick(screen.getByTestId('col-grip-component'));
 
       await waitFor(() => {
-        expect(table.style.getPropertyValue('--req-w-tags')).toBe('104px');
+        expect(table.style.getPropertyValue('--req-w-component')).toBe('92px');
       });
-      expect(JSON.parse(localStorage.getItem('req-col-widths-v3')!)).toEqual({});
+      expect(JSON.parse(localStorage.getItem('req-col-widths-v4')!)).toEqual({});
     });
   });
 
@@ -950,15 +950,26 @@ describe('Requirements Board (需求台)', () => {
       });
     });
 
-    test('tags fold to one chip + N with full-name titles (P1)', async () => {
+    test('tags render inline in the name cell; chip click filters, click again clears (Q1-B/Q3)', async () => {
+      const user = userEvent.setup();
       renderComponent();
       await waitFor(() => {
         expect(screen.getByText('Project Alpha')).toBeInTheDocument();
       });
       const alphaRow = screen.getByText('Project Alpha').closest('.requirements-row')!;
+      // 2 枚常态全量可见(治理后常态),不再折叠
       expect(within(alphaRow).getByText('Reserved')).toBeInTheDocument();
-      expect(within(alphaRow).getByText('+1')).toHaveAttribute('title', 'Urgent');
-      expect(within(alphaRow).getByText('Reserved')).toHaveAttribute('title', 'Reserved');
+      expect(within(alphaRow).getByText('Urgent')).toBeInTheDocument();
+      expect(within(alphaRow).queryByText('+1')).not.toBeInTheDocument();
+
+      // chip 点击 = 按此标签过滤(无标签的 Beta 隐藏)
+      await user.click(within(alphaRow).getByText('Reserved'));
+      expect(screen.getByText('Project Alpha')).toBeInTheDocument();
+      expect(screen.queryByText('Project Beta')).not.toBeInTheDocument();
+
+      // 再点同枚取消
+      await user.click(within(alphaRow).getByText('Reserved'));
+      expect(screen.getByText('Project Beta')).toBeInTheDocument();
     });
 
     test('number cell carries the pencil affordance like other edit points (P6)', async () => {

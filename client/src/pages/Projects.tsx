@@ -278,21 +278,24 @@ const REQ_COLUMNS = [
      默认预算原则: 默认(未拖拽)布局在 1600/1366 容器内零横向滚动,横滚只能由
      用户主动拖宽触发。 */
   /* def: [全列档(≥1680), 中档(1560–1679,藏规模), 窄档(<1560,藏规模+负责人)] */
-  /* 2026-09-22 列宽分配架构(三代教训定案): 余量不再单点吞食——名称 fr 气球
-     (416px/需求188px)与尾部死区(操作列右缘 313px 空白)皆失败。改为按信息
-     价值权重分食: flex 列 minmax(默认, 权重fr) 有比例地舒展,紧凑列定宽,
-     操作列恒贴右缘。拖拽=钉死(该列 fr 归零,余量归其余 flex 列),双击复原。 */
-  { key: 'name', def: [260, 260, 260], min: 120, max: 640, flex: 1.4 },
+  /* 2026-09-22 列宽分配算法(四代定案,声明式三类):
+     定宽(内容长度确定: 编号/版本/交付/优先级/规模/操作)——永不加宽;
+     cap 有界弹性(内容有现实上限, minmax(默认, 上限),舒展到上限即止);
+     elastic 无界弹性(名称,长度不可预期,吸收剩余全部余量)。
+     分配次序由 grid 原生两段机制承担: 定宽不动 → 有界列均匀舒展至上限
+     → 剩余归名称 → 操作列恒贴右缘。拖拽=钉死(有界列上限锁为拖宽,
+     名称 fr 归零),余量自动重分配;双击复原。 */
+  { key: 'name', def: [260, 260, 260], min: 120, max: 640, kind: 'elastic' },
   /* 编号: SR/AR 外部编号统一列,mono;窄档(<1560)与规模/负责人同藏(2026-09-22 裁决) */
   { key: 'number', def: [84, 80, 0], min: 56, max: 200 },
-  { key: 'component', def: [92, 80, 80], min: 72, max: 240, flex: 1.0 },
-  { key: 'lifecycle', def: [216, 224, 196], min: 170, max: 420, flex: 1.6 },
-  { key: 'staffing', def: [116, 112, 108], min: 104, max: 220, flex: 1.2 },
+  { key: 'component', def: [92, 80, 80], min: 72, max: 240, kind: 'cap', cap: [130, 130, 120] },
+  { key: 'lifecycle', def: [216, 224, 196], min: 170, max: 420, kind: 'cap', cap: [280, 280, 240] },
+  { key: 'staffing', def: [116, 112, 108], min: 104, max: 220, kind: 'cap', cap: [150, 150, 140] },
   { key: 'scale', def: [72, 0, 0], min: 64, max: 200 },
   { key: 'version', def: [68, 64, 62], min: 56, max: 200 },
   { key: 'release', def: [68, 64, 62], min: 56, max: 200 },
   { key: 'priority', def: [44, 44, 44], min: 40, max: 120 },
-  { key: 'owner', def: [72, 80, 0], min: 56, max: 200 },
+  { key: 'owner', def: [72, 80, 0], min: 56, max: 200, kind: 'cap', cap: [104, 104, 0] },
   { key: 'actions', def: [108, 116, 116], min: 64, max: 200 }
 ] as const;
 type ReqColKey = (typeof REQ_COLUMNS)[number]['key'];
@@ -627,14 +630,18 @@ export function Projects() {
       vars[`--req-w-${c.key}`] = `${w}px`;
       total += w;
     }
-    /* 拖过的列=钉死: 该列 fr 归零,余量由其余 flex 列分食;
-       全部 flex 列都被钉时,余量退回尾部占位轨(极端场景兜底) */
-    const flexKeys = visible.filter((c) => (c as any).flex).map((c) => c.key);
-    const allFlexPinned = flexKeys.length > 0 && flexKeys.every((k) => colWidths[k] !== undefined);
+    /* 拖过的列=钉死,按类别退出分配: elastic(名称) fr 归零并启用尾部占位轨
+       承接剩余; cap 列上限锁为拖宽值(minmax(w,w)=定死); 定宽列本就 var 直取 */
     for (const c of visible) {
-      if (colWidths[c.key] !== undefined) vars[`--req-f-${c.key}`] = '0fr';
+      const w = colWidths[c.key];
+      if (w === undefined) continue;
+      if ((c as any).kind === 'elastic') {
+        vars[`--req-f-${c.key}`] = '0fr';
+        vars['--req-spacer'] = '1fr';
+      } else if ((c as any).kind === 'cap') {
+        vars[`--req-cap-${c.key}`] = `${w}px`;
+      }
     }
-    if (allFlexPinned) vars['--req-spacer'] = '1fr';
     vars['--req-total'] = `${total}px`;
     return vars as React.CSSProperties;
   }, [colWidths, showAll, compact]);

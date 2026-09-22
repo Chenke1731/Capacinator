@@ -836,6 +836,19 @@ describe('Requirements Board (需求台)', () => {
       expect(table.style.getPropertyValue('--req-f-name')).toBe('0fr');
     });
 
+    test('dragging a bounded column locks its cap at the dragged width (kind: cap)', async () => {
+      localStorage.setItem('req-col-widths-v4', JSON.stringify({ component: 200 }));
+      renderComponent();
+
+      await waitFor(() => {
+        expect(screen.getByText('Project Alpha')).toBeInTheDocument();
+      });
+
+      const table = screen.getByTestId('requirements-table');
+      expect(table.style.getPropertyValue('--req-w-component')).toBe('200px');
+      expect(table.style.getPropertyValue('--req-cap-component')).toBe('200px');
+    });
+
     test('double-click on a grip resets that column and persists the change', async () => {
       localStorage.setItem('req-col-widths-v4', JSON.stringify({ component: 150 }));
       renderComponent();

@@ -780,6 +780,16 @@ export const api = {
       apiClient.delete<{ data: { id: string } }>(`/pool-demands/${id}`),
   },
 
+  // 迭代域(BOARD_REDESIGN_2026-09-23 §9): 执行窗口的唯一日期真相
+  iterations: {
+    list: () => apiClient.get<{ data: any[] }>('/iterations'),
+    create: (data: { name: string; start_date: string; end_date: string }) =>
+      apiClient.post<{ data: any }>('/iterations', data),
+    update: (id: string, data: Partial<{ name: string; start_date: string; end_date: string }>) =>
+      apiClient.put<{ data: any }>(`/iterations/${id}`, data),
+    delete: (id: string) => apiClient.delete<{ success: true }>(`/iterations/${id}`),
+  },
+
   // Lifecycle (8-state machine: 待RAT/NOK/设计中/待排序/已排序/已启动迭代/已交付/裁决取消)
   lifecycle: {
     get: (projectId: string) =>

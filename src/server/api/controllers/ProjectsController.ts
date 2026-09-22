@@ -209,6 +209,77 @@ export class ProjectsController extends BaseController {
     }
   }
 
+  /**
+   * 看板规划数据源(BOARD_REDESIGN_2026-09-23 §9): 迭代挂接/设计粗估分量/
+   * SE·MDE 分配/开发主投入——批量为列表页挂载。分配读 assignments_view
+   * (场景感知,与人力汇总同源);主投入标记在场景分配表(063c)。
+   */
+  private async attachBoardPlanning(projects: any[]): Promise<void> {
+    const ids = projects.map((p: any) => p.id);
+    if (ids.length === 0) return;
+
+    const iterRows = await this.db('projects as p')
+      .leftJoin('iterations as i', 'p.iteration_id', 'i.id')
+      .whereIn('p.id', ids)
+      .select('p.id as pid', 'i.id as iter_id', 'i.name as iter_name',
+              'i.start_date as iter_start', 'i.end_date as iter_end');
+    const iterBy = new Map(iterRows.map((r: any) => [r.pid, r]));
+
+    const deRows = await this.db('project_design_estimations')
+      .whereIn('project_id', ids).orderBy('created_at').orderBy('id')
+      .select('project_id', 'se_estimate_pm', 'mde_estimate_pm');
+    const deBy = new Map<string, any>();
+    for (const r of deRows) deBy.set(r.project_id, r); // 有序遍历,后者=最新
+
+    const roleRows = await this.db('assignments_view as av')
+      .join('roles as r', 'av.role_id', 'r.id')
+      .join('people as pe', 'av.person_id', 'pe.id')
+      .whereIn('av.project_id', ids)
+      .where('av.status', 'active')
+      .whereIn('r.name', ['SE', 'MDE'])
+      .select('av.project_id', 'r.name as role_name', 'pe.name as person_name',
+              'av.allocation_percentage', 'av.start_date', 'av.end_date');
+    const seBy = new Map<string, any>();
+    const mdeBy = new Map<string, any>();
+    for (const r of roleRows) {
+      (r.role_name === 'SE' ? seBy : mdeBy).set(r.project_id, {
+        person_name: r.person_name,
+        allocation_pct: Number(r.allocation_percentage ?? 0),
+        start_date: r.start_date ?? null,
+        end_date: r.end_date ?? null
+      });
+    }
+
+    const primaryRows = await this.db('scenario_project_assignments as spa')
+      .join('people as pe', 'spa.person_id', 'pe.id')
+      .join('roles as r', 'spa.role_id', 'r.id')
+      .whereIn('spa.project_id', ids)
+      .where('spa.is_primary', 1)
+      .where('spa.status', 'active')
+      .select('spa.project_id', 'pe.name as person_name', 'r.name as role_name',
+              'spa.allocation_percentage', 'spa.start_date', 'spa.end_date');
+    const primaryBy = new Map(primaryRows.map((r: any) => [r.project_id, r]));
+
+    for (const p of projects) {
+      const it: any = iterBy.get(p.id);
+      p.iteration = it?.iter_id
+        ? { id: it.iter_id, name: it.iter_name, start_date: it.iter_start, end_date: it.iter_end }
+        : null;
+      const de: any = deBy.get(p.id);
+      p.design_estimates = de
+        ? { se: de.se_estimate_pm ?? null, mde: de.mde_estimate_pm ?? null }
+        : null;
+      p.se_assignment = seBy.get(p.id) ?? null;
+      p.mde_assignment = mdeBy.get(p.id) ?? null;
+      const pr: any = primaryBy.get(p.id);
+      p.primary_dev = pr
+        ? { person_name: pr.person_name, role_name: pr.role_name,
+            allocation_pct: Number(pr.allocation_percentage ?? 0),
+            start_date: pr.start_date ?? null, end_date: pr.end_date ?? null }
+        : null;
+    }
+  }
+
   /** SR→AR 一层父子: 父必须存在且自身无父(禁止 SR 套 SR),禁止自引用。
       返回错误文案或 null;调用方以 400 响应(语义错误不是服务器错误)。 */
   private async validateParent(projectId: string | null, parentId: string | null): Promise<string | null> {
@@ -290,6 +361,7 @@ export class ProjectsController extends BaseController {
         .select(
           'projects.id',
         'projects.seq_number',
+        'projects.iteration_id',
           'projects.name',
           'projects.description',
           'projects.priority',
@@ -399,6 +471,7 @@ export class ProjectsController extends BaseController {
       const warningsByProject = await lifecycleService.computeWarningsForProjects(projects);
       await this.attachStaffingSummaries(projects);
       await this.attachEstimationSummaries(projects);
+      await this.attachBoardPlanning(projects);
 
       for (const project of projects) {
         project.tags = tagsByProject.get(project.id) ?? [];
@@ -443,6 +516,7 @@ export class ProjectsController extends BaseController {
         .select(
           'projects.id',
         'projects.seq_number',
+        'projects.iteration_id',
           'projects.name',
           'projects.description',
           'projects.priority',
@@ -553,6 +627,7 @@ export class ProjectsController extends BaseController {
       const projectForSummary = [project];
       await this.attachStaffingSummaries(projectForSummary);
       await this.attachEstimationSummaries(projectForSummary);
+      await this.attachBoardPlanning(projectForSummary);
 
       return {
         ...project,
@@ -689,6 +764,25 @@ export class ProjectsController extends BaseController {
       const sanitizedData = { ...updateData };
       delete sanitizedData.tag_ids;
 
+      // 迭代挂接(事实字段,设计 §0.6): 值必须存在于迭代表(空=解除挂接)
+      if ('iteration_id' in sanitizedData) {
+        const iterId = sanitizedData.iteration_id || null;
+        if (iterId) {
+          const it = await this.db('iterations').where({ id: iterId }).first();
+          if (!it) {
+            res.status(400).json({ error: 'Validation error', message: '迭代不存在' });
+            return null;
+          }
+        }
+        sanitizedData.iteration_id = iterId;
+      }
+      // se/mde 粗估分量: 看板就地编辑走 update 端点,服务端映射到最新设计
+      // 粗估记录(无则创建,总量=分量和;实施日志 D3/D5)
+      const seEst = sanitizedData.se_estimate_pm;
+      const mdeEst = sanitizedData.mde_estimate_pm;
+      delete sanitizedData.se_estimate_pm;
+      delete sanitizedData.mde_estimate_pm;
+
       // Lifecycle fields are owned by the state machine endpoints only
       // (POST /projects/:id/lifecycle/*) — never by the generic update.
       // external_number 例外: 2026-09-22 起允许就地编辑(需求台 AR 号内联),
@@ -718,6 +812,28 @@ export class ProjectsController extends BaseController {
           ...sanitizedData,
           updated_at: new Date()
         });
+
+      // 设计粗估分量落最新记录(D3): 有分量入参时写
+      if (seEst !== undefined || mdeEst !== undefined) {
+        const latest = await this.db('project_design_estimations')
+          .where({ project_id: id }).orderBy('created_at').orderBy('id').first();
+        const nextSe = seEst !== undefined ? (Number(seEst) || null) : undefined;
+        const nextMde = mdeEst !== undefined ? (Number(mdeEst) || null) : undefined;
+        if (latest) {
+          await this.db('project_design_estimations').where({ id: latest.id }).update({
+            ...(nextSe !== undefined ? { se_estimate_pm: nextSe } : {}),
+            ...(nextMde !== undefined ? { mde_estimate_pm: nextMde } : {}),
+            updated_at: new Date()
+          });
+        } else {
+          await this.db('project_design_estimations').insert({
+            project_id: id,
+            estimated_design_pm: Number(nextSe ?? 0) + Number(nextMde ?? 0),
+            se_estimate_pm: nextSe ?? null,
+            mde_estimate_pm: nextMde ?? null
+          });
+        }
+      }
 
       // Replace the project's tag set when tag_ids was provided
       if (tagIdsProvided) {

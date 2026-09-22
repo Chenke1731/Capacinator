@@ -292,6 +292,16 @@ export class AssignmentsController extends BaseController {
         });
       }
 
+      // 主投入互斥(063c 部分唯一索引): 新建为主投入时先清同项目同场景旧主
+      // 标记——必须前置,否则唯一索引在 insert 即拦(看板"实名投入"格,设计 §4)
+      if (assignmentData.is_primary) {
+        const mutexScenarioId = (req.headers['x-scenario-id'] as string) || 'baseline-0000-0000-0000-000000000000';
+        await this.db('scenario_project_assignments')
+          .where({ project_id: assignmentData.project_id, scenario_id: mutexScenarioId })
+          .where('is_primary', 1)
+          .update({ is_primary: false, updated_at: new Date() });
+      }
+
       // Get scenario from header
       const scenarioId = req.headers['x-scenario-id'] as string || 'baseline-0000-0000-0000-000000000000';
 

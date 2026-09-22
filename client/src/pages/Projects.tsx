@@ -745,7 +745,7 @@ export function Projects() {
 
               <PriorityCell project={project} onSaved={() => handleCellSaved(project.id)} />
 
-              <PrimaryDevCell primary={project.primary_dev} />
+              <PrimaryDevCell primary={project.primary_dev} project={project} onSaved={() => handleCellSaved(project.id)} />
 
               <span className="requirements-actions" onClick={(e) => e.stopPropagation()}>
                 <button
@@ -910,7 +910,7 @@ export function Projects() {
                     <ReleaseCell project={child} onSaved={() => handleCellSaved(child.id)} />
 
                     <PriorityCell project={child} onSaved={() => handleCellSaved(child.id)} />
-                    <PrimaryDevCell primary={child.primary_dev} />
+                    <PrimaryDevCell primary={child.primary_dev} project={child} onSaved={() => handleCellSaved(child.id)} />
 
                     <span className="requirements-actions" onClick={(e) => e.stopPropagation()}>
                       <button

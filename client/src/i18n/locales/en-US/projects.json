@@ -525,7 +525,11 @@
   },
   "primaryDev": {
     "hint": "Primary dev & window",
-    "none": "—"
+    "none": "—",
+    "title": "Primary dev",
+    "editHint": "Adjust primary dev / window / pool",
+    "windowHint": "Window defaults to iteration ({{start}}~{{end}})",
+    "poolTitle": "Dev pool"
   },
   "iteration": {
     "pickTitle": "Pick iteration",

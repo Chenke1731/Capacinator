@@ -523,7 +523,11 @@
   },
   "primaryDev": {
     "hint": "主投入开发与投入窗口",
-    "none": "未投入"
+    "none": "未投入",
+    "title": "实名投入(开发)",
+    "editHint": "点击调整主投入/窗口/开发池",
+    "windowHint": "窗口默认=迭代窗口（{{start}}~{{end}}）",
+    "poolTitle": "开发池(占位)"
   },
   "iteration": {
     "pickTitle": "选择迭代",

@@ -237,12 +237,13 @@ export class ProjectsController extends BaseController {
       .whereIn('av.project_id', ids)
       .where('av.status', 'active')
       .whereIn('r.name', ['SE', 'MDE'])
-      .select('av.project_id', 'r.name as role_name', 'pe.name as person_name',
+      .select('av.id as av_id', 'av.project_id', 'r.name as role_name', 'pe.name as person_name',
               'av.allocation_percentage', 'av.start_date', 'av.end_date');
     const seBy = new Map<string, any>();
     const mdeBy = new Map<string, any>();
     for (const r of roleRows) {
       (r.role_name === 'SE' ? seBy : mdeBy).set(r.project_id, {
+        id: r.av_id,
         person_name: r.person_name,
         allocation_pct: Number(r.allocation_percentage ?? 0),
         start_date: r.start_date ?? null,
@@ -256,7 +257,7 @@ export class ProjectsController extends BaseController {
       .whereIn('spa.project_id', ids)
       .where('spa.is_primary', 1)
       .where('spa.status', 'active')
-      .select('spa.project_id', 'pe.name as person_name', 'r.name as role_name',
+      .select('spa.id as spa_id', 'spa.project_id', 'pe.name as person_name', 'r.name as role_name',
               'spa.allocation_percentage', 'spa.start_date', 'spa.end_date');
     const primaryBy = new Map(primaryRows.map((r: any) => [r.project_id, r]));
 
@@ -273,7 +274,7 @@ export class ProjectsController extends BaseController {
       p.mde_assignment = mdeBy.get(p.id) ?? null;
       const pr: any = primaryBy.get(p.id);
       p.primary_dev = pr
-        ? { person_name: pr.person_name, role_name: pr.role_name,
+        ? { id: pr.spa_id, person_name: pr.person_name, role_name: pr.role_name,
             allocation_pct: Number(pr.allocation_percentage ?? 0),
             start_date: pr.start_date ?? null, end_date: pr.end_date ?? null }
         : null;

@@ -49,6 +49,58 @@ export function EffortCell({ pm }: { pm: number | null }) {
   );
 }
 
+/** 版本/交付计划各自内联可编辑(两列); onSaved 回报字段与新值 */
+export function VersionPart({ project, field, placeholder, hint, onSaved }: {
+  project: any;
+  field: 'product_version' | 'release_version';
+  placeholder: string;
+  /** title 用长文案;placeholder 只管显示(交付列占位改"—"后 title 仍需语义,P9) */
+  hint: string;
+  onSaved: (field: 'product_version' | 'release_version', value: string | null) => void;
+}) {
+  const [editing, setEditing] = useState(false);
+  const [draft, setDraft] = useState('');
+  const updateMutation = useMutation({
+    mutationFn: (patch: Record<string, string | null>) => api.projects.update(project.id, patch),
+    onSuccess: (_data, patch) => {
+      setEditing(false);
+      onSaved(field, (patch[field] as string | null) ?? null);
+    }
+  });
+  const value = (project[field] ?? '') as string;
+  if (editing) {
+    return (
+      <input
+        className="inline-edit-input"
+        style={{ width: '100%' }}
+        value={draft}
+        autoFocus
+        placeholder={placeholder}
+        onChange={(e) => setDraft(e.target.value)}
+        onBlur={() => {
+          const trimmed = draft.trim();
+          if (trimmed !== value) updateMutation.mutate({ [field]: trimmed || null });
+          else setEditing(false);
+        }}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter') (e.target as HTMLInputElement).blur();
+          if (e.key === 'Escape') setEditing(false);
+        }}
+      />
+    );
+  }
+  return (
+    <span className={`req-edit-cell req-edit-cell--${field === 'release_version' ? 'release' : 'version'}`} onClick={(e) => e.stopPropagation()}>
+      <button type="button" className="projects-version-part projects-version-part--single"
+              title={hint}
+              onClick={() => { setDraft(value); setEditing(true); }}>
+        {value || <span className="text-muted">{placeholder}</span>}
+      </button>
+      <Pencil size={10} className="req-pencil" aria-hidden />
+    </span>
+  );
+}
+
 /** SE/MDE 格(B3d,设计 §5): `王工 0.5`——人 primary + 粗估 mono 次色。
     弹层三段: ①工作量(可改,写最新粗估记录 D3) ②派生窗口(SE=今天→迭代开工;
     MDE=迭代窗口) ③派给(选人+占用%默认=人月÷工作月,写分配,负载体系吃)。 */
@@ -219,82 +271,171 @@ export function RoleCell({
   );
 }
 
-/** 实名投入: 主投入开发 + 投入窗口(设计 §4);B3e 点亮弹层 */
-export function PrimaryDevCell({
-  primary
-}: { primary: { person_name: string; start_date: string | null; end_date: string | null } | null }) {
+/** 实名投入(B3e,设计 §4): 主投入开发 + 投入窗口。
+    弹层: 选人(开发优先) + 起止日期(默认=迭代窗口) + 开发池 ±0.5 步进(池机制
+    收进此处) + 撤出。D11: 次要开发分配列表延后至详情页强化(看板只显主投入)。 */
+export function PrimaryDevCell({ primary, project, onSaved }: {
+  primary: { id: string; person_name: string; allocation_pct: number; start_date: string | null; end_date: string | null } | null;
+  project: any;
+  onSaved: () => void;
+}) {
   const { t } = useTranslation();
-  const fmt = (d: string | null) => (d ? String(d).slice(5) : '');
+  const queryClient = useQueryClient();
+  const pop = useCellPopover('primary-pop', 268, 340);
+  const [q, setQ] = useState('');
+  const [busy, setBusy] = useState(false);
+  const [poolBusy, setPoolBusy] = useState(false);
+
+  const { data: rolesResp } = useQuery({
+    queryKey: queryKeys.roles.list(),
+    queryFn: async () => {
+      const response = await api.roles.list();
+      const payload: any = response.data;
+      return Array.isArray(payload) ? payload : payload?.data || [];
+    },
+    enabled: pop.open
+  });
+  const roleList = Array.isArray(rolesResp) ? rolesResp : [];
+  const devRole = roleList.find((r: any) => r.name === '开发');
+
+  const { data: peopleResp } = useQuery({
+    queryKey: queryKeys.people.list(),
+    queryFn: async () => ((await api.people.list()).data as any)?.data ?? [],
+    enabled: pop.open
+  });
+  const people: any[] = Array.isArray(peopleResp) ? peopleResp : [];
+  const needle = q.trim().toLowerCase();
+  const candidates = people
+    .filter((pe) => !needle || String(pe.name).toLowerCase().includes(needle))
+    .sort((a, b) => Number(b.primary_role_name === '开发') - Number(a.primary_role_name === '开发'))
+    .slice(0, 8);
+
+  const iter = project.iteration;
+  const iso = (d: Date) => d.toISOString().slice(0, 10);
+  const defStart = primary?.start_date ?? iter?.start_date ?? iso(new Date());
+  const defEnd = primary?.end_date ?? iter?.end_date ?? iso(new Date(Date.now() + 30 * 86400000));
+
+  // 开发池(继承旧 StaffingCell 语义): 开发角色 open 池行 ±0.5
+  const poolHeadcount = (() => {
+    const pools = project.staffing_summary?.dev?.pool ?? 0;
+    return Number(pools);
+  })();
+
+  const invalidate = () => {
+    queryClient.invalidateQueries({ queryKey: queryKeys.projects.all });
+    onSaved();
+  };
+
+  const assign = async (personId: string) => {
+    if (!devRole) return;
+    setBusy(true);
+    try {
+      // 服务端保证主投入互斥(新建为主时自动清旧主标记)
+      await api.assignments.create({
+        project_id: project.id,
+        person_id: personId,
+        role_id: devRole.id,
+        allocation_percentage: 100,
+        assignment_date_mode: 'fixed',
+        start_date: defStart,
+        end_date: defEnd,
+        status: 'active',
+        is_primary: true
+      } as any);
+      pop.setOpen(false);
+      invalidate();
+    } finally { setBusy(false); }
+  };
+
+  const detach = async () => {
+    if (!primary?.id) return;
+    setBusy(true);
+    try {
+      await api.assignments.update(primary.id, { is_primary: false } as any);
+      invalidate();
+    } finally { setBusy(false); }
+  };
+
+  const stepPool = async (delta: number) => {
+    if (!devRole) return;
+    setPoolBusy(true);
+    try {
+      const pools = ((await api.poolDemands.listByProject(project.id)).data as any)?.data ?? [];
+      const mine = pools.find((pp: any) => pp.status === 'open' && pp.role_id === devRole.id);
+      const current = mine ? Number(mine.headcount) : 0;
+      const next = Math.round(Math.max(0, Math.min(10, current + delta)) * 10) / 10;
+      if (!mine && next > 0) {
+        await api.poolDemands.create(project.id, { role_id: devRole.id, headcount: next });
+      } else if (mine && next <= 0) {
+        await api.poolDemands.delete(mine.id);
+      } else if (mine) {
+        await api.poolDemands.update(mine.id, { headcount: next });
+      }
+      invalidate();
+    } finally { setPoolBusy(false); }
+  };
+
   return (
-    <span className="req-primary" title={t('projects:primaryDev.hint')}>
-      {primary ? (
-        <>
-          <span className="req-primary-person">{primary.person_name}</span>
-          {primary.start_date && (
-            <span className="req-primary-window">
-              {fmt(primary.start_date)}{primary.end_date ? `~${fmt(primary.end_date)}` : '~'}
-            </span>
+    <span ref={pop.anchorRef} onClick={(e) => e.stopPropagation()}>
+      <button type="button" className="req-primary req-editable"
+              title={primary ? t('projects:primaryDev.editHint') : t('projects:primaryDev.hint')}
+              onClick={() => { setQ(''); pop.toggle(); }}>
+        {primary ? (
+          <>
+            <span className="req-primary-person">{primary.person_name}</span>
+            {primary.start_date && (
+              <span className="req-primary-window">
+                {String(primary.start_date).slice(5)}{primary.end_date ? `~${String(primary.end_date).slice(5)}` : '~'}
+              </span>
+            )}
+          </>
+        ) : (
+          <span className="text-muted">{t('projects:primaryDev.none')}</span>
+        )}
+      </button>
+
+      {pop.open && (
+        <div className="lc-popover primary-pop" style={pop.style}>
+          <div className="lc-popover-title">{t('projects:primaryDev.title')}</div>
+          {primary && (
+            <div className="role-pop-current">
+              <span>{primary.person_name} · {primary.allocation_pct}% · {String(primary.start_date).slice(5)}~{String(primary.end_date).slice(5)}</span>
+              <button type="button" className="role-pop-detach" disabled={busy} onClick={detach}>
+                {t('projects:roleCell.detach')}
+              </button>
+            </div>
           )}
-        </>
-      ) : (
-        <span className="text-muted">{t('projects:primaryDev.none')}</span>
+          <div className="cell-pop-search">
+            <input placeholder={t('projects:roleCell.searchPerson')} value={q} onChange={(e) => setQ(e.target.value)} />
+          </div>
+          <div className="iter-pop-list">
+            {candidates.map((pe) => (
+              <button key={pe.id} type="button" className="cell-pop-item" disabled={busy || !devRole}
+                      onClick={() => assign(pe.id)}>
+                <span className="cell-pop-item-label">{pe.name}</span>
+                <span className="cell-pop-item-meta">{pe.primary_role_name}</span>
+              </button>
+            ))}
+          </div>
+          {iter && (
+            <div className="lc-popover-hint">{t('projects:primaryDev.windowHint', { start: defStart.slice(5), end: defEnd.slice(5) })}</div>
+          )}
+          <div className="lc-popover-title">{t('projects:primaryDev.poolTitle')}</div>
+          <div className="staff-pop-row">
+            <span className="staff-pop-side">{t('projects:staffing.devFull')}</span>
+            <span className="staff-stepper">
+              <button className="staff-stepper-btn" disabled={poolBusy || poolHeadcount <= 0}
+                      onClick={() => stepPool(-0.5)} title="-0.5">−</button>
+              <span className="staff-stepper-val">{poolHeadcount.toFixed(1)}</span>
+              <button className="staff-stepper-btn" disabled={poolBusy}
+                      onClick={() => stepPool(0.5)} title="+0.5">＋</button>
+            </span>
+          </div>
+        </div>
       )}
     </span>
   );
 }
-
-/** 版本/交付计划各自内联可编辑(两列); onSaved 回报字段与新值供跳组高亮 */
-export function VersionPart({ project, field, placeholder, hint, onSaved }: {
-  project: any;
-  field: 'product_version' | 'release_version';
-  placeholder: string;
-  /** title 用长文案;placeholder 只管显示(交付列占位改"—"后 title 仍需语义,P9) */
-  hint: string;
-  onSaved: (field: 'product_version' | 'release_version', value: string | null) => void;
-}) {
-  const [editing, setEditing] = useState(false);
-  const [draft, setDraft] = useState('');
-  const updateMutation = useMutation({
-    mutationFn: (patch: Record<string, string | null>) => api.projects.update(project.id, patch),
-    onSuccess: (_data, patch) => {
-      setEditing(false);
-      onSaved(field, (patch[field] as string | null) ?? null);
-    }
-  });
-  const value = (project[field] ?? '') as string;
-  if (editing) {
-    return (
-      <input
-        className="inline-edit-input"
-        style={{ width: '100%' }}
-        value={draft}
-        autoFocus
-        placeholder={placeholder}
-        onChange={(e) => setDraft(e.target.value)}
-        onBlur={() => {
-          const trimmed = draft.trim();
-          if (trimmed !== value) updateMutation.mutate({ [field]: trimmed || null });
-          else setEditing(false);
-        }}
-        onKeyDown={(e) => {
-          if (e.key === 'Enter') (e.target as HTMLInputElement).blur();
-          if (e.key === 'Escape') setEditing(false);
-        }}
-      />
-    );
-  }
-  return (
-    <span className={`req-edit-cell req-edit-cell--${field === 'release_version' ? 'release' : 'version'}`} onClick={(e) => e.stopPropagation()}>
-      <button type="button" className="projects-version-part projects-version-part--single"
-              title={hint}
-              onClick={() => { setDraft(value); setEditing(true); }}>
-        {value || <span className="text-muted">{placeholder}</span>}
-      </button>
-      <Pencil size={10} className="req-pencil" aria-hidden />
-    </span>
-  );
-}
-
 
 /** 交付计划复合格(B3c,设计 §3): 主行=RP(可编辑), 尾行=迭代窗口(派生唯一日期真相)。
     实施日志 D9: 列宽 76-84px 装不下"名+区间",尾行只显区间(mono 11px),

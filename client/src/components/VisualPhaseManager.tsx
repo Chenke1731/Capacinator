@@ -547,14 +547,14 @@ export function VisualPhaseManager({ projectId, projectName: _projectName, onPha
           marginBottom: '20px'
         }}>
           <div>
-            <div style={{ fontSize: '14px', color: 'hsl(var(--muted-foreground))', marginBottom: '8px' }}>
+            <div style={{ fontSize: '14px', color: 'hsl(var(--foreground) / 0.75)',  /* muted-foreground 在 muted 底上不足 4.5:1(2026-09-22 全站清零) */ marginBottom: '8px' }}>
               <span>{t('phases:visual.dragHint')}</span>
             </div>
           </div>
 
           {/* Timeline controls */}
           <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-            <div style={{ fontSize: '12px', color: 'hsl(var(--muted-foreground))', marginRight: '8px' }}>
+            <div style={{ fontSize: '12px', color: 'hsl(var(--foreground) / 0.75)',  /* muted-foreground 在 muted 底上不足 4.5:1(2026-09-22 全站清零) */ marginRight: '8px' }}>
               {t('phases:visual.phaseCount', { count: timelineItems.length })}
             </div>
             <button
@@ -584,7 +584,7 @@ export function VisualPhaseManager({ projectId, projectName: _projectName, onPha
           alignItems: 'center',
           marginBottom: '12px'
         }}>
-          <h4 style={{ margin: '0', fontSize: '14px', color: 'hsl(var(--muted-foreground))', display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <h4 style={{ margin: '0', fontSize: '14px', color: 'hsl(var(--foreground) / 0.75)',  /* muted-foreground 在 muted 底上不足 4.5:1(2026-09-22 全站清零) */ display: 'flex', alignItems: 'center', gap: '8px' }}>
             <Calendar size={16} />
             {t('phases:visual.compactTitle', { count: timelineItems.length })}
           </h4>
@@ -760,7 +760,7 @@ export function VisualPhaseManager({ projectId, projectName: _projectName, onPha
             backgroundColor: 'hsl(var(--muted))',
             border: '1px solid hsl(var(--border))',
             borderRadius: '8px',
-            color: 'hsl(var(--muted-foreground))',
+            color: 'hsl(var(--foreground) / 0.75)',  /* muted-foreground 在 muted 底上不足 4.5:1(2026-09-22 全站清零) */
             fontSize: '14px'
           }}>
             {isLoading ? t('phases:manager.loadingPhases') : t('phases:visual.noPhases')}
@@ -864,7 +864,7 @@ export function VisualPhaseManager({ projectId, projectName: _projectName, onPha
                 <div style={{
                   padding: '24px',
                   textAlign: 'center',
-                  color: 'hsl(var(--muted-foreground))',
+                  color: 'hsl(var(--foreground) / 0.75)',  /* muted-foreground 在 muted 底上不足 4.5:1(2026-09-22 全站清零) */
                   fontSize: '14px'
                 }}>
                   {t('phases:visual.noDependencies')}

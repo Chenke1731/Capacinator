@@ -106,7 +106,7 @@
 }
 
 .unified-tab--active {
-  color: var(--primary) !important;
+  color: var(--primary-text) !important;
   background: var(--bg-active) !important;
 }
 

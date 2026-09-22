@@ -354,7 +354,7 @@ export function ProjectDetail() {
                       <span
                         key={tag.id}
                         className="tag-badge"
-                        style={{ backgroundColor: tag.color || 'var(--text-tertiary)' }}
+                        style={{ backgroundColor: `color-mix(in srgb, ${tag.color || '#6b7280'} 55%, #1f2937)` }}
                       >
                         {tag.name}
                       </span>

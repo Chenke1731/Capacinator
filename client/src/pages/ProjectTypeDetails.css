@@ -321,9 +321,9 @@
 .empty-state {
   text-align: center;
   padding: 32px;
-  color: #64748b;
+  color: var(--text-secondary);
   background: var(--bg-secondary);
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--border-color);
   border-radius: 8px;
 }
 

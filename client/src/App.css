@@ -28,9 +28,9 @@
 }
 
 .btn-primary {
-  background-color: hsl(var(--primary)) !important;
+  background-color: var(--primary) !important;
   color: #ffffff !important;
-  border-color: hsl(var(--primary)) !important;
+  border-color: var(--primary) !important;
   /* Force text color for all children */
   --tw-text-opacity: 1;
 }
@@ -51,8 +51,8 @@
 }
 
 .btn-primary:hover {
-  background-color: hsl(var(--primary)) !important;
-  border-color: hsl(var(--primary)) !important;
+  background-color: var(--primary) !important;
+  border-color: var(--primary) !important;
   filter: brightness(0.9);
 }
 
@@ -350,8 +350,9 @@
 
 .badge-gray {
   background-color: color-mix(in srgb, var(--color-gray) 20%, transparent);
-  color: var(--color-gray);
+  color: #4b5563;
 }
+[data-theme='dark'] .badge-gray, .dark .badge-gray { color: #d1d5db; }
 
 /* Utility classes */
 .text-muted {
@@ -825,7 +826,7 @@ input[type="checkbox"].settings-checkbox,
   gap: 0.25rem;
   margin-top: 0.75rem;
   font-size: 0.875rem;
-  color: var(--primary);
+  color: var(--primary-text);
   text-decoration: none;
   transition: all 0.2s;
 }
@@ -1770,7 +1771,7 @@ input[type="checkbox"].settings-checkbox,
   font-size: 14px;
   font-weight: 500;
   color: #fff;
-  background: var(--accent-color, #3b82f6);
+  background: #2563eb;
   border: none;
   border-radius: var(--b-r-sm);
   cursor: pointer;
@@ -2059,7 +2060,7 @@ input[type="checkbox"].settings-checkbox,
 }
 .req-pri.req-editable { padding: 3px 10px; min-width: 44px; }
 .req-pri--1 { color: var(--danger-color, #dc2626); }
-.req-pri--2 { color: #f59e0b; }
+.req-pri--2 { color: #b45309; }
 .req-pri--3, .req-pri--4, .req-pri--5 { color: var(--text-secondary); font-weight: 400; }
 .req-pri.req-editable:hover { background: rgba(127, 127, 127, 0.1); }
 
@@ -2250,10 +2251,27 @@ input[type="checkbox"].settings-checkbox,
 [data-theme='light'] .projects-board .lifecycle-state-badge--nok { color: #b45309; }
 [data-theme='light'] .projects-board .lifecycle-state-badge--backlog { color: #64748b; }
 [data-theme='light'] .projects-board .lifecycle-state-badge--scheduled { color: #4f46e5; }
-[data-theme='light'] .projects-board .lifecycle-state-badge--in_iteration { color: #15803d; }
+[data-theme='light'] .projects-board .lifecycle-state-badge--in_iteration { color: #166534; }
 [data-theme='light'] .projects-board .lifecycle-state-badge--delivered { color: #0f766e; }
 [data-theme='light'] .projects-board .lifecycle-state-badge--cancelled { color: #b91c1c; }
-[data-theme='light'] .projects-board .lifecycle-warn-chip { background: rgba(245, 158, 11, 0.16); color: #b45309; }
+[data-theme='light'] .projects-board .lifecycle-warn-chip { background: rgba(245, 158, 11, 0.16); color: #92400e; }
 [data-theme='light'] .projects-board .lifecycle-deadline--inline.lifecycle-deadline--overdue { color: #b45309; }
 [data-theme='light'] .projects-board .lifecycle-quick-btn { color: #1d4ed8; background: rgba(59, 130, 246, 0.10); }
 [data-theme='light'] .projects-board .lifecycle-quick-btn:hover { background: rgba(59, 130, 246, 0.18); }
+
+
+/* ── 对比度 AA 修正(2026-09-22 全站清零批次) ────────────────── */
+/* P 档: 浅色 P2 琥珀压深过 4.5; 深色 P1/P2 提亮 */
+[data-theme='light'] .projects-board .req-pri--2 { color: #b45309; }
+[data-theme='dark'] .projects-board .req-pri--1, .dark .projects-board .req-pri--1 { color: #fca5a5; }
+[data-theme='dark'] .projects-board .req-pri--2, .dark .projects-board .req-pri--2 { color: #fbbf24; }
+/* 深色: 状态快捷幽灵键文字提亮 */
+[data-theme='dark'] .projects-board .lifecycle-quick-btn, .dark .projects-board .lifecycle-quick-btn { color: #93c5fc; }
+/* 深色: 实心危险按钮底压深(白字 ≥4.5) */
+[data-theme='dark'] .btn-danger, .dark .btn-danger { background-color: #b91c1c; border-color: #b91c1c; color: #fff; }
+
+/* 深色: 实心主按钮底压深一档(白字 ≥4.5) */
+[data-theme='dark'] .btn-primary, .dark .btn-primary {
+  background-color: #4f46e5 !important;
+  border-color: #4f46e5 !important;
+}

@@ -239,7 +239,7 @@ export function TagsCell({
           <span
             key={tag.id}
             className="req-tag"
-            style={{ color: tag.color || 'var(--text-secondary)', background: `${tag.color || '#888888'}2b` }}
+            style={{ color: `color-mix(in srgb, ${tag.color || '#888888'} 68%, var(--tag-ink))`, background: `${tag.color || '#888888'}2b` }}
           >
             {tag.name}
           </span>

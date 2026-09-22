@@ -239,7 +239,7 @@ export default function Assignments() {
                   fontSize: '10px',
                   borderRadius: '4px',
                   backgroundColor: 'var(--primary-light)',
-                  color: 'var(--primary-dark)',
+                  color: 'var(--primary-text)',
                   fontWeight: '500',
                   whiteSpace: 'nowrap'
                 }}>
@@ -307,21 +307,21 @@ export default function Assignments() {
         const getBadgeStyle = (percentage: number) => {
           if (percentage > 100) {
             return {
-              backgroundColor: 'var(--danger)',
+              backgroundColor: '#b91c1c',
               color: 'white',
-              border: '1px solid var(--danger)'
+              border: '1px solid #b91c1c'
             };
           } else if (percentage >= 80) {
             return {
-              backgroundColor: 'var(--warning)',
+              backgroundColor: '#b45309',
               color: 'white',
-              border: '1px solid var(--warning)'
+              border: '1px solid #b45309'
             };
           } else {
             return {
-              backgroundColor: 'var(--success)',
+              backgroundColor: '#047857',
               color: 'white',
-              border: '1px solid var(--success)'
+              border: '1px solid #047857'
             };
           }
         };

@@ -253,3 +253,4 @@
     text-align: center;
   }
 }
+[data-theme='dark'] .audit-action--delete, .dark .audit-action--delete { color: #fca5a5; }

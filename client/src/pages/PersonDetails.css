@@ -674,8 +674,10 @@
 
 .badge-gray {
   background-color: var(--bg-tertiary);
-  color: var(--text-secondary);
+  color: #4b5563;
 }
+[data-theme='dark'] .badge-gray, .dark .badge-gray { color: #d1d5db; }
+
 
 /* Improve Active status badge visibility in dark mode */
 [data-theme="dark"] .badge-success {

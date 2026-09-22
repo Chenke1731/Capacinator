@@ -64,7 +64,7 @@
   align-items: center;
   gap: 0.25rem;
   font-size: 0.75rem;
-  color: var(--primary);
+  color: var(--primary-text);
   text-decoration: none;
   margin-top: 0.5rem;
 }

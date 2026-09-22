@@ -10,7 +10,11 @@
 
 .person-name .name {
   font-weight: 500;
+  /* 人员名链接为可交互主体信息: 主色文字令牌保证双主题 AA(2026-09-22 全站清零) */
+  color: var(--primary-text) !important;
 }
+.person-name .name:hover { color: var(--primary-hover) !important; }
+
 
 .person-name .email {
   font-size: 0.75rem;
@@ -205,7 +209,7 @@
 }
 
 .status-info {
-  color: var(--primary);
+  color: var(--primary-text);
 }
 
 .status-success {
@@ -260,7 +264,7 @@
 
 .btn-info {
   background-color: var(--badge-primary-bg);
-  color: var(--primary);
+  color: var(--primary-text);
   border: 1px solid var(--badge-primary-bg);
 }
 
@@ -356,7 +360,7 @@
 }
 
 .text-info {
-  color: var(--primary);
+  color: var(--primary-text);
 }
 
 .text-success {
@@ -376,7 +380,7 @@
 
 .badge-info {
   background-color: var(--badge-primary-bg);
-  color: var(--primary);
+  color: var(--primary-text);
 }
 
 .badge-success {

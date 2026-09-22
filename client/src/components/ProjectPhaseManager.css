@@ -55,7 +55,8 @@
 .empty-state {
   text-align: center;
   padding: 3rem 1rem;
-  color: var(--text-muted);
+  /* text-muted 在浅色面板上仅 3.0:1, 空态正文升到 secondary */
+  color: var(--text-secondary);
 }
 
 .empty-state svg {

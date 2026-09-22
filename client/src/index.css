@@ -18,7 +18,7 @@
 
 a {
   font-weight: 500;
-  color: var(--primary);
+  color: var(--primary-text);
   text-decoration: inherit;
   transition: color 0.2s;
 }
@@ -59,7 +59,7 @@ button {
   transition: all 0.25s;
 }
 button:hover {
-  border-color: var(--primary);
+  border-color: var(--primary-text);
   background-color: var(--bg-tertiary);
 }
 button:focus,
@@ -143,7 +143,7 @@ input:focus, select:focus, textarea:focus {
 
 .allocation-value {
   font-weight: 600;
-  color: var(--primary);
+  color: var(--primary-text);
 }
 
 .allocation-empty {
@@ -297,7 +297,7 @@ input:focus, select:focus, textarea:focus {
 .empty-state {
   text-align: center;
   padding: 3rem;
-  color: var(--text-tertiary);
+  color: var(--text-secondary);
 }
 
 .error-page {
@@ -457,13 +457,13 @@ input:focus, select:focus, textarea:focus {
 }
 
 .report-tabs .tab:hover {
-  color: var(--primary);
+  color: var(--primary-text);
   background: var(--bg-secondary);
 }
 
 .report-tabs .tab.active {
-  color: var(--primary);
-  border-bottom-color: var(--primary);
+  color: var(--primary-text);
+  border-bottom-color: var(--primary-text);
 }
 
 .report-content {
@@ -507,7 +507,7 @@ input:focus, select:focus, textarea:focus {
 .metric {
   font-size: 2rem;
   font-weight: 700;
-  color: var(--primary);
+  color: var(--primary-text);
 }
 
 .metric.text-danger {
@@ -719,13 +719,13 @@ input:focus, select:focus, textarea:focus {
 }
 
 .settings-tabs .tab:hover {
-  color: var(--primary);
+  color: var(--primary-text);
   background: var(--bg-secondary);
 }
 
 .settings-tabs .tab.active {
-  color: var(--primary);
-  border-bottom-color: var(--primary);
+  color: var(--primary-text);
+  border-bottom-color: var(--primary-text);
 }
 
 .settings-content {
@@ -1056,7 +1056,7 @@ html body .settings-section .checkbox-label,
 
 .settings-alert.info {
   background-color: color-mix(in srgb, #3b82f6 10%, var(--bg-secondary));
-  color: #2563eb;
+  color: #1d4ed8;
   border: 1px solid color-mix(in srgb, #3b82f6 20%, transparent);
 }
 
@@ -1170,7 +1170,7 @@ html body .settings-section .checkbox-label,
 
 .admin-badge {
   padding: 0.25rem 0.5rem;
-  background-color: var(--primary);
+  background-color: var(--primary-text);
   color: white;
   border-radius: 4px;
   font-weight: 500;
@@ -1300,6 +1300,10 @@ html body .settings-section .checkbox-label,
   --primary: #4f46e5;
   --primary-hover: #4338ca;
   --primary-dark: #3730a3;
+  /* 文字版主色: --primary 是实心按钮底色(白字依赖), 作前景时用此令牌保证 AA */
+  --primary-text: #4f46e5;
+  /* 标签墨色: 动态彩色 chip 的文字向主题墨色收敛, 保证任意色都过 4.5:1 */
+  --tag-ink: #111827;
   
   /* Status Colors - Enhanced for better contrast */
   --success: #047857;           /* Darker green for better contrast */
@@ -1401,6 +1405,8 @@ html body .settings-section .checkbox-label,
   --primary: #6366f1;
   --primary-hover: #5b5beb;
   --primary-dark: #4f46e5;
+  --primary-text: #a5b4fc;
+  --tag-ink: #f9fafb;
   
   /* Status Colors - Adjusted for dark theme */
   --success: #10b981;
@@ -1492,4 +1498,10 @@ html body .settings-section .checkbox-label,
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
   --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
   --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -2px rgba(0, 0, 0, 0.4);
+}
+
+/* 深色主题: 蓝系提示文字提亮过 4.5:1 */
+[data-theme='dark'] .settings-alert.info,
+.dark .settings-alert.info {
+  color: #93c5fc;
 }

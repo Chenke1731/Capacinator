@@ -449,7 +449,7 @@
 .empty-timeline {
   text-align: center;
   padding: 60px 20px;
-  color: #6b7280;
+  color: var(--text-secondary);
 }
 
 .empty-timeline h4 {

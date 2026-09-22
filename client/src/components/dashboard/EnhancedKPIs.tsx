@@ -292,7 +292,7 @@ export function EnhancedKPIs({ dashboard, className = '' }: EnhancedKPIsProps) {
                       {t('dashboard:kpis.noAllocations')}
                     </div>
                   ) : (
-                    <div className="text-xs font-medium text-blue-600 mt-2">
+                    <div className="text-xs font-medium text-blue-600 dark:text-blue-400 mt-2">
                       {kpi.actionText} →
                     </div>
                   )}

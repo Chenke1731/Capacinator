@@ -162,6 +162,20 @@ export function OwnerCell({ project, onSaved }: { project: any; onSaved: () => v
   );
 }
 
+/** 标签 chip 文字色: 向 --tag-ink 收敛的比例按色彩亮度自适应——
+ *  亮色(琥珀/黄)多收敛保 AA(2026-09-22 用户实测"预留"暴露: 固定 68% 时
+ *  琥珀 ~3.1:1 不达标),深色保持 68% 维持饱和感。 */
+function tagInkRatio(color?: string | null): number {
+  if (!color || !/^#[0-9a-f]{6}$/i.test(color)) return 0.68;
+  const n = parseInt(color.slice(1), 16);
+  const lin = [16, 8, 0].map((sh) => {
+    const c = ((n >> sh) & 255) / 255;
+    return c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4;
+  });
+  const lum = 0.2126 * lin[0] + 0.7152 * lin[1] + 0.0722 * lin[2];
+  return lum > 0.4 ? 0.42 : 0.68;
+}
+
 export function TagsCell({
   project,
   allTags,
@@ -242,7 +256,7 @@ export function TagsCell({
           type="button"
           className={`req-tag req-tag--filter ${String(activeTagId) === String(tag.id) ? 'req-tag--filtering' : ''}`}
           title={t('projects:tagSelect.filterHint')}
-          style={{ color: `color-mix(in srgb, ${tag.color || '#888888'} 68%, var(--tag-ink))`, background: `${tag.color || '#888888'}2b` }}
+          style={{ color: `color-mix(in srgb, ${tag.color || '#888888'} ${Math.round(tagInkRatio(tag.color) * 100)}%, var(--tag-ink))`, background: `${tag.color || '#888888'}2b` }}
           onClick={(e) => { e.stopPropagation(); onFilterByTag(tag.id); }}
         >
           {tag.name}

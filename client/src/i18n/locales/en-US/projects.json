@@ -412,13 +412,16 @@
     "decomposeInto": "Will be created as an AR of \"{{name}}\"",
     "colNumber": "Number",
     "filterSubtype": "Subtype",
-    "srToggleHint": "Expand/collapse decomposed ARs"
+    "srToggleHint": "Expand/collapse decomposed ARs",
+    "emptyFiltered": "No matching items — adjust or clear the filters",
+    "clearFilters": "Clear filters",
+    "countSummaryWithAr": "{{count}} requirements · {{ar}} AR"
   },
   "version": {
     "productTitle": "Product version, click to edit (e.g. B)",
     "releaseTitle": "Release version, click to edit (e.g. 26.RP4)",
     "productPlaceholder": "unset",
-    "releasePlaceholder": "unset"
+    "releasePlaceholder": "—"
   },
   "prioritySelect": {
     "hint": "Click to change priority",

@@ -235,21 +235,24 @@ export function TagsCell({
         title={t('projects:tagSelect.hint')}
         onClick={pop.toggle}
       >
-        {(project.tags ?? []).slice(0, 2).map((tag: any) => (
+        {/* P1(2026-09-22 审计): 96px 列宽装不下 2 枚 chip+N——固定"1 枚完整+N",
+            chip 限宽省略且带 title,截断可恢复;+N title 全文 */}
+        {(project.tags ?? []).slice(0, 1).map((tag: any) => (
           <span
             key={tag.id}
             className="req-tag"
+            title={tag.name}
             style={{ color: `color-mix(in srgb, ${tag.color || '#888888'} 68%, var(--tag-ink))`, background: `${tag.color || '#888888'}2b` }}
           >
             {tag.name}
           </span>
         ))}
-        {(project.tags?.length ?? 0) > 2 && (
+        {(project.tags?.length ?? 0) > 1 && (
           <span
             className="req-tag req-tag--more"
-            title={(project.tags ?? []).slice(2).map((tg: any) => tg.name).join('、')}
+            title={(project.tags ?? []).slice(1).map((tg: any) => tg.name).join('、')}
           >
-            +{(project.tags?.length ?? 0) - 2}
+            +{(project.tags?.length ?? 0) - 1}
           </span>
         )}
         {(project.tags?.length ?? 0) === 0 && <span className="cell-pop-empty-trigger">{t('projects:tagSelect.none')}</span>}

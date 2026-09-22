@@ -29,10 +29,12 @@ import './Projects.css';
  */
 
 /** 版本/交付计划各自内联可编辑(两列); onSaved 回报字段与新值供跳组高亮 */
-function VersionPart({ project, field, placeholder, onSaved }: {
+function VersionPart({ project, field, placeholder, hint, onSaved }: {
   project: any;
   field: 'product_version' | 'release_version';
   placeholder: string;
+  /** title 用长文案;placeholder 只管显示(交付列占位改"—"后 title 仍需语义,P9) */
+  hint: string;
   onSaved: (field: 'product_version' | 'release_version', value: string | null) => void;
 }) {
   const [editing, setEditing] = useState(false);
@@ -69,7 +71,7 @@ function VersionPart({ project, field, placeholder, onSaved }: {
   return (
     <span className="req-edit-cell req-edit-cell--version" onClick={(e) => e.stopPropagation()}>
       <button type="button" className="projects-version-part projects-version-part--single"
-              title={placeholder}
+              title={hint}
               onClick={() => { setDraft(value); setEditing(true); }}>
         {value || <span className="text-muted">{placeholder}</span>}
       </button>
@@ -253,11 +255,14 @@ function NumberPart({ project, onSaved }: { project: any; onSaved: () => void })
     );
   }
   return (
-    <button type="button" className="req-number-part req-editable" title={t('projects:number.hint')}
-            onClick={(e) => { e.stopPropagation(); setDraft(value); setEditing(true); }}>
-      {/* 空外部号时弱化显示 #序号: 列表截图永远携带可指代标识(# 自区分于 SR/AR 号) */}
-      {value || <span className="text-muted">#{project.seq_number}</span>}
-    </button>
+    <span className="req-edit-cell req-edit-cell--number" onClick={(e) => e.stopPropagation()}>
+      <button type="button" className="req-number-part req-editable" title={t('projects:number.hint')}
+              onClick={() => { setDraft(value); setEditing(true); }}>
+        {/* 空外部号时弱化显示 #序号: 列表截图永远携带可指代标识(# 自区分于 SR/AR 号) */}
+        {value || <span className="text-muted">#{project.seq_number}</span>}
+      </button>
+      <Pencil size={10} className="req-pencil" aria-hidden />
+    </span>
   );
 }
 
@@ -275,17 +280,17 @@ const REQ_COLUMNS = [
   /* def: [全列档(≥1680), 中档(1560–1679,藏规模), 窄档(<1560,藏规模+负责人)] */
   { key: 'name', def: [210, 210, 210], min: 120, max: 640 },
   /* 编号: SR/AR 外部编号统一列,mono;窄档(<1560)与规模/负责人同藏(2026-09-22 裁决) */
-  { key: 'number', def: [88, 80, 0], min: 56, max: 200 },
-  { key: 'tags', def: [112, 96, 92], min: 80, max: 320 },
-  { key: 'component', def: [96, 84, 80], min: 72, max: 240 },
-  { key: 'lifecycle', def: [224, 224, 196], min: 170, max: 420 },
-  { key: 'staffing', def: [124, 112, 108], min: 104, max: 220 },
-  { key: 'scale', def: [80, 0, 0], min: 64, max: 200 },
-  { key: 'version', def: [72, 64, 62], min: 56, max: 200 },
-  { key: 'release', def: [72, 64, 62], min: 56, max: 200 },
-  { key: 'priority', def: [48, 44, 44], min: 40, max: 120 },
-  { key: 'owner', def: [80, 80, 0], min: 56, max: 200 },
-  { key: 'actions', def: [116, 116, 116], min: 64, max: 200 }
+  { key: 'number', def: [84, 80, 0], min: 56, max: 200 },
+  { key: 'tags', def: [104, 92, 92], min: 80, max: 320 },
+  { key: 'component', def: [92, 80, 80], min: 72, max: 240 },
+  { key: 'lifecycle', def: [216, 224, 196], min: 170, max: 420 },
+  { key: 'staffing', def: [116, 112, 108], min: 104, max: 220 },
+  { key: 'scale', def: [72, 0, 0], min: 64, max: 200 },
+  { key: 'version', def: [68, 64, 62], min: 56, max: 200 },
+  { key: 'release', def: [68, 64, 62], min: 56, max: 200 },
+  { key: 'priority', def: [44, 44, 44], min: 40, max: 120 },
+  { key: 'owner', def: [72, 80, 0], min: 56, max: 200 },
+  { key: 'actions', def: [108, 116, 116], min: 64, max: 200 }
 ] as const;
 type ReqColKey = (typeof REQ_COLUMNS)[number]['key'];
 /* v2: 列集变更(新增构成/规模列)必须 bump 版本,旧宽度按旧列预算调优,残留会挤压名称列 */
@@ -557,6 +562,12 @@ export function Projects() {
     return sortTrees(buildTree([...keptParents, ...keptChildren]));
   }, [demandRows, filters.search, filters.tag_id, filters.component, filters.subtype, filters.product_version, filters.release_version]);
 
+  /** 空态文案分支用: 是否有任何筛选在活跃(与 trees memo 内部口径一致) */
+  const anyFilterActive = Boolean(
+    filters.search || filters.tag_id || filters.component || filters.subtype
+    || filters.product_version || filters.release_version || filters.lifecycle_state
+  );
+
   const toggleSR = (id: string) => {
     setCollapsedSR((prev) => {
       const next = new Set(prev);
@@ -592,11 +603,14 @@ export function Projects() {
   });
   /* 三档与 App.css 断点一致: ≥1680 全列 / [1560,1680) 藏规模 / <1560 藏规模+负责人 */
   const vw = typeof window !== 'undefined' ? window.innerWidth : 1600;
+  /* 2026-09-22 P16 实测修正: 1600 视口真实内容宽 ~1300(左侧导航 ~300px),
+     全列 1438 只能横滚——全列档维持 ≥1680;中档(1560–1679)藏 规模+负责人
+     (编号列加入的预算由负责人让位),紧凑档再藏编号 */
   const showAll = vw >= 1680;
   const compact = vw < 1560;
   const colVars = useMemo(() => {
     const vars: Record<string, string> = {};
-    const hidden = compact ? ['scale', 'owner', 'number'] : showAll ? [] : ['scale'];
+    const hidden = compact ? ['scale', 'owner', 'number'] : showAll ? [] : ['scale', 'owner'];
     const visible = REQ_COLUMNS.filter((c) => !hidden.includes(c.key));
     let total = 28 /* 行左右 padding */ + 8 * (visible.length - 1) /* 列间 gap */;
     for (const c of visible) {
@@ -633,7 +647,14 @@ export function Projects() {
     <div className="projects-board">
       {/* 单行工具栏(静区): 计数 + 搜索 | 筛选 | 动作 —— 40px 栅格,主色仅"新建"一处 */}
       <div className="projects-toolbar" data-testid="filter-bar">
-        <span className="board-count">{t('projects:board.countSummary', { count: trees.length })}</span>
+        <span className="board-count">
+          {(() => {
+            const arCount = trees.reduce((n, tr) => n + tr.children.length, 0);
+            return arCount > 0
+              ? t('projects:board.countSummaryWithAr', { count: trees.length, ar: arCount })
+              : t('projects:board.countSummary', { count: trees.length });
+          })()}
+        </span>
         <div className="board-search">
           <Search size={14} className="board-search-icon" />
           <input
@@ -745,7 +766,7 @@ export function Projects() {
             ['projects:board.colOwner', 'owner'],
             ['common:actions', 'actions']
           ] as const).map(([key, colKey], i) => (
-            <span key={colKey} className={['lifecycle', 'priority', 'actions'].includes(colKey) ? 'col-c' : ''}>
+            <span key={colKey} className={['lifecycle', 'priority', 'actions'].includes(colKey) ? 'col-c' : colKey === 'staffing' ? 'col-r' : ''}>
               {t(key)}
               {i < 11 && (
                 <ColumnGrip colKey={colKey} widths={colWidths} setWidths={setColWidths} />
@@ -803,9 +824,11 @@ export function Projects() {
 
               <VersionPart project={project} field="product_version"
                 placeholder={t('projects:version.productPlaceholder')}
+                hint={t('projects:version.productTitle')}
                 onSaved={() => handleCellSaved(project.id)} />
               <VersionPart project={project} field="release_version"
                 placeholder={t('projects:version.releasePlaceholder')}
+                hint={t('projects:version.releaseTitle')}
                 onSaved={() => handleCellSaved(project.id)} />
 
               <PriorityCell project={project} onSaved={() => handleCellSaved(project.id)} />
@@ -905,9 +928,11 @@ export function Projects() {
 
               <VersionPart project={project} field="product_version"
                 placeholder={t('projects:version.productPlaceholder')}
+                hint={t('projects:version.productTitle')}
                 onSaved={() => handleCellSaved(project.id)} />
               <VersionPart project={project} field="release_version"
                 placeholder={t('projects:version.releasePlaceholder')}
+                hint={t('projects:version.releaseTitle')}
                 onSaved={() => handleCellSaved(project.id)} />
 
               <PriorityCell project={project} onSaved={() => handleCellSaved(project.id)} />
@@ -965,9 +990,11 @@ export function Projects() {
 
                     <VersionPart project={child} field="product_version"
                       placeholder={t('projects:version.productPlaceholder')}
+                      hint={t('projects:version.productTitle')}
                       onSaved={() => handleCellSaved(child.id)} />
                     <VersionPart project={child} field="release_version"
                       placeholder={t('projects:version.releasePlaceholder')}
+                      hint={t('projects:version.releaseTitle')}
                       onSaved={() => handleCellSaved(child.id)} />
 
                     <PriorityCell project={child} onSaved={() => handleCellSaved(child.id)} />
@@ -998,7 +1025,23 @@ export function Projects() {
         })}
 
         {trees.length === 0 && (
-          <div className="requirements-empty">{t('projects:board.empty')}</div>
+          <div className="requirements-empty">
+            {anyFilterActive
+              ? t('projects:board.emptyFiltered')
+              : t('projects:board.empty')}
+            {anyFilterActive && (
+              <button
+                type="button"
+                className="board-ghost-btn requirements-empty-clear"
+                onClick={() => setFilters({
+                  search: '', lifecycle_state: '', tag_id: '', component: '', subtype: '',
+                  product_version: '', release_version: ''
+                })}
+              >
+                {t('projects:board.clearFilters')}
+              </button>
+            )}
+          </div>
         )}
       </div>
 

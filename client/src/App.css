@@ -1715,6 +1715,11 @@ input[type="checkbox"].settings-checkbox,
   padding: 16px 24px 28px;
 }
 
+/* 命中档位类(2026-09-22 P10 根治): 特异度 (0,2,1) 一次性压过上面的
+   button 重置(0,1,1)——组件只认类,不再各自"带前缀重新声明"对抗
+   (该坑已回归三次: 人力步进器/编号钮/折叠箭头) */
+.projects-board button.hit-24 { min-width: 24px; min-height: 24px; }
+.projects-board button.hit-32 { min-width: 32px; min-height: 32px; }
 /* 板块内按钮退出全局 44px 触控规则,启用分级命中(24/32/40) */
 .projects-board button,
 .projects-board .btn {
@@ -1759,6 +1764,7 @@ input[type="checkbox"].settings-checkbox,
 }
 .board-select {
   min-height: 32px;
+  min-width: 84px; /* P15: 宽度档统一,短选项(版本/子类型)不再窄一截 */
   padding: 0 8px;
   font-size: var(--b-fs-body);
   color: var(--text-primary);
@@ -1766,7 +1772,12 @@ input[type="checkbox"].settings-checkbox,
   border: 1px solid var(--border-color);
   border-radius: var(--b-r-sm);
   max-width: 150px;
+  cursor: pointer;
 }
+/* P3: 下拉是全页唯一零反馈控件族——补 hover 确认与焦点环 */
+.board-select:hover { border-color: var(--border-color-hover, var(--border-color)); background: var(--bg-secondary, rgba(127, 127, 127, 0.06)); }
+.board-select:focus-visible,
+.nav-link:focus-visible { outline: 2px solid var(--accent-color, #3b82f6); outline-offset: 1px; }
 .projects-board .board-reset {
   display: inline-flex;
   align-items: center;
@@ -1898,6 +1909,10 @@ body.req-col-dragging * {
   padding: 28px;
   text-align: center;
   color: var(--text-secondary);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
 }
 
 /* 名称: 14/600 主文 + 点分子类型 + 无边框 tint 标签 */
@@ -1923,9 +1938,10 @@ body.req-col-dragging * {
   padding: 1px 7px;
   border-radius: var(--b-r-pill);
   white-space: nowrap;
-  /* 窄列时 chip 文字优雅省略,溢出号(+N)完整保留;不再整 chip 被裁剪成半截 */
+  /* "1 枚完整 + +N"折叠(2026-09-22 审计 P1): 限宽省略+title 可恢复;+N 不可压缩 */
   flex: 0 1 auto;
   min-width: 0;
+  max-width: 58px;
   overflow: hidden;
   text-overflow: ellipsis;
 }
@@ -1994,6 +2010,7 @@ body.req-col-dragging * {
   align-items: center;
   justify-content: center;
   padding: 3px;
+  /* P2: 上面 button 重置特异度更高,必须带 .projects-board 前缀重声明(实测 21px 回归) */
   min-height: 24px;
   min-width: 24px;
   background: none;
@@ -2004,15 +2021,19 @@ body.req-col-dragging * {
   cursor: pointer;
 }
 .req-sr-toggle:hover { background: rgba(127, 127, 127, 0.12); color: var(--text-primary); }
+.projects-board .req-sr-toggle { min-height: 24px; min-width: 24px; }
 .requirements-row--sr .requirements-name-text { font-weight: 600; }
+/* P14: 只读汇总件不显示可点手型(行点击=详情仍有效,但光标不再误导) */
+.requirements-row .req-state-dist,
+.requirements-row--sr .req-sr-chip { cursor: default; }
 .req-sr-chip {
   flex: none;
   font-size: var(--b-fs-meta);
   color: #1d4ed8; /* 深蓝: 11px 小字要过 AA,浅底上主蓝 #3b82f6 只有 ~3.9:1 */
   background: rgba(59, 130, 246, 0.1);
   border-radius: var(--b-r-pill);
-  padding: 0 7px;
-  line-height: 16px;
+  /* P11: 与 req-tag/warn-chip 同一 chip 高度档(1px 纵向内边距,弃 line-height 定高) */
+  padding: 1px 7px;
   margin-left: 2px;
 }
 /* SR 状态列: 子行分布(如 2·已启动 1·待RAT) */
@@ -2192,15 +2213,19 @@ body.req-col-dragging * {
 
 /* 1366 以下隐藏负责人与规模列(排博弈用大屏,窄屏保组件/人力/版本) */
 /* 三档列预算(2026-09-22 名称截断审计后重算):
-   ≥1680 全 12 列; 1560–1679 十一列藏"规模"(用户 1600 主力档); <1560 九列再藏"负责人"与"编号"。
+   ≥1680 全 12 列; 1560–1679 十一列藏 规模+负责人(编号占预算,实测内容宽 1300); <1560 九列再藏 编号。
    铁律: 每档默认(未拖拽)在对应容器内零横向滚动。 */
-@media (max-width: 1679px) {
+/* 中档(1560–1679): 11 列——全列去"规模"再去"负责人"(编号列的预算由负责人
+   让位;2026-09-22 P16 实测: 1600 内容宽 1300,13 列装不下,业主先保编号) */
+@media (min-width: 1560px) and (max-width: 1679px) {
   .requirements-thead,
   .requirements-row {
-    grid-template-columns: minmax(var(--req-w-name, 210px), var(--req-f-name, 1.1fr)) var(--req-w-number, 80px) var(--req-w-tags, 96px) var(--req-w-component, 84px) var(--req-w-lifecycle, 224px) var(--req-w-staffing, 112px) var(--req-w-version, 64px) var(--req-w-release, 64px) var(--req-w-priority, 44px) var(--req-w-owner, 80px) var(--req-w-actions, 116px) var(--req-spacer, 0fr);
+    grid-template-columns: minmax(var(--req-w-name, 210px), var(--req-f-name, 1.1fr)) var(--req-w-number, 80px) var(--req-w-tags, 92px) var(--req-w-component, 80px) var(--req-w-lifecycle, 224px) var(--req-w-staffing, 112px) var(--req-w-version, 64px) var(--req-w-release, 64px) var(--req-w-priority, 44px) var(--req-w-actions, 116px) var(--req-spacer, 0fr);
   }
   .requirements-thead > span:nth-child(7),
-  .requirements-row > .req-scale { display: none; }
+  .requirements-row > .req-scale,
+  .requirements-thead > span:nth-child(11),
+  .requirements-row > .req-edit-cell--owner { display: none; }
   /* 窄档死线内联仍在: 快捷键按钮收至 64(基础 72px 规则位于本文件更后,需提特异度压过) */
   .projects-board .requirements-row .lifecycle-quick-btn { min-width: 64px; }
 }
@@ -2211,9 +2236,14 @@ body.req-col-dragging * {
   }
   .requirements-thead > span:nth-child(11),
   .requirements-row > .req-edit-cell--owner { display: none; }
-  /* 编号列窄档让位(2026-09-22 裁决): 表头第2格 + 行内编号钮 */
+  /* 编号列窄档让位: 表头第2格 + 行内编号格(P6 加包装后须按包装选择器隐藏) */
   .requirements-thead > span:nth-child(2),
-  .requirements-row > .req-number-part { display: none; }
+  .requirements-row > .req-edit-cell--number { display: none; }
+  /* 规模列窄档让位(中档已并入全列档,P16 后由本块独自承担) */
+  .requirements-thead > span:nth-child(7),
+  .requirements-row > .req-scale { display: none; }
+  /* 窄档死线内联仍在: 快捷键按钮收至 64(基础 72px 规则位于本文件更后,需提特异度压过) */
+  .projects-board .requirements-row .lifecycle-quick-btn { min-width: 64px; }
 }
 
 /* 优先级: 纯文字着色,等宽数字(按钮化,命中 24px 档) */
@@ -2233,6 +2263,8 @@ body.req-col-dragging * {
 .requirements-actions { display: inline-flex; gap: 8px; align-items: center; justify-content: center; }
 .projects-board .requirements-row > .req-edit-cell--pri { justify-self: center; }
 .projects-board .requirements-thead > span.col-c { text-align: center; }
+/* P13: 人力列数字右缘对齐,表头随数据右读(消解表头左读/数据右读的轴混合) */
+.requirements-thead > span.col-r { text-align: right; padding-right: 6px; }
 .projects-board .req-cell-center { display: flex; justify-content: center; align-items: center; min-width: 0; }
 .projects-board .req-icon-btn {
   display: inline-flex;

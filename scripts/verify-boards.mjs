@@ -160,6 +160,24 @@ check('优先级徽章', pBadges.length >= 3 && pBadges.every(p => /^P\d$/.test(
   }
 }
 
+// ── 1.75 全量审计修复批(2026-09-22): 计数口径/空态区分/折叠命中 ──
+{
+  const count = (await page.$eval('.board-count', el => el.textContent.trim()));
+  check('计数口径含 AR 小计(共 3 项 · 含 2 AR)', /共 3 项/.test(count) && /含 2 个 AR/.test(count), count);
+  const srToggleBox = await page.$eval('.req-sr-toggle', el => {
+    const r = el.getBoundingClientRect();
+    return Math.round(Math.min(r.width, r.height));
+  });
+  check('SR 折叠箭头命中 ≥24px(P2 特异度坑回归)', srToggleBox >= 24, srToggleBox + 'px');
+  await page.fill('[data-testid="search-input"]', 'ZZZ-无命中');
+  await page.waitForTimeout(400);
+  const emptyText = (await page.$eval('.requirements-empty', el => el.textContent)) ?? '';
+  check('筛选空态与库为空区分(P4)', emptyText.includes('无匹配'), emptyText.slice(0, 24));
+  await page.click('.requirements-empty-clear');
+  await page.waitForTimeout(400);
+  check('空态一键清除筛选', (await page.$$('.requirements-row')).length === 5);
+}
+
 // ── 1.8 编号列(2026-09-22 裁决: SR/AR 统一,混排世界粒度自述) ──
 {
   // 子行带 AR 号;数据平台升级(迭代中无编号)应现"未编号"告警短词

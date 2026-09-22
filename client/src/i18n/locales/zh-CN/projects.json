@@ -410,13 +410,16 @@
     "decomposeInto": "将作为「{{name}}」的 AR 分解项创建",
     "colNumber": "编号",
     "filterSubtype": "子类型",
-    "srToggleHint": "展开/收起分解出的 AR"
+    "srToggleHint": "展开/收起分解出的 AR",
+    "emptyFiltered": "无匹配事项——调整或清除筛选后再试",
+    "clearFilters": "清除筛选",
+    "countSummaryWithAr": "共 {{count}} 项需求 · 含 {{ar}} 个 AR"
   },
   "version": {
     "productTitle": "产品版本，点击填写（如 B）",
     "releaseTitle": "交付版本，点击填写（如 26.RP4）",
     "productPlaceholder": "未排",
-    "releasePlaceholder": "未排"
+    "releasePlaceholder": "—"
   },
   "prioritySelect": {
     "hint": "点击调整优先级",

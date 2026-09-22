@@ -120,7 +120,7 @@ const mockProjects = [
     lifecycle_state: 'pending_rat',
     lifecycle_warnings: ['NO_DEV_DEMAND'],
     staffing_summary: { design: { named: 0.5, pool: 1, named_detail: [{ name: '韩架构', fte: 0.5 }] }, dev: { named: 2, pool: 0, named_detail: [] } },
-    tags: [{ id: 1, name: 'Reserved', color: '#f59e0b' }],
+    tags: [{ id: 1, name: 'Reserved', color: '#f59e0b' }, { id: 2, name: 'Urgent', color: null }],
   },
   {
     id: 'proj-2',
@@ -289,7 +289,7 @@ describe('Requirements Board (需求台)', () => {
       // "未排"哨兵: 筛出无版本事项(fixture 里没有 → 空态)
       await user.selectOptions(screen.getByTestId('product-filter'), '__none__');
       expect(screen.queryByText('Project Beta')).not.toBeInTheDocument();
-      expect(screen.getByText('No requirements')).toBeInTheDocument();
+      expect(screen.getByText(/No matching items/)).toBeInTheDocument();
     });
 
     test('release version filter narrows rows client-side', async () => {
@@ -527,7 +527,7 @@ describe('Requirements Board (需求台)', () => {
       await user.click(within(popover).getByText('Reserved'));
 
       await waitFor(() => {
-        expect(api.projects.update).toHaveBeenCalledWith('proj-1', { tag_ids: [] });
+        expect(api.projects.update).toHaveBeenCalledWith('proj-1', { tag_ids: ['2'] });
       });
     });
 
@@ -851,7 +851,7 @@ describe('Requirements Board (需求台)', () => {
       fireEvent.dblClick(screen.getByTestId('col-grip-tags'));
 
       await waitFor(() => {
-        expect(table.style.getPropertyValue('--req-w-tags')).toBe('112px');
+        expect(table.style.getPropertyValue('--req-w-tags')).toBe('104px');
       });
       expect(JSON.parse(localStorage.getItem('req-col-widths-v3')!)).toEqual({});
     });
@@ -924,6 +924,50 @@ describe('Requirements Board (需求台)', () => {
         expect(screen.queryByText('Project Beta')).not.toBeInTheDocument();
       });
       expect(screen.getByText('Project Alpha')).toBeInTheDocument();
+    });
+
+    test('count summary discloses the AR subtotal (口径不沉默)', async () => {
+      renderComponent();
+      await waitFor(() => {
+        expect(screen.getByText('Project Alpha')).toBeInTheDocument();
+      });
+      expect(screen.getByText(/2 requirements · 2 AR/)).toBeInTheDocument();
+    });
+
+    test('filtered-empty differs from no-data and offers one-click clear', async () => {
+      const user = userEvent.setup();
+      renderComponent();
+      await waitFor(() => {
+        expect(screen.getByText('Project Alpha')).toBeInTheDocument();
+      });
+
+      await user.type(screen.getByTestId('search-input'), 'ZZZ-no-hit');
+      expect(screen.getByText(/No matching items/)).toBeInTheDocument();
+
+      await user.click(document.querySelector('.requirements-empty-clear') as HTMLButtonElement);
+      await waitFor(() => {
+        expect(screen.getByText('Project Alpha')).toBeInTheDocument();
+      });
+    });
+
+    test('tags fold to one chip + N with full-name titles (P1)', async () => {
+      renderComponent();
+      await waitFor(() => {
+        expect(screen.getByText('Project Alpha')).toBeInTheDocument();
+      });
+      const alphaRow = screen.getByText('Project Alpha').closest('.requirements-row')!;
+      expect(within(alphaRow).getByText('Reserved')).toBeInTheDocument();
+      expect(within(alphaRow).getByText('+1')).toHaveAttribute('title', 'Urgent');
+      expect(within(alphaRow).getByText('Reserved')).toHaveAttribute('title', 'Reserved');
+    });
+
+    test('number cell carries the pencil affordance like other edit points (P6)', async () => {
+      renderComponent();
+      await waitFor(() => {
+        expect(screen.getByText('Project Alpha')).toBeInTheDocument();
+      });
+      const alphaRow = screen.getByText('Project Alpha').closest('.requirements-row')!;
+      expect(alphaRow.querySelector('.req-edit-cell--number .req-pencil')).not.toBeNull();
     });
 
     test('search by external number locates the tree (parent or child hit)', async () => {

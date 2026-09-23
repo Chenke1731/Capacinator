@@ -193,7 +193,7 @@ export class ProjectsController extends BaseController {
     const rows = await this.db('project_estimations')
       .whereIn('project_id', ids)
       .orderBy('created_at')
-      .select('project_id', 'estimated_loc', 'loc_rate_per_pm');
+      .select('project_id', 'estimated_loc', 'loc_rate_per_pm', 'estimated_pm');
     const latest = new Map<string, any>();
     for (const row of rows) latest.set(row.project_id, row); // 有序遍历,后者覆盖=最新
     const round2 = (n: number) => Math.round(n * 100) / 100;
@@ -205,7 +205,13 @@ export class ProjectsController extends BaseController {
       }
       const loc = Number(e.estimated_loc);
       const rate = Number(e.loc_rate_per_pm) || 500;
-      p.estimation_summary = { kloc: round2(loc / 1000), pm: round2(loc / rate) };
+      // pm: 手动覆盖优先(2026-09-23 裁决"换算给默认,手动可覆盖"),NULL=换算
+      const pmOverride = e.estimated_pm != null ? Number(e.estimated_pm) : null;
+      p.estimation_summary = {
+        kloc: round2(loc / 1000),
+        pm: pmOverride ?? round2(loc / rate),
+        pm_overridden: pmOverride != null
+      };
     }
   }
 
@@ -791,6 +797,12 @@ export class ProjectsController extends BaseController {
       const mdeEst = sanitizedData.mde_estimate_pm;
       delete sanitizedData.se_estimate_pm;
       delete sanitizedData.mde_estimate_pm;
+      // 代码规模(kloc)/人月覆盖(estimated_pm): 看板就地编辑映射到最新 LOC
+      // 评估记录(2026-09-23 裁决: 换算给默认,手动可覆盖,改规模不重置覆盖)
+      const klocIn = sanitizedData.estimated_kloc;
+      const pmOverride = sanitizedData.estimated_pm;
+      delete sanitizedData.estimated_kloc;
+      delete sanitizedData.estimated_pm;
 
       // Lifecycle fields are owned by the state machine endpoints only
       // (POST /projects/:id/lifecycle/*) — never by the generic update.
@@ -840,6 +852,24 @@ export class ProjectsController extends BaseController {
             estimated_design_pm: Number(nextSe ?? 0) + Number(nextMde ?? 0),
             se_estimate_pm: nextSe ?? null,
             mde_estimate_pm: nextMde ?? null
+          });
+        }
+      }
+
+      // 代码规模/人月覆盖: 映射到最新 LOC 评估记录(无则创建仅含该值的记录)
+      if (klocIn !== undefined || pmOverride !== undefined) {
+        const latest = await this.db('project_estimations')
+          .where({ project_id: id }).orderBy('created_at').orderBy('id').first();
+        const patch: Record<string, any> = { updated_at: this.db.fn.now() };
+        if (klocIn !== undefined) patch.estimated_loc = (Number(klocIn) || 0) * 1000;
+        if (pmOverride !== undefined) patch.estimated_pm = Number(pmOverride) || null;
+        if (latest) {
+          await this.db('project_estimations').where({ id: latest.id }).update(patch);
+        } else {
+          await this.db('project_estimations').insert({
+            project_id: id,
+            estimated_loc: (Number(klocIn) || 0) * 1000,
+            ...(pmOverride !== undefined ? { estimated_pm: Number(pmOverride) || null } : {})
           });
         }
       }

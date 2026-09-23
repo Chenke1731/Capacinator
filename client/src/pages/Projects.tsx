@@ -692,9 +692,9 @@ export function Projects() {
                 <LifecycleCellControls project={project} />
               </span>
 
-              <KlocCell kloc={project.estimation_summary?.kloc ?? null} />
+              <KlocCell project={project} kloc={project.estimation_summary?.kloc ?? null} onSaved={() => handleCellSaved(project.id)} />
 
-              <EffortCell pm={project.estimation_summary?.pm ?? null} />
+              <EffortCell project={project} pm={project.estimation_summary?.pm ?? null} overridden={project.estimation_summary?.pm_overridden} onSaved={() => handleCellSaved(project.id)} />
 
               <RoleCell roleName="se" person={project.se_assignment} pm={project.design_estimates?.se ?? null} project={project} onSaved={() => handleCellSaved(project.id)} />
 
@@ -861,8 +861,8 @@ export function Projects() {
                       <LifecycleCellControls project={child} />
                     </span>
 
-                    <KlocCell kloc={child.estimation_summary?.kloc ?? null} />
-                    <EffortCell pm={child.estimation_summary?.pm ?? null} />
+                    <KlocCell project={child} kloc={child.estimation_summary?.kloc ?? null} onSaved={() => handleCellSaved(child.id)} />
+                    <EffortCell project={child} pm={child.estimation_summary?.pm ?? null} overridden={child.estimation_summary?.pm_overridden} onSaved={() => handleCellSaved(child.id)} />
                     <RoleCell roleName="se" person={child.se_assignment} pm={child.design_estimates?.se ?? null} project={child} onSaved={() => handleCellSaved(child.id)} />
                     <RoleCell roleName="mde" person={child.mde_assignment} pm={child.design_estimates?.mde ?? null} project={child} onSaved={() => handleCellSaved(child.id)} />
 

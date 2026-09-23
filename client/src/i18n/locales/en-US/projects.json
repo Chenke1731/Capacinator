@@ -494,7 +494,8 @@
     "tooltip": "From the latest estimation (KLOC & person-months derived from estimated LOC); edit on the detail page",
     "pmUnit": " pm",
     "srTooltip": "Sum of child estimations; edit each on the detail page",
-    "empty": "—"
+    "empty": "—",
+    "editPlaceholder": "KLOC"
   },
   "actuals": {
     "title": "Investment ledger (plan vs actual)",
@@ -521,7 +522,9 @@
   },
   "effort": {
     "tooltip": "Estimated dev person-months",
-    "srTooltip": "Sum of children"
+    "srTooltip": "Sum of children",
+    "editPlaceholder": "pm",
+    "overriddenHint": "Manually edited (overrides auto conversion); changing KLOC will not reset it"
   },
   "roleCell": {
     "pickHint": "Assign {{role}}",

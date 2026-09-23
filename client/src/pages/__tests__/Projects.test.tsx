@@ -645,7 +645,8 @@ describe('Requirements Board (需求台)', () => {
       expect(childRow.querySelector('.req-effort-num')!.textContent).toBe('8');
 
       const betaRow = screen.getByText('Project Beta').closest('.requirements-row')!;
-      expect(betaRow.querySelectorAll('.req-kloc--empty').length).toBe(1);
+      // 空值仍是可编辑按钮(2026-09-23 就地编辑),文本 —
+      expect(betaRow.querySelector('.req-kloc')!.textContent).toBe('—');
       expect(betaRow.querySelector('.req-effort')!.textContent).toBe('—');
     });
 

@@ -29,24 +29,91 @@ function workdaysBetween(start: string, end: string): number {
   return Math.max(days, 1);
 }
 
-/** 代码规模: 最新评估换算 KLOC,只读(评估在详情页) */
-export function KlocCell({ kloc }: { kloc: number | null }) {
+/** 代码规模: KLOC 就地编辑(2026-09-23 裁决)——写入最新 LOC 评估记录,
+ *  人月自动换算;pm 手动覆盖不被重置(覆盖是明确意图) */
+export function KlocCell({ project, kloc, onSaved }: { project: any; kloc: number | null; onSaved: () => void }) {
   const { t } = useTranslation();
-  if (kloc == null) return <span className="req-kloc req-kloc--empty">{t('projects:scale.empty')}</span>;
+  const queryClient = useQueryClient();
+  const [editing, setEditing] = useState(false);
+  const [draft, setDraft] = useState('');
+  const mutation = useMutation({
+    mutationFn: (v: number | null) => api.projects.update(project.id, { estimated_kloc: v } as any),
+    onSuccess: async () => {
+      setEditing(false);
+      await queryClient.invalidateQueries({ queryKey: queryKeys.projects.all });
+      onSaved();
+    }
+  });
+  if (editing) {
+    return (
+      <input
+        className="inline-edit-input inline-edit-input--expand req-kloc-input"
+        value={draft}
+        autoFocus
+        placeholder={t('projects:scale.editPlaceholder')}
+        onChange={(e) => setDraft(e.target.value)}
+        onBlur={() => {
+          const n = parseFloat(draft);
+          if (!Number.isNaN(n) && n !== kloc) mutation.mutate(n);
+          else setEditing(false);
+        }}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter') (e.target as HTMLInputElement).blur();
+          if (e.key === 'Escape') setEditing(false);
+        }}
+      />
+    );
+  }
   return (
-    <span className="req-kloc" title={t('projects:scale.tooltip')}>
-      <span className="req-kloc-num">{kloc}K</span>
-    </span>
+    <button type="button" className="req-kloc req-editable"
+            title={t('projects:scale.tooltip')}
+            onClick={(e) => { e.stopPropagation(); setDraft(kloc != null ? String(kloc) : ''); setEditing(true); }}>
+      {kloc != null ? <span className="req-kloc-num">{kloc}K</span> : <span className="text-muted">—</span>}
+    </button>
   );
 }
 
-/** 人力: 评估开发人月(设计 §0.3——人月给事,开发侧总量) */
-export function EffortCell({ pm }: { pm: number | null }) {
+/** 人力: 开发人月。自动换算给默认,手动编辑覆盖(存 estimated_pm);
+ *  pm_overridden=true 显示编辑值,否则显示换算值 */
+export function EffortCell({ project, pm, overridden, onSaved }: { project: any; pm: number | null; overridden?: boolean; onSaved: () => void }) {
   const { t } = useTranslation();
+  const queryClient = useQueryClient();
+  const [editing, setEditing] = useState(false);
+  const [draft, setDraft] = useState('');
+  const mutation = useMutation({
+    mutationFn: (v: number | null) => api.projects.update(project.id, { estimated_pm: v } as any),
+    onSuccess: async () => {
+      setEditing(false);
+      await queryClient.invalidateQueries({ queryKey: queryKeys.projects.all });
+      onSaved();
+    }
+  });
+  if (editing) {
+    return (
+      <input
+        className="inline-edit-input inline-edit-input--expand req-effort-input"
+        value={draft}
+        autoFocus
+        placeholder={t('projects:effort.editPlaceholder')}
+        onChange={(e) => setDraft(e.target.value)}
+        onBlur={() => {
+          const n = parseFloat(draft);
+          if (!Number.isNaN(n) && n !== pm) mutation.mutate(n);
+          else setEditing(false);
+        }}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter') (e.target as HTMLInputElement).blur();
+          if (e.key === 'Escape') setEditing(false);
+        }}
+      />
+    );
+  }
   return (
-    <span className="req-effort" title={t('projects:effort.tooltip')}>
+    <button type="button" className={`req-effort req-editable ${overridden ? 'req-effort--overridden' : ''}`}
+            title={overridden ? t('projects:effort.overriddenHint') : t('projects:effort.tooltip')}
+            onClick={(e) => { e.stopPropagation(); setDraft(pm != null ? String(pm) : ''); setEditing(true); }}>
       {pm != null ? <span className="req-effort-num">{pm}</span> : <span className="text-muted">—</span>}
-    </span>
+    </button>
   );
 }
 

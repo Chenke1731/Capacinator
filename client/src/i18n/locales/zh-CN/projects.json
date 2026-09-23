@@ -259,7 +259,7 @@
       "designing": "设计中",
       "backlog": "待排序",
       "scheduled": "已排序",
-      "in_iteration": "已启动迭代",
+      "in_iteration": "已启动",
       "delivered": "已交付",
       "cancelled": "裁决取消"
     },

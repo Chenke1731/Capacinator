@@ -790,7 +790,7 @@ export const api = {
     delete: (id: string) => apiClient.delete<{ success: true }>(`/iterations/${id}`),
   },
 
-  // Lifecycle (8-state machine: 待RAT/NOK/设计中/待排序/已排序/已启动迭代/已交付/裁决取消)
+  // Lifecycle (8-state machine: 待RAT/NOK/设计中/待排序/已排序/已启动/已交付/裁决取消)
   lifecycle: {
     get: (projectId: string) =>
       apiClient.get<{ data: any }>(`/projects/${projectId}/lifecycle`),

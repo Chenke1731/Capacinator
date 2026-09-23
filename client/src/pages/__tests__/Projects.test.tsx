@@ -437,7 +437,7 @@ describe('Requirements Board (需求台)', () => {
       fireEvent.click(badge!);
 
       const selector = within(screen.getByTestId('lc-state-list'));
-      ['NOK', 'Designing', 'Backlog', 'Scheduled', 'In Iteration', 'Delivered', 'Cancelled'].forEach(
+      ['NOK', 'Designing', 'Backlog', 'Scheduled', 'Started', 'Delivered', 'Cancelled'].forEach(
         (label) => expect(selector.getByText(label)).toBeInTheDocument()
       );
       expect(selector.getByText('current')).toBeInTheDocument();
@@ -719,7 +719,7 @@ describe('Requirements Board (需求台)', () => {
       expect(within(srRow).getByText('(2 AR)')).toBeInTheDocument();
       // 状态分布: 1 子行待RAT + 1 已启动(SR 行不进单胶囊,页面侧状态分布)
       expect(within(srRow).getByText(/Pending RAT/)).toBeInTheDocument();
-      expect(within(srRow).getByText(/In Iteration/)).toBeInTheDocument();
+      expect(within(srRow).getByText(/Started/)).toBeInTheDocument();
 
       const childRows = document.querySelectorAll('.requirements-row--child');
       expect(childRows.length).toBe(2);

@@ -121,7 +121,6 @@ const mockProjects = [
     release_version: '26.RP4',
     priority: 2,
     component: 'HCCL_驱动组',
-    estimation_summary: { kloc: 12, pm: 24 },
     lifecycle_state: 'pending_rat',
     lifecycle_warnings: ['NO_DEV_DEMAND'],
     tags: [{ id: 1, name: 'Reserved', color: '#f59e0b' }, { id: 2, name: 'Urgent', color: null }],
@@ -737,8 +736,8 @@ describe('Requirements Board (需求台)', () => {
 
       const srRow = screen.getByText('Project Alpha').closest('.requirements-row')!;
       // 规模/人力: 仅 proj-1a 有评估 4K/8pm
-      expect(srRow.querySelector('.req-kloc--agg .req-kloc-num')!.textContent).toBe('4K');
-      expect(srRow.querySelector('.req-effort--agg .req-effort-num')!.textContent).toBe('8');
+      expect(srRow.querySelector('.req-kloc-num')!.textContent).toBe('4K');
+      expect(srRow.querySelector('.req-effort-num')!.textContent).toBe('8');
       // SE/MDE: Σ粗估(1.5/0.8,单人无 ·N人 尾注)
       expect(Array.from(srRow.querySelectorAll('.req-role--agg')).map((el) => el.textContent))
         .toEqual(['Σ1.5', 'Σ0.8']);

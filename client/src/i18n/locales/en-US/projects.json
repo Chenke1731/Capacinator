@@ -495,7 +495,8 @@
     "pmUnit": " pm",
     "srTooltip": "Sum of child estimations; edit each on the detail page",
     "empty": "—",
-    "editPlaceholder": "KLOC"
+    "editPlaceholder": "KLOC",
+    "deviationHint": "SR value differs from sum of child ARs (amber = deviation)"
   },
   "actuals": {
     "title": "Investment ledger (plan vs actual)",
@@ -524,7 +525,8 @@
     "tooltip": "Estimated dev person-months",
     "srTooltip": "Sum of children",
     "editPlaceholder": "pm",
-    "overriddenHint": "Manually edited (overrides auto conversion); changing KLOC will not reset it"
+    "overriddenHint": "Manually edited (overrides auto conversion); changing KLOC will not reset it",
+    "deviationHint": "SR value differs from sum of child ARs (amber = deviation)"
   },
   "roleCell": {
     "pickHint": "Assign {{role}}",

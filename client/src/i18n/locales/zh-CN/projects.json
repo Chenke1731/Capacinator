@@ -493,7 +493,8 @@
     "pmUnit": "人月",
     "srTooltip": "子行评估之和；各行评估在详情页做",
     "empty": "—",
-    "editPlaceholder": "KLOC"
+    "editPlaceholder": "KLOC",
+    "deviationHint": "SR 值与子 AR 之和不一致(琥珀=偏差提醒)"
   },
   "actuals": {
     "title": "投入履历（计划 vs 实际）",
@@ -522,7 +523,8 @@
     "tooltip": "评估开发人月（最新评估换算）",
     "srTooltip": "子行评估人月之和",
     "editPlaceholder": "人月",
-    "overriddenHint": "手动编辑的人月(覆盖自动换算);修改代码规模不会重置它"
+    "overriddenHint": "手动编辑的人月(覆盖自动换算);修改代码规模不会重置它",
+    "deviationHint": "SR 值与子 AR 之和不一致(琥珀=偏差提醒)"
   },
   "roleCell": {
     "pickHint": "点击安排 {{role}} 投入",

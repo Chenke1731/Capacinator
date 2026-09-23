@@ -786,13 +786,17 @@ export function Projects() {
                 ))}
               </span>
 
-              <span className="req-kloc req-kloc--agg" title={t('projects:scale.srTooltip')}>
-                {agg.kloc != null ? <span className="req-kloc-num">{agg.kloc}K</span> : <span className="text-muted">—</span>}
-              </span>
+              {/* SR 规模/人月(2026-09-23 用户裁决"参数都可调"):
+                  显示 = SR 自身值 ?? 子行聚合; 偏差 = 两者都有且不等 → 琥珀告警 */}
+              <KlocCell project={project}
+                kloc={project.estimation_summary?.kloc ?? agg.kloc}
+                deviated={project.estimation_summary?.kloc != null && agg.kloc != null && project.estimation_summary.kloc !== agg.kloc}
+                onSaved={() => handleCellSaved(project.id)} />
 
-              <span className="req-effort req-effort--agg" title={t('projects:effort.srTooltip')}>
-                {agg.effortPm != null ? <span className="req-effort-num">{agg.effortPm}</span> : <span className="text-muted">—</span>}
-              </span>
+              <EffortCell project={project}
+                pm={project.estimation_summary?.pm ?? agg.effortPm}
+                deviated={project.estimation_summary?.pm != null && agg.effortPm != null && project.estimation_summary.pm !== agg.effortPm}
+                onSaved={() => handleCellSaved(project.id)} />
 
               <span className="req-role req-role--agg" title={t('projects:roleCell.srTooltip', { role: 'SE', persons: agg.sePersons.join('、') || '—' })}>
                 {agg.sePm != null

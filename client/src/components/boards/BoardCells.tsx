@@ -31,7 +31,7 @@ function workdaysBetween(start: string, end: string): number {
 
 /** 代码规模: KLOC 就地编辑(2026-09-23 裁决)——写入最新 LOC 评估记录,
  *  人月自动换算;pm 手动覆盖不被重置(覆盖是明确意图) */
-export function KlocCell({ project, kloc, onSaved }: { project: any; kloc: number | null; onSaved: () => void }) {
+export function KlocCell({ project, kloc, deviated, onSaved }: { project: any; kloc: number | null; deviated?: boolean; onSaved: () => void }) {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
   const [editing, setEditing] = useState(false);
@@ -47,9 +47,8 @@ export function KlocCell({ project, kloc, onSaved }: { project: any; kloc: numbe
   if (editing) {
     return (
       <input
-        className="inline-edit-input req-kloc-input"
+        className="inline-edit-input req-kloc-input inline-edit-input--expand"
         value={draft}
-        style={{ width: `${Math.max(4, draft.length + 2)}ch` }}
         autoFocus
         placeholder={t('projects:scale.editPlaceholder')}
         onChange={(e) => { setDraft(e.target.value); e.target.size = Math.max(2, e.target.value.length + 1); }}
@@ -66,17 +65,17 @@ export function KlocCell({ project, kloc, onSaved }: { project: any; kloc: numbe
     );
   }
   return (
-    <button type="button" className="req-kloc req-editable"
-            title={t('projects:scale.tooltip')}
+    <button type="button" className={`req-kloc req-editable ${deviated ? 'req-kloc--deviated' : ''}`}
+            title={deviated ? t('projects:scale.deviationHint') : t('projects:scale.tooltip')}
             onClick={(e) => { e.stopPropagation(); setDraft(kloc != null ? String(kloc) : ''); setEditing(true); }}>
-      {kloc != null ? <span className="req-kloc-num">{kloc}K</span> : <span className="text-muted">—</span>}
+      {kloc != null ? <span className="req-kloc-num">{kloc}K{deviated ? '!' : ''}</span> : <span className="text-muted">—</span>}
     </button>
   );
 }
 
 /** 人力: 开发人月。自动换算给默认,手动编辑覆盖(存 estimated_pm);
  *  pm_overridden=true 显示编辑值,否则显示换算值 */
-export function EffortCell({ project, pm, overridden, onSaved }: { project: any; pm: number | null; overridden?: boolean; onSaved: () => void }) {
+export function EffortCell({ project, pm, overridden, deviated, onSaved }: { project: any; pm: number | null; overridden?: boolean; deviated?: boolean; onSaved: () => void }) {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
   const [editing, setEditing] = useState(false);
@@ -92,9 +91,8 @@ export function EffortCell({ project, pm, overridden, onSaved }: { project: any;
   if (editing) {
     return (
       <input
-        className="inline-edit-input req-effort-input"
+        className="inline-edit-input req-effort-input inline-edit-input--expand"
         value={draft}
-        style={{ width: `${Math.max(4, draft.length + 2)}ch` }}
         autoFocus
         placeholder={t('projects:effort.editPlaceholder')}
         onChange={(e) => { setDraft(e.target.value); e.target.size = Math.max(2, e.target.value.length + 1); }}
@@ -111,10 +109,10 @@ export function EffortCell({ project, pm, overridden, onSaved }: { project: any;
     );
   }
   return (
-    <button type="button" className={`req-effort req-editable ${overridden ? 'req-effort--overridden' : ''}`}
-            title={overridden ? t('projects:effort.overriddenHint') : t('projects:effort.tooltip')}
+    <button type="button" className={`req-effort req-editable ${overridden ? 'req-effort--overridden' : ''} ${deviated ? 'req-effort--deviated' : ''}`}
+            title={deviated ? t('projects:effort.deviationHint') : (overridden ? t('projects:effort.overriddenHint') : t('projects:effort.tooltip'))}
             onClick={(e) => { e.stopPropagation(); setDraft(pm != null ? String(pm) : ''); setEditing(true); }}>
-      {pm != null ? <span className="req-effort-num">{pm}</span> : <span className="text-muted">—</span>}
+      {pm != null ? <span className="req-effort-num">{pm}{deviated ? '!' : ''}</span> : <span className="text-muted">—</span>}
     </button>
   );
 }

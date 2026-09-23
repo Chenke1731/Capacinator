@@ -91,7 +91,8 @@
     "verify:visual": "node scripts/verify-visual.mjs",
     "verify:site": "node scripts/verify-site.mjs",
     "verify:visual:update": "UPDATE_BASELINES=1 node scripts/verify-visual.mjs",
-    "debug:board": "node scripts/debug-board.mjs"
+    "debug:board": "node scripts/debug-board.mjs",
+    "shot": "node scripts/analyze-screenshot.mjs"
   },
   "keywords": [],
   "author": "",
@@ -156,7 +157,7 @@
   "build": {
     "appId": "com.capacinator.app",
     "productName": "Capacinator",
-    "copyright": "Copyright \u00a9 2024 Capacinator",
+    "copyright": "Copyright © 2024 Capacinator",
     "directories": {
       "output": "dist-electron",
       "buildResources": "build"

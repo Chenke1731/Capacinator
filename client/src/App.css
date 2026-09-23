@@ -2122,6 +2122,7 @@ body.req-col-dragging * {
 
 /* 标签独立列: 最多 2 chip + 溢出号(按钮化,悬停显底) */
 /* 标签内联组(Q1-B 2026-09-22): 名称格行尾,chip 即过滤器,铅笔开编辑弹层 */
+.req-edit-cell--number { overflow: hidden; }
 .req-tags-inline {
   display: inline-flex;
   align-items: center;
@@ -2232,10 +2233,14 @@ body.req-col-dragging * {
 .requirements-name--child { padding-left: 18px; }
 .req-child-arrow { color: var(--text-tertiary, var(--text-secondary)); flex: none; }
 .req-number-part {
-  flex: none;
+  flex: 0 1 auto;
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
   font-family: var(--font-mono, monospace);
-  font-size: var(--b-fs-meta);
-  font-weight: 500;
+  font-size: var(--b-fs-body); /* mono 码值统一 body 档(2026-09-23 ONES 借鉴) */
+  font-weight: 400;
   color: var(--text-secondary);
   min-height: 24px;
   padding: 2px 6px;
@@ -2244,7 +2249,7 @@ body.req-col-dragging * {
 .req-number-part:hover { background: rgba(127, 127, 127, 0.1); }
 /* .projects-board button { min-height:0 } 特异度更高,命中档位需带前缀重新声明 */
 .projects-board .req-number-part { min-height: 24px; }
-.req-number-input { font-family: var(--font-mono, monospace); font-size: var(--b-fs-meta); }
+.req-number-input { font-family: var(--font-mono, monospace); font-size: var(--b-fs-body); }
 .requirements-children > .requirements-row { border-bottom: 1px dashed var(--border-color, rgba(127, 127, 127, 0.12)); }
 
 /* 所属组件列(窄列省略号,命中 24px 档) */
@@ -2290,7 +2295,7 @@ body.req-col-dragging * {
   display: inline-flex;
   gap: 4px;
 }
-.staff-pop-person b { color: var(--text-secondary); font-weight: 500; font-variant-numeric: tabular-nums; }
+.staff-pop-person b { color: var(--text-secondary); font-weight: 400; font-variant-numeric: tabular-nums; }
 .staff-pop-person--more { color: var(--text-secondary); cursor: help; }
 
 /* 版本单列按钮 */
@@ -2330,7 +2335,7 @@ body.req-col-dragging * {
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
 }
-.req-staff-named { color: var(--text-primary); font-weight: 600; }
+.req-staff-named { color: var(--text-primary); font-weight: 400; }
 .req-staff-pool { color: var(--text-secondary); }
 
 /* 调整气泡: 侧点 + 标签 | 实名 | 一体式步进 pill */
@@ -2471,7 +2476,7 @@ body.req-col-dragging * {
   color: var(--text-primary);
   font-size: var(--b-fs-body);
   font-family: var(--font-mono, monospace);
-  font-weight: 500;
+  font-weight: 400;
   cursor: text;
 }
 .projects-board .projects-version-part:hover { background: var(--bg-secondary, rgba(127, 127, 127, 0.14)); }
@@ -2526,7 +2531,7 @@ body.req-col-dragging * {
   background: none; /* 2026-09-23 名称格降噪: 去底色块,琥珀文字+前缀点 */
   color: #b45309;
   font-size: var(--b-fs-meta);
-  font-weight: 500;
+  font-weight: 400;
   padding: 0;
   margin-left: 2px;
 }

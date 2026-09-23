@@ -187,7 +187,7 @@ export function LifecycleCellControls({ project }: { project: any }) {
       </span>
 
       {mode && (
-        <div ref={popRef} className="lc-popover" style={{ top: pos.top, left: pos.left }}>
+        <div ref={popRef} className={`lc-popover ${mode === 'actions' ? 'lc-state-pop' : ''}`} style={{ top: pos.top, left: pos.left }}>
           {/* ---- schedule form (排序即建池) ---- */}
           {mode === 'schedule' && (
             <>

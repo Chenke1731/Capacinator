@@ -1573,7 +1573,7 @@ input[type="checkbox"].settings-checkbox,
 .lc-popover {
   position: fixed;
   z-index: 60;
-  width: 270px;
+  width: 270px; /* 通用宽度(搜索/人员列表等);状态选择器用下方覆盖收窄 */
   max-height: calc(100vh - 16px);
   overflow-y: auto;
   background: var(--bg-primary, #fff);
@@ -1747,15 +1747,18 @@ input[type="checkbox"].settings-checkbox,
 }
 
 /* Free-state selector list (气泡内全量状态选择) */
+.lc-popover.lc-state-pop { width: auto; min-width: 120px; max-width: 160px; }
 .lc-state-list {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 4px; /* 紧凑(2026-09-23 弹窗收窄裁决) */
 }
 .lc-state-row {
   width: 100%;
   text-align: left;
   justify-content: flex-start;
+  padding: 4px 8px; /* 紧凑(2026-09-23 弹窗收窄) */
+  padding: 4px 8px; /* 紧凑 */
   gap: 8px;
 }
 .lc-state-row--current {
@@ -2105,6 +2108,7 @@ body.req-col-dragging * {
 }
 
 /* 规模/人月格: 编辑词汇与其他格一致(可点+hover 淡底+就地输入) */
+.req-kloc-input, .req-effort-input { width: 56px; text-align: left; }
 .req-kloc.req-editable, .req-effort.req-editable {
   background: none; border: none; padding: 1px 4px;
   cursor: pointer; text-align: left;

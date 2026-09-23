@@ -47,7 +47,7 @@ export function KlocCell({ project, kloc, onSaved }: { project: any; kloc: numbe
   if (editing) {
     return (
       <input
-        className="inline-edit-input inline-edit-input--expand req-kloc-input"
+        className="inline-edit-input req-kloc-input"
         value={draft}
         autoFocus
         placeholder={t('projects:scale.editPlaceholder')}
@@ -91,7 +91,7 @@ export function EffortCell({ project, pm, overridden, onSaved }: { project: any;
   if (editing) {
     return (
       <input
-        className="inline-edit-input inline-edit-input--expand req-effort-input"
+        className="inline-edit-input req-effort-input"
         value={draft}
         autoFocus
         placeholder={t('projects:effort.editPlaceholder')}

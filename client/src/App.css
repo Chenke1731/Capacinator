@@ -746,7 +746,8 @@ input[type="checkbox"].settings-checkbox,
 
 .filter-group label {
   font-size: 0.875rem;
-  font-weight: 400; /* 2026-09-23 ONES 借鉴终版: 表头不加粗,靠背景条区分 */
+  font-size: 14px; /* 2026-09-23 终版: 表头靠字号(比正文大 1.5px)区分,不靠字重/背景 */
+  font-weight: 400;
   color: var(--text-secondary);
 }
 
@@ -1816,7 +1817,7 @@ input[type="checkbox"].settings-checkbox,
   /* 字阶(2026-09-22 收敛终态): 基线=数据档,容器不继承根 16px——
      未声明字号的新元素落地即 12.5,不会再突然全板最大 */
   font-size: var(--b-fs-body);
-  --b-fs-name: 14px;
+  --b-fs-name: 14px; /* 已弃用: 名称走 body 档 */
   --b-fs-body: 12.5px;
   --b-fs-meta: 11px;
   /* 圆角 */
@@ -1926,8 +1927,8 @@ input[type="checkbox"].settings-checkbox,
   gap: 5px;
   min-height: 40px;
   padding: 0 16px;
-  font-size: 14px;
-  font-weight: 500;
+  font-size: var(--b-fs-body);
+  font-weight: 400;
   color: #fff;
   background: #2563eb;
   border: none;
@@ -1952,7 +1953,8 @@ input[type="checkbox"].settings-checkbox,
   min-height: 36px;
   padding: 0 14px;
   font-size: var(--b-fs-body);
-  font-weight: 400; /* 2026-09-23 ONES 借鉴终版: 表头不加粗,靠背景条区分 */
+  font-size: 14px; /* 2026-09-23 终版: 表头靠字号(比正文大 1.5px)区分,不靠字重/背景 */
+  font-weight: 400;
   color: var(--text-secondary);
   background: var(--bg-secondary, rgba(127, 127, 127, 0.06));
   border-bottom: 1px solid var(--border-color);
@@ -2040,8 +2042,8 @@ body.req-col-dragging * {
 }
 .requirements-name { overflow: hidden; }
 .requirements-name-text {
-  font-size: var(--b-fs-name);
-  font-weight: 500;
+  font-size: var(--b-fs-body); /* 2026-09-23 用户裁决: 名称与正文同级,扫读靠列位 */
+  font-weight: 400;
   white-space: nowrap;
   /* 名称是扫读首轴: flex 弹性但保底 5 字(70px);色点标签也是弹性——两者
      各让一步,不再把标签顶出格(2026-09-23 色点溢出修复) */

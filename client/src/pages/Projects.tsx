@@ -641,7 +641,7 @@ export function Projects() {
           ] as const).map(([key, colKey], i) => (
             <span key={colKey} className={['lifecycle', 'priority', 'actions'].includes(colKey) ? 'col-c' : ''}>
               {t(key)}
-              {i < 10 && (
+              {colKey !== 'actions' && ( /* 2026-09-23 修: 硬编码 i<10 漏掉后加的列 */
                 <ColumnGrip colKey={colKey} widths={colWidths} setWidths={setColWidths} />
               )}
             </span>

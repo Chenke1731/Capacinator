@@ -880,12 +880,13 @@ describe('Requirements Board (需求台)', () => {
         expect(screen.getByText('Project Alpha')).toBeInTheDocument();
       });
 
-      // 前 10 列有手柄(名称→交付计划);优先级/实名投入/操作列无手柄
+      // 除操作列外全部有手柄(2026-09-23 修: 硬编码 i<10 漏掉后加列)
       const grips = screen.getAllByTestId(/^col-grip-/);
       expect(grips.map((g) => g.dataset.testid)).toEqual([
         'col-grip-name', 'col-grip-number', 'col-grip-component', 'col-grip-lifecycle',
         'col-grip-kloc', 'col-grip-effort', 'col-grip-se', 'col-grip-mde',
-        'col-grip-version', 'col-grip-release'
+        'col-grip-version', 'col-grip-release', 'col-grip-iter',
+        'col-grip-priority', 'col-grip-primary'
       ]);
     });
 

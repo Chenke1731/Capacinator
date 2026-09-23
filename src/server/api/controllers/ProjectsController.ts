@@ -192,10 +192,10 @@ export class ProjectsController extends BaseController {
     if (ids.length === 0) return;
     const rows = await this.db('project_estimations')
       .whereIn('project_id', ids)
-      .orderBy('created_at')
+      .orderBy('id')
       .select('project_id', 'estimated_loc', 'loc_rate_per_pm', 'estimated_pm');
     const latest = new Map<string, any>();
-    for (const row of rows) latest.set(row.project_id, row); // 有序遍历,后者覆盖=最新
+    for (const row of rows) latest.set(row.project_id, row); // id 升序遍历,后者覆盖=id 最大=最新
     const round2 = (n: number) => Math.round(n * 100) / 100;
     for (const p of projects) {
       const e = latest.get(p.id);
@@ -232,10 +232,10 @@ export class ProjectsController extends BaseController {
     const iterBy = new Map(iterRows.map((r: any) => [r.pid, r]));
 
     const deRows = await this.db('project_design_estimations')
-      .whereIn('project_id', ids).orderBy('created_at').orderBy('id')
+      .whereIn('project_id', ids).orderBy('id')
       .select('project_id', 'se_estimate_pm', 'mde_estimate_pm');
     const deBy = new Map<string, any>();
-    for (const r of deRows) deBy.set(r.project_id, r); // 有序遍历,后者=最新
+    for (const r of deRows) deBy.set(r.project_id, r); // id 升序遍历,后者=id 最大=最新(与写入口径一致)
 
     const roleRows = await this.db('assignments_view as av')
       .join('roles as r', 'av.role_id', 'r.id')
@@ -837,7 +837,7 @@ export class ProjectsController extends BaseController {
       // 设计粗估分量落最新记录(D3): 有分量入参时写
       if (seEst !== undefined || mdeEst !== undefined) {
         const latest = await this.db('project_design_estimations')
-          .where({ project_id: id }).orderBy('created_at').orderBy('id').first();
+          .where({ project_id: id }).orderBy('id', 'desc').first(); // id 最大=最新(与读取口径一致)
         const nextSe = seEst !== undefined ? (Number(seEst) || null) : undefined;
         const nextMde = mdeEst !== undefined ? (Number(mdeEst) || null) : undefined;
         if (latest) {
@@ -859,7 +859,7 @@ export class ProjectsController extends BaseController {
       // 代码规模/人月覆盖: 映射到最新 LOC 评估记录(无则创建仅含该值的记录)
       if (klocIn !== undefined || pmOverride !== undefined) {
         const latest = await this.db('project_estimations')
-          .where({ project_id: id }).orderBy('created_at').orderBy('id').first();
+          .where({ project_id: id }).orderBy('id', 'desc').first(); // id 最大 = 最新(与读取口径一致)
         const patch: Record<string, any> = { updated_at: this.db.fn.now() };
         if (klocIn !== undefined) patch.estimated_loc = (Number(klocIn) || 0) * 1000;
         if (pmOverride !== undefined) patch.estimated_pm = Number(pmOverride) || null;

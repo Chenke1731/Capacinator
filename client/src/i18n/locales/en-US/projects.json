@@ -330,7 +330,9 @@
       "ITER_RHYTHM_MISMATCH": "Iteration quarter ≠ release plan (RP)",
       "ITER_OVER_DEADLINE": "Iteration window ends after the deadline",
       "ITER_ENDED_UNDONE": "Iteration ended but item undelivered",
-      "DEV_NO_MDE": "Primary dev assigned but no MDE pairing"
+      "DEV_NO_MDE": "Primary dev assigned but no MDE pairing",
+      "ASSIGN_AFTER_DELIVERY": "Primary dev window ends after the iteration window",
+      "SE_WONT_MAKE_IT": "SE effort exceeds available capacity before iteration start"
     },
     "warningShort": {
       "NO_DEV_DEMAND": "no pool",
@@ -343,7 +345,9 @@
       "ITER_RHYTHM_MISMATCH": "Rhythm",
       "ITER_OVER_DEADLINE": "Overdue",
       "ITER_ENDED_UNDONE": "Stale iter",
-      "DEV_NO_MDE": "No MDE"
+      "DEV_NO_MDE": "No MDE",
+      "ASSIGN_AFTER_DELIVERY": "Late staffing",
+      "SE_WONT_MAKE_IT": "SE too late"
     },
     "numberLabel": "Number",
     "advanceHint": "Advance to {{to}}"

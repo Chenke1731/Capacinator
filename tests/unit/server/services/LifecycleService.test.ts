@@ -117,6 +117,18 @@ describe('LifecycleService (in-memory SQLite)', () => {
     expect(await service.computeWarnings('p1')).not.toContain('NO_ITERATION_NUMBER');
   });
 
+  test('ASSIGN_AFTER_DELIVERY + SE_WONT_MAKE_IT (B5 遗留, 2026-09-23)', async () => {
+    await seedProject('p1', 'in_iteration');
+    // 主投入窗口末 12-15 > 迭代末 11-30
+    await service.computeWarningsForProjects([{ id: 'p1', lifecycle_state: 'in_iteration', iter_start_date: '2026-11-01', iter_end_date: '2026-11-30', primary_dev_name: '张前端', primary_dev_end: '2026-12-15', mde_person_name: '赵设计' }]).then((m) => {
+      expect(m.get('p1')).toContain('ASSIGN_AFTER_DELIVERY');
+    });
+    // SE 0.5 人月, 开工倒计时 3 工作日(≈0.07 月) → 赶不上
+    await service.computeWarningsForProjects([{ id: 'p1', lifecycle_state: 'designing', iter_start_date: new Date(Date.now() + 3 * 86400000).toISOString().slice(0, 10), iter_end_date: null, se_estimate_pm: 0.5, se_pct: null }]).then((m) => {
+      expect(m.get('p1')).toContain('SE_WONT_MAKE_IT');
+    });
+  });
+
   test('non-iteration states never warn NO_ITERATION_NUMBER', async () => {
     await seedProject('p1', 'backlog');
     expect(await service.computeWarnings('p1')).not.toContain('NO_ITERATION_NUMBER');

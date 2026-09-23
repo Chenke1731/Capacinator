@@ -277,7 +277,10 @@ export class ProjectsController extends BaseController {
       p.iter_start_date = it?.iter_start ?? null;
       p.iter_end_date = it?.iter_end ?? null;
       p.primary_dev_name = pr?.person_name ?? null;
+      p.primary_dev_end = pr?.end_date ?? null;
       p.mde_person_name = mdeBy.get(p.id)?.person_name ?? null;
+      p.se_estimate_pm = de?.se_estimate_pm ?? null;
+      p.se_pct = seBy.get(p.id)?.allocation_pct ?? null;
       p.primary_dev = pr
         ? { id: pr.spa_id, person_name: pr.person_name, role_name: pr.role_name,
             allocation_pct: Number(pr.allocation_percentage ?? 0),

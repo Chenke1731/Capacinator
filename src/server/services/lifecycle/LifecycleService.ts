@@ -357,6 +357,8 @@ export class LifecycleService {
    *  - ITER_OVER_DEADLINE iteration window end > design deadline (B5)
    *  - ITER_ENDED_UNDONE iteration window past, item undelivered (B5)
    *  - DEV_NO_MDE primary dev assigned but no MDE pairing (B5)
+   *  - ASSIGN_AFTER_DELIVERY primary dev window ends after iteration (B5 遗留)
+   *  - SE_WONT_MAKE_IT SE estimate exceeds capacity before iteration start (B5 遗留)
    *  - NO_ITERATION_NUMBER in_iteration without an external number — the
    *                      item entered iteration but its SR/AR number was
    *                      never filled (2026-09-22 混排裁决: 告警盯编号非空,
@@ -472,6 +474,17 @@ export class LifecycleService {
     // ── 迭代域告警(B5,设计 §8;迭代窗口由控制器 join 到行上,无则跳过) ──
     const iterStart = project.iter_start_date ?? null;
     const iterEnd = project.iter_end_date ?? null;
+    // SE 赶不上只需要开工日(迭代可能尚未结束/单边数据)
+    if (iterStart && project.se_estimate_pm != null) {
+      const daysLeft = Math.round((new Date(iterStart + 'T00:00:00').getTime() - Date.now()) / 86400000);
+      if (daysLeft > 0) {
+        const monthsLeft = Math.max(Math.round(((Math.min(daysLeft, 62) / 7 * 5) / 21.75) * 100) / 100, 0.05);
+        const capacityPm = project.se_pct != null ? project.se_pct / 100 : 1;
+        if (Number(project.se_estimate_pm) > monthsLeft * capacityPm) {
+          warnings.push('SE_WONT_MAKE_IT');
+        }
+      }
+    }
     if (iterStart && iterEnd) {
       // 节奏不符: 迭代派生季度 ≠ 手填 RP(26.RP4 式)
       const d = new Date(iterStart + 'T00:00:00');
@@ -487,6 +500,11 @@ export class LifecycleService {
       // 无结对: 有开发主投入但无 MDE 分配(新开发交付风险,评审团一号)
       if (project.primary_dev_name && !project.mde_person_name && state !== 'delivered' && state !== 'cancelled') {
         warnings.push('DEV_NO_MDE');
+      }
+      // 投入晚于交付: 主投入窗口末晚于迭代窗口末(设计 §8)
+      if (project.primary_dev_end && iterEnd && String(project.primary_dev_end).slice(0, 10) > iterEnd
+          && state !== 'delivered' && state !== 'cancelled') {
+        warnings.push('ASSIGN_AFTER_DELIVERY');
       }
     }
     return warnings;

@@ -328,7 +328,9 @@
       "ITER_RHYTHM_MISMATCH": "迭代季度与交付计划(RP)不一致——节奏错位，请对齐",
       "ITER_OVER_DEADLINE": "迭代窗口末晚于死线——逾期风险",
       "ITER_ENDED_UNDONE": "迭代窗口已结束但事项未交付——需要转移或收尾",
-      "DEV_NO_MDE": "有开发主投入但无 MDE 结对——新开发交付风险"
+      "DEV_NO_MDE": "有开发主投入但无 MDE 结对——新开发交付风险",
+      "ASSIGN_AFTER_DELIVERY": "主投入窗口晚于迭代窗口末——投入与交付承诺打架，请对齐",
+      "SE_WONT_MAKE_IT": "SE 分析工作量超出迭代开工前的可用产能——赶不上目标迭代"
     },
     "warningShort": {
       "NO_DEV_DEMAND": "缺池",
@@ -341,7 +343,9 @@
       "ITER_RHYTHM_MISMATCH": "节奏不符",
       "ITER_OVER_DEADLINE": "逾期风险",
       "ITER_ENDED_UNDONE": "迭代未清",
-      "DEV_NO_MDE": "无结对"
+      "DEV_NO_MDE": "无结对",
+      "ASSIGN_AFTER_DELIVERY": "投入晚于交付",
+      "SE_WONT_MAKE_IT": "SE赶不上"
     },
     "numberLabel": "编号",
     "advanceHint": "一键推进到：{{to}}"

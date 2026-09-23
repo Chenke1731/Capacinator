@@ -1019,7 +1019,7 @@ input[type="checkbox"].settings-checkbox,
 
 .lifecycle-state-badge {
   font-size: 13px;
-  font-weight: 600;
+  font-weight: 500;
   padding: 3px 10px;
   border-radius: 3px;
   background: var(--bg-secondary, rgba(127,127,127,0.15));
@@ -1042,7 +1042,7 @@ input[type="checkbox"].settings-checkbox,
 }
 .lifecycle-deadline--overdue {
   color: var(--danger-color, #dc2626);
-  font-weight: 600;
+  font-weight: 500;
 }
 
 /* 引用码: 详情标题旁弱化 mono chip;点击复制(全局 button 44px 规则需显式压缩) */
@@ -1187,7 +1187,7 @@ input[type="checkbox"].settings-checkbox,
 }
 .lifecycle-step--current .lifecycle-step-label {
   color: var(--text-primary);
-  font-weight: 600;
+  font-weight: 500;
 }
 
 .lifecycle-step-arrow {
@@ -1240,7 +1240,7 @@ input[type="checkbox"].settings-checkbox,
 }
 .lifecycle-expand-title {
   font-size: 13px;
-  font-weight: 600;
+  font-weight: 500;
   color: var(--text-primary);
 }
 .lifecycle-expand-form {
@@ -1552,7 +1552,7 @@ input[type="checkbox"].settings-checkbox,
   align-items: center;
   padding: 3px 8px 3px 10px;
   font-size: 13px;
-  font-weight: 600;
+  font-weight: 500;
   font-family: inherit;
 }
 
@@ -1800,7 +1800,7 @@ input[type="checkbox"].settings-checkbox,
   font-size: 12.5px;
 }
 .lifecycle-warning-strip svg { align-self: center; }
-.lifecycle-warning-title { font-weight: 600; white-space: nowrap; }
+.lifecycle-warning-title { font-weight: 500; white-space: nowrap; }
 .lifecycle-warning-items { color: var(--text-secondary); }
 
 /* ============================================================
@@ -2049,7 +2049,7 @@ body.req-col-dragging * {
 .requirements-name { overflow: hidden; }
 .requirements-name-text {
   font-size: var(--b-fs-name);
-  font-weight: 600;
+  font-weight: 500;
   white-space: nowrap;
   /* 名称是扫读首轴: flex 弹性但保底 5 字(70px);色点标签也是弹性——两者
      各让一步,不再把标签顶出格(2026-09-23 色点溢出修复) */
@@ -2094,7 +2094,7 @@ body.req-col-dragging * {
   width: 18px; height: 18px;
   border-radius: 50%;
   display: inline-flex; align-items: center; justify-content: center;
-  font-size: 10px; font-weight: 600; line-height: 1;
+  font-size: 10px; font-weight: 500; line-height: 1;
 }
 
 .req-pencil {
@@ -2143,7 +2143,7 @@ body.req-col-dragging * {
 }
 .req-tag--filter:hover { box-shadow: 0 0 0 1px currentColor; }
 /* 正在按此标签过滤: 常驻描边标记筛选态,再点取消 */
-.req-tag--filtering { box-shadow: 0 0 0 1.5px currentColor; font-weight: 600; }
+.req-tag--filtering { box-shadow: 0 0 0 1.5px currentColor; font-weight: 500; }
 .req-tag--add {
   border: 1px dashed var(--border-color);
   background: none;
@@ -2206,7 +2206,7 @@ body.req-col-dragging * {
 }
 .req-sr-toggle:hover { background: rgba(127, 127, 127, 0.12); color: var(--text-primary); }
 .projects-board .req-sr-toggle { min-height: 24px; min-width: 24px; }
-.requirements-row--sr .requirements-name-text { font-weight: 600; }
+.requirements-row--sr .requirements-name-text { font-weight: 500; }
 /* P14: 只读汇总件不显示可点手型(行点击=详情仍有效,但光标不再误导) */
 .requirements-row .req-state-dist,
 .requirements-row--sr .req-sr-note {
@@ -2279,7 +2279,7 @@ body.req-col-dragging * {
   min-width: 0;
   white-space: nowrap;
 }
-.req-scale-kloc { color: var(--text-primary); font-weight: 600; }
+.req-scale-kloc { color: var(--text-primary); font-weight: 500; }
 .req-scale-pm { color: var(--text-secondary); font-size: var(--b-fs-meta); }
 .req-scale--empty { color: var(--text-tertiary, var(--text-secondary)); font-weight: 400; font-family: inherit; }
 
@@ -2429,7 +2429,7 @@ body.req-col-dragging * {
 /* 优先级: 纯文字着色,等宽数字(按钮化,命中 24px 档) */
 .req-pri {
   font-size: var(--b-fs-body);
-  font-weight: 600;
+  font-weight: 500;
   font-variant-numeric: tabular-nums;
   text-align: center;
 }
@@ -2457,7 +2457,7 @@ body.req-col-dragging * {
   border-radius: var(--b-r-sm);
   color: var(--text-secondary);
   font-size: var(--b-fs-meta);
-  font-weight: 600;
+  font-weight: 500;
   cursor: pointer;
 }
 .projects-board .req-icon-btn:hover { background: var(--bg-secondary, rgba(127, 127, 127, 0.14)); color: var(--text-primary); }
@@ -2499,7 +2499,7 @@ body.req-col-dragging * {
   padding: 0 6px;
   justify-content: center;
   font-size: var(--b-fs-body);
-  font-weight: 600;
+  font-weight: 500;
   color: var(--accent-color, #3b82f6);
   border-radius: var(--b-r-pill);
   background: rgba(59, 130, 246, 0.10);
@@ -2512,7 +2512,7 @@ body.req-col-dragging * {
   padding: 3px 10px;
   justify-content: center;
   font-size: var(--b-fs-body);
-  font-weight: 600;
+  font-weight: 500;
   border-radius: var(--b-r-pill);
   flex: none;
 }
@@ -2527,7 +2527,7 @@ body.req-col-dragging * {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.lifecycle-deadline--inline.lifecycle-deadline--overdue { color: #f59e0b; font-weight: 600; }
+.lifecycle-deadline--inline.lifecycle-deadline--overdue { color: #f59e0b; font-weight: 500; }
 .projects-board .lifecycle-warn-chip {
   border: none;
   background: none; /* 2026-09-23 名称格降噪: 去底色块,琥珀文字+前缀点 */

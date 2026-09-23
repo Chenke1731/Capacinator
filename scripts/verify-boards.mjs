@@ -146,17 +146,17 @@ check('新列集(代码规模/人力/SE/MDE/实名投入)',
   // ── 排版矩阵守卫(2026-09-23): 逐元素断言 (字号,字重,字族) 组合在契约白名单内 ──
   // 白名单外 = FAIL,报告元素类名——纸面契约从此可执行
   const typoMatrix = await page.evaluate(() => {
+    /* 二字重终态(2026-09-23 用户"w600 太高"裁决): 400=正文,500=一切强调;
+       w600 全灭——与 ONES 对齐(显式字重仅 400+9%,无 600) */
     const CONTRACT = [
-      { fs: 14, fw: 600, ff: 'sans', role: '名称' },
-      { fs: 14, fw: 500, ff: 'sans', role: '主按钮' },
+      { fs: 14, fw: 500, ff: 'sans', role: '名称/主按钮' },
       { fs: 12.5, fw: 400, ff: 'sans', role: '值/正文' },
       { fs: 12.5, fw: 400, ff: 'mono', role: '码值' },
-      { fs: 12.5, fw: 500, ff: 'sans', role: '表头' },
-      { fs: 12.5, fw: 600, ff: 'sans', role: '徽章' },
+      { fs: 12.5, fw: 500, ff: 'sans', role: '表头/徽章/结构' },
       { fs: 11, fw: 400, ff: 'sans', role: '注记' },
       { fs: 11, fw: 400, ff: 'mono', role: '迭代窗口' },
-      { fs: 10, fw: 600, ff: 'sans', role: '头像' },
-      { fs: 11, fw: 600, ff: 'sans', role: '操作图标' },
+      { fs: 11, fw: 500, ff: 'sans', role: '操作图标' },
+      { fs: 10, fw: 500, ff: 'sans', role: '头像' },
     ];
     const bad = [];
     document.querySelectorAll('.projects-board span, .projects-board button').forEach((e) => {

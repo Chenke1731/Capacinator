@@ -143,6 +143,41 @@ check('新列集(代码规模/人力/SE/MDE/实名投入)',
   });
   check(`字号 ≤3 档 (${metrics.sizes})`, metrics.sizes <= 3);
   check(`无 11px 以下文字 (min=${metrics.minFont})`, metrics.minFont >= 11);
+  // ── 排版矩阵守卫(2026-09-23): 逐元素断言 (字号,字重,字族) 组合在契约白名单内 ──
+  // 白名单外 = FAIL,报告元素类名——纸面契约从此可执行
+  const typoMatrix = await page.evaluate(() => {
+    const CONTRACT = [
+      { fs: 14, fw: 600, ff: 'sans', role: '名称' },
+      { fs: 14, fw: 500, ff: 'sans', role: '主按钮' },
+      { fs: 12.5, fw: 400, ff: 'sans', role: '值/正文' },
+      { fs: 12.5, fw: 400, ff: 'mono', role: '码值' },
+      { fs: 12.5, fw: 500, ff: 'sans', role: '表头' },
+      { fs: 12.5, fw: 600, ff: 'sans', role: '徽章' },
+      { fs: 11, fw: 400, ff: 'sans', role: '注记' },
+      { fs: 11, fw: 400, ff: 'mono', role: '迭代窗口' },
+      { fs: 10, fw: 600, ff: 'sans', role: '头像' },
+      { fs: 11, fw: 600, ff: 'sans', role: '操作图标' },
+    ];
+    const bad = [];
+    document.querySelectorAll('.projects-board span, .projects-board button').forEach((e) => {
+      const txt = (e.textContent || '').trim();
+      if (!txt && !e.matches('button')) return;
+      const rc = e.getBoundingClientRect();
+      if (!rc.width || !rc.height) return;
+      const c = getComputedStyle(e);
+      if (c.display === 'none' || c.visibility === 'hidden') return;
+      const fs = parseFloat(c.fontSize);
+      const fw = parseInt(c.fontWeight);
+      const isMono = c.fontFamily.includes('mono');
+      const hit = CONTRACT.some(k => k.fs === fs && k.fw === fw && (k.ff === 'mono') === isMono);
+      if (!hit) {
+        const cls = String(e.className).split(' ')[0].slice(0, 20) || e.tagName;
+        bad.push(`${cls}«${txt.slice(0, 8)}» ${fs}px/w${fw}${isMono ? '/M' : ''}`);
+      }
+    });
+    return bad;
+  });
+  check(`排版矩阵零偏差 (${typoMatrix.length} 违例)`, typoMatrix.length === 0, typoMatrix.slice(0, 3).join(', '));
   // 色彩纪律(2026-09-23 借鉴裁决 B): 每行饱和底色元素 ≤5,防"满行皆重点=无重点"
   const colorMax = await page.evaluate(() => {
     const sat = (e) => {

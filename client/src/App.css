@@ -1442,6 +1442,7 @@ input[type="checkbox"].settings-checkbox,
 .req-release-iter {
   font-family: var(--font-mono, monospace);
   font-size: var(--b-fs-meta);
+  font-weight: 400; /* button 全局默认 w500,正文码值显式归 400 */
   color: var(--text-secondary);
   background: none; border: none; padding: 0 2px; text-align: left;
   cursor: pointer; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
@@ -2059,6 +2060,7 @@ body.req-col-dragging * {
 }
 .req-tag {
   font-size: var(--b-fs-meta);
+  font-weight: 400; /* button 全局默认 w500,标签正文归 400 */
   padding: 0;
   border-radius: 0;
   display: inline-flex;

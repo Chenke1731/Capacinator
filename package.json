@@ -70,6 +70,8 @@
     "lint": "eslint src client/src shared --ext .ts,.tsx",
     "lint:ui": "node scripts/lint-ui-css.mjs",
     "typecheck": "tsc --noEmit",
+    "typecheck:client": "tsc --noEmit -p tsconfig.client.json",
+    "typecheck:client:budget": "node scripts/client-typecheck-budget.mjs",
     "typecheck:shared": "cd shared && tsc --noEmit",
     "next-issue": "npx tsx scripts/get-next-issue.ts",
     "db:init": "tsx src/server/database/init.ts",
@@ -154,7 +156,7 @@
   "build": {
     "appId": "com.capacinator.app",
     "productName": "Capacinator",
-    "copyright": "Copyright © 2024 Capacinator",
+    "copyright": "Copyright \u00a9 2024 Capacinator",
     "directories": {
       "output": "dist-electron",
       "buildResources": "build"

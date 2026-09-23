@@ -71,6 +71,32 @@ export function PriorityCell({ project, onSaved }: { project: any; onSaved: () =
   );
 }
 
+/** 人员头像(2026-09-23 借鉴裁决 A): 首字圆标,色相按名字哈希稳定落
+ *  Okabe-Ito(≤8 色有界,单团队无碰撞);底色淡染与标签 chip 同语言,
+ *  配合色彩纪律(裁决 B)不新增饱和噪音。 */
+const OKABE_ITO = ['#E69F00', '#56B4E9', '#009E73', '#F0E442', '#0072B2', '#D55E00', '#CC79A7', '#999999'];
+const personColor = (name: string): string => {
+  let h = 5381;
+  for (const ch of name) h = ((h * 31) + (ch.codePointAt(0) ?? 0)) >>> 0;
+  return OKABE_ITO[h % OKABE_ITO.length];
+};
+export function Avatar({ name }: { name: string }) {
+  const c = personColor(name);
+  const ratio = tagInkRatio(c);
+  return (
+    <span
+      className="req-avatar"
+      aria-hidden
+      style={{
+        color: `color-mix(in srgb, ${c} ${Math.round(ratio * 100)}%, var(--tag-ink))`,
+        background: `${c}1f`
+      }}
+    >
+      {name.slice(0, 1)}
+    </span>
+  );
+}
+
 export function OwnerCell({ project, onSaved }: { project: any; onSaved: () => void }) {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
@@ -117,7 +143,14 @@ export function OwnerCell({ project, onSaved }: { project: any; onSaved: () => v
         title={t('projects:ownerSelect.hint')}
         onClick={pop.toggle}
       >
-        {project.owner_name || t('projects:ownerSelect.none')}
+        {project.owner_name ? (
+          <>
+            <Avatar name={project.owner_name} />
+            <span>{project.owner_name}</span>
+          </>
+        ) : (
+          t('projects:ownerSelect.none')
+        )}
       </button>
       <Pencil size={10} className="req-pencil" aria-hidden />
       {pop.open && (
@@ -148,8 +181,8 @@ export function OwnerCell({ project, onSaved }: { project: any; onSaved: () => v
                   className={`cell-pop-item ${active ? 'cell-pop-item--active' : ''}`}
                   onClick={() => choose(p.id)}
                 >
+                  <Avatar name={p.name} />
                   <span className="cell-pop-item-label">{p.name}</span>
-                  {p.primary_role_name && <span className="cell-pop-item-meta">{p.primary_role_name}</span>}
                   {active && <Check size={13} className="cell-pop-check" />}
                 </button>
               );
@@ -256,7 +289,7 @@ export function TagsCell({
           type="button"
           className={`req-tag req-tag--filter ${String(activeTagId) === String(tag.id) ? 'req-tag--filtering' : ''}`}
           title={t('projects:tagSelect.filterHint')}
-          style={{ color: `color-mix(in srgb, ${tag.color || '#888888'} ${Math.round(tagInkRatio(tag.color) * 100)}%, var(--tag-ink))`, background: `${tag.color || '#888888'}2b` }}
+          style={{ color: `color-mix(in srgb, ${tag.color || '#888888'} ${Math.round(tagInkRatio(tag.color) * 100)}%, var(--tag-ink))`, background: `${tag.color || '#888888'}1f` }}
           onClick={(e) => { e.stopPropagation(); onFilterByTag(tag.id); }}
         >
           {tag.name}

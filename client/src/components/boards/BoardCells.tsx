@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Avatar } from './EditableCells';
 import { Pencil } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
@@ -208,6 +209,7 @@ export function RoleCell({
               onClick={() => { setPmDraft(pm != null ? String(pm) : ''); setQ(''); pop.toggle(); }}>
         {person ? (
           <>
+            <Avatar name={person.person_name} />
             <span className="req-role-person">{person.person_name}</span>
             {pm != null && <span className="req-role-pm">{pm}</span>}
           </>
@@ -382,6 +384,7 @@ export function PrimaryDevCell({ primary, project, onSaved }: {
               onClick={() => { setQ(''); pop.toggle(); }}>
         {primary ? (
           <>
+            <Avatar name={primary.person_name} />
             <span className="req-primary-person">{primary.person_name}</span>
             {primary.start_date && (
               <span className="req-primary-window">

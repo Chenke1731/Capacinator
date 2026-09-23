@@ -143,6 +143,22 @@ check('新列集(代码规模/人力/SE/MDE/实名投入)',
   });
   check(`字号 ≤3 档 (${metrics.sizes})`, metrics.sizes <= 3);
   check(`无 11px 以下文字 (min=${metrics.minFont})`, metrics.minFont >= 11);
+  // 色彩纪律(2026-09-23 借鉴裁决 B): 每行饱和底色元素 ≤5,防"满行皆重点=无重点"
+  const colorMax = await page.evaluate(() => {
+    const sat = (e) => {
+      const bg = getComputedStyle(e).backgroundColor;
+      const m = bg.match(/[\d.]+/g);
+      if (!m || m[3] === '0') return false;
+      return Math.max(+m[0], +m[1], +m[2]) - Math.min(+m[0], +m[1], +m[2]) > 12;
+    };
+    let worst = 0;
+    document.querySelectorAll('.requirements-row').forEach((r) => {
+      // 头像(身份标识)不计入——纪律管的是状态信号泛滥,身份色同 Jira 头像
+      worst = Math.max(worst, [...r.querySelectorAll('*')].filter((e) => !String(e.className).includes('req-avatar') && e.getBoundingClientRect().width > 0 && sat(e)).length);
+    });
+    return worst;
+  });
+  check(`行内彩色元素纪律 ≤5/行 (max=${colorMax})`, colorMax <= 5);
   check(`行高恒 40 (${metrics.rowH})`, metrics.rowH.length === 1 && metrics.rowH[0] === 40);
 }
 

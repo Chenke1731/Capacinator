@@ -1026,14 +1026,14 @@ input[type="checkbox"].settings-checkbox,
   color: var(--text-primary);
   white-space: nowrap;
 }
-.lifecycle-state-badge--designing { background: rgba(59,130,246,0.18); color: #93c5fc; } /* 深色提亮;浅色在 2405 行压深 */
-.lifecycle-state-badge--pending_rat { background: rgba(107,114,128,0.18); color: var(--text-secondary); }
-.lifecycle-state-badge--nok { background: rgba(245,158,11,0.18); color: #f59e0b; }
-.lifecycle-state-badge--backlog { background: rgba(156,163,175,0.18); color: #9ca3af; }
-.lifecycle-state-badge--scheduled { background: rgba(99,102,241,0.18); color: #6366f1; }
-.lifecycle-state-badge--in_iteration { background: rgba(34,197,94,0.18); color: #22c55e; }
-.lifecycle-state-badge--delivered { background: rgba(20,184,166,0.18); color: #14b8a6; }
-.lifecycle-state-badge--cancelled { background: rgba(220,38,38,0.18); color: #ef4444; }
+.lifecycle-state-badge--designing { background: rgba(59,130,246,0.13); color: #93c5fc; } /* 深色提亮;浅色在 2405 行压深 */
+.lifecycle-state-badge--pending_rat { background: rgba(107,114,128,0.13); color: var(--text-secondary); }
+.lifecycle-state-badge--nok { background: rgba(245,158,11,0.13); color: #f59e0b; }
+.lifecycle-state-badge--backlog { background: rgba(156,163,175,0.13); color: #9ca3af; }
+.lifecycle-state-badge--scheduled { background: rgba(99,102,241,0.13); color: #6366f1; }
+.lifecycle-state-badge--in_iteration { background: rgba(34,197,94,0.13); color: #22c55e; }
+.lifecycle-state-badge--delivered { background: rgba(20,184,166,0.13); color: #14b8a6; }
+.lifecycle-state-badge--cancelled { background: rgba(220,38,38,0.13); color: #ef4444; }
 
 .lifecycle-deadline {
   font-size: 12px;
@@ -2069,6 +2069,15 @@ body.req-col-dragging * {
 /* 行内编辑可供性: cell 包裹层悬停淡底 + 角落铅笔; 呈现态保持只读密度 */
 .req-edit-cell { position: relative; display: inline-flex; align-items: center; min-width: 0; }
 .req-edit-cell:hover { background: rgba(127, 127, 127, 0.08); border-radius: var(--b-r-sm); }
+/* 人员头像(2026-09-23 借鉴 A): 首字圆标,与标签 chip 同语言(12% 淡染+墨向混色) */
+.req-avatar {
+  flex: none;
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 10px; font-weight: 600; line-height: 1;
+}
+
 .req-pencil {
   display: none;
   position: absolute;
@@ -2142,6 +2151,9 @@ body.req-col-dragging * {
 
 /* 负责人列(按钮化): 命中 24px 档,未指派弱化 */
 .requirements-owner-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
   font-size: var(--b-fs-body);
   color: var(--text-primary);
   padding: 3px 8px;
@@ -2182,7 +2194,7 @@ body.req-col-dragging * {
   flex: 0 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
   font-size: var(--b-fs-meta);
   color: #1d4ed8; /* 深蓝: 11px 小字要过 AA,浅底上主蓝 #3b82f6 只有 ~3.9:1 */
-  background: rgba(59, 130, 246, 0.1);
+  background: rgba(59, 130, 246, 0.08);
   border-radius: var(--b-r-pill);
   /* P11: 与 req-tag/warn-chip 同一 chip 高度档(1px 纵向内边距,弃 line-height 定高) */
   padding: 1px 7px;
@@ -2602,7 +2614,7 @@ body.req-col-dragging * {
 [data-theme='light'] .projects-board .lifecycle-state-badge--in_iteration { color: #166534; }
 [data-theme='light'] .projects-board .lifecycle-state-badge--delivered { color: #0f766e; }
 [data-theme='light'] .projects-board .lifecycle-state-badge--cancelled { color: #b91c1c; }
-[data-theme='light'] .projects-board .lifecycle-warn-chip { background: rgba(245, 158, 11, 0.16); color: #92400e; }
+[data-theme='light'] .projects-board .lifecycle-warn-chip { background: rgba(245, 158, 11, 0.11); color: #92400e; }
 [data-theme='light'] .projects-board .lifecycle-deadline--inline.lifecycle-deadline--overdue { color: #b45309; }
 [data-theme='light'] .projects-board .lifecycle-quick-btn { color: #1d4ed8; background: rgba(59, 130, 246, 0.10); }
 [data-theme='light'] .projects-board .lifecycle-quick-btn:hover { background: rgba(59, 130, 246, 0.18); }

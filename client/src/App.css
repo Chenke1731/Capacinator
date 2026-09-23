@@ -1482,7 +1482,15 @@ input[type="checkbox"].settings-checkbox,
   text-overflow: ellipsis;
   max-width: 100%;
 }
-.req-primary-person, .req-primary-window, .req-role-person, .req-role-pm { flex: none; }
+/* 人员名保全;时间窗口段允许收缩省略——flex:none 会让内容直溢出按钮盒
+   搭到操作列(2026-09-23 接手验收: verify:site 碰撞×2 的真溢出项) */
+.req-primary-person, .req-role-person, .req-role-pm { flex: none; }
+.req-primary-window {
+  flex: 0 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 .projects-board button.req-role {
   display: inline-flex;
   align-items: baseline;
@@ -2119,7 +2127,7 @@ body.req-col-dragging * {
 .req-tag--add:hover { color: var(--text-secondary); border-color: var(--border-color-hover, var(--border-color)); }
 /* 内联组铅笔是编辑入口本体(chip 已被过滤占用),hover 组时可见可点 */
 .req-tags-inline > .req-pencil--act {
-  display: inline-flex;
+  display: none; /* 与 .req-pencil 同词汇: display 切换,opacity:0 常驻会占矩形触发无裁剪感知守卫的假碰撞 */
   position: static;
   pointer-events: auto;
   cursor: pointer;
@@ -2127,9 +2135,8 @@ body.req-col-dragging * {
   border: none;
   padding: 2px;
   color: var(--text-tertiary, var(--text-secondary));
-  opacity: 0;
 }
-.req-tags-inline:hover > .req-pencil--act { opacity: 1; }
+.req-tags-inline:hover > .req-pencil--act { display: inline-flex; }
 .req-tags-inline > .req-pencil--act:hover { color: var(--text-primary); }
 .cell-pop-empty-trigger { font-size: var(--b-fs-meta); color: var(--text-secondary); }
 

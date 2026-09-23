@@ -2111,11 +2111,25 @@ body.req-col-dragging * {
   width: max-content;
   max-width: 240px;
 }
-/* 值按钮撑满整格: 点格子任意处都能进编辑(点击区域=格,不只值文字) */
-.requirements-version-part,
+/* 值按钮撑满整格 + 热区外延(2026-09-23 方案A): 透明热区向两侧各延伸
+   8px 覆盖列间隙大部分(间隙 20px 中吃 16px,剩 4px 缓冲给相邻列);
+   视觉零变化——高亮背景仍限格宽。注: 类名是 projects- 前缀(首版误写
+   requirements- 致规则落空,实测 content:none 抓出) */
+.projects-version-part,
 .req-number-part {
   width: 100%;
   justify-content: flex-start;
+  position: relative;
+}
+.projects-version-part::before,
+.req-number-part::before {
+  content: '';
+  position: absolute;
+  left: -8px;
+  right: -8px;
+  top: 0;
+  bottom: 0;
+  /* 透明热区: 只扩点击,不扩视觉 */
 }
 
 /* 纯提示铅笔已删(2026-09-23 用户裁决: 点击即知可编辑,预告无价值);req-pencil--act(标签入口按钮)样式保留 */

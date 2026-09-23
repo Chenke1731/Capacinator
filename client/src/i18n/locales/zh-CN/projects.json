@@ -313,7 +313,7 @@
       "terminal": "终态,无后续流转",
       "transitionFailed": "流转失败"
     },
-    "selectorTitle": "切换状态(不受流程限制)",
+    "selectorTitle": "切换状态",
     "currentLabel": "当前",
     "jumpFailed": "切换失败",
     "warningDot": "存在状态告警",

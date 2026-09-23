@@ -315,7 +315,7 @@
       "terminal": "Terminal state",
       "transitionFailed": "Transition failed"
     },
-    "selectorTitle": "Switch state (flow-free)",
+    "selectorTitle": "Switch state",
     "currentLabel": "current",
     "jumpFailed": "Switch failed",
     "warningDot": "Lifecycle warnings present",

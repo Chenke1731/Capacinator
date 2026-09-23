@@ -2109,19 +2109,20 @@ body.req-col-dragging * {
 }
 
 /* 规模/人月格: 编辑词汇与其他格一致(可点+hover 淡底+就地输入) */
-.req-kloc-input, .req-effort-input { width: 56px; text-align: left; }
 .req-kloc.req-editable, .req-effort.req-editable {
   background: none; border: none; padding: 1px 4px;
   cursor: pointer; text-align: left;
 }
 .req-kloc.req-editable:hover, .req-effort.req-editable:hover { background: rgba(127, 127, 127, 0.1); }
 
-/* 就地输入框(2026-09-23 用户裁决"编辑框要长、完整、点击区域大"):
-   至少撑满列宽,内容更长时自适应展开(不囚于列宽),完整可见 */
-.inline-edit-input--expand {
-  min-width: 100%;
-  width: max-content;
-  max-width: 240px;
+/* 所有就地输入框(2026-09-23 用户裁决"自适应宽度,不逐类限制"):
+   下限=格子宽,宽度=内容实际需要(field-sizing:content),上限=280 防极端 */
+.inline-edit-input {
+  /* 宽度由 React style={{width:Nch}} 驱动——内容长就宽,短就窄 */
+  min-width: 48px;
+  max-width: 320px;
+  z-index: 10;
+  position: relative;
 }
 /* 值按钮撑满整格 + 热区外延(2026-09-23 方案A): 透明热区向两侧各延伸
    8px 覆盖列间隙大部分(间隙 20px 中吃 16px,剩 4px 缓冲给相邻列);

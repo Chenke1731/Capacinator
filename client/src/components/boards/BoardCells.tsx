@@ -49,9 +49,10 @@ export function KlocCell({ project, kloc, onSaved }: { project: any; kloc: numbe
       <input
         className="inline-edit-input req-kloc-input"
         value={draft}
+        style={{ width: `${Math.max(4, draft.length + 2)}ch` }}
         autoFocus
         placeholder={t('projects:scale.editPlaceholder')}
-        onChange={(e) => setDraft(e.target.value)}
+        onChange={(e) => { setDraft(e.target.value); e.target.size = Math.max(2, e.target.value.length + 1); }}
         onBlur={() => {
           const n = parseFloat(draft);
           if (!Number.isNaN(n) && n !== kloc) mutation.mutate(n);
@@ -93,9 +94,10 @@ export function EffortCell({ project, pm, overridden, onSaved }: { project: any;
       <input
         className="inline-edit-input req-effort-input"
         value={draft}
+        style={{ width: `${Math.max(4, draft.length + 2)}ch` }}
         autoFocus
         placeholder={t('projects:effort.editPlaceholder')}
-        onChange={(e) => setDraft(e.target.value)}
+        onChange={(e) => { setDraft(e.target.value); e.target.size = Math.max(2, e.target.value.length + 1); }}
         onBlur={() => {
           const n = parseFloat(draft);
           if (!Number.isNaN(n) && n !== pm) mutation.mutate(n);
@@ -141,9 +143,10 @@ export function VersionPart({ project, field, placeholder, hint, onSaved }: {
       <input
         className="inline-edit-input inline-edit-input--expand"
         value={draft}
+        style={{ width: `${Math.max(4, draft.length + 2)}ch` }}
         autoFocus
         placeholder={placeholder}
-        onChange={(e) => setDraft(e.target.value)}
+        onChange={(e) => { setDraft(e.target.value); e.target.size = Math.max(2, e.target.value.length + 1); }}
         onBlur={() => {
           const trimmed = draft.trim();
           if (trimmed !== value) updateMutation.mutate({ [field]: trimmed || null });

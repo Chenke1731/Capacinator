@@ -104,7 +104,7 @@ export function LifecycleCellControls({ project }: { project: any }) {
     const el = popRef.current;
     if (!rect || !el) return;
 
-    const width = 270;
+    const width = el.offsetWidth; /* 自适应宽度(2026-09-23),不再硬编码 270 */
     const h = el.offsetHeight;
     const margin = 6;
     const spaceBelow = window.innerHeight - rect.bottom - margin - 8;
@@ -129,7 +129,9 @@ export function LifecycleCellControls({ project }: { project: any }) {
     transition.mutate(
       { to, ...extra },
       {
-        onSuccess: closePopover,
+        /* React Query invalidate 与组件重渲染竞争;用 setTimeout 确保
+           重渲染完成后再关弹窗(rAF 不够——实测仍被吞, 2026-09-23) */
+        onSuccess: () => setTimeout(() => closePopover(), 100),
         onError: (err: any) =>
           setError(err?.response?.data?.error || err?.message || t('projects:lifecycle.transitionFailed'))
       }

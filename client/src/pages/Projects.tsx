@@ -47,9 +47,10 @@ function NumberPart({ project, onSaved }: { project: any; onSaved: () => void })
       <input
         className="inline-edit-input req-number-input inline-edit-input--expand"
         value={draft}
+        style={{ width: `${Math.max(4, draft.length + 2)}ch` }}
         autoFocus
         placeholder={t('projects:number.placeholder')}
-        onChange={(e) => setDraft(e.target.value)}
+        onChange={(e) => { setDraft(e.target.value); e.target.size = Math.max(2, e.target.value.length + 1); }}
         onBlur={() => {
           const trimmed = draft.trim();
           if (trimmed !== value) updateMutation.mutate({ external_number: trimmed || null });

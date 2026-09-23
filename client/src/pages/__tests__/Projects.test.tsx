@@ -1,8 +1,11 @@
 import React from 'react';
-import { render, screen, waitFor, within, fireEvent } from '@testing-library/react';
+import { render, screen, waitFor as rtlWaitFor, within, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Projects } from '../Projects';
+
+/** ① 提速: waitFor 轮询间隔 50ms→0(条件已满足时省一个轮询周期,49 测试省 ~2.5s) */
+const waitFor = (cb: () => void | Promise<void>) => rtlWaitFor(cb, { interval: 10 }); /* 10ms 仍比默认 50 省 40ms;0 会错过 react-query 宏任务窗口 */
 
 // ── 2026-09-23 夜间重构对齐(看板 B3a-B3e 列模型, BOARD_REDESIGN) ──
 // 13 列: 名称(标签内联+＋AR hover 钮)/编号/组件/状态单胶囊/代码规模(KlocCell)/
@@ -302,33 +305,31 @@ describe('Requirements Board (需求台)', () => {
     });
 
     test('product version filter narrows rows client-side', async () => {
-      const user = userEvent.setup();
       renderComponent();
 
       await waitFor(() => {
         expect(screen.getByText('Project Alpha')).toBeInTheDocument();
       });
 
-      await user.selectOptions(screen.getByTestId('product-filter'), 'A');
+      fireEvent.change(screen.getByTestId('product-filter'), { target: { value: 'A' } });
       expect(screen.getByText('Project Beta')).toBeInTheDocument();
       expect(screen.queryByText('Project Alpha')).not.toBeInTheDocument();
       expect(screen.queryByText('Portal Login Rework')).not.toBeInTheDocument();
 
       // "未排"哨兵: 筛出无版本事项(fixture 里没有 → 空态)
-      await user.selectOptions(screen.getByTestId('product-filter'), '__none__');
+      fireEvent.change(screen.getByTestId('product-filter'), { target: { value: '__none__' } });
       expect(screen.queryByText('Project Beta')).not.toBeInTheDocument();
       expect(screen.getByText(/No matching items/)).toBeInTheDocument();
     });
 
     test('release version filter narrows rows client-side', async () => {
-      const user = userEvent.setup();
       renderComponent();
 
       await waitFor(() => {
         expect(screen.getByText('Project Alpha')).toBeInTheDocument();
       });
 
-      await user.selectOptions(screen.getByTestId('release-filter'), '26.RP3');
+      fireEvent.change(screen.getByTestId('release-filter'), { target: { value: '26.RP3' } });
       expect(screen.getByText('Project Beta')).toBeInTheDocument();
       expect(screen.queryByText('Project Alpha')).not.toBeInTheDocument();
     });
@@ -402,7 +403,6 @@ describe('Requirements Board (需求台)', () => {
 
   describe('Lifecycle in place', () => {
     test('advances lifecycle from the row (one click ›)', async () => {
-      const user = userEvent.setup();
       (api.lifecycle.transition as jest.Mock).mockResolvedValue({
         data: { project: { lifecycle_state: 'designing' }, event: {} }
       });
@@ -416,7 +416,7 @@ describe('Requirements Board (需求台)', () => {
       const childRow = screen.getByText('Portal Login Rework').closest('.requirements-row')!;
       const advance = within(childRow).getByTitle('Advance to Designing');
       expect(advance).toHaveClass('lifecycle-advance-btn');
-      await user.click(advance);
+      fireEvent.click(advance);
 
       await waitFor(() => {
         expect(api.lifecycle.transition).toHaveBeenCalledWith('proj-1a', { to: 'designing' });
@@ -424,7 +424,6 @@ describe('Requirements Board (需求台)', () => {
     });
 
     test('badge popover offers the full flow-free state selector', async () => {
-      const user = userEvent.setup();
       renderComponent();
 
       await waitFor(() => {
@@ -435,7 +434,7 @@ describe('Requirements Board (需求台)', () => {
       const badge = screen
         .getAllByRole('button', { name: /Pending RAT/ })
         .find((b) => b.closest('.lifecycle-cell'));
-      await user.click(badge!);
+      fireEvent.click(badge!);
 
       const selector = within(screen.getByTestId('lc-state-list'));
       ['NOK', 'Designing', 'Backlog', 'Scheduled', 'In Iteration', 'Delivered', 'Cancelled'].forEach(
@@ -455,7 +454,7 @@ describe('Requirements Board (需求台)', () => {
       });
 
       const alphaRow = screen.getByText('Project Alpha').closest('.requirements-row')!;
-      await user.click(within(alphaRow).getByText('B'));
+      fireEvent.click(within(alphaRow).getByText('B'));
 
       const input = await screen.findByDisplayValue('B');
       await user.clear(input);
@@ -471,7 +470,6 @@ describe('Requirements Board (需求台)', () => {
     // 旧 "staffing popover states its edit model" 的等价断言: 池机制收进
     // 实名投入弹层(B3e)——开发池 ±0.5 步进器 + 实名一档
     test('primary dev popover carries the dev pool stepper (pool mechanism moved here)', async () => {
-      const user = userEvent.setup();
       renderComponent();
 
       await waitFor(() => {
@@ -479,7 +477,7 @@ describe('Requirements Board (需求台)', () => {
       });
 
       const childRow = screen.getByText('Portal Home Rework').closest('.requirements-row')!;
-      await user.click(childRow.querySelector('.req-primary')!);
+      fireEvent.click(childRow.querySelector('.req-primary')!);
 
       const pop = document.querySelector('.primary-pop')!;
       // 当前实名一档: 人 · 占用% · 窗口
@@ -494,7 +492,8 @@ describe('Requirements Board (需求台)', () => {
     // 旧 "owner popover lists people (name + primary role) and clears" 的
     // 等价断言: 负责人弹层退役,RoleCell 弹层承接(人 · 占用% + Detach)
     test('role popover lists people (name + primary role) and detaches', async () => {
-      const user = userEvent.setup();
+      const user = userEvent.setup(); /* 保留 userEvent: 弹层人员列表依赖
+        react-query 异步流,fireEvent 不推进事件循环(2026-09-23 提速改造实测) */
       renderComponent();
 
       await waitFor(() => {
@@ -504,14 +503,19 @@ describe('Requirements Board (需求台)', () => {
       const childRow = screen.getByText('Portal Login Rework').closest('.requirements-row')!;
       await user.click(childRow.querySelector('.req-role--se')!);
 
-      const pop = document.querySelector('.role-pop')!;
-      // 实名一行一档(人 · 占用%) + 撤派(Detach = 旧的 Clear owner)
+      const pop = await waitFor(() => {
+        const el = document.querySelector('.role-pop');
+        expect(el).not.toBeNull();
+        return el!;
+      });
       expect(within(pop).getByText('王后端 · 50%')).toBeInTheDocument();
       // 候选列表: 姓名 + 主角色 meta
-      expect(within(pop).getAllByText('陈主管').length).toBeGreaterThanOrEqual(1);
+      await waitFor(() => {
+        expect(within(pop).getAllByText('陈主管').length).toBeGreaterThanOrEqual(1);
+      });
       expect(within(pop).getAllByText('SE').length).toBeGreaterThanOrEqual(1);
 
-      await user.click(within(pop).getByText('Detach'));
+      fireEvent.click(within(pop).getByText('Detach'));
       await waitFor(() => {
         expect(api.assignments.delete).toHaveBeenCalledWith('as-se-1');
       });
@@ -519,7 +523,6 @@ describe('Requirements Board (需求台)', () => {
 
     // 旧 "owner popover assigns from the unassigned row" 的等价断言
     test('role popover assigns from the unassigned row', async () => {
-      const user = userEvent.setup();
       renderComponent();
 
       await waitFor(() => {
@@ -527,7 +530,7 @@ describe('Requirements Board (需求台)', () => {
       });
 
       const betaRow = screen.getByText('Project Beta').closest('.requirements-row')!;
-      await user.click(betaRow.querySelector('.req-role--mde')!);
+      fireEvent.click(betaRow.querySelector('.req-role--mde')!);
 
       const pop = document.querySelector('.role-pop')!;
       // 候选就绪(角色档案到位后才可派)
@@ -537,7 +540,7 @@ describe('Requirements Board (需求台)', () => {
         return el;
       });
 
-      await user.click(candidate);
+      fireEvent.click(candidate);
 
       await waitFor(() => {
         expect(api.people.list).toHaveBeenCalled();
@@ -551,7 +554,6 @@ describe('Requirements Board (需求台)', () => {
     });
 
     test('priority popover selects P1 and persists', async () => {
-      const user = userEvent.setup();
       renderComponent();
 
       await waitFor(() => {
@@ -559,10 +561,10 @@ describe('Requirements Board (需求台)', () => {
       });
 
       const alphaRow = screen.getByText('Project Alpha').closest('.requirements-row')!;
-      await user.click(within(alphaRow).getByTestId('priority-edit-btn'));
+      fireEvent.click(within(alphaRow).getByTestId('priority-edit-btn'));
 
       const popover = await screen.findByTestId('priority-popover');
-      await user.click(within(popover).getByText('Highest'));
+      fireEvent.click(within(popover).getByText('Highest'));
 
       await waitFor(() => {
         expect(api.projects.update).toHaveBeenCalledWith('proj-1', { priority: 1 });
@@ -570,7 +572,6 @@ describe('Requirements Board (需求台)', () => {
     });
 
     test('tags popover toggles off and submits the full set', async () => {
-      const user = userEvent.setup();
       renderComponent();
 
       await waitFor(() => {
@@ -578,10 +579,10 @@ describe('Requirements Board (需求台)', () => {
       });
 
       const alphaRow = screen.getByText('Project Alpha').closest('.requirements-row')!;
-      await user.click(within(alphaRow).getByTestId('tags-edit-btn'));
+      fireEvent.click(within(alphaRow).getByTestId('tags-edit-btn'));
 
       const popover = await screen.findByTestId('tags-popover');
-      await user.click(within(popover).getByText('Reserved'));
+      fireEvent.click(within(popover).getByText('Reserved'));
 
       await waitFor(() => {
         expect(api.projects.update).toHaveBeenCalledWith('proj-1', { tag_ids: ['2'] });
@@ -597,7 +598,7 @@ describe('Requirements Board (需求台)', () => {
       });
 
       const betaRow = screen.getByText('Project Beta').closest('.requirements-row')!;
-      await user.click(within(betaRow).getByTestId('tags-edit-btn'));
+      fireEvent.click(within(betaRow).getByTestId('tags-edit-btn'));
 
       const popover = await screen.findByTestId('tags-popover');
       const input = within(popover).getByPlaceholderText('New tag…');
@@ -620,7 +621,7 @@ describe('Requirements Board (需求台)', () => {
       const alphaRow = screen.getByText('Project Alpha').closest('.requirements-row')!;
       expect(within(alphaRow).getByText('HCCL_驱动组')).toBeInTheDocument();
 
-      await user.click(within(alphaRow).getByTestId('component-edit-btn'));
+      fireEvent.click(within(alphaRow).getByTestId('component-edit-btn'));
       const pop = await screen.findByTestId('component-popover');
       const input = pop.querySelector('.cell-pop-search input') as HTMLInputElement;
       await user.clear(input);
@@ -649,20 +650,18 @@ describe('Requirements Board (需求台)', () => {
     });
 
     test('component filter narrows rows client-side', async () => {
-      const user = userEvent.setup();
       renderComponent();
 
       await waitFor(() => {
         expect(screen.getByText('Project Alpha')).toBeInTheDocument();
       });
 
-      await user.selectOptions(screen.getByTestId('component-filter'), 'HCCL_驱动组');
+      fireEvent.change(screen.getByTestId('component-filter'), { target: { value: 'HCCL_驱动组' } });
       expect(screen.getByText('Project Alpha')).toBeInTheDocument();
       expect(screen.queryByText('Project Beta')).not.toBeInTheDocument();
     });
 
     test('row click does not fire when clicking edit triggers', async () => {
-      const user = userEvent.setup();
       renderComponent();
 
       await waitFor(() => {
@@ -670,12 +669,12 @@ describe('Requirements Board (需求台)', () => {
       });
 
       const childRow = screen.getByText('Portal Login Rework').closest('.requirements-row')!;
-      await user.click(within(childRow).getByTestId('priority-edit-btn'));
-      await user.click(within(childRow).getByTestId('tags-edit-btn'));
-      await user.click(within(childRow).getByTestId('component-edit-btn'));
+      fireEvent.click(within(childRow).getByTestId('priority-edit-btn'));
+      fireEvent.click(within(childRow).getByTestId('tags-edit-btn'));
+      fireEvent.click(within(childRow).getByTestId('component-edit-btn'));
       // 新增触发点: SE/MDE 格与实名投入格(负责人格退役)
-      await user.click(childRow.querySelector('.req-role--se')!);
-      await user.click(childRow.querySelector('.req-primary')!);
+      fireEvent.click(childRow.querySelector('.req-role--se')!);
+      fireEvent.click(childRow.querySelector('.req-primary')!);
 
       expect(mockNavigate).not.toHaveBeenCalled();
     });
@@ -694,12 +693,11 @@ describe('Requirements Board (需求台)', () => {
     });
 
     test('iteration cell opens the picker and re-attaches', async () => {
-      const user = userEvent.setup();
       renderComponent();
       await waitFor(() => { expect(screen.getByText('Project Alpha')).toBeInTheDocument(); });
       const iterBtn = document.querySelector('.req-iter-cell .req-iter-val');
       expect(iterBtn).not.toBeNull();
-      if (iterBtn) await user.click(iterBtn);
+      if (iterBtn) fireEvent.click(iterBtn);
       await waitFor(() => {
         expect(document.querySelector('.iter-pop')).not.toBeNull();
       });
@@ -748,7 +746,6 @@ describe('Requirements Board (需求台)', () => {
     });
 
     test('SR chevron toggles children; SR row click opens its detail (same as other rows)', async () => {
-      const user = userEvent.setup();
       renderComponent();
 
       await waitFor(() => {
@@ -757,18 +754,17 @@ describe('Requirements Board (需求台)', () => {
       expect(document.querySelectorAll('.requirements-row--child').length).toBe(2);
 
       // 折叠归箭头钮(2026-09-22 修正: SR 行点击进详情,不再折叠)
-      await user.click(document.querySelector('.req-sr-toggle')!);
+      fireEvent.click(document.querySelector('.req-sr-toggle')!);
       expect(document.querySelectorAll('.requirements-row--child').length).toBe(0);
 
-      await user.click(document.querySelector('.req-sr-toggle')!);
+      fireEvent.click(document.querySelector('.req-sr-toggle')!);
       expect(document.querySelectorAll('.requirements-row--child').length).toBe(2);
 
-      await user.click(screen.getByText('Project Alpha'));
+      fireEvent.click(screen.getByText('Project Alpha'));
       expect(mockNavigate).toHaveBeenCalledWith('/projects/proj-1');
     });
 
     test('decompose button opens the create modal preset to the parent', async () => {
-      const user = userEvent.setup();
       renderComponent();
 
       await waitFor(() => {
@@ -781,7 +777,7 @@ describe('Requirements Board (需求台)', () => {
       const srRow = screen.getByText('Project Alpha').closest('.requirements-row')!;
       const addBtns = within(srRow).getAllByTitle('Decompose into AR');
       expect(addBtns.length).toBeGreaterThanOrEqual(1);
-      await user.click(addBtns[0]);
+      fireEvent.click(addBtns[0]);
 
       const hint = await screen.findByTestId('decompose-hint');
       expect(hint.textContent).toContain('Project Alpha');
@@ -801,7 +797,7 @@ describe('Requirements Board (需求台)', () => {
 
       // 子行(AR): 空 → 填 AR 号
       const childRow2 = screen.getByText('Portal Home Rework').closest('.requirements-row')!;
-      await user.click(childRow2.querySelector('.req-number-part')!);
+      fireEvent.click(childRow2.querySelector('.req-number-part')!);
       const input = await within(childRow2).findByRole('textbox');
       await user.type(input, 'AR-2026-999{Enter}');
       await waitFor(() => {
@@ -810,7 +806,7 @@ describe('Requirements Board (需求台)', () => {
 
       // 顶层行(混排: 本身就可能是 SR 或 AR 粒度): 填 SR 号
       const betaRow = screen.getByText('Project Beta').closest('.requirements-row')!;
-      await user.click(betaRow.querySelector('.req-number-part')!);
+      fireEvent.click(betaRow.querySelector('.req-number-part')!);
       const input2 = await within(betaRow).findByRole('textbox');
       await user.type(input2, 'SR-26-001{Enter}');
       await waitFor(() => {
@@ -819,7 +815,6 @@ describe('Requirements Board (需求台)', () => {
     });
 
     test('subtype is not inline in the name cell and filters via toolbar', async () => {
-      const user = userEvent.setup();
       renderComponent();
 
       await waitFor(() => {
@@ -829,11 +824,11 @@ describe('Requirements Board (需求台)', () => {
       // 2026-09-22 裁决: 子类型撤内联(常量重复零信息),分类走筛选
       expect(document.querySelectorAll('.requirements-subtype').length).toBe(0);
 
-      await user.selectOptions(screen.getByTestId('subtype-filter'), '标准需求');
+      fireEvent.change(screen.getByTestId('subtype-filter'), { target: { value: '标准需求' } });
       expect(screen.getByText('Project Alpha')).toBeInTheDocument();
       expect(screen.queryByText('Project Beta')).not.toBeInTheDocument();
 
-      await user.selectOptions(screen.getByTestId('subtype-filter'), '定制需求');
+      fireEvent.change(screen.getByTestId('subtype-filter'), { target: { value: '定制需求' } });
       expect(screen.getByText('Project Beta')).toBeInTheDocument();
       expect(screen.queryByText('Project Alpha')).not.toBeInTheDocument();
     });
@@ -956,7 +951,6 @@ describe('Requirements Board (需求台)', () => {
 
   describe('Operations', () => {
     test('edit icon opens the project modal', async () => {
-      const user = userEvent.setup();
       renderComponent();
 
       await waitFor(() => {
@@ -964,7 +958,7 @@ describe('Requirements Board (需求台)', () => {
       });
 
       const alphaRow = screen.getByText('Project Alpha').closest('.requirements-row')!;
-      await user.click(within(alphaRow).getByTitle('Edit'));
+      fireEvent.click(within(alphaRow).getByTitle('Edit'));
 
       await waitFor(() => {
         expect(screen.getByTestId('project-modal')).toBeInTheDocument();
@@ -973,7 +967,6 @@ describe('Requirements Board (需求台)', () => {
     });
 
     test('delete is a two-click confirm (zero modal)', async () => {
-      const user = userEvent.setup();
       renderComponent();
 
       await waitFor(() => {
@@ -982,12 +975,12 @@ describe('Requirements Board (需求台)', () => {
 
       const alphaRow = screen.getByText('Project Alpha').closest('.requirements-row')!;
       const deleteBtn = within(alphaRow).getByTitle('Delete');
-      await user.click(deleteBtn);
+      fireEvent.click(deleteBtn);
 
       // First click arms, second click executes — no window.confirm
       expect(api.projects.delete).not.toHaveBeenCalled();
       const confirmBtn = within(alphaRow).getByTitle('Confirm');
-      await user.click(confirmBtn);
+      fireEvent.click(confirmBtn);
 
       await waitFor(() => {
         expect(api.projects.delete).toHaveBeenCalledWith('proj-1');
@@ -995,14 +988,13 @@ describe('Requirements Board (需求台)', () => {
     });
 
     test('row click navigates to project detail', async () => {
-      const user = userEvent.setup();
       renderComponent();
 
       await waitFor(() => {
         expect(screen.getByText('Project Beta')).toBeInTheDocument();
       });
 
-      await user.click(screen.getByText('Project Beta'));
+      fireEvent.click(screen.getByText('Project Beta'));
       expect(mockNavigate).toHaveBeenCalledWith('/projects/proj-2');
     });
   });
@@ -1041,14 +1033,13 @@ describe('Requirements Board (需求台)', () => {
       await user.type(screen.getByTestId('search-input'), 'ZZZ-no-hit');
       expect(screen.getByText(/No matching items/)).toBeInTheDocument();
 
-      await user.click(document.querySelector('.requirements-empty-clear') as HTMLButtonElement);
+      fireEvent.click(document.querySelector('.requirements-empty-clear') as HTMLButtonElement);
       await waitFor(() => {
         expect(screen.getByText('Project Alpha')).toBeInTheDocument();
       });
     });
 
     test('tags render inline in the name cell; chip click filters, click again clears (Q1-B/Q3)', async () => {
-      const user = userEvent.setup();
       renderComponent();
       await waitFor(() => {
         expect(screen.getByText('Project Alpha')).toBeInTheDocument();
@@ -1060,12 +1051,12 @@ describe('Requirements Board (需求台)', () => {
       expect(within(alphaRow).queryByText('+1')).not.toBeInTheDocument();
 
       // chip 点击 = 按此标签过滤(无标签的 Beta 隐藏)
-      await user.click(within(alphaRow).getByText('Reserved'));
+      fireEvent.click(within(alphaRow).getByText('Reserved'));
       expect(screen.getByText('Project Alpha')).toBeInTheDocument();
       expect(screen.queryByText('Project Beta')).not.toBeInTheDocument();
 
       // 再点同枚取消
-      await user.click(within(alphaRow).getByText('Reserved'));
+      fireEvent.click(within(alphaRow).getByText('Reserved'));
       expect(screen.getByText('Project Beta')).toBeInTheDocument();
     });
 
@@ -1107,14 +1098,13 @@ describe('Requirements Board (需求台)', () => {
     });
 
     test('lifecycle filter passes through to the API', async () => {
-      const user = userEvent.setup();
       renderComponent();
 
       await waitFor(() => {
         expect(screen.getByTestId('lifecycle-filter')).toBeInTheDocument();
       });
 
-      await user.selectOptions(screen.getByTestId('lifecycle-filter'), 'designing');
+      fireEvent.change(screen.getByTestId('lifecycle-filter'), { target: { value: 'designing' } });
 
       await waitFor(() => {
         expect(api.projects.list).toHaveBeenLastCalledWith(

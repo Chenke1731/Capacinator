@@ -746,7 +746,7 @@ input[type="checkbox"].settings-checkbox,
 
 .filter-group label {
   font-size: 0.875rem;
-  font-weight: 500;
+  font-weight: 400; /* 2026-09-23 ONES 借鉴终版: 表头不加粗,靠背景条区分 */
   color: var(--text-secondary);
 }
 
@@ -1952,7 +1952,7 @@ input[type="checkbox"].settings-checkbox,
   min-height: 36px;
   padding: 0 14px;
   font-size: var(--b-fs-body);
-  font-weight: 500;
+  font-weight: 400; /* 2026-09-23 ONES 借鉴终版: 表头不加粗,靠背景条区分 */
   color: var(--text-secondary);
   background: var(--bg-secondary, rgba(127, 127, 127, 0.06));
   border-bottom: 1px solid var(--border-color);

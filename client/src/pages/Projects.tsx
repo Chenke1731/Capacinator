@@ -404,38 +404,6 @@ export function Projects() {
     return () => ro.disconnect();
   }, [projects]);
 
-  /** cap 列内容自适应上限(2026-09-23): 量当下内容+8px 字体方差缓冲,
-      不预留未来;更长内容到来随数据刷新自动抬高。钉死列(用户拖过)跳过。 */
-  const [autoCaps, setAutoCaps] = useState<Record<string, number>>({});
-  useEffect(() => {
-    if (!projects) return;
-    const board = document.querySelector('.projects-board');
-    const rows = document.querySelectorAll('.requirements-row');
-    if (!board || rows.length === 0) return;
-    const CAP_SEL: Record<string, string> = {
-      component: '.requirements-component-btn',
-      lifecycle: '.req-cell-center',
-      staffing: '.req-staff',
-      owner: '.req-edit-cell--owner > button'
-    };
-    const natural = (el: Element): number => {
-      const c = el.cloneNode(true) as HTMLElement;
-      c.style.cssText += ';position:fixed;visibility:hidden;width:auto;max-width:none;min-width:0;left:-9999px;top:0';
-      board.appendChild(c);
-      const w = c.getBoundingClientRect().width;
-      c.remove();
-      return w;
-    };
-    const next: Record<string, number> = {};
-    for (const [key, sel] of Object.entries(CAP_SEL)) {
-      if (colWidths[key] !== undefined) continue; // 钉死优先
-      let max = 0;
-      rows.forEach((r) => r.querySelectorAll(sel).forEach((e) => { max = Math.max(max, natural(e)); }));
-      if (max > 0) next[key] = Math.round(max) + 8;
-    }
-    setAutoCaps(next);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [projects]);
 
   /** 空态文案分支用: 是否有任何筛选在活跃(与 trees memo 内部口径一致) */
   const anyFilterActive = Boolean(
@@ -517,9 +485,8 @@ export function Projects() {
     if (containerW > 0) {
       // 轨道和(不含间距): 间距预算 = (容器-轨道和)/nGaps,钳 8..24
       const fixedTracks = visible.reduce((sum, c) => {
-        const auto = autoCaps[c.key];
         const def = showAll ? c.def[0] : compact ? c.def[2] : c.def[1];
-        const w = colWidths[c.key] ?? (auto && (c as any).kind === 'cap' ? Math.max(def, auto) : def);
+        const w = colWidths[c.key] ?? def;
         return sum + w;
       }, 28);
       const nGaps = Math.max(1, visible.length - 1);
@@ -528,17 +495,9 @@ export function Projects() {
       if (gap > 8) vars['--req-gap'] = `${gap}px`;
     }
 
-    /* 内容自适应上限: 未钉死的 cap 列用当下实测(CSS 字面量仅首帧兜底) */
-    for (const c of visible) {
-      if ((c as any).kind !== 'cap') continue;
-      const auto = autoCaps[c.key];
-      if (auto && colWidths[c.key] === undefined) {
-        vars[`--req-cap-${c.key}`] = `${auto}px`;
-      }
-    }
     vars['--req-total'] = `${total}px`;
     return vars as React.CSSProperties;
-  }, [colWidths, showAll, compact, autoCaps, containerW]);
+  }, [colWidths, showAll, compact, containerW]);
 
   const flashRow = (id: string) => {
     setFlashId(id);
@@ -678,7 +637,7 @@ export function Projects() {
             ['projects:board.colPrimary', 'primary'],
             ['common:actions', 'actions']
           ] as const).map(([key, colKey], i) => (
-            <span key={colKey} className={['lifecycle', 'priority', 'actions'].includes(colKey) ? 'col-c' : colKey === 'staffing' ? 'col-r' : ''}>
+            <span key={colKey} className={['lifecycle', 'priority', 'actions'].includes(colKey) ? 'col-c' : ''}>
               {t(key)}
               {i < 10 && (
                 <ColumnGrip colKey={colKey} widths={colWidths} setWidths={setColWidths} />
@@ -791,10 +750,6 @@ export function Projects() {
                 </button>
                 <span className="requirements-name-text" title={project.name}>{project.name}</span>
                 <span className="req-sr-chip">{t('projects:board.arCount', { count: agg.count })}</span>
-                <button type="button" className="req-ar-add" title={t('projects:board.decompose')}
-                        onClick={(e) => { e.stopPropagation(); setDecomposeParent(project); }}>
-                  <GitBranch size={12} />
-                </button>
                 {(project.lifecycle_warnings ?? []).length > 0 && (
                   <span
                     className="lifecycle-warn-chip"

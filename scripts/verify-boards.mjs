@@ -148,15 +148,15 @@ check('新列集(代码规模/人力/SE/MDE/实名投入)',
   const typoMatrix = await page.evaluate(() => {
     /* 二字重终态(2026-09-23 用户"w600 太高"裁决): 400=正文,500=一切强调;
        w600 全灭——与 ONES 对齐(显式字重仅 400+9%,无 600) */
+    /* 单一字体终态(2026-09-23 用户"统一字体"裁决): mono 全灭,一切继承 body sans;
+       契约简化为 4 档组合(字号×字重),字族维度消失 */
     const CONTRACT = [
-      { fs: 14, fw: 500, ff: 'sans', role: '名称/主按钮' },
-      { fs: 12.5, fw: 400, ff: 'sans', role: '值/正文' },
-      { fs: 12.5, fw: 400, ff: 'mono', role: '码值' },
-      { fs: 12.5, fw: 500, ff: 'sans', role: '表头/徽章/结构' },
-      { fs: 11, fw: 400, ff: 'sans', role: '注记' },
-      { fs: 11, fw: 400, ff: 'mono', role: '迭代窗口' },
-      { fs: 11, fw: 500, ff: 'sans', role: '操作图标' },
-      { fs: 10, fw: 500, ff: 'sans', role: '头像' },
+      { fs: 14, fw: 500 },
+      { fs: 12.5, fw: 400 },
+      { fs: 12.5, fw: 500 },
+      { fs: 11, fw: 400 },
+      { fs: 11, fw: 500 },
+      { fs: 10, fw: 500 },
     ];
     const bad = [];
     document.querySelectorAll('.projects-board span, .projects-board button').forEach((e) => {
@@ -168,8 +168,7 @@ check('新列集(代码规模/人力/SE/MDE/实名投入)',
       if (c.display === 'none' || c.visibility === 'hidden') return;
       const fs = parseFloat(c.fontSize);
       const fw = parseInt(c.fontWeight);
-      const isMono = c.fontFamily.includes('mono');
-      const hit = CONTRACT.some(k => k.fs === fs && k.fw === fw && (k.ff === 'mono') === isMono);
+      const hit = CONTRACT.some(k => k.fs === fs && k.fw === fw);
       if (!hit) {
         const cls = String(e.className).split(' ')[0].slice(0, 20) || e.tagName;
         bad.push(`${cls}«${txt.slice(0, 8)}» ${fs}px/w${fw}${isMono ? '/M' : ''}`);

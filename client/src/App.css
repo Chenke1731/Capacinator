@@ -638,7 +638,6 @@ input[type="checkbox"].settings-checkbox,
 }
 
 .color-code {
-  font-family: monospace;
   font-size: 0.75rem;
   color: var(--text-secondary);
 }
@@ -715,7 +714,6 @@ input[type="checkbox"].settings-checkbox,
 }
 
 .color-code-text {
-  font-family: monospace;
   font-size: 0.875rem;
   color: var(--text-secondary);
   font-weight: 500;
@@ -1047,7 +1045,6 @@ input[type="checkbox"].settings-checkbox,
 
 /* 引用码: 详情标题旁弱化 mono chip;点击复制(全局 button 44px 规则需显式压缩) */
 .project-ref-code {
-  font-family: var(--font-mono, monospace);
   font-size: var(--b-fs-meta);
   font-weight: 400;
   color: var(--text-tertiary, var(--text-secondary));
@@ -1082,7 +1079,6 @@ input[type="checkbox"].settings-checkbox,
 
 .lifecycle-number-chip {
   font-size: 12px;
-  font-family: var(--font-mono, monospace);
   padding: 2px 8px;
   border-radius: 6px;
   border: 1px dashed var(--border-color);
@@ -1218,7 +1214,6 @@ input[type="checkbox"].settings-checkbox,
 }
 .lifecycle-number-input {
   font-size: 13px;
-  font-family: var(--font-mono, monospace);
   padding: 4px 8px;
   border-radius: 6px;
   border: 1px solid var(--border-color);
@@ -1440,7 +1435,6 @@ input[type="checkbox"].settings-checkbox,
 .req-release .projects-version-part { min-height: 20px; padding: 1px 2px; }
 .req-release-iter { line-height: 14px; }
 .req-release-iter {
-  font-family: var(--font-mono, monospace);
   font-size: var(--b-fs-meta);
   font-weight: 400; /* button 全局默认 w500,正文码值显式归 400 */
   color: var(--text-secondary);
@@ -1460,9 +1454,7 @@ input[type="checkbox"].settings-checkbox,
 .iter-pop-item:hover { background: var(--bg-secondary, rgba(127,127,127,0.1)); }
 .iter-pop-item--active { background: var(--badge-primary-bg); color: var(--primary-text); }
 .iter-pop-item--detach { color: var(--danger); font-size: var(--b-fs-meta); }
-.iter-pop-quarter { font-family: var(--font-mono, monospace); font-size: var(--b-fs-meta); color: var(--text-secondary); flex: none; }
 .iter-pop-name { flex: 1 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.iter-pop-window { font-family: var(--font-mono, monospace); font-size: var(--b-fs-meta); color: var(--text-secondary); flex: none; }
 .iter-pop-count { font-size: var(--b-fs-meta); color: var(--text-secondary); flex: none; }
 .iter-pop-create { display: flex; flex-direction: column; gap: 6px; }
 .iter-pop-create input { font-size: var(--b-fs-meta); padding: 3px 6px; }
@@ -2240,7 +2232,6 @@ body.req-col-dragging * {
   max-width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
-  font-family: var(--font-mono, monospace);
   font-size: var(--b-fs-body); /* mono 码值统一 body 档(2026-09-23 ONES 借鉴) */
   font-weight: 400;
   color: var(--text-secondary);
@@ -2251,7 +2242,6 @@ body.req-col-dragging * {
 .req-number-part:hover { background: rgba(127, 127, 127, 0.1); }
 /* .projects-board button { min-height:0 } 特异度更高,命中档位需带前缀重新声明 */
 .projects-board .req-number-part { min-height: 24px; }
-.req-number-input { font-family: var(--font-mono, monospace); font-size: var(--b-fs-body); }
 .requirements-children > .requirements-row { border-bottom: 1px dashed var(--border-color, rgba(127, 127, 127, 0.12)); }
 
 /* 所属组件列(窄列省略号,命中 24px 档) */
@@ -2273,7 +2263,6 @@ body.req-col-dragging * {
   display: inline-flex;
   align-items: baseline;
   gap: 5px;
-  font-family: var(--font-mono, monospace);
   font-variant-numeric: tabular-nums;
   font-size: var(--b-fs-body);
   min-width: 0;
@@ -2477,7 +2466,6 @@ body.req-col-dragging * {
   border-radius: var(--b-r-sm);
   color: var(--text-primary);
   font-size: var(--b-fs-body);
-  font-family: var(--font-mono, monospace);
   font-weight: 400;
   cursor: text;
 }
@@ -2644,7 +2632,6 @@ body.req-col-dragging * {
 [data-theme='light'] .projects-board .lifecycle-quick-btn { color: #1d4ed8; background: rgba(59, 130, 246, 0.10); }
 [data-theme='light'] .projects-board .lifecycle-quick-btn:hover { background: rgba(59, 130, 246, 0.18); }
 
-
 /* ── 对比度 AA 修正(2026-09-22 全站清零批次) ────────────────── */
 /* P 档: 浅色 P2 琥珀压深过 4.5; 深色 P1/P2 提亮 */
 [data-theme='light'] .projects-board .req-pri--2 { color: #b45309; }
@@ -2676,7 +2663,6 @@ body.req-col-dragging * {
 }
 .actuals-thead { font-size: var(--b-fs-meta); color: var(--text-secondary); border-bottom: 1px solid var(--border-color, rgba(127, 127, 127, 0.12)); }
 .actuals-row { border-bottom: 1px solid var(--border-color, rgba(127, 127, 127, 0.08)); }
-.actuals-month { font-family: var(--font-mono, monospace); font-size: var(--b-fs-body); color: var(--text-primary); }
 .actuals-num { font-variant-numeric: tabular-nums; font-size: var(--b-fs-body); }
 .actuals-edit { min-width: 56px; min-height: 24px; padding: 2px 6px; }
 .actuals-edit:hover { background: rgba(127, 127, 127, 0.1); }

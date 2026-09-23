@@ -2104,6 +2104,20 @@ body.req-col-dragging * {
   font-size: 10px; font-weight: 500; line-height: 1;
 }
 
+/* 就地输入框(2026-09-23 用户裁决"编辑框要长、完整、点击区域大"):
+   至少撑满列宽,内容更长时自适应展开(不囚于列宽),完整可见 */
+.inline-edit-input--expand {
+  min-width: 100%;
+  width: max-content;
+  max-width: 240px;
+}
+/* 值按钮撑满整格: 点格子任意处都能进编辑(点击区域=格,不只值文字) */
+.requirements-version-part,
+.req-number-part {
+  width: 100%;
+  justify-content: flex-start;
+}
+
 /* 纯提示铅笔已删(2026-09-23 用户裁决: 点击即知可编辑,预告无价值);req-pencil--act(标签入口按钮)样式保留 */
 .req-editable {
   appearance: none;

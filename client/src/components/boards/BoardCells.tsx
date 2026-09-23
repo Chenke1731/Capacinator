@@ -72,8 +72,7 @@ export function VersionPart({ project, field, placeholder, hint, onSaved }: {
   if (editing) {
     return (
       <input
-        className="inline-edit-input"
-        style={{ width: '100%' }}
+        className="inline-edit-input inline-edit-input--expand"
         value={draft}
         autoFocus
         placeholder={placeholder}

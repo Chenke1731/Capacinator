@@ -45,8 +45,7 @@ function NumberPart({ project, onSaved }: { project: any; onSaved: () => void })
   if (editing) {
     return (
       <input
-        className="inline-edit-input req-number-input"
-        style={{ width: 96 }}
+        className="inline-edit-input req-number-input inline-edit-input--expand"
         value={draft}
         autoFocus
         placeholder={t('projects:number.placeholder')}

@@ -1511,7 +1511,7 @@ input[type="checkbox"].settings-checkbox,
 
 /* B3f ＋AR 入口: 名称格悬停显现(所有需求行可用,修"仅已分解行有按钮"鸡生蛋) */
 .req-ar-add {
-  display: none;
+  display: none; /* 非 SR 行 hover 显示;SR 行常驻(下方覆盖)
   align-items: center; justify-content: center;
   background: none; border: none; padding: 2px; margin-left: 2px;
   min-width: 22px; min-height: 22px;
@@ -2060,8 +2060,8 @@ body.req-col-dragging * {
 }
 .requirements-name { overflow: hidden; }
 .requirements-name-text {
-  font-size: var(--b-fs-body); /* 2026-09-23 用户裁决: 名称与正文同级,扫读靠列位 */
-  font-weight: 400;
+  font-size: 14px; /* P7(2026-09-23): 名称比数据值大 1.5px,恢复层级感 */
+  font-weight: 500;
   white-space: nowrap;
   /* 名称是扫读首轴: flex 弹性但保底 5 字(70px);色点标签也是弹性——两者
      各让一步,不再把标签顶出格(2026-09-23 色点溢出修复) */
@@ -2729,3 +2729,48 @@ body.req-col-dragging * {
 
 /* 深色下 SR 计数胶囊提亮(同因 AA) */
 [data-theme='dark'] .req-sr-chip { color: #93c5fd; }
+
+/* 骨架屏(2026-09-23 P3): 数据加载中 3 行占位 */
+.req-skeleton { padding: 16px 24px; }
+.req-skeleton-row {
+  height: 40px;
+  margin-bottom: 1px;
+  border-radius: 4px;
+  background: linear-gradient(90deg, var(--bg-secondary) 25%, var(--bg-hover, rgba(127,127,127,0.12)) 50%, var(--bg-secondary) 75%);
+  background-size: 200% 100%;
+  animation: reqSkeletonWave 1.5s ease-in-out infinite;
+}
+@keyframes reqSkeletonWave {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* 错误 toast(2026-09-23 P2): 操作失败 3 秒自动消失 */
+.req-error-toast {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--danger-bg, #fef2f2);
+  color: var(--danger, #dc2626);
+  border: 1px solid var(--danger, #dc2626);
+  border-radius: 6px;
+  padding: 8px 16px;
+  font-size: 12.5px;
+  font-weight: 500;
+  z-index: 100;
+  animation: reqToastIn 0.2s ease-out;
+}
+[data-theme='dark'] .req-error-toast {
+  background: rgba(220, 38, 38, 0.15);
+  color: #fca5a5;
+  border-color: #fca5a5;
+}
+@keyframes reqToastIn {
+  from { opacity: 0; transform: translateX(-50%) translateY(10px); }
+  to { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+/* P5(2026-09-23): SR 行 ＋AR 常驻显示——新用户可发现可以分解 */
+.requirements-row--sr .req-ar-add { display: inline-flex; opacity: 0.6; }
+.requirements-row--sr .req-ar-add:hover { opacity: 1; }

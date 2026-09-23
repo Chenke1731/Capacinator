@@ -1115,10 +1115,11 @@ describe('Requirements Board (需求台)', () => {
   });
 
   describe('States', () => {
-    test('shows loading state', () => {
+    test('shows loading state (skeleton, 2026-09-23 P3)', () => {
       (api.projects.list as jest.Mock).mockImplementation(() => new Promise(() => {}));
       renderComponent();
-      expect(screen.getByTestId('loading-spinner')).toBeInTheDocument();
+      // 骨架屏 3 行占位(替代旧的转圈 spinner)
+      expect(document.querySelectorAll('.req-skeleton-row').length).toBe(3);
     });
 
     test('shows error state', async () => {

@@ -499,9 +499,29 @@ export function Projects() {
     return vars as React.CSSProperties;
   }, [colWidths, showAll, compact, containerW]);
 
+  /** P2(2026-09-23): 操作失败的轻量 toast */
+  const [errorToast, setErrorToast] = useState<string | null>(null);
+  const showErrorToast = (msg: string) => {
+    setErrorToast(msg);
+    window.setTimeout(() => setErrorToast(null), 3000);
+  };
+  // P2: 拦截所有 react-query mutation 失败 → toast
+  useEffect(() => {
+    const unsub = queryClient.getMutationCache().subscribe((event) => {
+      if (event.type === 'updated' && event.action?.type === 'rejected') {
+        const err = event.action?.data || event.mutation?.state?.error;
+        showErrorToast(err?.response?.data?.message || err?.message || '操作失败');
+      }
+    });
+    return unsub;
+  }, [queryClient]);
+
   const flashRow = (id: string) => {
-    setFlashId(id);
-    window.setTimeout(() => setFlashId((cur) => (cur === id ? null : cur)), 900);
+    // invalidate 后 rerender 可能吞掉同步 setState;下一帧再闪(2026-09-23 P1)
+    requestAnimationFrame(() => {
+      setFlashId(id);
+      window.setTimeout(() => setFlashId((cur) => (cur === id ? null : cur)), 900);
+    });
   };
 
   /** 行内保存统一出口: 刷新 + 行 flash */
@@ -510,7 +530,11 @@ export function Projects() {
     flashRow(projectId);
   };
 
-  if (isLoading) return <LoadingSpinner />;
+  if (isLoading) return (
+    <div className='projects-board req-skeleton'>
+      {[1,2,3].map(i => <div key={i} className='req-skeleton-row' />)}
+    </div>
+  );
   if (error) return <ErrorMessage message={(error as any)?.message || t('projects:loadError')} />;
 
   return (
@@ -951,6 +975,8 @@ export function Projects() {
       />
 
       <TagManagerDialog isOpen={tagManagerOpen} onClose={() => setTagManagerOpen(false)} />
+
+      {errorToast && <div className='req-error-toast' role='alert'>{errorToast}</div>}
     </div>
   );
 }

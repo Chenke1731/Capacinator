@@ -7,7 +7,7 @@ import { api } from '../lib/api-client';
 import { queryKeys } from '../lib/queryKeys';
 import { useCellPopover } from '../hooks/useCellPopover';
 import { PriorityCell, OwnerCell, TagsCell, ComponentCell } from '../components/boards/EditableCells';
-import { KlocCell, EffortCell, RoleCell, PrimaryDevCell, VersionPart, ReleaseCell } from '../components/boards/BoardCells';
+import { KlocCell, EffortCell, RoleCell, PrimaryDevCell, VersionPart, ReleaseCell, IterationCell } from '../components/boards/BoardCells';
 import { LoadingSpinner } from '../components/ui/LoadingSpinner';
 import { ErrorMessage } from '../components/ui/ErrorMessage';
 import ProjectModal from '../components/modals/ProjectModal';
@@ -94,7 +94,8 @@ const REQ_COLUMNS = [
   { key: 'se', def: [88, 88, 88], min: 72, max: 160 },
   { key: 'mde', def: [88, 88, 88], min: 72, max: 160 },
   { key: 'version', def: [68, 64, 62], min: 56, max: 200 },
-  { key: 'release', def: [76, 68, 62], min: 56, max: 200 },
+  { key: 'release', def: [68, 64, 62], min: 48, max: 200 },
+  { key: 'iter', def: [80, 78, 0], min: 60, max: 200, kind: 'cap', cap: [90, 88, 0] }, /* 迭代窗口(2026-09-23 拆列) */
   { key: 'priority', def: [44, 44, 44], min: 40, max: 120 },
   { key: 'primary', def: [88, 80, 0], min: 56, max: 200 },
   { key: 'actions', def: [92, 92, 92], min: 64, max: 200 }
@@ -633,6 +634,7 @@ export function Projects() {
             ['projects:board.colMde', 'mde'],
             ['projects:board.colVersion', 'version'],
             ['projects:board.colRelease', 'release'],
+            ['projects:board.colIteration', 'iter'],
             ['projects:board.colPriority', 'priority'],
             ['projects:board.colPrimary', 'primary'],
             ['common:actions', 'actions']
@@ -705,6 +707,7 @@ export function Projects() {
                 hint={t('projects:version.productTitle')}
                 onSaved={() => handleCellSaved(project.id)} />
               <ReleaseCell project={project} onSaved={() => handleCellSaved(project.id)} />
+              <IterationCell project={project} onSaved={() => handleCellSaved(project.id)} />
 
               <PriorityCell project={project} onSaved={() => handleCellSaved(project.id)} />
 
@@ -810,6 +813,8 @@ export function Projects() {
                 onSaved={() => handleCellSaved(project.id)} />
               <ReleaseCell project={project} onSaved={() => handleCellSaved(project.id)}
                 readOnlyWindow={aggIterWindow(tree.children)} />
+              <IterationCell project={project} onSaved={() => handleCellSaved(project.id)}
+                readOnlyWindow={aggIterWindow(tree.children)} />
 
               <PriorityCell project={project} onSaved={() => handleCellSaved(project.id)} />
               <span className="req-primary req-primary--agg" title={agg.primaryPersons.join('、') || undefined}>
@@ -868,6 +873,7 @@ export function Projects() {
                       hint={t('projects:version.productTitle')}
                       onSaved={() => handleCellSaved(child.id)} />
                     <ReleaseCell project={child} onSaved={() => handleCellSaved(child.id)} />
+                    <IterationCell project={child} onSaved={() => handleCellSaved(child.id)} />
 
                     <PriorityCell project={child} onSaved={() => handleCellSaved(child.id)} />
                     <PrimaryDevCell primary={child.primary_dev} project={child} onSaved={() => handleCellSaved(child.id)} />

@@ -435,7 +435,8 @@
     "colSe": "SE",
     "colMde": "MDE",
     "colPrimary": "实名投入",
-    "arCountNote": "({{count}} AR)"
+    "arCountNote": "({{count}} AR)",
+    "colIteration": "迭代"
   },
   "version": {
     "productTitle": "产品版本，点击填写（如 B）",

@@ -437,7 +437,8 @@
     "colSe": "SE",
     "colMde": "MDE",
     "colPrimary": "Primary Dev",
-    "arCountNote": "({{count}} AR)"
+    "arCountNote": "({{count}} AR)",
+    "colIteration": "Iteration"
   },
   "version": {
     "productTitle": "Product version, click to edit (e.g. B)",

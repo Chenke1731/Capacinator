@@ -1432,16 +1432,29 @@ input[type="checkbox"].settings-checkbox,
 }
 
 /* B3c 交付计划复合格: 主行 RP + 尾行迭代窗口(mono 11 次色) */
-.req-release { display: flex; flex-direction: column; gap: 0; min-width: 0; align-self: center; justify-content: center; }
+.req-iter-cell { display: inline-flex; align-items: center; min-width: 0; overflow: hidden; }
+.req-iter-val {
+  font-size: var(--b-fs-meta);
+  font-weight: 400;
+  color: var(--text-secondary);
+  background: none; border: none; padding: 1px 4px; text-align: left;
+  cursor: pointer; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  max-width: 100%;
+}
+.req-iter-val:hover { background: rgba(127, 127, 127, 0.1); }
+.req-iter-val.is-empty { color: var(--text-tertiary, var(--text-secondary)); }
+
+.req-release { display: flex; flex-direction: column; gap: 2px; min-width: 0; align-self: center; justify-content: center; }
 .req-release .projects-version-part { min-height: 20px; padding: 1px 2px; }
 .req-release-iter { line-height: 14px; }
 .req-release-iter {
   font-size: var(--b-fs-meta);
-  font-weight: 400; /* button 全局默认 w500,正文码值显式归 400 */
-  color: var(--text-secondary);
-  background: none; border: none; padding: 0 2px; text-align: left;
+  font-weight: 400;
+  color: var(--text-tertiary, var(--text-secondary)); /* 附属信息降弱一档(2026-09-23 解耦) */
+  background: none; border: none; padding: 0 2px 0 6px; text-align: left;
   cursor: pointer; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
   max-width: 100%;
+  border-top: 1px dotted var(--border-color, rgba(127,127,127,0.2)); /* 细分隔线 */
 }
 .req-release-iter:hover { color: var(--primary-text); text-decoration: underline; }
 .req-release-iter--empty { color: var(--text-tertiary, var(--text-secondary)); }
@@ -1947,7 +1960,7 @@ input[type="checkbox"].settings-checkbox,
 .requirements-thead > span { position: relative; }
 .requirements-thead {
   display: grid;
-    grid-template-columns: minmax(var(--req-w-name, 210px), var(--req-f-name, 1.2fr)) var(--req-w-number, 84px) var(--req-w-component, 84px) var(--req-w-lifecycle, 200px) var(--req-w-kloc, 64px) var(--req-w-effort, 64px) var(--req-w-se, 88px) var(--req-w-mde, 88px) var(--req-w-version, 68px) var(--req-w-release, 76px) var(--req-w-priority, 44px) var(--req-w-primary, 88px) var(--req-w-actions, 92px) var(--req-spacer, 0fr);
+    grid-template-columns: minmax(var(--req-w-name, 210px), var(--req-f-name, 1.2fr)) var(--req-w-number, 84px) var(--req-w-component, 84px) var(--req-w-lifecycle, 200px) var(--req-w-kloc, 64px) var(--req-w-effort, 64px) var(--req-w-se, 88px) var(--req-w-mde, 88px) var(--req-w-version, 68px) var(--req-w-release, 64px) minmax(var(--req-w-iter, 78px), var(--req-cap-iter, 88px)) var(--req-w-priority, 44px) var(--req-w-primary, 88px) var(--req-w-actions, 92px) var(--req-spacer, 0fr);
   gap: var(--req-gap, 8px); /* 余量优先摊进间距(2026-09-23),媒体档继承 */
   align-items: center;
   min-height: 36px;
@@ -1962,7 +1975,7 @@ input[type="checkbox"].settings-checkbox,
 
 .requirements-row {
   display: grid;
-    grid-template-columns: minmax(var(--req-w-name, 210px), var(--req-f-name, 1.2fr)) var(--req-w-number, 84px) var(--req-w-component, 84px) var(--req-w-lifecycle, 200px) var(--req-w-kloc, 64px) var(--req-w-effort, 64px) var(--req-w-se, 88px) var(--req-w-mde, 88px) var(--req-w-version, 68px) var(--req-w-release, 76px) var(--req-w-priority, 44px) var(--req-w-primary, 88px) var(--req-w-actions, 92px) var(--req-spacer, 0fr);
+    grid-template-columns: minmax(var(--req-w-name, 210px), var(--req-f-name, 1.2fr)) var(--req-w-number, 84px) var(--req-w-component, 84px) var(--req-w-lifecycle, 200px) var(--req-w-kloc, 64px) var(--req-w-effort, 64px) var(--req-w-se, 88px) var(--req-w-mde, 88px) var(--req-w-version, 68px) var(--req-w-release, 64px) minmax(var(--req-w-iter, 78px), var(--req-cap-iter, 88px)) var(--req-w-priority, 44px) var(--req-w-primary, 88px) var(--req-w-actions, 92px) var(--req-spacer, 0fr);
   gap: var(--req-gap, 8px); /* 余量优先摊进间距(2026-09-23),媒体档继承 */
   align-items: center;
   min-height: 40px;
@@ -2394,7 +2407,7 @@ body.req-col-dragging * {
 @media (min-width: 1560px) and (max-width: 1679px) {
   .requirements-thead,
   .requirements-row {
-    grid-template-columns: minmax(var(--req-w-name, 210px), var(--req-f-name, 1.1fr)) var(--req-w-number, 80px) var(--req-w-lifecycle, 200px) var(--req-w-kloc, 64px) var(--req-w-effort, 64px) var(--req-w-se, 88px) var(--req-w-mde, 88px) var(--req-w-version, 64px) var(--req-w-release, 68px) var(--req-w-priority, 44px) var(--req-w-primary, 80px) var(--req-w-actions, 92px) var(--req-spacer, 0fr);
+    grid-template-columns: minmax(var(--req-w-name, 210px), var(--req-f-name, 1.1fr)) var(--req-w-number, 80px) var(--req-w-lifecycle, 200px) var(--req-w-kloc, 64px) var(--req-w-effort, 64px) var(--req-w-se, 88px) var(--req-w-mde, 88px) var(--req-w-version, 64px) var(--req-w-release, 78px) var(--req-w-priority, 44px) var(--req-w-primary, 80px) var(--req-w-actions, 92px) var(--req-spacer, 0fr);
   }
   .requirements-thead > span:nth-child(3),
   .requirements-row > .req-edit-cell--component { display: none; }

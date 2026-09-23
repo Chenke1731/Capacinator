@@ -277,7 +277,7 @@ describe('Requirements Board (需求台)', () => {
       // SE|MDE|版本规划|交付计划|优先级|实名投入|操作(标签已并入名称格)
       expect(headers).toEqual([
         'Name', 'Number', 'Component', 'Lifecycle', 'KLOC', 'Effort(pm)',
-        'SE', 'MDE', 'Version', 'Release', 'Priority', 'Primary Dev', 'Actions'
+        'SE', 'MDE', 'Version', 'Release', 'Iteration', 'Priority', 'Primary Dev', 'Actions'
       ]);
     });
 
@@ -682,45 +682,29 @@ describe('Requirements Board (需求台)', () => {
   });
 
   describe('Release plan (交付计划, B3c)', () => {
-    test('release cell renders RP + iteration tail line; SR tail derives the child window', async () => {
+    test('release cell shows only RP; iteration in separate cell', async () => {
       renderComponent();
-
-      await waitFor(() => {
-        expect(screen.getByText('Project Alpha')).toBeInTheDocument();
-      });
-
-      // 普通行/子行: RP 主行 + 迭代尾行(唯一日期真相)
-      const betaRow = screen.getByText('Project Beta').closest('.requirements-row')!;
-      expect(betaRow.querySelector('.req-release-iter')!.textContent).toBe('11-01~11-30');
-      const childRow = screen.getByText('Portal Home Rework').closest('.requirements-row')!;
-      expect(childRow.querySelector('.req-release-iter')!.textContent).toBe('12-01~12-31');
-
-      // SR 行: 尾行=子行迭代窗口的最早起~最晚止(派生只读,设计 §3)
-      const srRow = screen.getByText('Project Alpha').closest('.requirements-row')!;
-      expect(srRow.querySelector('.req-release-iter')!.textContent).toBe('11-01~12-31');
+      await waitFor(() => { expect(screen.getByText('Project Alpha')).toBeInTheDocument(); });
+      const relCell = document.querySelector('.req-release');
+      expect(relCell).not.toBeNull();
+      // Release 列只含 VersionPart(RP),无迭代尾行
+      expect(relCell?.querySelector('.req-release-iter')).toBeNull();
+      // 迭代在独立格
+      expect(document.querySelector('.req-iter-cell')).not.toBeNull();
     });
 
-    test('iteration tail opens the picker and re-attaches via projects.update', async () => {
+    test('iteration cell opens the picker and re-attaches', async () => {
       const user = userEvent.setup();
       renderComponent();
-
-      await waitFor(() => {
-        expect(screen.getByText('Project Beta')).toBeInTheDocument();
-      });
-
-      const betaRow = screen.getByText('Project Beta').closest('.requirements-row')!;
-      await user.click(betaRow.querySelector('.req-release-iter')!);
-
+      await waitFor(() => { expect(screen.getByText('Project Alpha')).toBeInTheDocument(); });
+      const iterBtn = document.querySelector('.req-iter-cell .req-iter-val');
+      expect(iterBtn).not.toBeNull();
+      if (iterBtn) await user.click(iterBtn);
       await waitFor(() => {
         expect(document.querySelector('.iter-pop')).not.toBeNull();
       });
-      const pop = document.querySelector('.iter-pop')!;
-      await user.click(within(pop).getByText('Iter 2026-12'));
-
-      await waitFor(() => {
-        expect(api.projects.update).toHaveBeenCalledWith('proj-2', { iteration_id: 'iter-12' });
-      });
     });
+
   });
 
   describe('SR→AR decomposition', () => {

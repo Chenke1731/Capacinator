@@ -1511,7 +1511,7 @@ input[type="checkbox"].settings-checkbox,
 
 /* B3f ＋AR 入口: 名称格悬停显现(所有需求行可用,修"仅已分解行有按钮"鸡生蛋) */
 .req-ar-add {
-  display: none; /* 非 SR 行 hover 显示;SR 行常驻(下方覆盖)
+  display: none; /* 非 SR 行 hover;SR 行常驻 */
   align-items: center; justify-content: center;
   background: none; border: none; padding: 2px; margin-left: 2px;
   min-width: 22px; min-height: 22px;

@@ -1469,6 +1469,31 @@ input[type="checkbox"].settings-checkbox,
 .iter-pop-dates input { flex: 1; min-width: 0; }
 .iter-pop-create-btn { min-height: 24px; font-size: var(--b-fs-meta); padding: 2px 8px; }
 
+/* req-primary-flexfix(2026-09-23): 基础 .req-editable 为 inline-block/高 38,
+    人+窗口两个 inline span 在 nowrap+裁剪下相互叠压——强制单行 flex */
+.projects-board button.req-primary {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 3px;
+  min-height: 24px;
+  padding: 1px 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+.req-primary-person, .req-primary-window, .req-role-person, .req-role-pm { flex: none; }
+.projects-board button.req-role {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 3px;
+  min-height: 24px;
+  padding: 1px 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 100%;
+}
+
 /* B3f ＋AR 入口: 名称格悬停显现(所有需求行可用,修"仅已分解行有按钮"鸡生蛋) */
 .req-ar-add {
   display: none;

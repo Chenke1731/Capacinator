@@ -150,6 +150,21 @@ check('新列集(代码规模/人力/SE/MDE/实名投入)',
 {
   const bad = await page.evaluate(() => {
     const out = [];
+    // 可见矩形: 与所有 overflow!=visible 祖先求交——被裁剪的幽灵矩形不算重叠
+    // (2026-09-22 教训,重写守卫时曾丢失)
+    const visRect = (el) => {
+      let r = el.getBoundingClientRect();
+      let p = el.parentElement;
+      while (p) {
+        const cs = getComputedStyle(p);
+        if (cs.overflow !== 'visible' || cs.overflowX !== 'visible' || cs.overflowY !== 'visible') {
+          const pr = p.getBoundingClientRect();
+          r = { left: Math.max(r.left, pr.left), right: Math.min(r.right, pr.right), top: Math.max(r.top, pr.top), bottom: Math.min(r.bottom, pr.bottom) };
+        }
+        p = p.parentElement;
+      }
+      return r;
+    };
     document.querySelectorAll('.requirements-row, .requirements-thead').forEach((scope) => {
       const els = [...scope.querySelectorAll('button, span, input, select')].filter((e) => {
         const r = e.getBoundingClientRect();
@@ -157,8 +172,8 @@ check('新列集(代码规模/人力/SE/MDE/实名投入)',
       });
       for (let a = 0; a < els.length; a++) for (let b = a + 1; b < els.length; b++) {
         if (els[a].contains(els[b]) || els[b].contains(els[a])) continue;
-        const A = els[a].getBoundingClientRect(), B = els[b].getBoundingClientRect();
-        if (A.width < 8 || B.width < 8) continue; // 省略号裁剪后的窄条不构成可见重叠
+        const A = visRect(els[a]), B = visRect(els[b]);
+        if (A.right - A.left < 8 || B.right - B.left < 8) continue; // 裁剪后的窄条不构成可见重叠
         const ox = Math.min(A.right, B.right) - Math.max(A.left, B.left);
         const oy = Math.min(A.bottom, B.bottom) - Math.max(A.top, B.top);
         if (ox > 2 && oy > 2) out.push((els[a].textContent || '').trim().slice(0, 5) + '×' + (els[b].textContent || '').trim().slice(0, 5));

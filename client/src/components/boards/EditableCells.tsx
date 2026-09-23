@@ -289,9 +289,10 @@ export function TagsCell({
           type="button"
           className={`req-tag req-tag--filter ${String(activeTagId) === String(tag.id) ? 'req-tag--filtering' : ''}`}
           title={t('projects:tagSelect.filterHint')}
-          style={{ color: `color-mix(in srgb, ${tag.color || '#888888'} ${Math.round(tagInkRatio(tag.color) * 100)}%, var(--tag-ink))`, background: `${tag.color || '#888888'}1f` }}
+          style={{ color: `color-mix(in srgb, ${tag.color || '#888888'} ${Math.round(tagInkRatio(tag.color) * 100)}%, var(--tag-ink))` }}
           onClick={(e) => { e.stopPropagation(); onFilterByTag(tag.id); }}
         >
+          <span className="req-tag-dot" style={{ background: tag.color || '#888888' }} />
           {tag.name}
         </button>
       ))}

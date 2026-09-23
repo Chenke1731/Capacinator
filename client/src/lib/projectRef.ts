@@ -5,7 +5,7 @@
  * 不进列表列(不占列预算),不承载域语义。
  */
 export const projectRefCode = (seqNumber: number | null | undefined): string =>
-  seqNumber != null ? `#${seqNumber}` : '';
+  seqNumber != null ? `CAP-${seqNumber}` : ''; /* 2026-09-23 借鉴 ONES: 前缀-数字族,与 SR-/AR- 同构 */
 
 /** 复制引用码。LAN http 下 navigator.clipboard 不可用(非安全上下文),
  *  回退 execCommand;两者皆败则码本身可选中手抄,不阻塞。 */

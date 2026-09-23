@@ -68,7 +68,7 @@ function NumberPart({ project, onSaved }: { project: any; onSaved: () => void })
       <button type="button" className="req-number-part req-editable" title={t('projects:number.hint')}
               onClick={() => { setDraft(value); setEditing(true); }}>
         {/* 空外部号时弱化显示 #序号: 列表截图永远携带可指代标识(# 自区分于 SR/AR 号) */}
-        {value || <span className="text-muted">#{project.seq_number}</span>}
+        {value || <span className="text-muted">CAP-{project.seq_number}</span>}
       </button>
       <Pencil size={10} className="req-pencil" aria-hidden />
     </span>
@@ -359,7 +359,7 @@ export function Projects() {
       if (filters.search) {
         // 名称包含,或引用码精确命中(#序号)——截图指代到检索的闭环
         const q = filters.search.trim().toLowerCase();
-        const byCode = /^#(\d+)$/.exec(q);
+        const byCode = /^(?:#|CAP-)(\d+)$/i.exec(q);
         const hit = String(p.name).toLowerCase().includes(q)
           || String(p.external_number ?? '').toLowerCase().includes(q)
           || (byCode && Number(byCode[1]) === p.seq_number);
@@ -749,7 +749,7 @@ export function Projects() {
                   {srCollapsed ? <ChevronRight size={15} /> : <ChevronDown size={15} />}
                 </button>
                 <span className="requirements-name-text" title={project.name}>{project.name}</span>
-                <span className="req-sr-chip">{t('projects:board.arCount', { count: agg.count })}</span>
+                <span className="req-sr-note">{t('projects:board.arCountNote', { count: agg.count })}</span>
                 {(project.lifecycle_warnings ?? []).length > 0 && (
                   <span
                     className="lifecycle-warn-chip"

@@ -436,7 +436,8 @@
     "colEffort": "Effort(pm)",
     "colSe": "SE",
     "colMde": "MDE",
-    "colPrimary": "Primary Dev"
+    "colPrimary": "Primary Dev",
+    "arCountNote": "({{count}} AR)"
   },
   "version": {
     "productTitle": "Product version, click to edit (e.g. B)",

@@ -2046,26 +2046,40 @@ body.req-col-dragging * {
   overflow: hidden;
 }
 .requirements-name { overflow: hidden; }
-.requirements-name-text { flex: 0 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+.requirements-name-text {
   font-size: var(--b-fs-name);
   font-weight: 600;
   white-space: nowrap;
-  /* 名称是扫读首轴,格内最后牺牲(2026-09-22 审计: 曾 flex:0 1 auto 被随行元素挤到省略号) */
-  flex: none;
+  /* 名称是扫读首轴: flex 弹性但保底 5 字(70px);色点标签也是弹性——两者
+     各让一步,不再把标签顶出格(2026-09-23 色点溢出修复) */
+  flex: 0 1 auto;
+  min-width: 70px;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 .req-tag {
   font-size: var(--b-fs-meta);
-  padding: 1px 7px;
-  border-radius: var(--b-r-pill);
+  padding: 0;
+  border-radius: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
   white-space: nowrap;
-  /* "1 枚完整 + +N"折叠(2026-09-22 审计 P1): 限宽省略+title 可恢复;+N 不可压缩 */
+  /* 2026-09-23 名称格降噪: 色点+文字替彩底 chip(同头像语言);截断只吃文字,点恒完整 */
   flex: 0 1 auto;
   min-width: 0;
-  max-width: 58px;
+  max-width: 64px;
+  overflow: hidden;
+}
+.req-tag > span:not(.req-tag-dot) {
+  min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+.req-tag-dot {
+  flex: none;
+  width: 7px; height: 7px;
+  border-radius: 50%;
 }
 .req-tag--more { background: var(--bg-secondary, rgba(127, 127, 127, 0.14)); color: var(--text-secondary); cursor: help; }
 
@@ -2192,16 +2206,12 @@ body.req-col-dragging * {
 .requirements-row--sr .requirements-name-text { font-weight: 600; }
 /* P14: 只读汇总件不显示可点手型(行点击=详情仍有效,但光标不再误导) */
 .requirements-row .req-state-dist,
-.requirements-row--sr .req-sr-chip { cursor: default; }
-.req-sr-chip {
-  flex: 0 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+.requirements-row--sr .req-sr-note {
+  flex: none;
   font-size: var(--b-fs-meta);
-  color: #1d4ed8; /* 深蓝: 11px 小字要过 AA,浅底上主蓝 #3b82f6 只有 ~3.9:1 */
-  background: rgba(59, 130, 246, 0.08);
-  border-radius: var(--b-r-pill);
-  /* P11: 与 req-tag/warn-chip 同一 chip 高度档(1px 纵向内边距,弃 line-height 定高) */
-  padding: 1px 7px;
-  margin-left: 2px;
+  font-weight: 400;
+  color: var(--text-tertiary, var(--text-secondary));
+  white-space: nowrap;
 }
 /* SR 状态列: 子行分布(如 2·已启动 1·待RAT) */
 .req-state-dist {
@@ -2513,13 +2523,18 @@ body.req-col-dragging * {
 .lifecycle-deadline--inline.lifecycle-deadline--overdue { color: #f59e0b; font-weight: 600; }
 .projects-board .lifecycle-warn-chip {
   border: none;
-  background: rgba(245, 158, 11, 0.12);
-  color: #f59e0b;
+  background: none; /* 2026-09-23 名称格降噪: 去底色块,琥珀文字+前缀点 */
+  color: #b45309;
   font-size: var(--b-fs-meta);
-  font-weight: 600;
-  border-radius: var(--b-r-pill);
-  padding: 1px 7px;
-  margin-right: 4px;
+  font-weight: 500;
+  padding: 0;
+  margin-left: 2px;
+}
+[data-theme='dark'] .projects-board .lifecycle-warn-chip { color: #fbbf24; }
+.projects-board .lifecycle-warn-chip::before {
+  content: '·';
+  font-weight: 700;
+  margin-right: 1px;
 }
 
 /* ============================================================
@@ -2617,7 +2632,7 @@ body.req-col-dragging * {
 [data-theme='light'] .projects-board .lifecycle-state-badge--in_iteration { color: #166534; }
 [data-theme='light'] .projects-board .lifecycle-state-badge--delivered { color: #0f766e; }
 [data-theme='light'] .projects-board .lifecycle-state-badge--cancelled { color: #b91c1c; }
-[data-theme='light'] .projects-board .lifecycle-warn-chip { background: rgba(245, 158, 11, 0.11); color: #92400e; }
+[data-theme='light'] .projects-board .lifecycle-warn-chip { color: #b45309; }
 [data-theme='light'] .projects-board .lifecycle-deadline--inline.lifecycle-deadline--overdue { color: #b45309; }
 [data-theme='light'] .projects-board .lifecycle-quick-btn { color: #1d4ed8; background: rgba(59, 130, 246, 0.10); }
 [data-theme='light'] .projects-board .lifecycle-quick-btn:hover { background: rgba(59, 130, 246, 0.18); }

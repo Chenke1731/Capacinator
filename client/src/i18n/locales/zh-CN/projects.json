@@ -434,7 +434,8 @@
     "colEffort": "人力(人月)",
     "colSe": "SE",
     "colMde": "MDE",
-    "colPrimary": "实名投入"
+    "colPrimary": "实名投入",
+    "arCountNote": "({{count}} AR)"
   },
   "version": {
     "productTitle": "产品版本，点击填写（如 B）",

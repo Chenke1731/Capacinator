@@ -733,7 +733,7 @@ describe('Requirements Board (需求台)', () => {
 
       const srRow = screen.getByText('Project Alpha').closest('.requirements-row')!;
       expect(srRow).toHaveClass('requirements-row--sr');
-      expect(within(srRow).getByText('2 AR')).toBeInTheDocument();
+      expect(within(srRow).getByText('(2 AR)')).toBeInTheDocument();
       // 状态分布: 1 子行待RAT + 1 已启动(SR 行不进单胶囊,页面侧状态分布)
       expect(within(srRow).getByText(/Pending RAT/)).toBeInTheDocument();
       expect(within(srRow).getByText(/In Iteration/)).toBeInTheDocument();
@@ -813,7 +813,7 @@ describe('Requirements Board (需求台)', () => {
 
       // 空外部号 → 弱化 #序号(列表截图永远携带可指代标识)
       const betaRow2 = screen.getByText('Project Beta').closest('.requirements-row')!;
-      expect(within(betaRow2).getByText('#2')).toBeInTheDocument();
+      expect(within(betaRow2).getByText('CAP-2')).toBeInTheDocument();
 
       // 子行(AR): 空 → 填 AR 号
       const childRow2 = screen.getByText('Portal Home Rework').closest('.requirements-row')!;
@@ -1115,8 +1115,8 @@ describe('Requirements Board (需求台)', () => {
         expect(screen.getByText('Project Alpha')).toBeInTheDocument();
       });
 
-      // #1 = seq_number 精确命中 Alpha
-      await user.type(screen.getByTestId('search-input'), '#1');
+      // CAP-1 = seq_number 精确命中 Alpha(#N 旧格式仍兼容)
+      await user.type(screen.getByTestId('search-input'), 'CAP-1');
       expect(screen.getByText('Project Alpha')).toBeInTheDocument();
       expect(screen.queryByText('Project Beta')).not.toBeInTheDocument();
     });

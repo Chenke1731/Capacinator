@@ -201,8 +201,8 @@
 .form-control:focus, .form-input:focus {
   outline: none;
   border-color: var(--input-focus-border);
-  box-shadow: 0 0 0 3px var(--primary);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 15%, transparent);
+  /* 品牌色 20% 双环(2026-09-23 借鉴 ONES --shadow-focus),替 3px 实色重环 */
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--primary) 20%, transparent);
 }
 
 .form-select {
@@ -305,7 +305,7 @@
   padding: 0.25rem 0.75rem;
   font-size: 0.75rem;
   font-weight: 500;
-  border-radius: 9999px;
+  border-radius: 3px;
 }
 
 .badge-primary {
@@ -1021,7 +1021,7 @@ input[type="checkbox"].settings-checkbox,
   font-size: 13px;
   font-weight: 600;
   padding: 3px 10px;
-  border-radius: 999px;
+  border-radius: 3px;
   background: var(--bg-secondary, rgba(127,127,127,0.15));
   color: var(--text-primary);
   white-space: nowrap;
@@ -1518,7 +1518,7 @@ input[type="checkbox"].settings-checkbox,
 .lifecycle-capsule {
   display: inline-flex;
   align-items: stretch;
-  border-radius: 999px;
+  border-radius: 3px;
   overflow: hidden;
 }
 .lifecycle-capsule .lifecycle-state-badge { border-radius: 0; }
@@ -1558,7 +1558,7 @@ input[type="checkbox"].settings-checkbox,
 .lifecycle-quick-btn {
   font-size: 12px;
   padding: 3px 10px;
-  border-radius: 999px;
+  border-radius: 3px;
 }
 
 /* Fixed-position popover — immune to table overflow clipping.
@@ -1572,7 +1572,7 @@ input[type="checkbox"].settings-checkbox,
   background: var(--bg-primary, #fff);
   border: 1px solid var(--border-color);
   border-radius: 8px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+  box-shadow: var(--shadow-lg, 0px 8px 16px -4px rgba(45, 45, 46, 0.15), 0px 0px 1px 0px rgba(45, 45, 46, 0.2));
   padding: 10px 12px;
   display: flex;
   flex-direction: column;
@@ -1829,7 +1829,7 @@ input[type="checkbox"].settings-checkbox,
   /* 圆角 */
   --b-r-sm: 4px;
   --b-r-card: 8px;
-  --b-r-pill: 999px;
+  --b-r-pill: 3px; /* 2026-09-23 借鉴 ONES: 锐利小圆角矩形语言,弃消费感胶囊 */
   padding: 16px 24px 28px;
 }
 
@@ -1895,7 +1895,10 @@ input[type="checkbox"].settings-checkbox,
 /* P3: 下拉是全页唯一零反馈控件族——补 hover 确认与焦点环 */
 .board-select:hover { border-color: var(--border-color-hover, var(--border-color)); background: var(--bg-secondary, rgba(127, 127, 127, 0.06)); }
 .board-select:focus-visible,
-.nav-link:focus-visible { outline: 2px solid var(--accent-color, #3b82f6); outline-offset: 1px; }
+.nav-link:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--primary) 20%, transparent);
+}
 .projects-board .board-reset {
   display: inline-flex;
   align-items: center;

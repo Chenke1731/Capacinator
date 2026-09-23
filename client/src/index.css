@@ -1395,9 +1395,10 @@ html body .settings-section .checkbox-label,
   --status-cancelled: #6b7280;
   
   /* Shadows */
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  /* 三级双层轻影(2026-09-23 借鉴 ONES): 主影+弥散双层,轻而立体替重单影 */
+  --shadow-sm: 0px 1px 2px 0px rgba(45, 45, 46, 0.2), 0px 0px 2px 0px rgba(45, 45, 46, 0.05);
+  --shadow-md: 0px 2px 4px 0px rgba(45, 45, 46, 0.15), 0px 0px 1px 0px rgba(45, 45, 46, 0.1);
+  --shadow-lg: 0px 8px 16px -4px rgba(45, 45, 46, 0.15), 0px 0px 1px 0px rgba(45, 45, 46, 0.2);
 }
 
 /* Dark Mode Theme Variables */
@@ -1498,9 +1499,9 @@ html body .settings-section .checkbox-label,
   --status-cancelled: #9ca3af;
   
   /* Shadows - Darker shadows for dark theme */
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+  --shadow-sm: 0px 1px 2px 0px rgba(0, 0, 0, 0.4), 0px 0px 2px 0px rgba(0, 0, 0, 0.2);
   --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -2px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0px 8px 16px -4px rgba(0, 0, 0, 0.45), 0px 0px 1px 0px rgba(0, 0, 0, 0.4);
 }
 
 /* 深色主题: 蓝系提示文字提亮过 4.5:1 */

@@ -47,7 +47,6 @@ export function PriorityCell({ project, onSaved }: { project: any; onSaved: () =
       >
         P{level}
       </button>
-      <Pencil size={10} className="req-pencil" aria-hidden />
       {pop.open && (
         <div className="lc-popover cell-pop pri-pop" data-testid="priority-popover" style={pop.style}>
           <div className="lc-popover-title">{t('projects:prioritySelect.title')}</div>
@@ -152,7 +151,6 @@ export function OwnerCell({ project, onSaved }: { project: any; onSaved: () => v
           t('projects:ownerSelect.none')
         )}
       </button>
-      <Pencil size={10} className="req-pencil" aria-hidden />
       {pop.open && (
         <div className="lc-popover cell-pop owner-pop" data-testid="owner-popover" style={pop.style}>
           <div className="lc-popover-title">{t('projects:ownerSelect.title')}</div>
@@ -426,7 +424,6 @@ export function ComponentCell({
       >
         {value || t('projects:component.none')}
       </button>
-      <Pencil size={10} className="req-pencil" aria-hidden />
       {pop.open && (
         <div className="lc-popover cell-pop component-pop" data-testid="component-popover" style={pop.style}>
           <div className="lc-popover-title">{t('projects:component.title')}</div>

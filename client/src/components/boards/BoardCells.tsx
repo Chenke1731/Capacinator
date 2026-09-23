@@ -97,7 +97,6 @@ export function VersionPart({ project, field, placeholder, hint, onSaved }: {
               onClick={() => { setDraft(value); setEditing(true); }}>
         {value || <span className="text-muted">{placeholder}</span>}
       </button>
-      <Pencil size={10} className="req-pencil" aria-hidden />
     </span>
   );
 }

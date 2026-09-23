@@ -1060,13 +1060,13 @@ describe('Requirements Board (需求台)', () => {
       expect(screen.getByText('Project Beta')).toBeInTheDocument();
     });
 
-    test('number cell carries the pencil affordance like other edit points (P6)', async () => {
+    test('decorative pencils are gone everywhere (2026-09-23 裁决: 点击即知可编辑)', async () => {
       renderComponent();
       await waitFor(() => {
         expect(screen.getByText('Project Alpha')).toBeInTheDocument();
       });
-      const alphaRow = screen.getByText('Project Alpha').closest('.requirements-row')!;
-      expect(alphaRow.querySelector('.req-edit-cell--number .req-pencil')).not.toBeNull();
+      // 纯提示铅笔全灭;唯一保留的是标签格的编辑入口按钮(--act,可点击本体)
+      expect(document.querySelectorAll('.req-pencil:not(.req-pencil--act)').length).toBe(0);
     });
 
     test('search by external number locates the tree (parent or child hit)', async () => {

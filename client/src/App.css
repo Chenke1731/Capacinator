@@ -2094,7 +2094,7 @@ body.req-col-dragging * {
 
 /* 行内编辑可供性: cell 包裹层悬停淡底 + 角落铅笔; 呈现态保持只读密度 */
 .req-edit-cell { position: relative; display: inline-flex; align-items: center; min-width: 0; }
-.req-edit-cell:hover { background: rgba(127, 127, 127, 0.08); border-radius: var(--b-r-sm); }
+/* 格本体不加 hover 底(2026-09-23 收敛): 唯一编辑信号=按钮自己的 hover 淡底,防多层灰块叠加 */
 /* 人员头像(2026-09-23 借鉴 A): 首字圆标,与标签 chip 同语言(12% 淡染+墨向混色) */
 .req-avatar {
   flex: none;
@@ -2104,18 +2104,7 @@ body.req-col-dragging * {
   font-size: 10px; font-weight: 500; line-height: 1;
 }
 
-.req-pencil {
-  display: none;
-  position: absolute;
-  top: 0;
-  right: 1px;
-  color: var(--text-tertiary, var(--text-secondary));
-  pointer-events: none;
-}
-.req-edit-cell:hover > .req-pencil { display: inline-flex; }
-/* 人力格两行数字占满右缘,铅笔挂到格角外沿,悬停时不再压数字 */
-.req-staff-wrap > .req-pencil { top: -4px; right: -2px; }
-.req-staff-wrap:hover > .req-pencil { display: inline-flex; }
+/* 纯提示铅笔已删(2026-09-23 用户裁决: 点击即知可编辑,预告无价值);req-pencil--act(标签入口按钮)样式保留 */
 .req-editable {
   appearance: none;
   background: none;

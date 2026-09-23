@@ -70,7 +70,6 @@ function NumberPart({ project, onSaved }: { project: any; onSaved: () => void })
         {/* 空外部号时弱化显示 #序号: 列表截图永远携带可指代标识(# 自区分于 SR/AR 号) */}
         {value || <span className="text-muted">CAP-{project.seq_number}</span>}
       </button>
-      <Pencil size={10} className="req-pencil" aria-hidden />
     </span>
   );
 }

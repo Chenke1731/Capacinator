@@ -120,6 +120,21 @@ for (const rel of utilScanFiles) {
     violations.push(`${rel}:${d.line} 「${d.item}」 裸定义全局工具类 .${d.cls} → 跨文件同名类会覆盖全局定义(.text-muted 曾把全站弱化文字压到 9.35px);页面内覆盖请写 .xxx-page .${d.cls}`);
   }
 }
+// ── 主色令牌误配(2026-09-23 迭代页隐形按钮事故) ──
+// --primary-text 语义 = "浅色背景上的主色文字";实心 --primary 底上用它,
+// 浅色主题两令牌同值(#4f46e5) → 底字同色完全隐形。实心主色底一律白字。
+for (const rel of [...utilScanFiles, 'client/src/App.css', 'client/src/index.css']) {
+  const text = readFileSync(resolve(root, rel), 'utf8');
+  for (const m of text.matchAll(/([^{}]+)\{([^}]*)\}/g)) {
+    const body = m[2];
+    if (/background[^;]*var\(--primary\)/.test(body) && /[^-]color:[^;]*var\(--primary-text\)/.test(body)) {
+      const line = text.slice(0, m.index).split('\n').length;
+      const sel = m[1].trim().split('\n').pop().trim();
+      violations.push(`${rel}:${line} 「${sel}」 实心主色底配 --primary-text 文字 → 浅色主题同值隐形(迭代页按钮事故);实心主色底用白字`);
+    }
+  }
+}
+
 // 白名单腐化提示(不拦门): 存量清掉后条目要及时删,防止清单变成永久豁免
 for (const k of UTIL_ALLOWLIST) {
   if (!allowlistedSeen.has(k)) console.log(`note: 工具类白名单条目已无对应违例,可删除: ${k}`);
@@ -145,6 +160,16 @@ if (process.env.SELF_TEST === '1') {
     process.exit(1);
   }
   console.log(`SELF-TEST PASS: 检出注入反模式 ${hits.join(', ')}`);
+
+  // 规则 3 压力自证: 主色令牌误配——实心主色底配 --primary-text 必须抓到,纯文字用不误报
+  const mixOk = '.link { color: var(--primary-text); }';
+  const mixBad = '.btn-x { background: var(--primary); color: var(--primary-text); }';
+  const test = (t) => /background[^;]*var\(--primary\)/.test(t) && /[^-]color:[^;]*var\(--primary-text\)/.test(t);
+  if (!test(mixBad) || test(mixOk)) {
+    console.error('SELF-TEST FAIL: 主色令牌误配检测器失灵');
+    process.exit(1);
+  }
+  console.log('SELF-TEST PASS: 主色令牌误配检测器(检出+不误报)');
 
   // 规则 2 压力自证: 伪造页面 CSS——裸定义必须抓到,后代覆盖/类名前缀不精确不得误报
   const pageLike = [

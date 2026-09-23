@@ -12,6 +12,7 @@ const API = 'http://127.0.0.1:3110/api';
 
 const projId = ((await (await fetch(`${API}/projects?limit=1`)).json()).data?.[0]?.id) ?? '';
 const PAGES = [
+  { name: '迭代', path: '/iterations' },
   { name: 'dashboard', path: '/dashboard' },
   { name: 'projects-需求台', path: '/projects' },
   { name: 'projects-问题单台', path: '/projects?tab=tickets' },

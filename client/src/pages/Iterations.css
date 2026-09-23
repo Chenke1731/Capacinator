@@ -36,8 +36,16 @@
 .it-btn--primary {
   background: var(--primary);
   border-color: var(--primary);
-  color: var(--primary-text);
+  /* 实心主色底上用白字(--primary-text 语义是"浅底上的主色文字",
+     浅色主题下与 --primary 同值 #4f46e5 → 靛蓝底靛蓝字完全隐形,
+     2026-09-23 用户截圈实测按钮内非底色像素 0%) */
+  color: #fff;
 }
+
+/* 深色主题: --primary(#6366f1) 上白字 4.46:1 差线——按钮族降一档
+   indigo-600/700,白字 6.3/7.4:1 过 AA 且 hover 反馈保留 */
+[data-theme='dark'] .it-btn--primary { background: #4f46e5; border-color: #4f46e5; }
+[data-theme='dark'] .it-btn--primary:hover:not(:disabled) { background: #4338ca; border-color: #4338ca; }
 
 .it-btn--primary:hover:not(:disabled) {
   background: var(--primary-hover);

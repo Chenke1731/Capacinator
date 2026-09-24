@@ -5,7 +5,6 @@ import compression from 'compression';
 import morgan from 'morgan';
 import { AuditRouteHandler } from './utils/AuditRouteHandler.js';
 import apiRoutes from './api/routes/index.js';
-// import { errorHandler } from './middleware/errorHandler.js'; // unused - using enhancedErrorHandler
 import { enhancedErrorHandler } from './middleware/enhancedErrorHandler.js';
 import { requestLoggerMiddleware, userContextMiddleware } from './middleware/requestLogger.js';
 import { enhancedAuditMiddleware } from './middleware/enhancedAuditMiddleware.js';

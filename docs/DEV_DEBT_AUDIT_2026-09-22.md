@@ -116,7 +116,8 @@ InlineEdit/EditableCells 收敛、TanStack Table 启用（下一表格页）、R
 - **D9（P1）Projects 页 main 空渲染 → 已解决（当日）**：三层根因叠加——① `test-helpers.ts` navigateTo 硬编码 3120（测试流量一直打 dev 世界，helpers 扫描漏了 utils/ 目录）；② Projects 页已改造成 tab+div 网格界面（"真表格改造"），无 `<table>` 元素，断言过时；③ 修后确认页面渲染完美（"3 requirements · 2 AR" + 搜索 + 过滤），产品代码无辜。修复：navigateTo 改 baseURL 相对路径 + 断言改 tabpanel。**同族端口硬编码共 8 处一并清理**（utils/fixtures/suites/examples 全扫）。
 - **D10（P2）flaky "no console errors" → 已解决（当日）**：真凶是 vite HMR websocket 硬编码 `wss://local.capacinator.com:443`（nginx 开发拓扑），无该环境时握手超时产生 console error（时序性=flaky）。修复：`VITE_E2E=1` 时禁用 HMR（webServer 注入，日常 nginx 开发流不受影响）。附带：Fredoka One 字体本地化（去掉 fonts.gstatic.com 运行时依赖）+ 删除 isolated config 全局污染头 X-Test-Environment（全库无消费方）。
 - **D11（P2）fixture profile-select 噪声**：authenticatedPage 的选人流程偶发卡 `#person-select` 30s（元素存在、冷启动时序问题），超时后"继续 anyway"不阻塞但拖慢测试。待查：people 查询在多 worker 并发冷启动下的挂起路径。
-- **D12（P3）scenario 套件时长帽**：10 分钟 globalTimeout 装不下 49 个测试（2026-09-24：9 过 + 40 未跑）。已提至 30 分钟，完整回归待下次执行（教训：长套件输出勿用 tail 管道，会吞掉 error 详情）。
+- **D12（P3）scenario 套件时长帽**：10 分钟 globalTimeout 装不下 49 个测试（2026-09-24：9 过 + 40 未跑）。已提至 30 分钟；D11 修复后实测每测试隐性 30s 死等已消除（切片对照：67s/测试 → 全套预期 10-15 分钟），完整回归待下次执行（教训：长套件输出勿用 tail 管道，会吞掉 error 详情）。
+- **D13（P2）scenario 套件 selector 现代化**：该套件面向旧 UI 编写——抽测 2 个测试全败于陈旧 selector（Dashboard 已无 "Current Projects" 文案；`.scenario-button .scenario-name` 存在但冷启动下 10s 等待不足）。49 个测试需逐一核对当前 UI。同项评估：`workers: 1` 是共享库时代防冲突的保守设置（库已改为每 run 重建，文件级隔离可验证后放开到 2-3 workers，预期再省一半时长）。
 
 ### 本轮已修（2026-09-24，见对应提交）
 

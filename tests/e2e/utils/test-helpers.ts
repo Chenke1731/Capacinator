@@ -179,10 +179,23 @@ export class TestHelpers {
       }
 
       console.log('📋 Profile modal detected, proceeding with selection...');
-      
-      // Wait for the shadcn Select trigger to be ready (30s: cold-start module
-      // compilation can exceed the old 10s budget — 2026-09-24 batch timeouts)
-      await this.page.waitForSelector('#person-select', { timeout: 30000, state: 'visible' });
+
+      // The 'modal' signal can be a FALSE POSITIVE: on an already-authenticated
+      // page refresh, App renders Login for one frame while me() resolves, so
+      // the title flashes and unmounts. Waiting for #person-select there would
+      // burn the full timeout on an unmounted element (D11: ~30s × every
+      // navigation — the main reason the scenario suite needed 10+ min for 9
+      // tests). Disambiguate: select appears ⇒ real login form; the title goes
+      // detached ⇒ Login unmounted ⇒ already authenticated.
+      const confirmed = await Promise.race([
+        this.page.waitForSelector('#person-select', { timeout: 10000, state: 'visible' }).then(() => 'select'),
+        this.page.waitForSelector('text=Select Your Profile', { timeout: 10000, state: 'detached' }).then(() => 'login-gone'),
+      ]).catch(() => null as unknown as string | null);
+
+      if (confirmed !== 'select') {
+        console.log(`✅ Login flash window passed (${confirmed ?? 'timeout'}), already authenticated, continuing...`);
+        return;
+      }
       console.log('📝 Profile select component found');
 
       // Wait for data to populate by checking network idle

@@ -33,7 +33,6 @@ A comprehensive project capacity planning system that replaces Excel-based plann
 2. **Install dependencies**
    ```bash
    npm install
-   cd client && npm install && cd ..
    ```
 
 3. **Initialize database**
@@ -49,8 +48,8 @@ A comprehensive project capacity planning system that replaces Excel-based plann
    ```
 
    This starts:
-   - Backend server on http://localhost:3000
-   - Frontend development server on http://localhost:3456
+   - Backend server on http://localhost:3110
+   - Frontend development server on http://localhost:3120
    - Electron app (optional)
 
 ### Usage
@@ -172,7 +171,7 @@ Capacinator/
 │   │   └── utils/        # Utilities
 │   └── electron/         # Electron main process
 ├── client/               # React frontend
-├── e2e/                  # End-to-end tests
+├── tests/                # Tests (e2e/, unit/, integration/, visual/)
 ├── test-data/            # Sample Excel files
 ├── docs/                 # Documentation
 └── assets/               # Icons and resources

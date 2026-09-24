@@ -1,4 +1,0 @@
-
-> capacinator@1.0.0 test:e2e:isolated
-> playwright test --config playwright.e2e.config.ts tests/e2e/suites/tables/assignment-inline-editing.spec.ts tests/e2e/suites/features/phases/duplication-ui.spec.ts tests/e2e/suites/scenarios/basic-operations.spec.ts --reporter=json
-

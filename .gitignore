@@ -72,5 +72,38 @@ dist-client/
 release/
 
 # Server logs
-server.logtests/visual/__screenshots__/*.diff.png
+server.log
+
+# Visual regression diff screenshots
+tests/visual/__screenshots__/*.diff.png
+
+# Stray run artifacts (do not commit — regenerate locally instead)
+/jest
+capacinator@*
+/*.png
+/coverage-*.txt
+/coverage-impact-analysis.json
+/e2e-test-results/
+/e2e-full-test-results.json
+/e2e-subset-results.txt
+/e2e-test-results.json
+/settings-screenshots/
+/build-output.txt
+/debug-allocation-report.json
+/full-e2e-results.txt
+/simple-table-test-results.json
+/smoke-results.txt
+/smoke-test-results.json
+/reporting-test-results.txt
+/skipped-tests.txt
+/test-results-summary.json
+/original_table_columns.txt
+.dev-pids.json
+__pycache__/
+
+# Compiled JS artifacts inside typed source dirs
+client/src/**/*.js
+client/src/**/*.js.map
+client/src/**/*.d.ts.map
+
 .zcode/

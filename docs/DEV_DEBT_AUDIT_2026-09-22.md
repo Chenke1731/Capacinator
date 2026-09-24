@@ -88,3 +88,29 @@ InlineEdit/EditableCells 收敛、TanStack Table 启用（下一表格页）、R
 | 非测试 console.log | 51 |
 | CSS 文件 / !important | 26 / 210 |
 | .backup 文件入库 | 3 |
+
+## 2026-09-24 追加：全项目审视——安全债（Owner 决定推迟）与结构债
+
+三路审查（后端 / 前端 / 测试与仓库卫生）结论归档。**Owner 决定（2026-09-24）：安全项全部推迟到项目成熟后再修，当前优先功能；监听 0.0.0.0 为有意配置（局域网访问），不是缺陷。** 本节为接手时的修复清单。
+
+### S1 安全债（推迟中，接手时优先级最高）
+
+1. **测试端点无守卫**：`/api/test-data`、`/api/test-context` 批量 DELETE，无 `NODE_ENV` 守卫、无认证，无条件挂载（`src/server/api/routes/test-data.ts:8-14`、`routes/index.ts:84-87`）。叠加 0.0.0.0 监听 = 局域网内任意进程可清空数据库。最小修法：路由挂载处加 `NODE_ENV !== 'production'` 守卫。
+2. **业务端点无认证**：37 个路由文件仅 auth/sync 两个挂 `requireAuth`；登录无密码（`auth.ts:14` `loginByPersonId`，知道 personId 即得 token）。修法：JWT 基础设施已存在（authMiddleware 质量好），需铺开 + 登录加凭据。
+3. **审计链路因此失效**：无认证 → `audit_logs.userId` 对绝大多数写操作为空。
+4. **无速率限制**：全后端无 express-rate-limit。
+
+### S2 结构债（增量消化，不需一次性偿还）
+
+- API 信封规范落地约 20%（179 处 `.json()` 仅 35 处合规）→ 按"触碰即迁移"策略继续；前端 69 处防御解析随之消解。
+- ExcelImporter V1/V2 双轨约 2600 行（V1 仍作 `analyzeImport` 回退，`ImportController.ts:663`）。
+- 前端五套表格实现并存（DataTable/AssignmentTable/UnifiedTabComponent/ProjectsTable/DetailTable）。
+- `Scenarios.tsx` 1676 行巨型页面组件；场景状态三个事实源（ScenarioContext + WorkingScenarioContext + api-client 拦截器直读 localStorage `api-client.ts:182`）。
+- queryKeys 工厂已覆盖 218 处，仍有约 33 处内联 key（本轮已修 2 个由此产生的真实缓存 bug）。
+- **migration 不可变缺 CI 守卫**：024 号 migration 曾被后续提交追加逻辑（对已跑过的库不生效，新旧库 schema 漂移）。建议加"migrations/ 目录 diff 即 fail"的 pre-commit/CI 检查。
+- 类型错误预算漂移：基线 571，实际 576（2026-09-24 本轮清理后 573）——有人加了错误没同步降基线。
+- Electron 5 个 main 变体共 1897 行 .cjs 存在重复。
+
+### 本轮已修（2026-09-24，见对应提交）
+
+query-key 双轨致 2 个缓存 bug（PersonNew 过期读、ProjectTypesTable 双 invalidate 自救）；`test:scenarios`/`test:scenarios:unit`/`test:scenarios:all` 死链（引用不存在的 `jest.scenario.config.js`，其宿主脚本还调用不存在的 `test:db-health`）；`/api/projects/debug` 调试端点残留；死代码约 2.9k 行（ProjectPhaseManager 992+css、TestModal、ui/Modal 三件套、AuditService.improved 446、旧 errorHandler + 各自配套测试、seeds `.old`/`.disabled`）。

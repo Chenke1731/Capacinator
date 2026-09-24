@@ -3,6 +3,14 @@
 STAGED_TS=$(git diff --cached --name-only -- '*.ts' '*.tsx' | head -1)
 STAGED_CSS=$(git diff --cached --name-only -- '*.css' | head -1)
 
+# migration 不可变守卫(024 事故防重演): 已提交的 migration 改动即拦截
+echo "── Migration immutability ──"
+node scripts/check-migrations-immutable.mjs
+if [ $? -ne 0 ]; then
+  echo "MIGRATION MUTATION — commit blocked"
+  exit 1
+fi
+
 if [ -n "$STAGED_CSS" ]; then
   echo "── CSS changed, checking syntax ──"
   node -e "

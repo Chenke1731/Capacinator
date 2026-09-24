@@ -57,6 +57,22 @@ export class TestDataHelpers {
   }
 
   /**
+   * Create a test person dynamically — firstName/lastName convenience
+   * wrapper (the API takes a single `name` field). Callers predating the
+   * createTestUser rename kept using this name; it now maps across.
+   */
+  async createTestPerson(context: TestDataContext, options?: {
+    firstName?: string;
+    lastName?: string;
+    email?: string;
+  }): Promise<any> {
+    return this.createTestUser(context, {
+      name: [options?.firstName, options?.lastName].filter(Boolean).join(' ') || undefined,
+      email: options?.email
+    });
+  }
+
+  /**
    * Create a test user dynamically
    */
   async createTestUser(context: TestDataContext, options?: {

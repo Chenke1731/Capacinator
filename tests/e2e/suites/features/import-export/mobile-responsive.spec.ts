@@ -7,6 +7,10 @@ import { TestDataContext } from '../../../utils/test-data-helpers';
 import fs from 'fs/promises';
 import path from 'path';
 import ExcelJS from 'exceljs';
+import { fileURLToPath } from 'url';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 
 test.describe('Mobile and Responsive Import/Export', () => {
   let testContext: TestDataContext;

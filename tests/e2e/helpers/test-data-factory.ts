@@ -64,6 +64,16 @@ interface FactoryScenario {
  */
 export class TestDataFactory {
   private testId: string;
+  // Runtime-resolved reference ids. The old placeholder defaults
+  // ('default-location' / 'default-role' / 'default-type') match nothing in
+  // the e2e database and FK-fail every create with a 500 — resolve the
+  // first real rows once and use them as defaults (overrides still win).
+  private refIds: {
+    location?: string;
+    role?: string;
+    project_type?: string;
+    project_sub_type?: string;
+  } = {};
   private createdData: {
     people: string[];
     projects: string[];
@@ -91,6 +101,32 @@ export class TestDataFactory {
   }
 
   /**
+   * Resolve first-row reference ids from the live API (cached per factory)
+   */
+  private async resolveRefIds(): Promise<void> {
+    if (this.refIds.location && this.refIds.role && this.refIds.project_type) return;
+    const get = async (url: string): Promise<any[]> => {
+      try {
+        const r = await this.apiContext.get(url);
+        if (!r.ok()) return [];
+        const body = await r.json();
+        return body?.data || (Array.isArray(body) ? body : []);
+      } catch {
+        return [];
+      }
+    };
+    const [locations, roles, subTypeGroups] = await Promise.all([
+      get('/api/locations'),
+      get('/api/roles'),
+      get('/api/project-sub-types')
+    ]);
+    this.refIds.location ||= locations[0]?.id;
+    this.refIds.role ||= roles[0]?.id;
+    this.refIds.project_type ||= subTypeGroups[0]?.project_type_id;
+    this.refIds.project_sub_type ||= subTypeGroups[0]?.sub_types?.[0]?.id;
+  }
+
+  /**
    * Create a person
    */
   async createPerson(overrides: Partial<{
@@ -104,13 +140,14 @@ export class TestDataFactory {
   }> = {}): Promise<FactoryPerson> {
     const name = overrides.name || this.getUniqueName('Test Person');
     const email = overrides.email || `${name.toLowerCase().replace(/\s+/g, '.')}@example.com`;
+    await this.resolveRefIds();
 
     const response = await this.apiContext.post('/api/people', {
       data: {
         name,
         email,
-        location_id: overrides.location_id || 'default-location',
-        primary_role_id: overrides.primary_role_id || 'default-role',
+        location_id: overrides.location_id || this.refIds.location,
+        primary_role_id: overrides.primary_role_id || this.refIds.role,
         worker_type: overrides.worker_type || 'FTE',
         default_availability_percentage: overrides.default_availability_percentage || 100,
         default_hours_per_day: overrides.default_hours_per_day || 8,
@@ -141,13 +178,14 @@ export class TestDataFactory {
     aspiration_finish: string;
   }> = {}): Promise<FactoryProject> {
     const name = overrides.name || this.getUniqueName('Test Project');
+    await this.resolveRefIds();
 
     const response = await this.apiContext.post('/api/projects', {
       data: {
         name,
-        project_type_id: overrides.project_type_id || 'default-type',
-        project_sub_type_id: overrides.project_sub_type_id || 'default-subtype',
-        location_id: overrides.location_id || 'default-location',
+        project_type_id: overrides.project_type_id || this.refIds.project_type,
+        project_sub_type_id: overrides.project_sub_type_id || this.refIds.project_sub_type,
+        location_id: overrides.location_id || this.refIds.location,
         priority: overrides.priority || 3,
         description: overrides.description || `Description for ${name}`,
         ...overrides

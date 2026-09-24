@@ -5,6 +5,11 @@
  */
 import { test, expect, tags } from '../../../fixtures';
 import { TestDataContext } from '../../../utils/test-data-helpers';
+import path from 'path';
+import { fileURLToPath } from 'url';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 test.describe('Excel Import Functionality', () => {
   let testContext: TestDataContext;
   let testData: any;

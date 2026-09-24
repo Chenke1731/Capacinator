@@ -34,7 +34,7 @@ export default function RoleDetails() {
 
   // Fetch project types for resource templates
   const { data: projectTypes } = useQuery({
-    queryKey: ['projectTypes'],
+    queryKey: ['project-types'],
     queryFn: async () => {
       const response = await api.projectTypes.list();
       const typesData = response.data?.data || response.data || [];

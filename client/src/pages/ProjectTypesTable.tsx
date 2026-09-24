@@ -19,7 +19,7 @@ export default function ProjectTypesTable() {
 
   // Fetch project types
   const { data: projectTypes, isLoading, error } = useQuery({
-    queryKey: ['projectTypes'],
+    queryKey: ['project-types'],
     queryFn: async () => {
       const response = await api.projectTypes.list();
       const data = response.data?.data || response.data || [];
@@ -33,7 +33,6 @@ export default function ProjectTypesTable() {
       await api.projectTypes.create(data);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['projectTypes'] });
       queryClient.invalidateQueries({ queryKey: ['project-types'] });
     }
   });
@@ -44,7 +43,6 @@ export default function ProjectTypesTable() {
       await api.projectTypes.update(id, data);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['projectTypes'] });
       queryClient.invalidateQueries({ queryKey: ['project-types'] });
     }
   });
@@ -55,7 +53,6 @@ export default function ProjectTypesTable() {
       await api.projectTypes.delete(id);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['projectTypes'] });
       queryClient.invalidateQueries({ queryKey: ['project-types'] });
     }
   });

@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { ArrowLeft, Save, X } from 'lucide-react';
 import { api } from '../lib/api-client';
+import { queryKeys } from '../lib/queryKeys';
 import { validateName } from '../lib/validation';
 import './PersonDetails.css'; // Reuse existing styles
 
@@ -62,7 +63,7 @@ export function PersonNew() {
 
   // Fetch people for supervisor dropdown
   const { data: people } = useQuery({
-    queryKey: ['people-list'],
+    queryKey: queryKeys.people.lists(),
     queryFn: async () => {
       const response = await api.people.list();
       return response.data.data;

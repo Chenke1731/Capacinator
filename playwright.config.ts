@@ -11,7 +11,11 @@ const __dirname = path.dirname(__filename);
  */
 export default defineConfig({
   testDir: './tests/e2e',
-  testIgnore: ['**/archived/**/*.spec.ts'],
+  // Exclude the archive as a DIRECTORY: the finer '**/archived/**/*.spec.ts'
+  // glob failed to match files directly under archived/ — Playwright then
+  // tried to load them, their broken relative imports (archived/fixtures)
+  // errored, and whole-suite discovery collapsed to "0 tests".
+  testIgnore: ['**/archived/**'],
   
   /* Fail the build on CI if test.only is committed */
   forbidOnly: !!process.env.CI,
@@ -85,7 +89,14 @@ export default defineConfig({
     // Main test suite - Chrome
     {
       name: 'chromium',
-      testIgnore: [/.*smoke.*\.spec\.ts$/, /.*slow.*\.spec\.ts$/],
+      // Project-level testIgnore REPLACES the config-level one, so the
+      // archived/ exclusion must be repeated here — without it Playwright
+      // loads the archive's specs, their broken imports (archived/fixtures)
+      // error out, and default discovery collapses to "0 tests" (silently
+      // zeroing the main suite; path-filtered runs kept working, which is
+      // why nobody noticed).
+      testMatch: /\.spec\.ts$/,
+      testIgnore: [/.*archived.*/, /.*smoke.*\.spec\.ts$/, /.*slow.*\.spec\.ts$/, /.*scenario.*\.spec\.ts$/],
       use: { ...devices['Desktop Chrome'] },
     },
 

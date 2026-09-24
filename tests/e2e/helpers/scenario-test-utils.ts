@@ -216,19 +216,36 @@ export class ScenarioTestUtils {
    */
   async switchToScenario(scenarioName: string) {
     const { page } = this.options;
-    
-    // Click on the scenario selector button
-    await page.click('.scenario-button');
-    await page.waitForSelector('.scenario-dropdown', { state: 'visible' });
-    
+
+    const openAndCheck = async (): Promise<boolean> => {
+      if (!(await page.locator('.scenario-button').isVisible().catch(() => false))) {
+        return false;
+      }
+      await page.click('.scenario-button');
+      await page.waitForSelector('.scenario-dropdown', { state: 'visible' });
+      return page.locator('.scenario-option').filter({ hasText: scenarioName }).first()
+        .isVisible().catch(() => false);
+    };
+
+    // The header list may predate the API-created scenario (stale query) —
+    // if the option isn't in the dropdown, reload once and retry.
+    if (!(await openAndCheck())) {
+      await page.keyboard.press('Escape');
+      await page.reload();
+      await page.waitForLoadState('networkidle');
+      if (!(await openAndCheck())) {
+        throw new Error(`Scenario option not in dropdown after reload: ${scenarioName}`);
+      }
+    }
+
     // Find and click the scenario option
     const scenarioOption = page.locator('.scenario-option').filter({ hasText: scenarioName }).first();
     await scenarioOption.click();
-    
+
     // Wait for dropdown to close and data to refresh
     await page.waitForSelector('.scenario-dropdown', { state: 'hidden' });
     await page.waitForLoadState('networkidle');
-    
+
     // Verify scenario is now selected
     const selectedScenario = await page.locator('.scenario-button .scenario-name').textContent();
     if (!selectedScenario?.includes(scenarioName)) {
@@ -279,8 +296,13 @@ export function createUniqueTestPrefix(base: string): string {
 export async function waitForSync(page: Page, timeout = 5000) {
   await page.waitForLoadState('networkidle');
   await page.waitForTimeout(1000);
-  
-  // Force a re-render by toggling a filter or refreshing
+
+  // Force a re-render by toggling a filter or refreshing. Skip while a
+  // modal dialog is open — the overlay makes the Filters button unclickable
+  // and this helper would time out the calling test.
+  const dialogOpen = await page.locator('[role="dialog"]').isVisible().catch(() => false);
+  if (dialogOpen) return;
+
   const filterButton = page.locator('button:has-text("Filters")');
   if (await filterButton.isVisible()) {
     await filterButton.click();

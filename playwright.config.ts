@@ -148,8 +148,12 @@ export default defineConfig({
       timeout: 30_000,
       reuseExistingServer: !process.env.CI,
       // VITE_E2E disables the nginx-topology HMR websocket — its failed
-      // wss handshake polluted the "no console errors" test (flaky)
-      env: { VITE_E2E: '1' },
+      // wss handshake polluted the "no console errors" test (flaky).
+      // PORT feeds the /api proxy target in client-vite.config.ts — without
+      // it the proxy silently defaults to 3110 = the DEV backend, and the
+      // e2e browser reads/writes dev data (incident: scenario tests never
+      // saw apiContext-created data on 3111).
+      env: { VITE_E2E: '1', PORT: '3111' },
     },
   ],
 

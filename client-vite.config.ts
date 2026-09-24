@@ -59,6 +59,9 @@ export default defineConfig(({ mode }) => {
     host: '0.0.0.0', // Allow external connections
     proxy: {
       '/api': {
+        // PORT here is the BACKEND api port (not vite's own listen port,
+        // which comes from --port/VITE_PORT). Playwright webServers must
+        // pass PORT=3111 or this silently proxies to the dev backend 3110.
         target: `http://localhost:${process.env.PORT || '3110'}`,
         changeOrigin: true,
         secure: false,

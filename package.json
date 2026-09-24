@@ -63,7 +63,6 @@
     "test:installer:headed": "playwright test --config=playwright.installer.config.ts --headed",
     "test:installer:cleanup": "tsx scripts/cleanup-installer-test.ts",
     "test:scenarios:e2e": "playwright test --config=playwright.scenario.config.ts",
-    "test:scenarios:corruption": "playwright test --config=playwright.scenario.config.ts --project=scenario-corruption-tests",
     "lint": "eslint src client/src shared --ext .ts,.tsx",
     "lint:ui": "node scripts/lint-ui-css.mjs",
     "typecheck": "tsc --noEmit",

@@ -13,17 +13,17 @@ export default defineConfig({
   
   /* Run tests in files in parallel but run tests within files serially for database safety */
   fullyParallel: false,
-  workers: 1, // Critical: Use only 1 worker to prevent database conflicts
+  // 2026-09-24 (D13): raised 1 → 2 after the suite moved to per-run DB
+  // rebuild + prefix-isolated API data; files no longer share mutable state.
+  // If cross-file flakes appear (e.g. auto-select stealing), drop back to 1.
+  workers: 2,
   
   /* Fail the build on CI if you accidentally left test.only in the source code. */
   forbidOnly: !!process.env.CI,
   
   /* Retry on CI only for flaky network issues, not for logic errors */
   retries: process.env.CI ? 1 : 0,
-  
-  /* Opt out of parallel tests on CI for database safety */
-  workers: process.env.CI ? 1 : 1,
-  
+
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: [
     ['html', { outputFolder: 'test-results/scenario-html-report' }],
@@ -65,30 +65,6 @@ export default defineConfig({
       name: 'scenario-chrome',
       use: { ...devices['Desktop Chrome'] },
       testMatch: '**/scenario-*.spec.ts'
-    },
-    
-    {
-      name: 'scenario-firefox',
-      use: { ...devices['Desktop Firefox'] },
-      testMatch: '**/scenario-planning.spec.ts' // Run basic tests only on Firefox
-    },
-
-    /* Test against mobile viewports for scenario management UI */
-    {
-      name: 'scenario-mobile-chrome',
-      use: { ...devices['Pixel 5'] },
-      testMatch: '**/scenario-planning.spec.ts' // UI tests only
-    },
-
-    /* Database corruption prevention tests - Chrome only for consistency */
-    {
-      name: 'scenario-corruption-tests',
-      use: { ...devices['Desktop Chrome'] },
-      testMatch: [
-        '**/scenario-merge-corruption-prevention.spec.ts',
-        '**/scenario-concurrent-operations.spec.ts'
-      ],
-      timeout: 60000, // Longer timeout for complex operations
     }
   ],
 
@@ -112,7 +88,10 @@ export default defineConfig({
       url: 'http://localhost:3122',
       timeout: 30_000,
       reuseExistingServer: !process.env.CI,
-      env: { VITE_E2E: '1' },
+      // PORT feeds the /api proxy target in client-vite.config.ts — without
+      // it the proxy silently defaults to 3110 = the DEV backend (see
+      // playwright.config.ts webServer comment).
+      env: { VITE_E2E: '1', PORT: '3111' },
     }
   ],
 

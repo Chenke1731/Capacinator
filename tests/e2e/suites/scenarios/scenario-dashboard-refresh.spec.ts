@@ -5,16 +5,45 @@
 import { test, expect } from '../../fixtures';
 
 test.describe('Dashboard Scenario Refresh', () => {
-  test('dashboard data refreshes on scenario change', async ({ authenticatedPage, testHelpers, apiContext }) => {
+  // AppHeader's scenario selector only renders when a non-baseline scenario
+  // exists; the e2e seed ships baseline only, so create a branch per test.
+  let branchScenarioId = '';
+
+  test.beforeEach(async ({ apiContext }) => {
+    const people = await (await apiContext.get('/api/people')).json();
+    const created_by = people?.data?.[0]?.id;
+    if (!created_by) throw new Error('No people in /api/people — cannot create test scenario');
+
+    const response = await apiContext.post('/api/scenarios', {
+      data: {
+        name: `Dashboard Refresh Test ${Date.now()}`,
+        description: 'Created by e2e scenario-dashboard-refresh',
+        scenario_type: 'branch',
+        status: 'active',
+        created_by
+      }
+    });
+    if (!response.ok()) throw new Error(`Failed to create branch scenario: ${response.status()}`);
+    branchScenarioId = (await response.json()).id;
+  });
+
+  test.afterEach(async ({ apiContext }) => {
+    if (branchScenarioId) {
+      await apiContext.delete(`/api/scenarios/${branchScenarioId}`).catch(() => {});
+      branchScenarioId = '';
+    }
+  });
+
+  test('dashboard data refreshes on scenario change', async ({ authenticatedPage, testHelpers }) => {
     // Navigate to dashboard
     await testHelpers.navigateTo('/dashboard');
     await authenticatedPage.waitForLoadState('networkidle');
     
-    // Wait for initial data to load
-    await authenticatedPage.waitForSelector('text=Current Projects');
-    
+    // Wait for initial data to load (dashboard stat is "Active Projects")
+    await authenticatedPage.waitForSelector('text=Active Projects');
+
     // Get initial project count
-    const initialCount = await authenticatedPage.locator('text=Current Projects')
+    const initialCount = await authenticatedPage.locator('text=Active Projects')
       .locator('..')
       .locator('p.text-2xl')
       .textContent();
@@ -40,7 +69,7 @@ test.describe('Dashboard Scenario Refresh', () => {
       await authenticatedPage.waitForLoadState("networkidle", { timeout: 10000 }).catch(() => {}); // Give React Query time to update
       
       // Get updated project count
-      const updatedCount = await authenticatedPage.locator('text=Current Projects')
+      const updatedCount = await authenticatedPage.locator('text=Active Projects')
         .locator('..')
         .locator('p.text-2xl')
         .textContent();
@@ -61,8 +90,8 @@ test.describe('Dashboard Scenario Refresh', () => {
     await testHelpers.navigateTo('/reports');
     await authenticatedPage.waitForLoadState('networkidle');
     
-    // Wait for reports to load
-    await authenticatedPage.waitForSelector('.report-tabs, button.tab', { timeout: 10000 });
+    // Wait for reports to load (UnifiedTabComponent renders role=tab)
+    await authenticatedPage.waitForSelector('[role="tab"]', { timeout: 10000 });
     
     // Get current scenario
     const initialScenario = await authenticatedPage.locator('.scenario-button .scenario-name').textContent();
@@ -87,8 +116,9 @@ test.describe('Dashboard Scenario Refresh', () => {
       console.log('Updated scenario on reports:', updatedScenario);
       expect(updatedScenario).not.toBe(initialScenario);
       
-      // Verify reports are still visible or show appropriate empty state
-      const hasReportContent = await authenticatedPage.locator('.report-content, .empty-state').first().isVisible().catch(() => false);
+      // Verify reports are still visible (tabpanel always renders; empty
+      // scenario shows zero-valued summary cards, no .empty-state)
+      const hasReportContent = await authenticatedPage.locator('[role="tabpanel"]').first().isVisible().catch(() => false);
       const hasCharts = await authenticatedPage.locator('.recharts-wrapper').first().isVisible().catch(() => false);
       expect(hasReportContent || hasCharts).toBeTruthy();
     }

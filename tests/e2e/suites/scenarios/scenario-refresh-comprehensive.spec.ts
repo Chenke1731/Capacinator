@@ -1,6 +1,10 @@
 /**
- * Comprehensive Scenario Data Refresh Tests
- * Validates that changing scenarios refreshes data on all pages
+ * Comprehensive Scenario Data Refresh (modernized 2026-09-24, D13)
+ * Semantics notes: the dashboard summary and the projects list are GLOBAL
+ * views — scenario switching must keep them stable, not change them. The
+ * scenario world lives in assignments and reports. Scenario setup goes
+ * through the API (created_by is required; /api/scenario-projects no longer
+ * exists).
  */
 import { test, expect } from '../../fixtures';
 import { ScenarioTestUtils } from '../../helpers/scenario-test-utils';
@@ -12,70 +16,55 @@ test.describe('Comprehensive Scenario Data Refresh', () => {
   let sandboxScenarioId: string;
 
   test.beforeAll(async ({ browser }) => {
-    // Create test data using API context
     const context = await browser.newContext();
     const apiContext = context.request;
-    
-    // Create baseline scenario with data
-    const baselineResponse = await apiContext.post('http://localhost:3111/api/scenarios', {
-      data: {
-        name: 'Test Baseline - Comprehensive',
-        scenario_type: 'baseline',
-        status: 'active',
-        description: 'Baseline scenario for comprehensive testing'
-      }
-    });
-    const baselineData = await baselineResponse.json();
-    baselineScenarioId = baselineData.id;
+    const post = async (payload: Record<string, unknown>) => {
+      const res = await apiContext.post('http://localhost:3111/api/scenarios', { data: payload });
+      if (!res.ok()) throw new Error(`Scenario create failed: ${res.status()}`);
+      return (await res.json()).id;
+    };
 
-    // Create branch scenario
-    const branchResponse = await apiContext.post('http://localhost:3111/api/scenarios', {
-      data: {
-        name: 'Test Branch - Comprehensive',
-        scenario_type: 'branch',
-        status: 'active',
-        parent_scenario_id: baselineScenarioId,
-        description: 'Branch with additional projects and assignments'
-      }
-    });
-    const branchData = await branchResponse.json();
-    branchScenarioId = branchData.id;
+    // created_by is required by POST /api/scenarios
+    const people = await (await apiContext.get('http://localhost:3111/api/people')).json();
+    const created_by = people?.data?.[0]?.id;
 
-    // Create sandbox scenario
-    const sandboxResponse = await apiContext.post('http://localhost:3111/api/scenarios', {
-      data: {
-        name: 'Test Sandbox - Comprehensive',
-        scenario_type: 'sandbox',
-        status: 'draft',
-        description: 'Sandbox for experimental changes'
-      }
+    // Branch from the SEED baseline (stable id in the e2e world). Do NOT
+    // create a second baseline: ScenarioContext auto-selects the FIRST
+    // baseline it finds, and a test-made empty baseline would steal that
+    // selection and blank out every later page in this file.
+    baselineScenarioId = 'baseline-0000-0000-0000-000000000000';
+    branchScenarioId = await post({
+      name: 'Test Branch - Comprehensive',
+      scenario_type: 'branch',
+      status: 'active',
+      parent_scenario_id: baselineScenarioId,
+      description: 'Branch with additional assignments',
+      created_by
     });
-    const sandboxData = await sandboxResponse.json();
-    sandboxScenarioId = sandboxData.id;
-
-    // Add scenario-specific projects
-    await apiContext.post('http://localhost:3111/api/scenario-projects', {
-      data: {
-        scenario_id: branchScenarioId,
-        name: 'Branch-Only Project Alpha',
-        code: 'BRANCH-ALPHA',
-        status: 'Active'
-      }
-    });
-
-    await apiContext.post('http://localhost:3111/api/scenario-projects', {
-      data: {
-        scenario_id: sandboxScenarioId,
-        name: 'Sandbox Experiment Beta',
-        code: 'SANDBOX-BETA',
-        status: 'Planning'
-      }
+    sandboxScenarioId = await post({
+      name: 'Test Sandbox - Comprehensive',
+      scenario_type: 'sandbox',
+      status: 'draft',
+      description: 'Sandbox for experimental changes',
+      created_by
     });
 
     await context.close();
   });
 
-  test.beforeEach(async ({ authenticatedPage, testHelpers, apiContext }) => {
+  test.afterAll(async ({ browser }) => {
+    const context = await browser.newContext();
+    const apiContext = context.request;
+    // The seed baseline is not ours to delete
+    for (const id of [sandboxScenarioId, branchScenarioId]) {
+      if (id) {
+        await apiContext.delete(`http://localhost:3111/api/scenarios/${id}`).catch(() => {});
+      }
+    }
+    await context.close();
+  });
+
+  test.beforeEach(async ({ authenticatedPage, apiContext }) => {
     scenarioUtils = new ScenarioTestUtils({
       page: authenticatedPage,
       apiContext: apiContext,
@@ -84,104 +73,85 @@ test.describe('Comprehensive Scenario Data Refresh', () => {
   });
 
   test.describe('Dashboard Page', () => {
-    test('should update all dashboard metrics when scenario changes', async ({ authenticatedPage, testHelpers }) => {
+    test('should keep dashboard metrics stable across scenario changes', async ({ authenticatedPage, testHelpers }) => {
       await testHelpers.navigateTo('/dashboard');
       await authenticatedPage.waitForLoadState('networkidle');
 
-      // Record initial metrics
+      // Dashboard summary counts are a GLOBAL view — switching scenarios
+      // must not corrupt them.
       const getMetrics = async () => ({
-        projects: await authenticatedPage.locator('text=Current Projects').locator('..').locator('p.text-2xl').textContent(),
+        projects: await authenticatedPage.locator('text=Active Projects').locator('..').locator('p.text-2xl').textContent(),
         people: await authenticatedPage.locator('text=Total People').locator('..').locator('p.text-2xl').textContent(),
-        roles: await authenticatedPage.locator('text=Total Roles').locator('..').locator('p.text-2xl').textContent(),
-        utilization: await authenticatedPage.locator('text=Over Allocated').locator('..').locator('.stat-value').textContent()
+        roles: await authenticatedPage.locator('text=Total Roles').locator('..').locator('p.text-2xl').textContent()
       });
 
       const baselineMetrics = await getMetrics();
-      console.log('Baseline metrics:', baselineMetrics);
 
-      // Switch to branch scenario
       await scenarioUtils.switchToScenario('Test Branch - Comprehensive');
       await authenticatedPage.waitForLoadState('networkidle');
-      await authenticatedPage.waitForLoadState("networkidle", { timeout: 10000 }).catch(() => {});
 
       const branchMetrics = await getMetrics();
-      console.log('Branch metrics:', branchMetrics);
+      expect(branchMetrics.projects).toBe(baselineMetrics.projects);
+      expect(branchMetrics.people).toBe(baselineMetrics.people);
+      expect(branchMetrics.roles).toBe(baselineMetrics.roles);
 
-      // At least one metric should be different
-      expect(
-        branchMetrics.projects !== baselineMetrics.projects ||
-        branchMetrics.utilization !== baselineMetrics.utilization
-      ).toBeTruthy();
-
-      // Verify charts also updated
+      // Charts still render
       const chartElements = await authenticatedPage.locator('svg').count();
       expect(chartElements).toBeGreaterThan(0);
     });
 
-    test('should show loading state during scenario switch', async ({ authenticatedPage, testHelpers }) => {
+    test('should re-fetch data during scenario switch', async ({ authenticatedPage, testHelpers }) => {
       await testHelpers.navigateTo('/dashboard');
       await authenticatedPage.waitForLoadState('networkidle');
 
-      // Set up promise to catch loading state
-      const loadingPromise = authenticatedPage.waitForSelector(
-        '.animate-spin, .animate-pulse, [data-loading="true"]',
-        { state: 'visible', timeout: 5000 }
+      // No dedicated loading skeleton exists; the honest signal is the
+      // data request re-firing.
+      const refreshPromise = authenticatedPage.waitForResponse(
+        resp => resp.url().includes('/api/') && resp.request().method() === 'GET',
+        { timeout: 8000 }
       ).catch(() => null);
 
-      // Switch scenario
       await scenarioUtils.switchToScenario('Test Sandbox - Comprehensive');
 
-      // Verify loading state appeared
-      const loadingElement = await loadingPromise;
-      expect(loadingElement).toBeTruthy();
+      const refreshed = await refreshPromise;
+      expect(refreshed).not.toBeNull();
     });
   });
 
   test.describe('Projects Page', () => {
-    test('should show scenario-specific projects', async ({ authenticatedPage, testHelpers }) => {
+    test('should keep the global projects list stable across scenarios', async ({ authenticatedPage, testHelpers }) => {
       await testHelpers.navigateTo('/projects');
       await authenticatedPage.waitForLoadState('networkidle');
 
-      // Initially on baseline - shouldn't see branch/sandbox projects
-      const baselineProjects = await authenticatedPage.locator('tbody tr').count();
-      const hasBranchProject = await authenticatedPage.locator('text=Branch-Only Project').count();
-      expect(hasBranchProject).toBe(0);
+      // Projects are global (scenario-scoped projects were removed)
+      const baselineRows = await authenticatedPage.locator('.requirements-row').count();
+      expect(baselineRows).toBeGreaterThan(0);
 
-      // Switch to branch scenario
       await scenarioUtils.switchToScenario('Test Branch - Comprehensive');
       await authenticatedPage.waitForLoadState('networkidle');
-      await authenticatedPage.waitForLoadState("networkidle", { timeout: 10000 }).catch(() => {});
 
-      // Should now see branch project
-      const branchProjects = await authenticatedPage.locator('tbody tr').count();
-      const branchProjectVisible = await authenticatedPage.locator('text=Branch-Only Project').count();
-      expect(branchProjectVisible).toBeGreaterThan(0);
-      expect(branchProjects).toBeGreaterThan(baselineProjects);
+      const branchRows = await authenticatedPage.locator('.requirements-row').count();
+      expect(branchRows).toBe(baselineRows);
 
-      // Switch to sandbox
       await scenarioUtils.switchToScenario('Test Sandbox - Comprehensive');
       await authenticatedPage.waitForLoadState('networkidle');
-      await authenticatedPage.waitForLoadState("networkidle", { timeout: 10000 }).catch(() => {});
 
-      // Should see sandbox project
-      const sandboxProjectVisible = await authenticatedPage.locator('text=Sandbox Experiment').count();
-      expect(sandboxProjectVisible).toBeGreaterThan(0);
+      const sandboxRows = await authenticatedPage.locator('.requirements-row').count();
+      expect(sandboxRows).toBe(baselineRows);
     });
 
-    test('should update project filters when scenario changes', async ({ authenticatedPage, testHelpers }) => {
+    test('should keep project filters usable when scenario changes', async ({ authenticatedPage, testHelpers }) => {
       await testHelpers.navigateTo('/projects');
       await authenticatedPage.waitForLoadState('networkidle');
 
-      // Check if filter dropdowns update
-      const filterBar = authenticatedPage.locator('.filter-bar, [data-testid="filters"]');
-      expect(await filterBar.isVisible()).toBeTruthy();
+      const filterBar = authenticatedPage.locator('[data-testid="filter-bar"]');
+      await expect(filterBar).toBeVisible();
 
-      // Project data should be filtered by current scenario
       await scenarioUtils.switchToScenario('Test Branch - Comprehensive');
-      await authenticatedPage.waitForLoadState('networkidle');
+      // The refetch races networkidle — wait for the rows themselves
+      await authenticatedPage.waitForSelector('.requirements-row', { timeout: 15000 });
 
-      // Verify table updated
-      const tableRows = await authenticatedPage.locator('tbody tr').count();
+      const tableRows = await authenticatedPage.locator('.requirements-row').count();
       expect(tableRows).toBeGreaterThan(0);
     });
   });
@@ -190,44 +160,35 @@ test.describe('Comprehensive Scenario Data Refresh', () => {
     test('should refresh assignment list on scenario change', async ({ authenticatedPage, testHelpers }) => {
       await testHelpers.navigateTo('/assignments');
       await authenticatedPage.waitForLoadState('networkidle');
+      // The query is enabled by currentScenario — wait for the rows to
+      // settle before counting (networkidle can fire first)
+      await authenticatedPage.waitForSelector('.project-name', { timeout: 15000 });
 
-      // Get initial assignment count
-      const initialRows = await authenticatedPage.locator('tbody tr').count();
-      const initialEmptyState = await authenticatedPage.locator('.empty-state, [data-testid="no-assignments"]').isVisible().catch(() => false);
+      const initialRows = await authenticatedPage.locator('.project-name').count();
 
-      // Switch scenario
-      await scenarioUtils.switchToScenario('Test Branch - Comprehensive');
+      // Sandbox has no scenario assignments: the list must react (empty or
+      // fewer rows), not show the baseline world unchanged
+      await scenarioUtils.switchToScenario('Test Sandbox - Comprehensive');
       await authenticatedPage.waitForLoadState('networkidle');
-      await authenticatedPage.waitForLoadState("networkidle", { timeout: 10000 }).catch(() => {});
 
-      // Check if data changed
-      const updatedRows = await authenticatedPage.locator('tbody tr').count();
-      const updatedEmptyState = await authenticatedPage.locator('.empty-state, [data-testid="no-assignments"]').isVisible().catch(() => false);
-
-      // Either row count changed or empty state changed
-      expect(
-        updatedRows !== initialRows ||
-        updatedEmptyState !== initialEmptyState
-      ).toBeTruthy();
+      const updatedRows = await authenticatedPage.locator('.project-name').count();
+      expect(updatedRows).toBeLessThan(initialRows);
     });
 
     test('should update filter options based on scenario', async ({ authenticatedPage, testHelpers }) => {
       await testHelpers.navigateTo('/assignments');
       await authenticatedPage.waitForLoadState('networkidle');
 
-      // Open project filter
       const projectFilter = authenticatedPage.locator('select[name="project_id"], [data-testid="project-filter"]');
       if (await projectFilter.isVisible()) {
         const initialOptions = await projectFilter.locator('option').count();
 
-        // Switch scenario
         await scenarioUtils.switchToScenario('Test Sandbox - Comprehensive');
         await authenticatedPage.waitForLoadState('networkidle');
-        await authenticatedPage.waitForLoadState("networkidle", { timeout: 10000 }).catch(() => {});
 
         const updatedOptions = await projectFilter.locator('option').count();
-        // Options might change based on scenario
         expect(updatedOptions).toBeGreaterThan(0);
+        expect(initialOptions).toBeGreaterThan(0);
       }
     });
   });
@@ -237,76 +198,59 @@ test.describe('Comprehensive Scenario Data Refresh', () => {
       await testHelpers.navigateTo('/reports');
       await authenticatedPage.waitForLoadState('networkidle');
 
-      // Test each report type
       const reportTypes = ['demand', 'capacity', 'utilization', 'gaps'];
-      
+
       for (const reportType of reportTypes) {
-        // Click on report tab if available
-        const tabSelector = `button:has-text("${reportType}"), .tab:has-text("${reportType}")`;
-        const tab = authenticatedPage.locator(tabSelector).first();
-        
+        const tab = authenticatedPage.locator(`[role="tab"]:has-text("${reportType}")`).first();
         if (await tab.isVisible()) {
           await tab.click();
-          await authenticatedPage.waitForLoadState("networkidle", { timeout: 10000 }).catch(() => {});
+          await authenticatedPage.waitForLoadState('networkidle', { timeout: 10000 }).catch(() => {});
 
-          // Get initial data indicator
-          const hasInitialData = await authenticatedPage.locator('.chart-container, .report-content, svg.recharts-surface').first().isVisible().catch(() => false);
+          const hasInitialData = await authenticatedPage
+            .locator('.chart-container, .report-content, svg.recharts-surface').first()
+            .isVisible().catch(() => false);
 
-          // Switch scenario
+          // The header selector renders once its scenarios query resolves —
+          // give data-heavy reports time before switching
+          await authenticatedPage.waitForSelector('.scenario-button', { timeout: 15000 });
           await scenarioUtils.switchToScenario('Test Branch - Comprehensive');
           await authenticatedPage.waitForLoadState('networkidle');
-          await authenticatedPage.waitForLoadState("networkidle", { timeout: 10000 }).catch(() => {});
 
-          // Verify data refreshed
-          const hasUpdatedData = await authenticatedPage.locator('.chart-container, .report-content, svg.recharts-surface').first().isVisible().catch(() => false);
-          
-          // Data visibility might change
+          const hasUpdatedData = await authenticatedPage
+            .locator('.chart-container, .report-content, svg.recharts-surface').first()
+            .isVisible().catch(() => false);
+
           expect(hasInitialData || hasUpdatedData).toBeTruthy();
         }
       }
     });
 
     test('should update report charts and summaries', async ({ authenticatedPage, testHelpers }) => {
-      await testHelpers.navigateTo('/reports');
+      await testHelpers.navigateTo('/reports?tab=demand');
       await authenticatedPage.waitForLoadState('networkidle');
 
-      // Focus on demand report
-      const demandTab = authenticatedPage.locator('button:has-text("Demand"), .tab:has-text("Demand")').first();
-      if (await demandTab.isVisible()) {
-        await demandTab.click();
-        await authenticatedPage.waitForLoadState("networkidle", { timeout: 10000 }).catch(() => {});
+      const getSummaryValue = async () =>
+        await authenticatedPage
+          .locator('.summary-card .metric').first()
+          .textContent().catch(() => '0');
 
-        // Check for summary values
-        const getSummaryValue = async () => {
-          const summaryElement = authenticatedPage.locator('.summary-value, [data-testid="total-demand"], .report-summary').first();
-          return await summaryElement.textContent().catch(() => '0');
-        };
+      const initialSummary = await getSummaryValue();
+      expect(initialSummary).toBeTruthy();
 
-        const initialSummary = await getSummaryValue();
+      await scenarioUtils.switchToScenario('Test Sandbox - Comprehensive');
+      await authenticatedPage.waitForLoadState('networkidle');
 
-        // Switch scenario
-        await scenarioUtils.switchToScenario('Test Sandbox - Comprehensive');
-        await authenticatedPage.waitForLoadState('networkidle');
-        await authenticatedPage.waitForLoadState("networkidle", { timeout: 10000 }).catch(() => {});
-
-        const updatedSummary = await getSummaryValue();
-        
-        // Summary might be different or the same, but query should have re-run
-        expect(updatedSummary).toBeDefined();
-      }
+      const updatedSummary = await getSummaryValue();
+      expect(updatedSummary).toBeTruthy();
     });
   });
 
   test.describe('Cross-Page Consistency', () => {
     test('should maintain scenario selection across all pages', async ({ authenticatedPage, testHelpers }) => {
-      // Set scenario on dashboard
       await testHelpers.navigateTo('/dashboard');
       await scenarioUtils.switchToScenario('Test Branch - Comprehensive');
-      await authenticatedPage.waitForLoadState("domcontentloaded", { timeout: 3000 }).catch(() => {});
 
-      // Verify on each page
       const pages = ['/projects', '/assignments', '/reports', '/scenarios'];
-      
       for (const page of pages) {
         await testHelpers.navigateTo(page);
         await authenticatedPage.waitForLoadState('networkidle');
@@ -318,17 +262,12 @@ test.describe('Comprehensive Scenario Data Refresh', () => {
 
     test('should persist scenario selection after page reload', async ({ authenticatedPage, testHelpers }) => {
       await testHelpers.navigateTo('/dashboard');
-      
-      // Switch to specific scenario
       await scenarioUtils.switchToScenario('Test Sandbox - Comprehensive');
-      await authenticatedPage.waitForLoadState("domcontentloaded", { timeout: 3000 }).catch(() => {});
 
-      // Reload page
       await authenticatedPage.reload();
       await authenticatedPage.waitForLoadState('networkidle');
 
-      // Scenario should still be selected
-      const currentScenario = await authenticatedPage.locator('.scenario-selector-trigger .scenario-name').textContent();
+      const currentScenario = await authenticatedPage.locator('.scenario-button .scenario-name').textContent();
       expect(currentScenario).toContain('Test Sandbox - Comprehensive');
     });
   });
@@ -336,8 +275,8 @@ test.describe('Comprehensive Scenario Data Refresh', () => {
   test.describe('Error Handling', () => {
     test('should handle scenario switch failures gracefully', async ({ authenticatedPage, testHelpers }) => {
       await testHelpers.navigateTo('/dashboard');
-      
-      // Try to intercept and fail the API call
+
+      // Abort reporting calls only; the rest of the app keeps working
       await authenticatedPage.route('**/api/**', route => {
         if (route.request().url().includes('reporting')) {
           route.abort('failed');
@@ -346,15 +285,13 @@ test.describe('Comprehensive Scenario Data Refresh', () => {
         }
       });
 
-      // Attempt scenario switch
       await scenarioUtils.switchToScenario('Test Branch - Comprehensive');
-      
-      // Should show error state
-      const errorMessage = await authenticatedPage.locator('.error-message, [data-testid="error"], .toast-error').isVisible().catch(() => false);
-      
-      // Page should still be functional
-      const pageContent = await authenticatedPage.locator('.layout-container').isVisible();
-      expect(pageContent).toBeTruthy();
+
+      // Page must stay functional despite the failing data fetches
+      await expect(authenticatedPage.locator('#root')).toBeVisible();
+      const headerVisible = await authenticatedPage
+        .locator('.scenario-button .scenario-name').isVisible().catch(() => false);
+      expect(headerVisible).toBeTruthy();
     });
   });
 });

@@ -1,275 +1,263 @@
-import { test, expect } from '@playwright/test';
+/**
+ * Scenario-Aware Reports (modernized 2026-09-24, D13)
+ * Reports are the scenario world: summary cards are .summary-card with an
+ * h3 title and a .metric value (unit folded into the value text). Scenario
+ * setup goes through the API (POST /api/scenarios + scenario assignment
+ * upsert); switching uses the header dropdown (.scenario-button), which
+ * only renders once a non-baseline scenario exists.
+ */
+import { test, expect, type Page, type APIRequestContext } from '../../fixtures';
+
+const TOTAL_DEMAND = '.summary-card:has(h3:text-is("Total Demand")) .metric';
+const HIGH_DEMAND_ROLES = '.report-table-container:has(h3:text-is("High-Demand Roles"))';
+const OVERUTILIZED = '.summary-card:has(h3:text-is("# People Overutilized")) .metric';
+
+async function createBranch(
+  apiContext: APIRequestContext,
+  name: string,
+  opts: { parentId?: string; description?: string } = {}
+): Promise<string> {
+  const people = await (await apiContext.get('/api/people')).json();
+  const created_by = people?.data?.[0]?.id;
+  if (!created_by) throw new Error('No people available for test setup');
+
+  const res = await apiContext.post('/api/scenarios', {
+    data: {
+      name,
+      scenario_type: 'branch',
+      status: 'active',
+      created_by,
+      ...(opts.parentId ? { parent_scenario_id: opts.parentId } : {}),
+      ...(opts.description ? { description: opts.description } : {})
+    }
+  });
+  if (!res.ok()) throw new Error(`Scenario create failed: ${res.status()}`);
+  return (await res.json()).id;
+}
+
+// Add one scenario-scoped assignment on a (person, project) pair that the
+// baseline world does not already use, so demand numbers really move.
+async function addScenarioAssignment(apiContext: APIRequestContext, scenarioId: string): Promise<void> {
+  const people = await (await apiContext.get('/api/people')).json();
+  const assignments = await (await apiContext.get('/api/assignments')).json();
+  const projects = await (await apiContext.get('/api/projects')).json();
+  const roles = await (await apiContext.get('/api/roles')).json();
+
+  const assignmentList = assignments?.data || [];
+  const projectId = (projects?.data || [])[0]?.id;
+  const busy = new Set(
+    assignmentList.filter((a: any) => a.project_id === projectId).map((a: any) => a.person_id)
+  );
+  const freePerson = (people?.data || []).find((p: any) => !busy.has(p.id));
+  // NB: person.primary_person_role_id is a person_roles join id, NOT a
+  // roles-table id — using it as assignment role_id FK-violates (500).
+  const roleId = roles?.data?.[0]?.id;
+  if (!projectId || !freePerson || !roleId) {
+    throw new Error('No free person/project/role combination for test setup');
+  }
+
+  const res = await apiContext.post(`/api/scenarios/${scenarioId}/assignments`, {
+    data: {
+      project_id: projectId,
+      person_id: freePerson.id,
+      role_id: roleId,
+      allocation_percentage: 25,
+      assignment_date_mode: 'fixed',
+      start_date: '2026-10-01',
+      end_date: '2026-10-31',
+      change_type: 'added'
+    }
+  });
+  if (!res.ok()) throw new Error(`Assignment upsert failed: ${res.status()}`);
+}
+
+async function switchScenario(page: Page, name: string): Promise<void> {
+  // The header's scenario list may predate our API-created scenario (React
+  // Query has no cross-context invalidation, and with workers>1 another
+  // file's scenario can make the button visible while OUR option is still
+  // missing from the stale list — or the button absent entirely while the
+  // scenarios query is still in flight). Reload once in either case.
+  const buttonVisible = () =>
+    page.locator('.scenario-button').isVisible().catch(() => false);
+
+  const openAndCheck = async (): Promise<boolean> => {
+    if (!(await buttonVisible())) return false;
+    await page.click('.scenario-button');
+    await page.waitForSelector('.scenario-dropdown');
+    return page.locator(`.scenario-option:has-text("${name}")`).isVisible().catch(() => false);
+  };
+
+  if (!(await openAndCheck())) {
+    await page.keyboard.press('Escape').catch(() => {});
+    await page.reload();
+    await page.waitForLoadState('networkidle');
+    if (!(await openAndCheck())) {
+      throw new Error(`Scenario option not in dropdown after reload: ${name}`);
+    }
+  }
+  await page.click(`.scenario-option:has-text("${name}")`);
+  await page.waitForSelector('.scenario-dropdown', { state: 'hidden' });
+  await page.waitForLoadState('networkidle').catch(() => {});
+}
 
 test.describe('Scenario-Aware Reports', () => {
-  test.beforeEach(async ({ page }) => {
-    await page.goto('/');
-    await page.waitForLoadState('networkidle');
+  const createdScenarioIds: string[] = [];
+
+  test.beforeEach(async ({ authenticatedPage }) => {
+    await authenticatedPage.goto('/reports?tab=demand');
+    await authenticatedPage.waitForLoadState('networkidle');
   });
 
-  test('demand report should filter by selected scenario', async ({ page }) => {
-    // Get baseline demand metrics
-    await page.goto('/reports?tab=demand');
-    await page.waitForLoadState('networkidle');
-    
-    const baselineHours = await page.locator('.metric:has-text("Total Demand") + .unit').textContent();
-    const baselineProjects = await page.locator('.metric:has-text("Projects with Demand")').textContent();
-    
-    // Create a scenario with specific assignments
-    await page.goto('/scenarios');
-    await page.click('button:has-text("Create Scenario")');
-    await page.fill('input[name="name"]', 'Demand Report Test');
-    await page.click('button:has-text("Create")');
-    await page.waitForLoadState('networkidle');
-    
-    // Switch to new scenario
-    await page.click('.scenario-selector');
-    await page.click('text="Demand Report Test"');
-    await page.waitForLoadState("domcontentloaded", { timeout: 3000 }).catch(() => {});
-    
-    // Add a test assignment
-    await page.goto('/assignments');
-    await page.click('button:has-text("New Assignment")');
-    await page.waitForSelector('.modal-content');
-    
-    await page.selectOption('select[name="project_id"]', { index: 1 });
-    await page.selectOption('select[name="person_id"]', { index: 1 });
-    await page.selectOption('select[name="role_id"]', { index: 1 });
-    await page.fill('input[name="allocation_percentage"]', '100');
-    await page.selectOption('select[name="assignment_date_mode"]', 'fixed');
-    
-    // Set dates for current month
-    const today = new Date();
-    const startDate = new Date(today.getFullYear(), today.getMonth(), 1);
-    const endDate = new Date(today.getFullYear(), today.getMonth() + 1, 0);
-    
-    await page.fill('input[name="start_date"]', startDate.toISOString().split('T')[0]);
-    await page.fill('input[name="end_date"]', endDate.toISOString().split('T')[0]);
-    await page.click('button:has-text("Save")');
-    await page.waitForLoadState('networkidle');
-    
-    // Check demand report in new scenario
-    await page.goto('/reports?tab=demand');
-    await page.waitForLoadState('networkidle');
-    
-    const scenarioHours = await page.locator('.metric:has-text("Total Demand") + .unit').textContent();
-    const scenarioProjects = await page.locator('.metric:has-text("Projects with Demand")').textContent();
-    
-    // Should have different values
+  test.afterEach(async ({ apiContext }) => {
+    for (const id of createdScenarioIds) {
+      await apiContext.delete(`/api/scenarios/${id}`).catch(() => {});
+    }
+    createdScenarioIds.length = 0;
+  });
+
+  test('demand report should filter by selected scenario', async ({ authenticatedPage, apiContext }) => {
+    const baselineHours = await authenticatedPage.locator(TOTAL_DEMAND).textContent();
+
+    // Branch of the seed baseline + one extra assignment => demand must move
+    const scenarios = await (await apiContext.get('/api/scenarios')).json();
+    const list = Array.isArray(scenarios) ? scenarios : scenarios?.data || [];
+    const seedBaseline = list.find((s: any) => s.scenario_type === 'baseline');
+    const id = await createBranch(apiContext, 'Demand Filter Test', { parentId: seedBaseline?.id });
+    createdScenarioIds.push(id);
+    await addScenarioAssignment(apiContext, id);
+
+    await switchScenario(authenticatedPage, 'Demand Filter Test');
+    await authenticatedPage.goto('/reports?tab=demand');
+    await authenticatedPage.waitForLoadState('networkidle');
+
+    const scenarioHours = await authenticatedPage.locator(TOTAL_DEMAND).textContent();
+    expect(scenarioHours).toBeTruthy();
     expect(scenarioHours).not.toBe(baselineHours);
-    expect(scenarioProjects).toBeTruthy();
   });
 
-  test('demand report should show scenario context prominently', async ({ page }) => {
-    await page.goto('/reports?tab=demand');
-    await page.waitForLoadState('networkidle');
-    
-    // Check for scenario context display
-    const contextDisplay = page.locator('div:has(svg[class*="lucide"]) >> text=/Current Scenario/');
-    await expect(contextDisplay).toBeVisible();
-    
-    // Verify it includes the GitBranch icon
-    const gitBranchIcon = page.locator('div:has-text("Current Scenario") svg');
-    await expect(gitBranchIcon).toBeVisible();
-    
-    // For baseline scenario
-    const scenarioName = await page.locator('div:has-text("Current Scenario") span').nth(1).textContent();
-    expect(scenarioName).toBeTruthy();
+  test('demand report should show scenario context prominently', async ({ authenticatedPage }) => {
+    // DemandReport renders a "Current Scenario: <name>" context line
+    const contextLine = authenticatedPage.locator('text=Current Scenario:');
+    await expect(contextLine).toBeVisible();
+    const contextText = await contextLine.locator('..').textContent();
+    expect(contextText).toBeTruthy();
   });
 
-  test('demand report timeline should respect scenario boundaries', async ({ page }) => {
-    // Create scenario with known assignment period
-    await page.goto('/scenarios');
-    await page.click('button:has-text("Create Scenario")');
-    await page.fill('input[name="name"]', 'Timeline Test Scenario');
-    await page.click('button:has-text("Create")');
-    await page.waitForLoadState('networkidle');
-    
-    await page.click('.scenario-selector');
-    await page.click('text="Timeline Test Scenario"');
-    await page.waitForLoadState("domcontentloaded", { timeout: 3000 }).catch(() => {});
-    
-    // Add assignment for next month
-    await page.goto('/assignments');
-    await page.click('button:has-text("New Assignment")');
-    await page.waitForSelector('.modal-content');
-    
-    await page.selectOption('select[name="project_id"]', { index: 1 });
-    await page.selectOption('select[name="person_id"]', { index: 1 });
-    await page.selectOption('select[name="role_id"]', { index: 1 });
-    await page.fill('input[name="allocation_percentage"]', '80');
-    
-    const nextMonth = new Date();
-    nextMonth.setMonth(nextMonth.getMonth() + 1);
-    const startDate = new Date(nextMonth.getFullYear(), nextMonth.getMonth(), 1);
-    const endDate = new Date(nextMonth.getFullYear(), nextMonth.getMonth() + 1, 0);
-    
-    await page.fill('input[name="start_date"]', startDate.toISOString().split('T')[0]);
-    await page.fill('input[name="end_date"]', endDate.toISOString().split('T')[0]);
-    await page.click('button:has-text("Save")');
-    await page.waitForLoadState('networkidle');
-    
-    // Check demand report timeline
-    await page.goto('/reports?tab=demand');
-    await page.waitForLoadState('networkidle');
-    
-    // Wait for chart to render
-    await page.waitForSelector('.recharts-line', { timeout: 5000 }).catch(() => {});
-    
-    // Verify timeline chart exists
-    const timelineChart = page.locator('.chart-container:has-text("Demand Trend")');
+  test('demand report timeline should respect scenario boundaries', async ({ authenticatedPage, apiContext }) => {
+    const scenarios = await (await apiContext.get('/api/scenarios')).json();
+    const list = Array.isArray(scenarios) ? scenarios : scenarios?.data || [];
+    const seedBaseline = list.find((s: any) => s.scenario_type === 'baseline');
+    const id = await createBranch(apiContext, 'Timeline Test Scenario', { parentId: seedBaseline?.id });
+    createdScenarioIds.push(id);
+    // Assignment scoped to October — the trend chart must still render
+    await addScenarioAssignment(apiContext, id);
+
+    await switchScenario(authenticatedPage, 'Timeline Test Scenario');
+    await authenticatedPage.goto('/reports?tab=demand');
+    await authenticatedPage.waitForLoadState('networkidle');
+
+    const timelineChart = authenticatedPage.locator('.chart-container').first();
     await expect(timelineChart).toBeVisible();
   });
 
-  test('report aggregations should be scenario-specific', async ({ page }) => {
-    // Test role demand aggregation
-    await page.goto('/reports?tab=demand');
-    await page.waitForLoadState('networkidle');
-    
-    // Get baseline role demands
-    const baselineRoles = await page.locator('.table-container:has-text("High-Demand Roles") tbody tr').count();
-    
-    // Create scenario
-    await page.goto('/scenarios');
-    await page.click('button:has-text("Create Scenario")');
-    await page.fill('input[name="name"]', 'Aggregation Test');
-    await page.click('button:has-text("Create")');
-    await page.waitForLoadState('networkidle');
-    
-    await page.click('.scenario-selector');
-    await page.click('text="Aggregation Test"');
-    await page.waitForLoadState("domcontentloaded", { timeout: 3000 }).catch(() => {});
-    
-    // Check role demands in new scenario
-    await page.goto('/reports?tab=demand');
-    await page.waitForLoadState('networkidle');
-    
-    const scenarioRoles = await page.locator('.table-container:has-text("High-Demand Roles") tbody tr').count();
-    
-    // Should be different (likely 0 for new scenario)
-    expect(scenarioRoles).not.toBe(baselineRoles);
+  test('report aggregations should be scenario-specific', async ({ authenticatedPage, apiContext }) => {
+    // Baseline roles table has seed rows
+    const baselineRows = await authenticatedPage
+      .locator(`${HIGH_DEMAND_ROLES} tbody tr`).count();
+
+    // Parentless scenario = empty world: no roles with demand
+    const id = await createBranch(apiContext, 'Aggregation Test');
+    createdScenarioIds.push(id);
+
+    await switchScenario(authenticatedPage, 'Aggregation Test');
+    await authenticatedPage.goto('/reports?tab=demand');
+    await authenticatedPage.waitForLoadState('networkidle');
+
+    const scenarioRows = await authenticatedPage
+      .locator(`${HIGH_DEMAND_ROLES} tbody tr`).count();
+    const showsEmptyState = await authenticatedPage
+      .locator(`${HIGH_DEMAND_ROLES} .table-empty-state`).isVisible().catch(() => false);
+
+    expect(scenarioRows === 0 || showsEmptyState).toBeTruthy();
+    expect(baselineRows).toBeGreaterThan(0);
   });
 
-  test('utilization report should calculate based on scenario assignments', async ({ page }) => {
-    // Note: This assumes utilization report is also updated to be scenario-aware
-    // If not implemented yet, this test will need adjustment
-    
-    await page.goto('/reports?tab=utilization');
-    await page.waitForLoadState('networkidle');
-    
-    // Get baseline utilization metrics
-    const baselineOverallocated = await page.locator('.metric:has-text("Overallocated")').textContent();
-    
-    // Create scenario with different allocations
-    await page.goto('/scenarios');
-    await page.click('button:has-text("Create Scenario")');
-    await page.fill('input[name="name"]', 'Utilization Test');
-    await page.click('button:has-text("Create")');
-    await page.waitForLoadState('networkidle');
-    
-    await page.click('.scenario-selector');
-    await page.click('text="Utilization Test"');
-    await page.waitForLoadState("domcontentloaded", { timeout: 3000 }).catch(() => {});
-    
-    // Check utilization in new scenario
-    await page.goto('/reports?tab=utilization');
-    await page.waitForLoadState('networkidle');
-    
-    const scenarioOverallocated = await page.locator('.metric:has-text("Overallocated")').textContent();
-    
-    // Should likely be different (0 for empty scenario)
-    expect(scenarioOverallocated).toBeTruthy();
+  test('utilization report should calculate based on scenario assignments', async ({ authenticatedPage, apiContext }) => {
+    await authenticatedPage.goto('/reports?tab=utilization');
+    await authenticatedPage.waitForLoadState('networkidle');
+
+    const baselineOverallocated = await authenticatedPage.locator(OVERUTILIZED).textContent();
+
+    // Parentless scenario = no assignments => nobody overutilized
+    const id = await createBranch(apiContext, 'Utilization Test');
+    createdScenarioIds.push(id);
+
+    await switchScenario(authenticatedPage, 'Utilization Test');
+    await authenticatedPage.goto('/reports?tab=utilization');
+    await authenticatedPage.waitForLoadState('networkidle');
+
+    const scenarioOverallocated = await authenticatedPage.locator(OVERUTILIZED).textContent();
+    // NOTE: the utilization summary is currently scenario-INsensitive (same
+    // value in every world) — assert it renders as a number; if the product
+    // becomes scenario-aware, tighten this back to a difference assertion.
+    expect(scenarioOverallocated).toMatch(/^\d+$/);
   });
 
-  test('should handle includeAllScenarios parameter in reports', async ({ page }) => {
-    // Test demand report with includeAllScenarios
-    await page.goto('/reports?tab=demand&includeAllScenarios=true');
-    await page.waitForLoadState('networkidle');
-    
-    const allScenariosHours = await page.locator('.metric:has-text("Total Demand")').textContent();
-    
-    // Without includeAllScenarios (filtered)
-    await page.goto('/reports?tab=demand');
-    await page.waitForLoadState('networkidle');
-    
-    const filteredHours = await page.locator('.metric:has-text("Total Demand")').textContent();
-    
-    // Values might be same if only baseline has data, but test the parameter works
+  test('should handle includeAllScenarios parameter in reports', async ({ authenticatedPage }) => {
+    await authenticatedPage.goto('/reports?tab=demand&includeAllScenarios=true');
+    await authenticatedPage.waitForLoadState('networkidle');
+    const allScenariosHours = await authenticatedPage.locator(TOTAL_DEMAND).textContent();
+
+    await authenticatedPage.goto('/reports?tab=demand');
+    await authenticatedPage.waitForLoadState('networkidle');
+    const filteredHours = await authenticatedPage.locator(TOTAL_DEMAND).textContent();
+
+    // Parameter must not break rendering; values are equal while only the
+    // baseline world has data.
     expect(allScenariosHours).toBeTruthy();
     expect(filteredHours).toBeTruthy();
   });
 
-  test('report exports should include scenario context', async ({ page }) => {
-    // Navigate to demand report
-    await page.goto('/reports?tab=demand');
-    await page.waitForLoadState('networkidle');
-    
-    // Check if export buttons exist and would include scenario context
-    const exportButton = page.locator('button:has-text("Export")');
-    
-    if (await exportButton.isVisible()) {
-      // Set up download promise before clicking
-      const downloadPromise = page.waitForEvent('download');
-      
-      await exportButton.click();
-      
-      // If there's a format selection, choose Excel
-      const excelOption = page.locator('button:has-text("Excel")');
-      if (await excelOption.isVisible()) {
-        await excelOption.click();
-      }
-      
-      const download = await downloadPromise;
-      const filename = download.suggestedFilename();
-      
-      // Filename might include scenario context
-      expect(filename).toContain('demand');
-    }
+  test('report exports should include scenario context', async ({ authenticatedPage }) => {
+    const exportButton = authenticatedPage.locator('button:has-text("Export")').first();
+    await expect(exportButton).toBeVisible();
+
+    const downloadPromise = authenticatedPage.waitForEvent('download');
+    await exportButton.click();
+    await authenticatedPage.locator('button:has-text("Export as Excel")').click();
+
+    const download = await downloadPromise;
+    expect(download.suggestedFilename()).toMatch(/demand/i);
   });
 
-  test('empty scenario should show appropriate empty states', async ({ page }) => {
-    // Create empty scenario
-    await page.goto('/scenarios');
-    await page.click('button:has-text("Create Scenario")');
-    await page.fill('input[name="name"]', 'Empty Scenario Test');
-    await page.click('button:has-text("Create")');
-    await page.waitForLoadState('networkidle');
-    
-    await page.click('.scenario-selector');
-    await page.click('text="Empty Scenario Test"');
-    await page.waitForLoadState("domcontentloaded", { timeout: 3000 }).catch(() => {});
-    
-    // Check demand report
-    await page.goto('/reports?tab=demand');
-    await page.waitForLoadState('networkidle');
-    
-    // Should show empty state
-    const emptyState = page.locator('.report-empty-state, .empty-state, text=/No Demand Data/i');
-    const isEmptyVisible = await emptyState.isVisible().catch(() => false);
-    
-    // Or should show 0 values
-    const totalHours = await page.locator('.metric:has-text("Total Demand")').textContent();
-    
+  test('empty scenario should show appropriate empty states', async ({ authenticatedPage, apiContext }) => {
+    const id = await createBranch(apiContext, 'Empty Scenario Test');
+    createdScenarioIds.push(id);
+
+    await switchScenario(authenticatedPage, 'Empty Scenario Test');
+    await authenticatedPage.goto('/reports?tab=demand');
+    await authenticatedPage.waitForLoadState('networkidle');
+
+    // Zero-valued summary or an explicit empty state — both are honest
+    const isEmptyVisible = await authenticatedPage
+      .locator('.report-empty-state').isVisible().catch(() => false);
+    const totalHours = await authenticatedPage.locator(TOTAL_DEMAND).textContent();
+
     expect(isEmptyVisible || totalHours?.includes('0')).toBeTruthy();
   });
 
-  test('scenario description should appear in report context', async ({ page }) => {
-    // Create scenario with description
-    await page.goto('/scenarios');
-    await page.click('button:has-text("Create Scenario")');
-    await page.fill('input[name="name"]', 'Described Scenario');
-    await page.fill('textarea[name="description"]', 'This is a test scenario for Q4 planning');
-    await page.click('button:has-text("Create")');
-    await page.waitForLoadState('networkidle');
-    
-    await page.click('.scenario-selector');
-    await page.click('text="Described Scenario"');
-    await page.waitForLoadState("domcontentloaded", { timeout: 3000 }).catch(() => {});
-    
-    // Check demand report shows description
-    await page.goto('/reports?tab=demand');
-    await page.waitForLoadState('networkidle');
-    
-    const description = page.locator('text="This is a test scenario for Q4 planning"');
-    await expect(description).toBeVisible();
+  test('scenario description should appear in report context', async ({ authenticatedPage, apiContext }) => {
+    const id = await createBranch(apiContext, 'Described Scenario', {
+      description: 'This is a test scenario for Q4 planning'
+    });
+    createdScenarioIds.push(id);
+
+    await switchScenario(authenticatedPage, 'Described Scenario');
+    await authenticatedPage.goto('/reports?tab=demand');
+    await authenticatedPage.waitForLoadState('networkidle');
+
+    await expect(
+      authenticatedPage.locator('text="This is a test scenario for Q4 planning"')
+    ).toBeVisible();
   });
 });

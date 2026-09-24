@@ -1,97 +1,92 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from '../../fixtures';
 
 test.describe('Scenario UI Comprehensive Tests', () => {
-  test.beforeEach(async ({ page }) => {
-    await page.goto('/');
-    await page.waitForLoadState('networkidle');
-    
-    // Handle profile selection modal if it appears
-    const profileModal = await page.locator('[role="dialog"]:has-text("Select Your Profile")').isVisible().catch(() => false);
-    if (profileModal) {
-      // Select is already filled from global setup, just click Continue
-      await page.click('button:has-text("Continue")');
-      await page.waitForLoadState("networkidle", { timeout: 10000 }).catch(() => {});
-    }
-  });
+  // authenticatedPage fixture handles profile login (D11-safe); no manual handling needed
 
-  test('should navigate to scenarios page and see list', async ({ page }) => {
+  test('should navigate to scenarios page and see list', async ({ authenticatedPage }) => {
     // Click on Scenarios in the navigation
-    await page.click('a[href="/scenarios"]');
-    await page.waitForLoadState('networkidle');
-    await page.waitForLoadState("networkidle", { timeout: 10000 }).catch(() => {}); // Wait for React to render
+    await authenticatedPage.click('a[href="/scenarios"]');
+    await authenticatedPage.waitForLoadState('networkidle');
+    await authenticatedPage.waitForLoadState("networkidle", { timeout: 10000 }).catch(() => {}); // Wait for React to render
     
     // Check we're on the scenarios page
-    await expect(page.locator('h1:has-text("Scenario Planning")')).toBeVisible();
+    await expect(authenticatedPage.locator('h1:has-text("Scenario Planning")')).toBeVisible();
     
     // Should see the hierarchy structure
-    await expect(page.locator('.scenarios-hierarchy')).toBeVisible();
+    await expect(authenticatedPage.locator('.scenarios-hierarchy')).toBeVisible();
     
-    // Should see baseline scenario - look for text in the row
-    await expect(page.locator('.hierarchy-row:has-text("Current State Baseline")')).toBeVisible();
+    // Should see the seed baseline scenario (e2e seed names it "Baseline")
+    await expect(authenticatedPage.locator('.hierarchy-row:has-text("Baseline")').first()).toBeVisible();
   });
 
-  test('should create a new scenario branch', async ({ page }) => {
+  test('should create a new scenario branch', async ({ authenticatedPage }) => {
     // Navigate to scenarios page
-    await page.goto('/scenarios');
-    await page.waitForLoadState('networkidle');
+    await authenticatedPage.goto('/scenarios');
+    await authenticatedPage.waitForLoadState('networkidle');
     
     // Click New Scenario button
-    await page.click('button:has-text("New Scenario")');
+    await authenticatedPage.click('button:has-text("New Scenario")');
     
-    // Fill in the create scenario form
-    await page.fill('input[name="name"]', 'Test Branch Scenario');
-    await page.fill('textarea[name="description"]', 'This is a test branch scenario created by E2E tests');
+    // Fill in the create scenario form (fields carry ids, not name attrs)
+    await authenticatedPage.fill('#scenario-name', 'Test Branch Scenario');
+    await authenticatedPage.fill('#scenario-description', 'This is a test branch scenario created by E2E tests');
     
     // Submit the form
-    await page.click('button:has-text("Create Scenario")');
+    await authenticatedPage.click('button:has-text("Create Scenario")');
     
     // Wait for modal to close and list to update
-    await page.waitForLoadState("networkidle", { timeout: 10000 }).catch(() => {});
+    await authenticatedPage.waitForLoadState("networkidle", { timeout: 10000 }).catch(() => {});
     
     // Verify the new scenario appears in the list
-    await expect(page.locator('.hierarchy-row:has-text("Test Branch Scenario")')).toBeVisible();
+    await expect(authenticatedPage.locator('.hierarchy-row:has-text("Test Branch Scenario")')).toBeVisible();
   });
 
-  test('should switch scenarios using header dropdown', async ({ page }) => {
+  test('should switch scenarios using header dropdown', async ({ authenticatedPage }) => {
     // Get initial scenario from localStorage
-    const initialScenario = await page.evaluate(() => {
+    const initialScenario = await authenticatedPage.evaluate(() => {
       return JSON.parse(localStorage.getItem('currentScenario') || '{}');
     });
     
     // Click on scenario selector in header
-    await page.click('.scenario-selector button');
+    await authenticatedPage.click('.scenario-selector button');
     
     // Wait for dropdown to open
-    await expect(page.locator('.scenario-dropdown')).toBeVisible();
+    await expect(authenticatedPage.locator('.scenario-dropdown')).toBeVisible();
     
     // Check that baseline scenario is in the list
-    await expect(page.locator('.scenario-option:has-text("Current State Baseline")')).toBeVisible();
+    await expect(authenticatedPage.locator('.scenario-option:has-text("Baseline")').first()).toBeVisible();
     
     // If there are other scenarios, try to select one
-    const scenarioOptions = await page.locator('.scenario-option').count();
+    const scenarioOptions = await authenticatedPage.locator('.scenario-option').count();
     if (scenarioOptions > 1) {
-      // Click on a different scenario
-      await page.locator('.scenario-option').nth(1).click();
-      
-      // Wait for dropdown to close
-      await page.waitForLoadState("domcontentloaded", { timeout: 3000 }).catch(() => {});
-      
-      // Verify scenario changed in localStorage
-      const newScenario = await page.evaluate(() => {
+      // Click on a different scenario (capture its row text for the wait)
+      const targetOption = authenticatedPage.locator('.scenario-option:not(.selected)').first();
+      const targetName = (await targetOption.locator('.scenario-option-name').textContent())?.trim() || '';
+
+      await targetOption.click();
+
+      // Wait for the header chip to reflect the switch, then localStorage
+      // (the ScenarioContext effect writes it after re-render)
+      await expect(authenticatedPage.locator('.scenario-button .scenario-name')).toContainText(targetName);
+      await expect.poll(async () =>
+        authenticatedPage.evaluate(() => localStorage.getItem('currentScenario'))
+      ).toContain(targetName);
+
+      const newScenario = await authenticatedPage.evaluate(() => {
         return JSON.parse(localStorage.getItem('currentScenario') || '{}');
       });
-      
+
       expect(newScenario.id).not.toBe(initialScenario.id);
     }
   });
 
-  test('should show scenario actions in list view', async ({ page }) => {
+  test('should show scenario actions in list view', async ({ authenticatedPage }) => {
     // Navigate to scenarios page
-    await page.goto('/scenarios');
-    await page.waitForLoadState('networkidle');
+    await authenticatedPage.goto('/scenarios');
+    await authenticatedPage.waitForLoadState('networkidle');
     
     // Find a scenario row
-    const scenarioRow = page.locator('.hierarchy-row').first();
+    const scenarioRow = authenticatedPage.locator('.hierarchy-row').first();
     
     // Check action buttons are present
     await expect(scenarioRow.locator('.action-button.branch')).toBeVisible();
@@ -99,113 +94,115 @@ test.describe('Scenario UI Comprehensive Tests', () => {
     await expect(scenarioRow.locator('.action-button.edit')).toBeVisible();
     
     // Baseline scenario should not have delete button
-    const baselineRow = page.locator('.hierarchy-row:has(.scenario-type.baseline)').first();
+    const baselineRow = authenticatedPage.locator('.hierarchy-row:has(.scenario-type.baseline)').first();
     const deleteButton = baselineRow.locator('.action-button.delete');
     await expect(deleteButton).not.toBeVisible();
   });
 
-  test('should open edit modal when clicking edit', async ({ page }) => {
+  test('should open edit modal when clicking edit', async ({ authenticatedPage }) => {
     // Navigate to scenarios page
-    await page.goto('/scenarios');
-    await page.waitForLoadState('networkidle');
+    await authenticatedPage.goto('/scenarios');
+    await authenticatedPage.waitForLoadState('networkidle');
     
     // Click edit on first scenario
-    await page.locator('.action-button.edit').first().click();
+    await authenticatedPage.locator('.action-button.edit').first().click();
     
     // Check edit modal is open
-    await expect(page.locator('.modal-content:has-text("Edit Scenario")')).toBeVisible();
-    
-    // Close modal
-    await page.click('.modal-close');
-    await expect(page.locator('.modal-content')).not.toBeVisible();
+    // Radix dialog — no .modal-content anymore
+    await expect(authenticatedPage.locator('[role="dialog"]:has-text("Edit Scenario")')).toBeVisible();
+
+    // Close via Escape (Radix close button has no stable class)
+    await authenticatedPage.keyboard.press('Escape');
+    await expect(authenticatedPage.locator('[role="dialog"]')).not.toBeVisible();
   });
 
-  test('should filter scenarios by search', async ({ page }) => {
+  test('should filter scenarios by search', async ({ authenticatedPage }) => {
     // Navigate to scenarios page
-    await page.goto('/scenarios');
-    await page.waitForLoadState('networkidle');
+    await authenticatedPage.goto('/scenarios');
+    await authenticatedPage.waitForLoadState('networkidle');
     
     // Type in search box
-    await page.fill('input[placeholder="Search scenarios..."]', 'Baseline');
+    await authenticatedPage.fill('input[placeholder="Search scenarios..."]', 'Baseline');
     
     // Should only show scenarios matching search
-    const visibleScenarios = await page.locator('.hierarchy-row:visible').count();
-    const baselineScenarios = await page.locator('.hierarchy-row:visible:has-text("Baseline")').count();
+    const visibleScenarios = await authenticatedPage.locator('.hierarchy-row:visible').count();
+    const baselineScenarios = await authenticatedPage.locator('.hierarchy-row:visible:has-text("Baseline")').count();
     
     expect(baselineScenarios).toBeGreaterThan(0);
     expect(baselineScenarios).toBe(visibleScenarios);
   });
 
-  test('should show scenario type and status badges', async ({ page }) => {
+  test('should show scenario type and status badges', async ({ authenticatedPage }) => {
     // Navigate to scenarios page
-    await page.goto('/scenarios');
-    await page.waitForLoadState('networkidle');
+    await authenticatedPage.goto('/scenarios');
+    await authenticatedPage.waitForLoadState('networkidle');
     
     // Check for type badges
-    await expect(page.locator('.scenario-type.baseline').first()).toBeVisible();
+    await expect(authenticatedPage.locator('.scenario-type.baseline').first()).toBeVisible();
     
     // Check for status badges
-    await expect(page.locator('.scenario-status.active').first()).toBeVisible();
+    await expect(authenticatedPage.locator('.scenario-status.active').first()).toBeVisible();
   });
 
-  test('should open compare modal when clicking compare', async ({ page }) => {
+  test('should open compare modal when clicking compare', async ({ authenticatedPage }) => {
     // Navigate to scenarios page
-    await page.goto('/scenarios');
-    await page.waitForLoadState('networkidle');
+    await authenticatedPage.goto('/scenarios');
+    await authenticatedPage.waitForLoadState('networkidle');
     
     // Click compare on first scenario
-    await page.locator('.action-button.compare').first().click();
+    await authenticatedPage.locator('.action-button.compare').first().click();
     
     // Check compare modal is open
-    await expect(page.locator('.modal-content:has-text("Compare Scenarios")')).toBeVisible();
-    
+    await expect(authenticatedPage.locator('[role="dialog"]:has-text("Compare Scenarios")')).toBeVisible();
+
     // Should have a dropdown to select comparison target
-    await expect(page.locator('select.scenario-select')).toBeVisible();
-    
-    // Close modal
-    await page.click('.modal-close');
-    await expect(page.locator('.modal-content')).not.toBeVisible();
+    await expect(authenticatedPage.locator('select.scenario-select')).toBeVisible();
+
+    // Close via Escape (Radix close button has no stable class)
+    await authenticatedPage.keyboard.press('Escape');
+    await expect(authenticatedPage.locator('[role="dialog"]')).not.toBeVisible();
   });
 
-  test('should create branch from existing scenario', async ({ page }) => {
+  test('should create branch from existing scenario', async ({ authenticatedPage }) => {
     // Navigate to scenarios page
-    await page.goto('/scenarios');
-    await page.waitForLoadState('networkidle');
+    await authenticatedPage.goto('/scenarios');
+    await authenticatedPage.waitForLoadState('networkidle');
     
     // Click branch on baseline scenario
-    await page.locator('.hierarchy-row:has(.scenario-type.baseline) .action-button.branch').first().click();
+    await authenticatedPage.locator('.hierarchy-row:has(.scenario-type.baseline) .action-button.branch').first().click();
     
     // Check create modal is open with parent scenario pre-selected
-    await expect(page.locator('.modal-content:has-text("Create Scenario")')).toBeVisible();
-    await expect(page.locator('.parent-scenario-info')).toBeVisible();
-    
-    // Fill in branch details
-    await page.fill('input[name="name"]', 'Test Sub-Branch');
-    await page.fill('textarea[name="description"]', 'Branch created from baseline');
+    // Create modal title is "Create New Scenario"; parent shown as "Branching from: <name>"
+    await expect(authenticatedPage.locator('[role="dialog"]:has-text("Create New Scenario")')).toBeVisible();
+    await expect(authenticatedPage.locator('[role="dialog"]:has-text("Branching from:")')).toBeVisible();
+
+    // Fill in branch details (fields carry ids, not name attrs)
+    await authenticatedPage.fill('#scenario-name', 'Test Sub-Branch');
+    await authenticatedPage.fill('#scenario-description', 'Branch created from baseline');
     
     // Submit
-    await page.click('button:has-text("Create Scenario")');
+    await authenticatedPage.click('button:has-text("Create Scenario")');
     
     // Wait for creation
-    await page.waitForLoadState("networkidle", { timeout: 10000 }).catch(() => {});
+    await authenticatedPage.waitForLoadState("networkidle", { timeout: 10000 }).catch(() => {});
     
     // Verify new branch appears
-    await expect(page.locator('.hierarchy-row:has-text("Test Sub-Branch")')).toBeVisible();
+    await expect(authenticatedPage.locator('.hierarchy-row:has-text("Test Sub-Branch")')).toBeVisible();
   });
 
-  test('should show hierarchical tree structure for scenarios', async ({ page }) => {
+  test('should show hierarchical tree structure for scenarios', async ({ authenticatedPage }) => {
     // Navigate to scenarios page
-    await page.goto('/scenarios');
-    await page.waitForLoadState('networkidle');
+    await authenticatedPage.goto('/scenarios');
+    await authenticatedPage.waitForLoadState('networkidle');
     
     // Check for hierarchy elements
-    await expect(page.locator('.hierarchy-header:has-text("Scenario Hierarchy")')).toBeVisible();
-    await expect(page.locator('.hierarchy-legend')).toBeVisible();
+    await expect(authenticatedPage.locator('.hierarchy-header:has-text("Scenario Hierarchy")')).toBeVisible();
+    await expect(authenticatedPage.locator('.hierarchy-legend')).toBeVisible();
     
     // Check column headers
-    await expect(page.locator('.column-header.name-column')).toBeVisible();
-    await expect(page.locator('.column-header.type-column')).toBeVisible();
-    await expect(page.locator('.column-header.status-column')).toBeVisible();
-    await expect(page.locator('.column-header.created-by-column')).toBeVisible();
+    await expect(authenticatedPage.locator('.column-header.name-column')).toBeVisible();
+    await expect(authenticatedPage.locator('.column-header.type-column')).toBeVisible();
+    await expect(authenticatedPage.locator('.column-header.status-column')).toBeVisible();
+    await expect(authenticatedPage.locator('.column-header.created-by-column')).toBeVisible();
   });
 });

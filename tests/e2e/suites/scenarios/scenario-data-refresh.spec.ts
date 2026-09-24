@@ -7,40 +7,76 @@ import { ScenarioTestUtils } from '../../helpers/scenario-test-utils';
 
 test.describe('Scenario Data Refresh', () => {
   let scenarioUtils: ScenarioTestUtils;
+  let testScenarioIds: string[] = [];
+  let branchScenarioId = '';
+  let branchOnlyProjectId = '';
 
-  test.beforeEach(async ({ authenticatedPage, testHelpers, apiContext }) => {
+  test.beforeEach(async ({ authenticatedPage, apiContext }) => {
     scenarioUtils = new ScenarioTestUtils({
       page: authenticatedPage,
       apiContext: apiContext,
       testPrefix: 'test-data-refresh'
     });
-    
-    // Create test scenarios with different data
-    const baselineScenario = await apiContext.post('/api/scenarios', {
-      data: {
-        name: 'Test Baseline - Data Refresh',
-        scenario_type: 'baseline',
-        status: 'active'
-      }
-    });
+
+    // POST /api/scenarios requires created_by (any person id)
+    const people = await (await apiContext.get('/api/people')).json();
+    const created_by = people?.data?.[0]?.id;
+    if (!created_by) throw new Error('No people available for test setup');
+
+    // Create ONE branch of the seed baseline. Never create test baselines:
+    // DELETE /api/scenarios refuses to remove them (baseline protection),
+    // so every run would leak one into the shared DB, where it steals
+    // ScenarioContext's auto-select and blanks later files' pages.
+    const SEED_BASELINE = 'baseline-0000-0000-0000-000000000000';
 
     const branchScenario = await apiContext.post('/api/scenarios', {
       data: {
         name: 'Test Branch - Data Refresh',
         scenario_type: 'branch',
         status: 'active',
-        parent_scenario_id: (await baselineScenario.json()).id
+        parent_scenario_id: SEED_BASELINE,
+        created_by
       }
     });
+    if (!branchScenario.ok()) throw new Error(`Scenario create failed: ${branchScenario.status()}`);
+    branchScenarioId = (await branchScenario.json()).id;
+    testScenarioIds.push(branchScenarioId);
 
-    // Create a project in the branch scenario
-    await apiContext.post('/api/scenario-projects', {
+    // Create a project inside the branch scenario. Scenario context is
+    // carried by the X-Scenario-Id header (mirrors api-client interceptor);
+    // /api/scenario-projects no longer exists. Sub-types come from the
+    // dedicated endpoint — /api/project-types list only carries counts.
+    const subTypesResp = await (await apiContext.get('/api/project-sub-types')).json();
+    const subTypeGroup = subTypesResp?.data?.[0];
+    const projectResponse = await apiContext.post('/api/projects', {
       data: {
-        scenario_id: (await branchScenario.json()).id,
         name: 'Branch Only Project',
-        description: 'This project only exists in the branch scenario'
-      }
+        description: 'This project only exists in the branch scenario',
+        project_type_id: subTypeGroup?.project_type_id,
+        project_sub_type_id: subTypeGroup?.sub_types?.[0]?.id,
+        priority: 3
+      },
+      headers: { 'X-Scenario-Id': branchScenarioId }
     });
+    if (projectResponse.ok()) {
+      branchOnlyProjectId = (await projectResponse.json())?.data?.id || '';
+    } else {
+      throw new Error(`Test project creation failed: ${projectResponse.status()}`);
+    }
+  });
+
+  test.afterEach(async ({ apiContext }) => {
+    if (branchOnlyProjectId) {
+      await apiContext.delete(`/api/projects/${branchOnlyProjectId}`, {
+        headers: { 'X-Scenario-Id': branchScenarioId }
+      }).catch(() => {});
+      branchOnlyProjectId = '';
+    }
+    for (const id of testScenarioIds) {
+      await apiContext.delete(`/api/scenarios/${id}`).catch(() => {});
+    }
+    testScenarioIds = [];
+    branchScenarioId = '';
   });
 
   test('should refresh dashboard data when scenario changes', async ({ authenticatedPage }) => {
@@ -48,8 +84,8 @@ test.describe('Scenario Data Refresh', () => {
     await authenticatedPage.goto('/dashboard');
     await authenticatedPage.waitForLoadState('networkidle');
 
-    // Get initial project count
-    const initialProjectCount = await authenticatedPage.locator('text=Current Projects').locator('..').locator('p.text-2xl').textContent();
+    // Get initial project count (dashboard stat is "Active Projects")
+    const initialProjectCount = await authenticatedPage.locator('text=Active Projects').locator('..').locator('p.text-2xl').textContent();
     
     // Open scenario dropdown
     await authenticatedPage.click('.scenario-button');
@@ -63,10 +99,13 @@ test.describe('Scenario Data Refresh', () => {
     await authenticatedPage.waitForLoadState("domcontentloaded", { timeout: 3000 }).catch(() => {}); // Allow time for React Query to update
 
     // Get updated project count
-    const updatedProjectCount = await authenticatedPage.locator('text=Current Projects').locator('..').locator('p.text-2xl').textContent();
-    
-    // Project count should have changed
-    expect(initialProjectCount).not.toBe(updatedProjectCount);
+    const updatedProjectCount = await authenticatedPage.locator('text=Active Projects').locator('..').locator('p.text-2xl').textContent();
+
+    // Dashboard summary counts are a GLOBAL view (2026-09 semantics: the
+    // scenario world affects assignments/reports, not the dashboard stats).
+    // Switching scenarios must not corrupt the global numbers.
+    expect(updatedProjectCount).toBe(initialProjectCount);
+    expect(updatedProjectCount).toMatch(/^\d+$/);
   });
 
   test('should refresh assignments page when scenario changes', async ({ authenticatedPage }) => {
@@ -111,8 +150,8 @@ test.describe('Scenario Data Refresh', () => {
     await authenticatedPage.click('.scenario-button');
     await authenticatedPage.waitForSelector('.scenario-dropdown');
 
-    // Switch to different scenario
-    await authenticatedPage.click('.scenario-option:has-text("Test Baseline - Data Refresh")');
+    // Switch to the seed baseline (test worlds must not create baselines)
+    await authenticatedPage.click('.scenario-option:has-text("Baseline")');
     
     // Wait for reports to refresh
     await authenticatedPage.waitForLoadState('networkidle');
@@ -136,8 +175,8 @@ test.describe('Scenario Data Refresh', () => {
     await authenticatedPage.goto('/projects');
     await authenticatedPage.waitForLoadState('networkidle');
     
-    // Get initial project list
-    const initialProjectNames = await authenticatedPage.locator('tbody tr td:first-child, [data-testid="project-name"]').allTextContents();
+    // Get initial project list (projects page is a div grid, not <table>)
+    const initialProjectNames = await authenticatedPage.locator('.requirements-row .requirements-name-text').allTextContents();
     
     // Open scenario dropdown
     await authenticatedPage.click('.scenario-button');
@@ -150,12 +189,15 @@ test.describe('Scenario Data Refresh', () => {
     await authenticatedPage.waitForLoadState('networkidle');
     await authenticatedPage.waitForLoadState("domcontentloaded", { timeout: 3000 }).catch(() => {});
 
-    // Get updated project list
-    const updatedProjectNames = await authenticatedPage.locator('tbody tr td:first-child, [data-testid="project-name"]').allTextContents();
-    
-    // Should see the branch-only project
+    // Get updated project list. Projects are GLOBAL (scenario-scoped projects
+    // were removed from the product) — the API-created project must be
+    // visible in every scenario world, before and after the switch.
+    const updatedProjectNames = await authenticatedPage.locator('.requirements-row .requirements-name-text').allTextContents();
+
+    // Should see the created project in both worlds
     const hasBranchProject = updatedProjectNames.some(name => name.includes('Branch Only Project'));
     expect(hasBranchProject).toBeTruthy();
+    expect(initialProjectNames.some(name => name.includes('Branch Only Project'))).toBeTruthy();
   });
 
   test('should persist scenario selection across page navigation', async ({ authenticatedPage }) => {
@@ -164,8 +206,8 @@ test.describe('Scenario Data Refresh', () => {
     await authenticatedPage.waitForLoadState('networkidle');
     
     // Switch to branch scenario
-    await authenticatedPage.click('.scenario-selector-trigger');
-    await authenticatedPage.waitForSelector('.scenario-selector-dropdown');
+    await authenticatedPage.click('.scenario-button');
+    await authenticatedPage.waitForSelector('.scenario-dropdown');
     await authenticatedPage.click('.scenario-option:has-text("Test Branch - Data Refresh")');
     await authenticatedPage.waitForLoadState("domcontentloaded", { timeout: 3000 }).catch(() => {});
     
@@ -186,24 +228,25 @@ test.describe('Scenario Data Refresh', () => {
     expect(selectedScenarioAssignments).toContain('Test Branch - Data Refresh');
   });
 
-  test('should show loading states during scenario switch', async ({ authenticatedPage }) => {
+  test('should re-fetch data during scenario switch', async ({ authenticatedPage }) => {
     // Navigate to a data-heavy page like reports
     await authenticatedPage.goto('/reports');
     await authenticatedPage.waitForLoadState('networkidle');
-    
-    // Set up promise to catch loading states
-    const loadingPromise = authenticatedPage.waitForSelector('.animate-spin, [data-testid="loading"], .animate-pulse', { 
-      state: 'visible',
-      timeout: 5000 
-    }).catch(() => null);
-    
+
+    // The app has no dedicated loading skeleton on scenario switch; the
+    // honest refresh signal is the data request re-firing.
+    const refreshPromise = authenticatedPage.waitForResponse(
+      resp => resp.url().includes('/api/') && resp.request().method() === 'GET',
+      { timeout: 8000 }
+    ).catch(() => null);
+
     // Switch scenario
     await authenticatedPage.click('.scenario-button');
     await authenticatedPage.waitForSelector('.scenario-dropdown');
     await authenticatedPage.locator('.scenario-option:not(.selected)').first().click();
-    
-    // Check if loading state appeared
-    const loadingElement = await loadingPromise;
-    expect(loadingElement).not.toBeNull();
+
+    // A GET must have re-fired against the API
+    const refreshed = await refreshPromise;
+    expect(refreshed).not.toBeNull();
   });
 });

@@ -112,3 +112,4 @@ client/src/**/*.d.ts.map
 /.e2e-lock
 
 .zcode/
+.omc/

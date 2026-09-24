@@ -1,4 +1,4 @@
-import type { Request, Response } from 'express';
+import type { Response } from 'express';
 import { BaseController, RequestWithContext } from './BaseController.js';
 import { ServiceContainer } from '../../services/ServiceContainer.js';
 import { notificationScheduler } from '../../services/NotificationScheduler.js';
@@ -345,15 +345,6 @@ export class ProjectsController extends BaseController {
     if (!projectSubType.is_active) {
       throw new Error(`Project sub-type "${projectSubType.name}" is not active`);
     }
-  }
-  async debugQuery(req: Request, res: Response) {
-    const testQuery = await this.db('projects')
-      .select('id', 'name')
-      .select(this.db.raw('(SELECT MIN(start_date) FROM project_phases_timeline WHERE project_id = projects.id) as start_date'))
-      .select(this.db.raw('(SELECT MAX(end_date) FROM project_phases_timeline WHERE project_id = projects.id) as end_date'))
-      .limit(3);
-    
-    res.json({ debug: testQuery });
   }
 
   getAll = this.asyncHandler(async (req: RequestWithLogging, res: Response) => {

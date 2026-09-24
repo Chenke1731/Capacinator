@@ -7,9 +7,6 @@ const controller = new ProjectsController();
 // Test data cleanup (for e2e tests) - must come before /:id route
 router.delete('/test-data', controller.deleteTestData);
 
-// Debug endpoint - must come before /:id route
-router.get('/debug', (req, res) => controller.debugQuery(req, res));
-
 // Project CRUD operations
 router.get('/', controller.getAll);
 router.get('/:id', controller.getById);

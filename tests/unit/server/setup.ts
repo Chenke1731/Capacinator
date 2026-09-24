@@ -24,6 +24,7 @@ const mockQueryBuilder = {
   select: jest.fn().mockReturnThis(),
   where: jest.fn().mockReturnThis(),
   whereIn: jest.fn().mockReturnThis(),
+  whereNot: jest.fn().mockReturnThis(),
   whereNotIn: jest.fn().mockReturnThis(),
   whereNull: jest.fn().mockReturnThis(),
   whereNotNull: jest.fn().mockReturnThis(),

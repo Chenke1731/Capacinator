@@ -118,11 +118,14 @@ export async function seed(knex: Knex): Promise<void> {
     }
   ]);
   
-  // Seed project types
+  // Seed project types. Names MUST start with a category prefix from
+  // client/src/lib/projectCategories.ts (需求交付/问题单支持/项目事务/零星事项)
+  // — the Projects page tabs filter by categoryOfTypeName(), and a name that
+  // matches no category leaves the e2e requirements table permanently empty.
   await knex('project_types').insert([
     {
       id: 'ptype-e2e-web',
-      name: 'E2E Web Development',
+      name: '需求交付-E2E-Web',
       description: 'Web development projects for E2E testing',
       color_code: '#3B82F6',
       created_at: new Date(),
@@ -130,7 +133,7 @@ export async function seed(knex: Knex): Promise<void> {
     },
     {
       id: 'ptype-e2e-mobile',
-      name: 'E2E Mobile Development', 
+      name: '需求交付-E2E-Mobile',
       description: 'Mobile development projects for E2E testing',
       color_code: '#10B981',
       created_at: new Date(),
@@ -301,6 +304,7 @@ export async function seed(knex: Knex): Promise<void> {
     {
       id: 'project-e2e-critical',
       name: 'E2E Critical Project',
+      project_type_id: 'ptype-e2e-web',
       project_sub_type_id: 'psub-e2e-webapp',
       location_id: 'loc-e2e-office',
       priority: 1,
@@ -313,6 +317,7 @@ export async function seed(knex: Knex): Promise<void> {
     {
       id: 'project-e2e-normal',
       name: 'E2E Normal Project',
+      project_type_id: 'ptype-e2e-mobile',
       project_sub_type_id: 'psub-e2e-mobileapp',
       location_id: 'loc-e2e-office',
       priority: 2,
@@ -325,6 +330,7 @@ export async function seed(knex: Knex): Promise<void> {
     {
       id: 'project-e2e-backlog',
       name: 'E2E Backlog Project',
+      project_type_id: 'ptype-e2e-web',
       project_sub_type_id: 'psub-e2e-webapp',
       location_id: 'loc-e2e-remote',
       priority: 3,

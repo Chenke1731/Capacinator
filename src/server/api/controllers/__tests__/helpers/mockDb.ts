@@ -58,6 +58,7 @@ export function createMockDb() {
   mock.andWhere = jest.fn().mockReturnValue(mock);
   mock.orWhere = jest.fn().mockReturnValue(mock);
   mock.whereIn = jest.fn().mockReturnValue(mock);
+  mock.whereNot = jest.fn().mockReturnValue(mock);
   mock.whereNotIn = jest.fn().mockReturnValue(mock);
   mock.whereNull = jest.fn().mockReturnValue(mock);
   mock.whereNotNull = jest.fn().mockReturnValue(mock);

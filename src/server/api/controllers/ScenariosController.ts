@@ -735,11 +735,26 @@ export class ScenariosController extends BaseController {
   private async branchFromParent(scenarioId: string, parentScenarioId: string) {
     // For baseline, copy current assignments
     if (parentScenarioId === 'baseline-0000-0000-0000-000000000000') {
-      // Copy current project assignments to scenario
-      const assignments = await this.db('project_assignments')
+      // Copy current project assignments to scenario. History may instead
+      // live as baseline scenario rows (the e2e consolidated seed models all
+      // assignments that way and leaves project_assignments empty) — union
+      // both sources, deduped by identity, so branching from the baseline
+      // never yields an empty world.
+      const baseAssignments = await this.db('project_assignments')
         .select('*');
+      const baselineScenarioRows = await this.db('scenario_project_assignments')
+        .where('scenario_id', parentScenarioId)
+        .whereNot('change_type', 'removed');
 
-      for (const assignment of assignments) {
+      const seenKeys = new Set<string>();
+      // baseId: FK into project_assignments — only rows that actually come
+      // from (or reference) that table may carry it; a dangling value
+      // violates the FK (baseline scenario rows have no base counterpart).
+      const copyAssignment = async (assignment: Record<string, any>, baseId: string | null) => {
+        const key = `${assignment.project_id}:${assignment.person_id}:${assignment.role_id}:${assignment.phase_id || 'null'}`;
+        if (seenKeys.has(key)) return;
+        seenKeys.add(key);
+
         await this.db('scenario_project_assignments').insert({
           id: randomUUID(),
           scenario_id: scenarioId,
@@ -753,10 +768,17 @@ export class ScenariosController extends BaseController {
           end_date: assignment.end_date,
           notes: assignment.notes,
           change_type: 'added',
-          base_assignment_id: assignment.id,
+          base_assignment_id: baseId,
           created_at: new Date(),
           updated_at: new Date()
         });
+      };
+
+      for (const assignment of baseAssignments) {
+        await copyAssignment(assignment, assignment.id);
+      }
+      for (const assignment of baselineScenarioRows) {
+        await copyAssignment(assignment, assignment.base_assignment_id || null);
       }
 
       // Copy current project phases

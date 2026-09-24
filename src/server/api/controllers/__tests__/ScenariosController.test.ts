@@ -240,8 +240,27 @@ describe('ScenariosController', () => {
         parent_scenario_name: 'Baseline'
       };
 
-      // Queue responses for branchFromParent (copy assignments and phases)
+      // Queue responses for branchFromParent (copy assignments and phases).
+      // Assignment copy unions two sources: base project_assignments AND
+      // the baseline's own scenario rows (deduped by identity key).
+      const mockBaselineScenarioRows = [
+        {
+          // same identity key as assign-1 — exercises the dedupe path
+          id: 'spa-existing',
+          project_id: 'project-1',
+          person_id: 'person-1',
+          role_id: 'role-1',
+          phase_id: null,
+          allocation_percentage: 50,
+          assignment_date_mode: 'project',
+          start_date: null,
+          end_date: null,
+          notes: null,
+          base_assignment_id: 'assign-1'
+        }
+      ];
       mockDb._queueQueryResult(mockAssignments); // project_assignments query
+      mockDb._queueQueryResult(mockBaselineScenarioRows); // baseline scenario rows query
       mockDb._queueQueryResult(mockPhases); // project_phases_timeline query
       mockDb._queueFirstResult(mockCreatedScenario); // final scenario fetch
 

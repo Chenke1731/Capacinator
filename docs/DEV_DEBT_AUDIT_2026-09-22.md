@@ -36,11 +36,12 @@
 batch1）。它造成两个测试用例临时红（其 WIP 自身状态）。**建议：会话结束前提交或收摊到分支**，
 否则任何全量测试/守卫的结果都不可信。本轮我的提交只含测试基建三文件，未触碰该 WIP。
 
-### D2（P1）客户端 4 个真环境性失败套件（12 项）
+### D2（P1）客户端 4 个真环境性失败套件（12 项）→ 已解决（2026-09-22 当日，提交 4542447；本文档此前漏关）
 
 i18n（localStorage jsdom 2 项）、date/dateUtils（时区）、PersonDetails.utilization-timeline（1 项）。
-修法建议：jest setup 固定 `TZ=Asia/Shanghai` + localStorage polyfill；修不动的显式 `it.skip` 带原因注释，
-让全量恢复"零噪音红"。修好后可把"预存红"概念从手册里删除。
+修法落地：`tests/setup.tz.js` 在框架加载前钉 `TZ=Asia/Shanghai`（jest.config.cjs 客户端项目 setupFiles）+ jsdom 原生 localStorage。
+2026-09-25 复核：4 套 215/215 绿，且强制 `TZ=UTC` 环境下 date/dateUtils 仍 160/160（钉扎稳健，跨机器确定性成立）。
+残留：3 处 skip——Assignments "Recommendations Tab"（复活尝试失败，jsdom 下 click→setSearchParams→refetch 链不传导，已补原因注释）、ProjectRoadmap 折叠/展开（功能未实现，有注释）、ExcelImporter 6 个 skip 块（挂靠 S2 的 V1/V2 双轨债，V1 裁决时一并处理）。
 
 ### D3（P2）仓库卫生
 

@@ -538,6 +538,12 @@ describe('Assignments Page', () => {
     });
   });
 
+  // Skipped (revival attempted 2026-09-25): tab switching goes through
+  // useBookmarkableTabs → setSearchParams(?tab=recommendations) and the
+  // recommendations query is gated on activeTab — in jsdom the
+  // click→URL→refetch chain doesn't propagate (queryFn never fires despite
+  // Router/QueryClient wrappers being present). Needs a focused look at
+  // MemoryRouter + useSearchParams re-render behavior before reviving.
   describe.skip('Recommendations Tab', () => {
     test('switches to recommendations tab', async () => {
       const user = userEvent.setup();

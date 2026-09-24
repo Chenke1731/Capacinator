@@ -13,7 +13,7 @@ import path from 'path';
 async function globalTeardown(config: FullConfig) {
   console.log('🧹 Starting E2E global teardown...');
   
-  const baseURL = config.projects[0]?.use?.baseURL || 'http://localhost:3120';
+  const baseURL = config.projects[0]?.use?.baseURL || 'http://localhost:3122';
   const testRunId = process.env.TEST_RUN_ID;
   const processManager = (global as any).__E2E_PROCESS_MANAGER__ as E2EProcessManager | undefined;
   

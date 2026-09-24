@@ -41,8 +41,9 @@ export default defineConfig({
   
   /* Shared settings for all projects */
   use: {
-    /* Base URL */
-    baseURL: process.env.BASE_URL || 'http://localhost:3120',
+    /* Base URL — E2E frontend port, must mirror E2E_PORTS.frontend
+       (tests/e2e/helpers/port-cleanup.ts). Never 3120 (dev client). */
+    baseURL: process.env.BASE_URL || 'http://localhost:3122',
     
     /* Trace collection */
     trace: 'on-first-retry',

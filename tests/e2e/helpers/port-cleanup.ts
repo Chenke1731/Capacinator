@@ -251,10 +251,18 @@ export class PortCleanupUtility {
   }
 
   /**
-   * Clean up E2E test ports (3110, 3120)
+   * Clean up E2E test ports (E2E_PORTS only — dev ports are guarded)
    */
   async cleanupE2EPorts(): Promise<boolean> {
-    const e2ePorts = [3110, 3120];
+    const overlap = [E2E_PORTS.backend, E2E_PORTS.frontend].filter((p) =>
+      (DEV_PORTS as readonly number[]).includes(p)
+    );
+    if (overlap.length > 0) {
+      throw new Error(
+        `E2E_PORTS must not overlap dev ports [${DEV_PORTS.join(', ')}]: got ${overlap.join(', ')}`
+      );
+    }
+    const e2ePorts = [E2E_PORTS.backend, E2E_PORTS.frontend];
     const results = await this.cleanupPorts(e2ePorts);
     return Array.from(results.values()).every(success => success);
   }
@@ -289,7 +297,13 @@ export class PortCleanupUtility {
 export const portCleanup = new PortCleanupUtility();
 
 // Export E2E port constants
+// E2E must own ports that NEVER overlap the dev stack (3110 backend / 3120 client).
+// Incident 2026-09-24: E2E_PORTS == dev ports made globalSetup's port cleanup kill
+// the user's running dev servers.
 export const E2E_PORTS = {
-  backend: 3110,
-  frontend: 3120
+  backend: 3111,
+  frontend: 3122
 } as const;
+
+// Dev-stack ports — E2E cleanup must never touch these
+export const DEV_PORTS = [3110, 3120] as const;

@@ -1,8 +1,8 @@
 import { Page } from '@playwright/test';
 
 export async function login(page: Page) {
-  // Navigate to the application
-  await page.goto('http://localhost:3120');
+  // Navigate to the application (baseURL-relative — never hardcode a port)
+  await page.goto('/');
   
   // Check if we need to select a profile
   const profileModal = page.locator('.profile-selection-modal');

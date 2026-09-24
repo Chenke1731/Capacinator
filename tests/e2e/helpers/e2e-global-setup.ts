@@ -76,13 +76,12 @@ async function globalSetup(config: FullConfig) {
     }
     
     // Step 2: Check if server is already running
-    const baseURL = config.projects[0].use.baseURL || 'http://localhost:3120';
+    const baseURL = config.projects[0].use.baseURL || `http://localhost:${E2E_PORTS.frontend}`;
     const serverRunning = await checkServerRunning(baseURL);
-    
+
     if (serverRunning) {
-      console.log('ℹ️ Development server already running on ports 3110/3120');
-      console.log('   E2E tests will use the existing server and database.');
-      console.log('   For isolated testing, stop the dev server first.');
+      console.log(`ℹ️ E2E server already running on ports ${E2E_PORTS.backend}/${E2E_PORTS.frontend}`);
+      console.log('   E2E tests will reuse the existing E2E server and database.');
     } else {
       // Step 3: Start E2E server using process manager
       console.log('🚀 Starting E2E server...');
@@ -152,7 +151,7 @@ async function checkServerRunning(url: string): Promise<boolean> {
     const timeout = setTimeout(() => controller.abort(), 5000);
     
     // Check the API health endpoint directly on server port
-    const serverUrl = url.includes(':3120') ? url.replace(':3120', ':3110') : url;
+    const serverUrl = url.replace(`:${E2E_PORTS.frontend}`, `:${E2E_PORTS.backend}`);
     const response = await fetch(`${serverUrl}/api/health`, { 
       signal: controller.signal 
     });
@@ -191,9 +190,10 @@ async function startDevServerWithProcessManager(): Promise<void> {
     }
   );
   
-  // Start frontend server
+  // Start frontend server (--port/--strictPort beat client-vite.config.ts, which only
+  // reads VITE_PORT from .env files — a process.env VITE_PORT would be ignored)
   await processManager.startProcess('e2e-frontend',
-    ['npx', 'vite', '--config', 'client-vite.config.ts'],
+    ['npx', 'vite', '--config', 'client-vite.config.ts', '--port', String(E2E_PORTS.frontend), '--strictPort'],
     {
       env,
       port: E2E_PORTS.frontend,

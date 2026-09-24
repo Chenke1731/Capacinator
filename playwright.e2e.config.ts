@@ -27,7 +27,7 @@ export default defineConfig({
   /* Shared settings for all the projects below. */
   use: {
     /* Base URL to use in actions like await page.goto('/') */
-    baseURL: 'http://localhost:3120', // E2E-specific port
+    baseURL: 'http://localhost:3122', // E2E-specific port (E2E_PORTS.frontend)
     
     /* Collect trace when retrying the failed test */
     trace: 'on-first-retry',

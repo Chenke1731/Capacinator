@@ -11,9 +11,10 @@ const e2eServer = new ServerManager({
   command: process.platform === 'win32' ? 'npm.cmd' : 'npm',
   args: ['run', 'dev:server'],
   env: {
-    NODE_ENV: 'test',
-    PORT: '3111',
-    DB_FILENAME: 'e2e-test.db'
+    // NODE_ENV=e2e makes the server use .e2e-data/e2e-test.db (init-e2e path) —
+    // the same database globalSetup spawns. Previously 'test' bound data/e2e-test.db.
+    NODE_ENV: 'e2e',
+    PORT: '3111'
   }
 });
 

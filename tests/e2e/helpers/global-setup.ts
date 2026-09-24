@@ -8,7 +8,7 @@ import { chromium, FullConfig } from '@playwright/test';
 async function globalSetup(config: FullConfig) {
   console.log('🚀 Starting global e2e test setup...');
   
-  const baseURL = config.projects[0]?.use?.baseURL || 'http://localhost:3120';
+  const baseURL = config.projects[0]?.use?.baseURL || 'http://localhost:3122';
   
   // Create a browser instance for setup
   const browser = await chromium.launch();

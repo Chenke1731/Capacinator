@@ -1,8 +1,8 @@
 import { Page } from '@playwright/test';
 
 export async function setupTestUser(page: Page) {
-  // Navigate to the application
-  await page.goto('http://localhost:3120');
+  // Navigate to the application (baseURL-relative — never hardcode a port)
+  await page.goto('/');
   
   // Handle profile selection modal if it appears
   try {

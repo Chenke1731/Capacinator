@@ -106,4 +106,9 @@ client/src/**/*.js
 client/src/**/*.js.map
 client/src/**/*.d.ts.map
 
+# E2E runtime artifacts
+/.e2e-data/
+/.e2e-pids/
+/.e2e-lock
+
 .zcode/

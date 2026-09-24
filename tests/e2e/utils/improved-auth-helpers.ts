@@ -9,7 +9,9 @@ export interface AuthConfig {
 }
 
 const DEFAULT_CONFIG: Required<AuthConfig> = {
-  profileModalTimeout: 5000,
+  // 20s: cold e2e world first-render can exceed 10s (vite on-demand
+  // compilation); 5s caused false "no modal" skips on 2026-09-24
+  profileModalTimeout: 20000,
   navigationTimeout: 15000,
   selectDropdownTimeout: 5000,
   continueButtonTimeout: 10000,

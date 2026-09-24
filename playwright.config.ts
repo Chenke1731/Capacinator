@@ -129,6 +129,27 @@ export default defineConfig({
   /* Folder for test artifacts */
   outputDir: 'test-results/',
 
+  /* E2E world servers — owned & reaped by Playwright (must mirror E2E_PORTS
+     in tests/e2e/helpers/port-cleanup.ts; never 3110/3120 = dev stack).
+     Backend NODE_ENV=e2e rebuilds .e2e-data/e2e-test.db from scratch. */
+  webServer: [
+    {
+      command: 'npx tsx src/server/index.ts',
+      url: `http://localhost:3111/api/health`,
+      timeout: 90_000, // first run includes db rebuild + migrations + seed
+      reuseExistingServer: !process.env.CI,
+      env: { NODE_ENV: 'e2e', PORT: '3111', FORCE_COLOR: '0', AUDIT_ENABLED: 'true' },
+      stdout: 'pipe',
+    },
+    {
+      command:
+        'npx vite --config client-vite.config.ts --port 3122 --strictPort',
+      url: 'http://localhost:3122',
+      timeout: 30_000,
+      reuseExistingServer: !process.env.CI,
+    },
+  ],
+
   /* Configure web server */
   // webServer: process.env.CI ? undefined : {
   //   command: 'npm run dev',

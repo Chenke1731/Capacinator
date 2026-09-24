@@ -166,18 +166,24 @@ export class TestHelpers {
       // Wait for page to settle by checking for any content
       await this.page.waitForLoadState('domcontentloaded', { timeout: 3000 }).catch(() => {});
 
-      // Check if profile modal exists
-      const profileModalExists = await this.page.locator('text=Select Your Profile').count() > 0;
-      
-      if (!profileModalExists) {
-        console.log('✅ No profile modal detected, continuing...');
+      // Tolerant gate: in the cold e2e world the first render can take well
+      // over 10s (vite on-demand compilation), while the dev world shows the
+      // modal instantly. Wait for EITHER signal instead of assuming the modal.
+      const firstSignal = await Promise.race([
+        this.page.waitForSelector('text=Select Your Profile', { timeout: 20000 }).then(() => 'modal'),
+        this.page.waitForSelector('.sidebar, nav, h1', { timeout: 20000 }).then(() => 'main-app'),
+      ]).catch(() => null as unknown as string | null);
+
+      if (firstSignal !== 'modal') {
+        console.log(`✅ No profile modal needed (${firstSignal ?? 'nothing rendered'}), continuing...`);
         return;
       }
-      
+
       console.log('📋 Profile modal detected, proceeding with selection...');
       
-      // Wait for the shadcn Select trigger to be ready
-      await this.page.waitForSelector('#person-select', { timeout: 10000, state: 'visible' });
+      // Wait for the shadcn Select trigger to be ready (30s: cold-start module
+      // compilation can exceed the old 10s budget — 2026-09-24 batch timeouts)
+      await this.page.waitForSelector('#person-select', { timeout: 30000, state: 'visible' });
       console.log('📝 Profile select component found');
 
       // Wait for data to populate by checking network idle

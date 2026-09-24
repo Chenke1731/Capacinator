@@ -111,6 +111,11 @@ InlineEdit/EditableCells 收敛、TanStack Table 启用（下一表格页）、R
 - 类型错误预算漂移：基线 571，实际 576（2026-09-24 本轮清理后 573）——有人加了错误没同步降基线。
 - Electron 5 个 main 变体共 1897 行 .cjs 存在重复。
 
+### 2026-09-24 第二轮发现（e2e webServer 迁移过程中）
+
+- **D9（P1）Projects 页 main 空渲染**：smoke "projects page loads with table" 在 e2e 世界和 dev 世界**都**失败（唯一一个两世界皆败的测试）——页面壳/侧边栏/登录正常，但 `<main>` 渲染为空 div，既无 table 也无空态文案（15s 预算仍空，非冷启动）。待查 `client/src/pages/Projects.tsx`（982 行）的渲染分支：疑似某查询失败后静默 return null。测试先放宽至 15s（无害），根因未修。
+- **D10（P2）flaky "no console errors on main pages"**：偶发 console error 来自 Google Fonts 远程请求被 CORS 拒（请求携带了 x-test-environment 自定义头触发 preflight 失败；该头的注入点未定位，全库 grep 无果）。长期解：字体本地化，去掉对 fonts.gstatic.com 的运行时依赖。
+
 ### 本轮已修（2026-09-24，见对应提交）
 
 query-key 双轨致 2 个缓存 bug（PersonNew 过期读、ProjectTypesTable 双 invalidate 自救）；`test:scenarios`/`test:scenarios:unit`/`test:scenarios:all` 死链（引用不存在的 `jest.scenario.config.js`，其宿主脚本还调用不存在的 `test:db-health`）；`/api/projects/debug` 调试端点残留；死代码约 2.9k 行（ProjectPhaseManager 992+css、TestModal、ui/Modal 三件套、AuditService.improved 446、旧 errorHandler + 各自配套测试、seeds `.old`/`.disabled`）。

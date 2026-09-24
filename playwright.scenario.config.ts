@@ -34,7 +34,7 @@ export default defineConfig({
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
-    baseURL: 'http://localhost:3130',
+    baseURL: 'http://localhost:3122',
     
     /* API base URL for request operations */
     extraHTTPHeaders: {
@@ -92,18 +92,25 @@ export default defineConfig({
     }
   ],
 
-  /* Run your local dev server before starting the tests */
+  /* E2E world servers — same pair as playwright.config.ts (must mirror
+     E2E_PORTS in tests/e2e/helpers/port-cleanup.ts). The old pair
+     (backend 3131 / frontend 3130) was self-contradictory: the frontend
+     had no PORT env, so its /api proxy silently targeted 3110 — the dev
+     backend. Unified onto the e2e world (3111/3122). */
   webServer: [
     {
-      command: 'npx cross-env NODE_ENV=test tsx src/server/index.ts',
-      port: 3131,
-      timeout: 30000,
+      command: 'npx tsx src/server/index.ts',
+      url: 'http://localhost:3111/api/health',
+      timeout: 90_000,
       reuseExistingServer: !process.env.CI,
+      env: { NODE_ENV: 'e2e', PORT: '3111', FORCE_COLOR: '0' },
+      stdout: 'pipe',
     },
     {
-      command: 'npx cross-env NODE_ENV=test vite --port 3130 --config client-vite.config.ts',
-      port: 3130,
-      timeout: 30000,
+      command:
+        'npx vite --config client-vite.config.ts --port 3122 --strictPort',
+      url: 'http://localhost:3122',
+      timeout: 30_000,
       reuseExistingServer: !process.env.CI,
     }
   ],

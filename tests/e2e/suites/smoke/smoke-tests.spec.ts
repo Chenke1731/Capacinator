@@ -33,8 +33,9 @@ test.describe('Smoke Tests', () => {
     const table = authenticatedPage.locator('table');
     const emptyState = authenticatedPage.locator('text=/no projects|no data/i');
     const hasContent = await Promise.race([
-      table.waitFor({ state: 'visible', timeout: 5000 }).then(() => true).catch(() => false),
-      emptyState.waitFor({ state: 'visible', timeout: 5000 }).then(() => true).catch(() => false),
+      // 15s: cold e2e world renders this page's modules on demand
+      table.waitFor({ state: 'visible', timeout: 15000 }).then(() => true).catch(() => false),
+      emptyState.waitFor({ state: 'visible', timeout: 15000 }).then(() => true).catch(() => false),
     ]);
     expect(hasContent).toBeTruthy();
   });

@@ -575,7 +575,7 @@ export const ReportsTabContent: React.FC<ReportsTabContentProps> = ({ activeRepo
       const availableCapacity = Math.max(0, 100 - person.utilization);
       
       if (availableCapacity <= 5) {
-        _setModalNotification({
+        setModalNotification({
           type: 'warning',
           message: t('reports:notifications.nearlyFullCapacity', {
             name: person.name,
@@ -676,7 +676,7 @@ export const ReportsTabContent: React.FC<ReportsTabContentProps> = ({ activeRepo
       
     } catch (error) {
       console.error('Export error:', error);
-      _setModalNotification({
+      setModalNotification({
         type: 'error',
         message: t('reports:notifications.exportError')
       });

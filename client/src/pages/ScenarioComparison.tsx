@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { api } from '../lib/api-client';
 import { useBookmarkableTabs } from '../hooks/useBookmarkableTabs';
 import { getLocale } from '../i18n';

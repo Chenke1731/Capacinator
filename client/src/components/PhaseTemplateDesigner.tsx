@@ -73,7 +73,6 @@ export default function PhaseTemplateDesigner({ projectTypeId, phases }: PhaseTe
     },
     onSuccess: () => {
       refetch();
-      setEditingPhase(null);
     }
   });
 

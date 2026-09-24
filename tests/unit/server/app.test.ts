@@ -57,11 +57,6 @@ jest.mock('../../../src/server/middleware/enhancedErrorHandler.js', () => ({
   enhancedErrorHandler: mockEnhancedErrorHandler
 }));
 
-// Mock error handler (legacy)
-jest.mock('../../../src/server/middleware/errorHandler.js', () => ({
-  errorHandler: 'error-handler'
-}));
-
 // Mock routes
 const mockApiRoutes: any = jest.fn();
 Object.assign(mockApiRoutes, { default: mockApiRoutes, _mockValue: 'api-routes' });

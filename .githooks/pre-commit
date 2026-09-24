@@ -1,0 +1,29 @@
+#!/bin/sh
+# 物理闸门: 语法错误不能提交(不查风格,只查能不能编译)
+STAGED_TS=$(git diff --cached --name-only -- '*.ts' '*.tsx' | head -1)
+STAGED_CSS=$(git diff --cached --name-only -- '*.css' | head -1)
+
+if [ -n "$STAGED_CSS" ]; then
+  echo "── CSS changed, checking syntax ──"
+  node -e "
+    const postcss = require('postcss');
+    const css = require('fs').readFileSync('client/src/App.css', 'utf8');
+    try { postcss.parse(css, { from: 'App.css' }); console.log('✓ CSS parseable'); }
+    catch(e) { console.error('✗ ' + e.message); process.exit(1); }
+  "
+  if [ $? -ne 0 ]; then
+    echo "CSS PARSE ERROR — commit blocked"
+    exit 1
+  fi
+fi
+
+if [ -n "$STAGED_TS" ]; then
+  echo "── TS/TSX changed, running typecheck ──"
+  npx tsc --noEmit 2>/dev/null
+  if [ $? -ne 0 ]; then
+    echo "✗ TypeScript errors — commit blocked"
+    exit 1
+  fi
+fi
+
+echo "✓ pre-commit passed"

@@ -71,7 +71,18 @@ export const DemandReport: React.FC<DemandReportProps> = ({
           <GitBranch size={20} style={{ color: 'var(--primary)' }} />
           <div>
             <strong style={{ color: 'var(--text-primary)' }}>{t('reports:scenario.currentLabel')}</strong>{' '}
-            <span style={{ color: 'var(--text-secondary)' }}>
+            <span
+              title={currentScenario.name}
+              style={{
+                color: 'var(--text-secondary)',
+                display: 'inline-block',
+                maxWidth: '40vw',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                whiteSpace: 'nowrap',
+                verticalAlign: 'bottom'
+              }}
+            >
               {currentScenario.name}
               {currentScenario.scenario_type !== 'baseline' && (
                 <span style={{ fontSize: '0.875rem', marginLeft: '8px' }}>

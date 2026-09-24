@@ -127,7 +127,8 @@
     "impactAnalysis": "Impact Analysis",
     "totalAllocationChange": "Total Allocation Change:",
     "netAssignmentChange": "Net Assignment Change:",
-    "projectsAffected": "Projects Affected:"
+    "projectsAffected": "Projects Affected:",
+    "errorTitle": "Comparison Failed"
   },
   "comparison": {
     "loadFailed": "Failed to load comparison",

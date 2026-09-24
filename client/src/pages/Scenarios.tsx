@@ -26,6 +26,7 @@ import { getLocale } from '../i18n';
 import { scenarioTypeLabel, scenarioStatusLabel } from '../lib/enum-labels';
 import { CreateScenarioModal, EditScenarioModal, DeleteConfirmationModal } from '../components/modals/ScenarioModal';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '../components/ui/dialog';
+import { Alert, AlertTitle, AlertDescription } from '../components/ui/alert';
 import { Button } from '../components/ui/button';
 import { Label } from '../components/ui/label';
 import { Checkbox } from '../components/ui/checkbox';
@@ -484,6 +485,7 @@ const CompareModal: React.FC<CompareModalProps> = ({
   const { t } = useTranslation();
   const [compareToScenario, setCompareToScenario] = useState<string>('');
   const [comparisonResults, setComparisonResults] = useState<any>(null);
+  const [comparisonError, setComparisonError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
   const availableScenarios = scenarios.filter(s => s.id !== scenario.id);
@@ -491,13 +493,17 @@ const CompareModal: React.FC<CompareModalProps> = ({
 
   const handleCompare = async () => {
     if (!compareToScenario) return;
-    
+
     setIsLoading(true);
+    setComparisonError(null);
     try {
       const response = await api.scenarios.compare(scenario.id, compareToScenario);
       setComparisonResults(response.data);
-    } catch (error) {
+    } catch (error: any) {
       console.error('Comparison failed:', error);
+      // Surface the failure — a silent console.error leaves the user
+      // staring at a button that appears to do nothing (UI contract E).
+      setComparisonError(error?.response?.data?.message || error?.message || t('scenarios:compare.errorTitle'));
     } finally {
       setIsLoading(false);
     }
@@ -506,12 +512,14 @@ const CompareModal: React.FC<CompareModalProps> = ({
   const handleReset = () => {
     setComparisonResults(null);
     setCompareToScenario('');
+    setComparisonError(null);
   };
 
   const handleClose = () => {
     // Reset state
     setComparisonResults(null);
     setCompareToScenario('');
+    setComparisonError(null);
     setIsLoading(false);
     // Give time for animation before calling onClose
     setTimeout(() => onClose(), 200);
@@ -627,6 +635,12 @@ const CompareModal: React.FC<CompareModalProps> = ({
                 >
                   {isLoading ? t('scenarios:compare.comparing') : t('scenarios:compare.runComparison')}
                 </Button>
+                {comparisonError && (
+                  <Alert variant="destructive" role="alert" className="comparison-error">
+                    <AlertTitle>{t('scenarios:compare.errorTitle')}</AlertTitle>
+                    <AlertDescription>{comparisonError}</AlertDescription>
+                  </Alert>
+                )}
                 <div id="comparison-status" className="sr-only" aria-live="polite">
                   {isLoading
                     ? t('scenarios:compare.inProgressSr')

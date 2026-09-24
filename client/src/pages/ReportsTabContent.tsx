@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import {
   Users,
   Download, RefreshCw, AlertTriangle, ChevronDown,
-  User
+  User, ClipboardList
 } from 'lucide-react';
 import { BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { api } from '../lib/api-client';

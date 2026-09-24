@@ -35,12 +35,17 @@ export default defineConfig(({ mode }) => {
     port: parseInt(env.VITE_PORT || '3120'),
     https: false, // We'll use nginx for HTTPS
     allowedHosts: ['devlocal.capacinator.com', 'local.capacinator.com'],
-    hmr: {
-      overlay: true,
-      clientPort: 443, // Tell HMR to use the nginx proxy
-      protocol: 'wss',
-      host: 'local.capacinator.com',
-    },
+    // The nginx HTTPS proxy HMR setup only exists in the developer's local
+    // topology. Other environments (e2e webServer instances) must not try to
+    // connect — the failed wss handshake surfaces as console errors in tests.
+    hmr: process.env.VITE_E2E
+      ? false
+      : {
+          overlay: true,
+          clientPort: 443, // Tell HMR to use the nginx proxy
+          protocol: 'wss',
+          host: 'local.capacinator.com',
+        },
     watch: {
       usePolling: true,
       interval: 100,

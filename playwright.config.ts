@@ -147,6 +147,9 @@ export default defineConfig({
       url: 'http://localhost:3122',
       timeout: 30_000,
       reuseExistingServer: !process.env.CI,
+      // VITE_E2E disables the nginx-topology HMR websocket — its failed
+      // wss handshake polluted the "no console errors" test (flaky)
+      env: { VITE_E2E: '1' },
     },
   ],
 

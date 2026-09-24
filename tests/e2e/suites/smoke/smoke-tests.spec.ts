@@ -27,17 +27,16 @@ test.describe('Smoke Tests', () => {
       await expect(link).toBeEnabled();
     }
   });
-  test(`${tags.smoke} projects page loads with table`, async ({ authenticatedPage, testHelpers }) => {
+  test(`${tags.smoke} projects page loads with tabs`, async ({ authenticatedPage, testHelpers }) => {
     await testHelpers.navigateTo('/projects');
-    // Either table or empty state should be visible
-    const table = authenticatedPage.locator('table');
-    const emptyState = authenticatedPage.locator('text=/no projects|no data/i');
-    const hasContent = await Promise.race([
-      // 15s: cold e2e world renders this page's modules on demand
-      table.waitFor({ state: 'visible', timeout: 15000 }).then(() => true).catch(() => false),
-      emptyState.waitFor({ state: 'visible', timeout: 15000 }).then(() => true).catch(() => false),
-    ]);
-    expect(hasContent).toBeTruthy();
+    // The projects page is now a tabbed interface (Requirements/Tickets/…)
+    // with a div-grid table — there is no <table> element anymore. Success =
+    // the Requirements tabpanel renders (with or without rows). The old
+    // <table>/empty-state assertion predated the "real table" redesign.
+    await authenticatedPage
+      .locator('[role=tabpanel]')
+      .first()
+      .waitFor({ state: 'visible', timeout: 15000 });
   });
   test(`${tags.smoke} people page loads with data`, async ({ authenticatedPage, testHelpers }) => {
     await testHelpers.navigateTo('/people');
@@ -73,11 +72,14 @@ test.describe('Smoke Tests', () => {
         errors.push(msg.text());
       }
     });
-    // Visit main pages
-    const pages = ['/dashboard', '/projects', '/people', '/assignments'];
-    for (const page of pages) {
-      await testHelpers.navigateTo(page);
-      await authenticatedPage.waitForLoadState("networkidle", { timeout: 10000 }).catch(() => {}); // Wait for any async errors
+    // SPA navigation via sidebar links (how a real user moves between pages).
+    // Full page.goto per page re-mounts the app, re-triggers the login flow,
+    // and re-runs cold module compilation — the source of chronic flakiness.
+    await testHelpers.navigateTo('/dashboard');
+    const sections = ['Projects', 'People', 'Assignments'];
+    for (const section of sections) {
+      await authenticatedPage.locator(`nav a:has-text("${section}")`).first().click();
+      await authenticatedPage.waitForLoadState('networkidle', { timeout: 10000 }).catch(() => {});
     }
     // Should have no console errors
     expect(errors).toHaveLength(0);

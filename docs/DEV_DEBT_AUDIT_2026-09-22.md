@@ -113,8 +113,10 @@ InlineEdit/EditableCells 收敛、TanStack Table 启用（下一表格页）、R
 
 ### 2026-09-24 第二轮发现（e2e webServer 迁移过程中）
 
-- **D9（P1）Projects 页 main 空渲染**：smoke "projects page loads with table" 在 e2e 世界和 dev 世界**都**失败（唯一一个两世界皆败的测试）——页面壳/侧边栏/登录正常，但 `<main>` 渲染为空 div，既无 table 也无空态文案（15s 预算仍空，非冷启动）。待查 `client/src/pages/Projects.tsx`（982 行）的渲染分支：疑似某查询失败后静默 return null。测试先放宽至 15s（无害），根因未修。
-- **D10（P2）flaky "no console errors on main pages"**：偶发 console error 来自 Google Fonts 远程请求被 CORS 拒（请求携带了 x-test-environment 自定义头触发 preflight 失败；该头的注入点未定位，全库 grep 无果）。长期解：字体本地化，去掉对 fonts.gstatic.com 的运行时依赖。
+- **D9（P1）Projects 页 main 空渲染 → 已解决（当日）**：三层根因叠加——① `test-helpers.ts` navigateTo 硬编码 3120（测试流量一直打 dev 世界，helpers 扫描漏了 utils/ 目录）；② Projects 页已改造成 tab+div 网格界面（"真表格改造"），无 `<table>` 元素，断言过时；③ 修后确认页面渲染完美（"3 requirements · 2 AR" + 搜索 + 过滤），产品代码无辜。修复：navigateTo 改 baseURL 相对路径 + 断言改 tabpanel。**同族端口硬编码共 8 处一并清理**（utils/fixtures/suites/examples 全扫）。
+- **D10（P2）flaky "no console errors" → 已解决（当日）**：真凶是 vite HMR websocket 硬编码 `wss://local.capacinator.com:443`（nginx 开发拓扑），无该环境时握手超时产生 console error（时序性=flaky）。修复：`VITE_E2E=1` 时禁用 HMR（webServer 注入，日常 nginx 开发流不受影响）。附带：Fredoka One 字体本地化（去掉 fonts.gstatic.com 运行时依赖）+ 删除 isolated config 全局污染头 X-Test-Environment（全库无消费方）。
+- **D11（P2）fixture profile-select 噪声**：authenticatedPage 的选人流程偶发卡 `#person-select` 30s（元素存在、冷启动时序问题），超时后"继续 anyway"不阻塞但拖慢测试。待查：people 查询在多 worker 并发冷启动下的挂起路径。
+- **D12（P3）scenario 套件时长帽**：10 分钟 globalTimeout 装不下 49 个测试（2026-09-24：9 过 + 40 未跑）。已提至 30 分钟，完整回归待下次执行（教训：长套件输出勿用 tail 管道，会吞掉 error 详情）。
 
 ### 本轮已修（2026-09-24，见对应提交）
 

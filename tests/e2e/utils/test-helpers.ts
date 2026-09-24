@@ -55,11 +55,10 @@ export class TestHelpers {
    * Navigate to a specific page and wait for it to load
    */
   async navigateTo(path: string) {
-    const baseUrl = process.env.BASE_URL || 'http://localhost:3120';
-    const fullUrl = path.startsWith('http') ? path : `${baseUrl}${path}`;
-    
-    // Navigate to the specific path
-    await this.page.goto(fullUrl, { waitUntil: 'domcontentloaded' });
+    // Relative paths resolve against the context baseURL (e2e frontend
+    // 3122) — never hardcode a port here: the old hardcoded :3120 sent
+    // this test's traffic into the dev stack (root cause of D9, 2026-09-24)
+    await this.page.goto(path, { waitUntil: 'domcontentloaded' });
     
     // Handle profile selection if it appears  
     await this.handleProfileSelection();

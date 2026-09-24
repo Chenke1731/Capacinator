@@ -17,7 +17,7 @@ test.describe('Comprehensive Scenario Data Refresh', () => {
     const apiContext = context.request;
     
     // Create baseline scenario with data
-    const baselineResponse = await apiContext.post('http://localhost:3120/api/scenarios', {
+    const baselineResponse = await apiContext.post('http://localhost:3111/api/scenarios', {
       data: {
         name: 'Test Baseline - Comprehensive',
         scenario_type: 'baseline',
@@ -29,7 +29,7 @@ test.describe('Comprehensive Scenario Data Refresh', () => {
     baselineScenarioId = baselineData.id;
 
     // Create branch scenario
-    const branchResponse = await apiContext.post('http://localhost:3120/api/scenarios', {
+    const branchResponse = await apiContext.post('http://localhost:3111/api/scenarios', {
       data: {
         name: 'Test Branch - Comprehensive',
         scenario_type: 'branch',
@@ -42,7 +42,7 @@ test.describe('Comprehensive Scenario Data Refresh', () => {
     branchScenarioId = branchData.id;
 
     // Create sandbox scenario
-    const sandboxResponse = await apiContext.post('http://localhost:3120/api/scenarios', {
+    const sandboxResponse = await apiContext.post('http://localhost:3111/api/scenarios', {
       data: {
         name: 'Test Sandbox - Comprehensive',
         scenario_type: 'sandbox',
@@ -54,7 +54,7 @@ test.describe('Comprehensive Scenario Data Refresh', () => {
     sandboxScenarioId = sandboxData.id;
 
     // Add scenario-specific projects
-    await apiContext.post('http://localhost:3120/api/scenario-projects', {
+    await apiContext.post('http://localhost:3111/api/scenario-projects', {
       data: {
         scenario_id: branchScenarioId,
         name: 'Branch-Only Project Alpha',
@@ -63,7 +63,7 @@ test.describe('Comprehensive Scenario Data Refresh', () => {
       }
     });
 
-    await apiContext.post('http://localhost:3120/api/scenario-projects', {
+    await apiContext.post('http://localhost:3111/api/scenario-projects', {
       data: {
         scenario_id: sandboxScenarioId,
         name: 'Sandbox Experiment Beta',

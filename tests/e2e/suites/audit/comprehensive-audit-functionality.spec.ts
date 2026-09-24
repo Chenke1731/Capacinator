@@ -21,9 +21,9 @@ test.describe('Comprehensive Audit Functionality', () => {
       storageState: path.resolve('test-results/e2e-auth.json')
     });
     page = await context.newPage();
-    baseURL = process.env.BASE_URL || 'http://localhost:3120';
+    baseURL = process.env.BASE_URL || 'http://localhost:3122';
     // For E2E tests, use the backend API directly to avoid Vite proxy issues
-    apiURL = 'http://localhost:3110';
+    apiURL = 'http://localhost:3111';
     
     // Ensure server is ready before running tests
     let retries = 30;

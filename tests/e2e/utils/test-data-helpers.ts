@@ -26,7 +26,7 @@ export class TestDataHelpers {
     private page: Page,
     private apiContext: APIRequestContext
   ) {
-    this.baseURL = process.env.API_BASE_URL || 'http://localhost:3120';
+    this.baseURL = process.env.API_BASE_URL || 'http://localhost:3111';
     this.testData = new TestDataGenerator(apiContext, this.baseURL);
   }
 

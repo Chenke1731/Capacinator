@@ -112,6 +112,7 @@ export default defineConfig({
       url: 'http://localhost:3122',
       timeout: 30_000,
       reuseExistingServer: !process.env.CI,
+      env: { VITE_E2E: '1' },
     }
   ],
 
@@ -125,7 +126,9 @@ export default defineConfig({
   outputDir: 'test-results/scenario-artifacts/',
   
   /* Global test configuration */
-  globalTimeout: 600000, // 10 minutes for all scenario tests
+  // 49 scenario tests exceed the old 10-minute cap (2026-09-24 run: 9 passed,
+  // 40 "did not run" at cutoff). 30 minutes covers the full suite.
+  globalTimeout: 1800000,
   
   /* Metadata for test reports */
   metadata: {

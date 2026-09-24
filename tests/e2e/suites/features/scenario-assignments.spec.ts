@@ -6,7 +6,7 @@ test.describe('Scenario-based Assignments @feature', () => {
 
   test.beforeAll(async ({ playwright }) => {
     apiContext = await playwright.request.newContext({
-      baseURL: 'http://localhost:3110',
+      baseURL: 'http://localhost:3111',
       extraHTTPHeaders: {
         'Accept': 'application/json',
       },

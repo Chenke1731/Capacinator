@@ -19,7 +19,7 @@ test.describe('Utilization Report - Standardized', () => {
 
   test.beforeAll(async ({ playwright }) => {
     apiContext = await playwright.request.newContext({
-      baseURL: process.env.E2E_BASE_URL || 'http://localhost:3110',
+      baseURL: process.env.E2E_BASE_URL || 'http://localhost:3111',
       extraHTTPHeaders: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'

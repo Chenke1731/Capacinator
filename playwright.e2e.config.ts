@@ -43,12 +43,7 @@ export default defineConfig({
     
     /* Timeout for navigation */
     navigationTimeout: 30000,
-    
-    /* Extra HTTP headers */
-    extraHTTPHeaders: {
-      'X-Test-Environment': 'e2e'
-    },
-    
+
     /* Ignore SSL certificate errors for self-signed certificates */
     ignoreHTTPSErrors: true,
   },

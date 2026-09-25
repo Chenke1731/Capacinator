@@ -57,6 +57,27 @@ export class TestDataHelpers {
   }
 
   /**
+   * Un-prefixed aliases — a family of older specs (capacity-report-*)
+   * predates the createTest* naming; thin pass-throughs keep them alive.
+   */
+  async createPerson(context: TestDataContext, options?: {
+    name?: string; email?: string;
+    default_hours_per_day?: number;
+    default_availability_percentage?: number;
+  }): Promise<any> {
+    return this.createTestUser(context, options as any);
+  }
+  async createProject(context: TestDataContext, options?: Record<string, unknown>): Promise<any> {
+    return this.createTestProject(context, options as any);
+  }
+  async createScenario(context: TestDataContext, options?: Record<string, unknown>): Promise<any> {
+    return this.createTestScenario(context, options as any);
+  }
+  async createAssignment(context: TestDataContext, options?: Record<string, unknown>): Promise<any> {
+    return this.createTestAssignment(context, options as any);
+  }
+
+  /**
    * Create a test user dynamically
    */
   async createTestUser(context: TestDataContext, options?: {
@@ -287,13 +308,16 @@ export class TestDataHelpers {
           person_id: person.id,
           role_id: role.id,
           allocation_percentage: options?.allocation || 50,
+          assignment_date_mode: 'fixed', // required — this path has no default
           start_date: options?.startDate || today.toISOString().split('T')[0],
           end_date: options?.endDate || nextMonth.toISOString().split('T')[0]
         }
       });
-      
-      const assignment = await response.json();
-      
+
+      const body = await response.json();
+      // envelope: {success, data}
+      const assignment = body.data || body;
+
       if (assignment.id) {
         context.createdIds.assignments.push(assignment.id);
       }

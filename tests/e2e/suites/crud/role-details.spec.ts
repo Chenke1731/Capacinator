@@ -10,37 +10,31 @@ test.describe('Role Details Page', () => {
   let roleName: string;
 
   test.beforeAll(async ({ apiContext }) => {
-    // Get a role to test with
+    // Get a role to test with (e2e seed names are E2E-*; no "Project Manager")
     const response = await apiContext.get('/api/roles');
     const data = await response.json();
-    const roles = data.data;
+    const roles = data.data || data;
 
-    // Use Project Manager role
-    const projectManager = roles.find((r: any) => r.name === 'Project Manager');
-    if (projectManager) {
-      roleId = projectManager.id;
-      roleName = projectManager.name;
-    }
+    // Prefer a role WITH resource templates in the seed (E2E Developer has
+    // template-001) — the templates section stays empty otherwise.
+    const chosen = roles.find((r: any) => r.name === 'E2E Developer') || roles[0];
+    if (!chosen) throw new Error('No roles available for role-details tests');
+    roleId = chosen.id;
+    roleName = chosen.name;
   });
 
   test.describe('Navigation and URL Handling', () => {
-    test('should navigate to role details from roles list', async ({
+    test('roles list redirects to people; role details reachable via deep link', async ({
       authenticatedPage,
       testHelpers
     }) => {
-      // Navigate to roles list
+      // The standalone roles list was merged into the People page — /roles
+      // redirects there (App routes). Role details remain deep-linkable.
       await testHelpers.navigateTo('/roles');
-      await testHelpers.waitForDataTable();
+      await authenticatedPage.waitForURL('**/people**', { timeout: 10000 });
 
-      // Find and click on a role row
-      const roleRow = authenticatedPage.locator('tbody tr').filter({
-        hasText: roleName
-      }).first();
-
-      await roleRow.click();
-
-      // Should navigate to role details page
-      await authenticatedPage.waitForURL(`**/roles/${roleId}`, { timeout: 10000 });
+      await testHelpers.navigateTo(`/roles/${roleId}`);
+      await authenticatedPage.waitForLoadState('networkidle', { timeout: 10000 }).catch(() => {});
       expect(authenticatedPage.url()).toContain(`/roles/${roleId}`);
     });
 
@@ -66,13 +60,13 @@ test.describe('Role Details Page', () => {
       await authenticatedPage.waitForLoadState("networkidle", { timeout: 10000 }).catch(() => {});
 
       // Find and click back button
-      const backButton = authenticatedPage.locator('button:has-text("Back to Roles")');
+      const backButton = authenticatedPage.locator('button[aria-label="Back to Roles"]');
       await expect(backButton).toBeVisible();
       await backButton.click();
 
-      // Should navigate back to roles list
-      await authenticatedPage.waitForURL('**/roles', { timeout: 10000 });
-      expect(authenticatedPage.url()).toMatch(/\/roles$/);
+      // /roles redirects to the People page (roles list was merged there)
+      await authenticatedPage.waitForURL('**/people**', { timeout: 10000 });
+      expect(authenticatedPage.url()).toContain('/people');
     });
 
     test('should show error page for invalid role ID', async ({
@@ -87,7 +81,7 @@ test.describe('Role Details Page', () => {
       await expect(errorHeading).toBeVisible();
 
       // Should have back button
-      const backButton = authenticatedPage.locator('button:has-text("Back to Roles")');
+      const backButton = authenticatedPage.locator('button[aria-label="Back to Roles"]');
       await expect(backButton).toBeVisible();
     });
   });
@@ -348,7 +342,7 @@ test.describe('Role Details Page', () => {
       const heading = authenticatedPage.locator('h1').first();
       await expect(heading).toBeVisible();
 
-      const backButton = authenticatedPage.locator('button:has-text("Back to Roles")');
+      const backButton = authenticatedPage.locator('button[aria-label="Back to Roles"]');
       await expect(backButton).toBeVisible();
     });
 

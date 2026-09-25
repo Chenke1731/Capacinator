@@ -43,12 +43,14 @@ test.describe('Demand Report Accuracy', () => {
         return;
       }
     }
-    // Verify key metrics
+    // Verify key metrics (current cards: Total Demand / # Projects with
+    // Demand / # Roles with Demand / Peak Month; month renders localized
+    // like "Sep 2026", not YYYY-MM)
     const metrics = [
       { selector: 'text=Total Demand', pattern: /\d+\s*hours?/i },
-      { selector: 'text=Active Projects', pattern: /\d+/, minValue: testData.projects.length },
-      { selector: 'text=Peak Month', pattern: /\d{4}-\d{2}/ },
-      { selector: 'text=Resource Types', pattern: /\d+/ }
+      { selector: 'text=# Projects with Demand', pattern: /\d+/ },
+      { selector: 'text=# Roles with Demand', pattern: /\d+/ },
+      { selector: 'text=Peak Month', pattern: /\d{4}/ }
     ];
     for (const metric of metrics) {
       const element = authenticatedPage.locator(metric.selector);
@@ -69,8 +71,8 @@ test.describe('Demand Report Accuracy', () => {
     // Look for chart containers
     const chartContainer = authenticatedPage.locator('.chart-container:has-text("Demand by Project")');
     if (await chartContainer.isVisible()) {
-      // Check for chart elements
-      const chartSvg = chartContainer.locator('svg, .recharts-wrapper');
+      // Check for chart elements (wrapper AND svg both match — take one)
+      const chartSvg = chartContainer.locator('svg, .recharts-wrapper').first();
       await expect(chartSvg).toBeVisible();
       // Check for bar elements (should have at least as many as test projects)
       const bars = chartContainer.locator('.recharts-bar, rect[width]');
@@ -126,10 +128,13 @@ test.describe('Demand Report Accuracy', () => {
           await expect(headerElement.first()).toBeVisible();
         }
       }
-      // Check for data rows (should include test projects)
+      // Check for data rows. The table lists HIGH-DEMAND projects only
+      // (capped by maxRows) — freshly-created test projects carry no
+      // demand, so assert seed demand rows exist rather than coupling to
+      // the test project count.
       const rows = table.locator('tbody tr');
       const rowCount = await rows.count();
-      expect(rowCount).toBeGreaterThanOrEqual(testData.projects.length);
+      expect(rowCount).toBeGreaterThan(0);
       if (rowCount > 0) {
         // Validate first row
         const firstRow = rows.first();
@@ -256,7 +261,8 @@ test.describe('Demand Report Accuracy', () => {
           // Check first role entry
           const firstRow = rows.first();
           const roleName = await firstRow.locator('td').first().textContent();
-          const roleDemand = await firstRow.locator('td:has-text(/\\d+ hours/)').textContent();
+          const roleDemand = await firstRow.locator('td', { hasText: /\d+(\.\d+)?\s*hours?/i })
+            .first().textContent().catch(() => null);
           expect(roleName?.trim()).toBeTruthy();
           expect(roleDemand).toMatch(/\d+/);
           // Verify roles from our test people are represented

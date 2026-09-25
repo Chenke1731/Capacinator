@@ -50,7 +50,7 @@ test.describe('Assignment API Contract Tests', () => {
       // Verify response structure
       expect(response.ok()).toBeTruthy();
       // Assignment API returns the object directly, not nested in 'data'
-      const assignment = responseBody;
+      const assignment = responseBody.data || responseBody; // envelope: {success, data} since the API信封迁移
       // Verify the response data matches what we sent
       expect(assignment.project_id).toBe(validAssignmentData.project_id);
       expect(assignment.person_id).toBe(validAssignmentData.person_id);
@@ -84,7 +84,7 @@ test.describe('Assignment API Contract Tests', () => {
       });
       const createResponseBody = await createResponse.json();
       expect(createResponse.ok()).toBeTruthy();
-      const createdAssignment = createResponseBody;
+      const createdAssignment = createResponseBody.data || createResponseBody; // envelope: {success, data} since the API信封迁移
       // Now test deletion
       const deleteResponse = await apiContext.delete(`/api/assignments/${createdAssignment.id}`);
       // This call will fail if there's a circular reference in the JSON response  
@@ -119,7 +119,7 @@ test.describe('Assignment API Contract Tests', () => {
       // This should parse successfully despite complex object relationships
       const responseBody = await response.json();
       expect(response.ok()).toBeTruthy();
-      const assignment = responseBody;
+      const assignment = responseBody.data || responseBody; // envelope: {success, data} since the API信封迁移
       // Verify computed dates are present
       expect(assignment).toHaveProperty('computed_start_date');
       expect(assignment).toHaveProperty('computed_end_date');
@@ -219,19 +219,20 @@ test.describe('Assignment API Contract Tests', () => {
       if (!testData.people.length) {
         throw new Error('Test data not properly initialized');
       }
-      // Get assignments for a person
+      // List assignments filtered by person (the per-person nested route
+      // /api/people/:id/assignments no longer exists; the list endpoint
+      // takes a person_id filter and returns {success, data})
       const personId = testData.people[0].id;
-      const response = await apiContext.get(`/api/people/${personId}/assignments`);
+      const response = await apiContext.get(`/api/assignments?person_id=${personId}`);
       expect(response.ok()).toBeTruthy();
       const responseBody = await response.json();
-      // Verify structure - API returns array directly
-      expect(Array.isArray(responseBody)).toBeTruthy();
+      const assignments = responseBody.data || responseBody;
+      expect(Array.isArray(assignments)).toBeTruthy();
       // Verify no circular references in array response
-      expect(() => JSON.stringify(responseBody)).not.toThrow();
+      expect(() => JSON.stringify(assignments)).not.toThrow();
       // If assignments exist, verify their structure
-      if (responseBody.length > 0) {
-        const firstAssignment = responseBody[0];
-        // Verify assignment has expected properties
+      if (assignments.length > 0) {
+        const firstAssignment = assignments[0];
         expect(firstAssignment).toHaveProperty('id');
         expect(firstAssignment).toHaveProperty('project_id');
         expect(firstAssignment).toHaveProperty('person_id');
@@ -260,7 +261,8 @@ test.describe('Assignment API Contract Tests', () => {
       const createResponse = await apiContext.post('/api/assignments', {
         data: assignmentData
       });
-      const createdAssignment = await createResponse.json();
+      const createBody = await createResponse.json();
+      const createdAssignment = createBody.data || createBody; // envelope: {success, data}
       // Update the assignment
       const updateData = {
         allocation_percentage: 75,
@@ -270,7 +272,8 @@ test.describe('Assignment API Contract Tests', () => {
         data: updateData
       });
       expect(updateResponse.ok()).toBeTruthy();
-      const updatedAssignment = await updateResponse.json();
+      const updateBody = await updateResponse.json();
+      const updatedAssignment = updateBody.data || updateBody;
       // Verify no circular references
       expect(() => JSON.stringify(updatedAssignment)).not.toThrow();
       // Verify update was applied

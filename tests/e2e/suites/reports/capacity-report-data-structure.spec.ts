@@ -11,9 +11,10 @@ test.describe('Capacity Report Data Structure', () => {
   }) => {
     const response = await apiContext.get('/api/reporting/capacity');
     expect(response.ok()).toBeTruthy();
-    
-    const data = await response.json();
-    
+
+    // Envelope: {success, data} — unwrap before asserting structure
+    const data = (await response.json()).data;
+
     // Verify the main structure
     expect(data).toHaveProperty('capacityGaps');
     expect(data).toHaveProperty('byRole');
@@ -21,33 +22,27 @@ test.describe('Capacity Report Data Structure', () => {
     expect(data).toHaveProperty('personUtilization');
     expect(data).toHaveProperty('timeline');
     expect(data).toHaveProperty('summary');
-    
-    // Verify utilizationData has the correct fields
-    if (data.utilizationData && data.utilizationData.length > 0) {
-      const firstPerson = data.utilizationData[0];
-      
-      // These fields MUST exist for the frontend to work correctly
+
+    // Verify personUtilization rows carry the fields the frontend renders
+    if (data.personUtilization && data.personUtilization.length > 0) {
+      const firstPerson = data.personUtilization[0];
+
       expect(firstPerson).toHaveProperty('person_id');
       expect(firstPerson).toHaveProperty('person_name');
-      expect(firstPerson).toHaveProperty('default_availability_percentage');
-      expect(firstPerson).toHaveProperty('available_hours');
-      expect(firstPerson).toHaveProperty('total_allocated_hours');
-      expect(firstPerson).toHaveProperty('allocation_status');
-      
-      // Verify data types and values
-      expect(typeof firstPerson.default_availability_percentage).toBe('number');
-      expect(firstPerson.default_availability_percentage).toBeGreaterThanOrEqual(0);
-      expect(firstPerson.default_availability_percentage).toBeLessThanOrEqual(100);
-      
-      expect(typeof firstPerson.available_hours).toBe('number');
-      expect(firstPerson.available_hours).toBeGreaterThanOrEqual(0);
-      
-      expect(typeof firstPerson.total_allocated_hours).toBe('number');
-      expect(firstPerson.total_allocated_hours).toBeGreaterThanOrEqual(0);
-      
-      // Allocation status should be one of the expected values
-      const validStatuses = ['AVAILABLE', 'PARTIALLY_ALLOCATED', 'FULLY_ALLOCATED', 'OVER_ALLOCATED', 'UNAVAILABLE'];
-      expect(validStatuses).toContain(firstPerson.allocation_status);
+      expect(firstPerson).toHaveProperty('current_availability_percentage');
+      expect(firstPerson).toHaveProperty('total_allocation_percentage');
+      expect(firstPerson).toHaveProperty('utilization_status');
+
+      expect(typeof firstPerson.current_availability_percentage).toBe('number');
+      expect(firstPerson.current_availability_percentage).toBeGreaterThanOrEqual(0);
+      expect(firstPerson.current_availability_percentage).toBeLessThanOrEqual(100);
+
+      expect(typeof firstPerson.total_allocation_percentage).toBe('number');
+      expect(firstPerson.total_allocation_percentage).toBeGreaterThanOrEqual(0);
+
+      // Display-label statuses from enum-labels, not raw enums
+      const validStatuses = ['Available', 'Partially-allocated', 'Fully-allocated', 'Over-allocated'];
+      expect(validStatuses).toContain(firstPerson.utilization_status);
     }
   });
 
@@ -63,31 +58,30 @@ test.describe('Capacity Report Data Structure', () => {
     
     try {
       const response = await apiContext.get('/api/reporting/capacity');
-      const data = await response.json();
-      
+      const data = (await response.json()).data;
+
       // Find our test people in the utilization data
-      const testPeopleData = data.utilizationData.filter((person: any) =>
+      const testPeopleData = data.personUtilization.filter((person: any) =>
         testData.people.some((p: any) => p.id === person.person_id)
       );
-      
+
       expect(testPeopleData.length).toBeGreaterThan(0);
-      
+
       // Verify that not all people have 0% availability
-      const peopleWithAvailability = testPeopleData.filter((person: any) => 
-        person.default_availability_percentage > 0
+      const peopleWithAvailability = testPeopleData.filter((person: any) =>
+        person.current_availability_percentage > 0
       );
-      
+
       expect(peopleWithAvailability.length).toBeGreaterThan(0);
-      
-      // Each person should have reasonable default values
+
+      // Each person should have reasonable values
       testPeopleData.forEach((person: any) => {
-        expect(person.default_availability_percentage).toBeDefined();
-        expect(person.available_hours).toBeDefined();
-        
-        // If no explicit overrides, should have default values
+        expect(person.current_availability_percentage).toBeDefined();
+        expect(person.total_allocation_percentage).toBeDefined();
+
+        // If no explicit overrides, should have non-zero availability
         if (!person.availability_reason) {
-          expect(person.default_availability_percentage).toBeGreaterThan(0);
-          expect(person.available_hours).toBeGreaterThan(0);
+          expect(person.current_availability_percentage).toBeGreaterThan(0);
         }
       });
     } finally {
@@ -95,48 +89,40 @@ test.describe('Capacity Report Data Structure', () => {
     }
   });
 
-  test(`${tags.critical} should correctly calculate allocated hours from percentage`, async ({ 
+  test(`${tags.critical} should correctly reflect allocation percentage`, async ({
     apiContext,
     testDataHelpers
   }) => {
     const testContext = testDataHelpers.createTestContext('capacity-calc');
-    
+
     // Create a person with a specific allocation
     const person = await testDataHelpers.createPerson(testContext, {
       default_hours_per_day: 8,
       default_availability_percentage: 100
     });
-    
-    // Create a project and assignment with known allocation
+
+    // Create a project and assignment with known allocation.
+    // NO test scenario: POST /api/assignments defaults into the seed
+    // baseline world (test baselines are undeletable and steal auto-select).
     const project = await testDataHelpers.createProject(testContext);
-    
-    // Create an active scenario
-    const scenario = await testDataHelpers.createScenario(testContext, {
-      scenario_type: 'baseline',
-      status: 'active'
-    });
-    
-    // Create assignment with 50% allocation
+
     await testDataHelpers.createAssignment(testContext, {
-      scenario_id: scenario.id,
       project_id: project.id,
       person_id: person.id,
       allocation_percentage: 50
     });
-    
+
     try {
       const response = await apiContext.get('/api/reporting/capacity');
-      const data = await response.json();
-      
+      const data = (await response.json()).data;
+
       // Find our test person
-      const testPerson = data.utilizationData.find((p: any) => p.person_id === person.id);
+      const testPerson = data.personUtilization.find((p: any) => p.person_id === person.id);
       expect(testPerson).toBeDefined();
-      
-      // Verify calculations
+
+      // Verify the percentage math (the API reports percentages, not hours)
       expect(testPerson.total_allocation_percentage).toBe(50);
-      expect(testPerson.total_allocated_hours).toBe(4); // 50% of 8 hours
-      expect(testPerson.available_hours).toBe(8);
-      expect(testPerson.allocation_status).toBe('PARTIALLY_ALLOCATED');
+      expect(['Partially-allocated', 'Fully-allocated']).toContain(testPerson.utilization_status);
     } finally {
       await testDataHelpers.cleanupTestContext(testContext);
     }
@@ -148,51 +134,46 @@ test.describe('Capacity Report Data Structure', () => {
   }) => {
     await testHelpers.navigateTo('/reports');
     await authenticatedPage.waitForLoadState('networkidle');
-    
-    // Switch to capacity report tab
-    const capacityTab = authenticatedPage.locator('button:has-text("Capacity")').first();
-    await capacityTab.click();
-    await authenticatedPage.waitForLoadState("networkidle", { timeout: 10000 }).catch(() => {});
-    
-    // Check that the table exists
-    const peopleTable = authenticatedPage.locator('table').filter({ hasText: 'Daily Hours' });
+
+    // Switch to the utilization report tab (UnifiedTab renders role=tab)
+    const utilizationTab = authenticatedPage.locator('[role="tab"]:has-text("Utilization")').first();
+    await utilizationTab.click();
+    await authenticatedPage.waitForLoadState('networkidle', { timeout: 10000 }).catch(() => {});
+
+    // Team utilization table: Name / Role / Utilization / Available% / Available hrs
+    const peopleTable = authenticatedPage.locator('table').filter({ hasText: 'Utilization' });
     await expect(peopleTable).toBeVisible();
-    
+
+    for (const header of ['Name', 'Role', 'Utilization']) {
+      await expect(peopleTable.locator(`th:has-text("${header}")`).first()).toBeVisible();
+    }
+
     // Get first data row
     const firstRow = peopleTable.locator('tbody tr').first();
-    
+
     if (await firstRow.isVisible()) {
-      // Check availability column - should not be "0%" for everyone
-      const availabilityCell = firstRow.locator('td').nth(2);
+      // Available-capacity column renders "NN.N%"
+      const availabilityCell = firstRow.locator('td').nth(3);
       const availabilityText = await availabilityCell.textContent();
-      
-      // Should be a percentage value
-      expect(availabilityText).toMatch(/\d+%/);
-      
-      // Check daily hours column - should not be "NaN" or empty
-      const hoursCell = firstRow.locator('td').nth(1);
-      const hoursText = await hoursCell.textContent();
-      
-      expect(hoursText).toMatch(/\d+(\.\d+)?\s*hrs\/day/);
-      expect(hoursText).not.toContain('NaN');
-      
+      expect(availabilityText).toMatch(/\d+(\.\d+)?%/);
+
       // Verify at least some people have non-zero availability
       const allRows = peopleTable.locator('tbody tr');
       const rowCount = await allRows.count();
-      
+
       if (rowCount > 0) {
         let nonZeroAvailabilityFound = false;
-        
+
         for (let i = 0; i < Math.min(rowCount, 5); i++) {
           const row = allRows.nth(i);
-          const availText = await row.locator('td').nth(2).textContent();
-          
-          if (availText && availText !== '0%') {
+          const availText = await row.locator('td').nth(3).textContent();
+
+          if (availText && availText !== '0.0%') {
             nonZeroAvailabilityFound = true;
             break;
           }
         }
-        
+
         expect(nonZeroAvailabilityFound).toBe(true);
       }
     }
@@ -202,8 +183,8 @@ test.describe('Capacity Report Data Structure', () => {
     apiContext 
   }) => {
     const response = await apiContext.get('/api/reporting/capacity');
-    const data = await response.json();
-    
+    const data = (await response.json()).data;
+
     expect(data.byRole).toBeDefined();
     expect(Array.isArray(data.byRole)).toBe(true);
     

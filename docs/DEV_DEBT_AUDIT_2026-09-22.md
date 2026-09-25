@@ -123,7 +123,7 @@ InlineEdit/EditableCells 收敛、TanStack Table 启用（下一表格页）、R
 - **机械层两波修复**（`b96604a`、`c166f42`、`75fc7fe`）：ESM dirname 声明 ×15 文件、createTestPerson/createPerson 映射（调用方全在归档侧后移除）、TestDataFactory 占位 FK 改运行时解析、waitForPageReady 别名、`text=` 引擎逗号混入 CSS 选择器 ×22 处改 `.or(getByText()).first()`、reports tab 锚改 role=tab、findByTestData 补 .first()。
 - **战果抽样**：git-sync 全族 5 文件 85 测全绿；phase-manager 归档（ProjectDetail 已不渲染 phase 表，phases 迁至 roadmap——**e2e 覆盖缺口已记**）。
 
-**剩余（batch4 验证中）**：活侧约 40-50 败，分布在 crud/assignments(API 断言形状 ×3)、security/authentication(登录后断言)、core/data-tables(6, Projects 页旧表格标记)、core/navigation-links(7)、ui/modal-backgrounds(7, D13 配方待套用)、reports accuracy 系列 ~13。预计 1 个会话内清零后全量回归。
+**剩余（基线 #3 实测，18min）**：**272 过 / 97 败 / 1 skip**（套件瘦身后 370 测，通过率 33%→74%）。97 败分布：crud/assignments 11（行定位 nth-child 脆弱 + API 断言形状 ×3）、navigation-links 6、data-tables 5（Projects 页新表格锚待换）、modal-backgrounds 4（D13 配方收尾）、authentication 4、reports accuracy 系列 ~13、role-details 5、people 4、table-navigation 4、api/assignment-contracts 5、performance/load-tests 2 及零散。预计 1 个会话清零后全量回归 + scenarios/smoke/api 项目复验。
 
 ### 2026-09-24 第二轮发现（e2e webServer 迁移过程中）
 

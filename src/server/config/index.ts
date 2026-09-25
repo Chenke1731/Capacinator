@@ -12,6 +12,9 @@
  * - Singleton pattern with lazy initialization
  */
 
+// Env bootstrap MUST be the first import — see src/server/env.ts for the
+// incident note. Import order here is load-bearing.
+import '../env.js';
 import * as path from 'path';
 import * as os from 'os';
 

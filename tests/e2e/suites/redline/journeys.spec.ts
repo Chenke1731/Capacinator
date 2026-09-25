@@ -115,6 +115,76 @@ test('validation: allocation outside 0-200 range is rejected', async ({ apiConte
 });
 
 // ─────────────────────────────────────────────────────────────────────────────
+// 12a. Required-field contract — assignment_date_mode cannot be omitted
+// (kills M8: mutation "drop assignment_date_mode requirement" escaped because
+// no red-line test ever omitted the field)
+// ─────────────────────────────────────────────────────────────────────────────
+test('validation: assignment without assignment_date_mode is rejected', async ({ apiContext }) => {
+  // kill-mutation: drop the assignment_date_mode requirement in
+  // AssignmentsController.create (→ modeless assignments silently break
+  // fiscal-week math downstream)
+  const people = await (await apiContext.get('/api/people')).json();
+  const projects = await (await apiContext.get('/api/projects')).json();
+  const roles = await (await apiContext.get('/api/roles')).json();
+
+  const response = await apiContext.post('/api/assignments', {
+    data: {
+      project_id: (projects.data || [])[0]?.id,
+      person_id: people.data[0]?.id,
+      role_id: roles.data[0]?.id,
+      allocation_percentage: 50,
+      start_date: '2026-09-01',
+      end_date: '2026-10-01',
+      // assignment_date_mode deliberately omitted — the contract must reject
+    },
+  });
+  expect(response.ok()).toBe(false);
+  expect(response.status()).toBeGreaterThanOrEqual(400);
+});
+
+// ─────────────────────────────────────────────────────────────────────────────
+// 12b. Project sub-type pairing — omitted and mismatched are rejected
+// (kills M14: mutation "validateProjectSubType call removed" escaped because
+// test 4 only ever used a valid pair)
+// ─────────────────────────────────────────────────────────────────────────────
+test('validation: project with missing or mismatched sub-type is rejected', async ({ apiContext }) => {
+  // kill-mutation: remove the validateProjectSubType call in
+  // ProjectsController.create (→ cross-type sub-types corrupt the project
+  // taxonomy and every type-based rollup)
+  const groups = ((await (await apiContext.get('/api/project-sub-types')).json()).data || []);
+  expect(groups.length).toBeGreaterThan(0);
+
+  // Fully valid body except the pair under test — so the ONLY rejection
+  // source can be the pair validation
+  const base = {
+    name: `Redline-BadPair-${Date.now()}`,
+    description: 'Red-line sub-type pairing test',
+    priority: 3,
+  };
+
+  // Case 1: sub-type omitted → rejected (sub_type is mandatory)
+  const omitRes = await apiContext.post('/api/projects', {
+    data: { ...base, project_type_id: groups[0].project_type_id },
+  });
+  expect(omitRes.ok()).toBe(false);
+  expect(omitRes.status()).toBeGreaterThanOrEqual(400);
+
+  // Case 2: sub-type from a different project type → rejected (pairing rule)
+  const foreign = groups.find((g: any) => g.project_type_id !== groups[0].project_type_id);
+  if (foreign) {
+    const mixRes = await apiContext.post('/api/projects', {
+      data: {
+        ...base,
+        project_type_id: groups[0].project_type_id,
+        project_sub_type_id: foreign.sub_types[0].id,
+      },
+    });
+    expect(mixRes.ok()).toBe(false);
+    expect(mixRes.status()).toBeGreaterThanOrEqual(400);
+  }
+});
+
+// ─────────────────────────────────────────────────────────────────────────────
 // 13. Scenario comparison — summary counts + difference groups + impact metrics
 // ─────────────────────────────────────────────────────────────────────────────
 test('comparison: modal shows summary counts and difference groups', async ({ authenticatedPage, apiContext }) => {
@@ -297,13 +367,12 @@ test('protection: parent with children cannot be deleted', async ({ apiContext }
 
 // ─────────────────────────────────────────────────────────────────────────────
 // 17b. Assignment UPDATE is audited (kills M17: UPDATE audit write skipped)
+// RESOLVED 2026-09-25: the skip reason (e2e DB lacking email_templates) was
+// a product-wide gap — NO migration ever created the notification tables.
+// Migration 065_notification_tables.ts fixed all environments; this test
+// now runs. The audit write is asynchronous, so we poll instead of racing.
 // ─────────────────────────────────────────────────────────────────────────────
-// KNOWN LIMITATION: the e2e database lacks the email_templates table
-// (migration missing from e2e set), causing async audit middleware errors
-// that prevent assignment UPDATE events from reaching audit_logs.
-// The scenario CREATE audit (test 17 above) works because it uses a
-// different code path. Skip until the e2e migration set is completed.
-test.skip('audit: assignment update appears in audit log', async ({ apiContext }) => {
+test('audit: assignment update appears in audit log', async ({ apiContext }) => {
   // kill-mutation: skip the audit event on assignment UPDATE
   // (→ audit trail incomplete, UPDATE operations invisible)
   const people = await (await apiContext.get('/api/people')).json();
@@ -331,18 +400,22 @@ test.skip('audit: assignment update appears in audit log', async ({ apiContext }
   expect(updateRes.ok()).toBe(true);
 
   try {
-    // Verify assignment activity appears in the audit trail
-    const auditRes = await apiContext.get('/api/audit/search?limit=10');
-    expect(auditRes.ok()).toBe(true);
-    const auditBody = await auditRes.json();
-    const logs = auditBody.data || auditBody;
+    // The audit write is async — poll until the assignment entry lands
+    // (up to ~3s) instead of racing the middleware
+    let asgnLog: unknown = null;
+    let logs: any[] = [];
+    for (let attempt = 0; attempt < 6 && !asgnLog; attempt++) {
+      if (attempt > 0) await new Promise((r) => setTimeout(r, 500));
+      const auditRes = await apiContext.get('/api/audit/search?limit=50');
+      expect(auditRes.ok()).toBe(true);
+      const auditBody = await auditRes.json();
+      logs = auditBody.data || auditBody;
+      asgnLog = (logs as any[]).find((l: any) =>
+        String(l.table_name || l.tableName || '').includes('assignment')
+      );
+    }
     expect(Array.isArray(logs)).toBe(true);
     expect(logs.length).toBeGreaterThan(0);
-
-    // Data-level: at least one assignment-related entry (CREATE or UPDATE)
-    const asgnLog = logs.find((l: any) =>
-      String(l.table_name || l.tableName || '').includes('assignment')
-    );
     expect(asgnLog).toBeTruthy();
   } finally {
     await apiContext.delete(`/api/assignments/${created.id}`).catch(() => {});

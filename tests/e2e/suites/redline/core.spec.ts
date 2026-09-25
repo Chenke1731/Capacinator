@@ -144,13 +144,24 @@ test('projects: create → verify in table → delete', async ({ authenticatedPa
 // 5. Assignment CRUD — create an assignment via Smart modal, verify allocation
 // ─────────────────────────────────────────────────────────────────────────────
 test('assignments: create → verify allocation value → delete', async ({ authenticatedPage, apiContext }) => {
-  // kill-mutation: break the Smart Assignment modal's allocation slider
-  // (→ allocation stays at default, verify fails)
+  // kill-mutation: break the assignments list allocation rendering
+  // (→ the stored 50 renders as 0/garbage, the exact-value assert fails)
   const personName = `Redline-Asgn-${Date.now()}`;
 
-  // Create a person for this assignment via API
-  const people = await (await apiContext.get('/api/people')).json();
-  const person = people.data[0];
+  // Dedicated person — seed people already carry seed assignments, so
+  // matching their rows cannot prove anything about THIS assignment
+  const personRes = await apiContext.post('/api/people', {
+    data: {
+      name: personName,
+      email: `${personName.toLowerCase()}@test.com`,
+      worker_type: 'FTE',
+      default_availability_percentage: 100,
+      default_hours_per_day: 8,
+    },
+  });
+  expect(personRes.ok()).toBe(true);
+  const person = (await personRes.json()).data || await personRes.json();
+
   const projects = await (await apiContext.get('/api/projects')).json();
   const project = (projects.data || []).find((p: any) => p.id.startsWith('project-e2e-'));
   const roles = await (await apiContext.get('/api/roles')).json();
@@ -171,21 +182,29 @@ test('assignments: create → verify allocation value → delete', async ({ auth
   expect(createRes.ok()).toBe(true);
   const created = (await createRes.json()).data || await createRes.json();
 
-  // Verify — data-level: the assignment appears in the list with the right person
-  await authenticatedPage.goto('/assignments');
-  await authenticatedPage.waitForSelector('tbody tr, .project-name', { timeout: 15000 });
-  const asgnRow = authenticatedPage.locator('tbody tr, .assignment-row').filter({ hasText: person.name }).first();
-  await expect(asgnRow).toBeVisible({ timeout: 10000 });
+  try {
+    // Verify — data-level: the assignment appears in the list with the right
+    // person AND project (both filters — person-only matching grabs wrong rows)
+    await authenticatedPage.goto('/assignments');
+    await authenticatedPage.waitForSelector('tbody tr, .project-name', { timeout: 15000 });
+    const asgnRow = authenticatedPage.locator('tbody tr, .assignment-row')
+      .filter({ hasText: personName })
+      .filter({ hasText: project.name })
+      .first();
+    await expect(asgnRow).toBeVisible({ timeout: 10000 });
 
-  // Verify the allocation percentage is displayed as a number
-  const allocationCell = asgnRow.locator('.allocation-cell input, td:nth-child(3)');
-  const allocationText = await allocationCell.textContent().catch(() =>
-    allocationCell.inputValue().catch(() => '0'));
-  expect(parseInt(allocationText || '0')).toBeGreaterThanOrEqual(0);
-
-  // Delete via API (contract verified: create → delete with returned id)
-  const delRes = await apiContext.delete(`/api/assignments/${created.id}`);
-  expect(delRes.ok()).toBe(true);
+    // Verify the exact allocation value — a `>= 0` assertion here is
+    // degenerate (any garbage passes); the stored 50 must render as 50.
+    // The allocation cell renders an editable spinbutton (its value is NOT
+    // textContent); anchor on the % cell's input, not on column position.
+    const allocationInput = asgnRow.locator('td').filter({ hasText: '%' }).locator('input').first();
+    await expect(allocationInput).toBeVisible();
+    const allocationValue = await allocationInput.inputValue();
+    expect(parseInt(allocationValue)).toBe(50);
+  } finally {
+    await apiContext.delete(`/api/assignments/${created.id}`).catch(() => {});
+    await apiContext.delete(`/api/people/${person.id}`).catch(() => {});
+  }
 });
 
 // ─────────────────────────────────────────────────────────────────────────────

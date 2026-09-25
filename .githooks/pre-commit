@@ -51,4 +51,20 @@ if [ -n "$STAGED_SPEC" ]; then
   fi
 fi
 
+# 收集账本闸（2026-09-25 第三方评审裁决）: spec 或 playwright 配置变更时，
+# 精确计数必须与 floor 一致——漂移（双向）不允许提交。P2/P3 加了 21 条红线
+# 测试却没人同步 ledger，守卫第一次实战就抓住了自己人。合法变更 =
+# 同一提交里更新 tests/e2e/.collection-floor.json。
+STAGED_E2E_CFG=$(git diff --cached --name-only -- 'playwright.config.ts' 'playwright.scenario.config.ts' | head -1)
+if [ -n "$STAGED_SPEC" ] || [ -n "$STAGED_E2E_CFG" ]; then
+  echo "── E2e collection ledger (exact counts, ~40s) ──"
+  node scripts/check-collection.mjs
+  if [ $? -ne 0 ]; then
+    echo "✗ Collection drift — commit blocked"
+    echo "  If the change is intentional, update tests/e2e/.collection-floor.json"
+    echo "  in THIS commit. Drift in EITHER direction is a ledger break."
+    exit 1
+  fi
+fi
+
 echo "✓ pre-commit passed"

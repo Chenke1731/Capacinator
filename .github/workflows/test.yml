@@ -1,21 +1,31 @@
-# Minimal CI (test framework design P0, docs/TEST_FRAMEWORK_DESIGN.md §9)
+# CI (test framework design P0, docs/TEST_FRAMEWORK_DESIGN.md §9)
 # Runs on every push/PR. Jobs:
 #   static — lint + typecheck (root tsc clean; client via the budget script
-#            because the client baseline still carries 567 known errors)
+#            because the client baseline still carries known errors)
 #   unit   — Jest client + server-unit only (server-integration needs a
 #            shared DB a clean checkout doesn't have — open question in the
 #            design, not implemented)
 #   e2e    — collection ledger guard (per-config exact counts + archived-zero)
-#            + smoke. L3 red line joins this job when written (P2); nightly
-#            L4 (chromium + scenario configs) comes with the schedule.
+#            + red-line annotation completeness + smoke + L3 RED LINE
+#            (merge gate, ~1.5 min locally)
+# Nightly (schedule + workflow_dispatch) additionally runs:
+#   l4     — bottom line telemetry: full chromium + scenario configs.
+#            continue-on-error until the L4 harvest ledger closes — a red
+#            nightly that gates nothing but always posts artifacts.
+#            Flip continue-on-error to false when the ledger closes.
 name: test
 
 on:
   push:
   pull_request:
+  schedule:
+    # 19:23 UTC = 03:23 CST, off the top-of-hour congestion
+    - cron: '23 19 * * *'
+  workflow_dispatch:
 
 jobs:
   static:
+    if: github.event_name != 'schedule'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -34,6 +44,7 @@ jobs:
         run: node scripts/spec-typecheck-budget.mjs
 
   unit:
+    if: github.event_name != 'schedule'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -46,6 +57,7 @@ jobs:
         run: npx jest --config jest.config.cjs --selectProjects client server-unit
 
   e2e:
+    if: github.event_name != 'schedule'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -62,3 +74,40 @@ jobs:
         run: node scripts/check-redline-annotations.mjs
       - name: Smoke (main config)
         run: npx playwright test --config playwright.config.ts --project=smoke --retries=1
+      - name: L3 red line (merge gate)
+        run: npx playwright test tests/e2e/suites/redline --config playwright.config.ts --retries=1
+
+  # L4 bottom line — nightly telemetry, NOT a gate until the harvest ledger
+  # closes (~82 pre-existing failures are being triaged A/B/C; see design §6).
+  l4:
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: main
+            command: npx playwright test --config playwright.config.ts --project=chromium
+          - name: scenario
+            command: npx playwright test --config playwright.scenario.config.ts
+    name: l4 (${{ matrix.name }})
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium
+      - name: Run L4 ${{ matrix.name }}
+        run: ${{ matrix.command }}
+      - name: Upload report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: l4-report-${{ matrix.name }}-${{ github.run_id }}
+          path: playwright-report/
+          retention-days: 7

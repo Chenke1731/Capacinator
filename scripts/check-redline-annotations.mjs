@@ -32,12 +32,23 @@ for (const file of files) {
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
     if (/^\s*test\(/.test(line) || /^\s*test\.todo\(/.test(line)) {
-      // Look backwards up to 5 lines for a kill-mutation annotation
+      // Look backwards up to 5 lines AND forward up to 8 lines (inside the
+      // test body — that's where developers naturally write the annotation)
       let annotated = false;
       for (let j = Math.max(0, i - 5); j <= i; j++) {
         if (/kill-mutation:|kills:|mutation-id:/i.test(lines[j])) {
           annotated = true;
           break;
+        }
+      }
+      if (!annotated) {
+        for (let j = i + 1; j <= Math.min(lines.length - 1, i + 8); j++) {
+          if (/kill-mutation:|kills:|mutation-id:/i.test(lines[j])) {
+            annotated = true;
+            break;
+          }
+          // Stop looking if we hit another test() or a closing
+          if (/^\s*test\(/.test(lines[j]) || /^\s*\}\)/.test(lines[j])) break;
         }
       }
       if (!annotated) {

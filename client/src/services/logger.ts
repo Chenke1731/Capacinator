@@ -105,10 +105,7 @@ export class ClientLogger {
   private writeLog(entry: ClientLogEntry): void {
     // Console logging (development or debug mode)
     if (this.enableConsole) {
-      const emoji = this.getLevelEmoji(LogLevel[entry.level as keyof typeof LogLevel]);
-      const timestamp = entry.timestamp.split('T')[1]?.split('.')[0] || '';
-      const component = entry.component ? `[${entry.component}]` : '';
-      
+      // formatted fields (emoji/timestamp/component) reserved for console transport
       
       if (entry.error) {
         console.error('Error details:', entry.error);

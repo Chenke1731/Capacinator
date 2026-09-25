@@ -1050,7 +1050,7 @@ export default function ProjectRoadmap() {
                     onItemMove={handlePhaseMove}
                     onItemResize={handlePhaseMove}
                     onItemEdit={handlePhaseEdit}
-                    onItemAdd={(afterItemId, position) => {
+                    onItemAdd={(_afterItemId, _position) => {
                       // Handle phase insertion - for now just log
                       // TODO: Implement phase insertion functionality
                     }}

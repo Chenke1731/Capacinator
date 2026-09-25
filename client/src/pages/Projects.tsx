@@ -2,13 +2,11 @@ import { Fragment, useEffect, useMemo, useRef, useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Plus, Minus, Edit2, Trash2, Tag, ChevronDown, ChevronRight, Search, X, Pencil, GitBranch, CornerDownRight } from 'lucide-react';
+import { Plus, Edit2, Trash2, Tag, ChevronDown, ChevronRight, Search, X, GitBranch, CornerDownRight } from 'lucide-react';
 import { api } from '../lib/api-client';
 import { queryKeys } from '../lib/queryKeys';
-import { useCellPopover } from '../hooks/useCellPopover';
-import { PriorityCell, OwnerCell, TagsCell, ComponentCell } from '../components/boards/EditableCells';
+import { PriorityCell, TagsCell, ComponentCell } from '../components/boards/EditableCells';
 import { KlocCell, EffortCell, RoleCell, PrimaryDevCell, VersionPart, ReleaseCell, IterationCell } from '../components/boards/BoardCells';
-import { LoadingSpinner } from '../components/ui/LoadingSpinner';
 import { ErrorMessage } from '../components/ui/ErrorMessage';
 import ProjectModal from '../components/modals/ProjectModal';
 import { LifecycleCellControls } from '../components/lifecycle/LifecycleCellControls';
@@ -661,7 +659,7 @@ export function Projects() {
             ['projects:board.colPriority', 'priority'],
             ['projects:board.colPrimary', 'primary'],
             ['common:actions', 'actions']
-          ] as const).map(([key, colKey], i) => (
+          ] as const).map(([key, colKey]) => (
             <span key={colKey} className={['lifecycle', 'priority', 'actions'].includes(colKey) ? 'col-c' : ''}>
               {t(key)}
               {colKey !== 'actions' && ( /* 2026-09-23 修: 硬编码 i<10 漏掉后加的列 */

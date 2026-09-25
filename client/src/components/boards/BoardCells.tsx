@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { Avatar } from './EditableCells';
-import { Pencil } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { api } from '../../lib/api-client';

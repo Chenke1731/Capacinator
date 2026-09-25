@@ -504,7 +504,7 @@ export function ProjectDemandChart({ projectId, projectName }: ProjectDemandChar
         const rechartSurface = container.querySelector('.recharts-surface');
         
         if (rechartSurface && rechartWrapper) {
-          const surfaceRect = rechartSurface.getBoundingClientRect();
+          void rechartSurface; // debug anchor retained intentionally
           const wrapperRect = rechartWrapper.getBoundingClientRect();
           
           // Find the actual chart plotting area (CartesianGrid or first Area element)
@@ -571,8 +571,7 @@ export function ProjectDemandChart({ projectId, projectName }: ProjectDemandChar
   
   // Log what data is actually being sent to the chart
   React.useEffect(() => {
-    if (currentData.length > 0) {
-    }
+    // data-ready hook point (logging removed)
   }, [currentData]);
 
 

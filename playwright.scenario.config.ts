@@ -10,6 +10,9 @@ export default defineConfig({
     '**/scenario-*.spec.ts',
     '**/scenario-*.test.ts'
   ],
+  // Archived specs stay archived (v1.4: the 3 zombies in archived/
+  // scenario-basic-test ran green here for weeks before anyone noticed)
+  testIgnore: ['**/archived/**'],
   
   /* Run tests in files in parallel but run tests within files serially for database safety */
   fullyParallel: false,

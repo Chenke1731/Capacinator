@@ -1,4 +1,3 @@
-import { Router } from 'express';
 import { quarterOf, monthsOf, intensityPct } from '../../services/iteration/IterationStats.js';
 import { BaseController, RequestWithContext } from './BaseController.js';
 

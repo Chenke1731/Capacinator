@@ -42,9 +42,7 @@ export function VisualPhaseManager({ projectId, projectName: _projectName, onPha
   const { t } = useTranslation();
   // Debug alignment dimensions
   React.useEffect(() => {
-    if (alignmentDimensions) {
-    } else {
-    }
+    // debug alignment hook (intentionally empty)
   }, [alignmentDimensions]);
 
   const queryClient = useQueryClient();

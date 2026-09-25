@@ -1,0 +1,60 @@
+# Minimal CI (test framework design P0, docs/TEST_FRAMEWORK_DESIGN.md §9)
+# Runs on every push/PR. Jobs:
+#   static — lint + typecheck (root tsc clean; client via the budget script
+#            because the client baseline still carries 567 known errors)
+#   unit   — Jest client + server-unit only (server-integration needs a
+#            shared DB a clean checkout doesn't have — open question in the
+#            design, not implemented)
+#   e2e    — collection ledger guard (per-config exact counts + archived-zero)
+#            + smoke. L3 red line joins this job when written (P2); nightly
+#            L4 (chromium + scenario configs) comes with the schedule.
+name: test
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  static:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - name: Lint (0-error gate; warnings are legacy)
+        run: npm run lint
+      - name: Typecheck root (server/shared)
+        run: npx tsc --noEmit
+      - name: Typecheck client (budget script — baseline carries known errors)
+        run: node scripts/client-typecheck-budget.mjs
+
+  unit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - name: Jest (client + server-unit)
+        run: npx jest --config jest.config.cjs --selectProjects client server-unit
+
+  e2e:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium
+      - name: Collection ledger guard (exact counts + archived-zero)
+        run: node scripts/check-collection.mjs
+      - name: Smoke (main config)
+        run: npx playwright test --config playwright.config.ts --project=smoke --retries=1

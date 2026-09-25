@@ -107,7 +107,7 @@ export default function ProjectTypes() {
     });
   };
 
-  const handleCreateSubType = (parentId: string) => {
+  const handleCreateSubType = (_parentId: string) => {
     // TODO: Implement sub-type creation modal
   };
 

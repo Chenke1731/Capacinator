@@ -44,7 +44,6 @@ export function ActualInvestmentsPanel({ projectId }: { projectId: string }) {
     return [...norm].sort().reverse();
   }, [rows]);
 
-  const plannedByMonth = (month: string) => byMonth.get(month)?.planned_fte ?? null;
 
   const snapshot = async (month: string) => {
     setBusy(true);

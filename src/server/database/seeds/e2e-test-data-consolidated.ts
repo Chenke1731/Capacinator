@@ -524,7 +524,41 @@ export async function seed(knex: Knex): Promise<void> {
       updated_at: new Date()
     }
   ]);
-  
+
+  // Materialize project allocations for the seed projects (mirroring the
+  // resource templates above). The Smart Assignment modal's project list is
+  // gated on projectsWithDemand — which reads project_allocation_overrides —
+  // and the template→allocation initialize chain is dormant product surface
+  // (no caller, and its template lookup keys on project_type_id while
+  // templates carry project_sub_type_id). Without these rows the manual
+  // assignment combobox is permanently disabled in the e2e world.
+  await knex('project_allocation_overrides').insert([
+    {
+      id: 'pao-e2e-critical-dev',
+      project_id: 'project-e2e-critical',
+      phase_id: 'phase-e2e-development',
+      role_id: 'role-e2e-dev',
+      allocation_percentage: 80.0,
+      is_inherited: true,
+      template_id: 'template-e2e-001',
+      notes: 'Inherited from resource template (seed)',
+      created_at: new Date(),
+      updated_at: new Date()
+    },
+    {
+      id: 'pao-e2e-critical-qa',
+      project_id: 'project-e2e-critical',
+      phase_id: 'phase-e2e-testing',
+      role_id: 'role-e2e-qa',
+      allocation_percentage: 60.0,
+      is_inherited: true,
+      template_id: 'template-e2e-002',
+      notes: 'Inherited from resource template (seed)',
+      created_at: new Date(),
+      updated_at: new Date()
+    }
+  ]);
+
   console.log('✅ Consolidated E2E test data seeded successfully');
   console.log('📊 Utilization scenarios created:');
   console.log('   - E2E Over Utilized: 120% (80% + 40%)');

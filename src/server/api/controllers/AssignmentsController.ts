@@ -654,9 +654,20 @@ export class AssignmentsController extends BaseController {
       } else {
         tableName = 'project_assignments';
         assignment = await this.db(tableName).where('id', id).first();
-        deleted = await this.db(tableName)
-          .where('id', id)
-          .del();
+        if (assignment) {
+          deleted = await this.db(tableName)
+            .where('id', id)
+            .del();
+        } else {
+          // POST /api/assignments returns the RAW scenario-row id (no spa-
+          // prefix) — deleting with that id must work, or the create→delete
+          // contract is broken (404 on a just-created assignment).
+          tableName = 'scenario_project_assignments';
+          assignment = await this.db(tableName).where('id', id).first();
+          deleted = assignment
+            ? await this.db(tableName).where('id', id).del()
+            : 0;
+        }
       }
 
       if (!assignment || deleted === 0) {

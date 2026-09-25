@@ -123,7 +123,13 @@ InlineEdit/EditableCells 收敛、TanStack Table 启用（下一表格页）、R
 - **机械层两波修复**（`b96604a`、`c166f42`、`75fc7fe`）：ESM dirname 声明 ×15 文件、createTestPerson/createPerson 映射（调用方全在归档侧后移除）、TestDataFactory 占位 FK 改运行时解析、waitForPageReady 别名、`text=` 引擎逗号混入 CSS 选择器 ×22 处改 `.or(getByText()).first()`、reports tab 锚改 role=tab、findByTestData 补 .first()。
 - **战果抽样**：git-sync 全族 5 文件 85 测全绿；phase-manager 归档（ProjectDetail 已不渲染 phase 表，phases 迁至 roadmap——**e2e 覆盖缺口已记**）。
 
-**剩余（基线 #3 实测，18min）**：**272 过 / 97 败 / 1 skip**（套件瘦身后 370 测，通过率 33%→74%）。97 败分布：crud/assignments 11（行定位 nth-child 脆弱 + API 断言形状 ×3）、navigation-links 6、data-tables 5（Projects 页新表格锚待换）、modal-backgrounds 4（D13 配方收尾）、authentication 4、reports accuracy 系列 ~13、role-details 5、people 4、table-navigation 4、api/assignment-contracts 5、performance/load-tests 2 及零散。预计 1 个会话清零后全量回归 + scenarios/smoke/api 项目复验。
+**剩余（基线 #3 实测，18min）**：**272 过 / 97 败 / 1 skip**（套件瘦身后 370 测，通过率 33%→74%）。
+
+**第四轮（2026-09-25 晨，主套件精修）**：
+- **产品修复 ×2**（`de9ad27`）：① `DELETE /api/assignments/:id` 裸 id 只查 project_assignments——而 POST 返回裸场景行 id，刚建即删 404（create→delete 契约断裂）；补场景表回落。② e2e 种子物化 `project_allocation_overrides`——Smart Assignment 弹窗的项目列表以 projectsWithDemand（读该表）为闸，而模板→分配的 initialize 链是**休眠面**（无调用方，且其模板查找按 project_type_id 而模板带的是 project_sub_type_id——记入待裁决）；不物化则手动分配下拉在 e2e 世界永久禁用。
+- **测试现代化**（`f50131a` + 后续）：assignment-contracts（信封解包×多站、死嵌套路由 `/api/people/:id/assignments`→person_id 过滤）全绿；crud/assignments 全绿（六个弹窗时代表单校验测删除——服务端校验已由 contracts 覆盖；create-via-People 改选带需求种子项目+真实控件填充：slider/#start-date/#end-date/弹窗关闭即成功；update/delete 改行内 allocation input 与行删除）；role-details 基本清零（模板 backed 种子角色、/roles 重定向语义、图标返回钮 aria-label）；capacity/demand accuracy 对齐活 payload（字段词表、表列、图表 first()、解耦测试项目计数）。createTestAssignment 补 date_mode+解包；未加前缀 helper 别名四件。
+- **待查挂起**：capacity "allocation 50" 一测 skip（Playwright 环境内 helper 写入神秘不落库且无报错；产品数学已探针证对）——疑 TestDataHelpers→apiContext 链在 webServer 下的静默失败路径。
+- **剩余**（下一会话清单）：navigation-links 6、data-tables 5（Projects 页新表格锚）、roadmap-visualization 6、people-availability 5、modal-backgrounds 4（D13 配方）、authentication 4、table-navigation 4、dashboard-ui 3、transaction-safety 4、load-tests 2、capacity-accuracy 2、gaps/capacity-accuracy 零散 ~10。
 
 ### 2026-09-24 第二轮发现（e2e webServer 迁移过程中）
 

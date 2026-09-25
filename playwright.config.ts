@@ -96,43 +96,24 @@ export default defineConfig({
       // zeroing the main suite; path-filtered runs kept working, which is
       // why nobody noticed).
       testMatch: /\.spec\.ts$/,
-      testIgnore: [/.*archived.*/, /.*smoke.*\.spec\.ts$/, /.*slow.*\.spec\.ts$/, /.*scenario.*\.spec\.ts$/],
+      // api specs are excluded: pure-API tests (no `page` usage) run in the
+      // api project — one runner per world (v1.4 P4 migration).
+      testIgnore: [/.*archived.*/, /.*smoke.*\.spec\.ts$/, /.*slow.*\.spec\.ts$/, /.*scenario.*\.spec\.ts$/, /.*api.*\.spec\.ts$/],
       use: { ...devices['Desktop Chrome'] },
     },
 
-    // Firefox tests
-    {
-      name: 'firefox',
-      testMatch: /.*@cross-browser.*\.spec\.ts$/,
-      use: { ...devices['Desktop Firefox'] },
-    },
-
-    // Mobile tests
-    {
-      name: 'mobile',
-      testMatch: /.*mobile.*\.spec\.ts$/,
-      use: { ...devices['iPhone 13'] },
-    },
-
-    // API tests (no browser needed)
+    // API tests (no browser needed). testIgnore REPLACES the config-level
+    // one, so archived/ must be repeated here; scenario specs are excluded
+    // because playwright.scenario.config.ts is their sole runner (v1.4) —
+    // api-scenario-filtering drives a real browser page, not a request context.
     {
       name: 'api',
       testMatch: /.*api.*\.spec\.ts$/,
+      testIgnore: ['**/archived/**', /.*scenario.*\.spec\.ts$/],
       use: {
         // No browser context for API tests
         browserName: 'chromium',
         headless: true,
-      },
-    },
-
-    // Slow/Complex scenario tests
-    {
-      name: 'scenarios',
-      testMatch: /.*scenario.*\.spec\.ts$/,
-      timeout: 120000, // 2 minutes for complex scenarios
-      use: { 
-        ...devices['Desktop Chrome'],
-        video: 'on', // Always record scenarios
       },
     },
   ],

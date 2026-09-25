@@ -6,10 +6,10 @@ import { defineConfig, devices } from '@playwright/test';
  */
 export default defineConfig({
   testDir: './tests/e2e',
-  testMatch: [
-    '**/scenario-*.spec.ts',
-    '**/scenario-*.test.ts'
-  ],
+  // v1.4 consolidation: this config is the SOLE scenario runner — the pattern
+  // absorbs every *scenario* spec (not just scenario-* prefixed), taking over
+  // the 141 tests the main config's deleted `scenarios` project used to run.
+  testMatch: /.*scenario.*\.spec\.ts$/,
   // Archived specs stay archived (v1.4: the 3 zombies in archived/
   // scenario-basic-test ran green here for weeks before anyone noticed)
   testIgnore: ['**/archived/**'],
@@ -67,7 +67,9 @@ export default defineConfig({
     {
       name: 'scenario-chrome',
       use: { ...devices['Desktop Chrome'] },
-      testMatch: '**/scenario-*.spec.ts'
+      // Project-level testMatch replaces the config-level one — keep both in
+      // sync (same broad pattern, per the v1.4 sole-runner consolidation).
+      testMatch: /.*scenario.*\.spec\.ts$/
     }
   ],
 

@@ -242,7 +242,7 @@ test.describe('Demand Report Accuracy', () => {
     testDataHelpers 
   }) => {
     // Look for role breakdown
-    const roleSection = authenticatedPage.getByText('Demand by Role').or(authenticatedPage.getByText('Role Demand'));
+    const roleSection = authenticatedPage.getByText('Demand by Role').or(authenticatedPage.getByText('Role Demand')).first();
     if (await roleSection.isVisible()) {
       // Check for role data (could be chart or table)
       const roleChart = authenticatedPage.locator('.chart-container:has-text("Role")');

@@ -19,7 +19,7 @@ test.describe('History & Comparison', () => {
       await authenticatedPage.waitForLoadState('networkidle');
 
       // Look for sync history section
-      const historySection = authenticatedPage.locator('[data-testid="sync-history"], .sync-history').or(authenticatedPage.getByText('Sync History'));
+      const historySection = authenticatedPage.locator('[data-testid="sync-history"], .sync-history').or(authenticatedPage.getByText('Sync History')).first();
 
       const hasHistory = await historySection.count() > 0;
       console.log('Sync history section available:', hasHistory);
@@ -141,7 +141,7 @@ test.describe('History & Comparison', () => {
       await authenticatedPage.waitForLoadState('networkidle');
 
       // Look for files changed
-      const filesChanged = authenticatedPage.locator('[data-testid="files-changed"]').or(authenticatedPage.getByText(/\d+ files?/));
+      const filesChanged = authenticatedPage.locator('[data-testid="files-changed"]').or(authenticatedPage.getByText(/\d+ files?/)).first();
 
       const hasFilesChanged = await filesChanged.count() > 0;
       console.log('Files changed count displayed:', hasFilesChanged);

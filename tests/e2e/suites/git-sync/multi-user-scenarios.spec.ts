@@ -19,7 +19,7 @@ test.describe('Multi-User Scenarios', () => {
       await authenticatedPage.waitForLoadState('networkidle');
 
       // Look for remote changes notification
-      const remoteChangesNotification = authenticatedPage.locator('[data-testid="remote-changes-alert"], .remote-changes-banner').or(authenticatedPage.getByText(/new changes/i));
+      const remoteChangesNotification = authenticatedPage.locator('[data-testid="remote-changes-alert"], .remote-changes-banner').or(authenticatedPage.getByText(/new changes/i)).first();
 
       const hasNotification = await remoteChangesNotification.count() > 0;
       console.log('Remote changes notification available:', hasNotification);
@@ -56,7 +56,7 @@ test.describe('Multi-User Scenarios', () => {
       await authenticatedPage.waitForLoadState('networkidle');
 
       // Look for commits ahead count
-      const commitsAhead = authenticatedPage.locator('[data-testid="commits-behind"]').or(authenticatedPage.getByText(/\d+ commits? behind/i));
+      const commitsAhead = authenticatedPage.locator('[data-testid="commits-behind"]').or(authenticatedPage.getByText(/\d+ commits? behind/i)).first();
 
       const hasCommitCount = await commitsAhead.count() > 0;
       console.log('Remote commits count displayed:', hasCommitCount);
@@ -117,7 +117,7 @@ test.describe('Multi-User Scenarios', () => {
         await authenticatedPage.waitForLoadState('networkidle');
 
         // Look for last modified by
-        const lastModifiedBy = authenticatedPage.locator('[data-testid="last-modified-by"], .modified-by').or(authenticatedPage.getByText(/Modified by/i));
+        const lastModifiedBy = authenticatedPage.locator('[data-testid="last-modified-by"], .modified-by').or(authenticatedPage.getByText(/Modified by/i)).first();
 
         const hasModifiedBy = await lastModifiedBy.count() > 0;
         console.log('Last modified by displayed:', hasModifiedBy);
@@ -129,7 +129,7 @@ test.describe('Multi-User Scenarios', () => {
       await authenticatedPage.waitForLoadState('networkidle');
 
       // Look for created by info
-      const createdBy = authenticatedPage.locator('[data-testid="created-by"], .created-by').or(authenticatedPage.getByText(/Created by/i));
+      const createdBy = authenticatedPage.locator('[data-testid="created-by"], .created-by').or(authenticatedPage.getByText(/Created by/i)).first();
 
       const hasCreatedBy = await createdBy.count() > 0;
       console.log('Created by displayed:', hasCreatedBy);
@@ -168,7 +168,7 @@ test.describe('Multi-User Scenarios', () => {
       await authenticatedPage.waitForLoadState('networkidle');
 
       // Look for last sync time
-      const lastSyncTime = authenticatedPage.locator('[data-testid="last-sync-time"], .sync-timestamp').or(authenticatedPage.getByText(/Last synced/i));
+      const lastSyncTime = authenticatedPage.locator('[data-testid="last-sync-time"], .sync-timestamp').or(authenticatedPage.getByText(/Last synced/i)).first();
 
       const hasLastSync = await lastSyncTime.count() > 0;
       console.log('Last sync timestamp displayed:', hasLastSync);
@@ -205,7 +205,7 @@ test.describe('Multi-User Scenarios', () => {
       await authenticatedPage.waitForLoadState('networkidle');
 
       // Look for repo connection status
-      const repoStatus = authenticatedPage.locator('[data-testid="repo-connection-status"], .repository-status').or(authenticatedPage.getByText(/Connected/i));
+      const repoStatus = authenticatedPage.locator('[data-testid="repo-connection-status"], .repository-status').or(authenticatedPage.getByText(/Connected/i)).first();
 
       const hasRepoStatus = await repoStatus.count() > 0;
       console.log('Repository connection status displayed:', hasRepoStatus);

@@ -248,7 +248,7 @@ test.describe('People Availability Table', () => {
         // Should be on person detail page
         expect(authenticatedPage.url()).toMatch(/\/people\/[a-f0-9-]+$/);
         // Look for availability section
-        const availabilitySection = authenticatedPage.getByText('Availability').or(authenticatedPage.getByText('Schedule')).or(authenticatedPage.getByText('Working Hours'));
+        const availabilitySection = authenticatedPage.getByText('Availability').or(authenticatedPage.getByText('Schedule')).first().or(authenticatedPage.getByText('Working Hours')).first();
         if (await availabilitySection.isVisible()) {
           // Should show detailed availability info
           const calendar = authenticatedPage.locator('.calendar, [role="grid"]');
@@ -283,7 +283,7 @@ test.describe('People Availability Table', () => {
           if (await bulkActions.isVisible()) {
             await bulkActions.click();
             // Look for availability update option
-            const updateAvailability = authenticatedPage.getByText('Update Availability').or(authenticatedPage.getByText('Set Availability'));
+            const updateAvailability = authenticatedPage.getByText('Update Availability').or(authenticatedPage.getByText('Set Availability')).first();
             if (await updateAvailability.isVisible()) {
               await updateAvailability.click();
               // Should show bulk update form

@@ -23,7 +23,7 @@ test.describe('Offline Sync', () => {
       await authenticatedPage.waitForTimeout(1000);
 
       // Check for offline indicator
-      const offlineIndicator = authenticatedPage.locator('[data-testid="offline-indicator"], .offline-banner').or(authenticatedPage.getByText('Offline'));
+      const offlineIndicator = authenticatedPage.locator('[data-testid="offline-indicator"], .offline-banner').or(authenticatedPage.getByText('Offline')).first();
 
       const isOfflineShown = await offlineIndicator.count() > 0;
       console.log('Offline indicator displayed:', isOfflineShown);
@@ -128,7 +128,7 @@ test.describe('Offline Sync', () => {
       await authenticatedPage.waitForTimeout(500);
 
       // Look for pending count
-      const pendingCount = authenticatedPage.locator('[data-testid="pending-changes-count"], .pending-badge').or(authenticatedPage.getByText(/\d+ pending/));
+      const pendingCount = authenticatedPage.locator('[data-testid="pending-changes-count"], .pending-badge').or(authenticatedPage.getByText(/\d+ pending/)).first();
 
       const hasCount = await pendingCount.count() > 0;
       console.log('Pending changes count displayed:', hasCount);

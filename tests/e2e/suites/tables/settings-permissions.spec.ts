@@ -315,7 +315,7 @@ test.describe('Settings User Permissions Table', () => {
           if (await bulkActions.isVisible()) {
             await bulkActions.click();
             // Look for role assignment option
-            const assignRole = authenticatedPage.getByText('Assign Role').or(authenticatedPage.getByText('Change Role'));
+            const assignRole = authenticatedPage.getByText('Assign Role').or(authenticatedPage.getByText('Change Role')).first();
             if (await assignRole.isVisible()) {
               await assignRole.click();
               // Should show role selection

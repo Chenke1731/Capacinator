@@ -36,7 +36,7 @@ test.describe('Basic Git Sync Operations', () => {
       await authenticatedPage.waitForLoadState('networkidle');
 
       // Check for synced status indicator
-      const syncedIndicator = authenticatedPage.locator('[data-testid="sync-status-synced"], .sync-status.synced').or(authenticatedPage.getByText('Synced'));
+      const syncedIndicator = authenticatedPage.locator('[data-testid="sync-status-synced"], .sync-status.synced').or(authenticatedPage.getByText('Synced')).first();
 
       // If sync is configured and synced, should show green/synced status
       if (await syncedIndicator.count() > 0) {
@@ -52,7 +52,7 @@ test.describe('Basic Git Sync Operations', () => {
       await authenticatedPage.waitForLoadState('networkidle');
 
       // Check for pending status indicator (changes not yet synced)
-      const pendingIndicator = authenticatedPage.locator('[data-testid="sync-status-pending"], .sync-status.pending').or(authenticatedPage.getByText('Pending'));
+      const pendingIndicator = authenticatedPage.locator('[data-testid="sync-status-pending"], .sync-status.pending').or(authenticatedPage.getByText('Pending')).first();
 
       // Log the status
       const hasPending = await pendingIndicator.count() > 0;
@@ -64,7 +64,7 @@ test.describe('Basic Git Sync Operations', () => {
       await authenticatedPage.waitForLoadState('networkidle');
 
       // Check for behind status indicator
-      const behindIndicator = authenticatedPage.locator('[data-testid="sync-status-behind"], .sync-status.behind').or(authenticatedPage.getByText('Behind'));
+      const behindIndicator = authenticatedPage.locator('[data-testid="sync-status-behind"], .sync-status.behind').or(authenticatedPage.getByText('Behind')).first();
 
       const hasBehind = await behindIndicator.count() > 0;
       console.log('Has behind indicator:', hasBehind);
@@ -75,7 +75,7 @@ test.describe('Basic Git Sync Operations', () => {
       await authenticatedPage.waitForLoadState('networkidle');
 
       // Check for conflict status indicator
-      const conflictIndicator = authenticatedPage.locator('[data-testid="sync-status-conflict"], .sync-status.conflict').or(authenticatedPage.getByText('Conflict'));
+      const conflictIndicator = authenticatedPage.locator('[data-testid="sync-status-conflict"], .sync-status.conflict').or(authenticatedPage.getByText('Conflict')).first();
 
       const hasConflict = await conflictIndicator.count() > 0;
       console.log('Has conflict indicator:', hasConflict);
@@ -175,7 +175,7 @@ test.describe('Basic Git Sync Operations', () => {
       await authenticatedPage.waitForTimeout(1000);
 
       // Look for offline indicator
-      const offlineIndicator = authenticatedPage.locator('[data-testid="offline-indicator"], .offline-indicator').or(authenticatedPage.getByText('Offline'));
+      const offlineIndicator = authenticatedPage.locator('[data-testid="offline-indicator"], .offline-indicator').or(authenticatedPage.getByText('Offline')).first();
 
       const hasOfflineIndicator = await offlineIndicator.count() > 0;
       console.log('Offline indicator displayed:', hasOfflineIndicator);

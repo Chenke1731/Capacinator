@@ -364,7 +364,7 @@ test.describe('Branch Operations', () => {
       await authenticatedPage.waitForLoadState('networkidle');
 
       // Look for commit count
-      const commitCount = authenticatedPage.locator('[data-testid="commits-ahead"], [data-testid="commits-behind"]').or(authenticatedPage.getByText(/\d+ commits?/));
+      const commitCount = authenticatedPage.locator('[data-testid="commits-ahead"], [data-testid="commits-behind"]').or(authenticatedPage.getByText(/\d+ commits?/)).first();
 
       const hasCommitCount = await commitCount.count() > 0;
       console.log('Commit count displayed:', hasCommitCount);

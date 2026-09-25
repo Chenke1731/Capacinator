@@ -57,7 +57,7 @@ test.describe('Reports Functionality', () => {
   test.describe('Demand Report', () => {
     test(`${tags.reports} should display demand metrics`, async ({ authenticatedPage }) => {
       // Ensure we're on demand tab (usually default)
-      const demandTab = authenticatedPage.locator('button:has-text("Demand")');
+      const demandTab = authenticatedPage.locator('[role="tab"]:has-text("Demand")');
       if (await demandTab.isVisible()) {
         await demandTab.click();
       }
@@ -88,7 +88,7 @@ test.describe('Reports Functionality', () => {
       testDataHelpers 
     }) => {
       // Switch to capacity tab
-      await authenticatedPage.getByRole('button', { name: /capacity/i }).click();
+      await authenticatedPage.getByRole('tab', { name: /capacity/i }).click();
       await authenticatedPage.waitForLoadState("networkidle", { timeout: 10000 }).catch(() => {});
       // Check for people capacity table
       await expect(authenticatedPage.locator('text=People Capacity')).toBeVisible();
@@ -109,7 +109,7 @@ test.describe('Reports Functionality', () => {
       expect(rowCount).toBeGreaterThanOrEqual(testData.people.length);
     });
     test('should show role capacity breakdown', async ({ authenticatedPage }) => {
-      await authenticatedPage.getByRole('button', { name: /capacity/i }).click();
+      await authenticatedPage.getByRole('tab', { name: /capacity/i }).click();
       // Look for role capacity section
       await expect(authenticatedPage.locator('text=Role Capacity')).toBeVisible();
       // Check for role data
@@ -121,7 +121,7 @@ test.describe('Reports Functionality', () => {
   });
   test.describe('Utilization Report', () => {
     test(`${tags.reports} should display utilization metrics`, async ({ authenticatedPage }) => {
-      await authenticatedPage.getByRole('button', { name: /utilization/i }).click();
+      await authenticatedPage.getByRole('tab', { name: /utilization/i }).click();
       await authenticatedPage.waitForLoadState("networkidle", { timeout: 10000 }).catch(() => {});
       // Check for utilization percentage
       await expect(authenticatedPage.locator('text=Utilization %')).toBeVisible();
@@ -141,7 +141,7 @@ test.describe('Reports Functionality', () => {
       authenticatedPage,
       testDataHelpers 
     }) => {
-      await authenticatedPage.getByRole('button', { name: /utilization/i }).click();
+      await authenticatedPage.getByRole('tab', { name: /utilization/i }).click();
       const table = authenticatedPage.locator('table');
       await expect(table).toBeVisible();
       // Check for person data columns
@@ -164,7 +164,7 @@ test.describe('Reports Functionality', () => {
   test.describe('Gaps Report', () => {
     test(`${tags.reports} should display capacity gaps`, async ({ authenticatedPage }) => {
       // Click gaps tab
-      const gapsTab = authenticatedPage.locator('button:has-text("Gaps"), button:has-text("Gap")');
+      const gapsTab = authenticatedPage.locator('[role="tab"]:has-text("Gaps"), [role="tab"]:has-text("Gap")');
       await gapsTab.first().click();
       await authenticatedPage.waitForLoadState("networkidle", { timeout: 10000 }).catch(() => {});
       // Check for gaps content
@@ -178,7 +178,7 @@ test.describe('Reports Functionality', () => {
       }
     });
     test('should show actionable gap recommendations', async ({ authenticatedPage }) => {
-      const gapsTab = authenticatedPage.locator('button:has-text("Gaps")');
+      const gapsTab = authenticatedPage.locator('[role="tab"]:has-text("Gaps")');
       await gapsTab.first().click();
       // Look for action buttons
       const actionButtons = authenticatedPage.locator('button:has-text("Hire"), button:has-text("View People")');
@@ -206,7 +206,7 @@ test.describe('Reports Functionality', () => {
       apiContext 
     }) => {
       // Navigate to capacity report
-      await authenticatedPage.getByRole('button', { name: /capacity/i }).click();
+      await authenticatedPage.getByRole('tab', { name: /capacity/i }).click();
       await authenticatedPage.waitForLoadState("networkidle", { timeout: 10000 }).catch(() => {});
       // Count rows in people capacity table
       const table = authenticatedPage.locator('table').first();
@@ -307,7 +307,7 @@ test.describe('Reports Functionality', () => {
       testHelpers 
     }) => {
       await testHelpers.navigateTo('/reports');
-      const gapsButton = authenticatedPage.locator('button:has-text("Gaps Analysis"), button:has-text("Gaps Report")');
+      const gapsButton = authenticatedPage.locator('[role="tab"]:has-text("Gaps Analysis"), [role="tab"]:has-text("Gaps Report")');
       if (await gapsButton.count() > 0) {
         await gapsButton.click();
         // Check health indicators if they exist
@@ -616,7 +616,7 @@ test.describe('Reports Functionality', () => {
       testHelpers 
     }) => {
       await testHelpers.navigateTo('/reports');
-      const gapsButton = authenticatedPage.locator('button:has-text("Gaps Analysis"), button:has-text("Gaps")');
+      const gapsButton = authenticatedPage.locator('[role="tab"]:has-text("Gaps Analysis"), [role="tab"]:has-text("Gaps")');
       if (await gapsButton.count() > 0) {
         await gapsButton.click();
         // Check badge formatting

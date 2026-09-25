@@ -197,7 +197,7 @@ test.describe('Assignment Integration Workflows', () => {
       if (await recommendedTab.count() > 0) {
         await recommendedTab.click();
         // Should show warnings or no recommendations due to overallocation
-        const warnings = await authenticatedPage.locator('.warning, .alert').or(authenticatedPage.getByText(/overallocat|exceed|conflict/i)).count();
+        const warnings = await authenticatedPage.locator('.warning, .alert').or(authenticatedPage.getByText(/overallocat|exceed|conflict/i)).first().count();
         expect(warnings).toBeGreaterThan(0);
       }
       // Try manual assignment

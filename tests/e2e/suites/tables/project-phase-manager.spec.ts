@@ -29,7 +29,7 @@ test.describe('Project Phase Manager Table', () => {
     await testHelpers.navigateTo(`/projects/${projectId}`);
     await authenticatedPage.waitForLoadState('networkidle', { timeout: 30000 });
     // Expand phases section
-    const phaseSection = authenticatedPage.getByText('Project Phases').or(authenticatedPage.getByText('Phases & Timeline')).or(authenticatedPage.getByText('Timeline'));
+    const phaseSection = authenticatedPage.getByText('Project Phases').or(authenticatedPage.getByText('Phases & Timeline')).first().or(authenticatedPage.getByText('Timeline')).first();
     if (await phaseSection.isVisible()) {
       await phaseSection.click();
       await authenticatedPage.waitForLoadState("domcontentloaded", { timeout: 3000 }).catch(() => {});
@@ -108,8 +108,8 @@ test.describe('Project Phase Manager Table', () => {
       const modal = authenticatedPage.locator('[role="dialog"]');
       await expect(modal).toBeVisible();
       // Check for phase selection options
-      const standardPhaseOption = modal.getByText('Standard Phase').or(modal.getByText('Select from Templates'));
-      const customPhaseOption = modal.getByText('Custom Phase').or(modal.getByText('Blank Custom'));
+      const standardPhaseOption = modal.getByText('Standard Phase').or(modal.getByText('Select from Templates')).first();
+      const customPhaseOption = modal.getByText('Custom Phase').or(modal.getByText('Blank Custom')).first();
       if (await standardPhaseOption.isVisible()) {
         // Select standard phase flow
         await standardPhaseOption.click();
@@ -312,8 +312,8 @@ test.describe('Project Phase Manager Table', () => {
       const modal = authenticatedPage.locator('[role="dialog"]');
       await expect(modal).toBeVisible();
       // Look for resource allocation options
-      const copyResourcesOption = modal.getByText('Copy Resource Allocation').or(modal.getByText('Copy from Phase'));
-      const blankAllocationOption = modal.getByText('Blank Resource Allocation').or(modal.getByText('No Resources'));
+      const copyResourcesOption = modal.getByText('Copy Resource Allocation').or(modal.getByText('Copy from Phase')).first();
+      const blankAllocationOption = modal.getByText('Blank Resource Allocation').or(modal.getByText('No Resources')).first();
       const hasResourceOptions = 
         await copyResourcesOption.isVisible() ||
         await blankAllocationOption.isVisible();

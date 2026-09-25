@@ -2,6 +2,7 @@
 # 物理闸门: 语法错误不能提交(不查风格,只查能不能编译)
 STAGED_TS=$(git diff --cached --name-only -- '*.ts' '*.tsx' | head -1)
 STAGED_CSS=$(git diff --cached --name-only -- '*.css' | head -1)
+STAGED_SPEC=$(git diff --cached --name-only -- 'tests/e2e/**/*.ts' | head -1)
 
 # migration 不可变守卫(024 事故防重演): 已提交的 migration 改动即拦截
 echo "── Migration immutability ──"
@@ -26,10 +27,26 @@ if [ -n "$STAGED_CSS" ]; then
 fi
 
 if [ -n "$STAGED_TS" ]; then
-  echo "── TS/TSX changed, running typecheck ──"
+  echo "── TS/TSX changed, running typecheck (root) ──"
   npx tsc --noEmit 2>/dev/null
   if [ $? -ne 0 ]; then
     echo "✗ TypeScript errors — commit blocked"
+    exit 1
+  fi
+
+  echo "── Client typecheck (budget) ──"
+  node scripts/client-typecheck-budget.mjs
+  if [ $? -ne 0 ]; then
+    echo "✗ Client typecheck budget exceeded — commit blocked"
+    exit 1
+  fi
+fi
+
+if [ -n "$STAGED_SPEC" ]; then
+  echo "── Spec typecheck (budget + zero-tolerance mines) ──"
+  node scripts/spec-typecheck-budget.mjs
+  if [ $? -ne 0 ]; then
+    echo "✗ Spec typecheck — commit blocked"
     exit 1
   fi
 fi

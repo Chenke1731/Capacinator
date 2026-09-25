@@ -292,8 +292,9 @@ test.describe('People Availability Table', () => {
       if (rowCount > 0) {
         const availabilityCell = authenticatedPage.locator('tbody tr').first().locator('td:nth-child(5)');
         // Check for aria-label or title
-        const ariaLabel = await availabilityCell.getAttribute('aria-label');
-        const title = await availabilityCell.getAttribute('title');
+        // title lives on the colored span inside the cell
+        const ariaLabel = await availabilityCell.locator('span').first().getAttribute('aria-label');
+        const title = await availabilityCell.locator('span').first().getAttribute('title');
         const hasAccessibleLabel = ariaLabel || title;
         expect(hasAccessibleLabel).toBeTruthy();
       }

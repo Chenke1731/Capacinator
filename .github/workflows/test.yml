@@ -30,6 +30,8 @@ jobs:
         run: npx tsc --noEmit
       - name: Typecheck client (budget script — baseline carries known errors)
         run: node scripts/client-typecheck-budget.mjs
+      - name: Typecheck e2e specs (budget + zero-tolerance mines)
+        run: node scripts/spec-typecheck-budget.mjs
 
   unit:
     runs-on: ubuntu-latest
@@ -40,7 +42,7 @@ jobs:
           node-version: 20
           cache: npm
       - run: npm ci
-      - name: Jest (client + server-unit)
+      - name: Jest (client + server-unit incl. meta-tests)
         run: npx jest --config jest.config.cjs --selectProjects client server-unit
 
   e2e:
@@ -56,5 +58,7 @@ jobs:
         run: npx playwright install --with-deps chromium
       - name: Collection ledger guard (exact counts + archived-zero)
         run: node scripts/check-collection.mjs
+      - name: Red-line annotation completeness
+        run: node scripts/check-redline-annotations.mjs
       - name: Smoke (main config)
         run: npx playwright test --config playwright.config.ts --project=smoke --retries=1

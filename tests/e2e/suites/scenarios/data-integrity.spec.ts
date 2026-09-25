@@ -260,7 +260,7 @@ test.describe('Scenario Data Integrity', () => {
         await modal.locator('button:has-text("Create")').click();
         // Go back and create branch 2 from base
         await authenticatedPage.goto('/scenarios');
-        await baseCard.click();
+        await baseRow.click();
         await branchButton.click();
         modal = authenticatedPage.locator('[role="dialog"]');
         const branch2Name = `${testContext.prefix}-Branch-2`;
@@ -518,7 +518,8 @@ test.describe('Scenario Data Integrity', () => {
   test.describe('Data Consistency', () => {
     test(`${tags.api} should maintain referential integrity`, async ({ 
       authenticatedPage, 
-      apiContext 
+      apiContext,
+      testDataHelpers
     }) => {
       // Create parent scenario via API
       const parentData = {

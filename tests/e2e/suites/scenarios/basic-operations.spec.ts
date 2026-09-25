@@ -12,6 +12,7 @@ test.describe('Scenario Basic Operations', () => {
   let testContext: TestDataContext;
   let testScenarios: any[];
   let scenarioUtils: ScenarioTestUtils;
+  let userId = '';
   
   test.beforeEach(async ({ testDataHelpers, testHelpers, apiContext, authenticatedPage }) => {
     // Create isolated test context with unique prefix
@@ -29,8 +30,7 @@ test.describe('Scenario Basic Operations', () => {
     await testHelpers.navigateTo('/scenarios');
     await testHelpers.waitForPageContent();
     
-    // Get current user ID from the profile
-    let userId = '';
+    // Get current user ID from the profile (hoisted to describe scope)
     try {
       // Get the current profile
       const profileResponse = await apiContext.get('/api/profile');

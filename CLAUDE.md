@@ -271,3 +271,8 @@ npm run dist:linux       # Linux package (.AppImage)
 
 ## Recent Changes
 - 001-git-sync-integration: Added TypeScript 5.8 (ES2022 target), Node.js 20+
+
+## 工具铁律(2026-09-23)
+- 修改 .tsx/.ts 一律用 Edit 工具;禁止 python 脚本改 React 代码(三次炸 JSX 的教训)
+- 截图类输入: 第一个动作固定 `npm run shot <图片路径>`(scripts/analyze-screenshot.mjs)
+- 验证漏斗: 改完→对应文件测试→绿→更宽;全量/verify:site 只在提交点

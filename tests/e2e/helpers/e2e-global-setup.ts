@@ -62,6 +62,16 @@ async function globalSetup(config: FullConfig): Promise<void> {
 
     await page.context().storageState({ path: 'test-results/e2e-auth.json' });
     console.log('✅ Auth storage state saved for per-test reuse');
+
+    // Pre-compile the main pages: with auth reuse, worker pages hit the app
+    // immediately and four concurrent first-loads queue on vite's on-demand
+    // transform — the login dialog used to hide that latency. One pass here
+    // warms every module so workers hit the compile cache.
+    for (const path of ['/dashboard', '/people', '/projects', '/assignments', '/reports']) {
+      await page.goto(path, { waitUntil: 'domcontentloaded', timeout: 60_000 });
+      await page.waitForSelector('.sidebar, nav, h1', { timeout: 30_000 }).catch(() => {});
+    }
+    console.log('✅ Main pages pre-compiled for worker concurrency');
   } finally {
     await browser.close();
   }

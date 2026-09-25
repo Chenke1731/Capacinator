@@ -27,6 +27,7 @@ module.exports = {
       testMatch: [
         '<rootDir>/src/server/**/__tests__/**/*.test.ts',
         '<rootDir>/tests/unit/server/**/*.test.ts',
+        '<rootDir>/tests/unit/meta/**/*.test.ts',
         '<rootDir>/shared/**/__tests__/**/*.test.ts'
       ],
       moduleNameMapper: {

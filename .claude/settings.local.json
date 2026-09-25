@@ -3,7 +3,8 @@
     "allow": [
       "WebFetch(domain:jenkins.kindash.com)",
       "Skill(implement-gh-issue)",
-      "Skill(implement-next-gh-issue)"
+      "Skill(implement-next-gh-issue)",
+      "mcp__plugin_claude-mem_mcp-search__memory_add"
     ]
   },
   "enabledMcpjsonServers": [

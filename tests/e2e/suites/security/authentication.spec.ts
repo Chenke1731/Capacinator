@@ -24,7 +24,7 @@ test.describe('Authentication and Authorization Security', () => {
       // Storage might not be available in some contexts
       console.log('Storage not available, skipping clear');
     }
-    await setupPageWithAuth(page, '/');
+    await page.goto('/');
     await page.waitForLoadState('networkidle', { timeout: 30000 });
   }
   test.beforeEach(async ({ testDataHelpers, apiContext }) => {
@@ -72,7 +72,7 @@ test.describe('Authentication and Authorization Security', () => {
     }) => {
       console.log('🔒 Testing user validation during login');
       await clearAuthState(page);
-      await setupPageWithAuth(page, '/');
+      await page.goto('/');
       await page.waitForLoadState('networkidle', { timeout: 30000 });
       // Check if login form is present
       const loginSelect = page.locator('#person-select');

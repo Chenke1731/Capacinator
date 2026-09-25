@@ -112,6 +112,19 @@ InlineEdit/EditableCells 收敛、TanStack Table 启用（下一表格页）、R
 - 类型错误预算漂移：基线 571，实际 576（2026-09-24 本轮清理后 573；第三轮修掉 ClipboardList 后回到 571=基线整；**同日排雷轮再清 4 处活路径 cannot-find-name（PhaseTemplateDesigner 孤儿调用、ReportsTabContent 双下划线 setter、ScenarioComparison 缺 useNavigate 导入）后降至 567，预算脚本已落地零容忍类（非测试文件 TS2304/TS2552 一票否决，提交 ba3e1a3）——D13 教训已固化为守卫**）。测试文件里仍有 ~24 处 jsdom `global` 类噪声，暂列零容忍类之外。
 - Electron 5 个 main 变体共 1897 行 .cjs 存在重复。
 
+### 2026-09-25 主套件复活战役（D14，进行中）
+
+**背景**：主套件（`npm run test:e2e` 的 chromium 项目，807 测）自 9-24 归档落地起 discovery 静默归零（config 级 testIgnore glob 匹配不到 archived/ 直接子文件 + 项目级 testIgnore 整体替换 config 级 → 归档坏 import 崩掉收集；定向调用正常所以无人发现，`927b3a3` 修复，恢复收集 807 测）。
+
+**基线 #1（41min）**：265 过 / 522 败 / 20 skip。**基线 #2（机械层修复后）**：268/519/20。失败为洋葱结构：机械层（__dirname 裸用 112 败 / helper 改名漂移 / 占位 FK）修掉后露出下一层（waitForPageReady 缺失 ×13、选择器引擎混用 ×22、seedData 漂移等）。
+
+**已裁决与落地**：
+- **归档 44+3 个全红/多数死文件**（`a3a22b1`、`3c4b6b2`、`7e22ad5` + reports 三件）：全红 = 两轮基线零存活断言（旧导入导出 UI ×15、旧 phase 布局、示例/模板脚手架、泛化报表断言）。**教训：shell `while read` 读无尾换行文件会漏最后一行**（capacity-availability 漏网事件）。
+- **机械层两波修复**（`b96604a`、`c166f42`、`75fc7fe`）：ESM dirname 声明 ×15 文件、createTestPerson/createPerson 映射（调用方全在归档侧后移除）、TestDataFactory 占位 FK 改运行时解析、waitForPageReady 别名、`text=` 引擎逗号混入 CSS 选择器 ×22 处改 `.or(getByText()).first()`、reports tab 锚改 role=tab、findByTestData 补 .first()。
+- **战果抽样**：git-sync 全族 5 文件 85 测全绿；phase-manager 归档（ProjectDetail 已不渲染 phase 表，phases 迁至 roadmap——**e2e 覆盖缺口已记**）。
+
+**剩余（batch4 验证中）**：活侧约 40-50 败，分布在 crud/assignments(API 断言形状 ×3)、security/authentication(登录后断言)、core/data-tables(6, Projects 页旧表格标记)、core/navigation-links(7)、ui/modal-backgrounds(7, D13 配方待套用)、reports accuracy 系列 ~13。预计 1 个会话内清零后全量回归。
+
 ### 2026-09-24 第二轮发现（e2e webServer 迁移过程中）
 
 - **D9（P1）Projects 页 main 空渲染 → 已解决（当日）**：三层根因叠加——① `test-helpers.ts` navigateTo 硬编码 3120（测试流量一直打 dev 世界，helpers 扫描漏了 utils/ 目录）；② Projects 页已改造成 tab+div 网格界面（"真表格改造"），无 `<table>` 元素，断言过时；③ 修后确认页面渲染完美（"3 requirements · 2 AR" + 搜索 + 过滤），产品代码无辜。修复：navigateTo 改 baseURL 相对路径 + 断言改 tabpanel。**同族端口硬编码共 8 处一并清理**（utils/fixtures/suites/examples 全扫）。

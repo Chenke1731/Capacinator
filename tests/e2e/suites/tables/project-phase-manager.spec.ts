@@ -29,7 +29,7 @@ test.describe('Project Phase Manager Table', () => {
     await testHelpers.navigateTo(`/projects/${projectId}`);
     await authenticatedPage.waitForLoadState('networkidle', { timeout: 30000 });
     // Expand phases section
-    const phaseSection = authenticatedPage.locator('text=Project Phases, text=Phases & Timeline, text=Timeline');
+    const phaseSection = authenticatedPage.getByText('Project Phases').or(authenticatedPage.getByText('Phases & Timeline')).or(authenticatedPage.getByText('Timeline'));
     if (await phaseSection.isVisible()) {
       await phaseSection.click();
       await authenticatedPage.waitForLoadState("domcontentloaded", { timeout: 3000 }).catch(() => {});
@@ -108,8 +108,8 @@ test.describe('Project Phase Manager Table', () => {
       const modal = authenticatedPage.locator('[role="dialog"]');
       await expect(modal).toBeVisible();
       // Check for phase selection options
-      const standardPhaseOption = modal.locator('text=Standard Phase, text=Select from Templates');
-      const customPhaseOption = modal.locator('text=Custom Phase, text=Blank Custom');
+      const standardPhaseOption = modal.getByText('Standard Phase').or(modal.getByText('Select from Templates'));
+      const customPhaseOption = modal.getByText('Custom Phase').or(modal.getByText('Blank Custom'));
       if (await standardPhaseOption.isVisible()) {
         // Select standard phase flow
         await standardPhaseOption.click();
@@ -312,8 +312,8 @@ test.describe('Project Phase Manager Table', () => {
       const modal = authenticatedPage.locator('[role="dialog"]');
       await expect(modal).toBeVisible();
       // Look for resource allocation options
-      const copyResourcesOption = modal.locator('text=Copy Resource Allocation, text=Copy from Phase');
-      const blankAllocationOption = modal.locator('text=Blank Resource Allocation, text=No Resources');
+      const copyResourcesOption = modal.getByText('Copy Resource Allocation').or(modal.getByText('Copy from Phase'));
+      const blankAllocationOption = modal.getByText('Blank Resource Allocation').or(modal.getByText('No Resources'));
       const hasResourceOptions = 
         await copyResourcesOption.isVisible() ||
         await blankAllocationOption.isVisible();

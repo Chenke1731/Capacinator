@@ -54,6 +54,13 @@ export class TestHelpers {
   /**
    * Navigate to a specific page and wait for it to load
    */
+  // Legacy alias — older specs call waitForPageReady; maps onto the
+  // current wait sequence (React app mounted + page settled).
+  async waitForPageReady(timeout = 15000) {
+    await this.waitForReactApp();
+    await this.waitForPageLoad();
+  }
+
   async navigateTo(path: string) {
     // Relative paths resolve against the context baseURL (e2e frontend
     // 3122) — never hardcode a port here: the old hardcoded :3120 sent

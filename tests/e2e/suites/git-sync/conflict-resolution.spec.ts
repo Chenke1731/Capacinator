@@ -306,9 +306,7 @@ test.describe('Conflict Resolution', () => {
       await authenticatedPage.waitForLoadState('networkidle');
 
       // Look for progress indicator
-      const progressIndicator = authenticatedPage.locator(
-        '[data-testid="resolution-progress"], .conflicts-progress, text=/\\d+ of \\d+/'
-      );
+      const progressIndicator = authenticatedPage.locator('[data-testid="resolution-progress"], .conflicts-progress').or(authenticatedPage.getByText(/\d+ of \d+/));
 
       const hasProgress = await progressIndicator.count() > 0;
       console.log('Resolution progress indicator available:', hasProgress);

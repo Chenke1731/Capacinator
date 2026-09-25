@@ -137,7 +137,7 @@ test.describe('Gaps Analysis Report Accuracy', () => {
     authenticatedPage 
   }) => {
     // Check for recommendations section
-    const recommendations = authenticatedPage.locator('text=Recommendations, text=Actions, text=Suggested Actions');
+    const recommendations = authenticatedPage.getByText('Recommendations').or(authenticatedPage.getByText('Actions')).or(authenticatedPage.getByText('Suggested Actions'));
     if (await recommendations.isVisible()) {
       // Look for action items
       const actionButtons = authenticatedPage.locator('button:has-text("Hire"), button:has-text("Reallocate"), button:has-text("View People")');

@@ -25,17 +25,30 @@ export function enhancedErrorHandler(err: ErrorWithStatus, req: Request, res: Re
     isOperational
   };
 
-  // Log the error with appropriate level
+  // Log the error with appropriate level.
+  // SANITIZE FIRST (2026-09-26 harvest finding): raw error objects can carry
+  // req/socket references (circular) — passing them to the logger crashed the
+  // logger itself ("Converting circular structure to JSON"), masked the
+  // original error, and produced a broken 500 + double-send.
+  const isDevelopment = process.env.NODE_ENV === 'development';
+  const sanitizedError = {
+    name: err.name,
+    message: err.message,
+    stack: isDevelopment ? err.stack : undefined
+  };
   if (status >= 500) {
-    logger.error('Server Error', err, errorContext);
+    logger.error('Server Error', sanitizedError, errorContext);
   } else if (status >= 400) {
     logger.warn('Client Error', errorContext);
   } else {
     logger.info('Request Error', errorContext);
   }
 
-  // Send appropriate response
-  const isDevelopment = process.env.NODE_ENV === 'development';
+  // Send appropriate response — never double-send (the error may have fired
+  // after a response already started)
+  if (res.headersSent) {
+    return;
+  }
   const response: any = {
     error: getErrorMessage(err, status),
     requestId: (req as any).requestId

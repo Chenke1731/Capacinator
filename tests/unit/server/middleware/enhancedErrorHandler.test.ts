@@ -165,7 +165,13 @@ describe('Enhanced Error Handler Middleware', () => {
             error: 'Internal Server Error'
           })
         );
-        expect(mockLogger.error).toHaveBeenCalledWith('Server Error', error, expect.any(Object));
+        // Sanitized shape (2026-09-26): raw Error objects are never logged —
+        // they can carry circular req/socket refs that crash the logger
+        expect(mockLogger.error).toHaveBeenCalledWith(
+          'Server Error',
+          expect.objectContaining({ name: error.name, message: error.message }),
+          expect.any(Object)
+        );
       });
 
       it('should handle 502 Bad Gateway errors', () => {
@@ -376,7 +382,7 @@ describe('Enhanced Error Handler Middleware', () => {
 
         expect(mockLogger.error).toHaveBeenCalledWith(
           'Server Error',
-          error,
+          expect.objectContaining({ name: error.name, message: error.message }),
           expect.objectContaining({
             method: 'GET',
             url: '/api/test',
@@ -412,7 +418,7 @@ describe('Enhanced Error Handler Middleware', () => {
 
         expect(mockLogger.error).toHaveBeenCalledWith(
           'Server Error',
-          error,
+          expect.objectContaining({ name: error.name, message: error.message }),
           expect.objectContaining({
             userId: undefined
           })

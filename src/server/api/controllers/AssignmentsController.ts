@@ -421,9 +421,32 @@ export class AssignmentsController extends BaseController {
           )
           .where('project_assignments.id', id)
           .first();
-          
+
         if (assignment) {
           assignment.assignment_type = 'direct';
+        } else {
+          // Raw-id fallback (2026-09-26 harvest finding, mirrors the delete
+          // fallback from de9ad27): POST /api/assignments returns a bare
+          // scenario_project_assignments row id — without this fallback,
+          // GET by the create-returned id 404s (create→get contract break)
+          assignment = await this.db('scenario_project_assignments')
+            .join('projects', 'scenario_project_assignments.project_id', 'projects.id')
+            .join('people', 'scenario_project_assignments.person_id', 'people.id')
+            .join('roles', 'scenario_project_assignments.role_id', 'roles.id')
+            .join('scenarios', 'scenario_project_assignments.scenario_id', 'scenarios.id')
+            .select(
+              'scenario_project_assignments.*',
+              'projects.name as project_name',
+              'people.name as person_name',
+              'roles.name as role_name',
+              'scenarios.name as scenario_name'
+            )
+            .where('scenario_project_assignments.id', id)
+            .first();
+
+          if (assignment) {
+            assignment.assignment_type = 'scenario';
+          }
         }
       }
 

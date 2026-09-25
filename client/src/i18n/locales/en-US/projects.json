@@ -75,6 +75,7 @@
   "placeholder": {
     "enterName": "Enter project name",
     "selectProjectType": "Select project type",
+    "selectSubType": "Select sub-type",
     "selectLocation": "Select location",
     "selectPriority": "Select priority",
     "selectOwner": "Select project owner",
@@ -91,6 +92,7 @@
   "validation": {
     "nameRequired": "Project name is required",
     "typeRequired": "Project type is required",
+    "subTypeRequired": "Project sub-type is required",
     "locationRequired": "Location is required",
     "ownerRequired": "Project owner is required"
   },
@@ -106,6 +108,7 @@
     "ownersByExpertise": "Owners filtered by expertise in:"
   },
   "noTypesForLocation": "No project types available for selected location",
+  "noSubTypesForType": "No sub-types available for this project type",
   "noSuitableOwners": "No suitable owners found for selected criteria",
   "miniTable": {
     "emptyTitle": "No projects of this type yet",

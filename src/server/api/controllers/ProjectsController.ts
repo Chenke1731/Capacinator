@@ -673,7 +673,7 @@ export class ProjectsController extends BaseController {
       const tagIds: Array<number | string> = Array.isArray(projectData.tag_ids) ? projectData.tag_ids : [];
       const sanitizedData = { ...projectData };
       delete sanitizedData.tag_ids;
-      const nullableForeignKeys = ['owner_id', 'project_sub_type_id', 'current_phase_id'];
+      const nullableForeignKeys = ['owner_id', 'project_sub_type_id', 'current_phase_id', 'location_id'];
       
       nullableForeignKeys.forEach(field => {
         if (sanitizedData[field] === '') {
@@ -810,7 +810,7 @@ export class ProjectsController extends BaseController {
       }
 
       // Sanitize foreign key fields - convert empty strings to null
-      const nullableForeignKeys = ['owner_id', 'project_sub_type_id', 'current_phase_id'];
+      const nullableForeignKeys = ['owner_id', 'project_sub_type_id', 'current_phase_id', 'location_id'];
       
       nullableForeignKeys.forEach(field => {
         if (sanitizedData[field] === '') {

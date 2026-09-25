@@ -61,13 +61,13 @@ test('navigation: sidebar reaches dashboard/projects/people/assignments/reports'
 // ─────────────────────────────────────────────────────────────────────────────
 test('people: create → verify in table → delete', async ({ authenticatedPage, apiContext }) => {
   // kill-mutation: break the people API create (→ person never appears
-  // in the table, the table render pipeline itself is dead)
+  // in the table) or remove the row delete button (→ person cannot be
+  // removed, row persists after delete)
   // NOTE: PersonModal dialog submission is unreliable in e2e (form submits
   // but dialog doesn't close → row never confirmed). Product bug caught by
   // this test's earlier iterations, recorded in debt ledger. Creation goes
   // via API; verification and deletion are UI-driven.
   const personName = `Redline-Person-${Date.now()}`;
-  const roles = await (await apiContext.get('/api/roles')).json();
 
   const createRes = await apiContext.post('/api/people', {
     data: {
@@ -82,50 +82,50 @@ test('people: create → verify in table → delete', async ({ authenticatedPage
     },
   });
   expect(createRes.ok()).toBe(true);
-  const created = (await createRes.json()).data || await createRes.json();
 
-  try {
-    // Verify — data-level: the person name appears in the table
-    await authenticatedPage.goto('/people');
-    await authenticatedPage.waitForSelector('tbody tr', { timeout: 15000 });
-    const personRow = authenticatedPage.locator('tbody tr').filter({ hasText: personName });
-    await expect(personRow).toBeVisible({ timeout: 15000 });
+  // Verify — data-level: the person name appears in the table
+  await authenticatedPage.goto('/people');
+  await authenticatedPage.waitForSelector('tbody tr', { timeout: 15000 });
+  const personRow = authenticatedPage.locator('tbody tr').filter({ hasText: personName });
+  await expect(personRow).toBeVisible({ timeout: 15000 });
 
-    // Data-level: the row shows the person's email (not just the name)
-    const rowText = await personRow.textContent();
-    expect(rowText).toContain(`${personName.toLowerCase()}@test.com`);
-  } finally {
-    // Delete via API (People page has no per-row delete button — "reserved
-    // for future delete functionality" per People.tsx:88)
-    await apiContext.delete(`/api/people/${created.id}`).catch(() => {});
-  }
+  // Data-level: the row shows the person's email (not just the name)
+  const rowText = await personRow.textContent();
+  expect(rowText).toContain(`${personName.toLowerCase()}@test.com`);
+
+  // Delete via the UI (button added 2026-09-25 — was API-only, a recorded
+  // product debt). confirm() fires synchronously on click — accept first.
+  authenticatedPage.once('dialog', (dialog) => dialog.accept());
+  await personRow.locator('.delete-person-btn').click();
+  await expect(
+    authenticatedPage.locator('tbody tr').filter({ hasText: personName })
+  ).toHaveCount(0, { timeout: 10000 });
 });
 
 // ─────────────────────────────────────────────────────────────────────────────
 // 4. Project CRUD — create a project, verify field values, delete
 // ─────────────────────────────────────────────────────────────────────────────
 test('projects: create → verify in table → delete', async ({ authenticatedPage, apiContext }) => {
-  // kill-mutation: break the projects API create (→ project never appears
-  // in the table, the table render pipeline itself is dead)
-  // NOTE: /projects/new form lacks a sub_type field (API requires it —
-  // product bug caught by this test, recorded in debt ledger). Creation
-  // goes via API until the form is fixed; verification is UI-driven.
+  // kill-mutation: break the /projects/new form pipeline — payload build,
+  // sub-type pairing, or submit (→ no redirect, project never appears)
+  // The form gained its required sub_type select on 2026-09-25 (was a
+  // recorded product debt: API mandates the pair, form had no field —
+  // UI creation was impossible). Creation is now UI-driven end to end.
   const projectName = `Redline-Proj-${Date.now()}`;
 
-  // Create via API (form bug: no sub_type field on /projects/new)
-  const subTypes = await (await apiContext.get('/api/project-sub-types')).json();
-  const group = subTypes.data[0];
-  const createRes = await apiContext.post('/api/projects', {
-    data: {
-      name: projectName,
-      description: 'Red-line journey test project',
-      project_type_id: group.project_type_id,
-      project_sub_type_id: group.sub_types[0].id,
-      priority: 3,
-    },
-  });
-  expect(createRes.ok()).toBe(true);
-  const created = (await createRes.json()).data || await createRes.json();
+  await authenticatedPage.goto('/projects/new');
+  await authenticatedPage.waitForSelector('form', { timeout: 15000 });
+  await authenticatedPage.getByPlaceholder('Enter project name').fill(projectName);
+  // Native selects; index 1 = first real option past the placeholder
+  await authenticatedPage.locator('select[name="project_type_id"]').selectOption({ index: 1 });
+  await authenticatedPage.locator('select[name="project_sub_type_id"]').selectOption({ index: 1 });
+  await authenticatedPage.getByRole('button', { name: 'Create Project' }).click();
+
+  // Success navigates to the new project's detail page — the id from the
+  // URL is the delete contract's handle. (Negative lookahead: /projects/new
+  // itself would match a naive [^/]+ pattern.)
+  await authenticatedPage.waitForURL(/\/projects\/(?!new$)[^/]+$/, { timeout: 20000 });
+  const projectId = authenticatedPage.url().split('/').pop() || '';
 
   try {
     // Verify — data-level: the project name appears in the requirements table
@@ -136,7 +136,7 @@ test('projects: create → verify in table → delete', async ({ authenticatedPa
     ).toContainText(projectName, { timeout: 20000 });
   } finally {
     // Clean up
-    await apiContext.delete(`/api/projects/${created.id}`).catch(() => {});
+    await apiContext.delete(`/api/projects/${projectId}`).catch(() => {});
   }
 });
 

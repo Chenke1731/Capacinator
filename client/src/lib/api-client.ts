@@ -546,6 +546,11 @@ export const api = {
     updateHierarchy: (id: string, data: Record<string, unknown>) => apiClient.put<{ data: ProjectType }>(`/project-type-hierarchy/${id}/hierarchy`, data),
   },
 
+  // Grouped by project type: data: [{project_type_id, project_type_name, sub_types: [...]}]
+  projectSubTypes: {
+    list: () => apiClient.get<{ data: Array<{ project_type_id: string; project_type_name: string; sub_types: Array<{ id: string; name: string }> }> }>('/project-sub-types'),
+  },
+
   phases: {
     list: () => apiClient.get<PaginatedResponse<ProjectPhase>>('/phases'),
     get: (id: string) => apiClient.get<{ data: ProjectPhase }>(`/phases/${id}`),

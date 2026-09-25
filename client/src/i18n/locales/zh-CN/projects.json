@@ -75,6 +75,7 @@
   "placeholder": {
     "enterName": "请输入项目名称",
     "selectProjectType": "选择项目类型",
+    "selectSubType": "选择子类型",
     "selectLocation": "选择地点",
     "selectPriority": "选择优先级",
     "selectOwner": "选择项目负责人",
@@ -91,6 +92,7 @@
   "validation": {
     "nameRequired": "项目名称为必填项",
     "typeRequired": "项目类型为必填项",
+    "subTypeRequired": "项目子类型为必填项",
     "locationRequired": "地点为必填项",
     "ownerRequired": "项目负责人为必填项"
   },
@@ -106,6 +108,7 @@
     "ownersByExpertise": "按专长筛选负责人:"
   },
   "noTypesForLocation": "所选地点暂无可用的项目类型",
+  "noSubTypesForType": "该项目类型暂无可用子类型",
   "noSuitableOwners": "所选条件下未找到合适的负责人",
   "miniTable": {
     "emptyTitle": "此类型暂无项目",

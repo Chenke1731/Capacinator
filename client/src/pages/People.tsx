@@ -2,11 +2,12 @@ import { useState, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate, Link } from 'react-router-dom';
-import { Plus, Edit2, Eye, Users, UserPlus, TrendingUp, AlertTriangle, CheckCircle } from 'lucide-react';
+import { Plus, Edit2, Eye, Users, UserPlus, TrendingUp, AlertTriangle, CheckCircle, Trash2 } from 'lucide-react';
 import { api } from '../lib/api-client';
 import { queryKeys } from '../lib/queryKeys';
 import i18n from '../i18n';
 import { DataTable, Column } from '../components/ui/DataTable';
+import { Alert, AlertDescription } from '../components/ui/alert';
 import { FilterBar } from '../components/ui/FilterBar';
 import { LoadingSpinner } from '../components/ui/LoadingSpinner';
 import { ErrorMessage } from '../components/ui/ErrorMessage';
@@ -85,18 +86,28 @@ export default function People() {
     }
   });
 
-  // Delete person mutation (reserved for future delete functionality)
-   
+  // Delete person mutation — failure must stay visible: the server refuses
+  // deletion when the person still has scenario assignments (FK restrict);
+  // baseline assignments cascade away with the person
+  const [deleteError, setDeleteError] = useState<string | null>(null);
+
   const deletePersonMutation = useMutation({
     mutationFn: async (personId: string) => {
       await api.people.delete(personId);
     },
     onSuccess: () => {
+      setDeleteError(null);
       queryClient.invalidateQueries({ queryKey: queryKeys.people.all });
+    },
+    onError: (error: any) => {
+      setDeleteError(
+        error?.response?.data?.message ||
+        error?.message ||
+        t('people:deleteFailed')
+      );
     }
   });
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleDeletePerson = (personId: string, personName: string) => {
     if (confirm(t('people:deleteConfirmation', { name: personName }))) {
       deletePersonMutation.mutate(personId);
@@ -376,6 +387,18 @@ export default function People() {
               <Edit2 size={14} />
               {t('common:edit')}
             </button>
+            <button
+              className="btn btn-outline btn-sm quick-action-btn delete-person-btn"
+              onClick={(e) => {
+                e.stopPropagation();
+                handleDeletePerson(row.id, row.name);
+              }}
+              disabled={deletePersonMutation.isPending}
+              title={t('common:delete')}
+            >
+              <Trash2 size={14} />
+              {t('common:delete')}
+            </button>
           </div>
         );
       }
@@ -469,6 +492,24 @@ export default function People() {
         onChange={handleFilterChange}
         onReset={handleResetFilters}
       />
+
+      {/* Delete failure must stay visible (E pillar: 失败可见) — the server
+          refuses deletion while the person has scenario assignments */}
+      {deleteError && (
+        <Alert variant="destructive" role="alert" className="mb-3">
+          <AlertDescription className="flex items-center gap-2">
+            <span>{deleteError}</span>
+            <button
+              type="button"
+              className="btn btn-sm btn-outline"
+              onClick={() => setDeleteError(null)}
+              aria-label={t('common:close')}
+            >
+              {t('common:close')}
+            </button>
+          </AlertDescription>
+        </Alert>
+      )}
 
       <DataTable
         data={people || []}

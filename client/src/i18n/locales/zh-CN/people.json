@@ -14,7 +14,8 @@
   "fixErrorsBeforeSubmitting": "请先修正下方的错误再提交。",
   "failedToLoad": "人员加载失败",
   "createFailed": "创建人员失败。请检查输入后重试。",
-  "deleteConfirmation": "确定要删除“{{name}}”吗?此操作无法撤销。",
+  "deleteConfirmation": "确定要删除“{{name}}”吗？其名下的分配也会一并删除，且无法撤销。",
+  "deleteFailed": "删除人员失败",
   "searchPlaceholder": "搜索人员…",
   "basicInformation": "基本信息",
   "columns": {

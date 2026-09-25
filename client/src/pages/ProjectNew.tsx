@@ -10,6 +10,7 @@ import './PersonDetails.css'; // Reuse existing styles
 interface ProjectFormData {
   name: string;
   project_type_id: string;
+  project_sub_type_id: string;
   location_id: string;
   priority: number;
   description: string;
@@ -27,6 +28,7 @@ export function ProjectNew() {
   const [formData, setFormData] = useState<ProjectFormData>({
     name: '',
     project_type_id: '',
+    project_sub_type_id: '',
     location_id: '',
     priority: 3,
     description: '',
@@ -67,6 +69,23 @@ export function ProjectNew() {
     }
   });
 
+  // Fetch project sub-types (grouped by type) for the dependent dropdown —
+  // the API rejects project creation without a valid type↔sub-type pair
+  const { data: subTypeGroups } = useQuery({
+    queryKey: ['project-sub-types'],
+    queryFn: async () => {
+      const response = await api.projectSubTypes.list();
+      return response.data.data || [];
+    }
+  });
+
+  // Sub-types of the currently selected project type (pairing rule)
+  const availableSubTypes = useMemo(() => {
+    if (!subTypeGroups || !formData.project_type_id) return [];
+    const group = subTypeGroups.find((g: any) => g.project_type_id === formData.project_type_id);
+    return group?.sub_types || [];
+  }, [subTypeGroups, formData.project_type_id]);
+
 
   // Create project mutation
   const createProjectMutation = useMutation({
@@ -79,11 +98,14 @@ export function ProjectNew() {
         description: data.description || null,
         data_restrictions: data.data_restrictions || null
       });
-      return response.data;
+      // Unwrap the API envelope — navigating to `/projects/undefined`
+      // was a latent bug (never reachable while creation itself was broken)
+      const payload = response.data as any;
+      return payload?.data ?? payload;
     },
-    onSuccess: (data) => {
+    onSuccess: (project) => {
       queryClient.invalidateQueries({ queryKey: queryKeys.projects.all });
-      navigate(`/projects/${data.id}`);
+      navigate(`/projects/${project.id}`);
     },
     onError: (error: any) => {
       if (error.response?.data?.errors) {
@@ -99,6 +121,7 @@ export function ProjectNew() {
     const newErrors: Record<string, string> = {};
     if (!formData.name.trim()) newErrors.name = t('projects:validation.nameRequired');
     if (!formData.project_type_id) newErrors.project_type_id = t('projects:validation.typeRequired');
+    if (!formData.project_sub_type_id) newErrors.project_sub_type_id = t('projects:validation.subTypeRequired');
 
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
@@ -234,7 +257,11 @@ export function ProjectNew() {
                   <select
                     name="project_type_id"
                     value={formData.project_type_id}
-                    onChange={(e) => handleChange('project_type_id', e.target.value)}
+                    onChange={(e) => {
+                      handleChange('project_type_id', e.target.value);
+                      // pairing rule: sub-types belong to one type — reset on type change
+                      handleChange('project_sub_type_id', '');
+                    }}
                     className={`form-select ${errors.project_type_id ? 'error' : ''}`}
                   >
                     <option value="">{t('projects:placeholder.selectProjectType')}</option>
@@ -245,6 +272,26 @@ export function ProjectNew() {
                   {errors.project_type_id && <span className="error-text">{errors.project_type_id}</span>}
                   {formData.location_id && filteredProjectTypes.length === 0 && (
                     <span className="warning-text">{t('projects:noTypesForLocation')}</span>
+                  )}
+                </div>
+
+                <div className="info-item">
+                  <label>{t('projects:projectTypes.subType')} *</label>
+                  <select
+                    name="project_sub_type_id"
+                    value={formData.project_sub_type_id}
+                    onChange={(e) => handleChange('project_sub_type_id', e.target.value)}
+                    disabled={!formData.project_type_id}
+                    className={`form-select ${errors.project_sub_type_id ? 'error' : ''}`}
+                  >
+                    <option value="">{t('projects:placeholder.selectSubType')}</option>
+                    {availableSubTypes.map((subType: any) => (
+                      <option key={subType.id} value={subType.id}>{subType.name}</option>
+                    ))}
+                  </select>
+                  {errors.project_sub_type_id && <span className="error-text">{errors.project_sub_type_id}</span>}
+                  {formData.project_type_id && availableSubTypes.length === 0 && (
+                    <span className="warning-text">{t('projects:noSubTypesForType')}</span>
                   )}
                 </div>
 

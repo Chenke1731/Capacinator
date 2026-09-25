@@ -14,7 +14,8 @@
   "fixErrorsBeforeSubmitting": "Please fix the errors below before submitting.",
   "failedToLoad": "Failed to load people",
   "createFailed": "Failed to create person. Please check your inputs and try again.",
-  "deleteConfirmation": "Are you sure you want to delete \"{{name}}\"? This action cannot be undone.",
+  "deleteConfirmation": "Are you sure you want to delete \"{{name}}\"? Their assignments will be deleted too. This action cannot be undone.",
+  "deleteFailed": "Failed to delete person",
   "searchPlaceholder": "Search people...",
   "basicInformation": "Basic Information",
   "columns": {

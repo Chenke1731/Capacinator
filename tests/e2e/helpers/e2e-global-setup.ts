@@ -35,16 +35,33 @@ async function globalSetup(config: FullConfig): Promise<void> {
   console.log('✅ E2E backend healthy');
 
   // 2. Warm the frontend (cold-start compilation budget: 60s page load,
-  //    30s for either the login dialog or the main app to render).
+  //    30s for either the login dialog or the main app to render) AND log
+  //    in once — the storage state is saved to test-results/e2e-auth.json,
+  //    which the authenticatedPage fixture injects into every context,
+  //    skipping the interactive login (~3-5s saved per test).
   const browser = await chromium.launch({ headless: process.env.HEADED !== 'true' });
   try {
     const page = await browser.newPage({ baseURL });
     await page.goto('/', { waitUntil: 'domcontentloaded', timeout: 60_000 });
-    await Promise.race([
-      page.waitForSelector('text=Select Your Profile', { timeout: 30_000 }),
-      page.waitForSelector('.sidebar, nav', { timeout: 30_000 }),
-    ]);
-    console.log('✅ Frontend warm (login dialog or main app rendered)');
+    // Login if the profile dialog shows (state could persist from the page's
+    // own localStorage in dev — tests always start from a fresh context).
+    const loginVisible = await page.locator('#person-select').isVisible().catch(() => false)
+      || await page.waitForSelector('#person-select', { timeout: 5000 }).then(() => true).catch(() => false);
+
+    if (loginVisible) {
+      // Radix combobox select: open, pick the first person, Continue
+      await page.click('#person-select');
+      await page.locator('[role="option"]').first().click();
+      await page.locator('button:has-text("Continue")').click();
+      await page.waitForSelector('.sidebar, nav', { timeout: 30_000 });
+      console.log('✅ Logged in during global warmup');
+    } else {
+      await page.waitForSelector('.sidebar, nav', { timeout: 30_000 });
+      console.log('✅ Frontend warm (main app already rendered)');
+    }
+
+    await page.context().storageState({ path: 'test-results/e2e-auth.json' });
+    console.log('✅ Auth storage state saved for per-test reuse');
   } finally {
     await browser.close();
   }

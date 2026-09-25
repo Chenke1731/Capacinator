@@ -116,7 +116,7 @@ test.describe('Authentication and Authorization Security', () => {
       console.log('✅ User session established in localStorage');
       // Verify can access protected pages
       await testHelpers.navigateTo('/dashboard');
-      const dashboardVisible = await authenticatedPage.locator('h1:has-text("Dashboard"), h2:has-text("Dashboard"), [data-testid="dashboard"]').isVisible();
+      const dashboardVisible = await authenticatedPage.locator('h1:has-text("Dashboard"), h2:has-text("Dashboard"), [data-testid="dashboard"]').first().isVisible();
       expect(dashboardVisible).toBe(true);
       console.log('✅ Can access protected pages after authentication');
     });
@@ -127,7 +127,7 @@ test.describe('Authentication and Authorization Security', () => {
       console.log('🔒 Testing session persistence');
       // Navigate to dashboard
       await testHelpers.navigateTo('/dashboard');
-      const initiallyLoggedIn = await authenticatedPage.locator('h1:has-text("Dashboard"), h2:has-text("Dashboard"), [data-testid="dashboard"]').isVisible();
+      const initiallyLoggedIn = await authenticatedPage.locator('h1:has-text("Dashboard"), h2:has-text("Dashboard"), [data-testid="dashboard"]').first().isVisible();
       expect(initiallyLoggedIn).toBe(true);
       // Simulate browser reload
       await authenticatedPage.reload();
@@ -144,8 +144,9 @@ test.describe('Authentication and Authorization Security', () => {
       console.log('🔒 Testing logout functionality');
       // Navigate to a protected page
       await testHelpers.navigateTo('/dashboard');
-      // Look for logout button if available
-      const logoutButton = authenticatedPage.locator('button:has-text("Logout"), button:has-text("Sign out"), [data-testid="logout"]');
+      // Log out lives in the profile dropdown (header "E2E" button → Log Out)
+      await authenticatedPage.locator('.profile-dropdown-trigger').first().click();
+      const logoutButton = authenticatedPage.locator('button:has-text("Log Out")');
       if (await logoutButton.count() > 0) {
         await logoutButton.click();
         await authenticatedPage.waitForLoadState('networkidle', { timeout: 30000 });
@@ -260,7 +261,8 @@ test.describe('Authentication and Authorization Security', () => {
       // Make API request for test data
       const peopleResponse = await apiContext.get('/api/people');
       expect(peopleResponse.ok()).toBe(true);
-      const people = await peopleResponse.json();
+      const peopleBody = await peopleResponse.json();
+      const people = peopleBody.data || peopleBody; // envelope: {success, data}
       // Should include our test person
       const testPersonInResponse = people.some((p: any) => p.id === testData.people[0].id);
       expect(testPersonInResponse).toBe(true);

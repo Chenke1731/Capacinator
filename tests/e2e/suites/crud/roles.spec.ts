@@ -84,7 +84,8 @@ test.describe('Roles Management', () => {
       authenticatedPage
     }) => {
       // Check page header
-      await expect(authenticatedPage.locator('h1')).toContainText('Roles');
+      // /roles redirects to /people (roles list merged there)
+      await expect(authenticatedPage.locator('h1').first()).toContainText('People');
 
       // Should show data table or empty state
       const table = authenticatedPage.locator('table');

@@ -67,6 +67,12 @@ async function globalSetup(config: FullConfig) {
     // Verify application is ready
     await page.waitForSelector('.sidebar, nav', { timeout: 30000 });
     console.log('✅ Application is ready for testing');
+
+    // Persist the authenticated storage state — the authenticatedPage
+    // fixture loads it (test-results/e2e-auth.json), skipping the
+    // interactive login for every test (~3-5s each).
+    await page.context().storageState({ path: 'test-results/e2e-auth.json' });
+    console.log('✅ Auth state saved for test reuse');
     
     // Set up any global test data if needed
     await setupGlobalTestData(page, baseURL);

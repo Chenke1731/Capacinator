@@ -95,7 +95,7 @@ test.describe('Modal Background Consistency Tests', () => {
 
     test('Scenario Merge Modal - should have solid background', async ({ authenticatedPage }) => {
       // Look for merge button
-      const mergeButton = authenticatedPage.locator('button[title*="Merge"], .action-button.merge').first();
+      const mergeButton = authenticatedPage.locator('.action-button.merge:not(.disabled), button[title*="Merge"]:not([disabled])').first();
       if (await mergeButton.isVisible()) {
         await mergeButton.click();
         await checkModalBackground(authenticatedPage, '.merge-modal');
@@ -125,7 +125,7 @@ test.describe('Modal Background Consistency Tests', () => {
       await authenticatedPage.waitForSelector('.project-item, .project-card, tr[data-project-id]', { timeout: 10000 });
       
       // Click on first project
-      const projectItem = authenticatedPage.locator('.project-item, .project-card, tr[data-project-id]').first();
+      const projectItem = authenticatedPage.locator('.requirements-row').first();
       if (await projectItem.isVisible()) {
         await projectItem.click();
         
@@ -190,7 +190,7 @@ test.describe('Modal Background Consistency Tests', () => {
       await authenticatedPage.waitForSelector('.person-row, .person-card, tr[data-person-id]', { timeout: 10000 });
       
       // Click on first person
-      const personItem = authenticatedPage.locator('.person-row, .person-card, tr[data-person-id]').first();
+      const personItem = authenticatedPage.locator('tbody tr').first();
       if (await personItem.isVisible()) {
         await personItem.click();
         
@@ -247,9 +247,12 @@ test.describe('Modal Background Consistency Tests', () => {
       const exportButton = authenticatedPage.locator('button:has-text("Export"), button[title*="Export"]').first();
       if (await exportButton.isVisible()) {
         await exportButton.click();
-        await checkModalBackground(authenticatedPage, '[role="dialog"]');
-        
-        // Close modal
+        // Export opens a dropdown menu (csv/excel/json), not a dialog
+        const dropdown = authenticatedPage.locator('.dropdown-menu');
+        await expect(dropdown).toBeVisible({ timeout: 5000 });
+        await expect(dropdown.locator('button:has-text("Export as Excel")')).toBeVisible();
+
+        // Close dropdown
         await authenticatedPage.keyboard.press('Escape');
       }
     });

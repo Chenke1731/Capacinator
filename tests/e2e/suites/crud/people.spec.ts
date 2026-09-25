@@ -30,7 +30,7 @@ test.describe('People Management', () => {
       testHelpers 
     }) => {
       // Check page header
-      await expect(authenticatedPage.locator('h1')).toContainText('People');
+      await expect(authenticatedPage.locator('h1').first()).toContainText('People');
       // Should show data table or empty state
       const table = authenticatedPage.locator('table');
       const emptyState = authenticatedPage.locator('text=/no people|no data/i');
@@ -124,8 +124,8 @@ test.describe('People Management', () => {
       if (hasModal) {
         const personName = `${testContext.prefix}-New-Person`;
         const personEmail = `${testContext.prefix}-${Date.now()}@example.com`;
-        await authenticatedPage.fill('input[name="name"]', personName);
-        await authenticatedPage.fill('input[name="email"]', personEmail);
+        await authenticatedPage.fill('#name', personName);
+        await authenticatedPage.fill('#email', personEmail);
         // Select role using shadcn select if visible
         const roleSelect = authenticatedPage.locator('button[role="combobox"]').filter({ hasText: /role/i }).first();
         if (await roleSelect.isVisible()) {

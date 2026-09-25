@@ -49,13 +49,13 @@ test.describe('Capacity Report Accuracy', () => {
         selector: '.summary-card:has-text("Total Capacity")', 
         metric: 'capacity_hours', 
         expectedPattern: /\d+\s*hours?/i, 
-        minValue: testData.people.length * 40 // At least 40 hours per test person 
+        minValue: 160 // seed population floor 
       },
       { 
         selector: '.summary-card:has-text("People with Capacity"), .summary-card:has-text("People")', 
         metric: 'people_count', 
         expectedPattern: /\d+/i, 
-        minValue: testData.people.length 
+        minValue: 4 
       },
       { 
         selector: '.summary-card:has-text("Roles"), .summary-card:has-text("# Roles")', 

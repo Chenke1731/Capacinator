@@ -289,7 +289,10 @@ export default function People() {
       header: t('people:columns.availability'),
       sortable: true,
       render: (value) => (
-        <span className={getAvailabilityColor(value)}>
+        <span
+          className={getAvailabilityColor(value)}
+          title={`${value}% ${value >= 90 ? 'high' : value >= 70 ? 'medium' : 'low'} availability`}
+        >
           {value}%
         </span>
       )

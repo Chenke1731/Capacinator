@@ -48,8 +48,9 @@
 | 2 | transaction-safety 现代化 | API 驱动重写 4 败测（并发/回滚/完整性），修前提与信封 | ✅ 6/6 绿；顺带修 2 个真产品 bug（上表 #2/#3） |
 | 3 | scenario 系统性 helper | 修一处 setup 路径 → 预期 ~45 败一次性转绿或转可读 | ✅ 见下 |
 | 4 | 陈旧登录态 + created_by 加固 | 服务端 req.user.id 优先 + 测试登录锚定种子人 | ✅ 合并切片 3 完成 |
-| 5 | export-scenario hook + 选择器漂移 | 逐套件现代化 | 进行中：basic-operations 完成（11 败 → 8 过 + 1 条件跳过 + 2 跳过） |
-| 6 | 长尾 12×1 + flaky 3 | 逐个定性 | 待做 |
+| 5 | export-scenario hook + 选择器漂移 | 逐套件现代化 | ✅ 见下 |
+| 6 | import-export 自给自足化 | export-scenario + complex-import 重写（假绿揭出的存量债） | ✅ 见下；顺带修 3 个真产品 bug |
+| 7 | 长尾 12×1 + flaky 3 | 逐个定性 | 待做 |
 
 进度：摸底完成；切片 1-4 完成。
 
@@ -109,3 +110,29 @@ scenario 全量（12 文件，22.1m）：**109 过 / 28 败 / 4 跳过**——94
 **第四根因（本轮终极一环）**：`waitForScenariosToLoad` 的 `keyboard.press('F5')` 在 headless Chromium **是死动作**——不触发导航，"刷新重试"从未真正刷新，后续 networkidle 立即假满足。此前数月"正常"全靠共享库被泄漏行垫底（首轮计数即过，F5 从未执行）；清库后死循环烧满预算才暴露。修：`page.reload({ waitUntil: 'domcontentloaded' })`。同理：smoke 测试预算修剪（去掉冗余 networkidle 等待 + setTimeout 60s）。
 
 **验证**：六套件联跑 48/0 绿；全量 scenario 收集 134 过 / 22 败 / 4 跳过（18.3m）——**22 败全部落在 import-export 两套件**（export-scenario 13 + complex-import 9），系 13:33 验证跑踩泄漏数据的**假绿现形**（干净库下前提崩塌：虚构 testid、500KB 文件阈值、依赖库内已有第二个可选场景等）；所有已改套件在全量下 0 败。**新暴露的存量债 = 切片 5 遗留靶**（下一轮：import-export 自给自足化）。
+
+### 切片 6：import-export 自给自足化（2026-09-26 深夜，完成）
+
+两套件按真实产品契约整体重写（20 测保持，账本 160 不动），**挖出 3 个真产品 bug——Excel 导入功能自 sub-type 落地起全路径死亡**：
+
+**产品修复（src/server/services/import/ 两文件）**：
+1. **projects.project_sub_type_id NOT NULL 无默认**，V1/V2 importProjects 均不提供 → 项目行必炸全回滚。修：新增 `findOrCreateDefaultSubType`（类型默认 sub-type → 首个 sort → 自动建），两 importer 落位。
+2. **people.primary_role_id 列不存在**（实际为 `primary_person_role_id`，FK→person_roles join 行）。V1 直接写错列名；V2 三病：错列名 + person_roles 表无 created_at/updated_at 却插时间戳 + proficiency_level 传 TEXT('Intermediate') 而列是 INTEGER。修：两 importer 改走 person_roles 插入 + 回链 primary_person_role_id，proficiency 传 3、is_primary 1。
+3. **standard_allocations 表已更名 resource_templates**（migration 046），两 importer 仍写死旧表名 → allocations 数据行必炸。修：表名对齐（insert 列形状本就兼容）。
+
+**测试重写锚点（真契约）**：
+- export 走 `/import?tab=export`（bookmarkable tab 参数；import 是默认 tab——旧测试 13/13 全死在虚构 `data-testid="export-section"`）；选择器全改 aria-label/类名（导出按钮文本与卡片标题同文，text 定位器 strict-mode 必炸，改 `aria-label="Export selected scenario data as Excel file"`）；下载用 `waitForEvent('download')`；失败断言 OperationProgress 错误文案 + Retry 按钮（产品用进度面板，无 alert()）。
+- import 用 **V1 格式文件**（Projects + Rosters + Standard Allocations 三 sheet 缺一不可——缺 allocations 是 critical error）+ 显式取消勾选 "Use new template format"（默认勾选走 V2 importer，V2 只认 'Roster' 无 'Rosters' 别名）；成功文案是服务器消息 "Excel import completed successfully"（非 UI 字面量）；`imported.projects/people` 是本轮计数可精确断言，`roles/locations/projectTypes/phases` 是全表计数**不可精确断言**。
+- 断言分层：UI 文案（确定性锚）+ `waitForResponse` 捕获 API 状态码/错误体 + API 级数据核验（回滚完整性、持久化）。
+- 僵尸前提删除：Analyze 按钮、冲突分析面板、Import Anyway、取消导入、批次进度、Download Error Report、部分导入（V1 是 all-or-nothing 回滚）、2000 行 >500KB（ExcelJS 压缩后 ~150KB，物理错阈）。替代为真契约对应物：默认开启的 validateDuplicates 查重取消（按**名字**非邮箱，对 DB+文件内）、V2 格式不匹配拒绝、auto-create 引用实体、全量回滚、大文件预算（1000 行 <150s）。
+- 残留清扫：import 插入行不归 testContext 管，afterEach 按前缀 API 清 projects/people + 引用实体。
+
+**集成测试 schema 过期分叉（同病异灶）**：tests/integration/test-schema(-additions).sql 还停留在旧世界（people.primary_role_id、无 id 的 person_roles、resource_templates 缺 project_type_id）——**这正是 V2 importer bug 长期隐形的根源：单测对着虚构 schema 验证代码**。对齐：people/projects 补列（projects 的 sub_type 列测试库保 nullable 以兼容直接播种）、person_roles 对齐生产形状（INTEGER proficiency + 时间戳保 default 兼容两种插入）、sub_types 补 is_default/sort_order/description、FK 补 CASCADE、afterEach 清理列表补 project_sub_types/resource_templates（新表从未进列表 + catch 静默吞 FK 错——auto-create 残留挡住 delete project_types 连环污染）。
+
+**坑**：test-schema-additions.sql 按 `;` 切分执行——**注释里不能有分号**（带分号的注释会把 CREATE 语句切碎，SCHEMA ERR 只打 console 不 fail）。
+
+**验证**：两套件 20/20 绿（3.6m）；Jest 全量 4217 过 / 0 败（修前 2 败）；lint 0 错误。
+
+**遗留 B 级（未修记档）**：
+8. **客户端导入失败吞细节**（ImportUnified.tsx handleUpload catch）：400 响应的 errors 数组被丢，只保留 message——用户看不到具体哪行错。建议 catch 里取 `error.response?.data?.errors` 透传给 result.errors。
+9. **tags 对象只 6 键**（fixtures/index.ts），其余键全渲染 "undefined" 前缀污染标题——历史遗留，非本轮引入。

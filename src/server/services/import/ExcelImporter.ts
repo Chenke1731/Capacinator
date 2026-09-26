@@ -503,6 +503,35 @@ export class ExcelImporter {
     return projectType.id;
   }
 
+  /**
+   * projects.project_sub_type_id is NOT NULL with no default, but an import
+   * row only carries a project type. Fall back to the type's default
+   * sub-type, then the first by sort order, then auto-create one — otherwise
+   * every imported project row violated the constraint and rolled the whole
+   * import back.
+   */
+  private async findOrCreateDefaultSubType(projectTypeId: string, projectTypeName: string): Promise<string> {
+    let subType = await this.db('project_sub_types')
+      .where('project_type_id', projectTypeId)
+      .orderBy('is_default', 'desc')
+      .orderBy('sort_order', 'asc')
+      .first();
+
+    if (!subType) {
+      const [created] = await this.db('project_sub_types').insert({
+        project_type_id: projectTypeId,
+        name: `${projectTypeName} (default)`,
+        description: 'Auto-created by import: project type has no sub-types',
+        is_default: 1,
+        created_at: new Date(),
+        updated_at: new Date()
+      }).returning('*');
+      subType = created;
+    }
+
+    return subType.id;
+  }
+
   private async findOrCreateRole(name: string): Promise<string> {
     let role = await this.db('roles').where('name', name).first();
     
@@ -593,6 +622,7 @@ export class ExcelImporter {
         // Find or create referenced entities
         const locationId = await this.findOrCreateLocation(locationName);
         const projectTypeId = await this.findOrCreateProjectType(projectTypeName);
+        const projectSubTypeId = await this.findOrCreateDefaultSubType(projectTypeId, projectTypeName);
 
         // Find owner (if specified)
         let ownerId = null;
@@ -608,6 +638,7 @@ export class ExcelImporter {
           name: projectName,
           project_type_id: projectTypeId,
           location_id: locationId,
+          project_sub_type_id: projectSubTypeId,
           priority: parseInt(values[expectedColumns.priority]?.toString() || '3', 10) || 3,
           description: values[expectedColumns.description]?.toString() || '',
           include_in_demand: 1,
@@ -722,7 +753,7 @@ export class ExcelImporter {
         }
 
         // Find or create primary role
-        let primaryRoleId = null;
+        let primaryRoleId: string | null = null;
         if (primaryRoleName) {
           primaryRoleId = await this.findOrCreateRole(primaryRoleName);
         }
@@ -730,7 +761,6 @@ export class ExcelImporter {
         const personData = {
           name: personName,
           email: personEmail && personEmail.trim() ? personEmail : null,
-          primary_role_id: primaryRoleId,
           worker_type: values[expectedColumns.workerType]?.toString() || 'FTE',
           default_availability_percentage: validatedAvailability,
           default_hours_per_day: validatedHoursPerDay,
@@ -739,6 +769,21 @@ export class ExcelImporter {
         };
 
         const [insertedPerson] = await this.db('people').insert(personData).returning('*');
+
+        // Link the primary role through person_roles — people.primary_person_role_id
+        // FKs that join table, not the roles table. The old code wrote a
+        // non-existent primary_role_id column, so every V1 person insert
+        // failed and rolled the whole import back (schema drift, 2026-09-26).
+        if (primaryRoleId) {
+          const [personRole] = await this.db('person_roles').insert({
+            person_id: insertedPerson.id,
+            role_id: primaryRoleId,
+            is_primary: 1
+          }).returning('*');
+          await this.db('people')
+            .where('id', insertedPerson.id)
+            .update({ primary_person_role_id: personRole.id });
+        }
 
         // Handle supervisor relationship (will be processed in a second pass)
         const supervisorName = values[expectedColumns.supervisor]?.toString();
@@ -831,7 +876,10 @@ export class ExcelImporter {
           updated_at: new Date()
         };
 
-        await this.db('standard_allocations').insert(allocationData);
+        // Table was renamed to resource_templates (migration 046) — the old
+        // name made every allocations data row fail with "no such table"
+        // and roll the whole import back
+        await this.db('resource_templates').insert(allocationData);
         count++;
 
       } catch (error) {

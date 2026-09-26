@@ -33,6 +33,8 @@ describe('ExcelImporterV2 Integration Tests', () => {
       'person_availability_overrides',
       'supervisor_delegations',
       'standard_allocations',
+      'resource_templates',
+      'project_sub_types',
       'project_phases_timeline',
       'role_planners',
       'project_planners',

@@ -682,7 +682,6 @@ export class ExcelImporterV2 {
         await this.db('people').insert({
           id: personId,
           name: personName,
-          primary_role_id: roleId,
           worker_type: 'FTE',
           default_availability_percentage: defaultAvailability,
           default_hours_per_day: 8,
@@ -690,16 +689,23 @@ export class ExcelImporterV2 {
           updated_at: new Date()
         });
 
-        // Add person-role relationship
+        // Add person-role relationship. person_roles has no created_at column
+        // and people.primary_person_role_id FKs the join row (the old code
+        // wrote a non-existent primary_role_id column on people and
+        // timestamp columns that person_roles does not have — both inserts
+        // failed and rolled the whole V2 import back).
         if (roleId) {
+          const personRoleId = uuidv4();
           await this.db('person_roles').insert({
-            id: uuidv4(),
+            id: personRoleId,
             person_id: personId,
             role_id: roleId,
-            proficiency_level: 'Intermediate',
-            created_at: new Date(),
-            updated_at: new Date()
+            proficiency_level: 3,
+            is_primary: 1
           });
+          await this.db('people')
+            .where('id', personId)
+            .update({ primary_person_role_id: personRoleId });
         }
 
         // Import availability overrides for specific weeks
@@ -793,11 +799,34 @@ export class ExcelImporterV2 {
           continue;
         }
 
+        // projects.project_sub_type_id is NOT NULL with no default — the
+        // import row only carries a type, so resolve the type's default
+        // sub-type (then first by sort, then auto-create one). Same schema
+        // drift fixed in the V1 importer.
+        let projectSubTypeId = (await this.db('project_sub_types')
+          .where('project_type_id', projectTypeRecord.id)
+          .orderBy('is_default', 'desc')
+          .orderBy('sort_order', 'asc')
+          .first())?.id as string | undefined;
+        if (!projectSubTypeId) {
+          projectSubTypeId = uuidv4();
+          await this.db('project_sub_types').insert({
+            id: projectSubTypeId,
+            project_type_id: projectTypeRecord.id,
+            name: `${projectType} (default)`,
+            description: 'Auto-created by import: project type has no sub-types',
+            is_default: 1,
+            created_at: new Date(),
+            updated_at: new Date()
+          });
+        }
+
         const projectId = uuidv4();
         await this.db('projects').insert({
           id: projectId,
           name: projectName,
           project_type_id: projectTypeRecord.id,
+          project_sub_type_id: projectSubTypeId,
           location_id: locationId,
           priority: parseInt(priority || '3', 10) || 3,
           include_in_demand: includeInDemand === 'Y' ? 1 : 0,
@@ -1112,7 +1141,8 @@ export class ExcelImporterV2 {
             if (!isNaN(allocation) && allocation > 0) {
               const phaseId = this.phaseMap.get(phaseAbbrev);
               if (phaseId) {
-                await this.db('standard_allocations').insert({
+                // resource_templates since migration 046 (standard_allocations no longer exists)
+                await this.db('resource_templates').insert({
                   id: uuidv4(),
                   project_type_id: projectType.id,
                   phase_id: phaseId,

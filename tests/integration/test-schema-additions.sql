@@ -23,10 +23,13 @@ CREATE TABLE IF NOT EXISTS project_sub_types (
   id TEXT PRIMARY KEY,
   name TEXT NOT NULL,
   project_type_id TEXT NOT NULL,
+  description TEXT,
   is_active INTEGER DEFAULT 1,
+  is_default INTEGER DEFAULT 0,
+  sort_order INTEGER DEFAULT 0,
   created_at TEXT NOT NULL,
   updated_at TEXT NOT NULL,
-  FOREIGN KEY (project_type_id) REFERENCES project_types(id)
+  FOREIGN KEY (project_type_id) REFERENCES project_types(id) ON DELETE CASCADE
 );
 
 -- User permissions table
@@ -128,21 +131,31 @@ ALTER TABLE people ADD COLUMN password TEXT;
 ALTER TABLE people ADD COLUMN location_id TEXT;
 
 -- Person roles table - drop and recreate to add id and timestamps
+-- (no semicolons in comments: setup splits this file on semicolons)
+-- proficiency_level is an INTEGER in production, and created_at/updated_at
+-- keep defaults so both explicit-timestamp inserts (gaps-analysis) and
+-- importer inserts (which omit them) work
 DROP TABLE IF EXISTS person_roles;
 CREATE TABLE person_roles (
   id TEXT PRIMARY KEY,
   person_id TEXT NOT NULL,
   role_id TEXT NOT NULL,
-  proficiency_level TEXT DEFAULT 'Intermediate',
+  proficiency_level INTEGER NOT NULL DEFAULT 3,
   is_primary INTEGER DEFAULT 0,
-  created_at TEXT NOT NULL,
-  updated_at TEXT NOT NULL,
+  created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (person_id) REFERENCES people(id),
   FOREIGN KEY (role_id) REFERENCES roles(id)
 );
 
 -- Add is_active column to people table
 ALTER TABLE people ADD COLUMN is_active INTEGER DEFAULT 1;
+
+-- Align with production schema drift (2026-09-26): people link their primary
+-- role through the person_roles join row, and projects require a sub-type
+-- (kept nullable here, unlike production, so direct project seeds keep working)
+ALTER TABLE people ADD COLUMN primary_person_role_id TEXT;
+ALTER TABLE projects ADD COLUMN project_sub_type_id TEXT;
 
 -- Create person_availability_view
 CREATE VIEW IF NOT EXISTS person_availability_view AS
@@ -317,15 +330,17 @@ CREATE INDEX IF NOT EXISTS idx_phase_dependencies_successor ON project_phase_dep
 -- Add resource_templates table needed for views
 CREATE TABLE IF NOT EXISTS resource_templates (
   id TEXT PRIMARY KEY,
+  project_type_id TEXT NOT NULL,
   project_sub_type_id TEXT,
   phase_id TEXT,
   role_id TEXT NOT NULL,
   allocation_percentage REAL NOT NULL DEFAULT 100,
   created_at TEXT NOT NULL,
   updated_at TEXT NOT NULL,
-  FOREIGN KEY (project_sub_type_id) REFERENCES project_sub_types(id),
-  FOREIGN KEY (phase_id) REFERENCES project_phases(id),
-  FOREIGN KEY (role_id) REFERENCES roles(id)
+  FOREIGN KEY (project_type_id) REFERENCES project_types(id) ON DELETE CASCADE,
+  FOREIGN KEY (project_sub_type_id) REFERENCES project_sub_types(id) ON DELETE CASCADE,
+  FOREIGN KEY (phase_id) REFERENCES project_phases(id) ON DELETE CASCADE,
+  FOREIGN KEY (role_id) REFERENCES roles(id) ON DELETE CASCADE
 );
 
 -- Add person_availability_overrides table

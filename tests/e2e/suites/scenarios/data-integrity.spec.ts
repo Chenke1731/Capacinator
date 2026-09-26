@@ -25,22 +25,30 @@ test.describe('Scenario Data Integrity', () => {
       testPrefix: uniquePrefix
     });
     
-    // Get user ID
+    // Resolve the scenario creator PER TEST (2026-09-26 slice 5): the old
+    // flow queried /api/profile (does not exist — always 404) and then only
+    // created a person when userId was falsy. Since userId persisted at
+    // describe scope, the FIRST test's person was deleted by its afterEach
+    // and every later create silently used the dead FK (server log showed
+    // "FOREIGN KEY constraint failed" on created_by). Anchor to a seed
+    // person (person-e2e-*), which lives for the whole run.
     try {
-      const profileResponse = await apiContext.get('/api/profile');
-      if (profileResponse.ok()) {
-        const profile = await profileResponse.json();
-        userId = profile.person?.id || '';
-      }
+      const peopleResponse = await apiContext.get('/api/people');
+      const peopleBody = await peopleResponse.json();
+      const people = peopleBody.data || peopleBody;
+      userId =
+        people?.find((p: any) => String(p.id).startsWith('person-e2e-'))?.id
+        || people?.[0]?.id
+        || '';
     } catch (error) {
-      console.log('Could not get profile:', error);
+      console.error('Error resolving creator:', error);
     }
-    
+
     if (!userId) {
       const testUser = await testDataHelpers.createTestUser(testContext);
       userId = testUser.id;
     }
-    
+
     await testHelpers.navigateTo('/scenarios');
     await testHelpers.waitForPageContent();
   });
@@ -50,13 +58,14 @@ test.describe('Scenario Data Integrity', () => {
     await testDataHelpers.cleanupTestContext(testContext);
   });
   test.describe('Concurrent Operations', () => {
-    test(`${tags.critical} should handle concurrent scenario edits`, async ({ 
-      browser, 
-      authenticatedPage, 
-      context,
-      apiContext 
+    test(`${tags.critical} should handle concurrent scenario edits`, async ({
+      apiContext
     }) => {
-      // Create a scenario to test with
+      // 2026-09-26 (slice 5): the old two-tab version asserted a conflict
+      // warning that does not exist — PUT /api/scenarios/:id has no version
+      // check; the product's actual concurrency contract is last-write-wins.
+      // Assert that contract at the API level: two sequential edits from
+      // "different sessions" both succeed, final state is the later write.
       const scenarioData = {
         name: `${testContext.prefix}-Concurrent-Test`,
         description: 'Original description',
@@ -70,46 +79,26 @@ test.describe('Scenario Data Integrity', () => {
         testContext.createdIds.scenarios = testContext.createdIds.scenarios || [];
         testContext.createdIds.scenarios.push(testScenario.id);
       }
-      // Reload page to see new scenario
-      await authenticatedPage.reload();
-      // Navigate to the scenario - first wait for it to appear
-      await scenarioUtils.waitForScenariosToLoad();
-      const scenarioRow = await scenarioUtils.getScenarioRow(testScenario.name);
-      
-      // Click on the scenario to view details (if there's a link/button)
-      const nameLink = scenarioRow.locator('.scenario-name, .name, a').first();
-      if (await nameLink.isVisible()) {
-        await nameLink.click();
-      } else {
-        // If no link, try edit button
-        const editButton = scenarioUtils.getActionButton(scenarioRow, 'edit');
-        await editButton.click();
-      }
-      
-      const scenarioUrl = authenticatedPage.url();
-      // Open second browser tab
-      const page2 = await context.newPage();
-      await page2.goto(scenarioUrl);
-      // Edit in first tab - check if we're in modal or need to open it
-      let editModal1 = authenticatedPage.locator('[role="dialog"], .modal');
-      if (!await editModal1.isVisible()) {
-        await authenticatedPage.click('button:has-text("Edit")');
-        editModal1 = authenticatedPage.locator('[role="dialog"], .modal');
-      }
-      await editModal1.locator('textarea[name="description"], #description').clear();
-      await editModal1.locator('textarea[name="description"], #description').fill('Edit from tab 1');
-      // Edit in second tab
-      await page2.click('button:has-text("Edit")');
-      const editModal2 = page2.locator('[role="dialog"], .modal');
-      await editModal2.locator('textarea[name="description"], #description').clear();
-      await editModal2.locator('textarea[name="description"], #description').fill('Edit from tab 2');
-      // Save first edit
-      await editModal1.locator('button:has-text("Save")').click();
-      // Try to save second edit
-      await editModal2.locator('button:has-text("Save")').click();
-      // Should show conflict warning
-      await expect(page2.locator('.error-message, .conflict-warning')).toContainText(/conflict|changed|updated/i);
-      await page2.close();
+
+      // "Session 1" saves its description
+      const put1 = await apiContext.put(`/api/scenarios/${testScenario.id}`, {
+        data: { description: 'Edit from tab 1' }
+      });
+      expect(put1.ok()).toBeTruthy();
+
+      // "Session 2" — unaware of session 1's write — saves its own
+      const put2 = await apiContext.put(`/api/scenarios/${testScenario.id}`, {
+        data: { description: 'Edit from tab 2' }
+      });
+      expect(put2.ok()).toBeTruthy();
+
+      // Last write wins; no partial/corrupt state
+      const getResponse = await apiContext.get(`/api/scenarios/${testScenario.id}`);
+      expect(getResponse.ok()).toBeTruthy();
+      const body = await getResponse.json();
+      const finalScenario = body?.data ?? body;
+      expect(finalScenario.description).toBe('Edit from tab 2');
+      expect(finalScenario.name).toBe(scenarioData.name);
     });
     test('should lock scenario during bulk operations', async ({ 
       authenticatedPage,
@@ -174,11 +163,13 @@ test.describe('Scenario Data Integrity', () => {
       testDataHelpers,
       apiContext 
     }) => {
-      // Create parent scenario
+      // Create parent scenario — sandbox, never 'baseline': the server
+      // refuses to delete baselines so they leak forever and crowd the
+      // seed row out of the tree's displayLimit(10).
       const parentData = {
         name: `${testContext.prefix}-Parent`,
         description: 'Parent scenario for hierarchy test',
-        scenario_type: 'baseline',
+        scenario_type: 'sandbox',
         status: 'active',
         created_by: userId
       };
@@ -224,115 +215,115 @@ test.describe('Scenario Data Integrity', () => {
         }
       }
     });
-    test('should handle merge conflicts in branched scenarios', async ({ 
+    test('should handle merge conflicts in branched scenarios', async ({
       authenticatedPage,
       testDataHelpers,
-      apiContext 
+      apiContext
     }) => {
-      // Create base scenario
-      const baseData = {
-        name: `${testContext.prefix}-Base`,
-        description: 'Base scenario for branching',
-        scenario_type: 'baseline',
-        status: 'active',
-        created_by: userId
-      };
-      const baseResponse = await apiContext.post('/api/scenarios', { data: baseData });
-      const baseScenario = await baseResponse.json();
-      if (baseScenario.id) {
+      // 2026-09-26 (slice 5) rewrite: drive setup through the API (branch of
+      // the seed baseline + one divergent assignment), then exercise the
+      // REAL merge entry point — the row's .action-button.merge (enabled
+      // for an active branch that has a parent).
+      const scenariosBody = await (await apiContext.get('/api/scenarios')).json();
+      const scenarioList = scenariosBody?.data || scenariosBody || [];
+      // Match by NAME — leaked test baselines from sibling suites must
+      // never be picked as the branch parent.
+      const seedBaseline = (Array.isArray(scenarioList) ? scenarioList : [])
+        .find((s: any) => s.scenario_type === 'baseline' && s.name === 'Baseline');
+      expect(seedBaseline, 'seed baseline scenario missing').toBeTruthy();
+
+      const branchName = `${testContext.prefix}-Merge-Branch`;
+      const branchRes = await apiContext.post('/api/scenarios', {
+        data: {
+          name: branchName,
+          scenario_type: 'branch',
+          status: 'active',
+          parent_scenario_id: seedBaseline.id,
+          created_by: userId
+        }
+      });
+      expect(branchRes.ok(), `branch create failed: ${branchRes.status()}`).toBeTruthy();
+      const branchScenario = await branchRes.json();
+      if (branchScenario.id) {
         testContext.createdIds.scenarios = testContext.createdIds.scenarios || [];
-        testContext.createdIds.scenarios.push(baseScenario.id);
+        testContext.createdIds.scenarios.push(branchScenario.id);
       }
-      // Reload and navigate to base scenario
+
+      // Diverge the branch from its parent so a merge has a real change
+      // set to reason about (same recipe as scenario-comparison.spec.ts).
+      const peopleBody = await (await apiContext.get('/api/people')).json();
+      const people = peopleBody?.data || peopleBody;
+      const projectsBody = await (await apiContext.get('/api/projects')).json();
+      const projectId = (projectsBody?.data || [])[0]?.id;
+      const rolesBody = await (await apiContext.get('/api/roles')).json();
+      const roleId = (rolesBody?.data || [])[0]?.id;
+      const assignmentsBody = await (await apiContext.get('/api/assignments')).json();
+      const assignmentList = assignmentsBody?.data || [];
+      const busyPeople = new Set(
+        assignmentList.filter((a: any) => a.project_id === projectId).map((a: any) => a.person_id)
+      );
+      const freePerson = (people || []).find((p: any) => !busyPeople.has(p.id));
+      if (projectId && freePerson && roleId) {
+        const addRes = await apiContext.post(`/api/scenarios/${branchScenario.id}/assignments`, {
+          data: {
+            project_id: projectId,
+            person_id: freePerson.id,
+            role_id: roleId,
+            allocation_percentage: 25,
+            assignment_date_mode: 'fixed',
+            start_date: '2026-09-01',
+            end_date: '2026-09-30',
+            change_type: 'added'
+          }
+        });
+        expect(addRes.ok(), `assignment upsert failed: ${addRes.status()}`).toBeTruthy();
+      }
+
+      // Reload and open the merge modal from the branch row
       await authenticatedPage.reload();
       await scenarioUtils.waitForScenariosToLoad();
-      
-      const baseRow = await scenarioUtils.getScenarioRow(baseScenario.name);
-      
-      // Check if branching is supported - look for branch button in row
-      const branchButton = scenarioUtils.getActionButton(baseRow, 'branch');
-      if (await branchButton.isVisible()) {
-        // Create branch 1
-        await branchButton.click();
-        let modal = authenticatedPage.locator('[role="dialog"]');
-        const branch1Name = `${testContext.prefix}-Branch-1`;
-        await modal.locator('input[name="branch_name"], input[name="name"]').fill(branch1Name);
-        await modal.locator('button:has-text("Create")').click();
-        // Go back and create branch 2 from base
-        await authenticatedPage.goto('/scenarios');
-        await baseRow.click();
-        await branchButton.click();
-        modal = authenticatedPage.locator('[role="dialog"]');
-        const branch2Name = `${testContext.prefix}-Branch-2`;
-        await modal.locator('input[name="branch_name"], input[name="name"]').fill(branch2Name);
-        await modal.locator('button:has-text("Create")').click();
-        // Try to merge branches (if merge feature exists)
-        await authenticatedPage.goto('/scenarios');
-        const branch1Card = await testDataHelpers.findByTestData(
-          '.scenario-card',
-          branch1Name
-        );
-        await branch1Card.click();
-        const mergeButton = authenticatedPage.locator('button:has-text("Merge")');
-        if (await mergeButton.count() > 0) {
-          await mergeButton.click();
-          // Should show merge dialog with conflict detection
-          modal = authenticatedPage.locator('[role="dialog"]');
-          await expect(modal).toContainText(/merge|conflicts/i);
-        }
-      }
+      const branchRow = await scenarioUtils.getScenarioRow(branchName);
+      const mergeButton = branchRow.locator('.action-button.merge:not(.disabled)');
+      await expect(mergeButton).toBeVisible();
+      await mergeButton.click();
+
+      // Merge modal presents its flow/options/confirmation regions
+      const dialog = authenticatedPage.locator('[role="dialog"]');
+      await expect(dialog).toBeVisible();
+      await expect(dialog.locator('[aria-labelledby="merge-flow-heading"]')).toBeVisible();
     });
   });
   test.describe('Data Validation', () => {
-    test('should validate scenario data on save', async ({ 
-      authenticatedPage 
-    }) => {
+    test('should validate scenario data on save', async ({ authenticatedPage }) => {
+      // 2026-09-26 (slice 5): ScenarioModal has no date fields and its real
+      // validation is client-side gating — the submit button stays disabled
+      // until the name is non-empty (required + disabled={!name.trim()}).
       await authenticatedPage.click('button:has-text("New Scenario"), button:has-text("Create Scenario")');
       const modal = authenticatedPage.locator('[role="dialog"], .modal');
-      // Test invalid date ranges
-      const testName = `${testContext.prefix}-Date-Validation`;
-      await modal.locator('input[name="name"], input[name="scenario_name"]').fill(testName);
-      const startDateInput = modal.locator('input[name="start_date"], input[type="date"]').first();
-      const endDateInput = modal.locator('input[name="end_date"], input[type="date"]').last();
-      if (await startDateInput.count() > 0 && await endDateInput.count() > 0) {
-        await startDateInput.fill('2024-12-31');
-        await endDateInput.fill('2024-01-01');
-        await modal.locator('button:has-text("Create")').click();
-        // Should show validation error
-        await expect(modal.locator('.error-message, .invalid-feedback')).toContainText(/date|invalid|before/i);
-      } else {
-        // Skip if date fields don't exist
-        await modal.locator('button:has-text("Cancel")').click();
-      }
+      await expect(modal).toBeVisible();
+      const nameInput = modal.getByPlaceholder('Enter scenario name');
+      const submit = modal.locator('button:has-text("Create"), button:has-text("Save")');
+
+      // Empty name → submit disabled (the required-name contract)
+      await expect(submit).toBeDisabled();
+
+      // Whitespace-only name is still invalid
+      await nameInput.fill('   ');
+      await expect(submit).toBeDisabled();
+
+      // Real name unlocks it
+      await nameInput.fill(`${testContext.prefix}-Valid-Name`);
+      await expect(submit).toBeEnabled();
+
+      await modal.locator('button:has-text("Cancel"), button:has-text("Close")').first().click();
+      await expect(modal).not.toBeVisible();
     });
-    test('should enforce unique scenario names within context', async ({ 
-      authenticatedPage,
-      apiContext 
-    }) => {
-      // Create first scenario
-      const uniqueName = `${testContext.prefix}-Unique-Name`;
-      const scenarioData = {
-        name: uniqueName,
-        description: 'First scenario with this name',
-        scenario_type: 'branch',
-        status: 'draft',
-        created_by: userId
-      };
-      const response = await apiContext.post('/api/scenarios', { data: scenarioData });
-      const firstScenario = await response.json();
-      if (firstScenario.id) {
-        testContext.createdIds.scenarios = testContext.createdIds.scenarios || [];
-        testContext.createdIds.scenarios.push(firstScenario.id);
-      }
-      // Try to create another with same name through UI
-      await authenticatedPage.click('button:has-text("New Scenario"), button:has-text("Create Scenario")');
-      const modal = authenticatedPage.locator('[role="dialog"], .modal');
-      await modal.locator('input[name="name"], #name').fill(uniqueName);
-      await modal.locator('button:has-text("Create"), button:has-text("Save")').click();
-      // Should show error
-      await expect(modal.locator('.error-message, .invalid-feedback')).toContainText(/exists|duplicate|unique/i);
-    });
-    test('should validate numeric constraints', async ({ 
+    // 'should enforce unique scenario names within context' removed
+    // 2026-09-26 (slice 5): neither the API nor the UI enforces name
+    // uniqueness for scenarios (no UNIQUE constraint, no controller check)
+    // — the assertion tested invented behavior. Duplicate-name guard is
+    // recorded in the harvest ledger as a B-level product candidate.
+    test('should validate numeric constraints', async ({
       authenticatedPage,
       testDataHelpers,
       apiContext 
@@ -373,158 +364,25 @@ test.describe('Scenario Data Integrity', () => {
       }
     });
   });
-  test.describe('Transaction Integrity', () => {
-    test('should rollback failed bulk operations', async ({ 
-      authenticatedPage,
-      testDataHelpers,
-      apiContext 
-    }) => {
-      // Create scenarios for testing
-      const transactionScenarios = [];
-      for (let i = 1; i <= 3; i++) {
-        const scenarioData = {
-          name: `${testContext.prefix}-Transaction-${i}`,
-          description: `Transaction test scenario ${i}`,
-          scenario_type: 'branch',
-          status: 'draft',
-          created_by: userId
-        };
-        const response = await apiContext.post('/api/scenarios', { data: scenarioData });
-        const scenario = await response.json();
-        if (scenario.id) {
-          transactionScenarios.push(scenario);
-          testContext.createdIds.scenarios = testContext.createdIds.scenarios || [];
-          testContext.createdIds.scenarios.push(scenario.id);
-        }
-      }
-      // Reload page
-      await authenticatedPage.reload();
-      await scenarioUtils.waitForScenariosToLoad();
-      // Make one scenario read-only (simulate locked state)
-      await authenticatedPage.evaluate((prefix) => {
-        const cards = document.querySelectorAll('.scenario-card');
-        for (const card of cards) {
-          if (card.textContent?.includes(`${prefix}-Transaction-3`)) {
-            card.setAttribute('data-locked', 'true');
-            break;
-          }
-        }
-      }, testContext.prefix);
-      // Try bulk delete including locked scenario
-      await authenticatedPage.click('button:has-text("Select")');
-      for (const scenario of transactionScenarios) {
-        const scenarioCard = await testDataHelpers.findByTestData(
-          '.scenario-card',
-          scenario.name
-        );
-        const checkbox = scenarioCard.locator('input[type="checkbox"]');
-        await checkbox.check();
-      }
-      await authenticatedPage.click('.bulk-actions-toolbar button:has-text("Delete")');
-      await authenticatedPage.locator('button:has-text("Delete"), button:has-text("Confirm")').last().click();
-      // Operation should fail if transaction integrity is enforced
-      const errorMessage = authenticatedPage.locator('.error-message, .toast-error');
-      if (await errorMessage.count() > 0) {
-        await expect(errorMessage.first()).toBeVisible();
-        // Verify all scenarios still exist
-        for (const scenario of transactionScenarios) {
-          const card = await testDataHelpers.findByTestData(
-            '.scenario-card',
-            scenario.name
-          );
-          await expect(card).toBeVisible();
-        }
-      }
-    });
-  });
-  test.describe('Version Control', () => {
-    test('should track scenario version history', async ({ 
-      authenticatedPage,
-      testDataHelpers,
-      apiContext 
-    }) => {
-      // Create scenario for version testing
-      const versionData = {
-        name: `${testContext.prefix}-Version-Test`,
-        description: 'Version 1 description',
-        scenario_type: 'baseline',
-        status: 'active',
-        created_by: userId
-      };
-      const response = await apiContext.post('/api/scenarios', { data: versionData });
-      const versionScenario = await response.json();
-      if (versionScenario.id) {
-        testContext.createdIds.scenarios = testContext.createdIds.scenarios || [];
-        testContext.createdIds.scenarios.push(versionScenario.id);
-      }
-      // Reload and navigate to scenario
-      await authenticatedPage.reload();
-      const scenarioCard = await testDataHelpers.findByTestData(
-        '.scenario-card',
-        versionScenario.name
-      );
-      await scenarioCard.click();
-      // Make edit to create version 2
-      await authenticatedPage.click('button:has-text("Edit")');
-      const modal = authenticatedPage.locator('[role="dialog"]');
-      await modal.locator('textarea[name="description"]').clear();
-      await modal.locator('textarea[name="description"]').fill('Version 2 description');
-      const saveResponse = authenticatedPage.waitForResponse(response => 
-        response.url().includes(`/api/scenarios/${versionScenario.id}`) && 
-        (response.request().method() === 'PUT' || response.request().method() === 'PATCH')
-      );
-      await modal.locator('button:has-text("Save")').click();
-      await saveResponse;
-      // Check version history if available
-      const historyButton = authenticatedPage.locator('button:has-text("History"), button:has-text("Versions")');
-      if (await historyButton.count() > 0) {
-        await historyButton.click();
-        // Should show version entries
-        const versionEntries = authenticatedPage.locator('.version-entry, .history-item');
-        await expect(versionEntries).toHaveCount(2, { timeout: 5000 });
-        await expect(versionEntries.first()).toContainText(/Version 2|description/i);
-      }
-    });
-    test('should allow reverting to previous versions', async ({ 
-      authenticatedPage,
-      testDataHelpers 
-    }) => {
-      // Use first available scenario with history
-      if (testScenarios.length > 0) {
-        const scenario = testScenarios[0];
-        const scenarioCard = await testDataHelpers.findByTestData(
-          '.scenario-card',
-          scenario.name
-        );
-        await scenarioCard.click();
-        const historyButton = authenticatedPage.locator('button:has-text("History"), button:has-text("Versions")');
-        if (await historyButton.count() > 0) {
-          await historyButton.click();
-          const versionEntries = authenticatedPage.locator('.version-entry, .history-item');
-          if (await versionEntries.count() > 1) {
-            // Revert to previous version
-            const revertButton = versionEntries.last().locator('button:has-text("Revert"), button:has-text("Restore")');
-            if (await revertButton.count() > 0) {
-              await revertButton.click();
-              await authenticatedPage.locator('button:has-text("Confirm")').click();
-              // Verify reversion
-              await expect(authenticatedPage.locator('.toast, .notification')).toContainText(/revert|restored/i);
-            }
-          }
-        }
-      }
-    });
-  });
+  // 'should rollback failed bulk operations' removed 2026-09-26 (slice 5):
+  // the Scenarios page has no bulk-selection UI and the "lock" was a DOM
+  // attribute painted by the test itself — no server-side behavior existed.
+  // Real rollback semantics are covered API-side by transaction-safety.spec.ts.
+  //
+  // 'Version Control' describe removed 2026-09-26 (slice 5): the product has
+  // no scenario version/history UI (audit logs exist server-side only), and
+  // the edit-then-PUT flow it half-drove is covered by basic-operations'
+  // 'should edit scenario properties'.
   test.describe('Data Consistency', () => {
-    test(`${tags.api} should maintain referential integrity`, async ({ 
-      authenticatedPage, 
-      apiContext,
-      testDataHelpers
+    test('should maintain referential integrity', async ({
+      authenticatedPage,
+      apiContext
     }) => {
-      // Create parent scenario via API
+      // Create parent scenario via API (a non-baseline parent so baseline
+      // deletion protection doesn't mask the child-reference check)
       const parentData = {
         name: `${testContext.prefix}-API-Parent`,
-        scenario_type: 'baseline',
+        scenario_type: 'sandbox',
         status: 'active',
         created_by: userId
       };
@@ -547,41 +405,44 @@ test.describe('Scenario Data Integrity', () => {
         const childId = childScenario.id || childScenario.data?.id;
         if (childId) {
           testContext.createdIds.scenarios.push(childId);
-          // Try to delete parent (should fail due to child reference)
+          // Try to delete parent — blocked ("Cannot delete scenario with
+          // child scenarios"); the error path returns 500, not 409
           const deleteResponse = await apiContext.delete(`/api/scenarios/${parentId}`);
-          expect(deleteResponse.status()).toBe(409); // Conflict
-          // Verify parent still exists
+          expect(deleteResponse.ok()).toBeFalsy();
+          // Verify parent still exists (API + rendered row)
+          const getResponse = await apiContext.get(`/api/scenarios/${parentId}`);
+          expect(getResponse.ok()).toBeTruthy();
           await authenticatedPage.reload();
-          const parentCard = await testDataHelpers.findByTestData(
-            '.scenario-card',
-            parentScenario.name || parentData.name
-          );
-          await expect(parentCard).toBeVisible();
+          await scenarioUtils.waitForScenariosToLoad();
+          const parentRow = await scenarioUtils.getScenarioRow(parentData.name);
+          await expect(parentRow).toBeVisible();
         }
       }
     });
-    test('should handle orphaned data gracefully', async ({ 
+    test('should handle orphaned data gracefully', async ({
       authenticatedPage,
-      testDataHelpers 
+      apiContext
     }) => {
-      // This test simulates orphaned data scenarios
-      // Check if UI handles missing references
-      // Look for any warning indicators
-      const cards = authenticatedPage.locator('.scenario-card');
-      const cardCount = await cards.count();
-      for (let i = 0; i < Math.min(cardCount, 3); i++) {
-        const card = cards.nth(i);
-        // Check for broken references
-        const brokenIcon = card.locator('.broken-link-icon, .warning-icon, .error-icon');
-        if (await brokenIcon.count() > 0) {
-          // Hover for details
-          await brokenIcon.hover();
-          const tooltip = authenticatedPage.locator('.tooltip, [role="tooltip"]');
-          if (await tooltip.count() > 0) {
-            await expect(tooltip.first()).toContainText(/missing|broken|invalid/i);
-          }
-        }
+      // A parentless branch is the real "orphan" the product surfaces: the
+      // hierarchy row renders an .orphan-indicator (🔗❌) for active branches
+      // without a parent_scenario_id (Scenarios.tsx status column).
+      const orphanData = {
+        name: `${testContext.prefix}-Orphan-Branch`,
+        scenario_type: 'branch',
+        status: 'active',
+        created_by: userId
+      };
+      const response = await apiContext.post('/api/scenarios', { data: orphanData });
+      const orphanScenario = await response.json();
+      if (orphanScenario.id) {
+        testContext.createdIds.scenarios = testContext.createdIds.scenarios || [];
+        testContext.createdIds.scenarios.push(orphanScenario.id);
       }
+      await authenticatedPage.reload();
+      await scenarioUtils.waitForScenariosToLoad();
+      const orphanRow = await scenarioUtils.getScenarioRow(orphanData.name);
+      await expect(orphanRow).toBeVisible();
+      await expect(orphanRow.locator('.orphan-indicator')).toBeVisible();
     });
   });
 });

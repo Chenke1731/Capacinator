@@ -56,7 +56,13 @@ test.describe('Scenario Basic Operations', () => {
     
     // Create test scenarios
     testScenarios = [];
-    const scenarioTypes = ['branch', 'baseline', 'sandbox'];
+    // Never create scenario_type='baseline' via the API: the server guards
+    // baseline deletion ("Cannot delete baseline scenario") so every test
+    // baseline leaks forever, and leaked rows eventually push the seed
+    // Baseline out of the tree's displayLimit(10) — breaking every
+    // seed-row-dependent sibling suite. The UI itself only offers
+    // branch|sandbox (baseline is seed-reserved); tests mirror that.
+    const scenarioTypes = ['branch', 'sandbox', 'sandbox'];
     const statuses = ['draft', 'active', 'archived'];
     for (let i = 0; i < 3; i++) {
       const scenarioData = {
@@ -117,31 +123,25 @@ test.describe('Scenario Basic Operations', () => {
   });
   test.describe('Scenario Display', () => {
     test(`${tags.smoke} should display scenarios in list view`, async ({ authenticatedPage }) => {
+      // The helper's reload cycle (F5 + networkidle + settle) can brush the
+      // default 30s budget on a cold page load — this smoke check runs a
+      // full visibility sweep, so give it room instead of racing it.
+      test.setTimeout(60_000);
+
       // Wait for scenarios page to load completely
       await authenticatedPage.waitForSelector('h1:has-text("Scenario Planning")', { timeout: 10000 });
-      
-      // Check if there are any scenarios or empty state
-      const hasScenarios = await authenticatedPage.locator('.scenario-card, .scenario-tree-item, .empty-state').count() > 0;
-      
-      // Wait for the table to be populated
-      await authenticatedPage.waitForLoadState('networkidle');
-      
-      // Check that scenarios are visible - we should see some scenarios in the table
-      // Don't check for exact count as other tests might have created scenarios
-      const allScenarioRows = authenticatedPage.locator('tr, [role="row"]').filter({ 
-        hasText: /ACTIVE|DRAFT|ARCHIVED/ 
-      });
-      
-      // Use utility to wait for scenarios
+
+      // Use utility to wait for scenarios (it reloads until the rows are
+      // rendered — the page may have loaded before the beforeEach creates)
       const rowCount = await scenarioUtils.waitForScenariosToLoad(testScenarios.length);
       console.log(`Found ${rowCount} scenario rows in the table`);
       expect(rowCount).toBeGreaterThanOrEqual(testScenarios.length);
-      
+
       // Verify our specific test scenarios are displayed
       for (const scenario of testScenarios) {
         const scenarioRow = await scenarioUtils.getScenarioRow(scenario.name);
         await expect(scenarioRow).toBeVisible();
-        
+
         // Verify the scenario has correct type and status
         const typeBadge = scenarioUtils.getBadge(scenarioRow, 'type');
         await expect(typeBadge).toBeVisible();
@@ -201,29 +201,32 @@ test.describe('Scenario Basic Operations', () => {
       const newRow = await scenarioUtils.getScenarioRow(newScenarioName);
       await expect(newRow).toBeVisible();
     });
-    test('should view scenario details', async ({ 
+    test('should view scenario details', async ({
       authenticatedPage,
-      testDataHelpers 
+      testDataHelpers
     }) => {
-      // Use first test scenario
+      // 2026-09-26 (slice 5 correction): the product has NO /scenarios/:id
+      // detail route (App.tsx registers /scenarios only) — this test used
+      // to pass only by suite-order accident. The real "view details"
+      // interaction is in-page: clicking a row focuses it (aria-selected)
+      // and the row itself carries the detail columns (type/status/creator
+      // + description line).
       const testScenario = testScenarios[0];
-      
+
       // Wait for scenarios to be loaded
       await scenarioUtils.waitForScenariosToLoad();
-      
+
       const scenarioRow = await scenarioUtils.getScenarioRow(testScenario.name);
-      
-      // Click on the scenario name in the table
-      await scenarioRow.locator(`text="${testScenario.name}"`).click();
-      
-      // Verify we navigated to details page
-      await expect(authenticatedPage).toHaveURL(/\/scenarios\/[^/]+$/);
-      
-      // Wait for details to load
-      await authenticatedPage.waitForLoadState('networkidle');
-      
-      // Verify scenario details are displayed
-      await expect(authenticatedPage.locator('h1, h2').filter({ hasText: testScenario.name })).toBeVisible();
+
+      // Clicking the row selects it in-page (no navigation)
+      await scenarioRow.click();
+      await expect(scenarioRow).toHaveClass(/focused/);
+      await expect(scenarioRow).toHaveAttribute('aria-selected', 'true');
+
+      // The row's detail columns render the scenario's own facts
+      await expect(scenarioRow.locator('.name')).toHaveText(testScenario.name);
+      await expect(scenarioRow.locator('.description')).toContainText(testScenario.description);
+      await expect(authenticatedPage).toHaveURL(/\/scenarios$/);
     });
     test('should edit scenario properties', async ({ 
       authenticatedPage,
@@ -245,13 +248,13 @@ test.describe('Scenario Basic Operations', () => {
       const modal = authenticatedPage.locator('[role="dialog"], .modal');
       await expect(modal).toBeVisible();
       
-      // Update fields
+      // Update fields — the edit form carries ids/placeholders, not name attrs
       const updatedName = `${testContext.prefix}-Updated-Scenario`;
-      const nameInput = modal.locator('input[name="name"], input[name="scenario_name"]');
+      const nameInput = modal.locator('#edit-scenario-name, input[placeholder*="scenario name" i]');
       await nameInput.clear();
       await nameInput.fill(updatedName);
-      
-      const descriptionInput = modal.locator('textarea[name="description"]');
+
+      const descriptionInput = modal.locator('#edit-scenario-description, textarea');
       await descriptionInput.clear();
       await descriptionInput.fill('Updated description for testing');
       

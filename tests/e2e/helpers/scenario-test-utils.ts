@@ -49,8 +49,11 @@ export class ScenarioTestUtils {
         return totalItems;
       }
 
-      // Try refreshing to load data
-      await page.keyboard.press('F5');
+      // Try refreshing to load data. NOTE: keyboard F5 was a no-op in
+      // headless Chromium — the "reload" never navigated, the stale
+      // snapshot persisted, and the loop burned its whole budget. The
+      // proper reload() API actually refetches.
+      await page.reload({ waitUntil: 'domcontentloaded' });
       await page.waitForLoadState('networkidle');
       await page.waitForTimeout(1000);
     }
@@ -266,23 +269,41 @@ export class ScenarioTestUtils {
    */
   async cleanupScenariosByPrefix(prefix: string) {
     const { apiContext } = this.options;
-    
+
     try {
       const response = await apiContext.get('/api/scenarios');
       if (!response.ok()) return;
 
       const scenarios = await response.json();
-      const toDelete = scenarios.filter((s: any) => 
-        s.name.startsWith(prefix) && s.scenario_type !== 'baseline'
-      );
+      // 2026-09-26 (slice 5): the old filter excluded scenario_type ===
+      // 'baseline' to protect the seed — but the seed is named 'Baseline'
+      // and never matches a test prefix, while TEST-created baselines
+      // (Level-1-Parent, Parent-Hub, …) leaked forever. Leaked baselines
+      // then poisoned sibling suites that pick "the baseline" from the
+      // list (branch-from-leak copies zero rows). Delete by prefix alone.
+      // Children are created after parents, so newest-first ordering lets
+      // children die before their parent becomes childless-blocked; one
+      // extra sweep catches anything orphaned mid-loop.
+      const toDelete = (Array.isArray(scenarios) ? scenarios : scenarios?.data || [])
+        .filter((s: any) => s.name.startsWith(prefix))
+        .sort((a: any, b: any) =>
+          String(b.created_at).localeCompare(String(a.created_at)));
 
-      for (const scenario of toDelete) {
-        try {
-          await apiContext.delete(`/api/scenarios/${scenario.id}`);
-          console.log(`🗑️ Deleted scenario: ${scenario.name}`);
-        } catch (err) {
-          console.warn(`Failed to delete ${scenario.name}:`, err);
+      for (let sweep = 0; sweep < 2; sweep++) {
+        let remaining = 0;
+        for (const scenario of toDelete) {
+          try {
+            const del = await apiContext.delete(`/api/scenarios/${scenario.id}`);
+            if (del.ok()) {
+              console.log(`🗑️ Deleted scenario: ${scenario.name}`);
+            } else {
+              remaining++;
+            }
+          } catch (err) {
+            remaining++;
+          }
         }
+        if (remaining === 0) break;
       }
     } catch (error) {
       console.warn('Cleanup error:', error);

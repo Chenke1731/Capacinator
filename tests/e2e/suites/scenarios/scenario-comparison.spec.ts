@@ -12,9 +12,17 @@ test.describe('Scenario Comparison', () => {
   let targetScenarioName = '';
 
   // Open compare from the seed baseline row, pick the target, run it.
+  // The tree caps at displayLimit(10) newest-first rows — the seed Baseline
+  // (oldest row in a busy shared e2e DB) can fall outside that window.
+  // Searching first applies a filter, and filtered views bypass the slice
+  // (Scenarios.tsx: `!showAllScenarios && !hasActiveFilters`).
   const runComparison = async (page: Page, targetId: string) => {
-    await page.locator('.hierarchy-row').filter({ hasText: 'Baseline' }).first()
-      .locator('.action-button.compare').click();
+    const search = page.locator('input[placeholder*="Search"]');
+    await search.fill('Baseline');
+    const baselineRow = page.locator('.hierarchy-row')
+      .filter({ has: page.locator('.name', { hasText: /^Baseline$/ }) })
+      .first();
+    await baselineRow.locator('.action-button.compare').click();
     await page.waitForSelector('[role="dialog"]');
     await page.selectOption('#compare-scenario-select', targetId);
     await page.click('button:has-text("Run Comparison")');
@@ -92,11 +100,14 @@ test.describe('Scenario Comparison', () => {
   test('should show updated modal title when comparing scenarios', async ({ authenticatedPage }) => {
     await runComparison(authenticatedPage, targetScenarioId);
 
-    // DialogTitle becomes "Comparing: <source> vs <target>"
-    const title = await authenticatedPage.locator('[role="dialog"] h2').textContent();
-    expect(title).toContain('Comparing:');
-    expect(title).toContain('Baseline');
-    expect(title).toContain(targetScenarioName);
+    // DialogTitle becomes "Comparing: <source> vs <target>". Auto-retrying
+    // assertion (not one-shot textContent): the title flips in the same
+    // render that mounts .comparison-results, and a one-shot read raced it
+    // in the 2026-09-26 full run.
+    const title = authenticatedPage.locator('[role="dialog"] h2');
+    await expect(title).toContainText('Comparing:');
+    await expect(title).toContainText('Baseline');
+    await expect(title).toContainText(targetScenarioName);
   });
 
   test('should show differences between scenarios', async ({ authenticatedPage }) => {

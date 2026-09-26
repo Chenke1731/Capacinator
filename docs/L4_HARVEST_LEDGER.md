@@ -81,3 +81,31 @@
 - 信封解包补齐 ×2 处。
 
 **期间确诊一个 UI 层真缺陷候选**（未修，记档）：Scenarios 树在 React Query 数据更新后渲染陈旧快照（数据已在、渲染不跟随），reload 即恢复——值得专项查 React Query 数据→filteredScenarios→render 链路。
+
+### 切片 5 验证跑（2026-09-26 13:33，basic-operations 提交后）
+
+scenario 全量（12 文件，22.1m）：**109 过 / 28 败 / 4 跳过**——94→28，无需返工。export-scenario（11 败）与 complex-import（9 败）**未专门修即转绿**（切片 3-4 helper 五病修复顺带治愈），切片 5 实际残余比预估减半。剩余 28：edge-cases 10、ui-scenario-interactions 7、data-integrity 5、data-isolation 5、scenario-comparison 1。ui-scenario-interactions 根因已抽查：AppHeader 选择器**条件渲染**（存在非 baseline 场景才出现，AppHeader.tsx:127）+ 类名漂移（实际 `.scenario-dropdown` 非 `.scenario-dropdown-menu`）——测试债。
+
+（勘误：`--reporter=line | tail` 管道会掩盖 playwright 退出码，且 `.last-run.json` 可能滞留旧跑——验证必须看失败清单/复跑 EXIT，不看管道 exit 0。）
+
+### 切片 5 残余收割（2026-09-26 14:00-15:00，完成）
+
+靶：edge-cases 10、ui-scenario-interactions 7、data-integrity 5、data-isolation 5、scenario-comparison 1（flaky）。三轮迭代，挖出一条**主根因链**与两个新真产品信号：
+
+**主根因链（种子 Baseline 被逐出可视区）**：
+1. 服务端 delete 守卫拒绝删任何 baseline（"Cannot delete baseline scenario"）——对产品流正确（UI 只提供 branch|sandbox，baseline 是种子专属），但 API 建的测试 baseline **永不可删**；
+2. 旧 cleanupScenariosByPrefix 为绕这个 500 按 type 过滤跳过 baseline → 测试 baseline 永久泄漏（单轮可积 19 条）；
+3. 树视图 `displayLimit=10` 最新在前，种子 Baseline 最老 → 被挤出 DOM → 所有依赖种子行的断言（comparison 源行、branch 父选择、header 断言）连环爆；
+4. 各测试/helper 用 type-first 挑 baseline（`find(s => s.scenario_type==='baseline')`）→ 选中泄漏的空 baseline 做 branch 父 → 拷 0 行 → "No data available"。
+
+**修复**：测试世界不再经 API 造 baseline（镜像 UI 契约，改 sandbox）；种子选择一律精确名 'Baseline'；cleanup helper 去掉 type 过滤+新到旧序+双 sweep；comparison 源行用搜索过滤器绕 displayLimit（filtered 视图不切片）。
+
+**新真产品信号**：
+6. **场景树 displayLimit=10 无 Show All 出口**（B 级，真缺陷）——`isLimitedView` 算出但从未渲染（死代码，未完成的功能）：>10 场景时旧行静默消失，**种子 Baseline 会被挤出可视区**，branch/compare 的锚点行不可达。测试侧已用搜索过滤器绕过；产品侧建议渲染 isLimitedView 指示 + Show All 按钮（状态已有，缺 UI）。
+7. **展开按钮点击区被 GitBranch svg 遮挡**（B 级候选）——`.connector-expand-button` 中心点被行内容 svg 拦截 hit-testing，Playwright 报 intercepts pointer events；force 也无法重定向（浏览器层）。测试用 `el.click()` 程序化点击绕过。真实用户点 chevron 中心可能同样无效——待人眼验证。
+
+**其他战果**：basic-operations "view scenario details" 系**顺序偶然通过**（产品无 /scenarios/:id 路由）——改断言真实交互（行内 focus + aria-selected）；edit-properties 的 input[name] 漏网选择器补修（#edit-scenario-name）；demand 报文形状落档 `{ data: { demandData: [{ demand_hours }] } }`；scenario-comparison :92 的"flaky"定性为**种子行被挤出可视区**（非时序竞态）。
+
+**第四根因（本轮终极一环）**：`waitForScenariosToLoad` 的 `keyboard.press('F5')` 在 headless Chromium **是死动作**——不触发导航，"刷新重试"从未真正刷新，后续 networkidle 立即假满足。此前数月"正常"全靠共享库被泄漏行垫底（首轮计数即过，F5 从未执行）；清库后死循环烧满预算才暴露。修：`page.reload({ waitUntil: 'domcontentloaded' })`。同理：smoke 测试预算修剪（去掉冗余 networkidle 等待 + setTimeout 60s）。
+
+**验证**：六套件联跑 48/0 绿；全量 scenario 收集 134 过 / 22 败 / 4 跳过（18.3m）——**22 败全部落在 import-export 两套件**（export-scenario 13 + complex-import 9），系 13:33 验证跑踩泄漏数据的**假绿现形**（干净库下前提崩塌：虚构 testid、500KB 文件阈值、依赖库内已有第二个可选场景等）；所有已改套件在全量下 0 败。**新暴露的存量债 = 切片 5 遗留靶**（下一轮：import-export 自给自足化）。

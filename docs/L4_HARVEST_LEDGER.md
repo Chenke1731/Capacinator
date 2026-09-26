@@ -48,7 +48,7 @@
 | 2 | transaction-safety 现代化 | API 驱动重写 4 败测（并发/回滚/完整性），修前提与信封 | ✅ 6/6 绿；顺带修 2 个真产品 bug（上表 #2/#3） |
 | 3 | scenario 系统性 helper | 修一处 setup 路径 → 预期 ~45 败一次性转绿或转可读 | ✅ 见下 |
 | 4 | 陈旧登录态 + created_by 加固 | 服务端 req.user.id 优先 + 测试登录锚定种子人 | ✅ 合并切片 3 完成 |
-| 5 | export-scenario hook + 选择器漂移 | 逐套件现代化 | 待做（残余失败的主体） |
+| 5 | export-scenario hook + 选择器漂移 | 逐套件现代化 | 进行中：basic-operations 完成（11 败 → 8 过 + 1 条件跳过 + 2 跳过） |
 | 6 | 长尾 12×1 + flaky 3 | 逐个定性 | 待做 |
 
 进度：摸底完成；切片 1-4 完成。
@@ -68,4 +68,16 @@
 
 **产品加固**：`scenarios.create` 的 `created_by` 改为 token 身份优先（req.user.id || body），杜绝客户端携带陈旧/伪造 FK。
 
-**残余（切片 5 范畴）**：scenario 62 败 = export-scenario 11（`export-section` testid 漂移 + beforeEach 与 complex-import 并跑时超时预算）、complex-import 9（import 流程断言）、basic-operations 11（行定位/选择器）、edge-cases 10、其余零散——全部是逐测试本体漂移，系统性根因已清零（各套件 setup 均已单独验证可建数）。
+**残余（切片 5 范畴）**：scenario 62 败 = export-scenario 11（`export-section` testid 漂移 + beforeEach 与 complex-import 并跑时超时预算）、complex-import 9（import 流程断言）、edge-cases 10、其余零散——全部是逐测试本体漂移，系统性根因已清零（各套件 setup 均已单独验证可建数）。
+
+### 切片 5 进展（2026-09-26）
+
+**basic-operations 11 败 → 8 过 + 3 跳过（1 条件 + 2 条件）**，逐病根治：
+- **模块级 userId 跨测试复活**：第一个测试的 beforeEach 设 userId、其 afterEach 删人 → 后续所有 beforeEach 用死 id 建 scenario 全部 FK 500。修：每测试重新解析，锚定种子人。
+- **陈旧列表竞态**（D13 同族）：API 建数后页面 fetch 到完整数据但树渲染旧快照（trace 证据：GET 返回 4 条、a11y 树只有 Baseline）。修：getScenarioRow 重试间 reload（已知配方）；search/filter 测试同法。
+- **getBadge 类名错位**：`.scenario-type/.scenario-status` 是卡片组件的类；层级行用 `.type-column/.status-column`。修：双选择器。
+- **删除流程改键名确认**：对话框要求输入场景名解锁删除钮。修：填名 → 删。
+- **modal 输入无 name 属性**：getByPlaceholder('Enter scenario name')；类型选择是 shadcn Select（#scenario-type + role=option），baseline 选项不存在（种子专属）已从用例移除。
+- 信封解包补齐 ×2 处。
+
+**期间确诊一个 UI 层真缺陷候选**（未修，记档）：Scenarios 树在 React Query 数据更新后渲染陈旧快照（数据已在、渲染不跟随），reload 即恢复——值得专项查 React Query 数据→filteredScenarios→render 链路。

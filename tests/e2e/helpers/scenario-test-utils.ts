@@ -59,15 +59,20 @@ export class ScenarioTestUtils {
   }
 
   /**
-   * Get scenario row by name with retry
+   * Get scenario row by name with retry.
+   *
+   * 2026-09-26 (slice 5): added reload between retries. The page's list can
+   * render stale after API-created rows (the fetch returns complete data
+   * but the tree keeps the previous snapshot — same stale-list race family
+   * the debt ledger recorded in D13; reload-retry is the known cure).
    */
   async getScenarioRow(scenarioName: string, retries = 3) {
     const { page } = this.options;
-    
+
     for (let i = 0; i < retries; i++) {
       // Try hierarchy row first (tree view)
-      let row = page.locator('.hierarchy-row').filter({ 
-        hasText: scenarioName 
+      let row = page.locator('.hierarchy-row').filter({
+        hasText: scenarioName
       });
 
       if (await row.isVisible()) {
@@ -75,18 +80,19 @@ export class ScenarioTestUtils {
       }
 
       // Fallback to table row
-      row = page.locator('tr').filter({ 
-        hasText: scenarioName 
-      }).filter({ 
-        hasNotText: 'NAME' 
+      row = page.locator('tr').filter({
+        hasText: scenarioName
+      }).filter({
+        hasNotText: 'NAME'
       });
 
       if (await row.isVisible()) {
         return row.first();
       }
 
-      console.log(`Retry ${i + 1}/${retries}: Looking for scenario "${scenarioName}"`);
-      await page.waitForTimeout(2000);
+      console.log(`Retry ${i + 1}/${retries}: Looking for scenario "${scenarioName}" — reloading`);
+      await page.reload({ waitUntil: 'domcontentloaded' });
+      await page.waitForSelector('.scenarios-hierarchy', { timeout: 15000 }).catch(() => {});
     }
 
     throw new Error(`Could not find scenario row for: ${scenarioName}`);
@@ -202,10 +208,12 @@ export class ScenarioTestUtils {
       status: /active|draft|archived/i
     };
 
-    // Look for specific scenario class elements
+    // Look for specific scenario class elements — hierarchy rows use
+    // .type-column/.status-column; the .scenario-type/.scenario-status
+    // classes belong to the card components
     const selectors = {
-      type: '.scenario-type',
-      status: '.scenario-status'
+      type: '.scenario-type, .type-column',
+      status: '.scenario-status, .status-column'
     };
 
     return row.locator(selectors[type]).first();

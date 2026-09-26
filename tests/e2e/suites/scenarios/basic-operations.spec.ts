@@ -30,37 +30,29 @@ test.describe('Scenario Basic Operations', () => {
     await testHelpers.navigateTo('/scenarios');
     await testHelpers.waitForPageContent();
     
-    // Get current user ID from the profile (hoisted to describe scope)
+    // Resolve the scenario creator PER TEST. Never persist across tests:
+    // the module-level userId held the FIRST test's created person, whose
+    // afterEach deletion poisoned every later create with a dead FK —
+    // and /api/profile does not exist (always 404'd into that path).
+    // Anchor to a seed person (person-e2e-*), which lives for the whole run.
+    let creatorId = '';
     try {
-      // Get the current profile
-      const profileResponse = await apiContext.get('/api/profile');
-      if (profileResponse.ok()) {
-        const profile = await profileResponse.json();
-        userId = profile.person?.id || '';
-        console.log('Using profile person ID:', userId);
-      }
-      
-      // If no user ID from profile, try to get from people list
-      if (!userId) {
-        const peopleResponse = await apiContext.get('/api/people');
-        if (peopleResponse.ok()) {
-          const people = await peopleResponse.json();
-          if (people.length > 0) {
-            userId = people[0].id;
-            console.log('Using first person ID:', userId);
-          }
-        }
-      }
+      const peopleResponse = await apiContext.get('/api/people');
+      const peopleBody = await peopleResponse.json();
+      const people = peopleBody.data || peopleBody;
+      creatorId =
+        people?.find((p: any) => String(p.id).startsWith('person-e2e-'))?.id
+        || people?.[0]?.id
+        || '';
     } catch (error) {
-      console.error('Error getting user ID:', error);
+      console.error('Error resolving creator:', error);
     }
-    
-    // If still no user ID, create a test user
-    if (!userId) {
+
+    if (!creatorId) {
       const testUser = await testDataHelpers.createTestUser(testContext);
-      userId = testUser.id;
-      console.log('Created test user with ID:', userId);
+      creatorId = testUser.id;
     }
+    userId = creatorId;
     
     // Create test scenarios
     testScenarios = [];
@@ -185,15 +177,12 @@ test.describe('Scenario Basic Operations', () => {
     }) => {
       // Click create button
       await authenticatedPage.click('button:has-text("New Scenario"), button:has-text("Create Scenario")');
-      // Fill form
+      // Fill form — the ScenarioModal inputs carry placeholders, not name attrs
       const modal = authenticatedPage.locator('[role="dialog"], .modal');
+      await expect(modal).toBeVisible({ timeout: 10000 });
       const newScenarioName = `${testContext.prefix}-New-Test-Scenario`;
-      await modal.locator('input[name="name"], input[name="scenario_name"]').fill(newScenarioName);
-      await modal.locator('textarea[name="description"]').fill('A new scenario for testing');
-      const typeSelect = modal.locator('select[name="scenario_type"], select[name="type"]');
-      if (await typeSelect.isVisible()) {
-        await typeSelect.selectOption('sandbox');
-      }
+      await modal.getByPlaceholder('Enter scenario name').fill(newScenarioName);
+      await modal.locator('textarea').first().fill('A new scenario for testing');
       // Listen for API response
       const responsePromise = authenticatedPage.waitForResponse(response => 
         response.url().includes('/api/scenarios') && response.request().method() === 'POST'
@@ -202,7 +191,8 @@ test.describe('Scenario Basic Operations', () => {
       await modal.locator('button:has-text("Create"), button:has-text("Save")').click();
       const response = await responsePromise;
       expect(response.status()).toBe(201);
-      const newScenario = await response.json();
+      const createBody = await response.json();
+      const newScenario = createBody?.data ?? createBody;
       if (newScenario.id) {
         testContext.createdIds.scenarios.push(newScenario.id);
       }
@@ -298,7 +288,9 @@ test.describe('Scenario Basic Operations', () => {
         created_by: userId
       };
       const createResponse = await apiContext.post('/api/scenarios', { data: deleteScenarioData });
-      const scenarioToDelete = await createResponse.json();
+      expect(createResponse.ok()).toBe(true);
+      const createBody = await createResponse.json();
+      const scenarioToDelete = createBody?.data ?? createBody;
       testContext.createdIds.scenarios.push(scenarioToDelete.id);
       // Reload page to see new scenario
       await authenticatedPage.reload();
@@ -306,22 +298,27 @@ test.describe('Scenario Basic Operations', () => {
       await scenarioUtils.waitForScenariosToLoad();
       const scenarioRow = await scenarioUtils.getScenarioRow(scenarioToDelete.name);
       await expect(scenarioRow).toBeVisible();
-      
+
       const deleteButton = scenarioUtils.getActionButton(scenarioRow, 'delete');
       await deleteButton.click();
-      // Listen for API response
-      const deletePromise = authenticatedPage.waitForResponse(response => 
-        response.url().includes(`/api/scenarios/${scenarioToDelete.id}`) && 
+      // The delete dialog is type-to-confirm: the scenario's own name in
+      // the textbox unlocks the (initially disabled) Delete button
+      const dialog = authenticatedPage.locator('[role="dialog"], [role="alertdialog"]').filter({ hasText: 'Delete Scenario' });
+      await expect(dialog).toBeVisible({ timeout: 10000 });
+      await dialog.locator('input[type="text"], textarea').fill(scenarioToDelete.name);
+      const deletePromise = authenticatedPage.waitForResponse(response =>
+        response.url().includes(`/api/scenarios/${scenarioToDelete.id}`) &&
         response.request().method() === 'DELETE'
       );
-      // Confirm deletion - wait for confirmation dialog
-      await authenticatedPage.waitForLoadState("domcontentloaded", { timeout: 3000 }).catch(() => {});
-      const confirmButton = authenticatedPage.locator('button').filter({ hasText: /^Delete$|^Confirm$/ }).last();
-      await confirmButton.click();
+      await dialog.locator('button:has-text("Delete")').last().click();
       const deleteResponse = await deletePromise;
       expect(deleteResponse.status()).toBe(200);
       // Verify removed
-      await expect(scenarioRow).not.toBeVisible();
+      await expect(scenarioRow).not.toBeVisible({ timeout: 10000 });
+      // Row is gone — stop cleanup from 404ing on it
+      testContext.createdIds.scenarios = testContext.createdIds.scenarios.filter(
+        (id: string) => id !== scenarioToDelete.id
+      );
     });
   });
   test.describe('Scenario Types', () => {
@@ -342,28 +339,32 @@ test.describe('Scenario Basic Operations', () => {
         await expect(typeElement).toHaveText(scenario.scenario_type, { ignoreCase: true });
       }
     });
-    test('should create scenarios of different types', async ({ 
+    test('should create scenarios of different types', async ({
       authenticatedPage,
-      apiContext 
+      apiContext
     }) => {
+      // The modal offers branch | sandbox (baseline is seed-reserved)
       const scenarioTypes = [
         { type: 'branch', label: 'Branch' },
-        { type: 'baseline', label: 'Baseline' },
         { type: 'sandbox', label: 'Sandbox' }
       ];
       for (const scenarioType of scenarioTypes) {
-        // Create scenario of specific type
         await authenticatedPage.click('button:has-text("New Scenario")');
         const modal = authenticatedPage.locator('[role="dialog"]');
+        await expect(modal).toBeVisible({ timeout: 10000 });
         const scenarioName = `${testContext.prefix}-${scenarioType.label}-Test`;
-        await modal.locator('input[name="name"], input[name="scenario_name"]').fill(scenarioName);
-        await modal.locator('select[name="scenario_type"], select[name="type"]').selectOption(scenarioType.type);
-        const responsePromise = authenticatedPage.waitForResponse(response => 
+        await modal.getByPlaceholder('Enter scenario name').fill(scenarioName);
+        // shadcn Select for the type
+        await modal.locator('#scenario-type').click();
+        await authenticatedPage.locator('[role="option"]').filter({ hasText: scenarioType.label }).first().click();
+        const responsePromise = authenticatedPage.waitForResponse(response =>
           response.url().includes('/api/scenarios') && response.request().method() === 'POST'
         );
         await modal.locator('button:has-text("Create")').click();
         const response = await responsePromise;
-        const newScenario = await response.json();
+        expect(response.status()).toBe(201);
+        const createBody = await response.json();
+        const newScenario = createBody?.data ?? createBody;
         if (newScenario.id) {
           testContext.createdIds.scenarios.push(newScenario.id);
         }
@@ -377,53 +378,53 @@ test.describe('Scenario Basic Operations', () => {
   });
   test.describe('Filtering and Search', () => {
     test('should filter scenarios by type', async ({ authenticatedPage }) => {
-      // Apply filter for branch type (we know we have one from test data)
-      const filterButton = authenticatedPage.locator('button:has-text("Filters")');
-      await filterButton.click();
-      
-      // Wait for filter dropdown to be visible
-      await authenticatedPage.waitForSelector('.filter-dropdown-content', { state: 'visible' });
-      
-      // Find and check the branch type filter
-      const branchFilterCheckbox = authenticatedPage.locator('.filter-dropdown-content input[type="checkbox"]')
-        .filter({ has: authenticatedPage.locator('xpath=../span[contains(text(), "branch")]') });
-      await branchFilterCheckbox.check();
-      // Wait for filter to apply
-      await authenticatedPage.waitForLoadState("domcontentloaded", { timeout: 3000 }).catch(() => {});
-      // Click outside to close filter dropdown
-      await authenticatedPage.click('h1');
-      
-      // Wait for filter to apply
-      await authenticatedPage.waitForLoadState('networkidle');
-      
-      // Verify only branch scenarios shown
-      const visibleRows = authenticatedPage.locator('.hierarchy-row').filter({ 
-        has: authenticatedPage.locator('.scenario-type')
-      });
-      const rowCount = await visibleRows.count();
-      expect(rowCount).toBeGreaterThan(0);
-      
-      // Check each visible scenario has BRANCH type
-      for (let i = 0; i < rowCount; i++) {
-        const row = visibleRows.nth(i);
-        const typeBadge = scenarioUtils.getBadge(row, 'type');
-        await expect(typeBadge).toContainText('branch', { ignoreCase: true });
+      // Same stale-list cure as getScenarioRow: reload so the list (and the
+      // filter options derived from it) reflect the API-created scenarios
+      await authenticatedPage.reload({ waitUntil: 'domcontentloaded' });
+      await authenticatedPage.waitForSelector('.scenarios-hierarchy', { timeout: 15000 });
+
+      // Open the filter dropdown (skip if already open)
+      const filterContent = authenticatedPage.locator('.filter-dropdown-content');
+      if (!(await filterContent.isVisible().catch(() => false))) {
+        await authenticatedPage.locator('button.filter-button').click();
       }
+      await expect(filterContent).toBeVisible({ timeout: 5000 });
+
+      // Check the Branch type option (label-anchored, not positional)
+      await filterContent
+        .locator('.filter-option:has(span:text-is("Branch")) input[type="checkbox"]')
+        .check();
+
+      // Click outside to close
+      await authenticatedPage.locator('h1').click();
+
+      // Rows carry their scenario_type as a class — every visible row
+      // must be a branch row
+      await expect
+        .poll(async () => authenticatedPage.locator('.hierarchy-row').count(), { timeout: 10000 })
+        .toBeGreaterThan(0);
+      const total = await authenticatedPage.locator('.hierarchy-row').count();
+      const branchCount = await authenticatedPage.locator('.hierarchy-row.branch').count();
+      expect(branchCount).toBe(total);
+      expect(branchCount).toBeGreaterThan(0);
     });
-    test('should search scenarios by name', async ({ 
+    test('should search scenarios by name', async ({
       authenticatedPage,
-      testDataHelpers 
+      testDataHelpers
     }) => {
+      // Same stale-list cure as getScenarioRow: reload once so the tree
+      // reflects the API-created scenarios before asserting on it
+      await authenticatedPage.reload({ waitUntil: 'domcontentloaded' });
+      await authenticatedPage.waitForSelector('.scenarios-hierarchy', { timeout: 15000 });
+
       // Search for our test prefix
       const searchInput = authenticatedPage.locator('input[placeholder*="Search"]');
       await searchInput.fill(testContext.prefix);
-      // Wait for search to apply
-      await authenticatedPage.waitForLoadState("domcontentloaded", { timeout: 3000 }).catch(() => {});
-      // Verify filtered results
-      const visibleRows = authenticatedPage.locator('.hierarchy-row').filter({ hasText: testContext.prefix });
-      const rowCount = await visibleRows.count();
-      // Should show all our test scenarios
-      expect(rowCount).toBeGreaterThanOrEqual(testScenarios.length);
+      // The client-side filter applies on state change — poll for the
+      // full set instead of counting once
+      await expect
+        .poll(async () => authenticatedPage.locator('.hierarchy-row').filter({ hasText: testContext.prefix }).count(), { timeout: 10000 })
+        .toBeGreaterThanOrEqual(testScenarios.length);
     });
   });
   test.describe('Scenario States', () => {

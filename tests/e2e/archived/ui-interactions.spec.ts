@@ -1,4 +1,13 @@
 /**
+ * ARCHIVED 2026-09-26 (L4 harvest slice 3): speculative-era zombie suite.
+ * After the test-data-helpers systemic fix cured its setup, the failing
+ * bodies were verified against the client: tooltips, drag-and-drop, panel
+ * resize, keyboard shortcuts, skeleton loaders — 0 references anywhere in
+ * client/src (features never built or since removed). The real coverage
+ * this suite nominally provided (scenario dropdown, view modes) lives in
+ * scenario-ui-comprehensive / ui-scenario-interactions / red line core 6.
+ * 16 tests archived, scenario ledger 214 → 168.
+ *
  * Scenario UI Interactions Tests
  * Tests for dropdowns, visibility controls, view modes, and UI components
  * Uses dynamic test data for proper isolation
@@ -8,30 +17,26 @@ import { TestDataContext } from '../../utils/test-data-helpers';
 test.describe('Scenario UI Interactions', () => {
   let testContext: TestDataContext;
   let testScenarios: any[];
-  test.beforeEach(async ({ testDataHelpers, testHelpers, apiContext }) => {
+  test.beforeEach(async ({ testDataHelpers, testHelpers }) => {
     // Create isolated test context
     testContext = testDataHelpers.createTestContext('scnui');
     testScenarios = [];
-    // Create test scenarios with different states for UI testing
+    // Create test scenarios with different states for UI testing.
+    // Via the shared helper (2026-09-26 systemic fix): correct field names,
+    // required created_by, envelope unwrapping — the legacy inline creates
+    // silently failed (400) and crashed downstream on scenario.id.
     const scenarioConfigs = [
-      { name: 'Active Scenario', type: 'baseline', status: 'active' },
-      { name: 'Draft Scenario', type: 'what-if', status: 'draft' },
-      { name: 'Archived Scenario', type: 'forecast', status: 'archived' }
+      { name: 'Active Scenario', type: 'branch', status: 'active' as const },
+      { name: 'Draft Scenario', type: 'sandbox', status: 'draft' as const },
+      { name: 'Archived Scenario', type: 'forecast', status: 'archived' as const }
     ];
     for (const config of scenarioConfigs) {
-      const scenarioData = {
+      testScenarios.push(await testDataHelpers.createTestScenario(testContext, {
         name: `${testContext.prefix}-${config.name}`,
         description: `${config.name} for UI testing`,
         type: config.type,
         status: config.status
-      };
-      const response = await apiContext.post('/api/scenarios', { data: scenarioData });
-      const scenario = await response.json();
-      if (scenario.id) {
-        testScenarios.push(scenario);
-        testContext.createdIds.scenarios = testContext.createdIds.scenarios || [];
-        testContext.createdIds.scenarios.push(scenario.id);
-      }
+      }));
     }
     await testHelpers.navigateTo('/scenarios');
     await testHelpers.waitForPageLoad();

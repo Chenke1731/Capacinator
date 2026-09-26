@@ -21,7 +21,9 @@ export interface TestDataContext {
 export class TestDataHelpers {
   private testData: TestDataGenerator;
   private baseURL: string;
-  
+  // Required created_by FK for scenario creates — resolved once per instance
+  private cachedCreatorId?: string;
+
   constructor(
     private page: Page,
     private apiContext: APIRequestContext
@@ -88,30 +90,31 @@ export class TestDataHelpers {
   }): Promise<any> {
     const uniqueName = options?.name || `${context.prefix}-User`;
     const uniqueId = this.generateUniqueId('');
-    
-    try {
-      const response = await this.apiContext.post(`${this.baseURL}/api/people`, {
-        data: {
-          name: uniqueName,
-          email: options?.email || `${context.prefix}-${uniqueId}@test.com`,
-          worker_type: 'FTE',
-          default_availability_percentage: 100,
-          default_hours_per_day: 8
-        }
-      });
-      
-      const user = await response.json();
-      
-      if (user.id) {
-        context.createdIds.people.push(user.id);
+
+    const response = await this.apiContext.post(`${this.baseURL}/api/people`, {
+      data: {
+        name: uniqueName,
+        email: options?.email || `${context.prefix}-${uniqueId}@test.com`,
+        worker_type: 'FTE',
+        default_availability_percentage: 100,
+        default_hours_per_day: 8
       }
-      
-      console.log(`✅ Created test user: ${uniqueName} (id: ${user.id})`);
-      return user;
-    } catch (error) {
-      console.error(`❌ Failed to create test user: ${error}`);
-      throw error;
+    });
+
+    if (!response.ok()) {
+      const body = await response.text();
+      throw new Error(`Failed to create test user: ${body.slice(0, 300)}`);
     }
+
+    // Unwrap the {success, data} envelope (was: reading .id off the envelope)
+    const body = await response.json();
+    const user = body?.data ?? body;
+    if (!user?.id) {
+      throw new Error(`User create returned no id: ${JSON.stringify(body).slice(0, 300)}`);
+    }
+
+    context.createdIds.people.push(user.id);
+    return user;
   }
 
   /**
@@ -239,38 +242,75 @@ export class TestDataHelpers {
   }
 
   /**
-   * Create a test scenario dynamically
+   * Create a test scenario dynamically.
+   *
+   * 2026-09-26 systemic fix (L4 harvest slice 3): this helper was the root
+   * cause behind ~45 scenario-suite failures — it sent `type` instead of
+   * `scenario_type`, omitted the REQUIRED `created_by`, and read `.id` off
+   * the {success, data} envelope (always undefined, silently skipped).
+   * Callers then crashed downstream on `scenario.id`/`.name`.
    */
   async createTestScenario(context: TestDataContext, options?: {
     name?: string;
-    type?: 'what-if' | 'baseline' | 'forecast';
+    type?: string; // legacy values ('what-if'/'forecast') are mapped below
     description?: string;
     status?: 'draft' | 'active' | 'archived';
+    parent_scenario_id?: string;
+    created_by?: string;
+    /** Extra payload fields (e.g. planning_period) passed through as-is */
+    extra?: Record<string, unknown>;
   }): Promise<any> {
+    // DB CHECK constraint: scenario_type IN ('baseline','branch','sandbox').
+    // Legacy specs used 'what-if'/'forecast' — every such create has been
+    // failing on the CHECK since that constraint landed.
+    const LEGACY_TYPE_MAP: Record<string, string> = {
+      'what-if': 'sandbox',
+      'whatif': 'sandbox',
+      forecast: 'branch'
+    };
+    const rawType = options?.type || 'branch';
+    const scenarioType = LEGACY_TYPE_MAP[rawType] || rawType;
     const uniqueName = options?.name || `${context.prefix}-Scenario`;
-    
-    try {
-      const response = await this.apiContext.post(`${this.baseURL}/api/scenarios`, {
-        data: {
-          name: uniqueName,
-          type: options?.type || 'what-if',
-          description: options?.description || `Test scenario for ${context.prefix}`,
-          status: options?.status || 'draft'
-        }
-      });
-      
-      const scenario = await response.json();
-      
-      if (scenario.id) {
-        context.createdIds.scenarios.push(scenario.id);
-      }
-      
-      console.log(`✅ Created test scenario: ${uniqueName} (id: ${scenario.id})`);
-      return scenario;
-    } catch (error) {
-      console.error(`❌ Failed to create test scenario: ${error}`);
-      throw error;
+
+    // created_by is a required FK to people — cache ONE stable creator.
+    // Never people[0]: the list can be newest-first, making [0] a parallel
+    // worker's transient test person whose afterEach deletion turns every
+    // later create into an FK 500 (cross-worker race, 2026-09-26 finding).
+    // Seed people (person-e2e-*) live for the whole run.
+    if (!this.cachedCreatorId) {
+      const peopleRes = await this.apiContext.get(`${this.baseURL}/api/people`);
+      const peopleBody = await peopleRes.json();
+      const people = peopleBody.data || peopleBody;
+      this.cachedCreatorId =
+        people?.find((p: any) => String(p.id).startsWith('person-e2e-'))?.id
+        || people?.[0]?.id;
     }
+
+    const response = await this.apiContext.post(`${this.baseURL}/api/scenarios`, {
+      data: {
+        name: uniqueName,
+        scenario_type: scenarioType,
+        description: options?.description || `Test scenario for ${context.prefix}`,
+        status: options?.status || 'active',
+        ...(options?.parent_scenario_id ? { parent_scenario_id: options.parent_scenario_id } : {}),
+        created_by: options?.created_by || this.cachedCreatorId,
+        ...(options?.extra || {})
+      }
+    });
+
+    if (!response.ok()) {
+      const body = await response.text();
+      throw new Error(`Failed to create scenario: ${body.slice(0, 300)}`);
+    }
+
+    const body = await response.json();
+    const scenario = body?.data ?? body;
+    if (!scenario?.id) {
+      throw new Error(`Scenario create returned no id: ${JSON.stringify(body).slice(0, 300)}`);
+    }
+
+    context.createdIds.scenarios.push(scenario.id);
+    return scenario;
   }
 
   /**
@@ -514,8 +554,27 @@ export class TestDataHelpers {
       projects: [] as any[],
       people: [] as any[],
       assignments: [] as any[],
-      scenarios: [] as any[]
+      scenarios: [] as any[],
+      // Reference data (seeds) — specs like complex-import read
+      // projectTypes/locations/roles off the bulk result; they were
+      // previously undefined (the helper never returned them)
+      projectTypes: [] as any[],
+      locations: [] as any[],
+      roles: [] as any[]
     };
+
+    // Populate reference arrays from the seeded catalogs
+    const [typesRes, locationsRes, rolesRes] = await Promise.all([
+      this.apiContext.get(`${this.baseURL}/api/project-types`),
+      this.apiContext.get(`${this.baseURL}/api/locations`),
+      this.apiContext.get(`${this.baseURL}/api/roles`)
+    ]);
+    const typesBody = await typesRes.json();
+    const locationsBody = await locationsRes.json();
+    const rolesBody = await rolesRes.json();
+    result.projectTypes = typesBody.data || typesBody || [];
+    result.locations = locationsBody.data || locationsBody || [];
+    result.roles = rolesBody.data || rolesBody || [];
     
     // Create people
     for (let i = 0; i < (options.people || 0); i++) {
@@ -543,7 +602,7 @@ export class TestDataHelpers {
     for (let i = 0; i < (options.scenarios || 0); i++) {
       const scenario = await this.createTestScenario(context, {
         name: `${context.prefix}-Scenario-${i + 1}`,
-        type: ['what-if', 'baseline', 'forecast'][i % 3] as any
+        type: ['branch', 'sandbox', 'baseline'][i % 3]
       });
       result.scenarios.push(scenario);
     }

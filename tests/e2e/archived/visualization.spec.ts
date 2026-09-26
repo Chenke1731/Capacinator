@@ -1,4 +1,11 @@
 /**
+ * ARCHIVED 2026-09-26 (L4 harvest slice 3): zombie suite — the graph/
+ * graphical view it drives does not exist in the current client (zero
+ * "graph" references in client/src). The 2026-09-26 helper fix repaired
+ * its setup (scenarios now create cleanly), which only exposed that the
+ * feature under test was removed. 14 tests archived, scenario ledger
+ * 214 → 200.
+ *
  * Scenario Visualization Tests
  * Tests for graph visualization, visual regression, and graphical representations
  * Uses dynamic test data for proper isolation
@@ -8,50 +15,39 @@ import { TestDataContext } from '../../utils/test-data-helpers';
 test.describe('Scenario Visualization', () => {
   let testContext: TestDataContext;
   let testScenarios: any[];
-  test.beforeEach(async ({ testDataHelpers, testHelpers, apiContext }) => {
+  test.beforeEach(async ({ testDataHelpers, testHelpers }) => {
     // Create isolated test context
     testContext = testDataHelpers.createTestContext('scnvis');
-    // Create test scenarios with relationships
+    // Create test scenarios with relationships.
+    // Via the shared helper (2026-09-26 systemic fix): the legacy inline
+    // creates sent `type` instead of scenario_type, omitted the required
+    // created_by, and read .id off the envelope — every create silently
+    // failed and children crashed on testScenarios[parent].id.
     testScenarios = [];
-    // Create parent scenarios
     const parentScenarios = [
-      { name: 'Baseline 2024', type: 'baseline', status: 'active' },
-      { name: 'Growth Strategy', type: 'what-if', status: 'draft' }
+      { name: 'Baseline 2024', type: 'baseline', status: 'active' as const },
+      { name: 'Growth Strategy', type: 'sandbox', status: 'draft' as const }
     ];
     for (const config of parentScenarios) {
-      const scenarioData = {
+      testScenarios.push(await testDataHelpers.createTestScenario(testContext, {
         name: `${testContext.prefix}-${config.name}`,
         description: `${config.name} for visualization testing`,
         type: config.type,
         status: config.status
-      };
-      const response = await apiContext.post('/api/scenarios', { data: scenarioData });
-      const scenario = await response.json();
-      if (scenario.id) {
-        testScenarios.push(scenario);
-        testContext.createdIds.scenarios = testContext.createdIds.scenarios || [];
-        testContext.createdIds.scenarios.push(scenario.id);
-      }
+      }));
     }
-    // Create child scenarios with relationships
     const childScenarios = [
       { name: 'Conservative Growth', parent: 0, type: 'forecast' },
       { name: 'Aggressive Growth', parent: 1, type: 'forecast' }
     ];
     for (const config of childScenarios) {
-      const scenarioData = {
+      testScenarios.push(await testDataHelpers.createTestScenario(testContext, {
         name: `${testContext.prefix}-${config.name}`,
         description: `Child scenario for ${config.name}`,
         type: config.type,
         status: 'draft',
         parent_scenario_id: testScenarios[config.parent].id
-      };
-      const response = await apiContext.post('/api/scenarios', { data: scenarioData });
-      const scenario = await response.json();
-      if (scenario.id) {
-        testScenarios.push(scenario);
-        testContext.createdIds.scenarios.push(scenario.id);
-      }
+      }));
     }
     await testHelpers.navigateTo('/scenarios');
     await testHelpers.waitForPageLoad();

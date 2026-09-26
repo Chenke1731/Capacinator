@@ -454,7 +454,7 @@ test.describe('Scenario Edge Cases', () => {
       const hasFilters = await typeFilter.count() > 0;
       if (hasFilters) {
         // Apply filter
-        await typeFilter.selectOption('what-if');
+        await typeFilter.selectOption('sandbox');
         // Switch to list view
         await authenticatedPage.getByRole('button', { name: 'List' }).click();
         await authenticatedPage.waitForLoadState("domcontentloaded", { timeout: 3000 }).catch(() => {});
@@ -465,9 +465,9 @@ test.describe('Scenario Edge Cases', () => {
         const listButton = authenticatedPage.getByRole('button', { name: 'List' });
         const isListActive = await listButton.getAttribute('class');
         // Log what we found (state persistence may vary by implementation)
-        if (filterValue === 'what-if' && isListActive?.includes('active')) {
+        if (filterValue === 'sandbox' && isListActive?.includes('active')) {
           // State persisted
-          expect(filterValue).toBe('what-if');
+          expect(filterValue).toBe('sandbox');
         }
       }
     });

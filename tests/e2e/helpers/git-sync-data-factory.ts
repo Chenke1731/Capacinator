@@ -210,7 +210,7 @@ export class GitSyncDataFactory extends UnifiedTestDataFactory {
       // Create shared scenario
       const sharedScenario = await this.createScenario({
         name: this.getTestPrefix() + '_Shared_Scenario',
-        scenario_type: 'what-if',
+        scenario_type: 'sandbox',
         status: 'active'
       });
 
@@ -277,14 +277,14 @@ export class GitSyncDataFactory extends UnifiedTestDataFactory {
       // Create local scenario (child of base)
       const localScenario = await this.createScenario({
         name: this.getTestPrefix() + '_Local_Scenario',
-        scenario_type: 'what-if',
+        scenario_type: 'sandbox',
         parent_scenario_id: baseScenario.id
       });
 
       // Create remote scenario (also child of base - simulates another user's branch)
       const remoteScenario = await this.createScenario({
         name: this.getTestPrefix() + '_Remote_Scenario',
-        scenario_type: 'what-if',
+        scenario_type: 'sandbox',
         parent_scenario_id: baseScenario.id
       });
 
@@ -350,7 +350,7 @@ export class GitSyncDataFactory extends UnifiedTestDataFactory {
     }> => {
       const scenario = await this.createScenario({
         name: this.getTestPrefix() + '_Diverged_Scenario',
-        scenario_type: 'what-if'
+        scenario_type: 'sandbox'
       });
 
       const user = await this.createPerson({
@@ -396,7 +396,7 @@ export class GitSyncDataFactory extends UnifiedTestDataFactory {
     }> => {
       const scenario = await this.createScenario({
         name: this.getTestPrefix() + '_Offline_Scenario',
-        scenario_type: 'what-if'
+        scenario_type: 'sandbox'
       });
 
       const user = await this.createPerson({
@@ -453,7 +453,7 @@ export class GitSyncDataFactory extends UnifiedTestDataFactory {
 
       const scenario = await this.createScenario({
         name: this.getTestPrefix() + '_Large_Scenario',
-        scenario_type: 'what-if'
+        scenario_type: 'sandbox'
       });
 
       // Create projects
@@ -530,7 +530,7 @@ export class GitSyncDataFactory extends UnifiedTestDataFactory {
       for (let level = 1; level <= depth; level++) {
         const scenario = await this.createScenario({
           name: this.getTestPrefix() + `_Level_${level}_Scenario`,
-          scenario_type: 'what-if',
+          scenario_type: 'sandbox',
           parent_scenario_id: parentId
         });
 

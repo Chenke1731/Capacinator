@@ -74,7 +74,12 @@ export class ScenariosController extends BaseController {
   async create(req: Request, res: Response) {
     const { name, description, parent_scenario_id, created_by, scenario_type = 'branch' } = req.body;
 
-    if (!name || !created_by) {
+    // Prefer the authenticated identity over the client-supplied created_by
+    // (2026-09-26 harvest hardening): body values can be stale — a browser
+    // holding a token for a since-deleted person sent its id here and hit
+    // the people FK. The token is the server's source of truth for the actor.
+    const creator = (req as any).user?.id || created_by;
+    if (!name || !creator) {
       return res.status(400).json({ error: 'Name and created_by are required' });
     }
 
@@ -88,7 +93,7 @@ export class ScenariosController extends BaseController {
         name,
         description,
         parent_scenario_id,
-        created_by,
+        created_by: creator,
         status: 'active',
         scenario_type,
         branch_point: parent_scenario_id ? now : null,

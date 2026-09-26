@@ -349,7 +349,7 @@ export class TestContextManager {
 
     const scenarioData = {
       name: options.name || this.generateName(`Scenario_${uniqueId}`),
-      type: options.type || 'what-if',
+      type: options.type || 'sandbox',
       description: options.description || `Test scenario created by ${context.id}`,
       status: options.status || 'draft',
       ...options,
@@ -672,7 +672,7 @@ export class TestContextManager {
     for (let i = 0; i < (config.scenarios || 0); i++) {
       const scenario = await this.createScenario({
         name: this.generateName(`Scenario_${i + 1}`),
-        type: ['what-if', 'baseline', 'forecast'][i % 3],
+        type: ['branch', 'baseline', 'sandbox'][i % 3],
       });
       result.scenarios.push(scenario);
     }

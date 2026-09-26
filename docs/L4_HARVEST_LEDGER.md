@@ -46,9 +46,26 @@
 |---|---|---|---|
 | 1 | capacity 信号验证 | live 探针 29h 的构成；定性后修产品或修断言 | ✅ 定性：口径问题非 bug |
 | 2 | transaction-safety 现代化 | API 驱动重写 4 败测（并发/回滚/完整性），修前提与信封 | ✅ 6/6 绿；顺带修 2 个真产品 bug（上表 #2/#3） |
-| 3 | scenario 系统性 helper | 修一处 setup 路径 → 预期 ~45 败一次性转绿或转可读 | 待做 |
-| 4 | 陈旧登录态 + created_by 加固 | 服务端 req.user.id 优先 + 测试登录锚定种子人 | 待做 |
-| 5 | export-scenario hook + 选择器漂移 | 逐套件现代化 | 待做 |
+| 3 | scenario 系统性 helper | 修一处 setup 路径 → 预期 ~45 败一次性转绿或转可读 | ✅ 见下 |
+| 4 | 陈旧登录态 + created_by 加固 | 服务端 req.user.id 优先 + 测试登录锚定种子人 | ✅ 合并切片 3 完成 |
+| 5 | export-scenario hook + 选择器漂移 | 逐套件现代化 | 待做（残余失败的主体） |
 | 6 | 长尾 12×1 + flaky 3 | 逐个定性 | 待做 |
 
-进度：摸底完成；切片 1、2 完成（main 侧 25→21 败，其中 2 个真产品修复）。
+进度：摸底完成；切片 1-4 完成。
+
+### 切片 3+4 详情（2026-09-26）
+
+系统性根因比预想更深——共享 helper `createTestScenario`（test-data-helpers.ts）五病俱全：
+1. 字段名错（`type` ≠ `scenario_type`）
+2. 缺必填 `created_by`
+3. 信封不解包（`.id` 永远 undefined，静默跳过）
+4. 修 2 时引入的次生病：creator 缓存取 `people[0]`——列表按新到旧排序时 [0] 是并行 worker 的临时人，被其 afterEach 删除后全库 create 变 FK 500（跨 worker 竞态）。修：缓存锚定种子人（`person-e2e-*` 全程存活）
+5. **DB CHECK 约束**：`scenario_type IN ('baseline','branch','sandbox')`——`what-if`/`forecast` 从来就插不进去（4 个 helper/spec 文件 + git-sync 工厂共 7 处）
+
+修复范围：test-data-helpers（createTestScenario 重写 + createTestUser 信封 + bulk 返回补 projectTypes/locations/roles 引用集）、test-context-manager、e2e-test-data-builder、unified-test-data-factory、git-sync-data-factory、edge-cases 类型过滤值、3 个 spec 的 beforeEach 改走 helper。
+
+**僵尸归档 ×3（-46 测，scenario 账本 214→168）**：visualization（图视图功能客户端 0 引用）、ui-interactions（tooltip/拖拽/面板缩放/骨架屏均 0 引用）、planning-workflows（what-if 分析/capacity calculator/审批/评论模块从未建成）。真实覆盖已由较新套件与红线承担。每卷归档头注明裁决依据。
+
+**产品加固**：`scenarios.create` 的 `created_by` 改为 token 身份优先（req.user.id || body），杜绝客户端携带陈旧/伪造 FK。
+
+**残余（切片 5 范畴）**：scenario 62 败 = export-scenario 11（`export-section` testid 漂移 + beforeEach 与 complex-import 并跑时超时预算）、complex-import 9（import 流程断言）、basic-operations 11（行定位/选择器）、edge-cases 10、其余零散——全部是逐测试本体漂移，系统性根因已清零（各套件 setup 均已单独验证可建数）。

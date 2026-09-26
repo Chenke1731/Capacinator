@@ -316,7 +316,7 @@ export class E2ETestDataBuilder {
 
     // Create child scenarios
     const childScenarios = [];
-    const childTypes = ['what-if', 'forecast'];
+    const childTypes = ['sandbox', 'branch'];
     
     for (let i = 0; i < 2; i++) {
       const child = await this.createScenario({
@@ -333,7 +333,7 @@ export class E2ETestDataBuilder {
     const comparisonScenario = await this.createScenario({
       name: `${this.testPrefix}_Comparison_Scenario`,
       description: 'Scenario for comparison tests',
-      type: 'what-if',
+      type: 'sandbox',
       status: 'active'
     });
 
@@ -441,10 +441,10 @@ export class E2ETestDataBuilder {
     const scenarios = [];
     const scenarioTypes = [
       { name: 'Current State', type: 'baseline', status: 'active' },
-      { name: 'Q1 Plan', type: 'forecast', status: 'active' },
-      { name: 'Q2 Plan', type: 'forecast', status: 'draft' },
-      { name: 'Cost Optimization', type: 'what-if', status: 'active' },
-      { name: 'Growth Scenario', type: 'what-if', status: 'draft' }
+      { name: 'Q1 Plan', type: 'branch', status: 'active' },
+      { name: 'Q2 Plan', type: 'branch', status: 'draft' },
+      { name: 'Cost Optimization', type: 'sandbox', status: 'active' },
+      { name: 'Growth Scenario', type: 'sandbox', status: 'draft' }
     ];
 
     // Create scenarios
@@ -555,7 +555,7 @@ export class E2ETestDataBuilder {
     const sourceScenario = await this.createScenario({
       name: `${this.testPrefix}_Source_Scenario`,
       description: 'Scenario to be duplicated',
-      type: 'what-if',
+      type: 'sandbox',
       status: 'active'
     });
 

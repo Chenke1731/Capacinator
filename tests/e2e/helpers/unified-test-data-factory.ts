@@ -747,13 +747,13 @@ export class UnifiedTestDataFactory {
       const childScenarios = await Promise.all([
         this.createScenario({
           name: this.uniqueName('Child_WhatIf'),
-          scenario_type: 'what-if',
+          scenario_type: 'sandbox',
           status: 'draft',
           parent_scenario_id: parentScenario.id
         }),
         this.createScenario({
           name: this.uniqueName('Child_Forecast'),
-          scenario_type: 'forecast',
+          scenario_type: 'branch',
           status: 'draft',
           parent_scenario_id: parentScenario.id
         })

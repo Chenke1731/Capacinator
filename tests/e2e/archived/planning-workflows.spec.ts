@@ -1,4 +1,11 @@
 /**
+ * ARCHIVED 2026-09-26 (L4 harvest slice 3): speculative-era zombie suite.
+ * Its targets — "Planning Tools" (what-if analysis, capacity calculator,
+ * planning parameters) and "Collaboration Features" (comments, approvals,
+ * sharing) — have 0 references in client/src: the modules were never built.
+ * Comparison coverage that is real lives in scenario-comparison-modal.spec.ts
+ * and red line test 13. 16 tests archived, scenario ledger 214 → 168.
+ *
  * Scenario Planning Workflows Tests
  * Tests for scenario planning, comparison features, and workflow integration
  * Uses dynamic test data for proper isolation
@@ -48,30 +55,26 @@ test.describe('Scenario Planning Workflows', () => {
       });
       testProjects.push(project);
     }
-    // Create test scenarios for planning workflows
+    // Create test scenarios for planning workflows.
+    // Via the shared helper (2026-09-26 systemic fix): the inline creates
+    // read .id off the {success, data} envelope — scenarios existed but
+    // testScenarios stayed empty and downstream crashed on `.name`.
     testScenarios = [];
     const scenarioConfigs = [
-      { name: 'Q2 Planning', type: 'sandbox', status: 'draft' },
-      { name: 'Baseline 2024', type: 'baseline', status: 'active' },
-      { name: 'What-If Growth', type: 'branch', status: 'draft' },
-      { name: 'Forecast Q3', type: 'branch', status: 'active' }
+      { name: 'Q2 Planning', type: 'sandbox', status: 'draft' as const },
+      { name: 'Baseline 2024', type: 'baseline', status: 'active' as const },
+      { name: 'What-If Growth', type: 'branch', status: 'draft' as const },
+      { name: 'Forecast Q3', type: 'branch', status: 'active' as const }
     ];
     for (const config of scenarioConfigs) {
-      const scenarioData = {
+      testScenarios.push(await testDataHelpers.createTestScenario(testContext, {
         name: `${testContext.prefix}-${config.name}`,
         description: `${config.name} scenario for workflow testing`,
-        scenario_type: config.type,
+        type: config.type,
         status: config.status,
-        planning_period: config.type === 'sandbox' ? '2024-Q2' : null,
-        created_by: userId
-      };
-      const response = await apiContext.post('/api/scenarios', { data: scenarioData });
-      const scenario = await response.json();
-      if (scenario.id) {
-        testScenarios.push(scenario);
-        testContext.createdIds.scenarios = testContext.createdIds.scenarios || [];
-        testContext.createdIds.scenarios.push(scenario.id);
-      }
+        created_by: userId,
+        extra: { planning_period: config.type === 'sandbox' ? '2024-Q2' : null }
+      }));
     }
     await testHelpers.navigateTo('/scenarios');
     await testHelpers.waitForPageContent();

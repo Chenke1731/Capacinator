@@ -188,7 +188,12 @@ function ImportUnified() {
       setResult({
         success: false,
         message: t('importExport:progress.importFailed'),
-        errors: [errorMessage]
+        // Surface the server's per-row detail (sheet/row/column/reason) —
+        // dropping it left users with one opaque line for a whole workbook
+        errors: [
+          errorMessage,
+          ...((error.response?.data?.errors as string[]) || [])
+        ].filter((e, i, arr) => e && arr.indexOf(e) === i)
       });
     }
   }, [file, clearExisting, useV2, settingsOverrides, importProgress, t]);

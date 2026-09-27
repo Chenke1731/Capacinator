@@ -1473,6 +1473,24 @@ export const Scenarios: React.FC = () => {
             renderScenarioNode(rootScenario, 0, index === treeNodes.length - 1, [])
           )}
         </div>
+
+        {isLimitedView && (
+          <div className="tree-show-all">
+            <span className="hidden-count">
+              {t('scenarios:hierarchy.hiddenCount', {
+                count: totalScenariosCount - displayedScenarios.length
+              })}
+            </span>
+            <button
+              onClick={() => setShowAllScenarios(true)}
+              className="action-button show-all"
+              title={t('scenarios:hierarchy.showAllTitle')}
+            >
+              <ChevronDown size={16} />
+              {t('scenarios:hierarchy.showAll')}
+            </button>
+          </div>
+        )}
       </div>
     );
   };

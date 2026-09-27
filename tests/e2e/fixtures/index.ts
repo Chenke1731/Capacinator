@@ -212,7 +212,9 @@ export {
   type Scenario,
 } from '../helpers/unified-test-data-factory';
 
-// Test tags for categorization
+// Test tags for categorization. Every key referenced by suites must exist
+// here — a missing key silently renders "undefined" into test titles and
+// breaks --grep filtering for that category.
 export const tags = {
   smoke: '@smoke',
   crud: '@crud',
@@ -220,6 +222,12 @@ export const tags = {
   critical: '@critical',
   slow: '@slow',
   flaky: '@flaky',
+  api: '@api',
+  ui: '@ui',
+  integration: '@integration',
+  performance: '@performance',
+  security: '@security',
+  accessibility: '@accessibility',
 };
 
 // Common test patterns

@@ -963,6 +963,22 @@
   position: relative;
 }
 
+/* Show-all affordance when the tree is sliced to displayLimit — older
+   scenarios (incl. the seed Baseline) silently disappear without it */
+.tree-show-all {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 0.5rem 1rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.tree-show-all .hidden-count {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
 /* Column Headers */
 .hierarchy-column-headers {
   display: grid;

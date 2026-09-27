@@ -54,7 +54,10 @@
     "cannotMergeArchivedTitle": "无法合并已归档场景",
     "cannotMergeNoParentTitle": "无法合并:此分支没有父场景",
     "cannotMergeBaselineTitle": "无法合并:基线场景不能被合并",
-    "cannotMergeTitle": "无法合并此场景"
+    "cannotMergeTitle": "无法合并此场景",
+    "hiddenCount": "还有 {{count}} 个场景未显示",
+    "showAll": "显示全部",
+    "showAllTitle": "显示包括较早场景在内的全部场景"
   },
   "filters": {
     "type": "类型",

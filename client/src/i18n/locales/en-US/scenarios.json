@@ -54,7 +54,10 @@
     "cannotMergeArchivedTitle": "Cannot merge archived scenario",
     "cannotMergeNoParentTitle": "Cannot merge: This branch has no parent scenario",
     "cannotMergeBaselineTitle": "Cannot merge: Baseline scenarios cannot be merged",
-    "cannotMergeTitle": "Cannot merge this scenario"
+    "cannotMergeTitle": "Cannot merge this scenario",
+    "hiddenCount": "{{count}} more scenarios hidden",
+    "showAll": "Show All",
+    "showAllTitle": "Show all scenarios including older ones"
   },
   "filters": {
     "type": "Type",

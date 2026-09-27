@@ -786,7 +786,13 @@ export class TestHelpers {
       for (let i = 0; i < count; i++) {
         const element = elements.nth(i);
         if (await element.isVisible()) {
-          const title = await element.textContent();
+          // isVisible() is an instant snapshot — during SPA route
+          // transitions the element can unmount right after, and a bare
+          // textContent() would then wait its full 30s timeout. Read the
+          // text non-blockingly and move on if the element died.
+          const title: string | null = await element
+            .evaluate((el: Element) => el.textContent)
+            .catch(() => null);
           if (title && (title.trim() === expectedTitle || title.includes(expectedTitle))) {
             return; // Found matching title
           }

@@ -44,30 +44,34 @@ test.describe('Utilization Report Accuracy', () => {
         return;
       }
     }
-    // Check for key utilization metrics
+    // Check for key utilization metrics — real card labels are
+    // "Utilization %", "# People Overutilized" (no hyphen), etc.
     const metrics = [
-      { selector: 'text=Average Utilization', pattern: /\d+%/ },
-      { selector: 'text=Over-utilized', pattern: /\d+/, minValue: 0 },
-      { selector: 'text=Under-utilized', pattern: /\d+/, minValue: 0 },
-      { selector: 'text=Optimal', pattern: /\d+/, minValue: 0 }
+      { selector: '.summary-card:has-text("Utilization")', pattern: /\d+(\.\d+)?%/ },
+      { selector: '.summary-card:has-text("Overutilized")', pattern: /\d+/, minValue: 0 },
+      { selector: '.summary-card:has-text("Underutilized")', pattern: /\d+/, minValue: 0 },
+      { selector: '.summary-card:has-text("Optimally Utilized")', pattern: /\d+/, minValue: 0 }
     ];
     let totalPeople = 0;
     for (const metric of metrics) {
-      const element = authenticatedPage.locator(metric.selector);
+      const element = authenticatedPage.locator(metric.selector).first();
       if (await element.isVisible()) {
-        const value = await element.locator('..').locator('.metric, .value, .number').textContent();
+        // Values live directly in the card text (label + value), not in a
+        // .metric child element
+        const value = await element.textContent();
         if (value && metric.pattern) {
           expect(value).toMatch(metric.pattern);
-          if (metric.selector.includes('utilized') || metric.selector.includes('Optimal')) {
+          if (metric.selector.includes('tilized')) {
             const count = parseInt(value?.match(/\d+/, 10)?.[0] || '0');
             totalPeople += count;
           }
         }
       }
     }
-    // Total of categorized people should be at least our test people count
+    // Over + Under + Optimal buckets: seed population is 4 people but the
+    // zero-utilization person belongs to no bucket — floor is 3
     if (totalPeople > 0) {
-      expect(totalPeople).toBeGreaterThanOrEqual(4); // seed people present
+      expect(totalPeople).toBeGreaterThanOrEqual(3);
     }
   });
   test(`${tags.reports} should display utilization distribution chart`, async ({ 
@@ -80,8 +84,8 @@ test.describe('Utilization Report Accuracy', () => {
       // Check first chart
       const firstChart = chartContainers.first();
       await expect(firstChart).toBeVisible();
-      // Check for chart SVG
-      const chartSvg = firstChart.locator('svg, .recharts-wrapper');
+      // Check for chart SVG (svg + wrapper both match — strict-mode safe)
+      const chartSvg = firstChart.locator('svg, .recharts-wrapper').first();
       await expect(chartSvg).toBeVisible();
       // Check for data elements (bars, pie slices, etc)
       const dataElements = firstChart.locator('.recharts-bar, .recharts-pie-sector, rect[width]');

@@ -121,20 +121,25 @@ test.describe('Modal Background Consistency Tests', () => {
     });
 
     test('Edit Project Modal - should have solid background', async ({ authenticatedPage }) => {
-      // Wait for projects to load
-      await authenticatedPage.waitForSelector('.project-item, .project-card, tr[data-project-id]', { timeout: 10000 });
-      
+      // Wait for projects to load (Projects page = requirements table)
+      await authenticatedPage.waitForSelector('[data-testid="requirements-table"]', { timeout: 15000 });
+
       // Click on first project
       const projectItem = authenticatedPage.locator('.requirements-row').first();
       if (await projectItem.isVisible()) {
         await projectItem.click();
-        
-        // Look for edit button in toolbar or project details
-        const editButton = authenticatedPage.locator('button:has-text("Edit"), button[title*="Edit"]').first();
+
+        // Look for edit button in toolbar or project details — exact title
+        // match (a substring match races with other titled buttons), then
+        // a programmatic click past the sticky-column overlay
+        const editButton = authenticatedPage
+          .locator('button[title="Edit"]')
+          .first();
+        await editButton.waitFor({ state: 'visible', timeout: 10000 }).catch(() => {});
         if (await editButton.isVisible()) {
-          await editButton.click();
+          await editButton.evaluate((el: Element) => (el as HTMLElement).click());
           await checkModalBackground(authenticatedPage, '[role="dialog"]');
-          
+
           // Close modal
           await authenticatedPage.keyboard.press('Escape');
         }
@@ -186,20 +191,23 @@ test.describe('Modal Background Consistency Tests', () => {
     });
 
     test('Edit Person Modal - should have solid background', async ({ authenticatedPage }) => {
-      // Wait for people to load
-      await authenticatedPage.waitForSelector('.person-row, .person-card, tr[data-person-id]', { timeout: 10000 });
-      
+      // Wait for people to load (People page rows are plain tbody tr)
+      await authenticatedPage.waitForSelector('tbody tr', { timeout: 15000 });
+
       // Click on first person
       const personItem = authenticatedPage.locator('tbody tr').first();
       if (await personItem.isVisible()) {
         await personItem.click();
-        
-        // Look for edit button
-        const editButton = authenticatedPage.locator('button:has-text("Edit"), button[title*="Edit"]').first();
+
+        // Edit lives in the row's quick actions — exact title match, then
+        // a programmatic click (the row buttons sit in a sticky column
+        // whose overlay defeats Playwright's actionability loop)
+        const editButton = personItem.locator('button[title="Edit"]').first();
+        await editButton.waitFor({ state: 'visible', timeout: 10000 }).catch(() => {});
         if (await editButton.isVisible()) {
-          await editButton.click();
+          await editButton.evaluate((el: Element) => (el as HTMLElement).click());
           await checkModalBackground(authenticatedPage, '[role="dialog"]');
-          
+
           // Close modal
           await authenticatedPage.keyboard.press('Escape');
         }

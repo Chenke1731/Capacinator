@@ -6,8 +6,14 @@
 import { test, expect, tags } from '../../fixtures';
 
 test.describe('Roles Management', () => {
-  test.beforeEach(async ({ testHelpers }) => {
-    await testHelpers.navigateTo('/roles');
+  test.beforeEach(async ({ testHelpers, authenticatedPage }) => {
+    // Destructure authenticatedPage FIRST: it is lazily constructed on
+    // first use (auth bootstrap navigates to '/'), and letting the test
+    // body trigger that would bounce our page back to /dashboard
+    await authenticatedPage.url();
+    // /roles redirects to /people (Roles became a tab of the unified page);
+    // land on the roles tab directly via the bookmarkable tab param
+    await testHelpers.navigateTo('/people?tab=roles');
     await testHelpers.waitForDataTable();
   });
 
@@ -83,9 +89,8 @@ test.describe('Roles Management', () => {
     test(`${tags.smoke} should display roles list with table`, async ({
       authenticatedPage
     }) => {
-      // Check page header
-      // /roles redirects to /people (roles list merged there)
-      await expect(authenticatedPage.locator('h1').first()).toContainText('People');
+      // The roles tab of the unified People page carries its own h1
+      await expect(authenticatedPage.locator('h1').first()).toContainText('Roles');
 
       // Should show data table or empty state
       const table = authenticatedPage.locator('table');

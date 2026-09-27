@@ -48,17 +48,19 @@ test.describe('Navigation and Basic UI', () => {
     authenticatedPage,
     testHelpers 
   }) => {
-    // Check all navigation items are present
+    // Check all navigation items are present — the sidebar's real set
+    // (Layout nav): no Locations/Settings entries; Iterations and
+    // Import & Export are the ones this stale list was missing
     const navItems = [
       'Dashboard',
-      'Projects', 
+      'Projects',
+      'Iterations',
       'People',
       'Assignments',
       'Scenarios',
       'Reports',
-      'Locations',
-      'Audit Log',
-      'Settings'
+      'Import & Export',
+      'Audit Log'
     ];
     for (const item of navItems) {
       const navLink = authenticatedPage.locator(

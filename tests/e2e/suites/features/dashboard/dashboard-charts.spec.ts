@@ -142,13 +142,17 @@ test.describe('Dashboard Charts and Metrics', () => {
         }
       }
     });
-    test('should show utilization breakdown', async ({ 
+    test('should show utilization breakdown', async ({
       authenticatedPage,
       testHelpers,
-      testDataHelpers 
+      testDataHelpers
     }) => {
-      // Look for utilization details
-      const utilizationSection = authenticatedPage.locator('text=/Utilization|Allocation/i').locator('..');
+      // Look for utilization details (4+ matches on the dashboard — take
+      // the first to stay strict-mode safe)
+      const utilizationSection = authenticatedPage
+        .locator('text=/Utilization|Allocation/i')
+        .first()
+        .locator('..');
       if (await utilizationSection.isVisible()) {
         // Should show some of our test people
         const personName = testData.people[0].name.split('-')[0]; // Get prefix

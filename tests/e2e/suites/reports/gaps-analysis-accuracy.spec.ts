@@ -44,17 +44,19 @@ test.describe('Gaps Analysis Report Accuracy', () => {
         return;
       }
     }
-    // Check for key gap metrics
+    // Check for key gap metrics — real cards: "Total Gap in Hours",
+    // "# Projects with Gaps", "# Roles with Gaps", "# Unutilized Hours"
+    // (values live in the card text; no .metric child elements exist)
     const metrics = [
-      { selector: 'text=Total Gap', pattern: /\d+\s*hours?/ },
-      { selector: 'text=Roles with Gaps', pattern: /\d+/, minValue: 0 },
-      { selector: 'text=Critical Gaps', pattern: /\d+/, minValue: 0 },
-      { selector: 'text=Gap Percentage', pattern: /\d+%/ }
+      { selector: '.summary-card:has-text("Total Gap in Hours")', pattern: /\d+(\.\d+)?\s*hours?/i },
+      { selector: '.summary-card:has-text("Projects with Gaps")', pattern: /\d+/, minValue: 0 },
+      { selector: '.summary-card:has-text("Roles with Gaps")', pattern: /\d+/, minValue: 0 },
+      { selector: '.summary-card:has-text("Unutilized Hours")', pattern: /\d+(\.\d+)?\s*hours?/i }
     ];
     for (const metric of metrics) {
-      const element = authenticatedPage.locator(metric.selector);
+      const element = authenticatedPage.locator(metric.selector).first();
       if (await element.isVisible()) {
-        const value = await element.locator('..').locator('.metric, .value').textContent();
+        const value = await element.textContent();
         if (value && metric.pattern) {
           expect(value).toMatch(metric.pattern);
           if (metric.minValue !== undefined) {

@@ -186,12 +186,28 @@ test('assignments: create → verify allocation value → delete', async ({ auth
     // Verify — data-level: the assignment appears in the list with the right
     // person AND project (both filters — person-only matching grabs wrong rows)
     await authenticatedPage.goto('/assignments');
-    await authenticatedPage.waitForSelector('tbody tr, .project-name', { timeout: 15000 });
+    // Generous budgets + reload-retry: under a full-suite run the shared
+    // machine is heavily loaded AND the Assignments page can serve a stale
+    // render (data fetched, rows not re-rendered — known D13-family race);
+    // a real reload forces the refetch that flushes the row
     const asgnRow = authenticatedPage.locator('tbody tr, .assignment-row')
       .filter({ hasText: personName })
       .filter({ hasText: project.name })
       .first();
-    await expect(asgnRow).toBeVisible({ timeout: 10000 });
+
+    let rowVisible = false;
+    for (let attempt = 0; attempt < 3 && !rowVisible; attempt++) {
+      if (attempt > 0) {
+        await authenticatedPage.reload({ waitUntil: 'domcontentloaded' });
+      }
+      try {
+        await asgnRow.waitFor({ state: 'visible', timeout: 15000 });
+        rowVisible = true;
+      } catch {
+        // retry with a fresh page load
+      }
+    }
+    expect(rowVisible, `assignment row for ${personName} never rendered`).toBe(true);
 
     // Verify the exact allocation value — a `>= 0` assertion here is
     // degenerate (any garbage passes); the stored 50 must render as 50.

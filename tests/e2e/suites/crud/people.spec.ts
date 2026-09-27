@@ -8,7 +8,12 @@ import { TestDataContext } from '../../utils/test-data-helpers';
 test.describe('People Management', () => {
   let testContext: TestDataContext;
   let testData: any;
-  test.beforeEach(async ({ testDataHelpers, testHelpers }) => {
+  test.beforeEach(async ({ testDataHelpers, testHelpers, authenticatedPage }) => {
+    // Destructure authenticatedPage FIRST: it is lazily constructed on
+    // first use (injecting the auth state and navigating to '/'), so if the
+    // test body is what first requests it, that bootstrap runs AFTER this
+    // hook and bounces the page we just navigated to back to /dashboard.
+    await authenticatedPage.url();
     // Create isolated test context for each test
     testContext = testDataHelpers.createTestContext('person');
     // Create test data dynamically
@@ -65,18 +70,17 @@ test.describe('People Management', () => {
         await expect(personRow.locator('button[title*="Delete"], button:has([data-testid="trash"])')).toBeVisible();
       }
     });
-    test('should display team insights summary', async ({ 
-      authenticatedPage 
+    test('should display team insights summary', async ({
+      authenticatedPage
     }) => {
       const teamInsights = authenticatedPage.locator('.team-insights');
       if (await teamInsights.isVisible()) {
-        // Should show insight items
-        const insightItems = authenticatedPage.locator('.insight-item');
-        await expect(insightItems).toHaveCount(3);
-        // Check for specific patterns
-        await expect(authenticatedPage.locator('.insight-item')).toContainText(/\d+ over-allocated/);
-        await expect(authenticatedPage.locator('.insight-item')).toContainText(/\d+ available/);
-        await expect(authenticatedPage.locator('.insight-item')).toContainText(/\d+ total people/);
+        // Three insight spans render (strict-mode: assert on the container,
+        // not on the multi-element .insight-item locator)
+        await expect(authenticatedPage.locator('.insight-item')).toHaveCount(3);
+        await expect(teamInsights).toContainText(/\d+ over-allocated/);
+        await expect(teamInsights).toContainText(/\d+ available/);
+        await expect(teamInsights).toContainText(/\d+ total people/);
       }
     });
     test('should display workload status indicators', async ({ 
@@ -181,7 +185,8 @@ test.describe('People Management', () => {
         expect(url.includes('/edit') || hasModal).toBeTruthy();
         // If modal, update field with unique name
         if (hasModal) {
-          const nameInput = authenticatedPage.locator('input[name="name"]');
+          // PersonModal inputs carry id (not name) attributes
+          const nameInput = authenticatedPage.locator('#name');
           const updatedName = `${testContext.prefix}-Updated-Person`;
           await nameInput.fill(updatedName);
           // Save changes
@@ -212,12 +217,9 @@ test.describe('People Management', () => {
       );
       const deleteButton = personRow.locator('button[title*="Delete"]');
       if (await deleteButton.isVisible()) {
+        // Deletion goes through a native window.confirm — accept it
+        authenticatedPage.once('dialog', dialog => dialog.accept());
         await deleteButton.click();
-        // Should show confirmation
-        const confirmDialog = authenticatedPage.locator('[role="alertdialog"], .confirm-dialog');
-        await expect(confirmDialog).toBeVisible();
-        // Confirm deletion
-        await authenticatedPage.locator('button:has-text("Confirm"), button:has-text("Delete")').last().click();
         // Wait for deletion
         await authenticatedPage.waitForLoadState("networkidle", { timeout: 10000 }).catch(() => {});
         await testHelpers.waitForDataTable();
@@ -273,10 +275,10 @@ test.describe('People Management', () => {
     });
   });
   test.describe('Quick Actions', () => {
-    test('should handle quick action buttons', async ({ 
+    test('should handle quick action buttons', async ({
       authenticatedPage,
       testHelpers,
-      testDataHelpers 
+      testDataHelpers
     }) => {
       // Find quick action button for specific test person
       const personRow = await testDataHelpers.findByTestData(
@@ -285,21 +287,22 @@ test.describe('People Management', () => {
       );
       const quickActionButtons = personRow.locator('.quick-action-btn');
       if (await quickActionButtons.count() > 0) {
-        const firstButton = quickActionButtons.nth(0);
-        const buttonText = await firstButton.textContent();
-        await firstButton.click();
-        await authenticatedPage.waitForLoadState("networkidle", { timeout: 10000 }).catch(() => {});
-        const currentUrl = authenticatedPage.url();
-        // Verify navigation based on action type
-        if (buttonText?.includes('Assign')) {
-          expect(currentUrl).toContain('assignments');
-          expect(currentUrl).toContain('person=');
-        } else if (buttonText?.includes('Reduce')) {
-          expect(currentUrl).toContain('assignments');
-          expect(currentUrl).toContain('action=reduce');
-        } else if (buttonText?.includes('Monitor')) {
-          expect(currentUrl).toContain('reports');
-          expect(currentUrl).toContain('type=utilization');
+        // Navigate-type quick actions (people:quickActions i18n): Reduce
+        // Load → /assignments?action=reduce, Monitor → /reports?type=
+        // utilization. "Assign More" opens the Smart Assignment modal
+        // instead of navigating, so assert on a navigate-type button.
+        const reduceButton = personRow.locator('.quick-action-btn[title*="Reduce"]');
+        const monitorButton = personRow.locator('.quick-action-btn[title*="Monitor"]');
+        if (await reduceButton.isVisible()) {
+          await reduceButton.click();
+          await authenticatedPage.waitForLoadState("networkidle", { timeout: 10000 }).catch(() => {});
+          expect(authenticatedPage.url()).toContain('assignments');
+          expect(authenticatedPage.url()).toContain('action=reduce');
+        } else if (await monitorButton.isVisible()) {
+          await monitorButton.click();
+          await authenticatedPage.waitForLoadState("networkidle", { timeout: 10000 }).catch(() => {});
+          expect(authenticatedPage.url()).toContain('reports');
+          expect(authenticatedPage.url()).toContain('type=utilization');
         }
       }
     });

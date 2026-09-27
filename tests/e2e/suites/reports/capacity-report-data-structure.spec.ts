@@ -169,19 +169,24 @@ test.describe('Capacity Report Data Structure', () => {
       const rowCount = await allRows.count();
 
       if (rowCount > 0) {
-        let nonZeroAvailabilityFound = false;
+        // Column order: Name / Role / Utilization (%) / Available Capacity (%)
+        // / Available Hours (Daily) / Actions. Assert on the utilization
+        // column instead of availability: under parallel suites the visible
+        // rows can all be over/zero-utilized people (0.0% available), but
+        // the seed always includes over-utilized rows (non-zero utilization)
+        let nonZeroUtilizationFound = false;
 
         for (let i = 0; i < Math.min(rowCount, 5); i++) {
           const row = allRows.nth(i);
-          const availText = await row.locator('td').nth(3).textContent();
+          const utilText = await row.locator('td').nth(2).textContent();
 
-          if (availText && availText !== '0.0%') {
-            nonZeroAvailabilityFound = true;
+          if (utilText && !utilText.trim().startsWith('0')) {
+            nonZeroUtilizationFound = true;
             break;
           }
         }
 
-        expect(nonZeroAvailabilityFound).toBe(true);
+        expect(nonZeroUtilizationFound).toBe(true);
       }
     }
   });

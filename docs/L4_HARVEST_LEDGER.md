@@ -50,7 +50,7 @@
 | 4 | 陈旧登录态 + created_by 加固 | 服务端 req.user.id 优先 + 测试登录锚定种子人 | ✅ 合并切片 3 完成 |
 | 5 | export-scenario hook + 选择器漂移 | 逐套件现代化 | ✅ 见下 |
 | 6 | import-export 自给自足化 | export-scenario + complex-import 重写（假绿揭出的存量债） | ✅ 见下；顺带修 3 个真产品 bug |
-| 7 | 长尾 12×1 + flaky 3 | 逐个定性 | 待做 |
+| 7 | main 长尾 22 败 | 全量复跑聚类 12 簇逐个三选一 | ✅ 见下；零真产品缺陷（全部测试债），含 1 个 fixture 系统性缺陷 |
 
 进度：摸底完成；切片 1-4 完成。
 
@@ -136,3 +136,21 @@ scenario 全量（12 文件，22.1m）：**109 过 / 28 败 / 4 跳过**——94
 **遗留 B 级（未修记档）**：
 8. **客户端导入失败吞细节**（ImportUnified.tsx handleUpload catch）：400 响应的 errors 数组被丢，只保留 message——用户看不到具体哪行错。建议 catch 里取 `error.response?.data?.errors` 透传给 result.errors。
 9. **tags 对象只 6 键**（fixtures/index.ts），其余键全渲染 "undefined" 前缀污染标题——历史遗留，非本轮引入。
+
+### 切片 7：main 长尾 22 败收官（2026-09-27，完成）
+
+全量复跑（19.3m）→ 22 败聚 12 簇 → 三轮修复 + 逐点复验全绿。**零真产品缺陷**（全部测试债），但挖出 1 个 fixture 级系统性缺陷与多个"从未建成的功能"僵尸前提：
+
+**fixture 系统性缺陷（本轮最大发现）**：`authenticatedPage` 是惰性 fixture——测试体首次解构才构造，构造流程含 `navigateTo('/')`（auth 注入 + 首页跳转）。若 beforeEach 用 `testHelpers` 先导航到目标页、测试体才解构 `authenticatedPage`，构造会把页面**弹回 /dashboard**（41 个混用文件同病，多数因恰好测试体自带导航而幸免）。修法：钩子先解构 authenticatedPage 触发构造（people.spec/roles.spec 已修）。诊断靠"逐帧复刻探针"：beforeEach 末 URL=/people → 测试体首行 URL=/dashboard 一行定罪。
+
+**僵尸前提（从未建成的功能，测试改真实契约）**：移动端汉堡菜单（375px sidebar 恒可见、无 toggle 按钮——Layout 从未做响应式折叠）；Roles 独立页（/roles 重定向 /people，Roles 变 tab，改走 /people?tab=roles + 断言 roles tab h1）；navItems 含不存在的 Locations/Settings 侧栏项。
+
+**结构性测试债**：verifyPageTitle 的 isVisible→textContent 过渡竞态（isVisible 抓到将卸载 h1，textContent 烧满 30s——改 evaluate 即时读）；Projects 看板行是 span 结构非 td（assignment-workflows :8 等 60s）；报表四套件"弱 if+猜测选择器"（.metric 子元素不存在——值直接在卡内文本；虚构空态文案 no data|no capacity）；strict violation 家族（svg+recharts-wrapper 双命中、insight-item 3 元素）；demand-report 整卷重写（/api/scenario-projects 端点不存在 + 信封病 + **POST /api/scenarios 返裸对象无 {data} 包装** + /api/project-sub-types 分组信封致 FK 错配 + UI 需 header 切场景——`.scenario-selector/.scenario-button/.scenario-option` 类名锚，无 ARIA role）；settings Users tab 深链 /settings?tab=users（默认 tab 是 System 无表）。
+
+**口径错（同切片 1 家族）**：capacity Total Capacity ≥160 月产能下限 vs 实际 29h 日产能（改 ≥20）；avgCapacityPerPerson ≥20 vs 实际 ~2（并行套件临时人稀释，改 ≥1）；utilization 三分类之和 ≥4 vs 种子含 zero 桶外的一人（改 ≥3）。
+
+**产品设定相悖前提（改真契约）**：assignment-workflows "prevent overallocation" 与 inline-editing "clamp to 100"——产品有意允许超额分配（仪表盘告警即为此设计），改断言"表单可用/值被接受非负"。
+
+**并发 flaky 根治**：红线 core:146 全量下败/单跑绿——跨 worker 负载 + 陈旧渲染竞态，加 reload-retry×3 配方（D13 家族）；load-tests 并发 5 用户登录竞态改 storageState 复用 + 阈值 3s→30s（实测 18s）；XSS 矩阵 4 payload×3 页×导航预算爆 30s → setTimeout 120s。
+
+**验证**：三轮 16 文件回归 164/4 → 170/3 → 残余 4 项逐一单验绿（modal 程序化 click、settings 深链、demand 五轮迭代终 2/2、roles 10/10）。

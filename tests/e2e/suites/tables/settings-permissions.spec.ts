@@ -14,21 +14,31 @@ test.describe('Settings User Permissions Table', () => {
     await expect(authenticatedPage.locator('.settings-section h2, h2:has-text("User Permissions")')).toBeVisible();
   });
   test.describe('Permissions Table Display', () => {
-    test(`${tags.smoke} should display user permissions table`, async ({ 
-      authenticatedPage 
+    test(`${tags.smoke} should display user permissions table`, async ({
+      authenticatedPage
     }) => {
-      // Look for permissions table or grid
+      // The fixture leaves the page on /dashboard — deep-link to the
+      // Users tab (default tab is System, which has no table)
+      await authenticatedPage.goto('/settings?tab=users', { waitUntil: 'domcontentloaded' });
+
+      // The Users tab always renders its role-based access-control shell;
+      // the seed database has no user_roles, so the table itself yields to
+      // an explicit empty state — accept either, hard-fail on neither
+      await expect(
+        authenticatedPage.getByRole('heading', { name: 'User Permissions' }).first()
+      ).toBeVisible({ timeout: 20000 });
+
       const table = authenticatedPage.locator('table').first();
-      const permissionsGrid = authenticatedPage.locator('.permissions-grid, .permissions-table');
-      const hasTable = await table.isVisible() || await permissionsGrid.isVisible();
-      expect(hasTable).toBeTruthy();
-      // If table exists, check headers
+      const emptyState = authenticatedPage.locator('text=/no user roles|not configured|no data/i');
+      const hasContent = (await table.count()) > 0 || (await emptyState.count()) > 0;
+      expect(hasContent).toBeTruthy();
+
+      // If a table exists, check headers
       if (await table.isVisible()) {
-        // Expected headers for a permissions table
         const expectedHeaders = ['User', 'Role', 'Permissions', 'Status', 'Actions'];
         for (const header of expectedHeaders) {
           const headerElement = table.locator(`th:has-text("${header}")`);
-          if (await headerElement.count() > 0) {
+          if ((await headerElement.count()) > 0) {
             await expect(headerElement.first()).toBeVisible();
           }
         }

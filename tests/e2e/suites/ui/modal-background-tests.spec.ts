@@ -124,17 +124,13 @@ test.describe('Modal Background Consistency Tests', () => {
       // Wait for projects to load (Projects page = requirements table)
       await authenticatedPage.waitForSelector('[data-testid="requirements-table"]', { timeout: 15000 });
 
-      // Click on first project
+      // No row click first: the row's own click handler toggles selection
+      // state and can remount the action buttons — go straight to the
+      // first row's Edit icon (exact title match, programmatic click past
+      // the sticky-column overlay)
       const projectItem = authenticatedPage.locator('.requirements-row').first();
       if (await projectItem.isVisible()) {
-        await projectItem.click();
-
-        // Look for edit button in toolbar or project details — exact title
-        // match (a substring match races with other titled buttons), then
-        // a programmatic click past the sticky-column overlay
-        const editButton = authenticatedPage
-          .locator('button[title="Edit"]')
-          .first();
+        const editButton = projectItem.locator('button[title="Edit"]').first();
         await editButton.waitFor({ state: 'visible', timeout: 10000 }).catch(() => {});
         if (await editButton.isVisible()) {
           await editButton.evaluate((el: Element) => (el as HTMLElement).click());
@@ -194,14 +190,12 @@ test.describe('Modal Background Consistency Tests', () => {
       // Wait for people to load (People page rows are plain tbody tr)
       await authenticatedPage.waitForSelector('tbody tr', { timeout: 15000 });
 
-      // Click on first person
+      // No row click first: onRowClick NAVIGATES to /people/:id — the page
+      // leaves and the row's buttons vanish mid-lookup. Go straight to the
+      // first row's Edit button (title-anchored quick action, programmatic
+      // click past the sticky-column overlay)
       const personItem = authenticatedPage.locator('tbody tr').first();
       if (await personItem.isVisible()) {
-        await personItem.click();
-
-        // Edit lives in the row's quick actions — exact title match, then
-        // a programmatic click (the row buttons sit in a sticky column
-        // whose overlay defeats Playwright's actionability loop)
         const editButton = personItem.locator('button[title="Edit"]').first();
         await editButton.waitFor({ state: 'visible', timeout: 10000 }).catch(() => {});
         if (await editButton.isVisible()) {

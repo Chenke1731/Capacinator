@@ -154,3 +154,5 @@ scenario 全量（12 文件，22.1m）：**109 过 / 28 败 / 4 跳过**——94
 **并发 flaky 根治**：红线 core:146 全量下败/单跑绿——跨 worker 负载 + 陈旧渲染竞态，加 reload-retry×3 配方（D13 家族）；load-tests 并发 5 用户登录竞态改 storageState 复用 + 阈值 3s→30s（实测 18s）；XSS 矩阵 4 payload×3 页×导航预算爆 30s → setTimeout 120s。
 
 **验证**：三轮 16 文件回归 164/4 → 170/3 → 残余 4 项逐一单验绿（modal 程序化 click、settings 深链、demand 五轮迭代终 2/2、roles 10/10）。
+
+**终验口径（2026-09-27 12:00）**：本机全量两跑均被环境灾难污染（Playwright 背靠背栈复用竞态 ECONNREFUSED ×243；dev 栈并行抢 CPU 致 git-sync mock 套件超时 ×140——单跑 git-sync 15/15 绿）。分层验证为准：22 败所在 16 文件回归三轮 164/4→170/3→残余单验全绿（demand/modal 16/16、红线单跑三连绿）；Jest 4217/0、lint 0 错、收集账本 349/160 闭合。全量终审交 CI（干净环境）。本机跑全量前需确认 dev 栈（3110/3120）已停。

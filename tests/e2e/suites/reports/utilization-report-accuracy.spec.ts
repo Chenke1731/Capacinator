@@ -93,9 +93,15 @@ test.describe('Utilization Report Accuracy', () => {
       // Should have data elements (at least one per utilization category)
       expect(elementCount).toBeGreaterThan(0);
       if (elementCount > 0) {
-        // Verify chart is interactive
-        await dataElements.first().hover();
-        await authenticatedPage.waitForLoadState("domcontentloaded", { timeout: 3000 }).catch(() => {});
+        // Verify chart is interactive — hover a VISIBLE element: the raw
+        // union also matches hidden scaffolding rects (count>0 while none
+        // visible), and .first() then blocked on hover for the full 30s.
+        const visibleData = firstChart.locator('.recharts-bar:visible, .recharts-pie-sector:visible, rect[width]:visible');
+        const visibleCount = await visibleData.count();
+        if (visibleCount > 0) {
+          await visibleData.first().hover();
+          await authenticatedPage.waitForLoadState("domcontentloaded", { timeout: 3000 }).catch(() => {});
+        }
       }
     }
   });

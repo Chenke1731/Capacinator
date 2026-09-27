@@ -2,6 +2,21 @@
 
 设计 §6 承诺的收割期账本。闭合判据：全部失败三选一（修 bug / 修测试 / 归档）完毕，夜间 L4 转绿后 `continue-on-error` 摘除。
 
+## 收官（2026-09-27）
+
+**账本闭合**：119 败（main 25 + scenario 94）→ 切片 1-7 全部三选一处置完毕，顺带修了 7 个真产品 Bug（enhancedErrorHandler 循环引用、assignments/:id 场景回落、created_by 信客户端、branchFromParent 漏拷、Excel importer 三死路径）与 3 个 B 级项（Show All 出口、导入错误明细、tags 缺键）。本机终 HEAD 双配置全量绿（main 347/0；scenario 见下节当日验证）。CI push 门（static/unit/e2e 红线+账本）四连绿（e8d0c4a→4962e13→bc9cb95→e4c7915）。
+
+**continue-on-error 已摘除**（test.yml l4 job）。取证注记：历次夜间 l4 在**收割中 HEAD** 上双矩阵真实失败（run 级 success 系 continue-on-error 粉饰；job 级 API 证实 ab4ff46/e8d0c4a 双败）——main 矩阵之败与收割期 22 长尾吻合（切片 7 修复于其后），且 load-tests 曾依赖 scenario 配置产物 e2e-auth.json（本机同机不可见、CI 干净矩阵必炸，4962e13 已回退 storageState 自足）。**首个 gated 夜跑（e4c7915 之后）是干净 CI 的最终确认**——若红，从 artifacts 取证（需 repo admin 权限下载）。
+
+**收官日尾巴五修（2026-09-27 下午，双配置全量复验时现形；前二见上）**：
+1. api-scenario-filtering:45——种子 baseline 是**哨兵 id 非 UUID**，UUID-only 正则使过/败取决于 auth 捕获时谁在场（世界顺序 flaky）；正则改收哨兵或 UUID。
+2. api-scenario-filtering:135——同款 userId 复活僵尸（第四例，/api/profile 404 + describe 级残留）+ **头部选择器条件渲染时序**：/reports 页先载入后 API 建 branch，页面场景列表陈旧 → 选择器不渲染 → 旧 else 分支写死键 'currentScenarioId'（真键为 capacinator-current-scenario/currentScenario）→ 导航静默恢复 Baseline。修：建数后先回首页让列表刷新，再走 .scenario-button+.scenario-option 实锚，并 expect.poll 等 localStorage id 落盘（useEffect 写盘在 paint 后，即时 goto 会读旧值）。
+3. demand-report-charts:33——`≤10 bars` 系虚构上限（产品 BarChart 全量渲染无 slice），且并集选择器对每 bar 多重计数（g[…]rect + 自身类 ~2×）随共享库残留漂移；改单一 .recharts-bar-rectangle 计数 >0。
+4. gaps:70 / utilization:77（全量顺序依赖、单跑绿）——gaps 的 count→expect 两步舞在 refetch 重渲染窗口内快照落空，改自动重试断言；utilization 的 hover 命中"存在但不可见"的脚手架 rect（count>0 而 0 可见）挂满 30s，改 `:visible` 过滤后 hover。
+5. capacity:197 flaky——Peak Month 卡片 "N/A" 是种子态合法值（切片 7 DOM 探针早有记录），正则只认 YYYY-MM；改双态收受 `^(\d{4}-\d{2}|N\/A)$`。
+
+**终门（提交前）**：main 全量 320 过 / 0 败 / 1 flaky（capacity:197，已按 5 加固并单套件 6/6）；scenario 全量当日仅 api-filtering ×2 败（已修，6/6）；budget 122 / 账本 349·160 闭合。
+
 ## 摸底实测（2026-09-26 00:05，本周全部修复之后）
 
 | 配置 | 总数 | 过 | 败 | flaky/skip | 时长 |

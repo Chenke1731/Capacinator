@@ -51,13 +51,17 @@ test.describe('Demand Report Charts', () => {
     } else {
       // Check for bars using various possible selectors
       const bars = projectChartContainer.locator('path[class*="recharts-bar"], rect[class*="recharts-bar"], g[class*="recharts-bar"] rect, .recharts-bar-rectangle, .recharts-rectangle');
-      
+
       // Wait for at least one bar to be visible
       await expect(bars.first()).toBeVisible({ timeout: 10000 });
-      
-      const barCount = await bars.count();
+
+      // Count bars with a SINGLE selector: the union above multi-matches
+      // each bar (a bar's rect hits both the g[…]rect branch and its own
+      // class), so union counts scale ~2× per bar — once that crossed 10
+      // it tripped a fabricated "top 10" bound. The product has no such
+      // slice: BarChart renders the full byProject array.
+      const barCount = await projectChartContainer.locator('.recharts-bar-rectangle').count();
       expect(barCount).toBeGreaterThan(0);
-      expect(barCount).toBeLessThanOrEqual(10); // We limit to top 10 in the code
     }
   });
 

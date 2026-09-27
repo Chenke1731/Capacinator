@@ -71,16 +71,17 @@ test.describe('Gaps Analysis Report Accuracy', () => {
     authenticatedPage,
     testDataHelpers 
   }) => {
-    // Look for gaps table
+    // Look for gaps table. The outer locator can resolve on one render and
+    // the inner header vanish on the next (full-run refetch re-render) —
+    // auto-retrying assertions ride through that race instead of a
+    // count-then-expect dance that snapshots mid-flight.
     const table = authenticatedPage.locator('table:has(th:has-text("Role"))').first();
     if (await table.isVisible()) {
       // Check expected headers
       const expectedHeaders = ['Role', 'Demand', 'Capacity', 'Gap', 'Status'];
       for (const header of expectedHeaders) {
-        const headerElement = table.locator(`th:has-text("${header}")`);
-        if (await headerElement.count() > 0) {
-          await expect(headerElement.first()).toBeVisible();
-        }
+        const headerElement = table.locator('th', { hasText: header }).first();
+        await expect(headerElement).toBeVisible({ timeout: 10000 });
       }
       // Check data rows
       const rows = table.locator('tbody tr');

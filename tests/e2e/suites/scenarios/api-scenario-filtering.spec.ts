@@ -19,17 +19,23 @@ test.describe('Scenario API Filtering', () => {
       testPrefix: uniquePrefix
     });
 
-    // Get user ID
+    // Resolve the scenario creator PER TEST (2026-09-27 closure fix):
+    // /api/profile does not exist (always 404) and describe-scope userId
+    // held the FIRST test's person, deleted by its afterEach — later
+    // creates then hit the people FK (the fourth suite with this bug).
+    // Anchor to a seed person (person-e2e-*), which lives for the whole run.
     try {
-      const profileResponse = await apiContext.get('/api/profile');
-      if (profileResponse.ok()) {
-        const profile = await profileResponse.json();
-        userId = profile.person?.id || '';
-      }
+      const peopleResponse = await apiContext.get('/api/people');
+      const peopleBody = await peopleResponse.json();
+      const people = peopleBody.data || peopleBody;
+      userId =
+        people?.find((p: any) => String(p.id).startsWith('person-e2e-'))?.id
+        || people?.[0]?.id
+        || '';
     } catch (error) {
-      console.log('Could not get profile:', error);
+      console.error('Error resolving creator:', error);
     }
-    
+
     if (!userId) {
       const testUser = await testDataHelpers.createTestUser(testContext);
       userId = testUser.id;
@@ -62,9 +68,14 @@ test.describe('Scenario API Filtering', () => {
     // Wait for API calls to complete
     await authenticatedPage.waitForLoadState("networkidle", { timeout: 10000 }).catch(() => {});
 
-    // Check that scenario header was included
+    // Check that scenario header was included. The auto-selected seed
+    // baseline carries the SENTINEL id (baseline-0000-…), not a UUID —
+    // a UUID-only regex made this test pass/fail depending on which
+    // scenario happened to be current when auth state was captured.
     expect(requestHeaders['x-scenario-id']).toBeDefined();
-    expect(requestHeaders['x-scenario-id']).toMatch(/^[a-f0-9-]{36}$/); // UUID format
+    expect(requestHeaders['x-scenario-id']).toMatch(
+      /^(baseline-0000-0000-0000-000000000000|[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})$/
+    );
   });
 
   test('should filter assignments by selected scenario', async ({ authenticatedPage, apiContext }) => {
@@ -133,15 +144,12 @@ test.describe('Scenario API Filtering', () => {
   });
 
   test('should filter demand report data by scenario', async ({ authenticatedPage, apiContext }) => {
-    // Navigate to demand report
+    // Baseline demand must be non-empty before the switch
     await authenticatedPage.goto('/reports?tab=demand');
     await authenticatedPage.waitForLoadState('networkidle');
-    
-    // Get baseline demand metrics
-    const baselineMetrics = await authenticatedPage.locator('.report-summary, .metrics-container, .demand-summary').first();
-    const baselineTotalHours = await baselineMetrics.textContent();
-    
-    // Create and switch to a new scenario
+    await expect(authenticatedPage.getByText('No Demand Data Found')).toHaveCount(0);
+
+    // Create and switch to a new scenario (no parent → no copied rows)
     const emptyScenarioName = `${testContext.prefix}-Empty-Scenario`;
     const createResponse = await apiContext.post('/api/scenarios', {
       data: {
@@ -152,32 +160,39 @@ test.describe('Scenario API Filtering', () => {
         created_by: userId
       }
     });
-    
+
     expect(createResponse.ok()).toBeTruthy();
     const emptyScenario = await createResponse.json();
-    
-    // Switch to the new empty scenario
-    const scenarioSelector = authenticatedPage.locator('.scenario-selector, [data-testid="scenario-selector"]');
-    if (await scenarioSelector.isVisible()) {
-      await scenarioSelector.click();
-      await authenticatedPage.click(`text="${emptyScenarioName}"`);
-      await waitForSync(authenticatedPage);
-    } else {
-      await authenticatedPage.evaluate((id) => {
-        localStorage.setItem('currentScenarioId', id);
-      }, emptyScenario.id);
-    }
-    
+
+    // The header selector only renders once the page's scenario list knows
+    // about a non-baseline scenario — the /reports page loaded BEFORE the
+    // create, so its list is stale and the selector is hidden (the old
+    // else-branch then wrote a dead key 'currentScenarioId' and the
+    // navigation silently restored Baseline). Reload so the header
+    // re-fetches, then switch through the real dropdown.
+    await authenticatedPage.goto('/');
+    const scenarioSelector = authenticatedPage.locator('.scenario-selector');
+    await expect(scenarioSelector).toBeVisible({ timeout: 15000 });
+    await scenarioSelector.locator('.scenario-button').click();
+    const option = authenticatedPage.locator('.scenario-dropdown .scenario-option', { hasText: emptyScenarioName });
+    await expect(option).toBeVisible({ timeout: 10000 });
+    await option.click();
+    await expect(scenarioSelector.locator('.scenario-name')).toContainText(emptyScenarioName);
+    // The localStorage write happens in a useEffect AFTER paint — the
+    // trigger text can be observed before the id is persisted, and an
+    // immediate goto() would restore the PREVIOUS scenario in the new
+    // document. Wait for the id before navigating.
+    await expect.poll(() =>
+      authenticatedPage.evaluate(() => localStorage.getItem('capacinator-current-scenario'))
+    ).toBe(emptyScenario.id);
+
     // Navigate back to demand report
     await authenticatedPage.goto('/reports?tab=demand');
     await authenticatedPage.waitForLoadState('networkidle');
-    
-    // Verify that demand is different (should be 0 for empty scenario)
-    const emptyScenarioMetrics = await authenticatedPage.locator('.report-summary, .metrics-container, .demand-summary').first();
-    const emptyScenarioText = await emptyScenarioMetrics.textContent();
-    
-    // Should show 0 or no demand
-    expect(emptyScenarioText).toMatch(/0|no demand|empty/i);
+
+    // The empty scenario's demand renders the real empty state
+    // (reports:demand.empty.title)
+    await expect(authenticatedPage.getByText('No Demand Data Found')).toBeVisible({ timeout: 15000 });
   });
 
   test('should maintain scenario context across navigation', async ({ authenticatedPage, apiContext }) => {

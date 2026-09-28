@@ -6,6 +6,7 @@ import morgan from 'morgan';
 import { AuditRouteHandler } from './utils/AuditRouteHandler.js';
 import apiRoutes from './api/routes/index.js';
 import { enhancedErrorHandler } from './middleware/enhancedErrorHandler.js';
+import { createGlobalLimiter, createLoginLimiter } from './middleware/rateLimiter.js';
 import { requestLoggerMiddleware, userContextMiddleware } from './middleware/requestLogger.js';
 import { enhancedAuditMiddleware } from './middleware/enhancedAuditMiddleware.js';
 import { initializeNotificationScheduler } from './services/notifications/scheduler.js';
@@ -53,6 +54,12 @@ export async function createExpressApp() {
   // Body parsing middleware
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
+
+  // Rate limiting (S2): global default tier for every API consumer, plus
+  // a strict tier on login (personId knowledge alone yields a token, so
+  // brute force must be throttled). Both self-disable in test/e2e stacks.
+  app.use(createGlobalLimiter());
+  app.use('/api/auth/login', createLoginLimiter());
 
   // Compression
   app.use(compression());

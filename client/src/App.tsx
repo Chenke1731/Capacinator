@@ -27,6 +27,7 @@ import { NotFound } from './components/NotFound';
 import ImportUnified from './pages/ImportUnified';
 import { Locations } from './pages/Locations';
 import { Toaster } from './components/ui/toaster';
+import ErrorBoundary from './components/ErrorBoundary';
 import './globals.css';
 import './App.css';
 
@@ -41,6 +42,10 @@ const queryClient = new QueryClient({
     },
   },
 });
+
+// Per-page boundary wrapper: a crashing page renders the error card in
+// the Layout content area while the shell (nav) stays alive (I1).
+const page = (node: React.ReactNode) => <ErrorBoundary>{node}</ErrorBoundary>;
 
 const AppContent: React.FC = () => {
   // ⚡CapaDebug: dev 专属诊断面板(热键 Ctrl+Shift+D);动态导入使 release
@@ -59,31 +64,31 @@ const AppContent: React.FC = () => {
       <Layout>
         <Routes>
           <Route path="/" element={<Navigate to="/dashboard" replace />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/projects" element={<ProjectsUnified />} />
-          <Route path="/projects/new" element={<ProjectNew />} />
-          <Route path="/projects/:id" element={<ProjectDetail />} />
-          <Route path="/iterations" element={<Iterations />} />
+          <Route path="/dashboard" element={page(<Dashboard />)} />
+          <Route path="/projects" element={page(<ProjectsUnified />)} />
+          <Route path="/projects/new" element={page(<ProjectNew />)} />
+          <Route path="/projects/:id" element={page(<ProjectDetail />)} />
+          <Route path="/iterations" element={page(<Iterations />)} />
           <Route path="/roadmap" element={<Navigate to="/projects?tab=roadmap" replace />} />
-          <Route path="/people" element={<PeopleUnified />} />
-          <Route path="/people/new" element={<PersonNew />} />
-          <Route path="/people/:id" element={<PersonDetails />} />
+          <Route path="/people" element={page(<PeopleUnified />)} />
+          <Route path="/people/new" element={page(<PersonNew />)} />
+          <Route path="/people/:id" element={page(<PersonDetails />)} />
           <Route path="/roles" element={<Navigate to="/people" replace />} />
-          <Route path="/roles/:id" element={<RoleDetails />} />
+          <Route path="/roles/:id" element={page(<RoleDetails />)} />
           <Route path="/resource-templates" element={<Navigate to="/people" replace />} />
           <Route path="/allocations" element={<Navigate to="/people" replace />} />
           <Route path="/project-types" element={<Navigate to="/projects" replace />} />
-          <Route path="/project-types/:id" element={<ProjectTypeDetails />} />
-          <Route path="/assignments" element={<Assignments />} />
+          <Route path="/project-types/:id" element={page(<ProjectTypeDetails />)} />
+          <Route path="/assignments" element={page(<Assignments />)} />
           <Route path="/assignments/:id" element={<Navigate to="/assignments" replace />} />
-          <Route path="/scenarios" element={<Scenarios />} />
+          <Route path="/scenarios" element={page(<Scenarios />)} />
           <Route path="/availability" element={<Navigate to="/people" replace />} />
-          <Route path="/audit-log" element={<AuditLog />} />
-          <Route path="/reports" element={<ReportsUnified />} />
-          <Route path="/import" element={<ImportUnified />} />
-          <Route path="/locations" element={<Locations />} />
-          <Route path="/settings" element={<Settings />} />
-          <Route path="*" element={<NotFound />} />
+          <Route path="/audit-log" element={page(<AuditLog />)} />
+          <Route path="/reports" element={page(<ReportsUnified />)} />
+          <Route path="/import" element={page(<ImportUnified />)} />
+          <Route path="/locations" element={page(<Locations />)} />
+          <Route path="/settings" element={page(<Settings />)} />
+          <Route path="*" element={page(<NotFound />)} />
         </Routes>
       </Layout>
       {!isLoggedIn && <Login />}
@@ -98,7 +103,9 @@ function App() {
         <UserProvider>
           <ScenarioProvider>
             <Router>
-              <AppContent />
+              <ErrorBoundary>
+                <AppContent />
+              </ErrorBoundary>
             </Router>
           </ScenarioProvider>
         </UserProvider>

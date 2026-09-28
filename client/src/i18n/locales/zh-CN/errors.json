@@ -41,5 +41,10 @@
     "withIdNotFound": "未找到 ID 为 {{id}} 的{{resource}}",
     "resourceNotFound": "{{resource}}不存在"
   },
-  "fallbackPrefix": "操作失败"
+  "fallbackPrefix": "操作失败",
+  "boundary": {
+    "title": "出错了",
+    "description": "页面遇到意外错误。数据是安全的——可重试或刷新。",
+    "retry": "重试"
+  }
 }

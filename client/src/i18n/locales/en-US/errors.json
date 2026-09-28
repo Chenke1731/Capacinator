@@ -41,5 +41,10 @@
     "withIdNotFound": "{{resource}} with ID {{id}} was not found",
     "resourceNotFound": "{{resource}} not found"
   },
-  "fallbackPrefix": "Operation failed"
+  "fallbackPrefix": "Operation failed",
+  "boundary": {
+    "title": "Something went wrong",
+    "description": "The page hit an unexpected error. Your data is safe — try again or reload.",
+    "retry": "Try again"
+  }
 }

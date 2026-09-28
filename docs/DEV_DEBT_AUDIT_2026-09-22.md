@@ -78,6 +78,16 @@ people 名字链接的颜色来自一条"找不到的规则"（样式表遍历�
 
 InlineEdit/EditableCells 收敛、TanStack Table 启用（下一表格页）、Radix 优先红线。
 
+### D14（记档不修）role_planners 权限位三层断线（2026-09-28 核查）
+
+设计文档（docs/role-planners-design.md）定义的三个权限位 `can_allocate_resources` / `can_approve_assignments` / `can_modify_standard_allocations` 为**只写不读的死数据**，三层断线：
+
+1. **权限位零消费**：全库仅出现在类型定义（client/shared types）、建表 migration 001、Excel 导入播种（ExcelImporterV2:1182 写死 true）。无任何业务流读它们。
+2. **消费端从未建成**：assignment 实体无审批概念（`is_approved` 是 PersonAvailabilityOverride 请假审批的字段，那条线是活的，勿混）；设计文档设想的"分配审批请求"机制不存在。`requirePermission` 中间件仅覆盖 user-permissions/notifications 两个路由文件，assignments/projects/people 等核心路由零权限粒度。
+3. **UI 面半成品**：RolesController 有 planner CRUD（add/remove/update），api-client 有 `addPlanner`/`removePlanner`，但前端页面零调用——planner 管理无 UI 入口，数据只能靠 API/Excel 导入写入。附带：addPlanner 直接 `...plannerData` 展开插表，无字段白名单。
+
+**定性**：非 bug，设计超前 + 未接线（与切片 7"从未建成的功能"同病型）。**处置：记档不修**——接线前提（审批流、操作者鉴权模型）不存在，且权限治理属 Owner 已决定推迟的安全债范畴（见 §2026-09-24 安全债节）。若未来启动审批流设计，此处为起点。
+
 ## 数字总览
 
 | 指标 | 值 |

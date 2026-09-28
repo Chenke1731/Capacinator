@@ -38,14 +38,13 @@ async function initDb() {
   }
 }
 
-// Run if called directly
-// Disabled for CommonJS build
-// if (import.meta.url === `file://${process.argv[1]}`) {
-//   initDb();
-// }
-
-// Run if called directly
-if (import.meta.url === `file://${process.argv[1]}`) {
+// Run if called directly (npm run db:init runs this file via tsx).
+// The guard must not use import.meta: production compiles this tree as
+// CommonJS (tsconfig.production.json module=commonjs), where import.meta
+// is a compile-time syntax error (build:server was broken by it since
+// e78d4b9). argv[1] matching works identically under tsx (init.ts) and
+// compiled CJS (init.js).
+if (process.argv[1] && /database[/\\]init\.(ts|js)$/.test(process.argv[1])) {
   initDb();
 }
 

@@ -68,7 +68,10 @@ if (!process.env.DATABASE_URL && !fs.existsSync(dataPath)) {
       min: 0,
       max: 1,
       afterCreate: (conn: any, cb: any) => {
-        // Keep existing journal mode to avoid conflicts
+        // WAL: writes no longer take the whole-database lock, so cron
+        // backups and interactive edits stop blocking each other. WAL is
+        // persistent (stored in the db header), so this is idempotent.
+        conn.pragma('journal_mode = WAL');
         conn.pragma('synchronous = NORMAL'); // Better performance while maintaining durability
         conn.pragma('foreign_keys = ON');
         conn.pragma('busy_timeout = 30000'); // 30 second timeout for busy database

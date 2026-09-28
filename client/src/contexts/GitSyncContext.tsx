@@ -6,6 +6,7 @@
  */
 
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { useQueryClient } from '@tanstack/react-query';
 import type { SyncStatus, Conflict } from '../../../shared/types/git-entities';
 import { api } from '../lib/api-client';
 
@@ -40,6 +41,11 @@ interface GitSyncProviderProps {
 }
 
 export const GitSyncProvider: React.FC<GitSyncProviderProps> = ({ children }) => {
+  // Cache freshness: staleTime is 5min and refetch-on-focus is disabled
+  // (deliberate, ee02050), so invalidation is the only path to fresh data.
+  // A pull applies remote changes to local tables — once it returns (clean
+  // or conflicted), every cached list is potentially stale.
+  const queryClient = useQueryClient();
   const [status, setStatus] = useState<SyncStatus>('synced');
   const [pendingCount, setPendingCount] = useState(0);
   const [conflicts, setConflicts] = useState<Conflict[]>([]);
@@ -138,6 +144,9 @@ export const GitSyncProvider: React.FC<GitSyncProviderProps> = ({ children }) =>
     try {
       await api.sync.push();
       const pullResult = await api.sync.pull();
+      // Remote changes may have landed locally — refresh every cache (see
+      // the queryClient note at the top of the provider).
+      queryClient.invalidateQueries();
 
       if (pullResult.data?.conflicts?.length > 0) {
         setConflicts(pullResult.data.conflicts);
@@ -164,6 +173,11 @@ export const GitSyncProvider: React.FC<GitSyncProviderProps> = ({ children }) =>
     setStatus('syncing');
     try {
       const result = await api.sync.pull();
+      // Remote changes may have landed locally — refresh every cache (see
+      // the queryClient note at the top of the provider). Applies before
+      // conflict branching: a conflicted pull may still have applied part
+      // of the remote data.
+      queryClient.invalidateQueries();
 
       // Check for conflicts (Task: T058)
       if (result.data?.conflicts?.length > 0) {

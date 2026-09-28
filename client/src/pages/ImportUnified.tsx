@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect, useCallback, useMemo } from 'react';
 import { Upload, FileSpreadsheet, AlertCircle, CheckCircle, X, Settings, Download, FileText, Database } from 'lucide-react';
+import { useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { api } from '../lib/api-client';
 import { useScenario } from '../contexts/ScenarioContext';
@@ -38,6 +39,13 @@ interface ImportSettings {
 }
 
 function ImportUnified() {
+  // Cache freshness: staleTime is 5min and refetch-on-focus is disabled
+  // (deliberate, ee02050), so invalidation is the only path to fresh data.
+  // An import rewrites whole tables (clearExistingData=true by default) —
+  // once the server has processed an upload, success or failure, every
+  // cached list is stale; without this the user sees pre-import data on
+  // every page until a manual reload.
+  const queryClient = useQueryClient();
   const { t } = useTranslation();
   const [file, setFile] = useState<File | null>(null);
   const [clearExisting, setClearExisting] = useState(false);
@@ -164,6 +172,9 @@ function ImportUnified() {
       importProgress.updateProgress(50, t('importExport:progress.processingImport'));
 
       const importResult = response.data as ImportResult;
+      // The world just changed under every cached query (see the
+      // queryClient note at the top of the component).
+      queryClient.invalidateQueries();
       setResult(importResult);
 
       // Add any warnings from the result
@@ -183,6 +194,9 @@ function ImportUnified() {
         importProgress.fail(importResult.message || t('importExport:progress.importFailed'));
       }
     } catch (error: any) {
+      // Even a failed/aborted upload may have partially applied server-side
+      // (non-idempotent bulk import) — invalidate here too.
+      queryClient.invalidateQueries();
       const errorMessage = error.response?.data?.message || error.message || t('importExport:errors.unknown');
       importProgress.fail(errorMessage);
       setResult({
@@ -196,7 +210,7 @@ function ImportUnified() {
         ].filter((e, i, arr) => e && arr.indexOf(e) === i)
       });
     }
-  }, [file, clearExisting, useV2, settingsOverrides, importProgress, t]);
+  }, [file, clearExisting, useV2, settingsOverrides, importProgress, t, queryClient]);
 
   const handleRemoveFile = () => {
     setFile(null);

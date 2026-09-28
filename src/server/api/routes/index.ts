@@ -80,11 +80,17 @@ router.use('/user-permissions', userPermissionsRoutes);
 router.use('/notifications', notificationsRoutes);
 router.use('/recommendations', recommendationsRoutes);
 
-// Test data cleanup routes (for e2e tests)
-router.use('/test-data', testDataRoutes);
+// Test data cleanup routes (for e2e tests) — dev/e2e tooling that can
+// bulk-DELETE database content. Physically absent in production: the
+// server listens on 0.0.0.0 (owner decision, LAN access), so these must
+// not exist as unauthenticated endpoints there. The e2e stack runs
+// NODE_ENV='e2e', dev runs 'development' — both keep access.
+if (process.env.NODE_ENV !== 'production') {
+  router.use('/test-data', testDataRoutes);
 
-// Test context routes (for per-test data isolation)
-router.use('/test-context', testContextRoutes);
+  // Test context routes (for per-test data isolation)
+  router.use('/test-context', testContextRoutes);
+}
 
 // CSP violation reporting endpoint
 router.post('/csp-report', (req: Request, res: Response) => {

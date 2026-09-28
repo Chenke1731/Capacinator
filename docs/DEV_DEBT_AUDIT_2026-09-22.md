@@ -104,6 +104,8 @@ InlineEdit/EditableCells 收敛、TanStack Table 启用（下一表格页）、R
 
 三路审查（后端 / 前端 / 测试与仓库卫生）结论归档。**Owner 决定（2026-09-24）：安全项全部推迟到项目成熟后再修，当前优先功能；监听 0.0.0.0 为有意配置（局域网访问），不是缺陷。** 本节为接手时的修复清单。
 
+> **2026-09-28 破例两例**（优化方案书批准）：S1 测试端点环境守卫（`41d08f0`——test-data/test-context 在 production 物理不存在）与 S2 全局+登录限流（`c5a7080`——300/15min 全局、10/15min 登录、test/e2e 豁免）。两者均为零架构侵入的保险项，不改"其余安全项继续推迟"的决定。
+
 ### S1 安全债（推迟中，接手时优先级最高）
 
 1. **测试端点无守卫**：`/api/test-data`、`/api/test-context` 批量 DELETE，无 `NODE_ENV` 守卫、无认证，无条件挂载（`src/server/api/routes/test-data.ts:8-14`、`routes/index.ts:84-87`）。叠加 0.0.0.0 监听 = 局域网内任意进程可清空数据库。最小修法：路由挂载处加 `NODE_ENV !== 'production'` 守卫。

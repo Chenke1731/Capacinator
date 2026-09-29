@@ -12,6 +12,7 @@ router.get('/demand', controller.getDemandReport);
 router.get('/utilization', controller.getUtilizationReport);
 router.get('/gaps', controller.getGapsAnalysis);
 router.get('/projects', controller.getProjectReport);
+router.get('/by-component', controller.getComponentReport);
 router.get('/timeline', controller.getTimelineReport);
 
 export default router;

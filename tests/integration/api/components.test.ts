@@ -135,6 +135,21 @@ const mkProjectBody = (component_id?: string | null) => ({
     expect(del.status).toBeGreaterThanOrEqual(400);
   });
 
+  test('by-component report aggregates project counts with an explicit unassigned bucket', async () => {
+    const compId = await seedComponent();
+    await request.post('/api/projects').send(mkProjectBody(compId));
+    await request.post('/api/projects').send(mkProjectBody(null)); // unassigned
+
+    const res = await request.get('/api/reporting/by-component');
+    expect(res.status).toBe(200);
+    const rows = res.body.data.data ?? res.body.data;
+    const assigned = rows.find((r: any) => r.component_id === compId);
+    expect(assigned?.project_count).toBeGreaterThanOrEqual(1);
+    const unassigned = rows.find((r: any) => r.component_id === null);
+    expect(unassigned?.component_name).toBe('未归属');
+    expect(unassigned?.project_count).toBeGreaterThanOrEqual(1);
+  });
+
   afterEach(async () => {
     // inner hooks run before the file-level cleanup, so dependents first
     await mockSetupDb('projects').where('name', 'like', 'comp-test-%').del();

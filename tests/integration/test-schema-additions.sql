@@ -644,3 +644,10 @@ CREATE TABLE IF NOT EXISTS project_type_phases (
   template_description TEXT,
   template_metadata TEXT
 );
+
+-- scenario_project_assignments.status (production drift found via the
+-- by-component report union query)
+ALTER TABLE scenario_project_assignments ADD COLUMN status VARCHAR(20) DEFAULT 'active';
+
+-- project_assignments.status (same drift family as above)
+ALTER TABLE project_assignments ADD COLUMN status VARCHAR(20) DEFAULT 'active';

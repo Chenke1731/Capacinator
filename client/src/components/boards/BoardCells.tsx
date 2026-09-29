@@ -182,7 +182,7 @@ export function RoleCell({
 }) {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
-  const pop = useCellPopover(`role-${roleName}-pop`, 268, 360);
+  const pop = useCellPopover('role-pop', 268, 360);
   const [pmDraft, setPmDraft] = useState('');
   const [q, setQ] = useState('');
   const [busy, setBusy] = useState(false);

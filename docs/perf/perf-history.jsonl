@@ -8,3 +8,7 @@
 {"ts":"2026-09-29T06:25:41.080Z","head":"1e1a090","page":"demand-table","runs":3,"fcp":556,"lcp":744,"domInteractive":18.399999991059303,"loadEventEnd":242.70000000298023,"rowsSettleMs":7713}
 {"ts":"2026-09-29T09:00:06.461Z","head":"9882147","page":"dashboard","runs":3,"fcp":536,"lcp":732,"domInteractive":18.5,"loadEventEnd":256.79999999701977,"rowsSettleMs":2425,"domRows":2}
 {"ts":"2026-09-29T09:00:15.617Z","head":"9882147","page":"demand-table","runs":3,"fcp":572,"lcp":680,"domInteractive":17.200000002980232,"loadEventEnd":248.8999999910593,"rowsSettleMs":2692,"domRows":27}
+{"ts":"2026-09-29T10:16:20.786Z","head":"e76af11","page":"dashboard","runs":3,"fcp":440,"lcp":620,"domInteractive":18.400000005960464,"loadEventEnd":129.40000000596046,"rowsSettleMs":2534,"domRows":2}
+{"ts":"2026-09-29T10:16:30.071Z","head":"e76af11","page":"demand-table","runs":3,"fcp":408,"lcp":500,"domInteractive":18.099999994039536,"loadEventEnd":128.69999998807907,"rowsSettleMs":2849,"domRows":27}
+{"ts":"2026-09-29T12:07:20.174Z","head":"5928c73","page":"dashboard","runs":3,"fcp":400,"lcp":588,"domInteractive":18.5,"loadEventEnd":134.90000000596046,"rowsSettleMs":2540,"domRows":2,"flingLongTasks":null,"flingWorstMs":null}
+{"ts":"2026-09-29T12:07:38.521Z","head":"5928c73","page":"demand-table","runs":3,"fcp":412,"lcp":600,"domInteractive":16.799999997019768,"loadEventEnd":127.3999999910593,"rowsSettleMs":2826,"domRows":37,"flingLongTasks":20,"flingWorstMs":154}

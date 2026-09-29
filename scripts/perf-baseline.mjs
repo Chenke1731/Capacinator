@@ -130,6 +130,22 @@ try {
       const settleMs = await waitForRows(page, ROW_ANCHOR[name]); // data rows render AND stabilize
       const m = await page.evaluate(METRIC_JS);
       m.rowsSettleMs = settleMs;
+      if (name === 'demand-table') {
+        // fling scroll: worst main-thread block — guards the fixed-height
+        // virtualization win (640ms → 153ms); regression shows in trend
+        m.fling = await page.evaluate(async () => {
+          let longTasks = 0, worst = 0;
+          const obs = new PerformanceObserver(l => { for (const e of l.getEntries()) { longTasks++; worst = Math.max(worst, e.duration); } });
+          obs.observe({ entryTypes: ['longtask'] });
+          const el = document.querySelector('.requirements-table');
+          if (el) {
+            for (let i = 0; i < 20; i++) { el.scrollTop += 1500; await new Promise(r => requestAnimationFrame(r)); }
+          }
+          await new Promise(r => setTimeout(r, 400));
+          obs.disconnect();
+          return { longTasks, worstMs: Math.round(worst) };
+        });
+      }
       // virtualized boards render only the viewport — record the DOM row
       // count so a regression back to full rendering is visible in trends
       m.domRows = await page.evaluate((sel) => document.querySelectorAll(sel).length, ROW_ANCHOR[name]).catch(() => null);
@@ -147,11 +163,13 @@ try {
       // virtualization caps this at first-viewport render (~27 DOM rows).
       rowsSettleMs: median(runs.map(r => r.rowsSettleMs)),
       domRows: median(runs.map(r => r.domRows)),
+      flingLongTasks: median(runs.map(r => r.fling?.longTasks)),
+      flingWorstMs: median(runs.map(r => r.fling?.worstMs)),
     };
     results.push(row);
     appendFileSync(HISTORY, JSON.stringify(row) + '\n');
     console.log(`\n📊 ${name} (median of ${RUNS}, ms)`);
-    console.log(`   FCP ${row.fcp?.toFixed(0)} | LCP ${row.lcp?.toFixed(0)} | domInteractive ${row.domInteractive?.toFixed(0)} | load ${row.loadEventEnd?.toFixed(0)}`);
+    console.log(`   FCP ${row.fcp?.toFixed(0)} | LCP ${row.lcp?.toFixed(0)} | domInteractive ${row.domInteractive?.toFixed(0)} | load ${row.loadEventEnd?.toFixed(0)}${row.flingWorstMs ? ` | fling worst ${row.flingWorstMs}ms (${row.flingLongTasks} long tasks)` : ''}`);
   }
 } finally {
   await browser.close();

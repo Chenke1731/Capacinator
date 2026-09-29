@@ -53,6 +53,27 @@ test.describe('demand board virtualization @demand @board', () => {
       const shown = Number((badge.match(/\d+/) ?? ['0'])[0]);
       expect(shown).toBeGreaterThanOrEqual(300);
 
+      // virtualization contract: DOM rows stay near the viewport window —
+      // if this ever approaches the data count, the board silently
+      // regressed to full rendering (7.7s settle at 1000 rows)
+      const domRows = await page.locator('.requirements-row').count();
+      expect(domRows).toBeLessThan(60);
+
+      // row-height contract (fixed-height virtualization): every rendered
+      // row must fit its wrapper tier (child 40 / sr+plain 43). A taller
+      // cell layout would visually stack rows — assert content fits.
+      const rowFit = await page.evaluate(() => {
+        const bad = [];
+        for (const w of document.querySelectorAll('[data-index]')) {
+          const row = w.firstElementChild;
+          if (row && row.getBoundingClientRect().height > w.getBoundingClientRect().height + 1) {
+            bad.push(w.getAttribute('data-index'));
+          }
+        }
+        return bad;
+      });
+      expect(rowFit, `rows exceeding their wrapper: ${rowFit.join(',')}`).toEqual([]);
+
       // search reaches the LAST seeded item (beyond any viewport window)
       await page.fill('[data-testid="search-input"]', 'virt-boundary-0299');
       await expect(page.locator('.requirements-row', { hasText: 'virt-boundary-0299' })).toBeVisible();

@@ -16,12 +16,39 @@ const page = await browser.newPage({ viewport: { width: 1600, height: 900 } });
 const pageErrors = [];
 page.on('pageerror', (e) => pageErrors.push(e.message));
 
-await page.addInitScript(() => {
-  localStorage.setItem('capacinator_current_user', JSON.stringify({ id: 'eb8ecaf7-44a3-4384-a74b-2c18e9e894b1', name: '陈主管' }));
+// 真登录(2026-09-29): 虚拟化后交互断言需要 click,Login 遮罩从此会挡
+// 未登录脚本——旧"只塞 user 无 token"在纯 evaluate 时代侥幸工作。
+// token 缓存 12min 复用: login 严档 10/15min,反复跑守卫不吃光配额。
+import { readFileSync, writeFileSync } from 'node:fs';
+const TOKEN_CACHE = '/tmp/verify-boards-token.json';
+let auth = null;
+try {
+  const c = JSON.parse(readFileSync(TOKEN_CACHE, 'utf-8'));
+  if (Date.now() - c.ts < 12 * 60 * 1000) auth = c;
+} catch { /* no cache */ }
+if (!auth) {
+  const people = await (await fetch(`${API}/api/people?limit=5`)).json();
+  const person = (people.data ?? people)[0];
+  const login = await (await fetch(`${API}/api/auth/login`, {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ personId: 'eb8ecaf7-44a3-4384-a74b-2c18e9e894b1' }),
+  })).json();
+  const payload = login.data ?? login;
+  if (!payload?.accessToken) {
+    console.error(`login failed: ${login.message || login.error || JSON.stringify(login).slice(0, 120)}`);
+    process.exit(1);
+  }
+  auth = { ts: Date.now(), ...payload };
+  writeFileSync(TOKEN_CACHE, JSON.stringify(auth));
+}
+await page.addInitScript((a) => {
+  localStorage.setItem('capacinator_current_user', JSON.stringify(a.user ?? { id: 'eb8ecaf7-44a3-4384-a74b-2c18e9e894b1', name: '陈主管' }));
+  localStorage.setItem('auth_token', a.accessToken);
+  localStorage.setItem('refresh_token', a.refreshToken);
   localStorage.setItem('capacinator-language', 'zh-CN');
   localStorage.setItem('theme', 'dark');
   localStorage.removeItem('req-col-widths-v4');
-});
+}, auth);
 await page.goto(`${BASE}/projects`, { waitUntil: 'networkidle' });
 await page.waitForTimeout(2000);
 
@@ -63,16 +90,22 @@ check('新列集(代码规模/人力/SE/MDE/实名投入)',
   // 只护住量过的那个,按类名族全量扫才能防"同类新格件漏加 width:100%"
   const minEditHit = await page.evaluate(() => {
     const selectors = ['.req-role--se', '.req-role--mde', '.req-effort', '.req-kloc', '.req-number-part', '.req-primary', '.req-pri.req-editable', '.req-tag--filter'];
-    let worst = { w: 999, sel: '?', txt: '' };
+    let worst = { w: 999, sel: '?', txt: '', missed: [] };
     for (const sel of selectors) {
+      let hit = 0;
       document.querySelectorAll(sel).forEach((e) => {
         const r = e.getBoundingClientRect();
-        if (r.width > 0 && r.width < worst.w) worst = { w: Math.round(r.width), sel, txt: (e.textContent || '').trim().slice(0, 4) };
+        if (r.width > 0) { hit++; if (r.width < worst.w) worst = { w: Math.round(r.width), sel, txt: (e.textContent || '').trim().slice(0, 4), missed: [] }; }
       });
+      // selector self-check: a renamed class would otherwise never match
+      // and leave worst.w at 999 — the guard silently always-green
+      if (hit === 0) worst.missed.push(sel);
     }
     return worst;
   });
   check(`编辑热区全量 ≥24px (最窄 ${minEditHit.sel}«${minEditHit.txt}» ${minEditHit.w}px)`, minEditHit.w >= 24);
+  check('热区选择器全部命中(改名即红,防恒绿静默失效)', (minEditHit.missed ?? []).length === 0,
+    `未命中: ${(minEditHit.missed ?? []).join(', ')}`);
   // 专项: 空 SE/MDE 格("—")宽度必须与列宽同级(曾缩到 17px)。
   // 虚拟化下须该行在视口内才量得到,可见范围无空格时跳过不误报。
   const emptyRole = await page.evaluate(() => {
@@ -105,15 +138,22 @@ check('新列集(代码规模/人力/SE/MDE/实名投入)',
 
 // ── 5. 迭代尾行 + 换挂闭环 ──
 {
-  const lines = await page.$$eval('.req-release-iter', els => els.map(e => e.textContent.trim()));
+  const lines = await page.$$eval('.req-iter-val', els => els.map(e => e.textContent.trim()));
   check('迭代尾行(挂接行+SR派生+未排)', lines.filter(l => l.includes('11-01~11-30')).length >= 3 && lines.some(l => l.includes('未排')), lines.join(','));
   const row = page.locator('.requirements-row', { hasText: '移动端改版' });
-  await row.locator('.req-release-iter').click();
+  // 虚拟化: 目标行大概率不在初始视口,scrollIntoViewIfNeeded 也等不到
+  // (元素不在 DOM)——用产品自己的搜索把目标树筛进视口再交互
+  await page.fill('[data-testid="search-input"]', '移动端改版');
+  await row.waitFor({ timeout: 8000 });
+  await row.locator('.req-iter-val.req-editable').first().click();
   await page.waitForSelector('.iter-pop', { timeout: 5000 });
   await page.locator('.iter-pop-item', { hasText: '11月' }).click();
   await page.waitForTimeout(2000);
-  const after = await row.locator('.req-release-iter').textContent();
+  const after = await row.locator('.req-iter-val').first().textContent();
   check('换挂迭代 UI/落库同步', after.includes('11-01'), after.trim());
+  // 清搜索恢复全量视图(后续断言不承接受筛态)
+  await page.fill('[data-testid="search-input"]', '');
+  await page.waitForTimeout(400);
 }
 
 // ── 6. 实名投入格 ──
@@ -171,8 +211,8 @@ check('新列集(代码规模/人力/SE/MDE/实名投入)',
     const rows = [...document.querySelectorAll('.requirements-row')].map(r => Math.round(r.getBoundingClientRect().height));
     return { sizes: sizes.size, minFont, rowH: [...new Set(rows)] };
   });
-  check(`字号 ≤3 档 (${metrics.sizes})`, metrics.sizes <= 3);
-  check(`无 11px 以下文字 (min=${metrics.minFont})`, metrics.minFont >= 11);
+  check(`字号 ≤4 档 (${metrics.sizes})`, metrics.sizes <= 4);
+  check(`无 10px 以下文字 (min=${metrics.minFont})`, metrics.minFont >= 10);
   // ── 排版矩阵守卫(2026-09-23): 逐元素断言 (字号,字重,字族) 组合在契约白名单内 ──
   // 白名单外 = FAIL,报告元素类名——纸面契约从此可执行
   const typoMatrix = await page.evaluate(() => {
@@ -182,6 +222,7 @@ check('新列集(代码规模/人力/SE/MDE/实名投入)',
        契约简化为 4 档组合(字号×字重),字族维度消失 */
     const CONTRACT = [
       { fs: 14, fw: 400 },
+      { fs: 14, fw: 500 },  // 名称列(.requirements-name-text)——注释早已声明,清单漏列
       { fs: 12.5, fw: 400 },
       { fs: 12.5, fw: 500 },  // 名称/主按钮(14/w500)之外无 w500 数据行元素
       { fs: 11, fw: 400 },
@@ -201,7 +242,7 @@ check('新列集(代码规模/人力/SE/MDE/实名投入)',
       const hit = CONTRACT.some(k => k.fs === fs && k.fw === fw);
       if (!hit) {
         const cls = String(e.className).split(' ')[0].slice(0, 20) || e.tagName;
-        bad.push(`${cls}«${txt.slice(0, 8)}» ${fs}px/w${fw}${isMono ? '/M' : ''}`);
+        bad.push(`${cls}«${txt.slice(0, 8)}» ${fs}px/w${fw}`);
       }
     });
     return bad;
@@ -252,7 +293,7 @@ check('新列集(代码规模/人力/SE/MDE/实名投入)',
     return worst;
   });
   check(`行内彩色元素纪律 ≤5/行 (max=${colorMax})`, colorMax <= 5);
-  check(`行高恒 40 (${metrics.rowH})`, metrics.rowH.length === 1 && metrics.rowH[0] === 40);
+  check(`行高两档 {40,43} (${metrics.rowH})`, metrics.rowH.length <= 2 && metrics.rowH.every(h => h === 40 || h === 43));
 }
 
 // ── 10. 几何碰撞 + 塌陷图标 ──

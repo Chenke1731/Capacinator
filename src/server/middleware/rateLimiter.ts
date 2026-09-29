@@ -25,7 +25,7 @@ const noOp = (_req: Request, _res: Response, next: NextFunction) => next();
 
 // Exported as data so the tier defaults are testable without poking at
 // the library middleware's internals (v7+ exposes no .max on the handler).
-export const GLOBAL_TIER = { windowMs: 15 * 60 * 1000, max: 300 };
+export const GLOBAL_TIER = { windowMs: 15 * 60 * 1000, max: 600 };
 export const LOGIN_TIER = { windowMs: 15 * 60 * 1000, max: 10 };
 
 const build = (defaults: { windowMs: number; max: number }, opts: LimiterOptions) => {

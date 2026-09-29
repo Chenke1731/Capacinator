@@ -58,7 +58,7 @@ describe('rate limiter (S2)', () => {
   });
 
   test('default tiers: global 300/15min, login 10/15min, when not overridden', async () => {
-    expect(GLOBAL_TIER).toEqual({ windowMs: 15 * 60 * 1000, max: 300 });
+    expect(GLOBAL_TIER).toEqual({ windowMs: 15 * 60 * 1000, max: 600 });
     expect(LOGIN_TIER).toEqual({ windowMs: 15 * 60 * 1000, max: 10 });
   });
 });

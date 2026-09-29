@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, lazy, Suspense } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 // import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import './i18n';
@@ -8,29 +8,40 @@ import { ScenarioProvider } from './contexts/ScenarioContext';
 import { ThemeProvider } from './contexts/ThemeContext';
 import { Layout } from './components/Layout';
 import { Login } from './components/Login';
-import { Dashboard } from './pages/Dashboard';
-import { ProjectDetail } from './pages/ProjectDetail';
-import { ProjectNew } from './pages/ProjectNew';
-import PersonDetails from './pages/PersonDetails';
-import { PersonNew } from './pages/PersonNew';
-import RoleDetails from './pages/RoleDetails';
-import ProjectTypeDetails from './pages/ProjectTypeDetails';
-import ProjectsUnified from './pages/ProjectsUnified';
-import Iterations from './pages/Iterations';
-import PeopleUnified from './pages/PeopleUnified';
-import Assignments from './pages/Assignments';
-import { Scenarios } from './pages/Scenarios';
-import { AuditLog } from './pages/AuditLog';
-import ReportsUnified from './pages/ReportsUnified';
-import Settings from './pages/Settings';
-import { NotFound } from './components/NotFound';
-import ImportUnified from './pages/ImportUnified';
-import { Locations } from './pages/Locations';
-import { Components } from './pages/Components';
 import { Toaster } from './components/ui/toaster';
 import ErrorBoundary from './components/ErrorBoundary';
 import './globals.css';
 import './App.css';
+
+// P8 code-splitting: every route is its own chunk — the first screen no
+// longer parses 27 unrelated pages (recharts lands with Dashboard only).
+// Named exports get mapped to a default for lazy().
+const Dashboard = lazy(() => import('./pages/Dashboard').then(m => ({ default: m.Dashboard })));
+const ProjectDetail = lazy(() => import('./pages/ProjectDetail').then(m => ({ default: m.ProjectDetail })));
+const ProjectNew = lazy(() => import('./pages/ProjectNew').then(m => ({ default: m.ProjectNew })));
+const PersonDetails = lazy(() => import('./pages/PersonDetails'));
+const PersonNew = lazy(() => import('./pages/PersonNew').then(m => ({ default: m.PersonNew })));
+const RoleDetails = lazy(() => import('./pages/RoleDetails'));
+const ProjectTypeDetails = lazy(() => import('./pages/ProjectTypeDetails'));
+const ProjectsUnified = lazy(() => import('./pages/ProjectsUnified'));
+const Iterations = lazy(() => import('./pages/Iterations'));
+const PeopleUnified = lazy(() => import('./pages/PeopleUnified'));
+const Assignments = lazy(() => import('./pages/Assignments'));
+const Scenarios = lazy(() => import('./pages/Scenarios').then(m => ({ default: m.Scenarios })));
+const AuditLog = lazy(() => import('./pages/AuditLog').then(m => ({ default: m.AuditLog })));
+const ReportsUnified = lazy(() => import('./pages/ReportsUnified'));
+const Settings = lazy(() => import('./pages/Settings'));
+const NotFound = lazy(() => import('./components/NotFound').then(m => ({ default: m.NotFound })));
+const ImportUnified = lazy(() => import('./pages/ImportUnified'));
+const Locations = lazy(() => import('./pages/Locations').then(m => ({ default: m.Locations })));
+const Components = lazy(() => import('./pages/Components').then(m => ({ default: m.Components })));
+
+/** Route-level loading shell (suspense fallback) */
+const PageLoading = () => (
+  <div className="page-container" role="status" aria-busy="true">
+    <div style={{ padding: '4rem 0', textAlign: 'center', color: 'var(--text-secondary)' }}>…</div>
+  </div>
+);
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -45,8 +56,13 @@ const queryClient = new QueryClient({
 });
 
 // Per-page boundary wrapper: a crashing page renders the error card in
-// the Layout content area while the shell (nav) stays alive (I1).
-const page = (node: React.ReactNode) => <ErrorBoundary>{node}</ErrorBoundary>;
+// the Layout content area while the shell (nav) stays alive (I1);
+// Suspense covers the lazy chunk load on first visit (P8).
+const page = (node: React.ReactNode) => (
+  <ErrorBoundary>
+    <Suspense fallback={<PageLoading />}>{node}</Suspense>
+  </ErrorBoundary>
+);
 
 const AppContent: React.FC = () => {
   // ⚡CapaDebug: dev 专属诊断面板(热键 Ctrl+Shift+D);动态导入使 release

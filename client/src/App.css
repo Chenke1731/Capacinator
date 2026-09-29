@@ -1483,6 +1483,8 @@ input[type="checkbox"].settings-checkbox,
   align-items: baseline;
   gap: 3px;
   min-height: 24px;
+  width: 100%;
+  justify-content: flex-start;
   padding: 1px 2px;
   white-space: nowrap;
   overflow: hidden;
@@ -1503,7 +1505,7 @@ input[type="checkbox"].settings-checkbox,
   align-items: baseline;
   gap: 3px;
   min-height: 24px;
-  width: 100%; /* 空值热区对齐(2026-09-29): 与人力/规模/编号同词汇,空'—'不再缩成 17px */
+  width: 100%; /* 空值热区对齐(2026-09-29): 与人力/规模/编号同词汇 */
   justify-content: flex-start;
   padding: 1px 2px;
   white-space: nowrap;

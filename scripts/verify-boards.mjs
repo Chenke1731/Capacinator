@@ -59,6 +59,36 @@ check('新列集(代码规模/人力/SE/MDE/实名投入)',
   const advTitle = await page.$eval('.lifecycle-advance-btn', el => el.getAttribute('title') || '');
   check('状态单胶囊存在', capsules >= 4, String(capsules));
   check('› 命中 ≥24px', adv >= 24, `${adv}px`);
+  // 编辑热区全量扫描(2026-09-29): SE/MDE 空值曾缩到 17px 漏网——单元素断言
+  // 只护住量过的那个,按类名族全量扫才能防"同类新格件漏加 width:100%"
+  const minEditHit = await page.evaluate(() => {
+    const selectors = ['.req-role--se', '.req-role--mde', '.req-effort', '.req-kloc', '.req-number-part', '.req-primary', '.req-pri.req-editable', '.req-tag--filter'];
+    let worst = { w: 999, sel: '?', txt: '' };
+    for (const sel of selectors) {
+      document.querySelectorAll(sel).forEach((e) => {
+        const r = e.getBoundingClientRect();
+        if (r.width > 0 && r.width < worst.w) worst = { w: Math.round(r.width), sel, txt: (e.textContent || '').trim().slice(0, 4) };
+      });
+    }
+    return worst;
+  });
+  check(`编辑热区全量 ≥24px (最窄 ${minEditHit.sel}«${minEditHit.txt}» ${minEditHit.w}px)`, minEditHit.w >= 24);
+  // 专项: 空 SE/MDE 格("—")宽度必须与列宽同级(曾缩到 17px)。
+  // 虚拟化下须该行在视口内才量得到,可见范围无空格时跳过不误报。
+  const emptyRole = await page.evaluate(() => {
+    for (const sel of ['.req-role--se', '.req-role--mde']) {
+      for (const e of document.querySelectorAll(sel)) {
+        const t = (e.textContent || '').trim();
+        if (t === '—' || t === '-' || t === '') {
+          return { sel, w: Math.round(e.getBoundingClientRect().width) };
+        }
+      }
+    }
+    return null;
+  });
+  if (emptyRole) {
+    check(`空 SE/MDE 热区 ≥40px (${emptyRole.sel} ${emptyRole.w}px)`, emptyRole.w >= 40);
+  }
   check('› 有推进提示', /推进到/.test(advTitle), advTitle);
   check('SR 行状态分布位', (await page.$('.req-state-dist')) !== null);
 }

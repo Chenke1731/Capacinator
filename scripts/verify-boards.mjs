@@ -132,6 +132,36 @@ check('新列集(代码规模/人力/SE/MDE/实名投入)',
 {
   const mdeCell = await page.$$eval('.req-role--mde', els => els.map(e => e.textContent.trim()).filter(Boolean));
   check('MDE 格渲染(赵设计+人月)', mdeCell.some(t => t.includes('赵设计')), mdeCell.slice(0, 3).join(','));
+  // SE 弹窗交互守卫(2026-09-29): 弹窗类名曾用动态模板串致外点关闭判定
+  // 失配,点输入框即被关。断言: 打开→点输入框→弹窗仍在且可输入。
+  {
+    const seBtn = page.locator('.req-role--se:visible').first();
+    if (await seBtn.count()) {
+      await seBtn.click();
+      await page.waitForTimeout(500);
+      const pop = page.locator('.role-pop');
+      if (await pop.count()) {
+        const input = pop.locator('input[type="number"]').first();
+        if (await input.count()) {
+          await input.click();
+          await page.waitForTimeout(300);
+          const stillOpen = await pop.count();
+          check('SE 弹窗点输入框不关闭', stillOpen > 0);
+          if (stillOpen > 0) {
+            await input.fill('1.5');
+            const afterType = await pop.count();
+            check('SE 弹窗输入后仍打开', afterType > 0);
+          }
+        } else {
+          check('SE 弹窗有输入框', false, 'number input not found');
+        }
+      } else {
+        check('SE 弹窗打开', false, 'popover not found after click');
+      }
+      await page.keyboard.press('Escape');
+      await page.waitForTimeout(200);
+    }
+  }
   const effort = await page.$$eval('.req-effort', els => els.map(e => e.textContent.trim()));
   check('人力(人月)格渲染', effort.length >= 5, effort.slice(0, 3).join(','));
   const kloc = await page.$$eval('.req-kloc', els => els.map(e => e.textContent.trim()));

@@ -77,6 +77,20 @@ export default defineConfig(({ mode }) => {
   esbuild: {
     keepNames: true,
   },
+  // Preview (perf baseline P3): same /api proxy as dev so `vite preview`
+  // serves the production bundle against real data — dev mode's ~350ms
+  // tooling overhead must not pollute FCP/LCP measurements.
+  preview: {
+    port: Number(process.env.PREVIEW_PORT || 4173),
+    host: '0.0.0.0',
+    proxy: {
+      '/api': {
+        target: `http://localhost:${process.env.PORT || '3110'}`,
+        changeOrigin: true,
+        secure: false,
+      },
+    },
+  },
   optimizeDeps: {
     include: ['react', 'react-dom'],
   },

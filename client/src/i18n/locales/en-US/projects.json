@@ -87,7 +87,8 @@
     "enterProjectDescription": "Enter project description",
     "dataRestrictionsHint": "Any data handling restrictions",
     "enterDataRestrictions": "Enter data restrictions",
-    "dataRestrictionsSecurity": "Enter any data restrictions or security requirements"
+    "dataRestrictionsSecurity": "Enter any data restrictions or security requirements",
+    "selectComponent": "Select component (optional)"
   },
   "validation": {
     "nameRequired": "Project name is required",
@@ -177,7 +178,8 @@
     "validation": {
       "nameRequired": "Project type name is required",
       "nameTooLong": "Project type name must be less than 100 characters"
-    }
+    },
+    "component": "Component"
   },
   "demandChart": {
     "demand": "Demand",

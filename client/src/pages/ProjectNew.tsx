@@ -11,6 +11,7 @@ interface ProjectFormData {
   name: string;
   project_type_id: string;
   project_sub_type_id: string;
+  component_id: string;
   location_id: string;
   priority: number;
   description: string;
@@ -29,6 +30,7 @@ export function ProjectNew() {
     name: '',
     project_type_id: '',
     project_sub_type_id: '',
+    component_id: '',
     location_id: '',
     priority: 3,
     description: '',
@@ -55,6 +57,16 @@ export function ProjectNew() {
     queryKey: queryKeys.locations.list(),
     queryFn: async () => {
       const response = await api.locations.list();
+      const payload = response.data;
+      return Array.isArray(payload) ? payload : payload?.data || [];
+    }
+  });
+
+  // Fetch software components for the attribution dropdown (066)
+  const { data: components } = useQuery({
+    queryKey: queryKeys.components.list(),
+    queryFn: async () => {
+      const response = await api.components.list();
       const payload = response.data;
       return Array.isArray(payload) ? payload : payload?.data || [];
     }
@@ -93,6 +105,7 @@ export function ProjectNew() {
       const response = await api.projects.create({
         ...data,
         include_in_demand: data.include_in_demand ? 1 : 0,
+        component_id: data.component_id || null,
         owner_id: data.owner_id || null,
         external_id: data.external_id || null,
         description: data.description || null,
@@ -295,6 +308,21 @@ export function ProjectNew() {
                   )}
                 </div>
 
+
+                <div className="info-item">
+                  <label>{t('projects:projectTypes.component')}</label>
+                  <select
+                    name="component_id"
+                    value={formData.component_id}
+                    onChange={(e) => handleChange('component_id', e.target.value)}
+                    className="form-select"
+                  >
+                    <option value="">{t('projects:placeholder.selectComponent')}</option>
+                    {(components || []).map((comp: any) => (
+                      <option key={comp.id} value={comp.id}>{comp.name}</option>
+                    ))}
+                  </select>
+                </div>
 
                 <div className="info-item">
                   <label>{t('projects:priority')}</label>

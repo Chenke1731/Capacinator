@@ -321,6 +321,23 @@ export function Projects() {
   });
   const tags = (tagsData?.data as any[]) || [];
 
+  // Controlled component dimension (066): resolve component names for
+  // display/filtering; rows predating the backfill fall back to their
+  // legacy free-text component value so nothing disappears.
+  const { data: componentsData } = useQuery({
+    queryKey: queryKeys.components.list(),
+    queryFn: async () => {
+      const response = await api.components.list();
+      const payload = response.data;
+      return Array.isArray(payload) ? payload : payload?.data || [];
+    }
+  });
+  const componentNameById = useMemo(() => {
+    const m = new Map<string, string>();
+    for (const c of (componentsData as any[]) || []) m.set(String(c.id), String(c.name));
+    return m;
+  }, [componentsData]);
+
   const deleteProjectMutation = useMutation({
     mutationFn: (id: string) => api.projects.delete(id),
     onSuccess: () => {
@@ -332,8 +349,13 @@ export function Projects() {
   // Category scoping (需求台) + client filters
   // 组件/版本选项来自全量需求(不受各自筛选影响),排序稳定
   const demandRows = useMemo(
-    () => (projects ?? []).filter((p: any) => categoryOfTypeName(p.project_type_name) === 'demand'),
-    [projects]
+    () => (projects ?? [])
+      .filter((p: any) => categoryOfTypeName(p.project_type_name) === 'demand')
+      .map((p: any) => ({
+        ...p,
+        component: p.component_id ? (componentNameById.get(String(p.component_id)) ?? '') : (p.component ?? '')
+      })),
+    [projects, componentNameById]
   );
   const distinctOf = (field: 'component' | 'product_version' | 'release_version') =>
     [...new Set(demandRows.map((p: any) => String(p[field] ?? '').trim()).filter(Boolean))]

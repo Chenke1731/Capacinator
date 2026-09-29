@@ -51,6 +51,7 @@ interface EditableProject {
 interface ProjectFormData {
   name: string;
   project_type_id: string;
+  component_id: string;
   location_id: string;
   priority: number;
   description: string;
@@ -150,7 +151,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
       external_id: item.external_id || '',
       owner_id: item.owner_id || '',
       current_phase_id: item.current_phase_id || '',
-      component: (item as any).component || '',
+      component_id: ((item as any).component_id as string) || '',
       tag_ids: (item.tags || []).map((tag) => tag.id)
     }),
   });
@@ -164,6 +165,15 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
     }
   });
 
+  // Controlled component dimension (066) — replaces the legacy free-text input
+  const { data: components } = useQuery({
+    queryKey: queryKeys.components.list(),
+    queryFn: async () => {
+      const response = await api.components.list();
+      const payload = response.data;
+      return Array.isArray(payload) ? payload : payload?.data || [];
+    }
+  });
   
 
   const { data: people } = useQuery({
@@ -357,13 +367,18 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="component">{t('projects:component.fieldLabel')}</Label>
-              <Input
-                id="component"
-                value={formData.component}
-                onChange={(e) => handleChange('component', e.target.value)}
-                placeholder={t('projects:component.fieldPlaceholder')}
-              />
+              <Label htmlFor="component-select">{t('projects:component.fieldLabel')}</Label>
+              <select
+                id="component-select"
+                value={formData.component_id ?? ''}
+                onChange={(e) => handleChange('component_id', e.target.value || '')}
+                className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+              >
+                <option value="">{t('projects:placeholder.selectComponent')}</option>
+                {(components || []).map((comp: any) => (
+                  <option key={comp.id} value={comp.id}>{comp.name}</option>
+                ))}
+              </select>
             </div>
 
             <div className="space-y-2 col-span-2">

@@ -87,7 +87,8 @@
     "enterProjectDescription": "请输入项目描述",
     "dataRestrictionsHint": "任何数据处理限制",
     "enterDataRestrictions": "请输入数据限制",
-    "dataRestrictionsSecurity": "请输入任何数据限制或安全要求"
+    "dataRestrictionsSecurity": "请输入任何数据限制或安全要求",
+    "selectComponent": "选择组件(可选)"
   },
   "validation": {
     "nameRequired": "项目名称为必填项",
@@ -175,7 +176,8 @@
     "validation": {
       "nameRequired": "项目类型名称为必填项",
       "nameTooLong": "项目类型名称不能超过 100 个字符"
-    }
+    },
+    "component": "组件"
   },
   "demandChart": {
     "demand": "需求",

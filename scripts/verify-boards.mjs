@@ -294,11 +294,23 @@ check('新列集(代码规模/人力/SE/MDE/实名投入)',
       await page.waitForTimeout(600);
       const lcOpen = await page.evaluate(() => !!document.querySelector('.lc-popover'));
       const bad = await page.evaluate(() => {
+        // 包含块劫持全家桶(与 tests/e2e/fixtures/index.ts 的 teardown 扫描同步):
+        // transform / will-change:transform / filter / backdrop-filter / perspective / contain
+        const hijacks = (el) => {
+          const cs = getComputedStyle(el);
+          if (cs.transform !== 'none') return true;
+          if ((cs.willChange || '').includes('transform')) return true;
+          if (cs.filter !== 'none') return true;
+          if (cs.backdropFilter !== 'none') return true;
+          if (cs.perspective !== 'none') return true;
+          if (/layout|paint|strict|content/.test(cs.contain || '')) return true;
+          return false;
+        };
         const out = [];
         for (const el of document.querySelectorAll('*')) {
           if (getComputedStyle(el).position !== 'fixed') continue;
           for (let a = el.parentElement; a; a = a.parentElement) {
-            if (getComputedStyle(a).transform !== 'none') {
+            if (hijacks(a)) {
               out.push(`${(el.className || el.tagName).toString().slice(0, 36)}`);
               break;
             }

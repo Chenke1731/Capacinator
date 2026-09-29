@@ -109,8 +109,42 @@ export const test = base.extend<TestFixtures>({
     
     // Clear any notifications or modals
     await helpers.clearNotifications();
-    
+
     await use(page);
+
+    // ── 结构不变量守卫(2026-09-29 待排序漂移事故): 每条用例收尾扫全页——
+    // fixed 弹出物不得处于包含块劫持属性的祖先内(transform/will-change/filter/
+    // backdrop-filter/perspective/contain 全家桶,非仅 transform)。
+    // 不依赖组件清单,任意页面任意弹窗打开态自动入护;与 scripts/verify-boards.mjs
+    // 的同名扫描保持同步(两处同步标注)。守卫自身执行失败(页面已导航)不阻断测试。
+    try {
+      const violations = await page.evaluate(() => {
+        const hijacks = (el: Element): boolean => {
+          const cs = getComputedStyle(el);
+          if (cs.transform !== 'none') return true;
+          if ((cs.willChange || '').includes('transform')) return true;
+          if (cs.filter !== 'none') return true;
+          if ((cs as any).backdropFilter !== 'none') return true;
+          if (cs.perspective !== 'none') return true;
+          if (/layout|paint|strict|content/.test(cs.contain || '')) return true;
+          return false;
+        };
+        const out: string[] = [];
+        for (const el of document.querySelectorAll('*')) {
+          if (getComputedStyle(el).position !== 'fixed') continue;
+          for (let a = el.parentElement; a; a = a.parentElement) {
+            if (hijacks(a)) { out.push((el.className || el.tagName).toString().slice(0, 40)); break; }
+          }
+        }
+        return [...new Set(out)];
+      });
+      if (violations.length > 0) {
+        throw new Error(`[包含块劫持] fixed 弹出物处于 transform/filter 类祖先内(漂移): ${violations.join(', ')}`);
+      }
+    } catch (e) {
+      // 只有真违例才向 Playwright 抛;页面导航/关闭导致的执行失败静默放行
+      if (String(e).includes('包含块')) throw e;
+    }
   },
 
   // API context for direct API calls

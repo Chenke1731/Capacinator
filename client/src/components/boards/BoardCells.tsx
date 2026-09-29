@@ -213,13 +213,18 @@ export function RoleCell({
     .sort((a, b) => Number(b.primary_role_name === label) - Number(a.primary_role_name === label))
     .slice(0, 8);
 
-  // 派生窗口(SE=今天→迭代开工;MDE=迭代窗口)+工作月推导
+  // 派生窗口+工作月推导(2026-09-29 语义修正: SE 分析与迭代无关)
+  // SE: 默认 今天→+30天; 挂了迭代则以迭代开工为参考终点(可改)
+  // MDE: 迭代窗口; 未挂迭代时 默认 今天→+30天(不再门禁,分析可能早于/晚于多个迭代)
   const iter = project.iteration;
   const today = new Date();
   const iso = (d: Date) => d.toISOString().slice(0, 10);
+  const plus30 = new Date(Date.now() + 30 * 24 * 3600 * 1000);
   const window = isSe
-    ? (iter ? { start: iso(today), end: iter.start_date } : null)
-    : (iter ? { start: iter.start_date, end: iter.end_date } : null);
+    ? { start: iso(today), end: iter ? iter.start_date : iso(plus30) }
+    : (iter
+        ? { start: iter.start_date, end: iter.end_date }
+        : { start: iso(today), end: iso(plus30) });
   const workdays = window ? workdaysBetween(window.start, window.end) : 0;
   const months = Math.round((workdays / 21.75) * 100) / 100;
   const pmVal = pmDraft !== '' ? Number(pmDraft) || 0 : (pm ?? 0);
@@ -241,7 +246,7 @@ export function RoleCell({
   };
 
   const assign = async (personId: string, pct: number) => {
-    if (!role || !window) return;
+    if (!role) return;
     setBusy(true);
     try {
       await api.assignments.create({
@@ -294,15 +299,12 @@ export function RoleCell({
                      onChange={(e) => setPmDraft(e.target.value)} onBlur={savePm} style={{ width: 72 }} />
               {t('projects:roleCell.pmUnit')}
             </label>
-            {window ? (
-              <div className="lc-popover-hint">
-                {isSe
-                  ? t('projects:roleCell.seWindow', { end: window.end, days: workdays })
-                  : t('projects:roleCell.mdeWindow', { start: window.start, end: window.end, months })}
-              </div>
-            ) : (
-              <div className="lc-popover-hint">{t('projects:roleCell.noIteration')}</div>
-            )}
+            <div className="lc-popover-hint">
+              {isSe
+                ? t('projects:roleCell.seWindow', { end: window.end, days: workdays })
+                : t('projects:roleCell.mdeWindow', { start: window.start, end: window.end, months })}
+              {!iter && t('projects:roleCell.defaultWindowNote')}
+            </div>
           </div>
 
           <div className="lc-popover-title">{t('projects:roleCell.assignTitle')}</div>
@@ -320,7 +322,7 @@ export function RoleCell({
           </div>
           <div className="iter-pop-list">
             {candidates.map((pe) => (
-              <button key={pe.id} type="button" className="cell-pop-item" disabled={busy || !role || !window}
+              <button key={pe.id} type="button" className="cell-pop-item" disabled={busy || !role}
                       onClick={() => assign(pe.id, suggestPct)}>
                 <span className="cell-pop-item-label">{pe.name}</span>
                 <span className="cell-pop-item-meta">{pe.primary_role_name}</span>

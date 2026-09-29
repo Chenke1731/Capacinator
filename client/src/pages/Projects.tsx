@@ -513,12 +513,22 @@ export function Projects() {
     const hidden = compact ? ['component', 'number', 'release', 'primary'] : showAll ? [] : ['component'];
     const visible = REQ_COLUMNS.filter((c) => !hidden.includes(c.key));
     let total = 28 /* 行左右 padding */ + 8 * (visible.length - 1) /* 列间 gap */;
-    for (const c of visible) {
+    // 滚动容器时代(虚拟化后)纵向滚动条吃掉 ~15px,且部分档位轨道和逼近
+    // 预算——空间不足时整排等比微缩(不动列语义/隐藏裁决),零横滚优先。
+    const rawWidths = visible.map((c) => {
       const def = showAll ? c.def[0] : compact ? c.def[2] : c.def[1];
-      const w = colWidths[c.key] ?? def;
-      vars[`--req-w-${c.key}`] = `${w}px`;
-      total += w;
-    }
+      return colWidths[c.key] ?? def;
+    });
+    let rawTotal = 28 + 8 * (visible.length - 1);
+    for (const w of rawWidths) rawTotal += w;
+    // state 时序兜底: ResizeObserver 的 containerW 在紧凑档新页面偶发滞后,
+    // 直接读活容器宽(渲染帧内 clientWidth 已可用)
+    const liveW = tableRef.current?.clientWidth ?? containerW;
+    const scale = liveW > 0 && rawTotal > liveW ? (liveW - 2) / rawTotal : 1;
+    visible.forEach((c, i) => {
+      vars[`--req-w-${c.key}`] = `${Math.round(rawWidths[i] * scale)}px`;
+      total += Math.round(rawWidths[i] * scale);
+    });
     /* 拖过的列=钉死,按类别退出分配: elastic(名称) fr 归零并启用尾部占位轨
        承接剩余; cap 列上限锁为拖宽值(minmax(w,w)=定死); 定宽列本就 var 直取 */
     for (const c of visible) {
@@ -547,7 +557,9 @@ export function Projects() {
       if (gap > 8) vars['--req-gap'] = `${gap}px`;
     }
 
-    vars['--req-total'] = `${total}px`;
+    // 滚动容器时代(虚拟化后)纵向滚动条吃掉 ~15px,且中档轨道和逼近预算
+    // ——cap 到容器宽让名称 fr 列吸收差额(ellipsis 兜底),零横滚优先。
+    vars['--req-total'] = containerW > 0 ? `${Math.min(total, containerW)}px` : `${total}px`;
     return vars as React.CSSProperties;
   }, [colWidths, showAll, compact, containerW]);
 

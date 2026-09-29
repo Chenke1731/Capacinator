@@ -2062,7 +2062,9 @@ body.req-col-dragging * {
   flex-wrap: nowrap;
   overflow: hidden;
 }
-.requirements-name { overflow: hidden; }
+.requirements-name { overflow: hidden; min-width: 0; }
+/* min-width:0 (grid item 标配): 无它时长名+chip 的 min-content 撑爆轨道,
+   横滚与列预算漂移——ellipsis 依赖它才生效 */
 .requirements-name-text {
   font-size: 14px; /* P7(2026-09-23): 名称比数据值大 1.5px,恢复层级感 */
   font-weight: 500;

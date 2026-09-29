@@ -170,7 +170,7 @@ check('新列集(代码规模/人力/SE/MDE/实名投入)',
   await plain.locator('.requirements-name-text').click();
   await page.waitForSelector('.project-ref-code', { timeout: 8000 });
   const chip = await page.$eval('.project-ref-code', el => el.textContent.trim());
-  check('详情引用码(#N)', /^#\d+$/.test(chip), chip);
+  check('详情引用码(CAP-N|#N)', /^(CAP-)?\d+$|^#\d+$/.test(chip), chip);
   await page.goBack(); await page.waitForTimeout(1200);
   await page.fill('[data-testid="search-input"]', chip);
   await page.waitForTimeout(400);
@@ -181,6 +181,7 @@ check('新列集(代码规模/人力/SE/MDE/实名投入)',
 
 // ── 8. ＋AR 与 SR 折叠 ──
 {
+  await page.locator('.requirements-row', { hasText: '移动端改版' }).first().waitFor({ timeout: 8000 }); // goBack 重挂后虚拟行尚未入 DOM
   const arCount = await page.evaluate(() => {
     const inSr = !!document.querySelector('.requirements-row--sr .req-ar-add');
     const plain = [...document.querySelectorAll('.requirements-row:not(.requirements-row--sr):not(.requirements-row--child)')]

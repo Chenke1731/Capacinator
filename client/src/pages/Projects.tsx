@@ -525,6 +525,7 @@ export function Projects() {
     // 直接读活容器宽(渲染帧内 clientWidth 已可用)
     const liveW = tableRef.current?.clientWidth ?? containerW;
     const scale = liveW > 0 && rawTotal > liveW ? (liveW - 2) / rawTotal : 1;
+    if (scale < 1) vars['--req-gap'] = '8px'; // 空间不足时间距也回底档(gap 漂移是紧凑档横滚主因)
     visible.forEach((c, i) => {
       vars[`--req-w-${c.key}`] = `${Math.round(rawWidths[i] * scale)}px`;
       total += Math.round(rawWidths[i] * scale);

@@ -276,3 +276,10 @@ npm run dist:linux       # Linux package (.AppImage)
 - 修改 .tsx/.ts 一律用 Edit 工具;禁止 python 脚本改 React 代码(三次炸 JSX 的教训)
 - 截图类输入: 第一个动作固定 `npm run shot <图片路径>`(scripts/analyze-screenshot.mjs)
 - 验证漏斗: 改完→对应文件测试→绿→更宽;全量/verify:site 只在提交点
+
+## 结构性 Bug 三步法(2026-09-29 待排序漂移事故沉淀)
+
+修复任何"某类元素缺 X"的结构性 bug 时,强制三步,缺一即返工:
+1. **归因到类**:按结构特征(如 `position:fixed` 于 transform 祖先)全库枚举成员清单,**清单即修复范围**——禁止用"修复时看到的 API"当问题边界(fe58b0b 只扫 useCellPopover 漏掉 lc-popover 的教训);
+2. **共享原语**:修复必须收敛到一处原语(如 PopoverPortal),N 处消费——禁止逐例散修;
+3. **结构不变量守卫**:覆盖证明只认全量扫描断言(如 DOM 遍历所有 fixed 元素断言无 transform 祖先),**单点行为断言不得充当覆盖证明**;守卫上线须过变异自证(故意还原一个 bug 必须红)。

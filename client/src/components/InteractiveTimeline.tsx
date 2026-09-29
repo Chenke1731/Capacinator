@@ -1,4 +1,5 @@
 import React, { useRef, useCallback, useEffect, useState } from 'react';
+import { PopoverPortal } from './PopoverPortal';
 import { format, startOfWeek, startOfMonth } from 'date-fns';
 import { useTimelineEvents } from '../hooks/useTimelineEvents';
 import { getLocale, getDateFnsLocale } from '../i18n';
@@ -490,9 +491,11 @@ export function InteractiveTimeline({
 
       {/* Tooltip */}
       {tooltip.visible && (
+        <PopoverPortal>{/* 同类防御(2026-09-29): 该 tooltip 不在虚拟行内,但进任何 transform 容器即病 */}
         <div style={{ position: 'fixed', left: tooltip.x, top: tooltip.y, zIndex: 9999, pointerEvents: 'none', overflow: 'visible' }}>
           {tooltip.content}
         </div>
+        </PopoverPortal>
       )}
     </div>
   );

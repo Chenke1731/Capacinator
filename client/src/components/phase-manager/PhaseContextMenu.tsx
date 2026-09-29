@@ -1,4 +1,5 @@
 import React from 'react';
+import { PopoverPortal } from '../PopoverPortal';
 import { useTranslation } from 'react-i18next';
 import { ContextMenuPosition, ProjectPhaseTimeline } from './types';
 
@@ -40,6 +41,7 @@ export function PhaseContextMenu({
   };
 
   return (
+    <PopoverPortal>{/* 同类防御: 进 transform 容器即病,统一走共享原语 */}
     <div
       className="context-menu"
       style={{
@@ -74,6 +76,7 @@ export function PhaseContextMenu({
         {t('phases:context.deletePhase')}
       </button>
     </div>
+    </PopoverPortal>
   );
 }
 

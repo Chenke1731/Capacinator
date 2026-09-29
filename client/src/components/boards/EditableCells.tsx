@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { PopoverPortal } from './PopoverPortal';
+import { PopoverPortal } from '../PopoverPortal';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { Check, Pencil, Plus, Search, X } from 'lucide-react';

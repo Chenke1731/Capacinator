@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { PopoverPortal } from './PopoverPortal';
+import { PopoverPortal } from '../PopoverPortal';
 import { Avatar } from './EditableCells';
 import { useTranslation } from 'react-i18next';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';

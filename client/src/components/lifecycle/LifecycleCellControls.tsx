@@ -2,6 +2,7 @@ import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ChevronRight } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
+import { PopoverPortal } from '../PopoverPortal';
 import { queryKeys } from '../../lib/queryKeys';
 import { api } from '../../lib/api-client';
 import { useLifecycleTransition } from './useLifecycleTransition';
@@ -189,6 +190,7 @@ export function LifecycleCellControls({ project }: { project: any }) {
       </span>
 
       {mode && (
+        <PopoverPortal>
         <div ref={popRef} className={`lc-popover ${mode === 'actions' ? 'lc-state-pop' : ''}`} style={{ top: pos.top, left: pos.left }}>
           {/* ---- schedule form (排序即建池) ---- */}
           {mode === 'schedule' && (
@@ -281,6 +283,7 @@ export function LifecycleCellControls({ project }: { project: any }) {
 
           {error && <div className="lc-popover-error">{error}</div>}
         </div>
+        </PopoverPortal>
       )}
     </span>
   );

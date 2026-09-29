@@ -312,7 +312,7 @@ describe('InteractiveTimeline', () => {
       );
 
       // Look for "Today" text in the DOM
-      const todayElements = Array.from(container.querySelectorAll('div')).filter(
+      const todayElements = Array.from(document.querySelectorAll('div')).filter(
         (el) => el.textContent === 'Today'
       );
 
@@ -331,7 +331,7 @@ describe('InteractiveTimeline', () => {
         />
       );
 
-      const todayElements = Array.from(container.querySelectorAll('div')).filter(
+      const todayElements = Array.from(document.querySelectorAll('div')).filter(
         (el) => el.textContent === 'Today'
       );
       expect(todayElements.length).toBe(0);
@@ -451,7 +451,7 @@ describe('InteractiveTimeline', () => {
         />
       );
 
-      const brushOverlay = Array.from(container.querySelectorAll('div')).find(
+      const brushOverlay = Array.from(document.querySelectorAll('div')).find(
         (el) => el.style.backgroundColor === 'rgba(59, 130, 246, 0.2)'
       );
       expect(brushOverlay).toBeInTheDocument();
@@ -550,7 +550,7 @@ describe('InteractiveTimeline', () => {
       fireEvent.mouseEnter(item, { clientX: 200, clientY: 200 });
 
       await waitFor(() => {
-        const tooltips = Array.from(container.querySelectorAll('div')).filter(
+        const tooltips = Array.from(document.querySelectorAll('div')).filter(
           (el) => el.textContent?.includes('Planning')
         );
         expect(tooltips.length).toBeGreaterThan(0);
@@ -570,7 +570,7 @@ describe('InteractiveTimeline', () => {
       fireEvent.mouseEnter(item, { clientX: 200, clientY: 200 });
 
       await waitFor(() => {
-        const tooltips = Array.from(container.querySelectorAll('div')).filter(
+        const tooltips = Array.from(document.querySelectorAll('div')).filter(
           (el) => el.textContent?.includes('Planning')
         );
         expect(tooltips.length).toBeGreaterThan(0);
@@ -579,7 +579,7 @@ describe('InteractiveTimeline', () => {
       fireEvent.mouseLeave(item);
 
       await waitFor(() => {
-        const tooltips = Array.from(container.querySelectorAll('div')).filter(
+        const tooltips = Array.from(document.querySelectorAll('div')).filter(
           (el) => el.style.position === 'fixed' && el.style.zIndex === '9999'
         );
         expect(tooltips.length).toBe(0);
@@ -599,7 +599,7 @@ describe('InteractiveTimeline', () => {
       fireEvent.mouseEnter(item, { clientX: 200, clientY: 200 });
 
       await waitFor(() => {
-        const tooltips = Array.from(container.querySelectorAll('div')).filter(
+        const tooltips = Array.from(document.querySelectorAll('div')).filter(
           (el) => el.textContent?.includes('Planning')
         );
         expect(tooltips.length).toBeGreaterThan(0);
@@ -608,7 +608,7 @@ describe('InteractiveTimeline', () => {
       fireEvent.mouseMove(item, { clientX: 300, clientY: 300 });
 
       // Tooltip should still be visible
-      const tooltips = Array.from(container.querySelectorAll('div')).filter(
+      const tooltips = Array.from(document.querySelectorAll('div')).filter(
         (el) => el.style.position === 'fixed' && el.style.zIndex === '9999'
       );
       expect(tooltips.length).toBeGreaterThan(0);
@@ -673,7 +673,7 @@ describe('InteractiveTimeline', () => {
       );
 
       // Find extend handles (they have specific text content)
-      const handles = Array.from(container.querySelectorAll('div')).filter(
+      const handles = Array.from(document.querySelectorAll('div')).filter(
         (el) => el.getAttribute('title')?.includes('Extend')
       );
 
@@ -698,7 +698,7 @@ describe('InteractiveTimeline', () => {
       fireEvent.mouseEnter(item);
 
       await waitFor(() => {
-        const resizeHandles = Array.from(container.querySelectorAll('div')).filter(
+        const resizeHandles = Array.from(document.querySelectorAll('div')).filter(
           (el) => el.style.cursor === 'ew-resize'
         );
         expect(resizeHandles.length).toBeGreaterThan(0);
@@ -721,7 +721,7 @@ describe('InteractiveTimeline', () => {
       fireEvent.mouseEnter(item);
 
       // Find resize handles
-      const resizeHandles = Array.from(container.querySelectorAll('div')).filter(
+      const resizeHandles = Array.from(document.querySelectorAll('div')).filter(
         (el) => el.style.cursor === 'ew-resize'
       );
 
@@ -766,7 +766,7 @@ describe('InteractiveTimeline', () => {
       );
 
       // Simulate hovering over a handle
-      const handles = Array.from(container.querySelectorAll('div')).filter(
+      const handles = Array.from(document.querySelectorAll('div')).filter(
         (el) => el.getAttribute('title')?.includes('Extend')
       );
 
@@ -904,7 +904,7 @@ describe('InteractiveTimeline', () => {
       fireEvent.mouseEnter(item);
 
       // Find a resize handle
-      const resizeHandles = Array.from(container.querySelectorAll('div')).filter(
+      const resizeHandles = Array.from(document.querySelectorAll('div')).filter(
         (el) => el.style.cursor === 'ew-resize'
       );
 

@@ -280,6 +280,39 @@ check('新列集(代码规模/人力/SE/MDE/实名投入)',
       }
     }
   }
+
+  // ── 结构不变量守卫(2026-09-29 待排序事故): 全库 DOM 扫描——
+  // 任何 computed position:fixed 的元素,其祖先链不得含 transform 容器
+  // (虚拟行 translateY 劫持 fixed 的包含块=漂移)。不依赖任何组件清单,
+  // 未来新增弹出物自动入护。单点锚定断言只验证交互质量,覆盖证明只认这个。
+  // 覆盖两个打开态: 标签弹窗(上文已开) + 生命周期弹窗(此处打开)。
+  {
+    const lcBadge = page.locator('.lifecycle-badge-btn').first();
+    if (await lcBadge.count()) {
+      await lcBadge.scrollIntoViewIfNeeded().catch(() => {});
+      await lcBadge.click().catch(() => {});
+      await page.waitForTimeout(600);
+      const lcOpen = await page.evaluate(() => !!document.querySelector('.lc-popover'));
+      const bad = await page.evaluate(() => {
+        const out = [];
+        for (const el of document.querySelectorAll('*')) {
+          if (getComputedStyle(el).position !== 'fixed') continue;
+          for (let a = el.parentElement; a; a = a.parentElement) {
+            if (getComputedStyle(a).transform !== 'none') {
+              out.push(`${(el.className || el.tagName).toString().slice(0, 36)}`);
+              break;
+            }
+          }
+        }
+        return [...new Set(out)];
+      });
+      check(`fixed 弹出物无 transform 祖先(标签+生命周期双开态) (${bad.length} 违例${lcOpen ? '' : '⚠生命周期弹窗未开'})`,
+        bad.length === 0 && lcOpen, bad.join(', ').slice(0, 120));
+      await page.keyboard.press('Escape').catch(() => {});
+    } else {
+      check('fixed 结构扫描: 无生命周期徽章(跳过)', true);
+    }
+  }
   // 色彩纪律(2026-09-23 借鉴裁决 B): 每行饱和底色元素 ≤5,防"满行皆重点=无重点"
   const colorMax = await page.evaluate(() => {
     const sat = (e) => {

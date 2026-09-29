@@ -434,7 +434,10 @@ export function Projects() {
   const rowVirtualizer = useVirtualizer({
     count: flatRows.length,
     getScrollElement: () => tableRef.current,
-    estimateSize: (i) => (flatRows[i].kind === 'child' ? 40 : 44),
+    // 实测两档稳定行高(child 40 / sr+plain 43)且单行省略号锁定——固定
+    // 尺寸免去 measureElement 的 mount→measure→recalculate 级联回流
+    // (快速滚动时实测 11 个 long task、最坏 640ms 的主凶)。
+    estimateSize: (i) => (flatRows[i].kind === 'child' ? 40 : 43),
     overscan: 10, // 编辑中滚动不丢行的缓冲(编辑态无全局信号,以距离兜底)
     getItemKey: (i) => flatRows[i].project.id,
   });
@@ -990,8 +993,7 @@ export function Projects() {
                 <div
                   key={flatRows[vi.index].project.id}
                   data-index={vi.index}
-                  ref={rowVirtualizer.measureElement}
-                  style={{ position: 'absolute', top: 0, left: 0, width: '100%', transform: `translateY(${vi.start}px)` }}
+                  style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: flatRows[vi.index].kind === 'child' ? 40 : 43, transform: `translateY(${vi.start}px)` }}
                 >
                   {renderFlatRow(flatRows[vi.index])}
                 </div>

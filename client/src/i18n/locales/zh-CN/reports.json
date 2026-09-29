@@ -207,7 +207,8 @@
     "summary": {
       "components": "在用组件数",
       "totalDemands": "需求总数",
-      "unassignedDemands": "未归属需求"
+      "unassignedDemands": "未归属需求",
+      "manageComponents": "管理组件"
     }
   }
 }

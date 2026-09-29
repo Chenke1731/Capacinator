@@ -70,7 +70,8 @@
     "ariaLabel": "项目管理导航",
     "demand": "需求",
     "tickets": "问题单",
-    "affairs": "事项"
+    "affairs": "事项",
+    "components": "组件"
   },
   "placeholder": {
     "enterName": "请输入项目名称",

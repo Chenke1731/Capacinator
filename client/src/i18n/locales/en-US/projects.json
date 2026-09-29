@@ -70,7 +70,8 @@
     "ariaLabel": "Project management navigation",
     "demand": "Requirements",
     "tickets": "Tickets",
-    "affairs": "Affairs"
+    "affairs": "Affairs",
+    "components": "Components"
   },
   "placeholder": {
     "enterName": "Enter project name",

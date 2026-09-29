@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import {
   Users,
   Download, RefreshCw, AlertTriangle, ChevronDown,
-  User, ClipboardList
+  User, ClipboardList, Boxes
 } from 'lucide-react';
 import { BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { api } from '../lib/api-client';
@@ -749,6 +749,11 @@ export const ReportsTabContent: React.FC<ReportsTabContentProps> = ({ activeRepo
             title={t('reports:components.summary.unassignedDemands')}
             metric={unassignedCount}
             metricType={unassignedCount > 0 ? 'warning' : 'success'}
+            actionLink={unassignedCount > 0 ? {
+              to: '/projects?tab=components',
+              icon: Boxes,
+              text: t('reports:components.summary.manageComponents')
+            } : undefined}
           />
         </div>
 

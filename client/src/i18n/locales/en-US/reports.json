@@ -207,7 +207,8 @@
     "summary": {
       "components": "Components in use",
       "totalDemands": "Total demands",
-      "unassignedDemands": "Unassigned demands"
+      "unassignedDemands": "Unassigned demands",
+      "manageComponents": "Manage components"
     }
   }
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { FolderKanban, GanttChart, Palette, Inbox, ListTodo } from 'lucide-react';
+import { FolderKanban, GanttChart, Palette, Inbox, ListTodo, Boxes } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 // Import existing page components
@@ -8,6 +8,7 @@ import { TicketsBoard } from './TicketsBoard';
 import { AffairsBoard } from './AffairsBoard';
 import ProjectRoadmap from './ProjectRoadmap';
 import ProjectTypes from './ProjectTypes';
+import { Components } from './Components';
 
 // Import the new unified tab component
 import { UnifiedTabComponent, type UnifiedTabConfig } from '../components/ui/UnifiedTabComponent';
@@ -55,6 +56,12 @@ export default function ProjectsUnified() {
       label: t('projects:tabs.projectTypes'),
       icon: Palette,
       component: ProjectTypes
+    },
+    {
+      id: 'components',
+      label: t('projects:tabs.components'),
+      icon: Boxes,
+      component: Components
     }
   ];
 

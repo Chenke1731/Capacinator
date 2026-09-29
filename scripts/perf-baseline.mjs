@@ -83,8 +83,26 @@ const METRIC_JS = `(() => new Promise(resolve => {
   setTimeout(() => resolve({
     fcp: fcp ?? null, lcp: null,
     domInteractive: t.domInteractive ?? null, loadEventEnd: t.loadEventEnd ?? null,
-  }), 8000);
+  }), 20000);
 }))()`;
+
+// Wait for data-driven rows to appear and STABILIZE — a fixed 1.5s wait
+// closed the collection window mid-render at 1000 rows and recorded a
+// "faster" LCP than reality (548ms while the table actually settled at
+// 7.3s). Anchor selector per page: the demand table is a div grid
+// (.requirements-row), the dashboard renders stat cards.
+const ROW_ANCHOR = { dashboard: '.stats-grid, .dashboard, main', 'demand-table': '.requirements-row' };
+const waitForRows = async (page, anchor) => {
+  const start = Date.now();
+  let prev = -1, stable = 0;
+  while (Date.now() - start < 30000) {
+    await page.waitForTimeout(400);
+    const n = await page.evaluate((sel) => document.querySelectorAll(sel).length, anchor).catch(() => 0);
+    if (n > 0 && n === prev) { if (++stable >= 5) return Date.now() - start; } else stable = 0;
+    prev = n;
+  }
+  return null;
+};
 
 const median = (arr) => {
   const xs = arr.filter(v => v != null).sort((a, b) => a - b);
@@ -109,8 +127,9 @@ try {
         localStorage.setItem('capacinator-language', 'zh-CN');
       }, [JSON.stringify({ id: person.id, name: person.name, email: person.email }), tok.accessToken, tok.refreshToken]);
       await page.goto(`${WEB}${path}`, { waitUntil: 'load', timeout: 30000 });
-      await page.waitForTimeout(1500); // let LCP settle / data render
+      const settleMs = await waitForRows(page, ROW_ANCHOR[name]); // data rows render AND stabilize
       const m = await page.evaluate(METRIC_JS);
+      m.rowsSettleMs = settleMs;
       runs.push(m);
       await ctx.close();
     }
@@ -120,6 +139,10 @@ try {
       lcp: median(runs.map(r => r.lcp)),
       domInteractive: median(runs.map(r => r.domInteractive)),
       loadEventEnd: median(runs.map(r => r.loadEventEnd)),
+      // full-DOM settle time — at 1000 rows the viewport LCP stays fast
+      // (~750ms) while the whole table keeps building for seconds;
+      // this is the metric that eventually justifies virtualization.
+      rowsSettleMs: median(runs.map(r => r.rowsSettleMs)),
     };
     results.push(row);
     appendFileSync(HISTORY, JSON.stringify(row) + '\n');

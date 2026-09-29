@@ -4,7 +4,8 @@
     "demand": "Demand",
     "capacity": "Capacity",
     "utilization": "Utilization",
-    "gaps": "Gaps Analysis"
+    "gaps": "Gaps Analysis",
+    "components": "Components"
   },
   "aria": {
     "navigation": "Reports and analytics navigation"
@@ -13,7 +14,8 @@
     "capacity": "Loading capacity report...",
     "utilization": "Loading utilization report...",
     "demand": "Loading demand report...",
-    "gaps": "Loading gaps report..."
+    "gaps": "Loading gaps report...",
+    "components": "Loading component report..."
   },
   "filters": {
     "projectType": "Project Type",
@@ -193,5 +195,19 @@
     "nearlyFullCapacity": "{{name}} is nearly at full capacity ({{utilization}}%) for this timeframe. Only {{remaining}}% capacity remains.",
     "noDataToExport": "No data available to export for the current tab.",
     "exportError": "Error exporting data. Please try again."
+  },
+  "components": {
+    "tableTitle": "Demand & Staffing by Component",
+    "headers": {
+      "name": "Component",
+      "demands": "Demands",
+      "assignments": "Active Assignments",
+      "totalAllocation": "Total Allocation"
+    },
+    "summary": {
+      "components": "Components in use",
+      "totalDemands": "Total demands",
+      "unassignedDemands": "Unassigned demands"
+    }
   }
 }

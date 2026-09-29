@@ -4,7 +4,8 @@
     "demand": "需求",
     "capacity": "产能",
     "utilization": "利用率",
-    "gaps": "缺口分析"
+    "gaps": "缺口分析",
+    "components": "组件分布"
   },
   "aria": {
     "navigation": "报表与分析导航"
@@ -13,7 +14,8 @@
     "capacity": "产能报表加载中…",
     "utilization": "利用率报表加载中…",
     "demand": "需求报表加载中…",
-    "gaps": "缺口报表加载中…"
+    "gaps": "缺口报表加载中…",
+    "components": "正在加载组件报表..."
   },
   "filters": {
     "projectType": "项目类型",
@@ -193,5 +195,19 @@
     "nearlyFullCapacity": "{{name}} 在此时间段内已接近满负荷({{utilization}}%),仅剩 {{remaining}}% 可用产能。",
     "noDataToExport": "当前页签没有可导出的数据。",
     "exportError": "导出数据出错,请重试。"
+  },
+  "components": {
+    "tableTitle": "按组件的需求数与人力投入",
+    "headers": {
+      "name": "组件",
+      "demands": "需求数",
+      "assignments": "分配人次",
+      "totalAllocation": "总分配比例"
+    },
+    "summary": {
+      "components": "在用组件数",
+      "totalDemands": "需求总数",
+      "unassignedDemands": "未归属需求"
+    }
   }
 }

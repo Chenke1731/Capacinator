@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { BarChart3, TrendingUp, Users, AlertTriangle } from 'lucide-react';
+import { BarChart3, TrendingUp, Users, AlertTriangle, Boxes } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { UnifiedTabComponent, type UnifiedTabConfig } from '../components/ui/UnifiedTabComponent';
 import { ReportsTabContent } from './ReportsTabContent';
@@ -18,7 +18,8 @@ export default function ReportsUnified() {
     { id: 'demand', label: t('reports:tabs.demand'), icon: TrendingUp },
     { id: 'capacity', label: t('reports:tabs.capacity'), icon: Users },
     { id: 'utilization', label: t('reports:tabs.utilization'), icon: BarChart3 },
-    { id: 'gaps', label: t('reports:tabs.gaps'), icon: AlertTriangle }
+    { id: 'gaps', label: t('reports:tabs.gaps'), icon: AlertTriangle },
+    { id: 'components', label: t('reports:tabs.components'), icon: Boxes }
   ], [t]);
 
   return (

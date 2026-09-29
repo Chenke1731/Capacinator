@@ -469,6 +469,19 @@ export const ReportsTabContent: React.FC<ReportsTabContentProps> = ({ activeRepo
     enabled: activeReport === 'gaps' && !!currentScenario
   });
 
+  // Component distribution (066): demand count + staffing weight per
+  // software component. No scenario/date filters — it aggregates the
+  // whole dimension by design.
+  const { data: componentReport, isLoading: componentLoading } = useQuery({
+    queryKey: ['reporting', 'by-component'],
+    queryFn: async () => {
+      const response = await api.reporting.getByComponent();
+      const payload = response.data as any;
+      return payload?.data ?? payload ?? [];
+    },
+    enabled: activeReport === 'components'
+  });
+
   // Fetch person's assignments for modals
   const { data: personAssignments = [] } = useQuery({
     queryKey: queryKeys.people.assignments(selectedPerson?.id, currentScenario?.id),
@@ -691,6 +704,63 @@ export const ReportsTabContent: React.FC<ReportsTabContentProps> = ({ activeRepo
   };
 
   // Render capacity report using standardized components
+  const renderComponentsReport = () => {
+    if (componentLoading || !componentReport) return <div className="loading">{t('reports:loaders.components')}</div>;
+
+    const rows = componentReport as Array<{
+      component_id: string | null;
+      component_name: string;
+      project_count: number;
+      assignment_count: number;
+      total_allocation_pct: number;
+    }>;
+
+    const columns: Column[] = [
+      { header: t('reports:components.headers.name'), accessor: 'component_name', render: (value: React.ReactNode) => <strong>{value}</strong> },
+      { header: t('reports:components.headers.demands'), accessor: 'project_count', render: (value: React.ReactNode) => value },
+      { header: t('reports:components.headers.assignments'), accessor: 'assignment_count', render: (value: React.ReactNode) => value },
+      {
+        header: t('reports:components.headers.totalAllocation'),
+        accessor: 'total_allocation_pct',
+        render: (value: unknown) => `${Number(value || 0).toFixed(0)}%`
+      }
+    ];
+
+    const totalDemands = rows.reduce((sum, r) => sum + (Number(r.project_count) || 0), 0);
+    const assignedComponents = rows.filter((r) => r.component_id).length;
+    const unassigned = rows.find((r) => r.component_id === null);
+    const unassignedCount = Number(unassigned?.project_count) || 0;
+
+    return (
+      <div className="report-content">
+        <div className="report-summary">
+          <ReportSummaryCard
+            title={t('reports:components.summary.components')}
+            metric={assignedComponents}
+          />
+          <ReportSummaryCard
+            title={t('reports:components.summary.totalDemands')}
+            metric={totalDemands}
+          />
+          <ReportSummaryCard
+            title={t('reports:components.summary.unassignedDemands')}
+            metric={unassignedCount}
+            metricType={unassignedCount > 0 ? 'warning' : 'success'}
+          />
+        </div>
+
+        <div className="full-width-tables">
+          <ReportTable
+            title={t('reports:components.tableTitle')}
+            columns={columns}
+            data={rows}
+            rowClassName={(row) => (row as any).component_id === null ? 'report-table-row-warning' : ''}
+          />
+        </div>
+      </div>
+    );
+  };
+
   const renderCapacityReport = () => {
     if (capacityLoading || !capacityReport) return <div className="loading">{t('reports:loaders.capacity')}</div>;
 
@@ -978,12 +1048,13 @@ export const ReportsTabContent: React.FC<ReportsTabContentProps> = ({ activeRepo
           />
         )}
         {activeReport === 'gaps' && (
-          <GapsReport 
-            data={gapsReport} 
+          <GapsReport
+            data={gapsReport}
             filters={filters}
             CustomTooltip={CustomTooltip}
           />
         )}
+        {activeReport === 'components' && renderComponentsReport()}
       </div>
     </div>
   );

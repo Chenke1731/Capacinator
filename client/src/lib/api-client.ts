@@ -420,6 +420,7 @@ export const api = {
     getGaps: (params?: PaginationParams) => apiClient.get<GapsReportResponse>('/reporting/gaps', { params }),
     getProjects: (params?: PaginationParams) => apiClient.get<ProjectsReportResponse>('/reporting/projects', { params }),
     getTimeline: (params?: PaginationParams) => apiClient.get<TimelineReportResponse>('/reporting/timeline', { params }),
+    getByComponent: () => apiClient.get('/reporting/by-component'),
   },
 
   // Import

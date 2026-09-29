@@ -312,10 +312,21 @@ export function Iterations() {
     [itersResp]
   );
 
-  /** 事项池: 展开清单与未排沉底区共用一份数据(客户端过滤) */
+  /** 事项池: 展开清单与未排沉底区共用一份数据(客户端过滤)。
+   * 无上限循环翻页——同需求台 P5 修复(旧 limit:200 静默截断)。 */
   const { data: itemsResp, isLoading: itemsLoading } = useQuery({
     queryKey: ITERATIONS_ITEMS_KEY,
-    queryFn: async () => (await api.projects.list({ limit: 200 })).data,
+    queryFn: async () => {
+      const PAGE = 500;
+      const all: any[] = [];
+      for (let page = 1; ; page++) {
+        const resp = (await api.projects.list({ limit: PAGE, page })).data;
+        const rows: any[] = resp.data ?? resp;
+        all.push(...rows);
+        if (rows.length < PAGE) break;
+      }
+      return { data: all };
+    },
   });
   const items: any[] = useMemo(
     () => (Array.isArray(itemsResp) ? itemsResp : (itemsResp?.data ?? [])),

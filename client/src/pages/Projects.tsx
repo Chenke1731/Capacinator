@@ -1,5 +1,7 @@
-import { Fragment, useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useVirtualizer } from '@tanstack/react-virtual';
+import { flattenTrees, type FlatRow } from '../lib/demandTree';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Plus, Edit2, Trash2, Tag, ChevronDown, ChevronRight, Search, X, GitBranch, CornerDownRight } from 'lucide-react';
@@ -300,12 +302,22 @@ export function Projects() {
   const { data: projects, isLoading, error } = useQuery({
     queryKey: queryKeys.projects.list({ category: 'demand', lifecycle: filters.lifecycle_state }, currentScenario?.id),
     queryFn: async () => {
-      const response = await api.projects.list({
-        limit: 200,
-        ...(filters.lifecycle_state ? { lifecycle_state: filters.lifecycle_state } : {})
-      });
-      const raw: any[] = response.data.data;
-      return raw.map((project) => ({
+      // No hard cap — the old `limit: 200` silently hid every demand
+      // past #200 (P5). Loop pages of 500 until a short page comes back;
+      // the stop condition is the returned count, NOT pagination.total
+      // (total shifts mid-loop when rows are added concurrently).
+      const PAGE = 500;
+      const all: any[] = [];
+      for (let page = 1; ; page++) {
+        const response = await api.projects.list({
+          limit: PAGE, page,
+          ...(filters.lifecycle_state ? { lifecycle_state: filters.lifecycle_state } : {})
+        });
+        const rows: any[] = response.data.data;
+        all.push(...rows);
+        if (rows.length < PAGE) break;
+      }
+      return all.map((project) => ({
         ...project,
         project_type: project.project_type_name
           ? { id: project.project_type_id, name: project.project_type_name, color_code: project.project_type_color_code }
@@ -415,6 +427,22 @@ export function Projects() {
   /** 表格容器宽(余量→列间距 分配的基础;jsdom 无 ResizeObserver 时跳过) */
   const [containerW, setContainerW] = useState(0);
   const tableRef = useRef<HTMLDivElement>(null);
+
+  /** 虚拟化平铺(P5+P6 根治): 树 → 均匀行序列,折叠态决定子行是否入列 */
+  const flatRows = useMemo(() => flattenTrees(trees, collapsedSR), [trees, collapsedSR]);
+  const rowVirtualizer = useVirtualizer({
+    count: flatRows.length,
+    getScrollElement: () => tableRef.current,
+    estimateSize: (i) => (flatRows[i].kind === 'child' ? 40 : 44),
+    overscan: 10, // 编辑中滚动不丢行的缓冲(编辑态无全局信号,以距离兜底)
+    getItemKey: (i) => flatRows[i].project.id,
+  });
+  // 保存反馈(flash)的行可能在视口外——先滚过去再闪
+  const flashTargetIndex = flashId ? flatRows.findIndex((r) => r.project.id === flashId) : -1;
+  useEffect(() => {
+    if (flashTargetIndex >= 0) rowVirtualizer.scrollToIndex(flashTargetIndex, { align: 'auto' });
+  }, [flashTargetIndex, rowVirtualizer]);
+
   useEffect(() => {
     if (typeof ResizeObserver === 'undefined') return;
     const el = tableRef.current;
@@ -691,14 +719,16 @@ export function Projects() {
           ))}
         </div>
 
-        {/* 平铺呈现 SR/AR 粒度事项本体(2026-09-22 裁决: 版本维度走筛选,不做分组头) */}
-        {trees.map((tree) => {
-          const project = tree.project;
+        {/* 平铺呈现 SR/AR 粒度事项本体(2026-09-22 裁决: 版本维度走筛选,不做分组头)。
+            虚拟化改造(P5+P6 根治): 行渲染逻辑保留原三分支 JSX,外层换 virtualizer。 */}
+        {(() => {
+          const renderFlatRow = (row: FlatRow) => {
+          const project = row.project;
           const warned = (project.lifecycle_warnings ?? []).length > 0;
-          const isSR = tree.children.length > 0;
-          const srCollapsed = collapsedSR.has(project.id);
+          const isSR = row.kind === 'sr';
+          const srCollapsed = isSR && collapsedSR.has(project.id);
 
-          if (!isSR) {
+          if (row.kind === 'plain') {
           return (
             <div
               key={project.id}
@@ -776,11 +806,12 @@ export function Projects() {
           );
           }
 
+          if (isSR) {
           // ── SR 折叠头行: 汇总只读(=子行之和,同一数据源);状态列=子行分布 ──
-          const agg = tree.agg!;
+          const agg = row.agg!;
           return (
-            <Fragment key={project.id}>
             <div
+              key={project.id}
               className={`requirements-row requirements-row--sr ${warned ? 'requirements-row--warned' : ''} ${project.id === flashId ? 'requirements-row--flash' : ''}`}
               onClick={() => navigate(`/projects/${project.id}`)}
             >
@@ -859,9 +890,9 @@ export function Projects() {
                 hint={t('projects:version.productTitle')}
                 onSaved={() => handleCellSaved(project.id)} />
               <ReleaseCell project={project} onSaved={() => handleCellSaved(project.id)}
-                readOnlyWindow={aggIterWindow(tree.children)} />
+                readOnlyWindow={aggIterWindow(row.children ?? [])} />
               <IterationCell project={project} onSaved={() => handleCellSaved(project.id)}
-                readOnlyWindow={aggIterWindow(tree.children)} />
+                readOnlyWindow={aggIterWindow(row.children ?? [])} />
 
               <PriorityCell project={project} onSaved={() => handleCellSaved(project.id)} />
               <span className="req-primary req-primary--agg" title={agg.primaryPersons.join('、') || undefined}>
@@ -887,10 +918,11 @@ export function Projects() {
                 </button>
               </span>
             </div>
+          );
+          }
 
-            {!srCollapsed && (
-              <div className="requirements-children">
-                {tree.children.map((child) => (
+          // ── AR 子行: 平铺后独立渲染单元(原 .requirements-children 容器无自身样式,虚线边框转由 --child 类承担) ──
+          const renderChildRow = (child: any) => (
                   <div
                     key={child.id}
                     className={`requirements-row requirements-row--child ${child.id === flashId ? 'requirements-row--flash' : ''}`}
@@ -942,12 +974,29 @@ export function Projects() {
                       </button>
                     </span>
                   </div>
-                ))}
-              </div>
-            )}
-            </Fragment>
           );
-        })}
+
+          return renderChildRow(project);
+          };
+
+          return (
+            <div
+              style={{ height: rowVirtualizer.getTotalSize(), position: 'relative', minWidth: 'var(--req-total, 0)' }}
+              data-testid="requirements-virtual-body"
+            >
+              {rowVirtualizer.getVirtualItems().map((vi) => (
+                <div
+                  key={flatRows[vi.index].project.id}
+                  data-index={vi.index}
+                  ref={rowVirtualizer.measureElement}
+                  style={{ position: 'absolute', top: 0, left: 0, width: '100%', transform: `translateY(${vi.start}px)` }}
+                >
+                  {renderFlatRow(flatRows[vi.index])}
+                </div>
+              ))}
+            </div>
+          );
+        })()}
 
         {trees.length === 0 && (
           <div className="requirements-empty">

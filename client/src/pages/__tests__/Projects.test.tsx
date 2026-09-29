@@ -4,6 +4,18 @@ import userEvent from '@testing-library/user-event';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Projects } from '../Projects';
 
+// jsdom has no layout — the real virtualizer measures the scroll element,
+// gets zeros, and renders no rows. Mock it to render every row (tests then
+// assert the same full-board behavior as before virtualization).
+jest.mock('@tanstack/react-virtual', () => ({
+  useVirtualizer: ({ count }: { count: number }) => ({
+    getVirtualItems: () => Array.from({ length: count }, (_, i) => ({ index: i, start: i * 44, size: 44, key: i })),
+    getTotalSize: () => count * 44,
+    measureElement: () => undefined,
+    scrollToIndex: () => undefined,
+  }),
+}));
+
 /** ① 提速: waitFor 轮询间隔 50ms→0(条件已满足时省一个轮询周期,49 测试省 ~2.5s) */
 const waitFor = (cb: () => void | Promise<void>) => rtlWaitFor(cb, { interval: 10 }); /* 10ms 仍比默认 50 省 40ms;0 会错过 react-query 宏任务窗口 */
 

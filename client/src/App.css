@@ -2774,3 +2774,10 @@ body.req-col-dragging * {
 /* P5(2026-09-23): SR 行 ＋AR 常驻显示——新用户可发现可以分解 */
 .requirements-row--sr .req-ar-add { display: inline-flex; opacity: 0.6; }
 .requirements-row--sr .req-ar-add:hover { opacity: 1; }
+
+/* ── 需求台虚拟化(P5+P6 根治): 表格自持纵向滚动容器 + sticky 表头 + 平铺子行 ── */
+.requirements-table { max-height: calc(100vh - 230px); overflow-y: auto; }
+.requirements-thead { position: sticky; top: 0; z-index: 2; }
+.requirements-vrow { will-change: transform; }
+/* 原 .requirements-children > .requirements-row 的虚线边框: 平铺后由行类自身承担 */
+.requirements-row--child { border-bottom: 1px dashed var(--border-color, rgba(127, 127, 127, 0.12)); }

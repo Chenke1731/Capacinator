@@ -477,7 +477,10 @@ export const ReportsTabContent: React.FC<ReportsTabContentProps> = ({ activeRepo
     queryFn: async () => {
       const response = await api.reporting.getByComponent();
       const payload = response.data as any;
-      return payload?.data ?? payload ?? [];
+      // sendSuccess wraps once ({success, data}), the controller once
+      // more ({data, generated_at}) — unwrap to the rows array.
+      const inner = payload?.data ?? payload;
+      return Array.isArray(inner) ? inner : inner?.data ?? [];
     },
     enabled: activeReport === 'components'
   });

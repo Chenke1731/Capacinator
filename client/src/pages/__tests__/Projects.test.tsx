@@ -9,9 +9,8 @@ import { Projects } from '../Projects';
 // assert the same full-board behavior as before virtualization).
 jest.mock('@tanstack/react-virtual', () => ({
   useVirtualizer: ({ count }: { count: number }) => ({
-    getVirtualItems: () => Array.from({ length: count }, (_, i) => ({ index: i, start: i * 44, size: 44, key: i })),
-    getTotalSize: () => count * 44,
-    measureElement: () => undefined,
+    getVirtualItems: () => Array.from({ length: count }, (_, i) => ({ index: i, start: i * 43, size: 43, key: i })),
+    getTotalSize: () => count * 43,
     scrollToIndex: () => undefined,
   }),
 }));

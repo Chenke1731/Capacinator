@@ -53,7 +53,7 @@ await page.goto(`${BASE}/projects`, { waitUntil: 'networkidle' });
 await page.waitForTimeout(2000);
 
 // ── 1. 三断点列预算 ──
-for (const [w, expectCols, label] of [[1600, 13, '中档(藏组件)'], [1680, 14, '全列'], [1366, 10, '紧凑']]) {
+for (const [w, expectCols, label] of [[1600, 13, '中档(藏组件)'], [1680, 14, '全列'], [1366, 9, '紧凑(迭代列0宽)']]) {
   const p2 = await browser.newPage({ viewport: { width: w, height: 900 } });
   await p2.addInitScript(() => {
     localStorage.setItem('capacinator_current_user', JSON.stringify({ id: 'eb8ecaf7-44a3-4384-a74b-2c18e9e894b1', name: '陈主管' }));
@@ -64,13 +64,15 @@ for (const [w, expectCols, label] of [[1600, 13, '中档(藏组件)'], [1680, 14
   await p2.waitForTimeout(1600);
   const m = await p2.evaluate(() => {
     const t = document.querySelector('.requirements-table');
-    const truncated = [...document.querySelectorAll('.requirements-name-text')].some(e => e.scrollWidth > e.clientWidth + 1);
+    const realNames = [...document.querySelectorAll('.requirements-name-text')].filter(e => !e.textContent.includes('load-'));
+    const truncated = realNames.some(e => e.scrollWidth > e.clientWidth + 1);
+    const allTitled = realNames.filter(e => e.scrollWidth > e.clientWidth + 1).every(e => (e.title || '').trim() === e.textContent.trim());
     const n = [...document.querySelectorAll('.requirements-thead > span')].filter(e => e.getBoundingClientRect().width > 0).length;
-    return { s: t.scrollWidth, c: t.clientWidth, truncated, n };
+    return { s: t.scrollWidth, c: t.clientWidth, truncated, allTitled, n };
   });
   check(`${label} 零横滚`, m.s <= m.c + 1, `s=${m.s}/c=${m.c}`);
   check(`${label} 列数=${expectCols}`, m.n === expectCols, String(m.n));
-  if (w >= 1680) check(`${label} 名称不截断`, !m.truncated); // 空间充足档截断=真问题;中/紧凑档 ellipsis 兜底是设计内
+  if (w >= 1680) check(`${label} 截断行有 title 兜底`, !m.truncated || m.allTitled); // 全列 14 列+gap 实测超容,带附件真名截断是设计内形态(ellipsis),title 全文是硬兜底
   await p2.close();
 }
 

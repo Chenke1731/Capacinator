@@ -6,3 +6,5 @@
 {"ts":"2026-09-29T06:24:10.532Z","head":"1e1a090","page":"demand-table","runs":3,"fcp":548,"lcp":652,"domInteractive":16.899999991059303,"loadEventEnd":244.3999999910593,"rowsSettleMs":3446}
 {"ts":"2026-09-29T06:24:54.577Z","head":"1e1a090","page":"dashboard","runs":3,"fcp":508,"lcp":616,"domInteractive":17.400000005960464,"loadEventEnd":246.70000000298023,"rowsSettleMs":2430}
 {"ts":"2026-09-29T06:25:41.080Z","head":"1e1a090","page":"demand-table","runs":3,"fcp":556,"lcp":744,"domInteractive":18.399999991059303,"loadEventEnd":242.70000000298023,"rowsSettleMs":7713}
+{"ts":"2026-09-29T09:00:06.461Z","head":"9882147","page":"dashboard","runs":3,"fcp":536,"lcp":732,"domInteractive":18.5,"loadEventEnd":256.79999999701977,"rowsSettleMs":2425,"domRows":2}
+{"ts":"2026-09-29T09:00:15.617Z","head":"9882147","page":"demand-table","runs":3,"fcp":572,"lcp":680,"domInteractive":17.200000002980232,"loadEventEnd":248.8999999910593,"rowsSettleMs":2692,"domRows":27}

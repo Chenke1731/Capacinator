@@ -78,6 +78,10 @@ people 名字链接的颜色来自一条"找不到的规则"（样式表遍历�
 
 InlineEdit/EditableCells 收敛、TanStack Table 启用（下一表格页）、Radix 优先红线。
 
+### D15（P2 治理项）test-schema 与生产 schema 长期分叉,根治方向是生成而非手维护
+
+board-feed 一条集成测试路径剥出**五层**分叉:projects 缺 8 列、6 张组装表整缺、assignments_view 旧形状缺 status、assignment 两表缺 11 列、pool_demands/pde 形状过时。每个新的真库集成测试都会重演这场洋葱。手维护的 test-schema(-additions).sql 永远追不上 67 个 migrations(且该文件按分号切分执行——**注释里不能有分号**,本轮又踩两次)。根治:测试库直接跑 migrations 建库(与生产同源),test-schema 退役或只留测试专用种子。待下次触碰集成基建时立项。
+
 ### D14（记档不修）role_planners 权限位三层断线（2026-09-28 核查）
 
 设计文档（docs/role-planners-design.md）定义的三个权限位 `can_allocate_resources` / `can_approve_assignments` / `can_modify_standard_allocations` 为**只写不读的死数据**，三层断线：

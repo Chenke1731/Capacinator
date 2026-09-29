@@ -130,6 +130,9 @@ try {
       const settleMs = await waitForRows(page, ROW_ANCHOR[name]); // data rows render AND stabilize
       const m = await page.evaluate(METRIC_JS);
       m.rowsSettleMs = settleMs;
+      // virtualized boards render only the viewport — record the DOM row
+      // count so a regression back to full rendering is visible in trends
+      m.domRows = await page.evaluate((sel) => document.querySelectorAll(sel).length, ROW_ANCHOR[name]).catch(() => null);
       runs.push(m);
       await ctx.close();
     }
@@ -141,8 +144,9 @@ try {
       loadEventEnd: median(runs.map(r => r.loadEventEnd)),
       // full-DOM settle time — at 1000 rows the viewport LCP stays fast
       // (~750ms) while the whole table keeps building for seconds;
-      // this is the metric that eventually justifies virtualization.
+      // virtualization caps this at first-viewport render (~27 DOM rows).
       rowsSettleMs: median(runs.map(r => r.rowsSettleMs)),
+      domRows: median(runs.map(r => r.domRows)),
     };
     results.push(row);
     appendFileSync(HISTORY, JSON.stringify(row) + '\n');

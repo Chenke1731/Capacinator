@@ -302,6 +302,21 @@ export class AssignmentsController extends BaseController {
           .update({ is_primary: false, updated_at: new Date() });
       }
 
+      // SE/MDE 单人制(2026-09-29 用户裁决): 一任务一 SE/一 MDE。
+      // 新分配同项目同角色时先清旧记录(原子替换,防幽灵分配与负载双算)。
+      // 角色按 id 查名,只对 SE/MDE 生效;开发角色(可多人)不受影响。
+      {
+        const roleRow = await this.db('roles').where('id', assignmentData.role_id).first();
+        const roleName = roleRow?.name as string | undefined;
+        if (roleName === 'SE' || roleName === 'MDE') {
+          const singleScenarioId = (req.headers['x-scenario-id'] as string) || 'baseline-0000-0000-0000-000000000000';
+          await this.db('scenario_project_assignments')
+            .where({ project_id: assignmentData.project_id, scenario_id: singleScenarioId, role_id: assignmentData.role_id })
+            .where('status', 'active')
+            .del();
+        }
+      }
+
       // Get scenario from header
       const scenarioId = req.headers['x-scenario-id'] as string || 'baseline-0000-0000-0000-000000000000';
 

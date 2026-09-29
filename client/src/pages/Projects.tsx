@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useVirtualizer } from '@tanstack/react-virtual';
 import { flattenTrees, type FlatRow } from '../lib/demandTree';
@@ -428,6 +428,13 @@ export function Projects() {
   /** 表格容器宽(余量→列间距 分配的基础;jsdom 无 ResizeObserver 时跳过) */
   const [containerW, setContainerW] = useState(0);
   const tableRef = useRef<HTMLDivElement>(null);
+  /** 首帧量宽竞态根治: colVars 是渲染期 memo,ResizeObserver 的 state 到达
+   *  晚于首帧定格(紧凑档实测卡死在原始列宽→横滚 71px)。layout effect 在
+   *  paint 前同步校正宽度,diff 才 set 避免循环;ResizeObserver 仍管窗口 resize。 */
+  useLayoutEffect(() => {
+    const el = tableRef.current;
+    if (el && Math.abs(el.clientWidth - containerW) > 1) setContainerW(el.clientWidth);
+  });
 
   /** 虚拟化平铺(P5+P6 根治): 树 → 均匀行序列,折叠态决定子行是否入列 */
   const flatRows = useMemo(() => flattenTrees(trees, collapsedSR), [trees, collapsedSR]);
@@ -512,24 +519,36 @@ export function Projects() {
     const vars: Record<string, string> = {};
     const hidden = compact ? ['component', 'number', 'release', 'primary'] : showAll ? [] : ['component'];
     const visible = REQ_COLUMNS.filter((c) => !hidden.includes(c.key));
-    let total = 28 /* 行左右 padding */ + 8 * (visible.length - 1) /* 列间 gap */;
-    // 滚动容器时代(虚拟化后)纵向滚动条吃掉 ~15px,且部分档位轨道和逼近
-    // 预算——空间不足时整排等比微缩(不动列语义/隐藏裁决),零横滚优先。
+    const nGaps = Math.max(1, visible.length - 1);
     const rawWidths = visible.map((c) => {
       const def = showAll ? c.def[0] : compact ? c.def[2] : c.def[1];
       return colWidths[c.key] ?? def;
     });
-    let rawTotal = 28 + 8 * (visible.length - 1);
-    for (const w of rawWidths) rawTotal += w;
-    // state 时序兜底: ResizeObserver 的 containerW 在紧凑档新页面偶发滞后,
-    // 直接读活容器宽(渲染帧内 clientWidth 已可用)
-    const liveW = tableRef.current?.clientWidth ?? containerW;
-    const scale = liveW > 0 && rawTotal > liveW ? (liveW - 2) / rawTotal : 1;
-    if (scale < 1) vars['--req-gap'] = '8px'; // 空间不足时间距也回底档(gap 漂移是紧凑档横滚主因)
+    const fixedTracks = 28 + rawWidths.reduce((a, b) => a + b, 0);
+
+    /* 余量分配(2026-09-23 用户裁决"左松右紧"→ 空间节奏再设计):
+       优先均匀摊进列间距(8px 起 24px 封顶)——间距放大必须先于 scale 判定,
+       否则 total 低估实际轨道和(紧凑档 71px 横滚的最终根因) */
+    let gap = 8;
+    if (containerW > 0) {
+      const fitGap = Math.floor((containerW - fixedTracks) / nGaps);
+      gap = Math.max(8, Math.min(24, fitGap));
+      if (gap > 8) vars['--req-gap'] = `${gap}px`;
+    }
+
+    // 空间不足(滚动容器时代纵向滚动条吃掉 ~15px + 部分档位轨道逼近预算)
+    // → 整排等比微缩(不动列语义/隐藏裁决)且间距回底档,零横滚优先。
+    const rawTotal = fixedTracks + gap * nGaps;
+    const scale = containerW > 0 && rawTotal > containerW ? (containerW - 2) / rawTotal : 1;
+    if (scale < 1) vars['--req-gap'] = '8px';
+    let total = 28;
     visible.forEach((c, i) => {
-      vars[`--req-w-${c.key}`] = `${Math.round(rawWidths[i] * scale)}px`;
-      total += Math.round(rawWidths[i] * scale);
+      const w = Math.round(rawWidths[i] * scale);
+      vars[`--req-w-${c.key}`] = `${w}px`;
+      total += w;
     });
+    total += (scale < 1 ? 8 : gap) * nGaps;
+
     /* 拖过的列=钉死,按类别退出分配: elastic(名称) fr 归零并启用尾部占位轨
        承接剩余; cap 列上限锁为拖宽值(minmax(w,w)=定死); 定宽列本就 var 直取 */
     for (const c of visible) {
@@ -542,24 +561,7 @@ export function Projects() {
         vars[`--req-cap-${c.key}`] = `${w}px`;
       }
     }
-    /* 余量分配(2026-09-23 用户裁决"左松右紧"→ 空间节奏再设计):
-       优先均匀摊进列间距(8px 起 24px 封顶,全表左右均衡呼吸),摊不完才
-       归名称弹性——不再单点灌最左列 */
-    if (containerW > 0) {
-      // 轨道和(不含间距): 间距预算 = (容器-轨道和)/nGaps,钳 8..24
-      const fixedTracks = visible.reduce((sum, c) => {
-        const def = showAll ? c.def[0] : compact ? c.def[2] : c.def[1];
-        const w = colWidths[c.key] ?? def;
-        return sum + w;
-      }, 28);
-      const nGaps = Math.max(1, visible.length - 1);
-      const fitGap = Math.floor((containerW - fixedTracks) / nGaps);
-      const gap = Math.max(8, Math.min(24, fitGap));
-      if (gap > 8) vars['--req-gap'] = `${gap}px`;
-    }
 
-    // 滚动容器时代(虚拟化后)纵向滚动条吃掉 ~15px,且中档轨道和逼近预算
-    // ——cap 到容器宽让名称 fr 列吸收差额(ellipsis 兜底),零横滚优先。
     vars['--req-total'] = containerW > 0 ? `${Math.min(total, containerW)}px` : `${total}px`;
     return vars as React.CSSProperties;
   }, [colWidths, showAll, compact, containerW]);

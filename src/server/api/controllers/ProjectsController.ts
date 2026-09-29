@@ -348,8 +348,11 @@ export class ProjectsController extends BaseController {
   }
 
   getAll = this.asyncHandler(async (req: RequestWithLogging, res: Response) => {
-    const page = parseInt(req.query.page as string, 10) || 1;
-    const limit = parseInt(req.query.limit as string, 10) || 50;
+    const page = Math.max(parseInt(req.query.page as string, 10) || 1, 1);
+    // Clamp per-request size — the demand board paginates in 500-row
+    // pages, so 2000 is the protective ceiling (a single runaway
+    // request must not drag the whole table).
+    const limit = Math.min(parseInt(req.query.limit as string, 10) || 50, 2000);
     const filters = {
       location_id: req.query.location_id,
       project_type_id: req.query.project_type_id,
@@ -485,13 +488,6 @@ export class ProjectsController extends BaseController {
         project.lifecycle_warnings = warningsByProject.get(project.id) ?? [];
       }
 
-      // DEBUG: Test if raw SQL is working
-      const testQuery = await this.db('projects')
-        .select('id', 'name')
-        .select(this.db.raw('(SELECT MIN(start_date) FROM project_phases_timeline WHERE project_id = projects.id) as start_date'))
-        .limit(1);
-      req.logger.debug('Test query result', { testQuery: testQuery[0] });
-
       const total = await countQuery.count('* as count').first();
 
       return {
@@ -507,6 +503,84 @@ export class ProjectsController extends BaseController {
 
     if (result) {
       this.sendPaginatedResponse(req, res, result.data, result.pagination.total, result.pagination.page, result.pagination.limit);
+    }
+  })
+
+  /**
+   * Board feed (P7, slim projection for the virtualized demand board):
+   * the whole table in ONE request, restricted to the board's audited
+   * field set (every column cell + tree/filter/category inputs). The
+   * heavy text columns (description/data_restrictions/dates/…) and the
+   * full detail payload stay on getById. Shares /:id route position —
+   * must be mounted before it.
+   */
+  boardFeed = this.asyncHandler(async (req: RequestWithLogging, res: Response) => {
+    const result = await this.executeQuery(async () => {
+      const query = this.db('projects')
+        .leftJoin('project_types', 'projects.project_type_id', 'project_types.id')
+        .leftJoin('project_sub_types', 'projects.project_sub_type_id', 'project_sub_types.id')
+        .leftJoin('people as owner', 'projects.owner_id', 'owner.id')
+        .select(
+          'projects.id',
+          'projects.name',
+          'projects.seq_number',
+          'projects.external_number',
+          'projects.priority',
+          'projects.parent_id',
+          'projects.project_type_id',
+          'project_types.name as project_type_name',
+          'project_types.color_code as project_type_color_code',
+          'project_sub_types.name as project_sub_type_name',
+          'projects.component_id',
+          'projects.component',
+          'projects.lifecycle_state',
+          'projects.product_version',
+          'projects.release_version',
+          'projects.iteration_id',
+          'projects.owner_id',
+          'owner.name as owner_name'
+        )
+        .limit(2000);
+
+      if (req.query.lifecycle_state) {
+        if (req.query.lifecycle_state === 'none') {
+          query.whereNull('projects.lifecycle_state');
+        } else {
+          query.where('projects.lifecycle_state', req.query.lifecycle_state);
+        }
+      }
+
+      const projects = await query;
+
+      // Same assembly chain as getAll (board cells depend on these)
+      const pageIds = projects.map((p: any) => p.id);
+      const tagRows = pageIds.length
+        ? await this.db('project_tags as pt')
+            .join('tags', 'pt.tag_id', 'tags.id')
+            .whereIn('pt.project_id', pageIds)
+            .select('pt.project_id', 'tags.id', 'tags.name', 'tags.color')
+        : [];
+      const tagsByProject = new Map<string, any[]>();
+      for (const row of tagRows) {
+        const list = tagsByProject.get(row.project_id) ?? [];
+        list.push({ id: row.id, name: row.name, color: row.color });
+        tagsByProject.set(row.project_id, list);
+      }
+      const lifecycleService = new LifecycleService(this.db);
+      const warningsByProject = await lifecycleService.computeWarningsForProjects(projects);
+      await this.attachStaffingSummaries(projects);
+      await this.attachEstimationSummaries(projects);
+      await this.attachBoardPlanning(projects);
+      for (const project of projects) {
+        project.tags = tagsByProject.get(project.id) ?? [];
+        project.lifecycle_warnings = warningsByProject.get(project.id) ?? [];
+      }
+
+      return { data: projects, total: projects.length };
+    }, req, res, 'Failed to fetch board feed');
+
+    if (result) {
+      this.sendSuccess(req, res, result);
     }
   })
 

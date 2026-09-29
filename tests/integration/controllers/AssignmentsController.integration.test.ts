@@ -424,7 +424,7 @@ describe('AssignmentsController Integration Tests', () => {
         '2024-02-01',
         '2024-04-30',
         90, // Higher percentage
-        assignmentId // Exclude this assignment
+        `spa-${assignmentId}` // Exclude this assignment (view id shape)
       );
 
       expect(conflict).toBeNull(); // Should not conflict with itself
@@ -472,7 +472,7 @@ describe('AssignmentsController Integration Tests', () => {
         '2024-02-01',
         '2024-04-30',
         80, // Would make total with second assignment 110%
-        assignment1Id // Exclude first assignment
+        `spa-${assignment1Id}` // Exclude first assignment (view id shape)
       );
 
       expect(conflict).toBeTruthy();

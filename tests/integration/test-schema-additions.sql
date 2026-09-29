@@ -651,3 +651,159 @@ ALTER TABLE scenario_project_assignments ADD COLUMN status VARCHAR(20) DEFAULT '
 
 -- project_assignments.status (same drift family as above)
 ALTER TABLE project_assignments ADD COLUMN status VARCHAR(20) DEFAULT 'active';
+
+-- projects column parity (board-feed select path): these production
+-- columns drifted out of the test schema (board-feed is the first
+-- integration test that really exercises the projects select list.
+ALTER TABLE projects ADD COLUMN external_number VARCHAR(50);
+ALTER TABLE projects ADD COLUMN parent_id VARCHAR(36);
+ALTER TABLE projects ADD COLUMN component VARCHAR(255);
+ALTER TABLE projects ADD COLUMN lifecycle_state VARCHAR(30);
+ALTER TABLE projects ADD COLUMN product_version VARCHAR(50);
+ALTER TABLE projects ADD COLUMN release_version VARCHAR(50);
+ALTER TABLE projects ADD COLUMN iteration_id VARCHAR(36);
+ALTER TABLE projects ADD COLUMN owner_id VARCHAR(36);
+
+-- Board-feed assembly tables (tags, lifecycle warnings, estimations,
+-- iterations, pool demands) — minimal shapes for the paths the feed
+-- actually queries (no semicolons inside comments: this file is
+-- executed by naive statement splitting)
+CREATE TABLE IF NOT EXISTS tags (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  name TEXT NOT NULL UNIQUE,
+  color TEXT,
+  description TEXT,
+  created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+CREATE TABLE IF NOT EXISTS project_tags (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  project_id TEXT NOT NULL,
+  tag_id INTEGER NOT NULL,
+  created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+CREATE INDEX IF NOT EXISTS idx_project_tags_pid ON project_tags(project_id);
+CREATE TABLE IF NOT EXISTS project_lifecycle_events (
+  id TEXT PRIMARY KEY,
+  project_id TEXT NOT NULL,
+  from_state TEXT,
+  to_state TEXT,
+  note TEXT,
+  actor TEXT,
+  created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+CREATE TABLE IF NOT EXISTS project_estimations (
+  id TEXT PRIMARY KEY,
+  project_id TEXT NOT NULL,
+  estimated_loc REAL,
+  loc_rate_per_pm REAL,
+  estimated_pm REAL,
+  created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+CREATE TABLE IF NOT EXISTS iterations (
+  id TEXT PRIMARY KEY,
+  name TEXT NOT NULL,
+  start_date TEXT,
+  end_date TEXT,
+  created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+CREATE TABLE IF NOT EXISTS project_pool_demands (
+  id TEXT PRIMARY KEY,
+  project_id TEXT NOT NULL,
+  role_id TEXT,
+  headcount REAL,
+  start_date TEXT,
+  end_date TEXT,
+  status TEXT DEFAULT 'open',
+  notes TEXT,
+  created_by TEXT,
+  created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+-- assignments_view rebuilt to the live production shape (the old test
+-- copy lacked av.status which board-feed filters on)
+DROP VIEW IF EXISTS assignments_view;
+CREATE VIEW assignments_view AS
+    SELECT
+      'spa-' || spa.id AS id,
+      spa.project_id,
+      spa.person_id,
+      spa.role_id,
+      spa.phase_id,
+      spa.allocation_percentage,
+      spa.assignment_date_mode,
+      spa.start_date,
+      spa.end_date,
+      spa.notes,
+      spa.created_at,
+      spa.updated_at,
+      COALESCE(spa.computed_start_date, spa.start_date) AS computed_start_date,
+      COALESCE(spa.computed_end_date, spa.end_date) AS computed_end_date,
+      'scenario' AS assignment_type,
+      spa.scenario_id,
+      s.name AS scenario_name,
+      s.scenario_type,
+      spa.status AS status
+    FROM scenario_project_assignments spa
+    JOIN scenarios s ON spa.scenario_id = s.id
+    WHERE s.status = 'active'
+
+    UNION ALL
+
+    SELECT
+      pa.id,
+      pa.project_id,
+      pa.person_id,
+      pa.role_id,
+      pa.phase_id,
+      pa.allocation_percentage,
+      pa.assignment_date_mode,
+      pa.start_date,
+      pa.end_date,
+      pa.notes,
+      pa.created_at,
+      pa.updated_at,
+      COALESCE(pa.computed_start_date, pa.start_date) AS computed_start_date,
+      COALESCE(pa.computed_end_date, pa.end_date) AS computed_end_date,
+      'direct' AS assignment_type,
+      'baseline-0000-0000-0000-000000000000' AS scenario_id,
+      'Baseline' AS scenario_name,
+      'baseline' AS scenario_type,
+      pa.status AS status
+    FROM project_assignments pa;
+
+ALTER TABLE scenario_project_assignments ADD COLUMN notes TEXT;
+ALTER TABLE project_assignments ADD COLUMN notes TEXT;
+
+-- Assignment-table parity with production (assignments_view deps)
+ALTER TABLE scenario_project_assignments ADD COLUMN assignment_date_mode TEXT;
+ALTER TABLE scenario_project_assignments ADD COLUMN computed_start_date TEXT;
+ALTER TABLE scenario_project_assignments ADD COLUMN computed_end_date TEXT;
+ALTER TABLE scenario_project_assignments ADD COLUMN change_type TEXT;
+ALTER TABLE scenario_project_assignments ADD COLUMN base_assignment_id TEXT;
+ALTER TABLE scenario_project_assignments ADD COLUMN updated_at TEXT;
+ALTER TABLE scenario_project_assignments ADD COLUMN is_primary INTEGER;
+ALTER TABLE project_assignments ADD COLUMN assignment_date_mode TEXT;
+ALTER TABLE project_assignments ADD COLUMN computed_start_date TEXT;
+ALTER TABLE project_assignments ADD COLUMN computed_end_date TEXT;
+ALTER TABLE project_assignments ADD COLUMN updated_at TEXT;
+
+-- Design estimation records (attachBoardPlanning deps)
+CREATE TABLE IF NOT EXISTS project_design_estimations (
+  id TEXT PRIMARY KEY,
+  project_id TEXT NOT NULL,
+  estimated_design_pm REAL,
+  deviation_low_pct REAL,
+  deviation_high_pct REAL,
+  notes TEXT,
+  actual_design_pm REAL,
+  backfilled_at TEXT,
+  created_by TEXT,
+  se_estimate_pm REAL,
+  mde_estimate_pm REAL,
+  created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+);

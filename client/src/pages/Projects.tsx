@@ -302,22 +302,17 @@ export function Projects() {
   const { data: projects, isLoading, error } = useQuery({
     queryKey: queryKeys.projects.list({ category: 'demand', lifecycle: filters.lifecycle_state }, currentScenario?.id),
     queryFn: async () => {
-      // No hard cap — the old `limit: 200` silently hid every demand
-      // past #200 (P5). Loop pages of 500 until a short page comes back;
-      // the stop condition is the returned count, NOT pagination.total
-      // (total shifts mid-loop when rows are added concurrently).
-      const PAGE = 500;
-      const all: any[] = [];
-      for (let page = 1; ; page++) {
-        const response = await api.projects.list({
-          limit: PAGE, page,
-          ...(filters.lifecycle_state ? { lifecycle_state: filters.lifecycle_state } : {})
-        });
-        const rows: any[] = response.data.data;
-        all.push(...rows);
-        if (rows.length < PAGE) break;
-      }
-      return all.map((project) => ({
+      // board-feed (P7): the whole board in one slim request — projection
+      // audited against the board's 14 cells + tree/filter/category inputs.
+      // Replaces the loop-paging stopgap that itself replaced limit:200.
+      const response = await api.projects.boardFeed(
+        filters.lifecycle_state ? { lifecycle_state: filters.lifecycle_state } : undefined
+      );
+      // sendSuccess wraps once ({success, data}), the controller once more
+      // ({data: rows, total}) — unwrap to the rows array either way.
+      const payload = (response.data as any)?.data;
+      const rows: any[] = Array.isArray(payload) ? payload : payload?.data ?? [];
+      return rows.map((project) => ({
         ...project,
         project_type: project.project_type_name
           ? { id: project.project_type_id, name: project.project_type_name, color_code: project.project_type_color_code }

@@ -40,6 +40,7 @@ jest.mock('../../lib/api-client', () => ({
   api: {
     projects: {
       list: jest.fn(),
+      boardFeed: jest.fn(),
       delete: jest.fn(),
       update: jest.fn(),
     },
@@ -236,6 +237,10 @@ describe('Requirements Board (需求台)', () => {
     mockNavigate.mockClear();
     (api.projects.list as jest.Mock).mockResolvedValue({
       data: { data: mockProjects },
+    });
+    // the board now fetches from board-feed (one slim whole-board request)
+    (api.projects.boardFeed as jest.Mock).mockResolvedValue({
+      data: { data: { data: mockProjects, total: mockProjects.length } },
     });
     (api.tags.list as jest.Mock).mockResolvedValue({
       data: { data: [{ id: 1, name: 'Reserved' }] },
@@ -1119,7 +1124,8 @@ describe('Requirements Board (需求台)', () => {
       fireEvent.change(screen.getByTestId('lifecycle-filter'), { target: { value: 'designing' } });
 
       await waitFor(() => {
-        expect(api.projects.list).toHaveBeenLastCalledWith(
+        // the board fetches from board-feed (P7 single-request source)
+        expect(api.projects.boardFeed).toHaveBeenLastCalledWith(
           expect.objectContaining({ lifecycle_state: 'designing' })
         );
       });
@@ -1135,7 +1141,7 @@ describe('Requirements Board (需求台)', () => {
     });
 
     test('shows error state', async () => {
-      (api.projects.list as jest.Mock).mockRejectedValue(new Error('Failed to load'));
+      (api.projects.boardFeed as jest.Mock).mockRejectedValueOnce(new Error('Failed to load'));
       renderComponent();
 
       await waitFor(() => {
@@ -1144,7 +1150,7 @@ describe('Requirements Board (需求台)', () => {
     });
 
     test('shows empty state when no demand items', async () => {
-      (api.projects.list as jest.Mock).mockResolvedValue({ data: { data: [] } });
+      (api.projects.boardFeed as jest.Mock).mockResolvedValueOnce({ data: { data: { data: [], total: 0 } } });
       renderComponent();
 
       await waitFor(() => {

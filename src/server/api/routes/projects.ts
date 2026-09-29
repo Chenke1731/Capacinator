@@ -9,6 +9,7 @@ router.delete('/test-data', controller.deleteTestData);
 
 // Project CRUD operations
 router.get('/', controller.getAll);
+router.get('/board-feed', controller.boardFeed); // before /:id — static segment must win
 router.get('/:id', controller.getById);
 router.post('/', controller.create);
 router.put('/:id', controller.update);

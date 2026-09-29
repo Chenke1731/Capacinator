@@ -17,6 +17,17 @@ export interface Location extends BaseEntity {
   description?: string;
 }
 
+/** Software component (066): controlled structural dimension answering
+ *  "which part of the software" — orthogonal to project_type, feeds
+ *  demand/workload analytics (tags deliberately carry no semantics). */
+export interface Component extends BaseEntity {
+  name: string;
+  code?: string;
+  description?: string;
+  owner_id?: string | null;
+  is_active: boolean;
+}
+
 /**
  * Project type classification (e.g., "Development", "Infrastructure")
  */
@@ -78,6 +89,9 @@ export interface Project extends BaseEntity {
   project_type_id: string;
   project_sub_type_id: string; // Mandatory field for sub-type reference
   location_id: string;
+  /** Software component (066): single-select attribution for demand
+   *  management and analytics — nullable, legacy rows stay unassigned. */
+  component_id?: string | null;
   priority: number;
   description?: string;
   data_restrictions?: string;

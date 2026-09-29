@@ -1,0 +1,35 @@
+{
+  "title": "组件",
+  "subtitle": "管理软件组件——受控维度,支撑需求管理与统计分析",
+  "addComponent": "新增组件",
+  "columns": {
+    "name": "组件名称",
+    "code": "编码",
+    "description": "描述"
+  },
+  "placeholders": {
+    "name": "组件名称",
+    "code": "如 ENG",
+    "description": "添加描述..."
+  },
+  "loadFailed": "加载组件失败",
+  "updateFailed": "更新组件失败,请重试。",
+  "deleteFailed": "删除组件失败,请重试。",
+  "deleteFailedInUse": "该组件仍被需求引用,请先改绑或清空相关需求。",
+  "emptyMessage": "暂无组件。创建第一个组件,让需求可归属、可分析。",
+  "deleteTitle": "删除组件",
+  "deleteMessage": "确定删除“{{name}}”吗?此操作不可撤销。",
+  "modal": {
+    "editTitle": "编辑组件",
+    "createTitle": "新增组件",
+    "editDescription": "在下方更新组件信息。",
+    "createDescription": "填写信息以创建新组件。",
+    "save": "保存组件",
+    "nameRequired": "名称必填",
+    "saveFailed": "保存组件失败",
+    "namePlaceholder": "如 报表引擎、平台底座",
+    "codePlaceholder": "短编码(可选)",
+    "codeLabel": "编码",
+    "descriptionPlaceholder": "组件的简要描述..."
+  }
+}

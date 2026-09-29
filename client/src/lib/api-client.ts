@@ -2,6 +2,7 @@ import axios, { AxiosResponse, InternalAxiosRequestConfig } from 'axios';
 import { logger } from '../services/logger';
 import { translateServerMessage, translateAxiosMessage } from './i18n-error';
 import type {
+  Component,
   Location,
   ProjectType,
   Project,
@@ -522,6 +523,13 @@ export const api = {
   },
 
   // Simple endpoints
+  components: {
+    list: () => apiClient.get<PaginatedResponse<Component>>('/components'),
+    get: (id: string) => apiClient.get<{ data: Component }>(`/components/${id}`),
+    create: (data: Partial<Component>) => apiClient.post<{ data: Component }>('/components', data),
+    update: (id: string, data: Partial<Component>) => apiClient.put<{ data: Component }>(`/components/${id}`, data),
+    delete: (id: string) => apiClient.delete<{ message: string }>(`/components/${id}`),
+  },
   locations: {
     list: () => apiClient.get<PaginatedResponse<Location>>('/locations'),
     get: (id: string) => apiClient.get<{ data: Location }>(`/locations/${id}`),

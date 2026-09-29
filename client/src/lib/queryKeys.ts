@@ -245,6 +245,13 @@ export const queryKeys = {
   },
 
   // Locations
+  components: {
+    all: ['components'] as const,
+    lists: () => [...queryKeys.components.all, 'list'] as const,
+    list: () => [...queryKeys.components.lists()] as const,
+    details: () => [...queryKeys.components.all, 'detail'] as const,
+    detail: (id: string) => [...queryKeys.components.details(), id] as const,
+  },
   locations: {
     all: ['locations'] as const,
     lists: () => [...queryKeys.locations.all, 'list'] as const,

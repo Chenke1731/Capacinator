@@ -22,6 +22,7 @@ export type {
 
 // Entity types
 export type {
+  Component,
   Location,
   ProjectType,
   ProjectSubType,

@@ -26,6 +26,7 @@ import Settings from './pages/Settings';
 import { NotFound } from './components/NotFound';
 import ImportUnified from './pages/ImportUnified';
 import { Locations } from './pages/Locations';
+import { Components } from './pages/Components';
 import { Toaster } from './components/ui/toaster';
 import ErrorBoundary from './components/ErrorBoundary';
 import './globals.css';
@@ -87,6 +88,7 @@ const AppContent: React.FC = () => {
           <Route path="/reports" element={page(<ReportsUnified />)} />
           <Route path="/import" element={page(<ImportUnified />)} />
           <Route path="/locations" element={page(<Locations />)} />
+          <Route path="/components" element={page(<Components />)} />
           <Route path="/settings" element={page(<Settings />)} />
           <Route path="*" element={page(<NotFound />)} />
         </Routes>

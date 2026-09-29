@@ -18,6 +18,7 @@ import scenariosEn from './locales/en-US/scenarios.json';
 import reportsEn from './locales/en-US/reports.json';
 import importExportEn from './locales/en-US/importExport.json';
 import locationsEn from './locales/en-US/locations.json';
+import componentsEn from './locales/en-US/components.json';
 import auditLogEn from './locales/en-US/auditLog.json';
 import phasesEn from './locales/en-US/phases.json';
 import rolesEn from './locales/en-US/roles.json';
@@ -39,6 +40,7 @@ import scenariosZh from './locales/zh-CN/scenarios.json';
 import reportsZh from './locales/zh-CN/reports.json';
 import importExportZh from './locales/zh-CN/importExport.json';
 import locationsZh from './locales/zh-CN/locations.json';
+import componentsZh from './locales/zh-CN/components.json';
 import auditLogZh from './locales/zh-CN/auditLog.json';
 import phasesZh from './locales/zh-CN/phases.json';
 import rolesZh from './locales/zh-CN/roles.json';
@@ -69,6 +71,7 @@ export const NAMESPACES = [
   'scenarios',
   'reports',
   'importExport',
+  'components',
   'locations',
   'auditLog',
   'phases',
@@ -92,6 +95,7 @@ const enResources = {
   scenarios: scenariosEn,
   reports: reportsEn,
   importExport: importExportEn,
+  components: componentsEn,
   locations: locationsEn,
   auditLog: auditLogEn,
   phases: phasesEn,
@@ -115,6 +119,7 @@ const zhResources = {
   scenarios: scenariosZh,
   reports: reportsZh,
   importExport: importExportZh,
+  components: componentsZh,
   locations: locationsZh,
   auditLog: auditLogZh,
   phases: phasesZh,

@@ -1,0 +1,35 @@
+{
+  "title": "Components",
+  "subtitle": "Manage software components — the controlled dimension for demand management and analytics",
+  "addComponent": "Add Component",
+  "columns": {
+    "name": "Component Name",
+    "code": "Code",
+    "description": "Description"
+  },
+  "placeholders": {
+    "name": "Component name",
+    "code": "e.g., ENG",
+    "description": "Add description..."
+  },
+  "loadFailed": "Failed to load components",
+  "updateFailed": "Failed to update component. Please try again.",
+  "deleteFailed": "Failed to delete component. Please try again.",
+  "deleteFailedInUse": "This component is still referenced by projects. Reassign or clear those projects first.",
+  "emptyMessage": "No components yet. Create your first component so demands can be attributed and analyzed.",
+  "deleteTitle": "Delete Component",
+  "deleteMessage": "Are you sure you want to delete \"{{name}}\"? This action cannot be undone.",
+  "modal": {
+    "editTitle": "Edit Component",
+    "createTitle": "Add Component",
+    "editDescription": "Update the component details below.",
+    "createDescription": "Fill in the information to create a new component.",
+    "save": "Save Component",
+    "nameRequired": "Name is required",
+    "saveFailed": "Failed to save component",
+    "namePlaceholder": "e.g., Reporting Engine, Platform Core",
+    "codePlaceholder": "Short code (optional)",
+    "codeLabel": "Code",
+    "descriptionPlaceholder": "Brief description of this component..."
+  }
+}

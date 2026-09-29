@@ -12,6 +12,7 @@ import {
   ClipboardList,
   History,
   ArrowUpDown,
+  Boxes,
 } from 'lucide-react';
 import { AppHeader } from './AppHeader';
 import './Layout.css';
@@ -23,6 +24,7 @@ interface LayoutProps {
 const navigation = [
   { nameKey: 'navigation:dashboard', href: '/dashboard', icon: LayoutDashboard },
   { nameKey: 'navigation:projects', href: '/projects', icon: FolderKanban },
+  { nameKey: 'navigation:components', href: '/components', icon: Boxes },
   { nameKey: 'navigation:iterations', href: '/iterations', icon: CalendarRange },
   { nameKey: 'navigation:people', href: '/people', icon: Users },
   { nameKey: 'navigation:assignments', href: '/assignments', icon: ClipboardList },

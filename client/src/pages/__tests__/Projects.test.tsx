@@ -859,9 +859,11 @@ describe('Requirements Board (需求台)', () => {
       });
 
       await user.type(screen.getByTestId('search-input'), 'Portal Login');
-      expect(screen.getByText('Portal Login Rework')).toBeInTheDocument();
+      await waitFor(() => { // debounced filter
+        expect(screen.getByText('Portal Login Rework')).toBeInTheDocument();
+        expect(screen.queryByText('Project Beta')).not.toBeInTheDocument();
+      });
       expect(screen.getByText('Project Alpha')).toBeInTheDocument();
-      expect(screen.queryByText('Project Beta')).not.toBeInTheDocument();
     });
   });
 
@@ -1048,7 +1050,9 @@ describe('Requirements Board (需求台)', () => {
       });
 
       await user.type(screen.getByTestId('search-input'), 'ZZZ-no-hit');
-      expect(screen.getByText(/No matching items/)).toBeInTheDocument();
+      await waitFor(() => { // debounced filter
+        expect(screen.getByText(/No matching items/)).toBeInTheDocument();
+      });
 
       fireEvent.click(document.querySelector('.requirements-empty-clear') as HTMLButtonElement);
       await waitFor(() => {
@@ -1095,9 +1099,11 @@ describe('Requirements Board (需求台)', () => {
       });
 
       await user.type(screen.getByTestId('search-input'), 'AR-2026-101');
-      expect(screen.getByText('Portal Login Rework')).toBeInTheDocument();
+      await waitFor(() => { // debounced: filter applies after the 150ms quiet window
+        expect(screen.getByText('Portal Login Rework')).toBeInTheDocument();
+        expect(screen.queryByText('Project Beta')).not.toBeInTheDocument();
+      });
       expect(screen.getByText('Project Alpha')).toBeInTheDocument();
-      expect(screen.queryByText('Project Beta')).not.toBeInTheDocument();
     });
 
     test('search by reference code locates the row (#序号)', async () => {
@@ -1110,8 +1116,10 @@ describe('Requirements Board (需求台)', () => {
 
       // CAP-1 = seq_number 精确命中 Alpha(#N 旧格式仍兼容)
       await user.type(screen.getByTestId('search-input'), 'CAP-1');
+      await waitFor(() => { // debounced filter
+        expect(screen.queryByText('Project Beta')).not.toBeInTheDocument();
+      });
       expect(screen.getByText('Project Alpha')).toBeInTheDocument();
-      expect(screen.queryByText('Project Beta')).not.toBeInTheDocument();
     });
 
     test('lifecycle filter passes through to the API', async () => {

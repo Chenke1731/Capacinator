@@ -289,6 +289,12 @@ export function Projects() {
     release_version: ''
   });
   const [collapsedSR, setCollapsedSR] = useState<Set<string>>(new Set());
+  /** 搜索防抖: 击键只更新本地值,150ms 静默后才触发全量过滤/排序/树重建 */
+  const [searchInput, setSearchInput] = useState('');
+  useEffect(() => {
+    const id = setTimeout(() => setFilters((prev) => (prev.search === searchInput ? prev : { ...prev, search: searchInput })), 150);
+    return () => clearTimeout(id);
+  }, [searchInput]);
   const [decomposeParent, setDecomposeParent] = useState<any | null>(null);
   const [confirmingDelete, setConfirmingDelete] = useState<string | null>(null);
   const [tagManagerOpen, setTagManagerOpen] = useState(false);
@@ -598,8 +604,8 @@ export function Projects() {
             data-testid="search-input"
             className="board-search-input"
             placeholder={t('projects:searchPlaceholder')}
-            value={filters.search}
-            onChange={(e) => setFilters((prev) => ({ ...prev, search: e.target.value }))}
+            value={searchInput}
+            onChange={(e) => setSearchInput(e.target.value)}
           />
         </div>
         <select
@@ -667,10 +673,11 @@ export function Projects() {
             data-testid="reset-filters"
             className="board-reset"
             title={t('projects:board.resetFilters')}
-            onClick={() => setFilters({
+            onClick={() => { setSearchInput('');
+              setFilters({
               search: '', lifecycle_state: '', tag_id: '', component: '', subtype: '',
               product_version: '', release_version: ''
-            })}
+            }); }}
           >
             <X size={13} />
           </button>
@@ -1002,10 +1009,11 @@ export function Projects() {
               <button
                 type="button"
                 className="board-ghost-btn requirements-empty-clear"
-                onClick={() => setFilters({
+                onClick={() => { setSearchInput('');
+                  setFilters({
                   search: '', lifecycle_state: '', tag_id: '', component: '', subtype: '',
                   product_version: '', release_version: ''
-                })}
+                }); }}
               >
                 {t('projects:board.clearFilters')}
               </button>

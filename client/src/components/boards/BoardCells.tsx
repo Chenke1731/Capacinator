@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { PopoverPortal } from './PopoverPortal';
 import { Avatar } from './EditableCells';
 import { useTranslation } from 'react-i18next';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
@@ -284,6 +285,7 @@ export function RoleCell({
       </button>
 
       {pop.open && (
+        <PopoverPortal>
         <div className="lc-popover role-pop" style={pop.style}>
           <div className="lc-popover-title">{label}{t('projects:roleCell.titleSuffix')}</div>
           <div className="lc-popover-form role-pop-pm">
@@ -333,6 +335,7 @@ export function RoleCell({
             </div>
           )}
         </div>
+        </PopoverPortal>
       )}
     </span>
   );
@@ -463,6 +466,7 @@ export function PrimaryDevCell({ primary, project, onSaved }: {
       </button>
 
       {pop.open && (
+        <PopoverPortal>
         <div className="lc-popover primary-pop" style={pop.style}>
           <div className="lc-popover-title">{t('projects:primaryDev.title')}</div>
           {primary && (
@@ -500,6 +504,7 @@ export function PrimaryDevCell({ primary, project, onSaved }: {
             </span>
           </div>
         </div>
+        </PopoverPortal>
       )}
     </span>
   );
@@ -587,6 +592,7 @@ export function IterationCell({ project, onSaved, readOnlyWindow }: {
       )}
 
       {pop.open && (
+        <PopoverPortal>
         <div className="lc-popover iter-pop" style={pop.style}>
           <div className="lc-popover-title">{t('projects:iteration.pickTitle')}</div>
           <div className="iter-pop-list">
@@ -628,6 +634,7 @@ export function IterationCell({ project, onSaved, readOnlyWindow }: {
             </button>
           </div>
         </div>
+        </PopoverPortal>
       )}
     </span>
   );

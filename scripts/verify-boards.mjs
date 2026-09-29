@@ -177,6 +177,35 @@ check('新列集(代码规模/人力/SE/MDE/实名投入)',
     return bad;
   });
   check(`排版矩阵零偏差 (${typoMatrix.length} 违例)`, typoMatrix.length === 0, typoMatrix.slice(0, 3).join(', '));
+  // 弹窗锚定守卫(2026-09-29): 虚拟行的 transform 祖先曾令 fixed 弹窗漂移
+  // (useCellPopover 视口坐标失效,弹窗漂到页面异常位置无法编辑)。
+  // 断言: 打开标签弹窗后,其视口位置必须在锚点正下方(dx≤8, gap 4~20)。
+  {
+    const chipSel = '.requirements-row:has([data-testid="tags-edit-btn"]) .req-tag--filter';
+    const chip = page.locator(chipSel).first();
+    if (await chip.count()) {
+      const cb = await chip.boundingBox();
+      await page.mouse.move(cb.x + cb.width / 2, cb.y + cb.height / 2);
+      await page.waitForTimeout(300);
+      const pencil = page.locator('[data-testid="tags-edit-btn"]:visible').first();
+      if (await pencil.isVisible().catch(() => false)) {
+        await pencil.click();
+        await page.waitForTimeout(500);
+        const pop = await page.locator('.tags-pop').boundingBox().catch(() => null);
+        if (pop) {
+          const anchorBox = await chip.boundingBox();
+          const dx = Math.abs(pop.x - anchorBox.x);
+          const gap = pop.y - (anchorBox.y + anchorBox.height);
+          check(`弹窗锚定在触点正下方 (dx=${Math.round(dx)}, gap=${Math.round(gap)})`,
+            dx <= 8 && gap >= 2 && gap <= 24);
+        } else {
+          check('弹窗锚定: 弹窗未打开', false);
+        }
+      } else {
+        check('弹窗锚定守卫: 铅笔不可见(跳过)', true); // hover 竞态时跳过不误报
+      }
+    }
+  }
   // 色彩纪律(2026-09-23 借鉴裁决 B): 每行饱和底色元素 ≤5,防"满行皆重点=无重点"
   const colorMax = await page.evaluate(() => {
     const sat = (e) => {

@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import { PopoverPortal } from './PopoverPortal';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { Check, Pencil, Plus, Search, X } from 'lucide-react';
@@ -48,6 +49,7 @@ export function PriorityCell({ project, onSaved }: { project: any; onSaved: () =
         P{level}
       </button>
       {pop.open && (
+        <PopoverPortal>
         <div className="lc-popover cell-pop pri-pop" data-testid="priority-popover" style={pop.style}>
           <div className="lc-popover-title">{t('projects:prioritySelect.title')}</div>
           <div className="cell-pop-list">
@@ -65,6 +67,7 @@ export function PriorityCell({ project, onSaved }: { project: any; onSaved: () =
             ))}
           </div>
         </div>
+        </PopoverPortal>
       )}
     </span>
   );
@@ -152,6 +155,7 @@ export function OwnerCell({ project, onSaved }: { project: any; onSaved: () => v
         )}
       </button>
       {pop.open && (
+        <PopoverPortal>
         <div className="lc-popover cell-pop owner-pop" data-testid="owner-popover" style={pop.style}>
           <div className="lc-popover-title">{t('projects:ownerSelect.title')}</div>
           <div className="cell-pop-search">
@@ -188,6 +192,7 @@ export function OwnerCell({ project, onSaved }: { project: any; onSaved: () => v
             {filtered.length === 0 && <div className="cell-pop-empty">{t('projects:ownerSelect.empty')}</div>}
           </div>
         </div>
+        </PopoverPortal>
       )}
     </span>
   );
@@ -325,6 +330,7 @@ export function TagsCell({
         <Pencil size={10} aria-hidden />
       </button>
       {pop.open && (
+        <PopoverPortal>
         <div className="lc-popover cell-pop tags-pop" data-testid="tags-popover" style={pop.style}>
           <div className="lc-popover-title">{t('projects:tagSelect.title')}</div>
           <div className="cell-pop-search">
@@ -372,6 +378,7 @@ export function TagsCell({
             </button>
           </div>
         </div>
+        </PopoverPortal>
       )}
     </span>
   );
@@ -425,6 +432,7 @@ export function ComponentCell({
         {value || t('projects:component.none')}
       </button>
       {pop.open && (
+        <PopoverPortal>
         <div className="lc-popover cell-pop component-pop" data-testid="component-popover" style={pop.style}>
           <div className="lc-popover-title">{t('projects:component.title')}</div>
           <div className="cell-pop-search">
@@ -468,6 +476,7 @@ export function ComponentCell({
             </button>
           )}
         </div>
+        </PopoverPortal>
       )}
     </span>
   );

@@ -24,7 +24,7 @@ export class SimpleController extends BaseController {
         query = this.paginate(query, page, limit);
       } else {
         // Only order by name if the table has a name column
-        const hasNameColumn = ['locations', 'project_types', 'project_phases', 'roles'].includes(this.tableName);
+        const hasNameColumn = ['locations', 'project_types', 'project_phases', 'roles', 'components'].includes(this.tableName);
         if (hasNameColumn) {
           query = query.orderBy('name');
         }

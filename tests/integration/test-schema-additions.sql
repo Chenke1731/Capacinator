@@ -599,3 +599,48 @@ CREATE INDEX IF NOT EXISTS idx_conflicts_status ON conflicts(resolution_status);
 CREATE INDEX IF NOT EXISTS idx_conflicts_entity ON conflicts(entity_type, entity_id);
 CREATE INDEX IF NOT EXISTS idx_branch_metadata_name ON branch_metadata(name);
 CREATE INDEX IF NOT EXISTS idx_offline_queue_status ON offline_queue(status);
+-- 066 components (software component management): controlled structural
+-- dimension for "which part of the software" — projects.component_id is a
+-- nullable single-select FK — people diversify via multi-project assignments
+CREATE TABLE IF NOT EXISTS components (
+  id VARCHAR(36) PRIMARY KEY DEFAULT (lower(hex(randomblob(4))) || '-' || lower(hex(randomblob(2))) || '-4' || substr(lower(hex(randomblob(2))),2) || '-' || substr('89ab',abs(random()) % 4 + 1, 1) || substr(lower(hex(randomblob(2))),2) || '-' || lower(hex(randomblob(6)))),
+  name VARCHAR(255) NOT NULL UNIQUE,
+  code VARCHAR(50),
+  description TEXT,
+  owner_id VARCHAR(36) REFERENCES people(id) ON DELETE SET NULL,
+  is_active BOOLEAN NOT NULL DEFAULT 1,
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+CREATE INDEX IF NOT EXISTS idx_components_owner ON components(owner_id);
+ALTER TABLE projects ADD COLUMN component_id VARCHAR(36) REFERENCES components(id) ON DELETE RESTRICT;
+CREATE INDEX IF NOT EXISTS idx_projects_component_id ON projects(component_id);
+
+-- Schema-parity additions (2026-09-29, found while testing components):
+-- production projects.seq_number and project_types color_code/parent_id/
+-- is_default drifted out of the test schema and blocked controller paths.
+ALTER TABLE projects ADD COLUMN seq_number INTEGER;
+ALTER TABLE project_types ADD COLUMN color_code VARCHAR(7) DEFAULT '#000000';
+ALTER TABLE project_types ADD COLUMN parent_id VARCHAR(36);
+ALTER TABLE project_types ADD COLUMN is_default INTEGER DEFAULT 0;
+
+-- project_type_phases was missing entirely from the test schema (found
+-- via template-inheritance path in ProjectsController.create)
+CREATE TABLE IF NOT EXISTS project_type_phases (
+  id TEXT PRIMARY KEY,
+  project_type_id TEXT NOT NULL,
+  phase_id TEXT NOT NULL,
+  is_inherited BOOLEAN DEFAULT 0,
+  order_index INTEGER NOT NULL,
+  duration_weeks INTEGER,
+  created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  project_sub_type_id TEXT,
+  is_mandatory BOOLEAN NOT NULL DEFAULT 0,
+  min_duration_days INTEGER,
+  max_duration_days INTEGER,
+  default_duration_days INTEGER,
+  is_locked_order BOOLEAN NOT NULL DEFAULT 0,
+  template_description TEXT,
+  template_metadata TEXT
+);

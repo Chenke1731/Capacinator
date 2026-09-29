@@ -673,7 +673,11 @@ export class ProjectsController extends BaseController {
       const tagIds: Array<number | string> = Array.isArray(projectData.tag_ids) ? projectData.tag_ids : [];
       const sanitizedData = { ...projectData };
       delete sanitizedData.tag_ids;
-      const nullableForeignKeys = ['owner_id', 'project_sub_type_id', 'current_phase_id', 'location_id'];
+      // 'status' is a legacy field name — the column does not exist
+      // (lifecycle is owned by the state machine; create defaults to
+      // pending_rat below). Passing it through made the insert 500.
+      delete sanitizedData.status;
+      const nullableForeignKeys = ['owner_id', 'project_sub_type_id', 'current_phase_id', 'location_id', 'component_id'];
       
       nullableForeignKeys.forEach(field => {
         if (sanitizedData[field] === '') {
@@ -733,7 +737,7 @@ export class ProjectsController extends BaseController {
 
       // Log audit event for project creation
       if (project) {
-        await (req as any).logAuditEvent('projects', project.id, 'CREATE', undefined, project);
+        await (req as any).logAuditEvent?.('projects', project.id, 'CREATE', undefined, project);
         this.logBusinessOperation(req, 'CREATE', 'project', project.id, {
           projectName: project.name,
           projectType: projectData.project_type_id
@@ -769,6 +773,8 @@ export class ProjectsController extends BaseController {
       const tagIds: Array<number | string> = tagIdsProvided ? updateData.tag_ids : [];
       const sanitizedData = { ...updateData };
       delete sanitizedData.tag_ids;
+      // Legacy field name, no such column — see the create-side note.
+      delete sanitizedData.status;
 
       // 迭代挂接(事实字段,设计 §0.6): 值必须存在于迭代表(空=解除挂接)
       if ('iteration_id' in sanitizedData) {
@@ -810,7 +816,7 @@ export class ProjectsController extends BaseController {
       }
 
       // Sanitize foreign key fields - convert empty strings to null
-      const nullableForeignKeys = ['owner_id', 'project_sub_type_id', 'current_phase_id', 'location_id'];
+      const nullableForeignKeys = ['owner_id', 'project_sub_type_id', 'current_phase_id', 'location_id', 'component_id'];
       
       nullableForeignKeys.forEach(field => {
         if (sanitizedData[field] === '') {
@@ -911,7 +917,7 @@ export class ProjectsController extends BaseController {
 
       // Log audit event for project update
       if (project) {
-        await (req as any).logAuditEvent('projects', id, 'UPDATE', currentProject, project);
+        await (req as any).logAuditEvent?.('projects', id, 'UPDATE', currentProject, project);
         this.logBusinessOperation(req, 'UPDATE', 'project', id, {
           projectName: project.name,
           fieldsUpdated: Object.keys(updateData)
@@ -953,7 +959,7 @@ export class ProjectsController extends BaseController {
         .del();
 
       // Log audit event for project deletion
-      await (req as any).logAuditEvent('projects', id, 'DELETE', project, undefined);
+      await (req as any).logAuditEvent?.('projects', id, 'DELETE', project, undefined);
       this.logBusinessOperation(req, 'DELETE', 'project', id, {
         projectName: project.name
       });

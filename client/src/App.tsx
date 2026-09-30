@@ -31,7 +31,10 @@ const Scenarios = lazy(() => import('./pages/Scenarios').then(m => ({ default: m
 const AuditLog = lazy(() => import('./pages/AuditLog').then(m => ({ default: m.AuditLog })));
 const ReportsUnified = lazy(() => import('./pages/ReportsUnified'));
 const Settings = lazy(() => import('./pages/Settings'));
-const NotFound = lazy(() => import('./components/NotFound').then(m => ({ default: m.NotFound })));
+// NotFound stays synchronous (P8 exception): error pages must render
+// instantly — a lazy 404 looks like a broken page, and the e2e
+// navigation-error assertions query immediately after goto.
+import { NotFound } from './components/NotFound';
 const ImportUnified = lazy(() => import('./pages/ImportUnified'));
 const Locations = lazy(() => import('./pages/Locations').then(m => ({ default: m.Locations })));
 const Components = lazy(() => import('./pages/Components').then(m => ({ default: m.Components })));

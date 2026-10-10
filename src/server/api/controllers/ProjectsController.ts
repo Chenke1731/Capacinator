@@ -934,8 +934,9 @@ export class ProjectsController extends BaseController {
         const latest = await this.db('project_estimations')
           .where({ project_id: id }).orderBy('id', 'desc').first(); // id 最大 = 最新(与读取口径一致)
         const patch: Record<string, any> = { updated_at: this.db.fn.now() };
-        if (klocIn !== undefined) patch.estimated_loc = (Number(klocIn) || 0) * 1000;
-        if (pmOverride !== undefined) patch.estimated_pm = Number(pmOverride) || null;
+        // null = 清除自身值(SR 回退到子行聚合推导, 2026-09-29 用户裁决恢复默认计算)
+        if (klocIn !== undefined) patch.estimated_loc = klocIn === null ? null : (Number(klocIn) || 0) * 1000;
+        if (pmOverride !== undefined) patch.estimated_pm = pmOverride === null ? null : (Number(pmOverride) || null);
         if (latest) {
           await this.db('project_estimations').where({ id: latest.id }).update(patch);
         } else {

@@ -885,11 +885,13 @@ export function Projects() {
                   显示 = SR 自身值 ?? 子行聚合; 偏差 = 两者都有且不等 → 琥珀告警 */}
               <KlocCell project={project}
                 kloc={project.estimation_summary?.kloc ?? agg.kloc}
+                derived={project.estimation_summary?.kloc == null && agg.kloc != null}
                 deviated={project.estimation_summary?.kloc != null && agg.kloc != null && project.estimation_summary.kloc !== agg.kloc}
                 onSaved={() => handleCellSaved(project.id)} />
 
               <EffortCell project={project}
                 pm={project.estimation_summary?.pm ?? agg.effortPm}
+                derived={project.estimation_summary?.pm == null && agg.effortPm != null}
                 deviated={project.estimation_summary?.pm != null && agg.effortPm != null && project.estimation_summary.pm !== agg.effortPm}
                 onSaved={() => handleCellSaved(project.id)} />
 

@@ -502,7 +502,8 @@
     "srTooltip": "Sum of child estimations; edit each on the detail page",
     "empty": "—",
     "editPlaceholder": "KLOC",
-    "deviationHint": "SR value differs from sum of child ARs (amber = deviation)"
+    "deviationHint": "SR value differs from sum of child ARs (amber = deviation)",
+    "derivedHint": "Sum of ARs (clear the input to reset to default)"
   },
   "actuals": {
     "title": "Investment ledger (plan vs actual)",
@@ -532,7 +533,8 @@
     "srTooltip": "Sum of children",
     "editPlaceholder": "pm",
     "overriddenHint": "Manually edited (overrides auto conversion); changing KLOC will not reset it",
-    "deviationHint": "SR value differs from sum of child ARs (amber = deviation)"
+    "deviationHint": "SR value differs from sum of child ARs (amber = deviation)",
+    "derivedHint": "Sum of ARs (clear the input to reset to default)"
   },
   "roleCell": {
     "pickHint": "Assign {{role}}",

@@ -67,29 +67,41 @@ const CONTRAST_FN = `
     const a = over[3] ?? 1;
     return [0, 1, 2].map((i) => Math.round(over[i] * a + bg[i] * (1 - a)));
   };
-  window.__effBg = (el) => {
+  window.__bgInfo = (el) => {
+    // 背板走全链到首个不透明层——无层数上限、无白默认(2026-10-11 幻影白事故:
+    // 板内行元素真背板在第 8-10 层 unified-tab-container, 8 层上限+白默认曾把
+    // 为深底设计的浅灰前景算成 1.0-1.4:1 "违例"; 浅色下白默认碰巧无害, P0
+    // 主题修复让深色真渲染后才爆发)。source/level 供 selftest 幻影白维度断言;
+    // 全链无背板 → bg:null(unknown——计数上报,不猜白不判违)。
     let chain = [];
     let node = el;
-    for (let i = 0; i < 8 && node; i++, node = node.parentElement) {
+    let source = 'unknown', level = -1;
+    while (node) {
       const c = parse(getComputedStyle(node).backgroundColor);
       if (c && (c[3] ?? 1) > 0) {
         chain.push(c);
-        if ((c[3] ?? 1) >= 0.999) break;
+        if ((c[3] ?? 1) >= 0.999) { source = (node.className?.toString().split(' ')[0] || node.tagName); level = chain.length - 1; break; }
       }
+      node = node.parentElement;
     }
-    let bg = [255, 255, 255, 1];
+    if (level === -1) return { bg: null, source, level };
+    // 基座 [255,255,255] 仅是合成数学的中间量——链必终止于不透明层,基座不参与结果
+    let bg = [255, 255, 255];
     for (let i = chain.length - 1; i >= 0; i--) bg = composite(bg.slice(0, 3), chain[i]);
-    return bg.slice(0, 3);
+    return { bg, source, level };
   };
+  window.__effBg = (el) => window.__bgInfo(el).bg ?? [255, 255, 255]; // 兼容旧探针;审计路径先查 bg===null 记 unknown
   window.__contrast = (el) => {
-    const bg = window.__effBg(el);
+    const bg = window.__bgInfo(el).bg;
+    if (!bg) return -1; // 背板未知:调用方须显式跳过(-1 不小于阈值即判过是撒谎,判违也是)
     const fgRaw = parse(getComputedStyle(el).color);
     const fg = fgRaw && (fgRaw[3] ?? 1) < 0.999 ? composite(bg, fgRaw) : (fgRaw ? fgRaw.slice(0, 3) : [0, 0, 0]);
     const L1 = luminance(...fg), L2 = luminance(...bg);
     return Math.round(((Math.max(L1, L2) + 0.05) / (Math.min(L1, L2) + 0.05)) * 100) / 100;
   };
   window.__borderContrast = (el) => {
-    const bg = window.__effBg(el);
+    const bg = window.__bgInfo(el).bg;
+    if (!bg) return -1;
     const cs = getComputedStyle(el);
     // 视觉边框可能在宿主或 ::before(复选框视觉盒由伪元素绘制)——无框时回落伪元素
     let bc = parseFloat(cs.borderWidth) > 0 ? parse(cs.borderColor) : null;
@@ -103,8 +115,9 @@ const CONTRAST_FN = `
     return Math.round(((Math.max(L1, L2) + 0.05) / (Math.min(L1, L2) + 0.05)) * 100) / 100;
   };
   window.__bgContrast = (el) => { // 填充色对(不含自身的)背板——识别组件的可视块
+    const bg = window.__bgInfo(el.parentElement || el).bg;
+    if (!bg) return -1;
     const own = parse(getComputedStyle(el).backgroundColor);
-    const bg = window.__effBg(el.parentElement || el);
     const fill = own && (own[3] ?? 1) < 0.999 ? composite(bg, own) : (own ? own.slice(0, 3) : bg);
     const L1 = luminance(...fill), L2 = luminance(...bg);
     return Math.round(((Math.max(L1, L2) + 0.05) / (Math.min(L1, L2) + 0.05)) * 100) / 100;
@@ -138,7 +151,30 @@ const AUDIT_FN = (scopeSelector) => `
     const roots = scoped
       ? [...document.querySelectorAll(scoped)].flatMap((root) => [...root.querySelectorAll(SEL)]).filter((e) => (seen.has(e) ? false : seen.add(e)))
       : [...document.querySelectorAll(SEL)];
-    let tested = 0;
+    let tested = 0, unknownBg = 0, clipped = 0, chromeCovered = 0;
+    // 裁切交集(2026-10-11 遮挡三分裁决): 中心点不在可见交集内=裁切/滚出;
+    // 硬裁切(hidden/clip)且可见尺寸<24=真缺陷(加号钮可见宽 0 事故曾淹没在伪报里);
+    // 可滚动裁切(auto/scroll)=折叠线,计数不判违
+    const clippedAt = (e, cx, cy) => {
+      let n = e.parentElement, clipper = null, hard = false;
+      let visL = -Infinity, visR = Infinity, visT = -Infinity, visB = Infinity;
+      while (n && n !== document.body) {
+        const cs = getComputedStyle(n);
+        const ov = \`\${cs.overflow} \${cs.overflowX} \${cs.overflowY}\`;
+        if (/hidden|clip|auto|scroll/.test(ov)) {
+          const r2 = n.getBoundingClientRect();
+          visL = Math.max(visL, r2.left); visR = Math.min(visR, r2.right);
+          visT = Math.max(visT, r2.top); visB = Math.min(visB, r2.bottom);
+          if (!clipper) clipper = n.className?.toString().split(' ')[0] || n.tagName;
+          if (/hidden|clip/.test(ov) && !/auto|scroll/.test(ov)) hard = true;
+        }
+        n = n.parentElement;
+      }
+      const r0 = e.getBoundingClientRect();
+      const vw = Math.max(0, Math.min(visR, r0.right) - Math.max(visL, r0.left));
+      const vh = Math.max(0, Math.min(visB, r0.bottom) - Math.max(visT, r0.top));
+      return { centerOut: cx < visL || cx > visR || cy < visT || cy > visB, hard, clipper, visibleMin: Math.min(vw, vh) };
+    };
     for (const e of roots) {
       if (!visible(e)) continue;
       if (e.disabled || e.getAttribute('aria-disabled') === 'true') continue; // WCAG 豁免非活动组件
@@ -151,8 +187,12 @@ const AUDIT_FN = (scopeSelector) => `
       const hasText = text.length > 0 || isInput;
       // 对比度(文字承载≥4.5 / 无文字控件的**边界**≥3——borderColor 对背板合成,不是 color)
       if (hasText) {
-        const ratio = window.__contrast(e);
-        if (ratio < 4.5) issues.push({ name, kind: '对比度', detail: \`\${ratio} < 4.5 (fg/bg 合成后)\` });
+        const bi = window.__bgInfo(e);
+        if (!bi.bg) { unknownBg++; } // 背板未知:不判过不判违,计数上报(白默认曾制造幻影违例)
+        else {
+          const ratio = window.__contrast(e);
+          if (ratio < 4.5) issues.push({ name, kind: '对比度', detail: \`\${ratio} < 4.5 (fg/bg 合成后,背板@\${bi.source})\` });
+        }
       } else {
         // WCAG 1.4.11: 组件可用"填充/边界/识别性图形"任一识别——填充→边框→图标色(currentColor)逐级回落
         const pr = (s) => { const m = s.match(/[\\d.]+/g); return m ? m.map(Number) : null; };
@@ -166,7 +206,8 @@ const AUDIT_FN = (scopeSelector) => `
         if (hasFill) { ratio = window.__bgContrast(e); via = '填充'; }
         else if (hasBorder) { ratio = window.__borderContrast(e); via = '边框'; }
         else if (hasGlyph) { ratio = window.__contrast(e); via = '图形'; }
-        if (ratio < 3) issues.push({ name, kind: '边界对比', detail: \`\${via} \${ratio} < 3\` });
+        if (ratio === -1) unknownBg++;
+        else if (ratio < 3) issues.push({ name, kind: '边界对比', detail: \`\${via} \${ratio} < 3\` });
       }
       // 命中 ≥24px(子元素命中的复合控件看叶子,这里量自身)
       if (Math.min(r.width, r.height) < 24) issues.push({ name, kind: '命中', detail: \`\${Math.round(Math.min(r.width, r.height))}px < 24\` });
@@ -184,20 +225,34 @@ const AUDIT_FN = (scopeSelector) => `
         ));
         if (out > 8) issues.push({ name, kind: '越界', detail: \`fixed 探出 \${out}px\` });
       }
-      // 遮挡: 中心命中点须落自身交互子树; 常驻 chrome(表头/标签条/工具栏/侧栏)压住滚过内容是合法的
+      // 遮挡三分(2026-10-11 裁决): ①命中回返祖先/中心被裁切=裁切类(硬裁切可见
+      // <24 判违,可滚动折叠计数);②sticky 页框压住滚过内容=合法让位(结构判定,
+      // 弃类名清单——.unified-tab-list 曾因清单失配成伪报);③其余他者=真遮挡。
+      // 注意 fixed 不在合法之列(批量条/浮层是 fixed——它们盖住别人就是缺陷)。
       const cx = r.left + r.width / 2, cy = Math.max(2, Math.min(innerHeight - 2, r.top + r.height / 2));
       const hit = document.elementFromPoint(cx, cy);
-      const legalChrome = hit?.closest('header, .app-header, .unified-tab, .projects-toolbar, .sidebar, .board-count');
-      if (hit && hit !== e && !e.contains(hit) && !legalChrome) issues.push({ name, kind: '遮挡', detail: \`被 \${hit.className?.toString().split(' ')[0] || hit.tagName} 盖\` });
+      if (hit && hit !== e && !e.contains(hit)) {
+        const clip = clippedAt(e, cx, cy);
+        const stickyFam = (() => { let n2 = hit; while (n2 && n2 !== document.body) { if (getComputedStyle(n2).position === 'sticky') return true; n2 = n2.parentElement; } return false; })();
+        if (hit.contains(e) || clip.centerOut) {
+          if (clip.hard && clip.visibleMin < 24) issues.push({ name, kind: '裁切', detail: \`硬裁切可见 \${Math.round(clip.visibleMin)}px < 24 (\${clip.clipper})\` });
+          else clipped++;
+        } else if (stickyFam) {
+          chromeCovered++;
+        } else {
+          issues.push({ name, kind: '遮挡', detail: \`被 \${hit.className?.toString().split(' ')[0] || hit.tagName} 盖\` });
+        }
+      }
     }
-    return { issues, tested };
+    return { issues, tested, unknownBg, clipped, chromeCovered };
   })()
 `;
 
 async function auditPhase(page, theme, phase, scopeSelector) {
-  const { issues, tested } = await page.evaluate(AUDIT_FN(scopeSelector));
-  // fail-loud 上限
-  check(`[${theme}] ${phase} 元素枚举 ≤${ELEMENT_CAP} (实测 ${tested})`, tested <= ELEMENT_CAP,
+  const { issues, tested, unknownBg = 0, clipped = 0, chromeCovered = 0 } = await page.evaluate(AUDIT_FN(scopeSelector));
+  // fail-loud 上限 + 信息性计数(裁切折叠/页框让位/背板未知——都不判违,但要可见)
+  const info = `${clipped ? `, 裁切折叠 ${clipped}` : ''}${chromeCovered ? `, 页框让位 ${chromeCovered}` : ''}${unknownBg ? `, 背板未知 ${unknownBg}` : ''}`;
+  check(`[${theme}] ${phase} 元素枚举 ≤${ELEMENT_CAP} (实测 ${tested}${info})`, tested <= ELEMENT_CAP,
     tested > ELEMENT_CAP ? '枚举截断风险——静默通过即假绿,必须人工分片' : '');
   const byEl = new Map();
   for (const i of issues) {
@@ -221,10 +276,12 @@ async function hoverSweep(page, theme) {
           out.push({ x: r.left + r.width / 2, y: r.top + r.height / 2, label: (e.getAttribute('data-testid') || e.textContent || '').trim().slice(0, 20) });
         }
       });
-    return out.slice(0, 90); // 逐元素真实指针的成本上限
+    return { list: out.slice(0, 90), found: out.length }; // 90=真实指针成本上限——截断须响亮
   });
+  check(`[${theme}] 悬停扫枚举 ≤90 (发现 ${els.found})`, els.found <= 90,
+    els.found > 90 ? `截断 ${els.found - 90} 个未悬停——静默截断即假绿` : '');
   const bad = [];
-  for (const el of els) {
+  for (const el of els.list) {
     await page.mouse.move(el.x, el.y);
     await page.waitForTimeout(SETTLE);
     const r = await page.evaluate(([x, y]) => {
@@ -233,10 +290,12 @@ async function hoverSweep(page, theme) {
       const e = target.closest('button,[role="button"],input,select');
       const text = (e.textContent || '').trim();
       const isInput = e.tagName === 'INPUT' || e.tagName === 'SELECT';
-      const ratio = text || isInput ? window.__contrast(e) : window.__borderContrast(e);
+      // 图标钮走 color(1.4.11 图形对象)——曾只查边框读到 0, 每个裸图标钮都是伪报
+      const hasGlyph = !!e.querySelector('svg, img');
+      const ratio = text || isInput ? window.__contrast(e) : (hasGlyph ? window.__contrast(e) : window.__borderContrast(e));
       return { ratio, need: text || isInput ? 4.5 : 3, label: (e.getAttribute('data-testid') || text || e.tagName).slice(0, 20) };
     }, [el.x, el.y]);
-    if (r && r.ratio < r.need) bad.push(`${r.label}:${r.ratio}<${r.need}`);
+    if (r && r.ratio >= 0 && r.ratio < r.need) bad.push(`${r.label}:${r.ratio}<${r.need}`);
   }
   check(`[${theme}] 悬停态对比度全称零违例`, bad.length === 0, bad.slice(0, 6).join(' | '));
   return bad.length;
@@ -422,6 +481,32 @@ if (SELFTEST) {
   await p.evaluate(() => { window.__hoverInjected = true; });
   const hoverBad = await hoverSweepForSelftest(p);
   check('selftest[悬停] 注入必红', hoverBad > 0, hoverBad ? '' : '悬停维度未报出');
+
+  // 幻影白维度(2026-10-11 裁决事故): 深色下行元素背板必须解析为深色元素——
+  // 曾因 8 层上限+白默认, 为深底设计的浅灰前景全被算成 1.0-1.4:1 伪违例
+  {
+    const d = await browser.newPage({ viewport: { width: 1600, height: 900 } });
+    await d.addInitScript(({ a, th }) => {
+      localStorage.setItem('capacinator_current_user', JSON.stringify(a.user ?? { id: 'eb8ecaf7-44a3-4384-a74b-2c18e9e894b1', name: '陈主管' }));
+      localStorage.setItem('auth_token', a.accessToken); localStorage.setItem('refresh_token', a.refreshToken);
+      localStorage.setItem('capacinator-language', 'zh-CN'); localStorage.setItem('theme', th);
+      localStorage.removeItem('req-col-widths-v5');
+    }, { a: auth, th: 'dark' });
+    await d.goto(`${BASE}${PAGE}`, { waitUntil: 'networkidle' });
+    await d.waitForTimeout(2200);
+    const gotTheme = await d.evaluate(() => document.documentElement.getAttribute('data-theme'));
+    await d.evaluate(CONTRAST_FN);
+    const probe = await d.evaluate(() => {
+      const el = document.querySelector('.req-tag--add') || document.querySelector('.req-sr-toggle') || document.querySelector('.projects-version-part');
+      if (!el) return { err: 'no probe element' };
+      const info = window.__bgInfo(el);
+      return { source: info.source, level: info.level, bg: info.bg, ratio: window.__contrast(el) };
+    });
+    const bgIsDark = Array.isArray(probe.bg) && Math.max(...probe.bg) < 100;
+    check('selftest[幻影白] 深色背板解析为深色元素', gotTheme === 'dark' && !probe.err && bgIsDark && probe.source !== 'unknown' && probe.ratio > 4.5,
+      probe.err ?? `data-theme=${gotTheme} 背板=${probe.source}@L${probe.level} bg=${JSON.stringify(probe.bg)} 该元素对比度=${probe.ratio}(白默认回潮则骤降到 1.x)`);
+    await d.close();
+  }
   await p.close();
   const failed = results.filter((r) => !r.ok).length;
   console.log(`\nselftest ${results.filter((r) => r.ok).length}/${results.length} 维度有牙齿`);

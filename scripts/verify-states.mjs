@@ -463,10 +463,19 @@ for (const theme of (QUICK ? ['light'] : ['light', 'dark'])) {
     localStorage.setItem('capacinator-language', 'zh-CN');
     localStorage.setItem('theme', th);
     localStorage.removeItem('req-col-widths-v5');
-  }, { a: auth, theme });
+  }, { a: auth, th: theme }); // 键名与解构对齐(P0: 曾传 { theme } 解构 { th } → undefined
+  //                          → localStorage.theme="undefined" → 回落 light,深色从未渲染)
   await p.goto(`${BASE}${PAGE}`, { waitUntil: 'networkidle' });
   await p.waitForTimeout(2500);
   await p.evaluate(CONTRAST_FN);
+  // 前置断言(状态强制必须自证生效): 主题没渲染成就响亮作废本主题全部结果——
+  // 否则"[dark]"是浅色复测而不自知,双主题覆盖静默归零
+  const actualTheme = await p.evaluate(() => document.documentElement.getAttribute('data-theme'));
+  if (actualTheme !== theme) {
+    check(`[${theme}] 主题前置断言`, false, `data-theme=${actualTheme} ≠ ${theme},本主题结果作废`);
+    await p.close();
+    continue;
+  }
   if (await assertNoSessionDialog(p, theme)) { await p.close(); continue; }
 
   totalFail += await auditPhase(p, theme, '静态(首屏)', null);

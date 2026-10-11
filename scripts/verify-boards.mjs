@@ -581,7 +581,7 @@ check('新列集(代码规模/人力/SE/MDE/实名投入)',
 // 显式取 status 码计入本守卫。
 {
   const { spawnSync } = await import('node:child_process');
-  const r = spawnSync('node', ['scripts/verify-states.mjs'], { encoding: 'utf8', timeout: 10 * 60 * 1000 });
+  const r = spawnSync('node', ['scripts/verify-states.mjs'], { encoding: 'utf8', timeout: 20 * 60 * 1000 }); // 实测全量 ~10min(双主题+发现),10min 贴线必超
   const lines = (r.stdout || '').trim().split('\n');
   const summary = lines[lines.length - 1] ?? '';
   const fails = lines.filter((l) => l.startsWith('FAIL')).slice(0, 3);

@@ -233,6 +233,8 @@ function TagsForm({ n, allTags, tagsOnSelection, onApply }: {
           {allTags.map((tg) => (
             <button key={String(tg.id)} type="button"
                     className={`bulk-tag-chip ${add.has(String(tg.id)) ? 'bulk-tag-chip--on' : ''}`}
+                    disabled={remove.has(String(tg.id))}
+                    title={remove.has(String(tg.id)) ? t('projects:board.bulkTagConflict') : undefined}
                     onClick={() => toggle('add', String(tg.id))}>
               {add.has(String(tg.id)) && <Check size={10} />}
               {tg.name}
@@ -247,6 +249,8 @@ function TagsForm({ n, allTags, tagsOnSelection, onApply }: {
           {removable.map((tg) => (
             <button key={String(tg.id)} type="button"
                     className={`bulk-tag-chip ${remove.has(String(tg.id)) ? 'bulk-tag-chip--off' : ''}`}
+                    disabled={add.has(String(tg.id))}
+                    title={add.has(String(tg.id)) ? t('projects:board.bulkTagConflict') : undefined}
                     onClick={() => toggle('remove', String(tg.id))}>
               {remove.has(String(tg.id)) && <X size={10} />}
               {tg.name}

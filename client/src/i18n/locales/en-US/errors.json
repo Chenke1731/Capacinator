@@ -19,6 +19,8 @@
     "badRequest": "Bad Request",
     "unauthorizedShort": "Unauthorized",
     "notFoundShort": "Not Found",
+    "iterationNotFound": "Iteration not found",
+    "iterationAggregateReadOnly": "Iteration cannot be set on a requirement with child items (aggregate is read-only)",
     "noFileUploaded": "No file uploaded",
     "selectExcelFile": "Please select an Excel file to upload",
     "excelFileType": "File must be an Excel file (.xlsx or .xls)",

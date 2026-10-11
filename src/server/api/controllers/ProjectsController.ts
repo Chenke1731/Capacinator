@@ -852,13 +852,23 @@ export class ProjectsController extends BaseController {
       // Legacy field name, no such column — see the create-side note.
       delete sanitizedData.status;
 
-      // 迭代挂接(事实字段,设计 §0.6): 值必须存在于迭代表(空=解除挂接)
+      // 迭代挂接(事实字段,设计 §0.6): 值必须存在于迭代表(空=解除挂接);
+      // 有子行的 SR 其迭代列是子行聚合只读窗——不变量与 batch-update 共用
+      // 同一原语 idsWithChildren(2026-10-11 审视#3: 原先单条放行批量拒绝,
+      // 同一脏数据两个口径,任意客户端可直接写出批量拒绝的脏值)
       if ('iteration_id' in sanitizedData) {
         const iterId = sanitizedData.iteration_id || null;
         if (iterId) {
           const it = await this.db('iterations').where({ id: iterId }).first();
           if (!it) {
-            res.status(400).json({ error: 'Validation error', message: '迭代不存在' });
+            res.status(400).json({ error: 'Validation error', message: 'Iteration not found' });
+            return null;
+          }
+          if ((await this.idsWithChildren([id])).has(id)) {
+            res.status(400).json({
+              error: 'Validation error',
+              message: 'Iteration cannot be set on a requirement with child items (aggregate is read-only)'
+            });
             return null;
           }
         }
@@ -1049,16 +1059,32 @@ export class ProjectsController extends BaseController {
     }
   })
 
+  /** 目标行中"有子行"的 id 集合——SR 聚合只读不变量的共享原语:
+   *  单条 update 拒绝写入,批量 update 跳过并计数(2026-10-11 审视#3 收敛,
+   *  禁止不变量散落各端点各自为政)。 */
+  private async idsWithChildren(ids: string[]): Promise<Set<string>> {
+    const rows = await this.db('projects').whereIn('parent_id', ids).distinct('parent_id');
+    return new Set(rows.map((r: any) => r.parent_id as string));
+  }
+
+  /** not-found 报错只列前 5 个 id——2000 上限批次下全列会生成 70KB+ 消息 */
+  private notFoundMessage(missing: string[]): string {
+    const shown = missing.slice(0, 5).join(', ');
+    return `Projects not found: ${shown}${missing.length > 5 ? ` (and ${missing.length - 5} more)` : ''}`;
+  }
+
   /**
    * 需求台批量删除 (2026-10-11): 展开后代闭包(勾 SR 必连子树), 叶子先删
    * (避 self-FK), 单事务全有或全无; ids 不存在 → 400 不删任何行。
+   * 上限 2000(2026-10-11 审视#2): 历史压测数据集 1000 行,全选批量是主交互,
+   * 500 上限会在规模增长时整条断掉——2000 给 2x 余量,分块由客户端做。
    */
   batchDelete = this.asyncHandler(async (req: RequestWithLogging, res: Response) => {
     const ids = req.body?.ids;
-    if (!Array.isArray(ids) || ids.length === 0 || ids.length > 500 || ids.some((v: unknown) => typeof v !== 'string')) {
+    if (!Array.isArray(ids) || ids.length === 0 || ids.length > 2000 || ids.some((v: unknown) => typeof v !== 'string')) {
       res.status(400).json({
         error: 'Validation error',
-        message: 'ids must be a non-empty array of at most 500 project ids'
+        message: 'ids must be a non-empty array of at most 2000 project ids'
       });
       return;
     }
@@ -1071,7 +1097,7 @@ export class ProjectsController extends BaseController {
       if (missing.length > 0) {
         res.status(400).json({
           error: 'Validation error',
-          message: `Projects not found: ${missing.join(', ')}`
+          message: this.notFoundMessage(missing)
         });
         return null;
       }
@@ -1134,10 +1160,10 @@ export class ProjectsController extends BaseController {
   batchUpdate = this.asyncHandler(async (req: RequestWithLogging, res: Response) => {
     const ids = req.body?.ids;
     const patch = req.body?.patch ?? {};
-    if (!Array.isArray(ids) || ids.length === 0 || ids.length > 500 || ids.some((v: unknown) => typeof v !== 'string')) {
+    if (!Array.isArray(ids) || ids.length === 0 || ids.length > 2000 || ids.some((v: unknown) => typeof v !== 'string')) {
       res.status(400).json({
         error: 'Validation error',
-        message: 'ids must be a non-empty array of at most 500 project ids'
+        message: 'ids must be a non-empty array of at most 2000 project ids'
       });
       return;
     }
@@ -1182,10 +1208,20 @@ export class ProjectsController extends BaseController {
       }
       return v.map((t) => String(t));
     };
-    const addTags = tagIdList(patch.add_tag_ids, 'add_tag_ids');
+    let addTags = tagIdList(patch.add_tag_ids, 'add_tag_ids');
     if (addTags === undefined) return;
-    const removeTags = tagIdList(patch.remove_tag_ids, 'remove_tag_ids');
+    let removeTags = tagIdList(patch.remove_tag_ids, 'remove_tag_ids');
     if (removeTags === undefined) return;
+    // 双空标签数组=无操作补丁,按空补丁拒绝(审视#11: 原先 0 行变化却回
+    // "已更新 N 项");单侧空数组合法(纯添加/纯移除)
+    if (addTags !== null && removeTags !== null && addTags.length === 0 && removeTags.length === 0) {
+      addTags = null;
+      removeTags = null;
+    }
+    if (Object.keys(scalarPatch).length === 0 && addTags === null && removeTags === null) {
+      res.status(400).json({ error: 'Validation error', message: 'patch must not be empty' });
+      return;
+    }
 
     const uniqueIds = [...new Set(ids as string[])];
 
@@ -1196,7 +1232,7 @@ export class ProjectsController extends BaseController {
       if (missing.length > 0) {
         res.status(400).json({
           error: 'Validation error',
-          message: `Projects not found: ${missing.join(', ')}`
+          message: this.notFoundMessage(missing)
         });
         return null;
       }
@@ -1205,7 +1241,7 @@ export class ProjectsController extends BaseController {
       if (hasIteration && patch.iteration_id !== null) {
         const iter = await this.db('iterations').where({ id: patch.iteration_id }).first();
         if (!iter) {
-          res.status(400).json({ error: 'Validation error', message: '迭代不存在' });
+          res.status(400).json({ error: 'Validation error', message: 'Iteration not found' });
           return null;
         }
       }
@@ -1221,22 +1257,28 @@ export class ProjectsController extends BaseController {
       }
 
       // 迭代跳过有子行的行(SR): 其迭代列是子行聚合只读窗,写入即脏数据
+      // (有子行判定走共享原语 idsWithChildren,与单条 update 同一处不变量)
       let targetRows = rows;
       let skippedIteration = 0;
       if (hasIteration) {
-        const childParents = await this.db('projects').whereIn('parent_id', uniqueIds).distinct('parent_id');
-        const withChildren = new Set(childParents.map((r: any) => r.parent_id));
+        const withChildren = await this.idsWithChildren(uniqueIds);
         targetRows = rows.filter((r: any) => !withChildren.has(r.id));
         skippedIteration = rows.length - targetRows.length;
       }
 
       const auditEvents: any[] = [];
       await this.db.transaction(async (trx: any) => {
-        for (const row of targetRows) {
-          if (Object.keys(scalarPatch).length > 0) {
-            await trx('projects').where({ id: row.id }).update({ ...scalarPatch, updated_at: new Date() });
-          }
-          if (addTags !== null || removeTags !== null) {
+        // 标量补丁一条 whereIn 完成(审视#12: 消 2000 行 2000 条同构 UPDATE 的
+        // N+1);updated_at 无条件触碰——标签-only 批量不再漏时间戳,与单条
+        // update 口径一致(审视#10)
+        if (targetRows.length > 0) {
+          await trx('projects')
+            .whereIn('id', targetRows.map((r: any) => r.id))
+            .update({ ...scalarPatch, updated_at: new Date() });
+        }
+        if (addTags !== null || removeTags !== null) {
+          // 标签合并语义按行算(每行现有标签不同,无法集合作业)
+          for (const row of targetRows) {
             const current = await trx('project_tags').where('project_id', row.id).select('tag_id');
             const currentIds = current.map((t: any) => String(t.tag_id));
             const next = new Set([...currentIds, ...(addTags ?? [])].filter((t) => !(removeTags ?? []).includes(t)));
@@ -1249,17 +1291,18 @@ export class ProjectsController extends BaseController {
             if (toRemove.length > 0) {
               await trx('project_tags').where('project_id', row.id).whereIn('tag_id', toRemove).del();
             }
-            if (toAdd.length === 0 && toRemove.length === 0 && Object.keys(scalarPatch).length === 0) continue; // 无变化不记审计
           }
-          auditEvents.push({
-            tableName: 'projects',
-            recordId: row.id,
-            action: 'UPDATE' as const,
-            newValues: { ...scalarPatch, ...(addTags !== null || removeTags !== null ? { tag_ids: 'merged' } : {}) },
-            comment: 'batch-update'
-          });
         }
       });
+      for (const row of targetRows) {
+        auditEvents.push({
+          tableName: 'projects',
+          recordId: row.id,
+          action: 'UPDATE' as const,
+          newValues: { ...scalarPatch, ...(addTags !== null || removeTags !== null ? { tag_ids: 'merged' } : {}) },
+          comment: 'batch-update'
+        });
+      }
 
       try {
         await (req as any).logBulkAuditEvents?.(auditEvents);

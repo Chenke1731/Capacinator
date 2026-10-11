@@ -106,6 +106,9 @@ const REQ_COLUMNS = [
 type ReqColKey = (typeof REQ_COLUMNS)[number]['key'];
 /* v5: 列集变更(前置选择列)必须 bump 版本,旧宽度按旧列预算调优,残留会挤压名称列 */
 const REQ_WIDTHS_STORE = 'req-col-widths-v5';
+/** 批量端点单次上限(与服务端 ProjectsController batch-* 校验同步;
+ *  超限走本地报错而非服务端 400——用户看到的必须是本地化文案) */
+const BATCH_LIMIT = 2000;
 const clampWidth = (col: (typeof REQ_COLUMNS)[number], w: number) =>
   Math.round(Math.min(col.max, Math.max(col.min, w)));
 
@@ -540,8 +543,31 @@ export function Projects() {
     return s;
   }, [selectedIds, rowById]);
 
+  /** 选择集↔活数据对账(2026-10-11 审视#1): 任何删除路径(行内删/详情页删/
+   *  批量删/外部改库)在数据刷新后自动移出已消失行——否则死 id 毒化后续批量
+   *  (全有或全无 400,报错含用户看不见的 UUID)。基准=demandRows(全量行,
+   *  不受筛选影响,跨筛选存续语义不变)。 */
+  useEffect(() => {
+    setSelectedIds((prev) => {
+      if (prev.size === 0) return prev;
+      const alive = new Set(demandRows.map((r: any) => r.id as string));
+      let changed = false;
+      const next = new Set<string>();
+      for (const id of prev) {
+        if (alive.has(id)) next.add(id);
+        else changed = true;
+      }
+      return changed ? next : prev;
+    });
+  }, [demandRows]);
+
   const batchDeleteMutation = useMutation({
-    mutationFn: (ids: string[]) => api.projects.batchDelete(ids),
+    mutationFn: (ids: string[]) => {
+      if (ids.length > BATCH_LIMIT) {
+        throw new Error(t('projects:board.bulkTooMany', { n: ids.length, limit: BATCH_LIMIT }));
+      }
+      return api.projects.batchDelete(ids);
+    },
     onSuccess: (resp: any) => {
       // axios 信封 {success, data:{deleted, items}} → 双层解包(防御取形)
       const payload = resp?.data?.data ?? resp?.data ?? {};
@@ -552,7 +578,12 @@ export function Projects() {
     }
   });
   const batchUpdateMutation = useMutation({
-    mutationFn: ({ ids, patch }: { ids: string[]; patch: Record<string, unknown> }) => api.projects.batchUpdate(ids, patch),
+    mutationFn: ({ ids, patch }: { ids: string[]; patch: Record<string, unknown> }) => {
+      if (ids.length > BATCH_LIMIT) {
+        throw new Error(t('projects:board.bulkTooMany', { n: ids.length, limit: BATCH_LIMIT }));
+      }
+      return api.projects.batchUpdate(ids, patch);
+    },
     onSuccess: (resp: any) => {
       invalidate();
       const payload = resp?.data?.data ?? resp?.data ?? {};
@@ -927,7 +958,7 @@ export function Projects() {
                 <ReqCheckbox
                   checked={triState(subtreeIds)}
                   onToggle={(next) => toggleIds(subtreeIds, next)}
-                  label={t('projects:board.selectTree', { name: project.name, count: subtreeIds.length })}
+                  label={t('projects:board.selectTree', { name: project.name, count: subtreeIds.length - 1 })}
                 />
               </span>
               <span className="requirements-name">
@@ -1181,8 +1212,14 @@ export function Projects() {
         />
       )}
 
-      {errorToast && <div className='req-error-toast' role='alert'>{errorToast}</div>}
-      {okToast && <div className='req-error-toast req-ok-toast' role='status'>{okToast}</div>}
+      {/* toast 堆叠容器(2026-10-11 审视#4): 成功/失败同位叠加改为纵向堆叠,
+          几何(定位/居中/让位)收敛到容器一处 */}
+      {(errorToast || okToast) && (
+        <div className='req-toast-stack'>
+          {errorToast && <div className='req-error-toast' role='alert'>{errorToast}</div>}
+          {okToast && <div className='req-error-toast req-ok-toast' role='status'>{okToast}</div>}
+        </div>
+      )}
     </div>
   );
 }

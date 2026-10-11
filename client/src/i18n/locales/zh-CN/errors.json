@@ -19,6 +19,8 @@
     "badRequest": "请求参数错误",
     "unauthorizedShort": "未登录或登录已过期",
     "notFoundShort": "资源不存在",
+    "iterationNotFound": "迭代不存在",
+    "iterationAggregateReadOnly": "有子行需求的迭代列是子行聚合只读窗，不能直接设置迭代",
     "noFileUploaded": "未上传文件",
     "selectExcelFile": "请选择要上传的 Excel 文件",
     "excelFileType": "文件必须是 Excel 格式(.xlsx 或 .xls)",

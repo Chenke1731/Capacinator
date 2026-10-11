@@ -57,6 +57,11 @@ const EXACT_ENTRIES: ExactEntry[] = [
   { en: 'Start date must be before or equal to end date', key: 'errors:messages.startBeforeEnd' },
   { en: 'Assignment deleted successfully', key: 'errors:messages.assignmentDeleted' },
   { en: 'Person ID is required', key: 'errors:messages.personIdRequired' },
+  { en: 'Iteration not found', key: 'errors:messages.iterationNotFound' },
+  {
+    en: 'Iteration cannot be set on a requirement with child items (aggregate is read-only)',
+    key: 'errors:messages.iterationAggregateReadOnly',
+  },
 ];
 
 /** Server resource names appearing in "<Resource> not found" messages. */

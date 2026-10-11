@@ -468,7 +468,9 @@
     "bulkIterNone": "暂无迭代",
     "bulkDeleted": "已删除 {{n}} 项",
     "bulkUpdated": "已更新 {{n}} 项",
-    "bulkUpdatedSkip": "已更新 {{n}} 项，跳过 {{skip}} 个 SR 行"
+    "bulkUpdatedSkip": "已更新 {{n}} 项，跳过 {{skip}} 个 SR 行",
+    "bulkTooMany": "已选 {{n}} 项，超过单次批量上限 {{limit}}，请缩小选择范围后重试",
+    "bulkTagConflict": "已在另一段勾选，请先取消另一侧"
   },
   "version": {
     "productTitle": "产品版本，点击填写（如 B）",

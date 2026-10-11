@@ -200,7 +200,7 @@ export function BoardDiagnostics() {
       </table>
       <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
         <button type="button" onClick={refresh} style={btn}>刷新审计</button>
-        <button type="button" onClick={() => { localStorage.removeItem('req-col-widths-v4'); location.reload(); }} style={btn}>重置列宽</button>
+        <button type="button" onClick={() => { Object.keys(localStorage).filter((k) => k.startsWith('req-col-widths-')).forEach((k) => localStorage.removeItem(k)); location.reload(); }} style={btn}>重置列宽</button>
         <button
           type="button"
           onClick={() => {

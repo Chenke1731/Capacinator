@@ -1189,6 +1189,8 @@ describe('Requirements Board (需求台)', () => {
       expect(screen.getByTestId('req-bulk-bar').textContent).toContain('3 selected');
       expect(rowCheckbox(1).dataset.state).toBe('checked');
       expect(rowCheckbox(2).dataset.state).toBe('checked');
+      // aria 计数=子项数,不含 SR 自身(审视#5: 原先多报 1)
+      expect(rowCheckbox(1).getAttribute('aria-label')).toContain('2 child items');
     });
 
     test('partial subtree → SR & header show indeterminate; header select-all covers all rows', async () => {
@@ -1334,6 +1336,53 @@ describe('Requirements Board (需求台)', () => {
       await waitFor(() => {
         expect(screen.queryByTestId('req-bulk-bar')).not.toBeInTheDocument();
       });
+    });
+
+    test('row-level delete reconciles selection — dead ids never enter a batch payload (审视#1)', async () => {
+      // 数据源可变: 删除成功后刷新返回不含已删行的列表(对账的输入)
+      let current = mockProjects;
+      (api.projects.list as jest.Mock).mockImplementation(() => Promise.resolve({ data: { data: current } }));
+      (api.projects.boardFeed as jest.Mock).mockImplementation(() =>
+        Promise.resolve({ data: { data: { data: current, total: current.length } } }));
+      (api.projects.delete as jest.Mock).mockImplementation((id: string) => {
+        current = current.filter((p) => p.id !== id);
+        return Promise.resolve({ data: {} });
+      });
+      renderComponent();
+      await waitFor(() => expect(screen.getByText('Project Alpha')).toBeInTheDocument());
+
+      fireEvent.click(rowCheckbox(2)); // 1a
+      fireEvent.click(rowCheckbox(3)); // 1b
+      expect(screen.getByTestId('req-bulk-bar').textContent).toContain('2 selected');
+
+      // 行内两击删除 1a(不经批量条)——原先死 id 留在选择集毒化后续批量
+      const delBtn = document.querySelectorAll('.requirements-row .req-icon-btn[title="Delete"]')[2] as HTMLElement;
+      fireEvent.click(delBtn);
+      fireEvent.click(delBtn); // 确认击
+      await waitFor(() => expect(api.projects.delete).toHaveBeenCalledWith('proj-1a'));
+
+      // 对账: 死 id 移出选择集,条计数回落(全有或全无的 400 不再可能)
+      await waitFor(() => expect(screen.getByTestId('req-bulk-bar').textContent).toContain('1 selected'));
+    });
+
+    test('tags add/remove same tag: one side disables the other (server remove-wins made visible, 审视#7)', async () => {
+      renderComponent();
+      await waitFor(() => expect(screen.getByText('Project Alpha')).toBeInTheDocument());
+
+      fireEvent.click(rowCheckbox(1)); // Alpha 子树(行上有 Reserved 标签)
+      fireEvent.click(screen.getByTestId('bulk-tags-btn'));
+      await waitFor(() => expect(screen.getByTestId('bulk-tags-btn-popover')).toBeInTheDocument());
+
+      const pop = screen.getByTestId('bulk-tags-btn-popover');
+      const sections = pop.querySelectorAll('.bulk-tags-section');
+      const addChip = [...sections[0].querySelectorAll('.bulk-tag-chip')]
+        .find((c) => c.textContent?.includes('Reserved')) as HTMLButtonElement;
+      const removeChip = [...sections[1].querySelectorAll('.bulk-tag-chip')]
+        .find((c) => c.textContent?.includes('Reserved')) as HTMLButtonElement;
+      expect(removeChip.disabled).toBe(false);
+
+      fireEvent.click(addChip); // add 段勾 Reserved
+      await waitFor(() => expect(removeChip.disabled).toBe(true)); // 对侧同步禁用
     });
   });
 });

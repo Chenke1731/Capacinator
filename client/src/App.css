@@ -2772,12 +2772,23 @@ body.req-col-dragging * {
   100% { background-position: -200% 0; }
 }
 
-/* 错误 toast(2026-09-23 P2): 操作失败 3 秒自动消失 */
-.req-error-toast {
+/* toast 堆叠容器(2026-10-11 审视#4): 成功/失败同位叠加改纵向堆叠——
+   定位/居中/让位几何收敛到容器,子 toast 只留视觉 */
+.req-toast-stack {
   position: fixed;
   bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
+  z-index: 980; /* 层序阶梯: 气泡(950)之上,模态(1000)之下 */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  pointer-events: none; /* 容器不挡点击,子项恢复 */
+}
+.req-toast-stack > * { pointer-events: auto; }
+/* 错误 toast(2026-09-23 P2): 操作失败 3 秒自动消失 */
+.req-error-toast {
   background: var(--danger-bg, #fef2f2);
   color: var(--danger, #dc2626);
   border: 1px solid var(--danger, #dc2626);
@@ -2785,7 +2796,6 @@ body.req-col-dragging * {
   padding: 8px 16px;
   font-size: 12.5px;
   font-weight: 500;
-  z-index: 980; /* 层序阶梯: 气泡(950)之上,模态(1000)之下 */
   animation: reqToastIn 0.2s ease-out;
 }
 [data-theme='dark'] .req-error-toast {
@@ -2794,11 +2804,11 @@ body.req-col-dragging * {
   border-color: #fca5a5;
 }
 @keyframes reqToastIn {
-  from { opacity: 0; transform: translateX(-50%) translateY(10px); }
-  to { opacity: 1; transform: translateX(-50%) translateY(0); }
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 /* 批量条在场时 toast 上移让位(兄弟选择器: 条不在 DOM 时恢复原位) */
-.projects-board .req-bulk-bar ~ .req-error-toast { bottom: 76px; }
+.projects-board .req-bulk-bar ~ .req-toast-stack { bottom: 76px; }
 /* 成功 toast(与失败同形态,绿色语义) */
 .req-error-toast.req-ok-toast {
   background: #ecfdf5;
@@ -2915,6 +2925,9 @@ body.req-col-dragging * {
 }
 .bulk-tag-chip--on { background: var(--accent-color, #3b82f6); border-color: var(--accent-color, #3b82f6); color: #fff; }
 .bulk-tag-chip--off { background: rgba(220, 38, 38, 0.1); border-color: var(--danger-color, #dc2626); color: var(--danger-color, #dc2626); }
+/* 两段互斥(2026-10-11 审视#7): 勾一侧禁用对侧同名 chip——服务端 remove 静默
+   胜出曾与可见的 Add 勾选意图相反 */
+.bulk-tag-chip:disabled { opacity: 0.4; cursor: not-allowed; }
 .bulk-pop-empty { font-size: 12.5px; color: var(--text-secondary); padding: 4px 12px; }
 .bulk-pop-window { margin-left: auto; font-size: var(--b-fs-meta, 11px); color: var(--text-secondary); font-variant-numeric: tabular-nums; }
 /* 版本输入对齐令牌(原先因令牌出作用域回落根 14px——令牌已提升 :root) */

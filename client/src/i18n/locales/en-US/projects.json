@@ -470,7 +470,9 @@
     "bulkIterNone": "No iterations",
     "bulkDeleted": "Deleted {{n}} items",
     "bulkUpdated": "Updated {{n}} items",
-    "bulkUpdatedSkip": "Updated {{n}} items, skipped {{skip}} SR rows"
+    "bulkUpdatedSkip": "Updated {{n}} items, skipped {{skip}} SR rows",
+    "bulkTooMany": "{{n}} items selected — above the batch limit of {{limit}}. Narrow the selection and retry",
+    "bulkTagConflict": "Already picked in the other section — unset it there first"
   },
   "version": {
     "productTitle": "Product version, click to edit (e.g. B)",

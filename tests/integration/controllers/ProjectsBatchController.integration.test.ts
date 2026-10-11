@@ -60,9 +60,10 @@ describe('ProjectsController batch endpoints', () => {
     // 每个用例自建自删,不共享状态——批量删除用例会清掉别人的夹具
   });
 
-  /** asyncHandler 包装器返回 void(async 链无人 await)——轮询等 res 落地再断言 */
-  const call = async (handler: any, body: any) => {
-    const req: any = createMockRequest({ body } as any);
+  /** asyncHandler 包装器返回 void(async 链无人 await)——轮询等 res 落地再断言。
+   * params 供 /:id 路由端点(如 update)使用 */
+  const call = async (handler: any, body: any, params: Record<string, string> = {}) => {
+    const req: any = createMockRequest({ body, params } as any);
     const res: any = createMockResponse();
     handler.call(controller, req, res);
     for (let i = 0; i < 100; i++) {
@@ -113,6 +114,13 @@ describe('ProjectsController batch endpoints', () => {
         const { res } = await call(controller.batchDelete, bad);
         expect(res.status).toHaveBeenCalledWith(400);
       }
+    });
+
+    it('enforces the 2000-id cap (2001 rejected before any DB work, 审视#2)', async () => {
+      const ids = Array.from({ length: 2001 }, () => randomUUID());
+      const { res } = await call(controller.batchDelete, { ids });
+      expect(res.status).toHaveBeenCalledWith(400);
+      expect(res.json).toHaveBeenCalledWith(expect.objectContaining({ message: expect.stringContaining('at most 2000') }));
     });
   });
 
@@ -194,6 +202,43 @@ describe('ProjectsController batch endpoints', () => {
       expect(empty.res.status).toHaveBeenCalledWith(400);
       const missing = await call(controller.batchUpdate, { ids: [randomUUID()], patch: { priority: 3 } });
       expect(missing.res.status).toHaveBeenCalledWith(400);
+    });
+
+    it('rejects empty tag arrays as a no-op patch — no false "updated N" (审视#11)', async () => {
+      const { res } = await call(controller.batchUpdate, { ids: [fixture.plainId], patch: { add_tag_ids: [], remove_tag_ids: [] } });
+      expect(res.status).toHaveBeenCalledWith(400);
+      expect(res.json).toHaveBeenCalledWith(expect.objectContaining({ message: expect.stringContaining('empty') }));
+    });
+
+    it('caps the not-found id listing at 5 (2000 unknown ids, 审视#2)', async () => {
+      const ids = Array.from({ length: 2000 }, () => randomUUID());
+      const { res } = await call(controller.batchUpdate, { ids, patch: { priority: 3 } });
+      expect(res.status).toHaveBeenCalledWith(400);
+      expect(res.json).toHaveBeenCalledWith(
+        expect.objectContaining({ message: expect.stringContaining('(and 1995 more)') })
+      );
+    });
+  });
+
+  describe('PUT /projects/:id (iteration invariant, 审视#3)', () => {
+    it('rejects iteration_id on rows with children; plain rows still attach', async () => {
+      const srId = await insertProject({ name: 'SR-inv' });
+      const childId = await insertProject({ name: 'AR-inv', parent_id: srId });
+
+      // SR(有子行)拒绝——与批量端点同一不变量,单条不再放行
+      const bad = await call(controller.update, { iteration_id: fixture.iterationId }, { id: srId });
+      expect(bad.res.status).toHaveBeenCalledWith(400);
+      expect(bad.res.json).toHaveBeenCalledWith(
+        expect.objectContaining({ message: expect.stringContaining('read-only') })
+      );
+      expect((await db('projects').where('id', srId).first()).iteration_id).toBeNull();
+
+      // plain 行正常挂接(不变量只拦有子行的 SR)
+      const ok = await call(controller.update, { iteration_id: fixture.iterationId }, { id: fixture.plainId });
+      expect((await db('projects').where('id', fixture.plainId).first()).iteration_id).toBe(fixture.iterationId);
+
+      await db('projects').whereIn('id', [srId, childId]).del();
+      await db('projects').where('id', fixture.plainId).update({ iteration_id: null });
     });
   });
 });

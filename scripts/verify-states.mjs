@@ -91,8 +91,19 @@ const CONTRAST_FN = `
     return { bg, source, level };
   };
   window.__effBg = (el) => window.__bgInfo(el).bg ?? [255, 255, 255]; // 兼容旧探针;审计路径先查 bg===null 记 unknown
+  // 内容物背板(2026-10-11 悬案1 裁决): 文字/图标画在元素盒内,若 ::before 带
+  // 不透明背景(复选框蓝盒),它才是内容的真实背板——链里不含伪元素曾把勾选态
+  // 白钩对元素自身 hover 灰底算出 1.1 伪违例(真值=白对蓝盒 3.68)。
+  // 边框路径不走此函数(边框画在伪元素盒缘,背板是祖先)——分野是刻意的。
+  window.__contentBg = (el) => {
+    const base = window.__bgInfo(el).bg;
+    if (!base) return null;
+    const pb = parse(getComputedStyle(el, '::before').backgroundColor);
+    if (pb && (pb[3] ?? 1) > 0.5) return composite(base, pb);
+    return base;
+  };
   window.__contrast = (el) => {
-    const bg = window.__bgInfo(el).bg;
+    const bg = window.__contentBg(el);
     if (!bg) return -1; // 背板未知:调用方须显式跳过(-1 不小于阈值即判过是撒谎,判违也是)
     const fgRaw = parse(getComputedStyle(el).color);
     const fg = fgRaw && (fgRaw[3] ?? 1) < 0.999 ? composite(bg, fgRaw) : (fgRaw ? fgRaw.slice(0, 3) : [0, 0, 0]);
@@ -506,6 +517,34 @@ if (SELFTEST) {
     check('selftest[幻影白] 深色背板解析为深色元素', gotTheme === 'dark' && !probe.err && bgIsDark && probe.source !== 'unknown' && probe.ratio > 4.5,
       probe.err ?? `data-theme=${gotTheme} 背板=${probe.source}@L${probe.level} bg=${JSON.stringify(probe.bg)} 该元素对比度=${probe.ratio}(白默认回潮则骤降到 1.x)`);
     await d.close();
+  }
+
+  // 伪元素背板维度(2026-10-11 悬案1): 勾选态复选框的白钩画在 ::before 蓝盒上
+  // ——背板链不含伪元素背景时曾读出 1.1 伪违例(真值=白对蓝盒 3.68)
+  {
+    await p.evaluate(() => {
+      const cb = [...document.querySelectorAll('.projects-board [role="checkbox"]')]
+        .find((e) => { const r = e.getBoundingClientRect(); return r.width && r.top >= 0 && r.bottom <= innerHeight; });
+      cb?.click();
+    });
+    await p.waitForTimeout(300);
+    const box = await p.evaluate(() => {
+      const cb = [...document.querySelectorAll('.req-checkbox[data-state="checked"]')][0];
+      if (!cb) return null;
+      const r = cb.getBoundingClientRect();
+      return { x: r.left + r.width / 2, y: r.top + r.height / 2 };
+    });
+    let ratio = null;
+    if (box) {
+      await p.mouse.move(box.x, box.y);
+      await p.waitForTimeout(450);
+      ratio = await p.evaluate(([x, y]) => {
+        const e = document.elementFromPoint(x, y)?.closest('.req-checkbox');
+        return e ? window.__contrast(e) : null;
+      }, [box.x, box.y]);
+    }
+    check('selftest[伪元素背板] 勾选态钩子按蓝盒测', ratio !== null && ratio >= 3,
+      `ratio=${ratio}(链缺伪元素背景时读 1.1;真值白/蓝盒 3.68)`);
   }
   await p.close();
   const failed = results.filter((r) => !r.ok).length;

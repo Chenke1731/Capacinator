@@ -111,5 +111,8 @@ client/src/**/*.d.ts.map
 /.e2e-pids/
 /.e2e-lock
 
-.zcode/
+.zcode/*
+!.zcode/config.json
+!.zcode/hooks/
+!.zcode/hooks/**
 .omc/

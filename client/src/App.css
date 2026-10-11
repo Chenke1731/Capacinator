@@ -1470,6 +1470,7 @@ input[type="checkbox"].settings-checkbox,
 .iter-pop-item:hover { background: var(--bg-secondary, rgba(127,127,127,0.1)); }
 .iter-pop-item--active { background: var(--badge-primary-bg); color: var(--primary-text); }
 .iter-pop-item--detach { color: var(--danger); font-size: var(--b-fs-meta); }
+[data-theme='dark'] .iter-pop-item--detach { color: #fca5a5; } /* 深色 --danger #ef4444 对悬停染底 3.9<4.5(取证: rgb(239,68,68)×rgb(31,41,55)=3.9) → 提亮至 7.2 */
 .iter-pop-name { flex: 1 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .iter-pop-count { font-size: var(--b-fs-meta); color: var(--text-secondary); flex: none; }
 .iter-pop-create { display: flex; flex-direction: column; gap: 6px; }

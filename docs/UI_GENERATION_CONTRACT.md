@@ -23,7 +23,7 @@
 | 层 | 时机 | 干什么 | 性质 | 业界方法来源 |
 |---|---|---|---|---|
 | ① 生成契约 | 写代码前/中 | FMEA-lite 支柱失效排查 + pre-mortem 推演 | 前置（演绎） | FMEA；Pre-mortem (Klein) |
-| ② 认知走查 | 交付前，跑守卫前 | 双主题渲染 + 认知走查四问，人眼看 | 前置（补演绎盲区） | Cognitive Walkthrough |
+| ② 认知走查 | 交付前，跑守卫前 | **全称状态检查器**（verify:states，双主题全交互元素×状态×对比度/命中/遮挡/越界/字号/贴锚）+ 认知走查四问，人眼只管观感 | 前置（补演绎盲区） | Cognitive Walkthrough + 计算化启发式评估 |
 | ③ 守卫 | 交付时 | verify-boards / verify:visual / lint:ui / 单测 | 兜底 | 启发式评估的机器化 |
 
 ## 生成前协议（第①层的工作步骤）
@@ -152,7 +152,8 @@ Cognitive Walkthrough（认知走查，Polson/Wharton，可用性工程标准方
 ## ③ 守卫（兜底）
 
 - `npm run lint:ui`——CSS 反模式静态扫描（定宽按钮无 padding 等），生成时秒级，`SELF_TEST=1` 自证
-- `npm run verify:boards`——结构+几何+可供性断言（图标物理可见、塌陷检测、池标签、编辑模型声明）
+- `npm run verify:states`——全称状态检查器（自动枚举全部可见交互元素，真实指针强制状态，双主题断言对比度/命中/遮挡/越界/字号/浮层贴锚；已收编进 verify-boards 交付闸；`verify:states:selftest` 注入必红防恒绿）
+- `npm run verify:boards`——结构+几何+可供性断言（图标物理可见、塌陷检测、池标签、编辑模型声明；尾部 spawn verify:states）
 - `npm run verify:visual`——像素基线 + axe 预算 + 碰撞，双主题×双视口
 - 单测——交互语义与落库
 

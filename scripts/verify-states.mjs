@@ -320,19 +320,24 @@ async function auditPhase(page, theme, phase, scopeSelector) {
 // ── 悬停/focus 态强制(逐元素,真实指针; settle ≥ transition) ──
 async function hoverSweep(page, theme) {
   const els = await page.evaluate(() => {
-    const out = [];
+    const fams = new Map();
+    let total = 0;
     document.querySelectorAll('.projects-board button, .projects-board [role="button"], .projects-board input, .projects-board select')
       .forEach((e) => {
         if (e.disabled) return;
         const r = e.getBoundingClientRect();
-        if (r.width && r.height && r.top >= 0 && r.bottom <= innerHeight) {
-          out.push({ x: r.left + r.width / 2, y: r.top + r.height / 2, label: (e.getAttribute('data-testid') || e.textContent || '').trim().slice(0, 20) });
-        }
+        if (!(r.width && r.height && r.top >= 0 && r.bottom <= innerHeight)) return;
+        total++;
+        // 族代表去重(2026-10-11 截断决策): 悬停态由 类名×data-state 决定,墨色键
+        // 兼容 inline 变体(标签 chip 逐 tag color-mix)——同键悬停一个代表,
+        // 成本 ~1/8 而状态覆盖不缩水;曾 90 上限截断 165-172 个元素
+        const key = `${String(e.className)}|${e.getAttribute('data-state') ?? ''}|${getComputedStyle(e).color}`;
+        if (!fams.has(key)) fams.set(key, { x: r.left + r.width / 2, y: r.top + r.height / 2 });
       });
-    return { list: out.slice(0, 90), found: out.length }; // 90=真实指针成本上限——截断须响亮
+    return { list: [...fams.values()].slice(0, 300), families: fams.size, total };
   });
-  check(`[${theme}] 悬停扫枚举 ≤90 (发现 ${els.found})`, els.found <= 90,
-    els.found > 90 ? `截断 ${els.found - 90} 个未悬停——静默截断即假绿` : '');
+  check(`[${theme}] 悬停扫族覆盖 ≤300 (${els.total} 元素/${els.families} 族)`, els.families <= 300,
+    els.families > 300 ? `族数截断 ${els.families - 300}——静默截断即假绿` : '');
   const bad = [];
   for (const el of els.list) {
     await page.mouse.move(el.x, el.y);

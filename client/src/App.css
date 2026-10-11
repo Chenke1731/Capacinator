@@ -2242,6 +2242,7 @@ body.req-col-dragging * {
   padding: 0 7px;
 }
 .projects-board .req-tag--add { min-height: 24px; min-width: 24px; }
+.projects-board .req-tag--filter { min-width: 24px; } /* 板级 button{min-width:0}(0,1,1) 压过单类——"外包"chip 曾 20px<24 的真根因 */
 .req-tag--add:hover { color: var(--text-secondary); border-color: var(--border-color-hover, var(--border-color)); }
 /* 内联组铅笔是编辑入口本体(chip 已被过滤占用),hover 组时可见可点 */
 .req-tags-inline > .req-pencil--act {
@@ -2311,6 +2312,16 @@ body.req-col-dragging * {
 @container (max-width: 240px) {
   .req-sr-note { display: none; }
   .lifecycle-warn-chip { max-width: 22px; overflow: hidden; }
+}
+/* 挤压阶梯第二级(2026-10-11 跨列裁切族·名称列,两档位 179/175px 实测):
+   ≤190px 时保底集收敛到全固定件+确定性余量——间距 3/名称底 44(title 兜底)/
+   标签底 30(margin 8→4)/铅笔 hover 退场(与受保护 + 同弹层,零损失)——
+   换 +AR 分解钮从可见宽 0(两档位 16/16 行全灭)恢复 24px 存活 */
+@container (max-width: 190px) {
+  .requirements-name { gap: 3px; }
+  .requirements-name-text { min-width: 44px; }
+  .req-tags-inline { min-width: 30px; margin-left: 4px; }
+  .req-tags-inline:hover > .req-pencil--act { display: none; }
 }
 /* SR 状态列: 子行分布(如 2·已启动 1·待RAT) */
 .req-state-dist {
@@ -2950,6 +2961,13 @@ body.req-col-dragging * {
 .req-bulk-btn:disabled { opacity: 0.55; cursor: not-allowed; }
 .req-bulk-btn--danger { color: var(--danger-color, #dc2626); background: rgba(220, 38, 38, 0.08); }
 .req-bulk-btn--danger:hover { background: rgba(220, 38, 38, 0.16); }
+/* 特异度战争第四枪(2026-10-11 全称检查器曝出): 批量条在 .projects-board 内,
+   板级 button{min-height:0}(0,1,1) 压过 .req-bulk-btn{min-height:32}(0,1,0)
+   ——按钮实测 20px<24; 前缀升 (0,2,0)。删除钮文字 4.28<4.5 同修:
+   浅色压深一档,深色单独提亮(danger 变量在深色不切换) */
+.projects-board .req-bulk-btn { min-height: 32px; }
+.req-bulk-btn--danger { color: #b91c1c; }
+[data-theme='dark'] .req-bulk-btn--danger { color: #fca5a5; }
 .req-bulk-btn--confirm { background: var(--danger-color, #dc2626); color: #fff; }
 .req-bulk-btn--close { padding: 0; width: 32px; justify-content: center; }
 .req-bulk-divider { width: 1px; height: 20px; background: var(--border-color); margin: 0 2px; }

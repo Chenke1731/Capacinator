@@ -2084,6 +2084,7 @@ body.req-col-dragging * {
   min-width: 0;
   flex-wrap: nowrap;
   overflow: hidden;
+  container-type: inline-size; /* 渐进披露锚点(2026-10-11 L2 收尾): 列宽自适应让位 */
 }
 .requirements-name { overflow: hidden; min-width: 0; }
 /* min-width:0 (grid item 标配): 无它时长名+chip 的 min-content 撑爆轨道,
@@ -2207,11 +2208,16 @@ body.req-col-dragging * {
   align-items: center;
   gap: 4px;
   margin-left: 8px;
-  min-width: 0;
-  overflow: hidden;
+  /* 受保护最小宽(2026-10-11 L2 裁决): 名称文本先让位(保底 70),标签容器
+     收缩止步于 "+" 存活位——曾 min-width:0 缩到 0,+ 钮被单元格裁切线吃掉
+     (可见宽 0,标签入口整行消失);铅笔本就 hover-only,悬停 revelation 靠
+     本保护区触发 */
+  min-width: 48px;
   white-space: nowrap;
   position: relative;
 }
+/* 裁切下沉: chips 子容器吸收收窄压力,+/铅笔为直接子项不入裁切 */
+.req-tags-chips { display: inline-flex; align-items: center; gap: 4px; min-width: 0; overflow: hidden; }
 .req-tag--filter {
   border: none;
   cursor: pointer;
@@ -2298,6 +2304,13 @@ body.req-col-dragging * {
   font-weight: 400;
   color: var(--text-tertiary, var(--text-secondary));
   white-space: nowrap;
+}
+/* 渐进披露(2026-10-11 L2 收尾,锚 .requirements-name 容器查询): 列窄时低优先
+   信息让位保动作钮——SR 注释可展开得知(title 兜底)退场,警示 chip 收窄到
+   短码(title 保全文);保 名称底 70/折叠/分解/+ 标签入口 全存活 */
+@container (max-width: 240px) {
+  .req-sr-note { display: none; }
+  .lifecycle-warn-chip { max-width: 22px; overflow: hidden; }
 }
 /* SR 状态列: 子行分布(如 2·已启动 1·待RAT) */
 .req-state-dist {
@@ -2527,6 +2540,13 @@ body.req-col-dragging * {
 .req-pri--1.req-editable:hover { color: #b91c1c; }
 .req-pri--2.req-editable:hover { color: #92400e; }
 .req-pri--3.req-editable:hover, .req-pri--4.req-editable:hover, .req-pri--5.req-editable:hover { color: #374151; }
+/* 深色背板悬停走向相反(提亮非加深)——40b017d 的 #374151 在深底上 1.26:1
+   是主题盲回归(深色从未渲染期写入);P1/P2 深色悬停同样提亮 */
+[data-theme='dark'] .req-pri--1.req-editable:hover { color: #fca5a5; }
+[data-theme='dark'] .req-pri--2.req-editable:hover { color: #fcd34d; }
+[data-theme='dark'] .req-pri--3.req-editable:hover,
+[data-theme='dark'] .req-pri--4.req-editable:hover,
+[data-theme='dark'] .req-pri--5.req-editable:hover { color: #e5e7eb; }
 /* 气泡项内 P 徽标悬停同理(项 hover 灰染底) */
 .cell-pop-item:hover .req-pri--1 { color: #b91c1c; }
 .cell-pop-item:hover .req-pri--2 { color: #92400e; }
@@ -2870,6 +2890,7 @@ body.req-col-dragging * {
   transition: border-color 0.12s ease, background-color 0.12s ease;
 }
 .req-checkbox:hover::before { border-color: var(--accent-color, #3b82f6); }
+[data-theme='dark'] .req-checkbox:hover::before { border-color: #60a5fa; } /* 蓝 400: 表头深底 #374151 上 2.8→4.0(蓝 500 差 0.2);浅色维持蓝 500(白底 3.68 过) */
 .req-checkbox[data-state='checked']::before,
 .req-checkbox[data-state='indeterminate']::before {
   background: var(--accent-color, #3b82f6);

@@ -286,29 +286,33 @@ export function TagsCell({
      (点击 +N 即达全量编辑弹层,不止 title) */
   return (
     <span ref={pop.anchorRef} className="req-tags-inline" onClick={(e) => e.stopPropagation()}>
-      {tags.slice(0, 2).map((tag: any) => (
-        <button
-          key={tag.id}
-          type="button"
-          className={`req-tag req-tag--filter ${String(activeTagId) === String(tag.id) ? 'req-tag--filtering' : ''}`}
-          title={t('projects:tagSelect.filterHint')}
-          style={{ color: `color-mix(in srgb, ${tag.color || '#888888'} ${Math.round(tagInkRatio(tag.color) * 100)}%, var(--tag-ink))` }}
-          onClick={(e) => { e.stopPropagation(); onFilterByTag(tag.id); }}
-        >
-          <span className="req-tag-dot" style={{ background: tag.color || '#888888' }} />
-          {tag.name}
-        </button>
-      ))}
-      {tags.length > 2 && (
-        <button
-          type="button"
-          className="req-tag req-tag--more"
-          title={tags.slice(2).map((tg: any) => tg.name).join('、')}
-          onClick={(e) => { e.stopPropagation(); pop.toggle(); }}
-        >
-          +{tags.length - 2}
-        </button>
-      )}
+      {/* 裁切下沉(2026-10-11 L2 裁决): chips 子容器吸收收窄压力,+/铅笔为
+          直接子项永不入裁切——曾整容器 overflow:hidden 把加号钮裁到可见宽 0 */}
+      <span className="req-tags-chips">
+        {tags.slice(0, 2).map((tag: any) => (
+          <button
+            key={tag.id}
+            type="button"
+            className={`req-tag req-tag--filter ${String(activeTagId) === String(tag.id) ? 'req-tag--filtering' : ''}`}
+            title={t('projects:tagSelect.filterHint')}
+            style={{ color: `color-mix(in srgb, ${tag.color || '#888888'} ${Math.round(tagInkRatio(tag.color) * 100)}%, var(--tag-ink))` }}
+            onClick={(e) => { e.stopPropagation(); onFilterByTag(tag.id); }}
+          >
+            <span className="req-tag-dot" style={{ background: tag.color || '#888888' }} />
+            {tag.name}
+          </button>
+        ))}
+        {tags.length > 2 && (
+          <button
+            type="button"
+            className="req-tag req-tag--more"
+            title={tags.slice(2).map((tg: any) => tg.name).join('、')}
+            onClick={(e) => { e.stopPropagation(); pop.toggle(); }}
+          >
+            +{tags.length - 2}
+          </button>
+        )}
+      </span>
       {tags.length === 0 && (
         <button
           type="button"

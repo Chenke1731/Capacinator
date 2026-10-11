@@ -61,7 +61,20 @@ const CONTRAST_FN = `
     const f = (c) => { c /= 255; return c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4); };
     return 0.2126 * f(r) + 0.7152 * f(g) + 0.0722 * f(b);
   };
-  const parse = (s) => { const m = s.match(/[\\d.]+/g); return m ? m.map(Number) : null; };
+  // 解析归一(2026-10-11 批次二裁决): color-mix 的 computed 输出是 color(srgb r g b)
+  // 的 0-1 浮点——曾按 0-255 解析, 琥珀墨对深底 9.6:1 被算成 1.42 整族伪报
+  const parse = (s) => {
+    if (!s) return null;
+    if (/color\\(srgb/i.test(s)) {
+      const m = s.match(/[\\d.]+/g);
+      if (!m) return null;
+      const rgb = m.slice(0, 3).map((v) => Math.round(Number(v) * 255));
+      if (m[3] !== undefined && /^color\\(srgb[^/]*\\//.test(s)) rgb.push(Number(m[3])); // / alpha 形式
+      return rgb;
+    }
+    const m = s.match(/[\\d.]+/g);
+    return m ? m.map(Number) : null;
+  };
   const composite = (bg, over) => {
     // over rgba 叠在 bg rgb 上
     const a = over[3] ?? 1;
@@ -229,7 +242,9 @@ const AUDIT_FN = (scopeSelector) => `
           if (ratio < 4.5) issues.push({ name, kind: '对比度', detail: \`\${ratio} < 4.5 (fg/bg 合成后,背板@\${bi.source})\` });
         }
       } else {
-        // WCAG 1.4.11: 组件可用"填充/边界/识别性图形"任一识别——填充→边框→图标色(currentColor)逐级回落
+        // WCAG 1.4.11: 组件用"填充/边界/识别性图形"任一识别即可——逐项测量,
+        // 全部可用指标 <3 才违例(曾按首个指标判, 无框图标钮的"填充 1.05"压过了
+        // 完好达标的图形通道)
         const pr = (s) => { const m = s.match(/[\\d.]+/g); return m ? m.map(Number) : null; };
         const bgRaw = pr(getComputedStyle(e).backgroundColor);
         const csSelf = getComputedStyle(e);
@@ -237,12 +252,15 @@ const AUDIT_FN = (scopeSelector) => `
         const hasFill = bgRaw && (bgRaw[3] ?? 1) > 0.5;
         const hasBorder = parseFloat(csSelf.borderWidth) > 0 || parseFloat(pb.borderWidth) > 0;
         const hasGlyph = e.querySelector('svg, img') !== null || parseFloat(csSelf.webkitTextStrokeWidth || 0) > 0;
-        let ratio = 0, via = '?';
-        if (hasFill) { ratio = window.__bgContrast(e); via = '填充'; }
-        else if (hasBorder) { ratio = window.__borderContrast(e); via = '边框'; }
-        else if (hasGlyph) { ratio = window.__contrast(e); via = '图形'; }
-        if (ratio === -1) unknownBg++;
-        else if (ratio < 3) issues.push({ name, kind: '边界对比', detail: \`\${via} \${ratio} < 3\` });
+        const tries = [];
+        if (hasFill) tries.push(\`填充\${window.__bgContrast(e)}\`);
+        if (hasBorder) tries.push(\`边框\${window.__borderContrast(e)}\`);
+        if (hasGlyph) tries.push(\`图形\${window.__contrast(e)}\`);
+        if (tries.length && tries.every((s2) => s2.includes('-1'))) unknownBg++;
+        else if (tries.length) {
+          const nums = tries.map((s2) => parseFloat(s2.replace(/[^\d.-]/g, '')));
+          if (nums.every((v) => v < 3)) issues.push({ name, kind: '边界对比', detail: \`\${tries.join('/')} < 3\` });
+        }
       }
       // 命中 ≥24px(子元素命中的复合控件看叶子,这里量自身)
       if (Math.min(r.width, r.height) < 24) issues.push({ name, kind: '命中', detail: \`\${Math.round(Math.min(r.width, r.height))}px < 24\` });
@@ -393,6 +411,7 @@ async function discovery(page, theme) {
     return list; // 截断在 Node 侧做(QUICK 常量不进浏览器字符串——插值曾炸语法)
   })).slice(0, QUICK ? 25 : 70);
   let anchorFails = 0, layerIssues = 0;
+  const anchorFailFams = [];
   for (const t of triggerList) {
     await restoreContext(page);
     // 新鲜度=点击前后差分(签名集),且新元素必须身处浮层容器——侧边栏/页头常驻按钮不得混入
@@ -433,7 +452,7 @@ async function discovery(page, theme) {
       if (tr) {
         const gapBelow = Math.round(info.popRect.t - tr.b);
         const gapAbove = Math.round(tr.t - info.popRect.b);
-        if (!((gapBelow >= 3 && gapBelow <= 9) || (gapAbove >= 3 && gapAbove <= 9))) anchorFails++;
+        if (!((gapBelow >= 3 && gapBelow <= 9) || (gapAbove >= 3 && gapAbove <= 9))) { anchorFails++; anchorFailFams.push(`${t.fam.split('::')[1] ?? t.fam}(b:${gapBelow}/a:${gapAbove})`); }
       }
       layerIssues += await auditPhase(page, theme, `浮层内部(${info.freshEls[0] ?? ''})`, '.lc-popover');
       // 浮层内悬停扫(应用钮 1.10 校准例在这里被捕获——静态扫时它不在 DOM)
@@ -479,7 +498,7 @@ async function discovery(page, theme) {
       }
     }
   }
-  check(`[${theme}] 发现式贴锚配对零断链`, anchorFails === 0, `${anchorFails} 处 gap∉[3,9]`);
+  check(`[${theme}] 发现式贴锚配对零断链`, anchorFails === 0, anchorFailFams.slice(0, 4).join(' | ') || `${anchorFails} 处 gap∉[3,9]`);
   return anchorFails + layerIssues;
 }
 

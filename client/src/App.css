@@ -1601,6 +1601,8 @@ input[type="checkbox"].settings-checkbox,
   font-weight: 600;
   color: var(--text-primary);
 }
+/* DEV 自检违例标记(useCellPopover 产物时刻自曝;release 构建剔除自检逻辑) */
+.lc-popover--selfcheck-fail { outline: 2px solid #dc2626; outline-offset: 2px; }
 
 .lc-popover-column {
   display: flex;

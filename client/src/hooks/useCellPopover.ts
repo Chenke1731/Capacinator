@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, type CSSProperties, type RefObject } from 'react';
+import { IS_DEV } from '../lib/devEnv';
 
 /**
  * 锚定气泡的共用骨架: 视口内定位 + 外点/Esc 关闭。
@@ -39,6 +40,41 @@ export function useCellPopover(
       document.removeEventListener('mousedown', onDown);
       document.removeEventListener('keydown', onKey);
     };
+  }, [open, popoverClass]);
+
+  // 产物时刻自检(2026-10-11 气泡事故沉淀;DEV 常驻,release 构建剔除——同
+  // CapaDebug 模式): 贴锚间距/层顶归属/视口越界,违例即红框+console 自曝。
+  // 这批缺陷曾以"走查看一眼"漏过交付(P5 被批量条截断/应用钮被盖),守卫只
+  // 覆盖已交付路径;自检让任何未来基于本钩子的气泡在开发时自行报错。
+  useEffect(() => {
+    if (!open || !IS_DEV) return;
+    let cancelled = false;
+    const raf = requestAnimationFrame(() => requestAnimationFrame(() => {
+      if (cancelled) return;
+      const pop = document.querySelector(`.${popoverClass}`) as HTMLElement | null;
+      const anchor = anchorRef.current;
+      if (!pop || !anchor) return;
+      const pr = pop.getBoundingClientRect();
+      const ar = anchor.getBoundingClientRect();
+      const problems: string[] = [];
+      const gap = Math.round(opts.dock === 'above' ? ar.top - pr.bottom : pr.top - ar.bottom);
+      if (gap < 3 || gap > 10) problems.push(`贴锚间距 ${gap}px(期望≈6)`);
+      const cx = pr.left + pr.width / 2;
+      const cy = Math.max(2, Math.min(window.innerHeight - 2, pr.top + pr.height / 2));
+      const topEl = document.elementFromPoint(cx, cy) as HTMLElement | null;
+      if (topEl && !pop.contains(topEl)) {
+        problems.push(`中心点被遮挡(层顶=${topEl.className?.toString().split(' ')[0] || topEl.tagName},z 低于它)`);
+      }
+      if (pr.bottom > window.innerHeight + 1 || pr.top < -1 || pr.left < -1 || pr.right > window.innerWidth + 1) {
+        problems.push(`视口越界(b=${Math.round(pr.bottom)}/${window.innerHeight})`);
+      }
+      if (problems.length > 0) {
+        pop.classList.add('lc-popover--selfcheck-fail');
+        console.error(`[useCellPopover] .${popoverClass} 自检失败: ${problems.join('; ')}`);
+      }
+    }));
+    return () => { cancelled = true; cancelAnimationFrame(raf); };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open, popoverClass]);
 
   const toggle = () => {

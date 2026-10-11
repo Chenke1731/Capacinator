@@ -20,7 +20,9 @@ module.exports = {
     '\\.(css|less|scss|sass)$': 'identity-obj-proxy',
     '^(\\.{1,2}/.*)\\.js$': '$1',
     '^@client/(.*)$': '<rootDir>/client/src/$1',
-    '^@/(.*)$': '<rootDir>/client/src/$1'
+    '^@/(.*)$': '<rootDir>/client/src/$1',
+    // devEnv 含 import.meta(CJS 变换不识别)——映射为常量 mock
+    '^.*/devEnv$': '<rootDir>/tests/unit/client/setup/devEnvMock.ts'
   },
   
   // Transform TypeScript/TSX files

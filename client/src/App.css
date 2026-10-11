@@ -1576,7 +1576,11 @@ input[type="checkbox"].settings-checkbox,
    Max-height keeps it inside the viewport on short screens. */
 .lc-popover {
   position: fixed;
-  z-index: 60;
+  /* 层序阶梯(2026-10-11): 内容 < 批量条(900) < 气泡(950) < toast(980) < 模态(1000)
+     ——气泡=当前任务必须画在条上(曾 z60 被条盖住底缘/按钮) */
+  z-index: 950;
+  font-size: var(--b-fs-body); /* 容器基线(同 .projects-board): Portal 到 body,
+     未声明字号的浮层文本不再渗透根 16px */
   width: max-content; /* 自适应内容(2026-09-23 裁决);钳制防极端 */
   min-width: 160px;
   max-width: 300px;
@@ -1835,17 +1839,25 @@ input[type="checkbox"].settings-checkbox,
    ── 红线 ── 优先级(P1/P2 重字重语义色, P3-P5 弱化)与状态徽章颜色是
      有意信息编码, 任何排版统一不得抹平
    ============================================================ */
-.projects-board {
-  /* 字阶(2026-09-22 收敛终态): 基线=数据档,容器不继承根 16px——
-     未声明字号的新元素落地即 12.5,不会再突然全板最大 */
-  font-size: var(--b-fs-body);
-  --b-fs-name: 14px; /* 已弃用: 名称走 body 档 */
+/* ── 设计令牌提升到 :root(2026-10-11) ──
+   根因修复: 令牌原定义在 .projects-board 作用域,气泡经 Portal 渲染到 body
+   后变量出作用域,静默回退根 16px——存量单元格气泡的"16px 选项"与批量气泡
+   输入框的 14px 都是这起逃逸事故,不是设计。提升到 :root 后浮层内
+   var(--b-fs-body/meta) 回到 12.5/11 设计档;字号"应用"仍留在板内
+   (.projects-board 的 font-size 声明不动,板外页面不集体变小)。 */
+:root {
   --b-fs-body: 12.5px;
   --b-fs-meta: 11px;
-  /* 圆角 */
   --b-r-sm: 4px;
   --b-r-card: 8px;
-  --b-r-pill: 3px; /* 2026-09-23 借鉴 ONES: 锐利小圆角矩形语言,弃消费感胶囊 */
+  --b-r-pill: 3px;
+}
+
+/* 字阶(2026-09-22 收敛终态): 基线=数据档,容器不继承根 16px——
+     未声明字号的新元素落地即 12.5,不会再突然全板最大 */
+.projects-board {
+  font-size: var(--b-fs-body);
+  --b-fs-name: 14px; /* 已弃用: 名称走 body 档 */
   padding: 16px 24px 28px;
 }
 
@@ -2771,7 +2783,7 @@ body.req-col-dragging * {
   padding: 8px 16px;
   font-size: 12.5px;
   font-weight: 500;
-  z-index: 100;
+  z-index: 980; /* 层序阶梯: 气泡(950)之上,模态(1000)之下 */
   animation: reqToastIn 0.2s ease-out;
 }
 [data-theme='dark'] .req-error-toast {
@@ -2878,7 +2890,6 @@ body.req-col-dragging * {
 
 /* 批量气泡内的表单(版本输入 / 标签两段式) */
 .bulk-version-form, .bulk-tags-form { display: flex; flex-direction: column; gap: 8px; padding: 10px 12px; }
-.bulk-version-input { width: 100%; }
 .bulk-apply-btn {
   display: inline-flex; align-items: center; justify-content: center;
   min-height: 30px; padding: 0 10px;
@@ -2889,12 +2900,12 @@ body.req-col-dragging * {
 .bulk-apply-btn:disabled { opacity: 0.5; cursor: not-allowed; }
 .bulk-apply-btn--clear { background: transparent; color: var(--danger-color, #dc2626); box-shadow: inset 0 0 0 1px var(--border-color); }
 .bulk-tags-section { display: flex; flex-direction: column; gap: 6px; }
-.bulk-tags-sec-title { display: flex; align-items: center; gap: 4px; font-size: 11px; font-weight: 500; color: var(--text-secondary); }
+.bulk-tags-sec-title { display: flex; align-items: center; gap: 4px; font-size: var(--b-fs-meta, 11px); font-weight: 500; color: var(--text-secondary); }
 .bulk-tags-chips { display: flex; flex-wrap: wrap; gap: 6px; }
 .bulk-tag-chip {
   display: inline-flex; align-items: center; gap: 3px;
   min-height: 24px; padding: 0 9px;
-  font-size: 11px; font-weight: 400;
+  font-size: var(--b-fs-body, 12.5px); font-weight: 400;
   color: var(--text-primary);
   background: var(--bg-secondary, rgba(127, 127, 127, 0.08));
   border: 1px solid var(--border-color);
@@ -2903,7 +2914,9 @@ body.req-col-dragging * {
 .bulk-tag-chip--on { background: var(--accent-color, #3b82f6); border-color: var(--accent-color, #3b82f6); color: #fff; }
 .bulk-tag-chip--off { background: rgba(220, 38, 38, 0.1); border-color: var(--danger-color, #dc2626); color: var(--danger-color, #dc2626); }
 .bulk-pop-empty { font-size: 12.5px; color: var(--text-secondary); padding: 4px 12px; }
-.bulk-pop-window { margin-left: auto; font-size: 11px; color: var(--text-secondary); font-variant-numeric: tabular-nums; }
+.bulk-pop-window { margin-left: auto; font-size: var(--b-fs-meta, 11px); color: var(--text-secondary); font-variant-numeric: tabular-nums; }
+/* 版本输入对齐令牌(原先因令牌出作用域回落根 14px——令牌已提升 :root) */
+.bulk-version-input { width: 100%; font-size: var(--b-fs-body, 12.5px); }
 
 /* P5(2026-09-23): SR 行 ＋AR 常驻显示——新用户可发现可以分解 */
 .requirements-row--sr .req-ar-add { display: inline-flex; opacity: 0.6; }

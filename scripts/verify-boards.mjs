@@ -501,6 +501,42 @@ check('新列集(代码规模/人力/SE/MDE/实名投入)',
     check('批量优先级落库(3 行 P1)', afterRows.length === 3 && afterRows.every((r) => Number(r.priority) === 1),
       afterRows.map((r) => r.priority).join(','));
 
+    // ── 气泡四维断言(2026-10-11 位置断链/遮挡修复的守卫固化): 贴锚/层顶/越界/字号 ──
+    for (const tid of ['bulk-priority-btn', 'bulk-product_version-btn', 'bulk-release_version-btn', 'bulk-tags-btn', 'bulk-iteration-btn']) {
+      await page.click(`[data-testid="${tid}"]`);
+      await page.waitForTimeout(500);
+      const m = await page.evaluate((t) => {
+        const btn = document.querySelector(`[data-testid="${t}"]`);
+        const pop = document.querySelector(`[data-testid="${t}-popover"]`);
+        if (!btn || !pop) return { err: 'missing' };
+        const r = pop.getBoundingClientRect();
+        const br = btn.getBoundingClientRect();
+        const gap = Math.round(br.top - r.bottom); // 期望 6:气泡底边贴触发钮顶
+        const cx = r.left + r.width / 2, cy = r.top + r.height / 2;
+        const topEl = document.elementFromPoint(cx, cy);
+        const onTop = topEl ? (pop.contains(topEl) || topEl === pop) : false;
+        const clip = { bottom: Math.round(r.bottom - innerHeight), top: Math.round(8 - r.top), right: Math.round(r.right - innerWidth) };
+        const badFonts = [];
+        pop.querySelectorAll('button, input, span, div').forEach((e) => {
+          if (!e.textContent?.trim() && e.tagName !== 'INPUT') return;
+          const fs = parseFloat(getComputedStyle(e).fontSize);
+          if (![13, 12.5, 11].includes(fs)) badFonts.push(`${e.className?.toString().split(' ')[0] || e.tagName}:${fs}`);
+        });
+        return { gap, onTop, clip, badFonts: [...new Set(badFonts)].slice(0, 3), w: Math.round(r.width), h: Math.round(r.height) };
+      }, tid);
+      const errs = [];
+      if (m.err) errs.push('未渲染');
+      else {
+        if (m.gap < 4 || m.gap > 8) errs.push(`贴锚间距=${m.gap}(期望6)`);
+        if (!m.onTop) errs.push('中心点层顶非气泡(遮挡)');
+        if (m.clip.bottom > 1 || m.clip.top > 1 || m.clip.right > 1) errs.push(`越界${JSON.stringify(m.clip)}`);
+        if (m.badFonts.length) errs.push(`字号越白名单:${m.badFonts.join(',')}`);
+      }
+      check(`气泡四维[${tid.split('-').slice(1).join('-')}]`, errs.length === 0, errs.join(' | ') || `${m.w}x${m.h} gap=${m.gap}`);
+      await page.keyboard.press('Escape');
+      await page.waitForTimeout(200);
+    }
+
     // 批量条子元素零重叠(浮条 vs 表格属合法遮挡,不扫)
     const barOverlap = await page.evaluate(() => {
       const bar = document.querySelector('[data-testid="req-bulk-bar"]');

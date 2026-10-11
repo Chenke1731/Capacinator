@@ -26,7 +26,9 @@ interface BulkActionBarProps {
   tagsOnSelection: Set<string>;
 }
 
-/** 触发按钮 + 锚定气泡骨架(children 收 close 用于应用后收起) */
+/** 触发按钮 + 锚定气泡骨架(children 收 close 用于应用后收起)。
+    dock:'above'=底边贴锚上翻: 批量条贴屏底,气泡在条上方贴合出现,
+    不再经 top 钳位公式悬空(2026-10-11 位置断链/遮挡修复)。 */
 function BarPop({ popClass, width, height, label, title, disabled, children, testId }: {
   popClass: string;
   width: number;
@@ -37,7 +39,7 @@ function BarPop({ popClass, width, height, label, title, disabled, children, tes
   children: (close: () => void) => React.ReactNode;
   testId: string;
 }) {
-  const pop = useCellPopover(popClass, width, height);
+  const pop = useCellPopover(popClass, width, height, { dock: 'above' });
   return (
     <span ref={pop.anchorRef} className="req-bulk-anchor">
       <button

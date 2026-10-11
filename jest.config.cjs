@@ -99,7 +99,10 @@ module.exports = {
         '\\.(css|less|scss|sass)$': 'identity-obj-proxy',
         '^@/(.*)$': '<rootDir>/client/src/$1',
         '^@client/(.*)$': '<rootDir>/client/src/$1',
-        '^(\\.{1,2}/.*)\\.js$': '$1'
+        '^(\\.{1,2}/.*)\\.js$': '$1',
+        // devEnv.ts 的 import.meta 语法 ts-jest(CJS)解析不了——映射为常量 mock
+        // (devEnv.ts 文件头注释声明的机制,2026-10-11 补齐落线)
+        'devEnv$': '<rootDir>/client/src/lib/__mocks__/devEnv.ts'
       },
       transform: {
         '^.+\\.tsx?$': ['ts-jest', {

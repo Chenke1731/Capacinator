@@ -74,7 +74,6 @@ export function useCellPopover(
       }
     }));
     return () => { cancelled = true; cancelAnimationFrame(raf); };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open, popoverClass]);
 
   const toggle = () => {

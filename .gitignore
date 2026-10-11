@@ -115,4 +115,6 @@ client/src/**/*.d.ts.map
 !.zcode/config.json
 !.zcode/hooks/
 !.zcode/hooks/**
+!.zcode/skills/
+!.zcode/skills/**
 .omc/

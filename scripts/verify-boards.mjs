@@ -575,6 +575,19 @@ check('新列集(代码规模/人力/SE/MDE/实名投入)',
   }
 }
 
+// ── 10.8 全称状态检查器收编(2026-10-11 机制改造) ──
+// 渲染相位的全称不变量(对比度×状态×主题/命中/遮挡/越界/字号/贴锚)独立成
+// scripts/verify-states.mjs,交付闸在此 spawn——管道吞退出码曾两次亲历,
+// 显式取 status 码计入本守卫。
+{
+  const { spawnSync } = await import('node:child_process');
+  const r = spawnSync('node', ['scripts/verify-states.mjs'], { encoding: 'utf8', timeout: 10 * 60 * 1000 });
+  const lines = (r.stdout || '').trim().split('\n');
+  const summary = lines[lines.length - 1] ?? '';
+  const fails = lines.filter((l) => l.startsWith('FAIL')).slice(0, 3);
+  check(`全称状态检查器(${summary})`, r.status === 0, r.status === 0 ? '' : fails.join(' | ') || (r.stderr || '').slice(0, 120));
+}
+
 // ── 11. 零错误零弹窗 ──
 check('零页面错误', pageErrors.length === 0, pageErrors.slice(0, 2).join(' | '));
 check('零模态弹窗', (await page.$$('dialog[open], [role="dialog"]')).length === 0);

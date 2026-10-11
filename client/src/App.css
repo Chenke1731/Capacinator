@@ -1438,9 +1438,11 @@ input[type="checkbox"].settings-checkbox,
   font-weight: 400;
   color: var(--text-secondary);
   background: none; border: none; padding: 1px 4px; text-align: left;
+  min-height: 24px; /* 命中 24 档(全称检查器,曾 19px) */
   cursor: pointer; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
   max-width: 100%;
 }
+.projects-board .req-iter-val { min-height: 24px; } /* 板级 reset 特异度更高,前缀重声明 */
 .req-iter-val:hover { background: rgba(127, 127, 127, 0.1); }
 .req-iter-val.is-empty { color: var(--text-tertiary, var(--text-secondary)); }
 
@@ -1518,10 +1520,11 @@ input[type="checkbox"].settings-checkbox,
   display: none; /* 非 SR 行 hover;SR 行常驻 */
   align-items: center; justify-content: center;
   background: none; border: none; padding: 2px; margin-left: 2px;
-  min-width: 22px; min-height: 22px;
+  min-width: 24px; min-height: 24px; /* 命中 24 档(全称检查器,曾 16px) */
   color: var(--text-tertiary, var(--text-secondary));
   border-radius: 4px; cursor: pointer; flex: none;
 }
+.projects-board .req-ar-add { min-width: 24px; min-height: 24px; } /* 板级 reset 特异度更高,前缀重声明 */
 .requirements-name:hover .req-ar-add { display: inline-flex; }
 .req-ar-add:hover { background: var(--bg-secondary, rgba(127,127,127,0.12)); color: var(--primary-text); }
 
@@ -1666,6 +1669,7 @@ input[type="checkbox"].settings-checkbox,
 .cell-pop-search input {
   flex: 1;
   min-width: 0;
+  min-height: 24px; /* 命中 24 档(全称检查器,曾 23px) */
   border: none;
   background: none;
   color: var(--text-primary);
@@ -1695,7 +1699,7 @@ input[type="checkbox"].settings-checkbox,
   cursor: pointer;
 }
 .cell-pop-item:hover { background: var(--bg-secondary, rgba(127, 127, 127, 0.14)); }
-.cell-pop-item--active { color: var(--accent-color, #3b82f6); font-weight: 600; }
+.cell-pop-item--active { color: #2563eb; font-weight: 600; } /* 蓝 600: 选中项白底 5.2:1(蓝 500 曾 3.68<4.5) */
 .cell-pop-item--danger { color: var(--danger-color, #dc2626); }
 .cell-pop-item-label {
   flex: 1;
@@ -1868,6 +1872,11 @@ input[type="checkbox"].settings-checkbox,
    (该坑已回归三次: 人力步进器/编号钮/折叠箭头) */
 .projects-board button.hit-24 { min-width: 24px; min-height: 24px; }
 .projects-board button.hit-32 { min-width: 32px; min-height: 32px; }
+/* 命中 24 档收口(2026-10-11 全称检查器): kloc/effort 值钮、标签 chip
+   (含存量"外包"热区债族)统一 24——板级 reset(0,1,1) 高于单类,须带前缀 */
+.projects-board button.req-kloc,
+.projects-board button.req-effort,
+.projects-board .req-tag { min-height: 24px; }
 /* 板块内按钮退出全局 44px 触控规则,启用分级命中(24/32/40) */
 .projects-board button,
 .projects-board .btn {
@@ -2220,10 +2229,13 @@ body.req-col-dragging * {
   background: none;
   color: var(--text-tertiary, var(--text-secondary));
   cursor: pointer;
-  min-height: 18px;
-  min-width: 20px;
+  /* 命中 24 档(全称检查器,曾 16px)。带 .projects-board 前缀提特异度:
+     板级 button{min-height:0} 重置(0,1,1) 压过单类(0,1,0)——同类必修 */
+  min-height: 24px;
+  min-width: 24px;
   padding: 0 7px;
 }
+.projects-board .req-tag--add { min-height: 24px; min-width: 24px; }
 .req-tag--add:hover { color: var(--text-secondary); border-color: var(--border-color-hover, var(--border-color)); }
 /* 内联组铅笔是编辑入口本体(chip 已被过滤占用),hover 组时可见可点 */
 .req-tags-inline > .req-pencil--act {
@@ -2510,6 +2522,15 @@ body.req-col-dragging * {
 .req-pri--2 { color: #b45309; }
 .req-pri--3, .req-pri--4, .req-pri--5 { color: var(--text-secondary); font-weight: 400; }
 .req-pri.req-editable:hover { background: rgba(127, 127, 127, 0.1); }
+/* 悬停态语义色保对比: P1/P2 亮红/琥珀在灰染底上曾 3.9-4.3<4.5,hover 加深一档;
+   P3-P5 次级灰在灰染底上 4.32<4.5,hover 升主文色 */
+.req-pri--1.req-editable:hover { color: #b91c1c; }
+.req-pri--2.req-editable:hover { color: #92400e; }
+.req-pri--3.req-editable:hover, .req-pri--4.req-editable:hover, .req-pri--5.req-editable:hover { color: #374151; }
+/* 气泡项内 P 徽标悬停同理(项 hover 灰染底) */
+.cell-pop-item:hover .req-pri--1 { color: #b91c1c; }
+.cell-pop-item:hover .req-pri--2 { color: #92400e; }
+.cell-pop-item:hover .req-pri { color: #374151; }
 
 /* 操作: 32px 裸图标(悬停显底),与表头/优先级同轴居中 */
 .requirements-actions { display: inline-flex; gap: 8px; align-items: center; justify-content: center; }
@@ -2824,32 +2845,39 @@ body.req-col-dragging * {
 /* ── 批量选择列(2026-10-11): Radix 三态框,板内视觉语言(16px/设计系统变量) ── */
 .req-select { display: flex; align-items: center; justify-content: center; }
 .req-checkbox {
+  /* 命中 24×24(2026-10-11 全称检查器: 曾 16px<24 命中档);16px 视觉盒由 ::before 绘制 */
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 16px;
-  height: 16px;
+  width: 24px;
+  height: 24px;
   padding: 0; /* 定宽按钮显式重置 padding(全局 button 规则,13 号教训) */
-  border: 1.5px solid var(--border-color, rgba(127, 127, 127, 0.4));
-  border-radius: 4px;
-  /* 透明底(非 var(--bg-primary): 深色主题该变量是饱和蓝灰,会把 5 色行顶成 6
-     破坏行内色彩纪律;空盒本来就应以"空"示人) */
-  background: transparent;
+  position: relative;
+  background: none;
+  border: none;
   color: #fff;
-  font-size: 12.5px; /* 显式声明字号字重: button 全局继承 500;12.5 对齐排版矩阵白名单档 */
+  font-size: 12.5px; /* 显式声明字号字重: button 全局继承 500;12.5 对齐排版矩阵档 */
   font-weight: 400;
   cursor: pointer;
+}
+.req-checkbox::before {
+  content: '';
+  position: absolute;
+  inset: 4px; /* 16px 视觉盒 */
+  border: 1.5px solid var(--text-secondary, #52525b); /* 未选边框对比≥3(曾 rgba 淡灰 1.18<3) */
+  border-radius: 4px;
+  background: transparent;
   transition: border-color 0.12s ease, background-color 0.12s ease;
 }
-.req-checkbox:hover { border-color: var(--accent-color, #3b82f6); }
-.req-checkbox[data-state='checked'],
-.req-checkbox[data-state='indeterminate'] {
+.req-checkbox:hover::before { border-color: var(--accent-color, #3b82f6); }
+.req-checkbox[data-state='checked']::before,
+.req-checkbox[data-state='indeterminate']::before {
   background: var(--accent-color, #3b82f6);
   border-color: var(--accent-color, #3b82f6);
 }
 .req-checkbox:focus-visible { outline: 2px solid var(--accent-color, #3b82f6); outline-offset: 2px; }
 .req-checkbox:disabled { opacity: 0.4; cursor: not-allowed; }
-.req-checkbox-ind { display: flex; align-items: center; justify-content: center; color: #fff; line-height: 0; }
+.req-checkbox-ind { display: flex; align-items: center; justify-content: center; color: #fff; line-height: 0; position: relative; }
 
 /* ── 批量操作条(2026-10-11): 选中>0 底部浮动,pending 全禁用,删除二次确认 ── */
 .req-bulk-bar {
@@ -2911,6 +2939,12 @@ body.req-col-dragging * {
 }
 .bulk-apply-btn:disabled { opacity: 0.5; cursor: not-allowed; }
 .bulk-apply-btn--clear { background: transparent; color: var(--danger-color, #dc2626); box-shadow: inset 0 0 0 1px var(--border-color); }
+/* 状态全声明(2026-10-11 悬停隐形事故类): 全局 button:hover 特异度 (0,1,1) 压过单类
+   (0,1,0)——凡设背景/文字色的类样式按钮必须自带 :hover/:active 重声明,否则
+   白字被换到浅底(应用钮浅色悬停 1.10:1 事故) */
+.bulk-apply-btn:hover:not(:disabled) { background: #2563eb; color: #fff; }
+.bulk-apply-btn--clear:hover:not(:disabled) { background: rgba(220, 38, 38, 0.12); color: #b91c1c; box-shadow: inset 0 0 0 1px #dc2626; }
+.bulk-apply-btn:active:not(:disabled) { filter: brightness(0.88); }
 .bulk-tags-section { display: flex; flex-direction: column; gap: 6px; }
 .bulk-tags-sec-title { display: flex; align-items: center; gap: 4px; font-size: var(--b-fs-meta, 11px); font-weight: 500; color: var(--text-secondary); }
 .bulk-tags-chips { display: flex; flex-wrap: wrap; gap: 6px; }
@@ -2925,6 +2959,9 @@ body.req-col-dragging * {
 }
 .bulk-tag-chip--on { background: var(--accent-color, #3b82f6); border-color: var(--accent-color, #3b82f6); color: #fff; }
 .bulk-tag-chip--off { background: rgba(220, 38, 38, 0.1); border-color: var(--danger-color, #dc2626); color: var(--danger-color, #dc2626); }
+/* 同类必修: 白字/红字彩底 chip 的 hover 重声明(否则被全局 button:hover 换底) */
+.bulk-tag-chip--on:hover { background: #2563eb; border-color: #2563eb; color: #fff; }
+.bulk-tag-chip--off:hover { background: rgba(220, 38, 38, 0.16); color: #b91c1c; border-color: #b91c1c; }
 /* 两段互斥(2026-10-11 审视#7): 勾一侧禁用对侧同名 chip——服务端 remove 静默
    胜出曾与可见的 Add 勾选意图相反 */
 .bulk-tag-chip:disabled { opacity: 0.4; cursor: not-allowed; }

@@ -86,6 +86,8 @@
     "preview:client": "npm run build:client && npx vite preview --config client-vite.config.ts --port 3121 --strictPort --host",
     "verify:visual": "node scripts/verify-visual.mjs",
     "verify:site": "node scripts/verify-site.mjs",
+    "verify:states": "node scripts/verify-states.mjs",
+    "verify:states:selftest": "node scripts/verify-states.mjs --selftest",
     "verify:visual:update": "UPDATE_BASELINES=1 node scripts/verify-visual.mjs",
     "debug:board": "node scripts/debug-board.mjs",
     "shot": "node scripts/analyze-screenshot.mjs",

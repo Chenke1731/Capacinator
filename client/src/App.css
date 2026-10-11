@@ -2537,9 +2537,16 @@ body.req-col-dragging * {
 .req-pri.req-editable:hover { background: rgba(127, 127, 127, 0.1); }
 /* 悬停态语义色保对比: P1/P2 亮红/琥珀在灰染底上曾 3.9-4.3<4.5,hover 加深一档;
    P3-P5 次级灰在灰染底上 4.32<4.5,hover 升主文色 */
-.req-pri--1.req-editable:hover { color: #b91c1c; }
-.req-pri--2.req-editable:hover { color: #92400e; }
-.req-pri--3.req-editable:hover, .req-pri--4.req-editable:hover, .req-pri--5.req-editable:hover { color: #374151; }
+/* 悬停深化带主题前缀(2026-10-11 悬案2 裁决): AA 批次的静息语义色
+   [data-theme] .projects-board .req-pri--N 是 (0,3,0) 且在文件后部——
+   裸写 (0,3,0) hover 规则被平级后置压制,P2 悬停深化自 40b017d 起从未
+   生效(静息琥珀 #b45309 对灰染悬停底 4.32<4.5)。前缀升至 (0,5,0) 胜出;
+   显式 'light' 限定——双匹配会在深色压掉提亮规则(1.26 回归) */
+[data-theme='light'] .projects-board .req-pri--1.req-editable:hover { color: #b91c1c; }
+[data-theme='light'] .projects-board .req-pri--2.req-editable:hover { color: #92400e; }
+[data-theme='light'] .projects-board .req-pri--3.req-editable:hover,
+[data-theme='light'] .projects-board .req-pri--4.req-editable:hover,
+[data-theme='light'] .projects-board .req-pri--5.req-editable:hover { color: #374151; }
 /* 深色背板悬停走向相反(提亮非加深)——40b017d 的 #374151 在深底上 1.26:1
    是主题盲回归(深色从未渲染期写入);P1/P2 深色悬停同样提亮 */
 [data-theme='dark'] .req-pri--1.req-editable:hover { color: #fca5a5; }

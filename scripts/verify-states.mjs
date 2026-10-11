@@ -146,6 +146,21 @@ const AUDIT_FN = (scopeSelector) => `
       if (!r.width || !r.height) return false;
       // 视口相交过滤: 滚出视口的虚拟行/被粘性表头合法压住的内容不测(否则假 越界/遮挡)
       if (r.top > innerHeight - 2 || r.bottom < 2 || r.left > innerWidth - 2 || r.right < 2) return false;
+      // 滚动窗感知(2026-10-11 滚动位伪报裁决): 虚拟化 overscan 行被滚动容器
+      // 边缘合法裁掉(几何上 t<0 或超出容器底, 但视口相交过滤拦不住它们)——
+      // 量它们=量看不见的内容,滚动位相位曾整族误报"硬裁切 0px"。
+      // 走查遇 fixed 祖先即停: fixed 子树逃逸更上层的滚动裁剪(越界注入维
+      // 的元素身处被注入为 fixed 的容器内)
+      let sn = e.parentElement;
+      while (sn && sn !== document.body) {
+        const scs = getComputedStyle(sn);
+        if (scs.position === 'fixed') break;
+        if (/auto|scroll/.test(scs.overflow + scs.overflowY + scs.overflowX)) {
+          const sb = sn.getBoundingClientRect();
+          if (r.bottom < sb.top + 2 || r.top > sb.bottom - 2 || r.right < sb.left + 2 || r.left > sb.right - 2) return false;
+        }
+        sn = sn.parentElement;
+      }
       const c = getComputedStyle(e);
       return c.visibility !== 'hidden' && c.display !== 'none' && c.pointerEvents !== 'none';
     };
@@ -163,28 +178,37 @@ const AUDIT_FN = (scopeSelector) => `
       ? [...document.querySelectorAll(scoped)].flatMap((root) => [...root.querySelectorAll(SEL)]).filter((e) => (seen.has(e) ? false : seen.add(e)))
       : [...document.querySelectorAll(SEL)];
     let tested = 0, unknownBg = 0, clipped = 0, chromeCovered = 0;
-    // 裁切交集(2026-10-11 遮挡三分裁决): 中心点不在可见交集内=裁切/滚出;
-    // 硬裁切(hidden/clip)且可见尺寸<24=真缺陷(加号钮可见宽 0 事故曾淹没在伪报里);
-    // 可滚动裁切(auto/scroll)=折叠线,计数不判违
+    // 裁切交集(2026-10-11 遮挡三分裁决 + 滚动位伪报修正): 中心点不在可见交集内
+    // =裁切/滚出; 违例只认**硬裁器**(hidden/clip)造成的可见<24——软裁器(滚动
+    // 容器 auto/scroll)裁空的是滚动折叠/overscan,计数不判违(曾整族误报)
     const clippedAt = (e, cx, cy) => {
-      let n = e.parentElement, clipper = null, hard = false;
-      let visL = -Infinity, visR = Infinity, visT = -Infinity, visB = Infinity;
+      const hards = [], softs = [];
+      let firstClipper = null;
+      let n = e.parentElement;
       while (n && n !== document.body) {
         const cs = getComputedStyle(n);
         const ov = \`\${cs.overflow} \${cs.overflowX} \${cs.overflowY}\`;
         if (/hidden|clip|auto|scroll/.test(ov)) {
-          const r2 = n.getBoundingClientRect();
-          visL = Math.max(visL, r2.left); visR = Math.min(visR, r2.right);
-          visT = Math.max(visT, r2.top); visB = Math.min(visB, r2.bottom);
-          if (!clipper) clipper = n.className?.toString().split(' ')[0] || n.tagName;
-          if (/hidden|clip/.test(ov) && !/auto|scroll/.test(ov)) hard = true;
+          const b = n.getBoundingClientRect();
+          const soft = /auto|scroll/.test(ov) && !/hidden|clip/.test(ov);
+          (soft ? softs : hards).push(b);
+          if (!firstClipper) firstClipper = n.className?.toString().split(' ')[0] || n.tagName;
         }
         n = n.parentElement;
       }
+      const inter = (list) => list.reduce((acc, b) => ({
+        l: Math.max(acc.l, b.left), r: Math.min(acc.r, b.right), t: Math.max(acc.t, b.top), b: Math.min(acc.b, b.bottom)
+      }), { l: -1e9, r: 1e9, t: -1e9, b: 1e9 });
       const r0 = e.getBoundingClientRect();
-      const vw = Math.max(0, Math.min(visR, r0.right) - Math.max(visL, r0.left));
-      const vh = Math.max(0, Math.min(visB, r0.bottom) - Math.max(visT, r0.top));
-      return { centerOut: cx < visL || cx > visR || cy < visT || cy > visB, hard, clipper, visibleMin: Math.min(vw, vh) };
+      const clampW = (iv) => Math.max(0, Math.min(iv.r, r0.right) - Math.max(iv.l, r0.left));
+      const clampH = (iv) => Math.max(0, Math.min(iv.b, r0.bottom) - Math.max(iv.t, r0.top));
+      const hardIv = inter(hards);
+      const allIv = inter([...hards, ...softs]);
+      return {
+        centerOut: cx < allIv.l || cx > allIv.r || cy < allIv.t || cy > allIv.b,
+        hardVisibleMin: Math.min(clampW(hardIv), clampH(hardIv)),
+        clipper: firstClipper
+      };
     };
     for (const e of roots) {
       if (!visible(e)) continue;
@@ -246,7 +270,7 @@ const AUDIT_FN = (scopeSelector) => `
         const clip = clippedAt(e, cx, cy);
         const stickyFam = (() => { let n2 = hit; while (n2 && n2 !== document.body) { if (getComputedStyle(n2).position === 'sticky') return true; n2 = n2.parentElement; } return false; })();
         if (hit.contains(e) || clip.centerOut) {
-          if (clip.hard && clip.visibleMin < 24) issues.push({ name, kind: '裁切', detail: \`硬裁切可见 \${Math.round(clip.visibleMin)}px < 24 (\${clip.clipper})\` });
+          if (clip.hardVisibleMin < 24) issues.push({ name, kind: '裁切', detail: \`硬裁切可见 \${Math.round(clip.hardVisibleMin)}px < 24 (\${clip.clipper})\` });
           else clipped++;
         } else if (stickyFam) {
           chromeCovered++;

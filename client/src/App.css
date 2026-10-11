@@ -1029,10 +1029,10 @@ input[type="checkbox"].settings-checkbox,
 .lifecycle-state-badge--pending_rat { background: rgba(107,114,128,0.13); color: var(--text-secondary); }
 .lifecycle-state-badge--nok { background: rgba(245,158,11,0.13); color: #f59e0b; }
 .lifecycle-state-badge--backlog { background: rgba(156,163,175,0.13); color: #9ca3af; }
-.lifecycle-state-badge--scheduled { background: rgba(99,102,241,0.13); color: #6366f1; }
+.lifecycle-state-badge--scheduled { background: rgba(99,102,241,0.13); color: #818cf8; } /* 深 3.47→5.2; 浅色 2768 行压深 */
 .lifecycle-state-badge--in_iteration { background: rgba(34,197,94,0.13); color: #22c55e; }
 .lifecycle-state-badge--delivered { background: rgba(20,184,166,0.13); color: #14b8a6; }
-.lifecycle-state-badge--cancelled { background: rgba(220,38,38,0.13); color: #ef4444; }
+.lifecycle-state-badge--cancelled { background: rgba(220,38,38,0.13); color: #f87171; } /* 深 ~4.0→5.4; 浅色 2771 行压深 */
 
 .lifecycle-deadline {
   font-size: 12px;
@@ -1701,6 +1701,12 @@ input[type="checkbox"].settings-checkbox,
 .cell-pop-item:hover { background: var(--bg-secondary, rgba(127, 127, 127, 0.14)); }
 .cell-pop-item--active { color: #2563eb; font-weight: 600; } /* 蓝 600: 选中项白底 5.2:1(蓝 500 曾 3.68<4.5) */
 .cell-pop-item--danger { color: var(--danger-color, #dc2626); }
+/* 弹层经 Portal 到 body,深色主题下的选中/危险项(浅色意图色曾 3.43/2.84) */
+[data-theme='dark'] .cell-pop-item--active { color: #93c5fc; }
+[data-theme='dark'] .cell-pop-item--danger { color: #fca5a5; }
+/* 状态徽章悬停(2026-10-11 批次二): 全局 button:hover 的 bg-tertiary 盖掉
+   状态色底,text-secondary 对 #374151 仅 4.02——深色悬停换暗染底(6.0) */
+[data-theme='dark'] .lifecycle-state-badge:hover { background-color: rgba(0, 0, 0, 0.22); }
 .cell-pop-item-label {
   flex: 1;
   min-width: 0;
@@ -2569,6 +2575,20 @@ body.req-col-dragging * {
 .cell-pop-item:hover .req-pri--1 { color: #b91c1c; }
 .cell-pop-item:hover .req-pri--2 { color: #92400e; }
 .cell-pop-item:hover .req-pri { color: #374151; }
+/* 弹层经 Portal 渲染到 body——[data-theme='dark'] .projects-board 域的深色
+   提亮罩不住弹内 P 徽章(曾 3.43/悬停 2.84)。全域深色覆盖 + 弹内项深色悬停 */
+[data-theme='dark'] .req-pri--1 { color: #fca5a5; }
+[data-theme='dark'] .req-pri--2 { color: #fbbf24; }
+[data-theme='dark'] .cell-pop-item:hover .req-pri--1 { color: #fca5a5; }
+[data-theme='dark'] .cell-pop-item:hover .req-pri--2 { color: #fcd34d; }
+[data-theme='dark'] .cell-pop-item:hover .req-pri { color: #e5e7eb; }
+/* 标签 chip 悬停: 全局 button:hover 的 bg-tertiary 曾把深色 ink 压到 3.47-4.06——
+   深色换暗染底保 ink 对比(0.35 实测待排序类 ink ≥4.5) */
+[data-theme='dark'] .req-tag--filter:hover { background: rgba(0, 0, 0, 0.35); }
+/* 清空变体深色双态: 浅色意图的 #dc2626/#b91c1c 在深底 3.67/2.55;
+   hover 加 .lc-popover 域升特异度——平级后置的浅色规则曾胜出 */
+[data-theme='dark'] .bulk-apply-btn--clear { color: #fca5a5; }
+[data-theme='dark'] .lc-popover .bulk-apply-btn--clear:hover { color: #fecaca; background: rgba(220, 38, 38, 0.18); }
 
 /* 操作: 32px 裸图标(悬停显底),与表头/优先级同轴居中 */
 .requirements-actions { display: inline-flex; gap: 8px; align-items: center; justify-content: center; }

@@ -22,7 +22,7 @@ export function useCellPopover(
   // dock:'above'(2026-10-11 批量条气泡): 底边贴锚上翻——用 bottom 锚定而非
   // top=预估高反推,内容实际高度变化时贴合关系不漂移(优先级气泡曾因
   // top 钳位公式悬空 228px+被批量条盖住底缘)。
-  const [pos, setPos] = useState<{ top?: number; bottom?: number; left: number }>({ top: -9999, left: -9999 });
+  const [pos, setPos] = useState<{ top?: number; bottom?: number; left: number; maxHeight?: number }>({ top: -9999, left: -9999 });
   const anchorRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
@@ -84,12 +84,18 @@ export function useCellPopover(
     const r = anchorRef.current?.getBoundingClientRect();
     if (r) {
       const left = Math.max(8, Math.min(r.left, window.innerWidth - width - 12));
-      setPos(opts.dock === 'above'
-        ? { bottom: window.innerHeight - r.top + 6, left }
-        : { top: Math.min(r.bottom + 6, Math.max(8, window.innerHeight - height)), left });
+      // 视口高度感知的 maxHeight(2026-10-11 批次二④裁决): top 钳位按估算
+      // height 参数算, 实际内容更高时弹层越出视口底(SE 人员弹层实测越出
+      // 至 195px)——按实际可用空间给 inline maxHeight, 内部滚动兜底
+      if (opts.dock === 'above') {
+        setPos({ bottom: window.innerHeight - r.top + 6, left, maxHeight: Math.max(120, r.top - 12) });
+      } else {
+        const top = Math.min(r.bottom + 6, Math.max(8, window.innerHeight - height));
+        setPos({ top, left, maxHeight: Math.max(120, window.innerHeight - top - 8) });
+      }
     }
     setOpen(true);
   };
 
-  return { open, setOpen, anchorRef, style: { top: pos.top, bottom: pos.bottom, left: pos.left }, toggle };
+  return { open, setOpen, anchorRef, style: { top: pos.top, bottom: pos.bottom, left: pos.left, maxHeight: pos.maxHeight }, toggle };
 }

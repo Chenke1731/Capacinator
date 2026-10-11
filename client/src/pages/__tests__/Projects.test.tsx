@@ -31,7 +31,7 @@ const waitFor = (cb: () => void | Promise<void>) => rtlWaitFor(cb, { interval: 1
 //     RoleCell(.req-role--se/--mde) 的 detach / assign 等价断言
 //   - "staffing popover states its edit model"(池步进) → 改写为 PrimaryDevCell
 //     弹层的开发池步进器(池机制收进实名投入弹层, B3e)
-// 列宽 req-col-widths-v4: 直宽 min/max, 无 cap/elastic 机制; 默认宽以 REQ_COLUMNS
+// 列宽 req-col-widths-v5: 直宽 min/max, 无 cap/elastic 机制; 默认宽以 REQ_COLUMNS
 // 为准(name 210, component 84; tags 已并入名称格无独立列)。
 
 // Mock the API client
@@ -42,6 +42,8 @@ jest.mock('../../lib/api-client', () => ({
       boardFeed: jest.fn(),
       delete: jest.fn(),
       update: jest.fn(),
+      batchDelete: jest.fn(),
+      batchUpdate: jest.fn(),
     },
     tags: {
       list: jest.fn(),
@@ -246,6 +248,8 @@ describe('Requirements Board (需求台)', () => {
     });
     (api.projects.update as jest.Mock).mockResolvedValue({ data: {} });
     (api.projects.delete as jest.Mock).mockResolvedValue({ data: {} });
+    (api.projects.batchDelete as jest.Mock).mockResolvedValue({ data: { deleted: 0, items: [] } });
+    (api.projects.batchUpdate as jest.Mock).mockResolvedValue({ data: { updated: 0, skipped: 0, items: [] } });
     (api.roles.list as jest.Mock).mockResolvedValue({
       data: [
         { id: 'r-se', name: 'SE' },
@@ -291,10 +295,11 @@ describe('Requirements Board (需求台)', () => {
 
       const header = screen.getByTestId('requirements-table').querySelector('.requirements-thead');
       const headers = Array.from(header?.children ?? []).map((el) => el.textContent);
-      // B3a 13 列(2026-09-23 板卡重构): 名称|编号|组件|状态|代码规模|人力人月|
-      // SE|MDE|版本规划|交付计划|优先级|实名投入|操作(标签已并入名称格)
+      // 前置选择列(2026-10-11 批量操作): 表头是全选三态框,无文本;
+      // 其后 B3a 14 列: 名称|编号|组件|状态|代码规模|人力人月|SE|MDE|
+      // 版本规划|交付计划|迭代|优先级|实名投入|操作(标签已并入名称格)
       expect(headers).toEqual([
-        'Name', 'Number', 'Component', 'Lifecycle', 'KLOC', 'Effort(pm)',
+        '', 'Name', 'Number', 'Component', 'Lifecycle', 'KLOC', 'Effort(pm)',
         'SE', 'MDE', 'Version', 'Release', 'Iteration', 'Priority', 'Primary Dev', 'Actions'
       ]);
     });
@@ -751,9 +756,9 @@ describe('Requirements Board (需求台)', () => {
       });
 
       const srRow = screen.getByText('Project Alpha').closest('.requirements-row')!;
-      // 规模/人力: 仅 proj-1a 有评估 4K/8pm
-      expect(srRow.querySelector('.req-kloc-num')!.textContent).toBe('4K');
-      expect(srRow.querySelector('.req-effort-num')!.textContent).toBe('8');
+      // 规模/人力: 仅 proj-1a 有评估 4K/8pm;SR 自身无值 → 子行聚合推导,带 Σ 标记(db7dfb4)
+      expect(srRow.querySelector('.req-kloc-num')!.textContent).toBe('Σ4K');
+      expect(srRow.querySelector('.req-effort-num')!.textContent).toBe('Σ8');
       // SE/MDE: Σ粗估(1.5/0.8,单人无 ·N人 尾注)
       expect(Array.from(srRow.querySelectorAll('.req-role--agg')).map((el) => el.textContent))
         .toEqual(['Σ1.5', 'Σ0.8']);
@@ -904,7 +909,7 @@ describe('Requirements Board (需求台)', () => {
     });
 
     test('persisted widths are applied as CSS vars on the table', async () => {
-      localStorage.setItem('req-col-widths-v4', JSON.stringify({ version: 100, priority: 80 }));
+      localStorage.setItem('req-col-widths-v5', JSON.stringify({ version: 100, priority: 80 }));
       renderComponent();
 
       await waitFor(() => {
@@ -914,12 +919,12 @@ describe('Requirements Board (需求台)', () => {
       const table = screen.getByTestId('requirements-table');
       expect(table.style.getPropertyValue('--req-w-version')).toBe('100px');
       expect(table.style.getPropertyValue('--req-w-priority')).toBe('80px');
-      // 默认宽以 REQ_COLUMNS 为准: name 210(v4 列集)
-      expect(table.style.getPropertyValue('--req-w-name')).toBe('210px');
+      // 默认宽以 REQ_COLUMNS 为准: name 186(v5 列集,前置选择列让位)
+      expect(table.style.getPropertyValue('--req-w-name')).toBe('186px');
     });
 
     test('dragging the name column just sets its width (direct width, no elastic)', async () => {
-      localStorage.setItem('req-col-widths-v4', JSON.stringify({ name: 150 }));
+      localStorage.setItem('req-col-widths-v5', JSON.stringify({ name: 150 }));
       renderComponent();
 
       await waitFor(() => {
@@ -933,7 +938,7 @@ describe('Requirements Board (需求台)', () => {
     });
 
     test('dragging a column pins its width (no cap mechanism)', async () => {
-      localStorage.setItem('req-col-widths-v4', JSON.stringify({ component: 200 }));
+      localStorage.setItem('req-col-widths-v5', JSON.stringify({ component: 200 }));
       renderComponent();
 
       await waitFor(() => {
@@ -947,7 +952,7 @@ describe('Requirements Board (需求台)', () => {
     });
 
     test('double-click on a grip resets that column and persists the change', async () => {
-      localStorage.setItem('req-col-widths-v4', JSON.stringify({ component: 150 }));
+      localStorage.setItem('req-col-widths-v5', JSON.stringify({ component: 150 }));
       renderComponent();
 
       await waitFor(() => {
@@ -963,7 +968,7 @@ describe('Requirements Board (需求台)', () => {
       await waitFor(() => {
         expect(table.style.getPropertyValue('--req-w-component')).toBe('84px');
       });
-      expect(JSON.parse(localStorage.getItem('req-col-widths-v4')!)).toEqual({});
+      expect(JSON.parse(localStorage.getItem('req-col-widths-v5')!)).toEqual({});
     });
   });
 
@@ -1162,6 +1167,172 @@ describe('Requirements Board (需求台)', () => {
 
       await waitFor(() => {
         expect(screen.getByText('No requirements')).toBeInTheDocument();
+      });
+    });
+  });
+
+  // 2026-10-11 批量选择与批量操作: 统一闭包(勾 SR=整棵子树),条上计数=作用行数
+  describe('Bulk selection & operations (批量选择)', () => {
+    const rowCheckbox = (index: number) =>
+      document.querySelectorAll('.requirements-row .req-select .req-checkbox')[index] as HTMLElement;
+    const headerCheckbox = () =>
+      document.querySelector('.requirements-thead .req-select .req-checkbox') as HTMLElement;
+    /** 行序(平铺排序后): 0=Beta(plain P1) 1=Alpha(SR) 2=1a(child) 3=1b(child) */
+
+    test('checking an SR selects its whole subtree — bar counts children too', async () => {
+      renderComponent();
+      await waitFor(() => expect(screen.getByText('Project Alpha')).toBeInTheDocument());
+
+      fireEvent.click(rowCheckbox(1)); // SR 行
+      expect(screen.getByTestId('req-bulk-bar')).toBeInTheDocument();
+      // 闭包: proj-1 + 1a + 1b = 3 项
+      expect(screen.getByTestId('req-bulk-bar').textContent).toContain('3 selected');
+      expect(rowCheckbox(1).dataset.state).toBe('checked');
+      expect(rowCheckbox(2).dataset.state).toBe('checked');
+    });
+
+    test('partial subtree → SR & header show indeterminate; header select-all covers all rows', async () => {
+      renderComponent();
+      await waitFor(() => expect(screen.getByText('Project Alpha')).toBeInTheDocument());
+
+      fireEvent.click(rowCheckbox(2)); // 仅子行 1a
+      expect(rowCheckbox(1).dataset.state).toBe('indeterminate');
+      expect(headerCheckbox().dataset.state).toBe('indeterminate');
+      expect(screen.getByTestId('req-bulk-bar').textContent).toContain('1 selected');
+
+      fireEvent.click(headerCheckbox()); // 全选当前筛选
+      expect(screen.getByTestId('req-bulk-bar').textContent).toContain('4 selected');
+      expect(headerCheckbox().dataset.state).toBe('checked');
+
+      fireEvent.click(headerCheckbox()); // 再点全清
+      expect(screen.queryByTestId('req-bulk-bar')).not.toBeInTheDocument();
+    });
+
+    test('checkbox click does not navigate (row click still opens detail)', async () => {
+      renderComponent();
+      await waitFor(() => expect(screen.getByText('Project Alpha')).toBeInTheDocument());
+
+      fireEvent.click(rowCheckbox(0));
+      expect(mockNavigate).not.toHaveBeenCalled();
+      fireEvent.click(document.querySelectorAll('.requirements-row')[0]);
+      expect(mockNavigate).toHaveBeenCalled();
+    });
+
+    test('batch priority applies to the full selection via batch-update', async () => {
+      renderComponent();
+      await waitFor(() => expect(screen.getByText('Project Alpha')).toBeInTheDocument());
+
+      fireEvent.click(rowCheckbox(0)); // Beta
+      fireEvent.click(screen.getByTestId('bulk-priority-btn'));
+      await waitFor(() => {
+        expect(document.querySelector('[data-testid="bulk-priority-btn-popover"]')).toBeInTheDocument();
+      });
+      const p1Item = Array.from(
+        document.querySelectorAll('[data-testid="bulk-priority-btn-popover"] .cell-pop-item')
+      ).find((b) => b.textContent?.includes('P1')) as HTMLElement;
+      fireEvent.click(p1Item);
+
+      await waitFor(() => {
+        expect(api.projects.batchUpdate).toHaveBeenCalledWith(['proj-2'], { priority: 1 });
+      });
+    });
+
+    test('batch version: input applies; empty input offers explicit clear', async () => {
+      renderComponent();
+      await waitFor(() => expect(screen.getByText('Project Alpha')).toBeInTheDocument());
+
+      fireEvent.click(rowCheckbox(0));
+      fireEvent.click(screen.getByTestId('bulk-product_version-btn'));
+      await waitFor(() => {
+        expect(document.querySelector('.bulk-version-input')).toBeInTheDocument();
+      });
+      const input = document.querySelector('.bulk-version-input') as HTMLInputElement;
+      // 空输入 → 按钮文案显式"清空 N 项"(准破坏性可见)
+      const applyBtn = () => document.querySelector('.bulk-apply-btn') as HTMLElement;
+      expect(applyBtn().textContent).toContain('Clear 1 items');
+
+      fireEvent.change(input, { target: { value: 'B' } });
+      expect(applyBtn().textContent).toContain('Apply to 1 items');
+      fireEvent.click(applyBtn());
+
+      await waitFor(() => {
+        expect(api.projects.batchUpdate).toHaveBeenCalledWith(['proj-2'], { product_version: 'B' });
+      });
+    });
+
+    test('batch tags: add chips submit add/remove sets; remove section lists tags on selection', async () => {
+      renderComponent();
+      await waitFor(() => expect(screen.getByText('Project Alpha')).toBeInTheDocument());
+
+      fireEvent.click(rowCheckbox(1)); // SR 子树( proj-1 带 Reserved/Urgent 标签)
+      fireEvent.click(screen.getByTestId('bulk-tags-btn'));
+      await waitFor(() => {
+        expect(document.querySelector('[data-testid="bulk-tags-btn-popover"]')).toBeInTheDocument();
+      });
+      // 移除段候选=选中项身上的标签(Reserved 在 mock tags 里);
+      // 按段圈定——add 段同名 chip 也在 DOM,不能混点
+      const removeSection = Array.from(document.querySelectorAll('.bulk-tags-section'))[1];
+      const removeChips = Array.from(removeSection.querySelectorAll('.bulk-tag-chip'))
+        .filter((c) => c.textContent?.includes('Reserved'));
+      expect(removeChips.length).toBeGreaterThan(0);
+
+      fireEvent.click(removeChips[0]); // 加入移除集(chip 变红)
+      fireEvent.click(document.querySelector('.bulk-apply-btn')!);
+
+      await waitFor(() => {
+        expect(api.projects.batchUpdate).toHaveBeenCalledWith(
+          ['proj-1', 'proj-1a', 'proj-1b'],
+          { add_tag_ids: [], remove_tag_ids: ['1'] }
+        );
+      });
+    });
+
+    test('batch iteration sends full id list (server skips SR rows)', async () => {
+      renderComponent();
+      await waitFor(() => expect(screen.getByText('Project Alpha')).toBeInTheDocument());
+
+      fireEvent.click(rowCheckbox(1)); // SR 子树
+      fireEvent.click(screen.getByTestId('bulk-iteration-btn'));
+      // 迭代列表是异步 query——等目标项渲染出来再点
+      await waitFor(() => {
+        const hit = Array.from(
+          document.querySelectorAll('[data-testid="bulk-iteration-btn-popover"] .cell-pop-item')
+        ).find((b) => b.textContent?.includes('Iter 2026-11'));
+        expect(hit).toBeInTheDocument();
+      });
+      const iterItem = Array.from(
+        document.querySelectorAll('[data-testid="bulk-iteration-btn-popover"] .cell-pop-item')
+      ).find((b) => b.textContent?.includes('Iter 2026-11')) as HTMLElement;
+      fireEvent.click(iterItem);
+
+      await waitFor(() => {
+        expect(api.projects.batchUpdate).toHaveBeenCalledWith(
+          ['proj-1', 'proj-1a', 'proj-1b'],
+          { iteration_id: 'iter-11' }
+        );
+      });
+    });
+
+    test('batch delete is two-click confirm, then clears selection', async () => {
+      (api.projects.batchDelete as jest.Mock).mockResolvedValueOnce({
+        data: { deleted: 1, items: [{ id: 'proj-2', name: 'Project Beta' }] }
+      });
+      renderComponent();
+      await waitFor(() => expect(screen.getByText('Project Alpha')).toBeInTheDocument());
+
+      fireEvent.click(rowCheckbox(0)); // Beta
+      const delBtn = screen.getByTestId('bulk-delete-btn');
+      expect(delBtn.textContent).toBe('Delete');
+      fireEvent.click(delBtn); // 第一次: 进入确认态
+      expect(delBtn.textContent).toContain('Delete 1 items?');
+      fireEvent.click(delBtn); // 第二次: 执行
+
+      await waitFor(() => {
+        expect(api.projects.batchDelete).toHaveBeenCalledWith(['proj-2']);
+      });
+      // 删除成功后选择清除,条退场
+      await waitFor(() => {
+        expect(screen.queryByTestId('req-bulk-bar')).not.toBeInTheDocument();
       });
     });
   });

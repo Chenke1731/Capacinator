@@ -12,6 +12,9 @@ router.get('/', controller.getAll);
 router.get('/board-feed', controller.boardFeed); // before /:id — static segment must win
 router.get('/:id', controller.getById);
 router.post('/', controller.create);
+// 需求台批量操作 — static segments must win over any future /:id POST route
+router.post('/batch-delete', controller.batchDelete);
+router.post('/batch-update', controller.batchUpdate);
 router.put('/:id', controller.update);
 router.delete('/:id', controller.delete);
 

@@ -1049,6 +1049,241 @@ export class ProjectsController extends BaseController {
     }
   })
 
+  /**
+   * 需求台批量删除 (2026-10-11): 展开后代闭包(勾 SR 必连子树), 叶子先删
+   * (避 self-FK), 单事务全有或全无; ids 不存在 → 400 不删任何行。
+   */
+  batchDelete = this.asyncHandler(async (req: RequestWithLogging, res: Response) => {
+    const ids = req.body?.ids;
+    if (!Array.isArray(ids) || ids.length === 0 || ids.length > 500 || ids.some((v: unknown) => typeof v !== 'string')) {
+      res.status(400).json({
+        error: 'Validation error',
+        message: 'ids must be a non-empty array of at most 500 project ids'
+      });
+      return;
+    }
+    const uniqueIds = [...new Set(ids as string[])];
+
+    const result = await this.executeQuery(async () => {
+      const roots = await this.db('projects').whereIn('id', uniqueIds).select('id', 'name', 'parent_id');
+      const found = new Set(roots.map((r: any) => r.id));
+      const missing = uniqueIds.filter((id) => !found.has(id));
+      if (missing.length > 0) {
+        res.status(400).json({
+          error: 'Validation error',
+          message: `Projects not found: ${missing.join(', ')}`
+        });
+        return null;
+      }
+
+      // BFS 展开后代闭包,按层收集——层序倒序即"叶子先删"序
+      const levels: any[][] = [roots];
+      let frontier = roots.map((r: any) => r.id);
+      const seen = new Set(found);
+      while (frontier.length > 0) {
+        const kids = await this.db('projects').whereIn('parent_id', frontier).select('id', 'name', 'parent_id');
+        const fresh = kids.filter((k: any) => !seen.has(k.id));
+        if (fresh.length === 0) break;
+        fresh.forEach((k: any) => seen.add(k.id));
+        levels.push(fresh);
+        frontier = fresh.map((k: any) => k.id);
+      }
+      const closure = levels.flat();
+
+      await this.db.transaction(async (trx: any) => {
+        for (let depth = levels.length - 1; depth >= 0; depth--) {
+          await trx('projects').whereIn('id', levels[depth].map((r: any) => r.id)).del();
+        }
+      });
+
+      // 审计失败不回滚已提交的删除(与单删同语义),但记录告警
+      try {
+        await (req as any).logBulkAuditEvents?.(
+          closure.map((row: any) => ({
+            tableName: 'projects',
+            recordId: row.id,
+            action: 'DELETE' as const,
+            oldValues: row,
+            comment: 'batch-delete'
+          }))
+        );
+      } catch (auditError) {
+        logger.warn('batch-delete audit logging failed', { error: (auditError as Error).message });
+      }
+      this.logBusinessOperation(req, 'BATCH_DELETE', 'projects', uniqueIds.length.toString(), {
+        deleted: closure.length,
+        requested: uniqueIds.length
+      });
+
+      return {
+        deleted: closure.length,
+        items: closure.map((r: any) => ({ id: r.id, name: r.name }))
+      };
+    }, req, res, 'Failed to batch delete projects');
+
+    if (result) {
+      this.sendSuccess(req, res, result, `Deleted ${result.deleted} projects`);
+    }
+  })
+
+  /**
+   * 需求台批量字段更新 (2026-10-11): patch 白名单——状态机字段(lifecycle_state
+   * 等)一律 400 拒绝; 标签为合并语义((现有 ∪ add) − remove,区别于单条 update
+   * 的全量替换); 迭代跳过有子行的 SR 行(其迭代列是子行聚合只读窗),计入 skipped。
+   */
+  batchUpdate = this.asyncHandler(async (req: RequestWithLogging, res: Response) => {
+    const ids = req.body?.ids;
+    const patch = req.body?.patch ?? {};
+    if (!Array.isArray(ids) || ids.length === 0 || ids.length > 500 || ids.some((v: unknown) => typeof v !== 'string')) {
+      res.status(400).json({
+        error: 'Validation error',
+        message: 'ids must be a non-empty array of at most 500 project ids'
+      });
+      return;
+    }
+
+    const ALLOWED_PATCH_KEYS = ['product_version', 'release_version', 'priority', 'iteration_id', 'add_tag_ids', 'remove_tag_ids'];
+    const unknownKeys = Object.keys(patch).filter((k) => !ALLOWED_PATCH_KEYS.includes(k));
+    if (unknownKeys.length > 0) {
+      res.status(400).json({
+        error: 'Validation error',
+        message: `Unsupported patch fields: ${unknownKeys.join(', ')}`
+      });
+      return;
+    }
+    if (Object.keys(patch).length === 0) {
+      res.status(400).json({ error: 'Validation error', message: 'patch must not be empty' });
+      return;
+    }
+
+    const scalarPatch: Record<string, any> = {};
+    const normVersion = (v: unknown) => (v === null ? null : String(v ?? '').trim() || null);
+    if ('product_version' in patch) scalarPatch.product_version = normVersion(patch.product_version);
+    if ('release_version' in patch) scalarPatch.release_version = normVersion(patch.release_version);
+    if ('priority' in patch) {
+      const p = patch.priority;
+      if (!Number.isInteger(p) || p < 1 || p > 5) {
+        res.status(400).json({ error: 'Validation error', message: 'priority must be an integer between 1 and 5' });
+        return;
+      }
+      scalarPatch.priority = p;
+    }
+    const hasIteration = 'iteration_id' in patch;
+    if (hasIteration && patch.iteration_id !== null && typeof patch.iteration_id !== 'string') {
+      res.status(400).json({ error: 'Validation error', message: 'iteration_id must be a string or null' });
+      return;
+    }
+    if (hasIteration) scalarPatch.iteration_id = patch.iteration_id;
+    const tagIdList = (v: unknown, field: string) => {
+      if (v === undefined) return null;
+      if (!Array.isArray(v) || v.some((t) => typeof t !== 'string' && typeof t !== 'number')) {
+        res.status(400).json({ error: 'Validation error', message: `${field} must be an array of tag ids` });
+        return undefined;
+      }
+      return v.map((t) => String(t));
+    };
+    const addTags = tagIdList(patch.add_tag_ids, 'add_tag_ids');
+    if (addTags === undefined) return;
+    const removeTags = tagIdList(patch.remove_tag_ids, 'remove_tag_ids');
+    if (removeTags === undefined) return;
+
+    const uniqueIds = [...new Set(ids as string[])];
+
+    const result = await this.executeQuery(async () => {
+      const rows = await this.db('projects').whereIn('id', uniqueIds).select('id', 'name');
+      const found = new Set(rows.map((r: any) => r.id));
+      const missing = uniqueIds.filter((id) => !found.has(id));
+      if (missing.length > 0) {
+        res.status(400).json({
+          error: 'Validation error',
+          message: `Projects not found: ${missing.join(', ')}`
+        });
+        return null;
+      }
+
+      // 迭代/标签引用存在性前置校验(事务内 FK 失败的报错不友好)
+      if (hasIteration && patch.iteration_id !== null) {
+        const iter = await this.db('iterations').where({ id: patch.iteration_id }).first();
+        if (!iter) {
+          res.status(400).json({ error: 'Validation error', message: '迭代不存在' });
+          return null;
+        }
+      }
+      const referencedTagIds = [...new Set([...(addTags ?? []), ...(removeTags ?? [])])];
+      if (referencedTagIds.length > 0) {
+        const existingTags = await this.db('tags').whereIn('id', referencedTagIds).select('id');
+        const existingSet = new Set(existingTags.map((t: any) => String(t.id)));
+        const bad = referencedTagIds.filter((t) => !existingSet.has(t));
+        if (bad.length > 0) {
+          res.status(400).json({ error: 'Validation error', message: `Tags not found: ${bad.join(', ')}` });
+          return null;
+        }
+      }
+
+      // 迭代跳过有子行的行(SR): 其迭代列是子行聚合只读窗,写入即脏数据
+      let targetRows = rows;
+      let skippedIteration = 0;
+      if (hasIteration) {
+        const childParents = await this.db('projects').whereIn('parent_id', uniqueIds).distinct('parent_id');
+        const withChildren = new Set(childParents.map((r: any) => r.parent_id));
+        targetRows = rows.filter((r: any) => !withChildren.has(r.id));
+        skippedIteration = rows.length - targetRows.length;
+      }
+
+      const auditEvents: any[] = [];
+      await this.db.transaction(async (trx: any) => {
+        for (const row of targetRows) {
+          if (Object.keys(scalarPatch).length > 0) {
+            await trx('projects').where({ id: row.id }).update({ ...scalarPatch, updated_at: new Date() });
+          }
+          if (addTags !== null || removeTags !== null) {
+            const current = await trx('project_tags').where('project_id', row.id).select('tag_id');
+            const currentIds = current.map((t: any) => String(t.tag_id));
+            const next = new Set([...currentIds, ...(addTags ?? [])].filter((t) => !(removeTags ?? []).includes(t)));
+            const nextIds = [...next];
+            const toAdd = nextIds.filter((t: string) => !currentIds.includes(t));
+            const toRemove = currentIds.filter((t: string) => !nextIds.includes(t));
+            if (toAdd.length > 0) {
+              await trx('project_tags').insert(toAdd.map((tagId) => ({ project_id: row.id, tag_id: tagId })));
+            }
+            if (toRemove.length > 0) {
+              await trx('project_tags').where('project_id', row.id).whereIn('tag_id', toRemove).del();
+            }
+            if (toAdd.length === 0 && toRemove.length === 0 && Object.keys(scalarPatch).length === 0) continue; // 无变化不记审计
+          }
+          auditEvents.push({
+            tableName: 'projects',
+            recordId: row.id,
+            action: 'UPDATE' as const,
+            newValues: { ...scalarPatch, ...(addTags !== null || removeTags !== null ? { tag_ids: 'merged' } : {}) },
+            comment: 'batch-update'
+          });
+        }
+      });
+
+      try {
+        await (req as any).logBulkAuditEvents?.(auditEvents);
+      } catch (auditError) {
+        logger.warn('batch-update audit logging failed', { error: (auditError as Error).message });
+      }
+      this.logBusinessOperation(req, 'BATCH_UPDATE', 'projects', uniqueIds.length.toString(), {
+        updated: targetRows.length,
+        skippedIteration,
+        fields: Object.keys(patch)
+      });
+
+      return {
+        updated: targetRows.length,
+        skipped: skippedIteration,
+        items: targetRows.map((r: any) => ({ id: r.id, name: r.name }))
+      };
+    }, req, res, 'Failed to batch update projects');
+
+    if (result) {
+      this.sendSuccess(req, res, result, `Updated ${result.updated} projects`);
+    }
+  })
+
   getHealth = this.asyncHandler(async (req: RequestWithLogging, res: Response) => {
     const result = await this.executeQuery(async () => {
       const healthData = await this.db('project_health_view').select('*');

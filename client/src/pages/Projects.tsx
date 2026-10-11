@@ -9,6 +9,8 @@ import { api } from '../lib/api-client';
 import { queryKeys } from '../lib/queryKeys';
 import { PriorityCell, TagsCell, ComponentCell } from '../components/boards/EditableCells';
 import { KlocCell, EffortCell, RoleCell, PrimaryDevCell, VersionPart, ReleaseCell, IterationCell } from '../components/boards/BoardCells';
+import { ReqCheckbox } from '../components/boards/ReqCheckbox';
+import { BulkActionBar } from '../components/boards/BulkActionBar';
 import { ErrorMessage } from '../components/ui/ErrorMessage';
 import ProjectModal from '../components/modals/ProjectModal';
 import { LifecycleCellControls } from '../components/lifecycle/LifecycleCellControls';
@@ -81,10 +83,12 @@ const VERSION_NONE = '__none__';
     列宽走 CSS 变量(--req-w-*),thead/row/两断点模板统一引用,一处设置处处生效;
     总量(--req-total)做行 min-width 兜底——拖宽不挤压他列,超出容器横向滚动。 */
 const REQ_COLUMNS = [
-  /* B3a 列集(设计 §1): 名称|编号|组件|状态|代码规模|人力|SE|MDE|版本规划|交付计划|优先级|实名投入|操作
-     预算(设计 §1 复核): 全列 1374≤1380@1680; 中档藏组件 1282≤1300@1600;
-     紧凑藏 组件/编号/交付/实名 1010≤1066@1366 */
-  { key: 'name', def: [210, 210, 210], min: 120, max: 640 },
+  /* B3a 列集(设计 §1): 选择|名称|编号|组件|状态|代码规模|人力|SE|MDE|版本规划|交付计划|迭代|优先级|实名投入|操作
+     选择列(2026-10-11 批量操作): 前置 26px,预算由名称列让位(210→186)净零。
+     预算(设计 §1 复核): 全列 1376≤1380@1680; 中档藏组件 1284≤1300@1600;
+     紧凑藏 组件/编号/交付/实名 1012≤1066@1366 */
+  { key: 'select', def: [26, 26, 26], min: 26, max: 26 },
+  { key: 'name', def: [186, 186, 186], min: 120, max: 640 },
   { key: 'number', def: [84, 80, 0], min: 56, max: 200 },
   { key: 'component', def: [84, 84, 0], min: 72, max: 240 },
   { key: 'lifecycle', def: [200, 200, 196], min: 170, max: 420 },
@@ -100,8 +104,8 @@ const REQ_COLUMNS = [
   { key: 'actions', def: [92, 92, 92], min: 64, max: 200 }
 ] as const;
 type ReqColKey = (typeof REQ_COLUMNS)[number]['key'];
-/* v2: 列集变更(新增构成/规模列)必须 bump 版本,旧宽度按旧列预算调优,残留会挤压名称列 */
-const REQ_WIDTHS_STORE = 'req-col-widths-v4';
+/* v5: 列集变更(前置选择列)必须 bump 版本,旧宽度按旧列预算调优,残留会挤压名称列 */
+const REQ_WIDTHS_STORE = 'req-col-widths-v5';
 const clampWidth = (col: (typeof REQ_COLUMNS)[number], w: number) =>
   Math.round(Math.min(col.max, Math.max(col.min, w)));
 
@@ -500,6 +504,67 @@ export function Projects() {
 
   const invalidate = () => queryClient.invalidateQueries({ queryKey: queryKeys.projects.all });
 
+  // ── 批量选择模型(2026-10-11): 统一闭包——勾 SR=整棵子树入选; ──
+  // 全部操作(含删除)作用于同一集合,条上计数=实际作用行数(含折叠子行);
+  // 筛选/折叠变化不丢选择;删除成功后仅移除已删 id,更新后保持(允许链式)。
+  const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
+  const toggleIds = (ids: string[], select: boolean) => {
+    setSelectedIds((prev) => {
+      const next = new Set(prev);
+      for (const id of ids) {
+        if (select) next.add(id);
+        else next.delete(id);
+      }
+      return next;
+    });
+  };
+  const triState = (ids: string[]): boolean | 'indeterminate' => {
+    let hit = 0;
+    for (const id of ids) if (selectedIds.has(id)) hit += 1;
+    return hit === 0 ? false : hit === ids.length ? true : 'indeterminate';
+  };
+  /** 全选作用域=当前筛选结果全部行(含折叠子行),从 trees 直接取 */
+  const viewRowIds = useMemo(
+    () => trees.flatMap((tr) => [tr.project.id, ...tr.children.map((c: any) => c.id)]),
+    [trees]
+  );
+  const selectedList = useMemo(() => [...selectedIds], [selectedIds]);
+  /** 行索引(全量需求行,不受当前筛选影响——选择可跨筛选存续) */
+  const rowById = useMemo(() => new Map(demandRows.map((r: any) => [r.id as string, r])), [demandRows]);
+  /** 选中项身上出现过的标签并集(标签气泡"移除"段候选) */
+  const tagsOnSelection = useMemo(() => {
+    const s = new Set<string>();
+    for (const id of selectedIds) {
+      for (const tg of rowById.get(id)?.tags ?? []) s.add(String(tg.id));
+    }
+    return s;
+  }, [selectedIds, rowById]);
+
+  const batchDeleteMutation = useMutation({
+    mutationFn: (ids: string[]) => api.projects.batchDelete(ids),
+    onSuccess: (resp: any) => {
+      // axios 信封 {success, data:{deleted, items}} → 双层解包(防御取形)
+      const payload = resp?.data?.data ?? resp?.data ?? {};
+      const deleted = new Set<string>((payload.items ?? []).map((i: any) => i.id));
+      setSelectedIds((prev) => new Set([...prev].filter((id) => !deleted.has(id))));
+      invalidate();
+      showOkToast(t('projects:board.bulkDeleted', { n: payload.deleted ?? 0 }));
+    }
+  });
+  const batchUpdateMutation = useMutation({
+    mutationFn: ({ ids, patch }: { ids: string[]; patch: Record<string, unknown> }) => api.projects.batchUpdate(ids, patch),
+    onSuccess: (resp: any) => {
+      invalidate();
+      const payload = resp?.data?.data ?? resp?.data ?? {};
+      const n = payload.updated ?? 0;
+      const skipped = payload.skipped ?? 0;
+      showOkToast(skipped > 0
+        ? t('projects:board.bulkUpdatedSkip', { n, skip: skipped })
+        : t('projects:board.bulkUpdated', { n }));
+    }
+  });
+  const batchPending = batchDeleteMutation.isPending || batchUpdateMutation.isPending;
+
   // ── 列宽拖拽状态: localStorage 初始化,容器挂 CSS 变量驱动全部行/断点 ──
   const [colWidths, setColWidths] = useState<Partial<Record<ReqColKey, number>>>(() => {
     try {
@@ -571,6 +636,12 @@ export function Projects() {
   const showErrorToast = (msg: string) => {
     setErrorToast(msg);
     window.setTimeout(() => setErrorToast(null), 3000);
+  };
+  /** 批量操作成功反馈(2026-10-11): 与失败 toast 同形态 */
+  const [okToast, setOkToast] = useState<string | null>(null);
+  const showOkToast = (msg: string) => {
+    setOkToast(msg);
+    window.setTimeout(() => setOkToast(null), 3000);
   };
   // P2: 拦截所有 react-query mutation 失败 → toast
   useEffect(() => {
@@ -712,8 +783,16 @@ export function Projects() {
         </div>
       </div>
 
-      <div ref={tableRef} className="requirements-table" data-testid="requirements-table" style={colVars}>
+      <div ref={tableRef} className={`requirements-table ${selectedIds.size > 0 ? 'requirements-table--bulk' : ''}`} data-testid="requirements-table" style={colVars}>
         <div className="requirements-thead">
+          <span className="req-select req-select--head">
+            <ReqCheckbox
+              checked={viewRowIds.length > 0 ? triState(viewRowIds) : false}
+              onToggle={(next) => toggleIds(viewRowIds, next)}
+              label={t('projects:board.selectAll')}
+              disabled={viewRowIds.length === 0}
+            />
+          </span>
           {([
             ['projects:board.colName', 'name'],
             ['projects:board.colNumber', 'number'],
@@ -755,6 +834,13 @@ export function Projects() {
               className={`requirements-row ${warned ? 'requirements-row--warned' : ''} ${project.id === flashId ? 'requirements-row--flash' : ''}`}
               onClick={() => navigate(`/projects/${project.id}`)}
             >
+              <span className="req-select" onClick={(e) => e.stopPropagation()}>
+                <ReqCheckbox
+                  checked={selectedIds.has(project.id)}
+                  onToggle={(next) => toggleIds([project.id], next)}
+                  label={t('projects:board.selectRow', { name: project.name })}
+                />
+              </span>
               <span className="requirements-name">
                 <span className="requirements-name-text" title={project.name}>{project.name}</span>
                 {(project.lifecycle_warnings ?? []).length > 0 && (
@@ -829,12 +915,21 @@ export function Projects() {
           if (isSR) {
           // ── SR 折叠头行: 汇总只读(=子行之和,同一数据源);状态列=子行分布 ──
           const agg = row.agg!;
+          // 勾 SR=整棵子树入选(三态框),与批量删除的后代闭包语义一致
+          const subtreeIds = [project.id as string, ...(row.children ?? []).map((c: any) => c.id as string)];
           return (
             <div
               key={project.id}
               className={`requirements-row requirements-row--sr ${warned ? 'requirements-row--warned' : ''} ${project.id === flashId ? 'requirements-row--flash' : ''}`}
               onClick={() => navigate(`/projects/${project.id}`)}
             >
+              <span className="req-select" onClick={(e) => e.stopPropagation()}>
+                <ReqCheckbox
+                  checked={triState(subtreeIds)}
+                  onToggle={(next) => toggleIds(subtreeIds, next)}
+                  label={t('projects:board.selectTree', { name: project.name, count: subtreeIds.length })}
+                />
+              </span>
               <span className="requirements-name">
                 <button
                   type="button"
@@ -950,6 +1045,13 @@ export function Projects() {
                     className={`requirements-row requirements-row--child ${child.id === flashId ? 'requirements-row--flash' : ''}`}
                     onClick={() => navigate(`/projects/${child.id}`)}
                   >
+                    <span className="req-select" onClick={(e) => e.stopPropagation()}>
+                      <ReqCheckbox
+                        checked={selectedIds.has(child.id)}
+                        onToggle={(next) => toggleIds([child.id], next)}
+                        label={t('projects:board.selectRow', { name: child.name })}
+                      />
+                    </span>
                     <span className="requirements-name requirements-name--child">
                       <CornerDownRight size={13} className="req-child-arrow" />
                       <span className="requirements-name-text" title={child.name}>{child.name}</span>
@@ -1067,7 +1169,20 @@ export function Projects() {
 
       <TagManagerDialog isOpen={tagManagerOpen} onClose={() => setTagManagerOpen(false)} />
 
+      {selectedIds.size > 0 && (
+        <BulkActionBar
+          count={selectedIds.size}
+          pending={batchPending}
+          onClear={() => setSelectedIds(new Set())}
+          onBatchUpdate={(patch) => batchUpdateMutation.mutate({ ids: selectedList, patch })}
+          onBatchDelete={() => batchDeleteMutation.mutate(selectedList)}
+          allTags={tags}
+          tagsOnSelection={tagsOnSelection}
+        />
+      )}
+
       {errorToast && <div className='req-error-toast' role='alert'>{errorToast}</div>}
+      {okToast && <div className='req-error-toast req-ok-toast' role='status'>{okToast}</div>}
     </div>
   );
 }

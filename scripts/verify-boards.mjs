@@ -48,17 +48,20 @@ await page.addInitScript((a) => {
   localStorage.setItem('capacinator-language', 'zh-CN');
   localStorage.setItem('theme', 'dark');
   localStorage.removeItem('req-col-widths-v4');
+  localStorage.removeItem('req-col-widths-v5');
 }, auth);
 await page.goto(`${BASE}/projects`, { waitUntil: 'networkidle' });
 await page.waitForTimeout(2000);
 
 // ── 1. 三断点列预算 ──
-for (const [w, expectCols, label] of [[1600, 13, '中档(藏组件)'], [1680, 14, '全列'], [1366, 9, '紧凑(迭代列0宽)']]) {
+// 2026-10-11 前置选择列(+1 列): 中档 14 / 全列 15 / 紧凑 10
+for (const [w, expectCols, label] of [[1600, 14, '中档(藏组件)'], [1680, 15, '全列'], [1366, 10, '紧凑(迭代列0宽)']]) {
   const p2 = await browser.newPage({ viewport: { width: w, height: 900 } });
   await p2.addInitScript(() => {
     localStorage.setItem('capacinator_current_user', JSON.stringify({ id: 'eb8ecaf7-44a3-4384-a74b-2c18e9e894b1', name: '陈主管' }));
     localStorage.setItem('capacinator-language', 'zh-CN'); localStorage.setItem('theme', 'dark');
     localStorage.removeItem('req-col-widths-v4');
+    localStorage.removeItem('req-col-widths-v5');
   });
   await p2.goto(`${BASE}/projects`, { waitUntil: 'networkidle' });
   await p2.waitForTimeout(1600);
@@ -198,6 +201,9 @@ check('新列集(代码规模/人力/SE/MDE/实名投入)',
 {
   const count = await page.$eval('.board-count', el => el.textContent.trim());
   check('计数含 AR 口径', /共 \d+ 项需求/.test(count) && /含 \d+ 个 AR|0/.test(count) || /·/.test(count), count);
+  // 虚拟化: 目标行可能不在首屏 DOM(数据增长后此段曾恒崩)——先搜索隔离
+  await page.fill('[data-testid="search-input"]', '数据平台升级');
+  await page.waitForTimeout(500);
   const plain = page.locator('.requirements-row:not(.requirements-row--sr):not(.requirements-row--child)', { hasText: '数据平台升级' });
   await plain.locator('.requirements-name-text').click();
   await page.waitForSelector('.project-ref-code', { timeout: 8000 });
@@ -213,19 +219,27 @@ check('新列集(代码规模/人力/SE/MDE/实名投入)',
 
 // ── 8. ＋AR 与 SR 折叠 ──
 {
-  await page.locator('.requirements-row', { hasText: '移动端改版' }).first().waitFor({ timeout: 8000 }); // goBack 重挂后虚拟行尚未入 DOM
-  const arCount = await page.evaluate(() => {
-    const inSr = !!document.querySelector('.requirements-row--sr .req-ar-add');
+  // 虚拟化: 目标行可能不在首屏 DOM——断言各自搜索隔离,不再依赖全表恰好在视口
+  await page.fill('[data-testid="search-input"]', '客户门户改版');
+  await page.waitForTimeout(600);
+  const inSr = await page.evaluate(() => !!document.querySelector('.requirements-row--sr .req-ar-add'));
+  await page.fill('[data-testid="search-input"]', '移动端改版');
+  await page.waitForTimeout(600);
+  const inPlain = await page.evaluate(() => {
     const plain = [...document.querySelectorAll('.requirements-row:not(.requirements-row--sr):not(.requirements-row--child)')]
       .find(r => r.textContent.includes('移动端改版'));
-    return { inSr, inPlain: !!plain?.querySelector('.req-ar-add') };
+    return !!plain?.querySelector('.req-ar-add');
   });
-  check('＋AR 在名称格(SR+普通行)', arCount.inSr && arCount.inPlain);
+  check('＋AR 在名称格(SR+普通行)', inSr && inPlain);
+  await page.fill('[data-testid="search-input"]', '客户门户改版');
+  await page.waitForTimeout(600);
   const sr = page.locator('.requirements-row--sr', { hasText: '客户门户改版' });
   await sr.locator('.req-sr-toggle').click(); await page.waitForTimeout(250);
   const folded = await page.locator('.requirements-row--child').count();
   await sr.locator('.req-sr-toggle').click(); await page.waitForTimeout(250);
   check('SR 箭头折叠/展开', folded === 0 && (await page.locator('.requirements-row--child').count()) === 2);
+  await page.fill('[data-testid="search-input"]', '');
+  await page.waitForTimeout(500);
 }
 
 // ── 9. 排版契约(3 档+最小 11) ──
@@ -363,14 +377,15 @@ check('新列集(代码规模/人力/SE/MDE/实名投入)',
       if (!m || m[3] === '0') return false;
       return Math.max(+m[0], +m[1], +m[2]) - Math.min(+m[0], +m[1], +m[2]) > 12;
     };
-    let worst = 0;
+    let worst = { n: 0, row: '', els: [] };
     document.querySelectorAll('.requirements-row').forEach((r) => {
       // 头像(身份标识)不计入——纪律管的是状态信号泛滥,身份色同 Jira 头像
-      worst = Math.max(worst, [...r.querySelectorAll('*')].filter((e) => !String(e.className).includes('req-avatar') && e.getBoundingClientRect().width > 0 && sat(e)).length);
+      const bad = [...r.querySelectorAll('*')].filter((e) => !String(e.className).includes('req-avatar') && e.getBoundingClientRect().width > 0 && sat(e));
+      if (bad.length > worst.n) worst = { n: bad.length, row: r.querySelector('.requirements-name-text')?.textContent ?? '', els: bad.slice(0, 6).map((e) => `${e.tagName}.${String(e.className).split(' ').filter(Boolean).pop()}`) };
     });
     return worst;
   });
-  check(`行内彩色元素纪律 ≤5/行 (max=${colorMax})`, colorMax <= 5);
+  check(`行内彩色元素纪律 ≤5/行 (max=${colorMax.n}@${colorMax.row}: ${colorMax.els.join(',')})`, colorMax.n <= 5);
   check(`行高两档 {40,43} (${metrics.rowH})`, metrics.rowH.length <= 2 && metrics.rowH.every(h => h === 40 || h === 43));
 }
 
@@ -412,6 +427,116 @@ check('新列集(代码规模/人力/SE/MDE/实名投入)',
   check('行内零重叠', bad.length === 0, bad.slice(0, 2).join(' | '));
   const collapsed = await page.$$eval('svg', els => els.filter(e => { const r = e.getBoundingClientRect(); return (r.width < 2 && r.height >= 8) || (r.height < 2 && r.width >= 8); }).length);
   check('无塌陷图标', collapsed === 0);
+}
+
+// ── 10.5 批量选择与批量操作(2026-10-11) —— 自建临时行,不碰 demo 数据 ──
+{
+  const apiFetch = (path, opts = {}) => fetch(`${API}${path}`, {
+    ...opts,
+    headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${auth.accessToken}`, ...(opts.headers || {}) },
+  });
+  // 复用既有需求行的类型字段(创建端点要求 project_sub_type_id)
+  const feed = await (await apiFetch('/api/projects/board-feed')).json();
+  const feedRows = feed?.data?.data ?? feed?.data ?? [];
+  const donor = feedRows.find((r) => r.project_type_name && String(r.project_type_name).includes('需求'));
+  if (!donor) {
+    check('批量段: 找到需求类型模板行', false, 'board-feed 无需求行');
+  } else {
+    // board-feed 投影只有 sub_type 名——从详情行补全 id(创建端点必填)
+    const donorFull = await (await apiFetch(`/api/projects/${donor.id}`)).json();
+    const subTypeId = donorFull?.data?.project_sub_type_id;
+    // 前置清扫(上次失败残留)+ 自建 SR+2AR 树
+    const stale = feedRows.filter((r) => String(r.name).startsWith('GUARD-BULK'));
+    if (stale.length) await apiFetch('/api/projects/batch-delete', { method: 'POST', body: JSON.stringify({ ids: stale.map((r) => r.id) }) }).catch(() => {});
+    const mk = (name, parentId) => apiFetch('/api/projects', {
+      method: 'POST',
+      body: JSON.stringify({
+        name, priority: 4,
+        project_type_id: donor.project_type_id,
+        project_sub_type_id: subTypeId,
+        ...(parentId ? { parent_id: parentId } : {})
+      })
+    });
+    const sr = await (await mk('GUARD-BULK-SR')).json();
+    const srId = sr?.data?.id;
+    const c1 = await (await mk('GUARD-BULK-AR1', srId)).json();
+    const c2 = await (await mk('GUARD-BULK-AR2', srId)).json();
+    const guardIds = [srId, c1?.data?.id, c2?.data?.id].filter(Boolean);
+    check('批量段: 临时行就绪(SR+2AR)', guardIds.length === 3, guardIds.join(',').slice(0, 40));
+
+    // 搜索隔离: 只呈现守卫树(新行经 API 创建,客户端缓存没有——必须重载)
+    await page.reload({ waitUntil: 'networkidle' });
+    await page.waitForTimeout(2000);
+    await page.fill('[data-testid="search-input"]', 'GUARD-BULK');
+    await page.waitForTimeout(700);
+    const srCheck = page.locator('.requirements-row--sr .req-select .req-checkbox').first();
+    const headerCheck = page.locator('.requirements-thead .req-select .req-checkbox');
+
+    // 勾 SR=整棵子树(三态闭包),条计数=作用行数
+    await srCheck.click();
+    await page.waitForTimeout(300);
+    const barTxt1 = await page.textContent('[data-testid="req-bulk-bar"]');
+    check('勾 SR=整树入选(条计数 3 项)', barTxt1.includes('已选 3 项'), barTxt1.trim().slice(0, 30));
+    check('SR 复选框全选态', (await srCheck.getAttribute('data-state')) === 'checked');
+    check('表头全选态(筛选视图=守卫树)', (await headerCheck.getAttribute('data-state')) === 'checked');
+
+    // 取消一个子行 → SR 与表头转半选
+    const childCheck = page.locator('.requirements-row--child .req-select .req-checkbox').first();
+    await childCheck.click();
+    await page.waitForTimeout(300);
+    check('子行取消后 SR 半选', (await srCheck.getAttribute('data-state')) === 'indeterminate');
+    check('子行取消后表头半选', (await headerCheck.getAttribute('data-state')) === 'indeterminate');
+    const barTxt2 = await page.textContent('[data-testid="req-bulk-bar"]');
+    check('半选态条计数 2 项', barTxt2.includes('已选 2 项'), barTxt2.trim().slice(0, 30));
+
+    // 表头全选 → 批量优先级 P1 落库
+    await headerCheck.click();
+    await page.waitForTimeout(300);
+    await page.click('[data-testid="bulk-priority-btn"]');
+    await page.waitForSelector('[data-testid="bulk-priority-btn-popover"] .cell-pop-item');
+    await page.click('[data-testid="bulk-priority-btn-popover"] .cell-pop-item:first-child');
+    await page.waitForTimeout(1200);
+    const after = await (await apiFetch('/api/projects/board-feed')).json();
+    const afterRows = (after?.data?.data ?? after?.data ?? []).filter((r) => guardIds.includes(r.id));
+    check('批量优先级落库(3 行 P1)', afterRows.length === 3 && afterRows.every((r) => Number(r.priority) === 1),
+      afterRows.map((r) => r.priority).join(','));
+
+    // 批量条子元素零重叠(浮条 vs 表格属合法遮挡,不扫)
+    const barOverlap = await page.evaluate(() => {
+      const bar = document.querySelector('[data-testid="req-bulk-bar"]');
+      if (!bar) return -1;
+      const els = [...bar.querySelectorAll('button, span')].filter((e) => {
+        const r = e.getBoundingClientRect();
+        return r.width > 0 && r.height > 0;
+      });
+      for (let i = 0; i < els.length; i++) {
+        for (let j = i + 1; j < els.length; j++) {
+          if (els[i].contains(els[j]) || els[j].contains(els[i])) continue;
+          const a = els[i].getBoundingClientRect(), b = els[j].getBoundingClientRect();
+          if (Math.min(a.right, b.right) - Math.max(a.left, b.left) > 2 &&
+              Math.min(a.bottom, b.bottom) - Math.max(a.top, b.top) > 2) return 1;
+        }
+      }
+      return 0;
+    });
+    check('批量条子元素零重叠', barOverlap === 0);
+
+    // 二次确认删除 → 树消失
+    const del = page.locator('[data-testid="bulk-delete-btn"]');
+    const delTxt1 = (await del.textContent()).trim();
+    await del.click();
+    const delTxt2 = (await del.textContent()).trim();
+    check('删除二次确认文案含最终数', delTxt1 === '删除' && delTxt2.includes('3 项'), `${delTxt1}→${delTxt2}`);
+    await del.click();
+    await page.waitForTimeout(1500);
+    const rowsLeft = await page.locator('.requirements-row').count();
+    const barGone = await page.locator('[data-testid="req-bulk-bar"]').count();
+    check('批量删除后树消失+选择清空(条退场)', rowsLeft === 0 && barGone === 0, `rows=${rowsLeft} bar=${barGone}`);
+
+    // 收尾清扫(断言半途失败也兜底)
+    await apiFetch('/api/projects/batch-delete', { method: 'POST', body: JSON.stringify({ ids: guardIds }) }).catch(() => {});
+    await page.fill('[data-testid="search-input"]', '');
+  }
 }
 
 // ── 11. 零错误零弹窗 ──

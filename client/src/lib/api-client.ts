@@ -331,6 +331,11 @@ export const api = {
     create: (data: Partial<Project>) => apiClient.post<{ data: Project }>('/projects', data),
     update: (id: string, data: Partial<Project>) => apiClient.put<{ data: Project }>(`/projects/${id}`, data),
     delete: (id: string) => apiClient.delete<{ message: string }>(`/projects/${id}`),
+    /** 需求台批量操作 (2026-10-11): 删除展开后代闭包(叶子先删,单事务);更新走 patch 白名单+标签合并。 */
+    batchDelete: (ids: string[]) =>
+      apiClient.post<{ data: { deleted: number; items: Array<{ id: string; name: string }> } }>('/projects/batch-delete', { ids }),
+    batchUpdate: (ids: string[], patch: Record<string, unknown>) =>
+      apiClient.post<{ data: { updated: number; skipped: number; items: Array<{ id: string; name: string }> } }>('/projects/batch-update', { ids, patch }),
     getDemands: (id: string) => apiClient.get<ProjectDemandsResponse>(`/projects/${id}/demands`),
     // Phase management endpoints
     validatePhaseUpdates: (id: string, data: Record<string, unknown>) => apiClient.post<PhaseValidationResponse>(`/projects/${id}/phases/validate-updates`, data),

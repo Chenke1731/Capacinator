@@ -1969,7 +1969,7 @@ input[type="checkbox"].settings-checkbox,
 .requirements-thead > span { position: relative; }
 .requirements-thead {
   display: grid;
-    grid-template-columns: minmax(var(--req-w-name, 210px), var(--req-f-name, 1.2fr)) var(--req-w-number, 84px) var(--req-w-component, 84px) var(--req-w-lifecycle, 200px) var(--req-w-kloc, 64px) var(--req-w-effort, 64px) var(--req-w-se, 88px) var(--req-w-mde, 88px) var(--req-w-version, 68px) var(--req-w-release, 64px) minmax(var(--req-w-iter, 78px), var(--req-cap-iter, 88px)) var(--req-w-priority, 44px) var(--req-w-primary, 88px) var(--req-w-actions, 92px) var(--req-spacer, 0fr);
+    grid-template-columns: var(--req-w-select, 26px) minmax(var(--req-w-name, 186px), var(--req-f-name, 1.2fr)) var(--req-w-number, 84px) var(--req-w-component, 84px) var(--req-w-lifecycle, 200px) var(--req-w-kloc, 64px) var(--req-w-effort, 64px) var(--req-w-se, 88px) var(--req-w-mde, 88px) var(--req-w-version, 68px) var(--req-w-release, 64px) minmax(var(--req-w-iter, 78px), var(--req-cap-iter, 88px)) var(--req-w-priority, 44px) var(--req-w-primary, 88px) var(--req-w-actions, 92px) var(--req-spacer, 0fr);
   gap: var(--req-gap, 8px); /* 余量优先摊进间距(2026-09-23),媒体档继承 */
   align-items: center;
   min-height: 36px;
@@ -1984,7 +1984,7 @@ input[type="checkbox"].settings-checkbox,
 
 .requirements-row {
   display: grid;
-    grid-template-columns: minmax(var(--req-w-name, 210px), var(--req-f-name, 1.2fr)) var(--req-w-number, 84px) var(--req-w-component, 84px) var(--req-w-lifecycle, 200px) var(--req-w-kloc, 64px) var(--req-w-effort, 64px) var(--req-w-se, 88px) var(--req-w-mde, 88px) var(--req-w-version, 68px) var(--req-w-release, 64px) minmax(var(--req-w-iter, 78px), var(--req-cap-iter, 88px)) var(--req-w-priority, 44px) var(--req-w-primary, 88px) var(--req-w-actions, 92px) var(--req-spacer, 0fr);
+    grid-template-columns: var(--req-w-select, 26px) minmax(var(--req-w-name, 186px), var(--req-f-name, 1.2fr)) var(--req-w-number, 84px) var(--req-w-component, 84px) var(--req-w-lifecycle, 200px) var(--req-w-kloc, 64px) var(--req-w-effort, 64px) var(--req-w-se, 88px) var(--req-w-mde, 88px) var(--req-w-version, 68px) var(--req-w-release, 64px) minmax(var(--req-w-iter, 78px), var(--req-cap-iter, 88px)) var(--req-w-priority, 44px) var(--req-w-primary, 88px) var(--req-w-actions, 92px) var(--req-spacer, 0fr);
   gap: var(--req-gap, 8px); /* 余量优先摊进间距(2026-09-23),媒体档继承 */
   align-items: center;
   min-height: 40px;
@@ -2193,7 +2193,10 @@ body.req-col-dragging * {
   border: none;
   cursor: pointer;
   min-height: 0;
-  min-width: 0;
+  /* 命中目标下限(裁决 17: 内容宽含命中目标 min-width)——名称列收窄时
+     chip 曾被挤到 16px(存量 20px 债随之击穿守卫 24px 档) */
+  min-width: 24px;
+  justify-content: center;
 }
 .req-tag--filter:hover { box-shadow: 0 0 0 1px currentColor; }
 /* 正在按此标签过滤: 常驻描边标记筛选态,再点取消 */
@@ -2454,24 +2457,28 @@ body.req-col-dragging * {
 @media (min-width: 1560px) and (max-width: 1679px) {
   .requirements-thead,
   .requirements-row {
-    grid-template-columns: minmax(var(--req-w-name, 210px), var(--req-f-name, 1.1fr)) var(--req-w-number, 80px) var(--req-w-lifecycle, 200px) var(--req-w-kloc, 64px) var(--req-w-effort, 64px) var(--req-w-se, 88px) var(--req-w-mde, 88px) var(--req-w-version, 64px) var(--req-w-release, 78px) minmax(var(--req-w-iter, 78px), var(--req-cap-iter, 88px)) var(--req-w-priority, 44px) var(--req-w-primary, 80px) var(--req-w-actions, 92px) var(--req-spacer, 0fr);
+    grid-template-columns: var(--req-w-select, 26px) minmax(var(--req-w-name, 186px), var(--req-f-name, 1.1fr)) var(--req-w-number, 80px) var(--req-w-lifecycle, 200px) var(--req-w-kloc, 64px) var(--req-w-effort, 64px) var(--req-w-se, 88px) var(--req-w-mde, 88px) var(--req-w-version, 64px) var(--req-w-release, 78px) minmax(var(--req-w-iter, 78px), var(--req-cap-iter, 88px)) var(--req-w-priority, 44px) var(--req-w-primary, 80px) var(--req-w-actions, 92px) var(--req-spacer, 0fr);
   }
-  .requirements-thead > span:nth-child(3),
+  /* 前置选择列(2026-10-11)后表头索引整体 +1: 组件 3→4 */
+  .requirements-thead > span:nth-child(4),
   .requirements-row > .req-edit-cell--component { display: none; }
   .projects-board .requirements-row .lifecycle-quick-btn { min-width: 64px; }
 }
 @media (max-width: 1559px) {
   .requirements-thead,
   .requirements-row {
-    grid-template-columns: minmax(var(--req-w-name, 210px), var(--req-f-name, 1.1fr)) var(--req-w-lifecycle, 196px) var(--req-w-kloc, 64px) var(--req-w-effort, 64px) var(--req-w-se, 88px) var(--req-w-mde, 88px) var(--req-w-version, 62px) minmax(var(--req-w-iter, 78px), var(--req-cap-iter, 88px)) var(--req-w-priority, 44px) var(--req-w-actions, 92px) var(--req-spacer, 0fr);
+    grid-template-columns: var(--req-w-select, 26px) minmax(var(--req-w-name, 186px), var(--req-f-name, 1.1fr)) var(--req-w-lifecycle, 196px) var(--req-w-kloc, 64px) var(--req-w-effort, 64px) var(--req-w-se, 88px) var(--req-w-mde, 88px) var(--req-w-version, 62px) minmax(var(--req-w-iter, 78px), var(--req-cap-iter, 88px)) var(--req-w-priority, 44px) var(--req-w-actions, 92px) var(--req-spacer, 0fr);
   }
-  .requirements-thead > span:nth-child(2),
-  .requirements-row > .req-edit-cell--number,
+  /* 前置选择列(2026-10-11)后表头索引整体 +1: 编号 2→3 / 组件 3→4 / 交付 10→11 / 实名 12→14。
+     顺带修存量错位: 旧 nth-child(12) 实际命中的是优先级表头(priority 在 12 位),
+     使"实名投入"标签长期坐在优先级列上方——primary 正确位置是 14。 */
   .requirements-thead > span:nth-child(3),
+  .requirements-row > .req-edit-cell--number,
+  .requirements-thead > span:nth-child(4),
   .requirements-row > .req-edit-cell--component,
-  .requirements-thead > span:nth-child(10),
+  .requirements-thead > span:nth-child(11),
   .requirements-row > .req-release,
-  .requirements-thead > span:nth-child(12),
+  .requirements-thead > span:nth-child(14),
   .requirements-row > .req-primary-wrap,
   .requirements-row > .req-primary { display: none; }
   .projects-board .requirements-row .lifecycle-quick-btn { min-width: 64px; }
@@ -2776,6 +2783,127 @@ body.req-col-dragging * {
   from { opacity: 0; transform: translateX(-50%) translateY(10px); }
   to { opacity: 1; transform: translateX(-50%) translateY(0); }
 }
+/* 批量条在场时 toast 上移让位(兄弟选择器: 条不在 DOM 时恢复原位) */
+.projects-board .req-bulk-bar ~ .req-error-toast { bottom: 76px; }
+/* 成功 toast(与失败同形态,绿色语义) */
+.req-error-toast.req-ok-toast {
+  background: #ecfdf5;
+  color: #047857;
+  border-color: #059669;
+}
+[data-theme='dark'] .req-error-toast.req-ok-toast {
+  background: rgba(5, 150, 105, 0.15);
+  color: #6ee7b7;
+  border-color: #34d399;
+}
+
+/* ── 批量选择列(2026-10-11): Radix 三态框,板内视觉语言(16px/设计系统变量) ── */
+.req-select { display: flex; align-items: center; justify-content: center; }
+.req-checkbox {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  padding: 0; /* 定宽按钮显式重置 padding(全局 button 规则,13 号教训) */
+  border: 1.5px solid var(--border-color, rgba(127, 127, 127, 0.4));
+  border-radius: 4px;
+  /* 透明底(非 var(--bg-primary): 深色主题该变量是饱和蓝灰,会把 5 色行顶成 6
+     破坏行内色彩纪律;空盒本来就应以"空"示人) */
+  background: transparent;
+  color: #fff;
+  font-size: 12.5px; /* 显式声明字号字重: button 全局继承 500;12.5 对齐排版矩阵白名单档 */
+  font-weight: 400;
+  cursor: pointer;
+  transition: border-color 0.12s ease, background-color 0.12s ease;
+}
+.req-checkbox:hover { border-color: var(--accent-color, #3b82f6); }
+.req-checkbox[data-state='checked'],
+.req-checkbox[data-state='indeterminate'] {
+  background: var(--accent-color, #3b82f6);
+  border-color: var(--accent-color, #3b82f6);
+}
+.req-checkbox:focus-visible { outline: 2px solid var(--accent-color, #3b82f6); outline-offset: 2px; }
+.req-checkbox:disabled { opacity: 0.4; cursor: not-allowed; }
+.req-checkbox-ind { display: flex; align-items: center; justify-content: center; color: #fff; line-height: 0; }
+
+/* ── 批量操作条(2026-10-11): 选中>0 底部浮动,pending 全禁用,删除二次确认 ── */
+.req-bulk-bar {
+  position: fixed;
+  left: 50%;
+  bottom: 20px;
+  transform: translateX(-50%);
+  z-index: 900;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 10px;
+  background: var(--bg-primary, #fff);
+  border: 1px solid var(--border-color);
+  border-radius: var(--b-r-card, 10px);
+  box-shadow: var(--shadow-lg, 0 8px 28px rgba(0, 0, 0, 0.22));
+  animation: reqBulkIn 0.16s ease-out;
+}
+@keyframes reqBulkIn {
+  from { transform: translate(-50%, 12px); opacity: 0; }
+  to { transform: translate(-50%, 0); opacity: 1; }
+}
+.req-bulk-count { font-size: 13px; font-weight: 500; color: var(--text-primary); padding: 0 6px; white-space: nowrap; }
+.req-bulk-anchor { display: inline-flex; }
+.req-bulk-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  min-height: 32px;
+  padding: 0 12px; /* 自定义小按钮: 显式 padding */
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--text-primary);
+  background: var(--bg-secondary, rgba(127, 127, 127, 0.08));
+  border: none;
+  border-radius: var(--b-r-sm, 6px);
+  cursor: pointer;
+  white-space: nowrap;
+}
+.req-bulk-btn:hover { background: rgba(127, 127, 127, 0.16); }
+.req-bulk-btn:disabled { opacity: 0.55; cursor: not-allowed; }
+.req-bulk-btn--danger { color: var(--danger-color, #dc2626); background: rgba(220, 38, 38, 0.08); }
+.req-bulk-btn--danger:hover { background: rgba(220, 38, 38, 0.16); }
+.req-bulk-btn--confirm { background: var(--danger-color, #dc2626); color: #fff; }
+.req-bulk-btn--close { padding: 0; width: 32px; justify-content: center; }
+.req-bulk-divider { width: 1px; height: 20px; background: var(--border-color); margin: 0 2px; }
+/* 条出现时补偿表格底部滚动空间(末行不被浮条遮挡) */
+.requirements-table--bulk { padding-bottom: 56px; box-sizing: border-box; }
+
+/* 批量气泡内的表单(版本输入 / 标签两段式) */
+.bulk-version-form, .bulk-tags-form { display: flex; flex-direction: column; gap: 8px; padding: 10px 12px; }
+.bulk-version-input { width: 100%; }
+.bulk-apply-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 30px; padding: 0 10px;
+  font-size: 12.5px; font-weight: 500;
+  color: #fff; background: var(--accent-color, #3b82f6);
+  border: none; border-radius: var(--b-r-sm, 6px); cursor: pointer;
+}
+.bulk-apply-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.bulk-apply-btn--clear { background: transparent; color: var(--danger-color, #dc2626); box-shadow: inset 0 0 0 1px var(--border-color); }
+.bulk-tags-section { display: flex; flex-direction: column; gap: 6px; }
+.bulk-tags-sec-title { display: flex; align-items: center; gap: 4px; font-size: 11px; font-weight: 500; color: var(--text-secondary); }
+.bulk-tags-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.bulk-tag-chip {
+  display: inline-flex; align-items: center; gap: 3px;
+  min-height: 24px; padding: 0 9px;
+  font-size: 11px; font-weight: 400;
+  color: var(--text-primary);
+  background: var(--bg-secondary, rgba(127, 127, 127, 0.08));
+  border: 1px solid var(--border-color);
+  border-radius: 999px; cursor: pointer;
+}
+.bulk-tag-chip--on { background: var(--accent-color, #3b82f6); border-color: var(--accent-color, #3b82f6); color: #fff; }
+.bulk-tag-chip--off { background: rgba(220, 38, 38, 0.1); border-color: var(--danger-color, #dc2626); color: var(--danger-color, #dc2626); }
+.bulk-pop-empty { font-size: 12.5px; color: var(--text-secondary); padding: 4px 12px; }
+.bulk-pop-window { margin-left: auto; font-size: 11px; color: var(--text-secondary); font-variant-numeric: tabular-nums; }
 
 /* P5(2026-09-23): SR 行 ＋AR 常驻显示——新用户可发现可以分解 */
 .requirements-row--sr .req-ar-add { display: inline-flex; opacity: 0.6; }

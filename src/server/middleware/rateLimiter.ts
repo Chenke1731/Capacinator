@@ -5,16 +5,25 @@
  * doing despite the owner's security-deferral decision: it changes no
  * architecture and is invisible to normal usage.
  *
- * Two tiers: a global default (300 req/15min per IP) and a strict
- * login tier (10 req/15min per IP). Test stacks (NODE_ENV=test/e2e) are
+ * Two tiers: a global default (600 req/15min per IP) and a strict
+ * login tier (30 req/15min per IP). Test stacks (NODE_ENV=test/e2e) are
  * exempt by design — Jest and Playwright would trip any real limit
  * within seconds; those stacks double as the canary that the exemption
  * keeps working.
+ *
+ * development is exempt too (2026-10-12 owner-approved): the local stack
+ * binds to loopback against a demo database resettable via
+ * scripts/reset-demo-lifecycle.sql, so its threat model has no
+ * brute-force surface; meanwhile the guard chain (verify:site / visual /
+ * states) logs in per page and used to burn the 30/15min login quota,
+ * producing "11 combinations failed" false alarms. **The exemption must
+ * not follow to deployment** — production/staging NODE_ENV never equals
+ * 'development', and any change to this set re-runs the threat review.
  */
 import { Request, Response, NextFunction } from 'express';
 import rateLimit from 'express-rate-limit';
 
-const BYPASS_ENVS = new Set(['test', 'e2e']);
+const BYPASS_ENVS = new Set(['test', 'e2e', 'development']);
 
 export interface LimiterOptions {
   windowMs?: number;

@@ -66,8 +66,8 @@ jest.mock('../../components/modals/SmartAssignmentModal', () => ({
 }));
 
 // Mock fetch for utilization timeline
-global.fetch = jest.fn();
-global.confirm = jest.fn(() => true);
+globalThis.fetch = jest.fn();
+globalThis.confirm = jest.fn(() => true);
 
 const mockPersonData = {
   id: 'person-1',
@@ -157,7 +157,7 @@ describe('PersonDetails', () => {
     (api.roles.list as jest.Mock).mockResolvedValue({ data: mockRoles });
     (api.people.list as jest.Mock).mockResolvedValue({ data: { data: mockPeopleList } });
 
-    (global.fetch as jest.Mock).mockResolvedValue({
+    (globalThis.fetch as jest.Mock).mockResolvedValue({
       ok: true,
       json: () => Promise.resolve({ personName: 'John Doe', defaultAvailability: 100, timeline: [] })
     });
@@ -596,7 +596,7 @@ describe('PersonDetails', () => {
       renderComponent();
 
       await waitFor(() => {
-        expect(global.fetch).toHaveBeenCalledWith(
+        expect(globalThis.fetch).toHaveBeenCalledWith(
           expect.stringContaining('/api/people/person-1/utilization-timeline')
         );
       });
@@ -791,7 +791,7 @@ describe('PersonDetails', () => {
     });
 
     it('handles time off deletion', async () => {
-      (global.fetch as jest.Mock).mockImplementation((url, options) => {
+      (globalThis.fetch as jest.Mock).mockImplementation((url, options) => {
         if (options?.method === 'DELETE') {
           return Promise.resolve({
             ok: true,
@@ -1014,7 +1014,7 @@ describe('PersonDetails', () => {
     });
 
     it('handles time off creation errors', async () => {
-      (global.fetch as jest.Mock).mockImplementation((url) => {
+      (globalThis.fetch as jest.Mock).mockImplementation((url) => {
         if (url === '/api/availability') {
           return Promise.resolve({
             ok: false,
@@ -1043,7 +1043,7 @@ describe('PersonDetails', () => {
 
       // Error should be handled gracefully
       await waitFor(() => {
-        expect(global.fetch).toHaveBeenCalledWith(
+        expect(globalThis.fetch).toHaveBeenCalledWith(
           '/api/availability',
           expect.any(Object)
         );
@@ -1051,7 +1051,7 @@ describe('PersonDetails', () => {
     });
 
     it('handles time off update errors', async () => {
-      (global.fetch as jest.Mock).mockImplementation((url, options) => {
+      (globalThis.fetch as jest.Mock).mockImplementation((url, options) => {
         if (options?.method === 'PUT') {
           return Promise.resolve({
             ok: false,

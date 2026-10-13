@@ -55,11 +55,11 @@ export function PhaseTimeline({ projectId }: PhaseTimelineProps) {
 
   // Get clean phases (filtered and sorted)
   const phases = useMemo(() => {
-    if (!phasesData?.data) return [];
+    if (!phasesData) return [];
 
-    return phasesData.data
-      .filter((phase: Phase) => {
-        const phaseName = phase.phase_name.toLowerCase();
+    return phasesData
+      .filter((phase) => {
+        const phaseName = (phase.phase_name || '').toLowerCase();
         // Filter out test/garbage phases
         if (phaseName.includes('test phase') && (phaseName.includes('1753') || phaseName.includes('1754'))) return false;
         if (phaseName.includes('no adjust phase') && (phaseName.includes('1753') || phaseName.includes('1754'))) return false;
@@ -67,14 +67,14 @@ export function PhaseTimeline({ projectId }: PhaseTimelineProps) {
         if (phaseName.includes('custom date phase') && (phaseName.includes('1753') || phaseName.includes('1754'))) return false;
         return true;
       })
-      .sort((a: Phase, b: Phase) => {
+      .sort((a, b) => {
         if (isBeforeSafe(a.start_date, b.start_date)) return -1;
         if (isAfterSafe(a.start_date, b.start_date)) return 1;
         return 0;
       });
   }, [phasesData]);
 
-  const dependencies: Dependency[] = dependenciesData?.data || [];
+  const dependencies: Dependency[] = dependenciesData || [];
 
   // Use validation hook
   const { validatePhaseDate, calculateCorrectedDates, calculateBulkCorrections } = usePhaseValidation({

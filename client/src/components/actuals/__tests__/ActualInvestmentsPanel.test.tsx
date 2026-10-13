@@ -49,14 +49,14 @@ describe('ActualInvestmentsPanel (投入履历)', () => {
     await waitFor(() => {
       expect(screen.getByText('2026-09')).toBeInTheDocument();
     });
-    const sep = screen.getByText('2026-09').closest('.actuals-row')!;
+    const sep = screen.getByText('2026-09').closest('.actuals-row') as HTMLElement;
     // 计划 0.60 / 实际 1.20 / 偏差 +100% / 来源 改写
     expect(within(sep).getAllByText('0.60').length).toBeGreaterThan(0);
     expect(within(sep).getAllByText('1.20').length).toBeGreaterThan(0);
     expect(within(sep).getByText('+100%')).toBeInTheDocument();
     expect(within(sep).getByText('manual')).toBeInTheDocument();
     // 快照月的偏差为 0%
-    const aug = screen.getByText('2026-08').closest('.actuals-row')!;
+    const aug = screen.getByText('2026-08').closest('.actuals-row') as HTMLElement;
     expect(within(aug).getByText('0%')).toBeInTheDocument();
   });
 
@@ -78,7 +78,7 @@ describe('ActualInvestmentsPanel (投入履历)', () => {
     await waitFor(() => {
       expect(screen.getByText('2026-09')).toBeInTheDocument();
     });
-    const sep = screen.getByText('2026-09').closest('.actuals-row')!;
+    const sep = screen.getByText('2026-09').closest('.actuals-row') as HTMLElement;
     await user.click(within(sep).getAllByText('1.20')[0]);
     const input = await within(sep).findByDisplayValue('1.2');
     await user.clear(input);
@@ -94,7 +94,7 @@ describe('ActualInvestmentsPanel (投入履历)', () => {
     await waitFor(() => {
       expect(screen.getByText('2026-09')).toBeInTheDocument();
     });
-    const sep = screen.getByText('2026-09').closest('.actuals-row')!;
+    const sep = screen.getByText('2026-09').closest('.actuals-row') as HTMLElement;
     await user.click(within(sep).getByTitle('Delete'));
     await waitFor(() => {
       expect(api.actualInvestments.remove).toHaveBeenCalledWith('p-1', '2026-09');

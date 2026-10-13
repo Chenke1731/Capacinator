@@ -104,12 +104,11 @@ export function ProjectNew() {
     mutationFn: async (data: ProjectFormData) => {
       const response = await api.projects.create({
         ...data,
-        include_in_demand: data.include_in_demand ? 1 : 0,
-        component_id: data.component_id || null,
-        owner_id: data.owner_id || null,
-        external_id: data.external_id || null,
-        description: data.description || null,
-        data_restrictions: data.data_restrictions || null
+        component_id: data.component_id || undefined,
+        owner_id: data.owner_id || undefined,
+        external_id: data.external_id || undefined,
+        description: data.description || undefined,
+        data_restrictions: data.data_restrictions || undefined
       });
       // Unwrap the API envelope — navigating to `/projects/undefined`
       // was a latent bug (never reachable while creation itself was broken)

@@ -1,6 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { api } from '../lib/api-client';
 import { queryKeys } from '../lib/queryKeys';
+import type { ProjectPhaseTimeline } from '../types';
 
 export interface Phase {
   id: string;
@@ -49,7 +50,9 @@ export function usePhaseTimelineData({ projectId, onPhaseUpdateError }: UsePhase
     queryKey: queryKeys.projectPhases.byProject(projectId),
     queryFn: async () => {
       const response = await api.projectPhases.list({ project_id: projectId });
-      return response.data.data || response.data;
+      // 归一: API 行(ProjectPhaseTimeline) → 视图形 Phase(下游全部按 Phase 消费)
+      const rows = (response.data.data || response.data) as ProjectPhaseTimeline[];
+      return (rows as unknown as Phase[]);
     }
   });
 
@@ -58,7 +61,7 @@ export function usePhaseTimelineData({ projectId, onPhaseUpdateError }: UsePhase
     queryKey: queryKeys.projectPhases.dependencies(projectId),
     queryFn: async () => {
       const response = await api.projectPhaseDependencies.list({ project_id: projectId });
-      return response.data.data || response.data;
+      return (response.data.data || response.data) as unknown as Dependency[];
     }
   });
 
@@ -75,7 +78,7 @@ export function usePhaseTimelineData({ projectId, onPhaseUpdateError }: UsePhase
   const updatePhaseMutation = useMutation({
     mutationFn: async ({ phaseId, updates }: { phaseId: string; updates: Partial<Phase> }) => {
       const response = await api.projectPhases.update(phaseId, updates);
-      return response.data.data || response.data;
+      return (response.data as unknown as { data?: Phase }).data ?? (response.data as unknown as Phase);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: queryKeys.projectPhases.byProject(projectId) });
@@ -97,7 +100,7 @@ export function usePhaseTimelineData({ projectId, onPhaseUpdateError }: UsePhase
         ...phaseData,
         project_id: projectId
       });
-      return response.data.data || response.data;
+      return (response.data as unknown as { data?: Phase }).data ?? (response.data as unknown as Phase);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: queryKeys.projectPhases.byProject(projectId) });
@@ -120,7 +123,7 @@ export function usePhaseTimelineData({ projectId, onPhaseUpdateError }: UsePhase
         ...dependencyData,
         project_id: projectId
       });
-      return response.data.data || response.data;
+      return (response.data as unknown as { data?: Dependency }).data ?? (response.data as unknown as Dependency);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: queryKeys.projectPhases.dependencies(projectId) });

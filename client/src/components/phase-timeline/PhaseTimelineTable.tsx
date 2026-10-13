@@ -76,7 +76,7 @@ export function PhaseTimelineTable({
             <th>{t('common:startDate')}</th>
             <th>{t('common:endDate')}</th>
             <th>{t('phases:table.dependencies')}</th>
-            <th width="100">{t('common:actions')}</th>
+            <th style={{ width: 100 }}>{t('common:actions')}</th>
           </tr>
         </thead>
         <tbody>

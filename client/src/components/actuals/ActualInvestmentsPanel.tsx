@@ -18,7 +18,9 @@ export function ActualInvestmentsPanel({ projectId }: { projectId: string }) {
 
   const { data: payload, isLoading } = useQuery({
     queryKey: ['actual-investments', projectId],
-    queryFn: async () => ((await api.actualInvestments.list(projectId)).data as any)?.data?.data ?? []
+    // 服务端行真身: {month, planned_fte, fte, source}(actual-investments 表)
+    queryFn: async (): Promise<Array<{ month: string; planned_fte: number; fte: number; source: string }>> =>
+      ((await api.actualInvestments.list(projectId)).data as any)?.data?.data ?? []
   });
 
   const invalidate = () =>

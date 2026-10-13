@@ -75,6 +75,25 @@ for (const p of PAGES) {
         const r = s.getBoundingClientRect();
         return (r.width < 2 && r.height >= 8) || (r.height < 2 && r.width >= 8);
       }).length;
+      // 裁切感知(2026-10-13): 元素布局盒可越出 overflow 祖先的裁切盒
+      // (如 .req-tag 挤压档下点+文字居中溢出两侧被 overflow:hidden 裁掉)——
+      // 视觉无重叠的对不算碰撞。与 verify-states 的滚动窗感知同族
+      const visibleRect = (el) => {
+        let r = el.getBoundingClientRect();
+        let p = el.parentElement;
+        while (p && r.width > 0 && r.height > 0) {
+          const s = getComputedStyle(p);
+          const ov = s.overflow + ' ' + s.overflowX + ' ' + s.overflowY;
+          if (/hidden|clip|auto|scroll/.test(ov)) {
+            const pr = p.getBoundingClientRect();
+            const x0 = Math.max(r.left, pr.left), y0 = Math.max(r.top, pr.top);
+            const x1 = Math.min(r.right, pr.right), y1 = Math.min(r.bottom, pr.bottom);
+            r = { left: x0, top: y0, right: x1, bottom: y1, width: x1 - x0, height: y1 - y0 };
+          }
+          p = p.parentElement;
+        }
+        return r;
+      };
       const leaves = [...document.querySelectorAll('span,button,td,th,a')].filter((e) => {
         const r = e.getBoundingClientRect();
         return r.width && r.height && getComputedStyle(e).visibility !== 'hidden';
@@ -83,7 +102,8 @@ for (const p of PAGES) {
       for (let i = 0; i < leaves.length && collisions < 3; i++) {
         for (let j = i + 1; j < leaves.length; j++) {
           if (leaves[i].contains(leaves[j]) || leaves[j].contains(leaves[i])) continue;
-          const a = leaves[i].getBoundingClientRect(), b = leaves[j].getBoundingClientRect();
+          const a = visibleRect(leaves[i]), b = visibleRect(leaves[j]);
+          if (a.width <= 0 || b.width <= 0) continue; // 任一被裁尽 → 非可见重叠
           if (Math.min(a.right, b.right) - Math.max(a.left, b.left) > 2 &&
               Math.min(a.bottom, b.bottom) - Math.max(a.top, b.top) > 2) { collisions++; break; }
         }

@@ -560,7 +560,7 @@ export function IterationCell({ project, onSaved, readOnlyWindow }: {
   const [busy, setBusy] = useState(false);
 
   const { data: itersResp } = useQuery({
-    queryKey: ['iterations', 'list'],
+    queryKey: queryKeys.iterations.list(),
     queryFn: async () => (await api.iterations.list()).data,
     enabled: pop.open
   });
@@ -574,7 +574,7 @@ export function IterationCell({ project, onSaved, readOnlyWindow }: {
       queryClient.invalidateQueries({ queryKey: queryKeys.projects.all });
       // 迭代卡统计/负载服务端实时算自 projects(GET /iterations):挂接或解除
       // 后不失效 ['iterations'],卡面与气泡列表陈旧最长 5 分钟(2026-10-13 审计)
-      queryClient.invalidateQueries({ queryKey: ['iterations'] });
+      queryClient.invalidateQueries({ queryKey: queryKeys.iterations.all });
       onSaved();
     }
   });

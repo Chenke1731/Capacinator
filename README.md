@@ -144,7 +144,7 @@ Key tables:
 - `projects` - Project details and metadata
 - `people` - Team members and their information
 - `roles` - Available roles and permissions
-- `assignments` - Resource allocations to projects
+- `project_assignments` / `scenario_project_assignments` - Resource allocations to projects (baseline and per-scenario; there is no `assignments` table)
 - `project_phases` - Phase definitions and timelines
 - `availability_overrides` - Time-off and availability changes
 

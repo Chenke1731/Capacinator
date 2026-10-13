@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { queryKeys } from '../lib/queryKeys';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Plus, ChevronDown, ChevronRight, Pencil, Trash2, CalendarRange } from 'lucide-react';
@@ -19,9 +20,8 @@ import './Iterations.css';
  * CRUD 全就地零弹窗; 删除仅空迭代(API 400 message 显示在卡内)。
  */
 
-/** react-query key 与 BoardCells.tsx 迭代选择弹层同 key——改互相刷新 */
-const ITERATIONS_LIST_KEY = ['iterations', 'list'] as const;
-const ITERATIONS_ITEMS_KEY = ['iterations', 'items'] as const;
+/** react-query key 与 BoardCells.tsx 迭代选择弹层同 key——改互相刷新
+ *  (2026-10-13 起统一走 queryKeys 工厂,双源字面量退役) */
 
 interface IterationLoadRow {
   role: string;
@@ -130,7 +130,7 @@ function IterationCard({
   const [deleteError, setDeleteError] = useState<string | null>(null);
   const [confirmingDelete, setConfirmingDelete] = useState(false);
 
-  const invalidate = () => queryClient.invalidateQueries({ queryKey: ['iterations'] });
+  const invalidate = () => queryClient.invalidateQueries({ queryKey: queryKeys.iterations.all });
 
   const saveMutation = useMutation({
     mutationFn: () =>
@@ -304,7 +304,7 @@ export function Iterations() {
   const [expandedId, setExpandedId] = useState<string | null>(null);
 
   const { data: itersResp, isLoading, error } = useQuery({
-    queryKey: ITERATIONS_LIST_KEY,
+    queryKey: queryKeys.iterations.list(),
     queryFn: async () => (await api.iterations.list()).data,
   });
   const iterations: Iteration[] = useMemo(
@@ -315,7 +315,7 @@ export function Iterations() {
   /** 事项池: 展开清单与未排沉底区共用一份数据(客户端过滤)。
    * 无上限循环翻页——同需求台 P5 修复(旧 limit:200 静默截断)。 */
   const { data: itemsResp, isLoading: itemsLoading } = useQuery({
-    queryKey: ITERATIONS_ITEMS_KEY,
+    queryKey: queryKeys.iterations.items(),
     queryFn: async () => {
       const PAGE = 500;
       const all: any[] = [];
@@ -364,7 +364,7 @@ export function Iterations() {
     onSuccess: () => {
       setCreating(false);
       setNewName(''); setNewStart(''); setNewEnd('');
-      queryClient.invalidateQueries({ queryKey: ['iterations'] });
+      queryClient.invalidateQueries({ queryKey: queryKeys.iterations.all });
     },
   });
 

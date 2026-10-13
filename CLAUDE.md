@@ -164,7 +164,7 @@ npx playwright test tests/e2e/suites/crud/          # Playwright folder
 - Never modify migrations that are committed
 - Create new migrations for schema changes: `npm run db:migrate:make <name>`
 
-Key Tables: projects, people, roles, assignments, project_phases, availability_overrides, scenarios, audit_logs, notifications
+Key Tables: projects, people, roles, project_assignments, scenario_project_assignments, project_phases, availability_overrides, scenarios, audit_logs, notifications（`assignments` 表不存在——2026-10-13 审计修正，曾致删阶段必败与审计白名单失聪）
 
 ## Debugging
 

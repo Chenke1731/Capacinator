@@ -264,6 +264,14 @@ export const queryKeys = {
     detail: (id: string) => [...queryKeys.locations.details(), id] as const,
   },
 
+  // Iterations(2026-10-13 入工厂: 原先是 Iterations.tsx 手写常量 + BoardCells
+  // 手写字面量双源——verify-cache 曾因此 2 处不可静态解豁免)
+  iterations: {
+    all: ['iterations'] as const,
+    list: () => [...queryKeys.iterations.all, 'list'] as const,
+    items: () => [...queryKeys.iterations.all, 'items'] as const,
+  },
+
   // Scenarios
   scenarios: {
     all: ['scenarios'] as const,

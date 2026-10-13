@@ -97,8 +97,16 @@
 }
 
 .tag-chip-selected {
-  background: hsl(var(--primary));
-  border-color: hsl(var(--primary));
+  /* hsl(var(--primary)) 包十六进制是无效颜色(2026-10-13 全库审计)——声明
+     整体被丢弃,选中态一直落在 .tag-chip 的灰底上 */
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #fff;
+}
+/* 白字彩底悬停被全局 button:hover 换灰底(App.css 2026-10-11 同族),重声明 */
+.tag-chip-selected:hover {
+  background: var(--primary-hover);
+  border-color: var(--primary-hover);
   color: #fff;
 }
 

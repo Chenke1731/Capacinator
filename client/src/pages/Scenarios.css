@@ -2063,6 +2063,9 @@
 .connector-expand-button:hover {
   transform: scale(1.1);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  /* 重声明底色(全局 button:hover 换底同族,2026-10-13): 缩放反馈已足,
+     底色不换灰块 */
+  background: var(--bg-primary);
 }
 
 .connector-expand-button:focus {

@@ -1060,7 +1060,7 @@ input[type="checkbox"].settings-checkbox,
   cursor: copy;
   white-space: nowrap;
 }
-.project-ref-code:hover { color: var(--text-secondary); border-color: var(--border-color-hover, var(--border-color)); }
+.project-ref-code:hover { color: var(--text-secondary); border-color: var(--border-color-hover, var(--border-color)); background: none; }
 
 /* 标签管理器: 新建+改色(Q4 2026-09-22) */
 .tag-manager-guideline { font-size: var(--b-fs-meta, 12.5px); color: var(--text-tertiary, var(--text-secondary)); margin: 0 0 10px; }
@@ -1132,6 +1132,11 @@ input[type="checkbox"].settings-checkbox,
   background: var(--danger-color, #dc2626);
   color: #fff;
   animation: lifecycle-pulse 1s ease-in-out infinite;
+}
+/* 白字红底悬停被全局 button:hover 换灰底(2026-10-13 审计同族)——重声明 */
+.lifecycle-btn--confirming:hover {
+  background: var(--danger-hover, #991b1b);
+  color: #fff;
 }
 @keyframes lifecycle-pulse {
   0%, 100% { box-shadow: 0 0 0 0 rgba(220,38,38,0.4); }
@@ -2133,6 +2138,8 @@ body.req-col-dragging * {
   border-radius: 50%;
 }
 .req-tag--more { background: var(--bg-secondary, rgba(127, 127, 127, 0.14)); color: var(--text-secondary); cursor: help; }
+/* 悬停重声明(全局 button:hover 换底同族,2026-10-13): 同色系微抬 */
+.req-tag--more:hover { background: rgba(127, 127, 127, 0.2); }
 
 /* 行内编辑可供性: cell 包裹层悬停淡底 + 角落铅笔; 呈现态保持只读密度 */
 .req-edit-cell { position: relative; display: inline-flex; align-items: center; min-width: 0; }
@@ -2250,7 +2257,7 @@ body.req-col-dragging * {
 }
 .projects-board .req-tag--add { min-height: 24px; min-width: 24px; }
 .projects-board .req-tag--filter { min-width: 24px; } /* 板级 button{min-width:0}(0,1,1) 压过单类——"外包"chip 曾 20px<24 的真根因 */
-.req-tag--add:hover { color: var(--text-secondary); border-color: var(--border-color-hover, var(--border-color)); }
+.req-tag--add:hover { color: var(--text-secondary); border-color: var(--border-color-hover, var(--border-color)); background: none; }
 /* 内联组铅笔是编辑入口本体(chip 已被过滤占用),hover 组时可见可点 */
 .req-tags-inline > .req-pencil--act {
   display: none; /* 与 .req-pencil 同词汇: display 切换,opacity:0 常驻会占矩形触发无裁剪感知守卫的假碰撞 */
@@ -3024,6 +3031,9 @@ body.req-col-dragging * {
   border: 1px solid var(--border-color);
   border-radius: 999px; cursor: pointer;
 }
+/* 基类悬停重声明(全局 button:hover 换底同族,2026-10-13): 中性底微抬,
+   不换灰块;--on/--off 变体同特异性但源序在后,其专属 hover 仍胜出 */
+.bulk-tag-chip:hover { background: rgba(127, 127, 127, 0.16); border-color: var(--border-color-hover, var(--border-color)); }
 .bulk-tag-chip--on { background: var(--accent-color, #3b82f6); border-color: var(--accent-color, #3b82f6); color: #fff; }
 .bulk-tag-chip--off { background: rgba(220, 38, 38, 0.1); border-color: var(--danger-color, #dc2626); color: var(--danger-color, #dc2626); }
 /* 同类必修: 白字/红字彩底 chip 的 hover 重声明(否则被全局 button:hover 换底) */

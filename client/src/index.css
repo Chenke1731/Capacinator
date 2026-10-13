@@ -1307,6 +1307,12 @@ html body .settings-section .checkbox-label,
   --primary-text: #4f46e5;
   /* 标签墨色: 动态彩色 chip 的文字向主题墨色收敛, 保证任意色都过 4.5:1 */
   --tag-ink: #111827;
+  /* 全局补定义(2026-10-13 全库审计): --card-bg/--border-hover 原先零定义
+     被 25 处消费(卡片透明/hover 描边反馈不存在); --primary-color 原先只
+     定义在懒加载的 ScenarioComparison chunk, 未访问该页时全局消费解析失败 */
+  --primary-color: var(--primary);
+  --card-bg: var(--bg-primary);
+  --border-hover: var(--primary);
   
   /* Status Colors - Enhanced for better contrast */
   --success: #047857;           /* Darker green for better contrast */
@@ -1411,6 +1417,10 @@ html body .settings-section .checkbox-label,
   --primary-dark: #4f46e5;
   --primary-text: #a5b4fc;
   --tag-ink: #f9fafb;
+  /* 同名令牌暗色值(2026-10-13 全库审计): 卡片在暗色下取抬升面而非页面底 */
+  --primary-color: var(--primary);
+  --card-bg: var(--bg-secondary);
+  --border-hover: var(--primary);
   
   /* Status Colors - Adjusted for dark theme */
   --success: #10b981;

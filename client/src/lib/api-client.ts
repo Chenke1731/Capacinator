@@ -11,6 +11,7 @@ import type {
   ProjectAssignment,
   PersonAvailabilityOverride,
   ProjectPhase,
+  ProjectPhaseTimeline,
   Scenario,
   PaginationParams,
   PaginatedResponse,
@@ -577,8 +578,10 @@ export const api = {
 
   projectPhases: {
     // project_id/phase_id 过滤参数服务端支持(getAll 按 query 过滤),类型
-    // 此前只留了分页位,传过滤参数会 TS2353(2026-10-13 审计修)
-    list: (params?: PaginationParams & { project_id?: string; phase_id?: string }) => apiClient.get<PaginatedResponse<ProjectPhase>>('/project-phases', { params }),
+    // 此前只留了分页位,传过滤参数会 TS2353(2026-10-13 审计修);
+    // 泛型改 ProjectPhaseTimeline(行带 join 注入的 phase_name/order,
+    // ProjectPhase 是主表窄形状)
+    list: (params?: PaginationParams & { project_id?: string; phase_id?: string }) => apiClient.get<PaginatedResponse<ProjectPhaseTimeline>>('/project-phases', { params }),
     get: (id: string) => apiClient.get<ProjectPhaseResponse>(`/project-phases/${id}`),
     create: (data: Record<string, unknown>) => apiClient.post<ProjectPhaseResponse>('/project-phases', data),
     update: (id: string, data: Record<string, unknown>) => apiClient.put<ProjectPhaseResponse>(`/project-phases/${id}`, data),

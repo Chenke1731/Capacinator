@@ -13,21 +13,11 @@ import type { Project } from '../types';
 import { parseDate, toISODateString } from '../utils/dateUtils';
 import './ProjectRoadmap.css';
 
+// 本地重复类型退役(2026-10-13 批清): 实体 ProjectPhaseTimeline 已带全部
+// 消费字段(phases/phase_order/notes),本地副本的 string|number 日期联合
+// 与实体 string 冲突引发 extends 报错;服务端实际只回 ISO 字符串
 interface ProjectWithPhases extends Project {
-  phases: ProjectPhaseTimeline[];
-}
-
-interface ProjectPhaseTimeline {
-  id: string;
-  project_id: string;
-  phase_id: string;
-  phase_name: string;
-  phase_order: number;
-  start_date: string | number; // Support both date strings and timestamps
-  end_date: string | number;   // Support both date strings and timestamps
-  color_code?: string;
-  created_at: string;
-  updated_at: string;
+  phases: import('../types').ProjectPhaseTimeline[];
 }
 
 
@@ -174,10 +164,10 @@ export default function ProjectRoadmap() {
   const convertPhasesToTimelineItems = useCallback((project: ProjectWithPhases): TimelineItem[] => {
     return project.phases.map(phase => ({
       id: phase.id,
-      name: phase.phase_name,
+      name: phase.phase_name || phase.id,
       startDate: parseDate(phase.start_date),
       endDate: parseDate(phase.end_date),
-      color: getPhaseColor(phase.phase_name),
+      color: getPhaseColor(phase.phase_name || ''),
       data: { ...phase, projectId: project.id } // Include project context
     }));
   }, []);
@@ -197,8 +187,8 @@ export default function ProjectRoadmap() {
 
   // Update phase dates mutation for drag operations
   const updatePhaseDragMutation = useMutation({
-    mutationFn: async ({ _projectId, phaseId, startDate, endDate }: {
-      _projectId: string;
+    mutationFn: async ({ phaseId, startDate, endDate }: {
+      projectId: string;
       phaseId: string;
       startDate: string;
       endDate: string;
@@ -218,8 +208,8 @@ export default function ProjectRoadmap() {
 
   // Update phase dates mutation for manual editing
   const updatePhaseManualMutation = useMutation({
-    mutationFn: async ({ _projectId, phaseId, startDate, endDate }: {
-      _projectId: string;
+    mutationFn: async ({ phaseId, startDate, endDate }: {
+      projectId: string;
       phaseId: string;
       startDate: string;
       endDate: string;
@@ -266,11 +256,11 @@ export default function ProjectRoadmap() {
       const projectsWithPhases: ProjectWithPhases[] = await Promise.all(
         projectsData.map(async (project) => {
           const phasesResponse = await api.projectPhases.list({ project_id: project.id });
-          const phases = (phasesResponse.data.data || []) as ProjectPhaseTimeline[];
+          const phases = phasesResponse.data.data || [];
 
           return {
             ...project,
-            phases: phases.sort((a, b) => a.phase_order - b.phase_order)
+            phases: [...phases].sort((a, b) => (a.phase_order ?? 9999) - (b.phase_order ?? 9999))
           };
         })
       );
@@ -421,7 +411,7 @@ export default function ProjectRoadmap() {
 
   // Generate year/quarter headers for wide view
   const generateYearQuarterHeaders = () => {
-    const headers = { years: [], quarters: [] };
+    const headers: { years: React.ReactNode[]; quarters: React.ReactNode[] } = { years: [], quarters: [] };
     const startYear = viewport.startDate.getFullYear();
     const endYear = viewport.endDate.getFullYear();
     
@@ -528,7 +518,7 @@ export default function ProjectRoadmap() {
 
   // Generate timeline header with dates
   const generateTimelineHeader = () => {
-    const headers = [];
+    const headers: React.ReactNode[] = [];
     const totalDays = (viewport.endDate.getTime() - viewport.startDate.getTime()) / (1000 * 60 * 60 * 24);
     const monthsToShow = Math.ceil(totalDays / 30);
     
@@ -559,7 +549,7 @@ export default function ProjectRoadmap() {
 
   // Generate month/week headers for detail view
   const generateMonthWeekHeaders = () => {
-    const headers = { months: [], weeks: [] };
+    const headers: { months: React.ReactNode[]; weeks: React.ReactNode[] } = { months: [], weeks: [] };
     const startDate = new Date(viewport.startDate);
     const endDate = new Date(viewport.endDate);
     
@@ -644,7 +634,7 @@ export default function ProjectRoadmap() {
 
   // Generate grid lines aligned to header tiers
   const generateGridLines = () => {
-    const gridLines = { major: [], minor: [] };
+    const gridLines: { major: React.ReactNode[]; minor: React.ReactNode[] } = { major: [], minor: [] };
     const tierType = getHeaderTierType();
     
     if (tierType === 'year-quarter') {

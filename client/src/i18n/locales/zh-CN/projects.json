@@ -562,8 +562,10 @@
     "deviationHint": "SR 值与子 AR 之和不一致(琥珀=偏差提醒)",
     "derivedHint": "AR 的计算和(删空输入可清除自定义值,恢复默认计算)"
   },
+  "loadError": "需求加载失败",
   "roleCell": {
     "pickHint": "点击安排 {{role}} 投入",
+    "srTooltip": "子行{{role}}投入：{{persons}}",
     "titleSuffix": " 投入",
     "pmLabel": "这件事工作量",
     "pmUnit": "人月",

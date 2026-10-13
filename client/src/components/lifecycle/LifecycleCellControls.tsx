@@ -134,7 +134,7 @@ export function LifecycleCellControls({ project }: { project: any }) {
            重渲染完成后再关弹窗(rAF 不够——实测仍被吞, 2026-09-23) */
         onSuccess: () => setTimeout(() => closePopover(), 100),
         onError: (err: any) =>
-          setError(err?.response?.data?.error || err?.message || t('projects:lifecycle.transitionFailed'))
+          setError(err?.response?.data?.error || err?.message || t('projects:lifecycle.quick.transitionFailed'))
       }
     );
   };

@@ -564,8 +564,10 @@
     "deviationHint": "SR value differs from sum of child ARs (amber = deviation)",
     "derivedHint": "Sum of ARs (clear the input to reset to default)"
   },
+  "loadError": "Failed to load projects",
   "roleCell": {
     "pickHint": "Assign {{role}}",
+    "srTooltip": "{{role}} staffing comes from child rows: {{persons}}",
     "titleSuffix": " staffing",
     "pmLabel": "Effort",
     "pmUnit": "pm",

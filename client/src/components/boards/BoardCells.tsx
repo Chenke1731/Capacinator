@@ -651,7 +651,7 @@ export function IterationCell({ project, onSaved, readOnlyWindow }: {
             <button type="button" className="board-primary-btn iter-pop-create-btn"
                     disabled={busy || !newName.trim() || !newStart || !newEnd}
                     onClick={createAndAttach}>
-              {t('projects:iteration.createButton')}
+              {t('projects:iteration.createAndAttach')}
             </button>
           </div>
         </div>

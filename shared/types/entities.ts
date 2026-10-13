@@ -118,6 +118,7 @@ export interface Project extends BaseEntity {
   location?: Location;
   current_phase?: ProjectPhase; // Populated when current_phase_id is set
   project_type_name?: string;
+  project_type_color_code?: string;
   location_name?: string;
   current_phase_name?: string; // From project_health_view
   owner_name?: string;

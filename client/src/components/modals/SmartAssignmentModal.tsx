@@ -10,6 +10,7 @@ import { queryKeys } from '../../lib/queryKeys';
 import { getLocale } from '../../i18n';
 import { calculatePhaseDurationWeeks } from '../../utils/phaseDurations';
 import { useAssignmentRecommendations, ProjectRecommendation } from '../../hooks/useAssignmentRecommendations';
+import type { PersonWithAssignments } from '../../hooks/useAssignmentRecommendations';
 import {
   Dialog,
   DialogContent,
@@ -58,8 +59,9 @@ interface RoleWithDemand {
 // Project allocation
 interface ProjectAllocation {
   role_id: string;
-  role_name: string;
+  role_name?: string;
   phase_id: string;
+  phase_name?: string;
   allocation_percentage: number;
 }
 
@@ -155,9 +157,9 @@ export function SmartAssignmentModal({
     queryKey: queryKeys.people.withAssignments(personId),
     queryFn: async () => {
       const response = await api.people.get(personId);
-      // The PeopleController returns the person data directly, not wrapped in { data: ... }
-      const personData = response.data;
-      return personData;
+      // PeopleController.getById 裸返回 person + roles/assignments 注入
+      // (:249 消费 PersonWithAssignments 形状——id/name/roles/assignments)
+      return response.data as unknown as PersonWithAssignments;
     },
     enabled: !!personId
   });

@@ -1173,14 +1173,21 @@ export interface ProjectTypePhasesResponse {
 // ============= Project Allocations Responses =============
 
 export interface ProjectAllocationItem {
+  id?: string;
+  project_id?: string;
   phase_id: string;
-  phase_name: string;
+  phase_name?: string;
+  phase_order?: number;
   role_id: string;
-  role_name: string;
+  role_name?: string;
   allocation_percentage: number;
   hours_per_week?: number;
-  is_override: boolean;
-  source: 'template' | 'override' | 'calculated';
+  /** 服务端真名是 is_inherited(ProjectAllocationController :70/:115),
+   *  原 is_override/source 系杜撰 */
+  is_inherited: boolean;
+  template_id?: string;
+  original_percentage?: number;
+  notes?: string;
 }
 
 /** {success,data} 信封(ProjectAllocationController res.json 实证,2026-10-13
@@ -1188,12 +1195,16 @@ export interface ProjectAllocationItem {
 export interface ProjectAllocationsResponse {
   success: boolean;
   data: {
-    project_id: string;
+    project?: Record<string, unknown>;
+    project_id?: string;
     allocations: ProjectAllocationItem[];
     summary?: {
-      total_phases: number;
-      total_roles: number;
-      override_count: number;
+      total_allocations?: number;
+      inherited_count?: number;
+      overridden_count?: number;
+      total_phases?: number;
+      total_roles?: number;
+      override_count?: number;
     };
   };
 }

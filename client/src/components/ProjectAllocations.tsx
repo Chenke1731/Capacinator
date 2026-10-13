@@ -4,6 +4,7 @@ import { api } from '../lib/api-client';
 import { queryKeys } from '../lib/queryKeys';
 import { Edit2, RotateCcw, Save, X } from 'lucide-react';
 import { getProjectTypeIndicatorStyle } from '../lib/project-colors';
+import type { ProjectAllocationItem } from '../types';
 import type { Project } from '../types';
 import './ProjectAllocations.css';
 
@@ -43,7 +44,9 @@ export const ProjectAllocations: React.FC<ProjectAllocationsProps> = ({
     queryKey: queryKeys.projects.detail(projectId),
     queryFn: async () => {
       const response = await api.projects.get(projectId);
-      const rawProject = response.data;
+      // sendSuccess 信封(2026-10-13 批清): 原先单层解包拿到的是信封壳,
+      // project_type_name 等字段从未真正读到
+      const rawProject = (response.data as any).data as Project;
       
       // Transform flat response to include project_type object
       return {
@@ -64,6 +67,7 @@ export const ProjectAllocations: React.FC<ProjectAllocationsProps> = ({
     queryFn: async () => {
       const response = await api.projectAllocations.get(projectId);
       return response.data.data;
+      // 信封 {success,data:{allocations,summary}}(2026-10-13 批清):
     },
     enabled: !!projectId
   });
@@ -141,7 +145,7 @@ export const ProjectAllocations: React.FC<ProjectAllocationsProps> = ({
   const summary = allocationData?.summary || {};
 
   // Group allocations by phase
-  const allocationsByPhase = allocations.reduce((acc: any, allocation: ProjectAllocation) => {
+  const allocationsByPhase = allocations.reduce((acc: any, allocation: ProjectAllocation | ProjectAllocationItem) => {
     if (!acc[allocation.phase_id]) {
       acc[allocation.phase_id] = {
         phase_name: allocation.phase_name,

@@ -25,6 +25,8 @@ export interface PhaseInfo {
  * API response structure for project demands
  */
 export interface DemandApiResponse {
+  /* 对齐服务端 /projects/:id/demands 真身(ProjectDemandsResponse):
+     demands 是 role×phase 聚合行,日期窗可选——缺窗行不进逐日曲线 */
   phases: Array<{
     phase_id: string;
     phase_name: string;
@@ -34,9 +36,14 @@ export interface DemandApiResponse {
   }>;
   demands: Array<{
     role_name: string;
-    start_date: string;
-    end_date: string;
-    allocation_percentage: number;
+    role_id?: string;
+    demand_hours?: number;
+    demand_fte?: number;
+    phase_id?: string;
+    phase_name?: string;
+    start_date?: string;
+    end_date?: string;
+    allocation_percentage?: number;
   }>;
 }
 
@@ -141,7 +148,7 @@ export function useProjectDemandData({
     const allDates = phases.flatMap(p => [new Date(p.start_date), new Date(p.end_date)]);
 
     // Also include dates from demands and assignments to ensure full coverage
-    const demandDates = apiResponse.demands.flatMap(d => [new Date(d.start_date), new Date(d.end_date)]);
+    const demandDates = apiResponse.demands.flatMap(d => d.start_date && d.end_date ? [new Date(d.start_date), new Date(d.end_date)] : []);
     const assignmentDates = assignmentsResponse?.data ?
       assignmentsResponse.data.flatMap(a => [
         new Date(a.computed_start_date || a.start_date),
@@ -161,6 +168,7 @@ export function useProjectDemandData({
     // 1. DEMAND DATA - convert allocation percentages to FTE
     const demandTimeline = createEmptyTimeline(minDate, maxDate);
     apiResponse.demands.forEach((demand) => {
+      if (!demand.start_date || !demand.end_date) return; // 聚合行无日窗,不进逐日曲线
       const phaseStart = new Date(demand.start_date);
       const phaseEnd = new Date(demand.end_date);
       const roleName = demand.role_name;

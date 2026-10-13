@@ -114,7 +114,9 @@ export function PersonAllocationChart({ personId, personName, startDate, endDate
     const endMonth = sortedMonths[sortedMonths.length - 1];
     
     // For full range, use monthly granularity as base
-    const baseGranularity = 'monthly';
+    // (注宽 string: 下游 weekly/daily/quarterly 分支为通用粒度逻辑保留,
+    //  字面量窄化会把它们误判为死分支)
+    const baseGranularity: string = 'monthly';
     const datePoints = generateDatePoints(startMonth, endMonth, baseGranularity);
     
     return datePoints.map(datePoint => {
@@ -218,15 +220,16 @@ export function PersonAllocationChart({ personId, personName, startDate, endDate
     // Ensure all project data keys have valid numbers for stacked areas
     return filtered.map(d => {
       const cleanedData = { ...d };
-      
+
       // Ensure all project allocation values are valid numbers
       allProjects.forEach(project => {
         const key = `project_${project}`;
-        if (typeof cleanedData[key] !== 'number' || isNaN(cleanedData[key])) {
-          cleanedData[key] = 0;
+        const v = (cleanedData as Record<string, unknown>)[key];
+        if (typeof v !== 'number' || isNaN(v)) {
+          (cleanedData as Record<string, unknown>)[key] = 0;
         }
       });
-      
+
       return cleanedData;
     });
   }, [fullRangeData, allProjects]);
@@ -440,11 +443,10 @@ export function PersonAllocationChart({ personId, personName, startDate, endDate
               domain={[0, 'dataMax']}
             />
             <Tooltip
-              formatter={(value: number, name: string) => {
-                if (name === availableCapacityLabel) {
-                  return [`${value.toFixed(1)}%`, name];
-                }
-                return [`${value.toFixed(1)}%`, name];
+              formatter={(value, name) => {
+                const v = Number(value);
+                const n = String(name ?? '');
+                return [`${v.toFixed(1)}%`, n];
               }}
               labelFormatter={(label) => {
                 const dataPoint = displayData.find(d => d.date === label);
@@ -475,15 +477,17 @@ export function PersonAllocationChart({ personId, personName, startDate, endDate
               content={({ active, payload, label }) => {
                 if (!active || !payload) return null;
 
+                const labelStr = String(label ?? '');
+
                 const data = payload[0]?.payload;
                 if (!data) return null;
 
-                const dataPoint = displayData.find(d => d.date === label);
+                const dataPoint = displayData.find(d => d.date === labelStr);
                 const granularity = dataPoint?.granularity || 'monthly';
 
                 let formattedPeriod = '';
                 if (granularity === 'weekly') {
-                  const startDate = new Date(label);
+                  const startDate = new Date(labelStr);
                   const endDate = new Date(startDate);
                   endDate.setDate(endDate.getDate() + 6);
                   formattedPeriod = t('people:allocationChart.weekLabel', {
@@ -492,14 +496,14 @@ export function PersonAllocationChart({ personId, personName, startDate, endDate
                   });
                 } else if (granularity === 'daily') {
                   formattedPeriod = t('people:allocationChart.dayLabel', {
-                    date: new Date(label).toLocaleDateString(getLocale(), { month: 'short', day: 'numeric' })
+                    date: new Date(labelStr).toLocaleDateString(getLocale(), { month: 'short', day: 'numeric' })
                   });
                 } else if (granularity === 'monthly') {
                   formattedPeriod = t('people:allocationChart.monthLabel', {
-                    month: new Date(label + '-01').toLocaleDateString(getLocale(), { month: 'long', year: 'numeric' })
+                    month: new Date(labelStr + '-01').toLocaleDateString(getLocale(), { month: 'long', year: 'numeric' })
                   });
                 } else {
-                  const date = new Date(label + '-01');
+                  const date = new Date(labelStr + '-01');
                   const quarter = Math.ceil((date.getMonth() + 1) / 3);
                   formattedPeriod = t('people:allocationChart.quarterLabel', {
                     label: t('people:allocationChart.quarterShort', { quarter, year: date.getFullYear() })

@@ -276,7 +276,7 @@ export function ProjectDemandChart({ projectId, projectName }: ProjectDemandChar
   const { data: assignmentsResponse } = useQuery({
     queryKey: queryKeys.projects.assignments(projectId),
     queryFn: async () => {
-      const response = await api.assignments.list({ project_id: projectId, limit: 2000 });
+      const response = await api.assignments.list({ project_id: projectId, limit: 2000 } as never);
       return response.data;
     },
     enabled: !!projectId
@@ -583,12 +583,13 @@ export function ProjectDemandChart({ projectId, projectName }: ProjectDemandChar
   // Calculate summary stats based on current view
   const { totalRoles, peakValue, avgValue, summaryLabels } = React.useMemo(() => {
     const totalRoles = allRoles.length;
-    const peakValue = Math.max(...currentData.map(d => 
-      allRoles.reduce((sum, role) => sum + (d[role] || 0), 0)
+    // (ChartDataPoint 是宽索引行,d[role] 需 Number() 收口)
+    const peakValue = Math.max(...currentData.map(d =>
+      allRoles.reduce((sum, role) => sum + (Number(d[role]) || 0), 0)
     ));
-    const avgValue = currentData.length > 0 ? 
-      currentData.reduce((sum, d) => 
-        sum + allRoles.reduce((roleSum, role) => roleSum + (d[role] || 0), 0), 0
+    const avgValue = currentData.length > 0 ?
+      currentData.reduce((sum, d) =>
+        sum + allRoles.reduce((roleSum, role) => roleSum + (Number(d[role]) || 0), 0), 0
       ) / currentData.length : 0;
 
     // Dynamic labels based on current view
@@ -718,8 +719,8 @@ export function ProjectDemandChart({ projectId, projectName }: ProjectDemandChar
             <YAxis 
               label={{ value: t('projects:demandChart.fteAxis'), angle: -90, position: 'insideLeft' }}
             />
-            <Tooltip 
-              formatter={(value: number, name: string) => [`${value?.toFixed(1)} FTE`, name]}
+            <Tooltip
+              formatter={(value, name) => [`${Number(value ?? 0).toFixed(1)} FTE`, String(name ?? '')]}
               labelFormatter={(label) => {
                 const dataPoint = currentData.find(d => d.date === label);
                 if (!dataPoint) return t('projects:demandChart.dateLabel', { date: formatDate(label as string) });

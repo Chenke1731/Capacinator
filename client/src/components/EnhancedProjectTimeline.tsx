@@ -131,11 +131,20 @@ export default function EnhancedProjectTimeline({ projectId }: EnhancedProjectTi
   });
 
   // Validate updates
-  const validateUpdates = async (updates: any[]) => {
+  const validateUpdates = async (updates: any[]): Promise<ValidationResult | null> => {
     try {
       const response = await api.projects.validatePhaseUpdates(projectId, { updates });
-      setValidationResult(response.data);
-      return response.data;
+      // 服务端 PhaseValidationResponse{valid,errors} → 本地视图形 ValidationResult
+      const r = response.data;
+      const mapped: ValidationResult = {
+        isValid: r.valid,
+        violations: (r.errors || []).map((e) => ({
+          type: e.field, phaseId: e.phase_id ?? '', phaseName: '', message: e.message
+        })),
+        warnings: r.warnings ?? []
+      };
+      setValidationResult(mapped);
+      return mapped;
     } catch (error) {
       console.error('Validation failed:', error);
       return null;
@@ -300,7 +309,7 @@ export default function EnhancedProjectTimeline({ projectId }: EnhancedProjectTi
         insertIndex: newPhase.insertIndex
       });
 
-      if (response.data.isValid) {
+      if (response.data.valid) {
         addCustomPhaseMutation.mutate({
           name: newPhase.name,
           description: newPhase.description,
@@ -468,7 +477,9 @@ export default function EnhancedProjectTimeline({ projectId }: EnhancedProjectTi
                     </button>
                   )}
                   {!phase.is_deletable && (
-                    <Lock size={16} className="phase-locked" title={t('phases:enhanced.mandatoryTemplatePhase')} />
+                    <span title={t('phases:enhanced.mandatoryTemplatePhase')}>
+                      <Lock size={16} className="phase-locked" />
+                    </span>
                   )}
                 </div>
               </div>

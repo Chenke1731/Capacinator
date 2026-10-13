@@ -243,11 +243,20 @@ export default function UnifiedProjectTimeline({ projectId, hideHeader = false }
   };
 
   // Validate updates
-  const validateUpdates = async (updates: any[]) => {
+  const validateUpdates = async (updates: any[]): Promise<ValidationResult | null> => {
     try {
       const response = await api.projects.validatePhaseUpdates(projectId, { updates });
-      setValidationResult(response.data);
-      return response.data;
+      // 服务端 PhaseValidationResponse{valid,errors} → 本地视图形 ValidationResult
+      const r = response.data;
+      const mapped: ValidationResult = {
+        isValid: r.valid,
+        violations: (r.errors || []).map((e) => ({
+          type: e.field, phaseId: e.phase_id ?? '', phaseName: '', message: e.message
+        })),
+        warnings: r.warnings ?? []
+      };
+      setValidationResult(mapped);
+      return mapped;
     } catch (error) {
       console.error('Validation failed:', error);
       return null;
@@ -411,7 +420,7 @@ export default function UnifiedProjectTimeline({ projectId, hideHeader = false }
         insertIndex: newPhase.insertIndex
       });
 
-      if (response.data.isValid) {
+      if (response.data.valid) {
         addCustomPhaseMutation.mutate({
           name: newPhase.name,
           description: newPhase.description,
@@ -544,8 +553,8 @@ export default function UnifiedProjectTimeline({ projectId, hideHeader = false }
                 </span>
               </div>
               <div className="compliance-details">
-                <span className="compliant-count">{t('phases:unified.compliantCount', { count: compliance.compliantPhases })}</span>
-                <span className="violations-count">{t('phases:unified.violationsCount', { count: compliance.violations })}</span>
+                <span className="compliant-count">{t('phases:unified.compliantCount', { count: compliance.templatePhases - compliance.violations.length })}</span>
+                <span className="violations-count">{t('phases:unified.violationsCount', { count: compliance.violations.length })}</span>
               </div>
             </div>
           )}

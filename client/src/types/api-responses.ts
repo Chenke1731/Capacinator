@@ -404,11 +404,15 @@ export interface PhaseValidationResponse {
 }
 
 export interface TemplateComplianceResponse {
-  compliant: boolean;
-  missing_phases: string[];
-  extra_phases: string[];
-  sequence_issues: string[];
-  recommendations: string[];
+  /* PhaseTemplateValidationService.getProjectTemplateCompliance 真身
+     (2026-10-13 批清: 原 compliant/missing_phases 形状系杜撰,服务端从未产出) */
+  totalPhases: number;
+  templatePhases: number;
+  customPhases: number;
+  mandatoryPhases: number;
+  customizedPhases: number;
+  compliancePercentage: number;
+  violations: string[];
 }
 
 export interface ProjectPhaseResponse {

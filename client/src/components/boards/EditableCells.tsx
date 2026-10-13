@@ -108,7 +108,7 @@ export function OwnerCell({ project, onSaved }: { project: any; onSaved: () => v
 
   const { data: peoplePayload } = useQuery({
     queryKey: queryKeys.people.lists(),
-    queryFn: async () => (await api.people.list({ limit: 500 })).data as any,
+    queryFn: async () => (await api.people.list({ limit: 500, is_active: 'true' })).data as any,
     enabled: pop.open
   });
   const people = useMemo(

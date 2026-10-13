@@ -349,7 +349,9 @@ export const api = {
 
   // People
   people: {
-    list: (params?: PaginationParams) => apiClient.get<PaginatedResponse<Person>>('/people', { params }),
+    // is_active 过滤(2026-10-13 停用机制): 'true'=只取在册(分配/负责人
+    // 选择器口径),'false'=只取停用;缺省=全部
+    list: (params?: PaginationParams & { is_active?: 'true' | 'false' }) => apiClient.get<PaginatedResponse<Person>>('/people', { params }),
     get: (id: string) => apiClient.get<{ data: Person }>(`/people/${id}`),
     create: (data: Partial<Person>) => apiClient.post<{ data: Person }>('/people', data),
     update: (id: string, data: Partial<Person>) => apiClient.put<{ data: Person }>(`/people/${id}`, data),

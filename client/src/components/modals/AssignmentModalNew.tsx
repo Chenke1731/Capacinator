@@ -187,7 +187,7 @@ export const AssignmentModalNew: React.FC<AssignmentModalProps> = ({
   const { data: people } = useQuery({
     queryKey: ['people'],
     queryFn: async () => {
-      const response = await api.people.list({ limit: 500 });
+      const response = await api.people.list({ limit: 500, is_active: 'true' });
       // MUST unwrap to the array — this key is shared with Login and other
       // consumers; a wrapped object here crashes Login's people.map in
       // production builds (tighter mount timing than dev)

@@ -217,7 +217,7 @@ export function RoleCell({
 
   const { data: peopleResp } = useQuery({
     queryKey: queryKeys.people.list(),
-    queryFn: async () => ((await api.people.list({ limit: 500 })).data as any)?.data ?? [],
+    queryFn: async () => ((await api.people.list({ limit: 500, is_active: 'true' })).data as any)?.data ?? [],
     enabled: pop.open
   });
   const people: any[] = Array.isArray(peopleResp) ? peopleResp : [];
@@ -386,7 +386,7 @@ export function PrimaryDevCell({ primary, project, onSaved }: {
 
   const { data: peopleResp } = useQuery({
     queryKey: queryKeys.people.list(),
-    queryFn: async () => ((await api.people.list({ limit: 500 })).data as any)?.data ?? [],
+    queryFn: async () => ((await api.people.list({ limit: 500, is_active: 'true' })).data as any)?.data ?? [],
     enabled: pop.open
   });
   const people: any[] = Array.isArray(peopleResp) ? peopleResp : [];

@@ -14,7 +14,7 @@
   "fixErrorsBeforeSubmitting": "Please fix the errors below before submitting.",
   "failedToLoad": "Failed to load people",
   "createFailed": "Failed to create person. Please check your inputs and try again.",
-  "deleteConfirmation": "Are you sure you want to delete \"{{name}}\"? Their assignments will be deleted too. This action cannot be undone.",
+  "deleteConfirmation": "Are you sure you want to delete \"{{name}}\"? Only possible when they have no assignments on record — prefer deactivation for departed members.",
   "deleteFailed": "Failed to delete person",
   "searchPlaceholder": "Search people...",
   "basicInformation": "Basic Information",
@@ -239,5 +239,8 @@
     "peakUtilization": "Peak Utilization",
     "activeProjects": "Active Projects",
     "projectBreakdown": "Project Breakdown"
-  }
+  },
+  "deactivate": "Deactivate",
+  "activate": "Activate",
+  "inactive": "Inactive"
 }

@@ -2,7 +2,7 @@ import { useState, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate, Link } from 'react-router-dom';
-import { Plus, Edit2, Eye, Users, UserPlus, TrendingUp, AlertTriangle, CheckCircle, Trash2 } from 'lucide-react';
+import { Plus, Edit2, Eye, Users, UserPlus, TrendingUp, AlertTriangle, CheckCircle, Trash2, Power } from 'lucide-react';
 import { api } from '../lib/api-client';
 import { queryKeys } from '../lib/queryKeys';
 import i18n from '../i18n';
@@ -113,6 +113,17 @@ export default function People() {
       deletePersonMutation.mutate(personId);
     }
   };
+
+  // 停用/启用(2026-10-13): 下线人员走停用而非删除——删除有 409 引用守卫
+  // (CASCADE 会销毁排产历史);停用者保留历史,不再进入分配/负责人选择器
+  const toggleActiveMutation = useMutation({
+    mutationFn: async (person: Person) => {
+      await api.people.update(person.id, { is_active: person.is_active === false } as any);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: queryKeys.people.all });
+    }
+  });
 
   const handleEditPerson = (person: Person) => {
     setEditingPerson(person);
@@ -270,6 +281,9 @@ export default function People() {
           <Link to={`/people/${row.id}`} className="name">
             {value}
           </Link>
+          {row.is_active === false && (
+            <span className="email text-muted">{t('people:inactive')}</span>
+          )}
           {row.email && <span className="email text-muted">{row.email}</span>}
         </div>
       )
@@ -386,6 +400,18 @@ export default function People() {
             >
               <Edit2 size={14} />
               {t('common:edit')}
+            </button>
+            <button
+              className="btn btn-outline btn-sm quick-action-btn"
+              onClick={(e) => {
+                e.stopPropagation();
+                toggleActiveMutation.mutate(row);
+              }}
+              disabled={toggleActiveMutation.isPending}
+              title={row.is_active === false ? t('people:activate') : t('people:deactivate')}
+            >
+              <Power size={14} />
+              {row.is_active === false ? t('people:activate') : t('people:deactivate')}
             </button>
             <button
               className="btn btn-outline btn-sm quick-action-btn delete-person-btn"

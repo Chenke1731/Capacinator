@@ -5,6 +5,7 @@ import { ExcelImporter } from '../../services/import/ExcelImporter.js';
 import { ExcelImporterV2 } from '../../services/import/ExcelImporterV2.js';
 import { logger } from '../../services/logging/config.js';
 import { getConfig } from '../../config/index.js';
+import { storedDateToIso, toIsoDateString } from '../../utils/isoDate.js';
 import multer from 'multer';
 import path from 'path';
 import fs from 'fs/promises';
@@ -367,7 +368,7 @@ export class ImportController extends BaseController {
       const buffer = await workbook.xlsx.writeBuffer();
       
       // Set response headers with enhanced filename
-      const timestamp = new Date().toISOString().split('T')[0];
+      const timestamp = toIsoDateString(new Date());
       const filename = `capacinator_import_template_${templateType}_${timestamp}.xlsx`;
       res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
       res.setHeader('Content-Disposition', `attachment; filename="${filename}"`);
@@ -616,7 +617,7 @@ export class ImportController extends BaseController {
       logger.info('Excel buffer generated successfully', { size: buffer.byteLength });
       
       // Set response headers
-      const filename = `${scenario.name.replace(/[^a-zA-Z0-9]/g, '_')}_export_${new Date().toISOString().split('T')[0]}.xlsx`;
+      const filename = `${scenario.name.replace(/[^a-zA-Z0-9]/g, '_')}_export_${toIsoDateString(new Date())}.xlsx`;
       res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
       res.setHeader('Content-Disposition', `attachment; filename="${filename}"`);
       
@@ -1156,16 +1157,16 @@ export class ImportController extends BaseController {
         location: project.location_name,
         priority: scenarioType !== 'baseline' && project.scenario_priority !== null ? project.scenario_priority : project.priority,
         description: project.description,
-        start_date: project.start_date ? new Date(project.start_date as string).toISOString().split('T')[0] : '',
-        end_date: project.end_date ? new Date(project.end_date as string).toISOString().split('T')[0] : '',
+        start_date: project.start_date ? storedDateToIso(project.start_date as string) : '',
+        end_date: project.end_date ? storedDateToIso(project.end_date as string) : '',
         owner: project.owner_name,
         status: project.status,
         aspiration_start: scenarioType !== 'baseline' && project.scenario_aspiration_start ?
-          new Date(project.scenario_aspiration_start as string).toISOString().split('T')[0] :
-          (project.aspiration_start ? new Date(project.aspiration_start as string).toISOString().split('T')[0] : ''),
+          storedDateToIso(project.scenario_aspiration_start as string) :
+          (project.aspiration_start ? storedDateToIso(project.aspiration_start as string) : ''),
         aspiration_finish: scenarioType !== 'baseline' && project.scenario_aspiration_finish ?
-          new Date(project.scenario_aspiration_finish as string).toISOString().split('T')[0] :
-          (project.aspiration_finish ? new Date(project.aspiration_finish as string).toISOString().split('T')[0] : ''),
+          storedDateToIso(project.scenario_aspiration_finish as string) :
+          (project.aspiration_finish ? storedDateToIso(project.aspiration_finish as string) : ''),
         external_id: project.external_id
       });
     });
@@ -1338,8 +1339,8 @@ export class ImportController extends BaseController {
         phase_name: assignment.phase_name,
         allocation_percentage: assignment.allocation_percentage,
         assignment_date_mode: assignment.assignment_date_mode,
-        start_date: assignment.start_date ? new Date(assignment.start_date as string).toISOString().split('T')[0] : '',
-        end_date: assignment.end_date ? new Date(assignment.end_date as string).toISOString().split('T')[0] : '',
+        start_date: assignment.start_date ? storedDateToIso(assignment.start_date as string) : '',
+        end_date: assignment.end_date ? storedDateToIso(assignment.end_date as string) : '',
         notes: assignment.notes
       });
     });
@@ -1393,8 +1394,8 @@ export class ImportController extends BaseController {
       phasesSheet.addRow({
         project_name: phase.project_name,
         phase_name: phase.phase_name,
-        start_date: phase.start_date ? new Date(phase.start_date as string).toISOString().split('T')[0] : '',
-        end_date: phase.end_date ? new Date(phase.end_date as string).toISOString().split('T')[0] : '',
+        start_date: phase.start_date ? storedDateToIso(phase.start_date as string) : '',
+        end_date: phase.end_date ? storedDateToIso(phase.end_date as string) : '',
         notes: phase.notes
       });
     });

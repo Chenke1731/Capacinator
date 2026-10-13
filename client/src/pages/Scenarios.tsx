@@ -440,7 +440,7 @@ const MergeModal: React.FC<MergeModalProps> = ({
                 <Checkbox
                   id="confirm-merge"
                   checked={confirmMerge}
-                  onCheckedChange={setConfirmMerge}
+                  onCheckedChange={(checked) => setConfirmMerge(checked === true)}
                   aria-describedby="confirm-help"
                 />
                 <div className="flex-1">
@@ -946,7 +946,9 @@ export const Scenarios: React.FC = () => {
     queryFn: async () => {
       const response = await api.scenarios.list();
       const payload = response.data as any;
-      return Array.isArray(payload) ? payload : payload?.data || [];
+      // 共享键防御取形 + 元素收窄 Scenario(下游 map/filter 回调不再隐式 any)
+      const rows: unknown[] = Array.isArray(payload) ? payload : payload?.data || [];
+      return rows as Scenario[];
     },
   });
 

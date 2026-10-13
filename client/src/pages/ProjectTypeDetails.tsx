@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { ArrowLeft, Edit2 } from 'lucide-react';
 import { api } from '../lib/api-client';
 import { queryKeys } from '../lib/queryKeys';
-import type { ProjectType, ProjectPhase } from '../types';
+import type { ProjectType, ProjectSubType, ProjectPhase } from '../types';
 import PhaseTemplateDesigner from '../components/PhaseTemplateDesigner';
 import ProjectsTable from '../components/ProjectsTable';
 import '../components/PhaseTemplateDesigner.css';
@@ -17,6 +17,7 @@ interface ResourceTemplate {
   project_type_id: string;
   phase_id: string;
   allocation_percentage: number;
+  is_inherited?: boolean; // 继承标记(服务端 join 注入,本地图谱补全)
 }
 
 export default function ProjectTypeDetails() {
@@ -32,7 +33,8 @@ export default function ProjectTypeDetails() {
     queryFn: async () => {
       if (!id) throw new Error('Project Type ID is required');
       const response = await api.projectTypes.get(id);
-      return response.data as ProjectType;
+      // getById 走裸 res.json(无 sendSuccess 信封)——axios .data 即实体本体
+      return response.data as ProjectType & { sub_types?: ProjectSubType[]; phases?: unknown[] };
     },
     enabled: !!id,
     retry: false, // Don't retry on 404
@@ -76,8 +78,9 @@ export default function ProjectTypeDetails() {
     queryKey: queryKeys.resourceTemplates.byProjectType(id!),
     queryFn: async () => {
       if (!id) return [];
-      const response = await api.resourceTemplates.list({ project_type_id: id });
-      return response.data as ResourceTemplate[];
+      const response = await api.resourceTemplates.list({ project_type_id: id } as never);
+      // 分页信封 {data: rows}: 传过滤参数时解 .data
+      return (response.data as { data?: ResourceTemplate[] }).data ?? (response.data as unknown as ResourceTemplate[]);
     },
     enabled: !!id && !!projectType && !projectTypeError
   });
@@ -89,7 +92,10 @@ export default function ProjectTypeDetails() {
     queryFn: async () => {
       if (!id) return [];
       const response = await api.projectTypes.getPhases(id);
-      return response.data.data as ProjectPhase[];
+      // 服务端 getProjectTypePhases 走 {success, data: phases[]}——axios .data.data
+      // 即 phase 数组(视图行含 sequence_order,映射回消费端 order_index)
+      const raw = (response.data as { data?: Array<{ id: string; name: string; sequence_order: number; order_index?: number }> }).data ?? [];
+      return raw.map(p => ({ ...p, order_index: p.order_index ?? p.sequence_order })) as unknown as ProjectPhase[];
     },
     enabled: !!id && !!projectType && !projectTypeError
   });
@@ -102,7 +108,7 @@ export default function ProjectTypeDetails() {
       const response = await api.projects.list({
         project_type_id: id,
         limit: 15
-      });
+      } as never);
       return response.data.data;
     },
     enabled: !!id && !!projectType && !projectTypeError
@@ -398,7 +404,7 @@ export default function ProjectTypeDetails() {
               ? projectTypePhases
                   .sort((a, b) => (a.order_index || 0) - (b.order_index || 0))
                   .map(ptp => phases.find(p => p.id === ptp.phase_id))
-                  .filter(Boolean)
+                  .filter((p): p is ProjectPhase => Boolean(p))
               : Array.isArray(phases) ? phases : [];
             
             return (

@@ -16,7 +16,7 @@ jest.mock('@tanstack/react-virtual', () => ({
 }));
 
 /** ① 提速: waitFor 轮询间隔 50ms→0(条件已满足时省一个轮询周期,49 测试省 ~2.5s) */
-const waitFor = (cb: () => void | Promise<void>) => rtlWaitFor(cb, { interval: 10 }); /* 10ms 仍比默认 50 省 40ms;0 会错过 react-query 宏任务窗口 */
+const waitFor = <T = void,>(cb: () => T | Promise<T>) => rtlWaitFor(cb, { interval: 10 }) as Promise<T>; /* 10ms 仍比默认 50 省 40ms;0 会错过 react-query 宏任务窗口 */
 
 // ── 2026-09-23 夜间重构对齐(看板 B3a-B3e 列模型, BOARD_REDESIGN) ──
 // 13 列: 名称(标签内联+＋AR hover 钮)/编号/组件/状态单胶囊/代码规模(KlocCell)/
@@ -387,7 +387,7 @@ describe('Requirements Board (需求台)', () => {
         expect(screen.getByText('Portal Login Rework')).toBeInTheDocument();
       });
 
-      const childRow = screen.getByText('Portal Login Rework').closest('.requirements-row')!;
+      const childRow = screen.getByText('Portal Login Rework').closest('.requirements-row') as HTMLElement;
       const se = childRow.querySelector('.req-role--se')!;
       expect(se.textContent).toContain('王后端');
       expect(se.textContent).toContain('1.5');
@@ -396,7 +396,7 @@ describe('Requirements Board (需求台)', () => {
       expect(mde.textContent).toContain('0.8');
 
       // 未派格弱化显示 —
-      const betaRow = screen.getByText('Project Beta').closest('.requirements-row')!;
+      const betaRow = screen.getByText('Project Beta').closest('.requirements-row') as HTMLElement;
       expect(betaRow.querySelector('.req-role--se')!.textContent).toContain('—');
       expect(betaRow.querySelector('.req-role--mde')!.textContent).toContain('—');
     });
@@ -413,7 +413,7 @@ describe('Requirements Board (需求台)', () => {
       expect(screen.getAllByText('P2').length).toBeGreaterThanOrEqual(1);
       expect(screen.getAllByText('P1').length).toBeGreaterThanOrEqual(1);
 
-      const childRow = screen.getByText('Portal Home Rework').closest('.requirements-row')!;
+      const childRow = screen.getByText('Portal Home Rework').closest('.requirements-row') as HTMLElement;
       const primary = childRow.querySelector('.req-primary')!;
       expect(primary.textContent).toContain('李四');
       // 投入窗口随人内联(月-日 ~ 月-日)
@@ -433,7 +433,7 @@ describe('Requirements Board (需求台)', () => {
       });
 
       // B3b 单胶囊: 一键推进收进 ›(.lifecycle-advance-btn),不再有文字快捷钮
-      const childRow = screen.getByText('Portal Login Rework').closest('.requirements-row')!;
+      const childRow = screen.getByText('Portal Login Rework').closest('.requirements-row') as HTMLElement;
       const advance = within(childRow).getByTitle('Advance to Designing');
       expect(advance).toHaveClass('lifecycle-advance-btn');
       fireEvent.click(advance);
@@ -473,7 +473,7 @@ describe('Requirements Board (需求台)', () => {
         expect(screen.getByText('Project Alpha')).toBeInTheDocument();
       });
 
-      const alphaRow = screen.getByText('Project Alpha').closest('.requirements-row')!;
+      const alphaRow = screen.getByText('Project Alpha').closest('.requirements-row') as HTMLElement;
       fireEvent.click(within(alphaRow).getByText('B'));
 
       const input = await screen.findByDisplayValue('B');
@@ -496,10 +496,10 @@ describe('Requirements Board (需求台)', () => {
         expect(screen.getByText('Portal Home Rework')).toBeInTheDocument();
       });
 
-      const childRow = screen.getByText('Portal Home Rework').closest('.requirements-row')!;
+      const childRow = screen.getByText('Portal Home Rework').closest('.requirements-row') as HTMLElement;
       fireEvent.click(childRow.querySelector('.req-primary')!);
 
-      const pop = document.querySelector('.primary-pop')!;
+      const pop = document.querySelector('.primary-pop') as HTMLElement;
       // 当前实名一档: 人 · 占用% · 窗口
       expect(within(pop).getByText('李四 · 100% · 11-01~11-30')).toBeInTheDocument();
       // 池步进器常驻,自带 ±0.5 语义(不靠猜)
@@ -520,13 +520,13 @@ describe('Requirements Board (需求台)', () => {
         expect(screen.getByText('Portal Login Rework')).toBeInTheDocument();
       });
 
-      const childRow = screen.getByText('Portal Login Rework').closest('.requirements-row')!;
+      const childRow = screen.getByText('Portal Login Rework').closest('.requirements-row') as HTMLElement;
       await user.click(childRow.querySelector('.req-role--se')!);
 
       const pop = await waitFor(() => {
-        const el = document.querySelector('.role-pop');
+        const el = document.querySelector<HTMLElement>('.role-pop');
         expect(el).not.toBeNull();
-        return el!;
+        return el as HTMLElement;
       });
       expect(within(pop).getByText('王后端 · 50%')).toBeInTheDocument();
       // 候选列表: 姓名 + 主角色 meta
@@ -549,15 +549,15 @@ describe('Requirements Board (需求台)', () => {
         expect(screen.getByText('Project Beta')).toBeInTheDocument();
       });
 
-      const betaRow = screen.getByText('Project Beta').closest('.requirements-row')!;
+      const betaRow = screen.getByText('Project Beta').closest('.requirements-row') as HTMLElement;
       fireEvent.click(betaRow.querySelector('.req-role--mde')!);
 
-      const pop = document.querySelector('.role-pop')!;
+      const pop = document.querySelector('.role-pop') as HTMLElement;
       // 候选就绪(角色档案到位后才可派)
       const candidate = await waitFor(() => {
         const el = within(pop).getByText('李四');
         expect(el.closest('button')).not.toBeDisabled();
-        return el;
+        return el as HTMLElement;
       });
 
       fireEvent.click(candidate);
@@ -580,7 +580,7 @@ describe('Requirements Board (需求台)', () => {
         expect(screen.getByText('Project Alpha')).toBeInTheDocument();
       });
 
-      const alphaRow = screen.getByText('Project Alpha').closest('.requirements-row')!;
+      const alphaRow = screen.getByText('Project Alpha').closest('.requirements-row') as HTMLElement;
       fireEvent.click(within(alphaRow).getByTestId('priority-edit-btn'));
 
       const popover = await screen.findByTestId('priority-popover');
@@ -598,7 +598,7 @@ describe('Requirements Board (需求台)', () => {
         expect(screen.getByText('Project Alpha')).toBeInTheDocument();
       });
 
-      const alphaRow = screen.getByText('Project Alpha').closest('.requirements-row')!;
+      const alphaRow = screen.getByText('Project Alpha').closest('.requirements-row') as HTMLElement;
       fireEvent.click(within(alphaRow).getByTestId('tags-edit-btn'));
 
       const popover = await screen.findByTestId('tags-popover');
@@ -617,7 +617,7 @@ describe('Requirements Board (需求台)', () => {
         expect(screen.getByText('Project Beta')).toBeInTheDocument();
       });
 
-      const betaRow = screen.getByText('Project Beta').closest('.requirements-row')!;
+      const betaRow = screen.getByText('Project Beta').closest('.requirements-row') as HTMLElement;
       fireEvent.click(within(betaRow).getByTestId('tags-edit-btn'));
 
       const popover = await screen.findByTestId('tags-popover');
@@ -638,7 +638,7 @@ describe('Requirements Board (需求台)', () => {
         expect(screen.getByText('Project Alpha')).toBeInTheDocument();
       });
 
-      const alphaRow = screen.getByText('Project Alpha').closest('.requirements-row')!;
+      const alphaRow = screen.getByText('Project Alpha').closest('.requirements-row') as HTMLElement;
       expect(within(alphaRow).getByText('HCCL_驱动组')).toBeInTheDocument();
 
       fireEvent.click(within(alphaRow).getByTestId('component-edit-btn'));
@@ -660,11 +660,11 @@ describe('Requirements Board (需求台)', () => {
         expect(screen.getByText('Portal Login Rework')).toBeInTheDocument();
       });
 
-      const childRow = screen.getByText('Portal Login Rework').closest('.requirements-row')!;
+      const childRow = screen.getByText('Portal Login Rework').closest('.requirements-row') as HTMLElement;
       expect(childRow.querySelector('.req-kloc-num')!.textContent).toBe('4K');
       expect(childRow.querySelector('.req-effort-num')!.textContent).toBe('8');
 
-      const betaRow = screen.getByText('Project Beta').closest('.requirements-row')!;
+      const betaRow = screen.getByText('Project Beta').closest('.requirements-row') as HTMLElement;
       // 空值仍是可编辑按钮(2026-09-23 就地编辑),文本 —
       expect(betaRow.querySelector('.req-kloc')!.textContent).toBe('—');
       expect(betaRow.querySelector('.req-effort')!.textContent).toBe('—');
@@ -689,7 +689,7 @@ describe('Requirements Board (需求台)', () => {
         expect(screen.getByText('Portal Login Rework')).toBeInTheDocument();
       });
 
-      const childRow = screen.getByText('Portal Login Rework').closest('.requirements-row')!;
+      const childRow = screen.getByText('Portal Login Rework').closest('.requirements-row') as HTMLElement;
       fireEvent.click(within(childRow).getByTestId('priority-edit-btn'));
       fireEvent.click(within(childRow).getByTestId('tags-edit-btn'));
       fireEvent.click(within(childRow).getByTestId('component-edit-btn'));
@@ -734,7 +734,7 @@ describe('Requirements Board (需求台)', () => {
         expect(screen.getByText('Project Alpha')).toBeInTheDocument();
       });
 
-      const srRow = screen.getByText('Project Alpha').closest('.requirements-row')!;
+      const srRow = screen.getByText('Project Alpha').closest('.requirements-row') as HTMLElement;
       expect(srRow).toHaveClass('requirements-row--sr');
       expect(within(srRow).getByText('(2 AR)')).toBeInTheDocument();
       // 状态分布: 1 子行待RAT + 1 已启动(SR 行不进单胶囊,页面侧状态分布)
@@ -755,7 +755,7 @@ describe('Requirements Board (需求台)', () => {
         expect(screen.getByText('Project Alpha')).toBeInTheDocument();
       });
 
-      const srRow = screen.getByText('Project Alpha').closest('.requirements-row')!;
+      const srRow = screen.getByText('Project Alpha').closest('.requirements-row') as HTMLElement;
       // 规模/人力: 仅 proj-1a 有评估 4K/8pm;SR 自身无值 → 子行聚合推导,带 Σ 标记(db7dfb4)
       expect(srRow.querySelector('.req-kloc-num')!.textContent).toBe('Σ4K');
       expect(srRow.querySelector('.req-effort-num')!.textContent).toBe('Σ8');
@@ -795,7 +795,7 @@ describe('Requirements Board (需求台)', () => {
       // ＋AR 钮在名称格,display:none 悬停显示——jsdom 只断存在性/可点,
       // 不断可见性(见 App.css .req-ar-add)。产品现状: SR 名称格渲染了两个
       // ＋AR 钮(疑似重复,见报告),取第一个即可
-      const srRow = screen.getByText('Project Alpha').closest('.requirements-row')!;
+      const srRow = screen.getByText('Project Alpha').closest('.requirements-row') as HTMLElement;
       const addBtns = within(srRow).getAllByTitle('Decompose into AR');
       expect(addBtns.length).toBeGreaterThanOrEqual(1);
       fireEvent.click(addBtns[0]);
@@ -813,11 +813,11 @@ describe('Requirements Board (需求台)', () => {
       });
 
       // 空外部号 → 弱化 #序号(列表截图永远携带可指代标识)
-      const betaRow2 = screen.getByText('Project Beta').closest('.requirements-row')!;
+      const betaRow2 = screen.getByText('Project Beta').closest('.requirements-row') as HTMLElement;
       expect(within(betaRow2).getByText('CAP-2')).toBeInTheDocument();
 
       // 子行(AR): 空 → 填 AR 号
-      const childRow2 = screen.getByText('Portal Home Rework').closest('.requirements-row')!;
+      const childRow2 = screen.getByText('Portal Home Rework').closest('.requirements-row') as HTMLElement;
       fireEvent.click(childRow2.querySelector('.req-number-part')!);
       const input = await within(childRow2).findByRole('textbox');
       await user.type(input, 'AR-2026-999{Enter}');
@@ -826,7 +826,7 @@ describe('Requirements Board (需求台)', () => {
       });
 
       // 顶层行(混排: 本身就可能是 SR 或 AR 粒度): 填 SR 号
-      const betaRow = screen.getByText('Project Beta').closest('.requirements-row')!;
+      const betaRow = screen.getByText('Project Beta').closest('.requirements-row') as HTMLElement;
       fireEvent.click(betaRow.querySelector('.req-number-part')!);
       const input2 = await within(betaRow).findByRole('textbox');
       await user.type(input2, 'SR-26-001{Enter}');
@@ -980,7 +980,7 @@ describe('Requirements Board (需求台)', () => {
         expect(screen.getByText('Project Alpha')).toBeInTheDocument();
       });
 
-      const alphaRow = screen.getByText('Project Alpha').closest('.requirements-row')!;
+      const alphaRow = screen.getByText('Project Alpha').closest('.requirements-row') as HTMLElement;
       fireEvent.click(within(alphaRow).getByTitle('Edit'));
 
       await waitFor(() => {
@@ -996,7 +996,7 @@ describe('Requirements Board (需求台)', () => {
         expect(screen.getByText('Project Alpha')).toBeInTheDocument();
       });
 
-      const alphaRow = screen.getByText('Project Alpha').closest('.requirements-row')!;
+      const alphaRow = screen.getByText('Project Alpha').closest('.requirements-row') as HTMLElement;
       const deleteBtn = within(alphaRow).getByTitle('Delete');
       fireEvent.click(deleteBtn);
 
@@ -1069,7 +1069,7 @@ describe('Requirements Board (需求台)', () => {
       await waitFor(() => {
         expect(screen.getByText('Project Alpha')).toBeInTheDocument();
       });
-      const alphaRow = screen.getByText('Project Alpha').closest('.requirements-row')!;
+      const alphaRow = screen.getByText('Project Alpha').closest('.requirements-row') as HTMLElement;
       // 2 枚常态全量可见(治理后常态),不再折叠
       expect(within(alphaRow).getByText('Reserved')).toBeInTheDocument();
       expect(within(alphaRow).getByText('Urgent')).toBeInTheDocument();

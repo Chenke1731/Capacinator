@@ -37,6 +37,12 @@ export interface ProjectType extends BaseEntity {
   color_code?: string;
   sort_order?: number;
   is_active?: boolean;
+  /* 层级域(服务端 ProjectTypesController 按需注入: 子类型视图带 parent_*,
+     is_sub_type=true;is_default 为子类型默认标记)。可选=父类型行不带。 */
+  parent_id?: string;
+  parent_name?: string;
+  is_sub_type?: boolean;
+  is_default?: boolean;
 }
 
 /**
@@ -62,6 +68,8 @@ export interface ProjectPhase extends BaseEntity {
   name: string;
   description?: string;
   order_index: number;
+  /** 挂接引用(project_type_phases 视图 join 注入);普通 phase 行不带 */
+  phase_id?: string;
 }
 
 /**

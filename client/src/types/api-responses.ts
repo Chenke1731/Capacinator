@@ -1231,3 +1231,55 @@ export interface Tag {
   updated_at: string;
   project_count?: number;
 }
+
+// ===== GitHub Connections (2026-10-13 批清补全: 该域此前零类型,api-client
+// 引用的 8 个名字从未存在——形状按 049 迁移列集 + GitHubConnectionManager
+// 消费字段核对) =====
+
+export interface GitHubConnection {
+  id: number;
+  github_user_id: number;
+  github_username: string;
+  connection_method: string;
+  status: string;
+  is_default: boolean;
+  last_used_at: string | null;
+  github_base_url: string;
+  created_at: string;
+  updated_at: string;
+  associations?: GitHubAssociation[];
+}
+
+export interface GitHubAssociation {
+  id: number;
+  github_connection_id: number;
+  person_id: string;
+  association_type: string;
+  active: boolean;
+  created_at: string;
+  updated_at: string;
+}
+
+export type GitHubConnectionsListResponse = GitHubConnection[];
+export type GitHubConnectionResponse = GitHubConnection;
+export type GitHubConnectionUpdateResponse = GitHubConnection;
+export type GitHubConnectionDeleteResponse = { message: string };
+export interface GitHubOAuthInitResponse {
+  authorize_url: string;
+  state: string;
+}
+export type GitHubPATConnectResponse = GitHubConnection;
+export type GitHubAssociationsResponse = GitHubAssociation[];
+export type GitHubAssociationCreateResponse = GitHubAssociation;
+export type GitHubAssociationDeleteResponse = { message: string };
+
+// ===== Audit recent(批清补全: /audit/recent 与 history 同构 entries 信封) =====
+
+export interface AuditRecentResponse {
+  entries: AuditLogEntry[];
+  pagination?: {
+    total: number;
+    limit: number;
+    offset: number;
+  };
+}

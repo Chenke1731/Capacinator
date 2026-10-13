@@ -8,7 +8,7 @@ import {
 } from 'lucide-react';
 import { BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { api } from '../lib/api-client';
-import { queryKeys } from '../lib/queryKeys';
+import { queryKeys, type ReportFilters } from '../lib/queryKeys';
 import { useScenario } from '../contexts/ScenarioContext';
 import { getDefaultReportDateRange } from '../utils/date';
 import { getLocale } from '../i18n';
@@ -26,14 +26,8 @@ import {
 } from '../components/reports';
 import '../styles/reports.css';
 import type { Location, ProjectType, Role, ProjectAssignment, Project, AllocationStatus } from '../types';
-
-interface ReportFilters {
-  startDate: string;
-  endDate: string;
-  projectTypeId?: string;
-  locationId?: string;
-  roleId?: string;
-}
+/* ReportFilters 用 queryKeys 导出版(2026-10-13 批清: 本地重复定义与查询键版
+   字段不一致,4 处查询键传参冲突的根) */
 
 // Report-specific types
 interface TooltipPayloadEntry {
@@ -350,7 +344,9 @@ export const ReportsTabContent: React.FC<ReportsTabContentProps> = ({ activeRepo
       // Transform data for charts
       if (data) {
         // The API already returns byProject as an array, just limit to top 10 for visibility
-        const byProject: DemandByProject[] = ((data.byProject || []) as DemandByProject[])
+        // (服务端字段 name → 页面消费字段 project 的映射转换)
+        const byProject: DemandByProject[] = ((data.byProject || []) as Array<{ id: string; name: string; demand: number }>)
+          .map((p) => ({ project: p.name, demand: p.demand }))
           .sort((a: DemandByProject, b: DemandByProject) => b.demand - a.demand)
           .slice(0, 10);
 
@@ -430,7 +426,7 @@ export const ReportsTabContent: React.FC<ReportsTabContentProps> = ({ activeRepo
           total_capacity_fte: number;
           capacity_gap_fte: number;
         }
-        const gapsByRole: GapsByRole[] = ((data.capacityGaps || []) as CapacityGapApiItem[])
+        const gapsByRole: GapsByRole[] = ((data.capacityGaps || []) as unknown as CapacityGapApiItem[])
           .filter((gap: CapacityGapApiItem) => gap.total_demand_fte > 0 || gap.total_capacity_fte > 0)
           .map((gap: CapacityGapApiItem) => ({
             roleId: gap.role_id,
@@ -451,7 +447,7 @@ export const ReportsTabContent: React.FC<ReportsTabContentProps> = ({ activeRepo
         ];
 
         // Calculate total gap hours and other metrics
-        const totalGapFte = ((data.capacityGaps || []) as CapacityGapApiItem[]).reduce((sum: number, g: CapacityGapApiItem) => sum + Math.max(0, -g.capacity_gap_fte || 0), 0);
+        const totalGapFte = ((data.capacityGaps || []) as unknown as CapacityGapApiItem[]).reduce((sum: number, g: CapacityGapApiItem) => sum + Math.max(0, -g.capacity_gap_fte || 0), 0);
         const totalGap = Math.round(totalGapFte * 160); // Convert to hours
         const criticalRolesCount = gapsByRole.filter((g: GapsByRole) => g.gap > 80).length;
         
@@ -487,9 +483,9 @@ export const ReportsTabContent: React.FC<ReportsTabContentProps> = ({ activeRepo
 
   // Fetch person's assignments for modals
   const { data: personAssignments = [] } = useQuery({
-    queryKey: queryKeys.people.assignments(selectedPerson?.id, currentScenario?.id),
+    queryKey: queryKeys.people.assignments(selectedPerson?.id ?? '', currentScenario?.id),
     queryFn: async () => {
-      const response = await api.assignments.list({ person_id: selectedPerson.id, limit: 2000 });
+      const response = await api.assignments.list({ person_id: selectedPerson!.id, limit: 2000 } as never);
       return response.data?.data || [];
     },
     enabled: !!selectedPerson?.id && (showReduceLoadModal || showAddProjectsModal)
@@ -644,17 +640,14 @@ export const ReportsTabContent: React.FC<ReportsTabContentProps> = ({ activeRepo
       }
 
       let response;
-      
+
       // Call the appropriate export function based on format
       switch (format) {
         case 'xlsx':
-          response = await api.export.reportAsExcel(endpoint, filters);
+          response = await api.export.reportAsExcel(endpoint!, filters);
           break;
         case 'csv':
-          response = await api.export.reportAsCSV(endpoint, filters);
-          break;
-        case 'pdf':
-          response = await api.export.reportAsPDF(endpoint, filters);
+          response = await api.export.reportAsCSV(endpoint!, filters);
           break;
         case 'json': {
           // For JSON, we'll use the current report data
@@ -774,13 +767,13 @@ export const ReportsTabContent: React.FC<ReportsTabContentProps> = ({ activeRepo
 
     // Define columns for people capacity table
     const peopleCapacityColumns: Column[] = [
-      { header: t('common:name'), accessor: 'person_name', render: (value) => <strong>{value}</strong> },
-      { header: t('reports:capacity.headers.dailyHours'), accessor: 'available_hours', render: (value) => t('reports:units.hrsPerDay', { value }) },
-      { header: t('reports:capacity.headers.availability'), accessor: 'default_availability_percentage', render: (value) => `${value}%` },
+      { header: t('common:name'), accessor: 'person_name', render: (value: any) => <strong>{value}</strong> },
+      { header: t('reports:capacity.headers.dailyHours'), accessor: 'available_hours', render: (value: any) => t('reports:units.hrsPerDay', { value }) },
+      { header: t('reports:capacity.headers.availability'), accessor: 'default_availability_percentage', render: (value: any) => `${value}%` },
       {
         header: t('common:status'),
         accessor: 'allocation_status',
-        render: (value) => {
+        render: (value: any) => {
           const variant = value === 'AVAILABLE' ? 'success' :
                          value === 'FULLY_ALLOCATED' ? 'warning' :
                          value === 'OVER_ALLOCATED' ? 'danger' : 'default';
@@ -790,7 +783,7 @@ export const ReportsTabContent: React.FC<ReportsTabContentProps> = ({ activeRepo
     ];
 
     const peopleCapacityActions = (row: PersonCapacityData): ActionButton[] => {
-      if (row.allocation_status === 'AVAILABLE') {
+      if (String(row.allocation_status) === 'AVAILABLE') {
         return [{
           to: `/assignments?person=${encodeURIComponent(row.person_name)}&action=assign&from=capacity-report&startDate=${filters.startDate || ''}&endDate=${filters.endDate || ''}`,
           icon: ClipboardList,
@@ -817,18 +810,18 @@ export const ReportsTabContent: React.FC<ReportsTabContentProps> = ({ activeRepo
     const roleCapacityColumns: Column[] = [
       { header: t('common:role'), accessor: 'role' },
       { header: t('reports:capacity.headers.totalCapacityHrs'), accessor: 'capacity' },
-      { header: t('reports:capacity.headers.utilizedHrs'), accessor: (row) => row.utilized || 0 },
-      { header: t('reports:capacity.headers.availableHrs'), accessor: (row) => row.capacity - (row.utilized || 0) },
+      { header: t('reports:capacity.headers.utilizedHrs'), accessor: (row: any) => row.utilized || 0 },
+      { header: t('reports:capacity.headers.availableHrs'), accessor: (row: any) => row.capacity - (row.utilized || 0) },
       {
         header: t('common:status'),
-        accessor: (row) => {
+        accessor: (row: any) => {
           const utilizationRate = row.capacity > 0 ? ((row.utilized || 0) / row.capacity) * 100 : 0;
           if (utilizationRate >= 90) return 'CRITICAL';
           if (utilizationRate >= 70) return 'HIGH';
           if (utilizationRate >= 50) return 'MODERATE';
           return 'AVAILABLE';
         },
-        render: (value) => {
+        render: (value: any) => {
           const variant = value === 'AVAILABLE' ? 'success' : 
                          value === 'MODERATE' ? 'info' :
                          value === 'HIGH' ? 'warning' : 
@@ -1041,9 +1034,9 @@ export const ReportsTabContent: React.FC<ReportsTabContentProps> = ({ activeRepo
       <div className="report-container">
         {activeReport === 'capacity' && renderCapacityReport()}
         {activeReport === 'utilization' && (
-          <UtilizationReport 
-            data={utilizationReport} 
-            filters={filters} 
+          <UtilizationReport
+            data={utilizationReport ?? null}
+            filters={filters}
             onPersonAction={handlePersonAction}
             CustomTooltip={CustomTooltip}
           />
@@ -1057,7 +1050,7 @@ export const ReportsTabContent: React.FC<ReportsTabContentProps> = ({ activeRepo
         )}
         {activeReport === 'gaps' && (
           <GapsReport
-            data={gapsReport}
+            data={gapsReport as unknown as Parameters<typeof GapsReport>[0]['data']}
             filters={filters}
             CustomTooltip={CustomTooltip}
           />

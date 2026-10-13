@@ -14,13 +14,11 @@ import type {
   Scenario,
   PaginationParams,
   PaginatedResponse,
-  // API Response types
+  // API Response types(2026-10-13 批清: 导入名对齐 types/api-responses.ts 实际导出——
+  // 37 个名字与真名不一致(复数/别名漂移),坏名全库零外部使用,统一改指真名)
   ProjectDemandsResponse,
   PhaseValidationResponse,
-  CustomPhaseValidationResponse,
   TemplateComplianceResponse,
-  CustomPhaseResponse,
-  ProjectPhaseUpdateResponse,
   ProjectHealthResponse,
   PersonRoleResponse,
   UtilizationResponse,
@@ -30,20 +28,15 @@ import type {
   AssignmentConflictsResponse,
   AssignmentSuggestionsResponse,
   AssignmentTimelineResponse,
-  ResourceTemplatesListResponse,
+  ResourceTemplateListResponse,
   ResourceTemplateResponse,
-  ResourceTemplateBulkResponse,
-  ResourceTemplateCopyResponse,
-  TemplatesListResponse,
   ResourceTemplateSummaryResponse,
-  ProjectTypeResourceTemplatesResponse,
   AvailabilityCalendarResponse,
   AvailabilityForecastResponse,
   DemandSummaryResponse,
   DemandOverrideResponse,
   DemandForecastResponse,
   DemandGapsResponse,
-  DemandScenarioResponse,
   DashboardReportResponse,
   CapacityReportResponse,
   DemandReportResponse,
@@ -51,51 +44,36 @@ import type {
   GapsReportResponse,
   ProjectsReportResponse,
   TimelineReportResponse,
-  ImportExcelResponse,
+  ImportResultResponse,
   ImportValidationResponse,
   ImportSettingsResponse,
   ImportHistoryResponse,
   ImportAnalysisResponse,
   ProjectTypeHierarchyResponse,
-  ProjectTypePhasesResponse,
-  ProjectPhasesListResponse,
   ProjectPhaseResponse,
-  ProjectPhasesBulkResponse,
-  ProjectPhaseDependenciesListResponse,
-  ProjectPhaseDependencyResponse,
-  CascadeCalculationResponse,
-  CascadeApplicationResponse,
+  PhaseCascadeResponse,
   ProjectAllocationsResponse,
-  ProjectAllocationsInitResponse,
-  ProjectAllocationOverrideResponse,
   ProjectEstimation,
   EstimationCheckResponse,
   EstimationDeviation,
   Tag,
   ScenarioAssignmentsResponse,
-  ScenarioComparisonResponse,
+  ScenarioCompareResponse,
   AuditHistoryResponse,
-  AuditRecentResponse,
   AuditSearchResponse,
   AuditStatsResponse,
   SystemSettingsResponse,
-  ImportSettingsResponseType,
   SystemPermissionsResponse,
   UserRolesResponse,
   RolePermissionsResponse,
   UsersListResponse,
   UserPermissionsResponse,
-  RolePermissionsUpdateResponse,
-  UserRoleUpdateResponse,
-  UserPermissionUpdateResponse,
-  UserPermissionCheckResponse,
-  NotificationResponse,
   NotificationPreferencesResponse,
   EmailTemplatesResponse,
   NotificationHistoryResponse,
   EmailConfigResponse,
   NotificationStatsResponse,
-  RecommendationsListResponse,
+  RecommendationsResponse,
   RecommendationExecuteResponse,
   HealthCheckResponse,
   SyncStatusResponse,
@@ -104,7 +82,7 @@ import type {
   SyncConflictsResponse,
   SyncConflictResolveResponse,
   SyncHistoryResponse,
-  BranchesListResponse,
+  BranchListResponse,
   BranchCreateResponse,
   BranchCheckoutResponse,
   BranchMergeResponse,
@@ -118,9 +96,21 @@ import type {
   GitHubAssociationsResponse,
   GitHubAssociationCreateResponse,
   GitHubAssociationDeleteResponse,
+  AuditRecentResponse,
 } from '../types';
 
 // Import/Export options
+/** 报表过滤参数(ReportingController 实际读取的 query 键;驼峰按服务端原样) */
+interface ReportQueryParams {
+  start_date?: string;
+  end_date?: string;
+  startDate?: string;
+  endDate?: string;
+  status?: string;
+  priority?: string;
+  projectType?: string;
+  location?: string;
+}
 interface ImportExcelOptions {
   clearExisting?: boolean;
   useV2?: boolean;
@@ -339,10 +329,10 @@ export const api = {
     getDemands: (id: string) => apiClient.get<ProjectDemandsResponse>(`/projects/${id}/demands`),
     // Phase management endpoints
     validatePhaseUpdates: (id: string, data: Record<string, unknown>) => apiClient.post<PhaseValidationResponse>(`/projects/${id}/phases/validate-updates`, data),
-    validateCustomPhase: (id: string, data: Record<string, unknown>) => apiClient.post<CustomPhaseValidationResponse>(`/projects/${id}/phases/validate-custom`, data),
+    validateCustomPhase: (id: string, data: Record<string, unknown>) => apiClient.post<PhaseValidationResponse>(`/projects/${id}/phases/validate-custom`, data),
     getTemplateCompliance: (id: string) => apiClient.get<TemplateComplianceResponse>(`/projects/${id}/template-compliance`),
-    addCustomPhase: (id: string, data: Record<string, unknown>) => apiClient.post<CustomPhaseResponse>(`/projects/${id}/phases/custom`, data),
-    updateProjectPhase: (id: string, phaseTimelineId: string, data: Record<string, unknown>) => apiClient.put<ProjectPhaseUpdateResponse>(`/projects/${id}/phases/${phaseTimelineId}`, data),
+    addCustomPhase: (id: string, data: Record<string, unknown>) => apiClient.post<ProjectPhaseResponse>(`/projects/${id}/phases/custom`, data),
+    updateProjectPhase: (id: string, phaseTimelineId: string, data: Record<string, unknown>) => apiClient.put<ProjectPhaseResponse>(`/projects/${id}/phases/${phaseTimelineId}`, data),
     deleteProjectPhase: (id: string, phaseTimelineId: string) => apiClient.delete<{ message: string }>(`/projects/${id}/phases/${phaseTimelineId}`),
     getHealth: () => apiClient.get<ProjectHealthResponse>('/projects/dashboard/health'),
   },
@@ -389,13 +379,13 @@ export const api = {
 
   // Resource Templates
   resourceTemplates: {
-    list: (params?: PaginationParams) => apiClient.get<ResourceTemplatesListResponse>('/resource-templates', { params }),
+    list: (params?: PaginationParams) => apiClient.get<ResourceTemplateListResponse>('/resource-templates', { params }),
     create: (data: Record<string, unknown>) => apiClient.post<ResourceTemplateResponse>('/resource-templates', data),
-    bulkUpdate: (data: Record<string, unknown>) => apiClient.post<ResourceTemplateBulkResponse>('/resource-templates/bulk', data),
-    copy: (data: Record<string, unknown>) => apiClient.post<ResourceTemplateCopyResponse>('/resource-templates/copy', data),
-    getTemplates: () => apiClient.get<TemplatesListResponse>('/resource-templates/templates'),
+    bulkUpdate: (data: Record<string, unknown>) => apiClient.post<ResourceTemplateResponse>('/resource-templates/bulk', data),
+    copy: (data: Record<string, unknown>) => apiClient.post<ResourceTemplateResponse>('/resource-templates/copy', data),
+    getTemplates: () => apiClient.get<ResourceTemplateListResponse>('/resource-templates/templates'),
     getSummary: () => apiClient.get<ResourceTemplateSummaryResponse>('/resource-templates/summary'),
-    getByProjectType: (projectTypeId: string) => apiClient.get<ProjectTypeResourceTemplatesResponse>(`/resource-templates/project-type/${projectTypeId}`),
+    getByProjectType: (projectTypeId: string) => apiClient.get<ResourceTemplateListResponse>(`/resource-templates/project-type/${projectTypeId}`),
   },
 
   // Availability
@@ -418,19 +408,20 @@ export const api = {
     deleteOverride: (id: string) => apiClient.delete<{ message: string }>(`/demands/override/${id}`),
     getForecast: (params?: PaginationParams) => apiClient.get<DemandForecastResponse>('/demands/forecast', { params }),
     getGaps: () => apiClient.get<DemandGapsResponse>('/demands/gaps'),
-    calculateScenario: (data: Record<string, unknown>) => apiClient.post<DemandScenarioResponse>('/demands/scenario', data),
+    calculateScenario: (data: Record<string, unknown>) => apiClient.post<DemandSummaryResponse>('/demands/scenario', data),
   },
 
   // Reporting
   reporting: {
-    // 日期窗口参数(2026-10-13 审计: 原先客户端日期只进 queryKey,服务端不读)
-    getDashboard: (params?: { start_date?: string; end_date?: string }) => apiClient.get<DashboardReportResponse>('/reporting/dashboard', { params }),
-    getCapacity: (params?: PaginationParams) => apiClient.get<CapacityReportResponse>('/reporting/capacity', { params }),
-    getDemand: (params?: PaginationParams) => apiClient.get<DemandReportResponse>('/reporting/demand', { params }),
-    getUtilization: (params?: PaginationParams) => apiClient.get<UtilizationReportResponse>('/reporting/utilization', { params }),
-    getGaps: (params?: PaginationParams) => apiClient.get<GapsReportResponse>('/reporting/gaps', { params }),
-    getProjects: (params?: PaginationParams) => apiClient.get<ProjectsReportResponse>('/reporting/projects', { params }),
-    getTimeline: (params?: PaginationParams) => apiClient.get<TimelineReportResponse>('/reporting/timeline', { params }),
+    // 报表过滤参数(2026-10-13 批清: 原泛型误用 PaginationParams,实际服务端读
+    // start_date/end_date/status/priority/projectType/location;sendSuccess 信封 {data:X})
+    getDashboard: (params?: { start_date?: string; end_date?: string }) => apiClient.get<{ data: DashboardReportResponse }>('/reporting/dashboard', { params }),
+    getCapacity: (params?: ReportQueryParams) => apiClient.get<{ data: CapacityReportResponse }>('/reporting/capacity', { params }),
+    getDemand: (params?: ReportQueryParams) => apiClient.get<{ data: DemandReportResponse }>('/reporting/demand', { params }),
+    getUtilization: (params?: ReportQueryParams) => apiClient.get<{ data: UtilizationReportResponse }>('/reporting/utilization', { params }),
+    getGaps: (params?: ReportQueryParams) => apiClient.get<{ data: GapsReportResponse }>('/reporting/gaps', { params }),
+    getProjects: (params?: ReportQueryParams) => apiClient.get<{ data: ProjectsReportResponse }>('/reporting/projects', { params }),
+    getTimeline: (params?: ReportQueryParams) => apiClient.get<{ data: TimelineReportResponse }>('/reporting/timeline', { params }),
     getByComponent: () => apiClient.get('/reporting/by-component'),
   },
 
@@ -456,7 +447,7 @@ export const api = {
       if (options.dateFormat) {
         formData.append('dateFormat', options.dateFormat);
       }
-      return apiClient.post<ImportExcelResponse>('/import/excel', formData, {
+      return apiClient.post<ImportResultResponse>('/import/excel', formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
     },
@@ -554,13 +545,15 @@ export const api = {
     // 服务端 /project-types 默认 limit=50 无条件分页——下拉场景须显式带
     // limit,否则超过 50 个类型静默截断(2026-10-13 全库审计)
     list: (params?: PaginationParams) => apiClient.get<PaginatedResponse<ProjectType>>('/project-types', { params }),
-    get: (id: string) => apiClient.get<{ data: ProjectType }>(`/project-types/${id}`),
+    // get 走裸 res.json(getById 无 sendSuccess 信封,controller :129);
+    // create/update 有 {success,data} 信封
+    get: (id: string) => apiClient.get<ProjectType & { sub_types?: unknown[]; phases?: unknown[] }>(`/project-types/${id}`),
     create: (data: Partial<ProjectType>) => apiClient.post<{ data: ProjectType }>('/project-types', data),
     update: (id: string, data: Partial<ProjectType>) => apiClient.put<{ data: ProjectType }>(`/project-types/${id}`, data),
     delete: (id: string) => apiClient.delete<{ message: string }>(`/project-types/${id}`),
     // Hierarchy methods
     getHierarchy: () => apiClient.get<ProjectTypeHierarchyResponse>('/project-type-hierarchy/hierarchy'),
-    getPhases: (id: string) => apiClient.get<ProjectTypePhasesResponse>(`/project-type-hierarchy/${id}/phases`),
+    getPhases: (id: string) => apiClient.get<{ success: boolean; data: Array<{ id: string; name: string; sequence_order: number; order_index?: number }> }>(`/project-type-hierarchy/${id}/phases`),
     createSubType: (parentId: string, data: Partial<ProjectType>) => apiClient.post<{ data: ProjectType }>(`/project-type-hierarchy/${parentId}/children`, data),
     addPhase: (id: string, data: Record<string, unknown>) => apiClient.post<{ data: ProjectPhase }>(`/project-type-hierarchy/${id}/phases`, data),
     updatePhase: (id: string, phaseId: string, data: Record<string, unknown>) => apiClient.put<{ data: ProjectPhase }>(`/project-type-hierarchy/${id}/phases/${phaseId}`, data),
@@ -584,32 +577,32 @@ export const api = {
   projectPhases: {
     // project_id/phase_id 过滤参数服务端支持(getAll 按 query 过滤),类型
     // 此前只留了分页位,传过滤参数会 TS2353(2026-10-13 审计修)
-    list: (params?: PaginationParams & { project_id?: string; phase_id?: string }) => apiClient.get<ProjectPhasesListResponse>('/project-phases', { params }),
+    list: (params?: PaginationParams & { project_id?: string; phase_id?: string }) => apiClient.get<PaginatedResponse<ProjectPhase>>('/project-phases', { params }),
     get: (id: string) => apiClient.get<ProjectPhaseResponse>(`/project-phases/${id}`),
     create: (data: Record<string, unknown>) => apiClient.post<ProjectPhaseResponse>('/project-phases', data),
     update: (id: string, data: Record<string, unknown>) => apiClient.put<ProjectPhaseResponse>(`/project-phases/${id}`, data),
     delete: (id: string) => apiClient.delete<{ message: string }>(`/project-phases/${id}`),
-    bulkUpdate: (data: Record<string, unknown>) => apiClient.post<ProjectPhasesBulkResponse>('/project-phases/bulk', data),
+    bulkUpdate: (data: Record<string, unknown>) => apiClient.post<ProjectPhaseResponse[]>('/project-phases/bulk', data),
     duplicatePhase: (data: Record<string, unknown>) => apiClient.post<ProjectPhaseResponse>('/project-phases/duplicate', data),
     createCustomPhase: (data: Record<string, unknown>) => apiClient.post<ProjectPhaseResponse>('/project-phases/create-custom', data),
-    applyBulkCorrections: (data: Record<string, unknown>) => apiClient.post<ProjectPhasesBulkResponse>('/project-phases/bulk-corrections', data),
+    applyBulkCorrections: (data: Record<string, unknown>) => apiClient.post<ProjectPhaseResponse[]>('/project-phases/bulk-corrections', data),
   },
 
   // Project Phase Dependencies
   projectPhaseDependencies: {
-    list: (params?: PaginationParams & { project_id?: string }) => apiClient.get<ProjectPhaseDependenciesListResponse>('/project-phase-dependencies', { params }),
-    get: (id: string) => apiClient.get<ProjectPhaseDependencyResponse>(`/project-phase-dependencies/${id}`),
-    create: (data: Record<string, unknown>) => apiClient.post<ProjectPhaseDependencyResponse>('/project-phase-dependencies', data),
-    update: (id: string, data: Record<string, unknown>) => apiClient.put<ProjectPhaseDependencyResponse>(`/project-phase-dependencies/${id}`, data),
+    list: (params?: PaginationParams & { project_id?: string }) => apiClient.get<PaginatedResponse<Record<string, unknown>>>('/project-phase-dependencies', { params }),
+    get: (id: string) => apiClient.get<Record<string, unknown>>(`/project-phase-dependencies/${id}`),
+    create: (data: Record<string, unknown>) => apiClient.post<Record<string, unknown>>('/project-phase-dependencies', data),
+    update: (id: string, data: Record<string, unknown>) => apiClient.put<Record<string, unknown>>(`/project-phase-dependencies/${id}`, data),
     delete: (id: string) => apiClient.delete<{ message: string }>(`/project-phase-dependencies/${id}`),
-    calculateCascade: (data: Record<string, unknown>) => apiClient.post<CascadeCalculationResponse>('/project-phase-dependencies/calculate-cascade', data),
-    applyCascade: (data: Record<string, unknown>) => apiClient.post<CascadeApplicationResponse>('/project-phase-dependencies/apply-cascade', data),
+    calculateCascade: (data: Record<string, unknown>) => apiClient.post<PhaseCascadeResponse>('/project-phase-dependencies/calculate-cascade', data),
+    applyCascade: (data: Record<string, unknown>) => apiClient.post<PhaseCascadeResponse>('/project-phase-dependencies/apply-cascade', data),
   },
 
   projectAllocations: {
     get: (projectId: string) => apiClient.get<ProjectAllocationsResponse>(`/project-allocations/${projectId}`),
-    initialize: (projectId: string) => apiClient.post<ProjectAllocationsInitResponse>(`/project-allocations/${projectId}/initialize`),
-    override: (projectId: string, data: Record<string, unknown>) => apiClient.post<ProjectAllocationOverrideResponse>(`/project-allocations/${projectId}/override`, data),
+    initialize: (projectId: string) => apiClient.post<ProjectAllocationsResponse>(`/project-allocations/${projectId}/initialize`),
+    override: (projectId: string, data: Record<string, unknown>) => apiClient.post<ProjectAllocationsResponse>(`/project-allocations/${projectId}/override`, data),
     reset: (projectId: string, phaseId: string, roleId: string) => apiClient.post<{ message: string }>(`/project-allocations/${projectId}/reset/${phaseId}/${roleId}`),
     delete: (projectId: string, phaseId: string, roleId: string) => apiClient.delete<{ message: string }>(`/project-allocations/${projectId}/${phaseId}/${roleId}`),
   },
@@ -624,7 +617,7 @@ export const api = {
     getAssignments: (id: string) => apiClient.get<ScenarioAssignmentsResponse>(`/scenarios/${id}/assignments`),
     upsertAssignment: (id: string, data: Record<string, unknown>) => apiClient.post<{ data: ProjectAssignment }>(`/scenarios/${id}/assignments`, data),
     removeAssignment: (id: string, assignmentId: string) => apiClient.delete<{ message: string }>(`/scenarios/${id}/assignments/${assignmentId}`),
-    compare: (id: string, compareToId: string) => apiClient.get<ScenarioComparisonResponse>(`/scenarios/${id}/compare?compare_to=${compareToId}`),
+    compare: (id: string, compareToId: string) => apiClient.get<ScenarioCompareResponse>(`/scenarios/${id}/compare?compare_to=${compareToId}`),
     merge: (id: string, data?: Record<string, unknown>) => apiClient.post<{ data: Scenario }>(`/scenarios/${id}/merge`, data || {}),
   },
 
@@ -649,9 +642,9 @@ export const api = {
     getSystemSettings: () => apiClient.get<SystemSettingsResponse>('/settings/system'),
     saveSystemSettings: (data: Record<string, unknown>) => apiClient.post<SystemSettingsResponse>('/settings/system', data),
     updateSystemSettings: (data: Record<string, unknown>) => apiClient.put<SystemSettingsResponse>('/settings/system', data),
-    getImportSettings: () => apiClient.get<ImportSettingsResponseType>('/settings/import'),
-    saveImportSettings: (data: Record<string, unknown>) => apiClient.post<ImportSettingsResponseType>('/settings/import', data),
-    updateImportSettings: (data: Record<string, unknown>) => apiClient.put<ImportSettingsResponseType>('/settings/import', data),
+    getImportSettings: () => apiClient.get<ImportSettingsResponse>('/settings/import'),
+    saveImportSettings: (data: Record<string, unknown>) => apiClient.post<ImportSettingsResponse>('/settings/import', data),
+    updateImportSettings: (data: Record<string, unknown>) => apiClient.put<ImportSettingsResponse>('/settings/import', data),
   },
 
   // User Permissions
@@ -659,21 +652,21 @@ export const api = {
     getSystemPermissions: () => apiClient.get<SystemPermissionsResponse>('/user-permissions/permissions'),
     getUserRoles: () => apiClient.get<UserRolesResponse>('/user-permissions/roles'),
     getRolePermissions: (roleId: string) => apiClient.get<RolePermissionsResponse>(`/user-permissions/roles/${roleId}/permissions`),
-    updateRolePermissions: (roleId: string, permissionIds: string[]) => apiClient.put<RolePermissionsUpdateResponse>(`/user-permissions/roles/${roleId}/permissions`, { permissionIds }),
+    updateRolePermissions: (roleId: string, permissionIds: string[]) => apiClient.put<RolePermissionsResponse>(`/user-permissions/roles/${roleId}/permissions`, { permissionIds }),
     getUsersList: () => apiClient.get<UsersListResponse>('/user-permissions/users'),
     getUserPermissions: (userId: string) => apiClient.get<UserPermissionsResponse>(`/user-permissions/users/${userId}/permissions`),
-    updateUserRole: (userId: string, roleId: string) => apiClient.put<UserRoleUpdateResponse>(`/user-permissions/users/${userId}/role`, { roleId }),
+    updateUserRole: (userId: string, roleId: string) => apiClient.put<UserRolesResponse>(`/user-permissions/users/${userId}/role`, { roleId }),
     updateUserPermission: (userId: string, permissionId: string, granted: boolean, reason?: string) =>
-      apiClient.put<UserPermissionUpdateResponse>(`/user-permissions/users/${userId}/permissions`, { permissionId, granted, reason }),
+      apiClient.put<UserPermissionsResponse>(`/user-permissions/users/${userId}/permissions`, { permissionId, granted, reason }),
     removeUserPermissionOverride: (userId: string, permissionId: string) =>
       apiClient.delete<{ message: string }>(`/user-permissions/users/${userId}/permissions/${permissionId}`),
     checkUserPermission: (userId: string, permissionName: string) =>
-      apiClient.get<UserPermissionCheckResponse>(`/user-permissions/users/${userId}/check/${permissionName}`),
+      apiClient.get<Record<string, unknown>>(`/user-permissions/users/${userId}/check/${permissionName}`),
   },
 
   // Notifications
   notifications: {
-    sendNotification: (data: Record<string, unknown>) => apiClient.post<NotificationResponse>('/notifications/send', data),
+    sendNotification: (data: Record<string, unknown>) => apiClient.post<Record<string, unknown>>('/notifications/send', data),
     getUserNotificationPreferences: (userId: string) => apiClient.get<NotificationPreferencesResponse>(`/notifications/preferences/${userId}`),
     updateUserNotificationPreferences: (userId: string, preferences: Record<string, unknown>) => apiClient.put<NotificationPreferencesResponse>(`/notifications/preferences/${userId}`, { preferences }),
     getEmailTemplates: () => apiClient.get<EmailTemplatesResponse>('/notifications/templates'),
@@ -685,7 +678,7 @@ export const api = {
 
   // Recommendations
   recommendations: {
-    list: (params?: PaginationParams) => apiClient.get<RecommendationsListResponse>('/recommendations', { params }),
+    list: (params?: PaginationParams) => apiClient.get<RecommendationsResponse>('/recommendations', { params }),
     execute: (recommendationId: string, actions: Record<string, unknown>) => apiClient.post<RecommendationExecuteResponse>(`/recommendations/${recommendationId}/execute`, { actions }),
   },
 
@@ -712,7 +705,7 @@ export const api = {
     getHistory: (params?: { limit?: number; entityType?: string; entityId?: string }) =>
       apiClient.get<SyncHistoryResponse>('/sync/history', { params }),
     // Branch operations (User Story 3)
-    listBranches: () => apiClient.get<BranchesListResponse>('/sync/branches'),
+    listBranches: () => apiClient.get<BranchListResponse>('/sync/branches'),
     createBranch: (data: { name: string; description: string }) => apiClient.post<BranchCreateResponse>('/sync/branches', data),
     checkoutBranch: (branchName: string) => apiClient.post<BranchCheckoutResponse>(`/sync/branches/${branchName}/checkout`),
     mergeBranch: (branchName: string) => apiClient.post<BranchMergeResponse>(`/sync/branches/${branchName}/merge`),

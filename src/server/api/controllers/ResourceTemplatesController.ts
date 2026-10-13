@@ -339,22 +339,26 @@ export class ResourceTemplatesController extends BaseController {
         });
       }
 
-      // Delete existing allocations for target
-      await this.db('resource_templates')
-        .where('project_type_id', target_project_type_id)
-        .del();
+      // 清空+复制必须同事务(2026-10-13 全库审计): 无事务时插入失败(如源行
+      // 指向已删阶段撞 FK)会把目标类型模板清成空集
+      const inserted = await this.db.transaction(async (trx: any) => {
+        // Delete existing allocations for target
+        await trx('resource_templates')
+          .where('project_type_id', target_project_type_id)
+          .del();
 
-      // Insert copied allocations
-      const newAllocations = sourceAllocations.map((allocation: Record<string, any>) => ({
-        ...allocation,
-        project_type_id: target_project_type_id,
-        created_at: new Date(),
-        updated_at: new Date()
-      }));
+        // Insert copied allocations
+        const newAllocations = sourceAllocations.map((allocation: Record<string, any>) => ({
+          ...allocation,
+          project_type_id: target_project_type_id,
+          created_at: new Date(),
+          updated_at: new Date()
+        }));
 
-      const inserted = await this.db('resource_templates')
-        .insert(newAllocations)
-        .returning('*');
+        return await trx('resource_templates')
+          .insert(newAllocations)
+          .returning('*');
+      });
 
       return {
         source: {

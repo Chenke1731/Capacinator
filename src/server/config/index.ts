@@ -365,7 +365,10 @@ function loadConfig(): Config {
       maxHistoryEntries: getEnvInt('AUDIT_MAX_HISTORY_ENTRIES', 1000),
       retentionDays: getEnvInt('AUDIT_RETENTION_DAYS', 365),
       sensitiveFields: getEnvList('AUDIT_SENSITIVE_FIELDS', ['password', 'token', 'secret', 'key', 'hash']),
-      enabledTables: getEnvList('AUDIT_ENABLED_TABLES', ['people', 'projects', 'roles', 'assignments', 'availability']),
+      // 'assignments' 表不存在(2026-10-13 全库审计)——真实分配表为
+    // project_assignments / scenario_project_assignments;名单缺真表时
+    // logAuditEvent 会静默跳过,分配写操作全部零审计
+    enabledTables: getEnvList('AUDIT_ENABLED_TABLES', ['people', 'projects', 'roles', 'project_assignments', 'scenario_project_assignments', 'availability']),
     },
 
     email: {

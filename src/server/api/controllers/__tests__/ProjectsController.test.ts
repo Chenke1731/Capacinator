@@ -292,6 +292,8 @@ describe('ProjectsController', () => {
       mockDb._queueQueryResult([]); // project_type_phases
       // Lifecycle default lookup (055): type name decides 待RAT vs standing
       mockDb._queueFirstResult(mockProjectType);
+      // 事务内 seq_number max+1 读(2026-10-13 主链入事务后新增)
+      mockDb._queueFirstResult({ maxSeq: 0 });
       // Final project fetch
       mockDb._queueFirstResult(mockCreatedProject);
 
@@ -682,7 +684,9 @@ describe('ProjectsController', () => {
       await controller.deleteTestData(mockReq, mockRes);
       await flushPromises();
 
-      expect(mockDb.where).toHaveBeenCalledWith('name', 'like', 'Test_%');
+      // LIKE 转义修复(2026-10-13): '_' 是单字符通配符,未转义会误删
+      // "Test+任意字符"开头的真名;现走 ESCAPE 子句的字面前缀匹配
+      expect(mockDb.whereRaw).toHaveBeenCalledWith("name LIKE ? ESCAPE '\\'", ['Test\\_%']);
       expect(mockRes.json).toHaveBeenCalledWith(
         expect.objectContaining({
           success: true,

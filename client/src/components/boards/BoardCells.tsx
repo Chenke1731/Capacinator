@@ -572,6 +572,9 @@ export function IterationCell({ project, onSaved, readOnlyWindow }: {
     onSuccess: () => {
       pop.setOpen(false);
       queryClient.invalidateQueries({ queryKey: queryKeys.projects.all });
+      // 迭代卡统计/负载服务端实时算自 projects(GET /iterations):挂接或解除
+      // 后不失效 ['iterations'],卡面与气泡列表陈旧最长 5 分钟(2026-10-13 审计)
+      queryClient.invalidateQueries({ queryKey: ['iterations'] });
       onSaved();
     }
   });
@@ -581,7 +584,9 @@ export function IterationCell({ project, onSaved, readOnlyWindow }: {
     setBusy(true);
     try {
       const res: any = await api.iterations.create({ name: newName.trim(), start_date: newStart, end_date: newEnd });
-      const id = res?.data?.id ?? res?.id;
+      // 创建信封是 {success, data: row}(axios res.data=body,再 .data 才是行):
+      // 原先取 res.data.id/res.id 恒 undefined,只建不挂(2026-10-13 全库审计)
+      const id = res?.data?.data?.id;
       if (id) await attach.mutateAsync(id);
       setNewName(''); setNewStart(''); setNewEnd('');
     } finally { setBusy(false); }

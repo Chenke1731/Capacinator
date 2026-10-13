@@ -223,8 +223,11 @@ export function SmartAssignmentModal({
     queryKey: queryKeys.projectPhases.byProject(formData.project_id),
     queryFn: async () => {
       if (!formData.project_id) return [];
-      const response = await api.projects.getPhases(formData.project_id);
-      return response.data.data || [];
+      // api.projects.getPhases 不存在(该方法住在 projectTypes 命名空间,指向
+      // 层级端点)——原先恒 TypeError 且错误态进共享缓存;改走 /project-phases,
+      // 形状与共享键上的 VisualPhaseManager 对齐(2026-10-13 全库审计)
+      const response = await api.projectPhases.list({ project_id: formData.project_id });
+      return response.data;
     },
     enabled: !!formData.project_id
   });
@@ -300,10 +303,11 @@ export function SmartAssignmentModal({
 
   // Filter phases based on selected project and role
   const filteredPhases = useMemo(() => {
-    if (!projectPhases || !Array.isArray(projectPhases)) return [];
+    const phaseLinks = (projectPhases as any)?.data as ProjectPhaseLink[] | undefined;
+    if (!phaseLinks || !Array.isArray(phaseLinks)) return [];
     if (!formData.role_id || !projectAllocations) {
       // If no role selected, return all project phases
-      return (projectPhases as ProjectPhaseLink[]).map((projectPhase) => ({
+      return phaseLinks.map((projectPhase) => ({
         id: projectPhase.phase_id,
         name: projectPhase.phase_name,
         start_date: projectPhase.start_date,
@@ -319,7 +323,7 @@ export function SmartAssignmentModal({
       )
       .map((allocation: ProjectAllocation) => allocation.phase_id);
     
-    return projectPhases
+    return phaseLinks
       .filter((projectPhase: ProjectPhaseLink) => phasesWithRole.includes(projectPhase.phase_id))
       .map((projectPhase: ProjectPhaseLink) => ({
         id: projectPhase.phase_id,
@@ -504,7 +508,7 @@ export function SmartAssignmentModal({
       const defaultEndDate = new Date(today);
       
       // Set default duration based on phase using extracted utility
-      const selectedPhase = (projectPhases as ProjectPhaseLink[] | undefined)?.find((phase) => phase.phase_id === value);
+      const selectedPhase = ((projectPhases as any)?.data as ProjectPhaseLink[] | undefined)?.find((phase) => phase.phase_id === value);
       if (selectedPhase) {
         // Calculate duration using utility function
         const durationWeeks = calculatePhaseDurationWeeks(selectedPhase.phase_name);

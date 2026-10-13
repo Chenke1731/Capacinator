@@ -764,7 +764,7 @@ describe('PeopleController', () => {
 
       await controller.deleteTestData(mockReq, mockRes);
 
-      expect(mockDb().where).toHaveBeenCalledWith('name', 'like', 'Test_%');
+      expect(mockDb().whereRaw).toHaveBeenCalledWith("name LIKE ? ESCAPE '\\'", ['Test\\_%']);
       expect(mockRes.json).toHaveBeenCalledWith({
         message: 'Deleted 5 test people'
       });

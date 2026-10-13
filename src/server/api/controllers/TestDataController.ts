@@ -15,7 +15,7 @@ export class TestDataController extends BaseController {
     const result = await this.executeQuery(async () => {
       const deleted = await this.db('project_phases_timeline')
         .whereIn('project_id', 
-          this.db('projects').select('id').where('name', 'like', 'Test_%')
+          this.db('projects').select('id').whereRaw("name LIKE ? ESCAPE '\\'", ['Test\\_%'])
         )
         .del();
 
@@ -36,7 +36,7 @@ export class TestDataController extends BaseController {
     const result = await this.executeQuery(async () => {
       const deleted = await this.db('person_availability_overrides')
         .whereIn('person_id',
-          this.db('people').select('id').where('name', 'like', 'Test_%')
+          this.db('people').select('id').whereRaw("name LIKE ? ESCAPE '\\'", ['Test\\_%'])
         )
         .del();
 
@@ -51,7 +51,7 @@ export class TestDataController extends BaseController {
   async deleteRoles(req: Request, res: Response) {
     const result = await this.executeQuery(async () => {
       const deleted = await this.db('roles')
-        .where('name', 'like', 'Test_%')
+        .whereRaw("name LIKE ? ESCAPE '\\'", ['Test\\_%'])
         .del();
 
       return { message: `Deleted ${deleted} test roles` };
@@ -65,7 +65,7 @@ export class TestDataController extends BaseController {
   async deletePhases(req: Request, res: Response) {
     const result = await this.executeQuery(async () => {
       const deleted = await this.db('project_phases')
-        .where('name', 'like', 'Test_%')
+        .whereRaw("name LIKE ? ESCAPE '\\'", ['Test\\_%'])
         .del();
 
       return { message: `Deleted ${deleted} test phases` };
@@ -111,7 +111,7 @@ export class TestDataController extends BaseController {
       // Also delete sub-types for Test_ prefix
       const testSubTypesDeleted = await this.db('project_sub_types')
         .whereIn('project_type_id',
-          this.db('project_types').select('id').where('name', 'like', 'Test_%')
+          this.db('project_types').select('id').whereRaw("name LIKE ? ESCAPE '\\'", ['Test\\_%'])
         )
         .del();
       subTypesDeleted += testSubTypesDeleted;
@@ -126,7 +126,7 @@ export class TestDataController extends BaseController {
       
       // Also delete any with Test_ prefix for backward compatibility
       const testPrefixDeleted = await this.db('project_types')
-        .where('name', 'like', 'Test_%')
+        .whereRaw("name LIKE ? ESCAPE '\\'", ['Test\\_%'])
         .del();
       
       deleted += testPrefixDeleted;
@@ -142,7 +142,7 @@ export class TestDataController extends BaseController {
   async deleteLocations(req: Request, res: Response) {
     const result = await this.executeQuery(async () => {
       const deleted = await this.db('locations')
-        .where('name', 'like', 'Test_%')
+        .whereRaw("name LIKE ? ESCAPE '\\'", ['Test\\_%'])
         .del();
 
       return { message: `Deleted ${deleted} test locations` };

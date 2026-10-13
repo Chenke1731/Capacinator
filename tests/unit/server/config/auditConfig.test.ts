@@ -31,7 +31,9 @@ describe('Audit Configuration', () => {
         maxHistoryEntries: 1000,
         retentionDays: 365,
         sensitiveFields: ['password', 'token', 'secret', 'key', 'hash'],
-        enabledTables: ['people', 'projects', 'roles', 'assignments', 'availability']
+        // 2026-10-13 审计修正: 'assignments' 表不存在,真实分配表为
+        // project_assignments / scenario_project_assignments
+        enabledTables: ['people', 'projects', 'roles', 'project_assignments', 'scenario_project_assignments', 'availability']
       });
     });
 

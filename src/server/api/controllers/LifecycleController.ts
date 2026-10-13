@@ -101,6 +101,21 @@ export class LifecycleController extends BaseController {
         pool: body.pool,
         actor: req.user?.id ?? req.user?.name ?? null
       });
+      // 流转副作用审计(2026-10-13 全库审计): designing→release 物理删分配此前
+      // 零审计;审计白名单已补真实分配表,流转本身按 projects UPDATE 记录
+      // (from 态取自事件行;释放/暂停明细在事件 note)
+      try {
+        await (req as any).logAuditEvent?.(
+          'projects',
+          req.params.id,
+          'UPDATE',
+          { lifecycle_state: (event as any)?.from_state ?? null },
+          project,
+          `lifecycle: → ${body.to}`
+        );
+      } catch {
+        // 审计失败不阻断流转
+      }
       res.json({ success: true, data: { project, event } });
     } catch (err: any) {
       if (!this.mapError(err, res)) throw err;

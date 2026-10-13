@@ -212,20 +212,24 @@ export const AssignmentModalNew: React.FC<AssignmentModalProps> = ({
   });
 
   const { data: projectPhases } = useQuery({
+    // 共享键 ['project-phases', id] 的缓存形状以 VisualPhaseManager 为准
+    // (body 带 .data): 原先在此解包错层恒写 [] 进共享键,毒化需求台时间线
+    // (2026-10-13 全库审计);/project-phases 行自带 phase_name+起止日期
     queryKey: ['project-phases', formData.project_id],
     queryFn: async () => {
       if (!formData.project_id) return [];
-      const response = await api.projects.get(formData.project_id);
-      return response.data.phases || [];
+      const response = await api.projectPhases.list({ project_id: formData.project_id });
+      return response.data;
     },
     enabled: !!formData.project_id
   });
 
   // Get phases for the selected project
   const availablePhases = useMemo(() => {
-    if (!projectPhases || !phases || !Array.isArray(projectPhases)) return [];
+    const phaseLinks = (projectPhases as any)?.data as ProjectPhaseLink[] | undefined;
+    if (!phaseLinks || !phases || !Array.isArray(phaseLinks)) return [];
 
-    return projectPhases.map((pp: ProjectPhaseLink) => {
+    return phaseLinks.map((pp: ProjectPhaseLink) => {
       const phaseDetail = (phases as ProjectPhase[]).find((p) => p.id === pp.phase_id);
       return {
         id: pp.phase_id,

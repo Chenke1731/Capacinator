@@ -278,10 +278,11 @@ export function createMockDb() {
    * Mock for transactions
    */
   mock.transaction = jest.fn().mockImplementation(async (callback) => {
-    // Create a transaction mock that behaves like the main mock
-    const trx = createMockDb();
-    await callback(trx);
-    return trx;
+    // 事务回调复用主 mock(2026-10-13): 控制器主链入事务后,单测在主 mock 上
+    // 配置的 first/insert/update 结果必须在事务内同样生效——原先给回调发
+    // 隔离新 mock,配置全被吞(断言全灭),且回调返回值被丢弃(解构必炸)。
+    // 透传回调返回值,匹配 knex `transaction()` 的真实语义
+    return await callback(mock);
   });
 
   /**

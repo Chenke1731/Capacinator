@@ -577,7 +577,9 @@ export const api = {
   },
 
   projectPhases: {
-    list: (params?: PaginationParams) => apiClient.get<ProjectPhasesListResponse>('/project-phases', { params }),
+    // project_id/phase_id 过滤参数服务端支持(getAll 按 query 过滤),类型
+    // 此前只留了分页位,传过滤参数会 TS2353(2026-10-13 审计修)
+    list: (params?: PaginationParams & { project_id?: string; phase_id?: string }) => apiClient.get<ProjectPhasesListResponse>('/project-phases', { params }),
     get: (id: string) => apiClient.get<ProjectPhaseResponse>(`/project-phases/${id}`),
     create: (data: Record<string, unknown>) => apiClient.post<ProjectPhaseResponse>('/project-phases', data),
     update: (id: string, data: Record<string, unknown>) => apiClient.put<ProjectPhaseResponse>(`/project-phases/${id}`, data),
@@ -590,7 +592,7 @@ export const api = {
 
   // Project Phase Dependencies
   projectPhaseDependencies: {
-    list: (params?: PaginationParams) => apiClient.get<ProjectPhaseDependenciesListResponse>('/project-phase-dependencies', { params }),
+    list: (params?: PaginationParams & { project_id?: string }) => apiClient.get<ProjectPhaseDependenciesListResponse>('/project-phase-dependencies', { params }),
     get: (id: string) => apiClient.get<ProjectPhaseDependencyResponse>(`/project-phase-dependencies/${id}`),
     create: (data: Record<string, unknown>) => apiClient.post<ProjectPhaseDependencyResponse>('/project-phase-dependencies', data),
     update: (id: string, data: Record<string, unknown>) => apiClient.put<ProjectPhaseDependencyResponse>(`/project-phase-dependencies/${id}`, data),

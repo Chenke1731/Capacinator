@@ -12,8 +12,10 @@ jest.mock('../../../lib/api-client', () => ({
       get: jest.fn()
     },
     projects: {
-      list: jest.fn(),
-      getPhases: jest.fn()
+      list: jest.fn()
+    },
+    projectPhases: {
+      list: jest.fn()
     },
     roles: {
       list: jest.fn()
@@ -133,7 +135,7 @@ describe('SmartAssignmentModal', () => {
     (api.projects.list as jest.Mock).mockResolvedValue(mockProjects);
     (api.roles.list as jest.Mock).mockResolvedValue({ data: mockRoles });
     (api.phases.list as jest.Mock).mockResolvedValue(mockPhases);
-    (api.projects.getPhases as jest.Mock).mockResolvedValue(mockProjectPhases);
+    (api.projectPhases.list as jest.Mock).mockResolvedValue(mockProjectPhases);
     (api.projectAllocations.get as jest.Mock).mockResolvedValue(mockProjectAllocations);
   });
 
@@ -793,7 +795,7 @@ describe('SmartAssignmentModal', () => {
         }
       };
 
-      (api.projects.getPhases as jest.Mock).mockResolvedValue(projectWithPhases);
+      (api.projectPhases.list as jest.Mock).mockResolvedValue(projectWithPhases);
     });
 
     it('shows phase-linked message when phase is selected', async () => {
@@ -1409,7 +1411,7 @@ describe('SmartAssignmentModal', () => {
           }
         };
 
-        (api.projects.getPhases as jest.Mock).mockResolvedValue(projectPhases);
+        (api.projectPhases.list as jest.Mock).mockResolvedValue(projectPhases);
 
         renderComponent({ triggerContext: 'manual_add', projectId: 'project-2' });
 

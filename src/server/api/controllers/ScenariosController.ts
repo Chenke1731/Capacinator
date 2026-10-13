@@ -738,105 +738,109 @@ export class ScenariosController extends BaseController {
 
   // Private helper methods
   private async branchFromParent(scenarioId: string, parentScenarioId: string) {
-    // For baseline, copy current assignments
-    if (parentScenarioId === 'baseline-0000-0000-0000-000000000000') {
-      // Copy current project assignments to scenario. History may instead
-      // live as baseline scenario rows (the e2e consolidated seed models all
-      // assignments that way and leaves project_assignments empty) — union
-      // both sources, deduped by identity, so branching from the baseline
-      // never yields an empty world.
-      const baseAssignments = await this.db('project_assignments')
-        .select('*');
-      const baselineScenarioRows = await this.db('scenario_project_assignments')
-        .where('scenario_id', parentScenarioId)
-        .whereNot('change_type', 'removed');
+    // 逐条 insert 必须收进单事务(2026-10-13 全库审计): 几百行中途失败会留
+    // 下半个场景(部分分配/部分阶段)。快照读也入事务,保证复制源一致
+    await this.db.transaction(async (trx: any) => {
+      // For baseline, copy current assignments
+      if (parentScenarioId === 'baseline-0000-0000-0000-000000000000') {
+        // Copy current project assignments to scenario. History may instead
+        // live as baseline scenario rows (the e2e consolidated seed models all
+        // assignments that way and leaves project_assignments empty) — union
+        // both sources, deduped by identity, so branching from the baseline
+        // never yields an empty world.
+        const baseAssignments = await trx('project_assignments')
+          .select('*');
+        const baselineScenarioRows = await trx('scenario_project_assignments')
+          .where('scenario_id', parentScenarioId)
+          .whereNot('change_type', 'removed');
 
-      const seenKeys = new Set<string>();
-      // baseId: FK into project_assignments — only rows that actually come
-      // from (or reference) that table may carry it; a dangling value
-      // violates the FK (baseline scenario rows have no base counterpart).
-      const copyAssignment = async (assignment: Record<string, any>, baseId: string | null) => {
-        const key = `${assignment.project_id}:${assignment.person_id}:${assignment.role_id}:${assignment.phase_id || 'null'}`;
-        if (seenKeys.has(key)) return;
-        seenKeys.add(key);
+        const seenKeys = new Set<string>();
+        // baseId: FK into project_assignments — only rows that actually come
+        // from (or reference) that table may carry it; a dangling value
+        // violates the FK (baseline scenario rows have no base counterpart).
+        const copyAssignment = async (assignment: Record<string, any>, baseId: string | null) => {
+          const key = `${assignment.project_id}:${assignment.person_id}:${assignment.role_id}:${assignment.phase_id || 'null'}`;
+          if (seenKeys.has(key)) return;
+          seenKeys.add(key);
 
-        await this.db('scenario_project_assignments').insert({
-          id: randomUUID(),
-          scenario_id: scenarioId,
-          project_id: assignment.project_id,
-          person_id: assignment.person_id,
-          role_id: assignment.role_id,
-          phase_id: assignment.phase_id,
-          allocation_percentage: assignment.allocation_percentage,
-          assignment_date_mode: assignment.assignment_date_mode,
-          start_date: assignment.start_date,
-          end_date: assignment.end_date,
-          notes: assignment.notes,
-          change_type: 'added',
-          base_assignment_id: baseId,
-          created_at: new Date(),
-          updated_at: new Date()
-        });
-      };
+          await trx('scenario_project_assignments').insert({
+            id: randomUUID(),
+            scenario_id: scenarioId,
+            project_id: assignment.project_id,
+            person_id: assignment.person_id,
+            role_id: assignment.role_id,
+            phase_id: assignment.phase_id,
+            allocation_percentage: assignment.allocation_percentage,
+            assignment_date_mode: assignment.assignment_date_mode,
+            start_date: assignment.start_date,
+            end_date: assignment.end_date,
+            notes: assignment.notes,
+            change_type: 'added',
+            base_assignment_id: baseId,
+            created_at: new Date(),
+            updated_at: new Date()
+          });
+        };
 
-      for (const assignment of baseAssignments) {
-        await copyAssignment(assignment, assignment.id);
+        for (const assignment of baseAssignments) {
+          await copyAssignment(assignment, assignment.id);
+        }
+        for (const assignment of baselineScenarioRows) {
+          await copyAssignment(assignment, assignment.base_assignment_id || null);
+        }
+
+        // Copy current project phases
+        const phases = await trx('project_phases_timeline')
+          .select('*');
+
+        for (const phase of phases) {
+          await trx('scenario_project_phases').insert({
+            id: randomUUID(),
+            scenario_id: scenarioId,
+            project_id: phase.project_id,
+            phase_id: phase.phase_id,
+            start_date: phase.start_date,
+            end_date: phase.end_date,
+            notes: phase.notes,
+            change_type: 'added',
+            base_phase_timeline_id: phase.id,
+            created_at: new Date(),
+            updated_at: new Date()
+          });
+        }
+      } else {
+        // Copy from parent scenario
+        const parentAssignments = await trx('scenario_project_assignments')
+          .where('scenario_id', parentScenarioId);
+
+        for (const assignment of parentAssignments) {
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
+          const { id, scenario_id, created_at, updated_at, ...assignmentData } = assignment;
+          await trx('scenario_project_assignments').insert({
+            ...assignmentData,
+            id: randomUUID(),
+            scenario_id: scenarioId,
+            created_at: new Date(),
+            updated_at: new Date()
+          });
+        }
+
+        const parentPhases = await trx('scenario_project_phases')
+          .where('scenario_id', parentScenarioId);
+
+        for (const phase of parentPhases) {
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
+          const { id, scenario_id, created_at, updated_at, ...phaseData } = phase;
+          await trx('scenario_project_phases').insert({
+            ...phaseData,
+            id: randomUUID(),
+            scenario_id: scenarioId,
+            created_at: new Date(),
+            updated_at: new Date()
+          });
+        }
       }
-      for (const assignment of baselineScenarioRows) {
-        await copyAssignment(assignment, assignment.base_assignment_id || null);
-      }
-
-      // Copy current project phases
-      const phases = await this.db('project_phases_timeline')
-        .select('*');
-
-      for (const phase of phases) {
-        await this.db('scenario_project_phases').insert({
-          id: randomUUID(),
-          scenario_id: scenarioId,
-          project_id: phase.project_id,
-          phase_id: phase.phase_id,
-          start_date: phase.start_date,
-          end_date: phase.end_date,
-          notes: phase.notes,
-          change_type: 'added',
-          base_phase_timeline_id: phase.id,
-          created_at: new Date(),
-          updated_at: new Date()
-        });
-      }
-    } else {
-      // Copy from parent scenario
-      const parentAssignments = await this.db('scenario_project_assignments')
-        .where('scenario_id', parentScenarioId);
-
-      for (const assignment of parentAssignments) {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const { id, scenario_id, created_at, updated_at, ...assignmentData } = assignment;
-        await this.db('scenario_project_assignments').insert({
-          ...assignmentData,
-          id: randomUUID(),
-          scenario_id: scenarioId,
-          created_at: new Date(),
-          updated_at: new Date()
-        });
-      }
-
-      const parentPhases = await this.db('scenario_project_phases')
-        .where('scenario_id', parentScenarioId);
-
-      for (const phase of parentPhases) {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const { id, scenario_id, created_at, updated_at, ...phaseData } = phase;
-        await this.db('scenario_project_phases').insert({
-          ...phaseData,
-          id: randomUUID(),
-          scenario_id: scenarioId,
-          created_at: new Date(),
-          updated_at: new Date()
-        });
-      }
-    }
+    });
   }
 
   private async detectMergeConflicts(sourceScenarioId: string, targetScenarioId: string) {

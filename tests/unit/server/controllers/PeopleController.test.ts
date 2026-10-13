@@ -20,6 +20,7 @@ const createChainableMock = (returnValue: any = []): any => {
     leftJoin: jest.fn().mockReturnThis(),
     join: jest.fn().mockReturnThis(),
     where: jest.fn().mockReturnThis(),
+    whereRaw: jest.fn().mockReturnThis(),
     whereIn: jest.fn().mockReturnThis(),
     whereNotNull: jest.fn().mockReturnThis(),
     orWhere: jest.fn().mockReturnThis(),
@@ -583,7 +584,7 @@ describe('PeopleController', () => {
 
       await controller.deleteTestData(req as Request, res as Response);
 
-      expect(mockDbQuery.where).toHaveBeenCalledWith('name', 'like', 'Test_%');
+      expect(mockDbQuery.whereRaw).toHaveBeenCalledWith("name LIKE ? ESCAPE '\\'", ['Test\\_%']);
       expect(mockDbQuery.del).toHaveBeenCalled();
       expect(res.json).toHaveBeenCalledWith({ message: 'Deleted 3 test people' });
     });

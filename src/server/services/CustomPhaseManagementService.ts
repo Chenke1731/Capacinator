@@ -308,13 +308,28 @@ export class CustomPhaseManagementService {
 
         // If this was a custom phase and the last instance, consider deleting the phase itself
         if (currentPhase.phase_source === 'custom' && isLastInstance) {
-          // Check if it's safe to delete the phase (no other references)
-          const hasAssignments = await trx('assignments')
+          // Check if it's safe to delete the phase (no other references).
+          // 'assignments' 表不存在(库中只有 project_assignments /
+          // scenario_project_assignments,2026-10-13 全库审计)——原先查询
+          // 必抛 "no such table",删最后一个自定义阶段 100% 失败;查真实引用方
+          const assignmentRefs = await trx('project_assignments')
             .where('phase_id', currentPhase.phase_id)
             .count('* as count')
             .first();
+          const scenarioRefs = await trx('scenario_project_assignments')
+            .where('phase_id', currentPhase.phase_id)
+            .count('* as count')
+            .first();
+          const templateRefs = await trx('resource_templates')
+            .where('phase_id', currentPhase.phase_id)
+            .count('* as count')
+            .first();
+          const stillReferenced =
+            Number(assignmentRefs?.count ?? 0) > 0 ||
+            Number(scenarioRefs?.count ?? 0) > 0 ||
+            Number(templateRefs?.count ?? 0) > 0;
 
-          if ((hasAssignments?.count as number) === 0) {
+          if (!stillReferenced) {
             await trx('project_phases')
               .where('id', currentPhase.phase_id)
               .del();

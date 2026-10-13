@@ -64,7 +64,7 @@ describe('TestDataController', () => {
       expect(mockDb.whereIn).toHaveBeenCalled();
       expect(mockDb).toHaveBeenCalledWith('projects');
       expect(mockDb.select).toHaveBeenCalledWith('id');
-      expect(mockDb.where).toHaveBeenCalledWith('name', 'like', 'Test_%');
+      expect(mockDb.whereRaw).toHaveBeenCalledWith("name LIKE ? ESCAPE '\\'", ['Test\\_%']);
     });
   });
 
@@ -114,7 +114,7 @@ describe('TestDataController', () => {
       expect(mockDb.whereIn).toHaveBeenCalled();
       expect(mockDb).toHaveBeenCalledWith('people');
       expect(mockDb.select).toHaveBeenCalledWith('id');
-      expect(mockDb.where).toHaveBeenCalledWith('name', 'like', 'Test_%');
+      expect(mockDb.whereRaw).toHaveBeenCalledWith("name LIKE ? ESCAPE '\\'", ['Test\\_%']);
     });
   });
 
@@ -126,7 +126,7 @@ describe('TestDataController', () => {
       await flushPromises();
 
       expect(mockDb).toHaveBeenCalledWith('roles');
-      expect(mockDb.where).toHaveBeenCalledWith('name', 'like', 'Test_%');
+      expect(mockDb.whereRaw).toHaveBeenCalledWith("name LIKE ? ESCAPE '\\'", ['Test\\_%']);
       expect(mockDb.del).toHaveBeenCalled();
       expect(mockRes.json).toHaveBeenCalledWith({
         message: 'Deleted 7 test roles'
@@ -153,7 +153,7 @@ describe('TestDataController', () => {
       await flushPromises();
 
       expect(mockDb).toHaveBeenCalledWith('project_phases');
-      expect(mockDb.where).toHaveBeenCalledWith('name', 'like', 'Test_%');
+      expect(mockDb.whereRaw).toHaveBeenCalledWith("name LIKE ? ESCAPE '\\'", ['Test\\_%']);
       expect(mockDb.del).toHaveBeenCalled();
       expect(mockRes.json).toHaveBeenCalledWith({
         message: 'Deleted 4 test phases'
@@ -218,11 +218,12 @@ describe('TestDataController', () => {
 
       const patterns = whereCalls.map((call: any) => call[2]);
 
-      // Should include specific patterns
+      // Should include specific patterns(Test_ 前缀自 2026-10-13 LIKE 转义
+      // 修复起走 ESCAPE 子句,不再出现在 where('name','like',...) 调用里)
       expect(patterns).toContain('AI/ML Platform%');
       expect(patterns).toContain('Product Development%');
       expect(patterns).toContain('Cloud Migration%');
-      expect(patterns).toContain('Test_%');
+      expect(mockDb.whereRaw).toHaveBeenCalledWith("name LIKE ? ESCAPE '\\'", ['Test\\_%']);
     });
 
     it('handles zero deletions', async () => {
@@ -245,7 +246,7 @@ describe('TestDataController', () => {
       await flushPromises();
 
       expect(mockDb).toHaveBeenCalledWith('locations');
-      expect(mockDb.where).toHaveBeenCalledWith('name', 'like', 'Test_%');
+      expect(mockDb.whereRaw).toHaveBeenCalledWith("name LIKE ? ESCAPE '\\'", ['Test\\_%']);
       expect(mockDb.del).toHaveBeenCalled();
       expect(mockRes.json).toHaveBeenCalledWith({
         message: 'Deleted 3 test locations'

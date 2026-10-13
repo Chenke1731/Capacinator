@@ -292,58 +292,63 @@ export class AssignmentsController extends BaseController {
         });
       }
 
-      // 主投入互斥(063c 部分唯一索引): 新建为主投入时先清同项目同场景旧主
-      // 标记——必须前置,否则唯一索引在 insert 即拦(看板"实名投入"格,设计 §4)
-      if (assignmentData.is_primary) {
-        const mutexScenarioId = (req.headers['x-scenario-id'] as string) || 'baseline-0000-0000-0000-000000000000';
-        await this.db('scenario_project_assignments')
-          .where({ project_id: assignmentData.project_id, scenario_id: mutexScenarioId })
-          .where('is_primary', 1)
-          .update({ is_primary: false, updated_at: new Date() });
-      }
-
-      // SE/MDE 单人制(2026-09-29 用户裁决): 一任务一 SE/一 MDE。
-      // 新分配同项目同角色时先清旧记录(原子替换,防幽灵分配与负载双算)。
-      // 角色按 id 查名,只对 SE/MDE 生效;开发角色(可多人)不受影响。
-      {
-        const roleRow = await this.db('roles').where('id', assignmentData.role_id).first();
-        const roleName = roleRow?.name as string | undefined;
-        if (roleName === 'SE' || roleName === 'MDE') {
-          const singleScenarioId = (req.headers['x-scenario-id'] as string) || 'baseline-0000-0000-0000-000000000000';
-          await this.db('scenario_project_assignments')
-            .where({ project_id: assignmentData.project_id, scenario_id: singleScenarioId, role_id: assignmentData.role_id })
-            .where('status', 'active')
-            .del();
-        }
-      }
-
       // Get scenario from header
       const scenarioId = req.headers['x-scenario-id'] as string || 'baseline-0000-0000-0000-000000000000';
 
-      // Check for conflicts before creating
-      const conflicts = await this.checkConflicts(
-        assignmentData.person_id,
-        effectiveStartDate,
-        effectiveEndDate,
-        assignmentData.allocation_percentage,
-        undefined,
-        scenarioId
-      );
-
       let warning = null;
-      if (conflicts && conflicts.total_allocation > 100) {
-        warning = `Person will be overallocated at ${conflicts.total_allocation}% during this period`;
-      }
-      
-      const [assignment] = await this.db('scenario_project_assignments')
-        .insert({
-          ...assignmentData,
-          ...computedDates,
-          scenario_id: scenarioId,
-          created_at: new Date(),
-          updated_at: new Date()
-        })
-        .returning('*');
+      let conflicts: any = null;
+
+      // 先删后插必须同事务(2026-10-13 全库审计): 无事务时插入失败(FK/唯一
+      // 索引)会永久丢失被替换的旧 SE/MDE 或旧主投入记录——数据损坏级
+      const [assignment] = await this.db.transaction(async (trx: any) => {
+        // 主投入互斥(063c 部分唯一索引): 新建为主投入时先清同项目同场景旧主
+        // 标记——必须前置,否则唯一索引在 insert 即拦(看板"实名投入"格,设计 §4)
+        if (assignmentData.is_primary) {
+          await trx('scenario_project_assignments')
+            .where({ project_id: assignmentData.project_id, scenario_id: scenarioId })
+            .where('is_primary', 1)
+            .update({ is_primary: false, updated_at: new Date() });
+        }
+
+        // SE/MDE 单人制(2026-09-29 用户裁决): 一任务一 SE/一 MDE。
+        // 新分配同项目同角色时先清旧记录(原子替换,防幽灵分配与负载双算)。
+        // 角色按 id 查名,只对 SE/MDE 生效;开发角色(可多人)不受影响。
+        {
+          const roleRow = await trx('roles').where('id', assignmentData.role_id).first();
+          const roleName = roleRow?.name as string | undefined;
+          if (roleName === 'SE' || roleName === 'MDE') {
+            await trx('scenario_project_assignments')
+              .where({ project_id: assignmentData.project_id, scenario_id: scenarioId, role_id: assignmentData.role_id })
+              .where('status', 'active')
+              .del();
+          }
+        }
+
+        // Check for conflicts before creating(读在删除之后、插入之前,保持原顺序;
+        // 入事务后读取失败同样整体回滚,不再留下"已删未插"的窗口)
+        conflicts = await this.checkConflicts(
+          assignmentData.person_id,
+          effectiveStartDate,
+          effectiveEndDate,
+          assignmentData.allocation_percentage,
+          undefined,
+          scenarioId
+        );
+
+        if (conflicts && conflicts.total_allocation > 100) {
+          warning = `Person will be overallocated at ${conflicts.total_allocation}% during this period`;
+        }
+
+        return await trx('scenario_project_assignments')
+          .insert({
+            ...assignmentData,
+            ...computedDates,
+            scenario_id: scenarioId,
+            created_at: new Date(),
+            updated_at: new Date()
+          })
+          .returning('*');
+      });
 
       // Return assignment with computed dates
       const assignmentWithDates = { ...assignment, ...computedDates };
@@ -1250,10 +1255,10 @@ export class AssignmentsController extends BaseController {
       // Delete test assignments (ones with "Test_" in related entities)
       const deleted = await this.db('project_assignments')
         .whereIn('project_id', 
-          this.db('projects').select('id').where('name', 'like', 'Test_%')
+          this.db('projects').select('id').whereRaw("name LIKE ? ESCAPE '\\'", ['Test\\_%'])
         )
         .orWhereIn('person_id',
-          this.db('people').select('id').where('name', 'like', 'Test_%')  
+          this.db('people').select('id').whereRaw("name LIKE ? ESCAPE '\\'", ['Test\\_%'])  
         )
         .del();
 

@@ -23,10 +23,12 @@ export class ProjectsController extends BaseController {
    * Automatically inherits phases from project type template when creating a new project.
    * Creates project_phases_timeline entries with template tracking and duration constraints.
    */
-  private async inheritProjectPhases(projectId: string, projectTypeId: string): Promise<void> {
+  private async inheritProjectPhases(projectId: string, projectTypeId: string, trx?: any): Promise<void> {
+    // 可选事务句柄(2026-10-13): create 主链入事务后,阶段继承同事务提交
+    const db = trx ?? this.db;
     try {
       // Get all template phases for the project type with enhanced template data
-      const projectTypePhases = await this.db('project_type_phases')
+      const projectTypePhases = await db('project_type_phases')
         .select(
           'project_type_phases.id as template_phase_id',
           'project_type_phases.order_index',
@@ -49,7 +51,7 @@ export class ProjectsController extends BaseController {
       }
 
       // Get project aspiration dates for phase date calculation
-      const project = await this.db('projects')
+      const project = await db('projects')
         .select('aspiration_start', 'aspiration_finish')
         .where('id', projectId)
         .first();
@@ -100,7 +102,7 @@ export class ProjectsController extends BaseController {
 
       // Insert all template phase timeline entries
       if (timelineEntries.length > 0) {
-        await this.db('project_phases_timeline').insert(timelineEntries);
+        await db('project_phases_timeline').insert(timelineEntries);
       }
 
       // Log successful template inheritance for audit
@@ -753,60 +755,68 @@ export class ProjectsController extends BaseController {
       // (lifecycle is owned by the state machine; create defaults to
       // pending_rat below). Passing it through made the insert 500.
       delete sanitizedData.status;
+      // 生命周期/迭代文本字段归状态机端点独管(update 侧同款): lifecycle_state
+      // 下方按类型强制覆写;iteration_label 是状态机文本字段,create 不收
+      // (2026-10-13 全库审计: 非 lifecycle 类型此前可带任意 lifecycle_state 直插)
+      delete sanitizedData.iteration_label;
       const nullableForeignKeys = ['owner_id', 'project_sub_type_id', 'current_phase_id', 'location_id', 'component_id'];
-      
+
       nullableForeignKeys.forEach(field => {
         if (sanitizedData[field] === '') {
           sanitizedData[field] = null;
         }
       });
-      
-      // 引用码序号: max+1(单用户无并发竞争;唯一索引兜底拒绝重复)
-      const maxRow = await this.db('projects').max('seq_number as maxSeq').first();
-      const nextSeq = Number(maxRow?.maxSeq ?? 0) + 1;
 
-      const projectToInsert = {
-        id: projectId,
-        seq_number: nextSeq,
-        ...sanitizedData,
-        project_type_id: sanitizedData.project_sub_type_id ?
-          (await this.db('project_sub_types').where('id', sanitizedData.project_sub_type_id).first())?.project_type_id :
-          sanitizedData.project_type_id,
-        created_at: new Date(),
-        updated_at: new Date()
-      };
+      const projectTypeId = sanitizedData.project_sub_type_id ?
+        (await this.db('project_sub_types').where('id', sanitizedData.project_sub_type_id).first())?.project_type_id :
+        sanitizedData.project_type_id;
 
       // Trackable item types enter the lifecycle at 待RAT; standing types
       // (问题单支持/项目事务) have no lifecycle (NULL)
-      const typeName = projectToInsert.project_type_id
-        ? (await this.db('project_types').where('id', projectToInsert.project_type_id).first())?.name
+      const typeName = projectTypeId
+        ? (await this.db('project_types').where('id', projectTypeId).first())?.name
         : null;
       const lifecycleEnabled = ['需求交付', '零星事项'].includes(typeName);
-      if (lifecycleEnabled) {
-        projectToInsert.lifecycle_state = 'pending_rat';
-      }
 
-      await this.db('projects').insert(projectToInsert);
+      // 四段写入同事务(2026-10-13 全库审计): 项目+生命周期事件+标签+阶段继承,
+      // 任一失败整体回滚——不再留僵尸项目/丢整组标签
+      await this.db.transaction(async (trx: any) => {
+        // 引用码序号: max+1(单用户无并发竞争;唯一索引兜底拒绝重复)
+        const maxRow = await trx('projects').max('seq_number as maxSeq').first();
+        const nextSeq = Number(maxRow?.maxSeq ?? 0) + 1;
 
-      if (lifecycleEnabled) {
-        await this.db('project_lifecycle_events').insert({
-          project_id: projectId,
-          from_state: null,
-          to_state: 'pending_rat',
-          note: 'auto: project created',
-          actor: req.user?.id ?? null
-        });
-      }
+        const projectToInsert: Record<string, any> = {
+          id: projectId,
+          seq_number: nextSeq,
+          ...sanitizedData,
+          project_type_id: projectTypeId,
+          lifecycle_state: lifecycleEnabled ? 'pending_rat' : null,
+          created_at: new Date(),
+          updated_at: new Date()
+        };
 
-      // Apply tags
-      if (tagIds.length > 0) {
-        await this.db('project_tags').insert(
-          tagIds.map((tagId) => ({ project_id: projectId, tag_id: tagId }))
-        );
-      }
+        await trx('projects').insert(projectToInsert);
 
-      // Auto-inherit phases from project type
-      await this.inheritProjectPhases(projectId, projectToInsert.project_type_id);
+        if (lifecycleEnabled) {
+          await trx('project_lifecycle_events').insert({
+            project_id: projectId,
+            from_state: null,
+            to_state: 'pending_rat',
+            note: 'auto: project created',
+            actor: req.user?.id ?? null
+          });
+        }
+
+        // Apply tags
+        if (tagIds.length > 0) {
+          await trx('project_tags').insert(
+            tagIds.map((tagId) => ({ project_id: projectId, tag_id: tagId }))
+          );
+        }
+
+        // Auto-inherit phases from project type
+        await this.inheritProjectPhases(projectId, projectTypeId, trx);
+      });
       
       // Fetch the created project
       const project = await this.db('projects').where('id', projectId).first();
@@ -835,7 +845,13 @@ export class ProjectsController extends BaseController {
     const result = await this.executeQuery(async () => {
       // Get current project to track timeline changes
       const currentProject = await this.db('projects').where('id', id).first();
-      
+      // 存在性前置(2026-10-13 全库审计#9): 原先子表写入后才 404——不存在 id
+      // 带标签/评估载荷会先落子表撞 FK 变 500
+      if (!currentProject) {
+        this.handleNotFound(req, res, 'Project');
+        return null;
+      }
+
       // Validate project type and sub-type relationship
       if (updateData.project_type_id || updateData.project_sub_type_id) {
         const typeId = updateData.project_type_id || currentProject?.project_type_id;
@@ -893,6 +909,14 @@ export class ProjectsController extends BaseController {
       // lifecycle 端点的 RAT 回填语义不变。
       delete sanitizedData.lifecycle_state;
       delete sanitizedData.iteration_label;
+      // 身份列不可经客户端改写(2026-10-13 全库审计 E1): batch-update 有
+      // ALLOWED_PATCH_KEYS 白名单,单条 update 至少围栏主键/序号/时间戳——
+      // 否则载荷可中途改写 id,断掉 parent/assignment 的全部引用
+      delete sanitizedData.id;
+      delete sanitizedData.seq_number;
+      delete sanitizedData.created_at;
+      delete sanitizedData.updated_at;
+      delete sanitizedData.external_id;
       if (sanitizedData.parent_id !== undefined) {
         const parentErr = await this.validateParent(id, sanitizedData.parent_id);
         if (parentErr) {
@@ -910,63 +934,67 @@ export class ProjectsController extends BaseController {
         }
       });
 
-      await this.db('projects')
-        .where('id', id)
-        .update({
-          ...sanitizedData,
-          updated_at: new Date()
-        });
-
-      // 设计粗估分量落最新记录(D3): 有分量入参时写
-      if (seEst !== undefined || mdeEst !== undefined) {
-        const latest = await this.db('project_design_estimations')
-          .where({ project_id: id }).orderBy('id', 'desc').first(); // id 最大=最新(与读取口径一致)
-        const nextSe = seEst !== undefined ? (Number(seEst) || null) : undefined;
-        const nextMde = mdeEst !== undefined ? (Number(mdeEst) || null) : undefined;
-        if (latest) {
-          await this.db('project_design_estimations').where({ id: latest.id }).update({
-            ...(nextSe !== undefined ? { se_estimate_pm: nextSe } : {}),
-            ...(nextMde !== undefined ? { mde_estimate_pm: nextMde } : {}),
+      // 五段写入同事务(2026-10-13 全库审计): 主表+两类评估+标签先删后插,
+      // 任一失败整体回滚(标签段原先 del 后 insert 失败即丢整组标签)
+      await this.db.transaction(async (trx: any) => {
+        await trx('projects')
+          .where('id', id)
+          .update({
+            ...sanitizedData,
             updated_at: new Date()
           });
-        } else {
-          await this.db('project_design_estimations').insert({
-            project_id: id,
-            estimated_design_pm: Number(nextSe ?? 0) + Number(nextMde ?? 0),
-            se_estimate_pm: nextSe ?? null,
-            mde_estimate_pm: nextMde ?? null
-          });
-        }
-      }
 
-      // 代码规模/人月覆盖: 映射到最新 LOC 评估记录(无则创建仅含该值的记录)
-      if (klocIn !== undefined || pmOverride !== undefined) {
-        const latest = await this.db('project_estimations')
-          .where({ project_id: id }).orderBy('id', 'desc').first(); // id 最大 = 最新(与读取口径一致)
-        const patch: Record<string, any> = { updated_at: this.db.fn.now() };
-        // null = 清除自身值(SR 回退到子行聚合推导, 2026-09-29 用户裁决恢复默认计算)
-        if (klocIn !== undefined) patch.estimated_loc = klocIn === null ? null : (Number(klocIn) || 0) * 1000;
-        if (pmOverride !== undefined) patch.estimated_pm = pmOverride === null ? null : (Number(pmOverride) || null);
-        if (latest) {
-          await this.db('project_estimations').where({ id: latest.id }).update(patch);
-        } else {
-          await this.db('project_estimations').insert({
-            project_id: id,
-            estimated_loc: (Number(klocIn) || 0) * 1000,
-            ...(pmOverride !== undefined ? { estimated_pm: Number(pmOverride) || null } : {})
-          });
+        // 设计粗估分量落最新记录(D3): 有分量入参时写
+        if (seEst !== undefined || mdeEst !== undefined) {
+          const latest = await trx('project_design_estimations')
+            .where({ project_id: id }).orderBy('id', 'desc').first(); // id 最大=最新(与读取口径一致)
+          const nextSe = seEst !== undefined ? (Number(seEst) || null) : undefined;
+          const nextMde = mdeEst !== undefined ? (Number(mdeEst) || null) : undefined;
+          if (latest) {
+            await trx('project_design_estimations').where({ id: latest.id }).update({
+              ...(nextSe !== undefined ? { se_estimate_pm: nextSe } : {}),
+              ...(nextMde !== undefined ? { mde_estimate_pm: nextMde } : {}),
+              updated_at: new Date()
+            });
+          } else {
+            await trx('project_design_estimations').insert({
+              project_id: id,
+              estimated_design_pm: Number(nextSe ?? 0) + Number(nextMde ?? 0),
+              se_estimate_pm: nextSe ?? null,
+              mde_estimate_pm: nextMde ?? null
+            });
+          }
         }
-      }
 
-      // Replace the project's tag set when tag_ids was provided
-      if (tagIdsProvided) {
-        await this.db('project_tags').where('project_id', id).del();
-        if (tagIds.length > 0) {
-          await this.db('project_tags').insert(
-            tagIds.map((tagId) => ({ project_id: id, tag_id: tagId }))
-          );
+        // 代码规模/人月覆盖: 映射到最新 LOC 评估记录(无则创建仅含该值的记录)
+        if (klocIn !== undefined || pmOverride !== undefined) {
+          const latest = await trx('project_estimations')
+            .where({ project_id: id }).orderBy('id', 'desc').first(); // id 最大 = 最新(与读取口径一致)
+          const patch: Record<string, any> = { updated_at: trx.fn.now() };
+          // null = 清除自身值(SR 回退到子行聚合推导, 2026-09-29 用户裁决恢复默认计算)
+          if (klocIn !== undefined) patch.estimated_loc = klocIn === null ? null : (Number(klocIn) || 0) * 1000;
+          if (pmOverride !== undefined) patch.estimated_pm = pmOverride === null ? null : (Number(pmOverride) || null);
+          if (latest) {
+            await trx('project_estimations').where({ id: latest.id }).update(patch);
+          } else {
+            await trx('project_estimations').insert({
+              project_id: id,
+              estimated_loc: (Number(klocIn) || 0) * 1000,
+              ...(pmOverride !== undefined ? { estimated_pm: Number(pmOverride) || null } : {})
+            });
+          }
         }
-      }
+
+        // Replace the project's tag set when tag_ids was provided
+        if (tagIdsProvided) {
+          await trx('project_tags').where('project_id', id).del();
+          if (tagIds.length > 0) {
+            await trx('project_tags').insert(
+              tagIds.map((tagId) => ({ project_id: id, tag_id: tagId }))
+            );
+          }
+        }
+      });
 
       // Fetch the updated project
       const project = await this.db('projects').where('id', id).first();
@@ -1363,7 +1391,7 @@ export class ProjectsController extends BaseController {
     const result = await this.executeQuery(async () => {
       // Delete test projects (ones with "Test_" in name)
       const deleted = await this.db('projects')
-        .where('name', 'like', 'Test_%')
+        .whereRaw("name LIKE ? ESCAPE '\\'", ['Test\\_%'])
         .del();
 
       return { message: `Deleted ${deleted} test projects` };

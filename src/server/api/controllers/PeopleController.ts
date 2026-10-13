@@ -561,7 +561,7 @@ export class PeopleController extends BaseController {
     const result = await this.executeQuery(async () => {
       // Delete test people (ones with "Test_" in name)
       const deleted = await this.db('people')
-        .where('name', 'like', 'Test_%')
+        .whereRaw("name LIKE ? ESCAPE '\\'", ['Test\\_%'])
         .del();
 
       return { message: `Deleted ${deleted} test people` };

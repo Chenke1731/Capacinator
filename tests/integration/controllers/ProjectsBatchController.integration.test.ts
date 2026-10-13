@@ -384,7 +384,7 @@ describe('ProjectsController batch endpoints', () => {
       const row = await db('projects').where('name', 'WL-DROP').first();
       expect(row).toBeTruthy();
       expect(row.lifecycle_state).toBeNull();        // 非生命周期类型强制 NULL
-      expect((row as any).budget).toBeNull();        // 手写库虽有此列,载荷值未写入(默认 NULL)
+      expect((row as any).budget).toBeUndefined();   // 列已从手写库删除(漂移守卫),载荷更不可能写入
       expect((row as any).ghost_key).toBeUndefined();
 
       await db('projects').where('id', row.id).del();

@@ -251,8 +251,8 @@ describe('Scenario Database Operations', () => {
         allocation_percentage: 50,
         assignment_date_mode: 'project',
         change_type: 'added',
-        is_billable: 1,
-        is_aspirational: 0,
+        // is_billable/is_aspirational 已删(2026-10-13 漂移守卫): 手写 schema
+        // 杜撰列,真实迁移不存在——对真库插入必 500,夹具一直活在平行宇宙
         created_at: new Date(),
         updated_at: new Date()
       };

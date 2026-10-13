@@ -29,10 +29,8 @@ describe('Projects API Integration Tests - Simple', () => {
         priority: 1,
         include_in_demand: 1, // SQLite stores boolean as integer
         description: 'A test project for integration testing',
-        status: 'planning',
         created_at: new Date(),
-        updated_at: new Date(),
-        created_by: 'test-user'
+        updated_at: new Date()
       };
 
       await db('projects').insert(projectData);
@@ -50,10 +48,8 @@ describe('Projects API Integration Tests - Simple', () => {
       await db('projects').insert({
         id: testProjectId,
         name: 'Original Name',
-        status: 'planning',
         created_at: new Date(),
-        updated_at: new Date(),
-        created_by: 'test-user'
+        updated_at: new Date()
       });
 
       // Update it
@@ -61,13 +57,13 @@ describe('Projects API Integration Tests - Simple', () => {
         .where('id', testProjectId)
         .update({
           name: 'Updated Name',
-          status: 'active',
+          priority: 2,
           updated_at: new Date()
         });
 
       const updated = await db('projects').where('id', testProjectId).first();
       expect(updated.name).toBe('Updated Name');
-      expect(updated.status).toBe('active');
+      expect(updated.priority).toBe(2);
     });
 
     test('should retrieve project with related data', async () => {
@@ -76,10 +72,8 @@ describe('Projects API Integration Tests - Simple', () => {
       await db('projects').insert({
         id: testProjectId,
         name: 'Project with Phases',
-        status: 'active',
         created_at: new Date(),
-        updated_at: new Date(),
-        created_by: 'test-user'
+        updated_at: new Date()
       });
 
       // Create phase in master table
@@ -126,10 +120,8 @@ describe('Projects API Integration Tests - Simple', () => {
       await db('projects').insert({
         id: testProjectId,
         name: 'Project to Delete',
-        status: 'planning',
         created_at: new Date(),
-        updated_at: new Date(),
-        created_by: 'test-user'
+        updated_at: new Date()
       });
 
       // Delete project
@@ -152,28 +144,28 @@ describe('Projects API Integration Tests - Simple', () => {
         await db('projects').insert({
           id,
           name: `Metric Project ${i}`,
-          status: i === 0 ? 'completed' : 'active',
-          budget: 100000 * (i + 1),
+          priority: i === 0 ? 1 : 2,
+          aspiration_start: '2026-01-01',
           created_at: new Date(),
-          updated_at: new Date(),
-          created_by: 'test-user'
+          updated_at: new Date()
         });
       }
 
-      // Query aggregate metrics
+      // Query aggregate metrics(budget/status 系手写库杜撰列已删——2026-10-13
+      // 漂移守卫;聚合改用真实列 priority/aspiration_start)
       const metrics = await db('projects')
         .select(
           db.raw('COUNT(*) as total_projects'),
-          db.raw('SUM(budget) as total_budget'),
-          db.raw("COUNT(CASE WHEN status = 'active' THEN 1 END) as active_projects"),
-          db.raw("COUNT(CASE WHEN status = 'completed' THEN 1 END) as completed_projects")
+          db.raw('SUM(priority) as total_priority'),
+          db.raw('COUNT(CASE WHEN priority = 1 THEN 1 END) as p1_projects'),
+          db.raw("COUNT(CASE WHEN aspiration_start = '2026-01-01' THEN 1 END) as dated_projects")
         )
         .first();
 
       expect(parseInt(metrics.total_projects, 10)).toBeGreaterThanOrEqual(3);
-      expect(parseInt(metrics.total_budget, 10)).toBeGreaterThanOrEqual(600000);
-      expect(parseInt(metrics.active_projects, 10)).toBeGreaterThanOrEqual(2);
-      expect(parseInt(metrics.completed_projects, 10)).toBeGreaterThanOrEqual(1);
+      expect(parseInt(metrics.total_priority, 10)).toBeGreaterThanOrEqual(5);
+      expect(parseInt(metrics.p1_projects, 10)).toBeGreaterThanOrEqual(1);
+      expect(parseInt(metrics.dated_projects, 10)).toBeGreaterThanOrEqual(3);
 
       // Cleanup
       for (const id of projectIds) {

@@ -274,8 +274,10 @@ test.describe('Utilization Report Accuracy', () => {
     authenticatedPage 
   }) => {
     // Look for trend chart
-    const trendChart = authenticatedPage.locator('.chart-container:has-text("Utilization Trend"), .chart-container:has-text("Over Time")');
-    if (await trendChart.isVisible()) {
+    // flaky 加固(2026-10-13): 瞬时 isVisible 门 → 等容器就位 + poll 数据点
+    const trendChart = authenticatedPage.locator('.chart-container:has-text("Utilization Trend"), .chart-container:has-text("Over Time")').first();
+    await trendChart.waitFor({ state: 'visible', timeout: 15000 });
+    {
       // Check for line chart elements
       const lineElements = trendChart.locator('.recharts-line, path[d]');
       const dotElements = trendChart.locator('.recharts-dot, circle');
@@ -287,8 +289,8 @@ test.describe('Utilization Report Accuracy', () => {
         const firstLabel = await xAxisLabels.first().textContent();
         expect(firstLabel).toBeTruthy();
         // Since we have test assignments, trend should have data points
-        const dataPoints = await dotElements.count();
-        expect(dataPoints).toBeGreaterThan(0);
+        await expect.poll(async () => await dotElements.count(), { timeout: 10000 })
+          .toBeGreaterThan(0);
       }
     }
   });

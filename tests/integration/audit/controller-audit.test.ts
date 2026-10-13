@@ -24,7 +24,6 @@ describe.skip('Controller Audit Integration Tests', () => {
       id: 'controller-audit-user',
       name: 'Controller Test User',
       email: 'controller-audit@example.com',
-      password: 'test-password',
       is_active: true,
       created_at: new Date(),
       updated_at: new Date()

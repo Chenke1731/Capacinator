@@ -122,19 +122,20 @@ test.describe('Gaps Analysis Report Accuracy', () => {
     authenticatedPage 
   }) => {
     // Look for gap visualization
-    const chartContainer = authenticatedPage.locator('.chart-container:has-text("Gap"), .chart-container:has-text("Demand vs Capacity")');
-    if (await chartContainer.isVisible()) {
-      // Check for chart SVG
-      const chartSvg = chartContainer.locator('svg, .recharts-wrapper');
-      await expect(chartSvg).toBeVisible();
-      // Check for bar elements (usually showing demand vs capacity)
-      const bars = chartContainer.locator('.recharts-bar, rect[width]');
-      const barCount = await bars.count();
-      // Should have at least 2 bars per role (demand and capacity)
-      // With our test data, expect bars for each unique role
-      const uniqueRoles = new Set(testData.people.map((p: any) => p.role));
-      expect(barCount).toBeGreaterThanOrEqual(uniqueRoles.size * 2);
-    }
+    // flaky 加固(2026-10-13): 原先瞬时 isVisible() 门——未渲染即空过、半渲染
+    // 计数不定即败;改等容器就位 + poll 到柱数稳定
+    const chartContainer = authenticatedPage.locator('.chart-container:has-text("Gap"), .chart-container:has-text("Demand vs Capacity")').first();
+    await chartContainer.waitFor({ state: 'visible', timeout: 15000 });
+    // Check for chart SVG
+    const chartSvg = chartContainer.locator('svg, .recharts-wrapper');
+    await expect(chartSvg).toBeVisible();
+    // Check for bar elements (usually showing demand vs capacity)
+    const bars = chartContainer.locator('.recharts-bar, rect[width]');
+    // Should have at least 2 bars per role (demand and capacity)
+    // With our test data, expect bars for each unique role
+    const uniqueRoles = new Set(testData.people.map((p: any) => p.role));
+    await expect.poll(async () => await bars.count(), { timeout: 10000 })
+      .toBeGreaterThanOrEqual(uniqueRoles.size * 2);
   });
   test(`${tags.reports} should show actionable recommendations`, async ({ 
     authenticatedPage 
@@ -288,7 +289,9 @@ test.describe('Gaps Analysis Report Accuracy', () => {
     testDataHelpers 
   }) => {
     const table = authenticatedPage.locator('table').first();
-    if (await table.isVisible()) {
+    // flaky 加固(2026-10-13): 瞬时 isVisible → 等待就位(表格必渲染,测试数据有缺口)
+    await table.waitFor({ state: 'visible', timeout: 15000 });
+    {
       const rows = table.locator('tbody tr');
       const rowsWithGaps = [];
       // Find rows with actual gaps

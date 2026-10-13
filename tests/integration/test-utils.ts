@@ -111,10 +111,9 @@ export async function createTestData() {
     name: 'Test Project',
     project_type_id: testData.projectTypeId,
     location_id: testData.locationId,
-    status: 'active',
+    // status/created_by 已删(2026-10-13 漂移守卫): 真实 projects 无此列
     created_at: new Date(),
-    updated_at: new Date(),
-    created_by: 'test-user'
+    updated_at: new Date()
   });
 
   return testData;

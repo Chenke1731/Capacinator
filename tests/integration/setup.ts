@@ -137,7 +137,8 @@ export async function createTestProject(overrides: Partial<any> = {}): Promise<a
     id: overrides.id || `project-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
     name: 'Test Project',
     description: 'A test project',
-    status: 'active',
+    // status 已删(2026-10-13 漂移守卫): 真实 projects 无此列——生命周期
+    // 归 lifecycle_state,测试种子不再杜撰
     created_at: new Date().toISOString(),
     updated_at: new Date().toISOString(),
     ...overrides

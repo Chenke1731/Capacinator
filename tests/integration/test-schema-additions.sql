@@ -70,18 +70,18 @@ CREATE TABLE IF NOT EXISTS notifications (
 
 -- Add missing columns to existing tables
 -- Update projects table
+-- (status/budget/created_by 已删(2026-10-13 漂移守卫): 真实迁移中不存在,
+--  系手写 schema 杜撰——曾误导白名单事实源核对;current_phase_id 为补齐,
+--  控制器白名单在写它而手写库此前缺失)
 ALTER TABLE projects ADD COLUMN project_type_id TEXT;
 ALTER TABLE projects ADD COLUMN project_sub_type_id TEXT;
 ALTER TABLE projects ADD COLUMN location_id TEXT;
-ALTER TABLE projects ADD COLUMN status TEXT DEFAULT 'planning';
-ALTER TABLE projects ADD COLUMN budget REAL;
-ALTER TABLE projects ADD COLUMN created_by TEXT;
+ALTER TABLE projects ADD COLUMN current_phase_id TEXT;
 ALTER TABLE projects ADD COLUMN aspiration_start TEXT;
 ALTER TABLE projects ADD COLUMN aspiration_finish TEXT;
 
--- Update project_assignments table  
+-- Update project_assignments table
 ALTER TABLE project_assignments ADD COLUMN assignment_date_mode TEXT DEFAULT 'fixed';
-ALTER TABLE project_assignments ADD COLUMN scenario_id TEXT;
 ALTER TABLE project_assignments ADD COLUMN notes TEXT;
 
 -- Make start_date and end_date nullable for phase/project based assignments
@@ -98,7 +98,6 @@ CREATE TABLE project_assignments_new (
   computed_start_date TEXT,
   computed_end_date TEXT,
   assignment_date_mode TEXT DEFAULT 'fixed',
-  scenario_id TEXT,
   notes TEXT,
   created_at TEXT NOT NULL,
   updated_at TEXT NOT NULL,
@@ -109,14 +108,16 @@ CREATE TABLE project_assignments_new (
 );
 
 -- Copy data from old table (map columns that exist, use NULL/defaults for new columns)
+-- (scenario_id 已删(2026-10-13 漂移守卫): 场景归属在 scenario_project_assignments,
+--  真实 project_assignments 无此列)
 INSERT INTO project_assignments_new (
   id, person_id, project_id, role_id, allocation_percentage,
-  start_date, end_date, assignment_date_mode, scenario_id, notes,
+  start_date, end_date, assignment_date_mode, notes,
   created_at, updated_at
 )
 SELECT
   id, person_id, project_id, role_id, allocation_percentage,
-  start_date, end_date, assignment_date_mode, scenario_id, notes,
+  start_date, end_date, assignment_date_mode, notes,
   created_at, updated_at
 FROM project_assignments;
 
@@ -125,9 +126,10 @@ DROP TABLE project_assignments;
 ALTER TABLE project_assignments_new RENAME TO project_assignments;
 
 -- Update people table
+-- (password 已删(2026-10-13 漂移守卫): 真实 people 无此列——认证是选名
+--  登录,密码列系手写 schema 杜撰)
 ALTER TABLE people ADD COLUMN default_hours_per_day REAL DEFAULT 8;
 ALTER TABLE people ADD COLUMN worker_type TEXT DEFAULT 'employee';
-ALTER TABLE people ADD COLUMN password TEXT;
 ALTER TABLE people ADD COLUMN location_id TEXT;
 
 -- Person roles table - drop and recreate to add id and timestamps
@@ -235,8 +237,6 @@ CREATE TABLE IF NOT EXISTS scenario_project_assignments (
   change_type TEXT DEFAULT 'unchanged' CHECK(change_type IN ('added', 'removed', 'modified', 'unchanged')),
   start_date TEXT,
   end_date TEXT,
-  is_billable INTEGER DEFAULT 1,
-  is_aspirational INTEGER DEFAULT 0,
   base_assignment_id TEXT,
   created_at TEXT NOT NULL,
   updated_at TEXT NOT NULL,

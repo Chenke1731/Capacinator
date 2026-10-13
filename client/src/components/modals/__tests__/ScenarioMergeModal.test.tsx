@@ -7,7 +7,9 @@ import { api } from '../../../lib/api-client';
 // Mock the API client
 jest.mock('../../../lib/api-client', () => ({
   api: {
-    post: jest.fn()
+    scenarios: {
+      merge: jest.fn()
+    }
   }
 }));
 
@@ -20,6 +22,9 @@ describe('ScenarioMergeModal', () => {
     name: 'Test Scenario',
     parent_scenario_id: 'parent-scenario-1',
     description: 'Test scenario description',
+    created_by: 'user-1',
+    status: 'active' as const,
+    scenario_type: 'branch' as const,
     created_at: '2025-01-01',
     updated_at: '2025-01-02'
   };
@@ -120,7 +125,7 @@ describe('ScenarioMergeModal', () => {
 
   describe('Merge Initiation', () => {
     it('calls API when Analyze Conflicts is clicked', async () => {
-      (api.post as jest.Mock).mockResolvedValue({
+      (api.scenarios.merge as jest.Mock).mockResolvedValue({
         data: { success: true, message: 'Merge completed' }
       });
 
@@ -129,14 +134,14 @@ describe('ScenarioMergeModal', () => {
       fireEvent.click(analyzeButton);
 
       await waitFor(() => {
-        expect(api.post).toHaveBeenCalledWith('/scenarios/scenario-1/merge', {
+        expect(api.scenarios.merge).toHaveBeenCalledWith('scenario-1', {
           resolve_conflicts_as: 'manual'
         });
       });
     });
 
     it('transitions to conflicts step when conflicts are detected', async () => {
-      (api.post as jest.Mock).mockResolvedValue({
+      (api.scenarios.merge as jest.Mock).mockResolvedValue({
         data: {
           success: false,
           conflict_details: mockConflicts
@@ -153,7 +158,7 @@ describe('ScenarioMergeModal', () => {
     });
 
     it('transitions to complete step when no conflicts', async () => {
-      (api.post as jest.Mock).mockResolvedValue({
+      (api.scenarios.merge as jest.Mock).mockResolvedValue({
         data: { success: true, message: 'Merge completed successfully' }
       });
 
@@ -167,7 +172,7 @@ describe('ScenarioMergeModal', () => {
     });
 
     it('shows error message on API failure', async () => {
-      (api.post as jest.Mock).mockRejectedValue({
+      (api.scenarios.merge as jest.Mock).mockRejectedValue({
         response: { data: { error: 'Failed to merge' } }
       });
 
@@ -195,7 +200,7 @@ describe('ScenarioMergeModal', () => {
 
   describe('Conflicts Step', () => {
     beforeEach(async () => {
-      (api.post as jest.Mock).mockResolvedValue({
+      (api.scenarios.merge as jest.Mock).mockResolvedValue({
         data: {
           success: false,
           conflict_details: mockConflicts
@@ -314,7 +319,7 @@ describe('ScenarioMergeModal', () => {
 
   describe('Preview Step', () => {
     beforeEach(async () => {
-      (api.post as jest.Mock).mockResolvedValue({
+      (api.scenarios.merge as jest.Mock).mockResolvedValue({
         data: {
           success: false,
           conflict_details: mockConflicts
@@ -374,7 +379,7 @@ describe('ScenarioMergeModal', () => {
 
   describe('Executing Step', () => {
     it('shows executing state during merge', async () => {
-      (api.post as jest.Mock)
+      (api.scenarios.merge as jest.Mock)
         .mockResolvedValueOnce({
           data: {
             success: false,
@@ -419,7 +424,7 @@ describe('ScenarioMergeModal', () => {
 
   describe('Complete Step', () => {
     beforeEach(async () => {
-      (api.post as jest.Mock)
+      (api.scenarios.merge as jest.Mock)
         .mockResolvedValueOnce({
           data: {
             success: false,
@@ -515,7 +520,7 @@ describe('ScenarioMergeModal', () => {
 
   describe('Error Handling', () => {
     it('handles merge execution error', async () => {
-      (api.post as jest.Mock)
+      (api.scenarios.merge as jest.Mock)
         .mockResolvedValueOnce({
           data: {
             success: false,

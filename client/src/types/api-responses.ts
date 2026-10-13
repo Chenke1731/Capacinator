@@ -1183,14 +1183,37 @@ export interface ProjectAllocationItem {
   source: 'template' | 'override' | 'calculated';
 }
 
+/** {success,data} 信封(ProjectAllocationController res.json 实证,2026-10-13
+ *  批清——原先裸对象让消费端解包错层) */
 export interface ProjectAllocationsResponse {
-  project_id: string;
-  allocations: ProjectAllocationItem[];
-  summary: {
-    total_phases: number;
-    total_roles: number;
-    override_count: number;
+  success: boolean;
+  data: {
+    project_id: string;
+    allocations: ProjectAllocationItem[];
+    summary?: {
+      total_phases: number;
+      total_roles: number;
+      override_count: number;
+    };
   };
+}
+
+/** GET /people/:id 裸返回(PeopleController.getById res.json(result) 实证):
+ *  Person + 关联注入,无信封——api-client 原泛型 {data:Person} 是杜撰 */
+export interface PersonDetailResponse {
+  id: string;
+  name: string;
+  email?: string;
+  supervisor_name?: string;
+  primary_role_name?: string;
+  primary_role_proficiency_level?: string;
+  location_name?: string;
+  default_availability_percentage?: number;
+  is_active?: boolean;
+  roles?: Array<Record<string, unknown>>;
+  assignments?: Array<Record<string, unknown>>;
+  availabilityOverrides?: Array<Record<string, unknown>>;
+  [key: string]: unknown;
 }
 
 // ===== Estimation (Step 1: LOC-based estimation + deadline check) =====

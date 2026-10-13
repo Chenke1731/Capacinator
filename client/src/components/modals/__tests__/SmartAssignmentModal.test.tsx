@@ -669,7 +669,7 @@ describe('SmartAssignmentModal', () => {
   describe('Workload Reduction - Delete Flow', () => {
     it('calls delete API when removing an assignment', async () => {
       (api.assignments.delete as jest.Mock).mockResolvedValue({});
-      global.confirm = jest.fn(() => true);
+      globalThis.confirm = jest.fn(() => true);
 
       renderComponent({
         triggerContext: 'manual_add',
@@ -692,7 +692,7 @@ describe('SmartAssignmentModal', () => {
 
       await waitFor(() => {
         expect(api.assignments.delete).toHaveBeenCalledWith('assignment-1');
-        expect(global.confirm).toHaveBeenCalled();
+        expect(globalThis.confirm).toHaveBeenCalled();
       });
     });
 
@@ -746,7 +746,7 @@ describe('SmartAssignmentModal', () => {
     it('invalidates queries after successful deletion', async () => {
       (api.assignments.delete as jest.Mock).mockResolvedValue({});
       const invalidateSpy = jest.spyOn(queryClient, 'invalidateQueries');
-      global.confirm = jest.fn(() => true);
+      globalThis.confirm = jest.fn(() => true);
 
       renderComponent({
         triggerContext: 'manual_add',
@@ -1015,7 +1015,7 @@ describe('SmartAssignmentModal', () => {
 
   describe('Form Validation and Submission', () => {
     it('validates that role exists in database before submission', async () => {
-      global.alert = jest.fn();
+      globalThis.alert = jest.fn();
 
       const formWithInvalidRole = {
         ...defaultProps,
@@ -1034,7 +1034,7 @@ describe('SmartAssignmentModal', () => {
     });
 
     it('requires project selection before submission', async () => {
-      global.alert = jest.fn();
+      globalThis.alert = jest.fn();
 
       renderComponent({ triggerContext: 'manual_add' });
 
@@ -1069,7 +1069,7 @@ describe('SmartAssignmentModal', () => {
         }
       };
 
-      global.alert = jest.fn();
+      globalThis.alert = jest.fn();
       (api.assignments.create as jest.Mock).mockRejectedValue(errorResponse);
 
       renderComponent({ triggerContext: 'manual_add', projectId: 'project-2' });
@@ -1224,7 +1224,7 @@ describe('SmartAssignmentModal', () => {
           }
         };
 
-        global.alert = jest.fn();
+        globalThis.alert = jest.fn();
         (api.assignments.create as jest.Mock).mockRejectedValue(errorResponse);
 
         renderComponent({ triggerContext: 'manual_add', projectId: 'project-2' });
@@ -1250,7 +1250,7 @@ describe('SmartAssignmentModal', () => {
       });
 
       it('handles missing required fields validation', async () => {
-        global.alert = jest.fn();
+        globalThis.alert = jest.fn();
 
         renderComponent({ triggerContext: 'manual_add' });
 
@@ -1264,7 +1264,7 @@ describe('SmartAssignmentModal', () => {
 
         // Verify alert is not called for disabled button
         fireEvent.click(submitButton);
-        expect(global.alert).not.toHaveBeenCalled();
+        expect(globalThis.alert).not.toHaveBeenCalled();
       });
     });
 
@@ -1427,8 +1427,8 @@ describe('SmartAssignmentModal', () => {
     describe('Delete Assignment Error Handling', () => {
       it('handles delete API error gracefully', async () => {
         (api.assignments.delete as jest.Mock).mockRejectedValue(new Error('Network error'));
-        global.confirm = jest.fn(() => true);
-        global.alert = jest.fn();
+        globalThis.confirm = jest.fn(() => true);
+        globalThis.alert = jest.fn();
 
         renderComponent({
           triggerContext: 'manual_add',
@@ -1450,13 +1450,13 @@ describe('SmartAssignmentModal', () => {
         await waitFor(() => {
           expect(api.assignments.delete).toHaveBeenCalled();
           // Error alert should be shown
-          expect(global.alert).toHaveBeenCalledWith(expect.stringContaining('Failed to delete'));
+          expect(globalThis.alert).toHaveBeenCalledWith(expect.stringContaining('Failed to delete'));
         }, { timeout: 2000 });
       });
 
       it('prevents delete when user cancels confirmation', async () => {
         (api.assignments.delete as jest.Mock).mockResolvedValue({});
-        global.confirm = jest.fn(() => false); // User cancels
+        globalThis.confirm = jest.fn(() => false); // User cancels
 
         renderComponent({
           triggerContext: 'manual_add',
@@ -1474,7 +1474,7 @@ describe('SmartAssignmentModal', () => {
         await waitFor(() => {
           expect(api.assignments.delete).not.toHaveBeenCalled();
         }, { timeout: 1000 });
-        expect(global.confirm).toHaveBeenCalled();
+        expect(globalThis.confirm).toHaveBeenCalled();
       });
     });
   });

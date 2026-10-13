@@ -77,11 +77,13 @@ export const ScenarioMergeModal: React.FC<ScenarioMergeModalProps> = ({
     setError(null);
 
     try {
-      const response = await api.post(`/scenarios/${scenario.id}/merge`, {
+      // 命名空间化收口(2026-10-13 批清): 原先直调顶层 api.post——命名空间
+      // 化后该方法不存在,合并按钮运行时必炸 TypeError
+      const response = await api.scenarios.merge(scenario.id, {
         resolve_conflicts_as: mergeStrategy
       });
 
-      const mergeResponse: MergeResponse = response.data;
+      const mergeResponse: MergeResponse = response.data as unknown as MergeResponse;
 
       if (!mergeResponse.success && mergeResponse.conflict_details) {
         // Conflicts detected, need manual resolution
@@ -131,12 +133,12 @@ export const ScenarioMergeModal: React.FC<ScenarioMergeModalProps> = ({
 
     try {
       // Submit conflict resolutions and execute merge
-      const response = await api.post(`/scenarios/${scenario.id}/merge`, {
+      const response = await api.scenarios.merge(scenario.id, {
         resolve_conflicts_as: 'resolved',
         conflict_resolutions: conflictResolutions
       });
 
-      setMergeResult(response.data);
+      setMergeResult(response.data as unknown as MergeResponse);
       setCurrentStep('complete');
       
       // Notify parent component

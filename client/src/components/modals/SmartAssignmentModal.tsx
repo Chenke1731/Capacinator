@@ -506,7 +506,7 @@ export function SmartAssignmentModal({
       const today = new Date();
       const defaultStartDate = new Date(today);
       const defaultEndDate = new Date(today);
-      
+
       // Set default duration based on phase using extracted utility
       const selectedPhase = ((projectPhases as any)?.data as ProjectPhaseLink[] | undefined)?.find((phase) => phase.phase_id === value);
       if (selectedPhase) {
@@ -519,33 +519,33 @@ export function SmartAssignmentModal({
           [field]: value,
           start_date: defaultStartDate.toISOString().split('T')[0],
           end_date: defaultEndDate.toISOString().split('T')[0]
-        }));
+        } as typeof prev));
         return;
       }
     }
     
     // If project changes, reset role and phase selection
     if (field === 'project_id') {
-      setFormData(prev => ({ 
-        ...prev, 
+      setFormData(prev => ({
+        ...prev,
         [field]: value,
         role_id: '',
-        phase_id: '' 
-      }));
+        phase_id: ''
+      } as typeof prev));
       return;
     }
-    
+
     // If role changes, reset phase selection
     if (field === 'role_id') {
-      setFormData(prev => ({ 
-        ...prev, 
+      setFormData(prev => ({
+        ...prev,
         [field]: value,
-        phase_id: '' 
-      }));
+        phase_id: ''
+      } as typeof prev));
       return;
     }
-    
-    setFormData(prev => ({ ...prev, [field]: value }));
+
+    setFormData(prev => ({ ...prev, [field]: value } as typeof prev));
   };
 
   return (
@@ -692,8 +692,8 @@ export function SmartAssignmentModal({
                               {assignment.phase_name && ` • ${assignment.phase_name}`}
                             </div>
                             <div style={{ fontSize: '0.75rem', color: isDarkMode ? '#9ca3af' : '#6b7280', marginTop: '0.25rem' }}>
-                              {new Date(assignment.computed_start_date || assignment.start_date).toLocaleDateString(getLocale())} -
-                              {new Date(assignment.computed_end_date || assignment.end_date).toLocaleDateString(getLocale())}
+                              {new Date(assignment.computed_start_date || assignment.start_date || '').toLocaleDateString(getLocale())} -
+                              {new Date(assignment.computed_end_date || assignment.end_date || '').toLocaleDateString(getLocale())}
                             </div>
                           </div>
                           <button

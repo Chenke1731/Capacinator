@@ -36,6 +36,10 @@ export class PeopleController extends BaseController {
       if (filters.supervisor_id) query = query.where('people.supervisor_id', filters.supervisor_id);
       if (filters.worker_type) query = query.where('people.worker_type', filters.worker_type);
       if (filters.location_id) query = query.where('people.location_id', filters.location_id);
+      // 停用过滤(2026-10-13): ?is_active=true 是分配/负责人选择器的口径——
+      // 停用者保留历史,但不再进入"给新人排产"的候选集
+      if (req.query.is_active === 'true') query = query.where('people.is_active', true);
+      if (req.query.is_active === 'false') query = query.where('people.is_active', false);
       // total 与数据同过滤(2026-10-13 全库审计: 原先裸表 count,过滤页的
       // total/totalPages 全错)——克隆过滤后查询再清投影/排序
       const total = await query.clone().clearSelect().clearOrder().count('* as count').first();
@@ -137,7 +141,8 @@ export class PeopleController extends BaseController {
     // Filter out fields that don't exist in the people table (based on 002_fix_primary_role_foreign_key.ts)
     const validFields = [
       'name', 'email', 'primary_person_role_id', 'worker_type', 'supervisor_id',
-      'default_availability_percentage', 'default_hours_per_day', 'location_id'
+      'default_availability_percentage', 'default_hours_per_day', 'location_id',
+      'is_active' // 停用位(2026-10-13): 下线人员走停用而非删除(删除有 409 引用守卫)
     ];
     
     const filteredData = Object.keys(personData)
@@ -176,7 +181,8 @@ export class PeopleController extends BaseController {
     // Filter out fields that don't exist in the people table (based on 002_fix_primary_role_foreign_key.ts)
     const validFields = [
       'name', 'email', 'primary_person_role_id', 'worker_type', 'supervisor_id',
-      'default_availability_percentage', 'default_hours_per_day', 'location_id'
+      'default_availability_percentage', 'default_hours_per_day', 'location_id',
+      'is_active' // 停用位(2026-10-13): 下线人员走停用而非删除(删除有 409 引用守卫)
     ];
     
     const filteredData = Object.keys(updateData)
@@ -242,7 +248,7 @@ export class PeopleController extends BaseController {
       if (refCount > 0) {
         res.status(409).json({
           error: 'Conflict',
-          message: `Cannot delete person with ${refCount} assignment(s) on record — deletion would cascade-destroy the scheduling history. Remove or reassign those assignments first.`
+          message: `Cannot delete person with ${refCount} assignment(s) on record — deletion would cascade-destroy the scheduling history. Deactivate instead (is_active), or clear the assignments first.`
         });
         return null;
       }

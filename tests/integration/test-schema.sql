@@ -50,6 +50,7 @@ CREATE TABLE IF NOT EXISTS people (
   supervisor_id TEXT,
   default_availability_percentage REAL DEFAULT 100,
   default_hours_per_day REAL DEFAULT 8,
+  is_active INTEGER NOT NULL DEFAULT 1,
   created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (primary_role_id) REFERENCES roles(id),

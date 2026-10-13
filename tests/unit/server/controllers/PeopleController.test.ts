@@ -629,6 +629,20 @@ describe('PeopleController', () => {
     });
   });
 
+  describe('停用位(2026-10-13 停用机制)', () => {
+    test('getAll 支持 ?is_active= 过滤(分配/负责人选择器口径)', async () => {
+      const mockDbQuery = createChainableMock();
+      // beforeEach 把 executeAuditedQuery 桩成传文件级 mockDb——这里直供
+      // 受控链,断言过滤分支真实落链
+      (controller as any).executeAuditedQuery = jest.fn(async (_req: any, cb: any) => cb(() => mockDbQuery));
+      req.query = { is_active: 'true' };
+
+      await controller.getAll(req as Request, res as Response);
+
+      expect(mockDbQuery.where).toHaveBeenCalledWith('people.is_active', true);
+    });
+  });
+
   describe('Input Validation and Edge Cases', () => {
     test('should handle malformed person data gracefully', async () => {
       req.body = {

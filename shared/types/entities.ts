@@ -128,6 +128,8 @@ export interface Person extends BaseEntity {
   worker_type: WorkerType;
   supervisor_id?: string;
   location_id?: string;
+  /** 停用位(2026-10-13): false=离岗,保留历史、不进新排产候选集 */
+  is_active?: boolean;
   default_availability_percentage: number;
   default_hours_per_day: number;
   is_bubble?: boolean;

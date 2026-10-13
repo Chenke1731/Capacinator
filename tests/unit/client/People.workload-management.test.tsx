@@ -5,6 +5,7 @@ jest.mock('lucide-react', () => ({
   Plus: ({ size }: any) => <span data-testid="plus-icon">+</span>,
   Edit2: ({ size }: any) => <span data-testid="edit-icon">Edit</span>,
   Trash2: ({ size }: any) => <span data-testid="trash-icon">Delete</span>,
+  Power: ({ size }: any) => <span data-testid="power-icon">Power</span>,
   Eye: ({ size }: any) => <span data-testid="eye-icon">View</span>,
   Users: ({ size }: any) => <span data-testid="users-icon">Users</span>,
   UserPlus: ({ size }: any) => <span data-testid="user-plus-icon">Add User</span>,

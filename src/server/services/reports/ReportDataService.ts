@@ -31,14 +31,17 @@ export class ReportDataService {
   /**
    * Get dashboard summary statistics
    */
-  async getDashboardStats(): Promise<DashboardStats> {
-    const currentDate = new Date().toISOString().split('T')[0];
+  async getDashboardStats(filters: DateRangeFilter = {}): Promise<DashboardStats> {
+    // 日期窗口参数化(2026-10-13 全库审计): 缺省=今天,保持旧行为;给窗口时
+    // "活跃"= 与窗口重叠(start<=窗口末 && end>=窗口头),参考日期取窗口末
+    const currentDate = filters.endDate || new Date().toISOString().split('T')[0];
+    const windowStart = filters.startDate || currentDate;
 
-    // Get summary stats - count projects that have active phases
+    // Get summary stats - count projects that have phases overlapping the window
     const projectCount = await this.db('projects')
       .join('project_phases_timeline', 'projects.id', 'project_phases_timeline.project_id')
       .where('project_phases_timeline.start_date', '<=', currentDate)
-      .where('project_phases_timeline.end_date', '>=', currentDate)
+      .where('project_phases_timeline.end_date', '>=', windowStart)
       .where('projects.include_in_demand', true)
       .countDistinct('projects.id as count')
       .first();
@@ -58,7 +61,7 @@ export class ReportDataService {
         'project_phases.name as phase_name'
       )
       .where('project_phases_timeline.start_date', '<=', currentDate)
-      .where('project_phases_timeline.end_date', '>=', currentDate)
+      .where('project_phases_timeline.end_date', '>=', windowStart)
       .where('projects.include_in_demand', true)
       .orderBy(['projects.id', 'project_phases_timeline.start_date']);
 

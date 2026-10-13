@@ -359,7 +359,11 @@ export class ProjectsController extends BaseController {
       location_id: req.query.location_id,
       project_type_id: req.query.project_type_id,
       priority: req.query.priority,
-      include_in_demand: req.query.include_in_demand
+      include_in_demand: req.query.include_in_demand,
+      // 路线图/看板筛选(2026-10-13 全库审计: 客户端一直在发,服务端只认
+      // 四个键静默丢弃其余,筛选框形同虚设)
+      owner_id: req.query.owner_id,
+      lifecycle_state: req.query.lifecycle_state
     };
 
     const result = await this.executeQuery(async () => {
@@ -445,6 +449,11 @@ export class ProjectsController extends BaseController {
           }
         }
       });
+
+      // 搜索: 名称模糊匹配(走 filters 等值通道会变成全名等值,单独处理)
+      if (req.query.search) {
+        query.where('projects.name', 'like', `%${req.query.search}%`);
+      }
 
       // Tag filter: ?tag_id=<id> — tags are pure classification (no calc
       // semantics); the [预留] prefix convention has been retired

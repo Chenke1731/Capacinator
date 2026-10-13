@@ -25,7 +25,7 @@ export const Login: React.FC<LoginProps> = ({ onClose }) => {
   const { data: people, isLoading, error } = useQuery({
     queryKey: queryKeys.people.all,
     queryFn: async () => {
-      const response = await api.people.list();
+      const response = await api.people.list({ limit: 500 });
       return response.data.data as Person[];
     },
   });

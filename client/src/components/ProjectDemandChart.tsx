@@ -276,7 +276,7 @@ export function ProjectDemandChart({ projectId, projectName }: ProjectDemandChar
   const { data: assignmentsResponse } = useQuery({
     queryKey: queryKeys.projects.assignments(projectId),
     queryFn: async () => {
-      const response = await api.assignments.list({ project_id: projectId });
+      const response = await api.assignments.list({ project_id: projectId, limit: 2000 });
       return response.data;
     },
     enabled: !!projectId

@@ -88,7 +88,7 @@ export default function Assignments() {
       const params = Object.entries(filters)
         .filter(([_, value]) => value)
         .reduce((acc, [key, value]) => ({ ...acc, [key]: value }), {});
-      const response = await api.assignments.list(params);
+      const response = await api.assignments.list({ ...params, limit: 2000 });
       return response.data.data as ProjectAssignment[];
     },
     enabled: !!currentScenario // Only fetch when a scenario is selected
@@ -98,7 +98,7 @@ export default function Assignments() {
   const { data: projects } = useQuery({
     queryKey: queryKeys.projects.list(undefined, currentScenario?.id),
     queryFn: async () => {
-      const response = await api.projects.list();
+      const response = await api.projects.list({ limit: 500 });
       return response.data;
     },
     enabled: !!currentScenario
@@ -108,7 +108,7 @@ export default function Assignments() {
   const { data: people } = useQuery({
     queryKey: queryKeys.people.list(),
     queryFn: async () => {
-      const response = await api.people.list();
+      const response = await api.people.list({ limit: 500 });
       const payload = response.data as any;
       // Shared ['people'] cache must always hold an array
       return Array.isArray(payload) ? payload : payload?.data || [];

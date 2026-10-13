@@ -69,7 +69,7 @@ export function PeopleGitHubAssociations() {
   const { data: people } = useQuery({
     queryKey: ['people'],
     queryFn: async () => {
-      const response = await api.people.list();
+      const response = await api.people.list({ limit: 500 });
       return response.data.data as Person[];
     },
   });

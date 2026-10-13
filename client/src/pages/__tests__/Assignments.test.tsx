@@ -463,7 +463,8 @@ describe('Assignments Page', () => {
       await user.click(resetButton);
 
       await waitFor(() => {
-        expect(api.assignments.list).toHaveBeenLastCalledWith({});
+        // 显式 limit 避开服务端默认 50 截断(2026-10-13 全库审计)
+        expect(api.assignments.list).toHaveBeenLastCalledWith({ limit: 2000 });
       });
     });
   });

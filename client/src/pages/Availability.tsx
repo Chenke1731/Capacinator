@@ -54,7 +54,7 @@ export default function Availability() {
   const { data: people } = useQuery({
     queryKey: queryKeys.people.list(),
     queryFn: async () => {
-      const response = await api.people.list();
+      const response = await api.people.list({ limit: 500 });
       return response.data.data as Person[];
     }
   });

@@ -160,7 +160,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
   const { data: projectTypes } = useQuery({
     queryKey: ['project-types'],
     queryFn: async () => {
-      const response = await api.projectTypes.list();
+      const response = await api.projectTypes.list({ limit: 500 });
       return response.data?.data || response.data || [];
     }
   });

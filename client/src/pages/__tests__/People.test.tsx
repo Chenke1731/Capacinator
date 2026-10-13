@@ -473,7 +473,7 @@ describe('People Page', () => {
       await user.selectOptions(roleFilter, 'role-1');
 
       await waitFor(() => {
-        expect(api.people.list).toHaveBeenLastCalledWith({ primary_role_id: 'role-1' });
+        expect(api.people.list).toHaveBeenLastCalledWith({ primary_role_id: 'role-1', limit: 2000 });
       });
     });
 
@@ -489,7 +489,7 @@ describe('People Page', () => {
       await user.selectOptions(workerTypeFilter, 'FTE');
 
       await waitFor(() => {
-        expect(api.people.list).toHaveBeenLastCalledWith({ worker_type: 'FTE' });
+        expect(api.people.list).toHaveBeenLastCalledWith({ worker_type: 'FTE', limit: 2000 });
       });
     });
 
@@ -505,7 +505,7 @@ describe('People Page', () => {
       await user.selectOptions(locationFilter, 'loc-1');
 
       await waitFor(() => {
-        expect(api.people.list).toHaveBeenLastCalledWith({ location: 'loc-1' });
+        expect(api.people.list).toHaveBeenLastCalledWith({ location: 'loc-1', limit: 2000 });
       });
     });
 
@@ -542,7 +542,7 @@ describe('People Page', () => {
       await user.click(screen.getByTestId('reset-filters'));
 
       await waitFor(() => {
-        expect(api.people.list).toHaveBeenLastCalledWith({});
+        expect(api.people.list).toHaveBeenLastCalledWith({ limit: 2000 });
       });
     });
   });

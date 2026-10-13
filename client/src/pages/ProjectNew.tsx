@@ -46,7 +46,7 @@ export function ProjectNew() {
   const { data: projectTypes } = useQuery({
     queryKey: queryKeys.projectTypes.list(),
     queryFn: async () => {
-      const response = await api.projectTypes.list();
+      const response = await api.projectTypes.list({ limit: 500 });
       const payload = response.data;
       return Array.isArray(payload) ? payload : payload?.data || [];
     }

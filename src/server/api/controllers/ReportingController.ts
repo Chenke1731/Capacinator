@@ -26,7 +26,12 @@ export class ReportingController extends BaseController {
     req.logger.info('Dashboard endpoint called');
 
     const result = await this.executeQuery(
-      async () => this.reportDataService.getDashboardStats(),
+      // 日期窗口参数贯通(2026-10-13 全库审计: 原先客户端日期只进 queryKey,
+      // 服务端不读——换日期拉同一份数据)
+      async () => this.reportDataService.getDashboardStats({
+        startDate: req.query.start_date as string | undefined,
+        endDate: req.query.end_date as string | undefined
+      }),
       res,
       'Failed to fetch dashboard data'
     );

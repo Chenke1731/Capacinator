@@ -421,7 +421,8 @@ export const api = {
 
   // Reporting
   reporting: {
-    getDashboard: () => apiClient.get<DashboardReportResponse>('/reporting/dashboard'),
+    // 日期窗口参数(2026-10-13 审计: 原先客户端日期只进 queryKey,服务端不读)
+    getDashboard: (params?: { start_date?: string; end_date?: string }) => apiClient.get<DashboardReportResponse>('/reporting/dashboard', { params }),
     getCapacity: (params?: PaginationParams) => apiClient.get<CapacityReportResponse>('/reporting/capacity', { params }),
     getDemand: (params?: PaginationParams) => apiClient.get<DemandReportResponse>('/reporting/demand', { params }),
     getUtilization: (params?: PaginationParams) => apiClient.get<UtilizationReportResponse>('/reporting/utilization', { params }),
@@ -548,7 +549,9 @@ export const api = {
   },
 
   projectTypes: {
-    list: () => apiClient.get<PaginatedResponse<ProjectType>>('/project-types'),
+    // 服务端 /project-types 默认 limit=50 无条件分页——下拉场景须显式带
+    // limit,否则超过 50 个类型静默截断(2026-10-13 全库审计)
+    list: (params?: PaginationParams) => apiClient.get<PaginatedResponse<ProjectType>>('/project-types', { params }),
     get: (id: string) => apiClient.get<{ data: ProjectType }>(`/project-types/${id}`),
     create: (data: Partial<ProjectType>) => apiClient.post<{ data: ProjectType }>('/project-types', data),
     update: (id: string, data: Partial<ProjectType>) => apiClient.put<{ data: ProjectType }>(`/project-types/${id}`, data),

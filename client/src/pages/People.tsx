@@ -45,7 +45,7 @@ export default function People() {
       const params = Object.entries(filters)
         .filter(([_, value]) => value)
         .reduce((acc, [key, value]) => ({ ...acc, [key]: value }), {});
-      const response = await api.people.list(params);
+      const response = await api.people.list({ ...params, limit: 2000 });
       return response.data.data as Person[];
     }
   });

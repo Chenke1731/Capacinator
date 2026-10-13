@@ -133,7 +133,7 @@ export function ProjectDetail() {
   const { data: projectTypes } = useQuery({
     queryKey: queryKeys.projectTypes.list(),
     queryFn: async () => {
-      const response = await api.projectTypes.list();
+      const response = await api.projectTypes.list({ limit: 500 });
       return response.data.data || response.data;
     }
   });

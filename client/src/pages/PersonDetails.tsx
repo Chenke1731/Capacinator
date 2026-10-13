@@ -293,7 +293,7 @@ export default function PersonDetails() {
   const { data: allPeople } = useQuery({
     queryKey: queryKeys.people.list(),
     queryFn: async () => {
-      const response = await api.people.list();
+      const response = await api.people.list({ limit: 500 });
       return response.data.data;
     }
   });

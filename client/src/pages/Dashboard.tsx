@@ -53,7 +53,12 @@ export function Dashboard() {
   const { data: dashboard, isLoading, error } = useQuery({
     queryKey: queryKeys.dashboard.summary(currentScenario?.id, dateRange),
     queryFn: async () => {
-      const response = await api.reporting.getDashboard();
+      // 日期窗口真正进数据层(2026-10-13 全库审计: 原先只进 queryKey,换日期
+      // 拉同一份"今天"数据)
+      const response = await api.reporting.getDashboard({
+        start_date: dateRange.startDate,
+        end_date: dateRange.endDate
+      });
       // Handle the nested response structure: response.data.data
       return response.data.data as DashboardSummary;
     },

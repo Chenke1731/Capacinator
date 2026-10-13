@@ -197,7 +197,7 @@ export const ReportsTabContent: React.FC<ReportsTabContentProps> = ({ activeRepo
     queryFn: async () => {
       const [capacityResponse, peopleResponse] = await Promise.all([
         api.reporting.getCapacity(filters),
-        api.people.list()
+        api.people.list({ limit: 500 })
       ]);
       
       const data = capacityResponse.data.data;
@@ -489,7 +489,7 @@ export const ReportsTabContent: React.FC<ReportsTabContentProps> = ({ activeRepo
   const { data: personAssignments = [] } = useQuery({
     queryKey: queryKeys.people.assignments(selectedPerson?.id, currentScenario?.id),
     queryFn: async () => {
-      const response = await api.assignments.list({ person_id: selectedPerson.id });
+      const response = await api.assignments.list({ person_id: selectedPerson.id, limit: 2000 });
       return response.data?.data || [];
     },
     enabled: !!selectedPerson?.id && (showReduceLoadModal || showAddProjectsModal)
@@ -499,7 +499,7 @@ export const ReportsTabContent: React.FC<ReportsTabContentProps> = ({ activeRepo
   const { data: availableProjects = [] } = useQuery({
     queryKey: queryKeys.reports.availableProjects(selectedPerson?.id, currentScenario?.id),
     queryFn: async () => {
-      const response = await api.projects.list();
+      const response = await api.projects.list({ limit: 500 });
       return response.data?.data || [];
     },
     enabled: showAddProjectsModal && !!selectedPerson?.id

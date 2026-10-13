@@ -65,7 +65,7 @@ export function PersonNew() {
   const { data: people } = useQuery({
     queryKey: queryKeys.people.lists(),
     queryFn: async () => {
-      const response = await api.people.list();
+      const response = await api.people.list({ limit: 500 });
       return response.data.data;
     }
   });

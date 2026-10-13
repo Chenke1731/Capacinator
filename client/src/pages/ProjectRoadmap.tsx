@@ -209,8 +209,10 @@ export default function ProjectRoadmap() {
       });
     },
     onError: () => {
-      // Revert optimistic update on error
-      queryClient.invalidateQueries({ queryKey: queryKeys.projects.roadmap() });
+      // Revert optimistic update on error(键必须带 debouncedFilters:
+      // roadmap() 尾参 undefined 与 filters 对象 typeof 不匹配,前缀匹配
+      // 失败——失败拖拽的幽灵日期曾因此滞留,2026-10-13 全库审计)
+      queryClient.invalidateQueries({ queryKey: queryKeys.projects.roadmap(debouncedFilters) });
     }
   });
 
@@ -228,7 +230,9 @@ export default function ProjectRoadmap() {
       });
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: queryKeys.projects.roadmap() });
+      // 键对齐活跃查询(原先 roadmap() 失配,手动编辑成功后界面不刷新,
+      // 2026-10-13 全库审计)——该路径无乐观更新,失效即唯一回显通道
+      queryClient.invalidateQueries({ queryKey: queryKeys.projects.roadmap(debouncedFilters) });
       setEditingPhase(null);
     }
   });
@@ -241,7 +245,21 @@ export default function ProjectRoadmap() {
         .filter(([_, value]) => value)
         .reduce((acc, [key, value]) => ({ ...acc, [key]: value }), {});
 
-      const response = await api.projects.list(params);
+      // 映射到服务端识别的键并显式提 limit(2026-10-13 全库审计: 原先
+      // search/status/projectType/owner 原样发送被服务端静默丢弃——筛选框
+      // 形同虚设;且默认 limit=50 只画前 50 个项目)
+      const serverParams: Record<string, any> = { ...params, limit: 2000 };
+      if (serverParams.projectType) {
+        serverParams.project_type_id = serverParams.projectType;
+        delete serverParams.projectType;
+      }
+      if (serverParams.owner) {
+        serverParams.owner_id = serverParams.owner;
+        delete serverParams.owner;
+      }
+      delete serverParams.status; // status 列已不存在(幽灵筛选,选项为退役枚举)
+
+      const response = await api.projects.list(serverParams);
       const projectsData = response.data.data as Project[];
 
       // Fetch phases for each project
@@ -792,17 +810,9 @@ export default function ProjectRoadmap() {
                 onChange={(e) => setFilters(prev => ({ ...prev, search: e.target.value }))}
               />
             </div>
-
-            <select
-              value={filters.status}
-              onChange={(e) => setFilters(prev => ({ ...prev, status: e.target.value }))}
-            >
-              <option value="">{t('phases:roadmap.allStatuses')}</option>
-              <option value="planned">{t('enums:projectStatus.planned')}</option>
-              <option value="active">{t('enums:projectStatus.active')}</option>
-              <option value="on_hold">{t('enums:projectStatus.on_hold')}</option>
-              <option value="completed">{t('enums:projectStatus.completed')}</option>
-            </select>
+            {/* status 筛选已移除(2026-10-13 全库审计): projects.status 列已不存在,
+                选项 planned/active/on_hold/completed 是退役枚举的幽灵——该筛选
+                自列删除以来从未过滤任何数据 */}
           </div>
 
           <div className="timeline-controls-group">

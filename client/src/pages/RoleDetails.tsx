@@ -36,7 +36,7 @@ export default function RoleDetails() {
   const { data: projectTypes } = useQuery({
     queryKey: ['project-types'],
     queryFn: async () => {
-      const response = await api.projectTypes.list();
+      const response = await api.projectTypes.list({ limit: 500 });
       const typesData = response.data?.data || response.data || [];
       return Array.isArray(typesData) ? typesData : [];
     }

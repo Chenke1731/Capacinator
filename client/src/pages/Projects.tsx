@@ -586,6 +586,9 @@ export function Projects() {
     },
     onSuccess: (resp: any) => {
       invalidate();
+      // 批量挂接/解除同样改迭代归属: 迭代卡统计服务端实时算自 projects
+      // (GET /iterations),只失效 projects 时迭代卡陈旧最长 5 分钟(2026-10-13 审计)
+      queryClient.invalidateQueries({ queryKey: ['iterations'] });
       const payload = resp?.data?.data ?? resp?.data ?? {};
       const n = payload.updated ?? 0;
       const skipped = payload.skipped ?? 0;

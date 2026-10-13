@@ -188,6 +188,36 @@ describe('ProjectsController batch endpoints', () => {
       expect((await db('projects').where('id', fixture.srId).first()).iteration_id).toBeNull();
     });
 
+    it('mixed patch skips only the iteration field on SR rows — tags and other scalars still land (2026-10-13 字段级拆分)', async () => {
+      // SR 行带一个既有标签(tagA);混合补丁 {iteration_id, priority, add_tag_ids}
+      await db('project_tags').where('project_id', fixture.srId).del();
+      await db('project_tags').insert({ project_id: fixture.srId, tag_id: fixture.tagA, created_at: new Date().toISOString() });
+      await db('projects').where('id', fixture.srId).update({ priority: 5 });
+
+      const { res } = await call(controller.batchUpdate, {
+        ids: [fixture.srId, fixture.plainId],
+        patch: { iteration_id: fixture.iterationId, priority: 2, add_tag_ids: [fixture.tagB] }
+      });
+      expect(res.json).toHaveBeenCalledWith(
+        expect.objectContaining({ success: true, data: expect.objectContaining({ updated: 2, skipped: 1 }) })
+      );
+      const sr = await db('projects').where('id', fixture.srId).first();
+      expect(sr.iteration_id).toBeNull();   // 迭代字段跳过(只读窗)
+      expect(sr.priority).toBe(2);          // 其余标量照常
+      const srTags = (await db('project_tags').where('project_id', fixture.srId).select('tag_id'))
+        .map((t: any) => t.tag_id).sort();
+      expect(srTags).toEqual([fixture.tagA, fixture.tagB]); // 标签照常
+      const plain = await db('projects').where('id', fixture.plainId).first();
+      expect(plain.iteration_id).toBe(fixture.iterationId); // plain 行全量生效
+      expect(plain.priority).toBe(2);
+
+      // 还原,不泄漏给后续用例
+      await db('project_tags').where('project_id', fixture.srId).del();
+      await db('projects').whereIn('id', [fixture.srId, fixture.plainId]).update({ priority: 5, iteration_id: null });
+      await db('project_tags').where('project_id', fixture.plainId).del();
+      await db('project_tags').insert({ project_id: fixture.plainId, tag_id: fixture.tagA, created_at: new Date().toISOString() });
+    });
+
     it('rejects nonexistent iteration and supports detach via null', async () => {
       const bad = await call(controller.batchUpdate, { ids: [fixture.plainId], patch: { iteration_id: randomUUID() } });
       expect(bad.res.status).toHaveBeenCalledWith(400);
@@ -239,6 +269,38 @@ describe('ProjectsController batch endpoints', () => {
 
       await db('projects').whereIn('id', [srId, childId]).del();
       await db('projects').where('id', fixture.plainId).update({ iteration_id: null });
+    });
+
+    it('rejects null clear on rows with children too — invariant covers set AND clear (2026-10-13 四口径统一)', async () => {
+      // SR 行残留一个挂接值(历史脏数据形态),null 清挂同样被拦
+      await db('projects').where('id', fixture.srId).update({ iteration_id: fixture.iterationId });
+      const bad = await call(controller.update, { iteration_id: null }, { id: fixture.srId });
+      expect(bad.res.status).toHaveBeenCalledWith(400);
+      expect((await db('projects').where('id', fixture.srId).first()).iteration_id).toBe(fixture.iterationId);
+      await db('projects').where('id', fixture.srId).update({ iteration_id: null });
+    });
+  });
+
+  describe('POST /projects (iteration validation, 2026-10-13 四口径统一 1/4)', () => {
+    it('rejects unknown iteration_id at create; known iteration attaches', async () => {
+      const typeId = randomUUID();
+      const subTypeId = randomUUID();
+      await db('project_types').insert({ id: typeId, name: `ITER-CREATE-TYPE-${typeId.slice(0, 8)}`, created_at: new Date().toISOString(), updated_at: new Date().toISOString() });
+      await db('project_sub_types').insert({ id: subTypeId, name: `ITER-CREATE-SUB-${subTypeId.slice(0, 8)}`, project_type_id: typeId, created_at: new Date().toISOString(), updated_at: new Date().toISOString() });
+
+      // create 原先不校验,任意字符串直插——现在与 update/batch 同一存在性校验
+      const bad = await call(controller.create, { name: 'ITER-CREATE-BAD', project_type_id: typeId, project_sub_type_id: subTypeId, iteration_id: randomUUID() });
+      expect(bad.res.status).toHaveBeenCalledWith(400);
+      expect(bad.res.json).toHaveBeenCalledWith(expect.objectContaining({ message: expect.stringContaining('Iteration not found') }));
+      expect(await db('projects').where('name', 'ITER-CREATE-BAD').first()).toBeUndefined();
+
+      const good = await call(controller.create, { name: 'ITER-CREATE-OK', project_type_id: typeId, project_sub_type_id: subTypeId, iteration_id: fixture.iterationId });
+      const row = await db('projects').where('name', 'ITER-CREATE-OK').first();
+      expect(row?.iteration_id).toBe(fixture.iterationId);
+
+      await db('projects').where('id', row!.id).del();
+      await db('project_sub_types').where('id', subTypeId).del();
+      await db('project_types').where('id', typeId).del();
     });
   });
 });

@@ -767,6 +767,20 @@ export class ProjectsController extends BaseController {
         }
       });
 
+      // 迭代挂接存在性校验(四口径统一 1/4,2026-10-13 全库审计): create 原先
+      // 不校验任意字符串直插,而 update/batch-update 均校验;'' 归一为 null
+      if ('iteration_id' in sanitizedData) {
+        const iterId = sanitizedData.iteration_id || null;
+        if (iterId) {
+          const it = await this.db('iterations').where({ id: iterId }).first();
+          if (!it) {
+            res.status(400).json({ error: 'Validation error', message: 'Iteration not found' });
+            return null;
+          }
+        }
+        sanitizedData.iteration_id = iterId;
+      }
+
       const projectTypeId = sanitizedData.project_sub_type_id ?
         (await this.db('project_sub_types').where('id', sanitizedData.project_sub_type_id).first())?.project_type_id :
         sanitizedData.project_type_id;
@@ -874,17 +888,19 @@ export class ProjectsController extends BaseController {
       // 同一脏数据两个口径,任意客户端可直接写出批量拒绝的脏值)
       if ('iteration_id' in sanitizedData) {
         const iterId = sanitizedData.iteration_id || null;
+        // 有子行的 SR 其迭代列是子行聚合只读窗(四口径统一 2/4,2026-10-13
+        // 全库审计: 原先仅拦"设置",null 清挂放行——与 batch 的整行跳过口径不一)
+        if ((await this.idsWithChildren([id])).has(id)) {
+          res.status(400).json({
+            error: 'Validation error',
+            message: 'Iteration cannot be set or cleared on a requirement with child items (aggregate is read-only)'
+          });
+          return null;
+        }
         if (iterId) {
           const it = await this.db('iterations').where({ id: iterId }).first();
           if (!it) {
             res.status(400).json({ error: 'Validation error', message: 'Iteration not found' });
-            return null;
-          }
-          if ((await this.idsWithChildren([id])).has(id)) {
-            res.status(400).json({
-              error: 'Validation error',
-              message: 'Iteration cannot be set on a requirement with child items (aggregate is read-only)'
-            });
             return null;
           }
         }
@@ -1285,28 +1301,39 @@ export class ProjectsController extends BaseController {
       }
 
       // 迭代跳过有子行的行(SR): 其迭代列是子行聚合只读窗,写入即脏数据
-      // (有子行判定走共享原语 idsWithChildren,与单条 update 同一处不变量)
-      let targetRows = rows;
-      let skippedIteration = 0;
-      if (hasIteration) {
-        const withChildren = await this.idsWithChildren(uniqueIds);
-        targetRows = rows.filter((r: any) => !withChildren.has(r.id));
-        skippedIteration = rows.length - targetRows.length;
-      }
+      // (有子行判定走共享原语 idsWithChildren,与单条 update 同一处不变量)。
+      // 跳过按字段生效而非整行(2026-10-13 全库审计: 混合补丁 {iteration_id,
+      // add_tag_ids} 中 SR 行只跳过迭代字段,其余标量与标签操作照常——原先
+      // 整行踢出连纯标签操作一起吞,响应只报迭代 skip)
+      const withChildren = hasIteration
+        ? await this.idsWithChildren(uniqueIds)
+        : new Set<string>();
+      const iterRows = rows.filter((r: any) => !withChildren.has(r.id));
+      const srRows = rows.filter((r: any) => withChildren.has(r.id));
+      const skippedIteration = srRows.length;
+      const noIterPatch: Record<string, any> = { ...scalarPatch };
+      delete noIterPatch.iteration_id;
 
       const auditEvents: any[] = [];
       await this.db.transaction(async (trx: any) => {
         // 标量补丁一条 whereIn 完成(审视#12: 消 2000 行 2000 条同构 UPDATE 的
         // N+1);updated_at 无条件触碰——标签-only 批量不再漏时间戳,与单条
-        // update 口径一致(审视#10)
-        if (targetRows.length > 0) {
+        // update 口径一致(审视#10)。迭代字段仅作用于无子行的行;其余标量
+        // (priority/版本)对全部行生效
+        if (Object.keys(scalarPatch).length > 0 && iterRows.length > 0) {
           await trx('projects')
-            .whereIn('id', targetRows.map((r: any) => r.id))
+            .whereIn('id', iterRows.map((r: any) => r.id))
             .update({ ...scalarPatch, updated_at: new Date() });
         }
+        if (Object.keys(noIterPatch).length > 0 && srRows.length > 0) {
+          await trx('projects')
+            .whereIn('id', srRows.map((r: any) => r.id))
+            .update({ ...noIterPatch, updated_at: new Date() });
+        }
         if (addTags !== null || removeTags !== null) {
-          // 标签合并语义按行算(每行现有标签不同,无法集合作业)
-          for (const row of targetRows) {
+          // 标签合并语义按行算(每行现有标签不同,无法集合作业)——作用于全部
+          // 选中行(标签与 SR 的迭代只读窗无关)
+          for (const row of rows) {
             const current = await trx('project_tags').where('project_id', row.id).select('tag_id');
             const currentIds = current.map((t: any) => String(t.tag_id));
             const next = new Set([...currentIds, ...(addTags ?? [])].filter((t) => !(removeTags ?? []).includes(t)));
@@ -1322,12 +1349,21 @@ export class ProjectsController extends BaseController {
           }
         }
       });
-      for (const row of targetRows) {
+      // 实际收到写入的行: 标签作用于全部;标量按两组 whereIn 的命中集
+      const srSet = new Set(srRows.map((r: any) => r.id));
+      const touchedRows = rows.filter((r: any) =>
+        (addTags !== null || removeTags !== null) ||
+        (srSet.has(r.id) ? Object.keys(noIterPatch).length > 0 : Object.keys(scalarPatch).length > 0)
+      );
+      for (const row of touchedRows) {
         auditEvents.push({
           tableName: 'projects',
           recordId: row.id,
           action: 'UPDATE' as const,
-          newValues: { ...scalarPatch, ...(addTags !== null || removeTags !== null ? { tag_ids: 'merged' } : {}) },
+          newValues: {
+            ...(srSet.has(row.id) ? noIterPatch : scalarPatch),
+            ...(addTags !== null || removeTags !== null ? { tag_ids: 'merged' } : {})
+          },
           comment: 'batch-update'
         });
       }
@@ -1338,15 +1374,15 @@ export class ProjectsController extends BaseController {
         logger.warn('batch-update audit logging failed', { error: (auditError as Error).message });
       }
       this.logBusinessOperation(req, 'BATCH_UPDATE', 'projects', uniqueIds.length.toString(), {
-        updated: targetRows.length,
+        updated: touchedRows.length,
         skippedIteration,
         fields: Object.keys(patch)
       });
 
       return {
-        updated: targetRows.length,
+        updated: touchedRows.length,
         skipped: skippedIteration,
-        items: targetRows.map((r: any) => ({ id: r.id, name: r.name }))
+        items: touchedRows.map((r: any) => ({ id: r.id, name: r.name }))
       };
     }, req, res, 'Failed to batch update projects');
 

@@ -23,10 +23,11 @@ describe('LifecycleService (in-memory SQLite)', () => {
     const ddl = [
       `CREATE TABLE projects (
         id TEXT PRIMARY KEY, name TEXT, lifecycle_state TEXT,
-        external_number TEXT, iteration_label TEXT,
+        external_number TEXT, iteration_label TEXT, iteration_id TEXT,
         updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
       )`,
       `CREATE TABLE roles (id TEXT PRIMARY KEY, name TEXT)`,
+      `CREATE TABLE iterations (id TEXT PRIMARY KEY, name TEXT, start_date TEXT, end_date TEXT)`,
       `CREATE TABLE project_assignments (
         id TEXT PRIMARY KEY, project_id TEXT, role_id TEXT,
         status TEXT NOT NULL DEFAULT 'active',
@@ -75,6 +76,23 @@ describe('LifecycleService (in-memory SQLite)', () => {
 
   afterAll(async () => {
     await db.destroy();
+  });
+
+  test('in_iteration with unknown iteration_id is rejected, not silently swallowed (2026-10-13 四口径统一)', async () => {
+    await seedProject('p-iter-bad', 'scheduled');
+    await expect(
+      service.transition({ projectId: 'p-iter-bad', to: 'in_iteration', iteration_id: 'no-such-iteration' } as any)
+    ).rejects.toThrow(/iteration .* not found/);
+    // 流转被拒:状态不动(原先静默吞掉仍转 in_iteration)
+    expect((await db('projects').where('id', 'p-iter-bad').first()).lifecycle_state).toBe('scheduled');
+  });
+
+  test('in_iteration with a real iteration attaches it', async () => {
+    await db('iterations').insert({ id: 'iter-ok', name: 'ITER-OK', start_date: '2026-11-01', end_date: '2026-11-30' });
+    await seedProject('p-iter-ok', 'scheduled');
+    const r = await service.transition({ projectId: 'p-iter-ok', to: 'in_iteration', iteration_id: 'iter-ok' } as any);
+    expect(r.project.iteration_id).toBe('iter-ok');
+    expect((await db('projects').where('id', 'p-iter-ok').first()).lifecycle_state).toBe('in_iteration');
   });
 
   async function seedProject(id: string, state: string | null) {

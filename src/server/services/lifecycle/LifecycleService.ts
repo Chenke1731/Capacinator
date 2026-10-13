@@ -216,14 +216,17 @@ export class LifecycleService {
 
         case 'in_iteration': {
           if (input.iteration_id != null && String(input.iteration_id).trim() !== '') {
-            // 迭代结构化选择(吸收 iteration_label 手填,设计 §9): 写挂接+注记事件
-            const iter = await this.db('iterations').where({ id: input.iteration_id }).first();
-            if (iter) {
-              projectUpdate.iteration_id = iter.id;
-              projectUpdate.iteration_label = null; // 旧文本字段退役,留列兼容历史
-              eventRow.iteration_label = iter.name;
-              eventRow.note = `迭代: ${iter.name}（${iter.start_date}~${iter.end_date}）`;
+            // 迭代结构化选择(吸收 iteration_label 手填,设计 §9): 写挂接+注记事件。
+            // 不存在的迭代显式 400(四口径统一 3/4,2026-10-13 全库审计: 原先
+            // 静默吞掉仍流转 in_iteration);读走 trx 与事务同连接
+            const iter = await trx('iterations').where({ id: input.iteration_id }).first();
+            if (!iter) {
+              throw new LifecycleError(`iteration '${input.iteration_id}' not found`, 400);
             }
+            projectUpdate.iteration_id = iter.id;
+            projectUpdate.iteration_label = null; // 旧文本字段退役,留列兼容历史
+            eventRow.iteration_label = iter.name;
+            eventRow.note = `迭代: ${iter.name}（${iter.start_date}~${iter.end_date}）`;
           } else if (input.iteration_label != null && String(input.iteration_label).trim() !== '') {
             projectUpdate.iteration_label = String(input.iteration_label).trim();
             eventRow.iteration_label = projectUpdate.iteration_label;

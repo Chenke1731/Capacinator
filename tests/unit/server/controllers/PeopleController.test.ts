@@ -47,6 +47,10 @@ const createChainableMock = (returnValue: any = []): any => {
   chainable.count.mockImplementation((column?: string) => ({
     first: jest.fn().mockResolvedValue({ count: '25' })
   }));
+  // total 克隆计数链(getAll 自 2026-10-13 起走 clone().clearSelect().clearOrder().count())
+  chainable.clone = jest.fn().mockReturnThis();
+  chainable.clearSelect = jest.fn().mockReturnThis();
+  chainable.clearOrder = jest.fn().mockReturnThis();
   
   // Make it thenable
   chainable.then = jest.fn((resolve) => {
@@ -399,27 +403,62 @@ describe('PeopleController', () => {
         name: 'Person to Delete'
       };
 
-      // The controller makes 2 db calls:
-      // 1. db('people').where('id', id).first() - get existing person
-      // 2. db('people').where('id', id).del() - delete person
-      
+      // The controller makes 4 db calls (2026-10-13 引用检查后):
+      // 1. db('people').first() - get existing person
+      // 2. db('scenario_project_assignments').count().first() - 引用检查
+      // 3. db('project_assignments').count().first() - 引用检查(遗留表)
+      // 4. db('people').del() - delete person
+
       const existingQuery = createChainableMock();
       existingQuery.where.mockReturnThis();
       existingQuery.first.mockResolvedValue(existingPerson);
-      
+
+      const zeroCount = () => {
+        const q = createChainableMock();
+        q.where.mockReturnThis();
+        q.count.mockImplementation(() => ({ first: jest.fn().mockResolvedValue({ count: 0 }) }));
+        return q;
+      };
+
       const deleteQuery = createChainableMock();
       deleteQuery.where.mockReturnThis();
       deleteQuery.del.mockResolvedValue(1); // 1 row deleted
-      
+
       // Configure mockDb to return different queries for different calls
       mockDb.mockReturnValueOnce(existingQuery)   // First call: check existing
-            .mockReturnValueOnce(deleteQuery);    // Second call: delete
+            .mockReturnValueOnce(zeroCount())     // 引用检查: scenario 表
+            .mockReturnValueOnce(zeroCount())     // 引用检查: 遗留表
+            .mockReturnValueOnce(deleteQuery);    // delete
 
       await controller.delete(req as Request, res as Response);
 
       expect(res.json).toHaveBeenCalledWith({ message: 'Person deleted successfully' });
       expect(deleteQuery.where).toHaveBeenCalledWith('id', 'person-to-delete');
       expect(deleteQuery.del).toHaveBeenCalled();
+    });
+
+    test('refuses to delete a person with assignments on record (2026-10-13 CASCADE 守卫)', async () => {
+      req.params = { id: 'person-with-history' };
+
+      const existingQuery = createChainableMock();
+      existingQuery.where.mockReturnThis();
+      existingQuery.first.mockResolvedValue({ id: 'person-with-history', name: 'P' });
+
+      const refCount = (n: number) => {
+        const q = createChainableMock();
+        q.where.mockReturnThis();
+        q.count.mockImplementation(() => ({ first: jest.fn().mockResolvedValue({ count: n }) }));
+        return q;
+      };
+
+      mockDb.mockReturnValueOnce(existingQuery)
+            .mockReturnValueOnce(refCount(3))
+            .mockReturnValueOnce(refCount(2));
+
+      await controller.delete(req as Request, res as Response);
+
+      expect(res.status).toHaveBeenCalledWith(409);
+      expect(res.json).toHaveBeenCalledWith(expect.objectContaining({ error: 'Conflict' }));
     });
   });
 

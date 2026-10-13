@@ -80,21 +80,24 @@ export class ProjectTypeHierarchyController extends BaseController {
         return res.status(404).json({ error: 'Project Type not found' });
       }
 
-      // Get max sort order for Project Sub-Types of this Project Type
-      const maxSortOrder = await this.db('project_types')
-        .where('parent_id', parentId)
+      // 子类型落 project_sub_types(2026-10-13 全库审计): 读取路径 getHierarchy
+      // 只从 project_sub_types 取子项,projects.project_sub_type_id 的 FK 也
+      // 指向它——原先写 project_types.parent_id,产物不可见、不可被项目引用。
+      // 排序号在真表内取;阶段继承走类型链(getInheritedPhases 按需向上解析),
+      // 不再为子类型复制 project_type_phases 行
+      const maxSortOrder = await this.db('project_sub_types')
+        .where({ project_type_id: parentId })
         .max('sort_order as max')
         .first();
 
       const nextSortOrder = (maxSortOrder?.max || 0) + 1;
 
-      const child = await this.db('project_types').insert({
+      const child = await this.db('project_sub_types').insert({
         name,
         description,
         color_code,
-        parent_id: parentId,
-        is_parent: false,
-        level: parent.level + 1,
+        project_type_id: parentId,
+        is_active: true,
         sort_order: nextSortOrder
       }).returning('*');
 
@@ -102,9 +105,6 @@ export class ProjectTypeHierarchyController extends BaseController {
       await this.db('project_types')
         .where('id', parentId)
         .update({ is_parent: true });
-
-      // Inherit phases from Project Type
-      await this.inheritPhases(child[0].id, parentId);
       
       return res.json({ 
         success: true, 
@@ -289,6 +289,22 @@ export class ProjectTypeHierarchyController extends BaseController {
           if (!newParent) {
             return res.status(404).json({ error: 'New parent not found' });
           }
+          // 环检测(2026-10-13 全库审计): parent_id 无 FK 纯应用层——原先
+          // 自指/后代为父可写入,成环后四个递归遍历器全部爆栈。沿新父的
+          // 祖先链上行,遇自身即拒;visited-set 兜住存量环数据
+          if (newParentId === projectTypeId) {
+            return res.status(400).json({ error: 'Project type cannot be its own parent' });
+          }
+          const seen = new Set<string>();
+          let cursor: string | null = newParentId;
+          while (cursor && !seen.has(cursor)) {
+            if (cursor === projectTypeId) {
+              return res.status(400).json({ error: 'Cannot move a project type under its own descendant (cycle)' });
+            }
+            seen.add(cursor);
+            const row: any = await this.db('project_types').where('id', cursor).first();
+            cursor = row?.parent_id ?? null;
+          }
           updates.parent_id = newParentId;
           updates.level = newParent.level + 1;
 
@@ -431,10 +447,10 @@ export class ProjectTypeHierarchyController extends BaseController {
 
   private async inheritPhases(childId: string, parentId: string): Promise<void> {
     const parentPhases = await this.getInheritedPhases(parentId);
-    
+
     const inheritedPhases = parentPhases.map((phase, index) => ({
       project_type_id: childId,
-      phase_id: phase.id,
+      phase_id: phase.phase_id,
       is_inherited: true,
       order_index: index + 1
     }));

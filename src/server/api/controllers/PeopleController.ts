@@ -36,10 +36,12 @@ export class PeopleController extends BaseController {
       if (filters.supervisor_id) query = query.where('people.supervisor_id', filters.supervisor_id);
       if (filters.worker_type) query = query.where('people.worker_type', filters.worker_type);
       if (filters.location_id) query = query.where('people.location_id', filters.location_id);
+      // total 与数据同过滤(2026-10-13 全库审计: 原先裸表 count,过滤页的
+      // total/totalPages 全错)——克隆过滤后查询再清投影/排序
+      const total = await query.clone().clearSelect().clearOrder().count('* as count').first();
       query = this.paginate(query, page, limit);
 
       const people = await query;
-      const total = await db('people').count('* as count').first();
 
       return {
         data: people,
@@ -219,9 +221,29 @@ export class PeopleController extends BaseController {
 
     const result = await this.executeAuditedQuery(req, async (db) => {
       const existingPerson = await db('people').where('id', id).first();
-      
+
       if (!existingPerson) {
         this.handleNotFound(res, 'Person');
+        return null;
+      }
+
+      // 引用检查(2026-10-13 全库审计): person_id 外键 onDelete CASCADE——
+      // 无守卫删除会静默销毁该人全部排产历史(双表)。对照项目删除的子行
+      // 409 先例:有分配记录的人不可删,先清理分配再删人。
+      const scenarioRefs = await db('scenario_project_assignments')
+        .where({ person_id: id })
+        .count('* as count')
+        .first();
+      const legacyRefs = await db('project_assignments')
+        .where({ person_id: id })
+        .count('* as count')
+        .first();
+      const refCount = Number(scenarioRefs?.count ?? 0) + Number(legacyRefs?.count ?? 0);
+      if (refCount > 0) {
+        res.status(409).json({
+          error: 'Conflict',
+          message: `Cannot delete person with ${refCount} assignment(s) on record — deletion would cascade-destroy the scheduling history. Remove or reassign those assignments first.`
+        });
         return null;
       }
 

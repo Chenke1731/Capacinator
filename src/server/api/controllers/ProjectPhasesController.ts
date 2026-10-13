@@ -353,6 +353,11 @@ export class ProjectPhasesController extends BaseController {
 
   bulkUpdate = this.asyncHandler(async (req: RequestWithLogging, res: Response) => {
     const { updates } = req.body;
+    // 数组入参校验(2026-10-13 全库审计): 非数组载荷原先 TypeError → 500
+    if (!Array.isArray(updates) || updates.length === 0) {
+      res.status(400).json({ error: 'Validation error', message: 'updates must be a non-empty array' });
+      return;
+    }
 
     const result = await this.executeQuery(async () => {
       const results = {

@@ -86,11 +86,13 @@ export class AvailabilityController extends BaseController {
       }
 
       query = this.buildFilters(query, filters);
+      // total 与数据同过滤(2026-10-13 全库审计: 原先裸表 count)——克隆清投影;
+      // 排序此刻尚未附加,无需 clearOrder
+      const total = await query.clone().clearSelect().count('* as count').first();
       query = this.paginate(query, page, limit);
       query = query.orderBy('person_availability_overrides.start_date', 'desc');
 
       const overrides = await query;
-      const total = await this.db('person_availability_overrides').count('* as count').first();
 
       return {
         data: overrides,
@@ -170,6 +172,12 @@ export class AvailabilityController extends BaseController {
 
   async bulkCreate(req: Request, res: Response) {
     const { overrides, apply_to_all = false } = req.body;
+    // 数组入参校验(2026-10-13 全库审计): 非数组载荷原先 overrides[0]/for...of
+    // 直接 TypeError → 500
+    if (!Array.isArray(overrides) || overrides.length === 0) {
+      res.status(400).json({ error: 'Validation error', message: 'overrides must be a non-empty array' });
+      return;
+    }
 
     const result = await this.executeQuery(async () => {
       const results = {

@@ -387,8 +387,10 @@ export class TestContextController extends BaseController {
       ];
 
       // Get table-to-pattern mappings for name-based cleanup
+      // ('assignments' 表不存在,2026-10-13 审计——换真实分配双表)
       const tablesWithNames = [
-        { table: 'assignments', column: 'notes' },
+        { table: 'project_assignments', column: 'notes' },
+        { table: 'scenario_project_assignments', column: 'notes' },
         { table: 'people', column: 'name' },
         { table: 'projects', column: 'name' },
         { table: 'scenarios', column: 'name' },

@@ -175,11 +175,12 @@ export class AssignmentsController extends BaseController {
       }
 
       query = this.buildFilters(query, filters);
+      // total 与数据同过滤(2026-10-13 全库审计: 原先裸视图 count)——克隆清投影
+      const total = await query.clone().clearSelect().count('* as count').first();
       query = this.paginate(query, page, limit);
       query = query.orderBy('assignments_view.start_date', 'desc');
 
       const assignments = await query;
-      const total = await this.db('assignments_view').count('* as count').first();
 
       // Compute dates for each assignment
       const assignmentsWithComputedDates = await Promise.all(
@@ -735,6 +736,12 @@ export class AssignmentsController extends BaseController {
 
   bulkAssign = this.asyncHandler(async (req: RequestWithLogging, res: Response) => {
     const { project_id, assignments } = req.body;
+    // 数组入参校验(2026-10-13 全库审计): 非数组载荷原先 for...of 直迭代
+    // undefined → TypeError → 500;对照新批量端点的入参门槛
+    if (!Array.isArray(assignments) || assignments.length === 0) {
+      res.status(400).json({ error: 'Validation error', message: 'assignments must be a non-empty array' });
+      return;
+    }
 
     const result = await this.executeQuery(async () => {
       const results = {

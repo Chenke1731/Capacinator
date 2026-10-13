@@ -768,7 +768,8 @@ export class ProjectsController extends BaseController {
       // 下方按类型强制覆写;iteration_label 是状态机文本字段,create 不收
       // (2026-10-13 全库审计: 非 lifecycle 类型此前可带任意 lifecycle_state 直插)
       delete sanitizedData.iteration_label;
-      const nullableForeignKeys = ['owner_id', 'project_sub_type_id', 'current_phase_id', 'location_id', 'component_id'];
+      // parent_id 补入归一名单(2026-10-13 审计: '' 原先跳过校验直插字面空串)
+      const nullableForeignKeys = ['owner_id', 'project_sub_type_id', 'current_phase_id', 'location_id', 'component_id', 'parent_id'];
 
       nullableForeignKeys.forEach(field => {
         if (sanitizedData[field] === '') {
@@ -951,7 +952,8 @@ export class ProjectsController extends BaseController {
       }
 
       // Sanitize foreign key fields - convert empty strings to null
-      const nullableForeignKeys = ['owner_id', 'project_sub_type_id', 'current_phase_id', 'location_id', 'component_id'];
+      // parent_id 补入归一名单(2026-10-13 审计: '' 原先跳过校验直插字面空串)
+      const nullableForeignKeys = ['owner_id', 'project_sub_type_id', 'current_phase_id', 'location_id', 'component_id', 'parent_id'];
       
       nullableForeignKeys.forEach(field => {
         if (sanitizedData[field] === '') {

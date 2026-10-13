@@ -460,7 +460,7 @@ export const api = {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
     },
-    getSettings: () => apiClient.get<ImportSettingsResponse>('/import/settings'),
+    getSettings: () => apiClient.get<{ data: ImportSettingsResponse }>('/import/settings'),
     getTemplate: () => apiClient.get<Blob>('/import/template', {
       responseType: 'blob',
     }),
@@ -641,25 +641,25 @@ export const api = {
     cleanupExpiredEntries: () => apiClient.post<{ message: string }>('/audit/cleanup'),
   },
 
-  // Settings
+  // Settings(服务端 {success,data} 信封,2026-10-13 批清: 泛型补包装层)
   settings: {
-    getSystemSettings: () => apiClient.get<SystemSettingsResponse>('/settings/system'),
-    saveSystemSettings: (data: Record<string, unknown>) => apiClient.post<SystemSettingsResponse>('/settings/system', data),
-    updateSystemSettings: (data: Record<string, unknown>) => apiClient.put<SystemSettingsResponse>('/settings/system', data),
-    getImportSettings: () => apiClient.get<ImportSettingsResponse>('/settings/import'),
-    saveImportSettings: (data: Record<string, unknown>) => apiClient.post<ImportSettingsResponse>('/settings/import', data),
-    updateImportSettings: (data: Record<string, unknown>) => apiClient.put<ImportSettingsResponse>('/settings/import', data),
+    getSystemSettings: () => apiClient.get<{ data: SystemSettingsResponse }>('/settings/system'),
+    saveSystemSettings: (data: Record<string, unknown>) => apiClient.post<{ data: SystemSettingsResponse }>('/settings/system', data),
+    updateSystemSettings: (data: Record<string, unknown>) => apiClient.put<{ data: SystemSettingsResponse }>('/settings/system', data),
+    getImportSettings: () => apiClient.get<{ data: ImportSettingsResponse }>('/settings/import'),
+    saveImportSettings: (data: Record<string, unknown>) => apiClient.post<{ data: ImportSettingsResponse }>('/settings/import', data),
+    updateImportSettings: (data: Record<string, unknown>) => apiClient.put<{ data: ImportSettingsResponse }>('/settings/import', data),
   },
 
-  // User Permissions
+  // User Permissions(同上信封)
   userPermissions: {
-    getSystemPermissions: () => apiClient.get<SystemPermissionsResponse>('/user-permissions/permissions'),
-    getUserRoles: () => apiClient.get<UserRolesResponse>('/user-permissions/roles'),
-    getRolePermissions: (roleId: string) => apiClient.get<RolePermissionsResponse>(`/user-permissions/roles/${roleId}/permissions`),
-    updateRolePermissions: (roleId: string, permissionIds: string[]) => apiClient.put<RolePermissionsResponse>(`/user-permissions/roles/${roleId}/permissions`, { permissionIds }),
-    getUsersList: () => apiClient.get<UsersListResponse>('/user-permissions/users'),
-    getUserPermissions: (userId: string) => apiClient.get<UserPermissionsResponse>(`/user-permissions/users/${userId}/permissions`),
-    updateUserRole: (userId: string, roleId: string) => apiClient.put<UserRolesResponse>(`/user-permissions/users/${userId}/role`, { roleId }),
+    getSystemPermissions: () => apiClient.get<{ data: SystemPermissionsResponse }>('/user-permissions/permissions'),
+    getUserRoles: () => apiClient.get<{ data: UserRolesResponse }>('/user-permissions/roles'),
+    getRolePermissions: (roleId: string) => apiClient.get<{ data: RolePermissionsResponse }>(`/user-permissions/roles/${roleId}/permissions`),
+    updateRolePermissions: (roleId: string, permissionIds: string[]) => apiClient.put<{ data: RolePermissionsResponse }>(`/user-permissions/roles/${roleId}/permissions`, { permissionIds }),
+    getUsersList: () => apiClient.get<{ data: UsersListResponse }>('/user-permissions/users'),
+    getUserPermissions: (userId: string) => apiClient.get<{ data: UserPermissionsResponse }>(`/user-permissions/users/${userId}/permissions`),
+    updateUserRole: (userId: string, roleId: string) => apiClient.put<{ data: UserRolesResponse }>(`/user-permissions/users/${userId}/role`, { roleId }),
     updateUserPermission: (userId: string, permissionId: string, granted: boolean, reason?: string) =>
       apiClient.put<UserPermissionsResponse>(`/user-permissions/users/${userId}/permissions`, { permissionId, granted, reason }),
     removeUserPermissionOverride: (userId: string, permissionId: string) =>

@@ -171,7 +171,7 @@ function ImportUnified() {
       // Update progress to show processing
       importProgress.updateProgress(50, t('importExport:progress.processingImport'));
 
-      const importResult = response.data as ImportResult;
+      const importResult = response.data as unknown as ImportResult;
       // The world just changed under every cached query (see the
       // queryClient note at the top of the component).
       queryClient.invalidateQueries();

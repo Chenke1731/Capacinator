@@ -145,7 +145,7 @@ export default function Settings() {
     setSaveMessage('');
 
     try {
-      await api.settings.saveSystemSettings(systemSettings);
+      await api.settings.saveSystemSettings(systemSettings as unknown as Record<string, unknown>);
       setSaveMessage(t('settings:system.savedSuccessfully'));
       setIsSaveError(false);
 
@@ -166,7 +166,7 @@ export default function Settings() {
     setSaveMessage('');
 
     try {
-      await api.settings.saveImportSettings(importSettings);
+      await api.settings.saveImportSettings(importSettings as unknown as Record<string, unknown>);
       setSaveMessage(t('settings:import.savedSuccessfully'));
       setIsSaveError(false);
 

@@ -10,8 +10,12 @@ export interface UnifiedTabConfig extends TabConfig {
 
 interface UnifiedTabComponentProps {
   tabs: UnifiedTabConfig[];
-  defaultTab: string;
+  defaultTab?: string; /* 受控模式(activeTab+onTabChange)下可缺省 */
   paramName?: string;
+  /* 受控模式(2026-10-13 批清: Settings 页持有 activeTab state):
+     传入 activeTab/onTabChange 时覆盖 hook 内部状态 */
+  activeTab?: string;
+  onTabChange?: (tabId: string) => void;
   orientation?: 'horizontal' | 'vertical';
   variant?: 'primary' | 'secondary' | 'minimal';
   size?: 'sm' | 'md' | 'lg';
@@ -25,6 +29,8 @@ export const UnifiedTabComponent: React.FC<UnifiedTabComponentProps> = ({
   tabs,
   defaultTab,
   paramName = 'tab',
+  activeTab: controlledTab,
+  onTabChange,
   orientation = 'horizontal',
   variant = 'primary',
   size = 'md',
@@ -38,11 +44,16 @@ export const UnifiedTabComponent: React.FC<UnifiedTabComponentProps> = ({
   const [focusedTabId, setFocusedTabId] = useState<string | null>(null);
 
   // Use the existing bookmarkable tabs hook
-  const { activeTab, setActiveTab, isActiveTab } = useBookmarkableTabs({
+  const { activeTab: internalTab, setActiveTab: setInternalTab, isActiveTab } = useBookmarkableTabs({
     tabs,
-    defaultTab,
+    defaultTab: defaultTab ?? tabs[0]?.id ?? '',
     paramName
   });
+  const activeTab = controlledTab ?? internalTab;
+  const setActiveTab = (tabId: string) => {
+    if (onTabChange) onTabChange(tabId);
+    else setInternalTab(tabId);
+  };
 
   // Initialize focused tab to active tab
   useEffect(() => {

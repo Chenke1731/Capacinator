@@ -675,12 +675,13 @@ export interface ImportAnalysisResponse {
 }
 
 export interface ImportSettingsResponse {
-  default_date_format: string;
-  auto_create_missing_roles: boolean;
-  auto_create_missing_locations: boolean;
-  validate_duplicates: boolean;
-  default_project_priority: number;
-  column_mappings: Record<string, string>;
+  /* 同上:camelCase 视图形原样往返(POST body 即此形) */
+  clearExistingData: boolean;
+  validateDuplicates: boolean;
+  autoCreateMissingRoles: boolean;
+  autoCreateMissingLocations: boolean;
+  defaultProjectPriority: number;
+  dateFormat: string;
 }
 
 export interface ImportHistoryEntry {
@@ -698,16 +699,14 @@ export type ImportHistoryResponse = ImportHistoryEntry[];
 // ============= Settings Responses =============
 
 export interface SystemSettingsResponse {
-  fiscal_year_start_month: number;
-  default_hours_per_day: number;
-  default_availability_percentage: number;
-  working_days_per_week: number;
-  currency: string;
-  timezone: string;
-  date_format: string;
-  audit_retention_days: number;
-  backup_enabled: boolean;
-  backup_interval: string;
+  /* SettingsController 真身(2026-10-13 批清): GET=JSON.parse(存库的
+     camelCase 视图形),POST 原样往返——snake_case 形状系杜撰 */
+  defaultWorkHoursPerWeek: number;
+  defaultVacationDaysPerYear: number;
+  fiscalYearStartMonth: number;
+  allowOverAllocation: boolean;
+  maxAllocationPercentage: number;
+  requireApprovalForOverrides: boolean;
 }
 
 export interface ImportSettingsFullResponse {
@@ -734,13 +733,12 @@ export interface UserRole {
 }
 
 export interface SystemPermissionsResponse {
+  /* UserPermissionsController 真身: data={permissions, permissionsByCategory} */
   permissions: Permission[];
-  categories: string[];
+  permissionsByCategory: Record<string, Permission[]>;
 }
 
-export interface UserRolesResponse {
-  roles: UserRole[];
-}
+export type UserRolesResponse = UserRole[];
 
 export interface RolePermissionsResponse {
   role: UserRole;
@@ -764,9 +762,7 @@ export interface UserWithPermissions {
   effective_permissions: Permission[];
 }
 
-export interface UsersListResponse {
-  users: UserWithPermissions[];
-}
+export type UsersListResponse = UserWithPermissions[]; /* 真身=data 直接是数组 */
 
 export interface UserPermissionsResponse {
   user: UserWithPermissions;

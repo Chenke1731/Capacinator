@@ -168,7 +168,7 @@ function NamingPanel({
           {t('projects:staffing.role')}
           <select value={roleId} onChange={(e) => setRoleId(e.target.value)}>
             <option value="">{t('projects:staffing.selectRole')}</option>
-            {roleList.map((r) => (
+            {roleList.map((r: { id: string; name: string }) => (
               <option key={r.id} value={r.id}>{r.name}</option>
             ))}
           </select>
@@ -298,7 +298,7 @@ function PoolForm({
           {t('projects:staffing.role')}
           <select value={roleId} onChange={(e) => setRoleId(e.target.value)}>
             <option value="">{t('projects:staffing.selectRole')}</option>
-            {roleList.map((r) => (
+            {roleList.map((r: { id: string; name: string }) => (
               <option key={r.id} value={r.id}>{r.name}</option>
             ))}
           </select>

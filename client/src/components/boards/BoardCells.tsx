@@ -529,11 +529,24 @@ export function PrimaryDevCell({ primary, project, onSaved }: {
 /** 交付计划复合格(B3c,设计 §3): 主行=RP(可编辑), 尾行=迭代窗口(派生唯一日期真相)。
     实施日志 D9: 列宽 76-84px 装不下"名+区间",尾行只显区间(mono 11px),
     全名进 title 与弹层;点击尾行=迭代选择弹层(按季度分组/解除挂接/内联新建)。 */
-export function ReleaseCell({ project, onSaved }: {
+export function ReleaseCell({ project, onSaved, readOnlyWindow }: {
   project: any;
   onSaved: (field: 'product_version' | 'release_version', value: string | null) => void;
+  /** SR 聚合行: 子行窗口 min~max(派生只读,同 IterationCell 形) */
+  readOnlyWindow?: { start: string; end: string; names: string[] } | null;
 }) {
   const { t } = useTranslation();
+  const fmt = (d: string) => String(d).slice(5);
+  if (readOnlyWindow) {
+    // SR 聚合行: 交付计划列退化为只读窗口(与 SR 迭代列同语言)
+    return (
+      <span className="req-release">
+        <span className="req-iter-val" title={readOnlyWindow.names.join(', ')}>
+          {fmt(readOnlyWindow.start)}~{fmt(readOnlyWindow.end)}
+        </span>
+      </span>
+    );
+  }
   return (
     <span className="req-release">
       <VersionPart project={project} field="release_version"

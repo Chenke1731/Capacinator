@@ -4,6 +4,7 @@ import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { Check, Pencil, Plus, Search, X } from 'lucide-react';
 import { api } from '../../lib/api-client';
+import type { Project } from '../../types';
 import { queryKeys } from '../../lib/queryKeys';
 import { useCellPopover } from '../../hooks/useCellPopover';
 
@@ -127,7 +128,7 @@ export function OwnerCell({ project, onSaved }: { project: any; onSaved: () => v
     if (current === (id ? String(id) : null)) return;
     setBusy(true);
     try {
-      await api.projects.update(project.id, { owner_id: id });
+      await api.projects.update(project.id, { owner_id: id ?? undefined });
       await queryClient.invalidateQueries({ queryKey: queryKeys.projects.all });
       onSaved();
     } finally {
@@ -233,7 +234,7 @@ export function TagsCell({
   const [draftName, setDraftName] = useState('');
   const [busy, setBusy] = useState(false);
 
-  const currentIds = new Set((project.tags ?? []).map((tg: any) => String(tg.id)));
+  const currentIds = new Set<string>((project.tags ?? []).map((tg: any) => String(tg.id)));
   const needle = q.trim().toLowerCase();
   const visible = needle
     ? allTags.filter((tg) => String(tg.name).toLowerCase().includes(needle))
@@ -242,7 +243,8 @@ export function TagsCell({
   const commit = async (nextIds: Set<string>) => {
     setBusy(true);
     try {
-      await api.projects.update(project.id, { tag_ids: [...nextIds] });
+      // tag_ids 是 junction 载荷(update 端点特有),不在 Project 实体列集
+      await api.projects.update(project.id, { tag_ids: [...nextIds] } as unknown as Partial<Project>);
       await queryClient.invalidateQueries({ queryKey: queryKeys.projects.all });
       onSaved();
     } finally {
@@ -410,7 +412,8 @@ export function ComponentCell({
     if (v === value) return;
     setBusy(true);
     try {
-      await api.projects.update(project.id, { component: v || null });
+      // component 是遗留自由文本列(066 组件域已迁 component_id),列外字段绕实体类型
+      await api.projects.update(project.id, { component: v || null } as unknown as Partial<Project>);
       await queryClient.invalidateQueries({ queryKey: queryKeys.projects.all });
       onSaved();
     } finally {

@@ -60,7 +60,7 @@ export function LifecycleCellControls({ project }: { project: any }) {
     enabled: mode === 'schedule'
   });
   const roleList = Array.isArray(roles) ? (roles as any[]) : ((roles as any)?.data ?? []);
-  const devRole = roleList.find((r) => r.name === '开发');
+  const devRole = roleList.find((r: { id: string; name: string }) => r.name === '开发');
   useEffect(() => {
     if (devRole && !poolForm.role_id) setPoolForm((f) => ({ ...f, role_id: devRole.id }));
   }, [devRole?.id]);
@@ -201,7 +201,7 @@ export function LifecycleCellControls({ project }: { project: any }) {
                   {t('projects:lifecycle.scheduleForm.role')}
                   <select value={poolForm.role_id} onChange={(e) => setPoolForm({ ...poolForm, role_id: e.target.value })}>
                     <option value="">{t('projects:staffing.selectRole')}</option>
-                    {roleList.map((r) => (
+                    {roleList.map((r: { id: string; name: string }) => (
                       <option key={r.id} value={r.id}>{r.name}</option>
                     ))}
                   </select>

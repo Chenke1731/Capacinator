@@ -63,6 +63,8 @@ interface PersonDetails {
     role_name: string;
     start_date: string;
     end_date: string;
+    computed_start_date?: string;
+    computed_end_date?: string;
     allocation_percentage: number;
     billable: boolean;
   }>;
@@ -218,7 +220,11 @@ export default function PersonDetails() {
       header: t('common:assignmentsCol.allocation'),
       render: (item) => (
         <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>
-          {item.status === 'paused' && <Pause size={12} className="text-muted-foreground" title={t('people:details.paused')} />}
+          {item.status === 'paused' && (
+            <span title={t('people:details.paused')} className="text-muted-foreground inline-flex">
+              <Pause size={12} />
+            </span>
+          )}
           <AllocationInline assignment={item} />
         </span>
       ),
@@ -272,7 +278,7 @@ export default function PersonDetails() {
     queryKey: queryKeys.people.detail(id!),
     queryFn: async () => {
       const response = await api.people.get(id!);
-      return response.data as PersonDetails;
+      return response.data as unknown as PersonDetails;
     },
     enabled: !!id
   });
@@ -342,7 +348,7 @@ export default function PersonDetails() {
     if (!canEdit) return <span>{assignment.allocation_percentage}%</span>;
     if (!editing) {
       return (
-        <span className="info-value inline-editable" onClick={() => setValue(String(assignment.allocation_percentage)) || setEditing(true)}>
+        <span className="info-value inline-editable" onClick={() => { setValue(String(assignment.allocation_percentage)); setEditing(true); }}>
           {assignment.allocation_percentage}%
           <Edit2 size={12} className="edit-icon" />
         </span>

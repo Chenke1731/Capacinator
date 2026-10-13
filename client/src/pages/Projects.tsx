@@ -682,9 +682,13 @@ export function Projects() {
   // P2: 拦截所有 react-query mutation 失败 → toast
   useEffect(() => {
     const unsub = queryClient.getMutationCache().subscribe((event) => {
-      if (event.type === 'updated' && event.action?.type === 'rejected') {
-        const err = event.action?.data || event.mutation?.state?.error;
-        showErrorToast(err?.response?.data?.message || err?.message || '操作失败');
+      if (event.type === 'updated' && (event.action?.type as string) === 'rejected') {
+        const err = (event.action as { data?: { message?: string; response?: { data?: { message?: string } } } | undefined })?.data;
+        const msg = typeof err === 'string' ? err
+          : err?.response?.data?.message || err?.message
+          || (event.mutation?.state?.error as { message?: string } | null | undefined)?.message
+          || '操作失败';
+        showErrorToast(msg);
       }
     });
     return unsub;
@@ -698,8 +702,8 @@ export function Projects() {
     });
   };
 
-  /** 行内保存统一出口: 刷新 + 行 flash */
-  const handleCellSaved = (projectId: string) => {
+  /** 行内保存统一出口: 刷新 + 行 flash (可选 field/value 兼容 ReleaseCell 回调形) */
+  const handleCellSaved = (projectId: string, _field?: string, _value?: string | null) => {
     invalidate();
     flashRow(projectId);
   };
@@ -1191,7 +1195,7 @@ export function Projects() {
           setEditingProject(null);
           editProjectModal.close();
         }}
-        editingProject={editingProject}
+        editingProject={editingProject ?? undefined}
         onSuccess={invalidate}
       />
 

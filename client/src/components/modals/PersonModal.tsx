@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useQuery } from '@tanstack/react-query';
 import { api } from '../../lib/api-client';
 import { queryKeys } from '../../lib/queryKeys';
+import type { Person } from '../../types';
 import i18n from '../../i18n';
 import { useModalForm } from '../../hooks/useModalForm';
 import {
@@ -155,11 +156,11 @@ export const PersonModal: React.FC<PersonModalProps> = ({
     initialValues,
     validate: validatePerson,
     onCreate: async (data) => {
-      const response = await api.people.create(data);
+      const response = await api.people.create(data as unknown as Partial<Person>);
       return response.data;
     },
     onUpdate: async (id, data) => {
-      const response = await api.people.update(id, data);
+      const response = await api.people.update(id, data as unknown as Partial<Person>);
       return response.data;
     },
     queryKeysToInvalidate: [queryKeys.people.all],

@@ -27,7 +27,7 @@ export default function ProjectsTable({ projects, maxRows = 10 }: ProjectsTableP
     }
   };
 
-  const formatDate = (date: string | null) => {
+  const formatDate = (date: string | null | undefined) => {
     if (!date) return '-';
     return new Date(date).toLocaleDateString(getLocale(), {
       month: 'short',

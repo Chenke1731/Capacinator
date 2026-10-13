@@ -33,7 +33,7 @@ export function InlineEdit({
   renderValue
 }: InlineEditProps) {
   const [isEditing, setIsEditing] = useState(false);
-  const [editValue, setEditValue] = useState(value);
+  const [editValue, setEditValue] = useState<string | number | boolean>(value);
   const [error, setError] = useState('');
   const { t } = useTranslation();
   const inputRef = useRef<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>(null);
@@ -126,7 +126,7 @@ export function InlineEdit({
       {type === 'select' && options ? (
         <select
           ref={inputRef as React.RefObject<HTMLSelectElement>}
-          value={editValue || ''}
+          value={String(editValue ?? '')}
           onChange={(e) => setEditValue(e.target.value)}
           onKeyDown={handleKeyDown}
           className="form-select px-2 py-1 border border-gray-300 dark:border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-primary bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
@@ -152,7 +152,7 @@ export function InlineEdit({
       ) : type === 'textarea' ? (
         <textarea
           ref={inputRef as React.RefObject<HTMLTextAreaElement>}
-          value={editValue || ''}
+          value={String(editValue ?? '')}
           onChange={(e) => setEditValue(e.target.value)}
           onKeyDown={handleKeyDown}
           placeholder={placeholder}
@@ -164,7 +164,7 @@ export function InlineEdit({
         <input
           ref={inputRef as React.RefObject<HTMLInputElement>}
           type={type}
-          value={editValue || ''}
+          value={String(editValue ?? '')}
           onChange={(e) => setEditValue(e.target.value)}
           onKeyDown={handleKeyDown}
           placeholder={placeholder}

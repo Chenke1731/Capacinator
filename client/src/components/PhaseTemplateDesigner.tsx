@@ -44,7 +44,7 @@ export default function PhaseTemplateDesigner({ projectTypeId, phases }: PhaseTe
     queryKey: queryKeys.projectTypes.phases(projectTypeId),
     queryFn: async () => {
       const response = await api.projectTypes.getPhases(projectTypeId);
-      return response.data.data as ProjectTypePhase[];
+      return response.data.data  as unknown as ProjectTypePhase[];
     },
     enabled: !!projectTypeId
   });

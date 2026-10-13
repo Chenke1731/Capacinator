@@ -61,7 +61,10 @@ describe('UserContext', () => {
     id: 'user-1',
     name: 'John Doe',
     email: 'john@example.com',
-    role: 'Developer',
+    roles: [],
+    worker_type: 'FTE' as never,
+    default_availability_percentage: 100,
+    default_hours_per_day: 8,
     created_at: '2025-01-01',
     updated_at: '2025-01-01'
   };
@@ -228,7 +231,10 @@ describe('UserContext', () => {
         id: 'user-2',
         name: 'Jane Smith',
         email: 'jane@example.com',
-        role: 'Manager',
+        roles: [],
+    worker_type: 'FTE' as never,
+    default_availability_percentage: 100,
+    default_hours_per_day: 8,
         created_at: '2025-01-02',
         updated_at: '2025-01-02'
       };

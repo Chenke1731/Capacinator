@@ -114,7 +114,7 @@ export const ScenarioComparison: React.FC = () => {
 
     try {
       const response = await api.scenarios.compare(sourceId, targetId);
-      setComparisonData(response.data);
+      setComparisonData(response.data as unknown as ComparisonData | null);
     } catch (err: any) {
       setError(err.response?.data?.error || t('scenarios:comparison.loadFailed'));
     } finally {

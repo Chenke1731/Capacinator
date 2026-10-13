@@ -295,7 +295,7 @@ export function AuditLog() {
       <Card>
         <FilterBar
           filters={filterOptions}
-          values={filters}
+          values={filters as unknown as Record<string, string>}
           onChange={(name: string, value: string) => handleFilterChange({ [name]: value })}
         />
         

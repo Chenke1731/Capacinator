@@ -99,13 +99,13 @@ export function useCriticalAlerts() {
       alertList.push({
         id: `design-deadline-${watch.project_id}`,
         type: 'deadline_warning',
-        severity: watch.overdue ? (watch.days_remaining <= -7 ? 'critical' : 'high') : 'medium',
+        severity: watch.overdue ? ((watch.days_remaining ?? 0) <= -7 ? 'critical' : 'high') : 'medium',
         title: watch.overdue
           ? t('dashboard:alerts.types.designDeadlineOverdue.title', { name: watch.project_name })
           : t('dashboard:alerts.types.designDeadlineSoon.title', { name: watch.project_name }),
         description: watch.overdue
-          ? t('dashboard:alerts.types.designDeadlineOverdue.description', { days: Math.abs(watch.days_remaining), date: String(watch.design_deadline).slice(0, 10) })
-          : t('dashboard:alerts.types.designDeadlineSoon.description', { days: watch.days_remaining, date: String(watch.design_deadline).slice(0, 10) }),
+          ? t('dashboard:alerts.types.designDeadlineOverdue.description', { days: Math.abs(watch.days_remaining ?? 0), date: String(watch.design_deadline).slice(0, 10) })
+          : t('dashboard:alerts.types.designDeadlineSoon.description', { days: watch.days_remaining ?? 0, date: String(watch.design_deadline).slice(0, 10) }),
         actionText: t('dashboard:alerts.types.designDeadline.action'),
         navigationPath: `/projects/${watch.project_id}`,
         dueDate: String(watch.design_deadline).slice(0, 10)

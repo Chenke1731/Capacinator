@@ -71,7 +71,7 @@ jest.mock('../../utils/date', () => ({
 }));
 
 // Mock ResizeObserver
-global.ResizeObserver = jest.fn().mockImplementation(() => ({
+globalThis.ResizeObserver = jest.fn().mockImplementation(() => ({
   observe: jest.fn(),
   unobserve: jest.fn(),
   disconnect: jest.fn()
@@ -1026,7 +1026,7 @@ describe('InteractiveTimeline', () => {
       unmount();
 
       // ResizeObserver disconnect should be called
-      expect(global.ResizeObserver).toHaveBeenCalled();
+      expect(globalThis.ResizeObserver).toHaveBeenCalled();
     });
   });
 });

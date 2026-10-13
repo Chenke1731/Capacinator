@@ -40,6 +40,10 @@ export interface UtilizationItem {
   person_id: string;
   person_name: string;
   total_allocation_percentage: number;
+  /* person_utilization_view 真身(2026-10-13 补): current_availability_percentage
+     是视图真列;total_allocation 是 mock 时代别名 */
+  current_availability_percentage?: number;
+  total_allocation?: number;
   utilization_status: string;
   total_allocated_hours?: number;
   available_hours?: number;
@@ -232,6 +236,17 @@ export interface DashboardReportResponse {
     AVAILABLE: number;
     ASSIGNED: number;
   };
+  /* 2026-10-13 实测真身(原类型缺这两个键): 生命周期机制产出 */
+  design_watch: Array<{
+    project_id: string;
+    project_name?: string;
+    design_deadline?: string | null;
+    days_late?: number;
+    days_remaining?: number;
+    overdue?: boolean;
+    [k: string]: unknown;
+  }>;
+  lifecycle_summary?: Record<string, number>;
 }
 
 export type AllocationStatus =

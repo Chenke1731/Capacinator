@@ -607,7 +607,7 @@ describe('Assignments Page', () => {
     test('displays context message from URL parameters', async () => {
       // Update the mock to return the right search params
       // eslint-disable-next-line @typescript-eslint/no-require-imports
-      const useSearchParams = require('react-router-dom').useSearchParams as jest.Mock;
+      const useSearchParams = (jest.requireMock('react-router-dom') as { useSearchParams: jest.Mock }).useSearchParams;
       useSearchParams.mockReturnValue([
         new URLSearchParams('action=assign&from=reports&personName=John%20Doe&status=underutilized'),
         jest.fn(),
@@ -627,7 +627,7 @@ describe('Assignments Page', () => {
 
       // Update the mock to return the right search params
       // eslint-disable-next-line @typescript-eslint/no-require-imports
-      const useSearchParams = require('react-router-dom').useSearchParams as jest.Mock;
+      const useSearchParams = (jest.requireMock('react-router-dom') as { useSearchParams: jest.Mock }).useSearchParams;
       useSearchParams.mockReturnValue([
         new URLSearchParams('action=hire&from=reports&roleName=Developer'),
         jest.fn(),

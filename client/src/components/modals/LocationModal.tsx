@@ -97,7 +97,7 @@ export function LocationModal({ location, onSave, onCancel }: LocationModalProps
       [field]: value,
     }));
     // Clear field error when user starts typing
-    if (errors[field]) {
+    if (errors[field as keyof FormErrors]) {
       setErrors((prev) => ({
         ...prev,
         [field]: undefined,

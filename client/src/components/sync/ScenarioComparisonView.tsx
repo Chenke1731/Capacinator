@@ -61,7 +61,7 @@ export const ScenarioComparisonView: React.FC<ScenarioComparisonViewProps> = ({
     try {
       const result = await api.sync.compareBranches(baseBranch, targetBranch);
       if (result.data) {
-        setComparison(result.data);
+        setComparison(result.data as unknown as ComparisonResult);
       }
     } catch (err) {
       setError((err as Error).message || t('gitSync:compare.loadFailed'));

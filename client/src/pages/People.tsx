@@ -185,8 +185,10 @@ export default function People() {
       };
     }
 
-    const allocation = utilization.total_allocation_percentage ?? utilization.total_allocation ?? 0;
-    const availability = utilization.current_availability_percentage;
+    // person_utilization_view 真身: current_availability_percentage 在视图里
+    // (原 UtilizationItem 类型漏了它;total_allocation 是 mock 时代别名)
+    const allocation = utilization.total_allocation_percentage ?? 0;
+    const availability = Number(utilization.current_availability_percentage ?? 100);
     const utilizationPercentage = availability > 0 ? (allocation / availability) * 100 : 0;
 
     if (utilizationPercentage > 100) {
@@ -559,7 +561,7 @@ export default function People() {
           setEditingPerson(null);
         }}
         onSuccess={handlePersonSuccess}
-        editingPerson={editingPerson}
+        editingPerson={editingPerson ?? undefined}
       />
 
       {/* Smart Assignment Modal */}

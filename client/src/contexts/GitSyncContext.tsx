@@ -16,7 +16,7 @@ interface QueuedOperation {
   data?: any;
 }
 
-interface GitSyncContextType {
+export interface GitSyncContextType {
   status: SyncStatus;
   pendingCount: number;
   conflicts: Conflict[];

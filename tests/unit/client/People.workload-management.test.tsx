@@ -241,25 +241,25 @@ const mockUtilizationData = {
   personUtilization: [
     {
       person_id: '1',
-      total_allocation: 120, // Over-allocated (120% of 100 availability)
+      total_allocation_percentage: 120, // Over-allocated (120% of 100 availability)
       current_availability_percentage: 100,
       allocation_status: 'OVER_ALLOCATED',
     },
     {
       person_id: '2',
-      total_allocation: 60, // Under-allocated (60% of 100 availability)
+      total_allocation_percentage: 60, // Under-allocated (60% of 100 availability)
       current_availability_percentage: 100,
       allocation_status: 'UNDER_ALLOCATED',
     },
     {
       person_id: '3',
-      total_allocation: 90, // Fully allocated (90% of 100 availability)
+      total_allocation_percentage: 90, // Fully allocated (90% of 100 availability)
       current_availability_percentage: 100,
       allocation_status: 'FULLY_ALLOCATED',
     },
     {
       person_id: '4',
-      total_allocation: 20, // Available (20% of 100 availability)
+      total_allocation_percentage: 20, // Available (20% of 100 availability)
       current_availability_percentage: 100,
       allocation_status: 'AVAILABLE',
     },
@@ -294,7 +294,7 @@ describe('People Workload Management', () => {
       const modifiedUtilizationData = {
         personUtilization: mockUtilizationData.personUtilization.map(p => ({
           ...p,
-          total_allocation: p.total_allocation > 100 ? 80 : p.total_allocation,
+          total_allocation_percentage: p.total_allocation > 100 ? 80 : p.total_allocation,
           allocation_status: p.allocation_status === 'OVER_ALLOCATED' ? 'FULLY_ALLOCATED' : p.allocation_status,
         })),
       };

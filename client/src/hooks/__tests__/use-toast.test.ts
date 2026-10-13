@@ -142,8 +142,8 @@ describe('use-toast', () => {
     });
 
     it('should generate unique ids for toasts', () => {
-      const toast1 = toast({ title: 'Toast 1' });
-      const toast2 = toast({ title: 'Toast 2' });
+      const toast1 = toast({ title: 'Toast 1' } as never);
+      const toast2 = toast({ title: 'Toast 2' } as never);
 
       expect(toast1.id).not.toBe(toast2.id);
     });
@@ -152,7 +152,7 @@ describe('use-toast', () => {
       const { result } = renderHook(() => useToast());
 
       act(() => {
-        const toastInstance = toast({ title: 'Test Toast' });
+        const toastInstance = toast({ title: 'Test Toast' } as never);
         toastInstance.dismiss();
       });
 
@@ -164,15 +164,15 @@ describe('use-toast', () => {
       const { result } = renderHook(() => useToast());
 
       act(() => {
-        const toastInstance = toast({ title: 'Original Title' });
-        toastInstance.update({ title: 'Updated Title' });
+        const toastInstance = toast({ title: 'Original Title' } as never);
+        toastInstance.update({ id: 'unknown', title: 'Updated Title' } as never);
       });
 
       // Toast should be updated in state
     });
 
     it('should set onOpenChange handler', () => {
-      const toastInstance = toast({ title: 'Test Toast' });
+      const toastInstance = toast({ title: 'Test Toast' } as never);
 
       expect(toastInstance).toHaveProperty('id');
     });
@@ -227,8 +227,8 @@ describe('use-toast', () => {
       const { result } = renderHook(() => useToast());
 
       act(() => {
-        result.current.toast({ title: 'Toast 1' });
-        result.current.toast({ title: 'Toast 2' });
+        result.current.toast({ title: 'Toast 1' } as never);
+        result.current.toast({ title: 'Toast 2' } as never);
       });
 
       act(() => {
@@ -245,14 +245,14 @@ describe('use-toast', () => {
       const { result, unmount } = renderHook(() => useToast());
 
       act(() => {
-        result.current.toast({ title: 'Test Toast' });
+        result.current.toast({ title: 'Test Toast' } as never);
       });
 
       unmount();
 
       // Should not throw errors after unmount
       expect(() => {
-        toast({ title: 'Another Toast' });
+        toast({ title: 'Another Toast' } as never);
       }).not.toThrow();
     });
 
@@ -261,7 +261,7 @@ describe('use-toast', () => {
       const { result: result2 } = renderHook(() => useToast());
 
       act(() => {
-        result1.current.toast({ title: 'Shared Toast' });
+        result1.current.toast({ title: 'Shared Toast' } as never);
       });
 
       // Both instances should see the same toasts
@@ -272,9 +272,9 @@ describe('use-toast', () => {
       const { result } = renderHook(() => useToast());
 
       act(() => {
-        result.current.toast({ title: 'Toast 1' });
-        result.current.toast({ title: 'Toast 2' });
-        result.current.toast({ title: 'Toast 3' });
+        result.current.toast({ title: 'Toast 1' } as never);
+        result.current.toast({ title: 'Toast 2' } as never);
+        result.current.toast({ title: 'Toast 3' } as never);
       });
 
       // Should respect TOAST_LIMIT
@@ -289,7 +289,7 @@ describe('use-toast', () => {
       let toastId: string;
 
       act(() => {
-        const toastInstance = result.current.toast({ title: 'Test Toast' });
+        const toastInstance = result.current.toast({ title: 'Test Toast' } as never);
         toastId = toastInstance.id;
       });
 

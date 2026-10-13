@@ -74,10 +74,9 @@ interface AssignmentModalProps {
   isOpen: boolean;
   onClose: () => void;
   // 页面态是完整行(ProjectAssignment|null),弹层只取可编辑子集——
-  // 结构兼容即收(2026-10-13 批清)
+  // 结构兼容即收(2026-10-13 批清);此前重复声明两形并存
   editingAssignment?: ProjectAssignment | null;
   onSuccess?: (assignment: EditableAssignment) => void;
-  editingAssignment?: EditableAssignment;
 }
 
 const initialValues: AssignmentFormData = {
@@ -303,7 +302,7 @@ export const AssignmentModalNew: React.FC<AssignmentModalProps> = ({
                   <SelectValue placeholder={t('assignments:form.selectPerson')} />
                 </SelectTrigger>
                 <SelectContent>
-                  {(people?.data as Person[])?.map((person) => (
+                  {((people as Person[]) ?? [])?.map((person) => (
                     <SelectItem key={person.id} value={person.id}>
                       {person.name}
                     </SelectItem>

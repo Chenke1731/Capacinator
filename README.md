@@ -4,6 +4,8 @@ A comprehensive project capacity planning system that replaces Excel-based plann
 
 > 📖 **使用说明书 / User Manual**:[docs/USER_MANUAL_zh-CN.md](docs/USER_MANUAL_zh-CN.md)(中文,含快速上手、全部页面详解、典型流程与常见问题)
 
+> **总改进计划**：[项目专项、UI交互、业务验证与角色审视](docs/plans/2026-10-14-capacinator-improvement-plan.md)（含问题编号、证据、优先级、依赖、验收、处理台账及排产决策模板）
+
 ## Features
 
 - **Project Management**: Track projects, phases, and timelines

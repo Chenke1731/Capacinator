@@ -13,7 +13,7 @@ import { ErrorMessage } from '../components/ui/ErrorMessage';
 import ProjectTypeModal from '../components/modals/ProjectTypeModal';
 import { useModal } from '../hooks/useModal';
 import { useBookmarkableTabs } from '../hooks/useBookmarkableTabs';
-import type { ProjectType } from '../types';
+import type { ProjectType, ProjectTypeHierarchyNode } from '../types';
 import './ProjectTypes.css';
 
 export default function ProjectTypes() {
@@ -49,7 +49,9 @@ export default function ProjectTypes() {
     queryFn: async () => {
       if (viewMode === 'hierarchy') {
         const response = await api.projectTypes.getHierarchy();
-        return response.data.data as ProjectType[];
+        // {success,data:{hierarchy:[...]}} → 展平为节点数组
+        const h = (response.data as { data?: { hierarchy?: ProjectTypeHierarchyNode[] } }).data?.hierarchy ?? [];
+        return h.flatMap(n => [n as unknown as ProjectType, ...n.children.map((ch) => ({ ...ch, is_sub_type: true } as unknown as ProjectType))]);
       } else {
         const params = Object.entries(filters)
           .filter(([_, value]) => value)

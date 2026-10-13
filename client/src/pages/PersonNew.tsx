@@ -6,6 +6,7 @@ import { ArrowLeft, Save, X } from 'lucide-react';
 import { api } from '../lib/api-client';
 import { queryKeys } from '../lib/queryKeys';
 import { validateName } from '../lib/validation';
+import type { Person } from '../types';
 import './PersonDetails.css'; // Reuse existing styles
 
 interface PersonFormData {
@@ -87,8 +88,8 @@ export function PersonNew() {
       // Remove primary_role_id as it's not a valid field in the new schema
       delete (personData as any).primary_role_id;
       
-      const response = await api.people.create(personData);
-      const createdPerson = response.data;
+      const response = await api.people.create(personData as unknown as Partial<Person>);
+      const createdPerson = response.data as unknown as Person;
       
       // If a primary role was selected, add it as a person role
       if (data.primary_role_id) {
@@ -103,7 +104,7 @@ export function PersonNew() {
     },
     onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ['people'] });
-      navigate(`/people/${data.id}`);
+      navigate(`/people/${(data as unknown as Person).id}`);
     },
     onError: (error: any) => {
       if (error.response?.data?.errors) {

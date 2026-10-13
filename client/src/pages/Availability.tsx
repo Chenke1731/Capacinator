@@ -66,7 +66,7 @@ export default function Availability() {
         person_id: selectedPerson || undefined,
         start_date: new Date(currentMonth.getFullYear(), currentMonth.getMonth(), 1).toISOString(),
         end_date: new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 0).toISOString()
-      });
+      } as never);
       return response.data.data as PersonAvailabilityOverride[];
     }
   });
@@ -125,9 +125,9 @@ export default function Availability() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (editingId) {
-      updateMutation.mutate({ id: editingId, data: formData });
+      updateMutation.mutate({ id: editingId, data: formData } as never);
     } else {
-      createMutation.mutate(formData);
+      createMutation.mutate(formData as never);
     }
   };
 

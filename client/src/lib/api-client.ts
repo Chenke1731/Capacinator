@@ -345,7 +345,7 @@ export const api = {
     // 选择器口径),'false'=只取停用;缺省=全部
     list: (params?: PaginationParams & { is_active?: 'true' | 'false' }) => apiClient.get<PaginatedResponse<Person>>('/people', { params }),
     get: (id: string) => apiClient.get<PersonDetailResponse>(`/people/${id}`),
-    create: (data: Partial<Person>) => apiClient.post<{ data: Person }>('/people', data),
+    create: (data: Partial<Person>) => apiClient.post<Person>('/people', data), /* getById 裸 res.json 直出 */
     update: (id: string, data: Partial<Person>) => apiClient.put<{ data: Person }>(`/people/${id}`, data),
     delete: (id: string) => apiClient.delete<{ message: string }>(`/people/${id}`),
     addRole: (id: string, data: Record<string, unknown>) => apiClient.post<PersonRoleResponse>(`/people/${id}/roles`, data),
@@ -694,10 +694,11 @@ export const api = {
 
   // Authentication
   auth: {
-    login: (personId: string) => apiClient.post<{ accessToken: string; refreshToken: string }>('/auth/login', { personId }),
+    /* 真身: login={success,user,accessToken,refreshToken}; me={success,user} */
+    login: (personId: string) => apiClient.post<{ success: boolean; user: Person; accessToken: string; refreshToken: string }>('/auth/login', { personId }),
     logout: () => apiClient.post<{ message: string }>('/auth/logout'),
     refresh: (refreshToken: string) => apiClient.post<{ accessToken: string; refreshToken: string }>('/auth/refresh', { refreshToken }),
-    me: () => apiClient.get<{ data: Person }>('/auth/me'),
+    me: () => apiClient.get<{ success: boolean; user: Person }>('/auth/me'),
     verify: () => apiClient.get<{ verified: boolean }>('/auth/verify'),
   },
 

@@ -56,6 +56,8 @@ interface ProjectDetail {
   description?: string | null;
   data_restrictions?: string | null;
   include_in_demand: number;
+  lifecycle_state?: string | null;
+  design_deadline?: string | null;
   aspiration_start?: string | null;
   aspiration_finish?: string | null;
   external_id?: string | null;
@@ -102,7 +104,8 @@ export function ProjectDetail() {
     demand: true,
     assignments: true,
     estimation: false,
-    history: false
+    history: false,
+    actuals: false
   });
 
   // Assignment modal state
@@ -124,7 +127,7 @@ export function ProjectDetail() {
     queryKey: queryKeys.projects.detail(id!),
     queryFn: async () => {
       const response = await api.projects.get(id!);
-      return response.data.data as ProjectDetail;
+      return response.data.data as unknown as ProjectDetail;
     },
     enabled: !!id
   });

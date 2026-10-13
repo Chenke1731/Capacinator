@@ -53,17 +53,21 @@ describe('ScenarioContext', () => {
     description: 'The baseline scenario',
     created_at: '2025-01-01',
     updated_at: '2025-01-01',
-    parent_scenario_id: null
+    parent_scenario_id: null as unknown as string | undefined,
+    created_by: 'test',
+    status: 'active' as never
   };
 
   const mockAlternativeScenario: Scenario = {
     id: 'alt-1',
     name: 'Alternative Scenario',
-    scenario_type: 'what_if',
+    scenario_type: 'branch',
     description: 'An alternative scenario',
     created_at: '2025-01-02',
     updated_at: '2025-01-02',
-    parent_scenario_id: 'baseline-1'
+    parent_scenario_id: 'baseline-1',
+    created_by: 'test',
+    status: 'active' as never
   };
 
   beforeEach(() => {

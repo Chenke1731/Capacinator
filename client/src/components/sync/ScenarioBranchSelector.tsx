@@ -10,15 +10,9 @@ import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import * as Select from '@radix-ui/react-select';
 import { api } from '../../lib/api-client';
+import type { BranchInfo } from '../../types';
 
-interface Branch {
-  name: string;
-  description: string;
-  createdAt: string | null;
-  createdBy: string | null;
-  baseBranch: string;
-  isActive: boolean;
-}
+type Branch = BranchInfo; /* 对齐服务端 BranchInfo(2026-10-13 批清) */
 
 interface ScenarioBranchSelectorProps {
   currentBranch?: string;
@@ -44,7 +38,7 @@ export const ScenarioBranchSelector: React.FC<ScenarioBranchSelectorProps> = ({
       setLoading(true);
       const result = await api.sync.listBranches();
       if (result.data) {
-        setBranches(result.data);
+        setBranches((result.data as { branches?: BranchInfo[] }).branches ?? []);
       }
     } catch (error) {
       console.error('Failed to load branches:', error);

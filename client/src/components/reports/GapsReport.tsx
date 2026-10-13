@@ -221,7 +221,7 @@ export const GapsReport: React.FC<GapsReportProps> = ({
                 {(data.gapsByRole || [])
                   .filter((role: RoleGap) => role.gap > 0)
                   .map((role: RoleGap) => (
-                  <div key={role.roleId} className="actionable-item danger">
+                  <div key={role.role_id} className="actionable-item danger">
                     <div className="item-info">
                       <strong>{role.roleName}</strong>
                       <span className="item-detail">{t('reports:gaps.hoursShort', { value: role.gap })}</span>
@@ -246,7 +246,7 @@ export const GapsReport: React.FC<GapsReportProps> = ({
                   .filter((role: RoleGap) => role.gap <= 0)
                   .slice(0, 3)
                   .map((role: RoleGap) => (
-                  <div key={role.roleId} className="actionable-item success">
+                  <div key={role.role_id} className="actionable-item success">
                     <div className="item-info">
                       <strong>{role.roleName}</strong>
                       <span className="item-detail">

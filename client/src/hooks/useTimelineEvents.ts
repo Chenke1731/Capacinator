@@ -85,7 +85,7 @@ export interface PhaseHandle {
  * Props for useTimelineEvents hook
  */
 export interface UseTimelineEventsProps {
-  timelineRef: RefObject<HTMLDivElement>;
+  timelineRef: RefObject<HTMLDivElement | null>;
   items: TimelineItem[];
   viewport: TimelineViewport;
   mode: 'brush' | 'phase-manager' | 'roadmap';

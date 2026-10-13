@@ -353,7 +353,7 @@ describe('DetailTable Component', () => {
         },
       ];
 
-      render(<DetailTable data={dataWithoutId} columns={columnsForNoId} />);
+      render(<DetailTable data={dataWithoutId as never} columns={columnsForNoId as never} />);
 
       expect(screen.getByText('Item A')).toBeInTheDocument();
       expect(screen.getByText('Item B')).toBeInTheDocument();
@@ -430,7 +430,7 @@ describe('DetailTable Component', () => {
         amount: i * 100,
       }));
 
-      render(<DetailTable data={largeData} columns={columns} />);
+      render(<DetailTable data={largeData as never} columns={columns as never} />);
 
       expect(screen.getByText('Item 0')).toBeInTheDocument();
       expect(screen.getByText('Item 99')).toBeInTheDocument();

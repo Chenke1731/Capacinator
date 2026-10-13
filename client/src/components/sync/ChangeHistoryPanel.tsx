@@ -11,12 +11,12 @@ import { useTranslation } from 'react-i18next';
 import { api } from '../../lib/api-client';
 import { getLocale } from '../../i18n';
 
+/* 对齐服务端 SyncHistoryEntry(gitSync git history) */
 interface Commit {
-  hash: string;
-  date: string;
-  message: string;
-  author_name: string;
-  author_email: string;
+  id: string;
+  performed_by: string;
+  performed_at: string;
+  details?: Record<string, unknown>;
 }
 
 interface ChangeHistoryPanelProps {
@@ -52,7 +52,7 @@ export const ChangeHistoryPanel: React.FC<ChangeHistoryPanelProps> = ({
 
       const result = await api.sync.getHistory(params);
       if (result.data) {
-        setCommits(result.data);
+        setCommits((result.data as { history?: Commit[] }).history ?? []);
       }
     } catch (err) {
       setError((err as Error).message || t('gitSync:history.loadFailed'));
@@ -133,11 +133,11 @@ export const ChangeHistoryPanel: React.FC<ChangeHistoryPanelProps> = ({
         {/* Timeline items */}
         <div className="space-y-6">
           {commits.map((commit, _index) => (
-            <div key={commit.hash} className="relative flex gap-4">
+            <div key={commit.id} className="relative flex gap-4">
               {/* Timeline dot */}
               <div className="relative z-10 flex-shrink-0">
                 <div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center text-blue-700 font-medium text-sm">
-                  {getInitials(commit.author_name)}
+                  {getInitials(commit.performed_by)}
                 </div>
               </div>
 
@@ -145,23 +145,23 @@ export const ChangeHistoryPanel: React.FC<ChangeHistoryPanelProps> = ({
               <div className="flex-1 bg-white border border-gray-200 rounded-lg p-4 shadow-sm">
                 <div className="flex items-start justify-between mb-2">
                   <div className="flex-1">
-                    <p className="font-medium text-gray-900">{commit.message}</p>
+                    <p className="font-medium text-gray-900">{String(commit.details?.message ?? commit.details?.summary ?? '')}</p>
                     <div className="flex items-center gap-2 mt-1 text-sm text-gray-600">
-                      <span>{commit.author_name}</span>
+                      <span>{commit.performed_by}</span>
                       <span>•</span>
-                      <span>{formatDate(commit.date)}</span>
+                      <span>{formatDate(commit.performed_at)}</span>
                     </div>
                   </div>
                   <div className="flex-shrink-0 ml-4">
                     <span className="inline-block px-2 py-1 text-xs font-mono bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 rounded">
-                      {commit.hash.substring(0, 7)}
+                      {commit.id.substring(0, 7)}
                     </span>
                   </div>
                 </div>
 
                 {/* Show commit author email on hover */}
                 <div className="text-xs text-gray-500">
-                  {commit.author_email}
+                  {String(commit.details?.author_email ?? '')}
                 </div>
               </div>
             </div>

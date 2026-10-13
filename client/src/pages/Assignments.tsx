@@ -913,7 +913,7 @@ export default function Assignments() {
             }}
           >
             <Lightbulb size={16} />
-            {t('assignments:tabs.recommendations')} {(recommendationsData?.recommendations?.length ?? 0) > 0 ? `(${recommendationsData.recommendations.length})` : ''}
+            {t('assignments:tabs.recommendations')} {(recommendationsData?.recommendations?.length ?? 0) > 0 ? `(${recommendationsData!.recommendations!.length})` : ''}
           </button>
         </div>
       </div>

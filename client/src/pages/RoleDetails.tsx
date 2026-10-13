@@ -27,7 +27,7 @@ export default function RoleDetails() {
     queryFn: async () => {
       if (!id) throw new Error('Role ID is required');
       const response = await api.roles.get(id);
-      return response.data as Role;
+      return response.data as unknown as Role;
     },
     enabled: !!id
   });
@@ -58,9 +58,9 @@ export default function RoleDetails() {
     queryKey: ['resourceTemplates', id],
     queryFn: async () => {
       if (!id) return [];
-      const response = await api.resourceTemplates.list({ role_id: id });
+      const response = await api.resourceTemplates.list({ role_id: id } as never);
       // Handle nested response structure and ensure we always return an array
-      const templatesData = response.data?.data || response.data || [];
+      const templatesData = (response.data as unknown as { data?: unknown[] }).data ?? (response.data as unknown as unknown[]) ?? [];
       return Array.isArray(templatesData) ? templatesData : [];
     },
     enabled: !!id
@@ -69,7 +69,7 @@ export default function RoleDetails() {
   // Update local templates when resource templates data changes
   React.useEffect(() => {
     if (resourceTemplates) {
-      setLocalTemplates(resourceTemplates);
+      setLocalTemplates(resourceTemplates as never);
     }
   }, [resourceTemplates]);
 

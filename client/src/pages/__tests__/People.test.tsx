@@ -203,19 +203,21 @@ describe('People Page', () => {
     personUtilization: [
       {
         person_id: 'person-1',
-        total_allocation: 120,
+        // 2026-10-13 批清: 改用视图真名列(原 total_allocation 系 mock 自造,
+        // 生产代码靠 ?? 别名兜底链蒙对——mock 与实现不一致的典型)
+        total_allocation_percentage: 120,
         current_availability_percentage: 100,
         allocation_status: 'OVER_ALLOCATED',
       },
       {
         person_id: 'person-2',
-        total_allocation: 60,
+        total_allocation_percentage: 60,
         current_availability_percentage: 75,
         allocation_status: 'FULLY_ALLOCATED',
       },
       {
         person_id: 'person-3',
-        total_allocation: 10,
+        total_allocation_percentage: 10,
         current_availability_percentage: 50,
         allocation_status: 'UNDER_ALLOCATED',
       },

@@ -495,5 +495,3 @@ export const ScenarioMergeModal: React.FC<ScenarioMergeModalProps> = ({
     </Dialog>
   );
 };
-
-export { ScenarioMergeModal };

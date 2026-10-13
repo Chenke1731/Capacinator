@@ -286,7 +286,7 @@ export class ChildClientLogger {
 export const logger = new ClientLogger();
 
 // React Error Boundary helper
-import type React from 'react';
+import React from 'react';
 export function withErrorLogging<P extends object>(
   Component: React.ComponentType<P>,
   componentName?: string

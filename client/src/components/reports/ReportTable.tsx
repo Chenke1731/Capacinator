@@ -3,14 +3,14 @@ import { Link } from 'react-router-dom';
 import { LucideIcon } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
-interface Column {
+export interface Column {
   header: string;
   accessor: string | ((row: any) => any);
   className?: string;
   render?: (value: any, row: any) => React.ReactNode;
 }
 
-interface ActionButton {
+export interface ActionButton {
   to?: string;
   onClick?: () => void;
   icon?: LucideIcon;

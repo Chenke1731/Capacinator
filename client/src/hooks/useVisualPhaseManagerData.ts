@@ -2,14 +2,16 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { api } from '../lib/api-client';
 import { queryKeys } from '../lib/queryKeys';
 
+// 对齐实体版(2026-10-13 批清): 第三份同名本地副本,phase_name/order
+// join 注入可选——与 api 返回的实体 ProjectPhaseTimeline 互不兼容
 interface ProjectPhaseTimeline {
   id: string;
   project_id: string;
   phase_id: string;
-  phase_name: string;
+  phase_name?: string;
   start_date: string;
   end_date: string;
-  phase_order: number;
+  phase_order?: number;
   phase_description?: string;
   phase_color?: string;
 }
@@ -19,8 +21,9 @@ interface PhaseDependency {
   project_id: string;
   predecessor_phase_timeline_id: string;
   successor_phase_timeline_id: string;
-  dependency_type: 'FS' | 'SS' | 'FF' | 'SF';
+  dependency_type?: string;
   lag_days?: number;
+  [key: string]: unknown;
 }
 
 interface PhaseTemplate {
@@ -144,7 +147,7 @@ export function useVisualPhaseManagerData({ projectId, onPhasesChange }: UseVisu
   });
 
   const phases: ProjectPhaseTimeline[] = phasesData?.data || [];
-  const dependencies: PhaseDependency[] = dependenciesData?.data || [];
+  const dependencies: PhaseDependency[] = (dependenciesData?.data || []) as PhaseDependency[];
   const templates: PhaseTemplate[] = Array.isArray(phaseTemplates)
     ? phaseTemplates
     : (phaseTemplates as any)?.data || [];

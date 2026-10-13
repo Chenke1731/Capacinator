@@ -2,14 +2,17 @@
  * Shared types for phase manager components
  */
 
+// 对齐实体版(2026-10-13 批清): phase_name/order 在 /project-phases 行是
+// join 注入的可选列——本地原为必选,与实体 ProjectPhaseTimeline 互不兼容,
+// VisualPhaseManager 两头 import 打架
 export interface ProjectPhaseTimeline {
   id: string;
   project_id: string;
   phase_id: string;
   start_date: string;
   end_date: string;
-  phase_name: string;
-  phase_order: number;
+  phase_name?: string;
+  phase_order?: number;
   is_custom_phase?: number;
 }
 

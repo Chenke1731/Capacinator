@@ -107,7 +107,7 @@ export function VisualPhaseManager({ projectId, projectName: _projectName, onPha
 
     // Filter out test/garbage phases based on common patterns
     const cleanPhases = phasesData.data.filter((phase: ProjectPhaseTimeline) => {
-      const phaseName = phase.phase_name.toLowerCase();
+      const phaseName = (phase.phase_name || '').toLowerCase();
 
       // Filter out obvious test/garbage phases
       if (phaseName.includes('test phase') && (phaseName.includes('1753') || phaseName.includes('1754'))) return false;
@@ -126,10 +126,10 @@ export function VisualPhaseManager({ projectId, projectName: _projectName, onPha
 
     return sortedPhases.map((phase: ProjectPhaseTimeline) => ({
       id: phase.id,
-      name: phase.phase_name,
+      name: phase.phase_name || phase.id,
       startDate: new Date(phase.start_date),
       endDate: new Date(phase.end_date),
-      color: getPhaseColor(phase.phase_name),
+      color: getPhaseColor(phase.phase_name || ''),
       data: phase
     }));
   }, [phasesData]);
@@ -333,10 +333,10 @@ export function VisualPhaseManager({ projectId, projectName: _projectName, onPha
       setIsModalActive(true);
       setEditingPhase(phase);
       setEditPhaseForm({
-        phase_name: phase.phase_name,
+        phase_name: phase.phase_name || '',
         start_date: phase.start_date,
         end_date: phase.end_date,
-        phase_order: phase.phase_order
+        phase_order: phase.phase_order ?? 0
       });
     }
   }, [phasesData]);
@@ -365,7 +365,7 @@ export function VisualPhaseManager({ projectId, projectName: _projectName, onPha
       }));
     } else {
       // Auto-calculate next phase start date
-      const lastPhase = timelineItems.sort((a, b) => (b.data as ProjectPhaseTimeline).phase_order - (a.data as ProjectPhaseTimeline).phase_order)[0];
+      const lastPhase = [...timelineItems].sort((a, b) => ((b.data as ProjectPhaseTimeline).phase_order ?? 0) - ((a.data as ProjectPhaseTimeline).phase_order ?? 0))[0];
       const suggestedStart = lastPhase ? addDays(lastPhase.endDate, 1) : new Date();
       setAddPhaseForm(prev => ({
         ...prev,
@@ -388,7 +388,7 @@ export function VisualPhaseManager({ projectId, projectName: _projectName, onPha
       phase_id: phase.phase_id,
       start_date: format(duplicateStartDate, 'yyyy-MM-dd'),
       end_date: format(duplicateEndDate, 'yyyy-MM-dd'),
-      phase_order: phase.phase_order + 1
+      phase_order: (phase.phase_order ?? 0) + 1
     });
     setShowAddModal(true);
   }, []);
@@ -795,9 +795,9 @@ export function VisualPhaseManager({ projectId, projectName: _projectName, onPha
               borderRadius: '8px',
               overflow: 'hidden'
             }}>
-              {dependenciesData?.data?.length > 0 ? (
+              {(dependenciesData?.data?.length ?? 0) > 0 ? (
                 <div style={{ maxHeight: '200px', overflowY: 'auto' }}>
-                  {dependenciesData.data.map((dep: any) => (
+                  {(dependenciesData?.data || []).map((dep: any) => (
                     <div
                       key={dep.id}
                       style={{

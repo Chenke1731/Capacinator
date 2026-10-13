@@ -196,8 +196,8 @@ export default function Assignments() {
     });
   };
 
-  const formatDate = (date: string) => {
-    return new Date(date).toLocaleDateString(getLocale());
+  const formatDate = (date?: string) => {
+    return date ? new Date(date).toLocaleDateString(getLocale()) : '—';
   };
 
   const getDateModeLabel = (mode?: string) =>
@@ -488,6 +488,7 @@ export default function Assignments() {
       render: (_, row) => {
         const startDate = row.computed_start_date || row.start_date;
         const endDate = row.computed_end_date || row.end_date;
+        if (!startDate || !endDate) return '—';
         const start = new Date(startDate);
         const end = new Date(endDate);
         const days = Math.ceil((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24));
@@ -600,7 +601,7 @@ export default function Assignments() {
       name: 'person_id',
       label: t('assignments:fields.person'),
       type: 'select' as const,
-      options: (Array.isArray(people) ? people : (people as any)?.data)?.map(person => ({ value: person.id, label: person.name })) || []
+      options: (Array.isArray(people) ? people : (people as any)?.data)?.map((person: any) => ({ value: person.id, label: person.name })) || []
     },
     {
       name: 'role_id',
@@ -683,19 +684,19 @@ export default function Assignments() {
             </h3>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem' }}>
               <div className="state-metric">
-                <div style={{ fontSize: '1.5rem', fontWeight: 'bold', color: currentState.summary?.overallocated_people > 0 ? 'var(--danger)' : 'var(--success)' }}>
+                <div style={{ fontSize: '1.5rem', fontWeight: 'bold', color: (currentState.summary?.overallocated_people ?? 0) > 0 ? 'var(--danger)' : 'var(--success)' }}>
                   {currentState.summary?.overallocated_people || 0}
                 </div>
                 <div style={{ fontSize: '0.875rem', color: 'var(--text-secondary)' }}>{t('assignments:rec.overallocatedPeople')}</div>
               </div>
               <div className="state-metric">
-                <div style={{ fontSize: '1.5rem', fontWeight: 'bold', color: currentState.summary?.underutilized_people > 0 ? 'var(--warning)' : 'var(--success)' }}>
+                <div style={{ fontSize: '1.5rem', fontWeight: 'bold', color: (currentState.summary?.underutilized_people ?? 0) > 0 ? 'var(--warning)' : 'var(--success)' }}>
                   {currentState.summary?.underutilized_people || 0}
                 </div>
                 <div style={{ fontSize: '0.875rem', color: 'var(--text-secondary)' }}>{t('assignments:rec.underutilizedPeople')}</div>
               </div>
               <div className="state-metric">
-                <div style={{ fontSize: '1.5rem', fontWeight: 'bold', color: currentState.summary?.capacity_gaps > 0 ? 'var(--danger)' : 'var(--success)' }}>
+                <div style={{ fontSize: '1.5rem', fontWeight: 'bold', color: (currentState.summary?.capacity_gaps ?? 0) > 0 ? 'var(--danger)' : 'var(--success)' }}>
                   {currentState.summary?.capacity_gaps || 0}
                 </div>
                 <div style={{ fontSize: '0.875rem', color: 'var(--text-secondary)' }}>{t('assignments:rec.capacityGaps')}</div>
@@ -736,7 +737,8 @@ export default function Assignments() {
               <tbody>
                 {recommendations.map((rec) => {
                   // For simple recommendations, extract the first action details
-                  const primaryAction = rec.actions[0];
+                  const actions = rec.actions || [];
+                  const primaryAction = actions[0];
                   const startDate = primaryAction?.start_date ? new Date(primaryAction.start_date).toLocaleDateString(getLocale(), { month: 'short', year: 'numeric' }) : '';
                   const endDate = primaryAction?.end_date ? new Date(primaryAction.end_date).toLocaleDateString(getLocale(), { month: 'short', year: 'numeric' }) : '';
                   
@@ -751,7 +753,7 @@ export default function Assignments() {
                         <div className="person-info">
                           <strong>{primaryAction?.person_name || t('assignments:rec.multiple')}</strong>
                           {rec.type === 'complex' && (
-                            <span className="text-secondary text-sm"> {t('assignments:rec.more', { number: rec.actions.length - 1 })}</span>
+                            <span className="text-secondary text-sm"> {t('assignments:rec.more', { number: actions.length - 1 })}</span>
                           )}
                         </div>
                       </td>
@@ -779,7 +781,7 @@ export default function Assignments() {
                       </td>
                       <td>
                         <span className="confidence-badge">
-                          {Math.round(rec.confidence_score)}%
+                          {Math.round(rec.confidence_score ?? 0)}%
                         </span>
                       </td>
                       <td>
@@ -793,7 +795,7 @@ export default function Assignments() {
                             className="btn btn-sm btn-primary"
                             onClick={async () => {
                               const confirmed = window.confirm(
-                                t('assignments:rec.executeConfirm', { title: rec.title, number: rec.actions.length })
+                                t('assignments:rec.executeConfirm', { title: rec.title, number: actions.length })
                               );
                               
                               if (confirmed) {
@@ -860,7 +862,7 @@ export default function Assignments() {
           {activeTab === 'recommendations' && (
             <button
               className="btn btn-secondary"
-              onClick={refetchRecommendations}
+              onClick={() => { refetchRecommendations(); }}
             >
               <Lightbulb size={16} />
               {t('assignments:rec.refresh')}
@@ -911,7 +913,7 @@ export default function Assignments() {
             }}
           >
             <Lightbulb size={16} />
-            {t('assignments:tabs.recommendations')} {recommendationsData?.recommendations?.length > 0 ? `(${recommendationsData.recommendations.length})` : ''}
+            {t('assignments:tabs.recommendations')} {(recommendationsData?.recommendations?.length ?? 0) > 0 ? `(${recommendationsData.recommendations.length})` : ''}
           </button>
         </div>
       </div>

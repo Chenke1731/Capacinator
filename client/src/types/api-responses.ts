@@ -1052,6 +1052,12 @@ export interface ScenarioCompareResponse {
 
 // ============= Recommendations Responses =============
 
+/**
+ * 规格先行声明(2026-10-13 批清): 服务端 /recommendations 目前是占位桩
+ * (RecommendationsController:16 返回空三桶),Assignments 页建议面板按
+ * 目标规格渲染——运行时恒空,此处类型即规格文档;标可选=如实反映
+ * "服务端尚未提供"。服务端实现后收紧必选。
+ */
 export interface Recommendation {
   id: string;
   type: string;
@@ -1069,13 +1075,38 @@ export interface Recommendation {
     description: string;
     auto_executable: boolean;
   }>;
+  /** 规格先行(服务端为占位桩): 建议的可执行动作对象——execute 端点收整组 */
+  actions?: Array<{
+    type?: string;
+    person_id?: string;
+    person_name?: string;
+    project_id?: string;
+    project_name?: string;
+    role_name?: string;
+    start_date?: string;
+    end_date?: string;
+    allocation_percentage?: number;
+    new_allocation?: number;
+  }>;
+  confidence_score?: number;
+  impact_summary?: string;
   created_at: string;
   expires_at?: string;
 }
 
+export interface RecommendationsCurrentState {
+  summary?: {
+    overallocated_people?: number;
+    underutilized_people?: number;
+    capacity_gaps?: number;
+    unassigned_projects?: number;
+  };
+}
+
 export interface RecommendationsResponse {
-  recommendations: Recommendation[];
-  summary: {
+  recommendations?: Recommendation[];
+  current_state?: RecommendationsCurrentState;
+  summary?: {
     total: number;
     by_priority: Record<string, number>;
     by_category: Record<string, number>;

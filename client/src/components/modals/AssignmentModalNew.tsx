@@ -25,7 +25,7 @@ import { Alert, AlertDescription } from '../ui/alert';
 import { Textarea } from '../ui/textarea';
 import { Checkbox } from '../ui/checkbox';
 import { Spinner } from '../ui/spinner';
-import type { Project, Person, Role, ProjectPhase, AssignmentDateMode } from '../../types';
+import type { Project, Person, Role, ProjectPhase, ProjectAssignment, AssignmentDateMode } from '../../types';
 
 // Project phase link (from project.phases array)
 interface ProjectPhaseLink {
@@ -73,6 +73,9 @@ interface AssignmentFormData {
 interface AssignmentModalProps {
   isOpen: boolean;
   onClose: () => void;
+  // 页面态是完整行(ProjectAssignment|null),弹层只取可编辑子集——
+  // 结构兼容即收(2026-10-13 批清)
+  editingAssignment?: ProjectAssignment | null;
   onSuccess?: (assignment: EditableAssignment) => void;
   editingAssignment?: EditableAssignment;
 }

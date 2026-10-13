@@ -211,7 +211,9 @@ describe('ProjectModal', () => {
       fireEvent.click(screen.getByRole('button', { name: /Update Project/i }));
       await waitFor(() => expect(api.projects.update).toHaveBeenCalled());
       const payload = (api.projects.update as jest.Mock).mock.calls[0][1];
-      expect([...payload.tag_ids].sort()).toEqual([1, 3]);
+      // tag id 统一 String 化(2026-10-13 批清: 表单态 tag_ids: string[],
+      // 数字 id 场景与真实自增库不冲突——服务端按字符串收)
+      expect([...payload.tag_ids].sort()).toEqual(['1', '3']);
     });
 
     it('populates form with project data when editing', async () => {

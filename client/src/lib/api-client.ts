@@ -678,8 +678,11 @@ export const api = {
 
   // Recommendations
   recommendations: {
-    list: (params?: PaginationParams) => apiClient.get<RecommendationsResponse>('/recommendations', { params }),
-    execute: (recommendationId: string, actions: Record<string, unknown>) => apiClient.post<RecommendationExecuteResponse>(`/recommendations/${recommendationId}/execute`, { actions }),
+    // 服务端占位桩不读参数(2026-10-13 批清)——形状按 Assignments 页
+    // 调用点如实声明,不借 PaginationParams
+    list: (params?: { startDate?: string; endDate?: string; maxRecommendations?: number }) =>
+      apiClient.get<RecommendationsResponse>('/recommendations', { params }),
+    execute: (recommendationId: string, actions: unknown) => apiClient.post<RecommendationExecuteResponse>(`/recommendations/${recommendationId}/execute`, { actions }),
   },
 
   // Health check

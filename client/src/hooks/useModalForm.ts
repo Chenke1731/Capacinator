@@ -19,9 +19,9 @@ export interface UseModalFormConfig<T extends Record<string, any>, TResponse = a
   /** API function to update an existing record */
   onUpdate: (id: string, values: T) => Promise<TResponse>;
   /** Query keys to invalidate on success */
-  queryKeysToInvalidate: string[][];
+  queryKeysToInvalidate: readonly (readonly string[])[];
   /** Additional query keys to invalidate on update (e.g., for the specific entity) */
-  additionalUpdateQueryKeys?: (editingItem: any) => string[][];
+  additionalUpdateQueryKeys?: (editingItem: any) => readonly (readonly string[])[];
   /** Callback called on successful create/update */
   onSuccess?: (data: TResponse, isEditing: boolean) => void;
   /** Callback called on error */

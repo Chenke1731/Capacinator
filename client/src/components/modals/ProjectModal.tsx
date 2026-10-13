@@ -60,6 +60,8 @@ interface ProjectFormData {
   external_id: string;
   owner_id: string;
   current_phase_id: string;
+  component: string;
+  tag_ids: string[];
 }
 
 interface ProjectModalProps {
@@ -75,6 +77,7 @@ interface ProjectModalProps {
 const initialValues: ProjectFormData = {
   name: '',
   project_type_id: '',
+  component_id: '',
   location_id: '',
   priority: 3,
   description: '',
@@ -126,7 +129,9 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
     initialValues,
     validate: validateProject,
     onCreate: async (data) => {
-      const response = await api.projects.create(presetParentId ? { ...data, parent_id: presetParentId } : data);
+      // 表单域(component/tag_ids/data_restrictions 等)超出 Partial<Project>
+      // 白名单载荷的键,服务端 pickWritable 自会过滤——as any 过桥不撒谎
+      const response = await api.projects.create((presetParentId ? { ...data, parent_id: presetParentId } : data) as any);
       return response.data;
     },
     onUpdate: async (id, data) => {
@@ -143,6 +148,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
     getValuesFromItem: (item) => ({
       name: item.name || '',
       project_type_id: item.project_type_id || '',
+      component_id: ((item as any).component_id as string) || '',
       location_id: item.location_id || '',
       priority: item.priority || 3,
       description: item.description || '',
@@ -151,8 +157,8 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
       external_id: item.external_id || '',
       owner_id: item.owner_id || '',
       current_phase_id: item.current_phase_id || '',
-      component_id: ((item as any).component_id as string) || '',
-      tag_ids: (item.tags || []).map((tag) => tag.id)
+      component: '',
+      tag_ids: (item.tags || []).map((tag: any) => String(tag.id))
     }),
   });
 
@@ -202,7 +208,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
     onSuccess: (data: any) => {
       const tag = data?.data;
       if (tag) {
-        handleChange('tag_ids', [...formData.tag_ids, tag.id]);
+        handleChange('tag_ids', [...formData.tag_ids, tag.id as string]);
       }
       setNewTagName('');
       queryClient.invalidateQueries({ queryKey: queryKeys.tags.all });
@@ -332,7 +338,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
                 <SelectContent>
                   {filteredOwners?.map((person) => (
                     <SelectItem key={person.id} value={person.id}>
-                      {person.name} ({person.title || t('projects:noTitle')})
+                      {person.name} ({(person as any).title || t('projects:noTitle')})
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -385,7 +391,8 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
               <Label htmlFor="project-tags">{t('projects:tags.label')}</Label>
               <div id="project-tags" className="flex flex-wrap items-center gap-2" data-testid="project-tags">
                 {allTags.map((tag) => {
-                  const selected = formData.tag_ids.includes(tag.id);
+                  const tagId = String(tag.id);
+                  const selected = formData.tag_ids.includes(tagId);
                   return (
                     <button
                       type="button"
@@ -396,8 +403,8 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
                         handleChange(
                           'tag_ids',
                           selected
-                            ? formData.tag_ids.filter((id) => id !== tag.id)
-                            : [...formData.tag_ids, tag.id]
+                            ? formData.tag_ids.filter((id) => id !== tagId)
+                            : [...formData.tag_ids, tagId]
                         )
                       }
                     >
@@ -434,7 +441,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="none">{t('common:none')}</SelectItem>
-                  {(Array.isArray(phases) ? phases : (phases as any)?.data)?.map((phase) => (
+                  {(Array.isArray(phases) ? phases : (phases as any)?.data)?.map((phase: any) => (
                     <SelectItem key={phase.id} value={phase.id}>
                       {phase.name}
                     </SelectItem>
@@ -470,7 +477,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
             <Checkbox
               id="include_in_demand"
               checked={formData.include_in_demand}
-              onCheckedChange={(checked) => handleChange('include_in_demand', checked)}
+              onCheckedChange={(checked) => handleChange('include_in_demand', checked === true)}
               aria-describedby="include_in_demand-description"
             />
             <Label htmlFor="include_in_demand" className="cursor-pointer">

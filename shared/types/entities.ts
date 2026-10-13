@@ -138,6 +138,8 @@ export interface Person extends BaseEntity {
   location_id?: string;
   /** 停用位(2026-10-13): false=离岗,保留历史、不进新排产候选集 */
   is_active?: boolean;
+  /** 职务(people.title 列,人员表单可填) */
+  title?: string;
   default_availability_percentage: number;
   default_hours_per_day: number;
   is_bubble?: boolean;
@@ -228,6 +230,11 @@ export interface ProjectAssignment extends BaseEntity {
   computed_end_date?: string;
 
   notes?: string;
+
+  // 注入字段(2026-10-13 批清): AssignmentsController 按来源打标
+  // (:431 scenario / :448 direct)并 join scenarios.name——直连行不带
+  assignment_type?: 'scenario' | 'direct';
+  scenario_name?: string;
 
   // Relations (populated when joined)
   project_name?: string;

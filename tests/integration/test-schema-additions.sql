@@ -676,11 +676,14 @@ CREATE TABLE IF NOT EXISTS tags (
   created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
+-- FK/UNIQUE 对齐生产 migration 054(2026-10-13): 手写测试 schema 此前剥掉了
+-- 全部约束——集成层永远测不到 FK 行为,事务回滚断言无据可依
 CREATE TABLE IF NOT EXISTS project_tags (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
-  project_id TEXT NOT NULL,
-  tag_id INTEGER NOT NULL,
-  created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+  project_id TEXT NOT NULL REFERENCES projects(id) ON DELETE CASCADE,
+  tag_id INTEGER NOT NULL REFERENCES tags(id) ON DELETE CASCADE,
+  created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  UNIQUE(project_id, tag_id)
 );
 CREATE INDEX IF NOT EXISTS idx_project_tags_pid ON project_tags(project_id);
 CREATE TABLE IF NOT EXISTS project_lifecycle_events (

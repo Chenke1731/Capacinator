@@ -58,6 +58,18 @@ for (const p of PAGES) {
         const m = n.textContent?.match(/\b([a-z-]{3,}:[a-z][a-zA-Z.]{3,})\b/);
         if (m && n.textContent.trim()) bare.add(m[1]);
       }
+      // 属性裸键(2026-10-13 审计元问题): roleCell.srTooltip 裸键住在 title
+      // 属性里,逃过 textContent 扫描——补扫 title/aria-label/placeholder
+      const KEY_RX = /\b([a-z-]{3,}:[a-z][a-zA-Z.]{3,})\b/;
+      for (const el of document.querySelectorAll('[title],[aria-label],[placeholder]')) {
+        for (const a of ['title', 'aria-label', 'placeholder']) {
+          const v = el.getAttribute(a);
+          if (v) {
+            const m = v.match(KEY_RX);
+            if (m) bare.add(m[1] + ` (${a}=)`);
+          }
+        }
+      }
       out.bare = [...bare];
       out.collapsed = [...document.querySelectorAll('svg')].filter((s) => {
         const r = s.getBoundingClientRect();

@@ -67,4 +67,15 @@ if [ -n "$STAGED_SPEC" ] || [ -n "$STAGED_E2E_CFG" ]; then
   fi
 fi
 
+# 缓存键配对守卫(2026-10-13 全库审计元问题): 渲染闭包有 verify-states,
+# React Query 键闭包此前零防线——撞键/悬空失效全靠人眼。静态扫描 <3s,
+# 不随 staged 文件门控(键配对是跨文件性质,staged 子集无意义)
+echo "── Cache-key pairing (collisions + orphan invalidations) ──"
+node scripts/verify-cache-keys.mjs
+if [ $? -ne 0 ]; then
+  echo "✗ Cache-key violation — commit blocked"
+  echo "  撞键=同一键签名被不同端点声明;悬空失效=invalidate 键不匹配任何查询键"
+  exit 1
+fi
+
 echo "✓ pre-commit passed"

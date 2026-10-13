@@ -294,6 +294,7 @@ npm run dist:linux       # Linux package (.AppImage)
 | 防线 | 机制切片(读闭包哪个维度) | 触发时机 |
 |---|---|---|
 | PreToolUse hook(.zcode) | 命令文本×文件后缀 | 行动时刻(每次 Bash) |
+| verify-cache-keys 静态配对 | 缓存键签名×端点归属×失效前缀匹配(数据闭包;同键异端点=互投毒,悬空失效=回滚静默失败) | 提交时刻(pre-commit,2026-10-13 审计元问题:缓存闭包此前零防线;已知残余:同键不同运行时实参静态不可辨) |
 | verify-states 全称检查器 | 状态×对比度×命中×遮挡×越界×字号×贴锚(渲染闭包) | 渲染时刻(--quick 迭代)/交付时刻(verify-boards 收编) |
 | useCellPopover DEV 自检 | 浮层贴锚/层顶/越界(几何闭包) | 产物时刻(每次打开) |
 | jest 语义测试 | 业务语义 | 提交前 |

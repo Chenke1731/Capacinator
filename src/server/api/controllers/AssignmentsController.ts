@@ -326,14 +326,15 @@ export class AssignmentsController extends BaseController {
         }
 
         // Check for conflicts before creating(读在删除之后、插入之前,保持原顺序;
-        // 入事务后读取失败同样整体回滚,不再留下"已删未插"的窗口)
+        // 传 trx 与事务同连接——另取池连接在文件库读到事务前快照、内存库池等待)
         conflicts = await this.checkConflicts(
           assignmentData.person_id,
           effectiveStartDate,
           effectiveEndDate,
           assignmentData.allocation_percentage,
           undefined,
-          scenarioId
+          scenarioId,
+          trx
         );
 
         if (conflicts && conflicts.total_allocation > 100) {
@@ -824,10 +825,15 @@ export class AssignmentsController extends BaseController {
     end_date: string,
     allocation_percentage: number,
     exclude_assignment_id?: string,
-    scenarioId?: string
+    scenarioId?: string,
+    // 可选事务句柄(2026-10-13): create 事务内在删除之后调用本方法——走
+    // this.db 会另取池连接,文件库读到事务前快照(口径漂移)、内存测试库
+    // 直接池等待挂起;与事务同连接才是"删后查"的本意
+    trx?: any
   ): Promise<AssignmentConflict | null> {
+    const db = trx ?? this.db;
     // Get person details
-    const person = await this.db('people')
+    const person = await db('people')
       .where('id', person_id)
       .first();
 
@@ -839,7 +845,7 @@ export class AssignmentsController extends BaseController {
     }
 
     // Get overlapping assignments from assignments_view (includes both direct and scenario assignments)
-    let query = this.db('assignments_view')
+    let query = db('assignments_view')
       .join('projects', 'assignments_view.project_id', 'projects.id')
       .where('assignments_view.person_id', person_id)
       .where('assignments_view.scenario_id', scenarioId)
@@ -872,7 +878,7 @@ export class AssignmentsController extends BaseController {
     );
 
     // Get person's current availability
-    const availability = await this.db('person_availability_view')
+    const availability = await db('person_availability_view')
       .where('person_id', person_id)
       .first();
 

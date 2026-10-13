@@ -303,4 +303,41 @@ describe('ProjectsController batch endpoints', () => {
       await db('project_types').where('id', typeId).del();
     });
   });
+
+  describe('事务回滚(2026-10-13 主链入事务)', () => {
+    it('create 标签 FK 失败不留僵尸项目——整体回滚', async () => {
+      const typeId = randomUUID();
+      const subTypeId = randomUUID();
+      await db('project_types').insert({ id: typeId, name: `TX-ROLLBACK-${typeId.slice(0, 8)}`, created_at: new Date().toISOString(), updated_at: new Date().toISOString() });
+      await db('project_sub_types').insert({ id: subTypeId, name: `TX-SUB-${subTypeId.slice(0, 8)}`, project_type_id: typeId, created_at: new Date().toISOString(), updated_at: new Date().toISOString() });
+
+      // tag_ids 含不存在 id: 项目行已插,标签插入撞 FK → 四段写入整体回滚
+      // (无事务时此处留下无标签僵尸项目)
+      const { res } = await call(controller.create, {
+        name: 'TX-ZOMBIE',
+        project_type_id: typeId,
+        project_sub_type_id: subTypeId,
+        tag_ids: [999999]
+      });
+      expect(res.status).toHaveBeenCalledWith(500);
+      expect(await db('projects').where('name', 'TX-ZOMBIE').first()).toBeUndefined();
+
+      await db('project_sub_types').where('id', subTypeId).del();
+      await db('project_types').where('id', typeId).del();
+    });
+
+    it('update 标签替换插入失败回滚——原标签不丢', async () => {
+      const id = await insertProject({ name: 'TX-TAG-KEEP' });
+      await db('project_tags').insert({ project_id: id, tag_id: fixture.tagA, created_at: new Date().toISOString() });
+
+      // del 全部旧标签后插入含 FK 垃圾的新集合 → 失败必须整体回滚
+      const { res } = await call(controller.update, { tag_ids: [fixture.tagA, 999999] }, { id });
+      expect(res.status).toHaveBeenCalledWith(500);
+      const tags = await db('project_tags').where('project_id', id).select('tag_id');
+      expect(tags.map((t: any) => t.tag_id)).toEqual([fixture.tagA]);
+
+      await db('project_tags').where('project_id', id).del();
+      await db('projects').where('id', id).del();
+    });
+  });
 });

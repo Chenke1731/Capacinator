@@ -130,6 +130,10 @@ export const queryKeys = {
     lists: () => [...queryKeys.projects.all, 'list'] as const,
     list: (filters?: ProjectFilters, scenarioId?: string) =>
       [...queryKeys.projects.lists(), filters, scenarioId] as const,
+    /** 看板专用 feed(P7 裸 {data} 信封,与 list 的分页信封不同形)——
+     *  2026-10-13 缓存键守卫: 原先借 list 键,同签名换端点即互投毒 */
+    boardFeed: (lifecycle?: string, scenarioId?: string) =>
+      [...queryKeys.projects.all, 'board-feed', lifecycle, scenarioId] as const,
     details: () => [...queryKeys.projects.all, 'detail'] as const,
     detail: (id: string) => [...queryKeys.projects.details(), id] as const,
     phases: (projectId: string) =>

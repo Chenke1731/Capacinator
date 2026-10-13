@@ -631,4 +631,56 @@ describe('AssignmentsController Integration Tests', () => {
       expect(conflictOverlapping?.total_allocation).toBe(250); // 100 + 100 + 50 during overlap
     });
   });
+
+  describe('SE/MDE 原子替换回滚(2026-10-13 事务化)', () => {
+    test('插入失败时旧 SE 分配不丢——事务回滚保数据', async () => {
+      const seRoleId = randomUUID();
+      await db('roles').insert({ id: seRoleId, name: 'SE', created_at: new Date(), updated_at: new Date() });
+      const oldRowId = randomUUID();
+      await db('scenario_project_assignments').insert({
+        id: oldRowId,
+        scenario_id: 'baseline-0000-0000-0000-000000000000',
+        project_id: testData.project1_id,
+        person_id: testData.person_id,
+        role_id: seRoleId,
+        allocation_percentage: 100,
+        status: 'active',
+        assignment_date_mode: 'fixed',
+        start_date: '2026-01-01',
+        end_date: '2026-01-31',
+        created_at: new Date(),
+        updated_at: new Date()
+      });
+
+      // 同项目同角色换人但 person_id 不存在: 事务内先删旧 SE 再插入,插入撞
+      // person FK → 整体回滚——旧分配必须还在(无事务时此处即永久丢数据)
+      const req: any = createMockRequest({
+        body: {
+          project_id: testData.project1_id,
+          person_id: randomUUID(),
+          role_id: seRoleId,
+          allocation_percentage: 50,
+          assignment_date_mode: 'fixed',
+          start_date: '2026-02-01',
+          end_date: '2026-02-28'
+        },
+        headers: { 'x-scenario-id': 'baseline-0000-0000-0000-000000000000' }
+      });
+      const res: any = createMockResponse();
+      controller.create(req, res);
+      for (let i = 0; i < 100; i++) {
+        if (res.json.mock?.calls.length || res.status.mock?.calls.length) break;
+        await new Promise((r) => setTimeout(r, 10));
+      }
+      expect(res.status).toHaveBeenCalledWith(500);
+
+      const survivors = await db('scenario_project_assignments')
+        .where({ project_id: testData.project1_id, role_id: seRoleId });
+      expect(survivors.length).toBe(1);
+      expect(survivors[0].person_id).toBe(testData.person_id);
+
+      await db('scenario_project_assignments').where('id', oldRowId).del();
+      await db('roles').where('id', seRoleId).del();
+    });
+  });
 });

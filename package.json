@@ -87,6 +87,7 @@
     "verify:visual": "node scripts/verify-visual.mjs",
     "verify:site": "node scripts/verify-site.mjs",
     "verify:states": "node scripts/verify-states.mjs",
+    "verify:cache": "node scripts/verify-cache-keys.mjs",
     "verify:states:selftest": "node scripts/verify-states.mjs --selftest",
     "verify:visual:update": "UPDATE_BASELINES=1 node scripts/verify-visual.mjs",
     "debug:board": "node scripts/debug-board.mjs",

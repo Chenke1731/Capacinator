@@ -313,7 +313,9 @@ export function Projects() {
   const [editingProject, setEditingProject] = useState<Project | null>(null);
 
   const { data: projects, isLoading, error } = useQuery({
-    queryKey: queryKeys.projects.list({ category: 'demand', lifecycle: filters.lifecycle_state }, currentScenario?.id),
+    // board-feed 裸 {data} 信封与 list 分页信封不同形——专用键,不再借
+    // list 键(2026-10-13 缓存键守卫首战: 同签名换端点即互投毒)
+    queryKey: queryKeys.projects.boardFeed(filters.lifecycle_state, currentScenario?.id),
     queryFn: async () => {
       // board-feed (P7): the whole board in one slim request — projection
       // audited against the board's 14 cells + tree/filter/category inputs.

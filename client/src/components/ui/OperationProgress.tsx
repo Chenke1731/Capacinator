@@ -186,7 +186,7 @@ export function OperationProgress({
           <p className="text-xs font-medium text-yellow-700 dark:text-yellow-300 mb-1">
             Warnings ({warnings.length}):
           </p>
-          <ul className="text-xs text-yellow-600 dark:text-yellow-400 list-disc list-inside max-h-24 overflow-y-auto">
+          <ul className="text-xs text-yellow-700 dark:text-yellow-300 list-disc list-inside max-h-24 overflow-y-auto">
             {warnings.slice(0, 5).map((warning, index) => (
               <li key={index} className="truncate">{warning}</li>
             ))}

@@ -20,7 +20,7 @@ const statusConfig: Record<SyncStatus, { labelKey: string; color: string; icon: 
   },
   pending: {
     labelKey: 'gitSync:status.pending',
-    color: 'text-yellow-600 bg-yellow-50',
+    color: 'text-yellow-700 bg-yellow-50', /* 600 对 yellow-50 3.08<4.5,压深一档 */
     icon: '⏳',
   },
   syncing: {

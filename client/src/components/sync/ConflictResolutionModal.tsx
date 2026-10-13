@@ -89,7 +89,7 @@ export const ConflictResolutionModal: React.FC<ConflictResolutionModalProps> = (
               <div className="mb-6 p-4 bg-yellow-50 border-l-4 border-yellow-400 rounded">
                 <div className="flex items-start">
                   <div className="flex-shrink-0">
-                    <span className="text-yellow-600 text-xl">⚠</span>
+                    <span className="text-yellow-700 text-xl">⚠</span>
                   </div>
                   <div className="ml-3">
                     <h3 className="text-sm font-medium text-yellow-800">

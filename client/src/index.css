@@ -1417,8 +1417,11 @@ html body .settings-section .checkbox-label,
   --primary-dark: #4f46e5;
   --primary-text: #a5b4fc;
   --tag-ink: #f9fafb;
-  /* 同名令牌暗色值(2026-10-13 全库审计): 卡片在暗色下取抬升面而非页面底 */
-  --primary-color: var(--primary);
+  /* 同名令牌暗色值(2026-10-13 全库审计): 卡片在暗色下取抬升面而非页面底;
+     primary-color 是"主色作前景文字/描边"的别名——indigo-500 在深底 4.0<4.5,
+     指向 --primary-text(indigo-300 系, 页底 8.96/卡底 7.34);全部消费面均为
+     前景用途(Assignments 标签文字/输入描边/checkbox accent),无背景类 */
+  --primary-color: var(--primary-text);
   --card-bg: var(--bg-secondary);
   --border-hover: var(--primary);
   

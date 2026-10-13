@@ -48,7 +48,7 @@ const STATUS_CONFIG = {
     icon: TrendingUp
   },
   warning: {
-    color: 'text-yellow-600',
+    color: 'text-yellow-700', /* 600 对 yellow-50 仅 3.08<4.5,压深一档 4.86 */
     bgColor: 'bg-yellow-50',
     borderColor: 'border-yellow-200',
     icon: AlertCircle
@@ -288,7 +288,7 @@ export function EnhancedKPIs({ dashboard, className = '' }: EnhancedKPIsProps) {
                   <p className="text-xs text-muted-foreground">{kpi.description}</p>
 
                   {kpi.value === 0 && kpi.id === 'resource-efficiency' ? (
-                    <div className="text-xs text-yellow-600 mt-2 p-2 bg-yellow-50 rounded">
+                    <div className="text-xs text-yellow-700 mt-2 p-2 bg-yellow-50 rounded">
                       {t('dashboard:kpis.noAllocations')}
                     </div>
                   ) : (

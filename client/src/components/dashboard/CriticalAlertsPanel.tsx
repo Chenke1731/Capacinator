@@ -46,7 +46,7 @@ const ALERT_CONFIG = {
   },
   deadline_warning: {
     icon: Clock,
-    color: 'text-yellow-600 dark:text-yellow-400',
+    color: 'text-yellow-700 dark:text-yellow-400', /* 浅色 600 对 yellow-50 3.08<4.5,压深一档 4.86 */
     bgColor: 'bg-yellow-50 dark:bg-yellow-500/15',
     borderColor: 'border-yellow-200 dark:border-yellow-500/30'
   },

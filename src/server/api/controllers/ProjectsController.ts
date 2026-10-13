@@ -23,6 +23,37 @@ export class ProjectsController extends BaseController {
    * Automatically inherits phases from project type template when creating a new project.
    * Creates project_phases_timeline entries with template tracking and duration constraints.
    */
+  /** projects 客户端可写列(2026-10-13 全库审计 E1 根治: 白名单制——黑名单
+   *  漏一个就漏一片)。列集经真实迁移库核对(行键×迁移源交叉);漂移守卫见
+   *  tests/unit/server/controllers/projectsWritableColumns.test.ts——新增
+   *  可写列必须同步两侧 */
+  static readonly WRITABLE_COLUMNS = [
+    'name', 'description', 'project_type_id', 'project_sub_type_id', 'current_phase_id',
+    'parent_id', 'owner_id', 'location_id', 'component_id', 'component', 'external_number',
+    'priority', 'product_version', 'release_version', 'include_in_demand',
+    'aspiration_start', 'aspiration_finish', 'iteration_id'
+  ] as const;
+
+  /** 专门通道处理的载荷键(标签合并/估算映射),不算未知键,不告警 */
+  private static readonly HANDLED_PAYLOAD_KEYS = new Set([
+    'tag_ids', 'se_estimate_pm', 'mde_estimate_pm', 'estimated_kloc', 'estimated_pm'
+  ]);
+
+  private pickWritable(body: Record<string, any>, allowId: boolean): Record<string, any> {
+    const writable = new Set<string>(ProjectsController.WRITABLE_COLUMNS);
+    const out: Record<string, any> = {};
+    const dropped: string[] = [];
+    for (const [k, v] of Object.entries(body ?? {})) {
+      if (k === 'id' && allowId) { out.id = v; continue; }
+      if (writable.has(k)) out[k] = v;
+      else if (!ProjectsController.HANDLED_PAYLOAD_KEYS.has(k)) dropped.push(k);
+    }
+    if (dropped.length) {
+      logger.warn('projects write dropped non-writable keys', { dropped: dropped.slice(0, 10) });
+    }
+    return out;
+  }
+
   private async inheritProjectPhases(projectId: string, projectTypeId: string, trx?: any): Promise<void> {
     // 可选事务句柄(2026-10-13): create 主链入事务后,阶段继承同事务提交
     const db = trx ?? this.db;
@@ -758,16 +789,9 @@ export class ProjectsController extends BaseController {
 
       // tag_ids is a junction-table payload, not a projects column
       const tagIds: Array<number | string> = Array.isArray(projectData.tag_ids) ? projectData.tag_ids : [];
-      const sanitizedData = { ...projectData };
-      delete sanitizedData.tag_ids;
-      // 'status' is a legacy field name — the column does not exist
-      // (lifecycle is owned by the state machine; create defaults to
-      // pending_rat below). Passing it through made the insert 500.
-      delete sanitizedData.status;
-      // 生命周期/迭代文本字段归状态机端点独管(update 侧同款): lifecycle_state
-      // 下方按类型强制覆写;iteration_label 是状态机文本字段,create 不收
-      // (2026-10-13 全库审计: 非 lifecycle 类型此前可带任意 lifecycle_state 直插)
-      delete sanitizedData.iteration_label;
+      // 白名单制(2026-10-13 全库审计 E1 根治): 只收真实列的客户端可写集,
+      // 状态机字段/身份列/未知键一律丢弃并告警;tag_ids 在此之前已另行解析
+      const sanitizedData = this.pickWritable(projectData, true);
       // parent_id 补入归一名单(2026-10-13 审计: '' 原先跳过校验直插字面空串)
       const nullableForeignKeys = ['owner_id', 'project_sub_type_id', 'current_phase_id', 'location_id', 'component_id', 'parent_id'];
 
@@ -887,10 +911,9 @@ export class ProjectsController extends BaseController {
       // tag_ids is a junction-table payload, not a projects column
       const tagIdsProvided = Array.isArray(updateData.tag_ids);
       const tagIds: Array<number | string> = tagIdsProvided ? updateData.tag_ids : [];
-      const sanitizedData = { ...updateData };
-      delete sanitizedData.tag_ids;
-      // Legacy field name, no such column — see the create-side note.
-      delete sanitizedData.status;
+      // 白名单制(2026-10-13 E1 根治,与 create 同一可写集——id 除外):
+      // 身份列(id/seq_number/时间戳)与状态机独管字段不再靠逐条 delete 围栏
+      const sanitizedData = this.pickWritable(updateData, false);
 
       // 迭代挂接(事实字段,设计 §0.6): 值必须存在于迭代表(空=解除挂接);
       // 有子行的 SR 其迭代列是子行聚合只读窗——不变量与 batch-update 共用
@@ -917,32 +940,21 @@ export class ProjectsController extends BaseController {
         sanitizedData.iteration_id = iterId;
       }
       // se/mde 粗估分量: 看板就地编辑走 update 端点,服务端映射到最新设计
-      // 粗估记录(无则创建,总量=分量和;实施日志 D3/D5)
-      const seEst = sanitizedData.se_estimate_pm;
-      const mdeEst = sanitizedData.mde_estimate_pm;
-      delete sanitizedData.se_estimate_pm;
-      delete sanitizedData.mde_estimate_pm;
+      // 粗估记录(无则创建,总量=分量和;实施日志 D3/D5)——非列载荷,从原始
+      // body 读(白名单 pick 已自然丢弃,不再需要 delete)
+      const seEst = updateData.se_estimate_pm;
+      const mdeEst = updateData.mde_estimate_pm;
       // 代码规模(kloc)/人月覆盖(estimated_pm): 看板就地编辑映射到最新 LOC
       // 评估记录(2026-09-23 裁决: 换算给默认,手动可覆盖,改规模不重置覆盖)
-      const klocIn = sanitizedData.estimated_kloc;
-      const pmOverride = sanitizedData.estimated_pm;
-      delete sanitizedData.estimated_kloc;
-      delete sanitizedData.estimated_pm;
+      const klocIn = updateData.estimated_kloc;
+      const pmOverride = updateData.estimated_pm;
 
       // Lifecycle fields are owned by the state machine endpoints only
       // (POST /projects/:id/lifecycle/*) — never by the generic update.
       // external_number 例外: 2026-09-22 起允许就地编辑(需求台 AR 号内联),
       // lifecycle 端点的 RAT 回填语义不变。
-      delete sanitizedData.lifecycle_state;
-      delete sanitizedData.iteration_label;
-      // 身份列不可经客户端改写(2026-10-13 全库审计 E1): batch-update 有
-      // ALLOWED_PATCH_KEYS 白名单,单条 update 至少围栏主键/序号/时间戳——
-      // 否则载荷可中途改写 id,断掉 parent/assignment 的全部引用
-      delete sanitizedData.id;
-      delete sanitizedData.seq_number;
-      delete sanitizedData.created_at;
-      delete sanitizedData.updated_at;
-      delete sanitizedData.external_id;
+      // (身份列/lifecycle_state/iteration_label 等已由上方 pickWritable 白名单
+      //  拦截,2026-10-13 E1 根治——原先的逐条 delete 围栏退役)
       if (sanitizedData.parent_id !== undefined) {
         const parentErr = await this.validateParent(id, sanitizedData.parent_id);
         if (parentErr) {

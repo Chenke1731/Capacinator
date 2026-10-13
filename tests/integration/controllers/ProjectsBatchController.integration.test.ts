@@ -340,4 +340,56 @@ describe('ProjectsController batch endpoints', () => {
       await db('projects').where('id', id).del();
     });
   });
+
+  describe('写入白名单(2026-10-13 E1 根治)', () => {
+    it('PUT 丢弃身份列/状态机字段/未知键——行不被改写,不 500', async () => {
+      const id = await insertProject({ name: 'WL-KEEP', seq_number: 777 });
+      const { res } = await call(controller.update, {
+        name: 'WL-KEEP-2',
+        id: 'hijack-attempt',
+        seq_number: 9999,
+        created_at: '1999-01-01T00:00:00.000Z',
+        lifecycle_state: 'delivered',
+        bogus_field: 'x'
+      }, { id });
+      expect(res.json).toHaveBeenCalledWith(expect.objectContaining({ success: true }));
+
+      const row = await db('projects').where('id', id).first();
+      expect(row.id).toBe(id);                    // 主键劫持被拦
+      expect(row.seq_number).toBe(777);           // 序号劫持被拦
+      expect(row.name).toBe('WL-KEEP-2');         // 合法字段照常生效
+      expect(row.lifecycle_state).toBeNull();     // 状态机字段不可经通用 update 写
+      expect((row as any).bogus_field).toBeUndefined();
+
+      await db('projects').where('id', id).del();
+    });
+
+    it('create 同样丢弃非白名单载荷(列在不在都不收)', async () => {
+      const typeId = randomUUID();
+      const subTypeId = randomUUID();
+      await db('project_types').insert({ id: typeId, name: `WL-T-${typeId.slice(0, 6)}`, created_at: new Date().toISOString(), updated_at: new Date().toISOString() });
+      await db('project_sub_types').insert({ id: subTypeId, name: `WL-S-${subTypeId.slice(0, 6)}`, project_type_id: typeId, created_at: new Date().toISOString(), updated_at: new Date().toISOString() });
+
+      const { res } = await call(controller.create, {
+        name: 'WL-DROP',
+        project_type_id: typeId,
+        project_sub_type_id: subTypeId,
+        status: 'active',
+        lifecycle_state: 'delivered',
+        budget: 999,
+        ghost_key: 1
+      });
+      expect(res.json).toHaveBeenCalledWith(expect.objectContaining({ success: true }));
+
+      const row = await db('projects').where('name', 'WL-DROP').first();
+      expect(row).toBeTruthy();
+      expect(row.lifecycle_state).toBeNull();        // 非生命周期类型强制 NULL
+      expect((row as any).budget).toBeNull();        // 手写库虽有此列,载荷值未写入(默认 NULL)
+      expect((row as any).ghost_key).toBeUndefined();
+
+      await db('projects').where('id', row.id).del();
+      await db('project_sub_types').where('id', subTypeId).del();
+      await db('project_types').where('id', typeId).del();
+    });
+  });
 });

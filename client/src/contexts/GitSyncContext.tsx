@@ -148,8 +148,10 @@ export const GitSyncProvider: React.FC<GitSyncProviderProps> = ({ children }) =>
       // the queryClient note at the top of the provider).
       queryClient.invalidateQueries();
 
-      if (pullResult.data?.conflicts?.length > 0) {
-        setConflicts(pullResult.data.conflicts);
+      // 信封双层解包(2026-10-13 批清): 服务端 body={success,data:{conflicts[]}},
+      // 原先漏一层读 undefined——冲突被静默吞掉(潜伏运行时洞,类型修正后现形)
+      if (pullResult.data?.data?.conflicts?.length > 0) {
+        setConflicts(pullResult.data.data.conflicts);
         setStatus('conflict');
       } else {
         setStatus('synced');
@@ -179,9 +181,9 @@ export const GitSyncProvider: React.FC<GitSyncProviderProps> = ({ children }) =>
       // of the remote data.
       queryClient.invalidateQueries();
 
-      // Check for conflicts (Task: T058)
-      if (result.data?.conflicts?.length > 0) {
-        setConflicts(result.data.conflicts);
+      // Check for conflicts (Task: T058)——双层解包同上
+      if (result.data?.data?.conflicts?.length > 0) {
+        setConflicts(result.data.data.conflicts);
         setStatus('conflict');
         // Conflict resolution UI will be triggered by status change
       } else {
@@ -244,9 +246,12 @@ export const GitSyncProvider: React.FC<GitSyncProviderProps> = ({ children }) =>
     try {
       const result = await api.sync.getStatus();
 
-      if (result.data) {
+      // 双层解包(2026-10-13 批清): 原先读 body.status 恒 undefined——
+      // 状态映射/计数从未生效过,类型对齐服务端后此洞现形
+      const st = result.data?.data;
+      if (st) {
         // Map backend status to frontend SyncStatus type
-        const backendStatus = result.data.status;
+        const backendStatus = st.status;
         if (backendStatus === 'not-initialized') {
           setStatus('offline');
         } else if (backendStatus === 'behind') {
@@ -256,10 +261,10 @@ export const GitSyncProvider: React.FC<GitSyncProviderProps> = ({ children }) =>
         }
 
         // Update pending count and conflicts
-        setPendingCount(result.data.pendingChangesCount || offlineQueue.length);
+        setPendingCount(st.pendingChangesCount || offlineQueue.length);
 
         // Get conflicts if any
-        if (result.data.conflictsCount > 0) {
+        if (st.conflictsCount > 0) {
           const conflictsResult = await api.sync.getConflicts();
           setConflicts(conflictsResult.data?.data || []);
           setStatus('conflict');
@@ -277,9 +282,12 @@ export const GitSyncProvider: React.FC<GitSyncProviderProps> = ({ children }) =>
   const refreshConflicts = async () => {
     try {
       const result = await api.sync.getConflicts();
-      if (result.data) {
-        setConflicts(result.data || []);
-        if (result.data.length > 0) {
+      // 信封 {success,data:[]}——refreshStatus 的双层解包是对的,这里原先
+      // 拿整个信封当数组(length 恒 undefined)是潜伏洞
+      const list = result.data?.data;
+      if (list) {
+        setConflicts(list);
+        if (list.length > 0) {
           setStatus('conflict');
         } else if (status === 'conflict') {
           setStatus('synced');

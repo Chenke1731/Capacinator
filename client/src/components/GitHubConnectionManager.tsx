@@ -14,8 +14,8 @@ import {
   useInitiateOAuth,
   useUpdateGitHubConnection,
   useDeleteGitHubConnection,
-  type GitHubConnection,
 } from '../hooks/useGitHubConnections';
+import type { GitHubConnection } from '../types';
 import { getLocale } from '../i18n';
 import { GitHubPATInput } from './GitHubPATInput';
 import { Button } from './ui/button';
@@ -56,7 +56,7 @@ export function GitHubConnectionManager() {
   const { mutate: deleteConnection, isPending: isDeleting } = useDeleteGitHubConnection();
 
   const handleConnectOAuth = () => {
-    initiateOAuth();
+    initiateOAuth({});
   };
 
   const handleConnectPAT = () => {

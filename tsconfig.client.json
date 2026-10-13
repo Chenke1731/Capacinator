@@ -6,8 +6,12 @@
     "moduleResolution": "Bundler",
     "lib": ["ES2022", "DOM", "DOM.Iterable"],
     "jsx": "react-jsx",
-    "types": ["vite/client"],
-    "noEmit": true
+    "types": ["vite/client", "@testing-library/jest-dom"],
+    "noEmit": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./client/src/*"]
+    }
   },
   "include": ["client/src/**/*"],
   "exclude": ["node_modules", "dist", "client/node_modules"]

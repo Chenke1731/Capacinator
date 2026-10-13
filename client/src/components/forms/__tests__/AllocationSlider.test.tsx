@@ -1,4 +1,6 @@
-import { describe, it, expect, jest } from '@jest/globals';
+// 全局 jest + jest-dom side-effect(2026-10-13 批清): jest-dom 6.x 只增强
+// 全局 jest.Matchers,@jest/globals 具名导入拿到的是未增强的另一套类型
+import '@testing-library/jest-dom';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { AllocationSlider } from '../AllocationSlider';
 

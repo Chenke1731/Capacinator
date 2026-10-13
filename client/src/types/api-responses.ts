@@ -892,21 +892,33 @@ export interface AuditStatsResponse {
 
 // ============= Git Sync Responses =============
 
+/** GitSync 域(2026-10-13 批清): 形状按 GitSyncController 实际返回核对——
+ *  原蛇形类型系小说(服务端从来是驼峰+{success,data}信封),消费者按驼峰
+ *  写;统一以服务端为准,消费者解包缺口一并修 */
+export interface SyncStatusData {
+  status: 'not-initialized' | 'pending' | 'behind' | 'synced';
+  pendingChangesCount: number;
+  lastSyncAt: string | null;
+  conflictsCount: number;
+  repositoryUrl: string | null;
+}
+
 export interface SyncStatusResponse {
-  initialized: boolean;
-  branch: string;
-  last_sync?: string;
-  pending_changes: number;
-  conflicts: number;
-  remote_url?: string;
-  remote_status: 'connected' | 'disconnected' | 'error';
+  success: boolean;
+  data: SyncStatusData;
+}
+
+export interface SyncPullData {
+  filesChanged?: number;
+  conflictsDetected: number;
+  conflicts: SyncConflict[];
+  imported?: number;
+  warnings?: string[];
 }
 
 export interface SyncPullResponse {
   success: boolean;
-  changes_pulled: number;
-  conflicts: number;
-  message: string;
+  data: SyncPullData;
 }
 
 export interface SyncPushResponse {
@@ -916,23 +928,15 @@ export interface SyncPushResponse {
   message: string;
 }
 
-export interface SyncConflict {
-  id: string;
-  entity_type: string;
-  entity_id: string;
-  entity_name?: string;
-  local_value: unknown;
-  remote_value: unknown;
-  conflicting_field: string;
-  detected_at: string;
-}
+// SyncConflict 统一收敛到 shared/git-entities 的 Conflict 真身(2026-10-13
+// 批清): 两份同构类型并存曾让 setConflicts 互不兼容;type 别名建立本地
+// 绑定(re-export 不绑定,预算守卫的 cannot-find-name 雷会拦)
+import type { Conflict } from '../../../shared/types/git-entities';
+export type SyncConflict = Conflict;
 
 export interface SyncConflictsResponse {
-  conflicts: SyncConflict[];
-  summary: {
-    total: number;
-    by_entity_type: Record<string, number>;
-  };
+  success: boolean;
+  data: SyncConflict[];
 }
 
 export interface SyncConflictResolveResponse {
@@ -1238,23 +1242,30 @@ export interface Tag {
 
 export interface GitHubConnection {
   id: number;
+  user_id: number;
   github_user_id: number;
   github_username: string;
-  connection_method: string;
-  status: string;
+  connection_method: 'oauth' | 'pat';
+  token_expires_at: string | null;
+  scopes: string[];
+  status: 'active' | 'expired' | 'revoked' | 'error';
   is_default: boolean;
   last_used_at: string | null;
   github_base_url: string;
   created_at: string;
   updated_at: string;
   associations?: GitHubAssociation[];
+  // 服务端还回 encrypted_token/refresh_token——类型故意不声明(客户端
+  // 不该消费密钥字段;结构子类型不影响序列化)
 }
 
 export interface GitHubAssociation {
   id: number;
   github_connection_id: number;
   person_id: string;
-  association_type: string;
+  person_name: string | null;
+  person_email: string | null;
+  association_type: 'automatic' | 'manual';
   active: boolean;
   created_at: string;
   updated_at: string;
@@ -1265,12 +1276,17 @@ export type GitHubConnectionResponse = GitHubConnection;
 export type GitHubConnectionUpdateResponse = GitHubConnection;
 export type GitHubConnectionDeleteResponse = { message: string };
 export interface GitHubOAuthInitResponse {
-  authorize_url: string;
+  // 服务端字段名是 authorization_url(GitHubOAuthService:97)——原先的
+  // authorize_url 是杜撰名,授权跳转从未成功过
+  authorization_url: string;
   state: string;
 }
 export type GitHubPATConnectResponse = GitHubConnection;
 export type GitHubAssociationsResponse = GitHubAssociation[];
-export type GitHubAssociationCreateResponse = GitHubAssociation;
+export interface GitHubAssociationCreateResponse {
+  success: boolean;
+  data: GitHubAssociation;
+}
 export type GitHubAssociationDeleteResponse = { message: string };
 
 // ===== Audit recent(批清补全: /audit/recent 与 history 同构 entries 信封) =====

@@ -636,13 +636,16 @@ export class GitHubConnectionController extends BaseController {
         });
       }
 
-      if (!person_id || isNaN(parseInt(person_id, 10))) {
+      // person_id 是 people 的 uuid 字符串(2026-10-13 批清): 原 isNaN
+      // 数字校验把所有 uuid 一律 400——手动关联功能自出生即不可用;改由
+      // 下方 people 存在性检查承担校验
+      if (!person_id || typeof person_id !== 'string') {
         return this.handleValidationError(req, res, {
           person_id: 'Valid person ID is required',
         });
       }
 
-      const personId = parseInt(person_id, 10);
+      const personId = person_id;
 
       const result = await this.executeQuery(
         async () => {
@@ -729,7 +732,8 @@ export class GitHubConnectionController extends BaseController {
 
       const { id, person_id } = req.params;
       const connectionId = parseInt(id, 10);
-      const personId = parseInt(person_id, 10);
+      // person_id 是 uuid 字符串(同 create 侧修正,2026-10-13)
+      const personId = person_id;
 
       if (isNaN(connectionId)) {
         return this.handleValidationError(req, res, {
@@ -737,7 +741,7 @@ export class GitHubConnectionController extends BaseController {
         });
       }
 
-      if (isNaN(personId)) {
+      if (!personId) {
         return this.handleValidationError(req, res, {
           person_id: 'Invalid person ID',
         });

@@ -1,4 +1,4 @@
-import { describe, it, expect } from '@jest/globals';
+import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import { FormSection } from '../FormSection';
 

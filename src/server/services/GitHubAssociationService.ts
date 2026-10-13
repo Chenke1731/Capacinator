@@ -82,15 +82,20 @@ export class GitHubAssociationService {
     githubConnectionId: number,
     includeInactive = false
   ): Promise<GitHubAccountAssociation[]> {
-    let query = this.db('github_account_associations').where({
-      github_connection_id: githubConnectionId,
-    });
+    // join people 带出 person_name/person_email(2026-10-13 批清): 客户端
+    // 关联列表一直渲染这两个字段,服务端从未提供——恒空白的潜伏显示洞
+    let query = this.db('github_account_associations as gaa')
+      .leftJoin('people', 'gaa.person_id', 'people.id')
+      .where({
+        'gaa.github_connection_id': githubConnectionId,
+      })
+      .select('gaa.*', 'people.name as person_name', 'people.email as person_email');
 
     if (!includeInactive) {
-      query = query.where({ active: true });
+      query = query.where('gaa.active', true);
     }
 
-    const rows = await query.orderBy('created_at', 'desc');
+    const rows = await query.orderBy('gaa.created_at', 'desc');
 
     return rows.map((row) => this.mapRowToAssociation(row));
   }
@@ -103,7 +108,7 @@ export class GitHubAssociationService {
    * @returns Array of associations
    */
   async findByPersonId(
-    personId: number,
+    personId: string,
     includeInactive = false
   ): Promise<GitHubAccountAssociation[]> {
     let query = this.db('github_account_associations').where({
@@ -129,7 +134,7 @@ export class GitHubAssociationService {
    */
   async findByConnectionAndPerson(
     githubConnectionId: number,
-    personId: number,
+    personId: string,
     includeInactive = false
   ): Promise<GitHubAccountAssociation | null> {
     let query = this.db('github_account_associations').where({
@@ -202,7 +207,7 @@ export class GitHubAssociationService {
    * @param personId - Person ID
    * @returns Number of associations deactivated
    */
-  async deactivateByPersonId(personId: number): Promise<number> {
+  async deactivateByPersonId(personId: string): Promise<number> {
     return await this.db('github_account_associations')
       .where({ person_id: personId, active: true })
       .update({
@@ -250,7 +255,7 @@ export class GitHubAssociationService {
    * @param personId - Person ID
    * @returns Array of GitHub connection IDs
    */
-  async getConnectionIdsForPerson(personId: number): Promise<number[]> {
+  async getConnectionIdsForPerson(personId: string): Promise<number[]> {
     const rows = await this.db('github_account_associations')
       .where({ person_id: personId, active: true })
       .select('github_connection_id');
@@ -267,7 +272,7 @@ export class GitHubAssociationService {
    */
   async exists(
     githubConnectionId: number,
-    personId: number
+    personId: string
   ): Promise<boolean> {
     const association = await this.findByConnectionAndPerson(
       githubConnectionId,
@@ -353,7 +358,7 @@ export class GitHubAssociationService {
    */
   async createManualAssociation(
     githubConnectionId: number,
-    personId: number,
+    personId: string,
     adminUserId: number
   ): Promise<GitHubAccountAssociation> {
     // Check if association already exists
@@ -404,7 +409,7 @@ export class GitHubAssociationService {
    */
   async removeAssociation(
     githubConnectionId: number,
-    personId: number
+    personId: string
   ): Promise<boolean> {
     const association = await this.findByConnectionAndPerson(
       githubConnectionId,
@@ -446,7 +451,7 @@ export class GitHubAssociationService {
    * @param githubUsername - GitHub username
    */
   async updatePeopleCache(
-    personId: number,
+    personId: string,
     githubUserId: number,
     githubUsername: string
   ): Promise<void> {
@@ -506,6 +511,8 @@ export class GitHubAssociationService {
       id: row.id,
       github_connection_id: row.github_connection_id,
       person_id: row.person_id,
+      person_name: row.person_name ?? null,
+      person_email: row.person_email ?? null,
       association_type: row.association_type as GitHubAssociationType,
       associated_by_user_id: row.associated_by_user_id,
       active: Boolean(row.active),

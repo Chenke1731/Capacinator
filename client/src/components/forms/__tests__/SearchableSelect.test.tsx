@@ -1,4 +1,4 @@
-import { describe, it, expect, jest } from '@jest/globals';
+import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import { SearchableSelect } from '../SearchableSelect';
 

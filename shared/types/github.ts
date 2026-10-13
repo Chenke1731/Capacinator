@@ -97,7 +97,12 @@ export type UpdateGitHubConnectionInput = GitHubConnectionUpdateInput;
 export interface GitHubAccountAssociation {
   id: number;
   github_connection_id: number;
-  person_id: number;
+  /** people.id 是 uuid 字符串——050 列虽声明 INTEGER,SQLite 松类型实际存
+   *  字符串(2026-10-13 批清: 原数字类型逼出客户端 parseInt(uuid)=NaN) */
+  person_id: string;
+  /** join 注入(2026-10-13): 关联列表渲染用,创建输入不带 */
+  person_name: string | null;
+  person_email: string | null;
   association_type: GitHubAssociationType;
   associated_by_user_id: number | null;  // NULL for automatic associations
   active: boolean;
@@ -113,7 +118,7 @@ export interface GitHubAccountAssociation {
  */
 export interface GitHubAccountAssociationCreateInput {
   github_connection_id: number;
-  person_id: number;
+  person_id: string;
   association_type: GitHubAssociationType;
   associated_by_user_id?: number | null;
 }
@@ -188,7 +193,7 @@ export interface OAuthAuthorizationResponse {
  */
 export interface GitHubConnectionWithAssociations extends GitHubConnection {
   associations: Array<{
-    person_id: number;
+    person_id: string;
     person_name: string;
     person_email: string;
     association_type: GitHubAssociationType;

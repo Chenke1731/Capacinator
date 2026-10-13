@@ -49,8 +49,8 @@ export function PeopleGitHubAssociations() {
   const [selectedPersonId, setSelectedPersonId] = useState<string>('');
   const [unlinkAssociation, setUnlinkAssociation] = useState<{
     connectionId: number;
-    personId: number;
-    personName: string;
+    personId: string;
+    personName: string | null;
   } | null>(null);
 
   // Fetch GitHub connections
@@ -69,8 +69,8 @@ export function PeopleGitHubAssociations() {
   const { data: people } = useQuery({
     queryKey: ['people'],
     queryFn: async () => {
-      const response = await api.people.list({ limit: 500 });
-      return response.data.data as Person[];
+      const response = await api.people.list({ limit: 500, is_active: 'true' });
+      return response.data.data;
     },
   });
 
@@ -83,8 +83,10 @@ export function PeopleGitHubAssociations() {
 
     createAssociation(
       {
+        // person_id 是 people 的 uuid 字符串——parseInt(uuid)=NaN,原先
+        // 创建的关联全是垃圾值(2026-10-13 批清顺藤摸出的运行时炸弹)
         connectionId: selectedConnectionId,
-        personId: parseInt(selectedPersonId, 10),
+        personId: selectedPersonId,
       },
       {
         onSuccess: () => {
@@ -94,8 +96,8 @@ export function PeopleGitHubAssociations() {
     );
   };
 
-  const handleUnlink = (connectionId: number, personId: number, personName: string) => {
-    setUnlinkAssociation({ connectionId, personId, personName });
+  const handleUnlink = (connectionId: number | undefined, personId: string, personName: string | null) => {
+    setUnlinkAssociation({ connectionId: connectionId ?? 0, personId, personName });
   };
 
   const confirmUnlink = () => {

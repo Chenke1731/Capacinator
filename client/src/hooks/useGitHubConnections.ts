@@ -11,28 +11,9 @@ import { useTranslation } from 'react-i18next';
 import { api } from '../lib/api-client';
 import { queryKeys } from '../lib/queryKeys';
 import { useToast } from './use-toast';
-
-export interface GitHubConnection {
-  id: number;
-  user_id: number;
-  github_user_id: number;
-  github_username: string;
-  connection_method: 'oauth' | 'pat';
-  token_expires_at: string | null;
-  scopes: string[];
-  github_base_url: string;
-  status: 'active' | 'expired' | 'revoked' | 'error';
-  is_default: boolean;
-  last_used_at: string | null;
-  created_at: string;
-  updated_at: string;
-  associations?: Array<{
-    person_id: number;
-    person_name: string;
-    person_email: string;
-    association_type: 'automatic' | 'manual';
-  }>;
-}
+// GitHubConnection 统一走 api-responses 真身(2026-10-13 批清): 本文件原先
+// 自带一份漂移副本(person_id 数字 vs 服务端字符串等),与全局类型打架
+import type { GitHubConnection, GitHubAssociation } from '../types';
 
 /**
  * Hook to fetch GitHub connections for the current user
@@ -44,18 +25,18 @@ export function useGitHubConnections(options?: {
   const { toast } = useToast();
   const { t } = useTranslation();
 
-  return useQuery({
+  // 显式泛型 + 无 onError(2026-10-13 批清): v5 移除了 useQuery 级回调,
+  // 原 onError 是永不触发的死代码且毒化 TData 推断(组件端 data 退化成 {})
+  return useQuery<GitHubConnection[]>({
     queryKey: queryKeys.githubConnections.list(options),
     queryFn: async () => {
-      const response = await api.githubConnections.list(options);
-      return response.data.data as GitHubConnection[];
-    },
-    onError: (error: any) => {
-      toast({
-        title: t('gitSync:github.toasts.loadFailed'),
-        description: error.response?.data?.error || error.message,
-        variant: 'destructive',
+      // 服务端只认蛇形 query 参数——驼峰直传从未生效(过滤恒默认);
+      // 返回体是裸数组(res.json(result),无信封),axios .data 即数组
+      const response = await api.githubConnections.list({
+        include_inactive: options?.includeInactive ? 'true' : undefined,
+        include_associations: options?.includeAssociations ? 'true' : undefined,
       });
+      return response.data;
     },
   });
 }
@@ -74,17 +55,12 @@ export function useGitHubConnection(
     queryKey: queryKeys.githubConnections.detail(id, options),
     queryFn: async () => {
       if (!id) return null;
-      const response = await api.githubConnections.get(id, options);
-      return response.data as GitHubConnection;
+      const response = await api.githubConnections.get(id, {
+        include_associations: options?.includeAssociations ? 'true' : undefined,
+      });
+      return response.data;
     },
     enabled: !!id,
-    onError: (error: any) => {
-      toast({
-        title: t('gitSync:github.toasts.loadOneFailed'),
-        description: error.response?.data?.error || error.message,
-        variant: 'destructive',
-      });
-    },
   });
 }
 
@@ -97,8 +73,10 @@ export function useInitiateOAuth() {
 
   return useMutation({
     mutationFn: async (data?: { github_base_url?: string }) => {
+      // 裸返回(res.json(result) 无信封)——原 .data.data 恒 undefined,
+      // 授权跳转生来即坏(2026-10-13 批清)
       const response = await api.githubConnections.initiateOAuth(data);
-      return response.data.data;
+      return response.data;
     },
     onSuccess: (data: { authorization_url: string; state: string }) => {
       // Redirect to GitHub authorization page
@@ -124,8 +102,9 @@ export function useConnectWithPAT() {
 
   return useMutation({
     mutationFn: async (data: { token: string; github_base_url?: string }) => {
+      // 裸返回(同 initiateOAuth)
       const response = await api.githubConnections.connectWithPAT(data);
-      return response.data.data;
+      return response.data;
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: queryKeys.githubConnections.all });
@@ -160,8 +139,9 @@ export function useUpdateGitHubConnection() {
       id: number;
       data: { is_default?: boolean; status?: string };
     }) => {
+      // 裸返回(同 initiateOAuth)
       const response = await api.githubConnections.update(id, data);
-      return response.data.data;
+      return response.data;
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: queryKeys.githubConnections.all });
@@ -190,8 +170,9 @@ export function useDeleteGitHubConnection() {
 
   return useMutation({
     mutationFn: async (id: number) => {
+      // 裸返回(同 initiateOAuth)
       const response = await api.githubConnections.delete(id);
-      return response.data.data;
+      return response.data;
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: queryKeys.githubConnections.all });
@@ -222,29 +203,17 @@ export function useGitHubAssociations(
   const { toast } = useToast();
   const { t } = useTranslation();
 
-  return useQuery({
+  return useQuery<GitHubAssociation[]>({
     queryKey: queryKeys.githubConnections.associations(connectionId, options),
     queryFn: async () => {
       if (!connectionId) return [];
-      const response = await api.githubConnections.getAssociations(connectionId, options);
-      return response.data as Array<{
-        id: number;
-        person_id: number;
-        person_name: string;
-        person_email: string;
-        association_type: 'automatic' | 'manual';
-        active: boolean;
-        created_at: string;
-      }>;
+      // 蛇形参数映射 + 裸数组解包(同 list,2026-10-13 批清)
+      const response = await api.githubConnections.getAssociations(connectionId, {
+        include_inactive: options?.includeInactive ? 'true' : undefined,
+      });
+      return response.data;
     },
     enabled: !!connectionId,
-    onError: (error: any) => {
-      toast({
-        title: t('gitSync:github.toasts.assocLoadFailed'),
-        description: error.response?.data?.error || error.message,
-        variant: 'destructive',
-      });
-    },
   });
 }
 
@@ -264,8 +233,10 @@ export function useCreateGitHubAssociation() {
       personId,
     }: {
       connectionId: number;
-      personId: number;
+      personId: string;
     }) => {
+      // createAssociation 走 sendSuccess 信封 {success,data}——全文件唯一
+      // 真双层解包点(其余端点均裸返回)
       const response = await api.githubConnections.createAssociation(connectionId, {
         person_id: personId,
       });
@@ -304,7 +275,7 @@ export function useDeleteGitHubAssociation() {
       personId,
     }: {
       connectionId: number;
-      personId: number;
+      personId: string;
     }) => {
       const response = await api.githubConnections.deleteAssociation(connectionId, personId);
       return response.data;

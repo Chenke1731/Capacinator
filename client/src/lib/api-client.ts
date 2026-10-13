@@ -715,11 +715,11 @@ export const api = {
   // GitHub Connections (Feature: 005-github-auth-user-link)
   githubConnections: {
     // List connections
-    list: (params?: { include_inactive?: boolean; include_associations?: boolean }) =>
+    list: (params?: { include_inactive?: string; include_associations?: string }) =>
       apiClient.get<GitHubConnectionsListResponse>('/github-connections', { params }),
 
     // Get single connection
-    get: (id: number, params?: { include_associations?: boolean }) =>
+    get: (id: number, params?: { include_associations?: string }) =>
       apiClient.get<GitHubConnectionResponse>(`/github-connections/${id}`, { params }),
 
     // Update connection (set as default, update status)
@@ -739,13 +739,13 @@ export const api = {
       apiClient.post<GitHubPATConnectResponse>('/github-connections/pat', data),
 
     // Associations
-    getAssociations: (id: number, params?: { include_inactive?: boolean }) =>
+    getAssociations: (id: number, params?: { include_inactive?: string }) =>
       apiClient.get<GitHubAssociationsResponse>(`/github-connections/${id}/associations`, { params }),
 
-    createAssociation: (id: number, data: { person_id: number; association_type?: string }) =>
+    createAssociation: (id: number, data: { person_id: string; association_type?: string }) =>
       apiClient.post<GitHubAssociationCreateResponse>(`/github-connections/${id}/associations`, data),
 
-    deleteAssociation: (id: number, personId: number) =>
+    deleteAssociation: (id: number, personId: string) =>
       apiClient.delete<GitHubAssociationDeleteResponse>(`/github-connections/${id}/associations/${personId}`),
   },
 

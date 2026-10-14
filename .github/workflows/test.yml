@@ -29,6 +29,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
           node-version: 20
@@ -36,6 +38,12 @@ jobs:
       - run: npm ci
       - name: Lint (0-error gate; warnings are legacy)
         run: npm run lint
+      - name: Color inventory guard self-test
+        run: npm run verify:colors:selftest
+      - name: Color inventory changes (identity/orphan/evidence gate)
+        env:
+          COLOR_DEBT_BASE_REF: ${{ github.event.pull_request.base.sha || github.event.before }}
+        run: node scripts/check-color-debt-ci.mjs
       - name: Typecheck root (server/shared)
         run: npx tsc --noEmit
       - name: Typecheck client (budget script — baseline carries known errors)

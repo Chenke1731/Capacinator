@@ -1301,6 +1301,7 @@ html body .settings-section .checkbox-label,
 [data-theme="light"] {
   /* Primary Colors */
   --primary: #4f46e5;
+  --primary-solid: var(--primary); /* 实心底别名(浅色原值已 6.29:1) */
   --primary-hover: #4338ca;
   --primary-dark: #3730a3;
   /* 文字版主色: --primary 是实心按钮底色(白字依赖), 作前景时用此令牌保证 AA */
@@ -1413,6 +1414,8 @@ html body .settings-section .checkbox-label,
   
   /* Primary Colors - Keep consistent */
   --primary: #6366f1;
+  /* 实心底专用(任务B收口): 压深一档,白字 6.29:1 */
+  --primary-solid: #4f46e5;
   --primary-hover: #5b5beb;
   --primary-dark: #4f46e5;
   --primary-text: #a5b4fc;

@@ -14,6 +14,7 @@
 import { readFileSync, readdirSync, existsSync } from 'node:fs';
 import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { execSync } from 'node:child_process';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const files = [
@@ -123,15 +124,17 @@ for (const rel of utilScanFiles) {
 // ── 主色令牌误配(2026-09-23 迭代页隐形按钮事故) ──
 // --primary-text 语义 = "浅色背景上的主色文字";实心 --primary 底上用它,
 // 浅色主题两令牌同值(#4f46e5) → 底字同色完全隐形。实心主色底一律白字。
-// 2026-10 任务B: color-mix 淡染底(<50% primary)不是实心底——淡染底上
-// primary-text 文字合法且是正确搭配,排除之(实测 10% 淡染曾被误拦)。
+// 2026-10 任务B收口③: 淡染豁免只判**背景声明本身**——此前判整个规则块,
+// 实心底+淡色阴影的组合会被误放行(评审注入复现)。
 for (const rel of [...utilScanFiles, 'client/src/App.css', 'client/src/index.css']) {
   const text = readFileSync(resolve(root, rel), 'utf8');
   for (const m of text.matchAll(/([^{}]+)\{([^}]*)\}/g)) {
     const body = m[2];
-    const tintM = body.match(/color-mix\([^)]*var\(--primary\)\s*(\d+)%/);
+    const bgDecl = (body.match(/background[^;]*var\(--primary\)[^;]*/) || [''])[0];
+    if (!bgDecl) continue;
+    const tintM = bgDecl.match(/color-mix\([^)]*var\(--primary\)\s*(\d+)%/);
     const isTint = tintM && parseInt(tintM[1], 10) <= 50;
-    if (!isTint && /background[^;]*var\(--primary\)/.test(body) && /[^-]color:[^;]*var\(--primary-text\)/.test(body)) {
+    if (!isTint && /[^-]color:[^;]*var\(--primary-text\)/.test(body)) {
       const line = text.slice(0, m.index).split('\n').length;
       const sel = m[1].trim().split('\n').pop().trim();
       violations.push(`${rel}:${line} 「${sel}」 实心主色底配 --primary-text 文字 → 浅色主题同值隐形(迭代页按钮事故);实心主色底用白字`);
@@ -143,19 +146,20 @@ for (const rel of [...utilScanFiles, 'client/src/App.css', 'client/src/index.css
 // body 层 --primary 是 index.css hex(事实标准);hsl(hex)=IACVT 无效色回退继承,
 // 曾全库 59 处主色静默变灰。精确匹配完整令牌(--primary 后紧跟 ) 或 /),
 // 不误拦 --primary-foreground(根层三元组存活,hsl() 包装是合法路径);
-// 覆盖普通+透明度写法、CSS+TS/TSX,剥注释后扫描。
-for (const rel of [...utilScanFiles, 'client/src/App.css', 'client/src/index.css',
-  'client/src/pages/ProjectRoadmap.css', 'client/src/components/Charts.css',
-  'client/src/components/InteractiveTimeline.css', 'client/src/components/modals/SmartAssignmentModal.css',
-  'client/src/components/ProjectDemandChart.tsx', 'client/src/components/InteractiveTimeline.tsx',
-  'client/src/components/VisualPhaseManager.tsx', 'client/src/components/interactive-timeline/PhaseHandles.tsx']) {
+// 2026-10 任务B收口②: 递归扫描全部生产源码(评审注入证明硬编码清单漏检
+// 新增 TSX),正则容忍空白变体(hsl( var(--primary) ))与百分比透明(/ 10%)。
+const PROD_FILES = execSync(
+  `find client/src -type f \\( -name '*.css' -o -name '*.tsx' -o -name '*.ts' \\) -not -path '*__tests__*' -not -path '*.test.*'`,
+  { cwd: root, encoding: 'utf8' }
+).trim().split('\n').filter(Boolean);
+for (const rel of PROD_FILES) {
   const text = readFileSync(resolve(root, rel), 'utf8');
   const stripped = text.replace(/\/\*[\s\S]*?\*\//g, '').replace(/\/\/[^\n]*/g, '');
-  const rx = /hsl\(var\(--primary\)(\s*\/\s*[0-9.]+)?\)/g;
+  const rx = /hsl\(\s*var\(\s*--primary\s*\)\s*(?:\/\s*(?:[0-9.]+%?\s*)?)?\)/g;
   let m2;
   while ((m2 = rx.exec(stripped)) !== null) {
     const line = stripped.slice(0, m2.index).split('\n').length;
-    violations.push(`${rel}:${line} 「hsl(var(--primary${m2[1] ? ' / α' : ''}))」 body 层 --primary 是 hex——hsl(hex)=无效色回退继承(任务B 统一);文字用 var(--primary-text),背景/描边用 var(--primary),透明度用 color-mix`);
+    violations.push(`${rel}:${line} 「${m2[0]}」 body 层 --primary 是 hex——hsl(hex)=无效色回退继承(任务B 统一);文字用 var(--primary-text),背景/描边用 var(--primary),透明度用 color-mix`);
   }
 }
 

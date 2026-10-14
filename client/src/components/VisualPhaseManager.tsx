@@ -551,8 +551,8 @@ export function VisualPhaseManager({ projectId, projectName: _projectName, onPha
                 padding: '6px 16px',
                 border: '1px solid var(--primary)',
                 borderRadius: '6px',
-                backgroundColor: 'var(--primary)',
-                color: 'hsl(var(--background))',
+                backgroundColor: 'var(--primary-solid, var(--primary))',
+                color: '#ffffff',
                 cursor: 'pointer',
                 fontSize: '12px',
                 fontWeight: 500,
@@ -582,8 +582,8 @@ export function VisualPhaseManager({ projectId, projectName: _projectName, onPha
               padding: '4px 12px',
               border: '1px solid var(--primary)',
               borderRadius: '4px',
-              backgroundColor: 'var(--primary)',
-              color: 'hsl(var(--primary-foreground))',
+              backgroundColor: 'var(--primary-solid, var(--primary))',
+              color: '#ffffff',
               cursor: 'pointer',
               fontSize: '11px',
               fontWeight: 500
@@ -699,7 +699,8 @@ export function VisualPhaseManager({ projectId, projectName: _projectName, onPha
                         justifyContent: 'center',
                         fontSize: '12px',
                         fontWeight: isCurrentMonth ? '600' : '400',
-                        color: isCurrentMonth ? 'var(--primary)' : 'hsl(var(--muted-foreground))',
+                        /* 文字用 primary-text(评审收口①: --primary 深色在淡染底仅 2.96:1) */
+                        color: isCurrentMonth ? 'var(--primary-text)' : 'hsl(var(--muted-foreground))',
                         overflow: 'hidden',
                         whiteSpace: 'nowrap'
                       }}
@@ -775,8 +776,8 @@ export function VisualPhaseManager({ projectId, projectName: _projectName, onPha
                   alignItems: 'center',
                   gap: '8px',
                   padding: '6px 12px',
-                  backgroundColor: 'var(--primary)',
-                  color: 'hsl(var(--background))',
+                  backgroundColor: 'var(--primary-solid, var(--primary))',
+                  color: '#ffffff',
                   border: 'none',
                   borderRadius: '6px',
                   fontSize: '14px',

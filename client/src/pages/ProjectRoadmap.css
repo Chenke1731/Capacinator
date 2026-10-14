@@ -179,8 +179,8 @@
 }
 /* 深色主色(#6366f1)×白字=4.47<4.5(任务B 定向验收实锤)——压深一档底色达 6.29 */
 [data-theme='dark'] .today-btn {
-  background: var(--primary-dark, #4f46e5) !important;
-  border-color: var(--primary-dark, #4f46e5) !important;
+  background: var(--primary-solid, #4f46e5) !important;
+  border-color: var(--primary-solid, #4f46e5) !important;
 }
 
 .today-btn:hover {
@@ -383,7 +383,7 @@
 }
 /* 深色同款压深(对照 .today-btn 深色注释) */
 [data-theme='dark'] .timeline-nav-btn.today-btn {
-  background: var(--primary-dark, #4f46e5);
+  background: var(--primary-solid, #4f46e5);
 }
 
 .timeline-nav-btn.today-btn:hover {

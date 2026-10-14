@@ -514,3 +514,10 @@
     min-width: unset;
   }
 }
+/* 图表页签(任务B 收口①: 深色主色实底×白字 4.47<4.5——同 today-btn 压深一档) */
+.chart-tab--active {
+  background: var(--primary) !important;
+}
+[data-theme='dark'] .chart-tab--active {
+  background: var(--primary-solid, #4f46e5) !important;
+}

@@ -2,7 +2,7 @@
 
 日期：2026-10-14（Asia/Shanghai）  
 定稿基线：`0884836`。实施前重新记录 HEAD 与工作区差异。  
-状态：用户已授权实施；TC-C0a、TC-C0b 已完成本地验收，TC-C0c 起继续实施。完成状态按本文件证据逐项更新，不代表整个任务 C 已完成。
+状态：用户已授权实施；TC-C0a–C0c 已完成本地验收，TC-C0.5 起继续实施。完成状态按本文件证据逐项更新，不代表整个任务 C 已完成。
 
 关联：[总改进计划](2026-10-14-capacinator-improvement-plan.md)、[工程约定](../../CLAUDE.md)、[UI 契约](../UI_GENERATION_CONTRACT.md)。本方案承接任务 C 的全部评审与修订；与总计划中的业务反例 C01–C12 无关，领取任务时使用 `TC-C0a` 等前缀避免混淆。
 
@@ -184,12 +184,14 @@ projects 等价迁移至少保留：首屏/中部/底部、悬停族、复选框
 
 ### C0c 关闭条件
 
-- [ ] 正常验证遇缺失基线必失败，预算文件和截图不会被隐式改写。
-- [ ] 注入新 axe 违例后执行像素 UPDATE 仍失败，原预算不变。
-- [ ] 新增与旧违例等量抵消仍能识别；降低预算有真实修复依据。
-- [ ] roadmap 和 project-detail 所需状态有截图及元素身份断言，重复运行稳定。
-- [ ] 支持按 profile/场景定向验证与更新；参数误写或未命中组合失败。
-- [ ] 原矩阵没有丢项，存量首次纳管与新增回归在报告中可区分。
+- [x] 正常验证遇 roadmap1366 两张缺失基线实际失败，没有隐式采集；后经显式 UPDATE 采集。
+- [x] 浏览器注入低对比度按钮后，四组合 UPDATE 均失败并拒绝写 PNG；预算、命名例外及四张 PNG 的前后 SHA256 完全一致，见 `tests/visual/reports/visual-update-selftest.json`。
+- [x] 同数量新节点替代旧节点及再次登记抬预算均被生产 assessAxe 自测拦截；本批没有降低预算或声称修复存量。
+- [x] roadmap 两主题×两视口；有阶段数据的 project-detail-phases 默认/phase-hover/phase-edit 两主题×两视口有实际准备、页面断言及稳定截图，编辑弹窗已人审。原项目详情 light12/dark3 历史违例仍明确登记。
+- [x] 支持按 profile/page/state 定向验证与更新；互斥参数、未知参数、不适用阶段状态失败。
+- [x] 默认完整矩阵28组合、每组合5检查，正常复核140/140、像素diff全部0.00%；保留原14组合，额外项为路线图1366与阶段详情12组合。报告在 `tests/visual/reports/visual-matrix-default.json`。
+
+准备器实测纠错：InteractiveTimeline 没有独立选中态，真实反馈是悬停/拖动及相邻阶段预览；右键当前走删除确认，PhaseContextMenu 没有设置为打开的生产路径。本任务覆盖实际状态，不新增选中态或接通菜单。固定时间与只读 GET 响应夹具保证重放；浏览器业务写请求隔离、实际零写入。像素 UPDATE 与首次存量 axe 登记是两个独立开关。
 
 ## 6. TC-C0.5：退役未使用的时间线
 
@@ -317,7 +319,7 @@ node scripts/verify-visual.mjs --profile project-detail
 |---|---|---|---|---|
 | TC-C0a | 本地验收完成 | Codex / 0884836 | C0a独立提交，见Git记录 | 1481次/64文件；selftest、真实CLI拒绝、静态CI入口、lint、diff检查通过；仍有1244个待分类身份，属于后续批次 |
 | TC-C0b | 本地验收完成 | Codex / 2cec4f0 | C0b独立提交，见Git记录 | projects115/115、自测7/7；roadmap20控件/双主题、注入自测通过；13个现有几何问题指纹单列，非颜色修复量 |
-| TC-C0c | 进行中 | Codex / C0b提交 | — | 缺基线已实际报错；像素/axe分离及固定只读数据正在验收 |
+| TC-C0c | 本地验收完成 | Codex / 4ec3ec5 | C0c独立提交，见Git记录 | 28组合140/140；真实坏axe UPDATE不变hash；同数量替换自测；phase-hover/edit及确定只读夹具入矩阵 |
 | TC-C0.5 | 待实施 | — | — | — |
 | TC-C1 | 待实施 | — | — | — |
 | TC-C2 | 待实施 | — | — | — |

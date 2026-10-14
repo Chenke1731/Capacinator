@@ -1,0 +1,224 @@
+{
+  "combinations": 4,
+  "checks": 20,
+  "updatePixels": true,
+  "registerExistingAxe": false,
+  "evidence": [
+    {
+      "tag": "roadmap-dark-1600",
+      "profile": "roadmap",
+      "path": "/projects?tab=roadmap",
+      "theme": "dark",
+      "state": "default",
+      "viewport": {
+        "width": 1600,
+        "height": 900
+      },
+      "axe": {
+        "count": 1,
+        "cap": 0,
+        "added": [
+          "color-contrast|[\"#audit-injected-bad-contrast\"]"
+        ],
+        "identities": [
+          {
+            "rule": "color-contrast",
+            "target": [
+              "#audit-injected-bad-contrast"
+            ],
+            "html": "<button id=\"audit-injected-bad-contrast\" style=\"position: fixed; left: 400px; top: 400px; z-index: 2147483647; color: rgb(238, 238, 238); background: white; font-size: 16px; border: 0px; padding: 12px;\">Injected contrast regression</button>"
+          }
+        ]
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe roadmap-dark-1600: 对比度/命中目标违规 ≤ 预算",
+          "ok": false
+        },
+        {
+          "name": "碰撞 roadmap-dark-1600: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 roadmap-dark-1600: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "基线 roadmap-dark-1600: 前置失败,拒绝更新",
+          "ok": false
+        },
+        {
+          "name": "只读与运行 roadmap-dark-1600",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/__screenshots__/roadmap-dark-1600.png"
+    },
+    {
+      "tag": "roadmap-dark-1366",
+      "profile": "roadmap",
+      "path": "/projects?tab=roadmap",
+      "theme": "dark",
+      "state": "default",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "axe": {
+        "count": 1,
+        "cap": 0,
+        "added": [
+          "color-contrast|[\"#audit-injected-bad-contrast\"]"
+        ],
+        "identities": [
+          {
+            "rule": "color-contrast",
+            "target": [
+              "#audit-injected-bad-contrast"
+            ],
+            "html": "<button id=\"audit-injected-bad-contrast\" style=\"position: fixed; left: 400px; top: 400px; z-index: 2147483647; color: rgb(238, 238, 238); background: white; font-size: 16px; border: 0px; padding: 12px;\">Injected contrast regression</button>"
+          }
+        ]
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe roadmap-dark-1366: 对比度/命中目标违规 ≤ 预算",
+          "ok": false
+        },
+        {
+          "name": "碰撞 roadmap-dark-1366: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 roadmap-dark-1366: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "基线 roadmap-dark-1366: 前置失败,拒绝更新",
+          "ok": false
+        },
+        {
+          "name": "只读与运行 roadmap-dark-1366",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/__screenshots__/roadmap-dark-1366.png"
+    },
+    {
+      "tag": "roadmap-light-1600",
+      "profile": "roadmap",
+      "path": "/projects?tab=roadmap",
+      "theme": "light",
+      "state": "default",
+      "viewport": {
+        "width": 1600,
+        "height": 900
+      },
+      "axe": {
+        "count": 1,
+        "cap": 0,
+        "added": [
+          "color-contrast|[\"#audit-injected-bad-contrast\"]"
+        ],
+        "identities": [
+          {
+            "rule": "color-contrast",
+            "target": [
+              "#audit-injected-bad-contrast"
+            ],
+            "html": "<button id=\"audit-injected-bad-contrast\" style=\"position: fixed; left: 400px; top: 400px; z-index: 2147483647; color: rgb(238, 238, 238); background: white; font-size: 16px; border: 0px; padding: 12px;\">Injected contrast regression</button>"
+          }
+        ]
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe roadmap-light-1600: 对比度/命中目标违规 ≤ 预算",
+          "ok": false
+        },
+        {
+          "name": "碰撞 roadmap-light-1600: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 roadmap-light-1600: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "基线 roadmap-light-1600: 前置失败,拒绝更新",
+          "ok": false
+        },
+        {
+          "name": "只读与运行 roadmap-light-1600",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/__screenshots__/roadmap-light-1600.png"
+    },
+    {
+      "tag": "roadmap-light-1366",
+      "profile": "roadmap",
+      "path": "/projects?tab=roadmap",
+      "theme": "light",
+      "state": "default",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "axe": {
+        "count": 1,
+        "cap": 0,
+        "added": [
+          "color-contrast|[\"#audit-injected-bad-contrast\"]"
+        ],
+        "identities": [
+          {
+            "rule": "color-contrast",
+            "target": [
+              "#audit-injected-bad-contrast"
+            ],
+            "html": "<button id=\"audit-injected-bad-contrast\" style=\"position: fixed; left: 400px; top: 400px; z-index: 2147483647; color: rgb(238, 238, 238); background: white; font-size: 16px; border: 0px; padding: 12px;\">Injected contrast regression</button>"
+          }
+        ]
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe roadmap-light-1366: 对比度/命中目标违规 ≤ 预算",
+          "ok": false
+        },
+        {
+          "name": "碰撞 roadmap-light-1366: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 roadmap-light-1366: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "基线 roadmap-light-1366: 前置失败,拒绝更新",
+          "ok": false
+        },
+        {
+          "name": "只读与运行 roadmap-light-1366",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/__screenshots__/roadmap-light-1366.png"
+    }
+  ]
+}

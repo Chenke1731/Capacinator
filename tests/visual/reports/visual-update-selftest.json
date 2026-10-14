@@ -1,0 +1,20 @@
+{
+  "status": 1,
+  "before": {
+    "tests/visual/axe-budget.json": "5e3ec4c62b50b0c2dd01bd911d93af16b4a2b443bb68a5b396a3dbbc3e876237",
+    "tests/visual/axe-exceptions.json": "ce2f2a30646e62cd56d9524004f0f109a92d71a6261c625d78fc104576d3f28d",
+    "tests/visual/__screenshots__/roadmap-dark-1366.png": "d7a3b7d5c086047ee600e9cc824094cd118e4a5416d0a10d48ae3e6674e216bf",
+    "tests/visual/__screenshots__/roadmap-dark-1600.png": "8cb55b5c662bb9eaafe695c6130ccd0a726bd3f4377ca42e71b222859ed4ce50",
+    "tests/visual/__screenshots__/roadmap-light-1366.png": "cc50025376fe0cad38f4ac4e04093caae33809ff0d99fb8020a5fc46beac5418",
+    "tests/visual/__screenshots__/roadmap-light-1600.png": "5c3d1eedcbc3dc8f038be6921af9cf0d00e6221d7cdd4bc5c65e58a682d78b15"
+  },
+  "after": {
+    "tests/visual/axe-budget.json": "5e3ec4c62b50b0c2dd01bd911d93af16b4a2b443bb68a5b396a3dbbc3e876237",
+    "tests/visual/axe-exceptions.json": "ce2f2a30646e62cd56d9524004f0f109a92d71a6261c625d78fc104576d3f28d",
+    "tests/visual/__screenshots__/roadmap-dark-1366.png": "d7a3b7d5c086047ee600e9cc824094cd118e4a5416d0a10d48ae3e6674e216bf",
+    "tests/visual/__screenshots__/roadmap-dark-1600.png": "8cb55b5c662bb9eaafe695c6130ccd0a726bd3f4377ca42e71b222859ed4ce50",
+    "tests/visual/__screenshots__/roadmap-light-1366.png": "cc50025376fe0cad38f4ac4e04093caae33809ff0d99fb8020a5fc46beac5418",
+    "tests/visual/__screenshots__/roadmap-light-1600.png": "5c3d1eedcbc3dc8f038be6921af9cf0d00e6221d7cdd4bc5c65e58a682d78b15"
+  },
+  "output": "FAIL axe roadmap-dark-1600: 对比度/命中目标违规 ≤ 预算 — 1/0 new=1\nPASS 碰撞 roadmap-dark-1600: 零重叠\nPASS 溢出 roadmap-dark-1600: 无横向滚动\nFAIL 基线 roadmap-dark-1600: 前置失败,拒绝更新\nPASS 只读与运行 roadmap-dark-1600\nFAIL axe roadmap-dark-1366: 对比度/命中目标违规 ≤ 预算 — 1/0 new=1\nPASS 碰撞 roadmap-dark-1366: 零重叠\nPASS 溢出 roadmap-dark-1366: 无横向滚动\nFAIL 基线 roadmap-dark-1366: 前置失败,拒绝更新\nPASS 只读与运行 roadmap-dark-1366\nFAIL axe roadmap-light-1600: 对比度/命中目标违规 ≤ 预算 — 1/0 new=1\nPASS 碰撞 roadmap-light-1600: 零重叠\nPASS 溢出 roadmap-light-1600: 无横向滚动\nFAIL 基线 roadmap-light-1600: 前置失败,拒绝更新\nPASS 只读与运行 roadmap-light-1600\nFAIL axe roadmap-light-1366: 对比度/命中目标违规 ≤ 预算 — 1/0 new=1\nPASS 碰撞 roadmap-light-1366: 零重叠\nPASS 溢出 roadmap-light-1366: 无横向滚动\nFAIL 基线 roadmap-light-1366: 前置失败,拒绝更新\nPASS 只读与运行 roadmap-light-1366\n\n12/20 passed\nFAILED: axe roadmap-dark-1600: 对比度/命中目标违规 ≤ 预算 | 基线 roadmap-dark-1600: 前置失败,拒绝更新 | axe roadmap-dark-1366: 对比度/命中目标违规 ≤ 预算 | 基线 roadmap-dark-1366: 前置失败,拒绝更新 | axe roadmap-light-1600: 对比度/命中目标违规 ≤ 预算 | 基线 roadmap-light-1600: 前置失败,拒绝更新 | axe roadmap-light-1366: 对比度/命中目标违规 ≤ 预算 | 基线 roadmap-light-1366: 前置失败,拒绝更新\n"
+}

@@ -1,0 +1,1989 @@
+{
+  "combinations": 28,
+  "checks": 140,
+  "updatePixels": false,
+  "registerExistingAxe": false,
+  "evidence": [
+    {
+      "tag": "projects-dark-1600",
+      "profile": "projects",
+      "path": "/projects",
+      "theme": "dark",
+      "state": "default",
+      "viewport": {
+        "width": 1600,
+        "height": 900
+      },
+      "axe": {
+        "count": 0,
+        "cap": 0,
+        "added": [],
+        "identities": []
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe projects-dark-1600: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 projects-dark-1600: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 projects-dark-1600: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "像素 projects-dark-1600: 与基线一致(≤0.5%)",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 projects-dark-1600",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/__screenshots__/projects-dark-1600.png"
+    },
+    {
+      "tag": "projects-dark-1366",
+      "profile": "projects",
+      "path": "/projects",
+      "theme": "dark",
+      "state": "default",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "axe": {
+        "count": 0,
+        "cap": 0,
+        "added": [],
+        "identities": []
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe projects-dark-1366: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 projects-dark-1366: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 projects-dark-1366: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "像素 projects-dark-1366: 与基线一致(≤0.5%)",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 projects-dark-1366",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/__screenshots__/projects-dark-1366.png"
+    },
+    {
+      "tag": "projects-light-1600",
+      "profile": "projects",
+      "path": "/projects",
+      "theme": "light",
+      "state": "default",
+      "viewport": {
+        "width": 1600,
+        "height": 900
+      },
+      "axe": {
+        "count": 0,
+        "cap": 0,
+        "added": [],
+        "identities": []
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe projects-light-1600: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 projects-light-1600: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 projects-light-1600: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "像素 projects-light-1600: 与基线一致(≤0.5%)",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 projects-light-1600",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/__screenshots__/projects-light-1600.png"
+    },
+    {
+      "tag": "projects-light-1366",
+      "profile": "projects",
+      "path": "/projects",
+      "theme": "light",
+      "state": "default",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "axe": {
+        "count": 0,
+        "cap": 0,
+        "added": [],
+        "identities": []
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe projects-light-1366: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 projects-light-1366: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 projects-light-1366: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "像素 projects-light-1366: 与基线一致(≤0.5%)",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 projects-light-1366",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/__screenshots__/projects-light-1366.png"
+    },
+    {
+      "tag": "people-dark-1600",
+      "profile": "people",
+      "path": "/people",
+      "theme": "dark",
+      "state": "default",
+      "viewport": {
+        "width": 1600,
+        "height": 900
+      },
+      "axe": {
+        "count": 0,
+        "cap": 0,
+        "added": [],
+        "identities": []
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe people-dark-1600: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 people-dark-1600: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 people-dark-1600: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "像素 people-dark-1600: 与基线一致(≤0.5%)",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 people-dark-1600",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/__screenshots__/people-dark-1600.png"
+    },
+    {
+      "tag": "people-light-1600",
+      "profile": "people",
+      "path": "/people",
+      "theme": "light",
+      "state": "default",
+      "viewport": {
+        "width": 1600,
+        "height": 900
+      },
+      "axe": {
+        "count": 0,
+        "cap": 0,
+        "added": [],
+        "identities": []
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe people-light-1600: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 people-light-1600: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 people-light-1600: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "像素 people-light-1600: 与基线一致(≤0.5%)",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 people-light-1600",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/__screenshots__/people-light-1600.png"
+    },
+    {
+      "tag": "assignments-dark-1600",
+      "profile": "assignments",
+      "path": "/assignments",
+      "theme": "dark",
+      "state": "default",
+      "viewport": {
+        "width": 1600,
+        "height": 900
+      },
+      "axe": {
+        "count": 0,
+        "cap": 0,
+        "added": [],
+        "identities": []
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe assignments-dark-1600: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 assignments-dark-1600: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 assignments-dark-1600: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "像素 assignments-dark-1600: 与基线一致(≤0.5%)",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 assignments-dark-1600",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/__screenshots__/assignments-dark-1600.png"
+    },
+    {
+      "tag": "assignments-light-1600",
+      "profile": "assignments",
+      "path": "/assignments",
+      "theme": "light",
+      "state": "default",
+      "viewport": {
+        "width": 1600,
+        "height": 900
+      },
+      "axe": {
+        "count": 0,
+        "cap": 0,
+        "added": [],
+        "identities": []
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe assignments-light-1600: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 assignments-light-1600: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 assignments-light-1600: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "像素 assignments-light-1600: 与基线一致(≤0.5%)",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 assignments-light-1600",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/__screenshots__/assignments-light-1600.png"
+    },
+    {
+      "tag": "dashboard-dark-1600",
+      "profile": "dashboard",
+      "path": "/dashboard",
+      "theme": "dark",
+      "state": "default",
+      "viewport": {
+        "width": 1600,
+        "height": 900
+      },
+      "axe": {
+        "count": 0,
+        "cap": 0,
+        "added": [],
+        "identities": []
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe dashboard-dark-1600: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 dashboard-dark-1600: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 dashboard-dark-1600: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "像素 dashboard-dark-1600: 与基线一致(≤0.5%)",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 dashboard-dark-1600",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/__screenshots__/dashboard-dark-1600.png"
+    },
+    {
+      "tag": "dashboard-light-1600",
+      "profile": "dashboard",
+      "path": "/dashboard",
+      "theme": "light",
+      "state": "default",
+      "viewport": {
+        "width": 1600,
+        "height": 900
+      },
+      "axe": {
+        "count": 0,
+        "cap": 0,
+        "added": [],
+        "identities": []
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe dashboard-light-1600: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 dashboard-light-1600: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 dashboard-light-1600: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "像素 dashboard-light-1600: 与基线一致(≤0.5%)",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 dashboard-light-1600",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/__screenshots__/dashboard-light-1600.png"
+    },
+    {
+      "tag": "roadmap-dark-1600",
+      "profile": "roadmap",
+      "path": "/projects?tab=roadmap",
+      "theme": "dark",
+      "state": "default",
+      "viewport": {
+        "width": 1600,
+        "height": 900
+      },
+      "axe": {
+        "count": 0,
+        "cap": 0,
+        "added": [],
+        "identities": []
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe roadmap-dark-1600: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 roadmap-dark-1600: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 roadmap-dark-1600: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "像素 roadmap-dark-1600: 与基线一致(≤0.5%)",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 roadmap-dark-1600",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/__screenshots__/roadmap-dark-1600.png"
+    },
+    {
+      "tag": "roadmap-dark-1366",
+      "profile": "roadmap",
+      "path": "/projects?tab=roadmap",
+      "theme": "dark",
+      "state": "default",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "axe": {
+        "count": 0,
+        "cap": 0,
+        "added": [],
+        "identities": []
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe roadmap-dark-1366: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 roadmap-dark-1366: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 roadmap-dark-1366: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "像素 roadmap-dark-1366: 与基线一致(≤0.5%)",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 roadmap-dark-1366",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/__screenshots__/roadmap-dark-1366.png"
+    },
+    {
+      "tag": "roadmap-light-1600",
+      "profile": "roadmap",
+      "path": "/projects?tab=roadmap",
+      "theme": "light",
+      "state": "default",
+      "viewport": {
+        "width": 1600,
+        "height": 900
+      },
+      "axe": {
+        "count": 0,
+        "cap": 0,
+        "added": [],
+        "identities": []
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe roadmap-light-1600: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 roadmap-light-1600: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 roadmap-light-1600: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "像素 roadmap-light-1600: 与基线一致(≤0.5%)",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 roadmap-light-1600",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/__screenshots__/roadmap-light-1600.png"
+    },
+    {
+      "tag": "roadmap-light-1366",
+      "profile": "roadmap",
+      "path": "/projects?tab=roadmap",
+      "theme": "light",
+      "state": "default",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "axe": {
+        "count": 0,
+        "cap": 0,
+        "added": [],
+        "identities": []
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe roadmap-light-1366: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 roadmap-light-1366: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 roadmap-light-1366: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "像素 roadmap-light-1366: 与基线一致(≤0.5%)",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 roadmap-light-1366",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/__screenshots__/roadmap-light-1366.png"
+    },
+    {
+      "tag": "project-detail-dark-1600",
+      "profile": "project-detail",
+      "path": "/projects/project-1789912193111-zikdnz8c5",
+      "theme": "dark",
+      "state": "default",
+      "viewport": {
+        "width": 1600,
+        "height": 900
+      },
+      "axe": {
+        "count": 3,
+        "cap": 3,
+        "added": [],
+        "identities": [
+          {
+            "rule": "color-contrast",
+            "target": [
+              ".lifecycle-btn-primary"
+            ],
+            "html": "<button class=\"lifecycle-btn lifecycle-btn-primary\">交付</button>"
+          },
+          {
+            "rule": "color-contrast",
+            "target": [
+              ".lifecycle-btn-danger"
+            ],
+            "html": "<button class=\"lifecycle-btn lifecycle-btn-danger\">裁决取消</button>"
+          },
+          {
+            "rule": "color-contrast",
+            "target": [
+              "span:nth-child(7) > .lifecycle-step > .lifecycle-step-label"
+            ],
+            "html": "<span class=\"lifecycle-step-label\">已交付</span>"
+          }
+        ]
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe project-detail-dark-1600: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 project-detail-dark-1600: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 project-detail-dark-1600: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "像素 project-detail-dark-1600: 与基线一致(≤0.5%)",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 project-detail-dark-1600",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/__screenshots__/project-detail-dark-1600.png"
+    },
+    {
+      "tag": "project-detail-light-1600",
+      "profile": "project-detail",
+      "path": "/projects/project-1789912193111-zikdnz8c5",
+      "theme": "light",
+      "state": "default",
+      "viewport": {
+        "width": 1600,
+        "height": 900
+      },
+      "axe": {
+        "count": 12,
+        "cap": 12,
+        "added": [],
+        "identities": [
+          {
+            "rule": "color-contrast",
+            "target": [
+              ".lifecycle-state-badge"
+            ],
+            "html": "<button type=\"button\" class=\"lifecycle-state-badge lifecycle-state-badge--in_iteration lifecycle-badge-btn\" title=\"存在状态告警: 已进入迭代，但编号（SR/AR号）未填——外部系统无法对账\">"
+          },
+          {
+            "rule": "color-contrast",
+            "target": [
+              ".lifecycle-btn-primary"
+            ],
+            "html": "<button class=\"lifecycle-btn lifecycle-btn-primary\">交付</button>"
+          },
+          {
+            "rule": "color-contrast",
+            "target": [
+              "span:nth-child(1) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label"
+            ],
+            "html": "<span class=\"lifecycle-step-label\">待RAT</span>"
+          },
+          {
+            "rule": "color-contrast",
+            "target": [
+              "span:nth-child(2) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label"
+            ],
+            "html": "<span class=\"lifecycle-step-label\">NOK</span>"
+          },
+          {
+            "rule": "color-contrast",
+            "target": [
+              "span:nth-child(3) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label"
+            ],
+            "html": "<span class=\"lifecycle-step-label\">设计中</span>"
+          },
+          {
+            "rule": "color-contrast",
+            "target": [
+              ".lifecycle-gate"
+            ],
+            "html": "<span class=\"lifecycle-gate\" title=\"方案成熟后准入,转入开发侧\">准入</span>"
+          },
+          {
+            "rule": "color-contrast",
+            "target": [
+              "span:nth-child(4) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label"
+            ],
+            "html": "<span class=\"lifecycle-step-label\">待排序</span>"
+          },
+          {
+            "rule": "color-contrast",
+            "target": [
+              "span:nth-child(5) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label"
+            ],
+            "html": "<span class=\"lifecycle-step-label\">已排序</span>"
+          },
+          {
+            "rule": "color-contrast",
+            "target": [
+              "span:nth-child(7) > .lifecycle-step > .lifecycle-step-label"
+            ],
+            "html": "<span class=\"lifecycle-step-label\">已交付</span>"
+          },
+          {
+            "rule": "color-contrast",
+            "target": [
+              ".lifecycle-warning-title"
+            ],
+            "html": "<span class=\"lifecycle-warning-title\">状态告警</span>"
+          },
+          {
+            "rule": "color-contrast",
+            "target": [
+              ".visual-phase-manager > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(1)"
+            ],
+            "html": "<div style=\"position: absolute; ...\">"
+          },
+          {
+            "rule": "color-contrast",
+            "target": [
+              "div > div > div:nth-child(2) > div:nth-child(3)"
+            ],
+            "html": "<div style=\"position: absolute; ...\">"
+          }
+        ]
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe project-detail-light-1600: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 project-detail-light-1600: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 project-detail-light-1600: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "像素 project-detail-light-1600: 与基线一致(≤0.5%)",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 project-detail-light-1600",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/__screenshots__/project-detail-light-1600.png"
+    },
+    {
+      "tag": "project-detail-phases-dark-1600",
+      "profile": "project-detail-phases",
+      "path": "/projects/project-1789912193111-zikdnz8c5",
+      "theme": "dark",
+      "state": "default",
+      "viewport": {
+        "width": 1600,
+        "height": 900
+      },
+      "axe": {
+        "count": 3,
+        "cap": 3,
+        "added": [],
+        "identities": [
+          {
+            "rule": "color-contrast",
+            "target": [
+              ".lifecycle-btn-primary"
+            ],
+            "html": "<button class=\"lifecycle-btn lifecycle-btn-primary\">交付</button>"
+          },
+          {
+            "rule": "color-contrast",
+            "target": [
+              ".lifecycle-btn-danger"
+            ],
+            "html": "<button class=\"lifecycle-btn lifecycle-btn-danger\">裁决取消</button>"
+          },
+          {
+            "rule": "color-contrast",
+            "target": [
+              "span:nth-child(7) > .lifecycle-step > .lifecycle-step-label"
+            ],
+            "html": "<span class=\"lifecycle-step-label\">已交付</span>"
+          }
+        ]
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe project-detail-phases-dark-1600: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 project-detail-phases-dark-1600: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 project-detail-phases-dark-1600: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "像素 project-detail-phases-dark-1600: 与基线一致(≤0.5%)",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 project-detail-phases-dark-1600",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/__screenshots__/project-detail-phases-dark-1600.png"
+    },
+    {
+      "tag": "project-detail-phases-dark-1366",
+      "profile": "project-detail-phases",
+      "path": "/projects/project-1789912193111-zikdnz8c5",
+      "theme": "dark",
+      "state": "default",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "axe": {
+        "count": 3,
+        "cap": 3,
+        "added": [],
+        "identities": [
+          {
+            "rule": "color-contrast",
+            "target": [
+              ".lifecycle-btn-primary"
+            ],
+            "html": "<button class=\"lifecycle-btn lifecycle-btn-primary\">交付</button>"
+          },
+          {
+            "rule": "color-contrast",
+            "target": [
+              ".lifecycle-btn-danger"
+            ],
+            "html": "<button class=\"lifecycle-btn lifecycle-btn-danger\">裁决取消</button>"
+          },
+          {
+            "rule": "color-contrast",
+            "target": [
+              "span:nth-child(7) > .lifecycle-step > .lifecycle-step-label"
+            ],
+            "html": "<span class=\"lifecycle-step-label\">已交付</span>"
+          }
+        ]
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe project-detail-phases-dark-1366: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 project-detail-phases-dark-1366: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 project-detail-phases-dark-1366: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "像素 project-detail-phases-dark-1366: 与基线一致(≤0.5%)",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 project-detail-phases-dark-1366",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/__screenshots__/project-detail-phases-dark-1366.png"
+    },
+    {
+      "tag": "project-detail-phases-light-1600",
+      "profile": "project-detail-phases",
+      "path": "/projects/project-1789912193111-zikdnz8c5",
+      "theme": "light",
+      "state": "default",
+      "viewport": {
+        "width": 1600,
+        "height": 900
+      },
+      "axe": {
+        "count": 12,
+        "cap": 12,
+        "added": [],
+        "identities": [
+          {
+            "rule": "color-contrast",
+            "target": [
+              ".lifecycle-state-badge"
+            ],
+            "html": "<button type=\"button\" class=\"lifecycle-state-badge lifecycle-state-badge--in_iteration lifecycle-badge-btn\" title=\"存在状态告警: 已进入迭代，但编号（SR/AR号）未填——外部系统无法对账\">"
+          },
+          {
+            "rule": "color-contrast",
+            "target": [
+              ".lifecycle-btn-primary"
+            ],
+            "html": "<button class=\"lifecycle-btn lifecycle-btn-primary\">交付</button>"
+          },
+          {
+            "rule": "color-contrast",
+            "target": [
+              "span:nth-child(1) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label"
+            ],
+            "html": "<span class=\"lifecycle-step-label\">待RAT</span>"
+          },
+          {
+            "rule": "color-contrast",
+            "target": [
+              "span:nth-child(2) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label"
+            ],
+            "html": "<span class=\"lifecycle-step-label\">NOK</span>"
+          },
+          {
+            "rule": "color-contrast",
+            "target": [
+              "span:nth-child(3) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label"
+            ],
+            "html": "<span class=\"lifecycle-step-label\">设计中</span>"
+          },
+          {
+            "rule": "color-contrast",
+            "target": [
+              ".lifecycle-gate"
+            ],
+            "html": "<span class=\"lifecycle-gate\" title=\"方案成熟后准入,转入开发侧\">准入</span>"
+          },
+          {
+            "rule": "color-contrast",
+            "target": [
+              "span:nth-child(4) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label"
+            ],
+            "html": "<span class=\"lifecycle-step-label\">待排序</span>"
+          },
+          {
+            "rule": "color-contrast",
+            "target": [
+              "span:nth-child(5) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label"
+            ],
+            "html": "<span class=\"lifecycle-step-label\">已排序</span>"
+          },
+          {
+            "rule": "color-contrast",
+            "target": [
+              "span:nth-child(7) > .lifecycle-step > .lifecycle-step-label"
+            ],
+            "html": "<span class=\"lifecycle-step-label\">已交付</span>"
+          },
+          {
+            "rule": "color-contrast",
+            "target": [
+              ".lifecycle-warning-title"
+            ],
+            "html": "<span class=\"lifecycle-warning-title\">状态告警</span>"
+          },
+          {
+            "rule": "color-contrast",
+            "target": [
+              ".visual-phase-manager > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(1)"
+            ],
+            "html": "<div style=\"position: absolute; ...\">"
+          },
+          {
+            "rule": "color-contrast",
+            "target": [
+              "div > div > div:nth-child(2) > div:nth-child(3)"
+            ],
+            "html": "<div style=\"position: absolute; ...\">"
+          }
+        ]
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe project-detail-phases-light-1600: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 project-detail-phases-light-1600: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 project-detail-phases-light-1600: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "像素 project-detail-phases-light-1600: 与基线一致(≤0.5%)",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 project-detail-phases-light-1600",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/__screenshots__/project-detail-phases-light-1600.png"
+    },
+    {
+      "tag": "project-detail-phases-light-1366",
+      "profile": "project-detail-phases",
+      "path": "/projects/project-1789912193111-zikdnz8c5",
+      "theme": "light",
+      "state": "default",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "axe": {
+        "count": 12,
+        "cap": 12,
+        "added": [],
+        "identities": [
+          {
+            "rule": "color-contrast",
+            "target": [
+              ".lifecycle-state-badge"
+            ],
+            "html": "<button type=\"button\" class=\"lifecycle-state-badge lifecycle-state-badge--in_iteration lifecycle-badge-btn\" title=\"存在状态告警: 已进入迭代，但编号（SR/AR号）未填——外部系统无法对账\">"
+          },
+          {
+            "rule": "color-contrast",
+            "target": [
+              ".lifecycle-btn-primary"
+            ],
+            "html": "<button class=\"lifecycle-btn lifecycle-btn-primary\">交付</button>"
+          },
+          {
+            "rule": "color-contrast",
+            "target": [
+              "span:nth-child(1) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label"
+            ],
+            "html": "<span class=\"lifecycle-step-label\">待RAT</span>"
+          },
+          {
+            "rule": "color-contrast",
+            "target": [
+              "span:nth-child(2) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label"
+            ],
+            "html": "<span class=\"lifecycle-step-label\">NOK</span>"
+          },
+          {
+            "rule": "color-contrast",
+            "target": [
+              "span:nth-child(3) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label"
+            ],
+            "html": "<span class=\"lifecycle-step-label\">设计中</span>"
+          },
+          {
+            "rule": "color-contrast",
+            "target": [
+              ".lifecycle-gate"
+            ],
+            "html": "<span class=\"lifecycle-gate\" title=\"方案成熟后准入,转入开发侧\">准入</span>"
+          },
+          {
+            "rule": "color-contrast",
+            "target": [
+              "span:nth-child(4) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label"
+            ],
+            "html": "<span class=\"lifecycle-step-label\">待排序</span>"
+          },
+          {
+            "rule": "color-contrast",
+            "target": [
+              "span:nth-child(5) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label"
+            ],
+            "html": "<span class=\"lifecycle-step-label\">已排序</span>"
+          },
+          {
+            "rule": "color-contrast",
+            "target": [
+              "span:nth-child(7) > .lifecycle-step > .lifecycle-step-label"
+            ],
+            "html": "<span class=\"lifecycle-step-label\">已交付</span>"
+          },
+          {
+            "rule": "color-contrast",
+            "target": [
+              ".lifecycle-warning-title"
+            ],
+            "html": "<span class=\"lifecycle-warning-title\">状态告警</span>"
+          },
+          {
+            "rule": "color-contrast",
+            "target": [
+              ".visual-phase-manager > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(1)"
+            ],
+            "html": "<div style=\"position: absolute; ...\">"
+          },
+          {
+            "rule": "color-contrast",
+            "target": [
+              "div > div > div:nth-child(2) > div:nth-child(3)"
+            ],
+            "html": "<div style=\"position: absolute; ...\">"
+          }
+        ]
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe project-detail-phases-light-1366: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 project-detail-phases-light-1366: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 project-detail-phases-light-1366: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "像素 project-detail-phases-light-1366: 与基线一致(≤0.5%)",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 project-detail-phases-light-1366",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/__screenshots__/project-detail-phases-light-1366.png"
+    },
+    {
+      "tag": "project-detail-phases-phase-hover-dark-1600",
+      "profile": "project-detail-phases",
+      "path": "/projects/project-1789912193111-zikdnz8c5",
+      "theme": "dark",
+      "state": "phase-hover",
+      "viewport": {
+        "width": 1600,
+        "height": 900
+      },
+      "axe": {
+        "count": 3,
+        "cap": 3,
+        "added": [],
+        "identities": [
+          {
+            "rule": "color-contrast",
+            "target": [
+              ".lifecycle-btn-primary"
+            ],
+            "html": "<button class=\"lifecycle-btn lifecycle-btn-primary\">交付</button>"
+          },
+          {
+            "rule": "color-contrast",
+            "target": [
+              ".lifecycle-btn-danger"
+            ],
+            "html": "<button class=\"lifecycle-btn lifecycle-btn-danger\">裁决取消</button>"
+          },
+          {
+            "rule": "color-contrast",
+            "target": [
+              "span:nth-child(7) > .lifecycle-step > .lifecycle-step-label"
+            ],
+            "html": "<span class=\"lifecycle-step-label\">已交付</span>"
+          }
+        ]
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe project-detail-phases-phase-hover-dark-1600: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 project-detail-phases-phase-hover-dark-1600: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 project-detail-phases-phase-hover-dark-1600: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "像素 project-detail-phases-phase-hover-dark-1600: 与基线一致(≤0.5%)",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 project-detail-phases-phase-hover-dark-1600",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/__screenshots__/project-detail-phases-phase-hover-dark-1600.png"
+    },
+    {
+      "tag": "project-detail-phases-phase-hover-dark-1366",
+      "profile": "project-detail-phases",
+      "path": "/projects/project-1789912193111-zikdnz8c5",
+      "theme": "dark",
+      "state": "phase-hover",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "axe": {
+        "count": 3,
+        "cap": 3,
+        "added": [],
+        "identities": [
+          {
+            "rule": "color-contrast",
+            "target": [
+              ".lifecycle-btn-primary"
+            ],
+            "html": "<button class=\"lifecycle-btn lifecycle-btn-primary\">交付</button>"
+          },
+          {
+            "rule": "color-contrast",
+            "target": [
+              ".lifecycle-btn-danger"
+            ],
+            "html": "<button class=\"lifecycle-btn lifecycle-btn-danger\">裁决取消</button>"
+          },
+          {
+            "rule": "color-contrast",
+            "target": [
+              "span:nth-child(7) > .lifecycle-step > .lifecycle-step-label"
+            ],
+            "html": "<span class=\"lifecycle-step-label\">已交付</span>"
+          }
+        ]
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe project-detail-phases-phase-hover-dark-1366: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 project-detail-phases-phase-hover-dark-1366: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 project-detail-phases-phase-hover-dark-1366: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "像素 project-detail-phases-phase-hover-dark-1366: 与基线一致(≤0.5%)",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 project-detail-phases-phase-hover-dark-1366",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/__screenshots__/project-detail-phases-phase-hover-dark-1366.png"
+    },
+    {
+      "tag": "project-detail-phases-phase-hover-light-1600",
+      "profile": "project-detail-phases",
+      "path": "/projects/project-1789912193111-zikdnz8c5",
+      "theme": "light",
+      "state": "phase-hover",
+      "viewport": {
+        "width": 1600,
+        "height": 900
+      },
+      "axe": {
+        "count": 12,
+        "cap": 12,
+        "added": [],
+        "identities": [
+          {
+            "rule": "color-contrast",
+            "target": [
+              ".lifecycle-state-badge"
+            ],
+            "html": "<button type=\"button\" class=\"lifecycle-state-badge lifecycle-state-badge--in_iteration lifecycle-badge-btn\" title=\"存在状态告警: 已进入迭代，但编号（SR/AR号）未填——外部系统无法对账\">"
+          },
+          {
+            "rule": "color-contrast",
+            "target": [
+              ".lifecycle-btn-primary"
+            ],
+            "html": "<button class=\"lifecycle-btn lifecycle-btn-primary\">交付</button>"
+          },
+          {
+            "rule": "color-contrast",
+            "target": [
+              "span:nth-child(1) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label"
+            ],
+            "html": "<span class=\"lifecycle-step-label\">待RAT</span>"
+          },
+          {
+            "rule": "color-contrast",
+            "target": [
+              "span:nth-child(2) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label"
+            ],
+            "html": "<span class=\"lifecycle-step-label\">NOK</span>"
+          },
+          {
+            "rule": "color-contrast",
+            "target": [
+              "span:nth-child(3) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label"
+            ],
+            "html": "<span class=\"lifecycle-step-label\">设计中</span>"
+          },
+          {
+            "rule": "color-contrast",
+            "target": [
+              ".lifecycle-gate"
+            ],
+            "html": "<span class=\"lifecycle-gate\" title=\"方案成熟后准入,转入开发侧\">准入</span>"
+          },
+          {
+            "rule": "color-contrast",
+            "target": [
+              "span:nth-child(4) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label"
+            ],
+            "html": "<span class=\"lifecycle-step-label\">待排序</span>"
+          },
+          {
+            "rule": "color-contrast",
+            "target": [
+              "span:nth-child(5) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label"
+            ],
+            "html": "<span class=\"lifecycle-step-label\">已排序</span>"
+          },
+          {
+            "rule": "color-contrast",
+            "target": [
+              "span:nth-child(7) > .lifecycle-step > .lifecycle-step-label"
+            ],
+            "html": "<span class=\"lifecycle-step-label\">已交付</span>"
+          },
+          {
+            "rule": "color-contrast",
+            "target": [
+              ".lifecycle-warning-title"
+            ],
+            "html": "<span class=\"lifecycle-warning-title\">状态告警</span>"
+          },
+          {
+            "rule": "color-contrast",
+            "target": [
+              ".visual-phase-manager > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(1)"
+            ],
+            "html": "<div style=\"position: absolute; ...\">"
+          },
+          {
+            "rule": "color-contrast",
+            "target": [
+              "div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(3)"
+            ],
+            "html": "<div style=\"position: absolute; ...\">"
+          }
+        ]
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe project-detail-phases-phase-hover-light-1600: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 project-detail-phases-phase-hover-light-1600: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 project-detail-phases-phase-hover-light-1600: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "像素 project-detail-phases-phase-hover-light-1600: 与基线一致(≤0.5%)",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 project-detail-phases-phase-hover-light-1600",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/__screenshots__/project-detail-phases-phase-hover-light-1600.png"
+    },
+    {
+      "tag": "project-detail-phases-phase-hover-light-1366",
+      "profile": "project-detail-phases",
+      "path": "/projects/project-1789912193111-zikdnz8c5",
+      "theme": "light",
+      "state": "phase-hover",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "axe": {
+        "count": 12,
+        "cap": 12,
+        "added": [],
+        "identities": [
+          {
+            "rule": "color-contrast",
+            "target": [
+              ".lifecycle-state-badge"
+            ],
+            "html": "<button type=\"button\" class=\"lifecycle-state-badge lifecycle-state-badge--in_iteration lifecycle-badge-btn\" title=\"存在状态告警: 已进入迭代，但编号（SR/AR号）未填——外部系统无法对账\">"
+          },
+          {
+            "rule": "color-contrast",
+            "target": [
+              ".lifecycle-btn-primary"
+            ],
+            "html": "<button class=\"lifecycle-btn lifecycle-btn-primary\">交付</button>"
+          },
+          {
+            "rule": "color-contrast",
+            "target": [
+              "span:nth-child(1) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label"
+            ],
+            "html": "<span class=\"lifecycle-step-label\">待RAT</span>"
+          },
+          {
+            "rule": "color-contrast",
+            "target": [
+              "span:nth-child(2) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label"
+            ],
+            "html": "<span class=\"lifecycle-step-label\">NOK</span>"
+          },
+          {
+            "rule": "color-contrast",
+            "target": [
+              "span:nth-child(3) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label"
+            ],
+            "html": "<span class=\"lifecycle-step-label\">设计中</span>"
+          },
+          {
+            "rule": "color-contrast",
+            "target": [
+              ".lifecycle-gate"
+            ],
+            "html": "<span class=\"lifecycle-gate\" title=\"方案成熟后准入,转入开发侧\">准入</span>"
+          },
+          {
+            "rule": "color-contrast",
+            "target": [
+              "span:nth-child(4) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label"
+            ],
+            "html": "<span class=\"lifecycle-step-label\">待排序</span>"
+          },
+          {
+            "rule": "color-contrast",
+            "target": [
+              "span:nth-child(5) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label"
+            ],
+            "html": "<span class=\"lifecycle-step-label\">已排序</span>"
+          },
+          {
+            "rule": "color-contrast",
+            "target": [
+              "span:nth-child(7) > .lifecycle-step > .lifecycle-step-label"
+            ],
+            "html": "<span class=\"lifecycle-step-label\">已交付</span>"
+          },
+          {
+            "rule": "color-contrast",
+            "target": [
+              ".lifecycle-warning-title"
+            ],
+            "html": "<span class=\"lifecycle-warning-title\">状态告警</span>"
+          },
+          {
+            "rule": "color-contrast",
+            "target": [
+              ".visual-phase-manager > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(1)"
+            ],
+            "html": "<div style=\"position: absolute; ...\">"
+          },
+          {
+            "rule": "color-contrast",
+            "target": [
+              "div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(3)"
+            ],
+            "html": "<div style=\"position: absolute; ...\">"
+          }
+        ]
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe project-detail-phases-phase-hover-light-1366: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 project-detail-phases-phase-hover-light-1366: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 project-detail-phases-phase-hover-light-1366: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "像素 project-detail-phases-phase-hover-light-1366: 与基线一致(≤0.5%)",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 project-detail-phases-phase-hover-light-1366",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/__screenshots__/project-detail-phases-phase-hover-light-1366.png"
+    },
+    {
+      "tag": "project-detail-phases-phase-edit-dark-1600",
+      "profile": "project-detail-phases",
+      "path": "/projects/project-1789912193111-zikdnz8c5",
+      "theme": "dark",
+      "state": "phase-edit",
+      "viewport": {
+        "width": 1600,
+        "height": 900
+      },
+      "axe": {
+        "count": 3,
+        "cap": 3,
+        "added": [],
+        "identities": [
+          {
+            "rule": "color-contrast",
+            "target": [
+              ".lifecycle-btn-primary"
+            ],
+            "html": "<button class=\"lifecycle-btn lifecycle-btn-primary\">交付</button>"
+          },
+          {
+            "rule": "color-contrast",
+            "target": [
+              ".lifecycle-btn-danger"
+            ],
+            "html": "<button class=\"lifecycle-btn lifecycle-btn-danger\">裁决取消</button>"
+          },
+          {
+            "rule": "color-contrast",
+            "target": [
+              "span:nth-child(7) > .lifecycle-step > .lifecycle-step-label"
+            ],
+            "html": "<span class=\"lifecycle-step-label\">已交付</span>"
+          }
+        ]
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe project-detail-phases-phase-edit-dark-1600: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 project-detail-phases-phase-edit-dark-1600: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 project-detail-phases-phase-edit-dark-1600: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "像素 project-detail-phases-phase-edit-dark-1600: 与基线一致(≤0.5%)",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 project-detail-phases-phase-edit-dark-1600",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/__screenshots__/project-detail-phases-phase-edit-dark-1600.png"
+    },
+    {
+      "tag": "project-detail-phases-phase-edit-dark-1366",
+      "profile": "project-detail-phases",
+      "path": "/projects/project-1789912193111-zikdnz8c5",
+      "theme": "dark",
+      "state": "phase-edit",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "axe": {
+        "count": 3,
+        "cap": 3,
+        "added": [],
+        "identities": [
+          {
+            "rule": "color-contrast",
+            "target": [
+              ".lifecycle-btn-primary"
+            ],
+            "html": "<button class=\"lifecycle-btn lifecycle-btn-primary\">交付</button>"
+          },
+          {
+            "rule": "color-contrast",
+            "target": [
+              ".lifecycle-btn-danger"
+            ],
+            "html": "<button class=\"lifecycle-btn lifecycle-btn-danger\">裁决取消</button>"
+          },
+          {
+            "rule": "color-contrast",
+            "target": [
+              "span:nth-child(7) > .lifecycle-step > .lifecycle-step-label"
+            ],
+            "html": "<span class=\"lifecycle-step-label\">已交付</span>"
+          }
+        ]
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe project-detail-phases-phase-edit-dark-1366: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 project-detail-phases-phase-edit-dark-1366: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 project-detail-phases-phase-edit-dark-1366: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "像素 project-detail-phases-phase-edit-dark-1366: 与基线一致(≤0.5%)",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 project-detail-phases-phase-edit-dark-1366",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/__screenshots__/project-detail-phases-phase-edit-dark-1366.png"
+    },
+    {
+      "tag": "project-detail-phases-phase-edit-light-1600",
+      "profile": "project-detail-phases",
+      "path": "/projects/project-1789912193111-zikdnz8c5",
+      "theme": "light",
+      "state": "phase-edit",
+      "viewport": {
+        "width": 1600,
+        "height": 900
+      },
+      "axe": {
+        "count": 12,
+        "cap": 12,
+        "added": [],
+        "identities": [
+          {
+            "rule": "color-contrast",
+            "target": [
+              ".lifecycle-state-badge"
+            ],
+            "html": "<button type=\"button\" class=\"lifecycle-state-badge lifecycle-state-badge--in_iteration lifecycle-badge-btn\" title=\"存在状态告警: 已进入迭代，但编号（SR/AR号）未填——外部系统无法对账\">"
+          },
+          {
+            "rule": "color-contrast",
+            "target": [
+              ".lifecycle-btn-primary"
+            ],
+            "html": "<button class=\"lifecycle-btn lifecycle-btn-primary\">交付</button>"
+          },
+          {
+            "rule": "color-contrast",
+            "target": [
+              "span:nth-child(1) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label"
+            ],
+            "html": "<span class=\"lifecycle-step-label\">待RAT</span>"
+          },
+          {
+            "rule": "color-contrast",
+            "target": [
+              "span:nth-child(2) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label"
+            ],
+            "html": "<span class=\"lifecycle-step-label\">NOK</span>"
+          },
+          {
+            "rule": "color-contrast",
+            "target": [
+              "span:nth-child(3) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label"
+            ],
+            "html": "<span class=\"lifecycle-step-label\">设计中</span>"
+          },
+          {
+            "rule": "color-contrast",
+            "target": [
+              ".lifecycle-gate"
+            ],
+            "html": "<span class=\"lifecycle-gate\" title=\"方案成熟后准入,转入开发侧\">准入</span>"
+          },
+          {
+            "rule": "color-contrast",
+            "target": [
+              "span:nth-child(4) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label"
+            ],
+            "html": "<span class=\"lifecycle-step-label\">待排序</span>"
+          },
+          {
+            "rule": "color-contrast",
+            "target": [
+              "span:nth-child(5) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label"
+            ],
+            "html": "<span class=\"lifecycle-step-label\">已排序</span>"
+          },
+          {
+            "rule": "color-contrast",
+            "target": [
+              "span:nth-child(7) > .lifecycle-step > .lifecycle-step-label"
+            ],
+            "html": "<span class=\"lifecycle-step-label\">已交付</span>"
+          },
+          {
+            "rule": "color-contrast",
+            "target": [
+              ".lifecycle-warning-title"
+            ],
+            "html": "<span class=\"lifecycle-warning-title\">状态告警</span>"
+          },
+          {
+            "rule": "color-contrast",
+            "target": [
+              ".visual-phase-manager > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(1)"
+            ],
+            "html": "<div style=\"position: absolute; ...\">"
+          },
+          {
+            "rule": "color-contrast",
+            "target": [
+              "div > div > div:nth-child(2) > div:nth-child(3)"
+            ],
+            "html": "<div style=\"position: absolute; ...\">"
+          }
+        ]
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe project-detail-phases-phase-edit-light-1600: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 project-detail-phases-phase-edit-light-1600: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 project-detail-phases-phase-edit-light-1600: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "像素 project-detail-phases-phase-edit-light-1600: 与基线一致(≤0.5%)",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 project-detail-phases-phase-edit-light-1600",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/__screenshots__/project-detail-phases-phase-edit-light-1600.png"
+    },
+    {
+      "tag": "project-detail-phases-phase-edit-light-1366",
+      "profile": "project-detail-phases",
+      "path": "/projects/project-1789912193111-zikdnz8c5",
+      "theme": "light",
+      "state": "phase-edit",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "axe": {
+        "count": 12,
+        "cap": 12,
+        "added": [],
+        "identities": [
+          {
+            "rule": "color-contrast",
+            "target": [
+              ".lifecycle-state-badge"
+            ],
+            "html": "<button type=\"button\" class=\"lifecycle-state-badge lifecycle-state-badge--in_iteration lifecycle-badge-btn\" title=\"存在状态告警: 已进入迭代，但编号（SR/AR号）未填——外部系统无法对账\">"
+          },
+          {
+            "rule": "color-contrast",
+            "target": [
+              ".lifecycle-btn-primary"
+            ],
+            "html": "<button class=\"lifecycle-btn lifecycle-btn-primary\">交付</button>"
+          },
+          {
+            "rule": "color-contrast",
+            "target": [
+              "span:nth-child(1) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label"
+            ],
+            "html": "<span class=\"lifecycle-step-label\">待RAT</span>"
+          },
+          {
+            "rule": "color-contrast",
+            "target": [
+              "span:nth-child(2) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label"
+            ],
+            "html": "<span class=\"lifecycle-step-label\">NOK</span>"
+          },
+          {
+            "rule": "color-contrast",
+            "target": [
+              "span:nth-child(3) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label"
+            ],
+            "html": "<span class=\"lifecycle-step-label\">设计中</span>"
+          },
+          {
+            "rule": "color-contrast",
+            "target": [
+              ".lifecycle-gate"
+            ],
+            "html": "<span class=\"lifecycle-gate\" title=\"方案成熟后准入,转入开发侧\">准入</span>"
+          },
+          {
+            "rule": "color-contrast",
+            "target": [
+              "span:nth-child(4) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label"
+            ],
+            "html": "<span class=\"lifecycle-step-label\">待排序</span>"
+          },
+          {
+            "rule": "color-contrast",
+            "target": [
+              "span:nth-child(5) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label"
+            ],
+            "html": "<span class=\"lifecycle-step-label\">已排序</span>"
+          },
+          {
+            "rule": "color-contrast",
+            "target": [
+              "span:nth-child(7) > .lifecycle-step > .lifecycle-step-label"
+            ],
+            "html": "<span class=\"lifecycle-step-label\">已交付</span>"
+          },
+          {
+            "rule": "color-contrast",
+            "target": [
+              ".lifecycle-warning-title"
+            ],
+            "html": "<span class=\"lifecycle-warning-title\">状态告警</span>"
+          },
+          {
+            "rule": "color-contrast",
+            "target": [
+              ".visual-phase-manager > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(1)"
+            ],
+            "html": "<div style=\"position: absolute; ...\">"
+          },
+          {
+            "rule": "color-contrast",
+            "target": [
+              "div > div > div:nth-child(2) > div:nth-child(3)"
+            ],
+            "html": "<div style=\"position: absolute; ...\">"
+          }
+        ]
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe project-detail-phases-phase-edit-light-1366: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 project-detail-phases-phase-edit-light-1366: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 project-detail-phases-phase-edit-light-1366: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "像素 project-detail-phases-phase-edit-light-1366: 与基线一致(≤0.5%)",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 project-detail-phases-phase-edit-light-1366",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/__screenshots__/project-detail-phases-phase-edit-light-1366.png"
+    }
+  ]
+}

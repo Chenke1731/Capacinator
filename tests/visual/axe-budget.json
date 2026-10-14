@@ -11,5 +11,11 @@
   "roadmap-light": 0,
   "project-detail-dark": 3,
   "project-detail-light": 12,
-  "_note": "project-detail 12/3 为生命周期徽章/步骤条/告警标题的存量对比度债(首次纳管即入账,非任务B引入;图表页签修复后不在违例中)"
+  "_note": "project-detail 12/3 为生命周期徽章/步骤条/告警标题的存量对比度债(首次纳管即入账,非任务B引入;图表页签修复后不在违例中)",
+  "project-detail-phases-dark": 3,
+  "project-detail-phases-light": 12,
+  "project-detail-phases-phase-hover-dark": 3,
+  "project-detail-phases-phase-hover-light": 12,
+  "project-detail-phases-phase-edit-dark": 3,
+  "project-detail-phases-phase-edit-light": 12
 }

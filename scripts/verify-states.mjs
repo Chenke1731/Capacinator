@@ -13,14 +13,26 @@
 // 禁用态按 WCAG 1.4.3 豁免对比度(规则豁免,非清单)。
 import { chromium } from 'playwright';
 import { readFileSync, writeFileSync } from 'node:fs';
+import { getProfile, auditEnvironment, assertProfileReady, matchesPage, authenticate } from './lib/ui-profiles.mjs';
+import { runProfileStates, installContrastHelpers } from './lib/ui-state-audit.mjs';
 
-const BASE = 'http://127.0.0.1:3120';
-const API = 'http://127.0.0.1:3110';
-const CHROME = '/root/.cache/ms-playwright/chromium-1223/chrome-linux64/chrome';
-const PAGE = process.argv.includes('--page') ? process.argv[process.argv.indexOf('--page') + 1] : '/projects';
+const BASE = auditEnvironment.base;
+const API = auditEnvironment.api;
+const CHROME = auditEnvironment.chrome;
+const cli=process.argv.slice(2),value=name=>cli.includes(name)?cli[cli.indexOf(name)+1]:undefined;
+const validArgs=new Set(['--profile','--page','--selftest','--debug','--quick','--record-existing','--help','--capture-fixtures']);
+for(let i=0;i<cli.length;i++){if(!validArgs.has(cli[i]))throw new Error(`Unknown argument ${cli[i]}`);if(['--profile','--page'].includes(cli[i])){if(!cli[i+1]||cli[i+1].startsWith('--'))throw new Error(`Missing value ${cli[i]}`);i++;}}
+if(cli.includes('--help')){console.log('verify-states: --profile projects|roadmap|project-detail|scenarios|import [--selftest] [--quick] [--record-existing]');process.exit(0);}
+const PROFILE=getProfile(value('--profile'),value('--page'));
+const PAGE = PROFILE.path;
 const SELFTEST = process.argv.includes('--selftest');
 const DEBUG = process.argv.includes('--debug');
 const QUICK = process.argv.includes('--quick'); // 迭代用: 单主题/跳滚动位/族上限 25(交付必全量)
+if(PROFILE.name!=='projects'){
+  await runProfileStates(PROFILE.name,{selftest:SELFTEST,quick:QUICK,recordExisting:cli.includes('--record-existing')});
+  process.exit(0);
+}
+if(cli.includes('--record-existing'))throw new Error('Projects legacy profile is a zero-debt gate; it cannot record exceptions');
 const TOKEN_CACHE = '/tmp/verify-boards-token.json';
 const FONT_TOKENS = [14, 13, 12.5, 11, 10]; // --b-fs-* + 气泡标题档,从令牌定义推导
 const ELEMENT_CAP = 700; // fail-loud 上限: 截断必须响,静默通过=假绿(静态审计是单次 evaluate,数百元素成本低)
@@ -35,11 +47,7 @@ const check = (name, ok, detail = '') => {
 
 // ── 鉴权: 每次运行全新登录(不复用缓存——缓存 TTL 12min > token 寿命,
 // 曾致运行中途 401 → 全局会话过期 AlertDialog 盖屏吃掉后续点击,静默污染量测) ──
-const login = await (await fetch(`${API}/api/auth/login`, {
-  method: 'POST', headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({ personId: 'eb8ecaf7-44a3-4384-a74b-2c18e9e894b1' })
-})).json();
-const auth = { ts: Date.now(), ...(login.data ?? login) };
+const auth = { ts: Date.now(), ...await authenticate() };
 if (!auth.accessToken) { console.error('login failed'); process.exit(1); }
 writeFileSync(TOKEN_CACHE, JSON.stringify(auth));
 
@@ -57,24 +65,14 @@ async function assertNoSessionDialog(page, theme) {
 
 // ── 对比度: alpha 对真实背板合成(上溯祖先链,删除钮红字淡红底=回归用例) ──
 const CONTRAST_FN = `
+  (${installContrastHelpers.toString()})();
   const luminance = (r, g, b) => {
     const f = (c) => { c /= 255; return c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4); };
     return 0.2126 * f(r) + 0.7152 * f(g) + 0.0722 * f(b);
   };
   // 解析归一(2026-10-11 批次二裁决): color-mix 的 computed 输出是 color(srgb r g b)
   // 的 0-1 浮点——曾按 0-255 解析, 琥珀墨对深底 9.6:1 被算成 1.42 整族伪报
-  const parse = (s) => {
-    if (!s) return null;
-    if (/color\\(srgb/i.test(s)) {
-      const m = s.match(/[\\d.]+/g);
-      if (!m) return null;
-      const rgb = m.slice(0, 3).map((v) => Math.round(Number(v) * 255));
-      if (m[3] !== undefined && /^color\\(srgb[^/]*\\//.test(s)) rgb.push(Number(m[3])); // / alpha 形式
-      return rgb;
-    }
-    const m = s.match(/[\\d.]+/g);
-    return m ? m.map(Number) : null;
-  };
+  const parse = (s) => window.__auditColor.parse(s);
   const composite = (bg, over) => {
     // over rgba 叠在 bg rgb 上
     const a = over[3] ?? 1;
@@ -149,6 +147,17 @@ const CONTRAST_FN = `
 `;
 
 const browser = await chromium.launch({ executablePath: CHROME });
+const blockedWrites=[];
+const originalNewPage=browser.newPage.bind(browser);
+browser.newPage=async(...args)=>{
+  const page=await originalNewPage(...args);
+  await page.route('**/api/**',async route=>{
+    if(['GET','HEAD','OPTIONS'].includes(route.request().method()))return route.continue();
+    blockedWrites.push(`${route.request().method()} ${new URL(route.request().url()).pathname}`);
+    return route.fulfill({status:503,contentType:'application/json',body:JSON.stringify({error:'audit-write-blocked',message:'审视写入被隔离'})});
+  });
+  return page;
+};
 
 // ── 单元素×单状态断言(浏览器侧批处理,减少往返) ──
 const AUDIT_FN = (scopeSelector) => `
@@ -245,7 +254,7 @@ const AUDIT_FN = (scopeSelector) => `
         // WCAG 1.4.11: 组件用"填充/边界/识别性图形"任一识别即可——逐项测量,
         // 全部可用指标 <3 才违例(曾按首个指标判, 无框图标钮的"填充 1.05"压过了
         // 完好达标的图形通道)
-        const pr = (s) => { const m = s.match(/[\\d.]+/g); return m ? m.map(Number) : null; };
+        const pr = (s) => window.__auditColor.parse(s);
         const bgRaw = pr(getComputedStyle(e).backgroundColor);
         const csSelf = getComputedStyle(e);
         const pb = getComputedStyle(e, '::before');
@@ -305,7 +314,7 @@ async function auditPhase(page, theme, phase, scopeSelector) {
   const { issues, tested, unknownBg = 0, clipped = 0, chromeCovered = 0 } = await page.evaluate(AUDIT_FN(scopeSelector));
   // fail-loud 上限 + 信息性计数(裁切折叠/页框让位/背板未知——都不判违,但要可见)
   const info = `${clipped ? `, 裁切折叠 ${clipped}` : ''}${chromeCovered ? `, 页框让位 ${chromeCovered}` : ''}${unknownBg ? `, 背板未知 ${unknownBg}` : ''}`;
-  check(`[${theme}] ${phase} 元素枚举 ≤${ELEMENT_CAP} (实测 ${tested}${info})`, tested <= ELEMENT_CAP,
+  check(`[${theme}] ${phase} 元素枚举 0<数量≤${ELEMENT_CAP} (实测 ${tested}${info})`, tested > 0 && tested <= ELEMENT_CAP,
     tested > ELEMENT_CAP ? '枚举截断风险——静默通过即假绿,必须人工分片' : '');
   const byEl = new Map();
   for (const i of issues) {
@@ -362,8 +371,7 @@ async function hoverSweep(page, theme) {
 // 发现循环的环境卫生: 上一个触发器可能(a)导航去了详情页(b)留下未关闭的就地
 // 输入框/气泡——都会静默吃掉后续点击。每个触发器前恢复上下文,失败响亮可查。
 async function restoreContext(page) {
-  const path = new URL(page.url()).pathname;
-  if (path !== PAGE) { // 精确匹配——'/projects/:id' 详情页包含 '/projects' 曾令守卫失效
+  if (!matchesPage(page.url(), PAGE, BASE)) {
     await page.goto(`${BASE}${PAGE}`, { waitUntil: 'networkidle' });
     await page.waitForTimeout(1800);
     await page.evaluate(CONTRAST_FN);
@@ -639,6 +647,7 @@ for (const theme of (QUICK ? ['light'] : ['light', 'dark'])) {
   //                          → localStorage.theme="undefined" → 回落 light,深色从未渲染)
   await p.goto(`${BASE}${PAGE}`, { waitUntil: 'networkidle' });
   await p.waitForTimeout(2500);
+  await assertProfileReady(p,PROFILE,BASE);
   await p.evaluate(CONTRAST_FN);
   // 前置断言(状态强制必须自证生效): 主题没渲染成就响亮作废本主题全部结果——
   // 否则"[dark]"是浅色复测而不自知,双主题覆盖静默归零
@@ -684,6 +693,7 @@ for (const theme of (QUICK ? ['light'] : ['light', 'dark'])) {
 }
 
 await browser.close();
+check('只读走查: 零业务写请求',blockedWrites.length===0,blockedWrites.join(' | '));
 const failed = results.filter((r) => !r.ok).length;
 console.log(`\n${results.filter((r) => r.ok).length}/${results.length} passed${totalFail ? ` (违例 ${totalFail})` : ''}`);
 process.exit(failed ? 1 : 0);

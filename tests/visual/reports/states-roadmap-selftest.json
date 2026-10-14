@@ -1,0 +1,877 @@
+{
+  "profile": "roadmap",
+  "phases": [
+    {
+      "theme": "light",
+      "state": "default",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "|",
+          "text": "",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 228,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(2) > button:nth-of-type(1)",
+          "family": "btn btn-sm nav-btn|",
+          "text": "",
+          "foreground": "rgb(101, 117, 139)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 4.697280155912882,
+          "textual": false,
+          "disabled": false,
+          "width": 44,
+          "height": 44,
+          "font": 12
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(2) > button:nth-of-type(2)",
+          "family": "btn btn-sm today-btn|",
+          "text": "今天",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 50.015625,
+          "height": 44,
+          "font": 12
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(2) > button:nth-of-type(3)",
+          "family": "btn btn-sm nav-btn|",
+          "text": "",
+          "foreground": "rgb(101, 117, 139)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 4.697280155912882,
+          "textual": false,
+          "disabled": false,
+          "width": 44,
+          "height": 44,
+          "font": 12
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(2) > input:nth-of-type(1)",
+          "family": "header-date-picker|",
+          "text": "",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 158,
+          "height": 36,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn btn-sm|",
+          "text": "",
+          "foreground": "rgb(101, 117, 139)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 4.697280155912882,
+          "textual": false,
+          "disabled": false,
+          "width": 44,
+          "height": 44,
+          "font": 12
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(1) > button:nth-of-type(2)",
+          "family": "btn btn-sm|",
+          "text": "",
+          "foreground": "rgb(101, 117, 139)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 4.697280155912882,
+          "textual": false,
+          "disabled": false,
+          "width": 44,
+          "height": 44,
+          "font": 12
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(30) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "project-name-link|",
+          "text": "问题单支持",
+          "foreground": "rgb(37, 99, 235)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 5.168555560022562,
+          "textual": true,
+          "disabled": false,
+          "width": 360,
+          "height": 17.28125,
+          "font": 14.4
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(30) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "project-name-link|",
+          "text": "项目事务",
+          "foreground": "rgb(37, 99, 235)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            249.48335255670895,
+            249.48335255670895,
+            251.41417916186083
+          ],
+          "contrast": 4.935745183506585,
+          "textual": true,
+          "disabled": false,
+          "width": 360,
+          "height": 17.28125,
+          "font": 14.4
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(30) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "project-name-link|",
+          "text": "客户门户改版",
+          "foreground": "rgb(37, 99, 235)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 5.168555560022562,
+          "textual": true,
+          "disabled": false,
+          "width": 360,
+          "height": 17.28125,
+          "font": 14.4
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(30) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "project-name-link|",
+          "text": "移动端改版",
+          "foreground": "rgb(37, 99, 235)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            249.48335255670895,
+            249.48335255670895,
+            251.41417916186083
+          ],
+          "contrast": 4.935745183506585,
+          "textual": true,
+          "disabled": false,
+          "width": 360,
+          "height": 17.28125,
+          "font": 14.4
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(30) > div:nth-of-type(5) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "project-name-link|",
+          "text": "门户首页改版",
+          "foreground": "rgb(37, 99, 235)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 5.168555560022562,
+          "textual": true,
+          "disabled": false,
+          "width": 360,
+          "height": 17.28125,
+          "font": 14.4
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(30) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "project-name-link|",
+          "text": "数据平台升级",
+          "foreground": "rgb(37, 99, 235)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            249.48335255670895,
+            249.48335255670895,
+            251.41417916186083
+          ],
+          "contrast": 4.935745183506585,
+          "textual": true,
+          "disabled": false,
+          "width": 360,
+          "height": 17.28125,
+          "font": 14.4
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(30) > div:nth-of-type(7) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "project-name-link|",
+          "text": "门户登录改造",
+          "foreground": "rgb(37, 99, 235)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 5.168555560022562,
+          "textual": true,
+          "disabled": false,
+          "width": 360,
+          "height": 17.28125,
+          "font": 14.4
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(30) > div:nth-of-type(8) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "project-name-link|",
+          "text": "分析-报表-图表导出",
+          "foreground": "rgb(37, 99, 235)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            249.48335255670895,
+            249.48335255670895,
+            251.41417916186083
+          ],
+          "contrast": 4.935745183506585,
+          "textual": true,
+          "disabled": false,
+          "width": 360,
+          "height": 17.28125,
+          "font": 14.4
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(30) > div:nth-of-type(9) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "project-name-link|",
+          "text": "分析-报表-透视表性能",
+          "foreground": "rgb(37, 99, 235)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 5.168555560022562,
+          "textual": true,
+          "disabled": false,
+          "width": 360,
+          "height": 17.28125,
+          "font": 14.4
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(30) > div:nth-of-type(10) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "project-name-link|",
+          "text": "分析-平台-会话改造",
+          "foreground": "rgb(37, 99, 235)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            249.48335255670895,
+            249.48335255670895,
+            251.41417916186083
+          ],
+          "contrast": 4.935745183506585,
+          "textual": true,
+          "disabled": false,
+          "width": 360,
+          "height": 17.28125,
+          "font": 14.4
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(30) > div:nth-of-type(11) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "project-name-link|",
+          "text": "分析-调度-节假日排除",
+          "foreground": "rgb(37, 99, 235)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 5.168555560022562,
+          "textual": true,
+          "disabled": false,
+          "width": 360,
+          "height": 17.28125,
+          "font": 14.4
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(30) > div:nth-of-type(12) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "project-name-link|",
+          "text": "分析-报表-移动端适配",
+          "foreground": "rgb(37, 99, 235)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            249.48335255670895,
+            249.48335255670895,
+            251.41417916186083
+          ],
+          "contrast": 4.935745183506585,
+          "textual": true,
+          "disabled": false,
+          "width": 360,
+          "height": 17.28125,
+          "font": 14.4
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(30) > div:nth-of-type(13) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "project-name-link|",
+          "text": "分析-平台-登录双因素",
+          "foreground": "rgb(37, 99, 235)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 5.168555560022562,
+          "textual": true,
+          "disabled": false,
+          "width": 360,
+          "height": 17.28125,
+          "font": 14.4
+        }
+      ],
+      "issues": [
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(30) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 17.28125
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(30) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 17.28125
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(30) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 17.28125
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(30) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 17.28125
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(30) > div:nth-of-type(5) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 17.28125
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(30) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 17.28125
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(30) > div:nth-of-type(7) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 17.28125
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(30) > div:nth-of-type(8) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 17.28125
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(30) > div:nth-of-type(9) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 17.28125
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(30) > div:nth-of-type(10) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 17.28125
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(30) > div:nth-of-type(11) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 17.28125
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(30) > div:nth-of-type(12) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 17.28125
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(30) > div:nth-of-type(13) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 17.28125
+        }
+      ],
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "dark",
+      "state": "default",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "|",
+          "text": "",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(17, 24, 39)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 228,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(2) > button:nth-of-type(1)",
+          "family": "btn btn-sm nav-btn|",
+          "text": "",
+          "foreground": "rgb(169, 177, 188)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 8.195772487363582,
+          "textual": false,
+          "disabled": false,
+          "width": 44,
+          "height": 44,
+          "font": 12
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(2) > button:nth-of-type(2)",
+          "family": "btn btn-sm today-btn|",
+          "text": "今天",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 50.015625,
+          "height": 44,
+          "font": 12
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(2) > button:nth-of-type(3)",
+          "family": "btn btn-sm nav-btn|",
+          "text": "",
+          "foreground": "rgb(169, 177, 188)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 8.195772487363582,
+          "textual": false,
+          "disabled": false,
+          "width": 44,
+          "height": 44,
+          "font": 12
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(2) > input:nth-of-type(1)",
+          "family": "header-date-picker|",
+          "text": "",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(17, 24, 39)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 158,
+          "height": 36,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn btn-sm|",
+          "text": "",
+          "foreground": "rgb(169, 177, 188)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 8.195772487363582,
+          "textual": false,
+          "disabled": false,
+          "width": 44,
+          "height": 44,
+          "font": 12
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(1) > button:nth-of-type(2)",
+          "family": "btn btn-sm|",
+          "text": "",
+          "foreground": "rgb(169, 177, 188)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 8.195772487363582,
+          "textual": false,
+          "disabled": false,
+          "width": 44,
+          "height": 44,
+          "font": 12
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(30) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "project-name-link|",
+          "text": "问题单支持",
+          "foreground": "rgb(96, 165, 250)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            29,
+            40,
+            58
+          ],
+          "contrast": 5.829692645699951,
+          "textual": true,
+          "disabled": false,
+          "width": 360,
+          "height": 17.28125,
+          "font": 14.4
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(30) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "project-name-link|",
+          "text": "项目事务",
+          "foreground": "rgb(96, 165, 250)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            27.205797770088427,
+            35.86079200307574,
+            52.239953863898506
+          ],
+          "contrast": 6.128139764855559,
+          "textual": true,
+          "disabled": false,
+          "width": 360,
+          "height": 17.28125,
+          "font": 14.4
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(30) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "project-name-link|",
+          "text": "客户门户改版",
+          "foreground": "rgb(96, 165, 250)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            29,
+            40,
+            58
+          ],
+          "contrast": 5.829692645699951,
+          "textual": true,
+          "disabled": false,
+          "width": 360,
+          "height": 17.28125,
+          "font": 14.4
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(30) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "project-name-link|",
+          "text": "移动端改版",
+          "foreground": "rgb(96, 165, 250)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            27.205797770088427,
+            35.86079200307574,
+            52.239953863898506
+          ],
+          "contrast": 6.128139764855559,
+          "textual": true,
+          "disabled": false,
+          "width": 360,
+          "height": 17.28125,
+          "font": 14.4
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(30) > div:nth-of-type(5) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "project-name-link|",
+          "text": "门户首页改版",
+          "foreground": "rgb(96, 165, 250)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            29,
+            40,
+            58
+          ],
+          "contrast": 5.829692645699951,
+          "textual": true,
+          "disabled": false,
+          "width": 360,
+          "height": 17.28125,
+          "font": 14.4
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(30) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "project-name-link|",
+          "text": "数据平台升级",
+          "foreground": "rgb(96, 165, 250)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            27.205797770088427,
+            35.86079200307574,
+            52.239953863898506
+          ],
+          "contrast": 6.128139764855559,
+          "textual": true,
+          "disabled": false,
+          "width": 360,
+          "height": 17.28125,
+          "font": 14.4
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(30) > div:nth-of-type(7) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "project-name-link|",
+          "text": "门户登录改造",
+          "foreground": "rgb(96, 165, 250)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            29,
+            40,
+            58
+          ],
+          "contrast": 5.829692645699951,
+          "textual": true,
+          "disabled": false,
+          "width": 360,
+          "height": 17.28125,
+          "font": 14.4
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(30) > div:nth-of-type(8) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "project-name-link|",
+          "text": "分析-报表-图表导出",
+          "foreground": "rgb(96, 165, 250)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            27.205797770088427,
+            35.86079200307574,
+            52.239953863898506
+          ],
+          "contrast": 6.128139764855559,
+          "textual": true,
+          "disabled": false,
+          "width": 360,
+          "height": 17.28125,
+          "font": 14.4
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(30) > div:nth-of-type(9) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "project-name-link|",
+          "text": "分析-报表-透视表性能",
+          "foreground": "rgb(96, 165, 250)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            29,
+            40,
+            58
+          ],
+          "contrast": 5.829692645699951,
+          "textual": true,
+          "disabled": false,
+          "width": 360,
+          "height": 17.28125,
+          "font": 14.4
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(30) > div:nth-of-type(10) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "project-name-link|",
+          "text": "分析-平台-会话改造",
+          "foreground": "rgb(96, 165, 250)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            27.205797770088427,
+            35.86079200307574,
+            52.239953863898506
+          ],
+          "contrast": 6.128139764855559,
+          "textual": true,
+          "disabled": false,
+          "width": 360,
+          "height": 17.28125,
+          "font": 14.4
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(30) > div:nth-of-type(11) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "project-name-link|",
+          "text": "分析-调度-节假日排除",
+          "foreground": "rgb(96, 165, 250)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            29,
+            40,
+            58
+          ],
+          "contrast": 5.829692645699951,
+          "textual": true,
+          "disabled": false,
+          "width": 360,
+          "height": 17.28125,
+          "font": 14.4
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(30) > div:nth-of-type(12) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "project-name-link|",
+          "text": "分析-报表-移动端适配",
+          "foreground": "rgb(96, 165, 250)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            27.205797770088427,
+            35.86079200307574,
+            52.239953863898506
+          ],
+          "contrast": 6.128139764855559,
+          "textual": true,
+          "disabled": false,
+          "width": 360,
+          "height": 17.28125,
+          "font": 14.4
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(30) > div:nth-of-type(13) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "project-name-link|",
+          "text": "分析-平台-登录双因素",
+          "foreground": "rgb(96, 165, 250)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            29,
+            40,
+            58
+          ],
+          "contrast": 5.829692645699951,
+          "textual": true,
+          "disabled": false,
+          "width": 360,
+          "height": 17.28125,
+          "font": 14.4
+        }
+      ],
+      "issues": [
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(30) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 17.28125
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(30) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 17.28125
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(30) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 17.28125
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(30) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 17.28125
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(30) > div:nth-of-type(5) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 17.28125
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(30) > div:nth-of-type(6) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 17.28125
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(30) > div:nth-of-type(7) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 17.28125
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(30) > div:nth-of-type(8) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 17.28125
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(30) > div:nth-of-type(9) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 17.28125
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(30) > div:nth-of-type(10) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 17.28125
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(30) > div:nth-of-type(11) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 17.28125
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(30) > div:nth-of-type(12) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 17.28125
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(30) > div:nth-of-type(13) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 17.28125
+        }
+      ],
+      "axe": [],
+      "newIssues": []
+    }
+  ],
+  "writes": [],
+  "errors": []
+}

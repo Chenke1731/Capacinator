@@ -1,7 +1,7 @@
 {
   "combinations": 4,
   "checks": 20,
-  "updatePixels": true,
+  "updatePixels": false,
   "registerExistingAxe": false,
   "evidence": [
     {
@@ -15,32 +15,10 @@
         "height": 900
       },
       "axe": {
-        "count": 3,
+        "count": 0,
         "cap": 3,
         "added": [],
-        "identities": [
-          {
-            "rule": "color-contrast",
-            "target": [
-              ".lifecycle-btn-primary"
-            ],
-            "html": "<button class=\"lifecycle-btn lifecycle-btn-primary\">交付</button>"
-          },
-          {
-            "rule": "color-contrast",
-            "target": [
-              ".lifecycle-btn-danger"
-            ],
-            "html": "<button class=\"lifecycle-btn lifecycle-btn-danger\">裁决取消</button>"
-          },
-          {
-            "rule": "color-contrast",
-            "target": [
-              "span:nth-child(7) > .lifecycle-step > .lifecycle-step-label"
-            ],
-            "html": "<span class=\"lifecycle-step-label\">已交付</span>"
-          }
-        ]
+        "identities": []
       },
       "collisions": [],
       "overflow": [],
@@ -60,7 +38,7 @@
           "ok": true
         },
         {
-          "name": "基线 project-detail-phases-dark-1600: 已采集",
+          "name": "像素 project-detail-phases-dark-1600: 与基线一致(≤0.5%)",
           "ok": true
         },
         {
@@ -81,32 +59,10 @@
         "height": 768
       },
       "axe": {
-        "count": 3,
+        "count": 0,
         "cap": 3,
         "added": [],
-        "identities": [
-          {
-            "rule": "color-contrast",
-            "target": [
-              ".lifecycle-btn-primary"
-            ],
-            "html": "<button class=\"lifecycle-btn lifecycle-btn-primary\">交付</button>"
-          },
-          {
-            "rule": "color-contrast",
-            "target": [
-              ".lifecycle-btn-danger"
-            ],
-            "html": "<button class=\"lifecycle-btn lifecycle-btn-danger\">裁决取消</button>"
-          },
-          {
-            "rule": "color-contrast",
-            "target": [
-              "span:nth-child(7) > .lifecycle-step > .lifecycle-step-label"
-            ],
-            "html": "<span class=\"lifecycle-step-label\">已交付</span>"
-          }
-        ]
+        "identities": []
       },
       "collisions": [],
       "overflow": [],
@@ -126,7 +82,7 @@
           "ok": true
         },
         {
-          "name": "基线 project-detail-phases-dark-1366: 已采集",
+          "name": "像素 project-detail-phases-dark-1366: 与基线一致(≤0.5%)",
           "ok": true
         },
         {
@@ -147,95 +103,10 @@
         "height": 900
       },
       "axe": {
-        "count": 12,
+        "count": 0,
         "cap": 12,
         "added": [],
-        "identities": [
-          {
-            "rule": "color-contrast",
-            "target": [
-              ".lifecycle-state-badge"
-            ],
-            "html": "<button type=\"button\" class=\"lifecycle-state-badge lifecycle-state-badge--in_iteration lifecycle-badge-btn\" title=\"存在状态告警: 已进入迭代，但编号（SR/AR号）未填——外部系统无法对账\">"
-          },
-          {
-            "rule": "color-contrast",
-            "target": [
-              ".lifecycle-btn-primary"
-            ],
-            "html": "<button class=\"lifecycle-btn lifecycle-btn-primary\">交付</button>"
-          },
-          {
-            "rule": "color-contrast",
-            "target": [
-              "span:nth-child(1) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label"
-            ],
-            "html": "<span class=\"lifecycle-step-label\">待RAT</span>"
-          },
-          {
-            "rule": "color-contrast",
-            "target": [
-              "span:nth-child(2) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label"
-            ],
-            "html": "<span class=\"lifecycle-step-label\">NOK</span>"
-          },
-          {
-            "rule": "color-contrast",
-            "target": [
-              "span:nth-child(3) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label"
-            ],
-            "html": "<span class=\"lifecycle-step-label\">设计中</span>"
-          },
-          {
-            "rule": "color-contrast",
-            "target": [
-              ".lifecycle-gate"
-            ],
-            "html": "<span class=\"lifecycle-gate\" title=\"方案成熟后准入,转入开发侧\">准入</span>"
-          },
-          {
-            "rule": "color-contrast",
-            "target": [
-              "span:nth-child(4) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label"
-            ],
-            "html": "<span class=\"lifecycle-step-label\">待排序</span>"
-          },
-          {
-            "rule": "color-contrast",
-            "target": [
-              "span:nth-child(5) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label"
-            ],
-            "html": "<span class=\"lifecycle-step-label\">已排序</span>"
-          },
-          {
-            "rule": "color-contrast",
-            "target": [
-              "span:nth-child(7) > .lifecycle-step > .lifecycle-step-label"
-            ],
-            "html": "<span class=\"lifecycle-step-label\">已交付</span>"
-          },
-          {
-            "rule": "color-contrast",
-            "target": [
-              ".lifecycle-warning-title"
-            ],
-            "html": "<span class=\"lifecycle-warning-title\">状态告警</span>"
-          },
-          {
-            "rule": "color-contrast",
-            "target": [
-              ".visual-phase-manager > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(1)"
-            ],
-            "html": "<div style=\"position: absolute; ...\">"
-          },
-          {
-            "rule": "color-contrast",
-            "target": [
-              "div > div > div:nth-child(2) > div:nth-child(3)"
-            ],
-            "html": "<div style=\"position: absolute; ...\">"
-          }
-        ]
+        "identities": []
       },
       "collisions": [],
       "overflow": [],
@@ -255,7 +126,7 @@
           "ok": true
         },
         {
-          "name": "基线 project-detail-phases-light-1600: 已采集",
+          "name": "像素 project-detail-phases-light-1600: 与基线一致(≤0.5%)",
           "ok": true
         },
         {
@@ -276,95 +147,10 @@
         "height": 768
       },
       "axe": {
-        "count": 12,
+        "count": 0,
         "cap": 12,
         "added": [],
-        "identities": [
-          {
-            "rule": "color-contrast",
-            "target": [
-              ".lifecycle-state-badge"
-            ],
-            "html": "<button type=\"button\" class=\"lifecycle-state-badge lifecycle-state-badge--in_iteration lifecycle-badge-btn\" title=\"存在状态告警: 已进入迭代，但编号（SR/AR号）未填——外部系统无法对账\">"
-          },
-          {
-            "rule": "color-contrast",
-            "target": [
-              ".lifecycle-btn-primary"
-            ],
-            "html": "<button class=\"lifecycle-btn lifecycle-btn-primary\">交付</button>"
-          },
-          {
-            "rule": "color-contrast",
-            "target": [
-              "span:nth-child(1) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label"
-            ],
-            "html": "<span class=\"lifecycle-step-label\">待RAT</span>"
-          },
-          {
-            "rule": "color-contrast",
-            "target": [
-              "span:nth-child(2) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label"
-            ],
-            "html": "<span class=\"lifecycle-step-label\">NOK</span>"
-          },
-          {
-            "rule": "color-contrast",
-            "target": [
-              "span:nth-child(3) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label"
-            ],
-            "html": "<span class=\"lifecycle-step-label\">设计中</span>"
-          },
-          {
-            "rule": "color-contrast",
-            "target": [
-              ".lifecycle-gate"
-            ],
-            "html": "<span class=\"lifecycle-gate\" title=\"方案成熟后准入,转入开发侧\">准入</span>"
-          },
-          {
-            "rule": "color-contrast",
-            "target": [
-              "span:nth-child(4) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label"
-            ],
-            "html": "<span class=\"lifecycle-step-label\">待排序</span>"
-          },
-          {
-            "rule": "color-contrast",
-            "target": [
-              "span:nth-child(5) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label"
-            ],
-            "html": "<span class=\"lifecycle-step-label\">已排序</span>"
-          },
-          {
-            "rule": "color-contrast",
-            "target": [
-              "span:nth-child(7) > .lifecycle-step > .lifecycle-step-label"
-            ],
-            "html": "<span class=\"lifecycle-step-label\">已交付</span>"
-          },
-          {
-            "rule": "color-contrast",
-            "target": [
-              ".lifecycle-warning-title"
-            ],
-            "html": "<span class=\"lifecycle-warning-title\">状态告警</span>"
-          },
-          {
-            "rule": "color-contrast",
-            "target": [
-              ".visual-phase-manager > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(1)"
-            ],
-            "html": "<div style=\"position: absolute; ...\">"
-          },
-          {
-            "rule": "color-contrast",
-            "target": [
-              "div > div > div:nth-child(2) > div:nth-child(3)"
-            ],
-            "html": "<div style=\"position: absolute; ...\">"
-          }
-        ]
+        "identities": []
       },
       "collisions": [],
       "overflow": [],
@@ -384,7 +170,7 @@
           "ok": true
         },
         {
-          "name": "基线 project-detail-phases-light-1366: 已采集",
+          "name": "像素 project-detail-phases-light-1366: 与基线一致(≤0.5%)",
           "ok": true
         },
         {

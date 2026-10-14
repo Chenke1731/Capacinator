@@ -996,8 +996,8 @@ input[type="checkbox"].settings-checkbox,
 }
 
 .lifecycle-banner--cancelled {
-  border-color: var(--danger-color, #dc2626);
-  opacity: 0.85;
+  border-color: var(--status-danger-border);
+  opacity: 1;
 }
 
 .lifecycle-banner-top {
@@ -1021,18 +1021,18 @@ input[type="checkbox"].settings-checkbox,
   font-weight: 500;
   padding: 3px 10px;
   border-radius: 3px;
-  background: var(--bg-secondary, rgba(127,127,127,0.15));
+  background: var(--bg-secondary);
   color: var(--text-primary);
   white-space: nowrap;
 }
-.lifecycle-state-badge--designing { background: rgba(59,130,246,0.13); color: #93c5fc; } /* 深色提亮;浅色在 2405 行压深 */
-.lifecycle-state-badge--pending_rat { background: rgba(107,114,128,0.13); color: var(--text-secondary); }
-.lifecycle-state-badge--nok { background: rgba(245,158,11,0.13); color: #f59e0b; }
-.lifecycle-state-badge--backlog { background: rgba(156,163,175,0.13); color: #9ca3af; }
-.lifecycle-state-badge--scheduled { background: rgba(99,102,241,0.13); color: #818cf8; } /* 深 3.47→5.2; 浅色 2768 行压深 */
-.lifecycle-state-badge--in_iteration { background: rgba(34,197,94,0.13); color: #22c55e; }
-.lifecycle-state-badge--delivered { background: rgba(20,184,166,0.13); color: #14b8a6; }
-.lifecycle-state-badge--cancelled { background: rgba(220,38,38,0.13); color: #f87171; } /* 深 ~4.0→5.4; 浅色 2771 行压深 */
+.lifecycle-state-badge--designing { background: var(--status-info-soft); color: var(--status-info-text); } /* 深色提亮;浅色在 2405 行压深 */
+.lifecycle-state-badge--pending_rat { background: var(--bg-secondary); color: var(--text-secondary); }
+.lifecycle-state-badge--nok { background: var(--status-warning-soft); color: var(--status-warning-text); }
+.lifecycle-state-badge--backlog { background: var(--bg-secondary); color: var(--text-tertiary); }
+.lifecycle-state-badge--scheduled { background: var(--primary-light); color: var(--primary-text); } /* 深 3.47→5.2; 浅色 2768 行压深 */
+.lifecycle-state-badge--in_iteration { background: var(--status-success-soft); color: var(--status-success-text); }
+.lifecycle-state-badge--delivered { background: var(--lifecycle-delivered-soft); color: var(--lifecycle-delivered-text); }
+.lifecycle-state-badge--cancelled { background: var(--status-danger-soft); color: var(--status-danger-text); } /* 深 ~4.0→5.4; 浅色 2771 行压深 */
 
 .lifecycle-deadline {
   font-size: 12px;
@@ -1040,7 +1040,7 @@ input[type="checkbox"].settings-checkbox,
   white-space: nowrap;
 }
 .lifecycle-deadline--overdue {
-  color: var(--danger-color, #dc2626);
+  color: var(--status-danger-text);
   font-weight: 500;
 }
 
@@ -1106,41 +1106,46 @@ input[type="checkbox"].settings-checkbox,
   transition: background 0.15s, border-color 0.15s;
 }
 .lifecycle-btn:hover:not(:disabled) {
-  background: var(--bg-secondary, rgba(127,127,127,0.12));
+  background: var(--bg-secondary);
   border-color: var(--border-color-hover);
 }
 .lifecycle-btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
 .lifecycle-btn-primary {
-  background: var(--accent-color, #3b82f6);
-  border-color: var(--accent-color, #3b82f6);
-  color: #fff;
+  background: var(--primary-solid);
+  border-color: var(--primary-solid);
+  color: var(--solid-foreground);
 }
 .lifecycle-btn-primary:hover:not(:disabled) {
-  background: var(--accent-color-hover, #2563eb);
-  border-color: var(--accent-color-hover, #2563eb);
+  background: color-mix(in srgb, var(--primary-solid) 90%, var(--solid-shade));
+  border-color: color-mix(in srgb, var(--primary-solid) 90%, var(--solid-shade));
 }
 
 .lifecycle-btn-danger {
-  border-color: var(--danger-color, #dc2626);
-  color: var(--danger-color, #dc2626);
+  border-color: var(--status-danger-border);
+  color: var(--status-danger-text);
 }
 .lifecycle-btn-danger:hover:not(:disabled) {
-  background: rgba(220,38,38,0.12);
+  background: var(--status-danger-soft);
 }
 .lifecycle-btn--confirming {
-  background: var(--danger-color, #dc2626);
-  color: #fff;
+  background: var(--status-danger-solid);
+  color: var(--solid-foreground);
   animation: lifecycle-pulse 1s ease-in-out infinite;
 }
 /* 白字红底悬停被全局 button:hover 换灰底(2026-10-13 审计同族)——重声明 */
 .lifecycle-btn--confirming:hover {
-  background: var(--danger-hover, #991b1b);
-  color: #fff;
+  background: color-mix(in srgb, var(--status-danger-solid) 90%, var(--solid-shade));
+  color: var(--solid-foreground);
+}
+/* The danger-outline hover is more specific; confirmation must remain solid. */
+.lifecycle-btn.lifecycle-btn--confirming:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--status-danger-solid) 90%, var(--solid-shade));
+  color: var(--solid-foreground);
 }
 @keyframes lifecycle-pulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(220,38,38,0.4); }
-  50% { box-shadow: 0 0 0 4px rgba(220,38,38,0.15); }
+  0%, 100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--status-danger-border) 40%, transparent); }
+  50% { box-shadow: 0 0 0 4px color-mix(in srgb, var(--status-danger-border) 15%, transparent); }
 }
 
 /* Stepper */
@@ -1155,9 +1160,9 @@ input[type="checkbox"].settings-checkbox,
   display: inline-flex;
   align-items: center;
   gap: 5px;
-  opacity: 0.45;
+  opacity: 1;
 }
-.lifecycle-step--passed { opacity: 0.7; }
+.lifecycle-step--passed { opacity: 1; }
 .lifecycle-step--current { opacity: 1; }
 
 .lifecycle-step-dot {
@@ -1172,14 +1177,14 @@ input[type="checkbox"].settings-checkbox,
   flex-shrink: 0;
 }
 .lifecycle-step--passed .lifecycle-step-dot {
-  background: var(--accent-color, #3b82f6);
-  border-color: var(--accent-color, #3b82f6);
-  color: #fff;
+  background: var(--primary-solid);
+  border-color: var(--primary-solid);
+  color: var(--solid-foreground);
 }
 .lifecycle-step--current .lifecycle-step-dot {
-  border-color: var(--accent-color, #3b82f6);
-  box-shadow: 0 0 0 3px rgba(59,130,246,0.2);
-  color: var(--accent-color, #3b82f6);
+  border-color: var(--primary-text);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 20%, transparent);
+  color: var(--primary-text);
 }
 
 .lifecycle-step-label {
@@ -1199,8 +1204,8 @@ input[type="checkbox"].settings-checkbox,
 
 .lifecycle-gate {
   font-size: 11px;
-  color: #f59e0b;
-  border: 1px dashed rgba(245,158,11,0.6);
+  color: var(--status-warning-text);
+  border: 1px dashed var(--status-warning-border);
   border-radius: 4px;
   padding: 1px 6px;
   margin: 0 4px;
@@ -1229,7 +1234,7 @@ input[type="checkbox"].settings-checkbox,
 }
 .lifecycle-number-input:focus {
   outline: none;
-  border-color: var(--accent-color, #3b82f6);
+  border-color: var(--primary-text);
 }
 
 .lifecycle-expand {
@@ -1280,7 +1285,7 @@ input[type="checkbox"].settings-checkbox,
 
 .lifecycle-error {
   font-size: 13px;
-  color: var(--danger-color, #dc2626);
+  color: var(--status-danger-text);
 }
 
 /* ============================================================
@@ -1555,7 +1560,7 @@ input[type="checkbox"].settings-checkbox,
   cursor: pointer;
 }
 .projects-board .lifecycle-advance-btn { min-width: 24px; min-height: 24px; }
-.lifecycle-advance-btn:hover { opacity: 1; background: rgba(127, 127, 127, 0.12); }
+.lifecycle-advance-btn:hover { opacity: 1; background: var(--bg-secondary); }
 .lifecycle-advance-btn:disabled { opacity: 0.35; cursor: default; }
 .lifecycle-cell-badges {
   display: inline-flex;
@@ -1712,7 +1717,7 @@ input[type="checkbox"].settings-checkbox,
 [data-theme='dark'] .cell-pop-item--danger { color: #fca5a5; }
 /* 状态徽章悬停(2026-10-11 批次二): 全局 button:hover 的 bg-tertiary 盖掉
    状态色底,text-secondary 对 #374151 仅 4.02——深色悬停换暗染底(6.0) */
-[data-theme='dark'] .lifecycle-state-badge:hover { background-color: rgba(0, 0, 0, 0.22); }
+[data-theme='dark'] .lifecycle-state-badge:hover { background-color: color-mix(in srgb, var(--solid-shade) 22%, transparent); }
 .cell-pop-item-label {
   flex: 1;
   min-width: 0;
@@ -1790,8 +1795,8 @@ input[type="checkbox"].settings-checkbox,
   gap: 6px;
 }
 .lc-state-row--current {
-  border-color: var(--accent-color, #3b82f6);
-  background: rgba(59, 130, 246, 0.08);
+  border-color: var(--primary-text);
+  background: var(--primary-light);
   color: var(--text-primary);
   cursor: default;
   display: inline-flex;
@@ -1800,7 +1805,7 @@ input[type="checkbox"].settings-checkbox,
   font-weight: 600;
   padding: 6px 12px;
   border-radius: 6px;
-  border: 1px solid var(--accent-color, #3b82f6);
+  border: 1px solid var(--primary-text);
 }
 .lc-state-current-tag {
   margin-left: auto;
@@ -1809,8 +1814,8 @@ input[type="checkbox"].settings-checkbox,
   color: var(--text-secondary);
 }
 .lc-state-row--danger {
-  border-color: rgba(220, 38, 38, 0.5);
-  color: var(--danger-color, #dc2626);
+  border-color: var(--status-danger-border);
+  color: var(--status-danger-text);
 }
 
 /* Advisory warning indicators (状态告警) */
@@ -1819,9 +1824,9 @@ input[type="checkbox"].settings-checkbox,
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: #f59e0b;
+  background: var(--status-warning-border);
   margin-right: 5px;
-  box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.25);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--status-warning-border) 25%, transparent);
 }
 
 .lifecycle-warning-strip {
@@ -1831,9 +1836,9 @@ input[type="checkbox"].settings-checkbox,
   flex-wrap: wrap;
   padding: 6px 10px;
   border-radius: 6px;
-  border: 1px solid rgba(245, 158, 11, 0.45);
-  background: rgba(245, 158, 11, 0.08);
-  color: #f59e0b;
+  border: 1px solid var(--status-warning-border);
+  background: var(--status-warning-soft);
+  color: var(--status-warning-text);
   font-size: 12.5px;
 }
 .lifecycle-warning-strip svg { align-self: center; }
@@ -2658,12 +2663,12 @@ body.req-col-dragging * {
   justify-content: center;
   font-size: var(--b-fs-body);
   font-weight: 500;
-  color: var(--accent-color, #3b82f6);
+  color: var(--status-info-text);
   border-radius: var(--b-r-pill);
-  background: rgba(59, 130, 246, 0.10);
+  background: var(--status-info-soft);
   flex: none;
 }
-.projects-board .lifecycle-quick-btn:hover { background: rgba(59, 130, 246, 0.18); }
+.projects-board .lifecycle-quick-btn:hover { background: var(--status-info-soft); }
 .projects-board .lifecycle-badge-btn {
   min-height: 32px;
   min-width: 84px;
@@ -2685,17 +2690,17 @@ body.req-col-dragging * {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.lifecycle-deadline--inline.lifecycle-deadline--overdue { color: #f59e0b; font-weight: 500; }
+.lifecycle-deadline--inline.lifecycle-deadline--overdue { color: var(--status-warning-text); font-weight: 500; }
 .projects-board .lifecycle-warn-chip {
   border: none;
   background: none; /* 2026-09-23 名称格降噪: 去底色块,琥珀文字+前缀点 */
-  color: #b45309;
+  color: var(--status-warning-text);
   font-size: var(--b-fs-meta);
   font-weight: 400;
   padding: 0;
   margin-left: 2px;
 }
-[data-theme='dark'] .projects-board .lifecycle-warn-chip { color: #fbbf24; }
+[data-theme='dark'] .projects-board .lifecycle-warn-chip { color: var(--status-warning-text); }
 .projects-board .lifecycle-warn-chip::before {
   content: '·';
   font-weight: 700;
@@ -2789,18 +2794,18 @@ body.req-col-dragging * {
 /* ============================================================
    浅色主题: 需求台色板加深(白底上亮色文字+淡底发虚,统一压深一档)
    ============================================================ */
-[data-theme='light'] .projects-board .lifecycle-state-badge--designing { color: #1d4ed8; }
-[data-theme='light'] .projects-board .lifecycle-state-badge--pending_rat { color: #4b5563; }
-[data-theme='light'] .projects-board .lifecycle-state-badge--nok { color: #b45309; }
-[data-theme='light'] .projects-board .lifecycle-state-badge--backlog { color: #4b5563; }
-[data-theme='light'] .projects-board .lifecycle-state-badge--scheduled { color: #4f46e5; }
-[data-theme='light'] .projects-board .lifecycle-state-badge--in_iteration { color: #166534; }
-[data-theme='light'] .projects-board .lifecycle-state-badge--delivered { color: #0f766e; }
-[data-theme='light'] .projects-board .lifecycle-state-badge--cancelled { color: #b91c1c; }
-[data-theme='light'] .projects-board .lifecycle-warn-chip { color: #b45309; }
-[data-theme='light'] .projects-board .lifecycle-deadline--inline.lifecycle-deadline--overdue { color: #b45309; }
-[data-theme='light'] .projects-board .lifecycle-quick-btn { color: #1d4ed8; background: rgba(59, 130, 246, 0.10); }
-[data-theme='light'] .projects-board .lifecycle-quick-btn:hover { background: rgba(59, 130, 246, 0.18); }
+[data-theme='light'] .projects-board .lifecycle-state-badge--designing { color: var(--status-info-text); }
+[data-theme='light'] .projects-board .lifecycle-state-badge--pending_rat { color: var(--text-tertiary); }
+[data-theme='light'] .projects-board .lifecycle-state-badge--nok { color: var(--status-warning-text); }
+[data-theme='light'] .projects-board .lifecycle-state-badge--backlog { color: var(--text-tertiary); }
+[data-theme='light'] .projects-board .lifecycle-state-badge--scheduled { color: var(--primary-text); }
+[data-theme='light'] .projects-board .lifecycle-state-badge--in_iteration { color: var(--status-success-text); }
+[data-theme='light'] .projects-board .lifecycle-state-badge--delivered { color: var(--lifecycle-delivered-text); }
+[data-theme='light'] .projects-board .lifecycle-state-badge--cancelled { color: var(--status-danger-text); }
+[data-theme='light'] .projects-board .lifecycle-warn-chip { color: var(--status-warning-text); }
+[data-theme='light'] .projects-board .lifecycle-deadline--inline.lifecycle-deadline--overdue { color: var(--status-warning-text); }
+[data-theme='light'] .projects-board .lifecycle-quick-btn { color: var(--status-info-text); background: var(--status-info-soft); }
+[data-theme='light'] .projects-board .lifecycle-quick-btn:hover { background: var(--status-info-soft); }
 
 /* ── 对比度 AA 修正(2026-09-22 全站清零批次) ────────────────── */
 /* P 档: 浅色 P2 琥珀压深过 4.5; 深色 P1/P2 提亮 */
@@ -2808,7 +2813,7 @@ body.req-col-dragging * {
 [data-theme='dark'] .projects-board .req-pri--1, .dark .projects-board .req-pri--1 { color: #fca5a5; }
 [data-theme='dark'] .projects-board .req-pri--2, .dark .projects-board .req-pri--2 { color: #fbbf24; }
 /* 深色: 状态快捷幽灵键文字提亮 */
-[data-theme='dark'] .projects-board .lifecycle-quick-btn, .dark .projects-board .lifecycle-quick-btn { color: #93c5fc; }
+[data-theme='dark'] .projects-board .lifecycle-quick-btn, .dark .projects-board .lifecycle-quick-btn { color: var(--status-info-text); }
 /* 深色: 实心危险按钮底压深(白字 ≥4.5) */
 [data-theme='dark'] .btn-danger, .dark .btn-danger { background-color: #b91c1c; border-color: #b91c1c; color: #fff; }
 
@@ -3057,3 +3062,7 @@ body.req-col-dragging * {
 .requirements-vrow { will-change: transform; }
 /* 原 .requirements-children > .requirements-row 的虚线边框: 平铺后由行类自身承担 */
 .requirements-row--child { border-bottom: 1px dashed var(--border-color, rgba(127, 127, 127, 0.12)); }
+
+/* Delivered remains a distinct teal category; sampled against its actual badge surface. */
+[data-theme="light"] { --lifecycle-delivered-text: #0f766e; --lifecycle-delivered-border: #0f766e; --lifecycle-delivered-soft: color-mix(in srgb, var(--lifecycle-delivered-border) 10%, var(--bg-primary)); }
+[data-theme="dark"] { --lifecycle-delivered-text: #5eead4; --lifecycle-delivered-border: #14b8a6; --lifecycle-delivered-soft: color-mix(in srgb, var(--lifecycle-delivered-border) 10%, var(--bg-primary)); }

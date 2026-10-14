@@ -9,44 +9,10 @@
   "assignments-light": [],
   "dashboard-dark": [],
   "dashboard-light": [],
-  "project-detail-dark": [
-    "color-contrast|[\".lifecycle-btn-danger\"]",
-    "color-contrast|[\".lifecycle-btn-primary\"]",
-    "color-contrast|[\"span:nth-child(7) > .lifecycle-step > .lifecycle-step-label\"]"
-  ],
-  "project-detail-light": [
-    "color-contrast|[\".lifecycle-btn-primary\"]",
-    "color-contrast|[\".lifecycle-gate\"]",
-    "color-contrast|[\".lifecycle-state-badge\"]",
-    "color-contrast|[\".lifecycle-warning-title\"]",
-    "color-contrast|[\".visual-phase-manager > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(1)\"]",
-    "color-contrast|[\"div > div > div:nth-child(2) > div:nth-child(3)\"]",
-    "color-contrast|[\"span:nth-child(1) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label\"]",
-    "color-contrast|[\"span:nth-child(2) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label\"]",
-    "color-contrast|[\"span:nth-child(3) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label\"]",
-    "color-contrast|[\"span:nth-child(4) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label\"]",
-    "color-contrast|[\"span:nth-child(5) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label\"]",
-    "color-contrast|[\"span:nth-child(7) > .lifecycle-step > .lifecycle-step-label\"]"
-  ],
-  "project-detail-phases-dark": [
-    "color-contrast|[\".lifecycle-btn-danger\"]",
-    "color-contrast|[\".lifecycle-btn-primary\"]",
-    "color-contrast|[\"span:nth-child(7) > .lifecycle-step > .lifecycle-step-label\"]"
-  ],
-  "project-detail-phases-light": [
-    "color-contrast|[\".lifecycle-btn-primary\"]",
-    "color-contrast|[\".lifecycle-gate\"]",
-    "color-contrast|[\".lifecycle-state-badge\"]",
-    "color-contrast|[\".lifecycle-warning-title\"]",
-    "color-contrast|[\".visual-phase-manager > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(1)\"]",
-    "color-contrast|[\"div > div > div:nth-child(2) > div:nth-child(3)\"]",
-    "color-contrast|[\"span:nth-child(1) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label\"]",
-    "color-contrast|[\"span:nth-child(2) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label\"]",
-    "color-contrast|[\"span:nth-child(3) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label\"]",
-    "color-contrast|[\"span:nth-child(4) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label\"]",
-    "color-contrast|[\"span:nth-child(5) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label\"]",
-    "color-contrast|[\"span:nth-child(7) > .lifecycle-step > .lifecycle-step-label\"]"
-  ],
+  "project-detail-dark": [],
+  "project-detail-light": [],
+  "project-detail-phases-dark": [],
+  "project-detail-phases-light": [],
   "project-detail-phases-phase-hover-dark": [
     "color-contrast|[\".lifecycle-btn-danger\"]",
     "color-contrast|[\".lifecycle-btn-primary\"]",

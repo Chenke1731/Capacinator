@@ -90,331 +90,86 @@
     "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(30) > div:nth-of-type(9) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)|target-size"
   ],
   "project-detail|light|default": [
-    ".lifecycle-btn-primary|axe:color-contrast",
-    ".lifecycle-gate|axe:color-contrast",
-    ".lifecycle-state-badge|axe:color-contrast",
-    ".lifecycle-warning-title|axe:color-contrast",
-    ".visual-phase-manager > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(1)|axe:color-contrast",
-    "div > div > div:nth-child(2) > div:nth-child(3)|axe:color-contrast",
-    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)|target-size",
-    "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > span:nth-of-type(1) > button:nth-of-type(1)|text-contrast",
-    "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)|text-contrast",
-    "span:nth-child(1) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(2) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(3) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(4) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(5) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(7) > .lifecycle-step > .lifecycle-step-label|axe:color-contrast"
+    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)|target-size"
   ],
   "project-detail|light|hover-0": [
-    ".lifecycle-btn-primary|axe:color-contrast",
-    ".lifecycle-gate|axe:color-contrast",
-    ".lifecycle-state-badge|axe:color-contrast",
-    ".lifecycle-warning-title|axe:color-contrast",
-    ".visual-phase-manager > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(1)|axe:color-contrast",
-    "div > div > div:nth-child(2) > div:nth-child(3)|axe:color-contrast",
-    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)|target-size",
-    "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > span:nth-of-type(1) > button:nth-of-type(1)|text-contrast",
-    "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)|text-contrast",
-    "span:nth-child(1) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(2) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(3) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(4) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(5) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(7) > .lifecycle-step > .lifecycle-step-label|axe:color-contrast"
+    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)|target-size"
   ],
   "project-detail|light|hover-1": [
-    ".lifecycle-btn-primary|axe:color-contrast",
-    ".lifecycle-gate|axe:color-contrast",
-    ".lifecycle-state-badge|axe:color-contrast",
-    ".lifecycle-warning-title|axe:color-contrast",
-    ".visual-phase-manager > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(1)|axe:color-contrast",
-    "div > div > div:nth-child(2) > div:nth-child(3)|axe:color-contrast",
-    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)|target-size",
-    "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > span:nth-of-type(1) > button:nth-of-type(1)|text-contrast",
-    "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)|text-contrast",
-    "span:nth-child(1) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(2) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(3) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(4) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(5) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(7) > .lifecycle-step > .lifecycle-step-label|axe:color-contrast"
+    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)|target-size"
   ],
   "project-detail|light|hover-2": [
-    ".lifecycle-btn-primary|axe:color-contrast",
-    ".lifecycle-gate|axe:color-contrast",
-    ".lifecycle-state-badge|axe:color-contrast",
-    ".lifecycle-warning-title|axe:color-contrast",
-    ".visual-phase-manager > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(1)|axe:color-contrast",
-    "div > div > div:nth-child(2) > div:nth-child(3)|axe:color-contrast",
-    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)|target-size",
-    "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > span:nth-of-type(1) > button:nth-of-type(1)|text-contrast",
-    "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)|text-contrast",
-    "span:nth-child(1) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(2) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(3) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(4) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(5) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(7) > .lifecycle-step > .lifecycle-step-label|axe:color-contrast"
+    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)|target-size"
   ],
   "project-detail|light|hover-3": [
-    ".lifecycle-gate|axe:color-contrast",
-    ".lifecycle-state-badge|axe:color-contrast",
-    ".lifecycle-warning-title|axe:color-contrast",
-    ".visual-phase-manager > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(1)|axe:color-contrast",
-    "div > div > div:nth-child(2) > div:nth-child(3)|axe:color-contrast",
-    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)|target-size",
-    "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > span:nth-of-type(1) > button:nth-of-type(1)|text-contrast",
-    "span:nth-child(1) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(2) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(3) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(4) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(5) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(7) > .lifecycle-step > .lifecycle-step-label|axe:color-contrast"
+    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)|target-size"
   ],
   "project-detail|light|hover-4": [
-    ".lifecycle-btn-primary|axe:color-contrast",
-    ".lifecycle-gate|axe:color-contrast",
-    ".lifecycle-state-badge|axe:color-contrast",
-    ".lifecycle-warning-title|axe:color-contrast",
-    ".visual-phase-manager > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(1)|axe:color-contrast",
-    "div > div > div:nth-child(2) > div:nth-child(3)|axe:color-contrast",
-    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)|target-size",
-    "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > span:nth-of-type(1) > button:nth-of-type(1)|text-contrast",
-    "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)|text-contrast",
-    "span:nth-child(1) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(2) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(3) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(4) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(5) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(7) > .lifecycle-step > .lifecycle-step-label|axe:color-contrast"
+    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)|target-size"
   ],
   "project-detail|light|hover-5": [
-    ".lifecycle-btn-danger|axe:color-contrast",
-    ".lifecycle-btn-primary|axe:color-contrast",
-    ".lifecycle-gate|axe:color-contrast",
-    ".lifecycle-state-badge|axe:color-contrast",
-    ".lifecycle-warning-title|axe:color-contrast",
-    ".visual-phase-manager > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(1)|axe:color-contrast",
-    "div > div > div:nth-child(2) > div:nth-child(3)|axe:color-contrast",
-    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)|target-size",
-    "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > span:nth-of-type(1) > button:nth-of-type(1)|text-contrast",
-    "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)|text-contrast",
-    "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(3)|text-contrast",
-    "span:nth-child(1) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(2) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(3) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(4) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(5) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(7) > .lifecycle-step > .lifecycle-step-label|axe:color-contrast"
+    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)|target-size"
   ],
   "project-detail|light|hover-6": [
-    ".lifecycle-btn-primary|axe:color-contrast",
-    ".lifecycle-gate|axe:color-contrast",
-    ".lifecycle-state-badge|axe:color-contrast",
-    ".lifecycle-warning-title|axe:color-contrast",
-    ".visual-phase-manager > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(1)|axe:color-contrast",
-    "div > div > div:nth-child(2) > div:nth-child(3)|axe:color-contrast",
-    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)|target-size",
-    "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > span:nth-of-type(1) > button:nth-of-type(1)|text-contrast",
-    "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)|text-contrast",
-    "span:nth-child(1) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(2) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(3) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(4) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(5) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(7) > .lifecycle-step > .lifecycle-step-label|axe:color-contrast"
+    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)|target-size"
   ],
   "project-detail|light|hover-7": [
-    ".lifecycle-btn-primary|axe:color-contrast",
-    ".lifecycle-gate|axe:color-contrast",
-    ".lifecycle-state-badge|axe:color-contrast",
-    ".lifecycle-warning-title|axe:color-contrast",
-    ".visual-phase-manager > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(1)|axe:color-contrast",
-    "div > div > div:nth-child(2) > div:nth-child(3)|axe:color-contrast",
-    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)|target-size",
-    "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > span:nth-of-type(1) > button:nth-of-type(1)|text-contrast",
-    "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)|text-contrast",
-    "span:nth-child(1) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(2) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(3) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(4) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(5) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(7) > .lifecycle-step > .lifecycle-step-label|axe:color-contrast"
+    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)|target-size"
   ],
   "project-detail|light|keyboard-focus": [
-    ".lifecycle-btn-primary|axe:color-contrast",
-    ".lifecycle-gate|axe:color-contrast",
-    ".lifecycle-state-badge|axe:color-contrast",
-    ".lifecycle-warning-title|axe:color-contrast",
-    ".visual-phase-manager > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(1)|axe:color-contrast",
-    "div > div > div:nth-child(2) > div:nth-child(3)|axe:color-contrast",
-    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)|target-size",
-    "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > span:nth-of-type(1) > button:nth-of-type(1)|text-contrast",
-    "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)|text-contrast",
-    "span:nth-child(1) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(2) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(3) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(4) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(5) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(7) > .lifecycle-step > .lifecycle-step-label|axe:color-contrast"
+    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)|target-size"
   ],
   "project-detail|light|opened-0": [
-    ".lifecycle-btn-primary|axe:color-contrast",
-    ".lifecycle-gate|axe:color-contrast",
-    ".lifecycle-state-badge|axe:color-contrast",
-    ".lifecycle-warning-title|axe:color-contrast",
-    ".visual-phase-manager > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(1)|axe:color-contrast",
-    "div > div > div:nth-child(2) > div:nth-child(3)|axe:color-contrast",
-    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)|target-size",
-    "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > span:nth-of-type(1) > button:nth-of-type(1)|text-contrast",
-    "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)|text-contrast",
-    "span:nth-child(1) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(2) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(3) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(4) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(5) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(7) > .lifecycle-step > .lifecycle-step-label|axe:color-contrast"
+    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)|target-size"
   ],
   "project-detail|light|opened-1": [
-    ".lifecycle-btn-primary|axe:color-contrast",
-    ".lifecycle-gate|axe:color-contrast",
-    ".lifecycle-state-badge|axe:color-contrast",
-    ".lifecycle-warning-title|axe:color-contrast",
-    ".visual-phase-manager > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(1)|axe:color-contrast",
-    "div > div > div:nth-child(2) > div:nth-child(3)|axe:color-contrast",
     "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)|target-size",
-    "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > span:nth-of-type(1) > button:nth-of-type(1)|text-contrast",
-    "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)|text-contrast",
     "div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)|text-contrast",
-    "div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(2)|text-contrast",
-    "span:nth-child(1) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(2) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(3) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(4) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(5) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(7) > .lifecycle-step > .lifecycle-step-label|axe:color-contrast"
+    "div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(2)|text-contrast"
   ],
   "project-detail|light|opened-2": [
-    ".lifecycle-btn-primary|axe:color-contrast",
-    ".lifecycle-gate|axe:color-contrast",
-    ".lifecycle-state-badge|axe:color-contrast",
-    ".lifecycle-warning-title|axe:color-contrast",
-    ".visual-phase-manager > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(1)|axe:color-contrast",
-    "div > div > div:nth-child(2) > div:nth-child(3)|axe:color-contrast",
     "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)|target-size",
-    "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > span:nth-of-type(1) > button:nth-of-type(1)|text-contrast",
-    "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)|text-contrast",
     "div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(2)|text-contrast",
-    "div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(3)|text-contrast",
-    "span:nth-child(1) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(2) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(3) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(4) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(5) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(7) > .lifecycle-step > .lifecycle-step-label|axe:color-contrast"
+    "div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(3)|text-contrast"
   ],
   "project-detail|dark|default": [
-    ".lifecycle-btn-danger|axe:color-contrast",
-    ".lifecycle-btn-primary|axe:color-contrast",
-    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)|target-size",
-    "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)|text-contrast",
-    "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(3)|text-contrast",
-    "span:nth-child(7) > .lifecycle-step > .lifecycle-step-label|axe:color-contrast"
+    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)|target-size"
   ],
   "project-detail|dark|hover-0": [
-    ".lifecycle-btn-danger|axe:color-contrast",
-    ".lifecycle-btn-primary|axe:color-contrast",
-    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)|target-size",
-    "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)|text-contrast",
-    "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(3)|text-contrast",
-    "span:nth-child(7) > .lifecycle-step > .lifecycle-step-label|axe:color-contrast"
+    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)|target-size"
   ],
   "project-detail|dark|hover-1": [
-    ".lifecycle-btn-danger|axe:color-contrast",
-    ".lifecycle-btn-primary|axe:color-contrast",
-    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)|target-size",
-    "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)|text-contrast",
-    "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(3)|text-contrast",
-    "span:nth-child(7) > .lifecycle-step > .lifecycle-step-label|axe:color-contrast"
+    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)|target-size"
   ],
   "project-detail|dark|hover-2": [
-    ".lifecycle-btn-danger|axe:color-contrast",
-    ".lifecycle-btn-primary|axe:color-contrast",
-    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)|target-size",
-    "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)|text-contrast",
-    "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(3)|text-contrast",
-    "span:nth-child(7) > .lifecycle-step > .lifecycle-step-label|axe:color-contrast"
+    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)|target-size"
   ],
   "project-detail|dark|hover-3": [
-    ".lifecycle-btn-danger|axe:color-contrast",
-    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)|target-size",
-    "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(3)|text-contrast",
-    "span:nth-child(7) > .lifecycle-step > .lifecycle-step-label|axe:color-contrast"
+    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)|target-size"
   ],
   "project-detail|dark|hover-4": [
-    ".lifecycle-btn-danger|axe:color-contrast",
-    ".lifecycle-btn-primary|axe:color-contrast",
-    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)|target-size",
-    "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)|text-contrast",
-    "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(3)|text-contrast",
-    "span:nth-child(7) > .lifecycle-step > .lifecycle-step-label|axe:color-contrast"
+    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)|target-size"
   ],
   "project-detail|dark|hover-5": [
-    ".lifecycle-btn-danger|axe:color-contrast",
-    ".lifecycle-btn-primary|axe:color-contrast",
-    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)|target-size",
-    "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)|text-contrast",
-    "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(3)|text-contrast",
-    "span:nth-child(7) > .lifecycle-step > .lifecycle-step-label|axe:color-contrast"
+    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)|target-size"
   ],
   "project-detail|dark|hover-6": [
-    ".lifecycle-btn-danger|axe:color-contrast",
-    ".lifecycle-btn-primary|axe:color-contrast",
-    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)|target-size",
-    "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)|text-contrast",
-    "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(3)|text-contrast",
-    "span:nth-child(7) > .lifecycle-step > .lifecycle-step-label|axe:color-contrast"
+    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)|target-size"
   ],
   "project-detail|dark|hover-7": [
-    ".lifecycle-btn-danger|axe:color-contrast",
-    ".lifecycle-btn-primary|axe:color-contrast",
-    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)|target-size",
-    "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)|text-contrast",
-    "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(3)|text-contrast",
-    "span:nth-child(7) > .lifecycle-step > .lifecycle-step-label|axe:color-contrast"
+    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)|target-size"
   ],
   "project-detail|dark|keyboard-focus": [
-    ".lifecycle-btn-danger|axe:color-contrast",
-    ".lifecycle-btn-primary|axe:color-contrast",
-    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)|target-size",
-    "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)|text-contrast",
-    "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(3)|text-contrast",
-    "span:nth-child(7) > .lifecycle-step > .lifecycle-step-label|axe:color-contrast"
+    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)|target-size"
   ],
   "project-detail|dark|opened-0": [
-    ".lifecycle-btn-danger|axe:color-contrast",
-    ".lifecycle-btn-primary|axe:color-contrast",
-    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)|target-size",
-    "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)|text-contrast",
-    "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(3)|text-contrast",
-    "span:nth-child(7) > .lifecycle-step > .lifecycle-step-label|axe:color-contrast"
+    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)|target-size"
   ],
   "project-detail|dark|opened-1": [
-    ".lifecycle-btn-danger|axe:color-contrast",
-    ".lifecycle-btn-primary|axe:color-contrast",
-    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)|target-size",
-    "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)|text-contrast",
-    "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(3)|text-contrast",
-    "span:nth-child(7) > .lifecycle-step > .lifecycle-step-label|axe:color-contrast"
+    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)|target-size"
   ],
   "project-detail|dark|opened-2": [
-    ".lifecycle-btn-danger|axe:color-contrast",
-    ".lifecycle-btn-primary|axe:color-contrast",
-    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)|target-size",
-    "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)|text-contrast",
-    "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(3)|text-contrast",
-    "span:nth-child(7) > .lifecycle-step > .lifecycle-step-label|axe:color-contrast"
+    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)|target-size"
   ],
   "roadmap|light|hover-4": [
     "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(30) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)|target-size",
@@ -1064,5 +819,11 @@
   ],
   "scenarios-rich|dark|opened-2": [],
   "scenarios-rich|dark|opened-3": [],
-  "scenarios-rich|dark|opened-4": []
+  "scenarios-rich|dark|opened-4": [],
+  "project-detail|light|hover-8": [
+    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)|target-size"
+  ],
+  "project-detail|dark|hover-8": [
+    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)|target-size"
+  ]
 }

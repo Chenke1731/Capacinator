@@ -700,7 +700,7 @@ export function VisualPhaseManager({ projectId, projectName: _projectName, onPha
                         fontSize: '12px',
                         fontWeight: isCurrentMonth ? '600' : '400',
                         /* 文字用 primary-text(评审收口①: --primary 深色在淡染底仅 2.96:1) */
-                        color: isCurrentMonth ? 'var(--primary-text)' : 'hsl(var(--muted-foreground))',
+                        color: isCurrentMonth ? 'var(--primary-text)' : 'hsl(var(--foreground) / 0.75)',
                         overflow: 'hidden',
                         whiteSpace: 'nowrap'
                       }}

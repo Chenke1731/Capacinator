@@ -100,143 +100,10 @@
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1)",
           "kind": "occlusion"
-        },
-        {
-          "selector": ".lifecycle-state-badge",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": ".lifecycle-btn-primary",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": "span:nth-child(1) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": "span:nth-child(2) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": "span:nth-child(3) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": ".lifecycle-gate",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": "span:nth-child(4) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": "span:nth-child(5) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": "span:nth-child(7) > .lifecycle-step > .lifecycle-step-label",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": ".lifecycle-warning-title",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": ".visual-phase-manager > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(1)",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": "div > div > div:nth-child(2) > div:nth-child(3)",
-          "kind": "axe:color-contrast"
         }
       ],
       "scope": "main > .max-w-7xl",
-      "axe": [
-        {
-          "rule": "color-contrast",
-          "target": [
-            ".lifecycle-state-badge"
-          ],
-          "html": "<button type=\"button\" class=\"lifecycle-state-badge lifecycle-state-badge--in_iteration lifecycle-badge-btn\" title=\"存在状态告警: 已进入迭代，但编号（SR/AR号）未填——外部系统无法对账\">"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            ".lifecycle-btn-primary"
-          ],
-          "html": "<button class=\"lifecycle-btn lifecycle-btn-primary\">交付</button>"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            "span:nth-child(1) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label"
-          ],
-          "html": "<span class=\"lifecycle-step-label\">待RAT</span>"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            "span:nth-child(2) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label"
-          ],
-          "html": "<span class=\"lifecycle-step-label\">NOK</span>"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            "span:nth-child(3) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label"
-          ],
-          "html": "<span class=\"lifecycle-step-label\">设计中</span>"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            ".lifecycle-gate"
-          ],
-          "html": "<span class=\"lifecycle-gate\" title=\"方案成熟后准入,转入开发侧\">准入</span>"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            "span:nth-child(4) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label"
-          ],
-          "html": "<span class=\"lifecycle-step-label\">待排序</span>"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            "span:nth-child(5) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label"
-          ],
-          "html": "<span class=\"lifecycle-step-label\">已排序</span>"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            "span:nth-child(7) > .lifecycle-step > .lifecycle-step-label"
-          ],
-          "html": "<span class=\"lifecycle-step-label\">已交付</span>"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            ".lifecycle-warning-title"
-          ],
-          "html": "<span class=\"lifecycle-warning-title\">状态告警</span>"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            ".visual-phase-manager > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(1)"
-          ],
-          "html": "<div style=\"position: absolute; ...\">"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            "div > div > div:nth-child(2) > div:nth-child(3)"
-          ],
-          "html": "<div style=\"position: absolute; ...\">"
-        }
-      ],
+      "axe": [],
       "newIssues": []
     },
     {
@@ -334,143 +201,9 @@
           "font": 11
         }
       ],
-      "issues": [
-        {
-          "selector": ".lifecycle-state-badge",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": ".lifecycle-btn-primary",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": "span:nth-child(1) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": "span:nth-child(2) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": "span:nth-child(3) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": ".lifecycle-gate",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": "span:nth-child(4) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": "span:nth-child(5) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": "span:nth-child(7) > .lifecycle-step > .lifecycle-step-label",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": ".lifecycle-warning-title",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": ".visual-phase-manager > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(1)",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": "div > div > div:nth-child(2) > div:nth-child(3)",
-          "kind": "axe:color-contrast"
-        }
-      ],
+      "issues": [],
       "scope": "main > .max-w-7xl",
-      "axe": [
-        {
-          "rule": "color-contrast",
-          "target": [
-            ".lifecycle-state-badge"
-          ],
-          "html": "<button type=\"button\" class=\"lifecycle-state-badge lifecycle-state-badge--in_iteration lifecycle-badge-btn\" title=\"存在状态告警: 已进入迭代，但编号（SR/AR号）未填——外部系统无法对账\">"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            ".lifecycle-btn-primary"
-          ],
-          "html": "<button class=\"lifecycle-btn lifecycle-btn-primary\">交付</button>"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            "span:nth-child(1) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label"
-          ],
-          "html": "<span class=\"lifecycle-step-label\">待RAT</span>"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            "span:nth-child(2) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label"
-          ],
-          "html": "<span class=\"lifecycle-step-label\">NOK</span>"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            "span:nth-child(3) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label"
-          ],
-          "html": "<span class=\"lifecycle-step-label\">设计中</span>"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            ".lifecycle-gate"
-          ],
-          "html": "<span class=\"lifecycle-gate\" title=\"方案成熟后准入,转入开发侧\">准入</span>"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            "span:nth-child(4) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label"
-          ],
-          "html": "<span class=\"lifecycle-step-label\">待排序</span>"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            "span:nth-child(5) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label"
-          ],
-          "html": "<span class=\"lifecycle-step-label\">已排序</span>"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            "span:nth-child(7) > .lifecycle-step > .lifecycle-step-label"
-          ],
-          "html": "<span class=\"lifecycle-step-label\">已交付</span>"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            ".lifecycle-warning-title"
-          ],
-          "html": "<span class=\"lifecycle-warning-title\">状态告警</span>"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            ".visual-phase-manager > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(1)"
-          ],
-          "html": "<div style=\"position: absolute; ...\">"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            "div > div > div:nth-child(2) > div:nth-child(3)"
-          ],
-          "html": "<div style=\"position: absolute; ...\">"
-        }
-      ],
+      "axe": [],
       "newIssues": []
     },
     {
@@ -568,143 +301,9 @@
           "font": 11
         }
       ],
-      "issues": [
-        {
-          "selector": ".lifecycle-state-badge",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": ".lifecycle-btn-primary",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": "span:nth-child(1) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": "span:nth-child(2) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": "span:nth-child(3) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": ".lifecycle-gate",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": "span:nth-child(4) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": "span:nth-child(5) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": "span:nth-child(7) > .lifecycle-step > .lifecycle-step-label",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": ".lifecycle-warning-title",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": ".visual-phase-manager > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(1)",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": "div > div > div:nth-child(2) > div:nth-child(3)",
-          "kind": "axe:color-contrast"
-        }
-      ],
+      "issues": [],
       "scope": "main > .max-w-7xl",
-      "axe": [
-        {
-          "rule": "color-contrast",
-          "target": [
-            ".lifecycle-state-badge"
-          ],
-          "html": "<button type=\"button\" class=\"lifecycle-state-badge lifecycle-state-badge--in_iteration lifecycle-badge-btn\" title=\"存在状态告警: 已进入迭代，但编号（SR/AR号）未填——外部系统无法对账\">"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            ".lifecycle-btn-primary"
-          ],
-          "html": "<button class=\"lifecycle-btn lifecycle-btn-primary\">交付</button>"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            "span:nth-child(1) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label"
-          ],
-          "html": "<span class=\"lifecycle-step-label\">待RAT</span>"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            "span:nth-child(2) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label"
-          ],
-          "html": "<span class=\"lifecycle-step-label\">NOK</span>"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            "span:nth-child(3) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label"
-          ],
-          "html": "<span class=\"lifecycle-step-label\">设计中</span>"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            ".lifecycle-gate"
-          ],
-          "html": "<span class=\"lifecycle-gate\" title=\"方案成熟后准入,转入开发侧\">准入</span>"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            "span:nth-child(4) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label"
-          ],
-          "html": "<span class=\"lifecycle-step-label\">待排序</span>"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            "span:nth-child(5) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label"
-          ],
-          "html": "<span class=\"lifecycle-step-label\">已排序</span>"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            "span:nth-child(7) > .lifecycle-step > .lifecycle-step-label"
-          ],
-          "html": "<span class=\"lifecycle-step-label\">已交付</span>"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            ".lifecycle-warning-title"
-          ],
-          "html": "<span class=\"lifecycle-warning-title\">状态告警</span>"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            ".visual-phase-manager > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(1)"
-          ],
-          "html": "<div style=\"position: absolute; ...\">"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            "div > div > div:nth-child(2) > div:nth-child(3)"
-          ],
-          "html": "<div style=\"position: absolute; ...\">"
-        }
-      ],
+      "axe": [],
       "newIssues": []
     },
     {
@@ -802,143 +401,9 @@
           "font": 11
         }
       ],
-      "issues": [
-        {
-          "selector": ".lifecycle-state-badge",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": ".lifecycle-btn-primary",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": "span:nth-child(1) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": "span:nth-child(2) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": "span:nth-child(3) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": ".lifecycle-gate",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": "span:nth-child(4) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": "span:nth-child(5) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": "span:nth-child(7) > .lifecycle-step > .lifecycle-step-label",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": ".lifecycle-warning-title",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": ".visual-phase-manager > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(1)",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": "div > div > div:nth-child(2) > div:nth-child(3)",
-          "kind": "axe:color-contrast"
-        }
-      ],
+      "issues": [],
       "scope": "main > .max-w-7xl",
-      "axe": [
-        {
-          "rule": "color-contrast",
-          "target": [
-            ".lifecycle-state-badge"
-          ],
-          "html": "<button type=\"button\" class=\"lifecycle-state-badge lifecycle-state-badge--in_iteration lifecycle-badge-btn\" title=\"存在状态告警: 已进入迭代，但编号（SR/AR号）未填——外部系统无法对账\">"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            ".lifecycle-btn-primary"
-          ],
-          "html": "<button class=\"lifecycle-btn lifecycle-btn-primary\">交付</button>"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            "span:nth-child(1) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label"
-          ],
-          "html": "<span class=\"lifecycle-step-label\">待RAT</span>"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            "span:nth-child(2) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label"
-          ],
-          "html": "<span class=\"lifecycle-step-label\">NOK</span>"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            "span:nth-child(3) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label"
-          ],
-          "html": "<span class=\"lifecycle-step-label\">设计中</span>"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            ".lifecycle-gate"
-          ],
-          "html": "<span class=\"lifecycle-gate\" title=\"方案成熟后准入,转入开发侧\">准入</span>"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            "span:nth-child(4) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label"
-          ],
-          "html": "<span class=\"lifecycle-step-label\">待排序</span>"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            "span:nth-child(5) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label"
-          ],
-          "html": "<span class=\"lifecycle-step-label\">已排序</span>"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            "span:nth-child(7) > .lifecycle-step > .lifecycle-step-label"
-          ],
-          "html": "<span class=\"lifecycle-step-label\">已交付</span>"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            ".lifecycle-warning-title"
-          ],
-          "html": "<span class=\"lifecycle-warning-title\">状态告警</span>"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            ".visual-phase-manager > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(1)"
-          ],
-          "html": "<div style=\"position: absolute; ...\">"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            "div > div > div:nth-child(2) > div:nth-child(3)"
-          ],
-          "html": "<div style=\"position: absolute; ...\">"
-        }
-      ],
+      "axe": [],
       "newIssues": []
     },
     {
@@ -1036,143 +501,9 @@
           "font": 11
         }
       ],
-      "issues": [
-        {
-          "selector": ".lifecycle-state-badge",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": ".lifecycle-btn-primary",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": "span:nth-child(1) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": "span:nth-child(2) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": "span:nth-child(3) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": ".lifecycle-gate",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": "span:nth-child(4) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": "span:nth-child(5) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": "span:nth-child(7) > .lifecycle-step > .lifecycle-step-label",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": ".lifecycle-warning-title",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": ".visual-phase-manager > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(1)",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": "div > div > div:nth-child(2) > div:nth-child(3)",
-          "kind": "axe:color-contrast"
-        }
-      ],
+      "issues": [],
       "scope": "main > .max-w-7xl",
-      "axe": [
-        {
-          "rule": "color-contrast",
-          "target": [
-            ".lifecycle-state-badge"
-          ],
-          "html": "<button type=\"button\" class=\"lifecycle-state-badge lifecycle-state-badge--in_iteration lifecycle-badge-btn\" title=\"存在状态告警: 已进入迭代，但编号（SR/AR号）未填——外部系统无法对账\">"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            ".lifecycle-btn-primary"
-          ],
-          "html": "<button class=\"lifecycle-btn lifecycle-btn-primary\">交付</button>"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            "span:nth-child(1) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label"
-          ],
-          "html": "<span class=\"lifecycle-step-label\">待RAT</span>"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            "span:nth-child(2) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label"
-          ],
-          "html": "<span class=\"lifecycle-step-label\">NOK</span>"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            "span:nth-child(3) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label"
-          ],
-          "html": "<span class=\"lifecycle-step-label\">设计中</span>"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            ".lifecycle-gate"
-          ],
-          "html": "<span class=\"lifecycle-gate\" title=\"方案成熟后准入,转入开发侧\">准入</span>"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            "span:nth-child(4) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label"
-          ],
-          "html": "<span class=\"lifecycle-step-label\">待排序</span>"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            "span:nth-child(5) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label"
-          ],
-          "html": "<span class=\"lifecycle-step-label\">已排序</span>"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            "span:nth-child(7) > .lifecycle-step > .lifecycle-step-label"
-          ],
-          "html": "<span class=\"lifecycle-step-label\">已交付</span>"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            ".lifecycle-warning-title"
-          ],
-          "html": "<span class=\"lifecycle-warning-title\">状态告警</span>"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            ".visual-phase-manager > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(1)"
-          ],
-          "html": "<div style=\"position: absolute; ...\">"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            "div > div > div:nth-child(2) > div:nth-child(3)"
-          ],
-          "html": "<div style=\"position: absolute; ...\">"
-        }
-      ],
+      "axe": [],
       "newIssues": []
     },
     {
@@ -1219,14 +550,14 @@
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > span:nth-of-type(1) > button:nth-of-type(1)",
           "family": "lifecycle-state-badge lifecycle-state-badge--in_iteration lifecycle-badge-btn|",
           "text": "已启动",
-          "foreground": "rgb(34, 197, 94)",
-          "background": "rgba(34, 197, 94, 0.13)",
+          "foreground": "rgb(6, 95, 70)",
+          "background": "rgb(209, 250, 229)",
           "effectiveBackground": [
-            226.01176470588234,
-            246.9764705882353,
-            234.03529411764706
+            209,
+            250,
+            229
           ],
-          "contrast": 2.0316587234178027,
+          "contrast": 6.775076101423649,
           "textual": true,
           "disabled": false,
           "width": 82.015625,
@@ -1238,13 +569,13 @@
           "family": "lifecycle-btn lifecycle-btn-primary|",
           "text": "交付",
           "foreground": "rgb(255, 255, 255)",
-          "background": "rgb(59, 130, 246)",
+          "background": "rgb(79, 70, 229)",
           "effectiveBackground": [
-            59,
-            130,
-            246
+            79,
+            70,
+            229
           ],
-          "contrast": 3.6779011537825332,
+          "contrast": 6.287528596095884,
           "textual": true,
           "disabled": false,
           "width": 52.015625,
@@ -1273,14 +604,14 @@
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(3)",
           "family": "lifecycle-btn lifecycle-btn-danger|",
           "text": "裁决取消",
-          "foreground": "rgb(220, 38, 38)",
+          "foreground": "rgb(153, 27, 27)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
             255,
             255,
             255
           ],
-          "contrast": 4.829404522659002,
+          "contrast": 8.310050481211189,
           "textual": true,
           "disabled": false,
           "width": 78.015625,
@@ -1383,153 +714,10 @@
           "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)",
           "kind": "target-size",
           "value": 17.1875
-        },
-        {
-          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > span:nth-of-type(1) > button:nth-of-type(1)",
-          "kind": "text-contrast",
-          "ratio": 2.0316587234178027
-        },
-        {
-          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
-          "kind": "text-contrast",
-          "ratio": 3.6779011537825332
-        },
-        {
-          "selector": ".lifecycle-state-badge",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": ".lifecycle-btn-primary",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": "span:nth-child(1) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": "span:nth-child(2) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": "span:nth-child(3) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": ".lifecycle-gate",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": "span:nth-child(4) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": "span:nth-child(5) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": "span:nth-child(7) > .lifecycle-step > .lifecycle-step-label",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": ".lifecycle-warning-title",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": ".visual-phase-manager > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(1)",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": "div > div > div:nth-child(2) > div:nth-child(3)",
-          "kind": "axe:color-contrast"
         }
       ],
       "scope": "main > .max-w-7xl",
-      "axe": [
-        {
-          "rule": "color-contrast",
-          "target": [
-            ".lifecycle-state-badge"
-          ],
-          "html": "<button type=\"button\" class=\"lifecycle-state-badge lifecycle-state-badge--in_iteration lifecycle-badge-btn\" title=\"存在状态告警: 已进入迭代，但编号（SR/AR号）未填——外部系统无法对账\">"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            ".lifecycle-btn-primary"
-          ],
-          "html": "<button class=\"lifecycle-btn lifecycle-btn-primary\">交付</button>"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            "span:nth-child(1) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label"
-          ],
-          "html": "<span class=\"lifecycle-step-label\">待RAT</span>"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            "span:nth-child(2) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label"
-          ],
-          "html": "<span class=\"lifecycle-step-label\">NOK</span>"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            "span:nth-child(3) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label"
-          ],
-          "html": "<span class=\"lifecycle-step-label\">设计中</span>"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            ".lifecycle-gate"
-          ],
-          "html": "<span class=\"lifecycle-gate\" title=\"方案成熟后准入,转入开发侧\">准入</span>"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            "span:nth-child(4) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label"
-          ],
-          "html": "<span class=\"lifecycle-step-label\">待排序</span>"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            "span:nth-child(5) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label"
-          ],
-          "html": "<span class=\"lifecycle-step-label\">已排序</span>"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            "span:nth-child(7) > .lifecycle-step > .lifecycle-step-label"
-          ],
-          "html": "<span class=\"lifecycle-step-label\">已交付</span>"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            ".lifecycle-warning-title"
-          ],
-          "html": "<span class=\"lifecycle-warning-title\">状态告警</span>"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            ".visual-phase-manager > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(1)"
-          ],
-          "html": "<div style=\"position: absolute; ...\">"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            "div > div > div:nth-child(2) > div:nth-child(3)"
-          ],
-          "html": "<div style=\"position: absolute; ...\">"
-        }
-      ],
+      "axe": [],
       "newIssues": []
     },
     {
@@ -1576,14 +764,14 @@
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > span:nth-of-type(1) > button:nth-of-type(1)",
           "family": "lifecycle-state-badge lifecycle-state-badge--in_iteration lifecycle-badge-btn|",
           "text": "已启动",
-          "foreground": "rgb(34, 197, 94)",
-          "background": "rgba(34, 197, 94, 0.13)",
+          "foreground": "rgb(6, 95, 70)",
+          "background": "rgb(209, 250, 229)",
           "effectiveBackground": [
-            226.01176470588234,
-            246.9764705882353,
-            234.03529411764706
+            209,
+            250,
+            229
           ],
-          "contrast": 2.0316587234178027,
+          "contrast": 6.775076101423649,
           "textual": true,
           "disabled": false,
           "width": 82.015625,
@@ -1595,13 +783,13 @@
           "family": "lifecycle-btn lifecycle-btn-primary|",
           "text": "交付",
           "foreground": "rgb(255, 255, 255)",
-          "background": "rgb(59, 130, 246)",
+          "background": "rgb(79, 70, 229)",
           "effectiveBackground": [
-            59,
-            130,
-            246
+            79,
+            70,
+            229
           ],
-          "contrast": 3.6779011537825332,
+          "contrast": 6.287528596095884,
           "textual": true,
           "disabled": false,
           "width": 52.015625,
@@ -1630,14 +818,14 @@
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(3)",
           "family": "lifecycle-btn lifecycle-btn-danger|",
           "text": "裁决取消",
-          "foreground": "rgb(220, 38, 38)",
+          "foreground": "rgb(153, 27, 27)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
             255,
             255,
             255
           ],
-          "contrast": 4.829404522659002,
+          "contrast": 8.310050481211189,
           "textual": true,
           "disabled": false,
           "width": 78.015625,
@@ -1740,153 +928,10 @@
           "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)",
           "kind": "target-size",
           "value": 17.1875
-        },
-        {
-          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > span:nth-of-type(1) > button:nth-of-type(1)",
-          "kind": "text-contrast",
-          "ratio": 2.0316587234178027
-        },
-        {
-          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
-          "kind": "text-contrast",
-          "ratio": 3.6779011537825332
-        },
-        {
-          "selector": ".lifecycle-state-badge",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": ".lifecycle-btn-primary",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": "span:nth-child(1) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": "span:nth-child(2) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": "span:nth-child(3) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": ".lifecycle-gate",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": "span:nth-child(4) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": "span:nth-child(5) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": "span:nth-child(7) > .lifecycle-step > .lifecycle-step-label",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": ".lifecycle-warning-title",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": ".visual-phase-manager > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(1)",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": "div > div > div:nth-child(2) > div:nth-child(3)",
-          "kind": "axe:color-contrast"
         }
       ],
       "scope": "main > .max-w-7xl",
-      "axe": [
-        {
-          "rule": "color-contrast",
-          "target": [
-            ".lifecycle-state-badge"
-          ],
-          "html": "<button type=\"button\" class=\"lifecycle-state-badge lifecycle-state-badge--in_iteration lifecycle-badge-btn\" title=\"存在状态告警: 已进入迭代，但编号（SR/AR号）未填——外部系统无法对账\">"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            ".lifecycle-btn-primary"
-          ],
-          "html": "<button class=\"lifecycle-btn lifecycle-btn-primary\">交付</button>"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            "span:nth-child(1) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label"
-          ],
-          "html": "<span class=\"lifecycle-step-label\">待RAT</span>"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            "span:nth-child(2) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label"
-          ],
-          "html": "<span class=\"lifecycle-step-label\">NOK</span>"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            "span:nth-child(3) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label"
-          ],
-          "html": "<span class=\"lifecycle-step-label\">设计中</span>"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            ".lifecycle-gate"
-          ],
-          "html": "<span class=\"lifecycle-gate\" title=\"方案成熟后准入,转入开发侧\">准入</span>"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            "span:nth-child(4) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label"
-          ],
-          "html": "<span class=\"lifecycle-step-label\">待排序</span>"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            "span:nth-child(5) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label"
-          ],
-          "html": "<span class=\"lifecycle-step-label\">已排序</span>"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            "span:nth-child(7) > .lifecycle-step > .lifecycle-step-label"
-          ],
-          "html": "<span class=\"lifecycle-step-label\">已交付</span>"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            ".lifecycle-warning-title"
-          ],
-          "html": "<span class=\"lifecycle-warning-title\">状态告警</span>"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            ".visual-phase-manager > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(1)"
-          ],
-          "html": "<div style=\"position: absolute; ...\">"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            "div > div > div:nth-child(2) > div:nth-child(3)"
-          ],
-          "html": "<div style=\"position: absolute; ...\">"
-        }
-      ],
+      "axe": [],
       "newIssues": []
     },
     {
@@ -1933,14 +978,14 @@
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > span:nth-of-type(1) > button:nth-of-type(1)",
           "family": "lifecycle-state-badge lifecycle-state-badge--in_iteration lifecycle-badge-btn|",
           "text": "已启动",
-          "foreground": "rgb(34, 197, 94)",
-          "background": "rgba(34, 197, 94, 0.13)",
+          "foreground": "rgb(6, 95, 70)",
+          "background": "rgb(209, 250, 229)",
           "effectiveBackground": [
-            226.01176470588234,
-            246.9764705882353,
-            234.03529411764706
+            209,
+            250,
+            229
           ],
-          "contrast": 2.0316587234178027,
+          "contrast": 6.775076101423649,
           "textual": true,
           "disabled": false,
           "width": 82.015625,
@@ -1952,13 +997,13 @@
           "family": "lifecycle-btn lifecycle-btn-primary|",
           "text": "交付",
           "foreground": "rgb(255, 255, 255)",
-          "background": "rgb(59, 130, 246)",
+          "background": "rgb(79, 70, 229)",
           "effectiveBackground": [
-            59,
-            130,
-            246
+            79,
+            70,
+            229
           ],
-          "contrast": 3.6779011537825332,
+          "contrast": 6.287528596095884,
           "textual": true,
           "disabled": false,
           "width": 52.015625,
@@ -1987,14 +1032,14 @@
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(3)",
           "family": "lifecycle-btn lifecycle-btn-danger|",
           "text": "裁决取消",
-          "foreground": "rgb(220, 38, 38)",
+          "foreground": "rgb(153, 27, 27)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
             255,
             255,
             255
           ],
-          "contrast": 4.829404522659002,
+          "contrast": 8.310050481211189,
           "textual": true,
           "disabled": false,
           "width": 78.015625,
@@ -2041,14 +1086,14 @@
           "selector": "div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
           "family": "chart-tab|",
           "text": "需求",
-          "foreground": "rgb(166, 175, 188)",
-          "background": "rgba(79, 70, 229, 0.424)",
+          "foreground": "rgb(146, 157, 173)",
+          "background": "rgba(79, 70, 229, 0.294)",
           "effectiveBackground": [
-            180.03529411764706,
-            177.0705882352941,
-            243.98823529411766
+            202.9411764705882,
+            200.88235294117644,
+            247.05882352941174
           ],
-          "contrast": 1.1120911957610675,
+          "contrast": 1.729136308765227,
           "textual": true,
           "disabled": false,
           "width": 48.015625,
@@ -2059,14 +1104,14 @@
           "selector": "div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(2)",
           "family": "chart-tab|",
           "text": "产能",
-          "foreground": "rgb(190, 196, 206)",
-          "background": "rgba(79, 70, 229, 0.576)",
+          "foreground": "rgb(210, 214, 221)",
+          "background": "rgba(79, 70, 229, 0.706)",
           "effectiveBackground": [
-            154.11764705882354,
-            147.7764705882353,
-            240.01176470588234
+            130.76470588235293,
+            123.70588235294116,
+            237.3529411764706
           ],
-          "contrast": 1.5243944582135085,
+          "contrast": 2.3780513236999457,
           "textual": true,
           "disabled": false,
           "width": 48.015625,
@@ -2099,161 +1144,18 @@
           "value": 17.1875
         },
         {
-          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > span:nth-of-type(1) > button:nth-of-type(1)",
-          "kind": "text-contrast",
-          "ratio": 2.0316587234178027
-        },
-        {
-          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
-          "kind": "text-contrast",
-          "ratio": 3.6779011537825332
-        },
-        {
           "selector": "div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
           "kind": "text-contrast",
-          "ratio": 1.1120911957610675
+          "ratio": 1.729136308765227
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(2)",
           "kind": "text-contrast",
-          "ratio": 1.5243944582135085
-        },
-        {
-          "selector": ".lifecycle-state-badge",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": ".lifecycle-btn-primary",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": "span:nth-child(1) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": "span:nth-child(2) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": "span:nth-child(3) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": ".lifecycle-gate",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": "span:nth-child(4) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": "span:nth-child(5) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": "span:nth-child(7) > .lifecycle-step > .lifecycle-step-label",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": ".lifecycle-warning-title",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": ".visual-phase-manager > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(1)",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": "div > div > div:nth-child(2) > div:nth-child(3)",
-          "kind": "axe:color-contrast"
+          "ratio": 2.3780513236999457
         }
       ],
       "scope": "main > .max-w-7xl",
-      "axe": [
-        {
-          "rule": "color-contrast",
-          "target": [
-            ".lifecycle-state-badge"
-          ],
-          "html": "<button type=\"button\" class=\"lifecycle-state-badge lifecycle-state-badge--in_iteration lifecycle-badge-btn\" title=\"存在状态告警: 已进入迭代，但编号（SR/AR号）未填——外部系统无法对账\">"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            ".lifecycle-btn-primary"
-          ],
-          "html": "<button class=\"lifecycle-btn lifecycle-btn-primary\">交付</button>"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            "span:nth-child(1) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label"
-          ],
-          "html": "<span class=\"lifecycle-step-label\">待RAT</span>"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            "span:nth-child(2) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label"
-          ],
-          "html": "<span class=\"lifecycle-step-label\">NOK</span>"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            "span:nth-child(3) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label"
-          ],
-          "html": "<span class=\"lifecycle-step-label\">设计中</span>"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            ".lifecycle-gate"
-          ],
-          "html": "<span class=\"lifecycle-gate\" title=\"方案成熟后准入,转入开发侧\">准入</span>"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            "span:nth-child(4) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label"
-          ],
-          "html": "<span class=\"lifecycle-step-label\">待排序</span>"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            "span:nth-child(5) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label"
-          ],
-          "html": "<span class=\"lifecycle-step-label\">已排序</span>"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            "span:nth-child(7) > .lifecycle-step > .lifecycle-step-label"
-          ],
-          "html": "<span class=\"lifecycle-step-label\">已交付</span>"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            ".lifecycle-warning-title"
-          ],
-          "html": "<span class=\"lifecycle-warning-title\">状态告警</span>"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            ".visual-phase-manager > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(1)"
-          ],
-          "html": "<div style=\"position: absolute; ...\">"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            "div > div > div:nth-child(2) > div:nth-child(3)"
-          ],
-          "html": "<div style=\"position: absolute; ...\">"
-        }
-      ],
+      "axe": [],
       "newIssues": []
     },
     {
@@ -2300,14 +1202,14 @@
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > span:nth-of-type(1) > button:nth-of-type(1)",
           "family": "lifecycle-state-badge lifecycle-state-badge--in_iteration lifecycle-badge-btn|",
           "text": "已启动",
-          "foreground": "rgb(34, 197, 94)",
-          "background": "rgba(34, 197, 94, 0.13)",
+          "foreground": "rgb(6, 95, 70)",
+          "background": "rgb(209, 250, 229)",
           "effectiveBackground": [
-            226.01176470588234,
-            246.9764705882353,
-            234.03529411764706
+            209,
+            250,
+            229
           ],
-          "contrast": 2.0316587234178027,
+          "contrast": 6.775076101423649,
           "textual": true,
           "disabled": false,
           "width": 82.015625,
@@ -2319,13 +1221,13 @@
           "family": "lifecycle-btn lifecycle-btn-primary|",
           "text": "交付",
           "foreground": "rgb(255, 255, 255)",
-          "background": "rgb(59, 130, 246)",
+          "background": "rgb(79, 70, 229)",
           "effectiveBackground": [
-            59,
-            130,
-            246
+            79,
+            70,
+            229
           ],
-          "contrast": 3.6779011537825332,
+          "contrast": 6.287528596095884,
           "textual": true,
           "disabled": false,
           "width": 52.015625,
@@ -2354,14 +1256,14 @@
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(3)",
           "family": "lifecycle-btn lifecycle-btn-danger|",
           "text": "裁决取消",
-          "foreground": "rgb(220, 38, 38)",
+          "foreground": "rgb(153, 27, 27)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
             255,
             255,
             255
           ],
-          "contrast": 4.829404522659002,
+          "contrast": 8.310050481211189,
           "textual": true,
           "disabled": false,
           "width": 78.015625,
@@ -2466,16 +1368,6 @@
           "value": 17.1875
         },
         {
-          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > span:nth-of-type(1) > button:nth-of-type(1)",
-          "kind": "text-contrast",
-          "ratio": 2.0316587234178027
-        },
-        {
-          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
-          "kind": "text-contrast",
-          "ratio": 3.6779011537825332
-        },
-        {
           "selector": "div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(2)",
           "kind": "text-contrast",
           "ratio": 1.1120911957610675
@@ -2484,143 +1376,10 @@
           "selector": "div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(3)",
           "kind": "text-contrast",
           "ratio": 1.5243944582135085
-        },
-        {
-          "selector": ".lifecycle-state-badge",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": ".lifecycle-btn-primary",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": "span:nth-child(1) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": "span:nth-child(2) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": "span:nth-child(3) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": ".lifecycle-gate",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": "span:nth-child(4) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": "span:nth-child(5) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": "span:nth-child(7) > .lifecycle-step > .lifecycle-step-label",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": ".lifecycle-warning-title",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": ".visual-phase-manager > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(1)",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": "div > div > div:nth-child(2) > div:nth-child(3)",
-          "kind": "axe:color-contrast"
         }
       ],
       "scope": "main > .max-w-7xl",
-      "axe": [
-        {
-          "rule": "color-contrast",
-          "target": [
-            ".lifecycle-state-badge"
-          ],
-          "html": "<button type=\"button\" class=\"lifecycle-state-badge lifecycle-state-badge--in_iteration lifecycle-badge-btn\" title=\"存在状态告警: 已进入迭代，但编号（SR/AR号）未填——外部系统无法对账\">"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            ".lifecycle-btn-primary"
-          ],
-          "html": "<button class=\"lifecycle-btn lifecycle-btn-primary\">交付</button>"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            "span:nth-child(1) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label"
-          ],
-          "html": "<span class=\"lifecycle-step-label\">待RAT</span>"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            "span:nth-child(2) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label"
-          ],
-          "html": "<span class=\"lifecycle-step-label\">NOK</span>"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            "span:nth-child(3) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label"
-          ],
-          "html": "<span class=\"lifecycle-step-label\">设计中</span>"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            ".lifecycle-gate"
-          ],
-          "html": "<span class=\"lifecycle-gate\" title=\"方案成熟后准入,转入开发侧\">准入</span>"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            "span:nth-child(4) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label"
-          ],
-          "html": "<span class=\"lifecycle-step-label\">待排序</span>"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            "span:nth-child(5) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label"
-          ],
-          "html": "<span class=\"lifecycle-step-label\">已排序</span>"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            "span:nth-child(7) > .lifecycle-step > .lifecycle-step-label"
-          ],
-          "html": "<span class=\"lifecycle-step-label\">已交付</span>"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            ".lifecycle-warning-title"
-          ],
-          "html": "<span class=\"lifecycle-warning-title\">状态告警</span>"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            ".visual-phase-manager > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(1)"
-          ],
-          "html": "<div style=\"position: absolute; ...\">"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            "div > div > div:nth-child(2) > div:nth-child(3)"
-          ],
-          "html": "<div style=\"position: absolute; ...\">"
-        }
-      ],
+      "axe": [],
       "newIssues": []
     },
     {
@@ -2722,44 +1481,10 @@
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1)",
           "kind": "occlusion"
-        },
-        {
-          "selector": ".lifecycle-btn-primary",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": ".lifecycle-btn-danger",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": "span:nth-child(7) > .lifecycle-step > .lifecycle-step-label",
-          "kind": "axe:color-contrast"
         }
       ],
       "scope": "main > .max-w-7xl",
-      "axe": [
-        {
-          "rule": "color-contrast",
-          "target": [
-            ".lifecycle-btn-primary"
-          ],
-          "html": "<button class=\"lifecycle-btn lifecycle-btn-primary\">交付</button>"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            ".lifecycle-btn-danger"
-          ],
-          "html": "<button class=\"lifecycle-btn lifecycle-btn-danger\">裁决取消</button>"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            "span:nth-child(7) > .lifecycle-step > .lifecycle-step-label"
-          ],
-          "html": "<span class=\"lifecycle-step-label\">已交付</span>"
-        }
-      ],
+      "axe": [],
       "newIssues": []
     },
     {
@@ -2857,44 +1582,9 @@
           "font": 11
         }
       ],
-      "issues": [
-        {
-          "selector": ".lifecycle-btn-primary",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": ".lifecycle-btn-danger",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": "span:nth-child(7) > .lifecycle-step > .lifecycle-step-label",
-          "kind": "axe:color-contrast"
-        }
-      ],
+      "issues": [],
       "scope": "main > .max-w-7xl",
-      "axe": [
-        {
-          "rule": "color-contrast",
-          "target": [
-            ".lifecycle-btn-primary"
-          ],
-          "html": "<button class=\"lifecycle-btn lifecycle-btn-primary\">交付</button>"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            ".lifecycle-btn-danger"
-          ],
-          "html": "<button class=\"lifecycle-btn lifecycle-btn-danger\">裁决取消</button>"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            "span:nth-child(7) > .lifecycle-step > .lifecycle-step-label"
-          ],
-          "html": "<span class=\"lifecycle-step-label\">已交付</span>"
-        }
-      ],
+      "axe": [],
       "newIssues": []
     },
     {
@@ -2992,44 +1682,9 @@
           "font": 11
         }
       ],
-      "issues": [
-        {
-          "selector": ".lifecycle-btn-primary",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": ".lifecycle-btn-danger",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": "span:nth-child(7) > .lifecycle-step > .lifecycle-step-label",
-          "kind": "axe:color-contrast"
-        }
-      ],
+      "issues": [],
       "scope": "main > .max-w-7xl",
-      "axe": [
-        {
-          "rule": "color-contrast",
-          "target": [
-            ".lifecycle-btn-primary"
-          ],
-          "html": "<button class=\"lifecycle-btn lifecycle-btn-primary\">交付</button>"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            ".lifecycle-btn-danger"
-          ],
-          "html": "<button class=\"lifecycle-btn lifecycle-btn-danger\">裁决取消</button>"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            "span:nth-child(7) > .lifecycle-step > .lifecycle-step-label"
-          ],
-          "html": "<span class=\"lifecycle-step-label\">已交付</span>"
-        }
-      ],
+      "axe": [],
       "newIssues": []
     },
     {
@@ -3127,44 +1782,9 @@
           "font": 11
         }
       ],
-      "issues": [
-        {
-          "selector": ".lifecycle-btn-primary",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": ".lifecycle-btn-danger",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": "span:nth-child(7) > .lifecycle-step > .lifecycle-step-label",
-          "kind": "axe:color-contrast"
-        }
-      ],
+      "issues": [],
       "scope": "main > .max-w-7xl",
-      "axe": [
-        {
-          "rule": "color-contrast",
-          "target": [
-            ".lifecycle-btn-primary"
-          ],
-          "html": "<button class=\"lifecycle-btn lifecycle-btn-primary\">交付</button>"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            ".lifecycle-btn-danger"
-          ],
-          "html": "<button class=\"lifecycle-btn lifecycle-btn-danger\">裁决取消</button>"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            "span:nth-child(7) > .lifecycle-step > .lifecycle-step-label"
-          ],
-          "html": "<span class=\"lifecycle-step-label\">已交付</span>"
-        }
-      ],
+      "axe": [],
       "newIssues": []
     },
     {
@@ -3262,44 +1882,9 @@
           "font": 11
         }
       ],
-      "issues": [
-        {
-          "selector": ".lifecycle-btn-primary",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": ".lifecycle-btn-danger",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": "span:nth-child(7) > .lifecycle-step > .lifecycle-step-label",
-          "kind": "axe:color-contrast"
-        }
-      ],
+      "issues": [],
       "scope": "main > .max-w-7xl",
-      "axe": [
-        {
-          "rule": "color-contrast",
-          "target": [
-            ".lifecycle-btn-primary"
-          ],
-          "html": "<button class=\"lifecycle-btn lifecycle-btn-primary\">交付</button>"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            ".lifecycle-btn-danger"
-          ],
-          "html": "<button class=\"lifecycle-btn lifecycle-btn-danger\">裁决取消</button>"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            "span:nth-child(7) > .lifecycle-step > .lifecycle-step-label"
-          ],
-          "html": "<span class=\"lifecycle-step-label\">已交付</span>"
-        }
-      ],
+      "axe": [],
       "newIssues": []
     },
     {
@@ -3346,14 +1931,14 @@
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > span:nth-of-type(1) > button:nth-of-type(1)",
           "family": "lifecycle-state-badge lifecycle-state-badge--in_iteration lifecycle-badge-btn|",
           "text": "已启动",
-          "foreground": "rgb(34, 197, 94)",
-          "background": "rgba(34, 197, 94, 0.13)",
+          "foreground": "rgb(134, 239, 172)",
+          "background": "rgba(16, 185, 129, 0.2)",
           "effectiveBackground": [
-            18.811764705882354,
-            45.87058823529412,
-            45.98823529411765
+            16.6,
+            56.2,
+            57.2
           ],
-          "contrast": 6.331842036955973,
+          "contrast": 9.052491586776803,
           "textual": true,
           "disabled": false,
           "width": 82.015625,
@@ -3365,13 +1950,13 @@
           "family": "lifecycle-btn lifecycle-btn-primary|",
           "text": "交付",
           "foreground": "rgb(255, 255, 255)",
-          "background": "rgb(59, 130, 246)",
+          "background": "rgb(79, 70, 229)",
           "effectiveBackground": [
-            59,
-            130,
-            246
+            79,
+            70,
+            229
           ],
-          "contrast": 3.6779011537825332,
+          "contrast": 6.287528596095884,
           "textual": true,
           "disabled": false,
           "width": 52.015625,
@@ -3400,14 +1985,14 @@
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(3)",
           "family": "lifecycle-btn lifecycle-btn-danger|",
           "text": "裁决取消",
-          "foreground": "rgb(220, 38, 38)",
+          "foreground": "rgb(254, 202, 202)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
             17,
             24,
             39
           ],
-          "contrast": 3.673272123062252,
+          "contrast": 12.261719107308613,
           "textual": true,
           "disabled": false,
           "width": 78.015625,
@@ -3510,54 +2095,10 @@
           "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)",
           "kind": "target-size",
           "value": 17.1875
-        },
-        {
-          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
-          "kind": "text-contrast",
-          "ratio": 3.6779011537825332
-        },
-        {
-          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(3)",
-          "kind": "text-contrast",
-          "ratio": 3.673272123062252
-        },
-        {
-          "selector": ".lifecycle-btn-primary",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": ".lifecycle-btn-danger",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": "span:nth-child(7) > .lifecycle-step > .lifecycle-step-label",
-          "kind": "axe:color-contrast"
         }
       ],
       "scope": "main > .max-w-7xl",
-      "axe": [
-        {
-          "rule": "color-contrast",
-          "target": [
-            ".lifecycle-btn-primary"
-          ],
-          "html": "<button class=\"lifecycle-btn lifecycle-btn-primary\">交付</button>"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            ".lifecycle-btn-danger"
-          ],
-          "html": "<button class=\"lifecycle-btn lifecycle-btn-danger\">裁决取消</button>"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            "span:nth-child(7) > .lifecycle-step > .lifecycle-step-label"
-          ],
-          "html": "<span class=\"lifecycle-step-label\">已交付</span>"
-        }
-      ],
+      "axe": [],
       "newIssues": []
     },
     {
@@ -3604,14 +2145,14 @@
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > span:nth-of-type(1) > button:nth-of-type(1)",
           "family": "lifecycle-state-badge lifecycle-state-badge--in_iteration lifecycle-badge-btn|",
           "text": "已启动",
-          "foreground": "rgb(34, 197, 94)",
-          "background": "rgba(34, 197, 94, 0.13)",
+          "foreground": "rgb(134, 239, 172)",
+          "background": "rgba(16, 185, 129, 0.2)",
           "effectiveBackground": [
-            18.811764705882354,
-            45.87058823529412,
-            45.98823529411765
+            16.6,
+            56.2,
+            57.2
           ],
-          "contrast": 6.331842036955973,
+          "contrast": 9.052491586776803,
           "textual": true,
           "disabled": false,
           "width": 82.015625,
@@ -3623,13 +2164,13 @@
           "family": "lifecycle-btn lifecycle-btn-primary|",
           "text": "交付",
           "foreground": "rgb(255, 255, 255)",
-          "background": "rgb(59, 130, 246)",
+          "background": "rgb(79, 70, 229)",
           "effectiveBackground": [
-            59,
-            130,
-            246
+            79,
+            70,
+            229
           ],
-          "contrast": 3.6779011537825332,
+          "contrast": 6.287528596095884,
           "textual": true,
           "disabled": false,
           "width": 52.015625,
@@ -3658,14 +2199,14 @@
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(3)",
           "family": "lifecycle-btn lifecycle-btn-danger|",
           "text": "裁决取消",
-          "foreground": "rgb(220, 38, 38)",
+          "foreground": "rgb(254, 202, 202)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
             17,
             24,
             39
           ],
-          "contrast": 3.673272123062252,
+          "contrast": 12.261719107308613,
           "textual": true,
           "disabled": false,
           "width": 78.015625,
@@ -3768,54 +2309,10 @@
           "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)",
           "kind": "target-size",
           "value": 17.1875
-        },
-        {
-          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
-          "kind": "text-contrast",
-          "ratio": 3.6779011537825332
-        },
-        {
-          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(3)",
-          "kind": "text-contrast",
-          "ratio": 3.673272123062252
-        },
-        {
-          "selector": ".lifecycle-btn-primary",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": ".lifecycle-btn-danger",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": "span:nth-child(7) > .lifecycle-step > .lifecycle-step-label",
-          "kind": "axe:color-contrast"
         }
       ],
       "scope": "main > .max-w-7xl",
-      "axe": [
-        {
-          "rule": "color-contrast",
-          "target": [
-            ".lifecycle-btn-primary"
-          ],
-          "html": "<button class=\"lifecycle-btn lifecycle-btn-primary\">交付</button>"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            ".lifecycle-btn-danger"
-          ],
-          "html": "<button class=\"lifecycle-btn lifecycle-btn-danger\">裁决取消</button>"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            "span:nth-child(7) > .lifecycle-step > .lifecycle-step-label"
-          ],
-          "html": "<span class=\"lifecycle-step-label\">已交付</span>"
-        }
-      ],
+      "axe": [],
       "newIssues": []
     },
     {
@@ -3862,14 +2359,14 @@
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > span:nth-of-type(1) > button:nth-of-type(1)",
           "family": "lifecycle-state-badge lifecycle-state-badge--in_iteration lifecycle-badge-btn|",
           "text": "已启动",
-          "foreground": "rgb(34, 197, 94)",
-          "background": "rgba(34, 197, 94, 0.13)",
+          "foreground": "rgb(134, 239, 172)",
+          "background": "rgba(16, 185, 129, 0.2)",
           "effectiveBackground": [
-            18.811764705882354,
-            45.87058823529412,
-            45.98823529411765
+            16.6,
+            56.2,
+            57.2
           ],
-          "contrast": 6.331842036955973,
+          "contrast": 9.052491586776803,
           "textual": true,
           "disabled": false,
           "width": 82.015625,
@@ -3881,13 +2378,13 @@
           "family": "lifecycle-btn lifecycle-btn-primary|",
           "text": "交付",
           "foreground": "rgb(255, 255, 255)",
-          "background": "rgb(59, 130, 246)",
+          "background": "rgb(79, 70, 229)",
           "effectiveBackground": [
-            59,
-            130,
-            246
+            79,
+            70,
+            229
           ],
-          "contrast": 3.6779011537825332,
+          "contrast": 6.287528596095884,
           "textual": true,
           "disabled": false,
           "width": 52.015625,
@@ -3916,14 +2413,14 @@
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(3)",
           "family": "lifecycle-btn lifecycle-btn-danger|",
           "text": "裁决取消",
-          "foreground": "rgb(220, 38, 38)",
+          "foreground": "rgb(254, 202, 202)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
             17,
             24,
             39
           ],
-          "contrast": 3.673272123062252,
+          "contrast": 12.261719107308613,
           "textual": true,
           "disabled": false,
           "width": 78.015625,
@@ -3970,14 +2467,14 @@
           "selector": "div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
           "family": "chart-tab|",
           "text": "需求",
-          "foreground": "rgb(205, 210, 217)",
-          "background": "rgba(79, 70, 229, 0.424)",
+          "foreground": "rgb(194, 200, 208)",
+          "background": "rgba(79, 70, 229, 0.294)",
           "effectiveBackground": [
-            49.752941176470586,
-            53.12941176470588,
-            130.4235294117647
+            43.41176470588235,
+            49.11764705882353,
+            108
           ],
-          "contrast": 7.0112936595503585,
+          "contrast": 7.073750995101883,
           "textual": true,
           "disabled": false,
           "width": 48.015625,
@@ -3988,14 +2485,14 @@
           "selector": "div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(2)",
           "family": "chart-tab|",
           "text": "产能",
-          "foreground": "rgb(218, 222, 227)",
-          "background": "rgba(79, 70, 229, 0.576)",
+          "foreground": "rgb(230, 232, 235)",
+          "background": "rgba(79, 70, 229, 0.706)",
           "effectiveBackground": [
-            58.39999999999999,
-            56.71764705882353,
-            156.57647058823528
+            64.29411764705883,
+            60.470588235294116,
+            179.41176470588238
           ],
-          "contrast": 6.918516481488567,
+          "contrast": 6.760285171796929,
           "textual": true,
           "disabled": false,
           "width": 48.015625,
@@ -4026,54 +2523,10 @@
           "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)",
           "kind": "target-size",
           "value": 17.1875
-        },
-        {
-          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
-          "kind": "text-contrast",
-          "ratio": 3.6779011537825332
-        },
-        {
-          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(3)",
-          "kind": "text-contrast",
-          "ratio": 3.673272123062252
-        },
-        {
-          "selector": ".lifecycle-btn-primary",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": ".lifecycle-btn-danger",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": "span:nth-child(7) > .lifecycle-step > .lifecycle-step-label",
-          "kind": "axe:color-contrast"
         }
       ],
       "scope": "main > .max-w-7xl",
-      "axe": [
-        {
-          "rule": "color-contrast",
-          "target": [
-            ".lifecycle-btn-primary"
-          ],
-          "html": "<button class=\"lifecycle-btn lifecycle-btn-primary\">交付</button>"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            ".lifecycle-btn-danger"
-          ],
-          "html": "<button class=\"lifecycle-btn lifecycle-btn-danger\">裁决取消</button>"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            "span:nth-child(7) > .lifecycle-step > .lifecycle-step-label"
-          ],
-          "html": "<span class=\"lifecycle-step-label\">已交付</span>"
-        }
-      ],
+      "axe": [],
       "newIssues": []
     },
     {
@@ -4120,14 +2573,14 @@
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > span:nth-of-type(1) > button:nth-of-type(1)",
           "family": "lifecycle-state-badge lifecycle-state-badge--in_iteration lifecycle-badge-btn|",
           "text": "已启动",
-          "foreground": "rgb(34, 197, 94)",
-          "background": "rgba(34, 197, 94, 0.13)",
+          "foreground": "rgb(134, 239, 172)",
+          "background": "rgba(16, 185, 129, 0.2)",
           "effectiveBackground": [
-            18.811764705882354,
-            45.87058823529412,
-            45.98823529411765
+            16.6,
+            56.2,
+            57.2
           ],
-          "contrast": 6.331842036955973,
+          "contrast": 9.052491586776803,
           "textual": true,
           "disabled": false,
           "width": 82.015625,
@@ -4139,13 +2592,13 @@
           "family": "lifecycle-btn lifecycle-btn-primary|",
           "text": "交付",
           "foreground": "rgb(255, 255, 255)",
-          "background": "rgb(59, 130, 246)",
+          "background": "rgb(79, 70, 229)",
           "effectiveBackground": [
-            59,
-            130,
-            246
+            79,
+            70,
+            229
           ],
-          "contrast": 3.6779011537825332,
+          "contrast": 6.287528596095884,
           "textual": true,
           "disabled": false,
           "width": 52.015625,
@@ -4174,14 +2627,14 @@
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(3)",
           "family": "lifecycle-btn lifecycle-btn-danger|",
           "text": "裁决取消",
-          "foreground": "rgb(220, 38, 38)",
+          "foreground": "rgb(254, 202, 202)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
             17,
             24,
             39
           ],
-          "contrast": 3.673272123062252,
+          "contrast": 12.261719107308613,
           "textual": true,
           "disabled": false,
           "width": 78.015625,
@@ -4246,14 +2699,14 @@
           "selector": "div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(2)",
           "family": "chart-tab|",
           "text": "产能",
-          "foreground": "rgb(205, 210, 217)",
-          "background": "rgba(79, 70, 229, 0.424)",
+          "foreground": "rgb(194, 200, 208)",
+          "background": "rgba(79, 70, 229, 0.294)",
           "effectiveBackground": [
-            49.752941176470586,
-            53.12941176470588,
-            130.4235294117647
+            43.41176470588235,
+            49.11764705882353,
+            108
           ],
-          "contrast": 7.0112936595503585,
+          "contrast": 7.073750995101883,
           "textual": true,
           "disabled": false,
           "width": 48.015625,
@@ -4264,14 +2717,14 @@
           "selector": "div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(3)",
           "family": "chart-tab|",
           "text": "缺口",
-          "foreground": "rgb(218, 222, 227)",
-          "background": "rgba(79, 70, 229, 0.576)",
+          "foreground": "rgb(230, 232, 235)",
+          "background": "rgba(79, 70, 229, 0.706)",
           "effectiveBackground": [
-            58.39999999999999,
-            56.71764705882353,
-            156.57647058823528
+            64.29411764705883,
+            60.470588235294116,
+            179.41176470588238
           ],
-          "contrast": 6.918516481488567,
+          "contrast": 6.760285171796929,
           "textual": true,
           "disabled": false,
           "width": 48.015625,
@@ -4284,54 +2737,10 @@
           "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)",
           "kind": "target-size",
           "value": 17.1875
-        },
-        {
-          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
-          "kind": "text-contrast",
-          "ratio": 3.6779011537825332
-        },
-        {
-          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(3)",
-          "kind": "text-contrast",
-          "ratio": 3.673272123062252
-        },
-        {
-          "selector": ".lifecycle-btn-primary",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": ".lifecycle-btn-danger",
-          "kind": "axe:color-contrast"
-        },
-        {
-          "selector": "span:nth-child(7) > .lifecycle-step > .lifecycle-step-label",
-          "kind": "axe:color-contrast"
         }
       ],
       "scope": "main > .max-w-7xl",
-      "axe": [
-        {
-          "rule": "color-contrast",
-          "target": [
-            ".lifecycle-btn-primary"
-          ],
-          "html": "<button class=\"lifecycle-btn lifecycle-btn-primary\">交付</button>"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            ".lifecycle-btn-danger"
-          ],
-          "html": "<button class=\"lifecycle-btn lifecycle-btn-danger\">裁决取消</button>"
-        },
-        {
-          "rule": "color-contrast",
-          "target": [
-            "span:nth-child(7) > .lifecycle-step > .lifecycle-step-label"
-          ],
-          "html": "<span class=\"lifecycle-step-label\">已交付</span>"
-        }
-      ],
+      "axe": [],
       "newIssues": []
     }
   ],

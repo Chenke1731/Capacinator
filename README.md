@@ -11,6 +11,8 @@ A comprehensive project capacity planning system that replaces Excel-based plann
 - **Project Management**: Track projects, phases, and timelines
 - **Resource Allocation**: Assign people to projects with conflict detection
 - **Capacity Planning**: Monitor utilization and availability
+- **Demand Board**: Flat SR→AR demand table with inline editing, bulk operations, and lifecycle progression
+- **People Offboarding**: Deactivate (not delete) departed staff — history preserved, excluded from new assignments
 - **Excel Integration**: Import existing planning data from Excel templates
 - **Dashboard Analytics**: Visual charts and metrics for project health
 - **Conflict Detection**: Automatic detection of resource over-allocation and scheduling conflicts

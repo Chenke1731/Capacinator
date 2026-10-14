@@ -81,9 +81,16 @@ function tsContext(node,source) {
 }
 
 export function scanSources(sources) {
-  const records=new Map(),excluded=[],errors=[],symbolic=[];
+  const records=new Map(),excluded=[],errors=[],symbolic=[],variables=[];
   function add(file,source,context,owner,property,value,start,definition=false) {
     const parsed=colorsInValue(value);
+    valueParser(value).walk(node=>{
+      if(node.type==='function'&&['url','attr'].includes(node.value.toLowerCase()))return false;
+      if(node.type==='function'&&node.value.toLowerCase()==='var'){
+        const name=node.nodes.find(n=>n.type==='word')?.value;
+        if(name?.startsWith('--'))variables.push({file,context,owner,property,name});
+      }
+    });
     for(const c of parsed.colors) {
       const literal=normalize(c.literal).toLowerCase();
       const fingerprint=sourceHash(JSON.stringify([file,context,owner,property,literal]));
@@ -126,7 +133,7 @@ export function scanSources(sources) {
       }
     } catch(error){errors.push(`${file}: ${error.message}`);}
   }
-  return {entries:[...records.values()].sort((a,b)=>`${a.file}|${a.fingerprint}`.localeCompare(`${b.file}|${b.fingerprint}`)),excluded,errors,symbolic};
+  return {entries:[...records.values()].sort((a,b)=>`${a.file}|${a.fingerprint}`.localeCompare(`${b.file}|${b.fingerprint}`)),excluded,errors,symbolic,variables};
 }
 export function scanRoot(root) {
   const f=productionFiles(root);
@@ -186,7 +193,7 @@ export function checkLedger(scan,ledger,baseline,root) {
     if(!r||!['rename','delete','tokenize','retired-unused'].includes(r.resolution)){issues.push(`Unresolved orphan/decrease ${prior.fingerprint}`);continue;}
     if(r.resolution==='rename'&&(!r.to||!current.has(r.to)||current.get(r.to).count!==prior.count)) issues.push(`Invalid rename mapping ${prior.fingerprint}`);
     if(r.resolution==='retired-unused'&&fs.existsSync(path.join(root,prior.file))) issues.push(`Retired file still exists ${prior.file}`);
-    if(r.resolution==='tokenize'&&!r.token) issues.push(`Tokenize resolution has no token ${prior.fingerprint}`);
+    if(r.resolution==='tokenize'&&!scan.variables.some(v=>v.file===prior.file&&v.owner===prior.owner&&v.property===prior.property&&JSON.stringify(v.context)===JSON.stringify(prior.context)&&v.name===r.token)) issues.push(`Tokenize resolution has no matching consumer ${prior.fingerprint} ${r.token??''}`);
   }
   if(JSON.stringify(ledger.summary)!==JSON.stringify(summarize(ledger.entries))) issues.push('Summary must be derived from ledger entries');
   return issues;

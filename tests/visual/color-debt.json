@@ -30086,7 +30086,7 @@
       "resolution": "tokenize",
       "reason": "TC-C1: replace fixed UI foreground with theme-aware semantic color",
       "baselineHead": "5996da0",
-      "token": "--primary-solid"
+      "token": "--primary"
     },
     {
       "fingerprint": "6c07f479d82442b505700f0674b95e85edf26ee6ac654eee4bf2746155c662e1",
@@ -30106,7 +30106,7 @@
       "resolution": "tokenize",
       "reason": "TC-C1: replace fixed UI foreground with theme-aware semantic color",
       "baselineHead": "5996da0",
-      "token": "--primary-solid"
+      "token": "--primary"
     },
     {
       "fingerprint": "9ba50f948e5f9dda0ec14b7e0554f2dccecdc6014dfab8373d00dc3ee993ddf5",
@@ -30126,7 +30126,7 @@
       "resolution": "tokenize",
       "reason": "TC-C1: replace fixed UI foreground with theme-aware semantic color",
       "baselineHead": "5996da0",
-      "token": "--solid-foreground"
+      "token": "--timeline-tooltip-text"
     },
     {
       "fingerprint": "bf2b312c7c29e4ee66f7e958de4bc90aa57a398093b2aceacc5b594368cbe678",
@@ -30136,7 +30136,7 @@
       "resolution": "tokenize",
       "reason": "TC-C1: replace fixed UI foreground with theme-aware semantic color",
       "baselineHead": "5996da0",
-      "token": "--primary-solid"
+      "token": "--primary"
     },
     {
       "fingerprint": "c103ad90ce7af44e0b1d8e215c389b54987af2f14b74c1d162e53ba4654b7e54",
@@ -30186,7 +30186,7 @@
       "resolution": "tokenize",
       "reason": "TC-C1: replace fixed UI foreground with theme-aware semantic color",
       "baselineHead": "5996da0",
-      "token": "--primary-solid"
+      "token": "--primary"
     },
     {
       "fingerprint": "eea4cabf00973533aa62c961537f6baf0aff53a8e0a63d243fe0d5d6359bdc85",

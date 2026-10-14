@@ -38,6 +38,11 @@ export async function runSelfTests() {
     assert.deepEqual(checkLedger(renamed,ren,old,root),[]);
     assert(ren.entries.filter(x=>x.owner==='.renamed').every(x=>x.decision==='pending'&&!x.evidence.length));
     assert.throws(()=>resolveOrphan(structuredClone(old),old.entries[0].fingerprint,{resolution:'delete',reason:'still present'},scan));
+    const tokenSource=source.replace('color: red','color: var(--accent)'),tokenScan=scanSources([['client/src/a.css',tokenSource],...files.slice(1)]),original=old.entries.find(e=>e.file.endsWith('a.css')&&e.literal==='red');
+    let tokenLedger=resolveOrphan(structuredClone(old),original.fingerprint,{resolution:'tokenize',token:'--accent',reason:'measured semantic accent',baselineHead:'baseline'},tokenScan);
+    assert.deepEqual(checkLedger(tokenScan,tokenLedger,old,root),[]);
+    tokenLedger.resolutions.at(-1).token='--not-the-consumer';
+    assert(checkLedger(tokenScan,tokenLedger,old,root).some(x=>x.includes('matching consumer')));
     const corrupt=structuredClone(old);corrupt.summary.occurrences--;
     assert(checkLedger(scan,corrupt,old,root).some(x=>x.includes('Summary')));
     const exempt=structuredClone(old);exempt.entries.find(x=>x.literal==='red').decision='accepted-literal';

@@ -1,7 +1,7 @@
 {
   "combinations": 4,
   "checks": 20,
-  "updatePixels": false,
+  "updatePixels": true,
   "registerExistingAxe": false,
   "evidence": [
     {
@@ -38,7 +38,7 @@
           "ok": true
         },
         {
-          "name": "像素 roadmap-dark-1600: 与基线一致(≤0.5%)",
+          "name": "基线 roadmap-dark-1600: 已采集",
           "ok": true
         },
         {
@@ -82,7 +82,7 @@
           "ok": true
         },
         {
-          "name": "像素 roadmap-dark-1366: 与基线一致(≤0.5%)",
+          "name": "基线 roadmap-dark-1366: 已采集",
           "ok": true
         },
         {
@@ -126,7 +126,7 @@
           "ok": true
         },
         {
-          "name": "像素 roadmap-light-1600: 与基线一致(≤0.5%)",
+          "name": "基线 roadmap-light-1600: 已采集",
           "ok": true
         },
         {
@@ -170,7 +170,7 @@
           "ok": true
         },
         {
-          "name": "像素 roadmap-light-1366: 与基线一致(≤0.5%)",
+          "name": "基线 roadmap-light-1366: 已采集",
           "ok": true
         },
         {

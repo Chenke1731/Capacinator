@@ -1,0 +1,132 @@
+[
+  {
+    "theme": "light",
+    "data": [
+      {
+        "label": "FS",
+        "fill": "rgb(59, 130, 246)",
+        "opacity": "1",
+        "background": [
+          255,
+          255,
+          255
+        ],
+        "ratio": 3.6779011537825332,
+        "threshold": 4.5
+      },
+      {
+        "label": "SS",
+        "fill": "rgb(16, 185, 129)",
+        "opacity": "1",
+        "background": [
+          255,
+          255,
+          255
+        ],
+        "ratio": 2.5366569934610426,
+        "threshold": 4.5
+      },
+      {
+        "label": "FF",
+        "fill": "rgb(245, 158, 11)",
+        "opacity": "1",
+        "background": [
+          255,
+          255,
+          255
+        ],
+        "ratio": 2.1476626917618766,
+        "threshold": 4.5
+      },
+      {
+        "label": "SF",
+        "fill": "rgb(139, 92, 246)",
+        "opacity": "1",
+        "background": [
+          255,
+          255,
+          255
+        ],
+        "ratio": 4.234369397337306,
+        "threshold": 4.5
+      },
+      {
+        "label": "unknown",
+        "fill": "rgb(107, 114, 128)",
+        "opacity": "1",
+        "background": [
+          255,
+          255,
+          255
+        ],
+        "ratio": 4.834490081424352,
+        "threshold": 4.5
+      }
+    ]
+  },
+  {
+    "theme": "dark",
+    "data": [
+      {
+        "label": "FS",
+        "fill": "rgb(59, 130, 246)",
+        "opacity": "1",
+        "background": [
+          17,
+          24,
+          39
+        ],
+        "ratio": 4.823326202181828,
+        "threshold": 4.5
+      },
+      {
+        "label": "SS",
+        "fill": "rgb(16, 185, 129)",
+        "opacity": "1",
+        "background": [
+          17,
+          24,
+          39
+        ],
+        "ratio": 6.993344803733124,
+        "threshold": 4.5
+      },
+      {
+        "label": "FF",
+        "fill": "rgb(245, 158, 11)",
+        "opacity": "1",
+        "background": [
+          17,
+          24,
+          39
+        ],
+        "ratio": 8.260010788528877,
+        "threshold": 4.5
+      },
+      {
+        "label": "SF",
+        "fill": "rgb(139, 92, 246)",
+        "opacity": "1",
+        "background": [
+          17,
+          24,
+          39
+        ],
+        "ratio": 4.189459005449387,
+        "threshold": 4.5
+      },
+      {
+        "label": "unknown",
+        "fill": "rgb(107, 114, 128)",
+        "opacity": "1",
+        "background": [
+          17,
+          24,
+          39
+        ],
+        "ratio": 3.6694080875738484,
+        "threshold": 4.5
+      }
+    ]
+  }
+]

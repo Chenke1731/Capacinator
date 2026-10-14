@@ -11,7 +11,7 @@ if(captureFixtures&&!fixtureSet)fixtureSet={version:1,capturedAt:new Date().toIS
 // Roots are real production DOM. Profiles describe setup, never excuse a failed measurement.
 export const profiles = {
   projects: {path:'/projects',root:'.projects-board',ready:'[data-testid="requirements-table"]',minElements:20,scroll:'.requirements-table',fonts:[10,11,12.5,13,14]},
-  roadmap: {path:'/projects?tab=roadmap',root:'.project-roadmap',ready:'.interactive-timeline',minElements:8,scroll:'.timeline-scroll-container',safeTriggers:'.timeline-toggle, .view-mode-btn'},
+  roadmap: {path:'/projects?tab=roadmap',root:'.project-roadmap',ready:'.interactive-timeline',minElements:8,scroll:'.timeline-scroll-container',safeTriggers:'.nav-btn, .today-btn, .zoom-controls button',requiredTriggers:5},
   'project-detail': {path:'/projects/project-1789912193111-zikdnz8c5',root:'main > .max-w-7xl',ready:'.chart-container .chart-tab',minElements:8,safeTriggers:'.chart-tab'},
   'project-detail-phases': {path:'/projects/:audit-id',entity:'phased-project',root:'main > .max-w-7xl',ready:'.project-phase-timeline .timeline-container',minElements:5,safeTriggers:'.chart-tab',scrollInto:'.chart-container'},
   'phase-template': {path:'/project-types/:audit-id',entity:'phased-type',root:'.phase-template-designer',ready:'.phases-table',minElements:3,safeTriggers:'.add-phase-btn'},

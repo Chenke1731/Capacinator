@@ -451,10 +451,9 @@ describe('InteractiveTimeline', () => {
         />
       );
 
-      const brushOverlay = Array.from(document.querySelectorAll('div')).find(
-        (el) => el.style.backgroundColor === 'rgba(59, 130, 246, 0.2)'
-      );
+      const brushOverlay = container.querySelector('[data-timeline-brush]');
       expect(brushOverlay).toBeInTheDocument();
+      expect(brushOverlay).toHaveStyle({left:'100px',width:'400px'});
     });
   });
 

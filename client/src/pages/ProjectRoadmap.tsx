@@ -11,6 +11,7 @@ import InteractiveTimeline, { TimelineItem, TimelineViewport } from '../componen
 import { getLocale } from '../i18n';
 import type { Project } from '../types';
 import { parseDate, toISODateString } from '../utils/dateUtils';
+import { getPhaseColor } from '../components/phase-manager/types';
 import './ProjectRoadmap.css';
 
 // 本地重复类型退役(2026-10-13 批清): 实体 ProjectPhaseTimeline 已带全部
@@ -27,24 +28,6 @@ interface EditingPhase {
   startDate: string;
   endDate: string;
 }
-
-// Phase colors matching the existing system
-const PHASE_COLORS: Record<string, string> = {
-  'business planning': '#3b82f6',
-  'development': '#10b981',
-  'system integration testing': '#f59e0b',
-  'user acceptance testing': '#8b5cf6',
-  'validation': '#ec4899',
-  'cutover': '#ef4444',
-  'hypercare': '#06b6d4',
-  'support': '#84cc16',
-  'custom': '#6b7280'
-};
-
-const getPhaseColor = (phaseName: string): string => {
-  const normalizedName = phaseName.toLowerCase();
-  return PHASE_COLORS[normalizedName] || PHASE_COLORS['custom'];
-};
 
 export default function ProjectRoadmap() {
   const { t } = useTranslation();
@@ -897,7 +880,7 @@ export default function ProjectRoadmap() {
                   top: 0,
                   bottom: 0,
                   width: '2px',
-                  backgroundColor: '#ef4444',
+                  backgroundColor: 'var(--status-danger-border)',
                   zIndex: 999,
                   pointerEvents: 'none'
                 }}
@@ -914,8 +897,8 @@ export default function ProjectRoadmap() {
                   position: 'absolute',
                   top: '80px', // Position below the header
                   left: '4px',
-                  backgroundColor: '#b91c1c', // 白字 ≥4.5:1(#ef4444 仅 3.9)
-                  color: 'white',
+                  backgroundColor: 'var(--status-danger-solid)',
+                  color: 'var(--solid-foreground)',
                   padding: '2px 6px',
                   borderRadius: '3px',
                   fontSize: '10px',
@@ -1017,9 +1000,9 @@ export default function ProjectRoadmap() {
                           className="project-type-compact"
                           title={t('phases:roadmap.projectTypeTitle', { name: project.project_type?.name || project.project_type_name || t('phases:common.unknown') })}
                           style={{
-                            backgroundColor: project.project_type?.color_code ? `${project.project_type.color_code}15` : '#eff6ff',
-                            color: project.project_type?.color_code || '#1d4ed8',
-                            borderLeft: `2px solid ${project.project_type?.color_code || '#1d4ed8'}`
+                            backgroundColor: project.project_type?.color_code ? `${project.project_type.color_code}15` : 'var(--status-info-soft)',
+                            color: 'var(--text-primary)',
+                            borderLeft: `2px solid ${project.project_type?.color_code || 'var(--status-info-border)'}`
                           }}
                         >
                           {project.project_type?.name || project.project_type_name || t('phases:common.unknown')}

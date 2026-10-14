@@ -2418,14 +2418,14 @@
           "selector": "div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(2)",
           "family": "chart-tab|",
           "text": "产能",
-          "foreground": "rgb(166, 175, 188)",
-          "background": "rgba(79, 70, 229, 0.424)",
+          "foreground": "rgb(192, 199, 208)",
+          "background": "rgba(79, 70, 229, 0.592)",
           "effectiveBackground": [
-            180.03529411764706,
-            177.0705882352941,
-            243.98823529411766
+            150.78039215686275,
+            144.85882352941178,
+            240.19607843137254
           ],
-          "contrast": 1.1120911957610675,
+          "contrast": 1.6183115646255786,
           "textual": true,
           "disabled": false,
           "width": 48.015625,
@@ -2436,14 +2436,14 @@
           "selector": "div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(3)",
           "family": "chart-tab|",
           "text": "缺口",
-          "foreground": "rgb(190, 196, 206)",
-          "background": "rgba(79, 70, 229, 0.576)",
+          "foreground": "rgb(164, 173, 186)",
+          "background": "rgba(79, 70, 229, 0.408)",
           "effectiveBackground": [
-            154.11764705882354,
-            147.7764705882353,
-            240.01176470588234
+            182.81176470588235,
+            179.95686274509805,
+            243.98823529411766
           ],
-          "contrast": 1.5243944582135085,
+          "contrast": 1.1700044879301896,
           "textual": true,
           "disabled": false,
           "width": 48.015625,
@@ -2470,12 +2470,12 @@
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(2)",
           "kind": "text-contrast",
-          "ratio": 1.1120911957610675
+          "ratio": 1.6183115646255786
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(3)",
           "kind": "text-contrast",
-          "ratio": 1.5243944582135085
+          "ratio": 1.1700044879301896
         },
         {
           "selector": ".lifecycle-state-badge",
@@ -4229,14 +4229,14 @@
           "selector": "div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(2)",
           "family": "chart-tab|",
           "text": "产能",
-          "foreground": "rgb(194, 200, 208)",
-          "background": "rgba(79, 70, 229, 0.294)",
+          "foreground": "rgb(205, 210, 217)",
+          "background": "rgba(79, 70, 229, 0.424)",
           "effectiveBackground": [
-            43.41176470588235,
-            49.11764705882353,
-            108
+            49.752941176470586,
+            53.12941176470588,
+            130.4235294117647
           ],
-          "contrast": 7.073750995101883,
+          "contrast": 7.0112936595503585,
           "textual": true,
           "disabled": false,
           "width": 48.015625,
@@ -4247,14 +4247,14 @@
           "selector": "div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(3)",
           "family": "chart-tab|",
           "text": "缺口",
-          "foreground": "rgb(230, 232, 235)",
-          "background": "rgba(79, 70, 229, 0.706)",
+          "foreground": "rgb(218, 222, 227)",
+          "background": "rgba(79, 70, 229, 0.576)",
           "effectiveBackground": [
-            64.29411764705883,
-            60.470588235294116,
-            179.41176470588238
+            58.39999999999999,
+            56.71764705882353,
+            156.57647058823528
           ],
-          "contrast": 6.760285171796929,
+          "contrast": 6.918516481488567,
           "textual": true,
           "disabled": false,
           "width": 48.015625,

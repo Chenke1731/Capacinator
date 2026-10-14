@@ -4,6 +4,7 @@ import { createRoot } from 'react-dom/client';
 import { InteractiveTimeline } from '../components/InteractiveTimeline';
 import { PhaseHandles } from '../components/interactive-timeline/PhaseHandles';
 import { PHASE_COLORS } from '../components/phase-manager/types';
+import { DependencyLines } from '../components/interactive-timeline/DependencyLines';
 
 export function mountTimelineAudit() {
   const host = document.createElement('div');
@@ -24,6 +25,9 @@ export function mountTimelineAudit() {
     </div>
     <div style={{position:'relative',height:50,marginTop:40}} data-handle-set="hover">
       {(['extend-left','extend-right','adjust-both'] as const).map((handleType,i)=><PhaseHandles key={handleType} handles={[{id:handleType,phaseId:'audit',handleType,position:0,x:100+i*200}]} hoveredHandle={{phaseId:'audit',handleType}} isDragging={false} onHandleClick={()=>{}} onHandleMouseDown={()=>{}} />)}
+    </div>
+    <div style={{position:'relative',height:160,marginTop:40}} data-dependency-audit>
+      <DependencyLines dependencyLines={['FS','SS','FF','SF','unknown'].map((dependencyType,i)=>({startPoint:{x:50,y:20+i*30},endPoint:{x:350,y:20+i*30},dependency:{id:String(i),predecessorId:'a',successorId:'b',dependencyType:dependencyType as 'FS',lagDays:0}}))} />
     </div>
   </>);
 }

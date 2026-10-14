@@ -1563,6 +1563,16 @@ html body .settings-section .checkbox-label,
   --shadow-lg: 0px 8px 16px -4px rgba(0, 0, 0, 0.45), 0px 0px 1px 0px rgba(0, 0, 0, 0.4);
 }
 
+/* Dependency types keep their separate data meaning; their labels have a theme
+   surface so a line crossing bright phase data cannot erase its annotation. */
+[data-theme] {
+  --dependency-finish-start: var(--status-info-border);
+  --dependency-start-start: var(--status-success-border);
+  --dependency-finish-finish: var(--status-warning-border);
+  --dependency-start-finish: var(--color-purple);
+  --dependency-unknown: var(--text-tertiary);
+}
+
 /* 深色主题: 蓝系提示文字提亮过 4.5:1 */
 [data-theme='dark'] .settings-alert.info,
 .dark .settings-alert.info {

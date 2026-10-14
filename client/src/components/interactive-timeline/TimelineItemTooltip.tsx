@@ -30,8 +30,8 @@ export function TimelineItemTooltip({ phase, mode }: TimelineItemTooltipProps) {
 
   return (
     <div style={{
-      backgroundColor: 'rgba(0, 0, 0, 0.92)',
-      color: 'white',
+      backgroundColor: 'var(--timeline-tooltip-bg)',
+      color: 'var(--timeline-tooltip-text)',
       padding: '12px 16px',
       borderRadius: '8px',
       fontSize: '13px',
@@ -40,8 +40,8 @@ export function TimelineItemTooltip({ phase, mode }: TimelineItemTooltipProps) {
       minHeight: '200px',
       maxHeight: '400px',
       overflow: 'visible',
-      boxShadow: '0 8px 24px rgba(0, 0, 0, 0.4)',
-      border: '1px solid rgba(255, 255, 255, 0.1)',
+      boxShadow: '0 8px 24px color-mix(in srgb, var(--solid-shade) 40%, transparent)',
+      border: '1px solid color-mix(in srgb, var(--timeline-tooltip-text) 10%, transparent)',
       lineHeight: '1.4'
     }}>
       {/* Phase Header */}
@@ -49,8 +49,8 @@ export function TimelineItemTooltip({ phase, mode }: TimelineItemTooltipProps) {
         fontWeight: 700,
         marginBottom: '8px',
         fontSize: '14px',
-        color: '#ffffff',
-        borderBottom: '1px solid rgba(255, 255, 255, 0.2)',
+        color: 'var(--timeline-tooltip-text)',
+        borderBottom: '1px solid color-mix(in srgb, var(--timeline-tooltip-text) 20%, transparent)',
         paddingBottom: '6px'
       }}>
         {phase.phase_name}
@@ -162,7 +162,7 @@ export function TimelineItemTooltip({ phase, mode }: TimelineItemTooltipProps) {
         fontSize: '10px',
         opacity: 0.6,
         marginTop: '10px',
-        borderTop: '1px solid rgba(255, 255, 255, 0.1)',
+        borderTop: '1px solid color-mix(in srgb, var(--timeline-tooltip-text) 10%, transparent)',
         paddingTop: '6px',
         textAlign: 'center'
       }}>

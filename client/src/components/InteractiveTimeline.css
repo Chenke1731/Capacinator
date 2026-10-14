@@ -36,26 +36,26 @@
   /* Subtle gradient for depth */
   background: linear-gradient(135deg, 
     var(--item-color, var(--primary)) 0%, 
-    color-mix(in srgb, var(--item-color, var(--primary)) 85%, black 15%) 100%);
+    color-mix(in srgb, var(--item-color, var(--primary)) 85%, var(--solid-shade) 15%) 100%);
   
-  border: 1px solid color-mix(in srgb, var(--item-color, var(--primary)) 70%, black 30%);
+  border: 1px solid color-mix(in srgb, var(--item-color, var(--primary)) 70%, var(--solid-shade) 30%);
   
   /* Text shadow for better readability */
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  text-shadow: 0 1px 2px color-mix(in srgb, var(--solid-shade) 10%, transparent);
 }
 
 .timeline-item:hover {
   transform: translateY(-1px);
   box-shadow: 
-    0 4px 12px rgba(0, 0, 0, 0.15),
-    0 2px 4px rgba(0, 0, 0, 0.05);
-  border-color: color-mix(in srgb, var(--item-color, var(--primary)) 60%, black 40%);
+    0 4px 12px color-mix(in srgb, var(--solid-shade) 15%, transparent),
+    0 2px 4px color-mix(in srgb, var(--solid-shade) 5%, transparent);
+  border-color: color-mix(in srgb, var(--item-color, var(--primary)) 60%, var(--solid-shade) 40%);
 }
 
 .timeline-item.dragging {
   opacity: 0.8;
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 8px 24px color-mix(in srgb, var(--solid-shade) 25%, transparent);
   z-index: 1000;
   transition: none; /* Disable transitions while dragging */
 }
@@ -67,14 +67,14 @@
   bottom: 0;
   width: 6px;
   cursor: ew-resize;
-  background: rgba(255, 255, 255, 0.3);
+  background: color-mix(in srgb, var(--solid-foreground) 30%, transparent);
   opacity: 0;
   transition: opacity 0.2s ease;
   border-radius: 2px;
 }
 
 .resize-handle:hover {
-  background: rgba(255, 255, 255, 0.5);
+  background: color-mix(in srgb, var(--solid-foreground) 50%, transparent);
 }
 
 .timeline-item:hover .resize-handle {
@@ -131,7 +131,7 @@
 /* Brush selection overlay */
 .brush-selection {
   position: absolute;
-  background: rgba(59, 130, 246, 0.15);
+  background: color-mix(in srgb, var(--primary) 15%, transparent);
   border: 2px solid var(--primary);
   border-radius: 4px;
   pointer-events: none;
@@ -147,11 +147,11 @@
   bottom: -1px;
   background: linear-gradient(45deg, 
     transparent 25%, 
-    rgba(59, 130, 246, 0.1) 25%, 
-    rgba(59, 130, 246, 0.1) 50%, 
+    color-mix(in srgb, var(--primary) 10%, transparent) 25%,
+    color-mix(in srgb, var(--primary) 10%, transparent) 50%,
     transparent 50%, 
     transparent 75%, 
-    rgba(59, 130, 246, 0.1) 75%);
+    color-mix(in srgb, var(--primary) 10%, transparent) 75%);
   background-size: 8px 8px;
   animation: brush-pattern 1s linear infinite;
   border-radius: inherit;
@@ -169,7 +169,7 @@
   bottom: 0;
   width: 2px;
   background: linear-gradient(to bottom, hsl(var(--destructive)), hsl(var(--destructive)));
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 4px color-mix(in srgb, var(--solid-shade) 10%, transparent);
   z-index: 50;
 }
 
@@ -186,7 +186,7 @@
   border-radius: 3px;
   border: 1px solid hsl(var(--border));
   white-space: nowrap;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 2px 4px color-mix(in srgb, var(--solid-shade) 5%, transparent);
 }
 
 /* Grid labels */
@@ -213,8 +213,8 @@
 /* Tooltip styles */
 .timeline-tooltip {
   position: absolute;
-  background: rgba(0, 0, 0, 0.9);
-  color: white;
+  background: color-mix(in srgb, var(--solid-shade) 90%, transparent);
+  color: var(--solid-foreground);
   padding: 8px 12px;
   border-radius: 6px;
   font-size: 12px;
@@ -232,7 +232,7 @@
   left: 50%;
   transform: translateX(-50%);
   border: 4px solid transparent;
-  border-top-color: rgba(0, 0, 0, 0.9);
+  border-top-color: color-mix(in srgb, var(--solid-shade) 90%, transparent);
 }
 
 /* Context menu styles */
@@ -241,7 +241,7 @@
   background: hsl(var(--background));
   border: 1px solid hsl(var(--border));
   border-radius: 6px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 10px 25px color-mix(in srgb, var(--solid-shade) 25%, transparent);
   padding: 4px 0;
   min-width: 150px;
   z-index: 1000;
@@ -362,7 +362,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: color-mix(in srgb, var(--solid-shade) 50%, transparent);
   /* backdrop-filter removed for solid background */
   display: flex;
   align-items: center;
@@ -377,7 +377,7 @@
   padding: 24px;
   width: 480px;
   max-width: 90vw;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 25px 50px -12px color-mix(in srgb, var(--solid-shade) 25%, transparent);
   animation: modal-slide-in 0.2s ease-out;
   border: 1px solid hsl(var(--border));
 }
@@ -451,7 +451,7 @@
 .form-select:focus {
   outline: none;
   border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--solid-shade) 5%, transparent);
 }
 
 .form-input:disabled {
@@ -491,12 +491,14 @@
 
 .btn-primary {
   border: none;
-  background-color: var(--primary);
-  color: white;
+  background-color: var(--primary-solid);
+  color: var(--solid-foreground);
 }
 
-.btn-primary:hover:not(:disabled) {
-  background-color: var(--primary);
+.btn-primary:hover:not(:disabled),
+.btn-primary:active:not(:disabled) {
+  background-color: var(--primary-solid);
+  color: var(--solid-foreground);
 }
 
 .btn-primary:disabled {
@@ -505,7 +507,7 @@
 }
 
 .btn-primary:disabled:hover {
-  background-color: var(--primary);
+  background-color: var(--primary-solid);
 }
 
 @keyframes modal-fade-in {
@@ -560,7 +562,7 @@
   .form-input:focus,
   .form-select:focus {
     border-color: var(--primary);
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 20%, transparent);
   }
   
   .form-input:disabled {

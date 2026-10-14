@@ -72,10 +72,10 @@ export const calculateDependencyPoints = (
 
 export const getLineColor = (type: string): string => {
   switch (type) {
-    case 'FS': return '#3b82f6'; // blue for finish-to-start
-    case 'SS': return '#10b981'; // green for start-to-start
-    case 'FF': return '#f59e0b'; // orange for finish-to-finish
-    case 'SF': return '#8b5cf6'; // purple for start-to-finish
-    default: return '#6b7280'; // gray for unknown
+    case 'FS': return 'var(--dependency-finish-start)';
+    case 'SS': return 'var(--dependency-start-start)';
+    case 'FF': return 'var(--dependency-finish-finish)';
+    case 'SF': return 'var(--dependency-start-finish)';
+    default: return 'var(--dependency-unknown)';
   }
 };

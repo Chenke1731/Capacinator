@@ -51,7 +51,7 @@ export function PhaseContextMenu({
         background: 'hsl(var(--popover))',
         border: '1px solid hsl(var(--border))',
         borderRadius: '6px',
-        boxShadow: '0 10px 25px rgba(0, 0, 0, 0.25)',
+        boxShadow: '0 10px 25px color-mix(in srgb, var(--solid-shade) 25%, transparent)',
         padding: '4px 0',
         minWidth: '150px',
         zIndex: 1000

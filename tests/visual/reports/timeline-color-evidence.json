@@ -28,7 +28,9 @@
           "foreground": "rgb(0, 0, 0)",
           "background": "rgb(59, 130, 246)",
           "ratio": 5.709778246324693,
-          "threshold": 4.5
+          "threshold": 4.5,
+          "border": "rgb(0, 0, 0)",
+          "borderRatio": 5.709778246324693
         },
         {
           "item": "development",
@@ -37,7 +39,9 @@
           "foreground": "rgb(0, 0, 0)",
           "background": "rgb(16, 185, 129)",
           "ratio": 8.278612383989437,
-          "threshold": 4.5
+          "threshold": 4.5,
+          "border": "rgb(0, 0, 0)",
+          "borderRatio": 8.278612383989437
         },
         {
           "item": "system integration testing",
@@ -46,7 +50,9 @@
           "foreground": "rgb(0, 0, 0)",
           "background": "rgb(245, 158, 11)",
           "ratio": 9.778071798962173,
-          "threshold": 4.5
+          "threshold": 4.5,
+          "border": "rgb(0, 0, 0)",
+          "borderRatio": 9.778071798962173
         },
         {
           "item": "user acceptance testing",
@@ -55,7 +61,9 @@
           "foreground": "rgb(0, 0, 0)",
           "background": "rgb(139, 92, 246)",
           "ratio": 4.959416156088179,
-          "threshold": 4.5
+          "threshold": 4.5,
+          "border": "rgb(0, 0, 0)",
+          "borderRatio": 4.959416156088179
         },
         {
           "item": "validation",
@@ -64,7 +72,9 @@
           "foreground": "rgb(0, 0, 0)",
           "background": "rgb(236, 72, 153)",
           "ratio": 5.953500872309584,
-          "threshold": 4.5
+          "threshold": 4.5,
+          "border": "rgb(0, 0, 0)",
+          "borderRatio": 5.953500872309584
         },
         {
           "item": "cutover",
@@ -73,7 +83,9 @@
           "foreground": "rgb(0, 0, 0)",
           "background": "rgb(239, 68, 68)",
           "ratio": 5.58046438625577,
-          "threshold": 4.5
+          "threshold": 4.5,
+          "border": "rgb(0, 0, 0)",
+          "borderRatio": 5.58046438625577
         },
         {
           "item": "hypercare",
@@ -82,7 +94,9 @@
           "foreground": "rgb(0, 0, 0)",
           "background": "rgb(6, 182, 212)",
           "ratio": 8.649616236144142,
-          "threshold": 4.5
+          "threshold": 4.5,
+          "border": "rgb(0, 0, 0)",
+          "borderRatio": 8.649616236144142
         },
         {
           "item": "support",
@@ -91,7 +105,9 @@
           "foreground": "rgb(0, 0, 0)",
           "background": "rgb(132, 204, 22)",
           "ratio": 10.629838431983178,
-          "threshold": 4.5
+          "threshold": 4.5,
+          "border": "rgb(0, 0, 0)",
+          "borderRatio": 10.629838431983178
         },
         {
           "item": "custom",
@@ -100,7 +116,9 @@
           "foreground": "rgb(255, 255, 255)",
           "background": "rgb(107, 114, 128)",
           "ratio": 4.834490081424352,
-          "threshold": 4.5
+          "threshold": 4.5,
+          "border": "rgb(255, 255, 255)",
+          "borderRatio": 4.834490081424352
         },
         {
           "item": null,
@@ -109,7 +127,9 @@
           "foreground": "rgb(255, 255, 255)",
           "background": "rgb(4, 120, 87)",
           "ratio": 5.483924052498799,
-          "threshold": 4.5
+          "threshold": 4.5,
+          "border": "rgb(255, 255, 255)",
+          "borderRatio": null
         },
         {
           "item": null,
@@ -118,7 +138,9 @@
           "foreground": "rgb(255, 255, 255)",
           "background": "rgb(79, 70, 229)",
           "ratio": 6.287528596095884,
-          "threshold": 4.5
+          "threshold": 4.5,
+          "border": "rgb(255, 255, 255)",
+          "borderRatio": null
         },
         {
           "item": null,
@@ -127,7 +149,9 @@
           "foreground": "rgb(255, 255, 255)",
           "background": "rgb(79, 70, 229)",
           "ratio": 6.287528596095884,
-          "threshold": 4.5
+          "threshold": 4.5,
+          "border": "rgb(255, 255, 255)",
+          "borderRatio": null
         },
         {
           "item": null,
@@ -136,7 +160,9 @@
           "foreground": "rgb(255, 255, 255)",
           "background": "color(srgb 0.0141176 0.423529 0.307059)",
           "ratio": 6.441324769344559,
-          "threshold": 4.5
+          "threshold": 4.5,
+          "border": "rgb(255, 255, 255)",
+          "borderRatio": null
         },
         {
           "item": null,
@@ -145,7 +171,9 @@
           "foreground": "rgb(255, 255, 255)",
           "background": "color(srgb 0.278824 0.247059 0.808235)",
           "ratio": 7.3166459218667965,
-          "threshold": 4.5
+          "threshold": 4.5,
+          "border": "rgb(255, 255, 255)",
+          "borderRatio": null
         },
         {
           "item": null,
@@ -154,7 +182,9 @@
           "foreground": "rgb(255, 255, 255)",
           "background": "color(srgb 0.278824 0.247059 0.808235)",
           "ratio": 7.3166459218667965,
-          "threshold": 4.5
+          "threshold": 4.5,
+          "border": "rgb(255, 255, 255)",
+          "borderRatio": null
         }
       ],
       "marker": {
@@ -163,6 +193,43 @@
         "minimumEdgeContrast": 4.834490081424352,
         "threshold": 3
       },
+      "dependencies": [
+        {
+          "type": "FS",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "ratio": 17.73971700407407,
+          "threshold": 4.5
+        },
+        {
+          "type": "SS",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "ratio": 17.73971700407407,
+          "threshold": 4.5
+        },
+        {
+          "type": "FF",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "ratio": 17.73971700407407,
+          "threshold": 4.5
+        },
+        {
+          "type": "SF",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "ratio": 17.73971700407407,
+          "threshold": 4.5
+        },
+        {
+          "type": "unknown",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "ratio": 17.73971700407407,
+          "threshold": 4.5
+        }
+      ],
       "tokens": [
         {
           "role": "success",
@@ -324,7 +391,9 @@
           "foreground": "rgb(0, 0, 0)",
           "background": "rgb(59, 130, 246)",
           "ratio": 5.709778246324693,
-          "threshold": 4.5
+          "threshold": 4.5,
+          "border": "rgb(0, 0, 0)",
+          "borderRatio": 5.709778246324693
         },
         {
           "item": "development",
@@ -333,7 +402,9 @@
           "foreground": "rgb(0, 0, 0)",
           "background": "rgb(16, 185, 129)",
           "ratio": 8.278612383989437,
-          "threshold": 4.5
+          "threshold": 4.5,
+          "border": "rgb(0, 0, 0)",
+          "borderRatio": 8.278612383989437
         },
         {
           "item": "system integration testing",
@@ -342,7 +413,9 @@
           "foreground": "rgb(0, 0, 0)",
           "background": "rgb(245, 158, 11)",
           "ratio": 9.778071798962173,
-          "threshold": 4.5
+          "threshold": 4.5,
+          "border": "rgb(0, 0, 0)",
+          "borderRatio": 9.778071798962173
         },
         {
           "item": "user acceptance testing",
@@ -351,7 +424,9 @@
           "foreground": "rgb(0, 0, 0)",
           "background": "rgb(139, 92, 246)",
           "ratio": 4.959416156088179,
-          "threshold": 4.5
+          "threshold": 4.5,
+          "border": "rgb(0, 0, 0)",
+          "borderRatio": 4.959416156088179
         },
         {
           "item": "validation",
@@ -360,7 +435,9 @@
           "foreground": "rgb(0, 0, 0)",
           "background": "rgb(236, 72, 153)",
           "ratio": 5.953500872309584,
-          "threshold": 4.5
+          "threshold": 4.5,
+          "border": "rgb(0, 0, 0)",
+          "borderRatio": 5.953500872309584
         },
         {
           "item": "cutover",
@@ -369,7 +446,9 @@
           "foreground": "rgb(0, 0, 0)",
           "background": "rgb(239, 68, 68)",
           "ratio": 5.58046438625577,
-          "threshold": 4.5
+          "threshold": 4.5,
+          "border": "rgb(0, 0, 0)",
+          "borderRatio": 5.58046438625577
         },
         {
           "item": "hypercare",
@@ -378,7 +457,9 @@
           "foreground": "rgb(0, 0, 0)",
           "background": "rgb(6, 182, 212)",
           "ratio": 8.649616236144142,
-          "threshold": 4.5
+          "threshold": 4.5,
+          "border": "rgb(0, 0, 0)",
+          "borderRatio": 8.649616236144142
         },
         {
           "item": "support",
@@ -387,7 +468,9 @@
           "foreground": "rgb(0, 0, 0)",
           "background": "rgb(132, 204, 22)",
           "ratio": 10.629838431983178,
-          "threshold": 4.5
+          "threshold": 4.5,
+          "border": "rgb(0, 0, 0)",
+          "borderRatio": 10.629838431983178
         },
         {
           "item": "custom",
@@ -396,7 +479,9 @@
           "foreground": "rgb(255, 255, 255)",
           "background": "rgb(107, 114, 128)",
           "ratio": 4.834490081424352,
-          "threshold": 4.5
+          "threshold": 4.5,
+          "border": "rgb(255, 255, 255)",
+          "borderRatio": 4.834490081424352
         },
         {
           "item": null,
@@ -405,7 +490,9 @@
           "foreground": "rgb(255, 255, 255)",
           "background": "rgb(4, 120, 87)",
           "ratio": 5.483924052498799,
-          "threshold": 4.5
+          "threshold": 4.5,
+          "border": "rgb(255, 255, 255)",
+          "borderRatio": null
         },
         {
           "item": null,
@@ -414,7 +501,9 @@
           "foreground": "rgb(255, 255, 255)",
           "background": "rgb(79, 70, 229)",
           "ratio": 6.287528596095884,
-          "threshold": 4.5
+          "threshold": 4.5,
+          "border": "rgb(255, 255, 255)",
+          "borderRatio": null
         },
         {
           "item": null,
@@ -423,7 +512,9 @@
           "foreground": "rgb(255, 255, 255)",
           "background": "rgb(79, 70, 229)",
           "ratio": 6.287528596095884,
-          "threshold": 4.5
+          "threshold": 4.5,
+          "border": "rgb(255, 255, 255)",
+          "borderRatio": null
         },
         {
           "item": null,
@@ -432,7 +523,9 @@
           "foreground": "rgb(255, 255, 255)",
           "background": "color(srgb 0.0141176 0.423529 0.307059)",
           "ratio": 6.441324769344559,
-          "threshold": 4.5
+          "threshold": 4.5,
+          "border": "rgb(255, 255, 255)",
+          "borderRatio": null
         },
         {
           "item": null,
@@ -441,7 +534,9 @@
           "foreground": "rgb(255, 255, 255)",
           "background": "color(srgb 0.278824 0.247059 0.808235)",
           "ratio": 7.3166459218667965,
-          "threshold": 4.5
+          "threshold": 4.5,
+          "border": "rgb(255, 255, 255)",
+          "borderRatio": null
         },
         {
           "item": null,
@@ -450,7 +545,9 @@
           "foreground": "rgb(255, 255, 255)",
           "background": "color(srgb 0.278824 0.247059 0.808235)",
           "ratio": 7.3166459218667965,
-          "threshold": 4.5
+          "threshold": 4.5,
+          "border": "rgb(255, 255, 255)",
+          "borderRatio": null
         }
       ],
       "marker": {
@@ -459,6 +556,43 @@
         "minimumEdgeContrast": 4.834490081424352,
         "threshold": 3
       },
+      "dependencies": [
+        {
+          "type": "FS",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "ratio": 17.73971700407407,
+          "threshold": 4.5
+        },
+        {
+          "type": "SS",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "ratio": 17.73971700407407,
+          "threshold": 4.5
+        },
+        {
+          "type": "FF",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "ratio": 17.73971700407407,
+          "threshold": 4.5
+        },
+        {
+          "type": "SF",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "ratio": 17.73971700407407,
+          "threshold": 4.5
+        },
+        {
+          "type": "unknown",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "ratio": 17.73971700407407,
+          "threshold": 4.5
+        }
+      ],
       "tokens": [
         {
           "role": "success",
@@ -620,7 +754,9 @@
           "foreground": "rgb(0, 0, 0)",
           "background": "rgb(59, 130, 246)",
           "ratio": 5.709778246324693,
-          "threshold": 4.5
+          "threshold": 4.5,
+          "border": "rgb(0, 0, 0)",
+          "borderRatio": 5.709778246324693
         },
         {
           "item": "development",
@@ -629,7 +765,9 @@
           "foreground": "rgb(0, 0, 0)",
           "background": "rgb(16, 185, 129)",
           "ratio": 8.278612383989437,
-          "threshold": 4.5
+          "threshold": 4.5,
+          "border": "rgb(0, 0, 0)",
+          "borderRatio": 8.278612383989437
         },
         {
           "item": "system integration testing",
@@ -638,7 +776,9 @@
           "foreground": "rgb(0, 0, 0)",
           "background": "rgb(245, 158, 11)",
           "ratio": 9.778071798962173,
-          "threshold": 4.5
+          "threshold": 4.5,
+          "border": "rgb(0, 0, 0)",
+          "borderRatio": 9.778071798962173
         },
         {
           "item": "user acceptance testing",
@@ -647,7 +787,9 @@
           "foreground": "rgb(0, 0, 0)",
           "background": "rgb(139, 92, 246)",
           "ratio": 4.959416156088179,
-          "threshold": 4.5
+          "threshold": 4.5,
+          "border": "rgb(0, 0, 0)",
+          "borderRatio": 4.959416156088179
         },
         {
           "item": "validation",
@@ -656,7 +798,9 @@
           "foreground": "rgb(0, 0, 0)",
           "background": "rgb(236, 72, 153)",
           "ratio": 5.953500872309584,
-          "threshold": 4.5
+          "threshold": 4.5,
+          "border": "rgb(0, 0, 0)",
+          "borderRatio": 5.953500872309584
         },
         {
           "item": "cutover",
@@ -665,7 +809,9 @@
           "foreground": "rgb(0, 0, 0)",
           "background": "rgb(239, 68, 68)",
           "ratio": 5.58046438625577,
-          "threshold": 4.5
+          "threshold": 4.5,
+          "border": "rgb(0, 0, 0)",
+          "borderRatio": 5.58046438625577
         },
         {
           "item": "hypercare",
@@ -674,7 +820,9 @@
           "foreground": "rgb(0, 0, 0)",
           "background": "rgb(6, 182, 212)",
           "ratio": 8.649616236144142,
-          "threshold": 4.5
+          "threshold": 4.5,
+          "border": "rgb(0, 0, 0)",
+          "borderRatio": 8.649616236144142
         },
         {
           "item": "support",
@@ -683,7 +831,9 @@
           "foreground": "rgb(0, 0, 0)",
           "background": "rgb(132, 204, 22)",
           "ratio": 10.629838431983178,
-          "threshold": 4.5
+          "threshold": 4.5,
+          "border": "rgb(0, 0, 0)",
+          "borderRatio": 10.629838431983178
         },
         {
           "item": "custom",
@@ -692,7 +842,9 @@
           "foreground": "rgb(255, 255, 255)",
           "background": "rgb(107, 114, 128)",
           "ratio": 4.834490081424352,
-          "threshold": 4.5
+          "threshold": 4.5,
+          "border": "rgb(255, 255, 255)",
+          "borderRatio": 4.834490081424352
         },
         {
           "item": null,
@@ -701,7 +853,9 @@
           "foreground": "rgb(255, 255, 255)",
           "background": "rgb(4, 120, 87)",
           "ratio": 5.483924052498799,
-          "threshold": 4.5
+          "threshold": 4.5,
+          "border": "rgb(255, 255, 255)",
+          "borderRatio": null
         },
         {
           "item": null,
@@ -710,7 +864,9 @@
           "foreground": "rgb(255, 255, 255)",
           "background": "rgb(79, 70, 229)",
           "ratio": 6.287528596095884,
-          "threshold": 4.5
+          "threshold": 4.5,
+          "border": "rgb(255, 255, 255)",
+          "borderRatio": null
         },
         {
           "item": null,
@@ -719,7 +875,9 @@
           "foreground": "rgb(255, 255, 255)",
           "background": "rgb(79, 70, 229)",
           "ratio": 6.287528596095884,
-          "threshold": 4.5
+          "threshold": 4.5,
+          "border": "rgb(255, 255, 255)",
+          "borderRatio": null
         },
         {
           "item": null,
@@ -728,7 +886,9 @@
           "foreground": "rgb(255, 255, 255)",
           "background": "color(srgb 0.0141176 0.423529 0.307059)",
           "ratio": 6.441324769344559,
-          "threshold": 4.5
+          "threshold": 4.5,
+          "border": "rgb(255, 255, 255)",
+          "borderRatio": null
         },
         {
           "item": null,
@@ -737,7 +897,9 @@
           "foreground": "rgb(255, 255, 255)",
           "background": "color(srgb 0.278824 0.247059 0.808235)",
           "ratio": 7.3166459218667965,
-          "threshold": 4.5
+          "threshold": 4.5,
+          "border": "rgb(255, 255, 255)",
+          "borderRatio": null
         },
         {
           "item": null,
@@ -746,7 +908,9 @@
           "foreground": "rgb(255, 255, 255)",
           "background": "color(srgb 0.278824 0.247059 0.808235)",
           "ratio": 7.3166459218667965,
-          "threshold": 4.5
+          "threshold": 4.5,
+          "border": "rgb(255, 255, 255)",
+          "borderRatio": null
         }
       ],
       "marker": {
@@ -755,6 +919,43 @@
         "minimumEdgeContrast": 4.834490081424352,
         "threshold": 3
       },
+      "dependencies": [
+        {
+          "type": "FS",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(17, 24, 39)",
+          "ratio": 16.97538624440406,
+          "threshold": 4.5
+        },
+        {
+          "type": "SS",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(17, 24, 39)",
+          "ratio": 16.97538624440406,
+          "threshold": 4.5
+        },
+        {
+          "type": "FF",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(17, 24, 39)",
+          "ratio": 16.97538624440406,
+          "threshold": 4.5
+        },
+        {
+          "type": "SF",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(17, 24, 39)",
+          "ratio": 16.97538624440406,
+          "threshold": 4.5
+        },
+        {
+          "type": "unknown",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(17, 24, 39)",
+          "ratio": 16.97538624440406,
+          "threshold": 4.5
+        }
+      ],
       "tokens": [
         {
           "role": "success",
@@ -916,7 +1117,9 @@
           "foreground": "rgb(0, 0, 0)",
           "background": "rgb(59, 130, 246)",
           "ratio": 5.709778246324693,
-          "threshold": 4.5
+          "threshold": 4.5,
+          "border": "rgb(0, 0, 0)",
+          "borderRatio": 5.709778246324693
         },
         {
           "item": "development",
@@ -925,7 +1128,9 @@
           "foreground": "rgb(0, 0, 0)",
           "background": "rgb(16, 185, 129)",
           "ratio": 8.278612383989437,
-          "threshold": 4.5
+          "threshold": 4.5,
+          "border": "rgb(0, 0, 0)",
+          "borderRatio": 8.278612383989437
         },
         {
           "item": "system integration testing",
@@ -934,7 +1139,9 @@
           "foreground": "rgb(0, 0, 0)",
           "background": "rgb(245, 158, 11)",
           "ratio": 9.778071798962173,
-          "threshold": 4.5
+          "threshold": 4.5,
+          "border": "rgb(0, 0, 0)",
+          "borderRatio": 9.778071798962173
         },
         {
           "item": "user acceptance testing",
@@ -943,7 +1150,9 @@
           "foreground": "rgb(0, 0, 0)",
           "background": "rgb(139, 92, 246)",
           "ratio": 4.959416156088179,
-          "threshold": 4.5
+          "threshold": 4.5,
+          "border": "rgb(0, 0, 0)",
+          "borderRatio": 4.959416156088179
         },
         {
           "item": "validation",
@@ -952,7 +1161,9 @@
           "foreground": "rgb(0, 0, 0)",
           "background": "rgb(236, 72, 153)",
           "ratio": 5.953500872309584,
-          "threshold": 4.5
+          "threshold": 4.5,
+          "border": "rgb(0, 0, 0)",
+          "borderRatio": 5.953500872309584
         },
         {
           "item": "cutover",
@@ -961,7 +1172,9 @@
           "foreground": "rgb(0, 0, 0)",
           "background": "rgb(239, 68, 68)",
           "ratio": 5.58046438625577,
-          "threshold": 4.5
+          "threshold": 4.5,
+          "border": "rgb(0, 0, 0)",
+          "borderRatio": 5.58046438625577
         },
         {
           "item": "hypercare",
@@ -970,7 +1183,9 @@
           "foreground": "rgb(0, 0, 0)",
           "background": "rgb(6, 182, 212)",
           "ratio": 8.649616236144142,
-          "threshold": 4.5
+          "threshold": 4.5,
+          "border": "rgb(0, 0, 0)",
+          "borderRatio": 8.649616236144142
         },
         {
           "item": "support",
@@ -979,7 +1194,9 @@
           "foreground": "rgb(0, 0, 0)",
           "background": "rgb(132, 204, 22)",
           "ratio": 10.629838431983178,
-          "threshold": 4.5
+          "threshold": 4.5,
+          "border": "rgb(0, 0, 0)",
+          "borderRatio": 10.629838431983178
         },
         {
           "item": "custom",
@@ -988,7 +1205,9 @@
           "foreground": "rgb(255, 255, 255)",
           "background": "rgb(107, 114, 128)",
           "ratio": 4.834490081424352,
-          "threshold": 4.5
+          "threshold": 4.5,
+          "border": "rgb(255, 255, 255)",
+          "borderRatio": 4.834490081424352
         },
         {
           "item": null,
@@ -997,7 +1216,9 @@
           "foreground": "rgb(255, 255, 255)",
           "background": "rgb(4, 120, 87)",
           "ratio": 5.483924052498799,
-          "threshold": 4.5
+          "threshold": 4.5,
+          "border": "rgb(255, 255, 255)",
+          "borderRatio": null
         },
         {
           "item": null,
@@ -1006,7 +1227,9 @@
           "foreground": "rgb(255, 255, 255)",
           "background": "rgb(79, 70, 229)",
           "ratio": 6.287528596095884,
-          "threshold": 4.5
+          "threshold": 4.5,
+          "border": "rgb(255, 255, 255)",
+          "borderRatio": null
         },
         {
           "item": null,
@@ -1015,7 +1238,9 @@
           "foreground": "rgb(255, 255, 255)",
           "background": "rgb(79, 70, 229)",
           "ratio": 6.287528596095884,
-          "threshold": 4.5
+          "threshold": 4.5,
+          "border": "rgb(255, 255, 255)",
+          "borderRatio": null
         },
         {
           "item": null,
@@ -1024,7 +1249,9 @@
           "foreground": "rgb(255, 255, 255)",
           "background": "color(srgb 0.0141176 0.423529 0.307059)",
           "ratio": 6.441324769344559,
-          "threshold": 4.5
+          "threshold": 4.5,
+          "border": "rgb(255, 255, 255)",
+          "borderRatio": null
         },
         {
           "item": null,
@@ -1033,7 +1260,9 @@
           "foreground": "rgb(255, 255, 255)",
           "background": "color(srgb 0.278824 0.247059 0.808235)",
           "ratio": 7.3166459218667965,
-          "threshold": 4.5
+          "threshold": 4.5,
+          "border": "rgb(255, 255, 255)",
+          "borderRatio": null
         },
         {
           "item": null,
@@ -1042,7 +1271,9 @@
           "foreground": "rgb(255, 255, 255)",
           "background": "color(srgb 0.278824 0.247059 0.808235)",
           "ratio": 7.3166459218667965,
-          "threshold": 4.5
+          "threshold": 4.5,
+          "border": "rgb(255, 255, 255)",
+          "borderRatio": null
         }
       ],
       "marker": {
@@ -1051,6 +1282,43 @@
         "minimumEdgeContrast": 4.834490081424352,
         "threshold": 3
       },
+      "dependencies": [
+        {
+          "type": "FS",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(17, 24, 39)",
+          "ratio": 16.97538624440406,
+          "threshold": 4.5
+        },
+        {
+          "type": "SS",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(17, 24, 39)",
+          "ratio": 16.97538624440406,
+          "threshold": 4.5
+        },
+        {
+          "type": "FF",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(17, 24, 39)",
+          "ratio": 16.97538624440406,
+          "threshold": 4.5
+        },
+        {
+          "type": "SF",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(17, 24, 39)",
+          "ratio": 16.97538624440406,
+          "threshold": 4.5
+        },
+        {
+          "type": "unknown",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(17, 24, 39)",
+          "ratio": 16.97538624440406,
+          "threshold": 4.5
+        }
+      ],
       "tokens": [
         {
           "role": "success",

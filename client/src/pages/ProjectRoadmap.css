@@ -41,7 +41,7 @@
   justify-content: space-between;
   align-items: flex-start;
   flex-shrink: 0;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 2px 8px color-mix(in srgb, var(--solid-shade) 6%, transparent);
 }
 
 .header-content h1 {
@@ -82,7 +82,7 @@
   border-radius: 8px;
   padding: 0.25rem;
   background: hsl(var(--background));
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 2px 4px color-mix(in srgb, var(--solid-shade) 6%, transparent);
 }
 
 .view-controls {
@@ -103,7 +103,7 @@
   background: color-mix(in srgb, var(--primary) 10%, transparent) !important;
   color: var(--primary-text) !important;
   transform: translateY(-1px);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px color-mix(in srgb, var(--solid-shade) 10%, transparent);
 }
 
 .roadmap-controls .btn {
@@ -128,7 +128,7 @@
   border: 1px solid color-mix(in srgb, var(--primary) 20%, transparent);
   border-radius: 6px;
   white-space: nowrap;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 1px 3px color-mix(in srgb, var(--solid-shade) 5%, transparent);
 }
 
 /* Header Date Picker */
@@ -179,8 +179,8 @@
 }
 /* 深色主色(#6366f1)×白字=4.47<4.5(任务B 定向验收实锤)——压深一档底色达 6.29 */
 [data-theme='dark'] .today-btn {
-  background: var(--primary-solid, #4f46e5) !important;
-  border-color: var(--primary-solid, #4f46e5) !important;
+  background: var(--primary-solid) !important;
+  border-color: var(--primary-solid) !important;
 }
 
 .today-btn:hover {
@@ -250,7 +250,7 @@
   border: 1px solid hsl(var(--border));
   border-radius: 6px;
   background: hsl(var(--background));
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 2px 4px color-mix(in srgb, var(--solid-shade) 6%, transparent);
 }
 
 .zoom-controls button {
@@ -302,7 +302,7 @@
   background: hsl(var(--background));
   border-bottom: 1px solid hsl(var(--border));
   z-index: 10;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 1px 3px color-mix(in srgb, var(--solid-shade) 5%, transparent);
   margin-left: 400px;
   display: flex;
   flex-direction: column;
@@ -383,7 +383,7 @@
 }
 /* 深色同款压深(对照 .today-btn 深色注释) */
 [data-theme='dark'] .timeline-nav-btn.today-btn {
-  background: var(--primary-solid, #4f46e5);
+  background: var(--primary-solid);
 }
 
 .timeline-nav-btn.today-btn:hover {
@@ -436,8 +436,8 @@
   top: 0;
   bottom: 0;
   width: 60px;
-  background: linear-gradient(135deg, rgba(37, 99, 235, 0.05), rgba(37, 99, 235, 0.02));
-  border: 1px solid rgba(37, 99, 235, 0.1);
+  background: linear-gradient(135deg, color-mix(in srgb, var(--status-info-border) 5%, transparent), color-mix(in srgb, var(--status-info-border) 2%, transparent));
+  border: 1px solid color-mix(in srgb, var(--status-info-border) 10%, transparent);
   /* backdrop-filter removed for solid background */
   cursor: pointer;
   display: flex;
@@ -450,9 +450,9 @@
 
 .timeline-nav-side:hover {
   opacity: 1;
-  background: linear-gradient(135deg, rgba(37, 99, 235, 0.1), rgba(37, 99, 235, 0.05));
-  border-color: rgba(37, 99, 235, 0.2);
-  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.15);
+  background: linear-gradient(135deg, color-mix(in srgb, var(--status-info-border) 10%, transparent), color-mix(in srgb, var(--status-info-border) 5%, transparent));
+  border-color: color-mix(in srgb, var(--status-info-border) 20%, transparent);
+  box-shadow: 0 4px 12px color-mix(in srgb, var(--status-info-border) 15%, transparent);
 }
 
 .roadmap-content:hover .timeline-nav-side {
@@ -476,7 +476,7 @@
   flex-direction: column;
   align-items: center;
   gap: 8px;
-  color: #2563eb;
+  color: var(--project-active);
   font-size: 0.75rem;
   font-weight: 600;
   text-transform: uppercase;
@@ -491,7 +491,7 @@
 
 .timeline-nav-side:active {
   transform: scale(0.98);
-  box-shadow: 0 2px 6px rgba(37, 99, 235, 0.2);
+  box-shadow: 0 2px 6px color-mix(in srgb, var(--status-info-border) 20%, transparent);
 }
 
 /* Year Header Row */
@@ -667,7 +667,7 @@
   position: sticky;
   left: 0;
   z-index: 5;
-  box-shadow: 1px 0 3px rgba(0, 0, 0, 0.05);
+  box-shadow: 1px 0 3px color-mix(in srgb, var(--solid-shade) 5%, transparent);
   display: flex;
   align-items: center;
   box-sizing: border-box;
@@ -788,7 +788,7 @@
   display: inline-flex;
   align-items: center;
   flex-shrink: 0;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 2px color-mix(in srgb, var(--solid-shade) 10%, transparent);
   max-width: var(--type-badge-max-width);
   overflow: hidden;
   white-space: nowrap;
@@ -842,22 +842,22 @@
 
 .priority-high {
   background: hsl(var(--muted));
-  color: #dc2626;
-  border: 1px solid #dc262620;
+  color: var(--status-danger-text);
+  border: 1px solid color-mix(in srgb, var(--status-danger-border) 12.55%, transparent);
   font-weight: 600;
 }
 
 .priority-medium {
   background: hsl(var(--muted));
-  color: #d97706;
-  border: 1px solid #d9770620;
+  color: var(--status-warning-text);
+  border: 1px solid color-mix(in srgb, var(--status-warning-border) 12.55%, transparent);
   font-weight: 600;
 }
 
 .priority-low {
   background: hsl(var(--muted));
-  color: #16a34a;
-  border: 1px solid #16a34a20;
+  color: var(--status-success-text);
+  border: 1px solid color-mix(in srgb, var(--status-success-border) 12.55%, transparent);
   font-weight: 600;
 }
 
@@ -899,31 +899,31 @@
 }
 
 .status-active, .status-in_progress {
-  background: linear-gradient(135deg, #dcfce7, #bbf7d0);
-  color: #166534;
-  border: 1px solid #86efac;
-  box-shadow: 0 1px 2px rgba(22, 101, 52, 0.1);
+  background: linear-gradient(135deg, var(--status-success-soft), var(--status-success-soft));
+  color: var(--status-success-text);
+  border: 1px solid var(--status-success-border);
+  box-shadow: 0 1px 2px color-mix(in srgb, var(--status-success-border) 10%, transparent);
 }
 
 .status-planned, .status-pending {
-  background: linear-gradient(135deg, #fef3c7, #fde68a);
-  color: #92400e;
-  border: 1px solid #fbbf24;
-  box-shadow: 0 1px 2px rgba(146, 64, 14, 0.1);
+  background: linear-gradient(135deg, var(--status-warning-soft), var(--status-warning-soft));
+  color: var(--status-warning-text);
+  border: 1px solid var(--status-warning-border);
+  box-shadow: 0 1px 2px color-mix(in srgb, var(--status-warning-border) 10%, transparent);
 }
 
 .status-completed, .status-done {
-  background: linear-gradient(135deg, #e5e7eb, #d1d5db);
-  color: #374151;
-  border: 1px solid #9ca3af;
-  box-shadow: 0 1px 2px rgba(55, 65, 81, 0.1);
+  background: linear-gradient(135deg, var(--bg-tertiary), var(--bg-tertiary));
+  color: var(--text-secondary);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 1px 2px color-mix(in srgb, var(--solid-shade) 10%, transparent);
 }
 
 .status-on_hold, .status-paused {
-  background: linear-gradient(135deg, #fef2f2, #fee2e2);
-  color: #dc2626;
-  border: 1px solid #fca5a5;
-  box-shadow: 0 1px 2px rgba(220, 38, 38, 0.1);
+  background: linear-gradient(135deg, var(--status-danger-soft), var(--status-danger-soft));
+  color: var(--status-danger-text);
+  border: 1px solid var(--status-danger-border);
+  box-shadow: 0 1px 2px color-mix(in srgb, var(--status-danger-border) 10%, transparent);
 }
 
 .project-owner {
@@ -971,27 +971,27 @@
   transform: translateY(-50%);
   border-radius: var(--roadmap-border-radius);
   cursor: pointer;
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  border: 1px solid color-mix(in srgb, var(--solid-foreground) 30%, transparent);
   display: flex;
   align-items: center;
   overflow: hidden;
-  box-shadow: var(--roadmap-shadow-md), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  box-shadow: var(--roadmap-shadow-md), inset 0 1px 0 color-mix(in srgb, var(--solid-foreground) 20%, transparent);
   transition: var(--roadmap-transition);
   backdrop-filter: blur(1px);
 }
 
 .phase-bar:hover {
-  box-shadow: var(--roadmap-shadow-lg), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  box-shadow: var(--roadmap-shadow-lg), inset 0 1px 0 color-mix(in srgb, var(--solid-foreground) 30%, transparent);
   transform: translateY(-50%) translateZ(0) scale(1.03);
   z-index: 2;
-  border-color: rgba(255, 255, 255, 0.4);
+  border-color: color-mix(in srgb, var(--solid-foreground) 40%, transparent);
 }
 
 .phase-bar.dragging {
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  box-shadow: 0 8px 32px color-mix(in srgb, var(--solid-shade) 25%, transparent), inset 0 1px 0 color-mix(in srgb, var(--solid-foreground) 40%, transparent);
   transform: translateY(-50%) translateZ(0) scale(1.06);
   z-index: 10;
-  border-color: rgba(255, 255, 255, 0.5);
+  border-color: color-mix(in srgb, var(--solid-foreground) 50%, transparent);
 }
 
 .resize-handle {
@@ -1002,15 +1002,15 @@
   cursor: col-resize;
   opacity: 0;
   transition: var(--roadmap-transition);
-  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.7));
+  background: linear-gradient(to bottom, color-mix(in srgb, var(--solid-foreground) 90%, transparent), color-mix(in srgb, var(--solid-foreground) 70%, transparent));
   border-radius: 2px;
 }
 
 .resize-handle:hover,
 .phase-bar:hover .resize-handle {
   opacity: 1;
-  background: linear-gradient(to bottom, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.9));
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  background: linear-gradient(to bottom, var(--solid-foreground), color-mix(in srgb, var(--solid-foreground) 90%, transparent));
+  box-shadow: 0 1px 3px color-mix(in srgb, var(--solid-shade) 20%, transparent);
 }
 
 .resize-start {
@@ -1032,10 +1032,10 @@
   align-items: center;
   justify-content: space-between;
   cursor: move;
-  color: white;
+  color: var(--solid-foreground);
   font-size: 0.6rem;
   font-weight: 600;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+  text-shadow: 0 1px 3px color-mix(in srgb, var(--solid-shade) 40%, transparent);
   letter-spacing: 0;
 }
 
@@ -1059,7 +1059,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.6);
+  background: color-mix(in srgb, var(--solid-shade) 60%, transparent);
   backdrop-filter: blur(4px);
   display: flex;
   align-items: center;
@@ -1071,7 +1071,7 @@
 .modal-container {
   background: hsl(var(--card));
   border-radius: var(--roadmap-border-radius-lg);
-  box-shadow: 0 20px 40px -5px rgba(0, 0, 0, 0.15), 0 0 0 1px hsl(var(--border));
+  box-shadow: 0 20px 40px -5px color-mix(in srgb, var(--solid-shade) 15%, transparent), 0 0 0 1px hsl(var(--border));
   max-width: 500px;
   width: 90%;
   max-height: 90vh;
@@ -1137,7 +1137,7 @@
 .form-group input:focus {
   outline: none;
   border-color: hsl(var(--ring));
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--status-info-border) 10%, transparent);
 }
 
 .modal-actions {
@@ -1419,7 +1419,7 @@ body.dragging * {
   margin: 0;
   font-size: 0.9rem;
   font-weight: 600;
-  color: #2563eb;
+  color: var(--project-active);
   cursor: pointer;
   text-decoration: none;
   border-radius: 3px;
@@ -1439,11 +1439,11 @@ body.dragging * {
 /* 深色主题: #2563eb 在深底仅 3.1:1, 换 400 档蓝; 悬停底色同步换深色系 */
 [data-theme='dark'] .project-name-link,
 .dark .project-name-link {
-  color: #60a5fa;
+  color: var(--project-active);
 }
 .project-name-link:hover {
-  color: #1d4ed8;
-  background: #eff6ff;
+  color: var(--status-info-text);
+  background: var(--status-info-soft);
   padding: 0.125rem 0.25rem;
   margin: -0.125rem -0.25rem;
   border-radius: 3px;
@@ -1452,18 +1452,18 @@ body.dragging * {
 .dark .project-name-link:hover,
 [data-theme='dark'] .project-name-link:focus,
 .dark .project-name-link:focus {
-  color: #93c5fd;
-  background: rgba(96, 165, 250, 0.18);
+  color: var(--status-info-text);
+  background: color-mix(in srgb, var(--status-info-border) 18%, transparent);
 }
 
 .project-name-link:focus {
   outline: none;
-  color: #1d4ed8;
-  background: #eff6ff;
+  color: var(--status-info-text);
+  background: var(--status-info-soft);
   padding: 0.125rem 0.25rem;
   margin: -0.125rem -0.25rem;
   border-radius: 3px;
-  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--status-info-border) 20%, transparent);
 }
 
 /* Project Details Modal Styling */
@@ -1605,10 +1605,10 @@ body.dragging * {
   top: 0;
   bottom: 0;
   width: 2px;
-  background: linear-gradient(to bottom, #dc2626, #ef4444);
+  background: linear-gradient(to bottom, var(--status-danger-border), var(--status-danger-border));
   z-index: 20;
   pointer-events: none;
-  box-shadow: 0 0 8px rgba(220, 38, 38, 0.5);
+  box-shadow: 0 0 8px color-mix(in srgb, var(--status-danger-border) 50%, transparent);
 }
 
 .today-line::before {
@@ -1619,9 +1619,9 @@ body.dragging * {
   width: 4px;
   height: 100%;
   background: linear-gradient(to bottom, 
-    rgba(220, 38, 38, 0.3), 
-    rgba(220, 38, 38, 0.2), 
-    rgba(220, 38, 38, 0.1)
+    color-mix(in srgb, var(--status-danger-border) 30%, transparent),
+    color-mix(in srgb, var(--status-danger-border) 20%, transparent),
+    color-mix(in srgb, var(--status-danger-border) 10%, transparent)
   );
   pointer-events: none;
 }
@@ -1632,14 +1632,14 @@ body.dragging * {
   left: 4px;
   transform: translateY(-50%);
   /* 深一档红: todayPulse 会在 0.75-1.0 间变透明度, 白字在任何相位都 ≥4.5:1 */
-  background: #b91c1c;
-  color: white;
+  background: var(--status-danger-solid);
+  color: var(--solid-foreground);
   padding: 0.25rem 0.5rem;
   border-radius: 4px;
   font-size: 0.75rem;
   font-weight: 600;
   white-space: nowrap;
-  box-shadow: 0 2px 8px rgba(220, 38, 38, 0.3);
+  box-shadow: 0 2px 8px color-mix(in srgb, var(--status-danger-border) 30%, transparent);
   z-index: 25;
   animation: todayPulse 2s ease-in-out infinite;
 }
@@ -1660,11 +1660,11 @@ body.dragging * {
 
 /* Hover effect for today line */
 .today-line:hover {
-  box-shadow: 0 0 12px rgba(220, 38, 38, 0.7);
+  box-shadow: 0 0 12px color-mix(in srgb, var(--status-danger-border) 70%, transparent);
 }
 
 .today-line:hover .today-line-indicator {
-  background: #b91c1c;
+  background: var(--status-danger-solid);
   transform: translateY(-50%) scale(1.1);
-  box-shadow: 0 4px 16px rgba(220, 38, 38, 0.4);
+  box-shadow: 0 4px 16px color-mix(in srgb, var(--status-danger-border) 40%, transparent);
 }

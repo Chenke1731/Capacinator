@@ -118,7 +118,7 @@ export async function runProfileStates(profileName,{selftest=false,quick=false,r
       await capture('keyboard-focus');
       if(profile.safeTriggers) {
         const controls=page.locator(profile.root).locator(profile.safeTriggers);
-        const count=await controls.count();if(count>8)throw new Error(`Safe-trigger set exceeds explicit capacity: ${count}; split the prepared states`);
+        const count=await controls.count();if(!count||count<(profile.requiredTriggers??1))throw new Error('Required safe triggers not found');if(count>8)throw new Error(`Safe-trigger set exceeds explicit capacity: ${count}; split the prepared states`);
         for(let i=0;i<count;i++){await controls.nth(i).click();await page.waitForTimeout(450);await capture(`opened-${i}`);await page.keyboard.press('Escape');}
       }
       report.writes.push(...r.writes);report.errors.push(...r.errors);

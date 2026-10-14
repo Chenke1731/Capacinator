@@ -552,11 +552,11 @@ export function VisualPhaseManager({ projectId, projectName: _projectName, onPha
                 border: '1px solid var(--primary)',
                 borderRadius: '6px',
                 backgroundColor: 'var(--primary-solid, var(--primary))',
-                color: '#ffffff',
+                color: 'var(--solid-foreground)',
                 cursor: 'pointer',
                 fontSize: '12px',
                 fontWeight: 500,
-                boxShadow: '0 1px 2px rgba(0, 0, 0, 0.05)'
+                boxShadow: '0 1px 2px color-mix(in srgb, var(--solid-shade) 5%, transparent)'
               }}
             >
               {t('phases:visual.addPhase')}
@@ -583,7 +583,7 @@ export function VisualPhaseManager({ projectId, projectName: _projectName, onPha
               border: '1px solid var(--primary)',
               borderRadius: '4px',
               backgroundColor: 'var(--primary-solid, var(--primary))',
-              color: '#ffffff',
+              color: 'var(--solid-foreground)',
               cursor: 'pointer',
               fontSize: '11px',
               fontWeight: 500
@@ -651,7 +651,7 @@ export function VisualPhaseManager({ projectId, projectName: _projectName, onPha
                 backgroundColor: 'hsl(var(--background))',
                 border: '1px solid hsl(var(--border))',
                 borderRadius: '8px 8px 0 0',
-                boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)'
+                  boxShadow: '0 1px 3px color-mix(in srgb, var(--solid-shade) 10%, transparent)'
               }}
             />
 
@@ -777,7 +777,7 @@ export function VisualPhaseManager({ projectId, projectName: _projectName, onPha
                   gap: '8px',
                   padding: '6px 12px',
                   backgroundColor: 'var(--primary-solid, var(--primary))',
-                  color: '#ffffff',
+                  color: 'var(--solid-foreground)',
                   border: 'none',
                   borderRadius: '6px',
                   fontSize: '14px',

@@ -374,12 +374,12 @@ export function InteractiveTimeline({
           top: 8,
           height: height - 16,
           backgroundColor: item.color || 'var(--primary-solid)',
-          border: (isAdjacentPhase || isShiftedPhase) ? '2px dashed rgba(0,0,0,0.3)' : '1px solid rgba(0,0,0,0.1)',
+          border: (isAdjacentPhase || isShiftedPhase) ? '2px dashed currentColor' : '1px solid currentColor',
           borderRadius: '4px',
           cursor: mode === 'brush' ? 'crosshair' : 'pointer',
           opacity: 1,
           transform: isBeingDragged ? 'translateY(-2px) scale(1.02)' : (isHovered ? 'translateY(-1px)' : 'none'),
-          boxShadow: isBeingDragged ? '0 8px 24px rgba(0,0,0,0.2)' : (isHovered ? '0 4px 8px rgba(0,0,0,0.15)' : '0 2px 4px rgba(0,0,0,0.1)'),
+          boxShadow: isBeingDragged ? '0 8px 24px color-mix(in srgb, var(--solid-shade) 20%, transparent)' : (isHovered ? '0 4px 8px color-mix(in srgb, var(--solid-shade) 15%, transparent)' : '0 2px 4px color-mix(in srgb, var(--solid-shade) 10%, transparent)'),
           transition: (isBeingDragged || isAdjacentPhase || isShiftedPhase) ? 'none' : 'all 0.2s ease',
           zIndex: isHovered || isBeingDragged || isAdjacentPhase || isShiftedPhase ? 5 : 1,
           display: 'flex',
@@ -477,13 +477,14 @@ export function InteractiveTimeline({
         {/* Brush overlay */}
         {mode === 'brush' && brushRange && (
           <div
+            data-timeline-brush
             style={{
               position: 'absolute',
               left: brushRange.start * viewport.pixelsPerDay,
               width: (brushRange.end - brushRange.start) * viewport.pixelsPerDay,
               top: 0, bottom: 0,
-              backgroundColor: 'rgba(59, 130, 246, 0.2)',
-              border: '2px solid #3b82f6',
+              backgroundColor: 'color-mix(in srgb, var(--primary) 20%, transparent)',
+              border: '2px solid var(--primary)',
               borderRadius: '4px',
               pointerEvents: 'none'
             }}

@@ -6342,468 +6342,6 @@
       "evidence": []
     },
     {
-      "fingerprint": "0b81ba42a543b85ffab11c4bcb96323409b9976efc35068e1e022bde25049679",
-      "file": "client/src/components/interactive-timeline/TimelineItemTooltip.tsx",
-      "context": [
-        "TimelineItemTooltip",
-        "jsx:style"
-      ],
-      "owner": "borderBottom",
-      "property": "borderBottom",
-      "literal": "rgba(255, 255, 255, 0.2)",
-      "locations": [
-        {
-          "line": 53,
-          "column": 34
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "200f050c5e5646c4a78bf4afde6cb9380abaa1b3d92af263d15d8aeeda983cf6",
-      "file": "client/src/components/interactive-timeline/TimelineItemTooltip.tsx",
-      "context": [
-        "TimelineItemTooltip",
-        "jsx:style"
-      ],
-      "owner": "color",
-      "property": "color",
-      "literal": "#ffffff",
-      "locations": [
-        {
-          "line": 52,
-          "column": 17
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "238bf579c523613087839a7fbf006349bda4d07f07ff7f99bf77ac2d5cb4d4c9",
-      "file": "client/src/components/interactive-timeline/TimelineItemTooltip.tsx",
-      "context": [
-        "TimelineItemTooltip",
-        "jsx:style"
-      ],
-      "owner": "backgroundColor",
-      "property": "backgroundColor",
-      "literal": "rgba(0, 0, 0, 0.92)",
-      "locations": [
-        {
-          "line": 33,
-          "column": 25
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "42b85aaa04119b42884e95532d128e32deb1a101ea4b076f2d4534beb2256aa4",
-      "file": "client/src/components/interactive-timeline/TimelineItemTooltip.tsx",
-      "context": [
-        "TimelineItemTooltip",
-        "jsx:style"
-      ],
-      "owner": "borderTop",
-      "property": "borderTop",
-      "literal": "rgba(255, 255, 255, 0.1)",
-      "locations": [
-        {
-          "line": 165,
-          "column": 31
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "5d7e39f277d8395fb9ef9a38d349febfdfafcdf0ecd26980a6cc1a56e7e48846",
-      "file": "client/src/components/interactive-timeline/TimelineItemTooltip.tsx",
-      "context": [
-        "TimelineItemTooltip",
-        "jsx:style"
-      ],
-      "owner": "color",
-      "property": "color",
-      "literal": "white",
-      "locations": [
-        {
-          "line": 34,
-          "column": 15
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "5d8aa65e1aa7bc53537fcf1511391c2a9eaa60853b650abddc482a1e3b06a843",
-      "file": "client/src/components/interactive-timeline/TimelineItemTooltip.tsx",
-      "context": [
-        "TimelineItemTooltip",
-        "jsx:style"
-      ],
-      "owner": "border",
-      "property": "border",
-      "literal": "rgba(255, 255, 255, 0.1)",
-      "locations": [
-        {
-          "line": 44,
-          "column": 26
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "892e38113c8d36692561d240b70336320dc0dd41bf1f67997e1fc6da37f4af30",
-      "file": "client/src/components/interactive-timeline/TimelineItemTooltip.tsx",
-      "context": [
-        "TimelineItemTooltip",
-        "jsx:style"
-      ],
-      "owner": "boxShadow",
-      "property": "boxShadow",
-      "literal": "rgba(0, 0, 0, 0.4)",
-      "locations": [
-        {
-          "line": 43,
-          "column": 30
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "07b0a9d76992b1b47f0198e86ebb1ea9d33d324c6a176d6d874b88f52a56103e",
-      "file": "client/src/components/interactive-timeline/utils.ts",
-      "context": [],
-      "owner": "getLineColor",
-      "property": "getLineColor",
-      "literal": "#6b7280",
-      "locations": [
-        {
-          "line": 79,
-          "column": 22
-        }
-      ],
-      "count": 1,
-      "kind": "unknown",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "2c8cbcc8add318aa4648398b2e9753dc98f59355759e26a6ac7b1a933321ba69",
-      "file": "client/src/components/interactive-timeline/utils.ts",
-      "context": [],
-      "owner": "getLineColor",
-      "property": "getLineColor",
-      "literal": "#10b981",
-      "locations": [
-        {
-          "line": 76,
-          "column": 24
-        }
-      ],
-      "count": 1,
-      "kind": "unknown",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "3f48e3b18cd2f2aac18d8bb469565adf2b0a383cb8ac94b69461332a2646103a",
-      "file": "client/src/components/interactive-timeline/utils.ts",
-      "context": [],
-      "owner": "getLineColor",
-      "property": "getLineColor",
-      "literal": "#3b82f6",
-      "locations": [
-        {
-          "line": 75,
-          "column": 24
-        }
-      ],
-      "count": 1,
-      "kind": "unknown",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "7b0c374c9618fbd773380f92977833e6523b6d159d96fec3237c00dfaa3a5b7f",
-      "file": "client/src/components/interactive-timeline/utils.ts",
-      "context": [],
-      "owner": "getLineColor",
-      "property": "getLineColor",
-      "literal": "#8b5cf6",
-      "locations": [
-        {
-          "line": 78,
-          "column": 24
-        }
-      ],
-      "count": 1,
-      "kind": "unknown",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "87a3902aa02a97e40de362ac5416030fe3393a4f12b0c409fcbd26f6e1b4d4fb",
-      "file": "client/src/components/interactive-timeline/utils.ts",
-      "context": [],
-      "owner": "getLineColor",
-      "property": "getLineColor",
-      "literal": "#f59e0b",
-      "locations": [
-        {
-          "line": 77,
-          "column": 24
-        }
-      ],
-      "count": 1,
-      "kind": "unknown",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "163d9394f27ccca4503dfd147a284e0aaeadf1f9055418cbc42418a69036b94b",
-      "file": "client/src/components/InteractiveTimeline.css",
-      "context": [],
-      "owner": ".timeline-item",
-      "property": "border",
-      "literal": "black",
-      "locations": [
-        {
-          "line": 41,
-          "column": 79
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "243d5b260a54fc3e03eddd1956cce30db90c9900d7ef7e66015f4f565988638a",
-      "file": "client/src/components/InteractiveTimeline.css",
-      "context": [],
-      "owner": ".resize-handle:hover",
-      "property": "background",
-      "literal": "rgba(255, 255, 255, 0.5)",
-      "locations": [
-        {
-          "line": 77,
-          "column": 15
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "3421a52786fee8901ddcad57e07d3a922c1f97a904dd1dfebaa93b0248fa228a",
-      "file": "client/src/components/InteractiveTimeline.css",
-      "context": [],
-      "owner": ".today-line",
-      "property": "box-shadow",
-      "literal": "rgba(0, 0, 0, 0.1)",
-      "locations": [
-        {
-          "line": 172,
-          "column": 23
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "3b4db52ab6d635463680913a94121ca98224c8751459200295e8860af2cab31b",
-      "file": "client/src/components/InteractiveTimeline.css",
-      "context": [],
-      "owner": ".brush-selection",
-      "property": "background",
-      "literal": "rgba(59, 130, 246, 0.15)",
-      "locations": [
-        {
-          "line": 134,
-          "column": 15
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "463691313b81edc1a4c9ddf349332a1abd78033cbfffb6bb18a997ad271733ac",
-      "file": "client/src/components/InteractiveTimeline.css",
-      "context": [],
-      "owner": ".modal-content",
-      "property": "box-shadow",
-      "literal": "rgba(0, 0, 0, 0.25)",
-      "locations": [
-        {
-          "line": 380,
-          "column": 33
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "51004f3dfa68dcdcdfc7e925691b86d07300fdd4dbef890142960eee952fe6be",
-      "file": "client/src/components/InteractiveTimeline.css",
-      "context": [],
-      "owner": ".timeline-tooltip",
-      "property": "background",
-      "literal": "rgba(0, 0, 0, 0.9)",
-      "locations": [
-        {
-          "line": 216,
-          "column": 15
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "54a211f3ec011cc9bac150ab665e771074183309e74cc0f3bd172b758c3d22e7",
-      "file": "client/src/components/InteractiveTimeline.css",
-      "context": [],
-      "owner": ".timeline-item:hover",
-      "property": "border-color",
-      "literal": "black",
-      "locations": [
-        {
-          "line": 52,
-          "column": 75
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "5f2c4e30d9b0c93fff8378660e1164159466cb62b65fb8e8d7517c45b48dd14b",
-      "file": "client/src/components/InteractiveTimeline.css",
-      "context": [],
-      "owner": ".modal-overlay",
-      "property": "background-color",
-      "literal": "rgba(0, 0, 0, 0.5)",
-      "locations": [
-        {
-          "line": 365,
-          "column": 21
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "6a509bc17f440082d31b812306cd50dcc650305daad0c459f16a001d619341d7",
-      "file": "client/src/components/InteractiveTimeline.css",
-      "context": [],
-      "owner": ".timeline-item",
-      "property": "text-shadow",
-      "literal": "rgba(0, 0, 0, 0.1)",
-      "locations": [
-        {
-          "line": 44,
-          "column": 26
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
       "fingerprint": "700c4f50bf8e90d516a7db07d746b91ae92145cbcb4bf67a981537fac8591431",
       "file": "client/src/components/InteractiveTimeline.css",
       "context": [],
@@ -6822,77 +6360,6 @@
       "decision": "not-debt",
       "semanticRole": null,
       "reason": "CSS custom-property definition; render validation is separate.",
-      "evidence": []
-    },
-    {
-      "fingerprint": "7d0b0201046d9a55e15b14df32e5dc9c81224da8095894bfb700ca5b03f14952",
-      "file": "client/src/components/InteractiveTimeline.css",
-      "context": [],
-      "owner": ".brush-selection::before",
-      "property": "background",
-      "literal": "rgba(59, 130, 246, 0.1)",
-      "locations": [
-        {
-          "line": 150,
-          "column": 5
-        },
-        {
-          "line": 151,
-          "column": 5
-        },
-        {
-          "line": 154,
-          "column": 5
-        }
-      ],
-      "count": 3,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "7dd10276c074444c6c0b8388b1d2f4fd2efb13b7386320ec5b7dc4217ccc073c",
-      "file": "client/src/components/InteractiveTimeline.css",
-      "context": [],
-      "owner": ".resize-handle",
-      "property": "background",
-      "literal": "rgba(255, 255, 255, 0.3)",
-      "locations": [
-        {
-          "line": 70,
-          "column": 15
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "856d9c57dd074b4d320fa236e332afbf26494c08f2ff958e9367882f68fb00d6",
-      "file": "client/src/components/InteractiveTimeline.css",
-      "context": [],
-      "owner": ".timeline-item:hover",
-      "property": "box-shadow",
-      "literal": "rgba(0, 0, 0, 0.15)",
-      "locations": [
-        {
-          "line": 50,
-          "column": 16
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
       "evidence": []
     },
     {
@@ -6917,69 +6384,6 @@
       "evidence": []
     },
     {
-      "fingerprint": "a54358c04c478943e78d3076b9d7f8eb828bce73a960bdd8da60f5028f01aa24",
-      "file": "client/src/components/InteractiveTimeline.css",
-      "context": [],
-      "owner": ".form-input:focus, .form-select:focus",
-      "property": "box-shadow",
-      "literal": "rgba(0, 0, 0, 0.05)",
-      "locations": [
-        {
-          "line": 454,
-          "column": 25
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "b6f6d761fc0897d6024fa38ce4b7666e7072fa46eca896d578e89ed9dea35923",
-      "file": "client/src/components/InteractiveTimeline.css",
-      "context": [],
-      "owner": ".context-menu",
-      "property": "box-shadow",
-      "literal": "rgba(0, 0, 0, 0.25)",
-      "locations": [
-        {
-          "line": 244,
-          "column": 27
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "bda825bef496d700b81cc497b8bd0aa769a4433f4446263f7c0f4566539ff09a",
-      "file": "client/src/components/InteractiveTimeline.css",
-      "context": [],
-      "owner": ".today-line::before",
-      "property": "box-shadow",
-      "literal": "rgba(0, 0, 0, 0.05)",
-      "locations": [
-        {
-          "line": 189,
-          "column": 25
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
       "fingerprint": "bf7e1714cd820d557a9d7b5a8f0a8e8f6a1f4287c58636ca38574e521cae8560",
       "file": "client/src/components/InteractiveTimeline.css",
       "context": [],
@@ -6998,48 +6402,6 @@
       "decision": "not-debt",
       "semanticRole": null,
       "reason": "CSS custom-property definition; render validation is separate.",
-      "evidence": []
-    },
-    {
-      "fingerprint": "c5658564bf064795a7a206d22c104fca57b24a8746e34f36cbe77d10364504f7",
-      "file": "client/src/components/InteractiveTimeline.css",
-      "context": [],
-      "owner": ".timeline-item:hover",
-      "property": "box-shadow",
-      "literal": "rgba(0, 0, 0, 0.05)",
-      "locations": [
-        {
-          "line": 51,
-          "column": 15
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "c86090505998bbd0ac70e9482863c61d4cbb14b6240e6c0e051a619530a9fb1f",
-      "file": "client/src/components/InteractiveTimeline.css",
-      "context": [],
-      "owner": ".btn-primary",
-      "property": "color",
-      "literal": "white",
-      "locations": [
-        {
-          "line": 495,
-          "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
       "evidence": []
     },
     {
@@ -7064,27 +6426,6 @@
       "evidence": []
     },
     {
-      "fingerprint": "d95df492f9ac5c8a51e6f8718f58697acf1e2a1e17c21f9bcd071e8979994360",
-      "file": "client/src/components/InteractiveTimeline.css",
-      "context": [],
-      "owner": ".timeline-tooltip",
-      "property": "color",
-      "literal": "white",
-      "locations": [
-        {
-          "line": 217,
-          "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
       "fingerprint": "e7fd3cf97fcc40c7a77319352fadc64656a4472dada7d9b005df9d51a0cb35c5",
       "file": "client/src/components/InteractiveTimeline.css",
       "context": [],
@@ -7106,27 +6447,6 @@
       "evidence": []
     },
     {
-      "fingerprint": "e9345b674395e4164031df4f14152637cee77f2cb573b75aed7f88911050d90e",
-      "file": "client/src/components/InteractiveTimeline.css",
-      "context": [],
-      "owner": ".timeline-tooltip::after",
-      "property": "border-top-color",
-      "literal": "rgba(0, 0, 0, 0.9)",
-      "locations": [
-        {
-          "line": 235,
-          "column": 21
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
       "fingerprint": "eb98c922804ef87416165bb28d849ec529a8145006c943fe7a6cb896d58301c3",
       "file": "client/src/components/InteractiveTimeline.css",
       "context": [],
@@ -7145,244 +6465,6 @@
       "decision": "not-debt",
       "semanticRole": null,
       "reason": "CSS custom-property definition; render validation is separate.",
-      "evidence": []
-    },
-    {
-      "fingerprint": "ece353e63e914ede446e00b60ea73495e270b3fe1d01f56f48b3befacce36ea2",
-      "file": "client/src/components/InteractiveTimeline.css",
-      "context": [],
-      "owner": ".timeline-item.dragging",
-      "property": "box-shadow",
-      "literal": "rgba(0, 0, 0, 0.25)",
-      "locations": [
-        {
-          "line": 58,
-          "column": 26
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "f9097248580adc3fcbef83908db2dd4b82b76ba2c410d03a94d6a78f1426b385",
-      "file": "client/src/components/InteractiveTimeline.css",
-      "context": [
-        "@media (prefers-color-scheme: dark)"
-      ],
-      "owner": ".form-input:focus, .form-select:focus",
-      "property": "box-shadow",
-      "literal": "rgba(59, 130, 246, 0.2)",
-      "locations": [
-        {
-          "line": 563,
-          "column": 27
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "fc6b99b7d929a7bf1030edd19d15645b8bf794f9491798eb03053295a6c10c86",
-      "file": "client/src/components/InteractiveTimeline.css",
-      "context": [],
-      "owner": ".timeline-item",
-      "property": "background",
-      "literal": "black",
-      "locations": [
-        {
-          "line": 39,
-          "column": 63
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "1970a25ad1964d24dc7f9e66a2ec308efd8737d95c658fc5095bb880af0fab51",
-      "file": "client/src/components/InteractiveTimeline.tsx",
-      "context": [
-        "InteractiveTimeline",
-        "renderTimelineItem",
-        "jsx:style"
-      ],
-      "owner": "boxShadow",
-      "property": "boxShadow",
-      "literal": "rgba(0,0,0,0.2)",
-      "locations": [
-        {
-          "line": 380,
-          "column": 51
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "2317349755d74c439dbec0b06c7696706a2eea108fdb4478d8a458d58ea21184",
-      "file": "client/src/components/InteractiveTimeline.tsx",
-      "context": [
-        "InteractiveTimeline",
-        "jsx:style"
-      ],
-      "owner": "border",
-      "property": "border",
-      "literal": "#3b82f6",
-      "locations": [
-        {
-          "line": 484,
-          "column": 34
-        }
-      ],
-      "count": 1,
-      "kind": "unknown",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "5c4958aaaa568b15e3f6a3811695b8e7d088c90fe76db176920ae69c183585e6",
-      "file": "client/src/components/InteractiveTimeline.tsx",
-      "context": [
-        "InteractiveTimeline",
-        "renderTimelineItem",
-        "jsx:style"
-      ],
-      "owner": "boxShadow",
-      "property": "boxShadow",
-      "literal": "rgba(0,0,0,0.15)",
-      "locations": [
-        {
-          "line": 380,
-          "column": 94
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "6ade81acee84079f02d34608dd35f3e1602e330401a9aca0117ed472bd08495b",
-      "file": "client/src/components/InteractiveTimeline.tsx",
-      "context": [
-        "InteractiveTimeline",
-        "renderTimelineItem",
-        "jsx:style"
-      ],
-      "owner": "boxShadow",
-      "property": "boxShadow",
-      "literal": "rgba(0,0,0,0.1)",
-      "locations": [
-        {
-          "line": 380,
-          "column": 125
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "726683630fad582a086e2cb75dc87f3e8e1e40c229e6740600698016caf02681",
-      "file": "client/src/components/InteractiveTimeline.tsx",
-      "context": [
-        "InteractiveTimeline",
-        "renderTimelineItem",
-        "jsx:style"
-      ],
-      "owner": "border",
-      "property": "border",
-      "literal": "rgba(0,0,0,0.1)",
-      "locations": [
-        {
-          "line": 375,
-          "column": 99
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "7c236ba90a62b8c560ae87fcc4355ff0037d9ea44a32fc32e80bbb7005e24c87",
-      "file": "client/src/components/InteractiveTimeline.tsx",
-      "context": [
-        "InteractiveTimeline",
-        "jsx:style"
-      ],
-      "owner": "backgroundColor",
-      "property": "backgroundColor",
-      "literal": "rgba(59, 130, 246, 0.2)",
-      "locations": [
-        {
-          "line": 483,
-          "column": 33
-        }
-      ],
-      "count": 1,
-      "kind": "unknown",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "f5188893862927ae1eeb8f56cf3e76da9fe9a6af65f364d9398fd8e62b8db851",
-      "file": "client/src/components/InteractiveTimeline.tsx",
-      "context": [
-        "InteractiveTimeline",
-        "renderTimelineItem",
-        "jsx:style"
-      ],
-      "owner": "border",
-      "property": "border",
-      "literal": "rgba(0,0,0,0.3)",
-      "locations": [
-        {
-          "line": 375,
-          "column": 69
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
       "evidence": []
     },
     {
@@ -8349,30 +7431,6 @@
       "evidence": []
     },
     {
-      "fingerprint": "88687c4582c664ea4a7b09b1706c39a3aff547882b3847b4c1c0a7b173a0b878",
-      "file": "client/src/components/phase-manager/PhaseContextMenu.tsx",
-      "context": [
-        "PhaseContextMenu",
-        "jsx:style"
-      ],
-      "owner": "boxShadow",
-      "property": "boxShadow",
-      "literal": "rgba(0, 0, 0, 0.25)",
-      "locations": [
-        {
-          "line": 54,
-          "column": 33
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
       "fingerprint": "13856d39d05ba9a88a72e664d9b7e00cf5f2be5d1e2299275d29cb604ca79770",
       "file": "client/src/components/phase-manager/types.ts",
       "context": [
@@ -8388,12 +7446,59 @@
         }
       ],
       "count": 1,
-      "kind": "unknown",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "kind": "data-color",
+      "reachability": "active",
+      "decision": "accepted-literal",
+      "semanticRole": "phase-category-fill",
+      "reason": "Stable business phase color mapping, retained exactly; actual nine-color component verifies readable foreground and necessary data boundary in both themes",
+      "evidence": [
+        {
+          "fingerprint": "13856d39d05ba9a88a72e664d9b7e00cf5f2be5d1e2299275d29cb604ca79770",
+          "fileHash": "86769cf5d0b2008a4951133d4ba5aefa500b4dab6dd20b95b7fd21b04443f628",
+          "theme": "light",
+          "state": "nine-color-production-component",
+          "profile": "actual-component-fixture",
+          "viewport": {
+            "width": 1600,
+            "height": 900
+          },
+          "threshold": 4.5,
+          "ratio": 10.629838431983178,
+          "foreground": "rgb(0, 0, 0)",
+          "background": "rgb(132, 204, 22)",
+          "artifact": "tests/visual/reports/timeline-color-evidence.json",
+          "artifactHash": "bcc97b37dc853100028e9006f5d71bc85f3860af890868b622dfd2d869aa275b",
+          "implementationHead": "9c7905ff9441021da69b2ef76f838002151eb39b+validated-working-tree",
+          "dependencies": {
+            "client/src/index.css": "f5e97d4e6975651dc20805ed875a0e8b9c130f6ba1a423e01509e359f13c2457",
+            "client/src/components/phase-manager/types.ts": "86769cf5d0b2008a4951133d4ba5aefa500b4dab6dd20b95b7fd21b04443f628",
+            "client/src/components/InteractiveTimeline.tsx": "9f92a9999e96f4b7e3a3fa5c163bd0a0d18cd7f6c56f8ccee84675f378c5c04b"
+          }
+        },
+        {
+          "fingerprint": "13856d39d05ba9a88a72e664d9b7e00cf5f2be5d1e2299275d29cb604ca79770",
+          "fileHash": "86769cf5d0b2008a4951133d4ba5aefa500b4dab6dd20b95b7fd21b04443f628",
+          "theme": "dark",
+          "state": "nine-color-production-component",
+          "profile": "actual-component-fixture",
+          "viewport": {
+            "width": 1600,
+            "height": 900
+          },
+          "threshold": 4.5,
+          "ratio": 10.629838431983178,
+          "foreground": "rgb(0, 0, 0)",
+          "background": "rgb(132, 204, 22)",
+          "artifact": "tests/visual/reports/timeline-color-evidence.json",
+          "artifactHash": "bcc97b37dc853100028e9006f5d71bc85f3860af890868b622dfd2d869aa275b",
+          "implementationHead": "9c7905ff9441021da69b2ef76f838002151eb39b+validated-working-tree",
+          "dependencies": {
+            "client/src/index.css": "f5e97d4e6975651dc20805ed875a0e8b9c130f6ba1a423e01509e359f13c2457",
+            "client/src/components/phase-manager/types.ts": "86769cf5d0b2008a4951133d4ba5aefa500b4dab6dd20b95b7fd21b04443f628",
+            "client/src/components/InteractiveTimeline.tsx": "9f92a9999e96f4b7e3a3fa5c163bd0a0d18cd7f6c56f8ccee84675f378c5c04b"
+          }
+        }
+      ]
     },
     {
       "fingerprint": "15bf0501dc37fea12b5a5c64d583b08f817d9835a434dee9bcb156e22953b92b",
@@ -8411,12 +7516,59 @@
         }
       ],
       "count": 1,
-      "kind": "unknown",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "kind": "data-color",
+      "reachability": "active",
+      "decision": "accepted-literal",
+      "semanticRole": "phase-category-fill",
+      "reason": "Stable business phase color mapping, retained exactly; actual nine-color component verifies readable foreground and necessary data boundary in both themes",
+      "evidence": [
+        {
+          "fingerprint": "15bf0501dc37fea12b5a5c64d583b08f817d9835a434dee9bcb156e22953b92b",
+          "fileHash": "86769cf5d0b2008a4951133d4ba5aefa500b4dab6dd20b95b7fd21b04443f628",
+          "theme": "light",
+          "state": "nine-color-production-component",
+          "profile": "actual-component-fixture",
+          "viewport": {
+            "width": 1600,
+            "height": 900
+          },
+          "threshold": 4.5,
+          "ratio": 5.709778246324693,
+          "foreground": "rgb(0, 0, 0)",
+          "background": "rgb(59, 130, 246)",
+          "artifact": "tests/visual/reports/timeline-color-evidence.json",
+          "artifactHash": "bcc97b37dc853100028e9006f5d71bc85f3860af890868b622dfd2d869aa275b",
+          "implementationHead": "9c7905ff9441021da69b2ef76f838002151eb39b+validated-working-tree",
+          "dependencies": {
+            "client/src/index.css": "f5e97d4e6975651dc20805ed875a0e8b9c130f6ba1a423e01509e359f13c2457",
+            "client/src/components/phase-manager/types.ts": "86769cf5d0b2008a4951133d4ba5aefa500b4dab6dd20b95b7fd21b04443f628",
+            "client/src/components/InteractiveTimeline.tsx": "9f92a9999e96f4b7e3a3fa5c163bd0a0d18cd7f6c56f8ccee84675f378c5c04b"
+          }
+        },
+        {
+          "fingerprint": "15bf0501dc37fea12b5a5c64d583b08f817d9835a434dee9bcb156e22953b92b",
+          "fileHash": "86769cf5d0b2008a4951133d4ba5aefa500b4dab6dd20b95b7fd21b04443f628",
+          "theme": "dark",
+          "state": "nine-color-production-component",
+          "profile": "actual-component-fixture",
+          "viewport": {
+            "width": 1600,
+            "height": 900
+          },
+          "threshold": 4.5,
+          "ratio": 5.709778246324693,
+          "foreground": "rgb(0, 0, 0)",
+          "background": "rgb(59, 130, 246)",
+          "artifact": "tests/visual/reports/timeline-color-evidence.json",
+          "artifactHash": "bcc97b37dc853100028e9006f5d71bc85f3860af890868b622dfd2d869aa275b",
+          "implementationHead": "9c7905ff9441021da69b2ef76f838002151eb39b+validated-working-tree",
+          "dependencies": {
+            "client/src/index.css": "f5e97d4e6975651dc20805ed875a0e8b9c130f6ba1a423e01509e359f13c2457",
+            "client/src/components/phase-manager/types.ts": "86769cf5d0b2008a4951133d4ba5aefa500b4dab6dd20b95b7fd21b04443f628",
+            "client/src/components/InteractiveTimeline.tsx": "9f92a9999e96f4b7e3a3fa5c163bd0a0d18cd7f6c56f8ccee84675f378c5c04b"
+          }
+        }
+      ]
     },
     {
       "fingerprint": "1b5e76a5ff03ded1c31b035511982f6d8b180972e47b3d775fdc3378fac01fb4",
@@ -8434,12 +7586,59 @@
         }
       ],
       "count": 1,
-      "kind": "unknown",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "kind": "data-color",
+      "reachability": "active",
+      "decision": "accepted-literal",
+      "semanticRole": "phase-category-fill",
+      "reason": "Stable business phase color mapping, retained exactly; actual nine-color component verifies readable foreground and necessary data boundary in both themes",
+      "evidence": [
+        {
+          "fingerprint": "1b5e76a5ff03ded1c31b035511982f6d8b180972e47b3d775fdc3378fac01fb4",
+          "fileHash": "86769cf5d0b2008a4951133d4ba5aefa500b4dab6dd20b95b7fd21b04443f628",
+          "theme": "light",
+          "state": "nine-color-production-component",
+          "profile": "actual-component-fixture",
+          "viewport": {
+            "width": 1600,
+            "height": 900
+          },
+          "threshold": 4.5,
+          "ratio": 8.649616236144142,
+          "foreground": "rgb(0, 0, 0)",
+          "background": "rgb(6, 182, 212)",
+          "artifact": "tests/visual/reports/timeline-color-evidence.json",
+          "artifactHash": "bcc97b37dc853100028e9006f5d71bc85f3860af890868b622dfd2d869aa275b",
+          "implementationHead": "9c7905ff9441021da69b2ef76f838002151eb39b+validated-working-tree",
+          "dependencies": {
+            "client/src/index.css": "f5e97d4e6975651dc20805ed875a0e8b9c130f6ba1a423e01509e359f13c2457",
+            "client/src/components/phase-manager/types.ts": "86769cf5d0b2008a4951133d4ba5aefa500b4dab6dd20b95b7fd21b04443f628",
+            "client/src/components/InteractiveTimeline.tsx": "9f92a9999e96f4b7e3a3fa5c163bd0a0d18cd7f6c56f8ccee84675f378c5c04b"
+          }
+        },
+        {
+          "fingerprint": "1b5e76a5ff03ded1c31b035511982f6d8b180972e47b3d775fdc3378fac01fb4",
+          "fileHash": "86769cf5d0b2008a4951133d4ba5aefa500b4dab6dd20b95b7fd21b04443f628",
+          "theme": "dark",
+          "state": "nine-color-production-component",
+          "profile": "actual-component-fixture",
+          "viewport": {
+            "width": 1600,
+            "height": 900
+          },
+          "threshold": 4.5,
+          "ratio": 8.649616236144142,
+          "foreground": "rgb(0, 0, 0)",
+          "background": "rgb(6, 182, 212)",
+          "artifact": "tests/visual/reports/timeline-color-evidence.json",
+          "artifactHash": "bcc97b37dc853100028e9006f5d71bc85f3860af890868b622dfd2d869aa275b",
+          "implementationHead": "9c7905ff9441021da69b2ef76f838002151eb39b+validated-working-tree",
+          "dependencies": {
+            "client/src/index.css": "f5e97d4e6975651dc20805ed875a0e8b9c130f6ba1a423e01509e359f13c2457",
+            "client/src/components/phase-manager/types.ts": "86769cf5d0b2008a4951133d4ba5aefa500b4dab6dd20b95b7fd21b04443f628",
+            "client/src/components/InteractiveTimeline.tsx": "9f92a9999e96f4b7e3a3fa5c163bd0a0d18cd7f6c56f8ccee84675f378c5c04b"
+          }
+        }
+      ]
     },
     {
       "fingerprint": "368009163220b053bd863de1d8503270f09dd0624c2b6c5813537679f6579ef8",
@@ -8457,12 +7656,59 @@
         }
       ],
       "count": 1,
-      "kind": "unknown",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "kind": "data-color",
+      "reachability": "active",
+      "decision": "accepted-literal",
+      "semanticRole": "phase-category-fill",
+      "reason": "Stable business phase color mapping, retained exactly; actual nine-color component verifies readable foreground and necessary data boundary in both themes",
+      "evidence": [
+        {
+          "fingerprint": "368009163220b053bd863de1d8503270f09dd0624c2b6c5813537679f6579ef8",
+          "fileHash": "86769cf5d0b2008a4951133d4ba5aefa500b4dab6dd20b95b7fd21b04443f628",
+          "theme": "light",
+          "state": "nine-color-production-component",
+          "profile": "actual-component-fixture",
+          "viewport": {
+            "width": 1600,
+            "height": 900
+          },
+          "threshold": 4.5,
+          "ratio": 8.278612383989437,
+          "foreground": "rgb(0, 0, 0)",
+          "background": "rgb(16, 185, 129)",
+          "artifact": "tests/visual/reports/timeline-color-evidence.json",
+          "artifactHash": "bcc97b37dc853100028e9006f5d71bc85f3860af890868b622dfd2d869aa275b",
+          "implementationHead": "9c7905ff9441021da69b2ef76f838002151eb39b+validated-working-tree",
+          "dependencies": {
+            "client/src/index.css": "f5e97d4e6975651dc20805ed875a0e8b9c130f6ba1a423e01509e359f13c2457",
+            "client/src/components/phase-manager/types.ts": "86769cf5d0b2008a4951133d4ba5aefa500b4dab6dd20b95b7fd21b04443f628",
+            "client/src/components/InteractiveTimeline.tsx": "9f92a9999e96f4b7e3a3fa5c163bd0a0d18cd7f6c56f8ccee84675f378c5c04b"
+          }
+        },
+        {
+          "fingerprint": "368009163220b053bd863de1d8503270f09dd0624c2b6c5813537679f6579ef8",
+          "fileHash": "86769cf5d0b2008a4951133d4ba5aefa500b4dab6dd20b95b7fd21b04443f628",
+          "theme": "dark",
+          "state": "nine-color-production-component",
+          "profile": "actual-component-fixture",
+          "viewport": {
+            "width": 1600,
+            "height": 900
+          },
+          "threshold": 4.5,
+          "ratio": 8.278612383989437,
+          "foreground": "rgb(0, 0, 0)",
+          "background": "rgb(16, 185, 129)",
+          "artifact": "tests/visual/reports/timeline-color-evidence.json",
+          "artifactHash": "bcc97b37dc853100028e9006f5d71bc85f3860af890868b622dfd2d869aa275b",
+          "implementationHead": "9c7905ff9441021da69b2ef76f838002151eb39b+validated-working-tree",
+          "dependencies": {
+            "client/src/index.css": "f5e97d4e6975651dc20805ed875a0e8b9c130f6ba1a423e01509e359f13c2457",
+            "client/src/components/phase-manager/types.ts": "86769cf5d0b2008a4951133d4ba5aefa500b4dab6dd20b95b7fd21b04443f628",
+            "client/src/components/InteractiveTimeline.tsx": "9f92a9999e96f4b7e3a3fa5c163bd0a0d18cd7f6c56f8ccee84675f378c5c04b"
+          }
+        }
+      ]
     },
     {
       "fingerprint": "66686877eb93cc4b9be0a2b511b74421d85065b6faa655dc3220b1867d313576",
@@ -8480,12 +7726,59 @@
         }
       ],
       "count": 1,
-      "kind": "unknown",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "kind": "data-color",
+      "reachability": "active",
+      "decision": "accepted-literal",
+      "semanticRole": "phase-category-fill",
+      "reason": "Stable business phase color mapping, retained exactly; actual nine-color component verifies readable foreground and necessary data boundary in both themes",
+      "evidence": [
+        {
+          "fingerprint": "66686877eb93cc4b9be0a2b511b74421d85065b6faa655dc3220b1867d313576",
+          "fileHash": "86769cf5d0b2008a4951133d4ba5aefa500b4dab6dd20b95b7fd21b04443f628",
+          "theme": "light",
+          "state": "nine-color-production-component",
+          "profile": "actual-component-fixture",
+          "viewport": {
+            "width": 1600,
+            "height": 900
+          },
+          "threshold": 4.5,
+          "ratio": 5.58046438625577,
+          "foreground": "rgb(0, 0, 0)",
+          "background": "rgb(239, 68, 68)",
+          "artifact": "tests/visual/reports/timeline-color-evidence.json",
+          "artifactHash": "bcc97b37dc853100028e9006f5d71bc85f3860af890868b622dfd2d869aa275b",
+          "implementationHead": "9c7905ff9441021da69b2ef76f838002151eb39b+validated-working-tree",
+          "dependencies": {
+            "client/src/index.css": "f5e97d4e6975651dc20805ed875a0e8b9c130f6ba1a423e01509e359f13c2457",
+            "client/src/components/phase-manager/types.ts": "86769cf5d0b2008a4951133d4ba5aefa500b4dab6dd20b95b7fd21b04443f628",
+            "client/src/components/InteractiveTimeline.tsx": "9f92a9999e96f4b7e3a3fa5c163bd0a0d18cd7f6c56f8ccee84675f378c5c04b"
+          }
+        },
+        {
+          "fingerprint": "66686877eb93cc4b9be0a2b511b74421d85065b6faa655dc3220b1867d313576",
+          "fileHash": "86769cf5d0b2008a4951133d4ba5aefa500b4dab6dd20b95b7fd21b04443f628",
+          "theme": "dark",
+          "state": "nine-color-production-component",
+          "profile": "actual-component-fixture",
+          "viewport": {
+            "width": 1600,
+            "height": 900
+          },
+          "threshold": 4.5,
+          "ratio": 5.58046438625577,
+          "foreground": "rgb(0, 0, 0)",
+          "background": "rgb(239, 68, 68)",
+          "artifact": "tests/visual/reports/timeline-color-evidence.json",
+          "artifactHash": "bcc97b37dc853100028e9006f5d71bc85f3860af890868b622dfd2d869aa275b",
+          "implementationHead": "9c7905ff9441021da69b2ef76f838002151eb39b+validated-working-tree",
+          "dependencies": {
+            "client/src/index.css": "f5e97d4e6975651dc20805ed875a0e8b9c130f6ba1a423e01509e359f13c2457",
+            "client/src/components/phase-manager/types.ts": "86769cf5d0b2008a4951133d4ba5aefa500b4dab6dd20b95b7fd21b04443f628",
+            "client/src/components/InteractiveTimeline.tsx": "9f92a9999e96f4b7e3a3fa5c163bd0a0d18cd7f6c56f8ccee84675f378c5c04b"
+          }
+        }
+      ]
     },
     {
       "fingerprint": "cee5ce394ed9411cc3b94c3da69fdb6f344722706120ab3efcef0cfddc269e92",
@@ -8503,12 +7796,59 @@
         }
       ],
       "count": 1,
-      "kind": "unknown",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "kind": "data-color",
+      "reachability": "active",
+      "decision": "accepted-literal",
+      "semanticRole": "phase-category-fill",
+      "reason": "Stable business phase color mapping, retained exactly; actual nine-color component verifies readable foreground and necessary data boundary in both themes",
+      "evidence": [
+        {
+          "fingerprint": "cee5ce394ed9411cc3b94c3da69fdb6f344722706120ab3efcef0cfddc269e92",
+          "fileHash": "86769cf5d0b2008a4951133d4ba5aefa500b4dab6dd20b95b7fd21b04443f628",
+          "theme": "light",
+          "state": "nine-color-production-component",
+          "profile": "actual-component-fixture",
+          "viewport": {
+            "width": 1600,
+            "height": 900
+          },
+          "threshold": 4.5,
+          "ratio": 4.834490081424352,
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(107, 114, 128)",
+          "artifact": "tests/visual/reports/timeline-color-evidence.json",
+          "artifactHash": "bcc97b37dc853100028e9006f5d71bc85f3860af890868b622dfd2d869aa275b",
+          "implementationHead": "9c7905ff9441021da69b2ef76f838002151eb39b+validated-working-tree",
+          "dependencies": {
+            "client/src/index.css": "f5e97d4e6975651dc20805ed875a0e8b9c130f6ba1a423e01509e359f13c2457",
+            "client/src/components/phase-manager/types.ts": "86769cf5d0b2008a4951133d4ba5aefa500b4dab6dd20b95b7fd21b04443f628",
+            "client/src/components/InteractiveTimeline.tsx": "9f92a9999e96f4b7e3a3fa5c163bd0a0d18cd7f6c56f8ccee84675f378c5c04b"
+          }
+        },
+        {
+          "fingerprint": "cee5ce394ed9411cc3b94c3da69fdb6f344722706120ab3efcef0cfddc269e92",
+          "fileHash": "86769cf5d0b2008a4951133d4ba5aefa500b4dab6dd20b95b7fd21b04443f628",
+          "theme": "dark",
+          "state": "nine-color-production-component",
+          "profile": "actual-component-fixture",
+          "viewport": {
+            "width": 1600,
+            "height": 900
+          },
+          "threshold": 4.5,
+          "ratio": 4.834490081424352,
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(107, 114, 128)",
+          "artifact": "tests/visual/reports/timeline-color-evidence.json",
+          "artifactHash": "bcc97b37dc853100028e9006f5d71bc85f3860af890868b622dfd2d869aa275b",
+          "implementationHead": "9c7905ff9441021da69b2ef76f838002151eb39b+validated-working-tree",
+          "dependencies": {
+            "client/src/index.css": "f5e97d4e6975651dc20805ed875a0e8b9c130f6ba1a423e01509e359f13c2457",
+            "client/src/components/phase-manager/types.ts": "86769cf5d0b2008a4951133d4ba5aefa500b4dab6dd20b95b7fd21b04443f628",
+            "client/src/components/InteractiveTimeline.tsx": "9f92a9999e96f4b7e3a3fa5c163bd0a0d18cd7f6c56f8ccee84675f378c5c04b"
+          }
+        }
+      ]
     },
     {
       "fingerprint": "cf765c6eedf8999e0f821c35cf50a0ab6d8925b3c23b2f01d103a0c455b28101",
@@ -8526,12 +7866,59 @@
         }
       ],
       "count": 1,
-      "kind": "unknown",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "kind": "data-color",
+      "reachability": "active",
+      "decision": "accepted-literal",
+      "semanticRole": "phase-category-fill",
+      "reason": "Stable business phase color mapping, retained exactly; actual nine-color component verifies readable foreground and necessary data boundary in both themes",
+      "evidence": [
+        {
+          "fingerprint": "cf765c6eedf8999e0f821c35cf50a0ab6d8925b3c23b2f01d103a0c455b28101",
+          "fileHash": "86769cf5d0b2008a4951133d4ba5aefa500b4dab6dd20b95b7fd21b04443f628",
+          "theme": "light",
+          "state": "nine-color-production-component",
+          "profile": "actual-component-fixture",
+          "viewport": {
+            "width": 1600,
+            "height": 900
+          },
+          "threshold": 4.5,
+          "ratio": 4.959416156088179,
+          "foreground": "rgb(0, 0, 0)",
+          "background": "rgb(139, 92, 246)",
+          "artifact": "tests/visual/reports/timeline-color-evidence.json",
+          "artifactHash": "bcc97b37dc853100028e9006f5d71bc85f3860af890868b622dfd2d869aa275b",
+          "implementationHead": "9c7905ff9441021da69b2ef76f838002151eb39b+validated-working-tree",
+          "dependencies": {
+            "client/src/index.css": "f5e97d4e6975651dc20805ed875a0e8b9c130f6ba1a423e01509e359f13c2457",
+            "client/src/components/phase-manager/types.ts": "86769cf5d0b2008a4951133d4ba5aefa500b4dab6dd20b95b7fd21b04443f628",
+            "client/src/components/InteractiveTimeline.tsx": "9f92a9999e96f4b7e3a3fa5c163bd0a0d18cd7f6c56f8ccee84675f378c5c04b"
+          }
+        },
+        {
+          "fingerprint": "cf765c6eedf8999e0f821c35cf50a0ab6d8925b3c23b2f01d103a0c455b28101",
+          "fileHash": "86769cf5d0b2008a4951133d4ba5aefa500b4dab6dd20b95b7fd21b04443f628",
+          "theme": "dark",
+          "state": "nine-color-production-component",
+          "profile": "actual-component-fixture",
+          "viewport": {
+            "width": 1600,
+            "height": 900
+          },
+          "threshold": 4.5,
+          "ratio": 4.959416156088179,
+          "foreground": "rgb(0, 0, 0)",
+          "background": "rgb(139, 92, 246)",
+          "artifact": "tests/visual/reports/timeline-color-evidence.json",
+          "artifactHash": "bcc97b37dc853100028e9006f5d71bc85f3860af890868b622dfd2d869aa275b",
+          "implementationHead": "9c7905ff9441021da69b2ef76f838002151eb39b+validated-working-tree",
+          "dependencies": {
+            "client/src/index.css": "f5e97d4e6975651dc20805ed875a0e8b9c130f6ba1a423e01509e359f13c2457",
+            "client/src/components/phase-manager/types.ts": "86769cf5d0b2008a4951133d4ba5aefa500b4dab6dd20b95b7fd21b04443f628",
+            "client/src/components/InteractiveTimeline.tsx": "9f92a9999e96f4b7e3a3fa5c163bd0a0d18cd7f6c56f8ccee84675f378c5c04b"
+          }
+        }
+      ]
     },
     {
       "fingerprint": "f6fca34f8c2fdc61f067a9190a0d6db588572d119565d00b1456c26d2a6434a6",
@@ -8549,12 +7936,59 @@
         }
       ],
       "count": 1,
-      "kind": "unknown",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "kind": "data-color",
+      "reachability": "active",
+      "decision": "accepted-literal",
+      "semanticRole": "phase-category-fill",
+      "reason": "Stable business phase color mapping, retained exactly; actual nine-color component verifies readable foreground and necessary data boundary in both themes",
+      "evidence": [
+        {
+          "fingerprint": "f6fca34f8c2fdc61f067a9190a0d6db588572d119565d00b1456c26d2a6434a6",
+          "fileHash": "86769cf5d0b2008a4951133d4ba5aefa500b4dab6dd20b95b7fd21b04443f628",
+          "theme": "light",
+          "state": "nine-color-production-component",
+          "profile": "actual-component-fixture",
+          "viewport": {
+            "width": 1600,
+            "height": 900
+          },
+          "threshold": 4.5,
+          "ratio": 9.778071798962173,
+          "foreground": "rgb(0, 0, 0)",
+          "background": "rgb(245, 158, 11)",
+          "artifact": "tests/visual/reports/timeline-color-evidence.json",
+          "artifactHash": "bcc97b37dc853100028e9006f5d71bc85f3860af890868b622dfd2d869aa275b",
+          "implementationHead": "9c7905ff9441021da69b2ef76f838002151eb39b+validated-working-tree",
+          "dependencies": {
+            "client/src/index.css": "f5e97d4e6975651dc20805ed875a0e8b9c130f6ba1a423e01509e359f13c2457",
+            "client/src/components/phase-manager/types.ts": "86769cf5d0b2008a4951133d4ba5aefa500b4dab6dd20b95b7fd21b04443f628",
+            "client/src/components/InteractiveTimeline.tsx": "9f92a9999e96f4b7e3a3fa5c163bd0a0d18cd7f6c56f8ccee84675f378c5c04b"
+          }
+        },
+        {
+          "fingerprint": "f6fca34f8c2fdc61f067a9190a0d6db588572d119565d00b1456c26d2a6434a6",
+          "fileHash": "86769cf5d0b2008a4951133d4ba5aefa500b4dab6dd20b95b7fd21b04443f628",
+          "theme": "dark",
+          "state": "nine-color-production-component",
+          "profile": "actual-component-fixture",
+          "viewport": {
+            "width": 1600,
+            "height": 900
+          },
+          "threshold": 4.5,
+          "ratio": 9.778071798962173,
+          "foreground": "rgb(0, 0, 0)",
+          "background": "rgb(245, 158, 11)",
+          "artifact": "tests/visual/reports/timeline-color-evidence.json",
+          "artifactHash": "bcc97b37dc853100028e9006f5d71bc85f3860af890868b622dfd2d869aa275b",
+          "implementationHead": "9c7905ff9441021da69b2ef76f838002151eb39b+validated-working-tree",
+          "dependencies": {
+            "client/src/index.css": "f5e97d4e6975651dc20805ed875a0e8b9c130f6ba1a423e01509e359f13c2457",
+            "client/src/components/phase-manager/types.ts": "86769cf5d0b2008a4951133d4ba5aefa500b4dab6dd20b95b7fd21b04443f628",
+            "client/src/components/InteractiveTimeline.tsx": "9f92a9999e96f4b7e3a3fa5c163bd0a0d18cd7f6c56f8ccee84675f378c5c04b"
+          }
+        }
+      ]
     },
     {
       "fingerprint": "fe70dc836c96059ad848dec487aa91a7d8a2249bcf3c6b5f9a8ea6e04ea4735a",
@@ -8572,12 +8006,59 @@
         }
       ],
       "count": 1,
-      "kind": "unknown",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "kind": "data-color",
+      "reachability": "active",
+      "decision": "accepted-literal",
+      "semanticRole": "phase-category-fill",
+      "reason": "Stable business phase color mapping, retained exactly; actual nine-color component verifies readable foreground and necessary data boundary in both themes",
+      "evidence": [
+        {
+          "fingerprint": "fe70dc836c96059ad848dec487aa91a7d8a2249bcf3c6b5f9a8ea6e04ea4735a",
+          "fileHash": "86769cf5d0b2008a4951133d4ba5aefa500b4dab6dd20b95b7fd21b04443f628",
+          "theme": "light",
+          "state": "nine-color-production-component",
+          "profile": "actual-component-fixture",
+          "viewport": {
+            "width": 1600,
+            "height": 900
+          },
+          "threshold": 4.5,
+          "ratio": 5.953500872309584,
+          "foreground": "rgb(0, 0, 0)",
+          "background": "rgb(236, 72, 153)",
+          "artifact": "tests/visual/reports/timeline-color-evidence.json",
+          "artifactHash": "bcc97b37dc853100028e9006f5d71bc85f3860af890868b622dfd2d869aa275b",
+          "implementationHead": "9c7905ff9441021da69b2ef76f838002151eb39b+validated-working-tree",
+          "dependencies": {
+            "client/src/index.css": "f5e97d4e6975651dc20805ed875a0e8b9c130f6ba1a423e01509e359f13c2457",
+            "client/src/components/phase-manager/types.ts": "86769cf5d0b2008a4951133d4ba5aefa500b4dab6dd20b95b7fd21b04443f628",
+            "client/src/components/InteractiveTimeline.tsx": "9f92a9999e96f4b7e3a3fa5c163bd0a0d18cd7f6c56f8ccee84675f378c5c04b"
+          }
+        },
+        {
+          "fingerprint": "fe70dc836c96059ad848dec487aa91a7d8a2249bcf3c6b5f9a8ea6e04ea4735a",
+          "fileHash": "86769cf5d0b2008a4951133d4ba5aefa500b4dab6dd20b95b7fd21b04443f628",
+          "theme": "dark",
+          "state": "nine-color-production-component",
+          "profile": "actual-component-fixture",
+          "viewport": {
+            "width": 1600,
+            "height": 900
+          },
+          "threshold": 4.5,
+          "ratio": 5.953500872309584,
+          "foreground": "rgb(0, 0, 0)",
+          "background": "rgb(236, 72, 153)",
+          "artifact": "tests/visual/reports/timeline-color-evidence.json",
+          "artifactHash": "bcc97b37dc853100028e9006f5d71bc85f3860af890868b622dfd2d869aa275b",
+          "implementationHead": "9c7905ff9441021da69b2ef76f838002151eb39b+validated-working-tree",
+          "dependencies": {
+            "client/src/index.css": "f5e97d4e6975651dc20805ed875a0e8b9c130f6ba1a423e01509e359f13c2457",
+            "client/src/components/phase-manager/types.ts": "86769cf5d0b2008a4951133d4ba5aefa500b4dab6dd20b95b7fd21b04443f628",
+            "client/src/components/InteractiveTimeline.tsx": "9f92a9999e96f4b7e3a3fa5c163bd0a0d18cd7f6c56f8ccee84675f378c5c04b"
+          }
+        }
+      ]
     },
     {
       "fingerprint": "48ae30fd6bd647dfc9f12973fc66d63a17bc7331ad9e1af6271254c5a79fe391",
@@ -12694,86 +12175,6 @@
         {
           "line": 120,
           "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "805ada12c11685ced750c18b999db82e3b95a018d6c6fb9f50b13e294449c9ea",
-      "file": "client/src/components/VisualPhaseManager.tsx",
-      "context": [
-        "VisualPhaseManager",
-        "jsx:style"
-      ],
-      "owner": "boxShadow",
-      "property": "boxShadow",
-      "literal": "rgba(0, 0, 0, 0.1)",
-      "locations": [
-        {
-          "line": 654,
-          "column": 39
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "9e959ccd79a190b2e725ec60e3b850793932c70e8135410e78c78689a1092a4f",
-      "file": "client/src/components/VisualPhaseManager.tsx",
-      "context": [
-        "VisualPhaseManager",
-        "jsx:style"
-      ],
-      "owner": "color",
-      "property": "color",
-      "literal": "#ffffff",
-      "locations": [
-        {
-          "line": 555,
-          "column": 25
-        },
-        {
-          "line": 586,
-          "column": 23
-        },
-        {
-          "line": 780,
-          "column": 27
-        }
-      ],
-      "count": 3,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "b089d2e50121faca8b85e1710e89bcb340fd87ec7b32188e91eb64757e1faf9e",
-      "file": "client/src/components/VisualPhaseManager.tsx",
-      "context": [
-        "VisualPhaseManager",
-        "jsx:style"
-      ],
-      "owner": "boxShadow",
-      "property": "boxShadow",
-      "literal": "rgba(0, 0, 0, 0.05)",
-      "locations": [
-        {
-          "line": 559,
-          "column": 39
         }
       ],
       "count": 1,
@@ -17194,12 +16595,12 @@
           "foreground": "rgb(255, 255, 255)",
           "background": "rgb(107, 114, 128)",
           "artifact": "tests/visual/reports/timeline-color-evidence.json",
-          "artifactHash": "451aeff8b5fdb52c564fba8fb617de4cde9be7b592f31857996a56a6f148a61a",
-          "implementationHead": "5996da0b277cf48ead70c6dcd3e052ee3430d680+validated-working-tree",
+          "artifactHash": "bcc97b37dc853100028e9006f5d71bc85f3860af890868b622dfd2d869aa275b",
+          "implementationHead": "9c7905ff9441021da69b2ef76f838002151eb39b+validated-working-tree",
           "dependencies": {
-            "client/src/index.css": "c7bdfd16234777e915cdb8f9a3cab63138c08db55feb19ea01912b8f906f51bb",
+            "client/src/index.css": "f5e97d4e6975651dc20805ed875a0e8b9c130f6ba1a423e01509e359f13c2457",
             "client/src/components/phase-manager/types.ts": "86769cf5d0b2008a4951133d4ba5aefa500b4dab6dd20b95b7fd21b04443f628",
-            "client/src/components/InteractiveTimeline.tsx": "3e24cfdfa3e43903e3fa47cdb44e13c2a79a38fee7a2dc98353f59be6fa163e3"
+            "client/src/components/InteractiveTimeline.tsx": "9f92a9999e96f4b7e3a3fa5c163bd0a0d18cd7f6c56f8ccee84675f378c5c04b"
           }
         },
         {
@@ -17217,12 +16618,12 @@
           "foreground": "rgb(255, 255, 255)",
           "background": "rgb(107, 114, 128)",
           "artifact": "tests/visual/reports/timeline-color-evidence.json",
-          "artifactHash": "451aeff8b5fdb52c564fba8fb617de4cde9be7b592f31857996a56a6f148a61a",
-          "implementationHead": "5996da0b277cf48ead70c6dcd3e052ee3430d680+validated-working-tree",
+          "artifactHash": "bcc97b37dc853100028e9006f5d71bc85f3860af890868b622dfd2d869aa275b",
+          "implementationHead": "9c7905ff9441021da69b2ef76f838002151eb39b+validated-working-tree",
           "dependencies": {
-            "client/src/index.css": "c7bdfd16234777e915cdb8f9a3cab63138c08db55feb19ea01912b8f906f51bb",
+            "client/src/index.css": "f5e97d4e6975651dc20805ed875a0e8b9c130f6ba1a423e01509e359f13c2457",
             "client/src/components/phase-manager/types.ts": "86769cf5d0b2008a4951133d4ba5aefa500b4dab6dd20b95b7fd21b04443f628",
-            "client/src/components/InteractiveTimeline.tsx": "3e24cfdfa3e43903e3fa47cdb44e13c2a79a38fee7a2dc98353f59be6fa163e3"
+            "client/src/components/InteractiveTimeline.tsx": "9f92a9999e96f4b7e3a3fa5c163bd0a0d18cd7f6c56f8ccee84675f378c5c04b"
           }
         }
       ]
@@ -17262,12 +16663,12 @@
           "foreground": "rgb(0, 0, 0)",
           "background": "rgb(139, 92, 246)",
           "artifact": "tests/visual/reports/timeline-color-evidence.json",
-          "artifactHash": "451aeff8b5fdb52c564fba8fb617de4cde9be7b592f31857996a56a6f148a61a",
-          "implementationHead": "5996da0b277cf48ead70c6dcd3e052ee3430d680+validated-working-tree",
+          "artifactHash": "bcc97b37dc853100028e9006f5d71bc85f3860af890868b622dfd2d869aa275b",
+          "implementationHead": "9c7905ff9441021da69b2ef76f838002151eb39b+validated-working-tree",
           "dependencies": {
-            "client/src/index.css": "c7bdfd16234777e915cdb8f9a3cab63138c08db55feb19ea01912b8f906f51bb",
+            "client/src/index.css": "f5e97d4e6975651dc20805ed875a0e8b9c130f6ba1a423e01509e359f13c2457",
             "client/src/components/phase-manager/types.ts": "86769cf5d0b2008a4951133d4ba5aefa500b4dab6dd20b95b7fd21b04443f628",
-            "client/src/components/InteractiveTimeline.tsx": "3e24cfdfa3e43903e3fa47cdb44e13c2a79a38fee7a2dc98353f59be6fa163e3"
+            "client/src/components/InteractiveTimeline.tsx": "9f92a9999e96f4b7e3a3fa5c163bd0a0d18cd7f6c56f8ccee84675f378c5c04b"
           }
         },
         {
@@ -17285,12 +16686,12 @@
           "foreground": "rgb(0, 0, 0)",
           "background": "rgb(139, 92, 246)",
           "artifact": "tests/visual/reports/timeline-color-evidence.json",
-          "artifactHash": "451aeff8b5fdb52c564fba8fb617de4cde9be7b592f31857996a56a6f148a61a",
-          "implementationHead": "5996da0b277cf48ead70c6dcd3e052ee3430d680+validated-working-tree",
+          "artifactHash": "bcc97b37dc853100028e9006f5d71bc85f3860af890868b622dfd2d869aa275b",
+          "implementationHead": "9c7905ff9441021da69b2ef76f838002151eb39b+validated-working-tree",
           "dependencies": {
-            "client/src/index.css": "c7bdfd16234777e915cdb8f9a3cab63138c08db55feb19ea01912b8f906f51bb",
+            "client/src/index.css": "f5e97d4e6975651dc20805ed875a0e8b9c130f6ba1a423e01509e359f13c2457",
             "client/src/components/phase-manager/types.ts": "86769cf5d0b2008a4951133d4ba5aefa500b4dab6dd20b95b7fd21b04443f628",
-            "client/src/components/InteractiveTimeline.tsx": "3e24cfdfa3e43903e3fa47cdb44e13c2a79a38fee7a2dc98353f59be6fa163e3"
+            "client/src/components/InteractiveTimeline.tsx": "9f92a9999e96f4b7e3a3fa5c163bd0a0d18cd7f6c56f8ccee84675f378c5c04b"
           }
         }
       ]
@@ -17351,12 +16752,12 @@
           "foreground": "rgb(255, 255, 255)",
           "background": "rgb(107, 114, 128)",
           "artifact": "tests/visual/reports/timeline-color-evidence.json",
-          "artifactHash": "451aeff8b5fdb52c564fba8fb617de4cde9be7b592f31857996a56a6f148a61a",
-          "implementationHead": "5996da0b277cf48ead70c6dcd3e052ee3430d680+validated-working-tree",
+          "artifactHash": "bcc97b37dc853100028e9006f5d71bc85f3860af890868b622dfd2d869aa275b",
+          "implementationHead": "9c7905ff9441021da69b2ef76f838002151eb39b+validated-working-tree",
           "dependencies": {
-            "client/src/index.css": "c7bdfd16234777e915cdb8f9a3cab63138c08db55feb19ea01912b8f906f51bb",
+            "client/src/index.css": "f5e97d4e6975651dc20805ed875a0e8b9c130f6ba1a423e01509e359f13c2457",
             "client/src/components/phase-manager/types.ts": "86769cf5d0b2008a4951133d4ba5aefa500b4dab6dd20b95b7fd21b04443f628",
-            "client/src/components/InteractiveTimeline.tsx": "3e24cfdfa3e43903e3fa47cdb44e13c2a79a38fee7a2dc98353f59be6fa163e3"
+            "client/src/components/InteractiveTimeline.tsx": "9f92a9999e96f4b7e3a3fa5c163bd0a0d18cd7f6c56f8ccee84675f378c5c04b"
           }
         },
         {
@@ -17374,12 +16775,12 @@
           "foreground": "rgb(255, 255, 255)",
           "background": "rgb(107, 114, 128)",
           "artifact": "tests/visual/reports/timeline-color-evidence.json",
-          "artifactHash": "451aeff8b5fdb52c564fba8fb617de4cde9be7b592f31857996a56a6f148a61a",
-          "implementationHead": "5996da0b277cf48ead70c6dcd3e052ee3430d680+validated-working-tree",
+          "artifactHash": "bcc97b37dc853100028e9006f5d71bc85f3860af890868b622dfd2d869aa275b",
+          "implementationHead": "9c7905ff9441021da69b2ef76f838002151eb39b+validated-working-tree",
           "dependencies": {
-            "client/src/index.css": "c7bdfd16234777e915cdb8f9a3cab63138c08db55feb19ea01912b8f906f51bb",
+            "client/src/index.css": "f5e97d4e6975651dc20805ed875a0e8b9c130f6ba1a423e01509e359f13c2457",
             "client/src/components/phase-manager/types.ts": "86769cf5d0b2008a4951133d4ba5aefa500b4dab6dd20b95b7fd21b04443f628",
-            "client/src/components/InteractiveTimeline.tsx": "3e24cfdfa3e43903e3fa47cdb44e13c2a79a38fee7a2dc98353f59be6fa163e3"
+            "client/src/components/InteractiveTimeline.tsx": "9f92a9999e96f4b7e3a3fa5c163bd0a0d18cd7f6c56f8ccee84675f378c5c04b"
           }
         }
       ]
@@ -20967,657 +20368,6 @@
       "evidence": []
     },
     {
-      "fingerprint": "008586af963f8a0691bd0bd325fafb643bfd49ebe8a228750d275fa9532c4ca7",
-      "file": "client/src/pages/ProjectRoadmap.css",
-      "context": [],
-      "owner": ".phase-content",
-      "property": "color",
-      "literal": "white",
-      "locations": [
-        {
-          "line": 1035,
-          "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "02d62b512fe0bfc3d2a575b99263c776da8b484fa419f7df26c422552966d68d",
-      "file": "client/src/pages/ProjectRoadmap.css",
-      "context": [],
-      "owner": ".today-line-indicator",
-      "property": "color",
-      "literal": "white",
-      "locations": [
-        {
-          "line": 1636,
-          "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "04f30408b736a118aeffad84d8b34ec4116f3a5fce72e689790bbe59997fc616",
-      "file": "client/src/pages/ProjectRoadmap.css",
-      "context": [],
-      "owner": ".priority-low",
-      "property": "border",
-      "literal": "#16a34a20",
-      "locations": [
-        {
-          "line": 860,
-          "column": 21
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "064c6802ec342b839d780c1e238493b9c9c3027cd6fde14e556b2412248c796d",
-      "file": "client/src/pages/ProjectRoadmap.css",
-      "context": [],
-      "owner": ".today-line-indicator",
-      "property": "box-shadow",
-      "literal": "rgba(220, 38, 38, 0.3)",
-      "locations": [
-        {
-          "line": 1642,
-          "column": 25
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "0699945be2ceed1d4019f311a2aaf0ef2e8e946ef0b5356249772bc5ffcf879f",
-      "file": "client/src/pages/ProjectRoadmap.css",
-      "context": [],
-      "owner": ".timeline-nav-side:hover",
-      "property": "background",
-      "literal": "rgba(37, 99, 235, 0.05)",
-      "locations": [
-        {
-          "line": 453,
-          "column": 63
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "096e1967968b3d15b38d0ba72a5dcf6382421d51282bc63a700af4c29d59f49a",
-      "file": "client/src/pages/ProjectRoadmap.css",
-      "context": [],
-      "owner": ".resize-handle",
-      "property": "background",
-      "literal": "rgba(255, 255, 255, 0.7)",
-      "locations": [
-        {
-          "line": 1005,
-          "column": 68
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "09a2e759b09632c48b75ba0b4e03e50b4e768e1da26b8403b5700e6c2bd338e0",
-      "file": "client/src/pages/ProjectRoadmap.css",
-      "context": [],
-      "owner": ".timeline-nav-side",
-      "property": "border",
-      "literal": "rgba(37, 99, 235, 0.1)",
-      "locations": [
-        {
-          "line": 440,
-          "column": 21
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "0a380c7c977a545c080335f7199433b7df35ab74338d5d5cedb170a3bcea2d93",
-      "file": "client/src/pages/ProjectRoadmap.css",
-      "context": [],
-      "owner": ".timeline-nav-side",
-      "property": "background",
-      "literal": "rgba(37, 99, 235, 0.02)",
-      "locations": [
-        {
-          "line": 439,
-          "column": 64
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "0ab6d0aabd6db8ad2483040362741da01e9b4a9e4cec28fa2fcd7af2208e33cb",
-      "file": "client/src/pages/ProjectRoadmap.css",
-      "context": [],
-      "owner": ".priority-low",
-      "property": "color",
-      "literal": "#16a34a",
-      "locations": [
-        {
-          "line": 859,
-          "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "0bc8362c7c62e2af459e927eb5b9aa9de9f8c30e717d6eba961b38c34cc65ae8",
-      "file": "client/src/pages/ProjectRoadmap.css",
-      "context": [],
-      "owner": ".timeline-range",
-      "property": "box-shadow",
-      "literal": "rgba(0, 0, 0, 0.05)",
-      "locations": [
-        {
-          "line": 131,
-          "column": 25
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "1365eec39f01c0afa5afce2e0f3f158e6d76f3dd11d233f4b4194dda299f45bf",
-      "file": "client/src/pages/ProjectRoadmap.css",
-      "context": [],
-      "owner": ".status-completed, .status-done",
-      "property": "color",
-      "literal": "#374151",
-      "locations": [
-        {
-          "line": 917,
-          "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "1567570db10dbfb27b3e89166bc4d77a32fb43caaef547761958cfb4d5fb4ed7",
-      "file": "client/src/pages/ProjectRoadmap.css",
-      "context": [],
-      "owner": "[data-theme='dark'] .today-btn",
-      "property": "border-color",
-      "literal": "#4f46e5",
-      "locations": [
-        {
-          "line": 183,
-          "column": 38
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "18b31ed113c3f52fb5fbdae5e015628aabeb225650fb56ef0d92fea831c8112f",
-      "file": "client/src/pages/ProjectRoadmap.css",
-      "context": [],
-      "owner": ".project-type-compact",
-      "property": "box-shadow",
-      "literal": "rgba(0, 0, 0, 0.1)",
-      "locations": [
-        {
-          "line": 791,
-          "column": 25
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "18c09a811ecde1fa7ad4651183a6187d6b8ecaa1115d51125324b2ec0cdd0b0b",
-      "file": "client/src/pages/ProjectRoadmap.css",
-      "context": [],
-      "owner": ".status-active, .status-in_progress",
-      "property": "border",
-      "literal": "#86efac",
-      "locations": [
-        {
-          "line": 904,
-          "column": 21
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "1cc0686008fa6a5be1975de91445650d784c8495888a22aa10cb42faa8f83460",
-      "file": "client/src/pages/ProjectRoadmap.css",
-      "context": [],
-      "owner": ".status-active, .status-in_progress",
-      "property": "background",
-      "literal": "#dcfce7",
-      "locations": [
-        {
-          "line": 902,
-          "column": 39
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "1ee6bd3e4cc83967912863d9af8a4a8a2b3bd9e0d2aa6c64344feff36af7268d",
-      "file": "client/src/pages/ProjectRoadmap.css",
-      "context": [],
-      "owner": ".status-completed, .status-done",
-      "property": "box-shadow",
-      "literal": "rgba(55, 65, 81, 0.1)",
-      "locations": [
-        {
-          "line": 919,
-          "column": 25
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "2273d749573ebcd77f4915d85200cbaea5d4fa62cd870e0b03595af9cbbe6522",
-      "file": "client/src/pages/ProjectRoadmap.css",
-      "context": [],
-      "owner": ".roadmap-header",
-      "property": "box-shadow",
-      "literal": "rgba(0, 0, 0, 0.06)",
-      "locations": [
-        {
-          "line": 44,
-          "column": 25
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "293160ce616c6d4989a4ac219638fe06f121ec435332501e2d5136090370e4f4",
-      "file": "client/src/pages/ProjectRoadmap.css",
-      "context": [],
-      "owner": ".navigation-controls",
-      "property": "box-shadow",
-      "literal": "rgba(0, 0, 0, 0.06)",
-      "locations": [
-        {
-          "line": 85,
-          "column": 25
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "2b25992b0051815b33bcbdd2dfa09d2117e5e47137f225cbd2547c36bcb21a49",
-      "file": "client/src/pages/ProjectRoadmap.css",
-      "context": [],
-      "owner": ".status-planned, .status-pending",
-      "property": "box-shadow",
-      "literal": "rgba(146, 64, 14, 0.1)",
-      "locations": [
-        {
-          "line": 912,
-          "column": 25
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "31aa228eb10e3f08a8f27e124699210469030897a315bf3cb71039e87eb79e27",
-      "file": "client/src/pages/ProjectRoadmap.css",
-      "context": [],
-      "owner": ".modal-overlay",
-      "property": "background",
-      "literal": "rgba(0, 0, 0, 0.6)",
-      "locations": [
-        {
-          "line": 1062,
-          "column": 15
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "33edfea3f61309b4b85d79c29e592883f1109695e71013ce50bd686f11164a69",
-      "file": "client/src/pages/ProjectRoadmap.css",
-      "context": [],
-      "owner": ".today-line",
-      "property": "background",
-      "literal": "#dc2626",
-      "locations": [
-        {
-          "line": 1608,
-          "column": 42
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "343e93f8f697eb3089828e5c2ccb7ff418033613ccefee5c11234d9d549fb43c",
-      "file": "client/src/pages/ProjectRoadmap.css",
-      "context": [],
-      "owner": ".status-active, .status-in_progress",
-      "property": "box-shadow",
-      "literal": "rgba(22, 101, 52, 0.1)",
-      "locations": [
-        {
-          "line": 905,
-          "column": 25
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "390ea48238bfb5489cc3695307c600fcebbb89a3a12f3a82a304728dd152017f",
-      "file": "client/src/pages/ProjectRoadmap.css",
-      "context": [],
-      "owner": ".priority-medium",
-      "property": "border",
-      "literal": "#d9770620",
-      "locations": [
-        {
-          "line": 853,
-          "column": 21
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "39644f8e5ef54beb0e1d7d2c870867d834f051e34ad0ebde761d784c1572a181",
-      "file": "client/src/pages/ProjectRoadmap.css",
-      "context": [],
-      "owner": ".status-planned, .status-pending",
-      "property": "border",
-      "literal": "#fbbf24",
-      "locations": [
-        {
-          "line": 911,
-          "column": 21
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "3b61c121eaddb5bcc0e6558cd9d257539b39030d8b2ce5d101b983b0fc09d469",
-      "file": "client/src/pages/ProjectRoadmap.css",
-      "context": [],
-      "owner": "[data-theme='dark'] .project-name-link, .dark .project-name-link",
-      "property": "color",
-      "literal": "#60a5fa",
-      "locations": [
-        {
-          "line": 1442,
-          "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "3bf0cb99a29e985b86f12aa58ea0dcaeba623a66089dc02071ad6c4fdd736cac",
-      "file": "client/src/pages/ProjectRoadmap.css",
-      "context": [],
-      "owner": ".status-on_hold, .status-paused",
-      "property": "box-shadow",
-      "literal": "rgba(220, 38, 38, 0.1)",
-      "locations": [
-        {
-          "line": 926,
-          "column": 25
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "434ae1d0a28b795d5cce2e7c47ef96befd8a3bb72a0892c1171098498846f4de",
-      "file": "client/src/pages/ProjectRoadmap.css",
-      "context": [],
-      "owner": ".project-name-link:hover",
-      "property": "background",
-      "literal": "#eff6ff",
-      "locations": [
-        {
-          "line": 1446,
-          "column": 15
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "43b34d95f9c7e6cc76cadb62634553a1199cf7314172f995f6b5fc7e315a7c71",
-      "file": "client/src/pages/ProjectRoadmap.css",
-      "context": [],
-      "owner": ".modal-container",
-      "property": "box-shadow",
-      "literal": "rgba(0, 0, 0, 0.15)",
-      "locations": [
-        {
-          "line": 1074,
-          "column": 32
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "43f3c8fd432141d7e0c23d799fe457bf7ade3ff23f4bb728ed030b66c4458ea6",
-      "file": "client/src/pages/ProjectRoadmap.css",
-      "context": [],
-      "owner": ".priority-medium",
-      "property": "color",
-      "literal": "#d97706",
-      "locations": [
-        {
-          "line": 852,
-          "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "47a9b3cedc1be6c8bced094290e3f62485a2b90b41d9a0482cff1460b39afded",
-      "file": "client/src/pages/ProjectRoadmap.css",
-      "context": [],
-      "owner": ".timeline-nav-side:hover",
-      "property": "border-color",
-      "literal": "rgba(37, 99, 235, 0.2)",
-      "locations": [
-        {
-          "line": 454,
-          "column": 17
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "47dbb5a92058f159f8ee2b9be6e4770e69fc7b42eef1faad59bdb67be5ed3c00",
-      "file": "client/src/pages/ProjectRoadmap.css",
-      "context": [],
-      "owner": ".today-line:hover .today-line-indicator",
-      "property": "box-shadow",
-      "literal": "rgba(220, 38, 38, 0.4)",
-      "locations": [
-        {
-          "line": 1669,
-          "column": 26
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
       "fingerprint": "48be1b77a3f368891be2ef3007fe8efaeb1cd5e2698fc24920bb9fa8fa79ab6d",
       "file": "client/src/pages/ProjectRoadmap.css",
       "context": [],
@@ -21636,783 +20386,6 @@
       "decision": "not-debt",
       "semanticRole": null,
       "reason": "CSS custom-property definition; render validation is separate.",
-      "evidence": []
-    },
-    {
-      "fingerprint": "4df55593536ff1dd11db23310f51f351e81806c721a7c1629cae1ebbff90f12b",
-      "file": "client/src/pages/ProjectRoadmap.css",
-      "context": [],
-      "owner": ".resize-handle:hover, .phase-bar:hover .resize-handle",
-      "property": "background",
-      "literal": "rgba(255, 255, 255, 1)",
-      "locations": [
-        {
-          "line": 1012,
-          "column": 42
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "4e7f1320e2493587980940a49cb39d556e69aeefaec9679a8bdbe56eb24853e1",
-      "file": "client/src/pages/ProjectRoadmap.css",
-      "context": [],
-      "owner": ".project-name-link",
-      "property": "color",
-      "literal": "#2563eb",
-      "locations": [
-        {
-          "line": 1422,
-          "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "4ec162782dcb264550cc608af18874713697cb64e9c3b37b4163a1e102e210e9",
-      "file": "client/src/pages/ProjectRoadmap.css",
-      "context": [],
-      "owner": ".zoom-controls",
-      "property": "box-shadow",
-      "literal": "rgba(0, 0, 0, 0.06)",
-      "locations": [
-        {
-          "line": 253,
-          "column": 25
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "54e33b5b99240f69f9f49f69abdeb423902df360ebd2faa7c062bf625ff9e9cc",
-      "file": "client/src/pages/ProjectRoadmap.css",
-      "context": [],
-      "owner": ".status-planned, .status-pending",
-      "property": "background",
-      "literal": "#fde68a",
-      "locations": [
-        {
-          "line": 909,
-          "column": 48
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "5841d81b8d5da31308d344f34cca98b33ab6caf66b2e2191ed2600ca4245eb22",
-      "file": "client/src/pages/ProjectRoadmap.css",
-      "context": [],
-      "owner": ".today-line::before",
-      "property": "background",
-      "literal": "rgba(220, 38, 38, 0.3)",
-      "locations": [
-        {
-          "line": 1622,
-          "column": 5
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "589c6987b7df4aaf0818297a732b2ee4d0a1cfa269ae8893fee55371b65c783f",
-      "file": "client/src/pages/ProjectRoadmap.css",
-      "context": [],
-      "owner": ".timeline-header",
-      "property": "box-shadow",
-      "literal": "rgba(0, 0, 0, 0.05)",
-      "locations": [
-        {
-          "line": 305,
-          "column": 25
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "5d44cb040773c97eb3a4ba8eafd69ac9d3e82989c89231a638d36b790bb0f21c",
-      "file": "client/src/pages/ProjectRoadmap.css",
-      "context": [],
-      "owner": ".phase-content",
-      "property": "text-shadow",
-      "literal": "rgba(0, 0, 0, 0.4)",
-      "locations": [
-        {
-          "line": 1038,
-          "column": 26
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "603a9a51a7ca1355baaa627f193a24fed992cfc80b97c852fb851a6de6170e88",
-      "file": "client/src/pages/ProjectRoadmap.css",
-      "context": [],
-      "owner": ".today-line",
-      "property": "background",
-      "literal": "#ef4444",
-      "locations": [
-        {
-          "line": 1608,
-          "column": 51
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "6e0aef0f4da533edeec8c713ab4ca16ac3a9afdc2e7e83a6b47b7e4387099ee8",
-      "file": "client/src/pages/ProjectRoadmap.css",
-      "context": [],
-      "owner": "[data-theme='dark'] .timeline-nav-btn.today-btn",
-      "property": "background",
-      "literal": "#4f46e5",
-      "locations": [
-        {
-          "line": 386,
-          "column": 36
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "701565e52f5a85e528a0707610139dcb975aad3d46625cd4afe997a889ce538d",
-      "file": "client/src/pages/ProjectRoadmap.css",
-      "context": [],
-      "owner": ".today-line-indicator",
-      "property": "background",
-      "literal": "#b91c1c",
-      "locations": [
-        {
-          "line": 1635,
-          "column": 15
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "73f126f52a7d91f6f126b0b5f409d9a3c1a74c033125e76a857f3a51ce7f7d84",
-      "file": "client/src/pages/ProjectRoadmap.css",
-      "context": [],
-      "owner": ".status-on_hold, .status-paused",
-      "property": "border",
-      "literal": "#fca5a5",
-      "locations": [
-        {
-          "line": 925,
-          "column": 21
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "7540b8ed6d9b5ff1d23adfd4573d46533eb1830e9077c926c7c669ad9ab262a1",
-      "file": "client/src/pages/ProjectRoadmap.css",
-      "context": [],
-      "owner": ".phase-bar",
-      "property": "box-shadow",
-      "literal": "rgba(255, 255, 255, 0.2)",
-      "locations": [
-        {
-          "line": 978,
-          "column": 55
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "7aacd10bc484bea52047c4c2169181b7278e4b5c13137956750fef23e6d99a07",
-      "file": "client/src/pages/ProjectRoadmap.css",
-      "context": [],
-      "owner": ".status-active, .status-in_progress",
-      "property": "background",
-      "literal": "#bbf7d0",
-      "locations": [
-        {
-          "line": 902,
-          "column": 48
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "8277aa2e9625eab4b1d6e07c7c13f82c9d96662388ed73c69c0c205e9ec7f75e",
-      "file": "client/src/pages/ProjectRoadmap.css",
-      "context": [],
-      "owner": ".phase-bar.dragging",
-      "property": "box-shadow",
-      "literal": "rgba(255, 255, 255, 0.4)",
-      "locations": [
-        {
-          "line": 991,
-          "column": 61
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "84141990d9d22531a2a8a798fee3a074a24afa47b9d9f113bc75bb44d4612ac0",
-      "file": "client/src/pages/ProjectRoadmap.css",
-      "context": [],
-      "owner": ".today-line::before",
-      "property": "background",
-      "literal": "rgba(220, 38, 38, 0.1)",
-      "locations": [
-        {
-          "line": 1624,
-          "column": 5
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "84bde4304d50f065be27a2b6fcc6291c0cd88a31313597fcc5e990dc87d92c95",
-      "file": "client/src/pages/ProjectRoadmap.css",
-      "context": [],
-      "owner": ".today-line",
-      "property": "box-shadow",
-      "literal": "rgba(220, 38, 38, 0.5)",
-      "locations": [
-        {
-          "line": 1611,
-          "column": 23
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "865340177860f479a4f383af20c513e52d2481379919a512e0adb8809bee628f",
-      "file": "client/src/pages/ProjectRoadmap.css",
-      "context": [],
-      "owner": ".status-completed, .status-done",
-      "property": "background",
-      "literal": "#e5e7eb",
-      "locations": [
-        {
-          "line": 916,
-          "column": 39
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "8715ae3e774f1fd941ddf47ab3f46705712de24d40015a9feec57337f027309d",
-      "file": "client/src/pages/ProjectRoadmap.css",
-      "context": [],
-      "owner": ".today-line::before",
-      "property": "background",
-      "literal": "rgba(220, 38, 38, 0.2)",
-      "locations": [
-        {
-          "line": 1623,
-          "column": 5
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "8f52d0c86d629f61d49597f0c86e836d98ac5ce28a3dfccb912a50bdb7647fb6",
-      "file": "client/src/pages/ProjectRoadmap.css",
-      "context": [],
-      "owner": ".resize-handle:hover, .phase-bar:hover .resize-handle",
-      "property": "background",
-      "literal": "rgba(255, 255, 255, 0.9)",
-      "locations": [
-        {
-          "line": 1012,
-          "column": 66
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "91bf38a3f4a0931c0cc88aaa3df1edfcf278ed23e7a643c7eb99bb8f504474ce",
-      "file": "client/src/pages/ProjectRoadmap.css",
-      "context": [],
-      "owner": ".phase-bar:hover",
-      "property": "border-color",
-      "literal": "rgba(255, 255, 255, 0.4)",
-      "locations": [
-        {
-          "line": 987,
-          "column": 17
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "9552e5e7deefb5a2e6ffa16c67c292e54cf89eee1ebe40fb5e6111e4489fb481",
-      "file": "client/src/pages/ProjectRoadmap.css",
-      "context": [],
-      "owner": ".phase-bar.dragging",
-      "property": "border-color",
-      "literal": "rgba(255, 255, 255, 0.5)",
-      "locations": [
-        {
-          "line": 994,
-          "column": 17
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "97062de79b7b5b1a548bdb7297a5c2f80ab291374418461f4e6324e15003d385",
-      "file": "client/src/pages/ProjectRoadmap.css",
-      "context": [],
-      "owner": ".status-active, .status-in_progress",
-      "property": "color",
-      "literal": "#166534",
-      "locations": [
-        {
-          "line": 903,
-          "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "9b72fd5d0beac3d33ca9af102d12a26a4631d7f64a499934eabeabe764e02b11",
-      "file": "client/src/pages/ProjectRoadmap.css",
-      "context": [],
-      "owner": "[data-theme='dark'] .project-name-link:hover, .dark .project-name-link:hover, [data-theme='dark'] .project-name-link:focus, .dark .project-name-link:focus",
-      "property": "color",
-      "literal": "#93c5fd",
-      "locations": [
-        {
-          "line": 1455,
-          "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "9cb499726f492f592f71ab45ac6d989184c6d3875a5bc54cdd1435ebc62932e0",
-      "file": "client/src/pages/ProjectRoadmap.css",
-      "context": [],
-      "owner": ".timeline-nav-side",
-      "property": "background",
-      "literal": "rgba(37, 99, 235, 0.05)",
-      "locations": [
-        {
-          "line": 439,
-          "column": 39
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "9ec07bf92d8bed46eb515b78d8245707dda11aabb6b90d146c88bb33fef765a7",
-      "file": "client/src/pages/ProjectRoadmap.css",
-      "context": [],
-      "owner": ".nav-side-content",
-      "property": "color",
-      "literal": "#2563eb",
-      "locations": [
-        {
-          "line": 479,
-          "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "a44988339f5868ba7a08e0669bbccf329c05d87b09d5fd1ca4d27b2a296b13f6",
-      "file": "client/src/pages/ProjectRoadmap.css",
-      "context": [],
-      "owner": ".project-name-link:focus",
-      "property": "color",
-      "literal": "#1d4ed8",
-      "locations": [
-        {
-          "line": 1461,
-          "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "a61d1f9233d2388d5dd2dc8dd7787e5f41a7480f48667fed41867c9ef2b66190",
-      "file": "client/src/pages/ProjectRoadmap.css",
-      "context": [],
-      "owner": ".priority-high",
-      "property": "color",
-      "literal": "#dc2626",
-      "locations": [
-        {
-          "line": 845,
-          "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "acda89134c00aa022a7fc45e57341b430558f2c2c3048f6a56f434bb029c1bda",
-      "file": "client/src/pages/ProjectRoadmap.css",
-      "context": [],
-      "owner": ".status-planned, .status-pending",
-      "property": "color",
-      "literal": "#92400e",
-      "locations": [
-        {
-          "line": 910,
-          "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "af016da9d21c6de8f202858907fae8c3ab8fa77987069a56268dec525285600c",
-      "file": "client/src/pages/ProjectRoadmap.css",
-      "context": [],
-      "owner": ".resize-handle",
-      "property": "background",
-      "literal": "rgba(255, 255, 255, 0.9)",
-      "locations": [
-        {
-          "line": 1005,
-          "column": 42
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "b00dea2086c05e92dad8eb4524af96ed0f28bda02595dfb85cf62d31cbb8a7c2",
-      "file": "client/src/pages/ProjectRoadmap.css",
-      "context": [],
-      "owner": ".status-on_hold, .status-paused",
-      "property": "color",
-      "literal": "#dc2626",
-      "locations": [
-        {
-          "line": 924,
-          "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "b44b745513ae120beff4c8dcd52c1dafd8894cb9715e7b6bc7f49b2ce40c294f",
-      "file": "client/src/pages/ProjectRoadmap.css",
-      "context": [],
-      "owner": ".today-line:hover",
-      "property": "box-shadow",
-      "literal": "rgba(220, 38, 38, 0.7)",
-      "locations": [
-        {
-          "line": 1663,
-          "column": 24
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "b660e3a0237066dac0bb7dd6c883c2d50f4a36809a1aad8f9087ba0d71027ec3",
-      "file": "client/src/pages/ProjectRoadmap.css",
-      "context": [],
-      "owner": ".timeline-nav-side:hover",
-      "property": "box-shadow",
-      "literal": "rgba(37, 99, 235, 0.15)",
-      "locations": [
-        {
-          "line": 455,
-          "column": 26
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "b681ab6a0dcca322f8ceeb237b0afeecb94be67624e33459da9e1049d7a14724",
-      "file": "client/src/pages/ProjectRoadmap.css",
-      "context": [],
-      "owner": ".resize-handle:hover, .phase-bar:hover .resize-handle",
-      "property": "box-shadow",
-      "literal": "rgba(0, 0, 0, 0.2)",
-      "locations": [
-        {
-          "line": 1013,
-          "column": 25
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "b9130bddd0c2f82f0393ceab49ec6dc1d5d8e25b02f1f5934e98015f87d8f0b8",
-      "file": "client/src/pages/ProjectRoadmap.css",
-      "context": [],
-      "owner": ".project-name-link:focus",
-      "property": "background",
-      "literal": "#eff6ff",
-      "locations": [
-        {
-          "line": 1462,
-          "column": 15
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "ba5566957b563aadf4912845b8564c84e38f6198b94f032b296242d94fbadab0",
-      "file": "client/src/pages/ProjectRoadmap.css",
-      "context": [],
-      "owner": ".priority-high",
-      "property": "border",
-      "literal": "#dc262620",
-      "locations": [
-        {
-          "line": 846,
-          "column": 21
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "bb6f963b4adcdcf389f3bc0d2ed738fa2f604b2ff9a9e9a091e26eab52dd2b74",
-      "file": "client/src/pages/ProjectRoadmap.css",
-      "context": [],
-      "owner": ".today-line:hover .today-line-indicator",
-      "property": "background",
-      "literal": "#b91c1c",
-      "locations": [
-        {
-          "line": 1667,
-          "column": 15
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "bc0dc860a62fb3def106e7f7ee4c016a59c7f6256a012c621b760f4ce2ae51bf",
-      "file": "client/src/pages/ProjectRoadmap.css",
-      "context": [],
-      "owner": ".project-name-link:focus",
-      "property": "box-shadow",
-      "literal": "rgba(37, 99, 235, 0.2)",
-      "locations": [
-        {
-          "line": 1466,
-          "column": 25
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
       "evidence": []
     },
     {
@@ -22437,258 +20410,6 @@
       "evidence": []
     },
     {
-      "fingerprint": "bfa6b57742f2fc32516e42390fb948e3b4775404b7def738bbc1f2e64be07be9",
-      "file": "client/src/pages/ProjectRoadmap.css",
-      "context": [],
-      "owner": ".form-group input:focus",
-      "property": "box-shadow",
-      "literal": "rgba(59, 130, 246, 0.1)",
-      "locations": [
-        {
-          "line": 1140,
-          "column": 25
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "c15f23760a61a28a81e3e6c089e2a5453cf4ef08b50a845d4e6826bca80cd32b",
-      "file": "client/src/pages/ProjectRoadmap.css",
-      "context": [],
-      "owner": ".status-on_hold, .status-paused",
-      "property": "background",
-      "literal": "#fee2e2",
-      "locations": [
-        {
-          "line": 923,
-          "column": 48
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "c66c2a231bbc8dc5b992da5d1031057b6f6dce7873fb09d1ce42c915adc29618",
-      "file": "client/src/pages/ProjectRoadmap.css",
-      "context": [],
-      "owner": ".phase-bar.dragging",
-      "property": "box-shadow",
-      "literal": "rgba(0, 0, 0, 0.25)",
-      "locations": [
-        {
-          "line": 991,
-          "column": 26
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "c8a55dbffff233ce1ce7b011c4288195af885f56913433615263fc46f2f29f15",
-      "file": "client/src/pages/ProjectRoadmap.css",
-      "context": [],
-      "owner": "[data-theme='dark'] .today-btn",
-      "property": "background",
-      "literal": "#4f46e5",
-      "locations": [
-        {
-          "line": 182,
-          "column": 36
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "c8eb3f75699b328220fb6b4dd9ffbfefd3ea318aa68024545917aadeab96abbb",
-      "file": "client/src/pages/ProjectRoadmap.css",
-      "context": [],
-      "owner": ".project-name-link:hover",
-      "property": "color",
-      "literal": "#1d4ed8",
-      "locations": [
-        {
-          "line": 1445,
-          "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "cded051549b73895bae768d9538ff36d6684a693d46c52e4c6cf5b02b8565ae2",
-      "file": "client/src/pages/ProjectRoadmap.css",
-      "context": [],
-      "owner": ".phase-bar:hover",
-      "property": "box-shadow",
-      "literal": "rgba(255, 255, 255, 0.3)",
-      "locations": [
-        {
-          "line": 984,
-          "column": 55
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "d294c9c9f055ceaee43ce517673ca27ecf4dd1a352977efc5c2f4d999076b78e",
-      "file": "client/src/pages/ProjectRoadmap.css",
-      "context": [],
-      "owner": ".timeline-nav-side:active",
-      "property": "box-shadow",
-      "literal": "rgba(37, 99, 235, 0.2)",
-      "locations": [
-        {
-          "line": 494,
-          "column": 25
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "d4facd759cbf15b91e708d72d3c2914cebc51bebe5aa5e19c32b19ff1c43f582",
-      "file": "client/src/pages/ProjectRoadmap.css",
-      "context": [],
-      "owner": ".project-info",
-      "property": "box-shadow",
-      "literal": "rgba(0, 0, 0, 0.05)",
-      "locations": [
-        {
-          "line": 670,
-          "column": 25
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "dbdd2c6c895e70f66bf10e4c403bfb54a2d432f5d3b190df4bc1c0648656c5a2",
-      "file": "client/src/pages/ProjectRoadmap.css",
-      "context": [],
-      "owner": ".status-on_hold, .status-paused",
-      "property": "background",
-      "literal": "#fef2f2",
-      "locations": [
-        {
-          "line": 923,
-          "column": 39
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "dec59f8d47f297f995d5207e5c30ebe44a1bb571f956c4043586f1e104b7a7c8",
-      "file": "client/src/pages/ProjectRoadmap.css",
-      "context": [],
-      "owner": ".status-planned, .status-pending",
-      "property": "background",
-      "literal": "#fef3c7",
-      "locations": [
-        {
-          "line": 909,
-          "column": 39
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "e156904ddf11641a9023e5b39a23282f17dd479e52636ee41a3688c6f03a463b",
-      "file": "client/src/pages/ProjectRoadmap.css",
-      "context": [],
-      "owner": ".timeline-nav-side:hover",
-      "property": "background",
-      "literal": "rgba(37, 99, 235, 0.1)",
-      "locations": [
-        {
-          "line": 453,
-          "column": 39
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "eff923b55bff0cdb956a8c6a1bc80f2c3b8afd841419d91cc11c7ed70c29dee2",
-      "file": "client/src/pages/ProjectRoadmap.css",
-      "context": [],
-      "owner": ".phase-bar",
-      "property": "border",
-      "literal": "rgba(255, 255, 255, 0.3)",
-      "locations": [
-        {
-          "line": 974,
-          "column": 21
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
       "fingerprint": "f1d01ec28064a1fe575c6c89fa71e2680565a330d9677c44ec2aee360f0db241",
       "file": "client/src/pages/ProjectRoadmap.css",
       "context": [],
@@ -22707,441 +20428,6 @@
       "decision": "not-debt",
       "semanticRole": null,
       "reason": "CSS custom-property definition; render validation is separate.",
-      "evidence": []
-    },
-    {
-      "fingerprint": "f2044458219faa41ac1b3bd48fad0034bec16948c658d7d36c5bd7ed231886e6",
-      "file": "client/src/pages/ProjectRoadmap.css",
-      "context": [],
-      "owner": ".status-completed, .status-done",
-      "property": "border",
-      "literal": "#9ca3af",
-      "locations": [
-        {
-          "line": 918,
-          "column": 21
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "f6aa49a520c60a4c933329c0daa86ff99886281483c2f2ba82340d234394f174",
-      "file": "client/src/pages/ProjectRoadmap.css",
-      "context": [],
-      "owner": ".status-completed, .status-done",
-      "property": "background",
-      "literal": "#d1d5db",
-      "locations": [
-        {
-          "line": 916,
-          "column": 48
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "fa73e045a05fe757faae242806481146f80f67c10fa52cada115db742675c691",
-      "file": "client/src/pages/ProjectRoadmap.css",
-      "context": [],
-      "owner": "[data-theme='dark'] .project-name-link:hover, .dark .project-name-link:hover, [data-theme='dark'] .project-name-link:focus, .dark .project-name-link:focus",
-      "property": "background",
-      "literal": "rgba(96, 165, 250, 0.18)",
-      "locations": [
-        {
-          "line": 1456,
-          "column": 15
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "fbbfd7621f4821f4b5d3c5758882293b3fd746b99a6a4efde9b1457ccdf28a81",
-      "file": "client/src/pages/ProjectRoadmap.css",
-      "context": [],
-      "owner": ".nav-btn:hover",
-      "property": "box-shadow",
-      "literal": "rgba(0, 0, 0, 0.1)",
-      "locations": [
-        {
-          "line": 106,
-          "column": 25
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "0efea52ee8ff1b20866afe3fa24a60b8e645ef4c8340f165098aa3f8179a9a17",
-      "file": "client/src/pages/ProjectRoadmap.tsx",
-      "context": [
-        "PHASE_COLORS"
-      ],
-      "owner": "'hypercare'",
-      "property": "'hypercare'",
-      "literal": "#06b6d4",
-      "locations": [
-        {
-          "line": 39,
-          "column": 17
-        }
-      ],
-      "count": 1,
-      "kind": "unknown",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "155a1185fa7b769aad07d0df4d2759cdd744e787b3c40b3754095dfa56940906",
-      "file": "client/src/pages/ProjectRoadmap.tsx",
-      "context": [
-        "ProjectRoadmap",
-        "jsx:style"
-      ],
-      "owner": "backgroundColor",
-      "property": "backgroundColor",
-      "literal": "#ef4444",
-      "locations": [
-        {
-          "line": 900,
-          "column": 37
-        }
-      ],
-      "count": 1,
-      "kind": "unknown",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "193c0598d27fab34f076d328e5ce1c4f2b27bc9b5d75083e04e7642e76297508",
-      "file": "client/src/pages/ProjectRoadmap.tsx",
-      "context": [
-        "PHASE_COLORS"
-      ],
-      "owner": "'business planning'",
-      "property": "'business planning'",
-      "literal": "#3b82f6",
-      "locations": [
-        {
-          "line": 33,
-          "column": 25
-        }
-      ],
-      "count": 1,
-      "kind": "unknown",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "1b9b51c1f9f9fe35bcfeabed6357cf32f825ae2a956bad3c20142550297ef6fe",
-      "file": "client/src/pages/ProjectRoadmap.tsx",
-      "context": [
-        "ProjectRoadmap",
-        "jsx:style"
-      ],
-      "owner": "backgroundColor",
-      "property": "backgroundColor",
-      "literal": "#eff6ff",
-      "locations": [
-        {
-          "line": 1020,
-          "column": 123
-        }
-      ],
-      "count": 1,
-      "kind": "unknown",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "500a5e20de04cc76ca0ef2ed583fc12292e38589a7a1d5a418355569c22274a8",
-      "file": "client/src/pages/ProjectRoadmap.tsx",
-      "context": [
-        "PHASE_COLORS"
-      ],
-      "owner": "'system integration testing'",
-      "property": "'system integration testing'",
-      "literal": "#f59e0b",
-      "locations": [
-        {
-          "line": 35,
-          "column": 34
-        }
-      ],
-      "count": 1,
-      "kind": "unknown",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "60b60bc9469de132ad652d573b62c5368af76b5b2caf691cd07b35b1c05689a0",
-      "file": "client/src/pages/ProjectRoadmap.tsx",
-      "context": [
-        "PHASE_COLORS"
-      ],
-      "owner": "'cutover'",
-      "property": "'cutover'",
-      "literal": "#ef4444",
-      "locations": [
-        {
-          "line": 38,
-          "column": 15
-        }
-      ],
-      "count": 1,
-      "kind": "unknown",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "69ae759120fe7f4930e0342411d99e2507b6f5cf98d4b3b6dd72714bfeec6e9b",
-      "file": "client/src/pages/ProjectRoadmap.tsx",
-      "context": [
-        "PHASE_COLORS"
-      ],
-      "owner": "'support'",
-      "property": "'support'",
-      "literal": "#84cc16",
-      "locations": [
-        {
-          "line": 40,
-          "column": 15
-        }
-      ],
-      "count": 1,
-      "kind": "unknown",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "796a81d6ff09b41cd07126e2db769e8d269d619dfa2d05e4150d6e7f1836ed4a",
-      "file": "client/src/pages/ProjectRoadmap.tsx",
-      "context": [
-        "PHASE_COLORS"
-      ],
-      "owner": "'development'",
-      "property": "'development'",
-      "literal": "#10b981",
-      "locations": [
-        {
-          "line": 34,
-          "column": 19
-        }
-      ],
-      "count": 1,
-      "kind": "unknown",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "7a4aab87ce8036f77172242e85157a75f73f0de55953940c8276c75fa0723a48",
-      "file": "client/src/pages/ProjectRoadmap.tsx",
-      "context": [
-        "ProjectRoadmap",
-        "jsx:style"
-      ],
-      "owner": "color",
-      "property": "color",
-      "literal": "white",
-      "locations": [
-        {
-          "line": 918,
-          "column": 27
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "93c8a066c3680de3030fa97b4512c8a949095c633d038f612a6b2b3070a3c3d3",
-      "file": "client/src/pages/ProjectRoadmap.tsx",
-      "context": [
-        "ProjectRoadmap",
-        "jsx:style"
-      ],
-      "owner": "backgroundColor",
-      "property": "backgroundColor",
-      "literal": "#b91c1c",
-      "locations": [
-        {
-          "line": 917,
-          "column": 37
-        }
-      ],
-      "count": 1,
-      "kind": "unknown",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "ad04ffde85067e490faca57312e694fd488c7b6699f948fded9df411eb60f97b",
-      "file": "client/src/pages/ProjectRoadmap.tsx",
-      "context": [
-        "PHASE_COLORS"
-      ],
-      "owner": "'user acceptance testing'",
-      "property": "'user acceptance testing'",
-      "literal": "#8b5cf6",
-      "locations": [
-        {
-          "line": 36,
-          "column": 31
-        }
-      ],
-      "count": 1,
-      "kind": "unknown",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "d6fccb8b16e7851b27d23ce4eafa2a29614ffddd102ea945e9dd3fc9378f9837",
-      "file": "client/src/pages/ProjectRoadmap.tsx",
-      "context": [
-        "ProjectRoadmap",
-        "jsx:style"
-      ],
-      "owner": "borderLeft",
-      "property": "borderLeft",
-      "literal": "#1d4ed8",
-      "locations": [
-        {
-          "line": 1022,
-          "column": 91
-        }
-      ],
-      "count": 1,
-      "kind": "unknown",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "d7d02994b99f84e76bece297c9993d3024f37ad3c0edfc590016076b3c47585e",
-      "file": "client/src/pages/ProjectRoadmap.tsx",
-      "context": [
-        "PHASE_COLORS"
-      ],
-      "owner": "'validation'",
-      "property": "'validation'",
-      "literal": "#ec4899",
-      "locations": [
-        {
-          "line": 37,
-          "column": 18
-        }
-      ],
-      "count": 1,
-      "kind": "unknown",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "dd478b11f718953a26b3e3773285d3aa8b4ca6b43eef99f7d067906b6ff5f4b2",
-      "file": "client/src/pages/ProjectRoadmap.tsx",
-      "context": [
-        "ProjectRoadmap",
-        "jsx:style"
-      ],
-      "owner": "color",
-      "property": "color",
-      "literal": "#1d4ed8",
-      "locations": [
-        {
-          "line": 1021,
-          "column": 73
-        }
-      ],
-      "count": 1,
-      "kind": "unknown",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "f08502a2f567a5f5fade730a495ce47ed0d2544840059580bcc467ed41a24a77",
-      "file": "client/src/pages/ProjectRoadmap.tsx",
-      "context": [
-        "PHASE_COLORS"
-      ],
-      "owner": "'custom'",
-      "property": "'custom'",
-      "literal": "#6b7280",
-      "locations": [
-        {
-          "line": 41,
-          "column": 14
-        }
-      ],
-      "count": 1,
-      "kind": "unknown",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
       "evidence": []
     },
     {
@@ -30255,26 +27541,1455 @@
       "resolution": "delete",
       "reason": "TC-C1: resize edge inherits the tested item foreground (currentColor)",
       "baselineHead": "5996da0"
+    },
+    {
+      "fingerprint": "0b81ba42a543b85ffab11c4bcb96323409b9976efc35068e1e022bde25049679",
+      "file": "client/src/components/interactive-timeline/TimelineItemTooltip.tsx",
+      "literal": "rgba(255, 255, 255, 0.2)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--timeline-tooltip-text"
+    },
+    {
+      "fingerprint": "200f050c5e5646c4a78bf4afde6cb9380abaa1b3d92af263d15d8aeeda983cf6",
+      "file": "client/src/components/interactive-timeline/TimelineItemTooltip.tsx",
+      "literal": "#ffffff",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--timeline-tooltip-text"
+    },
+    {
+      "fingerprint": "238bf579c523613087839a7fbf006349bda4d07f07ff7f99bf77ac2d5cb4d4c9",
+      "file": "client/src/components/interactive-timeline/TimelineItemTooltip.tsx",
+      "literal": "rgba(0, 0, 0, 0.92)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--timeline-tooltip-bg"
+    },
+    {
+      "fingerprint": "42b85aaa04119b42884e95532d128e32deb1a101ea4b076f2d4534beb2256aa4",
+      "file": "client/src/components/interactive-timeline/TimelineItemTooltip.tsx",
+      "literal": "rgba(255, 255, 255, 0.1)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--timeline-tooltip-text"
+    },
+    {
+      "fingerprint": "5d7e39f277d8395fb9ef9a38d349febfdfafcdf0ecd26980a6cc1a56e7e48846",
+      "file": "client/src/components/interactive-timeline/TimelineItemTooltip.tsx",
+      "literal": "white",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--timeline-tooltip-text"
+    },
+    {
+      "fingerprint": "5d8aa65e1aa7bc53537fcf1511391c2a9eaa60853b650abddc482a1e3b06a843",
+      "file": "client/src/components/interactive-timeline/TimelineItemTooltip.tsx",
+      "literal": "rgba(255, 255, 255, 0.1)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--timeline-tooltip-text"
+    },
+    {
+      "fingerprint": "892e38113c8d36692561d240b70336320dc0dd41bf1f67997e1fc6da37f4af30",
+      "file": "client/src/components/interactive-timeline/TimelineItemTooltip.tsx",
+      "literal": "rgba(0, 0, 0, 0.4)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--solid-shade"
+    },
+    {
+      "fingerprint": "07b0a9d76992b1b47f0198e86ebb1ea9d33d324c6a176d6d874b88f52a56103e",
+      "file": "client/src/components/interactive-timeline/utils.ts",
+      "literal": "#6b7280",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--dependency-unknown"
+    },
+    {
+      "fingerprint": "2c8cbcc8add318aa4648398b2e9753dc98f59355759e26a6ac7b1a933321ba69",
+      "file": "client/src/components/interactive-timeline/utils.ts",
+      "literal": "#10b981",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--dependency-start-start"
+    },
+    {
+      "fingerprint": "3f48e3b18cd2f2aac18d8bb469565adf2b0a383cb8ac94b69461332a2646103a",
+      "file": "client/src/components/interactive-timeline/utils.ts",
+      "literal": "#3b82f6",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--dependency-finish-start"
+    },
+    {
+      "fingerprint": "7b0c374c9618fbd773380f92977833e6523b6d159d96fec3237c00dfaa3a5b7f",
+      "file": "client/src/components/interactive-timeline/utils.ts",
+      "literal": "#8b5cf6",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--dependency-start-finish"
+    },
+    {
+      "fingerprint": "87a3902aa02a97e40de362ac5416030fe3393a4f12b0c409fcbd26f6e1b4d4fb",
+      "file": "client/src/components/interactive-timeline/utils.ts",
+      "literal": "#f59e0b",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--dependency-finish-finish"
+    },
+    {
+      "fingerprint": "163d9394f27ccca4503dfd147a284e0aaeadf1f9055418cbc42418a69036b94b",
+      "file": "client/src/components/InteractiveTimeline.css",
+      "literal": "black",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--solid-shade"
+    },
+    {
+      "fingerprint": "243d5b260a54fc3e03eddd1956cce30db90c9900d7ef7e66015f4f565988638a",
+      "file": "client/src/components/InteractiveTimeline.css",
+      "literal": "rgba(255, 255, 255, 0.5)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--solid-foreground"
+    },
+    {
+      "fingerprint": "3421a52786fee8901ddcad57e07d3a922c1f97a904dd1dfebaa93b0248fa228a",
+      "file": "client/src/components/InteractiveTimeline.css",
+      "literal": "rgba(0, 0, 0, 0.1)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--solid-shade"
+    },
+    {
+      "fingerprint": "3b4db52ab6d635463680913a94121ca98224c8751459200295e8860af2cab31b",
+      "file": "client/src/components/InteractiveTimeline.css",
+      "literal": "rgba(59, 130, 246, 0.15)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--primary"
+    },
+    {
+      "fingerprint": "463691313b81edc1a4c9ddf349332a1abd78033cbfffb6bb18a997ad271733ac",
+      "file": "client/src/components/InteractiveTimeline.css",
+      "literal": "rgba(0, 0, 0, 0.25)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--solid-shade"
+    },
+    {
+      "fingerprint": "51004f3dfa68dcdcdfc7e925691b86d07300fdd4dbef890142960eee952fe6be",
+      "file": "client/src/components/InteractiveTimeline.css",
+      "literal": "rgba(0, 0, 0, 0.9)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--solid-shade"
+    },
+    {
+      "fingerprint": "54a211f3ec011cc9bac150ab665e771074183309e74cc0f3bd172b758c3d22e7",
+      "file": "client/src/components/InteractiveTimeline.css",
+      "literal": "black",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--solid-shade"
+    },
+    {
+      "fingerprint": "5f2c4e30d9b0c93fff8378660e1164159466cb62b65fb8e8d7517c45b48dd14b",
+      "file": "client/src/components/InteractiveTimeline.css",
+      "literal": "rgba(0, 0, 0, 0.5)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--solid-shade"
+    },
+    {
+      "fingerprint": "6a509bc17f440082d31b812306cd50dcc650305daad0c459f16a001d619341d7",
+      "file": "client/src/components/InteractiveTimeline.css",
+      "literal": "rgba(0, 0, 0, 0.1)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--solid-shade"
+    },
+    {
+      "fingerprint": "7d0b0201046d9a55e15b14df32e5dc9c81224da8095894bfb700ca5b03f14952",
+      "file": "client/src/components/InteractiveTimeline.css",
+      "literal": "rgba(59, 130, 246, 0.1)",
+      "count": 3,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--primary"
+    },
+    {
+      "fingerprint": "7dd10276c074444c6c0b8388b1d2f4fd2efb13b7386320ec5b7dc4217ccc073c",
+      "file": "client/src/components/InteractiveTimeline.css",
+      "literal": "rgba(255, 255, 255, 0.3)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--solid-foreground"
+    },
+    {
+      "fingerprint": "856d9c57dd074b4d320fa236e332afbf26494c08f2ff958e9367882f68fb00d6",
+      "file": "client/src/components/InteractiveTimeline.css",
+      "literal": "rgba(0, 0, 0, 0.15)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--solid-shade"
+    },
+    {
+      "fingerprint": "a54358c04c478943e78d3076b9d7f8eb828bce73a960bdd8da60f5028f01aa24",
+      "file": "client/src/components/InteractiveTimeline.css",
+      "literal": "rgba(0, 0, 0, 0.05)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--solid-shade"
+    },
+    {
+      "fingerprint": "b6f6d761fc0897d6024fa38ce4b7666e7072fa46eca896d578e89ed9dea35923",
+      "file": "client/src/components/InteractiveTimeline.css",
+      "literal": "rgba(0, 0, 0, 0.25)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--solid-shade"
+    },
+    {
+      "fingerprint": "bda825bef496d700b81cc497b8bd0aa769a4433f4446263f7c0f4566539ff09a",
+      "file": "client/src/components/InteractiveTimeline.css",
+      "literal": "rgba(0, 0, 0, 0.05)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--solid-shade"
+    },
+    {
+      "fingerprint": "c5658564bf064795a7a206d22c104fca57b24a8746e34f36cbe77d10364504f7",
+      "file": "client/src/components/InteractiveTimeline.css",
+      "literal": "rgba(0, 0, 0, 0.05)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--solid-shade"
+    },
+    {
+      "fingerprint": "c86090505998bbd0ac70e9482863c61d4cbb14b6240e6c0e051a619530a9fb1f",
+      "file": "client/src/components/InteractiveTimeline.css",
+      "literal": "white",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--solid-foreground"
+    },
+    {
+      "fingerprint": "d95df492f9ac5c8a51e6f8718f58697acf1e2a1e17c21f9bcd071e8979994360",
+      "file": "client/src/components/InteractiveTimeline.css",
+      "literal": "white",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--solid-foreground"
+    },
+    {
+      "fingerprint": "e9345b674395e4164031df4f14152637cee77f2cb573b75aed7f88911050d90e",
+      "file": "client/src/components/InteractiveTimeline.css",
+      "literal": "rgba(0, 0, 0, 0.9)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--solid-shade"
+    },
+    {
+      "fingerprint": "ece353e63e914ede446e00b60ea73495e270b3fe1d01f56f48b3befacce36ea2",
+      "file": "client/src/components/InteractiveTimeline.css",
+      "literal": "rgba(0, 0, 0, 0.25)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--solid-shade"
+    },
+    {
+      "fingerprint": "f9097248580adc3fcbef83908db2dd4b82b76ba2c410d03a94d6a78f1426b385",
+      "file": "client/src/components/InteractiveTimeline.css",
+      "literal": "rgba(59, 130, 246, 0.2)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--primary"
+    },
+    {
+      "fingerprint": "fc6b99b7d929a7bf1030edd19d15645b8bf794f9491798eb03053295a6c10c86",
+      "file": "client/src/components/InteractiveTimeline.css",
+      "literal": "black",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--solid-shade"
+    },
+    {
+      "fingerprint": "1970a25ad1964d24dc7f9e66a2ec308efd8737d95c658fc5095bb880af0fab51",
+      "file": "client/src/components/InteractiveTimeline.tsx",
+      "literal": "rgba(0,0,0,0.2)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--solid-shade"
+    },
+    {
+      "fingerprint": "2317349755d74c439dbec0b06c7696706a2eea108fdb4478d8a458d58ea21184",
+      "file": "client/src/components/InteractiveTimeline.tsx",
+      "literal": "#3b82f6",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--primary"
+    },
+    {
+      "fingerprint": "5c4958aaaa568b15e3f6a3811695b8e7d088c90fe76db176920ae69c183585e6",
+      "file": "client/src/components/InteractiveTimeline.tsx",
+      "literal": "rgba(0,0,0,0.15)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--solid-shade"
+    },
+    {
+      "fingerprint": "6ade81acee84079f02d34608dd35f3e1602e330401a9aca0117ed472bd08495b",
+      "file": "client/src/components/InteractiveTimeline.tsx",
+      "literal": "rgba(0,0,0,0.1)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--solid-shade"
+    },
+    {
+      "fingerprint": "726683630fad582a086e2cb75dc87f3e8e1e40c229e6740600698016caf02681",
+      "file": "client/src/components/InteractiveTimeline.tsx",
+      "literal": "rgba(0,0,0,0.1)",
+      "count": 1,
+      "resolution": "delete",
+      "reason": "TC-C2: replace faint data boundaries with the tested contrasting data foreground (currentColor)",
+      "baselineHead": "9c7905f"
+    },
+    {
+      "fingerprint": "7c236ba90a62b8c560ae87fcc4355ff0037d9ea44a32fc32e80bbb7005e24c87",
+      "file": "client/src/components/InteractiveTimeline.tsx",
+      "literal": "rgba(59, 130, 246, 0.2)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--primary"
+    },
+    {
+      "fingerprint": "f5188893862927ae1eeb8f56cf3e76da9fe9a6af65f364d9398fd8e62b8db851",
+      "file": "client/src/components/InteractiveTimeline.tsx",
+      "literal": "rgba(0,0,0,0.3)",
+      "count": 1,
+      "resolution": "delete",
+      "reason": "TC-C2: replace faint data boundaries with the tested contrasting data foreground (currentColor)",
+      "baselineHead": "9c7905f"
+    },
+    {
+      "fingerprint": "88687c4582c664ea4a7b09b1706c39a3aff547882b3847b4c1c0a7b173a0b878",
+      "file": "client/src/components/phase-manager/PhaseContextMenu.tsx",
+      "literal": "rgba(0, 0, 0, 0.25)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--solid-shade"
+    },
+    {
+      "fingerprint": "805ada12c11685ced750c18b999db82e3b95a018d6c6fb9f50b13e294449c9ea",
+      "file": "client/src/components/VisualPhaseManager.tsx",
+      "literal": "rgba(0, 0, 0, 0.1)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--solid-shade"
+    },
+    {
+      "fingerprint": "9e959ccd79a190b2e725ec60e3b850793932c70e8135410e78c78689a1092a4f",
+      "file": "client/src/components/VisualPhaseManager.tsx",
+      "literal": "#ffffff",
+      "count": 3,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--solid-foreground"
+    },
+    {
+      "fingerprint": "b089d2e50121faca8b85e1710e89bcb340fd87ec7b32188e91eb64757e1faf9e",
+      "file": "client/src/components/VisualPhaseManager.tsx",
+      "literal": "rgba(0, 0, 0, 0.05)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--solid-shade"
+    },
+    {
+      "fingerprint": "008586af963f8a0691bd0bd325fafb643bfd49ebe8a228750d275fa9532c4ca7",
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "literal": "white",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--solid-foreground"
+    },
+    {
+      "fingerprint": "02d62b512fe0bfc3d2a575b99263c776da8b484fa419f7df26c422552966d68d",
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "literal": "white",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--solid-foreground"
+    },
+    {
+      "fingerprint": "04f30408b736a118aeffad84d8b34ec4116f3a5fce72e689790bbe59997fc616",
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "literal": "#16a34a20",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--status-success-border"
+    },
+    {
+      "fingerprint": "064c6802ec342b839d780c1e238493b9c9c3027cd6fde14e556b2412248c796d",
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "literal": "rgba(220, 38, 38, 0.3)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--status-danger-border"
+    },
+    {
+      "fingerprint": "0699945be2ceed1d4019f311a2aaf0ef2e8e946ef0b5356249772bc5ffcf879f",
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "literal": "rgba(37, 99, 235, 0.05)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--status-info-border"
+    },
+    {
+      "fingerprint": "096e1967968b3d15b38d0ba72a5dcf6382421d51282bc63a700af4c29d59f49a",
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "literal": "rgba(255, 255, 255, 0.7)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--solid-foreground"
+    },
+    {
+      "fingerprint": "09a2e759b09632c48b75ba0b4e03e50b4e768e1da26b8403b5700e6c2bd338e0",
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "literal": "rgba(37, 99, 235, 0.1)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--status-info-border"
+    },
+    {
+      "fingerprint": "0a380c7c977a545c080335f7199433b7df35ab74338d5d5cedb170a3bcea2d93",
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "literal": "rgba(37, 99, 235, 0.02)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--status-info-border"
+    },
+    {
+      "fingerprint": "0ab6d0aabd6db8ad2483040362741da01e9b4a9e4cec28fa2fcd7af2208e33cb",
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "literal": "#16a34a",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--status-success-text"
+    },
+    {
+      "fingerprint": "0bc8362c7c62e2af459e927eb5b9aa9de9f8c30e717d6eba961b38c34cc65ae8",
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "literal": "rgba(0, 0, 0, 0.05)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--solid-shade"
+    },
+    {
+      "fingerprint": "1365eec39f01c0afa5afce2e0f3f158e6d76f3dd11d233f4b4194dda299f45bf",
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "literal": "#374151",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--text-secondary"
+    },
+    {
+      "fingerprint": "1567570db10dbfb27b3e89166bc4d77a32fb43caaef547761958cfb4d5fb4ed7",
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "literal": "#4f46e5",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--primary-solid"
+    },
+    {
+      "fingerprint": "18b31ed113c3f52fb5fbdae5e015628aabeb225650fb56ef0d92fea831c8112f",
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "literal": "rgba(0, 0, 0, 0.1)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--solid-shade"
+    },
+    {
+      "fingerprint": "18c09a811ecde1fa7ad4651183a6187d6b8ecaa1115d51125324b2ec0cdd0b0b",
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "literal": "#86efac",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--status-success-border"
+    },
+    {
+      "fingerprint": "1cc0686008fa6a5be1975de91445650d784c8495888a22aa10cb42faa8f83460",
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "literal": "#dcfce7",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--status-success-soft"
+    },
+    {
+      "fingerprint": "1ee6bd3e4cc83967912863d9af8a4a8a2b3bd9e0d2aa6c64344feff36af7268d",
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "literal": "rgba(55, 65, 81, 0.1)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--solid-shade"
+    },
+    {
+      "fingerprint": "2273d749573ebcd77f4915d85200cbaea5d4fa62cd870e0b03595af9cbbe6522",
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "literal": "rgba(0, 0, 0, 0.06)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--solid-shade"
+    },
+    {
+      "fingerprint": "293160ce616c6d4989a4ac219638fe06f121ec435332501e2d5136090370e4f4",
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "literal": "rgba(0, 0, 0, 0.06)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--solid-shade"
+    },
+    {
+      "fingerprint": "2b25992b0051815b33bcbdd2dfa09d2117e5e47137f225cbd2547c36bcb21a49",
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "literal": "rgba(146, 64, 14, 0.1)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--status-warning-border"
+    },
+    {
+      "fingerprint": "31aa228eb10e3f08a8f27e124699210469030897a315bf3cb71039e87eb79e27",
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "literal": "rgba(0, 0, 0, 0.6)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--solid-shade"
+    },
+    {
+      "fingerprint": "33edfea3f61309b4b85d79c29e592883f1109695e71013ce50bd686f11164a69",
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "literal": "#dc2626",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--status-danger-border"
+    },
+    {
+      "fingerprint": "343e93f8f697eb3089828e5c2ccb7ff418033613ccefee5c11234d9d549fb43c",
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "literal": "rgba(22, 101, 52, 0.1)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--status-success-border"
+    },
+    {
+      "fingerprint": "390ea48238bfb5489cc3695307c600fcebbb89a3a12f3a82a304728dd152017f",
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "literal": "#d9770620",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--status-warning-border"
+    },
+    {
+      "fingerprint": "39644f8e5ef54beb0e1d7d2c870867d834f051e34ad0ebde761d784c1572a181",
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "literal": "#fbbf24",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--status-warning-border"
+    },
+    {
+      "fingerprint": "3b61c121eaddb5bcc0e6558cd9d257539b39030d8b2ce5d101b983b0fc09d469",
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "literal": "#60a5fa",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--project-active"
+    },
+    {
+      "fingerprint": "3bf0cb99a29e985b86f12aa58ea0dcaeba623a66089dc02071ad6c4fdd736cac",
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "literal": "rgba(220, 38, 38, 0.1)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--status-danger-border"
+    },
+    {
+      "fingerprint": "434ae1d0a28b795d5cce2e7c47ef96befd8a3bb72a0892c1171098498846f4de",
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "literal": "#eff6ff",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--status-info-soft"
+    },
+    {
+      "fingerprint": "43b34d95f9c7e6cc76cadb62634553a1199cf7314172f995f6b5fc7e315a7c71",
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "literal": "rgba(0, 0, 0, 0.15)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--solid-shade"
+    },
+    {
+      "fingerprint": "43f3c8fd432141d7e0c23d799fe457bf7ade3ff23f4bb728ed030b66c4458ea6",
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "literal": "#d97706",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--status-warning-text"
+    },
+    {
+      "fingerprint": "47a9b3cedc1be6c8bced094290e3f62485a2b90b41d9a0482cff1460b39afded",
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "literal": "rgba(37, 99, 235, 0.2)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--status-info-border"
+    },
+    {
+      "fingerprint": "47dbb5a92058f159f8ee2b9be6e4770e69fc7b42eef1faad59bdb67be5ed3c00",
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "literal": "rgba(220, 38, 38, 0.4)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--status-danger-border"
+    },
+    {
+      "fingerprint": "4df55593536ff1dd11db23310f51f351e81806c721a7c1629cae1ebbff90f12b",
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "literal": "rgba(255, 255, 255, 1)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--solid-foreground"
+    },
+    {
+      "fingerprint": "4e7f1320e2493587980940a49cb39d556e69aeefaec9679a8bdbe56eb24853e1",
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "literal": "#2563eb",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--project-active"
+    },
+    {
+      "fingerprint": "4ec162782dcb264550cc608af18874713697cb64e9c3b37b4163a1e102e210e9",
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "literal": "rgba(0, 0, 0, 0.06)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--solid-shade"
+    },
+    {
+      "fingerprint": "54e33b5b99240f69f9f49f69abdeb423902df360ebd2faa7c062bf625ff9e9cc",
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "literal": "#fde68a",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--status-warning-soft"
+    },
+    {
+      "fingerprint": "5841d81b8d5da31308d344f34cca98b33ab6caf66b2e2191ed2600ca4245eb22",
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "literal": "rgba(220, 38, 38, 0.3)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--status-danger-border"
+    },
+    {
+      "fingerprint": "589c6987b7df4aaf0818297a732b2ee4d0a1cfa269ae8893fee55371b65c783f",
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "literal": "rgba(0, 0, 0, 0.05)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--solid-shade"
+    },
+    {
+      "fingerprint": "5d44cb040773c97eb3a4ba8eafd69ac9d3e82989c89231a638d36b790bb0f21c",
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "literal": "rgba(0, 0, 0, 0.4)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--solid-shade"
+    },
+    {
+      "fingerprint": "603a9a51a7ca1355baaa627f193a24fed992cfc80b97c852fb851a6de6170e88",
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "literal": "#ef4444",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--status-danger-border"
+    },
+    {
+      "fingerprint": "6e0aef0f4da533edeec8c713ab4ca16ac3a9afdc2e7e83a6b47b7e4387099ee8",
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "literal": "#4f46e5",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--primary-solid"
+    },
+    {
+      "fingerprint": "701565e52f5a85e528a0707610139dcb975aad3d46625cd4afe997a889ce538d",
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "literal": "#b91c1c",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--status-danger-solid"
+    },
+    {
+      "fingerprint": "73f126f52a7d91f6f126b0b5f409d9a3c1a74c033125e76a857f3a51ce7f7d84",
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "literal": "#fca5a5",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--status-danger-border"
+    },
+    {
+      "fingerprint": "7540b8ed6d9b5ff1d23adfd4573d46533eb1830e9077c926c7c669ad9ab262a1",
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "literal": "rgba(255, 255, 255, 0.2)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--solid-foreground"
+    },
+    {
+      "fingerprint": "7aacd10bc484bea52047c4c2169181b7278e4b5c13137956750fef23e6d99a07",
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "literal": "#bbf7d0",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--status-success-soft"
+    },
+    {
+      "fingerprint": "8277aa2e9625eab4b1d6e07c7c13f82c9d96662388ed73c69c0c205e9ec7f75e",
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "literal": "rgba(255, 255, 255, 0.4)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--solid-foreground"
+    },
+    {
+      "fingerprint": "84141990d9d22531a2a8a798fee3a074a24afa47b9d9f113bc75bb44d4612ac0",
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "literal": "rgba(220, 38, 38, 0.1)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--status-danger-border"
+    },
+    {
+      "fingerprint": "84bde4304d50f065be27a2b6fcc6291c0cd88a31313597fcc5e990dc87d92c95",
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "literal": "rgba(220, 38, 38, 0.5)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--status-danger-border"
+    },
+    {
+      "fingerprint": "865340177860f479a4f383af20c513e52d2481379919a512e0adb8809bee628f",
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "literal": "#e5e7eb",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--bg-tertiary"
+    },
+    {
+      "fingerprint": "8715ae3e774f1fd941ddf47ab3f46705712de24d40015a9feec57337f027309d",
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "literal": "rgba(220, 38, 38, 0.2)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--status-danger-border"
+    },
+    {
+      "fingerprint": "8f52d0c86d629f61d49597f0c86e836d98ac5ce28a3dfccb912a50bdb7647fb6",
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "literal": "rgba(255, 255, 255, 0.9)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--solid-foreground"
+    },
+    {
+      "fingerprint": "91bf38a3f4a0931c0cc88aaa3df1edfcf278ed23e7a643c7eb99bb8f504474ce",
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "literal": "rgba(255, 255, 255, 0.4)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--solid-foreground"
+    },
+    {
+      "fingerprint": "9552e5e7deefb5a2e6ffa16c67c292e54cf89eee1ebe40fb5e6111e4489fb481",
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "literal": "rgba(255, 255, 255, 0.5)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--solid-foreground"
+    },
+    {
+      "fingerprint": "97062de79b7b5b1a548bdb7297a5c2f80ab291374418461f4e6324e15003d385",
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "literal": "#166534",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--status-success-text"
+    },
+    {
+      "fingerprint": "9b72fd5d0beac3d33ca9af102d12a26a4631d7f64a499934eabeabe764e02b11",
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "literal": "#93c5fd",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--status-info-text"
+    },
+    {
+      "fingerprint": "9cb499726f492f592f71ab45ac6d989184c6d3875a5bc54cdd1435ebc62932e0",
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "literal": "rgba(37, 99, 235, 0.05)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--status-info-border"
+    },
+    {
+      "fingerprint": "9ec07bf92d8bed46eb515b78d8245707dda11aabb6b90d146c88bb33fef765a7",
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "literal": "#2563eb",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--project-active"
+    },
+    {
+      "fingerprint": "a44988339f5868ba7a08e0669bbccf329c05d87b09d5fd1ca4d27b2a296b13f6",
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "literal": "#1d4ed8",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--status-info-text"
+    },
+    {
+      "fingerprint": "a61d1f9233d2388d5dd2dc8dd7787e5f41a7480f48667fed41867c9ef2b66190",
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "literal": "#dc2626",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--status-danger-text"
+    },
+    {
+      "fingerprint": "acda89134c00aa022a7fc45e57341b430558f2c2c3048f6a56f434bb029c1bda",
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "literal": "#92400e",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--status-warning-text"
+    },
+    {
+      "fingerprint": "af016da9d21c6de8f202858907fae8c3ab8fa77987069a56268dec525285600c",
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "literal": "rgba(255, 255, 255, 0.9)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--solid-foreground"
+    },
+    {
+      "fingerprint": "b00dea2086c05e92dad8eb4524af96ed0f28bda02595dfb85cf62d31cbb8a7c2",
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "literal": "#dc2626",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--status-danger-text"
+    },
+    {
+      "fingerprint": "b44b745513ae120beff4c8dcd52c1dafd8894cb9715e7b6bc7f49b2ce40c294f",
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "literal": "rgba(220, 38, 38, 0.7)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--status-danger-border"
+    },
+    {
+      "fingerprint": "b660e3a0237066dac0bb7dd6c883c2d50f4a36809a1aad8f9087ba0d71027ec3",
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "literal": "rgba(37, 99, 235, 0.15)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--status-info-border"
+    },
+    {
+      "fingerprint": "b681ab6a0dcca322f8ceeb237b0afeecb94be67624e33459da9e1049d7a14724",
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "literal": "rgba(0, 0, 0, 0.2)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--solid-shade"
+    },
+    {
+      "fingerprint": "b9130bddd0c2f82f0393ceab49ec6dc1d5d8e25b02f1f5934e98015f87d8f0b8",
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "literal": "#eff6ff",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--status-info-soft"
+    },
+    {
+      "fingerprint": "ba5566957b563aadf4912845b8564c84e38f6198b94f032b296242d94fbadab0",
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "literal": "#dc262620",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--status-danger-border"
+    },
+    {
+      "fingerprint": "bb6f963b4adcdcf389f3bc0d2ed738fa2f604b2ff9a9e9a091e26eab52dd2b74",
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "literal": "#b91c1c",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--status-danger-solid"
+    },
+    {
+      "fingerprint": "bc0dc860a62fb3def106e7f7ee4c016a59c7f6256a012c621b760f4ce2ae51bf",
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "literal": "rgba(37, 99, 235, 0.2)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--status-info-border"
+    },
+    {
+      "fingerprint": "bfa6b57742f2fc32516e42390fb948e3b4775404b7def738bbc1f2e64be07be9",
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "literal": "rgba(59, 130, 246, 0.1)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--status-info-border"
+    },
+    {
+      "fingerprint": "c15f23760a61a28a81e3e6c089e2a5453cf4ef08b50a845d4e6826bca80cd32b",
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "literal": "#fee2e2",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--status-danger-soft"
+    },
+    {
+      "fingerprint": "c66c2a231bbc8dc5b992da5d1031057b6f6dce7873fb09d1ce42c915adc29618",
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "literal": "rgba(0, 0, 0, 0.25)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--solid-shade"
+    },
+    {
+      "fingerprint": "c8a55dbffff233ce1ce7b011c4288195af885f56913433615263fc46f2f29f15",
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "literal": "#4f46e5",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--primary-solid"
+    },
+    {
+      "fingerprint": "c8eb3f75699b328220fb6b4dd9ffbfefd3ea318aa68024545917aadeab96abbb",
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "literal": "#1d4ed8",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--status-info-text"
+    },
+    {
+      "fingerprint": "cded051549b73895bae768d9538ff36d6684a693d46c52e4c6cf5b02b8565ae2",
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "literal": "rgba(255, 255, 255, 0.3)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--solid-foreground"
+    },
+    {
+      "fingerprint": "d294c9c9f055ceaee43ce517673ca27ecf4dd1a352977efc5c2f4d999076b78e",
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "literal": "rgba(37, 99, 235, 0.2)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--status-info-border"
+    },
+    {
+      "fingerprint": "d4facd759cbf15b91e708d72d3c2914cebc51bebe5aa5e19c32b19ff1c43f582",
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "literal": "rgba(0, 0, 0, 0.05)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--solid-shade"
+    },
+    {
+      "fingerprint": "dbdd2c6c895e70f66bf10e4c403bfb54a2d432f5d3b190df4bc1c0648656c5a2",
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "literal": "#fef2f2",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--status-danger-soft"
+    },
+    {
+      "fingerprint": "dec59f8d47f297f995d5207e5c30ebe44a1bb571f956c4043586f1e104b7a7c8",
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "literal": "#fef3c7",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--status-warning-soft"
+    },
+    {
+      "fingerprint": "e156904ddf11641a9023e5b39a23282f17dd479e52636ee41a3688c6f03a463b",
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "literal": "rgba(37, 99, 235, 0.1)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--status-info-border"
+    },
+    {
+      "fingerprint": "eff923b55bff0cdb956a8c6a1bc80f2c3b8afd841419d91cc11c7ed70c29dee2",
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "literal": "rgba(255, 255, 255, 0.3)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--solid-foreground"
+    },
+    {
+      "fingerprint": "f2044458219faa41ac1b3bd48fad0034bec16948c658d7d36c5bd7ed231886e6",
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "literal": "#9ca3af",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--border-color"
+    },
+    {
+      "fingerprint": "f6aa49a520c60a4c933329c0daa86ff99886281483c2f2ba82340d234394f174",
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "literal": "#d1d5db",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--bg-tertiary"
+    },
+    {
+      "fingerprint": "fa73e045a05fe757faae242806481146f80f67c10fa52cada115db742675c691",
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "literal": "rgba(96, 165, 250, 0.18)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--status-info-border"
+    },
+    {
+      "fingerprint": "fbbfd7621f4821f4b5d3c5758882293b3fd746b99a6a4efde9b1457ccdf28a81",
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "literal": "rgba(0, 0, 0, 0.1)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--solid-shade"
+    },
+    {
+      "fingerprint": "0efea52ee8ff1b20866afe3fa24a60b8e645ef4c8340f165098aa3f8179a9a17",
+      "file": "client/src/pages/ProjectRoadmap.tsx",
+      "literal": "#06b6d4",
+      "count": 1,
+      "resolution": "delete",
+      "reason": "TC-C2: remove a duplicate phase palette and use the shared getPhaseColor mapping with identical values",
+      "baselineHead": "9c7905f"
+    },
+    {
+      "fingerprint": "155a1185fa7b769aad07d0df4d2759cdd744e787b3c40b3754095dfa56940906",
+      "file": "client/src/pages/ProjectRoadmap.tsx",
+      "literal": "#ef4444",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--status-danger-border"
+    },
+    {
+      "fingerprint": "193c0598d27fab34f076d328e5ce1c4f2b27bc9b5d75083e04e7642e76297508",
+      "file": "client/src/pages/ProjectRoadmap.tsx",
+      "literal": "#3b82f6",
+      "count": 1,
+      "resolution": "delete",
+      "reason": "TC-C2: remove a duplicate phase palette and use the shared getPhaseColor mapping with identical values",
+      "baselineHead": "9c7905f"
+    },
+    {
+      "fingerprint": "1b9b51c1f9f9fe35bcfeabed6357cf32f825ae2a956bad3c20142550297ef6fe",
+      "file": "client/src/pages/ProjectRoadmap.tsx",
+      "literal": "#eff6ff",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--status-info-soft"
+    },
+    {
+      "fingerprint": "500a5e20de04cc76ca0ef2ed583fc12292e38589a7a1d5a418355569c22274a8",
+      "file": "client/src/pages/ProjectRoadmap.tsx",
+      "literal": "#f59e0b",
+      "count": 1,
+      "resolution": "delete",
+      "reason": "TC-C2: remove a duplicate phase palette and use the shared getPhaseColor mapping with identical values",
+      "baselineHead": "9c7905f"
+    },
+    {
+      "fingerprint": "60b60bc9469de132ad652d573b62c5368af76b5b2caf691cd07b35b1c05689a0",
+      "file": "client/src/pages/ProjectRoadmap.tsx",
+      "literal": "#ef4444",
+      "count": 1,
+      "resolution": "delete",
+      "reason": "TC-C2: remove a duplicate phase palette and use the shared getPhaseColor mapping with identical values",
+      "baselineHead": "9c7905f"
+    },
+    {
+      "fingerprint": "69ae759120fe7f4930e0342411d99e2507b6f5cf98d4b3b6dd72714bfeec6e9b",
+      "file": "client/src/pages/ProjectRoadmap.tsx",
+      "literal": "#84cc16",
+      "count": 1,
+      "resolution": "delete",
+      "reason": "TC-C2: remove a duplicate phase palette and use the shared getPhaseColor mapping with identical values",
+      "baselineHead": "9c7905f"
+    },
+    {
+      "fingerprint": "796a81d6ff09b41cd07126e2db769e8d269d619dfa2d05e4150d6e7f1836ed4a",
+      "file": "client/src/pages/ProjectRoadmap.tsx",
+      "literal": "#10b981",
+      "count": 1,
+      "resolution": "delete",
+      "reason": "TC-C2: remove a duplicate phase palette and use the shared getPhaseColor mapping with identical values",
+      "baselineHead": "9c7905f"
+    },
+    {
+      "fingerprint": "7a4aab87ce8036f77172242e85157a75f73f0de55953940c8276c75fa0723a48",
+      "file": "client/src/pages/ProjectRoadmap.tsx",
+      "literal": "white",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--solid-foreground"
+    },
+    {
+      "fingerprint": "93c8a066c3680de3030fa97b4512c8a949095c633d038f612a6b2b3070a3c3d3",
+      "file": "client/src/pages/ProjectRoadmap.tsx",
+      "literal": "#b91c1c",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--status-danger-solid"
+    },
+    {
+      "fingerprint": "ad04ffde85067e490faca57312e694fd488c7b6699f948fded9df411eb60f97b",
+      "file": "client/src/pages/ProjectRoadmap.tsx",
+      "literal": "#8b5cf6",
+      "count": 1,
+      "resolution": "delete",
+      "reason": "TC-C2: remove a duplicate phase palette and use the shared getPhaseColor mapping with identical values",
+      "baselineHead": "9c7905f"
+    },
+    {
+      "fingerprint": "d6fccb8b16e7851b27d23ce4eafa2a29614ffddd102ea945e9dd3fc9378f9837",
+      "file": "client/src/pages/ProjectRoadmap.tsx",
+      "literal": "#1d4ed8",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--status-info-border"
+    },
+    {
+      "fingerprint": "d7d02994b99f84e76bece297c9993d3024f37ad3c0edfc590016076b3c47585e",
+      "file": "client/src/pages/ProjectRoadmap.tsx",
+      "literal": "#ec4899",
+      "count": 1,
+      "resolution": "delete",
+      "reason": "TC-C2: remove a duplicate phase palette and use the shared getPhaseColor mapping with identical values",
+      "baselineHead": "9c7905f"
+    },
+    {
+      "fingerprint": "dd478b11f718953a26b3e3773285d3aa8b4ca6b43eef99f7d067906b6ff5f4b2",
+      "file": "client/src/pages/ProjectRoadmap.tsx",
+      "literal": "#1d4ed8",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C2: migrate the declared UI use to its measured theme token",
+      "baselineHead": "9c7905f",
+      "token": "--text-primary"
+    },
+    {
+      "fingerprint": "f08502a2f567a5f5fade730a495ce47ed0d2544840059580bcc467ed41a24a77",
+      "file": "client/src/pages/ProjectRoadmap.tsx",
+      "literal": "#6b7280",
+      "count": 1,
+      "resolution": "delete",
+      "reason": "TC-C2: remove a duplicate phase palette and use the shared getPhaseColor mapping with identical values",
+      "baselineHead": "9c7905f"
     }
   ],
   "additions": [],
   "summary": {
-    "occurrences": 1388,
-    "identities": 1356,
-    "uniqueColors": 302,
-    "files": 60,
+    "occurrences": 1240,
+    "identities": 1212,
+    "uniqueColors": 277,
+    "files": 54,
     "byKind": {
-      "semantic-color": 600,
-      "neutral-literal": 367,
-      "unknown": 197,
+      "semantic-color": 539,
+      "neutral-literal": 301,
+      "unknown": 167,
       "token-definition": 220,
-      "data-color": 3,
+      "data-color": 12,
       "non-color": 1
     },
     "byDecision": {
-      "pending": 1164,
+      "pending": 1007,
       "not-debt": 221,
-      "accepted-literal": 3
+      "accepted-literal": 12
     },
     "byFile": {
       "client/src/App.css": 247,
@@ -30282,16 +28997,12 @@
       "client/src/components/boards/EditableCells.tsx": 10,
       "client/src/components/Charts.css": 11,
       "client/src/components/dashboard/Dashboard.css": 14,
-      "client/src/components/interactive-timeline/TimelineItemTooltip.tsx": 7,
-      "client/src/components/interactive-timeline/utils.ts": 5,
-      "client/src/components/InteractiveTimeline.css": 30,
-      "client/src/components/InteractiveTimeline.tsx": 7,
+      "client/src/components/InteractiveTimeline.css": 6,
       "client/src/components/Layout.css": 2,
       "client/src/components/Login.css": 4,
       "client/src/components/modals/ProjectTypeModal.tsx": 10,
       "client/src/components/modals/SmartAssignmentModal.tsx": 17,
       "client/src/components/PersonAllocationChart.tsx": 13,
-      "client/src/components/phase-manager/PhaseContextMenu.tsx": 1,
       "client/src/components/phase-manager/types.ts": 9,
       "client/src/components/phase-timeline/PhaseTimelineStyles.tsx": 2,
       "client/src/components/phase-timeline/PhaseTimelineTable.tsx": 9,
@@ -30305,7 +29016,6 @@
       "client/src/components/ui/StatCard.css": 1,
       "client/src/components/ui/StatCard.tsx": 2,
       "client/src/components/ui/UnifiedTabComponent.css": 1,
-      "client/src/components/VisualPhaseManager.tsx": 5,
       "client/src/debug/BoardDiagnostics.tsx": 16,
       "client/src/index.css": 194,
       "client/src/lib/project-colors.ts": 4,
@@ -30323,8 +29033,7 @@
       "client/src/pages/PersonDetails.css": 41,
       "client/src/pages/PersonDetails.tsx": 8,
       "client/src/pages/ProjectDetail.tsx": 7,
-      "client/src/pages/ProjectRoadmap.css": 87,
-      "client/src/pages/ProjectRoadmap.tsx": 15,
+      "client/src/pages/ProjectRoadmap.css": 3,
       "client/src/pages/Projects.css": 3,
       "client/src/pages/ProjectTypeDetails.css": 44,
       "client/src/pages/ProjectTypeDetails.tsx": 11,

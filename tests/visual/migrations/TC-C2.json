@@ -1,0 +1,1098 @@
+{
+  "baseHead": "9c7905f",
+  "scope": [
+    "client/src/pages/ProjectRoadmap.css",
+    "client/src/components/InteractiveTimeline.css",
+    "client/src/pages/ProjectRoadmap.tsx",
+    "client/src/components/InteractiveTimeline.tsx",
+    "client/src/components/VisualPhaseManager.tsx",
+    "client/src/components/interactive-timeline/TimelineItemTooltip.tsx",
+    "client/src/components/phase-manager/PhaseContextMenu.tsx",
+    "client/src/components/interactive-timeline/utils.ts"
+  ],
+  "cssMappings": [
+    {
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "line": 44,
+      "owner": ".roadmap-header",
+      "property": "box-shadow",
+      "literal": "rgba(0, 0, 0, 0.06)",
+      "token": "--solid-shade",
+      "replacement": "color-mix(in srgb, var(--solid-shade) 6%, transparent)",
+      "context": []
+    },
+    {
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "line": 85,
+      "owner": ".navigation-controls",
+      "property": "box-shadow",
+      "literal": "rgba(0, 0, 0, 0.06)",
+      "token": "--solid-shade",
+      "replacement": "color-mix(in srgb, var(--solid-shade) 6%, transparent)",
+      "context": []
+    },
+    {
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "line": 106,
+      "owner": ".nav-btn:hover",
+      "property": "box-shadow",
+      "literal": "rgba(0, 0, 0, 0.1)",
+      "token": "--solid-shade",
+      "replacement": "color-mix(in srgb, var(--solid-shade) 10%, transparent)",
+      "context": []
+    },
+    {
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "line": 131,
+      "owner": ".timeline-range",
+      "property": "box-shadow",
+      "literal": "rgba(0, 0, 0, 0.05)",
+      "token": "--solid-shade",
+      "replacement": "color-mix(in srgb, var(--solid-shade) 5%, transparent)",
+      "context": []
+    },
+    {
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "line": 182,
+      "owner": "[data-theme='dark'] .today-btn",
+      "property": "background",
+      "literal": "#4f46e5",
+      "token": "--primary-solid",
+      "replacement": "var(--primary-solid)",
+      "context": []
+    },
+    {
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "line": 183,
+      "owner": "[data-theme='dark'] .today-btn",
+      "property": "border-color",
+      "literal": "#4f46e5",
+      "token": "--primary-solid",
+      "replacement": "var(--primary-solid)",
+      "context": []
+    },
+    {
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "line": 253,
+      "owner": ".zoom-controls",
+      "property": "box-shadow",
+      "literal": "rgba(0, 0, 0, 0.06)",
+      "token": "--solid-shade",
+      "replacement": "color-mix(in srgb, var(--solid-shade) 6%, transparent)",
+      "context": []
+    },
+    {
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "line": 305,
+      "owner": ".timeline-header",
+      "property": "box-shadow",
+      "literal": "rgba(0, 0, 0, 0.05)",
+      "token": "--solid-shade",
+      "replacement": "color-mix(in srgb, var(--solid-shade) 5%, transparent)",
+      "context": []
+    },
+    {
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "line": 386,
+      "owner": "[data-theme='dark'] .timeline-nav-btn.today-btn",
+      "property": "background",
+      "literal": "#4f46e5",
+      "token": "--primary-solid",
+      "replacement": "var(--primary-solid)",
+      "context": []
+    },
+    {
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "line": 439,
+      "owner": ".timeline-nav-side",
+      "property": "background",
+      "literal": "rgba(37, 99, 235, 0.05)",
+      "token": "--status-info-border",
+      "replacement": "color-mix(in srgb, var(--status-info-border) 5%, transparent)",
+      "context": []
+    },
+    {
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "line": 439,
+      "owner": ".timeline-nav-side",
+      "property": "background",
+      "literal": "rgba(37, 99, 235, 0.02)",
+      "token": "--status-info-border",
+      "replacement": "color-mix(in srgb, var(--status-info-border) 2%, transparent)",
+      "context": []
+    },
+    {
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "line": 440,
+      "owner": ".timeline-nav-side",
+      "property": "border",
+      "literal": "rgba(37, 99, 235, 0.1)",
+      "token": "--status-info-border",
+      "replacement": "color-mix(in srgb, var(--status-info-border) 10%, transparent)",
+      "context": []
+    },
+    {
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "line": 453,
+      "owner": ".timeline-nav-side:hover",
+      "property": "background",
+      "literal": "rgba(37, 99, 235, 0.1)",
+      "token": "--status-info-border",
+      "replacement": "color-mix(in srgb, var(--status-info-border) 10%, transparent)",
+      "context": []
+    },
+    {
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "line": 453,
+      "owner": ".timeline-nav-side:hover",
+      "property": "background",
+      "literal": "rgba(37, 99, 235, 0.05)",
+      "token": "--status-info-border",
+      "replacement": "color-mix(in srgb, var(--status-info-border) 5%, transparent)",
+      "context": []
+    },
+    {
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "line": 454,
+      "owner": ".timeline-nav-side:hover",
+      "property": "border-color",
+      "literal": "rgba(37, 99, 235, 0.2)",
+      "token": "--status-info-border",
+      "replacement": "color-mix(in srgb, var(--status-info-border) 20%, transparent)",
+      "context": []
+    },
+    {
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "line": 455,
+      "owner": ".timeline-nav-side:hover",
+      "property": "box-shadow",
+      "literal": "rgba(37, 99, 235, 0.15)",
+      "token": "--status-info-border",
+      "replacement": "color-mix(in srgb, var(--status-info-border) 15%, transparent)",
+      "context": []
+    },
+    {
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "line": 479,
+      "owner": ".nav-side-content",
+      "property": "color",
+      "literal": "#2563eb",
+      "token": "--project-active",
+      "replacement": "var(--project-active)",
+      "context": []
+    },
+    {
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "line": 494,
+      "owner": ".timeline-nav-side:active",
+      "property": "box-shadow",
+      "literal": "rgba(37, 99, 235, 0.2)",
+      "token": "--status-info-border",
+      "replacement": "color-mix(in srgb, var(--status-info-border) 20%, transparent)",
+      "context": []
+    },
+    {
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "line": 670,
+      "owner": ".project-info",
+      "property": "box-shadow",
+      "literal": "rgba(0, 0, 0, 0.05)",
+      "token": "--solid-shade",
+      "replacement": "color-mix(in srgb, var(--solid-shade) 5%, transparent)",
+      "context": []
+    },
+    {
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "line": 791,
+      "owner": ".project-type-compact",
+      "property": "box-shadow",
+      "literal": "rgba(0, 0, 0, 0.1)",
+      "token": "--solid-shade",
+      "replacement": "color-mix(in srgb, var(--solid-shade) 10%, transparent)",
+      "context": []
+    },
+    {
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "line": 845,
+      "owner": ".priority-high",
+      "property": "color",
+      "literal": "#dc2626",
+      "token": "--status-danger-text",
+      "replacement": "var(--status-danger-text)",
+      "context": []
+    },
+    {
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "line": 846,
+      "owner": ".priority-high",
+      "property": "border",
+      "literal": "#dc262620",
+      "token": "--status-danger-border",
+      "replacement": "color-mix(in srgb, var(--status-danger-border) 12.55%, transparent)",
+      "context": []
+    },
+    {
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "line": 852,
+      "owner": ".priority-medium",
+      "property": "color",
+      "literal": "#d97706",
+      "token": "--status-warning-text",
+      "replacement": "var(--status-warning-text)",
+      "context": []
+    },
+    {
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "line": 853,
+      "owner": ".priority-medium",
+      "property": "border",
+      "literal": "#d9770620",
+      "token": "--status-warning-border",
+      "replacement": "color-mix(in srgb, var(--status-warning-border) 12.55%, transparent)",
+      "context": []
+    },
+    {
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "line": 859,
+      "owner": ".priority-low",
+      "property": "color",
+      "literal": "#16a34a",
+      "token": "--status-success-text",
+      "replacement": "var(--status-success-text)",
+      "context": []
+    },
+    {
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "line": 860,
+      "owner": ".priority-low",
+      "property": "border",
+      "literal": "#16a34a20",
+      "token": "--status-success-border",
+      "replacement": "color-mix(in srgb, var(--status-success-border) 12.55%, transparent)",
+      "context": []
+    },
+    {
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "line": 902,
+      "owner": ".status-active, .status-in_progress",
+      "property": "background",
+      "literal": "#dcfce7",
+      "token": "--status-success-soft",
+      "replacement": "var(--status-success-soft)",
+      "context": []
+    },
+    {
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "line": 902,
+      "owner": ".status-active, .status-in_progress",
+      "property": "background",
+      "literal": "#bbf7d0",
+      "token": "--status-success-soft",
+      "replacement": "var(--status-success-soft)",
+      "context": []
+    },
+    {
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "line": 903,
+      "owner": ".status-active, .status-in_progress",
+      "property": "color",
+      "literal": "#166534",
+      "token": "--status-success-text",
+      "replacement": "var(--status-success-text)",
+      "context": []
+    },
+    {
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "line": 904,
+      "owner": ".status-active, .status-in_progress",
+      "property": "border",
+      "literal": "#86efac",
+      "token": "--status-success-border",
+      "replacement": "var(--status-success-border)",
+      "context": []
+    },
+    {
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "line": 905,
+      "owner": ".status-active, .status-in_progress",
+      "property": "box-shadow",
+      "literal": "rgba(22, 101, 52, 0.1)",
+      "token": "--status-success-border",
+      "replacement": "color-mix(in srgb, var(--status-success-border) 10%, transparent)",
+      "context": []
+    },
+    {
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "line": 909,
+      "owner": ".status-planned, .status-pending",
+      "property": "background",
+      "literal": "#fef3c7",
+      "token": "--status-warning-soft",
+      "replacement": "var(--status-warning-soft)",
+      "context": []
+    },
+    {
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "line": 909,
+      "owner": ".status-planned, .status-pending",
+      "property": "background",
+      "literal": "#fde68a",
+      "token": "--status-warning-soft",
+      "replacement": "var(--status-warning-soft)",
+      "context": []
+    },
+    {
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "line": 910,
+      "owner": ".status-planned, .status-pending",
+      "property": "color",
+      "literal": "#92400e",
+      "token": "--status-warning-text",
+      "replacement": "var(--status-warning-text)",
+      "context": []
+    },
+    {
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "line": 911,
+      "owner": ".status-planned, .status-pending",
+      "property": "border",
+      "literal": "#fbbf24",
+      "token": "--status-warning-border",
+      "replacement": "var(--status-warning-border)",
+      "context": []
+    },
+    {
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "line": 912,
+      "owner": ".status-planned, .status-pending",
+      "property": "box-shadow",
+      "literal": "rgba(146, 64, 14, 0.1)",
+      "token": "--status-warning-border",
+      "replacement": "color-mix(in srgb, var(--status-warning-border) 10%, transparent)",
+      "context": []
+    },
+    {
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "line": 916,
+      "owner": ".status-completed, .status-done",
+      "property": "background",
+      "literal": "#e5e7eb",
+      "token": "--bg-tertiary",
+      "replacement": "var(--bg-tertiary)",
+      "context": []
+    },
+    {
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "line": 916,
+      "owner": ".status-completed, .status-done",
+      "property": "background",
+      "literal": "#d1d5db",
+      "token": "--bg-tertiary",
+      "replacement": "var(--bg-tertiary)",
+      "context": []
+    },
+    {
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "line": 917,
+      "owner": ".status-completed, .status-done",
+      "property": "color",
+      "literal": "#374151",
+      "token": "--text-secondary",
+      "replacement": "var(--text-secondary)",
+      "context": []
+    },
+    {
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "line": 918,
+      "owner": ".status-completed, .status-done",
+      "property": "border",
+      "literal": "#9ca3af",
+      "token": "--border-color",
+      "replacement": "var(--border-color)",
+      "context": []
+    },
+    {
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "line": 919,
+      "owner": ".status-completed, .status-done",
+      "property": "box-shadow",
+      "literal": "rgba(55, 65, 81, 0.1)",
+      "token": "--solid-shade",
+      "replacement": "color-mix(in srgb, var(--solid-shade) 10%, transparent)",
+      "context": []
+    },
+    {
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "line": 923,
+      "owner": ".status-on_hold, .status-paused",
+      "property": "background",
+      "literal": "#fef2f2",
+      "token": "--status-danger-soft",
+      "replacement": "var(--status-danger-soft)",
+      "context": []
+    },
+    {
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "line": 923,
+      "owner": ".status-on_hold, .status-paused",
+      "property": "background",
+      "literal": "#fee2e2",
+      "token": "--status-danger-soft",
+      "replacement": "var(--status-danger-soft)",
+      "context": []
+    },
+    {
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "line": 924,
+      "owner": ".status-on_hold, .status-paused",
+      "property": "color",
+      "literal": "#dc2626",
+      "token": "--status-danger-text",
+      "replacement": "var(--status-danger-text)",
+      "context": []
+    },
+    {
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "line": 925,
+      "owner": ".status-on_hold, .status-paused",
+      "property": "border",
+      "literal": "#fca5a5",
+      "token": "--status-danger-border",
+      "replacement": "var(--status-danger-border)",
+      "context": []
+    },
+    {
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "line": 926,
+      "owner": ".status-on_hold, .status-paused",
+      "property": "box-shadow",
+      "literal": "rgba(220, 38, 38, 0.1)",
+      "token": "--status-danger-border",
+      "replacement": "color-mix(in srgb, var(--status-danger-border) 10%, transparent)",
+      "context": []
+    },
+    {
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "line": 974,
+      "owner": ".phase-bar",
+      "property": "border",
+      "literal": "rgba(255, 255, 255, 0.3)",
+      "token": "--solid-foreground",
+      "replacement": "color-mix(in srgb, var(--solid-foreground) 30%, transparent)",
+      "context": []
+    },
+    {
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "line": 978,
+      "owner": ".phase-bar",
+      "property": "box-shadow",
+      "literal": "rgba(255, 255, 255, 0.2)",
+      "token": "--solid-foreground",
+      "replacement": "color-mix(in srgb, var(--solid-foreground) 20%, transparent)",
+      "context": []
+    },
+    {
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "line": 984,
+      "owner": ".phase-bar:hover",
+      "property": "box-shadow",
+      "literal": "rgba(255, 255, 255, 0.3)",
+      "token": "--solid-foreground",
+      "replacement": "color-mix(in srgb, var(--solid-foreground) 30%, transparent)",
+      "context": []
+    },
+    {
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "line": 987,
+      "owner": ".phase-bar:hover",
+      "property": "border-color",
+      "literal": "rgba(255, 255, 255, 0.4)",
+      "token": "--solid-foreground",
+      "replacement": "color-mix(in srgb, var(--solid-foreground) 40%, transparent)",
+      "context": []
+    },
+    {
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "line": 991,
+      "owner": ".phase-bar.dragging",
+      "property": "box-shadow",
+      "literal": "rgba(0, 0, 0, 0.25)",
+      "token": "--solid-shade",
+      "replacement": "color-mix(in srgb, var(--solid-shade) 25%, transparent)",
+      "context": []
+    },
+    {
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "line": 991,
+      "owner": ".phase-bar.dragging",
+      "property": "box-shadow",
+      "literal": "rgba(255, 255, 255, 0.4)",
+      "token": "--solid-foreground",
+      "replacement": "color-mix(in srgb, var(--solid-foreground) 40%, transparent)",
+      "context": []
+    },
+    {
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "line": 994,
+      "owner": ".phase-bar.dragging",
+      "property": "border-color",
+      "literal": "rgba(255, 255, 255, 0.5)",
+      "token": "--solid-foreground",
+      "replacement": "color-mix(in srgb, var(--solid-foreground) 50%, transparent)",
+      "context": []
+    },
+    {
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "line": 1005,
+      "owner": ".resize-handle",
+      "property": "background",
+      "literal": "rgba(255, 255, 255, 0.9)",
+      "token": "--solid-foreground",
+      "replacement": "color-mix(in srgb, var(--solid-foreground) 90%, transparent)",
+      "context": []
+    },
+    {
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "line": 1005,
+      "owner": ".resize-handle",
+      "property": "background",
+      "literal": "rgba(255, 255, 255, 0.7)",
+      "token": "--solid-foreground",
+      "replacement": "color-mix(in srgb, var(--solid-foreground) 70%, transparent)",
+      "context": []
+    },
+    {
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "line": 1012,
+      "owner": ".resize-handle:hover, .phase-bar:hover .resize-handle",
+      "property": "background",
+      "literal": "rgba(255, 255, 255, 1)",
+      "token": "--solid-foreground",
+      "replacement": "var(--solid-foreground)",
+      "context": []
+    },
+    {
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "line": 1012,
+      "owner": ".resize-handle:hover, .phase-bar:hover .resize-handle",
+      "property": "background",
+      "literal": "rgba(255, 255, 255, 0.9)",
+      "token": "--solid-foreground",
+      "replacement": "color-mix(in srgb, var(--solid-foreground) 90%, transparent)",
+      "context": []
+    },
+    {
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "line": 1013,
+      "owner": ".resize-handle:hover, .phase-bar:hover .resize-handle",
+      "property": "box-shadow",
+      "literal": "rgba(0, 0, 0, 0.2)",
+      "token": "--solid-shade",
+      "replacement": "color-mix(in srgb, var(--solid-shade) 20%, transparent)",
+      "context": []
+    },
+    {
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "line": 1035,
+      "owner": ".phase-content",
+      "property": "color",
+      "literal": "white",
+      "token": "--solid-foreground",
+      "replacement": "var(--solid-foreground)",
+      "context": []
+    },
+    {
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "line": 1038,
+      "owner": ".phase-content",
+      "property": "text-shadow",
+      "literal": "rgba(0, 0, 0, 0.4)",
+      "token": "--solid-shade",
+      "replacement": "color-mix(in srgb, var(--solid-shade) 40%, transparent)",
+      "context": []
+    },
+    {
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "line": 1062,
+      "owner": ".modal-overlay",
+      "property": "background",
+      "literal": "rgba(0, 0, 0, 0.6)",
+      "token": "--solid-shade",
+      "replacement": "color-mix(in srgb, var(--solid-shade) 60%, transparent)",
+      "context": []
+    },
+    {
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "line": 1074,
+      "owner": ".modal-container",
+      "property": "box-shadow",
+      "literal": "rgba(0, 0, 0, 0.15)",
+      "token": "--solid-shade",
+      "replacement": "color-mix(in srgb, var(--solid-shade) 15%, transparent)",
+      "context": []
+    },
+    {
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "line": 1140,
+      "owner": ".form-group input:focus",
+      "property": "box-shadow",
+      "literal": "rgba(59, 130, 246, 0.1)",
+      "token": "--status-info-border",
+      "replacement": "color-mix(in srgb, var(--status-info-border) 10%, transparent)",
+      "context": []
+    },
+    {
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "line": 1422,
+      "owner": ".project-name-link",
+      "property": "color",
+      "literal": "#2563eb",
+      "token": "--project-active",
+      "replacement": "var(--project-active)",
+      "context": []
+    },
+    {
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "line": 1442,
+      "owner": "[data-theme='dark'] .project-name-link, .dark .project-name-link",
+      "property": "color",
+      "literal": "#60a5fa",
+      "token": "--project-active",
+      "replacement": "var(--project-active)",
+      "context": []
+    },
+    {
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "line": 1445,
+      "owner": ".project-name-link:hover",
+      "property": "color",
+      "literal": "#1d4ed8",
+      "token": "--status-info-text",
+      "replacement": "var(--status-info-text)",
+      "context": []
+    },
+    {
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "line": 1446,
+      "owner": ".project-name-link:hover",
+      "property": "background",
+      "literal": "#eff6ff",
+      "token": "--status-info-soft",
+      "replacement": "var(--status-info-soft)",
+      "context": []
+    },
+    {
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "line": 1455,
+      "owner": "[data-theme='dark'] .project-name-link:hover, .dark .project-name-link:hover, [data-theme='dark'] .project-name-link:focus, .dark .project-name-link:focus",
+      "property": "color",
+      "literal": "#93c5fd",
+      "token": "--status-info-text",
+      "replacement": "var(--status-info-text)",
+      "context": []
+    },
+    {
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "line": 1456,
+      "owner": "[data-theme='dark'] .project-name-link:hover, .dark .project-name-link:hover, [data-theme='dark'] .project-name-link:focus, .dark .project-name-link:focus",
+      "property": "background",
+      "literal": "rgba(96, 165, 250, 0.18)",
+      "token": "--status-info-border",
+      "replacement": "color-mix(in srgb, var(--status-info-border) 18%, transparent)",
+      "context": []
+    },
+    {
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "line": 1461,
+      "owner": ".project-name-link:focus",
+      "property": "color",
+      "literal": "#1d4ed8",
+      "token": "--status-info-text",
+      "replacement": "var(--status-info-text)",
+      "context": []
+    },
+    {
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "line": 1462,
+      "owner": ".project-name-link:focus",
+      "property": "background",
+      "literal": "#eff6ff",
+      "token": "--status-info-soft",
+      "replacement": "var(--status-info-soft)",
+      "context": []
+    },
+    {
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "line": 1466,
+      "owner": ".project-name-link:focus",
+      "property": "box-shadow",
+      "literal": "rgba(37, 99, 235, 0.2)",
+      "token": "--status-info-border",
+      "replacement": "color-mix(in srgb, var(--status-info-border) 20%, transparent)",
+      "context": []
+    },
+    {
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "line": 1608,
+      "owner": ".today-line",
+      "property": "background",
+      "literal": "#dc2626",
+      "token": "--status-danger-border",
+      "replacement": "var(--status-danger-border)",
+      "context": []
+    },
+    {
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "line": 1608,
+      "owner": ".today-line",
+      "property": "background",
+      "literal": "#ef4444",
+      "token": "--status-danger-border",
+      "replacement": "var(--status-danger-border)",
+      "context": []
+    },
+    {
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "line": 1611,
+      "owner": ".today-line",
+      "property": "box-shadow",
+      "literal": "rgba(220, 38, 38, 0.5)",
+      "token": "--status-danger-border",
+      "replacement": "color-mix(in srgb, var(--status-danger-border) 50%, transparent)",
+      "context": []
+    },
+    {
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "line": 1621,
+      "owner": ".today-line::before",
+      "property": "background",
+      "literal": "rgba(220, 38, 38, 0.3)",
+      "token": "--status-danger-border",
+      "replacement": "color-mix(in srgb, var(--status-danger-border) 30%, transparent)",
+      "context": []
+    },
+    {
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "line": 1621,
+      "owner": ".today-line::before",
+      "property": "background",
+      "literal": "rgba(220, 38, 38, 0.2)",
+      "token": "--status-danger-border",
+      "replacement": "color-mix(in srgb, var(--status-danger-border) 20%, transparent)",
+      "context": []
+    },
+    {
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "line": 1621,
+      "owner": ".today-line::before",
+      "property": "background",
+      "literal": "rgba(220, 38, 38, 0.1)",
+      "token": "--status-danger-border",
+      "replacement": "color-mix(in srgb, var(--status-danger-border) 10%, transparent)",
+      "context": []
+    },
+    {
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "line": 1635,
+      "owner": ".today-line-indicator",
+      "property": "background",
+      "literal": "#b91c1c",
+      "token": "--status-danger-solid",
+      "replacement": "var(--status-danger-solid)",
+      "context": []
+    },
+    {
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "line": 1636,
+      "owner": ".today-line-indicator",
+      "property": "color",
+      "literal": "white",
+      "token": "--solid-foreground",
+      "replacement": "var(--solid-foreground)",
+      "context": []
+    },
+    {
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "line": 1642,
+      "owner": ".today-line-indicator",
+      "property": "box-shadow",
+      "literal": "rgba(220, 38, 38, 0.3)",
+      "token": "--status-danger-border",
+      "replacement": "color-mix(in srgb, var(--status-danger-border) 30%, transparent)",
+      "context": []
+    },
+    {
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "line": 1663,
+      "owner": ".today-line:hover",
+      "property": "box-shadow",
+      "literal": "rgba(220, 38, 38, 0.7)",
+      "token": "--status-danger-border",
+      "replacement": "color-mix(in srgb, var(--status-danger-border) 70%, transparent)",
+      "context": []
+    },
+    {
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "line": 1667,
+      "owner": ".today-line:hover .today-line-indicator",
+      "property": "background",
+      "literal": "#b91c1c",
+      "token": "--status-danger-solid",
+      "replacement": "var(--status-danger-solid)",
+      "context": []
+    },
+    {
+      "file": "client/src/pages/ProjectRoadmap.css",
+      "line": 1669,
+      "owner": ".today-line:hover .today-line-indicator",
+      "property": "box-shadow",
+      "literal": "rgba(220, 38, 38, 0.4)",
+      "token": "--status-danger-border",
+      "replacement": "color-mix(in srgb, var(--status-danger-border) 40%, transparent)",
+      "context": []
+    },
+    {
+      "file": "client/src/components/InteractiveTimeline.css",
+      "line": 37,
+      "owner": ".timeline-item",
+      "property": "background",
+      "literal": "black",
+      "token": "--solid-shade",
+      "replacement": "var(--solid-shade)",
+      "context": []
+    },
+    {
+      "file": "client/src/components/InteractiveTimeline.css",
+      "line": 41,
+      "owner": ".timeline-item",
+      "property": "border",
+      "literal": "black",
+      "token": "--solid-shade",
+      "replacement": "var(--solid-shade)",
+      "context": []
+    },
+    {
+      "file": "client/src/components/InteractiveTimeline.css",
+      "line": 44,
+      "owner": ".timeline-item",
+      "property": "text-shadow",
+      "literal": "rgba(0, 0, 0, 0.1)",
+      "token": "--solid-shade",
+      "replacement": "color-mix(in srgb, var(--solid-shade) 10%, transparent)",
+      "context": []
+    },
+    {
+      "file": "client/src/components/InteractiveTimeline.css",
+      "line": 49,
+      "owner": ".timeline-item:hover",
+      "property": "box-shadow",
+      "literal": "rgba(0, 0, 0, 0.15)",
+      "token": "--solid-shade",
+      "replacement": "color-mix(in srgb, var(--solid-shade) 15%, transparent)",
+      "context": []
+    },
+    {
+      "file": "client/src/components/InteractiveTimeline.css",
+      "line": 49,
+      "owner": ".timeline-item:hover",
+      "property": "box-shadow",
+      "literal": "rgba(0, 0, 0, 0.05)",
+      "token": "--solid-shade",
+      "replacement": "color-mix(in srgb, var(--solid-shade) 5%, transparent)",
+      "context": []
+    },
+    {
+      "file": "client/src/components/InteractiveTimeline.css",
+      "line": 52,
+      "owner": ".timeline-item:hover",
+      "property": "border-color",
+      "literal": "black",
+      "token": "--solid-shade",
+      "replacement": "var(--solid-shade)",
+      "context": []
+    },
+    {
+      "file": "client/src/components/InteractiveTimeline.css",
+      "line": 58,
+      "owner": ".timeline-item.dragging",
+      "property": "box-shadow",
+      "literal": "rgba(0, 0, 0, 0.25)",
+      "token": "--solid-shade",
+      "replacement": "color-mix(in srgb, var(--solid-shade) 25%, transparent)",
+      "context": []
+    },
+    {
+      "file": "client/src/components/InteractiveTimeline.css",
+      "line": 70,
+      "owner": ".resize-handle",
+      "property": "background",
+      "literal": "rgba(255, 255, 255, 0.3)",
+      "token": "--solid-foreground",
+      "replacement": "color-mix(in srgb, var(--solid-foreground) 30%, transparent)",
+      "context": []
+    },
+    {
+      "file": "client/src/components/InteractiveTimeline.css",
+      "line": 77,
+      "owner": ".resize-handle:hover",
+      "property": "background",
+      "literal": "rgba(255, 255, 255, 0.5)",
+      "token": "--solid-foreground",
+      "replacement": "color-mix(in srgb, var(--solid-foreground) 50%, transparent)",
+      "context": []
+    },
+    {
+      "file": "client/src/components/InteractiveTimeline.css",
+      "line": 134,
+      "owner": ".brush-selection",
+      "property": "background",
+      "literal": "rgba(59, 130, 246, 0.15)",
+      "token": "--primary",
+      "replacement": "color-mix(in srgb, var(--primary) 15%, transparent)",
+      "context": []
+    },
+    {
+      "file": "client/src/components/InteractiveTimeline.css",
+      "line": 148,
+      "owner": ".brush-selection::before",
+      "property": "background",
+      "literal": "rgba(59, 130, 246, 0.1)",
+      "token": "--primary",
+      "replacement": "color-mix(in srgb, var(--primary) 10%, transparent)",
+      "context": []
+    },
+    {
+      "file": "client/src/components/InteractiveTimeline.css",
+      "line": 148,
+      "owner": ".brush-selection::before",
+      "property": "background",
+      "literal": "rgba(59, 130, 246, 0.1)",
+      "token": "--primary",
+      "replacement": "color-mix(in srgb, var(--primary) 10%, transparent)",
+      "context": []
+    },
+    {
+      "file": "client/src/components/InteractiveTimeline.css",
+      "line": 148,
+      "owner": ".brush-selection::before",
+      "property": "background",
+      "literal": "rgba(59, 130, 246, 0.1)",
+      "token": "--primary",
+      "replacement": "color-mix(in srgb, var(--primary) 10%, transparent)",
+      "context": []
+    },
+    {
+      "file": "client/src/components/InteractiveTimeline.css",
+      "line": 172,
+      "owner": ".today-line",
+      "property": "box-shadow",
+      "literal": "rgba(0, 0, 0, 0.1)",
+      "token": "--solid-shade",
+      "replacement": "color-mix(in srgb, var(--solid-shade) 10%, transparent)",
+      "context": []
+    },
+    {
+      "file": "client/src/components/InteractiveTimeline.css",
+      "line": 189,
+      "owner": ".today-line::before",
+      "property": "box-shadow",
+      "literal": "rgba(0, 0, 0, 0.05)",
+      "token": "--solid-shade",
+      "replacement": "color-mix(in srgb, var(--solid-shade) 5%, transparent)",
+      "context": []
+    },
+    {
+      "file": "client/src/components/InteractiveTimeline.css",
+      "line": 216,
+      "owner": ".timeline-tooltip",
+      "property": "background",
+      "literal": "rgba(0, 0, 0, 0.9)",
+      "token": "--solid-shade",
+      "replacement": "color-mix(in srgb, var(--solid-shade) 90%, transparent)",
+      "context": []
+    },
+    {
+      "file": "client/src/components/InteractiveTimeline.css",
+      "line": 217,
+      "owner": ".timeline-tooltip",
+      "property": "color",
+      "literal": "white",
+      "token": "--solid-foreground",
+      "replacement": "var(--solid-foreground)",
+      "context": []
+    },
+    {
+      "file": "client/src/components/InteractiveTimeline.css",
+      "line": 235,
+      "owner": ".timeline-tooltip::after",
+      "property": "border-top-color",
+      "literal": "rgba(0, 0, 0, 0.9)",
+      "token": "--solid-shade",
+      "replacement": "color-mix(in srgb, var(--solid-shade) 90%, transparent)",
+      "context": []
+    },
+    {
+      "file": "client/src/components/InteractiveTimeline.css",
+      "line": 244,
+      "owner": ".context-menu",
+      "property": "box-shadow",
+      "literal": "rgba(0, 0, 0, 0.25)",
+      "token": "--solid-shade",
+      "replacement": "color-mix(in srgb, var(--solid-shade) 25%, transparent)",
+      "context": []
+    },
+    {
+      "file": "client/src/components/InteractiveTimeline.css",
+      "line": 365,
+      "owner": ".modal-overlay",
+      "property": "background-color",
+      "literal": "rgba(0, 0, 0, 0.5)",
+      "token": "--solid-shade",
+      "replacement": "color-mix(in srgb, var(--solid-shade) 50%, transparent)",
+      "context": []
+    },
+    {
+      "file": "client/src/components/InteractiveTimeline.css",
+      "line": 380,
+      "owner": ".modal-content",
+      "property": "box-shadow",
+      "literal": "rgba(0, 0, 0, 0.25)",
+      "token": "--solid-shade",
+      "replacement": "color-mix(in srgb, var(--solid-shade) 25%, transparent)",
+      "context": []
+    },
+    {
+      "file": "client/src/components/InteractiveTimeline.css",
+      "line": 454,
+      "owner": ".form-input:focus, .form-select:focus",
+      "property": "box-shadow",
+      "literal": "rgba(0, 0, 0, 0.05)",
+      "token": "--solid-shade",
+      "replacement": "color-mix(in srgb, var(--solid-shade) 5%, transparent)",
+      "context": []
+    },
+    {
+      "file": "client/src/components/InteractiveTimeline.css",
+      "line": 495,
+      "owner": ".btn-primary",
+      "property": "color",
+      "literal": "white",
+      "token": "--solid-foreground",
+      "replacement": "var(--solid-foreground)",
+      "context": []
+    },
+    {
+      "file": "client/src/components/InteractiveTimeline.css",
+      "line": 563,
+      "owner": ".form-input:focus, .form-select:focus",
+      "property": "box-shadow",
+      "literal": "rgba(59, 130, 246, 0.2)",
+      "token": "--primary",
+      "replacement": "color-mix(in srgb, var(--primary) 20%, transparent)",
+      "context": [
+        "@media (prefers-color-scheme: dark)"
+      ]
+    }
+  ],
+  "resolvedOccurrences": 148
+}

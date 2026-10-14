@@ -13,6 +13,10 @@ export function DependencyLines({ dependencyLines }: DependencyLinesProps) {
         const { startPoint, endPoint, dependency } = line;
         const pathData = `M ${startPoint.x} ${startPoint.y} L ${endPoint.x} ${endPoint.y}`;
         const lineColor = getLineColor(dependency.dependencyType);
+        const label = `${dependency.dependencyType}${dependency.lagDays ? `+${dependency.lagDays}d` : ''}`;
+        const labelWidth = Math.max(32, label.length * 7);
+        const midX = (startPoint.x + endPoint.x) / 2;
+        const midY = (startPoint.y + endPoint.y) / 2;
 
         return (
           <svg
@@ -27,6 +31,9 @@ export function DependencyLines({ dependencyLines }: DependencyLinesProps) {
               zIndex: 2
             }}
           >
+            {/* Two inks identify the edge over every phase fill and both themes. */}
+            <path d={pathData} stroke="var(--solid-shade)" strokeWidth="6" fill="none" />
+            <path d={pathData} stroke="var(--solid-foreground)" strokeWidth="4" fill="none" />
             {/* Main dependency line */}
             <path
               d={pathData}
@@ -34,27 +41,28 @@ export function DependencyLines({ dependencyLines }: DependencyLinesProps) {
               strokeWidth="2"
               fill="none"
               strokeDasharray={dependency.lagDays && dependency.lagDays > 0 ? "5,3" : undefined}
-              opacity="0.8"
+              opacity="1"
             />
 
             {/* Arrow head at end point */}
             <polygon
               points={`${endPoint.x - 6},${endPoint.y - 3} ${endPoint.x},${endPoint.y} ${endPoint.x - 6},${endPoint.y + 3}`}
               fill={lineColor}
-              opacity="0.8"
+              opacity="1"
             />
 
-            {/* Dependency type label at midpoint */}
+            {/* Keep the type text readable when the midpoint crosses a phase. */}
+            <rect x={midX-labelWidth/2} y={midY-22} width={labelWidth} height="17" rx="3" fill="var(--bg-primary)" />
             <text
-              x={(startPoint.x + endPoint.x) / 2}
-              y={(startPoint.y + endPoint.y) / 2 - 8}
+              x={midX}
+              y={midY-9}
               fontSize="10"
-              fill={lineColor}
+              fill="var(--text-primary)"
               textAnchor="middle"
               fontWeight="600"
               style={{ userSelect: 'none' }}
             >
-              {dependency.dependencyType}{dependency.lagDays ? `+${dependency.lagDays}d` : ''}
+              {label}
             </text>
           </svg>
         );

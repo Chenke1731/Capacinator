@@ -28,20 +28,20 @@
 }
 
 .btn-primary {
-  background-color: var(--primary) !important;
-  color: #ffffff !important;
-  border-color: var(--primary) !important;
+  background-color: var(--primary-solid) !important;
+  color: var(--solid-foreground) !important;
+  border-color: var(--primary-solid) !important;
   /* Force text color for all children */
   --tw-text-opacity: 1;
 }
 
 .btn-primary,
 .btn-primary * {
-  color: #ffffff !important;
+  color: var(--solid-foreground) !important;
 }
 
 .btn-primary svg {
-  color: #ffffff !important;
+  color: var(--solid-foreground) !important;
 }
 
 /* Ensure all button text and children are visible */
@@ -51,8 +51,8 @@
 }
 
 .btn-primary:hover {
-  background-color: var(--primary) !important;
-  border-color: var(--primary) !important;
+  background-color: var(--primary-solid) !important;
+  border-color: var(--primary-solid) !important;
   filter: brightness(0.9);
 }
 
@@ -295,7 +295,7 @@
 .form-control:focus {
   outline: none;
   border-color: var(--input-focus-border);
-  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 10%, transparent);
 }
 
 /* Badge styles */
@@ -350,9 +350,9 @@
 
 .badge-gray {
   background-color: color-mix(in srgb, var(--color-gray) 20%, transparent);
-  color: #4b5563;
+  color: var(--text-secondary);
 }
-[data-theme='dark'] .badge-gray, .dark .badge-gray { color: #d1d5db; }
+[data-theme='dark'] .badge-gray, .dark .badge-gray { color: var(--text-secondary); }
 
 /* Utility classes */
 .text-muted {
@@ -466,7 +466,7 @@
 .form-textarea:focus {
   outline: none;
   border-color: var(--primary-color);
-  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 10%, transparent);
 }
 
 .form-textarea.error {
@@ -578,9 +578,9 @@ input[type="checkbox"].settings-checkbox,
 }
 
 .theme-option.active {
-  background-color: var(--primary) !important;
-  color: white !important;
-  border-color: var(--primary) !important;
+  background-color: var(--primary-solid) !important;
+  color: var(--solid-foreground) !important;
+  border-color: var(--primary-solid) !important;
 }
 
 .settings-actions {
@@ -597,15 +597,15 @@ input[type="checkbox"].settings-checkbox,
 }
 
 .save-message.success {
-  background-color: color-mix(in srgb, #10b981 10%, var(--bg-secondary));
-  color: #059669;
-  border: 1px solid color-mix(in srgb, #10b981 20%, transparent);
+  background-color: color-mix(in srgb, var(--status-success-border) 10%, var(--bg-secondary));
+  color: var(--status-success-text);
+  border: 1px solid color-mix(in srgb, var(--status-success-border) 20%, transparent);
 }
 
 .save-message.error {
-  background-color: color-mix(in srgb, #ef4444 10%, var(--bg-secondary));
-  color: #dc2626;
-  border: 1px solid color-mix(in srgb, #ef4444 20%, transparent);
+  background-color: color-mix(in srgb, var(--status-danger-border) 10%, var(--bg-secondary));
+  color: var(--status-danger-text);
+  border: 1px solid color-mix(in srgb, var(--status-danger-border) 20%, transparent);
 }
 
 /* Project Type Styles */
@@ -697,7 +697,7 @@ input[type="checkbox"].settings-checkbox,
 .color-swatch.active {
   border-color: var(--primary-color);
   transform: scale(1.1);
-  box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.2);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--primary) 20%, transparent);
 }
 
 .color-preview {
@@ -945,8 +945,8 @@ input[type="checkbox"].settings-checkbox,
 .allocation-value {
   display: inline-block;
   padding: 0.25rem 0.5rem;
-  background-color: var(--primary);
-  color: white;
+  background-color: var(--primary-solid);
+  color: var(--solid-foreground);
   border-radius: 4px;
   font-weight: 500;
   font-size: 0.75rem;
@@ -1304,7 +1304,7 @@ input[type="checkbox"].settings-checkbox,
   flex-wrap: wrap;
   font-size: 13px;
   color: var(--text-secondary);
-  background: var(--bg-secondary, rgba(127,127,127,0.08));
+  background: var(--bg-secondary, color-mix(in srgb, var(--neutral-surface-tint) 8%, transparent));
   border-radius: 6px;
   padding: 8px 12px;
 }
@@ -1344,7 +1344,7 @@ input[type="checkbox"].settings-checkbox,
   color: var(--text-primary);
 }
 .staffing-row { cursor: pointer; }
-.staffing-row:hover td { background: var(--bg-secondary, rgba(127,127,127,0.06)); }
+.staffing-row:hover td { background: var(--bg-secondary, color-mix(in srgb, var(--neutral-surface-tint) 6%, transparent)); }
 .staffing-row--paused td { opacity: 0.55; }
 .staffing-row--pool td { font-style: italic; color: var(--text-secondary); }
 .staffing-row-actions {
@@ -1410,17 +1410,17 @@ input[type="checkbox"].settings-checkbox,
   cursor: pointer;
   font-size: 13px;
 }
-.staffing-candidate:hover { background: var(--bg-secondary, rgba(127,127,127,0.08)); }
+.staffing-candidate:hover { background: var(--bg-secondary, color-mix(in srgb, var(--neutral-surface-tint) 8%, transparent)); }
 .staffing-candidate--picked {
-  border-color: var(--accent-color, #3b82f6);
-  background: rgba(59,130,246,0.08);
+  border-color: var(--primary-text);
+  background: color-mix(in srgb, var(--primary) 8%, transparent);
 }
-.staffing-candidate--over { border-color: rgba(245,158,11,0.5); }
+.staffing-candidate--over { border-color: color-mix(in srgb, var(--status-warning-border) 50%, transparent); }
 .staffing-candidate input[type='checkbox'] { width: 15px; height: 15px; }
 .staffing-candidate-name { font-weight: 500; min-width: 72px; }
 .staffing-candidate-role { color: var(--text-secondary); min-width: 64px; }
 .staffing-candidate-load { margin-left: auto; color: var(--text-secondary); white-space: nowrap; }
-.staffing-candidate-load--over { color: #f59e0b; font-weight: 600; }
+.staffing-candidate-load--over { color: var(--status-warning-text); font-weight: 600; }
 .staffing-candidates-empty {
   padding: 12px;
   text-align: center;
@@ -1429,7 +1429,7 @@ input[type="checkbox"].settings-checkbox,
 }
 .staffing-naming-actions { display: flex; gap: 8px; }
 .staffing-pool-form { display: flex; flex-direction: column; gap: 8px; }
-.staffing-error { font-size: 13px; color: var(--danger-color, #dc2626); }
+.staffing-error { font-size: 13px; color: var(--status-danger-text); }
 
 /* ============================================================
    Lifecycle cell controls (列表页就地推进生命周期)
@@ -1453,7 +1453,7 @@ input[type="checkbox"].settings-checkbox,
   max-width: 100%;
 }
 .projects-board .req-iter-val { min-height: 24px; } /* 板级 reset 特异度更高,前缀重声明 */
-.req-iter-val:hover { background: rgba(127, 127, 127, 0.1); }
+.req-iter-val:hover { background: color-mix(in srgb, var(--neutral-surface-tint) 10%, transparent); }
 .req-iter-val.is-empty { color: var(--text-tertiary, var(--text-secondary)); }
 
 .req-release { display: flex; flex-direction: column; gap: 2px; min-width: 0; align-self: center; justify-content: center; }
@@ -1466,7 +1466,7 @@ input[type="checkbox"].settings-checkbox,
   background: none; border: none; padding: 0 2px 0 6px; text-align: left;
   cursor: pointer; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
   max-width: 100%;
-  border-top: 1px dotted var(--border-color, rgba(127,127,127,0.2)); /* 细分隔线 */
+  border-top: 1px dotted var(--border-color, color-mix(in srgb, var(--neutral-surface-tint) 20%, transparent)); /* 细分隔线 */
 }
 .req-release-iter:hover { color: var(--primary-text); text-decoration: underline; }
 .req-release-iter--empty { color: var(--text-tertiary, var(--text-secondary)); }
@@ -1477,10 +1477,10 @@ input[type="checkbox"].settings-checkbox,
   background: none; border: none; border-radius: 4px; cursor: pointer;
   font-size: var(--b-fs-body); text-align: left; color: var(--text-primary);
 }
-.iter-pop-item:hover { background: var(--bg-secondary, rgba(127,127,127,0.1)); }
+.iter-pop-item:hover { background: var(--bg-secondary, color-mix(in srgb, var(--neutral-surface-tint) 10%, transparent)); }
 .iter-pop-item--active { background: var(--badge-primary-bg); color: var(--primary-text); }
 .iter-pop-item--detach { color: var(--danger); font-size: var(--b-fs-meta); }
-[data-theme='dark'] .iter-pop-item--detach { color: #fca5a5; } /* 深色 --danger #ef4444 对悬停染底 3.9<4.5(取证: rgb(239,68,68)×rgb(31,41,55)=3.9) → 提亮至 7.2 */
+[data-theme='dark'] .iter-pop-item--detach { color: var(--status-danger-text); } /* 深色 --danger #ef4444 对悬停染底 3.9<4.5(取证: rgb(239,68,68)×rgb(31,41,55)=3.9) → 提亮至 7.2 */
 .iter-pop-name { flex: 1 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .iter-pop-count { font-size: var(--b-fs-meta); color: var(--text-secondary); flex: none; }
 .iter-pop-create { display: flex; flex-direction: column; gap: 6px; }
@@ -1537,7 +1537,7 @@ input[type="checkbox"].settings-checkbox,
 }
 .projects-board .req-ar-add { min-width: 24px; min-height: 24px; } /* 板级 reset 特异度更高,前缀重声明 */
 .requirements-name:hover .req-ar-add { display: inline-flex; }
-.req-ar-add:hover { background: var(--bg-secondary, rgba(127,127,127,0.12)); color: var(--primary-text); }
+.req-ar-add:hover { background: var(--bg-secondary, color-mix(in srgb, var(--neutral-surface-tint) 12%, transparent)); color: var(--primary-text); }
 
 /* B3b 状态单胶囊(设计 §7): 徽章段+›段拼一个胶囊,同底同高 */
 .lifecycle-capsule {
@@ -1709,11 +1709,11 @@ input[type="checkbox"].settings-checkbox,
   text-align: left;
   cursor: pointer;
 }
-.cell-pop-item:hover { background: var(--bg-secondary, rgba(127, 127, 127, 0.14)); }
-.cell-pop-item--active { color: #2563eb; font-weight: 600; } /* 蓝 600: 选中项白底 5.2:1(蓝 500 曾 3.68<4.5) */
+.cell-pop-item:hover { background: var(--bg-secondary, color-mix(in srgb, var(--neutral-surface-tint) 14.000000000000002%, transparent)); }
+.cell-pop-item--active { color: var(--primary-text); font-weight: 600; } /* 蓝 600: 选中项白底 5.2:1(蓝 500 曾 3.68<4.5) */
 .cell-pop-item--danger { color: var(--status-danger-text); }
 /* 弹层经 Portal 到 body,深色主题下的选中/危险项(浅色意图色曾 3.43/2.84) */
-[data-theme='dark'] .cell-pop-item--active { color: #93c5fc; }
+[data-theme='dark'] .cell-pop-item--active { color: var(--primary-text); }
 [data-theme='dark'] .cell-pop-item--danger { color: var(--status-danger-text); }
 /* 状态徽章悬停(2026-10-11 批次二): 全局 button:hover 的 bg-tertiary 盖掉
    状态色底,text-secondary 对 #374151 仅 4.02——深色悬停换暗染底(6.0) */
@@ -1726,7 +1726,7 @@ input[type="checkbox"].settings-checkbox,
   white-space: nowrap;
 }
 .cell-pop-item-meta { font-size: var(--b-fs-meta); color: var(--text-secondary); font-weight: 400; }
-.cell-pop-check { color: var(--accent-color, #3b82f6); flex: none; }
+.cell-pop-check { color: var(--primary-text); flex: none; }
 .cell-pop-item--danger .cell-pop-check { color: inherit; }
 .cell-pop-tagdot { width: 8px; height: 8px; border-radius: 50%; flex: none; }
 .cell-pop-empty { padding: 8px; font-size: var(--b-fs-meta); color: var(--text-secondary); text-align: center; }
@@ -1747,7 +1747,7 @@ input[type="checkbox"].settings-checkbox,
   background: none;
   color: var(--text-primary);
 }
-.cell-pop-new input:focus { outline: none; border-color: var(--accent-color, #3b82f6); }
+.cell-pop-new input:focus { outline: none; border-color: var(--primary-text); }
 .cell-pop-new-btn {
   display: inline-flex;
   align-items: center;
@@ -1757,10 +1757,10 @@ input[type="checkbox"].settings-checkbox,
   border: none;
   background: none;
   border-radius: var(--b-r-sm);
-  color: var(--accent-color, #3b82f6);
+  color: var(--primary-text);
   cursor: pointer;
 }
-.cell-pop-new-btn:hover:not(:disabled) { background: var(--bg-secondary, rgba(127, 127, 127, 0.14)); }
+.cell-pop-new-btn:hover:not(:disabled) { background: var(--bg-secondary, color-mix(in srgb, var(--neutral-surface-tint) 14.000000000000002%, transparent)); }
 .cell-pop-new-btn:disabled { opacity: 0.4; cursor: not-allowed; }
 .pri-pop .req-pri { min-width: 26px; display: inline-flex; justify-content: center; }
 
@@ -1924,7 +1924,7 @@ input[type="checkbox"].settings-checkbox,
   border-radius: var(--b-r-sm);
   flex: 0 1 220px;
 }
-.board-search:focus-within { border-color: var(--accent-color, #3b82f6); }
+.board-search:focus-within { border-color: var(--primary-text); }
 .board-search-icon { color: var(--text-secondary); flex-shrink: 0; }
 .board-search-input {
   border: none;
@@ -1949,7 +1949,7 @@ input[type="checkbox"].settings-checkbox,
   cursor: pointer;
 }
 /* P3: 下拉是全页唯一零反馈控件族——补 hover 确认与焦点环 */
-.board-select:hover { border-color: var(--border-color-hover, var(--border-color)); background: var(--bg-secondary, rgba(127, 127, 127, 0.06)); }
+.board-select:hover { border-color: var(--border-color-hover, var(--border-color)); background: var(--bg-secondary, color-mix(in srgb, var(--neutral-surface-tint) 6%, transparent)); }
 .board-select:focus-visible,
 .nav-link:focus-visible {
   outline: none;
@@ -1967,7 +1967,7 @@ input[type="checkbox"].settings-checkbox,
   border-radius: var(--b-r-sm);
   cursor: pointer;
 }
-.projects-board .board-reset:hover { background: var(--bg-secondary, rgba(127, 127, 127, 0.12)); color: var(--text-primary); }
+.projects-board .board-reset:hover { background: var(--bg-secondary, color-mix(in srgb, var(--neutral-surface-tint) 12%, transparent)); color: var(--text-primary); }
 .board-toolbar-right { margin-left: auto; display: inline-flex; gap: 8px; align-items: center; }
 .projects-board .board-ghost-btn {
   display: inline-flex;
@@ -1982,7 +1982,7 @@ input[type="checkbox"].settings-checkbox,
   border-radius: var(--b-r-sm);
   cursor: pointer;
 }
-.projects-board .board-ghost-btn:hover { background: var(--bg-secondary, rgba(127, 127, 127, 0.12)); color: var(--text-primary); }
+.projects-board .board-ghost-btn:hover { background: var(--bg-secondary, color-mix(in srgb, var(--neutral-surface-tint) 12%, transparent)); color: var(--text-primary); }
 .projects-board .board-primary-btn {
   display: inline-flex;
   align-items: center;
@@ -1991,8 +1991,8 @@ input[type="checkbox"].settings-checkbox,
   padding: 0 16px;
   font-size: var(--b-fs-body);
   font-weight: 400;
-  color: #fff;
-  background: #2563eb;
+  color: var(--solid-foreground);
+  background: var(--primary-solid);
   border: none;
   border-radius: var(--b-r-sm);
   cursor: pointer;
@@ -2018,7 +2018,7 @@ input[type="checkbox"].settings-checkbox,
   font-size: 14px; /* 2026-09-23 终版: 表头靠字号(比正文大 1.5px)区分,不靠字重/背景 */
   font-weight: 400;
   color: var(--text-secondary);
-  background: var(--bg-secondary, rgba(127, 127, 127, 0.06));
+  background: var(--bg-secondary, color-mix(in srgb, var(--neutral-surface-tint) 6%, transparent));
   border-bottom: 1px solid var(--border-color);
 }
 
@@ -2029,12 +2029,12 @@ input[type="checkbox"].settings-checkbox,
   align-items: center;
   min-height: 40px;
   padding: 0 14px;
-  border-bottom: 1px solid var(--border-color, rgba(127, 127, 127, 0.12));
+  border-bottom: 1px solid var(--border-color, color-mix(in srgb, var(--neutral-surface-tint) 12%, transparent));
   cursor: pointer;
 }
-.requirements-row:hover { background: var(--bg-secondary, rgba(127, 127, 127, 0.06)); }
-.requirements-row--warned { box-shadow: inset 3px 0 0 #f59e0b; }
-.requirements-row--warned:hover { background: rgba(245, 158, 11, 0.07); }
+.requirements-row:hover { background: var(--bg-secondary, color-mix(in srgb, var(--neutral-surface-tint) 6%, transparent)); }
+.requirements-row--warned { box-shadow: inset 3px 0 0 var(--status-warning-border); }
+.requirements-row--warned:hover { background: color-mix(in srgb, var(--status-warning-border) 7.000000000000001%, transparent); }
 
 /* ── 列宽拖拽(2026-09-22): 表头右缘手柄, 拖=调, 双击=重置; 列宽变量统一驱动两断点 ── */
 .requirements-table { overflow-x: auto; }
@@ -2066,7 +2066,7 @@ input[type="checkbox"].settings-checkbox,
 }
 .req-col-grip:hover::after,
 .req-col-grip--active::after {
-  background: var(--accent-color, #3b82f6);
+  background: var(--primary-solid);
   height: 22px;
   opacity: 1;
 }
@@ -2078,7 +2078,7 @@ body.req-col-dragging * {
 
 /* 就地保存反馈: 行 flash 一闪 */
 @keyframes reqFlash {
-  from { background-color: rgba(59, 130, 246, 0.16); }
+  from { background-color: color-mix(in srgb, var(--primary) 16%, transparent); }
   to { background-color: transparent; }
 }
 .requirements-row--flash { animation: reqFlash 0.9s ease-out; }
@@ -2142,9 +2142,9 @@ body.req-col-dragging * {
   width: 7px; height: 7px;
   border-radius: 50%;
 }
-.req-tag--more { background: var(--bg-secondary, rgba(127, 127, 127, 0.14)); color: var(--text-secondary); cursor: help; }
+.req-tag--more { background: var(--bg-secondary, color-mix(in srgb, var(--neutral-surface-tint) 14.000000000000002%, transparent)); color: var(--text-secondary); cursor: help; }
 /* 悬停重声明(全局 button:hover 换底同族,2026-10-13): 同色系微抬 */
-.req-tag--more:hover { background: rgba(127, 127, 127, 0.2); }
+.req-tag--more:hover { background: color-mix(in srgb, var(--neutral-surface-tint) 20%, transparent); }
 
 /* 行内编辑可供性: cell 包裹层悬停淡底 + 角落铅笔; 呈现态保持只读密度 */
 .req-edit-cell { position: relative; display: inline-flex; align-items: center; min-width: 0; }
@@ -2160,14 +2160,14 @@ body.req-col-dragging * {
 
 /* 规模/人月格: 编辑词汇与其他格一致(可点+hover 淡底+就地输入) */
 /* SR 偏差告警(2026-09-23): SR 自身值 ≠ 子行聚合 → 琥珀色 */
-.req-kloc--deviated, .req-effort--deviated { color: #b45309; font-weight: 600; }
-[data-theme='dark'] .req-kloc--deviated, [data-theme='dark'] .req-effort--deviated { color: #fbbf24; }
+.req-kloc--deviated, .req-effort--deviated { color: var(--status-warning-text); font-weight: 600; }
+[data-theme='dark'] .req-kloc--deviated, [data-theme='dark'] .req-effort--deviated { color: var(--status-warning-text); }
 
 .req-kloc.req-editable, .req-effort.req-editable {
   background: none; border: none; padding: 1px 4px;
   cursor: pointer; text-align: left;
 }
-.req-kloc.req-editable:hover, .req-effort.req-editable:hover { background: rgba(127, 127, 127, 0.1); }
+.req-kloc.req-editable:hover, .req-effort.req-editable:hover { background: color-mix(in srgb, var(--neutral-surface-tint) 10%, transparent); }
 
 /* 所有就地输入框(2026-09-23 用户裁决"自适应宽度,不逐类限制"):
    下限=格子宽,宽度=内容实际需要(field-sizing:content),上限=280 防极端 */
@@ -2292,11 +2292,11 @@ body.req-col-dragging * {
   white-space: nowrap;
 }
 .requirements-owner-btn.is-empty { color: var(--text-secondary); font-weight: 400; }
-.requirements-owner-btn:hover { background: rgba(127, 127, 127, 0.1); }
+.requirements-owner-btn:hover { background: color-mix(in srgb, var(--neutral-surface-tint) 10%, transparent); }
 
 /* ── SR→AR 折叠行(2026-09-22 真实表借鉴: JDC/SR 分解成 AR) ── */
-.requirements-row--sr { background: rgba(127, 127, 127, 0.045); }
-.requirements-row--sr:hover { background: rgba(127, 127, 127, 0.09); }
+.requirements-row--sr { background: color-mix(in srgb, var(--neutral-surface-tint) 4.5%, transparent); }
+.requirements-row--sr:hover { background: color-mix(in srgb, var(--neutral-surface-tint) 9%, transparent); }
 /* SR 折叠箭头: 行点击=进详情(与其他行同词汇),折叠归箭头钮(24px 档) */
 .req-sr-toggle {
   display: inline-flex;
@@ -2313,7 +2313,7 @@ body.req-col-dragging * {
   flex: none;
   cursor: pointer;
 }
-.req-sr-toggle:hover { background: rgba(127, 127, 127, 0.12); color: var(--text-primary); }
+.req-sr-toggle:hover { background: color-mix(in srgb, var(--neutral-surface-tint) 12%, transparent); color: var(--text-primary); }
 .projects-board .req-sr-toggle { min-height: 24px; min-width: 24px; }
 .requirements-row--sr .requirements-name-text { font-weight: 500; }
 /* P14: 只读汇总件不显示可点手型(行点击=详情仍有效,但光标不再误导) */
@@ -2356,8 +2356,8 @@ body.req-col-dragging * {
 .req-staff--ro:hover { background: none; }
 .req-staff-row--ro { opacity: 0.9; }
 /* 子行(AR): 名称缩进+箭头,整行略弱化 */
-.requirements-row--child { background: rgba(127, 127, 127, 0.02); }
-.requirements-row--child:hover { background: var(--bg-secondary, rgba(127, 127, 127, 0.06)); }
+.requirements-row--child { background: color-mix(in srgb, var(--neutral-surface-tint) 2%, transparent); }
+.requirements-row--child:hover { background: var(--bg-secondary, color-mix(in srgb, var(--neutral-surface-tint) 6%, transparent)); }
 .requirements-name--child { padding-left: 18px; }
 .req-child-arrow { color: var(--text-tertiary, var(--text-secondary)); flex: none; }
 .req-number-part {
@@ -2373,10 +2373,10 @@ body.req-col-dragging * {
   padding: 2px 6px;
   margin-left: 2px;
 }
-.req-number-part:hover { background: rgba(127, 127, 127, 0.1); }
+.req-number-part:hover { background: color-mix(in srgb, var(--neutral-surface-tint) 10%, transparent); }
 /* .projects-board button { min-height:0 } 特异度更高,命中档位需带前缀重新声明 */
 .projects-board .req-number-part { min-height: 24px; }
-.requirements-children > .requirements-row { border-bottom: 1px dashed var(--border-color, rgba(127, 127, 127, 0.12)); }
+.requirements-children > .requirements-row { border-bottom: 1px dashed var(--border-color, color-mix(in srgb, var(--neutral-surface-tint) 12%, transparent)); }
 
 /* 所属组件列(窄列省略号,命中 24px 档) */
 .requirements-component-btn {
@@ -2389,7 +2389,7 @@ body.req-col-dragging * {
   white-space: nowrap;
 }
 .requirements-component-btn.is-empty { color: var(--text-secondary); font-weight: 400; }
-.requirements-component-btn:hover { background: rgba(127, 127, 127, 0.1); }
+.requirements-component-btn:hover { background: color-mix(in srgb, var(--neutral-surface-tint) 10%, transparent); }
 .req-edit-cell--component { min-width: 0; max-width: 100%; }
 
 /* 规模列: 只读,KLOC 主/人月次,等宽数字 */
@@ -2440,7 +2440,7 @@ body.req-col-dragging * {
   cursor: pointer;
   text-align: left;
 }
-.req-staff:hover { background: var(--bg-secondary, rgba(127, 127, 127, 0.1)); }
+.req-staff:hover { background: var(--bg-secondary, color-mix(in srgb, var(--neutral-surface-tint) 10%, transparent)); }
 .req-staff-row {
   display: flex;
   align-items: center;
@@ -2476,8 +2476,8 @@ body.req-col-dragging * {
   border-radius: 50%;
   flex-shrink: 0;
 }
-.staff-dot--design { background: var(--accent-color, #3b82f6); }
-.staff-dot--dev { background: #22c55e; }
+.staff-dot--design { background: var(--status-info-border); }
+.staff-dot--dev { background: var(--status-success-border); }
 .staff-pop-side { font-size: var(--b-fs-body); font-weight: 600; }
 .staff-pop-named { flex: 1; font-size: var(--b-fs-meta); color: var(--text-secondary); text-align: right; }
 /* 步进器前明示"池"标签——编辑对象不靠猜 */
@@ -2488,7 +2488,7 @@ body.req-col-dragging * {
   align-items: center;
   height: 28px;
   border-radius: var(--b-r-pill);
-  background: var(--bg-secondary, rgba(127, 127, 127, 0.14));
+  background: var(--bg-secondary, color-mix(in srgb, var(--neutral-surface-tint) 14.000000000000002%, transparent));
   padding: 0 2px;
 }
 .staff-stepper-btn {
@@ -2506,7 +2506,7 @@ body.req-col-dragging * {
   border-radius: var(--b-r-pill);
   cursor: pointer;
 }
-.staff-stepper-btn:hover:not(:disabled) { background: rgba(127, 127, 127, 0.25); color: var(--text-primary); }
+.staff-stepper-btn:hover:not(:disabled) { background: color-mix(in srgb, var(--neutral-surface-tint) 25%, transparent); color: var(--text-primary); }
 .staff-stepper-btn:disabled { opacity: 0.3; cursor: not-allowed; }
 .staff-stepper-val {
   min-width: 44px;
@@ -2561,10 +2561,10 @@ body.req-col-dragging * {
   text-align: center;
 }
 .req-pri.req-editable { padding: 3px 10px; min-width: 44px; }
-.req-pri--1 { color: var(--danger-color, #dc2626); }
-.req-pri--2 { color: #b45309; }
+.req-pri--1 { color: var(--status-danger-text); }
+.req-pri--2 { color: var(--status-warning-text); }
 .req-pri--3, .req-pri--4, .req-pri--5 { color: var(--text-secondary); font-weight: 400; }
-.req-pri.req-editable:hover { background: rgba(127, 127, 127, 0.1); }
+.req-pri.req-editable:hover { background: color-mix(in srgb, var(--neutral-surface-tint) 10%, transparent); }
 /* 悬停态语义色保对比: P1/P2 亮红/琥珀在灰染底上曾 3.9-4.3<4.5,hover 加深一档;
    P3-P5 次级灰在灰染底上 4.32<4.5,hover 升主文色 */
 /* 悬停深化带主题前缀(2026-10-11 悬案2 裁决): AA 批次的静息语义色
@@ -2572,32 +2572,32 @@ body.req-col-dragging * {
    裸写 (0,3,0) hover 规则被平级后置压制,P2 悬停深化自 40b017d 起从未
    生效(静息琥珀 #b45309 对灰染悬停底 4.32<4.5)。前缀升至 (0,5,0) 胜出;
    显式 'light' 限定——双匹配会在深色压掉提亮规则(1.26 回归) */
-[data-theme='light'] .projects-board .req-pri--1.req-editable:hover { color: #b91c1c; }
-[data-theme='light'] .projects-board .req-pri--2.req-editable:hover { color: #92400e; }
+[data-theme='light'] .projects-board .req-pri--1.req-editable:hover { color: var(--status-danger-text); }
+[data-theme='light'] .projects-board .req-pri--2.req-editable:hover { color: var(--priority-warning-hover); }
 [data-theme='light'] .projects-board .req-pri--3.req-editable:hover,
 [data-theme='light'] .projects-board .req-pri--4.req-editable:hover,
-[data-theme='light'] .projects-board .req-pri--5.req-editable:hover { color: #374151; }
+[data-theme='light'] .projects-board .req-pri--5.req-editable:hover { color: var(--text-secondary); }
 /* 深色背板悬停走向相反(提亮非加深)——40b017d 的 #374151 在深底上 1.26:1
    是主题盲回归(深色从未渲染期写入);P1/P2 深色悬停同样提亮 */
-[data-theme='dark'] .req-pri--1.req-editable:hover { color: #fca5a5; }
-[data-theme='dark'] .req-pri--2.req-editable:hover { color: #fcd34d; }
+[data-theme='dark'] .req-pri--1.req-editable:hover { color: var(--status-danger-text); }
+[data-theme='dark'] .req-pri--2.req-editable:hover { color: var(--priority-warning-hover); }
 [data-theme='dark'] .req-pri--3.req-editable:hover,
 [data-theme='dark'] .req-pri--4.req-editable:hover,
-[data-theme='dark'] .req-pri--5.req-editable:hover { color: #e5e7eb; }
+[data-theme='dark'] .req-pri--5.req-editable:hover { color: var(--text-secondary); }
 /* 气泡项内 P 徽标悬停同理(项 hover 灰染底) */
-.cell-pop-item:hover .req-pri--1 { color: #b91c1c; }
-.cell-pop-item:hover .req-pri--2 { color: #92400e; }
-.cell-pop-item:hover .req-pri { color: #374151; }
+.cell-pop-item:hover .req-pri--1 { color: var(--status-danger-text); }
+.cell-pop-item:hover .req-pri--2 { color: var(--priority-warning-hover); }
+.cell-pop-item:hover .req-pri { color: var(--text-secondary); }
 /* 弹层经 Portal 渲染到 body——[data-theme='dark'] .projects-board 域的深色
    提亮罩不住弹内 P 徽章(曾 3.43/悬停 2.84)。全域深色覆盖 + 弹内项深色悬停 */
-[data-theme='dark'] .req-pri--1 { color: #fca5a5; }
-[data-theme='dark'] .req-pri--2 { color: #fbbf24; }
-[data-theme='dark'] .cell-pop-item:hover .req-pri--1 { color: #fca5a5; }
-[data-theme='dark'] .cell-pop-item:hover .req-pri--2 { color: #fcd34d; }
-[data-theme='dark'] .cell-pop-item:hover .req-pri { color: #e5e7eb; }
+[data-theme='dark'] .req-pri--1 { color: var(--status-danger-text); }
+[data-theme='dark'] .req-pri--2 { color: var(--status-warning-text); }
+[data-theme='dark'] .cell-pop-item:hover .req-pri--1 { color: var(--status-danger-text); }
+[data-theme='dark'] .cell-pop-item:hover .req-pri--2 { color: var(--priority-warning-hover); }
+[data-theme='dark'] .cell-pop-item:hover .req-pri { color: var(--text-secondary); }
 /* 标签 chip 悬停: 全局 button:hover 的 bg-tertiary 曾把深色 ink 压到 3.47-4.06——
    深色换暗染底保 ink 对比(0.35 实测待排序类 ink ≥4.5) */
-[data-theme='dark'] .req-tag--filter:hover { background: rgba(0, 0, 0, 0.35); }
+[data-theme='dark'] .req-tag--filter:hover { background: color-mix(in srgb, var(--solid-shade) 35%, transparent); }
 /* 清空变体深色双态: 浅色意图的 #dc2626/#b91c1c 在深底 3.67/2.55;
    hover 加 .lc-popover 域升特异度——平级后置的浅色规则曾胜出 */
 [data-theme='dark'] .bulk-apply-btn--clear { color: var(--status-danger-text); }
@@ -2624,8 +2624,8 @@ body.req-col-dragging * {
   font-weight: 500;
   cursor: pointer;
 }
-.projects-board .req-icon-btn:hover { background: var(--bg-secondary, rgba(127, 127, 127, 0.14)); color: var(--text-primary); }
-.projects-board .req-icon-btn--confirm { color: var(--danger-color, #dc2626); }
+.projects-board .req-icon-btn:hover { background: var(--bg-secondary, color-mix(in srgb, var(--neutral-surface-tint) 14.000000000000002%, transparent)); color: var(--text-primary); }
+.projects-board .req-icon-btn--confirm { color: var(--status-danger-text); }
 
 /* 版本: 文本型编辑点(24px 命中),悬停显底 */
 .projects-version { display: inline-flex; align-items: center; gap: 3px; }
@@ -2644,7 +2644,7 @@ body.req-col-dragging * {
   font-weight: 400;
   cursor: text;
 }
-.projects-board .projects-version-part:hover { background: var(--bg-secondary, rgba(127, 127, 127, 0.14)); }
+.projects-board .projects-version-part:hover { background: var(--bg-secondary, color-mix(in srgb, var(--neutral-surface-tint) 14.000000000000002%, transparent)); }
 .projects-version-sep { color: var(--text-secondary); }
 
 /* 状态列内联件: 徽章实心 pill / 快捷幽灵 pill(同族同圆角) / 死线内联 / 告警短词 pill */
@@ -2733,7 +2733,7 @@ body.req-col-dragging * {
   flex-wrap: wrap;
   padding: 10px 14px;
   border-bottom: 1px solid var(--border-color);
-  background: var(--bg-secondary, rgba(127, 127, 127, 0.05));
+  background: var(--bg-secondary, color-mix(in srgb, var(--neutral-surface-tint) 5%, transparent));
 }
 .tickets-stat { font-size: 13px; color: var(--text-secondary); }
 
@@ -2747,7 +2747,7 @@ body.req-col-dragging * {
   border-radius: 8px;
   cursor: pointer;
 }
-.affairs-row:hover { background: var(--bg-secondary, rgba(127, 127, 127, 0.06)); }
+.affairs-row:hover { background: var(--bg-secondary, color-mix(in srgb, var(--neutral-surface-tint) 6%, transparent)); }
 .affairs-toggle { color: var(--text-secondary); display: inline-flex; }
 .affairs-type {
   font-size: 11.5px;
@@ -2809,9 +2809,9 @@ body.req-col-dragging * {
 
 /* ── 对比度 AA 修正(2026-09-22 全站清零批次) ────────────────── */
 /* P 档: 浅色 P2 琥珀压深过 4.5; 深色 P1/P2 提亮 */
-[data-theme='light'] .projects-board .req-pri--2 { color: #b45309; }
-[data-theme='dark'] .projects-board .req-pri--1, .dark .projects-board .req-pri--1 { color: #fca5a5; }
-[data-theme='dark'] .projects-board .req-pri--2, .dark .projects-board .req-pri--2 { color: #fbbf24; }
+[data-theme='light'] .projects-board .req-pri--2 { color: var(--status-warning-text); }
+[data-theme='dark'] .projects-board .req-pri--1, .dark .projects-board .req-pri--1 { color: var(--status-danger-text); }
+[data-theme='dark'] .projects-board .req-pri--2, .dark .projects-board .req-pri--2 { color: var(--status-warning-text); }
 /* 深色: 状态快捷幽灵键文字提亮 */
 [data-theme='dark'] .projects-board .lifecycle-quick-btn, .dark .projects-board .lifecycle-quick-btn { color: var(--status-info-text); }
 /* 深色: 实心危险按钮底压深(白字 ≥4.5) */
@@ -2819,8 +2819,8 @@ body.req-col-dragging * {
 
 /* 深色: 实心主按钮底压深一档(白字 ≥4.5) */
 [data-theme='dark'] .btn-primary, .dark .btn-primary {
-  background-color: #4f46e5 !important;
-  border-color: #4f46e5 !important;
+  background-color: var(--primary-solid) !important;
+  border-color: var(--primary-text) !important;
 }
 
 /* ── 投入履历(实投入月帐): 计划 vs 实际 ── */
@@ -2836,18 +2836,18 @@ body.req-col-dragging * {
   min-height: 32px;
   padding: 0 8px;
 }
-.actuals-thead { font-size: var(--b-fs-meta); color: var(--text-secondary); border-bottom: 1px solid var(--border-color, rgba(127, 127, 127, 0.12)); }
-.actuals-row { border-bottom: 1px solid var(--border-color, rgba(127, 127, 127, 0.08)); }
+.actuals-thead { font-size: var(--b-fs-meta); color: var(--text-secondary); border-bottom: 1px solid var(--border-color, color-mix(in srgb, var(--neutral-surface-tint) 12%, transparent)); }
+.actuals-row { border-bottom: 1px solid var(--border-color, color-mix(in srgb, var(--neutral-surface-tint) 8%, transparent)); }
 .actuals-num { font-variant-numeric: tabular-nums; font-size: var(--b-fs-body); }
 .actuals-edit { min-width: 56px; min-height: 24px; padding: 2px 6px; }
-.actuals-edit:hover { background: rgba(127, 127, 127, 0.1); }
-.actuals-dev.is-over { color: var(--danger-color, #dc2626); font-weight: 600; }
+.actuals-edit:hover { background: color-mix(in srgb, var(--neutral-surface-tint) 10%, transparent); }
+.actuals-dev.is-over { color: var(--status-warning-text); font-weight: 600; }
 .actuals-dev.is-under { color: var(--text-secondary); }
 .actuals-dev { font-variant-numeric: tabular-nums; font-size: var(--b-fs-body); }
 .actuals-source { font-size: var(--b-fs-meta); color: var(--text-secondary); }
 
 /* 深色下 SR 计数胶囊提亮(同因 AA) */
-[data-theme='dark'] .req-sr-chip { color: #93c5fd; }
+[data-theme='dark'] .req-sr-chip { color: var(--status-info-text); }
 
 /* 骨架屏(2026-09-23 P3): 数据加载中 3 行占位 */
 .req-skeleton { padding: 16px 24px; }
@@ -2855,7 +2855,7 @@ body.req-col-dragging * {
   height: 40px;
   margin-bottom: 1px;
   border-radius: 4px;
-  background: linear-gradient(90deg, var(--bg-secondary) 25%, var(--bg-hover, rgba(127,127,127,0.12)) 50%, var(--bg-secondary) 75%);
+  background: linear-gradient(90deg, var(--bg-secondary) 25%, var(--bg-hover, color-mix(in srgb, var(--neutral-surface-tint) 12%, transparent)) 50%, var(--bg-secondary) 75%);
   background-size: 200% 100%;
   animation: reqSkeletonWave 1.5s ease-in-out infinite;
 }
@@ -2926,7 +2926,7 @@ body.req-col-dragging * {
   position: relative;
   background: none;
   border: none;
-  color: #fff;
+  color: var(--solid-foreground);
   font-size: 12.5px; /* 显式声明字号字重: button 全局继承 500;12.5 对齐排版矩阵档 */
   font-weight: 400;
   cursor: pointer;
@@ -2935,21 +2935,21 @@ body.req-col-dragging * {
   content: '';
   position: absolute;
   inset: 4px; /* 16px 视觉盒 */
-  border: 1.5px solid var(--text-secondary, #52525b); /* 未选边框对比≥3(曾 rgba 淡灰 1.18<3) */
+  border: 1.5px solid var(--text-secondary); /* 未选边框对比≥3(曾 rgba 淡灰 1.18<3) */
   border-radius: 4px;
   background: transparent;
   transition: border-color 0.12s ease, background-color 0.12s ease;
 }
-.req-checkbox:hover::before { border-color: var(--accent-color, #3b82f6); }
-[data-theme='dark'] .req-checkbox:hover::before { border-color: #60a5fa; } /* 蓝 400: 表头深底 #374151 上 2.8→4.0(蓝 500 差 0.2);浅色维持蓝 500(白底 3.68 过) */
+.req-checkbox:hover::before { border-color: var(--primary-text); }
+[data-theme='dark'] .req-checkbox:hover::before { border-color: var(--primary-text); } /* 蓝 400: 表头深底 #374151 上 2.8→4.0(蓝 500 差 0.2);浅色维持蓝 500(白底 3.68 过) */
 .req-checkbox[data-state='checked']::before,
 .req-checkbox[data-state='indeterminate']::before {
-  background: var(--accent-color, #3b82f6);
-  border-color: var(--accent-color, #3b82f6);
+  background: var(--primary-solid);
+  border-color: var(--primary-solid);
 }
-.req-checkbox:focus-visible { outline: 2px solid var(--accent-color, #3b82f6); outline-offset: 2px; }
+.req-checkbox:focus-visible { outline: 2px solid var(--primary-text); outline-offset: 2px; }
 .req-checkbox:disabled { opacity: 0.4; cursor: not-allowed; }
-.req-checkbox-ind { display: flex; align-items: center; justify-content: center; color: #fff; line-height: 0; position: relative; }
+.req-checkbox-ind { display: flex; align-items: center; justify-content: center; color: var(--solid-foreground); line-height: 0; position: relative; }
 
 /* ── 批量操作条(2026-10-11): 选中>0 底部浮动,pending 全禁用,删除二次确认 ── */
 .req-bulk-bar {
@@ -3066,8 +3066,16 @@ body.req-col-dragging * {
 .requirements-thead { position: sticky; top: 0; z-index: 2; }
 .requirements-vrow { will-change: transform; }
 /* 原 .requirements-children > .requirements-row 的虚线边框: 平铺后由行类自身承担 */
-.requirements-row--child { border-bottom: 1px dashed var(--border-color, rgba(127, 127, 127, 0.12)); }
+.requirements-row--child { border-bottom: 1px dashed var(--border-color, color-mix(in srgb, var(--neutral-surface-tint) 12%, transparent)); }
 
 /* Delivered remains a distinct teal category; sampled against its actual badge surface. */
 [data-theme="light"] { --lifecycle-delivered-text: #0f766e; --lifecycle-delivered-border: #0f766e; --lifecycle-delivered-soft: color-mix(in srgb, var(--lifecycle-delivered-border) 10%, var(--bg-primary)); }
 [data-theme="dark"] { --lifecycle-delivered-text: #5eead4; --lifecycle-delivered-border: #14b8a6; --lifecycle-delivered-soft: color-mix(in srgb, var(--lifecycle-delivered-border) 10%, var(--bg-primary)); }
+
+/* Existing neutral tint retained exactly; alpha still encodes row hierarchy. */
+:root { --neutral-surface-tint: #7f7f7f; }
+[data-theme="light"] { --priority-warning-hover: #92400e; }
+[data-theme="dark"] { --priority-warning-hover: #fcd34d; }
+/* Priority remains identifiable when the generic hovered item also matches. */
+.cell-pop-item:hover .req-pri.req-pri--1 { color: var(--status-danger-text); }
+.cell-pop-item:hover .req-pri.req-pri--2 { color: var(--priority-warning-hover); }

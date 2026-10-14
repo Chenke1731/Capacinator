@@ -1,0 +1,204 @@
+{
+  "evidence": [
+    {
+      "theme": "light",
+      "width": 1600,
+      "result": "success",
+      "row": {
+        "foreground": "rgb(6, 95, 70)",
+        "background": [
+          224,
+          237,
+          235
+        ],
+        "ratio": 6.396758109200359,
+        "threshold": 4.5
+      },
+      "artifact": "tests/visual/reports/settings-feedback-success-light-1600.png",
+      "mocks": [
+        {
+          "method": "POST",
+          "path": "/api/settings/system",
+          "response": 200,
+          "persisted": false
+        }
+      ],
+      "proof": "Actual settings save UI with declared in-browser response; no persistence proof"
+    },
+    {
+      "theme": "light",
+      "width": 1600,
+      "result": "error",
+      "row": {
+        "foreground": "rgb(153, 27, 27)",
+        "background": [
+          243,
+          228,
+          229
+        ],
+        "ratio": 6.742904309288582,
+        "threshold": 4.5
+      },
+      "artifact": "tests/visual/reports/settings-feedback-error-light-1600.png",
+      "mocks": [
+        {
+          "method": "POST",
+          "path": "/api/settings/system",
+          "response": 503,
+          "persisted": false
+        }
+      ],
+      "proof": "Actual settings save UI with declared in-browser response; no persistence proof"
+    },
+    {
+      "theme": "light",
+      "width": 1366,
+      "result": "success",
+      "row": {
+        "foreground": "rgb(6, 95, 70)",
+        "background": [
+          224,
+          237,
+          235
+        ],
+        "ratio": 6.396758109200359,
+        "threshold": 4.5
+      },
+      "artifact": "tests/visual/reports/settings-feedback-success-light-1366.png",
+      "mocks": [
+        {
+          "method": "POST",
+          "path": "/api/settings/system",
+          "response": 200,
+          "persisted": false
+        }
+      ],
+      "proof": "Actual settings save UI with declared in-browser response; no persistence proof"
+    },
+    {
+      "theme": "light",
+      "width": 1366,
+      "result": "error",
+      "row": {
+        "foreground": "rgb(153, 27, 27)",
+        "background": [
+          243,
+          228,
+          229
+        ],
+        "ratio": 6.742904309288582,
+        "threshold": 4.5
+      },
+      "artifact": "tests/visual/reports/settings-feedback-error-light-1366.png",
+      "mocks": [
+        {
+          "method": "POST",
+          "path": "/api/settings/system",
+          "response": 503,
+          "persisted": false
+        }
+      ],
+      "proof": "Actual settings save UI with declared in-browser response; no persistence proof"
+    },
+    {
+      "theme": "dark",
+      "width": 1600,
+      "result": "success",
+      "row": {
+        "foreground": "rgb(134, 239, 172)",
+        "background": [
+          29,
+          55,
+          62
+        ],
+        "ratio": 8.964922176598847,
+        "threshold": 4.5
+      },
+      "artifact": "tests/visual/reports/settings-feedback-success-dark-1600.png",
+      "mocks": [
+        {
+          "method": "POST",
+          "path": "/api/settings/system",
+          "response": 200,
+          "persisted": false
+        }
+      ],
+      "proof": "Actual settings save UI with declared in-browser response; no persistence proof"
+    },
+    {
+      "theme": "dark",
+      "width": 1600,
+      "result": "error",
+      "row": {
+        "foreground": "rgb(254, 202, 202)",
+        "background": [
+          52,
+          44,
+          56
+        ],
+        "ratio": 9.284457064835843,
+        "threshold": 4.5
+      },
+      "artifact": "tests/visual/reports/settings-feedback-error-dark-1600.png",
+      "mocks": [
+        {
+          "method": "POST",
+          "path": "/api/settings/system",
+          "response": 503,
+          "persisted": false
+        }
+      ],
+      "proof": "Actual settings save UI with declared in-browser response; no persistence proof"
+    },
+    {
+      "theme": "dark",
+      "width": 1366,
+      "result": "success",
+      "row": {
+        "foreground": "rgb(134, 239, 172)",
+        "background": [
+          29,
+          55,
+          62
+        ],
+        "ratio": 8.964922176598847,
+        "threshold": 4.5
+      },
+      "artifact": "tests/visual/reports/settings-feedback-success-dark-1366.png",
+      "mocks": [
+        {
+          "method": "POST",
+          "path": "/api/settings/system",
+          "response": 200,
+          "persisted": false
+        }
+      ],
+      "proof": "Actual settings save UI with declared in-browser response; no persistence proof"
+    },
+    {
+      "theme": "dark",
+      "width": 1366,
+      "result": "error",
+      "row": {
+        "foreground": "rgb(254, 202, 202)",
+        "background": [
+          52,
+          44,
+          56
+        ],
+        "ratio": 9.284457064835843,
+        "threshold": 4.5
+      },
+      "artifact": "tests/visual/reports/settings-feedback-error-dark-1366.png",
+      "mocks": [
+        {
+          "method": "POST",
+          "path": "/api/settings/system",
+          "response": 503,
+          "persisted": false
+        }
+      ],
+      "proof": "Actual settings save UI with declared in-browser response; no persistence proof"
+    }
+  ]
+}

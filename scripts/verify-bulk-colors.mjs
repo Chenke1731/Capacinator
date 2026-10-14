@@ -1,6 +1,7 @@
 import {chromium} from 'playwright';
 import {auditEnvironment,authenticate,setupReadOnlyPage,saveAuditReport} from './lib/ui-profiles.mjs';
 import {installContrastHelpers} from './lib/ui-state-audit.mjs';
+if(process.argv.length>2)throw new Error('verify-bulk-colors takes no CLI arguments');
 const browser=await chromium.launch({executablePath:auditEnvironment.chrome}),auth=await authenticate(),evidence=[];
 try{for(const theme of ['light','dark'])for(const width of [1600,1366]){
  const c=await browser.newContext({viewport:{width,height:width===1600?900:768}}),s=await setupReadOnlyPage(c,auth,theme),p=s.page;

@@ -5,69 +5,6 @@
   "initializationReason": "TC-C0a reproducible inventory before any color migration",
   "entries": [
     {
-      "fingerprint": "010c28813a96924ee1a0d135469ddfc125450e1ad07fd1e3f079a295b6cf9bf7",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": "[data-theme='light'] .projects-board .req-pri--3.req-editable:hover, [data-theme='light'] .projects-board .req-pri--4.req-editable:hover, [data-theme='light'] .projects-board .req-pri--5.req-editable:hover",
-      "property": "color",
-      "literal": "#374151",
-      "locations": [
-        {
-          "line": 2574,
-          "column": 78
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "0388917f7e2057276d99dc5a4753e7c27fc3c4cb4394fa104879923faaffd90d",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": "[data-theme='dark'] .req-pri--2",
-      "property": "color",
-      "literal": "#fbbf24",
-      "locations": [
-        {
-          "line": 2589,
-          "column": 42
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "05ca8105c462368f07488dee9389db3c1589dfc95ca8e0dcbfffaaea64fff770",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".cell-pop-item:hover .req-pri",
-      "property": "color",
-      "literal": "#374151",
-      "locations": [
-        {
-          "line": 2585,
-          "column": 40
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
       "fingerprint": "0b8e623cd3d8a9dd5331206a84e88d91dca13f8db5c18a3d567a51670ec5a4ae",
       "file": "client/src/App.css",
       "context": [],
@@ -86,594 +23,6 @@
       "decision": "not-debt",
       "semanticRole": null,
       "reason": "TC-C4a delivered teal主题定义，消费实测另验",
-      "evidence": []
-    },
-    {
-      "fingerprint": "0d56698440d361ab6bc53f4db3880c9b93342f6c8f30d99cfa1b329871826195",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": "[data-theme='dark'] .req-pri--3.req-editable:hover, [data-theme='dark'] .req-pri--4.req-editable:hover, [data-theme='dark'] .req-pri--5.req-editable:hover",
-      "property": "color",
-      "literal": "#e5e7eb",
-      "locations": [
-        {
-          "line": 2581,
-          "column": 61
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "0e30100934c802755ff72f83bd9080599558ac8cabe0e52737d1fa0e79503fba",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".iter-pop-item:hover",
-      "property": "background",
-      "literal": "rgba(127,127,127,0.1)",
-      "locations": [
-        {
-          "line": 1475,
-          "column": 56
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "101d387d3dc3196b4417cdf62e2d466ac29e6ae720d30b80906bcc39f08c1201",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".req-kloc.req-editable:hover, .req-effort.req-editable:hover",
-      "property": "background",
-      "literal": "rgba(127, 127, 127, 0.1)",
-      "locations": [
-        {
-          "line": 2165,
-          "column": 76
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "107155452231aa2a539801282711db753a1adc16399bef76971f75bbb0dbec5a",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".actuals-row",
-      "property": "border-bottom",
-      "literal": "rgba(127, 127, 127, 0.08)",
-      "locations": [
-        {
-          "line": 2835,
-          "column": 61
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "1267b9849b6a0b8ae8296ad040cf236ed75aafb7c1e44671e000eb4b3525631e",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".requirements-row:hover",
-      "property": "background",
-      "literal": "rgba(127, 127, 127, 0.06)",
-      "locations": [
-        {
-          "line": 2030,
-          "column": 59
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "12d80169c90dcddf1df874aec4fd245caebc8a51ad4900b8d8b12c81e556a5e8",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".staff-stepper",
-      "property": "background",
-      "literal": "rgba(127, 127, 127, 0.14)",
-      "locations": [
-        {
-          "line": 2486,
-          "column": 35
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "1450680a8508e1863aa9ae23a7591df7ea4f1cb2587770a0c79f1b4f6f8eb054",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".form-input:focus, .form-select:focus, .form-control:focus",
-      "property": "box-shadow",
-      "literal": "rgba(79, 70, 229, 0.1)",
-      "locations": [
-        {
-          "line": 298,
-          "column": 25
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "16d92559073454c7bfcb37a04519a82230801d3601ec702f3b4f96ba295cc3fd",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".tickets-card-header",
-      "property": "background",
-      "literal": "rgba(127, 127, 127, 0.05)",
-      "locations": [
-        {
-          "line": 2731,
-          "column": 35
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "16e8fd1320f770c67bd1ad6988961b10be305ae38a178018894fa2ddfc870f7e",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".req-checkbox:hover::before",
-      "property": "border-color",
-      "literal": "#3b82f6",
-      "locations": [
-        {
-          "line": 2938,
-          "column": 65
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "1b0b3ab9173362e848dca2db98e920a0a1cac19159f679dd1a490a1b574e47f1",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": "[data-theme='dark'] .req-pri--2.req-editable:hover",
-      "property": "color",
-      "literal": "#fcd34d",
-      "locations": [
-        {
-          "line": 2578,
-          "column": 61
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "1b3f032e1dc08e5f86ef6f930daf17c9bed36e2edab365d9a037f78bb91ed8cd",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".requirements-row--sr",
-      "property": "background",
-      "literal": "rgba(127, 127, 127, 0.045)",
-      "locations": [
-        {
-          "line": 2293,
-          "column": 37
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "1dbe4464328de37725dcd0135aa03fbfd2aeb2e00b00202c4eb2f5b5ba676295",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".projects-board .board-primary-btn",
-      "property": "background",
-      "literal": "#2563eb",
-      "locations": [
-        {
-          "line": 1990,
-          "column": 15
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "2023a10cc07f1e37fee28909de9851b2ed4c9d51efbc83ef5226b31598f3c83d",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".projects-board .projects-version-part:hover",
-      "property": "background",
-      "literal": "rgba(127, 127, 127, 0.14)",
-      "locations": [
-        {
-          "line": 2642,
-          "column": 80
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "2026dfc9c8e9bad1cfc63ae18d573e6bb68ed1eff2ffcad67d347cea4de2564b",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".requirements-thead",
-      "property": "background",
-      "literal": "rgba(127, 127, 127, 0.06)",
-      "locations": [
-        {
-          "line": 2016,
-          "column": 35
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "224ee63dbfb406a56c433ccb021bdc66aa0073ca343b9b00d404d25c57f2176d",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".requirements-children > .requirements-row",
-      "property": "border-bottom",
-      "literal": "rgba(127, 127, 127, 0.12)",
-      "locations": [
-        {
-          "line": 2374,
-          "column": 92
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "226ab52cc01ef513a34f93ae5d3b3a6c4df2d09b2525bf684c8d94a12e01fb88",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".req-tag--more:hover",
-      "property": "background",
-      "literal": "rgba(127, 127, 127, 0.2)",
-      "locations": [
-        {
-          "line": 2142,
-          "column": 36
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "237298148fe1c630583ddd50447b6681000def791fc158b8f84162c2d031ecf2",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".save-message.error",
-      "property": "color",
-      "literal": "#dc2626",
-      "locations": [
-        {
-          "line": 607,
-          "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "273e9e03279bb2db3a4dec13686b6b215025a5eb1b8ab641041c25eab7bd0099",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": "[data-theme='dark'] .req-sr-chip",
-      "property": "color",
-      "literal": "#93c5fd",
-      "locations": [
-        {
-          "line": 2845,
-          "column": 43
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "275e671272b41e7a7ed71ca0dae826daabb0439c45e8c437a8e927025ccd1f20",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".requirements-component-btn:hover",
-      "property": "background",
-      "literal": "rgba(127, 127, 127, 0.1)",
-      "locations": [
-        {
-          "line": 2387,
-          "column": 49
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "27d163ca136844e3110f67b2be01dbfc94f0359f1eabedf2e0bd717a297d455c",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": "[data-theme='dark'] .projects-board .req-pri--1, .dark .projects-board .req-pri--1",
-      "property": "color",
-      "literal": "#fca5a5",
-      "locations": [
-        {
-          "line": 2808,
-          "column": 93
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "29c681a52a6a71eaed7727932cbc9f0a277f69991ab830f382f2b57d4aeadacd",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".color-swatch.active",
-      "property": "box-shadow",
-      "literal": "rgba(79, 70, 229, 0.2)",
-      "locations": [
-        {
-          "line": 700,
-          "column": 25
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "2afb285d39675be1d369b03731096cbf6865630244824dfa4e7297305e32130b",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": "[data-theme='dark'] .btn-primary, .dark .btn-primary",
-      "property": "background-color",
-      "literal": "#4f46e5",
-      "locations": [
-        {
-          "line": 2817,
-          "column": 21
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "31d3b41e6371c55ecd8f0acd7c9d4a09821818ea84a4000e621234aa8161f25c",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".actuals-dev.is-over",
-      "property": "color",
-      "literal": "#dc2626",
-      "locations": [
-        {
-          "line": 2839,
-          "column": 51
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "3414d63b02d8001a0383ebf137d3a9051053748b0b6e6a07e0186740c46a4503",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".save-message.success",
-      "property": "color",
-      "literal": "#059669",
-      "locations": [
-        {
-          "line": 601,
-          "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "35271f7cd87293ff3d398c02d6df47b467c8a025a722ca6e33cd72d90102030a",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": "[data-theme='dark'] .req-tag--filter:hover",
-      "property": "background",
-      "literal": "rgba(0, 0, 0, 0.35)",
-      "locations": [
-        {
-          "line": 2595,
-          "column": 58
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "362759204fa0aeef1a0d2ec12b76b71500d79c42a0f604980737a0f400978a4c",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".staff-stepper-btn:hover:not(:disabled)",
-      "property": "background",
-      "literal": "rgba(127, 127, 127, 0.25)",
-      "locations": [
-        {
-          "line": 2504,
-          "column": 55
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "39301a40435acf68bb2e64c50ac9da6834e4fb6b7a7abbb872b8d1751b6df91a",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".req-staff:hover",
-      "property": "background",
-      "literal": "rgba(127, 127, 127, 0.1)",
-      "locations": [
-        {
-          "line": 2438,
-          "column": 52
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "3979a16c0f1fa3ff63cdfc6753fab5a73c12ae0748a99646ddbbf8ea6e5b522c",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".allocation-value",
-      "property": "color",
-      "literal": "white",
-      "locations": [
-        {
-          "line": 949,
-          "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
       "evidence": []
     },
     {
@@ -698,279 +47,6 @@
       "evidence": []
     },
     {
-      "fingerprint": "3cb53c73be790a184a3b2861f18fbad8af08bce474d273d9a59d5d6421bf1a2f",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".cell-pop-item:hover",
-      "property": "background",
-      "literal": "rgba(127, 127, 127, 0.14)",
-      "locations": [
-        {
-          "line": 1707,
-          "column": 56
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "415a0ff0b8325eaae310f7b69e72bd9f0d516b09f3c0874a420e15692ee14863",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".req-checkbox:focus-visible",
-      "property": "outline",
-      "literal": "#3b82f6",
-      "locations": [
-        {
-          "line": 2945,
-          "column": 70
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "4995ad8dbec8eefcf69ca155db9d609aa3c3a05d9288b7019d696b8bc5f20689",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".btn-primary svg",
-      "property": "color",
-      "literal": "#ffffff",
-      "locations": [
-        {
-          "line": 44,
-          "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "49a05ef5e5ec078a29772e228fc60e62e16452ef35a686f2b33f28b56254f0b7",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".board-search:focus-within",
-      "property": "border-color",
-      "literal": "#3b82f6",
-      "locations": [
-        {
-          "line": 1922,
-          "column": 64
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "4c64432c6dfd1cf0e33e3cf42a2cea54689cc1782e96f31f4097e350d1c2914c",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".theme-option.active",
-      "property": "color",
-      "literal": "white",
-      "locations": [
-        {
-          "line": 582,
-          "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "4d0ee820602a69b6c9c6e622218d6eda495c3278c6fe39ff034f1edd4a077c39",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".req-number-part:hover",
-      "property": "background",
-      "literal": "rgba(127, 127, 127, 0.1)",
-      "locations": [
-        {
-          "line": 2371,
-          "column": 38
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "4d7a78c163c8b8d6cad4d81ea9a2f38fbb785251156fa6f9ac2435d3cb4e7bd4",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".req-tag--more",
-      "property": "background",
-      "literal": "rgba(127, 127, 127, 0.14)",
-      "locations": [
-        {
-          "line": 2140,
-          "column": 50
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "4d9645f009446a0544cfffe3af8640b645a53ca2a39f3e4feadf2b76592eeede",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".btn-primary",
-      "property": "color",
-      "literal": "#ffffff",
-      "locations": [
-        {
-          "line": 32,
-          "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "4f0407f29daf8e8c13c2da7c211e8bc408bdaa39099da78d3aec608385472e5a",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".cell-pop-new-btn:hover:not(:disabled)",
-      "property": "background",
-      "literal": "rgba(127, 127, 127, 0.14)",
-      "locations": [
-        {
-          "line": 1758,
-          "column": 74
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "5587eba848d9c270291c3b1bf7a34d3ed45d8e2bf2249adedafe85c5857a8949",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".cell-pop-check",
-      "property": "color",
-      "literal": "#3b82f6",
-      "locations": [
-        {
-          "line": 1724,
-          "column": 46
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "55d92465004f9478d82e0f67845148a43aef8d69628b9e4434ab00b307727961",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".req-checkbox",
-      "property": "color",
-      "literal": "#fff",
-      "locations": [
-        {
-          "line": 2924,
-          "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "58356845f1dcbdd5f240fdfe70d8cdeb6e9f489d22f76b2c5a65c6330bc94d51",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": "[data-theme='dark'] .cell-pop-item--active",
-      "property": "color",
-      "literal": "#93c5fc",
-      "locations": [
-        {
-          "line": 1711,
-          "column": 53
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "5841cca3119ba7ca2c872dd5ffa8b834a968a6e529147f9a9513eca81cf3c3c0",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".requirements-row--child:hover",
-      "property": "background",
-      "literal": "rgba(127, 127, 127, 0.06)",
-      "locations": [
-        {
-          "line": 2355,
-          "column": 66
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
       "fingerprint": "5b138a77e241bb7fd843719e0f3f5650b3ddfedabe2f39f36e08d0ff90e054a3",
       "file": "client/src/App.css",
       "context": [],
@@ -992,995 +68,6 @@
       "evidence": []
     },
     {
-      "fingerprint": "5c1b890dd496aff07fe7af8ddcddd053c35ea6fdd547c03a47a6680742539b51",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".requirements-owner-btn:hover",
-      "property": "background",
-      "literal": "rgba(127, 127, 127, 0.1)",
-      "locations": [
-        {
-          "line": 2290,
-          "column": 45
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "5daa487d8fcd78e3e4e18113f3632de2b6208aa453188702cee64df29a5b376c",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".requirements-row",
-      "property": "border-bottom",
-      "literal": "rgba(127, 127, 127, 0.12)",
-      "locations": [
-        {
-          "line": 2027,
-          "column": 48
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "5dbb16ffca7fa0874bbab9c8fdf99787591bedc5651279e95ec7a969c722f472",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".staff-dot--design",
-      "property": "background",
-      "literal": "#3b82f6",
-      "locations": [
-        {
-          "line": 2474,
-          "column": 54
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "6167f0c549ab3c301c1835a8a15c6af9ef32f9fd859749ebbac58f82052cecb4",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".save-message.error",
-      "property": "border",
-      "literal": "#ef4444",
-      "locations": [
-        {
-          "line": 608,
-          "column": 40
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "61b9e6057d40ce4e2381b232d4461fae431a0840bae7536ed2d1546426ba6d65",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".board-select:hover",
-      "property": "background",
-      "literal": "rgba(127, 127, 127, 0.06)",
-      "locations": [
-        {
-          "line": 1947,
-          "column": 117
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "63ff85a190ebca2b39f3e6960728b0eecfa3d1bc5c352ac33606dc25814fd21d",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".req-ar-add:hover",
-      "property": "background",
-      "literal": "rgba(127,127,127,0.12)",
-      "locations": [
-        {
-          "line": 1535,
-          "column": 53
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "64ae0bac8e2eb87c5089bbbe9d70eb32eb9685456567ed683ec3d3b815a6e9fd",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".req-col-grip:hover::after, .req-col-grip--active::after",
-      "property": "background",
-      "literal": "#3b82f6",
-      "locations": [
-        {
-          "line": 2064,
-          "column": 35
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "6548f917c62f98cd9e135ed62ec7aae986717ea97559067f5a1c82e9d09c1793",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".requirements-row--warned:hover",
-      "property": "background",
-      "literal": "rgba(245, 158, 11, 0.07)",
-      "locations": [
-        {
-          "line": 2032,
-          "column": 47
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "671081e29757697a40dee0f8e7197404df4dbd7da3f7e4caf7b900ec2b818edb",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": "[data-theme='dark'] .iter-pop-item--detach",
-      "property": "color",
-      "literal": "#fca5a5",
-      "locations": [
-        {
-          "line": 1478,
-          "column": 53
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "674c69ef587b7ab335b264cb39ac3dc51502fb146350a51e96c4ba926683df2b",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".actuals-edit:hover",
-      "property": "background",
-      "literal": "rgba(127, 127, 127, 0.1)",
-      "locations": [
-        {
-          "line": 2838,
-          "column": 35
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "67dde1250270b94550607c311b03bda65270d90dfb72c7aac9bb11e26c716831",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".staffing-error",
-      "property": "color",
-      "literal": "#dc2626",
-      "locations": [
-        {
-          "line": 1427,
-          "column": 63
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "6d0a0d51e42c854d33fd2a6404a5f755340ce9ae9d0f7a273a847ebfb9231b51",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".req-checkbox-ind",
-      "property": "color",
-      "literal": "#fff",
-      "locations": [
-        {
-          "line": 2947,
-          "column": 89
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "6dd37d166c39a053cbe585cfedf3f9fab5c29bc697a680711be19e1ad0c7d57b",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".cell-pop-item:hover .req-pri--1",
-      "property": "color",
-      "literal": "#b91c1c",
-      "locations": [
-        {
-          "line": 2583,
-          "column": 43
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "6fe892a41b8844c915ebdb897128b4946f9a733ffab492f763c659db515ebea5",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".requirements-row--warned",
-      "property": "box-shadow",
-      "literal": "#f59e0b",
-      "locations": [
-        {
-          "line": 2031,
-          "column": 55
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "77b0ab3e187d8210bbdb2c4e05b0a9b62f9c2e8e09e00743278ea1ff368d050d",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": "[data-theme='dark'] .badge-gray, .dark .badge-gray",
-      "property": "color",
-      "literal": "#d1d5db",
-      "locations": [
-        {
-          "line": 355,
-          "column": 61
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "7a80718c2444a16b9116c4310c542270550c106b6cfbb10bef49a4c6e8ff9e7d",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".projects-board .board-ghost-btn:hover",
-      "property": "background",
-      "literal": "rgba(127, 127, 127, 0.12)",
-      "locations": [
-        {
-          "line": 1980,
-          "column": 74
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "7cf47d3af89fade9de7cd1a014d4ef77bc19621545c147a27c4ede13390faefc",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".req-release-iter",
-      "property": "border-top",
-      "literal": "rgba(127,127,127,0.2)",
-      "locations": [
-        {
-          "line": 1464,
-          "column": 46
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "7d9bf4b500765b0fccf424e194f834a48f984cc85664599da98375e27df7e14d",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".cell-pop-item:hover .req-pri--2",
-      "property": "color",
-      "literal": "#92400e",
-      "locations": [
-        {
-          "line": 2584,
-          "column": 43
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "82c1b638aa60ea799874936cbf287f22996c268a28079c20749edf9fa6c81aaf",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".staffing-candidate:hover",
-      "property": "background",
-      "literal": "rgba(127,127,127,0.08)",
-      "locations": [
-        {
-          "line": 1408,
-          "column": 61
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "8360536cae41f8968dff72801a97e31d70fcd329ddb58b81bfa9e04be3e64e39",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": "[data-theme='light'] .projects-board .req-pri--1.req-editable:hover",
-      "property": "color",
-      "literal": "#b91c1c",
-      "locations": [
-        {
-          "line": 2570,
-          "column": 78
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "83c39e34ff8d2847ee861ba44c24121465dd105df22241ed70769d91cc1d930c",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".projects-board .req-icon-btn:hover",
-      "property": "background",
-      "literal": "rgba(127, 127, 127, 0.14)",
-      "locations": [
-        {
-          "line": 2622,
-          "column": 71
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "8934349fb5fc8559841d335dab0ab123f7a0a0921e4923f406284a73e94bb19b",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".req-kloc--deviated, .req-effort--deviated",
-      "property": "color",
-      "literal": "#b45309",
-      "locations": [
-        {
-          "line": 2158,
-          "column": 53
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "897b2d0e842c9fc317b0cf9a23d424258c9964f9a030a605adf9094036eba39a",
-      "file": "client/src/App.css",
-      "context": [
-        "@keyframes reqFlash"
-      ],
-      "owner": "from",
-      "property": "background-color",
-      "literal": "rgba(59, 130, 246, 0.16)",
-      "locations": [
-        {
-          "line": 2076,
-          "column": 28
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "8bae28beb132916ed6306eb63469ae0801bed47cd277e80357e196f3b892a4f2",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".cell-pop-new-btn",
-      "property": "color",
-      "literal": "#3b82f6",
-      "locations": [
-        {
-          "line": 1755,
-          "column": 30
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "94c0edb6e8fcf717704d136ea1f6506b39148d952aac404cd2576e808e2d0552",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".save-message.error",
-      "property": "background-color",
-      "literal": "#ef4444",
-      "locations": [
-        {
-          "line": 606,
-          "column": 40
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "95f3411221883482852ea5e3f25a70e7ff25cc97eec2d83cf7d8b75a9e8e764e",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".staffing-summary",
-      "property": "background",
-      "literal": "rgba(127,127,127,0.08)",
-      "locations": [
-        {
-          "line": 1302,
-          "column": 35
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "96e59352de33e0c5b2445bf96503d1a520922817c489479abb901865f751cfb5",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".req-checkbox[data-state='checked']::before, .req-checkbox[data-state='indeterminate']::before",
-      "property": "border-color",
-      "literal": "#3b82f6",
-      "locations": [
-        {
-          "line": 2943,
-          "column": 37
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "9ca33fa300fab8a5e8562e3ba00d1e267e9b10648b92483577f5e2dadc6cff2e",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": "[data-theme='dark'] .req-pri--1",
-      "property": "color",
-      "literal": "#fca5a5",
-      "locations": [
-        {
-          "line": 2588,
-          "column": 42
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "9cd72caa0e90a53476b55b6f5cad215e4de1f96c6e7e50079e1343e477d60976",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".requirements-row--child",
-      "property": "border-bottom",
-      "literal": "rgba(127, 127, 127, 0.12)",
-      "locations": [
-        {
-          "line": 3059,
-          "column": 74
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "a34f4ac77e8f8dfdb9a30ed62c68c3478c537624ae1d2141cab342cb7409de2e",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": "[data-theme='dark'] .req-kloc--deviated, [data-theme='dark'] .req-effort--deviated",
-      "property": "color",
-      "literal": "#fbbf24",
-      "locations": [
-        {
-          "line": 2159,
-          "column": 93
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "a408cab718cb0ef659862ee63287e50ed06fa7e7f87744a12e9b526af9d7b7d0",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": "[data-theme='dark'] .req-pri--1.req-editable:hover",
-      "property": "color",
-      "literal": "#fca5a5",
-      "locations": [
-        {
-          "line": 2577,
-          "column": 61
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "a4832b08cd264a7496fc15be3b3a4ab6f43353b488e922ac92b8d04e0c6f89d3",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": "[data-theme='dark'] .cell-pop-item:hover .req-pri",
-      "property": "color",
-      "literal": "#e5e7eb",
-      "locations": [
-        {
-          "line": 2592,
-          "column": 60
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "a9c7c8fd74da104062eda3ce02f80c19c4688f84ba67eb69d99e853854fe88de",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".staffing-row:hover td",
-      "property": "background",
-      "literal": "rgba(127,127,127,0.06)",
-      "locations": [
-        {
-          "line": 1342,
-          "column": 58
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "ab9876333f31598743b6afe2d20f2cc7c1441d98e59119717cacea3025979c92",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": "[data-theme='dark'] .projects-board .req-pri--2, .dark .projects-board .req-pri--2",
-      "property": "color",
-      "literal": "#fbbf24",
-      "locations": [
-        {
-          "line": 2809,
-          "column": 93
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "ae774c851dfe62e2f16c46b9945efa346ecafb353e482e4e9fa11201c34b0782",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".req-sr-toggle:hover",
-      "property": "background",
-      "literal": "rgba(127, 127, 127, 0.12)",
-      "locations": [
-        {
-          "line": 2311,
-          "column": 36
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "b0e4892406b4135871cbf81122c3fd0c92561510001fc234322ac9dc6d386d3a",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".cell-pop-new input:focus",
-      "property": "border-color",
-      "literal": "#3b82f6",
-      "locations": [
-        {
-          "line": 1745,
-          "column": 78
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "b18c7d72084d43cf677eb966fc5f489248f675f014c97fbbb29e625d8132c6f9",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".staffing-candidate-load--over",
-      "property": "color",
-      "literal": "#f59e0b",
-      "locations": [
-        {
-          "line": 1418,
-          "column": 41
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "b7eadf929520ad93a591ccf9d5b9270c9c7f2b7e5051d6b6eb8c7ce4785a8d57",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": "[data-theme='dark'] .btn-primary, .dark .btn-primary",
-      "property": "border-color",
-      "literal": "#4f46e5",
-      "locations": [
-        {
-          "line": 2818,
-          "column": 17
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "c35860e726e42f28340086cbca41b84e16ed0b82553454d1444ccaf33214f5c4",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".req-pri.req-editable:hover",
-      "property": "background",
-      "literal": "rgba(127, 127, 127, 0.1)",
-      "locations": [
-        {
-          "line": 2562,
-          "column": 43
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "c4accd925227f60d3bb4286e63240daffb84be1dd56bc87ea66f5d0e329727e3",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".cell-pop-item--active",
-      "property": "color",
-      "literal": "#2563eb",
-      "locations": [
-        {
-          "line": 1708,
-          "column": 33
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "c72846156470897f4bfc56a85e43440203d40020b3afd23967b989d10cd7033b",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".projects-board .board-reset:hover",
-      "property": "background",
-      "literal": "rgba(127, 127, 127, 0.12)",
-      "locations": [
-        {
-          "line": 1965,
-          "column": 70
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "c948cbe50a73be1ca6707f2fc895b1c6f6c33b211fb0e01d77e6841f9ce77984",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": "[data-theme='light'] .projects-board .req-pri--2",
-      "property": "color",
-      "literal": "#b45309",
-      "locations": [
-        {
-          "line": 2807,
-          "column": 59
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "ca7cf7c0d4ac9e93aa9288c97b8e239d777d3db616a89b2b47486db29b156424",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".projects-board .req-icon-btn--confirm",
-      "property": "color",
-      "literal": "#dc2626",
-      "locations": [
-        {
-          "line": 2623,
-          "column": 69
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "ca8bc9a7d4cbcd6ea4b09226fe8f7ac561b0245dac9f0465f69c38f91ee8982c",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".projects-board .board-primary-btn",
-      "property": "color",
-      "literal": "#fff",
-      "locations": [
-        {
-          "line": 1989,
-          "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "ceac0cb901490c735e4f3de3b582a1e7a7ba30faf2ffdba75ea67e1f9eb73d80",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".affairs-row:hover",
-      "property": "background",
-      "literal": "rgba(127, 127, 127, 0.06)",
-      "locations": [
-        {
-          "line": 2745,
-          "column": 54
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "d000163096ac7bc13fd02fc27f5b8acf06ade1e0276abf971fe5805d9e9a0d93",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".req-iter-val:hover",
-      "property": "background",
-      "literal": "rgba(127, 127, 127, 0.1)",
-      "locations": [
-        {
-          "line": 1451,
-          "column": 35
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "d06ae9a18a8fcb2ebd1d196296665fbeee375ad236c0d6c641cbd140698904ff",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".staff-dot--dev",
-      "property": "background",
-      "literal": "#22c55e",
-      "locations": [
-        {
-          "line": 2475,
-          "column": 31
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
       "fingerprint": "d3e16348649a3a38dd9d77e678d346aac6ab34ff97dce2017516213fdf70a70c",
       "file": "client/src/App.css",
       "context": [],
@@ -1999,426 +86,6 @@
       "decision": "not-debt",
       "semanticRole": null,
       "reason": "TC-C4a delivered teal主题定义，消费实测另验",
-      "evidence": []
-    },
-    {
-      "fingerprint": "d4b762d923fa24bc10d730a532ca376b98c6b7f7cca8f75808cfd0de5cc96b9e",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": "[data-theme='dark'] .req-checkbox:hover::before",
-      "property": "border-color",
-      "literal": "#60a5fa",
-      "locations": [
-        {
-          "line": 2939,
-          "column": 65
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "d6247c4a07b242d55da05e5f16930df6dad7cb99212b5cad30b422f8ac76383c",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": "[data-theme='dark'] .cell-pop-item:hover .req-pri--1",
-      "property": "color",
-      "literal": "#fca5a5",
-      "locations": [
-        {
-          "line": 2590,
-          "column": 63
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "da448ad263a1f8f6485bba839bd471d977f86dfd71013acdd5c78e3aecbc6b35",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".req-pri--1",
-      "property": "color",
-      "literal": "#dc2626",
-      "locations": [
-        {
-          "line": 2559,
-          "column": 42
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "db96a88dda2121943a6220dfbeb9bfe61be33fdd24a1778db0c3ba285164e87f",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": "[data-theme='light'] .projects-board .req-pri--2.req-editable:hover",
-      "property": "color",
-      "literal": "#92400e",
-      "locations": [
-        {
-          "line": 2571,
-          "column": 78
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "de4649e0ca45332c345ff563818fd2f149b9237ee4bab258a03db16b912398f7",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".form-textarea:focus",
-      "property": "box-shadow",
-      "literal": "rgba(79, 70, 229, 0.1)",
-      "locations": [
-        {
-          "line": 469,
-          "column": 25
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "e0b9471e7ea9aaeeb98524f0528abb838397cff2585db6562b512742f349aa55",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".req-checkbox[data-state='checked']::before, .req-checkbox[data-state='indeterminate']::before",
-      "property": "background",
-      "literal": "#3b82f6",
-      "locations": [
-        {
-          "line": 2942,
-          "column": 35
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "e2091b9a62bcc5ad8ce8190654a7fa5b6bde3b18a85a4c44be1246854dc914d9",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".save-message.success",
-      "property": "border",
-      "literal": "#10b981",
-      "locations": [
-        {
-          "line": 602,
-          "column": 40
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "e62bf36ec0c4b9b9ba4e4e6bb15afba469b21a039d6b3c29b83018197c65796b",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".req-checkbox::before",
-      "property": "border",
-      "literal": "#52525b",
-      "locations": [
-        {
-          "line": 2933,
-          "column": 45
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "e7b608ab9e5e068763a5b6990692bff98398df079ea658eac00620b62a5ed669",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".save-message.success",
-      "property": "background-color",
-      "literal": "#10b981",
-      "locations": [
-        {
-          "line": 600,
-          "column": 40
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "ec91d45ada918f1ca9d7aac93bc0cfe77d68f8fe767e43a9aea1d40327245df3",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".requirements-row--child",
-      "property": "background",
-      "literal": "rgba(127, 127, 127, 0.02)",
-      "locations": [
-        {
-          "line": 2354,
-          "column": 40
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "edd4fed718bcf28c2942caf2b80ca89ef02bbe39b56ff2dc68b1a47c76c75d2c",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".staffing-candidate--picked",
-      "property": "border-color",
-      "literal": "#3b82f6",
-      "locations": [
-        {
-          "line": 1410,
-          "column": 37
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "efc13f296c88049204085d161b0758bfd2a9bb9559f999bbdba22b7e2de3609a",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".badge-gray",
-      "property": "color",
-      "literal": "#4b5563",
-      "locations": [
-        {
-          "line": 353,
-          "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "f389ccce01b605a4ada4b9c60308b8ab761ba00ba8baf0733bc69c23c819ad7b",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".req-skeleton-row",
-      "property": "background",
-      "literal": "rgba(127,127,127,0.12)",
-      "locations": [
-        {
-          "line": 2853,
-          "column": 79
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "f3bf45d3725d9a2e26b4c01d5f3cfd248af52d807c1ee60f93d938dc50624abc",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".staffing-candidate--picked",
-      "property": "background",
-      "literal": "rgba(59,130,246,0.08)",
-      "locations": [
-        {
-          "line": 1411,
-          "column": 15
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "f5159b36a4cd8e6e7ec35271ab7966f491cbfc520caa03200d710da55de53ef4",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".btn-primary, .btn-primary *",
-      "property": "color",
-      "literal": "#ffffff",
-      "locations": [
-        {
-          "line": 40,
-          "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "f6167edba343d4494277185be023c1adacde16b2bd1d97097891f6455bb88cac",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".requirements-row--sr:hover",
-      "property": "background",
-      "literal": "rgba(127, 127, 127, 0.09)",
-      "locations": [
-        {
-          "line": 2294,
-          "column": 43
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "f685f37e60c27756043b0b4424713e8da5270916cc8e7b1e884ee069ef95c23f",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": "[data-theme='dark'] .cell-pop-item:hover .req-pri--2",
-      "property": "color",
-      "literal": "#fcd34d",
-      "locations": [
-        {
-          "line": 2591,
-          "column": 63
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "fa58de7334fb5e6cd3b565e92fff907a8d8eba79e38d80c73fc2e01fa8eba873",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".staffing-candidate--over",
-      "property": "border-color",
-      "literal": "rgba(245,158,11,0.5)",
-      "locations": [
-        {
-          "line": 1413,
-          "column": 43
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "fcfe00d127bdefe8d44071109dbfcd1628143619b2f7bcba3924572881f84f10",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".actuals-thead",
-      "property": "border-bottom",
-      "literal": "rgba(127, 127, 127, 0.12)",
-      "locations": [
-        {
-          "line": 2834,
-          "column": 122
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "fd1d4044a603d353b0b3468bdfa1bc1deefa4bca0776877ca1400d914ff2d2de",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".req-pri--2",
-      "property": "color",
-      "literal": "#b45309",
-      "locations": [
-        {
-          "line": 2560,
-          "column": 22
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
       "evidence": []
     },
     {
@@ -4692,9 +2359,9 @@
           "background": "rgb(132, 204, 22)",
           "artifact": "tests/visual/reports/timeline-color-evidence.json",
           "artifactHash": "bcc97b37dc853100028e9006f5d71bc85f3860af890868b622dfd2d869aa275b",
-          "implementationHead": "9c7905ff9441021da69b2ef76f838002151eb39b+validated-working-tree",
+          "implementationHead": "591a03180ec1d2efaf6ac73cf1ef3fe8d06d5748+validated-working-tree",
           "dependencies": {
-            "client/src/index.css": "f5e97d4e6975651dc20805ed875a0e8b9c130f6ba1a423e01509e359f13c2457",
+            "client/src/index.css": "ffa43c6521e5c0e8aae9e7b7f5b75af247b07c53ce1befb736964ffaaf2e5779",
             "client/src/components/phase-manager/types.ts": "86769cf5d0b2008a4951133d4ba5aefa500b4dab6dd20b95b7fd21b04443f628",
             "client/src/components/InteractiveTimeline.tsx": "9f92a9999e96f4b7e3a3fa5c163bd0a0d18cd7f6c56f8ccee84675f378c5c04b"
           }
@@ -4715,9 +2382,9 @@
           "background": "rgb(132, 204, 22)",
           "artifact": "tests/visual/reports/timeline-color-evidence.json",
           "artifactHash": "bcc97b37dc853100028e9006f5d71bc85f3860af890868b622dfd2d869aa275b",
-          "implementationHead": "9c7905ff9441021da69b2ef76f838002151eb39b+validated-working-tree",
+          "implementationHead": "591a03180ec1d2efaf6ac73cf1ef3fe8d06d5748+validated-working-tree",
           "dependencies": {
-            "client/src/index.css": "f5e97d4e6975651dc20805ed875a0e8b9c130f6ba1a423e01509e359f13c2457",
+            "client/src/index.css": "ffa43c6521e5c0e8aae9e7b7f5b75af247b07c53ce1befb736964ffaaf2e5779",
             "client/src/components/phase-manager/types.ts": "86769cf5d0b2008a4951133d4ba5aefa500b4dab6dd20b95b7fd21b04443f628",
             "client/src/components/InteractiveTimeline.tsx": "9f92a9999e96f4b7e3a3fa5c163bd0a0d18cd7f6c56f8ccee84675f378c5c04b"
           }
@@ -4762,9 +2429,9 @@
           "background": "rgb(59, 130, 246)",
           "artifact": "tests/visual/reports/timeline-color-evidence.json",
           "artifactHash": "bcc97b37dc853100028e9006f5d71bc85f3860af890868b622dfd2d869aa275b",
-          "implementationHead": "9c7905ff9441021da69b2ef76f838002151eb39b+validated-working-tree",
+          "implementationHead": "591a03180ec1d2efaf6ac73cf1ef3fe8d06d5748+validated-working-tree",
           "dependencies": {
-            "client/src/index.css": "f5e97d4e6975651dc20805ed875a0e8b9c130f6ba1a423e01509e359f13c2457",
+            "client/src/index.css": "ffa43c6521e5c0e8aae9e7b7f5b75af247b07c53ce1befb736964ffaaf2e5779",
             "client/src/components/phase-manager/types.ts": "86769cf5d0b2008a4951133d4ba5aefa500b4dab6dd20b95b7fd21b04443f628",
             "client/src/components/InteractiveTimeline.tsx": "9f92a9999e96f4b7e3a3fa5c163bd0a0d18cd7f6c56f8ccee84675f378c5c04b"
           }
@@ -4785,9 +2452,9 @@
           "background": "rgb(59, 130, 246)",
           "artifact": "tests/visual/reports/timeline-color-evidence.json",
           "artifactHash": "bcc97b37dc853100028e9006f5d71bc85f3860af890868b622dfd2d869aa275b",
-          "implementationHead": "9c7905ff9441021da69b2ef76f838002151eb39b+validated-working-tree",
+          "implementationHead": "591a03180ec1d2efaf6ac73cf1ef3fe8d06d5748+validated-working-tree",
           "dependencies": {
-            "client/src/index.css": "f5e97d4e6975651dc20805ed875a0e8b9c130f6ba1a423e01509e359f13c2457",
+            "client/src/index.css": "ffa43c6521e5c0e8aae9e7b7f5b75af247b07c53ce1befb736964ffaaf2e5779",
             "client/src/components/phase-manager/types.ts": "86769cf5d0b2008a4951133d4ba5aefa500b4dab6dd20b95b7fd21b04443f628",
             "client/src/components/InteractiveTimeline.tsx": "9f92a9999e96f4b7e3a3fa5c163bd0a0d18cd7f6c56f8ccee84675f378c5c04b"
           }
@@ -4832,9 +2499,9 @@
           "background": "rgb(6, 182, 212)",
           "artifact": "tests/visual/reports/timeline-color-evidence.json",
           "artifactHash": "bcc97b37dc853100028e9006f5d71bc85f3860af890868b622dfd2d869aa275b",
-          "implementationHead": "9c7905ff9441021da69b2ef76f838002151eb39b+validated-working-tree",
+          "implementationHead": "591a03180ec1d2efaf6ac73cf1ef3fe8d06d5748+validated-working-tree",
           "dependencies": {
-            "client/src/index.css": "f5e97d4e6975651dc20805ed875a0e8b9c130f6ba1a423e01509e359f13c2457",
+            "client/src/index.css": "ffa43c6521e5c0e8aae9e7b7f5b75af247b07c53ce1befb736964ffaaf2e5779",
             "client/src/components/phase-manager/types.ts": "86769cf5d0b2008a4951133d4ba5aefa500b4dab6dd20b95b7fd21b04443f628",
             "client/src/components/InteractiveTimeline.tsx": "9f92a9999e96f4b7e3a3fa5c163bd0a0d18cd7f6c56f8ccee84675f378c5c04b"
           }
@@ -4855,9 +2522,9 @@
           "background": "rgb(6, 182, 212)",
           "artifact": "tests/visual/reports/timeline-color-evidence.json",
           "artifactHash": "bcc97b37dc853100028e9006f5d71bc85f3860af890868b622dfd2d869aa275b",
-          "implementationHead": "9c7905ff9441021da69b2ef76f838002151eb39b+validated-working-tree",
+          "implementationHead": "591a03180ec1d2efaf6ac73cf1ef3fe8d06d5748+validated-working-tree",
           "dependencies": {
-            "client/src/index.css": "f5e97d4e6975651dc20805ed875a0e8b9c130f6ba1a423e01509e359f13c2457",
+            "client/src/index.css": "ffa43c6521e5c0e8aae9e7b7f5b75af247b07c53ce1befb736964ffaaf2e5779",
             "client/src/components/phase-manager/types.ts": "86769cf5d0b2008a4951133d4ba5aefa500b4dab6dd20b95b7fd21b04443f628",
             "client/src/components/InteractiveTimeline.tsx": "9f92a9999e96f4b7e3a3fa5c163bd0a0d18cd7f6c56f8ccee84675f378c5c04b"
           }
@@ -4902,9 +2569,9 @@
           "background": "rgb(16, 185, 129)",
           "artifact": "tests/visual/reports/timeline-color-evidence.json",
           "artifactHash": "bcc97b37dc853100028e9006f5d71bc85f3860af890868b622dfd2d869aa275b",
-          "implementationHead": "9c7905ff9441021da69b2ef76f838002151eb39b+validated-working-tree",
+          "implementationHead": "591a03180ec1d2efaf6ac73cf1ef3fe8d06d5748+validated-working-tree",
           "dependencies": {
-            "client/src/index.css": "f5e97d4e6975651dc20805ed875a0e8b9c130f6ba1a423e01509e359f13c2457",
+            "client/src/index.css": "ffa43c6521e5c0e8aae9e7b7f5b75af247b07c53ce1befb736964ffaaf2e5779",
             "client/src/components/phase-manager/types.ts": "86769cf5d0b2008a4951133d4ba5aefa500b4dab6dd20b95b7fd21b04443f628",
             "client/src/components/InteractiveTimeline.tsx": "9f92a9999e96f4b7e3a3fa5c163bd0a0d18cd7f6c56f8ccee84675f378c5c04b"
           }
@@ -4925,9 +2592,9 @@
           "background": "rgb(16, 185, 129)",
           "artifact": "tests/visual/reports/timeline-color-evidence.json",
           "artifactHash": "bcc97b37dc853100028e9006f5d71bc85f3860af890868b622dfd2d869aa275b",
-          "implementationHead": "9c7905ff9441021da69b2ef76f838002151eb39b+validated-working-tree",
+          "implementationHead": "591a03180ec1d2efaf6ac73cf1ef3fe8d06d5748+validated-working-tree",
           "dependencies": {
-            "client/src/index.css": "f5e97d4e6975651dc20805ed875a0e8b9c130f6ba1a423e01509e359f13c2457",
+            "client/src/index.css": "ffa43c6521e5c0e8aae9e7b7f5b75af247b07c53ce1befb736964ffaaf2e5779",
             "client/src/components/phase-manager/types.ts": "86769cf5d0b2008a4951133d4ba5aefa500b4dab6dd20b95b7fd21b04443f628",
             "client/src/components/InteractiveTimeline.tsx": "9f92a9999e96f4b7e3a3fa5c163bd0a0d18cd7f6c56f8ccee84675f378c5c04b"
           }
@@ -4972,9 +2639,9 @@
           "background": "rgb(239, 68, 68)",
           "artifact": "tests/visual/reports/timeline-color-evidence.json",
           "artifactHash": "bcc97b37dc853100028e9006f5d71bc85f3860af890868b622dfd2d869aa275b",
-          "implementationHead": "9c7905ff9441021da69b2ef76f838002151eb39b+validated-working-tree",
+          "implementationHead": "591a03180ec1d2efaf6ac73cf1ef3fe8d06d5748+validated-working-tree",
           "dependencies": {
-            "client/src/index.css": "f5e97d4e6975651dc20805ed875a0e8b9c130f6ba1a423e01509e359f13c2457",
+            "client/src/index.css": "ffa43c6521e5c0e8aae9e7b7f5b75af247b07c53ce1befb736964ffaaf2e5779",
             "client/src/components/phase-manager/types.ts": "86769cf5d0b2008a4951133d4ba5aefa500b4dab6dd20b95b7fd21b04443f628",
             "client/src/components/InteractiveTimeline.tsx": "9f92a9999e96f4b7e3a3fa5c163bd0a0d18cd7f6c56f8ccee84675f378c5c04b"
           }
@@ -4995,9 +2662,9 @@
           "background": "rgb(239, 68, 68)",
           "artifact": "tests/visual/reports/timeline-color-evidence.json",
           "artifactHash": "bcc97b37dc853100028e9006f5d71bc85f3860af890868b622dfd2d869aa275b",
-          "implementationHead": "9c7905ff9441021da69b2ef76f838002151eb39b+validated-working-tree",
+          "implementationHead": "591a03180ec1d2efaf6ac73cf1ef3fe8d06d5748+validated-working-tree",
           "dependencies": {
-            "client/src/index.css": "f5e97d4e6975651dc20805ed875a0e8b9c130f6ba1a423e01509e359f13c2457",
+            "client/src/index.css": "ffa43c6521e5c0e8aae9e7b7f5b75af247b07c53ce1befb736964ffaaf2e5779",
             "client/src/components/phase-manager/types.ts": "86769cf5d0b2008a4951133d4ba5aefa500b4dab6dd20b95b7fd21b04443f628",
             "client/src/components/InteractiveTimeline.tsx": "9f92a9999e96f4b7e3a3fa5c163bd0a0d18cd7f6c56f8ccee84675f378c5c04b"
           }
@@ -5042,9 +2709,9 @@
           "background": "rgb(107, 114, 128)",
           "artifact": "tests/visual/reports/timeline-color-evidence.json",
           "artifactHash": "bcc97b37dc853100028e9006f5d71bc85f3860af890868b622dfd2d869aa275b",
-          "implementationHead": "9c7905ff9441021da69b2ef76f838002151eb39b+validated-working-tree",
+          "implementationHead": "591a03180ec1d2efaf6ac73cf1ef3fe8d06d5748+validated-working-tree",
           "dependencies": {
-            "client/src/index.css": "f5e97d4e6975651dc20805ed875a0e8b9c130f6ba1a423e01509e359f13c2457",
+            "client/src/index.css": "ffa43c6521e5c0e8aae9e7b7f5b75af247b07c53ce1befb736964ffaaf2e5779",
             "client/src/components/phase-manager/types.ts": "86769cf5d0b2008a4951133d4ba5aefa500b4dab6dd20b95b7fd21b04443f628",
             "client/src/components/InteractiveTimeline.tsx": "9f92a9999e96f4b7e3a3fa5c163bd0a0d18cd7f6c56f8ccee84675f378c5c04b"
           }
@@ -5065,9 +2732,9 @@
           "background": "rgb(107, 114, 128)",
           "artifact": "tests/visual/reports/timeline-color-evidence.json",
           "artifactHash": "bcc97b37dc853100028e9006f5d71bc85f3860af890868b622dfd2d869aa275b",
-          "implementationHead": "9c7905ff9441021da69b2ef76f838002151eb39b+validated-working-tree",
+          "implementationHead": "591a03180ec1d2efaf6ac73cf1ef3fe8d06d5748+validated-working-tree",
           "dependencies": {
-            "client/src/index.css": "f5e97d4e6975651dc20805ed875a0e8b9c130f6ba1a423e01509e359f13c2457",
+            "client/src/index.css": "ffa43c6521e5c0e8aae9e7b7f5b75af247b07c53ce1befb736964ffaaf2e5779",
             "client/src/components/phase-manager/types.ts": "86769cf5d0b2008a4951133d4ba5aefa500b4dab6dd20b95b7fd21b04443f628",
             "client/src/components/InteractiveTimeline.tsx": "9f92a9999e96f4b7e3a3fa5c163bd0a0d18cd7f6c56f8ccee84675f378c5c04b"
           }
@@ -5112,9 +2779,9 @@
           "background": "rgb(139, 92, 246)",
           "artifact": "tests/visual/reports/timeline-color-evidence.json",
           "artifactHash": "bcc97b37dc853100028e9006f5d71bc85f3860af890868b622dfd2d869aa275b",
-          "implementationHead": "9c7905ff9441021da69b2ef76f838002151eb39b+validated-working-tree",
+          "implementationHead": "591a03180ec1d2efaf6ac73cf1ef3fe8d06d5748+validated-working-tree",
           "dependencies": {
-            "client/src/index.css": "f5e97d4e6975651dc20805ed875a0e8b9c130f6ba1a423e01509e359f13c2457",
+            "client/src/index.css": "ffa43c6521e5c0e8aae9e7b7f5b75af247b07c53ce1befb736964ffaaf2e5779",
             "client/src/components/phase-manager/types.ts": "86769cf5d0b2008a4951133d4ba5aefa500b4dab6dd20b95b7fd21b04443f628",
             "client/src/components/InteractiveTimeline.tsx": "9f92a9999e96f4b7e3a3fa5c163bd0a0d18cd7f6c56f8ccee84675f378c5c04b"
           }
@@ -5135,9 +2802,9 @@
           "background": "rgb(139, 92, 246)",
           "artifact": "tests/visual/reports/timeline-color-evidence.json",
           "artifactHash": "bcc97b37dc853100028e9006f5d71bc85f3860af890868b622dfd2d869aa275b",
-          "implementationHead": "9c7905ff9441021da69b2ef76f838002151eb39b+validated-working-tree",
+          "implementationHead": "591a03180ec1d2efaf6ac73cf1ef3fe8d06d5748+validated-working-tree",
           "dependencies": {
-            "client/src/index.css": "f5e97d4e6975651dc20805ed875a0e8b9c130f6ba1a423e01509e359f13c2457",
+            "client/src/index.css": "ffa43c6521e5c0e8aae9e7b7f5b75af247b07c53ce1befb736964ffaaf2e5779",
             "client/src/components/phase-manager/types.ts": "86769cf5d0b2008a4951133d4ba5aefa500b4dab6dd20b95b7fd21b04443f628",
             "client/src/components/InteractiveTimeline.tsx": "9f92a9999e96f4b7e3a3fa5c163bd0a0d18cd7f6c56f8ccee84675f378c5c04b"
           }
@@ -5182,9 +2849,9 @@
           "background": "rgb(245, 158, 11)",
           "artifact": "tests/visual/reports/timeline-color-evidence.json",
           "artifactHash": "bcc97b37dc853100028e9006f5d71bc85f3860af890868b622dfd2d869aa275b",
-          "implementationHead": "9c7905ff9441021da69b2ef76f838002151eb39b+validated-working-tree",
+          "implementationHead": "591a03180ec1d2efaf6ac73cf1ef3fe8d06d5748+validated-working-tree",
           "dependencies": {
-            "client/src/index.css": "f5e97d4e6975651dc20805ed875a0e8b9c130f6ba1a423e01509e359f13c2457",
+            "client/src/index.css": "ffa43c6521e5c0e8aae9e7b7f5b75af247b07c53ce1befb736964ffaaf2e5779",
             "client/src/components/phase-manager/types.ts": "86769cf5d0b2008a4951133d4ba5aefa500b4dab6dd20b95b7fd21b04443f628",
             "client/src/components/InteractiveTimeline.tsx": "9f92a9999e96f4b7e3a3fa5c163bd0a0d18cd7f6c56f8ccee84675f378c5c04b"
           }
@@ -5205,9 +2872,9 @@
           "background": "rgb(245, 158, 11)",
           "artifact": "tests/visual/reports/timeline-color-evidence.json",
           "artifactHash": "bcc97b37dc853100028e9006f5d71bc85f3860af890868b622dfd2d869aa275b",
-          "implementationHead": "9c7905ff9441021da69b2ef76f838002151eb39b+validated-working-tree",
+          "implementationHead": "591a03180ec1d2efaf6ac73cf1ef3fe8d06d5748+validated-working-tree",
           "dependencies": {
-            "client/src/index.css": "f5e97d4e6975651dc20805ed875a0e8b9c130f6ba1a423e01509e359f13c2457",
+            "client/src/index.css": "ffa43c6521e5c0e8aae9e7b7f5b75af247b07c53ce1befb736964ffaaf2e5779",
             "client/src/components/phase-manager/types.ts": "86769cf5d0b2008a4951133d4ba5aefa500b4dab6dd20b95b7fd21b04443f628",
             "client/src/components/InteractiveTimeline.tsx": "9f92a9999e96f4b7e3a3fa5c163bd0a0d18cd7f6c56f8ccee84675f378c5c04b"
           }
@@ -5252,9 +2919,9 @@
           "background": "rgb(236, 72, 153)",
           "artifact": "tests/visual/reports/timeline-color-evidence.json",
           "artifactHash": "bcc97b37dc853100028e9006f5d71bc85f3860af890868b622dfd2d869aa275b",
-          "implementationHead": "9c7905ff9441021da69b2ef76f838002151eb39b+validated-working-tree",
+          "implementationHead": "591a03180ec1d2efaf6ac73cf1ef3fe8d06d5748+validated-working-tree",
           "dependencies": {
-            "client/src/index.css": "f5e97d4e6975651dc20805ed875a0e8b9c130f6ba1a423e01509e359f13c2457",
+            "client/src/index.css": "ffa43c6521e5c0e8aae9e7b7f5b75af247b07c53ce1befb736964ffaaf2e5779",
             "client/src/components/phase-manager/types.ts": "86769cf5d0b2008a4951133d4ba5aefa500b4dab6dd20b95b7fd21b04443f628",
             "client/src/components/InteractiveTimeline.tsx": "9f92a9999e96f4b7e3a3fa5c163bd0a0d18cd7f6c56f8ccee84675f378c5c04b"
           }
@@ -5275,9 +2942,9 @@
           "background": "rgb(236, 72, 153)",
           "artifact": "tests/visual/reports/timeline-color-evidence.json",
           "artifactHash": "bcc97b37dc853100028e9006f5d71bc85f3860af890868b622dfd2d869aa275b",
-          "implementationHead": "9c7905ff9441021da69b2ef76f838002151eb39b+validated-working-tree",
+          "implementationHead": "591a03180ec1d2efaf6ac73cf1ef3fe8d06d5748+validated-working-tree",
           "dependencies": {
-            "client/src/index.css": "f5e97d4e6975651dc20805ed875a0e8b9c130f6ba1a423e01509e359f13c2457",
+            "client/src/index.css": "ffa43c6521e5c0e8aae9e7b7f5b75af247b07c53ce1befb736964ffaaf2e5779",
             "client/src/components/phase-manager/types.ts": "86769cf5d0b2008a4951133d4ba5aefa500b4dab6dd20b95b7fd21b04443f628",
             "client/src/components/InteractiveTimeline.tsx": "9f92a9999e96f4b7e3a3fa5c163bd0a0d18cd7f6c56f8ccee84675f378c5c04b"
           }
@@ -10068,27 +7735,6 @@
       "evidence": []
     },
     {
-      "fingerprint": "16837a41f7a2f97ea8409c2b6823ed2c4aaec606cb80c1818092c1354284e947",
-      "file": "client/src/index.css",
-      "context": [],
-      "owner": ".theme-option.active",
-      "property": "color",
-      "literal": "white",
-      "locations": [
-        {
-          "line": 801,
-          "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
       "fingerprint": "1850044da060e044d195b7d1773aeb9e96e8f0d38558e44e7052264105525eac",
       "file": "client/src/index.css",
       "context": [],
@@ -10170,27 +7816,6 @@
       "decision": "not-debt",
       "semanticRole": null,
       "reason": "CSS custom-property definition; render validation is separate.",
-      "evidence": []
-    },
-    {
-      "fingerprint": "1b68ad691f5ebd193cb74382c458e051f1f72e3f8fce94e63cc47aa1b26d7943",
-      "file": "client/src/index.css",
-      "context": [],
-      "owner": ".settings-alert.warning",
-      "property": "border",
-      "literal": "#f59e0b",
-      "locations": [
-        {
-          "line": 1057,
-          "column": 40
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
       "evidence": []
     },
     {
@@ -10677,27 +8302,6 @@
       "evidence": []
     },
     {
-      "fingerprint": "3e43232727c53770baca8f73cdb57807670f1fff8ec3fd39e90d6edacf7e053c",
-      "file": "client/src/index.css",
-      "context": [],
-      "owner": ".settings-alert.info",
-      "property": "color",
-      "literal": "#1d4ed8",
-      "locations": [
-        {
-          "line": 1062,
-          "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
       "fingerprint": "4153b32908d6740fac04a09c28a72439f763b25d719fad282695f48ecbc80fc6",
       "file": "client/src/index.css",
       "context": [],
@@ -10712,27 +8316,6 @@
       ],
       "count": 1,
       "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "45c0d17d8d59316317fbaa3189177306071e80530f3d0a786a3c5385b463b395",
-      "file": "client/src/index.css",
-      "context": [],
-      "owner": ".settings-alert.info",
-      "property": "background-color",
-      "literal": "#3b82f6",
-      "locations": [
-        {
-          "line": 1061,
-          "column": 40
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
       "reachability": "unverified",
       "decision": "pending",
       "semanticRole": null,
@@ -11517,27 +9100,6 @@
       "evidence": []
     },
     {
-      "fingerprint": "71988b5e90b247eb3caaf802d67e7654314f11c5743eb62548a005c9e21219c8",
-      "file": "client/src/index.css",
-      "context": [],
-      "owner": "[data-theme='dark'] .settings-alert.info, .dark .settings-alert.info",
-      "property": "color",
-      "literal": "#93c5fc",
-      "locations": [
-        {
-          "line": 1526,
-          "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
       "fingerprint": "73688c1d5a2c615aa99f9fcb2180117b9bf4f98609f01389cf8b9bb04d5654df",
       "file": "client/src/index.css",
       "context": [],
@@ -11808,27 +9370,6 @@
       "decision": "not-debt",
       "semanticRole": null,
       "reason": "CSS custom-property definition; render validation is separate.",
-      "evidence": []
-    },
-    {
-      "fingerprint": "8c738f7cad913c592c32cbd61004267928560cb294f76f07067c6baacae66c4a",
-      "file": "client/src/index.css",
-      "context": [],
-      "owner": ".settings-alert.info",
-      "property": "border",
-      "literal": "#3b82f6",
-      "locations": [
-        {
-          "line": 1063,
-          "column": 40
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
       "evidence": []
     },
     {
@@ -12420,27 +9961,6 @@
       "evidence": []
     },
     {
-      "fingerprint": "b0adc413cb14154232112e1f3c378f7bbed866d9e0545963957b83c9a68ffc21",
-      "file": "client/src/index.css",
-      "context": [],
-      "owner": ".settings-alert.warning",
-      "property": "background-color",
-      "literal": "#f59e0b",
-      "locations": [
-        {
-          "line": 1055,
-          "column": 40
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
       "fingerprint": "b0b887aa8640a4e0e038ea9534b35397d3ca84d566a49bc5b9a97e1fd0a73814",
       "file": "client/src/index.css",
       "context": [],
@@ -12984,27 +10504,6 @@
       "decision": "not-debt",
       "semanticRole": null,
       "reason": "CSS custom-property definition; render validation is separate.",
-      "evidence": []
-    },
-    {
-      "fingerprint": "d202810fc0b59faff7d20f6b6c8155df015c3562b5430d794d02ef1f88084037",
-      "file": "client/src/index.css",
-      "context": [],
-      "owner": ".settings-alert.warning",
-      "property": "color",
-      "literal": "#d97706",
-      "locations": [
-        {
-          "line": 1056,
-          "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
       "evidence": []
     },
     {
@@ -13820,9 +11319,9 @@
           "background": "rgb(107, 114, 128)",
           "artifact": "tests/visual/reports/timeline-color-evidence.json",
           "artifactHash": "bcc97b37dc853100028e9006f5d71bc85f3860af890868b622dfd2d869aa275b",
-          "implementationHead": "9c7905ff9441021da69b2ef76f838002151eb39b+validated-working-tree",
+          "implementationHead": "591a03180ec1d2efaf6ac73cf1ef3fe8d06d5748+validated-working-tree",
           "dependencies": {
-            "client/src/index.css": "f5e97d4e6975651dc20805ed875a0e8b9c130f6ba1a423e01509e359f13c2457",
+            "client/src/index.css": "ffa43c6521e5c0e8aae9e7b7f5b75af247b07c53ce1befb736964ffaaf2e5779",
             "client/src/components/phase-manager/types.ts": "86769cf5d0b2008a4951133d4ba5aefa500b4dab6dd20b95b7fd21b04443f628",
             "client/src/components/InteractiveTimeline.tsx": "9f92a9999e96f4b7e3a3fa5c163bd0a0d18cd7f6c56f8ccee84675f378c5c04b"
           }
@@ -13843,9 +11342,9 @@
           "background": "rgb(107, 114, 128)",
           "artifact": "tests/visual/reports/timeline-color-evidence.json",
           "artifactHash": "bcc97b37dc853100028e9006f5d71bc85f3860af890868b622dfd2d869aa275b",
-          "implementationHead": "9c7905ff9441021da69b2ef76f838002151eb39b+validated-working-tree",
+          "implementationHead": "591a03180ec1d2efaf6ac73cf1ef3fe8d06d5748+validated-working-tree",
           "dependencies": {
-            "client/src/index.css": "f5e97d4e6975651dc20805ed875a0e8b9c130f6ba1a423e01509e359f13c2457",
+            "client/src/index.css": "ffa43c6521e5c0e8aae9e7b7f5b75af247b07c53ce1befb736964ffaaf2e5779",
             "client/src/components/phase-manager/types.ts": "86769cf5d0b2008a4951133d4ba5aefa500b4dab6dd20b95b7fd21b04443f628",
             "client/src/components/InteractiveTimeline.tsx": "9f92a9999e96f4b7e3a3fa5c163bd0a0d18cd7f6c56f8ccee84675f378c5c04b"
           }
@@ -13888,9 +11387,9 @@
           "background": "rgb(139, 92, 246)",
           "artifact": "tests/visual/reports/timeline-color-evidence.json",
           "artifactHash": "bcc97b37dc853100028e9006f5d71bc85f3860af890868b622dfd2d869aa275b",
-          "implementationHead": "9c7905ff9441021da69b2ef76f838002151eb39b+validated-working-tree",
+          "implementationHead": "591a03180ec1d2efaf6ac73cf1ef3fe8d06d5748+validated-working-tree",
           "dependencies": {
-            "client/src/index.css": "f5e97d4e6975651dc20805ed875a0e8b9c130f6ba1a423e01509e359f13c2457",
+            "client/src/index.css": "ffa43c6521e5c0e8aae9e7b7f5b75af247b07c53ce1befb736964ffaaf2e5779",
             "client/src/components/phase-manager/types.ts": "86769cf5d0b2008a4951133d4ba5aefa500b4dab6dd20b95b7fd21b04443f628",
             "client/src/components/InteractiveTimeline.tsx": "9f92a9999e96f4b7e3a3fa5c163bd0a0d18cd7f6c56f8ccee84675f378c5c04b"
           }
@@ -13911,9 +11410,9 @@
           "background": "rgb(139, 92, 246)",
           "artifact": "tests/visual/reports/timeline-color-evidence.json",
           "artifactHash": "bcc97b37dc853100028e9006f5d71bc85f3860af890868b622dfd2d869aa275b",
-          "implementationHead": "9c7905ff9441021da69b2ef76f838002151eb39b+validated-working-tree",
+          "implementationHead": "591a03180ec1d2efaf6ac73cf1ef3fe8d06d5748+validated-working-tree",
           "dependencies": {
-            "client/src/index.css": "f5e97d4e6975651dc20805ed875a0e8b9c130f6ba1a423e01509e359f13c2457",
+            "client/src/index.css": "ffa43c6521e5c0e8aae9e7b7f5b75af247b07c53ce1befb736964ffaaf2e5779",
             "client/src/components/phase-manager/types.ts": "86769cf5d0b2008a4951133d4ba5aefa500b4dab6dd20b95b7fd21b04443f628",
             "client/src/components/InteractiveTimeline.tsx": "9f92a9999e96f4b7e3a3fa5c163bd0a0d18cd7f6c56f8ccee84675f378c5c04b"
           }
@@ -13977,9 +11476,9 @@
           "background": "rgb(107, 114, 128)",
           "artifact": "tests/visual/reports/timeline-color-evidence.json",
           "artifactHash": "bcc97b37dc853100028e9006f5d71bc85f3860af890868b622dfd2d869aa275b",
-          "implementationHead": "9c7905ff9441021da69b2ef76f838002151eb39b+validated-working-tree",
+          "implementationHead": "591a03180ec1d2efaf6ac73cf1ef3fe8d06d5748+validated-working-tree",
           "dependencies": {
-            "client/src/index.css": "f5e97d4e6975651dc20805ed875a0e8b9c130f6ba1a423e01509e359f13c2457",
+            "client/src/index.css": "ffa43c6521e5c0e8aae9e7b7f5b75af247b07c53ce1befb736964ffaaf2e5779",
             "client/src/components/phase-manager/types.ts": "86769cf5d0b2008a4951133d4ba5aefa500b4dab6dd20b95b7fd21b04443f628",
             "client/src/components/InteractiveTimeline.tsx": "9f92a9999e96f4b7e3a3fa5c163bd0a0d18cd7f6c56f8ccee84675f378c5c04b"
           }
@@ -14000,9 +11499,9 @@
           "background": "rgb(107, 114, 128)",
           "artifact": "tests/visual/reports/timeline-color-evidence.json",
           "artifactHash": "bcc97b37dc853100028e9006f5d71bc85f3860af890868b622dfd2d869aa275b",
-          "implementationHead": "9c7905ff9441021da69b2ef76f838002151eb39b+validated-working-tree",
+          "implementationHead": "591a03180ec1d2efaf6ac73cf1ef3fe8d06d5748+validated-working-tree",
           "dependencies": {
-            "client/src/index.css": "f5e97d4e6975651dc20805ed875a0e8b9c130f6ba1a423e01509e359f13c2457",
+            "client/src/index.css": "ffa43c6521e5c0e8aae9e7b7f5b75af247b07c53ce1befb736964ffaaf2e5779",
             "client/src/components/phase-manager/types.ts": "86769cf5d0b2008a4951133d4ba5aefa500b4dab6dd20b95b7fd21b04443f628",
             "client/src/components/InteractiveTimeline.tsx": "9f92a9999e96f4b7e3a3fa5c163bd0a0d18cd7f6c56f8ccee84675f378c5c04b"
           }
@@ -20957,6 +18456,69 @@
       "semanticRole": null,
       "reason": null,
       "evidence": []
+    },
+    {
+      "fingerprint": "89104335274e7b259dd2364b1ba47de55ee75cd82c2db492e24daf12f3158d57",
+      "file": "client/src/App.css",
+      "context": [],
+      "owner": ":root",
+      "property": "--neutral-surface-tint",
+      "literal": "#7f7f7f",
+      "locations": [
+        {
+          "line": 3076,
+          "column": 33
+        }
+      ],
+      "count": 1,
+      "kind": "token-definition",
+      "reachability": "unverified",
+      "decision": "not-debt",
+      "semanticRole": null,
+      "reason": "TC-C4d 原有中性灰/优先级悬停色令牌定义；非消费债",
+      "evidence": []
+    },
+    {
+      "fingerprint": "a5efdbf98094df590020507921216a77b491086baa2dcbf54e83b8c333869342",
+      "file": "client/src/App.css",
+      "context": [],
+      "owner": "[data-theme=\"light\"]",
+      "property": "--priority-warning-hover",
+      "literal": "#92400e",
+      "locations": [
+        {
+          "line": 3077,
+          "column": 50
+        }
+      ],
+      "count": 1,
+      "kind": "token-definition",
+      "reachability": "unverified",
+      "decision": "not-debt",
+      "semanticRole": null,
+      "reason": "TC-C4d 原有中性灰/优先级悬停色令牌定义；非消费债",
+      "evidence": []
+    },
+    {
+      "fingerprint": "c00464739442de493b77f6abb53747c79e1c1febedf6dfc6b3b7b1e5483708ba",
+      "file": "client/src/App.css",
+      "context": [],
+      "owner": "[data-theme=\"dark\"]",
+      "property": "--priority-warning-hover",
+      "literal": "#fcd34d",
+      "locations": [
+        {
+          "line": 3078,
+          "column": 49
+        }
+      ],
+      "count": 1,
+      "kind": "token-definition",
+      "reachability": "unverified",
+      "decision": "not-debt",
+      "semanticRole": null,
+      "reason": "TC-C4d 原有中性灰/优先级悬停色令牌定义；非消费债",
+      "evidence": []
     }
   ],
   "resolutions": [
@@ -26057,29 +23619,1219 @@
       "reason": "TC-C4c 浮层和通知：背景/文字/边界分别映射；失败业务订阅U02不计作已修",
       "baselineHead": "a5b2c30",
       "token": "--status-success-border"
+    },
+    {
+      "fingerprint": "4d9645f009446a0544cfffe3af8640b645a53ca2a39f3e4feadf2b76592eeede",
+      "file": "client/src/App.css",
+      "literal": "#ffffff",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--solid-foreground"
+    },
+    {
+      "fingerprint": "4995ad8dbec8eefcf69ca155db9d609aa3c3a05d9288b7019d696b8bc5f20689",
+      "file": "client/src/App.css",
+      "literal": "#ffffff",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--solid-foreground"
+    },
+    {
+      "fingerprint": "efc13f296c88049204085d161b0758bfd2a9bb9559f999bbdba22b7e2de3609a",
+      "file": "client/src/App.css",
+      "literal": "#4b5563",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--text-secondary"
+    },
+    {
+      "fingerprint": "77b0ab3e187d8210bbdb2c4e05b0a9b62f9c2e8e09e00743278ea1ff368d050d",
+      "file": "client/src/App.css",
+      "literal": "#d1d5db",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--text-secondary"
+    },
+    {
+      "fingerprint": "de4649e0ca45332c345ff563818fd2f149b9237ee4bab258a03db16b912398f7",
+      "file": "client/src/App.css",
+      "literal": "rgba(79, 70, 229, 0.1)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--primary"
+    },
+    {
+      "fingerprint": "4c64432c6dfd1cf0e33e3cf42a2cea54689cc1782e96f31f4097e350d1c2914c",
+      "file": "client/src/App.css",
+      "literal": "white",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--solid-foreground"
+    },
+    {
+      "fingerprint": "e7b608ab9e5e068763a5b6990692bff98398df079ea658eac00620b62a5ed669",
+      "file": "client/src/App.css",
+      "literal": "#10b981",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--status-success-border"
+    },
+    {
+      "fingerprint": "3414d63b02d8001a0383ebf137d3a9051053748b0b6e6a07e0186740c46a4503",
+      "file": "client/src/App.css",
+      "literal": "#059669",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--status-success-text"
+    },
+    {
+      "fingerprint": "e2091b9a62bcc5ad8ce8190654a7fa5b6bde3b18a85a4c44be1246854dc914d9",
+      "file": "client/src/App.css",
+      "literal": "#10b981",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--status-success-border"
+    },
+    {
+      "fingerprint": "94c0edb6e8fcf717704d136ea1f6506b39148d952aac404cd2576e808e2d0552",
+      "file": "client/src/App.css",
+      "literal": "#ef4444",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--status-danger-border"
+    },
+    {
+      "fingerprint": "237298148fe1c630583ddd50447b6681000def791fc158b8f84162c2d031ecf2",
+      "file": "client/src/App.css",
+      "literal": "#dc2626",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--status-danger-text"
+    },
+    {
+      "fingerprint": "6167f0c549ab3c301c1835a8a15c6af9ef32f9fd859749ebbac58f82052cecb4",
+      "file": "client/src/App.css",
+      "literal": "#ef4444",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--status-danger-border"
+    },
+    {
+      "fingerprint": "29c681a52a6a71eaed7727932cbc9f0a277f69991ab830f382f2b57d4aeadacd",
+      "file": "client/src/App.css",
+      "literal": "rgba(79, 70, 229, 0.2)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--primary"
+    },
+    {
+      "fingerprint": "3979a16c0f1fa3ff63cdfc6753fab5a73c12ae0748a99646ddbbf8ea6e5b522c",
+      "file": "client/src/App.css",
+      "literal": "white",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--solid-foreground"
+    },
+    {
+      "fingerprint": "95f3411221883482852ea5e3f25a70e7ff25cc97eec2d83cf7d8b75a9e8e764e",
+      "file": "client/src/App.css",
+      "literal": "rgba(127,127,127,0.08)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--neutral-surface-tint"
+    },
+    {
+      "fingerprint": "a9c7c8fd74da104062eda3ce02f80c19c4688f84ba67eb69d99e853854fe88de",
+      "file": "client/src/App.css",
+      "literal": "rgba(127,127,127,0.06)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--neutral-surface-tint"
+    },
+    {
+      "fingerprint": "82c1b638aa60ea799874936cbf287f22996c268a28079c20749edf9fa6c81aaf",
+      "file": "client/src/App.css",
+      "literal": "rgba(127,127,127,0.08)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--neutral-surface-tint"
+    },
+    {
+      "fingerprint": "edd4fed718bcf28c2942caf2b80ca89ef02bbe39b56ff2dc68b1a47c76c75d2c",
+      "file": "client/src/App.css",
+      "literal": "#3b82f6",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--primary-text"
+    },
+    {
+      "fingerprint": "f3bf45d3725d9a2e26b4c01d5f3cfd248af52d807c1ee60f93d938dc50624abc",
+      "file": "client/src/App.css",
+      "literal": "rgba(59,130,246,0.08)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--primary"
+    },
+    {
+      "fingerprint": "fa58de7334fb5e6cd3b565e92fff907a8d8eba79e38d80c73fc2e01fa8eba873",
+      "file": "client/src/App.css",
+      "literal": "rgba(245,158,11,0.5)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--status-warning-border"
+    },
+    {
+      "fingerprint": "b18c7d72084d43cf677eb966fc5f489248f675f014c97fbbb29e625d8132c6f9",
+      "file": "client/src/App.css",
+      "literal": "#f59e0b",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--status-warning-text"
+    },
+    {
+      "fingerprint": "67dde1250270b94550607c311b03bda65270d90dfb72c7aac9bb11e26c716831",
+      "file": "client/src/App.css",
+      "literal": "#dc2626",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--status-danger-text"
+    },
+    {
+      "fingerprint": "d000163096ac7bc13fd02fc27f5b8acf06ade1e0276abf971fe5805d9e9a0d93",
+      "file": "client/src/App.css",
+      "literal": "rgba(127, 127, 127, 0.1)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--neutral-surface-tint"
+    },
+    {
+      "fingerprint": "7cf47d3af89fade9de7cd1a014d4ef77bc19621545c147a27c4ede13390faefc",
+      "file": "client/src/App.css",
+      "literal": "rgba(127,127,127,0.2)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--neutral-surface-tint"
+    },
+    {
+      "fingerprint": "0e30100934c802755ff72f83bd9080599558ac8cabe0e52737d1fa0e79503fba",
+      "file": "client/src/App.css",
+      "literal": "rgba(127,127,127,0.1)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--neutral-surface-tint"
+    },
+    {
+      "fingerprint": "671081e29757697a40dee0f8e7197404df4dbd7da3f7e4caf7b900ec2b818edb",
+      "file": "client/src/App.css",
+      "literal": "#fca5a5",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--status-danger-text"
+    },
+    {
+      "fingerprint": "63ff85a190ebca2b39f3e6960728b0eecfa3d1bc5c352ac33606dc25814fd21d",
+      "file": "client/src/App.css",
+      "literal": "rgba(127,127,127,0.12)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--neutral-surface-tint"
+    },
+    {
+      "fingerprint": "3cb53c73be790a184a3b2861f18fbad8af08bce474d273d9a59d5d6421bf1a2f",
+      "file": "client/src/App.css",
+      "literal": "rgba(127, 127, 127, 0.14)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--neutral-surface-tint"
+    },
+    {
+      "fingerprint": "c4accd925227f60d3bb4286e63240daffb84be1dd56bc87ea66f5d0e329727e3",
+      "file": "client/src/App.css",
+      "literal": "#2563eb",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--primary-text"
+    },
+    {
+      "fingerprint": "58356845f1dcbdd5f240fdfe70d8cdeb6e9f489d22f76b2c5a65c6330bc94d51",
+      "file": "client/src/App.css",
+      "literal": "#93c5fc",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--primary-text"
+    },
+    {
+      "fingerprint": "5587eba848d9c270291c3b1bf7a34d3ed45d8e2bf2249adedafe85c5857a8949",
+      "file": "client/src/App.css",
+      "literal": "#3b82f6",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--primary-text"
+    },
+    {
+      "fingerprint": "b0e4892406b4135871cbf81122c3fd0c92561510001fc234322ac9dc6d386d3a",
+      "file": "client/src/App.css",
+      "literal": "#3b82f6",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--primary-text"
+    },
+    {
+      "fingerprint": "8bae28beb132916ed6306eb63469ae0801bed47cd277e80357e196f3b892a4f2",
+      "file": "client/src/App.css",
+      "literal": "#3b82f6",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--primary-text"
+    },
+    {
+      "fingerprint": "4f0407f29daf8e8c13c2da7c211e8bc408bdaa39099da78d3aec608385472e5a",
+      "file": "client/src/App.css",
+      "literal": "rgba(127, 127, 127, 0.14)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--neutral-surface-tint"
+    },
+    {
+      "fingerprint": "49a05ef5e5ec078a29772e228fc60e62e16452ef35a686f2b33f28b56254f0b7",
+      "file": "client/src/App.css",
+      "literal": "#3b82f6",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--primary-text"
+    },
+    {
+      "fingerprint": "61b9e6057d40ce4e2381b232d4461fae431a0840bae7536ed2d1546426ba6d65",
+      "file": "client/src/App.css",
+      "literal": "rgba(127, 127, 127, 0.06)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--neutral-surface-tint"
+    },
+    {
+      "fingerprint": "c72846156470897f4bfc56a85e43440203d40020b3afd23967b989d10cd7033b",
+      "file": "client/src/App.css",
+      "literal": "rgba(127, 127, 127, 0.12)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--neutral-surface-tint"
+    },
+    {
+      "fingerprint": "7a80718c2444a16b9116c4310c542270550c106b6cfbb10bef49a4c6e8ff9e7d",
+      "file": "client/src/App.css",
+      "literal": "rgba(127, 127, 127, 0.12)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--neutral-surface-tint"
+    },
+    {
+      "fingerprint": "ca8bc9a7d4cbcd6ea4b09226fe8f7ac561b0245dac9f0465f69c38f91ee8982c",
+      "file": "client/src/App.css",
+      "literal": "#fff",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--solid-foreground"
+    },
+    {
+      "fingerprint": "1dbe4464328de37725dcd0135aa03fbfd2aeb2e00b00202c4eb2f5b5ba676295",
+      "file": "client/src/App.css",
+      "literal": "#2563eb",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--primary-solid"
+    },
+    {
+      "fingerprint": "2026dfc9c8e9bad1cfc63ae18d573e6bb68ed1eff2ffcad67d347cea4de2564b",
+      "file": "client/src/App.css",
+      "literal": "rgba(127, 127, 127, 0.06)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--neutral-surface-tint"
+    },
+    {
+      "fingerprint": "5daa487d8fcd78e3e4e18113f3632de2b6208aa453188702cee64df29a5b376c",
+      "file": "client/src/App.css",
+      "literal": "rgba(127, 127, 127, 0.12)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--neutral-surface-tint"
+    },
+    {
+      "fingerprint": "1267b9849b6a0b8ae8296ad040cf236ed75aafb7c1e44671e000eb4b3525631e",
+      "file": "client/src/App.css",
+      "literal": "rgba(127, 127, 127, 0.06)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--neutral-surface-tint"
+    },
+    {
+      "fingerprint": "6fe892a41b8844c915ebdb897128b4946f9a733ffab492f763c659db515ebea5",
+      "file": "client/src/App.css",
+      "literal": "#f59e0b",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--status-warning-border"
+    },
+    {
+      "fingerprint": "6548f917c62f98cd9e135ed62ec7aae986717ea97559067f5a1c82e9d09c1793",
+      "file": "client/src/App.css",
+      "literal": "rgba(245, 158, 11, 0.07)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--status-warning-border"
+    },
+    {
+      "fingerprint": "897b2d0e842c9fc317b0cf9a23d424258c9964f9a030a605adf9094036eba39a",
+      "file": "client/src/App.css",
+      "literal": "rgba(59, 130, 246, 0.16)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--primary"
+    },
+    {
+      "fingerprint": "4d7a78c163c8b8d6cad4d81ea9a2f38fbb785251156fa6f9ac2435d3cb4e7bd4",
+      "file": "client/src/App.css",
+      "literal": "rgba(127, 127, 127, 0.14)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--neutral-surface-tint"
+    },
+    {
+      "fingerprint": "226ab52cc01ef513a34f93ae5d3b3a6c4df2d09b2525bf684c8d94a12e01fb88",
+      "file": "client/src/App.css",
+      "literal": "rgba(127, 127, 127, 0.2)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--neutral-surface-tint"
+    },
+    {
+      "fingerprint": "8934349fb5fc8559841d335dab0ab123f7a0a0921e4923f406284a73e94bb19b",
+      "file": "client/src/App.css",
+      "literal": "#b45309",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--status-warning-text"
+    },
+    {
+      "fingerprint": "a34f4ac77e8f8dfdb9a30ed62c68c3478c537624ae1d2141cab342cb7409de2e",
+      "file": "client/src/App.css",
+      "literal": "#fbbf24",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--status-warning-text"
+    },
+    {
+      "fingerprint": "101d387d3dc3196b4417cdf62e2d466ac29e6ae720d30b80906bcc39f08c1201",
+      "file": "client/src/App.css",
+      "literal": "rgba(127, 127, 127, 0.1)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--neutral-surface-tint"
+    },
+    {
+      "fingerprint": "5c1b890dd496aff07fe7af8ddcddd053c35ea6fdd547c03a47a6680742539b51",
+      "file": "client/src/App.css",
+      "literal": "rgba(127, 127, 127, 0.1)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--neutral-surface-tint"
+    },
+    {
+      "fingerprint": "1b3f032e1dc08e5f86ef6f930daf17c9bed36e2edab365d9a037f78bb91ed8cd",
+      "file": "client/src/App.css",
+      "literal": "rgba(127, 127, 127, 0.045)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--neutral-surface-tint"
+    },
+    {
+      "fingerprint": "f6167edba343d4494277185be023c1adacde16b2bd1d97097891f6455bb88cac",
+      "file": "client/src/App.css",
+      "literal": "rgba(127, 127, 127, 0.09)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--neutral-surface-tint"
+    },
+    {
+      "fingerprint": "ae774c851dfe62e2f16c46b9945efa346ecafb353e482e4e9fa11201c34b0782",
+      "file": "client/src/App.css",
+      "literal": "rgba(127, 127, 127, 0.12)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--neutral-surface-tint"
+    },
+    {
+      "fingerprint": "ec91d45ada918f1ca9d7aac93bc0cfe77d68f8fe767e43a9aea1d40327245df3",
+      "file": "client/src/App.css",
+      "literal": "rgba(127, 127, 127, 0.02)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--neutral-surface-tint"
+    },
+    {
+      "fingerprint": "5841cca3119ba7ca2c872dd5ffa8b834a968a6e529147f9a9513eca81cf3c3c0",
+      "file": "client/src/App.css",
+      "literal": "rgba(127, 127, 127, 0.06)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--neutral-surface-tint"
+    },
+    {
+      "fingerprint": "4d0ee820602a69b6c9c6e622218d6eda495c3278c6fe39ff034f1edd4a077c39",
+      "file": "client/src/App.css",
+      "literal": "rgba(127, 127, 127, 0.1)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--neutral-surface-tint"
+    },
+    {
+      "fingerprint": "224ee63dbfb406a56c433ccb021bdc66aa0073ca343b9b00d404d25c57f2176d",
+      "file": "client/src/App.css",
+      "literal": "rgba(127, 127, 127, 0.12)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--neutral-surface-tint"
+    },
+    {
+      "fingerprint": "275e671272b41e7a7ed71ca0dae826daabb0439c45e8c437a8e927025ccd1f20",
+      "file": "client/src/App.css",
+      "literal": "rgba(127, 127, 127, 0.1)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--neutral-surface-tint"
+    },
+    {
+      "fingerprint": "39301a40435acf68bb2e64c50ac9da6834e4fb6b7a7abbb872b8d1751b6df91a",
+      "file": "client/src/App.css",
+      "literal": "rgba(127, 127, 127, 0.1)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--neutral-surface-tint"
+    },
+    {
+      "fingerprint": "5dbb16ffca7fa0874bbab9c8fdf99787591bedc5651279e95ec7a969c722f472",
+      "file": "client/src/App.css",
+      "literal": "#3b82f6",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--status-info-border"
+    },
+    {
+      "fingerprint": "d06ae9a18a8fcb2ebd1d196296665fbeee375ad236c0d6c641cbd140698904ff",
+      "file": "client/src/App.css",
+      "literal": "#22c55e",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--status-success-border"
+    },
+    {
+      "fingerprint": "12d80169c90dcddf1df874aec4fd245caebc8a51ad4900b8d8b12c81e556a5e8",
+      "file": "client/src/App.css",
+      "literal": "rgba(127, 127, 127, 0.14)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--neutral-surface-tint"
+    },
+    {
+      "fingerprint": "362759204fa0aeef1a0d2ec12b76b71500d79c42a0f604980737a0f400978a4c",
+      "file": "client/src/App.css",
+      "literal": "rgba(127, 127, 127, 0.25)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--neutral-surface-tint"
+    },
+    {
+      "fingerprint": "da448ad263a1f8f6485bba839bd471d977f86dfd71013acdd5c78e3aecbc6b35",
+      "file": "client/src/App.css",
+      "literal": "#dc2626",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--status-danger-text"
+    },
+    {
+      "fingerprint": "fd1d4044a603d353b0b3468bdfa1bc1deefa4bca0776877ca1400d914ff2d2de",
+      "file": "client/src/App.css",
+      "literal": "#b45309",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--status-warning-text"
+    },
+    {
+      "fingerprint": "c35860e726e42f28340086cbca41b84e16ed0b82553454d1444ccaf33214f5c4",
+      "file": "client/src/App.css",
+      "literal": "rgba(127, 127, 127, 0.1)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--neutral-surface-tint"
+    },
+    {
+      "fingerprint": "8360536cae41f8968dff72801a97e31d70fcd329ddb58b81bfa9e04be3e64e39",
+      "file": "client/src/App.css",
+      "literal": "#b91c1c",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--status-danger-text"
+    },
+    {
+      "fingerprint": "db96a88dda2121943a6220dfbeb9bfe61be33fdd24a1778db0c3ba285164e87f",
+      "file": "client/src/App.css",
+      "literal": "#92400e",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--priority-warning-hover"
+    },
+    {
+      "fingerprint": "a408cab718cb0ef659862ee63287e50ed06fa7e7f87744a12e9b526af9d7b7d0",
+      "file": "client/src/App.css",
+      "literal": "#fca5a5",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--status-danger-text"
+    },
+    {
+      "fingerprint": "1b0b3ab9173362e848dca2db98e920a0a1cac19159f679dd1a490a1b574e47f1",
+      "file": "client/src/App.css",
+      "literal": "#fcd34d",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--priority-warning-hover"
+    },
+    {
+      "fingerprint": "6dd37d166c39a053cbe585cfedf3f9fab5c29bc697a680711be19e1ad0c7d57b",
+      "file": "client/src/App.css",
+      "literal": "#b91c1c",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--status-danger-text"
+    },
+    {
+      "fingerprint": "7d9bf4b500765b0fccf424e194f834a48f984cc85664599da98375e27df7e14d",
+      "file": "client/src/App.css",
+      "literal": "#92400e",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--priority-warning-hover"
+    },
+    {
+      "fingerprint": "05ca8105c462368f07488dee9389db3c1589dfc95ca8e0dcbfffaaea64fff770",
+      "file": "client/src/App.css",
+      "literal": "#374151",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--text-secondary"
+    },
+    {
+      "fingerprint": "9ca33fa300fab8a5e8562e3ba00d1e267e9b10648b92483577f5e2dadc6cff2e",
+      "file": "client/src/App.css",
+      "literal": "#fca5a5",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--status-danger-text"
+    },
+    {
+      "fingerprint": "0388917f7e2057276d99dc5a4753e7c27fc3c4cb4394fa104879923faaffd90d",
+      "file": "client/src/App.css",
+      "literal": "#fbbf24",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--status-warning-text"
+    },
+    {
+      "fingerprint": "d6247c4a07b242d55da05e5f16930df6dad7cb99212b5cad30b422f8ac76383c",
+      "file": "client/src/App.css",
+      "literal": "#fca5a5",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--status-danger-text"
+    },
+    {
+      "fingerprint": "f685f37e60c27756043b0b4424713e8da5270916cc8e7b1e884ee069ef95c23f",
+      "file": "client/src/App.css",
+      "literal": "#fcd34d",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--priority-warning-hover"
+    },
+    {
+      "fingerprint": "a4832b08cd264a7496fc15be3b3a4ab6f43353b488e922ac92b8d04e0c6f89d3",
+      "file": "client/src/App.css",
+      "literal": "#e5e7eb",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--text-secondary"
+    },
+    {
+      "fingerprint": "35271f7cd87293ff3d398c02d6df47b467c8a025a722ca6e33cd72d90102030a",
+      "file": "client/src/App.css",
+      "literal": "rgba(0, 0, 0, 0.35)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--solid-shade"
+    },
+    {
+      "fingerprint": "83c39e34ff8d2847ee861ba44c24121465dd105df22241ed70769d91cc1d930c",
+      "file": "client/src/App.css",
+      "literal": "rgba(127, 127, 127, 0.14)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--neutral-surface-tint"
+    },
+    {
+      "fingerprint": "ca7cf7c0d4ac9e93aa9288c97b8e239d777d3db616a89b2b47486db29b156424",
+      "file": "client/src/App.css",
+      "literal": "#dc2626",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--status-danger-text"
+    },
+    {
+      "fingerprint": "2023a10cc07f1e37fee28909de9851b2ed4c9d51efbc83ef5226b31598f3c83d",
+      "file": "client/src/App.css",
+      "literal": "rgba(127, 127, 127, 0.14)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--neutral-surface-tint"
+    },
+    {
+      "fingerprint": "16d92559073454c7bfcb37a04519a82230801d3601ec702f3b4f96ba295cc3fd",
+      "file": "client/src/App.css",
+      "literal": "rgba(127, 127, 127, 0.05)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--neutral-surface-tint"
+    },
+    {
+      "fingerprint": "ceac0cb901490c735e4f3de3b582a1e7a7ba30faf2ffdba75ea67e1f9eb73d80",
+      "file": "client/src/App.css",
+      "literal": "rgba(127, 127, 127, 0.06)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--neutral-surface-tint"
+    },
+    {
+      "fingerprint": "c948cbe50a73be1ca6707f2fc895b1c6f6c33b211fb0e01d77e6841f9ce77984",
+      "file": "client/src/App.css",
+      "literal": "#b45309",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--status-warning-text"
+    },
+    {
+      "fingerprint": "27d163ca136844e3110f67b2be01dbfc94f0359f1eabedf2e0bd717a297d455c",
+      "file": "client/src/App.css",
+      "literal": "#fca5a5",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--status-danger-text"
+    },
+    {
+      "fingerprint": "ab9876333f31598743b6afe2d20f2cc7c1441d98e59119717cacea3025979c92",
+      "file": "client/src/App.css",
+      "literal": "#fbbf24",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--status-warning-text"
+    },
+    {
+      "fingerprint": "2afb285d39675be1d369b03731096cbf6865630244824dfa4e7297305e32130b",
+      "file": "client/src/App.css",
+      "literal": "#4f46e5",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--primary-solid"
+    },
+    {
+      "fingerprint": "b7eadf929520ad93a591ccf9d5b9270c9c7f2b7e5051d6b6eb8c7ce4785a8d57",
+      "file": "client/src/App.css",
+      "literal": "#4f46e5",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--primary-text"
+    },
+    {
+      "fingerprint": "fcfe00d127bdefe8d44071109dbfcd1628143619b2f7bcba3924572881f84f10",
+      "file": "client/src/App.css",
+      "literal": "rgba(127, 127, 127, 0.12)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--neutral-surface-tint"
+    },
+    {
+      "fingerprint": "107155452231aa2a539801282711db753a1adc16399bef76971f75bbb0dbec5a",
+      "file": "client/src/App.css",
+      "literal": "rgba(127, 127, 127, 0.08)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--neutral-surface-tint"
+    },
+    {
+      "fingerprint": "674c69ef587b7ab335b264cb39ac3dc51502fb146350a51e96c4ba926683df2b",
+      "file": "client/src/App.css",
+      "literal": "rgba(127, 127, 127, 0.1)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--neutral-surface-tint"
+    },
+    {
+      "fingerprint": "31d3b41e6371c55ecd8f0acd7c9d4a09821818ea84a4000e621234aa8161f25c",
+      "file": "client/src/App.css",
+      "literal": "#dc2626",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--status-warning-text"
+    },
+    {
+      "fingerprint": "273e9e03279bb2db3a4dec13686b6b215025a5eb1b8ab641041c25eab7bd0099",
+      "file": "client/src/App.css",
+      "literal": "#93c5fd",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--status-info-text"
+    },
+    {
+      "fingerprint": "f389ccce01b605a4ada4b9c60308b8ab761ba00ba8baf0733bc69c23c819ad7b",
+      "file": "client/src/App.css",
+      "literal": "rgba(127,127,127,0.12)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--neutral-surface-tint"
+    },
+    {
+      "fingerprint": "55d92465004f9478d82e0f67845148a43aef8d69628b9e4434ab00b307727961",
+      "file": "client/src/App.css",
+      "literal": "#fff",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--solid-foreground"
+    },
+    {
+      "fingerprint": "e62bf36ec0c4b9b9ba4e4e6bb15afba469b21a039d6b3c29b83018197c65796b",
+      "file": "client/src/App.css",
+      "literal": "#52525b",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--text-secondary"
+    },
+    {
+      "fingerprint": "16e8fd1320f770c67bd1ad6988961b10be305ae38a178018894fa2ddfc870f7e",
+      "file": "client/src/App.css",
+      "literal": "#3b82f6",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--primary-text"
+    },
+    {
+      "fingerprint": "d4b762d923fa24bc10d730a532ca376b98c6b7f7cca8f75808cfd0de5cc96b9e",
+      "file": "client/src/App.css",
+      "literal": "#60a5fa",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--primary-text"
+    },
+    {
+      "fingerprint": "415a0ff0b8325eaae310f7b69e72bd9f0d516b09f3c0874a420e15692ee14863",
+      "file": "client/src/App.css",
+      "literal": "#3b82f6",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--primary-text"
+    },
+    {
+      "fingerprint": "6d0a0d51e42c854d33fd2a6404a5f755340ce9ae9d0f7a273a847ebfb9231b51",
+      "file": "client/src/App.css",
+      "literal": "#fff",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--solid-foreground"
+    },
+    {
+      "fingerprint": "9cd72caa0e90a53476b55b6f5cad215e4de1f96c6e7e50079e1343e477d60976",
+      "file": "client/src/App.css",
+      "literal": "rgba(127, 127, 127, 0.12)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--neutral-surface-tint"
+    },
+    {
+      "fingerprint": "f5159b36a4cd8e6e7ec35271ab7966f491cbfc520caa03200d710da55de53ef4",
+      "file": "client/src/App.css",
+      "literal": "#ffffff",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--solid-foreground"
+    },
+    {
+      "fingerprint": "1450680a8508e1863aa9ae23a7591df7ea4f1cb2587770a0c79f1b4f6f8eb054",
+      "file": "client/src/App.css",
+      "literal": "rgba(79, 70, 229, 0.1)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--primary"
+    },
+    {
+      "fingerprint": "64ae0bac8e2eb87c5089bbbe9d70eb32eb9685456567ed683ec3d3b815a6e9fd",
+      "file": "client/src/App.css",
+      "literal": "#3b82f6",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--primary-solid"
+    },
+    {
+      "fingerprint": "010c28813a96924ee1a0d135469ddfc125450e1ad07fd1e3f079a295b6cf9bf7",
+      "file": "client/src/App.css",
+      "literal": "#374151",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--text-secondary"
+    },
+    {
+      "fingerprint": "0d56698440d361ab6bc53f4db3880c9b93342f6c8f30d99cfa1b329871826195",
+      "file": "client/src/App.css",
+      "literal": "#e5e7eb",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--text-secondary"
+    },
+    {
+      "fingerprint": "e0b9471e7ea9aaeeb98524f0528abb838397cff2585db6562b512742f349aa55",
+      "file": "client/src/App.css",
+      "literal": "#3b82f6",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--primary-solid"
+    },
+    {
+      "fingerprint": "96e59352de33e0c5b2445bf96503d1a520922817c489479abb901865f751cfb5",
+      "file": "client/src/App.css",
+      "literal": "#3b82f6",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--primary-solid"
+    },
+    {
+      "fingerprint": "16837a41f7a2f97ea8409c2b6823ed2c4aaec606cb80c1818092c1354284e947",
+      "file": "client/src/index.css",
+      "literal": "white",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--solid-foreground"
+    },
+    {
+      "fingerprint": "1b68ad691f5ebd193cb74382c458e051f1f72e3f8fce94e63cc47aa1b26d7943",
+      "file": "client/src/index.css",
+      "literal": "#f59e0b",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--status-warning-border"
+    },
+    {
+      "fingerprint": "3e43232727c53770baca8f73cdb57807670f1fff8ec3fd39e90d6edacf7e053c",
+      "file": "client/src/index.css",
+      "literal": "#1d4ed8",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--status-info-text"
+    },
+    {
+      "fingerprint": "45c0d17d8d59316317fbaa3189177306071e80530f3d0a786a3c5385b463b395",
+      "file": "client/src/index.css",
+      "literal": "#3b82f6",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--status-info-soft"
+    },
+    {
+      "fingerprint": "71988b5e90b247eb3caaf802d67e7654314f11c5743eb62548a005c9e21219c8",
+      "file": "client/src/index.css",
+      "literal": "#93c5fc",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--status-info-text"
+    },
+    {
+      "fingerprint": "8c738f7cad913c592c32cbd61004267928560cb294f76f07067c6baacae66c4a",
+      "file": "client/src/index.css",
+      "literal": "#3b82f6",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--status-info-border"
+    },
+    {
+      "fingerprint": "b0adc413cb14154232112e1f3c378f7bbed866d9e0545963957b83c9a68ffc21",
+      "file": "client/src/index.css",
+      "literal": "#f59e0b",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--status-warning-soft"
+    },
+    {
+      "fingerprint": "d202810fc0b59faff7d20f6b6c8155df015c3562b5430d794d02ef1f88084037",
+      "file": "client/src/index.css",
+      "literal": "#d97706",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4d 全局剩余组件域及设置相关级联；保留中性灰实际色值与透明度，优先级悬停沿用已实测色值",
+      "baselineHead": "591a031",
+      "token": "--status-warning-text"
     }
   ],
   "additions": [],
   "summary": {
-    "occurrences": 970,
-    "identities": 948,
-    "uniqueColors": 227,
+    "occurrences": 854,
+    "identities": 832,
+    "uniqueColors": 204,
     "files": 52,
     "byKind": {
-      "semantic-color": 319,
-      "token-definition": 224,
-      "neutral-literal": 250,
+      "token-definition": 227,
+      "semantic-color": 254,
+      "neutral-literal": 196,
       "unknown": 164,
       "data-color": 12,
       "non-color": 1
     },
     "byDecision": {
-      "pending": 733,
-      "not-debt": 225,
+      "not-debt": 228,
+      "pending": 614,
       "accepted-literal": 12
     },
     "byFile": {
-      "client/src/App.css": 115,
+      "client/src/App.css": 7,
       "client/src/components/AppHeader.css": 20,
       "client/src/components/boards/EditableCells.tsx": 10,
       "client/src/components/Charts.css": 11,
@@ -26104,7 +24856,7 @@
       "client/src/components/ui/StatCard.tsx": 2,
       "client/src/components/ui/UnifiedTabComponent.css": 1,
       "client/src/debug/BoardDiagnostics.tsx": 16,
-      "client/src/index.css": 194,
+      "client/src/index.css": 186,
       "client/src/lib/project-colors.ts": 4,
       "client/src/lib/theme-colors.ts": 27,
       "client/src/pages/Assignments.css": 9,

@@ -53,6 +53,8 @@ const PAGES = [
   { name: 'project-detail-phases', widths: [1600,1366], states: ['default','phase-hover','phase-edit'] },
   { name: 'scenarios', widths: [1600,1366] },
   { name: 'scenarios-rich', widths: [1600,1366], states:['default','create','filter','merge-confirm','compare-results'] },
+  { name: 'settings', widths: [1600,1366] },
+  { name: 'settings-appearance', widths: [1600,1366] },
 ];
 const COMBOS = [];
 const selected=FILTER?[{name:FILTER.name,path:FILTER.path,widths:[1600,1366],states:[requestedState??'default']}]:PAGES;
@@ -165,6 +167,10 @@ for (const combo of COMBOS) {
     return png;
   };
   const cur = await grayClock(PNG.sync.read(shot));
+  // A failed comparison must still expose the actual rendered image for review.
+  // Baseline paths alone can otherwise point reviewers at yesterday's colors.
+  const currentArtifact=path.join(process.cwd(),'tests/visual/reports',`visual-${tag}${argv.includes('--inject-test-violation')?'-injected':''}.png`);
+  fs.writeFileSync(currentArtifact,PNG.sync.write(cur));
   const operation=pixelOperation({update:UPDATE,baselineExists:fs.existsSync(file)});
   if (operation==='update') {
     const eligible=results.slice(comboStart).every(r=>r.ok)&&session.writes.length===0&&session.errors.length===0;
@@ -187,7 +193,7 @@ for (const combo of COMBOS) {
     check(`像素 ${tag}: 与基线一致(≤0.5%)`, ok, `diff=${(ratio * 100).toFixed(2)}%${ok ? '' : `, 明细见 __screenshots__/${tag}.diff.png`}`);
   }
   check(`只读与运行 ${tag}`,session.writes.length===0&&session.errors.length===0,[...session.writes,...session.errors].join(' | '));
-  evidence.push({tag,profile:combo.name,path:profile.path,theme:combo.theme,state:STATE,viewport:{width:combo.w,height:combo.h},axe:{count:nViol,cap,added:verdict.added,identities:axe.violations.flatMap(v=>v.nodes.map(n=>({rule:v.id,target:n.target,html:n.html})))},collisions,overflow,writes:session.writes,errors:session.errors,checks:results.slice(comboStart),artifact:path.relative(process.cwd(),file)});
+  evidence.push({tag,profile:combo.name,path:profile.path,theme:combo.theme,state:STATE,viewport:{width:combo.w,height:combo.h},axe:{count:nViol,cap,added:verdict.added,identities:axe.violations.flatMap(v=>v.nodes.map(n=>({rule:v.id,target:n.target,html:n.html})))},collisions,overflow,writes:session.writes,errors:session.errors,checks:results.slice(comboStart),artifact:path.relative(process.cwd(),currentArtifact),baseline:path.relative(process.cwd(),file)});
   await context.close();
 }
 

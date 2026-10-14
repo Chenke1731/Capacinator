@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import {chromium} from 'playwright';
 import {auditEnvironment,authenticate,setupReadOnlyPage,saveAuditReport} from './lib/ui-profiles.mjs';
 import {installContrastHelpers} from './lib/ui-state-audit.mjs';
+if(process.argv.length>2)throw new Error('verify-lifecycle-colors takes no CLI arguments');
 
 const browser=await chromium.launch({executablePath:auditEnvironment.chrome}),auth=await authenticate(),evidence=[];
 try {

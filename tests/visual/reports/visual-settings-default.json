@@ -1,0 +1,184 @@
+{
+  "combinations": 4,
+  "checks": 20,
+  "updatePixels": false,
+  "registerExistingAxe": false,
+  "evidence": [
+    {
+      "tag": "settings-dark-1600",
+      "profile": "settings",
+      "path": "/settings",
+      "theme": "dark",
+      "state": "default",
+      "viewport": {
+        "width": 1600,
+        "height": 900
+      },
+      "axe": {
+        "count": 0,
+        "cap": 0,
+        "added": [],
+        "identities": []
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe settings-dark-1600: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 settings-dark-1600: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 settings-dark-1600: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "像素 settings-dark-1600: 与基线一致(≤0.5%)",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 settings-dark-1600",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/__screenshots__/settings-dark-1600.png"
+    },
+    {
+      "tag": "settings-dark-1366",
+      "profile": "settings",
+      "path": "/settings",
+      "theme": "dark",
+      "state": "default",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "axe": {
+        "count": 0,
+        "cap": 0,
+        "added": [],
+        "identities": []
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe settings-dark-1366: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 settings-dark-1366: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 settings-dark-1366: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "像素 settings-dark-1366: 与基线一致(≤0.5%)",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 settings-dark-1366",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/__screenshots__/settings-dark-1366.png"
+    },
+    {
+      "tag": "settings-light-1600",
+      "profile": "settings",
+      "path": "/settings",
+      "theme": "light",
+      "state": "default",
+      "viewport": {
+        "width": 1600,
+        "height": 900
+      },
+      "axe": {
+        "count": 0,
+        "cap": 0,
+        "added": [],
+        "identities": []
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe settings-light-1600: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 settings-light-1600: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 settings-light-1600: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "像素 settings-light-1600: 与基线一致(≤0.5%)",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 settings-light-1600",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/__screenshots__/settings-light-1600.png"
+    },
+    {
+      "tag": "settings-light-1366",
+      "profile": "settings",
+      "path": "/settings",
+      "theme": "light",
+      "state": "default",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "axe": {
+        "count": 0,
+        "cap": 0,
+        "added": [],
+        "identities": []
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe settings-light-1366: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 settings-light-1366: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 settings-light-1366: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "像素 settings-light-1366: 与基线一致(≤0.5%)",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 settings-light-1366",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/__screenshots__/settings-light-1366.png"
+    }
+  ]
+}

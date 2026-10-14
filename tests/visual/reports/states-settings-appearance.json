@@ -1,0 +1,2071 @@
+{
+  "profile": "settings-appearance",
+  "phases": [
+    {
+      "theme": "light",
+      "state": "default",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "unified-tab   |",
+          "text": "系统",
+          "foreground": "rgb(55, 65, 81)",
+          "background": "rgb(243, 244, 246)",
+          "effectiveBackground": [
+            243,
+            244,
+            246
+          ],
+          "contrast": 9.365938485902875,
+          "textual": true,
+          "disabled": false,
+          "width": 100,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(2)",
+          "family": "unified-tab   |",
+          "text": "导入",
+          "foreground": "rgb(55, 65, 81)",
+          "background": "rgb(243, 244, 246)",
+          "effectiveBackground": [
+            243,
+            244,
+            246
+          ],
+          "contrast": 9.365938485902875,
+          "textual": true,
+          "disabled": false,
+          "width": 100,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(3)",
+          "family": "unified-tab   |",
+          "text": "用户权限",
+          "foreground": "rgb(55, 65, 81)",
+          "background": "rgb(243, 244, 246)",
+          "effectiveBackground": [
+            243,
+            244,
+            246
+          ],
+          "contrast": 9.365938485902875,
+          "textual": true,
+          "disabled": false,
+          "width": 128,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(4)",
+          "family": "unified-tab   |",
+          "text": "GitHub",
+          "foreground": "rgb(55, 65, 81)",
+          "background": "rgb(243, 244, 246)",
+          "effectiveBackground": [
+            243,
+            244,
+            246
+          ],
+          "contrast": 9.365938485902875,
+          "textual": true,
+          "disabled": false,
+          "width": 120.515625,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(5)",
+          "family": "unified-tab unified-tab--active unified-tab--focused |",
+          "text": "外观",
+          "foreground": "rgb(79, 70, 229)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            249,
+            250,
+            251
+          ],
+          "contrast": 6.016625091423448,
+          "textual": true,
+          "disabled": false,
+          "width": 100,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn btn-outline theme-option active|",
+          "text": "中文",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 62,
+          "height": 44,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
+          "family": "btn btn-outline theme-option |",
+          "text": "English",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 84.5625,
+          "height": 44,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn btn-outline theme-option active|",
+          "text": "☀️ 浅色",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 83.921875,
+          "height": 44,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
+          "family": "btn btn-outline theme-option |",
+          "text": "🌙 深色",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 83.921875,
+          "height": 44,
+          "font": 14
+        }
+      ],
+      "issues": [],
+      "scope": ".unified-tab-container",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "light",
+      "state": "hover-0",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "unified-tab   |",
+          "text": "系统",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgba(0, 0, 0, 0.03)",
+          "effectiveBackground": [
+            241.18823529411765,
+            242.15686274509804,
+            243.12549019607843
+          ],
+          "contrast": 15.84921187458464,
+          "textual": true,
+          "disabled": false,
+          "width": 100,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(2)",
+          "family": "unified-tab   |",
+          "text": "导入",
+          "foreground": "rgb(55, 65, 81)",
+          "background": "rgb(243, 244, 246)",
+          "effectiveBackground": [
+            243,
+            244,
+            246
+          ],
+          "contrast": 9.365938485902875,
+          "textual": true,
+          "disabled": false,
+          "width": 100,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(3)",
+          "family": "unified-tab   |",
+          "text": "用户权限",
+          "foreground": "rgb(55, 65, 81)",
+          "background": "rgb(243, 244, 246)",
+          "effectiveBackground": [
+            243,
+            244,
+            246
+          ],
+          "contrast": 9.365938485902875,
+          "textual": true,
+          "disabled": false,
+          "width": 128,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(4)",
+          "family": "unified-tab   |",
+          "text": "GitHub",
+          "foreground": "rgb(55, 65, 81)",
+          "background": "rgb(243, 244, 246)",
+          "effectiveBackground": [
+            243,
+            244,
+            246
+          ],
+          "contrast": 9.365938485902875,
+          "textual": true,
+          "disabled": false,
+          "width": 120.515625,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(5)",
+          "family": "unified-tab unified-tab--active unified-tab--focused |",
+          "text": "外观",
+          "foreground": "rgb(79, 70, 229)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            249,
+            250,
+            251
+          ],
+          "contrast": 6.016625091423448,
+          "textual": true,
+          "disabled": false,
+          "width": 100,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn btn-outline theme-option active|",
+          "text": "中文",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 62,
+          "height": 44,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
+          "family": "btn btn-outline theme-option |",
+          "text": "English",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 84.5625,
+          "height": 44,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn btn-outline theme-option active|",
+          "text": "☀️ 浅色",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 83.921875,
+          "height": 44,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
+          "family": "btn btn-outline theme-option |",
+          "text": "🌙 深色",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 83.921875,
+          "height": 44,
+          "font": 14
+        }
+      ],
+      "issues": [],
+      "scope": ".unified-tab-container",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "light",
+      "state": "hover-1",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "unified-tab   |",
+          "text": "系统",
+          "foreground": "rgb(55, 65, 81)",
+          "background": "rgb(243, 244, 246)",
+          "effectiveBackground": [
+            243,
+            244,
+            246
+          ],
+          "contrast": 9.365938485902875,
+          "textual": true,
+          "disabled": false,
+          "width": 100,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(2)",
+          "family": "unified-tab   |",
+          "text": "导入",
+          "foreground": "rgb(55, 65, 81)",
+          "background": "rgb(243, 244, 246)",
+          "effectiveBackground": [
+            243,
+            244,
+            246
+          ],
+          "contrast": 9.365938485902875,
+          "textual": true,
+          "disabled": false,
+          "width": 100,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(3)",
+          "family": "unified-tab   |",
+          "text": "用户权限",
+          "foreground": "rgb(55, 65, 81)",
+          "background": "rgb(243, 244, 246)",
+          "effectiveBackground": [
+            243,
+            244,
+            246
+          ],
+          "contrast": 9.365938485902875,
+          "textual": true,
+          "disabled": false,
+          "width": 128,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(4)",
+          "family": "unified-tab   |",
+          "text": "GitHub",
+          "foreground": "rgb(55, 65, 81)",
+          "background": "rgb(243, 244, 246)",
+          "effectiveBackground": [
+            243,
+            244,
+            246
+          ],
+          "contrast": 9.365938485902875,
+          "textual": true,
+          "disabled": false,
+          "width": 120.515625,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(5)",
+          "family": "unified-tab unified-tab--active unified-tab--focused |",
+          "text": "外观",
+          "foreground": "rgb(79, 70, 229)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            249,
+            250,
+            251
+          ],
+          "contrast": 6.016625091423448,
+          "textual": true,
+          "disabled": false,
+          "width": 100,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn btn-outline theme-option active|",
+          "text": "中文",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 62,
+          "height": 44,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
+          "family": "btn btn-outline theme-option |",
+          "text": "English",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 84.5625,
+          "height": 44,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn btn-outline theme-option active|",
+          "text": "☀️ 浅色",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 83.921875,
+          "height": 44,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
+          "family": "btn btn-outline theme-option |",
+          "text": "🌙 深色",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 83.921875,
+          "height": 44,
+          "font": 14
+        }
+      ],
+      "issues": [],
+      "scope": ".unified-tab-container",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "light",
+      "state": "hover-2",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "unified-tab   |",
+          "text": "系统",
+          "foreground": "rgb(55, 65, 81)",
+          "background": "rgb(243, 244, 246)",
+          "effectiveBackground": [
+            243,
+            244,
+            246
+          ],
+          "contrast": 9.365938485902875,
+          "textual": true,
+          "disabled": false,
+          "width": 100,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(2)",
+          "family": "unified-tab   |",
+          "text": "导入",
+          "foreground": "rgb(55, 65, 81)",
+          "background": "rgb(243, 244, 246)",
+          "effectiveBackground": [
+            243,
+            244,
+            246
+          ],
+          "contrast": 9.365938485902875,
+          "textual": true,
+          "disabled": false,
+          "width": 100,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(3)",
+          "family": "unified-tab   |",
+          "text": "用户权限",
+          "foreground": "rgb(55, 65, 81)",
+          "background": "rgb(243, 244, 246)",
+          "effectiveBackground": [
+            243,
+            244,
+            246
+          ],
+          "contrast": 9.365938485902875,
+          "textual": true,
+          "disabled": false,
+          "width": 128,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(4)",
+          "family": "unified-tab   |",
+          "text": "GitHub",
+          "foreground": "rgb(55, 65, 81)",
+          "background": "rgb(243, 244, 246)",
+          "effectiveBackground": [
+            243,
+            244,
+            246
+          ],
+          "contrast": 9.365938485902875,
+          "textual": true,
+          "disabled": false,
+          "width": 120.515625,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(5)",
+          "family": "unified-tab unified-tab--active unified-tab--focused |",
+          "text": "外观",
+          "foreground": "rgb(79, 70, 229)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            249,
+            250,
+            251
+          ],
+          "contrast": 6.016625091423448,
+          "textual": true,
+          "disabled": false,
+          "width": 100,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn btn-outline theme-option active|",
+          "text": "中文",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 62,
+          "height": 44,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
+          "family": "btn btn-outline theme-option |",
+          "text": "English",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 84.5625,
+          "height": 44,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn btn-outline theme-option active|",
+          "text": "☀️ 浅色",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 83.921875,
+          "height": 44,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
+          "family": "btn btn-outline theme-option |",
+          "text": "🌙 深色",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 83.921875,
+          "height": 44,
+          "font": 14
+        }
+      ],
+      "issues": [],
+      "scope": ".unified-tab-container",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "light",
+      "state": "hover-3",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "unified-tab   |",
+          "text": "系统",
+          "foreground": "rgb(55, 65, 81)",
+          "background": "rgb(243, 244, 246)",
+          "effectiveBackground": [
+            243,
+            244,
+            246
+          ],
+          "contrast": 9.365938485902875,
+          "textual": true,
+          "disabled": false,
+          "width": 100,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(2)",
+          "family": "unified-tab   |",
+          "text": "导入",
+          "foreground": "rgb(55, 65, 81)",
+          "background": "rgb(243, 244, 246)",
+          "effectiveBackground": [
+            243,
+            244,
+            246
+          ],
+          "contrast": 9.365938485902875,
+          "textual": true,
+          "disabled": false,
+          "width": 100,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(3)",
+          "family": "unified-tab   |",
+          "text": "用户权限",
+          "foreground": "rgb(55, 65, 81)",
+          "background": "rgb(243, 244, 246)",
+          "effectiveBackground": [
+            243,
+            244,
+            246
+          ],
+          "contrast": 9.365938485902875,
+          "textual": true,
+          "disabled": false,
+          "width": 128,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(4)",
+          "family": "unified-tab   |",
+          "text": "GitHub",
+          "foreground": "rgb(55, 65, 81)",
+          "background": "rgb(243, 244, 246)",
+          "effectiveBackground": [
+            243,
+            244,
+            246
+          ],
+          "contrast": 9.365938485902875,
+          "textual": true,
+          "disabled": false,
+          "width": 120.515625,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(5)",
+          "family": "unified-tab unified-tab--active unified-tab--focused |",
+          "text": "外观",
+          "foreground": "rgb(79, 70, 229)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            249,
+            250,
+            251
+          ],
+          "contrast": 6.016625091423448,
+          "textual": true,
+          "disabled": false,
+          "width": 100,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn btn-outline theme-option active|",
+          "text": "中文",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 62,
+          "height": 44,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
+          "family": "btn btn-outline theme-option |",
+          "text": "English",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgba(0, 0, 0, 0.03)",
+          "effectiveBackground": [
+            247,
+            247,
+            247
+          ],
+          "contrast": 16.55894215257156,
+          "textual": true,
+          "disabled": false,
+          "width": 84.5625,
+          "height": 44,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn btn-outline theme-option active|",
+          "text": "☀️ 浅色",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 83.921875,
+          "height": 44,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
+          "family": "btn btn-outline theme-option |",
+          "text": "🌙 深色",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 83.921875,
+          "height": 44,
+          "font": 14
+        }
+      ],
+      "issues": [],
+      "scope": ".unified-tab-container",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "light",
+      "state": "keyboard-focus",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "unified-tab   |",
+          "text": "系统",
+          "foreground": "rgb(55, 65, 81)",
+          "background": "rgb(243, 244, 246)",
+          "effectiveBackground": [
+            243,
+            244,
+            246
+          ],
+          "contrast": 9.365938485902875,
+          "textual": true,
+          "disabled": false,
+          "width": 100,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(2)",
+          "family": "unified-tab   |",
+          "text": "导入",
+          "foreground": "rgb(55, 65, 81)",
+          "background": "rgb(243, 244, 246)",
+          "effectiveBackground": [
+            243,
+            244,
+            246
+          ],
+          "contrast": 9.365938485902875,
+          "textual": true,
+          "disabled": false,
+          "width": 100,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(3)",
+          "family": "unified-tab   |",
+          "text": "用户权限",
+          "foreground": "rgb(55, 65, 81)",
+          "background": "rgb(243, 244, 246)",
+          "effectiveBackground": [
+            243,
+            244,
+            246
+          ],
+          "contrast": 9.365938485902875,
+          "textual": true,
+          "disabled": false,
+          "width": 128,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(4)",
+          "family": "unified-tab   |",
+          "text": "GitHub",
+          "foreground": "rgb(55, 65, 81)",
+          "background": "rgb(243, 244, 246)",
+          "effectiveBackground": [
+            243,
+            244,
+            246
+          ],
+          "contrast": 9.365938485902875,
+          "textual": true,
+          "disabled": false,
+          "width": 120.515625,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(5)",
+          "family": "unified-tab unified-tab--active unified-tab--focused |",
+          "text": "外观",
+          "foreground": "rgb(79, 70, 229)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            249,
+            250,
+            251
+          ],
+          "contrast": 6.016625091423448,
+          "textual": true,
+          "disabled": false,
+          "width": 100,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn btn-outline theme-option active|",
+          "text": "中文",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 62,
+          "height": 44,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
+          "family": "btn btn-outline theme-option |",
+          "text": "English",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgba(0, 0, 0, 0.01)",
+          "effectiveBackground": [
+            252,
+            252,
+            252
+          ],
+          "contrast": 17.291076019828804,
+          "textual": true,
+          "disabled": false,
+          "width": 84.5625,
+          "height": 44,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn btn-outline theme-option active|",
+          "text": "☀️ 浅色",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 83.921875,
+          "height": 44,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
+          "family": "btn btn-outline theme-option |",
+          "text": "🌙 深色",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 83.921875,
+          "height": 44,
+          "font": 14
+        }
+      ],
+      "issues": [],
+      "scope": ".unified-tab-container",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "dark",
+      "state": "default",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "unified-tab   |",
+          "text": "系统",
+          "foreground": "rgb(229, 231, 235)",
+          "background": "rgb(55, 65, 81)",
+          "effectiveBackground": [
+            55,
+            65,
+            81
+          ],
+          "contrast": 8.3252023126051,
+          "textual": true,
+          "disabled": false,
+          "width": 100,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(2)",
+          "family": "unified-tab   |",
+          "text": "导入",
+          "foreground": "rgb(229, 231, 235)",
+          "background": "rgb(55, 65, 81)",
+          "effectiveBackground": [
+            55,
+            65,
+            81
+          ],
+          "contrast": 8.3252023126051,
+          "textual": true,
+          "disabled": false,
+          "width": 100,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(3)",
+          "family": "unified-tab   |",
+          "text": "用户权限",
+          "foreground": "rgb(229, 231, 235)",
+          "background": "rgb(55, 65, 81)",
+          "effectiveBackground": [
+            55,
+            65,
+            81
+          ],
+          "contrast": 8.3252023126051,
+          "textual": true,
+          "disabled": false,
+          "width": 128,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(4)",
+          "family": "unified-tab   |",
+          "text": "GitHub",
+          "foreground": "rgb(229, 231, 235)",
+          "background": "rgb(55, 65, 81)",
+          "effectiveBackground": [
+            55,
+            65,
+            81
+          ],
+          "contrast": 8.3252023126051,
+          "textual": true,
+          "disabled": false,
+          "width": 120.515625,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(5)",
+          "family": "unified-tab unified-tab--active unified-tab--focused |",
+          "text": "外观",
+          "foreground": "rgb(165, 180, 252)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 7.363342781260568,
+          "textual": true,
+          "disabled": false,
+          "width": 100,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn btn-outline theme-option active|",
+          "text": "中文",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 62,
+          "height": 44,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
+          "family": "btn btn-outline theme-option |",
+          "text": "English",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 84.5625,
+          "height": 44,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn btn-outline theme-option |",
+          "text": "☀️ 浅色",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 83.921875,
+          "height": 44,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
+          "family": "btn btn-outline theme-option active|",
+          "text": "🌙 深色",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 83.921875,
+          "height": 44,
+          "font": 14
+        }
+      ],
+      "issues": [],
+      "scope": ".unified-tab-container",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "dark",
+      "state": "hover-0",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "unified-tab   |",
+          "text": "系统",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgba(255, 255, 255, 0.05)",
+          "effectiveBackground": [
+            42.41960784313726,
+            51.909803921568624,
+            65.19607843137254
+          ],
+          "contrast": 12.057594670859316,
+          "textual": true,
+          "disabled": false,
+          "width": 100,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(2)",
+          "family": "unified-tab   |",
+          "text": "导入",
+          "foreground": "rgb(229, 231, 235)",
+          "background": "rgb(55, 65, 81)",
+          "effectiveBackground": [
+            55,
+            65,
+            81
+          ],
+          "contrast": 8.3252023126051,
+          "textual": true,
+          "disabled": false,
+          "width": 100,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(3)",
+          "family": "unified-tab   |",
+          "text": "用户权限",
+          "foreground": "rgb(229, 231, 235)",
+          "background": "rgb(55, 65, 81)",
+          "effectiveBackground": [
+            55,
+            65,
+            81
+          ],
+          "contrast": 8.3252023126051,
+          "textual": true,
+          "disabled": false,
+          "width": 128,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(4)",
+          "family": "unified-tab   |",
+          "text": "GitHub",
+          "foreground": "rgb(229, 231, 235)",
+          "background": "rgb(55, 65, 81)",
+          "effectiveBackground": [
+            55,
+            65,
+            81
+          ],
+          "contrast": 8.3252023126051,
+          "textual": true,
+          "disabled": false,
+          "width": 120.515625,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(5)",
+          "family": "unified-tab unified-tab--active unified-tab--focused |",
+          "text": "外观",
+          "foreground": "rgb(165, 180, 252)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 7.363342781260568,
+          "textual": true,
+          "disabled": false,
+          "width": 100,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn btn-outline theme-option active|",
+          "text": "中文",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 62,
+          "height": 44,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
+          "family": "btn btn-outline theme-option |",
+          "text": "English",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 84.5625,
+          "height": 44,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn btn-outline theme-option |",
+          "text": "☀️ 浅色",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 83.921875,
+          "height": 44,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
+          "family": "btn btn-outline theme-option active|",
+          "text": "🌙 深色",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 83.921875,
+          "height": 44,
+          "font": 14
+        }
+      ],
+      "issues": [],
+      "scope": ".unified-tab-container",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "dark",
+      "state": "hover-1",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "unified-tab   |",
+          "text": "系统",
+          "foreground": "rgb(229, 231, 235)",
+          "background": "rgb(55, 65, 81)",
+          "effectiveBackground": [
+            55,
+            65,
+            81
+          ],
+          "contrast": 8.3252023126051,
+          "textual": true,
+          "disabled": false,
+          "width": 100,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(2)",
+          "family": "unified-tab   |",
+          "text": "导入",
+          "foreground": "rgb(229, 231, 235)",
+          "background": "rgb(55, 65, 81)",
+          "effectiveBackground": [
+            55,
+            65,
+            81
+          ],
+          "contrast": 8.3252023126051,
+          "textual": true,
+          "disabled": false,
+          "width": 100,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(3)",
+          "family": "unified-tab   |",
+          "text": "用户权限",
+          "foreground": "rgb(229, 231, 235)",
+          "background": "rgb(55, 65, 81)",
+          "effectiveBackground": [
+            55,
+            65,
+            81
+          ],
+          "contrast": 8.3252023126051,
+          "textual": true,
+          "disabled": false,
+          "width": 128,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(4)",
+          "family": "unified-tab   |",
+          "text": "GitHub",
+          "foreground": "rgb(229, 231, 235)",
+          "background": "rgb(55, 65, 81)",
+          "effectiveBackground": [
+            55,
+            65,
+            81
+          ],
+          "contrast": 8.3252023126051,
+          "textual": true,
+          "disabled": false,
+          "width": 120.515625,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(5)",
+          "family": "unified-tab unified-tab--active unified-tab--focused |",
+          "text": "外观",
+          "foreground": "rgb(165, 180, 252)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 7.363342781260568,
+          "textual": true,
+          "disabled": false,
+          "width": 100,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn btn-outline theme-option active|",
+          "text": "中文",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 62,
+          "height": 44,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
+          "family": "btn btn-outline theme-option |",
+          "text": "English",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 84.5625,
+          "height": 44,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn btn-outline theme-option |",
+          "text": "☀️ 浅色",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 83.921875,
+          "height": 44,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
+          "family": "btn btn-outline theme-option active|",
+          "text": "🌙 深色",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 83.921875,
+          "height": 44,
+          "font": 14
+        }
+      ],
+      "issues": [],
+      "scope": ".unified-tab-container",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "dark",
+      "state": "hover-2",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "unified-tab   |",
+          "text": "系统",
+          "foreground": "rgb(229, 231, 235)",
+          "background": "rgb(55, 65, 81)",
+          "effectiveBackground": [
+            55,
+            65,
+            81
+          ],
+          "contrast": 8.3252023126051,
+          "textual": true,
+          "disabled": false,
+          "width": 100,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(2)",
+          "family": "unified-tab   |",
+          "text": "导入",
+          "foreground": "rgb(229, 231, 235)",
+          "background": "rgb(55, 65, 81)",
+          "effectiveBackground": [
+            55,
+            65,
+            81
+          ],
+          "contrast": 8.3252023126051,
+          "textual": true,
+          "disabled": false,
+          "width": 100,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(3)",
+          "family": "unified-tab   |",
+          "text": "用户权限",
+          "foreground": "rgb(229, 231, 235)",
+          "background": "rgb(55, 65, 81)",
+          "effectiveBackground": [
+            55,
+            65,
+            81
+          ],
+          "contrast": 8.3252023126051,
+          "textual": true,
+          "disabled": false,
+          "width": 128,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(4)",
+          "family": "unified-tab   |",
+          "text": "GitHub",
+          "foreground": "rgb(229, 231, 235)",
+          "background": "rgb(55, 65, 81)",
+          "effectiveBackground": [
+            55,
+            65,
+            81
+          ],
+          "contrast": 8.3252023126051,
+          "textual": true,
+          "disabled": false,
+          "width": 120.515625,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(5)",
+          "family": "unified-tab unified-tab--active unified-tab--focused |",
+          "text": "外观",
+          "foreground": "rgb(165, 180, 252)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 7.363342781260568,
+          "textual": true,
+          "disabled": false,
+          "width": 100,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn btn-outline theme-option active|",
+          "text": "中文",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 62,
+          "height": 44,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
+          "family": "btn btn-outline theme-option |",
+          "text": "English",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 84.5625,
+          "height": 44,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn btn-outline theme-option |",
+          "text": "☀️ 浅色",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 83.921875,
+          "height": 44,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
+          "family": "btn btn-outline theme-option active|",
+          "text": "🌙 深色",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 83.921875,
+          "height": 44,
+          "font": 14
+        }
+      ],
+      "issues": [],
+      "scope": ".unified-tab-container",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "dark",
+      "state": "hover-3",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "unified-tab   |",
+          "text": "系统",
+          "foreground": "rgb(229, 231, 235)",
+          "background": "rgb(55, 65, 81)",
+          "effectiveBackground": [
+            55,
+            65,
+            81
+          ],
+          "contrast": 8.3252023126051,
+          "textual": true,
+          "disabled": false,
+          "width": 100,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(2)",
+          "family": "unified-tab   |",
+          "text": "导入",
+          "foreground": "rgb(229, 231, 235)",
+          "background": "rgb(55, 65, 81)",
+          "effectiveBackground": [
+            55,
+            65,
+            81
+          ],
+          "contrast": 8.3252023126051,
+          "textual": true,
+          "disabled": false,
+          "width": 100,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(3)",
+          "family": "unified-tab   |",
+          "text": "用户权限",
+          "foreground": "rgb(229, 231, 235)",
+          "background": "rgb(55, 65, 81)",
+          "effectiveBackground": [
+            55,
+            65,
+            81
+          ],
+          "contrast": 8.3252023126051,
+          "textual": true,
+          "disabled": false,
+          "width": 128,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(4)",
+          "family": "unified-tab   |",
+          "text": "GitHub",
+          "foreground": "rgb(229, 231, 235)",
+          "background": "rgb(55, 65, 81)",
+          "effectiveBackground": [
+            55,
+            65,
+            81
+          ],
+          "contrast": 8.3252023126051,
+          "textual": true,
+          "disabled": false,
+          "width": 120.515625,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(5)",
+          "family": "unified-tab unified-tab--active unified-tab--focused |",
+          "text": "外观",
+          "foreground": "rgb(165, 180, 252)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 7.363342781260568,
+          "textual": true,
+          "disabled": false,
+          "width": 100,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn btn-outline theme-option active|",
+          "text": "中文",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 62,
+          "height": 44,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
+          "family": "btn btn-outline theme-option |",
+          "text": "English",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgba(255, 255, 255, 0.05)",
+          "effectiveBackground": [
+            29.133333333333333,
+            35.77647058823529,
+            50.01176470588235
+          ],
+          "contrast": 14.903408662771534,
+          "textual": true,
+          "disabled": false,
+          "width": 84.5625,
+          "height": 44,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn btn-outline theme-option |",
+          "text": "☀️ 浅色",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 83.921875,
+          "height": 44,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
+          "family": "btn btn-outline theme-option active|",
+          "text": "🌙 深色",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 83.921875,
+          "height": 44,
+          "font": 14
+        }
+      ],
+      "issues": [],
+      "scope": ".unified-tab-container",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "dark",
+      "state": "keyboard-focus",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "unified-tab   |",
+          "text": "系统",
+          "foreground": "rgb(229, 231, 235)",
+          "background": "rgb(55, 65, 81)",
+          "effectiveBackground": [
+            55,
+            65,
+            81
+          ],
+          "contrast": 8.3252023126051,
+          "textual": true,
+          "disabled": false,
+          "width": 100,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(2)",
+          "family": "unified-tab   |",
+          "text": "导入",
+          "foreground": "rgb(229, 231, 235)",
+          "background": "rgb(55, 65, 81)",
+          "effectiveBackground": [
+            55,
+            65,
+            81
+          ],
+          "contrast": 8.3252023126051,
+          "textual": true,
+          "disabled": false,
+          "width": 100,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(3)",
+          "family": "unified-tab   |",
+          "text": "用户权限",
+          "foreground": "rgb(229, 231, 235)",
+          "background": "rgb(55, 65, 81)",
+          "effectiveBackground": [
+            55,
+            65,
+            81
+          ],
+          "contrast": 8.3252023126051,
+          "textual": true,
+          "disabled": false,
+          "width": 128,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(4)",
+          "family": "unified-tab   |",
+          "text": "GitHub",
+          "foreground": "rgb(229, 231, 235)",
+          "background": "rgb(55, 65, 81)",
+          "effectiveBackground": [
+            55,
+            65,
+            81
+          ],
+          "contrast": 8.3252023126051,
+          "textual": true,
+          "disabled": false,
+          "width": 120.515625,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(5)",
+          "family": "unified-tab unified-tab--active unified-tab--focused |",
+          "text": "外观",
+          "foreground": "rgb(165, 180, 252)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 7.363342781260568,
+          "textual": true,
+          "disabled": false,
+          "width": 100,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn btn-outline theme-option active|",
+          "text": "中文",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 62,
+          "height": 44,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
+          "family": "btn btn-outline theme-option |",
+          "text": "English",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgba(255, 255, 255, 0.024)",
+          "effectiveBackground": [
+            22.599999999999998,
+            29.435294117647057,
+            44.08235294117647
+          ],
+          "contrast": 16.050072347915563,
+          "textual": true,
+          "disabled": false,
+          "width": 84.5625,
+          "height": 44,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn btn-outline theme-option |",
+          "text": "☀️ 浅色",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 83.921875,
+          "height": 44,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
+          "family": "btn btn-outline theme-option active|",
+          "text": "🌙 深色",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 83.921875,
+          "height": 44,
+          "font": 14
+        }
+      ],
+      "issues": [],
+      "scope": ".unified-tab-container",
+      "axe": [],
+      "newIssues": []
+    }
+  ],
+  "writes": [],
+  "errors": []
+}

@@ -797,9 +797,9 @@ input:focus, select:focus, textarea:focus {
 }
 
 .theme-option.active {
-  background-color: var(--primary) !important;
-  color: white !important;
-  border-color: var(--primary) !important;
+  background-color: var(--primary-solid) !important;
+  color: var(--solid-foreground) !important;
+  border-color: var(--primary-solid) !important;
 }
 
 .checkbox-label {
@@ -1052,15 +1052,15 @@ html body .settings-section .checkbox-label,
 }
 
 .settings-alert.warning {
-  background-color: color-mix(in srgb, #f59e0b 10%, var(--bg-secondary));
-  color: #d97706;
-  border: 1px solid color-mix(in srgb, #f59e0b 20%, transparent);
+  background-color: var(--status-warning-soft);
+  color: var(--status-warning-text);
+  border: 1px solid var(--status-warning-border);
 }
 
 .settings-alert.info {
-  background-color: color-mix(in srgb, #3b82f6 10%, var(--bg-secondary));
-  color: #1d4ed8;
-  border: 1px solid color-mix(in srgb, #3b82f6 20%, transparent);
+  background-color: var(--status-info-soft);
+  color: var(--status-info-text);
+  border: 1px solid var(--status-info-border);
 }
 
 /* Additional settings components */
@@ -1576,5 +1576,5 @@ html body .settings-section .checkbox-label,
 /* 深色主题: 蓝系提示文字提亮过 4.5:1 */
 [data-theme='dark'] .settings-alert.info,
 .dark .settings-alert.info {
-  color: #93c5fc;
+  color: var(--status-info-text);
 }

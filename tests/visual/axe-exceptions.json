@@ -62,5 +62,9 @@
   "scenarios-rich-create-dark": [],
   "scenarios-rich-create-light": [],
   "scenarios-rich-filter-dark": [],
-  "scenarios-rich-filter-light": []
+  "scenarios-rich-filter-light": [],
+  "settings-dark": [],
+  "settings-light": [],
+  "settings-appearance-dark": [],
+  "settings-appearance-light": []
 }

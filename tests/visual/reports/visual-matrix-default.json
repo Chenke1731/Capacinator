@@ -1,6 +1,6 @@
 {
-  "combinations": 52,
-  "checks": 260,
+  "combinations": 60,
+  "checks": 300,
   "updatePixels": false,
   "registerExistingAxe": false,
   "evidence": [
@@ -46,7 +46,8 @@
           "ok": true
         }
       ],
-      "artifact": "tests/visual/__screenshots__/projects-dark-1600.png"
+      "artifact": "tests/visual/reports/visual-projects-dark-1600.png",
+      "baseline": "tests/visual/__screenshots__/projects-dark-1600.png"
     },
     {
       "tag": "projects-dark-1366",
@@ -90,7 +91,8 @@
           "ok": true
         }
       ],
-      "artifact": "tests/visual/__screenshots__/projects-dark-1366.png"
+      "artifact": "tests/visual/reports/visual-projects-dark-1366.png",
+      "baseline": "tests/visual/__screenshots__/projects-dark-1366.png"
     },
     {
       "tag": "projects-light-1600",
@@ -134,7 +136,8 @@
           "ok": true
         }
       ],
-      "artifact": "tests/visual/__screenshots__/projects-light-1600.png"
+      "artifact": "tests/visual/reports/visual-projects-light-1600.png",
+      "baseline": "tests/visual/__screenshots__/projects-light-1600.png"
     },
     {
       "tag": "projects-light-1366",
@@ -178,7 +181,8 @@
           "ok": true
         }
       ],
-      "artifact": "tests/visual/__screenshots__/projects-light-1366.png"
+      "artifact": "tests/visual/reports/visual-projects-light-1366.png",
+      "baseline": "tests/visual/__screenshots__/projects-light-1366.png"
     },
     {
       "tag": "people-dark-1600",
@@ -222,7 +226,8 @@
           "ok": true
         }
       ],
-      "artifact": "tests/visual/__screenshots__/people-dark-1600.png"
+      "artifact": "tests/visual/reports/visual-people-dark-1600.png",
+      "baseline": "tests/visual/__screenshots__/people-dark-1600.png"
     },
     {
       "tag": "people-light-1600",
@@ -266,7 +271,8 @@
           "ok": true
         }
       ],
-      "artifact": "tests/visual/__screenshots__/people-light-1600.png"
+      "artifact": "tests/visual/reports/visual-people-light-1600.png",
+      "baseline": "tests/visual/__screenshots__/people-light-1600.png"
     },
     {
       "tag": "assignments-dark-1600",
@@ -310,7 +316,8 @@
           "ok": true
         }
       ],
-      "artifact": "tests/visual/__screenshots__/assignments-dark-1600.png"
+      "artifact": "tests/visual/reports/visual-assignments-dark-1600.png",
+      "baseline": "tests/visual/__screenshots__/assignments-dark-1600.png"
     },
     {
       "tag": "assignments-light-1600",
@@ -354,7 +361,8 @@
           "ok": true
         }
       ],
-      "artifact": "tests/visual/__screenshots__/assignments-light-1600.png"
+      "artifact": "tests/visual/reports/visual-assignments-light-1600.png",
+      "baseline": "tests/visual/__screenshots__/assignments-light-1600.png"
     },
     {
       "tag": "dashboard-dark-1600",
@@ -398,7 +406,8 @@
           "ok": true
         }
       ],
-      "artifact": "tests/visual/__screenshots__/dashboard-dark-1600.png"
+      "artifact": "tests/visual/reports/visual-dashboard-dark-1600.png",
+      "baseline": "tests/visual/__screenshots__/dashboard-dark-1600.png"
     },
     {
       "tag": "dashboard-light-1600",
@@ -442,7 +451,8 @@
           "ok": true
         }
       ],
-      "artifact": "tests/visual/__screenshots__/dashboard-light-1600.png"
+      "artifact": "tests/visual/reports/visual-dashboard-light-1600.png",
+      "baseline": "tests/visual/__screenshots__/dashboard-light-1600.png"
     },
     {
       "tag": "roadmap-dark-1600",
@@ -486,7 +496,8 @@
           "ok": true
         }
       ],
-      "artifact": "tests/visual/__screenshots__/roadmap-dark-1600.png"
+      "artifact": "tests/visual/reports/visual-roadmap-dark-1600.png",
+      "baseline": "tests/visual/__screenshots__/roadmap-dark-1600.png"
     },
     {
       "tag": "roadmap-dark-1366",
@@ -530,7 +541,8 @@
           "ok": true
         }
       ],
-      "artifact": "tests/visual/__screenshots__/roadmap-dark-1366.png"
+      "artifact": "tests/visual/reports/visual-roadmap-dark-1366.png",
+      "baseline": "tests/visual/__screenshots__/roadmap-dark-1366.png"
     },
     {
       "tag": "roadmap-light-1600",
@@ -574,7 +586,8 @@
           "ok": true
         }
       ],
-      "artifact": "tests/visual/__screenshots__/roadmap-light-1600.png"
+      "artifact": "tests/visual/reports/visual-roadmap-light-1600.png",
+      "baseline": "tests/visual/__screenshots__/roadmap-light-1600.png"
     },
     {
       "tag": "roadmap-light-1366",
@@ -618,7 +631,8 @@
           "ok": true
         }
       ],
-      "artifact": "tests/visual/__screenshots__/roadmap-light-1366.png"
+      "artifact": "tests/visual/reports/visual-roadmap-light-1366.png",
+      "baseline": "tests/visual/__screenshots__/roadmap-light-1366.png"
     },
     {
       "tag": "project-detail-dark-1600",
@@ -662,7 +676,8 @@
           "ok": true
         }
       ],
-      "artifact": "tests/visual/__screenshots__/project-detail-dark-1600.png"
+      "artifact": "tests/visual/reports/visual-project-detail-dark-1600.png",
+      "baseline": "tests/visual/__screenshots__/project-detail-dark-1600.png"
     },
     {
       "tag": "project-detail-light-1600",
@@ -706,7 +721,8 @@
           "ok": true
         }
       ],
-      "artifact": "tests/visual/__screenshots__/project-detail-light-1600.png"
+      "artifact": "tests/visual/reports/visual-project-detail-light-1600.png",
+      "baseline": "tests/visual/__screenshots__/project-detail-light-1600.png"
     },
     {
       "tag": "project-detail-phases-dark-1600",
@@ -750,7 +766,8 @@
           "ok": true
         }
       ],
-      "artifact": "tests/visual/__screenshots__/project-detail-phases-dark-1600.png"
+      "artifact": "tests/visual/reports/visual-project-detail-phases-dark-1600.png",
+      "baseline": "tests/visual/__screenshots__/project-detail-phases-dark-1600.png"
     },
     {
       "tag": "project-detail-phases-dark-1366",
@@ -794,7 +811,8 @@
           "ok": true
         }
       ],
-      "artifact": "tests/visual/__screenshots__/project-detail-phases-dark-1366.png"
+      "artifact": "tests/visual/reports/visual-project-detail-phases-dark-1366.png",
+      "baseline": "tests/visual/__screenshots__/project-detail-phases-dark-1366.png"
     },
     {
       "tag": "project-detail-phases-light-1600",
@@ -838,7 +856,8 @@
           "ok": true
         }
       ],
-      "artifact": "tests/visual/__screenshots__/project-detail-phases-light-1600.png"
+      "artifact": "tests/visual/reports/visual-project-detail-phases-light-1600.png",
+      "baseline": "tests/visual/__screenshots__/project-detail-phases-light-1600.png"
     },
     {
       "tag": "project-detail-phases-light-1366",
@@ -882,7 +901,8 @@
           "ok": true
         }
       ],
-      "artifact": "tests/visual/__screenshots__/project-detail-phases-light-1366.png"
+      "artifact": "tests/visual/reports/visual-project-detail-phases-light-1366.png",
+      "baseline": "tests/visual/__screenshots__/project-detail-phases-light-1366.png"
     },
     {
       "tag": "project-detail-phases-phase-hover-dark-1600",
@@ -926,7 +946,8 @@
           "ok": true
         }
       ],
-      "artifact": "tests/visual/__screenshots__/project-detail-phases-phase-hover-dark-1600.png"
+      "artifact": "tests/visual/reports/visual-project-detail-phases-phase-hover-dark-1600.png",
+      "baseline": "tests/visual/__screenshots__/project-detail-phases-phase-hover-dark-1600.png"
     },
     {
       "tag": "project-detail-phases-phase-hover-dark-1366",
@@ -970,7 +991,8 @@
           "ok": true
         }
       ],
-      "artifact": "tests/visual/__screenshots__/project-detail-phases-phase-hover-dark-1366.png"
+      "artifact": "tests/visual/reports/visual-project-detail-phases-phase-hover-dark-1366.png",
+      "baseline": "tests/visual/__screenshots__/project-detail-phases-phase-hover-dark-1366.png"
     },
     {
       "tag": "project-detail-phases-phase-hover-light-1600",
@@ -1014,7 +1036,8 @@
           "ok": true
         }
       ],
-      "artifact": "tests/visual/__screenshots__/project-detail-phases-phase-hover-light-1600.png"
+      "artifact": "tests/visual/reports/visual-project-detail-phases-phase-hover-light-1600.png",
+      "baseline": "tests/visual/__screenshots__/project-detail-phases-phase-hover-light-1600.png"
     },
     {
       "tag": "project-detail-phases-phase-hover-light-1366",
@@ -1058,7 +1081,8 @@
           "ok": true
         }
       ],
-      "artifact": "tests/visual/__screenshots__/project-detail-phases-phase-hover-light-1366.png"
+      "artifact": "tests/visual/reports/visual-project-detail-phases-phase-hover-light-1366.png",
+      "baseline": "tests/visual/__screenshots__/project-detail-phases-phase-hover-light-1366.png"
     },
     {
       "tag": "project-detail-phases-phase-edit-dark-1600",
@@ -1102,7 +1126,8 @@
           "ok": true
         }
       ],
-      "artifact": "tests/visual/__screenshots__/project-detail-phases-phase-edit-dark-1600.png"
+      "artifact": "tests/visual/reports/visual-project-detail-phases-phase-edit-dark-1600.png",
+      "baseline": "tests/visual/__screenshots__/project-detail-phases-phase-edit-dark-1600.png"
     },
     {
       "tag": "project-detail-phases-phase-edit-dark-1366",
@@ -1146,7 +1171,8 @@
           "ok": true
         }
       ],
-      "artifact": "tests/visual/__screenshots__/project-detail-phases-phase-edit-dark-1366.png"
+      "artifact": "tests/visual/reports/visual-project-detail-phases-phase-edit-dark-1366.png",
+      "baseline": "tests/visual/__screenshots__/project-detail-phases-phase-edit-dark-1366.png"
     },
     {
       "tag": "project-detail-phases-phase-edit-light-1600",
@@ -1190,7 +1216,8 @@
           "ok": true
         }
       ],
-      "artifact": "tests/visual/__screenshots__/project-detail-phases-phase-edit-light-1600.png"
+      "artifact": "tests/visual/reports/visual-project-detail-phases-phase-edit-light-1600.png",
+      "baseline": "tests/visual/__screenshots__/project-detail-phases-phase-edit-light-1600.png"
     },
     {
       "tag": "project-detail-phases-phase-edit-light-1366",
@@ -1234,7 +1261,8 @@
           "ok": true
         }
       ],
-      "artifact": "tests/visual/__screenshots__/project-detail-phases-phase-edit-light-1366.png"
+      "artifact": "tests/visual/reports/visual-project-detail-phases-phase-edit-light-1366.png",
+      "baseline": "tests/visual/__screenshots__/project-detail-phases-phase-edit-light-1366.png"
     },
     {
       "tag": "scenarios-dark-1600",
@@ -1278,7 +1306,8 @@
           "ok": true
         }
       ],
-      "artifact": "tests/visual/__screenshots__/scenarios-dark-1600.png"
+      "artifact": "tests/visual/reports/visual-scenarios-dark-1600.png",
+      "baseline": "tests/visual/__screenshots__/scenarios-dark-1600.png"
     },
     {
       "tag": "scenarios-dark-1366",
@@ -1322,7 +1351,8 @@
           "ok": true
         }
       ],
-      "artifact": "tests/visual/__screenshots__/scenarios-dark-1366.png"
+      "artifact": "tests/visual/reports/visual-scenarios-dark-1366.png",
+      "baseline": "tests/visual/__screenshots__/scenarios-dark-1366.png"
     },
     {
       "tag": "scenarios-light-1600",
@@ -1366,7 +1396,8 @@
           "ok": true
         }
       ],
-      "artifact": "tests/visual/__screenshots__/scenarios-light-1600.png"
+      "artifact": "tests/visual/reports/visual-scenarios-light-1600.png",
+      "baseline": "tests/visual/__screenshots__/scenarios-light-1600.png"
     },
     {
       "tag": "scenarios-light-1366",
@@ -1410,7 +1441,8 @@
           "ok": true
         }
       ],
-      "artifact": "tests/visual/__screenshots__/scenarios-light-1366.png"
+      "artifact": "tests/visual/reports/visual-scenarios-light-1366.png",
+      "baseline": "tests/visual/__screenshots__/scenarios-light-1366.png"
     },
     {
       "tag": "scenarios-rich-dark-1600",
@@ -1454,7 +1486,8 @@
           "ok": true
         }
       ],
-      "artifact": "tests/visual/__screenshots__/scenarios-rich-dark-1600.png"
+      "artifact": "tests/visual/reports/visual-scenarios-rich-dark-1600.png",
+      "baseline": "tests/visual/__screenshots__/scenarios-rich-dark-1600.png"
     },
     {
       "tag": "scenarios-rich-dark-1366",
@@ -1498,7 +1531,8 @@
           "ok": true
         }
       ],
-      "artifact": "tests/visual/__screenshots__/scenarios-rich-dark-1366.png"
+      "artifact": "tests/visual/reports/visual-scenarios-rich-dark-1366.png",
+      "baseline": "tests/visual/__screenshots__/scenarios-rich-dark-1366.png"
     },
     {
       "tag": "scenarios-rich-light-1600",
@@ -1542,7 +1576,8 @@
           "ok": true
         }
       ],
-      "artifact": "tests/visual/__screenshots__/scenarios-rich-light-1600.png"
+      "artifact": "tests/visual/reports/visual-scenarios-rich-light-1600.png",
+      "baseline": "tests/visual/__screenshots__/scenarios-rich-light-1600.png"
     },
     {
       "tag": "scenarios-rich-light-1366",
@@ -1586,7 +1621,8 @@
           "ok": true
         }
       ],
-      "artifact": "tests/visual/__screenshots__/scenarios-rich-light-1366.png"
+      "artifact": "tests/visual/reports/visual-scenarios-rich-light-1366.png",
+      "baseline": "tests/visual/__screenshots__/scenarios-rich-light-1366.png"
     },
     {
       "tag": "scenarios-rich-create-dark-1600",
@@ -1630,7 +1666,8 @@
           "ok": true
         }
       ],
-      "artifact": "tests/visual/__screenshots__/scenarios-rich-create-dark-1600.png"
+      "artifact": "tests/visual/reports/visual-scenarios-rich-create-dark-1600.png",
+      "baseline": "tests/visual/__screenshots__/scenarios-rich-create-dark-1600.png"
     },
     {
       "tag": "scenarios-rich-create-dark-1366",
@@ -1674,7 +1711,8 @@
           "ok": true
         }
       ],
-      "artifact": "tests/visual/__screenshots__/scenarios-rich-create-dark-1366.png"
+      "artifact": "tests/visual/reports/visual-scenarios-rich-create-dark-1366.png",
+      "baseline": "tests/visual/__screenshots__/scenarios-rich-create-dark-1366.png"
     },
     {
       "tag": "scenarios-rich-create-light-1600",
@@ -1718,7 +1756,8 @@
           "ok": true
         }
       ],
-      "artifact": "tests/visual/__screenshots__/scenarios-rich-create-light-1600.png"
+      "artifact": "tests/visual/reports/visual-scenarios-rich-create-light-1600.png",
+      "baseline": "tests/visual/__screenshots__/scenarios-rich-create-light-1600.png"
     },
     {
       "tag": "scenarios-rich-create-light-1366",
@@ -1762,7 +1801,8 @@
           "ok": true
         }
       ],
-      "artifact": "tests/visual/__screenshots__/scenarios-rich-create-light-1366.png"
+      "artifact": "tests/visual/reports/visual-scenarios-rich-create-light-1366.png",
+      "baseline": "tests/visual/__screenshots__/scenarios-rich-create-light-1366.png"
     },
     {
       "tag": "scenarios-rich-filter-dark-1600",
@@ -1806,7 +1846,8 @@
           "ok": true
         }
       ],
-      "artifact": "tests/visual/__screenshots__/scenarios-rich-filter-dark-1600.png"
+      "artifact": "tests/visual/reports/visual-scenarios-rich-filter-dark-1600.png",
+      "baseline": "tests/visual/__screenshots__/scenarios-rich-filter-dark-1600.png"
     },
     {
       "tag": "scenarios-rich-filter-dark-1366",
@@ -1850,7 +1891,8 @@
           "ok": true
         }
       ],
-      "artifact": "tests/visual/__screenshots__/scenarios-rich-filter-dark-1366.png"
+      "artifact": "tests/visual/reports/visual-scenarios-rich-filter-dark-1366.png",
+      "baseline": "tests/visual/__screenshots__/scenarios-rich-filter-dark-1366.png"
     },
     {
       "tag": "scenarios-rich-filter-light-1600",
@@ -1894,7 +1936,8 @@
           "ok": true
         }
       ],
-      "artifact": "tests/visual/__screenshots__/scenarios-rich-filter-light-1600.png"
+      "artifact": "tests/visual/reports/visual-scenarios-rich-filter-light-1600.png",
+      "baseline": "tests/visual/__screenshots__/scenarios-rich-filter-light-1600.png"
     },
     {
       "tag": "scenarios-rich-filter-light-1366",
@@ -1938,7 +1981,8 @@
           "ok": true
         }
       ],
-      "artifact": "tests/visual/__screenshots__/scenarios-rich-filter-light-1366.png"
+      "artifact": "tests/visual/reports/visual-scenarios-rich-filter-light-1366.png",
+      "baseline": "tests/visual/__screenshots__/scenarios-rich-filter-light-1366.png"
     },
     {
       "tag": "scenarios-rich-merge-confirm-dark-1600",
@@ -1982,7 +2026,8 @@
           "ok": true
         }
       ],
-      "artifact": "tests/visual/__screenshots__/scenarios-rich-merge-confirm-dark-1600.png"
+      "artifact": "tests/visual/reports/visual-scenarios-rich-merge-confirm-dark-1600.png",
+      "baseline": "tests/visual/__screenshots__/scenarios-rich-merge-confirm-dark-1600.png"
     },
     {
       "tag": "scenarios-rich-merge-confirm-dark-1366",
@@ -2026,7 +2071,8 @@
           "ok": true
         }
       ],
-      "artifact": "tests/visual/__screenshots__/scenarios-rich-merge-confirm-dark-1366.png"
+      "artifact": "tests/visual/reports/visual-scenarios-rich-merge-confirm-dark-1366.png",
+      "baseline": "tests/visual/__screenshots__/scenarios-rich-merge-confirm-dark-1366.png"
     },
     {
       "tag": "scenarios-rich-merge-confirm-light-1600",
@@ -2070,7 +2116,8 @@
           "ok": true
         }
       ],
-      "artifact": "tests/visual/__screenshots__/scenarios-rich-merge-confirm-light-1600.png"
+      "artifact": "tests/visual/reports/visual-scenarios-rich-merge-confirm-light-1600.png",
+      "baseline": "tests/visual/__screenshots__/scenarios-rich-merge-confirm-light-1600.png"
     },
     {
       "tag": "scenarios-rich-merge-confirm-light-1366",
@@ -2114,7 +2161,8 @@
           "ok": true
         }
       ],
-      "artifact": "tests/visual/__screenshots__/scenarios-rich-merge-confirm-light-1366.png"
+      "artifact": "tests/visual/reports/visual-scenarios-rich-merge-confirm-light-1366.png",
+      "baseline": "tests/visual/__screenshots__/scenarios-rich-merge-confirm-light-1366.png"
     },
     {
       "tag": "scenarios-rich-compare-results-dark-1600",
@@ -2158,7 +2206,8 @@
           "ok": true
         }
       ],
-      "artifact": "tests/visual/__screenshots__/scenarios-rich-compare-results-dark-1600.png"
+      "artifact": "tests/visual/reports/visual-scenarios-rich-compare-results-dark-1600.png",
+      "baseline": "tests/visual/__screenshots__/scenarios-rich-compare-results-dark-1600.png"
     },
     {
       "tag": "scenarios-rich-compare-results-dark-1366",
@@ -2202,7 +2251,8 @@
           "ok": true
         }
       ],
-      "artifact": "tests/visual/__screenshots__/scenarios-rich-compare-results-dark-1366.png"
+      "artifact": "tests/visual/reports/visual-scenarios-rich-compare-results-dark-1366.png",
+      "baseline": "tests/visual/__screenshots__/scenarios-rich-compare-results-dark-1366.png"
     },
     {
       "tag": "scenarios-rich-compare-results-light-1600",
@@ -2246,7 +2296,8 @@
           "ok": true
         }
       ],
-      "artifact": "tests/visual/__screenshots__/scenarios-rich-compare-results-light-1600.png"
+      "artifact": "tests/visual/reports/visual-scenarios-rich-compare-results-light-1600.png",
+      "baseline": "tests/visual/__screenshots__/scenarios-rich-compare-results-light-1600.png"
     },
     {
       "tag": "scenarios-rich-compare-results-light-1366",
@@ -2290,7 +2341,368 @@
           "ok": true
         }
       ],
-      "artifact": "tests/visual/__screenshots__/scenarios-rich-compare-results-light-1366.png"
+      "artifact": "tests/visual/reports/visual-scenarios-rich-compare-results-light-1366.png",
+      "baseline": "tests/visual/__screenshots__/scenarios-rich-compare-results-light-1366.png"
+    },
+    {
+      "tag": "settings-dark-1600",
+      "profile": "settings",
+      "path": "/settings",
+      "theme": "dark",
+      "state": "default",
+      "viewport": {
+        "width": 1600,
+        "height": 900
+      },
+      "axe": {
+        "count": 0,
+        "cap": 0,
+        "added": [],
+        "identities": []
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe settings-dark-1600: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 settings-dark-1600: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 settings-dark-1600: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "像素 settings-dark-1600: 与基线一致(≤0.5%)",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 settings-dark-1600",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/reports/visual-settings-dark-1600.png",
+      "baseline": "tests/visual/__screenshots__/settings-dark-1600.png"
+    },
+    {
+      "tag": "settings-dark-1366",
+      "profile": "settings",
+      "path": "/settings",
+      "theme": "dark",
+      "state": "default",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "axe": {
+        "count": 0,
+        "cap": 0,
+        "added": [],
+        "identities": []
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe settings-dark-1366: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 settings-dark-1366: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 settings-dark-1366: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "像素 settings-dark-1366: 与基线一致(≤0.5%)",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 settings-dark-1366",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/reports/visual-settings-dark-1366.png",
+      "baseline": "tests/visual/__screenshots__/settings-dark-1366.png"
+    },
+    {
+      "tag": "settings-light-1600",
+      "profile": "settings",
+      "path": "/settings",
+      "theme": "light",
+      "state": "default",
+      "viewport": {
+        "width": 1600,
+        "height": 900
+      },
+      "axe": {
+        "count": 0,
+        "cap": 0,
+        "added": [],
+        "identities": []
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe settings-light-1600: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 settings-light-1600: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 settings-light-1600: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "像素 settings-light-1600: 与基线一致(≤0.5%)",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 settings-light-1600",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/reports/visual-settings-light-1600.png",
+      "baseline": "tests/visual/__screenshots__/settings-light-1600.png"
+    },
+    {
+      "tag": "settings-light-1366",
+      "profile": "settings",
+      "path": "/settings",
+      "theme": "light",
+      "state": "default",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "axe": {
+        "count": 0,
+        "cap": 0,
+        "added": [],
+        "identities": []
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe settings-light-1366: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 settings-light-1366: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 settings-light-1366: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "像素 settings-light-1366: 与基线一致(≤0.5%)",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 settings-light-1366",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/reports/visual-settings-light-1366.png",
+      "baseline": "tests/visual/__screenshots__/settings-light-1366.png"
+    },
+    {
+      "tag": "settings-appearance-dark-1600",
+      "profile": "settings-appearance",
+      "path": "/settings?tab=appearance",
+      "theme": "dark",
+      "state": "default",
+      "viewport": {
+        "width": 1600,
+        "height": 900
+      },
+      "axe": {
+        "count": 0,
+        "cap": 0,
+        "added": [],
+        "identities": []
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe settings-appearance-dark-1600: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 settings-appearance-dark-1600: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 settings-appearance-dark-1600: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "像素 settings-appearance-dark-1600: 与基线一致(≤0.5%)",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 settings-appearance-dark-1600",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/reports/visual-settings-appearance-dark-1600.png",
+      "baseline": "tests/visual/__screenshots__/settings-appearance-dark-1600.png"
+    },
+    {
+      "tag": "settings-appearance-dark-1366",
+      "profile": "settings-appearance",
+      "path": "/settings?tab=appearance",
+      "theme": "dark",
+      "state": "default",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "axe": {
+        "count": 0,
+        "cap": 0,
+        "added": [],
+        "identities": []
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe settings-appearance-dark-1366: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 settings-appearance-dark-1366: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 settings-appearance-dark-1366: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "像素 settings-appearance-dark-1366: 与基线一致(≤0.5%)",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 settings-appearance-dark-1366",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/reports/visual-settings-appearance-dark-1366.png",
+      "baseline": "tests/visual/__screenshots__/settings-appearance-dark-1366.png"
+    },
+    {
+      "tag": "settings-appearance-light-1600",
+      "profile": "settings-appearance",
+      "path": "/settings?tab=appearance",
+      "theme": "light",
+      "state": "default",
+      "viewport": {
+        "width": 1600,
+        "height": 900
+      },
+      "axe": {
+        "count": 0,
+        "cap": 0,
+        "added": [],
+        "identities": []
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe settings-appearance-light-1600: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 settings-appearance-light-1600: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 settings-appearance-light-1600: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "像素 settings-appearance-light-1600: 与基线一致(≤0.5%)",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 settings-appearance-light-1600",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/reports/visual-settings-appearance-light-1600.png",
+      "baseline": "tests/visual/__screenshots__/settings-appearance-light-1600.png"
+    },
+    {
+      "tag": "settings-appearance-light-1366",
+      "profile": "settings-appearance",
+      "path": "/settings?tab=appearance",
+      "theme": "light",
+      "state": "default",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "axe": {
+        "count": 0,
+        "cap": 0,
+        "added": [],
+        "identities": []
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe settings-appearance-light-1366: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 settings-appearance-light-1366: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 settings-appearance-light-1366: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "像素 settings-appearance-light-1366: 与基线一致(≤0.5%)",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 settings-appearance-light-1366",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/reports/visual-settings-appearance-light-1366.png",
+      "baseline": "tests/visual/__screenshots__/settings-appearance-light-1366.png"
     }
   ]
 }

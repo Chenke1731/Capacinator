@@ -6,7 +6,7 @@
       "status": 200,
       "body": {
         "status": "ok",
-        "timestamp": "2026-10-14T18:00:32.594Z",
+        "timestamp": "2026-10-14T19:44:43.738Z",
         "environment": "development"
       }
     },
@@ -24022,6 +24022,24 @@
           "limit": 10,
           "total": 0,
           "totalPages": 0
+        }
+      }
+    },
+    "/api/settings/system": {
+      "status": 200,
+      "body": {
+        "success": true,
+        "data": {
+          "defaultWorkHoursPerWeek": 40,
+          "defaultVacationDaysPerYear": 15,
+          "fiscalYearStartMonth": 1,
+          "allowOverAllocation": true,
+          "maxAllocationPercentage": 120,
+          "requireApprovalForOverrides": true,
+          "autoArchiveCompletedProjects": false,
+          "archiveAfterDays": 90,
+          "enableEmailNotifications": false,
+          "defaultLocRatePerPersonMonth": 500
         }
       }
     }

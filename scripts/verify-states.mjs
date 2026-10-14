@@ -13,7 +13,7 @@
 // 禁用态按 WCAG 1.4.3 豁免对比度(规则豁免,非清单)。
 import { chromium } from 'playwright';
 import { readFileSync, writeFileSync } from 'node:fs';
-import { getProfile, auditEnvironment, assertProfileReady, matchesPage, authenticate } from './lib/ui-profiles.mjs';
+import { getProfile, profiles, auditEnvironment, assertProfileReady, matchesPage, authenticate } from './lib/ui-profiles.mjs';
 import { runProfileStates, installContrastHelpers } from './lib/ui-state-audit.mjs';
 
 const BASE = auditEnvironment.base;
@@ -22,7 +22,7 @@ const CHROME = auditEnvironment.chrome;
 const cli=process.argv.slice(2),value=name=>cli.includes(name)?cli[cli.indexOf(name)+1]:undefined;
 const validArgs=new Set(['--profile','--page','--selftest','--debug','--quick','--record-existing','--help','--capture-fixtures']);
 for(let i=0;i<cli.length;i++){if(!validArgs.has(cli[i]))throw new Error(`Unknown argument ${cli[i]}`);if(['--profile','--page'].includes(cli[i])){if(!cli[i+1]||cli[i+1].startsWith('--'))throw new Error(`Missing value ${cli[i]}`);i++;}}
-if(cli.includes('--help')){console.log('verify-states: --profile projects|roadmap|project-detail|scenarios|import [--selftest] [--quick] [--record-existing]');process.exit(0);}
+if(cli.includes('--help')){console.log(`verify-states: --profile ${Object.keys(profiles).join('|')} [--selftest] [--quick] [--record-existing] [--capture-fixtures]`);process.exit(0);}
 const PROFILE=getProfile(value('--profile'),value('--page'));
 const PAGE = PROFILE.path;
 const SELFTEST = process.argv.includes('--selftest');
@@ -600,7 +600,7 @@ if (SELFTEST) {
       }, [box.x, box.y]);
     }
     check('selftest[伪元素背板] 勾选态钩子按蓝盒测', ratio !== null && ratio >= 3,
-      `ratio=${ratio}(链缺伪元素背景时读 1.1;真值白/蓝盒 3.68)`);
+      `ratio=${ratio}(按当前实心主色盒计算;缺失伪元素背景链会误读祖先背板)`);
   }
   await p.close();
   const failed = results.filter((r) => !r.ok).length;

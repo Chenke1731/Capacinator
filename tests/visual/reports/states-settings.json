@@ -1,0 +1,3799 @@
+{
+  "profile": "settings",
+  "phases": [
+    {
+      "theme": "light",
+      "state": "default",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "unified-tab unified-tab--active unified-tab--focused |",
+          "text": "系统",
+          "foreground": "rgb(79, 70, 229)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            249,
+            250,
+            251
+          ],
+          "contrast": 6.016625091423448,
+          "textual": true,
+          "disabled": false,
+          "width": 100,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(2)",
+          "family": "unified-tab   |",
+          "text": "导入",
+          "foreground": "rgb(55, 65, 81)",
+          "background": "rgb(243, 244, 246)",
+          "effectiveBackground": [
+            243,
+            244,
+            246
+          ],
+          "contrast": 9.365938485902875,
+          "textual": true,
+          "disabled": false,
+          "width": 100,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(3)",
+          "family": "unified-tab   |",
+          "text": "用户权限",
+          "foreground": "rgb(55, 65, 81)",
+          "background": "rgb(243, 244, 246)",
+          "effectiveBackground": [
+            243,
+            244,
+            246
+          ],
+          "contrast": 9.365938485902875,
+          "textual": true,
+          "disabled": false,
+          "width": 128,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(4)",
+          "family": "unified-tab   |",
+          "text": "GitHub",
+          "foreground": "rgb(55, 65, 81)",
+          "background": "rgb(243, 244, 246)",
+          "effectiveBackground": [
+            243,
+            244,
+            246
+          ],
+          "contrast": 9.365938485902875,
+          "textual": true,
+          "disabled": false,
+          "width": 120.515625,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(5)",
+          "family": "unified-tab   |",
+          "text": "外观",
+          "foreground": "rgb(55, 65, 81)",
+          "background": "rgb(243, 244, 246)",
+          "effectiveBackground": [
+            243,
+            244,
+            246
+          ],
+          "contrast": 9.365938485902875,
+          "textual": true,
+          "disabled": false,
+          "width": 100,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "form-input|",
+          "text": "",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 120,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > input:nth-of-type(1)",
+          "family": "form-input|",
+          "text": "",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 120,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
+          "family": "form-select|",
+          "text": "一月二月三月四月五月六月七月八月九月十月十一月十二月",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": null,
+          "contrast": null,
+          "textual": true,
+          "disabled": false,
+          "width": 300,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > label:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "|",
+          "text": "",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 16,
+          "height": 16,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > input:nth-of-type(1)",
+          "family": "form-input|",
+          "text": "",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 120,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > label:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "|",
+          "text": "",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 16,
+          "height": 16,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > button:nth-of-type(1)",
+          "family": "btn btn-primary|",
+          "text": "保存系统设置",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 146,
+          "height": 44,
+          "font": 14
+        }
+      ],
+      "issues": [
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
+          "kind": "unknown-background"
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > label:nth-of-type(1) > input:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 16
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > label:nth-of-type(1) > input:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 16
+        }
+      ],
+      "scope": ".unified-tab-container",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "light",
+      "state": "hover-0",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "unified-tab unified-tab--active unified-tab--focused |",
+          "text": "系统",
+          "foreground": "rgb(79, 70, 229)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            249,
+            250,
+            251
+          ],
+          "contrast": 6.016625091423448,
+          "textual": true,
+          "disabled": false,
+          "width": 100,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(2)",
+          "family": "unified-tab   |",
+          "text": "导入",
+          "foreground": "rgb(55, 65, 81)",
+          "background": "rgb(243, 244, 246)",
+          "effectiveBackground": [
+            243,
+            244,
+            246
+          ],
+          "contrast": 9.365938485902875,
+          "textual": true,
+          "disabled": false,
+          "width": 100,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(3)",
+          "family": "unified-tab   |",
+          "text": "用户权限",
+          "foreground": "rgb(55, 65, 81)",
+          "background": "rgb(243, 244, 246)",
+          "effectiveBackground": [
+            243,
+            244,
+            246
+          ],
+          "contrast": 9.365938485902875,
+          "textual": true,
+          "disabled": false,
+          "width": 128,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(4)",
+          "family": "unified-tab   |",
+          "text": "GitHub",
+          "foreground": "rgb(55, 65, 81)",
+          "background": "rgb(243, 244, 246)",
+          "effectiveBackground": [
+            243,
+            244,
+            246
+          ],
+          "contrast": 9.365938485902875,
+          "textual": true,
+          "disabled": false,
+          "width": 120.515625,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(5)",
+          "family": "unified-tab   |",
+          "text": "外观",
+          "foreground": "rgb(55, 65, 81)",
+          "background": "rgb(243, 244, 246)",
+          "effectiveBackground": [
+            243,
+            244,
+            246
+          ],
+          "contrast": 9.365938485902875,
+          "textual": true,
+          "disabled": false,
+          "width": 100,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "form-input|",
+          "text": "",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 120,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > input:nth-of-type(1)",
+          "family": "form-input|",
+          "text": "",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 120,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
+          "family": "form-select|",
+          "text": "一月二月三月四月五月六月七月八月九月十月十一月十二月",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": null,
+          "contrast": null,
+          "textual": true,
+          "disabled": false,
+          "width": 300,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > label:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "|",
+          "text": "",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 16,
+          "height": 16,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > input:nth-of-type(1)",
+          "family": "form-input|",
+          "text": "",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 120,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > label:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "|",
+          "text": "",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 16,
+          "height": 16,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > button:nth-of-type(1)",
+          "family": "btn btn-primary|",
+          "text": "保存系统设置",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 146,
+          "height": 44,
+          "font": 14
+        }
+      ],
+      "issues": [
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
+          "kind": "unknown-background"
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > label:nth-of-type(1) > input:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 16
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > label:nth-of-type(1) > input:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 16
+        }
+      ],
+      "scope": ".unified-tab-container",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "light",
+      "state": "hover-1",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "unified-tab unified-tab--active unified-tab--focused |",
+          "text": "系统",
+          "foreground": "rgb(79, 70, 229)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            249,
+            250,
+            251
+          ],
+          "contrast": 6.016625091423448,
+          "textual": true,
+          "disabled": false,
+          "width": 100,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(2)",
+          "family": "unified-tab   |",
+          "text": "导入",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgba(0, 0, 0, 0.03)",
+          "effectiveBackground": [
+            241.18823529411765,
+            242.15686274509804,
+            243.12549019607843
+          ],
+          "contrast": 15.84921187458464,
+          "textual": true,
+          "disabled": false,
+          "width": 100,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(3)",
+          "family": "unified-tab   |",
+          "text": "用户权限",
+          "foreground": "rgb(55, 65, 81)",
+          "background": "rgb(243, 244, 246)",
+          "effectiveBackground": [
+            243,
+            244,
+            246
+          ],
+          "contrast": 9.365938485902875,
+          "textual": true,
+          "disabled": false,
+          "width": 128,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(4)",
+          "family": "unified-tab   |",
+          "text": "GitHub",
+          "foreground": "rgb(55, 65, 81)",
+          "background": "rgb(243, 244, 246)",
+          "effectiveBackground": [
+            243,
+            244,
+            246
+          ],
+          "contrast": 9.365938485902875,
+          "textual": true,
+          "disabled": false,
+          "width": 120.515625,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(5)",
+          "family": "unified-tab   |",
+          "text": "外观",
+          "foreground": "rgb(55, 65, 81)",
+          "background": "rgb(243, 244, 246)",
+          "effectiveBackground": [
+            243,
+            244,
+            246
+          ],
+          "contrast": 9.365938485902875,
+          "textual": true,
+          "disabled": false,
+          "width": 100,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "form-input|",
+          "text": "",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 120,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > input:nth-of-type(1)",
+          "family": "form-input|",
+          "text": "",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 120,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
+          "family": "form-select|",
+          "text": "一月二月三月四月五月六月七月八月九月十月十一月十二月",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": null,
+          "contrast": null,
+          "textual": true,
+          "disabled": false,
+          "width": 300,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > label:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "|",
+          "text": "",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 16,
+          "height": 16,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > input:nth-of-type(1)",
+          "family": "form-input|",
+          "text": "",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 120,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > label:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "|",
+          "text": "",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 16,
+          "height": 16,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > button:nth-of-type(1)",
+          "family": "btn btn-primary|",
+          "text": "保存系统设置",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 146,
+          "height": 44,
+          "font": 14
+        }
+      ],
+      "issues": [
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
+          "kind": "unknown-background"
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > label:nth-of-type(1) > input:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 16
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > label:nth-of-type(1) > input:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 16
+        }
+      ],
+      "scope": ".unified-tab-container",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "light",
+      "state": "hover-2",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "unified-tab unified-tab--active unified-tab--focused |",
+          "text": "系统",
+          "foreground": "rgb(79, 70, 229)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            249,
+            250,
+            251
+          ],
+          "contrast": 6.016625091423448,
+          "textual": true,
+          "disabled": false,
+          "width": 100,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(2)",
+          "family": "unified-tab   |",
+          "text": "导入",
+          "foreground": "rgb(55, 65, 81)",
+          "background": "rgb(243, 244, 246)",
+          "effectiveBackground": [
+            243,
+            244,
+            246
+          ],
+          "contrast": 9.365938485902875,
+          "textual": true,
+          "disabled": false,
+          "width": 100,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(3)",
+          "family": "unified-tab   |",
+          "text": "用户权限",
+          "foreground": "rgb(55, 65, 81)",
+          "background": "rgb(243, 244, 246)",
+          "effectiveBackground": [
+            243,
+            244,
+            246
+          ],
+          "contrast": 9.365938485902875,
+          "textual": true,
+          "disabled": false,
+          "width": 128,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(4)",
+          "family": "unified-tab   |",
+          "text": "GitHub",
+          "foreground": "rgb(55, 65, 81)",
+          "background": "rgb(243, 244, 246)",
+          "effectiveBackground": [
+            243,
+            244,
+            246
+          ],
+          "contrast": 9.365938485902875,
+          "textual": true,
+          "disabled": false,
+          "width": 120.515625,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(5)",
+          "family": "unified-tab   |",
+          "text": "外观",
+          "foreground": "rgb(55, 65, 81)",
+          "background": "rgb(243, 244, 246)",
+          "effectiveBackground": [
+            243,
+            244,
+            246
+          ],
+          "contrast": 9.365938485902875,
+          "textual": true,
+          "disabled": false,
+          "width": 100,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "form-input|",
+          "text": "",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 120,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > input:nth-of-type(1)",
+          "family": "form-input|",
+          "text": "",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 120,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
+          "family": "form-select|",
+          "text": "一月二月三月四月五月六月七月八月九月十月十一月十二月",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": null,
+          "contrast": null,
+          "textual": true,
+          "disabled": false,
+          "width": 300,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > label:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "|",
+          "text": "",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 16,
+          "height": 16,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > input:nth-of-type(1)",
+          "family": "form-input|",
+          "text": "",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 120,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > label:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "|",
+          "text": "",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 16,
+          "height": 16,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > button:nth-of-type(1)",
+          "family": "btn btn-primary|",
+          "text": "保存系统设置",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 146,
+          "height": 44,
+          "font": 14
+        }
+      ],
+      "issues": [
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
+          "kind": "unknown-background"
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > label:nth-of-type(1) > input:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 16
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > label:nth-of-type(1) > input:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 16
+        }
+      ],
+      "scope": ".unified-tab-container",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "light",
+      "state": "hover-3",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "unified-tab unified-tab--active unified-tab--focused |",
+          "text": "系统",
+          "foreground": "rgb(79, 70, 229)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            249,
+            250,
+            251
+          ],
+          "contrast": 6.016625091423448,
+          "textual": true,
+          "disabled": false,
+          "width": 100,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(2)",
+          "family": "unified-tab   |",
+          "text": "导入",
+          "foreground": "rgb(55, 65, 81)",
+          "background": "rgb(243, 244, 246)",
+          "effectiveBackground": [
+            243,
+            244,
+            246
+          ],
+          "contrast": 9.365938485902875,
+          "textual": true,
+          "disabled": false,
+          "width": 100,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(3)",
+          "family": "unified-tab   |",
+          "text": "用户权限",
+          "foreground": "rgb(55, 65, 81)",
+          "background": "rgb(243, 244, 246)",
+          "effectiveBackground": [
+            243,
+            244,
+            246
+          ],
+          "contrast": 9.365938485902875,
+          "textual": true,
+          "disabled": false,
+          "width": 128,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(4)",
+          "family": "unified-tab   |",
+          "text": "GitHub",
+          "foreground": "rgb(55, 65, 81)",
+          "background": "rgb(243, 244, 246)",
+          "effectiveBackground": [
+            243,
+            244,
+            246
+          ],
+          "contrast": 9.365938485902875,
+          "textual": true,
+          "disabled": false,
+          "width": 120.515625,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(5)",
+          "family": "unified-tab   |",
+          "text": "外观",
+          "foreground": "rgb(55, 65, 81)",
+          "background": "rgb(243, 244, 246)",
+          "effectiveBackground": [
+            243,
+            244,
+            246
+          ],
+          "contrast": 9.365938485902875,
+          "textual": true,
+          "disabled": false,
+          "width": 100,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "form-input|",
+          "text": "",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 120,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > input:nth-of-type(1)",
+          "family": "form-input|",
+          "text": "",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 120,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
+          "family": "form-select|",
+          "text": "一月二月三月四月五月六月七月八月九月十月十一月十二月",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": null,
+          "contrast": null,
+          "textual": true,
+          "disabled": false,
+          "width": 300,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > label:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "|",
+          "text": "",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 16,
+          "height": 16,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > input:nth-of-type(1)",
+          "family": "form-input|",
+          "text": "",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 120,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > label:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "|",
+          "text": "",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 16,
+          "height": 16,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > button:nth-of-type(1)",
+          "family": "btn btn-primary|",
+          "text": "保存系统设置",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 146,
+          "height": 44,
+          "font": 14
+        }
+      ],
+      "issues": [
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
+          "kind": "unknown-background"
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > label:nth-of-type(1) > input:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 16
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > label:nth-of-type(1) > input:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 16
+        }
+      ],
+      "scope": ".unified-tab-container",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "light",
+      "state": "hover-4",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "unified-tab unified-tab--active unified-tab--focused |",
+          "text": "系统",
+          "foreground": "rgb(79, 70, 229)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            249,
+            250,
+            251
+          ],
+          "contrast": 6.016625091423448,
+          "textual": true,
+          "disabled": false,
+          "width": 100,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(2)",
+          "family": "unified-tab   |",
+          "text": "导入",
+          "foreground": "rgb(55, 65, 81)",
+          "background": "rgb(243, 244, 246)",
+          "effectiveBackground": [
+            243,
+            244,
+            246
+          ],
+          "contrast": 9.365938485902875,
+          "textual": true,
+          "disabled": false,
+          "width": 100,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(3)",
+          "family": "unified-tab   |",
+          "text": "用户权限",
+          "foreground": "rgb(55, 65, 81)",
+          "background": "rgb(243, 244, 246)",
+          "effectiveBackground": [
+            243,
+            244,
+            246
+          ],
+          "contrast": 9.365938485902875,
+          "textual": true,
+          "disabled": false,
+          "width": 128,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(4)",
+          "family": "unified-tab   |",
+          "text": "GitHub",
+          "foreground": "rgb(55, 65, 81)",
+          "background": "rgb(243, 244, 246)",
+          "effectiveBackground": [
+            243,
+            244,
+            246
+          ],
+          "contrast": 9.365938485902875,
+          "textual": true,
+          "disabled": false,
+          "width": 120.515625,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(5)",
+          "family": "unified-tab   |",
+          "text": "外观",
+          "foreground": "rgb(55, 65, 81)",
+          "background": "rgb(243, 244, 246)",
+          "effectiveBackground": [
+            243,
+            244,
+            246
+          ],
+          "contrast": 9.365938485902875,
+          "textual": true,
+          "disabled": false,
+          "width": 100,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "form-input|",
+          "text": "",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 120,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > input:nth-of-type(1)",
+          "family": "form-input|",
+          "text": "",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 120,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
+          "family": "form-select|",
+          "text": "一月二月三月四月五月六月七月八月九月十月十一月十二月",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": null,
+          "contrast": null,
+          "textual": true,
+          "disabled": false,
+          "width": 300,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > label:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "|",
+          "text": "",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 16,
+          "height": 16,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > input:nth-of-type(1)",
+          "family": "form-input|",
+          "text": "",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 120,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > label:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "|",
+          "text": "",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 16,
+          "height": 16,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > button:nth-of-type(1)",
+          "family": "btn btn-primary|",
+          "text": "保存系统设置",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 146,
+          "height": 44,
+          "font": 14
+        }
+      ],
+      "issues": [
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
+          "kind": "unknown-background"
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > label:nth-of-type(1) > input:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 16
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > label:nth-of-type(1) > input:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 16
+        }
+      ],
+      "scope": ".unified-tab-container",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "light",
+      "state": "hover-5",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "unified-tab unified-tab--active unified-tab--focused |",
+          "text": "系统",
+          "foreground": "rgb(79, 70, 229)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            249,
+            250,
+            251
+          ],
+          "contrast": 6.016625091423448,
+          "textual": true,
+          "disabled": false,
+          "width": 100,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(2)",
+          "family": "unified-tab   |",
+          "text": "导入",
+          "foreground": "rgb(55, 65, 81)",
+          "background": "rgb(243, 244, 246)",
+          "effectiveBackground": [
+            243,
+            244,
+            246
+          ],
+          "contrast": 9.365938485902875,
+          "textual": true,
+          "disabled": false,
+          "width": 100,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(3)",
+          "family": "unified-tab   |",
+          "text": "用户权限",
+          "foreground": "rgb(55, 65, 81)",
+          "background": "rgb(243, 244, 246)",
+          "effectiveBackground": [
+            243,
+            244,
+            246
+          ],
+          "contrast": 9.365938485902875,
+          "textual": true,
+          "disabled": false,
+          "width": 128,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(4)",
+          "family": "unified-tab   |",
+          "text": "GitHub",
+          "foreground": "rgb(55, 65, 81)",
+          "background": "rgb(243, 244, 246)",
+          "effectiveBackground": [
+            243,
+            244,
+            246
+          ],
+          "contrast": 9.365938485902875,
+          "textual": true,
+          "disabled": false,
+          "width": 120.515625,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(5)",
+          "family": "unified-tab   |",
+          "text": "外观",
+          "foreground": "rgb(55, 65, 81)",
+          "background": "rgb(243, 244, 246)",
+          "effectiveBackground": [
+            243,
+            244,
+            246
+          ],
+          "contrast": 9.365938485902875,
+          "textual": true,
+          "disabled": false,
+          "width": 100,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "form-input|",
+          "text": "",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 120,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > input:nth-of-type(1)",
+          "family": "form-input|",
+          "text": "",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 120,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
+          "family": "form-select|",
+          "text": "一月二月三月四月五月六月七月八月九月十月十一月十二月",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": null,
+          "contrast": null,
+          "textual": true,
+          "disabled": false,
+          "width": 300,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > label:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "|",
+          "text": "",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 16,
+          "height": 16,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > input:nth-of-type(1)",
+          "family": "form-input|",
+          "text": "",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 120,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > label:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "|",
+          "text": "",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 16,
+          "height": 16,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > button:nth-of-type(1)",
+          "family": "btn btn-primary|",
+          "text": "保存系统设置",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 146,
+          "height": 44,
+          "font": 14
+        }
+      ],
+      "issues": [
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
+          "kind": "unknown-background"
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > label:nth-of-type(1) > input:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 16
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > label:nth-of-type(1) > input:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 16
+        }
+      ],
+      "scope": ".unified-tab-container",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "light",
+      "state": "keyboard-focus",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "unified-tab unified-tab--active unified-tab--focused |",
+          "text": "系统",
+          "foreground": "rgb(79, 70, 229)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            249,
+            250,
+            251
+          ],
+          "contrast": 6.016625091423448,
+          "textual": true,
+          "disabled": false,
+          "width": 100,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(2)",
+          "family": "unified-tab   |",
+          "text": "导入",
+          "foreground": "rgb(55, 65, 81)",
+          "background": "rgb(243, 244, 246)",
+          "effectiveBackground": [
+            243,
+            244,
+            246
+          ],
+          "contrast": 9.365938485902875,
+          "textual": true,
+          "disabled": false,
+          "width": 100,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(3)",
+          "family": "unified-tab   |",
+          "text": "用户权限",
+          "foreground": "rgb(55, 65, 81)",
+          "background": "rgb(243, 244, 246)",
+          "effectiveBackground": [
+            243,
+            244,
+            246
+          ],
+          "contrast": 9.365938485902875,
+          "textual": true,
+          "disabled": false,
+          "width": 128,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(4)",
+          "family": "unified-tab   |",
+          "text": "GitHub",
+          "foreground": "rgb(55, 65, 81)",
+          "background": "rgb(243, 244, 246)",
+          "effectiveBackground": [
+            243,
+            244,
+            246
+          ],
+          "contrast": 9.365938485902875,
+          "textual": true,
+          "disabled": false,
+          "width": 120.515625,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(5)",
+          "family": "unified-tab   |",
+          "text": "外观",
+          "foreground": "rgb(55, 65, 81)",
+          "background": "rgb(243, 244, 246)",
+          "effectiveBackground": [
+            243,
+            244,
+            246
+          ],
+          "contrast": 9.365938485902875,
+          "textual": true,
+          "disabled": false,
+          "width": 100,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "form-input|",
+          "text": "",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 120,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > input:nth-of-type(1)",
+          "family": "form-input|",
+          "text": "",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 120,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
+          "family": "form-select|",
+          "text": "一月二月三月四月五月六月七月八月九月十月十一月十二月",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": null,
+          "contrast": null,
+          "textual": true,
+          "disabled": false,
+          "width": 300,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > label:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "|",
+          "text": "",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 16,
+          "height": 16,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > input:nth-of-type(1)",
+          "family": "form-input|",
+          "text": "",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 120,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > label:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "|",
+          "text": "",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 16,
+          "height": 16,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > button:nth-of-type(1)",
+          "family": "btn btn-primary|",
+          "text": "保存系统设置",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 146,
+          "height": 44,
+          "font": 14
+        }
+      ],
+      "issues": [
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
+          "kind": "unknown-background"
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > label:nth-of-type(1) > input:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 16
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > label:nth-of-type(1) > input:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 16
+        }
+      ],
+      "scope": ".unified-tab-container",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "dark",
+      "state": "default",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "unified-tab unified-tab--active unified-tab--focused |",
+          "text": "系统",
+          "foreground": "rgb(165, 180, 252)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 7.363342781260568,
+          "textual": true,
+          "disabled": false,
+          "width": 100,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(2)",
+          "family": "unified-tab   |",
+          "text": "导入",
+          "foreground": "rgb(229, 231, 235)",
+          "background": "rgb(55, 65, 81)",
+          "effectiveBackground": [
+            55,
+            65,
+            81
+          ],
+          "contrast": 8.3252023126051,
+          "textual": true,
+          "disabled": false,
+          "width": 100,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(3)",
+          "family": "unified-tab   |",
+          "text": "用户权限",
+          "foreground": "rgb(229, 231, 235)",
+          "background": "rgb(55, 65, 81)",
+          "effectiveBackground": [
+            55,
+            65,
+            81
+          ],
+          "contrast": 8.3252023126051,
+          "textual": true,
+          "disabled": false,
+          "width": 128,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(4)",
+          "family": "unified-tab   |",
+          "text": "GitHub",
+          "foreground": "rgb(229, 231, 235)",
+          "background": "rgb(55, 65, 81)",
+          "effectiveBackground": [
+            55,
+            65,
+            81
+          ],
+          "contrast": 8.3252023126051,
+          "textual": true,
+          "disabled": false,
+          "width": 120.515625,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(5)",
+          "family": "unified-tab   |",
+          "text": "外观",
+          "foreground": "rgb(229, 231, 235)",
+          "background": "rgb(55, 65, 81)",
+          "effectiveBackground": [
+            55,
+            65,
+            81
+          ],
+          "contrast": 8.3252023126051,
+          "textual": true,
+          "disabled": false,
+          "width": 100,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "form-input|",
+          "text": "",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": true,
+          "disabled": false,
+          "width": 120,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > input:nth-of-type(1)",
+          "family": "form-input|",
+          "text": "",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": true,
+          "disabled": false,
+          "width": 120,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
+          "family": "form-select|",
+          "text": "一月二月三月四月五月六月七月八月九月十月十一月十二月",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": null,
+          "contrast": null,
+          "textual": true,
+          "disabled": false,
+          "width": 300,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > label:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "|",
+          "text": "",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": true,
+          "disabled": false,
+          "width": 16,
+          "height": 16,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > input:nth-of-type(1)",
+          "family": "form-input|",
+          "text": "",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": true,
+          "disabled": false,
+          "width": 120,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > label:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "|",
+          "text": "",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": true,
+          "disabled": false,
+          "width": 16,
+          "height": 16,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > button:nth-of-type(1)",
+          "family": "btn btn-primary|",
+          "text": "保存系统设置",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 146,
+          "height": 44,
+          "font": 14
+        }
+      ],
+      "issues": [
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
+          "kind": "unknown-background"
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > label:nth-of-type(1) > input:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 16
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > label:nth-of-type(1) > input:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 16
+        }
+      ],
+      "scope": ".unified-tab-container",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "dark",
+      "state": "hover-0",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "unified-tab unified-tab--active unified-tab--focused |",
+          "text": "系统",
+          "foreground": "rgb(165, 180, 252)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 7.363342781260568,
+          "textual": true,
+          "disabled": false,
+          "width": 100,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(2)",
+          "family": "unified-tab   |",
+          "text": "导入",
+          "foreground": "rgb(229, 231, 235)",
+          "background": "rgb(55, 65, 81)",
+          "effectiveBackground": [
+            55,
+            65,
+            81
+          ],
+          "contrast": 8.3252023126051,
+          "textual": true,
+          "disabled": false,
+          "width": 100,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(3)",
+          "family": "unified-tab   |",
+          "text": "用户权限",
+          "foreground": "rgb(229, 231, 235)",
+          "background": "rgb(55, 65, 81)",
+          "effectiveBackground": [
+            55,
+            65,
+            81
+          ],
+          "contrast": 8.3252023126051,
+          "textual": true,
+          "disabled": false,
+          "width": 128,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(4)",
+          "family": "unified-tab   |",
+          "text": "GitHub",
+          "foreground": "rgb(229, 231, 235)",
+          "background": "rgb(55, 65, 81)",
+          "effectiveBackground": [
+            55,
+            65,
+            81
+          ],
+          "contrast": 8.3252023126051,
+          "textual": true,
+          "disabled": false,
+          "width": 120.515625,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(5)",
+          "family": "unified-tab   |",
+          "text": "外观",
+          "foreground": "rgb(229, 231, 235)",
+          "background": "rgb(55, 65, 81)",
+          "effectiveBackground": [
+            55,
+            65,
+            81
+          ],
+          "contrast": 8.3252023126051,
+          "textual": true,
+          "disabled": false,
+          "width": 100,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "form-input|",
+          "text": "",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": true,
+          "disabled": false,
+          "width": 120,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > input:nth-of-type(1)",
+          "family": "form-input|",
+          "text": "",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": true,
+          "disabled": false,
+          "width": 120,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
+          "family": "form-select|",
+          "text": "一月二月三月四月五月六月七月八月九月十月十一月十二月",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": null,
+          "contrast": null,
+          "textual": true,
+          "disabled": false,
+          "width": 300,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > label:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "|",
+          "text": "",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": true,
+          "disabled": false,
+          "width": 16,
+          "height": 16,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > input:nth-of-type(1)",
+          "family": "form-input|",
+          "text": "",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": true,
+          "disabled": false,
+          "width": 120,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > label:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "|",
+          "text": "",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": true,
+          "disabled": false,
+          "width": 16,
+          "height": 16,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > button:nth-of-type(1)",
+          "family": "btn btn-primary|",
+          "text": "保存系统设置",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 146,
+          "height": 44,
+          "font": 14
+        }
+      ],
+      "issues": [
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
+          "kind": "unknown-background"
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > label:nth-of-type(1) > input:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 16
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > label:nth-of-type(1) > input:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 16
+        }
+      ],
+      "scope": ".unified-tab-container",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "dark",
+      "state": "hover-1",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "unified-tab unified-tab--active unified-tab--focused |",
+          "text": "系统",
+          "foreground": "rgb(165, 180, 252)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 7.363342781260568,
+          "textual": true,
+          "disabled": false,
+          "width": 100,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(2)",
+          "family": "unified-tab   |",
+          "text": "导入",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgba(255, 255, 255, 0.05)",
+          "effectiveBackground": [
+            42.41960784313726,
+            51.909803921568624,
+            65.19607843137254
+          ],
+          "contrast": 12.057594670859316,
+          "textual": true,
+          "disabled": false,
+          "width": 100,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(3)",
+          "family": "unified-tab   |",
+          "text": "用户权限",
+          "foreground": "rgb(229, 231, 235)",
+          "background": "rgb(55, 65, 81)",
+          "effectiveBackground": [
+            55,
+            65,
+            81
+          ],
+          "contrast": 8.3252023126051,
+          "textual": true,
+          "disabled": false,
+          "width": 128,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(4)",
+          "family": "unified-tab   |",
+          "text": "GitHub",
+          "foreground": "rgb(229, 231, 235)",
+          "background": "rgb(55, 65, 81)",
+          "effectiveBackground": [
+            55,
+            65,
+            81
+          ],
+          "contrast": 8.3252023126051,
+          "textual": true,
+          "disabled": false,
+          "width": 120.515625,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(5)",
+          "family": "unified-tab   |",
+          "text": "外观",
+          "foreground": "rgb(229, 231, 235)",
+          "background": "rgb(55, 65, 81)",
+          "effectiveBackground": [
+            55,
+            65,
+            81
+          ],
+          "contrast": 8.3252023126051,
+          "textual": true,
+          "disabled": false,
+          "width": 100,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "form-input|",
+          "text": "",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": true,
+          "disabled": false,
+          "width": 120,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > input:nth-of-type(1)",
+          "family": "form-input|",
+          "text": "",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": true,
+          "disabled": false,
+          "width": 120,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
+          "family": "form-select|",
+          "text": "一月二月三月四月五月六月七月八月九月十月十一月十二月",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": null,
+          "contrast": null,
+          "textual": true,
+          "disabled": false,
+          "width": 300,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > label:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "|",
+          "text": "",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": true,
+          "disabled": false,
+          "width": 16,
+          "height": 16,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > input:nth-of-type(1)",
+          "family": "form-input|",
+          "text": "",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": true,
+          "disabled": false,
+          "width": 120,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > label:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "|",
+          "text": "",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": true,
+          "disabled": false,
+          "width": 16,
+          "height": 16,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > button:nth-of-type(1)",
+          "family": "btn btn-primary|",
+          "text": "保存系统设置",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 146,
+          "height": 44,
+          "font": 14
+        }
+      ],
+      "issues": [
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
+          "kind": "unknown-background"
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > label:nth-of-type(1) > input:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 16
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > label:nth-of-type(1) > input:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 16
+        }
+      ],
+      "scope": ".unified-tab-container",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "dark",
+      "state": "hover-2",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "unified-tab unified-tab--active unified-tab--focused |",
+          "text": "系统",
+          "foreground": "rgb(165, 180, 252)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 7.363342781260568,
+          "textual": true,
+          "disabled": false,
+          "width": 100,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(2)",
+          "family": "unified-tab   |",
+          "text": "导入",
+          "foreground": "rgb(229, 231, 235)",
+          "background": "rgb(55, 65, 81)",
+          "effectiveBackground": [
+            55,
+            65,
+            81
+          ],
+          "contrast": 8.3252023126051,
+          "textual": true,
+          "disabled": false,
+          "width": 100,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(3)",
+          "family": "unified-tab   |",
+          "text": "用户权限",
+          "foreground": "rgb(229, 231, 235)",
+          "background": "rgb(55, 65, 81)",
+          "effectiveBackground": [
+            55,
+            65,
+            81
+          ],
+          "contrast": 8.3252023126051,
+          "textual": true,
+          "disabled": false,
+          "width": 128,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(4)",
+          "family": "unified-tab   |",
+          "text": "GitHub",
+          "foreground": "rgb(229, 231, 235)",
+          "background": "rgb(55, 65, 81)",
+          "effectiveBackground": [
+            55,
+            65,
+            81
+          ],
+          "contrast": 8.3252023126051,
+          "textual": true,
+          "disabled": false,
+          "width": 120.515625,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(5)",
+          "family": "unified-tab   |",
+          "text": "外观",
+          "foreground": "rgb(229, 231, 235)",
+          "background": "rgb(55, 65, 81)",
+          "effectiveBackground": [
+            55,
+            65,
+            81
+          ],
+          "contrast": 8.3252023126051,
+          "textual": true,
+          "disabled": false,
+          "width": 100,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "form-input|",
+          "text": "",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": true,
+          "disabled": false,
+          "width": 120,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > input:nth-of-type(1)",
+          "family": "form-input|",
+          "text": "",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": true,
+          "disabled": false,
+          "width": 120,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
+          "family": "form-select|",
+          "text": "一月二月三月四月五月六月七月八月九月十月十一月十二月",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": null,
+          "contrast": null,
+          "textual": true,
+          "disabled": false,
+          "width": 300,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > label:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "|",
+          "text": "",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": true,
+          "disabled": false,
+          "width": 16,
+          "height": 16,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > input:nth-of-type(1)",
+          "family": "form-input|",
+          "text": "",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": true,
+          "disabled": false,
+          "width": 120,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > label:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "|",
+          "text": "",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": true,
+          "disabled": false,
+          "width": 16,
+          "height": 16,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > button:nth-of-type(1)",
+          "family": "btn btn-primary|",
+          "text": "保存系统设置",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 146,
+          "height": 44,
+          "font": 14
+        }
+      ],
+      "issues": [
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
+          "kind": "unknown-background"
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > label:nth-of-type(1) > input:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 16
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > label:nth-of-type(1) > input:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 16
+        }
+      ],
+      "scope": ".unified-tab-container",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "dark",
+      "state": "hover-3",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "unified-tab unified-tab--active unified-tab--focused |",
+          "text": "系统",
+          "foreground": "rgb(165, 180, 252)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 7.363342781260568,
+          "textual": true,
+          "disabled": false,
+          "width": 100,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(2)",
+          "family": "unified-tab   |",
+          "text": "导入",
+          "foreground": "rgb(229, 231, 235)",
+          "background": "rgb(55, 65, 81)",
+          "effectiveBackground": [
+            55,
+            65,
+            81
+          ],
+          "contrast": 8.3252023126051,
+          "textual": true,
+          "disabled": false,
+          "width": 100,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(3)",
+          "family": "unified-tab   |",
+          "text": "用户权限",
+          "foreground": "rgb(229, 231, 235)",
+          "background": "rgb(55, 65, 81)",
+          "effectiveBackground": [
+            55,
+            65,
+            81
+          ],
+          "contrast": 8.3252023126051,
+          "textual": true,
+          "disabled": false,
+          "width": 128,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(4)",
+          "family": "unified-tab   |",
+          "text": "GitHub",
+          "foreground": "rgb(229, 231, 235)",
+          "background": "rgb(55, 65, 81)",
+          "effectiveBackground": [
+            55,
+            65,
+            81
+          ],
+          "contrast": 8.3252023126051,
+          "textual": true,
+          "disabled": false,
+          "width": 120.515625,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(5)",
+          "family": "unified-tab   |",
+          "text": "外观",
+          "foreground": "rgb(229, 231, 235)",
+          "background": "rgb(55, 65, 81)",
+          "effectiveBackground": [
+            55,
+            65,
+            81
+          ],
+          "contrast": 8.3252023126051,
+          "textual": true,
+          "disabled": false,
+          "width": 100,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "form-input|",
+          "text": "",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": true,
+          "disabled": false,
+          "width": 120,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > input:nth-of-type(1)",
+          "family": "form-input|",
+          "text": "",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": true,
+          "disabled": false,
+          "width": 120,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
+          "family": "form-select|",
+          "text": "一月二月三月四月五月六月七月八月九月十月十一月十二月",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": null,
+          "contrast": null,
+          "textual": true,
+          "disabled": false,
+          "width": 300,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > label:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "|",
+          "text": "",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": true,
+          "disabled": false,
+          "width": 16,
+          "height": 16,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > input:nth-of-type(1)",
+          "family": "form-input|",
+          "text": "",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": true,
+          "disabled": false,
+          "width": 120,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > label:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "|",
+          "text": "",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": true,
+          "disabled": false,
+          "width": 16,
+          "height": 16,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > button:nth-of-type(1)",
+          "family": "btn btn-primary|",
+          "text": "保存系统设置",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 146,
+          "height": 44,
+          "font": 14
+        }
+      ],
+      "issues": [
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
+          "kind": "unknown-background"
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > label:nth-of-type(1) > input:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 16
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > label:nth-of-type(1) > input:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 16
+        }
+      ],
+      "scope": ".unified-tab-container",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "dark",
+      "state": "hover-4",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "unified-tab unified-tab--active unified-tab--focused |",
+          "text": "系统",
+          "foreground": "rgb(165, 180, 252)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 7.363342781260568,
+          "textual": true,
+          "disabled": false,
+          "width": 100,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(2)",
+          "family": "unified-tab   |",
+          "text": "导入",
+          "foreground": "rgb(229, 231, 235)",
+          "background": "rgb(55, 65, 81)",
+          "effectiveBackground": [
+            55,
+            65,
+            81
+          ],
+          "contrast": 8.3252023126051,
+          "textual": true,
+          "disabled": false,
+          "width": 100,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(3)",
+          "family": "unified-tab   |",
+          "text": "用户权限",
+          "foreground": "rgb(229, 231, 235)",
+          "background": "rgb(55, 65, 81)",
+          "effectiveBackground": [
+            55,
+            65,
+            81
+          ],
+          "contrast": 8.3252023126051,
+          "textual": true,
+          "disabled": false,
+          "width": 128,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(4)",
+          "family": "unified-tab   |",
+          "text": "GitHub",
+          "foreground": "rgb(229, 231, 235)",
+          "background": "rgb(55, 65, 81)",
+          "effectiveBackground": [
+            55,
+            65,
+            81
+          ],
+          "contrast": 8.3252023126051,
+          "textual": true,
+          "disabled": false,
+          "width": 120.515625,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(5)",
+          "family": "unified-tab   |",
+          "text": "外观",
+          "foreground": "rgb(229, 231, 235)",
+          "background": "rgb(55, 65, 81)",
+          "effectiveBackground": [
+            55,
+            65,
+            81
+          ],
+          "contrast": 8.3252023126051,
+          "textual": true,
+          "disabled": false,
+          "width": 100,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "form-input|",
+          "text": "",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": true,
+          "disabled": false,
+          "width": 120,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > input:nth-of-type(1)",
+          "family": "form-input|",
+          "text": "",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": true,
+          "disabled": false,
+          "width": 120,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
+          "family": "form-select|",
+          "text": "一月二月三月四月五月六月七月八月九月十月十一月十二月",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": null,
+          "contrast": null,
+          "textual": true,
+          "disabled": false,
+          "width": 300,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > label:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "|",
+          "text": "",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": true,
+          "disabled": false,
+          "width": 16,
+          "height": 16,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > input:nth-of-type(1)",
+          "family": "form-input|",
+          "text": "",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": true,
+          "disabled": false,
+          "width": 120,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > label:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "|",
+          "text": "",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": true,
+          "disabled": false,
+          "width": 16,
+          "height": 16,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > button:nth-of-type(1)",
+          "family": "btn btn-primary|",
+          "text": "保存系统设置",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 146,
+          "height": 44,
+          "font": 14
+        }
+      ],
+      "issues": [
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
+          "kind": "unknown-background"
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > label:nth-of-type(1) > input:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 16
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > label:nth-of-type(1) > input:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 16
+        }
+      ],
+      "scope": ".unified-tab-container",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "dark",
+      "state": "hover-5",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "unified-tab unified-tab--active unified-tab--focused |",
+          "text": "系统",
+          "foreground": "rgb(165, 180, 252)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 7.363342781260568,
+          "textual": true,
+          "disabled": false,
+          "width": 100,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(2)",
+          "family": "unified-tab   |",
+          "text": "导入",
+          "foreground": "rgb(229, 231, 235)",
+          "background": "rgb(55, 65, 81)",
+          "effectiveBackground": [
+            55,
+            65,
+            81
+          ],
+          "contrast": 8.3252023126051,
+          "textual": true,
+          "disabled": false,
+          "width": 100,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(3)",
+          "family": "unified-tab   |",
+          "text": "用户权限",
+          "foreground": "rgb(229, 231, 235)",
+          "background": "rgb(55, 65, 81)",
+          "effectiveBackground": [
+            55,
+            65,
+            81
+          ],
+          "contrast": 8.3252023126051,
+          "textual": true,
+          "disabled": false,
+          "width": 128,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(4)",
+          "family": "unified-tab   |",
+          "text": "GitHub",
+          "foreground": "rgb(229, 231, 235)",
+          "background": "rgb(55, 65, 81)",
+          "effectiveBackground": [
+            55,
+            65,
+            81
+          ],
+          "contrast": 8.3252023126051,
+          "textual": true,
+          "disabled": false,
+          "width": 120.515625,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(5)",
+          "family": "unified-tab   |",
+          "text": "外观",
+          "foreground": "rgb(229, 231, 235)",
+          "background": "rgb(55, 65, 81)",
+          "effectiveBackground": [
+            55,
+            65,
+            81
+          ],
+          "contrast": 8.3252023126051,
+          "textual": true,
+          "disabled": false,
+          "width": 100,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "form-input|",
+          "text": "",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": true,
+          "disabled": false,
+          "width": 120,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > input:nth-of-type(1)",
+          "family": "form-input|",
+          "text": "",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": true,
+          "disabled": false,
+          "width": 120,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
+          "family": "form-select|",
+          "text": "一月二月三月四月五月六月七月八月九月十月十一月十二月",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": null,
+          "contrast": null,
+          "textual": true,
+          "disabled": false,
+          "width": 300,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > label:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "|",
+          "text": "",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": true,
+          "disabled": false,
+          "width": 16,
+          "height": 16,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > input:nth-of-type(1)",
+          "family": "form-input|",
+          "text": "",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": true,
+          "disabled": false,
+          "width": 120,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > label:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "|",
+          "text": "",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": true,
+          "disabled": false,
+          "width": 16,
+          "height": 16,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > button:nth-of-type(1)",
+          "family": "btn btn-primary|",
+          "text": "保存系统设置",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 146,
+          "height": 44,
+          "font": 14
+        }
+      ],
+      "issues": [
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
+          "kind": "unknown-background"
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > label:nth-of-type(1) > input:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 16
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > label:nth-of-type(1) > input:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 16
+        }
+      ],
+      "scope": ".unified-tab-container",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "dark",
+      "state": "keyboard-focus",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "unified-tab unified-tab--active unified-tab--focused |",
+          "text": "系统",
+          "foreground": "rgb(165, 180, 252)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 7.363342781260568,
+          "textual": true,
+          "disabled": false,
+          "width": 100,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(2)",
+          "family": "unified-tab   |",
+          "text": "导入",
+          "foreground": "rgb(229, 231, 235)",
+          "background": "rgb(55, 65, 81)",
+          "effectiveBackground": [
+            55,
+            65,
+            81
+          ],
+          "contrast": 8.3252023126051,
+          "textual": true,
+          "disabled": false,
+          "width": 100,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(3)",
+          "family": "unified-tab   |",
+          "text": "用户权限",
+          "foreground": "rgb(229, 231, 235)",
+          "background": "rgb(55, 65, 81)",
+          "effectiveBackground": [
+            55,
+            65,
+            81
+          ],
+          "contrast": 8.3252023126051,
+          "textual": true,
+          "disabled": false,
+          "width": 128,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(4)",
+          "family": "unified-tab   |",
+          "text": "GitHub",
+          "foreground": "rgb(229, 231, 235)",
+          "background": "rgb(55, 65, 81)",
+          "effectiveBackground": [
+            55,
+            65,
+            81
+          ],
+          "contrast": 8.3252023126051,
+          "textual": true,
+          "disabled": false,
+          "width": 120.515625,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(5)",
+          "family": "unified-tab   |",
+          "text": "外观",
+          "foreground": "rgb(229, 231, 235)",
+          "background": "rgb(55, 65, 81)",
+          "effectiveBackground": [
+            55,
+            65,
+            81
+          ],
+          "contrast": 8.3252023126051,
+          "textual": true,
+          "disabled": false,
+          "width": 100,
+          "height": 55,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "form-input|",
+          "text": "",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": true,
+          "disabled": false,
+          "width": 120,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > input:nth-of-type(1)",
+          "family": "form-input|",
+          "text": "",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": true,
+          "disabled": false,
+          "width": 120,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
+          "family": "form-select|",
+          "text": "一月二月三月四月五月六月七月八月九月十月十一月十二月",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": null,
+          "contrast": null,
+          "textual": true,
+          "disabled": false,
+          "width": 300,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > label:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "|",
+          "text": "",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": true,
+          "disabled": false,
+          "width": 16,
+          "height": 16,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > input:nth-of-type(1)",
+          "family": "form-input|",
+          "text": "",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": true,
+          "disabled": false,
+          "width": 120,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > label:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "|",
+          "text": "",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": true,
+          "disabled": false,
+          "width": 16,
+          "height": 16,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > button:nth-of-type(1)",
+          "family": "btn btn-primary|",
+          "text": "保存系统设置",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 146,
+          "height": 44,
+          "font": 14
+        }
+      ],
+      "issues": [
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
+          "kind": "unknown-background"
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > label:nth-of-type(1) > input:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 16
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > label:nth-of-type(1) > input:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 16
+        }
+      ],
+      "scope": ".unified-tab-container",
+      "axe": [],
+      "newIssues": []
+    }
+  ],
+  "writes": [],
+  "errors": []
+}

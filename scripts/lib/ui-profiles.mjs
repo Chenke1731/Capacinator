@@ -37,6 +37,8 @@ export const profiles = {
   people: {path:'/people',root:'main',ready:'table',minElements:5},
   assignments: {path:'/assignments',root:'main',ready:'table',minElements:5},
   dashboard: {path:'/dashboard',root:'main',ready:'.stats-grid',minElements:3},
+  settings: {path:'/settings',root:'.unified-tab-container',ready:'.settings-section',minElements:5},
+  'settings-appearance': {path:'/settings?tab=appearance',root:'.unified-tab-container',ready:'.theme-selector',minElements:5},
 };
 
 export function getProfile(name, page) {

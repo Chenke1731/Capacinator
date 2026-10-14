@@ -68,14 +68,14 @@
 }
 
 .btn-danger {
-  background-color: var(--danger);
-  color: white;
-  border-color: var(--danger);
+  background-color: var(--status-danger-solid);
+  color: var(--solid-foreground);
+  border-color: var(--status-danger-solid);
 }
 
 .btn-danger:hover {
-  background-color: var(--danger-hover);
-  border-color: var(--danger-hover);
+  background-color: color-mix(in srgb, var(--status-danger-solid) 90%, var(--solid-shade));
+  border-color: color-mix(in srgb, var(--status-danger-solid) 90%, var(--solid-shade));
 }
 
 .btn-outline {
@@ -109,12 +109,12 @@
 }
 
 .btn-icon.btn-danger {
-  color: var(--danger);
+  color: var(--status-danger-text);
 }
 
 .btn-icon.btn-danger:hover {
-  background-color: var(--danger-bg);
-  border-color: var(--danger);
+  background-color: var(--status-danger-soft);
+  border-color: var(--status-danger-border);
 }
 
 /* Unified table row action buttons: icon + text label, large enough to read.
@@ -169,9 +169,9 @@
 }
 
 .table-action-btn.btn-danger {
-  background-color: var(--danger-bg);
-  color: var(--danger);
-  border-color: var(--danger);
+  background-color: var(--status-danger-soft);
+  color: var(--status-danger-text);
+  border-color: var(--status-danger-border);
 }
 
 /* Form styles */
@@ -268,11 +268,11 @@
 
 /* Ensure contrast for highlighted rows */
 .table tbody tr.highlight-danger {
-  background-color: rgba(220, 38, 38, 0.08);
+  background-color: var(--status-danger-soft);
 }
 
 .table tbody tr.highlight-danger:hover {
-  background-color: rgba(220, 38, 38, 0.12);
+  background-color: var(--status-danger-soft);
 }
 
 .table tbody tr.highlight-danger:hover td {
@@ -1711,10 +1711,10 @@ input[type="checkbox"].settings-checkbox,
 }
 .cell-pop-item:hover { background: var(--bg-secondary, rgba(127, 127, 127, 0.14)); }
 .cell-pop-item--active { color: #2563eb; font-weight: 600; } /* 蓝 600: 选中项白底 5.2:1(蓝 500 曾 3.68<4.5) */
-.cell-pop-item--danger { color: var(--danger-color, #dc2626); }
+.cell-pop-item--danger { color: var(--status-danger-text); }
 /* 弹层经 Portal 到 body,深色主题下的选中/危险项(浅色意图色曾 3.43/2.84) */
 [data-theme='dark'] .cell-pop-item--active { color: #93c5fc; }
-[data-theme='dark'] .cell-pop-item--danger { color: #fca5a5; }
+[data-theme='dark'] .cell-pop-item--danger { color: var(--status-danger-text); }
 /* 状态徽章悬停(2026-10-11 批次二): 全局 button:hover 的 bg-tertiary 盖掉
    状态色底,text-secondary 对 #374151 仅 4.02——深色悬停换暗染底(6.0) */
 [data-theme='dark'] .lifecycle-state-badge:hover { background-color: color-mix(in srgb, var(--solid-shade) 22%, transparent); }
@@ -2600,8 +2600,8 @@ body.req-col-dragging * {
 [data-theme='dark'] .req-tag--filter:hover { background: rgba(0, 0, 0, 0.35); }
 /* 清空变体深色双态: 浅色意图的 #dc2626/#b91c1c 在深底 3.67/2.55;
    hover 加 .lc-popover 域升特异度——平级后置的浅色规则曾胜出 */
-[data-theme='dark'] .bulk-apply-btn--clear { color: #fca5a5; }
-[data-theme='dark'] .lc-popover .bulk-apply-btn--clear:hover { color: #fecaca; background: rgba(220, 38, 38, 0.18); }
+[data-theme='dark'] .bulk-apply-btn--clear { color: var(--status-danger-text); }
+[data-theme='dark'] .lc-popover .bulk-apply-btn--clear:hover { color: var(--status-danger-text); background: var(--status-danger-soft); }
 
 /* 操作: 32px 裸图标(悬停显底),与表头/优先级同轴居中 */
 .requirements-actions { display: inline-flex; gap: 8px; align-items: center; justify-content: center; }
@@ -2815,7 +2815,7 @@ body.req-col-dragging * {
 /* 深色: 状态快捷幽灵键文字提亮 */
 [data-theme='dark'] .projects-board .lifecycle-quick-btn, .dark .projects-board .lifecycle-quick-btn { color: var(--status-info-text); }
 /* 深色: 实心危险按钮底压深(白字 ≥4.5) */
-[data-theme='dark'] .btn-danger, .dark .btn-danger { background-color: #b91c1c; border-color: #b91c1c; color: #fff; }
+[data-theme='dark'] .btn-danger, .dark .btn-danger { background-color: var(--status-danger-solid); border-color: var(--status-danger-border); color: var(--solid-foreground); }
 
 /* 深色: 实心主按钮底压深一档(白字 ≥4.5) */
 [data-theme='dark'] .btn-primary, .dark .btn-primary {
@@ -2963,10 +2963,10 @@ body.req-col-dragging * {
   gap: 8px;
   min-height: 44px;
   padding: 0 10px;
-  background: var(--bg-primary, #fff);
+  background: var(--bg-primary);
   border: 1px solid var(--border-color);
   border-radius: var(--b-r-card, 10px);
-  box-shadow: var(--shadow-lg, 0 8px 28px rgba(0, 0, 0, 0.22));
+  box-shadow: var(--shadow-lg, 0 8px 28px color-mix(in srgb, var(--solid-shade) 22%, transparent));
   animation: reqBulkIn 0.16s ease-out;
 }
 @keyframes reqBulkIn {
@@ -2984,24 +2984,29 @@ body.req-col-dragging * {
   font-size: 13px;
   font-weight: 400;
   color: var(--text-primary);
-  background: var(--bg-secondary, rgba(127, 127, 127, 0.08));
+  background: var(--bg-secondary);
   border: none;
   border-radius: var(--b-r-sm, 6px);
   cursor: pointer;
   white-space: nowrap;
 }
-.req-bulk-btn:hover { background: rgba(127, 127, 127, 0.16); }
+.req-bulk-btn:hover { background: var(--bg-secondary); }
 .req-bulk-btn:disabled { opacity: 0.55; cursor: not-allowed; }
-.req-bulk-btn--danger { color: var(--danger-color, #dc2626); background: rgba(220, 38, 38, 0.08); }
-.req-bulk-btn--danger:hover { background: rgba(220, 38, 38, 0.16); }
+.req-bulk-btn--danger { color: var(--status-danger-text); background: var(--status-danger-soft); }
+.req-bulk-btn--danger:hover { background: var(--status-danger-soft); }
 /* 特异度战争第四枪(2026-10-11 全称检查器曝出): 批量条在 .projects-board 内,
    板级 button{min-height:0}(0,1,1) 压过 .req-bulk-btn{min-height:32}(0,1,0)
    ——按钮实测 20px<24; 前缀升 (0,2,0)。删除钮文字 4.28<4.5 同修:
    浅色压深一档,深色单独提亮(danger 变量在深色不切换) */
 .projects-board .req-bulk-btn { min-height: 32px; }
-.req-bulk-btn--danger { color: #b91c1c; }
-[data-theme='dark'] .req-bulk-btn--danger { color: #fca5a5; }
-.req-bulk-btn--confirm { background: var(--danger-color, #dc2626); color: #fff; }
+.req-bulk-btn--danger { color: var(--status-danger-text); }
+[data-theme='dark'] .req-bulk-btn--danger { color: var(--status-danger-text); }
+.req-bulk-btn--confirm { background: var(--status-danger-solid); color: var(--solid-foreground); }
+.req-bulk-btn.req-bulk-btn--confirm { color: var(--solid-foreground); }
+.req-bulk-btn.req-bulk-btn--confirm:hover {
+  background: color-mix(in srgb, var(--status-danger-solid) 90%, var(--solid-shade));
+  color: var(--solid-foreground);
+}
 .req-bulk-btn--close { padding: 0; width: 32px; justify-content: center; }
 .req-bulk-divider { width: 1px; height: 20px; background: var(--border-color); margin: 0 2px; }
 /* 条出现时补偿表格底部滚动空间(末行不被浮条遮挡) */
@@ -3013,16 +3018,16 @@ body.req-col-dragging * {
   display: inline-flex; align-items: center; justify-content: center;
   min-height: 30px; padding: 0 10px;
   font-size: 12.5px; font-weight: 500;
-  color: #fff; background: var(--accent-color, #3b82f6);
+  color: var(--solid-foreground); background: var(--primary-solid);
   border: none; border-radius: var(--b-r-sm, 6px); cursor: pointer;
 }
 .bulk-apply-btn:disabled { opacity: 0.5; cursor: not-allowed; }
-.bulk-apply-btn--clear { background: transparent; color: var(--danger-color, #dc2626); box-shadow: inset 0 0 0 1px var(--border-color); }
+.bulk-apply-btn--clear { background: transparent; color: var(--status-danger-text); box-shadow: inset 0 0 0 1px var(--border-color); }
 /* 状态全声明(2026-10-11 悬停隐形事故类): 全局 button:hover 特异度 (0,1,1) 压过单类
    (0,1,0)——凡设背景/文字色的类样式按钮必须自带 :hover/:active 重声明,否则
    白字被换到浅底(应用钮浅色悬停 1.10:1 事故) */
-.bulk-apply-btn:hover:not(:disabled) { background: #2563eb; color: #fff; }
-.bulk-apply-btn--clear:hover:not(:disabled) { background: rgba(220, 38, 38, 0.12); color: #b91c1c; box-shadow: inset 0 0 0 1px #dc2626; }
+.bulk-apply-btn:hover:not(:disabled) { background: color-mix(in srgb, var(--primary-solid) 90%, var(--solid-shade)); color: var(--solid-foreground); }
+.bulk-apply-btn--clear:hover:not(:disabled) { background: var(--status-danger-soft); color: var(--status-danger-text); box-shadow: inset 0 0 0 1px var(--status-danger-border); }
 .bulk-apply-btn:active:not(:disabled) { filter: brightness(0.88); }
 .bulk-tags-section { display: flex; flex-direction: column; gap: 6px; }
 .bulk-tags-sec-title { display: flex; align-items: center; gap: 4px; font-size: var(--b-fs-meta, 11px); font-weight: 500; color: var(--text-secondary); }
@@ -3032,18 +3037,18 @@ body.req-col-dragging * {
   min-height: 24px; padding: 0 9px;
   font-size: var(--b-fs-body, 12.5px); font-weight: 400;
   color: var(--text-primary);
-  background: var(--bg-secondary, rgba(127, 127, 127, 0.08));
+  background: var(--bg-secondary);
   border: 1px solid var(--border-color);
   border-radius: 999px; cursor: pointer;
 }
 /* 基类悬停重声明(全局 button:hover 换底同族,2026-10-13): 中性底微抬,
    不换灰块;--on/--off 变体同特异性但源序在后,其专属 hover 仍胜出 */
-.bulk-tag-chip:hover { background: rgba(127, 127, 127, 0.16); border-color: var(--border-color-hover, var(--border-color)); }
-.bulk-tag-chip--on { background: var(--accent-color, #3b82f6); border-color: var(--accent-color, #3b82f6); color: #fff; }
-.bulk-tag-chip--off { background: rgba(220, 38, 38, 0.1); border-color: var(--danger-color, #dc2626); color: var(--danger-color, #dc2626); }
+.bulk-tag-chip:hover { background: var(--bg-secondary); border-color: var(--border-color-hover, var(--border-color)); }
+.bulk-tag-chip--on { background: var(--primary-solid); border-color: var(--primary-solid); color: var(--solid-foreground); }
+.bulk-tag-chip--off { background: var(--status-danger-soft); border-color: var(--status-danger-border); color: var(--status-danger-text); }
 /* 同类必修: 白字/红字彩底 chip 的 hover 重声明(否则被全局 button:hover 换底) */
-.bulk-tag-chip--on:hover { background: #2563eb; border-color: #2563eb; color: #fff; }
-.bulk-tag-chip--off:hover { background: rgba(220, 38, 38, 0.16); color: #b91c1c; border-color: #b91c1c; }
+.bulk-tag-chip--on:hover { background: color-mix(in srgb, var(--primary-solid) 90%, var(--solid-shade)); border-color: color-mix(in srgb, var(--primary-solid) 90%, var(--solid-shade)); color: var(--solid-foreground); }
+.bulk-tag-chip--off:hover { background: var(--status-danger-soft); color: var(--status-danger-text); border-color: var(--status-danger-border); }
 /* 两段互斥(2026-10-11 审视#7): 勾一侧禁用对侧同名 chip——服务端 remove 静默
    胜出曾与可见的 Add 勾选意图相反 */
 .bulk-tag-chip:disabled { opacity: 0.4; cursor: not-allowed; }

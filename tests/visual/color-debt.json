@@ -5,27 +5,6 @@
   "initializationReason": "TC-C0a reproducible inventory before any color migration",
   "entries": [
     {
-      "fingerprint": "006419f9fe6b0eec0f99c6d43b3ac744d0bd0181a59b12df4e3cb544777d9ed6",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": "[data-theme='dark'] .lc-popover .bulk-apply-btn--clear:hover",
-      "property": "color",
-      "literal": "#fecaca",
-      "locations": [
-        {
-          "line": 2599,
-          "column": 71
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
       "fingerprint": "010c28813a96924ee1a0d135469ddfc125450e1ad07fd1e3f079a295b6cf9bf7",
       "file": "client/src/App.css",
       "context": [],
@@ -78,27 +57,6 @@
         {
           "line": 2585,
           "column": 40
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "093652fe94c918bf4c6813f792511171067e55490b2003e5b8898fde9f503ff6",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".bulk-tag-chip--off:hover",
-      "property": "background",
-      "literal": "rgba(220, 38, 38, 0.16)",
-      "locations": [
-        {
-          "line": 3041,
-          "column": 41
         }
       ],
       "count": 1,
@@ -299,27 +257,6 @@
       "evidence": []
     },
     {
-      "fingerprint": "154083c1984692d54af0371e5b5810bcbe795fe625c8091ea6bc972e5c4ac77a",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".bulk-tag-chip--on:hover",
-      "property": "color",
-      "literal": "#fff",
-      "locations": [
-        {
-          "line": 3040,
-          "column": 79
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
       "fingerprint": "16d92559073454c7bfcb37a04519a82230801d3601ec702f3b4f96ba295cc3fd",
       "file": "client/src/App.css",
       "context": [],
@@ -418,27 +355,6 @@
       ],
       "count": 1,
       "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "1d7624d6423abe6585e4ef92d3c62357f7d102def79ce474ecb76d91e287cfd7",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": "[data-theme='dark'] .bulk-apply-btn--clear",
-      "property": "color",
-      "literal": "#fca5a5",
-      "locations": [
-        {
-          "line": 2598,
-          "column": 53
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
       "reachability": "unverified",
       "decision": "pending",
       "semanticRole": null,
@@ -572,48 +488,6 @@
       "evidence": []
     },
     {
-      "fingerprint": "24db6296634314639d57df1f02819cc4e2a63ef9fa39b1352b3a3944eb1d3125",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".req-bulk-btn--danger:hover",
-      "property": "background",
-      "literal": "rgba(220, 38, 38, 0.16)",
-      "locations": [
-        {
-          "line": 2991,
-          "column": 43
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "271c350a299eb995f21a8d3acea9fbe1225417289f4405c7d33e10b2f23254f1",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".bulk-tag-chip--off:hover",
-      "property": "border-color",
-      "literal": "#b91c1c",
-      "locations": [
-        {
-          "line": 3041,
-          "column": 96
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
       "fingerprint": "273e9e03279bb2db3a4dec13686b6b215025a5eb1b8ab641041c25eab7bd0099",
       "file": "client/src/App.css",
       "context": [],
@@ -698,27 +572,6 @@
       "evidence": []
     },
     {
-      "fingerprint": "2a5e67d11f578182586eb977e58ce8b824d1ab85ef17a84f32cab1d12591069d",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".bulk-apply-btn--clear:hover:not(:disabled)",
-      "property": "background",
-      "literal": "rgba(220, 38, 38, 0.12)",
-      "locations": [
-        {
-          "line": 3020,
-          "column": 59
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
       "fingerprint": "2afb285d39675be1d369b03731096cbf6865630244824dfa4e7297305e32130b",
       "file": "client/src/App.css",
       "context": [],
@@ -729,27 +582,6 @@
         {
           "line": 2817,
           "column": 21
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "2e5a468f681b1932f08759afc43df6f33281a6d5ca8403efb205afdbcd90ddb1",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".bulk-tag-chip--off:hover",
-      "property": "color",
-      "literal": "#b91c1c",
-      "locations": [
-        {
-          "line": 3041,
-          "column": 73
         }
       ],
       "count": 1,
@@ -782,27 +614,6 @@
       "evidence": []
     },
     {
-      "fingerprint": "333a5d62c73e67b3140473c91e5157259c751c821bc966e6be6982010ace566b",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".req-bulk-bar",
-      "property": "box-shadow",
-      "literal": "rgba(0, 0, 0, 0.22)",
-      "locations": [
-        {
-          "line": 2964,
-          "column": 43
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
       "fingerprint": "3414d63b02d8001a0383ebf137d3a9051053748b0b6e6a07e0186740c46a4503",
       "file": "client/src/App.css",
       "context": [],
@@ -817,27 +628,6 @@
       ],
       "count": 1,
       "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "34e2030880185aeb752432cec0e18c342e2650e43f7ec74b7673502cfdb7daa5",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".bulk-tag-chip--on",
-      "property": "color",
-      "literal": "#fff",
-      "locations": [
-        {
-          "line": 3037,
-          "column": 115
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
       "reachability": "unverified",
       "decision": "pending",
       "semanticRole": null,
@@ -876,27 +666,6 @@
         {
           "line": 2595,
           "column": 58
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "35fcb43a837d2362c92bf05b3d9ba077c2e858b8633cac775e6be9e7c1dc82e9",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".bulk-tag-chip:hover",
-      "property": "background",
-      "literal": "rgba(127, 127, 127, 0.16)",
-      "locations": [
-        {
-          "line": 3036,
-          "column": 36
         }
       ],
       "count": 1,
@@ -1076,27 +845,6 @@
       "evidence": []
     },
     {
-      "fingerprint": "423d4db8a3d1f8f64a075e92654f5985b2bea03dab667ebed6f28d67cc7065df",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".bulk-apply-btn--clear:hover:not(:disabled)",
-      "property": "color",
-      "literal": "#b91c1c",
-      "locations": [
-        {
-          "line": 3020,
-          "column": 91
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
       "fingerprint": "4995ad8dbec8eefcf69ca155db9d609aa3c3a05d9288b7019d696b8bc5f20689",
       "file": "client/src/App.css",
       "context": [],
@@ -1233,69 +981,6 @@
         {
           "line": 1758,
           "column": 74
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "51a46109230a898a9443be8c780e72ddb9b417fd5020f2924bb453d4de81a58a",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".bulk-tag-chip--off",
-      "property": "background",
-      "literal": "rgba(220, 38, 38, 0.1)",
-      "locations": [
-        {
-          "line": 3038,
-          "column": 35
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "538d95520a7913c23dcdc641984c7d037108ae0891f3827b45344f90e5af3dae",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".bulk-apply-btn--clear",
-      "property": "color",
-      "literal": "#dc2626",
-      "locations": [
-        {
-          "line": 3015,
-          "column": 78
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "555e56c36dbdb2867242322e8cdccf237bb661d0f01aadf3d3cdf44b498ee852",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".bulk-apply-btn",
-      "property": "color",
-      "literal": "#fff",
-      "locations": [
-        {
-          "line": 3011,
-          "column": 10
         }
       ],
       "count": 1,
@@ -1454,27 +1139,6 @@
       "evidence": []
     },
     {
-      "fingerprint": "5d57bc1d6d6fcacb567f615382c2d00baa05adfbc568b1fece1193a14af08ce3",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": "[data-theme='dark'] .btn-danger, .dark .btn-danger",
-      "property": "background-color",
-      "literal": "#b91c1c",
-      "locations": [
-        {
-          "line": 2813,
-          "column": 72
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
       "fingerprint": "5daa487d8fcd78e3e4e18113f3632de2b6208aa453188702cee64df29a5b376c",
       "file": "client/src/App.css",
       "context": [],
@@ -1527,27 +1191,6 @@
         {
           "line": 2903,
           "column": 17
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "5f92d3486f7847487cf86717969606cb738db0fef072889c52f974a3213d8b3b",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".req-bulk-btn--danger",
-      "property": "background",
-      "literal": "rgba(220, 38, 38, 0.08)",
-      "locations": [
-        {
-          "line": 2990,
-          "column": 74
         }
       ],
       "count": 1,
@@ -1622,27 +1265,6 @@
       "evidence": []
     },
     {
-      "fingerprint": "64659b4a8b54eb48664707d3028a07fa7220ce8344c6ef52cd866166892d2712",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": "[data-theme='dark'] .cell-pop-item--danger",
-      "property": "color",
-      "literal": "#fca5a5",
-      "locations": [
-        {
-          "line": 1712,
-          "column": 53
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
       "fingerprint": "64ae0bac8e2eb87c5089bbbe9d70eb32eb9685456567ed683ec3d3b815a6e9fd",
       "file": "client/src/App.css",
       "context": [],
@@ -1653,27 +1275,6 @@
         {
           "line": 2064,
           "column": 35
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "6504917d82123c22c28b259c6c20b08fade29d2fb5beb61bd7a033be946ef3be",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".bulk-apply-btn:hover:not(:disabled)",
-      "property": "background",
-      "literal": "#2563eb",
-      "locations": [
-        {
-          "line": 3019,
-          "column": 52
         }
       ],
       "count": 1,
@@ -1790,27 +1391,6 @@
       "evidence": []
     },
     {
-      "fingerprint": "6cf9fdf68337e4d7444fa078bd37547f271c7174eb9456a8ea7ae456200a403a",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".req-bulk-btn--danger",
-      "property": "color",
-      "literal": "#b91c1c",
-      "locations": [
-        {
-          "line": 2997,
-          "column": 32
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
       "fingerprint": "6d0a0d51e42c854d33fd2a6404a5f755340ce9ae9d0f7a273a847ebfb9231b51",
       "file": "client/src/App.css",
       "context": [],
@@ -1867,27 +1447,6 @@
       ],
       "count": 1,
       "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "73972ddaa25dbef7bd42fe5d3bc6b71f1b4bd54d3fa2c81c0dbafb3f5fafeee3",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".req-bulk-btn:hover",
-      "property": "background",
-      "literal": "rgba(127, 127, 127, 0.16)",
-      "locations": [
-        {
-          "line": 2988,
-          "column": 35
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
       "reachability": "unverified",
       "decision": "pending",
       "semanticRole": null,
@@ -2128,48 +1687,6 @@
       "evidence": []
     },
     {
-      "fingerprint": "8ee1015252df2bb969bf128f9c57a173f4ac0020dea2bb46a0e655aac5cc98e9",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".bulk-apply-btn:hover:not(:disabled)",
-      "property": "color",
-      "literal": "#fff",
-      "locations": [
-        {
-          "line": 3019,
-          "column": 68
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "90f59ad9f75a8771c1c9844f57f6311eaace4e10c38625db93b08f4d4e3b9bac",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".table tbody tr.highlight-danger",
-      "property": "background-color",
-      "literal": "rgba(220, 38, 38, 0.08)",
-      "locations": [
-        {
-          "line": 271,
-          "column": 21
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
       "fingerprint": "913944b2e29be9e5cbbd63f3e505066b5c73a691c34bf6324821f7273d3db13d",
       "file": "client/src/App.css",
       "context": [],
@@ -2201,27 +1718,6 @@
         {
           "line": 2881,
           "column": 35
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "9359332e16321fbea7ae9e186657b5c0842bca3922d7fa766c870d8949a0a911",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".table tbody tr.highlight-danger:hover",
-      "property": "background-color",
-      "literal": "rgba(220, 38, 38, 0.12)",
-      "locations": [
-        {
-          "line": 275,
-          "column": 21
         }
       ],
       "count": 1,
@@ -2285,48 +1781,6 @@
         {
           "line": 2943,
           "column": 37
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "9b423552ee40dccc2aaf66f8ca25233b548dcb7a9507e9f7cd6c84da2ec38bcb",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".bulk-tag-chip--on",
-      "property": "background",
-      "literal": "#3b82f6",
-      "locations": [
-        {
-          "line": 3037,
-          "column": 54
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "9bb299961ec3f45cbe54e940c2b5492dead57cb7b81f7a9070a5a6660c339ab1",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".bulk-tag-chip--off",
-      "property": "border-color",
-      "literal": "#dc2626",
-      "locations": [
-        {
-          "line": 3038,
-          "column": 93
         }
       ],
       "count": 1,
@@ -2422,27 +1876,6 @@
       "evidence": []
     },
     {
-      "fingerprint": "a3de15ceaf657ecfe4317fd5118af115c06354df26e3abc822e52425e06e3c2e",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".req-bulk-bar",
-      "property": "background",
-      "literal": "#fff",
-      "locations": [
-        {
-          "line": 2961,
-          "column": 33
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
       "fingerprint": "a408cab718cb0ef659862ee63287e50ed06fa7e7f87744a12e9b526af9d7b7d0",
       "file": "client/src/App.css",
       "context": [],
@@ -2499,27 +1932,6 @@
       ],
       "count": 1,
       "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "aa2185230ac6d52e8f4f0bd27494b82f5cb30b54b8d05c0460a0f0204d26f80d",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": "[data-theme='dark'] .lc-popover .bulk-apply-btn--clear:hover",
-      "property": "background",
-      "literal": "rgba(220, 38, 38, 0.18)",
-      "locations": [
-        {
-          "line": 2599,
-          "column": 92
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
       "reachability": "unverified",
       "decision": "pending",
       "semanticRole": null,
@@ -2611,27 +2023,6 @@
       "evidence": []
     },
     {
-      "fingerprint": "b26aaf012f85619328f84cb3ace71447b7ec1e521b9b786d24b2b0bf47bc507c",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": "[data-theme='dark'] .req-bulk-btn--danger",
-      "property": "color",
-      "literal": "#fca5a5",
-      "locations": [
-        {
-          "line": 2998,
-          "column": 52
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
       "fingerprint": "b7eadf929520ad93a591ccf9d5b9270c9c7f2b7e5051d6b6eb8c7ce4785a8d57",
       "file": "client/src/App.css",
       "context": [],
@@ -2653,69 +2044,6 @@
       "evidence": []
     },
     {
-      "fingerprint": "ba8ccdca8167194a2b4547cfd062c3b0266b216da30eaf87d97baf06dc6f75b4",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".bulk-apply-btn--clear:hover:not(:disabled)",
-      "property": "box-shadow",
-      "literal": "#dc2626",
-      "locations": [
-        {
-          "line": 3020,
-          "column": 128
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "bd19cb4d5322a1a9698fb1db412cdd24052f51d253c8b8a217de22baf6a4b7a3",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": "[data-theme='dark'] .btn-danger, .dark .btn-danger",
-      "property": "color",
-      "literal": "#fff",
-      "locations": [
-        {
-          "line": 2813,
-          "column": 111
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "c05bf3e38dfdcbec35e1ade23d524c479301578631fe378985502bc20126f533",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".req-bulk-btn--danger",
-      "property": "color",
-      "literal": "#dc2626",
-      "locations": [
-        {
-          "line": 2990,
-          "column": 52
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
       "fingerprint": "c1d9d78a744d1fcb9e57320539d10b6b3d55319b94cfaf7d160895e2593f3d5d",
       "file": "client/src/App.css",
       "context": [],
@@ -2726,27 +2054,6 @@
         {
           "line": 1614,
           "column": 50
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "c211e49790ddd34738a7aaf484e53c13758576756dd6f54bcbbe13f8ac2b2f9b",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".cell-pop-item--danger",
-      "property": "color",
-      "literal": "#dc2626",
-      "locations": [
-        {
-          "line": 1709,
-          "column": 53
         }
       ],
       "count": 1,
@@ -2814,27 +2121,6 @@
       ],
       "count": 1,
       "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "c7f5008cde827a2839317ff98dc9b1d5491253ebee6d4eb07d485e56a80d417f",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".bulk-tag-chip--on:hover",
-      "property": "background",
-      "literal": "#2563eb",
-      "locations": [
-        {
-          "line": 3040,
-          "column": 40
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
       "reachability": "unverified",
       "decision": "pending",
       "semanticRole": null,
@@ -2919,48 +2205,6 @@
       ],
       "count": 1,
       "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "cb778f2d090422a2e455a6db746dfc104d17d4e0d251872cd55430dfe0bd188d",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": "[data-theme='dark'] .btn-danger, .dark .btn-danger",
-      "property": "border-color",
-      "literal": "#b91c1c",
-      "locations": [
-        {
-          "line": 2813,
-          "column": 95
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "cdcdb4a42b48e8e3e9e472b7925de237e6e8fcc0ad19cacdd0706c9e3e2f61f7",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".bulk-tag-chip--on:hover",
-      "property": "border-color",
-      "literal": "#2563eb",
-      "locations": [
-        {
-          "line": 3040,
-          "column": 63
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
       "reachability": "unverified",
       "decision": "pending",
       "semanticRole": null,
@@ -3136,27 +2380,6 @@
       "evidence": []
     },
     {
-      "fingerprint": "daec6a19f6c14dcb8ef422fe6ad823de47553c9b447575be75cc0c69fecbbd62",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".bulk-tag-chip--off",
-      "property": "color",
-      "literal": "#dc2626",
-      "locations": [
-        {
-          "line": 3038,
-          "column": 130
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
       "fingerprint": "db96a88dda2121943a6220dfbeb9bfe61be33fdd24a1778db0c3ba285164e87f",
       "file": "client/src/App.css",
       "context": [],
@@ -3241,48 +2464,6 @@
       "evidence": []
     },
     {
-      "fingerprint": "e59543d5b54562cee630ce09c8760a8d087091d9e1cad02b4190850046ba3a62",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".bulk-tag-chip--on",
-      "property": "border-color",
-      "literal": "#3b82f6",
-      "locations": [
-        {
-          "line": 3037,
-          "column": 98
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "e5ea94740d266bc41ea59fc1d35543dc7163936d609c569aef02a1a2a7cd51fe",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".req-bulk-btn--confirm",
-      "property": "background",
-      "literal": "#dc2626",
-      "locations": [
-        {
-          "line": 2999,
-          "column": 58
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
       "fingerprint": "e62bf36ec0c4b9b9ba4e4e6bb15afba469b21a039d6b3c29b83018197c65796b",
       "file": "client/src/App.css",
       "context": [],
@@ -3293,27 +2474,6 @@
         {
           "line": 2933,
           "column": 45
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "e6d105034fd2b783640a4f2d5b2c573fa4287eefb0d8f4c7f9cf48f4c98b6d16",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".req-bulk-btn--confirm",
-      "property": "color",
-      "literal": "#fff",
-      "locations": [
-        {
-          "line": 2999,
-          "column": 75
         }
       ],
       "count": 1,
@@ -3339,27 +2499,6 @@
       ],
       "count": 1,
       "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "e840e90949ad0ebf1d13b68ee85bdbd426ac32b30716fa4b07aef9f6af971019",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".bulk-tag-chip",
-      "property": "background",
-      "literal": "rgba(127, 127, 127, 0.08)",
-      "locations": [
-        {
-          "line": 3030,
-          "column": 35
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
       "reachability": "unverified",
       "decision": "pending",
       "semanticRole": null,
@@ -3556,48 +2695,6 @@
       "evidence": []
     },
     {
-      "fingerprint": "f752bb115455c307efed8eb78cf8767c27a8eb01515a64aadee9b66e12e490aa",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".req-bulk-btn",
-      "property": "background",
-      "literal": "rgba(127, 127, 127, 0.08)",
-      "locations": [
-        {
-          "line": 2982,
-          "column": 35
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "f8b4fcfbd1ee588151e92611cc3479b46877991b7edb492c93cacc962d698eba",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".bulk-apply-btn",
-      "property": "background",
-      "literal": "#3b82f6",
-      "locations": [
-        {
-          "line": 3011,
-          "column": 48
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
       "fingerprint": "fa58de7334fb5e6cd3b565e92fff907a8d8eba79e38d80c73fc2e01fa8eba873",
       "file": "client/src/App.css",
       "context": [],
@@ -3675,27 +2772,6 @@
       ],
       "count": 1,
       "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "ff6186cbe0f575db964daea04220f5b56f1c36f823780373d6aeccfb983f8c6e",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".btn-danger",
-      "property": "color",
-      "literal": "white",
-      "locations": [
-        {
-          "line": 72,
-          "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
       "reachability": "unverified",
       "decision": "pending",
       "semanticRole": null,
@@ -26728,29 +25804,469 @@
       "reason": "TC-C4a 生命周期/告警语义迁移；文字与背景用途分别映射，保持交互和状态类别",
       "baselineHead": "916d5ab",
       "token": "--status-info-text"
+    },
+    {
+      "fingerprint": "ff6186cbe0f575db964daea04220f5b56f1c36f823780373d6aeccfb983f8c6e",
+      "file": "client/src/App.css",
+      "literal": "white",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4b 批量及危险动作；保持标签添加/移除语义，实心/文字/淡底/边界分开",
+      "baselineHead": "b6db997",
+      "token": "--solid-foreground"
+    },
+    {
+      "fingerprint": "90f59ad9f75a8771c1c9844f57f6311eaace4e10c38625db93b08f4d4e3b9bac",
+      "file": "client/src/App.css",
+      "literal": "rgba(220, 38, 38, 0.08)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4b 批量及危险动作；保持标签添加/移除语义，实心/文字/淡底/边界分开",
+      "baselineHead": "b6db997",
+      "token": "--status-danger-soft"
+    },
+    {
+      "fingerprint": "9359332e16321fbea7ae9e186657b5c0842bca3922d7fa766c870d8949a0a911",
+      "file": "client/src/App.css",
+      "literal": "rgba(220, 38, 38, 0.12)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4b 批量及危险动作；保持标签添加/移除语义，实心/文字/淡底/边界分开",
+      "baselineHead": "b6db997",
+      "token": "--status-danger-soft"
+    },
+    {
+      "fingerprint": "c211e49790ddd34738a7aaf484e53c13758576756dd6f54bcbbe13f8ac2b2f9b",
+      "file": "client/src/App.css",
+      "literal": "#dc2626",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4b 批量及危险动作；保持标签添加/移除语义，实心/文字/淡底/边界分开",
+      "baselineHead": "b6db997",
+      "token": "--status-danger-text"
+    },
+    {
+      "fingerprint": "64659b4a8b54eb48664707d3028a07fa7220ce8344c6ef52cd866166892d2712",
+      "file": "client/src/App.css",
+      "literal": "#fca5a5",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4b 批量及危险动作；保持标签添加/移除语义，实心/文字/淡底/边界分开",
+      "baselineHead": "b6db997",
+      "token": "--status-danger-text"
+    },
+    {
+      "fingerprint": "1d7624d6423abe6585e4ef92d3c62357f7d102def79ce474ecb76d91e287cfd7",
+      "file": "client/src/App.css",
+      "literal": "#fca5a5",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4b 批量及危险动作；保持标签添加/移除语义，实心/文字/淡底/边界分开",
+      "baselineHead": "b6db997",
+      "token": "--status-danger-text"
+    },
+    {
+      "fingerprint": "006419f9fe6b0eec0f99c6d43b3ac744d0bd0181a59b12df4e3cb544777d9ed6",
+      "file": "client/src/App.css",
+      "literal": "#fecaca",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4b 批量及危险动作；保持标签添加/移除语义，实心/文字/淡底/边界分开",
+      "baselineHead": "b6db997",
+      "token": "--status-danger-text"
+    },
+    {
+      "fingerprint": "aa2185230ac6d52e8f4f0bd27494b82f5cb30b54b8d05c0460a0f0204d26f80d",
+      "file": "client/src/App.css",
+      "literal": "rgba(220, 38, 38, 0.18)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4b 批量及危险动作；保持标签添加/移除语义，实心/文字/淡底/边界分开",
+      "baselineHead": "b6db997",
+      "token": "--status-danger-soft"
+    },
+    {
+      "fingerprint": "5d57bc1d6d6fcacb567f615382c2d00baa05adfbc568b1fece1193a14af08ce3",
+      "file": "client/src/App.css",
+      "literal": "#b91c1c",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4b 批量及危险动作；保持标签添加/移除语义，实心/文字/淡底/边界分开",
+      "baselineHead": "b6db997",
+      "token": "--status-danger-solid"
+    },
+    {
+      "fingerprint": "cb778f2d090422a2e455a6db746dfc104d17d4e0d251872cd55430dfe0bd188d",
+      "file": "client/src/App.css",
+      "literal": "#b91c1c",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4b 批量及危险动作；保持标签添加/移除语义，实心/文字/淡底/边界分开",
+      "baselineHead": "b6db997",
+      "token": "--status-danger-border"
+    },
+    {
+      "fingerprint": "bd19cb4d5322a1a9698fb1db412cdd24052f51d253c8b8a217de22baf6a4b7a3",
+      "file": "client/src/App.css",
+      "literal": "#fff",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4b 批量及危险动作；保持标签添加/移除语义，实心/文字/淡底/边界分开",
+      "baselineHead": "b6db997",
+      "token": "--solid-foreground"
+    },
+    {
+      "fingerprint": "a3de15ceaf657ecfe4317fd5118af115c06354df26e3abc822e52425e06e3c2e",
+      "file": "client/src/App.css",
+      "literal": "#fff",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4b 批量及危险动作；保持标签添加/移除语义，实心/文字/淡底/边界分开",
+      "baselineHead": "b6db997",
+      "token": "--bg-primary"
+    },
+    {
+      "fingerprint": "333a5d62c73e67b3140473c91e5157259c751c821bc966e6be6982010ace566b",
+      "file": "client/src/App.css",
+      "literal": "rgba(0, 0, 0, 0.22)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4b 批量及危险动作；保持标签添加/移除语义，实心/文字/淡底/边界分开",
+      "baselineHead": "b6db997",
+      "token": "--solid-shade"
+    },
+    {
+      "fingerprint": "f752bb115455c307efed8eb78cf8767c27a8eb01515a64aadee9b66e12e490aa",
+      "file": "client/src/App.css",
+      "literal": "rgba(127, 127, 127, 0.08)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4b 批量及危险动作；保持标签添加/移除语义，实心/文字/淡底/边界分开",
+      "baselineHead": "b6db997",
+      "token": "--bg-secondary"
+    },
+    {
+      "fingerprint": "73972ddaa25dbef7bd42fe5d3bc6b71f1b4bd54d3fa2c81c0dbafb3f5fafeee3",
+      "file": "client/src/App.css",
+      "literal": "rgba(127, 127, 127, 0.16)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4b 批量及危险动作；保持标签添加/移除语义，实心/文字/淡底/边界分开",
+      "baselineHead": "b6db997",
+      "token": "--bg-secondary"
+    },
+    {
+      "fingerprint": "c05bf3e38dfdcbec35e1ade23d524c479301578631fe378985502bc20126f533",
+      "file": "client/src/App.css",
+      "literal": "#dc2626",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4b 批量及危险动作；保持标签添加/移除语义，实心/文字/淡底/边界分开",
+      "baselineHead": "b6db997",
+      "token": "--status-danger-text"
+    },
+    {
+      "fingerprint": "5f92d3486f7847487cf86717969606cb738db0fef072889c52f974a3213d8b3b",
+      "file": "client/src/App.css",
+      "literal": "rgba(220, 38, 38, 0.08)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4b 批量及危险动作；保持标签添加/移除语义，实心/文字/淡底/边界分开",
+      "baselineHead": "b6db997",
+      "token": "--status-danger-soft"
+    },
+    {
+      "fingerprint": "24db6296634314639d57df1f02819cc4e2a63ef9fa39b1352b3a3944eb1d3125",
+      "file": "client/src/App.css",
+      "literal": "rgba(220, 38, 38, 0.16)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4b 批量及危险动作；保持标签添加/移除语义，实心/文字/淡底/边界分开",
+      "baselineHead": "b6db997",
+      "token": "--status-danger-soft"
+    },
+    {
+      "fingerprint": "6cf9fdf68337e4d7444fa078bd37547f271c7174eb9456a8ea7ae456200a403a",
+      "file": "client/src/App.css",
+      "literal": "#b91c1c",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4b 批量及危险动作；保持标签添加/移除语义，实心/文字/淡底/边界分开",
+      "baselineHead": "b6db997",
+      "token": "--status-danger-text"
+    },
+    {
+      "fingerprint": "b26aaf012f85619328f84cb3ace71447b7ec1e521b9b786d24b2b0bf47bc507c",
+      "file": "client/src/App.css",
+      "literal": "#fca5a5",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4b 批量及危险动作；保持标签添加/移除语义，实心/文字/淡底/边界分开",
+      "baselineHead": "b6db997",
+      "token": "--status-danger-text"
+    },
+    {
+      "fingerprint": "e5ea94740d266bc41ea59fc1d35543dc7163936d609c569aef02a1a2a7cd51fe",
+      "file": "client/src/App.css",
+      "literal": "#dc2626",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4b 批量及危险动作；保持标签添加/移除语义，实心/文字/淡底/边界分开",
+      "baselineHead": "b6db997",
+      "token": "--status-danger-solid"
+    },
+    {
+      "fingerprint": "e6d105034fd2b783640a4f2d5b2c573fa4287eefb0d8f4c7f9cf48f4c98b6d16",
+      "file": "client/src/App.css",
+      "literal": "#fff",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4b 批量及危险动作；保持标签添加/移除语义，实心/文字/淡底/边界分开",
+      "baselineHead": "b6db997",
+      "token": "--solid-foreground"
+    },
+    {
+      "fingerprint": "555e56c36dbdb2867242322e8cdccf237bb661d0f01aadf3d3cdf44b498ee852",
+      "file": "client/src/App.css",
+      "literal": "#fff",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4b 批量及危险动作；保持标签添加/移除语义，实心/文字/淡底/边界分开",
+      "baselineHead": "b6db997",
+      "token": "--solid-foreground"
+    },
+    {
+      "fingerprint": "f8b4fcfbd1ee588151e92611cc3479b46877991b7edb492c93cacc962d698eba",
+      "file": "client/src/App.css",
+      "literal": "#3b82f6",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4b 批量及危险动作；保持标签添加/移除语义，实心/文字/淡底/边界分开",
+      "baselineHead": "b6db997",
+      "token": "--primary-solid"
+    },
+    {
+      "fingerprint": "538d95520a7913c23dcdc641984c7d037108ae0891f3827b45344f90e5af3dae",
+      "file": "client/src/App.css",
+      "literal": "#dc2626",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4b 批量及危险动作；保持标签添加/移除语义，实心/文字/淡底/边界分开",
+      "baselineHead": "b6db997",
+      "token": "--status-danger-text"
+    },
+    {
+      "fingerprint": "6504917d82123c22c28b259c6c20b08fade29d2fb5beb61bd7a033be946ef3be",
+      "file": "client/src/App.css",
+      "literal": "#2563eb",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4b 批量及危险动作；保持标签添加/移除语义，实心/文字/淡底/边界分开",
+      "baselineHead": "b6db997",
+      "token": "--primary-solid"
+    },
+    {
+      "fingerprint": "8ee1015252df2bb969bf128f9c57a173f4ac0020dea2bb46a0e655aac5cc98e9",
+      "file": "client/src/App.css",
+      "literal": "#fff",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4b 批量及危险动作；保持标签添加/移除语义，实心/文字/淡底/边界分开",
+      "baselineHead": "b6db997",
+      "token": "--solid-foreground"
+    },
+    {
+      "fingerprint": "2a5e67d11f578182586eb977e58ce8b824d1ab85ef17a84f32cab1d12591069d",
+      "file": "client/src/App.css",
+      "literal": "rgba(220, 38, 38, 0.12)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4b 批量及危险动作；保持标签添加/移除语义，实心/文字/淡底/边界分开",
+      "baselineHead": "b6db997",
+      "token": "--status-danger-soft"
+    },
+    {
+      "fingerprint": "423d4db8a3d1f8f64a075e92654f5985b2bea03dab667ebed6f28d67cc7065df",
+      "file": "client/src/App.css",
+      "literal": "#b91c1c",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4b 批量及危险动作；保持标签添加/移除语义，实心/文字/淡底/边界分开",
+      "baselineHead": "b6db997",
+      "token": "--status-danger-text"
+    },
+    {
+      "fingerprint": "ba8ccdca8167194a2b4547cfd062c3b0266b216da30eaf87d97baf06dc6f75b4",
+      "file": "client/src/App.css",
+      "literal": "#dc2626",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4b 批量及危险动作；保持标签添加/移除语义，实心/文字/淡底/边界分开",
+      "baselineHead": "b6db997",
+      "token": "--status-danger-border"
+    },
+    {
+      "fingerprint": "e840e90949ad0ebf1d13b68ee85bdbd426ac32b30716fa4b07aef9f6af971019",
+      "file": "client/src/App.css",
+      "literal": "rgba(127, 127, 127, 0.08)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4b 批量及危险动作；保持标签添加/移除语义，实心/文字/淡底/边界分开",
+      "baselineHead": "b6db997",
+      "token": "--bg-secondary"
+    },
+    {
+      "fingerprint": "35fcb43a837d2362c92bf05b3d9ba077c2e858b8633cac775e6be9e7c1dc82e9",
+      "file": "client/src/App.css",
+      "literal": "rgba(127, 127, 127, 0.16)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4b 批量及危险动作；保持标签添加/移除语义，实心/文字/淡底/边界分开",
+      "baselineHead": "b6db997",
+      "token": "--bg-secondary"
+    },
+    {
+      "fingerprint": "9b423552ee40dccc2aaf66f8ca25233b548dcb7a9507e9f7cd6c84da2ec38bcb",
+      "file": "client/src/App.css",
+      "literal": "#3b82f6",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4b 批量及危险动作；保持标签添加/移除语义，实心/文字/淡底/边界分开",
+      "baselineHead": "b6db997",
+      "token": "--primary-solid"
+    },
+    {
+      "fingerprint": "e59543d5b54562cee630ce09c8760a8d087091d9e1cad02b4190850046ba3a62",
+      "file": "client/src/App.css",
+      "literal": "#3b82f6",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4b 批量及危险动作；保持标签添加/移除语义，实心/文字/淡底/边界分开",
+      "baselineHead": "b6db997",
+      "token": "--primary-solid"
+    },
+    {
+      "fingerprint": "34e2030880185aeb752432cec0e18c342e2650e43f7ec74b7673502cfdb7daa5",
+      "file": "client/src/App.css",
+      "literal": "#fff",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4b 批量及危险动作；保持标签添加/移除语义，实心/文字/淡底/边界分开",
+      "baselineHead": "b6db997",
+      "token": "--solid-foreground"
+    },
+    {
+      "fingerprint": "51a46109230a898a9443be8c780e72ddb9b417fd5020f2924bb453d4de81a58a",
+      "file": "client/src/App.css",
+      "literal": "rgba(220, 38, 38, 0.1)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4b 批量及危险动作；保持标签添加/移除语义，实心/文字/淡底/边界分开",
+      "baselineHead": "b6db997",
+      "token": "--status-danger-soft"
+    },
+    {
+      "fingerprint": "9bb299961ec3f45cbe54e940c2b5492dead57cb7b81f7a9070a5a6660c339ab1",
+      "file": "client/src/App.css",
+      "literal": "#dc2626",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4b 批量及危险动作；保持标签添加/移除语义，实心/文字/淡底/边界分开",
+      "baselineHead": "b6db997",
+      "token": "--status-danger-border"
+    },
+    {
+      "fingerprint": "daec6a19f6c14dcb8ef422fe6ad823de47553c9b447575be75cc0c69fecbbd62",
+      "file": "client/src/App.css",
+      "literal": "#dc2626",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4b 批量及危险动作；保持标签添加/移除语义，实心/文字/淡底/边界分开",
+      "baselineHead": "b6db997",
+      "token": "--status-danger-text"
+    },
+    {
+      "fingerprint": "c7f5008cde827a2839317ff98dc9b1d5491253ebee6d4eb07d485e56a80d417f",
+      "file": "client/src/App.css",
+      "literal": "#2563eb",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4b 批量及危险动作；保持标签添加/移除语义，实心/文字/淡底/边界分开",
+      "baselineHead": "b6db997",
+      "token": "--primary-solid"
+    },
+    {
+      "fingerprint": "cdcdb4a42b48e8e3e9e472b7925de237e6e8fcc0ad19cacdd0706c9e3e2f61f7",
+      "file": "client/src/App.css",
+      "literal": "#2563eb",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4b 批量及危险动作；保持标签添加/移除语义，实心/文字/淡底/边界分开",
+      "baselineHead": "b6db997",
+      "token": "--primary-solid"
+    },
+    {
+      "fingerprint": "154083c1984692d54af0371e5b5810bcbe795fe625c8091ea6bc972e5c4ac77a",
+      "file": "client/src/App.css",
+      "literal": "#fff",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4b 批量及危险动作；保持标签添加/移除语义，实心/文字/淡底/边界分开",
+      "baselineHead": "b6db997",
+      "token": "--solid-foreground"
+    },
+    {
+      "fingerprint": "093652fe94c918bf4c6813f792511171067e55490b2003e5b8898fde9f503ff6",
+      "file": "client/src/App.css",
+      "literal": "rgba(220, 38, 38, 0.16)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4b 批量及危险动作；保持标签添加/移除语义，实心/文字/淡底/边界分开",
+      "baselineHead": "b6db997",
+      "token": "--status-danger-soft"
+    },
+    {
+      "fingerprint": "2e5a468f681b1932f08759afc43df6f33281a6d5ca8403efb205afdbcd90ddb1",
+      "file": "client/src/App.css",
+      "literal": "#b91c1c",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4b 批量及危险动作；保持标签添加/移除语义，实心/文字/淡底/边界分开",
+      "baselineHead": "b6db997",
+      "token": "--status-danger-text"
+    },
+    {
+      "fingerprint": "271c350a299eb995f21a8d3acea9fbe1225417289f4405c7d33e10b2f23254f1",
+      "file": "client/src/App.css",
+      "literal": "#b91c1c",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4b 批量及危险动作；保持标签添加/移除语义，实心/文字/淡底/边界分开",
+      "baselineHead": "b6db997",
+      "token": "--status-danger-border"
     }
   ],
   "additions": [],
   "summary": {
-    "occurrences": 1031,
-    "identities": 1009,
-    "uniqueColors": 235,
+    "occurrences": 987,
+    "identities": 965,
+    "uniqueColors": 230,
     "files": 52,
     "byKind": {
-      "semantic-color": 363,
+      "semantic-color": 332,
       "token-definition": 224,
-      "neutral-literal": 267,
+      "neutral-literal": 254,
       "unknown": 164,
       "data-color": 12,
       "non-color": 1
     },
     "byDecision": {
-      "pending": 794,
+      "pending": 750,
       "not-debt": 225,
       "accepted-literal": 12
     },
     "byFile": {
-      "client/src/App.css": 176,
+      "client/src/App.css": 132,
       "client/src/components/AppHeader.css": 20,
       "client/src/components/boards/EditableCells.tsx": 10,
       "client/src/components/Charts.css": 11,

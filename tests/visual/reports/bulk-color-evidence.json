@@ -1,0 +1,5304 @@
+{
+  "evidence": [
+    {
+      "theme": "light",
+      "width": 1600,
+      "state": "default",
+      "rows": [
+        {
+          "selector": "req-bulk-btn",
+          "text": "优先级",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "产品版本",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "交付计划",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "标签",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "迭代",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn req-bulk-btn--danger ",
+          "text": "删除",
+          "disabled": false,
+          "foreground": "rgb(153, 27, 27)",
+          "background": [
+            254,
+            226,
+            226
+          ],
+          "ratio": 6.802728419777387
+        },
+        {
+          "selector": "req-bulk-btn req-bulk-btn--close",
+          "text": "",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        }
+      ]
+    },
+    {
+      "theme": "light",
+      "width": 1600,
+      "state": "delete-confirmation",
+      "rows": [
+        {
+          "selector": "req-bulk-btn",
+          "text": "优先级",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "产品版本",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "交付计划",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "标签",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "迭代",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn req-bulk-btn--danger req-bulk-btn--confirm",
+          "text": "确认删除 3 项？",
+          "disabled": false,
+          "foreground": "rgb(255, 255, 255)",
+          "background": [
+            166,
+            25,
+            25
+          ],
+          "ratio": 7.5689642638511705
+        },
+        {
+          "selector": "req-bulk-btn req-bulk-btn--close",
+          "text": "",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        }
+      ]
+    },
+    {
+      "theme": "light",
+      "width": 1600,
+      "state": "delete-confirmation-hover",
+      "rows": [
+        {
+          "selector": "req-bulk-btn",
+          "text": "优先级",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "产品版本",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "交付计划",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "标签",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "迭代",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn req-bulk-btn--danger req-bulk-btn--confirm",
+          "text": "确认删除 3 项？",
+          "disabled": false,
+          "foreground": "rgb(255, 255, 255)",
+          "background": [
+            166,
+            25,
+            25
+          ],
+          "ratio": 7.5689642638511705
+        },
+        {
+          "selector": "req-bulk-btn req-bulk-btn--close",
+          "text": "",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        }
+      ]
+    },
+    {
+      "theme": "light",
+      "width": 1600,
+      "state": "tags-unselected",
+      "rows": [
+        {
+          "selector": "req-bulk-btn",
+          "text": "优先级",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "产品版本",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "交付计划",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "标签",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "迭代",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn req-bulk-btn--danger req-bulk-btn--confirm",
+          "text": "确认删除 3 项？",
+          "disabled": false,
+          "foreground": "rgb(255, 255, 255)",
+          "background": [
+            185,
+            28,
+            28
+          ],
+          "ratio": 6.4700447145121895
+        },
+        {
+          "selector": "req-bulk-btn req-bulk-btn--close",
+          "text": "",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "bulk-tag-chip ",
+          "text": "UI审计·添加",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "bulk-tag-chip ",
+          "text": "UI审计·移除",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "bulk-tag-chip ",
+          "text": "UI审计·添加",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "bulk-tag-chip ",
+          "text": "UI审计·移除",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "bulk-apply-btn",
+          "text": "应用",
+          "disabled": true,
+          "foreground": "rgb(255, 255, 255)",
+          "background": [
+            79,
+            70,
+            229
+          ],
+          "ratio": 6.287528596095884
+        }
+      ]
+    },
+    {
+      "theme": "light",
+      "width": 1600,
+      "state": "tags-add-remove",
+      "rows": [
+        {
+          "selector": "req-bulk-btn",
+          "text": "优先级",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "产品版本",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "交付计划",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "标签",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "迭代",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn req-bulk-btn--danger req-bulk-btn--confirm",
+          "text": "确认删除 3 项？",
+          "disabled": false,
+          "foreground": "rgb(255, 255, 255)",
+          "background": [
+            185,
+            28,
+            28
+          ],
+          "ratio": 6.4700447145121895
+        },
+        {
+          "selector": "req-bulk-btn req-bulk-btn--close",
+          "text": "",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "bulk-tag-chip bulk-tag-chip--on",
+          "text": "UI审计·添加",
+          "disabled": false,
+          "foreground": "rgb(255, 255, 255)",
+          "background": [
+            79,
+            70,
+            229
+          ],
+          "ratio": 6.287528596095884
+        },
+        {
+          "selector": "bulk-tag-chip ",
+          "text": "UI审计·移除",
+          "disabled": true,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "bulk-tag-chip ",
+          "text": "UI审计·添加",
+          "disabled": true,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "bulk-tag-chip bulk-tag-chip--off",
+          "text": "UI审计·移除",
+          "disabled": false,
+          "foreground": "rgb(153, 27, 27)",
+          "background": [
+            254,
+            226,
+            226
+          ],
+          "ratio": 6.802728419777387
+        },
+        {
+          "selector": "bulk-apply-btn",
+          "text": "应用",
+          "disabled": false,
+          "foreground": "rgb(255, 255, 255)",
+          "background": [
+            79,
+            70,
+            229
+          ],
+          "ratio": 6.287528596095884
+        }
+      ]
+    },
+    {
+      "theme": "light",
+      "width": 1600,
+      "state": "hover-.bulk-tag-chip--on",
+      "rows": [
+        {
+          "selector": "req-bulk-btn",
+          "text": "优先级",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "产品版本",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "交付计划",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "标签",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "迭代",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn req-bulk-btn--danger req-bulk-btn--confirm",
+          "text": "确认删除 3 项？",
+          "disabled": false,
+          "foreground": "rgb(255, 255, 255)",
+          "background": [
+            185,
+            28,
+            28
+          ],
+          "ratio": 6.4700447145121895
+        },
+        {
+          "selector": "req-bulk-btn req-bulk-btn--close",
+          "text": "",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "bulk-tag-chip bulk-tag-chip--on",
+          "text": "UI审计·添加",
+          "disabled": false,
+          "foreground": "rgb(255, 255, 255)",
+          "background": [
+            71,
+            63,
+            206
+          ],
+          "ratio": 7.3166459218667965
+        },
+        {
+          "selector": "bulk-tag-chip ",
+          "text": "UI审计·移除",
+          "disabled": true,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "bulk-tag-chip ",
+          "text": "UI审计·添加",
+          "disabled": true,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "bulk-tag-chip bulk-tag-chip--off",
+          "text": "UI审计·移除",
+          "disabled": false,
+          "foreground": "rgb(153, 27, 27)",
+          "background": [
+            254,
+            226,
+            226
+          ],
+          "ratio": 6.802728419777387
+        },
+        {
+          "selector": "bulk-apply-btn",
+          "text": "应用",
+          "disabled": false,
+          "foreground": "rgb(255, 255, 255)",
+          "background": [
+            79,
+            70,
+            229
+          ],
+          "ratio": 6.287528596095884
+        }
+      ]
+    },
+    {
+      "theme": "light",
+      "width": 1600,
+      "state": "hover-.bulk-tag-chip--off",
+      "rows": [
+        {
+          "selector": "req-bulk-btn",
+          "text": "优先级",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "产品版本",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "交付计划",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "标签",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "迭代",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn req-bulk-btn--danger req-bulk-btn--confirm",
+          "text": "确认删除 3 项？",
+          "disabled": false,
+          "foreground": "rgb(255, 255, 255)",
+          "background": [
+            185,
+            28,
+            28
+          ],
+          "ratio": 6.4700447145121895
+        },
+        {
+          "selector": "req-bulk-btn req-bulk-btn--close",
+          "text": "",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "bulk-tag-chip bulk-tag-chip--on",
+          "text": "UI审计·添加",
+          "disabled": false,
+          "foreground": "rgb(255, 255, 255)",
+          "background": [
+            79,
+            70,
+            229
+          ],
+          "ratio": 6.287528596095884
+        },
+        {
+          "selector": "bulk-tag-chip ",
+          "text": "UI审计·移除",
+          "disabled": true,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "bulk-tag-chip ",
+          "text": "UI审计·添加",
+          "disabled": true,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "bulk-tag-chip bulk-tag-chip--off",
+          "text": "UI审计·移除",
+          "disabled": false,
+          "foreground": "rgb(153, 27, 27)",
+          "background": [
+            254,
+            226,
+            226
+          ],
+          "ratio": 6.802728419777387
+        },
+        {
+          "selector": "bulk-apply-btn",
+          "text": "应用",
+          "disabled": false,
+          "foreground": "rgb(255, 255, 255)",
+          "background": [
+            79,
+            70,
+            229
+          ],
+          "ratio": 6.287528596095884
+        }
+      ]
+    },
+    {
+      "theme": "light",
+      "width": 1600,
+      "state": "hover-.bulk-apply-btn",
+      "rows": [
+        {
+          "selector": "req-bulk-btn",
+          "text": "优先级",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "产品版本",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "交付计划",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "标签",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "迭代",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn req-bulk-btn--danger req-bulk-btn--confirm",
+          "text": "确认删除 3 项？",
+          "disabled": false,
+          "foreground": "rgb(255, 255, 255)",
+          "background": [
+            185,
+            28,
+            28
+          ],
+          "ratio": 6.4700447145121895
+        },
+        {
+          "selector": "req-bulk-btn req-bulk-btn--close",
+          "text": "",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "bulk-tag-chip bulk-tag-chip--on",
+          "text": "UI审计·添加",
+          "disabled": false,
+          "foreground": "rgb(255, 255, 255)",
+          "background": [
+            79,
+            70,
+            229
+          ],
+          "ratio": 6.287528596095884
+        },
+        {
+          "selector": "bulk-tag-chip ",
+          "text": "UI审计·移除",
+          "disabled": true,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "bulk-tag-chip ",
+          "text": "UI审计·添加",
+          "disabled": true,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "bulk-tag-chip bulk-tag-chip--off",
+          "text": "UI审计·移除",
+          "disabled": false,
+          "foreground": "rgb(153, 27, 27)",
+          "background": [
+            254,
+            226,
+            226
+          ],
+          "ratio": 6.802728419777387
+        },
+        {
+          "selector": "bulk-apply-btn",
+          "text": "应用",
+          "disabled": false,
+          "foreground": "rgb(255, 255, 255)",
+          "background": [
+            71,
+            63,
+            206
+          ],
+          "ratio": 7.3166459218667965
+        }
+      ]
+    },
+    {
+      "theme": "light",
+      "width": 1600,
+      "state": "clear-version",
+      "rows": [
+        {
+          "selector": "req-bulk-btn",
+          "text": "优先级",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "产品版本",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "交付计划",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "标签",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "迭代",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn req-bulk-btn--danger req-bulk-btn--confirm",
+          "text": "确认删除 3 项？",
+          "disabled": false,
+          "foreground": "rgb(255, 255, 255)",
+          "background": [
+            185,
+            28,
+            28
+          ],
+          "ratio": 6.4700447145121895
+        },
+        {
+          "selector": "req-bulk-btn req-bulk-btn--close",
+          "text": "",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "bulk-apply-btn bulk-apply-btn--clear",
+          "text": "清空 3 项",
+          "disabled": false,
+          "foreground": "rgb(153, 27, 27)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 8.310050481211189
+        }
+      ]
+    },
+    {
+      "theme": "light",
+      "width": 1600,
+      "state": "clear-version-hover",
+      "rows": [
+        {
+          "selector": "req-bulk-btn",
+          "text": "优先级",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "产品版本",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "交付计划",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "标签",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "迭代",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn req-bulk-btn--danger req-bulk-btn--confirm",
+          "text": "确认删除 3 项？",
+          "disabled": false,
+          "foreground": "rgb(255, 255, 255)",
+          "background": [
+            185,
+            28,
+            28
+          ],
+          "ratio": 6.4700447145121895
+        },
+        {
+          "selector": "req-bulk-btn req-bulk-btn--close",
+          "text": "",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "bulk-apply-btn bulk-apply-btn--clear",
+          "text": "清空 3 项",
+          "disabled": false,
+          "foreground": "rgb(153, 27, 27)",
+          "background": [
+            254,
+            226,
+            226
+          ],
+          "ratio": 6.802728419777387
+        }
+      ]
+    },
+    {
+      "theme": "light",
+      "width": 1600,
+      "state": "pending",
+      "rows": [
+        {
+          "selector": "req-bulk-btn",
+          "text": "优先级",
+          "disabled": true,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "产品版本",
+          "disabled": true,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "交付计划",
+          "disabled": true,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "标签",
+          "disabled": true,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "迭代",
+          "disabled": true,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn req-bulk-btn--danger ",
+          "text": "删除",
+          "disabled": true,
+          "foreground": "rgb(153, 27, 27)",
+          "background": [
+            254,
+            226,
+            226
+          ],
+          "ratio": 6.802728419777387
+        },
+        {
+          "selector": "req-bulk-btn req-bulk-btn--close",
+          "text": "",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        }
+      ]
+    },
+    {
+      "theme": "light",
+      "width": 1366,
+      "state": "default",
+      "rows": [
+        {
+          "selector": "req-bulk-btn",
+          "text": "优先级",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "产品版本",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "交付计划",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "标签",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "迭代",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn req-bulk-btn--danger ",
+          "text": "删除",
+          "disabled": false,
+          "foreground": "rgb(153, 27, 27)",
+          "background": [
+            254,
+            226,
+            226
+          ],
+          "ratio": 6.802728419777387
+        },
+        {
+          "selector": "req-bulk-btn req-bulk-btn--close",
+          "text": "",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        }
+      ]
+    },
+    {
+      "theme": "light",
+      "width": 1366,
+      "state": "delete-confirmation",
+      "rows": [
+        {
+          "selector": "req-bulk-btn",
+          "text": "优先级",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "产品版本",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "交付计划",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "标签",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "迭代",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn req-bulk-btn--danger req-bulk-btn--confirm",
+          "text": "确认删除 3 项？",
+          "disabled": false,
+          "foreground": "rgb(255, 255, 255)",
+          "background": [
+            167,
+            25,
+            25
+          ],
+          "ratio": 7.510225486298138
+        },
+        {
+          "selector": "req-bulk-btn req-bulk-btn--close",
+          "text": "",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        }
+      ]
+    },
+    {
+      "theme": "light",
+      "width": 1366,
+      "state": "delete-confirmation-hover",
+      "rows": [
+        {
+          "selector": "req-bulk-btn",
+          "text": "优先级",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "产品版本",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "交付计划",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "标签",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "迭代",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn req-bulk-btn--danger req-bulk-btn--confirm",
+          "text": "确认删除 3 项？",
+          "disabled": false,
+          "foreground": "rgb(255, 255, 255)",
+          "background": [
+            166,
+            25,
+            25
+          ],
+          "ratio": 7.5689642638511705
+        },
+        {
+          "selector": "req-bulk-btn req-bulk-btn--close",
+          "text": "",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        }
+      ]
+    },
+    {
+      "theme": "light",
+      "width": 1366,
+      "state": "tags-unselected",
+      "rows": [
+        {
+          "selector": "req-bulk-btn",
+          "text": "优先级",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "产品版本",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "交付计划",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "标签",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "迭代",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn req-bulk-btn--danger req-bulk-btn--confirm",
+          "text": "确认删除 3 项？",
+          "disabled": false,
+          "foreground": "rgb(255, 255, 255)",
+          "background": [
+            185,
+            28,
+            28
+          ],
+          "ratio": 6.4700447145121895
+        },
+        {
+          "selector": "req-bulk-btn req-bulk-btn--close",
+          "text": "",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "bulk-tag-chip ",
+          "text": "UI审计·添加",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "bulk-tag-chip ",
+          "text": "UI审计·移除",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "bulk-tag-chip ",
+          "text": "UI审计·添加",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "bulk-tag-chip ",
+          "text": "UI审计·移除",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "bulk-apply-btn",
+          "text": "应用",
+          "disabled": true,
+          "foreground": "rgb(255, 255, 255)",
+          "background": [
+            79,
+            70,
+            229
+          ],
+          "ratio": 6.287528596095884
+        }
+      ]
+    },
+    {
+      "theme": "light",
+      "width": 1366,
+      "state": "tags-add-remove",
+      "rows": [
+        {
+          "selector": "req-bulk-btn",
+          "text": "优先级",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "产品版本",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "交付计划",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "标签",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "迭代",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn req-bulk-btn--danger req-bulk-btn--confirm",
+          "text": "确认删除 3 项？",
+          "disabled": false,
+          "foreground": "rgb(255, 255, 255)",
+          "background": [
+            185,
+            28,
+            28
+          ],
+          "ratio": 6.4700447145121895
+        },
+        {
+          "selector": "req-bulk-btn req-bulk-btn--close",
+          "text": "",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "bulk-tag-chip bulk-tag-chip--on",
+          "text": "UI审计·添加",
+          "disabled": false,
+          "foreground": "rgb(255, 255, 255)",
+          "background": [
+            79,
+            70,
+            229
+          ],
+          "ratio": 6.287528596095884
+        },
+        {
+          "selector": "bulk-tag-chip ",
+          "text": "UI审计·移除",
+          "disabled": true,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "bulk-tag-chip ",
+          "text": "UI审计·添加",
+          "disabled": true,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "bulk-tag-chip bulk-tag-chip--off",
+          "text": "UI审计·移除",
+          "disabled": false,
+          "foreground": "rgb(153, 27, 27)",
+          "background": [
+            254,
+            226,
+            226
+          ],
+          "ratio": 6.802728419777387
+        },
+        {
+          "selector": "bulk-apply-btn",
+          "text": "应用",
+          "disabled": false,
+          "foreground": "rgb(255, 255, 255)",
+          "background": [
+            79,
+            70,
+            229
+          ],
+          "ratio": 6.287528596095884
+        }
+      ]
+    },
+    {
+      "theme": "light",
+      "width": 1366,
+      "state": "hover-.bulk-tag-chip--on",
+      "rows": [
+        {
+          "selector": "req-bulk-btn",
+          "text": "优先级",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "产品版本",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "交付计划",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "标签",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "迭代",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn req-bulk-btn--danger req-bulk-btn--confirm",
+          "text": "确认删除 3 项？",
+          "disabled": false,
+          "foreground": "rgb(255, 255, 255)",
+          "background": [
+            185,
+            28,
+            28
+          ],
+          "ratio": 6.4700447145121895
+        },
+        {
+          "selector": "req-bulk-btn req-bulk-btn--close",
+          "text": "",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "bulk-tag-chip bulk-tag-chip--on",
+          "text": "UI审计·添加",
+          "disabled": false,
+          "foreground": "rgb(255, 255, 255)",
+          "background": [
+            71,
+            63,
+            206
+          ],
+          "ratio": 7.3166459218667965
+        },
+        {
+          "selector": "bulk-tag-chip ",
+          "text": "UI审计·移除",
+          "disabled": true,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "bulk-tag-chip ",
+          "text": "UI审计·添加",
+          "disabled": true,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "bulk-tag-chip bulk-tag-chip--off",
+          "text": "UI审计·移除",
+          "disabled": false,
+          "foreground": "rgb(153, 27, 27)",
+          "background": [
+            254,
+            226,
+            226
+          ],
+          "ratio": 6.802728419777387
+        },
+        {
+          "selector": "bulk-apply-btn",
+          "text": "应用",
+          "disabled": false,
+          "foreground": "rgb(255, 255, 255)",
+          "background": [
+            79,
+            70,
+            229
+          ],
+          "ratio": 6.287528596095884
+        }
+      ]
+    },
+    {
+      "theme": "light",
+      "width": 1366,
+      "state": "hover-.bulk-tag-chip--off",
+      "rows": [
+        {
+          "selector": "req-bulk-btn",
+          "text": "优先级",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "产品版本",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "交付计划",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "标签",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "迭代",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn req-bulk-btn--danger req-bulk-btn--confirm",
+          "text": "确认删除 3 项？",
+          "disabled": false,
+          "foreground": "rgb(255, 255, 255)",
+          "background": [
+            185,
+            28,
+            28
+          ],
+          "ratio": 6.4700447145121895
+        },
+        {
+          "selector": "req-bulk-btn req-bulk-btn--close",
+          "text": "",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "bulk-tag-chip bulk-tag-chip--on",
+          "text": "UI审计·添加",
+          "disabled": false,
+          "foreground": "rgb(255, 255, 255)",
+          "background": [
+            79,
+            70,
+            229
+          ],
+          "ratio": 6.287528596095884
+        },
+        {
+          "selector": "bulk-tag-chip ",
+          "text": "UI审计·移除",
+          "disabled": true,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "bulk-tag-chip ",
+          "text": "UI审计·添加",
+          "disabled": true,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "bulk-tag-chip bulk-tag-chip--off",
+          "text": "UI审计·移除",
+          "disabled": false,
+          "foreground": "rgb(153, 27, 27)",
+          "background": [
+            254,
+            226,
+            226
+          ],
+          "ratio": 6.802728419777387
+        },
+        {
+          "selector": "bulk-apply-btn",
+          "text": "应用",
+          "disabled": false,
+          "foreground": "rgb(255, 255, 255)",
+          "background": [
+            79,
+            70,
+            229
+          ],
+          "ratio": 6.287528596095884
+        }
+      ]
+    },
+    {
+      "theme": "light",
+      "width": 1366,
+      "state": "hover-.bulk-apply-btn",
+      "rows": [
+        {
+          "selector": "req-bulk-btn",
+          "text": "优先级",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "产品版本",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "交付计划",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "标签",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "迭代",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn req-bulk-btn--danger req-bulk-btn--confirm",
+          "text": "确认删除 3 项？",
+          "disabled": false,
+          "foreground": "rgb(255, 255, 255)",
+          "background": [
+            185,
+            28,
+            28
+          ],
+          "ratio": 6.4700447145121895
+        },
+        {
+          "selector": "req-bulk-btn req-bulk-btn--close",
+          "text": "",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "bulk-tag-chip bulk-tag-chip--on",
+          "text": "UI审计·添加",
+          "disabled": false,
+          "foreground": "rgb(255, 255, 255)",
+          "background": [
+            79,
+            70,
+            229
+          ],
+          "ratio": 6.287528596095884
+        },
+        {
+          "selector": "bulk-tag-chip ",
+          "text": "UI审计·移除",
+          "disabled": true,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "bulk-tag-chip ",
+          "text": "UI审计·添加",
+          "disabled": true,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "bulk-tag-chip bulk-tag-chip--off",
+          "text": "UI审计·移除",
+          "disabled": false,
+          "foreground": "rgb(153, 27, 27)",
+          "background": [
+            254,
+            226,
+            226
+          ],
+          "ratio": 6.802728419777387
+        },
+        {
+          "selector": "bulk-apply-btn",
+          "text": "应用",
+          "disabled": false,
+          "foreground": "rgb(255, 255, 255)",
+          "background": [
+            71,
+            63,
+            206
+          ],
+          "ratio": 7.3166459218667965
+        }
+      ]
+    },
+    {
+      "theme": "light",
+      "width": 1366,
+      "state": "clear-version",
+      "rows": [
+        {
+          "selector": "req-bulk-btn",
+          "text": "优先级",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "产品版本",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "交付计划",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "标签",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "迭代",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn req-bulk-btn--danger req-bulk-btn--confirm",
+          "text": "确认删除 3 项？",
+          "disabled": false,
+          "foreground": "rgb(255, 255, 255)",
+          "background": [
+            185,
+            28,
+            28
+          ],
+          "ratio": 6.4700447145121895
+        },
+        {
+          "selector": "req-bulk-btn req-bulk-btn--close",
+          "text": "",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "bulk-apply-btn bulk-apply-btn--clear",
+          "text": "清空 3 项",
+          "disabled": false,
+          "foreground": "rgb(153, 27, 27)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 8.310050481211189
+        }
+      ]
+    },
+    {
+      "theme": "light",
+      "width": 1366,
+      "state": "clear-version-hover",
+      "rows": [
+        {
+          "selector": "req-bulk-btn",
+          "text": "优先级",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "产品版本",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "交付计划",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "标签",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "迭代",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn req-bulk-btn--danger req-bulk-btn--confirm",
+          "text": "确认删除 3 项？",
+          "disabled": false,
+          "foreground": "rgb(255, 255, 255)",
+          "background": [
+            185,
+            28,
+            28
+          ],
+          "ratio": 6.4700447145121895
+        },
+        {
+          "selector": "req-bulk-btn req-bulk-btn--close",
+          "text": "",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "bulk-apply-btn bulk-apply-btn--clear",
+          "text": "清空 3 项",
+          "disabled": false,
+          "foreground": "rgb(153, 27, 27)",
+          "background": [
+            254,
+            226,
+            226
+          ],
+          "ratio": 6.802728419777387
+        }
+      ]
+    },
+    {
+      "theme": "light",
+      "width": 1366,
+      "state": "pending",
+      "rows": [
+        {
+          "selector": "req-bulk-btn",
+          "text": "优先级",
+          "disabled": true,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "产品版本",
+          "disabled": true,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "交付计划",
+          "disabled": true,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "标签",
+          "disabled": true,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "迭代",
+          "disabled": true,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        },
+        {
+          "selector": "req-bulk-btn req-bulk-btn--danger ",
+          "text": "删除",
+          "disabled": true,
+          "foreground": "rgb(153, 27, 27)",
+          "background": [
+            254,
+            226,
+            226
+          ],
+          "ratio": 6.802728419777387
+        },
+        {
+          "selector": "req-bulk-btn req-bulk-btn--close",
+          "text": "",
+          "disabled": false,
+          "foreground": "rgb(17, 24, 39)",
+          "background": [
+            249,
+            250,
+            251
+          ],
+          "ratio": 16.97538624440406
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "width": 1600,
+      "state": "default",
+      "rows": [
+        {
+          "selector": "req-bulk-btn",
+          "text": "优先级",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "产品版本",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "交付计划",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "标签",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "迭代",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn req-bulk-btn--danger ",
+          "text": "删除",
+          "disabled": false,
+          "foreground": "rgb(254, 202, 202)",
+          "background": [
+            61.6,
+            33.2,
+            45.2
+          ],
+          "ratio": 9.94043737198571
+        },
+        {
+          "selector": "req-bulk-btn req-bulk-btn--close",
+          "text": "",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "width": 1600,
+      "state": "delete-confirmation",
+      "rows": [
+        {
+          "selector": "req-bulk-btn",
+          "text": "优先级",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "产品版本",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "交付计划",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "标签",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "迭代",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn req-bulk-btn--danger req-bulk-btn--confirm",
+          "text": "确认删除 3 项？",
+          "disabled": false,
+          "foreground": "rgb(255, 255, 255)",
+          "background": [
+            167,
+            25,
+            25
+          ],
+          "ratio": 7.510225486298138
+        },
+        {
+          "selector": "req-bulk-btn req-bulk-btn--close",
+          "text": "",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "width": 1600,
+      "state": "delete-confirmation-hover",
+      "rows": [
+        {
+          "selector": "req-bulk-btn",
+          "text": "优先级",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "产品版本",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "交付计划",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "标签",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "迭代",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn req-bulk-btn--danger req-bulk-btn--confirm",
+          "text": "确认删除 3 项？",
+          "disabled": false,
+          "foreground": "rgb(255, 255, 255)",
+          "background": [
+            166,
+            25,
+            25
+          ],
+          "ratio": 7.5689642638511705
+        },
+        {
+          "selector": "req-bulk-btn req-bulk-btn--close",
+          "text": "",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "width": 1600,
+      "state": "tags-unselected",
+      "rows": [
+        {
+          "selector": "req-bulk-btn",
+          "text": "优先级",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "产品版本",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "交付计划",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "标签",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "迭代",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn req-bulk-btn--danger req-bulk-btn--confirm",
+          "text": "确认删除 3 项？",
+          "disabled": false,
+          "foreground": "rgb(255, 255, 255)",
+          "background": [
+            185,
+            28,
+            28
+          ],
+          "ratio": 6.4700447145121895
+        },
+        {
+          "selector": "req-bulk-btn req-bulk-btn--close",
+          "text": "",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "bulk-tag-chip ",
+          "text": "UI审计·添加",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "bulk-tag-chip ",
+          "text": "UI审计·移除",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "bulk-tag-chip ",
+          "text": "UI审计·添加",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "bulk-tag-chip ",
+          "text": "UI审计·移除",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "bulk-apply-btn",
+          "text": "应用",
+          "disabled": true,
+          "foreground": "rgb(255, 255, 255)",
+          "background": [
+            79,
+            70,
+            229
+          ],
+          "ratio": 6.287528596095884
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "width": 1600,
+      "state": "tags-add-remove",
+      "rows": [
+        {
+          "selector": "req-bulk-btn",
+          "text": "优先级",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "产品版本",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "交付计划",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "标签",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "迭代",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn req-bulk-btn--danger req-bulk-btn--confirm",
+          "text": "确认删除 3 项？",
+          "disabled": false,
+          "foreground": "rgb(255, 255, 255)",
+          "background": [
+            185,
+            28,
+            28
+          ],
+          "ratio": 6.4700447145121895
+        },
+        {
+          "selector": "req-bulk-btn req-bulk-btn--close",
+          "text": "",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "bulk-tag-chip bulk-tag-chip--on",
+          "text": "UI审计·添加",
+          "disabled": false,
+          "foreground": "rgb(255, 255, 255)",
+          "background": [
+            79,
+            70,
+            229
+          ],
+          "ratio": 6.287528596095884
+        },
+        {
+          "selector": "bulk-tag-chip ",
+          "text": "UI审计·移除",
+          "disabled": true,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "bulk-tag-chip ",
+          "text": "UI审计·添加",
+          "disabled": true,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "bulk-tag-chip bulk-tag-chip--off",
+          "text": "UI审计·移除",
+          "disabled": false,
+          "foreground": "rgb(254, 202, 202)",
+          "background": [
+            61.6,
+            33.2,
+            45.2
+          ],
+          "ratio": 9.94043737198571
+        },
+        {
+          "selector": "bulk-apply-btn",
+          "text": "应用",
+          "disabled": false,
+          "foreground": "rgb(255, 255, 255)",
+          "background": [
+            79,
+            70,
+            229
+          ],
+          "ratio": 6.287528596095884
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "width": 1600,
+      "state": "hover-.bulk-tag-chip--on",
+      "rows": [
+        {
+          "selector": "req-bulk-btn",
+          "text": "优先级",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "产品版本",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "交付计划",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "标签",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "迭代",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn req-bulk-btn--danger req-bulk-btn--confirm",
+          "text": "确认删除 3 项？",
+          "disabled": false,
+          "foreground": "rgb(255, 255, 255)",
+          "background": [
+            185,
+            28,
+            28
+          ],
+          "ratio": 6.4700447145121895
+        },
+        {
+          "selector": "req-bulk-btn req-bulk-btn--close",
+          "text": "",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "bulk-tag-chip bulk-tag-chip--on",
+          "text": "UI审计·添加",
+          "disabled": false,
+          "foreground": "rgb(255, 255, 255)",
+          "background": [
+            71,
+            63,
+            206
+          ],
+          "ratio": 7.3166459218667965
+        },
+        {
+          "selector": "bulk-tag-chip ",
+          "text": "UI审计·移除",
+          "disabled": true,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "bulk-tag-chip ",
+          "text": "UI审计·添加",
+          "disabled": true,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "bulk-tag-chip bulk-tag-chip--off",
+          "text": "UI审计·移除",
+          "disabled": false,
+          "foreground": "rgb(254, 202, 202)",
+          "background": [
+            61.6,
+            33.2,
+            45.2
+          ],
+          "ratio": 9.94043737198571
+        },
+        {
+          "selector": "bulk-apply-btn",
+          "text": "应用",
+          "disabled": false,
+          "foreground": "rgb(255, 255, 255)",
+          "background": [
+            79,
+            70,
+            229
+          ],
+          "ratio": 6.287528596095884
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "width": 1600,
+      "state": "hover-.bulk-tag-chip--off",
+      "rows": [
+        {
+          "selector": "req-bulk-btn",
+          "text": "优先级",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "产品版本",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "交付计划",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "标签",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "迭代",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn req-bulk-btn--danger req-bulk-btn--confirm",
+          "text": "确认删除 3 项？",
+          "disabled": false,
+          "foreground": "rgb(255, 255, 255)",
+          "background": [
+            185,
+            28,
+            28
+          ],
+          "ratio": 6.4700447145121895
+        },
+        {
+          "selector": "req-bulk-btn req-bulk-btn--close",
+          "text": "",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "bulk-tag-chip bulk-tag-chip--on",
+          "text": "UI审计·添加",
+          "disabled": false,
+          "foreground": "rgb(255, 255, 255)",
+          "background": [
+            79,
+            70,
+            229
+          ],
+          "ratio": 6.287528596095884
+        },
+        {
+          "selector": "bulk-tag-chip ",
+          "text": "UI审计·移除",
+          "disabled": true,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "bulk-tag-chip ",
+          "text": "UI审计·添加",
+          "disabled": true,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "bulk-tag-chip bulk-tag-chip--off",
+          "text": "UI审计·移除",
+          "disabled": false,
+          "foreground": "rgb(254, 202, 202)",
+          "background": [
+            61.6,
+            33.2,
+            45.2
+          ],
+          "ratio": 9.94043737198571
+        },
+        {
+          "selector": "bulk-apply-btn",
+          "text": "应用",
+          "disabled": false,
+          "foreground": "rgb(255, 255, 255)",
+          "background": [
+            79,
+            70,
+            229
+          ],
+          "ratio": 6.287528596095884
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "width": 1600,
+      "state": "hover-.bulk-apply-btn",
+      "rows": [
+        {
+          "selector": "req-bulk-btn",
+          "text": "优先级",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "产品版本",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "交付计划",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "标签",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "迭代",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn req-bulk-btn--danger req-bulk-btn--confirm",
+          "text": "确认删除 3 项？",
+          "disabled": false,
+          "foreground": "rgb(255, 255, 255)",
+          "background": [
+            185,
+            28,
+            28
+          ],
+          "ratio": 6.4700447145121895
+        },
+        {
+          "selector": "req-bulk-btn req-bulk-btn--close",
+          "text": "",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "bulk-tag-chip bulk-tag-chip--on",
+          "text": "UI审计·添加",
+          "disabled": false,
+          "foreground": "rgb(255, 255, 255)",
+          "background": [
+            79,
+            70,
+            229
+          ],
+          "ratio": 6.287528596095884
+        },
+        {
+          "selector": "bulk-tag-chip ",
+          "text": "UI审计·移除",
+          "disabled": true,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "bulk-tag-chip ",
+          "text": "UI审计·添加",
+          "disabled": true,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "bulk-tag-chip bulk-tag-chip--off",
+          "text": "UI审计·移除",
+          "disabled": false,
+          "foreground": "rgb(254, 202, 202)",
+          "background": [
+            61.6,
+            33.2,
+            45.2
+          ],
+          "ratio": 9.94043737198571
+        },
+        {
+          "selector": "bulk-apply-btn",
+          "text": "应用",
+          "disabled": false,
+          "foreground": "rgb(255, 255, 255)",
+          "background": [
+            71,
+            63,
+            206
+          ],
+          "ratio": 7.3166459218667965
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "width": 1600,
+      "state": "clear-version",
+      "rows": [
+        {
+          "selector": "req-bulk-btn",
+          "text": "优先级",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "产品版本",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "交付计划",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "标签",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "迭代",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn req-bulk-btn--danger req-bulk-btn--confirm",
+          "text": "确认删除 3 项？",
+          "disabled": false,
+          "foreground": "rgb(255, 255, 255)",
+          "background": [
+            185,
+            28,
+            28
+          ],
+          "ratio": 6.4700447145121895
+        },
+        {
+          "selector": "req-bulk-btn req-bulk-btn--close",
+          "text": "",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "bulk-apply-btn bulk-apply-btn--clear",
+          "text": "清空 3 项",
+          "disabled": false,
+          "foreground": "rgb(254, 202, 202)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 12.261719107308613
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "width": 1600,
+      "state": "clear-version-hover",
+      "rows": [
+        {
+          "selector": "req-bulk-btn",
+          "text": "优先级",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "产品版本",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "交付计划",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "标签",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "迭代",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn req-bulk-btn--danger req-bulk-btn--confirm",
+          "text": "确认删除 3 项？",
+          "disabled": false,
+          "foreground": "rgb(255, 255, 255)",
+          "background": [
+            185,
+            28,
+            28
+          ],
+          "ratio": 6.4700447145121895
+        },
+        {
+          "selector": "req-bulk-btn req-bulk-btn--close",
+          "text": "",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "bulk-apply-btn bulk-apply-btn--clear",
+          "text": "清空 3 项",
+          "disabled": false,
+          "foreground": "rgb(254, 202, 202)",
+          "background": [
+            61.6,
+            33.2,
+            45.2
+          ],
+          "ratio": 9.94043737198571
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "width": 1600,
+      "state": "pending",
+      "rows": [
+        {
+          "selector": "req-bulk-btn",
+          "text": "优先级",
+          "disabled": true,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "产品版本",
+          "disabled": true,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "交付计划",
+          "disabled": true,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "标签",
+          "disabled": true,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "迭代",
+          "disabled": true,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn req-bulk-btn--danger ",
+          "text": "删除",
+          "disabled": true,
+          "foreground": "rgb(254, 202, 202)",
+          "background": [
+            61.6,
+            33.2,
+            45.2
+          ],
+          "ratio": 9.94043737198571
+        },
+        {
+          "selector": "req-bulk-btn req-bulk-btn--close",
+          "text": "",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "width": 1366,
+      "state": "default",
+      "rows": [
+        {
+          "selector": "req-bulk-btn",
+          "text": "优先级",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "产品版本",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "交付计划",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "标签",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "迭代",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn req-bulk-btn--danger ",
+          "text": "删除",
+          "disabled": false,
+          "foreground": "rgb(254, 202, 202)",
+          "background": [
+            61.6,
+            33.2,
+            45.2
+          ],
+          "ratio": 9.94043737198571
+        },
+        {
+          "selector": "req-bulk-btn req-bulk-btn--close",
+          "text": "",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "width": 1366,
+      "state": "delete-confirmation",
+      "rows": [
+        {
+          "selector": "req-bulk-btn",
+          "text": "优先级",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "产品版本",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "交付计划",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "标签",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "迭代",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn req-bulk-btn--danger req-bulk-btn--confirm",
+          "text": "确认删除 3 项？",
+          "disabled": false,
+          "foreground": "rgb(255, 255, 255)",
+          "background": [
+            166,
+            25,
+            25
+          ],
+          "ratio": 7.5689642638511705
+        },
+        {
+          "selector": "req-bulk-btn req-bulk-btn--close",
+          "text": "",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "width": 1366,
+      "state": "delete-confirmation-hover",
+      "rows": [
+        {
+          "selector": "req-bulk-btn",
+          "text": "优先级",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "产品版本",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "交付计划",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "标签",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "迭代",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn req-bulk-btn--danger req-bulk-btn--confirm",
+          "text": "确认删除 3 项？",
+          "disabled": false,
+          "foreground": "rgb(255, 255, 255)",
+          "background": [
+            166,
+            25,
+            25
+          ],
+          "ratio": 7.5689642638511705
+        },
+        {
+          "selector": "req-bulk-btn req-bulk-btn--close",
+          "text": "",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "width": 1366,
+      "state": "tags-unselected",
+      "rows": [
+        {
+          "selector": "req-bulk-btn",
+          "text": "优先级",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "产品版本",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "交付计划",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "标签",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "迭代",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn req-bulk-btn--danger req-bulk-btn--confirm",
+          "text": "确认删除 3 项？",
+          "disabled": false,
+          "foreground": "rgb(255, 255, 255)",
+          "background": [
+            185,
+            28,
+            28
+          ],
+          "ratio": 6.4700447145121895
+        },
+        {
+          "selector": "req-bulk-btn req-bulk-btn--close",
+          "text": "",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "bulk-tag-chip ",
+          "text": "UI审计·添加",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "bulk-tag-chip ",
+          "text": "UI审计·移除",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "bulk-tag-chip ",
+          "text": "UI审计·添加",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "bulk-tag-chip ",
+          "text": "UI审计·移除",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "bulk-apply-btn",
+          "text": "应用",
+          "disabled": true,
+          "foreground": "rgb(255, 255, 255)",
+          "background": [
+            79,
+            70,
+            229
+          ],
+          "ratio": 6.287528596095884
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "width": 1366,
+      "state": "tags-add-remove",
+      "rows": [
+        {
+          "selector": "req-bulk-btn",
+          "text": "优先级",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "产品版本",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "交付计划",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "标签",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "迭代",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn req-bulk-btn--danger req-bulk-btn--confirm",
+          "text": "确认删除 3 项？",
+          "disabled": false,
+          "foreground": "rgb(255, 255, 255)",
+          "background": [
+            185,
+            28,
+            28
+          ],
+          "ratio": 6.4700447145121895
+        },
+        {
+          "selector": "req-bulk-btn req-bulk-btn--close",
+          "text": "",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "bulk-tag-chip bulk-tag-chip--on",
+          "text": "UI审计·添加",
+          "disabled": false,
+          "foreground": "rgb(255, 255, 255)",
+          "background": [
+            79,
+            70,
+            229
+          ],
+          "ratio": 6.287528596095884
+        },
+        {
+          "selector": "bulk-tag-chip ",
+          "text": "UI审计·移除",
+          "disabled": true,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "bulk-tag-chip ",
+          "text": "UI审计·添加",
+          "disabled": true,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "bulk-tag-chip bulk-tag-chip--off",
+          "text": "UI审计·移除",
+          "disabled": false,
+          "foreground": "rgb(254, 202, 202)",
+          "background": [
+            61.6,
+            33.2,
+            45.2
+          ],
+          "ratio": 9.94043737198571
+        },
+        {
+          "selector": "bulk-apply-btn",
+          "text": "应用",
+          "disabled": false,
+          "foreground": "rgb(255, 255, 255)",
+          "background": [
+            79,
+            70,
+            229
+          ],
+          "ratio": 6.287528596095884
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "width": 1366,
+      "state": "hover-.bulk-tag-chip--on",
+      "rows": [
+        {
+          "selector": "req-bulk-btn",
+          "text": "优先级",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "产品版本",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "交付计划",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "标签",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "迭代",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn req-bulk-btn--danger req-bulk-btn--confirm",
+          "text": "确认删除 3 项？",
+          "disabled": false,
+          "foreground": "rgb(255, 255, 255)",
+          "background": [
+            185,
+            28,
+            28
+          ],
+          "ratio": 6.4700447145121895
+        },
+        {
+          "selector": "req-bulk-btn req-bulk-btn--close",
+          "text": "",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "bulk-tag-chip bulk-tag-chip--on",
+          "text": "UI审计·添加",
+          "disabled": false,
+          "foreground": "rgb(255, 255, 255)",
+          "background": [
+            71,
+            63,
+            206
+          ],
+          "ratio": 7.3166459218667965
+        },
+        {
+          "selector": "bulk-tag-chip ",
+          "text": "UI审计·移除",
+          "disabled": true,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "bulk-tag-chip ",
+          "text": "UI审计·添加",
+          "disabled": true,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "bulk-tag-chip bulk-tag-chip--off",
+          "text": "UI审计·移除",
+          "disabled": false,
+          "foreground": "rgb(254, 202, 202)",
+          "background": [
+            61.6,
+            33.2,
+            45.2
+          ],
+          "ratio": 9.94043737198571
+        },
+        {
+          "selector": "bulk-apply-btn",
+          "text": "应用",
+          "disabled": false,
+          "foreground": "rgb(255, 255, 255)",
+          "background": [
+            79,
+            70,
+            229
+          ],
+          "ratio": 6.287528596095884
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "width": 1366,
+      "state": "hover-.bulk-tag-chip--off",
+      "rows": [
+        {
+          "selector": "req-bulk-btn",
+          "text": "优先级",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "产品版本",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "交付计划",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "标签",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "迭代",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn req-bulk-btn--danger req-bulk-btn--confirm",
+          "text": "确认删除 3 项？",
+          "disabled": false,
+          "foreground": "rgb(255, 255, 255)",
+          "background": [
+            185,
+            28,
+            28
+          ],
+          "ratio": 6.4700447145121895
+        },
+        {
+          "selector": "req-bulk-btn req-bulk-btn--close",
+          "text": "",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "bulk-tag-chip bulk-tag-chip--on",
+          "text": "UI审计·添加",
+          "disabled": false,
+          "foreground": "rgb(255, 255, 255)",
+          "background": [
+            79,
+            70,
+            229
+          ],
+          "ratio": 6.287528596095884
+        },
+        {
+          "selector": "bulk-tag-chip ",
+          "text": "UI审计·移除",
+          "disabled": true,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "bulk-tag-chip ",
+          "text": "UI审计·添加",
+          "disabled": true,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "bulk-tag-chip bulk-tag-chip--off",
+          "text": "UI审计·移除",
+          "disabled": false,
+          "foreground": "rgb(254, 202, 202)",
+          "background": [
+            61.6,
+            33.2,
+            45.2
+          ],
+          "ratio": 9.94043737198571
+        },
+        {
+          "selector": "bulk-apply-btn",
+          "text": "应用",
+          "disabled": false,
+          "foreground": "rgb(255, 255, 255)",
+          "background": [
+            79,
+            70,
+            229
+          ],
+          "ratio": 6.287528596095884
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "width": 1366,
+      "state": "hover-.bulk-apply-btn",
+      "rows": [
+        {
+          "selector": "req-bulk-btn",
+          "text": "优先级",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "产品版本",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "交付计划",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "标签",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "迭代",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn req-bulk-btn--danger req-bulk-btn--confirm",
+          "text": "确认删除 3 项？",
+          "disabled": false,
+          "foreground": "rgb(255, 255, 255)",
+          "background": [
+            185,
+            28,
+            28
+          ],
+          "ratio": 6.4700447145121895
+        },
+        {
+          "selector": "req-bulk-btn req-bulk-btn--close",
+          "text": "",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "bulk-tag-chip bulk-tag-chip--on",
+          "text": "UI审计·添加",
+          "disabled": false,
+          "foreground": "rgb(255, 255, 255)",
+          "background": [
+            79,
+            70,
+            229
+          ],
+          "ratio": 6.287528596095884
+        },
+        {
+          "selector": "bulk-tag-chip ",
+          "text": "UI审计·移除",
+          "disabled": true,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "bulk-tag-chip ",
+          "text": "UI审计·添加",
+          "disabled": true,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "bulk-tag-chip bulk-tag-chip--off",
+          "text": "UI审计·移除",
+          "disabled": false,
+          "foreground": "rgb(254, 202, 202)",
+          "background": [
+            61.6,
+            33.2,
+            45.2
+          ],
+          "ratio": 9.94043737198571
+        },
+        {
+          "selector": "bulk-apply-btn",
+          "text": "应用",
+          "disabled": false,
+          "foreground": "rgb(255, 255, 255)",
+          "background": [
+            71,
+            63,
+            206
+          ],
+          "ratio": 7.3166459218667965
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "width": 1366,
+      "state": "clear-version",
+      "rows": [
+        {
+          "selector": "req-bulk-btn",
+          "text": "优先级",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "产品版本",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "交付计划",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "标签",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "迭代",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn req-bulk-btn--danger req-bulk-btn--confirm",
+          "text": "确认删除 3 项？",
+          "disabled": false,
+          "foreground": "rgb(255, 255, 255)",
+          "background": [
+            185,
+            28,
+            28
+          ],
+          "ratio": 6.4700447145121895
+        },
+        {
+          "selector": "req-bulk-btn req-bulk-btn--close",
+          "text": "",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "bulk-apply-btn bulk-apply-btn--clear",
+          "text": "清空 3 项",
+          "disabled": false,
+          "foreground": "rgb(254, 202, 202)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 12.261719107308613
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "width": 1366,
+      "state": "clear-version-hover",
+      "rows": [
+        {
+          "selector": "req-bulk-btn",
+          "text": "优先级",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "产品版本",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "交付计划",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "标签",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "迭代",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn req-bulk-btn--danger req-bulk-btn--confirm",
+          "text": "确认删除 3 项？",
+          "disabled": false,
+          "foreground": "rgb(255, 255, 255)",
+          "background": [
+            185,
+            28,
+            28
+          ],
+          "ratio": 6.4700447145121895
+        },
+        {
+          "selector": "req-bulk-btn req-bulk-btn--close",
+          "text": "",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "bulk-apply-btn bulk-apply-btn--clear",
+          "text": "清空 3 项",
+          "disabled": false,
+          "foreground": "rgb(254, 202, 202)",
+          "background": [
+            61.6,
+            33.2,
+            45.2
+          ],
+          "ratio": 9.94043737198571
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "width": 1366,
+      "state": "pending",
+      "rows": [
+        {
+          "selector": "req-bulk-btn",
+          "text": "优先级",
+          "disabled": true,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "产品版本",
+          "disabled": true,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "交付计划",
+          "disabled": true,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "标签",
+          "disabled": true,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn",
+          "text": "迭代",
+          "disabled": true,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        },
+        {
+          "selector": "req-bulk-btn req-bulk-btn--danger ",
+          "text": "删除",
+          "disabled": true,
+          "foreground": "rgb(254, 202, 202)",
+          "background": [
+            61.6,
+            33.2,
+            45.2
+          ],
+          "ratio": 9.94043737198571
+        },
+        {
+          "selector": "req-bulk-btn req-bulk-btn--close",
+          "text": "",
+          "disabled": false,
+          "foreground": "rgb(249, 250, 251)",
+          "background": [
+            31,
+            41,
+            55
+          ],
+          "ratio": 14.046656202460271
+        }
+      ]
+    }
+  ]
+}

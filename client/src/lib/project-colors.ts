@@ -45,11 +45,16 @@ export function getProjectTypeColorWithOpacity(project: Project, opacity: number
  * Check if a color is light or dark to determine text color
  */
 export function isLightColor(hexColor: string): boolean {
-  const r = parseInt(hexColor.slice(1, 3), 16);
-  const g = parseInt(hexColor.slice(3, 5), 16);
-  const b = parseInt(hexColor.slice(5, 7), 16);
-  const brightness = ((r * 299) + (g * 587) + (b * 114)) / 1000;
-  return brightness > 155;
+  let value = hexColor.replace(/^#/, '');
+  if (/^[a-f\d]{3}$/i.test(value)) value = value.split('').map(c => c + c).join('');
+  if (!/^[a-f\d]{6}$/i.test(value)) return false;
+  const channels = [0, 2, 4].map(i => {
+    const v = parseInt(value.slice(i, i + 2), 16) / 255;
+    return v <= 0.04045 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
+  });
+  const luminance = channels[0] * 0.2126 + channels[1] * 0.7152 + channels[2] * 0.0722;
+  // Choose the higher WCAG contrast ratio, rather than an RGB brightness guess.
+  return (luminance + 0.05) / 0.05 >= 1.05 / (luminance + 0.05);
 }
 
 /**

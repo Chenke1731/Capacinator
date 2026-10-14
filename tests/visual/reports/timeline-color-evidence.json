@@ -1,0 +1,1188 @@
+{
+  "evidence": [
+    {
+      "theme": "light",
+      "width": 1600,
+      "profile": "roadmap",
+      "artifact": "tests/visual/reports/timeline-roadmap-light-1600.png",
+      "actualTimelineCount": 47
+    },
+    {
+      "theme": "light",
+      "width": 1600,
+      "profile": "project-detail-phases",
+      "artifact": "tests/visual/reports/timeline-project-detail-phases-light-1600.png",
+      "actualTimelineCount": 1
+    },
+    {
+      "theme": "light",
+      "width": 1600,
+      "profile": "actual-component-fixture",
+      "state": "default+hover",
+      "artifact": "tests/visual/reports/timeline-palette-light-1600.png",
+      "colors": [
+        {
+          "item": "business planning",
+          "handle": null,
+          "state": "default",
+          "foreground": "rgb(0, 0, 0)",
+          "background": "rgb(59, 130, 246)",
+          "ratio": 5.709778246324693,
+          "threshold": 4.5
+        },
+        {
+          "item": "development",
+          "handle": null,
+          "state": "default",
+          "foreground": "rgb(0, 0, 0)",
+          "background": "rgb(16, 185, 129)",
+          "ratio": 8.278612383989437,
+          "threshold": 4.5
+        },
+        {
+          "item": "system integration testing",
+          "handle": null,
+          "state": "default",
+          "foreground": "rgb(0, 0, 0)",
+          "background": "rgb(245, 158, 11)",
+          "ratio": 9.778071798962173,
+          "threshold": 4.5
+        },
+        {
+          "item": "user acceptance testing",
+          "handle": null,
+          "state": "default",
+          "foreground": "rgb(0, 0, 0)",
+          "background": "rgb(139, 92, 246)",
+          "ratio": 4.959416156088179,
+          "threshold": 4.5
+        },
+        {
+          "item": "validation",
+          "handle": null,
+          "state": "default",
+          "foreground": "rgb(0, 0, 0)",
+          "background": "rgb(236, 72, 153)",
+          "ratio": 5.953500872309584,
+          "threshold": 4.5
+        },
+        {
+          "item": "cutover",
+          "handle": null,
+          "state": "default",
+          "foreground": "rgb(0, 0, 0)",
+          "background": "rgb(239, 68, 68)",
+          "ratio": 5.58046438625577,
+          "threshold": 4.5
+        },
+        {
+          "item": "hypercare",
+          "handle": null,
+          "state": "default",
+          "foreground": "rgb(0, 0, 0)",
+          "background": "rgb(6, 182, 212)",
+          "ratio": 8.649616236144142,
+          "threshold": 4.5
+        },
+        {
+          "item": "support",
+          "handle": null,
+          "state": "default",
+          "foreground": "rgb(0, 0, 0)",
+          "background": "rgb(132, 204, 22)",
+          "ratio": 10.629838431983178,
+          "threshold": 4.5
+        },
+        {
+          "item": "custom",
+          "handle": null,
+          "state": "default",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(107, 114, 128)",
+          "ratio": 4.834490081424352,
+          "threshold": 4.5
+        },
+        {
+          "item": null,
+          "handle": "extend-left",
+          "state": "default",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(4, 120, 87)",
+          "ratio": 5.483924052498799,
+          "threshold": 4.5
+        },
+        {
+          "item": null,
+          "handle": "extend-right",
+          "state": "default",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "ratio": 6.287528596095884,
+          "threshold": 4.5
+        },
+        {
+          "item": null,
+          "handle": "adjust-both",
+          "state": "default",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "ratio": 6.287528596095884,
+          "threshold": 4.5
+        },
+        {
+          "item": null,
+          "handle": "extend-left",
+          "state": "hover",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "color(srgb 0.0141176 0.423529 0.307059)",
+          "ratio": 6.441324769344559,
+          "threshold": 4.5
+        },
+        {
+          "item": null,
+          "handle": "extend-right",
+          "state": "hover",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "color(srgb 0.278824 0.247059 0.808235)",
+          "ratio": 7.3166459218667965,
+          "threshold": 4.5
+        },
+        {
+          "item": null,
+          "handle": "adjust-both",
+          "state": "hover",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "color(srgb 0.278824 0.247059 0.808235)",
+          "ratio": 7.3166459218667965,
+          "threshold": 4.5
+        }
+      ],
+      "marker": {
+        "opacity": "1",
+        "shadow": "rgb(255, 255, 255) 0px 0px 0px 1px, rgb(0, 0, 0) 0px 0px 0px 2px",
+        "minimumEdgeContrast": 4.834490081424352,
+        "threshold": 3
+      },
+      "tokens": [
+        {
+          "role": "success",
+          "surface": "bg-primary",
+          "foreground": "rgb(6, 95, 70)",
+          "background": "rgb(255, 255, 255)",
+          "ratio": 7.683677009324036,
+          "threshold": 4.5
+        },
+        {
+          "role": "success",
+          "surface": "bg-secondary",
+          "foreground": "rgb(6, 95, 70)",
+          "background": "rgb(249, 250, 251)",
+          "ratio": 7.352619265604288,
+          "threshold": 4.5
+        },
+        {
+          "role": "success",
+          "surface": "status-success-soft",
+          "foreground": "rgb(6, 95, 70)",
+          "background": "rgb(209, 250, 229)",
+          "ratio": 6.775076101423649,
+          "threshold": 4.5
+        },
+        {
+          "role": "success",
+          "surface": "status-success-solid",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(4, 120, 87)",
+          "ratio": 5.483924052498799,
+          "threshold": 4.5
+        },
+        {
+          "role": "warning",
+          "surface": "bg-primary",
+          "foreground": "rgb(146, 64, 14)",
+          "background": "rgb(255, 255, 255)",
+          "ratio": 7.090048300172369,
+          "threshold": 4.5
+        },
+        {
+          "role": "warning",
+          "surface": "bg-secondary",
+          "foreground": "rgb(146, 64, 14)",
+          "background": "rgb(249, 250, 251)",
+          "ratio": 6.784567553093751,
+          "threshold": 4.5
+        },
+        {
+          "role": "warning",
+          "surface": "status-warning-soft",
+          "foreground": "rgb(146, 64, 14)",
+          "background": "rgb(254, 215, 170)",
+          "ratio": 5.238126845731142,
+          "threshold": 4.5
+        },
+        {
+          "role": "warning",
+          "surface": "status-warning-solid",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(180, 83, 9)",
+          "ratio": 5.02163257594014,
+          "threshold": 4.5
+        },
+        {
+          "role": "danger",
+          "surface": "bg-primary",
+          "foreground": "rgb(153, 27, 27)",
+          "background": "rgb(255, 255, 255)",
+          "ratio": 8.310050481211189,
+          "threshold": 4.5
+        },
+        {
+          "role": "danger",
+          "surface": "bg-secondary",
+          "foreground": "rgb(153, 27, 27)",
+          "background": "rgb(249, 250, 251)",
+          "ratio": 7.952004904963182,
+          "threshold": 4.5
+        },
+        {
+          "role": "danger",
+          "surface": "status-danger-soft",
+          "foreground": "rgb(153, 27, 27)",
+          "background": "rgb(254, 226, 226)",
+          "ratio": 6.802728419777387,
+          "threshold": 4.5
+        },
+        {
+          "role": "danger",
+          "surface": "status-danger-solid",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(185, 28, 28)",
+          "ratio": 6.4700447145121895,
+          "threshold": 4.5
+        },
+        {
+          "role": "info",
+          "surface": "bg-primary",
+          "foreground": "rgb(29, 78, 216)",
+          "background": "rgb(255, 255, 255)",
+          "ratio": 6.701618401398807,
+          "threshold": 4.5
+        },
+        {
+          "role": "info",
+          "surface": "bg-secondary",
+          "foreground": "rgb(29, 78, 216)",
+          "background": "rgb(249, 250, 251)",
+          "ratio": 6.4128734861003664,
+          "threshold": 4.5
+        },
+        {
+          "role": "info",
+          "surface": "status-info-soft",
+          "foreground": "rgb(29, 78, 216)",
+          "background": "rgba(37, 99, 235, 0.1)",
+          "ratio": 5.816841328625036,
+          "threshold": 4.5
+        },
+        {
+          "role": "info",
+          "surface": "status-info-solid",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(29, 78, 216)",
+          "ratio": 6.701618401398807,
+          "threshold": 4.5
+        }
+      ],
+      "writes": [],
+      "errors": []
+    },
+    {
+      "theme": "light",
+      "width": 1366,
+      "profile": "roadmap",
+      "artifact": "tests/visual/reports/timeline-roadmap-light-1366.png",
+      "actualTimelineCount": 47
+    },
+    {
+      "theme": "light",
+      "width": 1366,
+      "profile": "project-detail-phases",
+      "artifact": "tests/visual/reports/timeline-project-detail-phases-light-1366.png",
+      "actualTimelineCount": 1
+    },
+    {
+      "theme": "light",
+      "width": 1366,
+      "profile": "actual-component-fixture",
+      "state": "default+hover",
+      "artifact": "tests/visual/reports/timeline-palette-light-1366.png",
+      "colors": [
+        {
+          "item": "business planning",
+          "handle": null,
+          "state": "default",
+          "foreground": "rgb(0, 0, 0)",
+          "background": "rgb(59, 130, 246)",
+          "ratio": 5.709778246324693,
+          "threshold": 4.5
+        },
+        {
+          "item": "development",
+          "handle": null,
+          "state": "default",
+          "foreground": "rgb(0, 0, 0)",
+          "background": "rgb(16, 185, 129)",
+          "ratio": 8.278612383989437,
+          "threshold": 4.5
+        },
+        {
+          "item": "system integration testing",
+          "handle": null,
+          "state": "default",
+          "foreground": "rgb(0, 0, 0)",
+          "background": "rgb(245, 158, 11)",
+          "ratio": 9.778071798962173,
+          "threshold": 4.5
+        },
+        {
+          "item": "user acceptance testing",
+          "handle": null,
+          "state": "default",
+          "foreground": "rgb(0, 0, 0)",
+          "background": "rgb(139, 92, 246)",
+          "ratio": 4.959416156088179,
+          "threshold": 4.5
+        },
+        {
+          "item": "validation",
+          "handle": null,
+          "state": "default",
+          "foreground": "rgb(0, 0, 0)",
+          "background": "rgb(236, 72, 153)",
+          "ratio": 5.953500872309584,
+          "threshold": 4.5
+        },
+        {
+          "item": "cutover",
+          "handle": null,
+          "state": "default",
+          "foreground": "rgb(0, 0, 0)",
+          "background": "rgb(239, 68, 68)",
+          "ratio": 5.58046438625577,
+          "threshold": 4.5
+        },
+        {
+          "item": "hypercare",
+          "handle": null,
+          "state": "default",
+          "foreground": "rgb(0, 0, 0)",
+          "background": "rgb(6, 182, 212)",
+          "ratio": 8.649616236144142,
+          "threshold": 4.5
+        },
+        {
+          "item": "support",
+          "handle": null,
+          "state": "default",
+          "foreground": "rgb(0, 0, 0)",
+          "background": "rgb(132, 204, 22)",
+          "ratio": 10.629838431983178,
+          "threshold": 4.5
+        },
+        {
+          "item": "custom",
+          "handle": null,
+          "state": "default",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(107, 114, 128)",
+          "ratio": 4.834490081424352,
+          "threshold": 4.5
+        },
+        {
+          "item": null,
+          "handle": "extend-left",
+          "state": "default",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(4, 120, 87)",
+          "ratio": 5.483924052498799,
+          "threshold": 4.5
+        },
+        {
+          "item": null,
+          "handle": "extend-right",
+          "state": "default",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "ratio": 6.287528596095884,
+          "threshold": 4.5
+        },
+        {
+          "item": null,
+          "handle": "adjust-both",
+          "state": "default",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "ratio": 6.287528596095884,
+          "threshold": 4.5
+        },
+        {
+          "item": null,
+          "handle": "extend-left",
+          "state": "hover",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "color(srgb 0.0141176 0.423529 0.307059)",
+          "ratio": 6.441324769344559,
+          "threshold": 4.5
+        },
+        {
+          "item": null,
+          "handle": "extend-right",
+          "state": "hover",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "color(srgb 0.278824 0.247059 0.808235)",
+          "ratio": 7.3166459218667965,
+          "threshold": 4.5
+        },
+        {
+          "item": null,
+          "handle": "adjust-both",
+          "state": "hover",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "color(srgb 0.278824 0.247059 0.808235)",
+          "ratio": 7.3166459218667965,
+          "threshold": 4.5
+        }
+      ],
+      "marker": {
+        "opacity": "1",
+        "shadow": "rgb(255, 255, 255) 0px 0px 0px 1px, rgb(0, 0, 0) 0px 0px 0px 2px",
+        "minimumEdgeContrast": 4.834490081424352,
+        "threshold": 3
+      },
+      "tokens": [
+        {
+          "role": "success",
+          "surface": "bg-primary",
+          "foreground": "rgb(6, 95, 70)",
+          "background": "rgb(255, 255, 255)",
+          "ratio": 7.683677009324036,
+          "threshold": 4.5
+        },
+        {
+          "role": "success",
+          "surface": "bg-secondary",
+          "foreground": "rgb(6, 95, 70)",
+          "background": "rgb(249, 250, 251)",
+          "ratio": 7.352619265604288,
+          "threshold": 4.5
+        },
+        {
+          "role": "success",
+          "surface": "status-success-soft",
+          "foreground": "rgb(6, 95, 70)",
+          "background": "rgb(209, 250, 229)",
+          "ratio": 6.775076101423649,
+          "threshold": 4.5
+        },
+        {
+          "role": "success",
+          "surface": "status-success-solid",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(4, 120, 87)",
+          "ratio": 5.483924052498799,
+          "threshold": 4.5
+        },
+        {
+          "role": "warning",
+          "surface": "bg-primary",
+          "foreground": "rgb(146, 64, 14)",
+          "background": "rgb(255, 255, 255)",
+          "ratio": 7.090048300172369,
+          "threshold": 4.5
+        },
+        {
+          "role": "warning",
+          "surface": "bg-secondary",
+          "foreground": "rgb(146, 64, 14)",
+          "background": "rgb(249, 250, 251)",
+          "ratio": 6.784567553093751,
+          "threshold": 4.5
+        },
+        {
+          "role": "warning",
+          "surface": "status-warning-soft",
+          "foreground": "rgb(146, 64, 14)",
+          "background": "rgb(254, 215, 170)",
+          "ratio": 5.238126845731142,
+          "threshold": 4.5
+        },
+        {
+          "role": "warning",
+          "surface": "status-warning-solid",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(180, 83, 9)",
+          "ratio": 5.02163257594014,
+          "threshold": 4.5
+        },
+        {
+          "role": "danger",
+          "surface": "bg-primary",
+          "foreground": "rgb(153, 27, 27)",
+          "background": "rgb(255, 255, 255)",
+          "ratio": 8.310050481211189,
+          "threshold": 4.5
+        },
+        {
+          "role": "danger",
+          "surface": "bg-secondary",
+          "foreground": "rgb(153, 27, 27)",
+          "background": "rgb(249, 250, 251)",
+          "ratio": 7.952004904963182,
+          "threshold": 4.5
+        },
+        {
+          "role": "danger",
+          "surface": "status-danger-soft",
+          "foreground": "rgb(153, 27, 27)",
+          "background": "rgb(254, 226, 226)",
+          "ratio": 6.802728419777387,
+          "threshold": 4.5
+        },
+        {
+          "role": "danger",
+          "surface": "status-danger-solid",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(185, 28, 28)",
+          "ratio": 6.4700447145121895,
+          "threshold": 4.5
+        },
+        {
+          "role": "info",
+          "surface": "bg-primary",
+          "foreground": "rgb(29, 78, 216)",
+          "background": "rgb(255, 255, 255)",
+          "ratio": 6.701618401398807,
+          "threshold": 4.5
+        },
+        {
+          "role": "info",
+          "surface": "bg-secondary",
+          "foreground": "rgb(29, 78, 216)",
+          "background": "rgb(249, 250, 251)",
+          "ratio": 6.4128734861003664,
+          "threshold": 4.5
+        },
+        {
+          "role": "info",
+          "surface": "status-info-soft",
+          "foreground": "rgb(29, 78, 216)",
+          "background": "rgba(37, 99, 235, 0.1)",
+          "ratio": 5.816841328625036,
+          "threshold": 4.5
+        },
+        {
+          "role": "info",
+          "surface": "status-info-solid",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(29, 78, 216)",
+          "ratio": 6.701618401398807,
+          "threshold": 4.5
+        }
+      ],
+      "writes": [],
+      "errors": []
+    },
+    {
+      "theme": "dark",
+      "width": 1600,
+      "profile": "roadmap",
+      "artifact": "tests/visual/reports/timeline-roadmap-dark-1600.png",
+      "actualTimelineCount": 47
+    },
+    {
+      "theme": "dark",
+      "width": 1600,
+      "profile": "project-detail-phases",
+      "artifact": "tests/visual/reports/timeline-project-detail-phases-dark-1600.png",
+      "actualTimelineCount": 1
+    },
+    {
+      "theme": "dark",
+      "width": 1600,
+      "profile": "actual-component-fixture",
+      "state": "default+hover",
+      "artifact": "tests/visual/reports/timeline-palette-dark-1600.png",
+      "colors": [
+        {
+          "item": "business planning",
+          "handle": null,
+          "state": "default",
+          "foreground": "rgb(0, 0, 0)",
+          "background": "rgb(59, 130, 246)",
+          "ratio": 5.709778246324693,
+          "threshold": 4.5
+        },
+        {
+          "item": "development",
+          "handle": null,
+          "state": "default",
+          "foreground": "rgb(0, 0, 0)",
+          "background": "rgb(16, 185, 129)",
+          "ratio": 8.278612383989437,
+          "threshold": 4.5
+        },
+        {
+          "item": "system integration testing",
+          "handle": null,
+          "state": "default",
+          "foreground": "rgb(0, 0, 0)",
+          "background": "rgb(245, 158, 11)",
+          "ratio": 9.778071798962173,
+          "threshold": 4.5
+        },
+        {
+          "item": "user acceptance testing",
+          "handle": null,
+          "state": "default",
+          "foreground": "rgb(0, 0, 0)",
+          "background": "rgb(139, 92, 246)",
+          "ratio": 4.959416156088179,
+          "threshold": 4.5
+        },
+        {
+          "item": "validation",
+          "handle": null,
+          "state": "default",
+          "foreground": "rgb(0, 0, 0)",
+          "background": "rgb(236, 72, 153)",
+          "ratio": 5.953500872309584,
+          "threshold": 4.5
+        },
+        {
+          "item": "cutover",
+          "handle": null,
+          "state": "default",
+          "foreground": "rgb(0, 0, 0)",
+          "background": "rgb(239, 68, 68)",
+          "ratio": 5.58046438625577,
+          "threshold": 4.5
+        },
+        {
+          "item": "hypercare",
+          "handle": null,
+          "state": "default",
+          "foreground": "rgb(0, 0, 0)",
+          "background": "rgb(6, 182, 212)",
+          "ratio": 8.649616236144142,
+          "threshold": 4.5
+        },
+        {
+          "item": "support",
+          "handle": null,
+          "state": "default",
+          "foreground": "rgb(0, 0, 0)",
+          "background": "rgb(132, 204, 22)",
+          "ratio": 10.629838431983178,
+          "threshold": 4.5
+        },
+        {
+          "item": "custom",
+          "handle": null,
+          "state": "default",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(107, 114, 128)",
+          "ratio": 4.834490081424352,
+          "threshold": 4.5
+        },
+        {
+          "item": null,
+          "handle": "extend-left",
+          "state": "default",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(4, 120, 87)",
+          "ratio": 5.483924052498799,
+          "threshold": 4.5
+        },
+        {
+          "item": null,
+          "handle": "extend-right",
+          "state": "default",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "ratio": 6.287528596095884,
+          "threshold": 4.5
+        },
+        {
+          "item": null,
+          "handle": "adjust-both",
+          "state": "default",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "ratio": 6.287528596095884,
+          "threshold": 4.5
+        },
+        {
+          "item": null,
+          "handle": "extend-left",
+          "state": "hover",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "color(srgb 0.0141176 0.423529 0.307059)",
+          "ratio": 6.441324769344559,
+          "threshold": 4.5
+        },
+        {
+          "item": null,
+          "handle": "extend-right",
+          "state": "hover",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "color(srgb 0.278824 0.247059 0.808235)",
+          "ratio": 7.3166459218667965,
+          "threshold": 4.5
+        },
+        {
+          "item": null,
+          "handle": "adjust-both",
+          "state": "hover",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "color(srgb 0.278824 0.247059 0.808235)",
+          "ratio": 7.3166459218667965,
+          "threshold": 4.5
+        }
+      ],
+      "marker": {
+        "opacity": "1",
+        "shadow": "rgb(255, 255, 255) 0px 0px 0px 1px, rgb(0, 0, 0) 0px 0px 0px 2px",
+        "minimumEdgeContrast": 4.834490081424352,
+        "threshold": 3
+      },
+      "tokens": [
+        {
+          "role": "success",
+          "surface": "bg-primary",
+          "foreground": "rgb(134, 239, 172)",
+          "background": "rgb(17, 24, 39)",
+          "ratio": 12.63403959107734,
+          "threshold": 4.5
+        },
+        {
+          "role": "success",
+          "surface": "bg-secondary",
+          "foreground": "rgb(134, 239, 172)",
+          "background": "rgb(31, 41, 55)",
+          "ratio": 10.454313558999981,
+          "threshold": 4.5
+        },
+        {
+          "role": "success",
+          "surface": "status-success-soft",
+          "foreground": "rgb(134, 239, 172)",
+          "background": "rgba(16, 185, 129, 0.2)",
+          "ratio": 9.052491586776803,
+          "threshold": 4.5
+        },
+        {
+          "role": "success",
+          "surface": "status-success-solid",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(4, 120, 87)",
+          "ratio": 5.483924052498799,
+          "threshold": 4.5
+        },
+        {
+          "role": "warning",
+          "surface": "bg-primary",
+          "foreground": "rgb(253, 224, 71)",
+          "background": "rgb(17, 24, 39)",
+          "ratio": 13.456654614041481,
+          "threshold": 4.5
+        },
+        {
+          "role": "warning",
+          "surface": "bg-secondary",
+          "foreground": "rgb(253, 224, 71)",
+          "background": "rgb(31, 41, 55)",
+          "ratio": 11.135004428014248,
+          "threshold": 4.5
+        },
+        {
+          "role": "warning",
+          "surface": "status-warning-soft",
+          "foreground": "rgb(253, 224, 71)",
+          "background": "rgba(245, 158, 11, 0.2)",
+          "ratio": 9.326855827488519,
+          "threshold": 4.5
+        },
+        {
+          "role": "warning",
+          "surface": "status-warning-solid",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(180, 83, 9)",
+          "ratio": 5.02163257594014,
+          "threshold": 4.5
+        },
+        {
+          "role": "danger",
+          "surface": "bg-primary",
+          "foreground": "rgb(254, 202, 202)",
+          "background": "rgb(17, 24, 39)",
+          "ratio": 12.261719107308613,
+          "threshold": 4.5
+        },
+        {
+          "role": "danger",
+          "surface": "bg-secondary",
+          "foreground": "rgb(254, 202, 202)",
+          "background": "rgb(31, 41, 55)",
+          "ratio": 10.146228796901738,
+          "threshold": 4.5
+        },
+        {
+          "role": "danger",
+          "surface": "status-danger-soft",
+          "foreground": "rgb(254, 202, 202)",
+          "background": "rgba(239, 68, 68, 0.2)",
+          "ratio": 9.94043737198571,
+          "threshold": 4.5
+        },
+        {
+          "role": "danger",
+          "surface": "status-danger-solid",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(185, 28, 28)",
+          "ratio": 6.4700447145121895,
+          "threshold": 4.5
+        },
+        {
+          "role": "info",
+          "surface": "bg-primary",
+          "foreground": "rgb(147, 197, 253)",
+          "background": "rgb(17, 24, 39)",
+          "ratio": 9.83750053606076,
+          "threshold": 4.5
+        },
+        {
+          "role": "info",
+          "surface": "bg-secondary",
+          "foreground": "rgb(147, 197, 253)",
+          "background": "rgb(31, 41, 55)",
+          "ratio": 8.14025589356569,
+          "threshold": 4.5
+        },
+        {
+          "role": "info",
+          "surface": "status-info-soft",
+          "foreground": "rgb(147, 197, 253)",
+          "background": "rgba(96, 165, 250, 0.15)",
+          "ratio": 7.651807207983175,
+          "threshold": 4.5
+        },
+        {
+          "role": "info",
+          "surface": "status-info-solid",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(29, 78, 216)",
+          "ratio": 6.701618401398807,
+          "threshold": 4.5
+        }
+      ],
+      "writes": [],
+      "errors": []
+    },
+    {
+      "theme": "dark",
+      "width": 1366,
+      "profile": "roadmap",
+      "artifact": "tests/visual/reports/timeline-roadmap-dark-1366.png",
+      "actualTimelineCount": 47
+    },
+    {
+      "theme": "dark",
+      "width": 1366,
+      "profile": "project-detail-phases",
+      "artifact": "tests/visual/reports/timeline-project-detail-phases-dark-1366.png",
+      "actualTimelineCount": 1
+    },
+    {
+      "theme": "dark",
+      "width": 1366,
+      "profile": "actual-component-fixture",
+      "state": "default+hover",
+      "artifact": "tests/visual/reports/timeline-palette-dark-1366.png",
+      "colors": [
+        {
+          "item": "business planning",
+          "handle": null,
+          "state": "default",
+          "foreground": "rgb(0, 0, 0)",
+          "background": "rgb(59, 130, 246)",
+          "ratio": 5.709778246324693,
+          "threshold": 4.5
+        },
+        {
+          "item": "development",
+          "handle": null,
+          "state": "default",
+          "foreground": "rgb(0, 0, 0)",
+          "background": "rgb(16, 185, 129)",
+          "ratio": 8.278612383989437,
+          "threshold": 4.5
+        },
+        {
+          "item": "system integration testing",
+          "handle": null,
+          "state": "default",
+          "foreground": "rgb(0, 0, 0)",
+          "background": "rgb(245, 158, 11)",
+          "ratio": 9.778071798962173,
+          "threshold": 4.5
+        },
+        {
+          "item": "user acceptance testing",
+          "handle": null,
+          "state": "default",
+          "foreground": "rgb(0, 0, 0)",
+          "background": "rgb(139, 92, 246)",
+          "ratio": 4.959416156088179,
+          "threshold": 4.5
+        },
+        {
+          "item": "validation",
+          "handle": null,
+          "state": "default",
+          "foreground": "rgb(0, 0, 0)",
+          "background": "rgb(236, 72, 153)",
+          "ratio": 5.953500872309584,
+          "threshold": 4.5
+        },
+        {
+          "item": "cutover",
+          "handle": null,
+          "state": "default",
+          "foreground": "rgb(0, 0, 0)",
+          "background": "rgb(239, 68, 68)",
+          "ratio": 5.58046438625577,
+          "threshold": 4.5
+        },
+        {
+          "item": "hypercare",
+          "handle": null,
+          "state": "default",
+          "foreground": "rgb(0, 0, 0)",
+          "background": "rgb(6, 182, 212)",
+          "ratio": 8.649616236144142,
+          "threshold": 4.5
+        },
+        {
+          "item": "support",
+          "handle": null,
+          "state": "default",
+          "foreground": "rgb(0, 0, 0)",
+          "background": "rgb(132, 204, 22)",
+          "ratio": 10.629838431983178,
+          "threshold": 4.5
+        },
+        {
+          "item": "custom",
+          "handle": null,
+          "state": "default",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(107, 114, 128)",
+          "ratio": 4.834490081424352,
+          "threshold": 4.5
+        },
+        {
+          "item": null,
+          "handle": "extend-left",
+          "state": "default",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(4, 120, 87)",
+          "ratio": 5.483924052498799,
+          "threshold": 4.5
+        },
+        {
+          "item": null,
+          "handle": "extend-right",
+          "state": "default",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "ratio": 6.287528596095884,
+          "threshold": 4.5
+        },
+        {
+          "item": null,
+          "handle": "adjust-both",
+          "state": "default",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "ratio": 6.287528596095884,
+          "threshold": 4.5
+        },
+        {
+          "item": null,
+          "handle": "extend-left",
+          "state": "hover",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "color(srgb 0.0141176 0.423529 0.307059)",
+          "ratio": 6.441324769344559,
+          "threshold": 4.5
+        },
+        {
+          "item": null,
+          "handle": "extend-right",
+          "state": "hover",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "color(srgb 0.278824 0.247059 0.808235)",
+          "ratio": 7.3166459218667965,
+          "threshold": 4.5
+        },
+        {
+          "item": null,
+          "handle": "adjust-both",
+          "state": "hover",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "color(srgb 0.278824 0.247059 0.808235)",
+          "ratio": 7.3166459218667965,
+          "threshold": 4.5
+        }
+      ],
+      "marker": {
+        "opacity": "1",
+        "shadow": "rgb(255, 255, 255) 0px 0px 0px 1px, rgb(0, 0, 0) 0px 0px 0px 2px",
+        "minimumEdgeContrast": 4.834490081424352,
+        "threshold": 3
+      },
+      "tokens": [
+        {
+          "role": "success",
+          "surface": "bg-primary",
+          "foreground": "rgb(134, 239, 172)",
+          "background": "rgb(17, 24, 39)",
+          "ratio": 12.63403959107734,
+          "threshold": 4.5
+        },
+        {
+          "role": "success",
+          "surface": "bg-secondary",
+          "foreground": "rgb(134, 239, 172)",
+          "background": "rgb(31, 41, 55)",
+          "ratio": 10.454313558999981,
+          "threshold": 4.5
+        },
+        {
+          "role": "success",
+          "surface": "status-success-soft",
+          "foreground": "rgb(134, 239, 172)",
+          "background": "rgba(16, 185, 129, 0.2)",
+          "ratio": 9.052491586776803,
+          "threshold": 4.5
+        },
+        {
+          "role": "success",
+          "surface": "status-success-solid",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(4, 120, 87)",
+          "ratio": 5.483924052498799,
+          "threshold": 4.5
+        },
+        {
+          "role": "warning",
+          "surface": "bg-primary",
+          "foreground": "rgb(253, 224, 71)",
+          "background": "rgb(17, 24, 39)",
+          "ratio": 13.456654614041481,
+          "threshold": 4.5
+        },
+        {
+          "role": "warning",
+          "surface": "bg-secondary",
+          "foreground": "rgb(253, 224, 71)",
+          "background": "rgb(31, 41, 55)",
+          "ratio": 11.135004428014248,
+          "threshold": 4.5
+        },
+        {
+          "role": "warning",
+          "surface": "status-warning-soft",
+          "foreground": "rgb(253, 224, 71)",
+          "background": "rgba(245, 158, 11, 0.2)",
+          "ratio": 9.326855827488519,
+          "threshold": 4.5
+        },
+        {
+          "role": "warning",
+          "surface": "status-warning-solid",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(180, 83, 9)",
+          "ratio": 5.02163257594014,
+          "threshold": 4.5
+        },
+        {
+          "role": "danger",
+          "surface": "bg-primary",
+          "foreground": "rgb(254, 202, 202)",
+          "background": "rgb(17, 24, 39)",
+          "ratio": 12.261719107308613,
+          "threshold": 4.5
+        },
+        {
+          "role": "danger",
+          "surface": "bg-secondary",
+          "foreground": "rgb(254, 202, 202)",
+          "background": "rgb(31, 41, 55)",
+          "ratio": 10.146228796901738,
+          "threshold": 4.5
+        },
+        {
+          "role": "danger",
+          "surface": "status-danger-soft",
+          "foreground": "rgb(254, 202, 202)",
+          "background": "rgba(239, 68, 68, 0.2)",
+          "ratio": 9.94043737198571,
+          "threshold": 4.5
+        },
+        {
+          "role": "danger",
+          "surface": "status-danger-solid",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(185, 28, 28)",
+          "ratio": 6.4700447145121895,
+          "threshold": 4.5
+        },
+        {
+          "role": "info",
+          "surface": "bg-primary",
+          "foreground": "rgb(147, 197, 253)",
+          "background": "rgb(17, 24, 39)",
+          "ratio": 9.83750053606076,
+          "threshold": 4.5
+        },
+        {
+          "role": "info",
+          "surface": "bg-secondary",
+          "foreground": "rgb(147, 197, 253)",
+          "background": "rgb(31, 41, 55)",
+          "ratio": 8.14025589356569,
+          "threshold": 4.5
+        },
+        {
+          "role": "info",
+          "surface": "status-info-soft",
+          "foreground": "rgb(147, 197, 253)",
+          "background": "rgba(96, 165, 250, 0.15)",
+          "ratio": 7.651807207983175,
+          "threshold": 4.5
+        },
+        {
+          "role": "info",
+          "surface": "status-info-solid",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(29, 78, 216)",
+          "ratio": 6.701618401398807,
+          "threshold": 4.5
+        }
+      ],
+      "writes": [],
+      "errors": []
+    }
+  ]
+}

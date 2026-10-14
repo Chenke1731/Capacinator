@@ -1299,6 +1299,29 @@ html body .settings-section .checkbox-label,
 /* Light Mode Theme Variables */
 :root,
 [data-theme="light"] {
+  /* Task C: foreground/solid/soft/border are distinct uses. Solids retain the
+     existing light palette with white labels in either theme. Text/soft pairs
+     reuse the measured badge palette instead of darkening every color. */
+  --status-success-text: var(--badge-success-text);
+  --status-success-solid: #047857;
+  --status-success-soft: var(--badge-success-bg);
+  --status-success-border: var(--success);
+  --status-warning-text: var(--badge-warning-text);
+  --status-warning-solid: #b45309;
+  --status-warning-soft: var(--badge-warning-bg);
+  --status-warning-border: var(--warning);
+  --status-danger-text: var(--badge-danger-text);
+  --status-danger-solid: #b91c1c;
+  --status-danger-soft: var(--badge-danger-bg);
+  --status-danger-border: var(--danger);
+  --status-info-text: #1d4ed8;
+  --status-info-solid: #1d4ed8;
+  --status-info-soft: var(--project-hover);
+  --status-info-border: var(--project-active);
+  --solid-foreground: #ffffff;
+  --solid-shade: #000000;
+  --timeline-tooltip-bg: rgba(0, 0, 0, 0.92);
+  --timeline-tooltip-text: #ffffff;
   /* Primary Colors */
   --primary: #4f46e5;
   --primary-solid: var(--primary); /* 实心底别名(浅色原值已 6.29:1) */
@@ -1410,6 +1433,26 @@ html body .settings-section .checkbox-label,
 
 /* Dark Mode Theme Variables */
 [data-theme="dark"] {
+  --status-success-text: var(--badge-success-text);
+  --status-success-solid: #047857;
+  --status-success-soft: var(--badge-success-bg);
+  --status-success-border: var(--success);
+  --status-warning-text: var(--badge-warning-text);
+  --status-warning-solid: #b45309;
+  --status-warning-soft: var(--badge-warning-bg);
+  --status-warning-border: var(--warning);
+  --status-danger-text: var(--badge-danger-text);
+  --status-danger-solid: #b91c1c;
+  --status-danger-soft: var(--badge-danger-bg);
+  --status-danger-border: var(--danger);
+  --status-info-text: #93c5fd;
+  --status-info-solid: #1d4ed8;
+  --status-info-soft: var(--project-hover);
+  --status-info-border: var(--project-active);
+  --solid-foreground: #ffffff;
+  --solid-shade: #000000;
+  --timeline-tooltip-bg: rgba(0, 0, 0, 0.92);
+  --timeline-tooltip-text: #ffffff;
   color-scheme: dark;
   
   /* Primary Colors - Keep consistent */

@@ -42,7 +42,7 @@ export function TimelineGrid({ gridLines, viewport, showToday, timelineWidth }: 
                 top: -25,
                 left: 2,
                 fontSize: '10px',
-                color: line.type === 'major' ? '#374151' : '#6b7280',
+                color: line.type === 'major' ? 'var(--text-secondary)' : 'var(--text-tertiary)',
                 fontWeight: line.type === 'major' ? 500 : 400,
                 whiteSpace: 'nowrap',
                 maxWidth: '60px',
@@ -74,14 +74,18 @@ function TodayLine({ viewport, timelineWidth, label }: { viewport: TimelineViewp
 
   return (
     <div
+      data-timeline-today
       style={{
         position: 'absolute',
         left: todayPosition,
         top: 0,
         bottom: 0,
         width: '2px',
-        backgroundColor: 'hsl(var(--destructive))',
-        opacity: 0.8,
+        backgroundColor: 'var(--status-danger-border)',
+        opacity: 1,
+        // A marker crosses arbitrary data colors. Both inks remain identifiable
+        // on light/dark surfaces and bright phase fills without recoloring data.
+        boxShadow: '0 0 0 1px var(--solid-foreground), 0 0 0 2px var(--solid-shade)',
         zIndex: 10
       }}
     >
@@ -91,7 +95,7 @@ function TodayLine({ viewport, timelineWidth, label }: { viewport: TimelineViewp
           top: -20,
           left: -15,
           fontSize: '10px',
-          color: '#ef4444',
+          color: 'var(--status-danger-text)',
           fontWeight: 600,
           whiteSpace: 'nowrap'
         }}

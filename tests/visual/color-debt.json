@@ -6342,398 +6342,6 @@
       "evidence": []
     },
     {
-      "fingerprint": "0d8174fdb2dd6cbe090a8f28949e3de0a030c9b0162c6c1782b11a56ee42880d",
-      "file": "client/src/components/interactive-timeline/PhaseHandles.tsx",
-      "context": [
-        "PhaseHandles",
-        "getHandleStyle"
-      ],
-      "owner": "backgroundColor",
-      "property": "backgroundColor",
-      "literal": "hsl(262 83% 58%)",
-      "locations": [
-        {
-          "line": 83,
-          "column": 45
-        }
-      ],
-      "count": 1,
-      "kind": "unknown",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "459c1e4c606dbcea8c9057a65c0f9fc1698ad1a851997b2b4f4bf2b65e9baa21",
-      "file": "client/src/components/interactive-timeline/PhaseHandles.tsx",
-      "context": [
-        "PhaseHandles",
-        "getHandleStyle"
-      ],
-      "owner": "boxShadow",
-      "property": "boxShadow",
-      "literal": "rgba(168, 85, 247, 0.3)",
-      "locations": [
-        {
-          "line": 86,
-          "column": 87
-        }
-      ],
-      "count": 1,
-      "kind": "unknown",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "6c07f479d82442b505700f0674b95e85edf26ee6ac654eee4bf2746155c662e1",
-      "file": "client/src/components/interactive-timeline/PhaseHandles.tsx",
-      "context": [
-        "PhaseHandles",
-        "getHandleStyle"
-      ],
-      "owner": "boxShadow",
-      "property": "boxShadow",
-      "literal": "rgba(16, 185, 129, 0.3)",
-      "locations": [
-        {
-          "line": 68,
-          "column": 87
-        }
-      ],
-      "count": 1,
-      "kind": "unknown",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "6c5a39b605891b431cb060109432c22887d7a500f685fc4dd05e709de8831765",
-      "file": "client/src/components/interactive-timeline/PhaseHandles.tsx",
-      "context": [
-        "PhaseHandles",
-        "getHandleStyle"
-      ],
-      "owner": "boxShadow",
-      "property": "boxShadow",
-      "literal": "rgba(59, 130, 246, 0.3)",
-      "locations": [
-        {
-          "line": 77,
-          "column": 87
-        }
-      ],
-      "count": 1,
-      "kind": "unknown",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "9ba50f948e5f9dda0ec14b7e0554f2dccecdc6014dfab8373d00dc3ee993ddf5",
-      "file": "client/src/components/interactive-timeline/PhaseHandles.tsx",
-      "context": [
-        "PhaseHandles",
-        "getHandleStyle"
-      ],
-      "owner": "backgroundColor",
-      "property": "backgroundColor",
-      "literal": "hsl(262 83% 68%)",
-      "locations": [
-        {
-          "line": 83,
-          "column": 66
-        }
-      ],
-      "count": 1,
-      "kind": "unknown",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "bbabfd95aa0d33dce329ca9b511ee2b0affb08e98f98386ed3f47b79b7539370",
-      "file": "client/src/components/interactive-timeline/PhaseHandles.tsx",
-      "context": [
-        "PhaseHandles",
-        "jsx:style"
-      ],
-      "owner": "color",
-      "property": "color",
-      "literal": "white",
-      "locations": [
-        {
-          "line": 141,
-          "column": 21
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "bf2b312c7c29e4ee66f7e958de4bc90aa57a398093b2aceacc5b594368cbe678",
-      "file": "client/src/components/interactive-timeline/PhaseHandles.tsx",
-      "context": [
-        "PhaseHandles",
-        "getHandleStyle"
-      ],
-      "owner": "boxShadow",
-      "property": "boxShadow",
-      "literal": "rgba(168, 85, 247, 0.4)",
-      "locations": [
-        {
-          "line": 86,
-          "column": 49
-        }
-      ],
-      "count": 1,
-      "kind": "unknown",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "c103ad90ce7af44e0b1d8e215c389b54987af2f14b74c1d162e53ba4654b7e54",
-      "file": "client/src/components/interactive-timeline/PhaseHandles.tsx",
-      "context": [
-        "PhaseHandles",
-        "getHandleStyle"
-      ],
-      "owner": "boxShadow",
-      "property": "boxShadow",
-      "literal": "rgba(16, 185, 129, 0.4)",
-      "locations": [
-        {
-          "line": 68,
-          "column": 49
-        }
-      ],
-      "count": 1,
-      "kind": "unknown",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "c279b547871aafbca122099e073071774e486e7b618aba71e474b059b7dfe577",
-      "file": "client/src/components/interactive-timeline/PhaseHandles.tsx",
-      "context": [
-        "PhaseHandles",
-        "jsx:style"
-      ],
-      "owner": "backgroundColor",
-      "property": "backgroundColor",
-      "literal": "rgba(0, 0, 0, 0.8)",
-      "locations": [
-        {
-          "line": 140,
-          "column": 31
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "cecb336a5712f00ef5fc2218a9e4c19c33081d471a2ea80dbe03557e75983434",
-      "file": "client/src/components/interactive-timeline/PhaseHandles.tsx",
-      "context": [
-        "PhaseHandles",
-        "getHandleStyle"
-      ],
-      "owner": "backgroundColor",
-      "property": "backgroundColor",
-      "literal": "hsl(142 71% 45%)",
-      "locations": [
-        {
-          "line": 65,
-          "column": 45
-        }
-      ],
-      "count": 1,
-      "kind": "unknown",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "d2c65bd07cb249bfd78bcdfc18e567c0f1f503d61897aecce1e6b6f037972910",
-      "file": "client/src/components/interactive-timeline/PhaseHandles.tsx",
-      "context": [
-        "PhaseHandles",
-        "getHandleStyle"
-      ],
-      "owner": "color",
-      "property": "color",
-      "literal": "white",
-      "locations": [
-        {
-          "line": 66,
-          "column": 23
-        },
-        {
-          "line": 75,
-          "column": 23
-        },
-        {
-          "line": 84,
-          "column": 23
-        }
-      ],
-      "count": 3,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "ecc0a779a4a573d55fafafdd9c61f2c779abdca3b7dd586ae70a3e371d103ed0",
-      "file": "client/src/components/interactive-timeline/PhaseHandles.tsx",
-      "context": [
-        "PhaseHandles",
-        "getHandleStyle"
-      ],
-      "owner": "boxShadow",
-      "property": "boxShadow",
-      "literal": "rgba(59, 130, 246, 0.4)",
-      "locations": [
-        {
-          "line": 77,
-          "column": 49
-        }
-      ],
-      "count": 1,
-      "kind": "unknown",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "eea4cabf00973533aa62c961537f6baf0aff53a8e0a63d243fe0d5d6359bdc85",
-      "file": "client/src/components/interactive-timeline/PhaseHandles.tsx",
-      "context": [
-        "PhaseHandles",
-        "getHandleStyle"
-      ],
-      "owner": "backgroundColor",
-      "property": "backgroundColor",
-      "literal": "hsl(142 71% 55%)",
-      "locations": [
-        {
-          "line": 65,
-          "column": 66
-        }
-      ],
-      "count": 1,
-      "kind": "unknown",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "1ba834ff8b62b2c3905c96cb145f4b0131d1f79a232877ee6b194ebf9cf666f8",
-      "file": "client/src/components/interactive-timeline/TimelineGrid.tsx",
-      "context": [
-        "TimelineGrid",
-        "jsx:style"
-      ],
-      "owner": "color",
-      "property": "color",
-      "literal": "#374151",
-      "locations": [
-        {
-          "line": 45,
-          "column": 49
-        }
-      ],
-      "count": 1,
-      "kind": "unknown",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "4136de0309b89bad07846bf7f4ed4cb23bcce75fc76eb106c70ad12c2ff23cb5",
-      "file": "client/src/components/interactive-timeline/TimelineGrid.tsx",
-      "context": [
-        "TimelineGrid",
-        "jsx:style"
-      ],
-      "owner": "color",
-      "property": "color",
-      "literal": "#6b7280",
-      "locations": [
-        {
-          "line": 45,
-          "column": 61
-        }
-      ],
-      "count": 1,
-      "kind": "unknown",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "d7507b1d969b8b38cba12f4297dcf90a1dbc4b4430bc77843cbfbaa4597deb42",
-      "file": "client/src/components/interactive-timeline/TimelineGrid.tsx",
-      "context": [
-        "TodayLine",
-        "jsx:style"
-      ],
-      "owner": "color",
-      "property": "color",
-      "literal": "#ef4444",
-      "locations": [
-        {
-          "line": 94,
-          "column": 19
-        }
-      ],
-      "count": 1,
-      "kind": "unknown",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
       "fingerprint": "0b81ba42a543b85ffab11c4bcb96323409b9976efc35068e1e022bde25049679",
       "file": "client/src/components/interactive-timeline/TimelineItemTooltip.tsx",
       "context": [
@@ -7654,31 +7262,6 @@
       "evidence": []
     },
     {
-      "fingerprint": "52a5ce5bfbb04b48a8b51827dcff1c000f451974066023f9c33ec50eca49dd81",
-      "file": "client/src/components/InteractiveTimeline.tsx",
-      "context": [
-        "InteractiveTimeline",
-        "renderTimelineItem",
-        "jsx:style"
-      ],
-      "owner": "color",
-      "property": "color",
-      "literal": "white",
-      "locations": [
-        {
-          "line": 386,
-          "column": 19
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
       "fingerprint": "5c4958aaaa568b15e3f6a3811695b8e7d088c90fe76db176920ae69c183585e6",
       "file": "client/src/components/InteractiveTimeline.tsx",
       "context": [
@@ -7778,30 +7361,6 @@
       "evidence": []
     },
     {
-      "fingerprint": "e65ec09b1eb4690dec1bc5314791956b80c1bb0c038291c33ff86d582ce9c658",
-      "file": "client/src/components/InteractiveTimeline.tsx",
-      "context": [
-        "InteractiveTimeline",
-        "jsx:style"
-      ],
-      "owner": "border",
-      "property": "border",
-      "literal": "#e2e8f0",
-      "locations": [
-        {
-          "line": 453,
-          "column": 30
-        }
-      ],
-      "count": 1,
-      "kind": "unknown",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
       "fingerprint": "f5188893862927ae1eeb8f56cf3e76da9fe9a6af65f364d9398fd8e62b8db851",
       "file": "client/src/components/InteractiveTimeline.tsx",
       "context": [
@@ -7819,35 +7378,6 @@
         }
       ],
       "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "fb365340b5a1a609a8659a53e430f184a54a0f8546a58157b21b7198ae3ae6a8",
-      "file": "client/src/components/InteractiveTimeline.tsx",
-      "context": [
-        "InteractiveTimeline",
-        "renderTimelineItem",
-        "jsx:style"
-      ],
-      "owner": "backgroundColor",
-      "property": "backgroundColor",
-      "literal": "rgba(255,255,255,0.3)",
-      "locations": [
-        {
-          "line": 413,
-          "column": 56
-        },
-        {
-          "line": 421,
-          "column": 56
-        }
-      ],
-      "count": 2,
       "kind": "neutral-literal",
       "reachability": "unverified",
       "decision": "pending",
@@ -13661,6 +13191,27 @@
       "evidence": []
     },
     {
+      "fingerprint": "02b4eac9fc02c600ab42e55a7e7a2baaee3cb697fa8490c9d38a4d39407a7ae0",
+      "file": "client/src/index.css",
+      "context": [],
+      "owner": "[data-theme=\"dark\"]",
+      "property": "--status-warning-solid",
+      "literal": "#b45309",
+      "locations": [
+        {
+          "line": 1441,
+          "column": 27
+        }
+      ],
+      "count": 1,
+      "kind": "token-definition",
+      "reachability": "unverified",
+      "decision": "not-debt",
+      "semanticRole": null,
+      "reason": "CSS custom-property definition; render validation is separate.",
+      "evidence": []
+    },
+    {
       "fingerprint": "02f07eb549e08955c8aaadfa5728d29d966cf31aa72868671e220c6fb1dc0a1f",
       "file": "client/src/index.css",
       "context": [],
@@ -13797,6 +13348,27 @@
         {
           "line": 1368,
           "column": 18
+        }
+      ],
+      "count": 1,
+      "kind": "token-definition",
+      "reachability": "unverified",
+      "decision": "not-debt",
+      "semanticRole": null,
+      "reason": "CSS custom-property definition; render validation is separate.",
+      "evidence": []
+    },
+    {
+      "fingerprint": "1193b6d509969bf58b2456895d6dcf7631aea173f301a1c2f6da64d18a6d19cb",
+      "file": "client/src/index.css",
+      "context": [],
+      "owner": "[data-theme=\"dark\"]",
+      "property": "--status-info-solid",
+      "literal": "#1d4ed8",
+      "locations": [
+        {
+          "line": 1449,
+          "column": 24
         }
       ],
       "count": 1,
@@ -14396,6 +13968,27 @@
       "evidence": []
     },
     {
+      "fingerprint": "38105d6fb1a495df0e31f5ec062200ec82a928c60130067fe60946076d653d70",
+      "file": "client/src/index.css",
+      "context": [],
+      "owner": "[data-theme=\"dark\"]",
+      "property": "--status-success-solid",
+      "literal": "#047857",
+      "locations": [
+        {
+          "line": 1437,
+          "column": 27
+        }
+      ],
+      "count": 1,
+      "kind": "token-definition",
+      "reachability": "unverified",
+      "decision": "not-debt",
+      "semanticRole": null,
+      "reason": "CSS custom-property definition; render validation is separate.",
+      "evidence": []
+    },
+    {
       "fingerprint": "391d11e934c589f9de89cd40b2a297a02f36663c98149c15265df99f54a88e7d",
       "file": "client/src/index.css",
       "context": [],
@@ -14532,6 +14125,27 @@
         {
           "line": 1490,
           "column": 17
+        }
+      ],
+      "count": 1,
+      "kind": "token-definition",
+      "reachability": "unverified",
+      "decision": "not-debt",
+      "semanticRole": null,
+      "reason": "CSS custom-property definition; render validation is separate.",
+      "evidence": []
+    },
+    {
+      "fingerprint": "48fa724ec57d9f1e37c464d04c846a1fd31365db920858cb2c9c6cbac94593a6",
+      "file": "client/src/index.css",
+      "context": [],
+      "owner": "[data-theme=\"dark\"]",
+      "property": "--timeline-tooltip-text",
+      "literal": "#ffffff",
+      "locations": [
+        {
+          "line": 1455,
+          "column": 28
         }
       ],
       "count": 1,
@@ -14753,6 +14367,27 @@
       "evidence": []
     },
     {
+      "fingerprint": "5743dfa11e79e5ed1bbe86b3a6b2a72c50f08f6974f3037d2c14552898fdb7e2",
+      "file": "client/src/index.css",
+      "context": [],
+      "owner": "[data-theme=\"dark\"]",
+      "property": "--timeline-tooltip-bg",
+      "literal": "rgba(0, 0, 0, 0.92)",
+      "locations": [
+        {
+          "line": 1454,
+          "column": 26
+        }
+      ],
+      "count": 1,
+      "kind": "token-definition",
+      "reachability": "unverified",
+      "decision": "not-debt",
+      "semanticRole": null,
+      "reason": "CSS custom-property definition; render validation is separate.",
+      "evidence": []
+    },
+    {
       "fingerprint": "5778e2efdaf7144ac1437c337e0d90273e31103f6422f138a3b4cdeb5ba7c10e",
       "file": "client/src/index.css",
       "context": [],
@@ -14942,6 +14577,27 @@
       "evidence": []
     },
     {
+      "fingerprint": "5d711777e65ca7f945f485ac1563e4cf203b6cbb1c835a3686f363c5e0aac82f",
+      "file": "client/src/index.css",
+      "context": [],
+      "owner": ":root, [data-theme=\"light\"]",
+      "property": "--solid-shade",
+      "literal": "#000000",
+      "locations": [
+        {
+          "line": 1322,
+          "column": 18
+        }
+      ],
+      "count": 1,
+      "kind": "token-definition",
+      "reachability": "unverified",
+      "decision": "not-debt",
+      "semanticRole": null,
+      "reason": "CSS custom-property definition; render validation is separate.",
+      "evidence": []
+    },
+    {
       "fingerprint": "5e34b6911b3c00b829dc23661a1647323c8c45d54abe03d00e0150569554467e",
       "file": "client/src/index.css",
       "context": [],
@@ -14952,6 +14608,27 @@
         {
           "line": 1511,
           "column": 21
+        }
+      ],
+      "count": 1,
+      "kind": "token-definition",
+      "reachability": "unverified",
+      "decision": "not-debt",
+      "semanticRole": null,
+      "reason": "CSS custom-property definition; render validation is separate.",
+      "evidence": []
+    },
+    {
+      "fingerprint": "5ea3cc20a38100feb45ec6c1d91723770e2d415db8789dc3c6c12e2881005aea",
+      "file": "client/src/index.css",
+      "context": [],
+      "owner": ":root, [data-theme=\"light\"]",
+      "property": "--solid-foreground",
+      "literal": "#ffffff",
+      "locations": [
+        {
+          "line": 1321,
+          "column": 23
         }
       ],
       "count": 1,
@@ -15194,6 +14871,27 @@
       "evidence": []
     },
     {
+      "fingerprint": "6f8dde9272c2b003e4aba4e226f15f28ec93f376de0809e8a11ded40da6c4846",
+      "file": "client/src/index.css",
+      "context": [],
+      "owner": "[data-theme=\"dark\"]",
+      "property": "--solid-shade",
+      "literal": "#000000",
+      "locations": [
+        {
+          "line": 1453,
+          "column": 18
+        }
+      ],
+      "count": 1,
+      "kind": "token-definition",
+      "reachability": "unverified",
+      "decision": "not-debt",
+      "semanticRole": null,
+      "reason": "CSS custom-property definition; render validation is separate.",
+      "evidence": []
+    },
+    {
       "fingerprint": "71988b5e90b247eb3caaf802d67e7654314f11c5743eb62548a005c9e21219c8",
       "file": "client/src/index.css",
       "context": [],
@@ -15225,6 +14923,27 @@
         {
           "line": 1418,
           "column": 20
+        }
+      ],
+      "count": 1,
+      "kind": "token-definition",
+      "reachability": "unverified",
+      "decision": "not-debt",
+      "semanticRole": null,
+      "reason": "CSS custom-property definition; render validation is separate.",
+      "evidence": []
+    },
+    {
+      "fingerprint": "759213aed9624117e7fb0d5534aaf0cf95116085dfbcea4e96a8a69874f8ad6e",
+      "file": "client/src/index.css",
+      "context": [],
+      "owner": "[data-theme=\"dark\"]",
+      "property": "--status-danger-solid",
+      "literal": "#b91c1c",
+      "locations": [
+        {
+          "line": 1445,
+          "column": 26
         }
       ],
       "count": 1,
@@ -15519,6 +15238,27 @@
         {
           "line": 1352,
           "column": 15
+        }
+      ],
+      "count": 1,
+      "kind": "token-definition",
+      "reachability": "unverified",
+      "decision": "not-debt",
+      "semanticRole": null,
+      "reason": "CSS custom-property definition; render validation is separate.",
+      "evidence": []
+    },
+    {
+      "fingerprint": "91955c3d689ac3a727d158fb7ee96ffcad573ccaa51940ac7580bbd9247fb8e4",
+      "file": "client/src/index.css",
+      "context": [],
+      "owner": ":root, [data-theme=\"light\"]",
+      "property": "--status-info-solid",
+      "literal": "#1d4ed8",
+      "locations": [
+        {
+          "line": 1318,
+          "column": 24
         }
       ],
       "count": 1,
@@ -15929,6 +15669,27 @@
       "evidence": []
     },
     {
+      "fingerprint": "a8fb5e2b124b696654acb956884fac0b33cebd79702f7d6232b5b88b54fcb21a",
+      "file": "client/src/index.css",
+      "context": [],
+      "owner": ":root, [data-theme=\"light\"]",
+      "property": "--timeline-tooltip-bg",
+      "literal": "rgba(0, 0, 0, 0.92)",
+      "locations": [
+        {
+          "line": 1323,
+          "column": 26
+        }
+      ],
+      "count": 1,
+      "kind": "token-definition",
+      "reachability": "unverified",
+      "decision": "not-debt",
+      "semanticRole": null,
+      "reason": "CSS custom-property definition; render validation is separate.",
+      "evidence": []
+    },
+    {
       "fingerprint": "a99d69f6cad1b6bb6442f0169b16cc5e604488164ae1f095a73d1bd7cf5e4019",
       "file": "client/src/index.css",
       "context": [],
@@ -15960,6 +15721,27 @@
         {
           "line": 1502,
           "column": 21
+        }
+      ],
+      "count": 1,
+      "kind": "token-definition",
+      "reachability": "unverified",
+      "decision": "not-debt",
+      "semanticRole": null,
+      "reason": "CSS custom-property definition; render validation is separate.",
+      "evidence": []
+    },
+    {
+      "fingerprint": "ac33c08058ada7a1f534ed7d09cb985d8c383b99df1749031a0e9235e10a59c7",
+      "file": "client/src/index.css",
+      "context": [],
+      "owner": ":root, [data-theme=\"light\"]",
+      "property": "--status-danger-solid",
+      "literal": "#b91c1c",
+      "locations": [
+        {
+          "line": 1314,
+          "column": 26
         }
       ],
       "count": 1,
@@ -16349,6 +16131,27 @@
       "evidence": []
     },
     {
+      "fingerprint": "c50351bfc7ac64447edbcf1ce70acd7c39462155b48d22ffe24998f5d06c120b",
+      "file": "client/src/index.css",
+      "context": [],
+      "owner": ":root, [data-theme=\"light\"]",
+      "property": "--status-info-text",
+      "literal": "#1d4ed8",
+      "locations": [
+        {
+          "line": 1317,
+          "column": 23
+        }
+      ],
+      "count": 1,
+      "kind": "token-definition",
+      "reachability": "unverified",
+      "decision": "not-debt",
+      "semanticRole": null,
+      "reason": "CSS custom-property definition; render validation is separate.",
+      "evidence": []
+    },
+    {
       "fingerprint": "c66880ccf03b89bc996800a95d7f9a6bf58491763da9ced6ec2964fd548cc8da",
       "file": "client/src/index.css",
       "context": [],
@@ -16601,6 +16404,27 @@
       "evidence": []
     },
     {
+      "fingerprint": "d496b8570bf4650f5a2eebb282d9293adb8c16e84f4a9c1eb7a9721dd29d5eb3",
+      "file": "client/src/index.css",
+      "context": [],
+      "owner": "[data-theme=\"dark\"]",
+      "property": "--status-info-text",
+      "literal": "#93c5fd",
+      "locations": [
+        {
+          "line": 1448,
+          "column": 23
+        }
+      ],
+      "count": 1,
+      "kind": "token-definition",
+      "reachability": "unverified",
+      "decision": "not-debt",
+      "semanticRole": null,
+      "reason": "CSS custom-property definition; render validation is separate.",
+      "evidence": []
+    },
+    {
       "fingerprint": "d7d3985546e418056808a552198ef3cd1bcd333c8a4210dcd01f242be9219084",
       "file": "client/src/index.css",
       "context": [],
@@ -16622,6 +16446,27 @@
       "evidence": []
     },
     {
+      "fingerprint": "d91d740a677f5194814d29cf9bcccd361502939dfd15cf77a1af243245fee15c",
+      "file": "client/src/index.css",
+      "context": [],
+      "owner": "[data-theme=\"dark\"]",
+      "property": "--solid-foreground",
+      "literal": "#ffffff",
+      "locations": [
+        {
+          "line": 1452,
+          "column": 23
+        }
+      ],
+      "count": 1,
+      "kind": "token-definition",
+      "reachability": "unverified",
+      "decision": "not-debt",
+      "semanticRole": null,
+      "reason": "CSS custom-property definition; render validation is separate.",
+      "evidence": []
+    },
+    {
       "fingerprint": "d964521dee7661700a12e1711fcaa0c6bca9dcd962add7fc7bbb1c90ffe611cb",
       "file": "client/src/index.css",
       "context": [],
@@ -16632,6 +16477,27 @@
         {
           "line": 1338,
           "column": 20
+        }
+      ],
+      "count": 1,
+      "kind": "token-definition",
+      "reachability": "unverified",
+      "decision": "not-debt",
+      "semanticRole": null,
+      "reason": "CSS custom-property definition; render validation is separate.",
+      "evidence": []
+    },
+    {
+      "fingerprint": "da3114a8d80b4b7ba482243d2fdee26eeae793ddf937d42291cd9d64728be6bc",
+      "file": "client/src/index.css",
+      "context": [],
+      "owner": ":root, [data-theme=\"light\"]",
+      "property": "--status-success-solid",
+      "literal": "#047857",
+      "locations": [
+        {
+          "line": 1306,
+          "column": 27
         }
       ],
       "count": 1,
@@ -17084,6 +16950,27 @@
       "evidence": []
     },
     {
+      "fingerprint": "f6ac8c23e859b12143c87c7059b66e8476d6b35ef07c7ea3a8973cf41fa8beb5",
+      "file": "client/src/index.css",
+      "context": [],
+      "owner": ":root, [data-theme=\"light\"]",
+      "property": "--timeline-tooltip-text",
+      "literal": "#ffffff",
+      "locations": [
+        {
+          "line": 1324,
+          "column": 28
+        }
+      ],
+      "count": 1,
+      "kind": "token-definition",
+      "reachability": "unverified",
+      "decision": "not-debt",
+      "semanticRole": null,
+      "reason": "CSS custom-property definition; render validation is separate.",
+      "evidence": []
+    },
+    {
       "fingerprint": "f6d22f1640b693d37c6c4dd413e398a34462a511f0d52125571ee1933b98b1eb",
       "file": "client/src/index.css",
       "context": [],
@@ -17252,6 +17139,27 @@
       "evidence": []
     },
     {
+      "fingerprint": "ffb36165057f8e278bf9f15104791ff4f18da664e11080caf3251ace9b566534",
+      "file": "client/src/index.css",
+      "context": [],
+      "owner": ":root, [data-theme=\"light\"]",
+      "property": "--status-warning-solid",
+      "literal": "#b45309",
+      "locations": [
+        {
+          "line": 1310,
+          "column": 27
+        }
+      ],
+      "count": 1,
+      "kind": "token-definition",
+      "reachability": "unverified",
+      "decision": "not-debt",
+      "semanticRole": null,
+      "reason": "CSS custom-property definition; render validation is separate.",
+      "evidence": []
+    },
+    {
       "fingerprint": "0a42d23af02df16f35497bcc0fa410d2daa0f983dcedf19e6aea1b902f190b5a",
       "file": "client/src/lib/project-colors.ts",
       "context": [],
@@ -17265,12 +17173,59 @@
         }
       ],
       "count": 1,
-      "kind": "unknown",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "kind": "data-color",
+      "reachability": "active",
+      "decision": "accepted-literal",
+      "semanticRole": "data-label-foreground",
+      "reason": "Data color fallback and black/white contrast result; cannot be reduced to one themed foreground for arbitrary caller backgrounds",
+      "evidence": [
+        {
+          "fingerprint": "0a42d23af02df16f35497bcc0fa410d2daa0f983dcedf19e6aea1b902f190b5a",
+          "fileHash": "04fa429d0ff0d8dee962c75741b9b5dc497bd08eeacabf37c7352e20832f512f",
+          "theme": "light",
+          "state": "nine-color-production-component",
+          "profile": "actual-component-fixture",
+          "viewport": {
+            "width": 1600,
+            "height": 900
+          },
+          "threshold": 4.5,
+          "ratio": 4.834490081424352,
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(107, 114, 128)",
+          "artifact": "tests/visual/reports/timeline-color-evidence.json",
+          "artifactHash": "451aeff8b5fdb52c564fba8fb617de4cde9be7b592f31857996a56a6f148a61a",
+          "implementationHead": "5996da0b277cf48ead70c6dcd3e052ee3430d680+validated-working-tree",
+          "dependencies": {
+            "client/src/index.css": "c7bdfd16234777e915cdb8f9a3cab63138c08db55feb19ea01912b8f906f51bb",
+            "client/src/components/phase-manager/types.ts": "86769cf5d0b2008a4951133d4ba5aefa500b4dab6dd20b95b7fd21b04443f628",
+            "client/src/components/InteractiveTimeline.tsx": "3e24cfdfa3e43903e3fa47cdb44e13c2a79a38fee7a2dc98353f59be6fa163e3"
+          }
+        },
+        {
+          "fingerprint": "0a42d23af02df16f35497bcc0fa410d2daa0f983dcedf19e6aea1b902f190b5a",
+          "fileHash": "04fa429d0ff0d8dee962c75741b9b5dc497bd08eeacabf37c7352e20832f512f",
+          "theme": "dark",
+          "state": "nine-color-production-component",
+          "profile": "actual-component-fixture",
+          "viewport": {
+            "width": 1600,
+            "height": 900
+          },
+          "threshold": 4.5,
+          "ratio": 4.834490081424352,
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(107, 114, 128)",
+          "artifact": "tests/visual/reports/timeline-color-evidence.json",
+          "artifactHash": "451aeff8b5fdb52c564fba8fb617de4cde9be7b592f31857996a56a6f148a61a",
+          "implementationHead": "5996da0b277cf48ead70c6dcd3e052ee3430d680+validated-working-tree",
+          "dependencies": {
+            "client/src/index.css": "c7bdfd16234777e915cdb8f9a3cab63138c08db55feb19ea01912b8f906f51bb",
+            "client/src/components/phase-manager/types.ts": "86769cf5d0b2008a4951133d4ba5aefa500b4dab6dd20b95b7fd21b04443f628",
+            "client/src/components/InteractiveTimeline.tsx": "3e24cfdfa3e43903e3fa47cdb44e13c2a79a38fee7a2dc98353f59be6fa163e3"
+          }
+        }
+      ]
     },
     {
       "fingerprint": "3b2f3aa1afb2bc5ed6a549d2deda138ac1697f8cb4dd581962a8a88c8f62f120",
@@ -17286,12 +17241,59 @@
         }
       ],
       "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "kind": "data-color",
+      "reachability": "active",
+      "decision": "accepted-literal",
+      "semanticRole": "data-label-foreground",
+      "reason": "Data color fallback and black/white contrast result; cannot be reduced to one themed foreground for arbitrary caller backgrounds",
+      "evidence": [
+        {
+          "fingerprint": "3b2f3aa1afb2bc5ed6a549d2deda138ac1697f8cb4dd581962a8a88c8f62f120",
+          "fileHash": "04fa429d0ff0d8dee962c75741b9b5dc497bd08eeacabf37c7352e20832f512f",
+          "theme": "light",
+          "state": "nine-color-production-component",
+          "profile": "actual-component-fixture",
+          "viewport": {
+            "width": 1600,
+            "height": 900
+          },
+          "threshold": 4.5,
+          "ratio": 4.959416156088179,
+          "foreground": "rgb(0, 0, 0)",
+          "background": "rgb(139, 92, 246)",
+          "artifact": "tests/visual/reports/timeline-color-evidence.json",
+          "artifactHash": "451aeff8b5fdb52c564fba8fb617de4cde9be7b592f31857996a56a6f148a61a",
+          "implementationHead": "5996da0b277cf48ead70c6dcd3e052ee3430d680+validated-working-tree",
+          "dependencies": {
+            "client/src/index.css": "c7bdfd16234777e915cdb8f9a3cab63138c08db55feb19ea01912b8f906f51bb",
+            "client/src/components/phase-manager/types.ts": "86769cf5d0b2008a4951133d4ba5aefa500b4dab6dd20b95b7fd21b04443f628",
+            "client/src/components/InteractiveTimeline.tsx": "3e24cfdfa3e43903e3fa47cdb44e13c2a79a38fee7a2dc98353f59be6fa163e3"
+          }
+        },
+        {
+          "fingerprint": "3b2f3aa1afb2bc5ed6a549d2deda138ac1697f8cb4dd581962a8a88c8f62f120",
+          "fileHash": "04fa429d0ff0d8dee962c75741b9b5dc497bd08eeacabf37c7352e20832f512f",
+          "theme": "dark",
+          "state": "nine-color-production-component",
+          "profile": "actual-component-fixture",
+          "viewport": {
+            "width": 1600,
+            "height": 900
+          },
+          "threshold": 4.5,
+          "ratio": 4.959416156088179,
+          "foreground": "rgb(0, 0, 0)",
+          "background": "rgb(139, 92, 246)",
+          "artifact": "tests/visual/reports/timeline-color-evidence.json",
+          "artifactHash": "451aeff8b5fdb52c564fba8fb617de4cde9be7b592f31857996a56a6f148a61a",
+          "implementationHead": "5996da0b277cf48ead70c6dcd3e052ee3430d680+validated-working-tree",
+          "dependencies": {
+            "client/src/index.css": "c7bdfd16234777e915cdb8f9a3cab63138c08db55feb19ea01912b8f906f51bb",
+            "client/src/components/phase-manager/types.ts": "86769cf5d0b2008a4951133d4ba5aefa500b4dab6dd20b95b7fd21b04443f628",
+            "client/src/components/InteractiveTimeline.tsx": "3e24cfdfa3e43903e3fa47cdb44e13c2a79a38fee7a2dc98353f59be6fa163e3"
+          }
+        }
+      ]
     },
     {
       "fingerprint": "4122610647b76fdbafc2abc84cfeb1d70bacac508ce73d200373a6e89c5ea80c",
@@ -17307,11 +17309,11 @@
         }
       ],
       "count": 1,
-      "kind": "unknown",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
+      "kind": "non-color",
+      "reachability": "active",
+      "decision": "not-debt",
+      "semanticRole": "dynamic-color-builder",
+      "reason": "Dynamic rgba template fragment is a formatter, not a complete constant CSS color; actual channels originate from caller data",
       "evidence": []
     },
     {
@@ -17328,12 +17330,59 @@
         }
       ],
       "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "kind": "data-color",
+      "reachability": "active",
+      "decision": "accepted-literal",
+      "semanticRole": "data-label-foreground",
+      "reason": "Data color fallback and black/white contrast result; cannot be reduced to one themed foreground for arbitrary caller backgrounds",
+      "evidence": [
+        {
+          "fingerprint": "586162ac76556bf7833783a5e202e9525b0e948beeadb6d2da463b74e6d17eb1",
+          "fileHash": "04fa429d0ff0d8dee962c75741b9b5dc497bd08eeacabf37c7352e20832f512f",
+          "theme": "light",
+          "state": "nine-color-production-component",
+          "profile": "actual-component-fixture",
+          "viewport": {
+            "width": 1600,
+            "height": 900
+          },
+          "threshold": 4.5,
+          "ratio": 4.834490081424352,
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(107, 114, 128)",
+          "artifact": "tests/visual/reports/timeline-color-evidence.json",
+          "artifactHash": "451aeff8b5fdb52c564fba8fb617de4cde9be7b592f31857996a56a6f148a61a",
+          "implementationHead": "5996da0b277cf48ead70c6dcd3e052ee3430d680+validated-working-tree",
+          "dependencies": {
+            "client/src/index.css": "c7bdfd16234777e915cdb8f9a3cab63138c08db55feb19ea01912b8f906f51bb",
+            "client/src/components/phase-manager/types.ts": "86769cf5d0b2008a4951133d4ba5aefa500b4dab6dd20b95b7fd21b04443f628",
+            "client/src/components/InteractiveTimeline.tsx": "3e24cfdfa3e43903e3fa47cdb44e13c2a79a38fee7a2dc98353f59be6fa163e3"
+          }
+        },
+        {
+          "fingerprint": "586162ac76556bf7833783a5e202e9525b0e948beeadb6d2da463b74e6d17eb1",
+          "fileHash": "04fa429d0ff0d8dee962c75741b9b5dc497bd08eeacabf37c7352e20832f512f",
+          "theme": "dark",
+          "state": "nine-color-production-component",
+          "profile": "actual-component-fixture",
+          "viewport": {
+            "width": 1600,
+            "height": 900
+          },
+          "threshold": 4.5,
+          "ratio": 4.834490081424352,
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(107, 114, 128)",
+          "artifact": "tests/visual/reports/timeline-color-evidence.json",
+          "artifactHash": "451aeff8b5fdb52c564fba8fb617de4cde9be7b592f31857996a56a6f148a61a",
+          "implementationHead": "5996da0b277cf48ead70c6dcd3e052ee3430d680+validated-working-tree",
+          "dependencies": {
+            "client/src/index.css": "c7bdfd16234777e915cdb8f9a3cab63138c08db55feb19ea01912b8f906f51bb",
+            "client/src/components/phase-manager/types.ts": "86769cf5d0b2008a4951133d4ba5aefa500b4dab6dd20b95b7fd21b04443f628",
+            "client/src/components/InteractiveTimeline.tsx": "3e24cfdfa3e43903e3fa47cdb44e13c2a79a38fee7a2dc98353f59be6fa163e3"
+          }
+        }
+      ]
     },
     {
       "fingerprint": "12417da4d1d89cc52c37e7413d47d8a8872fa08a28d06e9528dcfe0e07bfb444",
@@ -30018,23 +30067,214 @@
       "resolution": "retired-unused",
       "reason": "TC-C0.5: no production imports, barrel exports, dynamic imports or registry references; exact retired timeline scope recoverable from git 9797f600865f0b2a40cd8c28058ad73d59ded10a",
       "baselineHead": "9797f600865f0b2a40cd8c28058ad73d59ded10a"
+    },
+    {
+      "fingerprint": "0d8174fdb2dd6cbe090a8f28949e3de0a030c9b0162c6c1782b11a56ee42880d",
+      "file": "client/src/components/interactive-timeline/PhaseHandles.tsx",
+      "literal": "hsl(262 83% 58%)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C1: replace fixed UI foreground with theme-aware semantic color",
+      "baselineHead": "5996da0",
+      "token": "--primary-solid"
+    },
+    {
+      "fingerprint": "459c1e4c606dbcea8c9057a65c0f9fc1698ad1a851997b2b4f4bf2b65e9baa21",
+      "file": "client/src/components/interactive-timeline/PhaseHandles.tsx",
+      "literal": "rgba(168, 85, 247, 0.3)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C1: replace fixed UI foreground with theme-aware semantic color",
+      "baselineHead": "5996da0",
+      "token": "--primary-solid"
+    },
+    {
+      "fingerprint": "6c07f479d82442b505700f0674b95e85edf26ee6ac654eee4bf2746155c662e1",
+      "file": "client/src/components/interactive-timeline/PhaseHandles.tsx",
+      "literal": "rgba(16, 185, 129, 0.3)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C1: replace fixed UI foreground with theme-aware semantic color",
+      "baselineHead": "5996da0",
+      "token": "--status-success-border"
+    },
+    {
+      "fingerprint": "6c5a39b605891b431cb060109432c22887d7a500f685fc4dd05e709de8831765",
+      "file": "client/src/components/interactive-timeline/PhaseHandles.tsx",
+      "literal": "rgba(59, 130, 246, 0.3)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C1: replace fixed UI foreground with theme-aware semantic color",
+      "baselineHead": "5996da0",
+      "token": "--primary-solid"
+    },
+    {
+      "fingerprint": "9ba50f948e5f9dda0ec14b7e0554f2dccecdc6014dfab8373d00dc3ee993ddf5",
+      "file": "client/src/components/interactive-timeline/PhaseHandles.tsx",
+      "literal": "hsl(262 83% 68%)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C1: replace fixed UI foreground with theme-aware semantic color",
+      "baselineHead": "5996da0",
+      "token": "--primary-solid"
+    },
+    {
+      "fingerprint": "bbabfd95aa0d33dce329ca9b511ee2b0affb08e98f98386ed3f47b79b7539370",
+      "file": "client/src/components/interactive-timeline/PhaseHandles.tsx",
+      "literal": "white",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C1: replace fixed UI foreground with theme-aware semantic color",
+      "baselineHead": "5996da0",
+      "token": "--solid-foreground"
+    },
+    {
+      "fingerprint": "bf2b312c7c29e4ee66f7e958de4bc90aa57a398093b2aceacc5b594368cbe678",
+      "file": "client/src/components/interactive-timeline/PhaseHandles.tsx",
+      "literal": "rgba(168, 85, 247, 0.4)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C1: replace fixed UI foreground with theme-aware semantic color",
+      "baselineHead": "5996da0",
+      "token": "--primary-solid"
+    },
+    {
+      "fingerprint": "c103ad90ce7af44e0b1d8e215c389b54987af2f14b74c1d162e53ba4654b7e54",
+      "file": "client/src/components/interactive-timeline/PhaseHandles.tsx",
+      "literal": "rgba(16, 185, 129, 0.4)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C1: replace fixed UI foreground with theme-aware semantic color",
+      "baselineHead": "5996da0",
+      "token": "--status-success-border"
+    },
+    {
+      "fingerprint": "c279b547871aafbca122099e073071774e486e7b618aba71e474b059b7dfe577",
+      "file": "client/src/components/interactive-timeline/PhaseHandles.tsx",
+      "literal": "rgba(0, 0, 0, 0.8)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C1: replace fixed UI foreground with theme-aware semantic color",
+      "baselineHead": "5996da0",
+      "token": "--timeline-tooltip-bg"
+    },
+    {
+      "fingerprint": "cecb336a5712f00ef5fc2218a9e4c19c33081d471a2ea80dbe03557e75983434",
+      "file": "client/src/components/interactive-timeline/PhaseHandles.tsx",
+      "literal": "hsl(142 71% 45%)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C1: replace fixed UI foreground with theme-aware semantic color",
+      "baselineHead": "5996da0",
+      "token": "--status-success-solid"
+    },
+    {
+      "fingerprint": "d2c65bd07cb249bfd78bcdfc18e567c0f1f503d61897aecce1e6b6f037972910",
+      "file": "client/src/components/interactive-timeline/PhaseHandles.tsx",
+      "literal": "white",
+      "count": 3,
+      "resolution": "tokenize",
+      "reason": "TC-C1: replace fixed UI foreground with theme-aware semantic color",
+      "baselineHead": "5996da0",
+      "token": "--solid-foreground"
+    },
+    {
+      "fingerprint": "ecc0a779a4a573d55fafafdd9c61f2c779abdca3b7dd586ae70a3e371d103ed0",
+      "file": "client/src/components/interactive-timeline/PhaseHandles.tsx",
+      "literal": "rgba(59, 130, 246, 0.4)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C1: replace fixed UI foreground with theme-aware semantic color",
+      "baselineHead": "5996da0",
+      "token": "--primary-solid"
+    },
+    {
+      "fingerprint": "eea4cabf00973533aa62c961537f6baf0aff53a8e0a63d243fe0d5d6359bdc85",
+      "file": "client/src/components/interactive-timeline/PhaseHandles.tsx",
+      "literal": "hsl(142 71% 55%)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C1: replace fixed UI foreground with theme-aware semantic color",
+      "baselineHead": "5996da0",
+      "token": "--status-success-solid"
+    },
+    {
+      "fingerprint": "1ba834ff8b62b2c3905c96cb145f4b0131d1f79a232877ee6b194ebf9cf666f8",
+      "file": "client/src/components/interactive-timeline/TimelineGrid.tsx",
+      "literal": "#374151",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C1: replace fixed UI foreground with theme-aware semantic color",
+      "baselineHead": "5996da0",
+      "token": "--text-secondary"
+    },
+    {
+      "fingerprint": "4136de0309b89bad07846bf7f4ed4cb23bcce75fc76eb106c70ad12c2ff23cb5",
+      "file": "client/src/components/interactive-timeline/TimelineGrid.tsx",
+      "literal": "#6b7280",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C1: replace fixed UI foreground with theme-aware semantic color",
+      "baselineHead": "5996da0",
+      "token": "--text-tertiary"
+    },
+    {
+      "fingerprint": "d7507b1d969b8b38cba12f4297dcf90a1dbc4b4430bc77843cbfbaa4597deb42",
+      "file": "client/src/components/interactive-timeline/TimelineGrid.tsx",
+      "literal": "#ef4444",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C1: replace fixed UI foreground with theme-aware semantic color",
+      "baselineHead": "5996da0",
+      "token": "--status-danger-text"
+    },
+    {
+      "fingerprint": "52a5ce5bfbb04b48a8b51827dcff1c000f451974066023f9c33ec50eca49dd81",
+      "file": "client/src/components/InteractiveTimeline.tsx",
+      "literal": "white",
+      "count": 1,
+      "resolution": "delete",
+      "reason": "TC-C1: replace unconditional white with tested WCAG foreground selection while retaining every data background",
+      "baselineHead": "5996da0"
+    },
+    {
+      "fingerprint": "e65ec09b1eb4690dec1bc5314791956b80c1bb0c038291c33ff86d582ce9c658",
+      "file": "client/src/components/InteractiveTimeline.tsx",
+      "literal": "#e2e8f0",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C1: resize edge inherits the tested item foreground (currentColor)",
+      "baselineHead": "5996da0",
+      "token": "--border-color"
+    },
+    {
+      "fingerprint": "fb365340b5a1a609a8659a53e430f184a54a0f8546a58157b21b7198ae3ae6a8",
+      "file": "client/src/components/InteractiveTimeline.tsx",
+      "literal": "rgba(255,255,255,0.3)",
+      "count": 2,
+      "resolution": "delete",
+      "reason": "TC-C1: resize edge inherits the tested item foreground (currentColor)",
+      "baselineHead": "5996da0"
     }
   ],
   "additions": [],
   "summary": {
-    "occurrences": 1392,
-    "identities": 1357,
-    "uniqueColors": 309,
-    "files": 62,
+    "occurrences": 1388,
+    "identities": 1356,
+    "uniqueColors": 302,
+    "files": 60,
     "byKind": {
       "semantic-color": 600,
-      "neutral-literal": 377,
-      "unknown": 213,
-      "token-definition": 202
+      "neutral-literal": 367,
+      "unknown": 197,
+      "token-definition": 220,
+      "data-color": 3,
+      "non-color": 1
     },
     "byDecision": {
-      "pending": 1190,
-      "not-debt": 202
+      "pending": 1164,
+      "not-debt": 221,
+      "accepted-literal": 3
     },
     "byFile": {
       "client/src/App.css": 247,
@@ -30042,12 +30282,10 @@
       "client/src/components/boards/EditableCells.tsx": 10,
       "client/src/components/Charts.css": 11,
       "client/src/components/dashboard/Dashboard.css": 14,
-      "client/src/components/interactive-timeline/PhaseHandles.tsx": 15,
-      "client/src/components/interactive-timeline/TimelineGrid.tsx": 3,
       "client/src/components/interactive-timeline/TimelineItemTooltip.tsx": 7,
       "client/src/components/interactive-timeline/utils.ts": 5,
       "client/src/components/InteractiveTimeline.css": 30,
-      "client/src/components/InteractiveTimeline.tsx": 11,
+      "client/src/components/InteractiveTimeline.tsx": 7,
       "client/src/components/Layout.css": 2,
       "client/src/components/Login.css": 4,
       "client/src/components/modals/ProjectTypeModal.tsx": 10,
@@ -30069,7 +30307,7 @@
       "client/src/components/ui/UnifiedTabComponent.css": 1,
       "client/src/components/VisualPhaseManager.tsx": 5,
       "client/src/debug/BoardDiagnostics.tsx": 16,
-      "client/src/index.css": 176,
+      "client/src/index.css": 194,
       "client/src/lib/project-colors.ts": 4,
       "client/src/lib/theme-colors.ts": 27,
       "client/src/pages/Assignments.css": 9,

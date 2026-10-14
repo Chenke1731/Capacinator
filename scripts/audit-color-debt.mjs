@@ -29,7 +29,7 @@ const target=path.join(root,LEDGER_PATH),scan=scanRoot(root);
 if(scan.errors.length) throw new Error(scan.errors.join('\n'));
 if(options['--scan']) {
   const entries=options['--file']?scan.entries.filter(e=>e.file===options['--file']):scan.entries;
-  if(options['--file']&&!entries.length) throw new Error(`No color occurrences in ${options['--file']}`);
+  if(options['--file']&&(!isProductionFile(options['--file'])||!fs.existsSync(path.join(root,options['--file'])))) throw new Error(`Unknown production source ${options['--file']}`);
   console.log(JSON.stringify({summary:summarize(entries),entries,excluded:scan.excluded,symbolicOccurrences:scan.symbolic.length},null,2));
 } else if(options['--init']) {
   if(fs.existsSync(target)) throw new Error('Ledger exists; initialization cannot reset a baseline');

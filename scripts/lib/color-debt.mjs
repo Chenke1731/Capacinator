@@ -145,7 +145,15 @@ export function initialLedger(scan,head,reason) {
 }
 function validEvidence(e,root) {
   if(!e.reason||!e.semanticRole||!e.evidence?.length) return false;
-  return e.evidence.every(v=>v.fingerprint===e.fingerprint&&v.fileHash&&v.theme&&v.state&&v.profile&&v.artifact&&fs.existsSync(path.resolve(root,v.artifact))&&v.fileHash===sourceHash(fs.readFileSync(path.join(root,e.file),'utf8')));
+  if(!['light','dark'].every(theme=>e.evidence.some(v=>v.theme===theme)))return false;
+  return e.evidence.every(v=>{
+    const artifact=v.artifact&&path.resolve(root,v.artifact);
+    return v.fingerprint===e.fingerprint&&v.fileHash&&v.state&&v.profile&&v.viewport?.width&&v.viewport?.height&&v.implementationHead&&
+      v.foreground&&v.background&&Number.isFinite(v.threshold)&&v.threshold>=3&&Number.isFinite(v.ratio)&&v.ratio>=v.threshold&&
+      artifact&&fs.existsSync(artifact)&&v.artifactHash===sourceHash(fs.readFileSync(artifact))&&
+      v.fileHash===sourceHash(fs.readFileSync(path.join(root,e.file),'utf8'))&&v.dependencies&&Object.keys(v.dependencies).length>0&&
+      Object.entries(v.dependencies).every(([file,hash])=>fs.existsSync(path.join(root,file))&&sourceHash(fs.readFileSync(path.join(root,file)))===hash);
+  });
 }
 
 /** Identity comparison prevents an unrelated deletion from hiding a new literal. */

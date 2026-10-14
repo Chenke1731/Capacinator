@@ -3,6 +3,10 @@
    default theme, silently killing every md:/lg:/xl: responsive variant
    app-wide (e.g. enhanced-kpis rendered 4 stacked rows instead of 1×4). */
 @import "tailwindcss";
+/* Audit output contains DOM selectors, not application utility classes. Avoid
+   turning serialized :visible selectors into invalid generated CSS. */
+@source not "../../tests/visual/reports";
+@source not "../../tests/visual/fixtures";
 
 /* dark: variant follows the app's .dark class (set by ThemeContext) instead
    of the OS media query, so the in-app theme toggle actually drives it */

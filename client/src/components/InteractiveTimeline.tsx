@@ -3,6 +3,7 @@ import { PopoverPortal } from './PopoverPortal';
 import { format, startOfWeek, startOfMonth } from 'date-fns';
 import { useTimelineEvents } from '../hooks/useTimelineEvents';
 import { getLocale, getDateFnsLocale } from '../i18n';
+import { getContrastingTextColor } from '../lib/project-colors';
 import {
   TimelineGrid,
   DependencyLines,
@@ -365,17 +366,18 @@ export function InteractiveTimeline({
     return (
       <div
         key={item.id}
+        data-timeline-item={item.id}
         style={{
           position: 'absolute',
           left: position.left,
           width: position.width,
           top: 8,
           height: height - 16,
-          backgroundColor: item.color || 'var(--primary)',
+          backgroundColor: item.color || 'var(--primary-solid)',
           border: (isAdjacentPhase || isShiftedPhase) ? '2px dashed rgba(0,0,0,0.3)' : '1px solid rgba(0,0,0,0.1)',
           borderRadius: '4px',
           cursor: mode === 'brush' ? 'crosshair' : 'pointer',
-          opacity: isBeingDragged ? 0.9 : ((isAdjacentPhase || isShiftedPhase) ? 0.7 : 1),
+          opacity: 1,
           transform: isBeingDragged ? 'translateY(-2px) scale(1.02)' : (isHovered ? 'translateY(-1px)' : 'none'),
           boxShadow: isBeingDragged ? '0 8px 24px rgba(0,0,0,0.2)' : (isHovered ? '0 4px 8px rgba(0,0,0,0.15)' : '0 2px 4px rgba(0,0,0,0.1)'),
           transition: (isBeingDragged || isAdjacentPhase || isShiftedPhase) ? 'none' : 'all 0.2s ease',
@@ -383,7 +385,7 @@ export function InteractiveTimeline({
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          color: 'white',
+          color: item.color ? getContrastingTextColor(item.color) : 'var(--solid-foreground)',
           fontSize: '12px',
           fontWeight: 500,
           overflow: 'hidden',
@@ -410,7 +412,7 @@ export function InteractiveTimeline({
             <div
               style={{
                 position: 'absolute', left: -2, top: 0, bottom: 0, width: '6px',
-                cursor: 'ew-resize', backgroundColor: 'rgba(255,255,255,0.3)',
+                cursor: 'ew-resize', backgroundColor: 'currentColor',
                 opacity: isHovered ? 1 : 0, transition: 'opacity 0.2s ease'
               }}
               onMouseDown={(e) => { e.stopPropagation(); handleMouseDown(e, item.id, 'resize-start'); }}
@@ -418,7 +420,7 @@ export function InteractiveTimeline({
             <div
               style={{
                 position: 'absolute', right: -2, top: 0, bottom: 0, width: '6px',
-                cursor: 'ew-resize', backgroundColor: 'rgba(255,255,255,0.3)',
+                cursor: 'ew-resize', backgroundColor: 'currentColor',
                 opacity: isHovered ? 1 : 0, transition: 'opacity 0.2s ease'
               }}
               onMouseDown={(e) => { e.stopPropagation(); handleMouseDown(e, item.id, 'resize-end'); }}
@@ -450,7 +452,7 @@ export function InteractiveTimeline({
           maxWidth: '100%',
           height: height,
           backgroundColor: 'transparent',
-          border: '1px solid #e2e8f0',
+          border: '1px solid var(--border-color)',
           borderRadius: '6px',
           overflow: 'visible',
           paddingTop: mode === 'phase-manager' ? '30px' : '0px'

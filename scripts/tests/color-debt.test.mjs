@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
-import { scanSources, initialLedger, checkLedger, resolveOrphan } from '../lib/color-debt.mjs';
+import { scanSources, initialLedger, checkLedger, resolveOrphan, sourceHash, summarize } from '../lib/color-debt.mjs';
 
 export async function runSelfTests() {
   const root=fs.mkdtempSync(path.join(os.tmpdir(),'capacinator-color-audit-'));
@@ -42,6 +42,19 @@ export async function runSelfTests() {
     assert(checkLedger(scan,corrupt,old,root).some(x=>x.includes('Summary')));
     const exempt=structuredClone(old);exempt.entries.find(x=>x.literal==='red').decision='accepted-literal';
     assert(checkLedger(scan,exempt,old,root).some(x=>x.includes('evidence')));
+    fs.mkdirSync(path.join(root,'client/src'),{recursive:true});fs.writeFileSync(path.join(root,'client/src/a.css'),source);fs.writeFileSync(path.join(root,'proof.json'),'{}');
+    const approved=structuredClone(old),accepted=approved.entries.find(e=>e.file.endsWith('a.css')&&e.literal==='red');
+    Object.assign(accepted,{decision:'accepted-literal',semanticRole:'fixture',reason:'selftest measured fixture'});
+    accepted.evidence=['light','dark'].map(theme=>({fingerprint:accepted.fingerprint,fileHash:sourceHash(source),theme,state:'default',profile:'selftest',viewport:{width:1600,height:900},implementationHead:'test',foreground:'red',background:'white',threshold:4.5,ratio:5,artifact:'proof.json',artifactHash:sourceHash('{}'),dependencies:{'client/src/a.css':sourceHash(source)}}));
+    approved.summary=summarize(approved.entries);
+    assert.deepEqual(checkLedger(scan,approved,old,root),[]);
+    const low=structuredClone(approved);low.entries.find(e=>e.fingerprint===accepted.fingerprint).evidence[0].ratio=2;
+    assert(checkLedger(scan,low,old,root).some(x=>x.includes('evidence')));
+    fs.writeFileSync(path.join(root,'proof.json'),'{"changed":true}');
+    assert(checkLedger(scan,approved,old,root).some(x=>x.includes('evidence')));
+    fs.writeFileSync(path.join(root,'proof.json'),'{}');
+    accepted.evidence[0].dependencies['client/src/a.css']='old-global-theme';
+    assert(checkLedger(scan,approved,old,root).some(x=>x.includes('evidence')));
     const disguised=structuredClone(old);const consumer=disguised.entries.find(x=>x.literal==='red');consumer.kind='token-definition';consumer.decision='not-debt';consumer.reason='fake exemption';
     assert(checkLedger(scan,disguised,old,root).some(x=>x.includes('disguised')));
     assert(scanSources([['client/src/b.css','.b {color:red;']]).errors.length);

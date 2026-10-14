@@ -142,7 +142,7 @@ const SimpleBrushControl = ({
             left: `${startPercent}%`,
             width: `${rangeWidth}%`,
             height: '8px',
-            backgroundColor: 'hsl(var(--primary))',
+            backgroundColor: 'var(--primary)',
             borderRadius: '4px',
             cursor: 'grab'
           }}
@@ -157,7 +157,7 @@ const SimpleBrushControl = ({
             left: `calc(${startPercent}% - 8px)`,
             width: '16px',
             height: '28px',
-            backgroundColor: 'hsl(var(--primary))',
+            backgroundColor: 'var(--primary)',
             borderRadius: '8px',
             cursor: 'ew-resize',
             border: '2px solid white',
@@ -183,7 +183,7 @@ const SimpleBrushControl = ({
             left: `calc(${endPercent}% - 8px)`,
             width: '16px',
             height: '28px',
-            backgroundColor: 'hsl(var(--primary))',
+            backgroundColor: 'var(--primary)',
             borderRadius: '8px',
             cursor: 'ew-resize',
             border: '2px solid white',
@@ -648,7 +648,7 @@ export function ProjectDemandChart({ projectId, projectName }: ProjectDemandChar
                   fontSize: '12px',
                   fontWeight: '500',
                   cursor: 'pointer',
-                  backgroundColor: isActiveTab(tab.id) ? 'hsl(var(--primary))' : 'transparent',
+                  backgroundColor: isActiveTab(tab.id) ? 'var(--primary)' : 'transparent',
                   color: isActiveTab(tab.id) ? 'white' : 'hsl(var(--muted-foreground))',
                   transition: 'all 0.2s ease'
                 }}

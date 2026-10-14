@@ -249,7 +249,7 @@
 
 .tooltip-capacity {
   margin: 0 0 4px 0;
-  color: hsl(var(--primary));
+  color: var(--primary-text);
   font-weight: 500;
   font-size: 0.875rem;
 }
@@ -279,7 +279,7 @@
   content: "•";
   position: absolute;
   left: 0;
-  color: hsl(var(--primary));
+  color: var(--primary-text);
 }
 
 .tooltip-warning {

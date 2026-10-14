@@ -71,7 +71,7 @@ export function PhaseHandles({
           } else if (handle.handleType === 'extend-right') {
             return {
               ...baseStyle,
-              backgroundColor: isHovered ? 'hsl(var(--primary))' : 'hsl(var(--primary) / 0.9)',
+              backgroundColor: isHovered ? 'var(--primary)' : 'color-mix(in srgb, var(--primary) 90%, transparent)',
               color: 'white',
               border: 'none',
               boxShadow: isHovered ? '0 2px 8px rgba(59, 130, 246, 0.4)' : '0 1px 4px rgba(59, 130, 246, 0.3)',

@@ -26,6 +26,9 @@ const PAGES = [
   { name: 'people', path: '/people' },
   { name: 'assignments', path: '/assignments' },
   { name: 'dashboard', path: '/dashboard' },
+  // 2026-10 任务B: 路线图入矩阵——151 处主色消费修复的回归防线
+  // (真实路由: /projects?tab=roadmap;/projects/roadmap 是重定向)
+  { name: 'roadmap', path: '/projects?tab=roadmap' },
 ];
 const COMBOS = [];
 for (const p of PAGES) for (const theme of ['dark', 'light']) COMBOS.push({ ...p, theme, w: 1600, h: 900 });

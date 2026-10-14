@@ -549,9 +549,9 @@ export function VisualPhaseManager({ projectId, projectName: _projectName, onPha
               onClick={() => setShowAddModal(true)}
               style={{
                 padding: '6px 16px',
-                border: '1px solid hsl(var(--primary))',
+                border: '1px solid var(--primary)',
                 borderRadius: '6px',
-                backgroundColor: 'hsl(var(--primary))',
+                backgroundColor: 'var(--primary)',
                 color: 'hsl(var(--background))',
                 cursor: 'pointer',
                 fontSize: '12px',
@@ -580,9 +580,9 @@ export function VisualPhaseManager({ projectId, projectName: _projectName, onPha
             onClick={() => setShowAddModal(true)}
             style={{
               padding: '4px 12px',
-              border: '1px solid hsl(var(--primary))',
+              border: '1px solid var(--primary)',
               borderRadius: '4px',
-              backgroundColor: 'hsl(var(--primary))',
+              backgroundColor: 'var(--primary)',
               color: 'hsl(var(--primary-foreground))',
               cursor: 'pointer',
               fontSize: '11px',
@@ -693,13 +693,13 @@ export function VisualPhaseManager({ projectId, projectName: _projectName, onPha
                         width: Math.max(width, 0),
                         height: '40px',
                         borderRight: '1px solid hsl(var(--border))',
-                        backgroundColor: isCurrentMonth ? 'hsl(var(--primary) / 0.1)' : 'transparent',
+                        backgroundColor: isCurrentMonth ? 'color-mix(in srgb, var(--primary) 10%, transparent)' : 'transparent',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
                         fontSize: '12px',
                         fontWeight: isCurrentMonth ? '600' : '400',
-                        color: isCurrentMonth ? 'hsl(var(--primary))' : 'hsl(var(--muted-foreground))',
+                        color: isCurrentMonth ? 'var(--primary)' : 'hsl(var(--muted-foreground))',
                         overflow: 'hidden',
                         whiteSpace: 'nowrap'
                       }}
@@ -775,7 +775,7 @@ export function VisualPhaseManager({ projectId, projectName: _projectName, onPha
                   alignItems: 'center',
                   gap: '8px',
                   padding: '6px 12px',
-                  backgroundColor: 'hsl(var(--primary))',
+                  backgroundColor: 'var(--primary)',
                   color: 'hsl(var(--background))',
                   border: 'none',
                   borderRadius: '6px',

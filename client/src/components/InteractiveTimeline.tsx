@@ -371,7 +371,7 @@ export function InteractiveTimeline({
           width: position.width,
           top: 8,
           height: height - 16,
-          backgroundColor: item.color || 'hsl(var(--primary))',
+          backgroundColor: item.color || 'var(--primary)',
           border: (isAdjacentPhase || isShiftedPhase) ? '2px dashed rgba(0,0,0,0.3)' : '1px solid rgba(0,0,0,0.1)',
           borderRadius: '4px',
           cursor: mode === 'brush' ? 'crosshair' : 'pointer',

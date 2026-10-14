@@ -35,10 +35,10 @@
   
   /* Subtle gradient for depth */
   background: linear-gradient(135deg, 
-    var(--item-color, hsl(var(--primary))) 0%, 
-    color-mix(in srgb, var(--item-color, hsl(var(--primary))) 85%, black 15%) 100%);
+    var(--item-color, var(--primary)) 0%, 
+    color-mix(in srgb, var(--item-color, var(--primary)) 85%, black 15%) 100%);
   
-  border: 1px solid color-mix(in srgb, var(--item-color, hsl(var(--primary))) 70%, black 30%);
+  border: 1px solid color-mix(in srgb, var(--item-color, var(--primary)) 70%, black 30%);
   
   /* Text shadow for better readability */
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
@@ -49,7 +49,7 @@
   box-shadow: 
     0 4px 12px rgba(0, 0, 0, 0.15),
     0 2px 4px rgba(0, 0, 0, 0.05);
-  border-color: color-mix(in srgb, var(--item-color, hsl(var(--primary))) 60%, black 40%);
+  border-color: color-mix(in srgb, var(--item-color, var(--primary)) 60%, black 40%);
 }
 
 .timeline-item.dragging {
@@ -93,7 +93,7 @@
 
 /* Phase type colors */
 .timeline-item.phase-business-planning {
-  --item-color: hsl(var(--primary)); /* Blue */
+  --item-color: var(--primary); /* Blue */
 }
 
 .timeline-item.phase-development {
@@ -132,7 +132,7 @@
 .brush-selection {
   position: absolute;
   background: rgba(59, 130, 246, 0.15);
-  border: 2px solid hsl(var(--primary));
+  border: 2px solid var(--primary);
   border-radius: 4px;
   pointer-events: none;
   z-index: 100;
@@ -450,7 +450,7 @@
 .form-input:focus,
 .form-select:focus {
   outline: none;
-  border-color: hsl(var(--primary));
+  border-color: var(--primary);
   box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.05);
 }
 
@@ -491,12 +491,12 @@
 
 .btn-primary {
   border: none;
-  background-color: hsl(var(--primary));
+  background-color: var(--primary);
   color: white;
 }
 
 .btn-primary:hover:not(:disabled) {
-  background-color: hsl(var(--primary));
+  background-color: var(--primary);
 }
 
 .btn-primary:disabled {
@@ -505,7 +505,7 @@
 }
 
 .btn-primary:disabled:hover {
-  background-color: hsl(var(--primary));
+  background-color: var(--primary);
 }
 
 @keyframes modal-fade-in {
@@ -559,7 +559,7 @@
   
   .form-input:focus,
   .form-select:focus {
-    border-color: hsl(var(--primary));
+    border-color: var(--primary);
     box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
   }
   

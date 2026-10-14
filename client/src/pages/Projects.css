@@ -97,7 +97,7 @@
 }
 
 .tag-chip-selected {
-  /* hsl(var(--primary)) 包十六进制是无效颜色(2026-10-13 全库审计)——声明
+  /* var(--primary) 包十六进制是无效颜色(2026-10-13 全库审计)——声明
      整体被丢弃,选中态一直落在 .tag-chip 的灰底上 */
   background: var(--primary);
   border-color: var(--primary);

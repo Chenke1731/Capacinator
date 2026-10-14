@@ -150,6 +150,7 @@
           "kind": "axe:color-contrast"
         }
       ],
+      "scope": "main > .max-w-7xl",
       "axe": [
         {
           "rule": "color-contrast",
@@ -383,6 +384,7 @@
           "kind": "axe:color-contrast"
         }
       ],
+      "scope": "main > .max-w-7xl",
       "axe": [
         {
           "rule": "color-contrast",
@@ -616,6 +618,7 @@
           "kind": "axe:color-contrast"
         }
       ],
+      "scope": "main > .max-w-7xl",
       "axe": [
         {
           "rule": "color-contrast",
@@ -849,6 +852,7 @@
           "kind": "axe:color-contrast"
         }
       ],
+      "scope": "main > .max-w-7xl",
       "axe": [
         {
           "rule": "color-contrast",
@@ -1082,6 +1086,7 @@
           "kind": "axe:color-contrast"
         }
       ],
+      "scope": "main > .max-w-7xl",
       "axe": [
         {
           "rule": "color-contrast",
@@ -1438,6 +1443,7 @@
           "kind": "axe:color-contrast"
         }
       ],
+      "scope": "main > .max-w-7xl",
       "axe": [
         {
           "rule": "color-contrast",
@@ -1794,6 +1800,7 @@
           "kind": "axe:color-contrast"
         }
       ],
+      "scope": "main > .max-w-7xl",
       "axe": [
         {
           "rule": "color-contrast",
@@ -2160,6 +2167,7 @@
           "kind": "axe:color-contrast"
         }
       ],
+      "scope": "main > .max-w-7xl",
       "axe": [
         {
           "rule": "color-contrast",
@@ -2418,14 +2426,14 @@
           "selector": "div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(2)",
           "family": "chart-tab|",
           "text": "产能",
-          "foreground": "rgb(192, 199, 208)",
-          "background": "rgba(79, 70, 229, 0.592)",
+          "foreground": "rgb(166, 175, 188)",
+          "background": "rgba(79, 70, 229, 0.424)",
           "effectiveBackground": [
-            150.78039215686275,
-            144.85882352941178,
-            240.19607843137254
+            180.03529411764706,
+            177.0705882352941,
+            243.98823529411766
           ],
-          "contrast": 1.6183115646255786,
+          "contrast": 1.1120911957610675,
           "textual": true,
           "disabled": false,
           "width": 48.015625,
@@ -2436,14 +2444,14 @@
           "selector": "div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(3)",
           "family": "chart-tab|",
           "text": "缺口",
-          "foreground": "rgb(164, 173, 186)",
-          "background": "rgba(79, 70, 229, 0.408)",
+          "foreground": "rgb(190, 196, 206)",
+          "background": "rgba(79, 70, 229, 0.576)",
           "effectiveBackground": [
-            182.81176470588235,
-            179.95686274509805,
-            243.98823529411766
+            154.11764705882354,
+            147.7764705882353,
+            240.01176470588234
           ],
-          "contrast": 1.1700044879301896,
+          "contrast": 1.5243944582135085,
           "textual": true,
           "disabled": false,
           "width": 48.015625,
@@ -2470,12 +2478,12 @@
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(2)",
           "kind": "text-contrast",
-          "ratio": 1.6183115646255786
+          "ratio": 1.1120911957610675
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(3)",
           "kind": "text-contrast",
-          "ratio": 1.1700044879301896
+          "ratio": 1.5243944582135085
         },
         {
           "selector": ".lifecycle-state-badge",
@@ -2526,6 +2534,7 @@
           "kind": "axe:color-contrast"
         }
       ],
+      "scope": "main > .max-w-7xl",
       "axe": [
         {
           "rule": "color-contrast",
@@ -2727,6 +2736,7 @@
           "kind": "axe:color-contrast"
         }
       ],
+      "scope": "main > .max-w-7xl",
       "axe": [
         {
           "rule": "color-contrast",
@@ -2861,6 +2871,7 @@
           "kind": "axe:color-contrast"
         }
       ],
+      "scope": "main > .max-w-7xl",
       "axe": [
         {
           "rule": "color-contrast",
@@ -2995,6 +3006,7 @@
           "kind": "axe:color-contrast"
         }
       ],
+      "scope": "main > .max-w-7xl",
       "axe": [
         {
           "rule": "color-contrast",
@@ -3129,6 +3141,7 @@
           "kind": "axe:color-contrast"
         }
       ],
+      "scope": "main > .max-w-7xl",
       "axe": [
         {
           "rule": "color-contrast",
@@ -3263,6 +3276,7 @@
           "kind": "axe:color-contrast"
         }
       ],
+      "scope": "main > .max-w-7xl",
       "axe": [
         {
           "rule": "color-contrast",
@@ -3520,6 +3534,7 @@
           "kind": "axe:color-contrast"
         }
       ],
+      "scope": "main > .max-w-7xl",
       "axe": [
         {
           "rule": "color-contrast",
@@ -3777,6 +3792,7 @@
           "kind": "axe:color-contrast"
         }
       ],
+      "scope": "main > .max-w-7xl",
       "axe": [
         {
           "rule": "color-contrast",
@@ -4034,6 +4050,7 @@
           "kind": "axe:color-contrast"
         }
       ],
+      "scope": "main > .max-w-7xl",
       "axe": [
         {
           "rule": "color-contrast",
@@ -4291,6 +4308,7 @@
           "kind": "axe:color-contrast"
         }
       ],
+      "scope": "main > .max-w-7xl",
       "axe": [
         {
           "rule": "color-contrast",

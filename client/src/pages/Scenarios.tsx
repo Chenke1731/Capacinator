@@ -687,7 +687,7 @@ const CompareModal: React.FC<CompareModalProps> = ({
                   <div className="differences-list">
                     {comparisonResults?.differences?.assignments?.added?.length > 0 && (
                       <div className="difference-group">
-                        <h6 style={{color: '#10b981'}}>+ {t('scenarios:compare.added')} ({comparisonResults.differences.assignments.added.length})</h6>
+                        <h6 style={{color: 'var(--status-success-text)'}}>+ {t('scenarios:compare.added')} ({comparisonResults.differences.assignments.added.length})</h6>
                         {comparisonResults.differences.assignments.added.slice(0, 5).map((item: any, index: number) => (
                           <div key={`added-${index}`} className="difference-item">
                             <div className="difference-description">{item.details || `${item.person_name} → ${item.project_name}`}</div>
@@ -703,7 +703,7 @@ const CompareModal: React.FC<CompareModalProps> = ({
 
                     {comparisonResults?.differences?.assignments?.modified?.length > 0 && (
                       <div className="difference-group">
-                        <h6 style={{color: '#3b82f6'}}>≈ {t('scenarios:compare.modified')} ({comparisonResults.differences.assignments.modified.length})</h6>
+                        <h6 style={{color: 'var(--status-info-text)'}}>≈ {t('scenarios:compare.modified')} ({comparisonResults.differences.assignments.modified.length})</h6>
                         {comparisonResults.differences.assignments.modified.slice(0, 5).map((item: any, index: number) => (
                           <div key={`modified-${index}`} className="difference-item">
                             <div className="difference-description">{item.details}</div>
@@ -714,7 +714,7 @@ const CompareModal: React.FC<CompareModalProps> = ({
 
                     {comparisonResults?.differences?.assignments?.removed?.length > 0 && (
                       <div className="difference-group">
-                        <h6 style={{color: '#ef4444'}}>- {t('scenarios:compare.removed')} ({comparisonResults.differences.assignments.removed.length})</h6>
+                        <h6 style={{color: 'var(--status-danger-text)'}}>- {t('scenarios:compare.removed')} ({comparisonResults.differences.assignments.removed.length})</h6>
                         {comparisonResults.differences.assignments.removed.slice(0, 5).map((item: any, index: number) => (
                           <div key={`removed-${index}`} className="difference-item">
                             <div className="difference-description">{item.details || `${item.person_name} → ${item.project_name}`}</div>

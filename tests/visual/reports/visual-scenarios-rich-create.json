@@ -1,0 +1,184 @@
+{
+  "combinations": 4,
+  "checks": 20,
+  "updatePixels": true,
+  "registerExistingAxe": true,
+  "evidence": [
+    {
+      "tag": "scenarios-rich-create-dark-1600",
+      "profile": "scenarios-rich",
+      "path": "/scenarios",
+      "theme": "dark",
+      "state": "create",
+      "viewport": {
+        "width": 1600,
+        "height": 900
+      },
+      "axe": {
+        "count": 0,
+        "cap": 0,
+        "added": [],
+        "identities": []
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe scenarios-rich-create-dark-1600: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 scenarios-rich-create-dark-1600: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 scenarios-rich-create-dark-1600: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "基线 scenarios-rich-create-dark-1600: 已采集",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 scenarios-rich-create-dark-1600",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/__screenshots__/scenarios-rich-create-dark-1600.png"
+    },
+    {
+      "tag": "scenarios-rich-create-dark-1366",
+      "profile": "scenarios-rich",
+      "path": "/scenarios",
+      "theme": "dark",
+      "state": "create",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "axe": {
+        "count": 0,
+        "cap": 0,
+        "added": [],
+        "identities": []
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe scenarios-rich-create-dark-1366: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 scenarios-rich-create-dark-1366: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 scenarios-rich-create-dark-1366: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "基线 scenarios-rich-create-dark-1366: 已采集",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 scenarios-rich-create-dark-1366",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/__screenshots__/scenarios-rich-create-dark-1366.png"
+    },
+    {
+      "tag": "scenarios-rich-create-light-1600",
+      "profile": "scenarios-rich",
+      "path": "/scenarios",
+      "theme": "light",
+      "state": "create",
+      "viewport": {
+        "width": 1600,
+        "height": 900
+      },
+      "axe": {
+        "count": 0,
+        "cap": 0,
+        "added": [],
+        "identities": []
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe scenarios-rich-create-light-1600: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 scenarios-rich-create-light-1600: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 scenarios-rich-create-light-1600: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "基线 scenarios-rich-create-light-1600: 已采集",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 scenarios-rich-create-light-1600",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/__screenshots__/scenarios-rich-create-light-1600.png"
+    },
+    {
+      "tag": "scenarios-rich-create-light-1366",
+      "profile": "scenarios-rich",
+      "path": "/scenarios",
+      "theme": "light",
+      "state": "create",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "axe": {
+        "count": 0,
+        "cap": 0,
+        "added": [],
+        "identities": []
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe scenarios-rich-create-light-1366: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 scenarios-rich-create-light-1366: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 scenarios-rich-create-light-1366: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "基线 scenarios-rich-create-light-1366: 已采集",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 scenarios-rich-create-light-1366",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/__screenshots__/scenarios-rich-create-light-1366.png"
+    }
+  ]
+}

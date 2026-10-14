@@ -1,3 +1,28 @@
+/* Separate category/action names preserve meaning while sharing measured
+   palette primitives. Define on theme owners so body portals inherit them. */
+[data-theme] {
+  --scenario-baseline-text: var(--status-success-text);
+  --scenario-baseline-solid: var(--status-success-solid);
+  --scenario-baseline-soft: var(--status-success-soft);
+  --scenario-baseline-border: var(--status-success-border);
+  --scenario-branch-text: var(--status-info-text);
+  --scenario-branch-solid: var(--status-info-solid);
+  --scenario-branch-soft: var(--status-info-soft);
+  --scenario-branch-border: var(--status-info-border);
+  --scenario-sandbox-text: color-mix(in srgb, var(--color-purple) 80%, var(--solid-shade));
+  --scenario-sandbox-solid: color-mix(in srgb, var(--color-purple) 65%, var(--solid-shade));
+  --scenario-sandbox-soft: color-mix(in srgb, var(--color-purple) 10%, transparent);
+  --scenario-sandbox-border: var(--color-purple);
+  --scenario-compare-text: var(--scenario-sandbox-text);
+  --scenario-compare-solid: var(--scenario-sandbox-solid);
+  --scenario-compare-soft: var(--scenario-sandbox-soft);
+  --scenario-compare-border: var(--scenario-sandbox-border);
+}
+[data-theme='dark'] {
+  --scenario-branch-text: color-mix(in srgb, var(--status-info-text) 80%, var(--solid-foreground));
+  --scenario-sandbox-text: color-mix(in srgb, var(--color-purple) 70%, var(--solid-foreground));
+}
+
 .scenarios-page {
   padding: 1rem;
   height: 100vh;
@@ -33,8 +58,8 @@
   align-items: center;
   gap: 0.5rem;
   padding: 0.75rem 1rem;
-  background: var(--primary);
-  color: white;
+  background: var(--primary-solid);
+  color: var(--solid-foreground);
   border: none;
   border-radius: 6px;
   font-weight: 500;
@@ -44,11 +69,11 @@
 }
 
 .btn-primary:hover {
-  background: var(--primary-dark);
+  background: color-mix(in srgb, var(--primary-solid) 90%, var(--solid-shade));
 }
 
 .btn-primary:disabled {
-  background: var(--text-tertiary);
+  background: var(--bg-tertiary);
   cursor: not-allowed;
 }
 
@@ -91,10 +116,10 @@
 }
 
 .scenario-card.baseline {
-  border-color: var(--success);
+  border-color: var(--scenario-baseline-border);
   border-width: 2px;
-  background: linear-gradient(135deg, var(--card-bg) 0%, rgba(34, 197, 94, 0.08) 100%);
-  box-shadow: 0 4px 12px rgba(34, 197, 94, 0.15), 0 0 0 1px rgba(34, 197, 94, 0.1);
+  background: var(--scenario-baseline-soft);
+  box-shadow: 0 4px 12px color-mix(in srgb, var(--scenario-baseline-border) 15%, transparent), 0 0 0 1px color-mix(in srgb, var(--scenario-baseline-border) 10%, transparent);
   position: relative;
 }
 
@@ -105,18 +130,18 @@
   left: 0;
   right: 0;
   height: 4px;
-  background: linear-gradient(90deg, var(--success), var(--success));
+  background: var(--scenario-baseline-border);
   border-radius: 8px 8px 0 0;
 }
 
 .scenario-card.branch {
-  border-color: var(--primary);
-  background: linear-gradient(135deg, var(--card-bg) 0%, rgba(59, 130, 246, 0.05) 100%);
+  border-color: var(--scenario-branch-border);
+  background: var(--scenario-branch-soft);
 }
 
 .scenario-card.sandbox {
-  border-color: var(--warning);
-  background: linear-gradient(135deg, var(--card-bg) 0%, rgba(245, 158, 11, 0.05) 100%);
+  border-color: var(--scenario-sandbox-border);
+  background: var(--scenario-sandbox-soft);
 }
 
 .scenario-header {
@@ -161,38 +186,38 @@
 }
 
 .scenario-type.baseline {
-  background: rgba(34, 197, 94, 0.15);
-  color: var(--success);
+  background: color-mix(in srgb, var(--scenario-baseline-border) 15%, transparent);
+  color: var(--scenario-baseline-text);
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  border: 1px solid rgba(34, 197, 94, 0.3);
-  box-shadow: 0 2px 4px rgba(34, 197, 94, 0.1);
+  border: 1px solid color-mix(in srgb, var(--scenario-baseline-border) 30%, transparent);
+  box-shadow: 0 2px 4px color-mix(in srgb, var(--scenario-baseline-border) 10%, transparent);
 }
 
 .scenario-type.branch {
-  background: rgba(59, 130, 246, 0.1);
-  color: var(--primary);
+  background: color-mix(in srgb, var(--scenario-branch-border) 10%, transparent);
+  color: var(--scenario-branch-text);
 }
 
 .scenario-type.sandbox {
-  background: rgba(245, 158, 11, 0.1);
-  color: var(--warning);
+  background: color-mix(in srgb, var(--scenario-sandbox-border) 10%, transparent);
+  color: var(--scenario-sandbox-text);
 }
 
 .scenario-status.active {
-  background: rgba(34, 197, 94, 0.1);
-  color: var(--success);
+  background: color-mix(in srgb, var(--status-success-border) 10%, transparent);
+  color: var(--status-success-text);
 }
 
 .scenario-status.archived {
-  background: rgba(107, 114, 128, 0.1);
+  background: color-mix(in srgb, var(--bg-hover) 10%, transparent);
   color: var(--text-tertiary);
 }
 
 .scenario-status.merged {
-  background: rgba(139, 92, 246, 0.1);
-  color: var(--primary);
+  background: color-mix(in srgb, var(--scenario-sandbox-border) 10%, transparent);
+  color: var(--primary-text);
 }
 
 .scenario-description {
@@ -250,42 +275,42 @@
 }
 
 .action-button.branch {
-  color: var(--primary);
-  border-color: rgba(59, 130, 246, 0.3);
+  color: var(--scenario-branch-text);
+  border-color: color-mix(in srgb, var(--scenario-branch-border) 30%, transparent);
 }
 
 .action-button.branch:hover {
-  background: rgba(59, 130, 246, 0.1);
-  border-color: var(--primary);
+  background: color-mix(in srgb, var(--scenario-branch-border) 10%, transparent);
+  border-color: var(--scenario-branch-border);
 }
 
 .action-button.merge {
-  color: var(--success);
-  border-color: rgba(34, 197, 94, 0.3);
+  color: var(--status-success-text);
+  border-color: color-mix(in srgb, var(--status-success-border) 30%, transparent);
 }
 
 .action-button.merge:hover {
-  background: rgba(34, 197, 94, 0.1);
+  background: var(--status-success-solid);
   border-color: var(--success);
 }
 
 .action-button.compare {
-  color: var(--warning);
-  border-color: rgba(245, 158, 11, 0.3);
+  color: var(--scenario-compare-text);
+  border-color: color-mix(in srgb, var(--scenario-compare-border) 30%, transparent);
 }
 
 .action-button.compare:hover {
-  background: rgba(245, 158, 11, 0.1);
-  border-color: var(--warning);
+  background: color-mix(in srgb, var(--scenario-compare-border) 10%, transparent);
+  border-color: var(--scenario-compare-border);
 }
 
 .action-button.delete {
-  color: var(--danger);
-  border-color: rgba(239, 68, 68, 0.3);
+  color: var(--status-danger-text);
+  border-color: color-mix(in srgb, var(--status-danger-border) 30%, transparent);
 }
 
 .action-button.delete:hover {
-  background: rgba(239, 68, 68, 0.1);
+  background: var(--status-danger-solid);
   border-color: var(--danger);
 }
 
@@ -296,7 +321,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: color-mix(in srgb, var(--solid-shade) 50%, transparent);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -429,47 +454,47 @@
 
 /* SANDBOX type */
 .scenario-card-mini .scenario-type.sandbox {
-  background-color: #fed7aa !important;
-  color: #92400e !important;
+  background-color: var(--scenario-sandbox-soft) !important;
+  color: var(--scenario-sandbox-text) !important;
 }
 
 /* ACTIVE status */  
 .scenario-card-mini .scenario-status.active {
-  background-color: #d1fae5 !important;
-  color: #065f46 !important;
+  background-color: var(--status-success-soft) !important;
+  color: var(--status-success-text) !important;
 }
 
 /* BRANCH type */
 .scenario-card-mini .scenario-type.branch {
-  background-color: #e0e7ff !important;
-  color: #4338ca !important;
+  background-color: var(--scenario-branch-soft) !important;
+  color: var(--scenario-branch-text) !important;
 }
 
 /* BASELINE type */
 .scenario-card-mini .scenario-type.baseline {
-  background-color: #d1fae5 !important;
-  color: #065f46 !important;
+  background-color: var(--scenario-baseline-soft) !important;
+  color: var(--scenario-baseline-text) !important;
 }
 
 /* Dark mode overrides */
 [data-theme="dark"] .scenario-card-mini .scenario-type.sandbox {
-  background-color: rgba(245, 158, 11, 0.2) !important;
-  color: #fde047 !important;
+  background-color: color-mix(in srgb, var(--scenario-sandbox-border) 20%, transparent) !important;
+  color: var(--scenario-sandbox-text) !important;
 }
 
 [data-theme="dark"] .scenario-card-mini .scenario-status.active {
-  background-color: rgba(16, 185, 129, 0.2) !important;
-  color: #86efac !important;
+  background-color: color-mix(in srgb, var(--status-success-border) 20%, transparent) !important;
+  color: var(--status-success-text) !important;
 }
 
 [data-theme="dark"] .scenario-card-mini .scenario-type.branch {
-  background-color: rgba(99, 102, 241, 0.2) !important;
-  color: #c7d2fe !important;
+  background-color: color-mix(in srgb, var(--scenario-branch-border) 20%, transparent) !important;
+  color: var(--scenario-branch-text) !important;
 }
 
 [data-theme="dark"] .scenario-card-mini .scenario-type.baseline {
-  background-color: rgba(16, 185, 129, 0.2) !important;
-  color: #86efac !important;
+  background-color: color-mix(in srgb, var(--scenario-baseline-border) 20%, transparent) !important;
+  color: var(--scenario-baseline-text) !important;
 }
 
 .scenario-name {
@@ -481,12 +506,12 @@
 /* Fix scenario name contrast in modal */
 .modal-content .scenario-card-mini .scenario-name,
 .comparison-setup .scenario-card-mini .scenario-name {
-  color: #111827 !important; /* Dark gray for light mode */
+  color: var(--text-primary) !important; /* Dark gray for light mode */
 }
 
 [data-theme="dark"] .modal-content .scenario-card-mini .scenario-name,
 [data-theme="dark"] .comparison-setup .scenario-card-mini .scenario-name {
-  color: #f9fafb !important; /* Light gray for dark mode */
+  color: var(--text-primary) !important; /* Light gray for dark mode */
 }
 
 .scenario-meta {
@@ -507,8 +532,8 @@
 
 .comparison-setup .scenario-type.sandbox,
 .comparison-scenarios .scenario-type.sandbox {
-  background: var(--badge-warning-bg) !important;
-  color: var(--badge-warning-text) !important;
+  background: var(--scenario-sandbox-soft) !important;
+  color: var(--scenario-sandbox-text) !important;
 }
 
 .comparison-setup .scenario-status.active,
@@ -519,8 +544,8 @@
 
 .comparison-setup .scenario-type.branch,
 .comparison-scenarios .scenario-type.branch {
-  background: var(--badge-primary-bg) !important;
-  color: var(--badge-primary-text) !important;
+  background: var(--scenario-branch-soft) !important;
+  color: var(--scenario-branch-text) !important;
 }
 
 /* Ensure scenario badges in modal have proper contrast */
@@ -543,14 +568,14 @@
 
 .modal-content .scenario-type.branch,
 .scenario-card-mini .scenario-type.branch {
-  background: var(--badge-primary-bg) !important;
-  color: var(--badge-primary-text) !important;
+  background: var(--scenario-branch-soft) !important;
+  color: var(--scenario-branch-text) !important;
 }
 
 .modal-content .scenario-type.sandbox,
 .scenario-card-mini .scenario-type.sandbox {
-  background: var(--badge-warning-bg) !important;
-  color: var(--badge-warning-text) !important;
+  background: var(--scenario-sandbox-soft) !important;
+  color: var(--scenario-sandbox-text) !important;
 }
 
 .modal-content .scenario-status.active,
@@ -597,13 +622,13 @@
   padding: 0.75rem 2rem;
   font-size: 1rem;
   font-weight: 600;
-  background: var(--bg-primary);
-  color: var(--primary);
+  background: var(--primary-solid);
+  color: var(--primary-text);
   border: 2px solid var(--bg-primary);
 }
 
 .comparison-actions .btn-primary:hover:not(:disabled) {
-  background: var(--bg-secondary);
+  background: color-mix(in srgb, var(--primary-solid) 90%, var(--solid-shade));
   border-color: var(--bg-secondary);
 }
 
@@ -795,7 +820,7 @@
 
 .filter-button.active {
   background: var(--primary);
-  color: white;
+  color: var(--solid-foreground);
   border-color: var(--primary);
 }
 
@@ -847,7 +872,7 @@
   gap: 0.25rem;
   padding: 0.25rem 0.5rem;
   background: var(--primary);
-  color: white;
+  color: var(--solid-foreground);
   border-radius: 4px;
   font-size: 0.75rem;
   font-weight: 500;
@@ -856,7 +881,7 @@
 .filter-tag button {
   background: none;
   border: none;
-  color: white;
+  color: var(--solid-foreground);
   cursor: pointer;
   padding: 0;
   width: 16px;
@@ -869,7 +894,7 @@
 }
 
 .filter-tag button:hover {
-  background: rgba(255, 255, 255, 0.2);
+  background: color-mix(in srgb, var(--bg-tertiary) 20%, transparent);
 }
 
 .filter-section {
@@ -948,15 +973,15 @@
 }
 
 .legend-dot.baseline {
-  background: var(--success);
+  background: var(--scenario-baseline-border);
 }
 
 .legend-dot.branch {
-  background: var(--primary);
+  background: var(--scenario-branch-border);
 }
 
 .legend-dot.sandbox {
-  background: var(--warning);
+  background: var(--scenario-sandbox-border);
 }
 
 .hierarchy-content {
@@ -1025,15 +1050,15 @@
 }
 
 .hierarchy-row.baseline {
-  background: linear-gradient(90deg, rgba(34, 197, 94, 0.05) 0%, transparent 100%);
+  background: var(--scenario-baseline-soft);
 }
 
 .hierarchy-row.branch {
-  background: linear-gradient(90deg, rgba(59, 130, 246, 0.05) 0%, transparent 100%);
+  background: var(--scenario-branch-soft);
 }
 
 .hierarchy-row.sandbox {
-  background: linear-gradient(90deg, rgba(245, 158, 11, 0.05) 0%, transparent 100%);
+  background: var(--scenario-sandbox-soft);
 }
 
 .hierarchy-indent {
@@ -1121,18 +1146,18 @@
   border: 2px solid var(--card-bg);
   transition: all 0.2s;
   cursor: pointer;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 3px color-mix(in srgb, var(--solid-shade) 10%, transparent);
 }
 
 .connector-dot:hover {
   transform: scale(1.2);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 2px 6px color-mix(in srgb, var(--solid-shade) 15%, transparent);
 }
 
 .connector-dot.baseline {
-  background: var(--success);
-  border-color: var(--success);
-  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.3), 0 0 0 6px rgba(34, 197, 94, 0.1);
+  background: var(--scenario-baseline-border);
+  border-color: var(--scenario-baseline-border);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--scenario-baseline-border) 30%, transparent), 0 0 0 6px color-mix(in srgb, var(--scenario-baseline-border) 10%, transparent);
   width: 16px;
   height: 16px;
   transform: scale(1.2);
@@ -1140,15 +1165,15 @@
 }
 
 .connector-dot.branch {
-  background: var(--primary);
-  border-color: var(--primary);
-  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+  background: var(--scenario-branch-border);
+  border-color: var(--scenario-branch-border);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--scenario-branch-border) 20%, transparent);
 }
 
 .connector-dot.sandbox {
-  background: var(--warning);
-  border-color: var(--warning);
-  box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.2);
+  background: var(--scenario-sandbox-border);
+  border-color: var(--scenario-sandbox-border);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--scenario-sandbox-border) 20%, transparent);
 }
 
 .hierarchy-content .scenario-name-cell {
@@ -1230,7 +1255,7 @@
 
 .quick-filter-btn.active {
   background: var(--primary);
-  color: white;
+  color: var(--solid-foreground);
   border-color: var(--primary);
 }
 
@@ -1242,11 +1267,11 @@
 }
 
 .merge-indicator {
-  color: var(--success);
+  color: var(--status-success-text);
 }
 
 .orphan-indicator {
-  color: var(--warning);
+  color: var(--status-warning-text);
 }
 
 .scenario-status {
@@ -1270,12 +1295,12 @@
 
 /* Status-specific styling */
 .scenario-status.merged {
-  color: var(--success);
+  color: var(--status-success-text);
   font-weight: 500;
 }
 
 .scenario-status.active {
-  color: var(--primary);
+  color: var(--primary-text);
   font-weight: 500;
 }
 
@@ -1339,20 +1364,20 @@
 }
 
 .scenario-type-badge.baseline {
-  background: rgba(34, 197, 94, 0.2);
-  color: var(--success);
+  background: color-mix(in srgb, var(--scenario-baseline-border) 20%, transparent);
+  color: var(--scenario-baseline-text);
   font-weight: 700;
 }
 
 .scenario-type-badge.branch {
-  background: rgba(59, 130, 246, 0.2);
-  color: var(--primary);
+  background: color-mix(in srgb, var(--scenario-branch-border) 20%, transparent);
+  color: var(--scenario-branch-text);
   font-weight: 700;
 }
 
 .scenario-type-badge.sandbox {
-  background: rgba(245, 158, 11, 0.2);
-  color: var(--warning);
+  background: color-mix(in srgb, var(--scenario-sandbox-border) 20%, transparent);
+  color: var(--scenario-sandbox-text);
   font-weight: 700;
 }
 
@@ -1370,21 +1395,21 @@
 }
 
 .scenario-type-badge.baseline {
-  background: rgba(34, 197, 94, 0.1);
-  color: var(--success);
-  border: 1px solid rgba(34, 197, 94, 0.2);
+  background: color-mix(in srgb, var(--scenario-baseline-border) 10%, transparent);
+  color: var(--scenario-baseline-text);
+  border: 1px solid color-mix(in srgb, var(--scenario-baseline-border) 20%, transparent);
 }
 
 .scenario-type-badge.branch {
-  background: rgba(59, 130, 246, 0.1);
-  color: var(--primary);
-  border: 1px solid rgba(59, 130, 246, 0.2);
+  background: color-mix(in srgb, var(--scenario-branch-border) 10%, transparent);
+  color: var(--scenario-branch-text);
+  border: 1px solid color-mix(in srgb, var(--scenario-branch-border) 20%, transparent);
 }
 
 .scenario-type-badge.sandbox {
-  background: rgba(245, 158, 11, 0.1);
-  color: var(--warning);
-  border: 1px solid rgba(245, 158, 11, 0.2);
+  background: color-mix(in srgb, var(--scenario-sandbox-border) 10%, transparent);
+  color: var(--scenario-sandbox-text);
+  border: 1px solid color-mix(in srgb, var(--scenario-sandbox-border) 20%, transparent);
 }
 
 
@@ -1393,13 +1418,13 @@
 /* Baseline pulse animation */
 @keyframes baseline-pulse {
   0% {
-    box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.3), 0 0 0 6px rgba(34, 197, 94, 0.1);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--status-success-border) 30%, transparent), 0 0 0 6px color-mix(in srgb, var(--status-success-border) 10%, transparent);
   }
   50% {
-    box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.4), 0 0 0 8px rgba(34, 197, 94, 0.15);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--status-success-border) 40%, transparent), 0 0 0 8px color-mix(in srgb, var(--status-success-border) 15%, transparent);
   }
   100% {
-    box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.3), 0 0 0 6px rgba(34, 197, 94, 0.1);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--status-success-border) 30%, transparent), 0 0 0 6px color-mix(in srgb, var(--status-success-border) 10%, transparent);
   }
 }
 
@@ -1416,12 +1441,12 @@
 
 .scenario-card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 8px 25px color-mix(in srgb, var(--solid-shade) 15%, transparent);
 }
 
 .scenario-card.expanded {
   transform: none;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 4px 20px color-mix(in srgb, var(--solid-shade) 12%, transparent);
 }
 
 .scenario-header {
@@ -1434,7 +1459,7 @@
 }
 
 .scenario-header:hover {
-  background: rgba(0, 0, 0, 0.02);
+  background: color-mix(in srgb, var(--text-primary) 2%, transparent);
   border-radius: 6px;
 }
 
@@ -1445,7 +1470,7 @@
 }
 
 .expand-toggle:hover {
-  color: var(--primary);
+  color: var(--primary-text);
 }
 
 .scenario-card.expanded .expand-toggle {
@@ -1455,7 +1480,7 @@
 .scenario-expandable-content {
   animation: expandContent 0.3s ease-out;
   padding-top: 1rem;
-  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  border-top: 1px solid color-mix(in srgb, var(--border-color) 5%, transparent);
   margin-top: 1rem;
 }
 
@@ -1523,7 +1548,7 @@
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  background: var(--bg-secondary);
   transition: left 0.5s;
 }
 
@@ -1533,68 +1558,68 @@
 
 .action-button:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 12px color-mix(in srgb, var(--solid-shade) 15%, transparent);
   border-color: var(--border-hover);
 }
 
 .action-button:active {
   transform: translateY(0);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 6px color-mix(in srgb, var(--solid-shade) 10%, transparent);
 }
 
 .action-button.branch {
-  border-color: var(--primary);
-  color: var(--primary);
+  border-color: var(--scenario-branch-border);
+  color: var(--scenario-branch-text);
 }
 
 .action-button.branch:hover {
-  background: var(--primary);
-  color: white;
-  border-color: var(--primary);
+  background: var(--scenario-branch-solid);
+  color: var(--solid-foreground);
+  border-color: var(--scenario-branch-border);
 }
 
 .action-button.edit {
   border-color: var(--warning);
-  color: var(--warning);
+  color: var(--status-warning-text);
 }
 
 .action-button.edit:hover {
   background: var(--warning);
-  color: white;
+  color: var(--solid-foreground);
   border-color: var(--warning);
 }
 
 .action-button.delete {
   border-color: var(--danger);
-  color: var(--danger);
+  color: var(--status-danger-text);
 }
 
 .action-button.delete:hover {
-  background: var(--danger);
-  color: white;
+  background: var(--status-danger-solid);
+  color: var(--solid-foreground);
   border-color: var(--danger);
 }
 
 .action-button.merge {
   border-color: var(--success);
-  color: var(--success);
+  color: var(--status-success-text);
 }
 
 .action-button.merge:hover {
-  background: var(--success);
-  color: white;
+  background: var(--status-success-solid);
+  color: var(--solid-foreground);
   border-color: var(--success);
 }
 
 .action-button.compare {
-  border-color: var(--color-purple);
-  color: var(--color-purple);
+  border-color: var(--scenario-compare-border);
+  color: var(--scenario-compare-text);
 }
 
 .action-button.compare:hover {
-  background: var(--color-purple);
-  color: white;
-  border-color: var(--color-purple);
+  background: var(--scenario-compare-solid);
+  color: var(--solid-foreground);
+  border-color: var(--scenario-compare-border);
 }
 
 /* Responsive button layout */
@@ -1631,18 +1656,18 @@
 }
 
 .scenario-group.baseline {
-  border-color: rgba(34, 197, 94, 0.3);
-  background: linear-gradient(135deg, var(--card-bg), rgba(34, 197, 94, 0.03));
+  border-color: color-mix(in srgb, var(--scenario-baseline-border) 30%, transparent);
+  background: var(--scenario-baseline-soft);
 }
 
 .scenario-group.branch {
-  border-color: rgba(59, 130, 246, 0.3);
-  background: linear-gradient(135deg, var(--card-bg), rgba(59, 130, 246, 0.03));
+  border-color: color-mix(in srgb, var(--scenario-branch-border) 30%, transparent);
+  background: var(--scenario-branch-soft);
 }
 
 .scenario-group.sandbox {
-  border-color: rgba(168, 85, 247, 0.3);
-  background: linear-gradient(135deg, var(--card-bg), rgba(168, 85, 247, 0.03));
+  border-color: color-mix(in srgb, var(--scenario-sandbox-border) 30%, transparent);
+  background: var(--scenario-sandbox-soft);
 }
 
 .scenario-group-header {
@@ -1656,7 +1681,7 @@
 }
 
 .scenario-group-header:hover {
-  background: rgba(0, 0, 0, 0.02);
+  background: color-mix(in srgb, var(--text-primary) 2%, transparent);
 }
 
 .group-header-content {
@@ -1673,19 +1698,19 @@
   width: 40px;
   height: 40px;
   border-radius: 8px;
-  background: rgba(0, 0, 0, 0.05);
+  background: color-mix(in srgb, var(--text-primary) 5%, transparent);
 }
 
 .group-icon.baseline {
-  background: rgba(34, 197, 94, 0.1);
+  background: color-mix(in srgb, var(--scenario-baseline-border) 10%, transparent);
 }
 
 .group-icon.branch {
-  background: rgba(59, 130, 246, 0.1);
+  background: color-mix(in srgb, var(--scenario-branch-border) 10%, transparent);
 }
 
 .group-icon.sandbox {
-  background: rgba(168, 85, 247, 0.1);
+  background: color-mix(in srgb, var(--scenario-sandbox-border) 10%, transparent);
 }
 
 .group-title {
@@ -1710,7 +1735,7 @@
 }
 
 .group-toggle:hover {
-  color: var(--primary);
+  color: var(--primary-text);
 }
 
 .group-toggle.collapsed {
@@ -1860,27 +1885,27 @@
 }
 
 .scenario-phase-indicator.planning {
-  background: rgba(168, 85, 247, 0.1);
-  color: var(--color-purple);
-  border: 1px solid rgba(168, 85, 247, 0.2);
+  background: color-mix(in srgb, var(--scenario-sandbox-border) 10%, transparent);
+  color: var(--scenario-sandbox-text);
+  border: 1px solid color-mix(in srgb, var(--scenario-sandbox-border) 20%, transparent);
 }
 
 .scenario-phase-indicator.active {
-  background: rgba(34, 197, 94, 0.1);
-  color: var(--success);
-  border: 1px solid rgba(34, 197, 94, 0.2);
+  background: color-mix(in srgb, var(--status-success-border) 10%, transparent);
+  color: var(--status-success-text);
+  border: 1px solid color-mix(in srgb, var(--status-success-border) 20%, transparent);
 }
 
 .scenario-phase-indicator.review {
-  background: rgba(245, 158, 11, 0.1);
-  color: var(--warning);
-  border: 1px solid rgba(245, 158, 11, 0.2);
+  background: color-mix(in srgb, var(--status-warning-border) 10%, transparent);
+  color: var(--status-warning-text);
+  border: 1px solid color-mix(in srgb, var(--status-warning-border) 20%, transparent);
 }
 
 .scenario-phase-indicator.archived {
-  background: rgba(107, 114, 128, 0.1);
+  background: color-mix(in srgb, var(--bg-hover) 10%, transparent);
   color: var(--text-tertiary);
-  border: 1px solid rgba(107, 114, 128, 0.2);
+  border: 1px solid color-mix(in srgb, var(--border-color) 20%, transparent);
 }
 
 /* Priority indicators for scenarios */
@@ -1898,27 +1923,27 @@
 }
 
 .scenario-priority-indicator.critical {
-  background: rgba(239, 68, 68, 0.1);
-  color: var(--danger);
-  border: 1px solid rgba(239, 68, 68, 0.2);
+  background: color-mix(in srgb, var(--status-danger-border) 10%, transparent);
+  color: var(--status-danger-text);
+  border: 1px solid color-mix(in srgb, var(--status-danger-border) 20%, transparent);
 }
 
 .scenario-priority-indicator.high {
-  background: rgba(245, 158, 11, 0.1);
-  color: var(--warning);
-  border: 1px solid rgba(245, 158, 11, 0.2);
+  background: color-mix(in srgb, var(--status-warning-border) 10%, transparent);
+  color: var(--status-warning-text);
+  border: 1px solid color-mix(in srgb, var(--status-warning-border) 20%, transparent);
 }
 
 .scenario-priority-indicator.medium {
-  background: rgba(59, 130, 246, 0.1);
-  color: var(--primary);
-  border: 1px solid rgba(59, 130, 246, 0.2);
+  background: color-mix(in srgb, var(--status-info-border) 10%, transparent);
+  color: var(--primary-text);
+  border: 1px solid color-mix(in srgb, var(--status-info-border) 20%, transparent);
 }
 
 .scenario-priority-indicator.low {
-  background: rgba(107, 114, 128, 0.1);
+  background: color-mix(in srgb, var(--bg-hover) 10%, transparent);
   color: var(--text-tertiary);
-  border: 1px solid rgba(107, 114, 128, 0.2);
+  border: 1px solid color-mix(in srgb, var(--border-color) 20%, transparent);
 }
 
 /* Impact level indicators */
@@ -1935,21 +1960,21 @@
 }
 
 .scenario-impact-indicator.minimal {
-  background: rgba(34, 197, 94, 0.1);
-  color: var(--success);
-  border: 1px solid rgba(34, 197, 94, 0.2);
+  background: color-mix(in srgb, var(--status-success-border) 10%, transparent);
+  color: var(--status-success-text);
+  border: 1px solid color-mix(in srgb, var(--status-success-border) 20%, transparent);
 }
 
 .scenario-impact-indicator.moderate {
-  background: rgba(245, 158, 11, 0.1);
-  color: var(--warning);
-  border: 1px solid rgba(245, 158, 11, 0.2);
+  background: color-mix(in srgb, var(--status-warning-border) 10%, transparent);
+  color: var(--status-warning-text);
+  border: 1px solid color-mix(in srgb, var(--status-warning-border) 20%, transparent);
 }
 
 .scenario-impact-indicator.significant {
-  background: rgba(239, 68, 68, 0.1);
-  color: var(--danger);
-  border: 1px solid rgba(239, 68, 68, 0.2);
+  background: color-mix(in srgb, var(--status-danger-border) 10%, transparent);
+  color: var(--status-danger-text);
+  border: 1px solid color-mix(in srgb, var(--status-danger-border) 20%, transparent);
 }
 
 /* Enhanced scenario type badges for better PM categorization */
@@ -1966,9 +1991,9 @@
 }
 
 .scenario-type-badge.baseline {
-  background: rgba(34, 197, 94, 0.1);
-  color: var(--success);
-  border: 1px solid rgba(34, 197, 94, 0.2);
+  background: color-mix(in srgb, var(--scenario-baseline-border) 10%, transparent);
+  color: var(--scenario-baseline-text);
+  border: 1px solid color-mix(in srgb, var(--scenario-baseline-border) 20%, transparent);
 }
 
 .scenario-type-badge.baseline::before {
@@ -1977,9 +2002,9 @@
 }
 
 .scenario-type-badge.branch {
-  background: rgba(59, 130, 246, 0.1);
-  color: var(--primary);
-  border: 1px solid rgba(59, 130, 246, 0.2);
+  background: color-mix(in srgb, var(--scenario-branch-border) 10%, transparent);
+  color: var(--scenario-branch-text);
+  border: 1px solid color-mix(in srgb, var(--scenario-branch-border) 20%, transparent);
 }
 
 .scenario-type-badge.branch::before {
@@ -1988,9 +2013,9 @@
 }
 
 .scenario-type-badge.sandbox {
-  background: rgba(245, 158, 11, 0.1);
-  color: var(--warning);
-  border: 1px solid rgba(245, 158, 11, 0.2);
+  background: color-mix(in srgb, var(--scenario-sandbox-border) 10%, transparent);
+  color: var(--scenario-sandbox-text);
+  border: 1px solid color-mix(in srgb, var(--scenario-sandbox-border) 20%, transparent);
 }
 
 .scenario-type-badge.sandbox::before {
@@ -2008,7 +2033,7 @@
   font-size: 0.75rem;
   color: var(--text-secondary);
   z-index: 1000;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px color-mix(in srgb, var(--solid-shade) 10%, transparent);
   max-width: 200px;
   display: none;
 }
@@ -2034,14 +2059,14 @@
 
 /* Tree focus styles */
 .hierarchy-row.focused {
-  background-color: var(--primary-light, #f0f9ff);
-  border: 2px solid var(--primary, #3b82f6);
+  background-color: var(--scenario-branch-soft);
+  border: 2px solid var(--primary, var(--scenario-branch-border));
   border-radius: 4px;
   outline: none;
 }
 
 .hierarchy-row:focus {
-  outline: 2px solid var(--primary, #3b82f6);
+  outline: 2px solid var(--primary, var(--status-info-border));
   outline-offset: 2px;
 }
 
@@ -2062,7 +2087,7 @@
 
 .connector-expand-button:hover {
   transform: scale(1.1);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px color-mix(in srgb, var(--solid-shade) 10%, transparent);
   /* 重声明底色(全局 button:hover 换底同族,2026-10-13): 缩放反馈已足,
      底色不换灰块 */
   background: var(--bg-primary);
@@ -2074,18 +2099,18 @@
 }
 
 .connector-expand-button.baseline {
-  border-color: var(--success, #10b981);
-  color: var(--success, #10b981);
+  border-color: var(--scenario-baseline-border);
+  color: var(--scenario-baseline-text);
 }
 
 .connector-expand-button.branch {
-  border-color: var(--primary, #3b82f6);
-  color: var(--primary, #3b82f6);
+  border-color: var(--scenario-branch-border);
+  color: var(--scenario-branch-text);
 }
 
 .connector-expand-button.sandbox {
-  border-color: var(--warning, #f59e0b);
-  color: var(--warning, #f59e0b);
+  border-color: var(--scenario-sandbox-border);
+  color: var(--scenario-sandbox-text);
 }
 
 /* Expand icon animation */
@@ -2106,13 +2131,13 @@
 
 /* Keyboard navigation hint */
 .tree-instructions {
-  background: var(--info-light, #eff6ff);
-  color: var(--info-dark, #1e40af);
+  background: var(--status-info-soft);
+  color: var(--status-info-text);
   padding: 0.5rem;
   border-radius: 4px;
   font-size: 0.875rem;
   margin-bottom: 1rem;
-  border: 1px solid var(--info, #3b82f6);
+  border: 1px solid var(--status-info-border);
 }
 
 /* High contrast mode support */

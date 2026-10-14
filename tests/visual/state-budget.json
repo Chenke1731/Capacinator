@@ -916,5 +916,153 @@
     "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(30) > div:nth-of-type(7) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)|target-size",
     "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(30) > div:nth-of-type(8) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)|target-size",
     "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(30) > div:nth-of-type(9) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)|target-size"
-  ]
+  ],
+  "scenarios|light|default": [],
+  "scenarios|light|hover-0": [],
+  "scenarios|light|hover-1": [],
+  "scenarios|light|hover-2": [],
+  "scenarios|light|hover-3": [],
+  "scenarios|light|hover-4": [],
+  "scenarios|light|hover-5": [],
+  "scenarios|light|hover-6": [],
+  "scenarios|light|hover-7": [],
+  "scenarios|light|keyboard-focus": [],
+  "scenarios|light|opened-0": [],
+  "scenarios|light|opened-1": [
+    "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > input:nth-of-type(1)|target-size",
+    "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > input:nth-of-type(1)|target-size",
+    "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > input:nth-of-type(1)|target-size"
+  ],
+  "scenarios|light|opened-2": [],
+  "scenarios|dark|default": [],
+  "scenarios|dark|hover-0": [],
+  "scenarios|dark|hover-1": [],
+  "scenarios|dark|hover-2": [],
+  "scenarios|dark|hover-3": [],
+  "scenarios|dark|hover-4": [],
+  "scenarios|dark|hover-5": [],
+  "scenarios|dark|hover-6": [],
+  "scenarios|dark|hover-7": [],
+  "scenarios|dark|keyboard-focus": [],
+  "scenarios|dark|opened-0": [],
+  "scenarios|dark|opened-1": [
+    "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > input:nth-of-type(1)|target-size",
+    "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > input:nth-of-type(1)|target-size",
+    "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > input:nth-of-type(1)|target-size"
+  ],
+  "scenarios|dark|opened-2": [],
+  "scenarios-rich|light|default": [
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)|occlusion"
+  ],
+  "scenarios-rich|light|hover-0": [
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)|occlusion"
+  ],
+  "scenarios-rich|light|hover-1": [
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)|occlusion"
+  ],
+  "scenarios-rich|light|hover-2": [
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)|occlusion"
+  ],
+  "scenarios-rich|light|hover-3": [
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)|occlusion"
+  ],
+  "scenarios-rich|light|hover-4": [
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)|occlusion"
+  ],
+  "scenarios-rich|light|hover-5": [
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)|occlusion"
+  ],
+  "scenarios-rich|light|hover-6": [
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)|occlusion"
+  ],
+  "scenarios-rich|light|hover-7": [
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)|occlusion"
+  ],
+  "scenarios-rich|light|hover-8": [
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)|occlusion"
+  ],
+  "scenarios-rich|light|hover-9": [
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)|occlusion"
+  ],
+  "scenarios-rich|light|hover-10": [
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)|occlusion"
+  ],
+  "scenarios-rich|light|hover-11": [
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)|occlusion"
+  ],
+  "scenarios-rich|light|hover-12": [
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)|occlusion"
+  ],
+  "scenarios-rich|light|keyboard-focus": [
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)|occlusion"
+  ],
+  "scenarios-rich|light|opened-0": [],
+  "scenarios-rich|light|opened-1": [
+    "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > input:nth-of-type(1)|target-size",
+    "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > input:nth-of-type(1)|target-size",
+    "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(4) > input:nth-of-type(1)|target-size",
+    "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > input:nth-of-type(1)|target-size",
+    "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > input:nth-of-type(1)|target-size",
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)|occlusion"
+  ],
+  "scenarios-rich|light|opened-2": [],
+  "scenarios-rich|light|opened-3": [],
+  "scenarios-rich|light|opened-4": [],
+  "scenarios-rich|dark|default": [
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)|occlusion"
+  ],
+  "scenarios-rich|dark|hover-0": [
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)|occlusion"
+  ],
+  "scenarios-rich|dark|hover-1": [
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)|occlusion"
+  ],
+  "scenarios-rich|dark|hover-2": [
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)|occlusion"
+  ],
+  "scenarios-rich|dark|hover-3": [
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)|occlusion"
+  ],
+  "scenarios-rich|dark|hover-4": [
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)|occlusion"
+  ],
+  "scenarios-rich|dark|hover-5": [
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)|occlusion"
+  ],
+  "scenarios-rich|dark|hover-6": [
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)|occlusion"
+  ],
+  "scenarios-rich|dark|hover-7": [
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)|occlusion"
+  ],
+  "scenarios-rich|dark|hover-8": [
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)|occlusion"
+  ],
+  "scenarios-rich|dark|hover-9": [
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)|occlusion"
+  ],
+  "scenarios-rich|dark|hover-10": [
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)|occlusion"
+  ],
+  "scenarios-rich|dark|hover-11": [
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)|occlusion"
+  ],
+  "scenarios-rich|dark|hover-12": [
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)|occlusion"
+  ],
+  "scenarios-rich|dark|keyboard-focus": [
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)|occlusion"
+  ],
+  "scenarios-rich|dark|opened-0": [],
+  "scenarios-rich|dark|opened-1": [
+    "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > input:nth-of-type(1)|target-size",
+    "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > input:nth-of-type(1)|target-size",
+    "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(4) > input:nth-of-type(1)|target-size",
+    "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > input:nth-of-type(1)|target-size",
+    "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > input:nth-of-type(1)|target-size",
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)|occlusion"
+  ],
+  "scenarios-rich|dark|opened-2": [],
+  "scenarios-rich|dark|opened-3": [],
+  "scenarios-rich|dark|opened-4": []
 }

@@ -3,10 +3,26 @@ import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 
 const repository=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../..');
-const fixtureFile=process.env.UI_AUDIT_FIXTURES??path.join(repository,'tests/visual/fixtures/runtime-data.json');
+const defaultFixtureFile=process.env.UI_AUDIT_FIXTURES??path.join(repository,'tests/visual/fixtures/runtime-data.json');
+let fixtureFile=defaultFixtureFile;
 const captureFixtures=process.argv.includes('--capture-fixtures');
 let fixtureSet=fs.existsSync(fixtureFile)?JSON.parse(fs.readFileSync(fixtureFile,'utf8')):null;
 if(captureFixtures&&!fixtureSet)fixtureSet={version:1,capturedAt:new Date().toISOString(),responses:{}};
+
+// Independent scene captures may discover different GETs. Merge only this
+// response/entity under a lock; never overwrite another process's fixture set.
+function persistFixture(update) {
+  fs.mkdirSync(path.dirname(fixtureFile),{recursive:true});
+  const lock=`${fixtureFile}.lock`;let descriptor;
+  try {
+    descriptor=fs.openSync(lock,'wx');
+    const stored=fs.existsSync(fixtureFile)?JSON.parse(fs.readFileSync(fixtureFile,'utf8')):fixtureSet;
+    if(stored.capturedAt!==fixtureSet.capturedAt)throw new Error('Concurrent fixture clocks differ; capture scenes sequentially');
+    update(stored);
+    const temporary=`${fixtureFile}.${process.pid}.tmp`;fs.writeFileSync(temporary,`${JSON.stringify(stored,null,2)}\n`);fs.renameSync(temporary,fixtureFile);
+    fixtureSet=stored;
+  } finally {if(descriptor!==undefined){fs.closeSync(descriptor);fs.unlinkSync(lock);}}
+}
 
 // Roots are real production DOM. Profiles describe setup, never excuse a failed measurement.
 export const profiles = {
@@ -15,7 +31,8 @@ export const profiles = {
   'project-detail': {path:'/projects/project-1789912193111-zikdnz8c5',root:'main > .max-w-7xl',ready:'.chart-container .chart-tab',minElements:8,safeTriggers:'.chart-tab'},
   'project-detail-phases': {path:'/projects/:audit-id',entity:'phased-project',root:'main > .max-w-7xl',ready:'.project-phase-timeline .timeline-container',minElements:5,safeTriggers:'.chart-tab',scrollInto:'.chart-container'},
   'phase-template': {path:'/project-types/:audit-id',entity:'phased-type',root:'.phase-template-designer',ready:'.phases-table',minElements:3,safeTriggers:'.add-phase-btn'},
-  scenarios: {path:'/scenarios',root:'.scenarios-page',ready:'.scenario-card',minElements:5,safeTriggers:'.filter-button, .scenario-header'},
+  scenarios: {path:'/scenarios',root:'.scenarios-page',ready:'.hierarchy-row',minElements:5,safeTriggers:'.page-header > button, .filter-button, .action-button.edit',requiredTriggers:3,floatingRoot:'[role="dialog"]',floatingMin:3},
+  'scenarios-rich': {path:'/scenarios',root:'.scenarios-page',ready:'.hierarchy-row.branch',minElements:10,safeTriggers:'.page-header > button, .filter-button, .hierarchy-row.baseline .action-button.edit, .hierarchy-row.branch .action-button.compare, .hierarchy-row.branch .action-button.merge',requiredTriggers:5,floatingRoot:'[role="dialog"]',floatingMin:3,fixture:'tests/visual/fixtures/scenarios.json'},
   import: {path:'/import',root:'.import-container',ready:'.import-card',minElements:4,safeTriggers:'.settings-preview .btn-ghost'},
   people: {path:'/people',root:'main',ready:'table',minElements:5},
   assignments: {path:'/assignments',root:'main',ready:'table',minElements:5},
@@ -32,6 +49,9 @@ export function matchesPage(actual, expected, base) {
   return a.origin===e.origin&&a.pathname===e.pathname&&[...e.searchParams].every(([k,v])=>a.searchParams.get(k)===v);
 }
 export async function resolveProfile(profile,auth){
+  const requested=process.env.UI_AUDIT_FIXTURES?defaultFixtureFile:profile.fixture?path.join(repository,profile.fixture):defaultFixtureFile;
+  if(profile.fixture&&captureFixtures)throw new Error('Controlled scene fixtures cannot be overwritten by live capture');
+  if(requested!==fixtureFile){if(!fs.existsSync(requested))throw new Error(`Missing scene fixture ${requested}`);fixtureFile=requested;fixtureSet=JSON.parse(fs.readFileSync(fixtureFile,'utf8'));}
   if(!profile.entity)return profile;
   let id=fixtureSet?.entities?.[profile.entity];
   if(!id){
@@ -44,7 +64,7 @@ export async function resolveProfile(profile,auth){
       if(item.phases?.length){id=row.id;break;}
     }
     if(!id)throw new Error(`No non-empty phase fixture for ${kind}`);
-    if(captureFixtures){fixtureSet.entities??={};fixtureSet.entities[profile.entity]=id;fs.mkdirSync(path.dirname(fixtureFile),{recursive:true});fs.writeFileSync(fixtureFile,`${JSON.stringify(fixtureSet,null,2)}\n`);}
+    if(captureFixtures)persistFixture(stored=>{stored.entities??={};stored.entities[profile.entity]=id;});
   }
   return {...profile,path:profile.path.replace(':audit-id',id)};
 }
@@ -95,8 +115,7 @@ export async function setupReadOnlyPage(context,auth,theme) {
       if(captureFixtures){
         const response=await route.fetch();
         if(!response.ok())throw new Error(`Cannot capture failed read ${key} (${response.status()})`);
-        const payload=await response.json();fixtureSet.responses[key]={status:response.status(),body:payload};
-        fs.mkdirSync(path.dirname(fixtureFile),{recursive:true});fs.writeFileSync(fixtureFile,`${JSON.stringify(fixtureSet,null,2)}\n`);
+        const payload=await response.json();persistFixture(stored=>{stored.responses[key]={status:response.status(),body:payload};});
         return route.fulfill({response,json:payload});
       }
       const stored=fixtureSet.responses[key];

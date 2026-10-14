@@ -16,7 +16,7 @@ export function installContrastHelpers() {
   const over=(base,c)=>c.slice(0,3).map((v,i)=>v*(c[3]??1)+base[i]*(1-(c[3]??1)));
   const background=el=>{
     const layers=[];
-    for(let n=el;n;n=n.parentElement){const c=parse(getComputedStyle(n).backgroundColor);if(c&&c[3]>0){layers.push(c);if(c[3]>=.999)break;}}
+    for(let n=el;n;n=n.parentElement){const s=getComputedStyle(n);if(s.backgroundImage!=='none')return null;const c=parse(s.backgroundColor);if(c&&c[3]>0){layers.push(c);if(c[3]>=.999)break;}}
     if(!layers.length||layers.at(-1)[3]<.999)return null;
     let b=layers.pop().slice(0,3);while(layers.length)b=over(b,layers.pop());return b;
   };
@@ -26,15 +26,16 @@ export function installContrastHelpers() {
 }
 
 function enumerateState({root,fonts}) {
-  const nodes=[...document.querySelectorAll(`${root} button, ${root} [role="button"], ${root} input:not([type="hidden"]), ${root} select, ${root} a, ${root} .clickable`)];
-  const visible=e=>{const r=e.getBoundingClientRect(),s=getComputedStyle(e);return r.width>0&&r.height>0&&r.bottom>0&&r.top<innerHeight&&r.right>0&&r.left<innerWidth&&s.visibility!=='hidden'&&s.display!=='none';};
+  const nodes=[...document.querySelectorAll(`${root} button, ${root} [role="button"], ${root} input:not([type="hidden"]), ${root} textarea, ${root} select, ${root} a, ${root} .clickable, ${root} [role="treeitem"], ${root} [role="combobox"], ${root} [role="checkbox"], ${root} [role="switch"]`)];
+  const suppressed=e=>Boolean(e.closest('[aria-hidden="true"],[inert],[hidden]'))||/^rect\(0px,? 0px,? 0px,? 0px\)$/.test(getComputedStyle(e).clip);
+  const visible=e=>{const r=e.getBoundingClientRect(),s=getComputedStyle(e);return !suppressed(e)&&r.width>0&&r.height>0&&r.bottom>0&&r.top<innerHeight&&r.right>0&&r.left<innerWidth&&s.visibility!=='hidden'&&s.display!=='none';};
   const selector=e=>{
     if(e.dataset.testid)return`[data-testid="${e.dataset.testid}"]`;
     const parts=[];for(let n=e;n&&n!==document.body&&!n.matches(root);n=n.parentElement){const siblings=n.parentElement?[...n.parentElement.children].filter(x=>x.tagName===n.tagName):[];parts.unshift(`${n.tagName.toLowerCase()}:nth-of-type(${siblings.indexOf(n)+1})`);}
     return parts.join(' > ');
   };
   const rows=[],issues=[];
-  for(const e of nodes){const r=e.getBoundingClientRect(),s=getComputedStyle(e);if(s.position==='fixed'&&(r.left < -8||r.right>innerWidth+8||r.top < -8||r.bottom>innerHeight+8))issues.push({selector:selector(e),kind:'viewport'});}
+  for(const e of nodes){if(suppressed(e))continue;const r=e.getBoundingClientRect(),s=getComputedStyle(e);if(s.position==='fixed'&&(r.left < -8||r.right>innerWidth+8||r.top < -8||r.bottom>innerHeight+8))issues.push({selector:selector(e),kind:'viewport'});}
   for(const e of nodes.filter(visible)) {
     const r=e.getBoundingClientRect(),s=getComputedStyle(e),sel=selector(e),bg=window.__auditColor.background(e),fg=window.__auditColor.parse(s.color);
     const text=Boolean(e.textContent.trim()||e.matches('input,select'));
@@ -73,9 +74,12 @@ export async function runProfileStates(profileName,{selftest=false,quick=false,r
       await page.evaluate(installContrastHelpers);
       if(await page.locator('html').getAttribute('data-theme')!==theme)throw new Error('Theme did not render');
       const capture=async(state)=>{
-        const data=await page.evaluate(enumerateState,{root:profile.root,fonts:profile.fonts});
-        assertCoverage(data,profile);
-        const axe=await new AxeBuilder({page}).include(profile.root).withRules(['color-contrast','target-size']).analyze();
+        const floating=profile.floatingRoot&&await page.locator(profile.floatingRoot).filter({visible:true}).count();
+        const root=floating?profile.floatingRoot:profile.root;
+        const data=await page.evaluate(enumerateState,{root,fonts:profile.fonts});
+        data.scope=root;
+        assertCoverage(data,floating?{...profile,minElements:profile.floatingMin??3}:profile);
+        const axe=await new AxeBuilder({page}).include(root).withRules(['color-contrast','target-size']).analyze();
         data.axe=axe.violations.flatMap(v=>v.nodes.map(n=>({rule:v.id,target:n.target,html:n.html})));
         data.issues.push(...data.axe.map(a=>({selector:a.target.join('|'),kind:`axe:${a.rule}`})));
         const keys=[...new Set(data.issues.map(i=>`${i.selector}|${i.kind}`))].sort();
@@ -95,13 +99,17 @@ export async function runProfileStates(profileName,{selftest=false,quick=false,r
         await page.waitForTimeout(600);
         const injected=await page.evaluate(enumerateState,{root:profile.root});
         if(!injected.issues.some(i=>i.kind==='text-contrast'))throw new Error('Contrast injection was not detected');
+        await first.evaluate(e=>e.style.setProperty('background-image','linear-gradient(white, black)','important'));
+        const gradient=await page.evaluate(enumerateState,{root:profile.root});
+        if(!gradient.issues.some(i=>i.kind==='unknown-background'))throw new Error('Unknown gradient background was silently accepted');
+        await first.evaluate(e=>e.style.setProperty('background-image','none','important'));
         await first.evaluate(e=>{e.style.position='fixed';e.style.left='-200px';});
         await page.waitForTimeout(450);
         const out=await page.evaluate(enumerateState,{root:profile.root});if(!out.issues.some(i=>i.kind==='viewport'))throw new Error('Out-of-bounds injection was not detected');
         await page.locator(profile.root).first().evaluate(e=>e.remove());
         const empty=await page.evaluate(enumerateState,{root:profile.root});if(empty.rows.length!==0)throw new Error('Missing-root injection failed');
         let zeroRejected=false;try{assertCoverage(empty,profile);}catch{zeroRejected=true;}if(!zeroRejected)throw new Error('Zero-coverage guard has no teeth');
-        console.log(`SELFTEST PASS ${profileName}/${theme}: contrast, viewport, root/zero coverage`);
+        console.log(`SELFTEST PASS ${profileName}/${theme}: contrast, unknown gradient, viewport, root/zero coverage`);
         await context.close();continue;
       }
       const representatives=new Map();

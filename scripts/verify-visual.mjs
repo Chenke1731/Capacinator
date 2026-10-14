@@ -24,14 +24,17 @@ const argv=process.argv.slice(2),value=k=>argv.includes(k)?argv[argv.indexOf(k)+
 const valid=new Set(['--profile','--page','--state','--selftest','--help','--record-existing-axe','--capture-fixtures','--inject-test-violation']);
 for(let i=0;i<argv.length;i++){if(!valid.has(argv[i]))throw new Error(`Unknown argument ${argv[i]}`);if(['--profile','--page','--state'].includes(argv[i])){if(!argv[i+1]||argv[i+1].startsWith('--'))throw new Error(`Missing value for ${argv[i]}`);i++;}}
 if(argv.includes('--selftest')){const t=await import('./tests/visual-budget.test.mjs');t.runVisualSelfTests();process.exit(0);}
-if(argv.includes('--help')){console.log('verify-visual: [--profile name|--page path] [--state default|hover|focus|phase-hover|phase-edit] [--record-existing-axe] [--capture-fixtures]; UPDATE_BASELINES=1 only updates pixels');process.exit(0);}
+if(argv.includes('--help')){console.log('verify-visual: [--profile name|--page path] [--state default|hover|focus|phase-hover|phase-edit|create|edit|filter|merge|merge-confirm|compare|compare-results] [--record-existing-axe] [--capture-fixtures]; UPDATE_BASELINES=1 only updates pixels; branch states require scenarios-rich');process.exit(0);}
 const UPDATE = process.env.UPDATE_BASELINES==='1';
 const REGISTER=argv.includes('--record-existing-axe');
 if(value('--profile')&&value('--page'))throw new Error('Select either profile or page');
 const FILTER=value('--profile')?getProfile(value('--profile')):value('--page')?getProfile(undefined,value('--page')):null;
 const requestedState=value('--state');
+const preparedStates=['default','hover','focus','phase-hover','phase-edit','create','edit','filter','merge','merge-confirm','compare','compare-results'];
 if(requestedState&&!FILTER)throw new Error('A state requires an explicit profile');
-if(requestedState&&!['default','hover','focus','phase-hover','phase-edit'].includes(requestedState))throw new Error(`Unsupported prepared state ${requestedState}`);
+if(requestedState&&!preparedStates.includes(requestedState))throw new Error(`Unsupported prepared state ${requestedState}`);
+if(['create','edit','filter','merge','merge-confirm','compare','compare-results'].includes(requestedState)&&!FILTER?.name.startsWith('scenarios'))throw new Error('Scenario states require a scenario profile');
+if(['merge','merge-confirm','compare','compare-results'].includes(requestedState)&&FILTER?.name!=='scenarios-rich')throw new Error('Branch states require the controlled scenarios-rich fixture');
 if(requestedState?.startsWith('phase-')&&FILTER.name!=='project-detail-phases')throw new Error('Phase states require project-detail-phases');
 if(argv.includes('--inject-test-violation')&&(!FILTER||REGISTER))throw new Error('Injection requires a single profile and cannot register exceptions');
 
@@ -48,6 +51,8 @@ const PAGES = [
   // 不在详情页加载,曾出白字白底 1.05:1)。用固定种子行,断链类问题再犯即红
   { name: 'project-detail', path: '/projects/project-1789912193111-zikdnz8c5' },
   { name: 'project-detail-phases', widths: [1600,1366], states: ['default','phase-hover','phase-edit'] },
+  { name: 'scenarios', widths: [1600,1366] },
+  { name: 'scenarios-rich', widths: [1600,1366], states:['default','create','filter','merge-confirm','compare-results'] },
 ];
 const COMBOS = [];
 const selected=FILTER?[{name:FILTER.name,path:FILTER.path,widths:[1600,1366],states:[requestedState??'default']}]:PAGES;
@@ -73,15 +78,23 @@ for (const combo of COMBOS) {
   const comboStart=results.length;
   const tag = `${combo.name}${STATE==='default'?'':`-${STATE}`}-${combo.theme}-${combo.w}`;
   const context = await browser.newContext({ viewport: { width: combo.w, height: combo.h } });
+  const profile=await resolveProfile(getProfile(combo.name),auth);
   const session=await setupReadOnlyPage(context,auth,combo.theme);
   const page = session.page;
-  const profile=await resolveProfile(getProfile(combo.name),auth);
   await page.goto(`${BASE}${profile.path}`, { waitUntil: 'networkidle' });
   await page.waitForTimeout(1800);
   await assertProfileReady(page,profile,BASE);
   await prepareProfile(page,profile);
   if(await page.locator('html').getAttribute('data-theme')!==combo.theme)throw new Error(`Theme not rendered ${tag}`);
   if(STATE!=='default') {
+    if(['create','edit','filter','merge','merge-confirm','compare','compare-results'].includes(STATE)) {
+      if(STATE==='create')await page.locator('.scenarios-page .page-header > button').click();
+      else if(STATE==='edit')await page.locator('.hierarchy-row.baseline .action-button.edit').click();
+      else if(STATE==='filter')await page.locator('.filter-button').click();
+      else if(STATE.startsWith('merge')){await page.locator('.hierarchy-row.branch .action-button.merge').click();await page.locator('[role="dialog"]').waitFor();if(STATE==='merge-confirm')await page.locator('#confirm-merge').click();}
+      else {await page.locator('.hierarchy-row.branch .action-button.compare').click();await page.locator('[role="dialog"]').waitFor();if(STATE==='compare-results'){await page.locator('#compare-scenario-select').selectOption('baseline-0000-0000-0000-000000000000');await page.getByRole('dialog').locator('.comparison-actions button').click();await page.locator('.comparison-results').waitFor();}}
+      await page.locator(STATE==='filter'?'.filter-dropdown-content':'[role="dialog"]').waitFor({state:'visible'});
+    } else {
     const phaseState=STATE.startsWith('phase-');
     const target=page.locator(profile.root).locator(phaseState?'.timeline-container > div:has(> span[style*="white-space"])':combo.name.startsWith('project-detail')?'.chart-tab':'.today-btn, button').first();
     if(phaseState){
@@ -99,6 +112,7 @@ for (const combo of COMBOS) {
     }
     else if(STATE==='hover')await target.hover();
     else {let entered=false;for(let i=0;i<100;i++){await page.keyboard.press('Tab');entered=await page.evaluate(s=>!!document.activeElement?.closest(s),profile.root);if(entered)break;}if(!entered)throw new Error('Focus preparation missed profile');}
+    }
   }
   await page.evaluate(async () => {
     await document.fonts.ready;
@@ -127,7 +141,7 @@ for (const combo of COMBOS) {
   );
 
   // 2. 几何: 碰撞 + 页面横向溢出
-  const collisionScope=await page.locator('.modal-overlay').count()?'.modal-overlay':await page.locator('.unified-tab-content').count()?'.unified-tab-content':profile.root;
+  const collisionScope=await page.locator('[role="dialog"]').filter({visible:true}).count()?'[role="dialog"]':await page.locator('.modal-overlay').count()?'.modal-overlay':STATE==='filter'?'.filter-dropdown-content':await page.locator('.unified-tab-content').count()?'.unified-tab-content':profile.root;
   if(!await page.locator(collisionScope).count())throw new Error(`Missing collision root ${collisionScope}`);
   const collisions = await findCollisions(page, collisionScope);
   check(`碰撞 ${tag}: 零重叠`, collisions.length === 0, collisions.slice(0, 3).join(' | '));

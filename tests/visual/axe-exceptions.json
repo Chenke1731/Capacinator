@@ -84,5 +84,17 @@
     "color-contrast|[\"span:nth-child(4) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label\"]",
     "color-contrast|[\"span:nth-child(5) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label\"]",
     "color-contrast|[\"span:nth-child(7) > .lifecycle-step > .lifecycle-step-label\"]"
-  ]
+  ],
+  "scenarios-dark": [],
+  "scenarios-light": [],
+  "scenarios-rich-compare-results-dark": [],
+  "scenarios-rich-compare-results-light": [],
+  "scenarios-rich-merge-confirm-dark": [],
+  "scenarios-rich-merge-confirm-light": [],
+  "scenarios-rich-dark": [],
+  "scenarios-rich-light": [],
+  "scenarios-rich-create-dark": [],
+  "scenarios-rich-create-light": [],
+  "scenarios-rich-filter-dark": [],
+  "scenarios-rich-filter-light": []
 }

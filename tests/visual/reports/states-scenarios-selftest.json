@@ -1,0 +1,321 @@
+{
+  "profile": "scenarios",
+  "phases": [
+    {
+      "theme": "light",
+      "state": "default",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn-primary|",
+          "text": "新建场景",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 120.015625,
+          "height": 48,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "|",
+          "text": "",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 300,
+          "height": 47,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
+          "family": "filter-button |",
+          "text": "筛选",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(249, 250, 251)",
+          "effectiveBackground": [
+            249,
+            250,
+            251
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 108,
+          "height": 47,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "quick-filter-btn |",
+          "text": "🚫 隐藏已合并",
+          "foreground": "rgb(55, 65, 81)",
+          "background": "rgb(249, 250, 251)",
+          "effectiveBackground": [
+            249,
+            250,
+            251
+          ],
+          "contrast": 9.863254791756054,
+          "textual": true,
+          "disabled": false,
+          "width": 117.921875,
+          "height": 44,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1)",
+          "family": "hierarchy-row baseline focused|",
+          "text": "基线正式计划基线活跃陈主管2026/9/20",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(240, 249, 255)",
+          "effectiveBackground": [
+            240,
+            249,
+            255
+          ],
+          "contrast": 16.640974426279342,
+          "textual": true,
+          "disabled": false,
+          "width": 1316,
+          "height": 72,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "action-button branch|",
+          "text": "",
+          "foreground": "rgb(79, 70, 229)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 6.287528596095884,
+          "textual": false,
+          "disabled": false,
+          "width": 32,
+          "height": 44,
+          "font": 14.4
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(2)",
+          "family": "action-button compare|",
+          "text": "",
+          "foreground": "rgb(139, 92, 246)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 4.234369397337306,
+          "textual": false,
+          "disabled": false,
+          "width": 32,
+          "height": 44,
+          "font": 14.4
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(3)",
+          "family": "action-button edit|",
+          "text": "",
+          "foreground": "rgb(180, 83, 9)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 5.02163257594014,
+          "textual": false,
+          "disabled": false,
+          "width": 32,
+          "height": 44,
+          "font": 14.4
+        }
+      ],
+      "issues": [],
+      "scope": ".scenarios-page",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "dark",
+      "state": "default",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn-primary|",
+          "text": "新建场景",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 120.015625,
+          "height": 48,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "|",
+          "text": "",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(17, 24, 39)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 300,
+          "height": 47,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
+          "family": "filter-button |",
+          "text": "筛选",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": true,
+          "disabled": false,
+          "width": 108,
+          "height": 47,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "quick-filter-btn |",
+          "text": "🚫 隐藏已合并",
+          "foreground": "rgb(229, 231, 235)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 11.856254063195582,
+          "textual": true,
+          "disabled": false,
+          "width": 117.921875,
+          "height": 44,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1)",
+          "family": "hierarchy-row baseline focused|",
+          "text": "基线正式计划基线活跃陈主管2026/9/20",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(240, 249, 255)",
+          "effectiveBackground": [
+            240,
+            249,
+            255
+          ],
+          "contrast": 1.0200956872811857,
+          "textual": true,
+          "disabled": false,
+          "width": 1316,
+          "height": 72,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "action-button branch|",
+          "text": "",
+          "foreground": "rgb(99, 102, 241)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 3.286202357127215,
+          "textual": false,
+          "disabled": false,
+          "width": 32,
+          "height": 44,
+          "font": 14.4
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(2)",
+          "family": "action-button compare|",
+          "text": "",
+          "foreground": "rgb(167, 139, 250)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 5.393926666207208,
+          "textual": false,
+          "disabled": false,
+          "width": 32,
+          "height": 44,
+          "font": 14.4
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(3)",
+          "family": "action-button edit|",
+          "text": "",
+          "foreground": "rgb(245, 158, 11)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 6.83492735332168,
+          "textual": false,
+          "disabled": false,
+          "width": 32,
+          "height": 44,
+          "font": 14.4
+        }
+      ],
+      "issues": [
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1)",
+          "kind": "text-contrast",
+          "ratio": 1.0200956872811857
+        }
+      ],
+      "scope": ".scenarios-page",
+      "axe": [],
+      "newIssues": []
+    }
+  ],
+  "writes": [],
+  "errors": []
+}

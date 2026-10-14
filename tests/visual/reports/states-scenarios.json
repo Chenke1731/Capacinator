@@ -1,0 +1,3971 @@
+{
+  "profile": "scenarios",
+  "phases": [
+    {
+      "theme": "light",
+      "state": "default",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn-primary|",
+          "text": "新建场景",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 120.015625,
+          "height": 48,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "|",
+          "text": "",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 300,
+          "height": 47,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
+          "family": "filter-button |",
+          "text": "筛选",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(249, 250, 251)",
+          "effectiveBackground": [
+            249,
+            250,
+            251
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 108,
+          "height": 47,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "quick-filter-btn |",
+          "text": "🚫 隐藏已合并",
+          "foreground": "rgb(55, 65, 81)",
+          "background": "rgb(249, 250, 251)",
+          "effectiveBackground": [
+            249,
+            250,
+            251
+          ],
+          "contrast": 9.863254791756054,
+          "textual": true,
+          "disabled": false,
+          "width": 117.921875,
+          "height": 44,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1)",
+          "family": "hierarchy-row baseline focused|",
+          "text": "基线正式计划基线活跃陈主管2026/9/20",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgba(37, 99, 235, 0.1)",
+          "effectiveBackground": [
+            232.9764705882353,
+            238.9921568627451,
+            252.9607843137255
+          ],
+          "contrast": 15.397641710824958,
+          "textual": true,
+          "disabled": false,
+          "width": 1316,
+          "height": 72,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "action-button branch|",
+          "text": "",
+          "foreground": "rgb(29, 78, 216)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 6.701618401398807,
+          "textual": false,
+          "disabled": false,
+          "width": 32,
+          "height": 44,
+          "font": 14.4
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(2)",
+          "family": "action-button compare|",
+          "text": "",
+          "foreground": "color(srgb 0.436078 0.288627 0.771765)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 6.06645938896808,
+          "textual": false,
+          "disabled": false,
+          "width": 32,
+          "height": 44,
+          "font": 14.4
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(3)",
+          "family": "action-button edit|",
+          "text": "",
+          "foreground": "rgb(146, 64, 14)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 7.090048300172369,
+          "textual": false,
+          "disabled": false,
+          "width": 32,
+          "height": 44,
+          "font": 14.4
+        }
+      ],
+      "issues": [],
+      "scope": ".scenarios-page",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "light",
+      "state": "hover-0",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn-primary|",
+          "text": "新建场景",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 120.015625,
+          "height": 48,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "|",
+          "text": "",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 300,
+          "height": 47,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
+          "family": "filter-button |",
+          "text": "筛选",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(249, 250, 251)",
+          "effectiveBackground": [
+            249,
+            250,
+            251
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 108,
+          "height": 47,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "quick-filter-btn |",
+          "text": "🚫 隐藏已合并",
+          "foreground": "rgb(55, 65, 81)",
+          "background": "rgb(249, 250, 251)",
+          "effectiveBackground": [
+            249,
+            250,
+            251
+          ],
+          "contrast": 9.863254791756054,
+          "textual": true,
+          "disabled": false,
+          "width": 117.921875,
+          "height": 44,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1)",
+          "family": "hierarchy-row baseline focused|",
+          "text": "基线正式计划基线活跃陈主管2026/9/20",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgba(37, 99, 235, 0.1)",
+          "effectiveBackground": [
+            232.9764705882353,
+            238.9921568627451,
+            252.9607843137255
+          ],
+          "contrast": 15.397641710824958,
+          "textual": true,
+          "disabled": false,
+          "width": 1316,
+          "height": 72,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "action-button branch|",
+          "text": "",
+          "foreground": "rgb(29, 78, 216)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 6.701618401398807,
+          "textual": false,
+          "disabled": false,
+          "width": 32,
+          "height": 44,
+          "font": 14.4
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(2)",
+          "family": "action-button compare|",
+          "text": "",
+          "foreground": "color(srgb 0.436078 0.288627 0.771765)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 6.06645938896808,
+          "textual": false,
+          "disabled": false,
+          "width": 32,
+          "height": 44,
+          "font": 14.4
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(3)",
+          "family": "action-button edit|",
+          "text": "",
+          "foreground": "rgb(146, 64, 14)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 7.090048300172369,
+          "textual": false,
+          "disabled": false,
+          "width": 32,
+          "height": 44,
+          "font": 14.4
+        }
+      ],
+      "issues": [],
+      "scope": ".scenarios-page",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "light",
+      "state": "hover-1",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn-primary|",
+          "text": "新建场景",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 120.015625,
+          "height": 48,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "|",
+          "text": "",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 300,
+          "height": 47,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
+          "family": "filter-button |",
+          "text": "筛选",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(249, 250, 251)",
+          "effectiveBackground": [
+            249,
+            250,
+            251
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 108,
+          "height": 47,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "quick-filter-btn |",
+          "text": "🚫 隐藏已合并",
+          "foreground": "rgb(55, 65, 81)",
+          "background": "rgb(249, 250, 251)",
+          "effectiveBackground": [
+            249,
+            250,
+            251
+          ],
+          "contrast": 9.863254791756054,
+          "textual": true,
+          "disabled": false,
+          "width": 117.921875,
+          "height": 44,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1)",
+          "family": "hierarchy-row baseline focused|",
+          "text": "基线正式计划基线活跃陈主管2026/9/20",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgba(37, 99, 235, 0.1)",
+          "effectiveBackground": [
+            232.9764705882353,
+            238.9921568627451,
+            252.9607843137255
+          ],
+          "contrast": 15.397641710824958,
+          "textual": true,
+          "disabled": false,
+          "width": 1316,
+          "height": 72,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "action-button branch|",
+          "text": "",
+          "foreground": "rgb(29, 78, 216)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 6.701618401398807,
+          "textual": false,
+          "disabled": false,
+          "width": 32,
+          "height": 44,
+          "font": 14.4
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(2)",
+          "family": "action-button compare|",
+          "text": "",
+          "foreground": "color(srgb 0.436078 0.288627 0.771765)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 6.06645938896808,
+          "textual": false,
+          "disabled": false,
+          "width": 32,
+          "height": 44,
+          "font": 14.4
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(3)",
+          "family": "action-button edit|",
+          "text": "",
+          "foreground": "rgb(146, 64, 14)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 7.090048300172369,
+          "textual": false,
+          "disabled": false,
+          "width": 32,
+          "height": 44,
+          "font": 14.4
+        }
+      ],
+      "issues": [],
+      "scope": ".scenarios-page",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "light",
+      "state": "hover-2",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn-primary|",
+          "text": "新建场景",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 120.015625,
+          "height": 48,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "|",
+          "text": "",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 300,
+          "height": 47,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
+          "family": "filter-button |",
+          "text": "筛选",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgba(0, 0, 0, 0.03)",
+          "effectiveBackground": [
+            247,
+            247,
+            247
+          ],
+          "contrast": 16.55894215257156,
+          "textual": true,
+          "disabled": false,
+          "width": 108,
+          "height": 47,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "quick-filter-btn |",
+          "text": "🚫 隐藏已合并",
+          "foreground": "rgb(55, 65, 81)",
+          "background": "rgb(249, 250, 251)",
+          "effectiveBackground": [
+            249,
+            250,
+            251
+          ],
+          "contrast": 9.863254791756054,
+          "textual": true,
+          "disabled": false,
+          "width": 117.921875,
+          "height": 44,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1)",
+          "family": "hierarchy-row baseline focused|",
+          "text": "基线正式计划基线活跃陈主管2026/9/20",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgba(37, 99, 235, 0.1)",
+          "effectiveBackground": [
+            232.9764705882353,
+            238.9921568627451,
+            252.9607843137255
+          ],
+          "contrast": 15.397641710824958,
+          "textual": true,
+          "disabled": false,
+          "width": 1316,
+          "height": 72,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "action-button branch|",
+          "text": "",
+          "foreground": "rgb(29, 78, 216)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 6.701618401398807,
+          "textual": false,
+          "disabled": false,
+          "width": 32,
+          "height": 44,
+          "font": 14.4
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(2)",
+          "family": "action-button compare|",
+          "text": "",
+          "foreground": "color(srgb 0.436078 0.288627 0.771765)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 6.06645938896808,
+          "textual": false,
+          "disabled": false,
+          "width": 32,
+          "height": 44,
+          "font": 14.4
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(3)",
+          "family": "action-button edit|",
+          "text": "",
+          "foreground": "rgb(146, 64, 14)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 7.090048300172369,
+          "textual": false,
+          "disabled": false,
+          "width": 32,
+          "height": 44,
+          "font": 14.4
+        }
+      ],
+      "issues": [],
+      "scope": ".scenarios-page",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "light",
+      "state": "hover-3",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn-primary|",
+          "text": "新建场景",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 120.015625,
+          "height": 48,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "|",
+          "text": "",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 300,
+          "height": 47,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
+          "family": "filter-button |",
+          "text": "筛选",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(249, 250, 251)",
+          "effectiveBackground": [
+            249,
+            250,
+            251
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 108,
+          "height": 47,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "quick-filter-btn |",
+          "text": "🚫 隐藏已合并",
+          "foreground": "rgb(55, 65, 81)",
+          "background": "rgba(0, 0, 0, 0.03)",
+          "effectiveBackground": [
+            247,
+            247,
+            247
+          ],
+          "contrast": 9.621287149598901,
+          "textual": true,
+          "disabled": false,
+          "width": 117.921875,
+          "height": 44,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1)",
+          "family": "hierarchy-row baseline focused|",
+          "text": "基线正式计划基线活跃陈主管2026/9/20",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgba(37, 99, 235, 0.1)",
+          "effectiveBackground": [
+            232.9764705882353,
+            238.9921568627451,
+            252.9607843137255
+          ],
+          "contrast": 15.397641710824958,
+          "textual": true,
+          "disabled": false,
+          "width": 1316,
+          "height": 72,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "action-button branch|",
+          "text": "",
+          "foreground": "rgb(29, 78, 216)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 6.701618401398807,
+          "textual": false,
+          "disabled": false,
+          "width": 32,
+          "height": 44,
+          "font": 14.4
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(2)",
+          "family": "action-button compare|",
+          "text": "",
+          "foreground": "color(srgb 0.436078 0.288627 0.771765)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 6.06645938896808,
+          "textual": false,
+          "disabled": false,
+          "width": 32,
+          "height": 44,
+          "font": 14.4
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(3)",
+          "family": "action-button edit|",
+          "text": "",
+          "foreground": "rgb(146, 64, 14)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 7.090048300172369,
+          "textual": false,
+          "disabled": false,
+          "width": 32,
+          "height": 44,
+          "font": 14.4
+        }
+      ],
+      "issues": [],
+      "scope": ".scenarios-page",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "light",
+      "state": "hover-4",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn-primary|",
+          "text": "新建场景",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 120.015625,
+          "height": 48,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "|",
+          "text": "",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 300,
+          "height": 47,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
+          "family": "filter-button |",
+          "text": "筛选",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(249, 250, 251)",
+          "effectiveBackground": [
+            249,
+            250,
+            251
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 108,
+          "height": 47,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "quick-filter-btn |",
+          "text": "🚫 隐藏已合并",
+          "foreground": "rgb(55, 65, 81)",
+          "background": "rgb(249, 250, 251)",
+          "effectiveBackground": [
+            249,
+            250,
+            251
+          ],
+          "contrast": 9.863254791756054,
+          "textual": true,
+          "disabled": false,
+          "width": 117.921875,
+          "height": 44,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1)",
+          "family": "hierarchy-row baseline focused|",
+          "text": "基线正式计划基线活跃陈主管2026/9/20",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgba(37, 99, 235, 0.1)",
+          "effectiveBackground": [
+            232.9764705882353,
+            238.9921568627451,
+            252.9607843137255
+          ],
+          "contrast": 15.397641710824958,
+          "textual": true,
+          "disabled": false,
+          "width": 1316,
+          "height": 72,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "action-button branch|",
+          "text": "",
+          "foreground": "rgb(29, 78, 216)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 6.701618401398807,
+          "textual": false,
+          "disabled": false,
+          "width": 32,
+          "height": 44,
+          "font": 14.4
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(2)",
+          "family": "action-button compare|",
+          "text": "",
+          "foreground": "color(srgb 0.436078 0.288627 0.771765)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 6.06645938896808,
+          "textual": false,
+          "disabled": false,
+          "width": 32,
+          "height": 44,
+          "font": 14.4
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(3)",
+          "family": "action-button edit|",
+          "text": "",
+          "foreground": "rgb(146, 64, 14)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 7.090048300172369,
+          "textual": false,
+          "disabled": false,
+          "width": 32,
+          "height": 44,
+          "font": 14.4
+        }
+      ],
+      "issues": [],
+      "scope": ".scenarios-page",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "light",
+      "state": "hover-5",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn-primary|",
+          "text": "新建场景",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 120.015625,
+          "height": 48,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "|",
+          "text": "",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 300,
+          "height": 47,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
+          "family": "filter-button |",
+          "text": "筛选",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(249, 250, 251)",
+          "effectiveBackground": [
+            249,
+            250,
+            251
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 108,
+          "height": 47,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "quick-filter-btn |",
+          "text": "🚫 隐藏已合并",
+          "foreground": "rgb(55, 65, 81)",
+          "background": "rgb(249, 250, 251)",
+          "effectiveBackground": [
+            249,
+            250,
+            251
+          ],
+          "contrast": 9.863254791756054,
+          "textual": true,
+          "disabled": false,
+          "width": 117.921875,
+          "height": 44,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1)",
+          "family": "hierarchy-row baseline focused|",
+          "text": "基线正式计划基线活跃陈主管2026/9/20",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgba(37, 99, 235, 0.1)",
+          "effectiveBackground": [
+            232.9764705882353,
+            238.9921568627451,
+            252.9607843137255
+          ],
+          "contrast": 15.397641710824958,
+          "textual": true,
+          "disabled": false,
+          "width": 1316,
+          "height": 72,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "action-button branch|",
+          "text": "",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(29, 78, 216)",
+          "effectiveBackground": [
+            29,
+            78,
+            216
+          ],
+          "contrast": 6.701618401398807,
+          "textual": false,
+          "disabled": false,
+          "width": 32,
+          "height": 44,
+          "font": 14.4
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(2)",
+          "family": "action-button compare|",
+          "text": "",
+          "foreground": "color(srgb 0.436078 0.288627 0.771765)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 6.06645938896808,
+          "textual": false,
+          "disabled": false,
+          "width": 32,
+          "height": 44,
+          "font": 14.4
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(3)",
+          "family": "action-button edit|",
+          "text": "",
+          "foreground": "rgb(146, 64, 14)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 7.090048300172369,
+          "textual": false,
+          "disabled": false,
+          "width": 32,
+          "height": 44,
+          "font": 14.4
+        }
+      ],
+      "issues": [],
+      "scope": ".scenarios-page",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "light",
+      "state": "hover-6",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn-primary|",
+          "text": "新建场景",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 120.015625,
+          "height": 48,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "|",
+          "text": "",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 300,
+          "height": 47,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
+          "family": "filter-button |",
+          "text": "筛选",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(249, 250, 251)",
+          "effectiveBackground": [
+            249,
+            250,
+            251
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 108,
+          "height": 47,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "quick-filter-btn |",
+          "text": "🚫 隐藏已合并",
+          "foreground": "rgb(55, 65, 81)",
+          "background": "rgb(249, 250, 251)",
+          "effectiveBackground": [
+            249,
+            250,
+            251
+          ],
+          "contrast": 9.863254791756054,
+          "textual": true,
+          "disabled": false,
+          "width": 117.921875,
+          "height": 44,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1)",
+          "family": "hierarchy-row baseline focused|",
+          "text": "基线正式计划基线活跃陈主管2026/9/20",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgba(37, 99, 235, 0.1)",
+          "effectiveBackground": [
+            232.9764705882353,
+            238.9921568627451,
+            252.9607843137255
+          ],
+          "contrast": 15.397641710824958,
+          "textual": true,
+          "disabled": false,
+          "width": 1316,
+          "height": 72,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "action-button branch|",
+          "text": "",
+          "foreground": "rgb(29, 78, 216)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 6.701618401398807,
+          "textual": false,
+          "disabled": false,
+          "width": 32,
+          "height": 44,
+          "font": 14.4
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(2)",
+          "family": "action-button compare|",
+          "text": "",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "color(srgb 0.354314 0.23451 0.627059)",
+          "effectiveBackground": [
+            90,
+            60,
+            160
+          ],
+          "contrast": 8.112216239958709,
+          "textual": false,
+          "disabled": false,
+          "width": 32,
+          "height": 44,
+          "font": 14.4
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(3)",
+          "family": "action-button edit|",
+          "text": "",
+          "foreground": "rgb(146, 64, 14)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 7.090048300172369,
+          "textual": false,
+          "disabled": false,
+          "width": 32,
+          "height": 44,
+          "font": 14.4
+        }
+      ],
+      "issues": [],
+      "scope": ".scenarios-page",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "light",
+      "state": "hover-7",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn-primary|",
+          "text": "新建场景",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 120.015625,
+          "height": 48,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "|",
+          "text": "",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 300,
+          "height": 47,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
+          "family": "filter-button |",
+          "text": "筛选",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(249, 250, 251)",
+          "effectiveBackground": [
+            249,
+            250,
+            251
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 108,
+          "height": 47,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "quick-filter-btn |",
+          "text": "🚫 隐藏已合并",
+          "foreground": "rgb(55, 65, 81)",
+          "background": "rgb(249, 250, 251)",
+          "effectiveBackground": [
+            249,
+            250,
+            251
+          ],
+          "contrast": 9.863254791756054,
+          "textual": true,
+          "disabled": false,
+          "width": 117.921875,
+          "height": 44,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1)",
+          "family": "hierarchy-row baseline focused|",
+          "text": "基线正式计划基线活跃陈主管2026/9/20",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgba(37, 99, 235, 0.1)",
+          "effectiveBackground": [
+            232.9764705882353,
+            238.9921568627451,
+            252.9607843137255
+          ],
+          "contrast": 15.397641710824958,
+          "textual": true,
+          "disabled": false,
+          "width": 1316,
+          "height": 72,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "action-button branch|",
+          "text": "",
+          "foreground": "rgb(29, 78, 216)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 6.701618401398807,
+          "textual": false,
+          "disabled": false,
+          "width": 32,
+          "height": 44,
+          "font": 14.4
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(2)",
+          "family": "action-button compare|",
+          "text": "",
+          "foreground": "color(srgb 0.436078 0.288627 0.771765)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 6.06645938896808,
+          "textual": false,
+          "disabled": false,
+          "width": 32,
+          "height": 44,
+          "font": 14.4
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(3)",
+          "family": "action-button edit|",
+          "text": "",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(180, 83, 9)",
+          "effectiveBackground": [
+            180,
+            83,
+            9
+          ],
+          "contrast": 5.02163257594014,
+          "textual": false,
+          "disabled": false,
+          "width": 32,
+          "height": 44,
+          "font": 14.4
+        }
+      ],
+      "issues": [],
+      "scope": ".scenarios-page",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "light",
+      "state": "keyboard-focus",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn-primary|",
+          "text": "新建场景",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 120.015625,
+          "height": 48,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "|",
+          "text": "",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 300,
+          "height": 47,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
+          "family": "filter-button |",
+          "text": "筛选",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(249, 250, 251)",
+          "effectiveBackground": [
+            249,
+            250,
+            251
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 108,
+          "height": 47,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "quick-filter-btn |",
+          "text": "🚫 隐藏已合并",
+          "foreground": "rgb(55, 65, 81)",
+          "background": "rgb(249, 250, 251)",
+          "effectiveBackground": [
+            249,
+            250,
+            251
+          ],
+          "contrast": 9.863254791756054,
+          "textual": true,
+          "disabled": false,
+          "width": 117.921875,
+          "height": 44,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1)",
+          "family": "hierarchy-row baseline focused|",
+          "text": "基线正式计划基线活跃陈主管2026/9/20",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgba(37, 99, 235, 0.1)",
+          "effectiveBackground": [
+            232.9764705882353,
+            238.9921568627451,
+            252.9607843137255
+          ],
+          "contrast": 15.397641710824958,
+          "textual": true,
+          "disabled": false,
+          "width": 1316,
+          "height": 72,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "action-button branch|",
+          "text": "",
+          "foreground": "rgb(29, 78, 216)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 6.701618401398807,
+          "textual": false,
+          "disabled": false,
+          "width": 32,
+          "height": 44,
+          "font": 14.4
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(2)",
+          "family": "action-button compare|",
+          "text": "",
+          "foreground": "color(srgb 0.436078 0.288627 0.771765)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 6.06645938896808,
+          "textual": false,
+          "disabled": false,
+          "width": 32,
+          "height": 44,
+          "font": 14.4
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(3)",
+          "family": "action-button edit|",
+          "text": "",
+          "foreground": "rgb(210, 177, 156)",
+          "background": "rgb(211, 153, 110)",
+          "effectiveBackground": [
+            211,
+            153,
+            110
+          ],
+          "contrast": 1.22894611423188,
+          "textual": false,
+          "disabled": false,
+          "width": 32,
+          "height": 44,
+          "font": 14.4
+        }
+      ],
+      "issues": [],
+      "scope": ".scenarios-page",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "light",
+      "state": "opened-0",
+      "rows": [
+        {
+          "selector": "form:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50|",
+          "text": "",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 398,
+          "height": 40,
+          "font": 14
+        },
+        {
+          "selector": "form:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > textarea:nth-of-type(1)",
+          "family": "flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50|",
+          "text": "",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": false,
+          "disabled": false,
+          "width": 398,
+          "height": 80,
+          "font": 14
+        },
+        {
+          "selector": "form:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > button:nth-of-type(1)",
+          "family": "flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1|closed",
+          "text": "分支 - 从父场景复制",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(249, 250, 251)",
+          "effectiveBackground": [
+            249,
+            250,
+            251
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 398,
+          "height": 44,
+          "font": 14
+        },
+        {
+          "selector": "form:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
+          "family": "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-all duration-200 focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 min-h-[40px] relative overflow-hidden border-2 border-slate-300 bg-transparent hover:bg-slate-100 hover:text-slate-900 hover:border-slate-400 focus-visible:ring-slate-500 dark:border-slate-600 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:hover:border-slate-500 h-10 px-4 py-2|",
+          "text": "取消",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(249, 250, 251)",
+          "effectiveBackground": [
+            249,
+            250,
+            251
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 63.59375,
+          "height": 44,
+          "font": 14
+        },
+        {
+          "selector": "form:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(2)",
+          "family": "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-all duration-200 focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 min-h-[40px] relative overflow-hidden bg-blue-600 text-white hover:bg-blue-700 hover:shadow-md active:bg-blue-800 focus-visible:ring-blue-500 dark:bg-blue-500 dark:hover:bg-blue-600 dark:active:bg-blue-700 h-10 px-4 py-2|",
+          "text": "创建场景",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(249, 250, 251)",
+          "effectiveBackground": [
+            249,
+            250,
+            251
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": true,
+          "width": 91.59375,
+          "height": 44,
+          "font": 14
+        },
+        {
+          "selector": "button:nth-of-type(1)",
+          "family": "absolute right-4 top-4 h-8 w-8 rounded-md opacity-70 ring-offset-background transition-opacity hover:opacity-100 hover:bg-accent focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none flex items-center justify-center|",
+          "text": "Close",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(249, 250, 251)",
+          "effectiveBackground": [
+            249,
+            250,
+            251
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 44,
+          "height": 44,
+          "font": 16
+        }
+      ],
+      "issues": [],
+      "scope": "[role=\"dialog\"]",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "light",
+      "state": "opened-1",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn-primary|",
+          "text": "新建场景",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 120.015625,
+          "height": 48,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "|",
+          "text": "",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 300,
+          "height": 47,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
+          "family": "filter-button |",
+          "text": "筛选",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgba(0, 0, 0, 0.03)",
+          "effectiveBackground": [
+            247,
+            247,
+            247
+          ],
+          "contrast": 16.55894215257156,
+          "textual": true,
+          "disabled": false,
+          "width": 108,
+          "height": 47,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > input:nth-of-type(1)",
+          "family": "|",
+          "text": "",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 16,
+          "height": 16,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > input:nth-of-type(1)",
+          "family": "|",
+          "text": "",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 16,
+          "height": 16,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > input:nth-of-type(1)",
+          "family": "|",
+          "text": "",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 16,
+          "height": 16,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "quick-filter-btn |",
+          "text": "🚫 隐藏已合并",
+          "foreground": "rgb(55, 65, 81)",
+          "background": "rgb(249, 250, 251)",
+          "effectiveBackground": [
+            249,
+            250,
+            251
+          ],
+          "contrast": 9.863254791756054,
+          "textual": true,
+          "disabled": false,
+          "width": 117.921875,
+          "height": 44,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1)",
+          "family": "hierarchy-row baseline focused|",
+          "text": "基线正式计划基线活跃陈主管2026/9/20",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgba(37, 99, 235, 0.1)",
+          "effectiveBackground": [
+            232.9764705882353,
+            238.9921568627451,
+            252.9607843137255
+          ],
+          "contrast": 15.397641710824958,
+          "textual": true,
+          "disabled": false,
+          "width": 1316,
+          "height": 72,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "action-button branch|",
+          "text": "",
+          "foreground": "rgb(29, 78, 216)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 6.701618401398807,
+          "textual": false,
+          "disabled": false,
+          "width": 32,
+          "height": 44,
+          "font": 14.4
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(2)",
+          "family": "action-button compare|",
+          "text": "",
+          "foreground": "color(srgb 0.436078 0.288627 0.771765)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 6.06645938896808,
+          "textual": false,
+          "disabled": false,
+          "width": 32,
+          "height": 44,
+          "font": 14.4
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(3)",
+          "family": "action-button edit|",
+          "text": "",
+          "foreground": "rgb(146, 64, 14)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 7.090048300172369,
+          "textual": false,
+          "disabled": false,
+          "width": 32,
+          "height": 44,
+          "font": 14.4
+        }
+      ],
+      "issues": [
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > input:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 16
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > input:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 16
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > input:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 16
+        }
+      ],
+      "scope": ".scenarios-page",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "light",
+      "state": "opened-2",
+      "rows": [
+        {
+          "selector": "form:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50|",
+          "text": "",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 398,
+          "height": 40,
+          "font": 14
+        },
+        {
+          "selector": "form:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > textarea:nth-of-type(1)",
+          "family": "flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50|",
+          "text": "正式计划",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 398,
+          "height": 80,
+          "font": 14
+        },
+        {
+          "selector": "form:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
+          "family": "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-all duration-200 focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 min-h-[40px] relative overflow-hidden border-2 border-slate-300 bg-transparent hover:bg-slate-100 hover:text-slate-900 hover:border-slate-400 focus-visible:ring-slate-500 dark:border-slate-600 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:hover:border-slate-500 h-10 px-4 py-2|",
+          "text": "取消",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(249, 250, 251)",
+          "effectiveBackground": [
+            249,
+            250,
+            251
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 63.59375,
+          "height": 44,
+          "font": 14
+        },
+        {
+          "selector": "form:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(2)",
+          "family": "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-all duration-200 focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 min-h-[40px] relative overflow-hidden bg-blue-600 text-white hover:bg-blue-700 hover:shadow-md active:bg-blue-800 focus-visible:ring-blue-500 dark:bg-blue-500 dark:hover:bg-blue-600 dark:active:bg-blue-700 h-10 px-4 py-2|",
+          "text": "保存更改",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(249, 250, 251)",
+          "effectiveBackground": [
+            249,
+            250,
+            251
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 91.59375,
+          "height": 44,
+          "font": 14
+        },
+        {
+          "selector": "button:nth-of-type(1)",
+          "family": "absolute right-4 top-4 h-8 w-8 rounded-md opacity-70 ring-offset-background transition-opacity hover:opacity-100 hover:bg-accent focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none flex items-center justify-center|",
+          "text": "Close",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(249, 250, 251)",
+          "effectiveBackground": [
+            249,
+            250,
+            251
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 44,
+          "height": 44,
+          "font": 16
+        }
+      ],
+      "issues": [],
+      "scope": "[role=\"dialog\"]",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "dark",
+      "state": "default",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn-primary|",
+          "text": "新建场景",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 120.015625,
+          "height": 48,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "|",
+          "text": "",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(17, 24, 39)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 300,
+          "height": 47,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
+          "family": "filter-button |",
+          "text": "筛选",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": true,
+          "disabled": false,
+          "width": 108,
+          "height": 47,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "quick-filter-btn |",
+          "text": "🚫 隐藏已合并",
+          "foreground": "rgb(229, 231, 235)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 11.856254063195582,
+          "textual": true,
+          "disabled": false,
+          "width": 117.921875,
+          "height": 44,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1)",
+          "family": "hierarchy-row baseline focused|",
+          "text": "基线正式计划基线活跃陈主管2026/9/20",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgba(96, 165, 250, 0.15)",
+          "effectiveBackground": [
+            40.38823529411765,
+            59.92549019607843,
+            83.76078431372548
+          ],
+          "contrast": 10.781607839195575,
+          "textual": true,
+          "disabled": false,
+          "width": 1316,
+          "height": 72,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "action-button branch|",
+          "text": "",
+          "foreground": "color(srgb 0.661177 0.818039 0.993725)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 9.244740162065797,
+          "textual": false,
+          "disabled": false,
+          "width": 32,
+          "height": 44,
+          "font": 14.4
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(2)",
+          "family": "action-button compare|",
+          "text": "",
+          "foreground": "color(srgb 0.758431 0.681569 0.986275)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 7.498629870149106,
+          "textual": false,
+          "disabled": false,
+          "width": 32,
+          "height": 44,
+          "font": 14.4
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(3)",
+          "family": "action-button edit|",
+          "text": "",
+          "foreground": "rgb(253, 224, 71)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 11.135004428014248,
+          "textual": false,
+          "disabled": false,
+          "width": 32,
+          "height": 44,
+          "font": 14.4
+        }
+      ],
+      "issues": [],
+      "scope": ".scenarios-page",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "dark",
+      "state": "hover-0",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn-primary|",
+          "text": "新建场景",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 120.015625,
+          "height": 48,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "|",
+          "text": "",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(17, 24, 39)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 300,
+          "height": 47,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
+          "family": "filter-button |",
+          "text": "筛选",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": true,
+          "disabled": false,
+          "width": 108,
+          "height": 47,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "quick-filter-btn |",
+          "text": "🚫 隐藏已合并",
+          "foreground": "rgb(229, 231, 235)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 11.856254063195582,
+          "textual": true,
+          "disabled": false,
+          "width": 117.921875,
+          "height": 44,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1)",
+          "family": "hierarchy-row baseline focused|",
+          "text": "基线正式计划基线活跃陈主管2026/9/20",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgba(96, 165, 250, 0.15)",
+          "effectiveBackground": [
+            40.38823529411765,
+            59.92549019607843,
+            83.76078431372548
+          ],
+          "contrast": 10.781607839195575,
+          "textual": true,
+          "disabled": false,
+          "width": 1316,
+          "height": 72,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "action-button branch|",
+          "text": "",
+          "foreground": "color(srgb 0.661177 0.818039 0.993725)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 9.244740162065797,
+          "textual": false,
+          "disabled": false,
+          "width": 32,
+          "height": 44,
+          "font": 14.4
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(2)",
+          "family": "action-button compare|",
+          "text": "",
+          "foreground": "color(srgb 0.758431 0.681569 0.986275)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 7.498629870149106,
+          "textual": false,
+          "disabled": false,
+          "width": 32,
+          "height": 44,
+          "font": 14.4
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(3)",
+          "family": "action-button edit|",
+          "text": "",
+          "foreground": "rgb(253, 224, 71)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 11.135004428014248,
+          "textual": false,
+          "disabled": false,
+          "width": 32,
+          "height": 44,
+          "font": 14.4
+        }
+      ],
+      "issues": [],
+      "scope": ".scenarios-page",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "dark",
+      "state": "hover-1",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn-primary|",
+          "text": "新建场景",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 120.015625,
+          "height": 48,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "|",
+          "text": "",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(17, 24, 39)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 300,
+          "height": 47,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
+          "family": "filter-button |",
+          "text": "筛选",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": true,
+          "disabled": false,
+          "width": 108,
+          "height": 47,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "quick-filter-btn |",
+          "text": "🚫 隐藏已合并",
+          "foreground": "rgb(229, 231, 235)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 11.856254063195582,
+          "textual": true,
+          "disabled": false,
+          "width": 117.921875,
+          "height": 44,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1)",
+          "family": "hierarchy-row baseline focused|",
+          "text": "基线正式计划基线活跃陈主管2026/9/20",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgba(96, 165, 250, 0.15)",
+          "effectiveBackground": [
+            40.38823529411765,
+            59.92549019607843,
+            83.76078431372548
+          ],
+          "contrast": 10.781607839195575,
+          "textual": true,
+          "disabled": false,
+          "width": 1316,
+          "height": 72,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "action-button branch|",
+          "text": "",
+          "foreground": "color(srgb 0.661177 0.818039 0.993725)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 9.244740162065797,
+          "textual": false,
+          "disabled": false,
+          "width": 32,
+          "height": 44,
+          "font": 14.4
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(2)",
+          "family": "action-button compare|",
+          "text": "",
+          "foreground": "color(srgb 0.758431 0.681569 0.986275)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 7.498629870149106,
+          "textual": false,
+          "disabled": false,
+          "width": 32,
+          "height": 44,
+          "font": 14.4
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(3)",
+          "family": "action-button edit|",
+          "text": "",
+          "foreground": "rgb(253, 224, 71)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 11.135004428014248,
+          "textual": false,
+          "disabled": false,
+          "width": 32,
+          "height": 44,
+          "font": 14.4
+        }
+      ],
+      "issues": [],
+      "scope": ".scenarios-page",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "dark",
+      "state": "hover-2",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn-primary|",
+          "text": "新建场景",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 120.015625,
+          "height": 48,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "|",
+          "text": "",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(17, 24, 39)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 300,
+          "height": 47,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
+          "family": "filter-button |",
+          "text": "筛选",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgba(255, 255, 255, 0.05)",
+          "effectiveBackground": [
+            29.133333333333333,
+            35.77647058823529,
+            50.01176470588235
+          ],
+          "contrast": 14.903408662771534,
+          "textual": true,
+          "disabled": false,
+          "width": 108,
+          "height": 47,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "quick-filter-btn |",
+          "text": "🚫 隐藏已合并",
+          "foreground": "rgb(229, 231, 235)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 11.856254063195582,
+          "textual": true,
+          "disabled": false,
+          "width": 117.921875,
+          "height": 44,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1)",
+          "family": "hierarchy-row baseline focused|",
+          "text": "基线正式计划基线活跃陈主管2026/9/20",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgba(96, 165, 250, 0.15)",
+          "effectiveBackground": [
+            40.38823529411765,
+            59.92549019607843,
+            83.76078431372548
+          ],
+          "contrast": 10.781607839195575,
+          "textual": true,
+          "disabled": false,
+          "width": 1316,
+          "height": 72,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "action-button branch|",
+          "text": "",
+          "foreground": "color(srgb 0.661177 0.818039 0.993725)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 9.244740162065797,
+          "textual": false,
+          "disabled": false,
+          "width": 32,
+          "height": 44,
+          "font": 14.4
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(2)",
+          "family": "action-button compare|",
+          "text": "",
+          "foreground": "color(srgb 0.758431 0.681569 0.986275)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 7.498629870149106,
+          "textual": false,
+          "disabled": false,
+          "width": 32,
+          "height": 44,
+          "font": 14.4
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(3)",
+          "family": "action-button edit|",
+          "text": "",
+          "foreground": "rgb(253, 224, 71)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 11.135004428014248,
+          "textual": false,
+          "disabled": false,
+          "width": 32,
+          "height": 44,
+          "font": 14.4
+        }
+      ],
+      "issues": [],
+      "scope": ".scenarios-page",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "dark",
+      "state": "hover-3",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn-primary|",
+          "text": "新建场景",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 120.015625,
+          "height": 48,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "|",
+          "text": "",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(17, 24, 39)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 300,
+          "height": 47,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
+          "family": "filter-button |",
+          "text": "筛选",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": true,
+          "disabled": false,
+          "width": 108,
+          "height": 47,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "quick-filter-btn |",
+          "text": "🚫 隐藏已合并",
+          "foreground": "rgb(229, 231, 235)",
+          "background": "rgba(255, 255, 255, 0.05)",
+          "effectiveBackground": [
+            29.133333333333333,
+            35.77647058823529,
+            50.01176470588235
+          ],
+          "contrast": 12.579406583788993,
+          "textual": true,
+          "disabled": false,
+          "width": 117.921875,
+          "height": 44,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1)",
+          "family": "hierarchy-row baseline focused|",
+          "text": "基线正式计划基线活跃陈主管2026/9/20",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgba(96, 165, 250, 0.15)",
+          "effectiveBackground": [
+            40.38823529411765,
+            59.92549019607843,
+            83.76078431372548
+          ],
+          "contrast": 10.781607839195575,
+          "textual": true,
+          "disabled": false,
+          "width": 1316,
+          "height": 72,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "action-button branch|",
+          "text": "",
+          "foreground": "color(srgb 0.661177 0.818039 0.993725)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 9.244740162065797,
+          "textual": false,
+          "disabled": false,
+          "width": 32,
+          "height": 44,
+          "font": 14.4
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(2)",
+          "family": "action-button compare|",
+          "text": "",
+          "foreground": "color(srgb 0.758431 0.681569 0.986275)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 7.498629870149106,
+          "textual": false,
+          "disabled": false,
+          "width": 32,
+          "height": 44,
+          "font": 14.4
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(3)",
+          "family": "action-button edit|",
+          "text": "",
+          "foreground": "rgb(253, 224, 71)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 11.135004428014248,
+          "textual": false,
+          "disabled": false,
+          "width": 32,
+          "height": 44,
+          "font": 14.4
+        }
+      ],
+      "issues": [],
+      "scope": ".scenarios-page",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "dark",
+      "state": "hover-4",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn-primary|",
+          "text": "新建场景",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 120.015625,
+          "height": 48,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "|",
+          "text": "",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(17, 24, 39)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 300,
+          "height": 47,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
+          "family": "filter-button |",
+          "text": "筛选",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": true,
+          "disabled": false,
+          "width": 108,
+          "height": 47,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "quick-filter-btn |",
+          "text": "🚫 隐藏已合并",
+          "foreground": "rgb(229, 231, 235)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 11.856254063195582,
+          "textual": true,
+          "disabled": false,
+          "width": 117.921875,
+          "height": 44,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1)",
+          "family": "hierarchy-row baseline focused|",
+          "text": "基线正式计划基线活跃陈主管2026/9/20",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgba(96, 165, 250, 0.15)",
+          "effectiveBackground": [
+            40.38823529411765,
+            59.92549019607843,
+            83.76078431372548
+          ],
+          "contrast": 10.781607839195575,
+          "textual": true,
+          "disabled": false,
+          "width": 1316,
+          "height": 72,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "action-button branch|",
+          "text": "",
+          "foreground": "color(srgb 0.661177 0.818039 0.993725)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 9.244740162065797,
+          "textual": false,
+          "disabled": false,
+          "width": 32,
+          "height": 44,
+          "font": 14.4
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(2)",
+          "family": "action-button compare|",
+          "text": "",
+          "foreground": "color(srgb 0.758431 0.681569 0.986275)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 7.498629870149106,
+          "textual": false,
+          "disabled": false,
+          "width": 32,
+          "height": 44,
+          "font": 14.4
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(3)",
+          "family": "action-button edit|",
+          "text": "",
+          "foreground": "rgb(253, 224, 71)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 11.135004428014248,
+          "textual": false,
+          "disabled": false,
+          "width": 32,
+          "height": 44,
+          "font": 14.4
+        }
+      ],
+      "issues": [],
+      "scope": ".scenarios-page",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "dark",
+      "state": "hover-5",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn-primary|",
+          "text": "新建场景",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 120.015625,
+          "height": 48,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "|",
+          "text": "",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(17, 24, 39)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 300,
+          "height": 47,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
+          "family": "filter-button |",
+          "text": "筛选",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": true,
+          "disabled": false,
+          "width": 108,
+          "height": 47,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "quick-filter-btn |",
+          "text": "🚫 隐藏已合并",
+          "foreground": "rgb(229, 231, 235)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 11.856254063195582,
+          "textual": true,
+          "disabled": false,
+          "width": 117.921875,
+          "height": 44,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1)",
+          "family": "hierarchy-row baseline focused|",
+          "text": "基线正式计划基线活跃陈主管2026/9/20",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgba(96, 165, 250, 0.15)",
+          "effectiveBackground": [
+            40.38823529411765,
+            59.92549019607843,
+            83.76078431372548
+          ],
+          "contrast": 10.781607839195575,
+          "textual": true,
+          "disabled": false,
+          "width": 1316,
+          "height": 72,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "action-button branch|",
+          "text": "",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(29, 78, 216)",
+          "effectiveBackground": [
+            29,
+            78,
+            216
+          ],
+          "contrast": 6.701618401398807,
+          "textual": false,
+          "disabled": false,
+          "width": 32,
+          "height": 44,
+          "font": 14.4
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(2)",
+          "family": "action-button compare|",
+          "text": "",
+          "foreground": "color(srgb 0.758431 0.681569 0.986275)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 7.498629870149106,
+          "textual": false,
+          "disabled": false,
+          "width": 32,
+          "height": 44,
+          "font": 14.4
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(3)",
+          "family": "action-button edit|",
+          "text": "",
+          "foreground": "rgb(253, 224, 71)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 11.135004428014248,
+          "textual": false,
+          "disabled": false,
+          "width": 32,
+          "height": 44,
+          "font": 14.4
+        }
+      ],
+      "issues": [],
+      "scope": ".scenarios-page",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "dark",
+      "state": "hover-6",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn-primary|",
+          "text": "新建场景",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 120.015625,
+          "height": 48,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "|",
+          "text": "",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(17, 24, 39)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 300,
+          "height": 47,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
+          "family": "filter-button |",
+          "text": "筛选",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": true,
+          "disabled": false,
+          "width": 108,
+          "height": 47,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "quick-filter-btn |",
+          "text": "🚫 隐藏已合并",
+          "foreground": "rgb(229, 231, 235)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 11.856254063195582,
+          "textual": true,
+          "disabled": false,
+          "width": 117.921875,
+          "height": 44,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1)",
+          "family": "hierarchy-row baseline focused|",
+          "text": "基线正式计划基线活跃陈主管2026/9/20",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgba(96, 165, 250, 0.15)",
+          "effectiveBackground": [
+            40.38823529411765,
+            59.92549019607843,
+            83.76078431372548
+          ],
+          "contrast": 10.781607839195575,
+          "textual": true,
+          "disabled": false,
+          "width": 1316,
+          "height": 72,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "action-button branch|",
+          "text": "",
+          "foreground": "color(srgb 0.661177 0.818039 0.993725)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 9.244740162065797,
+          "textual": false,
+          "disabled": false,
+          "width": 32,
+          "height": 44,
+          "font": 14.4
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(2)",
+          "family": "action-button compare|",
+          "text": "",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "color(srgb 0.425686 0.354314 0.637255)",
+          "effectiveBackground": [
+            109,
+            90,
+            163
+          ],
+          "contrast": 5.766733177407816,
+          "textual": false,
+          "disabled": false,
+          "width": 32,
+          "height": 44,
+          "font": 14.4
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(3)",
+          "family": "action-button edit|",
+          "text": "",
+          "foreground": "rgb(253, 224, 71)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 11.135004428014248,
+          "textual": false,
+          "disabled": false,
+          "width": 32,
+          "height": 44,
+          "font": 14.4
+        }
+      ],
+      "issues": [],
+      "scope": ".scenarios-page",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "dark",
+      "state": "hover-7",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn-primary|",
+          "text": "新建场景",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 120.015625,
+          "height": 48,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "|",
+          "text": "",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(17, 24, 39)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 300,
+          "height": 47,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
+          "family": "filter-button |",
+          "text": "筛选",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": true,
+          "disabled": false,
+          "width": 108,
+          "height": 47,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "quick-filter-btn |",
+          "text": "🚫 隐藏已合并",
+          "foreground": "rgb(229, 231, 235)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 11.856254063195582,
+          "textual": true,
+          "disabled": false,
+          "width": 117.921875,
+          "height": 44,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1)",
+          "family": "hierarchy-row baseline focused|",
+          "text": "基线正式计划基线活跃陈主管2026/9/20",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgba(96, 165, 250, 0.15)",
+          "effectiveBackground": [
+            40.38823529411765,
+            59.92549019607843,
+            83.76078431372548
+          ],
+          "contrast": 10.781607839195575,
+          "textual": true,
+          "disabled": false,
+          "width": 1316,
+          "height": 72,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "action-button branch|",
+          "text": "",
+          "foreground": "color(srgb 0.661177 0.818039 0.993725)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 9.244740162065797,
+          "textual": false,
+          "disabled": false,
+          "width": 32,
+          "height": 44,
+          "font": 14.4
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(2)",
+          "family": "action-button compare|",
+          "text": "",
+          "foreground": "color(srgb 0.758431 0.681569 0.986275)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 7.498629870149106,
+          "textual": false,
+          "disabled": false,
+          "width": 32,
+          "height": 44,
+          "font": 14.4
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(3)",
+          "family": "action-button edit|",
+          "text": "",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(245, 158, 11)",
+          "effectiveBackground": [
+            245,
+            158,
+            11
+          ],
+          "contrast": 2.1476626917618766,
+          "textual": false,
+          "disabled": false,
+          "width": 32,
+          "height": 44,
+          "font": 14.4
+        }
+      ],
+      "issues": [],
+      "scope": ".scenarios-page",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "dark",
+      "state": "keyboard-focus",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn-primary|",
+          "text": "新建场景",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 120.015625,
+          "height": 48,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "|",
+          "text": "",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(17, 24, 39)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 300,
+          "height": 47,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
+          "family": "filter-button |",
+          "text": "筛选",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": true,
+          "disabled": false,
+          "width": 108,
+          "height": 47,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "quick-filter-btn |",
+          "text": "🚫 隐藏已合并",
+          "foreground": "rgb(229, 231, 235)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 11.856254063195582,
+          "textual": true,
+          "disabled": false,
+          "width": 117.921875,
+          "height": 44,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1)",
+          "family": "hierarchy-row baseline focused|",
+          "text": "基线正式计划基线活跃陈主管2026/9/20",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgba(96, 165, 250, 0.15)",
+          "effectiveBackground": [
+            40.38823529411765,
+            59.92549019607843,
+            83.76078431372548
+          ],
+          "contrast": 10.781607839195575,
+          "textual": true,
+          "disabled": false,
+          "width": 1316,
+          "height": 72,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "action-button branch|",
+          "text": "",
+          "foreground": "color(srgb 0.661177 0.818039 0.993725)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 9.244740162065797,
+          "textual": false,
+          "disabled": false,
+          "width": 32,
+          "height": 44,
+          "font": 14.4
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(2)",
+          "family": "action-button compare|",
+          "text": "",
+          "foreground": "color(srgb 0.758431 0.681569 0.986275)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 7.498629870149106,
+          "textual": false,
+          "disabled": false,
+          "width": 32,
+          "height": 44,
+          "font": 14.4
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(3)",
+          "family": "action-button edit|",
+          "text": "",
+          "foreground": "rgb(254, 242, 180)",
+          "background": "rgb(157, 110, 29)",
+          "effectiveBackground": [
+            157,
+            110,
+            29
+          ],
+          "contrast": 3.967350094606784,
+          "textual": false,
+          "disabled": false,
+          "width": 32,
+          "height": 44,
+          "font": 14.4
+        }
+      ],
+      "issues": [],
+      "scope": ".scenarios-page",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "dark",
+      "state": "opened-0",
+      "rows": [
+        {
+          "selector": "form:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50|",
+          "text": "",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": true,
+          "disabled": false,
+          "width": 398,
+          "height": 40,
+          "font": 14
+        },
+        {
+          "selector": "form:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > textarea:nth-of-type(1)",
+          "family": "flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50|",
+          "text": "",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": false,
+          "disabled": false,
+          "width": 398,
+          "height": 80,
+          "font": 14
+        },
+        {
+          "selector": "form:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > button:nth-of-type(1)",
+          "family": "flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1|closed",
+          "text": "分支 - 从父场景复制",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": true,
+          "disabled": false,
+          "width": 398,
+          "height": 44,
+          "font": 14
+        },
+        {
+          "selector": "form:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
+          "family": "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-all duration-200 focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 min-h-[40px] relative overflow-hidden border-2 border-slate-300 bg-transparent hover:bg-slate-100 hover:text-slate-900 hover:border-slate-400 focus-visible:ring-slate-500 dark:border-slate-600 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:hover:border-slate-500 h-10 px-4 py-2|",
+          "text": "取消",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": true,
+          "disabled": false,
+          "width": 63.59375,
+          "height": 44,
+          "font": 14
+        },
+        {
+          "selector": "form:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(2)",
+          "family": "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-all duration-200 focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 min-h-[40px] relative overflow-hidden bg-blue-600 text-white hover:bg-blue-700 hover:shadow-md active:bg-blue-800 focus-visible:ring-blue-500 dark:bg-blue-500 dark:hover:bg-blue-600 dark:active:bg-blue-700 h-10 px-4 py-2|",
+          "text": "创建场景",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": true,
+          "disabled": true,
+          "width": 91.59375,
+          "height": 44,
+          "font": 14
+        },
+        {
+          "selector": "button:nth-of-type(1)",
+          "family": "absolute right-4 top-4 h-8 w-8 rounded-md opacity-70 ring-offset-background transition-opacity hover:opacity-100 hover:bg-accent focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none flex items-center justify-center|",
+          "text": "Close",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": true,
+          "disabled": false,
+          "width": 44,
+          "height": 44,
+          "font": 16
+        }
+      ],
+      "issues": [],
+      "scope": "[role=\"dialog\"]",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "dark",
+      "state": "opened-1",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn-primary|",
+          "text": "新建场景",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 120.015625,
+          "height": 48,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "|",
+          "text": "",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(17, 24, 39)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 300,
+          "height": 47,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
+          "family": "filter-button |",
+          "text": "筛选",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgba(255, 255, 255, 0.05)",
+          "effectiveBackground": [
+            29.133333333333333,
+            35.77647058823529,
+            50.01176470588235
+          ],
+          "contrast": 14.903408662771534,
+          "textual": true,
+          "disabled": false,
+          "width": 108,
+          "height": 47,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > input:nth-of-type(1)",
+          "family": "|",
+          "text": "",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": true,
+          "disabled": false,
+          "width": 16,
+          "height": 16,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > input:nth-of-type(1)",
+          "family": "|",
+          "text": "",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": true,
+          "disabled": false,
+          "width": 16,
+          "height": 16,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > input:nth-of-type(1)",
+          "family": "|",
+          "text": "",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": true,
+          "disabled": false,
+          "width": 16,
+          "height": 16,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "quick-filter-btn |",
+          "text": "🚫 隐藏已合并",
+          "foreground": "rgb(229, 231, 235)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 11.856254063195582,
+          "textual": true,
+          "disabled": false,
+          "width": 117.921875,
+          "height": 44,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1)",
+          "family": "hierarchy-row baseline focused|",
+          "text": "基线正式计划基线活跃陈主管2026/9/20",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgba(96, 165, 250, 0.15)",
+          "effectiveBackground": [
+            40.38823529411765,
+            59.92549019607843,
+            83.76078431372548
+          ],
+          "contrast": 10.781607839195575,
+          "textual": true,
+          "disabled": false,
+          "width": 1316,
+          "height": 72,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "action-button branch|",
+          "text": "",
+          "foreground": "color(srgb 0.661177 0.818039 0.993725)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 9.244740162065797,
+          "textual": false,
+          "disabled": false,
+          "width": 32,
+          "height": 44,
+          "font": 14.4
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(2)",
+          "family": "action-button compare|",
+          "text": "",
+          "foreground": "color(srgb 0.758431 0.681569 0.986275)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 7.498629870149106,
+          "textual": false,
+          "disabled": false,
+          "width": 32,
+          "height": 44,
+          "font": 14.4
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(3)",
+          "family": "action-button edit|",
+          "text": "",
+          "foreground": "rgb(253, 224, 71)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 11.135004428014248,
+          "textual": false,
+          "disabled": false,
+          "width": 32,
+          "height": 44,
+          "font": 14.4
+        }
+      ],
+      "issues": [
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > input:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 16
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > input:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 16
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > input:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 16
+        }
+      ],
+      "scope": ".scenarios-page",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "dark",
+      "state": "opened-2",
+      "rows": [
+        {
+          "selector": "form:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50|",
+          "text": "",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": true,
+          "disabled": false,
+          "width": 398,
+          "height": 40,
+          "font": 14
+        },
+        {
+          "selector": "form:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > textarea:nth-of-type(1)",
+          "family": "flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50|",
+          "text": "正式计划",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": true,
+          "disabled": false,
+          "width": 398,
+          "height": 80,
+          "font": 14
+        },
+        {
+          "selector": "form:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
+          "family": "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-all duration-200 focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 min-h-[40px] relative overflow-hidden border-2 border-slate-300 bg-transparent hover:bg-slate-100 hover:text-slate-900 hover:border-slate-400 focus-visible:ring-slate-500 dark:border-slate-600 dark:hover:bg-slate-800 dark:hover:text-slate-100 dark:hover:border-slate-500 h-10 px-4 py-2|",
+          "text": "取消",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": true,
+          "disabled": false,
+          "width": 63.59375,
+          "height": 44,
+          "font": 14
+        },
+        {
+          "selector": "form:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(2)",
+          "family": "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-all duration-200 focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 min-h-[40px] relative overflow-hidden bg-blue-600 text-white hover:bg-blue-700 hover:shadow-md active:bg-blue-800 focus-visible:ring-blue-500 dark:bg-blue-500 dark:hover:bg-blue-600 dark:active:bg-blue-700 h-10 px-4 py-2|",
+          "text": "保存更改",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": true,
+          "disabled": false,
+          "width": 91.59375,
+          "height": 44,
+          "font": 14
+        },
+        {
+          "selector": "button:nth-of-type(1)",
+          "family": "absolute right-4 top-4 h-8 w-8 rounded-md opacity-70 ring-offset-background transition-opacity hover:opacity-100 hover:bg-accent focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none flex items-center justify-center|",
+          "text": "Close",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": true,
+          "disabled": false,
+          "width": 44,
+          "height": 44,
+          "font": 16
+        }
+      ],
+      "issues": [],
+      "scope": "[role=\"dialog\"]",
+      "axe": [],
+      "newIssues": []
+    }
+  ],
+  "writes": [],
+  "errors": []
+}

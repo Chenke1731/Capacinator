@@ -22622,2823 +22622,6 @@
       "evidence": []
     },
     {
-      "fingerprint": "001c0eff8000f94b620131cfcc94818e91b30e7c50eb019336ec1a64da4e2e8f",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".scenario-phase-indicator.active",
-      "property": "border",
-      "literal": "rgba(34, 197, 94, 0.2)",
-      "locations": [
-        {
-          "line": 1871,
-          "column": 21
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "00b9886b745ee0dcfb2fcea3953c5facc653f93c68458855062ae3d7be2d9959",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".scenario-card:hover",
-      "property": "box-shadow",
-      "literal": "rgba(0, 0, 0, 0.15)",
-      "locations": [
-        {
-          "line": 1419,
-          "column": 26
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "036d099f7c080959556c157f25805ccccd207861b0d62dba5e0534da07dd8b6b",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [
-        "@keyframes baseline-pulse"
-      ],
-      "owner": "50%",
-      "property": "box-shadow",
-      "literal": "rgba(34, 197, 94, 0.15)",
-      "locations": [
-        {
-          "line": 1399,
-          "column": 61
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "072bf4528ba0c18280872a8525cfca1676a1f8a40fa0b436492f66c1c9e9dc57",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".action-button:active",
-      "property": "box-shadow",
-      "literal": "rgba(0, 0, 0, 0.1)",
-      "locations": [
-        {
-          "line": 1542,
-          "column": 25
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "078d24fe1adb4cc65560c2490ed55059763e9fea6bff6144593c8f06f92aa068",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".connector-dot",
-      "property": "box-shadow",
-      "literal": "rgba(0, 0, 0, 0.1)",
-      "locations": [
-        {
-          "line": 1124,
-          "column": 25
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "0a48c7a1d3bec8ae63678780693a95dc1956ede2716c925e1acb693c34d70de2",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".tree-instructions",
-      "property": "border",
-      "literal": "#3b82f6",
-      "locations": [
-        {
-          "line": 2115,
-          "column": 33
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "0bca3fabd4a8bcfb80bae5920c78be05aaa01aee65154a2f81aa2ee5973dd825",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": "[data-theme=\"dark\"] .scenario-card-mini .scenario-status.active",
-      "property": "background-color",
-      "literal": "rgba(16, 185, 129, 0.2)",
-      "locations": [
-        {
-          "line": 461,
-          "column": 21
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "0bcc5ebf3d1fc390fa195ecc69ea237a2bcccc5566c576f5e994a9ff56fb6b18",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".connector-dot:hover",
-      "property": "box-shadow",
-      "literal": "rgba(0, 0, 0, 0.15)",
-      "locations": [
-        {
-          "line": 1129,
-          "column": 25
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "0fbb48c0b1821e7627e091e55b502a45ee567dfac6f05c98f291afc3c2c92d9b",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".hierarchy-row.baseline",
-      "property": "background",
-      "literal": "rgba(34, 197, 94, 0.05)",
-      "locations": [
-        {
-          "line": 1028,
-          "column": 38
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "135df80ed555a2af33c48bc1f6f3ef3929af888873062489a7b3ac91be573193",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".filter-tag button:hover",
-      "property": "background",
-      "literal": "rgba(255, 255, 255, 0.2)",
-      "locations": [
-        {
-          "line": 872,
-          "column": 15
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "16fd3f311ed88078f217d8d05d4dc88eb2d9a9502e7828a29f365dc2f56f304c",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".hierarchy-row.focused",
-      "property": "border",
-      "literal": "#3b82f6",
-      "locations": [
-        {
-          "line": 2038,
-          "column": 36
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "1caf21f61ee39b15c2f29861c110205540ca2ec3f3d7c20684fda569aba226d5",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".scenario-priority-indicator.high",
-      "property": "background",
-      "literal": "rgba(245, 158, 11, 0.1)",
-      "locations": [
-        {
-          "line": 1907,
-          "column": 15
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "1d26bc1274466439eeabca8bd46f5a91087162d3c4d0741a9a87346d9e33dbb5",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".scenario-group-header:hover",
-      "property": "background",
-      "literal": "rgba(0, 0, 0, 0.02)",
-      "locations": [
-        {
-          "line": 1659,
-          "column": 15
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "209060c68d1d82827291a2b9807e53868e90407601a20a130495e334ac1f4e68",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".connector-expand-button.branch",
-      "property": "border-color",
-      "literal": "#3b82f6",
-      "locations": [
-        {
-          "line": 2082,
-          "column": 32
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "21afe70e4f6c585fb0e0a75ff1c0ea3eaf1bb89a512992ac5bd2ac6d14f96a39",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".scenario-status.archived",
-      "property": "background",
-      "literal": "rgba(107, 114, 128, 0.1)",
-      "locations": [
-        {
-          "line": 189,
-          "column": 15
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "2334d1611cc7f09cedfae0a138db422d560afaeeeef42b2b52509ce3320c58cc",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".scenario-card-mini .scenario-type.sandbox",
-      "property": "color",
-      "literal": "#92400e",
-      "locations": [
-        {
-          "line": 433,
-          "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "254ce78b50bb277e47de8d043462b547cf6bc48ea1c62bcb796fa2fccf0cec05",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".scenario-type.baseline",
-      "property": "background",
-      "literal": "rgba(34, 197, 94, 0.15)",
-      "locations": [
-        {
-          "line": 164,
-          "column": 15
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "27f7a7458931dd5fceb7966adeeaff0be0cbe190d35701889bf1b762d98e5d73",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".scenario-phase-indicator.planning",
-      "property": "background",
-      "literal": "rgba(168, 85, 247, 0.1)",
-      "locations": [
-        {
-          "line": 1863,
-          "column": 15
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "29686b099df102e43e76e6356d29b2f6076a629d10e517a418a6f6d3f1989b9e",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".scenario-card.branch",
-      "property": "background",
-      "literal": "rgba(59, 130, 246, 0.05)",
-      "locations": [
-        {
-          "line": 114,
-          "column": 58
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "297d730fcebb8b9d9edb187ddf9cfe34146db74b8153e32eda30c68e323ecd06",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".scenario-status.active",
-      "property": "background",
-      "literal": "rgba(34, 197, 94, 0.1)",
-      "locations": [
-        {
-          "line": 184,
-          "column": 15
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "2a283a5b49e375325c9f04046f64bef3294934fd27b1396189be13de1297a343",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".scenario-card-mini .scenario-status.active",
-      "property": "color",
-      "literal": "#065f46",
-      "locations": [
-        {
-          "line": 439,
-          "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "2ce62b1babf258fc50e2244f261cc2bf796d33faeabbe5d3d33382ae2946f325",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".scenario-priority-indicator.critical",
-      "property": "background",
-      "literal": "rgba(239, 68, 68, 0.1)",
-      "locations": [
-        {
-          "line": 1901,
-          "column": 15
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "2f194c386471d0902827fe663aba090b921aebdccd965fe80c2bb838738b7da0",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".connector-dot.branch",
-      "property": "box-shadow",
-      "literal": "rgba(59, 130, 246, 0.2)",
-      "locations": [
-        {
-          "line": 1145,
-          "column": 25
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "3130124ee5c18248b9250f77e138dd734d31af36951a710f38e933a5a3348c7c",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".scenario-impact-indicator.minimal",
-      "property": "border",
-      "literal": "rgba(34, 197, 94, 0.2)",
-      "locations": [
-        {
-          "line": 1940,
-          "column": 21
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "33991ebc0fb51d67b686f367cf63e6d3fac9f737069143d58eebcdebfcc93706",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".scenario-priority-indicator.low",
-      "property": "background",
-      "literal": "rgba(107, 114, 128, 0.1)",
-      "locations": [
-        {
-          "line": 1919,
-          "column": 15
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "39cfa27d7d6adc46335748678abfe4d3f4623db1efe9f06df5994c2dc3657dc9",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".scenario-priority-indicator.critical",
-      "property": "border",
-      "literal": "rgba(239, 68, 68, 0.2)",
-      "locations": [
-        {
-          "line": 1903,
-          "column": 21
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "3a4bdb8325a2c57ffe8a0f7eb3cdace4222b0b5fc8fd86efea672b40227219eb",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [
-        "@keyframes baseline-pulse"
-      ],
-      "owner": "0%",
-      "property": "box-shadow",
-      "literal": "rgba(34, 197, 94, 0.1)",
-      "locations": [
-        {
-          "line": 1396,
-          "column": 61
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "3c209f6da734be3da95b9d16522a1c12da6c159ef051888b45937ce8ce6a5d5d",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".action-button.merge",
-      "property": "border-color",
-      "literal": "rgba(34, 197, 94, 0.3)",
-      "locations": [
-        {
-          "line": 264,
-          "column": 17
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "3d855da0858de7774ae5cf7e8f51c4dc52204affa0c8a882852177ad8cba658b",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".hierarchy-row.sandbox",
-      "property": "background",
-      "literal": "rgba(245, 158, 11, 0.05)",
-      "locations": [
-        {
-          "line": 1036,
-          "column": 38
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "3f4ac7326598a85863d283ed68b0b8fa11a5a893234cf32111299ba93bc15de0",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".action-button.delete",
-      "property": "border-color",
-      "literal": "rgba(239, 68, 68, 0.3)",
-      "locations": [
-        {
-          "line": 284,
-          "column": 17
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "3fef469467df070d998e59943fefabe44a75d153eb3816fb7337f9b50a064837",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".connector-expand-button.sandbox",
-      "property": "color",
-      "literal": "#f59e0b",
-      "locations": [
-        {
-          "line": 2088,
-          "column": 25
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "40ce032f9c67a0032fa2a2a865ae547abbc7fca6b040fe00777c6c9668c56ef9",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".connector-expand-button.sandbox",
-      "property": "border-color",
-      "literal": "#f59e0b",
-      "locations": [
-        {
-          "line": 2087,
-          "column": 32
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "41117214abb20e3b4b18f6c7e37b66a79bde811b88856f3ad2bc116debc1231b",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".scenario-category-tooltip",
-      "property": "box-shadow",
-      "literal": "rgba(0, 0, 0, 0.1)",
-      "locations": [
-        {
-          "line": 2011,
-          "column": 25
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "44f489a5eaca62371a76b897d930b59edba292fba265e85ed92afc513f6480d9",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".scenario-impact-indicator.significant",
-      "property": "border",
-      "literal": "rgba(239, 68, 68, 0.2)",
-      "locations": [
-        {
-          "line": 1952,
-          "column": 21
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "4910fc66210e339aaf01f4f5de955a27c9ebacbaa3668713cf25af7119122234",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".scenario-phase-indicator.planning",
-      "property": "border",
-      "literal": "rgba(168, 85, 247, 0.2)",
-      "locations": [
-        {
-          "line": 1865,
-          "column": 21
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "4dac7f7648f6d08624d9f33bdb444e98c70775b13236451c126db16b14e9f509",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".scenario-priority-indicator.medium",
-      "property": "background",
-      "literal": "rgba(59, 130, 246, 0.1)",
-      "locations": [
-        {
-          "line": 1913,
-          "column": 15
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "503c34cf3b603d776a033e2f5796868dd78de2a3347964377b00c94eaf45299d",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".connector-dot.baseline",
-      "property": "box-shadow",
-      "literal": "rgba(34, 197, 94, 0.3)",
-      "locations": [
-        {
-          "line": 1135,
-          "column": 25
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "50829568806752b83a672c4e00b0dc3132100d37ea8ac6e0077998a023eb1625",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": "[data-theme=\"dark\"] .scenario-card-mini .scenario-status.active",
-      "property": "color",
-      "literal": "#86efac",
-      "locations": [
-        {
-          "line": 462,
-          "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "5112dd7ebd47eabff76c6aed3bce0da10e634ccac2162c133ff10754c7168cc7",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".scenario-card-mini .scenario-status.active",
-      "property": "background-color",
-      "literal": "#d1fae5",
-      "locations": [
-        {
-          "line": 438,
-          "column": 21
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "542978d73b0374e4fd8fe0057cc3e5dd4fa8b73f6187b369da6dfcc5b1fac8be",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [
-        "@keyframes baseline-pulse"
-      ],
-      "owner": "100%",
-      "property": "box-shadow",
-      "literal": "rgba(34, 197, 94, 0.1)",
-      "locations": [
-        {
-          "line": 1402,
-          "column": 61
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "5498453f66ed976efdda6e01c032d84d38ef4b1e7faa629b6cd4e0d7b26c9d5d",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".hierarchy-row:focus",
-      "property": "outline",
-      "literal": "#3b82f6",
-      "locations": [
-        {
-          "line": 2044,
-          "column": 37
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "5631c57a12a78b2a758430d8d7c2b01c3928de4e47c1802ee99bfa9cd0004a7a",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".action-button.compare:hover",
-      "property": "background",
-      "literal": "rgba(245, 158, 11, 0.1)",
-      "locations": [
-        {
-          "line": 278,
-          "column": 15
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "56d98e0447f408ed833b83b2619b435bcecfab9e0e7a058ec5515a21638cd8ce",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".action-button.delete:hover",
-      "property": "background",
-      "literal": "rgba(239, 68, 68, 0.1)",
-      "locations": [
-        {
-          "line": 288,
-          "column": 15
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "59a73534a121658576036bb9d41f91bf6933a2c9844134f75ee73d78c74c6ee8",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".scenario-expandable-content",
-      "property": "border-top",
-      "literal": "rgba(0, 0, 0, 0.05)",
-      "locations": [
-        {
-          "line": 1458,
-          "column": 25
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "59b36b2b7d24584153cf2b2083bc5d34e6f00c141870fc8d448615d403a97aa4",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".action-button.edit:hover",
-      "property": "color",
-      "literal": "white",
-      "locations": [
-        {
-          "line": 1563,
-          "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "5af9744f13bcecd0521c7ff42189c75b4cd31645f74004b249fd0aa2fcaa02b5",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".scenario-card-mini .scenario-type.baseline",
-      "property": "background-color",
-      "literal": "#d1fae5",
-      "locations": [
-        {
-          "line": 450,
-          "column": 21
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "5c1209ce8f58089b85177becfc150926d0b57e4374d7aff6f8343a9f08d43489",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".scenario-type-badge.sandbox",
-      "property": "border",
-      "literal": "rgba(245, 158, 11, 0.2)",
-      "locations": [
-        {
-          "line": 1387,
-          "column": 21
-        },
-        {
-          "line": 1993,
-          "column": 21
-        }
-      ],
-      "count": 2,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "5cbf6eb025985e40e6432e130fee15bc7f50dd6009a042cdc3b07a2db8f74194",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".scenario-impact-indicator.significant",
-      "property": "background",
-      "literal": "rgba(239, 68, 68, 0.1)",
-      "locations": [
-        {
-          "line": 1950,
-          "column": 15
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "5de3f4a81dcfb53cce6e9a1dde93036c2a2927bfa8a8cf99b985564f9644475b",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [
-        "@keyframes baseline-pulse"
-      ],
-      "owner": "50%",
-      "property": "box-shadow",
-      "literal": "rgba(34, 197, 94, 0.4)",
-      "locations": [
-        {
-          "line": 1399,
-          "column": 27
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "5e44d9388051483c2bc145733c3d724fdc9be0aedc00c7d78bc57cbda22ff0fa",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".scenario-group.branch",
-      "property": "border-color",
-      "literal": "rgba(59, 130, 246, 0.3)",
-      "locations": [
-        {
-          "line": 1639,
-          "column": 17
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "60bc00d232e2e5520a285383bb4fe780646179f58dc0bfb4ec2d49dc1ec8f450",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".action-button.branch:hover",
-      "property": "background",
-      "literal": "rgba(59, 130, 246, 0.1)",
-      "locations": [
-        {
-          "line": 258,
-          "column": 15
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "62d57b396e5de7fa51d55c4470134adc0c6fe94c58ba8328a7b9303432f1cbed",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".scenario-phase-indicator.archived",
-      "property": "background",
-      "literal": "rgba(107, 114, 128, 0.1)",
-      "locations": [
-        {
-          "line": 1881,
-          "column": 15
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "64738a8be2745e5ccab5b8cde45dbb3da5f382985990a6a7c8975a991378cb41",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".connector-expand-button:hover",
-      "property": "box-shadow",
-      "literal": "rgba(0, 0, 0, 0.1)",
-      "locations": [
-        {
-          "line": 2065,
-          "column": 25
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "66c87988f258822514038e393d7cc2ef7ba3f0e3f6946f88b9de404c93523a10",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".scenario-type-badge.baseline",
-      "property": "background",
-      "literal": "rgba(34, 197, 94, 0.1)",
-      "locations": [
-        {
-          "line": 1373,
-          "column": 15
-        },
-        {
-          "line": 1969,
-          "column": 15
-        }
-      ],
-      "count": 2,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "6913a2952cd8c0c58a30f0b64dfca5d92304713b5ffa69719fb33201ae937775",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".scenario-card-mini .scenario-type.baseline",
-      "property": "color",
-      "literal": "#065f46",
-      "locations": [
-        {
-          "line": 451,
-          "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "6928aa743e7b83ecfec82d0094a3b2d35c69ee50da5c29d5c4ddaf61f28159bf",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".action-button:hover",
-      "property": "box-shadow",
-      "literal": "rgba(0, 0, 0, 0.15)",
-      "locations": [
-        {
-          "line": 1536,
-          "column": 26
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "69372244a1aeba7119eeab3d175b73a8cae2a77c584c2191a1659488b2f462a3",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".action-button.branch:hover",
-      "property": "color",
-      "literal": "white",
-      "locations": [
-        {
-          "line": 1552,
-          "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "6af50f3003003407ad0954d42e947a9dfbd63767346b84a8daac2a90472aa54b",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".scenario-card-mini .scenario-type.branch",
-      "property": "color",
-      "literal": "#4338ca",
-      "locations": [
-        {
-          "line": 445,
-          "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "6c0d6449515fbf42354def1cdce1a9df5c1b4da371ba323fa924b7b17f1f4fc9",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".hierarchy-row.focused",
-      "property": "background-color",
-      "literal": "#f0f9ff",
-      "locations": [
-        {
-          "line": 2037,
-          "column": 42
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "6cffc110f052ac1b5a115555d6277043ca81fdaf1531f08404f87119c048d77c",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": "[data-theme=\"dark\"] .scenario-card-mini .scenario-type.branch",
-      "property": "color",
-      "literal": "#c7d2fe",
-      "locations": [
-        {
-          "line": 467,
-          "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "6d2ad0dfc3bc93fae51a34d52a2c1185d24d385cfa7315934d4db1c62b915c69",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".connector-dot.baseline",
-      "property": "box-shadow",
-      "literal": "rgba(34, 197, 94, 0.1)",
-      "locations": [
-        {
-          "line": 1135,
-          "column": 59
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "74401e59b57ed629f4bb9e5bddb04d6da4a4dfe012a7446a070911f5bf51c506",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".action-button.merge:hover",
-      "property": "color",
-      "literal": "white",
-      "locations": [
-        {
-          "line": 1585,
-          "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "7443ad864de67fa863c597add41f8a524c3f25701c340eeda37ffc34fc18960b",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".scenario-card-mini .scenario-type.branch",
-      "property": "background-color",
-      "literal": "#e0e7ff",
-      "locations": [
-        {
-          "line": 444,
-          "column": 21
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "7afdb36b91d37d05c0155d7dd9a7fa94e0ce217246736402e6ce647a8f464824",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": "[data-theme=\"dark\"] .scenario-card-mini .scenario-type.baseline",
-      "property": "color",
-      "literal": "#86efac",
-      "locations": [
-        {
-          "line": 472,
-          "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "7b17e0eeb3e4d8323301a1dfcbc3ebd064ffc428e2ab9873204c4b4854bf9ab8",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".action-button.merge:hover",
-      "property": "background",
-      "literal": "rgba(34, 197, 94, 0.1)",
-      "locations": [
-        {
-          "line": 268,
-          "column": 15
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "7e3a726c3bb5487cb5b5fb19dd44cc4f53fbee43e72b44eec59c97099a58319b",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".scenario-impact-indicator.minimal",
-      "property": "background",
-      "literal": "rgba(34, 197, 94, 0.1)",
-      "locations": [
-        {
-          "line": 1938,
-          "column": 15
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "7e8fd00bbb87f6ffdcd02caaeb90878b5c31c1b0e78955a4f7462798b3f2ea41",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".modal-content .scenario-card-mini .scenario-name, .comparison-setup .scenario-card-mini .scenario-name",
-      "property": "color",
-      "literal": "#111827",
-      "locations": [
-        {
-          "line": 484,
-          "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "7ff7aee8ce9d4ecf70c7250ec0f6532f490e94f439007a91ebc82eea54e6256c",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".scenario-type-badge.branch",
-      "property": "background",
-      "literal": "rgba(59, 130, 246, 0.2)",
-      "locations": [
-        {
-          "line": 1348,
-          "column": 15
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "819d95c4bc5130619bf97b2fa6cf2fa4b4ec5a9a98c2c19105b2bddf0b3bb598",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".scenario-priority-indicator.medium",
-      "property": "border",
-      "literal": "rgba(59, 130, 246, 0.2)",
-      "locations": [
-        {
-          "line": 1915,
-          "column": 21
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "82a731465dc813193f70cf78334a111356e9f95cb21c333a059e10d307ca7eb4",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": "[data-theme=\"dark\"] .scenario-card-mini .scenario-type.branch",
-      "property": "background-color",
-      "literal": "rgba(99, 102, 241, 0.2)",
-      "locations": [
-        {
-          "line": 466,
-          "column": 21
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "83438938f4caefcd8a84243639fa9900ce8a75e3293c9ae397546e8c4027bb95",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".scenario-type.sandbox",
-      "property": "background",
-      "literal": "rgba(245, 158, 11, 0.1)",
-      "locations": [
-        {
-          "line": 179,
-          "column": 15
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "83b61fc07e5d86cb7b397c86af31ef90d0609d8f2ffa21f3803869bed7b6bcc2",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".action-button.branch",
-      "property": "border-color",
-      "literal": "rgba(59, 130, 246, 0.3)",
-      "locations": [
-        {
-          "line": 254,
-          "column": 17
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "85e9a0292aa2ba0fc43637f07b12d3cf4a234e187d9c68079e715fb95f1e0114",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".scenario-phase-indicator.review",
-      "property": "background",
-      "literal": "rgba(245, 158, 11, 0.1)",
-      "locations": [
-        {
-          "line": 1875,
-          "column": 15
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "85f7cd5f9ea02d6f83b7db52dac0ef9cc0070bc68789cf150238c2abf9091088",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".scenario-header:hover",
-      "property": "background",
-      "literal": "rgba(0, 0, 0, 0.02)",
-      "locations": [
-        {
-          "line": 1437,
-          "column": 15
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "86aac23dc99706e81b8384b02aad3e3f38a8b1d23f94b8d31c64865cb8bf7d78",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": "[data-theme=\"dark\"] .scenario-card-mini .scenario-type.baseline",
-      "property": "background-color",
-      "literal": "rgba(16, 185, 129, 0.2)",
-      "locations": [
-        {
-          "line": 471,
-          "column": 21
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "88a2c223b8ab63d9c48a9d1a4b95cc5d107ca73e42f065222163c3c98193bb3b",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".action-button.compare",
-      "property": "border-color",
-      "literal": "rgba(245, 158, 11, 0.3)",
-      "locations": [
-        {
-          "line": 274,
-          "column": 17
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "8cc5c69342cd3a7232b3346e479ec4bc078cdc28c9cc4b8c6a4b40eb2947bbab",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".connector-dot.sandbox",
-      "property": "box-shadow",
-      "literal": "rgba(245, 158, 11, 0.2)",
-      "locations": [
-        {
-          "line": 1151,
-          "column": 25
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "8cfac7243353ea30c567b11afe5eee7eb79387108b8b293cd5766aa624dc6ca5",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".hierarchy-row.branch",
-      "property": "background",
-      "literal": "rgba(59, 130, 246, 0.05)",
-      "locations": [
-        {
-          "line": 1032,
-          "column": 38
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "8d07901c7b13285d80831a89a642a21bef6824615de732246991c4f564148037",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": "[data-theme=\"dark\"] .scenario-card-mini .scenario-type.sandbox",
-      "property": "background-color",
-      "literal": "rgba(245, 158, 11, 0.2)",
-      "locations": [
-        {
-          "line": 456,
-          "column": 21
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "8e11c9fd41d2067d1df4a442a051aeaf79a74e7146d857e10d17ca3cf1764fed",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".scenario-group.baseline",
-      "property": "background",
-      "literal": "rgba(34, 197, 94, 0.03)",
-      "locations": [
-        {
-          "line": 1635,
-          "column": 55
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "9277572780666e30fe17c4835c09562b5b381941aa6c2ab3e4a43f7347c199ed",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".scenario-status.merged",
-      "property": "background",
-      "literal": "rgba(139, 92, 246, 0.1)",
-      "locations": [
-        {
-          "line": 194,
-          "column": 15
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "97057a14f028a44f200c7015084a6bc2de00ebaee1d0d37d75816081a709a8a2",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".scenario-group.branch",
-      "property": "background",
-      "literal": "rgba(59, 130, 246, 0.03)",
-      "locations": [
-        {
-          "line": 1640,
-          "column": 55
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "97d44d88577dd90c3d0df014cef3735d8c4b68d517adce529f0ba384a6cce7ba",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".scenario-type-badge.sandbox",
-      "property": "background",
-      "literal": "rgba(245, 158, 11, 0.1)",
-      "locations": [
-        {
-          "line": 1385,
-          "column": 15
-        },
-        {
-          "line": 1991,
-          "column": 15
-        }
-      ],
-      "count": 2,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "99d14d105ac3c256c9153d196545ab49b486f61eba377568ecc8da4eaa150efd",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".action-button.compare:hover",
-      "property": "color",
-      "literal": "white",
-      "locations": [
-        {
-          "line": 1596,
-          "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "99e9cf337541d399fcaaff65fbbacd1d5517a79b0da699b71bc17f3f8041a829",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".scenario-impact-indicator.moderate",
-      "property": "background",
-      "literal": "rgba(245, 158, 11, 0.1)",
-      "locations": [
-        {
-          "line": 1944,
-          "column": 15
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "9c1dddc936e5d03286225bc81a5bad87676f5acec08a7da19b52cc05c5ec5715",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".connector-expand-button.baseline",
-      "property": "border-color",
-      "literal": "#10b981",
-      "locations": [
-        {
-          "line": 2077,
-          "column": 32
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "9fc56fb7ecfc71504cc457ad3f8bd1ddd9a466b02628eab0b5d13bbd58a97704",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".scenario-impact-indicator.moderate",
-      "property": "border",
-      "literal": "rgba(245, 158, 11, 0.2)",
-      "locations": [
-        {
-          "line": 1946,
-          "column": 21
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "a3e1ee1e8c2efb74e500532e92be936aa72796e0b06c38fbdfe314458b35c44c",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".scenario-type-badge.sandbox",
-      "property": "background",
-      "literal": "rgba(245, 158, 11, 0.2)",
-      "locations": [
-        {
-          "line": 1354,
-          "column": 15
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "a42b6c57c8c0b7e8815bfa264ee9688d0ea2cac4d0ac4e89de7fc00af43d00cd",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".quick-filter-btn.active",
-      "property": "color",
-      "literal": "white",
-      "locations": [
-        {
-          "line": 1233,
-          "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "a46678471aa1a3bd373a2c0f573e03b7ee28ae773fca51450026f619ace22566",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".scenario-type-badge.branch",
-      "property": "border",
-      "literal": "rgba(59, 130, 246, 0.2)",
-      "locations": [
-        {
-          "line": 1381,
-          "column": 21
-        },
-        {
-          "line": 1982,
-          "column": 21
-        }
-      ],
-      "count": 2,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "a9d0996a1ef9b09780609c8f4e1ba40a3a70282fdd37ba48c3385f9a1bb63d9f",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".scenario-card.sandbox",
-      "property": "background",
-      "literal": "rgba(245, 158, 11, 0.05)",
-      "locations": [
-        {
-          "line": 119,
-          "column": 58
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "aa525c4509b758a255717bc236e300087d92cf3a4af9b3929a7850f34b1d0114",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".filter-button.active",
-      "property": "color",
-      "literal": "white",
-      "locations": [
-        {
-          "line": 798,
-          "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "aea1e8c08723556d008d10d8260ace50a2a11872f50802cfe80fe3efccd3084f",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [
-        "@keyframes baseline-pulse"
-      ],
-      "owner": "0%",
-      "property": "box-shadow",
-      "literal": "rgba(34, 197, 94, 0.3)",
-      "locations": [
-        {
-          "line": 1396,
-          "column": 27
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "aecc4e6ddb009bee7a47b844db9c6de1691a7a8ca84cea6437f17faf5f7320ef",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".group-icon",
-      "property": "background",
-      "literal": "rgba(0, 0, 0, 0.05)",
-      "locations": [
-        {
-          "line": 1676,
-          "column": 15
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "af973fbc39c55fa4856565903a4dd585230c47fcb88d968a9f474f94c0dbf472",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".scenario-type.baseline",
-      "property": "box-shadow",
-      "literal": "rgba(34, 197, 94, 0.1)",
-      "locations": [
-        {
-          "line": 170,
-          "column": 25
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "b05fcf3f84d24ddc8927738e5cd376e4999b6bd70c98c0fc95c8f5e0f6b2e62e",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": "[data-theme=\"dark\"] .modal-content .scenario-card-mini .scenario-name, [data-theme=\"dark\"] .comparison-setup .scenario-card-mini .scenario-name",
-      "property": "color",
-      "literal": "#f9fafb",
-      "locations": [
-        {
-          "line": 489,
-          "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "b14b74cda9e9895055eb3872c76bfb3d45d631e68898374488c8b2f1e39efda9",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".action-button.delete:hover",
-      "property": "color",
-      "literal": "white",
-      "locations": [
-        {
-          "line": 1574,
-          "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "b456b99b19d3b9d71c44946673efd7119923347c9a89afeddf053f56d94d11fe",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".scenario-type-badge.baseline",
-      "property": "background",
-      "literal": "rgba(34, 197, 94, 0.2)",
-      "locations": [
-        {
-          "line": 1342,
-          "column": 15
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "b494c6351b0e44c1b9f96cb769a9df95f9e640024497b0df00a83c194b405ffe",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".group-icon.branch",
-      "property": "background",
-      "literal": "rgba(59, 130, 246, 0.1)",
-      "locations": [
-        {
-          "line": 1684,
-          "column": 15
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "b8d99475289f2590c842bf4291bd682797df2ce0e263835b526c960414ce0696",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".tree-instructions",
-      "property": "background",
-      "literal": "#eff6ff",
-      "locations": [
-        {
-          "line": 2109,
-          "column": 33
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "bbbe3c4b7966cb5d1d4fbe8dd4ba26fb1708bde693456e0512089dd40ca1e0e0",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".connector-expand-button.baseline",
-      "property": "color",
-      "literal": "#10b981",
-      "locations": [
-        {
-          "line": 2078,
-          "column": 25
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "c0009e4de1967828634f3b1983106bfe3c93244ca8e8f0ba1db72b9c7ae3ed0c",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".scenario-card.baseline",
-      "property": "box-shadow",
-      "literal": "rgba(34, 197, 94, 0.1)",
-      "locations": [
-        {
-          "line": 97,
-          "column": 61
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "c0d2d77b20a30c18e21cd82b83bcb267b9733d5dca2c0821ea6680780844aebf",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".scenario-group.baseline",
-      "property": "border-color",
-      "literal": "rgba(34, 197, 94, 0.3)",
-      "locations": [
-        {
-          "line": 1634,
-          "column": 17
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "c812b68ff08dce53968f5303b3a73c312720114d38fa7e74d86ebe9fc4894d2f",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".scenario-phase-indicator.active",
-      "property": "background",
-      "literal": "rgba(34, 197, 94, 0.1)",
-      "locations": [
-        {
-          "line": 1869,
-          "column": 15
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "cab66f2f3ce220f7d71496aa2ad924663f415d2cb292942c37ed60e5b6685fb2",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".tree-instructions",
-      "property": "color",
-      "literal": "#1e40af",
-      "locations": [
-        {
-          "line": 2110,
-          "column": 27
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "cf0fbf7eadb627904e1e6012db081c64b728ab85ec3eb654393ef978bc5a298f",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".scenario-card-mini .scenario-type.sandbox",
-      "property": "background-color",
-      "literal": "#fed7aa",
-      "locations": [
-        {
-          "line": 432,
-          "column": 21
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "cfd0b6131c38689758915d1efe6ed93797c0dfa09981a1757d294f4f45169ea7",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".scenario-phase-indicator.review",
-      "property": "border",
-      "literal": "rgba(245, 158, 11, 0.2)",
-      "locations": [
-        {
-          "line": 1877,
-          "column": 21
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "d0b97408d0c3bb2c0a2e35b6950faea88edeb93a02de5cc40d0a076d3fd67d0d",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".scenario-group.sandbox",
-      "property": "border-color",
-      "literal": "rgba(168, 85, 247, 0.3)",
-      "locations": [
-        {
-          "line": 1644,
-          "column": 17
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "d42ea416e9b98b06c16684948012c26ca9a206ddf051f32e3480f44faf48a421",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".filter-tag",
-      "property": "color",
-      "literal": "white",
-      "locations": [
-        {
-          "line": 850,
-          "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "d6518de179d02b73304f02917b5c401a066994081da5f3bbe51342c367551ac9",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".scenario-card.baseline",
-      "property": "background",
-      "literal": "rgba(34, 197, 94, 0.08)",
-      "locations": [
-        {
-          "line": 96,
-          "column": 58
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "d850ea3fdc94e619a6e8e9828f2a73fc1c9caaf1fae0289a6eb0d04cdc151006",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".scenario-group.sandbox",
-      "property": "background",
-      "literal": "rgba(168, 85, 247, 0.03)",
-      "locations": [
-        {
-          "line": 1645,
-          "column": 55
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "da378264ef4a837ff6b65e4bcdfc057cea11f6895cf5e5ec3e63da3456d6f637",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".btn-primary",
-      "property": "color",
-      "literal": "white",
-      "locations": [
-        {
-          "line": 37,
-          "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "de97d87c84d3e24d4ee854f0add0d675a8bec8a46284eb89d45e4e2c6ab3973f",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".connector-expand-button.branch",
-      "property": "color",
-      "literal": "#3b82f6",
-      "locations": [
-        {
-          "line": 2083,
-          "column": 25
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "e0fd7e26e27077ff88a14545e4cd38d6d24c5e6bd37c4ef361c137204b89fc0e",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".scenario-type.baseline",
-      "property": "border",
-      "literal": "rgba(34, 197, 94, 0.3)",
-      "locations": [
-        {
-          "line": 169,
-          "column": 21
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "e210c64b73f466c77f0be956f85f2a7d1500b5c8acc0f4d616fb74dc075f69f9",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [
-        "@keyframes baseline-pulse"
-      ],
-      "owner": "100%",
-      "property": "box-shadow",
-      "literal": "rgba(34, 197, 94, 0.3)",
-      "locations": [
-        {
-          "line": 1402,
-          "column": 27
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "e2996fef3e8f3696513b2097429f3a901088c9c936888ae7991911efd176d0cd",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".modal-overlay",
-      "property": "background",
-      "literal": "rgba(0, 0, 0, 0.5)",
-      "locations": [
-        {
-          "line": 299,
-          "column": 15
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "e5cc6013c0d2a6b804a470100548b00603a64ccaba6d291142d3d317ffbf696c",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".scenario-type-badge.baseline",
-      "property": "border",
-      "literal": "rgba(34, 197, 94, 0.2)",
-      "locations": [
-        {
-          "line": 1375,
-          "column": 21
-        },
-        {
-          "line": 1971,
-          "column": 21
-        }
-      ],
-      "count": 2,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "e6ac07acb4ecf2dc5da10f7ad17fcb37ab5983b0ab588f4dc9f5386a2a534162",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".scenario-priority-indicator.high",
-      "property": "border",
-      "literal": "rgba(245, 158, 11, 0.2)",
-      "locations": [
-        {
-          "line": 1909,
-          "column": 21
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "ea1ba842855b9cfe94017ddc75e60c1313de3220a1550bb8f1084907be730c95",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".filter-tag button",
-      "property": "color",
-      "literal": "white",
-      "locations": [
-        {
-          "line": 859,
-          "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "eaac43ae0dbdf9bf321f97607564f55e84f0fb3fc9a8ab4c1c9ff8569fb7c44d",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".scenario-type-badge.branch",
-      "property": "background",
-      "literal": "rgba(59, 130, 246, 0.1)",
-      "locations": [
-        {
-          "line": 1379,
-          "column": 15
-        },
-        {
-          "line": 1980,
-          "column": 15
-        }
-      ],
-      "count": 2,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "ed8e93fda79d0583471a0926e2427d70af928bd804a0f5c0a4f47369b67b8fb0",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".scenario-card.baseline",
-      "property": "box-shadow",
-      "literal": "rgba(34, 197, 94, 0.15)",
-      "locations": [
-        {
-          "line": 97,
-          "column": 26
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "eea32d55861f3a2e6842ea5d0cddf7af5ccfc6f123cd73f7fc6f9fbadfcece09",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".group-icon.sandbox",
-      "property": "background",
-      "literal": "rgba(168, 85, 247, 0.1)",
-      "locations": [
-        {
-          "line": 1688,
-          "column": 15
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "efcfdc9f2f2ab90758757312a0d2f93eaa466935e53fbb548b932accb76ad927",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".scenario-phase-indicator.archived",
-      "property": "border",
-      "literal": "rgba(107, 114, 128, 0.2)",
-      "locations": [
-        {
-          "line": 1883,
-          "column": 21
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "f06f076785414d06f64ead045f8f11eeacc1b1c59af0d4c7f3296e3b43be7664",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".action-button::before",
-      "property": "background",
-      "literal": "rgba(255, 255, 255, 0.2)",
-      "locations": [
-        {
-          "line": 1526,
-          "column": 51
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "f0be26f039f5192715452348ffe34de8eeaddacaec255b216156551a20d4f04f",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".scenario-card.expanded",
-      "property": "box-shadow",
-      "literal": "rgba(0, 0, 0, 0.12)",
-      "locations": [
-        {
-          "line": 1424,
-          "column": 26
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "f9b80ab6079c5eb9fe39507ed48e8c35d26ffaf29e50f2714aead3ac7ac11006",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".group-icon.baseline",
-      "property": "background",
-      "literal": "rgba(34, 197, 94, 0.1)",
-      "locations": [
-        {
-          "line": 1680,
-          "column": 15
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "fa3e63118e4db0f6eb65a02ea65d8e2f2b053149edb1b72e055a86f4920386e8",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".scenario-priority-indicator.low",
-      "property": "border",
-      "literal": "rgba(107, 114, 128, 0.2)",
-      "locations": [
-        {
-          "line": 1921,
-          "column": 21
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "fcfed51a84a9daabaa63dc76b3d84b7f9508a66cbc91937272f49908a981d30b",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": "[data-theme=\"dark\"] .scenario-card-mini .scenario-type.sandbox",
-      "property": "color",
-      "literal": "#fde047",
-      "locations": [
-        {
-          "line": 457,
-          "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "ff08b3793f11f78ec660193060b61582e69d5dc4f777e6e650da16d01c533166",
-      "file": "client/src/pages/Scenarios.css",
-      "context": [],
-      "owner": ".scenario-type.branch",
-      "property": "background",
-      "literal": "rgba(59, 130, 246, 0.1)",
-      "locations": [
-        {
-          "line": 174,
-          "column": 15
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "34f0efac956a2e1763f16458d2906c1f098fdd4c0309887ddc625c18c27ebef2",
-      "file": "client/src/pages/Scenarios.tsx",
-      "context": [
-        "CompareModal",
-        "jsx:style"
-      ],
-      "owner": "color",
-      "property": "color",
-      "literal": "#ef4444",
-      "locations": [
-        {
-          "line": 717,
-          "column": 45
-        }
-      ],
-      "count": 1,
-      "kind": "unknown",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "3d56acd24eb24ba2975ca60692fc7ee7141e5d9a901c933545cc0fea2cdd1b1d",
-      "file": "client/src/pages/Scenarios.tsx",
-      "context": [
-        "CompareModal",
-        "jsx:style"
-      ],
-      "owner": "color",
-      "property": "color",
-      "literal": "#10b981",
-      "locations": [
-        {
-          "line": 690,
-          "column": 45
-        }
-      ],
-      "count": 1,
-      "kind": "unknown",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "ed11e8982e95591a353866cf519366d4099d2b89e43888bfc46103715e464179",
-      "file": "client/src/pages/Scenarios.tsx",
-      "context": [
-        "CompareModal",
-        "jsx:style"
-      ],
-      "owner": "color",
-      "property": "color",
-      "literal": "#3b82f6",
-      "locations": [
-        {
-          "line": 706,
-          "column": 45
-        }
-      ],
-      "count": 1,
-      "kind": "unknown",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
       "fingerprint": "040c08ccedf93b17d8ea82990146d781217b9d19fe862ac11f8dc1b192e33d79",
       "file": "client/src/styles/design-system.css",
       "context": [],
@@ -28970,24 +26153,1344 @@
       "resolution": "delete",
       "reason": "TC-C2: remove a duplicate phase palette and use the shared getPhaseColor mapping with identical values",
       "baselineHead": "9c7905f"
+    },
+    {
+      "fingerprint": "001c0eff8000f94b620131cfcc94818e91b30e7c50eb019336ec1a64da4e2e8f",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "rgba(34, 197, 94, 0.2)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--status-success-border"
+    },
+    {
+      "fingerprint": "00b9886b745ee0dcfb2fcea3953c5facc653f93c68458855062ae3d7be2d9959",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "rgba(0, 0, 0, 0.15)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--solid-shade"
+    },
+    {
+      "fingerprint": "036d099f7c080959556c157f25805ccccd207861b0d62dba5e0534da07dd8b6b",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "rgba(34, 197, 94, 0.15)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--status-success-border"
+    },
+    {
+      "fingerprint": "072bf4528ba0c18280872a8525cfca1676a1f8a40fa0b436492f66c1c9e9dc57",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "rgba(0, 0, 0, 0.1)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--solid-shade"
+    },
+    {
+      "fingerprint": "078d24fe1adb4cc65560c2490ed55059763e9fea6bff6144593c8f06f92aa068",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "rgba(0, 0, 0, 0.1)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--solid-shade"
+    },
+    {
+      "fingerprint": "0a48c7a1d3bec8ae63678780693a95dc1956ede2716c925e1acb693c34d70de2",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "#3b82f6",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--status-info-border"
+    },
+    {
+      "fingerprint": "0bca3fabd4a8bcfb80bae5920c78be05aaa01aee65154a2f81aa2ee5973dd825",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "rgba(16, 185, 129, 0.2)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--status-success-border"
+    },
+    {
+      "fingerprint": "0bcc5ebf3d1fc390fa195ecc69ea237a2bcccc5566c576f5e994a9ff56fb6b18",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "rgba(0, 0, 0, 0.15)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--solid-shade"
+    },
+    {
+      "fingerprint": "0fbb48c0b1821e7627e091e55b502a45ee567dfac6f05c98f291afc3c2c92d9b",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "rgba(34, 197, 94, 0.05)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--scenario-baseline-soft"
+    },
+    {
+      "fingerprint": "135df80ed555a2af33c48bc1f6f3ef3929af888873062489a7b3ac91be573193",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "rgba(255, 255, 255, 0.2)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--bg-tertiary"
+    },
+    {
+      "fingerprint": "16fd3f311ed88078f217d8d05d4dc88eb2d9a9502e7828a29f365dc2f56f304c",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "#3b82f6",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--scenario-branch-border"
+    },
+    {
+      "fingerprint": "1caf21f61ee39b15c2f29861c110205540ca2ec3f3d7c20684fda569aba226d5",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "rgba(245, 158, 11, 0.1)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--status-warning-border"
+    },
+    {
+      "fingerprint": "1d26bc1274466439eeabca8bd46f5a91087162d3c4d0741a9a87346d9e33dbb5",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "rgba(0, 0, 0, 0.02)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--text-primary"
+    },
+    {
+      "fingerprint": "209060c68d1d82827291a2b9807e53868e90407601a20a130495e334ac1f4e68",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "#3b82f6",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--scenario-branch-border"
+    },
+    {
+      "fingerprint": "21afe70e4f6c585fb0e0a75ff1c0ea3eaf1bb89a512992ac5bd2ac6d14f96a39",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "rgba(107, 114, 128, 0.1)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--bg-hover"
+    },
+    {
+      "fingerprint": "2334d1611cc7f09cedfae0a138db422d560afaeeeef42b2b52509ce3320c58cc",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "#92400e",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--scenario-sandbox-text"
+    },
+    {
+      "fingerprint": "254ce78b50bb277e47de8d043462b547cf6bc48ea1c62bcb796fa2fccf0cec05",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "rgba(34, 197, 94, 0.15)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--scenario-baseline-border"
+    },
+    {
+      "fingerprint": "27f7a7458931dd5fceb7966adeeaff0be0cbe190d35701889bf1b762d98e5d73",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "rgba(168, 85, 247, 0.1)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--scenario-sandbox-border"
+    },
+    {
+      "fingerprint": "29686b099df102e43e76e6356d29b2f6076a629d10e517a418a6f6d3f1989b9e",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "rgba(59, 130, 246, 0.05)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--scenario-branch-soft"
+    },
+    {
+      "fingerprint": "297d730fcebb8b9d9edb187ddf9cfe34146db74b8153e32eda30c68e323ecd06",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "rgba(34, 197, 94, 0.1)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--status-success-border"
+    },
+    {
+      "fingerprint": "2a283a5b49e375325c9f04046f64bef3294934fd27b1396189be13de1297a343",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "#065f46",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--status-success-text"
+    },
+    {
+      "fingerprint": "2ce62b1babf258fc50e2244f261cc2bf796d33faeabbe5d3d33382ae2946f325",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "rgba(239, 68, 68, 0.1)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--status-danger-border"
+    },
+    {
+      "fingerprint": "2f194c386471d0902827fe663aba090b921aebdccd965fe80c2bb838738b7da0",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "rgba(59, 130, 246, 0.2)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--scenario-branch-border"
+    },
+    {
+      "fingerprint": "3130124ee5c18248b9250f77e138dd734d31af36951a710f38e933a5a3348c7c",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "rgba(34, 197, 94, 0.2)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--status-success-border"
+    },
+    {
+      "fingerprint": "33991ebc0fb51d67b686f367cf63e6d3fac9f737069143d58eebcdebfcc93706",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "rgba(107, 114, 128, 0.1)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--bg-hover"
+    },
+    {
+      "fingerprint": "39cfa27d7d6adc46335748678abfe4d3f4623db1efe9f06df5994c2dc3657dc9",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "rgba(239, 68, 68, 0.2)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--status-danger-border"
+    },
+    {
+      "fingerprint": "3a4bdb8325a2c57ffe8a0f7eb3cdace4222b0b5fc8fd86efea672b40227219eb",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "rgba(34, 197, 94, 0.1)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--status-success-border"
+    },
+    {
+      "fingerprint": "3c209f6da734be3da95b9d16522a1c12da6c159ef051888b45937ce8ce6a5d5d",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "rgba(34, 197, 94, 0.3)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--success"
+    },
+    {
+      "fingerprint": "3d855da0858de7774ae5cf7e8f51c4dc52204affa0c8a882852177ad8cba658b",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "rgba(245, 158, 11, 0.05)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--scenario-sandbox-soft"
+    },
+    {
+      "fingerprint": "3f4ac7326598a85863d283ed68b0b8fa11a5a893234cf32111299ba93bc15de0",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "rgba(239, 68, 68, 0.3)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--danger"
+    },
+    {
+      "fingerprint": "3fef469467df070d998e59943fefabe44a75d153eb3816fb7337f9b50a064837",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "#f59e0b",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--scenario-sandbox-text"
+    },
+    {
+      "fingerprint": "40ce032f9c67a0032fa2a2a865ae547abbc7fca6b040fe00777c6c9668c56ef9",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "#f59e0b",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--scenario-sandbox-border"
+    },
+    {
+      "fingerprint": "41117214abb20e3b4b18f6c7e37b66a79bde811b88856f3ad2bc116debc1231b",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "rgba(0, 0, 0, 0.1)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--solid-shade"
+    },
+    {
+      "fingerprint": "44f489a5eaca62371a76b897d930b59edba292fba265e85ed92afc513f6480d9",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "rgba(239, 68, 68, 0.2)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--status-danger-border"
+    },
+    {
+      "fingerprint": "4910fc66210e339aaf01f4f5de955a27c9ebacbaa3668713cf25af7119122234",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "rgba(168, 85, 247, 0.2)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--scenario-sandbox-border"
+    },
+    {
+      "fingerprint": "4dac7f7648f6d08624d9f33bdb444e98c70775b13236451c126db16b14e9f509",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "rgba(59, 130, 246, 0.1)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--status-info-border"
+    },
+    {
+      "fingerprint": "503c34cf3b603d776a033e2f5796868dd78de2a3347964377b00c94eaf45299d",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "rgba(34, 197, 94, 0.3)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--scenario-baseline-border"
+    },
+    {
+      "fingerprint": "50829568806752b83a672c4e00b0dc3132100d37ea8ac6e0077998a023eb1625",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "#86efac",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--status-success-text"
+    },
+    {
+      "fingerprint": "5112dd7ebd47eabff76c6aed3bce0da10e634ccac2162c133ff10754c7168cc7",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "#d1fae5",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--status-success-soft"
+    },
+    {
+      "fingerprint": "542978d73b0374e4fd8fe0057cc3e5dd4fa8b73f6187b369da6dfcc5b1fac8be",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "rgba(34, 197, 94, 0.1)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--status-success-border"
+    },
+    {
+      "fingerprint": "5498453f66ed976efdda6e01c032d84d38ef4b1e7faa629b6cd4e0d7b26c9d5d",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "#3b82f6",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--status-info-border"
+    },
+    {
+      "fingerprint": "5631c57a12a78b2a758430d8d7c2b01c3928de4e47c1802ee99bfa9cd0004a7a",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "rgba(245, 158, 11, 0.1)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--scenario-compare-solid"
+    },
+    {
+      "fingerprint": "56d98e0447f408ed833b83b2619b435bcecfab9e0e7a058ec5515a21638cd8ce",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "rgba(239, 68, 68, 0.1)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--status-danger-solid"
+    },
+    {
+      "fingerprint": "59a73534a121658576036bb9d41f91bf6933a2c9844134f75ee73d78c74c6ee8",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "rgba(0, 0, 0, 0.05)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--border-color"
+    },
+    {
+      "fingerprint": "59b36b2b7d24584153cf2b2083bc5d34e6f00c141870fc8d448615d403a97aa4",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "white",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--solid-foreground"
+    },
+    {
+      "fingerprint": "5af9744f13bcecd0521c7ff42189c75b4cd31645f74004b249fd0aa2fcaa02b5",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "#d1fae5",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--scenario-baseline-soft"
+    },
+    {
+      "fingerprint": "5c1209ce8f58089b85177becfc150926d0b57e4374d7aff6f8343a9f08d43489",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "rgba(245, 158, 11, 0.2)",
+      "count": 2,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--scenario-sandbox-border"
+    },
+    {
+      "fingerprint": "5cbf6eb025985e40e6432e130fee15bc7f50dd6009a042cdc3b07a2db8f74194",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "rgba(239, 68, 68, 0.1)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--status-danger-border"
+    },
+    {
+      "fingerprint": "5de3f4a81dcfb53cce6e9a1dde93036c2a2927bfa8a8cf99b985564f9644475b",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "rgba(34, 197, 94, 0.4)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--status-success-border"
+    },
+    {
+      "fingerprint": "5e44d9388051483c2bc145733c3d724fdc9be0aedc00c7d78bc57cbda22ff0fa",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "rgba(59, 130, 246, 0.3)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--scenario-branch-border"
+    },
+    {
+      "fingerprint": "60bc00d232e2e5520a285383bb4fe780646179f58dc0bfb4ec2d49dc1ec8f450",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "rgba(59, 130, 246, 0.1)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--scenario-branch-solid"
+    },
+    {
+      "fingerprint": "62d57b396e5de7fa51d55c4470134adc0c6fe94c58ba8328a7b9303432f1cbed",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "rgba(107, 114, 128, 0.1)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--bg-hover"
+    },
+    {
+      "fingerprint": "64738a8be2745e5ccab5b8cde45dbb3da5f382985990a6a7c8975a991378cb41",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "rgba(0, 0, 0, 0.1)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--solid-shade"
+    },
+    {
+      "fingerprint": "66c87988f258822514038e393d7cc2ef7ba3f0e3f6946f88b9de404c93523a10",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "rgba(34, 197, 94, 0.1)",
+      "count": 2,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--scenario-baseline-border"
+    },
+    {
+      "fingerprint": "6913a2952cd8c0c58a30f0b64dfca5d92304713b5ffa69719fb33201ae937775",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "#065f46",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--scenario-baseline-text"
+    },
+    {
+      "fingerprint": "6928aa743e7b83ecfec82d0094a3b2d35c69ee50da5c29d5c4ddaf61f28159bf",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "rgba(0, 0, 0, 0.15)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--solid-shade"
+    },
+    {
+      "fingerprint": "69372244a1aeba7119eeab3d175b73a8cae2a77c584c2191a1659488b2f462a3",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "white",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--solid-foreground"
+    },
+    {
+      "fingerprint": "6af50f3003003407ad0954d42e947a9dfbd63767346b84a8daac2a90472aa54b",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "#4338ca",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--scenario-branch-text"
+    },
+    {
+      "fingerprint": "6c0d6449515fbf42354def1cdce1a9df5c1b4da371ba323fa924b7b17f1f4fc9",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "#f0f9ff",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--scenario-branch-soft"
+    },
+    {
+      "fingerprint": "6cffc110f052ac1b5a115555d6277043ca81fdaf1531f08404f87119c048d77c",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "#c7d2fe",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--scenario-branch-text"
+    },
+    {
+      "fingerprint": "6d2ad0dfc3bc93fae51a34d52a2c1185d24d385cfa7315934d4db1c62b915c69",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "rgba(34, 197, 94, 0.1)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--scenario-baseline-border"
+    },
+    {
+      "fingerprint": "74401e59b57ed629f4bb9e5bddb04d6da4a4dfe012a7446a070911f5bf51c506",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "white",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--solid-foreground"
+    },
+    {
+      "fingerprint": "7443ad864de67fa863c597add41f8a524c3f25701c340eeda37ffc34fc18960b",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "#e0e7ff",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--scenario-branch-soft"
+    },
+    {
+      "fingerprint": "7afdb36b91d37d05c0155d7dd9a7fa94e0ce217246736402e6ce647a8f464824",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "#86efac",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--scenario-baseline-text"
+    },
+    {
+      "fingerprint": "7b17e0eeb3e4d8323301a1dfcbc3ebd064ffc428e2ab9873204c4b4854bf9ab8",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "rgba(34, 197, 94, 0.1)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--status-success-solid"
+    },
+    {
+      "fingerprint": "7e3a726c3bb5487cb5b5fb19dd44cc4f53fbee43e72b44eec59c97099a58319b",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "rgba(34, 197, 94, 0.1)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--status-success-border"
+    },
+    {
+      "fingerprint": "7e8fd00bbb87f6ffdcd02caaeb90878b5c31c1b0e78955a4f7462798b3f2ea41",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "#111827",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--text-primary"
+    },
+    {
+      "fingerprint": "7ff7aee8ce9d4ecf70c7250ec0f6532f490e94f439007a91ebc82eea54e6256c",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "rgba(59, 130, 246, 0.2)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--scenario-branch-border"
+    },
+    {
+      "fingerprint": "819d95c4bc5130619bf97b2fa6cf2fa4b4ec5a9a98c2c19105b2bddf0b3bb598",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "rgba(59, 130, 246, 0.2)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--status-info-border"
+    },
+    {
+      "fingerprint": "82a731465dc813193f70cf78334a111356e9f95cb21c333a059e10d307ca7eb4",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "rgba(99, 102, 241, 0.2)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--scenario-branch-border"
+    },
+    {
+      "fingerprint": "83438938f4caefcd8a84243639fa9900ce8a75e3293c9ae397546e8c4027bb95",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "rgba(245, 158, 11, 0.1)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--scenario-sandbox-border"
+    },
+    {
+      "fingerprint": "83b61fc07e5d86cb7b397c86af31ef90d0609d8f2ffa21f3803869bed7b6bcc2",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "rgba(59, 130, 246, 0.3)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--scenario-branch-border"
+    },
+    {
+      "fingerprint": "85e9a0292aa2ba0fc43637f07b12d3cf4a234e187d9c68079e715fb95f1e0114",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "rgba(245, 158, 11, 0.1)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--status-warning-border"
+    },
+    {
+      "fingerprint": "85f7cd5f9ea02d6f83b7db52dac0ef9cc0070bc68789cf150238c2abf9091088",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "rgba(0, 0, 0, 0.02)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--text-primary"
+    },
+    {
+      "fingerprint": "86aac23dc99706e81b8384b02aad3e3f38a8b1d23f94b8d31c64865cb8bf7d78",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "rgba(16, 185, 129, 0.2)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--scenario-baseline-border"
+    },
+    {
+      "fingerprint": "88a2c223b8ab63d9c48a9d1a4b95cc5d107ca73e42f065222163c3c98193bb3b",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "rgba(245, 158, 11, 0.3)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--scenario-compare-border"
+    },
+    {
+      "fingerprint": "8cc5c69342cd3a7232b3346e479ec4bc078cdc28c9cc4b8c6a4b40eb2947bbab",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "rgba(245, 158, 11, 0.2)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--scenario-sandbox-border"
+    },
+    {
+      "fingerprint": "8cfac7243353ea30c567b11afe5eee7eb79387108b8b293cd5766aa624dc6ca5",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "rgba(59, 130, 246, 0.05)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--scenario-branch-soft"
+    },
+    {
+      "fingerprint": "8d07901c7b13285d80831a89a642a21bef6824615de732246991c4f564148037",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "rgba(245, 158, 11, 0.2)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--scenario-sandbox-border"
+    },
+    {
+      "fingerprint": "8e11c9fd41d2067d1df4a442a051aeaf79a74e7146d857e10d17ca3cf1764fed",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "rgba(34, 197, 94, 0.03)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--scenario-baseline-soft"
+    },
+    {
+      "fingerprint": "9277572780666e30fe17c4835c09562b5b381941aa6c2ab3e4a43f7347c199ed",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "rgba(139, 92, 246, 0.1)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--scenario-sandbox-border"
+    },
+    {
+      "fingerprint": "97057a14f028a44f200c7015084a6bc2de00ebaee1d0d37d75816081a709a8a2",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "rgba(59, 130, 246, 0.03)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--scenario-branch-soft"
+    },
+    {
+      "fingerprint": "97d44d88577dd90c3d0df014cef3735d8c4b68d517adce529f0ba384a6cce7ba",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "rgba(245, 158, 11, 0.1)",
+      "count": 2,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--scenario-sandbox-border"
+    },
+    {
+      "fingerprint": "99d14d105ac3c256c9153d196545ab49b486f61eba377568ecc8da4eaa150efd",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "white",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--solid-foreground"
+    },
+    {
+      "fingerprint": "99e9cf337541d399fcaaff65fbbacd1d5517a79b0da699b71bc17f3f8041a829",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "rgba(245, 158, 11, 0.1)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--status-warning-border"
+    },
+    {
+      "fingerprint": "9c1dddc936e5d03286225bc81a5bad87676f5acec08a7da19b52cc05c5ec5715",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "#10b981",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--scenario-baseline-border"
+    },
+    {
+      "fingerprint": "9fc56fb7ecfc71504cc457ad3f8bd1ddd9a466b02628eab0b5d13bbd58a97704",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "rgba(245, 158, 11, 0.2)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--status-warning-border"
+    },
+    {
+      "fingerprint": "a3e1ee1e8c2efb74e500532e92be936aa72796e0b06c38fbdfe314458b35c44c",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "rgba(245, 158, 11, 0.2)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--scenario-sandbox-border"
+    },
+    {
+      "fingerprint": "a42b6c57c8c0b7e8815bfa264ee9688d0ea2cac4d0ac4e89de7fc00af43d00cd",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "white",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--solid-foreground"
+    },
+    {
+      "fingerprint": "a46678471aa1a3bd373a2c0f573e03b7ee28ae773fca51450026f619ace22566",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "rgba(59, 130, 246, 0.2)",
+      "count": 2,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--scenario-branch-border"
+    },
+    {
+      "fingerprint": "a9d0996a1ef9b09780609c8f4e1ba40a3a70282fdd37ba48c3385f9a1bb63d9f",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "rgba(245, 158, 11, 0.05)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--scenario-sandbox-soft"
+    },
+    {
+      "fingerprint": "aa525c4509b758a255717bc236e300087d92cf3a4af9b3929a7850f34b1d0114",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "white",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--solid-foreground"
+    },
+    {
+      "fingerprint": "aea1e8c08723556d008d10d8260ace50a2a11872f50802cfe80fe3efccd3084f",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "rgba(34, 197, 94, 0.3)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--status-success-border"
+    },
+    {
+      "fingerprint": "aecc4e6ddb009bee7a47b844db9c6de1691a7a8ca84cea6437f17faf5f7320ef",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "rgba(0, 0, 0, 0.05)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--text-primary"
+    },
+    {
+      "fingerprint": "af973fbc39c55fa4856565903a4dd585230c47fcb88d968a9f474f94c0dbf472",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "rgba(34, 197, 94, 0.1)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--scenario-baseline-border"
+    },
+    {
+      "fingerprint": "b05fcf3f84d24ddc8927738e5cd376e4999b6bd70c98c0fc95c8f5e0f6b2e62e",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "#f9fafb",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--text-primary"
+    },
+    {
+      "fingerprint": "b14b74cda9e9895055eb3872c76bfb3d45d631e68898374488c8b2f1e39efda9",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "white",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--solid-foreground"
+    },
+    {
+      "fingerprint": "b456b99b19d3b9d71c44946673efd7119923347c9a89afeddf053f56d94d11fe",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "rgba(34, 197, 94, 0.2)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--scenario-baseline-border"
+    },
+    {
+      "fingerprint": "b494c6351b0e44c1b9f96cb769a9df95f9e640024497b0df00a83c194b405ffe",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "rgba(59, 130, 246, 0.1)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--scenario-branch-border"
+    },
+    {
+      "fingerprint": "b8d99475289f2590c842bf4291bd682797df2ce0e263835b526c960414ce0696",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "#eff6ff",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--status-info-soft"
+    },
+    {
+      "fingerprint": "bbbe3c4b7966cb5d1d4fbe8dd4ba26fb1708bde693456e0512089dd40ca1e0e0",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "#10b981",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--scenario-baseline-text"
+    },
+    {
+      "fingerprint": "c0009e4de1967828634f3b1983106bfe3c93244ca8e8f0ba1db72b9c7ae3ed0c",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "rgba(34, 197, 94, 0.1)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--scenario-baseline-border"
+    },
+    {
+      "fingerprint": "c0d2d77b20a30c18e21cd82b83bcb267b9733d5dca2c0821ea6680780844aebf",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "rgba(34, 197, 94, 0.3)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--scenario-baseline-border"
+    },
+    {
+      "fingerprint": "c812b68ff08dce53968f5303b3a73c312720114d38fa7e74d86ebe9fc4894d2f",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "rgba(34, 197, 94, 0.1)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--status-success-border"
+    },
+    {
+      "fingerprint": "cab66f2f3ce220f7d71496aa2ad924663f415d2cb292942c37ed60e5b6685fb2",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "#1e40af",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--status-info-text"
+    },
+    {
+      "fingerprint": "cf0fbf7eadb627904e1e6012db081c64b728ab85ec3eb654393ef978bc5a298f",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "#fed7aa",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--scenario-sandbox-soft"
+    },
+    {
+      "fingerprint": "cfd0b6131c38689758915d1efe6ed93797c0dfa09981a1757d294f4f45169ea7",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "rgba(245, 158, 11, 0.2)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--status-warning-border"
+    },
+    {
+      "fingerprint": "d0b97408d0c3bb2c0a2e35b6950faea88edeb93a02de5cc40d0a076d3fd67d0d",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "rgba(168, 85, 247, 0.3)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--scenario-sandbox-border"
+    },
+    {
+      "fingerprint": "d42ea416e9b98b06c16684948012c26ca9a206ddf051f32e3480f44faf48a421",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "white",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--solid-foreground"
+    },
+    {
+      "fingerprint": "d6518de179d02b73304f02917b5c401a066994081da5f3bbe51342c367551ac9",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "rgba(34, 197, 94, 0.08)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--scenario-baseline-soft"
+    },
+    {
+      "fingerprint": "d850ea3fdc94e619a6e8e9828f2a73fc1c9caaf1fae0289a6eb0d04cdc151006",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "rgba(168, 85, 247, 0.03)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--scenario-sandbox-soft"
+    },
+    {
+      "fingerprint": "da378264ef4a837ff6b65e4bcdfc057cea11f6895cf5e5ec3e63da3456d6f637",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "white",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--solid-foreground"
+    },
+    {
+      "fingerprint": "de97d87c84d3e24d4ee854f0add0d675a8bec8a46284eb89d45e4e2c6ab3973f",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "#3b82f6",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--scenario-branch-text"
+    },
+    {
+      "fingerprint": "e0fd7e26e27077ff88a14545e4cd38d6d24c5e6bd37c4ef361c137204b89fc0e",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "rgba(34, 197, 94, 0.3)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--scenario-baseline-border"
+    },
+    {
+      "fingerprint": "e210c64b73f466c77f0be956f85f2a7d1500b5c8acc0f4d616fb74dc075f69f9",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "rgba(34, 197, 94, 0.3)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--status-success-border"
+    },
+    {
+      "fingerprint": "e2996fef3e8f3696513b2097429f3a901088c9c936888ae7991911efd176d0cd",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "rgba(0, 0, 0, 0.5)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--solid-shade"
+    },
+    {
+      "fingerprint": "e5cc6013c0d2a6b804a470100548b00603a64ccaba6d291142d3d317ffbf696c",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "rgba(34, 197, 94, 0.2)",
+      "count": 2,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--scenario-baseline-border"
+    },
+    {
+      "fingerprint": "e6ac07acb4ecf2dc5da10f7ad17fcb37ab5983b0ab588f4dc9f5386a2a534162",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "rgba(245, 158, 11, 0.2)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--status-warning-border"
+    },
+    {
+      "fingerprint": "ea1ba842855b9cfe94017ddc75e60c1313de3220a1550bb8f1084907be730c95",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "white",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--solid-foreground"
+    },
+    {
+      "fingerprint": "eaac43ae0dbdf9bf321f97607564f55e84f0fb3fc9a8ab4c1c9ff8569fb7c44d",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "rgba(59, 130, 246, 0.1)",
+      "count": 2,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--scenario-branch-border"
+    },
+    {
+      "fingerprint": "ed8e93fda79d0583471a0926e2427d70af928bd804a0f5c0a4f47369b67b8fb0",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "rgba(34, 197, 94, 0.15)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--scenario-baseline-border"
+    },
+    {
+      "fingerprint": "eea32d55861f3a2e6842ea5d0cddf7af5ccfc6f123cd73f7fc6f9fbadfcece09",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "rgba(168, 85, 247, 0.1)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--scenario-sandbox-border"
+    },
+    {
+      "fingerprint": "efcfdc9f2f2ab90758757312a0d2f93eaa466935e53fbb548b932accb76ad927",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "rgba(107, 114, 128, 0.2)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--border-color"
+    },
+    {
+      "fingerprint": "f06f076785414d06f64ead045f8f11eeacc1b1c59af0d4c7f3296e3b43be7664",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "rgba(255, 255, 255, 0.2)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--bg-secondary"
+    },
+    {
+      "fingerprint": "f0be26f039f5192715452348ffe34de8eeaddacaec255b216156551a20d4f04f",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "rgba(0, 0, 0, 0.12)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--solid-shade"
+    },
+    {
+      "fingerprint": "f9b80ab6079c5eb9fe39507ed48e8c35d26ffaf29e50f2714aead3ac7ac11006",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "rgba(34, 197, 94, 0.1)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--scenario-baseline-border"
+    },
+    {
+      "fingerprint": "fa3e63118e4db0f6eb65a02ea65d8e2f2b053149edb1b72e055a86f4920386e8",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "rgba(107, 114, 128, 0.2)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--border-color"
+    },
+    {
+      "fingerprint": "fcfed51a84a9daabaa63dc76b3d84b7f9508a66cbc91937272f49908a981d30b",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "#fde047",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--scenario-sandbox-text"
+    },
+    {
+      "fingerprint": "ff08b3793f11f78ec660193060b61582e69d5dc4f777e6e650da16d01c533166",
+      "file": "client/src/pages/Scenarios.css",
+      "literal": "rgba(59, 130, 246, 0.1)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--scenario-branch-border"
+    },
+    {
+      "fingerprint": "34f0efac956a2e1763f16458d2906c1f098fdd4c0309887ddc625c18c27ebef2",
+      "file": "client/src/pages/Scenarios.tsx",
+      "literal": "#ef4444",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--status-danger-text"
+    },
+    {
+      "fingerprint": "3d56acd24eb24ba2975ca60692fc7ee7141e5d9a901c933545cc0fea2cdd1b1d",
+      "file": "client/src/pages/Scenarios.tsx",
+      "literal": "#10b981",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--status-success-text"
+    },
+    {
+      "fingerprint": "ed11e8982e95591a353866cf519366d4099d2b89e43888bfc46103715e464179",
+      "file": "client/src/pages/Scenarios.tsx",
+      "literal": "#3b82f6",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C3: category/status text, fill, border and foreground pair measured in actual scenario page and controlled branch/comparison/merge states",
+      "baselineHead": "ea040ec",
+      "token": "--status-info-text"
     }
   ],
   "additions": [],
   "summary": {
-    "occurrences": 1240,
-    "identities": 1212,
-    "uniqueColors": 277,
-    "files": 54,
+    "occurrences": 1102,
+    "identities": 1080,
+    "uniqueColors": 255,
+    "files": 52,
     "byKind": {
-      "semantic-color": 539,
-      "neutral-literal": 301,
-      "unknown": 167,
+      "semantic-color": 430,
+      "neutral-literal": 275,
+      "unknown": 164,
       "token-definition": 220,
       "data-color": 12,
       "non-color": 1
     },
     "byDecision": {
-      "pending": 1007,
+      "pending": 869,
       "not-debt": 221,
       "accepted-literal": 12
     },
@@ -29041,8 +27544,6 @@
       "client/src/pages/ProjectTypes.tsx": 2,
       "client/src/pages/RoleDetails.tsx": 3,
       "client/src/pages/ScenarioComparison.css": 23,
-      "client/src/pages/Scenarios.css": 135,
-      "client/src/pages/Scenarios.tsx": 3,
       "client/src/styles/design-system.css": 20,
       "client/src/styles/modal-common.css": 19,
       "client/src/styles/reports.css": 14

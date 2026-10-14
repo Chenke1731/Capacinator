@@ -1,0 +1,1376 @@
+{
+  "baseHead": "ea040ec",
+  "scope": [
+    "client/src/pages/Scenarios.css",
+    "client/src/pages/Scenarios.tsx"
+  ],
+  "cssMappings": [
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".btn-primary",
+      "property": "color",
+      "line": 37,
+      "literal": "white",
+      "token": "--solid-foreground",
+      "replacement": "var(--solid-foreground)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".scenario-card.baseline",
+      "property": "background",
+      "line": 96,
+      "literal": "rgba(34, 197, 94, 0.08)",
+      "token": "--scenario-baseline-soft",
+      "replacement": "color-mix(in srgb, var(--scenario-baseline-border) 8%, transparent)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".scenario-card.baseline",
+      "property": "box-shadow",
+      "line": 97,
+      "literal": "rgba(34, 197, 94, 0.1)",
+      "token": "--scenario-baseline-border",
+      "replacement": "color-mix(in srgb, var(--scenario-baseline-border) 10%, transparent)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".scenario-card.baseline",
+      "property": "box-shadow",
+      "line": 97,
+      "literal": "rgba(34, 197, 94, 0.15)",
+      "token": "--scenario-baseline-border",
+      "replacement": "color-mix(in srgb, var(--scenario-baseline-border) 15%, transparent)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".scenario-card.branch",
+      "property": "background",
+      "line": 114,
+      "literal": "rgba(59, 130, 246, 0.05)",
+      "token": "--scenario-branch-soft",
+      "replacement": "color-mix(in srgb, var(--scenario-branch-border) 5%, transparent)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".scenario-card.sandbox",
+      "property": "background",
+      "line": 119,
+      "literal": "rgba(245, 158, 11, 0.05)",
+      "token": "--scenario-sandbox-soft",
+      "replacement": "color-mix(in srgb, var(--scenario-sandbox-border) 5%, transparent)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".scenario-type.baseline",
+      "property": "background",
+      "line": 164,
+      "literal": "rgba(34, 197, 94, 0.15)",
+      "token": "--scenario-baseline-border",
+      "replacement": "color-mix(in srgb, var(--scenario-baseline-border) 15%, transparent)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".scenario-type.baseline",
+      "property": "border",
+      "line": 169,
+      "literal": "rgba(34, 197, 94, 0.3)",
+      "token": "--scenario-baseline-border",
+      "replacement": "color-mix(in srgb, var(--scenario-baseline-border) 30%, transparent)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".scenario-type.baseline",
+      "property": "box-shadow",
+      "line": 170,
+      "literal": "rgba(34, 197, 94, 0.1)",
+      "token": "--scenario-baseline-border",
+      "replacement": "color-mix(in srgb, var(--scenario-baseline-border) 10%, transparent)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".scenario-type.branch",
+      "property": "background",
+      "line": 174,
+      "literal": "rgba(59, 130, 246, 0.1)",
+      "token": "--scenario-branch-border",
+      "replacement": "color-mix(in srgb, var(--scenario-branch-border) 10%, transparent)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".scenario-type.sandbox",
+      "property": "background",
+      "line": 179,
+      "literal": "rgba(245, 158, 11, 0.1)",
+      "token": "--scenario-sandbox-border",
+      "replacement": "color-mix(in srgb, var(--scenario-sandbox-border) 10%, transparent)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".scenario-status.active",
+      "property": "background",
+      "line": 184,
+      "literal": "rgba(34, 197, 94, 0.1)",
+      "token": "--status-success-border",
+      "replacement": "color-mix(in srgb, var(--status-success-border) 10%, transparent)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".scenario-status.archived",
+      "property": "background",
+      "line": 189,
+      "literal": "rgba(107, 114, 128, 0.1)",
+      "token": "--bg-hover",
+      "replacement": "color-mix(in srgb, var(--bg-hover) 10%, transparent)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".scenario-status.merged",
+      "property": "background",
+      "line": 194,
+      "literal": "rgba(139, 92, 246, 0.1)",
+      "token": "--scenario-sandbox-border",
+      "replacement": "color-mix(in srgb, var(--scenario-sandbox-border) 10%, transparent)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".action-button.branch",
+      "property": "border-color",
+      "line": 254,
+      "literal": "rgba(59, 130, 246, 0.3)",
+      "token": "--scenario-branch-border",
+      "replacement": "color-mix(in srgb, var(--scenario-branch-border) 30%, transparent)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".action-button.branch:hover",
+      "property": "background",
+      "line": 258,
+      "literal": "rgba(59, 130, 246, 0.1)",
+      "token": "--scenario-branch-solid",
+      "replacement": "color-mix(in srgb, var(--scenario-branch-border) 10%, transparent)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".action-button.merge",
+      "property": "border-color",
+      "line": 264,
+      "literal": "rgba(34, 197, 94, 0.3)",
+      "token": "--success",
+      "replacement": "color-mix(in srgb, var(--status-success-border) 30%, transparent)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".action-button.merge:hover",
+      "property": "background",
+      "line": 268,
+      "literal": "rgba(34, 197, 94, 0.1)",
+      "token": "--status-success-solid",
+      "replacement": "color-mix(in srgb, var(--status-success-border) 10%, transparent)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".action-button.compare",
+      "property": "border-color",
+      "line": 274,
+      "literal": "rgba(245, 158, 11, 0.3)",
+      "token": "--scenario-compare-border",
+      "replacement": "color-mix(in srgb, var(--scenario-compare-border) 30%, transparent)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".action-button.compare:hover",
+      "property": "background",
+      "line": 278,
+      "literal": "rgba(245, 158, 11, 0.1)",
+      "token": "--scenario-compare-solid",
+      "replacement": "color-mix(in srgb, var(--scenario-compare-border) 10%, transparent)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".action-button.delete",
+      "property": "border-color",
+      "line": 284,
+      "literal": "rgba(239, 68, 68, 0.3)",
+      "token": "--danger",
+      "replacement": "color-mix(in srgb, var(--status-danger-border) 30%, transparent)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".action-button.delete:hover",
+      "property": "background",
+      "line": 288,
+      "literal": "rgba(239, 68, 68, 0.1)",
+      "token": "--status-danger-solid",
+      "replacement": "color-mix(in srgb, var(--status-danger-border) 10%, transparent)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".modal-overlay",
+      "property": "background",
+      "line": 299,
+      "literal": "rgba(0, 0, 0, 0.5)",
+      "token": "--solid-shade",
+      "replacement": "color-mix(in srgb, var(--solid-shade) 50%, transparent)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".scenario-card-mini .scenario-type.sandbox",
+      "property": "background-color",
+      "line": 432,
+      "literal": "#fed7aa",
+      "token": "--scenario-sandbox-soft",
+      "replacement": "var(--scenario-sandbox-soft)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".scenario-card-mini .scenario-type.sandbox",
+      "property": "color",
+      "line": 433,
+      "literal": "#92400e",
+      "token": "--scenario-sandbox-text",
+      "replacement": "var(--scenario-sandbox-text)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".scenario-card-mini .scenario-status.active",
+      "property": "background-color",
+      "line": 438,
+      "literal": "#d1fae5",
+      "token": "--status-success-soft",
+      "replacement": "var(--status-success-soft)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".scenario-card-mini .scenario-status.active",
+      "property": "color",
+      "line": 439,
+      "literal": "#065f46",
+      "token": "--status-success-text",
+      "replacement": "var(--status-success-text)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".scenario-card-mini .scenario-type.branch",
+      "property": "background-color",
+      "line": 444,
+      "literal": "#e0e7ff",
+      "token": "--scenario-branch-soft",
+      "replacement": "var(--scenario-branch-soft)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".scenario-card-mini .scenario-type.branch",
+      "property": "color",
+      "line": 445,
+      "literal": "#4338ca",
+      "token": "--scenario-branch-text",
+      "replacement": "var(--scenario-branch-text)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".scenario-card-mini .scenario-type.baseline",
+      "property": "background-color",
+      "line": 450,
+      "literal": "#d1fae5",
+      "token": "--scenario-baseline-soft",
+      "replacement": "var(--scenario-baseline-soft)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".scenario-card-mini .scenario-type.baseline",
+      "property": "color",
+      "line": 451,
+      "literal": "#065f46",
+      "token": "--scenario-baseline-text",
+      "replacement": "var(--scenario-baseline-text)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": "[data-theme=\"dark\"] .scenario-card-mini .scenario-type.sandbox",
+      "property": "background-color",
+      "line": 456,
+      "literal": "rgba(245, 158, 11, 0.2)",
+      "token": "--scenario-sandbox-border",
+      "replacement": "color-mix(in srgb, var(--scenario-sandbox-border) 20%, transparent)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": "[data-theme=\"dark\"] .scenario-card-mini .scenario-type.sandbox",
+      "property": "color",
+      "line": 457,
+      "literal": "#fde047",
+      "token": "--scenario-sandbox-text",
+      "replacement": "var(--scenario-sandbox-text)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": "[data-theme=\"dark\"] .scenario-card-mini .scenario-status.active",
+      "property": "background-color",
+      "line": 461,
+      "literal": "rgba(16, 185, 129, 0.2)",
+      "token": "--status-success-border",
+      "replacement": "color-mix(in srgb, var(--status-success-border) 20%, transparent)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": "[data-theme=\"dark\"] .scenario-card-mini .scenario-status.active",
+      "property": "color",
+      "line": 462,
+      "literal": "#86efac",
+      "token": "--status-success-text",
+      "replacement": "var(--status-success-text)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": "[data-theme=\"dark\"] .scenario-card-mini .scenario-type.branch",
+      "property": "background-color",
+      "line": 466,
+      "literal": "rgba(99, 102, 241, 0.2)",
+      "token": "--scenario-branch-border",
+      "replacement": "color-mix(in srgb, var(--scenario-branch-border) 20%, transparent)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": "[data-theme=\"dark\"] .scenario-card-mini .scenario-type.branch",
+      "property": "color",
+      "line": 467,
+      "literal": "#c7d2fe",
+      "token": "--scenario-branch-text",
+      "replacement": "var(--scenario-branch-text)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": "[data-theme=\"dark\"] .scenario-card-mini .scenario-type.baseline",
+      "property": "background-color",
+      "line": 471,
+      "literal": "rgba(16, 185, 129, 0.2)",
+      "token": "--scenario-baseline-border",
+      "replacement": "color-mix(in srgb, var(--scenario-baseline-border) 20%, transparent)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": "[data-theme=\"dark\"] .scenario-card-mini .scenario-type.baseline",
+      "property": "color",
+      "line": 472,
+      "literal": "#86efac",
+      "token": "--scenario-baseline-text",
+      "replacement": "var(--scenario-baseline-text)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".modal-content .scenario-card-mini .scenario-name, .comparison-setup .scenario-card-mini .scenario-name",
+      "property": "color",
+      "line": 484,
+      "literal": "#111827",
+      "token": "--text-primary",
+      "replacement": "var(--text-primary)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": "[data-theme=\"dark\"] .modal-content .scenario-card-mini .scenario-name, [data-theme=\"dark\"] .comparison-setup .scenario-card-mini .scenario-name",
+      "property": "color",
+      "line": 489,
+      "literal": "#f9fafb",
+      "token": "--text-primary",
+      "replacement": "var(--text-primary)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".filter-button.active",
+      "property": "color",
+      "line": 798,
+      "literal": "white",
+      "token": "--solid-foreground",
+      "replacement": "var(--solid-foreground)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".filter-tag",
+      "property": "color",
+      "line": 850,
+      "literal": "white",
+      "token": "--solid-foreground",
+      "replacement": "var(--solid-foreground)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".filter-tag button",
+      "property": "color",
+      "line": 859,
+      "literal": "white",
+      "token": "--solid-foreground",
+      "replacement": "var(--solid-foreground)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".filter-tag button:hover",
+      "property": "background",
+      "line": 872,
+      "literal": "rgba(255, 255, 255, 0.2)",
+      "token": "--bg-tertiary",
+      "replacement": "color-mix(in srgb, var(--bg-tertiary) 20%, transparent)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".hierarchy-row.baseline",
+      "property": "background",
+      "line": 1028,
+      "literal": "rgba(34, 197, 94, 0.05)",
+      "token": "--scenario-baseline-soft",
+      "replacement": "color-mix(in srgb, var(--scenario-baseline-border) 5%, transparent)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".hierarchy-row.branch",
+      "property": "background",
+      "line": 1032,
+      "literal": "rgba(59, 130, 246, 0.05)",
+      "token": "--scenario-branch-soft",
+      "replacement": "color-mix(in srgb, var(--scenario-branch-border) 5%, transparent)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".hierarchy-row.sandbox",
+      "property": "background",
+      "line": 1036,
+      "literal": "rgba(245, 158, 11, 0.05)",
+      "token": "--scenario-sandbox-soft",
+      "replacement": "color-mix(in srgb, var(--scenario-sandbox-border) 5%, transparent)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".connector-dot",
+      "property": "box-shadow",
+      "line": 1124,
+      "literal": "rgba(0, 0, 0, 0.1)",
+      "token": "--solid-shade",
+      "replacement": "color-mix(in srgb, var(--solid-shade) 10%, transparent)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".connector-dot:hover",
+      "property": "box-shadow",
+      "line": 1129,
+      "literal": "rgba(0, 0, 0, 0.15)",
+      "token": "--solid-shade",
+      "replacement": "color-mix(in srgb, var(--solid-shade) 15%, transparent)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".connector-dot.baseline",
+      "property": "box-shadow",
+      "line": 1135,
+      "literal": "rgba(34, 197, 94, 0.1)",
+      "token": "--scenario-baseline-border",
+      "replacement": "color-mix(in srgb, var(--scenario-baseline-border) 10%, transparent)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".connector-dot.baseline",
+      "property": "box-shadow",
+      "line": 1135,
+      "literal": "rgba(34, 197, 94, 0.3)",
+      "token": "--scenario-baseline-border",
+      "replacement": "color-mix(in srgb, var(--scenario-baseline-border) 30%, transparent)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".connector-dot.branch",
+      "property": "box-shadow",
+      "line": 1145,
+      "literal": "rgba(59, 130, 246, 0.2)",
+      "token": "--scenario-branch-border",
+      "replacement": "color-mix(in srgb, var(--scenario-branch-border) 20%, transparent)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".connector-dot.sandbox",
+      "property": "box-shadow",
+      "line": 1151,
+      "literal": "rgba(245, 158, 11, 0.2)",
+      "token": "--scenario-sandbox-border",
+      "replacement": "color-mix(in srgb, var(--scenario-sandbox-border) 20%, transparent)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".quick-filter-btn.active",
+      "property": "color",
+      "line": 1233,
+      "literal": "white",
+      "token": "--solid-foreground",
+      "replacement": "var(--solid-foreground)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".scenario-type-badge.baseline",
+      "property": "background",
+      "line": 1342,
+      "literal": "rgba(34, 197, 94, 0.2)",
+      "token": "--scenario-baseline-border",
+      "replacement": "color-mix(in srgb, var(--scenario-baseline-border) 20%, transparent)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".scenario-type-badge.branch",
+      "property": "background",
+      "line": 1348,
+      "literal": "rgba(59, 130, 246, 0.2)",
+      "token": "--scenario-branch-border",
+      "replacement": "color-mix(in srgb, var(--scenario-branch-border) 20%, transparent)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".scenario-type-badge.sandbox",
+      "property": "background",
+      "line": 1354,
+      "literal": "rgba(245, 158, 11, 0.2)",
+      "token": "--scenario-sandbox-border",
+      "replacement": "color-mix(in srgb, var(--scenario-sandbox-border) 20%, transparent)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".scenario-type-badge.baseline",
+      "property": "background",
+      "line": 1373,
+      "literal": "rgba(34, 197, 94, 0.1)",
+      "token": "--scenario-baseline-border",
+      "replacement": "color-mix(in srgb, var(--scenario-baseline-border) 10%, transparent)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".scenario-type-badge.baseline",
+      "property": "border",
+      "line": 1375,
+      "literal": "rgba(34, 197, 94, 0.2)",
+      "token": "--scenario-baseline-border",
+      "replacement": "color-mix(in srgb, var(--scenario-baseline-border) 20%, transparent)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".scenario-type-badge.branch",
+      "property": "background",
+      "line": 1379,
+      "literal": "rgba(59, 130, 246, 0.1)",
+      "token": "--scenario-branch-border",
+      "replacement": "color-mix(in srgb, var(--scenario-branch-border) 10%, transparent)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".scenario-type-badge.branch",
+      "property": "border",
+      "line": 1381,
+      "literal": "rgba(59, 130, 246, 0.2)",
+      "token": "--scenario-branch-border",
+      "replacement": "color-mix(in srgb, var(--scenario-branch-border) 20%, transparent)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".scenario-type-badge.sandbox",
+      "property": "background",
+      "line": 1385,
+      "literal": "rgba(245, 158, 11, 0.1)",
+      "token": "--scenario-sandbox-border",
+      "replacement": "color-mix(in srgb, var(--scenario-sandbox-border) 10%, transparent)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".scenario-type-badge.sandbox",
+      "property": "border",
+      "line": 1387,
+      "literal": "rgba(245, 158, 11, 0.2)",
+      "token": "--scenario-sandbox-border",
+      "replacement": "color-mix(in srgb, var(--scenario-sandbox-border) 20%, transparent)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [
+        "@keyframes baseline-pulse"
+      ],
+      "owner": "0%",
+      "property": "box-shadow",
+      "line": 1396,
+      "literal": "rgba(34, 197, 94, 0.1)",
+      "token": "--status-success-border",
+      "replacement": "color-mix(in srgb, var(--status-success-border) 10%, transparent)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [
+        "@keyframes baseline-pulse"
+      ],
+      "owner": "0%",
+      "property": "box-shadow",
+      "line": 1396,
+      "literal": "rgba(34, 197, 94, 0.3)",
+      "token": "--status-success-border",
+      "replacement": "color-mix(in srgb, var(--status-success-border) 30%, transparent)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [
+        "@keyframes baseline-pulse"
+      ],
+      "owner": "50%",
+      "property": "box-shadow",
+      "line": 1399,
+      "literal": "rgba(34, 197, 94, 0.15)",
+      "token": "--status-success-border",
+      "replacement": "color-mix(in srgb, var(--status-success-border) 15%, transparent)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [
+        "@keyframes baseline-pulse"
+      ],
+      "owner": "50%",
+      "property": "box-shadow",
+      "line": 1399,
+      "literal": "rgba(34, 197, 94, 0.4)",
+      "token": "--status-success-border",
+      "replacement": "color-mix(in srgb, var(--status-success-border) 40%, transparent)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [
+        "@keyframes baseline-pulse"
+      ],
+      "owner": "100%",
+      "property": "box-shadow",
+      "line": 1402,
+      "literal": "rgba(34, 197, 94, 0.1)",
+      "token": "--status-success-border",
+      "replacement": "color-mix(in srgb, var(--status-success-border) 10%, transparent)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [
+        "@keyframes baseline-pulse"
+      ],
+      "owner": "100%",
+      "property": "box-shadow",
+      "line": 1402,
+      "literal": "rgba(34, 197, 94, 0.3)",
+      "token": "--status-success-border",
+      "replacement": "color-mix(in srgb, var(--status-success-border) 30%, transparent)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".scenario-card:hover",
+      "property": "box-shadow",
+      "line": 1419,
+      "literal": "rgba(0, 0, 0, 0.15)",
+      "token": "--solid-shade",
+      "replacement": "color-mix(in srgb, var(--solid-shade) 15%, transparent)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".scenario-card.expanded",
+      "property": "box-shadow",
+      "line": 1424,
+      "literal": "rgba(0, 0, 0, 0.12)",
+      "token": "--solid-shade",
+      "replacement": "color-mix(in srgb, var(--solid-shade) 12%, transparent)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".scenario-header:hover",
+      "property": "background",
+      "line": 1437,
+      "literal": "rgba(0, 0, 0, 0.02)",
+      "token": "--text-primary",
+      "replacement": "color-mix(in srgb, var(--text-primary) 2%, transparent)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".scenario-expandable-content",
+      "property": "border-top",
+      "line": 1458,
+      "literal": "rgba(0, 0, 0, 0.05)",
+      "token": "--border-color",
+      "replacement": "color-mix(in srgb, var(--border-color) 5%, transparent)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".action-button::before",
+      "property": "background",
+      "line": 1526,
+      "literal": "rgba(255, 255, 255, 0.2)",
+      "token": "--bg-secondary",
+      "replacement": "color-mix(in srgb, var(--bg-tertiary) 20%, transparent)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".action-button:hover",
+      "property": "box-shadow",
+      "line": 1536,
+      "literal": "rgba(0, 0, 0, 0.15)",
+      "token": "--solid-shade",
+      "replacement": "color-mix(in srgb, var(--solid-shade) 15%, transparent)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".action-button:active",
+      "property": "box-shadow",
+      "line": 1542,
+      "literal": "rgba(0, 0, 0, 0.1)",
+      "token": "--solid-shade",
+      "replacement": "color-mix(in srgb, var(--solid-shade) 10%, transparent)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".action-button.branch:hover",
+      "property": "color",
+      "line": 1552,
+      "literal": "white",
+      "token": "--solid-foreground",
+      "replacement": "var(--solid-foreground)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".action-button.edit:hover",
+      "property": "color",
+      "line": 1563,
+      "literal": "white",
+      "token": "--solid-foreground",
+      "replacement": "var(--solid-foreground)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".action-button.delete:hover",
+      "property": "color",
+      "line": 1574,
+      "literal": "white",
+      "token": "--solid-foreground",
+      "replacement": "var(--solid-foreground)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".action-button.merge:hover",
+      "property": "color",
+      "line": 1585,
+      "literal": "white",
+      "token": "--solid-foreground",
+      "replacement": "var(--solid-foreground)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".action-button.compare:hover",
+      "property": "color",
+      "line": 1596,
+      "literal": "white",
+      "token": "--solid-foreground",
+      "replacement": "var(--solid-foreground)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".scenario-group.baseline",
+      "property": "border-color",
+      "line": 1634,
+      "literal": "rgba(34, 197, 94, 0.3)",
+      "token": "--scenario-baseline-border",
+      "replacement": "color-mix(in srgb, var(--scenario-baseline-border) 30%, transparent)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".scenario-group.baseline",
+      "property": "background",
+      "line": 1635,
+      "literal": "rgba(34, 197, 94, 0.03)",
+      "token": "--scenario-baseline-soft",
+      "replacement": "color-mix(in srgb, var(--scenario-baseline-border) 3%, transparent)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".scenario-group.branch",
+      "property": "border-color",
+      "line": 1639,
+      "literal": "rgba(59, 130, 246, 0.3)",
+      "token": "--scenario-branch-border",
+      "replacement": "color-mix(in srgb, var(--scenario-branch-border) 30%, transparent)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".scenario-group.branch",
+      "property": "background",
+      "line": 1640,
+      "literal": "rgba(59, 130, 246, 0.03)",
+      "token": "--scenario-branch-soft",
+      "replacement": "color-mix(in srgb, var(--scenario-branch-border) 3%, transparent)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".scenario-group.sandbox",
+      "property": "border-color",
+      "line": 1644,
+      "literal": "rgba(168, 85, 247, 0.3)",
+      "token": "--scenario-sandbox-border",
+      "replacement": "color-mix(in srgb, var(--scenario-sandbox-border) 30%, transparent)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".scenario-group.sandbox",
+      "property": "background",
+      "line": 1645,
+      "literal": "rgba(168, 85, 247, 0.03)",
+      "token": "--scenario-sandbox-soft",
+      "replacement": "color-mix(in srgb, var(--scenario-sandbox-border) 3%, transparent)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".scenario-group-header:hover",
+      "property": "background",
+      "line": 1659,
+      "literal": "rgba(0, 0, 0, 0.02)",
+      "token": "--text-primary",
+      "replacement": "color-mix(in srgb, var(--text-primary) 2%, transparent)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".group-icon",
+      "property": "background",
+      "line": 1676,
+      "literal": "rgba(0, 0, 0, 0.05)",
+      "token": "--text-primary",
+      "replacement": "color-mix(in srgb, var(--text-primary) 5%, transparent)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".group-icon.baseline",
+      "property": "background",
+      "line": 1680,
+      "literal": "rgba(34, 197, 94, 0.1)",
+      "token": "--scenario-baseline-border",
+      "replacement": "color-mix(in srgb, var(--scenario-baseline-border) 10%, transparent)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".group-icon.branch",
+      "property": "background",
+      "line": 1684,
+      "literal": "rgba(59, 130, 246, 0.1)",
+      "token": "--scenario-branch-border",
+      "replacement": "color-mix(in srgb, var(--scenario-branch-border) 10%, transparent)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".group-icon.sandbox",
+      "property": "background",
+      "line": 1688,
+      "literal": "rgba(168, 85, 247, 0.1)",
+      "token": "--scenario-sandbox-border",
+      "replacement": "color-mix(in srgb, var(--scenario-sandbox-border) 10%, transparent)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".scenario-phase-indicator.planning",
+      "property": "background",
+      "line": 1863,
+      "literal": "rgba(168, 85, 247, 0.1)",
+      "token": "--scenario-sandbox-border",
+      "replacement": "color-mix(in srgb, var(--scenario-sandbox-border) 10%, transparent)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".scenario-phase-indicator.planning",
+      "property": "border",
+      "line": 1865,
+      "literal": "rgba(168, 85, 247, 0.2)",
+      "token": "--scenario-sandbox-border",
+      "replacement": "color-mix(in srgb, var(--scenario-sandbox-border) 20%, transparent)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".scenario-phase-indicator.active",
+      "property": "background",
+      "line": 1869,
+      "literal": "rgba(34, 197, 94, 0.1)",
+      "token": "--status-success-border",
+      "replacement": "color-mix(in srgb, var(--status-success-border) 10%, transparent)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".scenario-phase-indicator.active",
+      "property": "border",
+      "line": 1871,
+      "literal": "rgba(34, 197, 94, 0.2)",
+      "token": "--status-success-border",
+      "replacement": "color-mix(in srgb, var(--status-success-border) 20%, transparent)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".scenario-phase-indicator.review",
+      "property": "background",
+      "line": 1875,
+      "literal": "rgba(245, 158, 11, 0.1)",
+      "token": "--status-warning-border",
+      "replacement": "color-mix(in srgb, var(--status-warning-border) 10%, transparent)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".scenario-phase-indicator.review",
+      "property": "border",
+      "line": 1877,
+      "literal": "rgba(245, 158, 11, 0.2)",
+      "token": "--status-warning-border",
+      "replacement": "color-mix(in srgb, var(--status-warning-border) 20%, transparent)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".scenario-phase-indicator.archived",
+      "property": "background",
+      "line": 1881,
+      "literal": "rgba(107, 114, 128, 0.1)",
+      "token": "--bg-hover",
+      "replacement": "color-mix(in srgb, var(--bg-hover) 10%, transparent)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".scenario-phase-indicator.archived",
+      "property": "border",
+      "line": 1883,
+      "literal": "rgba(107, 114, 128, 0.2)",
+      "token": "--border-color",
+      "replacement": "color-mix(in srgb, var(--border-color) 20%, transparent)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".scenario-priority-indicator.critical",
+      "property": "background",
+      "line": 1901,
+      "literal": "rgba(239, 68, 68, 0.1)",
+      "token": "--status-danger-border",
+      "replacement": "color-mix(in srgb, var(--status-danger-border) 10%, transparent)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".scenario-priority-indicator.critical",
+      "property": "border",
+      "line": 1903,
+      "literal": "rgba(239, 68, 68, 0.2)",
+      "token": "--status-danger-border",
+      "replacement": "color-mix(in srgb, var(--status-danger-border) 20%, transparent)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".scenario-priority-indicator.high",
+      "property": "background",
+      "line": 1907,
+      "literal": "rgba(245, 158, 11, 0.1)",
+      "token": "--status-warning-border",
+      "replacement": "color-mix(in srgb, var(--status-warning-border) 10%, transparent)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".scenario-priority-indicator.high",
+      "property": "border",
+      "line": 1909,
+      "literal": "rgba(245, 158, 11, 0.2)",
+      "token": "--status-warning-border",
+      "replacement": "color-mix(in srgb, var(--status-warning-border) 20%, transparent)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".scenario-priority-indicator.medium",
+      "property": "background",
+      "line": 1913,
+      "literal": "rgba(59, 130, 246, 0.1)",
+      "token": "--status-info-border",
+      "replacement": "color-mix(in srgb, var(--status-info-border) 10%, transparent)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".scenario-priority-indicator.medium",
+      "property": "border",
+      "line": 1915,
+      "literal": "rgba(59, 130, 246, 0.2)",
+      "token": "--status-info-border",
+      "replacement": "color-mix(in srgb, var(--status-info-border) 20%, transparent)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".scenario-priority-indicator.low",
+      "property": "background",
+      "line": 1919,
+      "literal": "rgba(107, 114, 128, 0.1)",
+      "token": "--bg-hover",
+      "replacement": "color-mix(in srgb, var(--bg-hover) 10%, transparent)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".scenario-priority-indicator.low",
+      "property": "border",
+      "line": 1921,
+      "literal": "rgba(107, 114, 128, 0.2)",
+      "token": "--border-color",
+      "replacement": "color-mix(in srgb, var(--border-color) 20%, transparent)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".scenario-impact-indicator.minimal",
+      "property": "background",
+      "line": 1938,
+      "literal": "rgba(34, 197, 94, 0.1)",
+      "token": "--status-success-border",
+      "replacement": "color-mix(in srgb, var(--status-success-border) 10%, transparent)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".scenario-impact-indicator.minimal",
+      "property": "border",
+      "line": 1940,
+      "literal": "rgba(34, 197, 94, 0.2)",
+      "token": "--status-success-border",
+      "replacement": "color-mix(in srgb, var(--status-success-border) 20%, transparent)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".scenario-impact-indicator.moderate",
+      "property": "background",
+      "line": 1944,
+      "literal": "rgba(245, 158, 11, 0.1)",
+      "token": "--status-warning-border",
+      "replacement": "color-mix(in srgb, var(--status-warning-border) 10%, transparent)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".scenario-impact-indicator.moderate",
+      "property": "border",
+      "line": 1946,
+      "literal": "rgba(245, 158, 11, 0.2)",
+      "token": "--status-warning-border",
+      "replacement": "color-mix(in srgb, var(--status-warning-border) 20%, transparent)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".scenario-impact-indicator.significant",
+      "property": "background",
+      "line": 1950,
+      "literal": "rgba(239, 68, 68, 0.1)",
+      "token": "--status-danger-border",
+      "replacement": "color-mix(in srgb, var(--status-danger-border) 10%, transparent)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".scenario-impact-indicator.significant",
+      "property": "border",
+      "line": 1952,
+      "literal": "rgba(239, 68, 68, 0.2)",
+      "token": "--status-danger-border",
+      "replacement": "color-mix(in srgb, var(--status-danger-border) 20%, transparent)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".scenario-type-badge.baseline",
+      "property": "background",
+      "line": 1373,
+      "literal": "rgba(34, 197, 94, 0.1)",
+      "token": "--scenario-baseline-border",
+      "replacement": "color-mix(in srgb, var(--scenario-baseline-border) 10%, transparent)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".scenario-type-badge.baseline",
+      "property": "border",
+      "line": 1375,
+      "literal": "rgba(34, 197, 94, 0.2)",
+      "token": "--scenario-baseline-border",
+      "replacement": "color-mix(in srgb, var(--scenario-baseline-border) 20%, transparent)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".scenario-type-badge.branch",
+      "property": "background",
+      "line": 1379,
+      "literal": "rgba(59, 130, 246, 0.1)",
+      "token": "--scenario-branch-border",
+      "replacement": "color-mix(in srgb, var(--scenario-branch-border) 10%, transparent)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".scenario-type-badge.branch",
+      "property": "border",
+      "line": 1381,
+      "literal": "rgba(59, 130, 246, 0.2)",
+      "token": "--scenario-branch-border",
+      "replacement": "color-mix(in srgb, var(--scenario-branch-border) 20%, transparent)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".scenario-type-badge.sandbox",
+      "property": "background",
+      "line": 1385,
+      "literal": "rgba(245, 158, 11, 0.1)",
+      "token": "--scenario-sandbox-border",
+      "replacement": "color-mix(in srgb, var(--scenario-sandbox-border) 10%, transparent)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".scenario-type-badge.sandbox",
+      "property": "border",
+      "line": 1387,
+      "literal": "rgba(245, 158, 11, 0.2)",
+      "token": "--scenario-sandbox-border",
+      "replacement": "color-mix(in srgb, var(--scenario-sandbox-border) 20%, transparent)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".scenario-category-tooltip",
+      "property": "box-shadow",
+      "line": 2011,
+      "literal": "rgba(0, 0, 0, 0.1)",
+      "token": "--solid-shade",
+      "replacement": "color-mix(in srgb, var(--solid-shade) 10%, transparent)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".hierarchy-row.focused",
+      "property": "background-color",
+      "line": 2037,
+      "literal": "#f0f9ff",
+      "token": "--scenario-branch-soft",
+      "replacement": "var(--scenario-branch-soft)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".hierarchy-row.focused",
+      "property": "border",
+      "line": 2038,
+      "literal": "#3b82f6",
+      "token": "--scenario-branch-border",
+      "replacement": "var(--scenario-branch-border)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".hierarchy-row:focus",
+      "property": "outline",
+      "line": 2044,
+      "literal": "#3b82f6",
+      "token": "--status-info-border",
+      "replacement": "var(--status-info-border)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".connector-expand-button:hover",
+      "property": "box-shadow",
+      "line": 2065,
+      "literal": "rgba(0, 0, 0, 0.1)",
+      "token": "--solid-shade",
+      "replacement": "color-mix(in srgb, var(--solid-shade) 10%, transparent)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".connector-expand-button.baseline",
+      "property": "border-color",
+      "line": 2077,
+      "literal": "#10b981",
+      "token": "--scenario-baseline-border",
+      "replacement": "var(--scenario-baseline-border)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".connector-expand-button.baseline",
+      "property": "color",
+      "line": 2078,
+      "literal": "#10b981",
+      "token": "--scenario-baseline-text",
+      "replacement": "var(--scenario-baseline-text)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".connector-expand-button.branch",
+      "property": "border-color",
+      "line": 2082,
+      "literal": "#3b82f6",
+      "token": "--scenario-branch-border",
+      "replacement": "var(--scenario-branch-border)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".connector-expand-button.branch",
+      "property": "color",
+      "line": 2083,
+      "literal": "#3b82f6",
+      "token": "--scenario-branch-text",
+      "replacement": "var(--scenario-branch-text)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".connector-expand-button.sandbox",
+      "property": "border-color",
+      "line": 2087,
+      "literal": "#f59e0b",
+      "token": "--scenario-sandbox-border",
+      "replacement": "var(--scenario-sandbox-border)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".connector-expand-button.sandbox",
+      "property": "color",
+      "line": 2088,
+      "literal": "#f59e0b",
+      "token": "--scenario-sandbox-text",
+      "replacement": "var(--scenario-sandbox-text)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".tree-instructions",
+      "property": "background",
+      "line": 2109,
+      "literal": "#eff6ff",
+      "token": "--status-info-soft",
+      "replacement": "var(--scenario-branch-soft)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".tree-instructions",
+      "property": "color",
+      "line": 2110,
+      "literal": "#1e40af",
+      "token": "--status-info-text",
+      "replacement": "var(--scenario-branch-text)"
+    },
+    {
+      "file": "client/src/pages/Scenarios.css",
+      "context": [],
+      "owner": ".tree-instructions",
+      "property": "border",
+      "line": 2115,
+      "literal": "#3b82f6",
+      "token": "--status-info-border",
+      "replacement": "var(--scenario-branch-border)"
+    }
+  ],
+  "resolvedOccurrences": 138,
+  "unreachable": [
+    "client/src/pages/ScenarioComparison.tsx",
+    "client/src/pages/ScenarioComparison.css"
+  ]
+}

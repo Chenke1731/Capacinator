@@ -69,7 +69,6 @@ const UTIL_ALLOWLIST = [
   'client/src/pages/People.css :: .text-danger',
   'client/src/pages/People.css :: .text-info',
   'client/src/pages/ProjectRoadmap.css :: .btn',
-  'client/src/components/EnhancedProjectTimeline.css :: .btn',
   'client/src/components/InteractiveTimeline.css :: .btn',
   'client/src/components/PhaseTemplateDesigner.css :: .btn',
   'client/src/components/ProjectPhaseManager.css :: .btn',

@@ -36,14 +36,6 @@ jest.mock('react-router-dom', () => ({
   useParams: () => mockUseParams()
 }));
 
-// Mock unified timeline component
-jest.mock('../../components/UnifiedProjectTimeline', () => ({
-  __esModule: true,
-  default: ({ projectId }: { projectId: string }) => (
-    <div data-testid="unified-timeline">{`Timeline for project ${projectId}`}</div>
-  )
-}));
-
 // Mock project demand chart
 jest.mock('../../components/ProjectDemandChart', () => ({
   ProjectDemandChart: ({ projectId, projectName }: { projectId: string; projectName: string }) => (
@@ -540,9 +532,6 @@ describe('ProjectDetail', () => {
       window.confirm = originalConfirm;
     });
   });
-
-  // Timeline Integration tests removed - UnifiedProjectTimeline component was removed from ProjectDetail
-  // as it was redundant with the Resource Demand section which includes an integrated phase timeline
 
   describe('Demand Chart Integration', () => {
     test('renders project demand chart', async () => {

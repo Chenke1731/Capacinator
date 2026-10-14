@@ -6342,1644 +6342,6 @@
       "evidence": []
     },
     {
-      "fingerprint": "03fddd66642d35cee041f5579d4b6313999ffd24d8b409b55f7c08ad236f2c8f",
-      "file": "client/src/components/EnhancedProjectTimeline.css",
-      "context": [],
-      "owner": ".btn-secondary",
-      "property": "border-color",
-      "literal": "#6b7280",
-      "locations": [
-        {
-          "line": 224,
-          "column": 17
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "0d0800cb197b048a046015eab173dcbdeaafd30093560f5e965cdb0475af61b3",
-      "file": "client/src/components/EnhancedProjectTimeline.css",
-      "context": [],
-      "owner": ".btn-primary",
-      "property": "border-color",
-      "literal": "#3b82f6",
-      "locations": [
-        {
-          "line": 213,
-          "column": 17
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "11df0c53380eb5023a9fa0a6855dddd16ff325300ad1f27fc914fb32353de6a6",
-      "file": "client/src/components/EnhancedProjectTimeline.css",
-      "context": [],
-      "owner": ".field-group label",
-      "property": "color",
-      "literal": "#374151",
-      "locations": [
-        {
-          "line": 346,
-          "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "18ccb126a1915ae68aca8cfb3086e1031c274c6c94688e29af74ade58a6f60bf",
-      "file": "client/src/components/EnhancedProjectTimeline.css",
-      "context": [],
-      "owner": ".badge-danger",
-      "property": "color",
-      "literal": "#dc2626",
-      "locations": [
-        {
-          "line": 277,
-          "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "1c0032f97d3fc21e55e57508d3eebbdf0f9615d921b372184f8847bb870f928c",
-      "file": "client/src/components/EnhancedProjectTimeline.css",
-      "context": [],
-      "owner": ".validation-errors h5",
-      "property": "color",
-      "literal": "#dc2626",
-      "locations": [
-        {
-          "line": 391,
-          "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "238fea67ac49f0f6935fdd7a1b4f6fac7f0d12fc70c4768797d18c6e2bf08227",
-      "file": "client/src/components/EnhancedProjectTimeline.css",
-      "context": [],
-      "owner": ".compliance-percentage.warning",
-      "property": "background",
-      "literal": "#fef3c7",
-      "locations": [
-        {
-          "line": 64,
-          "column": 15
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "24e20910dee12deecd943186296949d71c85f8a87a8e89b8ed13c619d6b1d9e8",
-      "file": "client/src/components/EnhancedProjectTimeline.css",
-      "context": [],
-      "owner": ".timeline-phase",
-      "property": "border",
-      "literal": "#e5e7eb",
-      "locations": [
-        {
-          "line": 96,
-          "column": 21
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "292470521800008e14a90dcae260d931d884ab830d05c62ace1afc6670029998",
-      "file": "client/src/components/EnhancedProjectTimeline.css",
-      "context": [],
-      "owner": ".compliance-stat label",
-      "property": "color",
-      "literal": "#6b7280",
-      "locations": [
-        {
-          "line": 46,
-          "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "2a4950a18395e7bd5ed568c9f0ce60bd3c25f3e77e271b59b0bf5d82f5af08c4",
-      "file": "client/src/components/EnhancedProjectTimeline.css",
-      "context": [],
-      "owner": ".compliance-percentage.warning",
-      "property": "color",
-      "literal": "#d97706",
-      "locations": [
-        {
-          "line": 63,
-          "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "2c4a9044efd83348e10f11d72389d78660c3a481849b583f7b3e4f69a2545201",
-      "file": "client/src/components/EnhancedProjectTimeline.css",
-      "context": [],
-      "owner": ".phase-details h4",
-      "property": "color",
-      "literal": "#1f2937",
-      "locations": [
-        {
-          "line": 157,
-          "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "2fa2867c27678222ff94bdd1f5de66cb639e41f10511ef8ff4e70998bee284bd",
-      "file": "client/src/components/EnhancedProjectTimeline.css",
-      "context": [],
-      "owner": ".badge-info",
-      "property": "color",
-      "literal": "#2563eb",
-      "locations": [
-        {
-          "line": 271,
-          "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "3331e9cd243ed52992990821932ffecc13bc5086f73989ba8557e5981bacb915",
-      "file": "client/src/components/EnhancedProjectTimeline.css",
-      "context": [],
-      "owner": ".constraint-item span",
-      "property": "color",
-      "literal": "#1e293b",
-      "locations": [
-        {
-          "line": 319,
-          "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "36f64c5eba67d55b007dbf28ae427946598a52af0e99580bd0e8fcb62c2a7aa2",
-      "file": "client/src/components/EnhancedProjectTimeline.css",
-      "context": [],
-      "owner": ".btn",
-      "property": "color",
-      "literal": "#374151",
-      "locations": [
-        {
-          "line": 192,
-          "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "37ae08231497a9fd6e27d1d7e2b3630f98a57aa4f07202ef14c1ba35a2b8cf1e",
-      "file": "client/src/components/EnhancedProjectTimeline.css",
-      "context": [],
-      "owner": ".btn-danger",
-      "property": "color",
-      "literal": "#dc2626",
-      "locations": [
-        {
-          "line": 234,
-          "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "3a0f93716d1e2e68661f96679761b67a1a8bffba4524213a2c735b373adb1634",
-      "file": "client/src/components/EnhancedProjectTimeline.css",
-      "context": [],
-      "owner": ".btn-danger:hover",
-      "property": "background",
-      "literal": "#fef2f2",
-      "locations": [
-        {
-          "line": 239,
-          "column": 15
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "3fdd89505b94495da9f964ab1b6a9945c2dddff6b43d52cb6c14ba9843b0752b",
-      "file": "client/src/components/EnhancedProjectTimeline.css",
-      "context": [],
-      "owner": ".phase-count .count",
-      "property": "color",
-      "literal": "#1f2937",
-      "locations": [
-        {
-          "line": 84,
-          "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "4027cb886e85627d05e28a09a09038f761c8c239f7e5a1f6339149837c2e13fb",
-      "file": "client/src/components/EnhancedProjectTimeline.css",
-      "context": [],
-      "owner": ".timeline-phase.custom",
-      "property": "border-color",
-      "literal": "#3b82f6",
-      "locations": [
-        {
-          "line": 113,
-          "column": 17
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "53de580de0ad21368ba85fa40ae24908594369f69338bc4e74b2556ec3138fd5",
-      "file": "client/src/components/EnhancedProjectTimeline.css",
-      "context": [],
-      "owner": ".add-phase-btn:hover",
-      "property": "background",
-      "literal": "#eff6ff",
-      "locations": [
-        {
-          "line": 445,
-          "column": 15
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "55c5c1b79b9f0e9716a2a00d1a01bcc64ca3accb6381da1fcb59c93b8a707e82",
-      "file": "client/src/components/EnhancedProjectTimeline.css",
-      "context": [],
-      "owner": ".btn-secondary:hover",
-      "property": "border-color",
-      "literal": "#4b5563",
-      "locations": [
-        {
-          "line": 230,
-          "column": 17
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "5747784b8207c7f5ff36ced32bb74084dd862eb30a110a8ac3c959e58b70a772",
-      "file": "client/src/components/EnhancedProjectTimeline.css",
-      "context": [],
-      "owner": ".compliance-percentage.good",
-      "property": "background",
-      "literal": "#d1fae5",
-      "locations": [
-        {
-          "line": 59,
-          "column": 15
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "58e068bd18eda84c02455e6235ae92035a1e29a6be461c7c060857eaa9e4573b",
-      "file": "client/src/components/EnhancedProjectTimeline.css",
-      "context": [],
-      "owner": ".badge-warning",
-      "property": "background",
-      "literal": "#fef3c7",
-      "locations": [
-        {
-          "line": 264,
-          "column": 15
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "5a6d20d18bde0e48aef85e637109fd0132d29b8072e8ecde6c4032f4e0e5e65d",
-      "file": "client/src/components/EnhancedProjectTimeline.css",
-      "context": [],
-      "owner": ".header-info p",
-      "property": "color",
-      "literal": "#6b7280",
-      "locations": [
-        {
-          "line": 26,
-          "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "5db62187d7b5a3c6a0e6c7d1c61b5fd9667c36ba07112da004ad6280b471a091",
-      "file": "client/src/components/EnhancedProjectTimeline.css",
-      "context": [],
-      "owner": ".timeline-phase.customized",
-      "property": "background",
-      "literal": "#fffbeb",
-      "locations": [
-        {
-          "line": 109,
-          "column": 15
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "62578969eeb9105a85704b66878930100aec94252ca970dfd07309101b528812",
-      "file": "client/src/components/EnhancedProjectTimeline.css",
-      "context": [],
-      "owner": ".badge-info",
-      "property": "background",
-      "literal": "#dbeafe",
-      "locations": [
-        {
-          "line": 270,
-          "column": 15
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "64855b57eb71cda465a50c051703783b6f5ad6b6c5caafa415bb2a0675737eb7",
-      "file": "client/src/components/EnhancedProjectTimeline.css",
-      "context": [],
-      "owner": ".constraint-item",
-      "property": "border",
-      "literal": "#e2e8f0",
-      "locations": [
-        {
-          "line": 308,
-          "column": 21
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "6b21088ac2059c2155ba95bf9e17edde9b08875cf10efb9e9b2e250c5316c9ee",
-      "file": "client/src/components/EnhancedProjectTimeline.css",
-      "context": [],
-      "owner": ".form-input:focus, .form-textarea:focus",
-      "property": "box-shadow",
-      "literal": "rgba(59, 130, 246, 0.1)",
-      "locations": [
-        {
-          "line": 372,
-          "column": 25
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "6b3d54c532d8a5b87984776f7bedd4054d7200a03a7a27ef949eea0d922d926b",
-      "file": "client/src/components/EnhancedProjectTimeline.css",
-      "context": [],
-      "owner": ".timeline-header",
-      "property": "border-bottom",
-      "literal": "#e5e7eb",
-      "locations": [
-        {
-          "line": 14,
-          "column": 28
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "6c727cca44b52d566bc2803e3852720dbcaf94e49ae4f484c9feb50212099c74",
-      "file": "client/src/components/EnhancedProjectTimeline.css",
-      "context": [],
-      "owner": ".btn-primary",
-      "property": "color",
-      "literal": "white",
-      "locations": [
-        {
-          "line": 214,
-          "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "6d682948548f33c46da2ab2bdb379f1e0e0a34a386c9196e3604b07fb875aef5",
-      "file": "client/src/components/EnhancedProjectTimeline.css",
-      "context": [],
-      "owner": ".add-phase-btn",
-      "property": "color",
-      "literal": "#64748b",
-      "locations": [
-        {
-          "line": 439,
-          "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "71fbb42345ba0b89ec3630e66425de3a295128ff7dd0398ce0a21b234cadcc34",
-      "file": "client/src/components/EnhancedProjectTimeline.css",
-      "context": [],
-      "owner": ".header-info h3",
-      "property": "color",
-      "literal": "#1f2937",
-      "locations": [
-        {
-          "line": 19,
-          "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "7379d1ed626a5dd476afd20a056a643c40f8ea9c7527b108f19fe16dc74a3ede",
-      "file": "client/src/components/EnhancedProjectTimeline.css",
-      "context": [],
-      "owner": ".constraint-item label",
-      "property": "color",
-      "literal": "#64748b",
-      "locations": [
-        {
-          "line": 313,
-          "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "7545ed3f526a8e879f3c26a0c929402656f918770319b1590d0bc38dbd2c390b",
-      "file": "client/src/components/EnhancedProjectTimeline.css",
-      "context": [],
-      "owner": ".btn-secondary",
-      "property": "color",
-      "literal": "white",
-      "locations": [
-        {
-          "line": 225,
-          "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "76daf0759ad730a8b3494e90045ef850c13fb38172b44bc1965a2c4f65b9b7f0",
-      "file": "client/src/components/EnhancedProjectTimeline.css",
-      "context": [],
-      "owner": ".timeline-phase.expanded",
-      "property": "box-shadow",
-      "literal": "rgba(0, 0, 0, 0.1)",
-      "locations": [
-        {
-          "line": 124,
-          "column": 25
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "7a013a52a72e95eded090091632dc7c9ad7cc5c3ed3ca226b610122a59ad54da",
-      "file": "client/src/components/EnhancedProjectTimeline.css",
-      "context": [],
-      "owner": ".validation-errors",
-      "property": "border",
-      "literal": "#fca5a5",
-      "locations": [
-        {
-          "line": 385,
-          "column": 21
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "84b7a28f53daa3593a20f0a1d5c2bd98756becee450e7d3a6dffe452987a14aa",
-      "file": "client/src/components/EnhancedProjectTimeline.css",
-      "context": [],
-      "owner": ".phase-editor",
-      "property": "border-top",
-      "literal": "#e5e7eb",
-      "locations": [
-        {
-          "line": 324,
-          "column": 25
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "8603d3bfa5a096767312fc7011ad932e729d098da58654353822f363f4d57fd5",
-      "file": "client/src/components/EnhancedProjectTimeline.css",
-      "context": [],
-      "owner": ".date-range, .duration",
-      "property": "color",
-      "literal": "#6b7280",
-      "locations": [
-        {
-          "line": 174,
-          "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "8eef814f3de61a4dc168f9d42b5eac3ff27ef237797ff1db900786e6deef9625",
-      "file": "client/src/components/EnhancedProjectTimeline.css",
-      "context": [],
-      "owner": ".phase-locked",
-      "property": "color",
-      "literal": "#f59e0b",
-      "locations": [
-        {
-          "line": 244,
-          "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "9801a66a8132d20f6eae2d103a77772aeabfed947a73da8cecba56ac4d054bb5",
-      "file": "client/src/components/EnhancedProjectTimeline.css",
-      "context": [],
-      "owner": ".phase-expanded",
-      "property": "border-top",
-      "literal": "#e5e7eb",
-      "locations": [
-        {
-          "line": 282,
-          "column": 25
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "9860788838167c7378a51b71466b2b82613acb5992a655861c7542f31dbe7b07",
-      "file": "client/src/components/EnhancedProjectTimeline.css",
-      "context": [],
-      "owner": ".badge-danger",
-      "property": "background",
-      "literal": "#fee2e2",
-      "locations": [
-        {
-          "line": 276,
-          "column": 15
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "9d370c435905fdc0d02df2e0c791bf707970139cf16ef5985f190b8bf838c786",
-      "file": "client/src/components/EnhancedProjectTimeline.css",
-      "context": [],
-      "owner": ".enhanced-project-timeline",
-      "property": "box-shadow",
-      "literal": "rgba(0, 0, 0, 0.1)",
-      "locations": [
-        {
-          "line": 5,
-          "column": 25
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "9e4d332361aeaa20cc278e7e2f4f52af1509e73190476b9af290b1078fae1119",
-      "file": "client/src/components/EnhancedProjectTimeline.css",
-      "context": [],
-      "owner": ".phase-number",
-      "property": "color",
-      "literal": "white",
-      "locations": [
-        {
-          "line": 143,
-          "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "a05bd964d61d3911f859da2f924ea1607fff423fd107a6dd8662a1aad98df94f",
-      "file": "client/src/components/EnhancedProjectTimeline.css",
-      "context": [],
-      "owner": ".badge-warning",
-      "property": "border",
-      "literal": "#fbbf24",
-      "locations": [
-        {
-          "line": 266,
-          "column": 21
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "a39df6edc75ee844c6d74776f8f52a42cbae21723862a7f299906f9066e1c5e8",
-      "file": "client/src/components/EnhancedProjectTimeline.css",
-      "context": [],
-      "owner": ".btn-danger",
-      "property": "border-color",
-      "literal": "#fca5a5",
-      "locations": [
-        {
-          "line": 235,
-          "column": 17
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "a6343cf9a8ea5185afd04ded88b321ca5619af17f4e3d5b1c6d1924189d91fbb",
-      "file": "client/src/components/EnhancedProjectTimeline.css",
-      "context": [],
-      "owner": ".phase-constraints h5",
-      "property": "color",
-      "literal": "#1f2937",
-      "locations": [
-        {
-          "line": 290,
-          "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "a6c2317175989bfb497376f77483e71d3ba59a3781ffef8cede5c3aca6c6e7d1",
-      "file": "client/src/components/EnhancedProjectTimeline.css",
-      "context": [],
-      "owner": ".phase-number",
-      "property": "background",
-      "literal": "#3b82f6",
-      "locations": [
-        {
-          "line": 142,
-          "column": 15
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "a75cd133713e9e4cf7d546b9d0fdcbe06943731598435f6f183848099036dd92",
-      "file": "client/src/components/EnhancedProjectTimeline.css",
-      "context": [],
-      "owner": ".btn-secondary",
-      "property": "background",
-      "literal": "#6b7280",
-      "locations": [
-        {
-          "line": 223,
-          "column": 15
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "aa674174601456e1277b9c13b4979e7d4429cbfe282f485d5212927266da806a",
-      "file": "client/src/components/EnhancedProjectTimeline.css",
-      "context": [],
-      "owner": ".error-item",
-      "property": "color",
-      "literal": "#dc2626",
-      "locations": [
-        {
-          "line": 400,
-          "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "ac33129f438d7b71d37717565903c0447b9e46dd54511e82ad15a4f824ea4599",
-      "file": "client/src/components/EnhancedProjectTimeline.css",
-      "context": [],
-      "owner": ".btn:hover",
-      "property": "border-color",
-      "literal": "#9ca3af",
-      "locations": [
-        {
-          "line": 202,
-          "column": 17
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "af882480f910d150d82de5ef4f8b685a3dedca1d8123aae114a4a577e9fdfb2f",
-      "file": "client/src/components/EnhancedProjectTimeline.css",
-      "context": [],
-      "owner": ".badge-success",
-      "property": "color",
-      "literal": "#059669",
-      "locations": [
-        {
-          "line": 259,
-          "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "b46a6555d9e1e811ce8c7db2e122b2f799c200d317070cc62a55c78a7a2181c1",
-      "file": "client/src/components/EnhancedProjectTimeline.css",
-      "context": [],
-      "owner": ".badge-info",
-      "property": "border",
-      "literal": "#93c5fd",
-      "locations": [
-        {
-          "line": 272,
-          "column": 21
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "b498fb932bba25fc2ecf14409e67840a91fef78c4be1681df2ec66dd49a18b2b",
-      "file": "client/src/components/EnhancedProjectTimeline.css",
-      "context": [],
-      "owner": ".phase-count",
-      "property": "color",
-      "literal": "#6b7280",
-      "locations": [
-        {
-          "line": 78,
-          "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "b5ab42f5171285b8781003cc01c3acb734c4427708f6b83d8fdae2e875981698",
-      "file": "client/src/components/EnhancedProjectTimeline.css",
-      "context": [],
-      "owner": ".badge-success",
-      "property": "background",
-      "literal": "#d1fae5",
-      "locations": [
-        {
-          "line": 258,
-          "column": 15
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "b6b4f20a57e89e66fd95aaa39da1e116e943e0648939be30906d6f8a1fb8ab38",
-      "file": "client/src/components/EnhancedProjectTimeline.css",
-      "context": [],
-      "owner": ".add-phase-form h4",
-      "property": "color",
-      "literal": "#1f2937",
-      "locations": [
-        {
-          "line": 415,
-          "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "bd4e3a8ccce0ea38025a538c32f8cbfb9391ea0491702bafe55e7edfd9288d03",
-      "file": "client/src/components/EnhancedProjectTimeline.css",
-      "context": [],
-      "owner": ".timeline-phase.compliant",
-      "property": "background",
-      "literal": "#f0fdf4",
-      "locations": [
-        {
-          "line": 104,
-          "column": 15
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "c638a25e6e09cfde7131eeae379c356faff8a689e8a3755b3d9c5f0f8dd80a2d",
-      "file": "client/src/components/EnhancedProjectTimeline.css",
-      "context": [],
-      "owner": ".form-input:focus, .form-textarea:focus",
-      "property": "border-color",
-      "literal": "#3b82f6",
-      "locations": [
-        {
-          "line": 371,
-          "column": 17
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "c9be4971398725d1faf1e2924c3870f72cac0af3850fec37c30c3f0eed116391",
-      "file": "client/src/components/EnhancedProjectTimeline.css",
-      "context": [],
-      "owner": ".timeline-phase.violation-min, .timeline-phase.violation-max",
-      "property": "background",
-      "literal": "#fef2f2",
-      "locations": [
-        {
-          "line": 120,
-          "column": 15
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "c9d1d9c3875c7db331655cd0ded397e56add85d02bbfa909adb31e3919ed128a",
-      "file": "client/src/components/EnhancedProjectTimeline.css",
-      "context": [],
-      "owner": ".btn-primary:hover",
-      "property": "border-color",
-      "literal": "#2563eb",
-      "locations": [
-        {
-          "line": 219,
-          "column": 17
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "ca438757e2fa3607a8dfa760debeced921ca19b682e3174332ca98e76dcf544f",
-      "file": "client/src/components/EnhancedProjectTimeline.css",
-      "context": [],
-      "owner": ".timeline-phase.custom",
-      "property": "background",
-      "literal": "#eff6ff",
-      "locations": [
-        {
-          "line": 114,
-          "column": 15
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "ccb1eb56c18fb01326e52a403da0f14dd071b24fa8ecb1742a2d71f315c2404a",
-      "file": "client/src/components/EnhancedProjectTimeline.css",
-      "context": [],
-      "owner": ".add-phase-btn:hover",
-      "property": "color",
-      "literal": "#3b82f6",
-      "locations": [
-        {
-          "line": 446,
-          "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "d25a78a80f7829b929419b266f500228cfa24ab62861c6f352556ff17a3a974d",
-      "file": "client/src/components/EnhancedProjectTimeline.css",
-      "context": [],
-      "owner": ".timeline-phase.violation-min, .timeline-phase.violation-max",
-      "property": "border-color",
-      "literal": "#ef4444",
-      "locations": [
-        {
-          "line": 119,
-          "column": 17
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "d434126d29c9f679f0e09a34c4473960701ebb090d2590364cf73c351ed21734",
-      "file": "client/src/components/EnhancedProjectTimeline.css",
-      "context": [],
-      "owner": ".btn-danger:hover",
-      "property": "border-color",
-      "literal": "#dc2626",
-      "locations": [
-        {
-          "line": 240,
-          "column": 17
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "d4536a1b233a7f70b439cdf42d1a2469df5a3c5e97f74dc7ff573293cb5ca928",
-      "file": "client/src/components/EnhancedProjectTimeline.css",
-      "context": [],
-      "owner": ".field-group small",
-      "property": "color",
-      "literal": "#6b7280",
-      "locations": [
-        {
-          "line": 351,
-          "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "d4a97f41ba87484c73483ec73bba0d737ce09092fd2b471f3259e2c7bf451a0e",
-      "file": "client/src/components/EnhancedProjectTimeline.css",
-      "context": [],
-      "owner": ".empty-timeline h4",
-      "property": "color",
-      "literal": "#4b5563",
-      "locations": [
-        {
-          "line": 457,
-          "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "d505373453c959d896d4dea6db5ae2830894fa60d346f174dd60fc46a061ca6c",
-      "file": "client/src/components/EnhancedProjectTimeline.css",
-      "context": [],
-      "owner": ".timeline-phase.compliant",
-      "property": "border-color",
-      "literal": "#10b981",
-      "locations": [
-        {
-          "line": 103,
-          "column": 17
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "da23ba2808afa5b560fdc0cbe17e791e7998c6386021c3b98fbd519a1d3d6e1b",
-      "file": "client/src/components/EnhancedProjectTimeline.css",
-      "context": [],
-      "owner": ".btn-primary:hover",
-      "property": "background",
-      "literal": "#2563eb",
-      "locations": [
-        {
-          "line": 218,
-          "column": 15
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "daaaccbe7c096bce279e6586779e9f3ae43f2c91a2588dc4f6ccd824ae64c302",
-      "file": "client/src/components/EnhancedProjectTimeline.css",
-      "context": [],
-      "owner": ".btn",
-      "property": "border",
-      "literal": "#d1d5db",
-      "locations": [
-        {
-          "line": 189,
-          "column": 21
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "db15715b2256f065438cf627249beb8aa829fa436e9c8290680c65e089c16b99",
-      "file": "client/src/components/EnhancedProjectTimeline.css",
-      "context": [],
-      "owner": ".timeline-phase.customized",
-      "property": "border-color",
-      "literal": "#f59e0b",
-      "locations": [
-        {
-          "line": 108,
-          "column": 17
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "e3773153d9827b2330d8756793e8631d6af6e1575fa836cada6e7ac18df470b3",
-      "file": "client/src/components/EnhancedProjectTimeline.css",
-      "context": [],
-      "owner": ".validation-errors",
-      "property": "background",
-      "literal": "#fef2f2",
-      "locations": [
-        {
-          "line": 384,
-          "column": 15
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "e4caa70a80780075cd0853c065da3c3d3091c56fc0dd8eee9bda246fa7bdedf1",
-      "file": "client/src/components/EnhancedProjectTimeline.css",
-      "context": [],
-      "owner": ".compliance-percentage.good",
-      "property": "color",
-      "literal": "#059669",
-      "locations": [
-        {
-          "line": 58,
-          "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "eb45415e4452a44ba7ce465cb87720bd4d9fa2780e77d3555743e03dc02e46d3",
-      "file": "client/src/components/EnhancedProjectTimeline.css",
-      "context": [],
-      "owner": ".add-phase-form",
-      "property": "border",
-      "literal": "#cbd5e1",
-      "locations": [
-        {
-          "line": 407,
-          "column": 22
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "ed7f61274462bda79c8c8f3828fa01da18efe0f8de1f60c85ab73dab585da1f1",
-      "file": "client/src/components/EnhancedProjectTimeline.css",
-      "context": [],
-      "owner": ".badge-danger",
-      "property": "border",
-      "literal": "#f87171",
-      "locations": [
-        {
-          "line": 278,
-          "column": 21
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "edbddc211494e5f21355d2e1dfe743130babc9de416985b5be066667525948f2",
-      "file": "client/src/components/EnhancedProjectTimeline.css",
-      "context": [],
-      "owner": ".form-input, .form-textarea",
-      "property": "border",
-      "literal": "#d1d5db",
-      "locations": [
-        {
-          "line": 357,
-          "column": 21
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "f2a258cd1aeb0a110713abb921ca79af789933764f7c30ee081d797d840f5611",
-      "file": "client/src/components/EnhancedProjectTimeline.css",
-      "context": [],
-      "owner": ".badge-success",
-      "property": "border",
-      "literal": "#10b981",
-      "locations": [
-        {
-          "line": 260,
-          "column": 21
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "f30a26efdf95e090b8b441a10a338caf3d7bed3a912785a298ebb27f8323562f",
-      "file": "client/src/components/EnhancedProjectTimeline.css",
-      "context": [],
-      "owner": ".btn-secondary:hover",
-      "property": "background",
-      "literal": "#4b5563",
-      "locations": [
-        {
-          "line": 229,
-          "column": 15
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "f3b6d889576860252dd8072fbc1ce150df7db66409d6797abaa50ed7440dd960",
-      "file": "client/src/components/EnhancedProjectTimeline.css",
-      "context": [],
-      "owner": ".add-phase-btn:hover",
-      "property": "border-color",
-      "literal": "#3b82f6",
-      "locations": [
-        {
-          "line": 444,
-          "column": 17
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "fe3e16ce7f746c72e86fe2257c90006cfd9a5c663ebd6064b3ce5bd13d78005f",
-      "file": "client/src/components/EnhancedProjectTimeline.css",
-      "context": [],
-      "owner": ".btn-primary",
-      "property": "background",
-      "literal": "#3b82f6",
-      "locations": [
-        {
-          "line": 212,
-          "column": 15
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "fe4550c63de9cf13ef374ca18557a6d951bbb35d815e27867eec74c7bf3b70f5",
-      "file": "client/src/components/EnhancedProjectTimeline.css",
-      "context": [],
-      "owner": ".badge-warning",
-      "property": "color",
-      "literal": "#d97706",
-      "locations": [
-        {
-          "line": 265,
-          "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "ffd706c7d3fb868690080a0ce7c50d529c63a9f680da6ea857a8d19b7821c785",
-      "file": "client/src/components/EnhancedProjectTimeline.css",
-      "context": [],
-      "owner": ".add-phase-btn",
-      "property": "border",
-      "literal": "#cbd5e1",
-      "locations": [
-        {
-          "line": 437,
-          "column": 22
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
       "fingerprint": "0d8174fdb2dd6cbe090a8f28949e3de0a030c9b0162c6c1782b11a56ee42880d",
       "file": "client/src/components/interactive-timeline/PhaseHandles.tsx",
       "context": [
@@ -14806,261 +13168,6 @@
       ],
       "count": 1,
       "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "107fcaeea5176f04b30fdab500dd82a69a82533c326d4f3cd1a4d612ccec1de9",
-      "file": "client/src/components/UnifiedProjectTimeline.tsx",
-      "context": [
-        "UnifiedProjectTimeline",
-        "jsx:style"
-      ],
-      "owner": "backgroundColor",
-      "property": "backgroundColor",
-      "literal": "#ffffff",
-      "locations": [
-        {
-          "line": 596,
-          "column": 31
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "11a557cc49ca8dcadf3b36a43bf1b47181c46a3b5f9f7898b397f3ba10f21846",
-      "file": "client/src/components/UnifiedProjectTimeline.tsx",
-      "context": [
-        "PHASE_COLORS"
-      ],
-      "owner": "'cutover'",
-      "property": "'cutover'",
-      "literal": "#ef4444",
-      "locations": [
-        {
-          "line": 67,
-          "column": 15
-        }
-      ],
-      "count": 1,
-      "kind": "unknown",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "34f230da69f3d383614bec95d43b83a3da3237e821246bde0faa5b2a3871aabe",
-      "file": "client/src/components/UnifiedProjectTimeline.tsx",
-      "context": [
-        "PHASE_COLORS"
-      ],
-      "owner": "'hypercare'",
-      "property": "'hypercare'",
-      "literal": "#06b6d4",
-      "locations": [
-        {
-          "line": 68,
-          "column": 17
-        }
-      ],
-      "count": 1,
-      "kind": "unknown",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "4b6ffa79a591fc1875dab1b624b88abb6ceb8c55f779a96a8fb50cfc55267daa",
-      "file": "client/src/components/UnifiedProjectTimeline.tsx",
-      "context": [
-        "PHASE_COLORS"
-      ],
-      "owner": "'support'",
-      "property": "'support'",
-      "literal": "#84cc16",
-      "locations": [
-        {
-          "line": 69,
-          "column": 15
-        }
-      ],
-      "count": 1,
-      "kind": "unknown",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "5568dbd3e86076ee52ce3e47ee73e2ee244b2fd83cf0ee58525239d3dc97f11d",
-      "file": "client/src/components/UnifiedProjectTimeline.tsx",
-      "context": [
-        "PHASE_COLORS"
-      ],
-      "owner": "'validation'",
-      "property": "'validation'",
-      "literal": "#ec4899",
-      "locations": [
-        {
-          "line": 66,
-          "column": 18
-        }
-      ],
-      "count": 1,
-      "kind": "unknown",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "6e104f3420d59ed8846ccbd5afce9e0b705b9321607c6e4fd50ce62c71385a09",
-      "file": "client/src/components/UnifiedProjectTimeline.tsx",
-      "context": [
-        "UnifiedProjectTimeline",
-        "jsx:style"
-      ],
-      "owner": "border",
-      "property": "border",
-      "literal": "#e5e7eb",
-      "locations": [
-        {
-          "line": 594,
-          "column": 32
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "98b804756bbe4628800f6fc90f86f99b24a5b7323fafc07b143fbcb6427f61de",
-      "file": "client/src/components/UnifiedProjectTimeline.tsx",
-      "context": [
-        "PHASE_COLORS"
-      ],
-      "owner": "'development'",
-      "property": "'development'",
-      "literal": "#10b981",
-      "locations": [
-        {
-          "line": 63,
-          "column": 19
-        }
-      ],
-      "count": 1,
-      "kind": "unknown",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "cabc352ba7237ddd92f207b5271ce2d7cb2690198b96979335f19a117747eb54",
-      "file": "client/src/components/UnifiedProjectTimeline.tsx",
-      "context": [
-        "PHASE_COLORS"
-      ],
-      "owner": "'user acceptance testing'",
-      "property": "'user acceptance testing'",
-      "literal": "#8b5cf6",
-      "locations": [
-        {
-          "line": 65,
-          "column": 31
-        }
-      ],
-      "count": 1,
-      "kind": "unknown",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "cb5cea160ce131adaf6df2409591427c18ddd96a57157b56ac30122ade0d146b",
-      "file": "client/src/components/UnifiedProjectTimeline.tsx",
-      "context": [
-        "PHASE_COLORS"
-      ],
-      "owner": "'system integration testing'",
-      "property": "'system integration testing'",
-      "literal": "#f59e0b",
-      "locations": [
-        {
-          "line": 64,
-          "column": 34
-        }
-      ],
-      "count": 1,
-      "kind": "unknown",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "cf7ee7ff0f84aac7f0216f2b3c94721ee111cc3dd55732492ffb93a65169f6c9",
-      "file": "client/src/components/UnifiedProjectTimeline.tsx",
-      "context": [
-        "PHASE_COLORS"
-      ],
-      "owner": "'custom'",
-      "property": "'custom'",
-      "literal": "#6b7280",
-      "locations": [
-        {
-          "line": 70,
-          "column": 14
-        }
-      ],
-      "count": 1,
-      "kind": "unknown",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "d6a10779589d6f26a02ecea0979a923da5937d97e5e89fd9dca5a53366ab7c77",
-      "file": "client/src/components/UnifiedProjectTimeline.tsx",
-      "context": [
-        "PHASE_COLORS"
-      ],
-      "owner": "'business planning'",
-      "property": "'business planning'",
-      "literal": "#3b82f6",
-      "locations": [
-        {
-          "line": 62,
-          "column": 25
-        }
-      ],
-      "count": 1,
-      "kind": "unknown",
       "reachability": "unverified",
       "decision": "pending",
       "semanticRole": null,
@@ -31110,21 +29217,823 @@
       "evidence": []
     }
   ],
-  "resolutions": [],
+  "resolutions": [
+    {
+      "fingerprint": "03fddd66642d35cee041f5579d4b6313999ffd24d8b409b55f7c08ad236f2c8f",
+      "file": "client/src/components/EnhancedProjectTimeline.css",
+      "literal": "#6b7280",
+      "count": 1,
+      "resolution": "retired-unused",
+      "reason": "TC-C0.5: no production imports, barrel exports, dynamic imports or registry references; exact retired timeline scope recoverable from git 9797f600865f0b2a40cd8c28058ad73d59ded10a",
+      "baselineHead": "9797f600865f0b2a40cd8c28058ad73d59ded10a"
+    },
+    {
+      "fingerprint": "0d0800cb197b048a046015eab173dcbdeaafd30093560f5e965cdb0475af61b3",
+      "file": "client/src/components/EnhancedProjectTimeline.css",
+      "literal": "#3b82f6",
+      "count": 1,
+      "resolution": "retired-unused",
+      "reason": "TC-C0.5: no production imports, barrel exports, dynamic imports or registry references; exact retired timeline scope recoverable from git 9797f600865f0b2a40cd8c28058ad73d59ded10a",
+      "baselineHead": "9797f600865f0b2a40cd8c28058ad73d59ded10a"
+    },
+    {
+      "fingerprint": "11df0c53380eb5023a9fa0a6855dddd16ff325300ad1f27fc914fb32353de6a6",
+      "file": "client/src/components/EnhancedProjectTimeline.css",
+      "literal": "#374151",
+      "count": 1,
+      "resolution": "retired-unused",
+      "reason": "TC-C0.5: no production imports, barrel exports, dynamic imports or registry references; exact retired timeline scope recoverable from git 9797f600865f0b2a40cd8c28058ad73d59ded10a",
+      "baselineHead": "9797f600865f0b2a40cd8c28058ad73d59ded10a"
+    },
+    {
+      "fingerprint": "18ccb126a1915ae68aca8cfb3086e1031c274c6c94688e29af74ade58a6f60bf",
+      "file": "client/src/components/EnhancedProjectTimeline.css",
+      "literal": "#dc2626",
+      "count": 1,
+      "resolution": "retired-unused",
+      "reason": "TC-C0.5: no production imports, barrel exports, dynamic imports or registry references; exact retired timeline scope recoverable from git 9797f600865f0b2a40cd8c28058ad73d59ded10a",
+      "baselineHead": "9797f600865f0b2a40cd8c28058ad73d59ded10a"
+    },
+    {
+      "fingerprint": "1c0032f97d3fc21e55e57508d3eebbdf0f9615d921b372184f8847bb870f928c",
+      "file": "client/src/components/EnhancedProjectTimeline.css",
+      "literal": "#dc2626",
+      "count": 1,
+      "resolution": "retired-unused",
+      "reason": "TC-C0.5: no production imports, barrel exports, dynamic imports or registry references; exact retired timeline scope recoverable from git 9797f600865f0b2a40cd8c28058ad73d59ded10a",
+      "baselineHead": "9797f600865f0b2a40cd8c28058ad73d59ded10a"
+    },
+    {
+      "fingerprint": "238fea67ac49f0f6935fdd7a1b4f6fac7f0d12fc70c4768797d18c6e2bf08227",
+      "file": "client/src/components/EnhancedProjectTimeline.css",
+      "literal": "#fef3c7",
+      "count": 1,
+      "resolution": "retired-unused",
+      "reason": "TC-C0.5: no production imports, barrel exports, dynamic imports or registry references; exact retired timeline scope recoverable from git 9797f600865f0b2a40cd8c28058ad73d59ded10a",
+      "baselineHead": "9797f600865f0b2a40cd8c28058ad73d59ded10a"
+    },
+    {
+      "fingerprint": "24e20910dee12deecd943186296949d71c85f8a87a8e89b8ed13c619d6b1d9e8",
+      "file": "client/src/components/EnhancedProjectTimeline.css",
+      "literal": "#e5e7eb",
+      "count": 1,
+      "resolution": "retired-unused",
+      "reason": "TC-C0.5: no production imports, barrel exports, dynamic imports or registry references; exact retired timeline scope recoverable from git 9797f600865f0b2a40cd8c28058ad73d59ded10a",
+      "baselineHead": "9797f600865f0b2a40cd8c28058ad73d59ded10a"
+    },
+    {
+      "fingerprint": "292470521800008e14a90dcae260d931d884ab830d05c62ace1afc6670029998",
+      "file": "client/src/components/EnhancedProjectTimeline.css",
+      "literal": "#6b7280",
+      "count": 1,
+      "resolution": "retired-unused",
+      "reason": "TC-C0.5: no production imports, barrel exports, dynamic imports or registry references; exact retired timeline scope recoverable from git 9797f600865f0b2a40cd8c28058ad73d59ded10a",
+      "baselineHead": "9797f600865f0b2a40cd8c28058ad73d59ded10a"
+    },
+    {
+      "fingerprint": "2a4950a18395e7bd5ed568c9f0ce60bd3c25f3e77e271b59b0bf5d82f5af08c4",
+      "file": "client/src/components/EnhancedProjectTimeline.css",
+      "literal": "#d97706",
+      "count": 1,
+      "resolution": "retired-unused",
+      "reason": "TC-C0.5: no production imports, barrel exports, dynamic imports or registry references; exact retired timeline scope recoverable from git 9797f600865f0b2a40cd8c28058ad73d59ded10a",
+      "baselineHead": "9797f600865f0b2a40cd8c28058ad73d59ded10a"
+    },
+    {
+      "fingerprint": "2c4a9044efd83348e10f11d72389d78660c3a481849b583f7b3e4f69a2545201",
+      "file": "client/src/components/EnhancedProjectTimeline.css",
+      "literal": "#1f2937",
+      "count": 1,
+      "resolution": "retired-unused",
+      "reason": "TC-C0.5: no production imports, barrel exports, dynamic imports or registry references; exact retired timeline scope recoverable from git 9797f600865f0b2a40cd8c28058ad73d59ded10a",
+      "baselineHead": "9797f600865f0b2a40cd8c28058ad73d59ded10a"
+    },
+    {
+      "fingerprint": "2fa2867c27678222ff94bdd1f5de66cb639e41f10511ef8ff4e70998bee284bd",
+      "file": "client/src/components/EnhancedProjectTimeline.css",
+      "literal": "#2563eb",
+      "count": 1,
+      "resolution": "retired-unused",
+      "reason": "TC-C0.5: no production imports, barrel exports, dynamic imports or registry references; exact retired timeline scope recoverable from git 9797f600865f0b2a40cd8c28058ad73d59ded10a",
+      "baselineHead": "9797f600865f0b2a40cd8c28058ad73d59ded10a"
+    },
+    {
+      "fingerprint": "3331e9cd243ed52992990821932ffecc13bc5086f73989ba8557e5981bacb915",
+      "file": "client/src/components/EnhancedProjectTimeline.css",
+      "literal": "#1e293b",
+      "count": 1,
+      "resolution": "retired-unused",
+      "reason": "TC-C0.5: no production imports, barrel exports, dynamic imports or registry references; exact retired timeline scope recoverable from git 9797f600865f0b2a40cd8c28058ad73d59ded10a",
+      "baselineHead": "9797f600865f0b2a40cd8c28058ad73d59ded10a"
+    },
+    {
+      "fingerprint": "36f64c5eba67d55b007dbf28ae427946598a52af0e99580bd0e8fcb62c2a7aa2",
+      "file": "client/src/components/EnhancedProjectTimeline.css",
+      "literal": "#374151",
+      "count": 1,
+      "resolution": "retired-unused",
+      "reason": "TC-C0.5: no production imports, barrel exports, dynamic imports or registry references; exact retired timeline scope recoverable from git 9797f600865f0b2a40cd8c28058ad73d59ded10a",
+      "baselineHead": "9797f600865f0b2a40cd8c28058ad73d59ded10a"
+    },
+    {
+      "fingerprint": "37ae08231497a9fd6e27d1d7e2b3630f98a57aa4f07202ef14c1ba35a2b8cf1e",
+      "file": "client/src/components/EnhancedProjectTimeline.css",
+      "literal": "#dc2626",
+      "count": 1,
+      "resolution": "retired-unused",
+      "reason": "TC-C0.5: no production imports, barrel exports, dynamic imports or registry references; exact retired timeline scope recoverable from git 9797f600865f0b2a40cd8c28058ad73d59ded10a",
+      "baselineHead": "9797f600865f0b2a40cd8c28058ad73d59ded10a"
+    },
+    {
+      "fingerprint": "3a0f93716d1e2e68661f96679761b67a1a8bffba4524213a2c735b373adb1634",
+      "file": "client/src/components/EnhancedProjectTimeline.css",
+      "literal": "#fef2f2",
+      "count": 1,
+      "resolution": "retired-unused",
+      "reason": "TC-C0.5: no production imports, barrel exports, dynamic imports or registry references; exact retired timeline scope recoverable from git 9797f600865f0b2a40cd8c28058ad73d59ded10a",
+      "baselineHead": "9797f600865f0b2a40cd8c28058ad73d59ded10a"
+    },
+    {
+      "fingerprint": "3fdd89505b94495da9f964ab1b6a9945c2dddff6b43d52cb6c14ba9843b0752b",
+      "file": "client/src/components/EnhancedProjectTimeline.css",
+      "literal": "#1f2937",
+      "count": 1,
+      "resolution": "retired-unused",
+      "reason": "TC-C0.5: no production imports, barrel exports, dynamic imports or registry references; exact retired timeline scope recoverable from git 9797f600865f0b2a40cd8c28058ad73d59ded10a",
+      "baselineHead": "9797f600865f0b2a40cd8c28058ad73d59ded10a"
+    },
+    {
+      "fingerprint": "4027cb886e85627d05e28a09a09038f761c8c239f7e5a1f6339149837c2e13fb",
+      "file": "client/src/components/EnhancedProjectTimeline.css",
+      "literal": "#3b82f6",
+      "count": 1,
+      "resolution": "retired-unused",
+      "reason": "TC-C0.5: no production imports, barrel exports, dynamic imports or registry references; exact retired timeline scope recoverable from git 9797f600865f0b2a40cd8c28058ad73d59ded10a",
+      "baselineHead": "9797f600865f0b2a40cd8c28058ad73d59ded10a"
+    },
+    {
+      "fingerprint": "53de580de0ad21368ba85fa40ae24908594369f69338bc4e74b2556ec3138fd5",
+      "file": "client/src/components/EnhancedProjectTimeline.css",
+      "literal": "#eff6ff",
+      "count": 1,
+      "resolution": "retired-unused",
+      "reason": "TC-C0.5: no production imports, barrel exports, dynamic imports or registry references; exact retired timeline scope recoverable from git 9797f600865f0b2a40cd8c28058ad73d59ded10a",
+      "baselineHead": "9797f600865f0b2a40cd8c28058ad73d59ded10a"
+    },
+    {
+      "fingerprint": "55c5c1b79b9f0e9716a2a00d1a01bcc64ca3accb6381da1fcb59c93b8a707e82",
+      "file": "client/src/components/EnhancedProjectTimeline.css",
+      "literal": "#4b5563",
+      "count": 1,
+      "resolution": "retired-unused",
+      "reason": "TC-C0.5: no production imports, barrel exports, dynamic imports or registry references; exact retired timeline scope recoverable from git 9797f600865f0b2a40cd8c28058ad73d59ded10a",
+      "baselineHead": "9797f600865f0b2a40cd8c28058ad73d59ded10a"
+    },
+    {
+      "fingerprint": "5747784b8207c7f5ff36ced32bb74084dd862eb30a110a8ac3c959e58b70a772",
+      "file": "client/src/components/EnhancedProjectTimeline.css",
+      "literal": "#d1fae5",
+      "count": 1,
+      "resolution": "retired-unused",
+      "reason": "TC-C0.5: no production imports, barrel exports, dynamic imports or registry references; exact retired timeline scope recoverable from git 9797f600865f0b2a40cd8c28058ad73d59ded10a",
+      "baselineHead": "9797f600865f0b2a40cd8c28058ad73d59ded10a"
+    },
+    {
+      "fingerprint": "58e068bd18eda84c02455e6235ae92035a1e29a6be461c7c060857eaa9e4573b",
+      "file": "client/src/components/EnhancedProjectTimeline.css",
+      "literal": "#fef3c7",
+      "count": 1,
+      "resolution": "retired-unused",
+      "reason": "TC-C0.5: no production imports, barrel exports, dynamic imports or registry references; exact retired timeline scope recoverable from git 9797f600865f0b2a40cd8c28058ad73d59ded10a",
+      "baselineHead": "9797f600865f0b2a40cd8c28058ad73d59ded10a"
+    },
+    {
+      "fingerprint": "5a6d20d18bde0e48aef85e637109fd0132d29b8072e8ecde6c4032f4e0e5e65d",
+      "file": "client/src/components/EnhancedProjectTimeline.css",
+      "literal": "#6b7280",
+      "count": 1,
+      "resolution": "retired-unused",
+      "reason": "TC-C0.5: no production imports, barrel exports, dynamic imports or registry references; exact retired timeline scope recoverable from git 9797f600865f0b2a40cd8c28058ad73d59ded10a",
+      "baselineHead": "9797f600865f0b2a40cd8c28058ad73d59ded10a"
+    },
+    {
+      "fingerprint": "5db62187d7b5a3c6a0e6c7d1c61b5fd9667c36ba07112da004ad6280b471a091",
+      "file": "client/src/components/EnhancedProjectTimeline.css",
+      "literal": "#fffbeb",
+      "count": 1,
+      "resolution": "retired-unused",
+      "reason": "TC-C0.5: no production imports, barrel exports, dynamic imports or registry references; exact retired timeline scope recoverable from git 9797f600865f0b2a40cd8c28058ad73d59ded10a",
+      "baselineHead": "9797f600865f0b2a40cd8c28058ad73d59ded10a"
+    },
+    {
+      "fingerprint": "62578969eeb9105a85704b66878930100aec94252ca970dfd07309101b528812",
+      "file": "client/src/components/EnhancedProjectTimeline.css",
+      "literal": "#dbeafe",
+      "count": 1,
+      "resolution": "retired-unused",
+      "reason": "TC-C0.5: no production imports, barrel exports, dynamic imports or registry references; exact retired timeline scope recoverable from git 9797f600865f0b2a40cd8c28058ad73d59ded10a",
+      "baselineHead": "9797f600865f0b2a40cd8c28058ad73d59ded10a"
+    },
+    {
+      "fingerprint": "64855b57eb71cda465a50c051703783b6f5ad6b6c5caafa415bb2a0675737eb7",
+      "file": "client/src/components/EnhancedProjectTimeline.css",
+      "literal": "#e2e8f0",
+      "count": 1,
+      "resolution": "retired-unused",
+      "reason": "TC-C0.5: no production imports, barrel exports, dynamic imports or registry references; exact retired timeline scope recoverable from git 9797f600865f0b2a40cd8c28058ad73d59ded10a",
+      "baselineHead": "9797f600865f0b2a40cd8c28058ad73d59ded10a"
+    },
+    {
+      "fingerprint": "6b21088ac2059c2155ba95bf9e17edde9b08875cf10efb9e9b2e250c5316c9ee",
+      "file": "client/src/components/EnhancedProjectTimeline.css",
+      "literal": "rgba(59, 130, 246, 0.1)",
+      "count": 1,
+      "resolution": "retired-unused",
+      "reason": "TC-C0.5: no production imports, barrel exports, dynamic imports or registry references; exact retired timeline scope recoverable from git 9797f600865f0b2a40cd8c28058ad73d59ded10a",
+      "baselineHead": "9797f600865f0b2a40cd8c28058ad73d59ded10a"
+    },
+    {
+      "fingerprint": "6b3d54c532d8a5b87984776f7bedd4054d7200a03a7a27ef949eea0d922d926b",
+      "file": "client/src/components/EnhancedProjectTimeline.css",
+      "literal": "#e5e7eb",
+      "count": 1,
+      "resolution": "retired-unused",
+      "reason": "TC-C0.5: no production imports, barrel exports, dynamic imports or registry references; exact retired timeline scope recoverable from git 9797f600865f0b2a40cd8c28058ad73d59ded10a",
+      "baselineHead": "9797f600865f0b2a40cd8c28058ad73d59ded10a"
+    },
+    {
+      "fingerprint": "6c727cca44b52d566bc2803e3852720dbcaf94e49ae4f484c9feb50212099c74",
+      "file": "client/src/components/EnhancedProjectTimeline.css",
+      "literal": "white",
+      "count": 1,
+      "resolution": "retired-unused",
+      "reason": "TC-C0.5: no production imports, barrel exports, dynamic imports or registry references; exact retired timeline scope recoverable from git 9797f600865f0b2a40cd8c28058ad73d59ded10a",
+      "baselineHead": "9797f600865f0b2a40cd8c28058ad73d59ded10a"
+    },
+    {
+      "fingerprint": "6d682948548f33c46da2ab2bdb379f1e0e0a34a386c9196e3604b07fb875aef5",
+      "file": "client/src/components/EnhancedProjectTimeline.css",
+      "literal": "#64748b",
+      "count": 1,
+      "resolution": "retired-unused",
+      "reason": "TC-C0.5: no production imports, barrel exports, dynamic imports or registry references; exact retired timeline scope recoverable from git 9797f600865f0b2a40cd8c28058ad73d59ded10a",
+      "baselineHead": "9797f600865f0b2a40cd8c28058ad73d59ded10a"
+    },
+    {
+      "fingerprint": "71fbb42345ba0b89ec3630e66425de3a295128ff7dd0398ce0a21b234cadcc34",
+      "file": "client/src/components/EnhancedProjectTimeline.css",
+      "literal": "#1f2937",
+      "count": 1,
+      "resolution": "retired-unused",
+      "reason": "TC-C0.5: no production imports, barrel exports, dynamic imports or registry references; exact retired timeline scope recoverable from git 9797f600865f0b2a40cd8c28058ad73d59ded10a",
+      "baselineHead": "9797f600865f0b2a40cd8c28058ad73d59ded10a"
+    },
+    {
+      "fingerprint": "7379d1ed626a5dd476afd20a056a643c40f8ea9c7527b108f19fe16dc74a3ede",
+      "file": "client/src/components/EnhancedProjectTimeline.css",
+      "literal": "#64748b",
+      "count": 1,
+      "resolution": "retired-unused",
+      "reason": "TC-C0.5: no production imports, barrel exports, dynamic imports or registry references; exact retired timeline scope recoverable from git 9797f600865f0b2a40cd8c28058ad73d59ded10a",
+      "baselineHead": "9797f600865f0b2a40cd8c28058ad73d59ded10a"
+    },
+    {
+      "fingerprint": "7545ed3f526a8e879f3c26a0c929402656f918770319b1590d0bc38dbd2c390b",
+      "file": "client/src/components/EnhancedProjectTimeline.css",
+      "literal": "white",
+      "count": 1,
+      "resolution": "retired-unused",
+      "reason": "TC-C0.5: no production imports, barrel exports, dynamic imports or registry references; exact retired timeline scope recoverable from git 9797f600865f0b2a40cd8c28058ad73d59ded10a",
+      "baselineHead": "9797f600865f0b2a40cd8c28058ad73d59ded10a"
+    },
+    {
+      "fingerprint": "76daf0759ad730a8b3494e90045ef850c13fb38172b44bc1965a2c4f65b9b7f0",
+      "file": "client/src/components/EnhancedProjectTimeline.css",
+      "literal": "rgba(0, 0, 0, 0.1)",
+      "count": 1,
+      "resolution": "retired-unused",
+      "reason": "TC-C0.5: no production imports, barrel exports, dynamic imports or registry references; exact retired timeline scope recoverable from git 9797f600865f0b2a40cd8c28058ad73d59ded10a",
+      "baselineHead": "9797f600865f0b2a40cd8c28058ad73d59ded10a"
+    },
+    {
+      "fingerprint": "7a013a52a72e95eded090091632dc7c9ad7cc5c3ed3ca226b610122a59ad54da",
+      "file": "client/src/components/EnhancedProjectTimeline.css",
+      "literal": "#fca5a5",
+      "count": 1,
+      "resolution": "retired-unused",
+      "reason": "TC-C0.5: no production imports, barrel exports, dynamic imports or registry references; exact retired timeline scope recoverable from git 9797f600865f0b2a40cd8c28058ad73d59ded10a",
+      "baselineHead": "9797f600865f0b2a40cd8c28058ad73d59ded10a"
+    },
+    {
+      "fingerprint": "84b7a28f53daa3593a20f0a1d5c2bd98756becee450e7d3a6dffe452987a14aa",
+      "file": "client/src/components/EnhancedProjectTimeline.css",
+      "literal": "#e5e7eb",
+      "count": 1,
+      "resolution": "retired-unused",
+      "reason": "TC-C0.5: no production imports, barrel exports, dynamic imports or registry references; exact retired timeline scope recoverable from git 9797f600865f0b2a40cd8c28058ad73d59ded10a",
+      "baselineHead": "9797f600865f0b2a40cd8c28058ad73d59ded10a"
+    },
+    {
+      "fingerprint": "8603d3bfa5a096767312fc7011ad932e729d098da58654353822f363f4d57fd5",
+      "file": "client/src/components/EnhancedProjectTimeline.css",
+      "literal": "#6b7280",
+      "count": 1,
+      "resolution": "retired-unused",
+      "reason": "TC-C0.5: no production imports, barrel exports, dynamic imports or registry references; exact retired timeline scope recoverable from git 9797f600865f0b2a40cd8c28058ad73d59ded10a",
+      "baselineHead": "9797f600865f0b2a40cd8c28058ad73d59ded10a"
+    },
+    {
+      "fingerprint": "8eef814f3de61a4dc168f9d42b5eac3ff27ef237797ff1db900786e6deef9625",
+      "file": "client/src/components/EnhancedProjectTimeline.css",
+      "literal": "#f59e0b",
+      "count": 1,
+      "resolution": "retired-unused",
+      "reason": "TC-C0.5: no production imports, barrel exports, dynamic imports or registry references; exact retired timeline scope recoverable from git 9797f600865f0b2a40cd8c28058ad73d59ded10a",
+      "baselineHead": "9797f600865f0b2a40cd8c28058ad73d59ded10a"
+    },
+    {
+      "fingerprint": "9801a66a8132d20f6eae2d103a77772aeabfed947a73da8cecba56ac4d054bb5",
+      "file": "client/src/components/EnhancedProjectTimeline.css",
+      "literal": "#e5e7eb",
+      "count": 1,
+      "resolution": "retired-unused",
+      "reason": "TC-C0.5: no production imports, barrel exports, dynamic imports or registry references; exact retired timeline scope recoverable from git 9797f600865f0b2a40cd8c28058ad73d59ded10a",
+      "baselineHead": "9797f600865f0b2a40cd8c28058ad73d59ded10a"
+    },
+    {
+      "fingerprint": "9860788838167c7378a51b71466b2b82613acb5992a655861c7542f31dbe7b07",
+      "file": "client/src/components/EnhancedProjectTimeline.css",
+      "literal": "#fee2e2",
+      "count": 1,
+      "resolution": "retired-unused",
+      "reason": "TC-C0.5: no production imports, barrel exports, dynamic imports or registry references; exact retired timeline scope recoverable from git 9797f600865f0b2a40cd8c28058ad73d59ded10a",
+      "baselineHead": "9797f600865f0b2a40cd8c28058ad73d59ded10a"
+    },
+    {
+      "fingerprint": "9d370c435905fdc0d02df2e0c791bf707970139cf16ef5985f190b8bf838c786",
+      "file": "client/src/components/EnhancedProjectTimeline.css",
+      "literal": "rgba(0, 0, 0, 0.1)",
+      "count": 1,
+      "resolution": "retired-unused",
+      "reason": "TC-C0.5: no production imports, barrel exports, dynamic imports or registry references; exact retired timeline scope recoverable from git 9797f600865f0b2a40cd8c28058ad73d59ded10a",
+      "baselineHead": "9797f600865f0b2a40cd8c28058ad73d59ded10a"
+    },
+    {
+      "fingerprint": "9e4d332361aeaa20cc278e7e2f4f52af1509e73190476b9af290b1078fae1119",
+      "file": "client/src/components/EnhancedProjectTimeline.css",
+      "literal": "white",
+      "count": 1,
+      "resolution": "retired-unused",
+      "reason": "TC-C0.5: no production imports, barrel exports, dynamic imports or registry references; exact retired timeline scope recoverable from git 9797f600865f0b2a40cd8c28058ad73d59ded10a",
+      "baselineHead": "9797f600865f0b2a40cd8c28058ad73d59ded10a"
+    },
+    {
+      "fingerprint": "a05bd964d61d3911f859da2f924ea1607fff423fd107a6dd8662a1aad98df94f",
+      "file": "client/src/components/EnhancedProjectTimeline.css",
+      "literal": "#fbbf24",
+      "count": 1,
+      "resolution": "retired-unused",
+      "reason": "TC-C0.5: no production imports, barrel exports, dynamic imports or registry references; exact retired timeline scope recoverable from git 9797f600865f0b2a40cd8c28058ad73d59ded10a",
+      "baselineHead": "9797f600865f0b2a40cd8c28058ad73d59ded10a"
+    },
+    {
+      "fingerprint": "a39df6edc75ee844c6d74776f8f52a42cbae21723862a7f299906f9066e1c5e8",
+      "file": "client/src/components/EnhancedProjectTimeline.css",
+      "literal": "#fca5a5",
+      "count": 1,
+      "resolution": "retired-unused",
+      "reason": "TC-C0.5: no production imports, barrel exports, dynamic imports or registry references; exact retired timeline scope recoverable from git 9797f600865f0b2a40cd8c28058ad73d59ded10a",
+      "baselineHead": "9797f600865f0b2a40cd8c28058ad73d59ded10a"
+    },
+    {
+      "fingerprint": "a6343cf9a8ea5185afd04ded88b321ca5619af17f4e3d5b1c6d1924189d91fbb",
+      "file": "client/src/components/EnhancedProjectTimeline.css",
+      "literal": "#1f2937",
+      "count": 1,
+      "resolution": "retired-unused",
+      "reason": "TC-C0.5: no production imports, barrel exports, dynamic imports or registry references; exact retired timeline scope recoverable from git 9797f600865f0b2a40cd8c28058ad73d59ded10a",
+      "baselineHead": "9797f600865f0b2a40cd8c28058ad73d59ded10a"
+    },
+    {
+      "fingerprint": "a6c2317175989bfb497376f77483e71d3ba59a3781ffef8cede5c3aca6c6e7d1",
+      "file": "client/src/components/EnhancedProjectTimeline.css",
+      "literal": "#3b82f6",
+      "count": 1,
+      "resolution": "retired-unused",
+      "reason": "TC-C0.5: no production imports, barrel exports, dynamic imports or registry references; exact retired timeline scope recoverable from git 9797f600865f0b2a40cd8c28058ad73d59ded10a",
+      "baselineHead": "9797f600865f0b2a40cd8c28058ad73d59ded10a"
+    },
+    {
+      "fingerprint": "a75cd133713e9e4cf7d546b9d0fdcbe06943731598435f6f183848099036dd92",
+      "file": "client/src/components/EnhancedProjectTimeline.css",
+      "literal": "#6b7280",
+      "count": 1,
+      "resolution": "retired-unused",
+      "reason": "TC-C0.5: no production imports, barrel exports, dynamic imports or registry references; exact retired timeline scope recoverable from git 9797f600865f0b2a40cd8c28058ad73d59ded10a",
+      "baselineHead": "9797f600865f0b2a40cd8c28058ad73d59ded10a"
+    },
+    {
+      "fingerprint": "aa674174601456e1277b9c13b4979e7d4429cbfe282f485d5212927266da806a",
+      "file": "client/src/components/EnhancedProjectTimeline.css",
+      "literal": "#dc2626",
+      "count": 1,
+      "resolution": "retired-unused",
+      "reason": "TC-C0.5: no production imports, barrel exports, dynamic imports or registry references; exact retired timeline scope recoverable from git 9797f600865f0b2a40cd8c28058ad73d59ded10a",
+      "baselineHead": "9797f600865f0b2a40cd8c28058ad73d59ded10a"
+    },
+    {
+      "fingerprint": "ac33129f438d7b71d37717565903c0447b9e46dd54511e82ad15a4f824ea4599",
+      "file": "client/src/components/EnhancedProjectTimeline.css",
+      "literal": "#9ca3af",
+      "count": 1,
+      "resolution": "retired-unused",
+      "reason": "TC-C0.5: no production imports, barrel exports, dynamic imports or registry references; exact retired timeline scope recoverable from git 9797f600865f0b2a40cd8c28058ad73d59ded10a",
+      "baselineHead": "9797f600865f0b2a40cd8c28058ad73d59ded10a"
+    },
+    {
+      "fingerprint": "af882480f910d150d82de5ef4f8b685a3dedca1d8123aae114a4a577e9fdfb2f",
+      "file": "client/src/components/EnhancedProjectTimeline.css",
+      "literal": "#059669",
+      "count": 1,
+      "resolution": "retired-unused",
+      "reason": "TC-C0.5: no production imports, barrel exports, dynamic imports or registry references; exact retired timeline scope recoverable from git 9797f600865f0b2a40cd8c28058ad73d59ded10a",
+      "baselineHead": "9797f600865f0b2a40cd8c28058ad73d59ded10a"
+    },
+    {
+      "fingerprint": "b46a6555d9e1e811ce8c7db2e122b2f799c200d317070cc62a55c78a7a2181c1",
+      "file": "client/src/components/EnhancedProjectTimeline.css",
+      "literal": "#93c5fd",
+      "count": 1,
+      "resolution": "retired-unused",
+      "reason": "TC-C0.5: no production imports, barrel exports, dynamic imports or registry references; exact retired timeline scope recoverable from git 9797f600865f0b2a40cd8c28058ad73d59ded10a",
+      "baselineHead": "9797f600865f0b2a40cd8c28058ad73d59ded10a"
+    },
+    {
+      "fingerprint": "b498fb932bba25fc2ecf14409e67840a91fef78c4be1681df2ec66dd49a18b2b",
+      "file": "client/src/components/EnhancedProjectTimeline.css",
+      "literal": "#6b7280",
+      "count": 1,
+      "resolution": "retired-unused",
+      "reason": "TC-C0.5: no production imports, barrel exports, dynamic imports or registry references; exact retired timeline scope recoverable from git 9797f600865f0b2a40cd8c28058ad73d59ded10a",
+      "baselineHead": "9797f600865f0b2a40cd8c28058ad73d59ded10a"
+    },
+    {
+      "fingerprint": "b5ab42f5171285b8781003cc01c3acb734c4427708f6b83d8fdae2e875981698",
+      "file": "client/src/components/EnhancedProjectTimeline.css",
+      "literal": "#d1fae5",
+      "count": 1,
+      "resolution": "retired-unused",
+      "reason": "TC-C0.5: no production imports, barrel exports, dynamic imports or registry references; exact retired timeline scope recoverable from git 9797f600865f0b2a40cd8c28058ad73d59ded10a",
+      "baselineHead": "9797f600865f0b2a40cd8c28058ad73d59ded10a"
+    },
+    {
+      "fingerprint": "b6b4f20a57e89e66fd95aaa39da1e116e943e0648939be30906d6f8a1fb8ab38",
+      "file": "client/src/components/EnhancedProjectTimeline.css",
+      "literal": "#1f2937",
+      "count": 1,
+      "resolution": "retired-unused",
+      "reason": "TC-C0.5: no production imports, barrel exports, dynamic imports or registry references; exact retired timeline scope recoverable from git 9797f600865f0b2a40cd8c28058ad73d59ded10a",
+      "baselineHead": "9797f600865f0b2a40cd8c28058ad73d59ded10a"
+    },
+    {
+      "fingerprint": "bd4e3a8ccce0ea38025a538c32f8cbfb9391ea0491702bafe55e7edfd9288d03",
+      "file": "client/src/components/EnhancedProjectTimeline.css",
+      "literal": "#f0fdf4",
+      "count": 1,
+      "resolution": "retired-unused",
+      "reason": "TC-C0.5: no production imports, barrel exports, dynamic imports or registry references; exact retired timeline scope recoverable from git 9797f600865f0b2a40cd8c28058ad73d59ded10a",
+      "baselineHead": "9797f600865f0b2a40cd8c28058ad73d59ded10a"
+    },
+    {
+      "fingerprint": "c638a25e6e09cfde7131eeae379c356faff8a689e8a3755b3d9c5f0f8dd80a2d",
+      "file": "client/src/components/EnhancedProjectTimeline.css",
+      "literal": "#3b82f6",
+      "count": 1,
+      "resolution": "retired-unused",
+      "reason": "TC-C0.5: no production imports, barrel exports, dynamic imports or registry references; exact retired timeline scope recoverable from git 9797f600865f0b2a40cd8c28058ad73d59ded10a",
+      "baselineHead": "9797f600865f0b2a40cd8c28058ad73d59ded10a"
+    },
+    {
+      "fingerprint": "c9be4971398725d1faf1e2924c3870f72cac0af3850fec37c30c3f0eed116391",
+      "file": "client/src/components/EnhancedProjectTimeline.css",
+      "literal": "#fef2f2",
+      "count": 1,
+      "resolution": "retired-unused",
+      "reason": "TC-C0.5: no production imports, barrel exports, dynamic imports or registry references; exact retired timeline scope recoverable from git 9797f600865f0b2a40cd8c28058ad73d59ded10a",
+      "baselineHead": "9797f600865f0b2a40cd8c28058ad73d59ded10a"
+    },
+    {
+      "fingerprint": "c9d1d9c3875c7db331655cd0ded397e56add85d02bbfa909adb31e3919ed128a",
+      "file": "client/src/components/EnhancedProjectTimeline.css",
+      "literal": "#2563eb",
+      "count": 1,
+      "resolution": "retired-unused",
+      "reason": "TC-C0.5: no production imports, barrel exports, dynamic imports or registry references; exact retired timeline scope recoverable from git 9797f600865f0b2a40cd8c28058ad73d59ded10a",
+      "baselineHead": "9797f600865f0b2a40cd8c28058ad73d59ded10a"
+    },
+    {
+      "fingerprint": "ca438757e2fa3607a8dfa760debeced921ca19b682e3174332ca98e76dcf544f",
+      "file": "client/src/components/EnhancedProjectTimeline.css",
+      "literal": "#eff6ff",
+      "count": 1,
+      "resolution": "retired-unused",
+      "reason": "TC-C0.5: no production imports, barrel exports, dynamic imports or registry references; exact retired timeline scope recoverable from git 9797f600865f0b2a40cd8c28058ad73d59ded10a",
+      "baselineHead": "9797f600865f0b2a40cd8c28058ad73d59ded10a"
+    },
+    {
+      "fingerprint": "ccb1eb56c18fb01326e52a403da0f14dd071b24fa8ecb1742a2d71f315c2404a",
+      "file": "client/src/components/EnhancedProjectTimeline.css",
+      "literal": "#3b82f6",
+      "count": 1,
+      "resolution": "retired-unused",
+      "reason": "TC-C0.5: no production imports, barrel exports, dynamic imports or registry references; exact retired timeline scope recoverable from git 9797f600865f0b2a40cd8c28058ad73d59ded10a",
+      "baselineHead": "9797f600865f0b2a40cd8c28058ad73d59ded10a"
+    },
+    {
+      "fingerprint": "d25a78a80f7829b929419b266f500228cfa24ab62861c6f352556ff17a3a974d",
+      "file": "client/src/components/EnhancedProjectTimeline.css",
+      "literal": "#ef4444",
+      "count": 1,
+      "resolution": "retired-unused",
+      "reason": "TC-C0.5: no production imports, barrel exports, dynamic imports or registry references; exact retired timeline scope recoverable from git 9797f600865f0b2a40cd8c28058ad73d59ded10a",
+      "baselineHead": "9797f600865f0b2a40cd8c28058ad73d59ded10a"
+    },
+    {
+      "fingerprint": "d434126d29c9f679f0e09a34c4473960701ebb090d2590364cf73c351ed21734",
+      "file": "client/src/components/EnhancedProjectTimeline.css",
+      "literal": "#dc2626",
+      "count": 1,
+      "resolution": "retired-unused",
+      "reason": "TC-C0.5: no production imports, barrel exports, dynamic imports or registry references; exact retired timeline scope recoverable from git 9797f600865f0b2a40cd8c28058ad73d59ded10a",
+      "baselineHead": "9797f600865f0b2a40cd8c28058ad73d59ded10a"
+    },
+    {
+      "fingerprint": "d4536a1b233a7f70b439cdf42d1a2469df5a3c5e97f74dc7ff573293cb5ca928",
+      "file": "client/src/components/EnhancedProjectTimeline.css",
+      "literal": "#6b7280",
+      "count": 1,
+      "resolution": "retired-unused",
+      "reason": "TC-C0.5: no production imports, barrel exports, dynamic imports or registry references; exact retired timeline scope recoverable from git 9797f600865f0b2a40cd8c28058ad73d59ded10a",
+      "baselineHead": "9797f600865f0b2a40cd8c28058ad73d59ded10a"
+    },
+    {
+      "fingerprint": "d4a97f41ba87484c73483ec73bba0d737ce09092fd2b471f3259e2c7bf451a0e",
+      "file": "client/src/components/EnhancedProjectTimeline.css",
+      "literal": "#4b5563",
+      "count": 1,
+      "resolution": "retired-unused",
+      "reason": "TC-C0.5: no production imports, barrel exports, dynamic imports or registry references; exact retired timeline scope recoverable from git 9797f600865f0b2a40cd8c28058ad73d59ded10a",
+      "baselineHead": "9797f600865f0b2a40cd8c28058ad73d59ded10a"
+    },
+    {
+      "fingerprint": "d505373453c959d896d4dea6db5ae2830894fa60d346f174dd60fc46a061ca6c",
+      "file": "client/src/components/EnhancedProjectTimeline.css",
+      "literal": "#10b981",
+      "count": 1,
+      "resolution": "retired-unused",
+      "reason": "TC-C0.5: no production imports, barrel exports, dynamic imports or registry references; exact retired timeline scope recoverable from git 9797f600865f0b2a40cd8c28058ad73d59ded10a",
+      "baselineHead": "9797f600865f0b2a40cd8c28058ad73d59ded10a"
+    },
+    {
+      "fingerprint": "da23ba2808afa5b560fdc0cbe17e791e7998c6386021c3b98fbd519a1d3d6e1b",
+      "file": "client/src/components/EnhancedProjectTimeline.css",
+      "literal": "#2563eb",
+      "count": 1,
+      "resolution": "retired-unused",
+      "reason": "TC-C0.5: no production imports, barrel exports, dynamic imports or registry references; exact retired timeline scope recoverable from git 9797f600865f0b2a40cd8c28058ad73d59ded10a",
+      "baselineHead": "9797f600865f0b2a40cd8c28058ad73d59ded10a"
+    },
+    {
+      "fingerprint": "daaaccbe7c096bce279e6586779e9f3ae43f2c91a2588dc4f6ccd824ae64c302",
+      "file": "client/src/components/EnhancedProjectTimeline.css",
+      "literal": "#d1d5db",
+      "count": 1,
+      "resolution": "retired-unused",
+      "reason": "TC-C0.5: no production imports, barrel exports, dynamic imports or registry references; exact retired timeline scope recoverable from git 9797f600865f0b2a40cd8c28058ad73d59ded10a",
+      "baselineHead": "9797f600865f0b2a40cd8c28058ad73d59ded10a"
+    },
+    {
+      "fingerprint": "db15715b2256f065438cf627249beb8aa829fa436e9c8290680c65e089c16b99",
+      "file": "client/src/components/EnhancedProjectTimeline.css",
+      "literal": "#f59e0b",
+      "count": 1,
+      "resolution": "retired-unused",
+      "reason": "TC-C0.5: no production imports, barrel exports, dynamic imports or registry references; exact retired timeline scope recoverable from git 9797f600865f0b2a40cd8c28058ad73d59ded10a",
+      "baselineHead": "9797f600865f0b2a40cd8c28058ad73d59ded10a"
+    },
+    {
+      "fingerprint": "e3773153d9827b2330d8756793e8631d6af6e1575fa836cada6e7ac18df470b3",
+      "file": "client/src/components/EnhancedProjectTimeline.css",
+      "literal": "#fef2f2",
+      "count": 1,
+      "resolution": "retired-unused",
+      "reason": "TC-C0.5: no production imports, barrel exports, dynamic imports or registry references; exact retired timeline scope recoverable from git 9797f600865f0b2a40cd8c28058ad73d59ded10a",
+      "baselineHead": "9797f600865f0b2a40cd8c28058ad73d59ded10a"
+    },
+    {
+      "fingerprint": "e4caa70a80780075cd0853c065da3c3d3091c56fc0dd8eee9bda246fa7bdedf1",
+      "file": "client/src/components/EnhancedProjectTimeline.css",
+      "literal": "#059669",
+      "count": 1,
+      "resolution": "retired-unused",
+      "reason": "TC-C0.5: no production imports, barrel exports, dynamic imports or registry references; exact retired timeline scope recoverable from git 9797f600865f0b2a40cd8c28058ad73d59ded10a",
+      "baselineHead": "9797f600865f0b2a40cd8c28058ad73d59ded10a"
+    },
+    {
+      "fingerprint": "eb45415e4452a44ba7ce465cb87720bd4d9fa2780e77d3555743e03dc02e46d3",
+      "file": "client/src/components/EnhancedProjectTimeline.css",
+      "literal": "#cbd5e1",
+      "count": 1,
+      "resolution": "retired-unused",
+      "reason": "TC-C0.5: no production imports, barrel exports, dynamic imports or registry references; exact retired timeline scope recoverable from git 9797f600865f0b2a40cd8c28058ad73d59ded10a",
+      "baselineHead": "9797f600865f0b2a40cd8c28058ad73d59ded10a"
+    },
+    {
+      "fingerprint": "ed7f61274462bda79c8c8f3828fa01da18efe0f8de1f60c85ab73dab585da1f1",
+      "file": "client/src/components/EnhancedProjectTimeline.css",
+      "literal": "#f87171",
+      "count": 1,
+      "resolution": "retired-unused",
+      "reason": "TC-C0.5: no production imports, barrel exports, dynamic imports or registry references; exact retired timeline scope recoverable from git 9797f600865f0b2a40cd8c28058ad73d59ded10a",
+      "baselineHead": "9797f600865f0b2a40cd8c28058ad73d59ded10a"
+    },
+    {
+      "fingerprint": "edbddc211494e5f21355d2e1dfe743130babc9de416985b5be066667525948f2",
+      "file": "client/src/components/EnhancedProjectTimeline.css",
+      "literal": "#d1d5db",
+      "count": 1,
+      "resolution": "retired-unused",
+      "reason": "TC-C0.5: no production imports, barrel exports, dynamic imports or registry references; exact retired timeline scope recoverable from git 9797f600865f0b2a40cd8c28058ad73d59ded10a",
+      "baselineHead": "9797f600865f0b2a40cd8c28058ad73d59ded10a"
+    },
+    {
+      "fingerprint": "f2a258cd1aeb0a110713abb921ca79af789933764f7c30ee081d797d840f5611",
+      "file": "client/src/components/EnhancedProjectTimeline.css",
+      "literal": "#10b981",
+      "count": 1,
+      "resolution": "retired-unused",
+      "reason": "TC-C0.5: no production imports, barrel exports, dynamic imports or registry references; exact retired timeline scope recoverable from git 9797f600865f0b2a40cd8c28058ad73d59ded10a",
+      "baselineHead": "9797f600865f0b2a40cd8c28058ad73d59ded10a"
+    },
+    {
+      "fingerprint": "f30a26efdf95e090b8b441a10a338caf3d7bed3a912785a298ebb27f8323562f",
+      "file": "client/src/components/EnhancedProjectTimeline.css",
+      "literal": "#4b5563",
+      "count": 1,
+      "resolution": "retired-unused",
+      "reason": "TC-C0.5: no production imports, barrel exports, dynamic imports or registry references; exact retired timeline scope recoverable from git 9797f600865f0b2a40cd8c28058ad73d59ded10a",
+      "baselineHead": "9797f600865f0b2a40cd8c28058ad73d59ded10a"
+    },
+    {
+      "fingerprint": "f3b6d889576860252dd8072fbc1ce150df7db66409d6797abaa50ed7440dd960",
+      "file": "client/src/components/EnhancedProjectTimeline.css",
+      "literal": "#3b82f6",
+      "count": 1,
+      "resolution": "retired-unused",
+      "reason": "TC-C0.5: no production imports, barrel exports, dynamic imports or registry references; exact retired timeline scope recoverable from git 9797f600865f0b2a40cd8c28058ad73d59ded10a",
+      "baselineHead": "9797f600865f0b2a40cd8c28058ad73d59ded10a"
+    },
+    {
+      "fingerprint": "fe3e16ce7f746c72e86fe2257c90006cfd9a5c663ebd6064b3ce5bd13d78005f",
+      "file": "client/src/components/EnhancedProjectTimeline.css",
+      "literal": "#3b82f6",
+      "count": 1,
+      "resolution": "retired-unused",
+      "reason": "TC-C0.5: no production imports, barrel exports, dynamic imports or registry references; exact retired timeline scope recoverable from git 9797f600865f0b2a40cd8c28058ad73d59ded10a",
+      "baselineHead": "9797f600865f0b2a40cd8c28058ad73d59ded10a"
+    },
+    {
+      "fingerprint": "fe4550c63de9cf13ef374ca18557a6d951bbb35d815e27867eec74c7bf3b70f5",
+      "file": "client/src/components/EnhancedProjectTimeline.css",
+      "literal": "#d97706",
+      "count": 1,
+      "resolution": "retired-unused",
+      "reason": "TC-C0.5: no production imports, barrel exports, dynamic imports or registry references; exact retired timeline scope recoverable from git 9797f600865f0b2a40cd8c28058ad73d59ded10a",
+      "baselineHead": "9797f600865f0b2a40cd8c28058ad73d59ded10a"
+    },
+    {
+      "fingerprint": "ffd706c7d3fb868690080a0ce7c50d529c63a9f680da6ea857a8d19b7821c785",
+      "file": "client/src/components/EnhancedProjectTimeline.css",
+      "literal": "#cbd5e1",
+      "count": 1,
+      "resolution": "retired-unused",
+      "reason": "TC-C0.5: no production imports, barrel exports, dynamic imports or registry references; exact retired timeline scope recoverable from git 9797f600865f0b2a40cd8c28058ad73d59ded10a",
+      "baselineHead": "9797f600865f0b2a40cd8c28058ad73d59ded10a"
+    },
+    {
+      "fingerprint": "107fcaeea5176f04b30fdab500dd82a69a82533c326d4f3cd1a4d612ccec1de9",
+      "file": "client/src/components/UnifiedProjectTimeline.tsx",
+      "literal": "#ffffff",
+      "count": 1,
+      "resolution": "retired-unused",
+      "reason": "TC-C0.5: no production imports, barrel exports, dynamic imports or registry references; exact retired timeline scope recoverable from git 9797f600865f0b2a40cd8c28058ad73d59ded10a",
+      "baselineHead": "9797f600865f0b2a40cd8c28058ad73d59ded10a"
+    },
+    {
+      "fingerprint": "11a557cc49ca8dcadf3b36a43bf1b47181c46a3b5f9f7898b397f3ba10f21846",
+      "file": "client/src/components/UnifiedProjectTimeline.tsx",
+      "literal": "#ef4444",
+      "count": 1,
+      "resolution": "retired-unused",
+      "reason": "TC-C0.5: no production imports, barrel exports, dynamic imports or registry references; exact retired timeline scope recoverable from git 9797f600865f0b2a40cd8c28058ad73d59ded10a",
+      "baselineHead": "9797f600865f0b2a40cd8c28058ad73d59ded10a"
+    },
+    {
+      "fingerprint": "34f230da69f3d383614bec95d43b83a3da3237e821246bde0faa5b2a3871aabe",
+      "file": "client/src/components/UnifiedProjectTimeline.tsx",
+      "literal": "#06b6d4",
+      "count": 1,
+      "resolution": "retired-unused",
+      "reason": "TC-C0.5: no production imports, barrel exports, dynamic imports or registry references; exact retired timeline scope recoverable from git 9797f600865f0b2a40cd8c28058ad73d59ded10a",
+      "baselineHead": "9797f600865f0b2a40cd8c28058ad73d59ded10a"
+    },
+    {
+      "fingerprint": "4b6ffa79a591fc1875dab1b624b88abb6ceb8c55f779a96a8fb50cfc55267daa",
+      "file": "client/src/components/UnifiedProjectTimeline.tsx",
+      "literal": "#84cc16",
+      "count": 1,
+      "resolution": "retired-unused",
+      "reason": "TC-C0.5: no production imports, barrel exports, dynamic imports or registry references; exact retired timeline scope recoverable from git 9797f600865f0b2a40cd8c28058ad73d59ded10a",
+      "baselineHead": "9797f600865f0b2a40cd8c28058ad73d59ded10a"
+    },
+    {
+      "fingerprint": "5568dbd3e86076ee52ce3e47ee73e2ee244b2fd83cf0ee58525239d3dc97f11d",
+      "file": "client/src/components/UnifiedProjectTimeline.tsx",
+      "literal": "#ec4899",
+      "count": 1,
+      "resolution": "retired-unused",
+      "reason": "TC-C0.5: no production imports, barrel exports, dynamic imports or registry references; exact retired timeline scope recoverable from git 9797f600865f0b2a40cd8c28058ad73d59ded10a",
+      "baselineHead": "9797f600865f0b2a40cd8c28058ad73d59ded10a"
+    },
+    {
+      "fingerprint": "6e104f3420d59ed8846ccbd5afce9e0b705b9321607c6e4fd50ce62c71385a09",
+      "file": "client/src/components/UnifiedProjectTimeline.tsx",
+      "literal": "#e5e7eb",
+      "count": 1,
+      "resolution": "retired-unused",
+      "reason": "TC-C0.5: no production imports, barrel exports, dynamic imports or registry references; exact retired timeline scope recoverable from git 9797f600865f0b2a40cd8c28058ad73d59ded10a",
+      "baselineHead": "9797f600865f0b2a40cd8c28058ad73d59ded10a"
+    },
+    {
+      "fingerprint": "98b804756bbe4628800f6fc90f86f99b24a5b7323fafc07b143fbcb6427f61de",
+      "file": "client/src/components/UnifiedProjectTimeline.tsx",
+      "literal": "#10b981",
+      "count": 1,
+      "resolution": "retired-unused",
+      "reason": "TC-C0.5: no production imports, barrel exports, dynamic imports or registry references; exact retired timeline scope recoverable from git 9797f600865f0b2a40cd8c28058ad73d59ded10a",
+      "baselineHead": "9797f600865f0b2a40cd8c28058ad73d59ded10a"
+    },
+    {
+      "fingerprint": "cabc352ba7237ddd92f207b5271ce2d7cb2690198b96979335f19a117747eb54",
+      "file": "client/src/components/UnifiedProjectTimeline.tsx",
+      "literal": "#8b5cf6",
+      "count": 1,
+      "resolution": "retired-unused",
+      "reason": "TC-C0.5: no production imports, barrel exports, dynamic imports or registry references; exact retired timeline scope recoverable from git 9797f600865f0b2a40cd8c28058ad73d59ded10a",
+      "baselineHead": "9797f600865f0b2a40cd8c28058ad73d59ded10a"
+    },
+    {
+      "fingerprint": "cb5cea160ce131adaf6df2409591427c18ddd96a57157b56ac30122ade0d146b",
+      "file": "client/src/components/UnifiedProjectTimeline.tsx",
+      "literal": "#f59e0b",
+      "count": 1,
+      "resolution": "retired-unused",
+      "reason": "TC-C0.5: no production imports, barrel exports, dynamic imports or registry references; exact retired timeline scope recoverable from git 9797f600865f0b2a40cd8c28058ad73d59ded10a",
+      "baselineHead": "9797f600865f0b2a40cd8c28058ad73d59ded10a"
+    },
+    {
+      "fingerprint": "cf7ee7ff0f84aac7f0216f2b3c94721ee111cc3dd55732492ffb93a65169f6c9",
+      "file": "client/src/components/UnifiedProjectTimeline.tsx",
+      "literal": "#6b7280",
+      "count": 1,
+      "resolution": "retired-unused",
+      "reason": "TC-C0.5: no production imports, barrel exports, dynamic imports or registry references; exact retired timeline scope recoverable from git 9797f600865f0b2a40cd8c28058ad73d59ded10a",
+      "baselineHead": "9797f600865f0b2a40cd8c28058ad73d59ded10a"
+    },
+    {
+      "fingerprint": "d6a10779589d6f26a02ecea0979a923da5937d97e5e89fd9dca5a53366ab7c77",
+      "file": "client/src/components/UnifiedProjectTimeline.tsx",
+      "literal": "#3b82f6",
+      "count": 1,
+      "resolution": "retired-unused",
+      "reason": "TC-C0.5: no production imports, barrel exports, dynamic imports or registry references; exact retired timeline scope recoverable from git 9797f600865f0b2a40cd8c28058ad73d59ded10a",
+      "baselineHead": "9797f600865f0b2a40cd8c28058ad73d59ded10a"
+    }
+  ],
   "additions": [],
   "summary": {
-    "occurrences": 1481,
-    "identities": 1446,
-    "uniqueColors": 310,
-    "files": 64,
+    "occurrences": 1392,
+    "identities": 1357,
+    "uniqueColors": 309,
+    "files": 62,
     "byKind": {
-      "semantic-color": 664,
-      "neutral-literal": 393,
-      "unknown": 222,
+      "semantic-color": 600,
+      "neutral-literal": 377,
+      "unknown": 213,
       "token-definition": 202
     },
     "byDecision": {
-      "pending": 1279,
+      "pending": 1190,
       "not-debt": 202
     },
     "byFile": {
@@ -31133,7 +30042,6 @@
       "client/src/components/boards/EditableCells.tsx": 10,
       "client/src/components/Charts.css": 11,
       "client/src/components/dashboard/Dashboard.css": 14,
-      "client/src/components/EnhancedProjectTimeline.css": 78,
       "client/src/components/interactive-timeline/PhaseHandles.tsx": 15,
       "client/src/components/interactive-timeline/TimelineGrid.tsx": 3,
       "client/src/components/interactive-timeline/TimelineItemTooltip.tsx": 7,
@@ -31159,7 +30067,6 @@
       "client/src/components/ui/StatCard.css": 1,
       "client/src/components/ui/StatCard.tsx": 2,
       "client/src/components/ui/UnifiedTabComponent.css": 1,
-      "client/src/components/UnifiedProjectTimeline.tsx": 11,
       "client/src/components/VisualPhaseManager.tsx": 5,
       "client/src/debug/BoardDiagnostics.tsx": 16,
       "client/src/index.css": 176,

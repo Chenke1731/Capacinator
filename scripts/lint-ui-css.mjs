@@ -130,11 +130,8 @@ for (const rel of [...utilScanFiles, 'client/src/App.css', 'client/src/index.css
   const text = readFileSync(resolve(root, rel), 'utf8');
   for (const m of text.matchAll(/([^{}]+)\{([^}]*)\}/g)) {
     const body = m[2];
-    const bgDecl = (body.match(/background[^;]*var\(--primary\)[^;]*/) || [''])[0];
-    if (!bgDecl) continue;
-    const tintM = bgDecl.match(/color-mix\([^)]*var\(--primary\)\s*(\d+)%/);
-    const isTint = tintM && parseInt(tintM[1], 10) <= 50;
-    if (!isTint && /[^-]color:[^;]*var\(--primary-text\)/.test(body)) {
+    const hasPrimaryBg = /background[^;]*var\(--primary\)/.test(body);
+    if (hasPrimaryBg && !isTintBackground(body) && /[^-]color:[^;]*var\(--primary-text\)/.test(body)) {
       const line = text.slice(0, m.index).split('\n').length;
       const sel = m[1].trim().split('\n').pop().trim();
       violations.push(`${rel}:${line} 「${sel}」 实心主色底配 --primary-text 文字 → 浅色主题同值隐形(迭代页按钮事故);实心主色底用白字`);
@@ -148,18 +145,32 @@ for (const rel of [...utilScanFiles, 'client/src/App.css', 'client/src/index.css
 // 不误拦 --primary-foreground(根层三元组存活,hsl() 包装是合法路径);
 // 2026-10 任务B收口②: 递归扫描全部生产源码(评审注入证明硬编码清单漏检
 // 新增 TSX),正则容忍空白变体(hsl( var(--primary) ))与百分比透明(/ 10%)。
+// 检测逻辑提取为导出函数——SELF_TEST 直接调生产函数,避免"测试通过、生产已变"。
+export function matchBadHslPrimary(source) {
+  const stripped = String(source).replace(/\/\*[\s\S]*?\*\//g, '').replace(/\/\/[^\n]*/g, '');
+  const RX = /hsl\(\s*var\(\s*--primary\s*\)\s*(?:\/\s*(?:[0-9.]+%?\s*)?)?\)/g;
+  const hits = [];
+  let m;
+  while ((m = RX.exec(stripped)) !== null) hits.push({ text: m[0], index: m.index });
+  return hits;
+}
+/** 淡染豁免只判背景声明(收口③): 返回该规则块是否为"淡染背景" */
+export function isTintBackground(ruleBody) {
+  const bgDecl = (String(ruleBody).match(/background[^;]*var\(--primary\)[^;]*/) || [''])[0];
+  if (!bgDecl) return false;
+  const tintM = bgDecl.match(/color-mix\([^)]*var\(--primary\)\s*(\d+)%/);
+  return !!(tintM && parseInt(tintM[1], 10) <= 50);
+}
+
 const PROD_FILES = execSync(
   `find client/src -type f \\( -name '*.css' -o -name '*.tsx' -o -name '*.ts' \\) -not -path '*__tests__*' -not -path '*.test.*'`,
   { cwd: root, encoding: 'utf8' }
 ).trim().split('\n').filter(Boolean);
 for (const rel of PROD_FILES) {
   const text = readFileSync(resolve(root, rel), 'utf8');
-  const stripped = text.replace(/\/\*[\s\S]*?\*\//g, '').replace(/\/\/[^\n]*/g, '');
-  const rx = /hsl\(\s*var\(\s*--primary\s*\)\s*(?:\/\s*(?:[0-9.]+%?\s*)?)?\)/g;
-  let m2;
-  while ((m2 = rx.exec(stripped)) !== null) {
-    const line = stripped.slice(0, m2.index).split('\n').length;
-    violations.push(`${rel}:${line} 「${m2[0]}」 body 层 --primary 是 hex——hsl(hex)=无效色回退继承(任务B 统一);文字用 var(--primary-text),背景/描边用 var(--primary),透明度用 color-mix`);
+  for (const hit of matchBadHslPrimary(text)) {
+    const line = text.slice(0, hit.index).split('\n').length;
+    violations.push(`${rel}:${line} 「${hit.text}」 body 层 --primary 是 hex——hsl(hex)=无效色回退继承(任务B 统一);文字用 var(--primary-text),背景/描边用 var(--primary),透明度用 color-mix`);
   }
 }
 
@@ -221,6 +232,34 @@ if (process.env.SELF_TEST === '1') {
     process.exit(1);
   }
   console.log('SELF-TEST PASS: 页面 CSS 工具类裸定义检测器(检出+不误报+白名单增量拦截)');
+
+  // 任务B收口②③: 主色 hsl 家族检测器——评审注入案例入仓,直接调生产函数
+  const hslCases = [
+    ['hsl(var(--primary))', true],
+    ['hsl( var(--primary) )', true],
+    ['hsl(var(--primary) / 0.1)', true],
+    ['hsl(var(--primary) / 10%)', true],
+    ['hsl(var(--primary)/0.9)', true],
+    ['/* hsl(var(--primary)) */ .ok {}', false],
+    ['hsl(var(--primary-foreground))', false],
+    ['hsl(var(--border))', false],
+  ];
+  const hslFails = hslCases.filter(([src, expect]) => (matchBadHslPrimary(src).length > 0) !== expect);
+  if (hslFails.length) {
+    console.error(`SELF-TEST FAIL: 主色 hsl 检测器失灵 ${JSON.stringify(hslFails)}`);
+    process.exit(1);
+  }
+  const tintCases = [
+    ['background: var(--primary); box-shadow: 0 0 4px color-mix(in srgb, var(--primary) 10%, transparent); color: var(--primary-text);', false, '实心底+淡阴影不得豁免'],
+    ['background: color-mix(in srgb, var(--primary) 10%, transparent); color: var(--primary-text);', true, '真淡染底应豁免'],
+    ['color: var(--primary-text);', false, '无背景声明不豁免'],
+  ];
+  const tintFails = tintCases.filter(([body, expect]) => isTintBackground(body) !== expect);
+  if (tintFails.length) {
+    console.error(`SELF-TEST FAIL: 淡染豁免检测器失灵 ${JSON.stringify(tintFails.map(([, , d]) => d))}`);
+    process.exit(1);
+  }
+  console.log('SELF-TEST PASS: 主色 hsl 检测器(8 例)+淡染豁免(3 例)——生产函数直调');
   process.exit(violations.length ? 1 : 0);
 }
 

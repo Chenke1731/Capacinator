@@ -8,5 +8,8 @@
   "dashboard-dark": 0,
   "dashboard-light": 0,
   "roadmap-dark": 0,
-  "roadmap-light": 0
+  "roadmap-light": 0,
+  "project-detail-dark": 3,
+  "project-detail-light": 12,
+  "_note": "project-detail 12/3 为生命周期徽章/步骤条/告警标题的存量对比度债(首次纳管即入账,非任务B引入;图表页签修复后不在违例中)"
 }

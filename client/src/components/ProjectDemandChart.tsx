@@ -641,7 +641,7 @@ export function ProjectDemandChart({ projectId, projectName }: ProjectDemandChar
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={isActiveTab(tab.id) ? 'chart-tab chart-tab--active' : 'chart-tab'}
+                className='chart-tab'
                 style={{
                   padding: '6px 12px',
                   border: 'none',
@@ -649,8 +649,8 @@ export function ProjectDemandChart({ projectId, projectName }: ProjectDemandChar
                   fontSize: '12px',
                   fontWeight: '500',
                   cursor: 'pointer',
-                  backgroundColor: isActiveTab(tab.id) ? undefined : 'transparent', /* active 底由 chart-tab--active 类接管(深色压深),undefined 让类生效 */
-                  color: isActiveTab(tab.id) ? 'white' : 'hsl(var(--muted-foreground))',
+                  backgroundColor: isActiveTab(tab.id) ? 'var(--primary-solid, var(--primary))' : 'transparent', /* 收口: 组件自足——不依赖 reports.css 加载链(评审:详情页白字白底 1.05:1) */
+                  color: isActiveTab(tab.id) ? '#ffffff' : 'hsl(var(--muted-foreground))',
                   transition: 'all 0.2s ease'
                 }}
               >

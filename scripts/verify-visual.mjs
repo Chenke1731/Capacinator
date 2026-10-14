@@ -29,6 +29,9 @@ const PAGES = [
   // 2026-10 任务B: 路线图入矩阵——151 处主色消费修复的回归防线
   // (真实路由: /projects?tab=roadmap;/projects/roadmap 是重定向)
   { name: 'roadmap', path: '/projects?tab=roadmap' },
+  // 任务B 复审收口: 项目详情页(图表页签样式加载链事故页——reports.css
+  // 不在详情页加载,曾出白字白底 1.05:1)。用固定种子行,断链类问题再犯即红
+  { name: 'project-detail', path: '/projects/project-1789912193111-zikdnz8c5' },
 ];
 const COMBOS = [];
 for (const p of PAGES) for (const theme of ['dark', 'light']) COMBOS.push({ ...p, theme, w: 1600, h: 900 });

@@ -147,7 +147,11 @@ for (const rel of [...utilScanFiles, 'client/src/App.css', 'client/src/index.css
 // 新增 TSX),正则容忍空白变体(hsl( var(--primary) ))与百分比透明(/ 10%)。
 // 检测逻辑提取为导出函数——SELF_TEST 直接调生产函数,避免"测试通过、生产已变"。
 export function matchBadHslPrimary(source) {
-  const stripped = String(source).replace(/\/\*[\s\S]*?\*\//g, '').replace(/\/\/[^\n]*/g, '');
+  // 注释清理用等长空格替换(保留换行)——字符索引与原文对齐,主循环按原文
+  // 算行号才不偏移(评审: 三行注释后违规曾报成第 3 行,实际第 4 行)。
+  const stripped = String(source)
+    .replace(/\/\*[\s\S]*?\*\//g, (c) => c.replace(/[^\n]/g, ' '))
+    .replace(/\/\/[^\n]*/g, (c) => c.replace(/[^\n]/g, ' '));
   const RX = /hsl\(\s*var\(\s*--primary\s*\)\s*(?:\/\s*(?:[0-9.]+%?\s*)?)?\)/g;
   const hits = [];
   let m;
@@ -247,6 +251,14 @@ if (process.env.SELF_TEST === '1') {
   const hslFails = hslCases.filter(([src, expect]) => (matchBadHslPrimary(src).length > 0) !== expect);
   if (hslFails.length) {
     console.error(`SELF-TEST FAIL: 主色 hsl 检测器失灵 ${JSON.stringify(hslFails)}`);
+    process.exit(1);
+  }
+  // 行号断言(评审第3轮: 多行注释后违规不得偏移)——等长空格替换保索引对齐
+  const lineSrc = '/* line1\nline2\nline3 */\n.bad { color: hsl(var(--primary)); }';
+  const lineHit = matchBadHslPrimary(lineSrc)[0];
+  const lineNo = lineSrc.slice(0, lineHit.index).split('\n').length;
+  if (lineNo !== 4) {
+    console.error(`SELF-TEST FAIL: 多行注释后行号偏移(报 ${lineNo},期望 4)`);
     process.exit(1);
   }
   const tintCases = [

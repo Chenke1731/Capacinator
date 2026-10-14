@@ -11,6 +11,7 @@ import { PriorityCell, TagsCell, ComponentCell } from '../components/boards/Edit
 import { KlocCell, EffortCell, RoleCell, PrimaryDevCell, VersionPart, ReleaseCell, IterationCell } from '../components/boards/BoardCells';
 import { ReqCheckbox } from '../components/boards/ReqCheckbox';
 import { BulkActionBar } from '../components/boards/BulkActionBar';
+import { BoardNotifications } from '../components/boards/BoardNotifications';
 import { ErrorMessage } from '../components/ui/ErrorMessage';
 import ProjectModal from '../components/modals/ProjectModal';
 import { LifecycleCellControls } from '../components/lifecycle/LifecycleCellControls';
@@ -1223,12 +1224,7 @@ export function Projects() {
 
       {/* toast 堆叠容器(2026-10-11 审视#4): 成功/失败同位叠加改为纵向堆叠,
           几何(定位/居中/让位)收敛到容器一处 */}
-      {(errorToast || okToast) && (
-        <div className='req-toast-stack'>
-          {errorToast && <div className='req-error-toast' role='alert'>{errorToast}</div>}
-          {okToast && <div className='req-error-toast req-ok-toast' role='status'>{okToast}</div>}
-        </div>
-      )}
+      <BoardNotifications error={errorToast} success={okToast} />
     </div>
   );
 }

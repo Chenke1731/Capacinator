@@ -1600,10 +1600,10 @@ input[type="checkbox"].settings-checkbox,
   max-width: 300px;
   max-height: calc(100vh - 16px);
   overflow-y: auto;
-  background: var(--bg-primary, #fff);
+  background: var(--bg-primary);
   border: 1px solid var(--border-color);
   border-radius: 8px;
-  box-shadow: var(--shadow-lg, 0px 8px 16px -4px rgba(45, 45, 46, 0.15), 0px 0px 1px 0px rgba(45, 45, 46, 0.2));
+  box-shadow: var(--shadow-lg, 0px 8px 16px -4px color-mix(in srgb, var(--solid-shade) 15%, transparent), 0px 0px 1px 0px color-mix(in srgb, var(--solid-shade) 20%, transparent));
   padding: 10px 12px;
   display: flex;
   flex-direction: column;
@@ -1616,7 +1616,7 @@ input[type="checkbox"].settings-checkbox,
   color: var(--text-primary);
 }
 /* DEV 自检违例标记(useCellPopover 产物时刻自曝;release 构建剔除自检逻辑) */
-.lc-popover--selfcheck-fail { outline: 2px solid #dc2626; outline-offset: 2px; }
+.lc-popover--selfcheck-fail { outline: 2px solid var(--status-danger-border); outline-offset: 2px; }
 
 .lc-popover-column {
   display: flex;
@@ -1662,7 +1662,7 @@ input[type="checkbox"].settings-checkbox,
 }
 .lc-popover-error {
   font-size: 12.5px;
-  color: var(--danger-color, #dc2626);
+  color: var(--status-danger-text);
 }
 
 /* 气泡内选择列表(优先级/负责人/标签共用): 搜索 + 列表 + 新建行 */
@@ -2881,9 +2881,9 @@ body.req-col-dragging * {
 .req-toast-stack > * { pointer-events: auto; }
 /* 错误 toast(2026-09-23 P2): 操作失败 3 秒自动消失 */
 .req-error-toast {
-  background: var(--danger-bg, #fef2f2);
-  color: var(--danger, #dc2626);
-  border: 1px solid var(--danger, #dc2626);
+  background: color-mix(in srgb, var(--status-danger-border) 12%, var(--bg-primary));
+  color: var(--status-danger-text);
+  border: 1px solid var(--status-danger-border);
   border-radius: 6px;
   padding: 8px 16px;
   font-size: 12.5px;
@@ -2891,9 +2891,9 @@ body.req-col-dragging * {
   animation: reqToastIn 0.2s ease-out;
 }
 [data-theme='dark'] .req-error-toast {
-  background: rgba(220, 38, 38, 0.15);
-  color: #fca5a5;
-  border-color: #fca5a5;
+  background: color-mix(in srgb, var(--status-danger-border) 12%, var(--bg-primary));
+  color: var(--status-danger-text);
+  border-color: var(--status-danger-border);
 }
 @keyframes reqToastIn {
   from { opacity: 0; transform: translateY(10px); }
@@ -2903,14 +2903,14 @@ body.req-col-dragging * {
 .projects-board .req-bulk-bar ~ .req-toast-stack { bottom: 76px; }
 /* 成功 toast(与失败同形态,绿色语义) */
 .req-error-toast.req-ok-toast {
-  background: #ecfdf5;
-  color: #047857;
-  border-color: #059669;
+  background: color-mix(in srgb, var(--status-success-border) 12%, var(--bg-primary));
+  color: var(--status-success-text);
+  border-color: var(--status-success-border);
 }
 [data-theme='dark'] .req-error-toast.req-ok-toast {
-  background: rgba(5, 150, 105, 0.15);
-  color: #6ee7b7;
-  border-color: #34d399;
+  background: color-mix(in srgb, var(--status-success-border) 12%, var(--bg-primary));
+  color: var(--status-success-text);
+  border-color: var(--status-success-border);
 }
 
 /* ── 批量选择列(2026-10-11): Radix 三态框,板内视觉语言(16px/设计系统变量) ── */

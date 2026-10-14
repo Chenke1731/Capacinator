@@ -1,0 +1,404 @@
+{
+  "baseHead": "a5b2c30",
+  "scope": [
+    "client/src/App.css",
+    "client/src/components/boards/BoardNotifications.tsx",
+    "client/src/pages/Projects.tsx"
+  ],
+  "mappings": [
+    {
+      "fingerprint": "34e806a43078a7565a3b5cdd8b1a9d5a7bedba9c01d6e61090620988805c084c",
+      "file": "client/src/App.css",
+      "context": [],
+      "owner": ".lc-popover",
+      "property": "background",
+      "literal": "#fff",
+      "locations": [
+        {
+          "line": 1598,
+          "column": 33
+        }
+      ],
+      "count": 1,
+      "kind": "neutral-literal",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--bg-primary",
+      "replacement": "var(--bg-primary)"
+    },
+    {
+      "fingerprint": "42332e7d32fe117a773c357220fbc5f4b778970d818f3431c81f910059b2ebaf",
+      "file": "client/src/App.css",
+      "context": [],
+      "owner": ".lc-popover",
+      "property": "box-shadow",
+      "literal": "rgba(45, 45, 46, 0.15)",
+      "locations": [
+        {
+          "line": 1601,
+          "column": 50
+        }
+      ],
+      "count": 1,
+      "kind": "neutral-literal",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--solid-shade",
+      "replacement": "color-mix(in srgb, var(--solid-shade) 15%, transparent)"
+    },
+    {
+      "fingerprint": "9ed5d2257efc4dfe0a50c8208e5debe7c1022c6da480ae6488ae583ec05bcd31",
+      "file": "client/src/App.css",
+      "context": [],
+      "owner": ".lc-popover",
+      "property": "box-shadow",
+      "literal": "rgba(45, 45, 46, 0.2)",
+      "locations": [
+        {
+          "line": 1601,
+          "column": 90
+        }
+      ],
+      "count": 1,
+      "kind": "neutral-literal",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--solid-shade",
+      "replacement": "color-mix(in srgb, var(--solid-shade) 20%, transparent)"
+    },
+    {
+      "fingerprint": "c1d9d78a744d1fcb9e57320539d10b6b3d55319b94cfaf7d160895e2593f3d5d",
+      "file": "client/src/App.css",
+      "context": [],
+      "owner": ".lc-popover--selfcheck-fail",
+      "property": "outline",
+      "literal": "#dc2626",
+      "locations": [
+        {
+          "line": 1614,
+          "column": 50
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--status-danger-border",
+      "replacement": "var(--status-danger-border)"
+    },
+    {
+      "fingerprint": "ee7ada9e98eed303319e9f211ff826c18ad4768bb9df5a2e545ce26ccf36d5d4",
+      "file": "client/src/App.css",
+      "context": [],
+      "owner": ".lc-popover-error",
+      "property": "color",
+      "literal": "#dc2626",
+      "locations": [
+        {
+          "line": 1660,
+          "column": 30
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--status-danger-text",
+      "replacement": "var(--status-danger-text)"
+    },
+    {
+      "fingerprint": "d96aaebf53cb7477093cef04beea9938361012c1bb9ee401015e4ce4a8da4d11",
+      "file": "client/src/App.css",
+      "context": [],
+      "owner": ".req-error-toast",
+      "property": "background",
+      "literal": "#fef2f2",
+      "locations": [
+        {
+          "line": 2879,
+          "column": 32
+        }
+      ],
+      "count": 1,
+      "kind": "neutral-literal",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--status-danger-border",
+      "replacement": "color-mix(in srgb, var(--status-danger-border) 12%, var(--bg-primary))"
+    },
+    {
+      "fingerprint": "fd1269bde8f966e8cacbd738160df0d91e648e0349915898ad99e1abb089d684",
+      "file": "client/src/App.css",
+      "context": [],
+      "owner": ".req-error-toast",
+      "property": "color",
+      "literal": "#dc2626",
+      "locations": [
+        {
+          "line": 2880,
+          "column": 24
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--status-danger-text",
+      "replacement": "var(--status-danger-text)"
+    },
+    {
+      "fingerprint": "93554dba7f6800db0cba4130464acd4b642b048d5190b3bc75ad63e79520557a",
+      "file": "client/src/App.css",
+      "context": [],
+      "owner": ".req-error-toast",
+      "property": "border",
+      "literal": "#dc2626",
+      "locations": [
+        {
+          "line": 2881,
+          "column": 35
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--status-danger-border",
+      "replacement": "var(--status-danger-border)"
+    },
+    {
+      "fingerprint": "1b0b806db80c3f1bf67a81f4dfa1cda0f80dc6a86757a16e7725a85791641fc1",
+      "file": "client/src/App.css",
+      "context": [],
+      "owner": "[data-theme='dark'] .req-error-toast",
+      "property": "background",
+      "literal": "rgba(220, 38, 38, 0.15)",
+      "locations": [
+        {
+          "line": 2889,
+          "column": 15
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--status-danger-border",
+      "replacement": "color-mix(in srgb, var(--status-danger-border) 12%, var(--bg-primary))"
+    },
+    {
+      "fingerprint": "6a9884ed7306da6285a9e71709f6765b31ccf764f289caebdfe3571ab6f167be",
+      "file": "client/src/App.css",
+      "context": [],
+      "owner": "[data-theme='dark'] .req-error-toast",
+      "property": "color",
+      "literal": "#fca5a5",
+      "locations": [
+        {
+          "line": 2890,
+          "column": 10
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--status-danger-text",
+      "replacement": "var(--status-danger-text)"
+    },
+    {
+      "fingerprint": "56bd93448a176b57408100e09378bce446b9f37ecb62c6fd9226b59d1ef4ce4e",
+      "file": "client/src/App.css",
+      "context": [],
+      "owner": "[data-theme='dark'] .req-error-toast",
+      "property": "border-color",
+      "literal": "#fca5a5",
+      "locations": [
+        {
+          "line": 2891,
+          "column": 17
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--status-danger-border",
+      "replacement": "var(--status-danger-border)"
+    },
+    {
+      "fingerprint": "c83009d6f7832658c6e7566e26d4e9bf82b6c789eaa0124f6e0c12c129235eb4",
+      "file": "client/src/App.css",
+      "context": [],
+      "owner": ".req-error-toast.req-ok-toast",
+      "property": "background",
+      "literal": "#ecfdf5",
+      "locations": [
+        {
+          "line": 2901,
+          "column": 15
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--status-success-border",
+      "replacement": "color-mix(in srgb, var(--status-success-border) 12%, var(--bg-primary))"
+    },
+    {
+      "fingerprint": "7de899cdb7e10e29417268c69e650348fea0c11613949c3d20400ec40d092fd4",
+      "file": "client/src/App.css",
+      "context": [],
+      "owner": ".req-error-toast.req-ok-toast",
+      "property": "color",
+      "literal": "#047857",
+      "locations": [
+        {
+          "line": 2902,
+          "column": 10
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--status-success-text",
+      "replacement": "var(--status-success-text)"
+    },
+    {
+      "fingerprint": "5e8f2b25f5818052946b099028c867281bd60fa353b63dde11ea5302e3502126",
+      "file": "client/src/App.css",
+      "context": [],
+      "owner": ".req-error-toast.req-ok-toast",
+      "property": "border-color",
+      "literal": "#059669",
+      "locations": [
+        {
+          "line": 2903,
+          "column": 17
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--status-success-border",
+      "replacement": "var(--status-success-border)"
+    },
+    {
+      "fingerprint": "104b747f0dade7a455c061f1dd640b1986b0b328556e5257698c80fb2e82c4f8",
+      "file": "client/src/App.css",
+      "context": [],
+      "owner": "[data-theme='dark'] .req-error-toast.req-ok-toast",
+      "property": "background",
+      "literal": "rgba(5, 150, 105, 0.15)",
+      "locations": [
+        {
+          "line": 2906,
+          "column": 15
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--status-success-border",
+      "replacement": "color-mix(in srgb, var(--status-success-border) 12%, var(--bg-primary))"
+    },
+    {
+      "fingerprint": "39b63c5e2e8b1ab8a42ced9206b2062826547b4033d209a8ed3fec97510ea7c6",
+      "file": "client/src/App.css",
+      "context": [],
+      "owner": "[data-theme='dark'] .req-error-toast.req-ok-toast",
+      "property": "color",
+      "literal": "#6ee7b7",
+      "locations": [
+        {
+          "line": 2907,
+          "column": 10
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--status-success-text",
+      "replacement": "var(--status-success-text)"
+    },
+    {
+      "fingerprint": "913944b2e29be9e5cbbd63f3e505066b5c73a691c34bf6324821f7273d3db13d",
+      "file": "client/src/App.css",
+      "context": [],
+      "owner": "[data-theme='dark'] .req-error-toast.req-ok-toast",
+      "property": "border-color",
+      "literal": "#34d399",
+      "locations": [
+        {
+          "line": 2908,
+          "column": 17
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--status-success-border",
+      "replacement": "var(--status-success-border)"
+    }
+  ],
+  "outsideScope": [
+    "U02: mutation.action.type rejected is not an emitted TanStack v5 error event; presentation proof does not validate business subscription"
+  ]
+}

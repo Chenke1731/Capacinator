@@ -152,27 +152,6 @@
       "evidence": []
     },
     {
-      "fingerprint": "104b747f0dade7a455c061f1dd640b1986b0b328556e5257698c80fb2e82c4f8",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": "[data-theme='dark'] .req-error-toast.req-ok-toast",
-      "property": "background",
-      "literal": "rgba(5, 150, 105, 0.15)",
-      "locations": [
-        {
-          "line": 2906,
-          "column": 15
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
       "fingerprint": "107155452231aa2a539801282711db753a1adc16399bef76971f75bbb0dbec5a",
       "file": "client/src/App.css",
       "context": [],
@@ -309,27 +288,6 @@
         {
           "line": 2578,
           "column": 61
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "1b0b806db80c3f1bf67a81f4dfa1cda0f80dc6a86757a16e7725a85791641fc1",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": "[data-theme='dark'] .req-error-toast",
-      "property": "background",
-      "literal": "rgba(220, 38, 38, 0.15)",
-      "locations": [
-        {
-          "line": 2889,
-          "column": 15
         }
       ],
       "count": 1,
@@ -635,27 +593,6 @@
       "evidence": []
     },
     {
-      "fingerprint": "34e806a43078a7565a3b5cdd8b1a9d5a7bedba9c01d6e61090620988805c084c",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".lc-popover",
-      "property": "background",
-      "literal": "#fff",
-      "locations": [
-        {
-          "line": 1598,
-          "column": 33
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
       "fingerprint": "35271f7cd87293ff3d398c02d6df47b467c8a025a722ca6e33cd72d90102030a",
       "file": "client/src/App.css",
       "context": [],
@@ -740,27 +677,6 @@
       "evidence": []
     },
     {
-      "fingerprint": "39b63c5e2e8b1ab8a42ced9206b2062826547b4033d209a8ed3fec97510ea7c6",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": "[data-theme='dark'] .req-error-toast.req-ok-toast",
-      "property": "color",
-      "literal": "#6ee7b7",
-      "locations": [
-        {
-          "line": 2907,
-          "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
       "fingerprint": "3b9386bb6122974b141b35ec3b428de6d07598faf8258dc9748ca73ff796409b",
       "file": "client/src/App.css",
       "context": [],
@@ -817,27 +733,6 @@
       ],
       "count": 1,
       "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "42332e7d32fe117a773c357220fbc5f4b778970d818f3431c81f910059b2ebaf",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".lc-popover",
-      "property": "box-shadow",
-      "literal": "rgba(45, 45, 46, 0.15)",
-      "locations": [
-        {
-          "line": 1601,
-          "column": 50
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
       "reachability": "unverified",
       "decision": "pending",
       "semanticRole": null,
@@ -1034,27 +929,6 @@
       "evidence": []
     },
     {
-      "fingerprint": "56bd93448a176b57408100e09378bce446b9f37ecb62c6fd9226b59d1ef4ce4e",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": "[data-theme='dark'] .req-error-toast",
-      "property": "border-color",
-      "literal": "#fca5a5",
-      "locations": [
-        {
-          "line": 2891,
-          "column": 17
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
       "fingerprint": "58356845f1dcbdd5f240fdfe70d8cdeb6e9f489d22f76b2c5a65c6330bc94d51",
       "file": "client/src/App.css",
       "context": [],
@@ -1170,27 +1044,6 @@
         {
           "line": 2474,
           "column": 54
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "5e8f2b25f5818052946b099028c867281bd60fa353b63dde11ea5302e3502126",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".req-error-toast.req-ok-toast",
-      "property": "border-color",
-      "literal": "#059669",
-      "locations": [
-        {
-          "line": 2903,
-          "column": 17
         }
       ],
       "count": 1,
@@ -1370,27 +1223,6 @@
       "evidence": []
     },
     {
-      "fingerprint": "6a9884ed7306da6285a9e71709f6765b31ccf764f289caebdfe3571ab6f167be",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": "[data-theme='dark'] .req-error-toast",
-      "property": "color",
-      "literal": "#fca5a5",
-      "locations": [
-        {
-          "line": 2890,
-          "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
       "fingerprint": "6d0a0d51e42c854d33fd2a6404a5f755340ce9ae9d0f7a273a847ebfb9231b51",
       "file": "client/src/App.css",
       "context": [],
@@ -1538,27 +1370,6 @@
       "evidence": []
     },
     {
-      "fingerprint": "7de899cdb7e10e29417268c69e650348fea0c11613949c3d20400ec40d092fd4",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".req-error-toast.req-ok-toast",
-      "property": "color",
-      "literal": "#047857",
-      "locations": [
-        {
-          "line": 2902,
-          "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
       "fingerprint": "82c1b638aa60ea799874936cbf287f22996c268a28079c20749edf9fa6c81aaf",
       "file": "client/src/App.css",
       "context": [],
@@ -1687,48 +1498,6 @@
       "evidence": []
     },
     {
-      "fingerprint": "913944b2e29be9e5cbbd63f3e505066b5c73a691c34bf6324821f7273d3db13d",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": "[data-theme='dark'] .req-error-toast.req-ok-toast",
-      "property": "border-color",
-      "literal": "#34d399",
-      "locations": [
-        {
-          "line": 2908,
-          "column": 17
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "93554dba7f6800db0cba4130464acd4b642b048d5190b3bc75ad63e79520557a",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".req-error-toast",
-      "property": "border",
-      "literal": "#dc2626",
-      "locations": [
-        {
-          "line": 2881,
-          "column": 35
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
       "fingerprint": "94c0edb6e8fcf717704d136ea1f6506b39148d952aac404cd2576e808e2d0552",
       "file": "client/src/App.css",
       "context": [],
@@ -1823,27 +1592,6 @@
         {
           "line": 3059,
           "column": 74
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "9ed5d2257efc4dfe0a50c8208e5debe7c1022c6da480ae6488ae583ec05bcd31",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".lc-popover",
-      "property": "box-shadow",
-      "literal": "rgba(45, 45, 46, 0.2)",
-      "locations": [
-        {
-          "line": 1601,
-          "column": 90
         }
       ],
       "count": 1,
@@ -2044,27 +1792,6 @@
       "evidence": []
     },
     {
-      "fingerprint": "c1d9d78a744d1fcb9e57320539d10b6b3d55319b94cfaf7d160895e2593f3d5d",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".lc-popover--selfcheck-fail",
-      "property": "outline",
-      "literal": "#dc2626",
-      "locations": [
-        {
-          "line": 1614,
-          "column": 50
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
       "fingerprint": "c35860e726e42f28340086cbca41b84e16ed0b82553454d1444ccaf33214f5c4",
       "file": "client/src/App.css",
       "context": [],
@@ -2121,27 +1848,6 @@
       ],
       "count": 1,
       "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "c83009d6f7832658c6e7566e26d4e9bf82b6c789eaa0124f6e0c12c129235eb4",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".req-error-toast.req-ok-toast",
-      "property": "background",
-      "literal": "#ecfdf5",
-      "locations": [
-        {
-          "line": 2901,
-          "column": 15
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
       "reachability": "unverified",
       "decision": "pending",
       "semanticRole": null,
@@ -2338,27 +2044,6 @@
       "evidence": []
     },
     {
-      "fingerprint": "d96aaebf53cb7477093cef04beea9938361012c1bb9ee401015e4ce4a8da4d11",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".req-error-toast",
-      "property": "background",
-      "literal": "#fef2f2",
-      "locations": [
-        {
-          "line": 2879,
-          "column": 32
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
       "fingerprint": "da448ad263a1f8f6485bba839bd471d977f86dfd71013acdd5c78e3aecbc6b35",
       "file": "client/src/App.css",
       "context": [],
@@ -2548,27 +2233,6 @@
       "evidence": []
     },
     {
-      "fingerprint": "ee7ada9e98eed303319e9f211ff826c18ad4768bb9df5a2e545ce26ccf36d5d4",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".lc-popover-error",
-      "property": "color",
-      "literal": "#dc2626",
-      "locations": [
-        {
-          "line": 1660,
-          "column": 30
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
       "fingerprint": "efc13f296c88049204085d161b0758bfd2a9bb9559f999bbdba22b7e2de3609a",
       "file": "client/src/App.css",
       "context": [],
@@ -2730,27 +2394,6 @@
       ],
       "count": 1,
       "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
-    },
-    {
-      "fingerprint": "fd1269bde8f966e8cacbd738160df0d91e648e0349915898ad99e1abb089d684",
-      "file": "client/src/App.css",
-      "context": [],
-      "owner": ".req-error-toast",
-      "property": "color",
-      "literal": "#dc2626",
-      "locations": [
-        {
-          "line": 2880,
-          "column": 24
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
       "reachability": "unverified",
       "decision": "pending",
       "semanticRole": null,
@@ -26244,29 +25887,199 @@
       "reason": "TC-C4b 批量及危险动作；保持标签添加/移除语义，实心/文字/淡底/边界分开",
       "baselineHead": "b6db997",
       "token": "--status-danger-border"
+    },
+    {
+      "fingerprint": "34e806a43078a7565a3b5cdd8b1a9d5a7bedba9c01d6e61090620988805c084c",
+      "file": "client/src/App.css",
+      "literal": "#fff",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4c 浮层和通知：背景/文字/边界分别映射；失败业务订阅U02不计作已修",
+      "baselineHead": "a5b2c30",
+      "token": "--bg-primary"
+    },
+    {
+      "fingerprint": "42332e7d32fe117a773c357220fbc5f4b778970d818f3431c81f910059b2ebaf",
+      "file": "client/src/App.css",
+      "literal": "rgba(45, 45, 46, 0.15)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4c 浮层和通知：背景/文字/边界分别映射；失败业务订阅U02不计作已修",
+      "baselineHead": "a5b2c30",
+      "token": "--solid-shade"
+    },
+    {
+      "fingerprint": "9ed5d2257efc4dfe0a50c8208e5debe7c1022c6da480ae6488ae583ec05bcd31",
+      "file": "client/src/App.css",
+      "literal": "rgba(45, 45, 46, 0.2)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4c 浮层和通知：背景/文字/边界分别映射；失败业务订阅U02不计作已修",
+      "baselineHead": "a5b2c30",
+      "token": "--solid-shade"
+    },
+    {
+      "fingerprint": "c1d9d78a744d1fcb9e57320539d10b6b3d55319b94cfaf7d160895e2593f3d5d",
+      "file": "client/src/App.css",
+      "literal": "#dc2626",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4c 浮层和通知：背景/文字/边界分别映射；失败业务订阅U02不计作已修",
+      "baselineHead": "a5b2c30",
+      "token": "--status-danger-border"
+    },
+    {
+      "fingerprint": "ee7ada9e98eed303319e9f211ff826c18ad4768bb9df5a2e545ce26ccf36d5d4",
+      "file": "client/src/App.css",
+      "literal": "#dc2626",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4c 浮层和通知：背景/文字/边界分别映射；失败业务订阅U02不计作已修",
+      "baselineHead": "a5b2c30",
+      "token": "--status-danger-text"
+    },
+    {
+      "fingerprint": "d96aaebf53cb7477093cef04beea9938361012c1bb9ee401015e4ce4a8da4d11",
+      "file": "client/src/App.css",
+      "literal": "#fef2f2",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4c 浮层和通知：背景/文字/边界分别映射；失败业务订阅U02不计作已修；固定通知淡底须不透明，防止底下行文字穿透",
+      "baselineHead": "a5b2c30",
+      "token": "--status-danger-border"
+    },
+    {
+      "fingerprint": "fd1269bde8f966e8cacbd738160df0d91e648e0349915898ad99e1abb089d684",
+      "file": "client/src/App.css",
+      "literal": "#dc2626",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4c 浮层和通知：背景/文字/边界分别映射；失败业务订阅U02不计作已修",
+      "baselineHead": "a5b2c30",
+      "token": "--status-danger-text"
+    },
+    {
+      "fingerprint": "93554dba7f6800db0cba4130464acd4b642b048d5190b3bc75ad63e79520557a",
+      "file": "client/src/App.css",
+      "literal": "#dc2626",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4c 浮层和通知：背景/文字/边界分别映射；失败业务订阅U02不计作已修",
+      "baselineHead": "a5b2c30",
+      "token": "--status-danger-border"
+    },
+    {
+      "fingerprint": "1b0b806db80c3f1bf67a81f4dfa1cda0f80dc6a86757a16e7725a85791641fc1",
+      "file": "client/src/App.css",
+      "literal": "rgba(220, 38, 38, 0.15)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4c 浮层和通知：背景/文字/边界分别映射；失败业务订阅U02不计作已修；固定通知淡底须不透明，防止底下行文字穿透",
+      "baselineHead": "a5b2c30",
+      "token": "--status-danger-border"
+    },
+    {
+      "fingerprint": "6a9884ed7306da6285a9e71709f6765b31ccf764f289caebdfe3571ab6f167be",
+      "file": "client/src/App.css",
+      "literal": "#fca5a5",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4c 浮层和通知：背景/文字/边界分别映射；失败业务订阅U02不计作已修",
+      "baselineHead": "a5b2c30",
+      "token": "--status-danger-text"
+    },
+    {
+      "fingerprint": "56bd93448a176b57408100e09378bce446b9f37ecb62c6fd9226b59d1ef4ce4e",
+      "file": "client/src/App.css",
+      "literal": "#fca5a5",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4c 浮层和通知：背景/文字/边界分别映射；失败业务订阅U02不计作已修",
+      "baselineHead": "a5b2c30",
+      "token": "--status-danger-border"
+    },
+    {
+      "fingerprint": "c83009d6f7832658c6e7566e26d4e9bf82b6c789eaa0124f6e0c12c129235eb4",
+      "file": "client/src/App.css",
+      "literal": "#ecfdf5",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4c 浮层和通知：背景/文字/边界分别映射；失败业务订阅U02不计作已修；固定通知淡底须不透明，防止底下行文字穿透",
+      "baselineHead": "a5b2c30",
+      "token": "--status-success-border"
+    },
+    {
+      "fingerprint": "7de899cdb7e10e29417268c69e650348fea0c11613949c3d20400ec40d092fd4",
+      "file": "client/src/App.css",
+      "literal": "#047857",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4c 浮层和通知：背景/文字/边界分别映射；失败业务订阅U02不计作已修",
+      "baselineHead": "a5b2c30",
+      "token": "--status-success-text"
+    },
+    {
+      "fingerprint": "5e8f2b25f5818052946b099028c867281bd60fa353b63dde11ea5302e3502126",
+      "file": "client/src/App.css",
+      "literal": "#059669",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4c 浮层和通知：背景/文字/边界分别映射；失败业务订阅U02不计作已修",
+      "baselineHead": "a5b2c30",
+      "token": "--status-success-border"
+    },
+    {
+      "fingerprint": "104b747f0dade7a455c061f1dd640b1986b0b328556e5257698c80fb2e82c4f8",
+      "file": "client/src/App.css",
+      "literal": "rgba(5, 150, 105, 0.15)",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4c 浮层和通知：背景/文字/边界分别映射；失败业务订阅U02不计作已修；固定通知淡底须不透明，防止底下行文字穿透",
+      "baselineHead": "a5b2c30",
+      "token": "--status-success-border"
+    },
+    {
+      "fingerprint": "39b63c5e2e8b1ab8a42ced9206b2062826547b4033d209a8ed3fec97510ea7c6",
+      "file": "client/src/App.css",
+      "literal": "#6ee7b7",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4c 浮层和通知：背景/文字/边界分别映射；失败业务订阅U02不计作已修",
+      "baselineHead": "a5b2c30",
+      "token": "--status-success-text"
+    },
+    {
+      "fingerprint": "913944b2e29be9e5cbbd63f3e505066b5c73a691c34bf6324821f7273d3db13d",
+      "file": "client/src/App.css",
+      "literal": "#34d399",
+      "count": 1,
+      "resolution": "tokenize",
+      "reason": "TC-C4c 浮层和通知：背景/文字/边界分别映射；失败业务订阅U02不计作已修",
+      "baselineHead": "a5b2c30",
+      "token": "--status-success-border"
     }
   ],
   "additions": [],
   "summary": {
-    "occurrences": 987,
-    "identities": 965,
-    "uniqueColors": 230,
+    "occurrences": 970,
+    "identities": 948,
+    "uniqueColors": 227,
     "files": 52,
     "byKind": {
-      "semantic-color": 332,
+      "semantic-color": 319,
       "token-definition": 224,
-      "neutral-literal": 254,
+      "neutral-literal": 250,
       "unknown": 164,
       "data-color": 12,
       "non-color": 1
     },
     "byDecision": {
-      "pending": 750,
+      "pending": 733,
       "not-debt": 225,
       "accepted-literal": 12
     },
     "byFile": {
-      "client/src/App.css": 132,
+      "client/src/App.css": 115,
       "client/src/components/AppHeader.css": 20,
       "client/src/components/boards/EditableCells.tsx": 10,
       "client/src/components/Charts.css": 11,

@@ -1,0 +1,136 @@
+{
+  "evidence": [
+    {
+      "theme": "light",
+      "width": 1600,
+      "rows": [
+        {
+          "role": "alert",
+          "foreground": "rgb(153, 27, 27)",
+          "background": [
+            247,
+            228,
+            228
+          ],
+          "opacity": 1,
+          "textRatio": 6.795436804494025,
+          "borderRatio": 5.290795775443955
+        },
+        {
+          "role": "status",
+          "foreground": "rgb(6, 95, 70)",
+          "background": [
+            225,
+            239,
+            235
+          ],
+          "opacity": 1,
+          "textRatio": 6.493710630264676,
+          "borderRatio": 4.634632074209017
+        }
+      ],
+      "artifact": "tests/visual/reports/notifications-light-1600.png",
+      "state": "production-presentation-controlled-error-and-success",
+      "businessErrorSubscription": "U02 remains outside Task C"
+    },
+    {
+      "theme": "light",
+      "width": 1366,
+      "rows": [
+        {
+          "role": "alert",
+          "foreground": "rgb(153, 27, 27)",
+          "background": [
+            247,
+            228,
+            228
+          ],
+          "opacity": 1,
+          "textRatio": 6.795436804494025,
+          "borderRatio": 5.290795775443955
+        },
+        {
+          "role": "status",
+          "foreground": "rgb(6, 95, 70)",
+          "background": [
+            225,
+            239,
+            235
+          ],
+          "opacity": 1,
+          "textRatio": 6.493710630264676,
+          "borderRatio": 4.634632074209017
+        }
+      ],
+      "artifact": "tests/visual/reports/notifications-light-1366.png",
+      "state": "production-presentation-controlled-error-and-success",
+      "businessErrorSubscription": "U02 remains outside Task C"
+    },
+    {
+      "theme": "dark",
+      "width": 1600,
+      "rows": [
+        {
+          "role": "alert",
+          "foreground": "rgb(254, 202, 202)",
+          "background": [
+            44,
+            29,
+            42
+          ],
+          "opacity": 1,
+          "textRatio": 11.02751595420495,
+          "borderRatio": 4.2395920124843665
+        },
+        {
+          "role": "status",
+          "foreground": "rgb(134, 239, 172)",
+          "background": [
+            17,
+            43,
+            50
+          ],
+          "opacity": 1,
+          "textRatio": 10.56628999790395,
+          "borderRatio": 5.848779301258921
+        }
+      ],
+      "artifact": "tests/visual/reports/notifications-dark-1600.png",
+      "state": "production-presentation-controlled-error-and-success",
+      "businessErrorSubscription": "U02 remains outside Task C"
+    },
+    {
+      "theme": "dark",
+      "width": 1366,
+      "rows": [
+        {
+          "role": "alert",
+          "foreground": "rgb(254, 202, 202)",
+          "background": [
+            44,
+            29,
+            42
+          ],
+          "opacity": 1,
+          "textRatio": 11.02751595420495,
+          "borderRatio": 4.2395920124843665
+        },
+        {
+          "role": "status",
+          "foreground": "rgb(134, 239, 172)",
+          "background": [
+            17,
+            43,
+            50
+          ],
+          "opacity": 1,
+          "textRatio": 10.56628999790395,
+          "borderRatio": 5.848779301258921
+        }
+      ],
+      "artifact": "tests/visual/reports/notifications-dark-1366.png",
+      "state": "production-presentation-controlled-error-and-success",
+      "businessErrorSubscription": "U02 remains outside Task C"
+    }
+  ]
+}

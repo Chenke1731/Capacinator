@@ -771,9 +771,15 @@ export class ScenariosController extends BaseController {
             role_id: assignment.role_id,
             phase_id: assignment.phase_id,
             allocation_percentage: assignment.allocation_percentage,
+            // IP-04a/F02: 分支事实保真——paused 不被默认值激活、主投入不丢、
+            // computed 日期随行复制(旧码遗漏三族字段)
+            status: assignment.status || 'active',
+            is_primary: assignment.is_primary ?? 0,
             assignment_date_mode: assignment.assignment_date_mode,
             start_date: assignment.start_date,
             end_date: assignment.end_date,
+            computed_start_date: assignment.computed_start_date ?? null,
+            computed_end_date: assignment.computed_end_date ?? null,
             notes: assignment.notes,
             change_type: 'added',
             base_assignment_id: baseId,

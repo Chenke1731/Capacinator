@@ -1478,11 +1478,16 @@
       ],
       "count": 1,
       "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "reachability": "not-in-entry-import-closure",
+      "decision": "retained-unused",
+      "semanticRole": "legacy-unloaded-color-consumer",
+      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
+      "evidence": [],
+      "unusedEvidence": {
+        "entry": "client/src/main.tsx",
+        "fileHash": "c6832d93693db5b1e9519736b9df093a44f8ae5b679be28f46d7f6b79601c65f",
+        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
+      }
     },
     {
       "fingerprint": "593df5a521e2e376bd9e4bae1743764ba164017326b887756a7d8cde4344f8eb",
@@ -1499,11 +1504,16 @@
       ],
       "count": 1,
       "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "reachability": "not-in-entry-import-closure",
+      "decision": "retained-unused",
+      "semanticRole": "legacy-unloaded-color-consumer",
+      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
+      "evidence": [],
+      "unusedEvidence": {
+        "entry": "client/src/main.tsx",
+        "fileHash": "c6832d93693db5b1e9519736b9df093a44f8ae5b679be28f46d7f6b79601c65f",
+        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
+      }
     },
     {
       "fingerprint": "5f43adf80fd8d32e0802f8ca027e27cb3cbc6dc6db7111b49fdc11483cc81e6b",
@@ -1520,11 +1530,16 @@
       ],
       "count": 1,
       "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "reachability": "not-in-entry-import-closure",
+      "decision": "retained-unused",
+      "semanticRole": "legacy-unloaded-color-consumer",
+      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
+      "evidence": [],
+      "unusedEvidence": {
+        "entry": "client/src/main.tsx",
+        "fileHash": "c6832d93693db5b1e9519736b9df093a44f8ae5b679be28f46d7f6b79601c65f",
+        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
+      }
     },
     {
       "fingerprint": "dc89c8937b4c9b9b9578e89001473542a8e3f8c9d8b3c5d0f744384ea34148e9",
@@ -1541,11 +1556,16 @@
       ],
       "count": 1,
       "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "reachability": "not-in-entry-import-closure",
+      "decision": "retained-unused",
+      "semanticRole": "legacy-unloaded-color-consumer",
+      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
+      "evidence": [],
+      "unusedEvidence": {
+        "entry": "client/src/main.tsx",
+        "fileHash": "c6832d93693db5b1e9519736b9df093a44f8ae5b679be28f46d7f6b79601c65f",
+        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
+      }
     },
     {
       "fingerprint": "1ae786796ca01566679ee56939d63f5c67c9571b36924ac7211613e472075e7a",
@@ -3029,11 +3049,16 @@
       ],
       "count": 1,
       "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "reachability": "not-in-entry-import-closure",
+      "decision": "retained-unused",
+      "semanticRole": "legacy-unloaded-color-consumer",
+      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
+      "evidence": [],
+      "unusedEvidence": {
+        "entry": "client/src/main.tsx",
+        "fileHash": "9610e0191fb8085bbccc98f3656f5cf51b0523dfe3ab8e1986ec092c1ff7513b",
+        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
+      }
     },
     {
       "fingerprint": "5f373ed26dc10e7fe7ed67fc862219cb34296a9b8ab2aea01bfc952a077691a1",
@@ -3050,11 +3075,16 @@
       ],
       "count": 1,
       "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "reachability": "not-in-entry-import-closure",
+      "decision": "retained-unused",
+      "semanticRole": "legacy-unloaded-color-consumer",
+      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
+      "evidence": [],
+      "unusedEvidence": {
+        "entry": "client/src/main.tsx",
+        "fileHash": "9610e0191fb8085bbccc98f3656f5cf51b0523dfe3ab8e1986ec092c1ff7513b",
+        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
+      }
     },
     {
       "fingerprint": "0737392ca4c708ed4ea5ed9d74f2b5649b8928ec1322c68d9d6aab8716ced6b8",
@@ -3073,11 +3103,16 @@
       ],
       "count": 1,
       "kind": "unknown",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "reachability": "not-in-entry-import-closure",
+      "decision": "retained-unused",
+      "semanticRole": "legacy-unloaded-color-consumer",
+      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
+      "evidence": [],
+      "unusedEvidence": {
+        "entry": "client/src/main.tsx",
+        "fileHash": "2a81ec7a423bebc8a5f9d8b3c89f406684de3be9d9ac5ad06cbaf3d280cf7aa9",
+        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
+      }
     },
     {
       "fingerprint": "253b570fc3bd07d582e3ba3c9e49fb0f53a57f07f17c0a9a548a1bc73426ac62",
@@ -3096,11 +3131,16 @@
       ],
       "count": 1,
       "kind": "unknown",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "reachability": "not-in-entry-import-closure",
+      "decision": "retained-unused",
+      "semanticRole": "legacy-unloaded-color-consumer",
+      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
+      "evidence": [],
+      "unusedEvidence": {
+        "entry": "client/src/main.tsx",
+        "fileHash": "2a81ec7a423bebc8a5f9d8b3c89f406684de3be9d9ac5ad06cbaf3d280cf7aa9",
+        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
+      }
     },
     {
       "fingerprint": "295b2141c1c3d76a914a56fa7c76dccd76a917cc4f283cf2a5f7833dad39cd6f",
@@ -3119,11 +3159,16 @@
       ],
       "count": 1,
       "kind": "unknown",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "reachability": "not-in-entry-import-closure",
+      "decision": "retained-unused",
+      "semanticRole": "legacy-unloaded-color-consumer",
+      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
+      "evidence": [],
+      "unusedEvidence": {
+        "entry": "client/src/main.tsx",
+        "fileHash": "2a81ec7a423bebc8a5f9d8b3c89f406684de3be9d9ac5ad06cbaf3d280cf7aa9",
+        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
+      }
     },
     {
       "fingerprint": "6b3fc44b06726234ab7f0928315895807239194ad0d7324bfb5daa77579b3d3b",
@@ -3142,11 +3187,16 @@
       ],
       "count": 1,
       "kind": "unknown",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "reachability": "not-in-entry-import-closure",
+      "decision": "retained-unused",
+      "semanticRole": "legacy-unloaded-color-consumer",
+      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
+      "evidence": [],
+      "unusedEvidence": {
+        "entry": "client/src/main.tsx",
+        "fileHash": "2a81ec7a423bebc8a5f9d8b3c89f406684de3be9d9ac5ad06cbaf3d280cf7aa9",
+        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
+      }
     },
     {
       "fingerprint": "7b2c0b21e44204d7597fbd4ea1694d1428839da89f2c818e35e4e11aa94ea664",
@@ -3165,11 +3215,16 @@
       ],
       "count": 1,
       "kind": "unknown",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "reachability": "not-in-entry-import-closure",
+      "decision": "retained-unused",
+      "semanticRole": "legacy-unloaded-color-consumer",
+      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
+      "evidence": [],
+      "unusedEvidence": {
+        "entry": "client/src/main.tsx",
+        "fileHash": "2a81ec7a423bebc8a5f9d8b3c89f406684de3be9d9ac5ad06cbaf3d280cf7aa9",
+        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
+      }
     },
     {
       "fingerprint": "8801ef7b7523df7dcf0d7e1bfc3341b8503acc0933b5552804528f7f87f85c4a",
@@ -3188,11 +3243,16 @@
       ],
       "count": 1,
       "kind": "unknown",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "reachability": "not-in-entry-import-closure",
+      "decision": "retained-unused",
+      "semanticRole": "legacy-unloaded-color-consumer",
+      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
+      "evidence": [],
+      "unusedEvidence": {
+        "entry": "client/src/main.tsx",
+        "fileHash": "2a81ec7a423bebc8a5f9d8b3c89f406684de3be9d9ac5ad06cbaf3d280cf7aa9",
+        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
+      }
     },
     {
       "fingerprint": "9b48d6d7f670a43b8c51b9a84741b0a764af4c6ee03466477927e4ee6c079139",
@@ -3211,11 +3271,16 @@
       ],
       "count": 1,
       "kind": "unknown",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "reachability": "not-in-entry-import-closure",
+      "decision": "retained-unused",
+      "semanticRole": "legacy-unloaded-color-consumer",
+      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
+      "evidence": [],
+      "unusedEvidence": {
+        "entry": "client/src/main.tsx",
+        "fileHash": "2a81ec7a423bebc8a5f9d8b3c89f406684de3be9d9ac5ad06cbaf3d280cf7aa9",
+        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
+      }
     },
     {
       "fingerprint": "a91a8fee7823fd317a759256674afe16916ed4f5ba7b9a0218df2f4647bb732b",
@@ -3234,11 +3299,16 @@
       ],
       "count": 1,
       "kind": "unknown",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "reachability": "not-in-entry-import-closure",
+      "decision": "retained-unused",
+      "semanticRole": "legacy-unloaded-color-consumer",
+      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
+      "evidence": [],
+      "unusedEvidence": {
+        "entry": "client/src/main.tsx",
+        "fileHash": "2a81ec7a423bebc8a5f9d8b3c89f406684de3be9d9ac5ad06cbaf3d280cf7aa9",
+        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
+      }
     },
     {
       "fingerprint": "b476c6f289fc1891e4b46df7414b1f9758cd55b5f0bcde553aaab7ecabc9c5c1",
@@ -3257,11 +3327,16 @@
       ],
       "count": 1,
       "kind": "unknown",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "reachability": "not-in-entry-import-closure",
+      "decision": "retained-unused",
+      "semanticRole": "legacy-unloaded-color-consumer",
+      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
+      "evidence": [],
+      "unusedEvidence": {
+        "entry": "client/src/main.tsx",
+        "fileHash": "2a81ec7a423bebc8a5f9d8b3c89f406684de3be9d9ac5ad06cbaf3d280cf7aa9",
+        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
+      }
     },
     {
       "fingerprint": "0e526beed56b815d476c2a4bb4cdfdeacee81f63e247b259846444cb629ebf04",
@@ -3320,11 +3395,16 @@
       ],
       "count": 1,
       "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "reachability": "not-in-entry-import-closure",
+      "decision": "retained-unused",
+      "semanticRole": "legacy-unloaded-color-consumer",
+      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
+      "evidence": [],
+      "unusedEvidence": {
+        "entry": "client/src/main.tsx",
+        "fileHash": "95154aa1ff15f94c758570b36859300908557433ebe3e625416915e64c6ff491",
+        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
+      }
     },
     {
       "fingerprint": "0496717d28d376474915e8dba068a34077e41e1ffa92f520d368e3091eb92a3d",
@@ -3341,11 +3421,16 @@
       ],
       "count": 1,
       "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "reachability": "not-in-entry-import-closure",
+      "decision": "retained-unused",
+      "semanticRole": "legacy-unloaded-color-consumer",
+      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
+      "evidence": [],
+      "unusedEvidence": {
+        "entry": "client/src/main.tsx",
+        "fileHash": "95154aa1ff15f94c758570b36859300908557433ebe3e625416915e64c6ff491",
+        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
+      }
     },
     {
       "fingerprint": "249f62dd1524d44cb3efdcb5dcc4a9e44b090058adb39059a01522755b5b42c3",
@@ -3362,11 +3447,16 @@
       ],
       "count": 1,
       "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "reachability": "not-in-entry-import-closure",
+      "decision": "retained-unused",
+      "semanticRole": "legacy-unloaded-color-consumer",
+      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
+      "evidence": [],
+      "unusedEvidence": {
+        "entry": "client/src/main.tsx",
+        "fileHash": "95154aa1ff15f94c758570b36859300908557433ebe3e625416915e64c6ff491",
+        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
+      }
     },
     {
       "fingerprint": "3aafce88532b35dde725cd77833ee8c1792470b28608c67101cd49ec9f7d9514",
@@ -3383,11 +3473,16 @@
       ],
       "count": 1,
       "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "reachability": "not-in-entry-import-closure",
+      "decision": "retained-unused",
+      "semanticRole": "legacy-unloaded-color-consumer",
+      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
+      "evidence": [],
+      "unusedEvidence": {
+        "entry": "client/src/main.tsx",
+        "fileHash": "95154aa1ff15f94c758570b36859300908557433ebe3e625416915e64c6ff491",
+        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
+      }
     },
     {
       "fingerprint": "3e5eeb27c53e8c6cce2b918fbd985b9911c61d59a5b75314ccea9f9a6d9637a1",
@@ -3404,11 +3499,16 @@
       ],
       "count": 1,
       "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "reachability": "not-in-entry-import-closure",
+      "decision": "retained-unused",
+      "semanticRole": "legacy-unloaded-color-consumer",
+      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
+      "evidence": [],
+      "unusedEvidence": {
+        "entry": "client/src/main.tsx",
+        "fileHash": "95154aa1ff15f94c758570b36859300908557433ebe3e625416915e64c6ff491",
+        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
+      }
     },
     {
       "fingerprint": "4883f92581ecb659931c7f73478dbb9ed666fd4458971693439545d9e2d8daef",
@@ -3425,11 +3525,16 @@
       ],
       "count": 1,
       "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "reachability": "not-in-entry-import-closure",
+      "decision": "retained-unused",
+      "semanticRole": "legacy-unloaded-color-consumer",
+      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
+      "evidence": [],
+      "unusedEvidence": {
+        "entry": "client/src/main.tsx",
+        "fileHash": "95154aa1ff15f94c758570b36859300908557433ebe3e625416915e64c6ff491",
+        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
+      }
     },
     {
       "fingerprint": "5069e9fa992157314977c6b73ff1ad9555588f77de22083c7fbc2a305b7210b7",
@@ -3446,11 +3551,16 @@
       ],
       "count": 1,
       "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "reachability": "not-in-entry-import-closure",
+      "decision": "retained-unused",
+      "semanticRole": "legacy-unloaded-color-consumer",
+      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
+      "evidence": [],
+      "unusedEvidence": {
+        "entry": "client/src/main.tsx",
+        "fileHash": "95154aa1ff15f94c758570b36859300908557433ebe3e625416915e64c6ff491",
+        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
+      }
     },
     {
       "fingerprint": "51e28a40f4cc6f3584e7f82d264a0d0f9ae0d9e2a11776f3e768d8093f29408f",
@@ -3467,11 +3577,16 @@
       ],
       "count": 1,
       "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "reachability": "not-in-entry-import-closure",
+      "decision": "retained-unused",
+      "semanticRole": "legacy-unloaded-color-consumer",
+      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
+      "evidence": [],
+      "unusedEvidence": {
+        "entry": "client/src/main.tsx",
+        "fileHash": "95154aa1ff15f94c758570b36859300908557433ebe3e625416915e64c6ff491",
+        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
+      }
     },
     {
       "fingerprint": "57a7f6fb0647eff57702220731943bd4b611ddbe49b75f931b398bec583b77cb",
@@ -3488,11 +3603,16 @@
       ],
       "count": 1,
       "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "reachability": "not-in-entry-import-closure",
+      "decision": "retained-unused",
+      "semanticRole": "legacy-unloaded-color-consumer",
+      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
+      "evidence": [],
+      "unusedEvidence": {
+        "entry": "client/src/main.tsx",
+        "fileHash": "95154aa1ff15f94c758570b36859300908557433ebe3e625416915e64c6ff491",
+        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
+      }
     },
     {
       "fingerprint": "6175912735dcfe706f7bc6703b14d1974fc01e17e848fb8a8bd020e966367f50",
@@ -3509,11 +3629,16 @@
       ],
       "count": 1,
       "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "reachability": "not-in-entry-import-closure",
+      "decision": "retained-unused",
+      "semanticRole": "legacy-unloaded-color-consumer",
+      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
+      "evidence": [],
+      "unusedEvidence": {
+        "entry": "client/src/main.tsx",
+        "fileHash": "95154aa1ff15f94c758570b36859300908557433ebe3e625416915e64c6ff491",
+        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
+      }
     },
     {
       "fingerprint": "657310e052962e89297038c75056444789885b4f1011b3a58d2e9579fdf97f55",
@@ -3530,11 +3655,16 @@
       ],
       "count": 1,
       "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "reachability": "not-in-entry-import-closure",
+      "decision": "retained-unused",
+      "semanticRole": "legacy-unloaded-color-consumer",
+      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
+      "evidence": [],
+      "unusedEvidence": {
+        "entry": "client/src/main.tsx",
+        "fileHash": "95154aa1ff15f94c758570b36859300908557433ebe3e625416915e64c6ff491",
+        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
+      }
     },
     {
       "fingerprint": "69f98b7c976fbde6e006d038e78ff6f3bd4dce399050ab6760f202ac7a39cf65",
@@ -3551,11 +3681,16 @@
       ],
       "count": 1,
       "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "reachability": "not-in-entry-import-closure",
+      "decision": "retained-unused",
+      "semanticRole": "legacy-unloaded-color-consumer",
+      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
+      "evidence": [],
+      "unusedEvidence": {
+        "entry": "client/src/main.tsx",
+        "fileHash": "95154aa1ff15f94c758570b36859300908557433ebe3e625416915e64c6ff491",
+        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
+      }
     },
     {
       "fingerprint": "6b569e19289be38141ff51872415fb68634534ec9e55f5e7cfe0ecf6024d1092",
@@ -3572,11 +3707,16 @@
       ],
       "count": 1,
       "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "reachability": "not-in-entry-import-closure",
+      "decision": "retained-unused",
+      "semanticRole": "legacy-unloaded-color-consumer",
+      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
+      "evidence": [],
+      "unusedEvidence": {
+        "entry": "client/src/main.tsx",
+        "fileHash": "95154aa1ff15f94c758570b36859300908557433ebe3e625416915e64c6ff491",
+        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
+      }
     },
     {
       "fingerprint": "79797f65d801f64da3b8996b85a115a6cd8f442bd1548bedaa46bc135137f4e6",
@@ -3593,11 +3733,16 @@
       ],
       "count": 1,
       "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "reachability": "not-in-entry-import-closure",
+      "decision": "retained-unused",
+      "semanticRole": "legacy-unloaded-color-consumer",
+      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
+      "evidence": [],
+      "unusedEvidence": {
+        "entry": "client/src/main.tsx",
+        "fileHash": "95154aa1ff15f94c758570b36859300908557433ebe3e625416915e64c6ff491",
+        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
+      }
     },
     {
       "fingerprint": "7f58dd68d462fc971f56628e592c1d73def326b0b85f19a5d9719b4eb8e734d1",
@@ -3614,11 +3759,16 @@
       ],
       "count": 1,
       "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "reachability": "not-in-entry-import-closure",
+      "decision": "retained-unused",
+      "semanticRole": "legacy-unloaded-color-consumer",
+      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
+      "evidence": [],
+      "unusedEvidence": {
+        "entry": "client/src/main.tsx",
+        "fileHash": "95154aa1ff15f94c758570b36859300908557433ebe3e625416915e64c6ff491",
+        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
+      }
     },
     {
       "fingerprint": "88770c36987b2d102fa5cb33f52d1c0aef470f9efc0d926f64cba22e89688932",
@@ -3635,11 +3785,16 @@
       ],
       "count": 1,
       "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "reachability": "not-in-entry-import-closure",
+      "decision": "retained-unused",
+      "semanticRole": "legacy-unloaded-color-consumer",
+      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
+      "evidence": [],
+      "unusedEvidence": {
+        "entry": "client/src/main.tsx",
+        "fileHash": "95154aa1ff15f94c758570b36859300908557433ebe3e625416915e64c6ff491",
+        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
+      }
     },
     {
       "fingerprint": "8b988a9b85a25f60db4103e0eda2bff612c55889e541d942c155d2c3be59eeaf",
@@ -3656,11 +3811,16 @@
       ],
       "count": 1,
       "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "reachability": "not-in-entry-import-closure",
+      "decision": "retained-unused",
+      "semanticRole": "legacy-unloaded-color-consumer",
+      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
+      "evidence": [],
+      "unusedEvidence": {
+        "entry": "client/src/main.tsx",
+        "fileHash": "95154aa1ff15f94c758570b36859300908557433ebe3e625416915e64c6ff491",
+        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
+      }
     },
     {
       "fingerprint": "99dcf2de55b33ee58cb46cb4aa096cfd419f69e9d2aa3b12cbf79f8c4a8d1c38",
@@ -3677,11 +3837,16 @@
       ],
       "count": 1,
       "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "reachability": "not-in-entry-import-closure",
+      "decision": "retained-unused",
+      "semanticRole": "legacy-unloaded-color-consumer",
+      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
+      "evidence": [],
+      "unusedEvidence": {
+        "entry": "client/src/main.tsx",
+        "fileHash": "95154aa1ff15f94c758570b36859300908557433ebe3e625416915e64c6ff491",
+        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
+      }
     },
     {
       "fingerprint": "9e693e12296b020bbecbbfb67a710094139676e8cc25ef4af46587250f0ee2c0",
@@ -3698,11 +3863,16 @@
       ],
       "count": 1,
       "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "reachability": "not-in-entry-import-closure",
+      "decision": "retained-unused",
+      "semanticRole": "legacy-unloaded-color-consumer",
+      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
+      "evidence": [],
+      "unusedEvidence": {
+        "entry": "client/src/main.tsx",
+        "fileHash": "95154aa1ff15f94c758570b36859300908557433ebe3e625416915e64c6ff491",
+        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
+      }
     },
     {
       "fingerprint": "a8691807651d81c23183e5b399fe6913891a9c9e75344d26a7aa5f20757b852d",
@@ -3719,11 +3889,16 @@
       ],
       "count": 1,
       "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "reachability": "not-in-entry-import-closure",
+      "decision": "retained-unused",
+      "semanticRole": "legacy-unloaded-color-consumer",
+      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
+      "evidence": [],
+      "unusedEvidence": {
+        "entry": "client/src/main.tsx",
+        "fileHash": "95154aa1ff15f94c758570b36859300908557433ebe3e625416915e64c6ff491",
+        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
+      }
     },
     {
       "fingerprint": "ac3f9d697ab5f0cf1c3b06938e04ec54ff92ec635b5212cf7d94c9b7f6cc6331",
@@ -3740,11 +3915,16 @@
       ],
       "count": 1,
       "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "reachability": "not-in-entry-import-closure",
+      "decision": "retained-unused",
+      "semanticRole": "legacy-unloaded-color-consumer",
+      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
+      "evidence": [],
+      "unusedEvidence": {
+        "entry": "client/src/main.tsx",
+        "fileHash": "95154aa1ff15f94c758570b36859300908557433ebe3e625416915e64c6ff491",
+        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
+      }
     },
     {
       "fingerprint": "ace9ada82f5416f83d7120544d93cb50696368abb18d386f22fca60698a90611",
@@ -3761,11 +3941,16 @@
       ],
       "count": 1,
       "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "reachability": "not-in-entry-import-closure",
+      "decision": "retained-unused",
+      "semanticRole": "legacy-unloaded-color-consumer",
+      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
+      "evidence": [],
+      "unusedEvidence": {
+        "entry": "client/src/main.tsx",
+        "fileHash": "95154aa1ff15f94c758570b36859300908557433ebe3e625416915e64c6ff491",
+        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
+      }
     },
     {
       "fingerprint": "b865c5203a2308819167966718e30411d3ef972329310335b7e302d975c9bace",
@@ -3782,11 +3967,16 @@
       ],
       "count": 1,
       "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "reachability": "not-in-entry-import-closure",
+      "decision": "retained-unused",
+      "semanticRole": "legacy-unloaded-color-consumer",
+      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
+      "evidence": [],
+      "unusedEvidence": {
+        "entry": "client/src/main.tsx",
+        "fileHash": "95154aa1ff15f94c758570b36859300908557433ebe3e625416915e64c6ff491",
+        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
+      }
     },
     {
       "fingerprint": "c2ff0af4632a458b4a527e4721e0478a011c40b8003d34b679b7499a7cd72ea5",
@@ -3803,11 +3993,16 @@
       ],
       "count": 1,
       "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "reachability": "not-in-entry-import-closure",
+      "decision": "retained-unused",
+      "semanticRole": "legacy-unloaded-color-consumer",
+      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
+      "evidence": [],
+      "unusedEvidence": {
+        "entry": "client/src/main.tsx",
+        "fileHash": "95154aa1ff15f94c758570b36859300908557433ebe3e625416915e64c6ff491",
+        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
+      }
     },
     {
       "fingerprint": "c74dee4397f7684b8178f20ff68952ab0935b76ee98d05ecd2a653a8626cd719",
@@ -3824,11 +4019,16 @@
       ],
       "count": 1,
       "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "reachability": "not-in-entry-import-closure",
+      "decision": "retained-unused",
+      "semanticRole": "legacy-unloaded-color-consumer",
+      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
+      "evidence": [],
+      "unusedEvidence": {
+        "entry": "client/src/main.tsx",
+        "fileHash": "95154aa1ff15f94c758570b36859300908557433ebe3e625416915e64c6ff491",
+        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
+      }
     },
     {
       "fingerprint": "c92699b8445378d20c9a2b9a9094b7f94f72b814d81f911efeedcf58fd99bfd8",
@@ -3845,11 +4045,16 @@
       ],
       "count": 1,
       "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "reachability": "not-in-entry-import-closure",
+      "decision": "retained-unused",
+      "semanticRole": "legacy-unloaded-color-consumer",
+      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
+      "evidence": [],
+      "unusedEvidence": {
+        "entry": "client/src/main.tsx",
+        "fileHash": "95154aa1ff15f94c758570b36859300908557433ebe3e625416915e64c6ff491",
+        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
+      }
     },
     {
       "fingerprint": "e580012fafc64df9d862e5a5e03cd8786aabea605acb5f10464ff12165fe81a4",
@@ -3866,11 +4071,16 @@
       ],
       "count": 1,
       "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "reachability": "not-in-entry-import-closure",
+      "decision": "retained-unused",
+      "semanticRole": "legacy-unloaded-color-consumer",
+      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
+      "evidence": [],
+      "unusedEvidence": {
+        "entry": "client/src/main.tsx",
+        "fileHash": "95154aa1ff15f94c758570b36859300908557433ebe3e625416915e64c6ff491",
+        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
+      }
     },
     {
       "fingerprint": "ee2bd19f2b5c991bc5b2c1a3f9a9398414481d2b4ab3dd28a4d21debd13eb21e",
@@ -3887,11 +4097,16 @@
       ],
       "count": 1,
       "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "reachability": "not-in-entry-import-closure",
+      "decision": "retained-unused",
+      "semanticRole": "legacy-unloaded-color-consumer",
+      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
+      "evidence": [],
+      "unusedEvidence": {
+        "entry": "client/src/main.tsx",
+        "fileHash": "95154aa1ff15f94c758570b36859300908557433ebe3e625416915e64c6ff491",
+        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
+      }
     },
     {
       "fingerprint": "f0f6da0e21dd235b2e7d694aa1aef4998fa64c9e29af51ce0dad175e77fb9d97",
@@ -3908,11 +4123,16 @@
       ],
       "count": 1,
       "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "reachability": "not-in-entry-import-closure",
+      "decision": "retained-unused",
+      "semanticRole": "legacy-unloaded-color-consumer",
+      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
+      "evidence": [],
+      "unusedEvidence": {
+        "entry": "client/src/main.tsx",
+        "fileHash": "95154aa1ff15f94c758570b36859300908557433ebe3e625416915e64c6ff491",
+        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
+      }
     },
     {
       "fingerprint": "f13417135f07e055f7c0e758cd3c6d7b6f6255901f5b713a6b9f0a216744736e",
@@ -3929,11 +4149,16 @@
       ],
       "count": 1,
       "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "reachability": "not-in-entry-import-closure",
+      "decision": "retained-unused",
+      "semanticRole": "legacy-unloaded-color-consumer",
+      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
+      "evidence": [],
+      "unusedEvidence": {
+        "entry": "client/src/main.tsx",
+        "fileHash": "95154aa1ff15f94c758570b36859300908557433ebe3e625416915e64c6ff491",
+        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
+      }
     },
     {
       "fingerprint": "f7fb7ff50b6f8c4e40de7a0f8be1caecdbc308a491966c8f8fe43a5b7017e3ce",
@@ -3950,11 +4175,16 @@
       ],
       "count": 1,
       "kind": "semantic-color",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "reachability": "not-in-entry-import-closure",
+      "decision": "retained-unused",
+      "semanticRole": "legacy-unloaded-color-consumer",
+      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
+      "evidence": [],
+      "unusedEvidence": {
+        "entry": "client/src/main.tsx",
+        "fileHash": "95154aa1ff15f94c758570b36859300908557433ebe3e625416915e64c6ff491",
+        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
+      }
     },
     {
       "fingerprint": "0a8a4b790adfdc8b3009533865dcb6e55b2f0c9c024dd11e24261f02f7218e17",
@@ -4631,11 +4861,16 @@
       ],
       "count": 1,
       "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "reachability": "not-in-entry-import-closure",
+      "decision": "retained-unused",
+      "semanticRole": "legacy-unloaded-color-consumer",
+      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
+      "evidence": [],
+      "unusedEvidence": {
+        "entry": "client/src/main.tsx",
+        "fileHash": "9d7a3cbe52b1ba3937f0202a8be3edbc83d42b805a57114a269f3ad14e67b38d",
+        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
+      }
     },
     {
       "fingerprint": "260ebdd6911b784ed8b48e221718e7e17050465453951f85ff108a25a81f9e47",
@@ -4652,11 +4887,16 @@
       ],
       "count": 1,
       "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "reachability": "not-in-entry-import-closure",
+      "decision": "retained-unused",
+      "semanticRole": "legacy-unloaded-color-consumer",
+      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
+      "evidence": [],
+      "unusedEvidence": {
+        "entry": "client/src/main.tsx",
+        "fileHash": "9d7a3cbe52b1ba3937f0202a8be3edbc83d42b805a57114a269f3ad14e67b38d",
+        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
+      }
     },
     {
       "fingerprint": "31c6c35052c5222bf9a99fe73ded465aec7405ecd9e83f4aa6e4fa47d53a43ff",
@@ -4673,11 +4913,16 @@
       ],
       "count": 1,
       "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "reachability": "not-in-entry-import-closure",
+      "decision": "retained-unused",
+      "semanticRole": "legacy-unloaded-color-consumer",
+      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
+      "evidence": [],
+      "unusedEvidence": {
+        "entry": "client/src/main.tsx",
+        "fileHash": "9d7a3cbe52b1ba3937f0202a8be3edbc83d42b805a57114a269f3ad14e67b38d",
+        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
+      }
     },
     {
       "fingerprint": "412a49f9ef292e666cac59d76559bc9a301800b78a8390481dacefe7901dd4dc",
@@ -4694,11 +4939,16 @@
       ],
       "count": 1,
       "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "reachability": "not-in-entry-import-closure",
+      "decision": "retained-unused",
+      "semanticRole": "legacy-unloaded-color-consumer",
+      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
+      "evidence": [],
+      "unusedEvidence": {
+        "entry": "client/src/main.tsx",
+        "fileHash": "9d7a3cbe52b1ba3937f0202a8be3edbc83d42b805a57114a269f3ad14e67b38d",
+        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
+      }
     },
     {
       "fingerprint": "593c14b5758353610ce11659696c0ab825c284519706000e2741d15b604e49e7",
@@ -4715,11 +4965,16 @@
       ],
       "count": 1,
       "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "reachability": "not-in-entry-import-closure",
+      "decision": "retained-unused",
+      "semanticRole": "legacy-unloaded-color-consumer",
+      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
+      "evidence": [],
+      "unusedEvidence": {
+        "entry": "client/src/main.tsx",
+        "fileHash": "9d7a3cbe52b1ba3937f0202a8be3edbc83d42b805a57114a269f3ad14e67b38d",
+        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
+      }
     },
     {
       "fingerprint": "6813f3221ff1b1556b02a22f4dcb100357a60207d8b7f2a20f9f061910c203e0",
@@ -4736,11 +4991,16 @@
       ],
       "count": 1,
       "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "reachability": "not-in-entry-import-closure",
+      "decision": "retained-unused",
+      "semanticRole": "legacy-unloaded-color-consumer",
+      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
+      "evidence": [],
+      "unusedEvidence": {
+        "entry": "client/src/main.tsx",
+        "fileHash": "9d7a3cbe52b1ba3937f0202a8be3edbc83d42b805a57114a269f3ad14e67b38d",
+        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
+      }
     },
     {
       "fingerprint": "6f1b9b1ad6e42b0bc2f40d07d07e54382adf6c08635961f84a4f17b57fbde681",
@@ -4757,11 +5017,16 @@
       ],
       "count": 1,
       "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "reachability": "not-in-entry-import-closure",
+      "decision": "retained-unused",
+      "semanticRole": "legacy-unloaded-color-consumer",
+      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
+      "evidence": [],
+      "unusedEvidence": {
+        "entry": "client/src/main.tsx",
+        "fileHash": "9d7a3cbe52b1ba3937f0202a8be3edbc83d42b805a57114a269f3ad14e67b38d",
+        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
+      }
     },
     {
       "fingerprint": "8e99385fef1e376eefd70e3b4967e22c2f32bf322576c4648499e04cd0395baf",
@@ -4778,11 +5043,16 @@
       ],
       "count": 1,
       "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "reachability": "not-in-entry-import-closure",
+      "decision": "retained-unused",
+      "semanticRole": "legacy-unloaded-color-consumer",
+      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
+      "evidence": [],
+      "unusedEvidence": {
+        "entry": "client/src/main.tsx",
+        "fileHash": "9d7a3cbe52b1ba3937f0202a8be3edbc83d42b805a57114a269f3ad14e67b38d",
+        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
+      }
     },
     {
       "fingerprint": "96d697458be92a3664db9f13f96618fec1e4623daf1cd107ba51cdf68afa1520",
@@ -4799,11 +5069,16 @@
       ],
       "count": 1,
       "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "reachability": "not-in-entry-import-closure",
+      "decision": "retained-unused",
+      "semanticRole": "legacy-unloaded-color-consumer",
+      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
+      "evidence": [],
+      "unusedEvidence": {
+        "entry": "client/src/main.tsx",
+        "fileHash": "9d7a3cbe52b1ba3937f0202a8be3edbc83d42b805a57114a269f3ad14e67b38d",
+        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
+      }
     },
     {
       "fingerprint": "b049eedf80ddec036b004ce1b0de94392b8791de2ba9ac154663fab212c22df8",
@@ -4820,11 +5095,16 @@
       ],
       "count": 1,
       "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "reachability": "not-in-entry-import-closure",
+      "decision": "retained-unused",
+      "semanticRole": "legacy-unloaded-color-consumer",
+      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
+      "evidence": [],
+      "unusedEvidence": {
+        "entry": "client/src/main.tsx",
+        "fileHash": "9d7a3cbe52b1ba3937f0202a8be3edbc83d42b805a57114a269f3ad14e67b38d",
+        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
+      }
     },
     {
       "fingerprint": "b1c0732883ae724f220ecaa428f8a30a38acbdc4ac74e71711ca3b394169e606",
@@ -4841,11 +5121,16 @@
       ],
       "count": 1,
       "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "reachability": "not-in-entry-import-closure",
+      "decision": "retained-unused",
+      "semanticRole": "legacy-unloaded-color-consumer",
+      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
+      "evidence": [],
+      "unusedEvidence": {
+        "entry": "client/src/main.tsx",
+        "fileHash": "9d7a3cbe52b1ba3937f0202a8be3edbc83d42b805a57114a269f3ad14e67b38d",
+        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
+      }
     },
     {
       "fingerprint": "db12bf9fbf13b37b8d0dd8bf2aa1f42d63b458dc3377726576d6b83629ca1ffe",
@@ -4862,11 +5147,16 @@
       ],
       "count": 1,
       "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "reachability": "not-in-entry-import-closure",
+      "decision": "retained-unused",
+      "semanticRole": "legacy-unloaded-color-consumer",
+      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
+      "evidence": [],
+      "unusedEvidence": {
+        "entry": "client/src/main.tsx",
+        "fileHash": "9d7a3cbe52b1ba3937f0202a8be3edbc83d42b805a57114a269f3ad14e67b38d",
+        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
+      }
     },
     {
       "fingerprint": "201aa27a53d379d722726712dae5f1ee6f08b9b9258969d11f6cccf465949c0b",
@@ -5075,11 +5365,16 @@
       ],
       "count": 1,
       "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "reachability": "not-in-entry-import-closure",
+      "decision": "retained-unused",
+      "semanticRole": "legacy-unloaded-color-consumer",
+      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
+      "evidence": [],
+      "unusedEvidence": {
+        "entry": "client/src/main.tsx",
+        "fileHash": "4198ba3fab7f2d382acc6eed08dcc95e879fcbdf3fdd7e6d9a79b0e3420eff56",
+        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
+      }
     },
     {
       "fingerprint": "2c81a6ac7c3c096800a0b89e076bd018a37cf901fc7f540d04b6b4178c6dc000",
@@ -5095,12 +5390,13 @@
         }
       ],
       "count": 1,
-      "kind": "unknown",
+      "kind": "non-color",
       "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "decision": "not-debt",
+      "semanticRole": "class-or-token-key",
+      "reason": "TC-C6: StatCardProps.color联合类型的枚举名，由colorClasses/iconColorClasses映射到Tailwind类，不作为CSS字面颜色",
+      "evidence": [],
+      "classificationSourceHash": "146b60939d0efcfef634bc30f1d25ac34f1e5d85fa2f80c057597a328793a807"
     },
     {
       "fingerprint": "de97652f1202a0c17fc88c0ab5c970ee46cb5296296437fa5bc865ad228c8255",
@@ -5116,12 +5412,13 @@
         }
       ],
       "count": 1,
-      "kind": "unknown",
+      "kind": "non-color",
       "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "decision": "not-debt",
+      "semanticRole": "class-or-token-key",
+      "reason": "TC-C6: StatCardProps.color联合类型的枚举名，由colorClasses/iconColorClasses映射到Tailwind类，不作为CSS字面颜色",
+      "evidence": [],
+      "classificationSourceHash": "146b60939d0efcfef634bc30f1d25ac34f1e5d85fa2f80c057597a328793a807"
     },
     {
       "fingerprint": "f626a841141af3190093c3905a6c3126bde9e192c364f869306a47593af513ae",
@@ -9593,11 +9890,16 @@
       ],
       "count": 1,
       "kind": "unknown",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "reachability": "not-in-entry-import-closure",
+      "decision": "retained-unused",
+      "semanticRole": "legacy-unloaded-color-consumer",
+      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
+      "evidence": [],
+      "unusedEvidence": {
+        "entry": "client/src/main.tsx",
+        "fileHash": "e7c1a9b3f8efe8dcd89d4f831c8ecde7f1069d93bfc8bdba631283a8442778c9",
+        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
+      }
     },
     {
       "fingerprint": "13a653755f4a681328274114afaafadab71590cdb880701b0835f67989368a50",
@@ -9616,11 +9918,16 @@
       ],
       "count": 1,
       "kind": "unknown",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "reachability": "not-in-entry-import-closure",
+      "decision": "retained-unused",
+      "semanticRole": "legacy-unloaded-color-consumer",
+      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
+      "evidence": [],
+      "unusedEvidence": {
+        "entry": "client/src/main.tsx",
+        "fileHash": "e7c1a9b3f8efe8dcd89d4f831c8ecde7f1069d93bfc8bdba631283a8442778c9",
+        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
+      }
     },
     {
       "fingerprint": "16809f56c328d8f136cdda8f774eb6fa19755521713a83614f54027beb69f933",
@@ -9637,11 +9944,16 @@
       ],
       "count": 1,
       "kind": "unknown",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "reachability": "not-in-entry-import-closure",
+      "decision": "retained-unused",
+      "semanticRole": "legacy-unloaded-color-consumer",
+      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
+      "evidence": [],
+      "unusedEvidence": {
+        "entry": "client/src/main.tsx",
+        "fileHash": "e7c1a9b3f8efe8dcd89d4f831c8ecde7f1069d93bfc8bdba631283a8442778c9",
+        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
+      }
     },
     {
       "fingerprint": "1f4a6141d4d180166c2298c1dd02ebd9a6c182d559c6530421308467d6a5f3e1",
@@ -9660,11 +9972,16 @@
       ],
       "count": 1,
       "kind": "unknown",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "reachability": "not-in-entry-import-closure",
+      "decision": "retained-unused",
+      "semanticRole": "legacy-unloaded-color-consumer",
+      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
+      "evidence": [],
+      "unusedEvidence": {
+        "entry": "client/src/main.tsx",
+        "fileHash": "e7c1a9b3f8efe8dcd89d4f831c8ecde7f1069d93bfc8bdba631283a8442778c9",
+        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
+      }
     },
     {
       "fingerprint": "234841cef6464bd6454ff218f2b9c2b93ac66fbe97b823f03154556fe6c18242",
@@ -9683,11 +10000,16 @@
       ],
       "count": 1,
       "kind": "unknown",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "reachability": "not-in-entry-import-closure",
+      "decision": "retained-unused",
+      "semanticRole": "legacy-unloaded-color-consumer",
+      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
+      "evidence": [],
+      "unusedEvidence": {
+        "entry": "client/src/main.tsx",
+        "fileHash": "e7c1a9b3f8efe8dcd89d4f831c8ecde7f1069d93bfc8bdba631283a8442778c9",
+        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
+      }
     },
     {
       "fingerprint": "45462aa05f2181d40e4c92acffe612155441a61c77afedb8422058c8abafed5d",
@@ -9706,11 +10028,16 @@
       ],
       "count": 1,
       "kind": "unknown",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "reachability": "not-in-entry-import-closure",
+      "decision": "retained-unused",
+      "semanticRole": "legacy-unloaded-color-consumer",
+      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
+      "evidence": [],
+      "unusedEvidence": {
+        "entry": "client/src/main.tsx",
+        "fileHash": "e7c1a9b3f8efe8dcd89d4f831c8ecde7f1069d93bfc8bdba631283a8442778c9",
+        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
+      }
     },
     {
       "fingerprint": "4ccfcf8c889170ab6cfe1fb9909a8102bae68b703ae6ee7a1efce0d6b8051c91",
@@ -9729,11 +10056,16 @@
       ],
       "count": 1,
       "kind": "unknown",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "reachability": "not-in-entry-import-closure",
+      "decision": "retained-unused",
+      "semanticRole": "legacy-unloaded-color-consumer",
+      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
+      "evidence": [],
+      "unusedEvidence": {
+        "entry": "client/src/main.tsx",
+        "fileHash": "e7c1a9b3f8efe8dcd89d4f831c8ecde7f1069d93bfc8bdba631283a8442778c9",
+        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
+      }
     },
     {
       "fingerprint": "4db5d2b52982dca013f7eb46acdbba7e73a35bed07b95b0e646bfe323791cf2d",
@@ -9752,11 +10084,16 @@
       ],
       "count": 1,
       "kind": "unknown",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "reachability": "not-in-entry-import-closure",
+      "decision": "retained-unused",
+      "semanticRole": "legacy-unloaded-color-consumer",
+      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
+      "evidence": [],
+      "unusedEvidence": {
+        "entry": "client/src/main.tsx",
+        "fileHash": "e7c1a9b3f8efe8dcd89d4f831c8ecde7f1069d93bfc8bdba631283a8442778c9",
+        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
+      }
     },
     {
       "fingerprint": "56dc23e1eec99c1cb197f4988d169934926ece56f418a7dc4dc1a51caa2d72fc",
@@ -9775,11 +10112,16 @@
       ],
       "count": 1,
       "kind": "unknown",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "reachability": "not-in-entry-import-closure",
+      "decision": "retained-unused",
+      "semanticRole": "legacy-unloaded-color-consumer",
+      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
+      "evidence": [],
+      "unusedEvidence": {
+        "entry": "client/src/main.tsx",
+        "fileHash": "e7c1a9b3f8efe8dcd89d4f831c8ecde7f1069d93bfc8bdba631283a8442778c9",
+        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
+      }
     },
     {
       "fingerprint": "6939d7282383364237057b23c09084685e534f04e0177f1eb7251c066db44062",
@@ -9798,11 +10140,16 @@
       ],
       "count": 1,
       "kind": "unknown",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "reachability": "not-in-entry-import-closure",
+      "decision": "retained-unused",
+      "semanticRole": "legacy-unloaded-color-consumer",
+      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
+      "evidence": [],
+      "unusedEvidence": {
+        "entry": "client/src/main.tsx",
+        "fileHash": "e7c1a9b3f8efe8dcd89d4f831c8ecde7f1069d93bfc8bdba631283a8442778c9",
+        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
+      }
     },
     {
       "fingerprint": "8533602ff6359453dbcc810a8b71ebdc91fe96e8730c1501c0623bc118fe1aaa",
@@ -9821,11 +10168,16 @@
       ],
       "count": 1,
       "kind": "unknown",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "reachability": "not-in-entry-import-closure",
+      "decision": "retained-unused",
+      "semanticRole": "legacy-unloaded-color-consumer",
+      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
+      "evidence": [],
+      "unusedEvidence": {
+        "entry": "client/src/main.tsx",
+        "fileHash": "e7c1a9b3f8efe8dcd89d4f831c8ecde7f1069d93bfc8bdba631283a8442778c9",
+        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
+      }
     },
     {
       "fingerprint": "87f7f440d115d5b95b210125155cbfddc54e931bda4a156cd7f4591a367da25f",
@@ -9844,11 +10196,16 @@
       ],
       "count": 1,
       "kind": "unknown",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "reachability": "not-in-entry-import-closure",
+      "decision": "retained-unused",
+      "semanticRole": "legacy-unloaded-color-consumer",
+      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
+      "evidence": [],
+      "unusedEvidence": {
+        "entry": "client/src/main.tsx",
+        "fileHash": "e7c1a9b3f8efe8dcd89d4f831c8ecde7f1069d93bfc8bdba631283a8442778c9",
+        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
+      }
     },
     {
       "fingerprint": "8e0b015cd24c332fc135a77a99d6e73a1dcbff98fd91c0d39ae52949052f1ec7",
@@ -9867,11 +10224,16 @@
       ],
       "count": 1,
       "kind": "unknown",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "reachability": "not-in-entry-import-closure",
+      "decision": "retained-unused",
+      "semanticRole": "legacy-unloaded-color-consumer",
+      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
+      "evidence": [],
+      "unusedEvidence": {
+        "entry": "client/src/main.tsx",
+        "fileHash": "e7c1a9b3f8efe8dcd89d4f831c8ecde7f1069d93bfc8bdba631283a8442778c9",
+        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
+      }
     },
     {
       "fingerprint": "977a3f11e16f3f4d26e476d99a2831c8adb443614f29df0e9b5b7c5efcba541c",
@@ -9890,11 +10252,16 @@
       ],
       "count": 1,
       "kind": "unknown",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "reachability": "not-in-entry-import-closure",
+      "decision": "retained-unused",
+      "semanticRole": "legacy-unloaded-color-consumer",
+      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
+      "evidence": [],
+      "unusedEvidence": {
+        "entry": "client/src/main.tsx",
+        "fileHash": "e7c1a9b3f8efe8dcd89d4f831c8ecde7f1069d93bfc8bdba631283a8442778c9",
+        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
+      }
     },
     {
       "fingerprint": "9a9b130e70457628ed3f043d1e2761e83e7d4d8a0a68bb38c344756c06693d85",
@@ -9913,11 +10280,16 @@
       ],
       "count": 1,
       "kind": "unknown",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "reachability": "not-in-entry-import-closure",
+      "decision": "retained-unused",
+      "semanticRole": "legacy-unloaded-color-consumer",
+      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
+      "evidence": [],
+      "unusedEvidence": {
+        "entry": "client/src/main.tsx",
+        "fileHash": "e7c1a9b3f8efe8dcd89d4f831c8ecde7f1069d93bfc8bdba631283a8442778c9",
+        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
+      }
     },
     {
       "fingerprint": "a845ce56bc670185b02eba4b118794f82c812a397424909c9335b31e75b56235",
@@ -9936,11 +10308,16 @@
       ],
       "count": 1,
       "kind": "unknown",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "reachability": "not-in-entry-import-closure",
+      "decision": "retained-unused",
+      "semanticRole": "legacy-unloaded-color-consumer",
+      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
+      "evidence": [],
+      "unusedEvidence": {
+        "entry": "client/src/main.tsx",
+        "fileHash": "e7c1a9b3f8efe8dcd89d4f831c8ecde7f1069d93bfc8bdba631283a8442778c9",
+        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
+      }
     },
     {
       "fingerprint": "c5e870bc621aa0a7839214fed3ba14493758b6254361663d0524b49a234050d4",
@@ -9959,11 +10336,16 @@
       ],
       "count": 1,
       "kind": "unknown",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "reachability": "not-in-entry-import-closure",
+      "decision": "retained-unused",
+      "semanticRole": "legacy-unloaded-color-consumer",
+      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
+      "evidence": [],
+      "unusedEvidence": {
+        "entry": "client/src/main.tsx",
+        "fileHash": "e7c1a9b3f8efe8dcd89d4f831c8ecde7f1069d93bfc8bdba631283a8442778c9",
+        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
+      }
     },
     {
       "fingerprint": "cc90cd333d3ae9cd9ed512f885ddaf72e8ba9802a5c3e334bdf197ca9e841d12",
@@ -9982,11 +10364,16 @@
       ],
       "count": 1,
       "kind": "unknown",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "reachability": "not-in-entry-import-closure",
+      "decision": "retained-unused",
+      "semanticRole": "legacy-unloaded-color-consumer",
+      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
+      "evidence": [],
+      "unusedEvidence": {
+        "entry": "client/src/main.tsx",
+        "fileHash": "e7c1a9b3f8efe8dcd89d4f831c8ecde7f1069d93bfc8bdba631283a8442778c9",
+        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
+      }
     },
     {
       "fingerprint": "cdf829e028011b1ec2758d6abe3253257f1b80cb02b0eec7103bde2b9cf26cce",
@@ -10005,11 +10392,16 @@
       ],
       "count": 1,
       "kind": "unknown",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "reachability": "not-in-entry-import-closure",
+      "decision": "retained-unused",
+      "semanticRole": "legacy-unloaded-color-consumer",
+      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
+      "evidence": [],
+      "unusedEvidence": {
+        "entry": "client/src/main.tsx",
+        "fileHash": "e7c1a9b3f8efe8dcd89d4f831c8ecde7f1069d93bfc8bdba631283a8442778c9",
+        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
+      }
     },
     {
       "fingerprint": "d34af4e692ebdde71fc6e4cd977e4c1cfbe76bcc5b389b59b0c1f1cbc6fe5d47",
@@ -10028,11 +10420,16 @@
       ],
       "count": 1,
       "kind": "unknown",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "reachability": "not-in-entry-import-closure",
+      "decision": "retained-unused",
+      "semanticRole": "legacy-unloaded-color-consumer",
+      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
+      "evidence": [],
+      "unusedEvidence": {
+        "entry": "client/src/main.tsx",
+        "fileHash": "e7c1a9b3f8efe8dcd89d4f831c8ecde7f1069d93bfc8bdba631283a8442778c9",
+        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
+      }
     },
     {
       "fingerprint": "e3034e1dfcec8248875156f051eb27a670158f150f253c7137d1902295aebd42",
@@ -10051,11 +10448,16 @@
       ],
       "count": 1,
       "kind": "unknown",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "reachability": "not-in-entry-import-closure",
+      "decision": "retained-unused",
+      "semanticRole": "legacy-unloaded-color-consumer",
+      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
+      "evidence": [],
+      "unusedEvidence": {
+        "entry": "client/src/main.tsx",
+        "fileHash": "e7c1a9b3f8efe8dcd89d4f831c8ecde7f1069d93bfc8bdba631283a8442778c9",
+        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
+      }
     },
     {
       "fingerprint": "e86f8354bdaf986700a27a843d6c6c64c0e8589ac69196cd36c8e94be68118b7",
@@ -10074,11 +10476,16 @@
       ],
       "count": 1,
       "kind": "unknown",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "reachability": "not-in-entry-import-closure",
+      "decision": "retained-unused",
+      "semanticRole": "legacy-unloaded-color-consumer",
+      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
+      "evidence": [],
+      "unusedEvidence": {
+        "entry": "client/src/main.tsx",
+        "fileHash": "e7c1a9b3f8efe8dcd89d4f831c8ecde7f1069d93bfc8bdba631283a8442778c9",
+        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
+      }
     },
     {
       "fingerprint": "edfd27ece367309a3e548146ab705e25fe6d94c2e1f56016f077b8e4a6d38dfd",
@@ -10097,11 +10504,16 @@
       ],
       "count": 1,
       "kind": "unknown",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "reachability": "not-in-entry-import-closure",
+      "decision": "retained-unused",
+      "semanticRole": "legacy-unloaded-color-consumer",
+      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
+      "evidence": [],
+      "unusedEvidence": {
+        "entry": "client/src/main.tsx",
+        "fileHash": "e7c1a9b3f8efe8dcd89d4f831c8ecde7f1069d93bfc8bdba631283a8442778c9",
+        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
+      }
     },
     {
       "fingerprint": "f68526498172cd12c8986a4d116f7e19e0d198e1a9e7d703ced4e55a02d1b94c",
@@ -10120,11 +10532,16 @@
       ],
       "count": 1,
       "kind": "unknown",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "reachability": "not-in-entry-import-closure",
+      "decision": "retained-unused",
+      "semanticRole": "legacy-unloaded-color-consumer",
+      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
+      "evidence": [],
+      "unusedEvidence": {
+        "entry": "client/src/main.tsx",
+        "fileHash": "e7c1a9b3f8efe8dcd89d4f831c8ecde7f1069d93bfc8bdba631283a8442778c9",
+        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
+      }
     },
     {
       "fingerprint": "f77e1050aae95449ff1b2174ccbae3549a30e295b78b9a6c00b5bdd37949276d",
@@ -10143,11 +10560,16 @@
       ],
       "count": 1,
       "kind": "unknown",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "reachability": "not-in-entry-import-closure",
+      "decision": "retained-unused",
+      "semanticRole": "legacy-unloaded-color-consumer",
+      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
+      "evidence": [],
+      "unusedEvidence": {
+        "entry": "client/src/main.tsx",
+        "fileHash": "e7c1a9b3f8efe8dcd89d4f831c8ecde7f1069d93bfc8bdba631283a8442778c9",
+        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
+      }
     },
     {
       "fingerprint": "fd5ba9f05ee4252bc7e905413892d8d4a49041e073c48cc93bb63891136c963a",
@@ -10166,11 +10588,16 @@
       ],
       "count": 1,
       "kind": "unknown",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "reachability": "not-in-entry-import-closure",
+      "decision": "retained-unused",
+      "semanticRole": "legacy-unloaded-color-consumer",
+      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
+      "evidence": [],
+      "unusedEvidence": {
+        "entry": "client/src/main.tsx",
+        "fileHash": "e7c1a9b3f8efe8dcd89d4f831c8ecde7f1069d93bfc8bdba631283a8442778c9",
+        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
+      }
     },
     {
       "fingerprint": "fda510c263ef3de2215d084c6d3bc9d35f492da1f6bd15c00d611083fb1903bf",
@@ -10189,11 +10616,16 @@
       ],
       "count": 1,
       "kind": "unknown",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "reachability": "not-in-entry-import-closure",
+      "decision": "retained-unused",
+      "semanticRole": "legacy-unloaded-color-consumer",
+      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
+      "evidence": [],
+      "unusedEvidence": {
+        "entry": "client/src/main.tsx",
+        "fileHash": "e7c1a9b3f8efe8dcd89d4f831c8ecde7f1069d93bfc8bdba631283a8442778c9",
+        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
+      }
     },
     {
       "fingerprint": "2f51eb35ed5ab83adb2bcc76b63106646db8726dc384a31f93cf724c5942f93b",
@@ -10636,12 +11068,13 @@
         }
       ],
       "count": 1,
-      "kind": "unknown",
+      "kind": "non-color",
       "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "decision": "not-debt",
+      "semanticRole": "class-or-token-key",
+      "reason": "TC-C6: getOverrideTypeColor返回CSS变量键/徽章类后缀，调用方拼接var(--color-*)或badge-*，不作为CSS字面颜色",
+      "evidence": [],
+      "classificationSourceHash": "5fa70889611f053ac193d88558a03bbd64cb7df4604cd283abba104ca21c08b3"
     },
     {
       "fingerprint": "793cbb9e6d2a82e9e375e8b85fd4852a1be1036f038e8835e4b2bf6df602d8a5",
@@ -10659,12 +11092,13 @@
         }
       ],
       "count": 1,
-      "kind": "unknown",
+      "kind": "non-color",
       "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "decision": "not-debt",
+      "semanticRole": "class-or-token-key",
+      "reason": "TC-C6: getOverrideTypeColor返回CSS变量键/徽章类后缀，调用方拼接var(--color-*)或badge-*，不作为CSS字面颜色",
+      "evidence": [],
+      "classificationSourceHash": "5fa70889611f053ac193d88558a03bbd64cb7df4604cd283abba104ca21c08b3"
     },
     {
       "fingerprint": "b6de72c64833074058ede0de87006983f960e172b08d431c7f5b6a3459887e99",
@@ -10682,12 +11116,13 @@
         }
       ],
       "count": 1,
-      "kind": "unknown",
+      "kind": "non-color",
       "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "decision": "not-debt",
+      "semanticRole": "class-or-token-key",
+      "reason": "TC-C6: getOverrideTypeColor返回CSS变量键/徽章类后缀，调用方拼接var(--color-*)或badge-*，不作为CSS字面颜色",
+      "evidence": [],
+      "classificationSourceHash": "5fa70889611f053ac193d88558a03bbd64cb7df4604cd283abba104ca21c08b3"
     },
     {
       "fingerprint": "bdd467161f5b9cbecb7d14c34b39ab4d7070f73c824a50bbb910dbd4c291e0d2",
@@ -10705,12 +11140,13 @@
         }
       ],
       "count": 1,
-      "kind": "unknown",
+      "kind": "non-color",
       "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "decision": "not-debt",
+      "semanticRole": "class-or-token-key",
+      "reason": "TC-C6: getOverrideTypeColor返回CSS变量键/徽章类后缀，调用方拼接var(--color-*)或badge-*，不作为CSS字面颜色",
+      "evidence": [],
+      "classificationSourceHash": "5fa70889611f053ac193d88558a03bbd64cb7df4604cd283abba104ca21c08b3"
     },
     {
       "fingerprint": "c1796f4967f7d84c4696b7e641ea34594f29163793159f46d3975a59669b2558",
@@ -10728,12 +11164,13 @@
         }
       ],
       "count": 1,
-      "kind": "neutral-literal",
+      "kind": "non-color",
       "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "decision": "not-debt",
+      "semanticRole": "class-or-token-key",
+      "reason": "TC-C6: getOverrideTypeColor返回CSS变量键/徽章类后缀，调用方拼接var(--color-*)或badge-*，不作为CSS字面颜色",
+      "evidence": [],
+      "classificationSourceHash": "5fa70889611f053ac193d88558a03bbd64cb7df4604cd283abba104ca21c08b3"
     },
     {
       "fingerprint": "5f1c2276cbf4ea54387b027fc714549bcb0628840d7a4bdcb415a54b1b909f83",
@@ -10772,12 +11209,13 @@
         }
       ],
       "count": 1,
-      "kind": "unknown",
+      "kind": "non-color",
       "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "decision": "not-debt",
+      "semanticRole": "class-or-token-key",
+      "reason": "TC-C6: StatCard.color类别枚举，由组件内部映射Tailwind类，不是原生SVG颜色属性",
+      "evidence": [],
+      "classificationSourceHash": "d663b04321fd3f26c65bfe4dfcf9db917023e5ef637648d69db6bcb7e83afa1d"
     },
     {
       "fingerprint": "3a9be52fc38bf2dafc4776559a223117dea9970ebfb641e6d6bb4264f5069d82",
@@ -12028,12 +12466,13 @@
         }
       ],
       "count": 1,
-      "kind": "neutral-literal",
+      "kind": "non-color",
       "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "decision": "not-debt",
+      "semanticRole": "class-or-token-key",
+      "reason": "TC-C6: 筛选选项的语义颜色键，渲染为样式类后缀，不作为内联CSS颜色",
+      "evidence": [],
+      "classificationSourceHash": "20b8c323ce5a99a2cd86b5991005ca7a18792829ce6a4ae76d18673176d80d5d"
     },
     {
       "fingerprint": "02be541e5cde257acc6c32c76a9c76555034396fcb07aedd86c41edacd96f95d",
@@ -12893,12 +13332,13 @@
         }
       ],
       "count": 1,
-      "kind": "unknown",
+      "kind": "non-color",
       "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "decision": "not-debt",
+      "semanticRole": "class-or-token-key",
+      "reason": "TC-C6: 覆盖类型返回徽章类后缀或jsx类名条件分支，不作为CSS字面颜色",
+      "evidence": [],
+      "classificationSourceHash": "595182a8048047792d227109f5e12632a3e42f722301ceddb2a8cf0ce0219103"
     },
     {
       "fingerprint": "4d98dd9142833ae44880368406e70edec6607de31fd9e62474ebc952ac6adbb9",
@@ -12914,12 +13354,13 @@
         }
       ],
       "count": 1,
-      "kind": "unknown",
+      "kind": "non-color",
       "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "decision": "not-debt",
+      "semanticRole": "class-or-token-key",
+      "reason": "TC-C6: 覆盖类型返回徽章类后缀或jsx类名条件分支，不作为CSS字面颜色",
+      "evidence": [],
+      "classificationSourceHash": "595182a8048047792d227109f5e12632a3e42f722301ceddb2a8cf0ce0219103"
     },
     {
       "fingerprint": "536845eab1420b7a675bfdcacfb65aaa93e5508d9982be2f67f8888703d11c87",
@@ -12935,12 +13376,13 @@
         }
       ],
       "count": 1,
-      "kind": "unknown",
+      "kind": "non-color",
       "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "decision": "not-debt",
+      "semanticRole": "class-or-token-key",
+      "reason": "TC-C6: 覆盖类型返回徽章类后缀或jsx类名条件分支，不作为CSS字面颜色",
+      "evidence": [],
+      "classificationSourceHash": "595182a8048047792d227109f5e12632a3e42f722301ceddb2a8cf0ce0219103"
     },
     {
       "fingerprint": "722b98c7d567c68f04db14250011ce56f8ca52e4a9974ba8c819bb089d48d71f",
@@ -12956,12 +13398,13 @@
         }
       ],
       "count": 1,
-      "kind": "neutral-literal",
+      "kind": "non-color",
       "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "decision": "not-debt",
+      "semanticRole": "class-or-token-key",
+      "reason": "TC-C6: 覆盖类型返回徽章类后缀或jsx类名条件分支，不作为CSS字面颜色",
+      "evidence": [],
+      "classificationSourceHash": "595182a8048047792d227109f5e12632a3e42f722301ceddb2a8cf0ce0219103"
     },
     {
       "fingerprint": "c3223fa2d8fa50bf6ee1d5c03e1bdcde8c116ebb532889c423afe1b63462c992",
@@ -12977,12 +13420,13 @@
         }
       ],
       "count": 1,
-      "kind": "unknown",
+      "kind": "non-color",
       "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "decision": "not-debt",
+      "semanticRole": "class-or-token-key",
+      "reason": "TC-C6: 覆盖类型返回徽章类后缀或jsx类名条件分支，不作为CSS字面颜色",
+      "evidence": [],
+      "classificationSourceHash": "595182a8048047792d227109f5e12632a3e42f722301ceddb2a8cf0ce0219103"
     },
     {
       "fingerprint": "ede9a01e1a15cd932b64a16062b3f8c4dc26ac05b59be36fc9d4a1a7bacfd58c",
@@ -13008,12 +13452,13 @@
         }
       ],
       "count": 3,
-      "kind": "neutral-literal",
+      "kind": "non-color",
       "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "decision": "not-debt",
+      "semanticRole": "class-or-token-key",
+      "reason": "TC-C6: 覆盖类型返回徽章类后缀或jsx类名条件分支，不作为CSS字面颜色",
+      "evidence": [],
+      "classificationSourceHash": "595182a8048047792d227109f5e12632a3e42f722301ceddb2a8cf0ce0219103"
     },
     {
       "fingerprint": "1d8faab27c3e6d3df80f2565c1665b42f14c7d310886d0e33cc01c46c827fe7e",
@@ -13031,12 +13476,13 @@
         }
       ],
       "count": 1,
-      "kind": "unknown",
+      "kind": "non-color",
       "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "decision": "not-debt",
+      "semanticRole": "class-or-token-key",
+      "reason": "TC-C6: 未调用的优先级类别映射返回类名后缀；当前组件无此函数调用，不作为CSS颜色消费",
+      "evidence": [],
+      "classificationSourceHash": "694ada7c044733d3871a7f098d70ba66c5996b26ba724b65e9d877a97f4e1428"
     },
     {
       "fingerprint": "5c36761ab1a150953509d6411958f000f7788d6e938360c6151da55d8e45ac92",
@@ -13082,12 +13528,13 @@
         }
       ],
       "count": 1,
-      "kind": "unknown",
+      "kind": "non-color",
       "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "decision": "not-debt",
+      "semanticRole": "class-or-token-key",
+      "reason": "TC-C6: 未调用的优先级类别映射返回类名后缀；当前组件无此函数调用，不作为CSS颜色消费",
+      "evidence": [],
+      "classificationSourceHash": "694ada7c044733d3871a7f098d70ba66c5996b26ba724b65e9d877a97f4e1428"
     },
     {
       "fingerprint": "954814b1cda54fd4f0fc80efc9e098660f6f5e25fe35f1aee1a58ef804520972",
@@ -13105,12 +13552,13 @@
         }
       ],
       "count": 1,
-      "kind": "neutral-literal",
+      "kind": "non-color",
       "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "decision": "not-debt",
+      "semanticRole": "class-or-token-key",
+      "reason": "TC-C6: 未调用的优先级类别映射返回类名后缀；当前组件无此函数调用，不作为CSS颜色消费",
+      "evidence": [],
+      "classificationSourceHash": "694ada7c044733d3871a7f098d70ba66c5996b26ba724b65e9d877a97f4e1428"
     },
     {
       "fingerprint": "9732d11ca57a8f3557c454bf8dee9fc64c96bfd73f0c2c2667bfb52931a11032",
@@ -13128,12 +13576,13 @@
         }
       ],
       "count": 1,
-      "kind": "unknown",
+      "kind": "non-color",
       "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "decision": "not-debt",
+      "semanticRole": "class-or-token-key",
+      "reason": "TC-C6: 未调用的优先级类别映射返回类名后缀；当前组件无此函数调用，不作为CSS颜色消费",
+      "evidence": [],
+      "classificationSourceHash": "694ada7c044733d3871a7f098d70ba66c5996b26ba724b65e9d877a97f4e1428"
     },
     {
       "fingerprint": "cb7ba4400a0367644c307be46658d83bf0ec7d18d429a4f5b02816bd67d006f5",
@@ -13151,12 +13600,13 @@
         }
       ],
       "count": 1,
-      "kind": "unknown",
+      "kind": "non-color",
       "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "decision": "not-debt",
+      "semanticRole": "class-or-token-key",
+      "reason": "TC-C6: 未调用的优先级类别映射返回类名后缀；当前组件无此函数调用，不作为CSS颜色消费",
+      "evidence": [],
+      "classificationSourceHash": "694ada7c044733d3871a7f098d70ba66c5996b26ba724b65e9d877a97f4e1428"
     },
     {
       "fingerprint": "48be1b77a3f368891be2ef3007fe8efaeb1cd5e2698fc24920bb9fa8fa79ab6d",
@@ -13808,11 +14258,16 @@
       ],
       "count": 1,
       "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "reachability": "not-in-entry-import-closure",
+      "decision": "retained-unused",
+      "semanticRole": "legacy-unloaded-color-consumer",
+      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
+      "evidence": [],
+      "unusedEvidence": {
+        "entry": "client/src/main.tsx",
+        "fileHash": "ac5294bd5c68577cc332428deaad967ead97aa985eef8dea81fbd7dcc17a7a3e",
+        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
+      }
     },
     {
       "fingerprint": "016ea3708749df18b7cce751c1620c705b92a9507dc18328dd647dd8678800ec",
@@ -13850,11 +14305,16 @@
       ],
       "count": 1,
       "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "reachability": "not-in-entry-import-closure",
+      "decision": "retained-unused",
+      "semanticRole": "legacy-unloaded-color-consumer",
+      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
+      "evidence": [],
+      "unusedEvidence": {
+        "entry": "client/src/main.tsx",
+        "fileHash": "ac5294bd5c68577cc332428deaad967ead97aa985eef8dea81fbd7dcc17a7a3e",
+        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
+      }
     },
     {
       "fingerprint": "083dede1c63d4557f49f72ca957c2eb5d9e4912d0316783dae8c447ab9266f6b",
@@ -14001,11 +14461,16 @@
       ],
       "count": 1,
       "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "reachability": "not-in-entry-import-closure",
+      "decision": "retained-unused",
+      "semanticRole": "legacy-unloaded-color-consumer",
+      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
+      "evidence": [],
+      "unusedEvidence": {
+        "entry": "client/src/main.tsx",
+        "fileHash": "ac5294bd5c68577cc332428deaad967ead97aa985eef8dea81fbd7dcc17a7a3e",
+        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
+      }
     },
     {
       "fingerprint": "72d8bbd34be8bd3a80b87a3cdbfb58ef98f24ede09c583f583ccf23d281b8d00",
@@ -14066,11 +14531,16 @@
       ],
       "count": 1,
       "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "reachability": "not-in-entry-import-closure",
+      "decision": "retained-unused",
+      "semanticRole": "legacy-unloaded-color-consumer",
+      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
+      "evidence": [],
+      "unusedEvidence": {
+        "entry": "client/src/main.tsx",
+        "fileHash": "ac5294bd5c68577cc332428deaad967ead97aa985eef8dea81fbd7dcc17a7a3e",
+        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
+      }
     },
     {
       "fingerprint": "99b193acb64dc6fc4620881d1ecc28e69b4bf41965f7c6125feb58f9f281b96d",
@@ -14108,11 +14578,16 @@
       ],
       "count": 1,
       "kind": "neutral-literal",
-      "reachability": "unverified",
-      "decision": "pending",
-      "semanticRole": null,
-      "reason": null,
-      "evidence": []
+      "reachability": "not-in-entry-import-closure",
+      "decision": "retained-unused",
+      "semanticRole": "legacy-unloaded-color-consumer",
+      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
+      "evidence": [],
+      "unusedEvidence": {
+        "entry": "client/src/main.tsx",
+        "fileHash": "ac5294bd5c68577cc332428deaad967ead97aa985eef8dea81fbd7dcc17a7a3e",
+        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
+      }
     },
     {
       "fingerprint": "b6656ea1e4ea08f7b6c13467f2321671dd9d6d4a8b59b774f458aac58d463057",
@@ -23190,14 +23665,15 @@
     "byKind": {
       "token-definition": 229,
       "semantic-color": 156,
-      "neutral-literal": 150,
-      "unknown": 156,
+      "neutral-literal": 143,
+      "unknown": 141,
       "data-color": 12,
-      "non-color": 2
+      "non-color": 24
     },
     "byDecision": {
-      "not-debt": 231,
-      "pending": 462,
+      "not-debt": 253,
+      "pending": 349,
+      "retained-unused": 91,
       "accepted-literal": 12
     },
     "byFile": {

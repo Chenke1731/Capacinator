@@ -5,13 +5,14 @@ import postcss from 'postcss';
 import valueParser from 'postcss-value-parser';
 import colorNames from 'color-name';
 import ts from 'typescript';
+import { uiReachability } from './ui-reachability.mjs';
 
 export const SCANNER_VERSION = 1;
 export const LEDGER_PATH = 'tests/visual/color-debt.json';
 const colorFunctions = new Set(['rgb','rgba','hsl','hsla','hwb','lab','lch','oklab','oklch','color','device-cmyk']);
 const symbols = new Set(['transparent','currentcolor','inherit','initial','unset','revert','revert-layer']);
 const kinds = new Set(['token-definition','neutral-literal','semantic-color','data-color','library-color','unknown','non-color']);
-const decisions = new Set(['pending','fix','tokenize','accepted-literal','not-debt']);
+const decisions = new Set(['pending','fix','tokenize','accepted-literal','retained-unused','not-debt']);
 export const sourceHash = value => createHash('sha256').update(value).digest('hex');
 export const isProductionFile = file => /\.(css|tsx?)$/.test(file) && !/(^|\/)(__tests__|__mocks__|__fixtures__)(\/|$)|\.(test|spec)\./.test(file);
 const normalize = value => String(value).trim().replace(/\s+/g, ' ');
@@ -168,6 +169,8 @@ export function checkLedger(scan,ledger,baseline,root) {
   const issues=[...scan.errors];
   if(ledger.schemaVersion!==1||ledger.scannerVersion!==SCANNER_VERSION) issues.push('Unsupported ledger/scanner version');
   const current=new Map(scan.entries.map(e=>[e.fingerprint,e])),recorded=new Map(ledger.entries.map(e=>[e.fingerprint,e])),old=new Map(baseline.entries.map(e=>[e.fingerprint,e]));
+  const reachability=ledger.entries.some(e=>e.decision==='retained-unused')?uiReachability(root):null;
+  if(reachability?.errors.length)issues.push(...reachability.errors);
   if(recorded.size!==ledger.entries.length) issues.push('Duplicate ledger fingerprints');
   for(const e of scan.entries) {
     const item=recorded.get(e.fingerprint);
@@ -178,6 +181,13 @@ export function checkLedger(scan,ledger,baseline,root) {
     if(item.kind==='non-color'&&e.file.endsWith('.css')&&/^(?:color|background|border|fill|stroke|outline|box-shadow|text-shadow)/.test(e.property)) issues.push(`Color property disguised as non-color ${e.fingerprint}`);
     if(item.decision==='not-debt'&&(!item.reason||!['token-definition','non-color'].includes(item.kind))) issues.push(`Invalid not-debt exemption ${e.fingerprint}`);
     if(item.decision==='accepted-literal'&&!validEvidence(item,root)) issues.push(`Missing/stale evidence ${e.fingerprint}`);
+    if(item.decision==='retained-unused') {
+      const proof=item.unusedEvidence;
+      if(!item.reason||!item.semanticRole||!proof?.futureDisposition||proof.entry!=='client/src/main.tsx'||
+        !fs.existsSync(path.join(root,e.file))||proof.fileHash!==sourceHash(fs.readFileSync(path.join(root,e.file)))||
+        !reachability||reachability.errors.length||reachability.files.includes(e.file))issues.push(`Invalid/stale unused disposition ${e.fingerprint}`);
+    }
+    if(item.kind==='non-color'&&item.classificationSourceHash&&item.classificationSourceHash!==sourceHash(fs.readFileSync(path.join(root,e.file))))issues.push(`Stale non-color classification ${e.fingerprint}`);
     const prior=old.get(e.fingerprint);
     if((!prior||e.count>prior.count)&&e.kind!=='token-definition') {
       const rename=ledger.resolutions.find(r=>r.resolution==='rename'&&r.to===e.fingerprint&&old.has(r.fingerprint));

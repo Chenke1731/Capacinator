@@ -3,6 +3,7 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { scanSources, initialLedger, checkLedger, resolveOrphan, sourceHash, summarize } from '../lib/color-debt.mjs';
+import { uiReachability } from '../lib/ui-reachability.mjs';
 
 export async function runSelfTests() {
   const root=fs.mkdtempSync(path.join(os.tmpdir(),'capacinator-color-audit-'));
@@ -63,6 +64,20 @@ export async function runSelfTests() {
     const disguised=structuredClone(old);const consumer=disguised.entries.find(x=>x.literal==='red');consumer.kind='token-definition';consumer.decision='not-debt';consumer.reason='fake exemption';
     assert(checkLedger(scan,disguised,old,root).some(x=>x.includes('disguised')));
     assert(scanSources([['client/src/b.css','.b {color:red;']]).errors.length);
+    fs.writeFileSync(path.join(root,'client/src/main.tsx'),'import "./active.css"; if(false) import("./dev");');
+    fs.writeFileSync(path.join(root,'client/src/active.css'),'@import "./a.css";');
+    fs.writeFileSync(path.join(root,'client/src/dev.ts'),'export {};');
+    fs.writeFileSync(path.join(root,'client/src/View.tsx'),files[1][1]);
+    assert(uiReachability(root).files.includes('client/src/a.css'));
+    assert(uiReachability(root).files.includes('client/src/dev.ts'));
+    const inactive=structuredClone(old);
+    for(const e of inactive.entries.filter(e=>e.file.endsWith('View.tsx')))Object.assign(e,{decision:'retained-unused',semanticRole:'unloaded legacy component',reason:'Absent from conservative entry closure',unusedEvidence:{entry:'client/src/main.tsx',fileHash:sourceHash(files[1][1]),futureDisposition:'Verify and tokenize before reintroduction'}});
+    inactive.summary=summarize(inactive.entries);
+    assert.deepEqual(checkLedger(scan,inactive,old,root),[]);
+    fs.appendFileSync(path.join(root,'client/src/main.tsx'),'import "./View";');
+    assert(checkLedger(scan,inactive,old,root).some(e=>e.includes('unused disposition')));
+    fs.writeFileSync(path.join(root,'client/src/main.tsx'),'import(name);');
+    assert(checkLedger(scan,inactive,old,root).some(e=>e.includes('dynamic import')));
     console.log('color-debt SELFTEST PASS: parsing, definitions, original locations, exclusions, new/duplicate/orphan gates, rename/retirement, stale evidence, corrupt totals and parse failure');
   } finally {fs.rmSync(root,{recursive:true,force:true});}
 }

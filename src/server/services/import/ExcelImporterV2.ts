@@ -22,6 +22,7 @@ import {
 } from '../../utils/fiscalWeek.js';
 import { v4 as uuidv4 } from 'uuid';
 import { ImportOptions, ValidationResult, ValidationError, WorksheetValidation } from './ExcelImporter.js';
+import { BASELINE_SCENARIO_ID } from '../calc/effectiveAssignments.js';
 import { ImportErrorCollector } from './ImportError.js';
 
 export interface ImportResultV2 {
@@ -88,13 +89,14 @@ export class ExcelImporterV2 {
     }
   }
 
-  private async clearExistingDataInTransaction(trx: any) {
+  private async clearExistingDataInTransaction(trx: any, scenarioId: string) {
     const tables = [
       'project_assignments',
       'demand_overrides',
       'person_availability_overrides',
       'supervisor_delegations',
-      'standard_allocations',
+      // 迁移 046 已改名:standard_allocations → resource_templates(旧名 del 必炸)
+      'resource_templates',
       'project_phases_timeline',
       'role_planners',
       'project_planners',
@@ -110,6 +112,9 @@ export class ExcelImporterV2 {
     for (const table of tables) {
       await trx(table).del();
     }
+    // 贯通: 目标场景切片内的旧分配一并清空——重导同场景=替换,不叠加
+    await trx('scenario_project_assignments').where({ scenario_id: scenarioId }).del();
+    await trx('scenario_project_phases').where({ scenario_id: scenarioId }).del();
   }
 
   async validateExcelStructure(filePath: string): Promise<ValidationResult> {
@@ -1022,7 +1027,7 @@ export class ExcelImporterV2 {
     return { count, errors };
   }
 
-  private async importProjectAssignments(worksheet: ExcelWorksheet): Promise<{ count: number; errors: string[] }> {
+  private async importProjectAssignments(worksheet: ExcelWorksheet, scenarioId: string): Promise<{ count: number; errors: string[] }> {
     const errors: string[] = [];
     let count = 0;
 
@@ -1081,14 +1086,23 @@ export class ExcelImporterV2 {
               const endDate = fiscalWeekToDate(allocations[i - 1].week);
               
               if (startDate && endDate) {
-                await this.db('project_assignments').insert({
+                // 贯通: 场景事实写选定场景切片(运行时读侧全是切片)——
+                // 旧实现写 project_assignments,导入分配对容量/需求/死线不可见
+                const endDateInclusive = new Date(endDate.getTime() + 6 * 24 * 60 * 60 * 1000);
+                await this.db('scenario_project_assignments').insert({
                   id: uuidv4(),
+                  scenario_id: scenarioId,
                   project_id: projectId,
                   person_id: person.id,
                   role_id: roleId,
                   allocation_percentage: currentPercentage,
+                  status: 'active',
+                  assignment_date_mode: 'fixed',
                   start_date: startDate,
-                  end_date: new Date(endDate.getTime() + 6 * 24 * 60 * 60 * 1000),
+                  end_date: endDateInclusive,
+                  computed_start_date: startDate,
+                  computed_end_date: endDateInclusive,
+                  change_type: 'added',
                   created_at: new Date(),
                   updated_at: new Date()
                 });
@@ -1213,6 +1227,8 @@ export class ExcelImporterV2 {
 
   async importFromFile(filePath: string, options: ImportOptions = {}): Promise<ImportResultV2> {
     const { clearExisting = false, validateDuplicates = false } = options;
+    // 贯通: 场景事实(分配)写入选定场景切片,缺省 baseline——与运行时读侧一致
+    const scenarioId = options.scenarioId || BASELINE_SCENARIO_ID;
     const errorCollector = new ImportErrorCollector();
     this.createdLocations = 0;
     this.createdAvailabilityOverrides = 0;
@@ -1259,7 +1275,7 @@ export class ExcelImporterV2 {
       this.db = trx;
 
       if (clearExisting) {
-        await this.clearExistingDataInTransaction(trx);
+        await this.clearExistingDataInTransaction(trx, scenarioId);
       }
 
       const ExcelJSClass = await initializeExcelJS();
@@ -1334,7 +1350,7 @@ export class ExcelImporterV2 {
 
       // 9. Project Assignments - optional
       const assignmentsWorksheet = workbook.getWorksheet('Project Assignments');
-      const assignmentsResult = assignmentsWorksheet ? await this.importProjectAssignments(assignmentsWorksheet) : { count: 0, errors: [] };
+      const assignmentsResult = assignmentsWorksheet ? await this.importProjectAssignments(assignmentsWorksheet, scenarioId) : { count: 0, errors: [] };
       result.imported.assignments = assignmentsResult.count;
       result.errors.push(...assignmentsResult.errors);
 

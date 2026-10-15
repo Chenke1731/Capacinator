@@ -10,6 +10,7 @@ import multer from 'multer';
 import path from 'path';
 import fs from 'fs/promises';
 import type ExcelJSTypes from 'exceljs';
+import { resolveScenarioId } from '../../services/calc/effectiveAssignments.js';
 
 // Import ExcelJS using dynamic import for better ES module compatibility
 let ExcelJS: typeof ExcelJSTypes | null = null;
@@ -231,7 +232,11 @@ export class ImportController extends BaseController {
       const savedSettings = await this.getImportSettings();
 
       // Parse import options from request body with fallback to saved settings
-      const importOptions = this.parseImportOptions(req.body, savedSettings);
+      const importOptions = {
+        ...this.parseImportOptions(req.body, savedSettings),
+        // 贯通: 场景事实(分配)写请求选定场景切片,缺省 baseline
+        scenarioId: resolveScenarioId(req.headers['x-scenario-id'])
+      };
       
       logger.info('Starting Excel import', { path: req.file.path, options: importOptions });
       
@@ -662,7 +667,10 @@ export class ImportController extends BaseController {
       const savedSettings = await this.getImportSettings();
 
       // Parse import options with the same shared interpretation as execution (IP-05a/F04)
-      const importOptions = this.parseImportOptions(req.body, savedSettings, true);
+      const importOptions = {
+        ...this.parseImportOptions(req.body, savedSettings, true),
+        scenarioId: resolveScenarioId(req.headers['x-scenario-id'])
+      };
       
       logger.info('Starting dry-run import analysis', { path: req.file.path, options: importOptions });
       

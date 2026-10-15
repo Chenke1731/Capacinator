@@ -26,6 +26,8 @@ export interface ImportOptions {
   progressCallback?: ProgressCallback;
   /** IP-05b: 预览模式——真实管线跑完后回滚事务,数量即写入承诺 */
   dryRun?: boolean;
+  /** 贯通: 导入目标场景切片(缺省 baseline)——分配等场景事实写入该切片 */
+  scenarioId?: string;
 }
 
 export interface ValidationError {

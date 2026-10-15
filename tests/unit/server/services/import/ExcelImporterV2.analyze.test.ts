@@ -48,11 +48,31 @@ const DDL = [
   `CREATE TABLE project_assignments (id TEXT PRIMARY KEY)`,
   `CREATE TABLE demand_overrides (id TEXT PRIMARY KEY)`,
   `CREATE TABLE supervisor_delegations (id TEXT PRIMARY KEY)`,
-  `CREATE TABLE standard_allocations (id TEXT PRIMARY KEY)`,
+  // 迁移 046 后真实库无 standard_allocations(改名 resource_templates)
+  `CREATE TABLE resource_templates (id TEXT PRIMARY KEY)`,
+  `CREATE TABLE people (
+    id TEXT PRIMARY KEY, name TEXT, is_active INTEGER DEFAULT 1,
+    worker_type TEXT, primary_person_role_id TEXT, default_availability_percentage REAL DEFAULT 100,
+    default_hours_per_day REAL DEFAULT 8,
+    created_at DATETIME, updated_at DATETIME
+  )`,
+  `CREATE TABLE scenario_project_assignments (
+    id TEXT PRIMARY KEY, scenario_id TEXT NOT NULL,
+    project_id TEXT, person_id TEXT, role_id TEXT, phase_id TEXT,
+    allocation_percentage REAL, status TEXT DEFAULT 'active',
+    is_primary INTEGER DEFAULT 0,
+    assignment_date_mode TEXT, start_date TEXT, end_date TEXT,
+    computed_start_date TEXT, computed_end_date TEXT, notes TEXT,
+    change_type TEXT, base_assignment_id TEXT,
+    created_at DATETIME, updated_at DATETIME
+  )`,
   `CREATE TABLE project_phases_timeline (id TEXT PRIMARY KEY)`,
   `CREATE TABLE role_planners (id TEXT PRIMARY KEY)`,
   `CREATE TABLE project_planners (id TEXT PRIMARY KEY)`,
-  `CREATE TABLE person_roles (id TEXT PRIMARY KEY)`,
+  `CREATE TABLE person_roles (
+    id TEXT PRIMARY KEY, person_id TEXT, role_id TEXT,
+    proficiency_level INTEGER DEFAULT 3, is_primary INTEGER DEFAULT 0
+  )`,
   `CREATE TABLE projects (
     id TEXT PRIMARY KEY, name TEXT, project_type_id TEXT, project_sub_type_id TEXT,
     location_id TEXT, priority INTEGER, include_in_demand INTEGER,
@@ -62,7 +82,7 @@ const DDL = [
     id TEXT PRIMARY KEY, project_type_id TEXT, name TEXT, description TEXT,
     is_default INTEGER, sort_order INTEGER, created_at DATETIME, updated_at DATETIME
   )`,
-  `CREATE TABLE people (id TEXT PRIMARY KEY)`
+  `CREATE TABLE scenario_project_phases (id TEXT PRIMARY KEY, scenario_id TEXT)`
 ];
 
 describe('ExcelImporterV2.analyzeImport (real sqlite + real exceljs)', () => {
@@ -72,6 +92,7 @@ describe('ExcelImporterV2.analyzeImport (real sqlite + real exceljs)', () => {
   beforeAll(async () => {
     db = knexFactory({ client: 'better-sqlite3', connection: ':memory:' });
     for (const stmt of DDL) await db.raw(stmt);
+    // 分配行的人名查找走 people 表(按 name)
 
     // 最小 V2 工作簿:四个必需 sheet;Project Types 1 行 + Projects 1 行(新建 TestSite 地点)
     const ExcelJS = (await import('exceljs')).default as any;
@@ -79,11 +100,19 @@ describe('ExcelImporterV2.analyzeImport (real sqlite + real exceljs)', () => {
     const types = wb.addWorksheet('Project Types');
     types.addRow(['Name']);
     types.addRow(['Feature']);
-    wb.addWorksheet('Roles').addRow(['Role', 'Plan Owner', 'CW Option', 'Data Access']);
-    wb.addWorksheet('Roster').addRow(['Name']);
+    const roles = wb.addWorksheet('Roles');
+    roles.addRow(['Role', 'Plan Owner', 'CW Option', 'Data Access']);
+    roles.addRow(['开发', '', '', '']);
+    const roster = wb.addWorksheet('Roster');
+    roster.addRow(['Name', 'Role']);
+    roster.addRow(['张开发', '开发']);
     const projects = wb.addWorksheet('Projects');
     projects.addRow(['Project/Site', 'Project Type', 'Inc. in Demand', 'Priority']);
     projects.addRow(['Feature @ TestSite', 'Feature', 'Y', '1']);
+    // 分配 sheet: fiscal week 列承载占用(extractFiscalWeekColumns 真实解析)
+    const assignments = wb.addWorksheet('Project Assignments');
+    assignments.addRow(['Project/Site', 'Person', 'Role', '26FW45', '26FW46']);
+    assignments.addRow(['Feature @ TestSite', '张开发', '开发', 0.5, 0.5]);
     workbookPath = path.join(os.tmpdir(), `v2-analyze-${Date.now()}.xlsx`);
     await wb.xlsx.writeFile(workbookPath);
   });
@@ -98,8 +127,20 @@ describe('ExcelImporterV2.analyzeImport (real sqlite + real exceljs)', () => {
     for (const table of [
       'project_types', 'roles', 'project_phases', 'locations',
       'person_availability_overrides', 'project_assignments', 'demand_overrides',
-      'supervisor_delegations', 'standard_allocations', 'project_phases_timeline',
+      'supervisor_delegations', 'resource_templates', 'project_phases_timeline',
       'role_planners', 'project_planners', 'person_roles', 'projects', 'people'
+    ]) {
+      await db(table).del();
+    }
+  });
+
+  beforeEach(async () => {
+    for (const table of [
+      'scenario_project_assignments', 'scenario_project_phases', 'project_assignments',
+      'person_availability_overrides', 'person_roles', 'people', 'roles',
+      'project_phases', 'project_types', 'locations', 'projects', 'project_sub_types',
+      'project_phases_timeline', 'role_planners', 'project_planners',
+      'resource_templates', 'demand_overrides', 'supervisor_delegations'
     ]) {
       await db(table).del();
     }
@@ -111,9 +152,9 @@ describe('ExcelImporterV2.analyzeImport (real sqlite + real exceljs)', () => {
   };
 
   test('preview runs the real pipeline inside a rolled-back transaction (zero writes)', async () => {
+
     const importer = new ExcelImporterV2(db);
     const analysis = await importer.analyzeImport(workbookPath, {});
-
     expect(analysis.wouldSucceed).toBe(true);
     expect(analysis.dryRun).toBe(true);
     expect(analysis.summary.wouldCreate.projectTypes).toBe(1);
@@ -175,5 +216,51 @@ describe('ExcelImporterV2.analyzeImport (real sqlite + real exceljs)', () => {
     expect(result.imported.locations).toBe(1);
     expect(result.imported.availabilityOverrides).toBe(0);
     expect(await db('locations').count('* as c').first().then((r: any) => Number(r.c))).toBe(4); // 3 存量 + 1 新
+  });
+
+  test('贯通: 分配写入选定场景切片(旧表 project_assignments 不再收行)', async () => {
+    const importer = new ExcelImporterV2(db);
+    const result = await importer.importFromFile(workbookPath, { scenarioId: 'sc9' });
+    expect(result.success).toBe(true);
+    expect(result.imported.assignments).toBe(1);
+
+    const sliceRows = await db('scenario_project_assignments').where({ scenario_id: 'sc9' });
+    expect(sliceRows.length).toBe(1);
+    expect(sliceRows[0].status).toBe('active');
+    expect(sliceRows[0].change_type).toBe('added');
+    expect(sliceRows[0].allocation_percentage).toBe(50);
+    expect(sliceRows[0].project_id).toBeTruthy();
+    // 人员来自 Roster sheet 建档——按名回查验证指向正确
+    const person = await db('people').where({ name: '张开发' }).first();
+    expect(sliceRows[0].person_id).toBe(person.id);
+    // 旧表不再接收导入行(运行时读侧全是切片)
+    const legacy = await db('project_assignments').count('* as c').first();
+    expect(Number(legacy.c)).toBe(0);
+  });
+
+  test('贯通: 未指定场景时分配落 baseline 切片', async () => {
+    const importer = new ExcelImporterV2(db);
+    const result = await importer.importFromFile(workbookPath, {});
+    expect(result.success).toBe(true);
+    const sliceRows = await db('scenario_project_assignments').where({
+      scenario_id: 'baseline-0000-0000-0000-000000000000'
+    });
+    expect(sliceRows.length).toBe(1);
+  });
+
+  test('贯通: clearExisting 也清目标场景切片旧分配(重导同场景=替换)', async () => {
+    await db('scenario_project_assignments').insert({
+      id: 'stale-1', scenario_id: 'sc9', project_id: 'px', person_id: 'p-zk', role_id: 'r1',
+      allocation_percentage: 30, status: 'active', assignment_date_mode: 'fixed',
+      start_date: '2026-01-01', end_date: '2026-01-31',
+      created_at: new Date(), updated_at: new Date()
+    });
+
+    const importer = new ExcelImporterV2(db);
+    const result = await importer.importFromFile(workbookPath, { scenarioId: 'sc9', clearExisting: true });
+    expect(result.success).toBe(true);
+    const sliceRows = await db('scenario_project_assignments').where({ scenario_id: 'sc9' });
+    expect(sliceRows.length).toBe(1); // 只剩新导入的行
+    expect(sliceRows[0].id).not.toBe('stale-1');
   });
 });

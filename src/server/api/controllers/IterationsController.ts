@@ -25,10 +25,16 @@ export class IterationsController extends BaseController {
       .select('id', 'name', 'iteration_id', 'lifecycle_state', 'priority', 'parent_id');
 
     // 最新评估(开发人月)与最新设计粗估分量(se/mde 人月)
+    // IP-02c/R03: estimated_pm 人工覆盖优先(064"换算给默认,手动可覆盖"),
+    // 旧实现只算 LOC/费率,已裁决覆盖从未进入迭代开发总量
     const estRows = await this.db('project_estimations').orderBy('created_at').orderBy('id')
-      .select('project_id', 'estimated_loc', 'loc_rate_per_pm');
+      .select('project_id', 'estimated_loc', 'loc_rate_per_pm', 'estimated_pm');
     const devPm = new Map<string, number>();
     for (const r of estRows) {
+      if (r.estimated_pm != null && Number.isFinite(Number(r.estimated_pm))) {
+        devPm.set(r.project_id, Math.round(Number(r.estimated_pm) * 100) / 100);
+        continue;
+      }
       const loc = Number(r.estimated_loc);
       if (Number.isFinite(loc)) devPm.set(r.project_id, Math.round((loc / (Number(r.loc_rate_per_pm) || 500)) * 100) / 100);
     }

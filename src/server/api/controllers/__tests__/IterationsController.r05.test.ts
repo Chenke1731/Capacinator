@@ -20,7 +20,7 @@ const DDL = [
   )`,
   `CREATE TABLE project_estimations (
     id INTEGER PRIMARY KEY AUTOINCREMENT, project_id TEXT,
-    estimated_loc REAL, loc_rate_per_pm REAL,
+    estimated_loc REAL, loc_rate_per_pm REAL, estimated_pm REAL,
     created_at DATETIME
   )`,
   `CREATE TABLE project_design_estimations (
@@ -152,5 +152,23 @@ describe('IterationsController.getAll SE 开工前窗口 (R05, 真 sqlite)', () 
     const mde = load.find((r: any) => r.role === 'MDE');
     expect(mde.intensity_pct).toBeGreaterThanOrEqual(20);
     expect(mde.intensity_pct).toBeLessThanOrEqual(30);
+  });
+
+  test('R03: 人工开发覆盖 4 生效于迭代开发总量(旧实现只算 LOC/费率=1)', async () => {
+    await db('project_estimations').insert({
+      project_id: 'p1', estimated_loc: 500, loc_rate_per_pm: 500, estimated_pm: 4,
+      created_at: new Date()
+    });
+    const load = await loadRows();
+    const body = await (async () => {
+      // loadRows 只回 load;这里再取一次完整 body
+      controller.getAll({ headers: {}, logger: { info: jest.fn(), error: jest.fn(), warn: jest.fn(), debug: jest.fn() } } as any, mockRes);
+      for (let i = 0; i < 500 && mockRes.json.mock.calls.length < 2; i++) {
+        await new Promise((r) => setImmediate(r));
+      }
+      return mockRes.json.mock.calls[1]?.[0] ?? mockRes.json.mock.calls[0][0];
+    })();
+    expect(body.data[0].stats.dev_pm).toBe(4);
+    void load;
   });
 });

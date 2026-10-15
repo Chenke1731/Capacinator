@@ -228,7 +228,9 @@ export class EstimationController extends BaseController {
           start: body.start,
           conversion,
           // IP-02b: 负荷按请求选定场景的有效切片计算(缺省 baseline)
-          scenarioId: resolveScenarioId(req.headers['x-scenario-id'])
+          scenarioId: resolveScenarioId(req.headers['x-scenario-id']),
+          // IP-02c/R03: 已裁决开发人月覆盖优先于 LOC 换算
+          devPmOverride: estimation.estimated_pm
         });
         return res.json({ success: true, data: analysis });
       } catch (err: any) {

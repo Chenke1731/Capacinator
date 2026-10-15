@@ -151,6 +151,11 @@ function toISODateString(d: Date): string {
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
 }
 
+/** 保留 4 位小数消浮点噪声,不提前粗化 */
+function roundPm(n: number): number {
+  return Math.round(n * 10000) / 10000;
+}
+
 function overlapMonths(
   assignment: ExistingAssignment,
   windowStart: Date,
@@ -191,6 +196,9 @@ export interface DeadlineCheckInput {
   conversion: ConversionInput;
   /** IP-02b: 选定场景(缺省 baseline)——负荷只读该场景有效切片 */
   scenarioId?: string;
+  /** IP-02c/R03: 已裁决开发人月覆盖(project_estimations.estimated_pm);
+   * 有值优先于 LOC 换算作为开发侧需求 */
+  devPmOverride?: number | null;
 }
 
 export interface DeadlineCheckResult {
@@ -198,6 +206,12 @@ export interface DeadlineCheckResult {
   design: SideCheckResult;
   dev: SideCheckResult;
   overall: { verdict: Verdict };
+  /** IP-02c/R03: 各侧需求实际采用的估算来源与 MDE 校验状态 */
+  demand_sources: {
+    design: string;
+    dev: string;
+    mde_verified: boolean;
+  };
   assumptions: {
     loc_rate_per_pm: number;
     design_share_pct: number;
@@ -384,9 +398,20 @@ export class EstimationService {
     const conversion = { ...DEFAULT_CONVERSION, ...input.conversion };
     const pm = convertToPersonMonths(conversion);
 
+    // IP-02c/R03: 已裁决开发人月覆盖(064"换算给默认,手动可覆盖")优先作为
+    // 开发侧需求;设计侧保持 LOC 换算(D5 双历史,D01/D08 未定不重写公式)。
+    // 结果标注各侧实际来源与 MDE 未校验——不假装已验证的范围。
+    const devOverride = Number(input.devPmOverride);
+    const devOverridden = input.devPmOverride != null && Number.isFinite(devOverride) && devOverride >= 0;
+    const lowFactor = 1 - conversion.deviation_low_pct / 100;
+    const highFactor = 1 + conversion.deviation_high_pct / 100;
+    const devDemand: PmInterval = devOverridden
+      ? { low: roundPm(devOverride * lowFactor), mid: roundPm(devOverride), high: roundPm(devOverride * highFactor) }
+      : pm.dev;
+
     const [design, dev] = await Promise.all([
       this.checkSide('design', DESIGN_SIDE_ROLES, pm.design, windowStart, windowEnd, months, input.projectId, input.scenarioId),
-      this.checkSide('dev', DEV_SIDE_ROLES, pm.dev, windowStart, windowEnd, months, input.projectId, input.scenarioId)
+      this.checkSide('dev', DEV_SIDE_ROLES, devDemand, windowStart, windowEnd, months, input.projectId, input.scenarioId)
     ]);
 
     const worst = [design, dev].reduce<Verdict>((acc, s) =>
@@ -397,6 +422,11 @@ export class EstimationService {
       design,
       dev,
       overall: { verdict: worst },
+      demand_sources: {
+        design: 'loc_conversion',
+        dev: devOverridden ? 'estimated_pm_override' : 'loc_conversion',
+        mde_verified: false
+      },
       assumptions: {
         loc_rate_per_pm: conversion.loc_rate_per_pm,
         design_share_pct: conversion.design_share_pct,

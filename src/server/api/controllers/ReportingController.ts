@@ -3,6 +3,7 @@ import { BaseController, RequestWithContext } from './BaseController.js';
 import { ServiceContainer } from '../../services/ServiceContainer.js';
 import { ReportDataService } from '../../services/reports/ReportDataService.js';
 import type { DemandReportFilters, ProjectReportFilters, DateRangeFilter } from '../../services/reports/types.js';
+import { resolveScenarioId } from '../../services/calc/effectiveAssignments.js';
 
 // Alias for backward compatibility
 type RequestWithLogging = RequestWithContext;
@@ -210,9 +211,11 @@ export class ReportingController extends BaseController {
   getUtilizationReport = this.asyncHandler(async (req: RequestWithLogging, res: Response) => {
     req.logger.info('Utilization report endpoint called');
 
-    const filters: DateRangeFilter = {
+    const filters: DateRangeFilter & { scenarioId?: string } = {
       startDate: req.query.startDate as string | undefined,
       endDate: req.query.endDate as string | undefined,
+      // IP-02b: 利用率按选定场景切片(缺省 baseline)
+      scenarioId: resolveScenarioId(req.headers['x-scenario-id']),
     };
 
     req.logger.info('Date filters:', filters);

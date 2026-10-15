@@ -1,4 +1,5 @@
 import type { Knex } from 'knex';
+import { BASELINE_SCENARIO_ID } from '../calc/effectiveAssignments.js';
 import type {
   DateRangeFilter,
   DemandReportFilters,
@@ -207,9 +208,12 @@ export class ReportDataService {
 
   /**
    * Get utilization report with date-aware filtering
+   * IP-02b/C05: 只读选定场景的自含切片——旧 UNION(空旧表 + 全部 active 场景)
+   * 会把未改动分支的复制行叠加到同一人负荷上
    */
-  async getUtilizationReport(filters: DateRangeFilter): Promise<UtilizationReportData> {
+  async getUtilizationReport(filters: DateRangeFilter & { scenarioId?: string }): Promise<UtilizationReportData> {
     const { startDate, endDate } = filters;
+    const scenarioId = filters.scenarioId || BASELINE_SCENARIO_ID;
 
     // Use current date as endDate if not provided
     const effectiveEndDate = endDate || (startDate
@@ -222,22 +226,6 @@ export class ReportDataService {
     const utilizationQuery = `
       WITH date_filtered_assignments AS (
         SELECT
-          pa.person_id,
-          pa.project_id,
-          p.name as project_name,
-          pa.allocation_percentage,
-          COALESCE(pa.start_date, p.aspiration_start) as computed_start_date,
-          COALESCE(pa.end_date, p.aspiration_finish) as computed_end_date
-        FROM project_assignments pa
-        JOIN projects p ON pa.project_id = p.id
-        WHERE
-          pa.status = 'active'
-          AND COALESCE(pa.start_date, p.aspiration_start) <= ?
-          AND COALESCE(pa.end_date, p.aspiration_finish) >= ?
-
-        UNION ALL
-
-        SELECT
           spa.person_id,
           spa.project_id,
           p.name as project_name,
@@ -246,9 +234,8 @@ export class ReportDataService {
           COALESCE(spa.end_date, p.aspiration_finish) as computed_end_date
         FROM scenario_project_assignments spa
         JOIN projects p ON spa.project_id = p.id
-        JOIN scenarios s ON spa.scenario_id = s.id
         WHERE
-          s.status = 'active'
+          spa.scenario_id = ?
           AND spa.status = 'active'
           AND COALESCE(spa.start_date, p.aspiration_start) <= ?
           AND COALESCE(spa.end_date, p.aspiration_finish) >= ?
@@ -277,7 +264,7 @@ export class ReportDataService {
     `;
 
     const utilizationRaw = await this.db.raw(utilizationQuery, [
-      effectiveEndDate, effectiveStartDate, effectiveEndDate, effectiveStartDate,
+      scenarioId, effectiveEndDate, effectiveStartDate,
     ]);
 
     const utilizationData = this.transformUtilizationReportData(utilizationRaw);

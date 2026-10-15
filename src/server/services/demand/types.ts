@@ -7,6 +7,8 @@ export interface DemandSummaryFilters {
   endDate?: string;
   locationId?: string;
   projectTypeId?: string;
+  /** IP-02b: 选定场景(缺省 baseline)——需求读该场景有效切片 */
+  scenarioId?: string;
 }
 
 export interface ProjectDemandsData {

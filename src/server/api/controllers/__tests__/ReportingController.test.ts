@@ -414,7 +414,8 @@ describe('ReportingController', () => {
 
       expect(mockReportDataService.getUtilizationReport).toHaveBeenCalledWith({
         startDate: '2024-01-01',
-        endDate: '2024-12-31'
+        endDate: '2024-12-31',
+        scenarioId: 'baseline-0000-0000-0000-000000000000' // IP-02b: 缺省场景切片
       });
       expect(mockRes.json).toHaveBeenCalledWith(
         expect.objectContaining({

@@ -4,6 +4,7 @@ import {
   EstimationService
 } from '../../services/estimation/EstimationService.js';
 import { parseBackfillBody, backfillComplete } from '../../services/estimation/backfillPayload.js';
+import { resolveScenarioId } from '../../services/calc/effectiveAssignments.js';
 
 interface DesignEstimationBody {
   estimated_design_pm?: number;
@@ -164,7 +165,9 @@ export class DesignEstimationController extends BaseController {
           start: body.start,
           estimated_design_pm: estimation.estimated_design_pm,
           deviation_low_pct: estimation.deviation_low_pct,
-          deviation_high_pct: estimation.deviation_high_pct
+          deviation_high_pct: estimation.deviation_high_pct,
+          // IP-02b: 负荷按请求选定场景的有效切片计算(缺省 baseline)
+          scenarioId: resolveScenarioId(req.headers['x-scenario-id'])
         });
         return res.json({ success: true, data: analysis });
       } catch (err: any) {

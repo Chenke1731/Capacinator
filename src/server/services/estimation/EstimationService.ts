@@ -17,6 +17,7 @@
  */
 
 import { workdaysBetween, workMonths } from '../calc/workCalendar.js';
+import { BASELINE_SCENARIO_ID, activeAssignmentsInScenario } from '../calc/effectiveAssignments.js';
 
 export interface ConversionInput {
   estimated_loc: number;
@@ -183,6 +184,8 @@ export interface DeadlineCheckInput {
   deadline: string;              // ISO date (yyyy-mm-dd)
   start?: string;                // defaults to today
   conversion: ConversionInput;
+  /** IP-02b: 选定场景(缺省 baseline)——负荷只读该场景有效切片 */
+  scenarioId?: string;
 }
 
 export interface DeadlineCheckResult {
@@ -206,6 +209,8 @@ export interface DesignCheckInput {
   estimated_design_pm: number;     // rough design effort in person-months
   deviation_low_pct?: number;      // default 20
   deviation_high_pct?: number;     // default 50
+  /** IP-02b: 选定场景(缺省 baseline)——负荷只读该场景有效切片 */
+  scenarioId?: string;
 }
 
 export interface DesignDeadlineCheckResult {
@@ -247,27 +252,19 @@ export class EstimationService {
       .whereIn('r.name', roleNames);
   }
 
-  private async fetchAssignments(personIds: string[]): Promise<ExistingAssignment[]> {
+  private async fetchAssignments(personIds: string[], scenarioId: string = BASELINE_SCENARIO_ID): Promise<ExistingAssignment[]> {
     if (personIds.length === 0) return [];
-    return this.db('effective_project_assignments as ea')
+    // IP-02b/C05: 只读选定场景的 active 切片——不把其他 active 分支叠加到
+    // 同一人负荷上;基线切片自含(含全部普通新分配,F01)
+    return activeAssignmentsInScenario(this.db, scenarioId)
       .select(
-        'ea.person_id',
-        'ea.project_id',
-        'ea.allocation_percentage',
-        'ea.computed_start_date',
-        'ea.computed_end_date'
+        'spa.person_id',
+        'spa.project_id',
+        'spa.allocation_percentage',
+        this.db.raw('COALESCE(spa.computed_start_date, spa.start_date) as computed_start_date'),
+        this.db.raw('COALESCE(spa.computed_end_date, spa.end_date) as computed_end_date')
       )
-      .whereIn('ea.person_id', personIds)
-      .where((builder: any) => {
-        // Same semantics as person_utilization_view: base rows plus active
-        // scenario rows only
-        builder
-          .whereNull('ea.scenario_id')
-          .orWhereIn(
-            'ea.scenario_id',
-            this.db('scenarios').select('id').where('scenarios.status', 'active')
-          );
-      });
+      .whereIn('spa.person_id', personIds);
   }
 
   /**
@@ -290,10 +287,11 @@ export class EstimationService {
     windowStart: Date,
     windowEnd: Date,
     months: number,
-    projectId: string
+    projectId: string,
+    scenarioId?: string
   ): Promise<SideCheckResult> {
     const team = await this.fetchTeam(roleNames);
-    const assignments = await this.fetchAssignments(team.map((m: TeamMember) => m.id));
+    const assignments = await this.fetchAssignments(team.map((m: TeamMember) => m.id), scenarioId);
     const pools = await this.fetchPoolDemands(roleNames);
 
     const allocatedByPerson = new Map<string, number>();
@@ -347,8 +345,8 @@ export class EstimationService {
     const pm = convertToPersonMonths(conversion);
 
     const [design, dev] = await Promise.all([
-      this.checkSide('design', DESIGN_SIDE_ROLES, pm.design, windowStart, windowEnd, months, input.projectId),
-      this.checkSide('dev', DEV_SIDE_ROLES, pm.dev, windowStart, windowEnd, months, input.projectId)
+      this.checkSide('design', DESIGN_SIDE_ROLES, pm.design, windowStart, windowEnd, months, input.projectId, input.scenarioId),
+      this.checkSide('dev', DEV_SIDE_ROLES, pm.dev, windowStart, windowEnd, months, input.projectId, input.scenarioId)
     ]);
 
     const worst = [design, dev].reduce<Verdict>((acc, s) =>
@@ -415,7 +413,7 @@ export class EstimationService {
     const windowStart = new Date(start);
     const windowEnd = new Date(deadline);
     const design = await this.checkSide(
-      'design', DESIGN_SIDE_ROLES, demand, windowStart, windowEnd, months, input.projectId
+      'design', DESIGN_SIDE_ROLES, demand, windowStart, windowEnd, months, input.projectId, input.scenarioId
     );
 
     return {

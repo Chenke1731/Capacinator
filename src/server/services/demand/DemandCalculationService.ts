@@ -6,6 +6,7 @@ import {
   demandHoursInWindow,
   HOURS_PER_WORKDAY
 } from '../calc/workCalendar.js';
+import { BASELINE_SCENARIO_ID } from '../calc/effectiveAssignments.js';
 import type {
   DemandSummaryFilters,
   ProjectDemandsData,
@@ -135,9 +136,14 @@ export class DemandCalculationService {
    */
   async getDemandSummary(filters: DemandSummaryFilters): Promise<DemandSummaryData> {
     const { startDate, endDate, locationId, projectTypeId } = filters;
+    // IP-02b/F01: 读选定场景的自含切片(baseline 也是 scenario_project_assignments
+    // 的一个切片);旧表 project_assignments 只剩 V2 导入在写,运行时为空——读它
+    // 意味着普通新分配对需求汇总不可见
+    const scenarioId = filters.scenarioId || BASELINE_SCENARIO_ID;
 
     // Build base query (paused assignments are not demand)
-    let baseQuery = this.db('project_assignments as pa')
+    let baseQuery = this.db('scenario_project_assignments as pa')
+      .where('pa.scenario_id', scenarioId)
       .join('projects as p', 'pa.project_id', 'p.id')
       .join('roles as r', 'pa.role_id', 'r.id')
       .where('p.include_in_demand', true)

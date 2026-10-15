@@ -3,6 +3,7 @@ import { BaseController } from './BaseController.js';
 import { ServiceContainer } from '../../services/ServiceContainer.js';
 import { ReportDataService } from '../../services/reports/ReportDataService.js';
 import { ExportFormatterService } from '../../services/export/ExportFormatterService.js';
+import { resolveScenarioId } from '../../services/calc/effectiveAssignments.js';
 import type { ReportType, ExportCapacityData, ExportUtilizationData, ExportDemandData, ExportGapsData } from '../../services/export/types.js';
 import type { DateRangeFilter } from '../../services/reports/types.js';
 
@@ -46,7 +47,8 @@ export class ExportController extends BaseController {
         return res.status(400).json({ error: 'Report type is required' });
       }
 
-      const data = await this.getReportData(reportType, filters);
+      // IP-02b: 报表导出沿用请求选定场景切片(缺省 baseline)
+      const data = await this.getReportData(reportType, { ...filters, scenarioId: resolveScenarioId(req.headers['x-scenario-id']) });
       const buffer = await this.exportFormatterService.generateExcel(reportType, data);
       const filename = this.exportFormatterService.getFilename(reportType, 'xlsx');
 

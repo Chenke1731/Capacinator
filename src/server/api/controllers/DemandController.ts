@@ -2,6 +2,7 @@ import type { Request, Response } from 'express';
 import { BaseController } from './BaseController.js';
 import { ServiceContainer } from '../../services/ServiceContainer.js';
 import { DemandCalculationService } from '../../services/demand/DemandCalculationService.js';
+import { resolveScenarioId } from '../../services/calc/effectiveAssignments.js';
 import type { DemandSummaryFilters, ScenarioInput } from '../../services/demand/types.js';
 
 export class DemandController extends BaseController {
@@ -46,6 +47,8 @@ export class DemandController extends BaseController {
       endDate: req.query.end_date as string | undefined,
       locationId: req.query.location_id as string | undefined,
       projectTypeId: req.query.project_type_id as string | undefined,
+      // IP-02b: 需求按请求选定场景的有效切片计算(缺省 baseline)
+      scenarioId: resolveScenarioId(req.headers['x-scenario-id']),
     };
 
     const result = await this.executeQuery(

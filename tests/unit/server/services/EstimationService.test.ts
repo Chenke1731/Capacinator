@@ -32,15 +32,13 @@ import {
         };
         return query;
       }
-      if (typeof tableName === 'string' && tableName.includes('effective_project_assignments')) {
+      // IP-02b: fetchAssignments 现读选定场景切片(scenario_project_assignments);
+      // canned assignments 即该切片内容——选择语义由真库测试覆盖(EstimationService.scenario.test.ts)
+      if (typeof tableName === 'string' && tableName.includes('scenario_project_assignments')) {
         const query: any = {
+          where: jest.fn().mockReturnThis(),
           select: jest.fn().mockReturnThis(),
-          whereIn: jest.fn().mockReturnThis(),
-          where: jest.fn().mockImplementation((builder: any) => {
-            // scenario filter builder — not executed in mock
-            void builder;
-            return Promise.resolve(assignments);
-          })
+          whereIn: jest.fn().mockResolvedValue(assignments)
         };
         return query;
       }
@@ -71,6 +69,7 @@ import {
       }
       throw new Error(`unexpected table ${tableName}`);
     };
+    mockDb.raw = jest.fn((sql: string) => ({ sql }));
     mockDb._sides = () => sides;
     return mockDb;
   }

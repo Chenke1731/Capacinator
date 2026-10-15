@@ -1,0 +1,148 @@
+{
+  "evidence": [
+    {
+      "profile": "import",
+      "theme": "light",
+      "artifact": "tests/visual/reports/c6-after-import-light.png",
+      "axe": [],
+      "writes": [],
+      "errors": []
+    },
+    {
+      "profile": "import",
+      "theme": "dark",
+      "artifact": "tests/visual/reports/c6-after-import-dark.png",
+      "axe": [],
+      "writes": [],
+      "errors": []
+    },
+    {
+      "profile": "import-export",
+      "theme": "light",
+      "artifact": "tests/visual/reports/c6-after-import-export-light.png",
+      "axe": [],
+      "writes": [],
+      "errors": []
+    },
+    {
+      "profile": "import-export",
+      "theme": "dark",
+      "artifact": "tests/visual/reports/c6-after-import-export-dark.png",
+      "axe": [],
+      "writes": [],
+      "errors": []
+    },
+    {
+      "profile": "project-types",
+      "theme": "light",
+      "artifact": "tests/visual/reports/c6-after-project-types-light.png",
+      "axe": [],
+      "writes": [],
+      "errors": []
+    },
+    {
+      "profile": "project-types",
+      "theme": "dark",
+      "artifact": "tests/visual/reports/c6-after-project-types-dark.png",
+      "axe": [],
+      "writes": [],
+      "errors": []
+    },
+    {
+      "profile": "iterations",
+      "theme": "light",
+      "artifact": "tests/visual/reports/c6-after-iterations-light.png",
+      "axe": [],
+      "writes": [],
+      "errors": []
+    },
+    {
+      "profile": "iterations",
+      "theme": "dark",
+      "artifact": "tests/visual/reports/c6-after-iterations-dark.png",
+      "axe": [],
+      "writes": [],
+      "errors": []
+    },
+    {
+      "profile": "reports",
+      "theme": "light",
+      "artifact": "tests/visual/reports/c6-after-reports-light.png",
+      "axe": [],
+      "writes": [],
+      "errors": []
+    },
+    {
+      "profile": "reports",
+      "theme": "dark",
+      "artifact": "tests/visual/reports/c6-after-reports-dark.png",
+      "axe": [],
+      "writes": [],
+      "errors": []
+    },
+    {
+      "profile": "locations",
+      "theme": "light",
+      "artifact": "tests/visual/reports/c6-after-locations-light.png",
+      "axe": [],
+      "writes": [],
+      "errors": []
+    },
+    {
+      "profile": "locations",
+      "theme": "dark",
+      "artifact": "tests/visual/reports/c6-after-locations-dark.png",
+      "axe": [],
+      "writes": [],
+      "errors": []
+    },
+    {
+      "profile": "audit-log",
+      "theme": "light",
+      "artifact": "tests/visual/reports/c6-after-audit-log-light.png",
+      "axe": [],
+      "writes": [],
+      "errors": []
+    },
+    {
+      "profile": "audit-log",
+      "theme": "dark",
+      "artifact": "tests/visual/reports/c6-after-audit-log-dark.png",
+      "axe": [],
+      "writes": [],
+      "errors": []
+    },
+    {
+      "profile": "person-detail",
+      "theme": "light",
+      "artifact": "tests/visual/reports/c6-after-person-detail-light.png",
+      "axe": [],
+      "writes": [],
+      "errors": []
+    },
+    {
+      "profile": "person-detail",
+      "theme": "dark",
+      "artifact": "tests/visual/reports/c6-after-person-detail-dark.png",
+      "axe": [],
+      "writes": [],
+      "errors": []
+    },
+    {
+      "profile": "role-detail",
+      "theme": "light",
+      "artifact": "tests/visual/reports/c6-after-role-detail-light.png",
+      "axe": [],
+      "writes": [],
+      "errors": []
+    },
+    {
+      "profile": "role-detail",
+      "theme": "dark",
+      "artifact": "tests/visual/reports/c6-after-role-detail-dark.png",
+      "axe": [],
+      "writes": [],
+      "errors": []
+    }
+  ]
+}

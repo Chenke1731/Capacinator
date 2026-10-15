@@ -174,7 +174,7 @@
         }
       ],
       "count": 1,
-      "kind": "unknown",
+      "kind": "data-color",
       "reachability": "not-in-entry-import-closure",
       "decision": "retained-unused",
       "semanticRole": "legacy-unloaded-color-consumer",
@@ -202,7 +202,7 @@
         }
       ],
       "count": 1,
-      "kind": "unknown",
+      "kind": "data-color",
       "reachability": "not-in-entry-import-closure",
       "decision": "retained-unused",
       "semanticRole": "legacy-unloaded-color-consumer",
@@ -230,7 +230,7 @@
         }
       ],
       "count": 1,
-      "kind": "unknown",
+      "kind": "data-color",
       "reachability": "not-in-entry-import-closure",
       "decision": "retained-unused",
       "semanticRole": "legacy-unloaded-color-consumer",
@@ -258,7 +258,7 @@
         }
       ],
       "count": 1,
-      "kind": "unknown",
+      "kind": "data-color",
       "reachability": "not-in-entry-import-closure",
       "decision": "retained-unused",
       "semanticRole": "legacy-unloaded-color-consumer",
@@ -286,7 +286,7 @@
         }
       ],
       "count": 1,
-      "kind": "unknown",
+      "kind": "data-color",
       "reachability": "not-in-entry-import-closure",
       "decision": "retained-unused",
       "semanticRole": "legacy-unloaded-color-consumer",
@@ -314,7 +314,7 @@
         }
       ],
       "count": 1,
-      "kind": "unknown",
+      "kind": "data-color",
       "reachability": "not-in-entry-import-closure",
       "decision": "retained-unused",
       "semanticRole": "legacy-unloaded-color-consumer",
@@ -342,7 +342,7 @@
         }
       ],
       "count": 1,
-      "kind": "unknown",
+      "kind": "data-color",
       "reachability": "not-in-entry-import-closure",
       "decision": "retained-unused",
       "semanticRole": "legacy-unloaded-color-consumer",
@@ -370,7 +370,7 @@
         }
       ],
       "count": 1,
-      "kind": "unknown",
+      "kind": "data-color",
       "reachability": "not-in-entry-import-closure",
       "decision": "retained-unused",
       "semanticRole": "legacy-unloaded-color-consumer",
@@ -398,7 +398,7 @@
         }
       ],
       "count": 1,
-      "kind": "unknown",
+      "kind": "data-color",
       "reachability": "not-in-entry-import-closure",
       "decision": "retained-unused",
       "semanticRole": "legacy-unloaded-color-consumer",
@@ -1614,7 +1614,7 @@
         }
       ],
       "count": 1,
-      "kind": "unknown",
+      "kind": "semantic-color",
       "reachability": "not-in-entry-import-closure",
       "decision": "retained-unused",
       "semanticRole": "legacy-unloaded-color-consumer",
@@ -1642,7 +1642,7 @@
         }
       ],
       "count": 1,
-      "kind": "unknown",
+      "kind": "semantic-color",
       "reachability": "not-in-entry-import-closure",
       "decision": "retained-unused",
       "semanticRole": "legacy-unloaded-color-consumer",
@@ -1668,7 +1668,7 @@
         }
       ],
       "count": 1,
-      "kind": "unknown",
+      "kind": "semantic-color",
       "reachability": "not-in-entry-import-closure",
       "decision": "retained-unused",
       "semanticRole": "legacy-unloaded-color-consumer",
@@ -1696,7 +1696,7 @@
         }
       ],
       "count": 1,
-      "kind": "unknown",
+      "kind": "semantic-color",
       "reachability": "not-in-entry-import-closure",
       "decision": "retained-unused",
       "semanticRole": "legacy-unloaded-color-consumer",
@@ -1724,7 +1724,7 @@
         }
       ],
       "count": 1,
-      "kind": "unknown",
+      "kind": "semantic-color",
       "reachability": "not-in-entry-import-closure",
       "decision": "retained-unused",
       "semanticRole": "legacy-unloaded-color-consumer",
@@ -1752,7 +1752,7 @@
         }
       ],
       "count": 1,
-      "kind": "unknown",
+      "kind": "semantic-color",
       "reachability": "not-in-entry-import-closure",
       "decision": "retained-unused",
       "semanticRole": "legacy-unloaded-color-consumer",
@@ -1780,7 +1780,7 @@
         }
       ],
       "count": 1,
-      "kind": "unknown",
+      "kind": "semantic-color",
       "reachability": "not-in-entry-import-closure",
       "decision": "retained-unused",
       "semanticRole": "legacy-unloaded-color-consumer",
@@ -1808,7 +1808,7 @@
         }
       ],
       "count": 1,
-      "kind": "unknown",
+      "kind": "semantic-color",
       "reachability": "not-in-entry-import-closure",
       "decision": "retained-unused",
       "semanticRole": "legacy-unloaded-color-consumer",
@@ -1836,7 +1836,7 @@
         }
       ],
       "count": 1,
-      "kind": "unknown",
+      "kind": "semantic-color",
       "reachability": "not-in-entry-import-closure",
       "decision": "retained-unused",
       "semanticRole": "legacy-unloaded-color-consumer",
@@ -1864,7 +1864,7 @@
         }
       ],
       "count": 1,
-      "kind": "unknown",
+      "kind": "semantic-color",
       "reachability": "not-in-entry-import-closure",
       "decision": "retained-unused",
       "semanticRole": "legacy-unloaded-color-consumer",
@@ -1892,7 +1892,7 @@
         }
       ],
       "count": 1,
-      "kind": "unknown",
+      "kind": "semantic-color",
       "reachability": "not-in-entry-import-closure",
       "decision": "retained-unused",
       "semanticRole": "legacy-unloaded-color-consumer",
@@ -1920,7 +1920,7 @@
         }
       ],
       "count": 1,
-      "kind": "unknown",
+      "kind": "semantic-color",
       "reachability": "not-in-entry-import-closure",
       "decision": "retained-unused",
       "semanticRole": "legacy-unloaded-color-consumer",
@@ -1948,7 +1948,7 @@
         }
       ],
       "count": 1,
-      "kind": "unknown",
+      "kind": "semantic-color",
       "reachability": "not-in-entry-import-closure",
       "decision": "retained-unused",
       "semanticRole": "legacy-unloaded-color-consumer",
@@ -1976,7 +1976,7 @@
         }
       ],
       "count": 1,
-      "kind": "unknown",
+      "kind": "semantic-color",
       "reachability": "not-in-entry-import-closure",
       "decision": "retained-unused",
       "semanticRole": "legacy-unloaded-color-consumer",
@@ -2004,7 +2004,7 @@
         }
       ],
       "count": 1,
-      "kind": "unknown",
+      "kind": "semantic-color",
       "reachability": "not-in-entry-import-closure",
       "decision": "retained-unused",
       "semanticRole": "legacy-unloaded-color-consumer",
@@ -2032,7 +2032,7 @@
         }
       ],
       "count": 1,
-      "kind": "unknown",
+      "kind": "semantic-color",
       "reachability": "not-in-entry-import-closure",
       "decision": "retained-unused",
       "semanticRole": "legacy-unloaded-color-consumer",
@@ -2060,7 +2060,7 @@
         }
       ],
       "count": 1,
-      "kind": "unknown",
+      "kind": "semantic-color",
       "reachability": "not-in-entry-import-closure",
       "decision": "retained-unused",
       "semanticRole": "legacy-unloaded-color-consumer",
@@ -2088,7 +2088,7 @@
         }
       ],
       "count": 1,
-      "kind": "unknown",
+      "kind": "semantic-color",
       "reachability": "not-in-entry-import-closure",
       "decision": "retained-unused",
       "semanticRole": "legacy-unloaded-color-consumer",
@@ -2116,7 +2116,7 @@
         }
       ],
       "count": 1,
-      "kind": "unknown",
+      "kind": "semantic-color",
       "reachability": "not-in-entry-import-closure",
       "decision": "retained-unused",
       "semanticRole": "legacy-unloaded-color-consumer",
@@ -2144,7 +2144,7 @@
         }
       ],
       "count": 1,
-      "kind": "unknown",
+      "kind": "semantic-color",
       "reachability": "not-in-entry-import-closure",
       "decision": "retained-unused",
       "semanticRole": "legacy-unloaded-color-consumer",
@@ -2172,7 +2172,7 @@
         }
       ],
       "count": 1,
-      "kind": "unknown",
+      "kind": "semantic-color",
       "reachability": "not-in-entry-import-closure",
       "decision": "retained-unused",
       "semanticRole": "legacy-unloaded-color-consumer",
@@ -2200,7 +2200,7 @@
         }
       ],
       "count": 1,
-      "kind": "unknown",
+      "kind": "semantic-color",
       "reachability": "not-in-entry-import-closure",
       "decision": "retained-unused",
       "semanticRole": "legacy-unloaded-color-consumer",
@@ -2228,7 +2228,7 @@
         }
       ],
       "count": 1,
-      "kind": "unknown",
+      "kind": "semantic-color",
       "reachability": "not-in-entry-import-closure",
       "decision": "retained-unused",
       "semanticRole": "legacy-unloaded-color-consumer",
@@ -2256,7 +2256,7 @@
         }
       ],
       "count": 1,
-      "kind": "unknown",
+      "kind": "semantic-color",
       "reachability": "not-in-entry-import-closure",
       "decision": "retained-unused",
       "semanticRole": "legacy-unloaded-color-consumer",
@@ -2284,7 +2284,7 @@
         }
       ],
       "count": 1,
-      "kind": "unknown",
+      "kind": "semantic-color",
       "reachability": "not-in-entry-import-closure",
       "decision": "retained-unused",
       "semanticRole": "legacy-unloaded-color-consumer",
@@ -2312,7 +2312,7 @@
         }
       ],
       "count": 1,
-      "kind": "unknown",
+      "kind": "semantic-color",
       "reachability": "not-in-entry-import-closure",
       "decision": "retained-unused",
       "semanticRole": "legacy-unloaded-color-consumer",
@@ -2340,7 +2340,7 @@
         }
       ],
       "count": 1,
-      "kind": "unknown",
+      "kind": "semantic-color",
       "reachability": "not-in-entry-import-closure",
       "decision": "retained-unused",
       "semanticRole": "legacy-unloaded-color-consumer",
@@ -2494,7 +2494,7 @@
       "semanticRole": "class-or-token-key",
       "reason": "TC-C6: StatCard.color类别枚举，由组件内部映射Tailwind类，不是原生SVG颜色属性",
       "evidence": [],
-      "classificationSourceHash": "d663b04321fd3f26c65bfe4dfcf9db917023e5ef637648d69db6bcb7e83afa1d"
+      "classificationSourceHash": "476500b94a1a6b26fa41202bef3b7e72d402ed9023fc47498084027f08269ffc"
     },
     {
       "fingerprint": "808eda35a1398b9ab4cc5c5306e43a097b442938a75b7c66374226a5277e2db9",

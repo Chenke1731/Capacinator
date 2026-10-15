@@ -1,0 +1,647 @@
+{
+  "profile": "person-detail",
+  "phases": [
+    {
+      "theme": "light",
+      "state": "default",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn page-back-btn|",
+          "text": "",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(249, 250, 251)",
+          "effectiveBackground": [
+            249,
+            250,
+            251
+          ],
+          "contrast": 16.97538624440406,
+          "textual": false,
+          "disabled": false,
+          "width": 44,
+          "height": 44,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn btn-success action-btn|",
+          "text": "分配至项目",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(249, 250, 251)",
+          "effectiveBackground": [
+            249,
+            250,
+            251
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 620,
+          "height": 45,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(2)",
+          "family": "btn btn-primary action-btn|",
+          "text": "查看机会",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 620,
+          "height": 45,
+          "font": 14
+        }
+      ],
+      "issues": [],
+      "scope": ".person-details",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "light",
+      "state": "hover-0",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn page-back-btn|",
+          "text": "",
+          "foreground": "rgb(79, 70, 229)",
+          "background": "rgba(0, 0, 0, 0.03)",
+          "effectiveBackground": [
+            247,
+            247,
+            247
+          ],
+          "contrast": 5.869023856551962,
+          "textual": false,
+          "disabled": false,
+          "width": 44,
+          "height": 44,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn btn-success action-btn|",
+          "text": "分配至项目",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(249, 250, 251)",
+          "effectiveBackground": [
+            249,
+            250,
+            251
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 620,
+          "height": 45,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(2)",
+          "family": "btn btn-primary action-btn|",
+          "text": "查看机会",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 620,
+          "height": 45,
+          "font": 14
+        }
+      ],
+      "issues": [],
+      "scope": ".person-details",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "light",
+      "state": "hover-1",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn page-back-btn|",
+          "text": "",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(249, 250, 251)",
+          "effectiveBackground": [
+            249,
+            250,
+            251
+          ],
+          "contrast": 16.97538624440406,
+          "textual": false,
+          "disabled": false,
+          "width": 44,
+          "height": 44,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn btn-success action-btn|",
+          "text": "分配至项目",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(243, 244, 246)",
+          "effectiveBackground": [
+            243,
+            244,
+            246
+          ],
+          "contrast": 16.119468339438853,
+          "textual": true,
+          "disabled": false,
+          "width": 620,
+          "height": 45,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(2)",
+          "family": "btn btn-primary action-btn|",
+          "text": "查看机会",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 620,
+          "height": 45,
+          "font": 14
+        }
+      ],
+      "issues": [],
+      "scope": ".person-details",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "light",
+      "state": "hover-2",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn page-back-btn|",
+          "text": "",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(249, 250, 251)",
+          "effectiveBackground": [
+            249,
+            250,
+            251
+          ],
+          "contrast": 16.97538624440406,
+          "textual": false,
+          "disabled": false,
+          "width": 44,
+          "height": 44,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn btn-success action-btn|",
+          "text": "分配至项目",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(249, 250, 251)",
+          "effectiveBackground": [
+            249,
+            250,
+            251
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 620,
+          "height": 45,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(2)",
+          "family": "btn btn-primary action-btn|",
+          "text": "查看机会",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 620,
+          "height": 45,
+          "font": 14
+        }
+      ],
+      "issues": [],
+      "scope": ".person-details",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "light",
+      "state": "keyboard-focus",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn page-back-btn|",
+          "text": "",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(249, 250, 251)",
+          "effectiveBackground": [
+            249,
+            250,
+            251
+          ],
+          "contrast": 16.97538624440406,
+          "textual": false,
+          "disabled": false,
+          "width": 44,
+          "height": 44,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn btn-success action-btn|",
+          "text": "分配至项目",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(249, 250, 251)",
+          "effectiveBackground": [
+            249,
+            250,
+            251
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 620,
+          "height": 45,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(2)",
+          "family": "btn btn-primary action-btn|",
+          "text": "查看机会",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 620,
+          "height": 45,
+          "font": 14
+        }
+      ],
+      "issues": [],
+      "scope": ".person-details",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "dark",
+      "state": "default",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn page-back-btn|",
+          "text": "",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": false,
+          "disabled": false,
+          "width": 44,
+          "height": 44,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn btn-success action-btn|",
+          "text": "分配至项目",
+          "foreground": "rgb(229, 231, 235)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 11.856254063195582,
+          "textual": true,
+          "disabled": false,
+          "width": 620,
+          "height": 47,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(2)",
+          "family": "btn btn-primary action-btn|",
+          "text": "查看机会",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 620,
+          "height": 47,
+          "font": 14
+        }
+      ],
+      "issues": [],
+      "scope": ".person-details",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "dark",
+      "state": "hover-0",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn page-back-btn|",
+          "text": "",
+          "foreground": "rgb(99, 102, 241)",
+          "background": "rgba(255, 255, 255, 0.05)",
+          "effectiveBackground": [
+            29.133333333333333,
+            35.77647058823529,
+            50.01176470588235
+          ],
+          "contrast": 3.4866388107549677,
+          "textual": false,
+          "disabled": false,
+          "width": 44,
+          "height": 44,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn btn-success action-btn|",
+          "text": "分配至项目",
+          "foreground": "rgb(229, 231, 235)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 11.856254063195582,
+          "textual": true,
+          "disabled": false,
+          "width": 620,
+          "height": 47,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(2)",
+          "family": "btn btn-primary action-btn|",
+          "text": "查看机会",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 620,
+          "height": 47,
+          "font": 14
+        }
+      ],
+      "issues": [],
+      "scope": ".person-details",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "dark",
+      "state": "hover-1",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn page-back-btn|",
+          "text": "",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": false,
+          "disabled": false,
+          "width": 44,
+          "height": 44,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn btn-success action-btn|",
+          "text": "分配至项目",
+          "foreground": "rgb(229, 231, 235)",
+          "background": "rgba(255, 255, 255, 0.05)",
+          "effectiveBackground": [
+            42.41960784313726,
+            51.909803921568624,
+            65.19607843137254
+          ],
+          "contrast": 10.177362053162666,
+          "textual": true,
+          "disabled": false,
+          "width": 620,
+          "height": 47,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(2)",
+          "family": "btn btn-primary action-btn|",
+          "text": "查看机会",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 620,
+          "height": 47,
+          "font": 14
+        }
+      ],
+      "issues": [],
+      "scope": ".person-details",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "dark",
+      "state": "hover-2",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn page-back-btn|",
+          "text": "",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": false,
+          "disabled": false,
+          "width": 44,
+          "height": 44,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn btn-success action-btn|",
+          "text": "分配至项目",
+          "foreground": "rgb(229, 231, 235)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 11.856254063195582,
+          "textual": true,
+          "disabled": false,
+          "width": 620,
+          "height": 47,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(2)",
+          "family": "btn btn-primary action-btn|",
+          "text": "查看机会",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 620,
+          "height": 47,
+          "font": 14
+        }
+      ],
+      "issues": [],
+      "scope": ".person-details",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "dark",
+      "state": "keyboard-focus",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn page-back-btn|",
+          "text": "",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": false,
+          "disabled": false,
+          "width": 44,
+          "height": 44,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn btn-success action-btn|",
+          "text": "分配至项目",
+          "foreground": "rgb(229, 231, 235)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 11.856254063195582,
+          "textual": true,
+          "disabled": false,
+          "width": 620,
+          "height": 47,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(2)",
+          "family": "btn btn-primary action-btn|",
+          "text": "查看机会",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 620,
+          "height": 47,
+          "font": 14
+        }
+      ],
+      "issues": [],
+      "scope": ".person-details",
+      "axe": [],
+      "newIssues": []
+    }
+  ],
+  "writes": [],
+  "errors": []
+}

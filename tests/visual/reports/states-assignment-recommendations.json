@@ -1,0 +1,647 @@
+{
+  "profile": "assignment-recommendations",
+  "phases": [
+    {
+      "theme": "light",
+      "state": "default",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
+          "family": "btn btn-secondary|",
+          "text": "刷新建议",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(243, 244, 246)",
+          "effectiveBackground": [
+            243,
+            244,
+            246
+          ],
+          "contrast": 16.119468339438853,
+          "textual": true,
+          "disabled": false,
+          "width": 114,
+          "height": 44,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "tab-button |",
+          "text": "分配 (59)",
+          "foreground": "rgb(55, 65, 81)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 10.307355969735845,
+          "textual": true,
+          "disabled": false,
+          "width": 125.9375,
+          "height": 50,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(2)",
+          "family": "tab-button active|",
+          "text": "建议",
+          "foreground": "rgb(79, 70, 229)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 88.015625,
+          "height": 50,
+          "font": 16
+        }
+      ],
+      "issues": [],
+      "scope": ".page-container",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "light",
+      "state": "hover-0",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
+          "family": "btn btn-secondary|",
+          "text": "刷新建议",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgba(0, 0, 0, 0.03)",
+          "effectiveBackground": [
+            247,
+            247,
+            247
+          ],
+          "contrast": 16.55894215257156,
+          "textual": true,
+          "disabled": false,
+          "width": 114,
+          "height": 44,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "tab-button |",
+          "text": "分配 (59)",
+          "foreground": "rgb(55, 65, 81)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 10.307355969735845,
+          "textual": true,
+          "disabled": false,
+          "width": 125.9375,
+          "height": 50,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(2)",
+          "family": "tab-button active|",
+          "text": "建议",
+          "foreground": "rgb(79, 70, 229)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 88.015625,
+          "height": 50,
+          "font": 16
+        }
+      ],
+      "issues": [],
+      "scope": ".page-container",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "light",
+      "state": "hover-1",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
+          "family": "btn btn-secondary|",
+          "text": "刷新建议",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(243, 244, 246)",
+          "effectiveBackground": [
+            243,
+            244,
+            246
+          ],
+          "contrast": 16.119468339438853,
+          "textual": true,
+          "disabled": false,
+          "width": 114,
+          "height": 44,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "tab-button |",
+          "text": "分配 (59)",
+          "foreground": "rgb(55, 65, 81)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 10.307355969735845,
+          "textual": true,
+          "disabled": false,
+          "width": 125.9375,
+          "height": 50,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(2)",
+          "family": "tab-button active|",
+          "text": "建议",
+          "foreground": "rgb(79, 70, 229)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 88.015625,
+          "height": 50,
+          "font": 16
+        }
+      ],
+      "issues": [],
+      "scope": ".page-container",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "light",
+      "state": "hover-2",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
+          "family": "btn btn-secondary|",
+          "text": "刷新建议",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(243, 244, 246)",
+          "effectiveBackground": [
+            243,
+            244,
+            246
+          ],
+          "contrast": 16.119468339438853,
+          "textual": true,
+          "disabled": false,
+          "width": 114,
+          "height": 44,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "tab-button |",
+          "text": "分配 (59)",
+          "foreground": "rgb(55, 65, 81)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 10.307355969735845,
+          "textual": true,
+          "disabled": false,
+          "width": 125.9375,
+          "height": 50,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(2)",
+          "family": "tab-button active|",
+          "text": "建议",
+          "foreground": "rgb(79, 70, 229)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 88.015625,
+          "height": 50,
+          "font": 16
+        }
+      ],
+      "issues": [],
+      "scope": ".page-container",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "light",
+      "state": "keyboard-focus",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
+          "family": "btn btn-secondary|",
+          "text": "刷新建议",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(243, 244, 246)",
+          "effectiveBackground": [
+            243,
+            244,
+            246
+          ],
+          "contrast": 16.119468339438853,
+          "textual": true,
+          "disabled": false,
+          "width": 114,
+          "height": 44,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "tab-button |",
+          "text": "分配 (59)",
+          "foreground": "rgb(55, 65, 81)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 10.307355969735845,
+          "textual": true,
+          "disabled": false,
+          "width": 125.9375,
+          "height": 50,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(2)",
+          "family": "tab-button active|",
+          "text": "建议",
+          "foreground": "rgb(79, 70, 229)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 88.015625,
+          "height": 50,
+          "font": 16
+        }
+      ],
+      "issues": [],
+      "scope": ".page-container",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "dark",
+      "state": "default",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
+          "family": "btn btn-secondary|",
+          "text": "刷新建议",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(55, 65, 81)",
+          "effectiveBackground": [
+            55,
+            65,
+            81
+          ],
+          "contrast": 9.863254791756054,
+          "textual": true,
+          "disabled": false,
+          "width": 114,
+          "height": 44,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "tab-button |",
+          "text": "分配 (59)",
+          "foreground": "rgb(229, 231, 235)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 14.328284912339392,
+          "textual": true,
+          "disabled": false,
+          "width": 125.9375,
+          "height": 50,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(2)",
+          "family": "tab-button active|",
+          "text": "建议",
+          "foreground": "rgb(165, 180, 252)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 8.898600916846645,
+          "textual": true,
+          "disabled": false,
+          "width": 88.015625,
+          "height": 50,
+          "font": 16
+        }
+      ],
+      "issues": [],
+      "scope": ".page-container",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "dark",
+      "state": "hover-0",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
+          "family": "btn btn-secondary|",
+          "text": "刷新建议",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgba(255, 255, 255, 0.05)",
+          "effectiveBackground": [
+            29.133333333333333,
+            35.77647058823529,
+            50.01176470588235
+          ],
+          "contrast": 14.903408662771534,
+          "textual": true,
+          "disabled": false,
+          "width": 114,
+          "height": 44,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "tab-button |",
+          "text": "分配 (59)",
+          "foreground": "rgb(229, 231, 235)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 14.328284912339392,
+          "textual": true,
+          "disabled": false,
+          "width": 125.9375,
+          "height": 50,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(2)",
+          "family": "tab-button active|",
+          "text": "建议",
+          "foreground": "rgb(165, 180, 252)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 8.898600916846645,
+          "textual": true,
+          "disabled": false,
+          "width": 88.015625,
+          "height": 50,
+          "font": 16
+        }
+      ],
+      "issues": [],
+      "scope": ".page-container",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "dark",
+      "state": "hover-1",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
+          "family": "btn btn-secondary|",
+          "text": "刷新建议",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(55, 65, 81)",
+          "effectiveBackground": [
+            55,
+            65,
+            81
+          ],
+          "contrast": 9.863254791756054,
+          "textual": true,
+          "disabled": false,
+          "width": 114,
+          "height": 44,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "tab-button |",
+          "text": "分配 (59)",
+          "foreground": "rgb(229, 231, 235)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 14.328284912339392,
+          "textual": true,
+          "disabled": false,
+          "width": 125.9375,
+          "height": 50,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(2)",
+          "family": "tab-button active|",
+          "text": "建议",
+          "foreground": "rgb(165, 180, 252)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 8.898600916846645,
+          "textual": true,
+          "disabled": false,
+          "width": 88.015625,
+          "height": 50,
+          "font": 16
+        }
+      ],
+      "issues": [],
+      "scope": ".page-container",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "dark",
+      "state": "hover-2",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
+          "family": "btn btn-secondary|",
+          "text": "刷新建议",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(55, 65, 81)",
+          "effectiveBackground": [
+            55,
+            65,
+            81
+          ],
+          "contrast": 9.863254791756054,
+          "textual": true,
+          "disabled": false,
+          "width": 114,
+          "height": 44,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "tab-button |",
+          "text": "分配 (59)",
+          "foreground": "rgb(229, 231, 235)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 14.328284912339392,
+          "textual": true,
+          "disabled": false,
+          "width": 125.9375,
+          "height": 50,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(2)",
+          "family": "tab-button active|",
+          "text": "建议",
+          "foreground": "rgb(165, 180, 252)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 8.898600916846645,
+          "textual": true,
+          "disabled": false,
+          "width": 88.015625,
+          "height": 50,
+          "font": 16
+        }
+      ],
+      "issues": [],
+      "scope": ".page-container",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "dark",
+      "state": "keyboard-focus",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
+          "family": "btn btn-secondary|",
+          "text": "刷新建议",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(55, 65, 81)",
+          "effectiveBackground": [
+            55,
+            65,
+            81
+          ],
+          "contrast": 9.863254791756054,
+          "textual": true,
+          "disabled": false,
+          "width": 114,
+          "height": 44,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "tab-button |",
+          "text": "分配 (59)",
+          "foreground": "rgb(229, 231, 235)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 14.328284912339392,
+          "textual": true,
+          "disabled": false,
+          "width": 125.9375,
+          "height": 50,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(2)",
+          "family": "tab-button active|",
+          "text": "建议",
+          "foreground": "rgb(165, 180, 252)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 8.898600916846645,
+          "textual": true,
+          "disabled": false,
+          "width": 88.015625,
+          "height": 50,
+          "font": 16
+        }
+      ],
+      "issues": [],
+      "scope": ".page-container",
+      "axe": [],
+      "newIssues": []
+    }
+  ],
+  "writes": [],
+  "errors": []
+}

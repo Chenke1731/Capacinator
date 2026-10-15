@@ -225,7 +225,7 @@ export const ProjectTypeModal: React.FC<ProjectTypeModalProps> = ({
                         ? "border-primary scale-110"
                         : "border-transparent hover:scale-105"
                     )}
-                    style={{ backgroundColor: color }}
+                    style={{ backgroundColor: color, borderColor: formData.color_code === color ? 'var(--primary-text)' : 'var(--control-border)' }}
                     onClick={() => handleChange('color_code', color)}
                     aria-label={t('projects:projectTypes.selectColorAria', { color })}
                     aria-pressed={formData.color_code === color}

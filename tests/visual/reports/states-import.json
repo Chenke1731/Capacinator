@@ -1,0 +1,967 @@
+{
+  "profile": "import",
+  "phases": [
+    {
+      "theme": "light",
+      "state": "default",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > label:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "|",
+          "text": "",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 16,
+          "height": 16,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > label:nth-of-type(2) > input:nth-of-type(1)",
+          "family": "|",
+          "text": "",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 16,
+          "height": 16,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn btn-sm btn-ghost|",
+          "text": "高级设置",
+          "foreground": "rgb(55, 65, 81)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            243,
+            244,
+            246
+          ],
+          "contrast": 9.365938485902875,
+          "textual": true,
+          "disabled": false,
+          "width": 98.015625,
+          "height": 33.5,
+          "font": 13
+        }
+      ],
+      "issues": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > label:nth-of-type(1) > input:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 16
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > label:nth-of-type(2) > input:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 16
+        }
+      ],
+      "scope": ".import-container",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "light",
+      "state": "hover-0",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > label:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "|",
+          "text": "",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 16,
+          "height": 16,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > label:nth-of-type(2) > input:nth-of-type(1)",
+          "family": "|",
+          "text": "",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 16,
+          "height": 16,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn btn-sm btn-ghost|",
+          "text": "高级设置",
+          "foreground": "rgb(55, 65, 81)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            243,
+            244,
+            246
+          ],
+          "contrast": 9.365938485902875,
+          "textual": true,
+          "disabled": false,
+          "width": 98.015625,
+          "height": 33.5,
+          "font": 13
+        }
+      ],
+      "issues": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > label:nth-of-type(1) > input:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 16
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > label:nth-of-type(2) > input:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 16
+        }
+      ],
+      "scope": ".import-container",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "light",
+      "state": "hover-1",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > label:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "|",
+          "text": "",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 16,
+          "height": 16,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > label:nth-of-type(2) > input:nth-of-type(1)",
+          "family": "|",
+          "text": "",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 16,
+          "height": 16,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn btn-sm btn-ghost|",
+          "text": "高级设置",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(243, 244, 246)",
+          "effectiveBackground": [
+            243,
+            244,
+            246
+          ],
+          "contrast": 16.119468339438853,
+          "textual": true,
+          "disabled": false,
+          "width": 98.015625,
+          "height": 33.5,
+          "font": 13
+        }
+      ],
+      "issues": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > label:nth-of-type(1) > input:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 16
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > label:nth-of-type(2) > input:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 16
+        }
+      ],
+      "scope": ".import-container",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "light",
+      "state": "keyboard-focus",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > label:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "|",
+          "text": "",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 16,
+          "height": 16,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > label:nth-of-type(2) > input:nth-of-type(1)",
+          "family": "|",
+          "text": "",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 16,
+          "height": 16,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn btn-sm btn-ghost|",
+          "text": "高级设置",
+          "foreground": "rgb(39, 48, 63)",
+          "background": "rgba(243, 244, 246, 0.424)",
+          "effectiveBackground": [
+            243,
+            243.57647058823528,
+            246
+          ],
+          "contrast": 12.03869228175111,
+          "textual": true,
+          "disabled": false,
+          "width": 98.015625,
+          "height": 33.5,
+          "font": 13
+        }
+      ],
+      "issues": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > label:nth-of-type(1) > input:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 16
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > label:nth-of-type(2) > input:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 16
+        }
+      ],
+      "scope": ".import-container",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "light",
+      "state": "opened-0",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > label:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "|",
+          "text": "",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 16,
+          "height": 16,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > label:nth-of-type(2) > input:nth-of-type(1)",
+          "family": "|",
+          "text": "",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 16,
+          "height": 16,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn btn-sm btn-ghost|",
+          "text": "隐藏高级设置",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(243, 244, 246)",
+          "effectiveBackground": [
+            243,
+            244,
+            246
+          ],
+          "contrast": 16.119468339438853,
+          "textual": true,
+          "disabled": false,
+          "width": 124.015625,
+          "height": 33.5,
+          "font": 13
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(1) > label:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "|",
+          "text": "",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 16,
+          "height": 16,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(1) > label:nth-of-type(2) > input:nth-of-type(1)",
+          "family": "|",
+          "text": "",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 16,
+          "height": 16,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(1) > label:nth-of-type(3) > input:nth-of-type(1)",
+          "family": "|",
+          "text": "",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 16,
+          "height": 16,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > select:nth-of-type(1)",
+          "family": "form-select|",
+          "text": "高中低",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 326.65625,
+          "height": 49,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
+          "family": "form-select|",
+          "text": "MM/DD/YYYYDD/MM/YYYYYYYY-MM-DD",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 326.671875,
+          "height": 49,
+          "font": 14
+        }
+      ],
+      "issues": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > label:nth-of-type(1) > input:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 16
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > label:nth-of-type(2) > input:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 16
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(1) > label:nth-of-type(1) > input:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 16
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(1) > label:nth-of-type(2) > input:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 16
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(1) > label:nth-of-type(3) > input:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 16
+        }
+      ],
+      "scope": ".import-container",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "dark",
+      "state": "default",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > label:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "|",
+          "text": "",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": true,
+          "disabled": false,
+          "width": 16,
+          "height": 16,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > label:nth-of-type(2) > input:nth-of-type(1)",
+          "family": "|",
+          "text": "",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": true,
+          "disabled": false,
+          "width": 16,
+          "height": 16,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn btn-sm btn-ghost|",
+          "text": "高级设置",
+          "foreground": "rgb(229, 231, 235)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            55,
+            65,
+            81
+          ],
+          "contrast": 8.3252023126051,
+          "textual": true,
+          "disabled": false,
+          "width": 98.015625,
+          "height": 33.5,
+          "font": 13
+        }
+      ],
+      "issues": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > label:nth-of-type(1) > input:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 16
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > label:nth-of-type(2) > input:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 16
+        }
+      ],
+      "scope": ".import-container",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "dark",
+      "state": "hover-0",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > label:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "|",
+          "text": "",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": true,
+          "disabled": false,
+          "width": 16,
+          "height": 16,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > label:nth-of-type(2) > input:nth-of-type(1)",
+          "family": "|",
+          "text": "",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": true,
+          "disabled": false,
+          "width": 16,
+          "height": 16,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn btn-sm btn-ghost|",
+          "text": "高级设置",
+          "foreground": "rgb(229, 231, 235)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            55,
+            65,
+            81
+          ],
+          "contrast": 8.3252023126051,
+          "textual": true,
+          "disabled": false,
+          "width": 98.015625,
+          "height": 33.5,
+          "font": 13
+        }
+      ],
+      "issues": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > label:nth-of-type(1) > input:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 16
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > label:nth-of-type(2) > input:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 16
+        }
+      ],
+      "scope": ".import-container",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "dark",
+      "state": "hover-1",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > label:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "|",
+          "text": "",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": true,
+          "disabled": false,
+          "width": 16,
+          "height": 16,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > label:nth-of-type(2) > input:nth-of-type(1)",
+          "family": "|",
+          "text": "",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": true,
+          "disabled": false,
+          "width": 16,
+          "height": 16,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn btn-sm btn-ghost|",
+          "text": "高级设置",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(55, 65, 81)",
+          "effectiveBackground": [
+            55,
+            65,
+            81
+          ],
+          "contrast": 9.863254791756054,
+          "textual": true,
+          "disabled": false,
+          "width": 98.015625,
+          "height": 33.5,
+          "font": 13
+        }
+      ],
+      "issues": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > label:nth-of-type(1) > input:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 16
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > label:nth-of-type(2) > input:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 16
+        }
+      ],
+      "scope": ".import-container",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "dark",
+      "state": "keyboard-focus",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > label:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "|",
+          "text": "",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": true,
+          "disabled": false,
+          "width": 16,
+          "height": 16,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > label:nth-of-type(2) > input:nth-of-type(1)",
+          "family": "|",
+          "text": "",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": true,
+          "disabled": false,
+          "width": 16,
+          "height": 16,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn btn-sm btn-ghost|",
+          "text": "高级设置",
+          "foreground": "rgb(237, 239, 242)",
+          "background": "rgba(55, 65, 81, 0.424)",
+          "effectiveBackground": [
+            54.576470588235296,
+            65.4235294117647,
+            80.57647058823528
+          ],
+          "contrast": 8.920835555236135,
+          "textual": true,
+          "disabled": false,
+          "width": 98.015625,
+          "height": 33.5,
+          "font": 13
+        }
+      ],
+      "issues": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > label:nth-of-type(1) > input:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 16
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > label:nth-of-type(2) > input:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 16
+        }
+      ],
+      "scope": ".import-container",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "dark",
+      "state": "opened-0",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > label:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "|",
+          "text": "",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": true,
+          "disabled": false,
+          "width": 16,
+          "height": 16,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > label:nth-of-type(2) > input:nth-of-type(1)",
+          "family": "|",
+          "text": "",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": true,
+          "disabled": false,
+          "width": 16,
+          "height": 16,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn btn-sm btn-ghost|",
+          "text": "隐藏高级设置",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(55, 65, 81)",
+          "effectiveBackground": [
+            55,
+            65,
+            81
+          ],
+          "contrast": 9.863254791756054,
+          "textual": true,
+          "disabled": false,
+          "width": 124.015625,
+          "height": 33.5,
+          "font": 13
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(1) > label:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "|",
+          "text": "",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": true,
+          "disabled": false,
+          "width": 16,
+          "height": 16,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(1) > label:nth-of-type(2) > input:nth-of-type(1)",
+          "family": "|",
+          "text": "",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": true,
+          "disabled": false,
+          "width": 16,
+          "height": 16,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(1) > label:nth-of-type(3) > input:nth-of-type(1)",
+          "family": "|",
+          "text": "",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": true,
+          "disabled": false,
+          "width": 16,
+          "height": 16,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > select:nth-of-type(1)",
+          "family": "form-select|",
+          "text": "高中低",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(17, 24, 39)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 326.65625,
+          "height": 49,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
+          "family": "form-select|",
+          "text": "MM/DD/YYYYDD/MM/YYYYYYYY-MM-DD",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(17, 24, 39)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 326.671875,
+          "height": 49,
+          "font": 14
+        }
+      ],
+      "issues": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > label:nth-of-type(1) > input:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 16
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > label:nth-of-type(2) > input:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 16
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(1) > label:nth-of-type(1) > input:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 16
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(1) > label:nth-of-type(2) > input:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 16
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(1) > label:nth-of-type(3) > input:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 16
+        }
+      ],
+      "scope": ".import-container",
+      "axe": [],
+      "newIssues": []
+    }
+  ],
+  "writes": [],
+  "errors": []
+}

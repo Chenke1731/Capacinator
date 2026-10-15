@@ -28,14 +28,15 @@ import { EnhancedKPIs } from '../components/dashboard/EnhancedKPIs';
  
 import { useCriticalAlerts } from '../hooks/useCriticalAlerts';
 import './Dashboard.css';
+import '../components/chart-colors.css';
 
 const COLORS = {
-  primary: '#3b82f6',
-  success: '#10b981',
-  warning: '#f59e0b',
-  danger: '#ef4444',
-  purple: '#8b5cf6',
-  pink: '#ec4899',
+  primary: 'var(--series-blue)',
+  success: 'var(--series-green)',
+  warning: 'var(--series-amber)',
+  danger: 'var(--series-red)',
+  purple: 'var(--series-purple)',
+  pink: 'var(--series-pink)',
 };
 
 export function Dashboard() {
@@ -185,7 +186,7 @@ export function Dashboard() {
                   labelLine={false}
                   label={({ name, value }) => t('dashboard:charts.pieLabel', { name, value })}
                   outerRadius={100}
-                  fill="#8884d8"
+                  fill="var(--series-violet)"
                   dataKey="value"
                   onClick={() => navigate('/projects')}
                   style={{ cursor: 'pointer' }}

@@ -1,0 +1,644 @@
+{
+  "evidence": [
+    {
+      "mode": "overload",
+      "theme": "light",
+      "width": 1600,
+      "phases": [
+        {
+          "state": "default",
+          "disabled": false,
+          "axe": []
+        },
+        {
+          "state": "hover-focus-0",
+          "disabled": false,
+          "axe": []
+        },
+        {
+          "state": "disabled-hover-1",
+          "disabled": true,
+          "axe": []
+        },
+        {
+          "state": "hover-focus-2",
+          "disabled": false,
+          "axe": []
+        },
+        {
+          "state": "hover-focus-3",
+          "disabled": false,
+          "axe": []
+        },
+        {
+          "state": "tab-0",
+          "axe": []
+        },
+        {
+          "state": "tab-1",
+          "axe": []
+        }
+      ],
+      "artifact": "tests/visual/reports/assignment-overload-light-1600.png",
+      "mockedReads": [
+        {
+          "method": "GET",
+          "path": "/api/project-phases",
+          "fixture": "controlled empty phases for the synthetic project"
+        }
+      ],
+      "writes": [],
+      "errors": []
+    },
+    {
+      "mode": "recommended",
+      "theme": "light",
+      "width": 1600,
+      "phases": [
+        {
+          "state": "default",
+          "disabled": false,
+          "axe": []
+        },
+        {
+          "state": "hover-focus-0",
+          "disabled": false,
+          "axe": []
+        },
+        {
+          "state": "hover-focus-1",
+          "disabled": false,
+          "axe": []
+        },
+        {
+          "state": "hover-focus-2",
+          "disabled": false,
+          "axe": []
+        },
+        {
+          "state": "tab-0",
+          "axe": []
+        },
+        {
+          "state": "tab-1",
+          "axe": []
+        }
+      ],
+      "artifact": "tests/visual/reports/assignment-recommended-light-1600.png",
+      "mockedReads": [
+        {
+          "method": "GET",
+          "path": "/api/project-phases",
+          "fixture": "controlled empty phases for the synthetic project"
+        }
+      ],
+      "writes": [],
+      "errors": []
+    },
+    {
+      "mode": "manual",
+      "theme": "light",
+      "width": 1600,
+      "phases": [
+        {
+          "state": "default",
+          "disabled": false,
+          "axe": []
+        },
+        {
+          "state": "hover-focus-0",
+          "disabled": false,
+          "axe": []
+        },
+        {
+          "state": "hover-focus-1",
+          "disabled": false,
+          "axe": []
+        },
+        {
+          "state": "hover-focus-2",
+          "disabled": false,
+          "axe": []
+        },
+        {
+          "state": "hover-focus-3",
+          "disabled": false,
+          "axe": []
+        },
+        {
+          "state": "hover-focus-4",
+          "disabled": false,
+          "axe": []
+        },
+        {
+          "state": "hover-focus-5",
+          "disabled": false,
+          "axe": []
+        },
+        {
+          "state": "hover-focus-6",
+          "disabled": false,
+          "axe": []
+        },
+        {
+          "state": "tab-0",
+          "axe": []
+        },
+        {
+          "state": "tab-1",
+          "axe": []
+        }
+      ],
+      "artifact": "tests/visual/reports/assignment-manual-light-1600.png",
+      "mockedReads": [
+        {
+          "method": "GET",
+          "path": "/api/project-phases",
+          "fixture": "controlled empty phases for the synthetic project"
+        }
+      ],
+      "writes": [],
+      "errors": []
+    },
+    {
+      "mode": "overload",
+      "theme": "light",
+      "width": 1366,
+      "phases": [
+        {
+          "state": "default",
+          "disabled": false,
+          "axe": []
+        },
+        {
+          "state": "hover-focus-0",
+          "disabled": false,
+          "axe": []
+        },
+        {
+          "state": "disabled-hover-1",
+          "disabled": true,
+          "axe": []
+        },
+        {
+          "state": "hover-focus-2",
+          "disabled": false,
+          "axe": []
+        },
+        {
+          "state": "hover-focus-3",
+          "disabled": false,
+          "axe": []
+        },
+        {
+          "state": "tab-0",
+          "axe": []
+        },
+        {
+          "state": "tab-1",
+          "axe": []
+        }
+      ],
+      "artifact": "tests/visual/reports/assignment-overload-light-1366.png",
+      "mockedReads": [
+        {
+          "method": "GET",
+          "path": "/api/project-phases",
+          "fixture": "controlled empty phases for the synthetic project"
+        }
+      ],
+      "writes": [],
+      "errors": []
+    },
+    {
+      "mode": "recommended",
+      "theme": "light",
+      "width": 1366,
+      "phases": [
+        {
+          "state": "default",
+          "disabled": false,
+          "axe": []
+        },
+        {
+          "state": "hover-focus-0",
+          "disabled": false,
+          "axe": []
+        },
+        {
+          "state": "hover-focus-1",
+          "disabled": false,
+          "axe": []
+        },
+        {
+          "state": "hover-focus-2",
+          "disabled": false,
+          "axe": []
+        },
+        {
+          "state": "tab-0",
+          "axe": []
+        },
+        {
+          "state": "tab-1",
+          "axe": []
+        }
+      ],
+      "artifact": "tests/visual/reports/assignment-recommended-light-1366.png",
+      "mockedReads": [
+        {
+          "method": "GET",
+          "path": "/api/project-phases",
+          "fixture": "controlled empty phases for the synthetic project"
+        }
+      ],
+      "writes": [],
+      "errors": []
+    },
+    {
+      "mode": "manual",
+      "theme": "light",
+      "width": 1366,
+      "phases": [
+        {
+          "state": "default",
+          "disabled": false,
+          "axe": []
+        },
+        {
+          "state": "hover-focus-0",
+          "disabled": false,
+          "axe": []
+        },
+        {
+          "state": "hover-focus-1",
+          "disabled": false,
+          "axe": []
+        },
+        {
+          "state": "hover-focus-2",
+          "disabled": false,
+          "axe": []
+        },
+        {
+          "state": "hover-focus-3",
+          "disabled": false,
+          "axe": []
+        },
+        {
+          "state": "hover-focus-4",
+          "disabled": false,
+          "axe": []
+        },
+        {
+          "state": "hover-focus-5",
+          "disabled": false,
+          "axe": []
+        },
+        {
+          "state": "hover-focus-6",
+          "disabled": false,
+          "axe": []
+        },
+        {
+          "state": "tab-0",
+          "axe": []
+        },
+        {
+          "state": "tab-1",
+          "axe": []
+        }
+      ],
+      "artifact": "tests/visual/reports/assignment-manual-light-1366.png",
+      "mockedReads": [
+        {
+          "method": "GET",
+          "path": "/api/project-phases",
+          "fixture": "controlled empty phases for the synthetic project"
+        }
+      ],
+      "writes": [],
+      "errors": []
+    },
+    {
+      "mode": "overload",
+      "theme": "dark",
+      "width": 1600,
+      "phases": [
+        {
+          "state": "default",
+          "disabled": false,
+          "axe": []
+        },
+        {
+          "state": "hover-focus-0",
+          "disabled": false,
+          "axe": []
+        },
+        {
+          "state": "disabled-hover-1",
+          "disabled": true,
+          "axe": []
+        },
+        {
+          "state": "hover-focus-2",
+          "disabled": false,
+          "axe": []
+        },
+        {
+          "state": "hover-focus-3",
+          "disabled": false,
+          "axe": []
+        },
+        {
+          "state": "tab-0",
+          "axe": []
+        },
+        {
+          "state": "tab-1",
+          "axe": []
+        }
+      ],
+      "artifact": "tests/visual/reports/assignment-overload-dark-1600.png",
+      "mockedReads": [
+        {
+          "method": "GET",
+          "path": "/api/project-phases",
+          "fixture": "controlled empty phases for the synthetic project"
+        }
+      ],
+      "writes": [],
+      "errors": []
+    },
+    {
+      "mode": "recommended",
+      "theme": "dark",
+      "width": 1600,
+      "phases": [
+        {
+          "state": "default",
+          "disabled": false,
+          "axe": []
+        },
+        {
+          "state": "hover-focus-0",
+          "disabled": false,
+          "axe": []
+        },
+        {
+          "state": "hover-focus-1",
+          "disabled": false,
+          "axe": []
+        },
+        {
+          "state": "hover-focus-2",
+          "disabled": false,
+          "axe": []
+        },
+        {
+          "state": "tab-0",
+          "axe": []
+        },
+        {
+          "state": "tab-1",
+          "axe": []
+        }
+      ],
+      "artifact": "tests/visual/reports/assignment-recommended-dark-1600.png",
+      "mockedReads": [
+        {
+          "method": "GET",
+          "path": "/api/project-phases",
+          "fixture": "controlled empty phases for the synthetic project"
+        }
+      ],
+      "writes": [],
+      "errors": []
+    },
+    {
+      "mode": "manual",
+      "theme": "dark",
+      "width": 1600,
+      "phases": [
+        {
+          "state": "default",
+          "disabled": false,
+          "axe": []
+        },
+        {
+          "state": "hover-focus-0",
+          "disabled": false,
+          "axe": []
+        },
+        {
+          "state": "hover-focus-1",
+          "disabled": false,
+          "axe": []
+        },
+        {
+          "state": "hover-focus-2",
+          "disabled": false,
+          "axe": []
+        },
+        {
+          "state": "hover-focus-3",
+          "disabled": false,
+          "axe": []
+        },
+        {
+          "state": "hover-focus-4",
+          "disabled": false,
+          "axe": []
+        },
+        {
+          "state": "hover-focus-5",
+          "disabled": false,
+          "axe": []
+        },
+        {
+          "state": "hover-focus-6",
+          "disabled": false,
+          "axe": []
+        },
+        {
+          "state": "tab-0",
+          "axe": []
+        },
+        {
+          "state": "tab-1",
+          "axe": []
+        }
+      ],
+      "artifact": "tests/visual/reports/assignment-manual-dark-1600.png",
+      "mockedReads": [
+        {
+          "method": "GET",
+          "path": "/api/project-phases",
+          "fixture": "controlled empty phases for the synthetic project"
+        }
+      ],
+      "writes": [],
+      "errors": []
+    },
+    {
+      "mode": "overload",
+      "theme": "dark",
+      "width": 1366,
+      "phases": [
+        {
+          "state": "default",
+          "disabled": false,
+          "axe": []
+        },
+        {
+          "state": "hover-focus-0",
+          "disabled": false,
+          "axe": []
+        },
+        {
+          "state": "disabled-hover-1",
+          "disabled": true,
+          "axe": []
+        },
+        {
+          "state": "hover-focus-2",
+          "disabled": false,
+          "axe": []
+        },
+        {
+          "state": "hover-focus-3",
+          "disabled": false,
+          "axe": []
+        },
+        {
+          "state": "tab-0",
+          "axe": []
+        },
+        {
+          "state": "tab-1",
+          "axe": []
+        }
+      ],
+      "artifact": "tests/visual/reports/assignment-overload-dark-1366.png",
+      "mockedReads": [
+        {
+          "method": "GET",
+          "path": "/api/project-phases",
+          "fixture": "controlled empty phases for the synthetic project"
+        }
+      ],
+      "writes": [],
+      "errors": []
+    },
+    {
+      "mode": "recommended",
+      "theme": "dark",
+      "width": 1366,
+      "phases": [
+        {
+          "state": "default",
+          "disabled": false,
+          "axe": []
+        },
+        {
+          "state": "hover-focus-0",
+          "disabled": false,
+          "axe": []
+        },
+        {
+          "state": "hover-focus-1",
+          "disabled": false,
+          "axe": []
+        },
+        {
+          "state": "hover-focus-2",
+          "disabled": false,
+          "axe": []
+        },
+        {
+          "state": "tab-0",
+          "axe": []
+        },
+        {
+          "state": "tab-1",
+          "axe": []
+        }
+      ],
+      "artifact": "tests/visual/reports/assignment-recommended-dark-1366.png",
+      "mockedReads": [
+        {
+          "method": "GET",
+          "path": "/api/project-phases",
+          "fixture": "controlled empty phases for the synthetic project"
+        }
+      ],
+      "writes": [],
+      "errors": []
+    },
+    {
+      "mode": "manual",
+      "theme": "dark",
+      "width": 1366,
+      "phases": [
+        {
+          "state": "default",
+          "disabled": false,
+          "axe": []
+        },
+        {
+          "state": "hover-focus-0",
+          "disabled": false,
+          "axe": []
+        },
+        {
+          "state": "hover-focus-1",
+          "disabled": false,
+          "axe": []
+        },
+        {
+          "state": "hover-focus-2",
+          "disabled": false,
+          "axe": []
+        },
+        {
+          "state": "hover-focus-3",
+          "disabled": false,
+          "axe": []
+        },
+        {
+          "state": "hover-focus-4",
+          "disabled": false,
+          "axe": []
+        },
+        {
+          "state": "hover-focus-5",
+          "disabled": false,
+          "axe": []
+        },
+        {
+          "state": "hover-focus-6",
+          "disabled": false,
+          "axe": []
+        },
+        {
+          "state": "tab-0",
+          "axe": []
+        },
+        {
+          "state": "tab-1",
+          "axe": []
+        }
+      ],
+      "artifact": "tests/visual/reports/assignment-manual-dark-1366.png",
+      "mockedReads": [
+        {
+          "method": "GET",
+          "path": "/api/project-phases",
+          "fixture": "controlled empty phases for the synthetic project"
+        }
+      ],
+      "writes": [],
+      "errors": []
+    }
+  ]
+}

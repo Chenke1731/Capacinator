@@ -1,0 +1,16 @@
+/* Shared chart inks load with their consumers, including direct detail URLs.
+   Geometry remains in the existing page/Charts stylesheets. */
+.recharts-cartesian-axis-tick-value,
+.recharts-cartesian-axis .recharts-label {
+  fill: var(--text-secondary) !important;
+}
+
+.recharts-legend-item-text {
+  color: var(--text-secondary) !important;
+}
+
+.recharts-default-tooltip,
+.recharts-default-tooltip .recharts-tooltip-item,
+.recharts-tooltip-label {
+  color: var(--text-primary) !important;
+}

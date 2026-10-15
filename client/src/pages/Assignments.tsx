@@ -306,21 +306,21 @@ export default function Assignments() {
         const getBadgeStyle = (percentage: number) => {
           if (percentage > 100) {
             return {
-              backgroundColor: '#b91c1c',
-              color: 'white',
-              border: '1px solid #b91c1c'
+              backgroundColor: 'var(--status-danger-solid)',
+              color: 'var(--solid-foreground)',
+              border: '1px solid var(--status-danger-border)'
             };
           } else if (percentage >= 80) {
             return {
-              backgroundColor: '#b45309',
-              color: 'white',
-              border: '1px solid #b45309'
+              backgroundColor: 'var(--status-warning-solid)',
+              color: 'var(--solid-foreground)',
+              border: '1px solid var(--status-warning-solid)'
             };
           } else {
             return {
-              backgroundColor: '#047857',
-              color: 'white',
-              border: '1px solid #047857'
+              backgroundColor: 'var(--status-success-solid)',
+              color: 'var(--solid-foreground)',
+              border: '1px solid var(--status-success-solid)'
             };
           }
         };
@@ -383,7 +383,7 @@ export default function Assignments() {
                   fontSize: 'inherit'
                 }}
                 onFocus={(e) => {
-                  e.target.style.background = 'rgba(255, 255, 255, 0.2)';
+                  e.target.style.background = 'color-mix(in srgb, var(--solid-foreground) 20%, transparent)';
                   e.target.select();
                 }}
               />
@@ -684,25 +684,25 @@ export default function Assignments() {
             </h3>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem' }}>
               <div className="state-metric">
-                <div style={{ fontSize: '1.5rem', fontWeight: 'bold', color: (currentState.summary?.overallocated_people ?? 0) > 0 ? 'var(--danger)' : 'var(--success)' }}>
+                <div style={{ fontSize: '1.5rem', fontWeight: 'bold', color: (currentState.summary?.overallocated_people ?? 0) > 0 ? 'var(--status-danger-text)' : 'var(--status-success-text)' }}>
                   {currentState.summary?.overallocated_people || 0}
                 </div>
                 <div style={{ fontSize: '0.875rem', color: 'var(--text-secondary)' }}>{t('assignments:rec.overallocatedPeople')}</div>
               </div>
               <div className="state-metric">
-                <div style={{ fontSize: '1.5rem', fontWeight: 'bold', color: (currentState.summary?.underutilized_people ?? 0) > 0 ? 'var(--warning)' : 'var(--success)' }}>
+                <div style={{ fontSize: '1.5rem', fontWeight: 'bold', color: (currentState.summary?.underutilized_people ?? 0) > 0 ? 'var(--status-warning-text)' : 'var(--status-success-text)' }}>
                   {currentState.summary?.underutilized_people || 0}
                 </div>
                 <div style={{ fontSize: '0.875rem', color: 'var(--text-secondary)' }}>{t('assignments:rec.underutilizedPeople')}</div>
               </div>
               <div className="state-metric">
-                <div style={{ fontSize: '1.5rem', fontWeight: 'bold', color: (currentState.summary?.capacity_gaps ?? 0) > 0 ? 'var(--danger)' : 'var(--success)' }}>
+                <div style={{ fontSize: '1.5rem', fontWeight: 'bold', color: (currentState.summary?.capacity_gaps ?? 0) > 0 ? 'var(--status-danger-text)' : 'var(--status-success-text)' }}>
                   {currentState.summary?.capacity_gaps || 0}
                 </div>
                 <div style={{ fontSize: '0.875rem', color: 'var(--text-secondary)' }}>{t('assignments:rec.capacityGaps')}</div>
               </div>
               <div className="state-metric">
-                <div style={{ fontSize: '1.5rem', fontWeight: 'bold', color: 'var(--primary)' }}>
+                <div style={{ fontSize: '1.5rem', fontWeight: 'bold', color: 'var(--primary-text)' }}>
                   {currentState.summary?.unassigned_projects || 0}
                 </div>
                 <div style={{ fontSize: '0.875rem', color: 'var(--text-secondary)' }}>{t('assignments:rec.unassignedProjects')}</div>

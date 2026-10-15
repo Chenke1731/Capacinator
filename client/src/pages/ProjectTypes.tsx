@@ -13,7 +13,7 @@ import { ErrorMessage } from '../components/ui/ErrorMessage';
 import ProjectTypeModal from '../components/modals/ProjectTypeModal';
 import { useModal } from '../hooks/useModal';
 import { useBookmarkableTabs } from '../hooks/useBookmarkableTabs';
-import type { ProjectType, ProjectTypeHierarchyNode } from '../types';
+import type { ProjectType } from '../types';
 import './ProjectTypes.css';
 
 export default function ProjectTypes() {
@@ -49,9 +49,9 @@ export default function ProjectTypes() {
     queryFn: async () => {
       if (viewMode === 'hierarchy') {
         const response = await api.projectTypes.getHierarchy();
-        // {success,data:{hierarchy:[...]}} → 展平为节点数组
-        const h = (response.data as { data?: { hierarchy?: ProjectTypeHierarchyNode[] } }).data?.hierarchy ?? [];
-        return h.flatMap(n => [n as unknown as ProjectType, ...n.children.map((ch) => ({ ...ch, is_sub_type: true } as unknown as ProjectType))]);
+        // Canonical API payload is {success,data:[parent nodes]}. Children are
+        // rendered recursively by ProjectTypeNode, so keep the tree intact.
+        return response.data.data as unknown as ProjectType[];
       } else {
         const params = Object.entries(filters)
           .filter(([_, value]) => value)
@@ -122,7 +122,7 @@ export default function ProjectTypes() {
         <div className="project-type-name">
           <div 
             className="project-type-color"
-            style={{ backgroundColor: row.color_code || '#6b7280' }}
+            style={{ backgroundColor: row.color_code || 'var(--color-gray)' }}
           />
           <div>
             <span className="name">{value}</span>
@@ -230,7 +230,7 @@ export default function ProjectTypes() {
               <div className="project-type-name">
                 <div 
                   className="project-type-color"
-                  style={{ backgroundColor: projectType.color_code || '#6b7280' }}
+                  style={{ backgroundColor: projectType.color_code || 'var(--color-gray)' }}
                 />
                 <span className="name">{projectType.name}</span>
                 {isParentType && <span className="parent-badge">{t('projects:projectType')}</span>}

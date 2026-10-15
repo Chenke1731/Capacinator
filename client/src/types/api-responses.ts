@@ -1170,7 +1170,7 @@ export interface ProjectTypeHierarchyNode {
 }
 
 export interface ProjectTypeHierarchyResponse {
-  hierarchy: ProjectTypeHierarchyNode[];
+  data: ProjectTypeHierarchyNode[];
 }
 
 export interface ProjectTypePhasesResponse {

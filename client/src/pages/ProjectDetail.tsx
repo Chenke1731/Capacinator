@@ -351,7 +351,7 @@ export function ProjectDetail() {
               <div className="flex items-center space-x-3">
                 <div 
                   className="w-4 h-4 rounded-full flex-shrink-0"
-                  style={{ backgroundColor: project.project_type?.color_code || '#6b7280' }}
+                  style={{ backgroundColor: project.project_type?.color_code || 'var(--color-gray)' }}
                 />
                 <CardTitle className="text-2xl font-bold">
                   {project.name}
@@ -371,7 +371,7 @@ export function ProjectDetail() {
                       <span
                         key={tag.id}
                         className="tag-badge"
-                        style={{ backgroundColor: `color-mix(in srgb, ${tag.color || '#6b7280'} 55%, #1f2937)` }}
+                        style={{ backgroundColor: `color-mix(in srgb, ${tag.color || 'var(--color-gray)'} 35%, var(--solid-shade))`, color: 'var(--solid-foreground)' }}
                       >
                         {tag.name}
                       </span>

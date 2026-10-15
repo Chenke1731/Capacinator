@@ -1,0 +1,1207 @@
+{
+  "profile": "import-export",
+  "phases": [
+    {
+      "theme": "light",
+      "state": "default",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
+          "family": "form-select|",
+          "text": "当前：基线（baseline）基线 (baseline)",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 376.5,
+          "height": 49,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn btn-sm btn-ghost|",
+          "text": "显示选项",
+          "foreground": "rgb(55, 65, 81)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 10.307355969735845,
+          "textual": true,
+          "disabled": false,
+          "width": 98.015625,
+          "height": 33.5,
+          "font": 13
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
+          "family": "btn btn-primary export-action-button|",
+          "text": "导出场景数据",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 160,
+          "height": 47,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn btn-sm btn-ghost|",
+          "text": "自定义",
+          "foreground": "rgb(55, 65, 81)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 10.307355969735845,
+          "textual": true,
+          "disabled": false,
+          "width": 85.015625,
+          "height": 33.5,
+          "font": 13
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(2) > button:nth-of-type(1)",
+          "family": "btn btn-outline export-action-button|",
+          "text": "下载模板",
+          "foreground": "rgb(79, 70, 229)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 132,
+          "height": 47,
+          "font": 14
+        }
+      ],
+      "issues": [],
+      "scope": ".import-container",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "light",
+      "state": "hover-0",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
+          "family": "form-select|",
+          "text": "当前：基线（baseline）基线 (baseline)",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 376.5,
+          "height": 49,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn btn-sm btn-ghost|",
+          "text": "显示选项",
+          "foreground": "rgb(55, 65, 81)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 10.307355969735845,
+          "textual": true,
+          "disabled": false,
+          "width": 98.015625,
+          "height": 33.5,
+          "font": 13
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
+          "family": "btn btn-primary export-action-button|",
+          "text": "导出场景数据",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 160,
+          "height": 47,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn btn-sm btn-ghost|",
+          "text": "自定义",
+          "foreground": "rgb(55, 65, 81)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 10.307355969735845,
+          "textual": true,
+          "disabled": false,
+          "width": 85.015625,
+          "height": 33.5,
+          "font": 13
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(2) > button:nth-of-type(1)",
+          "family": "btn btn-outline export-action-button|",
+          "text": "下载模板",
+          "foreground": "rgb(79, 70, 229)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 132,
+          "height": 47,
+          "font": 14
+        }
+      ],
+      "issues": [],
+      "scope": ".import-container",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "light",
+      "state": "hover-1",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
+          "family": "form-select|",
+          "text": "当前：基线（baseline）基线 (baseline)",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 376.5,
+          "height": 49,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn btn-sm btn-ghost|",
+          "text": "显示选项",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(243, 244, 246)",
+          "effectiveBackground": [
+            243,
+            244,
+            246
+          ],
+          "contrast": 16.119468339438853,
+          "textual": true,
+          "disabled": false,
+          "width": 98.015625,
+          "height": 33.5,
+          "font": 13
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
+          "family": "btn btn-primary export-action-button|",
+          "text": "导出场景数据",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 160,
+          "height": 47,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn btn-sm btn-ghost|",
+          "text": "自定义",
+          "foreground": "rgb(55, 65, 81)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 10.307355969735845,
+          "textual": true,
+          "disabled": false,
+          "width": 85.015625,
+          "height": 33.5,
+          "font": 13
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(2) > button:nth-of-type(1)",
+          "family": "btn btn-outline export-action-button|",
+          "text": "下载模板",
+          "foreground": "rgb(79, 70, 229)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 132,
+          "height": 47,
+          "font": 14
+        }
+      ],
+      "issues": [],
+      "scope": ".import-container",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "light",
+      "state": "hover-2",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
+          "family": "form-select|",
+          "text": "当前：基线（baseline）基线 (baseline)",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 376.5,
+          "height": 49,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn btn-sm btn-ghost|",
+          "text": "显示选项",
+          "foreground": "rgb(55, 65, 81)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 10.307355969735845,
+          "textual": true,
+          "disabled": false,
+          "width": 98.015625,
+          "height": 33.5,
+          "font": 13
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
+          "family": "btn btn-primary export-action-button|",
+          "text": "导出场景数据",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 160,
+          "height": 47,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn btn-sm btn-ghost|",
+          "text": "自定义",
+          "foreground": "rgb(55, 65, 81)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 10.307355969735845,
+          "textual": true,
+          "disabled": false,
+          "width": 85.015625,
+          "height": 33.5,
+          "font": 13
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(2) > button:nth-of-type(1)",
+          "family": "btn btn-outline export-action-button|",
+          "text": "下载模板",
+          "foreground": "rgb(79, 70, 229)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 132,
+          "height": 47,
+          "font": 14
+        }
+      ],
+      "issues": [],
+      "scope": ".import-container",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "light",
+      "state": "hover-3",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
+          "family": "form-select|",
+          "text": "当前：基线（baseline）基线 (baseline)",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 376.5,
+          "height": 49,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn btn-sm btn-ghost|",
+          "text": "显示选项",
+          "foreground": "rgb(55, 65, 81)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 10.307355969735845,
+          "textual": true,
+          "disabled": false,
+          "width": 98.015625,
+          "height": 33.5,
+          "font": 13
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
+          "family": "btn btn-primary export-action-button|",
+          "text": "导出场景数据",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 160,
+          "height": 47,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn btn-sm btn-ghost|",
+          "text": "自定义",
+          "foreground": "rgb(55, 65, 81)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 10.307355969735845,
+          "textual": true,
+          "disabled": false,
+          "width": 85.015625,
+          "height": 33.5,
+          "font": 13
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(2) > button:nth-of-type(1)",
+          "family": "btn btn-outline export-action-button|",
+          "text": "下载模板",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 132,
+          "height": 47,
+          "font": 14
+        }
+      ],
+      "issues": [],
+      "scope": ".import-container",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "light",
+      "state": "keyboard-focus",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
+          "family": "form-select|",
+          "text": "当前：基线（baseline）基线 (baseline)",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 376.5,
+          "height": 49,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn btn-sm btn-ghost|",
+          "text": "显示选项",
+          "foreground": "rgb(55, 65, 81)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 10.307355969735845,
+          "textual": true,
+          "disabled": false,
+          "width": 98.015625,
+          "height": 33.5,
+          "font": 13
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
+          "family": "btn btn-primary export-action-button|",
+          "text": "导出场景数据",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 160,
+          "height": 47,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn btn-sm btn-ghost|",
+          "text": "自定义",
+          "foreground": "rgb(55, 65, 81)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 10.307355969735845,
+          "textual": true,
+          "disabled": false,
+          "width": 85.015625,
+          "height": 33.5,
+          "font": 13
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(2) > button:nth-of-type(1)",
+          "family": "btn btn-outline export-action-button|",
+          "text": "下载模板",
+          "foreground": "rgb(79, 70, 229)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 132,
+          "height": 46.99993896484375,
+          "font": 14
+        }
+      ],
+      "issues": [],
+      "scope": ".import-container",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "dark",
+      "state": "default",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
+          "family": "form-select|",
+          "text": "当前：基线（baseline）基线 (baseline)",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(17, 24, 39)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 376.5,
+          "height": 49,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn btn-sm btn-ghost|",
+          "text": "显示选项",
+          "foreground": "rgb(229, 231, 235)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 14.328284912339392,
+          "textual": true,
+          "disabled": false,
+          "width": 98.015625,
+          "height": 33.5,
+          "font": 13
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
+          "family": "btn btn-primary export-action-button|",
+          "text": "导出场景数据",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 160,
+          "height": 47,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn btn-sm btn-ghost|",
+          "text": "自定义",
+          "foreground": "rgb(229, 231, 235)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 14.328284912339392,
+          "textual": true,
+          "disabled": false,
+          "width": 85.015625,
+          "height": 33.5,
+          "font": 13
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(2) > button:nth-of-type(1)",
+          "family": "btn btn-outline export-action-button|",
+          "text": "下载模板",
+          "foreground": "rgb(165, 180, 252)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 8.898600916846645,
+          "textual": true,
+          "disabled": false,
+          "width": 132,
+          "height": 47,
+          "font": 14
+        }
+      ],
+      "issues": [],
+      "scope": ".import-container",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "dark",
+      "state": "hover-0",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
+          "family": "form-select|",
+          "text": "当前：基线（baseline）基线 (baseline)",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(17, 24, 39)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 376.5,
+          "height": 49,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn btn-sm btn-ghost|",
+          "text": "显示选项",
+          "foreground": "rgb(229, 231, 235)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 14.328284912339392,
+          "textual": true,
+          "disabled": false,
+          "width": 98.015625,
+          "height": 33.5,
+          "font": 13
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
+          "family": "btn btn-primary export-action-button|",
+          "text": "导出场景数据",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 160,
+          "height": 47,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn btn-sm btn-ghost|",
+          "text": "自定义",
+          "foreground": "rgb(229, 231, 235)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 14.328284912339392,
+          "textual": true,
+          "disabled": false,
+          "width": 85.015625,
+          "height": 33.5,
+          "font": 13
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(2) > button:nth-of-type(1)",
+          "family": "btn btn-outline export-action-button|",
+          "text": "下载模板",
+          "foreground": "rgb(165, 180, 252)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 8.898600916846645,
+          "textual": true,
+          "disabled": false,
+          "width": 132,
+          "height": 47,
+          "font": 14
+        }
+      ],
+      "issues": [],
+      "scope": ".import-container",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "dark",
+      "state": "hover-1",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
+          "family": "form-select|",
+          "text": "当前：基线（baseline）基线 (baseline)",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(17, 24, 39)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 376.5,
+          "height": 49,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn btn-sm btn-ghost|",
+          "text": "显示选项",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(55, 65, 81)",
+          "effectiveBackground": [
+            55,
+            65,
+            81
+          ],
+          "contrast": 9.863254791756054,
+          "textual": true,
+          "disabled": false,
+          "width": 98.015625,
+          "height": 33.5,
+          "font": 13
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
+          "family": "btn btn-primary export-action-button|",
+          "text": "导出场景数据",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 160,
+          "height": 47,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn btn-sm btn-ghost|",
+          "text": "自定义",
+          "foreground": "rgb(229, 231, 235)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 14.328284912339392,
+          "textual": true,
+          "disabled": false,
+          "width": 85.015625,
+          "height": 33.5,
+          "font": 13
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(2) > button:nth-of-type(1)",
+          "family": "btn btn-outline export-action-button|",
+          "text": "下载模板",
+          "foreground": "rgb(165, 180, 252)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 8.898600916846645,
+          "textual": true,
+          "disabled": false,
+          "width": 132,
+          "height": 47,
+          "font": 14
+        }
+      ],
+      "issues": [],
+      "scope": ".import-container",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "dark",
+      "state": "hover-2",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
+          "family": "form-select|",
+          "text": "当前：基线（baseline）基线 (baseline)",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(17, 24, 39)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 376.5,
+          "height": 49,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn btn-sm btn-ghost|",
+          "text": "显示选项",
+          "foreground": "rgb(229, 231, 235)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 14.328284912339392,
+          "textual": true,
+          "disabled": false,
+          "width": 98.015625,
+          "height": 33.5,
+          "font": 13
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
+          "family": "btn btn-primary export-action-button|",
+          "text": "导出场景数据",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 160,
+          "height": 47,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn btn-sm btn-ghost|",
+          "text": "自定义",
+          "foreground": "rgb(229, 231, 235)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 14.328284912339392,
+          "textual": true,
+          "disabled": false,
+          "width": 85.015625,
+          "height": 33.5,
+          "font": 13
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(2) > button:nth-of-type(1)",
+          "family": "btn btn-outline export-action-button|",
+          "text": "下载模板",
+          "foreground": "rgb(165, 180, 252)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 8.898600916846645,
+          "textual": true,
+          "disabled": false,
+          "width": 132,
+          "height": 47,
+          "font": 14
+        }
+      ],
+      "issues": [],
+      "scope": ".import-container",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "dark",
+      "state": "hover-3",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
+          "family": "form-select|",
+          "text": "当前：基线（baseline）基线 (baseline)",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(17, 24, 39)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 376.5,
+          "height": 49,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn btn-sm btn-ghost|",
+          "text": "显示选项",
+          "foreground": "rgb(229, 231, 235)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 14.328284912339392,
+          "textual": true,
+          "disabled": false,
+          "width": 98.015625,
+          "height": 33.5,
+          "font": 13
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
+          "family": "btn btn-primary export-action-button|",
+          "text": "导出场景数据",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 160,
+          "height": 47,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn btn-sm btn-ghost|",
+          "text": "自定义",
+          "foreground": "rgb(229, 231, 235)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 14.328284912339392,
+          "textual": true,
+          "disabled": false,
+          "width": 85.015625,
+          "height": 33.5,
+          "font": 13
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(2) > button:nth-of-type(1)",
+          "family": "btn btn-outline export-action-button|",
+          "text": "下载模板",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 132,
+          "height": 47,
+          "font": 14
+        }
+      ],
+      "issues": [],
+      "scope": ".import-container",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "dark",
+      "state": "keyboard-focus",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
+          "family": "form-select|",
+          "text": "当前：基线（baseline）基线 (baseline)",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(17, 24, 39)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 376.5,
+          "height": 49,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn btn-sm btn-ghost|",
+          "text": "显示选项",
+          "foreground": "rgb(229, 231, 235)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 14.328284912339392,
+          "textual": true,
+          "disabled": false,
+          "width": 98.015625,
+          "height": 33.5,
+          "font": 13
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
+          "family": "btn btn-primary export-action-button|",
+          "text": "导出场景数据",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 160,
+          "height": 47,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn btn-sm btn-ghost|",
+          "text": "自定义",
+          "foreground": "rgb(229, 231, 235)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 14.328284912339392,
+          "textual": true,
+          "disabled": false,
+          "width": 85.015625,
+          "height": 33.5,
+          "font": 13
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(2) > button:nth-of-type(1)",
+          "family": "btn btn-outline export-action-button|",
+          "text": "下载模板",
+          "foreground": "rgb(165, 180, 252)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 8.898600916846645,
+          "textual": true,
+          "disabled": false,
+          "width": 132,
+          "height": 47,
+          "font": 14
+        }
+      ],
+      "issues": [],
+      "scope": ".import-container",
+      "axe": [],
+      "newIssues": []
+    }
+  ],
+  "writes": [],
+  "errors": []
+}

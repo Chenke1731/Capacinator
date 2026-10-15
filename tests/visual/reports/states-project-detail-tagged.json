@@ -1,0 +1,2567 @@
+{
+  "profile": "project-detail-tagged",
+  "phases": [
+    {
+      "theme": "light",
+      "state": "default",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "page-back-btn|",
+          "text": "",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(249, 250, 251)",
+          "effectiveBackground": [
+            249,
+            250,
+            251
+          ],
+          "contrast": 16.97538624440406,
+          "textual": false,
+          "disabled": false,
+          "width": 44,
+          "height": 44,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "project-ref-code|",
+          "text": "CAP-1",
+          "foreground": "rgb(75, 85, 99)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 7.557378129674007,
+          "textual": true,
+          "disabled": false,
+          "width": 47.578125,
+          "height": 17.1875,
+          "font": 11
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1)",
+          "family": "flex flex-col space-y-1.5 p-6 cursor-pointer select-none transition-colors hover:bg-muted/50|",
+          "text": "项目信息",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 1230,
+          "height": 69.59375,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1)",
+          "family": "flex flex-col space-y-1.5 p-6 cursor-pointer select-none transition-colors hover:bg-muted/50|",
+          "text": "资源需求",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 1230,
+          "height": 69.59375,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
+          "family": "chart-tab|",
+          "text": "需求",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 48.015625,
+          "height": 44,
+          "font": 12
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(2)",
+          "family": "chart-tab|",
+          "text": "产能",
+          "foreground": "rgb(101, 117, 139)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 4.697280155912882,
+          "textual": true,
+          "disabled": false,
+          "width": 48.015625,
+          "height": 44,
+          "font": 12
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(3)",
+          "family": "chart-tab|",
+          "text": "缺口",
+          "foreground": "rgb(101, 117, 139)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 4.697280155912882,
+          "textual": true,
+          "disabled": false,
+          "width": 48.015625,
+          "height": 44,
+          "font": 12
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "|",
+          "text": "+ 添加阶段",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 82.71875,
+          "height": 44,
+          "font": 11
+        }
+      ],
+      "issues": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 17.1875
+        }
+      ],
+      "scope": "main > .max-w-7xl",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "light",
+      "state": "hover-0",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "page-back-btn|",
+          "text": "",
+          "foreground": "rgb(79, 70, 229)",
+          "background": "rgba(0, 0, 0, 0.03)",
+          "effectiveBackground": [
+            247,
+            247,
+            247
+          ],
+          "contrast": 5.869023856551962,
+          "textual": false,
+          "disabled": false,
+          "width": 44,
+          "height": 44,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "project-ref-code|",
+          "text": "CAP-1",
+          "foreground": "rgb(75, 85, 99)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 7.557378129674007,
+          "textual": true,
+          "disabled": false,
+          "width": 47.578125,
+          "height": 17.1875,
+          "font": 11
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1)",
+          "family": "flex flex-col space-y-1.5 p-6 cursor-pointer select-none transition-colors hover:bg-muted/50|",
+          "text": "项目信息",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 1230,
+          "height": 69.59375,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1)",
+          "family": "flex flex-col space-y-1.5 p-6 cursor-pointer select-none transition-colors hover:bg-muted/50|",
+          "text": "资源需求",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 1230,
+          "height": 69.59375,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
+          "family": "chart-tab|",
+          "text": "需求",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 48.015625,
+          "height": 44,
+          "font": 12
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(2)",
+          "family": "chart-tab|",
+          "text": "产能",
+          "foreground": "rgb(101, 117, 139)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 4.697280155912882,
+          "textual": true,
+          "disabled": false,
+          "width": 48.015625,
+          "height": 44,
+          "font": 12
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(3)",
+          "family": "chart-tab|",
+          "text": "缺口",
+          "foreground": "rgb(101, 117, 139)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 4.697280155912882,
+          "textual": true,
+          "disabled": false,
+          "width": 48.015625,
+          "height": 44,
+          "font": 12
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "|",
+          "text": "+ 添加阶段",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 82.71875,
+          "height": 44,
+          "font": 11
+        }
+      ],
+      "issues": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 17.1875
+        }
+      ],
+      "scope": "main > .max-w-7xl",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "light",
+      "state": "hover-1",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "page-back-btn|",
+          "text": "",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(249, 250, 251)",
+          "effectiveBackground": [
+            249,
+            250,
+            251
+          ],
+          "contrast": 16.97538624440406,
+          "textual": false,
+          "disabled": false,
+          "width": 44,
+          "height": 44,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "project-ref-code|",
+          "text": "CAP-1",
+          "foreground": "rgb(55, 65, 81)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 10.307355969735845,
+          "textual": true,
+          "disabled": false,
+          "width": 47.578125,
+          "height": 17.1875,
+          "font": 11
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1)",
+          "family": "flex flex-col space-y-1.5 p-6 cursor-pointer select-none transition-colors hover:bg-muted/50|",
+          "text": "项目信息",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 1230,
+          "height": 69.59375,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1)",
+          "family": "flex flex-col space-y-1.5 p-6 cursor-pointer select-none transition-colors hover:bg-muted/50|",
+          "text": "资源需求",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 1230,
+          "height": 69.59375,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
+          "family": "chart-tab|",
+          "text": "需求",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 48.015625,
+          "height": 44,
+          "font": 12
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(2)",
+          "family": "chart-tab|",
+          "text": "产能",
+          "foreground": "rgb(101, 117, 139)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 4.697280155912882,
+          "textual": true,
+          "disabled": false,
+          "width": 48.015625,
+          "height": 44,
+          "font": 12
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(3)",
+          "family": "chart-tab|",
+          "text": "缺口",
+          "foreground": "rgb(101, 117, 139)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 4.697280155912882,
+          "textual": true,
+          "disabled": false,
+          "width": 48.015625,
+          "height": 44,
+          "font": 12
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "|",
+          "text": "+ 添加阶段",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 82.71875,
+          "height": 44,
+          "font": 11
+        }
+      ],
+      "issues": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 17.1875
+        }
+      ],
+      "scope": "main > .max-w-7xl",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "light",
+      "state": "hover-2",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "page-back-btn|",
+          "text": "",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(249, 250, 251)",
+          "effectiveBackground": [
+            249,
+            250,
+            251
+          ],
+          "contrast": 16.97538624440406,
+          "textual": false,
+          "disabled": false,
+          "width": 44,
+          "height": 44,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "project-ref-code|",
+          "text": "CAP-1",
+          "foreground": "rgb(75, 85, 99)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 7.557378129674007,
+          "textual": true,
+          "disabled": false,
+          "width": 47.578125,
+          "height": 17.1875,
+          "font": 11
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1)",
+          "family": "flex flex-col space-y-1.5 p-6 cursor-pointer select-none transition-colors hover:bg-muted/50|",
+          "text": "项目信息",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 1230,
+          "height": 69.59375,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1)",
+          "family": "flex flex-col space-y-1.5 p-6 cursor-pointer select-none transition-colors hover:bg-muted/50|",
+          "text": "资源需求",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 1230,
+          "height": 69.59375,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
+          "family": "chart-tab|",
+          "text": "需求",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 48.015625,
+          "height": 44,
+          "font": 12
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(2)",
+          "family": "chart-tab|",
+          "text": "产能",
+          "foreground": "rgb(101, 117, 139)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 4.697280155912882,
+          "textual": true,
+          "disabled": false,
+          "width": 48.015625,
+          "height": 44,
+          "font": 12
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(3)",
+          "family": "chart-tab|",
+          "text": "缺口",
+          "foreground": "rgb(101, 117, 139)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 4.697280155912882,
+          "textual": true,
+          "disabled": false,
+          "width": 48.015625,
+          "height": 44,
+          "font": 12
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "|",
+          "text": "+ 添加阶段",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 82.71875,
+          "height": 44,
+          "font": 11
+        }
+      ],
+      "issues": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 17.1875
+        }
+      ],
+      "scope": "main > .max-w-7xl",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "light",
+      "state": "hover-3",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "page-back-btn|",
+          "text": "",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(249, 250, 251)",
+          "effectiveBackground": [
+            249,
+            250,
+            251
+          ],
+          "contrast": 16.97538624440406,
+          "textual": false,
+          "disabled": false,
+          "width": 44,
+          "height": 44,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "project-ref-code|",
+          "text": "CAP-1",
+          "foreground": "rgb(75, 85, 99)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 7.557378129674007,
+          "textual": true,
+          "disabled": false,
+          "width": 47.578125,
+          "height": 17.1875,
+          "font": 11
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1)",
+          "family": "flex flex-col space-y-1.5 p-6 cursor-pointer select-none transition-colors hover:bg-muted/50|",
+          "text": "项目信息",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 1230,
+          "height": 69.59375,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1)",
+          "family": "flex flex-col space-y-1.5 p-6 cursor-pointer select-none transition-colors hover:bg-muted/50|",
+          "text": "资源需求",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 1230,
+          "height": 69.59375,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
+          "family": "chart-tab|",
+          "text": "需求",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 48.015625,
+          "height": 44,
+          "font": 12
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(2)",
+          "family": "chart-tab|",
+          "text": "产能",
+          "foreground": "rgb(101, 117, 139)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 4.697280155912882,
+          "textual": true,
+          "disabled": false,
+          "width": 48.015625,
+          "height": 44,
+          "font": 12
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(3)",
+          "family": "chart-tab|",
+          "text": "缺口",
+          "foreground": "rgb(101, 117, 139)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 4.697280155912882,
+          "textual": true,
+          "disabled": false,
+          "width": 48.015625,
+          "height": 44,
+          "font": 12
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "|",
+          "text": "+ 添加阶段",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 82.71875,
+          "height": 44,
+          "font": 11
+        }
+      ],
+      "issues": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 17.1875
+        }
+      ],
+      "scope": "main > .max-w-7xl",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "light",
+      "state": "hover-4",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "page-back-btn|",
+          "text": "",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(249, 250, 251)",
+          "effectiveBackground": [
+            249,
+            250,
+            251
+          ],
+          "contrast": 16.97538624440406,
+          "textual": false,
+          "disabled": false,
+          "width": 44,
+          "height": 44,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "project-ref-code|",
+          "text": "CAP-1",
+          "foreground": "rgb(75, 85, 99)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 7.557378129674007,
+          "textual": true,
+          "disabled": false,
+          "width": 47.578125,
+          "height": 17.1875,
+          "font": 11
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1)",
+          "family": "flex flex-col space-y-1.5 p-6 cursor-pointer select-none transition-colors hover:bg-muted/50|",
+          "text": "项目信息",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 1230,
+          "height": 69.59375,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1)",
+          "family": "flex flex-col space-y-1.5 p-6 cursor-pointer select-none transition-colors hover:bg-muted/50|",
+          "text": "资源需求",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 1230,
+          "height": 69.59375,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
+          "family": "chart-tab|",
+          "text": "需求",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 48.015625,
+          "height": 44,
+          "font": 12
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(2)",
+          "family": "chart-tab|",
+          "text": "产能",
+          "foreground": "rgb(101, 117, 139)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 4.697280155912882,
+          "textual": true,
+          "disabled": false,
+          "width": 48.015625,
+          "height": 44,
+          "font": 12
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(3)",
+          "family": "chart-tab|",
+          "text": "缺口",
+          "foreground": "rgb(101, 117, 139)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 4.697280155912882,
+          "textual": true,
+          "disabled": false,
+          "width": 48.015625,
+          "height": 44,
+          "font": 12
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "|",
+          "text": "+ 添加阶段",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 82.71875,
+          "height": 44,
+          "font": 11
+        }
+      ],
+      "issues": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 17.1875
+        }
+      ],
+      "scope": "main > .max-w-7xl",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "light",
+      "state": "hover-5",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "page-back-btn|",
+          "text": "",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(249, 250, 251)",
+          "effectiveBackground": [
+            249,
+            250,
+            251
+          ],
+          "contrast": 16.97538624440406,
+          "textual": false,
+          "disabled": false,
+          "width": 44,
+          "height": 44,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "project-ref-code|",
+          "text": "CAP-1",
+          "foreground": "rgb(75, 85, 99)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 7.557378129674007,
+          "textual": true,
+          "disabled": false,
+          "width": 47.578125,
+          "height": 17.1875,
+          "font": 11
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1)",
+          "family": "flex flex-col space-y-1.5 p-6 cursor-pointer select-none transition-colors hover:bg-muted/50|",
+          "text": "项目信息",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 1230,
+          "height": 69.59375,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1)",
+          "family": "flex flex-col space-y-1.5 p-6 cursor-pointer select-none transition-colors hover:bg-muted/50|",
+          "text": "资源需求",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 1230,
+          "height": 69.59375,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
+          "family": "chart-tab|",
+          "text": "需求",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 48.015625,
+          "height": 44,
+          "font": 12
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(2)",
+          "family": "chart-tab|",
+          "text": "产能",
+          "foreground": "rgb(101, 117, 139)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 4.697280155912882,
+          "textual": true,
+          "disabled": false,
+          "width": 48.015625,
+          "height": 44,
+          "font": 12
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(3)",
+          "family": "chart-tab|",
+          "text": "缺口",
+          "foreground": "rgb(101, 117, 139)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 4.697280155912882,
+          "textual": true,
+          "disabled": false,
+          "width": 48.015625,
+          "height": 44,
+          "font": 12
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "|",
+          "text": "+ 添加阶段",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 82.71875,
+          "height": 44,
+          "font": 11
+        }
+      ],
+      "issues": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 17.1875
+        }
+      ],
+      "scope": "main > .max-w-7xl",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "light",
+      "state": "keyboard-focus",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "page-back-btn|",
+          "text": "",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(249, 250, 251)",
+          "effectiveBackground": [
+            249,
+            250,
+            251
+          ],
+          "contrast": 16.97538624440406,
+          "textual": false,
+          "disabled": false,
+          "width": 44,
+          "height": 44,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "project-ref-code|",
+          "text": "CAP-1",
+          "foreground": "rgb(75, 85, 99)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 7.557378129674007,
+          "textual": true,
+          "disabled": false,
+          "width": 47.578125,
+          "height": 17.1875,
+          "font": 11
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1)",
+          "family": "flex flex-col space-y-1.5 p-6 cursor-pointer select-none transition-colors hover:bg-muted/50|",
+          "text": "项目信息",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 1230,
+          "height": 69.59375,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1)",
+          "family": "flex flex-col space-y-1.5 p-6 cursor-pointer select-none transition-colors hover:bg-muted/50|",
+          "text": "资源需求",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 1230,
+          "height": 69.59375,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
+          "family": "chart-tab|",
+          "text": "需求",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 48.015625,
+          "height": 44,
+          "font": 12
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(2)",
+          "family": "chart-tab|",
+          "text": "产能",
+          "foreground": "rgb(101, 117, 139)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 4.697280155912882,
+          "textual": true,
+          "disabled": false,
+          "width": 48.015625,
+          "height": 44,
+          "font": 12
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(3)",
+          "family": "chart-tab|",
+          "text": "缺口",
+          "foreground": "rgb(101, 117, 139)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 4.697280155912882,
+          "textual": true,
+          "disabled": false,
+          "width": 48.015625,
+          "height": 44,
+          "font": 12
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "|",
+          "text": "+ 添加阶段",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 82.71875,
+          "height": 44,
+          "font": 11
+        }
+      ],
+      "issues": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 17.1875
+        }
+      ],
+      "scope": "main > .max-w-7xl",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "dark",
+      "state": "default",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "page-back-btn|",
+          "text": "",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": false,
+          "disabled": false,
+          "width": 44,
+          "height": 44,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "project-ref-code|",
+          "text": "CAP-1",
+          "foreground": "rgb(209, 213, 219)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 12.039064392610866,
+          "textual": true,
+          "disabled": false,
+          "width": 47.578125,
+          "height": 17.1875,
+          "font": 11
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1)",
+          "family": "flex flex-col space-y-1.5 p-6 cursor-pointer select-none transition-colors hover:bg-muted/50|",
+          "text": "项目信息",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 1230,
+          "height": 69.59375,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1)",
+          "family": "flex flex-col space-y-1.5 p-6 cursor-pointer select-none transition-colors hover:bg-muted/50|",
+          "text": "资源需求",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 1230,
+          "height": 69.59375,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
+          "family": "chart-tab|",
+          "text": "需求",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 48.015625,
+          "height": 44,
+          "font": 12
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(2)",
+          "family": "chart-tab|",
+          "text": "产能",
+          "foreground": "rgb(169, 177, 188)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            29,
+            40,
+            58
+          ],
+          "contrast": 6.847572185132587,
+          "textual": true,
+          "disabled": false,
+          "width": 48.015625,
+          "height": 44,
+          "font": 12
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(3)",
+          "family": "chart-tab|",
+          "text": "缺口",
+          "foreground": "rgb(169, 177, 188)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            29,
+            40,
+            58
+          ],
+          "contrast": 6.847572185132587,
+          "textual": true,
+          "disabled": false,
+          "width": 48.015625,
+          "height": 44,
+          "font": 12
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "|",
+          "text": "+ 添加阶段",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 82.71875,
+          "height": 44,
+          "font": 11
+        }
+      ],
+      "issues": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 17.1875
+        }
+      ],
+      "scope": "main > .max-w-7xl",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "dark",
+      "state": "hover-0",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "page-back-btn|",
+          "text": "",
+          "foreground": "rgb(99, 102, 241)",
+          "background": "rgba(255, 255, 255, 0.05)",
+          "effectiveBackground": [
+            29.133333333333333,
+            35.77647058823529,
+            50.01176470588235
+          ],
+          "contrast": 3.4866388107549677,
+          "textual": false,
+          "disabled": false,
+          "width": 44,
+          "height": 44,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "project-ref-code|",
+          "text": "CAP-1",
+          "foreground": "rgb(209, 213, 219)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 12.039064392610866,
+          "textual": true,
+          "disabled": false,
+          "width": 47.578125,
+          "height": 17.1875,
+          "font": 11
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1)",
+          "family": "flex flex-col space-y-1.5 p-6 cursor-pointer select-none transition-colors hover:bg-muted/50|",
+          "text": "项目信息",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 1230,
+          "height": 69.59375,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1)",
+          "family": "flex flex-col space-y-1.5 p-6 cursor-pointer select-none transition-colors hover:bg-muted/50|",
+          "text": "资源需求",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 1230,
+          "height": 69.59375,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
+          "family": "chart-tab|",
+          "text": "需求",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 48.015625,
+          "height": 44,
+          "font": 12
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(2)",
+          "family": "chart-tab|",
+          "text": "产能",
+          "foreground": "rgb(169, 177, 188)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            29,
+            40,
+            58
+          ],
+          "contrast": 6.847572185132587,
+          "textual": true,
+          "disabled": false,
+          "width": 48.015625,
+          "height": 44,
+          "font": 12
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(3)",
+          "family": "chart-tab|",
+          "text": "缺口",
+          "foreground": "rgb(169, 177, 188)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            29,
+            40,
+            58
+          ],
+          "contrast": 6.847572185132587,
+          "textual": true,
+          "disabled": false,
+          "width": 48.015625,
+          "height": 44,
+          "font": 12
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "|",
+          "text": "+ 添加阶段",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 82.71875,
+          "height": 44,
+          "font": 11
+        }
+      ],
+      "issues": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 17.1875
+        }
+      ],
+      "scope": "main > .max-w-7xl",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "dark",
+      "state": "hover-1",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "page-back-btn|",
+          "text": "",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": false,
+          "disabled": false,
+          "width": 44,
+          "height": 44,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "project-ref-code|",
+          "text": "CAP-1",
+          "foreground": "rgb(229, 231, 235)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 14.328284912339392,
+          "textual": true,
+          "disabled": false,
+          "width": 47.578125,
+          "height": 17.1875,
+          "font": 11
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1)",
+          "family": "flex flex-col space-y-1.5 p-6 cursor-pointer select-none transition-colors hover:bg-muted/50|",
+          "text": "项目信息",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 1230,
+          "height": 69.59375,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1)",
+          "family": "flex flex-col space-y-1.5 p-6 cursor-pointer select-none transition-colors hover:bg-muted/50|",
+          "text": "资源需求",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 1230,
+          "height": 69.59375,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
+          "family": "chart-tab|",
+          "text": "需求",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 48.015625,
+          "height": 44,
+          "font": 12
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(2)",
+          "family": "chart-tab|",
+          "text": "产能",
+          "foreground": "rgb(169, 177, 188)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            29,
+            40,
+            58
+          ],
+          "contrast": 6.847572185132587,
+          "textual": true,
+          "disabled": false,
+          "width": 48.015625,
+          "height": 44,
+          "font": 12
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(3)",
+          "family": "chart-tab|",
+          "text": "缺口",
+          "foreground": "rgb(169, 177, 188)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            29,
+            40,
+            58
+          ],
+          "contrast": 6.847572185132587,
+          "textual": true,
+          "disabled": false,
+          "width": 48.015625,
+          "height": 44,
+          "font": 12
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "|",
+          "text": "+ 添加阶段",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 82.71875,
+          "height": 44,
+          "font": 11
+        }
+      ],
+      "issues": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 17.1875
+        }
+      ],
+      "scope": "main > .max-w-7xl",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "dark",
+      "state": "hover-2",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "page-back-btn|",
+          "text": "",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": false,
+          "disabled": false,
+          "width": 44,
+          "height": 44,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "project-ref-code|",
+          "text": "CAP-1",
+          "foreground": "rgb(209, 213, 219)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 12.039064392610866,
+          "textual": true,
+          "disabled": false,
+          "width": 47.578125,
+          "height": 17.1875,
+          "font": 11
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1)",
+          "family": "flex flex-col space-y-1.5 p-6 cursor-pointer select-none transition-colors hover:bg-muted/50|",
+          "text": "项目信息",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 1230,
+          "height": 69.59375,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1)",
+          "family": "flex flex-col space-y-1.5 p-6 cursor-pointer select-none transition-colors hover:bg-muted/50|",
+          "text": "资源需求",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 1230,
+          "height": 69.59375,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
+          "family": "chart-tab|",
+          "text": "需求",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 48.015625,
+          "height": 44,
+          "font": 12
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(2)",
+          "family": "chart-tab|",
+          "text": "产能",
+          "foreground": "rgb(169, 177, 188)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            29,
+            40,
+            58
+          ],
+          "contrast": 6.847572185132587,
+          "textual": true,
+          "disabled": false,
+          "width": 48.015625,
+          "height": 44,
+          "font": 12
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(3)",
+          "family": "chart-tab|",
+          "text": "缺口",
+          "foreground": "rgb(169, 177, 188)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            29,
+            40,
+            58
+          ],
+          "contrast": 6.847572185132587,
+          "textual": true,
+          "disabled": false,
+          "width": 48.015625,
+          "height": 44,
+          "font": 12
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "|",
+          "text": "+ 添加阶段",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 82.71875,
+          "height": 44,
+          "font": 11
+        }
+      ],
+      "issues": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 17.1875
+        }
+      ],
+      "scope": "main > .max-w-7xl",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "dark",
+      "state": "hover-3",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "page-back-btn|",
+          "text": "",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": false,
+          "disabled": false,
+          "width": 44,
+          "height": 44,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "project-ref-code|",
+          "text": "CAP-1",
+          "foreground": "rgb(209, 213, 219)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 12.039064392610866,
+          "textual": true,
+          "disabled": false,
+          "width": 47.578125,
+          "height": 17.1875,
+          "font": 11
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1)",
+          "family": "flex flex-col space-y-1.5 p-6 cursor-pointer select-none transition-colors hover:bg-muted/50|",
+          "text": "项目信息",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 1230,
+          "height": 69.59375,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1)",
+          "family": "flex flex-col space-y-1.5 p-6 cursor-pointer select-none transition-colors hover:bg-muted/50|",
+          "text": "资源需求",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 1230,
+          "height": 69.59375,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
+          "family": "chart-tab|",
+          "text": "需求",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 48.015625,
+          "height": 44,
+          "font": 12
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(2)",
+          "family": "chart-tab|",
+          "text": "产能",
+          "foreground": "rgb(169, 177, 188)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            29,
+            40,
+            58
+          ],
+          "contrast": 6.847572185132587,
+          "textual": true,
+          "disabled": false,
+          "width": 48.015625,
+          "height": 44,
+          "font": 12
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(3)",
+          "family": "chart-tab|",
+          "text": "缺口",
+          "foreground": "rgb(169, 177, 188)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            29,
+            40,
+            58
+          ],
+          "contrast": 6.847572185132587,
+          "textual": true,
+          "disabled": false,
+          "width": 48.015625,
+          "height": 44,
+          "font": 12
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "|",
+          "text": "+ 添加阶段",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 82.71875,
+          "height": 44,
+          "font": 11
+        }
+      ],
+      "issues": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 17.1875
+        }
+      ],
+      "scope": "main > .max-w-7xl",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "dark",
+      "state": "hover-4",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "page-back-btn|",
+          "text": "",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": false,
+          "disabled": false,
+          "width": 44,
+          "height": 44,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "project-ref-code|",
+          "text": "CAP-1",
+          "foreground": "rgb(209, 213, 219)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 12.039064392610866,
+          "textual": true,
+          "disabled": false,
+          "width": 47.578125,
+          "height": 17.1875,
+          "font": 11
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1)",
+          "family": "flex flex-col space-y-1.5 p-6 cursor-pointer select-none transition-colors hover:bg-muted/50|",
+          "text": "项目信息",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 1230,
+          "height": 69.59375,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1)",
+          "family": "flex flex-col space-y-1.5 p-6 cursor-pointer select-none transition-colors hover:bg-muted/50|",
+          "text": "资源需求",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 1230,
+          "height": 69.59375,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
+          "family": "chart-tab|",
+          "text": "需求",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 48.015625,
+          "height": 44,
+          "font": 12
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(2)",
+          "family": "chart-tab|",
+          "text": "产能",
+          "foreground": "rgb(169, 177, 188)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            29,
+            40,
+            58
+          ],
+          "contrast": 6.847572185132587,
+          "textual": true,
+          "disabled": false,
+          "width": 48.015625,
+          "height": 44,
+          "font": 12
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(3)",
+          "family": "chart-tab|",
+          "text": "缺口",
+          "foreground": "rgb(169, 177, 188)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            29,
+            40,
+            58
+          ],
+          "contrast": 6.847572185132587,
+          "textual": true,
+          "disabled": false,
+          "width": 48.015625,
+          "height": 44,
+          "font": 12
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "|",
+          "text": "+ 添加阶段",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 82.71875,
+          "height": 44,
+          "font": 11
+        }
+      ],
+      "issues": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 17.1875
+        }
+      ],
+      "scope": "main > .max-w-7xl",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "dark",
+      "state": "hover-5",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "page-back-btn|",
+          "text": "",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": false,
+          "disabled": false,
+          "width": 44,
+          "height": 44,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "project-ref-code|",
+          "text": "CAP-1",
+          "foreground": "rgb(209, 213, 219)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 12.039064392610866,
+          "textual": true,
+          "disabled": false,
+          "width": 47.578125,
+          "height": 17.1875,
+          "font": 11
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1)",
+          "family": "flex flex-col space-y-1.5 p-6 cursor-pointer select-none transition-colors hover:bg-muted/50|",
+          "text": "项目信息",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 1230,
+          "height": 69.59375,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1)",
+          "family": "flex flex-col space-y-1.5 p-6 cursor-pointer select-none transition-colors hover:bg-muted/50|",
+          "text": "资源需求",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 1230,
+          "height": 69.59375,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
+          "family": "chart-tab|",
+          "text": "需求",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 48.015625,
+          "height": 44,
+          "font": 12
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(2)",
+          "family": "chart-tab|",
+          "text": "产能",
+          "foreground": "rgb(169, 177, 188)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            29,
+            40,
+            58
+          ],
+          "contrast": 6.847572185132587,
+          "textual": true,
+          "disabled": false,
+          "width": 48.015625,
+          "height": 44,
+          "font": 12
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(3)",
+          "family": "chart-tab|",
+          "text": "缺口",
+          "foreground": "rgb(169, 177, 188)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            29,
+            40,
+            58
+          ],
+          "contrast": 6.847572185132587,
+          "textual": true,
+          "disabled": false,
+          "width": 48.015625,
+          "height": 44,
+          "font": 12
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "|",
+          "text": "+ 添加阶段",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 82.71875,
+          "height": 44,
+          "font": 11
+        }
+      ],
+      "issues": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 17.1875
+        }
+      ],
+      "scope": "main > .max-w-7xl",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "dark",
+      "state": "keyboard-focus",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "page-back-btn|",
+          "text": "",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": false,
+          "disabled": false,
+          "width": 44,
+          "height": 44,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "project-ref-code|",
+          "text": "CAP-1",
+          "foreground": "rgb(209, 213, 219)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 12.039064392610866,
+          "textual": true,
+          "disabled": false,
+          "width": 47.578125,
+          "height": 17.1875,
+          "font": 11
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1)",
+          "family": "flex flex-col space-y-1.5 p-6 cursor-pointer select-none transition-colors hover:bg-muted/50|",
+          "text": "项目信息",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 1230,
+          "height": 69.59375,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1)",
+          "family": "flex flex-col space-y-1.5 p-6 cursor-pointer select-none transition-colors hover:bg-muted/50|",
+          "text": "资源需求",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 1230,
+          "height": 69.59375,
+          "font": 16
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
+          "family": "chart-tab|",
+          "text": "需求",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 48.015625,
+          "height": 44,
+          "font": 12
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(2)",
+          "family": "chart-tab|",
+          "text": "产能",
+          "foreground": "rgb(169, 177, 188)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            29,
+            40,
+            58
+          ],
+          "contrast": 6.847572185132587,
+          "textual": true,
+          "disabled": false,
+          "width": 48.015625,
+          "height": 44,
+          "font": 12
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(3)",
+          "family": "chart-tab|",
+          "text": "缺口",
+          "foreground": "rgb(169, 177, 188)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            29,
+            40,
+            58
+          ],
+          "contrast": 6.847572185132587,
+          "textual": true,
+          "disabled": false,
+          "width": 48.015625,
+          "height": 44,
+          "font": 12
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "|",
+          "text": "+ 添加阶段",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 82.71875,
+          "height": 44,
+          "font": 11
+        }
+      ],
+      "issues": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)",
+          "kind": "target-size",
+          "value": 17.1875
+        }
+      ],
+      "scope": "main > .max-w-7xl",
+      "axe": [],
+      "newIssues": []
+    }
+  ],
+  "writes": [],
+  "errors": []
+}

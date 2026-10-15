@@ -9,13 +9,20 @@ import postcss from 'postcss';
 // that a source file is unused.
 export function uiReachability(root, entry='client/src/main.tsx') {
   const reached=new Set(), errors=[];
+  const manifest=path.join(root,'package.json');
+  const packages=fs.existsSync(manifest)?JSON.parse(fs.readFileSync(manifest,'utf8')):{};
+  const external=new Set(Object.keys({...packages.dependencies,...packages.devDependencies}));
   const html=path.join(root,'index.html');
   if(fs.existsSync(html)) {
     const scripts=[...fs.readFileSync(html,'utf8').matchAll(/<script\b[^>]*\bsrc=["']([^"']+)["'][^>]*>/g)].map(m=>m[1].replace(/^\//,''));
     if(scripts.length!==1||scripts[0]!==entry)errors.push('UI HTML entry changed; update reachability adapter before approving unused assets');
   }
   function resolve(from,specifier) {
-    if(!specifier.startsWith('.')&&!specifier.startsWith('@/'))return null;
+    if(!specifier.startsWith('.')&&!specifier.startsWith('@/')) {
+      const name=specifier.startsWith('@')?specifier.split('/').slice(0,2).join('/'):specifier.split('/')[0];
+      if(!specifier.startsWith('node:')&&!external.has(name))errors.push(`Unknown package/alias ${from}: ${specifier}; update resolver before using unused dispositions`);
+      return null;
+    }
     const target=specifier.startsWith('@/')?`client/src/${specifier.slice(2)}`:path.posix.normalize(path.posix.join(path.posix.dirname(from),specifier));
     for(const f of [target,...(/\.js$/.test(target)?[target.replace(/\.js$/,'.ts'),target.replace(/\.js$/,'.tsx')]:[]),...['.ts','.tsx','.js','.jsx','.css','/index.ts','/index.tsx'].map(x=>target+x)])if(fs.existsSync(path.join(root,f))&&fs.statSync(path.join(root,f)).isFile())return f;
     errors.push(`Unresolved local import ${from}: ${specifier}`);return null;

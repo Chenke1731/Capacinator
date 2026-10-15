@@ -2,9 +2,10 @@
 export function axeIdentities(violations) {
   return [...new Set(violations.flatMap(v=>v.nodes.map(n=>`${v.id}|${JSON.stringify(n.target)}`)))].sort();
 }
-export function assessAxe(violations,key,budgets,exceptions,{recordExisting=false}={}) {
+export function assessAxe(violations,key,budgets,exceptions,{recordExisting=false,rejectColors=false}={}) {
   const identities=axeIdentities(violations),count=violations.reduce((s,v)=>s+v.nodes.length,0);
   const existing=Object.hasOwn(budgets,key),cap=budgets[key]??0;
+  if(rejectColors&&violations.some(v=>v.id==='color-contrast'&&v.nodes.length))return {ok:false,count,cap,added:identities,reason:'Color governance is closed; contrast failures cannot become exceptions'};
   if(recordExisting&&!Object.hasOwn(exceptions,key)) {
     if(existing&&count>cap)return {ok:false,count,cap,added:identities,reason:'Existing budget cannot increase'};
     if(!existing)budgets[key]=count;
@@ -17,4 +18,9 @@ export function pixelOperation({update,baselineExists}) {
   if(update)return'update';
   if(!baselineExists)return'missing';
   return'compare';
+}
+
+// Shared modal scrims dim the page; status tints belong inside the dialog.
+export function isNeutralBackdrop([r,g,b,alpha]) {
+  return r===g&&g===b&&r<=5&&alpha>=127&&alpha<=245;
 }

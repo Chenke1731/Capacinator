@@ -1,0 +1,6264 @@
+{
+  "evidence": [
+    {
+      "mode": "demand",
+      "theme": "light",
+      "width": 1600,
+      "graphics": [
+        {
+          "color": "rgb(37, 99, 235)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.168555560022562,
+          "threshold": 3,
+          "pathLength": 1110,
+          "rendered": true
+        },
+        {
+          "color": "rgb(4, 120, 87)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.483924052498799,
+          "threshold": 3,
+          "pathLength": 1110,
+          "rendered": true
+        },
+        {
+          "color": "rgb(180, 83, 9)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.02163257594014,
+          "threshold": 3,
+          "pathLength": 1110,
+          "rendered": true
+        },
+        {
+          "color": "rgb(124, 58, 237)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.698586217871195,
+          "threshold": 3,
+          "pathLength": 1110,
+          "rendered": true
+        },
+        {
+          "color": "rgb(190, 24, 93)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 6.037699049194929,
+          "threshold": 3,
+          "pathLength": 1110,
+          "rendered": true
+        },
+        {
+          "color": "rgb(185, 28, 28)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 6.4700447145121895,
+          "threshold": 3,
+          "pathLength": 1110,
+          "rendered": true
+        },
+        {
+          "color": "rgb(14, 116, 144)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.3577549124490425,
+          "threshold": 3,
+          "pathLength": 1110,
+          "rendered": true
+        },
+        {
+          "color": "rgb(77, 124, 15)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 4.993443527975628,
+          "threshold": 3,
+          "pathLength": 1110,
+          "rendered": true
+        }
+      ],
+      "svgText": [
+        {
+          "text": "9月1日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "9月8日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "9月15日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "9月22日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "9月29日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月6日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月13日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月20日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月27日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月3日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月10日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月17日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月24日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "12月1日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "12月8日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "12月15日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "12月22日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "12月31日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "0",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "0.35",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "0.7",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "1.05",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "1.4",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "FTE(人数)",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        }
+      ],
+      "tokenPairs": [
+        {
+          "series": "blue",
+          "surface": "bg-primary",
+          "ratio": 5.168555560022562,
+          "threshold": 3
+        },
+        {
+          "series": "green",
+          "surface": "bg-primary",
+          "ratio": 5.483924052498799,
+          "threshold": 3
+        },
+        {
+          "series": "amber",
+          "surface": "bg-primary",
+          "ratio": 5.02163257594014,
+          "threshold": 3
+        },
+        {
+          "series": "purple",
+          "surface": "bg-primary",
+          "ratio": 5.698586217871195,
+          "threshold": 3
+        },
+        {
+          "series": "pink",
+          "surface": "bg-primary",
+          "ratio": 6.037699049194929,
+          "threshold": 3
+        },
+        {
+          "series": "red",
+          "surface": "bg-primary",
+          "ratio": 6.4700447145121895,
+          "threshold": 3
+        },
+        {
+          "series": "cyan",
+          "surface": "bg-primary",
+          "ratio": 5.3577549124490425,
+          "threshold": 3
+        },
+        {
+          "series": "lime",
+          "surface": "bg-primary",
+          "ratio": 4.993443527975628,
+          "threshold": 3
+        },
+        {
+          "series": "orange",
+          "surface": "bg-primary",
+          "ratio": 5.178415705888697,
+          "threshold": 3
+        },
+        {
+          "series": "gray",
+          "surface": "bg-primary",
+          "ratio": 7.577663953533317,
+          "threshold": 3
+        },
+        {
+          "series": "indigo",
+          "surface": "bg-primary",
+          "ratio": 6.287528596095884,
+          "threshold": 3
+        },
+        {
+          "series": "violet",
+          "surface": "bg-primary",
+          "ratio": 7.104892978519159,
+          "threshold": 3
+        },
+        {
+          "series": "blue",
+          "surface": "bg-secondary",
+          "ratio": 4.945863958083172,
+          "threshold": 3
+        },
+        {
+          "series": "green",
+          "surface": "bg-secondary",
+          "ratio": 5.2476445314638,
+          "threshold": 3
+        },
+        {
+          "series": "amber",
+          "surface": "bg-secondary",
+          "ratio": 4.805271275437402,
+          "threshold": 3
+        },
+        {
+          "series": "purple",
+          "surface": "bg-secondary",
+          "ratio": 5.453057795295443,
+          "threshold": 3
+        },
+        {
+          "series": "pink",
+          "surface": "bg-secondary",
+          "ratio": 5.777559662536719,
+          "threshold": 3
+        },
+        {
+          "series": "red",
+          "surface": "bg-secondary",
+          "ratio": 6.191277348008749,
+          "threshold": 3
+        },
+        {
+          "series": "cyan",
+          "surface": "bg-secondary",
+          "ratio": 5.126911495870445,
+          "threshold": 3
+        },
+        {
+          "series": "lime",
+          "surface": "bg-secondary",
+          "ratio": 4.778296776523484,
+          "threshold": 3
+        },
+        {
+          "series": "orange",
+          "surface": "bg-secondary",
+          "ratio": 4.955299271198108,
+          "threshold": 3
+        },
+        {
+          "series": "gray",
+          "surface": "bg-secondary",
+          "ratio": 7.251173872276777,
+          "threshold": 3
+        },
+        {
+          "series": "indigo",
+          "surface": "bg-secondary",
+          "ratio": 6.016625091423448,
+          "threshold": 3
+        },
+        {
+          "series": "violet",
+          "surface": "bg-secondary",
+          "ratio": 6.798772635877925,
+          "threshold": 3
+        },
+        {
+          "series": "blue",
+          "surface": "bg-tertiary",
+          "ratio": 4.696487981813944,
+          "threshold": 3
+        },
+        {
+          "series": "green",
+          "surface": "bg-tertiary",
+          "ratio": 4.983052442146642,
+          "threshold": 3
+        },
+        {
+          "series": "amber",
+          "surface": "bg-tertiary",
+          "ratio": 4.562984139012586,
+          "threshold": 3
+        },
+        {
+          "series": "purple",
+          "surface": "bg-tertiary",
+          "ratio": 5.178108540144205,
+          "threshold": 3
+        },
+        {
+          "series": "pink",
+          "surface": "bg-tertiary",
+          "ratio": 5.486248661362882,
+          "threshold": 3
+        },
+        {
+          "series": "red",
+          "surface": "bg-tertiary",
+          "ratio": 5.87910623976589,
+          "threshold": 3
+        },
+        {
+          "series": "cyan",
+          "surface": "bg-tertiary",
+          "ratio": 4.868406900846337,
+          "threshold": 3
+        },
+        {
+          "series": "lime",
+          "surface": "bg-tertiary",
+          "ratio": 4.537369724415187,
+          "threshold": 3
+        },
+        {
+          "series": "orange",
+          "surface": "bg-tertiary",
+          "ratio": 4.705447555919602,
+          "threshold": 3
+        },
+        {
+          "series": "gray",
+          "surface": "bg-tertiary",
+          "ratio": 6.885561599310466,
+          "threshold": 3
+        },
+        {
+          "series": "indigo",
+          "surface": "bg-tertiary",
+          "ratio": 5.7132601447254086,
+          "threshold": 3
+        },
+        {
+          "series": "violet",
+          "surface": "bg-tertiary",
+          "ratio": 6.455970937757288,
+          "threshold": 3
+        }
+      ],
+      "axe": [],
+      "artifact": "tests/visual/reports/chart-demand-light-1600.png",
+      "writes": [],
+      "errors": []
+    },
+    {
+      "mode": "person",
+      "theme": "light",
+      "width": 1600,
+      "graphics": [
+        {
+          "color": "rgb(4, 120, 87)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.483924052498799,
+          "threshold": 3,
+          "pathLength": 1118,
+          "rendered": true
+        },
+        {
+          "color": "rgb(37, 99, 235)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.168555560022562,
+          "threshold": 3,
+          "pathLength": 1118,
+          "rendered": true
+        },
+        {
+          "color": "rgb(4, 120, 87)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.483924052498799,
+          "threshold": 3,
+          "pathLength": 1118,
+          "rendered": true
+        },
+        {
+          "color": "rgb(180, 83, 9)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.02163257594014,
+          "threshold": 3,
+          "pathLength": 1118,
+          "rendered": true
+        },
+        {
+          "color": "rgb(185, 28, 28)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 6.4700447145121895,
+          "threshold": 3,
+          "pathLength": 1118,
+          "rendered": true
+        },
+        {
+          "color": "rgb(124, 58, 237)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.698586217871195,
+          "threshold": 3,
+          "pathLength": 1118,
+          "rendered": true
+        },
+        {
+          "color": "rgb(14, 116, 144)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.3577549124490425,
+          "threshold": 3,
+          "pathLength": 1118,
+          "rendered": true
+        },
+        {
+          "color": "rgb(77, 124, 15)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 4.993443527975628,
+          "threshold": 3,
+          "pathLength": 1118,
+          "rendered": true
+        },
+        {
+          "color": "rgb(194, 65, 12)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.178415705888697,
+          "threshold": 3,
+          "pathLength": 1118,
+          "rendered": true
+        },
+        {
+          "color": "rgb(190, 24, 93)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 6.037699049194929,
+          "threshold": 3,
+          "pathLength": 1118,
+          "rendered": true
+        },
+        {
+          "color": "rgb(71, 85, 105)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 7.577663953533317,
+          "threshold": 3,
+          "pathLength": 1118,
+          "rendered": true
+        },
+        {
+          "color": "rgb(109, 40, 217)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 7.104892978519159,
+          "threshold": 3,
+          "pathLength": 1178,
+          "rendered": true
+        }
+      ],
+      "svgText": [
+        {
+          "text": "26年9月",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "26年10月",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "26年11月",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "26年12月",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "0",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "35",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "70",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "105",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "125",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "百分比 (%)",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        }
+      ],
+      "tokenPairs": [
+        {
+          "series": "blue",
+          "surface": "bg-primary",
+          "ratio": 5.168555560022562,
+          "threshold": 3
+        },
+        {
+          "series": "green",
+          "surface": "bg-primary",
+          "ratio": 5.483924052498799,
+          "threshold": 3
+        },
+        {
+          "series": "amber",
+          "surface": "bg-primary",
+          "ratio": 5.02163257594014,
+          "threshold": 3
+        },
+        {
+          "series": "purple",
+          "surface": "bg-primary",
+          "ratio": 5.698586217871195,
+          "threshold": 3
+        },
+        {
+          "series": "pink",
+          "surface": "bg-primary",
+          "ratio": 6.037699049194929,
+          "threshold": 3
+        },
+        {
+          "series": "red",
+          "surface": "bg-primary",
+          "ratio": 6.4700447145121895,
+          "threshold": 3
+        },
+        {
+          "series": "cyan",
+          "surface": "bg-primary",
+          "ratio": 5.3577549124490425,
+          "threshold": 3
+        },
+        {
+          "series": "lime",
+          "surface": "bg-primary",
+          "ratio": 4.993443527975628,
+          "threshold": 3
+        },
+        {
+          "series": "orange",
+          "surface": "bg-primary",
+          "ratio": 5.178415705888697,
+          "threshold": 3
+        },
+        {
+          "series": "gray",
+          "surface": "bg-primary",
+          "ratio": 7.577663953533317,
+          "threshold": 3
+        },
+        {
+          "series": "indigo",
+          "surface": "bg-primary",
+          "ratio": 6.287528596095884,
+          "threshold": 3
+        },
+        {
+          "series": "violet",
+          "surface": "bg-primary",
+          "ratio": 7.104892978519159,
+          "threshold": 3
+        },
+        {
+          "series": "blue",
+          "surface": "bg-secondary",
+          "ratio": 4.945863958083172,
+          "threshold": 3
+        },
+        {
+          "series": "green",
+          "surface": "bg-secondary",
+          "ratio": 5.2476445314638,
+          "threshold": 3
+        },
+        {
+          "series": "amber",
+          "surface": "bg-secondary",
+          "ratio": 4.805271275437402,
+          "threshold": 3
+        },
+        {
+          "series": "purple",
+          "surface": "bg-secondary",
+          "ratio": 5.453057795295443,
+          "threshold": 3
+        },
+        {
+          "series": "pink",
+          "surface": "bg-secondary",
+          "ratio": 5.777559662536719,
+          "threshold": 3
+        },
+        {
+          "series": "red",
+          "surface": "bg-secondary",
+          "ratio": 6.191277348008749,
+          "threshold": 3
+        },
+        {
+          "series": "cyan",
+          "surface": "bg-secondary",
+          "ratio": 5.126911495870445,
+          "threshold": 3
+        },
+        {
+          "series": "lime",
+          "surface": "bg-secondary",
+          "ratio": 4.778296776523484,
+          "threshold": 3
+        },
+        {
+          "series": "orange",
+          "surface": "bg-secondary",
+          "ratio": 4.955299271198108,
+          "threshold": 3
+        },
+        {
+          "series": "gray",
+          "surface": "bg-secondary",
+          "ratio": 7.251173872276777,
+          "threshold": 3
+        },
+        {
+          "series": "indigo",
+          "surface": "bg-secondary",
+          "ratio": 6.016625091423448,
+          "threshold": 3
+        },
+        {
+          "series": "violet",
+          "surface": "bg-secondary",
+          "ratio": 6.798772635877925,
+          "threshold": 3
+        },
+        {
+          "series": "blue",
+          "surface": "bg-tertiary",
+          "ratio": 4.696487981813944,
+          "threshold": 3
+        },
+        {
+          "series": "green",
+          "surface": "bg-tertiary",
+          "ratio": 4.983052442146642,
+          "threshold": 3
+        },
+        {
+          "series": "amber",
+          "surface": "bg-tertiary",
+          "ratio": 4.562984139012586,
+          "threshold": 3
+        },
+        {
+          "series": "purple",
+          "surface": "bg-tertiary",
+          "ratio": 5.178108540144205,
+          "threshold": 3
+        },
+        {
+          "series": "pink",
+          "surface": "bg-tertiary",
+          "ratio": 5.486248661362882,
+          "threshold": 3
+        },
+        {
+          "series": "red",
+          "surface": "bg-tertiary",
+          "ratio": 5.87910623976589,
+          "threshold": 3
+        },
+        {
+          "series": "cyan",
+          "surface": "bg-tertiary",
+          "ratio": 4.868406900846337,
+          "threshold": 3
+        },
+        {
+          "series": "lime",
+          "surface": "bg-tertiary",
+          "ratio": 4.537369724415187,
+          "threshold": 3
+        },
+        {
+          "series": "orange",
+          "surface": "bg-tertiary",
+          "ratio": 4.705447555919602,
+          "threshold": 3
+        },
+        {
+          "series": "gray",
+          "surface": "bg-tertiary",
+          "ratio": 6.885561599310466,
+          "threshold": 3
+        },
+        {
+          "series": "indigo",
+          "surface": "bg-tertiary",
+          "ratio": 5.7132601447254086,
+          "threshold": 3
+        },
+        {
+          "series": "violet",
+          "surface": "bg-tertiary",
+          "ratio": 6.455970937757288,
+          "threshold": 3
+        }
+      ],
+      "axe": [],
+      "artifact": "tests/visual/reports/chart-person-light-1600.png",
+      "writes": [],
+      "errors": []
+    },
+    {
+      "mode": "report-palette",
+      "theme": "light",
+      "width": 1600,
+      "graphics": [
+        {
+          "color": "rgb(79, 70, 229)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 6.287528596095884,
+          "threshold": 3,
+          "pathLength": 157,
+          "rendered": true
+        },
+        {
+          "color": "rgb(4, 120, 87)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.483924052498799,
+          "threshold": 3,
+          "pathLength": 205.99998474121094,
+          "rendered": true
+        },
+        {
+          "color": "rgb(180, 83, 9)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.02163257594014,
+          "threshold": 3,
+          "pathLength": 255,
+          "rendered": true
+        },
+        {
+          "color": "rgb(185, 28, 28)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 6.4700447145121895,
+          "threshold": 3,
+          "pathLength": 304,
+          "rendered": true
+        },
+        {
+          "color": "rgb(79, 70, 229)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 6.287528596095884,
+          "threshold": 3,
+          "pathLength": 353,
+          "rendered": true
+        },
+        {
+          "color": "rgb(4, 120, 87)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.483924052498799,
+          "threshold": 3,
+          "pathLength": 402,
+          "rendered": true
+        },
+        {
+          "color": "rgb(185, 28, 28)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 6.4700447145121895,
+          "threshold": 3,
+          "pathLength": 451,
+          "rendered": true
+        },
+        {
+          "color": "rgb(124, 58, 237)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.698586217871195,
+          "threshold": 3,
+          "pathLength": 500,
+          "rendered": true
+        },
+        {
+          "color": "rgb(79, 70, 229)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 6.287528596095884,
+          "threshold": 3,
+          "pathLength": 549,
+          "rendered": true
+        },
+        {
+          "color": "rgb(4, 120, 87)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.483924052498799,
+          "threshold": 3,
+          "pathLength": 598,
+          "rendered": true
+        },
+        {
+          "color": "rgb(124, 58, 237)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.698586217871195,
+          "threshold": 3,
+          "pathLength": 647,
+          "rendered": true
+        },
+        {
+          "color": "rgb(180, 83, 9)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.02163257594014,
+          "threshold": 3,
+          "pathLength": 696,
+          "rendered": true
+        },
+        {
+          "color": "rgb(185, 28, 28)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 6.4700447145121895,
+          "threshold": 3,
+          "pathLength": 745,
+          "rendered": true
+        },
+        {
+          "color": "rgb(180, 83, 9)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.02163257594014,
+          "threshold": 3,
+          "pathLength": 794,
+          "rendered": true
+        },
+        {
+          "color": "rgb(4, 120, 87)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.483924052498799,
+          "threshold": 3,
+          "pathLength": 843.0000610351562,
+          "rendered": true
+        },
+        {
+          "color": "rgb(79, 70, 229)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 6.287528596095884,
+          "threshold": 3,
+          "pathLength": 892,
+          "rendered": true
+        }
+      ],
+      "svgText": [
+        {
+          "text": "调色板",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "0",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "4",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "8",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "12",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "16",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        }
+      ],
+      "tokenPairs": [
+        {
+          "series": "blue",
+          "surface": "bg-primary",
+          "ratio": 5.168555560022562,
+          "threshold": 3
+        },
+        {
+          "series": "green",
+          "surface": "bg-primary",
+          "ratio": 5.483924052498799,
+          "threshold": 3
+        },
+        {
+          "series": "amber",
+          "surface": "bg-primary",
+          "ratio": 5.02163257594014,
+          "threshold": 3
+        },
+        {
+          "series": "purple",
+          "surface": "bg-primary",
+          "ratio": 5.698586217871195,
+          "threshold": 3
+        },
+        {
+          "series": "pink",
+          "surface": "bg-primary",
+          "ratio": 6.037699049194929,
+          "threshold": 3
+        },
+        {
+          "series": "red",
+          "surface": "bg-primary",
+          "ratio": 6.4700447145121895,
+          "threshold": 3
+        },
+        {
+          "series": "cyan",
+          "surface": "bg-primary",
+          "ratio": 5.3577549124490425,
+          "threshold": 3
+        },
+        {
+          "series": "lime",
+          "surface": "bg-primary",
+          "ratio": 4.993443527975628,
+          "threshold": 3
+        },
+        {
+          "series": "orange",
+          "surface": "bg-primary",
+          "ratio": 5.178415705888697,
+          "threshold": 3
+        },
+        {
+          "series": "gray",
+          "surface": "bg-primary",
+          "ratio": 7.577663953533317,
+          "threshold": 3
+        },
+        {
+          "series": "indigo",
+          "surface": "bg-primary",
+          "ratio": 6.287528596095884,
+          "threshold": 3
+        },
+        {
+          "series": "violet",
+          "surface": "bg-primary",
+          "ratio": 7.104892978519159,
+          "threshold": 3
+        },
+        {
+          "series": "blue",
+          "surface": "bg-secondary",
+          "ratio": 4.945863958083172,
+          "threshold": 3
+        },
+        {
+          "series": "green",
+          "surface": "bg-secondary",
+          "ratio": 5.2476445314638,
+          "threshold": 3
+        },
+        {
+          "series": "amber",
+          "surface": "bg-secondary",
+          "ratio": 4.805271275437402,
+          "threshold": 3
+        },
+        {
+          "series": "purple",
+          "surface": "bg-secondary",
+          "ratio": 5.453057795295443,
+          "threshold": 3
+        },
+        {
+          "series": "pink",
+          "surface": "bg-secondary",
+          "ratio": 5.777559662536719,
+          "threshold": 3
+        },
+        {
+          "series": "red",
+          "surface": "bg-secondary",
+          "ratio": 6.191277348008749,
+          "threshold": 3
+        },
+        {
+          "series": "cyan",
+          "surface": "bg-secondary",
+          "ratio": 5.126911495870445,
+          "threshold": 3
+        },
+        {
+          "series": "lime",
+          "surface": "bg-secondary",
+          "ratio": 4.778296776523484,
+          "threshold": 3
+        },
+        {
+          "series": "orange",
+          "surface": "bg-secondary",
+          "ratio": 4.955299271198108,
+          "threshold": 3
+        },
+        {
+          "series": "gray",
+          "surface": "bg-secondary",
+          "ratio": 7.251173872276777,
+          "threshold": 3
+        },
+        {
+          "series": "indigo",
+          "surface": "bg-secondary",
+          "ratio": 6.016625091423448,
+          "threshold": 3
+        },
+        {
+          "series": "violet",
+          "surface": "bg-secondary",
+          "ratio": 6.798772635877925,
+          "threshold": 3
+        },
+        {
+          "series": "blue",
+          "surface": "bg-tertiary",
+          "ratio": 4.696487981813944,
+          "threshold": 3
+        },
+        {
+          "series": "green",
+          "surface": "bg-tertiary",
+          "ratio": 4.983052442146642,
+          "threshold": 3
+        },
+        {
+          "series": "amber",
+          "surface": "bg-tertiary",
+          "ratio": 4.562984139012586,
+          "threshold": 3
+        },
+        {
+          "series": "purple",
+          "surface": "bg-tertiary",
+          "ratio": 5.178108540144205,
+          "threshold": 3
+        },
+        {
+          "series": "pink",
+          "surface": "bg-tertiary",
+          "ratio": 5.486248661362882,
+          "threshold": 3
+        },
+        {
+          "series": "red",
+          "surface": "bg-tertiary",
+          "ratio": 5.87910623976589,
+          "threshold": 3
+        },
+        {
+          "series": "cyan",
+          "surface": "bg-tertiary",
+          "ratio": 4.868406900846337,
+          "threshold": 3
+        },
+        {
+          "series": "lime",
+          "surface": "bg-tertiary",
+          "ratio": 4.537369724415187,
+          "threshold": 3
+        },
+        {
+          "series": "orange",
+          "surface": "bg-tertiary",
+          "ratio": 4.705447555919602,
+          "threshold": 3
+        },
+        {
+          "series": "gray",
+          "surface": "bg-tertiary",
+          "ratio": 6.885561599310466,
+          "threshold": 3
+        },
+        {
+          "series": "indigo",
+          "surface": "bg-tertiary",
+          "ratio": 5.7132601447254086,
+          "threshold": 3
+        },
+        {
+          "series": "violet",
+          "surface": "bg-tertiary",
+          "ratio": 6.455970937757288,
+          "threshold": 3
+        }
+      ],
+      "axe": [],
+      "artifact": "tests/visual/reports/chart-report-palette-light-1600.png",
+      "writes": [],
+      "errors": []
+    },
+    {
+      "mode": "demand",
+      "theme": "light",
+      "width": 1366,
+      "graphics": [
+        {
+          "color": "rgb(37, 99, 235)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.168555560022562,
+          "threshold": 3,
+          "pathLength": 876,
+          "rendered": true
+        },
+        {
+          "color": "rgb(4, 120, 87)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.483924052498799,
+          "threshold": 3,
+          "pathLength": 876,
+          "rendered": true
+        },
+        {
+          "color": "rgb(180, 83, 9)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.02163257594014,
+          "threshold": 3,
+          "pathLength": 876,
+          "rendered": true
+        },
+        {
+          "color": "rgb(124, 58, 237)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.698586217871195,
+          "threshold": 3,
+          "pathLength": 876,
+          "rendered": true
+        },
+        {
+          "color": "rgb(190, 24, 93)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 6.037699049194929,
+          "threshold": 3,
+          "pathLength": 876,
+          "rendered": true
+        },
+        {
+          "color": "rgb(185, 28, 28)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 6.4700447145121895,
+          "threshold": 3,
+          "pathLength": 876,
+          "rendered": true
+        },
+        {
+          "color": "rgb(14, 116, 144)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.3577549124490425,
+          "threshold": 3,
+          "pathLength": 876,
+          "rendered": true
+        },
+        {
+          "color": "rgb(77, 124, 15)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 4.993443527975628,
+          "threshold": 3,
+          "pathLength": 876,
+          "rendered": true
+        }
+      ],
+      "svgText": [
+        {
+          "text": "9月1日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "9月8日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "9月15日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "9月22日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "9月29日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月6日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月13日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月20日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月27日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月3日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月10日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月17日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月24日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "12月1日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "12月8日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "12月15日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "12月22日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "12月31日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "0",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "0.35",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "0.7",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "1.05",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "1.4",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "FTE(人数)",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        }
+      ],
+      "tokenPairs": [
+        {
+          "series": "blue",
+          "surface": "bg-primary",
+          "ratio": 5.168555560022562,
+          "threshold": 3
+        },
+        {
+          "series": "green",
+          "surface": "bg-primary",
+          "ratio": 5.483924052498799,
+          "threshold": 3
+        },
+        {
+          "series": "amber",
+          "surface": "bg-primary",
+          "ratio": 5.02163257594014,
+          "threshold": 3
+        },
+        {
+          "series": "purple",
+          "surface": "bg-primary",
+          "ratio": 5.698586217871195,
+          "threshold": 3
+        },
+        {
+          "series": "pink",
+          "surface": "bg-primary",
+          "ratio": 6.037699049194929,
+          "threshold": 3
+        },
+        {
+          "series": "red",
+          "surface": "bg-primary",
+          "ratio": 6.4700447145121895,
+          "threshold": 3
+        },
+        {
+          "series": "cyan",
+          "surface": "bg-primary",
+          "ratio": 5.3577549124490425,
+          "threshold": 3
+        },
+        {
+          "series": "lime",
+          "surface": "bg-primary",
+          "ratio": 4.993443527975628,
+          "threshold": 3
+        },
+        {
+          "series": "orange",
+          "surface": "bg-primary",
+          "ratio": 5.178415705888697,
+          "threshold": 3
+        },
+        {
+          "series": "gray",
+          "surface": "bg-primary",
+          "ratio": 7.577663953533317,
+          "threshold": 3
+        },
+        {
+          "series": "indigo",
+          "surface": "bg-primary",
+          "ratio": 6.287528596095884,
+          "threshold": 3
+        },
+        {
+          "series": "violet",
+          "surface": "bg-primary",
+          "ratio": 7.104892978519159,
+          "threshold": 3
+        },
+        {
+          "series": "blue",
+          "surface": "bg-secondary",
+          "ratio": 4.945863958083172,
+          "threshold": 3
+        },
+        {
+          "series": "green",
+          "surface": "bg-secondary",
+          "ratio": 5.2476445314638,
+          "threshold": 3
+        },
+        {
+          "series": "amber",
+          "surface": "bg-secondary",
+          "ratio": 4.805271275437402,
+          "threshold": 3
+        },
+        {
+          "series": "purple",
+          "surface": "bg-secondary",
+          "ratio": 5.453057795295443,
+          "threshold": 3
+        },
+        {
+          "series": "pink",
+          "surface": "bg-secondary",
+          "ratio": 5.777559662536719,
+          "threshold": 3
+        },
+        {
+          "series": "red",
+          "surface": "bg-secondary",
+          "ratio": 6.191277348008749,
+          "threshold": 3
+        },
+        {
+          "series": "cyan",
+          "surface": "bg-secondary",
+          "ratio": 5.126911495870445,
+          "threshold": 3
+        },
+        {
+          "series": "lime",
+          "surface": "bg-secondary",
+          "ratio": 4.778296776523484,
+          "threshold": 3
+        },
+        {
+          "series": "orange",
+          "surface": "bg-secondary",
+          "ratio": 4.955299271198108,
+          "threshold": 3
+        },
+        {
+          "series": "gray",
+          "surface": "bg-secondary",
+          "ratio": 7.251173872276777,
+          "threshold": 3
+        },
+        {
+          "series": "indigo",
+          "surface": "bg-secondary",
+          "ratio": 6.016625091423448,
+          "threshold": 3
+        },
+        {
+          "series": "violet",
+          "surface": "bg-secondary",
+          "ratio": 6.798772635877925,
+          "threshold": 3
+        },
+        {
+          "series": "blue",
+          "surface": "bg-tertiary",
+          "ratio": 4.696487981813944,
+          "threshold": 3
+        },
+        {
+          "series": "green",
+          "surface": "bg-tertiary",
+          "ratio": 4.983052442146642,
+          "threshold": 3
+        },
+        {
+          "series": "amber",
+          "surface": "bg-tertiary",
+          "ratio": 4.562984139012586,
+          "threshold": 3
+        },
+        {
+          "series": "purple",
+          "surface": "bg-tertiary",
+          "ratio": 5.178108540144205,
+          "threshold": 3
+        },
+        {
+          "series": "pink",
+          "surface": "bg-tertiary",
+          "ratio": 5.486248661362882,
+          "threshold": 3
+        },
+        {
+          "series": "red",
+          "surface": "bg-tertiary",
+          "ratio": 5.87910623976589,
+          "threshold": 3
+        },
+        {
+          "series": "cyan",
+          "surface": "bg-tertiary",
+          "ratio": 4.868406900846337,
+          "threshold": 3
+        },
+        {
+          "series": "lime",
+          "surface": "bg-tertiary",
+          "ratio": 4.537369724415187,
+          "threshold": 3
+        },
+        {
+          "series": "orange",
+          "surface": "bg-tertiary",
+          "ratio": 4.705447555919602,
+          "threshold": 3
+        },
+        {
+          "series": "gray",
+          "surface": "bg-tertiary",
+          "ratio": 6.885561599310466,
+          "threshold": 3
+        },
+        {
+          "series": "indigo",
+          "surface": "bg-tertiary",
+          "ratio": 5.7132601447254086,
+          "threshold": 3
+        },
+        {
+          "series": "violet",
+          "surface": "bg-tertiary",
+          "ratio": 6.455970937757288,
+          "threshold": 3
+        }
+      ],
+      "axe": [],
+      "artifact": "tests/visual/reports/chart-demand-light-1366.png",
+      "writes": [],
+      "errors": []
+    },
+    {
+      "mode": "person",
+      "theme": "light",
+      "width": 1366,
+      "graphics": [
+        {
+          "color": "rgb(4, 120, 87)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.483924052498799,
+          "threshold": 3,
+          "pathLength": 884,
+          "rendered": true
+        },
+        {
+          "color": "rgb(37, 99, 235)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.168555560022562,
+          "threshold": 3,
+          "pathLength": 884,
+          "rendered": true
+        },
+        {
+          "color": "rgb(4, 120, 87)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.483924052498799,
+          "threshold": 3,
+          "pathLength": 884,
+          "rendered": true
+        },
+        {
+          "color": "rgb(180, 83, 9)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.02163257594014,
+          "threshold": 3,
+          "pathLength": 884,
+          "rendered": true
+        },
+        {
+          "color": "rgb(185, 28, 28)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 6.4700447145121895,
+          "threshold": 3,
+          "pathLength": 884,
+          "rendered": true
+        },
+        {
+          "color": "rgb(124, 58, 237)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.698586217871195,
+          "threshold": 3,
+          "pathLength": 884,
+          "rendered": true
+        },
+        {
+          "color": "rgb(14, 116, 144)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.3577549124490425,
+          "threshold": 3,
+          "pathLength": 884,
+          "rendered": true
+        },
+        {
+          "color": "rgb(77, 124, 15)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 4.993443527975628,
+          "threshold": 3,
+          "pathLength": 884,
+          "rendered": true
+        },
+        {
+          "color": "rgb(194, 65, 12)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.178415705888697,
+          "threshold": 3,
+          "pathLength": 884,
+          "rendered": true
+        },
+        {
+          "color": "rgb(190, 24, 93)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 6.037699049194929,
+          "threshold": 3,
+          "pathLength": 884,
+          "rendered": true
+        },
+        {
+          "color": "rgb(71, 85, 105)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 7.577663953533317,
+          "threshold": 3,
+          "pathLength": 884,
+          "rendered": true
+        },
+        {
+          "color": "rgb(109, 40, 217)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 7.104892978519159,
+          "threshold": 3,
+          "pathLength": 944,
+          "rendered": true
+        }
+      ],
+      "svgText": [
+        {
+          "text": "26年9月",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "26年10月",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "26年11月",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "26年12月",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "0",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "35",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "70",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "105",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "125",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "百分比 (%)",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        }
+      ],
+      "tokenPairs": [
+        {
+          "series": "blue",
+          "surface": "bg-primary",
+          "ratio": 5.168555560022562,
+          "threshold": 3
+        },
+        {
+          "series": "green",
+          "surface": "bg-primary",
+          "ratio": 5.483924052498799,
+          "threshold": 3
+        },
+        {
+          "series": "amber",
+          "surface": "bg-primary",
+          "ratio": 5.02163257594014,
+          "threshold": 3
+        },
+        {
+          "series": "purple",
+          "surface": "bg-primary",
+          "ratio": 5.698586217871195,
+          "threshold": 3
+        },
+        {
+          "series": "pink",
+          "surface": "bg-primary",
+          "ratio": 6.037699049194929,
+          "threshold": 3
+        },
+        {
+          "series": "red",
+          "surface": "bg-primary",
+          "ratio": 6.4700447145121895,
+          "threshold": 3
+        },
+        {
+          "series": "cyan",
+          "surface": "bg-primary",
+          "ratio": 5.3577549124490425,
+          "threshold": 3
+        },
+        {
+          "series": "lime",
+          "surface": "bg-primary",
+          "ratio": 4.993443527975628,
+          "threshold": 3
+        },
+        {
+          "series": "orange",
+          "surface": "bg-primary",
+          "ratio": 5.178415705888697,
+          "threshold": 3
+        },
+        {
+          "series": "gray",
+          "surface": "bg-primary",
+          "ratio": 7.577663953533317,
+          "threshold": 3
+        },
+        {
+          "series": "indigo",
+          "surface": "bg-primary",
+          "ratio": 6.287528596095884,
+          "threshold": 3
+        },
+        {
+          "series": "violet",
+          "surface": "bg-primary",
+          "ratio": 7.104892978519159,
+          "threshold": 3
+        },
+        {
+          "series": "blue",
+          "surface": "bg-secondary",
+          "ratio": 4.945863958083172,
+          "threshold": 3
+        },
+        {
+          "series": "green",
+          "surface": "bg-secondary",
+          "ratio": 5.2476445314638,
+          "threshold": 3
+        },
+        {
+          "series": "amber",
+          "surface": "bg-secondary",
+          "ratio": 4.805271275437402,
+          "threshold": 3
+        },
+        {
+          "series": "purple",
+          "surface": "bg-secondary",
+          "ratio": 5.453057795295443,
+          "threshold": 3
+        },
+        {
+          "series": "pink",
+          "surface": "bg-secondary",
+          "ratio": 5.777559662536719,
+          "threshold": 3
+        },
+        {
+          "series": "red",
+          "surface": "bg-secondary",
+          "ratio": 6.191277348008749,
+          "threshold": 3
+        },
+        {
+          "series": "cyan",
+          "surface": "bg-secondary",
+          "ratio": 5.126911495870445,
+          "threshold": 3
+        },
+        {
+          "series": "lime",
+          "surface": "bg-secondary",
+          "ratio": 4.778296776523484,
+          "threshold": 3
+        },
+        {
+          "series": "orange",
+          "surface": "bg-secondary",
+          "ratio": 4.955299271198108,
+          "threshold": 3
+        },
+        {
+          "series": "gray",
+          "surface": "bg-secondary",
+          "ratio": 7.251173872276777,
+          "threshold": 3
+        },
+        {
+          "series": "indigo",
+          "surface": "bg-secondary",
+          "ratio": 6.016625091423448,
+          "threshold": 3
+        },
+        {
+          "series": "violet",
+          "surface": "bg-secondary",
+          "ratio": 6.798772635877925,
+          "threshold": 3
+        },
+        {
+          "series": "blue",
+          "surface": "bg-tertiary",
+          "ratio": 4.696487981813944,
+          "threshold": 3
+        },
+        {
+          "series": "green",
+          "surface": "bg-tertiary",
+          "ratio": 4.983052442146642,
+          "threshold": 3
+        },
+        {
+          "series": "amber",
+          "surface": "bg-tertiary",
+          "ratio": 4.562984139012586,
+          "threshold": 3
+        },
+        {
+          "series": "purple",
+          "surface": "bg-tertiary",
+          "ratio": 5.178108540144205,
+          "threshold": 3
+        },
+        {
+          "series": "pink",
+          "surface": "bg-tertiary",
+          "ratio": 5.486248661362882,
+          "threshold": 3
+        },
+        {
+          "series": "red",
+          "surface": "bg-tertiary",
+          "ratio": 5.87910623976589,
+          "threshold": 3
+        },
+        {
+          "series": "cyan",
+          "surface": "bg-tertiary",
+          "ratio": 4.868406900846337,
+          "threshold": 3
+        },
+        {
+          "series": "lime",
+          "surface": "bg-tertiary",
+          "ratio": 4.537369724415187,
+          "threshold": 3
+        },
+        {
+          "series": "orange",
+          "surface": "bg-tertiary",
+          "ratio": 4.705447555919602,
+          "threshold": 3
+        },
+        {
+          "series": "gray",
+          "surface": "bg-tertiary",
+          "ratio": 6.885561599310466,
+          "threshold": 3
+        },
+        {
+          "series": "indigo",
+          "surface": "bg-tertiary",
+          "ratio": 5.7132601447254086,
+          "threshold": 3
+        },
+        {
+          "series": "violet",
+          "surface": "bg-tertiary",
+          "ratio": 6.455970937757288,
+          "threshold": 3
+        }
+      ],
+      "axe": [],
+      "artifact": "tests/visual/reports/chart-person-light-1366.png",
+      "writes": [],
+      "errors": []
+    },
+    {
+      "mode": "report-palette",
+      "theme": "light",
+      "width": 1366,
+      "graphics": [
+        {
+          "color": "rgb(79, 70, 229)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 6.287528596095884,
+          "threshold": 3,
+          "pathLength": 133,
+          "rendered": true
+        },
+        {
+          "color": "rgb(4, 120, 87)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.483924052498799,
+          "threshold": 3,
+          "pathLength": 182,
+          "rendered": true
+        },
+        {
+          "color": "rgb(180, 83, 9)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.02163257594014,
+          "threshold": 3,
+          "pathLength": 231,
+          "rendered": true
+        },
+        {
+          "color": "rgb(185, 28, 28)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 6.4700447145121895,
+          "threshold": 3,
+          "pathLength": 280,
+          "rendered": true
+        },
+        {
+          "color": "rgb(79, 70, 229)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 6.287528596095884,
+          "threshold": 3,
+          "pathLength": 329,
+          "rendered": true
+        },
+        {
+          "color": "rgb(4, 120, 87)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.483924052498799,
+          "threshold": 3,
+          "pathLength": 378,
+          "rendered": true
+        },
+        {
+          "color": "rgb(185, 28, 28)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 6.4700447145121895,
+          "threshold": 3,
+          "pathLength": 427,
+          "rendered": true
+        },
+        {
+          "color": "rgb(124, 58, 237)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.698586217871195,
+          "threshold": 3,
+          "pathLength": 476.0000305175781,
+          "rendered": true
+        },
+        {
+          "color": "rgb(79, 70, 229)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 6.287528596095884,
+          "threshold": 3,
+          "pathLength": 525,
+          "rendered": true
+        },
+        {
+          "color": "rgb(4, 120, 87)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.483924052498799,
+          "threshold": 3,
+          "pathLength": 574,
+          "rendered": true
+        },
+        {
+          "color": "rgb(124, 58, 237)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.698586217871195,
+          "threshold": 3,
+          "pathLength": 623,
+          "rendered": true
+        },
+        {
+          "color": "rgb(180, 83, 9)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.02163257594014,
+          "threshold": 3,
+          "pathLength": 672,
+          "rendered": true
+        },
+        {
+          "color": "rgb(185, 28, 28)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 6.4700447145121895,
+          "threshold": 3,
+          "pathLength": 721,
+          "rendered": true
+        },
+        {
+          "color": "rgb(180, 83, 9)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.02163257594014,
+          "threshold": 3,
+          "pathLength": 770,
+          "rendered": true
+        },
+        {
+          "color": "rgb(4, 120, 87)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 5.483924052498799,
+          "threshold": 3,
+          "pathLength": 819,
+          "rendered": true
+        },
+        {
+          "color": "rgb(79, 70, 229)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 6.287528596095884,
+          "threshold": 3,
+          "pathLength": 868,
+          "rendered": true
+        }
+      ],
+      "svgText": [
+        {
+          "text": "调色板",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "0",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "4",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "8",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "12",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "16",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        }
+      ],
+      "tokenPairs": [
+        {
+          "series": "blue",
+          "surface": "bg-primary",
+          "ratio": 5.168555560022562,
+          "threshold": 3
+        },
+        {
+          "series": "green",
+          "surface": "bg-primary",
+          "ratio": 5.483924052498799,
+          "threshold": 3
+        },
+        {
+          "series": "amber",
+          "surface": "bg-primary",
+          "ratio": 5.02163257594014,
+          "threshold": 3
+        },
+        {
+          "series": "purple",
+          "surface": "bg-primary",
+          "ratio": 5.698586217871195,
+          "threshold": 3
+        },
+        {
+          "series": "pink",
+          "surface": "bg-primary",
+          "ratio": 6.037699049194929,
+          "threshold": 3
+        },
+        {
+          "series": "red",
+          "surface": "bg-primary",
+          "ratio": 6.4700447145121895,
+          "threshold": 3
+        },
+        {
+          "series": "cyan",
+          "surface": "bg-primary",
+          "ratio": 5.3577549124490425,
+          "threshold": 3
+        },
+        {
+          "series": "lime",
+          "surface": "bg-primary",
+          "ratio": 4.993443527975628,
+          "threshold": 3
+        },
+        {
+          "series": "orange",
+          "surface": "bg-primary",
+          "ratio": 5.178415705888697,
+          "threshold": 3
+        },
+        {
+          "series": "gray",
+          "surface": "bg-primary",
+          "ratio": 7.577663953533317,
+          "threshold": 3
+        },
+        {
+          "series": "indigo",
+          "surface": "bg-primary",
+          "ratio": 6.287528596095884,
+          "threshold": 3
+        },
+        {
+          "series": "violet",
+          "surface": "bg-primary",
+          "ratio": 7.104892978519159,
+          "threshold": 3
+        },
+        {
+          "series": "blue",
+          "surface": "bg-secondary",
+          "ratio": 4.945863958083172,
+          "threshold": 3
+        },
+        {
+          "series": "green",
+          "surface": "bg-secondary",
+          "ratio": 5.2476445314638,
+          "threshold": 3
+        },
+        {
+          "series": "amber",
+          "surface": "bg-secondary",
+          "ratio": 4.805271275437402,
+          "threshold": 3
+        },
+        {
+          "series": "purple",
+          "surface": "bg-secondary",
+          "ratio": 5.453057795295443,
+          "threshold": 3
+        },
+        {
+          "series": "pink",
+          "surface": "bg-secondary",
+          "ratio": 5.777559662536719,
+          "threshold": 3
+        },
+        {
+          "series": "red",
+          "surface": "bg-secondary",
+          "ratio": 6.191277348008749,
+          "threshold": 3
+        },
+        {
+          "series": "cyan",
+          "surface": "bg-secondary",
+          "ratio": 5.126911495870445,
+          "threshold": 3
+        },
+        {
+          "series": "lime",
+          "surface": "bg-secondary",
+          "ratio": 4.778296776523484,
+          "threshold": 3
+        },
+        {
+          "series": "orange",
+          "surface": "bg-secondary",
+          "ratio": 4.955299271198108,
+          "threshold": 3
+        },
+        {
+          "series": "gray",
+          "surface": "bg-secondary",
+          "ratio": 7.251173872276777,
+          "threshold": 3
+        },
+        {
+          "series": "indigo",
+          "surface": "bg-secondary",
+          "ratio": 6.016625091423448,
+          "threshold": 3
+        },
+        {
+          "series": "violet",
+          "surface": "bg-secondary",
+          "ratio": 6.798772635877925,
+          "threshold": 3
+        },
+        {
+          "series": "blue",
+          "surface": "bg-tertiary",
+          "ratio": 4.696487981813944,
+          "threshold": 3
+        },
+        {
+          "series": "green",
+          "surface": "bg-tertiary",
+          "ratio": 4.983052442146642,
+          "threshold": 3
+        },
+        {
+          "series": "amber",
+          "surface": "bg-tertiary",
+          "ratio": 4.562984139012586,
+          "threshold": 3
+        },
+        {
+          "series": "purple",
+          "surface": "bg-tertiary",
+          "ratio": 5.178108540144205,
+          "threshold": 3
+        },
+        {
+          "series": "pink",
+          "surface": "bg-tertiary",
+          "ratio": 5.486248661362882,
+          "threshold": 3
+        },
+        {
+          "series": "red",
+          "surface": "bg-tertiary",
+          "ratio": 5.87910623976589,
+          "threshold": 3
+        },
+        {
+          "series": "cyan",
+          "surface": "bg-tertiary",
+          "ratio": 4.868406900846337,
+          "threshold": 3
+        },
+        {
+          "series": "lime",
+          "surface": "bg-tertiary",
+          "ratio": 4.537369724415187,
+          "threshold": 3
+        },
+        {
+          "series": "orange",
+          "surface": "bg-tertiary",
+          "ratio": 4.705447555919602,
+          "threshold": 3
+        },
+        {
+          "series": "gray",
+          "surface": "bg-tertiary",
+          "ratio": 6.885561599310466,
+          "threshold": 3
+        },
+        {
+          "series": "indigo",
+          "surface": "bg-tertiary",
+          "ratio": 5.7132601447254086,
+          "threshold": 3
+        },
+        {
+          "series": "violet",
+          "surface": "bg-tertiary",
+          "ratio": 6.455970937757288,
+          "threshold": 3
+        }
+      ],
+      "axe": [],
+      "artifact": "tests/visual/reports/chart-report-palette-light-1366.png",
+      "writes": [],
+      "errors": []
+    },
+    {
+      "mode": "demand",
+      "theme": "dark",
+      "width": 1600,
+      "graphics": [
+        {
+          "color": "rgb(96, 165, 250)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 6.977485348624819,
+          "threshold": 3,
+          "pathLength": 1110,
+          "rendered": true
+        },
+        {
+          "color": "rgb(52, 211, 153)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 9.227778955167766,
+          "threshold": 3,
+          "pathLength": 1110,
+          "rendered": true
+        },
+        {
+          "color": "rgb(251, 191, 36)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 10.626632465425244,
+          "threshold": 3,
+          "pathLength": 1110,
+          "rendered": true
+        },
+        {
+          "color": "rgb(167, 139, 250)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 6.518561230025738,
+          "threshold": 3,
+          "pathLength": 1110,
+          "rendered": true
+        },
+        {
+          "color": "rgb(244, 114, 182)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 6.69803108551042,
+          "threshold": 3,
+          "pathLength": 1110,
+          "rendered": true
+        },
+        {
+          "color": "rgb(248, 113, 113)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 6.413155644503334,
+          "threshold": 3,
+          "pathLength": 1110,
+          "rendered": true
+        },
+        {
+          "color": "rgb(34, 211, 238)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 9.816257032464812,
+          "threshold": 3,
+          "pathLength": 1110,
+          "rendered": true
+        },
+        {
+          "color": "rgb(163, 230, 53)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 11.76518311896905,
+          "threshold": 3,
+          "pathLength": 1110,
+          "rendered": true
+        }
+      ],
+      "svgText": [
+        {
+          "text": "9月1日",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "9月8日",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "9月15日",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "9月22日",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "9月29日",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月6日",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月13日",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月20日",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月27日",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月3日",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月10日",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月17日",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月24日",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "12月1日",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "12月8日",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "12月15日",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "12月22日",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "12月31日",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "0",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "0.35",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "0.7",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "1.05",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "1.4",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "FTE(人数)",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        }
+      ],
+      "tokenPairs": [
+        {
+          "series": "blue",
+          "surface": "bg-primary",
+          "ratio": 6.977485348624819,
+          "threshold": 3
+        },
+        {
+          "series": "green",
+          "surface": "bg-primary",
+          "ratio": 9.227778955167766,
+          "threshold": 3
+        },
+        {
+          "series": "amber",
+          "surface": "bg-primary",
+          "ratio": 10.626632465425244,
+          "threshold": 3
+        },
+        {
+          "series": "purple",
+          "surface": "bg-primary",
+          "ratio": 6.518561230025738,
+          "threshold": 3
+        },
+        {
+          "series": "pink",
+          "surface": "bg-primary",
+          "ratio": 6.69803108551042,
+          "threshold": 3
+        },
+        {
+          "series": "red",
+          "surface": "bg-primary",
+          "ratio": 6.413155644503334,
+          "threshold": 3
+        },
+        {
+          "series": "cyan",
+          "surface": "bg-primary",
+          "ratio": 9.816257032464812,
+          "threshold": 3
+        },
+        {
+          "series": "lime",
+          "surface": "bg-primary",
+          "ratio": 11.76518311896905,
+          "threshold": 3
+        },
+        {
+          "series": "orange",
+          "surface": "bg-primary",
+          "ratio": 7.8381237820116265,
+          "threshold": 3
+        },
+        {
+          "series": "gray",
+          "surface": "bg-primary",
+          "ratio": 6.987328296864191,
+          "threshold": 3
+        },
+        {
+          "series": "indigo",
+          "surface": "bg-primary",
+          "ratio": 5.947131151756474,
+          "threshold": 3
+        },
+        {
+          "series": "violet",
+          "surface": "bg-primary",
+          "ratio": 8.624732496113394,
+          "threshold": 3
+        },
+        {
+          "series": "blue",
+          "surface": "bg-secondary",
+          "ratio": 5.773673508144512,
+          "threshold": 3
+        },
+        {
+          "series": "green",
+          "surface": "bg-secondary",
+          "ratio": 7.635728379274359,
+          "threshold": 3
+        },
+        {
+          "series": "amber",
+          "surface": "bg-secondary",
+          "ratio": 8.793240441344162,
+          "threshold": 3
+        },
+        {
+          "series": "purple",
+          "surface": "bg-secondary",
+          "ratio": 5.393926666207208,
+          "threshold": 3
+        },
+        {
+          "series": "pink",
+          "surface": "bg-secondary",
+          "ratio": 5.54243294007945,
+          "threshold": 3
+        },
+        {
+          "series": "red",
+          "surface": "bg-secondary",
+          "ratio": 5.306706499294051,
+          "threshold": 3
+        },
+        {
+          "series": "cyan",
+          "surface": "bg-secondary",
+          "ratio": 8.122677489913968,
+          "threshold": 3
+        },
+        {
+          "series": "lime",
+          "surface": "bg-secondary",
+          "ratio": 9.735359187224736,
+          "threshold": 3
+        },
+        {
+          "series": "orange",
+          "surface": "bg-secondary",
+          "ratio": 6.485827683275205,
+          "threshold": 3
+        },
+        {
+          "series": "gray",
+          "surface": "bg-secondary",
+          "ratio": 5.781818271859838,
+          "threshold": 3
+        },
+        {
+          "series": "indigo",
+          "surface": "bg-secondary",
+          "ratio": 4.92108429681256,
+          "threshold": 3
+        },
+        {
+          "series": "violet",
+          "surface": "bg-secondary",
+          "ratio": 7.136724341163578,
+          "threshold": 3
+        },
+        {
+          "series": "blue",
+          "surface": "bg-tertiary",
+          "ratio": 4.054147269957888,
+          "threshold": 3
+        },
+        {
+          "series": "green",
+          "surface": "bg-tertiary",
+          "ratio": 5.361641478221302,
+          "threshold": 3
+        },
+        {
+          "series": "amber",
+          "surface": "bg-tertiary",
+          "ratio": 6.174421133974945,
+          "threshold": 3
+        },
+        {
+          "series": "purple",
+          "surface": "bg-tertiary",
+          "ratio": 3.787497342430203,
+          "threshold": 3
+        },
+        {
+          "series": "pink",
+          "surface": "bg-tertiary",
+          "ratio": 3.8917752001825465,
+          "threshold": 3
+        },
+        {
+          "series": "red",
+          "surface": "bg-tertiary",
+          "ratio": 3.7262532486868616,
+          "threshold": 3
+        },
+        {
+          "series": "cyan",
+          "surface": "bg-tertiary",
+          "ratio": 5.703566494369719,
+          "threshold": 3
+        },
+        {
+          "series": "lime",
+          "surface": "bg-tertiary",
+          "ratio": 6.835956313648682,
+          "threshold": 3
+        },
+        {
+          "series": "orange",
+          "surface": "bg-tertiary",
+          "ratio": 4.554206357265557,
+          "threshold": 3
+        },
+        {
+          "series": "gray",
+          "surface": "bg-tertiary",
+          "ratio": 4.059866344916728,
+          "threshold": 3
+        },
+        {
+          "series": "indigo",
+          "surface": "bg-tertiary",
+          "ratio": 3.4554777714763563,
+          "threshold": 3
+        },
+        {
+          "series": "violet",
+          "surface": "bg-tertiary",
+          "ratio": 5.011251755638093,
+          "threshold": 3
+        }
+      ],
+      "axe": [],
+      "artifact": "tests/visual/reports/chart-demand-dark-1600.png",
+      "writes": [],
+      "errors": []
+    },
+    {
+      "mode": "person",
+      "theme": "dark",
+      "width": 1600,
+      "graphics": [
+        {
+          "color": "rgb(52, 211, 153)",
+          "background": [
+            29,
+            40,
+            58
+          ],
+          "ratio": 7.709814126902995,
+          "threshold": 3,
+          "pathLength": 1118,
+          "rendered": true
+        },
+        {
+          "color": "rgb(96, 165, 250)",
+          "background": [
+            29,
+            40,
+            58
+          ],
+          "ratio": 5.829692645699951,
+          "threshold": 3,
+          "pathLength": 1118,
+          "rendered": true
+        },
+        {
+          "color": "rgb(52, 211, 153)",
+          "background": [
+            29,
+            40,
+            58
+          ],
+          "ratio": 7.709814126902995,
+          "threshold": 3,
+          "pathLength": 1118,
+          "rendered": true
+        },
+        {
+          "color": "rgb(251, 191, 36)",
+          "background": [
+            29,
+            40,
+            58
+          ],
+          "ratio": 8.8785569638574,
+          "threshold": 3,
+          "pathLength": 1118,
+          "rendered": true
+        },
+        {
+          "color": "rgb(248, 113, 113)",
+          "background": [
+            29,
+            40,
+            58
+          ],
+          "ratio": 5.358194883756896,
+          "threshold": 3,
+          "pathLength": 1118,
+          "rendered": true
+        },
+        {
+          "color": "rgb(167, 139, 250)",
+          "background": [
+            29,
+            40,
+            58
+          ],
+          "ratio": 5.446261305402162,
+          "threshold": 3,
+          "pathLength": 1118,
+          "rendered": true
+        },
+        {
+          "color": "rgb(34, 211, 238)",
+          "background": [
+            29,
+            40,
+            58
+          ],
+          "ratio": 8.201487867221255,
+          "threshold": 3,
+          "pathLength": 1118,
+          "rendered": true
+        },
+        {
+          "color": "rgb(163, 230, 53)",
+          "background": [
+            29,
+            40,
+            58
+          ],
+          "ratio": 9.829816628348041,
+          "threshold": 3,
+          "pathLength": 1118,
+          "rendered": true
+        },
+        {
+          "color": "rgb(251, 146, 60)",
+          "background": [
+            29,
+            40,
+            58
+          ],
+          "ratio": 6.54875650539127,
+          "threshold": 3,
+          "pathLength": 1118,
+          "rendered": true
+        },
+        {
+          "color": "rgb(244, 114, 182)",
+          "background": [
+            29,
+            40,
+            58
+          ],
+          "ratio": 5.596208463205953,
+          "threshold": 3,
+          "pathLength": 1118,
+          "rendered": true
+        },
+        {
+          "color": "rgb(156, 163, 175)",
+          "background": [
+            29,
+            40,
+            58
+          ],
+          "ratio": 5.837916434084455,
+          "threshold": 3,
+          "pathLength": 1118,
+          "rendered": true
+        },
+        {
+          "color": "rgb(180, 171, 255)",
+          "background": [
+            29,
+            40,
+            58
+          ],
+          "ratio": 7.205968496032906,
+          "threshold": 3,
+          "pathLength": 1178,
+          "rendered": true
+        }
+      ],
+      "svgText": [
+        {
+          "text": "26年9月",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            29,
+            40,
+            58
+          ],
+          "ratio": 11.971289512692591,
+          "threshold": 4.5
+        },
+        {
+          "text": "26年10月",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            29,
+            40,
+            58
+          ],
+          "ratio": 11.971289512692591,
+          "threshold": 4.5
+        },
+        {
+          "text": "26年11月",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            29,
+            40,
+            58
+          ],
+          "ratio": 11.971289512692591,
+          "threshold": 4.5
+        },
+        {
+          "text": "26年12月",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            29,
+            40,
+            58
+          ],
+          "ratio": 11.971289512692591,
+          "threshold": 4.5
+        },
+        {
+          "text": "0",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            29,
+            40,
+            58
+          ],
+          "ratio": 11.971289512692591,
+          "threshold": 4.5
+        },
+        {
+          "text": "35",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            29,
+            40,
+            58
+          ],
+          "ratio": 11.971289512692591,
+          "threshold": 4.5
+        },
+        {
+          "text": "70",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            29,
+            40,
+            58
+          ],
+          "ratio": 11.971289512692591,
+          "threshold": 4.5
+        },
+        {
+          "text": "105",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            29,
+            40,
+            58
+          ],
+          "ratio": 11.971289512692591,
+          "threshold": 4.5
+        },
+        {
+          "text": "125",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            29,
+            40,
+            58
+          ],
+          "ratio": 11.971289512692591,
+          "threshold": 4.5
+        },
+        {
+          "text": "百分比 (%)",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            29,
+            40,
+            58
+          ],
+          "ratio": 11.971289512692591,
+          "threshold": 4.5
+        }
+      ],
+      "tokenPairs": [
+        {
+          "series": "blue",
+          "surface": "bg-primary",
+          "ratio": 6.977485348624819,
+          "threshold": 3
+        },
+        {
+          "series": "green",
+          "surface": "bg-primary",
+          "ratio": 9.227778955167766,
+          "threshold": 3
+        },
+        {
+          "series": "amber",
+          "surface": "bg-primary",
+          "ratio": 10.626632465425244,
+          "threshold": 3
+        },
+        {
+          "series": "purple",
+          "surface": "bg-primary",
+          "ratio": 6.518561230025738,
+          "threshold": 3
+        },
+        {
+          "series": "pink",
+          "surface": "bg-primary",
+          "ratio": 6.69803108551042,
+          "threshold": 3
+        },
+        {
+          "series": "red",
+          "surface": "bg-primary",
+          "ratio": 6.413155644503334,
+          "threshold": 3
+        },
+        {
+          "series": "cyan",
+          "surface": "bg-primary",
+          "ratio": 9.816257032464812,
+          "threshold": 3
+        },
+        {
+          "series": "lime",
+          "surface": "bg-primary",
+          "ratio": 11.76518311896905,
+          "threshold": 3
+        },
+        {
+          "series": "orange",
+          "surface": "bg-primary",
+          "ratio": 7.8381237820116265,
+          "threshold": 3
+        },
+        {
+          "series": "gray",
+          "surface": "bg-primary",
+          "ratio": 6.987328296864191,
+          "threshold": 3
+        },
+        {
+          "series": "indigo",
+          "surface": "bg-primary",
+          "ratio": 5.947131151756474,
+          "threshold": 3
+        },
+        {
+          "series": "violet",
+          "surface": "bg-primary",
+          "ratio": 8.624732496113394,
+          "threshold": 3
+        },
+        {
+          "series": "blue",
+          "surface": "bg-secondary",
+          "ratio": 5.773673508144512,
+          "threshold": 3
+        },
+        {
+          "series": "green",
+          "surface": "bg-secondary",
+          "ratio": 7.635728379274359,
+          "threshold": 3
+        },
+        {
+          "series": "amber",
+          "surface": "bg-secondary",
+          "ratio": 8.793240441344162,
+          "threshold": 3
+        },
+        {
+          "series": "purple",
+          "surface": "bg-secondary",
+          "ratio": 5.393926666207208,
+          "threshold": 3
+        },
+        {
+          "series": "pink",
+          "surface": "bg-secondary",
+          "ratio": 5.54243294007945,
+          "threshold": 3
+        },
+        {
+          "series": "red",
+          "surface": "bg-secondary",
+          "ratio": 5.306706499294051,
+          "threshold": 3
+        },
+        {
+          "series": "cyan",
+          "surface": "bg-secondary",
+          "ratio": 8.122677489913968,
+          "threshold": 3
+        },
+        {
+          "series": "lime",
+          "surface": "bg-secondary",
+          "ratio": 9.735359187224736,
+          "threshold": 3
+        },
+        {
+          "series": "orange",
+          "surface": "bg-secondary",
+          "ratio": 6.485827683275205,
+          "threshold": 3
+        },
+        {
+          "series": "gray",
+          "surface": "bg-secondary",
+          "ratio": 5.781818271859838,
+          "threshold": 3
+        },
+        {
+          "series": "indigo",
+          "surface": "bg-secondary",
+          "ratio": 4.92108429681256,
+          "threshold": 3
+        },
+        {
+          "series": "violet",
+          "surface": "bg-secondary",
+          "ratio": 7.136724341163578,
+          "threshold": 3
+        },
+        {
+          "series": "blue",
+          "surface": "bg-tertiary",
+          "ratio": 4.054147269957888,
+          "threshold": 3
+        },
+        {
+          "series": "green",
+          "surface": "bg-tertiary",
+          "ratio": 5.361641478221302,
+          "threshold": 3
+        },
+        {
+          "series": "amber",
+          "surface": "bg-tertiary",
+          "ratio": 6.174421133974945,
+          "threshold": 3
+        },
+        {
+          "series": "purple",
+          "surface": "bg-tertiary",
+          "ratio": 3.787497342430203,
+          "threshold": 3
+        },
+        {
+          "series": "pink",
+          "surface": "bg-tertiary",
+          "ratio": 3.8917752001825465,
+          "threshold": 3
+        },
+        {
+          "series": "red",
+          "surface": "bg-tertiary",
+          "ratio": 3.7262532486868616,
+          "threshold": 3
+        },
+        {
+          "series": "cyan",
+          "surface": "bg-tertiary",
+          "ratio": 5.703566494369719,
+          "threshold": 3
+        },
+        {
+          "series": "lime",
+          "surface": "bg-tertiary",
+          "ratio": 6.835956313648682,
+          "threshold": 3
+        },
+        {
+          "series": "orange",
+          "surface": "bg-tertiary",
+          "ratio": 4.554206357265557,
+          "threshold": 3
+        },
+        {
+          "series": "gray",
+          "surface": "bg-tertiary",
+          "ratio": 4.059866344916728,
+          "threshold": 3
+        },
+        {
+          "series": "indigo",
+          "surface": "bg-tertiary",
+          "ratio": 3.4554777714763563,
+          "threshold": 3
+        },
+        {
+          "series": "violet",
+          "surface": "bg-tertiary",
+          "ratio": 5.011251755638093,
+          "threshold": 3
+        }
+      ],
+      "axe": [],
+      "artifact": "tests/visual/reports/chart-person-dark-1600.png",
+      "writes": [],
+      "errors": []
+    },
+    {
+      "mode": "report-palette",
+      "theme": "dark",
+      "width": 1600,
+      "graphics": [
+        {
+          "color": "rgb(129, 140, 248)",
+          "background": [
+            29,
+            40,
+            58
+          ],
+          "ratio": 4.968831177157661,
+          "threshold": 3,
+          "pathLength": 157,
+          "rendered": true
+        },
+        {
+          "color": "rgb(52, 211, 153)",
+          "background": [
+            29,
+            40,
+            58
+          ],
+          "ratio": 7.709814126902995,
+          "threshold": 3,
+          "pathLength": 205.99998474121094,
+          "rendered": true
+        },
+        {
+          "color": "rgb(251, 191, 36)",
+          "background": [
+            29,
+            40,
+            58
+          ],
+          "ratio": 8.8785569638574,
+          "threshold": 3,
+          "pathLength": 255,
+          "rendered": true
+        },
+        {
+          "color": "rgb(248, 113, 113)",
+          "background": [
+            29,
+            40,
+            58
+          ],
+          "ratio": 5.358194883756896,
+          "threshold": 3,
+          "pathLength": 304,
+          "rendered": true
+        },
+        {
+          "color": "rgb(129, 140, 248)",
+          "background": [
+            29,
+            40,
+            58
+          ],
+          "ratio": 4.968831177157661,
+          "threshold": 3,
+          "pathLength": 353,
+          "rendered": true
+        },
+        {
+          "color": "rgb(52, 211, 153)",
+          "background": [
+            29,
+            40,
+            58
+          ],
+          "ratio": 7.709814126902995,
+          "threshold": 3,
+          "pathLength": 402,
+          "rendered": true
+        },
+        {
+          "color": "rgb(248, 113, 113)",
+          "background": [
+            29,
+            40,
+            58
+          ],
+          "ratio": 5.358194883756896,
+          "threshold": 3,
+          "pathLength": 451,
+          "rendered": true
+        },
+        {
+          "color": "rgb(167, 139, 250)",
+          "background": [
+            29,
+            40,
+            58
+          ],
+          "ratio": 5.446261305402162,
+          "threshold": 3,
+          "pathLength": 500,
+          "rendered": true
+        },
+        {
+          "color": "rgb(129, 140, 248)",
+          "background": [
+            29,
+            40,
+            58
+          ],
+          "ratio": 4.968831177157661,
+          "threshold": 3,
+          "pathLength": 549,
+          "rendered": true
+        },
+        {
+          "color": "rgb(52, 211, 153)",
+          "background": [
+            29,
+            40,
+            58
+          ],
+          "ratio": 7.709814126902995,
+          "threshold": 3,
+          "pathLength": 598,
+          "rendered": true
+        },
+        {
+          "color": "rgb(167, 139, 250)",
+          "background": [
+            29,
+            40,
+            58
+          ],
+          "ratio": 5.446261305402162,
+          "threshold": 3,
+          "pathLength": 647,
+          "rendered": true
+        },
+        {
+          "color": "rgb(251, 191, 36)",
+          "background": [
+            29,
+            40,
+            58
+          ],
+          "ratio": 8.8785569638574,
+          "threshold": 3,
+          "pathLength": 696,
+          "rendered": true
+        },
+        {
+          "color": "rgb(248, 113, 113)",
+          "background": [
+            29,
+            40,
+            58
+          ],
+          "ratio": 5.358194883756896,
+          "threshold": 3,
+          "pathLength": 745,
+          "rendered": true
+        },
+        {
+          "color": "rgb(251, 191, 36)",
+          "background": [
+            29,
+            40,
+            58
+          ],
+          "ratio": 8.8785569638574,
+          "threshold": 3,
+          "pathLength": 794,
+          "rendered": true
+        },
+        {
+          "color": "rgb(52, 211, 153)",
+          "background": [
+            29,
+            40,
+            58
+          ],
+          "ratio": 7.709814126902995,
+          "threshold": 3,
+          "pathLength": 843.0000610351562,
+          "rendered": true
+        },
+        {
+          "color": "rgb(129, 140, 248)",
+          "background": [
+            29,
+            40,
+            58
+          ],
+          "ratio": 4.968831177157661,
+          "threshold": 3,
+          "pathLength": 892,
+          "rendered": true
+        }
+      ],
+      "svgText": [
+        {
+          "text": "调色板",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            29,
+            40,
+            58
+          ],
+          "ratio": 11.971289512692591,
+          "threshold": 4.5
+        },
+        {
+          "text": "0",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            29,
+            40,
+            58
+          ],
+          "ratio": 11.971289512692591,
+          "threshold": 4.5
+        },
+        {
+          "text": "4",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            29,
+            40,
+            58
+          ],
+          "ratio": 11.971289512692591,
+          "threshold": 4.5
+        },
+        {
+          "text": "8",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            29,
+            40,
+            58
+          ],
+          "ratio": 11.971289512692591,
+          "threshold": 4.5
+        },
+        {
+          "text": "12",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            29,
+            40,
+            58
+          ],
+          "ratio": 11.971289512692591,
+          "threshold": 4.5
+        },
+        {
+          "text": "16",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            29,
+            40,
+            58
+          ],
+          "ratio": 11.971289512692591,
+          "threshold": 4.5
+        }
+      ],
+      "tokenPairs": [
+        {
+          "series": "blue",
+          "surface": "bg-primary",
+          "ratio": 6.977485348624819,
+          "threshold": 3
+        },
+        {
+          "series": "green",
+          "surface": "bg-primary",
+          "ratio": 9.227778955167766,
+          "threshold": 3
+        },
+        {
+          "series": "amber",
+          "surface": "bg-primary",
+          "ratio": 10.626632465425244,
+          "threshold": 3
+        },
+        {
+          "series": "purple",
+          "surface": "bg-primary",
+          "ratio": 6.518561230025738,
+          "threshold": 3
+        },
+        {
+          "series": "pink",
+          "surface": "bg-primary",
+          "ratio": 6.69803108551042,
+          "threshold": 3
+        },
+        {
+          "series": "red",
+          "surface": "bg-primary",
+          "ratio": 6.413155644503334,
+          "threshold": 3
+        },
+        {
+          "series": "cyan",
+          "surface": "bg-primary",
+          "ratio": 9.816257032464812,
+          "threshold": 3
+        },
+        {
+          "series": "lime",
+          "surface": "bg-primary",
+          "ratio": 11.76518311896905,
+          "threshold": 3
+        },
+        {
+          "series": "orange",
+          "surface": "bg-primary",
+          "ratio": 7.8381237820116265,
+          "threshold": 3
+        },
+        {
+          "series": "gray",
+          "surface": "bg-primary",
+          "ratio": 6.987328296864191,
+          "threshold": 3
+        },
+        {
+          "series": "indigo",
+          "surface": "bg-primary",
+          "ratio": 5.947131151756474,
+          "threshold": 3
+        },
+        {
+          "series": "violet",
+          "surface": "bg-primary",
+          "ratio": 8.624732496113394,
+          "threshold": 3
+        },
+        {
+          "series": "blue",
+          "surface": "bg-secondary",
+          "ratio": 5.773673508144512,
+          "threshold": 3
+        },
+        {
+          "series": "green",
+          "surface": "bg-secondary",
+          "ratio": 7.635728379274359,
+          "threshold": 3
+        },
+        {
+          "series": "amber",
+          "surface": "bg-secondary",
+          "ratio": 8.793240441344162,
+          "threshold": 3
+        },
+        {
+          "series": "purple",
+          "surface": "bg-secondary",
+          "ratio": 5.393926666207208,
+          "threshold": 3
+        },
+        {
+          "series": "pink",
+          "surface": "bg-secondary",
+          "ratio": 5.54243294007945,
+          "threshold": 3
+        },
+        {
+          "series": "red",
+          "surface": "bg-secondary",
+          "ratio": 5.306706499294051,
+          "threshold": 3
+        },
+        {
+          "series": "cyan",
+          "surface": "bg-secondary",
+          "ratio": 8.122677489913968,
+          "threshold": 3
+        },
+        {
+          "series": "lime",
+          "surface": "bg-secondary",
+          "ratio": 9.735359187224736,
+          "threshold": 3
+        },
+        {
+          "series": "orange",
+          "surface": "bg-secondary",
+          "ratio": 6.485827683275205,
+          "threshold": 3
+        },
+        {
+          "series": "gray",
+          "surface": "bg-secondary",
+          "ratio": 5.781818271859838,
+          "threshold": 3
+        },
+        {
+          "series": "indigo",
+          "surface": "bg-secondary",
+          "ratio": 4.92108429681256,
+          "threshold": 3
+        },
+        {
+          "series": "violet",
+          "surface": "bg-secondary",
+          "ratio": 7.136724341163578,
+          "threshold": 3
+        },
+        {
+          "series": "blue",
+          "surface": "bg-tertiary",
+          "ratio": 4.054147269957888,
+          "threshold": 3
+        },
+        {
+          "series": "green",
+          "surface": "bg-tertiary",
+          "ratio": 5.361641478221302,
+          "threshold": 3
+        },
+        {
+          "series": "amber",
+          "surface": "bg-tertiary",
+          "ratio": 6.174421133974945,
+          "threshold": 3
+        },
+        {
+          "series": "purple",
+          "surface": "bg-tertiary",
+          "ratio": 3.787497342430203,
+          "threshold": 3
+        },
+        {
+          "series": "pink",
+          "surface": "bg-tertiary",
+          "ratio": 3.8917752001825465,
+          "threshold": 3
+        },
+        {
+          "series": "red",
+          "surface": "bg-tertiary",
+          "ratio": 3.7262532486868616,
+          "threshold": 3
+        },
+        {
+          "series": "cyan",
+          "surface": "bg-tertiary",
+          "ratio": 5.703566494369719,
+          "threshold": 3
+        },
+        {
+          "series": "lime",
+          "surface": "bg-tertiary",
+          "ratio": 6.835956313648682,
+          "threshold": 3
+        },
+        {
+          "series": "orange",
+          "surface": "bg-tertiary",
+          "ratio": 4.554206357265557,
+          "threshold": 3
+        },
+        {
+          "series": "gray",
+          "surface": "bg-tertiary",
+          "ratio": 4.059866344916728,
+          "threshold": 3
+        },
+        {
+          "series": "indigo",
+          "surface": "bg-tertiary",
+          "ratio": 3.4554777714763563,
+          "threshold": 3
+        },
+        {
+          "series": "violet",
+          "surface": "bg-tertiary",
+          "ratio": 5.011251755638093,
+          "threshold": 3
+        }
+      ],
+      "axe": [],
+      "artifact": "tests/visual/reports/chart-report-palette-dark-1600.png",
+      "writes": [],
+      "errors": []
+    },
+    {
+      "mode": "demand",
+      "theme": "dark",
+      "width": 1366,
+      "graphics": [
+        {
+          "color": "rgb(96, 165, 250)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 6.977485348624819,
+          "threshold": 3,
+          "pathLength": 876,
+          "rendered": true
+        },
+        {
+          "color": "rgb(52, 211, 153)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 9.227778955167766,
+          "threshold": 3,
+          "pathLength": 876,
+          "rendered": true
+        },
+        {
+          "color": "rgb(251, 191, 36)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 10.626632465425244,
+          "threshold": 3,
+          "pathLength": 876,
+          "rendered": true
+        },
+        {
+          "color": "rgb(167, 139, 250)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 6.518561230025738,
+          "threshold": 3,
+          "pathLength": 876,
+          "rendered": true
+        },
+        {
+          "color": "rgb(244, 114, 182)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 6.69803108551042,
+          "threshold": 3,
+          "pathLength": 876,
+          "rendered": true
+        },
+        {
+          "color": "rgb(248, 113, 113)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 6.413155644503334,
+          "threshold": 3,
+          "pathLength": 876,
+          "rendered": true
+        },
+        {
+          "color": "rgb(34, 211, 238)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 9.816257032464812,
+          "threshold": 3,
+          "pathLength": 876,
+          "rendered": true
+        },
+        {
+          "color": "rgb(163, 230, 53)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 11.76518311896905,
+          "threshold": 3,
+          "pathLength": 876,
+          "rendered": true
+        }
+      ],
+      "svgText": [
+        {
+          "text": "9月1日",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "9月8日",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "9月15日",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "9月22日",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "9月29日",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月6日",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月13日",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月20日",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月27日",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月3日",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月10日",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月17日",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月24日",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "12月1日",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "12月8日",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "12月15日",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "12月22日",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "12月31日",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "0",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "0.35",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "0.7",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "1.05",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "1.4",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "FTE(人数)",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        }
+      ],
+      "tokenPairs": [
+        {
+          "series": "blue",
+          "surface": "bg-primary",
+          "ratio": 6.977485348624819,
+          "threshold": 3
+        },
+        {
+          "series": "green",
+          "surface": "bg-primary",
+          "ratio": 9.227778955167766,
+          "threshold": 3
+        },
+        {
+          "series": "amber",
+          "surface": "bg-primary",
+          "ratio": 10.626632465425244,
+          "threshold": 3
+        },
+        {
+          "series": "purple",
+          "surface": "bg-primary",
+          "ratio": 6.518561230025738,
+          "threshold": 3
+        },
+        {
+          "series": "pink",
+          "surface": "bg-primary",
+          "ratio": 6.69803108551042,
+          "threshold": 3
+        },
+        {
+          "series": "red",
+          "surface": "bg-primary",
+          "ratio": 6.413155644503334,
+          "threshold": 3
+        },
+        {
+          "series": "cyan",
+          "surface": "bg-primary",
+          "ratio": 9.816257032464812,
+          "threshold": 3
+        },
+        {
+          "series": "lime",
+          "surface": "bg-primary",
+          "ratio": 11.76518311896905,
+          "threshold": 3
+        },
+        {
+          "series": "orange",
+          "surface": "bg-primary",
+          "ratio": 7.8381237820116265,
+          "threshold": 3
+        },
+        {
+          "series": "gray",
+          "surface": "bg-primary",
+          "ratio": 6.987328296864191,
+          "threshold": 3
+        },
+        {
+          "series": "indigo",
+          "surface": "bg-primary",
+          "ratio": 5.947131151756474,
+          "threshold": 3
+        },
+        {
+          "series": "violet",
+          "surface": "bg-primary",
+          "ratio": 8.624732496113394,
+          "threshold": 3
+        },
+        {
+          "series": "blue",
+          "surface": "bg-secondary",
+          "ratio": 5.773673508144512,
+          "threshold": 3
+        },
+        {
+          "series": "green",
+          "surface": "bg-secondary",
+          "ratio": 7.635728379274359,
+          "threshold": 3
+        },
+        {
+          "series": "amber",
+          "surface": "bg-secondary",
+          "ratio": 8.793240441344162,
+          "threshold": 3
+        },
+        {
+          "series": "purple",
+          "surface": "bg-secondary",
+          "ratio": 5.393926666207208,
+          "threshold": 3
+        },
+        {
+          "series": "pink",
+          "surface": "bg-secondary",
+          "ratio": 5.54243294007945,
+          "threshold": 3
+        },
+        {
+          "series": "red",
+          "surface": "bg-secondary",
+          "ratio": 5.306706499294051,
+          "threshold": 3
+        },
+        {
+          "series": "cyan",
+          "surface": "bg-secondary",
+          "ratio": 8.122677489913968,
+          "threshold": 3
+        },
+        {
+          "series": "lime",
+          "surface": "bg-secondary",
+          "ratio": 9.735359187224736,
+          "threshold": 3
+        },
+        {
+          "series": "orange",
+          "surface": "bg-secondary",
+          "ratio": 6.485827683275205,
+          "threshold": 3
+        },
+        {
+          "series": "gray",
+          "surface": "bg-secondary",
+          "ratio": 5.781818271859838,
+          "threshold": 3
+        },
+        {
+          "series": "indigo",
+          "surface": "bg-secondary",
+          "ratio": 4.92108429681256,
+          "threshold": 3
+        },
+        {
+          "series": "violet",
+          "surface": "bg-secondary",
+          "ratio": 7.136724341163578,
+          "threshold": 3
+        },
+        {
+          "series": "blue",
+          "surface": "bg-tertiary",
+          "ratio": 4.054147269957888,
+          "threshold": 3
+        },
+        {
+          "series": "green",
+          "surface": "bg-tertiary",
+          "ratio": 5.361641478221302,
+          "threshold": 3
+        },
+        {
+          "series": "amber",
+          "surface": "bg-tertiary",
+          "ratio": 6.174421133974945,
+          "threshold": 3
+        },
+        {
+          "series": "purple",
+          "surface": "bg-tertiary",
+          "ratio": 3.787497342430203,
+          "threshold": 3
+        },
+        {
+          "series": "pink",
+          "surface": "bg-tertiary",
+          "ratio": 3.8917752001825465,
+          "threshold": 3
+        },
+        {
+          "series": "red",
+          "surface": "bg-tertiary",
+          "ratio": 3.7262532486868616,
+          "threshold": 3
+        },
+        {
+          "series": "cyan",
+          "surface": "bg-tertiary",
+          "ratio": 5.703566494369719,
+          "threshold": 3
+        },
+        {
+          "series": "lime",
+          "surface": "bg-tertiary",
+          "ratio": 6.835956313648682,
+          "threshold": 3
+        },
+        {
+          "series": "orange",
+          "surface": "bg-tertiary",
+          "ratio": 4.554206357265557,
+          "threshold": 3
+        },
+        {
+          "series": "gray",
+          "surface": "bg-tertiary",
+          "ratio": 4.059866344916728,
+          "threshold": 3
+        },
+        {
+          "series": "indigo",
+          "surface": "bg-tertiary",
+          "ratio": 3.4554777714763563,
+          "threshold": 3
+        },
+        {
+          "series": "violet",
+          "surface": "bg-tertiary",
+          "ratio": 5.011251755638093,
+          "threshold": 3
+        }
+      ],
+      "axe": [],
+      "artifact": "tests/visual/reports/chart-demand-dark-1366.png",
+      "writes": [],
+      "errors": []
+    },
+    {
+      "mode": "person",
+      "theme": "dark",
+      "width": 1366,
+      "graphics": [
+        {
+          "color": "rgb(52, 211, 153)",
+          "background": [
+            29,
+            40,
+            58
+          ],
+          "ratio": 7.709814126902995,
+          "threshold": 3,
+          "pathLength": 884,
+          "rendered": true
+        },
+        {
+          "color": "rgb(96, 165, 250)",
+          "background": [
+            29,
+            40,
+            58
+          ],
+          "ratio": 5.829692645699951,
+          "threshold": 3,
+          "pathLength": 884,
+          "rendered": true
+        },
+        {
+          "color": "rgb(52, 211, 153)",
+          "background": [
+            29,
+            40,
+            58
+          ],
+          "ratio": 7.709814126902995,
+          "threshold": 3,
+          "pathLength": 884,
+          "rendered": true
+        },
+        {
+          "color": "rgb(251, 191, 36)",
+          "background": [
+            29,
+            40,
+            58
+          ],
+          "ratio": 8.8785569638574,
+          "threshold": 3,
+          "pathLength": 884,
+          "rendered": true
+        },
+        {
+          "color": "rgb(248, 113, 113)",
+          "background": [
+            29,
+            40,
+            58
+          ],
+          "ratio": 5.358194883756896,
+          "threshold": 3,
+          "pathLength": 884,
+          "rendered": true
+        },
+        {
+          "color": "rgb(167, 139, 250)",
+          "background": [
+            29,
+            40,
+            58
+          ],
+          "ratio": 5.446261305402162,
+          "threshold": 3,
+          "pathLength": 884,
+          "rendered": true
+        },
+        {
+          "color": "rgb(34, 211, 238)",
+          "background": [
+            29,
+            40,
+            58
+          ],
+          "ratio": 8.201487867221255,
+          "threshold": 3,
+          "pathLength": 884,
+          "rendered": true
+        },
+        {
+          "color": "rgb(163, 230, 53)",
+          "background": [
+            29,
+            40,
+            58
+          ],
+          "ratio": 9.829816628348041,
+          "threshold": 3,
+          "pathLength": 884,
+          "rendered": true
+        },
+        {
+          "color": "rgb(251, 146, 60)",
+          "background": [
+            29,
+            40,
+            58
+          ],
+          "ratio": 6.54875650539127,
+          "threshold": 3,
+          "pathLength": 884,
+          "rendered": true
+        },
+        {
+          "color": "rgb(244, 114, 182)",
+          "background": [
+            29,
+            40,
+            58
+          ],
+          "ratio": 5.596208463205953,
+          "threshold": 3,
+          "pathLength": 884,
+          "rendered": true
+        },
+        {
+          "color": "rgb(156, 163, 175)",
+          "background": [
+            29,
+            40,
+            58
+          ],
+          "ratio": 5.837916434084455,
+          "threshold": 3,
+          "pathLength": 884,
+          "rendered": true
+        },
+        {
+          "color": "rgb(180, 171, 255)",
+          "background": [
+            29,
+            40,
+            58
+          ],
+          "ratio": 7.205968496032906,
+          "threshold": 3,
+          "pathLength": 944,
+          "rendered": true
+        }
+      ],
+      "svgText": [
+        {
+          "text": "26年9月",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            29,
+            40,
+            58
+          ],
+          "ratio": 11.971289512692591,
+          "threshold": 4.5
+        },
+        {
+          "text": "26年10月",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            29,
+            40,
+            58
+          ],
+          "ratio": 11.971289512692591,
+          "threshold": 4.5
+        },
+        {
+          "text": "26年11月",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            29,
+            40,
+            58
+          ],
+          "ratio": 11.971289512692591,
+          "threshold": 4.5
+        },
+        {
+          "text": "26年12月",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            29,
+            40,
+            58
+          ],
+          "ratio": 11.971289512692591,
+          "threshold": 4.5
+        },
+        {
+          "text": "0",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            29,
+            40,
+            58
+          ],
+          "ratio": 11.971289512692591,
+          "threshold": 4.5
+        },
+        {
+          "text": "35",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            29,
+            40,
+            58
+          ],
+          "ratio": 11.971289512692591,
+          "threshold": 4.5
+        },
+        {
+          "text": "70",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            29,
+            40,
+            58
+          ],
+          "ratio": 11.971289512692591,
+          "threshold": 4.5
+        },
+        {
+          "text": "105",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            29,
+            40,
+            58
+          ],
+          "ratio": 11.971289512692591,
+          "threshold": 4.5
+        },
+        {
+          "text": "125",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            29,
+            40,
+            58
+          ],
+          "ratio": 11.971289512692591,
+          "threshold": 4.5
+        },
+        {
+          "text": "百分比 (%)",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            29,
+            40,
+            58
+          ],
+          "ratio": 11.971289512692591,
+          "threshold": 4.5
+        }
+      ],
+      "tokenPairs": [
+        {
+          "series": "blue",
+          "surface": "bg-primary",
+          "ratio": 6.977485348624819,
+          "threshold": 3
+        },
+        {
+          "series": "green",
+          "surface": "bg-primary",
+          "ratio": 9.227778955167766,
+          "threshold": 3
+        },
+        {
+          "series": "amber",
+          "surface": "bg-primary",
+          "ratio": 10.626632465425244,
+          "threshold": 3
+        },
+        {
+          "series": "purple",
+          "surface": "bg-primary",
+          "ratio": 6.518561230025738,
+          "threshold": 3
+        },
+        {
+          "series": "pink",
+          "surface": "bg-primary",
+          "ratio": 6.69803108551042,
+          "threshold": 3
+        },
+        {
+          "series": "red",
+          "surface": "bg-primary",
+          "ratio": 6.413155644503334,
+          "threshold": 3
+        },
+        {
+          "series": "cyan",
+          "surface": "bg-primary",
+          "ratio": 9.816257032464812,
+          "threshold": 3
+        },
+        {
+          "series": "lime",
+          "surface": "bg-primary",
+          "ratio": 11.76518311896905,
+          "threshold": 3
+        },
+        {
+          "series": "orange",
+          "surface": "bg-primary",
+          "ratio": 7.8381237820116265,
+          "threshold": 3
+        },
+        {
+          "series": "gray",
+          "surface": "bg-primary",
+          "ratio": 6.987328296864191,
+          "threshold": 3
+        },
+        {
+          "series": "indigo",
+          "surface": "bg-primary",
+          "ratio": 5.947131151756474,
+          "threshold": 3
+        },
+        {
+          "series": "violet",
+          "surface": "bg-primary",
+          "ratio": 8.624732496113394,
+          "threshold": 3
+        },
+        {
+          "series": "blue",
+          "surface": "bg-secondary",
+          "ratio": 5.773673508144512,
+          "threshold": 3
+        },
+        {
+          "series": "green",
+          "surface": "bg-secondary",
+          "ratio": 7.635728379274359,
+          "threshold": 3
+        },
+        {
+          "series": "amber",
+          "surface": "bg-secondary",
+          "ratio": 8.793240441344162,
+          "threshold": 3
+        },
+        {
+          "series": "purple",
+          "surface": "bg-secondary",
+          "ratio": 5.393926666207208,
+          "threshold": 3
+        },
+        {
+          "series": "pink",
+          "surface": "bg-secondary",
+          "ratio": 5.54243294007945,
+          "threshold": 3
+        },
+        {
+          "series": "red",
+          "surface": "bg-secondary",
+          "ratio": 5.306706499294051,
+          "threshold": 3
+        },
+        {
+          "series": "cyan",
+          "surface": "bg-secondary",
+          "ratio": 8.122677489913968,
+          "threshold": 3
+        },
+        {
+          "series": "lime",
+          "surface": "bg-secondary",
+          "ratio": 9.735359187224736,
+          "threshold": 3
+        },
+        {
+          "series": "orange",
+          "surface": "bg-secondary",
+          "ratio": 6.485827683275205,
+          "threshold": 3
+        },
+        {
+          "series": "gray",
+          "surface": "bg-secondary",
+          "ratio": 5.781818271859838,
+          "threshold": 3
+        },
+        {
+          "series": "indigo",
+          "surface": "bg-secondary",
+          "ratio": 4.92108429681256,
+          "threshold": 3
+        },
+        {
+          "series": "violet",
+          "surface": "bg-secondary",
+          "ratio": 7.136724341163578,
+          "threshold": 3
+        },
+        {
+          "series": "blue",
+          "surface": "bg-tertiary",
+          "ratio": 4.054147269957888,
+          "threshold": 3
+        },
+        {
+          "series": "green",
+          "surface": "bg-tertiary",
+          "ratio": 5.361641478221302,
+          "threshold": 3
+        },
+        {
+          "series": "amber",
+          "surface": "bg-tertiary",
+          "ratio": 6.174421133974945,
+          "threshold": 3
+        },
+        {
+          "series": "purple",
+          "surface": "bg-tertiary",
+          "ratio": 3.787497342430203,
+          "threshold": 3
+        },
+        {
+          "series": "pink",
+          "surface": "bg-tertiary",
+          "ratio": 3.8917752001825465,
+          "threshold": 3
+        },
+        {
+          "series": "red",
+          "surface": "bg-tertiary",
+          "ratio": 3.7262532486868616,
+          "threshold": 3
+        },
+        {
+          "series": "cyan",
+          "surface": "bg-tertiary",
+          "ratio": 5.703566494369719,
+          "threshold": 3
+        },
+        {
+          "series": "lime",
+          "surface": "bg-tertiary",
+          "ratio": 6.835956313648682,
+          "threshold": 3
+        },
+        {
+          "series": "orange",
+          "surface": "bg-tertiary",
+          "ratio": 4.554206357265557,
+          "threshold": 3
+        },
+        {
+          "series": "gray",
+          "surface": "bg-tertiary",
+          "ratio": 4.059866344916728,
+          "threshold": 3
+        },
+        {
+          "series": "indigo",
+          "surface": "bg-tertiary",
+          "ratio": 3.4554777714763563,
+          "threshold": 3
+        },
+        {
+          "series": "violet",
+          "surface": "bg-tertiary",
+          "ratio": 5.011251755638093,
+          "threshold": 3
+        }
+      ],
+      "axe": [],
+      "artifact": "tests/visual/reports/chart-person-dark-1366.png",
+      "writes": [],
+      "errors": []
+    },
+    {
+      "mode": "report-palette",
+      "theme": "dark",
+      "width": 1366,
+      "graphics": [
+        {
+          "color": "rgb(129, 140, 248)",
+          "background": [
+            29,
+            40,
+            58
+          ],
+          "ratio": 4.968831177157661,
+          "threshold": 3,
+          "pathLength": 133,
+          "rendered": true
+        },
+        {
+          "color": "rgb(52, 211, 153)",
+          "background": [
+            29,
+            40,
+            58
+          ],
+          "ratio": 7.709814126902995,
+          "threshold": 3,
+          "pathLength": 182,
+          "rendered": true
+        },
+        {
+          "color": "rgb(251, 191, 36)",
+          "background": [
+            29,
+            40,
+            58
+          ],
+          "ratio": 8.8785569638574,
+          "threshold": 3,
+          "pathLength": 231,
+          "rendered": true
+        },
+        {
+          "color": "rgb(248, 113, 113)",
+          "background": [
+            29,
+            40,
+            58
+          ],
+          "ratio": 5.358194883756896,
+          "threshold": 3,
+          "pathLength": 280,
+          "rendered": true
+        },
+        {
+          "color": "rgb(129, 140, 248)",
+          "background": [
+            29,
+            40,
+            58
+          ],
+          "ratio": 4.968831177157661,
+          "threshold": 3,
+          "pathLength": 329,
+          "rendered": true
+        },
+        {
+          "color": "rgb(52, 211, 153)",
+          "background": [
+            29,
+            40,
+            58
+          ],
+          "ratio": 7.709814126902995,
+          "threshold": 3,
+          "pathLength": 378,
+          "rendered": true
+        },
+        {
+          "color": "rgb(248, 113, 113)",
+          "background": [
+            29,
+            40,
+            58
+          ],
+          "ratio": 5.358194883756896,
+          "threshold": 3,
+          "pathLength": 427,
+          "rendered": true
+        },
+        {
+          "color": "rgb(167, 139, 250)",
+          "background": [
+            29,
+            40,
+            58
+          ],
+          "ratio": 5.446261305402162,
+          "threshold": 3,
+          "pathLength": 476.0000305175781,
+          "rendered": true
+        },
+        {
+          "color": "rgb(129, 140, 248)",
+          "background": [
+            29,
+            40,
+            58
+          ],
+          "ratio": 4.968831177157661,
+          "threshold": 3,
+          "pathLength": 525,
+          "rendered": true
+        },
+        {
+          "color": "rgb(52, 211, 153)",
+          "background": [
+            29,
+            40,
+            58
+          ],
+          "ratio": 7.709814126902995,
+          "threshold": 3,
+          "pathLength": 574,
+          "rendered": true
+        },
+        {
+          "color": "rgb(167, 139, 250)",
+          "background": [
+            29,
+            40,
+            58
+          ],
+          "ratio": 5.446261305402162,
+          "threshold": 3,
+          "pathLength": 623,
+          "rendered": true
+        },
+        {
+          "color": "rgb(251, 191, 36)",
+          "background": [
+            29,
+            40,
+            58
+          ],
+          "ratio": 8.8785569638574,
+          "threshold": 3,
+          "pathLength": 672,
+          "rendered": true
+        },
+        {
+          "color": "rgb(248, 113, 113)",
+          "background": [
+            29,
+            40,
+            58
+          ],
+          "ratio": 5.358194883756896,
+          "threshold": 3,
+          "pathLength": 721,
+          "rendered": true
+        },
+        {
+          "color": "rgb(251, 191, 36)",
+          "background": [
+            29,
+            40,
+            58
+          ],
+          "ratio": 8.8785569638574,
+          "threshold": 3,
+          "pathLength": 770,
+          "rendered": true
+        },
+        {
+          "color": "rgb(52, 211, 153)",
+          "background": [
+            29,
+            40,
+            58
+          ],
+          "ratio": 7.709814126902995,
+          "threshold": 3,
+          "pathLength": 819,
+          "rendered": true
+        },
+        {
+          "color": "rgb(129, 140, 248)",
+          "background": [
+            29,
+            40,
+            58
+          ],
+          "ratio": 4.968831177157661,
+          "threshold": 3,
+          "pathLength": 868,
+          "rendered": true
+        }
+      ],
+      "svgText": [
+        {
+          "text": "调色板",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            29,
+            40,
+            58
+          ],
+          "ratio": 11.971289512692591,
+          "threshold": 4.5
+        },
+        {
+          "text": "0",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            29,
+            40,
+            58
+          ],
+          "ratio": 11.971289512692591,
+          "threshold": 4.5
+        },
+        {
+          "text": "4",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            29,
+            40,
+            58
+          ],
+          "ratio": 11.971289512692591,
+          "threshold": 4.5
+        },
+        {
+          "text": "8",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            29,
+            40,
+            58
+          ],
+          "ratio": 11.971289512692591,
+          "threshold": 4.5
+        },
+        {
+          "text": "12",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            29,
+            40,
+            58
+          ],
+          "ratio": 11.971289512692591,
+          "threshold": 4.5
+        },
+        {
+          "text": "16",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            29,
+            40,
+            58
+          ],
+          "ratio": 11.971289512692591,
+          "threshold": 4.5
+        }
+      ],
+      "tokenPairs": [
+        {
+          "series": "blue",
+          "surface": "bg-primary",
+          "ratio": 6.977485348624819,
+          "threshold": 3
+        },
+        {
+          "series": "green",
+          "surface": "bg-primary",
+          "ratio": 9.227778955167766,
+          "threshold": 3
+        },
+        {
+          "series": "amber",
+          "surface": "bg-primary",
+          "ratio": 10.626632465425244,
+          "threshold": 3
+        },
+        {
+          "series": "purple",
+          "surface": "bg-primary",
+          "ratio": 6.518561230025738,
+          "threshold": 3
+        },
+        {
+          "series": "pink",
+          "surface": "bg-primary",
+          "ratio": 6.69803108551042,
+          "threshold": 3
+        },
+        {
+          "series": "red",
+          "surface": "bg-primary",
+          "ratio": 6.413155644503334,
+          "threshold": 3
+        },
+        {
+          "series": "cyan",
+          "surface": "bg-primary",
+          "ratio": 9.816257032464812,
+          "threshold": 3
+        },
+        {
+          "series": "lime",
+          "surface": "bg-primary",
+          "ratio": 11.76518311896905,
+          "threshold": 3
+        },
+        {
+          "series": "orange",
+          "surface": "bg-primary",
+          "ratio": 7.8381237820116265,
+          "threshold": 3
+        },
+        {
+          "series": "gray",
+          "surface": "bg-primary",
+          "ratio": 6.987328296864191,
+          "threshold": 3
+        },
+        {
+          "series": "indigo",
+          "surface": "bg-primary",
+          "ratio": 5.947131151756474,
+          "threshold": 3
+        },
+        {
+          "series": "violet",
+          "surface": "bg-primary",
+          "ratio": 8.624732496113394,
+          "threshold": 3
+        },
+        {
+          "series": "blue",
+          "surface": "bg-secondary",
+          "ratio": 5.773673508144512,
+          "threshold": 3
+        },
+        {
+          "series": "green",
+          "surface": "bg-secondary",
+          "ratio": 7.635728379274359,
+          "threshold": 3
+        },
+        {
+          "series": "amber",
+          "surface": "bg-secondary",
+          "ratio": 8.793240441344162,
+          "threshold": 3
+        },
+        {
+          "series": "purple",
+          "surface": "bg-secondary",
+          "ratio": 5.393926666207208,
+          "threshold": 3
+        },
+        {
+          "series": "pink",
+          "surface": "bg-secondary",
+          "ratio": 5.54243294007945,
+          "threshold": 3
+        },
+        {
+          "series": "red",
+          "surface": "bg-secondary",
+          "ratio": 5.306706499294051,
+          "threshold": 3
+        },
+        {
+          "series": "cyan",
+          "surface": "bg-secondary",
+          "ratio": 8.122677489913968,
+          "threshold": 3
+        },
+        {
+          "series": "lime",
+          "surface": "bg-secondary",
+          "ratio": 9.735359187224736,
+          "threshold": 3
+        },
+        {
+          "series": "orange",
+          "surface": "bg-secondary",
+          "ratio": 6.485827683275205,
+          "threshold": 3
+        },
+        {
+          "series": "gray",
+          "surface": "bg-secondary",
+          "ratio": 5.781818271859838,
+          "threshold": 3
+        },
+        {
+          "series": "indigo",
+          "surface": "bg-secondary",
+          "ratio": 4.92108429681256,
+          "threshold": 3
+        },
+        {
+          "series": "violet",
+          "surface": "bg-secondary",
+          "ratio": 7.136724341163578,
+          "threshold": 3
+        },
+        {
+          "series": "blue",
+          "surface": "bg-tertiary",
+          "ratio": 4.054147269957888,
+          "threshold": 3
+        },
+        {
+          "series": "green",
+          "surface": "bg-tertiary",
+          "ratio": 5.361641478221302,
+          "threshold": 3
+        },
+        {
+          "series": "amber",
+          "surface": "bg-tertiary",
+          "ratio": 6.174421133974945,
+          "threshold": 3
+        },
+        {
+          "series": "purple",
+          "surface": "bg-tertiary",
+          "ratio": 3.787497342430203,
+          "threshold": 3
+        },
+        {
+          "series": "pink",
+          "surface": "bg-tertiary",
+          "ratio": 3.8917752001825465,
+          "threshold": 3
+        },
+        {
+          "series": "red",
+          "surface": "bg-tertiary",
+          "ratio": 3.7262532486868616,
+          "threshold": 3
+        },
+        {
+          "series": "cyan",
+          "surface": "bg-tertiary",
+          "ratio": 5.703566494369719,
+          "threshold": 3
+        },
+        {
+          "series": "lime",
+          "surface": "bg-tertiary",
+          "ratio": 6.835956313648682,
+          "threshold": 3
+        },
+        {
+          "series": "orange",
+          "surface": "bg-tertiary",
+          "ratio": 4.554206357265557,
+          "threshold": 3
+        },
+        {
+          "series": "gray",
+          "surface": "bg-tertiary",
+          "ratio": 4.059866344916728,
+          "threshold": 3
+        },
+        {
+          "series": "indigo",
+          "surface": "bg-tertiary",
+          "ratio": 3.4554777714763563,
+          "threshold": 3
+        },
+        {
+          "series": "violet",
+          "surface": "bg-tertiary",
+          "ratio": 5.011251755638093,
+          "threshold": 3
+        }
+      ],
+      "axe": [],
+      "artifact": "tests/visual/reports/chart-report-palette-dark-1366.png",
+      "writes": [],
+      "errors": []
+    }
+  ]
+}

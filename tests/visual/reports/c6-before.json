@@ -1,0 +1,418 @@
+{
+  "evidence": [
+    {
+      "profile": "import",
+      "theme": "light",
+      "artifact": "tests/visual/reports/c6-before-import-light.png",
+      "axe": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                "p:nth-child(3)"
+              ],
+              "html": "<p>或点击浏览文件</p>"
+            },
+            {
+              "target": [
+                ".text-sm"
+              ],
+              "html": "<p class=\"text-sm text-muted\">支持 .xlsx 和 .xls 文件</p>"
+            },
+            {
+              "target": [
+                ".sheet-item[role=\"listitem\"]:nth-child(3) > .sheet-badge[aria-label=\"可选的工作表\"]"
+              ],
+              "html": "<span class=\"sheet-badge\" aria-label=\"可选的工作表\">可选</span>"
+            },
+            {
+              "target": [
+                ".sheet-item[role=\"listitem\"]:nth-child(4) > .sheet-badge[aria-label=\"可选的工作表\"]"
+              ],
+              "html": "<span class=\"sheet-badge\" aria-label=\"可选的工作表\">可选</span>"
+            }
+          ]
+        }
+      ],
+      "writes": [],
+      "errors": []
+    },
+    {
+      "profile": "import",
+      "theme": "dark",
+      "artifact": "tests/visual/reports/c6-before-import-dark.png",
+      "axe": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                "p:nth-child(3)"
+              ],
+              "html": "<p>或点击浏览文件</p>"
+            },
+            {
+              "target": [
+                ".text-sm"
+              ],
+              "html": "<p class=\"text-sm text-muted\">支持 .xlsx 和 .xls 文件</p>"
+            },
+            {
+              "target": [
+                ".essential.sheet-item[role=\"listitem\"]:nth-child(1) > .sheet-badge[aria-label=\"必需的工作表\"]"
+              ],
+              "html": "<span class=\"sheet-badge\" aria-label=\"必需的工作表\">必需</span>"
+            },
+            {
+              "target": [
+                ".essential.sheet-item[role=\"listitem\"]:nth-child(2) > .sheet-badge[aria-label=\"必需的工作表\"]"
+              ],
+              "html": "<span class=\"sheet-badge\" aria-label=\"必需的工作表\">必需</span>"
+            },
+            {
+              "target": [
+                ".sheet-item[role=\"listitem\"]:nth-child(3) > .sheet-badge[aria-label=\"可选的工作表\"]"
+              ],
+              "html": "<span class=\"sheet-badge\" aria-label=\"可选的工作表\">可选</span>"
+            },
+            {
+              "target": [
+                ".sheet-item[role=\"listitem\"]:nth-child(4) > .sheet-badge[aria-label=\"可选的工作表\"]"
+              ],
+              "html": "<span class=\"sheet-badge\" aria-label=\"可选的工作表\">可选</span>"
+            }
+          ]
+        }
+      ],
+      "writes": [],
+      "errors": []
+    },
+    {
+      "profile": "import-export",
+      "theme": "light",
+      "artifact": "tests/visual/reports/c6-before-import-export-light.png",
+      "axe": [],
+      "writes": [],
+      "errors": []
+    },
+    {
+      "profile": "import-export",
+      "theme": "dark",
+      "artifact": "tests/visual/reports/c6-before-import-export-dark.png",
+      "axe": [],
+      "writes": [],
+      "errors": []
+    },
+    {
+      "profile": "project-types",
+      "theme": "light",
+      "artifact": "tests/visual/reports/c6-before-project-types-light.png",
+      "axe": [],
+      "writes": [],
+      "errors": []
+    },
+    {
+      "profile": "project-types",
+      "theme": "dark",
+      "artifact": "tests/visual/reports/c6-before-project-types-dark.png",
+      "axe": [],
+      "writes": [],
+      "errors": []
+    },
+    {
+      "profile": "iterations",
+      "theme": "light",
+      "artifact": "tests/visual/reports/c6-before-iterations-light.png",
+      "axe": [],
+      "writes": [],
+      "errors": []
+    },
+    {
+      "profile": "iterations",
+      "theme": "dark",
+      "artifact": "tests/visual/reports/c6-before-iterations-dark.png",
+      "axe": [],
+      "writes": [],
+      "errors": []
+    },
+    {
+      "profile": "reports",
+      "theme": "light",
+      "artifact": "tests/visual/reports/c6-before-reports-light.png",
+      "axe": [],
+      "writes": [],
+      "errors": []
+    },
+    {
+      "profile": "reports",
+      "theme": "dark",
+      "artifact": "tests/visual/reports/c6-before-reports-dark.png",
+      "axe": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".report-table-container:nth-child(1) > table > tbody > tr:nth-child(1) > .actions-cell > .btn-sm.btn-outline.btn"
+              ],
+              "html": "<a class=\"btn btn-sm btn-outline \" href=\"/projects/undefined?from=demand-report&demand=1585&startDate=2023-01-01&endDate=2027-09-30\" data-discover=\"true\">"
+            },
+            {
+              "target": [
+                ".report-table-container:nth-child(1) > table > tbody > tr:nth-child(2) > .actions-cell > .btn-sm.btn-outline.btn"
+              ],
+              "html": "<a class=\"btn btn-sm btn-outline \" href=\"/projects/undefined?from=demand-report&demand=1248&startDate=2023-01-01&endDate=2027-09-30\" data-discover=\"true\">"
+            },
+            {
+              "target": [
+                ".report-table-container:nth-child(1) > table > tbody > tr:nth-child(3) > .actions-cell > .btn-sm.btn-outline.btn"
+              ],
+              "html": "<a class=\"btn btn-sm btn-outline \" href=\"/projects/undefined?from=demand-report&demand=1170&startDate=2023-01-01&endDate=2027-09-30\" data-discover=\"true\">"
+            },
+            {
+              "target": [
+                "tr:nth-child(4) > .actions-cell > .btn-sm.btn-outline.btn"
+              ],
+              "html": "<a class=\"btn btn-sm btn-outline \" href=\"/projects/undefined?from=demand-report&demand=480&startDate=2023-01-01&endDate=2027-09-30\" data-discover=\"true\">"
+            },
+            {
+              "target": [
+                "tr:nth-child(5) > .actions-cell > .btn-sm.btn-outline.btn"
+              ],
+              "html": "<a class=\"btn btn-sm btn-outline \" href=\"/projects/undefined?from=demand-report&demand=391&startDate=2023-01-01&endDate=2027-09-30\" data-discover=\"true\">"
+            },
+            {
+              "target": [
+                ".report-table-container:nth-child(2) > table > tbody > tr:nth-child(1) > .actions-cell > .btn-sm.btn-outline.btn"
+              ],
+              "html": "<a class=\"btn btn-sm btn-outline \" href=\"/people?role=%E5%BC%80%E5%8F%91&from=demand-report&demand=4325&startDate=2023-01-01&endDate=2027-09-30\" data-discover=\"true\">"
+            },
+            {
+              "target": [
+                ".report-table-container:nth-child(2) > table > tbody > tr:nth-child(2) > .actions-cell > .btn-sm.btn-outline.btn"
+              ],
+              "html": "<a class=\"btn btn-sm btn-outline \" href=\"/people?role=MDE&from=demand-report&demand=1724&startDate=2023-01-01&endDate=2027-09-30\" data-discover=\"true\">"
+            },
+            {
+              "target": [
+                ".report-table-container:nth-child(2) > table > tbody > tr:nth-child(3) > .actions-cell > .btn-sm.btn-outline.btn"
+              ],
+              "html": "<a class=\"btn btn-sm btn-outline \" href=\"/people?role=SE&from=demand-report&demand=1452&startDate=2023-01-01&endDate=2027-09-30\" data-discover=\"true\">"
+            }
+          ]
+        }
+      ],
+      "writes": [],
+      "errors": []
+    },
+    {
+      "profile": "locations",
+      "theme": "light",
+      "artifact": "tests/visual/reports/c6-before-locations-light.png",
+      "axe": [],
+      "writes": [],
+      "errors": []
+    },
+    {
+      "profile": "locations",
+      "theme": "dark",
+      "artifact": "tests/visual/reports/c6-before-locations-dark.png",
+      "axe": [],
+      "writes": [],
+      "errors": []
+    },
+    {
+      "profile": "audit-log",
+      "theme": "light",
+      "artifact": "tests/visual/reports/c6-before-audit-log-light.png",
+      "axe": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                "tr:nth-child(4) > td:nth-child(6) > .audit-actions > .btn--danger.btn--small.btn"
+              ],
+              "html": "<button class=\"btn btn--small btn--danger\">撤销</button>"
+            },
+            {
+              "target": [
+                "tr:nth-child(5) > td:nth-child(6) > .audit-actions > .btn--danger.btn--small.btn"
+              ],
+              "html": "<button class=\"btn btn--small btn--danger\">撤销</button>"
+            },
+            {
+              "target": [
+                "tr:nth-child(6) > td:nth-child(6) > .audit-actions > .btn--danger.btn--small.btn"
+              ],
+              "html": "<button class=\"btn btn--small btn--danger\">撤销</button>"
+            },
+            {
+              "target": [
+                "tr:nth-child(7) > td:nth-child(6) > .audit-actions > .btn--danger.btn--small.btn"
+              ],
+              "html": "<button class=\"btn btn--small btn--danger\">撤销</button>"
+            },
+            {
+              "target": [
+                "tr:nth-child(8) > td:nth-child(6) > .audit-actions > .btn--danger.btn--small.btn"
+              ],
+              "html": "<button class=\"btn btn--small btn--danger\">撤销</button>"
+            },
+            {
+              "target": [
+                "tr:nth-child(9) > td:nth-child(6) > .audit-actions > .btn--danger.btn--small.btn"
+              ],
+              "html": "<button class=\"btn btn--small btn--danger\">撤销</button>"
+            },
+            {
+              "target": [
+                "tr:nth-child(10) > td:nth-child(6) > .audit-actions > .btn--danger.btn--small.btn"
+              ],
+              "html": "<button class=\"btn btn--small btn--danger\">撤销</button>"
+            }
+          ]
+        }
+      ],
+      "writes": [],
+      "errors": []
+    },
+    {
+      "profile": "audit-log",
+      "theme": "dark",
+      "artifact": "tests/visual/reports/c6-before-audit-log-dark.png",
+      "axe": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                "tr:nth-child(4) > td:nth-child(6) > .audit-actions > .btn--danger.btn--small.btn"
+              ],
+              "html": "<button class=\"btn btn--small btn--danger\">撤销</button>"
+            },
+            {
+              "target": [
+                "tr:nth-child(5) > td:nth-child(6) > .audit-actions > .btn--danger.btn--small.btn"
+              ],
+              "html": "<button class=\"btn btn--small btn--danger\">撤销</button>"
+            },
+            {
+              "target": [
+                "tr:nth-child(6) > td:nth-child(6) > .audit-actions > .btn--danger.btn--small.btn"
+              ],
+              "html": "<button class=\"btn btn--small btn--danger\">撤销</button>"
+            },
+            {
+              "target": [
+                "tr:nth-child(7) > td:nth-child(6) > .audit-actions > .btn--danger.btn--small.btn"
+              ],
+              "html": "<button class=\"btn btn--small btn--danger\">撤销</button>"
+            },
+            {
+              "target": [
+                "tr:nth-child(8) > td:nth-child(6) > .audit-actions > .btn--danger.btn--small.btn"
+              ],
+              "html": "<button class=\"btn btn--small btn--danger\">撤销</button>"
+            },
+            {
+              "target": [
+                "tr:nth-child(9) > td:nth-child(6) > .audit-actions > .btn--danger.btn--small.btn"
+              ],
+              "html": "<button class=\"btn btn--small btn--danger\">撤销</button>"
+            },
+            {
+              "target": [
+                "tr:nth-child(10) > td:nth-child(6) > .audit-actions > .btn--danger.btn--small.btn"
+              ],
+              "html": "<button class=\"btn btn--small btn--danger\">撤销</button>"
+            }
+          ]
+        }
+      ],
+      "writes": [],
+      "errors": []
+    },
+    {
+      "profile": "person-detail",
+      "theme": "light",
+      "artifact": "tests/visual/reports/c6-before-person-detail-light.png",
+      "axe": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                ".summary-card:nth-child(1) > .summary-label"
+              ],
+              "html": "<div class=\"summary-label\">峰值分配</div>"
+            },
+            {
+              "target": [
+                ".summary-card:nth-child(2) > .summary-label"
+              ],
+              "html": "<div class=\"summary-label\">平均分配</div>"
+            },
+            {
+              "target": [
+                ".summary-card:nth-child(3) > .summary-label"
+              ],
+              "html": "<div class=\"summary-label\">峰值利用率</div>"
+            },
+            {
+              "target": [
+                ".summary-card:nth-child(4) > .summary-label"
+              ],
+              "html": "<div class=\"summary-label\">活跃项目</div>"
+            }
+          ]
+        }
+      ],
+      "writes": [],
+      "errors": []
+    },
+    {
+      "profile": "person-detail",
+      "theme": "dark",
+      "artifact": "tests/visual/reports/c6-before-person-detail-dark.png",
+      "axe": [],
+      "writes": [],
+      "errors": []
+    },
+    {
+      "profile": "role-detail",
+      "theme": "light",
+      "artifact": "tests/visual/reports/c6-before-role-detail-light.png",
+      "axe": [],
+      "writes": [],
+      "errors": []
+    },
+    {
+      "profile": "role-detail",
+      "theme": "dark",
+      "artifact": "tests/visual/reports/c6-before-role-detail-dark.png",
+      "axe": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            {
+              "target": [
+                "tr:nth-child(1) > td:nth-child(1) > div > div:nth-child(2)"
+              ],
+              "html": "<div style=\"font-size: 0.875rem; color: rgb(107, 114, 128);\">容量预留常驻条目(非业务需求)</div>"
+            },
+            {
+              "target": [
+                "tr:nth-child(4) > td:nth-child(1) > div > div:nth-child(2)"
+              ],
+              "html": "<div style=\"font-size: 0.875rem; color: rgb(107, 114, 128);\">容量预留常驻条目(非业务需求)</div>"
+            }
+          ]
+        }
+      ],
+      "writes": [],
+      "errors": []
+    }
+  ]
+}

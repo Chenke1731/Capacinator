@@ -26,10 +26,10 @@ const sizeClasses = {
 };
 
 const variantClasses = {
-  default: "bg-primary",
-  success: "bg-green-500",
-  warning: "bg-yellow-500",
-  danger: "bg-red-500",
+  default: "bg-[var(--primary-text)]",
+  success: "bg-[var(--status-success-text)]",
+  warning: "bg-[var(--status-warning-text)]",
+  danger: "bg-[var(--status-danger-text)]",
 };
 
 export function ProgressBar({

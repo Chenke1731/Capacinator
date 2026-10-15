@@ -10,11 +10,11 @@
 
 .dashboard-alert-item:hover {
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px color-mix(in srgb, var(--solid-shade) 10%, transparent);
 }
 
 .dashboard-alert-item:focus-within {
-  outline: 2px solid #3b82f6;
+  outline: 2px solid var(--status-info-border);
   outline-offset: 2px;
 }
 
@@ -41,7 +41,7 @@
   justify-content: center;
   padding: 2rem 1rem;
   text-align: center;
-  color: #059669;
+  color: var(--status-success-text);
 }
 
 .dashboard-healthy-icon {
@@ -49,7 +49,7 @@
   height: 3rem;
   margin: 0 auto 0.75rem;
   border-radius: 50%;
-  background-color: #d1fae5;
+  background-color: var(--status-success-soft);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -90,11 +90,11 @@
 
 .enhanced-kpis .kpi-card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 8px 25px color-mix(in srgb, var(--solid-shade) 15%, transparent);
 }
 
 .enhanced-kpis .kpi-card:focus-within {
-  outline: 2px solid #3b82f6;
+  outline: 2px solid var(--status-info-border);
   outline-offset: 2px;
 }
 
@@ -105,23 +105,23 @@
 
 /* KPI status indicators */
 .kpi-status-excellent {
-  color: #059669;
-  background-color: #d1fae5;
+  color: var(--status-success-text);
+  background-color: var(--status-success-soft);
 }
 
 .kpi-status-good {
-  color: #2563eb;
-  background-color: #dbeafe;
+  color: var(--status-info-text);
+  background-color: var(--status-info-soft);
 }
 
 .kpi-status-warning {
-  color: #d97706;
-  background-color: #fef3c7;
+  color: var(--status-warning-text);
+  background-color: var(--status-warning-soft);
 }
 
 .kpi-status-critical {
-  color: #dc2626;
-  background-color: #fee2e2;
+  color: var(--status-danger-text);
+  background-color: var(--status-danger-soft);
 }
 
 /* Responsive adjustments for KPIs */

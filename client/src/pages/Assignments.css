@@ -162,28 +162,28 @@
 }
 
 .priority-badge.high {
-  background-color: var(--danger);
-  color: white;
+  background-color: var(--status-danger-solid);
+  color: var(--solid-foreground);
 }
 
 .priority-badge.medium {
-  background-color: var(--warning);
-  color: white;
+  background-color: var(--status-warning-solid);
+  color: var(--solid-foreground);
 }
 
 .priority-badge.low {
-  background-color: var(--success);
-  color: white;
+  background-color: var(--status-success-solid);
+  color: var(--solid-foreground);
 }
 
 .type-badge.complex {
-  background-color: var(--primary);
-  color: white;
+  background-color: var(--primary-solid);
+  color: var(--solid-foreground);
 }
 
 .type-badge.simple {
-  background-color: var(--success);
-  color: white;
+  background-color: var(--status-success-solid);
+  color: var(--solid-foreground);
 }
 
 .confidence-badge {
@@ -230,8 +230,8 @@
 /* Recommendation Action Buttons */
 .execute-button {
   padding: 0.5rem 1rem;
-  background-color: var(--primary);
-  color: white;
+  background-color: var(--primary-solid);
+  color: var(--solid-foreground);
   border: none;
   border-radius: 4px;
   cursor: pointer;
@@ -390,9 +390,9 @@
 
 /* Execute Button Styles */
 .recommendations-table .btn-primary {
-  background-color: var(--primary) !important;
-  color: white !important;
-  border: 1px solid var(--primary) !important;
+  background-color: var(--primary-solid) !important;
+  color: var(--solid-foreground) !important;
+  border: 1px solid var(--primary-solid) !important;
   display: inline-flex;
   align-items: center;
   gap: 0.375rem;
@@ -409,8 +409,8 @@
 }
 
 .recommendations-table .btn-primary svg {
-  color: white !important;
-  fill: white !important;
+  color: var(--solid-foreground) !important;
+  fill: var(--solid-foreground) !important;
 }
 
 /* Inline editing styles */

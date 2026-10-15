@@ -32,11 +32,25 @@ export const profiles = {
   'project-detail-phases': {path:'/projects/:audit-id',entity:'phased-project',root:'main > .max-w-7xl',ready:'.project-phase-timeline .timeline-container',minElements:5,safeTriggers:'.chart-tab',scrollInto:'.chart-container'},
   'phase-template': {path:'/project-types/:audit-id',entity:'phased-type',root:'.phase-template-designer',ready:'.phases-table',minElements:3,safeTriggers:'.add-phase-btn',requiredTriggers:1},
   'project-type-detail': {path:'/project-types/:audit-id',entity:'phased-type',root:'.role-details-page',ready:'.project-type-header',minElements:5},
+  'project-detail-tagged': {path:'/projects/project-1789912193028-uo604tadh',root:'main > .max-w-7xl',ready:'.tag-badge',minElements:3},
   scenarios: {path:'/scenarios',root:'.scenarios-page',ready:'.hierarchy-row',minElements:5,safeTriggers:'.page-header > button, .filter-button, .action-button.edit',requiredTriggers:3,floatingRoot:'[role="dialog"]',floatingMin:3},
   'scenarios-rich': {path:'/scenarios',root:'.scenarios-page',ready:'.hierarchy-row.branch',minElements:10,safeTriggers:'.page-header > button, .filter-button, .hierarchy-row.baseline .action-button.edit, .hierarchy-row.branch .action-button.compare, .hierarchy-row.branch .action-button.merge',requiredTriggers:5,floatingRoot:'[role="dialog"]',floatingMin:3,fixture:'tests/visual/fixtures/scenarios.json'},
-  import: {path:'/import',root:'.import-container',ready:'.import-card',minElements:4,safeTriggers:'.settings-preview .btn-ghost'},
+  import: {path:'/import',root:'.import-container',ready:'.import-card',minElements:3,safeTriggers:'.settings-preview .btn-ghost'},
+  'import-export': {path:'/import?tab=export',root:'.import-container',ready:'.export-section',minElements:4},
+  'project-types': {path:'/projects?tab=types',root:'.unified-tab-content .page-container',ready:'.view-mode-toggle',minElements:5},
+  'project-types-hierarchy': {path:'/projects?tab=types&view=hierarchy',root:'.unified-tab-content .page-container',ready:'.hierarchy-view',minElements:5},
+  iterations: {path:'/iterations',root:'.iterations-page',ready:'.it-card-head',minElements:3,hoverReveal:'.it-card-head'},
+  reports: {path:'/reports',root:'.reports-tab-content',ready:'.page-header',minElements:5},
+  'reports-capacity': {path:'/reports?tab=capacity',root:'.reports-tab-content',ready:'.page-header',minElements:5},
+  'reports-utilization': {path:'/reports?tab=utilization',root:'.reports-tab-content',ready:'.page-header',minElements:5},
+  'reports-gaps': {path:'/reports?tab=gaps',root:'.reports-tab-content',ready:'.page-header',minElements:5},
+  locations: {path:'/locations',root:'.page-container',ready:'table',minElements:2},
+  'audit-log': {path:'/audit-log',root:'.page-container',ready:'.audit-stats',minElements:3},
+  'person-detail': {path:'/people/eb8ecaf7-44a3-4384-a74b-2c18e9e894b1',root:'.person-details',ready:'.person-details-content',minElements:3},
+  'role-detail': {path:'/roles/501d8abc-0c77-45e9-98c8-7832302e63cb',root:'.role-details-page',ready:'.role-content',minElements:3},
   people: {path:'/people',root:'main',ready:'table',minElements:5},
   assignments: {path:'/assignments',root:'main',ready:'table',minElements:5},
+  'assignment-recommendations': {path:'/assignments?tab=recommendations',root:'.page-container',ready:'.recommendations-container',minElements:3},
   dashboard: {path:'/dashboard',root:'main',ready:'.stats-grid',minElements:3},
   settings: {path:'/settings',root:'.unified-tab-container',ready:'.settings-section',minElements:5},
   'settings-appearance': {path:'/settings?tab=appearance',root:'.unified-tab-container',ready:'.theme-selector',minElements:5},
@@ -77,6 +91,26 @@ export async function resolveProfile(profile,auth){
 }
 export async function prepareProfile(page,profile){
   if(profile.scrollInto)await page.locator(profile.scrollInto).first().scrollIntoViewIfNeeded();
+  if(profile.name==='iterations') {
+    const target=page.locator('.it-card-head').filter({hasText:'11月迭代'});
+    if(await target.count()!==1)throw Error('Expected the frozen November iteration with nonempty workload');
+    await target.click();await page.locator('.it-load-row--over').waitFor({state:'visible'});
+  }
+  if(profile.name==='project-types-hierarchy') {
+    const toggles=page.locator('.expand-toggle');
+    if(await toggles.count()!==4)throw Error('Hierarchy fixture must contain four real parents');
+    for(let i=0;i<4;i++)await toggles.nth(i).click();
+    if(await page.locator('.project-type-row.sub-type').count()!==4)throw Error('Hierarchy must render each child exactly once');
+    // Clicking the last parent can scroll both nested containers by a few pixels
+    // before React remounts the row. The default scene starts at the same origin
+    // in every viewport; preserve the clicks and reset only their scroll effects.
+    await page.mouse.move(0,0);
+    await page.locator('.hierarchy-view').evaluate(async root=>{
+      for(let e=root;e;e=e.parentElement)e.scrollTo({top:0,left:0,behavior:'instant'});
+      await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));
+      for(let e=root;e;e=e.parentElement)if(e.scrollTop!==0||e.scrollLeft!==0)throw Error('Hierarchy default scene did not return to its scroll origin');
+    });
+  }
 }
 export async function assertProfileReady(page, profile, base) {
   if(!matchesPage(page.url(),profile.path,base)) throw new Error(`Wrong page: ${page.url()} expected ${profile.path}`);

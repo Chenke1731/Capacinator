@@ -39,13 +39,13 @@
   /* 实心主色底上用白字(--primary-text 语义是"浅底上的主色文字",
      浅色主题下与 --primary 同值 #4f46e5 → 靛蓝底靛蓝字完全隐形,
      2026-09-23 用户截圈实测按钮内非底色像素 0%) */
-  color: #fff;
+  color: var(--solid-foreground);
 }
 
 /* 深色主题: --primary(#6366f1) 上白字 4.46:1 差线——按钮族降一档
    indigo-600/700,白字 6.3/7.4:1 过 AA 且 hover 反馈保留 */
-[data-theme='dark'] .it-btn--primary { background: #4f46e5; border-color: #4f46e5; }
-[data-theme='dark'] .it-btn--primary:hover:not(:disabled) { background: #4338ca; border-color: #4338ca; }
+[data-theme='dark'] .it-btn--primary { background: var(--primary-solid); border-color: var(--primary-text); }
+[data-theme='dark'] .it-btn--primary:hover:not(:disabled) { background: var(--primary-solid); border-color: var(--primary-text); }
 
 .it-btn--primary:hover:not(:disabled) {
   background: var(--primary-hover);
@@ -248,8 +248,8 @@
 }
 
 .it-load-row--over {
-  background: rgba(180, 83, 9, 0.08);
-  color: #b45309;
+  background: var(--status-warning-soft);
+  color: var(--status-warning-text);
 }
 
 .it-load-role {
@@ -265,19 +265,19 @@
 }
 
 .it-load-row--over .it-load-role {
-  border-color: rgba(180, 83, 9, 0.35);
-  color: #b45309;
+  border-color: var(--status-warning-border);
+  color: var(--status-warning-text);
 }
 
 /* 深色主题: 琥珀改亮字(#fbbf34), 底改半透明琥珀 */
 .dark .it-load-row--over {
-  background: rgba(251, 191, 52, 0.1);
-  color: #fbbf34;
+  background: var(--status-warning-soft);
+  color: var(--status-warning-text);
 }
 
 .dark .it-load-row--over .it-load-role {
-  border-color: rgba(251, 191, 52, 0.35);
-  color: #fbbf34;
+  border-color: var(--status-warning-border);
+  color: var(--status-warning-text);
 }
 
 /* ── 事项清单 / 未排池共用行 ── */

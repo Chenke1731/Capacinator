@@ -167,29 +167,29 @@ export function BoardDiagnostics() {
   return (
     <div style={{
       position: 'fixed', right: 12, bottom: 12, zIndex: 99999,
-      background: 'rgba(17,24,39,0.94)', color: '#f9fafb',
+      background: 'var(--bg-secondary)', color: 'var(--text-secondary)',
       fontFamily: 'ui-monospace, monospace', fontSize: 11, lineHeight: 1.5,
       borderRadius: 8, padding: 10, minWidth: 330, maxHeight: '70vh', overflow: 'auto',
-      border: '1px solid #374151', boxShadow: '0 8px 24px rgba(0,0,0,0.4)'
+      border: '1px solid var(--border-color)', boxShadow: '0 8px 24px color-mix(in srgb, var(--solid-shade) 30%, transparent)'
     }} data-testid="capa-debug-panel">
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
         <b>⚡CapaDebug</b>
-        <span style={{ color: '#9ca3af' }}>Ctrl+Shift+D 收起</span>
+        <span style={{ color: 'var(--text-secondary)' }}>Ctrl+Shift+D 收起</span>
       </div>
       {audit && (
-        <div style={{ color: '#9ca3af', marginBottom: 6 }}>
+        <div style={{ color: 'var(--text-secondary)', marginBottom: 6 }}>
           {audit.tier} @{audit.vw} · 横滚{audit.hScroll ? '⚠有' : '无'} · 死区{audit.deadZone}px
         </div>
       )}
       <table style={{ borderCollapse: 'collapse', width: '100%', marginBottom: 8 }}>
         <thead>
-          <tr style={{ color: '#9ca3af' }}>
+          <tr style={{ color: 'var(--text-secondary)' }}>
             {['列', '轨道', '内容', '利用率'].map((h) => <th key={h} style={{ textAlign: 'left', padding: '1px 6px' }}>{h}</th>)}
           </tr>
         </thead>
         <tbody>
           {(audit?.cols ?? []).map((c, i) => (
-            <tr key={i} style={{ color: c.util < 45 ? '#fbbf24' : '#f9fafb' }}>
+            <tr key={i} style={{ color: c.util < 45 ? 'var(--text-secondary)' : 'var(--text-secondary)' }}>
               <td style={{ padding: '1px 6px' }}>{c.key}</td>
               <td style={{ padding: '1px 6px' }}>{c.track}</td>
               <td style={{ padding: '1px 6px' }}>{c.natural}</td>
@@ -213,7 +213,7 @@ export function BoardDiagnostics() {
         >
           切主题
         </button>
-        <button type="button" onClick={() => setProbe((v) => !v)} style={{ ...btn, background: probe ? '#1d4ed8' : undefined, color: probe ? '#fff' : undefined }}>
+        <button type="button" onClick={() => setProbe((v) => !v)} style={{ ...btn, background: probe ? 'var(--primary-solid)' : undefined, color: probe ? 'var(--solid-foreground)' : undefined }}>
           {probe ? '探针 ON' : '元素探针'}
         </button>
         <button
@@ -227,7 +227,7 @@ export function BoardDiagnostics() {
       {probe && probeInfo && (
         <div style={{
           position: 'fixed', left: probeInfo.x, top: probeInfo.y, zIndex: 100000,
-          background: 'rgba(29,78,216,0.95)', color: '#fff', padding: '2px 8px',
+          background: 'var(--bg-secondary)', color: 'var(--text-secondary)', padding: '2px 8px',
           borderRadius: 4, fontFamily: 'ui-monospace, monospace', fontSize: 11, pointerEvents: 'none'
         }}>
           {probeInfo.text}
@@ -238,6 +238,6 @@ export function BoardDiagnostics() {
 }
 
 const btn: React.CSSProperties = {
-  background: '#1f2937', color: '#e5e7eb', border: '1px solid #374151',
+  background: 'var(--bg-secondary)', color: 'var(--text-secondary)', border: '1px solid var(--border-color)',
   borderRadius: 4, padding: '2px 8px', fontSize: 11, cursor: 'pointer', minHeight: 24
 };

@@ -130,7 +130,6 @@ export function SmartAssignmentModal({
 }: SmartAssignmentModalProps) {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
-  const isDarkMode = document.documentElement.classList.contains('dark');
   const [activeTab, setActiveTab] = useState(triggerContext === 'manual_add' ? 'manual' : 'recommended');
   const [selectedRecommendation, setSelectedRecommendation] = useState<ProjectRecommendation | null>(null);
   
@@ -660,10 +659,10 @@ export function SmartAssignmentModal({
                   <div style={{ 
                     marginBottom: '1rem',
                     padding: '0.75rem',
-                    backgroundColor: isDarkMode ? 'rgba(239, 68, 68, 0.1)' : 'rgba(239, 68, 68, 0.05)',
-                    border: `1px solid ${isDarkMode ? '#dc2626' : '#fca5a5'}`,
+                    backgroundColor: 'var(--status-danger-soft)',
+                    border: '1px solid var(--status-danger-border)',
                     borderRadius: '0.375rem',
-                    color: isDarkMode ? '#fca5a5' : '#dc2626'
+                    color: 'var(--status-danger-text)'
                   }}>
                     <strong>{t('assignments:smart.selectToRemove')}</strong>
                     <p style={{ fontSize: '0.875rem', marginTop: '0.25rem' }}>
@@ -677,8 +676,8 @@ export function SmartAssignmentModal({
                         <div key={assignment.id || `assignment-${index}`} className="assignment-item" style={{
                           padding: '1rem',
                           marginBottom: '0.5rem',
-                          backgroundColor: isDarkMode ? '#374151' : '#f9fafb',
-                          border: `1px solid ${isDarkMode ? '#4b5563' : '#e5e7eb'}`,
+                          backgroundColor: 'var(--bg-secondary)',
+                          border: '1px solid var(--border-color)',
                           borderRadius: '0.375rem',
                           display: 'flex',
                           justifyContent: 'space-between',
@@ -687,13 +686,13 @@ export function SmartAssignmentModal({
                           <div>
                             <div style={{ fontWeight: 600, marginBottom: '0.25rem' }}>
                               {assignment.project_name || t('assignments:smart.unknownProject')}
-                              {!assignment.id && <span style={{ color: 'red', fontSize: '0.75rem', marginLeft: '0.5rem' }}>{t('assignments:smart.noId')}</span>}
+                              {!assignment.id && <span style={{ color: 'var(--status-danger-text)', fontSize: '0.75rem', marginLeft: '0.5rem' }}>{t('assignments:smart.noId')}</span>}
                             </div>
-                            <div style={{ fontSize: '0.875rem', color: isDarkMode ? '#9ca3af' : '#6b7280' }}>
+                            <div style={{ fontSize: '0.875rem', color: 'var(--text-secondary)' }}>
                               {assignment.role_name || t('assignments:smart.unknownRole')} • {t('assignments:smart.allocationAmount', { amount: assignment.allocation_percentage || 0 })}
                               {assignment.phase_name && ` • ${assignment.phase_name}`}
                             </div>
-                            <div style={{ fontSize: '0.75rem', color: isDarkMode ? '#9ca3af' : '#6b7280', marginTop: '0.25rem' }}>
+                            <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', marginTop: '0.25rem' }}>
                               {new Date(assignment.computed_start_date || assignment.start_date || '').toLocaleDateString(getLocale())} -
                               {new Date(assignment.computed_end_date || assignment.end_date || '').toLocaleDateString(getLocale())}
                             </div>
@@ -730,7 +729,7 @@ export function SmartAssignmentModal({
                     <div style={{
                       textAlign: 'center',
                       padding: '2rem',
-                      color: isDarkMode ? '#9ca3af' : '#6b7280'
+                      color: 'var(--text-secondary)'
                     }}>
                       <Info size={48} style={{ margin: '0 auto 1rem', opacity: 0.5 }} />
                       <p>{t('assignments:smart.noActiveAssignments', { name: personName })}</p>

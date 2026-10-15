@@ -1072,9 +1072,10 @@ input[type="checkbox"].settings-checkbox,
   border: 2px solid transparent; cursor: pointer; padding: 0; min-height: 0;
 }
 .tag-swatch--active { border-color: var(--text-primary); box-shadow: 0 0 0 2px var(--bg-primary) inset; }
+.tag-swatch:not(.tag-swatch--active) { border-color: var(--control-border); }
 .tag-color-dot-btn {
   width: 14px; height: 14px; border-radius: 50%;
-  border: 1px solid var(--border-color); cursor: pointer; padding: 0; min-height: 0;
+  border: 1px solid var(--control-border); cursor: pointer; padding: 0; min-height: 0;
 }
 .tag-palette--row { margin-left: auto; }
 

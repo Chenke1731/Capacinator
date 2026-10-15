@@ -64,6 +64,13 @@ export async function runSelfTests() {
     const disguised=structuredClone(old);const consumer=disguised.entries.find(x=>x.literal==='red');consumer.kind='token-definition';consumer.decision='not-debt';consumer.reason='fake exemption';
     assert(checkLedger(scan,disguised,old,root).some(x=>x.includes('disguised')));
     assert(scanSources([['client/src/b.css','.b {color:red;']]).errors.length);
+    const templateTail=scanSources([['client/src/fragment.tsx','const style = {backgroundColor: `color-mix(in srgb, ${ink} 55%, #1f2937)`};']]);
+    assert.equal(templateTail.entries[0].literal,'#1f2937');
+    const tokenTail=scanSources([['client/src/fragment.tsx','const style = {backgroundColor: `color-mix(in srgb, ${ink} 35%, var(--solid-shade))`};']]);
+    assert(tokenTail.variables.some(v=>v.owner==='backgroundColor'&&v.name==='--solid-shade'));
+    const closed=structuredClone(old);closed.governanceComplete=true;
+    assert(checkLedger(scan,closed,old,root).some(e=>e.includes('zero unclassified')));
+    assert(checkLedger(scan,old,closed,root).some(e=>e.includes('dropping its classification gate')));
     fs.writeFileSync(path.join(root,'client/src/main.tsx'),'import "./active.css"; if(false) import("./dev");');
     fs.writeFileSync(path.join(root,'client/src/active.css'),'@import "./a.css";');
     fs.writeFileSync(path.join(root,'client/src/dev.ts'),'export {};');
@@ -78,6 +85,8 @@ export async function runSelfTests() {
     assert(checkLedger(scan,inactive,old,root).some(e=>e.includes('unused disposition')));
     fs.writeFileSync(path.join(root,'client/src/main.tsx'),'import(name);');
     assert(checkLedger(scan,inactive,old,root).some(e=>e.includes('dynamic import')));
+    fs.writeFileSync(path.join(root,'client/src/main.tsx'),'import "@new-alias/legacy";');
+    assert(checkLedger(scan,inactive,old,root).some(e=>e.includes('Unknown package/alias')));
     console.log('color-debt SELFTEST PASS: parsing, definitions, original locations, exclusions, new/duplicate/orphan gates, rename/retirement, stale evidence, corrupt totals and parse failure');
   } finally {fs.rmSync(root,{recursive:true,force:true});}
 }

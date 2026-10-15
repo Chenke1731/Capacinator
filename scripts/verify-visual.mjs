@@ -12,7 +12,10 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { findCollisions, findOverflow } from './lib/layout-guards.mjs';
 import { getProfile, resolveProfile, prepareProfile, auditEnvironment, authenticate, setupReadOnlyPage, assertProfileReady, saveAuditReport } from './lib/ui-profiles.mjs';
-import { assessAxe, pixelOperation } from './lib/visual-budget.mjs';
+import { assessAxe, pixelOperation, isNeutralBackdrop } from './lib/visual-budget.mjs';
+import {prepareImportState} from './lib/ui-prepared-states.mjs';
+import {installContrastHelpers} from './lib/ui-state-audit.mjs';
+import {measureSvgAxes} from './lib/svg-chart-audit.mjs';
 
 const BASE = auditEnvironment.base;
 const CHROME = auditEnvironment.chrome;
@@ -21,7 +24,7 @@ const SHOT_DIR = path.join(DIR, '__screenshots__');
 const BUDGET_FILE = path.join(DIR, 'axe-budget.json');
 const EXCEPTIONS_FILE = path.join(DIR, 'axe-exceptions.json');
 const argv=process.argv.slice(2),value=k=>argv.includes(k)?argv[argv.indexOf(k)+1]:undefined;
-const valid=new Set(['--profile','--page','--state','--selftest','--help','--record-existing-axe','--capture-fixtures','--inject-test-violation']);
+const valid=new Set(['--profile','--page','--state','--selftest','--help','--record-existing-axe','--capture-fixtures','--inject-test-violation','--inject-svg-test-violation']);
 for(let i=0;i<argv.length;i++){if(!valid.has(argv[i]))throw new Error(`Unknown argument ${argv[i]}`);if(['--profile','--page','--state'].includes(argv[i])){if(!argv[i+1]||argv[i+1].startsWith('--'))throw new Error(`Missing value for ${argv[i]}`);i++;}}
 if(argv.includes('--selftest')){const t=await import('./tests/visual-budget.test.mjs');t.runVisualSelfTests();process.exit(0);}
 if(argv.includes('--help')){console.log('verify-visual: [--profile name|--page path] [--state default|hover|focus|phase-hover|phase-edit|create|edit|filter|merge|merge-confirm|compare|compare-results] [--record-existing-axe] [--capture-fixtures]; UPDATE_BASELINES=1 only updates pixels; branch states require scenarios-rich');process.exit(0);}
@@ -30,34 +33,39 @@ const REGISTER=argv.includes('--record-existing-axe');
 if(value('--profile')&&value('--page'))throw new Error('Select either profile or page');
 const FILTER=value('--profile')?getProfile(value('--profile')):value('--page')?getProfile(undefined,value('--page')):null;
 const requestedState=value('--state');
-const preparedStates=['default','hover','focus','phase-hover','phase-edit','template-add','create','edit','filter','merge','merge-confirm','compare','compare-results'];
+const preparedStates=['default','hover','focus','phase-hover','phase-edit','template-add','import-advanced','import-file','import-success','import-error','import-running','create','edit','filter','merge','merge-confirm','compare','compare-results'];
 if(requestedState&&!FILTER)throw new Error('A state requires an explicit profile');
 if(requestedState&&!preparedStates.includes(requestedState))throw new Error(`Unsupported prepared state ${requestedState}`);
 if(['create','edit','filter','merge','merge-confirm','compare','compare-results'].includes(requestedState)&&!FILTER?.name.startsWith('scenarios'))throw new Error('Scenario states require a scenario profile');
 if(['merge','merge-confirm','compare','compare-results'].includes(requestedState)&&FILTER?.name!=='scenarios-rich')throw new Error('Branch states require the controlled scenarios-rich fixture');
 if(requestedState?.startsWith('phase-')&&FILTER.name!=='project-detail-phases')throw new Error('Phase states require project-detail-phases');
 if(requestedState==='template-add'&&FILTER?.name!=='phase-template')throw new Error('Template states require phase-template');
+if(requestedState?.startsWith('import-')&&FILTER?.name!=='import')throw Error('Import states require import profile');
 if(argv.includes('--inject-test-violation')&&(!FILTER||REGISTER))throw new Error('Injection requires a single profile and cannot register exceptions');
+if(argv.includes('--inject-svg-test-violation')&&(!FILTER||REGISTER||argv.includes('--inject-test-violation')))throw Error('SVG injection requires a single profile, no other injection, and no exception registration');
 
 // 矩阵: 页面 × 主题 × 视口(核心页加测 1366)
 const PAGES = [
   { name: 'projects', path: '/projects', widths: [1600,1366] },
-  { name: 'people', path: '/people' },
-  { name: 'assignments', path: '/assignments' },
-  { name: 'dashboard', path: '/dashboard' },
+  { name: 'people', path: '/people', widths:[1600,1366] },
+  { name: 'assignments', path: '/assignments', widths:[1600,1366] },
+  { name: 'assignment-recommendations', widths:[1600,1366] },
+  { name: 'dashboard', path: '/dashboard', widths:[1600,1366] },
   // 2026-10 任务B: 路线图入矩阵——151 处主色消费修复的回归防线
   // (真实路由: /projects?tab=roadmap;/projects/roadmap 是重定向)
   { name: 'roadmap', path: '/projects?tab=roadmap', widths: [1600,1366] },
   // 任务B 复审收口: 项目详情页(图表页签样式加载链事故页——reports.css
   // 不在详情页加载,曾出白字白底 1.05:1)。用固定种子行,断链类问题再犯即红
-  { name: 'project-detail', path: '/projects/project-1789912193111-zikdnz8c5' },
+  { name: 'project-detail', path: '/projects/project-1789912193111-zikdnz8c5', widths:[1600,1366] },
   { name: 'project-detail-phases', widths: [1600,1366], states: ['default','phase-hover','phase-edit'] },
   { name: 'scenarios', widths: [1600,1366] },
   { name: 'scenarios-rich', widths: [1600,1366], states:['default','create','filter','merge-confirm','compare-results'] },
   { name: 'settings', widths: [1600,1366] },
   { name: 'settings-appearance', widths: [1600,1366] },
   { name: 'project-type-detail', widths: [1600,1366] },
+  { name: 'project-detail-tagged', widths: [1600,1366] },
   { name: 'phase-template', widths: [1600,1366], states:['default','template-add'] },
+  ...['import','import-export','project-types','project-types-hierarchy','iterations','reports','reports-capacity','reports-utilization','reports-gaps','locations','audit-log','person-detail','role-detail'].map(name=>({name,widths:[1600,1366],...(name==='import'?{states:['default','import-advanced','import-file','import-success','import-error','import-running']}: {})})),
 ];
 const COMBOS = [];
 const selected=FILTER?[{name:FILTER.name,path:FILTER.path,widths:[1600,1366],states:[requestedState??'default']}]:PAGES;
@@ -92,7 +100,9 @@ for (const combo of COMBOS) {
   await prepareProfile(page,profile);
   if(await page.locator('html').getAttribute('data-theme')!==combo.theme)throw new Error(`Theme not rendered ${tag}`);
   if(STATE!=='default') {
-    if(STATE==='template-add') {
+    if(STATE.startsWith('import-')) {
+      await prepareImportState(page,profile,STATE,session);
+    } else if(STATE==='template-add') {
       await page.locator('.add-phase-btn').click();
       await page.locator('.add-phase-panel').waitFor({state:'visible'});
       await page.locator('.add-phase-panel').scrollIntoViewIfNeeded();
@@ -134,6 +144,17 @@ for (const combo of COMBOS) {
     const e=document.createElement('button');e.id='audit-injected-bad-contrast';e.textContent='Injected contrast regression';
     e.style.cssText='position:fixed;left:400px;top:400px;z-index:2147483647;color:#eeeeee;background:white;font-size:16px;border:0;padding:12px';document.body.append(e);
   });
+  if(argv.includes('--inject-svg-test-violation'))await page.evaluate(()=>{
+    const ns='http://www.w3.org/2000/svg',svg=document.createElementNS(ns,'svg'),text=document.createElementNS(ns,'text');
+    svg.setAttribute('aria-hidden','true');svg.style.cssText='position:fixed;left:400px;top:400px;width:350px;height:60px;z-index:2147483647;background:white';
+    text.setAttribute('class','recharts-cartesian-axis-tick-value');text.setAttribute('x','10');text.setAttribute('y','35');text.style.setProperty('fill','#fff','important');text.textContent='Injected SVG regression';svg.append(text);document.body.append(svg);
+  });
+
+  const backdrops=await page.locator('.modal-overlay,.modal-backdrop,.dialog-overlay').evaluateAll(elements=>elements.filter(e=>{const r=e.getBoundingClientRect();return r.width>0&&r.height>0&&getComputedStyle(e).visibility!=='hidden';}).map(e=>{
+    const color=getComputedStyle(e).backgroundColor,canvas=document.createElement('canvas');canvas.width=canvas.height=1;
+    const ctx=canvas.getContext('2d');ctx.fillStyle=color;ctx.fillRect(0,0,1,1);return {color,rgba:[...ctx.getImageData(0,0,1,1).data]};
+  }));
+  if(backdrops.some(b=>!isNeutralBackdrop(b.rgba)))session.errors.push('Modal backdrop lost its neutral dimming surface');
 
   // 1. axe: 对比度 + 命中目标(WCAG 工业规则),按预算控制存量
   const axe = await new AxeBuilder({ page })
@@ -141,12 +162,14 @@ for (const combo of COMBOS) {
     .analyze()
     .catch((e) => ({ violations: [], error: String(e) }));
   const key = `${combo.name}${STATE==='default'?'':`-${STATE}`}-${combo.theme}`;
-  const verdict=assessAxe(axe.violations,key,budget,exceptions,{recordExisting:REGISTER});
+  const verdict=assessAxe(axe.violations,key,budget,exceptions,{recordExisting:REGISTER,rejectColors:true});
   const nViol=verdict.count,cap=verdict.cap;
+  await page.evaluate(installContrastHelpers);
+  const svgAxisText=await page.evaluate(measureSvgAxes),svgFailures=svgAxisText.filter(r=>r.ratio===null||r.ratio<r.threshold);
   check(
     `axe ${tag}: 对比度/命中目标违规 ≤ 预算`,
-    !axe.error && verdict.ok,
-    axe.error ? `axe出错:${axe.error.slice(0, 40)}` : `${nViol}/${cap} new=${verdict.added.length}`
+    !axe.error && verdict.ok && svgFailures.length===0,
+    axe.error ? `axe出错:${axe.error.slice(0, 40)}` : `${nViol}/${cap} new=${verdict.added.length}, SVG ${svgFailures.length}/${svgAxisText.length} bad`
   );
 
   // 2. 几何: 碰撞 + 页面横向溢出
@@ -176,7 +199,7 @@ for (const combo of COMBOS) {
   const cur = await grayClock(PNG.sync.read(shot));
   // A failed comparison must still expose the actual rendered image for review.
   // Baseline paths alone can otherwise point reviewers at yesterday's colors.
-  const currentArtifact=path.join(process.cwd(),'tests/visual/reports',`visual-${tag}${argv.includes('--inject-test-violation')?'-injected':''}.png`);
+  const currentArtifact=path.join(process.cwd(),'tests/visual/reports',`visual-${tag}${argv.includes('--inject-test-violation')?'-injected':argv.includes('--inject-svg-test-violation')?'-svg-injected':''}.png`);
   fs.writeFileSync(currentArtifact,PNG.sync.write(cur));
   const operation=pixelOperation({update:UPDATE,baselineExists:fs.existsSync(file)});
   if (operation==='update') {
@@ -201,6 +224,10 @@ for (const combo of COMBOS) {
   }
   check(`只读与运行 ${tag}`,session.writes.length===0&&session.errors.length===0,[...session.writes,...session.errors].join(' | '));
   evidence.push({tag,profile:combo.name,path:profile.path,theme:combo.theme,state:STATE,viewport:{width:combo.w,height:combo.h},axe:{count:nViol,cap,added:verdict.added,identities:axe.violations.flatMap(v=>v.nodes.map(n=>({rule:v.id,target:n.target,html:n.html})))},collisions,overflow,writes:session.writes,errors:session.errors,checks:results.slice(comboStart),artifact:path.relative(process.cwd(),currentArtifact),baseline:path.relative(process.cwd(),file)});
+  evidence.at(-1).backdrops=backdrops;
+  evidence.at(-1).svgAxisText=svgAxisText;
+  if(session.mockedWrites)evidence.at(-1).mockedWrites=session.mockedWrites;
+  if(session.releaseMock)await session.releaseMock();
   await context.close();
 }
 
@@ -211,7 +238,7 @@ if (REGISTER) {
   }
 } else if(JSON.stringify(budget)!==originalBudget)throw new Error('Pixel update mutated accessibility budgets');
 } finally {await browser.close();}
-saveAuditReport(process.cwd(),`visual-${FILTER?.name??'matrix'}-${requestedState??'default'}${argv.includes('--inject-test-violation')?'-injection':''}`,{combinations:COMBOS.length,checks:results.length,updatePixels:UPDATE,registerExistingAxe:REGISTER,evidence});
+saveAuditReport(process.cwd(),`visual-${FILTER?.name??'matrix'}-${requestedState??'default'}${argv.includes('--inject-test-violation')?'-injection':argv.includes('--inject-svg-test-violation')?'-svg-injection':''}`,{combinations:COMBOS.length,checks:results.length,updatePixels:UPDATE,registerExistingAxe:REGISTER,evidence});
 
 const failed = results.filter((r) => !r.ok);
 console.log(`\n${results.filter((r) => r.ok).length}/${results.length} passed`);

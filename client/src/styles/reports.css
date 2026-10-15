@@ -52,11 +52,11 @@
 }
 
 .metric.text-warning {
-  color: var(--warning);
+  color: var(--status-warning-text);
 }
 
 .metric.text-danger {
-  color: var(--danger);
+  color: var(--status-danger-text);
 }
 
 .card-action-link {
@@ -70,6 +70,7 @@
 }
 
 .card-action-link:hover {
+  color: var(--primary-text);
   text-decoration: underline;
 }
 
@@ -183,15 +184,15 @@
 
 /* Table Row Variants */
 .report-table-row-success {
-  background: rgba(16, 185, 129, 0.05);
+  background: var(--status-success-soft);
 }
 
 .report-table-row-warning {
-  background: rgba(245, 158, 11, 0.05);
+  background: var(--status-warning-soft);
 }
 
 .report-table-row-danger {
-  background: rgba(239, 68, 68, 0.05);
+  background: var(--status-danger-soft);
 }
 
 /* Status Badges */
@@ -206,23 +207,23 @@
 }
 
 .badge-success {
-  background: rgba(16, 185, 129, 0.1);
-  color: rgb(16, 185, 129);
+  background: var(--status-success-soft);
+  color: var(--status-success-text);
 }
 
 .badge-warning {
-  background: rgba(245, 158, 11, 0.1);
-  color: rgb(245, 158, 11);
+  background: var(--status-warning-soft);
+  color: var(--status-warning-text);
 }
 
 .badge-danger {
-  background: rgba(239, 68, 68, 0.1);
-  color: rgb(239, 68, 68);
+  background: var(--status-danger-soft);
+  color: var(--status-danger-text);
 }
 
 .badge-info {
-  background: rgba(59, 130, 246, 0.1);
-  color: rgb(59, 130, 246);
+  background: var(--status-info-soft);
+  color: var(--status-info-text);
 }
 
 .badge-default {
@@ -251,20 +252,24 @@
 }
 
 .progress-default {
-  background: var(--primary);
+  background: var(--primary-text);
 }
 
 .progress-success {
-  background: var(--success);
+  background: var(--status-success-text);
 }
 
 .progress-warning {
-  background: var(--warning);
+  background: var(--status-warning-text);
 }
 
 .progress-danger {
-  background: var(--danger);
+  background: var(--status-danger-text);
 }
+
+.report-progress-container .text-danger { color: var(--status-danger-text); }
+.report-progress-container .text-warning { color: var(--status-warning-text); }
+.report-progress-container .text-success { color: var(--status-success-text); }
 
 .progress-label {
   font-size: 0.875rem;
@@ -312,7 +317,7 @@
 
 .btn-primary {
   background: var(--primary);
-  color: white;
+  color: var(--solid-foreground);
   border-color: var(--primary);
 }
 
@@ -332,25 +337,25 @@
 }
 
 .btn-danger {
-  background: var(--danger);
-  color: white;
+  background: var(--status-danger-solid);
+  color: var(--solid-foreground);
   border-color: var(--danger);
 }
 
 .btn-danger:hover {
-  background: var(--danger-hover);
-  border-color: var(--danger-hover);
+  background: var(--status-danger-solid);
+  border-color: var(--status-danger-solid);
 }
 
 .btn-outline {
   background: transparent;
-  color: var(--primary);
+  color: var(--primary-text);
   border-color: var(--primary);
 }
 
 .btn-outline:hover {
-  background: var(--primary);
-  color: white;
+  background: var(--primary-solid);
+  color: var(--solid-foreground);
 }
 
 /* Actionable Sections (for Gaps Report) */

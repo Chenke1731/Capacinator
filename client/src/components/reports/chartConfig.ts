@@ -1,10 +1,11 @@
 // Unified chart configuration for all reports
+import '../chart-colors.css';
 
 export const CHART_COLORS = {
-  capacity: ['#4f46e5', '#10b981', '#f59e0b', '#ef4444'],
-  utilization: ['#4f46e5', '#10b981', '#ef4444', '#8b5cf6'],
-  demand: ['#4f46e5', '#10b981', '#8b5cf6', '#f59e0b'],
-  gaps: ['#ef4444', '#f59e0b', '#10b981', '#4f46e5']
+  capacity: ['var(--series-indigo)', 'var(--series-green)', 'var(--series-amber)', 'var(--series-red)'],
+  utilization: ['var(--series-indigo)', 'var(--series-green)', 'var(--series-red)', 'var(--series-purple)'],
+  demand: ['var(--series-indigo)', 'var(--series-green)', 'var(--series-purple)', 'var(--series-amber)'],
+  gaps: ['var(--series-red)', 'var(--series-amber)', 'var(--series-green)', 'var(--series-indigo)']
 };
 
 export const CHART_AXIS_CONFIG = {

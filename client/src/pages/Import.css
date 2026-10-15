@@ -178,18 +178,18 @@
 
 .upload-area svg {
   margin: 0 auto 1rem;
-  color: #6b7280;
+  color: var(--text-secondary);
 }
 
 .upload-area h3 {
   font-size: 1.125rem;
   font-weight: 600;
-  color: #374151;
+  color: var(--text-primary);
   margin: 0 0 0.5rem 0;
 }
 
 .upload-area p {
-  color: #6b7280;
+  color: var(--text-secondary);
   margin: 0;
 }
 
@@ -204,7 +204,7 @@
 }
 
 .file-selected svg {
-  color: #3b82f6;
+  color: var(--status-info-text);
   flex-shrink: 0;
 }
 
@@ -215,7 +215,7 @@
 .file-info h3 {
   font-size: 1rem;
   font-weight: 600;
-  color: #111827;
+  color: var(--text-primary);
   margin: 0 0 0.25rem 0;
 }
 
@@ -233,13 +233,13 @@
 }
 
 .import-result.success {
-  border-color: #86efac;
-  background-color: #f0fdf4;
+  border-color: var(--status-success-border);
+  background-color: var(--status-success-soft);
 }
 
 .import-result.error {
-  border-color: #fecaca;
-  background-color: #fef2f2;
+  border-color: var(--status-danger-border);
+  background-color: var(--status-danger-soft);
 }
 
 .result-header {
@@ -254,11 +254,11 @@
 }
 
 .import-result.success .result-icon {
-  color: #22c55e;
+  color: var(--status-success-text);
 }
 
 .import-result.error .result-icon {
-  color: #ef4444;
+  color: var(--status-danger-text);
 }
 
 .result-header h3 {
@@ -268,11 +268,11 @@
 }
 
 .import-result.success .result-header h3 {
-  color: #166534;
+  color: var(--status-success-text);
 }
 
 .import-result.error .result-header h3 {
-  color: #991b1b;
+  color: var(--status-danger-text);
 }
 
 .import-stats {
@@ -282,7 +282,7 @@
 .import-stats h4 {
   font-size: 0.875rem;
   font-weight: 600;
-  color: #374151;
+  color: var(--text-primary);
   margin: 0 0 0.75rem 0;
 }
 
@@ -308,7 +308,7 @@
 
 .stat-value {
   font-weight: 600;
-  color: #111827;
+  color: var(--text-primary);
 }
 
 .result-errors,
@@ -324,11 +324,11 @@
 }
 
 .result-errors h4 {
-  color: #991b1b;
+  color: var(--status-danger-text);
 }
 
 .result-warnings h4 {
-  color: #92400e;
+  color: var(--status-warning-text);
 }
 
 .result-errors ul,
@@ -345,11 +345,11 @@
 }
 
 .result-errors li {
-  color: #dc2626;
+  color: var(--status-danger-text);
 }
 
 .result-warnings li {
-  color: #d97706;
+  color: var(--status-warning-text);
 }
 
 /* Enhanced Help Section */
@@ -358,7 +358,7 @@
   border: 1px solid var(--border-color);
   border-radius: 12px;
   padding: 2rem;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 3px 0 color-mix(in srgb, var(--solid-shade) 10%, transparent);
 }
 
 .help-header {
@@ -419,7 +419,7 @@
 
 .help-card:hover {
   border-color: var(--primary);
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px 0 color-mix(in srgb, var(--solid-shade) 10%, transparent);
 }
 
 .help-card-icon {
@@ -466,8 +466,8 @@
 }
 
 .sheet-badge {
-  background: var(--primary);
-  color: white;
+  background: var(--primary-solid);
+  color: var(--solid-foreground);
   padding: 0.125rem 0.5rem;
   border-radius: 12px;
   font-size: 0.75rem;
@@ -479,8 +479,9 @@
 }
 
 .sheet-item:not(.essential) .sheet-badge {
-  background: var(--text-secondary);
-  opacity: 0.7;
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+  opacity: 1;
 }
 
 /* Tips List Styling */
@@ -510,7 +511,7 @@
 .export-section {
   background: var(--bg-primary);
   border: 1px solid var(--border-color);
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  box-shadow: 0 1px 3px 0 color-mix(in srgb, var(--solid-shade) 10%, transparent), 0 1px 2px 0 color-mix(in srgb, var(--solid-shade) 6%, transparent);
 }
 
 .card-header {
@@ -582,8 +583,8 @@
   overflow: hidden;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow: 
-    0 1px 3px 0 rgba(0, 0, 0, 0.1),
-    0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    0 1px 3px 0 color-mix(in srgb, var(--solid-shade) 10%, transparent),
+    0 1px 2px 0 color-mix(in srgb, var(--solid-shade) 6%, transparent);
   position: relative;
 }
 
@@ -605,7 +606,7 @@
 
 .export-type-card:hover {
   border-color: var(--primary);
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 4px 6px -1px color-mix(in srgb, var(--solid-shade) 10%, transparent), 0 2px 4px -1px color-mix(in srgb, var(--solid-shade) 6%, transparent);
   transform: translateY(-1px);
 }
 
@@ -702,11 +703,15 @@
   border-radius: 12px;
   min-height: 52px;
   box-shadow: 
-    0 1px 2px 0 rgba(0, 0, 0, 0.05),
-    0 1px 3px 0 rgba(0, 0, 0, 0.1);
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    0 1px 2px 0 color-mix(in srgb, var(--solid-shade) 5%, transparent),
+    0 1px 3px 0 color-mix(in srgb, var(--solid-shade) 10%, transparent);
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s ease;
   position: relative;
   overflow: hidden;
+}
+
+.import-container .export-action-button {
+  transition-property: box-shadow, transform;
 }
 
 .export-action-button::before {
@@ -716,7 +721,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  background: linear-gradient(45deg, transparent, color-mix(in srgb, var(--solid-foreground) 10%, transparent), transparent);
   transform: translateX(-100%);
   transition: transform 0.6s ease;
 }
@@ -727,7 +732,7 @@
 
 .export-action-button:hover:not(:disabled) {
   transform: translateY(-1px);
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 4px 6px -1px color-mix(in srgb, var(--solid-shade) 10%, transparent), 0 2px 4px -1px color-mix(in srgb, var(--solid-shade) 6%, transparent);
 }
 
 .export-action-button:active:not(:disabled) {
@@ -788,7 +793,7 @@
 
 .btn-primary {
   background: var(--primary);
-  color: white;
+  color: var(--solid-foreground);
   border-color: var(--primary);
 }
 
@@ -799,13 +804,13 @@
 
 .btn-outline {
   background: transparent;
-  color: var(--primary);
+  color: var(--primary-text);
   border-color: var(--primary);
 }
 
 .btn-outline:hover:not(:disabled) {
-  background: var(--primary);
-  color: white;
+  background: var(--primary-solid);
+  color: var(--solid-foreground);
 }
 
 /* Button Size Variants */

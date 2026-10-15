@@ -1,0 +1,192 @@
+{
+  "combinations": 4,
+  "checks": 20,
+  "updatePixels": true,
+  "registerExistingAxe": false,
+  "evidence": [
+    {
+      "tag": "assignments-dark-1600",
+      "profile": "assignments",
+      "path": "/assignments",
+      "theme": "dark",
+      "state": "default",
+      "viewport": {
+        "width": 1600,
+        "height": 900
+      },
+      "axe": {
+        "count": 0,
+        "cap": 0,
+        "added": [],
+        "identities": []
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe assignments-dark-1600: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 assignments-dark-1600: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 assignments-dark-1600: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "基线 assignments-dark-1600: 已采集",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 assignments-dark-1600",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/reports/visual-assignments-dark-1600.png",
+      "baseline": "tests/visual/__screenshots__/assignments-dark-1600.png",
+      "backdrops": []
+    },
+    {
+      "tag": "assignments-dark-1366",
+      "profile": "assignments",
+      "path": "/assignments",
+      "theme": "dark",
+      "state": "default",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "axe": {
+        "count": 0,
+        "cap": 0,
+        "added": [],
+        "identities": []
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe assignments-dark-1366: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 assignments-dark-1366: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 assignments-dark-1366: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "基线 assignments-dark-1366: 已采集",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 assignments-dark-1366",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/reports/visual-assignments-dark-1366.png",
+      "baseline": "tests/visual/__screenshots__/assignments-dark-1366.png",
+      "backdrops": []
+    },
+    {
+      "tag": "assignments-light-1600",
+      "profile": "assignments",
+      "path": "/assignments",
+      "theme": "light",
+      "state": "default",
+      "viewport": {
+        "width": 1600,
+        "height": 900
+      },
+      "axe": {
+        "count": 0,
+        "cap": 0,
+        "added": [],
+        "identities": []
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe assignments-light-1600: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 assignments-light-1600: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 assignments-light-1600: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "基线 assignments-light-1600: 已采集",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 assignments-light-1600",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/reports/visual-assignments-light-1600.png",
+      "baseline": "tests/visual/__screenshots__/assignments-light-1600.png",
+      "backdrops": []
+    },
+    {
+      "tag": "assignments-light-1366",
+      "profile": "assignments",
+      "path": "/assignments",
+      "theme": "light",
+      "state": "default",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "axe": {
+        "count": 0,
+        "cap": 0,
+        "added": [],
+        "identities": []
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe assignments-light-1366: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 assignments-light-1366: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 assignments-light-1366: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "基线 assignments-light-1366: 已采集",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 assignments-light-1366",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/reports/visual-assignments-light-1366.png",
+      "baseline": "tests/visual/__screenshots__/assignments-light-1366.png",
+      "backdrops": []
+    }
+  ]
+}

@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { api } from '../lib/api-client';
 import { queryKeys } from '../lib/queryKeys';
 import { getLocale } from '../i18n';
+import './chart-colors.css';
 
 interface PersonAllocationChartProps {
   personId: string;
@@ -375,18 +376,19 @@ export function PersonAllocationChart({ personId, personName, startDate, endDate
     );
   }
 
-  // NOTE: Using hex values for chart colors as Recharts may use them in contexts where CSS variables cannot be resolved
+  // Graphic inks retain project hue/order; native SVG resolution is verified
+  // with nonempty production-component fixtures in verify-chart-colors.mjs.
   const projectColors = [
-    '#3b82f6', // Blue
-    '#10b981', // Emerald 
-    '#f59e0b', // Amber
-    '#ef4444', // Red
-    '#8b5cf6', // Violet
-    '#06b6d4', // Cyan
-    '#84cc16', // Lime
-    '#f97316', // Orange
-    '#ec4899', // Pink
-    '#6b7280'  // Gray
+    'var(--series-blue)', // Blue
+    'var(--series-green)', // Emerald
+    'var(--series-amber)', // Amber
+    'var(--series-red)', // Red
+    'var(--series-purple)', // Violet
+    'var(--series-cyan)', // Cyan
+    'var(--series-lime)', // Lime
+    'var(--series-orange)', // Orange
+    'var(--series-pink)', // Pink
+    'var(--series-gray)'  // Gray
   ];
 
   return (
@@ -439,7 +441,7 @@ export function PersonAllocationChart({ personId, personName, startDate, endDate
               }}
             />
             <YAxis
-              label={{ value: t('people:allocationChart.percentageAxis'), angle: -90, position: 'insideLeft' }}
+              label={{ value: t('people:allocationChart.percentageAxis'), angle: -90, position: 'insideLeft', fill: 'var(--text-secondary)' }}
               domain={[0, 'dataMax']}
             />
             <Tooltip
@@ -584,7 +586,7 @@ export function PersonAllocationChart({ personId, personName, startDate, endDate
             <Area
               type="monotone"
               dataKey="availability"
-              stroke="#10b981"
+              stroke="var(--series-green)"
               strokeWidth={2}
               strokeDasharray="5 5"
               fill="transparent"
@@ -630,8 +632,8 @@ export function PersonAllocationChart({ personId, personName, startDate, endDate
               <Area
                 type="monotone"
                 dataKey="totalAllocation"
-                stroke="#8884d8"
-                fill="#8884d8"
+                stroke="var(--series-violet)"
+                fill="var(--series-violet)"
                 fillOpacity={0.3}
               />
               <Brush

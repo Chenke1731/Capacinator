@@ -137,12 +137,13 @@
 }
 
 .btn--danger {
-  background: var(--danger);
-  color: var(--text-on-danger);
+  background: var(--status-danger-solid);
+  color: var(--solid-foreground);
 }
 
 .btn--danger:hover {
-  background: var(--danger-hover);
+  background: var(--status-danger-solid);
+  color: var(--solid-foreground);
 }
 
 /* Audit Details */
@@ -253,4 +254,4 @@
     text-align: center;
   }
 }
-[data-theme='dark'] .audit-action--delete, .dark .audit-action--delete { color: #fca5a5; }
+[data-theme='dark'] .audit-action--delete, .dark .audit-action--delete { color: var(--status-danger-text); }

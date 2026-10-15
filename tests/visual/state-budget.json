@@ -322,205 +322,42 @@
     "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(30) > div:nth-of-type(9) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)|target-size"
   ],
   "project-detail-phases|light|default": [
-    ".lifecycle-btn-primary|axe:color-contrast",
-    ".lifecycle-gate|axe:color-contrast",
-    ".lifecycle-state-badge|axe:color-contrast",
-    ".lifecycle-warning-title|axe:color-contrast",
-    ".visual-phase-manager > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(1)|axe:color-contrast",
-    "div > div > div:nth-child(2) > div:nth-child(3)|axe:color-contrast",
-    "div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1)|occlusion",
-    "span:nth-child(1) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(2) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(3) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(4) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(5) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(7) > .lifecycle-step > .lifecycle-step-label|axe:color-contrast"
+    "div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1)|occlusion"
   ],
-  "project-detail-phases|light|hover-0": [
-    ".lifecycle-btn-primary|axe:color-contrast",
-    ".lifecycle-gate|axe:color-contrast",
-    ".lifecycle-state-badge|axe:color-contrast",
-    ".lifecycle-warning-title|axe:color-contrast",
-    ".visual-phase-manager > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(1)|axe:color-contrast",
-    "div > div > div:nth-child(2) > div:nth-child(3)|axe:color-contrast",
-    "span:nth-child(1) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(2) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(3) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(4) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(5) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(7) > .lifecycle-step > .lifecycle-step-label|axe:color-contrast"
-  ],
-  "project-detail-phases|light|hover-1": [
-    ".lifecycle-btn-primary|axe:color-contrast",
-    ".lifecycle-gate|axe:color-contrast",
-    ".lifecycle-state-badge|axe:color-contrast",
-    ".lifecycle-warning-title|axe:color-contrast",
-    ".visual-phase-manager > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(1)|axe:color-contrast",
-    "div > div > div:nth-child(2) > div:nth-child(3)|axe:color-contrast",
-    "span:nth-child(1) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(2) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(3) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(4) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(5) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(7) > .lifecycle-step > .lifecycle-step-label|axe:color-contrast"
-  ],
-  "project-detail-phases|light|hover-2": [
-    ".lifecycle-btn-primary|axe:color-contrast",
-    ".lifecycle-gate|axe:color-contrast",
-    ".lifecycle-state-badge|axe:color-contrast",
-    ".lifecycle-warning-title|axe:color-contrast",
-    ".visual-phase-manager > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(1)|axe:color-contrast",
-    "div > div > div:nth-child(2) > div:nth-child(3)|axe:color-contrast",
-    "span:nth-child(1) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(2) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(3) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(4) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(5) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(7) > .lifecycle-step > .lifecycle-step-label|axe:color-contrast"
-  ],
-  "project-detail-phases|light|hover-3": [
-    ".lifecycle-btn-primary|axe:color-contrast",
-    ".lifecycle-gate|axe:color-contrast",
-    ".lifecycle-state-badge|axe:color-contrast",
-    ".lifecycle-warning-title|axe:color-contrast",
-    ".visual-phase-manager > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(1)|axe:color-contrast",
-    "div > div > div:nth-child(2) > div:nth-child(3)|axe:color-contrast",
-    "span:nth-child(1) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(2) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(3) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(4) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(5) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(7) > .lifecycle-step > .lifecycle-step-label|axe:color-contrast"
-  ],
+  "project-detail-phases|light|hover-0": [],
+  "project-detail-phases|light|hover-1": [],
+  "project-detail-phases|light|hover-2": [],
+  "project-detail-phases|light|hover-3": [],
   "project-detail-phases|light|keyboard-focus": [
-    ".lifecycle-btn-primary|axe:color-contrast",
-    ".lifecycle-gate|axe:color-contrast",
-    ".lifecycle-state-badge|axe:color-contrast",
-    ".lifecycle-warning-title|axe:color-contrast",
-    ".visual-phase-manager > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(1)|axe:color-contrast",
-    "div > div > div:nth-child(2) > div:nth-child(3)|axe:color-contrast",
-    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)|target-size",
-    "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > span:nth-of-type(1) > button:nth-of-type(1)|text-contrast",
-    "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)|text-contrast",
-    "span:nth-child(1) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(2) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(3) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(4) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(5) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(7) > .lifecycle-step > .lifecycle-step-label|axe:color-contrast"
+    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)|target-size"
   ],
   "project-detail-phases|light|opened-0": [
-    ".lifecycle-btn-primary|axe:color-contrast",
-    ".lifecycle-gate|axe:color-contrast",
-    ".lifecycle-state-badge|axe:color-contrast",
-    ".lifecycle-warning-title|axe:color-contrast",
-    ".visual-phase-manager > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(1)|axe:color-contrast",
-    "div > div > div:nth-child(2) > div:nth-child(3)|axe:color-contrast",
-    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)|target-size",
-    "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > span:nth-of-type(1) > button:nth-of-type(1)|text-contrast",
-    "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)|text-contrast",
-    "span:nth-child(1) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(2) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(3) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(4) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(5) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(7) > .lifecycle-step > .lifecycle-step-label|axe:color-contrast"
+    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)|target-size"
   ],
   "project-detail-phases|light|opened-1": [
-    ".lifecycle-btn-primary|axe:color-contrast",
-    ".lifecycle-gate|axe:color-contrast",
-    ".lifecycle-state-badge|axe:color-contrast",
-    ".lifecycle-warning-title|axe:color-contrast",
-    ".visual-phase-manager > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(1)|axe:color-contrast",
-    "div > div > div:nth-child(2) > div:nth-child(3)|axe:color-contrast",
-    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)|target-size",
-    "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > span:nth-of-type(1) > button:nth-of-type(1)|text-contrast",
-    "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)|text-contrast",
-    "div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)|text-contrast",
-    "div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(2)|text-contrast",
-    "span:nth-child(1) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(2) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(3) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(4) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(5) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(7) > .lifecycle-step > .lifecycle-step-label|axe:color-contrast"
+    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)|target-size"
   ],
   "project-detail-phases|light|opened-2": [
-    ".lifecycle-btn-primary|axe:color-contrast",
-    ".lifecycle-gate|axe:color-contrast",
-    ".lifecycle-state-badge|axe:color-contrast",
-    ".lifecycle-warning-title|axe:color-contrast",
-    ".visual-phase-manager > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(1)|axe:color-contrast",
-    "div > div > div:nth-child(2) > div:nth-child(3)|axe:color-contrast",
-    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)|target-size",
-    "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > span:nth-of-type(1) > button:nth-of-type(1)|text-contrast",
-    "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)|text-contrast",
-    "div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(2)|text-contrast",
-    "div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(3)|text-contrast",
-    "span:nth-child(1) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(2) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(3) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(4) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(5) > .lifecycle-step--passed.lifecycle-step > .lifecycle-step-label|axe:color-contrast",
-    "span:nth-child(7) > .lifecycle-step > .lifecycle-step-label|axe:color-contrast"
+    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)|target-size"
   ],
   "project-detail-phases|dark|default": [
-    ".lifecycle-btn-danger|axe:color-contrast",
-    ".lifecycle-btn-primary|axe:color-contrast",
-    "div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1)|occlusion",
-    "span:nth-child(7) > .lifecycle-step > .lifecycle-step-label|axe:color-contrast"
+    "div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1)|occlusion"
   ],
-  "project-detail-phases|dark|hover-0": [
-    ".lifecycle-btn-danger|axe:color-contrast",
-    ".lifecycle-btn-primary|axe:color-contrast",
-    "span:nth-child(7) > .lifecycle-step > .lifecycle-step-label|axe:color-contrast"
-  ],
-  "project-detail-phases|dark|hover-1": [
-    ".lifecycle-btn-danger|axe:color-contrast",
-    ".lifecycle-btn-primary|axe:color-contrast",
-    "span:nth-child(7) > .lifecycle-step > .lifecycle-step-label|axe:color-contrast"
-  ],
-  "project-detail-phases|dark|hover-2": [
-    ".lifecycle-btn-danger|axe:color-contrast",
-    ".lifecycle-btn-primary|axe:color-contrast",
-    "span:nth-child(7) > .lifecycle-step > .lifecycle-step-label|axe:color-contrast"
-  ],
-  "project-detail-phases|dark|hover-3": [
-    ".lifecycle-btn-danger|axe:color-contrast",
-    ".lifecycle-btn-primary|axe:color-contrast",
-    "span:nth-child(7) > .lifecycle-step > .lifecycle-step-label|axe:color-contrast"
-  ],
+  "project-detail-phases|dark|hover-0": [],
+  "project-detail-phases|dark|hover-1": [],
+  "project-detail-phases|dark|hover-2": [],
+  "project-detail-phases|dark|hover-3": [],
   "project-detail-phases|dark|keyboard-focus": [
-    ".lifecycle-btn-danger|axe:color-contrast",
-    ".lifecycle-btn-primary|axe:color-contrast",
-    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)|target-size",
-    "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)|text-contrast",
-    "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(3)|text-contrast",
-    "span:nth-child(7) > .lifecycle-step > .lifecycle-step-label|axe:color-contrast"
+    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)|target-size"
   ],
   "project-detail-phases|dark|opened-0": [
-    ".lifecycle-btn-danger|axe:color-contrast",
-    ".lifecycle-btn-primary|axe:color-contrast",
-    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)|target-size",
-    "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)|text-contrast",
-    "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(3)|text-contrast",
-    "span:nth-child(7) > .lifecycle-step > .lifecycle-step-label|axe:color-contrast"
+    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)|target-size"
   ],
   "project-detail-phases|dark|opened-1": [
-    ".lifecycle-btn-danger|axe:color-contrast",
-    ".lifecycle-btn-primary|axe:color-contrast",
-    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)|target-size",
-    "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)|text-contrast",
-    "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(3)|text-contrast",
-    "span:nth-child(7) > .lifecycle-step > .lifecycle-step-label|axe:color-contrast"
+    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)|target-size"
   ],
   "project-detail-phases|dark|opened-2": [
-    ".lifecycle-btn-danger|axe:color-contrast",
-    ".lifecycle-btn-primary|axe:color-contrast",
-    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)|target-size",
-    "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)|text-contrast",
-    "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(3)|text-contrast",
-    "span:nth-child(7) > .lifecycle-step > .lifecycle-step-label|axe:color-contrast"
+    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)|target-size"
   ],
   "roadmap|light|opened-0": [
     "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(30) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)|target-size",
@@ -1085,5 +922,413 @@
     "div:nth-of-type(3) > section:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(4) > label:nth-of-type(1) > input:nth-of-type(1)|target-size",
     "div:nth-of-type(3) > section:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(3) > label:nth-of-type(1) > input:nth-of-type(1)|target-size",
     "div:nth-of-type(3) > section:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(4) > label:nth-of-type(1) > input:nth-of-type(1)|target-size"
-  ]
+  ],
+  "project-types|light|default": [],
+  "project-types|light|hover-0": [],
+  "project-types|light|hover-1": [],
+  "project-types|light|hover-2": [],
+  "project-types|light|hover-3": [],
+  "project-types|light|hover-4": [],
+  "project-types|light|hover-5": [],
+  "project-types|light|keyboard-focus": [],
+  "project-types|dark|default": [],
+  "project-types|dark|hover-0": [],
+  "project-types|dark|hover-1": [],
+  "project-types|dark|hover-2": [],
+  "project-types|dark|hover-3": [],
+  "project-types|dark|hover-4": [],
+  "project-types|dark|hover-5": [],
+  "project-types|dark|keyboard-focus": [],
+  "audit-log|light|default": [
+    "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > select:nth-of-type(1)|unknown-background",
+    "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)|unknown-background"
+  ],
+  "audit-log|light|hover-0": [
+    "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > select:nth-of-type(1)|unknown-background",
+    "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)|unknown-background"
+  ],
+  "audit-log|light|hover-1": [
+    "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > select:nth-of-type(1)|unknown-background",
+    "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)|unknown-background"
+  ],
+  "audit-log|light|hover-2": [
+    "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > select:nth-of-type(1)|unknown-background",
+    "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)|unknown-background"
+  ],
+  "audit-log|light|keyboard-focus": [
+    "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > select:nth-of-type(1)|unknown-background",
+    "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)|unknown-background"
+  ],
+  "audit-log|dark|default": [
+    "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > select:nth-of-type(1)|unknown-background",
+    "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)|unknown-background"
+  ],
+  "audit-log|dark|hover-0": [
+    "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > select:nth-of-type(1)|unknown-background",
+    "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)|unknown-background"
+  ],
+  "audit-log|dark|hover-1": [
+    "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > select:nth-of-type(1)|unknown-background",
+    "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)|unknown-background"
+  ],
+  "audit-log|dark|hover-2": [
+    "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > select:nth-of-type(1)|unknown-background",
+    "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)|unknown-background"
+  ],
+  "audit-log|dark|keyboard-focus": [
+    "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > select:nth-of-type(1)|unknown-background",
+    "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)|unknown-background"
+  ],
+  "role-detail|light|default": [],
+  "role-detail|light|hover-0": [],
+  "role-detail|light|hover-1": [],
+  "role-detail|light|keyboard-focus": [],
+  "role-detail|dark|default": [],
+  "role-detail|dark|hover-0": [],
+  "role-detail|dark|hover-1": [],
+  "role-detail|dark|keyboard-focus": [],
+  "import|light|default": [
+    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > label:nth-of-type(1) > input:nth-of-type(1)|target-size",
+    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > label:nth-of-type(2) > input:nth-of-type(1)|target-size"
+  ],
+  "import|light|hover-0": [
+    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > label:nth-of-type(1) > input:nth-of-type(1)|target-size",
+    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > label:nth-of-type(2) > input:nth-of-type(1)|target-size"
+  ],
+  "import|light|hover-1": [
+    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > label:nth-of-type(1) > input:nth-of-type(1)|target-size",
+    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > label:nth-of-type(2) > input:nth-of-type(1)|target-size"
+  ],
+  "import|light|keyboard-focus": [
+    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > label:nth-of-type(1) > input:nth-of-type(1)|target-size",
+    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > label:nth-of-type(2) > input:nth-of-type(1)|target-size"
+  ],
+  "import|light|opened-0": [
+    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > label:nth-of-type(1) > input:nth-of-type(1)|target-size",
+    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > label:nth-of-type(2) > input:nth-of-type(1)|target-size",
+    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(1) > label:nth-of-type(1) > input:nth-of-type(1)|target-size",
+    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(1) > label:nth-of-type(2) > input:nth-of-type(1)|target-size",
+    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(1) > label:nth-of-type(3) > input:nth-of-type(1)|target-size"
+  ],
+  "import|dark|default": [
+    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > label:nth-of-type(1) > input:nth-of-type(1)|target-size",
+    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > label:nth-of-type(2) > input:nth-of-type(1)|target-size"
+  ],
+  "import|dark|hover-0": [
+    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > label:nth-of-type(1) > input:nth-of-type(1)|target-size",
+    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > label:nth-of-type(2) > input:nth-of-type(1)|target-size"
+  ],
+  "import|dark|hover-1": [
+    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > label:nth-of-type(1) > input:nth-of-type(1)|target-size",
+    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > label:nth-of-type(2) > input:nth-of-type(1)|target-size"
+  ],
+  "import|dark|keyboard-focus": [
+    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > label:nth-of-type(1) > input:nth-of-type(1)|target-size",
+    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > label:nth-of-type(2) > input:nth-of-type(1)|target-size"
+  ],
+  "import|dark|opened-0": [
+    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > label:nth-of-type(1) > input:nth-of-type(1)|target-size",
+    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > label:nth-of-type(2) > input:nth-of-type(1)|target-size",
+    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(1) > label:nth-of-type(1) > input:nth-of-type(1)|target-size",
+    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(1) > label:nth-of-type(2) > input:nth-of-type(1)|target-size",
+    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(1) > label:nth-of-type(3) > input:nth-of-type(1)|target-size"
+  ],
+  "project-types-hierarchy|light|default": [],
+  "project-types-hierarchy|light|hover-0": [],
+  "project-types-hierarchy|light|hover-1": [],
+  "project-types-hierarchy|light|hover-2": [],
+  "project-types-hierarchy|light|hover-3": [],
+  "project-types-hierarchy|light|hover-4": [],
+  "project-types-hierarchy|light|hover-5": [],
+  "project-types-hierarchy|light|hover-6": [],
+  "project-types-hierarchy|light|hover-7": [],
+  "project-types-hierarchy|light|keyboard-focus": [],
+  "project-types-hierarchy|dark|default": [],
+  "project-types-hierarchy|dark|hover-0": [],
+  "project-types-hierarchy|dark|hover-1": [],
+  "project-types-hierarchy|dark|hover-2": [],
+  "project-types-hierarchy|dark|hover-3": [],
+  "project-types-hierarchy|dark|hover-4": [],
+  "project-types-hierarchy|dark|hover-5": [],
+  "project-types-hierarchy|dark|hover-6": [],
+  "project-types-hierarchy|dark|hover-7": [],
+  "project-types-hierarchy|dark|keyboard-focus": [],
+  "reports|light|default": [
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > a:nth-of-type(1)|target-size"
+  ],
+  "reports|light|hover-0": [
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > a:nth-of-type(1)|target-size"
+  ],
+  "reports|light|hover-1": [
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > a:nth-of-type(1)|target-size"
+  ],
+  "reports|light|hover-2": [
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > a:nth-of-type(1)|target-size"
+  ],
+  "reports|light|hover-3": [
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > a:nth-of-type(1)|target-size"
+  ],
+  "reports|light|keyboard-focus": [
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > a:nth-of-type(1)|target-size"
+  ],
+  "reports|dark|default": [
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > a:nth-of-type(1)|target-size"
+  ],
+  "reports|dark|hover-0": [
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > a:nth-of-type(1)|target-size"
+  ],
+  "reports|dark|hover-1": [
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > a:nth-of-type(1)|target-size"
+  ],
+  "reports|dark|hover-2": [
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > a:nth-of-type(1)|target-size"
+  ],
+  "reports|dark|hover-3": [
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > a:nth-of-type(1)|target-size"
+  ],
+  "reports|dark|keyboard-focus": [
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > a:nth-of-type(1)|target-size"
+  ],
+  "reports-capacity|light|default": [
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(1)|target-size"
+  ],
+  "reports-capacity|light|hover-0": [
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(1)|target-size"
+  ],
+  "reports-capacity|light|hover-1": [
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(1)|target-size"
+  ],
+  "reports-capacity|light|hover-2": [
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(1)|target-size"
+  ],
+  "reports-capacity|light|hover-3": [
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(1)|target-size"
+  ],
+  "reports-capacity|light|keyboard-focus": [
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(1)|target-size"
+  ],
+  "reports-capacity|dark|default": [
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(1)|target-size"
+  ],
+  "reports-capacity|dark|hover-0": [
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(1)|target-size"
+  ],
+  "reports-capacity|dark|hover-1": [
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(1)|target-size"
+  ],
+  "reports-capacity|dark|hover-2": [
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(1)|target-size"
+  ],
+  "reports-capacity|dark|hover-3": [
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(1)|target-size"
+  ],
+  "reports-capacity|dark|keyboard-focus": [
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(1)|target-size"
+  ],
+  "reports-gaps|light|default": [
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > a:nth-of-type(1)|target-size",
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(1)|target-size",
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > a:nth-of-type(1)|target-size"
+  ],
+  "reports-gaps|light|hover-0": [
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > a:nth-of-type(1)|target-size",
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(1)|target-size",
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > a:nth-of-type(1)|target-size"
+  ],
+  "reports-gaps|light|hover-1": [
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > a:nth-of-type(1)|target-size",
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(1)|target-size",
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > a:nth-of-type(1)|target-size"
+  ],
+  "reports-gaps|light|hover-2": [
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > a:nth-of-type(1)|target-size",
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(1)|target-size",
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > a:nth-of-type(1)|target-size"
+  ],
+  "reports-gaps|light|hover-3": [
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > a:nth-of-type(1)|target-size",
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(1)|target-size",
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > a:nth-of-type(1)|target-size"
+  ],
+  "reports-gaps|light|keyboard-focus": [
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > a:nth-of-type(1)|target-size",
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(1)|target-size",
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > a:nth-of-type(1)|target-size"
+  ],
+  "reports-gaps|dark|default": [
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > a:nth-of-type(1)|target-size",
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(1)|target-size",
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > a:nth-of-type(1)|target-size"
+  ],
+  "reports-gaps|dark|hover-0": [
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > a:nth-of-type(1)|target-size",
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(1)|target-size",
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > a:nth-of-type(1)|target-size"
+  ],
+  "reports-gaps|dark|hover-1": [
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > a:nth-of-type(1)|target-size",
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(1)|target-size",
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > a:nth-of-type(1)|target-size"
+  ],
+  "reports-gaps|dark|hover-2": [
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > a:nth-of-type(1)|target-size",
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(1)|target-size",
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > a:nth-of-type(1)|target-size"
+  ],
+  "reports-gaps|dark|hover-3": [
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > a:nth-of-type(1)|target-size",
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(1)|target-size",
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > a:nth-of-type(1)|target-size"
+  ],
+  "reports-gaps|dark|keyboard-focus": [
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > a:nth-of-type(1)|target-size",
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(1)|target-size",
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > a:nth-of-type(1)|target-size"
+  ],
+  "import-export|light|default": [],
+  "import-export|light|hover-0": [],
+  "import-export|light|hover-1": [],
+  "import-export|light|hover-2": [],
+  "import-export|light|hover-3": [],
+  "import-export|light|keyboard-focus": [],
+  "import-export|dark|default": [],
+  "import-export|dark|hover-0": [],
+  "import-export|dark|hover-1": [],
+  "import-export|dark|hover-2": [],
+  "import-export|dark|hover-3": [],
+  "import-export|dark|keyboard-focus": [],
+  "locations|light|default": [],
+  "locations|light|hover-0": [],
+  "locations|light|hover-1": [],
+  "locations|light|keyboard-focus": [],
+  "locations|dark|default": [],
+  "locations|dark|hover-0": [],
+  "locations|dark|hover-1": [],
+  "locations|dark|keyboard-focus": [],
+  "person-detail|light|default": [],
+  "person-detail|light|hover-0": [],
+  "person-detail|light|hover-1": [],
+  "person-detail|light|hover-2": [],
+  "person-detail|light|keyboard-focus": [],
+  "person-detail|dark|default": [],
+  "person-detail|dark|hover-0": [],
+  "person-detail|dark|hover-1": [],
+  "person-detail|dark|hover-2": [],
+  "person-detail|dark|keyboard-focus": [],
+  "reports-utilization|light|default": [
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(1)|target-size",
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > a:nth-of-type(1)|target-size"
+  ],
+  "reports-utilization|light|hover-0": [
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(1)|target-size",
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > a:nth-of-type(1)|target-size"
+  ],
+  "reports-utilization|light|hover-1": [
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(1)|target-size",
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > a:nth-of-type(1)|target-size"
+  ],
+  "reports-utilization|light|hover-2": [
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(1)|target-size",
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > a:nth-of-type(1)|target-size"
+  ],
+  "reports-utilization|light|hover-3": [
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(1)|target-size",
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > a:nth-of-type(1)|target-size"
+  ],
+  "reports-utilization|light|keyboard-focus": [
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(1)|target-size",
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > a:nth-of-type(1)|target-size"
+  ],
+  "reports-utilization|dark|default": [
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(1)|target-size",
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > a:nth-of-type(1)|target-size"
+  ],
+  "reports-utilization|dark|hover-0": [
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(1)|target-size",
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > a:nth-of-type(1)|target-size"
+  ],
+  "reports-utilization|dark|hover-1": [
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(1)|target-size",
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > a:nth-of-type(1)|target-size"
+  ],
+  "reports-utilization|dark|hover-2": [
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(1)|target-size",
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > a:nth-of-type(1)|target-size"
+  ],
+  "reports-utilization|dark|hover-3": [
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(1)|target-size",
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > a:nth-of-type(1)|target-size"
+  ],
+  "reports-utilization|dark|keyboard-focus": [
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(1)|target-size",
+    "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > a:nth-of-type(1)|target-size"
+  ],
+  "iterations|light|default": [],
+  "iterations|light|hover-0": [],
+  "iterations|light|hover-1": [],
+  "iterations|light|hover-2": [],
+  "iterations|light|keyboard-focus": [],
+  "iterations|dark|default": [],
+  "iterations|dark|hover-0": [],
+  "iterations|dark|hover-1": [],
+  "iterations|dark|hover-2": [],
+  "iterations|dark|keyboard-focus": [],
+  "project-detail-tagged|light|default": [
+    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)|target-size"
+  ],
+  "project-detail-tagged|light|hover-0": [
+    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)|target-size"
+  ],
+  "project-detail-tagged|light|hover-1": [
+    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)|target-size"
+  ],
+  "project-detail-tagged|light|hover-2": [
+    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)|target-size"
+  ],
+  "project-detail-tagged|light|hover-3": [
+    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)|target-size"
+  ],
+  "project-detail-tagged|light|hover-4": [
+    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)|target-size"
+  ],
+  "project-detail-tagged|light|hover-5": [
+    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)|target-size"
+  ],
+  "project-detail-tagged|light|keyboard-focus": [
+    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)|target-size"
+  ],
+  "project-detail-tagged|dark|default": [
+    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)|target-size"
+  ],
+  "project-detail-tagged|dark|hover-0": [
+    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)|target-size"
+  ],
+  "project-detail-tagged|dark|hover-1": [
+    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)|target-size"
+  ],
+  "project-detail-tagged|dark|hover-2": [
+    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)|target-size"
+  ],
+  "project-detail-tagged|dark|hover-3": [
+    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)|target-size"
+  ],
+  "project-detail-tagged|dark|hover-4": [
+    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)|target-size"
+  ],
+  "project-detail-tagged|dark|hover-5": [
+    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)|target-size"
+  ],
+  "project-detail-tagged|dark|keyboard-focus": [
+    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)|target-size"
+  ],
+  "assignment-recommendations|light|default": [],
+  "assignment-recommendations|light|hover-0": [],
+  "assignment-recommendations|light|hover-1": [],
+  "assignment-recommendations|light|hover-2": [],
+  "assignment-recommendations|light|keyboard-focus": [],
+  "assignment-recommendations|dark|default": [],
+  "assignment-recommendations|dark|hover-0": [],
+  "assignment-recommendations|dark|hover-1": [],
+  "assignment-recommendations|dark|hover-2": [],
+  "assignment-recommendations|dark|keyboard-focus": []
 }

@@ -1,0 +1,1017 @@
+{
+  "profile": "audit-log",
+  "phases": [
+    {
+      "theme": "light",
+      "state": "default",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > select:nth-of-type(1)",
+          "family": "form-control form-select|",
+          "text": "全部数据表全部数据表人员项目角色分配资源",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": null,
+          "contrast": null,
+          "textual": true,
+          "disabled": false,
+          "width": 288.5,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
+          "family": "form-control form-select|",
+          "text": "全部操作全部操作创建更新删除",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": null,
+          "contrast": null,
+          "textual": true,
+          "disabled": false,
+          "width": 288.5,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "form-control search-input|",
+          "text": "",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 288.5,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "form-control search-input|",
+          "text": "",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 288.5,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn btn--small btn--secondary|",
+          "text": "详情",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 44,
+          "height": 28,
+          "font": 12
+        }
+      ],
+      "issues": [
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > select:nth-of-type(1)",
+          "kind": "unknown-background"
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
+          "kind": "unknown-background"
+        }
+      ],
+      "scope": ".page-container",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "light",
+      "state": "hover-0",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > select:nth-of-type(1)",
+          "family": "form-control form-select|",
+          "text": "全部数据表全部数据表人员项目角色分配资源",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": null,
+          "contrast": null,
+          "textual": true,
+          "disabled": false,
+          "width": 288.5,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
+          "family": "form-control form-select|",
+          "text": "全部操作全部操作创建更新删除",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": null,
+          "contrast": null,
+          "textual": true,
+          "disabled": false,
+          "width": 288.5,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "form-control search-input|",
+          "text": "",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 288.5,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "form-control search-input|",
+          "text": "",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 288.5,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn btn--small btn--secondary|",
+          "text": "详情",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 44,
+          "height": 28,
+          "font": 12
+        }
+      ],
+      "issues": [
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > select:nth-of-type(1)",
+          "kind": "unknown-background"
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
+          "kind": "unknown-background"
+        }
+      ],
+      "scope": ".page-container",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "light",
+      "state": "hover-1",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > select:nth-of-type(1)",
+          "family": "form-control form-select|",
+          "text": "全部数据表全部数据表人员项目角色分配资源",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": null,
+          "contrast": null,
+          "textual": true,
+          "disabled": false,
+          "width": 288.5,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
+          "family": "form-control form-select|",
+          "text": "全部操作全部操作创建更新删除",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": null,
+          "contrast": null,
+          "textual": true,
+          "disabled": false,
+          "width": 288.5,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "form-control search-input|",
+          "text": "",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 288.5,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "form-control search-input|",
+          "text": "",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 288.5,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn btn--small btn--secondary|",
+          "text": "详情",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 44,
+          "height": 28,
+          "font": 12
+        }
+      ],
+      "issues": [
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > select:nth-of-type(1)",
+          "kind": "unknown-background"
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
+          "kind": "unknown-background"
+        }
+      ],
+      "scope": ".page-container",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "light",
+      "state": "hover-2",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > select:nth-of-type(1)",
+          "family": "form-control form-select|",
+          "text": "全部数据表全部数据表人员项目角色分配资源",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": null,
+          "contrast": null,
+          "textual": true,
+          "disabled": false,
+          "width": 288.5,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
+          "family": "form-control form-select|",
+          "text": "全部操作全部操作创建更新删除",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": null,
+          "contrast": null,
+          "textual": true,
+          "disabled": false,
+          "width": 288.5,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "form-control search-input|",
+          "text": "",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 288.5,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "form-control search-input|",
+          "text": "",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 288.5,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn btn--small btn--secondary|",
+          "text": "详情",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 44,
+          "height": 28,
+          "font": 12
+        }
+      ],
+      "issues": [
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > select:nth-of-type(1)",
+          "kind": "unknown-background"
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
+          "kind": "unknown-background"
+        }
+      ],
+      "scope": ".page-container",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "light",
+      "state": "keyboard-focus",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > select:nth-of-type(1)",
+          "family": "form-control form-select|",
+          "text": "全部数据表全部数据表人员项目角色分配资源",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": null,
+          "contrast": null,
+          "textual": true,
+          "disabled": false,
+          "width": 288.5,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
+          "family": "form-control form-select|",
+          "text": "全部操作全部操作创建更新删除",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": null,
+          "contrast": null,
+          "textual": true,
+          "disabled": false,
+          "width": 288.5,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "form-control search-input|",
+          "text": "",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 288.5,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "form-control search-input|",
+          "text": "",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 288.5,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn btn--small btn--secondary|",
+          "text": "详情",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 44,
+          "height": 28,
+          "font": 12
+        }
+      ],
+      "issues": [
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > select:nth-of-type(1)",
+          "kind": "unknown-background"
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
+          "kind": "unknown-background"
+        }
+      ],
+      "scope": ".page-container",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "dark",
+      "state": "default",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > select:nth-of-type(1)",
+          "family": "form-control form-select|",
+          "text": "全部数据表全部数据表人员项目角色分配资源",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": null,
+          "contrast": null,
+          "textual": true,
+          "disabled": false,
+          "width": 288.5,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
+          "family": "form-control form-select|",
+          "text": "全部操作全部操作创建更新删除",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": null,
+          "contrast": null,
+          "textual": true,
+          "disabled": false,
+          "width": 288.5,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "form-control search-input|",
+          "text": "",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": true,
+          "disabled": false,
+          "width": 288.5,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "form-control search-input|",
+          "text": "",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": true,
+          "disabled": false,
+          "width": 288.5,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn btn--small btn--secondary|",
+          "text": "详情",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 44,
+          "height": 28,
+          "font": 12
+        }
+      ],
+      "issues": [
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > select:nth-of-type(1)",
+          "kind": "unknown-background"
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
+          "kind": "unknown-background"
+        }
+      ],
+      "scope": ".page-container",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "dark",
+      "state": "hover-0",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > select:nth-of-type(1)",
+          "family": "form-control form-select|",
+          "text": "全部数据表全部数据表人员项目角色分配资源",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": null,
+          "contrast": null,
+          "textual": true,
+          "disabled": false,
+          "width": 288.5,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
+          "family": "form-control form-select|",
+          "text": "全部操作全部操作创建更新删除",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": null,
+          "contrast": null,
+          "textual": true,
+          "disabled": false,
+          "width": 288.5,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "form-control search-input|",
+          "text": "",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": true,
+          "disabled": false,
+          "width": 288.5,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "form-control search-input|",
+          "text": "",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": true,
+          "disabled": false,
+          "width": 288.5,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn btn--small btn--secondary|",
+          "text": "详情",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 44,
+          "height": 28,
+          "font": 12
+        }
+      ],
+      "issues": [
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > select:nth-of-type(1)",
+          "kind": "unknown-background"
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
+          "kind": "unknown-background"
+        }
+      ],
+      "scope": ".page-container",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "dark",
+      "state": "hover-1",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > select:nth-of-type(1)",
+          "family": "form-control form-select|",
+          "text": "全部数据表全部数据表人员项目角色分配资源",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": null,
+          "contrast": null,
+          "textual": true,
+          "disabled": false,
+          "width": 288.5,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
+          "family": "form-control form-select|",
+          "text": "全部操作全部操作创建更新删除",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": null,
+          "contrast": null,
+          "textual": true,
+          "disabled": false,
+          "width": 288.5,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "form-control search-input|",
+          "text": "",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": true,
+          "disabled": false,
+          "width": 288.5,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "form-control search-input|",
+          "text": "",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": true,
+          "disabled": false,
+          "width": 288.5,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn btn--small btn--secondary|",
+          "text": "详情",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 44,
+          "height": 28,
+          "font": 12
+        }
+      ],
+      "issues": [
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > select:nth-of-type(1)",
+          "kind": "unknown-background"
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
+          "kind": "unknown-background"
+        }
+      ],
+      "scope": ".page-container",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "dark",
+      "state": "hover-2",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > select:nth-of-type(1)",
+          "family": "form-control form-select|",
+          "text": "全部数据表全部数据表人员项目角色分配资源",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": null,
+          "contrast": null,
+          "textual": true,
+          "disabled": false,
+          "width": 288.5,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
+          "family": "form-control form-select|",
+          "text": "全部操作全部操作创建更新删除",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": null,
+          "contrast": null,
+          "textual": true,
+          "disabled": false,
+          "width": 288.5,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "form-control search-input|",
+          "text": "",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": true,
+          "disabled": false,
+          "width": 288.5,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "form-control search-input|",
+          "text": "",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": true,
+          "disabled": false,
+          "width": 288.5,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn btn--small btn--secondary|",
+          "text": "详情",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 44,
+          "height": 28,
+          "font": 12
+        }
+      ],
+      "issues": [
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > select:nth-of-type(1)",
+          "kind": "unknown-background"
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
+          "kind": "unknown-background"
+        }
+      ],
+      "scope": ".page-container",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "dark",
+      "state": "keyboard-focus",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > select:nth-of-type(1)",
+          "family": "form-control form-select|",
+          "text": "全部数据表全部数据表人员项目角色分配资源",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": null,
+          "contrast": null,
+          "textual": true,
+          "disabled": false,
+          "width": 288.5,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
+          "family": "form-control form-select|",
+          "text": "全部操作全部操作创建更新删除",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": null,
+          "contrast": null,
+          "textual": true,
+          "disabled": false,
+          "width": 288.5,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "form-control search-input|",
+          "text": "",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": true,
+          "disabled": false,
+          "width": 288.5,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "form-control search-input|",
+          "text": "",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": true,
+          "disabled": false,
+          "width": 288.5,
+          "height": 39,
+          "font": 14
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn btn--small btn--secondary|",
+          "text": "详情",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 44,
+          "height": 28,
+          "font": 12
+        }
+      ],
+      "issues": [
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > select:nth-of-type(1)",
+          "kind": "unknown-background"
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
+          "kind": "unknown-background"
+        }
+      ],
+      "scope": ".page-container",
+      "axe": [],
+      "newIssues": []
+    }
+  ],
+  "writes": [],
+  "errors": []
+}

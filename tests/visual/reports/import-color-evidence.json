@@ -1,0 +1,1108 @@
+{
+  "evidence": [
+    {
+      "state": "default",
+      "theme": "light",
+      "width": 1600,
+      "phases": [
+        {
+          "phase": "default",
+          "axe": [],
+          "graphics": []
+        },
+        {
+          "phase": "hover",
+          "axe": [],
+          "graphics": []
+        },
+        {
+          "phase": "focus",
+          "axe": [],
+          "graphics": []
+        }
+      ],
+      "artifact": "tests/visual/reports/import-states-default-light-1600.png",
+      "mockedWrites": [],
+      "writes": [],
+      "errors": []
+    },
+    {
+      "state": "import-advanced",
+      "theme": "light",
+      "width": 1600,
+      "phases": [
+        {
+          "phase": "default",
+          "axe": [],
+          "graphics": []
+        },
+        {
+          "phase": "hover",
+          "axe": [],
+          "graphics": []
+        },
+        {
+          "phase": "focus",
+          "axe": [],
+          "graphics": []
+        }
+      ],
+      "artifact": "tests/visual/reports/import-states-import-advanced-light-1600.png",
+      "mockedWrites": [],
+      "writes": [],
+      "errors": []
+    },
+    {
+      "state": "import-file",
+      "theme": "light",
+      "width": 1600,
+      "phases": [
+        {
+          "phase": "default",
+          "axe": [],
+          "graphics": []
+        },
+        {
+          "phase": "hover",
+          "axe": [],
+          "graphics": []
+        },
+        {
+          "phase": "focus",
+          "axe": [],
+          "graphics": []
+        }
+      ],
+      "artifact": "tests/visual/reports/import-states-import-file-light-1600.png",
+      "mockedWrites": [],
+      "writes": [],
+      "errors": []
+    },
+    {
+      "state": "import-success",
+      "theme": "light",
+      "width": 1600,
+      "phases": [
+        {
+          "phase": "default",
+          "axe": [],
+          "graphics": [
+            {
+              "foreground": "rgb(146, 64, 14)",
+              "background": [
+                229,
+                231,
+                235
+              ],
+              "ratio": 5.726598235123297,
+              "threshold": 3
+            }
+          ]
+        },
+        {
+          "phase": "hover",
+          "axe": [],
+          "graphics": [
+            {
+              "foreground": "rgb(146, 64, 14)",
+              "background": [
+                229,
+                231,
+                235
+              ],
+              "ratio": 5.726598235123297,
+              "threshold": 3
+            }
+          ]
+        },
+        {
+          "phase": "focus",
+          "axe": [],
+          "graphics": [
+            {
+              "foreground": "rgb(146, 64, 14)",
+              "background": [
+                229,
+                231,
+                235
+              ],
+              "ratio": 5.726598235123297,
+              "threshold": 3
+            }
+          ]
+        }
+      ],
+      "artifact": "tests/visual/reports/import-states-import-success-light-1600.png",
+      "mockedWrites": [
+        {
+          "method": "POST",
+          "path": "/api/import/excel",
+          "state": "import-success",
+          "persisted": false
+        }
+      ],
+      "writes": [],
+      "errors": []
+    },
+    {
+      "state": "import-error",
+      "theme": "light",
+      "width": 1600,
+      "phases": [
+        {
+          "phase": "default",
+          "axe": [],
+          "graphics": [
+            {
+              "foreground": "rgb(153, 27, 27)",
+              "background": [
+                229,
+                231,
+                235
+              ],
+              "ratio": 6.711988184669004,
+              "threshold": 3
+            }
+          ]
+        },
+        {
+          "phase": "hover",
+          "axe": [],
+          "graphics": [
+            {
+              "foreground": "rgb(153, 27, 27)",
+              "background": [
+                229,
+                231,
+                235
+              ],
+              "ratio": 6.711988184669004,
+              "threshold": 3
+            }
+          ]
+        },
+        {
+          "phase": "focus",
+          "axe": [],
+          "graphics": [
+            {
+              "foreground": "rgb(153, 27, 27)",
+              "background": [
+                229,
+                231,
+                235
+              ],
+              "ratio": 6.711988184669004,
+              "threshold": 3
+            }
+          ]
+        }
+      ],
+      "artifact": "tests/visual/reports/import-states-import-error-light-1600.png",
+      "mockedWrites": [
+        {
+          "method": "POST",
+          "path": "/api/import/excel",
+          "state": "import-error",
+          "persisted": false
+        }
+      ],
+      "writes": [],
+      "errors": []
+    },
+    {
+      "state": "import-running",
+      "theme": "light",
+      "width": 1600,
+      "phases": [
+        {
+          "phase": "default",
+          "axe": [],
+          "graphics": [
+            {
+              "foreground": "rgb(79, 70, 229)",
+              "background": [
+                229,
+                231,
+                235
+              ],
+              "ratio": 5.078406893337325,
+              "threshold": 3
+            }
+          ]
+        },
+        {
+          "phase": "hover",
+          "axe": [],
+          "graphics": [
+            {
+              "foreground": "rgb(79, 70, 229)",
+              "background": [
+                229,
+                231,
+                235
+              ],
+              "ratio": 5.078406893337325,
+              "threshold": 3
+            }
+          ]
+        },
+        {
+          "phase": "focus",
+          "axe": [],
+          "graphics": [
+            {
+              "foreground": "rgb(79, 70, 229)",
+              "background": [
+                229,
+                231,
+                235
+              ],
+              "ratio": 5.078406893337325,
+              "threshold": 3
+            }
+          ]
+        }
+      ],
+      "artifact": "tests/visual/reports/import-states-import-running-light-1600.png",
+      "mockedWrites": [
+        {
+          "method": "POST",
+          "path": "/api/import/excel",
+          "state": "import-running",
+          "persisted": false
+        }
+      ],
+      "writes": [],
+      "errors": []
+    },
+    {
+      "state": "default",
+      "theme": "light",
+      "width": 1366,
+      "phases": [
+        {
+          "phase": "default",
+          "axe": [],
+          "graphics": []
+        },
+        {
+          "phase": "hover",
+          "axe": [],
+          "graphics": []
+        },
+        {
+          "phase": "focus",
+          "axe": [],
+          "graphics": []
+        }
+      ],
+      "artifact": "tests/visual/reports/import-states-default-light-1366.png",
+      "mockedWrites": [],
+      "writes": [],
+      "errors": []
+    },
+    {
+      "state": "import-advanced",
+      "theme": "light",
+      "width": 1366,
+      "phases": [
+        {
+          "phase": "default",
+          "axe": [],
+          "graphics": []
+        },
+        {
+          "phase": "hover",
+          "axe": [],
+          "graphics": []
+        },
+        {
+          "phase": "focus",
+          "axe": [],
+          "graphics": []
+        }
+      ],
+      "artifact": "tests/visual/reports/import-states-import-advanced-light-1366.png",
+      "mockedWrites": [],
+      "writes": [],
+      "errors": []
+    },
+    {
+      "state": "import-file",
+      "theme": "light",
+      "width": 1366,
+      "phases": [
+        {
+          "phase": "default",
+          "axe": [],
+          "graphics": []
+        },
+        {
+          "phase": "hover",
+          "axe": [],
+          "graphics": []
+        },
+        {
+          "phase": "focus",
+          "axe": [],
+          "graphics": []
+        }
+      ],
+      "artifact": "tests/visual/reports/import-states-import-file-light-1366.png",
+      "mockedWrites": [],
+      "writes": [],
+      "errors": []
+    },
+    {
+      "state": "import-success",
+      "theme": "light",
+      "width": 1366,
+      "phases": [
+        {
+          "phase": "default",
+          "axe": [],
+          "graphics": [
+            {
+              "foreground": "rgb(146, 64, 14)",
+              "background": [
+                229,
+                231,
+                235
+              ],
+              "ratio": 5.726598235123297,
+              "threshold": 3
+            }
+          ]
+        },
+        {
+          "phase": "hover",
+          "axe": [],
+          "graphics": [
+            {
+              "foreground": "rgb(146, 64, 14)",
+              "background": [
+                229,
+                231,
+                235
+              ],
+              "ratio": 5.726598235123297,
+              "threshold": 3
+            }
+          ]
+        },
+        {
+          "phase": "focus",
+          "axe": [],
+          "graphics": [
+            {
+              "foreground": "rgb(146, 64, 14)",
+              "background": [
+                229,
+                231,
+                235
+              ],
+              "ratio": 5.726598235123297,
+              "threshold": 3
+            }
+          ]
+        }
+      ],
+      "artifact": "tests/visual/reports/import-states-import-success-light-1366.png",
+      "mockedWrites": [
+        {
+          "method": "POST",
+          "path": "/api/import/excel",
+          "state": "import-success",
+          "persisted": false
+        }
+      ],
+      "writes": [],
+      "errors": []
+    },
+    {
+      "state": "import-error",
+      "theme": "light",
+      "width": 1366,
+      "phases": [
+        {
+          "phase": "default",
+          "axe": [],
+          "graphics": [
+            {
+              "foreground": "rgb(153, 27, 27)",
+              "background": [
+                229,
+                231,
+                235
+              ],
+              "ratio": 6.711988184669004,
+              "threshold": 3
+            }
+          ]
+        },
+        {
+          "phase": "hover",
+          "axe": [],
+          "graphics": [
+            {
+              "foreground": "rgb(153, 27, 27)",
+              "background": [
+                229,
+                231,
+                235
+              ],
+              "ratio": 6.711988184669004,
+              "threshold": 3
+            }
+          ]
+        },
+        {
+          "phase": "focus",
+          "axe": [],
+          "graphics": [
+            {
+              "foreground": "rgb(153, 27, 27)",
+              "background": [
+                229,
+                231,
+                235
+              ],
+              "ratio": 6.711988184669004,
+              "threshold": 3
+            }
+          ]
+        }
+      ],
+      "artifact": "tests/visual/reports/import-states-import-error-light-1366.png",
+      "mockedWrites": [
+        {
+          "method": "POST",
+          "path": "/api/import/excel",
+          "state": "import-error",
+          "persisted": false
+        }
+      ],
+      "writes": [],
+      "errors": []
+    },
+    {
+      "state": "import-running",
+      "theme": "light",
+      "width": 1366,
+      "phases": [
+        {
+          "phase": "default",
+          "axe": [],
+          "graphics": [
+            {
+              "foreground": "rgb(79, 70, 229)",
+              "background": [
+                229,
+                231,
+                235
+              ],
+              "ratio": 5.078406893337325,
+              "threshold": 3
+            }
+          ]
+        },
+        {
+          "phase": "hover",
+          "axe": [],
+          "graphics": [
+            {
+              "foreground": "rgb(79, 70, 229)",
+              "background": [
+                229,
+                231,
+                235
+              ],
+              "ratio": 5.078406893337325,
+              "threshold": 3
+            }
+          ]
+        },
+        {
+          "phase": "focus",
+          "axe": [],
+          "graphics": [
+            {
+              "foreground": "rgb(79, 70, 229)",
+              "background": [
+                229,
+                231,
+                235
+              ],
+              "ratio": 5.078406893337325,
+              "threshold": 3
+            }
+          ]
+        }
+      ],
+      "artifact": "tests/visual/reports/import-states-import-running-light-1366.png",
+      "mockedWrites": [
+        {
+          "method": "POST",
+          "path": "/api/import/excel",
+          "state": "import-running",
+          "persisted": false
+        }
+      ],
+      "writes": [],
+      "errors": []
+    },
+    {
+      "state": "default",
+      "theme": "dark",
+      "width": 1600,
+      "phases": [
+        {
+          "phase": "default",
+          "axe": [],
+          "graphics": []
+        },
+        {
+          "phase": "hover",
+          "axe": [],
+          "graphics": []
+        },
+        {
+          "phase": "focus",
+          "axe": [],
+          "graphics": []
+        }
+      ],
+      "artifact": "tests/visual/reports/import-states-default-dark-1600.png",
+      "mockedWrites": [],
+      "writes": [],
+      "errors": []
+    },
+    {
+      "state": "import-advanced",
+      "theme": "dark",
+      "width": 1600,
+      "phases": [
+        {
+          "phase": "default",
+          "axe": [],
+          "graphics": []
+        },
+        {
+          "phase": "hover",
+          "axe": [],
+          "graphics": []
+        },
+        {
+          "phase": "focus",
+          "axe": [],
+          "graphics": []
+        }
+      ],
+      "artifact": "tests/visual/reports/import-states-import-advanced-dark-1600.png",
+      "mockedWrites": [],
+      "writes": [],
+      "errors": []
+    },
+    {
+      "state": "import-file",
+      "theme": "dark",
+      "width": 1600,
+      "phases": [
+        {
+          "phase": "default",
+          "axe": [],
+          "graphics": []
+        },
+        {
+          "phase": "hover",
+          "axe": [],
+          "graphics": []
+        },
+        {
+          "phase": "focus",
+          "axe": [],
+          "graphics": []
+        }
+      ],
+      "artifact": "tests/visual/reports/import-states-import-file-dark-1600.png",
+      "mockedWrites": [],
+      "writes": [],
+      "errors": []
+    },
+    {
+      "state": "import-success",
+      "theme": "dark",
+      "width": 1600,
+      "phases": [
+        {
+          "phase": "default",
+          "axe": [],
+          "graphics": [
+            {
+              "foreground": "rgb(253, 224, 71)",
+              "background": [
+                54,
+                65,
+                83
+              ],
+              "ratio": 7.816840564256431,
+              "threshold": 3
+            }
+          ]
+        },
+        {
+          "phase": "hover",
+          "axe": [],
+          "graphics": [
+            {
+              "foreground": "rgb(253, 224, 71)",
+              "background": [
+                54,
+                65,
+                83
+              ],
+              "ratio": 7.816840564256431,
+              "threshold": 3
+            }
+          ]
+        },
+        {
+          "phase": "focus",
+          "axe": [],
+          "graphics": [
+            {
+              "foreground": "rgb(253, 224, 71)",
+              "background": [
+                54,
+                65,
+                83
+              ],
+              "ratio": 7.816840564256431,
+              "threshold": 3
+            }
+          ]
+        }
+      ],
+      "artifact": "tests/visual/reports/import-states-import-success-dark-1600.png",
+      "mockedWrites": [
+        {
+          "method": "POST",
+          "path": "/api/import/excel",
+          "state": "import-success",
+          "persisted": false
+        }
+      ],
+      "writes": [],
+      "errors": []
+    },
+    {
+      "state": "import-error",
+      "theme": "dark",
+      "width": 1600,
+      "phases": [
+        {
+          "phase": "default",
+          "axe": [],
+          "graphics": [
+            {
+              "foreground": "rgb(254, 202, 202)",
+              "background": [
+                54,
+                65,
+                83
+              ],
+              "ratio": 7.122714081218572,
+              "threshold": 3
+            }
+          ]
+        },
+        {
+          "phase": "hover",
+          "axe": [],
+          "graphics": [
+            {
+              "foreground": "rgb(254, 202, 202)",
+              "background": [
+                54,
+                65,
+                83
+              ],
+              "ratio": 7.122714081218572,
+              "threshold": 3
+            }
+          ]
+        },
+        {
+          "phase": "focus",
+          "axe": [],
+          "graphics": [
+            {
+              "foreground": "rgb(254, 202, 202)",
+              "background": [
+                54,
+                65,
+                83
+              ],
+              "ratio": 7.122714081218572,
+              "threshold": 3
+            }
+          ]
+        }
+      ],
+      "artifact": "tests/visual/reports/import-states-import-error-dark-1600.png",
+      "mockedWrites": [
+        {
+          "method": "POST",
+          "path": "/api/import/excel",
+          "state": "import-error",
+          "persisted": false
+        }
+      ],
+      "writes": [],
+      "errors": []
+    },
+    {
+      "state": "import-running",
+      "theme": "dark",
+      "width": 1600,
+      "phases": [
+        {
+          "phase": "default",
+          "axe": [],
+          "graphics": [
+            {
+              "foreground": "rgb(165, 180, 252)",
+              "background": [
+                54,
+                65,
+                83
+              ],
+              "ratio": 5.16911123953158,
+              "threshold": 3
+            }
+          ]
+        },
+        {
+          "phase": "hover",
+          "axe": [],
+          "graphics": [
+            {
+              "foreground": "rgb(165, 180, 252)",
+              "background": [
+                54,
+                65,
+                83
+              ],
+              "ratio": 5.16911123953158,
+              "threshold": 3
+            }
+          ]
+        },
+        {
+          "phase": "focus",
+          "axe": [],
+          "graphics": [
+            {
+              "foreground": "rgb(165, 180, 252)",
+              "background": [
+                54,
+                65,
+                83
+              ],
+              "ratio": 5.16911123953158,
+              "threshold": 3
+            }
+          ]
+        }
+      ],
+      "artifact": "tests/visual/reports/import-states-import-running-dark-1600.png",
+      "mockedWrites": [
+        {
+          "method": "POST",
+          "path": "/api/import/excel",
+          "state": "import-running",
+          "persisted": false
+        }
+      ],
+      "writes": [],
+      "errors": []
+    },
+    {
+      "state": "default",
+      "theme": "dark",
+      "width": 1366,
+      "phases": [
+        {
+          "phase": "default",
+          "axe": [],
+          "graphics": []
+        },
+        {
+          "phase": "hover",
+          "axe": [],
+          "graphics": []
+        },
+        {
+          "phase": "focus",
+          "axe": [],
+          "graphics": []
+        }
+      ],
+      "artifact": "tests/visual/reports/import-states-default-dark-1366.png",
+      "mockedWrites": [],
+      "writes": [],
+      "errors": []
+    },
+    {
+      "state": "import-advanced",
+      "theme": "dark",
+      "width": 1366,
+      "phases": [
+        {
+          "phase": "default",
+          "axe": [],
+          "graphics": []
+        },
+        {
+          "phase": "hover",
+          "axe": [],
+          "graphics": []
+        },
+        {
+          "phase": "focus",
+          "axe": [],
+          "graphics": []
+        }
+      ],
+      "artifact": "tests/visual/reports/import-states-import-advanced-dark-1366.png",
+      "mockedWrites": [],
+      "writes": [],
+      "errors": []
+    },
+    {
+      "state": "import-file",
+      "theme": "dark",
+      "width": 1366,
+      "phases": [
+        {
+          "phase": "default",
+          "axe": [],
+          "graphics": []
+        },
+        {
+          "phase": "hover",
+          "axe": [],
+          "graphics": []
+        },
+        {
+          "phase": "focus",
+          "axe": [],
+          "graphics": []
+        }
+      ],
+      "artifact": "tests/visual/reports/import-states-import-file-dark-1366.png",
+      "mockedWrites": [],
+      "writes": [],
+      "errors": []
+    },
+    {
+      "state": "import-success",
+      "theme": "dark",
+      "width": 1366,
+      "phases": [
+        {
+          "phase": "default",
+          "axe": [],
+          "graphics": [
+            {
+              "foreground": "rgb(253, 224, 71)",
+              "background": [
+                54,
+                65,
+                83
+              ],
+              "ratio": 7.816840564256431,
+              "threshold": 3
+            }
+          ]
+        },
+        {
+          "phase": "hover",
+          "axe": [],
+          "graphics": [
+            {
+              "foreground": "rgb(253, 224, 71)",
+              "background": [
+                54,
+                65,
+                83
+              ],
+              "ratio": 7.816840564256431,
+              "threshold": 3
+            }
+          ]
+        },
+        {
+          "phase": "focus",
+          "axe": [],
+          "graphics": [
+            {
+              "foreground": "rgb(253, 224, 71)",
+              "background": [
+                54,
+                65,
+                83
+              ],
+              "ratio": 7.816840564256431,
+              "threshold": 3
+            }
+          ]
+        }
+      ],
+      "artifact": "tests/visual/reports/import-states-import-success-dark-1366.png",
+      "mockedWrites": [
+        {
+          "method": "POST",
+          "path": "/api/import/excel",
+          "state": "import-success",
+          "persisted": false
+        }
+      ],
+      "writes": [],
+      "errors": []
+    },
+    {
+      "state": "import-error",
+      "theme": "dark",
+      "width": 1366,
+      "phases": [
+        {
+          "phase": "default",
+          "axe": [],
+          "graphics": [
+            {
+              "foreground": "rgb(254, 202, 202)",
+              "background": [
+                54,
+                65,
+                83
+              ],
+              "ratio": 7.122714081218572,
+              "threshold": 3
+            }
+          ]
+        },
+        {
+          "phase": "hover",
+          "axe": [],
+          "graphics": [
+            {
+              "foreground": "rgb(254, 202, 202)",
+              "background": [
+                54,
+                65,
+                83
+              ],
+              "ratio": 7.122714081218572,
+              "threshold": 3
+            }
+          ]
+        },
+        {
+          "phase": "focus",
+          "axe": [],
+          "graphics": [
+            {
+              "foreground": "rgb(254, 202, 202)",
+              "background": [
+                54,
+                65,
+                83
+              ],
+              "ratio": 7.122714081218572,
+              "threshold": 3
+            }
+          ]
+        }
+      ],
+      "artifact": "tests/visual/reports/import-states-import-error-dark-1366.png",
+      "mockedWrites": [
+        {
+          "method": "POST",
+          "path": "/api/import/excel",
+          "state": "import-error",
+          "persisted": false
+        }
+      ],
+      "writes": [],
+      "errors": []
+    },
+    {
+      "state": "import-running",
+      "theme": "dark",
+      "width": 1366,
+      "phases": [
+        {
+          "phase": "default",
+          "axe": [],
+          "graphics": [
+            {
+              "foreground": "rgb(165, 180, 252)",
+              "background": [
+                54,
+                65,
+                83
+              ],
+              "ratio": 5.16911123953158,
+              "threshold": 3
+            }
+          ]
+        },
+        {
+          "phase": "hover",
+          "axe": [],
+          "graphics": [
+            {
+              "foreground": "rgb(165, 180, 252)",
+              "background": [
+                54,
+                65,
+                83
+              ],
+              "ratio": 5.16911123953158,
+              "threshold": 3
+            }
+          ]
+        },
+        {
+          "phase": "focus",
+          "axe": [],
+          "graphics": [
+            {
+              "foreground": "rgb(165, 180, 252)",
+              "background": [
+                54,
+                65,
+                83
+              ],
+              "ratio": 5.16911123953158,
+              "threshold": 3
+            }
+          ]
+        }
+      ],
+      "artifact": "tests/visual/reports/import-states-import-running-dark-1366.png",
+      "mockedWrites": [
+        {
+          "method": "POST",
+          "path": "/api/import/excel",
+          "state": "import-running",
+          "persisted": false
+        }
+      ],
+      "writes": [],
+      "errors": []
+    }
+  ]
+}

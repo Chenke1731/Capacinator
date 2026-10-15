@@ -165,16 +165,16 @@ export function OperationProgress({
 
       {/* Errors section */}
       {errors && errors.length > 0 && (
-        <div className="mt-3 p-2 bg-red-50 dark:bg-red-900/20 rounded border border-red-200 dark:border-red-800">
-          <p className="text-xs font-medium text-red-700 dark:text-red-300 mb-1">
+        <div className="mt-3 p-2 bg-[var(--status-danger-soft)] rounded border border-[var(--status-danger-border)]">
+          <p className="text-xs font-medium text-[var(--status-danger-text)] mb-1">
             Errors ({errors.length}):
           </p>
-          <ul className="text-xs text-red-600 dark:text-red-400 list-disc list-inside max-h-24 overflow-y-auto">
+          <ul className="text-xs text-[var(--status-danger-text)] list-disc list-inside max-h-24 overflow-y-auto">
             {errors.slice(0, 5).map((error, index) => (
               <li key={index} className="truncate">{error}</li>
             ))}
             {errors.length > 5 && (
-              <li className="text-red-500">...and {errors.length - 5} more errors</li>
+              <li>...and {errors.length - 5} more errors</li>
             )}
           </ul>
         </div>
@@ -182,16 +182,16 @@ export function OperationProgress({
 
       {/* Warnings section */}
       {warnings && warnings.length > 0 && (
-        <div className="mt-3 p-2 bg-yellow-50 dark:bg-yellow-900/20 rounded border border-yellow-200 dark:border-yellow-800">
-          <p className="text-xs font-medium text-yellow-700 dark:text-yellow-300 mb-1">
+        <div className="mt-3 p-2 bg-[var(--status-warning-soft)] rounded border border-[var(--status-warning-border)]">
+          <p className="text-xs font-medium text-[var(--status-warning-text)] mb-1">
             Warnings ({warnings.length}):
           </p>
-          <ul className="text-xs text-yellow-700 dark:text-yellow-300 list-disc list-inside max-h-24 overflow-y-auto">
+          <ul className="text-xs text-[var(--status-warning-text)] list-disc list-inside max-h-24 overflow-y-auto">
             {warnings.slice(0, 5).map((warning, index) => (
               <li key={index} className="truncate">{warning}</li>
             ))}
             {warnings.length > 5 && (
-              <li className="text-yellow-500">...and {warnings.length - 5} more warnings</li>
+              <li>...and {warnings.length - 5} more warnings</li>
             )}
           </ul>
         </div>

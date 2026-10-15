@@ -15,6 +15,7 @@ import {
   DialogDescription,
 } from '../ui/dialog';
 import type { Tag } from '../../types';
+import {getContrastingTextColor} from '../../lib/project-colors';
 
 /** Okabe-Ito 色盲安全色板(生成契约 2026-09-22): 标签类别编码专用,同屏 ≤4 色 */
 const OKABE_ITO = ['#E69F00', '#56B4E9', '#009E73', '#F0E442', '#0072B2', '#D55E00', '#CC79A7', '#999999'];
@@ -178,7 +179,7 @@ export function TagManagerDialog({ isOpen, onClose }: { isOpen: boolean; onClose
                   <button
                     type="button"
                     className="tag-chip tag-chip-static"
-                    style={tag.color ? { backgroundColor: tag.color, borderColor: tag.color, color: '#fff' } : undefined}
+                    style={tag.color ? { backgroundColor: tag.color, borderColor: tag.color, color: getContrastingTextColor(tag.color) } : undefined}
                     onClick={() => startEdit(tag)}
                     title={t('projects:tags.rename')}
                   >

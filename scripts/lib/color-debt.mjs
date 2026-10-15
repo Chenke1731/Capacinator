@@ -60,8 +60,11 @@ export function colorsInValue(value) {
       return;
     }
     if(node.type!=='word') return;
-    const word=node.value.toLowerCase();
-    if(/^#(?:[\da-f]{3}|[\da-f]{4}|[\da-f]{6}|[\da-f]{8})$/i.test(word)||Object.hasOwn(colorNames,word)) colors.push({literal:node.value,offset:node.sourceIndex});
+    // Template tails can end in an unmatched ')' because their opening
+    // function is in an earlier interpolated fragment: `${ink} 55%, #111827)`.
+    // value-parser preserves that closing delimiter in the word token.
+    const word=node.value.toLowerCase().replace(/\)+$/,'');
+    if(/^#(?:[\da-f]{3}|[\da-f]{4}|[\da-f]{6}|[\da-f]{8})$/i.test(word)||Object.hasOwn(colorNames,word)) colors.push({literal:node.value.slice(0,word.length),offset:node.sourceIndex});
     else if(symbols.has(word)) symbolic.push({literal:node.value,offset:node.sourceIndex});
   });
   return {colors,symbolic};
@@ -125,7 +128,7 @@ export function scanSources(sources) {
             add(file,source,c.slice(0,-1),c.at(-1),c.at(-1),source.slice(start,node.end-1),start);
           } else if(ts.isTemplateHead(node)||ts.isTemplateMiddle(node)||ts.isTemplateTail(node)) {
             const c=tsContext(node,ast),raw=node.text,parsed=colorsInValue(raw);
-            if(parsed.colors.length) add(file,source,c.slice(0,-1),c.at(-1),c.at(-1),raw,node.getStart(ast)+1);
+            if(parsed.colors.length||/\bvar\s*\(/i.test(raw)) add(file,source,c.slice(0,-1),c.at(-1),c.at(-1),raw,node.getStart(ast)+1);
             else if(/\b(?:rgb|hsl|oklch|color)\(/i.test(raw)) errors.push(`${file}: dynamic color template requires an explicit parser adapter`);
           }
           ts.forEachChild(node,visit);
@@ -167,6 +170,8 @@ function validEvidence(e,root) {
 /** Identity comparison prevents an unrelated deletion from hiding a new literal. */
 export function checkLedger(scan,ledger,baseline,root) {
   const issues=[...scan.errors];
+  if(baseline.governanceComplete&&!ledger.governanceComplete)issues.push('Completed color governance cannot be reopened by dropping its classification gate');
+  if(ledger.governanceComplete&&ledger.entries.some(e=>e.decision==='pending'||e.decision==='fix'||e.decision==='tokenize'))issues.push('Completed color governance requires zero unclassified or unresolved consumers');
   if(ledger.schemaVersion!==1||ledger.scannerVersion!==SCANNER_VERSION) issues.push('Unsupported ledger/scanner version');
   const current=new Map(scan.entries.map(e=>[e.fingerprint,e])),recorded=new Map(ledger.entries.map(e=>[e.fingerprint,e])),old=new Map(baseline.entries.map(e=>[e.fingerprint,e]));
   const reachability=ledger.entries.some(e=>e.decision==='retained-unused')?uiReachability(root):null;

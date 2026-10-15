@@ -1,0 +1,503 @@
+{
+  "profile": "iterations",
+  "phases": [
+    {
+      "theme": "light",
+      "state": "default",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
+          "family": "it-btn it-btn--primary|",
+          "text": "新建迭代",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 94.015625,
+          "height": 44,
+          "font": 12.5
+        },
+        {
+          "selector": "section:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > span:nth-of-type(5) > button:nth-of-type(1)",
+          "family": "it-icon-btn|",
+          "text": "",
+          "foreground": "rgb(75, 85, 99)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            241.18823529411765,
+            242.15686274509804,
+            243.12549019607843
+          ],
+          "contrast": 6.751995376591825,
+          "textual": false,
+          "disabled": false,
+          "width": 44,
+          "height": 44,
+          "font": 16
+        },
+        {
+          "selector": "section:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > span:nth-of-type(5) > button:nth-of-type(2)",
+          "family": "it-icon-btn it-icon-btn--danger|",
+          "text": "",
+          "foreground": "rgb(75, 85, 99)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            241.18823529411765,
+            242.15686274509804,
+            243.12549019607843
+          ],
+          "contrast": 6.751995376591825,
+          "textual": false,
+          "disabled": false,
+          "width": 44,
+          "height": 44,
+          "font": 16
+        }
+      ],
+      "issues": [],
+      "scope": ".iterations-page",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "light",
+      "state": "hover-0",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
+          "family": "it-btn it-btn--primary|",
+          "text": "新建迭代",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(67, 56, 202)",
+          "effectiveBackground": [
+            67,
+            56,
+            202
+          ],
+          "contrast": 7.9031114800249425,
+          "textual": true,
+          "disabled": false,
+          "width": 94.015625,
+          "height": 44,
+          "font": 12.5
+        }
+      ],
+      "issues": [],
+      "scope": ".iterations-page",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "light",
+      "state": "hover-1",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
+          "family": "it-btn it-btn--primary|",
+          "text": "新建迭代",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 94.015625,
+          "height": 44,
+          "font": 12.5
+        },
+        {
+          "selector": "section:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > span:nth-of-type(5) > button:nth-of-type(1)",
+          "family": "it-icon-btn|",
+          "text": "",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(249, 250, 251)",
+          "effectiveBackground": [
+            249,
+            250,
+            251
+          ],
+          "contrast": 16.97538624440406,
+          "textual": false,
+          "disabled": false,
+          "width": 44,
+          "height": 44,
+          "font": 16
+        },
+        {
+          "selector": "section:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > span:nth-of-type(5) > button:nth-of-type(2)",
+          "family": "it-icon-btn it-icon-btn--danger|",
+          "text": "",
+          "foreground": "rgb(75, 85, 99)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            241.18823529411765,
+            242.15686274509804,
+            243.12549019607843
+          ],
+          "contrast": 6.751995376591825,
+          "textual": false,
+          "disabled": false,
+          "width": 44,
+          "height": 44,
+          "font": 16
+        }
+      ],
+      "issues": [],
+      "scope": ".iterations-page",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "light",
+      "state": "hover-2",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
+          "family": "it-btn it-btn--primary|",
+          "text": "新建迭代",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 94.015625,
+          "height": 44,
+          "font": 12.5
+        },
+        {
+          "selector": "section:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > span:nth-of-type(5) > button:nth-of-type(1)",
+          "family": "it-icon-btn|",
+          "text": "",
+          "foreground": "rgb(75, 85, 99)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            241.18823529411765,
+            242.15686274509804,
+            243.12549019607843
+          ],
+          "contrast": 6.751995376591825,
+          "textual": false,
+          "disabled": false,
+          "width": 44,
+          "height": 44,
+          "font": 16
+        },
+        {
+          "selector": "section:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > span:nth-of-type(5) > button:nth-of-type(2)",
+          "family": "it-icon-btn it-icon-btn--danger|",
+          "text": "",
+          "foreground": "rgb(185, 28, 28)",
+          "background": "rgb(249, 250, 251)",
+          "effectiveBackground": [
+            249,
+            250,
+            251
+          ],
+          "contrast": 6.191277348008749,
+          "textual": false,
+          "disabled": false,
+          "width": 44,
+          "height": 44,
+          "font": 16
+        }
+      ],
+      "issues": [],
+      "scope": ".iterations-page",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "light",
+      "state": "keyboard-focus",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
+          "family": "it-btn it-btn--primary|",
+          "text": "新建迭代",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 94.015625,
+          "height": 44,
+          "font": 12.5
+        }
+      ],
+      "issues": [],
+      "scope": ".iterations-page",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "dark",
+      "state": "default",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
+          "family": "it-btn it-btn--primary|",
+          "text": "新建迭代",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 94.015625,
+          "height": 44,
+          "font": 12.5
+        },
+        {
+          "selector": "section:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > span:nth-of-type(5) > button:nth-of-type(1)",
+          "family": "it-icon-btn|",
+          "text": "",
+          "foreground": "rgb(209, 213, 219)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            42.41960784313726,
+            51.909803921568624,
+            65.19607843137254
+          ],
+          "contrast": 8.551331708892908,
+          "textual": false,
+          "disabled": false,
+          "width": 44,
+          "height": 44,
+          "font": 16
+        },
+        {
+          "selector": "section:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > span:nth-of-type(5) > button:nth-of-type(2)",
+          "family": "it-icon-btn it-icon-btn--danger|",
+          "text": "",
+          "foreground": "rgb(209, 213, 219)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            42.41960784313726,
+            51.909803921568624,
+            65.19607843137254
+          ],
+          "contrast": 8.551331708892908,
+          "textual": false,
+          "disabled": false,
+          "width": 44,
+          "height": 44,
+          "font": 16
+        }
+      ],
+      "issues": [],
+      "scope": ".iterations-page",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "dark",
+      "state": "hover-0",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
+          "family": "it-btn it-btn--primary|",
+          "text": "新建迭代",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 94.015625,
+          "height": 44,
+          "font": 12.5
+        }
+      ],
+      "issues": [],
+      "scope": ".iterations-page",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "dark",
+      "state": "hover-1",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
+          "family": "it-btn it-btn--primary|",
+          "text": "新建迭代",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 94.015625,
+          "height": 44,
+          "font": 12.5
+        },
+        {
+          "selector": "section:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > span:nth-of-type(5) > button:nth-of-type(1)",
+          "family": "it-icon-btn|",
+          "text": "",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": false,
+          "disabled": false,
+          "width": 44,
+          "height": 44,
+          "font": 16
+        },
+        {
+          "selector": "section:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > span:nth-of-type(5) > button:nth-of-type(2)",
+          "family": "it-icon-btn it-icon-btn--danger|",
+          "text": "",
+          "foreground": "rgb(209, 213, 219)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            42.41960784313726,
+            51.909803921568624,
+            65.19607843137254
+          ],
+          "contrast": 8.551331708892908,
+          "textual": false,
+          "disabled": false,
+          "width": 44,
+          "height": 44,
+          "font": 16
+        }
+      ],
+      "issues": [],
+      "scope": ".iterations-page",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "dark",
+      "state": "hover-2",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
+          "family": "it-btn it-btn--primary|",
+          "text": "新建迭代",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 94.015625,
+          "height": 44,
+          "font": 12.5
+        },
+        {
+          "selector": "section:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > span:nth-of-type(5) > button:nth-of-type(1)",
+          "family": "it-icon-btn|",
+          "text": "",
+          "foreground": "rgb(209, 213, 219)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            42.41960784313726,
+            51.909803921568624,
+            65.19607843137254
+          ],
+          "contrast": 8.551331708892908,
+          "textual": false,
+          "disabled": false,
+          "width": 44,
+          "height": 44,
+          "font": 16
+        },
+        {
+          "selector": "section:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > span:nth-of-type(5) > button:nth-of-type(2)",
+          "family": "it-icon-btn it-icon-btn--danger|",
+          "text": "",
+          "foreground": "rgb(239, 68, 68)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 3.9007760898120396,
+          "textual": false,
+          "disabled": false,
+          "width": 44,
+          "height": 44,
+          "font": 16
+        }
+      ],
+      "issues": [],
+      "scope": ".iterations-page",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "dark",
+      "state": "keyboard-focus",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
+          "family": "it-btn it-btn--primary|",
+          "text": "新建迭代",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 94.015625,
+          "height": 44,
+          "font": 12.5
+        }
+      ],
+      "issues": [],
+      "scope": ".iterations-page",
+      "axe": [],
+      "newIssues": []
+    }
+  ],
+  "writes": [],
+  "errors": []
+}

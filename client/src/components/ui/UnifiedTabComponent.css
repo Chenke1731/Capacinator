@@ -117,7 +117,7 @@
 
 .unified-tab-list--minimal .unified-tab--active {
   background: var(--primary) !important;
-  color: white !important;
+  color: var(--solid-foreground) !important;
 }
 
 .unified-tab--disabled {

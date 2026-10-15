@@ -157,6 +157,14 @@ export function matchBadHslPrimary(source) {
   while ((m = RX.exec(stripped)) !== null) hits.push({ text: m[0], index: m.index });
   return hits;
 }
+
+// TC-C6: real SmartAssignment states exposed hsl(hex) on status colors too.
+// The shadcn triplets (--border/--foreground/--primary-foreground) remain valid.
+export function matchBadHslSemantic(source) {
+  const stripped=String(source).replace(/\/\*[\s\S]*?\*\//g,c=>c.replace(/[^\n]/g,' ')).replace(/\/\/[^\n]*/g,c=>c.replace(/[^\n]/g,' '));
+  const rx=/hsla?\(\s*var\(\s*--(?:primary-(?:text|solid|color)|(?:success|warning|danger|info)(?:-background)?|status-(?:success|warning|danger|info)-(?:text|solid|soft|border))\s*\)\s*(?:\/\s*[0-9.]+%?\s*)?\)/g;
+  return [...stripped.matchAll(rx)].map(m=>({text:m[0],index:m.index}));
+}
 /** 淡染豁免只判背景声明(收口③): 返回该规则块是否为"淡染背景" */
 export function isTintBackground(ruleBody) {
   const bgDecl = (String(ruleBody).match(/background[^;]*var\(--primary\)[^;]*/) || [''])[0];
@@ -175,6 +183,10 @@ for (const rel of PROD_FILES) {
     const line = text.slice(0, hit.index).split('\n').length;
     violations.push(`${rel}:${line} 「${hit.text}」 body 层 --primary 是 hex——hsl(hex)=无效色回退继承(任务B 统一);文字用 var(--primary-text),背景/描边用 var(--primary),透明度用 color-mix`);
   }
+  for(const hit of matchBadHslSemantic(text)) {
+    const line=text.slice(0,hit.index).split('\n').length;
+    violations.push(`${rel}:${line} 「${hit.text}」 TC-C6: hex状态色禁止HSL包装，使用--status-*-text/solid/soft/border语义角色`);
+  }
 }
 
 // 白名单腐化提示(不拦门): 存量清掉后条目要及时删,防止清单变成永久豁免
@@ -183,6 +195,10 @@ for (const k of UTIL_ALLOWLIST) {
 }
 
 if (process.env.SELF_TEST === '1') {
+  for(const [source,bad] of [['hsl(var(--success))',true],['hsl(var(--warning-background) / 10%)',true],['hsl(var(--status-danger-text))',true],['hsl(var(--primary-solid))',true],['hsl(var(--border))',false],['hsl(var(--primary-foreground))',false],['/* hsl(var(--success)) */',false]]) {
+    if(Boolean(matchBadHslSemantic(source).length)!==bad)throw Error(`Semantic HSL guard failed: ${source}`);
+  }
+  console.log('SELF-TEST PASS: hex语义色HSL守卫（7例，保留合法三元组消费）');
   // 压力自证: 复现事故原样的反模式,必须被抓到
   const buggy = `
 .staff-stepper-btn { display:inline-flex; width: 26px; height: 24px; border:none; }

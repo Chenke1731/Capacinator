@@ -1,0 +1,14 @@
+{
+  "combinations": 4,
+  "axeViolations": 0,
+  "svgRegressionsDetected": 4,
+  "pixelAndAxeBudgetsUnchanged": true,
+  "hashes": {
+    "tests/visual/axe-budget.json": "a920af9a5743d9a936872045d08bf29fe5a33009cf33b58b9329c999868d8da8",
+    "tests/visual/axe-exceptions.json": "4371ad9dfc4ac17fd92137a22540098fcc091c2ef827e7b67b7345d78eaa644a",
+    "tests/visual/__screenshots__/projects-light-1600.png": "999a00f02b4ccc66848e93b1067e459e65f148e671e75bc5f4742d1fd4a2d935",
+    "tests/visual/__screenshots__/projects-light-1366.png": "244b2cdc039d90d0bb7526aef4cd1cdfa36a8ff7c81da246f6e4ba848b601a86",
+    "tests/visual/__screenshots__/projects-dark-1600.png": "8139eeb8fbb7f1857dfd7e0b9ade4c7fb11cd1e60decf7d84f408262f8d9b1b6",
+    "tests/visual/__screenshots__/projects-dark-1366.png": "231b5b7bf4cc4038f700f95b71f5188e8c0768acd048c94dc1d4a2229b2a7381"
+  }
+}

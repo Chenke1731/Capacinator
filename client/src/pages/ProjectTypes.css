@@ -23,7 +23,7 @@
 }
 
 .project-type-node {
-  border-bottom: 1px solid #f1f5f9;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .project-type-node:last-child {
@@ -54,12 +54,12 @@
   padding: 4px !important;
   background: transparent !important;
   border: none !important;
-  color: #64748b;
+  color: var(--text-secondary);
 }
 
 .expand-toggle:hover {
   background: var(--bg-secondary) !important;
-  color: #475569;
+  color: var(--text-secondary);
 }
 
 .expand-spacer {
@@ -80,7 +80,7 @@
 
 .project-type-name .name {
   font-weight: 500;
-  color: #1e293b;
+  color: var(--text-primary);
   font-size: 14px;
 }
 
@@ -88,12 +88,12 @@
   width: 16px;
   height: 16px;
   border-radius: 3px;
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--control-border);
 }
 
 .parent-badge {
-  background: #dbeafe;
-  color: #1e40af;
+  background: var(--status-info-soft);
+  color: var(--status-info-text);
   padding: 2px 8px;
   border-radius: 12px;
   font-size: 11px;
@@ -103,8 +103,8 @@
 }
 
 .sub-type-badge {
-  background: #fef3c7;
-  color: #92400e;
+  background: var(--status-warning-soft);
+  color: var(--status-warning-text);
   padding: 2px 8px;
   border-radius: 12px;
   font-size: 11px;
@@ -115,7 +115,7 @@
 
 .project-type-row.parent-type {
   background: var(--bg-secondary);
-  border-left: 4px solid #3b82f6;
+  border-left: 4px solid var(--status-info-border);
 }
 
 .project-type-row.sub-type {
@@ -129,13 +129,13 @@
 }
 
 .project-type-meta .description {
-  color: #64748b;
+  color: var(--text-secondary);
   font-size: 13px;
 }
 
 .level-badge {
   background: var(--bg-secondary);
-  color: #475569;
+  color: var(--text-secondary);
   padding: 2px 6px;
   border-radius: 8px;
   font-size: 11px;
@@ -151,7 +151,7 @@
 
 .project-type-children {
   background: var(--bg-secondary);
-  border-left: 3px solid #3b82f6;
+  border-left: 3px solid var(--status-info-border);
   margin-left: 20px;
   position: relative;
 }
@@ -163,8 +163,8 @@
   left: -3px;
   width: 20px;
   height: 24px;
-  border-left: 2px solid #cbd5e1;
-  border-bottom: 2px solid #cbd5e1;
+  border-left: 2px solid var(--border-color);
+  border-bottom: 2px solid var(--border-color);
   border-radius: 0 0 0 8px;
 }
 
@@ -175,13 +175,13 @@
   top: 0;
   bottom: 0;
   width: 2px;
-  background: #cbd5e1;
+  background: var(--bg-secondary);
 }
 
 .empty-state {
   text-align: center;
   padding: 48px 24px;
-  color: #64748b;
+  color: var(--text-secondary);
 }
 
 .empty-state p {
@@ -216,7 +216,7 @@
   width: 16px;
   height: 16px;
   border-radius: 3px;
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  border: 1px solid color-mix(in srgb, var(--solid-shade) 10%, transparent);
   flex-shrink: 0;
 }
 
@@ -231,5 +231,5 @@
 }
 
 .hierarchy-view .name {
-  color: #1e293b;
+  color: var(--text-primary);
 }

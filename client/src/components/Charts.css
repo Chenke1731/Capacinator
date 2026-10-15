@@ -2,7 +2,7 @@
 .chart-container {
   background: hsl(var(--card));
   border-radius: 8px;
-  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  box-shadow: 0 1px 3px 0 color-mix(in srgb, var(--solid-shade) 10%, transparent), 0 1px 2px -1px color-mix(in srgb, var(--solid-shade) 10%, transparent);
   margin: 20px 0;
   padding: 20px;
 }
@@ -80,7 +80,7 @@
 
 .summary-label {
   font-size: 0.875rem;
-  color: hsl(var(--muted-foreground));
+  color: var(--text-secondary);
   font-weight: 500;
 }
 
@@ -125,7 +125,7 @@
 
 /* Dark mode improvements for better visibility */
 [data-theme="dark"] .breakdown-label {
-  color: #cbd5e1;
+  color: var(--text-secondary);
   font-weight: 500;
 }
 
@@ -134,11 +134,11 @@
   background: hsl(var(--muted) / 0.5);
   padding: 0.5rem 0.75rem;
   border-radius: 6px;
-  border: 1px solid rgba(100, 116, 139, 0.3);
+  border: 1px solid var(--status-info-border);
 }
 
 [data-theme="dark"] .breakdown-color {
-  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--solid-foreground) 20%, transparent);
 }
 
 /* Responsive Design */
@@ -167,7 +167,7 @@
   background: hsl(var(--card)) !important;
   border: 1px solid hsl(var(--border)) !important;
   border-radius: 6px !important;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1) !important;
+  box-shadow: 0 4px 6px -1px color-mix(in srgb, var(--solid-shade) 10%, transparent) !important;
 }
 
 .recharts-legend-wrapper {
@@ -179,26 +179,31 @@
 }
 
 .recharts-legend-item-text {
+  color: var(--text-secondary) !important;
   fill: hsl(var(--muted-foreground)) !important;
   font-size: 14px;
 }
 
+.recharts-default-tooltip .recharts-tooltip-item {
+  color: var(--text-primary) !important;
+}
+
 /* Dark mode legend text improvements */
 [data-theme="dark"] .recharts-legend-item-text {
-  fill: #e2e8f0 !important;
+  fill: var(--text-secondary) !important;
 }
 
 [data-theme="dark"] .recharts-default-legend {
-  color: #e2e8f0 !important;
+  color: var(--text-secondary) !important;
 }
 
 /* Fix legend visibility in dark mode */
 [data-theme="dark"] .recharts-legend-wrapper {
-  color: #e2e8f0 !important;
+  color: var(--text-secondary) !important;
 }
 
 [data-theme="dark"] .recharts-layer.recharts-legend text {
-  fill: #e2e8f0 !important;
+  fill: var(--text-secondary) !important;
 }
 
 /* Chart Colors */
@@ -236,7 +241,7 @@
   border: 1px solid hsl(var(--border));
   border-radius: 8px;
   padding: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 12px color-mix(in srgb, var(--solid-shade) 15%, transparent);
   max-width: 250px;
 }
 
@@ -284,11 +289,11 @@
 
 .tooltip-warning {
   margin: 8px 0 0 0;
-  color: hsl(var(--destructive));
+  color: var(--status-danger-text);
   font-weight: 600;
   font-size: 0.8rem;
-  background: hsl(var(--destructive) / 0.1);
+  background: var(--status-danger-soft);
   padding: 4px 8px;
   border-radius: 4px;
-  border: 1px solid hsl(var(--destructive) / 0.2);
+  border: 1px solid var(--status-danger-border);
 }

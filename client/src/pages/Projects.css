@@ -99,15 +99,15 @@
 .tag-chip-selected {
   /* var(--primary) 包十六进制是无效颜色(2026-10-13 全库审计)——声明
      整体被丢弃,选中态一直落在 .tag-chip 的灰底上 */
-  background: var(--primary);
+  background: var(--primary-solid);
   border-color: var(--primary);
-  color: #fff;
+  color: var(--solid-foreground);
 }
 /* 白字彩底悬停被全局 button:hover 换灰底(App.css 2026-10-11 同族),重声明 */
 .tag-chip-selected:hover {
   background: var(--primary-hover);
   border-color: var(--primary-hover);
-  color: #fff;
+  color: var(--solid-foreground);
 }
 
 .tag-new {
@@ -132,7 +132,7 @@
   font-size: 0.6875rem;
   font-weight: 600;
   border-radius: 999px;
-  color: #fff;
+  color: var(--solid-foreground);
   line-height: 1.4;
 }
 

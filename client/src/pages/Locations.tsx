@@ -166,7 +166,7 @@ export function Locations() {
   }
 
   return (
-    <div className="page-container">
+    <div className="page-container locations-page">
       <div className="page-header">
         <div>
           <h1>

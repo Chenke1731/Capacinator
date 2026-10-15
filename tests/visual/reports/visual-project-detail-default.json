@@ -1,7 +1,7 @@
 {
   "combinations": 4,
   "checks": 20,
-  "updatePixels": false,
+  "updatePixels": true,
   "registerExistingAxe": false,
   "evidence": [
     {
@@ -38,7 +38,7 @@
           "ok": true
         },
         {
-          "name": "像素 project-detail-dark-1600: 与基线一致(≤0.5%)",
+          "name": "基线 project-detail-dark-1600: 已采集",
           "ok": true
         },
         {
@@ -46,7 +46,9 @@
           "ok": true
         }
       ],
-      "artifact": "tests/visual/__screenshots__/project-detail-dark-1600.png"
+      "artifact": "tests/visual/reports/visual-project-detail-dark-1600.png",
+      "baseline": "tests/visual/__screenshots__/project-detail-dark-1600.png",
+      "backdrops": []
     },
     {
       "tag": "project-detail-dark-1366",
@@ -82,7 +84,7 @@
           "ok": true
         },
         {
-          "name": "像素 project-detail-dark-1366: 与基线一致(≤0.5%)",
+          "name": "基线 project-detail-dark-1366: 已采集",
           "ok": true
         },
         {
@@ -90,7 +92,9 @@
           "ok": true
         }
       ],
-      "artifact": "tests/visual/__screenshots__/project-detail-dark-1366.png"
+      "artifact": "tests/visual/reports/visual-project-detail-dark-1366.png",
+      "baseline": "tests/visual/__screenshots__/project-detail-dark-1366.png",
+      "backdrops": []
     },
     {
       "tag": "project-detail-light-1600",
@@ -126,7 +130,7 @@
           "ok": true
         },
         {
-          "name": "像素 project-detail-light-1600: 与基线一致(≤0.5%)",
+          "name": "基线 project-detail-light-1600: 已采集",
           "ok": true
         },
         {
@@ -134,7 +138,9 @@
           "ok": true
         }
       ],
-      "artifact": "tests/visual/__screenshots__/project-detail-light-1600.png"
+      "artifact": "tests/visual/reports/visual-project-detail-light-1600.png",
+      "baseline": "tests/visual/__screenshots__/project-detail-light-1600.png",
+      "backdrops": []
     },
     {
       "tag": "project-detail-light-1366",
@@ -170,7 +176,7 @@
           "ok": true
         },
         {
-          "name": "像素 project-detail-light-1366: 与基线一致(≤0.5%)",
+          "name": "基线 project-detail-light-1366: 已采集",
           "ok": true
         },
         {
@@ -178,7 +184,9 @@
           "ok": true
         }
       ],
-      "artifact": "tests/visual/__screenshots__/project-detail-light-1366.png"
+      "artifact": "tests/visual/reports/visual-project-detail-light-1366.png",
+      "baseline": "tests/visual/__screenshots__/project-detail-light-1366.png",
+      "backdrops": []
     }
   ]
 }

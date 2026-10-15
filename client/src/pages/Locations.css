@@ -47,7 +47,7 @@
 
 .location-card:hover {
   border-color: var(--border-hover);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px color-mix(in srgb, var(--solid-shade) 10%, transparent);
 }
 
 .location-header {
@@ -159,7 +159,7 @@
 .btn-primary {
   background: var(--color-primary);
   border-color: var(--color-primary);
-  color: white;
+  color: var(--solid-foreground);
 }
 
 .btn-primary:hover {
@@ -183,8 +183,12 @@
 }
 
 .btn-danger:hover {
-  background: var(--color-error);
-  border-color: var(--color-error);
-  color: white;
+  background: var(--status-danger-solid);
+  border-color: var(--status-danger-solid);
+  color: var(--solid-foreground);
+}
+
+.locations-page .btn-danger {
+  transition: box-shadow 0.2s, transform 0.2s;
 }
 

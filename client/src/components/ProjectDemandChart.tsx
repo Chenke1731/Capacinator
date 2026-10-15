@@ -12,6 +12,7 @@ import { useBookmarkableTabs } from '../hooks/useBookmarkableTabs';
 import { useProjectDemandData, ChartDataPoint, DemandApiResponse, AssignmentData } from '../hooks/useProjectDemandData';
 import { useChartGranularity, ChartView } from '../hooks/useChartGranularity';
 import { useChartDisplayData } from '../hooks/useChartDisplayData';
+import './chart-colors.css';
 
 interface ProjectDemandChartProps {
   projectId: string;
@@ -142,7 +143,7 @@ const SimpleBrushControl = ({
             left: `${startPercent}%`,
             width: `${rangeWidth}%`,
             height: '8px',
-            backgroundColor: 'var(--primary)',
+            backgroundColor: 'var(--primary-solid)',
             borderRadius: '4px',
             cursor: 'grab'
           }}
@@ -157,15 +158,15 @@ const SimpleBrushControl = ({
             left: `calc(${startPercent}% - 8px)`,
             width: '16px',
             height: '28px',
-            backgroundColor: 'var(--primary)',
+            backgroundColor: 'var(--primary-solid)',
             borderRadius: '8px',
             cursor: 'ew-resize',
-            border: '2px solid white',
-            boxShadow: '0 2px 6px rgba(0,0,0,0.3)',
+            border: '2px solid var(--solid-foreground)',
+            boxShadow: '0 2px 6px color-mix(in srgb, var(--solid-shade) 30%, transparent)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            color: 'white',
+            color: 'var(--solid-foreground)',
             fontSize: '12px',
             fontWeight: 'bold',
             zIndex: 10
@@ -183,15 +184,15 @@ const SimpleBrushControl = ({
             left: `calc(${endPercent}% - 8px)`,
             width: '16px',
             height: '28px',
-            backgroundColor: 'var(--primary)',
+            backgroundColor: 'var(--primary-solid)',
             borderRadius: '8px',
             cursor: 'ew-resize',
-            border: '2px solid white',
-            boxShadow: '0 2px 6px rgba(0,0,0,0.3)',
+            border: '2px solid var(--solid-foreground)',
+            boxShadow: '0 2px 6px color-mix(in srgb, var(--solid-shade) 30%, transparent)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            color: 'white',
+            color: 'var(--solid-foreground)',
             fontSize: '12px',
             fontWeight: 'bold',
             zIndex: 10
@@ -577,7 +578,7 @@ export function ProjectDemandChart({ projectId, projectName }: ProjectDemandChar
 
 
   // Bold colors for each role (cycled if more than 8) - matching phase diagram style
-  const roleColors = ['#3b82f6', '#10b981', '#f59e0b', '#8b5cf6', '#ec4899', '#ef4444', '#06b6d4', '#84cc16'];
+  const roleColors = ['var(--series-blue)', 'var(--series-green)', 'var(--series-amber)', 'var(--series-purple)', 'var(--series-pink)', 'var(--series-red)', 'var(--series-cyan)', 'var(--series-lime)'];
 
 
   // Calculate summary stats based on current view
@@ -650,8 +651,8 @@ export function ProjectDemandChart({ projectId, projectName }: ProjectDemandChar
                   fontWeight: '500',
                   cursor: 'pointer',
                   backgroundColor: isActiveTab(tab.id) ? 'var(--primary-solid, var(--primary))' : 'transparent', /* 收口: 组件自足——不依赖 reports.css 加载链(评审:详情页白字白底 1.05:1) */
-                  color: isActiveTab(tab.id) ? '#ffffff' : 'hsl(var(--muted-foreground))',
-                  transition: 'all 0.2s ease'
+                  color: isActiveTab(tab.id) ? 'var(--solid-foreground)' : 'hsl(var(--muted-foreground))',
+                  transition: 'box-shadow 0.2s ease'
                 }}
               >
                 {tab.label}
@@ -718,7 +719,7 @@ export function ProjectDemandChart({ projectId, projectName }: ProjectDemandChar
               fontSize={11}
             />
             <YAxis 
-              label={{ value: t('projects:demandChart.fteAxis'), angle: -90, position: 'insideLeft' }}
+              label={{ value: t('projects:demandChart.fteAxis'), angle: -90, position: 'insideLeft', fill: 'var(--text-secondary)' }}
             />
             <Tooltip
               formatter={(value, name) => [`${Number(value ?? 0).toFixed(1)} FTE`, String(name ?? '')]}
@@ -751,10 +752,13 @@ export function ProjectDemandChart({ projectId, projectName }: ProjectDemandChar
               contentStyle={{ 
                 backgroundColor: 'hsl(var(--background))', 
                 border: '1px solid hsl(var(--border))', 
+                color: 'var(--text-primary)',
                 borderRadius: '4px' 
               }}
+              itemStyle={{ color: 'var(--text-primary)' }}
+              labelStyle={{ color: 'var(--text-primary)' }}
             />
-            <Legend />
+            <Legend formatter={(value) => <span style={{ color: 'var(--text-secondary)' }}>{value}</span>} />
             
             {/* Stacked areas for each role */}
             {allRoles.map((role, index) => (

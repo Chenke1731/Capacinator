@@ -60,12 +60,12 @@
 }
 
 
-.status-item {
+.smart-assignment-modal .status-item {
   display: flex;
   align-items: center;
   gap: var(--space-1-5);
   font-size: var(--text-sm);
-  color: hsl(var(--muted-foreground));
+  color: var(--text-secondary);
   white-space: nowrap;
 }
 
@@ -136,21 +136,21 @@
 }
 
 .fit-badge.excellent {
-  background-color: hsl(var(--success-background));
-  color: hsl(var(--success));
-  border: 1px solid hsl(var(--success));
+  background-color: var(--status-success-soft);
+  color: var(--status-success-text);
+  border: 1px solid var(--status-success-border);
 }
 
 .fit-badge.good {
-  background-color: hsl(var(--info-background));
-  color: hsl(var(--info));
-  border: 1px solid hsl(var(--info));
+  background-color: var(--status-info-soft);
+  color: var(--status-info-text);
+  border: 1px solid var(--status-info-border);
 }
 
 .fit-badge.partial {
-  background-color: hsl(var(--warning-background));
-  color: hsl(var(--warning));
-  border: 1px solid hsl(var(--warning));
+  background-color: var(--status-warning-soft);
+  color: var(--status-warning-text);
+  border: 1px solid var(--status-warning-border);
 }
 
 .recommendation-reason {
@@ -264,7 +264,7 @@
 }
 
 .allocation-available .guide-text {
-  color: hsl(var(--success));
+  color: var(--status-success-text);
   font-weight: 600;
   font-size: var(--text-sm);
 }
@@ -283,14 +283,14 @@
 }
 
 .impact-preview.success {
-  background-color: hsl(var(--success-background));
-  border-color: hsl(var(--success));
+  background-color: var(--status-success-soft);
+  border-color: var(--status-success-border);
   color: hsl(var(--foreground));
 }
 
 .impact-preview.warning {
-  background-color: hsl(var(--danger-background));
-  border-color: hsl(var(--danger));
+  background-color: var(--status-danger-soft);
+  border-color: var(--status-danger-border);
   color: hsl(var(--foreground));
 }
 

@@ -1086,14 +1086,14 @@
           "selector": "div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
           "family": "chart-tab|",
           "text": "需求",
-          "foreground": "rgb(146, 157, 173)",
-          "background": "rgba(79, 70, 229, 0.294)",
+          "foreground": "rgb(101, 117, 139)",
+          "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
-            202.9411764705882,
-            200.88235294117644,
-            247.05882352941174
+            255,
+            255,
+            255
           ],
-          "contrast": 1.729136308765227,
+          "contrast": 4.697280155912882,
           "textual": true,
           "disabled": false,
           "width": 48.015625,
@@ -1104,14 +1104,14 @@
           "selector": "div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(2)",
           "family": "chart-tab|",
           "text": "产能",
-          "foreground": "rgb(210, 214, 221)",
-          "background": "rgba(79, 70, 229, 0.706)",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
           "effectiveBackground": [
-            130.76470588235293,
-            123.70588235294116,
-            237.3529411764706
+            79,
+            70,
+            229
           ],
-          "contrast": 2.3780513236999457,
+          "contrast": 6.287528596095884,
           "textual": true,
           "disabled": false,
           "width": 48.015625,
@@ -1142,16 +1142,6 @@
           "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)",
           "kind": "target-size",
           "value": 17.1875
-        },
-        {
-          "selector": "div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
-          "kind": "text-contrast",
-          "ratio": 1.729136308765227
-        },
-        {
-          "selector": "div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(2)",
-          "kind": "text-contrast",
-          "ratio": 2.3780513236999457
         }
       ],
       "scope": "main > .max-w-7xl",
@@ -1328,14 +1318,14 @@
           "selector": "div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(2)",
           "family": "chart-tab|",
           "text": "产能",
-          "foreground": "rgb(166, 175, 188)",
-          "background": "rgba(79, 70, 229, 0.424)",
+          "foreground": "rgb(101, 117, 139)",
+          "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
-            180.03529411764706,
-            177.0705882352941,
-            243.98823529411766
+            255,
+            255,
+            255
           ],
-          "contrast": 1.1120911957610675,
+          "contrast": 4.697280155912882,
           "textual": true,
           "disabled": false,
           "width": 48.015625,
@@ -1346,14 +1336,14 @@
           "selector": "div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(3)",
           "family": "chart-tab|",
           "text": "缺口",
-          "foreground": "rgb(190, 196, 206)",
-          "background": "rgba(79, 70, 229, 0.576)",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
           "effectiveBackground": [
-            154.11764705882354,
-            147.7764705882353,
-            240.01176470588234
+            79,
+            70,
+            229
           ],
-          "contrast": 1.5243944582135085,
+          "contrast": 6.287528596095884,
           "textual": true,
           "disabled": false,
           "width": 48.015625,
@@ -1366,16 +1356,6 @@
           "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > h3:nth-of-type(1) > button:nth-of-type(1)",
           "kind": "target-size",
           "value": 17.1875
-        },
-        {
-          "selector": "div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(2)",
-          "kind": "text-contrast",
-          "ratio": 1.1120911957610675
-        },
-        {
-          "selector": "div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(3)",
-          "kind": "text-contrast",
-          "ratio": 1.5243944582135085
         }
       ],
       "scope": "main > .max-w-7xl",
@@ -2467,14 +2447,14 @@
           "selector": "div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
           "family": "chart-tab|",
           "text": "需求",
-          "foreground": "rgb(194, 200, 208)",
-          "background": "rgba(79, 70, 229, 0.294)",
+          "foreground": "rgb(169, 177, 188)",
+          "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
-            43.41176470588235,
-            49.11764705882353,
-            108
+            29,
+            40,
+            58
           ],
-          "contrast": 7.073750995101883,
+          "contrast": 6.847572185132587,
           "textual": true,
           "disabled": false,
           "width": 48.015625,
@@ -2485,14 +2465,14 @@
           "selector": "div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(2)",
           "family": "chart-tab|",
           "text": "产能",
-          "foreground": "rgb(230, 232, 235)",
-          "background": "rgba(79, 70, 229, 0.706)",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
           "effectiveBackground": [
-            64.29411764705883,
-            60.470588235294116,
-            179.41176470588238
+            79,
+            70,
+            229
           ],
-          "contrast": 6.760285171796929,
+          "contrast": 6.287528596095884,
           "textual": true,
           "disabled": false,
           "width": 48.015625,
@@ -2699,14 +2679,14 @@
           "selector": "div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(2)",
           "family": "chart-tab|",
           "text": "产能",
-          "foreground": "rgb(194, 200, 208)",
-          "background": "rgba(79, 70, 229, 0.294)",
+          "foreground": "rgb(169, 177, 188)",
+          "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
-            43.41176470588235,
-            49.11764705882353,
-            108
+            29,
+            40,
+            58
           ],
-          "contrast": 7.073750995101883,
+          "contrast": 6.847572185132587,
           "textual": true,
           "disabled": false,
           "width": 48.015625,
@@ -2717,14 +2697,14 @@
           "selector": "div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(3)",
           "family": "chart-tab|",
           "text": "缺口",
-          "foreground": "rgb(230, 232, 235)",
-          "background": "rgba(79, 70, 229, 0.706)",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
           "effectiveBackground": [
-            64.29411764705883,
-            60.470588235294116,
-            179.41176470588238
+            79,
+            70,
+            229
           ],
-          "contrast": 6.760285171796929,
+          "contrast": 6.287528596095884,
           "textual": true,
           "disabled": false,
           "width": 48.015625,

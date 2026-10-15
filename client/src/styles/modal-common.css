@@ -11,7 +11,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.75) !important; /* Solid dark background */
+  background-color: color-mix(in srgb, var(--solid-shade) 75%, transparent) !important; /* Preserve the existing neutral backdrop. */
   backdrop-filter: none !important; /* Remove any blur effects */
   z-index: var(--z-modal-backdrop, 200);
   display: flex;
@@ -28,10 +28,10 @@
 [role="dialog"] > div:first-child,
 .ReactModal__Content,
 .dialog-content {
-  background: var(--bg-primary, #ffffff) !important; /* Solid white/theme background */
-  border: 1px solid var(--border-color, #e5e7eb);
+  background: var(--bg-primary) !important; /* Solid white/theme background */
+  border: 1px solid var(--border-color);
   border-radius: 8px;
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 20px 25px -5px color-mix(in srgb, var(--solid-shade) 10%, transparent), 0 10px 10px -5px color-mix(in srgb, var(--solid-shade) 4%, transparent);
   max-width: 90vw;
   max-height: 90vh;
   display: flex;
@@ -51,8 +51,8 @@
 .modal-header,
 .dialog-header {
   padding: 20px 24px;
-  border-bottom: 1px solid var(--border-color, #e5e7eb);
-  background: var(--bg-secondary, #f9fafb) !important;
+  border-bottom: 1px solid var(--border-color);
+  background: var(--bg-secondary) !important;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -66,7 +66,7 @@
   margin: 0;
   font-size: 18px;
   font-weight: 600;
-  color: var(--text-primary, #111827);
+  color: var(--text-primary);
 }
 
 /* Modal Body - Scrollable content area */
@@ -76,7 +76,7 @@
   flex: 1;
   padding: 24px;
   overflow-y: auto;
-  background: var(--bg-primary, #ffffff) !important;
+  background: var(--bg-primary) !important;
 }
 
 /* Modal Footer - Action buttons */
@@ -84,8 +84,8 @@
 .modal-actions,
 .dialog-footer {
   padding: 16px 24px;
-  border-top: 1px solid var(--border-color, #e5e7eb);
-  background: var(--bg-secondary, #f9fafb) !important;
+  border-top: 1px solid var(--border-color);
+  background: var(--bg-secondary) !important;
   display: flex;
   gap: 12px;
   justify-content: flex-end;
@@ -107,7 +107,7 @@
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  color: var(--text-tertiary, #6b7280);
+  color: var(--text-tertiary);
   font-size: 24px;
   line-height: 1;
   transition: all 0.2s;
@@ -115,8 +115,8 @@
 
 .modal-close:hover,
 .dialog-close:hover {
-  background: var(--bg-hover, #f3f4f6);
-  color: var(--text-primary, #111827);
+  background: var(--bg-hover);
+  color: var(--text-primary);
 }
 
 /* Ensure Radix UI Dialog components have solid backgrounds */
@@ -125,25 +125,25 @@
 }
 
 [role="dialog"][data-state="open"] {
-  background: var(--bg-primary, #ffffff) !important;
+  background: var(--bg-primary) !important;
 }
 
 /* Dark theme adjustments */
 [data-theme="dark"] .modal-overlay,
 [data-theme="dark"] .modal-backdrop {
-  background-color: rgba(0, 0, 0, 0.85) !important;
+  background-color: color-mix(in srgb, var(--solid-shade) 85%, transparent) !important;
 }
 
 [data-theme="dark"] .modal-container,
 [data-theme="dark"] .modal-content,
 [data-theme="dark"] .modal {
-  background: var(--bg-primary, #1f2937) !important;
-  border-color: var(--border-color, #374151);
+  background: var(--bg-primary) !important;
+  border-color: var(--border-color);
 }
 
 [data-theme="dark"] .modal-header,
 [data-theme="dark"] .modal-footer {
-  background: var(--bg-secondary, #111827) !important;
+  background: var(--bg-secondary) !important;
 }
 
 /* Responsive adjustments */

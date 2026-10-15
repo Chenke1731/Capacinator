@@ -304,7 +304,7 @@ export default function RoleDetails() {
                           <div style={{ fontWeight: '600', marginBottom: '4px' }}>
                             {projectType.name}
                           </div>
-                          <div style={{ fontSize: '0.875rem', color: '#6b7280' }}>
+                          <div style={{ fontSize: '0.875rem', color: 'var(--text-secondary)' }}>
                             {projectType.description}
                           </div>
                         </div>
@@ -328,7 +328,7 @@ export default function RoleDetails() {
                                 style={{
                                   width: '60px',
                                   padding: '6px 8px',
-                                  border: '1px solid #d1d5db',
+                                    border: '1px solid var(--control-border)',
                                   borderRadius: '4px',
                                   textAlign: 'center',
                                   fontSize: '0.875rem'
@@ -342,7 +342,7 @@ export default function RoleDetails() {
                                   );
                                 }}
                               />
-                              <span style={{ fontSize: '0.875rem', color: '#6b7280' }}>%</span>
+                              <span style={{ fontSize: '0.875rem', color: 'var(--text-secondary)' }}>%</span>
                             </div>
                           </td>
                         );

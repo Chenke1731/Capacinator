@@ -1,6 +1,40 @@
 @import './globals.css';
 @import './styles/modal-common.css';
 
+/* TC-C6: categorical series retain their hue/order. These are graphic inks
+   (>=3:1 on chart surfaces); legend/tooltip text uses neutral text tokens. */
+[data-theme='light'] {
+  --control-border: var(--text-tertiary);
+  --series-blue: #2563eb;
+  --series-green: #047857;
+  --series-amber: #b45309;
+  --series-purple: #7c3aed;
+  --series-pink: #be185d;
+  --series-red: #b91c1c;
+  --series-cyan: #0e7490;
+  --series-lime: #4d7c0f;
+  --series-orange: #c2410c;
+  --series-gray: #475569;
+  --series-indigo: #4f46e5;
+  --series-violet: #6d28d9;
+}
+[data-theme='dark'] {
+  --control-border: var(--text-tertiary);
+  --series-blue: #60a5fa;
+  --series-green: #34d399;
+  --series-amber: #fbbf24;
+  --series-purple: #a78bfa;
+  --series-pink: #f472b6;
+  --series-red: #f87171;
+  --series-cyan: #22d3ee;
+  --series-lime: #a3e635;
+  --series-orange: #fb923c;
+  --series-gray: #9ca3af;
+  --series-indigo: #818cf8;
+  --series-violet: #b4abff;
+}
+:root { --tag-default-color: #888888; }
+
 :root {
   font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   /* mono 显式栈(2026-09-22 排版收敛): 此前 --font-mono 从未定义,8 处使用
@@ -91,7 +125,7 @@ input, select, textarea {
 input:focus, select:focus, textarea:focus {
   outline: none;
   border-color: var(--input-focus-border);
-  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.08);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary-text) 8%, transparent);
 }
 
 /* Scrollbar styling */
@@ -288,7 +322,7 @@ input:focus, select:focus, textarea:focus {
 .allocation-input:focus {
   outline: none;
   border-color: var(--input-focus-border);
-  box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.1);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--primary-text) 10%, transparent);
 }
 
 .allocation-unit {
@@ -600,18 +634,18 @@ input:focus, select:focus, textarea:focus {
 }
 
 .actionable-item:hover {
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px color-mix(in srgb, var(--solid-shade) 10%, transparent);
   transform: translateY(-1px);
 }
 
 .actionable-item.danger {
   border-left: 4px solid var(--danger);
-  background: rgba(220, 38, 38, 0.05);
+  background: var(--status-danger-soft);
 }
 
 .actionable-item.success {
   border-left: 4px solid var(--success);
-  background: rgba(34, 197, 94, 0.05);
+  background: var(--status-success-soft);
 }
 
 .item-info {
@@ -678,7 +712,7 @@ input:focus, select:focus, textarea:focus {
 }
 
 .highlight-danger {
-  background-color: rgba(220, 38, 38, 0.08);
+  background-color: var(--status-danger-soft);
 }
 
 .recommendations {
@@ -1083,18 +1117,18 @@ html body .settings-section .checkbox-label,
 }
 
 .status-badge.success {
-  background-color: color-mix(in srgb, #10b981 15%, var(--bg-secondary));
-  color: #059669;
+  background-color: color-mix(in srgb, var(--status-success-soft) 15%, var(--bg-secondary));
+  color: var(--status-success-text);
 }
 
 .status-badge.warning {
-  background-color: color-mix(in srgb, #f59e0b 15%, var(--bg-secondary));
-  color: #d97706;
+  background-color: color-mix(in srgb, var(--status-warning-soft) 15%, var(--bg-secondary));
+  color: var(--status-warning-text);
 }
 
 .status-badge.error {
-  background-color: color-mix(in srgb, #ef4444 15%, var(--bg-secondary));
-  color: #dc2626;
+  background-color: color-mix(in srgb, var(--status-danger-soft) 15%, var(--bg-secondary));
+  color: var(--status-danger-text);
 }
 
 .template-item {
@@ -1174,7 +1208,7 @@ html body .settings-section .checkbox-label,
 .admin-badge {
   padding: 0.25rem 0.5rem;
   background-color: var(--primary-text);
-  color: white;
+  color: var(--solid-foreground);
   border-radius: 4px;
   font-weight: 500;
 }

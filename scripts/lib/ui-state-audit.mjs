@@ -78,18 +78,24 @@ export async function runProfileStates(profileName,{selftest=false,quick=false,r
         const root=floating?profile.floatingRoot:profile.root;
         const data=await page.evaluate(enumerateState,{root,fonts:profile.fonts});
         data.scope=root;
-        assertCoverage(data,floating?{...profile,minElements:profile.floatingMin??3}:profile);
+        // Hover/focus can hide hover-only actions or scroll another control
+        // into view. The ready/default scene keeps its profile cardinality;
+        // subsequent states still enumerate every visible control and reject 0.
+        assertCoverage(data,floating?{...profile,minElements:profile.floatingMin??3}:{...profile,minElements:state==='default'?profile.minElements:1});
         const axe=await new AxeBuilder({page}).include(root).withRules(['color-contrast','target-size']).analyze();
         data.axe=axe.violations.flatMap(v=>v.nodes.map(n=>({rule:v.id,target:n.target,html:n.html})));
         data.issues.push(...data.axe.map(a=>({selector:a.target.join('|'),kind:`axe:${a.rule}`})));
         const keys=[...new Set(data.issues.map(i=>`${i.selector}|${i.kind}`))].sort();
         const key=`${profileName}|${theme}|${state}`;
-        const registered=recordExisting&&!Object.hasOwn(budget,key);
+        // Task C closes color debt: old geometry budgets must never absorb a
+        // contrast failure when a new profile/state is first registered.
+        const colorProblems=data.issues.filter(i=>i.kind==='text-contrast'||i.kind==='axe:color-contrast');
+        const registered=recordExisting&&!colorProblems.length&&!Object.hasOwn(budget,key);
         if(registered){budget[key]=keys;registeredKeys.add(key);}
         const added=keys.filter(k=>!(budget[key]??[]).includes(k));
-        if(added.length&&!registered&&!selftest)failed=true;
+        if((added.length&&!registered||colorProblems.length)&&!selftest)failed=true;
         report.phases.push({theme,state,...data,newIssues:added});
-        console.log(`${added.length&&!registered&&!selftest?'FAIL':'PASS'} ${key}: ${data.rows.length} elements, ${keys.length} existing/current, ${added.length} new${registered?' (first coverage)':''}`);
+        console.log(`${(added.length&&!registered||colorProblems.length)&&!selftest?'FAIL':'PASS'} ${key}: ${data.rows.length} elements, ${keys.length} existing/current, ${added.length} new, ${colorProblems.length} color${registered?' (first coverage)':''}`);
         return data;
       };
       const initial=await capture('default');
@@ -117,6 +123,10 @@ export async function runProfileStates(profileName,{selftest=false,quick=false,r
       if(!representatives.size)throw new Error('Zero hover families');
       for(const [i,selector] of [...representatives.values()].entries()) {
         const control=page.locator(profile.root).locator(selector).first();
+        if(await control.count()&&profile.hoverReveal) {
+          const point=await control.evaluate((e,selector)=>{const ancestor=e.closest(selector);if(!ancestor)return null;const r=ancestor.getBoundingClientRect();return{x:r.left+r.width/2,y:r.top+r.height/2};},profile.hoverReveal);
+          if(point)await page.mouse.move(point.x,point.y);
+        }
         if(await control.count()){await control.hover({force:true});await page.waitForTimeout(450);await capture(`hover-${i}`);}
       }
       await page.mouse.move(0,0);
@@ -134,7 +144,7 @@ export async function runProfileStates(profileName,{selftest=false,quick=false,r
       await context.close();
     }
   } finally {await browser.close();}
-  if(recordExisting&&registeredKeys.size){
+  if(recordExisting&&registeredKeys.size&&!failed){
     const lock=`${budgetFile}.lock`;let fd;
     for(let i=0;i<100;i++){try{fd=fs.openSync(lock,'wx');break;}catch(e){if(e.code!=='EEXIST')throw e;await new Promise(resolve=>setTimeout(resolve,20));}}
     if(fd===undefined)throw new Error('Another profile is writing the budget; retry without resetting it');

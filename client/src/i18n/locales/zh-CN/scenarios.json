@@ -131,7 +131,8 @@
     "totalAllocationChange": "总分配变化:",
     "netAssignmentChange": "净分配变化:",
     "projectsAffected": "受影响项目:",
-    "errorTitle": "对比失败"
+    "errorTitle": "对比失败",
+    "peakComparison": "并发峰值:"
   },
   "comparison": {
     "loadFailed": "加载比较数据失败",

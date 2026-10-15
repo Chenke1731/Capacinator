@@ -235,7 +235,7 @@ UI代码定位：[People](../../client/src/pages/People.tsx)、[Projects](../../
 - [ ] 人员页计数、行状态、告警和筛选共用同一窗口与状态判断，汇总等于明细。
 - [ ] 可用率覆盖重叠时采用明确规则，公开假设；节假日表、跨池多面手供给分摊等扩展进入第5节裁决。
 - [ ] 普通、批量、场景写入共用规则入口；允许超配的告警策略和硬拦截策略明确区分，保留现有人工裁决。
-- [ ] 比较R04的错峰与并发安排，窗口工时可相同，但并发峰值100%→200%及超载区间必须可辨；不将原始占用百分比总和称为团队利用率。
+- [x] 比较R04的错峰与并发安排，窗口工时可相同，但并发峰值100%→200%及超载区间必须可辨；不将原始占用百分比总和称为团队利用率。（2026-10-15：compare 新增 peak_comparison（公共窗口/两侧峰值/超载人员+区间,复用 IP-03a 原语）,弹窗峰值芯片超 100% 警示色;原始和保留为辅助计数）
 
 ### IP-04：场景快照与合并完整保留分配事实
 
@@ -246,7 +246,7 @@ UI代码定位：[People](../../client/src/pages/People.tsx)、[Projects](../../
 - [ ] 合并策略有统一枚举且真正执行；用存在差异的父分配验收源优先/目标优先/手工选择（F03）。
 - [ ] 父场景变化、源merged状态及应同事务的历史记录作为一次完整操作；注入中途失败后两边均保持原状。
 - [ ] 分支未修改时，各角色工时、负荷、主投入与基线一致；接受方案后只发生预览中列出的变化。
-- [ ] 日期单独变化也呈现旧/新日期、影响窗口和对象；受影响项目按变更对象去重计数，不能用两个方案项目总数之差代替，R04为1。
+- [x] 日期单独变化也呈现旧/新日期、影响窗口和对象；受影响项目按变更对象去重计数，不能用两个方案项目总数之差代替，R04为1。（2026-10-15：IP-04c 完成——details 按实际变化项组织、projects_affected 改变更集合计数并附清单）
 
 ### IP-05：统一导入的选项、匹配与变更计划
 
@@ -427,7 +427,8 @@ UI代码定位：[People](../../client/src/pages/People.tsx)、[Projects](../../
 | IP-02a / C01–C04 | 完成 / Claude（2026-10-15 会话） | 0a9dece / 干净 | `3c7fded`；services/calc/workCalendar.ts（新,唯一日历原语）、DemandCalculationService（calculateWorkDays 委托+getDemandSummary 窗口求交+timeline 月桶守恒重写）、EstimationService.windowMonths（工作日/21.75）、IterationStats（收敛+去"兜底制造工作日"）、IterationsController（删死代码私有复制品）、IterationStats/EstimationService 测试更新 | 单测先红后绿 33/33（workCalendar.test.ts 新 12 用例含四反例算术+服务层 C01–C03；C04 入 EstimationService.test.ts）；两处 checkDeadline 数值按新口径重推导更新（窗口 130 工作日→SE/dev 6.0、dev 净 7.5,注释含推导）；纯周末=0 裁决落实。全量 Jest 4376 绿、typecheck 0 | R03 估算来源（IP-02c）、R05/R06 窗口（IP-02d）未动;执行中两文件曾两次被磁盘外力回退编辑（疑并行 Codex 会话或编辑器旧缓冲）,重落后三重确认站住 |
 | IP-02b / F01、C05 | 完成 / Claude（2026-10-15 会话） | 3c7fded / 干净 | `33e0469`；services/calc/effectiveAssignments.ts（新,BASELINE_SCENARIO_ID/resolveScenarioId/activeAssignmentsInScenario）、EstimationService.fetchAssignments 切片化+checkDeadline/checkDesignDeadline scenarioId、DemandCalculationService.getDemandSummary 切片化、ReportDataService.getUtilizationReport 单切片 SQL、Estimation/Demand/Reporting/Export/DesignEstimation 五控制器透传 X-Scenario-Id | 真库测试先红后绿（EstimationService.scenario.test.ts 新 3 用例,含 034 并集视图命中旧实现）:C05 未改动 active 分支不改基线供给（红证 0.5→0）、基线新分配进入负荷、分支改动只影响分支视角；既有 mock-db 随查询形状更新;Demand/Reporting 控制器断言补 scenarioId 缺省。全量 Jest 4379 绿、typecheck 0 | project_demands_view 并集视图与 calculateScenarioImpact（F08 遗留模拟入口,IP-02e）;V2 导入仍写旧表 project_assignments（运行时 0 行,导入分配对切片读侧不可见——独立缺陷,建议随 IP-05 续批修导入落表）;checkConflicts 的读取侧统一属 IP-03a（本批已修） |
 | IP-03a / C06–C09 | 完成 / Claude（2026-10-15 会话） | 33e0469 / 干净 | `00c6b52`；services/calc/capacitySegments.ts（新,evaluateWindowCapacity/segmentedWorkMonths 分段原语）、AssignmentsController.checkConflicts 重写（场景切片+paused 排除+峰值判定+overload_segments,去 person_availability_view 与 `||100`）、EstimationService.checkSide 供给按已批准覆盖分段（fetchAvailabilityOverrides） | 三层测试先红后绿 36/36：纯原语 7（含分配边界分段、覆盖重叠取最小公开假设、null 日期全窗、窗口外排除）；checkConflicts 真库 5（C07 错峰峰值 100 无冲突、C08 paused 不占容量、C09 覆盖 0 冲突且容量真 0、未批准覆盖不生效、真并发 110 报超载区间）；C06 真库 4（整窗 0 供给 0、部分休假半窗扣除、未批准不影响、无覆盖正供给前提）。途中揪出并修复键名失配（knex 行 start_date 喂 start 契约致覆盖静默丢弃——分层探针定位）。既有 mock/集成测试按峰值口径重推导更新（110/150 替换区间求和 110/250,注释含推导）。全量 Jest 4395 绿、typecheck 0、e2e 无数值级冲突断言 | getSuggestions(AssignmentsController:1003)/ReportDataService:696/AssignmentRecalculationService:317 三处 `||100` 属推荐/报表/重算族未动（记独立项）;U01 人员页汇总=明细属 IP-03b;D03 主角色/D04 准入未触碰;覆盖重叠取最小为公开假设可一句话否决 |
-| IP-04a / F02 | 完成 / Claude（2026-10-15 会话） | 00c6b52 / 干净 | 见本批提交；ScenariosController.branchFromParent 的 copyAssignment 补 status/is_primary/computed_start_date/computed_end_date 四族字段（两种来源共用同一 insert;非基线整行展开路径本就保真） | 真库测试先红后绿 4/4（ScenariosController.branch.test.ts 新,含 legacy 旧表来源）：暂停不被默认值激活（红证 paused→active）、主投入 is_primary 与 computed 日期保真、分支未改动时 active 负荷与基线一致（40%）、非基线父分支链式保真。全量 Jest 4399 绿、typecheck 0 | merge 字段比较清单（detectMergeConflicts fieldsToCompare 缺 status/is_primary）属 IP-04b;removed 标记行的 slice 读侧语义（seeds 遗留）未动,记观察项 |
+| IP-04a / F02 | 完成 / Claude（2026-10-15 会话） | 00c6b52 / 干净 | `6a78b38`；ScenariosController.branchFromParent 的 copyAssignment 补 status/is_primary/computed_start_date/computed_end_date 四族字段（两种来源共用同一 insert;非基线整行展开路径本就保真） | 真库测试先红后绿 4/4（ScenariosController.branch.test.ts 新,含 legacy 旧表来源）：暂停不被默认值激活（红证 paused→active）、主投入 is_primary 与 computed 日期保真、分支未改动时 active 负荷与基线一致（40%）、非基线父分支链式保真。全量 Jest 4399 绿、typecheck 0 | merge 字段比较清单（detectMergeConflicts fieldsToCompare 缺 status/is_primary）属 IP-04b;removed 标记行的 slice 读侧语义（seeds 遗留）未动,记观察项 |
+| IP-04c / R04 | 完成 / Claude（2026-10-15 会话） | 6a78b38 / 干净 | 见本批提交；ScenariosController.compare（modified.details 按实际变化项组织/仅日期变化时不再打"100%→100%"、projects_affected 变更集合计数+清单、utilization_impact.peak_comparison 复用 evaluateWindowCapacity）、Scenarios.tsx 峰值芯片、scenarios.json(en/zh) peakComparison 键 | 真库测试先红后绿 4/4（ScenariosController.compare.test.ts 新,R04 原始反例输入）：仅日期变化进 modified 且 details 含 2026-11-16→11-02 旧新值（红证旧串只写比例）、受影响项目=1 非总数差 0（红证）、峰值 100→200 含超载人员/区间/公共窗口（红证缺指标）、原始和变化=0 佐证旧指标不可辨。全量 Jest 4403 绿、typecheck 0、lint:ui PASS | 弹窗峰值芯片无独立客户端用例（静态展示服务端指标,语义由服务端测试锁定）;merge 一致性属 IP-04b |
 
 ## 8. 四角色排产决策样例与记录模板
 

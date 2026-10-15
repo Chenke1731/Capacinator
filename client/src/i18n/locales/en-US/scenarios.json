@@ -131,7 +131,8 @@
     "totalAllocationChange": "Total Allocation Change:",
     "netAssignmentChange": "Net Assignment Change:",
     "projectsAffected": "Projects Affected:",
-    "errorTitle": "Comparison Failed"
+    "errorTitle": "Comparison Failed",
+    "peakComparison": "Concurrent Peak:"
   },
   "comparison": {
     "loadFailed": "Failed to load comparison",

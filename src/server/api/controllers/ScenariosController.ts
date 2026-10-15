@@ -3,6 +3,7 @@ import type { Knex } from 'knex';
 import { BaseController } from './BaseController.js';
 import { ServiceContainer } from '../../services/ServiceContainer.js';
 import { randomUUID } from 'crypto';
+import { evaluateWindowCapacity } from '../../services/calc/capacitySegments.js';
 import { auditModelChanges } from '../../middleware/enhancedAuditMiddleware.js';
 
 export class ScenariosController extends BaseController {
@@ -520,6 +521,18 @@ export class ScenariosController extends BaseController {
                    assignment1.start_date !== assignment2.start_date ||
                    assignment1.end_date !== assignment2.end_date) {
           // Assignment exists in both but with different values (modified)
+          // IP-04c/R04: details 按实际变化项组织——仅日期变化时写旧/新日期,
+          // 不再打出无法解释的 "100% → 100%"
+          const allocChanged = assignment1.allocation_percentage !== assignment2.allocation_percentage;
+          const datesChanged = assignment1.start_date !== assignment2.start_date ||
+                               assignment1.end_date !== assignment2.end_date;
+          const parts: string[] = [`${assignment2.person_name} on ${assignment2.project_name}`];
+          if (allocChanged) {
+            parts.push(`allocation ${assignment1.allocation_percentage}% → ${assignment2.allocation_percentage}%`);
+          }
+          if (datesChanged) {
+            parts.push(`dates ${assignment1.start_date} ~ ${assignment1.end_date} → ${assignment2.start_date} ~ ${assignment2.end_date}`);
+          }
           assignmentDifferences.modified.push({
             original: assignment1,
             modified: assignment2,
@@ -539,7 +552,7 @@ export class ScenariosController extends BaseController {
                 }
               }
             },
-            details: `${assignment2.person_name} on ${assignment2.project_name}: allocation ${assignment1.allocation_percentage}% → ${assignment2.allocation_percentage}%`
+            details: parts.join(': ')
           });
         }
       });
@@ -577,15 +590,72 @@ export class ScenariosController extends BaseController {
       const projectCount1 = new Set(assignments1.map(a => a.project_id)).size;
       const projectCount2 = new Set(assignments2.map(a => a.project_id)).size;
 
+      // IP-04c/R04: 受影响项目按变更对象集合去重计数——两个方案项目总数之差
+      // 对"仅日期变化"恒为 0,无法回答"谁被改了"
+      const affectedProjectMap = new Map<string, string>();
+      const recordAffected = (projectId: string, projectName?: string) => {
+        if (projectId && !affectedProjectMap.has(projectId)) {
+          affectedProjectMap.set(projectId, projectName || projectId);
+        }
+      };
+      assignmentDifferences.added.forEach((a: any) => recordAffected(a.project_id, a.project_name));
+      assignmentDifferences.modified.forEach((m: any) => {
+        const row = m.modified ?? m;
+        recordAffected(row.project_id, row.project_name);
+      });
+      assignmentDifferences.removed.forEach((a: any) => recordAffected(a.project_id, a.project_name));
+
+      // IP-04c/R04: 并发峰值对比——窗口工时可相同(原始和不变),但错峰→并行的
+      // 峰值 100%→200% 与超载区间必须可辨;原始百分比之和只是辅助计数
+      const peakComparison = (() => {
+        const relevant1 = assignments1.filter((a: any) => (a.status ?? 'active') === 'active' && a.allocation_percentage > 0);
+        const relevant2 = assignments2.filter((a: any) => (a.status ?? 'active') === 'active' && a.allocation_percentage > 0);
+        const all = [...relevant1, ...relevant2];
+        const dates = all.flatMap((a: any) => [a.start_date, a.end_date]).filter((d: any) => typeof d === 'string' && d).sort();
+        if (dates.length < 2) return null;
+        const window = { start: dates[0], end: dates[dates.length - 1] };
+
+        const personIds = new Set(all.map((a: any) => a.person_id));
+        const nameByPerson = new Map(all.map((a: any) => [a.person_id, a.person_name]));
+        let peak1 = 0;
+        let peak2 = 0;
+        const overloaded: any[] = [];
+        for (const personId of personIds) {
+          const loadOf = (list: any[]) => list
+            .filter((a: any) => a.person_id === personId)
+            .map((a: any) => ({ start: a.start_date, end: a.end_date, allocation: a.allocation_percentage }));
+          const r1 = evaluateWindowCapacity({ window, defaultAvailabilityPct: 100, overrides: [], allocations: loadOf(relevant1) });
+          const r2 = evaluateWindowCapacity({ window, defaultAvailabilityPct: 100, overrides: [], allocations: loadOf(relevant2) });
+          peak1 = Math.max(peak1, r1.peakLoadPct);
+          peak2 = Math.max(peak2, r2.peakLoadPct);
+          if (r2.overloadSegments.length > 0) {
+            overloaded.push({
+              person_id: personId,
+              person_name: nameByPerson.get(personId) ?? personId,
+              peak_pct: { scenario1: r1.peakLoadPct, scenario2: r2.peakLoadPct },
+              overload_segments: r2.overloadSegments
+            });
+          }
+        }
+        return {
+          window,
+          scenario1_peak_pct: peak1,
+          scenario2_peak_pct: peak2,
+          peak_change_pct: peak2 - peak1,
+          overloaded_people: overloaded
+        };
+      })();
+
       const metrics = {
         utilization_impact: {
           total_allocation_change: totalAllocation2 - totalAllocation1,
-          total_allocation_percent_change: totalAllocation1 > 0 
+          total_allocation_percent_change: totalAllocation1 > 0
             ? ((totalAllocation2 - totalAllocation1) / totalAllocation1 * 100).toFixed(1)
             : 0,
           people_count_change: peopleCount2 - peopleCount1,
           scenario1_total: totalAllocation1,
-          scenario2_total: totalAllocation2
+          scenario2_total: totalAllocation2,
+          peak_comparison: peakComparison
         },
         capacity_impact: {
           assignments_added: assignmentDifferences.added.length,
@@ -594,7 +664,8 @@ export class ScenariosController extends BaseController {
           net_change: assignmentDifferences.added.length - assignmentDifferences.removed.length
         },
         timeline_impact: {
-          projects_affected: projectCount2 - projectCount1,
+          projects_affected: affectedProjectMap.size,
+          projects_affected_list: [...affectedProjectMap.entries()].map(([project_id, project_name]) => ({ project_id, project_name })),
           phases_modified: phases2.length - phases1.length
         }
       };

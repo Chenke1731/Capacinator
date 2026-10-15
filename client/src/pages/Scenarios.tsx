@@ -754,6 +754,21 @@ const CompareModal: React.FC<CompareModalProps> = ({
                         {comparisonResults?.metrics?.timeline_impact?.projects_affected || 0}
                       </span>
                     </div>
+                    {/* IP-04c/R04: 并发峰值对比——错峰→并行时原始和不变,峰值与超载才是分辨器 */}
+                    {comparisonResults?.metrics?.utilization_impact?.peak_comparison && (
+                      <div className="metric">
+                        <span className="metric-label">{t('scenarios:compare.peakComparison')}</span>
+                        <span
+                          className="metric-value"
+                          style={comparisonResults.metrics.utilization_impact.peak_comparison.scenario2_peak_pct > 100
+                            ? { color: 'var(--status-danger-text)' }
+                            : undefined}
+                        >
+                          {comparisonResults.metrics.utilization_impact.peak_comparison.scenario1_peak_pct}% →{' '}
+                          {comparisonResults.metrics.utilization_impact.peak_comparison.scenario2_peak_pct}%
+                        </span>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>

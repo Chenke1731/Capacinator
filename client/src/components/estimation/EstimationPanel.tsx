@@ -143,6 +143,12 @@ function LocEstimationPanel({ projectId }: { projectId: string }) {
   const [form, setForm] = useState<EstimationFormState>(EMPTY_FORM);
   const [formError, setFormError] = useState<string | null>(null);
   const [checkResult, setCheckResult] = useState<EstimationCheckResponse | null>(null);
+  // R08: 校验永远用已保存版本——结果必须自带版本标识,草稿改动后标过期
+  const [checkContext, setCheckContext] = useState<{
+    estimationId: number;
+    estimationCreatedAt: string;
+    formSnapshot: EstimationFormState;
+  } | null>(null);
   const [backfillForm, setBackfillForm] = useState({ actual_loc: '', actual_design_pm: '', actual_dev_pm: '', actual_delivery_date: '' });
   const [deviation, setDeviation] = useState<EstimationDeviation | null>(null);
 
@@ -170,6 +176,7 @@ function LocEstimationPanel({ projectId }: { projectId: string }) {
     onSuccess: () => {
       setFormError(null);
       setCheckResult(null);
+      setCheckContext(null);
       setDeviation(null);
       invalidate();
     },
@@ -182,11 +189,22 @@ function LocEstimationPanel({ projectId }: { projectId: string }) {
     mutationFn: async (deadline?: string) => {
       if (!current) throw new Error(t('projects:estimation.checkNeedSave'));
       const response = await api.estimations.check(current.id, deadline ? { deadline } : {});
-      return response.data;
+      return {
+        result: (response.data as any)?.data ?? response.data,
+        version: { estimationId: current.id, estimationCreatedAt: current.created_at, formSnapshot: form }
+      };
     },
-    onSuccess: (data) => setCheckResult(data.data ?? (data as any)),
+    onSuccess: (payload) => {
+      setCheckResult(payload.result);
+      setCheckContext(payload.version);
+    },
     onError: (error: any) => setFormError(error?.response?.data?.message || error.message)
   });
+
+  const checkStale = useMemo(
+    () => checkContext !== null && form !== checkContext.formSnapshot,
+    [checkContext, form]
+  );
 
   const backfillMutation = useMutation({
     mutationFn: async () => {
@@ -301,6 +319,15 @@ function LocEstimationPanel({ projectId }: { projectId: string }) {
         <div className="estimation-check-result">
           <div className="estimation-check-header">
             <strong>{t('projects:estimation.checkResult')}</strong>
+            {checkContext && (
+              <span className="text-muted">
+                {t('projects:estimation.checkBasedOnSaved', {
+                  id: checkContext.estimationId,
+                  date: formatDate(checkContext.estimationCreatedAt)
+                })}
+              </span>
+            )}
+            {checkStale && <Badge variant="destructive">{t('projects:estimation.checkStale')}</Badge>}
             <span className="text-muted">
               {checkResult.window.start} → {checkResult.window.deadline}（{checkResult.window.months} {t('projects:estimation.months')}）
             </span>
@@ -308,7 +335,7 @@ function LocEstimationPanel({ projectId }: { projectId: string }) {
               {t('projects:estimation.overall')}: {t(`projects:estimation.verdict.${checkResult.overall.verdict}`)}
             </Badge>
           </div>
-          <table className="table estimation-check-table">
+          <table className={`table estimation-check-table${checkStale ? ' estimation-check-stale' : ''}`}>
             <thead>
               <tr>
                 <th>{t('projects:estimation.side')}</th>

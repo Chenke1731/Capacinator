@@ -242,4 +242,33 @@ describe('EstimationPanel', () => {
     const preview = screen.getByText(/Conversion preview/i).closest('div')!;
     expect(preview.textContent).toContain('0.2 ~ 0.5');
   });
+
+  test('R08: check result identifies the saved version it used', async () => {
+    mockedCheck.mockResolvedValue({ data: { data: CHECK_RESULT } });
+    renderPanel();
+    await screen.findByText(/Current Estimate/i);
+
+    await userEvent.click(screen.getByRole('button', { name: /Deadline Check/i }));
+
+    expect(await screen.findByText(/Overall: Infeasible/i)).toBeInTheDocument();
+    // 校验永远用已保存版本(current.id=7, created 2026-09-20)——结果必须自带版本标识
+    expect(screen.getByText(/Based on saved version #7/i)).toBeInTheDocument();
+  });
+
+  test('R08: editing the form after a check marks the old result stale', async () => {
+    mockedCheck.mockResolvedValue({ data: { data: CHECK_RESULT } });
+    renderPanel();
+    await screen.findByText(/Current Estimate/i);
+
+    await userEvent.click(screen.getByRole('button', { name: /Deadline Check/i }));
+    expect(await screen.findByText(/Overall: Infeasible/i)).toBeInTheDocument();
+    expect(screen.queryByText(/Inputs changed/i)).not.toBeInTheDocument();
+
+    // 草稿改动(LOC)后,旧"可行"结论不能再以当前结论的面目示人
+    const locInput = screen.getByLabelText(/Estimated Lines of Code/i);
+    await userEvent.clear(locInput);
+    await userEvent.type(locInput, '4000');
+
+    expect(await screen.findByText(/Inputs changed — result stale/i)).toBeInTheDocument();
+  });
 });

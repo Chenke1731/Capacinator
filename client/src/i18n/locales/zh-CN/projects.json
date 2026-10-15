@@ -210,6 +210,8 @@
     "checkDeadline": "死线校验",
     "checking": "校验中…",
     "checkNeedSave": "请先保存评估",
+    "checkBasedOnSaved": "基于已保存版本 #{{id}}（{{date}}）",
+    "checkStale": "输入已修改，结果已过期",
     "checkResult": "死线校验结果",
     "months": "个月",
     "side": "侧别",

@@ -198,6 +198,11 @@
   gap: 0.625rem;
 }
 
+/* R08: 草稿改动后旧校验结论降权——仅降结论表格,头部版本标识/过期徽标保持全对比度可读 */
+.estimation-check-table.estimation-check-stale {
+  opacity: 0.6;
+}
+
 .estimation-check-table {
   margin: 0;
 }

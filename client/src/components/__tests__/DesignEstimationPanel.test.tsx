@@ -20,6 +20,7 @@ jest.mock('../../lib/api-client', () => ({
 const mockedList = api.designEstimations.listByProject as jest.Mock;
 const mockedCreate = api.designEstimations.create as jest.Mock;
 const mockedBackfill = api.designEstimations.backfill as jest.Mock;
+const mockedCheck = api.designEstimations.check as jest.Mock;
 
 const renderPanel = () => {
   const queryClient = new QueryClient({
@@ -126,5 +127,33 @@ describe('DesignEstimationPanel backfill (IP-07a / C11 / C12)', () => {
 
     expect(await screen.findByText(/deviation_low_pct must be between 0 and 99/i)).toBeInTheDocument();
     expect(mockedCreate).not.toHaveBeenCalled();
+  });
+
+  test('R08: design check result identifies the saved version and goes stale on edit', async () => {
+    mockedCheck.mockResolvedValue({
+      data: {
+        data: {
+          window: { start: '2026-10-20', deadline: '2026-12-31', months: 2.4 },
+          design: {
+            side: 'design', roleNames: ['SE'], teamSize: 1,
+            demand: { low: 0.8, mid: 1, high: 1.5 },
+            supplyPm: 1.2, slackPm: 0.2, gapPm: 0, verdict: 'feasible'
+          },
+          overall: { verdict: 'feasible' },
+          assumptions: { deviation_low_pct: 20, deviation_high_pct: 50, capacity_note: 'note' }
+        }
+      }
+    });
+    renderPanel();
+    await screen.findByText(/Current Rough Design Estimate/i);
+
+    await userEvent.click(screen.getByRole('button', { name: /Design deadline check/i }));
+    expect(await screen.findByText(/Based on saved version #3/i)).toBeInTheDocument();
+    expect(screen.queryByText(/Inputs changed/i)).not.toBeInTheDocument();
+
+    const pmInput = screen.getByLabelText(/Rough design effort/i);
+    await userEvent.clear(pmInput);
+    await userEvent.type(pmInput, '2');
+    expect(await screen.findByText(/Inputs changed — result stale/i)).toBeInTheDocument();
   });
 });

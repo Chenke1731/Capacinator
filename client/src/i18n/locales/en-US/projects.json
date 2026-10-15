@@ -212,6 +212,8 @@
     "checkDeadline": "Deadline Check",
     "checking": "Checking…",
     "checkNeedSave": "Save the estimate first",
+    "checkBasedOnSaved": "Based on saved version #{{id}} ({{date}})",
+    "checkStale": "Inputs changed — result stale",
     "checkResult": "Deadline Check Result",
     "months": "months",
     "side": "Side",

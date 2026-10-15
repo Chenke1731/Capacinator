@@ -66,6 +66,12 @@ export function DesignEstimationPanel({
   const [form, setForm] = useState<DesignFormState>(EMPTY_FORM);
   const [formError, setFormError] = useState<string | null>(null);
   const [checkResult, setCheckResult] = useState<DesignCheckResult | null>(null);
+  // R08: 校验永远用已保存版本——结果必须自带版本标识,草稿改动后标过期
+  const [checkContext, setCheckContext] = useState<{
+    estimationId: number;
+    estimationCreatedAt: string;
+    formSnapshot: DesignFormState;
+  } | null>(null);
   const [backfillForm, setBackfillForm] = useState({ actual_design_pm: '' });
   const [deviation, setDeviation] = useState<number | null>(null);
 
@@ -104,6 +110,7 @@ export function DesignEstimationPanel({
     onSuccess: () => {
       setFormError(null);
       setCheckResult(null);
+      setCheckContext(null);
       setDeviation(null);
       invalidate();
     },
@@ -114,11 +121,22 @@ export function DesignEstimationPanel({
     mutationFn: async () => {
       if (!current) throw new Error(t('projects:estimation.checkNeedSave'));
       const response = await api.designEstimations.check(current.id, {});
-      return response.data;
+      return {
+        result: (response.data as any)?.data ?? response.data,
+        version: { estimationId: current.id, estimationCreatedAt: current.created_at, formSnapshot: form }
+      };
     },
-    onSuccess: (data) => setCheckResult(data.data ?? (data as any)),
+    onSuccess: (payload) => {
+      setCheckResult(payload.result);
+      setCheckContext(payload.version);
+    },
     onError: (error: any) => setFormError(error?.response?.data?.message || error.message)
   });
+
+  const checkStale = useMemo(
+    () => checkContext !== null && form !== checkContext.formSnapshot,
+    [checkContext, form]
+  );
 
   const backfillMutation = useMutation({
     mutationFn: async () => {
@@ -214,6 +232,15 @@ export function DesignEstimationPanel({
         <div className="estimation-check-result">
           <div className="estimation-check-header">
             <strong>{t('projects:estimation.checkResult')}</strong>
+            {checkContext && (
+              <span className="text-muted">
+                {t('projects:estimation.checkBasedOnSaved', {
+                  id: checkContext.estimationId,
+                  date: formatDate(checkContext.estimationCreatedAt)
+                })}
+              </span>
+            )}
+            {checkStale && <Badge variant="destructive">{t('projects:estimation.checkStale')}</Badge>}
             <span className="text-muted">
               {checkResult.window.start} → {checkResult.window.deadline}（{checkResult.window.months} {t('projects:estimation.months')}）
             </span>
@@ -221,7 +248,7 @@ export function DesignEstimationPanel({
               {t('projects:estimation.overall')}: {t(`projects:estimation.verdict.${checkResult.overall.verdict}`)}
             </Badge>
           </div>
-          <table className="table estimation-check-table">
+          <table className={`table estimation-check-table${checkStale ? ' estimation-check-stale' : ''}`}>
             <thead>
               <tr>
                 <th>{t('projects:estimation.side')}</th>

@@ -783,7 +783,7 @@ export const api = {
       apiClient.get<{ data: any[] }>(`/design-estimations/project/${projectId}`),
     create: (projectId: string, data: { estimated_design_pm: number; deviation_low_pct?: number; deviation_high_pct?: number; notes?: string | null }) =>
       apiClient.post<{ data: any }>(`/design-estimations/project/${projectId}`, data),
-    backfill: (id: number, data: { actual_design_pm: number | null }) =>
+    backfill: (id: number, data: { actual_design_pm?: number }) =>
       apiClient.post<{ data: any; deviation: { design_pm: number | null } }>(`/design-estimations/${id}/backfill`, data),
     check: (id: number, body: { deadline?: string; start?: string } = {}) =>
       apiClient.post<{ data: EstimationCheckResponse }>(`/design-estimations/${id}/check`, body),

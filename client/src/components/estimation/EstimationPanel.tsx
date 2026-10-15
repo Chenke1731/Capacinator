@@ -121,6 +121,16 @@ function LocEstimationPanel({ projectId }: { projectId: string }) {
   const [backfillForm, setBackfillForm] = useState({ actual_loc: '', actual_design_pm: '', actual_dev_pm: '', actual_delivery_date: '' });
   const [deviation, setDeviation] = useState<EstimationDeviation | null>(null);
 
+  // IP-07a/C11: 空输入省略字段——只提交填了的实际值,不发送 null(服务端视 null 为非法)
+  const backfillPayload = useMemo(() => {
+    const payload: { actual_loc?: number; actual_design_pm?: number; actual_dev_pm?: number; actual_delivery_date?: string } = {};
+    if (backfillForm.actual_loc !== '') payload.actual_loc = Number(backfillForm.actual_loc);
+    if (backfillForm.actual_design_pm !== '') payload.actual_design_pm = Number(backfillForm.actual_design_pm);
+    if (backfillForm.actual_dev_pm !== '') payload.actual_dev_pm = Number(backfillForm.actual_dev_pm);
+    if (backfillForm.actual_delivery_date !== '') payload.actual_delivery_date = backfillForm.actual_delivery_date;
+    return payload;
+  }, [backfillForm]);
+
   const preview = useMemo(() => computePreview(form), [form]);
 
   const invalidate = () => queryClient.invalidateQueries({ queryKey: queryKeys.projects.estimation(projectId) });
@@ -162,13 +172,8 @@ function LocEstimationPanel({ projectId }: { projectId: string }) {
 
   const backfillMutation = useMutation({
     mutationFn: async () => {
-      if (!current) return null;
-      const response = await api.estimations.backfill(current.id, {
-        actual_loc: backfillForm.actual_loc === '' ? null : Number(backfillForm.actual_loc),
-        actual_design_pm: backfillForm.actual_design_pm === '' ? null : Number(backfillForm.actual_design_pm),
-        actual_dev_pm: backfillForm.actual_dev_pm === '' ? null : Number(backfillForm.actual_dev_pm),
-        actual_delivery_date: backfillForm.actual_delivery_date || null
-      });
+      if (!current || Object.keys(backfillPayload).length === 0) return null;
+      const response = await api.estimations.backfill(current.id, backfillPayload);
       return response.data;
     },
     onSuccess: (data: any) => {
@@ -331,7 +336,11 @@ function LocEstimationPanel({ projectId }: { projectId: string }) {
               <Input id="bf-date" type="date" value={backfillForm.actual_delivery_date} onChange={(e) => setBackfillForm((p) => ({ ...p, actual_delivery_date: e.target.value }))} />
             </div>
           </div>
-          <Button variant="outline" onClick={() => backfillMutation.mutate()} disabled={backfillMutation.isPending}>
+          <Button
+            variant="outline"
+            onClick={() => backfillMutation.mutate()}
+            disabled={backfillMutation.isPending || Object.keys(backfillPayload).length === 0}
+          >
             {t('projects:estimation.backfillSave')}
           </Button>
         </div>

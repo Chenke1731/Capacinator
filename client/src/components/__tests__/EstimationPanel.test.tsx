@@ -20,6 +20,7 @@ jest.mock('../../lib/api-client', () => ({
 const mockedList = api.estimations.listByProject as jest.Mock;
 const mockedCreate = api.estimations.create as jest.Mock;
 const mockedCheck = api.estimations.check as jest.Mock;
+const mockedBackfill = api.estimations.backfill as jest.Mock;
 
 const renderPanel = () => {
   const queryClient = new QueryClient({
@@ -132,5 +133,42 @@ describe('EstimationPanel', () => {
     renderPanel();
     expect(await screen.findByText(/Post-delivery Backfill/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/Actual Lines of Code/i)).toBeInTheDocument();
+  });
+
+  test('save-backfill is disabled until at least one actual is filled (C12 client side)', async () => {
+    renderPanel();
+    await screen.findByText(/Post-delivery Backfill/i);
+    expect(screen.getByRole('button', { name: /Save Backfill/i })).toBeDisabled();
+  });
+
+  test('partial backfill submits only filled fields, no null keys (C11)', async () => {
+    mockedBackfill.mockResolvedValue({ data: { data: CURRENT_ESTIMATION, deviation: {} } });
+    renderPanel();
+    await screen.findByText(/Post-delivery Backfill/i);
+
+    await userEvent.type(screen.getByLabelText(/Actual Dev PM/i), '3');
+    await userEvent.click(screen.getByRole('button', { name: /Save Backfill/i }));
+
+    await waitFor(() => {
+      expect(mockedBackfill).toHaveBeenCalledTimes(1);
+    });
+    const [, payload] = mockedBackfill.mock.calls[0];
+    expect(payload).toEqual({ actual_dev_pm: 3 });
+  });
+
+  test('filled backfill fields submit as numbers, date as string', async () => {
+    mockedBackfill.mockResolvedValue({ data: { data: CURRENT_ESTIMATION, deviation: {} } });
+    renderPanel();
+    await screen.findByText(/Post-delivery Backfill/i);
+
+    await userEvent.type(screen.getByLabelText(/Actual Lines of Code/i), '900');
+    await userEvent.type(screen.getByLabelText(/Actual Delivery Date/i), '2026-12-20');
+    await userEvent.click(screen.getByRole('button', { name: /Save Backfill/i }));
+
+    await waitFor(() => {
+      expect(mockedBackfill).toHaveBeenCalledTimes(1);
+    });
+    const [, payload] = mockedBackfill.mock.calls[0];
+    expect(payload).toEqual({ actual_loc: 900, actual_delivery_date: '2026-12-20' });
   });
 });

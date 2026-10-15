@@ -5,6 +5,7 @@ import {
   DEFAULT_CONVERSION,
   type ConversionInput
 } from '../../services/estimation/EstimationService.js';
+import { parseBackfillBody, backfillComplete } from '../../services/estimation/backfillPayload.js';
 
 interface EstimationBody {
   estimated_loc?: number;
@@ -14,13 +15,6 @@ interface EstimationBody {
   deviation_high_pct?: number;
   expected_delivery_date?: string | null;
   review_notes?: string | null;
-}
-
-interface BackfillBody {
-  actual_loc?: number | null;
-  actual_design_pm?: number | null;
-  actual_dev_pm?: number | null;
-  actual_delivery_date?: string | null;
 }
 
 interface CheckBody {
@@ -140,17 +134,28 @@ export class EstimationController extends BaseController {
         return;
       }
 
-      const body = req.body as BackfillBody;
+      // IP-07a/C11/C12: 只有提交的字段写入;空/非法回填拒绝;显式 null 不是清空(D11)
+      const parsed = parseBackfillBody(
+        req.body,
+        ['actual_loc', 'actual_design_pm', 'actual_dev_pm'],
+        ['actual_delivery_date']
+      );
+      if (!parsed.ok) {
+        res.status(400).json({ error: 'Validation error', message: parsed.message });
+        return;
+      }
+
+      // backfilled_at 只在合并后行完整(三项工作量实际齐)时写:
+      // Lifecycle 告警与回填表单把它当"已回填"信号,部分回填不得冒充完整
+      const merged = { ...estimation, ...parsed.values };
+      const payload: Record<string, unknown> = { ...parsed.values, updated_at: this.db.fn.now() };
+      if (backfillComplete(merged, ['actual_loc', 'actual_design_pm', 'actual_dev_pm'])) {
+        payload.backfilled_at = this.db.fn.now();
+      }
+
       const [updated] = await this.db('project_estimations')
         .where('id', req.params.id)
-        .update({
-          actual_loc: body.actual_loc ?? null,
-          actual_design_pm: body.actual_design_pm ?? null,
-          actual_dev_pm: body.actual_dev_pm ?? null,
-          actual_delivery_date: body.actual_delivery_date ?? null,
-          backfilled_at: this.db.fn.now(),
-          updated_at: this.db.fn.now()
-        })
+        .update(payload)
         .returning('*');
 
       // Deviation = (actual - estimated) / estimated, in percent

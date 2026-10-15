@@ -109,9 +109,9 @@ export function DesignEstimationPanel({
 
   const backfillMutation = useMutation({
     mutationFn: async () => {
-      if (!current) return null;
+      if (!current || backfillForm.actual_design_pm === '') return null;
       const response = await api.designEstimations.backfill(current.id, {
-        actual_design_pm: backfillForm.actual_design_pm === '' ? null : Number(backfillForm.actual_design_pm)
+        actual_design_pm: Number(backfillForm.actual_design_pm)
       });
       return response.data;
     },
@@ -241,7 +241,11 @@ export function DesignEstimationPanel({
                      onChange={(e) => setBackfillForm({ actual_design_pm: e.target.value })} />
             </div>
           </div>
-          <Button variant="outline" onClick={() => backfillMutation.mutate()} disabled={backfillMutation.isPending}>
+          <Button
+            variant="outline"
+            onClick={() => backfillMutation.mutate()}
+            disabled={backfillMutation.isPending || backfillForm.actual_design_pm === ''}
+          >
             {t('projects:estimation.backfillSave')}
           </Button>
         </div>

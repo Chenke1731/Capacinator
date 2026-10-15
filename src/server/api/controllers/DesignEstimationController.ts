@@ -3,16 +3,13 @@ import { BaseController, RequestWithContext } from './BaseController.js';
 import {
   EstimationService
 } from '../../services/estimation/EstimationService.js';
+import { parseBackfillBody, backfillComplete } from '../../services/estimation/backfillPayload.js';
 
 interface DesignEstimationBody {
   estimated_design_pm?: number;
   deviation_low_pct?: number;
   deviation_high_pct?: number;
   notes?: string | null;
-}
-
-interface DesignBackfillBody {
-  actual_design_pm?: number | null;
 }
 
 interface DesignCheckBody {
@@ -111,7 +108,6 @@ export class DesignEstimationController extends BaseController {
    * Records the actual design effort after the design work wraps up.
    */
   backfill = this.asyncHandler(async (req: RequestWithContext, res: Response) => {
-    const body = req.body as DesignBackfillBody;
     const result = await this.executeQuery(async () => {
       const estimation = await this.db('project_design_estimations').where('id', req.params.id).first();
       if (!estimation) {
@@ -119,13 +115,22 @@ export class DesignEstimationController extends BaseController {
         return;
       }
 
+      // IP-07a/C11/C12: 同 LOC 侧语义——只写提交字段,空/非法拒绝,显式 null 不是清空(D11)
+      const parsed = parseBackfillBody(req.body, ['actual_design_pm'], []);
+      if (!parsed.ok) {
+        res.status(400).json({ error: 'Validation error', message: parsed.message });
+        return;
+      }
+
+      // 单字段回填:actual_design_pm 非空即完整
+      const payload: Record<string, unknown> = { ...parsed.values, updated_at: this.db.fn.now() };
+      if (backfillComplete({ ...estimation, ...parsed.values }, ['actual_design_pm'])) {
+        payload.backfilled_at = this.db.fn.now();
+      }
+
       const [updated] = await this.db('project_design_estimations')
         .where('id', req.params.id)
-        .update({
-          actual_design_pm: body.actual_design_pm ?? null,
-          backfilled_at: this.db.fn.now(),
-          updated_at: this.db.fn.now()
-        })
+        .update(payload)
         .returning('*');
 
       // Deviation = (actual - estimated) / estimated, in percent

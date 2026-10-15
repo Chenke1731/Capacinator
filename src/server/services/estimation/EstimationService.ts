@@ -13,8 +13,10 @@
  *
  * Unit conventions:
  * - 1 person-month (PM) = one person at 100% availability for one calendar month
- * - window months = elapsed days / 30.4375 (365.25 / 12)
+ * - window months = 工作日/21.75 (workCalendar 统一口径, IP-02a/C04)
  */
+
+import { workdaysBetween, workMonths } from '../calc/workCalendar.js';
 
 export interface ConversionInput {
   estimated_loc: number;
@@ -97,7 +99,9 @@ export function windowMonths(startISO: string, endISO: string): number {
   if (days <= 0) {
     throw new Error('end date must be after start date');
   }
-  return days / DAYS_PER_MONTH;
+  // IP-02a/C04: 统一工作月口径——工作日/21.75(含两端、周末剔除),中间精度;
+  // 旧实现按自然日/30.44,同月窗口约 0.986 与迭代口径 1.01 不一致
+  return workMonths(workdaysBetween(startISO, endISO));
 }
 
 interface TeamMember {

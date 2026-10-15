@@ -9,9 +9,9 @@ describe('IterationStats (纯函数)', () => {
     expect(quarterOf('2027-07-01')).toBe('27.RP3');
   });
 
-  test('workdaysBetween 剔除周末且防除零', () => {
+  test('workdaysBetween 剔除周末;纯周末=0,除零保护不制造工作日 (IP-02a)', () => {
     expect(workdaysBetween('2026-11-02', '2026-11-06')).toBe(5);   // 周一~周五
-    expect(workdaysBetween('2026-11-07', '2026-11-08')).toBe(1);   // 纯周末 → 兜底 1
+    expect(workdaysBetween('2026-11-07', '2026-11-08')).toBe(0);   // 纯周末 → 真实 0(旧"兜底 1"被裁决废除)
     expect(workdaysBetween('2026-11-01', '2026-11-30')).toBe(21);  // 门户11月演示口径
   });
 

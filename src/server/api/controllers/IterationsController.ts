@@ -1,4 +1,4 @@
-import { quarterOf, monthsOf, intensityPct } from '../../services/iteration/IterationStats.js';
+import { quarterOf, monthsOf, intensityPct, workdaysBetween } from '../../services/iteration/IterationStats.js';
 import { BaseController, RequestWithContext } from './BaseController.js';
 
 type RequestWithLogging = RequestWithContext;
@@ -12,23 +12,8 @@ type RequestWithLogging = RequestWithContext;
  */
 export class IterationsController extends BaseController {
   /** start_date → "26.RP4" 式季度标签(派生,不落库) */
-  private quarterOf(startDate: string): string {
-    const d = new Date(startDate + 'T00:00:00');
-    const year = String(d.getFullYear()).slice(2);
-    const q = Math.floor(d.getMonth() / 3) + 1;
-    return `${year}.RP${q}`;
-  }
-
-  private workdaysBetween(start: string, end: string): number {
-    const a = new Date(start + 'T00:00:00');
-    const b = new Date(end + 'T00:00:00');
-    let days = 0;
-    for (let t = a; t <= b; t.setDate(t.getDate() + 1)) {
-      const dow = t.getDay();
-      if (dow !== 0 && dow !== 6) days++;
-    }
-    return Math.max(days, 1);
-  }
+  // IP-02a: quarterOf/workdaysBetween 原私有复制品为死代码,已删;
+  // 统一从 IterationStats(→workCalendar) 导入
 
   getAll = this.asyncHandler(async (req: RequestWithLogging, res: any) => {
     const iterations = await this.db('iterations').orderBy('start_date', 'desc').select();

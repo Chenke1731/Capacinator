@@ -118,10 +118,17 @@ describe('convertToPersonMonths', () => {
 });
 
 describe('windowMonths', () => {
-  test('a 3-calendar-month window is about 2.96 months by elapsed days', () => {
+  test('a 3-calendar-month window is about 2.96 months (workdays/21.75, IP-02a)', () => {
     const months = windowMonths('2026-01-01', '2026-04-01');
     expect(months).toBeGreaterThan(2.9);
     expect(months).toBeLessThan(3.0);
+  });
+
+  test('C04: 2026-01-01~01-31 = 22 工作日 → 22/21.75,中间精度不先舍入', () => {
+    const months = windowMonths('2026-01-01', '2026-01-31');
+    expect(months).toBeCloseTo(22 / 21.75, 12);
+    // 旧口径(自然日/30.44)得 ~0.986——与迭代工作月 1.01 不一致,已废除
+    expect(months).toBeCloseTo(1.0115, 3);
   });
 
   test('rejects inverted or invalid windows', () => {
@@ -152,10 +159,11 @@ describe('EstimationService.checkDeadline', () => {
       }
     });
 
-    // window 2026-09-20→2027-03-20 is 181 days ≈ 5.9 elapsed-day months
-    expect(result.design.supplyPm).toBeCloseTo(5.9, 1);
+    // window 2026-09-20→2027-03-20 = 130 工作日 ÷ 21.75 ≈ 5.98 工作月 (IP-02a 统一口径;
+    // 旧自然日口径 181/30.44≈5.9 为历史观察)
+    expect(result.design.supplyPm).toBeCloseTo(6.0, 1);
     expect(result.design.verdict).toBe('feasible');
-    expect(result.dev.supplyPm).toBeCloseTo(5.9, 1);
+    expect(result.dev.supplyPm).toBeCloseTo(6.0, 1);
     expect(result.dev.verdict).toBe('feasible');
     expect(result.overall.verdict).toBe('feasible');
   });
@@ -192,12 +200,12 @@ describe('EstimationService.checkDeadline', () => {
       }
     });
 
-    // dev supply: gross 2 × 5.9 = 11.9; dev1 −2.97 (50% whole window),
-    // dev2 −1.49 (50% for half the window) → ≈ 7.4
-    expect(result.dev.supplyPm).toBeCloseTo(7.4, 1);
+    // dev supply: gross 2 × 5.98 = 11.95; dev1 −2.99 (50% whole window),
+    // dev2 −1.49 (50% for half the window ≈ 65 工作日) → ≈ 7.5 (IP-02a 工作月口径)
+    expect(result.dev.supplyPm).toBeCloseTo(7.5, 1);
     expect(result.dev.verdict).toBe('feasible');
-    // SE untouched → 5.9 PM, feasible
-    expect(result.design.supplyPm).toBeCloseTo(5.9, 1);
+    // SE untouched → ≈ 6.0 PM, feasible
+    expect(result.design.supplyPm).toBeCloseTo(6.0, 1);
   });
 
   test('tight verdict when supply falls between optimistic and pessimistic demand', async () => {

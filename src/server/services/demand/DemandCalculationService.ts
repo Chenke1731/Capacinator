@@ -1,4 +1,11 @@
 import type { Knex } from 'knex';
+import {
+  workdaysBetween,
+  intersectDateRange,
+  monthBuckets,
+  demandHoursInWindow,
+  HOURS_PER_WORKDAY
+} from '../calc/workCalendar.js';
 import type {
   DemandSummaryFilters,
   ProjectDemandsData,
@@ -186,8 +193,15 @@ export class DemandCalculationService {
 
     demands.forEach((demand: Record<string, unknown>) => {
       const roleId = demand.role_id as string;
-      const durationDays = this.calculateWorkDays(demand.start_date as string, demand.end_date as string);
-      const demandHours = ((demand.allocation_percentage as number) / 100) * durationDays * 8;
+      // IP-02a/C03: 先与查询窗口求交再算工时——覆盖整季的分配只计窗口内
+      const demandHours = demandHoursInWindow(
+        demand.allocation_percentage as number,
+        demand.start_date as string,
+        demand.end_date as string,
+        startDate,
+        endDate
+      );
+      if (demandHours <= 0) return;
 
       if (!roleMap.has(roleId)) {
         roleMap.set(roleId, {
@@ -474,17 +488,17 @@ export class DemandCalculationService {
 
   /**
    * Calculate working days between two dates
+   * IP-02a: 统一到 workCalendar 共享口径(含两端/周末剔除/同日=1);
+   * 旧实现是 5/7 统计近似,同日=0、跨周末漂移
    */
   calculateWorkDays(startDate: string, endDate: string): number {
-    const start = new Date(startDate);
-    const end = new Date(endDate);
-    const diffTime = Math.abs(end.getTime() - start.getTime());
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    return Math.round(diffDays * (5 / 7));
+    return workdaysBetween(startDate, endDate);
   }
 
   /**
    * Calculate timeline from demands array
+   * IP-02a/C02: 月桶按各月真实工作日分摊(总和守恒),先与查询窗口求交;
+   * 旧实现按自然月均摊,跨月窗口工时不守恒
    */
   calculateTimelineFromDemands(
     demands: Record<string, unknown>[],
@@ -493,56 +507,32 @@ export class DemandCalculationService {
   ): TimelineMonth[] {
     const monthlyMap = new Map<string, TimelineMonth>();
 
-    const filterStart = filterStartDate ? new Date(filterStartDate) : null;
-    const filterEnd = filterEndDate ? new Date(filterEndDate) : null;
-
     demands.forEach((demand) => {
-      const startDate = new Date(demand.start_date as string);
-      const endDate = new Date(demand.end_date as string);
+      const intersection = intersectDateRange(
+        demand.start_date as string,
+        demand.end_date as string,
+        filterStartDate,
+        filterEndDate
+      );
+      if (!intersection) return;
 
-      const durationDays = this.calculateWorkDays(demand.start_date as string, demand.end_date as string);
-      const demandHours = ((demand.allocation_percentage as number) / 100) * durationDays * 8;
+      const alloc = (demand.allocation_percentage as number) / 100;
 
-      const durationMonths = Math.max(1, Math.ceil(
-        (endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24 * 30)
-      ));
-      const hoursPerMonth = demandHours / durationMonths;
+      for (const bucket of monthBuckets(intersection.start, intersection.end)) {
+        const hours = alloc * bucket.workdays * HOURS_PER_WORKDAY;
 
-      const currentDate = new Date(startDate);
-      currentDate.setDate(1);
-
-      while (currentDate <= endDate) {
-        const monthKey = currentDate.toISOString().slice(0, 7);
-        const monthDate = new Date(monthKey + '-01');
-
-        if (filterStart) {
-          const filterStartMonth = new Date(filterStart.getFullYear(), filterStart.getMonth(), 1);
-          if (monthDate < filterStartMonth) {
-            currentDate.setMonth(currentDate.getMonth() + 1);
-            continue;
-          }
-        }
-        if (filterEnd) {
-          const filterEndMonth = new Date(filterEnd.getFullYear(), filterEnd.getMonth(), 1);
-          if (monthDate > filterEndMonth) {
-            break;
-          }
-        }
-
-        if (!monthlyMap.has(monthKey)) {
-          monthlyMap.set(monthKey, {
-            month: monthKey,
+        if (!monthlyMap.has(bucket.month)) {
+          monthlyMap.set(bucket.month, {
+            month: bucket.month,
             total_hours: 0,
             total_fte: 0,
             role_breakdown: {},
           });
         }
 
-        const monthData = monthlyMap.get(monthKey)!;
-        monthData.total_hours += hoursPerMonth;
-        monthData.total_fte += hoursPerMonth / 160;
-
-        currentDate.setMonth(currentDate.getMonth() + 1);
+        const monthData = monthlyMap.get(bucket.month)!;
+        monthData.total_hours += hours;
+        monthData.total_fte += hours / 160;
       }
     });
 

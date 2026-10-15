@@ -214,8 +214,8 @@ UI代码定位：[People](../../client/src/pages/People.tsx)、[Projects](../../
 
 方向：将“当前方案的有效分配”和“业务日期交集/工作日/月桶分摊”集中到领域模块，降低调用方对旧表、场景表和视图的知识依赖。明确请求上下文、单位、错误方式与数据来源，报告、死线校验、告警共用规则。
 
-- [ ] 采用已裁决工作月口径；统一含端点区间、周末、同日与无效区间，除零保护不制造额外工作日。
-- [ ] 先求分配窗口与查询窗口交集，再计算工时；按各月真实工作日分摊，C01–C04通过。
+- [x] 采用已裁决工作月口径；统一含端点区间、周末、同日与无效区间，除零保护不制造额外工作日。（2026-10-15：IP-02a 完成——workCalendar 共享原语,四处复制品收敛,纯周末=0 不再兜底制造;台账见第 7 节）
+- [x] 先求分配窗口与查询窗口交集，再计算工时；按各月真实工作日分摊，C01–C04通过。（2026-10-15：C01 同日=1、C02 两月各 8h 共 16h、C03 窗口内 176h、C04 22/21.75 中间精度;全量 Jest 4376 绿）
 - [ ] 单一场景读取，明确基线继承、覆盖、removed、paused及旧表去重规则；不把所有active方案加到一个人的负荷上，C05通过。
 - [ ] 普通新分配写入后，列表、需求、报告及死线校验都能读取同一有效集合（F01）。
 - [ ] UI显示场景、日期、单位与来源；共享事实与方案分配作用范围可辨。
@@ -423,7 +423,8 @@ UI代码定位：[People](../../client/src/pages/People.tsx)、[Projects](../../
 | IP-05a / F04（选项解释） | 完成 / Claude（2026-10-15 会话） | 88c03a0 / 干净 | `b1a1925`；ImportController.parseImportOptions（新私有方法,upload/analyze 共用） | server 单测先红后绿 59/59（ImportController.test.ts 扩展）：保存 true+本次 'false'/false → clear_existing=false（旧 OR 链复现被吞）、缺省回落保存 true 不回归、analyze 预览回显同一解释（options.clearExisting=false+dryRun）。typecheck 0 | V2 预览回退 V1、匹配键/预览执行一致性属 IP-05b;e2e 真实导入文件级验证留待 05b 批次 |
 | IP-06c / R08（版本绑定半边） | 完成 / Claude（2026-10-15 会话） | b1a1925 / 干净 | `03d5bf6`、`1d5e39c`；EstimationPanel、DesignEstimationPanel、ProjectDetail.css、projects.json(en/zh) | client 单测先红后绿 20/20：校验结果头标识"Based on saved version #7(2026-09-20)"、改草稿(LOC/PM)后出现"Inputs changed — result stale"红徽标+结论表降权、保存后清除；typecheck 0、lint:ui PASS、verify:states quick 28/28。对比度核算（Codex 质询后实测）：0.6 混合使浅色 muted 文字跌至 2.8→改为 0.75+stale 表内 muted 提档 secondary（浅 5.0/深 8.5,全过 4.5,`1d5e39c`） | 场景/计算时点/未验证范围标注待 IP-02e;草稿试算端点按计划不在此批 |
 | IP-05b / F04（V2 预览半边） | 完成 / Claude（2026-10-15 会话） | 03d5bf6 / 干净 | `27b87db`、`1d5e39c`；ExcelImporterV2.analyzeImport（新,同管线 dryRun 回滚）、ImportController.analyzeImport 去 V1 回退、ImportOptions.dryRun、locations/availabilityOverrides 计数改实际新建数（原全表 count 会把存量计成新增承诺,单测红证：存量 3 地点时预览误报 4,修正后 1） | 真 sqlite+真 exceljs 单测先红后绿（ExcelImporterV2.analyze.test.ts 新）：预览零落库（回滚真实生效）、执行写入数=预览承诺数（同解释器构造性一致）、clearExisting 预览不动现有数据且风险级 high、存量不被计为新增；控制器测试断言 V2 分析器被调用、V1 不再被借用。typecheck 0 | V1 自身预览/执行同名漂移未修（平行实现仍在）;逐实体名称清单（newEntities 等）为计数占位;完整迁移库 e2e 验证留续批 |
-| IP-05c / F04（预览→确认→对账 UI） | 完成 / Claude（2026-10-15 会话） | 1d5e39c / 干净 | 见本批提交；ImportUnified（analyze/confirm/直接上传三按钮、预览面板、对账块）、ImportAnalysisResponse 类型对齐真实信封（旧声明与服务端完全不符且无消费者）、importExport.json(en/zh) 新键 | client 单测先红后绿 4/4（ImportUnified.preview.test.tsx 新）：分析不落库（uploadExcel 零调用）、确认用同文件同选项、执行结果与预览逐键对账（一致/差异行"projects: preview 3 / actual 4"）、预览后改选项→过期提示+确认禁用；既有 cache-invalidation 测试选择器随 UI 更新（/upload and import/i）。全量 Jest 4363 绿、typecheck 0、lint:ui PASS、verify:states quick 28/28 | V1 预览仍走 V1 分析器（其同名漂移未修,预览面板对 V1 计数的语义沿用其既有口径）;直接上传路径保留（次按钮,e2e 依赖） |
+| IP-05c / F04（预览→确认→对账 UI） | 完成 / Claude（2026-10-15 会话） | 1d5e39c / 干净 | `0a9dece`；ImportUnified（analyze/confirm/直接上传三按钮、预览面板、对账块）、ImportAnalysisResponse 类型对齐真实信封（旧声明与服务端完全不符且无消费者）、importExport.json(en/zh) 新键 | client 单测先红后绿 4/4（ImportUnified.preview.test.tsx 新）：分析不落库（uploadExcel 零调用）、确认用同文件同选项、执行结果与预览逐键对账（一致/差异行"projects: preview 3 / actual 4"）、预览后改选项→过期提示+确认禁用；既有 cache-invalidation 测试选择器随 UI 更新（/upload and import/i）。全量 Jest 4363 绿、typecheck 0、lint:ui PASS、verify:states quick 28/28 | V1 预览仍走 V1 分析器（其同名漂移未修,预览面板对 V1 计数的语义沿用其既有口径）;直接上传路径保留（次按钮,e2e 依赖） |
+| IP-02a / C01–C04 | 完成 / Claude（2026-10-15 会话） | 0a9dece / 干净 | 见本批提交；services/calc/workCalendar.ts（新,唯一日历原语）、DemandCalculationService（calculateWorkDays 委托+getDemandSummary 窗口求交+timeline 月桶守恒重写）、EstimationService.windowMonths（工作日/21.75）、IterationStats（收敛+去"兜底制造工作日"）、IterationsController（删死代码私有复制品）、IterationStats/EstimationService 测试更新 | 单测先红后绿 33/33（workCalendar.test.ts 新 12 用例含四反例算术+服务层 C01–C03；C04 入 EstimationService.test.ts）；两处 checkDeadline 数值按新口径重推导更新（窗口 130 工作日→SE/dev 6.0、dev 净 7.5,注释含推导）；纯周末=0 裁决落实（旧"兜底 1"测试更新）。全量 Jest 4376 绿、typecheck 0、e2e 断言为零/非零语义不受量级影响 | F01 有效分配统一/场景读取（IP-02b）、R03 估算来源（IP-02c）、R05/R06 窗口（IP-02d）未动;4376 中含 demand 端点 mock 测试不受真实计算影响;执行中 DemandCalculationService/EstimationService 两文件曾两次被磁盘外力回退编辑,重落后经 grep+测试双确认站住——环境存在主动回写源码的进程,待用户排查 |
 
 ## 8. 四角色排产决策样例与记录模板
 

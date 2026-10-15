@@ -85,8 +85,24 @@ interface RoleUtilizationData {
 // UtilizationReportData interface reserved for future utilization report feature
 
 interface DemandByProject {
-  project: string;
+  id: string;      // U04: 详情链身份——丢 id 会指向 /projects/undefined
+  name: string;    // U04: 表格列与图表 dataKey="name" 的消费键
+  project: string; // 兼容别名(历史消费键)
   demand: number;
+}
+
+/**
+ * U04: 服务端 byProject 行 → 页面模型。id/name 必须全量保留——
+ * 旧变换只留 {project: name, demand},图表/表格/详情三处同时失聪。
+ */
+export function toDemandByProject(
+  rows: Array<{ id: string; name: string; demand: number }>,
+  limit = 10
+): DemandByProject[] {
+  return (rows || [])
+    .map((p) => ({ id: p.id, name: p.name, project: p.name, demand: p.demand }))
+    .sort((a, b) => b.demand - a.demand)
+    .slice(0, limit);
 }
 
 interface DemandTrendData {
@@ -343,12 +359,10 @@ export const ReportsTabContent: React.FC<ReportsTabContentProps> = ({ activeRepo
       
       // Transform data for charts
       if (data) {
-        // The API already returns byProject as an array, just limit to top 10 for visibility
-        // (服务端字段 name → 页面消费字段 project 的映射转换)
-        const byProject: DemandByProject[] = ((data.byProject || []) as Array<{ id: string; name: string; demand: number }>)
-          .map((p) => ({ project: p.name, demand: p.demand }))
-          .sort((a: DemandByProject, b: DemandByProject) => b.demand - a.demand)
-          .slice(0, 10);
+        // U04: 保留 id/name(图表 dataKey、表格列、详情链),只做排序与截断
+        const byProject: DemandByProject[] = toDemandByProject(
+          (data.byProject || []) as Array<{ id: string; name: string; demand: number }>
+        );
 
         // Add trend data over time
         interface TimelineItem { month: string; total_hours: number }
@@ -785,14 +799,15 @@ export const ReportsTabContent: React.FC<ReportsTabContentProps> = ({ activeRepo
     const peopleCapacityActions = (row: PersonCapacityData): ActionButton[] => {
       if (String(row.allocation_status) === 'AVAILABLE') {
         return [{
-          to: `/assignments?person=${encodeURIComponent(row.person_name)}&action=assign&from=capacity-report&startDate=${filters.startDate || ''}&endDate=${filters.endDate || ''}`,
+          // U03: person=ID(列表过滤用),personName 供上下文文案
+          to: `/assignments?person=${encodeURIComponent(row.person_id)}&personName=${encodeURIComponent(row.person_name)}&action=assign&from=capacity-report&startDate=${filters.startDate || ''}&endDate=${filters.endDate || ''}`,
           icon: ClipboardList,
           text: t('reports:actions.assignToProject'),
           variant: 'primary'
         }];
       } else if (row.allocation_status === 'OVER_ALLOCATED') {
         return [{
-          to: `/assignments?person=${encodeURIComponent(row.person_name)}&action=reduce-load&from=capacity-report&startDate=${filters.startDate || ''}&endDate=${filters.endDate || ''}`,
+          to: `/assignments?person=${encodeURIComponent(row.person_id)}&personName=${encodeURIComponent(row.person_name)}&action=reduce-load&from=capacity-report&startDate=${filters.startDate || ''}&endDate=${filters.endDate || ''}`,
           icon: AlertTriangle,
           text: t('reports:actions.reduceLoad'),
           variant: 'danger'

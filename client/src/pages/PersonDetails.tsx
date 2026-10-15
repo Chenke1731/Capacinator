@@ -791,11 +791,14 @@ export default function PersonDetails() {
     switch (action) {
       case 'reduce_workload':
       case 'find_coverage':
-      case 'extend_timeline':
-        // These actions still use WorkloadAdjustmentModal features (to be integrated later)
         setAssignmentTriggerContext('workload_action');
         setAssignmentActionType(action);
         setSmartAssignmentModalOpen(true);
+        break;
+      case 'extend_timeline':
+        // U03: 日历入口指向人员可用率日历(/people 的 availability tab),
+        // 带 person 上下文预选——不再错开智能分配弹窗
+        navigate(`/people?tab=availability&person=${person.id}`);
         break;
       case 'assign_more':
       case 'assign_project':
@@ -808,7 +811,8 @@ export default function PersonDetails() {
         navigate(`/projects?needs_role=${person.primary_person_role_id}&status=active`);
         break;
       case 'monitor_load':
-        navigate(`/reports?type=utilization&person=${person.id}`);
+        // U03: ReportsUnified 的 tab 参数名是 ?tab=(旧 ?type= 被忽略落到默认需求报表)
+        navigate(`/reports?tab=utilization&person=${person.id}`);
         break;
       case 'plan_ahead':
         navigate(`/assignments?person=${person.id}&view=timeline`);

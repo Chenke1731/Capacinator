@@ -243,7 +243,8 @@ export default function People() {
         setSmartAssignmentModalOpen(true);
         break;
       case 'monitor':
-        navigate(`/reports?type=utilization&person=${personId}`);
+        // U03: ReportsUnified 的 tab 参数名是 ?tab=(旧 ?type= 被忽略落到默认需求报表)
+        navigate(`/reports?tab=utilization&person=${personId}`);
         break;
       case 'view':
       default:

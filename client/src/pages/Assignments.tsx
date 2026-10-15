@@ -60,6 +60,12 @@ export default function Assignments() {
     const roleName = searchParams.get('roleName');
     const status = searchParams.get('status');
 
+    // U03: person=ID 自动应用为列表过滤(减负/指派/容量报表跳转带上下文)
+    const personId = searchParams.get('person');
+    if (personId) {
+      setFilters((prev) => (prev.person_id === personId ? prev : { ...prev, person_id: personId }));
+    }
+
     if (action && from) {
       let message = '';
 

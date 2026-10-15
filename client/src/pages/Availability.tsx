@@ -2,6 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { Calendar, Plus, Edit2, Trash2, Check, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { useSearchParams } from 'react-router-dom';
 import { api } from '../lib/api-client';
 import { queryKeys } from '../lib/queryKeys';
 import { useBookmarkableTabs } from '../hooks/useBookmarkableTabs';
@@ -21,7 +22,9 @@ interface OverrideForm {
 export default function Availability() {
   const queryClient = useQueryClient();
   const { t } = useTranslation();
-  const [selectedPerson, setSelectedPerson] = useState<string>('');
+  // U03: 跳转上下文预选——/people?tab=availability&person=<id> 直达该人员的日历
+  const [searchParams] = useSearchParams();
+  const [selectedPerson, setSelectedPerson] = useState<string>(searchParams.get('person') || '');
 
   // Define availability view tabs configuration (inside the component so labels
   // re-resolve when the UI language changes)

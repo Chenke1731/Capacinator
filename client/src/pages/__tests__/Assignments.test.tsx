@@ -295,6 +295,28 @@ describe('Assignments Page', () => {
   };
 
   describe('Table Rendering', () => {
+    test('U03: person 查询参数自动应用为人员过滤(减负/指派跳转带上下文)', async () => {
+      // 本文件把 useSearchParams mock 成空参数——覆写注入 person(同 Context Messages 组范式)
+      // eslint-disable-next-line @typescript-eslint/no-require-imports
+      const useSearchParams = (jest.requireMock('react-router-dom') as { useSearchParams: jest.Mock }).useSearchParams;
+      useSearchParams.mockReturnValue([
+        new URLSearchParams('person=person-1'),
+        jest.fn(),
+      ]);
+
+      renderComponent();
+
+      try {
+        await waitFor(() => {
+          const calls = (api.assignments.list as jest.Mock).mock.calls;
+          expect(calls.some((c: any[]) => c[0] && c[0].person_id === 'person-1')).toBe(true);
+        });
+      } finally {
+        // 恢复默认空参数,避免模块级 mock 泄漏到后续测试
+        useSearchParams.mockReturnValue([new URLSearchParams(), jest.fn()]);
+      }
+    });
+
     test('renders assignments table with correct headers', async () => {
       renderComponent();
 

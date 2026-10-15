@@ -647,7 +647,7 @@ describe('People Page', () => {
 
       await user.click(screen.getByText('Monitor'));
 
-      expect(mockNavigate).toHaveBeenCalledWith('/reports?type=utilization&person=person-2');
+      expect(mockNavigate).toHaveBeenCalledWith('/reports?tab=utilization&person=person-2'); // U03: tab 参数名与 ReportsUnified 对齐
     });
 
     test('navigates to person details for view action', async () => {

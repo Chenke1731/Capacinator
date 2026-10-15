@@ -1350,6 +1350,10 @@ export class ExcelImporterV2 {
         await trx.rollback();
         result.success = false;
         result.errors.unshift('Import rolled back due to errors.');
+      } else if (options.dryRun) {
+        // IP-05b: 预览与执行同一管线——真实跑完再回滚,计数即写入承诺
+        await trx.rollback();
+        result.success = true;
       } else {
         await trx.commit();
         result.success = true;
@@ -1365,5 +1369,52 @@ export class ExcelImporterV2 {
     }
 
     return result;
+  }
+
+  /**
+   * 预览分析（IP-05b/F04）：与执行共用同一解释器——真实 V2 管线在事务内
+   * 跑完后回滚,计数/错误/警告即执行时的写入承诺,不存在平行实现漂移。
+   * V2 预览不再回退 V1 分析器。
+   */
+  async analyzeImport(filePath: string, options: ImportOptions = {}): Promise<any> {
+    const result = await this.importFromFile(filePath, { ...options, dryRun: true });
+
+    const conflicts: string[] = [];
+    const duplicates = (result as any).duplicatesFound as Record<string, string[]> | undefined;
+    if (duplicates) {
+      for (const [type, names] of Object.entries(duplicates)) {
+        for (const name of names) conflicts.push(`${type}: ${name}`);
+      }
+    }
+
+    const factors: string[] = [];
+    if (options.clearExisting) factors.push('clearExisting=true: execution will clear existing data first');
+
+    const totalChanges = Object.values(result.imported).reduce((sum, n) => sum + (n as number), 0);
+
+    return {
+      summary: {
+        totalChanges,
+        wouldCreate: { ...result.imported },
+        wouldUpdate: {},
+        wouldDelete: {}
+      },
+      conflicts,
+      warnings: [...result.warnings],
+      errors: [...result.errors],
+      preview: {
+        newEntities: [],
+        modifiedEntities: [],
+        deletedEntities: [],
+        duplicates: []
+      },
+      riskAssessment: {
+        level: conflicts.length > 0 || options.clearExisting ? 'high' : result.warnings.length > 0 ? 'medium' : 'low',
+        factors,
+        recommendations: []
+      },
+      dryRun: true,
+      wouldSucceed: result.success
+    };
   }
 }

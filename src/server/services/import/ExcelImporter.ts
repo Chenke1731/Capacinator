@@ -24,6 +24,8 @@ export interface ImportOptions {
   defaultProjectPriority?: number;
   dateFormat?: string;
   progressCallback?: ProgressCallback;
+  /** IP-05b: 预览模式——真实管线跑完后回滚事务,数量即写入承诺 */
+  dryRun?: boolean;
 }
 
 export interface ValidationError {

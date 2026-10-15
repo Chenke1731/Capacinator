@@ -253,7 +253,7 @@ UI代码定位：[People](../../client/src/pages/People.tsx)、[Projects](../../
 方向：先修显式false与缺省值的区别；再让预览和执行共享解析及变更计划，清楚区分追加、更新、全量替换。已有事务和回滚继续保留。
 
 - [x] 保存默认true，本次传false，预览与执行都保留现有数据；缺省值才使用保存设置。覆盖clearExisting及同类布尔选项（F04）。（2026-10-15：IP-05a 完成——共享 parseImportOptions,显式 true/false 及 multipart 字符串形式保留,缺省回落保存设置,upload/analyze 同一解释;台账见第 7 节）
-- [ ] V1/V2各自预览与执行采用同一解释器，禁止V2预览借V1得出写入承诺。
+- [ ] V1/V2各自预览与执行采用同一解释器，禁止V2预览借V1得出写入承诺。（2026-10-15 半边完成：V2 预览=同管线事务回滚（新 ExcelImporterV2.analyzeImport），控制器不再回退 V1；V1 自身 analyzeImport 仍是平行实现，同名"将更新"与执行 insert 的漂移未修，留 IP-05b 续批）
 - [ ] 在确定业务匹配键后，重复导入同文件可更新或明确拒绝，不静默复制人员/项目；不把单纯同名当可靠身份。
 - [ ] 预览准确列出新增、更新、删除对象、错误行和引用后果，执行数量及对象与预览一致；文件或选项变化后重新预览。
 - [ ] 注入FK或格式错误，全批回滚；导入历史记录文件摘要、解释器版本、实际选项、操作者与结果。
@@ -421,7 +421,8 @@ UI代码定位：[People](../../client/src/pages/People.tsx)、[Projects](../../
 | IP-07b / C10 | 完成 / Claude（2026-10-15 会话） | 237c5c2 / 干净 | `78bc255`；ActualInvestmentsController.snapshot、ActualInvestmentsController.race.test.ts（新） | 真 better-sqlite3 内存库+读后写前屏障（第10节交错构造）：setManual 0.9 在快照读旧 source 后完整写入,放行快照后 manual=0.9 存活、快照返回 skipped——修复前复现旧症状 fte=0.5/manual；插入竞速（唯一约束输给并发 manual）从 500 变为守卫更新+skipped；顺序跳过与快照刷新无回归。typecheck 0 | setManual 的 onConflict merge 本身无 source 守卫（当前无并发 manual×manual 场景,记为已知边界）;版本比较/409 属 IP-07c |
 | IP-06c / R07（面板半边） | 完成 / Claude（2026-10-15 会话） | 78bc255 / 干净 | `88c03a0`；EstimationPanel、DesignEstimationPanel、estimation/numericFields.ts（新） | client 单测先红后绿 17/17：合法 0 保留（旧码 `||15/20/50` 复现 R07 载荷 15/20/50）、空串回落缺省、超范围/负数提交前显式拒绝、预览与载荷同源（空串占比预览用缺省 15%而非 0）；e2e api 新增服务端契约钉：create 携 0 占比/偏差入库往返仍为 0（服务端 ?? 本就正确）。typecheck 0、lint:ui PASS | R08（校验绑定保存版本/草稿过期）未做，IP-06c 其余项开放 |
 | IP-05a / F04（选项解释） | 完成 / Claude（2026-10-15 会话） | 88c03a0 / 干净 | `b1a1925`；ImportController.parseImportOptions（新私有方法,upload/analyze 共用） | server 单测先红后绿 59/59（ImportController.test.ts 扩展）：保存 true+本次 'false'/false → clear_existing=false（旧 OR 链复现被吞）、缺省回落保存 true 不回归、analyze 预览回显同一解释（options.clearExisting=false+dryRun）。typecheck 0 | V2 预览回退 V1、匹配键/预览执行一致性属 IP-05b;e2e 真实导入文件级验证留待 05b 批次 |
-| IP-06c / R08（版本绑定半边） | 完成 / Claude（2026-10-15 会话） | b1a1925 / 干净 | 见本批提交；EstimationPanel、DesignEstimationPanel、ProjectDetail.css、projects.json(en/zh) | client 单测先红后绿 20/20：校验结果头标识"Based on saved version #7(2026-09-20)"、改草稿(LOC/PM)后出现"Inputs changed — result stale"红徽标+结论表降透明度(仅表格,头部保持全对比度)、保存后清除；typecheck 0、lint:ui PASS | 场景/计算时点/未验证范围标注待 IP-02e;草稿试算端点按计划不在此批 |
+| IP-06c / R08（版本绑定半边） | 完成 / Claude（2026-10-15 会话） | b1a1925 / 干净 | `03d5bf6`；EstimationPanel、DesignEstimationPanel、ProjectDetail.css、projects.json(en/zh) | client 单测先红后绿 20/20：校验结果头标识"Based on saved version #7(2026-09-20)"、改草稿(LOC/PM)后出现"Inputs changed — result stale"红徽标+结论表降透明度(仅表格,头部保持全对比度)、保存后清除；typecheck 0、lint:ui PASS、verify:states quick 28/28 | 场景/计算时点/未验证范围标注待 IP-02e;草稿试算端点按计划不在此批 |
+| IP-05b / F04（V2 预览半边） | 完成 / Claude（2026-10-15 会话） | 03d5bf6 / 干净 | 见本批提交；ExcelImporterV2.analyzeImport（新,同管线 dryRun 回滚）、ImportController.analyzeImport 去 V1 回退、ImportOptions.dryRun | 真 sqlite+真 exceljs 单测先红后绿（ExcelImporterV2.analyze.test.ts 新）：预览零落库（回滚真实生效）、执行写入数=预览承诺数（同解释器构造性一致）、clearExisting 预览不动现有数据且风险级 high；控制器测试断言 V2 分析器被调用、V1 不再被借用（旧 formatVersion 标签断言证明不了分析器,已补真断言）。typecheck 0 | V1 自身预览/执行同名漂移未修（平行实现仍在）;逐实体名称清单（newEntities 等）为计数占位;客户端无页面消费 analyze 端点（api-client 有定义无调用,记 UI 缺口）;完整迁移库 e2e 验证留续批 |
 
 ## 8. 四角色排产决策样例与记录模板
 

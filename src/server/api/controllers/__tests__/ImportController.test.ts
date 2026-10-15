@@ -970,6 +970,25 @@ describe('ImportController', () => {
       );
     });
 
+    it('IP-05b: V2 preview uses the V2 analyzer, never the V1 fallback', async () => {
+      mockReq.body = { useV2: 'true' };
+
+      mockDb._setFirstResult(null);
+
+      await controller.analyzeImport(mockReq, mockRes);
+      await flushPromises();
+
+      // eslint-disable-next-line @typescript-eslint/no-require-imports
+      const { ExcelImporterV2 } = require('../../../services/import/ExcelImporterV2');
+      // eslint-disable-next-line @typescript-eslint/no-require-imports
+      const { ExcelImporter } = require('../../../services/import/ExcelImporter');
+
+      expect(ExcelImporterV2).toHaveBeenCalledTimes(1);
+      const v2Instance = ExcelImporterV2.mock.results[0].value;
+      expect(v2Instance.analyzeImport).toHaveBeenCalledTimes(1);
+      expect(ExcelImporter).not.toHaveBeenCalled(); // V2 预览不得借 V1 得出写入承诺
+    });
+
     it('uses V2 analyzer when useV2 is true', async () => {
       mockReq.body.useV2 = 'true';
 

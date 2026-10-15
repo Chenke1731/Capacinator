@@ -669,14 +669,11 @@ export class ImportController extends BaseController {
       // Perform dry-run analysis
       let analysisResult;
       try {
-        if (importOptions.useV2) {
-          // Note: ExcelImporterV2 doesn't have analyzeImport yet - falling back to v1
-          const importer = new ExcelImporter();
-          analysisResult = await importer.analyzeImport(req.file.path, importOptions);
-        } else {
-          const importer = new ExcelImporter();
-          analysisResult = await importer.analyzeImport(req.file.path, importOptions);
-        }
+        // IP-05b: V2 预览用 V2 自己的分析器(同管线事务回滚),不再借 V1
+        const importer = importOptions.useV2
+          ? new ExcelImporterV2()
+          : new ExcelImporter();
+        analysisResult = await importer.analyzeImport(req.file.path, importOptions);
       } catch (analysisError) {
         return res.status(400).json({
           success: false,

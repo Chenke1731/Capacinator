@@ -100,4 +100,13 @@ describe('checkDeadline 估算来源 (R03)', () => {
     expect(r.dev.demand.low).toBe(3.2);
     expect(r.dev.demand.high).toBe(6);
   });
+
+  test('R01/R02: 结果标明分析范围——总量口径/阶段节点未校验/单项不预留/非组合承诺', async () => {
+    const r = await check({});
+    expect(r.scope.total_window_only).toBe(true);          // R01: 总量口径,设计前置节点未单独校验
+    expect(r.scope.phase_nodes_checked).toBe(false);
+    expect(r.scope.serial_dependencies_analyzed).toBe(false); // D09: 串行/重叠/并行未分析
+    expect(r.scope.capacity_reserved).toBe(false);         // R02: 单项分析不预留产能
+    expect(r.scope.portfolio_commitment).toBe(false);      // R02: 非组合承诺
+  });
 });

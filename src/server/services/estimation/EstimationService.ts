@@ -212,6 +212,14 @@ export interface DeadlineCheckResult {
     dev: string;
     mde_verified: boolean;
   };
+  /** IP-02e/R01+R02: 分析范围声明——结论不越界解释 */
+  scope: {
+    total_window_only: boolean;
+    phase_nodes_checked: boolean;
+    serial_dependencies_analyzed: boolean;
+    capacity_reserved: boolean;
+    portfolio_commitment: boolean;
+  };
   assumptions: {
     loc_rate_per_pm: number;
     design_share_pct: number;
@@ -426,6 +434,15 @@ export class EstimationService {
         design: 'loc_conversion',
         dev: devOverridden ? 'estimated_pm_override' : 'loc_conversion',
         mde_verified: false
+      },
+      // IP-02e/R01+R02: 范围声明——总量口径(前置设计节点未单独校验)、单项分析
+      // 不预留产能、不代表组合可行;不假装已验证的范围
+      scope: {
+        total_window_only: true,
+        phase_nodes_checked: false,
+        serial_dependencies_analyzed: false,
+        capacity_reserved: false,
+        portfolio_commitment: false
       },
       assumptions: {
         loc_rate_per_pm: conversion.loc_rate_per_pm,

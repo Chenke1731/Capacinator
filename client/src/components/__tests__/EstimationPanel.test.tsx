@@ -70,7 +70,9 @@ const CHECK_RESULT = {
   assumptions: {
     loc_rate_per_pm: 500, design_share_pct: 15,
     deviation_low_pct: 20, deviation_high_pct: 50, capacity_note: 'note'
-  }
+  },
+  demand_sources: { design: 'loc_conversion', dev: 'loc_conversion', mde_verified: false },
+  scope: { total_window_only: true, phase_nodes_checked: false, serial_dependencies_analyzed: false, capacity_reserved: false, portfolio_commitment: false }
 };
 
 describe('EstimationPanel', () => {
@@ -253,6 +255,9 @@ describe('EstimationPanel', () => {
     expect(await screen.findByText(/Overall: Infeasible/i)).toBeInTheDocument();
     // 校验永远用已保存版本(current.id=7, created 2026-09-20)——结果必须自带版本标识
     expect(screen.getByText(/Based on saved version #7/i)).toBeInTheDocument();
+    // R01/R02: 范围声明可见——总量口径/阶段节点未校验/单项不预留/非组合承诺
+    expect(screen.getByText(/Total-window check/i)).toBeInTheDocument();
+    expect(screen.getByText(/not a portfolio commitment/i)).toBeInTheDocument();
   });
 
   test('R08: editing the form after a check marks the old result stale', async () => {

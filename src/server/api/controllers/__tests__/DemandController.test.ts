@@ -373,7 +373,7 @@ describe('DemandController', () => {
   });
 
   describe('calculateScenario - Calculate Scenario Impact', () => {
-    it('calculates scenario impact with new projects', async () => {
+    it('F08: 明确返回 501 不可用——占位实现不得产出"资源可行"结论,服务不被调用', async () => {
       mockReq.body = {
         scenario: {
           new_projects: [
@@ -387,82 +387,17 @@ describe('DemandController', () => {
         }
       };
 
-      const mockScenarioResult = {
-        scenario: mockReq.body.scenario,
-        baseline: { total_demand_fte: 5 },
-        projected: { total_demand_fte: 8 },
-        impact: { fte_change: 3 },
-        recommendation: 'Scenario is feasible with current capacity'
-      };
-
-      mockDemandService.calculateScenarioImpact.mockResolvedValue(mockScenarioResult as any);
-
       await controller.calculateScenario(mockReq, mockRes);
       await flushPromises();
 
-      expect(mockDemandService.calculateScenarioImpact).toHaveBeenCalledWith(mockReq.body.scenario);
-      expect(mockRes.json).toHaveBeenCalledWith(mockScenarioResult);
-    });
-
-    it('provides recommendations based on impact', async () => {
-      mockReq.body = {
-        scenario: {
-          remove_projects: ['project-1']
-        }
-      };
-
-      const mockScenarioResult = {
-        scenario: mockReq.body.scenario,
-        baseline: { total_demand_fte: 10 },
-        projected: { total_demand_fte: 5 },
-        impact: { fte_change: -5 },
-        recommendation: 'Scenario is feasible with current capacity'
-      };
-
-      mockDemandService.calculateScenarioImpact.mockResolvedValue(mockScenarioResult as any);
-
-      await controller.calculateScenario(mockReq, mockRes);
-      await flushPromises();
-
+      expect(mockRes.status).toHaveBeenCalledWith(501);
       expect(mockRes.json).toHaveBeenCalledWith(
         expect.objectContaining({
-          recommendation: expect.stringContaining('feasible')
+          error: expect.stringContaining('Not implemented'),
+          message: expect.stringContaining('scenario impact')
         })
       );
-    });
-
-    it('provides recommendation for scenarios with capacity gaps', async () => {
-      mockReq.body = {
-        scenario: {
-          new_projects: [
-            {
-              id: 'big-project',
-              project_type_id: 'type-1',
-              start_date: '2024-01-01',
-              end_date: '2024-12-31'
-            }
-          ]
-        }
-      };
-
-      const mockScenarioResult = {
-        scenario: mockReq.body.scenario,
-        baseline: { total_demand_fte: 5 },
-        projected: { total_demand_fte: 15 },
-        impact: { fte_change: 10 },
-        recommendation: 'Scenario creates capacity gaps in some roles'
-      };
-
-      mockDemandService.calculateScenarioImpact.mockResolvedValue(mockScenarioResult as any);
-
-      await controller.calculateScenario(mockReq, mockRes);
-      await flushPromises();
-
-      expect(mockRes.json).toHaveBeenCalledWith(
-        expect.objectContaining({
-          recommendation: expect.stringContaining('capacity gaps')
-        })
-      );
+      expect(mockDemandService.calculateScenarioImpact).not.toHaveBeenCalled();
     });
   });
 
@@ -522,19 +457,13 @@ describe('DemandController', () => {
       expect(mockRes.status).toHaveBeenCalledWith(500);
     });
 
-    it('handles service errors in calculateScenario', async () => {
-      mockReq.body = {
-        scenario: {
-          new_projects: []
-        }
-      };
-
-      mockDemandService.calculateScenarioImpact.mockRejectedValue(new Error('Database error'));
+    it('calculateScenario F08 后无服务错误路径——恒 501 不可用', async () => {
+      mockReq.body = { scenario: { new_projects: [] } };
 
       await controller.calculateScenario(mockReq, mockRes);
       await flushPromises();
 
-      expect(mockRes.status).toHaveBeenCalledWith(500);
+      expect(mockRes.status).toHaveBeenCalledWith(501);
     });
   });
 });

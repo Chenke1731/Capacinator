@@ -242,7 +242,8 @@
     "history": "Estimation History",
     "currentBadge": "Current",
     "backfilled": "Backfilled",
-    "status": "Status"
+    "status": "Status",
+    "scopeNote": "Total-window check: phase prerequisites (e.g. design before dev) are not verified separately; single-item analysis reserves no capacity and is not a portfolio commitment."
   },
   "designEstimation": {
     "currentEstimate": "Current Rough Design Estimate",

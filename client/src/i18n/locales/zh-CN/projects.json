@@ -240,7 +240,8 @@
     "history": "评估历史",
     "currentBadge": "当前",
     "backfilled": "已回填",
-    "status": "状态"
+    "status": "状态",
+    "scopeNote": "总量口径校验：阶段前置节点（如设计先于开发）未单独校验；单项分析不预留产能，也不代表组合可行。"
   },
   "designEstimation": {
     "currentEstimate": "当前设计粗估",

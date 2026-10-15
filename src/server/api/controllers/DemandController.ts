@@ -3,7 +3,7 @@ import { BaseController } from './BaseController.js';
 import { ServiceContainer } from '../../services/ServiceContainer.js';
 import { DemandCalculationService } from '../../services/demand/DemandCalculationService.js';
 import { resolveScenarioId } from '../../services/calc/effectiveAssignments.js';
-import type { DemandSummaryFilters, ScenarioInput } from '../../services/demand/types.js';
+import type { DemandSummaryFilters } from '../../services/demand/types.js';
 
 export class DemandController extends BaseController {
   private _demandService?: DemandCalculationService;
@@ -133,16 +133,13 @@ export class DemandController extends BaseController {
   }
 
   async calculateScenario(req: Request, res: Response) {
-    const scenario: ScenarioInput = req.body.scenario;
-
-    const result = await this.executeQuery(
-      async () => this.demandService.calculateScenarioImpact(scenario),
-      res,
-      'Failed to calculate scenario'
-    );
-
-    if (result) {
-      res.json(result);
-    }
+    // IP-02e/F08: 场景影响模拟为未完成能力——新项目需求读已改名的旧表、
+    // 缺口为占位实现。按裁决"保留则接真实计算,否则明确不可用"显式返回
+    // 501:占位数据不得产出"资源可行"的结论。接回真实计算属 IP-09b 多事推演。
+    void req;
+    res.status(501).json({
+      error: 'Not implemented',
+      message: 'scenario impact analysis is not implemented; no feasibility conclusion is produced here'
+    });
   }
 }

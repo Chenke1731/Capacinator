@@ -353,6 +353,12 @@ function LocEstimationPanel({ projectId }: { projectId: string }) {
           <p className="text-muted estimation-assumptions">
             {t('projects:estimation.capacityNote')}
           </p>
+          {/* IP-02e/R01+R02: 范围声明——总量口径/阶段节点未校验/单项不预留/非组合承诺 */}
+          {(checkResult as any).scope && (
+            <p className="text-muted estimation-scope-note">
+              {t('projects:estimation.scopeNote')}
+            </p>
+          )}
         </div>
       )}
 

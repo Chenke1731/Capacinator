@@ -264,17 +264,13 @@ describe('date.ts - Date Comparisons', () => {
 
 describe('date.ts - Report Date Range', () => {
   describe('getDefaultReportDateRange', () => {
-    it('returns date range starting from 2023', () => {
+    it('U11: 默认窗口=本月1日起、未来三个月末(历史需显式选择)', () => {
+      jest.useFakeTimers({ now: new Date('2026-10-15T10:00:00'), doNotFake: ['nextTick', 'setTimeout'] } as any);
+      jest.setSystemTime(new Date('2026-10-15T10:00:00'));
       const range = getDefaultReportDateRange();
-      expect(range.startDate).toBe('2023-01-01');
-    });
-
-    it('returns date range ending ~12 months from now', () => {
-      const range = getDefaultReportDateRange();
-      const endYear = parseInt(range.endDate.split('-')[0], 10);
-      const currentYear = new Date().getFullYear();
-      expect(endYear).toBeGreaterThanOrEqual(currentYear);
-      expect(endYear).toBeLessThanOrEqual(currentYear + 2);
+      jest.useRealTimers();
+      expect(range.startDate).toBe('2026-10-01');
+      expect(range.endDate).toBe('2027-01-31'); // 10/11/12/1 月,末日
     });
 
     it('returns dates in YYYY-MM-DD format', () => {

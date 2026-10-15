@@ -167,6 +167,10 @@ export const DemandReport: React.FC<DemandReportProps> = ({
 
         <div className="chart-container">
           <h3>{t('reports:demand.charts.trend')}</h3>
+          {/* U10: 无时间数据明确不可生成——不用视觉补齐冒充预测 */}
+          {(!data.trendOverTime || data.trendOverTime.length === 0) ? (
+            <div className="requirements-empty" role="note">{t('reports:demand.charts.noTrend')}</div>
+          ) : (
           <ResponsiveContainer width="100%" height={300}>
             <LineChart data={data.trendOverTime || []}>
               <CartesianGrid strokeDasharray="3 3" stroke="var(--border-color)" />
@@ -184,6 +188,7 @@ export const DemandReport: React.FC<DemandReportProps> = ({
               />
             </LineChart>
           </ResponsiveContainer>
+          )}
         </div>
       </div>
 

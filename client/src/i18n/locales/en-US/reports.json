@@ -149,7 +149,8 @@
     "charts": {
       "byProject": "Demand by Project",
       "byRole": "Demand by Role",
-      "trend": "Demand Trend Over Time"
+      "trend": "Demand Trend Over Time",
+      "noTrend": "No timeline data — trend cannot be generated"
     },
     "tables": {
       "highDemandProjects": "High-Demand Projects",

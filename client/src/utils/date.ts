@@ -78,18 +78,19 @@ export function getWeekNumber(date: string | Date): number {
 }
 
 /**
- * Get the default date range for reports: broader range to include historical and future projects
- * This ensures test data and real projects across different timeframes are visible
+ * Get the default date range for reports.
+ * U11 (IP-02e): 默认窗口=本月 1 日起至未来三个月末——历史区间需显式选择,
+ * 不再从 2023 起把全部历史项目拉进默认报表。
  */
 export function getDefaultReportDateRange(): { startDate: string; endDate: string } {
   const today = new Date();
-  
-  // Start from 2023 to capture all baseline scenario historical projects
-  const startDate = new Date(2023, 0, 1); // January 1, 2023
-  
-  // End at 12 months from now to capture future projects
-  const endDate = new Date(today.getFullYear() + 1, today.getMonth(), 0); // Last day of current month next year
-  
+
+  // 本月第一天
+  const startDate = new Date(today.getFullYear(), today.getMonth(), 1);
+
+  // 未来三个月的月末(本月 + 3 个月的最后一天)
+  const endDate = new Date(today.getFullYear(), today.getMonth() + 4, 0);
+
   return {
     startDate: toISODateString(startDate),
     endDate: toISODateString(endDate)

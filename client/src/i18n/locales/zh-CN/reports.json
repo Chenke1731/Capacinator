@@ -149,7 +149,8 @@
     "charts": {
       "byProject": "项目需求",
       "byRole": "角色需求",
-      "trend": "需求趋势"
+      "trend": "需求趋势",
+      "noTrend": "无时间数据——无法生成趋势"
     },
     "tables": {
       "highDemandProjects": "高需求项目",

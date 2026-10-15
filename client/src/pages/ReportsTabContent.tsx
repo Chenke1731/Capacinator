@@ -105,6 +105,27 @@ export function toDemandByProject(
     .slice(0, limit);
 }
 
+/**
+ * U10: 需求趋势只用真实时间线点——0 点=无法生成(不造 95%/90% 假衰减),
+ * 1 点=原样保留(不把总量均摊到整个查询区间冒充逐月数据)。
+ */
+export function buildDemandTrend(
+  timeline: Array<{ month: string; total_hours: number }>,
+  _summaryTotalHours: number,
+  _filters: { startDate?: string; endDate?: string },
+  formatMonth: (m: string) => string
+): { trendOverTime: Array<{ month: string; total_hours: number }>; peakMonth: string | null } {
+  const trendOverTime = (timeline || []).map((item) => ({
+    month: formatMonth(item.month),
+    total_hours: item.total_hours
+  }));
+  const peak = trendOverTime.reduce<{ month: string; total_hours: number } | null>(
+    (p, c) => (c.total_hours > (p?.total_hours ?? -Infinity) ? c : p),
+    null
+  );
+  return { trendOverTime, peakMonth: peak?.month ?? null };
+}
+
 interface DemandTrendData {
   month: string;
   total_hours: number;
@@ -364,59 +385,19 @@ export const ReportsTabContent: React.FC<ReportsTabContentProps> = ({ activeRepo
           (data.byProject || []) as Array<{ id: string; name: string; demand: number }>
         );
 
-        // Add trend data over time
-        interface TimelineItem { month: string; total_hours: number }
-        let trendOverTime: DemandTrendData[] = ((data.timeline || []) as TimelineItem[]).map((item) => ({
-          month: formatMonthYear(item.month),
-          total_hours: item.total_hours
-        }));
-        
-        // If we only have one month or no timeline data, generate a timeline based on the date range
-        if (trendOverTime.length <= 1 && filters.startDate && filters.endDate) {
-          const startDate = new Date(filters.startDate);
-          const endDate = new Date(filters.endDate);
-          const monthsToGenerate = [];
-          
-          // Generate all months in the range
-          const current = new Date(startDate.getFullYear(), startDate.getMonth(), 1);
-          while (current <= endDate) {
-            monthsToGenerate.push({
-              month: formatMonthYear(current.toISOString().slice(0, 7)),
-              date: new Date(current)
-            });
-            current.setMonth(current.getMonth() + 1);
-          }
-          
-          // If we have at least one data point, distribute the demand across months
-          if (trendOverTime.length === 1 && data.summary?.total_hours > 0) {
-            const totalHours = data.summary.total_hours;
-            const hoursPerMonth = Math.round(totalHours / monthsToGenerate.length);
-            
-            trendOverTime = monthsToGenerate.map((month, _index) => ({
-              month: month.month,
-              total_hours: hoursPerMonth
-            }));
-          } else if (trendOverTime.length === 0) {
-            // Fallback for no data
-            trendOverTime = [
-              { month: t('reports:period.current'), total_hours: data.summary?.total_hours || 0 },
-              { month: t('reports:period.nextMonth'), total_hours: Math.round((data.summary?.total_hours || 0) * 0.95) },
-              { month: t('reports:period.inThreeMonths'), total_hours: Math.round((data.summary?.total_hours || 0) * 0.90) }
-            ];
-          }
-        }
-        
-        // Find peak month from timeline data
-        const peakMonth = trendOverTime.reduce((peak: DemandTrendData | null, current: DemandTrendData) =>
-          current.total_hours > (peak?.total_hours || 0) ? current : peak,
-          null
-        )?.month || t('common:na');
-        
+        // U10: 趋势只用真实时间线——不再造 95%/90% 假曲线、不均摊单点
+        const { trendOverTime, peakMonth } = buildDemandTrend(
+          (data.timeline || []) as Array<{ month: string; total_hours: number }>,
+          data.summary?.total_hours ?? 0,
+          filters,
+          formatMonthYear
+        );
+
         return {
           ...data,
           byProject,
           trendOverTime,
-          peakMonth
+          peakMonth: peakMonth ?? t('common:na')
         };
       }
       

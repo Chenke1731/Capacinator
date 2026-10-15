@@ -57,7 +57,7 @@ export class IterationsController extends BaseController {
       const stateDist = new Map<string, number>();
       for (const p of mine) stateDist.set(p.lifecycle_state, (stateDist.get(p.lifecycle_state) ?? 0) + 1);
 
-      // 按人汇总(SE/MDE): 人月=其分配事项的分量和;强度%=人月÷迭代时长(月)
+      // 按人汇总(SE/MDE): 人月=其分配事项的分量和;强度%=人月÷角色窗口(月)
       const months = monthsOf(it.start_date, it.end_date);
       const byRolePerson = new Map<string, { role: string; person: string; items: number; pm: number }>();
       for (const r of roleRows) {
@@ -69,10 +69,26 @@ export class IterationsController extends BaseController {
         const de = designEst.get(r.project_id);
         rec.pm += Number((r.role_name === 'SE' ? de?.se : de?.mde) ?? 0);
       }
-      const load = [...byRolePerson.values()].map((r) => ({
-        ...r, pm: round2(r.pm),
-        intensity_pct: intensityPct(r.pm, it.start_date, it.end_date)
-      }));
+      // IP-02d/R05: SE 必须在开工前完成——强度用"今天→开工前一日"窗口
+      // (含端点:开工日本身属开发);MDE/开发用迭代窗口。窗口起止随行透出,
+      // 旧实现按整迭代窗口把开工前 1 人月显示成 50%(实际开工前 13 工作日 ≈167%)
+      const todayISO = new Date().toISOString().slice(0, 10);
+      // 本地日期算术(toISOString 走 UTC,东八区零点会倒退一天)
+      const dayBefore = (iso: string) => {
+        const d = new Date(iso + 'T00:00:00');
+        d.setDate(d.getDate() - 1);
+        return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+      };
+      const load = [...byRolePerson.values()].map((r) => {
+        const sePreStart = r.role === 'SE' && it.start_date > todayISO;
+        const winStart = sePreStart ? todayISO : it.start_date;
+        const winEnd = sePreStart ? dayBefore(it.start_date) : it.end_date;
+        return {
+          ...r, pm: round2(r.pm),
+          intensity_pct: intensityPct(r.pm, winStart, winEnd),
+          window: { start: winStart, end: winEnd }
+        };
+      });
 
       return {
         ...it,

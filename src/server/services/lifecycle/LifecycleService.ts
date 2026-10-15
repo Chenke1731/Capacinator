@@ -17,6 +17,8 @@
  * 准入 (designing → backlog): AR 编号可选 (正式需求填, 普通事项留空), 有则落档。
  */
 
+import { workdaysBetween, workMonths } from '../calc/workCalendar.js';
+
 export const LIFECYCLE_STATES = [
   'pending_rat',
   'nok',
@@ -478,10 +480,13 @@ export class LifecycleService {
     const iterStart = project.iter_start_date ?? null;
     const iterEnd = project.iter_end_date ?? null;
     // SE 赶不上只需要开工日(迭代可能尚未结束/单边数据)
+    // IP-02d/R06: 去除未声明的 62 天截断与 /7*5 统计换算——用统一工作日历
+    // 算完整"今天→开工"窗口,未截断部分不再被假装不存在
     if (iterStart && project.se_estimate_pm != null) {
       const daysLeft = Math.round((new Date(iterStart + 'T00:00:00').getTime() - Date.now()) / 86400000);
       if (daysLeft > 0) {
-        const monthsLeft = Math.max(Math.round(((Math.min(daysLeft, 62) / 7 * 5) / 21.75) * 100) / 100, 0.05);
+        const todayISO = new Date().toISOString().slice(0, 10);
+        const monthsLeft = workMonths(workdaysBetween(todayISO, iterStart));
         const capacityPm = project.se_pct != null ? project.se_pct / 100 : 1;
         if (Number(project.se_estimate_pm) > monthsLeft * capacityPm) {
           warnings.push('SE_WONT_MAKE_IT');

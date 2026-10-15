@@ -219,6 +219,17 @@
   margin: 0 0 0.25rem 0;
 }
 
+/* IP-05c: 预览/确认/直接上传三按钮排布——窄屏自动换行,主路径(分析/确认)在前 */
+.import-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.import-actions .upload-btn {
+  flex: 1 1 auto;
+}
+
 .upload-btn {
   width: 100%;
   justify-content: center;

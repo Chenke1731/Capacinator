@@ -658,35 +658,40 @@ export interface ImportValidationResponse {
   };
 }
 
+/**
+ * /import/analyze 真实信封（与服务端 ImportController.analyzeImport 对齐;
+ * 旧声明从未对上真实形状且无消费者,按 IP-10 原则在接通时修正）。
+ * V1/V2 共用:summary.wouldCreate 的键集因解释器而异,按 Record 消费。
+ */
 export interface ImportAnalysisResponse {
+  success: boolean;
+  message: string;
   analysis: {
-    projects: {
-      new: number;
-      existing: number;
-      duplicates: string[];
+    summary: {
+      totalChanges: number;
+      wouldCreate: Record<string, number>;
+      wouldUpdate: Record<string, number>;
+      wouldDelete: Record<string, number>;
     };
-    people: {
-      new: number;
-      existing: number;
-      duplicates: string[];
+    conflicts: string[];
+    warnings: string[];
+    errors: string[];
+    preview: {
+      newEntities: Array<{ type: string; name: string; action: string }>;
+      modifiedEntities: Array<{ type: string; name: string; action: string }>;
+      deletedEntities: Array<{ type: string; name: string; action: string }>;
+      duplicates: Array<{ type: string; name: string; existing: string }>;
     };
-    roles: {
-      new: number;
-      existing: number;
-      missing: string[];
+    riskAssessment: {
+      level: 'low' | 'medium' | 'high';
+      factors: string[];
+      recommendations: string[];
     };
-    locations: {
-      new: number;
-      existing: number;
-      missing: string[];
-    };
+    dryRun: boolean;
+    wouldSucceed: boolean;
   };
-  recommendations: string[];
-  estimated_changes: {
-    creates: number;
-    updates: number;
-    skips: number;
-  };
+  options: Record<string, unknown>;
+  fileInfo: { name: string; size: number; formatVersion: string };
 }
 
 export interface ImportSettingsResponse {

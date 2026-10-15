@@ -15,11 +15,14 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 const uploadExcel = jest.fn();
+const analyzeImport = jest.fn();
 
 jest.mock('../../../client/src/lib/api-client', () => ({
   api: {
     import: {
       uploadExcel: (...args: unknown[]) => uploadExcel(...args),
+      // IP-05c 预览按钮也可能被点击——不 mock 会让组件抛 TypeError
+      analyzeImport: (...args: unknown[]) => analyzeImport(...args),
       // Mount-time settings load (ImportUnified.tsx loadSettings) — mock it
       // so the component doesn't console.error on a missing api method.
       getSettings: jest.fn().mockResolvedValue({ data: { data: { clearExistingData: false } } }),
@@ -78,7 +81,8 @@ const selectFile = () => {
 
 const clickImport = () => {
   const buttons = screen.getAllByRole('button');
-  const importButton = buttons.find(b => /import/i.test(b.textContent || ''));
+  // IP-05c 后页面有多个含 "import" 的按钮;本测试走直接上传路径
+  const importButton = buttons.find(b => /upload and import/i.test(b.textContent || ''));
   if (!importButton) throw new Error('import button not found');
   fireEvent.click(importButton);
 };

@@ -7,7 +7,10 @@ import { useScenario } from '../contexts/ScenarioContext';
 import { useBookmarkableTabs } from '../hooks/useBookmarkableTabs';
 import { UnifiedTabComponent } from '../components/ui/UnifiedTabComponent';
 import { OperationProgress, useOperationProgress } from '../components/ui/OperationProgress';
+import type { ImportAnalysisResponse } from '../types';
 import './Import.css';
+
+type ImportAnalysisData = ImportAnalysisResponse;
 
 interface ImportResult {
   success: boolean;
@@ -38,6 +41,18 @@ interface ImportSettings {
   dateFormat: string;
 }
 
+/** IP-05c: 预览态——绑定产生它的文件与选项,变化即过期(同 R08 语义) */
+interface ImportPreviewState {
+  analysis: NonNullable<ImportAnalysisData>['analysis'];
+  optionsJson: string;
+  fileName: string;
+}
+
+interface ImportConsistency {
+  matches: boolean;
+  rows: Array<{ key: string; preview: number; actual: number }>;
+}
+
 function ImportUnified() {
   // Cache freshness: staleTime is 5min and refetch-on-focus is disabled
   // (deliberate, ee02050), so invalidation is the only path to fresh data.
@@ -51,6 +66,10 @@ function ImportUnified() {
   const [clearExisting, setClearExisting] = useState(false);
   const [useV2, setUseV2] = useState(true);
   const [result, setResult] = useState<ImportResult | null>(null);
+  const [preview, setPreview] = useState<ImportPreviewState | null>(null);
+  const [previewError, setPreviewError] = useState<string | null>(null);
+  const [analyzing, setAnalyzing] = useState(false);
+  const [consistency, setConsistency] = useState<ImportConsistency | null>(null);
   const [importSettings, setImportSettings] = useState<ImportSettings | null>(null);
   const [showAdvancedSettings, setShowAdvancedSettings] = useState(false);
   const [settingsOverrides, setSettingsOverrides] = useState<Partial<ImportSettings>>({});
@@ -129,6 +148,9 @@ function ImportUnified() {
       if (selectedFile.name.endsWith('.xlsx') || selectedFile.name.endsWith('.xls')) {
         setFile(selectedFile);
         setResult(null);
+        setPreview(null);
+        setPreviewError(null);
+        setConsistency(null);
       } else {
         alert(t('importExport:errors.selectValidFile'));
       }
@@ -141,6 +163,9 @@ function ImportUnified() {
     if (droppedFile && (droppedFile.name.endsWith('.xlsx') || droppedFile.name.endsWith('.xls'))) {
       setFile(droppedFile);
       setResult(null);
+      setPreview(null);
+      setPreviewError(null);
+      setConsistency(null);
     } else {
       alert(t('importExport:errors.dropValidFile'));
     }
@@ -150,6 +175,39 @@ function ImportUnified() {
     event.preventDefault();
   };
 
+  /** 预览与执行共用同一选项构造——这是"确认执行=预览过的那次"的客户端半边 (IP-05c) */
+  const buildUploadOptions = useCallback(() => ({
+    clearExisting,
+    useV2,
+    ...settingsOverrides
+  }), [clearExisting, useV2, settingsOverrides]);
+
+  const handleAnalyze = useCallback(async () => {
+    if (!file) return;
+    setAnalyzing(true);
+    setPreviewError(null);
+    setPreview(null);
+    setConsistency(null);
+    try {
+      const options = buildUploadOptions();
+      const response = await api.import.analyzeImport(file, options);
+      setPreview({
+        analysis: response.data.analysis,
+        optionsJson: JSON.stringify(options),
+        fileName: file.name
+      });
+    } catch (error: any) {
+      setPreviewError(error?.response?.data?.message || error.message || t('importExport:errors.unknown'));
+    } finally {
+      setAnalyzing(false);
+    }
+  }, [file, buildUploadOptions, t]);
+
+  // 预览在文件或选项变化后即过期——旧预览不能再作为确认执行的依据(同 R08 语义)
+  const previewStale = preview !== null && (
+    preview.fileName !== file?.name || JSON.stringify(buildUploadOptions()) !== preview.optionsJson
+  );
+
   const handleUpload = useCallback(async () => {
     if (!file) return;
 
@@ -157,11 +215,7 @@ function ImportUnified() {
     setResult(null);
 
     try {
-      const uploadOptions = {
-        clearExisting,
-        useV2,
-        ...settingsOverrides
-      };
+      const uploadOptions = buildUploadOptions();
 
       // Update progress to show file upload started
       importProgress.updateProgress(10, t('importExport:progress.sendingFile'));
@@ -176,6 +230,19 @@ function ImportUnified() {
       // queryClient note at the top of the component).
       queryClient.invalidateQueries();
       setResult(importResult);
+
+      // 结果一致对账:有有效预览时,逐键比较执行写入与预览承诺 (IP-05c)
+      if (preview && !previewStale) {
+        const wouldCreate = preview.analysis.summary.wouldCreate;
+        const actual = importResult.imported ?? {};
+        const keys = new Set([...Object.keys(wouldCreate), ...Object.keys(actual)]);
+        const rows = [...keys].map((key) => ({
+          key,
+          preview: wouldCreate[key] ?? 0,
+          actual: (actual as Record<string, number>)[key] ?? 0
+        }));
+        setConsistency({ matches: rows.every((r) => r.preview === r.actual), rows });
+      }
 
       // Add any warnings from the result
       if (importResult.warnings) {
@@ -210,11 +277,14 @@ function ImportUnified() {
         ].filter((e, i, arr) => e && arr.indexOf(e) === i)
       });
     }
-  }, [file, clearExisting, useV2, settingsOverrides, importProgress, t, queryClient]);
+  }, [file, buildUploadOptions, preview, previewStale, importProgress, t, queryClient]);
 
   const handleRemoveFile = () => {
     setFile(null);
     setResult(null);
+    setPreview(null);
+    setPreviewError(null);
+    setConsistency(null);
     importProgress.reset();
     if (fileInputRef.current) {
       fileInputRef.current.value = '';
@@ -548,14 +618,114 @@ function ImportUnified() {
             style={{ display: 'none' }}
           />
 
-          {file && !uploading && importProgress.status === 'idle' && (
-            <button
-              className="btn btn-primary upload-btn"
-              onClick={handleUpload}
-              disabled={uploading}
-            >
-              {t('importExport:import.uploadAndImport')}
-            </button>
+          {file && !uploading && importProgress.status === 'idle' && !analyzing && (
+            <div className="import-actions">
+              <button
+                className="btn btn-primary upload-btn"
+                onClick={handleAnalyze}
+                disabled={!file}
+              >
+                {t('importExport:import.analyzeButton')}
+              </button>
+              {preview && (
+                <button
+                  className="btn btn-primary upload-btn"
+                  onClick={handleUpload}
+                  disabled={previewStale || !preview.analysis.wouldSucceed}
+                >
+                  {t('importExport:import.confirmImport')}
+                </button>
+              )}
+              <button
+                className="btn btn-outline upload-btn"
+                onClick={handleUpload}
+                disabled={uploading}
+                title={t('importExport:import.uploadAndImport')}
+              >
+                {t('importExport:import.uploadAndImport')}
+              </button>
+            </div>
+          )}
+
+          {analyzing && (
+            <p className="text-muted" role="status">{t('importExport:import.analyzing')}</p>
+          )}
+
+          {previewError && (
+            <div className="import-result error" role="alert">
+              <div className="result-header">
+                <AlertCircle size={24} className="result-icon" />
+                <h3>{previewError}</h3>
+              </div>
+            </div>
+          )}
+
+          {/* IP-05c: 预览面板——试算不写库,核对后才能确认 */}
+          {preview && !analyzing && (
+            <div className={`import-result ${preview.analysis.wouldSucceed ? 'success' : 'error'}`}>
+              <div className="result-header">
+                {preview.analysis.wouldSucceed ? (
+                  <CheckCircle size={24} className="result-icon" />
+                ) : (
+                  <AlertCircle size={24} className="result-icon" />
+                )}
+                <h3>{t('importExport:import.previewTitle')}</h3>
+              </div>
+
+              {previewStale && (
+                <p className="text-danger" role="alert">
+                  {t('importExport:import.previewStale')}
+                </p>
+              )}
+
+              <div className="settings-summary">
+                <span>{t('importExport:import.totalChanges', { count: preview.analysis.summary.totalChanges })}</span>
+                <span>{t('importExport:import.riskLevel', { level: preview.analysis.riskAssessment.level })}</span>
+              </div>
+
+              <div className="import-stats">
+                <div className="stats-grid">
+                  {Object.entries(preview.analysis.summary.wouldCreate).map(([key, value]) => (
+                    <div key={key} className="stat-item">
+                      <span className="stat-label">{getStatLabel(key)}</span>
+                      <span className="stat-value">{value}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {preview.analysis.riskAssessment.factors.length > 0 && (
+                <div className="result-warnings">
+                  <ul>
+                    {preview.analysis.riskAssessment.factors.map((factor, index) => (
+                      <li key={index}>{factor}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              {preview.analysis.conflicts.length > 0 && (
+                <div className="result-errors">
+                  <h4>{t('importExport:import.previewConflicts')}</h4>
+                  <ul>
+                    {preview.analysis.conflicts.map((conflict, index) => (
+                      <li key={index}>{conflict}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              {preview.analysis.errors.length > 0 && (
+                <div className="result-errors">
+                  <h4>{t('importExport:results.errors')}</h4>
+                  <ul>
+                    {preview.analysis.errors.map((error, index) => (
+                      <li key={index}>{error}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
           )}
 
           {/* Import operation progress */}
@@ -598,6 +768,32 @@ function ImportUnified() {
                     </div>
                   ))}
                 </div>
+              </div>
+            )}
+
+            {/* IP-05c: 执行结果与预览逐项对账 */}
+            {consistency && (
+              <div className={consistency.matches ? 'result-warnings' : 'result-errors'}>
+                <h4>
+                  {consistency.matches
+                    ? t('importExport:import.previewMatches')
+                    : t('importExport:import.previewDiffers')}
+                </h4>
+                {!consistency.matches && (
+                  <ul>
+                    {consistency.rows
+                      .filter((row) => row.preview !== row.actual)
+                      .map((row) => (
+                        <li key={row.key}>
+                          {t('importExport:import.previewRow', {
+                            key: row.key,
+                            preview: row.preview,
+                            actual: row.actual
+                          })}
+                        </li>
+                      ))}
+                  </ul>
+                )}
               </div>
             )}
 

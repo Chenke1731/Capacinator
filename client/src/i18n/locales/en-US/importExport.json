@@ -55,7 +55,18 @@
     "dropHere": "Drop Excel file here",
     "orClick": "or click to browse",
     "supportsFormats": "Supports .xlsx and .xls files",
-    "uploadAndImport": "Upload and Import"
+    "uploadAndImport": "Upload and Import",
+    "analyzeButton": "Analyze before import",
+    "analyzing": "Analyzing…",
+    "confirmImport": "Confirm import",
+    "previewTitle": "Import preview (dry run — nothing is written)",
+    "previewStale": "File or options changed — re-run the preview",
+    "previewMatches": "Execution matches the preview",
+    "previewDiffers": "Execution differs from the preview",
+    "previewRow": "{{key}}: preview {{preview}} / actual {{actual}}",
+    "riskLevel": "Risk level: {{level}}",
+    "totalChanges": "Total changes: {{count}}",
+    "previewConflicts": "Conflicts"
   },
   "results": {
     "success": "Import Successful",

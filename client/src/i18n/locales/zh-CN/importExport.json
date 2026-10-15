@@ -55,7 +55,18 @@
     "dropHere": "将 Excel 文件拖到此处",
     "orClick": "或点击浏览文件",
     "supportsFormats": "支持 .xlsx 和 .xls 文件",
-    "uploadAndImport": "上传并导入"
+    "uploadAndImport": "上传并导入",
+    "analyzeButton": "导入前分析",
+    "analyzing": "分析中……",
+    "confirmImport": "确认导入",
+    "previewTitle": "导入预览（试算——不写库）",
+    "previewStale": "文件或选项已变化——请重新预览",
+    "previewMatches": "执行结果与预览一致",
+    "previewDiffers": "执行结果与预览有差异",
+    "previewRow": "{{key}}：预览 {{preview}} / 实际 {{actual}}",
+    "riskLevel": "风险等级：{{level}}",
+    "totalChanges": "总变更数：{{count}}",
+    "previewConflicts": "冲突"
   },
   "results": {
     "success": "导入成功",

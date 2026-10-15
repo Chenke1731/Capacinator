@@ -507,12 +507,14 @@
   "ticketsBoard": {
     "ledgerNote": "月度量台账与建议缓冲率将在此登记(暂缓实现);当前为缓冲占用一览——照常参与产能计算。",
     "empty": "暂无问题单类事项",
-    "stat": "{{people}} 人 · 平均 {{avgPct}}% · 合计 {{fte}} FTE"
+    "stat": "{{people}} 人 · 平均 {{avgPct}}% · 合计 {{fte}} FTE",
+    "loadError": "问题单池加载失败"
   },
   "affairsBoard": {
     "empty": "暂无事项类条目",
     "peopleStat": "{{people}} 人 · {{fte}} FTE",
-    "monthStat": "本月 {{pm}} 人月"
+    "monthStat": "本月 {{pm}} 人月",
+    "loadError": "事项加载失败"
   },
   "component": {
     "hint": "点击设置所属组件",

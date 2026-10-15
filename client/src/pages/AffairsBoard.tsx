@@ -33,7 +33,7 @@ export function AffairsBoard() {
   const { currentScenario } = useScenario();
   const [expanded, setExpanded] = useState<Set<string>>(new Set());
 
-  const { data: affairs, isLoading } = useQuery({
+  const { data: affairs, isLoading, isError, error, refetch } = useQuery({
     queryKey: ['affairs-board', currentScenario?.id],
     queryFn: async () => {
       const list = (await api.projects.list({ limit: 100 })).data.data as any[];
@@ -51,6 +51,18 @@ export function AffairsBoard() {
   });
 
   if (isLoading) return <LoadingSpinner />;
+
+  // IP-06a/U05: GET 失败不是"暂无条目"——误导用户以为数据不存在;失败独立呈现可重试
+  if (isError) return (
+    <div className="affairs-board">
+      <div className="requirements-empty" role="alert">
+        <span>{t('projects:affairsBoard.loadError')}{error ? `: ${(error as Error).message}` : ''}</span>
+        <button type="button" className="btn btn-sm" onClick={() => refetch()}>
+          {t('common:retry')}
+        </button>
+      </div>
+    </div>
+  );
 
   const toggle = (id: string) => {
     setExpanded((prev) => {

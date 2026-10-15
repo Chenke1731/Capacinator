@@ -15,7 +15,7 @@ export function TicketsBoard() {
   const { t } = useTranslation();
   const { currentScenario } = useScenario();
 
-  const { data: boards, isLoading } = useQuery({
+  const { data: boards, isLoading, isError, error, refetch } = useQuery({
     queryKey: ['tickets-board', currentScenario?.id],
     queryFn: async () => {
       const list = (await api.projects.list({ limit: 100 })).data.data as any[];
@@ -32,6 +32,22 @@ export function TicketsBoard() {
   });
 
   if (isLoading) return <LoadingSpinner />;
+
+  // IP-06a/U05: GET 失败不是"暂无条目"——误导用户以为数据不存在;失败独立呈现可重试
+  if (isError) return (
+    <div className="tickets-board">
+      <div className="tickets-ledger-note">
+        <Inbox size={14} className="inline mr-1" />
+        {t('projects:ticketsBoard.ledgerNote')}
+      </div>
+      <div className="requirements-empty" role="alert">
+        <span>{t('projects:ticketsBoard.loadError')}{error ? `: ${(error as Error).message}` : ''}</span>
+        <button type="button" className="btn btn-sm" onClick={() => refetch()}>
+          {t('common:retry')}
+        </button>
+      </div>
+    </div>
+  );
 
   return (
     <div className="tickets-board">

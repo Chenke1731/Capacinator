@@ -17,6 +17,7 @@ import ProjectModal from '../components/modals/ProjectModal';
 import { LifecycleCellControls } from '../components/lifecycle/LifecycleCellControls';
 import { TagManagerDialog } from '../components/tags/TagManagerDialog';
 import { useModal } from '../hooks/useModal';
+import { useMutationFailureToaster } from '../hooks/useMutationFailureToaster';
 import { useScenario } from '../contexts/ScenarioContext';
 import { categoryOfTypeName } from '../lib/projectCategories';
 import type { Project } from '../types';
@@ -680,20 +681,9 @@ export function Projects() {
     setOkToast(msg);
     window.setTimeout(() => setOkToast(null), 3000);
   };
-  // P2: 拦截所有 react-query mutation 失败 → toast
-  useEffect(() => {
-    const unsub = queryClient.getMutationCache().subscribe((event) => {
-      if (event.type === 'updated' && (event.action?.type as string) === 'rejected') {
-        const err = (event.action as { data?: { message?: string; response?: { data?: { message?: string } } } | undefined })?.data;
-        const msg = typeof err === 'string' ? err
-          : err?.response?.data?.message || err?.message
-          || (event.mutation?.state?.error as { message?: string } | null | undefined)?.message
-          || '操作失败';
-        showErrorToast(msg);
-      }
-    });
-    return unsub;
-  }, [queryClient]);
+  // IP-06a/U02: 全量 mutation 失败提示 + 重试。旧订阅比较 'rejected'(v5 实为
+  // 'error')永不触发——生命周期推进/KLOC 保存/选人 503 均无任何反馈
+  const { failure: mutationFailure, dismiss: dismissMutationFailure } = useMutationFailureToaster(queryClient);
 
   const flashRow = (id: string) => {
     // invalidate 后 rerender 可能吞掉同步 setState;下一帧再闪(2026-09-23 P1)
@@ -1225,6 +1215,34 @@ export function Projects() {
       {/* toast 堆叠容器(2026-10-11 审视#4): 成功/失败同位叠加改为纵向堆叠,
           几何(定位/居中/让位)收敛到容器一处 */}
       <BoardNotifications error={errorToast} success={okToast} />
+      {mutationFailure && (
+        <div className="req-toast-stack">
+          <div
+            className="req-error-toast"
+            role="alert"
+            style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}
+          >
+            <span>{mutationFailure.message}</span>
+            {mutationFailure.canRetry && (
+              <button
+                type="button"
+                className="btn btn-sm"
+                onClick={mutationFailure.retry}
+              >
+                {t('common:retry')}
+              </button>
+            )}
+            <button
+              type="button"
+              className="btn btn-sm btn-ghost"
+              onClick={dismissMutationFailure}
+              aria-label={t('common:close')}
+            >
+              ×
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

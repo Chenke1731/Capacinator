@@ -509,12 +509,14 @@
   "ticketsBoard": {
     "ledgerNote": "The monthly volume ledger and suggested buffer rate will live here (deferred); for now this shows the buffer footprint — it keeps consuming capacity as usual.",
     "empty": "No ticket-pool items",
-    "stat": "{{people}} people · avg {{avgPct}}% · {{fte}} FTE"
+    "stat": "{{people}} people · avg {{avgPct}}% · {{fte}} FTE",
+    "loadError": "Failed to load ticket-pool items"
   },
   "affairsBoard": {
     "empty": "No affairs",
     "peopleStat": "{{people}} people · {{fte}} FTE",
-    "monthStat": "{{pm}} PM this month"
+    "monthStat": "{{pm}} PM this month",
+    "loadError": "Failed to load affairs"
   },
   "component": {
     "hint": "Click to set component",

@@ -656,11 +656,10 @@ describe('AssignmentsController', () => {
       mockDb.first
         .mockImplementationOnce(() => ({
           then: (resolve: any) => Promise.resolve(mockPerson).then(resolve)
-        }))
-        .mockImplementationOnce(() => ({
-          then: (resolve: any) => Promise.resolve({ effective_availability_percentage: 100 }).then(resolve)
         }));
-      mockDb._setQueryResult(mockOverlapping);
+      // IP-03a 查询序:①重叠分配切片 ②已批准可用率覆盖(空=默认 100)
+      mockDb._queueQueryResult(mockOverlapping);
+      mockDb._queueQueryResult([]);
 
       const conflict = await controller.checkConflicts(
         'person-1',
@@ -670,7 +669,8 @@ describe('AssignmentsController', () => {
       );
 
       expect(conflict).not.toBeNull();
-      expect(conflict?.total_allocation).toBeGreaterThan(100);
+      // 峰值口径:Mar–Jun 段 60+50+50=160% 并发,而非全区间求和
+      expect(conflict?.total_allocation).toBe(160);
     });
 
     it('returns null when no conflicts', async () => {
@@ -701,11 +701,9 @@ describe('AssignmentsController', () => {
       mockDb.first
         .mockImplementationOnce(() => ({
           then: (resolve: any) => Promise.resolve(mockPerson).then(resolve)
-        }))
-        .mockImplementationOnce(() => ({
-          then: (resolve: any) => Promise.resolve({ effective_availability_percentage: 100 }).then(resolve)
         }));
-      mockDb._setQueryResult([]);
+      mockDb._queueQueryResult([]);
+      mockDb._queueQueryResult([]);
 
       await controller.checkConflicts(
         'person-1',
@@ -715,7 +713,8 @@ describe('AssignmentsController', () => {
         'assign-1' // Exclude this one
       );
 
-      expect(mockDb.where).toHaveBeenCalledWith('assignments_view.id', '!=', 'assign-1');
+      // IP-03a: 切片查询直接用 scenario 表数值 id('spa-' 前缀已剥)
+      expect(mockDb.where).toHaveBeenCalledWith('spa.id', '!=', 'assign-1');
     });
   });
 

@@ -42,6 +42,15 @@ import {
         };
         return query;
       }
+      // IP-03a/C06: 可用率覆盖查询——canned 用例不带覆盖,返回空=默认可用率
+      if (typeof tableName === 'string' && tableName.includes('person_availability_overrides')) {
+        const query: any = {
+          where: jest.fn().mockReturnThis(),
+          whereIn: jest.fn().mockReturnThis(),
+          select: jest.fn().mockResolvedValue([])
+        };
+        return query;
+      }
       if (typeof tableName === 'string' && tableName.includes('project_pool_demands')) {
         const query: any = {
           join: jest.fn().mockReturnThis(),

@@ -568,12 +568,13 @@ describe('AssignmentsController Integration Tests', () => {
         testData.person_id,
         '2024-03-01', // Peak overlap period where multiple assignments exist
         '2024-04-15',
-        20 // Adding 20% more
+        40 // Adding 40% more → 并发峰值 40+30+40=110%(IP-03a 峰值口径)
       );
 
       expect(conflict).toBeTruthy();
-      // Should detect total allocation > 100% during overlap period
-      expect(conflict?.total_allocation).toBeGreaterThan(100);
+      // 峰值口径:Mar 1–31 段 40%(Q1)+30%(Feb–May)+40%(新)=110% 并发;
+      // 旧的"区间相交全求和"会把不并存的 20%(Q2)也计入
+      expect(conflict?.total_allocation).toBe(110);
     });
 
     it('should validate assignment timeline gaps and overlaps', async () => {
@@ -626,9 +627,9 @@ describe('AssignmentsController Integration Tests', () => {
         50
       );
       expect(conflictOverlapping).toBeTruthy();
-      // The new assignment (50%) overlaps with two existing assignments (100% each)
-      // so total allocation during the overlap period is 250%
-      expect(conflictOverlapping?.total_allocation).toBe(250); // 100 + 100 + 50 during overlap
+      // IP-03a 峰值口径:1 月段 100+50=150%,2 月段仅 50%,3 月段 100+50=150%——
+      // 1 月与 3 月从不并发,峰值 150(旧的区间求和会误报 250)
+      expect(conflictOverlapping?.total_allocation).toBe(150);
     });
   });
 

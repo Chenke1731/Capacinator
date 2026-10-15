@@ -18,6 +18,7 @@
 
 import { workdaysBetween, workMonths } from '../calc/workCalendar.js';
 import { BASELINE_SCENARIO_ID, activeAssignmentsInScenario } from '../calc/effectiveAssignments.js';
+import { segmentedWorkMonths } from '../calc/capacitySegments.js';
 
 export interface ConversionInput {
   estimated_loc: number;
@@ -144,6 +145,10 @@ function poolOverlapMonths(
     windowStart,
     windowEnd
   );
+}
+
+function toISODateString(d: Date): string {
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
 }
 
 function overlapMonths(
@@ -280,6 +285,32 @@ export class EstimationService {
       .select('pmd.project_id', 'pmd.headcount', 'pmd.start_date', 'pmd.end_date');
   }
 
+  /** 已批准且与窗口相交的可用率覆盖,按人分组 (IP-03a/C06) */
+  private async fetchAvailabilityOverrides(
+    personIds: string[],
+    windowStart: Date,
+    windowEnd: Date
+  ): Promise<Map<string, Array<{ start: string; end: string; availability_percentage: number }>>> {
+    const byPerson = new Map<string, Array<{ start: string; end: string; availability_percentage: number }>>();
+    if (personIds.length === 0) return byPerson;
+    const rows = await this.db('person_availability_overrides')
+      .whereIn('person_id', personIds)
+      .where('is_approved', 1)
+      .where('start_date', '<=', toISODateString(windowEnd))
+      .where('end_date', '>=', toISODateString(windowStart))
+      .select('person_id', 'start_date', 'end_date', 'availability_percentage');
+    for (const row of rows) {
+      const list = byPerson.get(row.person_id) ?? [];
+      list.push({
+        start: String(row.start_date).slice(0, 10),
+        end: String(row.end_date).slice(0, 10),
+        availability_percentage: row.availability_percentage
+      });
+      byPerson.set(row.person_id, list);
+    }
+    return byPerson;
+  }
+
   private async checkSide(
     side: 'design' | 'dev',
     roleNames: string[],
@@ -293,6 +324,11 @@ export class EstimationService {
     const team = await this.fetchTeam(roleNames);
     const assignments = await this.fetchAssignments(team.map((m: TeamMember) => m.id), scenarioId);
     const pools = await this.fetchPoolDemands(roleNames);
+    // IP-03a/C06: 供给按已批准可用率覆盖分段——整窗覆盖 0 供给 0,
+    // 部分休假按段扣除;不依赖"今天"口径的可用率视图代表未来窗口
+    const overridesByPerson = await this.fetchAvailabilityOverrides(
+      team.map((m: TeamMember) => m.id), windowStart, windowEnd
+    );
 
     const allocatedByPerson = new Map<string, number>();
     for (const a of assignments) {
@@ -305,7 +341,11 @@ export class EstimationService {
 
     let supply = 0;
     for (const member of team) {
-      const gross = (member.availability ?? 100) / 100 * months;
+      const gross = segmentedWorkMonths(
+        { start: toISODateString(windowStart), end: toISODateString(windowEnd) },
+        member.availability ?? 100,
+        overridesByPerson.get(member.id) ?? []
+      );
       const allocated = allocatedByPerson.get(member.id) ?? 0;
       supply += Math.max(0, gross - allocated);
     }

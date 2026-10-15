@@ -5,6 +5,8 @@ import { ServiceContainer } from '../../services/ServiceContainer.js';
 import { transformDates, transformDatesInArray, COMMON_DATE_FIELDS } from '../../utils/dateTransform.js';
 import { notificationScheduler } from '../../services/NotificationScheduler.js';
 import { logger } from '../../services/logging/config.js';
+import { activeAssignmentsInScenario } from '../../services/calc/effectiveAssignments.js';
+import { evaluateWindowCapacity } from '../../services/calc/capacitySegments.js';
 
 // Alias for backward compatibility with existing code
 type RequestWithLogging = RequestWithContext;
@@ -88,6 +90,8 @@ interface AssignmentConflict {
   }>;
   total_allocation: number;
   available_capacity: number;
+  /** IP-03a: 超载区间(日期边界分段)——峰值口径下报告哪些段超载 */
+  overload_segments?: Array<{ start: string; end: string; capacityPct: number; loadPct: number }>;
 }
 
 /**
@@ -844,47 +848,66 @@ export class AssignmentsController extends BaseController {
       scenarioId = (this as any).req?.headers?.['x-scenario-id'] as string || 'baseline-0000-0000-0000-000000000000';
     }
 
-    // Get overlapping assignments from assignments_view (includes both direct and scenario assignments)
-    let query = db('assignments_view')
-      .join('projects', 'assignments_view.project_id', 'projects.id')
-      .where('assignments_view.person_id', person_id)
-      .where('assignments_view.scenario_id', scenarioId)
+    // IP-03a/C07–C09: 选定场景 active 切片(paused 不占容量,C08);冲突按日期
+    // 边界分段——判并发峰值而非区间相交整体求和(C07);可用率用已批准覆盖的
+    // 真值,0 就是 0,不 ||100 回退(C09);不再依赖"今天"口径的可用率视图
+    let query = activeAssignmentsInScenario(db, scenarioId)
+      .join('projects', 'spa.project_id', 'projects.id')
+      .where('spa.person_id', person_id)
       .where(function(this: Knex.QueryBuilder) {
-        this.where('assignments_view.computed_start_date', '<=', end_date)
+        this.where('spa.computed_start_date', '<=', end_date)
           .orWhere(function(this: Knex.QueryBuilder) {
-            this.whereNull('assignments_view.computed_start_date')
-              .andWhere('assignments_view.start_date', '<=', end_date);
+            this.whereNull('spa.computed_start_date')
+              .andWhere('spa.start_date', '<=', end_date);
           });
       })
       .where(function(this: Knex.QueryBuilder) {
-        this.where('assignments_view.computed_end_date', '>=', start_date)
+        this.where('spa.computed_end_date', '>=', start_date)
           .orWhere(function(this: Knex.QueryBuilder) {
-            this.whereNull('assignments_view.computed_end_date')
-              .andWhere('assignments_view.end_date', '>=', start_date);
+            this.whereNull('spa.computed_end_date')
+              .andWhere('spa.end_date', '>=', start_date);
           });
       });
 
     if (exclude_assignment_id) {
-      query = query.where('assignments_view.id', '!=', exclude_assignment_id);
+      // 旧 assignments_view 的 id 是 'spa-' 前缀串;切片查询直接用数值 id
+      const numericId = String(exclude_assignment_id).replace(/^spa-/, '');
+      query = query.where('spa.id', '!=', numericId);
     }
 
     const overlapping = await query.select(
-      'assignments_view.*',
+      'spa.*',
       'projects.name as project_name'
     );
 
-    const total_allocation = overlapping.reduce((sum: number, assignment: OverlappingAssignment) =>
-      sum + assignment.allocation_percentage, allocation_percentage
-    );
-
-    // Get person's current availability
-    const availability = await db('person_availability_view')
+    // 已批准且与窗口相交的可用率覆盖
+    const overrides = await db('person_availability_overrides')
       .where('person_id', person_id)
-      .first();
+      .where('is_approved', 1)
+      .where('start_date', '<=', end_date)
+      .where('end_date', '>=', start_date)
+      .select('start_date', 'end_date', 'availability_percentage');
 
-    const available_capacity = availability?.effective_availability_percentage || 100;
+    const capacity = evaluateWindowCapacity({
+      window: { start: start_date, end: end_date },
+      defaultAvailabilityPct: person.default_availability_percentage ?? 100,
+      overrides: overrides.map((o: { start_date: string; end_date: string; availability_percentage: number }) => ({
+        start: o.start_date,
+        end: o.end_date,
+        availability_percentage: o.availability_percentage
+      })),
+      allocations: [
+        ...overlapping.map((a: OverlappingAssignment) => ({
+          start: (a.computed_start_date || a.start_date) as string | null,
+          end: (a.computed_end_date || a.end_date) as string | null,
+          allocation: a.allocation_percentage
+        })),
+        { start: start_date, end: end_date, allocation: allocation_percentage }
+      ]
+    });
 
-    if (total_allocation > available_capacity) {
+    if (capacity.hasConflict) {
+      const worst = capacity.overloadSegments[0];
       return {
         person_id,
         person_name: person.name,
@@ -894,8 +917,9 @@ export class AssignmentsController extends BaseController {
           end_date: a.computed_end_date || a.end_date || '',
           allocation_percentage: a.allocation_percentage
         })),
-        total_allocation,
-        available_capacity
+        total_allocation: capacity.peakLoadPct,
+        available_capacity: worst.capacityPct,
+        overload_segments: capacity.overloadSegments
       };
     }
 

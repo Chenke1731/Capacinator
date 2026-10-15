@@ -44,6 +44,12 @@ const DDL = [
     id INTEGER PRIMARY KEY AUTOINCREMENT, project_id TEXT, role_id TEXT,
     headcount REAL, start_date TEXT, end_date TEXT, status TEXT DEFAULT 'open'
   )`,
+  `CREATE TABLE person_availability_overrides (
+    id INTEGER PRIMARY KEY AUTOINCREMENT, person_id TEXT,
+    start_date TEXT, end_date TEXT, availability_percentage REAL,
+    override_type TEXT, is_approved INTEGER DEFAULT 0,
+    created_at DATETIME, updated_at DATETIME
+  )`,
   // 迁移 034 的并集视图(现行 fetchAssignments 的读取源)——RED 必须命中现行实现
   `CREATE VIEW effective_project_assignments AS
     SELECT pa.id, pa.project_id, pa.person_id, pa.role_id, pa.phase_id,

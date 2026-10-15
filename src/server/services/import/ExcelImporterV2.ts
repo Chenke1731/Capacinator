@@ -55,6 +55,10 @@ export class ExcelImporterV2 {
   private roleMap: Map<string, string> = new Map(); // name -> role_id
   private projectMap: Map<string, string> = new Map(); // name -> project_id
   private phaseMap: Map<string, string> = new Map(); // abbreviation -> phase_id
+  // 本次导入实际新建数(不是全表存量):imported.locations/availabilityOverrides
+  // 曾取整表 count,预览口径下会把存量记录计成"新增承诺"(IP-05b)
+  private createdLocations = 0;
+  private createdAvailabilityOverrides = 0;
 
   constructor(db?: any) {
     this.db = db || getAuditedDb();
@@ -726,6 +730,7 @@ export class ExcelImporterV2 {
                 created_at: new Date(),
                 updated_at: new Date()
               });
+              this.createdAvailabilityOverrides++;
             }
           }
         }
@@ -788,6 +793,7 @@ export class ExcelImporterV2 {
               created_at: new Date(),
               updated_at: new Date()
             });
+            this.createdLocations++;
           }
           locations.set(siteName, locationId!);
         }
@@ -1208,6 +1214,8 @@ export class ExcelImporterV2 {
   async importFromFile(filePath: string, options: ImportOptions = {}): Promise<ImportResultV2> {
     const { clearExisting = false, validateDuplicates = false } = options;
     const errorCollector = new ImportErrorCollector();
+    this.createdLocations = 0;
+    this.createdAvailabilityOverrides = 0;
     const result: ImportResultV2 = {
       success: false,
       imported: {
@@ -1334,11 +1342,9 @@ export class ExcelImporterV2 {
       const plannersResult = await this.processRolePlanners();
       result.warnings.push(...plannersResult.errors);
 
-      // Count imported locations
-      result.imported.locations = await this.db('locations').count('* as count').first().then((r: { count?: number | string } | undefined) => parseInt(String(r?.count || '0'), 10));
-
-      // Count availability overrides
-      result.imported.availabilityOverrides = await this.db('person_availability_overrides').count('* as count').first().then((r: { count?: number | string } | undefined) => parseInt(String(r?.count || '0'), 10));
+      // 本次实际新建数(此前取整表 count,存量会被计入"导入数";预览口径下即错报新增承诺)
+      result.imported.locations = this.createdLocations;
+      result.imported.availabilityOverrides = this.createdAvailabilityOverrides;
 
       // Collect all structured errors and warnings
       const errorSummary = errorCollector.toJSON();

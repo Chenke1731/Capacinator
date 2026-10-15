@@ -198,9 +198,15 @@
   gap: 0.625rem;
 }
 
-/* R08: 草稿改动后旧校验结论降权——仅降结论表格,头部版本标识/过期徽标保持全对比度可读 */
+/* R08: 草稿改动后旧校验结论降权——仅降结论表格,头部版本标识/过期徽标保持全对比度。
+   0.75 + 档内补偿:muted 文字提到 secondary,否则浅色 0.6/0.7/0.8 混合后
+   均跌破 4.5(实测 0.75 时 secondary=5.0,muted 原 token 仅 3.0) */
 .estimation-check-table.estimation-check-stale {
-  opacity: 0.6;
+  opacity: 0.75;
+}
+
+.estimation-check-table.estimation-check-stale .text-muted {
+  color: var(--text-secondary);
 }
 
 .estimation-check-table {

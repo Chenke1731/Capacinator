@@ -38,7 +38,8 @@ const DDL = [
     created_at DATETIME, updated_at DATETIME
   )`,
   `CREATE TABLE locations (
-    id TEXT PRIMARY KEY, name TEXT, created_at DATETIME, updated_at DATETIME
+    id TEXT PRIMARY KEY, name TEXT, description TEXT,
+    created_at DATETIME, updated_at DATETIME
   )`,
   `CREATE TABLE person_availability_overrides (
     id TEXT PRIMARY KEY, person_id TEXT, created_at DATETIME
@@ -52,7 +53,15 @@ const DDL = [
   `CREATE TABLE role_planners (id TEXT PRIMARY KEY)`,
   `CREATE TABLE project_planners (id TEXT PRIMARY KEY)`,
   `CREATE TABLE person_roles (id TEXT PRIMARY KEY)`,
-  `CREATE TABLE projects (id TEXT PRIMARY KEY)`,
+  `CREATE TABLE projects (
+    id TEXT PRIMARY KEY, name TEXT, project_type_id TEXT, project_sub_type_id TEXT,
+    location_id TEXT, priority INTEGER, include_in_demand INTEGER,
+    created_at DATETIME, updated_at DATETIME
+  )`,
+  `CREATE TABLE project_sub_types (
+    id TEXT PRIMARY KEY, project_type_id TEXT, name TEXT, description TEXT,
+    is_default INTEGER, sort_order INTEGER, created_at DATETIME, updated_at DATETIME
+  )`,
   `CREATE TABLE people (id TEXT PRIMARY KEY)`
 ];
 
@@ -64,7 +73,7 @@ describe('ExcelImporterV2.analyzeImport (real sqlite + real exceljs)', () => {
     db = knexFactory({ client: 'better-sqlite3', connection: ':memory:' });
     for (const stmt of DDL) await db.raw(stmt);
 
-    // 最小 V2 工作簿:四个必需 sheet,仅 Project Types 带 1 行数据(第 1 行是表头)
+    // 最小 V2 工作簿:四个必需 sheet;Project Types 1 行 + Projects 1 行(新建 TestSite 地点)
     const ExcelJS = (await import('exceljs')).default as any;
     const wb = new ExcelJS.Workbook();
     const types = wb.addWorksheet('Project Types');
@@ -72,7 +81,9 @@ describe('ExcelImporterV2.analyzeImport (real sqlite + real exceljs)', () => {
     types.addRow(['Feature']);
     wb.addWorksheet('Roles').addRow(['Role', 'Plan Owner', 'CW Option', 'Data Access']);
     wb.addWorksheet('Roster').addRow(['Name']);
-    wb.addWorksheet('Projects').addRow(['Project/Site']);
+    const projects = wb.addWorksheet('Projects');
+    projects.addRow(['Project/Site', 'Project Type', 'Inc. in Demand', 'Priority']);
+    projects.addRow(['Feature @ TestSite', 'Feature', 'Y', '1']);
     workbookPath = path.join(os.tmpdir(), `v2-analyze-${Date.now()}.xlsx`);
     await wb.xlsx.writeFile(workbookPath);
   });
@@ -141,5 +152,28 @@ describe('ExcelImporterV2.analyzeImport (real sqlite + real exceljs)', () => {
     const rows = await db('project_types').where({ id: 'existing-1' }).first();
     expect(rows).toBeTruthy();
     expect(await countProjectTypes()).toBe(1);
+  });
+
+  test('locations/availability counts report only NEW records, never pre-existing stock', async () => {
+    // 存量:3 个地点、2 条可用率覆盖——它们不是本次导入的新增承诺
+    for (let i = 1; i <= 3; i++) {
+      await db('locations').insert({ id: `loc-${i}`, name: `Stock Site ${i}`, created_at: new Date(), updated_at: new Date() });
+    }
+    for (let i = 1; i <= 2; i++) {
+      await db('person_availability_overrides').insert({ id: `ovo-${i}`, person_id: 'p', created_at: new Date() });
+    }
+
+    const previewImporter = new ExcelImporterV2(db);
+    const analysis = await previewImporter.analyzeImport(workbookPath, {});
+    expect(analysis.summary.wouldCreate.locations).toBe(1); // 仅 TestSite
+    expect(analysis.summary.wouldCreate.availabilityOverrides).toBe(0); // 工作簿无覆盖行
+    expect(await db('locations').count('* as c').first().then((r: any) => Number(r.c))).toBe(3); // 预览零落库
+
+    const execImporter = new ExcelImporterV2(db);
+    const result = await execImporter.importFromFile(workbookPath, {});
+    expect(result.success).toBe(true);
+    expect(result.imported.locations).toBe(1);
+    expect(result.imported.availabilityOverrides).toBe(0);
+    expect(await db('locations').count('* as c').first().then((r: any) => Number(r.c))).toBe(4); // 3 存量 + 1 新
   });
 });

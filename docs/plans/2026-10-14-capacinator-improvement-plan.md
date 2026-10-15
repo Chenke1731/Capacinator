@@ -398,8 +398,8 @@ UI代码定位：[People](../../client/src/pages/People.tsx)、[Projects](../../
 | IP-02 | S01、F01/F08、C01–C05、U10/U11、R01/R02/R03/R05/R06 | 待处理 | — | — | — |
 | IP-03 | S01、C06–C09、U01/U07、R04/R05 | 待处理 | — | — | — |
 | IP-04 | S01、F02/F03、C05、U11/U12、R04/R09 | 待处理 | — | — | — |
-| IP-05 | F04 | 进行中（05a 完成，05b 待领取） | Claude | 见子任务行 | 选项解释统一（`b1a1925`），server 单测 59/59 |
-| IP-06 | S06、U01–U12、R01/R02/R04–R08 | 进行中（06c/R07 面板半边完成，R08 及其余待领取） | Claude | 见子任务行 | R07 合法 0 已关（`88c03a0`），client 17/17 |
+| IP-05 | F04 | 进行中（05a 完成；05b 完成 V2 半边——计数语义修正、V1 同名漂移、预览 UI 接通待续） | Claude | 见子任务行 | 选项解释统一（`b1a1925`）、V2 同管线回滚预览（`27b87db`） |
+| IP-06 | S06、U01–U12、R01/R02/R04–R08 | 进行中（06c 的 R07 与 R08 版本标识/过期已完成；场景/时点标注待 IP-02e，其余 U 项待领取） | Claude | 见子任务行 | R07（`88c03a0`）、R08 版本绑定（`03d5bf6`）已关 |
 | IP-07 | F06、C10–C12、S03 | 进行中（07a/07b 完成，07c 待领取） | Claude | 见子任务行 | C10–C12 已关；全量 Jest 4336 绿 |
 | IP-08 | S02/S03/S04 | 待处理 | — | — | — |
 | IP-09 | S06、F05、U12、R02/R09、维护/性能试运行 | 待处理 | — | — | — |
@@ -421,8 +421,8 @@ UI代码定位：[People](../../client/src/pages/People.tsx)、[Projects](../../
 | IP-07b / C10 | 完成 / Claude（2026-10-15 会话） | 237c5c2 / 干净 | `78bc255`；ActualInvestmentsController.snapshot、ActualInvestmentsController.race.test.ts（新） | 真 better-sqlite3 内存库+读后写前屏障（第10节交错构造）：setManual 0.9 在快照读旧 source 后完整写入,放行快照后 manual=0.9 存活、快照返回 skipped——修复前复现旧症状 fte=0.5/manual；插入竞速（唯一约束输给并发 manual）从 500 变为守卫更新+skipped；顺序跳过与快照刷新无回归。typecheck 0 | setManual 的 onConflict merge 本身无 source 守卫（当前无并发 manual×manual 场景,记为已知边界）;版本比较/409 属 IP-07c |
 | IP-06c / R07（面板半边） | 完成 / Claude（2026-10-15 会话） | 78bc255 / 干净 | `88c03a0`；EstimationPanel、DesignEstimationPanel、estimation/numericFields.ts（新） | client 单测先红后绿 17/17：合法 0 保留（旧码 `||15/20/50` 复现 R07 载荷 15/20/50）、空串回落缺省、超范围/负数提交前显式拒绝、预览与载荷同源（空串占比预览用缺省 15%而非 0）；e2e api 新增服务端契约钉：create 携 0 占比/偏差入库往返仍为 0（服务端 ?? 本就正确）。typecheck 0、lint:ui PASS | R08（校验绑定保存版本/草稿过期）未做，IP-06c 其余项开放 |
 | IP-05a / F04（选项解释） | 完成 / Claude（2026-10-15 会话） | 88c03a0 / 干净 | `b1a1925`；ImportController.parseImportOptions（新私有方法,upload/analyze 共用） | server 单测先红后绿 59/59（ImportController.test.ts 扩展）：保存 true+本次 'false'/false → clear_existing=false（旧 OR 链复现被吞）、缺省回落保存 true 不回归、analyze 预览回显同一解释（options.clearExisting=false+dryRun）。typecheck 0 | V2 预览回退 V1、匹配键/预览执行一致性属 IP-05b;e2e 真实导入文件级验证留待 05b 批次 |
-| IP-06c / R08（版本绑定半边） | 完成 / Claude（2026-10-15 会话） | b1a1925 / 干净 | `03d5bf6`；EstimationPanel、DesignEstimationPanel、ProjectDetail.css、projects.json(en/zh) | client 单测先红后绿 20/20：校验结果头标识"Based on saved version #7(2026-09-20)"、改草稿(LOC/PM)后出现"Inputs changed — result stale"红徽标+结论表降透明度(仅表格,头部保持全对比度)、保存后清除；typecheck 0、lint:ui PASS、verify:states quick 28/28 | 场景/计算时点/未验证范围标注待 IP-02e;草稿试算端点按计划不在此批 |
-| IP-05b / F04（V2 预览半边） | 完成 / Claude（2026-10-15 会话） | 03d5bf6 / 干净 | 见本批提交；ExcelImporterV2.analyzeImport（新,同管线 dryRun 回滚）、ImportController.analyzeImport 去 V1 回退、ImportOptions.dryRun | 真 sqlite+真 exceljs 单测先红后绿（ExcelImporterV2.analyze.test.ts 新）：预览零落库（回滚真实生效）、执行写入数=预览承诺数（同解释器构造性一致）、clearExisting 预览不动现有数据且风险级 high；控制器测试断言 V2 分析器被调用、V1 不再被借用（旧 formatVersion 标签断言证明不了分析器,已补真断言）。typecheck 0 | V1 自身预览/执行同名漂移未修（平行实现仍在）;逐实体名称清单（newEntities 等）为计数占位;客户端无页面消费 analyze 端点（api-client 有定义无调用,记 UI 缺口）;完整迁移库 e2e 验证留续批 |
+| IP-06c / R08（版本绑定半边） | 完成 / Claude（2026-10-15 会话） | b1a1925 / 干净 | `03d5bf6`+本批；EstimationPanel、DesignEstimationPanel、ProjectDetail.css、projects.json(en/zh) | client 单测先红后绿 20/20：校验结果头标识"Based on saved version #7(2026-09-20)"、改草稿(LOC/PM)后出现"Inputs changed — result stale"红徽标+结论表降权、保存后清除；typecheck 0、lint:ui PASS、verify:states quick 28/28。对比度核算（Codex 质询后实测）：0.6 混合使浅色 muted 文字跌至 2.8→改为 0.75+stale 表内 muted 提档 secondary（浅 5.0/深 8.5,全过 4.5） | 场景/计算时点/未验证范围标注待 IP-02e;草稿试算端点按计划不在此批 |
+| IP-05b / F04（V2 预览半边） | 完成 / Claude（2026-10-15 会话） | 03d5bf6 / 干净 | `27b87db`+本批；ExcelImporterV2.analyzeImport（新,同管线 dryRun 回滚）、ImportController.analyzeImport 去 V1 回退、ImportOptions.dryRun、locations/availabilityOverrides 计数改实际新建数（原全表 count 会把存量计成新增承诺,单测红证：存量 3 地点时预览误报 4,修正后 1） | 真 sqlite+真 exceljs 单测先红后绿（ExcelImporterV2.analyze.test.ts 新）：预览零落库（回滚真实生效）、执行写入数=预览承诺数（同解释器构造性一致）、clearExisting 预览不动现有数据且风险级 high、存量不被计为新增；控制器测试断言 V2 分析器被调用、V1 不再被借用。typecheck 0 | V1 自身预览/执行同名漂移未修（平行实现仍在）;逐实体名称清单（newEntities 等）为计数占位;客户端无页面消费 analyze 端点（api-client 有定义无调用,记 UI 缺口→IP-05c）;完整迁移库 e2e 验证留续批 |
 
 ## 8. 四角色排产决策样例与记录模板
 

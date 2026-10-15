@@ -2,26 +2,26 @@
   background: var(--bg-primary);
   border-radius: 8px;
   padding: 24px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px color-mix(in srgb, var(--solid-shade) 10%, transparent);
   margin-bottom: 24px;
 }
 
 .designer-header {
   margin-bottom: 24px;
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 1px solid var(--border-color);
   padding-bottom: 16px;
 }
 
 .designer-header h3 {
   margin: 0 0 8px 0;
-  color: #1f2937;
+  color: var(--text-primary);
   font-size: 1.25rem;
   font-weight: 600;
 }
 
 .designer-header p {
   margin: 0;
-  color: #6b7280;
+  color: var(--text-secondary);
   font-size: 0.9rem;
 }
 
@@ -35,7 +35,7 @@
 /* Table Layout Styles */
 .phases-table-container {
   margin-bottom: 24px;
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--border-color);
   border-radius: 8px;
   overflow: hidden;
   background: var(--bg-primary);
@@ -49,21 +49,21 @@
 
 .phases-table thead {
   background: var(--bg-secondary);
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .phases-table th {
   padding: 12px 16px;
   text-align: left;
   font-weight: 600;
-  color: #374151;
+  color: var(--text-secondary);
   font-size: 0.8rem;
   text-transform: uppercase;
   letter-spacing: 0.025em;
 }
 
 .phases-table tbody tr {
-  border-bottom: 1px solid #f3f4f6;
+  border-bottom: 1px solid var(--border-color);
   transition: background-color 0.2s ease;
 }
 
@@ -91,11 +91,11 @@
   justify-content: center;
   width: 24px;
   height: 24px;
-  background: #e5e7eb;
+  background: var(--bg-secondary);
   border-radius: 4px;
   font-size: 0.75rem;
   font-weight: 600;
-  color: #6b7280;
+  color: var(--text-secondary);
 }
 
 .phase-name-cell {
@@ -104,13 +104,13 @@
 
 .phase-name {
   font-weight: 600;
-  color: #1f2937;
+  color: var(--text-primary);
   margin-bottom: 2px;
 }
 
 .phase-description-hint {
   font-size: 0.75rem;
-  color: #6b7280;
+  color: var(--text-secondary);
   line-height: 1.3;
 }
 
@@ -151,14 +151,14 @@
   height: 18px;
   width: 18px;
   background-color: var(--bg-primary);
-  border: 2px solid #d1d5db;
+  border: 2px solid var(--border-color);
   border-radius: 4px;
   transition: all 0.2s ease;
 }
 
 .checkbox-input:checked ~ .checkbox-mark {
-  background-color: #3b82f6;
-  border-color: #3b82f6;
+  background-color: var(--primary-solid);
+  border-color: var(--primary-text);
 }
 
 .checkbox-input:checked ~ .checkbox-mark:after {
@@ -169,18 +169,18 @@
   top: 2px;
   width: 4px;
   height: 8px;
-  border: solid white;
+  border: solid var(--solid-foreground);
   border-width: 0 2px 2px 0;
   transform: rotate(45deg);
 }
 
 .checkbox-input:hover ~ .checkbox-mark {
-  border-color: #9ca3af;
+  border-color: var(--border-color-hover);
 }
 
 .checkbox-input:checked:hover ~ .checkbox-mark {
-  background-color: #2563eb;
-  border-color: #2563eb;
+  background-color: var(--primary-solid);
+  border-color: var(--primary-text);
 }
 
 .sr-only {
@@ -212,11 +212,11 @@
 
 .inline-duration-display:hover {
   background-color: var(--bg-secondary);
-  border-color: #d1d5db;
+  border-color: var(--status-info-border);
 }
 
 .inline-duration-display .placeholder-text {
-  color: #9ca3af;
+  color: var(--status-info-text);
   font-style: italic;
   font-size: 0.8rem;
 }
@@ -230,7 +230,7 @@
 .duration-input {
   width: 70px;
   padding: 6px 8px;
-  border: 2px solid #3b82f6;
+  border: 2px solid var(--status-info-border);
   border-radius: 4px;
   text-align: center;
   font-size: 0.875rem;
@@ -239,8 +239,8 @@
 }
 
 .duration-input:focus {
-  border-color: #2563eb;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  border-color: var(--status-info-border);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 10%, transparent);
 }
 
 /* Phase Actions in Table */
@@ -265,15 +265,15 @@
 }
 
 .template-phase {
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--border-color);
   border-radius: 6px;
   background: var(--bg-secondary);
   transition: all 0.2s ease;
 }
 
 .template-phase.expanded {
-  border-color: #3b82f6;
-  box-shadow: 0 4px 6px rgba(59, 130, 246, 0.1);
+  border-color: var(--primary-text);
+  box-shadow: 0 4px 6px color-mix(in srgb, var(--primary) 10%, transparent);
 }
 
 .phase-header {
@@ -291,8 +291,8 @@
 }
 
 .phase-order {
-  background: #3b82f6;
-  color: white;
+  background: var(--primary-solid);
+  color: var(--solid-foreground);
   border-radius: 50%;
   width: 32px;
   height: 32px;
@@ -305,7 +305,7 @@
 
 .phase-details h4 {
   margin: 0 0 4px 0;
-  color: #1f2937;
+  color: var(--text-primary);
   font-size: 1rem;
   font-weight: 500;
 }
@@ -327,21 +327,21 @@
 }
 
 .badge-mandatory {
-  background: #fef3c7;
-  color: #d97706;
-  border: 1px solid #fbbf24;
+  background: var(--status-warning-soft);
+  color: var(--status-warning-text);
+  border: 1px solid var(--status-warning-border);
 }
 
 .badge-locked {
-  background: #fee2e2;
-  color: #dc2626;
-  border: 1px solid #f87171;
+  background: var(--status-danger-soft);
+  color: var(--status-danger-text);
+  border: 1px solid var(--status-danger-border);
 }
 
 .badge-duration {
-  background: #dbeafe;
-  color: #2563eb;
-  border: 1px solid #93c5fd;
+  background: var(--status-info-soft);
+  color: var(--status-info-text);
+  border: 1px solid var(--status-info-border);
 }
 
 .phase-actions {
@@ -355,10 +355,10 @@
   align-items: center;
   gap: 6px;
   padding: 8px 12px;
-  border: 1px solid #d1d5db;
+  border: 1px solid var(--border-color);
   border-radius: 6px;
   background: var(--bg-primary);
-  color: #374151;
+  color: var(--text-secondary);
   font-size: 0.875rem;
   font-weight: 500;
   cursor: pointer;
@@ -368,7 +368,7 @@
 
 .btn:hover {
   background: var(--bg-secondary);
-  border-color: #9ca3af;
+  border-color: var(--border-color-hover);
 }
 
 .btn:disabled {
@@ -383,39 +383,39 @@
 }
 
 .btn-primary {
-  background: #3b82f6;
-  border-color: #3b82f6;
-  color: white;
+  background: var(--primary-solid);
+  border-color: var(--primary-solid);
+  color: var(--solid-foreground);
 }
 
 .btn-primary:hover {
-  background: #2563eb;
-  border-color: #2563eb;
+  background: var(--primary-solid);
+  border-color: var(--primary-solid);
 }
 
 .btn-secondary {
-  background: #6b7280;
-  border-color: #6b7280;
-  color: white;
+  background: var(--neutral-button-solid);
+  border-color: var(--neutral-button-solid);
+  color: var(--solid-foreground);
 }
 
 .btn-secondary:hover {
-  background: #4b5563;
-  border-color: #4b5563;
+  background: var(--neutral-button-hover);
+  border-color: var(--neutral-button-hover);
 }
 
 .btn-danger {
-  color: #dc2626;
-  border-color: #fca5a5;
+  color: var(--status-danger-text);
+  border-color: var(--status-danger-border);
 }
 
 .btn-danger:hover {
-  background: #fef2f2;
-  border-color: #dc2626;
+  background: var(--status-danger-soft);
+  border-color: var(--status-danger-border);
 }
 
 .phase-config-panel {
-  border-top: 1px solid #e5e7eb;
+  border-top: 1px solid var(--border-color);
   padding: 20px;
   background: var(--bg-primary);
   border-radius: 0 0 6px 6px;
@@ -440,11 +440,11 @@
 
 .checkbox-label span {
   font-weight: 500;
-  color: #1f2937;
+  color: var(--text-primary);
 }
 
 .checkbox-label small {
-  color: #6b7280;
+  color: var(--text-secondary);
   font-size: 0.8rem;
   margin-left: 24px;
 }
@@ -453,7 +453,7 @@
 .form-input {
   width: 100%;
   padding: 8px 12px;
-  border: 1px solid #d1d5db;
+  border: 1px solid var(--border-color);
   border-radius: 6px;
   font-size: 0.875rem;
   transition: border-color 0.2s ease;
@@ -467,8 +467,8 @@
 .form-textarea:focus,
 .form-input:focus {
   outline: none;
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  border-color: var(--primary-text);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 10%, transparent);
 }
 
 .duration-constraints {
@@ -479,7 +479,7 @@
   margin: 0 0 12px 0;
   font-size: 0.9rem;
   font-weight: 600;
-  color: #1f2937;
+  color: var(--status-info-text);
 }
 
 .duration-inputs {
@@ -497,7 +497,7 @@
 .input-group label {
   font-size: 0.8rem;
   font-weight: 500;
-  color: #4b5563;
+  color: var(--text-secondary);
 }
 
 .config-actions {
@@ -505,12 +505,12 @@
   gap: 12px;
   justify-content: flex-end;
   padding-top: 16px;
-  border-top: 1px solid #e5e7eb;
+  border-top: 1px solid var(--border-color);
 }
 
 .add-phase-panel {
   background: var(--bg-secondary);
-  border: 2px dashed #cbd5e1;
+  border: 2px dashed var(--border-color);
   border-radius: 8px;
   padding: 20px;
   margin-bottom: 16px;
@@ -518,7 +518,7 @@
 
 .add-phase-panel h4 {
   margin: 0 0 16px 0;
-  color: #1f2937;
+  color: var(--text-primary);
   font-size: 1rem;
   font-weight: 600;
 }
@@ -536,20 +536,20 @@
   justify-content: space-between;
   padding: 12px;
   background: var(--bg-primary);
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--border-color);
   border-radius: 6px;
 }
 
 .available-phase .phase-info h5 {
   margin: 0 0 4px 0;
-  color: #1f2937;
+  color: var(--text-primary);
   font-size: 0.9rem;
   font-weight: 500;
 }
 
 .available-phase .phase-info p {
   margin: 0;
-  color: #6b7280;
+  color: var(--text-secondary);
   font-size: 0.8rem;
 }
 
@@ -562,26 +562,26 @@
   width: 100%;
   justify-content: center;
   padding: 12px;
-  border: 2px dashed #cbd5e1;
+  border: 2px dashed var(--border-color);
   background: var(--bg-secondary);
-  color: #64748b;
+  color: var(--text-secondary);
 }
 
 .add-phase-btn:hover {
-  border-color: #3b82f6;
-  background: #eff6ff;
-  color: #3b82f6;
+  border-color: var(--primary-text);
+  background: var(--primary-light);
+  color: var(--primary-text);
 }
 
 .empty-state {
   text-align: center;
   padding: 40px 20px;
-  color: #6b7280;
+  color: var(--text-secondary);
 }
 
 .empty-state h4 {
   margin: 16px 0 8px 0;
-  color: #4b5563;
+  color: var(--text-secondary);
   font-size: 1.1rem;
   font-weight: 500;
 }
@@ -615,4 +615,21 @@
     align-items: stretch;
     gap: 12px;
   }
+}
+/* Neutral solid buttons preserve their existing white-label contrast in both themes. */
+:root { --neutral-button-solid: #6b7280; --neutral-button-hover: #4b5563; }
+[data-theme] { --control-border: var(--text-tertiary); }
+.phase-template-designer .checkbox-mark,
+.phase-template-designer .form-input,
+.phase-template-designer .form-textarea,
+.phase-template-designer .duration-input {
+  border-color: var(--control-border);
+}
+.phase-template-designer .checkbox-input:checked ~ .checkbox-mark {
+  border-color: var(--primary-text);
+}
+.phase-template-designer .duration-input:focus,
+.phase-template-designer .form-input:focus,
+.phase-template-designer .form-textarea:focus {
+  border-color: var(--primary-text);
 }

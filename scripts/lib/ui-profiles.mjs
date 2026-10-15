@@ -30,7 +30,8 @@ export const profiles = {
   roadmap: {path:'/projects?tab=roadmap',root:'.project-roadmap',ready:'.interactive-timeline',minElements:8,scroll:'.timeline-scroll-container',safeTriggers:'.nav-btn, .today-btn, .zoom-controls button',requiredTriggers:5},
   'project-detail': {path:'/projects/project-1789912193111-zikdnz8c5',root:'main > .max-w-7xl',ready:'.chart-container .chart-tab',minElements:8,safeTriggers:'.chart-tab'},
   'project-detail-phases': {path:'/projects/:audit-id',entity:'phased-project',root:'main > .max-w-7xl',ready:'.project-phase-timeline .timeline-container',minElements:5,safeTriggers:'.chart-tab',scrollInto:'.chart-container'},
-  'phase-template': {path:'/project-types/:audit-id',entity:'phased-type',root:'.phase-template-designer',ready:'.phases-table',minElements:3,safeTriggers:'.add-phase-btn'},
+  'phase-template': {path:'/project-types/:audit-id',entity:'phased-type',root:'.phase-template-designer',ready:'.phases-table',minElements:3,safeTriggers:'.add-phase-btn',requiredTriggers:1},
+  'project-type-detail': {path:'/project-types/:audit-id',entity:'phased-type',root:'.role-details-page',ready:'.project-type-header',minElements:5},
   scenarios: {path:'/scenarios',root:'.scenarios-page',ready:'.hierarchy-row',minElements:5,safeTriggers:'.page-header > button, .filter-button, .action-button.edit',requiredTriggers:3,floatingRoot:'[role="dialog"]',floatingMin:3},
   'scenarios-rich': {path:'/scenarios',root:'.scenarios-page',ready:'.hierarchy-row.branch',minElements:10,safeTriggers:'.page-header > button, .filter-button, .hierarchy-row.baseline .action-button.edit, .hierarchy-row.branch .action-button.compare, .hierarchy-row.branch .action-button.merge',requiredTriggers:5,floatingRoot:'[role="dialog"]',floatingMin:3,fixture:'tests/visual/fixtures/scenarios.json'},
   import: {path:'/import',root:'.import-container',ready:'.import-card',minElements:4,safeTriggers:'.settings-preview .btn-ghost'},
@@ -63,7 +64,11 @@ export async function resolveProfile(profile,auth){
     const payload=await read(`${kind}?limit=100`),rows=payload.data?.data??payload.data??payload;
     for(const row of [...rows].sort((a,b)=>String(a.id).localeCompare(String(b.id)))){
       const detail=await read(`${kind}/${row.id}`),item=detail.data??detail;
-      if(item.phases?.length){id=row.id;break;}
+      if(profile.entity==='phased-type'){
+        if(item.parent_id)continue;
+        const phases=await read(`project-type-hierarchy/${row.id}/phases`);
+        if(phases.data?.length){id=row.id;break;}
+      }else if(item.phases?.length){id=row.id;break;}
     }
     if(!id)throw new Error(`No non-empty phase fixture for ${kind}`);
     if(captureFixtures)persistFixture(stored=>{stored.entities??={};stored.entities[profile.entity]=id;});
@@ -115,6 +120,9 @@ export async function setupReadOnlyPage(context,auth,theme) {
     if(route.request().method()==='GET'&&fixtureSet&&!new URL(route.request().url()).pathname.startsWith('/api/auth/')){
       const url=new URL(route.request().url()),key=url.pathname+url.search;
       if(captureFixtures){
+        // Extend a frozen scene without silently changing already-reviewed data.
+        const existing=fixtureSet.responses[key];
+        if(existing)return route.fulfill({status:existing.status,contentType:'application/json',json:existing.body});
         const response=await route.fetch();
         if(!response.ok())throw new Error(`Cannot capture failed read ${key} (${response.status()})`);
         const payload=await response.json();persistFixture(stored=>{stored.responses[key]={status:response.status(),body:payload};});

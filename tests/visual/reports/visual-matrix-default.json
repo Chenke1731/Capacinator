@@ -1,6 +1,6 @@
 {
-  "combinations": 60,
-  "checks": 300,
+  "combinations": 72,
+  "checks": 360,
   "updatePixels": false,
   "registerExistingAxe": false,
   "evidence": [
@@ -2703,6 +2703,546 @@
       ],
       "artifact": "tests/visual/reports/visual-settings-appearance-light-1366.png",
       "baseline": "tests/visual/__screenshots__/settings-appearance-light-1366.png"
+    },
+    {
+      "tag": "project-type-detail-dark-1600",
+      "profile": "project-type-detail",
+      "path": "/project-types/0a1bb90f-62dc-4779-b78a-eb686789b79e",
+      "theme": "dark",
+      "state": "default",
+      "viewport": {
+        "width": 1600,
+        "height": 900
+      },
+      "axe": {
+        "count": 0,
+        "cap": 0,
+        "added": [],
+        "identities": []
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe project-type-detail-dark-1600: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 project-type-detail-dark-1600: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 project-type-detail-dark-1600: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "像素 project-type-detail-dark-1600: 与基线一致(≤0.5%)",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 project-type-detail-dark-1600",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/reports/visual-project-type-detail-dark-1600.png",
+      "baseline": "tests/visual/__screenshots__/project-type-detail-dark-1600.png"
+    },
+    {
+      "tag": "project-type-detail-dark-1366",
+      "profile": "project-type-detail",
+      "path": "/project-types/0a1bb90f-62dc-4779-b78a-eb686789b79e",
+      "theme": "dark",
+      "state": "default",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "axe": {
+        "count": 0,
+        "cap": 0,
+        "added": [],
+        "identities": []
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe project-type-detail-dark-1366: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 project-type-detail-dark-1366: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 project-type-detail-dark-1366: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "像素 project-type-detail-dark-1366: 与基线一致(≤0.5%)",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 project-type-detail-dark-1366",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/reports/visual-project-type-detail-dark-1366.png",
+      "baseline": "tests/visual/__screenshots__/project-type-detail-dark-1366.png"
+    },
+    {
+      "tag": "project-type-detail-light-1600",
+      "profile": "project-type-detail",
+      "path": "/project-types/0a1bb90f-62dc-4779-b78a-eb686789b79e",
+      "theme": "light",
+      "state": "default",
+      "viewport": {
+        "width": 1600,
+        "height": 900
+      },
+      "axe": {
+        "count": 0,
+        "cap": 0,
+        "added": [],
+        "identities": []
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe project-type-detail-light-1600: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 project-type-detail-light-1600: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 project-type-detail-light-1600: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "像素 project-type-detail-light-1600: 与基线一致(≤0.5%)",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 project-type-detail-light-1600",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/reports/visual-project-type-detail-light-1600.png",
+      "baseline": "tests/visual/__screenshots__/project-type-detail-light-1600.png"
+    },
+    {
+      "tag": "project-type-detail-light-1366",
+      "profile": "project-type-detail",
+      "path": "/project-types/0a1bb90f-62dc-4779-b78a-eb686789b79e",
+      "theme": "light",
+      "state": "default",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "axe": {
+        "count": 0,
+        "cap": 0,
+        "added": [],
+        "identities": []
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe project-type-detail-light-1366: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 project-type-detail-light-1366: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 project-type-detail-light-1366: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "像素 project-type-detail-light-1366: 与基线一致(≤0.5%)",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 project-type-detail-light-1366",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/reports/visual-project-type-detail-light-1366.png",
+      "baseline": "tests/visual/__screenshots__/project-type-detail-light-1366.png"
+    },
+    {
+      "tag": "phase-template-dark-1600",
+      "profile": "phase-template",
+      "path": "/project-types/0a1bb90f-62dc-4779-b78a-eb686789b79e",
+      "theme": "dark",
+      "state": "default",
+      "viewport": {
+        "width": 1600,
+        "height": 900
+      },
+      "axe": {
+        "count": 0,
+        "cap": 0,
+        "added": [],
+        "identities": []
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe phase-template-dark-1600: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 phase-template-dark-1600: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 phase-template-dark-1600: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "像素 phase-template-dark-1600: 与基线一致(≤0.5%)",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 phase-template-dark-1600",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/reports/visual-phase-template-dark-1600.png",
+      "baseline": "tests/visual/__screenshots__/phase-template-dark-1600.png"
+    },
+    {
+      "tag": "phase-template-dark-1366",
+      "profile": "phase-template",
+      "path": "/project-types/0a1bb90f-62dc-4779-b78a-eb686789b79e",
+      "theme": "dark",
+      "state": "default",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "axe": {
+        "count": 0,
+        "cap": 0,
+        "added": [],
+        "identities": []
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe phase-template-dark-1366: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 phase-template-dark-1366: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 phase-template-dark-1366: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "像素 phase-template-dark-1366: 与基线一致(≤0.5%)",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 phase-template-dark-1366",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/reports/visual-phase-template-dark-1366.png",
+      "baseline": "tests/visual/__screenshots__/phase-template-dark-1366.png"
+    },
+    {
+      "tag": "phase-template-light-1600",
+      "profile": "phase-template",
+      "path": "/project-types/0a1bb90f-62dc-4779-b78a-eb686789b79e",
+      "theme": "light",
+      "state": "default",
+      "viewport": {
+        "width": 1600,
+        "height": 900
+      },
+      "axe": {
+        "count": 0,
+        "cap": 0,
+        "added": [],
+        "identities": []
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe phase-template-light-1600: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 phase-template-light-1600: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 phase-template-light-1600: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "像素 phase-template-light-1600: 与基线一致(≤0.5%)",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 phase-template-light-1600",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/reports/visual-phase-template-light-1600.png",
+      "baseline": "tests/visual/__screenshots__/phase-template-light-1600.png"
+    },
+    {
+      "tag": "phase-template-light-1366",
+      "profile": "phase-template",
+      "path": "/project-types/0a1bb90f-62dc-4779-b78a-eb686789b79e",
+      "theme": "light",
+      "state": "default",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "axe": {
+        "count": 0,
+        "cap": 0,
+        "added": [],
+        "identities": []
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe phase-template-light-1366: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 phase-template-light-1366: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 phase-template-light-1366: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "像素 phase-template-light-1366: 与基线一致(≤0.5%)",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 phase-template-light-1366",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/reports/visual-phase-template-light-1366.png",
+      "baseline": "tests/visual/__screenshots__/phase-template-light-1366.png"
+    },
+    {
+      "tag": "phase-template-template-add-dark-1600",
+      "profile": "phase-template",
+      "path": "/project-types/0a1bb90f-62dc-4779-b78a-eb686789b79e",
+      "theme": "dark",
+      "state": "template-add",
+      "viewport": {
+        "width": 1600,
+        "height": 900
+      },
+      "axe": {
+        "count": 0,
+        "cap": 0,
+        "added": [],
+        "identities": []
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe phase-template-template-add-dark-1600: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 phase-template-template-add-dark-1600: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 phase-template-template-add-dark-1600: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "像素 phase-template-template-add-dark-1600: 与基线一致(≤0.5%)",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 phase-template-template-add-dark-1600",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/reports/visual-phase-template-template-add-dark-1600.png",
+      "baseline": "tests/visual/__screenshots__/phase-template-template-add-dark-1600.png"
+    },
+    {
+      "tag": "phase-template-template-add-dark-1366",
+      "profile": "phase-template",
+      "path": "/project-types/0a1bb90f-62dc-4779-b78a-eb686789b79e",
+      "theme": "dark",
+      "state": "template-add",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "axe": {
+        "count": 0,
+        "cap": 0,
+        "added": [],
+        "identities": []
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe phase-template-template-add-dark-1366: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 phase-template-template-add-dark-1366: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 phase-template-template-add-dark-1366: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "像素 phase-template-template-add-dark-1366: 与基线一致(≤0.5%)",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 phase-template-template-add-dark-1366",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/reports/visual-phase-template-template-add-dark-1366.png",
+      "baseline": "tests/visual/__screenshots__/phase-template-template-add-dark-1366.png"
+    },
+    {
+      "tag": "phase-template-template-add-light-1600",
+      "profile": "phase-template",
+      "path": "/project-types/0a1bb90f-62dc-4779-b78a-eb686789b79e",
+      "theme": "light",
+      "state": "template-add",
+      "viewport": {
+        "width": 1600,
+        "height": 900
+      },
+      "axe": {
+        "count": 0,
+        "cap": 0,
+        "added": [],
+        "identities": []
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe phase-template-template-add-light-1600: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 phase-template-template-add-light-1600: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 phase-template-template-add-light-1600: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "像素 phase-template-template-add-light-1600: 与基线一致(≤0.5%)",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 phase-template-template-add-light-1600",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/reports/visual-phase-template-template-add-light-1600.png",
+      "baseline": "tests/visual/__screenshots__/phase-template-template-add-light-1600.png"
+    },
+    {
+      "tag": "phase-template-template-add-light-1366",
+      "profile": "phase-template",
+      "path": "/project-types/0a1bb90f-62dc-4779-b78a-eb686789b79e",
+      "theme": "light",
+      "state": "template-add",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "axe": {
+        "count": 0,
+        "cap": 0,
+        "added": [],
+        "identities": []
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe phase-template-template-add-light-1366: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 phase-template-template-add-light-1366: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 phase-template-template-add-light-1366: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "像素 phase-template-template-add-light-1366: 与基线一致(≤0.5%)",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 phase-template-template-add-light-1366",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/reports/visual-phase-template-template-add-light-1366.png",
+      "baseline": "tests/visual/__screenshots__/phase-template-template-add-light-1366.png"
     }
   ]
 }

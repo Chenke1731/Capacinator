@@ -66,5 +66,9 @@
   "settings-dark": [],
   "settings-light": [],
   "settings-appearance-dark": [],
-  "settings-appearance-light": []
+  "settings-appearance-light": [],
+  "project-type-detail-dark": [],
+  "project-type-detail-light": [],
+  "phase-template-dark": [],
+  "phase-template-light": []
 }

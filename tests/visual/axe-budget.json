@@ -33,5 +33,9 @@
   "settings-dark": 0,
   "settings-light": 0,
   "settings-appearance-dark": 0,
-  "settings-appearance-light": 0
+  "settings-appearance-light": 0,
+  "project-type-detail-dark": 0,
+  "project-type-detail-light": 0,
+  "phase-template-dark": 0,
+  "phase-template-light": 0
 }

@@ -30,12 +30,13 @@ const REGISTER=argv.includes('--record-existing-axe');
 if(value('--profile')&&value('--page'))throw new Error('Select either profile or page');
 const FILTER=value('--profile')?getProfile(value('--profile')):value('--page')?getProfile(undefined,value('--page')):null;
 const requestedState=value('--state');
-const preparedStates=['default','hover','focus','phase-hover','phase-edit','create','edit','filter','merge','merge-confirm','compare','compare-results'];
+const preparedStates=['default','hover','focus','phase-hover','phase-edit','template-add','create','edit','filter','merge','merge-confirm','compare','compare-results'];
 if(requestedState&&!FILTER)throw new Error('A state requires an explicit profile');
 if(requestedState&&!preparedStates.includes(requestedState))throw new Error(`Unsupported prepared state ${requestedState}`);
 if(['create','edit','filter','merge','merge-confirm','compare','compare-results'].includes(requestedState)&&!FILTER?.name.startsWith('scenarios'))throw new Error('Scenario states require a scenario profile');
 if(['merge','merge-confirm','compare','compare-results'].includes(requestedState)&&FILTER?.name!=='scenarios-rich')throw new Error('Branch states require the controlled scenarios-rich fixture');
 if(requestedState?.startsWith('phase-')&&FILTER.name!=='project-detail-phases')throw new Error('Phase states require project-detail-phases');
+if(requestedState==='template-add'&&FILTER?.name!=='phase-template')throw new Error('Template states require phase-template');
 if(argv.includes('--inject-test-violation')&&(!FILTER||REGISTER))throw new Error('Injection requires a single profile and cannot register exceptions');
 
 // 矩阵: 页面 × 主题 × 视口(核心页加测 1366)
@@ -55,6 +56,8 @@ const PAGES = [
   { name: 'scenarios-rich', widths: [1600,1366], states:['default','create','filter','merge-confirm','compare-results'] },
   { name: 'settings', widths: [1600,1366] },
   { name: 'settings-appearance', widths: [1600,1366] },
+  { name: 'project-type-detail', widths: [1600,1366] },
+  { name: 'phase-template', widths: [1600,1366], states:['default','template-add'] },
 ];
 const COMBOS = [];
 const selected=FILTER?[{name:FILTER.name,path:FILTER.path,widths:[1600,1366],states:[requestedState??'default']}]:PAGES;
@@ -89,7 +92,11 @@ for (const combo of COMBOS) {
   await prepareProfile(page,profile);
   if(await page.locator('html').getAttribute('data-theme')!==combo.theme)throw new Error(`Theme not rendered ${tag}`);
   if(STATE!=='default') {
-    if(['create','edit','filter','merge','merge-confirm','compare','compare-results'].includes(STATE)) {
+    if(STATE==='template-add') {
+      await page.locator('.add-phase-btn').click();
+      await page.locator('.add-phase-panel').waitFor({state:'visible'});
+      await page.locator('.add-phase-panel').scrollIntoViewIfNeeded();
+    } else if(['create','edit','filter','merge','merge-confirm','compare','compare-results'].includes(STATE)) {
       if(STATE==='create')await page.locator('.scenarios-page .page-header > button').click();
       else if(STATE==='edit')await page.locator('.hierarchy-row.baseline .action-button.edit').click();
       else if(STATE==='filter')await page.locator('.filter-button').click();

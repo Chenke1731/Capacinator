@@ -17,12 +17,12 @@
 
 /* Project Type Header */
 .project-type-header {
-  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
-  border: 1px solid #e2e8f0;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
   border-radius: 12px;
   padding: 32px;
   margin-bottom: 32px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 3px color-mix(in srgb, var(--solid-shade) 10%, transparent);
 }
 
 .header-main {
@@ -58,7 +58,7 @@
   gap: 8px;
   padding: 8px 12px;
   background: var(--bg-primary);
-  border: 1px solid #d1d5db;
+  border: 1px solid var(--border-color);
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -66,15 +66,15 @@
 }
 
 .color-indicator .info-value:hover {
-  border-color: #9ca3af;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-color: var(--border-color-hover);
+  box-shadow: 0 2px 4px color-mix(in srgb, var(--solid-shade) 10%, transparent);
 }
 
 .project-type-title {
   margin: 0;
   font-size: 2rem;
   font-weight: 700;
-  color: #1f2937;
+  color: var(--text-primary);
   line-height: 1.2;
   flex: 1;
   min-width: 0;
@@ -94,8 +94,8 @@
 }
 
 .project-type-title .info-value:hover {
-  background: rgba(255, 255, 255, 0.7);
-  border-color: #d1d5db;
+  background: var(--bg-secondary);
+  border-color: var(--border-color-hover);
 }
 
 .description-section {
@@ -104,10 +104,10 @@
 
 .description-section .info-value {
   font-size: 1.1rem;
-  color: #6b7280;
+  color: var(--text-secondary);
   line-height: 1.5;
   padding: 12px 16px;
-  background: rgba(255, 255, 255, 0.5);
+  background: var(--bg-secondary);
   border: 2px solid transparent;
   border-radius: 8px;
   transition: all 0.2s ease;
@@ -117,8 +117,8 @@
 }
 
 .description-section .info-value:hover {
-  background: rgba(255, 255, 255, 0.8);
-  border-color: #d1d5db;
+  background: var(--bg-secondary);
+  border-color: var(--border-color-hover);
 }
 
 .description-section .inline-edit-container textarea {
@@ -184,7 +184,7 @@
 }
 
 .sub-type-card:hover {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px color-mix(in srgb, var(--solid-shade) 10%, transparent);
   border-color: var(--border-hover);
 }
 
@@ -217,12 +217,12 @@
   width: 16px;
   height: 16px;
   border-radius: 3px;
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  border: 1px solid color-mix(in srgb, var(--solid-shade) 10%, transparent);
 }
 
 .sub-type-description {
   margin: 0;
-  color: #64748b;
+  color: var(--text-secondary);
   font-size: 14px;
   line-height: 1.4;
 }
@@ -238,12 +238,12 @@
   gap: 12px;
   align-items: center;
   padding-top: 12px;
-  border-top: 1px solid #f1f5f9;
+  border-top: 1px solid var(--border-color);
 }
 
 .level-badge {
   background: var(--bg-secondary);
-  color: #475569;
+  color: var(--text-secondary);
   padding: 2px 8px;
   border-radius: 12px;
   font-size: 12px;
@@ -251,14 +251,14 @@
 }
 
 .phases-count {
-  color: #64748b;
+  color: var(--text-secondary);
   font-size: 12px;
   font-weight: 500;
 }
 
 .add-child-form {
   background: var(--bg-secondary);
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--border-color);
   border-radius: 8px;
   padding: 24px;
   margin-top: 16px;
@@ -289,14 +289,14 @@
 
 .form-group label {
   font-weight: 500;
-  color: #374151;
+  color: var(--text-secondary);
   margin-bottom: 4px;
   font-size: 14px;
 }
 
 .form-input {
   padding: 8px 12px;
-  border: 1px solid #d1d5db;
+  border: 1px solid var(--border-color);
   border-radius: 6px;
   font-size: 14px;
   transition: border-color 0.2s, box-shadow 0.2s;
@@ -304,8 +304,8 @@
 
 .form-input:focus {
   outline: none;
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  border-color: var(--primary-text);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 10%, transparent);
 }
 
 .form-actions {
@@ -373,14 +373,14 @@
 /* Parent Info Section */
 .parent-info-card {
   background: var(--bg-secondary);
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--border-color);
   border-radius: 8px;
   padding: 16px;
 }
 
 .parent-info-card p {
   margin: 0 0 8px 0;
-  color: #475569;
+  color: var(--text-secondary);
   font-size: 14px;
 }
 
@@ -400,7 +400,7 @@
   margin-bottom: 16px;
   padding: 12px;
   background: var(--bg-secondary);
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--border-color);
   border-radius: 8px;
 }
 
@@ -409,19 +409,19 @@
   align-items: center;
   gap: 8px;
   font-size: 14px;
-  color: #475569;
+  color: var(--text-secondary);
 }
 
 .legend-color {
   width: 16px;
   height: 16px;
   border-radius: 4px;
-  border: 1px solid #d1d5db;
+  border: 1px solid var(--border-color);
 }
 
 .legend-color.inherited {
-  background-color: #dbeafe;
-  border-color: #93c5fd;
+  background-color: var(--status-info-soft);
+  border-color: var(--status-info-border);
 }
 
 .legend-color.custom {
@@ -432,18 +432,18 @@
 /* Default Project Sub-Type Styles */
 .sub-type-card.default-sub-type {
   background: var(--bg-secondary);
-  border: 2px dashed #d1d5db;
+  border: 2px dashed var(--border-color);
   opacity: 0.85;
 }
 
 .sub-type-card.default-sub-type:hover {
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  border-color: #9ca3af;
+  box-shadow: 0 2px 8px color-mix(in srgb, var(--solid-shade) 5%, transparent);
+  border-color: var(--border-color-hover);
 }
 
 .default-badge {
-  background: #f59e0b;
-  color: white;
+  background: var(--status-warning-solid);
+  color: var(--solid-foreground);
   font-size: 11px;
   padding: 2px 6px;
   border-radius: 4px;
@@ -453,15 +453,15 @@
 
 .read-only-note {
   display: block;
-  color: #6b7280;
+  color: var(--text-secondary);
   font-size: 12px;
   font-style: italic;
   margin-top: 4px;
 }
 
 .default-indicator {
-  background: #fef3c7;
-  color: #92400e;
+  background: var(--status-warning-soft);
+  color: var(--status-warning-text);
   font-size: 11px;
   padding: 2px 6px;
   border-radius: 4px;
@@ -469,15 +469,15 @@
 }
 
 .read-only-warning {
-  background: #fef2f2;
-  border: 1px solid #fecaca;
+  background: var(--status-danger-soft);
+  border: 1px solid var(--status-danger-border);
   border-radius: 8px;
   padding: 12px;
   margin-top: 12px;
-  color: #991b1b;
+  color: var(--status-danger-text);
   font-size: 14px;
 }
 
 .read-only-warning strong {
-  color: #7f1d1d;
+  color: var(--status-danger-text);
 }

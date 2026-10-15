@@ -1,0 +1,3490 @@
+{
+  "baseHead": "f1ab4b7",
+  "scope": [
+    "client/src/components/PhaseTemplateDesigner.css",
+    "client/src/pages/ProjectTypeDetails.css",
+    "client/src/pages/ProjectTypeDetails.tsx",
+    "client/src/components/ProjectsTable.css"
+  ],
+  "mappings": [
+    {
+      "fingerprint": "41c4d45267696cdd4b1eb3d067df703cb5e3e9e3402b5010d87bca1a9becdebb",
+      "file": "client/src/components/PhaseTemplateDesigner.css",
+      "context": [],
+      "owner": ".phase-template-designer",
+      "property": "box-shadow",
+      "literal": "rgba(0, 0, 0, 0.1)",
+      "locations": [
+        {
+          "line": 5,
+          "column": 25
+        }
+      ],
+      "count": 1,
+      "kind": "neutral-literal",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--solid-shade",
+      "replacement": "color-mix(in srgb, var(--solid-shade) 10%, transparent)"
+    },
+    {
+      "fingerprint": "8a6c6b4ab06c6a630c5f9bc80d3e0da381db4bca208ff4cfc354d41076b40b7c",
+      "file": "client/src/components/PhaseTemplateDesigner.css",
+      "context": [],
+      "owner": ".designer-header",
+      "property": "border-bottom",
+      "literal": "#e5e7eb",
+      "locations": [
+        {
+          "line": 11,
+          "column": 28
+        }
+      ],
+      "count": 1,
+      "kind": "neutral-literal",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--border-color",
+      "replacement": "var(--border-color)"
+    },
+    {
+      "fingerprint": "8c8fa0b1e05eebfa65993cc63bfe4a93870a10971760a3de517fc60b1cb3ad2b",
+      "file": "client/src/components/PhaseTemplateDesigner.css",
+      "context": [],
+      "owner": ".designer-header h3",
+      "property": "color",
+      "literal": "#1f2937",
+      "locations": [
+        {
+          "line": 17,
+          "column": 10
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--text-primary",
+      "replacement": "var(--text-primary)"
+    },
+    {
+      "fingerprint": "494fb34e284fe4d30f2c0247ef45de9bcfe1720a043681f1f0df90b41e2c703f",
+      "file": "client/src/components/PhaseTemplateDesigner.css",
+      "context": [],
+      "owner": ".designer-header p",
+      "property": "color",
+      "literal": "#6b7280",
+      "locations": [
+        {
+          "line": 24,
+          "column": 10
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--text-secondary",
+      "replacement": "var(--text-secondary)"
+    },
+    {
+      "fingerprint": "19be746a145e0f1f58cbbc4438704c67df32b4676b8af202c62dd52dc20b406e",
+      "file": "client/src/components/PhaseTemplateDesigner.css",
+      "context": [],
+      "owner": ".phases-table-container",
+      "property": "border",
+      "literal": "#e5e7eb",
+      "locations": [
+        {
+          "line": 38,
+          "column": 21
+        }
+      ],
+      "count": 1,
+      "kind": "neutral-literal",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--border-color",
+      "replacement": "var(--border-color)"
+    },
+    {
+      "fingerprint": "6626f051fb004fb45fea6fc39862db12e9c0fe2a9c5ea378c0906b3bac605fc6",
+      "file": "client/src/components/PhaseTemplateDesigner.css",
+      "context": [],
+      "owner": ".phases-table thead",
+      "property": "border-bottom",
+      "literal": "#e5e7eb",
+      "locations": [
+        {
+          "line": 52,
+          "column": 28
+        }
+      ],
+      "count": 1,
+      "kind": "neutral-literal",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--border-color",
+      "replacement": "var(--border-color)"
+    },
+    {
+      "fingerprint": "5623ee14d19e39537ca890da8374163f2ba0f0933651b8f5d1b357944b5b1e66",
+      "file": "client/src/components/PhaseTemplateDesigner.css",
+      "context": [],
+      "owner": ".phases-table th",
+      "property": "color",
+      "literal": "#374151",
+      "locations": [
+        {
+          "line": 59,
+          "column": 10
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--text-secondary",
+      "replacement": "var(--text-secondary)"
+    },
+    {
+      "fingerprint": "cdd822ff5263c75c6bbe56e4d84fbf1d16a396ea29d007b9ac366f36dbfb749e",
+      "file": "client/src/components/PhaseTemplateDesigner.css",
+      "context": [],
+      "owner": ".phases-table tbody tr",
+      "property": "border-bottom",
+      "literal": "#f3f4f6",
+      "locations": [
+        {
+          "line": 66,
+          "column": 28
+        }
+      ],
+      "count": 1,
+      "kind": "neutral-literal",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--border-color",
+      "replacement": "var(--border-color)"
+    },
+    {
+      "fingerprint": "464aa078759a705d9872943a3b51606a010d769141b321a6686dc40d86179bba",
+      "file": "client/src/components/PhaseTemplateDesigner.css",
+      "context": [],
+      "owner": ".order-number",
+      "property": "background",
+      "literal": "#e5e7eb",
+      "locations": [
+        {
+          "line": 94,
+          "column": 15
+        }
+      ],
+      "count": 1,
+      "kind": "neutral-literal",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--bg-secondary",
+      "replacement": "var(--bg-secondary)"
+    },
+    {
+      "fingerprint": "2f20a0b2f5586bd855ca0d3ac707931a01b32aa096895ae72d504e5998f6b55b",
+      "file": "client/src/components/PhaseTemplateDesigner.css",
+      "context": [],
+      "owner": ".order-number",
+      "property": "color",
+      "literal": "#6b7280",
+      "locations": [
+        {
+          "line": 98,
+          "column": 10
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--text-secondary",
+      "replacement": "var(--text-secondary)"
+    },
+    {
+      "fingerprint": "e3fdf3bcb25aeff75524536a24ad7c82e4a71269ae3ef4b8eb6368af6a5266c7",
+      "file": "client/src/components/PhaseTemplateDesigner.css",
+      "context": [],
+      "owner": ".phase-name",
+      "property": "color",
+      "literal": "#1f2937",
+      "locations": [
+        {
+          "line": 107,
+          "column": 10
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--text-primary",
+      "replacement": "var(--text-primary)"
+    },
+    {
+      "fingerprint": "67bfee89eb535851ab2d2a9f59544f829d2dbbc38fffa2fbeb748c45e678d225",
+      "file": "client/src/components/PhaseTemplateDesigner.css",
+      "context": [],
+      "owner": ".phase-description-hint",
+      "property": "color",
+      "literal": "#6b7280",
+      "locations": [
+        {
+          "line": 113,
+          "column": 10
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--text-secondary",
+      "replacement": "var(--text-secondary)"
+    },
+    {
+      "fingerprint": "0d52ba5c300d290fd597f9458b24d3a47c1213c74f471882c447395ec5fe3af2",
+      "file": "client/src/components/PhaseTemplateDesigner.css",
+      "context": [],
+      "owner": ".checkbox-mark",
+      "property": "border",
+      "literal": "#d1d5db",
+      "locations": [
+        {
+          "line": 154,
+          "column": 21
+        }
+      ],
+      "count": 1,
+      "kind": "neutral-literal",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--border-color",
+      "replacement": "var(--border-color)"
+    },
+    {
+      "fingerprint": "eda5d65a554ebf3acdba4e8e1d0f25f0070b380cb47b222747f9762145f3250e",
+      "file": "client/src/components/PhaseTemplateDesigner.css",
+      "context": [],
+      "owner": ".checkbox-input:checked ~ .checkbox-mark",
+      "property": "background-color",
+      "literal": "#3b82f6",
+      "locations": [
+        {
+          "line": 160,
+          "column": 21
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--primary-solid",
+      "replacement": "var(--primary-solid)"
+    },
+    {
+      "fingerprint": "780e467ee4fddcf1824577fc22f5c2e5cee1a50d491fe4415e1c3d74150f7ee0",
+      "file": "client/src/components/PhaseTemplateDesigner.css",
+      "context": [],
+      "owner": ".checkbox-input:checked ~ .checkbox-mark",
+      "property": "border-color",
+      "literal": "#3b82f6",
+      "locations": [
+        {
+          "line": 161,
+          "column": 17
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--primary-text",
+      "replacement": "var(--primary-text)"
+    },
+    {
+      "fingerprint": "a2d22e91d0f9af809f5cd95b3c3f27b4c3c2d3a419222a9fd2bdd2831dbe04f1",
+      "file": "client/src/components/PhaseTemplateDesigner.css",
+      "context": [],
+      "owner": ".checkbox-input:checked ~ .checkbox-mark:after",
+      "property": "border",
+      "literal": "white",
+      "locations": [
+        {
+          "line": 172,
+          "column": 17
+        }
+      ],
+      "count": 1,
+      "kind": "neutral-literal",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--solid-foreground",
+      "replacement": "var(--solid-foreground)"
+    },
+    {
+      "fingerprint": "6df3ee11e5a68df2a5b35a88ae7d5157a62885e8a651c3b1b6ea7b130f2b06f6",
+      "file": "client/src/components/PhaseTemplateDesigner.css",
+      "context": [],
+      "owner": ".checkbox-input:hover ~ .checkbox-mark",
+      "property": "border-color",
+      "literal": "#9ca3af",
+      "locations": [
+        {
+          "line": 178,
+          "column": 17
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--border-color-hover",
+      "replacement": "var(--border-color-hover)"
+    },
+    {
+      "fingerprint": "1938632f57ecfbab8ad7cac5e8810cacd7d979a727091541d0d2ded338dacc9a",
+      "file": "client/src/components/PhaseTemplateDesigner.css",
+      "context": [],
+      "owner": ".checkbox-input:checked:hover ~ .checkbox-mark",
+      "property": "background-color",
+      "literal": "#2563eb",
+      "locations": [
+        {
+          "line": 182,
+          "column": 21
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--primary-solid",
+      "replacement": "var(--primary-solid)"
+    },
+    {
+      "fingerprint": "312a115107b1e3ac04ee1bcaee5aa9f1e52ee65fba4c33b4a206822d67894cac",
+      "file": "client/src/components/PhaseTemplateDesigner.css",
+      "context": [],
+      "owner": ".checkbox-input:checked:hover ~ .checkbox-mark",
+      "property": "border-color",
+      "literal": "#2563eb",
+      "locations": [
+        {
+          "line": 183,
+          "column": 17
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--primary-text",
+      "replacement": "var(--primary-text)"
+    },
+    {
+      "fingerprint": "c24d72fa3e60c4178078be0d1a0a76cc9c817830b4fdba37752a487a3a64199a",
+      "file": "client/src/components/PhaseTemplateDesigner.css",
+      "context": [],
+      "owner": ".inline-duration-display:hover",
+      "property": "border-color",
+      "literal": "#d1d5db",
+      "locations": [
+        {
+          "line": 215,
+          "column": 17
+        }
+      ],
+      "count": 1,
+      "kind": "neutral-literal",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--status-info-border",
+      "replacement": "var(--status-info-border)"
+    },
+    {
+      "fingerprint": "950c292425f6ba2223e3439b471979d7a4f591290f1f4f6b84e81b15b94c5ea4",
+      "file": "client/src/components/PhaseTemplateDesigner.css",
+      "context": [],
+      "owner": ".inline-duration-display .placeholder-text",
+      "property": "color",
+      "literal": "#9ca3af",
+      "locations": [
+        {
+          "line": 219,
+          "column": 10
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--status-info-text",
+      "replacement": "var(--status-info-text)"
+    },
+    {
+      "fingerprint": "c6ab2959bd49d1f1023de6d6dda0ad20281c0a7ee9732fc2decafb19a6b3f247",
+      "file": "client/src/components/PhaseTemplateDesigner.css",
+      "context": [],
+      "owner": ".duration-input",
+      "property": "border",
+      "literal": "#3b82f6",
+      "locations": [
+        {
+          "line": 233,
+          "column": 21
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--status-info-border",
+      "replacement": "var(--status-info-border)"
+    },
+    {
+      "fingerprint": "27b63bf4970fc8b0309bbc34956898b79d188582dc473ba0d0ec75d1a6861606",
+      "file": "client/src/components/PhaseTemplateDesigner.css",
+      "context": [],
+      "owner": ".duration-input:focus",
+      "property": "border-color",
+      "literal": "#2563eb",
+      "locations": [
+        {
+          "line": 242,
+          "column": 17
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--status-info-border",
+      "replacement": "var(--status-info-border)"
+    },
+    {
+      "fingerprint": "ceeacaea133b8e9eb7fe2bce62f3835a35a6008345fd784af8981edf84715028",
+      "file": "client/src/components/PhaseTemplateDesigner.css",
+      "context": [],
+      "owner": ".duration-input:focus",
+      "property": "box-shadow",
+      "literal": "rgba(59, 130, 246, 0.1)",
+      "locations": [
+        {
+          "line": 243,
+          "column": 25
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--primary",
+      "replacement": "color-mix(in srgb, var(--primary) 10%, transparent)"
+    },
+    {
+      "fingerprint": "d2fee345ece8be3b12684a857f817bd3586ccf362676d41bf706fb903b0681af",
+      "file": "client/src/components/PhaseTemplateDesigner.css",
+      "context": [],
+      "owner": ".template-phase",
+      "property": "border",
+      "literal": "#e5e7eb",
+      "locations": [
+        {
+          "line": 268,
+          "column": 21
+        }
+      ],
+      "count": 1,
+      "kind": "neutral-literal",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--border-color",
+      "replacement": "var(--border-color)"
+    },
+    {
+      "fingerprint": "529cd977673317ca033eb04b0ba54043dc6948806549e9746d38580454a34c9e",
+      "file": "client/src/components/PhaseTemplateDesigner.css",
+      "context": [],
+      "owner": ".template-phase.expanded",
+      "property": "border-color",
+      "literal": "#3b82f6",
+      "locations": [
+        {
+          "line": 275,
+          "column": 17
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--primary-text",
+      "replacement": "var(--primary-text)"
+    },
+    {
+      "fingerprint": "bb1a3839fbb4102e04ffb4ed5c96a339ece49d5f81d05eda74c0d50433525bca",
+      "file": "client/src/components/PhaseTemplateDesigner.css",
+      "context": [],
+      "owner": ".template-phase.expanded",
+      "property": "box-shadow",
+      "literal": "rgba(59, 130, 246, 0.1)",
+      "locations": [
+        {
+          "line": 276,
+          "column": 25
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--primary",
+      "replacement": "color-mix(in srgb, var(--primary) 10%, transparent)"
+    },
+    {
+      "fingerprint": "45e6152856b9789c7e1b74d7ac3df3f852f9307797c2a6872a3735c3dd16acaf",
+      "file": "client/src/components/PhaseTemplateDesigner.css",
+      "context": [],
+      "owner": ".phase-order",
+      "property": "background",
+      "literal": "#3b82f6",
+      "locations": [
+        {
+          "line": 294,
+          "column": 15
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--primary-solid",
+      "replacement": "var(--primary-solid)"
+    },
+    {
+      "fingerprint": "31f296ecc4ceb03edd46416f39b58ee76c3a7b64733738ef6863f3231930c178",
+      "file": "client/src/components/PhaseTemplateDesigner.css",
+      "context": [],
+      "owner": ".phase-order",
+      "property": "color",
+      "literal": "white",
+      "locations": [
+        {
+          "line": 295,
+          "column": 10
+        }
+      ],
+      "count": 1,
+      "kind": "neutral-literal",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--solid-foreground",
+      "replacement": "var(--solid-foreground)"
+    },
+    {
+      "fingerprint": "e414d0f570b4d73a72a20a426f53454ec6a797bad87ca7397f9e3d9d070dd8fe",
+      "file": "client/src/components/PhaseTemplateDesigner.css",
+      "context": [],
+      "owner": ".phase-details h4",
+      "property": "color",
+      "literal": "#1f2937",
+      "locations": [
+        {
+          "line": 308,
+          "column": 10
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--text-primary",
+      "replacement": "var(--text-primary)"
+    },
+    {
+      "fingerprint": "0d47b9ccc4d69a02981b0f7b7eb13dd4a0174f23bcd2aed3184ddd087a6484e0",
+      "file": "client/src/components/PhaseTemplateDesigner.css",
+      "context": [],
+      "owner": ".badge-mandatory",
+      "property": "background",
+      "literal": "#fef3c7",
+      "locations": [
+        {
+          "line": 330,
+          "column": 15
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--status-warning-soft",
+      "replacement": "var(--status-warning-soft)"
+    },
+    {
+      "fingerprint": "3312780b8898c8bc1a94f8557f5189b218e87053267aca565391ba844188ef0c",
+      "file": "client/src/components/PhaseTemplateDesigner.css",
+      "context": [],
+      "owner": ".badge-mandatory",
+      "property": "color",
+      "literal": "#d97706",
+      "locations": [
+        {
+          "line": 331,
+          "column": 10
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--status-warning-text",
+      "replacement": "var(--status-warning-text)"
+    },
+    {
+      "fingerprint": "311f0cf03d62e54f3032de737b109c1a358bd38416b702ce5d6849e51253e7cb",
+      "file": "client/src/components/PhaseTemplateDesigner.css",
+      "context": [],
+      "owner": ".badge-mandatory",
+      "property": "border",
+      "literal": "#fbbf24",
+      "locations": [
+        {
+          "line": 332,
+          "column": 21
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--status-warning-border",
+      "replacement": "var(--status-warning-border)"
+    },
+    {
+      "fingerprint": "c87f0948c054348aa8dc6ef9ad7c6d609910f62db760d2918cb78b64fd70617f",
+      "file": "client/src/components/PhaseTemplateDesigner.css",
+      "context": [],
+      "owner": ".badge-locked",
+      "property": "background",
+      "literal": "#fee2e2",
+      "locations": [
+        {
+          "line": 336,
+          "column": 15
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--status-danger-soft",
+      "replacement": "var(--status-danger-soft)"
+    },
+    {
+      "fingerprint": "d4f8882df7148577cb1147568e4c821faa25e95227417f63a45a053879270fb4",
+      "file": "client/src/components/PhaseTemplateDesigner.css",
+      "context": [],
+      "owner": ".badge-locked",
+      "property": "color",
+      "literal": "#dc2626",
+      "locations": [
+        {
+          "line": 337,
+          "column": 10
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--status-danger-text",
+      "replacement": "var(--status-danger-text)"
+    },
+    {
+      "fingerprint": "9986549121b440475b0f7673c6cb2d33b31abb895c31a33734d1ebfa885a0a53",
+      "file": "client/src/components/PhaseTemplateDesigner.css",
+      "context": [],
+      "owner": ".badge-locked",
+      "property": "border",
+      "literal": "#f87171",
+      "locations": [
+        {
+          "line": 338,
+          "column": 21
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--status-danger-border",
+      "replacement": "var(--status-danger-border)"
+    },
+    {
+      "fingerprint": "79017492542be81e3b73342a7b94b5205681c6a89580d00d96a5e8dbd0469f9f",
+      "file": "client/src/components/PhaseTemplateDesigner.css",
+      "context": [],
+      "owner": ".badge-duration",
+      "property": "background",
+      "literal": "#dbeafe",
+      "locations": [
+        {
+          "line": 342,
+          "column": 15
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--status-info-soft",
+      "replacement": "var(--status-info-soft)"
+    },
+    {
+      "fingerprint": "1182d584794bd7cb961c34c45e0d6c997ea3a586e1227200d24e3c14167db970",
+      "file": "client/src/components/PhaseTemplateDesigner.css",
+      "context": [],
+      "owner": ".badge-duration",
+      "property": "color",
+      "literal": "#2563eb",
+      "locations": [
+        {
+          "line": 343,
+          "column": 10
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--status-info-text",
+      "replacement": "var(--status-info-text)"
+    },
+    {
+      "fingerprint": "01cf1f12e6dd856c778272602a7ac8e3e0261929ce5e42a60c536dd64f2e6bd9",
+      "file": "client/src/components/PhaseTemplateDesigner.css",
+      "context": [],
+      "owner": ".badge-duration",
+      "property": "border",
+      "literal": "#93c5fd",
+      "locations": [
+        {
+          "line": 344,
+          "column": 21
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--status-info-border",
+      "replacement": "var(--status-info-border)"
+    },
+    {
+      "fingerprint": "ed25180dbe1ff663c42ff34f6d1aacd1b81430f76759690c4b1f1eb62c895197",
+      "file": "client/src/components/PhaseTemplateDesigner.css",
+      "context": [],
+      "owner": ".btn",
+      "property": "border",
+      "literal": "#d1d5db",
+      "locations": [
+        {
+          "line": 358,
+          "column": 21
+        }
+      ],
+      "count": 1,
+      "kind": "neutral-literal",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--border-color",
+      "replacement": "var(--border-color)"
+    },
+    {
+      "fingerprint": "1bdf20e64e41e66d33c18ff87e8f279272f04eaace6673e6ec660886ec2181a0",
+      "file": "client/src/components/PhaseTemplateDesigner.css",
+      "context": [],
+      "owner": ".btn",
+      "property": "color",
+      "literal": "#374151",
+      "locations": [
+        {
+          "line": 361,
+          "column": 10
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--text-secondary",
+      "replacement": "var(--text-secondary)"
+    },
+    {
+      "fingerprint": "2365e162aa442812b549eb8bfb501ebdbbda2ef3b6989a2c8601d581a75320d2",
+      "file": "client/src/components/PhaseTemplateDesigner.css",
+      "context": [],
+      "owner": ".btn:hover",
+      "property": "border-color",
+      "literal": "#9ca3af",
+      "locations": [
+        {
+          "line": 371,
+          "column": 17
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--border-color-hover",
+      "replacement": "var(--border-color-hover)"
+    },
+    {
+      "fingerprint": "8797d34dab59fb8baa1d8ef394810100d91bd3a741a6a972f3b4dc3f1f740ef6",
+      "file": "client/src/components/PhaseTemplateDesigner.css",
+      "context": [],
+      "owner": ".btn-primary",
+      "property": "background",
+      "literal": "#3b82f6",
+      "locations": [
+        {
+          "line": 386,
+          "column": 15
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--primary-solid",
+      "replacement": "var(--primary-solid)"
+    },
+    {
+      "fingerprint": "b73c570223f6b7d247eb511370106f4ee68296ee6878bd2e49019fcb32508d96",
+      "file": "client/src/components/PhaseTemplateDesigner.css",
+      "context": [],
+      "owner": ".btn-primary",
+      "property": "border-color",
+      "literal": "#3b82f6",
+      "locations": [
+        {
+          "line": 387,
+          "column": 17
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--primary-solid",
+      "replacement": "var(--primary-solid)"
+    },
+    {
+      "fingerprint": "e6b47ae5ce336ab6f6913d98275e1eeaeace3d5109086728d1f5f483b0d26b83",
+      "file": "client/src/components/PhaseTemplateDesigner.css",
+      "context": [],
+      "owner": ".btn-primary",
+      "property": "color",
+      "literal": "white",
+      "locations": [
+        {
+          "line": 388,
+          "column": 10
+        }
+      ],
+      "count": 1,
+      "kind": "neutral-literal",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--solid-foreground",
+      "replacement": "var(--solid-foreground)"
+    },
+    {
+      "fingerprint": "4387c4499e512a9c98974751ce7bb3e218c25506f1d38807d5bf9f957d753841",
+      "file": "client/src/components/PhaseTemplateDesigner.css",
+      "context": [],
+      "owner": ".btn-primary:hover",
+      "property": "background",
+      "literal": "#2563eb",
+      "locations": [
+        {
+          "line": 392,
+          "column": 15
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--primary-solid",
+      "replacement": "var(--primary-solid)"
+    },
+    {
+      "fingerprint": "8b61fa3e5dbb78c3b2150f9e9b6e4ccced5cf08f37d5d2cbd6b52a1d70e5c608",
+      "file": "client/src/components/PhaseTemplateDesigner.css",
+      "context": [],
+      "owner": ".btn-primary:hover",
+      "property": "border-color",
+      "literal": "#2563eb",
+      "locations": [
+        {
+          "line": 393,
+          "column": 17
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--primary-solid",
+      "replacement": "var(--primary-solid)"
+    },
+    {
+      "fingerprint": "5981b795f8703cd27ff7764e19e2fc0e245be6dc0ff7df68a6ce88f1c3d78c3c",
+      "file": "client/src/components/PhaseTemplateDesigner.css",
+      "context": [],
+      "owner": ".btn-secondary",
+      "property": "background",
+      "literal": "#6b7280",
+      "locations": [
+        {
+          "line": 397,
+          "column": 15
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--neutral-button-solid",
+      "replacement": "var(--neutral-button-solid)"
+    },
+    {
+      "fingerprint": "18c0596d009daf18c790271c2444ae28f108bf5e2d7e73721eda7d5ca11180f0",
+      "file": "client/src/components/PhaseTemplateDesigner.css",
+      "context": [],
+      "owner": ".btn-secondary",
+      "property": "border-color",
+      "literal": "#6b7280",
+      "locations": [
+        {
+          "line": 398,
+          "column": 17
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--neutral-button-solid",
+      "replacement": "var(--neutral-button-solid)"
+    },
+    {
+      "fingerprint": "310fe094fb64cad1ebd459b9214ea4950311639047ddc7f537ec91efa4c22142",
+      "file": "client/src/components/PhaseTemplateDesigner.css",
+      "context": [],
+      "owner": ".btn-secondary",
+      "property": "color",
+      "literal": "white",
+      "locations": [
+        {
+          "line": 399,
+          "column": 10
+        }
+      ],
+      "count": 1,
+      "kind": "neutral-literal",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--solid-foreground",
+      "replacement": "var(--solid-foreground)"
+    },
+    {
+      "fingerprint": "b47c7006405954230373a2127c66749b5260921b6c8293280f2bcaa43b17e8b6",
+      "file": "client/src/components/PhaseTemplateDesigner.css",
+      "context": [],
+      "owner": ".btn-secondary:hover",
+      "property": "background",
+      "literal": "#4b5563",
+      "locations": [
+        {
+          "line": 403,
+          "column": 15
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--neutral-button-hover",
+      "replacement": "var(--neutral-button-hover)"
+    },
+    {
+      "fingerprint": "d50b04f7f80d850336f6e21ad57acd693dec1be6283445ce84e2ef7873c10f61",
+      "file": "client/src/components/PhaseTemplateDesigner.css",
+      "context": [],
+      "owner": ".btn-secondary:hover",
+      "property": "border-color",
+      "literal": "#4b5563",
+      "locations": [
+        {
+          "line": 404,
+          "column": 17
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--neutral-button-hover",
+      "replacement": "var(--neutral-button-hover)"
+    },
+    {
+      "fingerprint": "c3bb258f6c4c38774e2591b9d943a3a249444559f71703bf23d8ec4ba1f36bc1",
+      "file": "client/src/components/PhaseTemplateDesigner.css",
+      "context": [],
+      "owner": ".btn-danger",
+      "property": "color",
+      "literal": "#dc2626",
+      "locations": [
+        {
+          "line": 408,
+          "column": 10
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--status-danger-text",
+      "replacement": "var(--status-danger-text)"
+    },
+    {
+      "fingerprint": "493431b94880e81793118d7e54008bc3b6a7bcc463d6186450be4960909f2c71",
+      "file": "client/src/components/PhaseTemplateDesigner.css",
+      "context": [],
+      "owner": ".btn-danger",
+      "property": "border-color",
+      "literal": "#fca5a5",
+      "locations": [
+        {
+          "line": 409,
+          "column": 17
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--status-danger-border",
+      "replacement": "var(--status-danger-border)"
+    },
+    {
+      "fingerprint": "7723c1bfc7ecfcd5e19e97ca23a3d102b28a17c484f24bb3e9c5b52613864f78",
+      "file": "client/src/components/PhaseTemplateDesigner.css",
+      "context": [],
+      "owner": ".btn-danger:hover",
+      "property": "background",
+      "literal": "#fef2f2",
+      "locations": [
+        {
+          "line": 413,
+          "column": 15
+        }
+      ],
+      "count": 1,
+      "kind": "neutral-literal",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--status-danger-soft",
+      "replacement": "var(--status-danger-soft)"
+    },
+    {
+      "fingerprint": "59af30c36415cbb89ca628d78f5833e88cf4fededa2cd1bc5bcd1ec30d72f858",
+      "file": "client/src/components/PhaseTemplateDesigner.css",
+      "context": [],
+      "owner": ".btn-danger:hover",
+      "property": "border-color",
+      "literal": "#dc2626",
+      "locations": [
+        {
+          "line": 414,
+          "column": 17
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--status-danger-border",
+      "replacement": "var(--status-danger-border)"
+    },
+    {
+      "fingerprint": "021b5ba1f6f0f26ede731ab71b386ba91512e61264ced80d0fc34ee006adc0b3",
+      "file": "client/src/components/PhaseTemplateDesigner.css",
+      "context": [],
+      "owner": ".phase-config-panel",
+      "property": "border-top",
+      "literal": "#e5e7eb",
+      "locations": [
+        {
+          "line": 418,
+          "column": 25
+        }
+      ],
+      "count": 1,
+      "kind": "neutral-literal",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--border-color",
+      "replacement": "var(--border-color)"
+    },
+    {
+      "fingerprint": "5bdcc8d968afa68138beded0c71385cfa24dc908ae4338bf8bdc937387139082",
+      "file": "client/src/components/PhaseTemplateDesigner.css",
+      "context": [],
+      "owner": ".checkbox-label span",
+      "property": "color",
+      "literal": "#1f2937",
+      "locations": [
+        {
+          "line": 443,
+          "column": 10
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--text-primary",
+      "replacement": "var(--text-primary)"
+    },
+    {
+      "fingerprint": "31cce422f2f63d8fde872509ecc3318af27fcc449e51197a2d67e51b8c6d8061",
+      "file": "client/src/components/PhaseTemplateDesigner.css",
+      "context": [],
+      "owner": ".checkbox-label small",
+      "property": "color",
+      "literal": "#6b7280",
+      "locations": [
+        {
+          "line": 447,
+          "column": 10
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--text-secondary",
+      "replacement": "var(--text-secondary)"
+    },
+    {
+      "fingerprint": "97d30bde2054db37e072e2bc01fddc301b4b8abb5aeeb8dfef84e55e83b839f2",
+      "file": "client/src/components/PhaseTemplateDesigner.css",
+      "context": [],
+      "owner": ".form-textarea, .form-input",
+      "property": "border",
+      "literal": "#d1d5db",
+      "locations": [
+        {
+          "line": 456,
+          "column": 21
+        }
+      ],
+      "count": 1,
+      "kind": "neutral-literal",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--border-color",
+      "replacement": "var(--border-color)"
+    },
+    {
+      "fingerprint": "27e37195d44e40452863fd533410844604e70169a81e6cd8fae36de01beb2352",
+      "file": "client/src/components/PhaseTemplateDesigner.css",
+      "context": [],
+      "owner": ".form-textarea:focus, .form-input:focus",
+      "property": "border-color",
+      "literal": "#3b82f6",
+      "locations": [
+        {
+          "line": 470,
+          "column": 17
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--primary-text",
+      "replacement": "var(--primary-text)"
+    },
+    {
+      "fingerprint": "bda38e27448e1a1dbe7a88febd04f1729c23976e0acd4d0cdbf9186adaf58bda",
+      "file": "client/src/components/PhaseTemplateDesigner.css",
+      "context": [],
+      "owner": ".form-textarea:focus, .form-input:focus",
+      "property": "box-shadow",
+      "literal": "rgba(59, 130, 246, 0.1)",
+      "locations": [
+        {
+          "line": 471,
+          "column": 25
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--primary",
+      "replacement": "color-mix(in srgb, var(--primary) 10%, transparent)"
+    },
+    {
+      "fingerprint": "2c033af2faa46df2eae2813d6d4a8975097d4800c173558d0cfd3bebe4892196",
+      "file": "client/src/components/PhaseTemplateDesigner.css",
+      "context": [],
+      "owner": ".duration-constraints h4",
+      "property": "color",
+      "literal": "#1f2937",
+      "locations": [
+        {
+          "line": 482,
+          "column": 10
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--status-info-text",
+      "replacement": "var(--status-info-text)"
+    },
+    {
+      "fingerprint": "fce4d49b8faf59dfdfe12675087e3d8984a4bd196269fbe4f1db29947da81535",
+      "file": "client/src/components/PhaseTemplateDesigner.css",
+      "context": [],
+      "owner": ".input-group label",
+      "property": "color",
+      "literal": "#4b5563",
+      "locations": [
+        {
+          "line": 500,
+          "column": 10
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--text-secondary",
+      "replacement": "var(--text-secondary)"
+    },
+    {
+      "fingerprint": "e6cb29fb9cdaac5950387fb2ed6a551d558ae175585d288770509e0ea23441ea",
+      "file": "client/src/components/PhaseTemplateDesigner.css",
+      "context": [],
+      "owner": ".config-actions",
+      "property": "border-top",
+      "literal": "#e5e7eb",
+      "locations": [
+        {
+          "line": 508,
+          "column": 25
+        }
+      ],
+      "count": 1,
+      "kind": "neutral-literal",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--border-color",
+      "replacement": "var(--border-color)"
+    },
+    {
+      "fingerprint": "99a9d9ca1209933c7c172298d5f4377723bf8892744ebb8db4d12267ef20b9d7",
+      "file": "client/src/components/PhaseTemplateDesigner.css",
+      "context": [],
+      "owner": ".add-phase-panel",
+      "property": "border",
+      "literal": "#cbd5e1",
+      "locations": [
+        {
+          "line": 513,
+          "column": 22
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--border-color",
+      "replacement": "var(--border-color)"
+    },
+    {
+      "fingerprint": "16d8cfacf1aa45b93b961eea72661618bf91334f26897ba9c5a45c88e0b08882",
+      "file": "client/src/components/PhaseTemplateDesigner.css",
+      "context": [],
+      "owner": ".add-phase-panel h4",
+      "property": "color",
+      "literal": "#1f2937",
+      "locations": [
+        {
+          "line": 521,
+          "column": 10
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--text-primary",
+      "replacement": "var(--text-primary)"
+    },
+    {
+      "fingerprint": "1edb7f1d3050dc830b85093d08631cb7f1fd22b06314757ada68ed984d678c47",
+      "file": "client/src/components/PhaseTemplateDesigner.css",
+      "context": [],
+      "owner": ".available-phase",
+      "property": "border",
+      "literal": "#e5e7eb",
+      "locations": [
+        {
+          "line": 539,
+          "column": 21
+        }
+      ],
+      "count": 1,
+      "kind": "neutral-literal",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--border-color",
+      "replacement": "var(--border-color)"
+    },
+    {
+      "fingerprint": "012c5939863b9676f3d13c5818987a4408edb589801db42ebf49599a2d3e9cdf",
+      "file": "client/src/components/PhaseTemplateDesigner.css",
+      "context": [],
+      "owner": ".available-phase .phase-info h5",
+      "property": "color",
+      "literal": "#1f2937",
+      "locations": [
+        {
+          "line": 545,
+          "column": 10
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--text-primary",
+      "replacement": "var(--text-primary)"
+    },
+    {
+      "fingerprint": "d0851ef9a32dccb8030dc9977bc94cb8a831594c2566ab4e585ff5bf3f2ff767",
+      "file": "client/src/components/PhaseTemplateDesigner.css",
+      "context": [],
+      "owner": ".available-phase .phase-info p",
+      "property": "color",
+      "literal": "#6b7280",
+      "locations": [
+        {
+          "line": 552,
+          "column": 10
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--text-secondary",
+      "replacement": "var(--text-secondary)"
+    },
+    {
+      "fingerprint": "7abe4ad9bc0767ec12caa24a2de46fe0bfd752d03a902458b6c1c45a9248cd54",
+      "file": "client/src/components/PhaseTemplateDesigner.css",
+      "context": [],
+      "owner": ".add-phase-btn",
+      "property": "border",
+      "literal": "#cbd5e1",
+      "locations": [
+        {
+          "line": 565,
+          "column": 22
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--border-color",
+      "replacement": "var(--border-color)"
+    },
+    {
+      "fingerprint": "f699813f41b1511734cedd8ef6e78f8ec3f3b7dd52f9fe6e94bfe05636a42479",
+      "file": "client/src/components/PhaseTemplateDesigner.css",
+      "context": [],
+      "owner": ".add-phase-btn",
+      "property": "color",
+      "literal": "#64748b",
+      "locations": [
+        {
+          "line": 567,
+          "column": 10
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--text-secondary",
+      "replacement": "var(--text-secondary)"
+    },
+    {
+      "fingerprint": "d3840528ecd879cd9f820b6bf2fadba11bbcfcccc9e0a5acfc19722cddea366d",
+      "file": "client/src/components/PhaseTemplateDesigner.css",
+      "context": [],
+      "owner": ".add-phase-btn:hover",
+      "property": "border-color",
+      "literal": "#3b82f6",
+      "locations": [
+        {
+          "line": 571,
+          "column": 17
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--primary-text",
+      "replacement": "var(--primary-text)"
+    },
+    {
+      "fingerprint": "5aa639c49093286438798b0d29d1bb426c53b41f174529e27b96df3bbf8704ac",
+      "file": "client/src/components/PhaseTemplateDesigner.css",
+      "context": [],
+      "owner": ".add-phase-btn:hover",
+      "property": "background",
+      "literal": "#eff6ff",
+      "locations": [
+        {
+          "line": 572,
+          "column": 15
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--primary-light",
+      "replacement": "var(--primary-light)"
+    },
+    {
+      "fingerprint": "17f8be3d0cc92788e4c654b82bc801d0cfe1899f8ad93e51058fd7cf7f7bc34c",
+      "file": "client/src/components/PhaseTemplateDesigner.css",
+      "context": [],
+      "owner": ".add-phase-btn:hover",
+      "property": "color",
+      "literal": "#3b82f6",
+      "locations": [
+        {
+          "line": 573,
+          "column": 10
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--primary-text",
+      "replacement": "var(--primary-text)"
+    },
+    {
+      "fingerprint": "a2a0300024e0e110a8bb77ef6b4c70fe89ad51bca0bdab2d44b8531ade20fe1f",
+      "file": "client/src/components/PhaseTemplateDesigner.css",
+      "context": [],
+      "owner": ".empty-state",
+      "property": "color",
+      "literal": "#6b7280",
+      "locations": [
+        {
+          "line": 579,
+          "column": 10
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--text-secondary",
+      "replacement": "var(--text-secondary)"
+    },
+    {
+      "fingerprint": "4d73a93153542cee6edd3a402f2a42a2a8d17130eacb2b626f1bb574af993c3f",
+      "file": "client/src/components/PhaseTemplateDesigner.css",
+      "context": [],
+      "owner": ".empty-state h4",
+      "property": "color",
+      "literal": "#4b5563",
+      "locations": [
+        {
+          "line": 584,
+          "column": 10
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--text-secondary",
+      "replacement": "var(--text-secondary)"
+    },
+    {
+      "fingerprint": "c5bf02d16d5a99e29a4a2684d77f634db57e8235c78782a8c19b4fdf454c6eb3",
+      "file": "client/src/pages/ProjectTypeDetails.css",
+      "context": [],
+      "owner": ".project-type-header",
+      "property": "background",
+      "literal": "#f8fafc",
+      "locations": [
+        {
+          "line": 20,
+          "column": 39
+        }
+      ],
+      "count": 1,
+      "kind": "neutral-literal",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--bg-secondary",
+      "replacement": "var(--bg-secondary)"
+    },
+    {
+      "fingerprint": "fda96f5073fa98ee506c8a9f390982709462fa23dacfd6d35522d3ae2f75342e",
+      "file": "client/src/pages/ProjectTypeDetails.css",
+      "context": [],
+      "owner": ".project-type-header",
+      "property": "background",
+      "literal": "#f1f5f9",
+      "locations": [
+        {
+          "line": 20,
+          "column": 51
+        }
+      ],
+      "count": 1,
+      "kind": "neutral-literal",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--bg-secondary",
+      "replacement": "var(--bg-secondary)"
+    },
+    {
+      "fingerprint": "be1ca0ad945bff2e059aecf18f84c6312ccfe67e23c9d96f454ba7f3272b604f",
+      "file": "client/src/pages/ProjectTypeDetails.css",
+      "context": [],
+      "owner": ".project-type-header",
+      "property": "border",
+      "literal": "#e2e8f0",
+      "locations": [
+        {
+          "line": 21,
+          "column": 21
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--border-color",
+      "replacement": "var(--border-color)"
+    },
+    {
+      "fingerprint": "9b4042e2c5771af10e615994affb640abd42fa36f39c4076f78db38b094fcfeb",
+      "file": "client/src/pages/ProjectTypeDetails.css",
+      "context": [],
+      "owner": ".project-type-header",
+      "property": "box-shadow",
+      "literal": "rgba(0, 0, 0, 0.1)",
+      "locations": [
+        {
+          "line": 25,
+          "column": 25
+        }
+      ],
+      "count": 1,
+      "kind": "neutral-literal",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--solid-shade",
+      "replacement": "color-mix(in srgb, var(--solid-shade) 10%, transparent)"
+    },
+    {
+      "fingerprint": "3f693069b08ea48c50015897a84cb7d4661721679e9f6e94b6809ed65244afe9",
+      "file": "client/src/pages/ProjectTypeDetails.css",
+      "context": [],
+      "owner": ".color-indicator .info-value",
+      "property": "border",
+      "literal": "#d1d5db",
+      "locations": [
+        {
+          "line": 61,
+          "column": 21
+        }
+      ],
+      "count": 1,
+      "kind": "neutral-literal",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--border-color",
+      "replacement": "var(--border-color)"
+    },
+    {
+      "fingerprint": "9a209582c64260fd04b98df1f696834a0bb3470748d11687c7d6bc1a6d6fc7d2",
+      "file": "client/src/pages/ProjectTypeDetails.css",
+      "context": [],
+      "owner": ".color-indicator .info-value:hover",
+      "property": "border-color",
+      "literal": "#9ca3af",
+      "locations": [
+        {
+          "line": 69,
+          "column": 17
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--border-color-hover",
+      "replacement": "var(--border-color-hover)"
+    },
+    {
+      "fingerprint": "6679140a346fee945f76ba5ba2e71cf3d133bf3adfa6a70abb608844e6e4e4f6",
+      "file": "client/src/pages/ProjectTypeDetails.css",
+      "context": [],
+      "owner": ".color-indicator .info-value:hover",
+      "property": "box-shadow",
+      "literal": "rgba(0, 0, 0, 0.1)",
+      "locations": [
+        {
+          "line": 70,
+          "column": 25
+        }
+      ],
+      "count": 1,
+      "kind": "neutral-literal",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--solid-shade",
+      "replacement": "color-mix(in srgb, var(--solid-shade) 10%, transparent)"
+    },
+    {
+      "fingerprint": "e17855923eb34f79727e0e2647f13a0611de0562b16bedf157af07e23c3646ae",
+      "file": "client/src/pages/ProjectTypeDetails.css",
+      "context": [],
+      "owner": ".project-type-title",
+      "property": "color",
+      "literal": "#1f2937",
+      "locations": [
+        {
+          "line": 77,
+          "column": 10
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--text-primary",
+      "replacement": "var(--text-primary)"
+    },
+    {
+      "fingerprint": "272cfe4e74916d5aefd88932bb416aec64871fbc3b19edf9894ff8ef8f25e9a5",
+      "file": "client/src/pages/ProjectTypeDetails.css",
+      "context": [],
+      "owner": ".project-type-title .info-value:hover",
+      "property": "background",
+      "literal": "rgba(255, 255, 255, 0.7)",
+      "locations": [
+        {
+          "line": 97,
+          "column": 15
+        }
+      ],
+      "count": 1,
+      "kind": "neutral-literal",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--bg-secondary",
+      "replacement": "var(--bg-secondary)"
+    },
+    {
+      "fingerprint": "57eac6027ac7bf72c036b45416d0e09b17fc1543f67e8facbaf79a38f916cefa",
+      "file": "client/src/pages/ProjectTypeDetails.css",
+      "context": [],
+      "owner": ".project-type-title .info-value:hover",
+      "property": "border-color",
+      "literal": "#d1d5db",
+      "locations": [
+        {
+          "line": 98,
+          "column": 17
+        }
+      ],
+      "count": 1,
+      "kind": "neutral-literal",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--border-color-hover",
+      "replacement": "var(--border-color-hover)"
+    },
+    {
+      "fingerprint": "dc651af2e2c38ceaa56471355fc5240a68beb3c59a49bec7aa14032169f6d99d",
+      "file": "client/src/pages/ProjectTypeDetails.css",
+      "context": [],
+      "owner": ".description-section .info-value",
+      "property": "color",
+      "literal": "#6b7280",
+      "locations": [
+        {
+          "line": 107,
+          "column": 10
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--text-secondary",
+      "replacement": "var(--text-secondary)"
+    },
+    {
+      "fingerprint": "005255bc2d4d2259aee3ad830988baba8c1ea019c7557d9eb2b88806ece9c427",
+      "file": "client/src/pages/ProjectTypeDetails.css",
+      "context": [],
+      "owner": ".description-section .info-value",
+      "property": "background",
+      "literal": "rgba(255, 255, 255, 0.5)",
+      "locations": [
+        {
+          "line": 110,
+          "column": 15
+        }
+      ],
+      "count": 1,
+      "kind": "neutral-literal",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--bg-secondary",
+      "replacement": "var(--bg-secondary)"
+    },
+    {
+      "fingerprint": "6895cdc8176223b80f10acea394ba467fd6a4a69ce5ef1740f86c45f26af7e1a",
+      "file": "client/src/pages/ProjectTypeDetails.css",
+      "context": [],
+      "owner": ".description-section .info-value:hover",
+      "property": "background",
+      "literal": "rgba(255, 255, 255, 0.8)",
+      "locations": [
+        {
+          "line": 120,
+          "column": 15
+        }
+      ],
+      "count": 1,
+      "kind": "neutral-literal",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--bg-secondary",
+      "replacement": "var(--bg-secondary)"
+    },
+    {
+      "fingerprint": "617da24be171794162f6691fd4454e175dc874bda92a1c14c68fd37308f72a14",
+      "file": "client/src/pages/ProjectTypeDetails.css",
+      "context": [],
+      "owner": ".description-section .info-value:hover",
+      "property": "border-color",
+      "literal": "#d1d5db",
+      "locations": [
+        {
+          "line": 121,
+          "column": 17
+        }
+      ],
+      "count": 1,
+      "kind": "neutral-literal",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--border-color-hover",
+      "replacement": "var(--border-color-hover)"
+    },
+    {
+      "fingerprint": "48c02615b2c18305de87fca5d2939fa056648786626166f3a8559bb5c804849b",
+      "file": "client/src/pages/ProjectTypeDetails.css",
+      "context": [],
+      "owner": ".sub-type-card:hover",
+      "property": "box-shadow",
+      "literal": "rgba(0, 0, 0, 0.1)",
+      "locations": [
+        {
+          "line": 187,
+          "column": 26
+        }
+      ],
+      "count": 1,
+      "kind": "neutral-literal",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--solid-shade",
+      "replacement": "color-mix(in srgb, var(--solid-shade) 10%, transparent)"
+    },
+    {
+      "fingerprint": "f8f800bc8dec0c4d7e66ece22b32bcdfb85969c583b0aaf0bed84abbc7527ffe",
+      "file": "client/src/pages/ProjectTypeDetails.css",
+      "context": [],
+      "owner": ".sub-type-color",
+      "property": "border",
+      "literal": "rgba(0, 0, 0, 0.1)",
+      "locations": [
+        {
+          "line": 220,
+          "column": 21
+        }
+      ],
+      "count": 1,
+      "kind": "neutral-literal",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--solid-shade",
+      "replacement": "color-mix(in srgb, var(--solid-shade) 10%, transparent)"
+    },
+    {
+      "fingerprint": "fd5d1038488d3e6eb51f50c5e9b957d53fac2b04a6b7ca8c3483a634e3dceaf3",
+      "file": "client/src/pages/ProjectTypeDetails.css",
+      "context": [],
+      "owner": ".sub-type-description",
+      "property": "color",
+      "literal": "#64748b",
+      "locations": [
+        {
+          "line": 225,
+          "column": 10
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--text-secondary",
+      "replacement": "var(--text-secondary)"
+    },
+    {
+      "fingerprint": "40c7176622b1e53d397ed350857775b2de079b5b7580a07b4177672d4ae1dd7c",
+      "file": "client/src/pages/ProjectTypeDetails.css",
+      "context": [],
+      "owner": ".sub-type-meta",
+      "property": "border-top",
+      "literal": "#f1f5f9",
+      "locations": [
+        {
+          "line": 241,
+          "column": 25
+        }
+      ],
+      "count": 1,
+      "kind": "neutral-literal",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--border-color",
+      "replacement": "var(--border-color)"
+    },
+    {
+      "fingerprint": "76145b32db130781a47101a3d74f81b5c94686d893027794fd774660e219e010",
+      "file": "client/src/pages/ProjectTypeDetails.css",
+      "context": [],
+      "owner": ".level-badge",
+      "property": "color",
+      "literal": "#475569",
+      "locations": [
+        {
+          "line": 246,
+          "column": 10
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--text-secondary",
+      "replacement": "var(--text-secondary)"
+    },
+    {
+      "fingerprint": "8c8aed687d772fc1204f0820d29ac7454a0a3719556041a9f8885416acc66d5b",
+      "file": "client/src/pages/ProjectTypeDetails.css",
+      "context": [],
+      "owner": ".phases-count",
+      "property": "color",
+      "literal": "#64748b",
+      "locations": [
+        {
+          "line": 254,
+          "column": 10
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--text-secondary",
+      "replacement": "var(--text-secondary)"
+    },
+    {
+      "fingerprint": "7e5cda2e13f674b220225db747273a2be9813b187d5a90b06c91372b27276178",
+      "file": "client/src/pages/ProjectTypeDetails.css",
+      "context": [],
+      "owner": ".add-child-form",
+      "property": "border",
+      "literal": "#e2e8f0",
+      "locations": [
+        {
+          "line": 261,
+          "column": 21
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--border-color",
+      "replacement": "var(--border-color)"
+    },
+    {
+      "fingerprint": "89df7b1edf1a4399d538e48fc5bfded77a224a89700ce7b4d282ea38604722ed",
+      "file": "client/src/pages/ProjectTypeDetails.css",
+      "context": [],
+      "owner": ".form-group label",
+      "property": "color",
+      "literal": "#374151",
+      "locations": [
+        {
+          "line": 292,
+          "column": 10
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--text-secondary",
+      "replacement": "var(--text-secondary)"
+    },
+    {
+      "fingerprint": "e94541c78b6d9222939817be635a438519a149deb5ef08966fd55584b9a7a4a9",
+      "file": "client/src/pages/ProjectTypeDetails.css",
+      "context": [],
+      "owner": ".form-input",
+      "property": "border",
+      "literal": "#d1d5db",
+      "locations": [
+        {
+          "line": 299,
+          "column": 21
+        }
+      ],
+      "count": 1,
+      "kind": "neutral-literal",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--border-color",
+      "replacement": "var(--border-color)"
+    },
+    {
+      "fingerprint": "264625c63580239e1f7de1698e08a161c013cf528d5aa5006347ee535ddbb363",
+      "file": "client/src/pages/ProjectTypeDetails.css",
+      "context": [],
+      "owner": ".form-input:focus",
+      "property": "border-color",
+      "literal": "#3b82f6",
+      "locations": [
+        {
+          "line": 307,
+          "column": 17
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--primary-text",
+      "replacement": "var(--primary-text)"
+    },
+    {
+      "fingerprint": "ef93888fd6b7d6557837e4ee344d6bcc954a7730161def773e87703f1f569eda",
+      "file": "client/src/pages/ProjectTypeDetails.css",
+      "context": [],
+      "owner": ".form-input:focus",
+      "property": "box-shadow",
+      "literal": "rgba(59, 130, 246, 0.1)",
+      "locations": [
+        {
+          "line": 308,
+          "column": 25
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--primary",
+      "replacement": "color-mix(in srgb, var(--primary) 10%, transparent)"
+    },
+    {
+      "fingerprint": "e3ddab74e25a1b0c27e5b92d7f50b9de887253cda1eec7f7f87436155b78f8b1",
+      "file": "client/src/pages/ProjectTypeDetails.css",
+      "context": [],
+      "owner": ".parent-info-card",
+      "property": "border",
+      "literal": "#e2e8f0",
+      "locations": [
+        {
+          "line": 376,
+          "column": 21
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--border-color",
+      "replacement": "var(--border-color)"
+    },
+    {
+      "fingerprint": "19ecf0ffaba03022781d93f7bb122fb04bf04196fb801dc5eaba269dc2d84cc9",
+      "file": "client/src/pages/ProjectTypeDetails.css",
+      "context": [],
+      "owner": ".parent-info-card p",
+      "property": "color",
+      "literal": "#475569",
+      "locations": [
+        {
+          "line": 383,
+          "column": 10
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--text-secondary",
+      "replacement": "var(--text-secondary)"
+    },
+    {
+      "fingerprint": "73049aab01c8d66461ab71d9aed61a7e3836c8f8b20f7058c700747bc52b7715",
+      "file": "client/src/pages/ProjectTypeDetails.css",
+      "context": [],
+      "owner": ".inheritance-legend",
+      "property": "border",
+      "literal": "#e2e8f0",
+      "locations": [
+        {
+          "line": 403,
+          "column": 21
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--border-color",
+      "replacement": "var(--border-color)"
+    },
+    {
+      "fingerprint": "d57a1070f39275bc2f8cb51fa5f98732cfccbf59b0483ea7a6cf9fea45e8e8b8",
+      "file": "client/src/pages/ProjectTypeDetails.css",
+      "context": [],
+      "owner": ".legend-item",
+      "property": "color",
+      "literal": "#475569",
+      "locations": [
+        {
+          "line": 412,
+          "column": 10
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--text-secondary",
+      "replacement": "var(--text-secondary)"
+    },
+    {
+      "fingerprint": "5305c9923154478d14cc18adb935469a31e36dbd40fa665f40849f6f30249ed0",
+      "file": "client/src/pages/ProjectTypeDetails.css",
+      "context": [],
+      "owner": ".legend-color",
+      "property": "border",
+      "literal": "#d1d5db",
+      "locations": [
+        {
+          "line": 419,
+          "column": 21
+        }
+      ],
+      "count": 1,
+      "kind": "neutral-literal",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--border-color",
+      "replacement": "var(--border-color)"
+    },
+    {
+      "fingerprint": "efd9b64a7eac304aa847273c30402154e728d65dcdda6b6206dda0edcca07222",
+      "file": "client/src/pages/ProjectTypeDetails.css",
+      "context": [],
+      "owner": ".legend-color.inherited",
+      "property": "background-color",
+      "literal": "#dbeafe",
+      "locations": [
+        {
+          "line": 423,
+          "column": 21
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--status-info-soft",
+      "replacement": "var(--status-info-soft)"
+    },
+    {
+      "fingerprint": "fb4959c5394c982ded3e88fee2576cf4ffdf61d19dbad8b941097d4a5f0de9e8",
+      "file": "client/src/pages/ProjectTypeDetails.css",
+      "context": [],
+      "owner": ".legend-color.inherited",
+      "property": "border-color",
+      "literal": "#93c5fd",
+      "locations": [
+        {
+          "line": 424,
+          "column": 17
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--status-info-border",
+      "replacement": "var(--status-info-border)"
+    },
+    {
+      "fingerprint": "5254c57670fe81372fc1c67f300ae405ca685b105c3398433065c51e4a29f0b5",
+      "file": "client/src/pages/ProjectTypeDetails.css",
+      "context": [],
+      "owner": ".sub-type-card.default-sub-type",
+      "property": "border",
+      "literal": "#d1d5db",
+      "locations": [
+        {
+          "line": 435,
+          "column": 22
+        }
+      ],
+      "count": 1,
+      "kind": "neutral-literal",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--border-color",
+      "replacement": "var(--border-color)"
+    },
+    {
+      "fingerprint": "6a1564e65b9514e4e37b75ced71a586359e31eee548b6c6603e41fe5fe52acef",
+      "file": "client/src/pages/ProjectTypeDetails.css",
+      "context": [],
+      "owner": ".sub-type-card.default-sub-type:hover",
+      "property": "box-shadow",
+      "literal": "rgba(0, 0, 0, 0.05)",
+      "locations": [
+        {
+          "line": 440,
+          "column": 25
+        }
+      ],
+      "count": 1,
+      "kind": "neutral-literal",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--solid-shade",
+      "replacement": "color-mix(in srgb, var(--solid-shade) 5%, transparent)"
+    },
+    {
+      "fingerprint": "1f05bd4263ee8f7f36ffed84c2e66b7fc9056538ddf40431b66a7017a0838ced",
+      "file": "client/src/pages/ProjectTypeDetails.css",
+      "context": [],
+      "owner": ".sub-type-card.default-sub-type:hover",
+      "property": "border-color",
+      "literal": "#9ca3af",
+      "locations": [
+        {
+          "line": 441,
+          "column": 17
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--border-color-hover",
+      "replacement": "var(--border-color-hover)"
+    },
+    {
+      "fingerprint": "8d9fc9d9ebe1351836059ae37714125c603bdb2a125cd0ddda684c848cd34f00",
+      "file": "client/src/pages/ProjectTypeDetails.css",
+      "context": [],
+      "owner": ".default-badge",
+      "property": "background",
+      "literal": "#f59e0b",
+      "locations": [
+        {
+          "line": 445,
+          "column": 15
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--status-warning-solid",
+      "replacement": "var(--status-warning-solid)"
+    },
+    {
+      "fingerprint": "fd6a5bae17e1121a9dbdaa7476246575189fd0a41c717b6ec88ce1b19ca8acaf",
+      "file": "client/src/pages/ProjectTypeDetails.css",
+      "context": [],
+      "owner": ".default-badge",
+      "property": "color",
+      "literal": "white",
+      "locations": [
+        {
+          "line": 446,
+          "column": 10
+        }
+      ],
+      "count": 1,
+      "kind": "neutral-literal",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--solid-foreground",
+      "replacement": "var(--solid-foreground)"
+    },
+    {
+      "fingerprint": "69ad5f1ed63b672bdc5bf0efb52b2a09cd1c57fbdebb809ef78068d8c7934b4f",
+      "file": "client/src/pages/ProjectTypeDetails.css",
+      "context": [],
+      "owner": ".read-only-note",
+      "property": "color",
+      "literal": "#6b7280",
+      "locations": [
+        {
+          "line": 456,
+          "column": 10
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--text-secondary",
+      "replacement": "var(--text-secondary)"
+    },
+    {
+      "fingerprint": "68ea20194c2be35789d8df496abf035b5887f5a10194990760c054efebe4fbdd",
+      "file": "client/src/pages/ProjectTypeDetails.css",
+      "context": [],
+      "owner": ".default-indicator",
+      "property": "background",
+      "literal": "#fef3c7",
+      "locations": [
+        {
+          "line": 463,
+          "column": 15
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--status-warning-soft",
+      "replacement": "var(--status-warning-soft)"
+    },
+    {
+      "fingerprint": "80eb7357bfe58080ed8e23f01955436b95a2f2a6387f112fefdd82265f4d593f",
+      "file": "client/src/pages/ProjectTypeDetails.css",
+      "context": [],
+      "owner": ".default-indicator",
+      "property": "color",
+      "literal": "#92400e",
+      "locations": [
+        {
+          "line": 464,
+          "column": 10
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--status-warning-text",
+      "replacement": "var(--status-warning-text)"
+    },
+    {
+      "fingerprint": "738d55c9892b878ace06fb52c94653e27a2ab1e59d2c73375c278bd5d142440c",
+      "file": "client/src/pages/ProjectTypeDetails.css",
+      "context": [],
+      "owner": ".read-only-warning",
+      "property": "background",
+      "literal": "#fef2f2",
+      "locations": [
+        {
+          "line": 472,
+          "column": 15
+        }
+      ],
+      "count": 1,
+      "kind": "neutral-literal",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--status-danger-soft",
+      "replacement": "var(--status-danger-soft)"
+    },
+    {
+      "fingerprint": "1076f4441a2e27e9dcab63b0d58d9211bf2a3acad690c65cc54bef5a77113f02",
+      "file": "client/src/pages/ProjectTypeDetails.css",
+      "context": [],
+      "owner": ".read-only-warning",
+      "property": "border",
+      "literal": "#fecaca",
+      "locations": [
+        {
+          "line": 473,
+          "column": 21
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--status-danger-border",
+      "replacement": "var(--status-danger-border)"
+    },
+    {
+      "fingerprint": "ad86989d4da47237eea77502e334c42f14f36040ba7d7f5d93597913832384b9",
+      "file": "client/src/pages/ProjectTypeDetails.css",
+      "context": [],
+      "owner": ".read-only-warning",
+      "property": "color",
+      "literal": "#991b1b",
+      "locations": [
+        {
+          "line": 477,
+          "column": 10
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--status-danger-text",
+      "replacement": "var(--status-danger-text)"
+    },
+    {
+      "fingerprint": "05c9609203169441cc90491b897d900863290ef2876e789ac39b7381e89c3ef2",
+      "file": "client/src/pages/ProjectTypeDetails.css",
+      "context": [],
+      "owner": ".read-only-warning strong",
+      "property": "color",
+      "literal": "#7f1d1d",
+      "locations": [
+        {
+          "line": 482,
+          "column": 10
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--status-danger-text",
+      "replacement": "var(--status-danger-text)"
+    },
+    {
+      "fingerprint": "153947571dcc897fd8feb505bd9bd2941eb40b755b0192c46d9f9b93fda4e8fb",
+      "file": "client/src/pages/ProjectTypeDetails.tsx",
+      "context": [
+        "ProjectTypeDetails",
+        "jsx:style"
+      ],
+      "owner": "color",
+      "property": "color",
+      "literal": "#6b7280",
+      "locations": [
+        {
+          "line": 443,
+          "column": 71
+        },
+        {
+          "line": 501,
+          "column": 76
+        }
+      ],
+      "count": 2,
+      "kind": "unknown",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--text-secondary"
+    },
+    {
+      "fingerprint": "347d27cba5ac53c0e89482273937bbe0dbccd74d0bc2efa0071a2a93dfe34f86",
+      "file": "client/src/pages/ProjectTypeDetails.tsx",
+      "context": [
+        "ProjectTypeDetails",
+        "jsx:style"
+      ],
+      "owner": "color",
+      "property": "color",
+      "literal": "#3b82f6",
+      "locations": [
+        {
+          "line": 509,
+          "column": 47
+        }
+      ],
+      "count": 1,
+      "kind": "unknown",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--status-info-text"
+    },
+    {
+      "fingerprint": "8f2082a6f805ce1bf74b69895a6dcf6aa99459c0ec11e6247be8e57287daeb94",
+      "file": "client/src/pages/ProjectTypeDetails.tsx",
+      "context": [
+        "ProjectTypeDetails",
+        "jsx:style"
+      ],
+      "owner": "border",
+      "property": "border",
+      "literal": "#93c5fd",
+      "locations": [
+        {
+          "line": 475,
+          "column": 103
+        }
+      ],
+      "count": 1,
+      "kind": "unknown",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--status-info-border"
+    },
+    {
+      "fingerprint": "a21555f8979f18986faa7ea406d5d1745b7149f508ff88aebe35c5c218d4bdb3",
+      "file": "client/src/pages/ProjectTypeDetails.tsx",
+      "context": [
+        "ProjectTypeDetails",
+        "InlineEdit",
+        "jsx:style"
+      ],
+      "owner": "border",
+      "property": "border",
+      "literal": "#ddd",
+      "locations": [
+        {
+          "line": 229,
+          "column": 34
+        }
+      ],
+      "count": 1,
+      "kind": "neutral-literal",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--control-border"
+    },
+    {
+      "fingerprint": "b16b39bedbd58b0487c5671e3b6c617bb015a52753114fdcd56230c14b673e69",
+      "file": "client/src/pages/ProjectTypeDetails.tsx",
+      "context": [
+        "ProjectTypeDetails",
+        "jsx:style"
+      ],
+      "owner": "backgroundColor",
+      "property": "backgroundColor",
+      "literal": "white",
+      "locations": [
+        {
+          "line": 479,
+          "column": 114
+        }
+      ],
+      "count": 1,
+      "kind": "neutral-literal",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--bg-primary"
+    },
+    {
+      "fingerprint": "bfa0be25d83e1adb80a3a685a07ff886af3e40d1127d2f3b0400af5c842184a7",
+      "file": "client/src/pages/ProjectTypeDetails.tsx",
+      "context": [
+        "ProjectTypeDetails",
+        "jsx:style"
+      ],
+      "owner": "border",
+      "property": "border",
+      "literal": "#d1d5db",
+      "locations": [
+        {
+          "line": 475,
+          "column": 125
+        }
+      ],
+      "count": 1,
+      "kind": "neutral-literal",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--control-border"
+    },
+    {
+      "fingerprint": "f1af6b288920b249154c6fdab8b689e83512ea3150b1a43954c7c6e04e32e1ba",
+      "file": "client/src/pages/ProjectTypeDetails.tsx",
+      "context": [
+        "ProjectTypeDetails",
+        "jsx:style"
+      ],
+      "owner": "backgroundColor",
+      "property": "backgroundColor",
+      "literal": "#dbeafe",
+      "locations": [
+        {
+          "line": 479,
+          "column": 102
+        },
+        {
+          "line": 511,
+          "column": 57
+        }
+      ],
+      "count": 2,
+      "kind": "unknown",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--status-info-soft"
+    },
+    {
+      "fingerprint": "5cba9727a7d1657d4bdd3e15d27c6a0b82f1f04fd282eb68691b6ac38179147f",
+      "file": "client/src/components/ProjectsTable.css",
+      "context": [],
+      "owner": ".projects-mini-table .table-container",
+      "property": "border",
+      "literal": "#e5e7eb",
+      "locations": [
+        {
+          "line": 8,
+          "column": 21
+        }
+      ],
+      "count": 1,
+      "kind": "neutral-literal",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--border-color",
+      "replacement": "var(--border-color)"
+    },
+    {
+      "fingerprint": "2cb77742bc6a5712723f1c20591f64eb69aabfb2d643bc4b6d5068c9ecba677e",
+      "file": "client/src/components/ProjectsTable.css",
+      "context": [],
+      "owner": ".projects-mini-table .table th",
+      "property": "color",
+      "literal": "#374151",
+      "locations": [
+        {
+          "line": 19,
+          "column": 10
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--text-secondary",
+      "replacement": "var(--text-secondary)"
+    },
+    {
+      "fingerprint": "b3366f7c49c00b3f928d43bc0f02ce49ed4db71e67b6d35f130ed6dc825830cd",
+      "file": "client/src/components/ProjectsTable.css",
+      "context": [],
+      "owner": ".projects-mini-table .table th",
+      "property": "border-bottom",
+      "literal": "#e5e7eb",
+      "locations": [
+        {
+          "line": 21,
+          "column": 28
+        }
+      ],
+      "count": 1,
+      "kind": "neutral-literal",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--border-color",
+      "replacement": "var(--border-color)"
+    },
+    {
+      "fingerprint": "376f2092dd0366f1f5154244c84285ff806567ab10b7b8abdb940c535c7c6331",
+      "file": "client/src/components/ProjectsTable.css",
+      "context": [],
+      "owner": ".projects-mini-table .table td",
+      "property": "border-bottom",
+      "literal": "#f3f4f6",
+      "locations": [
+        {
+          "line": 27,
+          "column": 28
+        }
+      ],
+      "count": 1,
+      "kind": "neutral-literal",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--border-color",
+      "replacement": "var(--border-color)"
+    },
+    {
+      "fingerprint": "7811b1b9d2433c97c0e78fa0cea0a8e99608bdc5dd553d7f00f196a22f31d0e3",
+      "file": "client/src/components/ProjectsTable.css",
+      "context": [],
+      "owner": ".project-name strong",
+      "property": "color",
+      "literal": "#1f2937",
+      "locations": [
+        {
+          "line": 39,
+          "column": 10
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--text-primary",
+      "replacement": "var(--text-primary)"
+    },
+    {
+      "fingerprint": "81866de9a9ab9201a6b2fdb72a38fe046f8f16423febb875a22d46982b117973",
+      "file": "client/src/components/ProjectsTable.css",
+      "context": [],
+      "owner": ".project-description",
+      "property": "color",
+      "literal": "#6b7280",
+      "locations": [
+        {
+          "line": 45,
+          "column": 10
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--text-tertiary",
+      "replacement": "var(--text-tertiary)"
+    },
+    {
+      "fingerprint": "3b15c177dcaea971d6fd5e566816632d56998cb152ef4ce3772e5be883dbbf3f",
+      "file": "client/src/components/ProjectsTable.css",
+      "context": [],
+      "owner": ".badge-primary",
+      "property": "background",
+      "literal": "#dbeafe",
+      "locations": [
+        {
+          "line": 60,
+          "column": 15
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--badge-primary-bg",
+      "replacement": "var(--badge-primary-bg)"
+    },
+    {
+      "fingerprint": "0030cc0119be33a46cba92ca2217cdf7dce3790358775dc83337bf90d9693540",
+      "file": "client/src/components/ProjectsTable.css",
+      "context": [],
+      "owner": ".badge-primary",
+      "property": "color",
+      "literal": "#1e40af",
+      "locations": [
+        {
+          "line": 61,
+          "column": 10
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--badge-primary-text",
+      "replacement": "var(--badge-primary-text)"
+    },
+    {
+      "fingerprint": "db3abc3c1f3042f68aaecdcbb38e16788f169f68b97d430ef97d2b1267fa9bf5",
+      "file": "client/src/components/ProjectsTable.css",
+      "context": [],
+      "owner": ".badge-success",
+      "property": "background",
+      "literal": "#dcfce7",
+      "locations": [
+        {
+          "line": 65,
+          "column": 15
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--status-success-soft",
+      "replacement": "var(--status-success-soft)"
+    },
+    {
+      "fingerprint": "7651b41fbea291b8fda890ea73a721a40bddfccca73a03213cfd6ba6926549a8",
+      "file": "client/src/components/ProjectsTable.css",
+      "context": [],
+      "owner": ".badge-success",
+      "property": "color",
+      "literal": "#166534",
+      "locations": [
+        {
+          "line": 66,
+          "column": 10
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--status-success-text",
+      "replacement": "var(--status-success-text)"
+    },
+    {
+      "fingerprint": "e3501c907f7c05433389ffe99f336e87df9295490f7c0827d70c1f279ecfbc01",
+      "file": "client/src/components/ProjectsTable.css",
+      "context": [],
+      "owner": ".badge-warning",
+      "property": "background",
+      "literal": "#fef3c7",
+      "locations": [
+        {
+          "line": 70,
+          "column": 15
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--status-warning-soft",
+      "replacement": "var(--status-warning-soft)"
+    },
+    {
+      "fingerprint": "d733ab5f2e3291cb6ce8c04a0eaad431bae4bbb459b77e0217a9bd98e1fa6aca",
+      "file": "client/src/components/ProjectsTable.css",
+      "context": [],
+      "owner": ".badge-warning",
+      "property": "color",
+      "literal": "#d97706",
+      "locations": [
+        {
+          "line": 71,
+          "column": 10
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--status-warning-text",
+      "replacement": "var(--status-warning-text)"
+    },
+    {
+      "fingerprint": "8405d1b3210974e98bba36ad4cb83d5673b5e5daa9c5e8ff8daf68ded4f0ccc4",
+      "file": "client/src/components/ProjectsTable.css",
+      "context": [],
+      "owner": ".badge-secondary",
+      "property": "color",
+      "literal": "#4b5563",
+      "locations": [
+        {
+          "line": 76,
+          "column": 10
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--text-secondary",
+      "replacement": "var(--text-secondary)"
+    },
+    {
+      "fingerprint": "ee4caedac42f21ef88c98b570293e375fede970565cc73f5e10b600d208010ce",
+      "file": "client/src/components/ProjectsTable.css",
+      "context": [],
+      "owner": ".badge-danger",
+      "property": "background",
+      "literal": "#fee2e2",
+      "locations": [
+        {
+          "line": 80,
+          "column": 15
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--status-danger-soft",
+      "replacement": "var(--status-danger-soft)"
+    },
+    {
+      "fingerprint": "f37d3b952aace7f9bb990cfbf404ce57ec9273e035d61f92205002c922913ecc",
+      "file": "client/src/components/ProjectsTable.css",
+      "context": [],
+      "owner": ".badge-danger",
+      "property": "color",
+      "literal": "#dc2626",
+      "locations": [
+        {
+          "line": 81,
+          "column": 10
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--status-danger-text",
+      "replacement": "var(--status-danger-text)"
+    },
+    {
+      "fingerprint": "41e769244b1a0f5c7defd5a9c0de176762b1f2739e8f3752e158b94971bec2d8",
+      "file": "client/src/components/ProjectsTable.css",
+      "context": [],
+      "owner": ".table-footer",
+      "property": "border-top",
+      "literal": "#e5e7eb",
+      "locations": [
+        {
+          "line": 87,
+          "column": 25
+        }
+      ],
+      "count": 1,
+      "kind": "neutral-literal",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--border-color",
+      "replacement": "var(--border-color)"
+    },
+    {
+      "fingerprint": "706ffbfe220fa43313431ca9b8f32d6e201d0be922a795119622c2ab1d3f46d7",
+      "file": "client/src/components/ProjectsTable.css",
+      "context": [],
+      "owner": ".btn-icon",
+      "property": "border",
+      "literal": "#d1d5db",
+      "locations": [
+        {
+          "line": 98,
+          "column": 21
+        }
+      ],
+      "count": 1,
+      "kind": "neutral-literal",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--control-border",
+      "replacement": "var(--control-border)"
+    },
+    {
+      "fingerprint": "9c4b2cccff0c8c69181f224cb886923b2e83d30afb4dadc0069671d24f142ae4",
+      "file": "client/src/components/ProjectsTable.css",
+      "context": [],
+      "owner": ".btn-icon",
+      "property": "color",
+      "literal": "#6b7280",
+      "locations": [
+        {
+          "line": 101,
+          "column": 10
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--text-tertiary",
+      "replacement": "var(--text-tertiary)"
+    },
+    {
+      "fingerprint": "f7a960951cc4618cc4c3e263c52e0d250ad6d106ee1c8a4a2f73b33be6090234",
+      "file": "client/src/components/ProjectsTable.css",
+      "context": [],
+      "owner": ".btn-icon:hover",
+      "property": "color",
+      "literal": "#374151",
+      "locations": [
+        {
+          "line": 108,
+          "column": 10
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--text-secondary",
+      "replacement": "var(--text-secondary)"
+    },
+    {
+      "fingerprint": "35fdf781bc1d2c975da0a9ced6056decd68da89f83d8e7595650352a26184954",
+      "file": "client/src/components/ProjectsTable.css",
+      "context": [],
+      "owner": ".btn-icon:hover",
+      "property": "border-color",
+      "literal": "#9ca3af",
+      "locations": [
+        {
+          "line": 109,
+          "column": 17
+        }
+      ],
+      "count": 1,
+      "kind": "semantic-color",
+      "reachability": "unverified",
+      "decision": "pending",
+      "semanticRole": null,
+      "reason": null,
+      "evidence": [],
+      "token": "--control-border",
+      "replacement": "var(--control-border)"
+    }
+  ],
+  "duplicateDefault": {
+    "fingerprint": "9014dc226c84446ae8cbcd2a5e464076485e47c90d5249daa9ca7fbd45a73eea",
+    "file": "client/src/pages/ProjectTypeDetails.tsx",
+    "context": [
+      "ProjectTypeDetails",
+      "InlineEdit"
+    ],
+    "owner": "jsx:value",
+    "property": "jsx:value",
+    "literal": "#6b7280",
+    "locations": [
+      {
+        "line": 192,
+        "column": 36
+      }
+    ],
+    "count": 1,
+    "kind": "unknown",
+    "reachability": "unverified",
+    "decision": "pending",
+    "semanticRole": null,
+    "reason": null,
+    "evidence": []
+  },
+  "nonColorPlaceholder": {
+    "fingerprint": "9523c36b0cab8c261ad645534b851e6021df964e3d3d97e6b1b289a284a55377",
+    "file": "client/src/pages/ProjectTypeDetails.tsx",
+    "context": [
+      "ProjectTypeDetails"
+    ],
+    "owner": "jsx:placeholder",
+    "property": "jsx:placeholder",
+    "literal": "#6b7280",
+    "locations": [
+      {
+        "line": 323,
+        "column": 34
+      }
+    ],
+    "count": 1,
+    "kind": "non-color",
+    "reachability": "unverified",
+    "decision": "not-debt",
+    "semanticRole": "hex-example-text",
+    "reason": "TC-C5 HTML placeholder仅显示颜色代码示例文字，不设置CSS颜色；真实色值来自用户数据",
+    "evidence": [],
+    "classificationSourceHash": "eb2aafecaf36e7d9cbfb3ddd14a2727af1b4e88b61f145b708f38727e878b702"
+  },
+  "unreachablePendingC6": [
+    "client/src/components/ProjectAllocations.tsx",
+    "client/src/components/ProjectAllocations.css"
+  ]
+}

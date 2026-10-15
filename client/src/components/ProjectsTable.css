@@ -5,7 +5,7 @@
 .projects-mini-table .table-container {
   border-radius: 8px;
   overflow: hidden;
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--border-color);
 }
 
 .projects-mini-table .table {
@@ -16,15 +16,15 @@
 .projects-mini-table .table th {
   background: var(--bg-secondary);
   font-weight: 600;
-  color: #374151;
+  color: var(--text-secondary);
   padding: 12px 16px;
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .projects-mini-table .table td {
   padding: 12px 16px;
   vertical-align: middle;
-  border-bottom: 1px solid #f3f4f6;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .projects-mini-table .table tbody tr:last-child td {
@@ -36,13 +36,13 @@
 }
 
 .project-name strong {
-  color: #1f2937;
+  color: var(--text-primary);
   font-weight: 600;
 }
 
 .project-description {
   font-size: 0.8rem;
-  color: #6b7280;
+  color: var(--text-tertiary);
   margin-top: 2px;
 }
 
@@ -57,34 +57,34 @@
 }
 
 .badge-primary {
-  background: #dbeafe;
-  color: #1e40af;
+  background: var(--badge-primary-bg);
+  color: var(--badge-primary-text);
 }
 
 .badge-success {
-  background: #dcfce7;
-  color: #166534;
+  background: var(--status-success-soft);
+  color: var(--status-success-text);
 }
 
 .badge-warning {
-  background: #fef3c7;
-  color: #d97706;
+  background: var(--status-warning-soft);
+  color: var(--status-warning-text);
 }
 
 .badge-secondary {
   background: var(--bg-secondary);
-  color: #4b5563;
+  color: var(--text-secondary);
 }
 
 .badge-danger {
-  background: #fee2e2;
-  color: #dc2626;
+  background: var(--status-danger-soft);
+  color: var(--status-danger-text);
 }
 
 .table-footer {
   padding: 12px 16px;
   background: var(--bg-secondary);
-  border-top: 1px solid #e5e7eb;
+  border-top: 1px solid var(--border-color);
   text-align: center;
 }
 
@@ -95,18 +95,18 @@
   width: 36px;
   height: 36px;
   padding: 6px;
-  border: 1px solid #d1d5db;
+  border: 1px solid var(--control-border);
   border-radius: 6px;
   background: var(--bg-primary);
-  color: #6b7280;
+  color: var(--text-tertiary);
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
 .btn-icon:hover {
   background: var(--bg-secondary);
-  color: #374151;
-  border-color: #9ca3af;
+  color: var(--text-secondary);
+  border-color: var(--control-border);
 }
 
 .btn-sm {

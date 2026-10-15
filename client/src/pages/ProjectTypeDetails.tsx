@@ -7,6 +7,7 @@ import { api } from '../lib/api-client';
 import { queryKeys } from '../lib/queryKeys';
 import type { ProjectType, ProjectSubType, ProjectPhase } from '../types';
 import PhaseTemplateDesigner from '../components/PhaseTemplateDesigner';
+import { getProjectTypeColorFromType } from '../lib/project-colors';
 import ProjectsTable from '../components/ProjectsTable';
 import '../components/PhaseTemplateDesigner.css';
 import './ProjectTypeDetails.css';
@@ -189,7 +190,7 @@ export default function ProjectTypeDetails() {
           ) : type === 'color' ? (
             <input
               type="color"
-              value={editValue || '#6b7280'}
+              value={editValue || getProjectTypeColorFromType(undefined)}
               onChange={(e) => setEditValue(e.target.value)}
               className="form-input"
               onBlur={handleSave}
@@ -226,7 +227,7 @@ export default function ProjectTypeDetails() {
               backgroundColor: value, 
               borderRadius: '4px',
               marginRight: '8px',
-              border: '1px solid #ddd'
+              border: '1px solid var(--control-border)'
             }} 
           />
         )}
@@ -440,7 +441,7 @@ export default function ProjectTypeDetails() {
                           <div style={{ fontWeight: '600', marginBottom: '4px' }}>
                             {role.name}
                           </div>
-                          <div style={{ fontSize: '0.875rem', color: '#6b7280' }}>
+                          <div style={{ fontSize: '0.875rem', color: 'var(--text-secondary)' }}>
                             {role.description}
                           </div>
                         </div>
@@ -472,11 +473,11 @@ export default function ProjectTypeDetails() {
                                 style={{
                                   width: '60px',
                                   padding: '6px 8px',
-                                  border: (shouldShowTemplate && template?.is_inherited) ? '1px solid #93c5fd' : '1px solid #d1d5db',
+                                  border: (shouldShowTemplate && template?.is_inherited) ? '1px solid var(--status-info-border)' : '1px solid var(--control-border)',
                                   borderRadius: '4px',
                                   textAlign: 'center',
                                   fontSize: '0.875rem',
-                                  backgroundColor: (shouldShowTemplate && template?.is_inherited) ? '#dbeafe' : 'white'
+                                  backgroundColor: (shouldShowTemplate && template?.is_inherited) ? 'var(--status-info-soft)' : 'var(--bg-primary)'
                                 }}
                                 onChange={(e) => {
                                   const inputValue = e.target.value;
@@ -498,7 +499,7 @@ export default function ProjectTypeDetails() {
                                   }
                                 }}
                               />
-                              <span style={{ fontSize: '0.875rem', color: '#6b7280' }}>%</span>
+                              <span style={{ fontSize: '0.875rem', color: 'var(--text-secondary)' }}>%</span>
                             </div>
                             {(() => {
                               if (shouldShowTemplate && template?.is_inherited) {
@@ -506,9 +507,9 @@ export default function ProjectTypeDetails() {
                                   <div style={{ marginTop: '4px' }}>
                                     <span style={{ 
                                       fontSize: '0.75rem', 
-                                      color: '#3b82f6', 
+                                      color: 'var(--status-info-text)',
                                       fontWeight: '500',
-                                      backgroundColor: '#dbeafe',
+                                      backgroundColor: 'var(--status-info-soft)',
                                       padding: '2px 6px',
                                       borderRadius: '8px'
                                     }}>

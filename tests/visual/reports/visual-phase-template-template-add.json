@@ -1,0 +1,188 @@
+{
+  "combinations": 4,
+  "checks": 20,
+  "updatePixels": true,
+  "registerExistingAxe": false,
+  "evidence": [
+    {
+      "tag": "phase-template-template-add-dark-1600",
+      "profile": "phase-template",
+      "path": "/project-types/0a1bb90f-62dc-4779-b78a-eb686789b79e",
+      "theme": "dark",
+      "state": "template-add",
+      "viewport": {
+        "width": 1600,
+        "height": 900
+      },
+      "axe": {
+        "count": 0,
+        "cap": 0,
+        "added": [],
+        "identities": []
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe phase-template-template-add-dark-1600: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 phase-template-template-add-dark-1600: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 phase-template-template-add-dark-1600: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "基线 phase-template-template-add-dark-1600: 已采集",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 phase-template-template-add-dark-1600",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/reports/visual-phase-template-template-add-dark-1600.png",
+      "baseline": "tests/visual/__screenshots__/phase-template-template-add-dark-1600.png"
+    },
+    {
+      "tag": "phase-template-template-add-dark-1366",
+      "profile": "phase-template",
+      "path": "/project-types/0a1bb90f-62dc-4779-b78a-eb686789b79e",
+      "theme": "dark",
+      "state": "template-add",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "axe": {
+        "count": 0,
+        "cap": 0,
+        "added": [],
+        "identities": []
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe phase-template-template-add-dark-1366: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 phase-template-template-add-dark-1366: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 phase-template-template-add-dark-1366: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "基线 phase-template-template-add-dark-1366: 已采集",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 phase-template-template-add-dark-1366",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/reports/visual-phase-template-template-add-dark-1366.png",
+      "baseline": "tests/visual/__screenshots__/phase-template-template-add-dark-1366.png"
+    },
+    {
+      "tag": "phase-template-template-add-light-1600",
+      "profile": "phase-template",
+      "path": "/project-types/0a1bb90f-62dc-4779-b78a-eb686789b79e",
+      "theme": "light",
+      "state": "template-add",
+      "viewport": {
+        "width": 1600,
+        "height": 900
+      },
+      "axe": {
+        "count": 0,
+        "cap": 0,
+        "added": [],
+        "identities": []
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe phase-template-template-add-light-1600: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 phase-template-template-add-light-1600: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 phase-template-template-add-light-1600: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "基线 phase-template-template-add-light-1600: 已采集",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 phase-template-template-add-light-1600",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/reports/visual-phase-template-template-add-light-1600.png",
+      "baseline": "tests/visual/__screenshots__/phase-template-template-add-light-1600.png"
+    },
+    {
+      "tag": "phase-template-template-add-light-1366",
+      "profile": "phase-template",
+      "path": "/project-types/0a1bb90f-62dc-4779-b78a-eb686789b79e",
+      "theme": "light",
+      "state": "template-add",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "axe": {
+        "count": 0,
+        "cap": 0,
+        "added": [],
+        "identities": []
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe phase-template-template-add-light-1366: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 phase-template-template-add-light-1366: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 phase-template-template-add-light-1366: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "基线 phase-template-template-add-light-1366: 已采集",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 phase-template-template-add-light-1366",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/reports/visual-phase-template-template-add-light-1366.png",
+      "baseline": "tests/visual/__screenshots__/phase-template-template-add-light-1366.png"
+    }
+  ]
+}

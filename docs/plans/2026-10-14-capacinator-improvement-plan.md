@@ -290,7 +290,7 @@ UI代码定位：[People](../../client/src/pages/People.tsx)、[Projects](../../
 
 - [x] 空/负数/非法日期回填被拒；未提供字段保持原值，显式清空另行定义，C11/C12通过。（2026-10-15：IP-07a 完成——两控制器+两表单，backfilled_at 收紧为完整回填标记；台账见第 7 节子任务行）
 - [ ] 部分回填、完整回填有不同状态；告警按所需实际字段判定，不能仅看backfilled_at；实际可复核、修订并保留历史。
-- [ ] 快照更新条件包含source仍为snapshot；并发下manual永不被快照覆盖，C10通过；同时创建记录通过唯一约束/冲突处理收口。
+- [x] 快照更新条件包含source仍为snapshot；并发下manual永不被快照覆盖，C10通过；同时创建记录通过唯一约束/冲突处理收口。（2026-10-15：IP-07b 完成——条件写入+插入竞速回落守卫更新；台账见第 7 节）
 - [ ] 两编辑者持同版本时，后一请求得到409及当前值，不静默覆盖；版本必须在同一写入条件中比较。
 - [ ] 记录修改者、来源、时间、前后值；覆盖人工月账和重要分配写入，审计记录与实际变化一致。
 - [ ] 计划推定快照不可自动被当作硬实际样本；界面、导出及校准都保留来源。
@@ -400,7 +400,7 @@ UI代码定位：[People](../../client/src/pages/People.tsx)、[Projects](../../
 | IP-04 | S01、F02/F03、C05、U11/U12、R04/R09 | 待处理 | — | — | — |
 | IP-05 | F04 | 待处理 | — | — | — |
 | IP-06 | S06、U01–U12、R01/R02/R04–R08 | 待处理 | — | — | — |
-| IP-07 | F06、C10–C12、S03 | 进行中（07a 完成，07b/c 待领取） | Claude | 见子任务行 | C11/C12 已关：单测 16+5 新增、e2e api 3/3、全量 Jest 4336 绿 |
+| IP-07 | F06、C10–C12、S03 | 进行中（07a/07b 完成，07c 待领取） | Claude | 见子任务行 | C10–C12 已关；全量 Jest 4336 绿 |
 | IP-08 | S02/S03/S04 | 待处理 | — | — | — |
 | IP-09 | S06、F05、U12、R02/R09、维护/性能试运行 | 待处理 | — | — | — |
 | IP-10 | S05、U02/U04、F01/F07、R03/R07/R08 | 部分已验证，其余待复核 | — | 已有b2d3f70 | client typecheck通过；login/me声明对齐（代码确认）；verify及其他契约/语义未关闭 |
@@ -417,7 +417,8 @@ UI代码定位：[People](../../client/src/pages/People.tsx)、[Projects](../../
 
 | 子任务 / 证据 | 状态 / 负责人 | 领取HEAD / 原有改动 | 实施提交 / 变更文件 | 验收命令 / 用例及实际结果 | 未关闭项 / 裁决 |
 |---|---|---|---|---|---|
-| IP-07a / C11、C12 | 完成 / Claude（2026-10-15 会话） | d6692f0 / 工作区干净 | 见本行下方提交记录；EstimationController、DesignEstimationController、services/estimation/backfillPayload.ts（新）、EstimationPanel、DesignEstimationPanel、api-client | 单测先红后绿：server 16/16（EstimationController.test.ts、DesignEstimationController.test.ts 新增，断言 update 载荷键构成/400 分支）、client 10/10（两面板载荷省略空键+空表单禁用）；e2e api 3/3（estimation-backfill.spec.ts，3111 隔离栈真实 HTTP+迁移库）：C11 design=1 保留/dev=3、C12 空与负数/显式null/非法日期均 400 且行不变、部分回填不写 backfilled_at、补齐三项才标完整；typecheck 0、lint:ui PASS | D11 显式 null 清空语义单列未裁决（现为 400 拒绝）；历史已被旧码清空的实际值不追溯；"部分/完整回填有不同状态"其余项（修订历史保留）未做 |
+| IP-07a / C11、C12 | 完成 / Claude（2026-10-15 会话） | d6692f0 / 工作区干净 | `237c5c2`；EstimationController、DesignEstimationController、services/estimation/backfillPayload.ts（新）、EstimationPanel、DesignEstimationPanel、api-client | 单测先红后绿：server 16/16（EstimationController.test.ts、DesignEstimationController.test.ts 新增，断言 update 载荷键构成/400 分支）、client 10/10（两面板载荷省略空键+空表单禁用）；e2e api 3/3（estimation-backfill.spec.ts，3111 隔离栈真实 HTTP+迁移库）：C11 design=1 保留/dev=3、C12 空与负数/显式null/非法日期均 400 且行不变、部分回填不写 backfilled_at、补齐三项才标完整；typecheck 0、lint:ui PASS | D11 显式 null 清空语义单列未裁决（现为 400 拒绝）；历史已被旧码清空的实际值不追溯；"部分/完整回填有不同状态"其余项（修订历史保留）未做 |
+| IP-07b / C10 | 完成 / Claude（2026-10-15 会话） | 237c5c2 / 干净 | 见本批提交；ActualInvestmentsController.snapshot、ActualInvestmentsController.race.test.ts（新） | 真 better-sqlite3 内存库+读后写前屏障（第10节交错构造）：setManual 0.9 在快照读旧 source 后完整写入,放行快照后 manual=0.9 存活、快照返回 skipped——修复前复现旧症状 fte=0.5/manual；插入竞速（唯一约束输给并发 manual）从 500 变为守卫更新+skipped；顺序跳过与快照刷新无回归。typecheck 0 | setManual 的 onConflict merge 本身无 source 守卫（当前无并发 manual×manual 场景,记为已知边界）;版本比较/409 属 IP-07c |
 
 ## 8. 四角色排产决策样例与记录模板
 

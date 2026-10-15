@@ -64,7 +64,7 @@ export class ActualInvestmentsController extends BaseController {
     if (result) this.sendSuccess(req, res, result, undefined);
   });
 
-  /** 月末快照: 只补缺失/刷新旧快照,manual 行绝不覆盖 */
+  /** 月末快照: 只补缺失/刷新旧快照,manual 行绝不覆盖(条件写入,不靠先读再写) */
   snapshot = this.asyncHandler(async (req: RequestWithContext, res: Response) => {
     const month = String(req.body?.month ?? '');
     if (!ActualInvestmentsController.MONTH_RE.test(month)) return this.badMonth(res);
@@ -77,16 +77,35 @@ export class ActualInvestmentsController extends BaseController {
       if (existing && existing.source === 'manual') {
         return { data: { ...existing, skipped: true } };
       }
-      let row;
+      // IP-07b/C10: source=snapshot 必须写进更新条件本身——读到旧快照后、写入前,
+      // 并发 setManual 可能把行改成 manual;无条件 UPDATE 会覆盖人工值
+      let row: any;
       if (existing) {
         [row] = await this.db('project_actual_investments')
-          .where({ id: existing.id })
+          .where({ id: existing.id, source: 'snapshot' })
           .update({ fte, updated_at: new Date() })
           .returning('*');
       } else {
+        try {
+          [row] = await this.db('project_actual_investments')
+            .insert({ project_id: req.params.projectId, month, fte, source: 'snapshot' })
+            .returning('*');
+        } catch (e: any) {
+          // 插入竞速输给并发写入(唯一约束):落到下方守卫更新,manual 行跳过
+          if (!/unique/i.test(String(e?.message ?? e))) throw e;
+        }
+      }
+      if (!row) {
         [row] = await this.db('project_actual_investments')
-          .insert({ project_id: req.params.projectId, month, fte, source: 'snapshot' })
+          .where({ project_id: req.params.projectId, month, source: 'snapshot' })
+          .update({ fte, updated_at: new Date() })
           .returning('*');
+      }
+      if (!row) {
+        const current = await this.db('project_actual_investments')
+          .where({ project_id: req.params.projectId, month })
+          .first();
+        return { data: { ...current, skipped: true } };
       }
       return { data: { ...row, planned_fte: fte } };
     }, res, 'Failed to snapshot actual investment');

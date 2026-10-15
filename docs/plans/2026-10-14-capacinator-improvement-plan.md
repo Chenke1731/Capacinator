@@ -252,7 +252,7 @@ UI代码定位：[People](../../client/src/pages/People.tsx)、[Projects](../../
 
 方向：先修显式false与缺省值的区别；再让预览和执行共享解析及变更计划，清楚区分追加、更新、全量替换。已有事务和回滚继续保留。
 
-- [ ] 保存默认true，本次传false，预览与执行都保留现有数据；缺省值才使用保存设置。覆盖clearExisting及同类布尔选项（F04）。
+- [x] 保存默认true，本次传false，预览与执行都保留现有数据；缺省值才使用保存设置。覆盖clearExisting及同类布尔选项（F04）。（2026-10-15：IP-05a 完成——共享 parseImportOptions,显式 true/false 及 multipart 字符串形式保留,缺省回落保存设置,upload/analyze 同一解释;台账见第 7 节）
 - [ ] V1/V2各自预览与执行采用同一解释器，禁止V2预览借V1得出写入承诺。
 - [ ] 在确定业务匹配键后，重复导入同文件可更新或明确拒绝，不静默复制人员/项目；不把单纯同名当可靠身份。
 - [ ] 预览准确列出新增、更新、删除对象、错误行和引用后果，执行数量及对象与预览一致；文件或选项变化后重新预览。
@@ -419,7 +419,8 @@ UI代码定位：[People](../../client/src/pages/People.tsx)、[Projects](../../
 |---|---|---|---|---|---|
 | IP-07a / C11、C12 | 完成 / Claude（2026-10-15 会话） | d6692f0 / 工作区干净 | `237c5c2`；EstimationController、DesignEstimationController、services/estimation/backfillPayload.ts（新）、EstimationPanel、DesignEstimationPanel、api-client | 单测先红后绿：server 16/16（EstimationController.test.ts、DesignEstimationController.test.ts 新增，断言 update 载荷键构成/400 分支）、client 10/10（两面板载荷省略空键+空表单禁用）；e2e api 3/3（estimation-backfill.spec.ts，3111 隔离栈真实 HTTP+迁移库）：C11 design=1 保留/dev=3、C12 空与负数/显式null/非法日期均 400 且行不变、部分回填不写 backfilled_at、补齐三项才标完整；typecheck 0、lint:ui PASS | D11 显式 null 清空语义单列未裁决（现为 400 拒绝）；历史已被旧码清空的实际值不追溯；"部分/完整回填有不同状态"其余项（修订历史保留）未做 |
 | IP-07b / C10 | 完成 / Claude（2026-10-15 会话） | 237c5c2 / 干净 | `78bc255`；ActualInvestmentsController.snapshot、ActualInvestmentsController.race.test.ts（新） | 真 better-sqlite3 内存库+读后写前屏障（第10节交错构造）：setManual 0.9 在快照读旧 source 后完整写入,放行快照后 manual=0.9 存活、快照返回 skipped——修复前复现旧症状 fte=0.5/manual；插入竞速（唯一约束输给并发 manual）从 500 变为守卫更新+skipped；顺序跳过与快照刷新无回归。typecheck 0 | setManual 的 onConflict merge 本身无 source 守卫（当前无并发 manual×manual 场景,记为已知边界）;版本比较/409 属 IP-07c |
-| IP-06c / R07（面板半边） | 完成 / Claude（2026-10-15 会话） | 78bc255 / 干净 | 见本批提交；EstimationPanel、DesignEstimationPanel、estimation/numericFields.ts（新） | client 单测先红后绿 17/17：合法 0 保留（旧码 `||15/20/50` 复现 R07 载荷 15/20/50）、空串回落缺省、超范围/负数提交前显式拒绝、预览与载荷同源（空串占比预览用缺省 15%而非 0）；e2e api 新增服务端契约钉：create 携 0 占比/偏差入库往返仍为 0（服务端 ?? 本就正确）。typecheck 0、lint:ui PASS | R08（校验绑定保存版本/草稿过期）未做，IP-06c 其余项开放 |
+| IP-06c / R07（面板半边） | 完成 / Claude（2026-10-15 会话） | 78bc255 / 干净 | `88c03a0`；EstimationPanel、DesignEstimationPanel、estimation/numericFields.ts（新） | client 单测先红后绿 17/17：合法 0 保留（旧码 `||15/20/50` 复现 R07 载荷 15/20/50）、空串回落缺省、超范围/负数提交前显式拒绝、预览与载荷同源（空串占比预览用缺省 15%而非 0）；e2e api 新增服务端契约钉：create 携 0 占比/偏差入库往返仍为 0（服务端 ?? 本就正确）。typecheck 0、lint:ui PASS | R08（校验绑定保存版本/草稿过期）未做，IP-06c 其余项开放 |
+| IP-05a / F04（选项解释） | 完成 / Claude（2026-10-15 会话） | 88c03a0 / 干净 | 见本批提交；ImportController.parseImportOptions（新私有方法,upload/analyze 共用） | server 单测先红后绿 59/59（ImportController.test.ts 扩展）：保存 true+本次 'false'/false → clear_existing=false（旧 OR 链复现被吞）、缺省回落保存 true 不回归、analyze 预览回显同一解释（options.clearExisting=false+dryRun）。typecheck 0 | V2 预览回退 V1、匹配键/预览执行一致性属 IP-05b;e2e 真实导入文件级验证留待 05b 批次 |
 
 ## 8. 四角色排产决策样例与记录模板
 

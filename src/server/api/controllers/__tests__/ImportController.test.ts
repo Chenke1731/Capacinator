@@ -373,6 +373,62 @@ describe('ImportController', () => {
       );
     });
 
+    it('F04: explicit string false overrides saved true (saved true must not swallow it)', async () => {
+      mockReq.body = { clearExisting: 'false', useV2: 'false', validateDuplicates: 'false' };
+
+      // 保存设置:清库=true、查重=true —— 本次显式 false 必须生效
+      mockDb._queueFirstResult({
+        value: JSON.stringify({
+          clearExistingData: true,
+          validateDuplicates: true,
+          defaultProjectPriority: 2
+        })
+      });
+      mockDb._queueInsertResult([{ id: 'history-123' }]);
+      mockDb._queueUpdateResult([1]);
+
+      await controller.uploadExcel(mockReq, mockRes);
+      await flushPromises();
+
+      expect(mockDb.insert).toHaveBeenCalledWith(
+        expect.objectContaining({ clear_existing: false, validate_duplicates: false })
+      );
+    });
+
+    it('F04: explicit boolean false also overrides saved true', async () => {
+      mockReq.body = { clearExisting: false, useV2: 'false' };
+
+      mockDb._queueFirstResult({
+        value: JSON.stringify({ clearExistingData: true, validateDuplicates: true })
+      });
+      mockDb._queueInsertResult([{ id: 'history-123' }]);
+      mockDb._queueUpdateResult([1]);
+
+      await controller.uploadExcel(mockReq, mockRes);
+      await flushPromises();
+
+      expect(mockDb.insert).toHaveBeenCalledWith(
+        expect.objectContaining({ clear_existing: false })
+      );
+    });
+
+    it('F04: absent option falls back to saved setting (explicit-wins does not break defaults)', async () => {
+      mockReq.body = { useV2: 'false' }; // clearExisting 未提交
+
+      mockDb._queueFirstResult({
+        value: JSON.stringify({ clearExistingData: true, validateDuplicates: true })
+      });
+      mockDb._queueInsertResult([{ id: 'history-123' }]);
+      mockDb._queueUpdateResult([1]);
+
+      await controller.uploadExcel(mockReq, mockRes);
+      await flushPromises();
+
+      expect(mockDb.insert).toHaveBeenCalledWith(
+        expect.objectContaining({ clear_existing: true, validate_duplicates: true })
+      );
+    });
+
     it('returns 400 when import completes with errors', async () => {
       // eslint-disable-next-line @typescript-eslint/no-require-imports
       const { ExcelImporter } = require('../../../services/import/ExcelImporter');
@@ -895,6 +951,23 @@ describe('ImportController', () => {
         error: 'No file uploaded',
         message: 'Please select an Excel file to analyze'
       });
+    });
+
+    it('F04: preview keeps an explicit false against saved true (same interpretation as execution)', async () => {
+      mockReq.body = { clearExisting: 'false', useV2: 'false' };
+
+      mockDb._setFirstResult({
+        value: JSON.stringify({ clearExistingData: true, validateDuplicates: true })
+      });
+
+      await controller.analyzeImport(mockReq, mockRes);
+      await flushPromises();
+
+      expect(mockRes.json).toHaveBeenCalledWith(
+        expect.objectContaining({
+          options: expect.objectContaining({ clearExisting: false, dryRun: true })
+        })
+      );
     });
 
     it('uses V2 analyzer when useV2 is true', async () => {

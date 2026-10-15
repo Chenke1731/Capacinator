@@ -192,6 +192,32 @@ export class ImportController extends BaseController {
     }
   }
 
+  /**
+   * 导入布尔选项统一解释（IP-05a/F04）：显式 true/false（含 multipart 字符串形式）
+   * 一律保留——显式 false 必须能覆盖已保存的 true；仅缺省（undefined/null/空串）
+   * 才回落保存设置。upload 与 analyze 共用同一解释,预览与执行不再分叉。
+   */
+  private parseImportOptions(body: Record<string, unknown>, saved: ImportSettings, dryRun = false) {
+    const bool = (raw: unknown, savedDefault: boolean): boolean => {
+      if (raw === true || raw === 'true' || raw === 1 || raw === '1') return true;
+      if (raw === false || raw === 'false' || raw === 0 || raw === '0') return false;
+      return savedDefault; // 缺省或无法解释的值:遵循保存设置
+    };
+    return {
+      clearExisting: bool(body.clearExisting, saved.clearExistingData),
+      useV2: bool(body.useV2, false),
+      validateDuplicates: bool(body.validateDuplicates, saved.validateDuplicates),
+      autoCreateMissingRoles: bool(body.autoCreateMissingRoles, saved.autoCreateMissingRoles),
+      autoCreateMissingLocations: bool(body.autoCreateMissingLocations, saved.autoCreateMissingLocations),
+      defaultProjectPriority:
+        body.defaultProjectPriority != null && body.defaultProjectPriority !== ''
+          ? parseInt(String(body.defaultProjectPriority), 10)
+          : saved.defaultProjectPriority,
+      dateFormat: (body.dateFormat as string) || saved.dateFormat,
+      ...(dryRun ? { dryRun: true } : {})
+    };
+  }
+
   async uploadExcel(req: Request, res: Response) {
     try {
       if (!req.file) {
@@ -203,17 +229,9 @@ export class ImportController extends BaseController {
 
       // Load saved import settings from database
       const savedSettings = await this.getImportSettings();
-      
+
       // Parse import options from request body with fallback to saved settings
-      const importOptions = {
-        clearExisting: req.body.clearExisting === 'true' || req.body.clearExisting === true || savedSettings.clearExistingData,
-        useV2: req.body.useV2 === 'true' || req.body.useV2 === true,
-        validateDuplicates: req.body.validateDuplicates === 'true' || req.body.validateDuplicates === true || savedSettings.validateDuplicates,
-        autoCreateMissingRoles: req.body.autoCreateMissingRoles === 'true' || req.body.autoCreateMissingRoles === true || savedSettings.autoCreateMissingRoles,
-        autoCreateMissingLocations: req.body.autoCreateMissingLocations === 'true' || req.body.autoCreateMissingLocations === true || savedSettings.autoCreateMissingLocations,
-        defaultProjectPriority: req.body.defaultProjectPriority ? parseInt(req.body.defaultProjectPriority, 10) : savedSettings.defaultProjectPriority,
-        dateFormat: req.body.dateFormat || savedSettings.dateFormat
-      };
+      const importOptions = this.parseImportOptions(req.body, savedSettings);
       
       logger.info('Starting Excel import', { path: req.file.path, options: importOptions });
       
@@ -642,18 +660,9 @@ export class ImportController extends BaseController {
 
       // Load saved import settings from database
       const savedSettings = await this.getImportSettings();
-      
-      // Parse import options from request body with fallback to saved settings
-      const importOptions = {
-        clearExisting: req.body.clearExisting === 'true' || req.body.clearExisting === true || savedSettings.clearExistingData,
-        useV2: req.body.useV2 === 'true' || req.body.useV2 === true,
-        validateDuplicates: req.body.validateDuplicates === 'true' || req.body.validateDuplicates === true || savedSettings.validateDuplicates,
-        autoCreateMissingRoles: req.body.autoCreateMissingRoles === 'true' || req.body.autoCreateMissingRoles === true || savedSettings.autoCreateMissingRoles,
-        autoCreateMissingLocations: req.body.autoCreateMissingLocations === 'true' || req.body.autoCreateMissingLocations === true || savedSettings.autoCreateMissingLocations,
-        defaultProjectPriority: req.body.defaultProjectPriority ? parseInt(req.body.defaultProjectPriority, 10) : savedSettings.defaultProjectPriority,
-        dateFormat: req.body.dateFormat || savedSettings.dateFormat,
-        dryRun: true // Force dry-run mode for analysis
-      };
+
+      // Parse import options with the same shared interpretation as execution (IP-05a/F04)
+      const importOptions = this.parseImportOptions(req.body, savedSettings, true);
       
       logger.info('Starting dry-run import analysis', { path: req.file.path, options: importOptions });
       

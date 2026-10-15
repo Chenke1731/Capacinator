@@ -166,9 +166,80 @@ describe('EstimationPanel', () => {
     await userEvent.click(screen.getByRole('button', { name: /Save Backfill/i }));
 
     await waitFor(() => {
-      expect(mockedBackfill).toHaveBeenCalledTimes(1);
+      expect(mockedBackfill.mock.calls.length).toBe(1);
     });
     const [, payload] = mockedBackfill.mock.calls[0];
     expect(payload).toEqual({ actual_loc: 900, actual_delivery_date: '2026-12-20' });
+  });
+
+  test('R07: legal zero share/deviations are preserved in the save payload, not defaulted', async () => {
+    mockedCreate.mockResolvedValue({ data: { data: { ...CURRENT_ESTIMATION, id: 8 } } });
+    renderPanel();
+    await screen.findByText(/Current Estimate/i);
+
+    await userEvent.type(screen.getByLabelText(/Estimated Lines of Code/i), '500');
+    for (const [label, value] of [
+      [/Design Share/i, '0'],
+      [/Optimistic deviation/i, '0'],
+      [/Pessimistic deviation/i, '0']
+    ] as const) {
+      await userEvent.clear(screen.getByLabelText(label));
+      await userEvent.type(screen.getByLabelText(label), value);
+    }
+    await userEvent.click(screen.getByRole('button', { name: /Save Estimate/i }));
+
+    await waitFor(() => {
+      expect(mockedCreate).toHaveBeenCalledTimes(1);
+    });
+    const [, payload] = mockedCreate.mock.calls[0];
+    expect(payload.design_share_pct).toBe(0);
+    expect(payload.deviation_low_pct).toBe(0);
+    expect(payload.deviation_high_pct).toBe(0);
+  });
+
+  test('R07: empty optional fields fall back to defaults 500/15/20/50', async () => {
+    mockedCreate.mockResolvedValue({ data: { data: { ...CURRENT_ESTIMATION, id: 8 } } });
+    renderPanel();
+    await screen.findByText(/Current Estimate/i);
+
+    await userEvent.type(screen.getByLabelText(/Estimated Lines of Code/i), '500');
+    for (const label of [/Conversion rate/i, /Design Share/i, /Optimistic deviation/i, /Pessimistic deviation/i]) {
+      await userEvent.clear(screen.getByLabelText(label));
+    }
+    await userEvent.click(screen.getByRole('button', { name: /Save Estimate/i }));
+
+    await waitFor(() => {
+      expect(mockedCreate).toHaveBeenCalledTimes(1);
+    });
+    const [, payload] = mockedCreate.mock.calls[0];
+    expect(payload.loc_rate_per_pm).toBe(500);
+    expect(payload.design_share_pct).toBe(15);
+    expect(payload.deviation_low_pct).toBe(20);
+    expect(payload.deviation_high_pct).toBe(50);
+  });
+
+  test('R07: out-of-range share is rejected before submit with a visible message', async () => {
+    renderPanel();
+    await screen.findByText(/Current Estimate/i);
+
+    await userEvent.type(screen.getByLabelText(/Estimated Lines of Code/i), '500');
+    await userEvent.clear(screen.getByLabelText(/Design Share/i));
+    await userEvent.type(screen.getByLabelText(/Design Share/i), '150');
+    await userEvent.click(screen.getByRole('button', { name: /Save Estimate/i }));
+
+    expect(await screen.findByText(/design_share_pct must be between 0 and 100/i)).toBeInTheDocument();
+    expect(mockedCreate).not.toHaveBeenCalled();
+  });
+
+  test('R07: preview uses the default share when the field is cleared (matches what save would send)', async () => {
+    renderPanel();
+    await screen.findByText(/Current Estimate/i);
+
+    await userEvent.type(screen.getByLabelText(/Estimated Lines of Code/i), '1000');
+    await userEvent.clear(screen.getByLabelText(/Design Share/i));
+
+    // 1000/500=2PM; 默认 15% → design 0.2 ~ 0.5(0.45 按 r1 半位进到 0.5;空串不能被当成 0 显示 0 ~ 0)
+    const preview = screen.getByText(/Conversion preview/i).closest('div')!;
+    expect(preview.textContent).toContain('0.2 ~ 0.5');
   });
 });

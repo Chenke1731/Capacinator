@@ -11,6 +11,7 @@ import { Label } from '../ui/label';
 import { Textarea } from '../ui/textarea';
 import { Badge } from '../ui/badge';
 import { SideCheckRow, VERDICT_VARIANT } from './EstimationPanel';
+import { resolveOptionalNumber, positiveNumberError, rangeError } from './numericFields';
 import type { EstimationSideCheck } from '../../types';
 
 /**
@@ -69,9 +70,10 @@ export function DesignEstimationPanel({
   const [deviation, setDeviation] = useState<number | null>(null);
 
   const preview = useMemo(() => {
-    const pm = Number(form.estimated_design_pm) || 0;
-    const lowFactor = 1 - (Number(form.deviation_low_pct) || 0) / 100;
-    const highFactor = 1 + (Number(form.deviation_high_pct) || 0) / 100;
+    // 空串=缺省(与保存载荷同一解释,R07);合法 0 不被默认值替换
+    const pm = resolveOptionalNumber(form.estimated_design_pm, 0);
+    const lowFactor = 1 - resolveOptionalNumber(form.deviation_low_pct, 20) / 100;
+    const highFactor = 1 + resolveOptionalNumber(form.deviation_high_pct, 50) / 100;
     const r1 = (n: number) => Math.round(n * 10) / 10;
     return { low: r1(pm * lowFactor), mid: r1(pm), high: r1(pm * highFactor) };
   }, [form]);
@@ -80,10 +82,21 @@ export function DesignEstimationPanel({
 
   const saveMutation = useMutation({
     mutationFn: async () => {
+      // R07: 空串=缺省;合法 0 保留;非法值显式报错,不静默吞掉提交
+      const pm = Number(form.estimated_design_pm);
+      const low = resolveOptionalNumber(form.deviation_low_pct, 20);
+      const high = resolveOptionalNumber(form.deviation_high_pct, 50);
+      const errors = [
+        positiveNumberError(pm, 'estimated_design_pm'),
+        rangeError(low, 'deviation_low_pct', 0, 99),
+        rangeError(high, 'deviation_high_pct', 0, 300)
+      ].filter(Boolean) as string[];
+      if (errors.length > 0) throw new Error(errors.join('; '));
+
       const response = await api.designEstimations.create(projectId, {
-        estimated_design_pm: Number(form.estimated_design_pm),
-        deviation_low_pct: Number(form.deviation_low_pct) || 20,
-        deviation_high_pct: Number(form.deviation_high_pct) || 50,
+        estimated_design_pm: pm,
+        deviation_low_pct: low,
+        deviation_high_pct: high,
         notes: form.notes || null
       });
       return response.data;

@@ -143,4 +143,28 @@ test.describe('Estimation backfill semantics (C11/C12)', () => {
     expect(current.actual_design_pm).toBe(2);
     expect(current.backfilled_at).toBeTruthy();
   });
+
+  test(`${tags.api} R07: legal zero share/deviations survive the server round-trip`, async ({ apiContext }) => {
+    const res = await apiContext.post(`/api/estimations/project/${projectId}`, {
+      data: {
+        estimated_loc: 500,
+        loc_rate_per_pm: 500,
+        design_share_pct: 0,
+        deviation_low_pct: 0,
+        deviation_high_pct: 0
+      }
+    });
+    expect(res.ok()).toBeTruthy();
+    const created = (await res.json()).data;
+    expect(created.design_share_pct).toBe(0);
+    expect(created.deviation_low_pct).toBe(0);
+    expect(created.deviation_high_pct).toBe(0);
+
+    const listRes = await apiContext.get(`/api/estimations/project/${projectId}`);
+    expect(listRes.ok()).toBeTruthy();
+    const row = ((await listRes.json()).data || [])[0];
+    expect(row.design_share_pct).toBe(0);
+    expect(row.deviation_low_pct).toBe(0);
+    expect(row.deviation_high_pct).toBe(0);
+  });
 });

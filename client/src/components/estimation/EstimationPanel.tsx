@@ -17,6 +17,7 @@ import type {
   EstimationSideCheck
 } from '../../types';
 import { DesignEstimationPanel } from './DesignEstimationPanel';
+import { resolveOptionalNumber, positiveNumberError, rangeError } from './numericFields';
 
 interface EstimationFormState {
   estimated_loc: string;
@@ -40,11 +41,12 @@ const EMPTY_FORM: EstimationFormState = {
 
 /** Client-side mirror of the server conversion formula (display preview only). */
 function computePreview(form: EstimationFormState) {
-  const loc = Number(form.estimated_loc) || 0;
-  const rate = Number(form.loc_rate_per_pm) || 500;
-  const share = Number(form.design_share_pct) || 0;
-  const lowFactor = 1 - (Number(form.deviation_low_pct) || 0) / 100;
-  const highFactor = 1 + (Number(form.deviation_high_pct) || 0) / 100;
+  // 空串=缺省(与保存载荷同一解释,R07);合法 0 不被默认值替换
+  const loc = resolveOptionalNumber(form.estimated_loc, 0);
+  const rate = resolveOptionalNumber(form.loc_rate_per_pm, 500);
+  const share = resolveOptionalNumber(form.design_share_pct, 15);
+  const lowFactor = 1 - resolveOptionalNumber(form.deviation_low_pct, 20) / 100;
+  const highFactor = 1 + resolveOptionalNumber(form.deviation_high_pct, 50) / 100;
   const mid = rate > 0 ? loc / rate : 0;
   const r1 = (n: number) => Math.round(n * 10) / 10;
   return {
@@ -52,6 +54,29 @@ function computePreview(form: EstimationFormState) {
     design: { low: r1(mid * lowFactor * share / 100), mid: r1(mid * share / 100), high: r1(mid * highFactor * share / 100) },
     dev: { low: r1(mid * lowFactor * (1 - share / 100)), mid: r1(mid * (1 - share / 100)), high: r1(mid * highFactor * (1 - share / 100)) }
   };
+}
+
+/** 保存载荷与预览同源;非法值收集报错,不静默吞掉提交 (R07) */
+function buildEstimationPayload(form: EstimationFormState) {
+  const errors: string[] = [];
+  const grab = (raw: string, fallback: number, check: (n: number) => string | null): number => {
+    const n = resolveOptionalNumber(raw, fallback);
+    const err = check(n);
+    if (err) errors.push(err);
+    return n;
+  };
+  const payload = {
+    estimated_loc: Number(form.estimated_loc),
+    loc_rate_per_pm: grab(form.loc_rate_per_pm, 500, (n) => positiveNumberError(n, 'loc_rate_per_pm')),
+    design_share_pct: grab(form.design_share_pct, 15, (n) => rangeError(n, 'design_share_pct', 0, 100)),
+    deviation_low_pct: grab(form.deviation_low_pct, 20, (n) => rangeError(n, 'deviation_low_pct', 0, 99)),
+    deviation_high_pct: grab(form.deviation_high_pct, 50, (n) => rangeError(n, 'deviation_high_pct', 0, 300)),
+    expected_delivery_date: form.expected_delivery_date || null,
+    review_notes: form.review_notes || null
+  };
+  errors.push(...[positiveNumberError(payload.estimated_loc, 'estimated_loc')].filter(Boolean) as string[]);
+  if (errors.length > 0) return { error: errors.join('; ') };
+  return { payload };
 }
 
 export const VERDICT_VARIANT: Record<string, 'default' | 'secondary' | 'destructive' | 'outline'> = {
@@ -137,16 +162,9 @@ function LocEstimationPanel({ projectId }: { projectId: string }) {
 
   const saveMutation = useMutation({
     mutationFn: async () => {
-      const payload = {
-        estimated_loc: Number(form.estimated_loc),
-        loc_rate_per_pm: Number(form.loc_rate_per_pm) || 500,
-        design_share_pct: Number(form.design_share_pct) || 15,
-        deviation_low_pct: Number(form.deviation_low_pct) || 20,
-        deviation_high_pct: Number(form.deviation_high_pct) || 50,
-        expected_delivery_date: form.expected_delivery_date || null,
-        review_notes: form.review_notes || null
-      };
-      const response = await api.estimations.create(projectId, payload);
+      const built = buildEstimationPayload(form);
+      if (built.error) throw new Error(built.error);
+      const response = await api.estimations.create(projectId, built.payload!);
       return response.data;
     },
     onSuccess: () => {

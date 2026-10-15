@@ -273,7 +273,7 @@ UI代码定位：[People](../../client/src/pages/People.tsx)、[Projects](../../
 - [ ] 窄屏主操作不竖排；优先保护名称、告警和当前任务的人力信息，提供列预设或行详情；隐藏关键列有明确替代入口。
 - [ ] 看风险/做调整/比方案有明确的信息组织；SE/开发按月缺口、扣缓冲产能和区间结果优先，次要身份字段与管理动作下沉（S06/U12）。
 - [ ] 在“发现超载→定位人员→调整→结果更新→失败恢复”整段旅程中验收，截图和axe作为补充。
-- [ ] 设计占比和两种偏差的合法0在预览、保存载荷与持久化结果中一致；设计粗估面板同步处理同类问题（R07）。
+- [x] 设计占比和两种偏差的合法0在预览、保存载荷与持久化结果中一致；设计粗估面板同步处理同类问题（R07）。（2026-10-15：面板载荷构造与预览统一"空串=缺省/合法0保留/非法显式拒绝"解释;服务端两侧 ?? 本就正确,补契约钉;台账见第 7 节）
 - [ ] 校验按钮明确使用已保存评估还是草稿；结果标明评估版本、场景、窗口、计算时点和未验证部分。草稿或相关事实变化后旧结果清除/标过期，并可重新校验（R08）。
 - [ ] 方案比较从“修改了几条”补足“谁在哪段时间更忙、哪件事受影响”；日期变更不能只显示相同比例箭头，缺少影响计算明确未计算（R04）。
 - [ ] 需求台提供待裁决、待估算、待配人、有冲突、待排期、交付待回填等任务视图；每个数量可下钻到同一结果集，任务视图与属性筛选可以组合且可恢复（U15）。
@@ -418,7 +418,8 @@ UI代码定位：[People](../../client/src/pages/People.tsx)、[Projects](../../
 | 子任务 / 证据 | 状态 / 负责人 | 领取HEAD / 原有改动 | 实施提交 / 变更文件 | 验收命令 / 用例及实际结果 | 未关闭项 / 裁决 |
 |---|---|---|---|---|---|
 | IP-07a / C11、C12 | 完成 / Claude（2026-10-15 会话） | d6692f0 / 工作区干净 | `237c5c2`；EstimationController、DesignEstimationController、services/estimation/backfillPayload.ts（新）、EstimationPanel、DesignEstimationPanel、api-client | 单测先红后绿：server 16/16（EstimationController.test.ts、DesignEstimationController.test.ts 新增，断言 update 载荷键构成/400 分支）、client 10/10（两面板载荷省略空键+空表单禁用）；e2e api 3/3（estimation-backfill.spec.ts，3111 隔离栈真实 HTTP+迁移库）：C11 design=1 保留/dev=3、C12 空与负数/显式null/非法日期均 400 且行不变、部分回填不写 backfilled_at、补齐三项才标完整；typecheck 0、lint:ui PASS | D11 显式 null 清空语义单列未裁决（现为 400 拒绝）；历史已被旧码清空的实际值不追溯；"部分/完整回填有不同状态"其余项（修订历史保留）未做 |
-| IP-07b / C10 | 完成 / Claude（2026-10-15 会话） | 237c5c2 / 干净 | 见本批提交；ActualInvestmentsController.snapshot、ActualInvestmentsController.race.test.ts（新） | 真 better-sqlite3 内存库+读后写前屏障（第10节交错构造）：setManual 0.9 在快照读旧 source 后完整写入,放行快照后 manual=0.9 存活、快照返回 skipped——修复前复现旧症状 fte=0.5/manual；插入竞速（唯一约束输给并发 manual）从 500 变为守卫更新+skipped；顺序跳过与快照刷新无回归。typecheck 0 | setManual 的 onConflict merge 本身无 source 守卫（当前无并发 manual×manual 场景,记为已知边界）;版本比较/409 属 IP-07c |
+| IP-07b / C10 | 完成 / Claude（2026-10-15 会话） | 237c5c2 / 干净 | `78bc255`；ActualInvestmentsController.snapshot、ActualInvestmentsController.race.test.ts（新） | 真 better-sqlite3 内存库+读后写前屏障（第10节交错构造）：setManual 0.9 在快照读旧 source 后完整写入,放行快照后 manual=0.9 存活、快照返回 skipped——修复前复现旧症状 fte=0.5/manual；插入竞速（唯一约束输给并发 manual）从 500 变为守卫更新+skipped；顺序跳过与快照刷新无回归。typecheck 0 | setManual 的 onConflict merge 本身无 source 守卫（当前无并发 manual×manual 场景,记为已知边界）;版本比较/409 属 IP-07c |
+| IP-06c / R07（面板半边） | 完成 / Claude（2026-10-15 会话） | 78bc255 / 干净 | 见本批提交；EstimationPanel、DesignEstimationPanel、estimation/numericFields.ts（新） | client 单测先红后绿 17/17：合法 0 保留（旧码 `||15/20/50` 复现 R07 载荷 15/20/50）、空串回落缺省、超范围/负数提交前显式拒绝、预览与载荷同源（空串占比预览用缺省 15%而非 0）；e2e api 新增服务端契约钉：create 携 0 占比/偏差入库往返仍为 0（服务端 ?? 本就正确）。typecheck 0、lint:ui PASS | R08（校验绑定保存版本/草稿过期）未做，IP-06c 其余项开放 |
 
 ## 8. 四角色排产决策样例与记录模板
 

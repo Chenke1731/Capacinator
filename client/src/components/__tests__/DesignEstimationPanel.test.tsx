@@ -18,6 +18,7 @@ jest.mock('../../lib/api-client', () => ({
 }));
 
 const mockedList = api.designEstimations.listByProject as jest.Mock;
+const mockedCreate = api.designEstimations.create as jest.Mock;
 const mockedBackfill = api.designEstimations.backfill as jest.Mock;
 
 const renderPanel = () => {
@@ -74,5 +75,56 @@ describe('DesignEstimationPanel backfill (IP-07a / C11 / C12)', () => {
     const [id, payload] = mockedBackfill.mock.calls[0];
     expect(id).toBe(3);
     expect(payload).toEqual({ actual_design_pm: 2 });
+  });
+
+  test('R07: legal zero deviations are preserved in the design payload, not defaulted', async () => {
+    mockedCreate.mockResolvedValue({ data: { data: { ...CURRENT_DESIGN_ESTIMATION, id: 4 } } });
+    renderPanel();
+    await screen.findByText(/Current Rough Design Estimate/i);
+
+    await userEvent.type(screen.getByLabelText(/Rough design effort/i), '1');
+    await userEvent.clear(screen.getByLabelText(/Optimistic deviation/i));
+    await userEvent.type(screen.getByLabelText(/Optimistic deviation/i), '0');
+    await userEvent.clear(screen.getByLabelText(/Pessimistic deviation/i));
+    await userEvent.type(screen.getByLabelText(/Pessimistic deviation/i), '0');
+    await userEvent.click(screen.getByRole('button', { name: /Save Estimate/i }));
+
+    await waitFor(() => {
+      expect(mockedCreate).toHaveBeenCalledTimes(1);
+    });
+    const [, payload] = mockedCreate.mock.calls[0];
+    expect(payload.deviation_low_pct).toBe(0);
+    expect(payload.deviation_high_pct).toBe(0);
+  });
+
+  test('R07: empty deviations fall back to defaults 20/50', async () => {
+    mockedCreate.mockResolvedValue({ data: { data: { ...CURRENT_DESIGN_ESTIMATION, id: 4 } } });
+    renderPanel();
+    await screen.findByText(/Current Rough Design Estimate/i);
+
+    await userEvent.type(screen.getByLabelText(/Rough design effort/i), '1');
+    await userEvent.clear(screen.getByLabelText(/Optimistic deviation/i));
+    await userEvent.clear(screen.getByLabelText(/Pessimistic deviation/i));
+    await userEvent.click(screen.getByRole('button', { name: /Save Estimate/i }));
+
+    await waitFor(() => {
+      expect(mockedCreate).toHaveBeenCalledTimes(1);
+    });
+    const [, payload] = mockedCreate.mock.calls[0];
+    expect(payload.deviation_low_pct).toBe(20);
+    expect(payload.deviation_high_pct).toBe(50);
+  });
+
+  test('R07: negative deviation is rejected before submit with a visible message', async () => {
+    renderPanel();
+    await screen.findByText(/Current Rough Design Estimate/i);
+
+    await userEvent.type(screen.getByLabelText(/Rough design effort/i), '1');
+    await userEvent.clear(screen.getByLabelText(/Optimistic deviation/i));
+    await userEvent.type(screen.getByLabelText(/Optimistic deviation/i), '-5');
+    await userEvent.click(screen.getByRole('button', { name: /Save Estimate/i }));
+
+    expect(await screen.findByText(/deviation_low_pct must be between 0 and 99/i)).toBeInTheDocument();
+    expect(mockedCreate).not.toHaveBeenCalled();
   });
 });

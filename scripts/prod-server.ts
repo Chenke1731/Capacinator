@@ -9,7 +9,7 @@ const prodServer = new ServerManager({
   name: 'prod-server',
   port: 3110,
   command: 'node',
-  args: ['dist/server/index.js'],
+  args: ['dist/src/server/index.js'],
   env: {
     NODE_ENV: 'production'
   }

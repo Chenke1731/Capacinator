@@ -1,6 +1,7 @@
 import { config as dotenvConfig } from 'dotenv';
 import { createExpressApp } from './app.js';
 import { initializeDatabase } from './database/index.js';
+import { initializeAutomaticBackups } from './services/backup/scheduler.js';
 import { initializeE2EDatabase } from './database/init-e2e.js';
 import { setupGlobalErrorHandlers } from './middleware/enhancedErrorHandler.js';
 import { logger } from './services/logging/config.js';
@@ -46,6 +47,10 @@ async function startServer() {
       logger.info('E2E database initialized');
     } else {
       await initializeDatabase();
+      // IP-08c: 备份在迁移完成后启动(首启不再对空库备份)
+      if (process.env.NODE_ENV !== 'test' && process.env.NODE_ENV !== 'e2e') {
+        initializeAutomaticBackups();
+      }
     }
     logger.info('Database ready');
 

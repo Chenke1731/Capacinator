@@ -10,7 +10,7 @@
  *   都把它当"已回填"信号,部分回填写它等于冒充完整。
  */
 export type BackfillParseResult =
-  | { ok: true; values: Record<string, number | string> }
+  | { ok: true; values: Record<string, number | string>; message?: undefined }
   | { ok: false; message: string };
 
 export function parseBackfillBody(

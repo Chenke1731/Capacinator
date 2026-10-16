@@ -3,6 +3,7 @@ import fs from 'fs';
 import { logger } from '../logging/config.js';
 import { getConfig } from '../../config/index.js';
 import { runBackupOnce } from './backupService.js';
+import { resolveDatabaseFile } from '../../database/knexfile.js';
 
 /**
  * 自动备份调度(IP-08a/S02)——旧实现只有一行日志。
@@ -69,7 +70,9 @@ export function initializeAutomaticBackups(opts?: {
     logger.error(`Automatic backups disabled: unknown interval '${dbConfig.backupInterval}'`);
     return;
   }
-  const dbFilePath = opts?.dbFilePath ?? dbConfig.filename;
+  // 与 knex 同源解析(绝对路径原样/相对名落 data 目录)——旧取 config.filename
+  // 在相对名场景下相对 CWD 解析,启动即备份失败(冒烟实测)
+  const dbFilePath = opts?.dbFilePath ?? resolveDatabaseFile();
   const timerApi = opts?.timerApi ?? { setInterval, clearInterval };
 
   if (schedulerState.timer) timerApi.clearInterval(schedulerState.timer);

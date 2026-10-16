@@ -347,13 +347,14 @@ describe('Express App', () => {
       expect(mockLogger.info).toHaveBeenCalledWith('Notification scheduler started');
     });
 
-    it('should initialize automatic backups in non-test environment', async () => {
+    it('IP-08c: 备份调度已移至 index.ts(迁移后启动),createApp 不再调用', async () => {
       process.env.NODE_ENV = 'development';
 
       await createExpressApp();
 
-      expect(mockInitializeAutomaticBackups).toHaveBeenCalled();
-      expect(mockLogger.info).toHaveBeenCalledWith('Automatic backups scheduled', { frequency: 'daily' });
+      // 移位原因: createApp 先于 initializeDatabase,首启会在空库上备份
+      // 并触发校验门拒绝(冒烟实测)——调度改在迁移完成后由 index.ts 启动
+      expect(mockInitializeAutomaticBackups).not.toHaveBeenCalled();
     });
 
     it('should not initialize background services in test environment', async () => {

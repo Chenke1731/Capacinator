@@ -34,6 +34,19 @@ if [ -n "$STAGED_TS" ]; then
     exit 1
   fi
 
+  # 生产配置独立跑(strict:false 与根配置不同——2026-10-16 曾漏网:
+  # BackfillParseResult 判别收窄在 strict 下通过、在生产配置下失败,
+  # npm run build 断而 pre-commit 全绿)
+  STAGED_SERVER_TS=$(echo "$STAGED_TS" | grep -c "^src/server/" || true)
+  if [ "$STAGED_SERVER_TS" -gt 0 ]; then
+    echo "── Server production tsc (--noEmit) ──"
+    npx tsc -p tsconfig.production.json --noEmit 2>/dev/null
+    if [ $? -ne 0 ]; then
+      echo "✗ Server production build type errors — commit blocked"
+      exit 1
+    fi
+  fi
+
   echo "── Client typecheck (budget) ──"
   node scripts/client-typecheck-budget.mjs
   if [ $? -ne 0 ]; then

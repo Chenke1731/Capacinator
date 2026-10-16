@@ -10,7 +10,6 @@ import { createGlobalLimiter, createLoginLimiter } from './middleware/rateLimite
 import { requestLoggerMiddleware, userContextMiddleware } from './middleware/requestLogger.js';
 import { enhancedAuditMiddleware } from './middleware/enhancedAuditMiddleware.js';
 import { initializeNotificationScheduler } from './services/notifications/scheduler.js';
-import { initializeAutomaticBackups } from './services/backup/scheduler.js';
 import { config } from './config/index.js';
 import { logger } from './services/logging/config.js';
 
@@ -114,9 +113,8 @@ export async function createExpressApp() {
     logger.info('Initializing notification scheduler');
     initializeNotificationScheduler();
     logger.info('Notification scheduler started');
-    
-    initializeAutomaticBackups();
-    logger.info('Automatic backups scheduled', { frequency: 'daily' });
+    // IP-08c: 备份调度移至 index.ts 的 initializeDatabase() 之后——
+    // 此处先于迁移启动,首启会在空库上备份并触发校验门拒绝(冒烟实测)
   }
 
   return app;

@@ -27,7 +27,7 @@ describe('backupService (真 sqlite)', () => {
     `CREATE TABLE people (id TEXT PRIMARY KEY, name TEXT)`,
     `CREATE TABLE scenario_project_assignments (id TEXT PRIMARY KEY, scenario_id TEXT, allocation_percentage REAL)`,
     `CREATE TABLE project_estimations (id INTEGER PRIMARY KEY, project_id TEXT)`,
-    `CREATE TABLE audit_logs (id INTEGER PRIMARY KEY AUTOINCREMENT, action TEXT)`,
+    `CREATE TABLE audit_log (id INTEGER PRIMARY KEY AUTOINCREMENT, action TEXT)`,
     `CREATE TABLE project_actual_investments (
       id INTEGER PRIMARY KEY AUTOINCREMENT, project_id TEXT, month TEXT,
       fte REAL, source TEXT

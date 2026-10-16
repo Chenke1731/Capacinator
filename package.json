@@ -32,8 +32,8 @@
     "e2e:start:legacy": "./scripts/start-e2e-server.sh",
     "e2e:stop:cleanup": "./scripts/stop-e2e-server.sh --cleanup-db",
     "e2e:reset": "./scripts/stop-e2e-server.sh --cleanup-db && ./scripts/start-e2e-server.sh",
-    "build": "npm run build:server && npm run build:client && npm run build:electron",
-    "build:server": "npx tsc -p tsconfig.production.json",
+    "build": "npm run build:server && npm run build:client && npm run build:verify && npm run build:electron",
+    "build:server": "npx tsc -p tsconfig.production.json && node scripts/stamp-dist-cjs.mjs",
     "build:server:check": "npx tsc -p tsconfig.production.json --noEmit",
     "build:client": "vite build --config client-vite.config.ts",
     "build:electron": "electron-builder",
@@ -96,7 +96,8 @@
     "debug:board": "node scripts/debug-board.mjs",
     "shot": "node scripts/analyze-screenshot.mjs",
     "lint:css": "stylelint \"client/src/**/*.css\" \"client/src/styles/**/*.css\"",
-    "perf:baseline": "node scripts/perf-baseline.mjs"
+    "perf:baseline": "node scripts/perf-baseline.mjs",
+    "build:verify": "node scripts/check-build-paths.mjs"
   },
   "keywords": [],
   "author": "",

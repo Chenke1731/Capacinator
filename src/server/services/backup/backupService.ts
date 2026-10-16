@@ -71,7 +71,7 @@ export function verifyBackup(backupFilePath: string): VerifyResult {
       return { readable: false, integrityOk: false, schemaVersion: 0, keyTablesPresent: false, problems: [`integrity_check failed: ${(e as Error).message}`] };
     }
 
-    const required = ['projects', 'people', 'scenario_project_assignments', 'project_estimations', 'audit_logs'];
+    const required = ['projects', 'people', 'scenario_project_assignments', 'project_estimations', 'audit_log'];
     const present = required.filter((t) => {
       try {
         return !!db!.prepare(`SELECT name FROM sqlite_master WHERE type='table' AND name=?`).get(t);
@@ -138,7 +138,7 @@ export interface DbFingerprint {
 
 const FINGERPRINT_TABLES = [
   'projects', 'people', 'scenario_project_assignments',
-  'project_estimations', 'project_actual_investments', 'audit_logs'
+  'project_estimations', 'project_actual_investments', 'audit_log'
 ];
 
 /** 关键行/工时/实际值指纹——恢复演练的对账基准 */

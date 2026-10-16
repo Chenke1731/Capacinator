@@ -14,20 +14,12 @@ function resolveThisDir(): string {
 }
 const thisDir = resolveThisDir();
 
-// Determine which config to use based on environment
-const getConfig = (): Knex.Config => {
-  // Use E2E config when in E2E mode
-  if (process.env.NODE_ENV === 'e2e') {
-    console.log('🧪 Using E2E database configuration');
-    return e2eConfig;
-  }
-
-  // Get the appropriate data directory based on platform
-  const getDataPath = () => {
+// Get the appropriate data directory based on platform
+const getDataPath = () => {
   if (process.env.NODE_ENV === 'development') {
     return path.join(process.cwd(), 'data');
   }
-  
+
   // In production, try to get electron path, fallback to current directory
   try {
     // eslint-disable-next-line @typescript-eslint/no-require-imports
@@ -44,12 +36,30 @@ if (!process.env.DATABASE_URL && !fs.existsSync(dataPath)) {
   fs.mkdirSync(dataPath, { recursive: true });
 }
 
+/**
+ * 数据库文件路径的统一解析(IP-08c 附带修复)。
+ * - DATABASE_URL 优先(可能是 ':memory:')
+ * - 绝对路径按原样使用——旧 path.join(dataPath, '/abs/...') 会拼出坏路径
+ * - 相对名落到平台 data 目录(与 knex 同源,备份调度等消费方共用)
+ */
+export function resolveDatabaseFile(): string {
+  const f = process.env.DATABASE_URL || process.env.DB_FILENAME || 'capacinator.db';
+  if (f === ':memory:') return f;
+  return path.isAbsolute(f) ? f : path.join(getDataPath(), f);
+}
+
+// Determine which config to use based on environment
+const getConfig = (): Knex.Config => {
+  // Use E2E config when in E2E mode
+  if (process.env.NODE_ENV === 'e2e') {
+    console.log('🧪 Using E2E database configuration');
+    return e2eConfig;
+  }
+
   const config: Knex.Config = {
     client: 'better-sqlite3',
-    connection: process.env.DATABASE_URL ? {
-      filename: process.env.DATABASE_URL
-    } : {
-      filename: path.join(dataPath, process.env.DB_FILENAME || 'capacinator.db')
+    connection: {
+      filename: resolveDatabaseFile()
     },
     useNullAsDefault: true,
     acquireConnectionTimeout: 30000, // Increased to 30 seconds for bulk operations

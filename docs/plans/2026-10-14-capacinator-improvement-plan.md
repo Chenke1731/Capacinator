@@ -303,7 +303,7 @@ UI代码定位：[People](../../client/src/pages/People.tsx)、[Projects](../../
 - [x] 恢复前验证备份可读性、schema版本及必要数据；在临时位置演练，不用Excel导出代替全库恢复。（2026-10-16 完成:verifyBackup[integrity+user_version+五关键表]强制门;drillRestore 完整演练=取指纹→备份→restoreBackupTo 临时位置（双重校验+绝不覆盖在线库）→对账六表行数+分配工时和+实际 fte 和;损坏备份被拒且半成品不留）
 - [ ] 联网模式统一可信身份来源，核心读写在服务端授权，移除客户端自报身份回退；本地单人身份选择模式明确其适用范围。
 - [ ] 桌面HOST/认证设置与服务行为一致；开发测试入口不进入生产业务路由。
-- [ ] 构建输出、桌面入口、prod启动脚本使用同一路径；干净目录构建后能启动、健康检查、加载首页及一次只读查询。
+- [x] 构建输出、桌面入口、prod启动脚本使用同一路径；干净目录构建后能启动、健康检查、加载首页及一次只读查询。（2026-10-16：IP-08c 完成——三消费方统一到 dist/src/server/index.js;dist 打 CJS 标记(根 type:module 曾致启动即 ReferenceError:exports);build:verify 门禁产物;DB 路径统一解析(绝对路径原样/相对落 data 目录,备份调度同源);真构建+干净库冒烟:health ok/读查询 ok/迁移后备份 completed 1MB;途中修我方 BackfillParseResult 在 strict:false 生产配置下的收窄失败——pre-commit 补生产 tsc 门防再漏）
 - [ ] 安装包在目标平台验证首次启动、旧库升级与回退；新增CI发布检查，不以tsc通过代替能启动。
 
 ### IP-09：校准建议与低成本持续维护
@@ -401,7 +401,7 @@ UI代码定位：[People](../../client/src/pages/People.tsx)、[Projects](../../
 | IP-05 | F04 | 进行中（05a、05b V2 半边、05c 预览流程、导入落表贯通已完成；V1 同名漂移、逐实体清单待续） | Claude | 见子任务行 | 选项解释统一（`b1a1925`）、V2 同管线回滚预览（`27b87db`+`1d5e39c`）、预览→确认→对账 UI（`0a9dece`）、导入写场景切片（本批） |
 | IP-06 | S06、U01–U12、R01/R02/R04–R08 | 进行中（06c 的 R07 与 R08 版本标识/过期已完成；场景/时点标注待 IP-02e，其余 U 项待领取） | Claude | 见子任务行 | R07（`88c03a0`）、R08 版本绑定（`03d5bf6`）已关 |
 | IP-07 | F06、C10–C12、S03 | 进行中（07a/07b 完成，07c 待领取） | Claude | 见子任务行 | C10–C12 已关；全量 Jest 4336 绿 |
-| IP-08 | S02/S03/S04 | 进行中（08a 一致性备份+调度落地;恢复演练半边、08b 身份、08c 构建路径待领） | Claude | 见子任务行 | S02 已关（本批） |
+| IP-08 | S02/S03/S04 | 进行中（08a 备份+调度+恢复演练全落地;08c 构建路径+干净启动落地;08b 身份待领,D12 未定只盘点） | Claude | 见子任务行 | S02/S04 已关;S03 待 08b |
 | IP-09 | S06、F05、U12、R02/R09、维护/性能试运行 | 待处理 | — | — | — |
 | IP-10 | S05、U02/U04、F01/F07、R03/R07/R08 | 部分已验证，其余待复核 | — | 已有b2d3f70 | client typecheck通过；login/me声明对齐（代码确认）；verify及其他契约/语义未关闭 |
 
@@ -438,6 +438,8 @@ UI代码定位：[People](../../client/src/pages/People.tsx)、[Projects](../../
 | 导入落表贯通（Codex 缺口①） | 完成 / Claude（2026-10-16 会话） | 9e8f6c9 / 干净 | `cb205dc`+本批；ExcelImporterV2（分配写 scenario_project_assignments 选定场景切片:scenarioId 选项+status active+change_type added+computed 日期;clearExisting 清单 standard_allocations→resource_templates 修必炸点名+追加目标场景切片旧分配/阶段清空）、ImportOptions.scenarioId、ImportController 两入口透传 X-Scenario-Id、**dateText.toISODateText 四处日期落库规范化**（Codex 复检②:Date 对象被驱动存成毫秒文本"1793548800000.0",字符串过滤必然失配——分配/可用率覆盖/阶段时间线/池需求四写点全改 ISO 文本） | 真 sqlite+真 exceljs 7/7（含新增断言:start_date 匹配 ISO 正则+运行时同款字符串过滤命中导入行;stash 对照红证旧写法实存"1793548800000.0"）。全量 Jest 4430 绿、typecheck 0 | V1 导入器仍写旧表(未触,V1 属遗留格式同名漂移批次);clearExisting 的共享事实清空范围(全表 del)属既有语义未动 |
 | IP-04b / F03 | 完成 / Claude（2026-10-16 会话） | 06414af / 干净 | 见本批提交；ScenariosController.merge 重构为单事务（detectMergeConflicts 接 trx/performMerge 策略真执行/mergeAssignment 补 status+is_primary+computed 日期/冲突落表与源 merged 同 trx;审计留事务外记边界）、既有 mock 事务测试补回调透传 | 真库测试先红后绿 5/5（ScenariosController.merge.test.ts 新）:use_source 冲突行落源值 80+清冲突表[红证策略参数被忽略、冲突行静默丢弃]、use_target 保留目标 40（旧实现偶然同果,守卫）、status/is_primary 单独变化进冲突并随合并落地[红证旧清单漏字段、变更静默丢]、manual 未决拒绝+落表+源 conflict、原子性 sqlite 触发器注入状态更新失败→非冲突复制行未落库+源 active[旧裂缝:数据先提交状态另写]。全量 Jest 4435 绿、typecheck 0 | mergeAssignment 插入路的 base_assignment_id 指向源行(跨场景引用语义未变);审计中间件自持连接不参与业务事务(记边界,与 enhanceAuditMiddleware 一致);removed 标记行合并语义未单测 |
 | IP-08a / S02 | 完成 / Claude（2026-10-16 会话） | ccf0bb6 / 干净 | `b54f4fa`+本批;backupService.ts（createConsistentBackup VACUUM INTO/verifyBackup/applyRetention/runBackupOnce/collectDbFingerprint+restoreBackupTo+drillRestore 恢复演练）、scheduler.ts 重写（真调度）、electron main backup-database copyFile→VACUUM INTO | backupService 真 sqlite 6/6:WAL 未 checkpoint 场景快照含已提交行（copyFile 会丢——红证前轮已复现）、损坏文件 verify 拒绝、retention 只留最新 N、一条龙半成品失败不留文件、重复目标不覆盖;scheduler 6/6（mock config/timer:启动即跑+间隔注册/禁用不注册/未知间隔报错/失败可见不抛/重复初始化清定时器）。全量 Jest 4444 绿、typecheck 0、electron main 语法检查过 | 恢复演练完整脚本（临时库对账关键行/工时/实际值）待续批;桌面端 handler 无法 jest 内跑 Electron（语法级验证,功能等价 backupService 同款 VACUUM INTO）;构建输出/启动路径统一(S04/08c)未动 |
+| IP-08a 续 / 恢复演练 | 完成 / Claude（2026-10-16 会话） | 4ef13f0 / 干净 | `4ef13f0`；drillRestore（取指纹→备份→restoreBackupTo 临时位置双重校验→六表行数+工时和+实际 fte 和对账,绝不覆盖在线库） | 真 sqlite 7/7:WAL 场景演练通过(0.9 FTE 实际值对账一致)、损坏备份被拒半成品不留。全量 Jest 4446 绿 | 恢复后的"文件替换上线"操作步骤属运维手册范畴,记文档债 |
+| IP-08c / S04 | 完成 / Claude（2026-10-16 会话） | 4ef13f0 / 干净 | 见本批提交；prod-server.ts+electron main 三路径点统一 dist/src/server/index.js、scripts/stamp-dist-cjs.mjs（dist/package.json {type:commonjs}——根 type:module 下 CJS 产物曾启动即炸）、build:verify(check-build-paths.mjs 三产物门禁入 build 链)、knexfile resolveDatabaseFile 共享解析(绝对路径原样/相对落 data 目录)+scheduler 同源、app.ts→index.ts 备份调度移位(迁移后启动)、BackfillParseResult 双配置兼容+pre-commit 生产 tsc 门 | 冒烟实证链:干净构建→空库启动→迁移→health ok→读查询 ok→自动备份 completed(1.06MB);ESM 炸点/空库备份竞态/audit_log 表名(非 audit_logs)三雷均现场复现修复;app.test 更新为移位后契约。全量 Jest 4446 绿、typecheck 双配置 0 | 安装包目标平台首启/升级/回退验证(D12 平台未定)未做;dist-client 由既有产物验证,vite 全量重打包未在本批 |
 
 ## 8. 四角色排产决策样例与记录模板
 

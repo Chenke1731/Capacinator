@@ -103,7 +103,7 @@ function startServer() {
   log('Config: ' + JSON.stringify(config, null, 2));
 
   // Server code stays in ASAR for proper module resolution
-  const serverPath = path.join(__dirname, '../../dist/server/index.js');
+  const serverPath = path.join(__dirname, '../../dist/src/server/index.js');
 
   log('Calculated server path: ' + serverPath);
   log('Server file exists: ' + require('fs').existsSync(serverPath));
@@ -111,8 +111,8 @@ function startServer() {
   if (!require('fs').existsSync(serverPath)) {
     log('ERROR: Server file does not exist!');
     log('Checking alternative paths...');
-    const alt1 = path.join(__dirname, '../../dist/server/index.js');
-    const alt2 = path.join(process.resourcesPath, 'app.asar.unpacked/dist/server/index.js');
+    const alt1 = path.join(__dirname, '../../dist/src/server/index.js');
+    const alt2 = path.join(process.resourcesPath, 'app.asar.unpacked/dist/src/server/index.js');
     log('Alt 1: ' + alt1 + ' exists: ' + require('fs').existsSync(alt1));
     log('Alt 2: ' + alt2 + ' exists: ' + require('fs').existsSync(alt2));
 

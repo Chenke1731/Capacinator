@@ -233,6 +233,17 @@ describe('ExcelImporterV2.analyzeImport (real sqlite + real exceljs)', () => {
     // 人员来自 Roster sheet 建档——按名回查验证指向正确
     const person = await db('people').where({ name: '张开发' }).first();
     expect(sliceRows[0].person_id).toBe(person.id);
+    // 日期以 ISO 文本落库:Date 对象会被驱动存成毫秒文本("1793548800000.0"),
+    // 运行时按 'YYYY-MM-DD' 字符串过滤必然失配——导入分配将不可见
+    expect(sliceRows[0].start_date).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+    expect(sliceRows[0].computed_end_date).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+    // 端到端可见性:按运行时同款字符串过滤必须能命中导入行
+    const visible = await db('scenario_project_assignments')
+      .where({ scenario_id: 'sc9' })
+      .where('end_date', '>=', '2026-01-01')
+      .where('start_date', '<=', '2026-12-31')
+      .count('* as c').first();
+    expect(Number(visible.c)).toBe(1);
     // 旧表不再接收导入行(运行时读侧全是切片)
     const legacy = await db('project_assignments').count('* as c').first();
     expect(Number(legacy.c)).toBe(0);

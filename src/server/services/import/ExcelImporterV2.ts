@@ -23,6 +23,7 @@ import {
 import { v4 as uuidv4 } from 'uuid';
 import { ImportOptions, ValidationResult, ValidationError, WorksheetValidation } from './ExcelImporter.js';
 import { BASELINE_SCENARIO_ID } from '../calc/effectiveAssignments.js';
+import { toISODateText } from '../calc/dateText.js';
 import { ImportErrorCollector } from './ImportError.js';
 
 export interface ImportResultV2 {
@@ -943,8 +944,8 @@ export class ExcelImporterV2 {
               id: uuidv4(),
               project_id: projectId,
               phase_id: phaseId,
-              start_date: startDate,
-              end_date: endDate,
+              start_date: toISODateText(startDate),
+              end_date: toISODateText(endDate),
               created_at: new Date(),
               updated_at: new Date()
             });
@@ -1005,8 +1006,8 @@ export class ExcelImporterV2 {
                     id: uuidv4(),
                     project_id: projectId,
                     role_id: roleId,
-                    start_date: weekDate,
-                    end_date: new Date(weekDate.getTime() + 6 * 24 * 60 * 60 * 1000),
+                    start_date: toISODateText(weekDate),
+                    end_date: toISODateText(new Date(weekDate.getTime() + 6 * 24 * 60 * 60 * 1000)),
                     demand_hours: demandHours * 40, // Convert FTE to hours (40 hours/week)
                     reason: 'Imported from Excel',
                     created_at: new Date(),
@@ -1098,10 +1099,10 @@ export class ExcelImporterV2 {
                   allocation_percentage: currentPercentage,
                   status: 'active',
                   assignment_date_mode: 'fixed',
-                  start_date: startDate,
-                  end_date: endDateInclusive,
-                  computed_start_date: startDate,
-                  computed_end_date: endDateInclusive,
+                  start_date: toISODateText(startDate),
+                  end_date: toISODateText(endDateInclusive),
+                  computed_start_date: toISODateText(startDate),
+                  computed_end_date: toISODateText(endDateInclusive),
                   change_type: 'added',
                   created_at: new Date(),
                   updated_at: new Date()

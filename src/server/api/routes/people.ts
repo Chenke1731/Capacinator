@@ -1,11 +1,13 @@
 import { Router } from 'express';
 import { PeopleController } from '../controllers/PeopleController.js';
+import { registerTestDataCleanupRoute } from './register-test-data-route.js';
 
 const router = Router();
 const controller = new PeopleController();
 
-// Test data cleanup (for e2e tests) - must come before /:id route  
-router.delete('/test-data', (req, res) => controller.deleteTestData(req, res));
+// Test data cleanup (for e2e tests) - must come before /:id route.
+// 生产不注册（物理缺席），见 register-test-data-route.ts
+registerTestDataCleanupRoute(router, (req, res) => controller.deleteTestData(req, res));
 
 // Dashboard/reporting endpoints - must come before /:id route
 router.get('/dashboard/utilization', (req, res) => controller.getUtilization(req, res));

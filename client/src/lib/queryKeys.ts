@@ -377,13 +377,6 @@ export const queryKeys = {
       [...queryKeys.userPermissions.all, 'role', roleId] as const,
   },
 
-  // Recommendations
-  recommendations: {
-    all: ['recommendations'] as const,
-    list: (filters?: Record<string, unknown>) =>
-      [...queryKeys.recommendations.all, 'list', filters] as const,
-  },
-
   // Health
   health: {
     all: ['health'] as const,

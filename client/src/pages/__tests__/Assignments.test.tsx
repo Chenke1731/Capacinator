@@ -32,10 +32,6 @@ jest.mock('../../lib/api-client', () => ({
     roles: {
       list: jest.fn(),
     },
-    recommendations: {
-      list: jest.fn(),
-      execute: jest.fn(),
-    },
     scenarios: {
       list: jest.fn(),
     },
@@ -203,40 +199,6 @@ describe('Assignments Page', () => {
     { id: 'role-3', name: 'Manager' },
   ];
 
-  const mockRecommendations = {
-    recommendations: [
-      {
-        id: 'rec-1',
-        title: 'Assign John Doe to Project Beta',
-        type: 'simple',
-        priority: 'high',
-        confidence_score: 95,
-        impact_summary: 'Available capacity, Matching skills',
-        actions: [
-          {
-            person_id: 'person-1',
-            person_name: 'John Doe',
-            project_id: 'proj-2',
-            project_name: 'Project Beta',
-            role_id: 'role-1',
-            role_name: 'Developer',
-            start_date: '2024-04-01',
-            end_date: '2024-06-30',
-            new_allocation: 80,
-          },
-        ],
-      },
-    ],
-    current_state: {
-      summary: {
-        overallocated_people: 1,
-        underutilized_people: 2,
-        capacity_gaps: 0,
-        unassigned_projects: 0,
-      },
-    },
-  };
-
   beforeEach(() => {
     queryClient = new QueryClient({
       defaultOptions: {
@@ -271,9 +233,6 @@ describe('Assignments Page', () => {
     (api.projects.list as jest.Mock).mockResolvedValue({ data: mockProjects });
     (api.people.list as jest.Mock).mockResolvedValue({ data: mockPeople });
     (api.roles.list as jest.Mock).mockResolvedValue({ data: mockRoles });
-    (api.recommendations.list as jest.Mock).mockResolvedValue({
-      data: mockRecommendations,
-    });
     (api.scenarios.list as jest.Mock).mockResolvedValue({
       data: [{
         id: 'baseline',
@@ -561,69 +520,8 @@ describe('Assignments Page', () => {
     });
   });
 
-  // Skipped (revival attempted 2026-09-25): tab switching goes through
-  // useBookmarkableTabs → setSearchParams(?tab=recommendations) and the
-  // recommendations query is gated on activeTab — in jsdom the
-  // click→URL→refetch chain doesn't propagate (queryFn never fires despite
-  // Router/QueryClient wrappers being present). Needs a focused look at
-  // MemoryRouter + useSearchParams re-render behavior before reviving.
-  describe.skip('Recommendations Tab', () => {
-    test('switches to recommendations tab', async () => {
-      const user = userEvent.setup();
-      renderComponent();
-
-      await waitFor(() => {
-        expect(screen.getByText(/Recommendations/)).toBeInTheDocument();
-      });
-
-      const recommendationsTab = screen.getByRole('button', { name: /recommendations/i });
-      await user.click(recommendationsTab);
-
-      await waitFor(() => {
-        expect(api.recommendations.list).toHaveBeenCalled();
-      });
-    });
-
-    test('displays recommendations', async () => {
-      const user = userEvent.setup();
-      renderComponent();
-
-      await waitFor(() => {
-        expect(screen.getByRole('button', { name: /recommendations/i })).toBeInTheDocument();
-      });
-
-      await user.click(screen.getByRole('button', { name: /recommendations/i }));
-
-      await waitFor(() => {
-        expect(screen.getByText('95%')).toBeInTheDocument();
-      });
-
-      expect(screen.getByText(/Available capacity, Matching skills/)).toBeInTheDocument();
-    });
-
-    test('executes recommendation', async () => {
-      const user = userEvent.setup();
-      window.confirm = jest.fn(() => true);
-      (api.recommendations.execute as jest.Mock).mockResolvedValue({ data: {} });
-
-      renderComponent();
-
-      await waitFor(() => {
-        expect(screen.getByRole('button', { name: /recommendations/i })).toBeInTheDocument();
-      });
-
-      await user.click(screen.getByRole('button', { name: /recommendations/i }));
-
-      await waitFor(() => {
-        expect(screen.getByRole('button', { name: /execute/i })).toBeInTheDocument();
-      });
-
-      await user.click(screen.getByRole('button', { name: /execute/i }));
-
-      expect(window.confirm).toHaveBeenCalled();
-      expect(api.recommendations.execute).toHaveBeenCalled();
-    });
-  });
+  // Recommendations Tab 套件随假消费方移除(2026-10-16 缺口④):
+  // 组合级推荐引擎未实装,tab/类型/假执行链已删,历史见 git。
 
   describe('Context Messages', () => {
     test('displays context message from URL parameters', async () => {

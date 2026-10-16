@@ -5,7 +5,6 @@
   "calendarView": "日历视图",
   "tabs": {
     "assignments": "分配",
-    "recommendations": "建议",
     "assignmentsCount": "分配 ({{number}})"
   },
   "columns": {
@@ -93,35 +92,6 @@
     "updating": "更新中…",
     "create": "创建分配",
     "update": "更新分配"
-  },
-  "rec": {
-    "refresh": "刷新建议",
-    "systemState": "当前系统状态",
-    "overallocatedPeople": "超负荷人员",
-    "underutilizedPeople": "利用率不足人员",
-    "capacityGaps": "产能缺口",
-    "unassignedProjects": "未分配项目",
-    "emptyTitle": "暂无可用的建议",
-    "emptyDescription": "团队分配已达到最优,当前没有可操作的建议。",
-    "headers": {
-      "priority": "优先级",
-      "period": "时间段",
-      "confidence": "置信度",
-      "impact": "影响"
-    },
-    "priority": {
-      "high": "高",
-      "medium": "中",
-      "low": "低"
-    },
-    "multiple": "多人",
-    "multipleProjects": "多个项目",
-    "various": "多种角色",
-    "more": "+{{number}} 项",
-    "tbd": "待定",
-    "execute": "执行",
-    "executeConfirm": "确定要执行“{{title}}”吗?\n\n这将对分配进行 {{number}} 处更改。",
-    "executeFailed": "执行建议失败,请重试。"
   },
   "smart": {
     "title": "{{name}} 的智能分配",

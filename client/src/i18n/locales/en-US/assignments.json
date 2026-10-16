@@ -5,7 +5,6 @@
   "calendarView": "Calendar View",
   "tabs": {
     "assignments": "Assignments",
-    "recommendations": "Recommendations",
     "assignmentsCount": "Assignments ({{number}})"
   },
   "columns": {
@@ -93,35 +92,6 @@
     "updating": "Updating...",
     "create": "Create Assignment",
     "update": "Update Assignment"
-  },
-  "rec": {
-    "refresh": "Refresh Recommendations",
-    "systemState": "Current System State",
-    "overallocatedPeople": "Overallocated People",
-    "underutilizedPeople": "Underutilized People",
-    "capacityGaps": "Capacity Gaps",
-    "unassignedProjects": "Unassigned Projects",
-    "emptyTitle": "No recommendations available",
-    "emptyDescription": "Your team allocation is already optimized, or there are no actionable recommendations at this time.",
-    "headers": {
-      "priority": "Priority",
-      "period": "Period",
-      "confidence": "Confidence",
-      "impact": "Impact"
-    },
-    "priority": {
-      "high": "high",
-      "medium": "medium",
-      "low": "low"
-    },
-    "multiple": "Multiple",
-    "multipleProjects": "Multiple Projects",
-    "various": "Various",
-    "more": "+{{number}} more",
-    "tbd": "TBD",
-    "execute": "Execute",
-    "executeConfirm": "Are you sure you want to execute \"{{title}}\"?\n\nThis will make {{number}} changes to assignments.",
-    "executeFailed": "Failed to execute recommendation. Please try again."
   },
   "smart": {
     "title": "Smart Assignment for {{name}}",

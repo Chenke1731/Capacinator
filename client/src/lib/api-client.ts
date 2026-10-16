@@ -75,8 +75,6 @@ import type {
   NotificationHistoryResponse,
   EmailConfigResponse,
   NotificationStatsResponse,
-  RecommendationsResponse,
-  RecommendationExecuteResponse,
   HealthCheckResponse,
   SyncStatusResponse,
   SyncPullResponse,
@@ -678,15 +676,6 @@ export const api = {
     sendTestEmail: (email: string) => apiClient.post<{ message: string }>('/notifications/test', { email }),
     checkEmailConfiguration: () => apiClient.get<EmailConfigResponse>('/notifications/config'),
     getNotificationStats: (userId?: string, params?: PaginationParams) => apiClient.get<NotificationStatsResponse>(`/notifications/stats/${userId || ''}`, { params }),
-  },
-
-  // Recommendations
-  recommendations: {
-    // 服务端占位桩不读参数(2026-10-13 批清)——形状按 Assignments 页
-    // 调用点如实声明,不借 PaginationParams
-    list: (params?: { startDate?: string; endDate?: string; maxRecommendations?: number }) =>
-      apiClient.get<RecommendationsResponse>('/recommendations', { params }),
-    execute: (recommendationId: string, actions: unknown) => apiClient.post<RecommendationExecuteResponse>(`/recommendations/${recommendationId}/execute`, { actions }),
   },
 
   // Health check

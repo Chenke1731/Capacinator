@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Plus, Edit2, Trash2, Eye, Calendar, AlertTriangle, Lightbulb, Play, Users, TrendingUp } from 'lucide-react';
+import { Plus, Edit2, Trash2, Eye, Calendar, AlertTriangle, Users } from 'lucide-react';
 import { useBookmarkableTabs } from '../hooks/useBookmarkableTabs';
 import { getLocale } from '../i18n';
 import { api } from '../lib/api-client';
@@ -28,10 +28,13 @@ export default function Assignments() {
   const { currentScenario } = useScenario();
   const [contextMessage, setContextMessage] = useState<string | null>(null);
 
-  // Define assignments tabs configuration
+  // Define assignments tabs configuration。
+  // 2026-10-16 缺口④: recommendations tab 整体移除——组合级推荐引擎从未
+  // 实装(后端恒空+假执行成功),假 UI 不得留着诱发下一个占位后端;
+  // ?tab=recommendations 旧书签经 useBookmarkableTabs 回落默认 tab。
+  // 真实推荐引擎(含 UI 重设计)归 IP-09/自动排程后续包
   const assignmentTabs = useMemo(() => [
-    { id: 'assignments', label: t('assignments:tabs.assignments') },
-    { id: 'recommendations', label: t('assignments:tabs.recommendations') }
+    { id: 'assignments', label: t('assignments:tabs.assignments') }
   ], [t]);
 
   // Use bookmarkable tabs for assignments
@@ -131,21 +134,6 @@ export default function Assignments() {
       // have crashed other consumers (roles?.find is not a function)
       return Array.isArray(payload) ? payload : payload?.data || [];
     }
-  });
-
-  // Fetch recommendations
-  const { data: recommendationsData, isLoading: recommendationsLoading, refetch: refetchRecommendations } = useQuery({
-    queryKey: queryKeys.assignments.recommendations(filters),
-    queryFn: async () => {
-      const params = {
-        startDate: filters.date_range ? filters.date_range.split('_')[0] : undefined,
-        endDate: filters.date_range ? filters.date_range.split('_')[1] : undefined,
-        maxRecommendations: 15
-      };
-      const response = await api.recommendations.list(params);
-      return response.data;
-    },
-    enabled: activeTab === 'recommendations'
   });
 
   // Delete assignment mutation
@@ -659,180 +647,6 @@ export default function Assignments() {
     </>
   );
 
-  const renderRecommendationsTab = () => {
-    if (recommendationsLoading) {
-      return <LoadingSpinner />;
-    }
-
-    const recommendations = recommendationsData?.recommendations || [];
-    const currentState = recommendationsData?.current_state;
-
-    const priorityLabels: Record<string, string> = {
-      high: t('assignments:rec.priority.high'),
-      medium: t('assignments:rec.priority.medium'),
-      low: t('assignments:rec.priority.low')
-    };
-
-    return (
-      <div className="recommendations-container">
-        {/* Current State Summary */}
-        {currentState && (
-          <div className="current-state-summary" style={{
-            backgroundColor: 'var(--bg-secondary)',
-            border: '1px solid var(--border-color)',
-            borderRadius: '8px',
-            padding: '1rem',
-            marginBottom: '1.5rem'
-          }}>
-            <h3 style={{ margin: '0 0 1rem 0', color: 'var(--text-primary)' }}>
-              <TrendingUp size={20} style={{ marginRight: '0.5rem' }} />
-              {t('assignments:rec.systemState')}
-            </h3>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem' }}>
-              <div className="state-metric">
-                <div style={{ fontSize: '1.5rem', fontWeight: 'bold', color: (currentState.summary?.overallocated_people ?? 0) > 0 ? 'var(--status-danger-text)' : 'var(--status-success-text)' }}>
-                  {currentState.summary?.overallocated_people || 0}
-                </div>
-                <div style={{ fontSize: '0.875rem', color: 'var(--text-secondary)' }}>{t('assignments:rec.overallocatedPeople')}</div>
-              </div>
-              <div className="state-metric">
-                <div style={{ fontSize: '1.5rem', fontWeight: 'bold', color: (currentState.summary?.underutilized_people ?? 0) > 0 ? 'var(--status-warning-text)' : 'var(--status-success-text)' }}>
-                  {currentState.summary?.underutilized_people || 0}
-                </div>
-                <div style={{ fontSize: '0.875rem', color: 'var(--text-secondary)' }}>{t('assignments:rec.underutilizedPeople')}</div>
-              </div>
-              <div className="state-metric">
-                <div style={{ fontSize: '1.5rem', fontWeight: 'bold', color: (currentState.summary?.capacity_gaps ?? 0) > 0 ? 'var(--status-danger-text)' : 'var(--status-success-text)' }}>
-                  {currentState.summary?.capacity_gaps || 0}
-                </div>
-                <div style={{ fontSize: '0.875rem', color: 'var(--text-secondary)' }}>{t('assignments:rec.capacityGaps')}</div>
-              </div>
-              <div className="state-metric">
-                <div style={{ fontSize: '1.5rem', fontWeight: 'bold', color: 'var(--primary-text)' }}>
-                  {currentState.summary?.unassigned_projects || 0}
-                </div>
-                <div style={{ fontSize: '0.875rem', color: 'var(--text-secondary)' }}>{t('assignments:rec.unassignedProjects')}</div>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Recommendations List */}
-        {recommendations.length === 0 ? (
-          <div style={{ textAlign: 'center', padding: '3rem', color: 'var(--text-secondary)' }}>
-            <Lightbulb size={48} style={{ marginBottom: '1rem', opacity: 0.5 }} />
-            <h3>{t('assignments:rec.emptyTitle')}</h3>
-            <p>{t('assignments:rec.emptyDescription')}</p>
-          </div>
-        ) : (
-          <div className="table-container">
-            <table className="data-table recommendations-table">
-              <thead>
-                <tr>
-                  <th style={{ width: '6%', minWidth: '80px' }}>{t('assignments:rec.headers.priority')}</th>
-                  <th style={{ width: '12%', minWidth: '150px' }}>{t('assignments:columns.person')}</th>
-                  <th style={{ width: '20%', minWidth: '250px' }}>{t('assignments:columns.project')}</th>
-                  <th style={{ width: '10%', minWidth: '120px' }}>{t('assignments:columns.role')}</th>
-                  <th style={{ width: '8%', minWidth: '80px' }}>{t('assignments:columns.allocation')}</th>
-                  <th style={{ width: '12%', minWidth: '140px' }}>{t('assignments:rec.headers.period')}</th>
-                  <th style={{ width: '8%', minWidth: '80px' }}>{t('assignments:rec.headers.confidence')}</th>
-                  <th style={{ width: '18%' }}>{t('assignments:rec.headers.impact')}</th>
-                  <th style={{ width: '6%', minWidth: '100px' }}>{t('common:actions')}</th>
-                </tr>
-              </thead>
-              <tbody>
-                {recommendations.map((rec) => {
-                  // For simple recommendations, extract the first action details
-                  const actions = rec.actions || [];
-                  const primaryAction = actions[0];
-                  const startDate = primaryAction?.start_date ? new Date(primaryAction.start_date).toLocaleDateString(getLocale(), { month: 'short', year: 'numeric' }) : '';
-                  const endDate = primaryAction?.end_date ? new Date(primaryAction.end_date).toLocaleDateString(getLocale(), { month: 'short', year: 'numeric' }) : '';
-                  
-                  return (
-                    <tr key={rec.id}>
-                      <td>
-                        <span className={`priority-badge ${rec.priority}`}>
-                          {priorityLabels[rec.priority] || rec.priority}
-                        </span>
-                      </td>
-                      <td>
-                        <div className="person-info">
-                          <strong>{primaryAction?.person_name || t('assignments:rec.multiple')}</strong>
-                          {rec.type === 'complex' && (
-                            <span className="text-secondary text-sm"> {t('assignments:rec.more', { number: actions.length - 1 })}</span>
-                          )}
-                        </div>
-                      </td>
-                      <td>
-                        <div className="project-info">
-                          <span title={primaryAction?.project_name}>
-                            {primaryAction?.project_name || t('assignments:rec.multipleProjects')}
-                          </span>
-                        </div>
-                      </td>
-                      <td>
-                        <span className="role-badge">
-                          {primaryAction?.role_name || t('assignments:rec.various')}
-                        </span>
-                      </td>
-                      <td>
-                        <div className="allocation-info">
-                          <strong>{primaryAction?.new_allocation || '-'}%</strong>
-                        </div>
-                      </td>
-                      <td>
-                        <div className="period-info text-sm">
-                          {startDate && endDate ? `${startDate} - ${endDate}` : t('assignments:rec.tbd')}
-                        </div>
-                      </td>
-                      <td>
-                        <span className="confidence-badge">
-                          {Math.round(rec.confidence_score ?? 0)}%
-                        </span>
-                      </td>
-                      <td>
-                        <div className="impact-info text-sm">
-                          {rec.impact_summary}
-                        </div>
-                      </td>
-                      <td>
-                        <div className="action-buttons">
-                          <button
-                            className="btn btn-sm btn-primary"
-                            onClick={async () => {
-                              const confirmed = window.confirm(
-                                t('assignments:rec.executeConfirm', { title: rec.title, number: actions.length })
-                              );
-                              
-                              if (confirmed) {
-                                try {
-                                  await api.recommendations.execute(rec.id, rec.actions);
-                                  queryClient.invalidateQueries({ queryKey: queryKeys.assignments.all });
-                                  refetchRecommendations();
-                                } catch (error) {
-                                  logger.error('Failed to execute recommendation', { error });
-                                  alert(t('assignments:rec.executeFailed'));
-                                }
-                              }
-                            }}
-                            title={rec.title}
-                          >
-                            <Play size={14} />
-                            {t('assignments:rec.execute')}
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
-        )}
-      </div>
-    );
-  };
-
   return (
     <div className="page-container">
       <div className="page-header">
@@ -865,15 +679,6 @@ export default function Assignments() {
               </button>
             </>
           )}
-          {activeTab === 'recommendations' && (
-            <button
-              className="btn btn-secondary"
-              onClick={() => { refetchRecommendations(); }}
-            >
-              <Lightbulb size={16} />
-              {t('assignments:rec.refresh')}
-            </button>
-          )}
         </div>
       </div>
 
@@ -902,30 +707,11 @@ export default function Assignments() {
             <Users size={16} />
             {t('assignments:tabs.assignmentsCount', { number: assignments?.length || 0 })}
           </button>
-          <button
-            className={`tab-button ${isActiveTab('recommendations') ? 'active' : ''}`}
-            onClick={() => setActiveTab('recommendations')}
-            style={{
-              padding: '0.75rem 1rem',
-              border: 'none',
-              background: 'transparent',
-              borderBottom: `2px solid ${activeTab === 'recommendations' ? 'var(--primary-color)' : 'transparent'}`,
-              color: activeTab === 'recommendations' ? 'var(--primary-color)' : 'var(--text-secondary)',
-              fontWeight: activeTab === 'recommendations' ? '600' : '400',
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '0.5rem'
-            }}
-          >
-            <Lightbulb size={16} />
-            {t('assignments:tabs.recommendations')} {(recommendationsData?.recommendations?.length ?? 0) > 0 ? `(${recommendationsData!.recommendations!.length})` : ''}
-          </button>
         </div>
       </div>
 
       {/* Tab Content */}
-      {activeTab === 'assignments' ? renderAssignmentsTab() : renderRecommendationsTab()}
+      {renderAssignmentsTab()}
 
       {/* Add Assignment Modal */}
       <AssignmentModalNew

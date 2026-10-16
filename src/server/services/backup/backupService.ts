@@ -127,3 +127,99 @@ export function runBackupOnce(opts: {
   const removed = opts.retention != null ? applyRetention(opts.backupDir, opts.retention) : [];
   return { result, verify, removed };
 }
+
+// ─── 恢复演练(IP-08a 后半)──────────────────────────────────────────────
+
+export interface DbFingerprint {
+  tableCounts: Record<string, number>;
+  allocationSum: number;
+  actualFteSum: number;
+}
+
+const FINGERPRINT_TABLES = [
+  'projects', 'people', 'scenario_project_assignments',
+  'project_estimations', 'project_actual_investments', 'audit_logs'
+];
+
+/** 关键行/工时/实际值指纹——恢复演练的对账基准 */
+export function collectDbFingerprint(dbFilePath: string): DbFingerprint {
+  const db = new Database(dbFilePath, { readonly: true });
+  try {
+    const tableCounts: Record<string, number> = {};
+    for (const t of FINGERPRINT_TABLES) {
+      try {
+        tableCounts[t] = Number((db.prepare(`SELECT count(*) c FROM ${t}`).get() as any)?.c ?? 0);
+      } catch {
+        tableCounts[t] = -1; // 表缺失(备份版本差异)
+      }
+    }
+    const allocationSum = tableCounts['scenario_project_assignments'] >= 0
+      ? Number((db.prepare('SELECT COALESCE(SUM(allocation_percentage),0) s FROM scenario_project_assignments').get() as any)?.s ?? 0)
+      : 0;
+    const actualFteSum = tableCounts['project_actual_investments'] >= 0
+      ? Number((db.prepare('SELECT COALESCE(SUM(fte),0) s FROM project_actual_investments').get() as any)?.s ?? 0)
+      : 0;
+    return { tableCounts, allocationSum: Math.round(allocationSum * 1000) / 1000, actualFteSum: Math.round(actualFteSum * 1000) / 1000 };
+  } finally {
+    db.close();
+  }
+}
+
+export interface RestoreResult {
+  restoredTo: string;
+  verify: VerifyResult;
+  fingerprint: DbFingerprint;
+}
+
+/**
+ * 恢复到目标位置(演练用):校验 → 拷贝 → 目标再校验 → 指纹。
+ * 绝不覆盖在线库——真实恢复由操作者按演练结论执行文件替换。
+ */
+export function restoreBackupTo(backupFilePath: string, targetPath: string): RestoreResult {
+  const pre = verifyBackup(backupFilePath);
+  if (!pre.readable || !pre.integrityOk || !pre.keyTablesPresent) {
+    throw new Error(`restore refused, backup verification failed: ${pre.problems.join('; ')}`);
+  }
+  fs.mkdirSync(path.dirname(targetPath), { recursive: true });
+  if (fs.existsSync(targetPath)) {
+    throw new Error(`restore target already exists: ${targetPath}`);
+  }
+  fs.copyFileSync(backupFilePath, targetPath);
+  const post = verifyBackup(targetPath);
+  if (!post.readable || !post.integrityOk || !post.keyTablesPresent) {
+    fs.unlinkSync(targetPath);
+    throw new Error(`restored copy failed verification: ${post.problems.join('; ')}`);
+  }
+  return { restoredTo: targetPath, verify: post, fingerprint: collectDbFingerprint(targetPath) };
+}
+
+/** 完整演练:取指纹 → 备份 → 恢复到临时位置 → 对账(等于备份时指纹) */
+export function drillRestore(opts: {
+  liveDbPath: string;
+  workDir: string;
+}): {
+  ok: boolean;
+  backup: BackupResult;
+  before: DbFingerprint;
+  restored: DbFingerprint;
+  problems: string[];
+} {
+  const before = collectDbFingerprint(opts.liveDbPath);
+  const backupDir = path.join(opts.workDir, 'drill-backups');
+  const { result: backup } = runBackupOnce({ dbFilePath: opts.liveDbPath, backupDir, retention: 5 });
+  const restored = restoreBackupTo(backup.file, path.join(opts.workDir, 'drill-restored.db'));
+
+  const problems: string[] = [];
+  for (const t of FINGERPRINT_TABLES) {
+    if (before.tableCounts[t] !== restored.fingerprint.tableCounts[t]) {
+      problems.push(`${t}: live=${before.tableCounts[t]} restored=${restored.fingerprint.tableCounts[t]}`);
+    }
+  }
+  if (before.allocationSum !== restored.fingerprint.allocationSum) {
+    problems.push(`allocationSum: live=${before.allocationSum} restored=${restored.fingerprint.allocationSum}`);
+  }
+  if (before.actualFteSum !== restored.fingerprint.actualFteSum) {
+    problems.push(`actualFteSum: live=${before.actualFteSum} restored=${restored.fingerprint.actualFteSum}`);
+  }
+  return { ok: problems.length === 0, backup, before, restored: restored.fingerprint, problems };
+}

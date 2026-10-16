@@ -7,7 +7,10 @@ import {
   createConsistentBackup,
   verifyBackup,
   applyRetention,
-  runBackupOnce
+  runBackupOnce,
+  collectDbFingerprint,
+  restoreBackupTo,
+  drillRestore
 } from '../backupService.js';
 
 /**
@@ -24,7 +27,11 @@ describe('backupService (真 sqlite)', () => {
     `CREATE TABLE people (id TEXT PRIMARY KEY, name TEXT)`,
     `CREATE TABLE scenario_project_assignments (id TEXT PRIMARY KEY, scenario_id TEXT, allocation_percentage REAL)`,
     `CREATE TABLE project_estimations (id INTEGER PRIMARY KEY, project_id TEXT)`,
-    `CREATE TABLE audit_logs (id INTEGER PRIMARY KEY AUTOINCREMENT, action TEXT)`
+    `CREATE TABLE audit_logs (id INTEGER PRIMARY KEY AUTOINCREMENT, action TEXT)`,
+    `CREATE TABLE project_actual_investments (
+      id INTEGER PRIMARY KEY AUTOINCREMENT, project_id TEXT, month TEXT,
+      fte REAL, source TEXT
+    )`
   ];
 
   beforeAll(() => {
@@ -37,6 +44,7 @@ describe('backupService (真 sqlite)', () => {
     db.prepare(`INSERT INTO people (id, name) VALUES ('d1', '张开发')`).run();
     // 已提交但不 checkpoint——数据只在 -wal 文件里
     db.prepare(`INSERT INTO scenario_project_assignments (id, scenario_id, allocation_percentage) VALUES ('a1', 's1', 50)`).run();
+    db.prepare(`INSERT INTO project_actual_investments (project_id, month, fte, source) VALUES ('p1', '2026-09', 0.9, 'manual')`).run();
     db.close();
   });
 
@@ -101,5 +109,29 @@ describe('backupService (真 sqlite)', () => {
     const target = path.join(dir, 'dup.db');
     createConsistentBackup(dbPath, target);
     expect(() => createConsistentBackup(dbPath, target)).toThrow(/already exists/);
+  });
+
+  test('drillRestore: 备份→临时恢复→指纹对账全通过(关键行/工时/实际值一致)', () => {
+    const workDir = path.join(dir, 'drill1');
+    const report = drillRestore({ liveDbPath: dbPath, workDir });
+    expect(report.ok).toBe(true);
+    expect(report.problems).toEqual([]);
+    expect(report.before.tableCounts['scenario_project_assignments']).toBe(1);
+    expect(report.before.actualFteSum).toBeCloseTo(0.9, 5);
+    expect(report.restored.actualFteSum).toBeCloseTo(0.9, 5);
+    expect(fs.existsSync(path.join(workDir, 'drill-restored.db'))).toBe(true);
+  });
+
+  test('drillRestore 捕获不一致(篡改备份后恢复被拒/指纹分歧)', () => {
+    const workDir = path.join(dir, 'drill2');
+    fs.mkdirSync(workDir, { recursive: true });
+    const before = collectDbFingerprint(dbPath);
+    void before;
+
+    // 直接对损坏文件调用 restoreBackupTo:被校验门拒绝
+    const corrupt = path.join(workDir, 'corrupt.db');
+    fs.writeFileSync(corrupt, Buffer.from('garbage bytes'));
+    expect(() => restoreBackupTo(corrupt, path.join(workDir, 'r.db'))).toThrow(/verification failed/);
+    expect(fs.existsSync(path.join(workDir, 'r.db'))).toBe(false); // 半成品不留
   });
 });

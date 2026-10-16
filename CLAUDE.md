@@ -185,7 +185,7 @@ Copy `.env.example` to `.env.local` for local development overrides.
 | PORT | Server port | 3110 |
 | VITE_PORT | Client dev server port | 3120 |
 | JWT_SECRET | JWT signing secret (CHANGE IN PRODUCTION) | dev-jwt-secret |
-| DB_FILENAME | SQLite database file | capacinator-dev.db |
+| DB_FILENAME | SQLite database file | capacitor.db |
 
 ### Optional
 | Variable | Description | Default |

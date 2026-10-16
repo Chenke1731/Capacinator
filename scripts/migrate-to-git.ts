@@ -8,11 +8,11 @@
  * One-time migration tool to export existing SQLite database to Git repository JSON format
  *
  * Usage:
- *   npx ts-node scripts/migrate-to-git.ts --database=capacinator-dev.db --output=../capacinator-data
+ *   npx ts-node scripts/migrate-to-git.ts --database=capacinator.db --output=../capacinator-data
  *   npx ts-node scripts/migrate-to-git.ts --help
  *
  * Options:
- *   --database=<path>  Path to SQLite database file (default: capacinator-dev.db)
+ *   --database=<path>  Path to SQLite database file (default: capacinator.db)
  *   --output=<path>    Output directory for Git repository (default: ./capacinator-data-export)
  *   --scenario=<id>    Export specific scenario (default: 'working')
  *   --dry-run          Preview export without writing files
@@ -51,7 +51,7 @@ function parseArgs(): {
   }
 
   return {
-    database: (args['database'] as string) || 'capacinator-dev.db',
+    database: (args['database'] as string) || 'capacinator.db',
     output: (args['output'] as string) || './capacinator-data-export',
     scenario: (args['scenario'] as string) || 'working',
     dryRun: args['dry-run'] === true,
@@ -72,7 +72,7 @@ Usage:
   npx ts-node scripts/migrate-to-git.ts [options]
 
 Options:
-  --database=<path>  Path to SQLite database file (default: capacinator-dev.db)
+  --database=<path>  Path to SQLite database file (default: capacinator.db)
   --output=<path>    Output directory for Git repository (default: ./capacinator-data-export)
   --scenario=<id>    Scenario identifier for export (default: 'working')
   --dry-run          Preview export without writing files
@@ -82,13 +82,13 @@ Options:
 
 Examples:
   # Basic export
-  npx ts-node scripts/migrate-to-git.ts --database=capacinator-dev.db --output=../capacinator-data
+  npx ts-node scripts/migrate-to-git.ts --database=capacinator.db --output=../capacinator-data
 
   # Preview what would be exported
-  npx ts-node scripts/migrate-to-git.ts --database=capacinator-dev.db --dry-run --verbose
+  npx ts-node scripts/migrate-to-git.ts --database=capacinator.db --dry-run --verbose
 
   # Full migration with Git initialization
-  npx ts-node scripts/migrate-to-git.ts --database=capacinator-dev.db --output=../capacinator-data --init-git
+  npx ts-node scripts/migrate-to-git.ts --database=capacinator.db --output=../capacinator-data --init-git
 
 Repository Structure:
   The script creates the following structure:

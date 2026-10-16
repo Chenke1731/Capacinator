@@ -48,8 +48,10 @@ export function resolveDatabaseFile(): string {
   return path.isAbsolute(f) ? f : path.join(getDataPath(), f);
 }
 
-// Determine which config to use based on environment
-const getConfig = (): Knex.Config => {
+// Determine which config to use based on environment.
+// 2026-10-16 C′: 命名导出——getDb() 惰性调用,env 装载后才求值
+// (default 导出是 import 期固化的旧病灶,保留仅为 seed.ts 等既有消费方)
+export const getConfig = (): Knex.Config => {
   // Use E2E config when in E2E mode
   if (process.env.NODE_ENV === 'e2e') {
     console.log('🧪 Using E2E database configuration');

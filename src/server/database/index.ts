@@ -1,5 +1,5 @@
 import knex, { Knex } from 'knex';
-import knexConfig, { resolveDatabaseFile } from './knexfile.js';
+import { getConfig, resolveDatabaseFile } from './knexfile.js';
 import path from 'path';
 import os from 'os';
 import fs from 'fs';
@@ -26,7 +26,10 @@ export function getDb(): Knex {
   }
   
   if (!_db) {
-    _db = knex(knexConfig);
+    // 2026-10-16 C′: 惰性取配置——knex(knexfile 默认导出)在 import 期
+    // 固化 filename(ESM 提升先于 dotenv),env 声明从未生效;此处首次
+    // 调用必在启动 body 期,env 已装载,主连接真正吃到 DB_FILENAME
+    _db = knex(getConfig());
     
     // Log which database we're using (only on first connection)
     if (process.env.NODE_ENV === 'e2e') {

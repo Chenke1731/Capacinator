@@ -3,7 +3,7 @@ import fs from 'fs';
 import { logger } from '../logging/config.js';
 import { getConfig } from '../../config/index.js';
 import { runBackupOnce } from './backupService.js';
-import { resolveDatabaseFile } from '../../database/knexfile.js';
+import { getLiveDatabaseFile } from '../../database/index.js';
 
 /**
  * 自动备份调度(IP-08a/S02)——旧实现只有一行日志。
@@ -70,9 +70,14 @@ export function initializeAutomaticBackups(opts?: {
     logger.error(`Automatic backups disabled: unknown interval '${dbConfig.backupInterval}'`);
     return;
   }
-  // 与 knex 同源解析(绝对路径原样/相对名落 data 目录)——旧取 config.filename
-  // 在相对名场景下相对 CWD 解析,启动即备份失败(冒烟实测)
-  const dbFilePath = opts?.dbFilePath ?? resolveDatabaseFile();
+  // 备份源=活连接实际文件名(IP-08a 返工,2026-10-16):旧 resolveDatabaseFile()
+  // 在 env 装载后二次解析,与主连接(import 时序固化)分歧——dev 下打到
+  // 不存在的 capacitor-dev.db,readonly 必败。显式传入优先(测试/演练)。
+  const dbFilePath = opts?.dbFilePath ?? getLiveDatabaseFile();
+  if (dbFilePath === ':memory:') {
+    logger.info('Automatic backups skipped: in-memory database has no durable file');
+    return;
+  }
   const timerApi = opts?.timerApi ?? { setInterval, clearInterval };
 
   if (schedulerState.timer) timerApi.clearInterval(schedulerState.timer);

@@ -27,6 +27,12 @@ jest.mock('../backupService.js', () => ({
   runBackupOnce: (...args: unknown[]) => runBackupOnce(...args)
 }));
 
+// Mock 活连接文件名原语(IP-08a 返工:备份源不得二次解析 env)
+const getLiveDatabaseFile = jest.fn();
+jest.mock('../../../database/index.js', () => ({
+  getLiveDatabaseFile: (...args: unknown[]) => getLiveDatabaseFile(...args)
+}));
+
 import { initializeAutomaticBackups, parseIntervalMinutes, schedulerState, backupAndRecord } from '../scheduler.js';
 import { logger } from '../../logging/config.js';
 
@@ -36,6 +42,7 @@ describe('backup scheduler (IP-08a)', () => {
     jest.spyOn(globalThis, 'setImmediate').mockImplementation(((cb: () => void) => { cb(); return 0; }) as unknown as typeof setImmediate);
     schedulerState.timer = null;
     schedulerState.lastResult = null;
+    getLiveDatabaseFile.mockReturnValue('/tmp/live-A.db');
   });
 
   afterEach(() => {
@@ -105,5 +112,42 @@ describe('backup scheduler (IP-08a)', () => {
     initializeAutomaticBackups({ timerApi: api });
 
     expect(clearIntervalMock).toHaveBeenCalledWith(1); // 第二次初始化清理第一个定时器
+  });
+
+  it('默认备份源=活连接实际文件名,不再二次解析 env(IP-08a 返工)', () => {
+    runBackupOnce.mockReturnValue({ result: { file: '/tmp/x.db', sizeBytes: 1, createdAt: 't' }, verify: {}, removed: [] });
+    const setIntervalMock = jest.fn().mockReturnValue(42) as unknown as typeof setInterval;
+
+    initializeAutomaticBackups({ timerApi: { setInterval: setIntervalMock, clearInterval: jest.fn() } });
+
+    // 旧实现:resolveDatabaseFile() 在 env 装载后二次解析 → 与主连接
+    // (import 时序固化的默认名)分歧 → readonly 打开不存在的文件必败
+    expect(runBackupOnce).toHaveBeenCalledWith(expect.objectContaining({ dbFilePath: '/tmp/live-A.db' }));
+    expect(getLiveDatabaseFile).toHaveBeenCalled();
+  });
+
+  it('显式传入 dbFilePath 优先于活连接推导', () => {
+    runBackupOnce.mockReturnValue({ result: { file: '/tmp/x.db', sizeBytes: 1, createdAt: 't' }, verify: {}, removed: [] });
+    const setIntervalMock = jest.fn().mockReturnValue(42) as unknown as typeof setInterval;
+
+    initializeAutomaticBackups({
+      dbFilePath: '/tmp/explicit.db',
+      timerApi: { setInterval: setIntervalMock, clearInterval: jest.fn() }
+    });
+
+    expect(runBackupOnce).toHaveBeenCalledWith(expect.objectContaining({ dbFilePath: '/tmp/explicit.db' }));
+  });
+
+  it('内存库无持久文件:跳过调度不报错', () => {
+    getLiveDatabaseFile.mockReturnValue(':memory:');
+    const setIntervalMock = jest.fn() as unknown as typeof setInterval;
+    try {
+      initializeAutomaticBackups({ timerApi: { setInterval: setIntervalMock, clearInterval: jest.fn() } });
+      expect(runBackupOnce).not.toHaveBeenCalled();
+      expect(setIntervalMock).not.toHaveBeenCalled();
+      expect(logger.info).toHaveBeenCalledWith(expect.stringContaining('in-memory'));
+    } finally {
+      getLiveDatabaseFile.mockReturnValue('/tmp/live-A.db');
+    }
   });
 });

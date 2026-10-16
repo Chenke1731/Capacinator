@@ -134,4 +134,14 @@ describe('backupService (真 sqlite)', () => {
     expect(() => restoreBackupTo(corrupt, path.join(workDir, 'r.db'))).toThrow(/verification failed/);
     expect(fs.existsSync(path.join(workDir, 'r.db'))).toBe(false); // 半成品不留
   });
+
+  test('createConsistentBackup 源缺失:错误信息带源路径(可诊断性,IP-08a 返工)', () => {
+    // 2026-10-16 dev 实况:env 时序分歧让备份打到不存在的
+    // capacitor-dev.db,原错误"unable to open database file"不带路径,
+    // 无法定位是源还是目标的问题
+    expect(() =>
+      createConsistentBackup('/nonexistent-bk-src/source.db', path.join(dir, 'never-created.db'))
+    ).toThrow(/nonexistent-bk-src/);
+    expect(fs.existsSync(path.join(dir, 'never-created.db'))).toBe(false);
+  });
 });

@@ -1,5 +1,5 @@
 import knex, { Knex } from 'knex';
-import knexConfig from './knexfile.js';
+import knexConfig, { resolveDatabaseFile } from './knexfile.js';
 import path from 'path';
 import os from 'os';
 import fs from 'fs';
@@ -37,6 +37,24 @@ export function getDb(): Knex {
   }
   
   return _db;
+}
+
+/**
+ * 活连接实际使用的数据库文件名——文件级消费方（备份/恢复演练）的唯一
+ * 真相源（IP-08a 返工,2026-10-16）。
+ *
+ * knexfile 的 `export default getConfig()` 在 import 时就固化 filename：
+ * ESM 静态 import 先于 index.ts 的 dotenv 执行，主连接拿默认名
+ * data/capacitor.db；此时任何"晚于 env 装载再 resolveDatabaseFile()"的
+ * 消费方都会解析出另一个文件（.env.development 声明的
+ * capacitor-dev.db,不存在）——dev 自动备份 readonly 打开必败即此。
+ * 备份源从这里取，与主连接永不分歧；连接设置缺失时回落 env 解析。
+ */
+export function getLiveDatabaseFile(dbInstance?: Knex): string {
+  const settings = (dbInstance ?? getDb()).client.connectionSettings as { filename?: unknown } | undefined;
+  const f = settings?.filename;
+  if (typeof f === 'string' && f !== '') return f;
+  return resolveDatabaseFile();
 }
 
 // Get audited database instance

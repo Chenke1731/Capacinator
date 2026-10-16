@@ -23,7 +23,14 @@ export function createConsistentBackup(dbFilePath: string, backupFilePath: strin
   if (fs.existsSync(backupFilePath)) {
     throw new Error(`backup target already exists: ${backupFilePath}`);
   }
-  const src = new Database(dbFilePath, { readonly: true });
+  // 源打开失败时带上路径(2026-10-16 dev 实况:env 时序分歧打到不存在的
+  // 文件,裸"unable to open database file"无法定位是源还是目标)
+  let src: InstanceType<typeof Database>;
+  try {
+    src = new Database(dbFilePath, { readonly: true });
+  } catch (e) {
+    throw new Error(`cannot open source database '${dbFilePath}' (readonly): ${(e as Error).message}`);
+  }
   try {
     src.exec(`VACUUM INTO '${backupFilePath.replace(/'/g, "''")}'`);
   } finally {

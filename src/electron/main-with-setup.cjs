@@ -556,9 +556,12 @@ ipcMain.handle('backup-database', async () => {
   const fs = require('fs');
   const Database = require('better-sqlite3');
   const config = getConfig();
-  const dbPath = path.join(config.database.location, config.database.filename);
-  const backupPath = path.join(config.backup?.location || config.database.location,
-    'backups', `backup-${Date.now()}.db`);
+  // IP-08a 返工(2026-10-16): config.database.location / config.backup.location
+  // 并不存在——旧 path.join(undefined, ...) 必炸 TypeError。服务端与主进程
+  // 同进程运行,knexfile 的 getDataPath 在 production 下走 app.getPath('userData'),
+  // 与服务端备份调度同规则:userData + filename,备份落 userData/backups
+  const dbPath = path.join(app.getPath('userData'), config.database.filename);
+  const backupPath = path.join(app.getPath('userData'), 'backups', `backup-${Date.now()}.db`);
 
   await fs.promises.mkdir(path.dirname(backupPath), { recursive: true });
   // IP-08a/S02: 在线一致性备份(VACUUM INTO)——直接 copyFile 会丢 WAL 中

@@ -19,6 +19,7 @@
 import { workdaysBetween, workMonths } from '../calc/workCalendar.js';
 import { BASELINE_SCENARIO_ID, activeAssignmentsInScenario } from '../calc/effectiveAssignments.js';
 import { segmentedWorkMonths } from '../calc/capacitySegments.js';
+import { fetchApprovedAvailabilityOverrides } from '../calc/availabilityOverrides.js';
 
 export interface ConversionInput {
   estimated_loc: number;
@@ -307,30 +308,20 @@ export class EstimationService {
       .select('pmd.project_id', 'pmd.headcount', 'pmd.start_date', 'pmd.end_date');
   }
 
-  /** 已批准且与窗口相交的可用率覆盖,按人分组 (IP-03a/C06) */
+  /** 已批准且与窗口相交的可用率覆盖,按人分组 (IP-03a/C06)——
+   *  2026-10-16 起委托共享原语:容量报表时间线(缺口①)与死线校验
+   *  必须读同一覆盖集合,两处各写一份查询必然漂移 */
   private async fetchAvailabilityOverrides(
     personIds: string[],
     windowStart: Date,
     windowEnd: Date
   ): Promise<Map<string, Array<{ start: string; end: string; availability_percentage: number }>>> {
-    const byPerson = new Map<string, Array<{ start: string; end: string; availability_percentage: number }>>();
-    if (personIds.length === 0) return byPerson;
-    const rows = await this.db('person_availability_overrides')
-      .whereIn('person_id', personIds)
-      .where('is_approved', 1)
-      .where('start_date', '<=', toISODateString(windowEnd))
-      .where('end_date', '>=', toISODateString(windowStart))
-      .select('person_id', 'start_date', 'end_date', 'availability_percentage');
-    for (const row of rows) {
-      const list = byPerson.get(row.person_id) ?? [];
-      list.push({
-        start: String(row.start_date).slice(0, 10),
-        end: String(row.end_date).slice(0, 10),
-        availability_percentage: row.availability_percentage
-      });
-      byPerson.set(row.person_id, list);
-    }
-    return byPerson;
+    return fetchApprovedAvailabilityOverrides(
+      this.db,
+      personIds,
+      toISODateString(windowStart),
+      toISODateString(windowEnd)
+    );
   }
 
   private async checkSide(

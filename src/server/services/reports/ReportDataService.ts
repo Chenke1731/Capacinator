@@ -1,5 +1,7 @@
 import type { Knex } from 'knex';
 import { BASELINE_SCENARIO_ID } from '../calc/effectiveAssignments.js';
+import { segmentedWorkHours } from '../calc/capacitySegments.js';
+import { fetchApprovedAvailabilityOverrides } from '../calc/availabilityOverrides.js';
 import type {
   DateRangeFilter,
   DemandReportFilters,
@@ -21,6 +23,11 @@ import type {
   ProjectHealthRow,
   DemandDataRow,
 } from './types.js';
+
+/** 本地时区日期串（R05 教训：toISOString 的 UTC 位移会让日期倒退一天） */
+function toISODateLocal(d: Date): string {
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+}
 
 /**
  * Service for fetching and aggregating report data.
@@ -674,37 +681,62 @@ export class ReportDataService {
     });
   }
 
-  private async calculateCapacityTimeline(startDate?: string, endDate?: string): Promise<TimelineEntry[]> {
+  /**
+   * 容量时间线（2026-10-16 缺口①重写）。旧实现四宗罪：每月写死 22 天
+   * （查 1 个工作日也回 176h）、可用率 `|| 100` 回退（显式 0% 被吞）、
+   * 不查已批准覆盖（休假不扣减）、默认窗口写死 2023-01-01~2024-12-31。
+   * 现复用 IP-03a 分段原语：月桶容量 = Σ 段容量% × 段真实工作日 × 日小时，
+   * 覆盖重叠取最小（保守），0% 保真，窗口感知部分月。
+   */
+  async calculateCapacityTimeline(startDate?: string, endDate?: string): Promise<TimelineEntry[]> {
+    // 默认窗口与客户端 utils/date.ts 对齐（IP-02e/U10）：本月 1 日 ~ 未来三个月末
+    const now = new Date();
+    const startISO = startDate ?? toISODateLocal(new Date(now.getFullYear(), now.getMonth(), 1));
+    const endISO = endDate ?? toISODateLocal(new Date(now.getFullYear(), now.getMonth() + 4, 0)); // +4 月的第 0 日 = +3 月末
+
     const people = await this.db('people')
       .select('id', 'name', 'default_hours_per_day', 'default_availability_percentage')
       .where('is_active', true);
 
-    const monthlyMap = new Map<string, number>();
-    const filterStart = startDate ? new Date(startDate) : new Date('2023-01-01');
-    const filterEnd = endDate ? new Date(endDate) : new Date('2024-12-31');
+    const overridesByPerson = await fetchApprovedAvailabilityOverrides(
+      this.db,
+      people.map((p: Record<string, unknown>) => String(p.id)),
+      startISO,
+      endISO
+    );
 
-    const currentDate = new Date(filterStart);
-    currentDate.setDate(1);
+    const startD = new Date(`${startISO}T00:00:00`);
+    const endD = new Date(`${endISO}T00:00:00`);
+    const entries: TimelineEntry[] = [];
 
-    while (currentDate <= filterEnd) {
-      const monthKey = currentDate.toISOString().slice(0, 7);
+    const cursor = new Date(startD);
+    cursor.setDate(1);
+    while (cursor <= endD) {
+      const monthStart = cursor.getTime() >= startD.getTime() ? new Date(cursor) : new Date(startD);
+      const monthEnd0 = new Date(cursor.getFullYear(), cursor.getMonth() + 1, 0);
+      const monthEnd = monthEnd0.getTime() <= endD.getTime() ? monthEnd0 : new Date(endD);
+
       let monthlyCapacity = 0;
+      for (const person of people as Record<string, unknown>[]) {
+        // nullish 而非 ||：显式 0 是真 0（缺口①的核心）；缺省走 schema 默认
+        const dailyHours = (person.default_hours_per_day as number | null) ?? 8;
+        const defaultPct = (person.default_availability_percentage as number | null) ?? 100;
+        monthlyCapacity += segmentedWorkHours(
+          { start: toISODateLocal(monthStart), end: toISODateLocal(monthEnd) },
+          defaultPct,
+          overridesByPerson.get(String(person.id)) ?? [],
+          dailyHours
+        );
+      }
 
-      people.forEach((person: Record<string, unknown>) => {
-        const workingDaysPerMonth = 22;
-        const dailyHours = (person.default_hours_per_day as number) || 8;
-        const availabilityPercent = ((person.default_availability_percentage as number) || 100) / 100;
-        monthlyCapacity += workingDaysPerMonth * dailyHours * availabilityPercent;
+      entries.push({
+        period: `${cursor.getFullYear()}-${String(cursor.getMonth() + 1).padStart(2, '0')}`,
+        capacity: Math.round(monthlyCapacity)
       });
-
-      monthlyMap.set(monthKey, monthlyCapacity);
-      currentDate.setMonth(currentDate.getMonth() + 1);
+      cursor.setMonth(cursor.getMonth() + 1);
     }
 
-    return Array.from(monthlyMap.entries()).map(([month, capacity]) => ({
-      period: month,
-      capacity: Math.round(capacity),
-    }));
+    return entries;
   }
 
   private calculateProjectsWithUnmetDemands(

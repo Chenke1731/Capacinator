@@ -138,3 +138,21 @@ export function segmentedWorkMonths(
     0
   );
 }
+
+/**
+ * 分段有效工时：Σ 段容量% × 段工作日 × 每工作日小时。
+ * 与 segmentedWorkMonths 同构（报表侧小时口径，2026-10-16 缺口①）——
+ * 容量时间线不再自己发明"每月 22 天"。
+ */
+export function segmentedWorkHours(
+  window: { start: string; end: string },
+  defaultAvailabilityPct: number,
+  overrides: Array<{ start: string; end: string; availability_percentage: number }>,
+  hoursPerWorkday: number
+): number {
+  const r = evaluateWindowCapacity({ window, defaultAvailabilityPct, overrides, allocations: [] });
+  return r.segments.reduce(
+    (sum, s) => sum + (s.capacityPct / 100) * workdaysBetween(s.start, s.end) * hoursPerWorkday,
+    0
+  );
+}

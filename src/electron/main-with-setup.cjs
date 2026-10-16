@@ -554,14 +554,22 @@ ipcMain.handle('optimize-database', async () => {
 
 ipcMain.handle('backup-database', async () => {
   const fs = require('fs');
+  const Database = require('better-sqlite3');
   const config = getConfig();
   const dbPath = path.join(config.database.location, config.database.filename);
-  const backupPath = path.join(config.backup?.location || config.database.location, 
+  const backupPath = path.join(config.backup?.location || config.database.location,
     'backups', `backup-${Date.now()}.db`);
-  
+
   await fs.promises.mkdir(path.dirname(backupPath), { recursive: true });
-  await fs.promises.copyFile(dbPath, backupPath);
-  
+  // IP-08a/S02: 在线一致性备份(VACUUM INTO)——直接 copyFile 会丢 WAL 中
+  // 已提交未 checkpoint 的事务(前轮已复现)
+  const src = new Database(dbPath, { readonly: true });
+  try {
+    src.exec(`VACUUM INTO '${backupPath.replace(/'/g, "''")}'`);
+  } finally {
+    src.close();
+  }
+
   const { appStore } = require('./setup-wizard-main.cjs');
   appStore.set('lastBackupTime', Date.now());
   return true;

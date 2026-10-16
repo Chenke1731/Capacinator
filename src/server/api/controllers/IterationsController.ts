@@ -1,4 +1,4 @@
-import { quarterOf, monthsOf, intensityPct, workdaysBetween } from '../../services/iteration/IterationStats.js';
+import { quarterOf, monthsOf, intensityPct } from '../../services/iteration/IterationStats.js';
 import { BaseController, RequestWithContext } from './BaseController.js';
 
 type RequestWithLogging = RequestWithContext;

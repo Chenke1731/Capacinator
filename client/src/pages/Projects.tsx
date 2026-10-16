@@ -669,13 +669,9 @@ export function Projects() {
     return vars as React.CSSProperties;
   }, [colWidths, showAll, compact, containerW]);
 
-  /** P2(2026-09-23): 操作失败的轻量 toast */
-  const [errorToast, setErrorToast] = useState<string | null>(null);
-  const showErrorToast = (msg: string) => {
-    setErrorToast(msg);
-    window.setTimeout(() => setErrorToast(null), 3000);
-  };
-  /** 批量操作成功反馈(2026-10-11): 与失败 toast 同形态 */
+  /** 批量操作成功反馈(2026-10-11): 与失败 toast 同形态。
+   *  失败面由 useMutationFailureToaster 承担(2026-10-16 lint 清):
+   *  旧 errorToast 链唯一写入口 showErrorToast 已无人调用,整链摘除 */
   const [okToast, setOkToast] = useState<string | null>(null);
   const showOkToast = (msg: string) => {
     setOkToast(msg);
@@ -1214,7 +1210,7 @@ export function Projects() {
 
       {/* toast 堆叠容器(2026-10-11 审视#4): 成功/失败同位叠加改为纵向堆叠,
           几何(定位/居中/让位)收敛到容器一处 */}
-      <BoardNotifications error={errorToast} success={okToast} />
+      <BoardNotifications success={okToast} />
       {mutationFailure && (
         <div className="req-toast-stack">
           <div

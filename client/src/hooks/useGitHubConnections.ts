@@ -22,9 +22,6 @@ export function useGitHubConnections(options?: {
   includeInactive?: boolean;
   includeAssociations?: boolean;
 }) {
-  const { toast } = useToast();
-  const { t } = useTranslation();
-
   // 显式泛型 + 无 onError(2026-10-13 批清): v5 移除了 useQuery 级回调,
   // 原 onError 是永不触发的死代码且毒化 TData 推断(组件端 data 退化成 {})
   return useQuery<GitHubConnection[]>({
@@ -48,9 +45,6 @@ export function useGitHubConnection(
   id: number | undefined,
   options?: { includeAssociations?: boolean }
 ) {
-  const { toast } = useToast();
-  const { t } = useTranslation();
-
   return useQuery({
     queryKey: queryKeys.githubConnections.detail(id, options),
     queryFn: async () => {
@@ -200,9 +194,6 @@ export function useGitHubAssociations(
   connectionId: number | undefined,
   options?: { includeInactive?: boolean }
 ) {
-  const { toast } = useToast();
-  const { t } = useTranslation();
-
   return useQuery<GitHubAssociation[]>({
     queryKey: queryKeys.githubConnections.associations(connectionId, options),
     queryFn: async () => {

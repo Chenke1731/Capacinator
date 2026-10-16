@@ -38,12 +38,6 @@ import { Github, Trash2, Link as LinkIcon, Loader2, AlertCircle } from 'lucide-r
 import { useQuery } from '@tanstack/react-query';
 import { api } from '../lib/api-client';
 
-interface Person {
-  id: number;
-  name: string;
-  email: string;
-}
-
 export function PeopleGitHubAssociations() {
   const [selectedConnectionId, setSelectedConnectionId] = useState<number | undefined>();
   const [selectedPersonId, setSelectedPersonId] = useState<string>('');

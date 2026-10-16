@@ -586,9 +586,6 @@ export class ScenariosController extends BaseController {
       
       const peopleCount1 = new Set(assignments1.map(a => a.person_id)).size;
       const peopleCount2 = new Set(assignments2.map(a => a.person_id)).size;
-      
-      const projectCount1 = new Set(assignments1.map(a => a.project_id)).size;
-      const projectCount2 = new Set(assignments2.map(a => a.project_id)).size;
 
       // IP-04c/R04: 受影响项目按变更对象集合去重计数——两个方案项目总数之差
       // 对"仅日期变化"恒为 0,无法回答"谁被改了"

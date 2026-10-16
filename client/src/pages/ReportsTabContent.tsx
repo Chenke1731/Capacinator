@@ -126,11 +126,6 @@ export function buildDemandTrend(
   return { trendOverTime, peakMonth: peak?.month ?? null };
 }
 
-interface DemandTrendData {
-  month: string;
-  total_hours: number;
-}
-
 // DemandReportData interface reserved for future demand report feature
 
 interface GapsByRole {

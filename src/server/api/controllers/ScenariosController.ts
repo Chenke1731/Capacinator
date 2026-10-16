@@ -724,85 +724,76 @@ export class ScenariosController extends BaseController {
         comment: `Merge initiated from ${scenario.name} to parent scenario ${scenario.parent_scenario_id} with conflict resolution: ${resolve_conflicts_as}`
       });
 
-      // Detect conflicts first
-      const conflicts = await this.detectMergeConflicts(id, scenario.parent_scenario_id);
+      // IP-04b/F03: 目标变更、冲突落表/裁决、非冲突复制与源 merged 状态
+      // 全部收进同一事务——中途失败两边均保持原状(旧实现 performMerge 自有
+      // 事务先提交,源状态另写,存在"数据已合并、状态未落"裂缝)
+      return await this.db.transaction(async (trx: Knex.Transaction) => {
+        // Detect conflicts first
+        const conflicts = await this.detectMergeConflicts(id, scenario.parent_scenario_id, trx);
 
-      if (conflicts.length > 0 && resolve_conflicts_as === 'manual') {
-        // Save conflicts for manual resolution
-        for (const conflict of conflicts) {
-          const conflictId = randomUUID();
-          await this.db('scenario_merge_conflicts').insert({
-            id: conflictId,
-            source_scenario_id: id,
-            target_scenario_id: scenario.parent_scenario_id,
-            conflict_type: conflict.type,
-            entity_id: conflict.entity_id,
-            source_data: JSON.stringify(conflict.source_data),
-            target_data: JSON.stringify(conflict.target_data),
-            resolution: 'pending',
-            created_at: new Date()
-          });
-
-          // Audit log - conflict detection
-          await auditModelChanges(req, {
-            tableName: 'scenario_merge_conflicts',
-            recordId: conflictId,
-            action: 'INSERT',
-            oldValues: null,
-            newValues: {
+        if (conflicts.length > 0 && resolve_conflicts_as === 'manual') {
+          // Save conflicts for manual resolution
+          for (const conflict of conflicts) {
+            const conflictId = randomUUID();
+            await trx('scenario_merge_conflicts').insert({
               id: conflictId,
               source_scenario_id: id,
               target_scenario_id: scenario.parent_scenario_id,
               conflict_type: conflict.type,
-              entity_id: conflict.entity_id
-            },
-            comment: `Merge conflict detected: ${conflict.type} for entity ${conflict.entity_id}`
-          });
+              entity_id: conflict.entity_id,
+              source_data: JSON.stringify(conflict.source_data),
+              target_data: JSON.stringify(conflict.target_data),
+              resolution: 'pending',
+              created_at: new Date()
+            });
+          }
+
+          // 状态流转与冲突落表同事务
+          await trx('scenarios').where({ id }).update({ status: 'conflict', updated_at: new Date() });
+
+          return {
+            success: false,
+            message: 'Merge conflicts detected. Manual resolution required.',
+            conflicts: conflicts.length
+          };
         }
 
-        // Audit log - merge failed due to conflicts
+        // Perform the merge (strategy-aware, same transaction)
+        await this.performMerge(id, scenario.parent_scenario_id, resolve_conflicts_as, trx);
+
+        // Mark scenario as merged — same transaction as the data changes above
+        await trx('scenarios')
+          .where('id', id)
+          .update({ status: 'merged', updated_at: new Date() });
+
+        return {
+          success: true,
+          message: 'Scenario merged successfully'
+        };
+      });
+    }, res, 'Failed to merge scenario');
+
+    // Audit outside the data transaction (audit middleware holds its own connection)
+    if (result) {
+      if (result.success) {
         await auditModelChanges(req, {
           tableName: 'scenarios',
           recordId: id,
           action: 'UPDATE',
-          oldValues: scenario,
-          newValues: { ...scenario, status: 'conflict' },
-          comment: `Merge failed: ${conflicts.length} conflicts require manual resolution`
+          oldValues: null,
+          newValues: { status: 'merged' },
+          comment: `Merge completed successfully to parent scenario`
         });
-
-        return {
-          success: false,
-          message: 'Merge conflicts detected. Manual resolution required.',
-          conflicts: conflicts.length
-        };
+      } else if (result.conflicts) {
+        await auditModelChanges(req, {
+          tableName: 'scenarios',
+          recordId: id,
+          action: 'UPDATE',
+          oldValues: null,
+          newValues: { status: 'conflict' },
+          comment: `Merge blocked: ${result.conflicts} conflicts require manual resolution`
+        });
       }
-
-      // Perform the merge (this will handle individual table audit logging)
-      await this.performMerge(id, scenario.parent_scenario_id, resolve_conflicts_as);
-
-      // Mark scenario as merged
-      const mergedScenario = { ...scenario, status: 'merged', updated_at: new Date() };
-      await this.db('scenarios')
-        .where('id', id)
-        .update({ status: 'merged', updated_at: new Date() });
-
-      // Audit log - merge completion
-      await auditModelChanges(req, {
-        tableName: 'scenarios',
-        recordId: id,
-        action: 'UPDATE',
-        oldValues: scenario,
-        newValues: mergedScenario,
-        comment: `Merge completed successfully from ${scenario.name} to parent scenario ${scenario.parent_scenario_id}`
-      });
-
-      return {
-        success: true,
-        message: 'Scenario merged successfully'
-      };
-    }, res, 'Failed to merge scenario');
-
-    if (result) {
       res.json(result);
     }
   }
@@ -920,23 +911,24 @@ export class ScenariosController extends BaseController {
     });
   }
 
-  private async detectMergeConflicts(sourceScenarioId: string, targetScenarioId: string) {
+  private async detectMergeConflicts(sourceScenarioId: string, targetScenarioId: string, trx?: Knex.Transaction) {
+    const db = trx ?? this.db;
     const conflicts = [];
 
     // Get all changes from source scenario
-    const sourceAssignments = await this.db('scenario_project_assignments')
+    const sourceAssignments = await db('scenario_project_assignments')
       .where('scenario_id', sourceScenarioId);
-    
-    const sourcePhases = await this.db('scenario_project_phases')
+
+    const sourcePhases = await db('scenario_project_phases')
       .where('scenario_id', sourceScenarioId);
-    
-    const sourceProjects = await this.db('scenario_projects')
+
+    const sourceProjects = await db('scenario_projects')
       .where('scenario_id', sourceScenarioId);
 
     // Check for assignment conflicts
     for (const sourceAssignment of sourceAssignments) {
       // Check if target scenario has a conflicting assignment
-      const targetAssignment = await this.db('scenario_project_assignments')
+      const targetAssignment = await db('scenario_project_assignments')
         .where('scenario_id', targetScenarioId)
         .where('project_id', sourceAssignment.project_id)
         .where('person_id', sourceAssignment.person_id)
@@ -945,10 +937,11 @@ export class ScenariosController extends BaseController {
         .first();
 
       if (targetAssignment) {
-        // Check if assignments are different
-        const fieldsToCompare = ['allocation_percentage', 'assignment_date_mode', 'start_date', 'end_date'];
-        const hasConflict = fieldsToCompare.some(field => 
-          sourceAssignment[field] !== targetAssignment[field]
+        // IP-04b/F03: status/is_primary 单独变化也是差异——旧清单漏这两字段,
+        // 变更行被"非冲突"分支直接跳过,暂停/主投入变化静默丢失
+        const fieldsToCompare = ['allocation_percentage', 'assignment_date_mode', 'start_date', 'end_date', 'status', 'is_primary'];
+        const hasConflict = fieldsToCompare.some(field =>
+          String(sourceAssignment[field]) !== String(targetAssignment[field])
         );
 
         if (hasConflict) {
@@ -964,7 +957,7 @@ export class ScenariosController extends BaseController {
 
     // Check for phase timeline conflicts
     for (const sourcePhase of sourcePhases) {
-      const targetPhase = await this.db('scenario_project_phases')
+      const targetPhase = await db('scenario_project_phases')
         .where('scenario_id', targetScenarioId)
         .where('project_id', sourcePhase.project_id)
         .where('phase_id', sourcePhase.phase_id)
@@ -988,7 +981,7 @@ export class ScenariosController extends BaseController {
 
     // Check for project detail conflicts
     for (const sourceProject of sourceProjects) {
-      const targetProject = await this.db('scenario_projects')
+      const targetProject = await db('scenario_projects')
         .where('scenario_id', targetScenarioId)
         .where('project_id', sourceProject.project_id)
         .first();
@@ -996,7 +989,7 @@ export class ScenariosController extends BaseController {
       if (targetProject) {
         // Check if project details are different
         const fieldsToCompare = ['name', 'priority', 'aspiration_start', 'aspiration_finish'];
-        const hasConflict = fieldsToCompare.some(field => 
+        const hasConflict = fieldsToCompare.some(field =>
           sourceProject[field] !== targetProject[field]
         );
 
@@ -1014,41 +1007,76 @@ export class ScenariosController extends BaseController {
     return conflicts;
   }
 
-  private async performMerge(sourceScenarioId: string, targetScenarioId: string, _conflictResolution: string = 'use_source') {
-    // Start a transaction to ensure atomicity
-    await this.db.transaction(async (trx: Knex.Transaction) => {
-      // Get all conflicts that need resolution
-      const conflicts = await trx('scenario_merge_conflicts')
-        .where('source_scenario_id', sourceScenarioId)
-        .where('target_scenario_id', targetScenarioId)
-        .where('resolution', '!=', 'pending');
+  /**
+   * IP-04b/F03: 合并执行——策略真正参与处理。
+   * - use_source/use_target:当前冲突按策略取源/目标值直接裁决写入
+   * - manual:只应用冲突表中已裁决的行;存在 pending 未裁决行则拒绝(整体回滚)
+   * 调用方保证本方法运行在合并总事务内(trx 参数)。
+   */
+  private async performMerge(sourceScenarioId: string, targetScenarioId: string, conflictResolution: string = 'use_source', trx?: Knex.Transaction) {
+    const runInTrx = async (trx: Knex.Transaction) => {
+      if (conflictResolution === 'use_source' || conflictResolution === 'use_target') {
+        // 策略自动裁决:重算当前冲突并按策略取值写入(旧实现忽略策略参数,
+        // 冲突行被静默丢弃——目标保留旧值,源却标 merged)
+        const current = await this.detectMergeConflicts(sourceScenarioId, targetScenarioId, trx);
+        for (const conflict of current) {
+          const resolved = conflictResolution === 'use_source' ? conflict.source_data : conflict.target_data;
+          if (conflict.type === 'assignment') {
+            await this.mergeAssignment(trx, targetScenarioId, resolved);
+          } else if (conflict.type === 'phase_timeline') {
+            await this.mergePhaseTimeline(trx, targetScenarioId, resolved);
+          } else if (conflict.type === 'project_details') {
+            await this.mergeProjectDetails(trx, targetScenarioId, resolved);
+          }
+        }
+      } else {
+        // manual:只应用已裁决的冲突行;pending 未清则拒绝合并
+        const pending = await trx('scenario_merge_conflicts')
+          .where('source_scenario_id', sourceScenarioId)
+          .where('target_scenario_id', targetScenarioId)
+          .where('resolution', 'pending')
+          .count('* as c').first();
+        if (Number(pending?.c ?? 0) > 0) {
+          throw new Error('Unresolved merge conflicts remain: manual resolution required');
+        }
 
-      // Apply resolved conflicts first
-      for (const conflict of conflicts) {
-        const resolvedData = conflict.resolved_data ? 
-          JSON.parse(conflict.resolved_data) : 
-          (conflict.resolution === 'use_source' ? 
-            JSON.parse(conflict.source_data) : 
-            JSON.parse(conflict.target_data));
+        const conflicts = await trx('scenario_merge_conflicts')
+          .where('source_scenario_id', sourceScenarioId)
+          .where('target_scenario_id', targetScenarioId)
+          .where('resolution', '!=', 'pending');
 
-        if (conflict.conflict_type === 'assignment') {
-          await this.mergeAssignment(trx, targetScenarioId, resolvedData);
-        } else if (conflict.conflict_type === 'phase_timeline') {
-          await this.mergePhaseTimeline(trx, targetScenarioId, resolvedData);
-        } else if (conflict.conflict_type === 'project_details') {
-          await this.mergeProjectDetails(trx, targetScenarioId, resolvedData);
+        for (const conflict of conflicts) {
+          const resolvedData = conflict.resolved_data ?
+            JSON.parse(conflict.resolved_data) :
+            (conflict.resolution === 'use_source' ?
+              JSON.parse(conflict.source_data) :
+              JSON.parse(conflict.target_data));
+
+          if (conflict.conflict_type === 'assignment') {
+            await this.mergeAssignment(trx, targetScenarioId, resolvedData);
+          } else if (conflict.conflict_type === 'phase_timeline') {
+            await this.mergePhaseTimeline(trx, targetScenarioId, resolvedData);
+          } else if (conflict.conflict_type === 'project_details') {
+            await this.mergeProjectDetails(trx, targetScenarioId, resolvedData);
+          }
         }
       }
 
       // Apply non-conflicting changes
       await this.mergeNonConflictingChanges(trx, sourceScenarioId, targetScenarioId);
 
-      // Clean up resolved conflicts
+      // Clean up conflict records for this pair
       await trx('scenario_merge_conflicts')
         .where('source_scenario_id', sourceScenarioId)
         .where('target_scenario_id', targetScenarioId)
         .del();
-    });
+    };
+
+    if (trx) {
+      await runInTrx(trx);
+    } else {
+      await this.db.transaction(runInTrx);
+    }
   }
 
   private async mergeAssignment(trx: any, targetScenarioId: string, assignmentData: any) {
@@ -1069,6 +1097,11 @@ export class ScenariosController extends BaseController {
           assignment_date_mode: assignmentData.assignment_date_mode,
           start_date: assignmentData.start_date,
           end_date: assignmentData.end_date,
+          // IP-04b/F03: 暂停/主投入同为合并事实——旧更新清单漏这两字段
+          status: assignmentData.status ?? 'active',
+          is_primary: assignmentData.is_primary ?? 0,
+          computed_start_date: assignmentData.computed_start_date ?? assignmentData.start_date ?? null,
+          computed_end_date: assignmentData.computed_end_date ?? assignmentData.end_date ?? null,
           change_type: 'modified',
           updated_at: new Date()
         });
@@ -1082,9 +1115,13 @@ export class ScenariosController extends BaseController {
         role_id: assignmentData.role_id,
         phase_id: assignmentData.phase_id,
         allocation_percentage: assignmentData.allocation_percentage,
+        status: assignmentData.status ?? 'active',
+        is_primary: assignmentData.is_primary ?? 0,
         assignment_date_mode: assignmentData.assignment_date_mode,
         start_date: assignmentData.start_date,
         end_date: assignmentData.end_date,
+        computed_start_date: assignmentData.computed_start_date ?? assignmentData.start_date ?? null,
+        computed_end_date: assignmentData.computed_end_date ?? assignmentData.end_date ?? null,
         change_type: 'added',
         base_assignment_id: assignmentData.base_assignment_id,
         created_at: new Date(),

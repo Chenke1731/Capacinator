@@ -899,12 +899,11 @@ describe('ScenariosController', () => {
       mockDb._queueQueryResult(mockSourcePhases);
       mockDb._queueQueryResult(mockSourceProjects);
 
-      // Mock transaction
+      // Mock transaction — 透传回调返回值(merge 现把结果从事务回调带出,IP-04b)
       mockDb.transaction = jest.fn().mockImplementation(async (callback) => {
         const trx = createMockDb();
         trx._setQueryResult([]);
-        await callback(trx);
-        return trx;
+        return await callback(trx);
       });
 
       await controller.merge(mockReq, mockRes);

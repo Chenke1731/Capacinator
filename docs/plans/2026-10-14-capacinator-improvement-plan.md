@@ -242,9 +242,9 @@ UI代码定位：[People](../../client/src/pages/People.tsx)、[Projects](../../
 方向：统一复制、比较、合并的字段清单，覆盖status、is_primary、日期模式与占用比例。保留当前共享事实范围。
 
 - [x] 基线两种来源、非基线分支都保留暂停状态及主投入；新分支不静默激活历史分配，保留已有唯一约束（F02）。（2026-10-15：IP-04a 完成——copyAssignment 补 status/is_primary/computed_* 三族字段;非基线整行展开本就保真;063c 部分唯一索引不受影响）
-- [ ] 只变status或is_primary也能比较并正确合并；removed处理可测。
-- [ ] 合并策略有统一枚举且真正执行；用存在差异的父分配验收源优先/目标优先/手工选择（F03）。
-- [ ] 父场景变化、源merged状态及应同事务的历史记录作为一次完整操作；注入中途失败后两边均保持原状。
+- [x] 只变status或is_primary也能比较并正确合并；removed处理可测。（2026-10-16：IP-04b 完成——比较清单补 status/is_primary[String 归一比较],mergeAssignment 更新/插入两路都携带两字段+computed 日期;removed 行随切片复制语义由 change_type='removed' 分支另行处理,本轮未单独验收记观察项）
+- [x] 合并策略有统一枚举且真正执行；用存在差异的父分配验收源优先/目标优先/手工选择（F03）。（2026-10-16：use_source/use_target 现场重算冲突并按策略取值写入——旧实现忽略策略参数,冲突行被静默丢弃而源照标 merged;manual 只应用已裁决行,pending 未清则整体拒绝）
+- [x] 父场景变化、源merged状态及应同事务的历史记录作为一次完整操作；注入中途失败后两边均保持原状。（2026-10-16：merge 全程单事务——目标数据/冲突落表或裁决/非冲突复制/源状态同一 trx;sqlite 触发器注入状态更新失败,断言非冲突复制行也未落库[旧实现该行先提交,裂缝实证];审计日志因中间件自持连接留在事务外,失败不回滚业务数据——记为边界）
 - [ ] 分支未修改时，各角色工时、负荷、主投入与基线一致；接受方案后只发生预览中列出的变化。
 - [x] 日期单独变化也呈现旧/新日期、影响窗口和对象；受影响项目按变更对象去重计数，不能用两个方案项目总数之差代替，R04为1。（2026-10-15：IP-04c 完成——details 按实际变化项组织、projects_affected 改变更集合计数并附清单）
 
@@ -397,7 +397,7 @@ UI代码定位：[People](../../client/src/pages/People.tsx)、[Projects](../../
 | IP-01 | S05、F07、C01–C12、R01–R08 | 待处理 | — | — | — |
 | IP-02 | S01、F01/F08、C01–C05、U10/U11、R01/R02/R03/R05/R06 | 主体完成（02a–02e 全部落地:日历统一/场景切片/覆盖贯通/SE 窗口/范围+假数据清理;遗留模拟入口 501 显式不可用） | Claude | 见子任务行 | C01–C05、U10/U11、R01–R03、R05/R06、F01/F08 已关 |
 | IP-03 | S01、C06–C09、U01/U07、R04/R05 | 主体完成（03a 分段容量+峰值冲突;R04 比较峰值随 IP-04c 落地） | Claude | 见子任务行 | C06–C09、R04/R05 已关;U01 人员页汇总=明细（03b）与 U07 候选预览待领 |
-| IP-04 | S01、F02/F03、C05、U11/U12、R04/R09 | 进行中（04a 复制保真、04c 比较/峰值/受影响项目已完成;04b 合并原子性与策略执行待领） | Claude | 见子任务行 | F02、C05、R04 已关;F03 待领 |
+| IP-04 | S01、F02/F03、C05、U11/U12、R04/R09 | 主体完成（04a/04b/04c 全部落地;U11 场景+窗口可见性部分随 IP-02e 交付） | Claude | 见子任务行 | F02、F03、C05、R04 已关 |
 | IP-05 | F04 | 进行中（05a、05b V2 半边、05c 预览流程、导入落表贯通已完成；V1 同名漂移、逐实体清单待续） | Claude | 见子任务行 | 选项解释统一（`b1a1925`）、V2 同管线回滚预览（`27b87db`+`1d5e39c`）、预览→确认→对账 UI（`0a9dece`）、导入写场景切片（本批） |
 | IP-06 | S06、U01–U12、R01/R02/R04–R08 | 进行中（06c 的 R07 与 R08 版本标识/过期已完成；场景/时点标注待 IP-02e，其余 U 项待领取） | Claude | 见子任务行 | R07（`88c03a0`）、R08 版本绑定（`03d5bf6`）已关 |
 | IP-07 | F06、C10–C12、S03 | 进行中（07a/07b 完成，07c 待领取） | Claude | 见子任务行 | C10–C12 已关；全量 Jest 4336 绿 |
@@ -436,6 +436,7 @@ UI代码定位：[People](../../client/src/pages/People.tsx)、[Projects](../../
 | IP-02e / F08、R01/R02（半边） | 完成 / Claude（2026-10-15 会话） | feb7cef / 干净 | `f6cd7ad`；DemandController.calculateScenario 显式 501 不可用（服务不再被调用,占位"feasible"建议消失）、EstimationService.checkDeadline 结果新增 scope{total_window_only,phase_nodes_checked,serial_dependencies_analyzed,capacity_reserved,portfolio_commitment}、EstimationPanel 范围声明行+projects.json(en/zh) scopeNote 键 | 测试先红后绿：DemandController 501 契约（服务零调用,两旧占位测试并为一个）+EstimationService.r03 增 scope 五字段断言+EstimationPanel 面板渲染"Total-window check/not a portfolio commitment"可见。全量 Jest 4424 绿（净-1 系旧测试合并）、typecheck 0、lint:ui PASS | R01 按事项实际约定配置阶段节点/串行假设属 D09 暂缓;calculateScenarioImpact 服务方法成死代码待 IP-09b 接真实多事推演或删除 |
 | IP-02e / U10、U11 | 完成 / Claude（2026-10-15 会话） | f6cd7ad / 干净 | `9e8f6c9`；ReportsTabContent（buildDemandTrend 导出:仅真实时间线点,0 点=空+peakMonth null,废除 95%/90% 假衰减与单点均摊全区间两处捏造）、DemandReport 趋势空态"无时间数据无法生成"、utils/date.ts 默认窗口改本月 1 日~未来三个月末（旧 2023-01-01 起）、reports.json(en/zh) noTrend 键 | client 测试先红后绿 5/5（DemandTrend.test.tsx 新 3+空趋势态 1,date.test.ts 默认窗口冻结时钟断言 2026-10-01~2027-01-31 替换旧"2023 起"断言）。全量 Jest 4427 绿、typecheck 0 | 仪表盘告警与指标窗口一致性(U11 后半)留 IP-06;历史区间仍可显式选择(日期输入框) |
 | 导入落表贯通（Codex 缺口①） | 完成 / Claude（2026-10-16 会话） | 9e8f6c9 / 干净 | `cb205dc`+本批；ExcelImporterV2（分配写 scenario_project_assignments 选定场景切片:scenarioId 选项+status active+change_type added+computed 日期;clearExisting 清单 standard_allocations→resource_templates 修必炸点名+追加目标场景切片旧分配/阶段清空）、ImportOptions.scenarioId、ImportController 两入口透传 X-Scenario-Id、**dateText.toISODateText 四处日期落库规范化**（Codex 复检②:Date 对象被驱动存成毫秒文本"1793548800000.0",字符串过滤必然失配——分配/可用率覆盖/阶段时间线/池需求四写点全改 ISO 文本） | 真 sqlite+真 exceljs 7/7（含新增断言:start_date 匹配 ISO 正则+运行时同款字符串过滤命中导入行;stash 对照红证旧写法实存"1793548800000.0"）。全量 Jest 4430 绿、typecheck 0 | V1 导入器仍写旧表(未触,V1 属遗留格式同名漂移批次);clearExisting 的共享事实清空范围(全表 del)属既有语义未动 |
+| IP-04b / F03 | 完成 / Claude（2026-10-16 会话） | 06414af / 干净 | 见本批提交；ScenariosController.merge 重构为单事务（detectMergeConflicts 接 trx/performMerge 策略真执行/mergeAssignment 补 status+is_primary+computed 日期/冲突落表与源 merged 同 trx;审计留事务外记边界）、既有 mock 事务测试补回调透传 | 真库测试先红后绿 5/5（ScenariosController.merge.test.ts 新）:use_source 冲突行落源值 80+清冲突表[红证策略参数被忽略、冲突行静默丢弃]、use_target 保留目标 40（旧实现偶然同果,守卫）、status/is_primary 单独变化进冲突并随合并落地[红证旧清单漏字段、变更静默丢]、manual 未决拒绝+落表+源 conflict、原子性 sqlite 触发器注入状态更新失败→非冲突复制行未落库+源 active[旧裂缝:数据先提交状态另写]。全量 Jest 4435 绿、typecheck 0 | mergeAssignment 插入路的 base_assignment_id 指向源行(跨场景引用语义未变);审计中间件自持连接不参与业务事务(记边界,与 enhanceAuditMiddleware 一致);removed 标记行合并语义未单测 |
 
 ## 8. 四角色排产决策样例与记录模板
 

@@ -21,9 +21,8 @@ declare global {
 
 const permissionsController = new UserPermissionsController();
 
-// Helper to extract user ID from JWT token or fallback to header
+// Helper to extract user ID — JWT payload is the only trusted source
 function getUserIdFromRequest(req: Request): string | null {
-  // First, try JWT token from Authorization header
   const authHeader = req.headers.authorization;
   if (authHeader && authHeader.startsWith('Bearer ')) {
     const token = authHeader.substring(7);
@@ -32,14 +31,16 @@ function getUserIdFromRequest(req: Request): string | null {
       return payload.userId;
     } catch (error) {
       if (error instanceof AuthError) {
-        // Token invalid or expired, try fallback
+        // IP-08b/S03: 验签失败不再回退自报身份——客户端宣称的 userId
+        // 不是可信来源,无效令牌即 401
         logger.warn('JWT token validation failed', { errorMessage: error.message });
       }
+      return null;
     }
   }
-
-  // Fallback to x-user-id header (for backward compatibility)
-  return req.headers['x-user-id'] as string || req.query.userId as string || null;
+  // IP-08b/S03: x-user-id 头 / query.userId 回退已移除——任何人都能
+  // 自报任意 userId,权限检查因此形同虚设
+  return null;
 }
 
 // Middleware to check if user has required permission

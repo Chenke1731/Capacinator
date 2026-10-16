@@ -45,6 +45,14 @@ jest.mock('../../../../src/server/services/logging/config.js', () => ({
   logger: mockLogger
 }));
 
+// IP-08b/S03: JWT 载荷是唯一可信身份——旧套件以 x-user-id 自报身份驱动,
+// 现统一改为 Bearer 令牌(默认放行 user-123,个别用例可覆写)
+const mockVerifyAccessToken = jest.fn().mockReturnValue({ userId: 'user-123' });
+jest.mock('../../../../src/server/services/auth/index.js', () => ({
+  authService: { verifyAccessToken: mockVerifyAccessToken },
+  AuthError: class MockAuthError extends Error { constructor(m: string) { super(m); } }
+}));
+
 import {
   requirePermission,
   requireSystemAdmin,
@@ -102,7 +110,7 @@ describe('Permissions Middleware', () => {
         role_name: 'Developer'
       };
 
-      mockRequest.headers!['x-user-id'] = 'user-123';
+      mockRequest.headers!['authorization'] = 'Bearer test-token'; // IP-08b: JWT 取代 x-user-id
       mockHasPermission.mockResolvedValue(true);
       mockDbQuery.first.mockResolvedValue(mockUser);
 
@@ -128,23 +136,15 @@ describe('Permissions Middleware', () => {
       expect(mockNext).not.toHaveBeenCalled();
     });
 
-    it('should get user ID from query parameter if not in header', async () => {
-      const mockUser = {
-        id: 'user-456',
-        name: 'Jane Doe',
-        email: 'jane@example.com',
-        is_system_admin: false
-      };
-
+    it('IP-08b: query 参数 userId 不再产生身份(自报回退移除)→401', async () => {
       mockRequest.query!.userId = 'user-456';
-      mockHasPermission.mockResolvedValue(true);
-      mockDbQuery.first.mockResolvedValue(mockUser);
 
       const middleware = requirePermission('project:view');
       await middleware(mockRequest as Request, mockResponse as Response, mockNext);
 
-      expect(mockHasPermission).toHaveBeenCalledWith('user-456', 'project:view');
-      expect(mockNext).toHaveBeenCalled();
+      expect(statusMock).toHaveBeenCalledWith(401);
+      expect(mockHasPermission).not.toHaveBeenCalled();
+      expect(mockNext).not.toHaveBeenCalled();
     });
 
     it('should return 403 when user lacks required permission', async () => {
@@ -155,7 +155,7 @@ describe('Permissions Middleware', () => {
         is_system_admin: false
       };
 
-      mockRequest.headers!['x-user-id'] = 'user-123';
+      mockRequest.headers!['authorization'] = 'Bearer test-token'; // IP-08b: JWT 取代 x-user-id
       mockHasPermission.mockResolvedValue(false);
       mockDbQuery.first.mockResolvedValue(mockUser);
 
@@ -172,7 +172,7 @@ describe('Permissions Middleware', () => {
     });
 
     it('should return 500 when getUserInfo throws error', async () => {
-      mockRequest.headers!['x-user-id'] = 'user-123';
+      mockRequest.headers!['authorization'] = 'Bearer test-token'; // IP-08b: JWT 取代 x-user-id
       mockHasPermission.mockResolvedValue(true);
       mockDbQuery.first.mockRejectedValue(new Error('Database connection failed'));
       mockLogger.error.mockClear();
@@ -195,7 +195,7 @@ describe('Permissions Middleware', () => {
     });
 
     it('should return 500 when hasPermission throws error', async () => {
-      mockRequest.headers!['x-user-id'] = 'user-123';
+      mockRequest.headers!['authorization'] = 'Bearer test-token'; // IP-08b: JWT 取代 x-user-id
       mockHasPermission.mockRejectedValue(new Error('Permission service unavailable'));
       mockLogger.error.mockClear();
 
@@ -212,7 +212,8 @@ describe('Permissions Middleware', () => {
     });
 
     it('should return 500 when user not found in database', async () => {
-      mockRequest.headers!['x-user-id'] = 'nonexistent-user';
+      mockVerifyAccessToken.mockReturnValueOnce({ userId: 'nonexistent-user' });
+      mockRequest.headers!['authorization'] = 'Bearer test-token';
       mockHasPermission.mockResolvedValue(true);
       mockDbQuery.first.mockResolvedValue(null);
       mockLogger.error.mockClear();
@@ -239,7 +240,8 @@ describe('Permissions Middleware', () => {
         user_role_id: 'admin-role'
       };
 
-      mockRequest.headers!['x-user-id'] = 'admin-123';
+      mockVerifyAccessToken.mockReturnValueOnce({ userId: 'admin-123' });
+      mockRequest.headers!['authorization'] = 'Bearer test-token';
       mockDbQuery.first.mockResolvedValue(mockAdminUser);
 
       const middleware = requireSystemAdmin();
@@ -271,7 +273,7 @@ describe('Permissions Middleware', () => {
         is_system_admin: false
       };
 
-      mockRequest.headers!['x-user-id'] = 'user-123';
+      mockRequest.headers!['authorization'] = 'Bearer test-token'; // IP-08b: JWT 取代 x-user-id
       mockDbQuery.first.mockResolvedValue(mockRegularUser);
 
       const middleware = requireSystemAdmin();
@@ -287,7 +289,7 @@ describe('Permissions Middleware', () => {
     });
 
     it('should return 500 when database query fails', async () => {
-      mockRequest.headers!['x-user-id'] = 'user-123';
+      mockRequest.headers!['authorization'] = 'Bearer test-token'; // IP-08b: JWT 取代 x-user-id
       mockDbQuery.first.mockRejectedValue(new Error('Database error'));
       mockLogger.error.mockClear();
 
@@ -315,7 +317,8 @@ describe('Permissions Middleware', () => {
         is_system_admin: true
       };
 
-      mockRequest.query!.userId = 'admin-789';
+      mockVerifyAccessToken.mockReturnValueOnce({ userId: 'admin-789' });
+      mockRequest.headers!['authorization'] = 'Bearer test-token';
       mockDbQuery.first.mockResolvedValue(mockAdminUser);
 
       const middleware = requireSystemAdmin();
@@ -334,7 +337,7 @@ describe('Permissions Middleware', () => {
         is_system_admin: false
       };
 
-      mockRequest.headers!['x-user-id'] = 'user-123';
+      mockRequest.headers!['authorization'] = 'Bearer test-token'; // IP-08b: JWT 取代 x-user-id
       mockHasPermission
         .mockResolvedValueOnce(false)  // First permission denied
         .mockResolvedValueOnce(true);  // Second permission granted
@@ -358,7 +361,8 @@ describe('Permissions Middleware', () => {
         is_system_admin: false
       };
 
-      mockRequest.headers!['x-user-id'] = 'user-456';
+      mockVerifyAccessToken.mockReturnValueOnce({ userId: 'user-456' });
+      mockRequest.headers!['authorization'] = 'Bearer test-token';
       mockHasPermission.mockResolvedValue(true);
       mockDbQuery.first.mockResolvedValue(mockUser);
 
@@ -392,7 +396,7 @@ describe('Permissions Middleware', () => {
         is_system_admin: false
       };
 
-      mockRequest.headers!['x-user-id'] = 'user-123';
+      mockRequest.headers!['authorization'] = 'Bearer test-token'; // IP-08b: JWT 取代 x-user-id
       mockHasPermission.mockResolvedValue(false);
       mockDbQuery.first.mockResolvedValue(mockUser);
 
@@ -409,7 +413,7 @@ describe('Permissions Middleware', () => {
     });
 
     it('should return 500 when permission check throws error', async () => {
-      mockRequest.headers!['x-user-id'] = 'user-123';
+      mockRequest.headers!['authorization'] = 'Bearer test-token'; // IP-08b: JWT 取代 x-user-id
       mockHasPermission.mockRejectedValue(new Error('Service error'));
       mockLogger.error.mockClear();
 
@@ -433,7 +437,7 @@ describe('Permissions Middleware', () => {
         is_system_admin: false
       };
 
-      mockRequest.headers!['x-user-id'] = 'user-123';
+      mockRequest.headers!['authorization'] = 'Bearer test-token'; // IP-08b: JWT 取代 x-user-id
       mockHasPermission.mockResolvedValue(true);
       mockDbQuery.first.mockResolvedValue(mockUser);
 
@@ -454,7 +458,7 @@ describe('Permissions Middleware', () => {
         is_system_admin: false
       };
 
-      mockRequest.headers!['x-user-id'] = 'user-123';
+      mockRequest.headers!['authorization'] = 'Bearer test-token'; // IP-08b: JWT 取代 x-user-id
       mockHasPermission.mockResolvedValue(true);
       mockDbQuery.first.mockResolvedValue(mockUser);
 
@@ -489,7 +493,7 @@ describe('Permissions Middleware', () => {
         is_system_admin: false
       };
 
-      mockRequest.headers!['x-user-id'] = 'user-123';
+      mockRequest.headers!['authorization'] = 'Bearer test-token'; // IP-08b: JWT 取代 x-user-id
       mockHasPermission
         .mockResolvedValueOnce(true)   // First permission granted
         .mockResolvedValueOnce(false); // Second permission denied
@@ -515,7 +519,7 @@ describe('Permissions Middleware', () => {
         is_system_admin: false
       };
 
-      mockRequest.headers!['x-user-id'] = 'user-123';
+      mockRequest.headers!['authorization'] = 'Bearer test-token'; // IP-08b: JWT 取代 x-user-id
       mockHasPermission
         .mockResolvedValueOnce(false)  // First denied
         .mockResolvedValueOnce(true);  // Would grant, but shouldn't be called
@@ -532,7 +536,7 @@ describe('Permissions Middleware', () => {
     });
 
     it('should return 500 when permission check throws error', async () => {
-      mockRequest.headers!['x-user-id'] = 'user-123';
+      mockRequest.headers!['authorization'] = 'Bearer test-token'; // IP-08b: JWT 取代 x-user-id
       mockHasPermission.mockRejectedValue(new Error('Permission service down'));
       mockLogger.error.mockClear();
 
@@ -556,7 +560,7 @@ describe('Permissions Middleware', () => {
         is_system_admin: false
       };
 
-      mockRequest.headers!['x-user-id'] = 'user-123';
+      mockRequest.headers!['authorization'] = 'Bearer test-token'; // IP-08b: JWT 取代 x-user-id
       mockHasPermission.mockResolvedValue(true);
       mockDbQuery.first.mockResolvedValue(mockUser);
 
@@ -577,7 +581,7 @@ describe('Permissions Middleware', () => {
         is_system_admin: false
       };
 
-      mockRequest.headers!['x-user-id'] = 'user-123';
+      mockRequest.headers!['authorization'] = 'Bearer test-token'; // IP-08b: JWT 取代 x-user-id
       mockHasPermission.mockResolvedValue(true);
       mockDbQuery.first.mockResolvedValue(mockUser);
 
@@ -598,7 +602,7 @@ describe('Permissions Middleware', () => {
         is_system_admin: false
       };
 
-      mockRequest.headers!['x-user-id'] = 'user-123';
+      mockRequest.headers!['authorization'] = 'Bearer test-token'; // IP-08b: JWT 取代 x-user-id
       mockHasPermission.mockResolvedValue(false);
       mockDbQuery.first.mockResolvedValue(mockUser);
 
@@ -621,7 +625,7 @@ describe('Permissions Middleware', () => {
     });
 
     it('should call next() even when getUserInfo throws error', async () => {
-      mockRequest.headers!['x-user-id'] = 'user-123';
+      mockRequest.headers!['authorization'] = 'Bearer test-token'; // IP-08b: JWT 取代 x-user-id
       mockDbQuery.first.mockRejectedValue(new Error('Database error'));
       mockLogger.warn.mockClear();
 
@@ -644,7 +648,7 @@ describe('Permissions Middleware', () => {
         is_system_admin: false
       };
 
-      mockRequest.headers!['x-user-id'] = 'user-123';
+      mockRequest.headers!['authorization'] = 'Bearer test-token'; // IP-08b: JWT 取代 x-user-id
       mockDbQuery.first.mockResolvedValue(mockUser);
       mockHasPermission.mockRejectedValue(new Error('Permission service error'));
       mockLogger.warn.mockClear();
@@ -667,7 +671,8 @@ describe('Permissions Middleware', () => {
         is_system_admin: true
       };
 
-      mockRequest.headers!['x-user-id'] = 'admin-123';
+      mockVerifyAccessToken.mockReturnValueOnce({ userId: 'admin-123' });
+      mockRequest.headers!['authorization'] = 'Bearer test-token';
       mockDbQuery.first.mockResolvedValue(mockAdminUser);
 
       const middleware = requireResourceAccess('project');
@@ -686,7 +691,7 @@ describe('Permissions Middleware', () => {
         is_system_admin: false
       };
 
-      mockRequest.headers!['x-user-id'] = 'user-123';
+      mockRequest.headers!['authorization'] = 'Bearer test-token'; // IP-08b: JWT 取代 x-user-id
       mockDbQuery.first.mockResolvedValue(mockUser);
       mockHasPermission
         .mockResolvedValueOnce(true);  // project:edit granted
@@ -706,7 +711,7 @@ describe('Permissions Middleware', () => {
         is_system_admin: false
       };
 
-      mockRequest.headers!['x-user-id'] = 'user-123';
+      mockRequest.headers!['authorization'] = 'Bearer test-token'; // IP-08b: JWT 取代 x-user-id
       mockDbQuery.first.mockResolvedValue(mockUser);
       mockHasPermission
         .mockResolvedValueOnce(false)  // project:edit denied
@@ -728,7 +733,7 @@ describe('Permissions Middleware', () => {
         is_system_admin: false
       };
 
-      mockRequest.headers!['x-user-id'] = 'user-123';
+      mockRequest.headers!['authorization'] = 'Bearer test-token'; // IP-08b: JWT 取代 x-user-id
       mockDbQuery.first.mockResolvedValue(mockUser);
       mockHasPermission
         .mockResolvedValueOnce(true);  // people:edit granted
@@ -748,7 +753,7 @@ describe('Permissions Middleware', () => {
         is_system_admin: false
       };
 
-      mockRequest.headers!['x-user-id'] = 'user-123';
+      mockRequest.headers!['authorization'] = 'Bearer test-token'; // IP-08b: JWT 取代 x-user-id
       mockDbQuery.first.mockResolvedValue(mockUser);
       mockHasPermission
         .mockResolvedValueOnce(false)  // role:edit denied
@@ -783,7 +788,7 @@ describe('Permissions Middleware', () => {
         is_system_admin: false
       };
 
-      mockRequest.headers!['x-user-id'] = 'user-123';
+      mockRequest.headers!['authorization'] = 'Bearer test-token'; // IP-08b: JWT 取代 x-user-id
       mockDbQuery.first.mockResolvedValue(mockUser);
       mockHasPermission.mockResolvedValue(false);
 
@@ -800,7 +805,7 @@ describe('Permissions Middleware', () => {
     });
 
     it('should return 500 when database query fails', async () => {
-      mockRequest.headers!['x-user-id'] = 'user-123';
+      mockRequest.headers!['authorization'] = 'Bearer test-token'; // IP-08b: JWT 取代 x-user-id
       mockDbQuery.first.mockRejectedValue(new Error('Database connection failed'));
       mockLogger.error.mockClear();
 
@@ -828,7 +833,7 @@ describe('Permissions Middleware', () => {
         is_system_admin: false
       };
 
-      mockRequest.headers!['x-user-id'] = 'user-123';
+      mockRequest.headers!['authorization'] = 'Bearer test-token'; // IP-08b: JWT 取代 x-user-id
       mockDbQuery.first.mockResolvedValue(mockUser);
       mockHasPermission.mockRejectedValue(new Error('Permission service unavailable'));
       mockLogger.error.mockClear();
@@ -852,8 +857,10 @@ describe('Permissions Middleware', () => {
         is_system_admin: true
       };
 
-      mockRequest.headers!['x-user-id'] = 'header-user';
-      mockRequest.query!.userId = 'query-user';
+      mockVerifyAccessToken.mockReturnValueOnce({ userId: 'header-user' });
+      mockRequest.headers!['authorization'] = 'Bearer test-token';
+      mockVerifyAccessToken.mockReturnValueOnce({ userId: 'query-user' });
+      mockRequest.headers!['authorization'] = 'Bearer test-token';
       mockDbQuery.first.mockResolvedValue(mockUser);
 
       const middleware = requireResourceAccess('project');
@@ -876,7 +883,8 @@ describe('Permissions Middleware', () => {
         role_name: 'Developer'
       };
 
-      mockRequest.headers!['x-user-id'] = 'user-123';
+      mockVerifyAccessToken.mockReset().mockReturnValue({ userId: 'user-123' }); // 清残留 once 队列
+      mockRequest.headers!['authorization'] = 'Bearer test-token';
       mockHasPermission.mockResolvedValue(true);
       mockDbQuery.first.mockResolvedValue(mockUser);
 
@@ -898,7 +906,7 @@ describe('Permissions Middleware', () => {
         is_system_admin: false
       };
 
-      mockRequest.headers!['x-user-id'] = 'user-123';
+      mockRequest.headers!['authorization'] = 'Bearer test-token'; // IP-08b: JWT 取代 x-user-id
       mockHasPermission.mockResolvedValue(true);
       mockDbQuery.first.mockResolvedValue(mockUser);
 

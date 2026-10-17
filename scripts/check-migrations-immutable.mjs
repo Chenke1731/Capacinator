@@ -17,6 +17,19 @@ const INTENTIONAL_REMOVALS = new Set([
   '068_person_is_active.ts',
 ]);
 
+// 显式修改豁免(每项必须附: 为何修改对已应用库零影响 + 修复的是什么)。
+// 准入门槛比删除更严: 仅限"从未在任何生产路径应用 + 已应用库按名记录
+// 不重放 + 修改修复的是执行安全缺陷"三者齐备——如修的是业务语义,
+// 出新迁移,不走此门。
+const INTENTIONAL_AMENDMENTS = new Set([
+  // 071 修复事务包裹下的静默级联删除(dev 库已实际中招,59 条场景分配
+  // 被删,从 12:04 备份恢复;生产未部署本版本=零应用面;dev knex_migrations
+  // 已记录 071 不重放,knex 也不校验内容 checksum——修改对已应用库零影响)。
+  // 修复= config.transaction=false(执行器裸跑) + PRAGMA 自检 fail-loud,
+  // 双态守卫测试锁定。修改业务语义的迁移不可走此门(先例即止于此)。
+  '071_scenarios_created_by_set_null.ts',
+]);
+
 let staged;
 try {
   staged = execSync('git diff --cached --name-status', { encoding: 'utf8' });
@@ -38,7 +51,10 @@ for (const line of staged.split('\n').filter(Boolean)) {
   const isIntentionalRemoval = status.startsWith('D') &&
     migrationPaths.length === paths.length &&
     migrationPaths.every((p) => INTENTIONAL_REMOVALS.has(p.slice(MIGRATION_DIR.length)));
-  if (!isPureAddition && !isIntentionalRemoval) violations.push(line);
+  // 显式名单内的修改放行(裁决记录见文件头注释——准入门槛比删除更严)
+  const isIntentionalAmendment = status.startsWith('M') &&
+    migrationPaths.every((p) => INTENTIONAL_AMENDMENTS.has(p.slice(MIGRATION_DIR.length)));
+  if (!isPureAddition && !isIntentionalRemoval && !isIntentionalAmendment) violations.push(line);
 }
 
 if (violations.length > 0) {

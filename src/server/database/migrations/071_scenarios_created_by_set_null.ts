@@ -25,12 +25,29 @@ export async function up(knex: Knex): Promise<void> {
     await knex.raw(`DROP VIEW IF EXISTS ${v.name}`);
   }
 
+  // ── 执行安全(2026-10-17 Codex 复审修复)──────────────────────────
+  // SQLite 事务内 PRAGMA foreign_keys 是 no-op。knex migrate 对每个迁移
+  // **默认包事务**(Migrator._useTransaction)——外层事务下原先的
+  // "PRAGMA OFF→自建事务内 DROP"结构会让 OFF 不生效,DROP 旧表触发
+  // spa.scenario_id ON DELETE CASCADE **静默删光全部场景分配**并断分支
+  // 父子链,迁移仍返回成功(dev 幸免只因 migrate.ts 连接 FK 默认 OFF)。
+  // 修复:①config.transaction=false 让执行器裸跑本迁移;②PRAGMA 后读回
+  // 自检,仍身处事务(FK 关不掉)则抛错拒绝——宁可迁移失败,绝不静默丢数据。
   await knex.raw('PRAGMA foreign_keys = OFF');
-  await knex.transaction(async (trx) => {
-    await trx.schema.createTable('scenarios_new', (table) => {
+  const fkProbe = (await knex.raw('PRAGMA foreign_keys')) as unknown as Array<{ foreign_keys: number }>;
+  const fkOff = Array.isArray(fkProbe) ? Number(fkProbe[0]?.foreign_keys) : Number((fkProbe as any)?.[0]?.foreign_keys);
+  if (fkOff !== 0) {
+    throw new Error(
+      '071 refuses to run: PRAGMA foreign_keys=OFF did not take effect ' +
+      '(likely wrapped in an outer transaction) — dropping the old scenarios table now would CASCADE-delete every scenario assignment. ' +
+      'Run this migration without a wrapping transaction (config.transaction=false).'
+    );
+  }
+  try {
+    await knex.schema.createTable('scenarios_new', (table) => {
       // id 默认与 011 同款 uuid 表达式
       table.string('id', 36).primary().defaultTo(
-        trx.raw(`(lower(hex(randomblob(4))) || '-' || lower(hex(randomblob(2))) || '-4' || substr(lower(hex(randomblob(2))),2) || '-' || substr('89ab',abs(random()) % 4 + 1, 1) || substr(lower(hex(randomblob(2))),2) || '-' || lower(hex(randomblob(6))))`)
+        knex.raw(`(lower(hex(randomblob(4))) || '-' || lower(hex(randomblob(2))) || '-4' || substr(lower(hex(randomblob(2))),2) || '-' || substr('89ab',abs(random()) % 4 + 1, 1) || substr(lower(hex(randomblob(2))),2) || '-' || lower(hex(randomblob(6))))`)
       );
       table.string('name', 255).notNullable();
       table.text('description');
@@ -40,23 +57,28 @@ export async function up(knex: Knex): Promise<void> {
       table.string('status').checkIn(['active', 'archived', 'merged']).defaultTo('active');
       table.string('scenario_type').checkIn(['baseline', 'branch', 'sandbox']).defaultTo('branch');
       table.timestamp('branch_point').nullable();
-      table.timestamp('created_at').defaultTo(trx.fn.now());
-      table.timestamp('updated_at').defaultTo(trx.fn.now());
+      table.timestamp('created_at').defaultTo(knex.fn.now());
+      table.timestamp('updated_at').defaultTo(knex.fn.now());
     });
     // 列序对齐 011(拷贝按名也安全,这里显式列出)
-    await trx.raw(`
+    await knex.raw(`
       INSERT INTO scenarios_new (id, name, description, parent_scenario_id, created_by, status, scenario_type, branch_point, created_at, updated_at)
       SELECT id, name, description, parent_scenario_id, created_by, status, scenario_type, branch_point, created_at, updated_at FROM scenarios
     `);
-    await trx.schema.dropTable('scenarios');
-    await trx.schema.renameTable('scenarios_new', 'scenarios');
-  });
-  await knex.raw('PRAGMA foreign_keys = ON');
+    await knex.schema.dropTable('scenarios');
+    await knex.schema.renameTable('scenarios_new', 'scenarios');
+  } finally {
+    await knex.raw('PRAGMA foreign_keys = ON');
+  }
 
   for (const v of viewDefinitions) {
     await knex.raw(v.sql);
   }
 }
+
+/** knex migrate 默认给每个迁移包事务——本迁移必须裸跑(PRAGMA 是连接级
+ * 且事务内无效,见 up 内自检)。此开关是执行安全的一部分,不可移除。 */
+export const config = { transaction: false };
 
 export async function down(knex: Knex): Promise<void> {
   // 不可逆降级:回 CASCADE 需先回填 created_by(people 不存在的行无处指)

@@ -147,6 +147,7 @@ describe('Assignments Page', () => {
       computed_end_date: '2024-03-31',
       assignment_date_mode: 'fixed',
       status: 'active',
+      version: 3, // IP-07c: assignments_view 透出(073),乐观锁令牌链路
     },
     {
       id: 'assign-2',
@@ -479,7 +480,7 @@ describe('Assignments Page', () => {
       await waitFor(() => {
         expect(api.assignments.update).toHaveBeenCalledWith(
           'assign-1',
-          expect.objectContaining({ role_id: 'new-value' })
+          expect.objectContaining({ role_id: 'new-value', expected_version: 3 })
         );
       });
     });

@@ -1,5 +1,6 @@
 import { getAuditedDb } from '../../database/index.js';
 import { logger } from '../logging/config.js';
+import { IMPORT_CLEAR_TABLES } from './clearTables.js';
 import type { Worksheet, Row } from 'exceljs';
 
 // Import ExcelJS using dynamic import for better ES module compatibility
@@ -104,8 +105,10 @@ export interface ImportResult {
 export class ExcelImporter {
   private db: any;
 
-  constructor() {
-    this.db = getAuditedDb();
+  // db 注入口(V2 同款,2026-10-17 IP-05b):真迁移库测试直连;
+  // 生产不传走审计库。此前无注入口,测试只能重 mock 或误连 dev 真库
+  constructor(db?: any) {
+    this.db = db || getAuditedDb();
   }
 
   async validateExcelStructure(filePath: string): Promise<ValidationResult> {
@@ -421,52 +424,11 @@ export class ExcelImporter {
     return { duplicatesFound: duplicates };
   }
 
-  private async clearExistingData() {
-    // Clear in reverse dependency order
-    const tables = [
-      'project_assignments',
-      'demand_overrides',
-      'person_availability_overrides',
-      'supervisor_delegations',
-      'standard_allocations',
-      'project_phases_timeline',
-      'role_planners',
-      'project_planners',
-      'person_roles',
-      'projects',
-      'people',
-      'roles',
-      'project_phases',
-      'project_types',
-      'locations'
-    ];
-
-    for (const table of tables) {
-      await this.db(table).del();
-    }
-  }
-
   private async clearExistingDataInTransaction(trx: any) {
-    // Clear in reverse dependency order
-    const tables = [
-      'project_assignments',
-      'demand_overrides',
-      'person_availability_overrides',
-      'supervisor_delegations',
-      'standard_allocations',
-      'project_phases_timeline',
-      'role_planners',
-      'project_planners',
-      'person_roles',
-      'projects',
-      'people',
-      'roles',
-      'project_phases',
-      'project_types',
-      'locations'
-    ];
-
-    for (const table of tables) {
+    // 清单单一真相(clearTables.ts,2026-10-17):旧内联清单含幻影表
+    // supervisor_delegations 与旧表名 standard_allocations,真库必炸;
+    // 非事务版 clearExistingData 无调用方,已删
+    for (const table of IMPORT_CLEAR_TABLES) {
       await trx(table).del();
     }
   }
@@ -1154,6 +1116,35 @@ export class ExcelImporter {
 
       await Promise.all(analysisPromises);
 
+      // 删除面诚实化(2026-10-17 IP-05b):clearExisting 实际清整张清单,
+      // 预览必须逐表报数——旧版只报 standard_allocations 一类(且查旧表名
+      // 在改名后的库上必炸),用户以为只清分配,实际全库清空
+      if (options.clearExisting) {
+        const WOULD_DELETE_BY_TABLE: Record<string, keyof typeof analysis.summary.wouldDelete> = {
+          locations: 'locations',
+          project_types: 'projectTypes',
+          project_phases: 'phases',
+          roles: 'roles',
+          people: 'people',
+          projects: 'projects',
+          // 046 改名后的真身;键名保留 UI 兼容
+          resource_templates: 'standardAllocations',
+          project_assignments: 'assignments'
+        };
+        for (const table of IMPORT_CLEAR_TABLES) {
+          const counted = await this.db(table).count('* as count').first() as { count: number } | undefined;
+          const n = Number(counted?.count ?? 0);
+          if (n <= 0) continue;
+          analysis.preview.deletedEntities.push({
+            type: table,
+            count: n,
+            reason: 'Clear existing data option selected'
+          } as never);
+          const key = WOULD_DELETE_BY_TABLE[table];
+          if (key) analysis.summary.wouldDelete[key] = (analysis.summary.wouldDelete[key] ?? 0) + n;
+        }
+      }
+
       // Calculate risk assessment
       this.assessImportRisk(analysis);
       
@@ -1297,34 +1288,25 @@ export class ExcelImporter {
   }
 
   private async analyzeStandardAllocationsWorksheet(workbook: any, options: ImportOptions, analysis: any, _errorCollector: ImportErrorCollector) {
+    void options; // 删除面统计已收敛到 analyzeImport 主流程(逐表白名单)
     const allocationsSheet = workbook.getWorksheet('Standard Allocations');
     if (!allocationsSheet) {
       return; // Optional worksheet
     }
 
-    const existingAllocations = await this.db('standard_allocations').count('* as count').first() as { count: number } | undefined;
     let newAllocations = 0;
 
     allocationsSheet.eachRow((row: any, rowNumber: number) => {
       if (rowNumber === 1) return; // Skip header
 
       const projectType = row.getCell(1).value?.toString()?.trim();
-      const role = row.getCell(2).value?.toString()?.trim();
-      const allocation = row.getCell(3).value;
+      const role = row.getCell(3).value?.toString()?.trim();
+      const allocation = row.getCell(4).value;
 
       if (projectType && role && allocation) {
         newAllocations++;
       }
     });
-
-    if (options.clearExisting && existingAllocations && existingAllocations.count > 0) {
-      analysis.summary.wouldDelete.standardAllocations = existingAllocations.count;
-      analysis.preview.deletedEntities.push({
-        type: 'standard_allocations',
-        count: existingAllocations.count,
-        reason: 'Clear existing data option selected'
-      });
-    }
 
     analysis.summary.wouldCreate.standardAllocations = newAllocations;
   }

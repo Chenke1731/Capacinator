@@ -44,11 +44,12 @@ const DDL = [
   `CREATE TABLE person_availability_overrides (
     id TEXT PRIMARY KEY, person_id TEXT, created_at DATETIME
   )`,
-  // clearExistingDataInTransaction 逐表清空(88-107 行),空桩即可承接 del()
+  // clearExistingDataInTransaction 逐表清空,空桩即可承接 del()
+  // 2026-10-17 拆雷:supervisor_delegations 在真实 schema 从未存在——
+  // 手建它曾把"清单含幻影表"的雷盖住,真迁移守卫测试(importClearTables)
+  // 当场揭穿;真实表集见 src/server/services/import/clearTables.ts
   `CREATE TABLE project_assignments (id TEXT PRIMARY KEY)`,
   `CREATE TABLE demand_overrides (id TEXT PRIMARY KEY)`,
-  `CREATE TABLE supervisor_delegations (id TEXT PRIMARY KEY)`,
-  // 迁移 046 后真实库无 standard_allocations(改名 resource_templates)
   `CREATE TABLE resource_templates (id TEXT PRIMARY KEY)`,
   `CREATE TABLE people (
     id TEXT PRIMARY KEY, name TEXT, is_active INTEGER DEFAULT 1,
@@ -127,7 +128,7 @@ describe('ExcelImporterV2.analyzeImport (real sqlite + real exceljs)', () => {
     for (const table of [
       'project_types', 'roles', 'project_phases', 'locations',
       'person_availability_overrides', 'project_assignments', 'demand_overrides',
-      'supervisor_delegations', 'resource_templates', 'project_phases_timeline',
+      'resource_templates', 'project_phases_timeline',
       'role_planners', 'project_planners', 'person_roles', 'projects', 'people'
     ]) {
       await db(table).del();
@@ -140,7 +141,7 @@ describe('ExcelImporterV2.analyzeImport (real sqlite + real exceljs)', () => {
       'person_availability_overrides', 'person_roles', 'people', 'roles',
       'project_phases', 'project_types', 'locations', 'projects', 'project_sub_types',
       'project_phases_timeline', 'role_planners', 'project_planners',
-      'resource_templates', 'demand_overrides', 'supervisor_delegations'
+      'resource_templates', 'demand_overrides'
     ]) {
       await db(table).del();
     }

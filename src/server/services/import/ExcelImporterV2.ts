@@ -1,5 +1,6 @@
 import { getAuditedDb } from '../../database/index.js';
 import { logger } from '../logging/config.js';
+import { IMPORT_CLEAR_TABLES } from './clearTables.js';
 import type { Worksheet } from 'exceljs';
 
 // Import ExcelJS using dynamic import for better ES module compatibility
@@ -66,51 +67,11 @@ export class ExcelImporterV2 {
     this.db = db || getAuditedDb();
   }
 
-  private async clearExistingData() {
-    const tables = [
-      'project_assignments',
-      'demand_overrides',
-      'person_availability_overrides',
-      'supervisor_delegations',
-      'standard_allocations',
-      'project_phases_timeline',
-      'role_planners',
-      'project_planners',
-      'person_roles',
-      'projects',
-      'people',
-      'roles',
-      'project_phases',
-      'project_types',
-      'locations'
-    ];
-
-    for (const table of tables) {
-      await this.db(table).del();
-    }
-  }
-
   private async clearExistingDataInTransaction(trx: any, scenarioId: string) {
-    const tables = [
-      'project_assignments',
-      'demand_overrides',
-      'person_availability_overrides',
-      'supervisor_delegations',
-      // 迁移 046 已改名:standard_allocations → resource_templates(旧名 del 必炸)
-      'resource_templates',
-      'project_phases_timeline',
-      'role_planners',
-      'project_planners',
-      'person_roles',
-      'projects',
-      'people',
-      'roles',
-      'project_phases',
-      'project_types',
-      'locations'
-    ];
-
-    for (const table of tables) {
+    // 清单单一真相(clearTables.ts,2026-10-17):旧内联清单含幻影表
+    // supervisor_delegations(V2.analyze 夹具手建它把雷盖住),真库必炸;
+    // 非事务版 clearExistingData 无调用方,已删
+    for (const table of IMPORT_CLEAR_TABLES) {
       await trx(table).del();
     }
     // 贯通: 目标场景切片内的旧分配一并清空——重导同场景=替换,不叠加

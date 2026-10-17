@@ -200,7 +200,6 @@
   outline: 2px solid var(--primary-color);
   outline-offset: 1px;
 }
-}
 
 /* Workload Status in Table */
 .workload-status {

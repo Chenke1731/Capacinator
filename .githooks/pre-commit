@@ -13,12 +13,27 @@ if [ $? -ne 0 ]; then
 fi
 
 if [ -n "$STAGED_CSS" ]; then
-  echo "── CSS changed, checking syntax ──"
+  echo "── CSS changed, checking syntax (all client CSS, not just App.css) ──"
+  # 2026-10-17 修复:旧版固定只读 App.css——People.css 的多余 } 直接漏网
+  # 推上 origin,Vite 构建即炸。CSS 语法是跨文件性质,全量扫(量小,<1s)
   node -e "
     const postcss = require('postcss');
-    const css = require('fs').readFileSync('client/src/App.css', 'utf8');
-    try { postcss.parse(css, { from: 'App.css' }); console.log('✓ CSS parseable'); }
-    catch(e) { console.error('✗ ' + e.message); process.exit(1); }
+    const fs = require('fs');
+    const path = require('path');
+    const glob = (dir) => fs.readdirSync(dir, { withFileTypes: true }).flatMap((e) => {
+      const p = path.join(dir, e.name);
+      return e.isDirectory() ? glob(p) : (p.endsWith('.css') ? [p] : []);
+    });
+    const files = glob('client/src');
+    let bad = 0;
+    for (const f of files) {
+      if (!fs.statSync(f).isFile()) continue;
+      const css = fs.readFileSync(f, 'utf8');
+      try { postcss.parse(css, { from: f }); }
+      catch (e) { console.error('✗ ' + f + ': ' + e.message); bad = 1; }
+    }
+    if (bad) process.exit(1);
+    console.log('✓ all CSS parseable (' + files.length + ' files)');
   "
   if [ $? -ne 0 ]; then
     echo "CSS PARSE ERROR — commit blocked"

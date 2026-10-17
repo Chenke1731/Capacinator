@@ -148,18 +148,21 @@ describe('导入器清库清单 × 真实迁移 schema (IP-05b)', () => {
     expect(await db('scenario_project_assignments').where({ scenario_id: BASELINE }).count('* as c').first()).toMatchObject({ c: 0 });
   });
 
-  // 已知雷立案(2026-10-17 发现,超出本批"清单收敛"范围):真迁移库 FK 开启
-  // (better-sqlite3 默认 foreign_keys=ON)下,V2 全流程导入的分配插入报
-  // FOREIGN KEY constraint failed——手写 DDL 无 FK 的旧测试一直掩盖。
-  // 根因待定位(实体均已在 trx 内创建却仍 FK 失败)。修好前以 failing
-  // 立案:此用例失败=欠账可见;一旦通过会红,提醒摘除本标注。
-  test.failing('V2 全流程导入在真实迁移库(FK 开启)上成功——已知雷,根因待定位', async () => {
+  // 2026-10-17 已结案:根因=scenarios.created_by ON DELETE CASCADE——清库
+  // 删 people 把 baseline 场景级联删光,分配 scenario_id FK 失败整体回滚。
+  // 迁移 071(created_by 可空+SET NULL)修复,用例从 test.failing 转正。
+  test('V2 全流程导入在真实迁移库(FK 开启)上成功', async () => {
     const result = await new ExcelImporterV2(db).importFromFile(v2Path, {
       clearExisting: true,
       scenarioId: BASELINE
     });
     expect(result.success).toBe(true);
     expect(result.errors ?? []).toEqual([]);
+    // 分配真实落库到选定场景切片
+    const rows = await db('scenario_project_assignments').where({ scenario_id: BASELINE });
+    expect(rows.length).toBeGreaterThan(0);
+    // baseline 场景行在清库+导入后仍然存活(删人不再级联删场景)
+    expect(await db('scenarios').where({ id: BASELINE }).first()).toBeDefined();
   });
 
   test('V1 clearExisting 执行成功:旧 resource_templates 行被清、新数据真实落库', async () => {
@@ -173,6 +176,26 @@ describe('导入器清库清单 × 真实迁移 schema (IP-05b)', () => {
     // projects/people 真实导入
     expect(await db('projects').where({ name: '事项甲' }).first()).toBeDefined();
     expect(await db('people').where({ name: '张开发' }).first()).toBeDefined();
+  });
+
+  test('scenarios.created_by FK = SET NULL 且列可空(迁移 071 契约)', async () => {
+    // 旧库:CASCADE + NOT NULL——清库删人会把 baseline 场景级联删光,
+    // 系统读侧(切片/视图)全瞎,且导入分配 scenario_id FK 失败整体回滚
+    const fks = await db.raw('PRAGMA foreign_key_list(scenarios)');
+    const createdByFk = (fks as Array<{ table: string; from: string; to: string; on_delete: string }>)
+      .find((f) => f.table === 'people' && f.from === 'created_by');
+    expect(createdByFk?.on_delete).toBe('SET NULL');
+    // 列可空:删人后场景保留,创建者置空
+    const cols = await db.raw('PRAGMA table_info(scenarios)');
+    const col = (cols as Array<{ name: string; notnull: number }>).find((c) => c.name === 'created_by');
+    expect(col?.notnull).toBe(0);
+  });
+
+  test('删人保场景:清空 people 后 baseline 场景行存活、created_by 置空', async () => {
+    await db('people').del();
+    const baseline = await db('scenarios').where({ id: BASELINE }).first();
+    expect(baseline).toBeDefined();
+    expect(baseline.created_by).toBeNull();
   });
 
   test('V1 analyzeImport 预览:旧表名查询不炸,删除面覆盖真实清单(不再只报 1 类)', async () => {

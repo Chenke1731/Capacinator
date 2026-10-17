@@ -22,7 +22,8 @@ export interface Scenario extends BaseEntity {
   name: string;
   description?: string;
   parent_scenario_id?: string;
-  created_by: string;
+  // 2026-10-17 迁移 071:可空——删人(清库导入/停用)保留场景,创建者置空
+  created_by: string | null;
   status: ScenarioStatus;
   scenario_type: ScenarioType;
   branch_point?: string;

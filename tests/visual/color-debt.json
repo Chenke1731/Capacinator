@@ -8782,7 +8782,8 @@
       "decision": "not-debt",
       "semanticRole": "dynamic-color-builder",
       "reason": "Dynamic rgba template fragment is a formatter, not a complete constant CSS color; actual channels originate from caller data",
-      "evidence": []
+      "evidence": [],
+      "classificationSourceHash": "04fa429d0ff0d8dee962c75741b9b5dc497bd08eeacabf37c7352e20832f512f"
     },
     {
       "fingerprint": "586162ac76556bf7833783a5e202e9525b0e948beeadb6d2da463b74e6d17eb1",
@@ -9628,7 +9629,7 @@
       "semanticRole": "class-or-token-key",
       "reason": "TC-C6: getOverrideTypeColor返回CSS变量键/徽章类后缀，调用方拼接var(--color-*)或badge-*，不作为CSS字面颜色",
       "evidence": [],
-      "classificationSourceHash": "5fa70889611f053ac193d88558a03bbd64cb7df4604cd283abba104ca21c08b3"
+      "classificationSourceHash": "37edb570caaea9d4e303ecf2c03dfde52c4df8694e7267e7fe48e922aff19c2e"
     },
     {
       "fingerprint": "793cbb9e6d2a82e9e375e8b85fd4852a1be1036f038e8835e4b2bf6df602d8a5",
@@ -9652,7 +9653,7 @@
       "semanticRole": "class-or-token-key",
       "reason": "TC-C6: getOverrideTypeColor返回CSS变量键/徽章类后缀，调用方拼接var(--color-*)或badge-*，不作为CSS字面颜色",
       "evidence": [],
-      "classificationSourceHash": "5fa70889611f053ac193d88558a03bbd64cb7df4604cd283abba104ca21c08b3"
+      "classificationSourceHash": "37edb570caaea9d4e303ecf2c03dfde52c4df8694e7267e7fe48e922aff19c2e"
     },
     {
       "fingerprint": "b6de72c64833074058ede0de87006983f960e172b08d431c7f5b6a3459887e99",
@@ -9676,7 +9677,7 @@
       "semanticRole": "class-or-token-key",
       "reason": "TC-C6: getOverrideTypeColor返回CSS变量键/徽章类后缀，调用方拼接var(--color-*)或badge-*，不作为CSS字面颜色",
       "evidence": [],
-      "classificationSourceHash": "5fa70889611f053ac193d88558a03bbd64cb7df4604cd283abba104ca21c08b3"
+      "classificationSourceHash": "37edb570caaea9d4e303ecf2c03dfde52c4df8694e7267e7fe48e922aff19c2e"
     },
     {
       "fingerprint": "bdd467161f5b9cbecb7d14c34b39ab4d7070f73c824a50bbb910dbd4c291e0d2",
@@ -9700,7 +9701,7 @@
       "semanticRole": "class-or-token-key",
       "reason": "TC-C6: getOverrideTypeColor返回CSS变量键/徽章类后缀，调用方拼接var(--color-*)或badge-*，不作为CSS字面颜色",
       "evidence": [],
-      "classificationSourceHash": "5fa70889611f053ac193d88558a03bbd64cb7df4604cd283abba104ca21c08b3"
+      "classificationSourceHash": "37edb570caaea9d4e303ecf2c03dfde52c4df8694e7267e7fe48e922aff19c2e"
     },
     {
       "fingerprint": "c1796f4967f7d84c4696b7e641ea34594f29163793159f46d3975a59669b2558",
@@ -9724,7 +9725,7 @@
       "semanticRole": "class-or-token-key",
       "reason": "TC-C6: getOverrideTypeColor返回CSS变量键/徽章类后缀，调用方拼接var(--color-*)或badge-*，不作为CSS字面颜色",
       "evidence": [],
-      "classificationSourceHash": "5fa70889611f053ac193d88558a03bbd64cb7df4604cd283abba104ca21c08b3"
+      "classificationSourceHash": "37edb570caaea9d4e303ecf2c03dfde52c4df8694e7267e7fe48e922aff19c2e"
     },
     {
       "fingerprint": "181868c14cc435c45995ac52b18403a91f389a6133fbdd55c8b1a7ddbe210a54",
@@ -9766,14 +9767,14 @@
           "column": 17
         }
       ],
-      "count": 1,
+      "count": 2,
       "kind": "non-color",
       "reachability": "unverified",
       "decision": "not-debt",
       "semanticRole": "class-or-token-key",
       "reason": "TC-C6: 筛选选项的语义颜色键，渲染为样式类后缀，不作为内联CSS颜色",
       "evidence": [],
-      "classificationSourceHash": "20b8c323ce5a99a2cd86b5991005ca7a18792829ce6a4ae76d18673176d80d5d"
+      "classificationSourceHash": "3d2be84ace8032dce1295b01b8f7096637aaa1263d20e595c856d28bee45bf92"
     },
     {
       "fingerprint": "3f104d7937164f9913e7d41da506fc49259c5097fbac4d0120d09a380d5211e9",
@@ -9795,7 +9796,7 @@
       "semanticRole": "class-or-token-key",
       "reason": "TC-C6: 覆盖类型返回徽章类后缀或jsx类名条件分支，不作为CSS字面颜色",
       "evidence": [],
-      "classificationSourceHash": "595182a8048047792d227109f5e12632a3e42f722301ceddb2a8cf0ce0219103"
+      "classificationSourceHash": "f03c5e81a954615cbefffd9cdc053068ca7bf1979395271a7bb9fbe048ae3b06"
     },
     {
       "fingerprint": "4d98dd9142833ae44880368406e70edec6607de31fd9e62474ebc952ac6adbb9",
@@ -9817,7 +9818,7 @@
       "semanticRole": "class-or-token-key",
       "reason": "TC-C6: 覆盖类型返回徽章类后缀或jsx类名条件分支，不作为CSS字面颜色",
       "evidence": [],
-      "classificationSourceHash": "595182a8048047792d227109f5e12632a3e42f722301ceddb2a8cf0ce0219103"
+      "classificationSourceHash": "f03c5e81a954615cbefffd9cdc053068ca7bf1979395271a7bb9fbe048ae3b06"
     },
     {
       "fingerprint": "536845eab1420b7a675bfdcacfb65aaa93e5508d9982be2f67f8888703d11c87",
@@ -9839,7 +9840,7 @@
       "semanticRole": "class-or-token-key",
       "reason": "TC-C6: 覆盖类型返回徽章类后缀或jsx类名条件分支，不作为CSS字面颜色",
       "evidence": [],
-      "classificationSourceHash": "595182a8048047792d227109f5e12632a3e42f722301ceddb2a8cf0ce0219103"
+      "classificationSourceHash": "f03c5e81a954615cbefffd9cdc053068ca7bf1979395271a7bb9fbe048ae3b06"
     },
     {
       "fingerprint": "722b98c7d567c68f04db14250011ce56f8ca52e4a9974ba8c819bb089d48d71f",
@@ -9861,7 +9862,7 @@
       "semanticRole": "class-or-token-key",
       "reason": "TC-C6: 覆盖类型返回徽章类后缀或jsx类名条件分支，不作为CSS字面颜色",
       "evidence": [],
-      "classificationSourceHash": "595182a8048047792d227109f5e12632a3e42f722301ceddb2a8cf0ce0219103"
+      "classificationSourceHash": "f03c5e81a954615cbefffd9cdc053068ca7bf1979395271a7bb9fbe048ae3b06"
     },
     {
       "fingerprint": "c3223fa2d8fa50bf6ee1d5c03e1bdcde8c116ebb532889c423afe1b63462c992",
@@ -9883,7 +9884,7 @@
       "semanticRole": "class-or-token-key",
       "reason": "TC-C6: 覆盖类型返回徽章类后缀或jsx类名条件分支，不作为CSS字面颜色",
       "evidence": [],
-      "classificationSourceHash": "595182a8048047792d227109f5e12632a3e42f722301ceddb2a8cf0ce0219103"
+      "classificationSourceHash": "f03c5e81a954615cbefffd9cdc053068ca7bf1979395271a7bb9fbe048ae3b06"
     },
     {
       "fingerprint": "ede9a01e1a15cd932b64a16062b3f8c4dc26ac05b59be36fc9d4a1a7bacfd58c",
@@ -9915,7 +9916,7 @@
       "semanticRole": "class-or-token-key",
       "reason": "TC-C6: 覆盖类型返回徽章类后缀或jsx类名条件分支，不作为CSS字面颜色",
       "evidence": [],
-      "classificationSourceHash": "595182a8048047792d227109f5e12632a3e42f722301ceddb2a8cf0ce0219103"
+      "classificationSourceHash": "f03c5e81a954615cbefffd9cdc053068ca7bf1979395271a7bb9fbe048ae3b06"
     },
     {
       "fingerprint": "1d8faab27c3e6d3df80f2565c1665b42f14c7d310886d0e33cc01c46c827fe7e",
@@ -21905,7 +21906,7 @@
   ],
   "additions": [],
   "summary": {
-    "occurrences": 407,
+    "occurrences": 408,
     "identities": 405,
     "uniqueColors": 156,
     "files": 26,
@@ -21914,10 +21915,10 @@
       "data-color": 47,
       "neutral-literal": 28,
       "semantic-color": 54,
-      "non-color": 24
+      "non-color": 25
     },
     "byDecision": {
-      "not-debt": 278,
+      "not-debt": 279,
       "accepted-literal": 38,
       "retained-unused": 91
     },
@@ -21941,7 +21942,7 @@
       "client/src/lib/theme-colors.ts": 27,
       "client/src/pages/Availability.tsx": 5,
       "client/src/pages/Dashboard.tsx": 1,
-      "client/src/pages/People.tsx": 1,
+      "client/src/pages/People.tsx": 2,
       "client/src/pages/PersonDetails.tsx": 8,
       "client/src/pages/ProjectDetail.tsx": 5,
       "client/src/pages/ProjectRoadmap.css": 3,

@@ -194,7 +194,13 @@ export function checkLedger(scan,ledger,baseline,root) {
     }
     if(item.kind==='non-color'&&item.classificationSourceHash&&item.classificationSourceHash!==sourceHash(fs.readFileSync(path.join(root,e.file))))issues.push(`Stale non-color classification ${e.fingerprint}`);
     const prior=old.get(e.fingerprint);
-    if((!prior||e.count>prior.count)&&e.kind!=='token-definition') {
+    // non-color 分类的同指纹增长豁免 additions 审批(2026-10-17):
+    // 该类条目=className 组合段等非 CSS 颜色用法(not-debt),count 只是
+    // 同模式出现次数,登记即分类、增长无新债务——additions 的
+    // accepted-literal+evidence 通道是为保留的真颜色设计的,套在
+    // not-debt 上既语义不合也无通道可走(People.tsx gray 1→2 曾卡死)。
+    // 新指纹(!prior)仍走审批门,豁免仅限同指纹增长。
+    if((!prior||(e.count>prior.count&&item.kind!=='non-color'))&&e.kind!=='token-definition') {
       const rename=ledger.resolutions.find(r=>r.resolution==='rename'&&r.to===e.fingerprint&&old.has(r.fingerprint));
       const approved=ledger.additions.find(a=>a.fingerprint===e.fingerprint&&a.reason&&a.count===e.count);
       if(rename&&(current.has(rename.fingerprint)||current.get(rename.to).count!==old.get(rename.fingerprint).count)) issues.push(`Invalid rename bypass ${e.fingerprint}`);

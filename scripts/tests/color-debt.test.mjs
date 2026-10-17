@@ -25,6 +25,26 @@ export async function runSelfTests() {
     const repeated=scanSources(files.map(([f,s])=>[f,f.endsWith('a.css')?s+'\n.a, .b {color:red;}':s]));
     const altered=structuredClone(old);altered.entries=repeated.entries;altered.summary=initialLedger(repeated,'baseline','selftest').summary;
     assert(checkLedger(repeated,altered,old,root).some(x=>x.startsWith('Unapproved new/increased')));
+    // non-color 分类的同指纹增长不触发 additions 审批(2026-10-17:
+    // className 段等 not-debt 用法 count 只是出现次数;People.gray 1→2
+    // 曾因无通道卡死)——新指纹仍需登记,豁免仅限同指纹增长。
+    // 夹具要点:两处同 literal 必须在同一作用域(context 相同)才是
+    // 同指纹 count 增长;not-debt 决定必须带 reason
+    const ncSource='function tier(x){ if(x) return {color:"gray"}; return {color:"gray"}; }';
+    const ncOld=initialLedger(scanSources([['client/src/Tiers.tsx',ncSource.replace(' return {color:"gray"};','')]]),'baseline','selftest');
+    assert.equal(ncOld.entries.length,1);
+    const grownLedger=structuredClone(ncOld);
+    grownLedger.entries[0].kind='non-color';
+    grownLedger.entries[0].decision='not-debt';
+    grownLedger.entries[0].reason='className tier segment, not a CSS color';
+    const ncGrown=scanSources([['client/src/Tiers.tsx',ncSource]]);
+    assert.equal(ncGrown.entries.length,1);
+    assert.equal(ncGrown.entries[0].count,2); // 同指纹增长而非新条目
+    grownLedger.entries[0].count=2;
+    // classificationSourceHash 留空:stale 门只在有值时读盘,selftest 是
+    // 内存扫描(scanSources 不落盘),真实工作区由 verify:colors 覆盖
+    grownLedger.summary=summarize(grownLedger.entries);
+    assert.deepEqual(checkLedger(ncGrown,grownLedger,ncOld,root),[]);
     const removed=scanSources(files.filter(([f])=>!f.endsWith('View.tsx')));
     assert(checkLedger(removed,old,old,root).some(x=>x.startsWith('Orphan')));
     let resolved=structuredClone(old);

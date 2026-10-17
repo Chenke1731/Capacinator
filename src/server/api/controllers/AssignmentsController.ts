@@ -491,7 +491,8 @@ export class AssignmentsController extends BaseController {
 
   update = this.asyncHandler(async (req: RequestWithLogging, res: Response) => {
     const { id } = req.params;
-    const updateData = req.body;
+    // IP-07c/F06: expected_version 是乐观锁令牌(可选),不是可写列——剥除
+    const { expected_version: expectedVersion, ...updateData } = (req.body ?? {}) as Record<string, any>;
 
     const result = await this.executeQuery(async () => {
       // Check for assignment in scenario table first, then fall back to legacy table
@@ -630,15 +631,31 @@ export class AssignmentsController extends BaseController {
         }
       }
 
-      // Update assignment
+      // Update assignment。IP-07c/F06: 带令牌=原子版本比较(WHERE version=expected),
+      // 令牌过期 409 载荷含当前值(前端保留草稿);无令牌=旧行为,version 仍递增
+      const versionClause = expectedVersion !== undefined ? { version: Number(expectedVersion) } : {};
       const [updated] = await this.db(tableName)
-        .where('id', actualId)
+        .where({ id: actualId, ...versionClause })
         .update({
           ...updateData,
-          updated_at: new Date()
+          updated_at: new Date(),
+          version: this.db.raw('version + 1')
         })
         .returning('*');
-        
+
+      if (!updated && expectedVersion !== undefined) {
+        const current = await this.db(tableName).where('id', actualId).first();
+        const presented = isScenarioAssignment && current
+          ? { ...current, id: 'spa-' + current.id }
+          : current;
+        res.status(409).json({
+          error: 'Version conflict',
+          message: 'This assignment was modified by someone else. Review the current value and retry.',
+          current: presented
+        });
+        return null;
+      }
+
       // Add back the spa- prefix if it's a scenario assignment
       if (isScenarioAssignment && updated) {
         updated.id = 'spa-' + updated.id;

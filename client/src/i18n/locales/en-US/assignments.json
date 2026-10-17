@@ -64,7 +64,8 @@
   },
   "errors": {
     "loadFailed": "Failed to load assignments",
-    "updateFailed": "Failed to update assignment. Please try again."
+    "updateFailed": "Failed to update assignment. Please try again.",
+    "versionConflict": "Someone else already changed this assignment (current allocation {{current}}%). Your edit is kept — review the latest value and retry."
   },
   "deleteConfirm": "Are you sure you want to delete the assignment \"{{name}}\"? This action cannot be undone.",
   "modal": {

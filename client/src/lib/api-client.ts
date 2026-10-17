@@ -369,7 +369,9 @@ export const api = {
   assignments: {
     list: (params?: PaginationParams) => apiClient.get<PaginatedResponse<ProjectAssignment>>('/assignments', { params }),
     create: (data: Partial<ProjectAssignment>) => apiClient.post<{ data: ProjectAssignment }>('/assignments', data),
-    update: (id: string, data: Partial<ProjectAssignment>) => apiClient.put<{ data: ProjectAssignment }>(`/assignments/${id}`, data),
+    // IP-07c: data 可附 expected_version 乐观锁令牌,冲突 409 载荷含当前值
+    update: (id: string, data: Partial<ProjectAssignment> & { expected_version?: number }) =>
+      apiClient.put<{ data: ProjectAssignment }>(`/assignments/${id}`, data),
     delete: (id: string) => apiClient.delete<{ message: string }>(`/assignments/${id}`),
     bulkCreate: (data: Record<string, unknown>) => apiClient.post<{ data: ProjectAssignment[] }>('/assignments/bulk', data),
     getConflicts: (personId: string, params?: PaginationParams) => apiClient.get<AssignmentConflictsResponse>(`/assignments/conflicts/${personId}`, { params }),
@@ -787,8 +789,9 @@ export const api = {
     list: (projectId: string) => apiClient.get<{ data: any[] }>(`/actual-investments/project/${projectId}`),
     snapshot: (projectId: string, month: string) =>
       apiClient.post<{ data: any }>(`/actual-investments/project/${projectId}/snapshot`, { month }),
-    setManual: (projectId: string, month: string, fte: number) =>
-      apiClient.put<{ data: any }>(`/actual-investments/project/${projectId}`, { month, fte }),
+    // expectedVersion: IP-07c 乐观锁令牌(可选)——带令牌冲突返回 409+当前值
+    setManual: (projectId: string, month: string, fte: number, expectedVersion?: number) =>
+      apiClient.put<{ data: any }>(`/actual-investments/project/${projectId}`, { month, fte, expected_version: expectedVersion }),
     remove: (projectId: string, month: string) =>
       apiClient.delete<{ data: any }>(`/actual-investments/project/${projectId}/${month}`)
   },

@@ -19,7 +19,7 @@ import { api } from '../../../lib/api-client';
 
 // 实投入月帐: 计划(服务端实时算) vs 实际(快照默认+主管改写) vs 偏差
 const rows = [
-  { month: '2026-09', fte: 1.2, source: 'manual', planned_fte: 0.6 },
+  { month: '2026-09', fte: 1.2, source: 'manual', planned_fte: 0.6, version: 3 },
   { month: '2026-08', fte: 0.5, source: 'snapshot', planned_fte: 0.5 }
 ];
 
@@ -84,7 +84,8 @@ describe('ActualInvestmentsPanel (投入履历)', () => {
     await user.clear(input);
     await user.type(input, '2{Enter}');
     await waitFor(() => {
-      expect(api.actualInvestments.setManual).toHaveBeenCalledWith('p-1', '2026-09', 2);
+      // IP-07c: 携带行版本令牌(编辑起点快照),冲突时 409+草稿保留
+      expect(api.actualInvestments.setManual).toHaveBeenCalledWith('p-1', '2026-09', 2, 3);
     });
   });
 

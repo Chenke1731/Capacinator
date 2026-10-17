@@ -148,7 +148,7 @@ export default function Assignments() {
 
   // Update assignment mutation for inline editing
   const updateAssignmentMutation = useMutation({
-    mutationFn: async ({ id, data }: { id: string; data: Partial<ProjectAssignment> }) => {
+    mutationFn: async ({ id, data }: { id: string; data: Partial<ProjectAssignment> & { expected_version?: number } }) => {
       await api.assignments.update(id, data);
     },
     onSuccess: () => {
@@ -156,6 +156,14 @@ export default function Assignments() {
     },
     onError: (error) => {
       logger.error('Failed to update assignment', { error });
+      // IP-07c: 409=他人已改(载荷含当前值),草稿保留在编辑器里待用户重审
+      const status = (error as { response?: { status?: number } })?.response?.status;
+      if (status === 409) {
+        const current = (error as { response?: { data?: { current?: { allocation_percentage?: number } } } })
+          ?.response?.data?.current?.allocation_percentage;
+        alert(t('assignments:errors.versionConflict', { current: current ?? '?' }));
+        return;
+      }
       alert(t('assignments:errors.updateFailed'));
     }
   });
@@ -280,7 +288,7 @@ export default function Assignments() {
           onSave={(newRoleId) => {
             updateAssignmentMutation.mutate({
               id: row.id,
-              data: { role_id: newRoleId as string }
+              data: { role_id: newRoleId as string, expected_version: row.version }
             });
           }}
           type="select"
@@ -346,7 +354,7 @@ export default function Assignments() {
                   if (newValue !== value && newValue >= 0 && newValue <= 200) {
                     updateAssignmentMutation.mutate({
                       id: row.id,
-                      data: { allocation_percentage: newValue }
+                      data: { allocation_percentage: newValue, expected_version: row.version }
                     });
                   }
                   e.target.style.borderColor = 'transparent';
@@ -403,7 +411,7 @@ export default function Assignments() {
               if (!isComputed && e.target.value !== dateValue) {
                 updateAssignmentMutation.mutate({
                   id: row.id,
-                  data: { start_date: e.target.value }
+                  data: { start_date: e.target.value, expected_version: row.version }
                 });
               }
               e.target.style.borderColor = 'transparent';
@@ -447,7 +455,7 @@ export default function Assignments() {
               if (!isComputed && e.target.value !== dateValue) {
                 updateAssignmentMutation.mutate({
                   id: row.id,
-                  data: { end_date: e.target.value }
+                  data: { end_date: e.target.value, expected_version: row.version }
                 });
               }
               e.target.style.borderColor = 'transparent';
@@ -503,7 +511,7 @@ export default function Assignments() {
             if (newValue !== (value || '')) {
               updateAssignmentMutation.mutate({
                 id: row.id,
-                data: { notes: newValue }
+                data: { notes: newValue, expected_version: row.version }
               });
             }
             e.target.style.borderColor = 'transparent';

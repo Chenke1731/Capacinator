@@ -547,6 +547,7 @@
     "colDeviation": "偏差",
     "colSource": "来源",
     "editHint": "点击改写实际投入（主管口径为准）",
+    "versionConflict": "该月份已被他人修改（当前实际 {{current}} FTE）。你的输入已保留，请核对后重试。",
     "source": {
       "snapshot": "快照",
       "manual": "改写"

@@ -242,6 +242,9 @@ export interface ProjectAssignment extends BaseEntity {
   person_name?: string;
   role_name?: string;
   phase_name?: string;
+
+  /** IP-07c 乐观锁令牌:更新回传 expected_version,版本过期 409 载荷含当前值 */
+  version?: number;
 }
 
 /**

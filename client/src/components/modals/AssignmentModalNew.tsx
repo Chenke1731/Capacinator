@@ -154,7 +154,11 @@ export const AssignmentModalNew: React.FC<AssignmentModalProps> = ({
       return response.data.data;
     },
     onUpdate: async (id, data) => {
-      const response = await api.assignments.update(id, data);
+      // IP-07c/F06: 附乐观锁令牌;409 时 useModalForm 不关弹窗、表单草稿保留
+      const response = await api.assignments.update(id, {
+        ...data,
+        expected_version: editingAssignment?.version
+      });
       return response.data.data;
     },
     queryKeysToInvalidate: [['assignments']],

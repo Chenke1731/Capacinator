@@ -65,8 +65,22 @@ export function ActualInvestmentsPanel({ projectId }: { projectId: string }) {
     if (!Number.isFinite(fte) || fte < 0) return;
     setBusy(true);
     try {
-      await api.actualInvestments.setManual(projectId, month, Math.round(fte * 100) / 100);
+      // IP-07c/F06: 附乐观锁令牌;409=他人已改——恢复编辑态保留草稿,
+      // 提示当前值并刷新列表(拿到新 version 供重试)
+      await api.actualInvestments.setManual(projectId, month, Math.round(fte * 100) / 100, byMonth.get(month)?.version);
       await invalidate();
+    } catch (error) {
+      const status = (error as { response?: { status?: number } })?.response?.status;
+      if (status === 409) {
+        const current = (error as { response?: { data?: { current?: { fte?: number } } } })
+          ?.response?.data?.current?.fte;
+        setDraft(v); // 草稿保留
+        setEditing(month); // 回到编辑态,不静默丢弃
+        alert(t('projects:actuals.versionConflict', { current: current ?? '?' }));
+        await invalidate();
+      } else {
+        throw error;
+      }
     } finally {
       setBusy(false);
     }

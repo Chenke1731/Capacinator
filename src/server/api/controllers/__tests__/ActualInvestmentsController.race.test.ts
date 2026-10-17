@@ -40,6 +40,7 @@ const DDL = [
     created_by TEXT,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    version INTEGER NOT NULL DEFAULT 1,
     UNIQUE (project_id, month)
   )`,
   // 简化视图表:仅覆盖 activeAssignments 消费的列(计划 FTE 口径证明)

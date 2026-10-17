@@ -83,7 +83,7 @@ export class ActualInvestmentsController extends BaseController {
       if (existing) {
         [row] = await this.db('project_actual_investments')
           .where({ id: existing.id, source: 'snapshot' })
-          .update({ fte, updated_at: new Date() })
+          .update({ fte, updated_at: new Date(), version: this.db.raw('version + 1') })
           .returning('*');
       } else {
         try {
@@ -98,7 +98,7 @@ export class ActualInvestmentsController extends BaseController {
       if (!row) {
         [row] = await this.db('project_actual_investments')
           .where({ project_id: req.params.projectId, month, source: 'snapshot' })
-          .update({ fte, updated_at: new Date() })
+          .update({ fte, updated_at: new Date(), version: this.db.raw('version + 1') })
           .returning('*');
       }
       if (!row) {
@@ -116,12 +116,38 @@ export class ActualInvestmentsController extends BaseController {
   setManual = this.asyncHandler(async (req: RequestWithContext, res: Response) => {
     const month = String(req.body?.month ?? '');
     const fte = Number(req.body?.fte);
+    const expectedVersion = req.body?.expected_version; // IP-07c 乐观锁令牌(可选)
     if (!ActualInvestmentsController.MONTH_RE.test(month)) return this.badMonth(res);
     if (!(fte >= 0) || fte > 50) {
       res.status(400).json({ error: 'Validation error', message: 'fte must be a number between 0 and 50' });
       return;
     }
     const result = await this.executeQuery(async () => {
+      // IP-07c/F06: 带令牌=原子版本比较,过期 409(载荷含当前值,前端保留草稿);
+      // 无令牌=旧覆盖行为(兼容),version 仍递增保证令牌永远可比
+      if (expectedVersion !== undefined) {
+        const existing = await this.db('project_actual_investments')
+          .where({ project_id: req.params.projectId, month })
+          .first();
+        if (!existing) {
+          // 无行: 令牌无从比较,直插(同月竞速由唯一约束兜底,极窄窗口记台账)
+          const [row] = await this.db('project_actual_investments')
+            .insert({ project_id: req.params.projectId, month, fte, source: 'manual', created_by: (req as any).user?.id ?? null })
+            .returning('*');
+          const assignments = await this.activeAssignments(req.params.projectId);
+          return { data: { ...row, planned_fte: this.monthPlannedFte(assignments, month) } };
+        }
+        const hit = await this.db('project_actual_investments')
+          .where({ id: existing.id, version: Number(expectedVersion) })
+          .update({ fte, source: 'manual', updated_at: new Date(), version: this.db.raw('version + 1') });
+        if (hit === 0) {
+          const current = await this.db('project_actual_investments').where({ id: existing.id }).first();
+          return { __conflict: true, current };
+        }
+        const row = await this.db('project_actual_investments').where({ id: existing.id }).first();
+        const assignments = await this.activeAssignments(req.params.projectId);
+        return { data: { ...row, planned_fte: this.monthPlannedFte(assignments, month) } };
+      }
       const [row] = await this.db('project_actual_investments')
         .insert({
           project_id: req.params.projectId,
@@ -131,11 +157,20 @@ export class ActualInvestmentsController extends BaseController {
           created_by: (req as any).user?.id ?? null
         })
         .onConflict(['project_id', 'month'])
-        .merge({ fte, source: 'manual', updated_at: new Date() })
+        .merge({ fte, source: 'manual', updated_at: new Date(), version: this.db.raw('version + 1') })
         .returning('*');
       const assignments = await this.activeAssignments(req.params.projectId);
       return { data: { ...row, planned_fte: this.monthPlannedFte(assignments, month) } };
     }, res, 'Failed to save actual investment');
+    if ((result as any)?.__conflict) {
+      const current = (result as any).current;
+      res.status(409).json({
+        error: 'Version conflict',
+        message: 'This month was modified by someone else. Review the current value and retry.',
+        current
+      });
+      return;
+    }
     if (result) this.sendSuccess(req, res, result, undefined);
   });
 

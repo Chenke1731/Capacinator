@@ -549,6 +549,7 @@
     "colDeviation": "Deviation",
     "colSource": "Source",
     "editHint": "Click to override the actual (owner-truth)",
+    "versionConflict": "This month was changed by someone else (current actual {{current}} FTE). Your input is kept — review and retry.",
     "source": {
       "snapshot": "snapshot",
       "manual": "manual"

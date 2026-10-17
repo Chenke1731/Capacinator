@@ -64,7 +64,8 @@
   },
   "errors": {
     "loadFailed": "加载分配失败",
-    "updateFailed": "更新分配失败,请重试。"
+    "updateFailed": "更新分配失败,请重试。",
+    "versionConflict": "他人已修改此分配（当前 {{current}}%）。你的修改已保留，请查看最新值后重试。"
   },
   "deleteConfirm": "确定要删除分配“{{name}}”吗?此操作无法撤销。",
   "modal": {

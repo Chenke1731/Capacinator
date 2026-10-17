@@ -23,14 +23,22 @@ describe('backupService (真 sqlite)', () => {
   let dbPath: string;
 
   const DDL = [
-    `CREATE TABLE projects (id TEXT PRIMARY KEY, name TEXT)`,
-    `CREATE TABLE people (id TEXT PRIMARY KEY, name TEXT)`,
-    `CREATE TABLE scenario_project_assignments (id TEXT PRIMARY KEY, scenario_id TEXT, allocation_percentage REAL)`,
+    `CREATE TABLE projects (id TEXT PRIMARY KEY, name TEXT, lifecycle_state TEXT)`,
+    `CREATE TABLE people (id TEXT PRIMARY KEY, name TEXT, default_availability_percentage REAL DEFAULT 100)`,
+    `CREATE TABLE scenario_project_assignments (
+      id TEXT PRIMARY KEY, scenario_id TEXT, allocation_percentage REAL,
+      status TEXT, is_primary INTEGER DEFAULT 0,
+      computed_start_date TEXT, computed_end_date TEXT
+    )`,
     `CREATE TABLE project_estimations (id INTEGER PRIMARY KEY, project_id TEXT)`,
     `CREATE TABLE audit_log (id INTEGER PRIMARY KEY AUTOINCREMENT, action TEXT)`,
     `CREATE TABLE project_actual_investments (
       id INTEGER PRIMARY KEY AUTOINCREMENT, project_id TEXT, month TEXT,
       fte REAL, source TEXT
+    )`,
+    // 2026-10-17 C:迁移集兼容检查需要——名字取自真实迁移目录(应用集合的子集)
+    `CREATE TABLE knex_migrations (
+      id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, batch INTEGER, migration_time TEXT
     )`
   ];
 
@@ -45,6 +53,8 @@ describe('backupService (真 sqlite)', () => {
     // 已提交但不 checkpoint——数据只在 -wal 文件里
     db.prepare(`INSERT INTO scenario_project_assignments (id, scenario_id, allocation_percentage) VALUES ('a1', 's1', 50)`).run();
     db.prepare(`INSERT INTO project_actual_investments (project_id, month, fte, source) VALUES ('p1', '2026-09', 0.9, 'manual')`).run();
+    // knex 存迁移文件全名(含 .ts,dev 实测)——与 defaultAppMigrations 的目录文件名同构
+    db.prepare(`INSERT INTO knex_migrations (name, batch) VALUES ('001_baseline_schema.ts', 1)`).run();
     db.close();
   });
 
@@ -79,30 +89,103 @@ describe('backupService (真 sqlite)', () => {
     expect(bad.readable).toBe(false);
   });
 
-  test('applyRetention: 只保留最新 N 个', () => {
-    const sub = path.join(dir, 'retention');
+  test('applyRetention: 按天窗口淘汰——31 份小时备份 × retentionDays=30 全留(2026-10-17 返工 D)', () => {
+    const sub = path.join(dir, 'retention-window');
     fs.mkdirSync(sub, { recursive: true });
-    const files: string[] = [];
-    for (let i = 0; i < 5; i++) {
-      const f = path.join(sub, `backup-2026-10-0${i + 1}.db`);
+    const now = Date.now();
+    for (let i = 1; i <= 31; i++) {
+      const f = path.join(sub, `hourly-${String(i).padStart(2, '0')}.db`);
       fs.writeFileSync(f, Buffer.from('x'));
-      // mtime 按天数递增,模拟新旧
-      fs.utimesSync(f, new Date(2026, 9, i + 1), new Date(2026, 9, i + 1));
-      files.push(f);
+      fs.utimesSync(f, new Date(now - i * 3600e3), new Date(now - i * 3600e3));
     }
-    const removed = applyRetention(sub, 3);
-    expect(removed.length).toBe(2);
-    expect(fs.existsSync(files[0])).toBe(false); // 最旧的被删
-    expect(fs.existsSync(files[4])).toBe(true);  // 最新的保留
-    expect(fs.readdirSync(sub).length).toBe(3);
+    // 旧实现"保留最新 N 份"会把 31 小时前的删掉——参数名承诺的是天数
+    const removed = applyRetention(sub, 30);
+    expect(removed).toEqual([]);
+    expect(fs.readdirSync(sub).length).toBe(31);
+  });
+
+  test('applyRetention: 窗口外删除,恒留最新一份', () => {
+    const sub = path.join(dir, 'retention-age');
+    fs.mkdirSync(sub, { recursive: true });
+    const now = Date.now();
+    const mk = (name: string, ageDays: number) => {
+      const f = path.join(sub, name);
+      fs.writeFileSync(f, Buffer.from('x'));
+      fs.utimesSync(f, new Date(now - ageDays * 86400e3), new Date(now - ageDays * 86400e3));
+      return f;
+    };
+    const old1 = mk('old-1.db', 40);
+    const old2 = mk('old-2.db', 35);
+    mk('new-1.db', 1);
+    mk('new-2.db', 3);
+    const removed = applyRetention(sub, 30);
+    expect(removed.sort()).toEqual([old1, old2].sort());
+    expect(fs.readdirSync(sub).sort()).toEqual(['new-1.db', 'new-2.db'].sort());
+  });
+
+  test('applyRetention: 全部超窗仍恒留最新一份(删光保护)', () => {
+    const sub = path.join(dir, 'retention-floor');
+    fs.mkdirSync(sub, { recursive: true });
+    const now = Date.now();
+    const mk = (name: string, ageDays: number) => {
+      const f = path.join(sub, name);
+      fs.writeFileSync(f, Buffer.from('x'));
+      fs.utimesSync(f, new Date(now - ageDays * 86400e3), new Date(now - ageDays * 86400e3));
+      return f;
+    };
+    mk('newest.db', 40);
+    const oldest = mk('oldest.db', 45);
+    const removed = applyRetention(sub, 30);
+    expect(removed).toEqual([oldest]);
+    expect(fs.readdirSync(sub)).toEqual(['newest.db']);
   });
 
   test('runBackupOnce: 创建+校验+保留一条龙;半成品失败不留文件', () => {
     const sub = path.join(dir, 'once');
-    const out = runBackupOnce({ dbFilePath: dbPath, backupDir: sub, retention: 5 });
+    const out = runBackupOnce({ dbFilePath: dbPath, backupDir: sub, retentionDays: 30 });
     expect(out.result.sizeBytes).toBeGreaterThan(0);
     expect(out.verify.integrityOk).toBe(true);
+    expect(out.verify.migrationsCompatible).toBe(true);
+    expect(out.verify.keyColumnsOk).toBe(true);
     expect(fs.readdirSync(sub).length).toBe(1);
+  });
+
+  test('verifyBackup: 未来版本备份(含应用未知迁移)被拒(2026-10-17 返工 C)', () => {
+    const target = path.join(dir, 'future.db');
+    createConsistentBackup(dbPath, target);
+    const w = new Database(target);
+    w.prepare(`INSERT INTO knex_migrations (name, batch) VALUES ('999_future_thing', 1)`).run();
+    w.close();
+    const v = verifyBackup(target, { appMigrations: ['001_baseline_schema.ts'] });
+    expect(v.migrationsCompatible).toBe(false);
+    expect(v.problems.join(' ')).toMatch(/999_future_thing/);
+  });
+
+  test('verifyBackup: 五表齐全但缺关键业务列的库被拒(表名存在不够)', () => {
+    const target = path.join(dir, 'nocols.db');
+    const w = new Database(target);
+    w.exec(`CREATE TABLE projects (id TEXT PRIMARY KEY, name TEXT)`); // 缺 lifecycle_state
+    w.exec(`CREATE TABLE people (id TEXT PRIMARY KEY, name TEXT)`);
+    w.exec(`CREATE TABLE scenario_project_assignments (id TEXT PRIMARY KEY, scenario_id TEXT, allocation_percentage REAL)`); // 缺 status/is_primary/computed_*
+    w.exec(`CREATE TABLE project_estimations (id INTEGER PRIMARY KEY, project_id TEXT)`);
+    w.exec(`CREATE TABLE audit_log (id INTEGER PRIMARY KEY AUTOINCREMENT, action TEXT)`);
+    w.exec(`CREATE TABLE knex_migrations (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, batch INTEGER, migration_time TEXT)`);
+    w.prepare(`INSERT INTO knex_migrations (name, batch) VALUES ('001_baseline_schema.ts', 1)`).run();
+    w.close();
+    const v = verifyBackup(target, { appMigrations: ['001_baseline_schema.ts'] });
+    expect(v.keyTablesPresent).toBe(true); // 表名全在——但列缺失
+    expect(v.keyColumnsOk).toBe(false);
+    expect(v.problems.join(' ')).toMatch(/missing columns/);
+  });
+
+  test('verifyBackup: 旧迁移集(应用集合的子集)放行——向前迁移合法', () => {
+    const target = path.join(dir, 'older.db');
+    createConsistentBackup(dbPath, target);
+    const v = verifyBackup(target, {
+      appMigrations: ['001_baseline_schema.ts', '002_something_later.ts', '067_backfill_component_refs.ts']
+    });
+    expect(v.migrationsCompatible).toBe(true);
+    expect(v.keyColumnsOk).toBe(true);
   });
 
   test('同目标路径重复备份被拒(不静默覆盖)', () => {

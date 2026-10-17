@@ -41,7 +41,7 @@ export function backupAndRecord(dbFilePath: string, retentionDays: number): Sche
     const { result } = runBackupOnce({
       dbFilePath,
       backupDir: backupDirFor(dbFilePath),
-      retention: retentionDays
+      retentionDays // 2026-10-17 返工 D:按天窗口(旧实现误作"保留份数")
     });
     const entry = { ok: true, at: result.createdAt, file: result.file };
     schedulerState.lastResult = entry;

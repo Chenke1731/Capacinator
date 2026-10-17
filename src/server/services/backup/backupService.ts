@@ -10,6 +10,7 @@
 import path from 'path';
 import fs from 'fs';
 import Database from 'better-sqlite3';
+import { getConfig } from '../../database/knexfile.js';
 
 export interface BackupResult {
   file: string;
@@ -49,20 +50,49 @@ export interface VerifyResult {
   integrityOk: boolean;
   schemaVersion: number;
   keyTablesPresent: boolean;
+  /** 备份迁移集 ⊆ 应用已知迁移(未来版本库恢复后降级运行必炸,2026-10-17 返工 C) */
+  migrationsCompatible: boolean;
+  /** 核心表关键业务列抽查(表名存在不等于本应用可运行) */
+  keyColumnsOk: boolean;
   problems: string[];
 }
 
-/** 恢复前校验:只读打开备份,pristine 检查 + 关键表存在 */
-export function verifyBackup(backupFilePath: string): VerifyResult {
+/** 关键列抽查清单:恢复后本应用立即要读写的业务字段 */
+const KEY_COLUMNS: Array<[string, string]> = [
+  ['scenario_project_assignments', 'status'],
+  ['scenario_project_assignments', 'is_primary'],
+  ['scenario_project_assignments', 'computed_start_date'],
+  ['projects', 'lifecycle_state'],
+  ['people', 'default_availability_percentage']
+];
+
+/** 应用已知迁移名集合(从迁移目录推导;dev=cwd/src/..., prod=knexfile 同源 thisDir/migrations)。
+ *  knex_migrations.name 存的是迁移文件全名(含 .ts 扩展,dev 实测)——
+ *  集合必须保留原样文件名,剥后缀会把全部迁移误判为 unknown */
+function defaultAppMigrations(): Set<string> | null {
+  try {
+    const raw = getConfig().migrations?.directory;
+    const dir = Array.isArray(raw) ? raw[0] : (raw ?? '');
+    return new Set(fs.readdirSync(dir));
+  } catch {
+    return null; // 目录不可读:跳过兼容检查(fail-open,记 warning 不误杀好备份)
+  }
+}
+
+/** 恢复前校验:只读打开备份——完整性 + 关键表 + 迁移集兼容 + 关键列(2026-10-17 C 收紧) */
+export function verifyBackup(
+  backupFilePath: string,
+  opts?: { appMigrations?: string[] }
+): VerifyResult {
   const problems: string[] = [];
   if (!fs.existsSync(backupFilePath)) {
-    return { readable: false, integrityOk: false, schemaVersion: 0, keyTablesPresent: false, problems: [`backup file not found: ${backupFilePath}`] };
+    return { readable: false, integrityOk: false, schemaVersion: 0, keyTablesPresent: false, migrationsCompatible: false, keyColumnsOk: false, problems: [`backup file not found: ${backupFilePath}`] };
   }
   let db: Database.Database | null = null;
   try {
     db = new Database(backupFilePath, { readonly: true });
   } catch (e) {
-    return { readable: false, integrityOk: false, schemaVersion: 0, keyTablesPresent: false, problems: [`cannot open backup: ${(e as Error).message}`] };
+    return { readable: false, integrityOk: false, schemaVersion: 0, keyTablesPresent: false, migrationsCompatible: false, keyColumnsOk: false, problems: [`cannot open backup: ${(e as Error).message}`] };
   }
   try {
     let integrityOk = false;
@@ -75,7 +105,7 @@ export function verifyBackup(backupFilePath: string): VerifyResult {
     } catch (e) {
       // 打得开但过不了完整性检查(垃圾字节/截断)——对恢复而言不可读
       db.close();
-      return { readable: false, integrityOk: false, schemaVersion: 0, keyTablesPresent: false, problems: [`integrity_check failed: ${(e as Error).message}`] };
+      return { readable: false, integrityOk: false, schemaVersion: 0, keyTablesPresent: false, migrationsCompatible: false, keyColumnsOk: false, problems: [`integrity_check failed: ${(e as Error).message}`] };
     }
 
     const required = ['projects', 'people', 'scenario_project_assignments', 'project_estimations', 'audit_log'];
@@ -90,20 +120,70 @@ export function verifyBackup(backupFilePath: string): VerifyResult {
     if (!keyTablesPresent) {
       problems.push(`missing tables: ${required.filter((t) => !present.includes(t as never)).join(', ')}`);
     }
-    return { readable: true, integrityOk, schemaVersion, keyTablesPresent, problems };
+
+    // 迁移集兼容:备份不得含应用未知的迁移(备份来自更新版本的应用,
+    // 恢复后本应用降级运行会踩不认识的 schema)。备份 ⊆ 应用集合 = 放行
+    // (旧备份向前迁移合法);knex_migrations 缺失说明不是本应用产物 → 拒
+    let migrationsCompatible = true;
+    let appSet: Set<string> | null;
+    if (opts?.appMigrations) {
+      appSet = new Set(opts.appMigrations);
+    } else {
+      appSet = defaultAppMigrations();
+      if (!appSet) problems.push('app migrations directory unreadable; migration compatibility check skipped');
+    }
+    if (appSet) {
+      try {
+        const rows = db.prepare('SELECT name FROM knex_migrations').all() as Array<{ name: string }>;
+        const unknown = rows.map((r) => String(r.name)).filter((n) => !appSet!.has(n));
+        if (unknown.length > 0) {
+          migrationsCompatible = false;
+          problems.push(`unknown migrations (backup from a newer app?): ${unknown.join(', ')}`);
+        }
+      } catch {
+        migrationsCompatible = false;
+        problems.push('knex_migrations table missing or unreadable');
+      }
+    }
+
+    // 关键列抽查:表名存在 ≠ 本应用可运行(v999/缺业务字段的库曾通过校验)
+    let keyColumnsOk = true;
+    for (const [table, column] of KEY_COLUMNS) {
+      try {
+        const cols = (db.prepare(`PRAGMA table_info(${table})`).all() as Array<{ name: string }>).map((c) => c.name);
+        if (!cols.includes(column)) {
+          keyColumnsOk = false;
+          problems.push(`missing columns: ${table}.${column}`);
+        }
+      } catch {
+        keyColumnsOk = false;
+        problems.push(`missing columns: ${table}.${column}`);
+      }
+    }
+
+    return { readable: true, integrityOk, schemaVersion, keyTablesPresent, migrationsCompatible, keyColumnsOk, problems };
   } finally {
     db.close();
   }
 }
 
-/** 保留策略:按 mtime 淘汰超出保留数的旧备份,返回被删除文件 */
-export function applyRetention(backupDir: string, retention: number): string[] {
+/**
+ * 保留策略:按 mtime 年龄淘汰超过保留天数的旧备份(2026-10-17 返工 D)。
+ * 旧实现"保留最新 N 份"——retentionDays=30 在 hourly 备份下只保住 30
+ * 小时,启动即备份还会加速淘汰,与参数名/DB_BACKUP_RETENTION_DAYS 承诺
+ * 的天数语义不符。现按真实时间窗口淘汰;无论多旧恒留最新一份兜底
+ * (极端情况下删光全部备份比留一份更糟)。
+ */
+export function applyRetention(backupDir: string, retentionDays: number): string[] {
+  const cutoff = Date.now() - retentionDays * 24 * 60 * 60 * 1000;
   const entries = fs.readdirSync(backupDir)
     .filter((f) => f.endsWith('.db'))
     .map((f) => ({ file: path.join(backupDir, f), mtime: fs.statSync(path.join(backupDir, f)).mtimeMs }))
     .sort((a, b) => b.mtime - a.mtime);
   const removed: string[] = [];
-  for (const entry of entries.slice(Math.max(0, retention))) {
+  for (const entry of entries) {
+    if (entry === entries[0]) continue; // 恒留最新一份
+    if (entry.mtime >= cutoff) continue; // 窗口内保留
     fs.unlinkSync(entry.file);
     removed.push(entry.file);
   }
@@ -114,7 +194,7 @@ export function applyRetention(backupDir: string, retention: number): string[] {
 export function runBackupOnce(opts: {
   dbFilePath: string;
   backupDir: string;
-  retention?: number;
+  retentionDays?: number;
   now?: () => number;
 }): { result: BackupResult; verify: VerifyResult; removed: string[] } {
   const stamp = new Date((opts.now ?? Date.now)()).toISOString().replace(/[:.]/g, '-');
@@ -127,11 +207,12 @@ export function runBackupOnce(opts: {
     throw e;
   }
   const verify = verifyBackup(target);
-  if (!verify.readable || !verify.integrityOk || !verify.keyTablesPresent) {
+  if (!verify.readable || !verify.integrityOk || !verify.keyTablesPresent
+    || !verify.migrationsCompatible || !verify.keyColumnsOk) {
     fs.unlinkSync(target);
     throw new Error(`backup verification failed: ${verify.problems.join('; ')}`);
   }
-  const removed = opts.retention != null ? applyRetention(opts.backupDir, opts.retention) : [];
+  const removed = opts.retentionDays != null ? applyRetention(opts.backupDir, opts.retentionDays) : [];
   return { result, verify, removed };
 }
 
@@ -184,7 +265,8 @@ export interface RestoreResult {
  */
 export function restoreBackupTo(backupFilePath: string, targetPath: string): RestoreResult {
   const pre = verifyBackup(backupFilePath);
-  if (!pre.readable || !pre.integrityOk || !pre.keyTablesPresent) {
+  if (!pre.readable || !pre.integrityOk || !pre.keyTablesPresent
+    || !pre.migrationsCompatible || !pre.keyColumnsOk) {
     throw new Error(`restore refused, backup verification failed: ${pre.problems.join('; ')}`);
   }
   fs.mkdirSync(path.dirname(targetPath), { recursive: true });
@@ -193,7 +275,8 @@ export function restoreBackupTo(backupFilePath: string, targetPath: string): Res
   }
   fs.copyFileSync(backupFilePath, targetPath);
   const post = verifyBackup(targetPath);
-  if (!post.readable || !post.integrityOk || !post.keyTablesPresent) {
+  if (!post.readable || !post.integrityOk || !post.keyTablesPresent
+    || !post.migrationsCompatible || !post.keyColumnsOk) {
     fs.unlinkSync(targetPath);
     throw new Error(`restored copy failed verification: ${post.problems.join('; ')}`);
   }
@@ -213,7 +296,7 @@ export function drillRestore(opts: {
 } {
   const before = collectDbFingerprint(opts.liveDbPath);
   const backupDir = path.join(opts.workDir, 'drill-backups');
-  const { result: backup } = runBackupOnce({ dbFilePath: opts.liveDbPath, backupDir, retention: 5 });
+  const { result: backup } = runBackupOnce({ dbFilePath: opts.liveDbPath, backupDir, retentionDays: 5 });
   const restored = restoreBackupTo(backup.file, path.join(opts.workDir, 'drill-restored.db'));
 
   const problems: string[] = [];

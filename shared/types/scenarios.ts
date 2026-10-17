@@ -201,3 +201,16 @@ export interface ScenarioAssignmentsView {
   computed_start_date: Date;
   computed_end_date: Date;
 }
+
+/**
+ * 合并策略单一真相（2026-10-17 返工，Codex 复审 P1）：
+ * 客户端曾私发 favor_source/favor_target，服务端只认 use_source/use_target，
+ * 未知串静默落入 manual 空转——冲突被丢、源标 merged、返回成功。
+ * 双端共读本枚举；服务端对未知策略显式 400。
+ */
+export const MERGE_STRATEGIES = ['use_source', 'use_target', 'manual'] as const;
+export type MergeStrategy = (typeof MERGE_STRATEGIES)[number];
+
+export function isMergeStrategy(value: unknown): value is MergeStrategy {
+  return typeof value === 'string' && (MERGE_STRATEGIES as readonly string[]).includes(value);
+}

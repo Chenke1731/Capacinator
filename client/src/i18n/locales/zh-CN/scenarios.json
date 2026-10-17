@@ -90,6 +90,18 @@
     "manualResolution": "手动解决",
     "manualResolutionDescription": "逐个查看并解决冲突(高级)",
     "strategyHelp": "选择合并时如何处理场景之间的冲突变更。",
+    "conflicts": {
+      "title": "{{count}} 项冲突待裁决",
+      "typeAssignment": "分配冲突",
+      "typePhaseTimeline": "阶段时间线冲突",
+      "typeProjectDetails": "项目详情冲突",
+      "sourceValue": "分支值",
+      "targetValue": "父方案值",
+      "adoptSource": "采用分支值",
+      "adoptTarget": "采用父方案值",
+      "resolvedAs": "已裁决：{{resolution}}",
+      "allResolved": "全部冲突已裁决——再次确认合并即可完成闭环。"
+    },
     "confirmMergeLabel": "我了解这会将“{{source}}”合并到“{{target}}”中",
     "confirmMergeHelp": "此操作无法撤销。源场景将被标记为已合并。",
     "merging": "合并中…",

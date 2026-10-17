@@ -90,6 +90,18 @@
     "manualResolution": "Manual Resolution",
     "manualResolutionDescription": "Review and resolve each conflict manually (Advanced)",
     "strategyHelp": "Choose how to handle conflicting changes between scenarios during merge.",
+    "conflicts": {
+      "title": "{{count}} conflict(s) require resolution",
+      "typeAssignment": "Assignment conflict",
+      "typePhaseTimeline": "Phase timeline conflict",
+      "typeProjectDetails": "Project details conflict",
+      "sourceValue": "Branch value",
+      "targetValue": "Parent value",
+      "adoptSource": "Use branch value",
+      "adoptTarget": "Use parent value",
+      "resolvedAs": "Resolved: {{resolution}}",
+      "allResolved": "All conflicts resolved — confirm and merge again to complete."
+    },
     "confirmMergeLabel": "I understand this will merge \"{{source}}\" into \"{{target}}\"",
     "confirmMergeHelp": "This action cannot be undone. The source scenario will be marked as merged.",
     "merging": "Merging...",

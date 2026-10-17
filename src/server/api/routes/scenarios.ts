@@ -34,4 +34,10 @@ router.get('/:id/compare', scenariosController.compare.bind(scenariosController)
 // POST /api/scenarios/:id/merge - Merge scenario back to parent
 router.post('/:id/merge', scenariosController.merge.bind(scenariosController));
 
+// GET /api/scenarios/:id/merge-conflicts - Manual merge conflict list
+router.get('/:id/merge-conflicts', scenariosController.getMergeConflicts.bind(scenariosController));
+
+// PATCH /api/scenarios/:id/merge-conflicts/:conflictId - Resolve one conflict
+router.patch('/:id/merge-conflicts/:conflictId', scenariosController.resolveMergeConflict.bind(scenariosController));
+
 export default router;

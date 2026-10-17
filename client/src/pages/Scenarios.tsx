@@ -258,15 +258,59 @@ const MergeModal: React.FC<MergeModalProps> = ({
 }) => {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
-  const [mergeStrategy, setMergeStrategy] = useState<'favor_source' | 'favor_target' | 'manual'>('favor_source');
+  // 共享枚举(shared/types/scenarios,2026-10-17 返工):旧 favor_source/
+  // favor_target 服务端不认,静默落入 manual 空转——冲突被丢、源标 merged
+  const [mergeStrategy, setMergeStrategy] = useState<'use_source' | 'use_target' | 'manual'>('use_source');
   const [confirmMerge, setConfirmMerge] = useState(false);
+  const [conflictsOpen, setConflictsOpen] = useState(false);
+
+  // manual 冲突清单(2026-10-17 返工:此前无裁决写路径,manual 是死路)。
+  // 打开弹窗即查——pending 存在时自动展开,闭环不被"重开弹窗"打断
+  const { data: conflictRows, refetch: refetchConflicts } = useQuery({
+    queryKey: queryKeys.scenarios.mergeConflicts(scenario.id),
+    queryFn: async () => {
+      const response = await api.scenarios.getMergeConflicts(scenario.id);
+      const payload = response.data as unknown;
+      return Array.isArray(payload) ? payload : ((payload as { data?: unknown[] })?.data ?? []);
+    },
+    enabled: isOpen,
+  });
+  const pendingConflicts = (conflictRows as Array<{ resolution?: string }> | undefined ?? []).filter(
+    (c) => c.resolution === 'pending'
+  );
+
+  // 重新打开弹窗时重置;若已有 pending 冲突(上次 manual 提交落下的)自动展开清单
+  // ——冲突态的事实源是 pending 行而非 status(真库 CHECK 无 'conflict' 值)
+  useEffect(() => {
+    if (isOpen) setConflictsOpen(false);
+  }, [isOpen]);
+  useEffect(() => {
+    if (isOpen && !conflictsOpen && pendingConflicts.length > 0) setConflictsOpen(true);
+  }, [isOpen, conflictRows]);
+
+  const resolveConflictMutation = useMutation({
+    mutationFn: ({ conflictId, resolution }: { conflictId: string; resolution: 'use_source' | 'use_target' }) =>
+      api.scenarios.resolveMergeConflict(scenario.id, conflictId, resolution),
+    onSuccess: () => {
+      refetchConflicts();
+      queryClient.invalidateQueries({ queryKey: queryKeys.scenarios.all });
+    },
+  });
 
   const mergeMutation = useMutation({
-    mutationFn: (data: any) => api.scenarios.merge(scenario.id, data),
-    onSuccess: () => {
+    mutationFn: async (data: Record<string, unknown>) => {
+      const response = await api.scenarios.merge(scenario.id, data);
+      return response.data as unknown as { success?: boolean; conflicts?: number };
+    },
+    onSuccess: (payload) => {
       queryClient.invalidateQueries({ queryKey: queryKeys.scenarios.all });
+      if (payload?.success === false && (payload.conflicts ?? 0) > 0) {
+        // 冲突待裁决:不关弹窗,展开清单逐条裁决后再合并
+        setConflictsOpen(true);
+        refetchConflicts();
+        return;
+      }
       handleClose();
-      setConfirmMerge(false);
     },
   });
 
@@ -283,14 +327,39 @@ const MergeModal: React.FC<MergeModalProps> = ({
   const handleClose = () => {
     // Reset form state
     setConfirmMerge(false);
-    setMergeStrategy('favor_source');
+    setMergeStrategy('use_source');
+    setConflictsOpen(false);
     // Give time for animation before calling onClose
     setTimeout(() => onClose(), 200);
   };
 
+  /** 冲突侧摘要:person·project·role + allocation,兜底截断 JSON */
+  const describeConflictSide = (raw: unknown): string => {
+    try {
+      const d = typeof raw === 'string' ? JSON.parse(raw) : raw;
+      if (d && typeof d === 'object') {
+        const rec = d as Record<string, unknown>;
+        const who = [rec.person_name ?? rec.person_id, rec.project_name ?? rec.project_id, rec.role_name ?? rec.role_id]
+          .filter(Boolean).join(' · ');
+        const pct = rec.allocation_percentage != null ? ` ${rec.allocation_percentage}%` : '';
+        return `${who}${pct}`;
+      }
+    } catch {
+      // fallthrough: 非法 JSON 走兜底
+    }
+    return JSON.stringify(raw ?? '').slice(0, 80);
+  };
+
+  const conflictTypeLabel = (type: string | undefined): string => {
+    if (type === 'assignment') return t('scenarios:mergeModal.conflicts.typeAssignment');
+    if (type === 'phase_timeline') return t('scenarios:mergeModal.conflicts.typePhaseTimeline');
+    if (type === 'project_details') return t('scenarios:mergeModal.conflicts.typeProjectDetails');
+    return type ?? '';
+  };
+
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && handleClose()}>
-      <DialogContent className="max-w-2xl">
+      <DialogContent className="max-w-2xl max-h-[85vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>{t('scenarios:mergeModal.title')}</DialogTitle>
           <DialogDescription>
@@ -367,14 +436,14 @@ const MergeModal: React.FC<MergeModalProps> = ({
                   <div className="flex items-start space-x-3">
                     <input
                       type="radio"
-                      id="favor_source"
+                      id="use_source"
                       name="merge-strategy"
-                      value="favor_source"
-                      checked={mergeStrategy === 'favor_source'}
-                      onChange={(e) => setMergeStrategy(e.target.value as 'favor_source' | 'favor_target' | 'manual')}
+                      value="use_source"
+                      checked={mergeStrategy === 'use_source'}
+                      onChange={(e) => setMergeStrategy(e.target.value as 'use_source' | 'use_target' | 'manual')}
                       className="mt-1"
                     />
-                    <Label htmlFor="favor_source" className="flex-1 cursor-pointer">
+                    <Label htmlFor="use_source" className="flex-1 cursor-pointer">
                       <div className="strategy-content">
                         <div className="strategy-title font-medium">{t('scenarios:mergeModal.favorSource')}</div>
                         <div className="strategy-description text-sm text-muted-foreground">
@@ -389,14 +458,14 @@ const MergeModal: React.FC<MergeModalProps> = ({
                   <div className="flex items-start space-x-3">
                     <input
                       type="radio"
-                      id="favor_target"
+                      id="use_target"
                       name="merge-strategy"
-                      value="favor_target"
-                      checked={mergeStrategy === 'favor_target'}
-                      onChange={(e) => setMergeStrategy(e.target.value as 'favor_source' | 'favor_target' | 'manual')}
+                      value="use_target"
+                      checked={mergeStrategy === 'use_target'}
+                      onChange={(e) => setMergeStrategy(e.target.value as 'use_source' | 'use_target' | 'manual')}
                       className="mt-1"
                     />
-                    <Label htmlFor="favor_target" className="flex-1 cursor-pointer">
+                    <Label htmlFor="use_target" className="flex-1 cursor-pointer">
                       <div className="strategy-content">
                         <div className="strategy-title font-medium">{t('scenarios:mergeModal.favorTarget')}</div>
                         <div className="strategy-description text-sm text-muted-foreground">
@@ -415,7 +484,7 @@ const MergeModal: React.FC<MergeModalProps> = ({
                       name="merge-strategy"
                       value="manual"
                       checked={mergeStrategy === 'manual'}
-                      onChange={(e) => setMergeStrategy(e.target.value as 'favor_source' | 'favor_target' | 'manual')}
+                      onChange={(e) => setMergeStrategy(e.target.value as 'use_source' | 'use_target' | 'manual')}
                       className="mt-1"
                     />
                     <Label htmlFor="manual" className="flex-1 cursor-pointer">
@@ -433,6 +502,66 @@ const MergeModal: React.FC<MergeModalProps> = ({
                 {t('scenarios:mergeModal.strategyHelp')}
               </p>
             </div>
+
+            {/* manual 冲突裁决清单(2026-10-17 返工):manual 不再是死路 */}
+            {conflictsOpen && (
+              <div className="merge-conflicts" role="region" aria-labelledby="conflicts-heading">
+                <h3 id="conflicts-heading" className="text-sm font-medium mb-3">
+                  {t('scenarios:mergeModal.conflicts.title', { count: pendingConflicts.length })}
+                </h3>
+                <div className="space-y-3">
+                  {((conflictRows as Array<Record<string, unknown>>) ?? []).map((c) => {
+                    const isPending = c.resolution === 'pending';
+                    return (
+                      <div key={String(c.id)} className="conflict-row border rounded-md p-3 space-y-2">
+                        <div className="text-xs text-muted-foreground">{conflictTypeLabel(c.conflict_type as string | undefined)}</div>
+                        <div className="grid grid-cols-2 gap-2 text-sm">
+                          <div>
+                            <div className="text-xs text-muted-foreground">{t('scenarios:mergeModal.conflicts.sourceValue')}</div>
+                            <div>{describeConflictSide(c.source_data)}</div>
+                          </div>
+                          <div>
+                            <div className="text-xs text-muted-foreground">{t('scenarios:mergeModal.conflicts.targetValue')}</div>
+                            <div>{describeConflictSide(c.target_data)}</div>
+                          </div>
+                        </div>
+                        {isPending ? (
+                          <div className="flex gap-2">
+                            <Button
+                              type="button"
+                              variant="outline"
+                              size="sm"
+                              disabled={resolveConflictMutation.isPending}
+                              onClick={() => resolveConflictMutation.mutate({ conflictId: String(c.id), resolution: 'use_source' })}
+                            >
+                              {t('scenarios:mergeModal.conflicts.adoptSource')}
+                            </Button>
+                            <Button
+                              type="button"
+                              variant="outline"
+                              size="sm"
+                              disabled={resolveConflictMutation.isPending}
+                              onClick={() => resolveConflictMutation.mutate({ conflictId: String(c.id), resolution: 'use_target' })}
+                            >
+                              {t('scenarios:mergeModal.conflicts.adoptTarget')}
+                            </Button>
+                          </div>
+                        ) : (
+                          <div className="text-xs text-muted-foreground">
+                            {t('scenarios:mergeModal.conflicts.resolvedAs', { resolution: String(c.resolution) })}
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+                {conflictRows !== undefined && pendingConflicts.length === 0 && (
+                  <p className="text-sm text-muted-foreground mt-3">
+                    {t('scenarios:mergeModal.conflicts.allResolved')}
+                  </p>
+                )}
+              </div>
+            )}
 
             {/* Confirmation checkbox */}
             <div className="merge-confirmation" role="region" aria-labelledby="confirmation-heading">

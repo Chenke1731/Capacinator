@@ -621,6 +621,10 @@ export const api = {
     removeAssignment: (id: string, assignmentId: string) => apiClient.delete<{ message: string }>(`/scenarios/${id}/assignments/${assignmentId}`),
     compare: (id: string, compareToId: string) => apiClient.get<ScenarioCompareResponse>(`/scenarios/${id}/compare?compare_to=${compareToId}`),
     merge: (id: string, data?: Record<string, unknown>) => apiClient.post<{ data: Scenario }>(`/scenarios/${id}/merge`, data || {}),
+    // 2026-10-17 返工: manual 闭环——此前全库无 resolution 写路径
+    getMergeConflicts: (id: string) => apiClient.get<{ data: unknown[] }>(`/scenarios/${id}/merge-conflicts`),
+    resolveMergeConflict: (id: string, conflictId: string, resolution: 'use_source' | 'use_target') =>
+      apiClient.patch<{ data: { conflictId: string; resolution: string } }>(`/scenarios/${id}/merge-conflicts/${conflictId}`, { resolution }),
   },
 
   // Audit

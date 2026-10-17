@@ -283,6 +283,8 @@ export const queryKeys = {
       [...queryKeys.scenarios.all, 'assignments', id] as const,
     comparison: (id: string, compareToId: string) =>
       [...queryKeys.scenarios.all, 'comparison', id, compareToId] as const,
+    mergeConflicts: (id: string) =>
+      [...queryKeys.scenarios.all, 'merge-conflicts', id] as const,
   },
 
   // Availability

@@ -168,7 +168,9 @@ describe('merge 合并闭环 (F03, 真 sqlite)', () => {
     expect(result.success).toBe(false);
     expect(result.conflicts).toBeGreaterThan(0);
     expect(await db('scenario_merge_conflicts').count('* as c').first()).toMatchObject({ c: 1 });
-    expect(await db('scenarios').where({ id: 'br' }).first()).toMatchObject({ status: 'conflict' });
+    // 2026-10-17 返工:不写 status='conflict'(真库 CHECK 只允许
+    // active/archived/merged;冲突态事实源= pending 行)——场景保持 active
+    expect(await db('scenarios').where({ id: 'br' }).first()).toMatchObject({ status: 'active' });
     const target = await db('scenario_project_assignments').where({ id: 't-row' }).first();
     expect(Number(target.allocation_percentage)).toBe(40);
   });

@@ -5,6 +5,7 @@ import { ServiceContainer } from '../../services/ServiceContainer.js';
 import { randomUUID } from 'crypto';
 import { evaluateWindowCapacity } from '../../services/calc/capacitySegments.js';
 import { auditModelChanges } from '../../middleware/enhancedAuditMiddleware.js';
+import { isMergeStrategy } from '../../../../shared/types/scenarios.js';
 
 export class ScenariosController extends BaseController {
   constructor(container?: ServiceContainer) {
@@ -696,6 +697,17 @@ export class ScenariosController extends BaseController {
   async merge(req: Request, res: Response) {
     const { id } = req.params;
     const { resolve_conflicts_as = 'manual' } = req.body;
+    // 共享枚举守卫(2026-10-17 返工):客户端旧枚举 favor_source/favor_target
+    // 曾静默落入 manual 空转——冲突被丢、源标 merged、返回成功。
+    // 未知策略必须显式 400,不允许任何静默降级
+    if (!isMergeStrategy(resolve_conflicts_as)) {
+      this.handleValidationError(
+        req,
+        res,
+        `Unknown merge strategy '${resolve_conflicts_as}': must be one of use_source, use_target, manual`
+      );
+      return;
+    }
 
     const result = await this.executeQuery(async () => {
       const scenario = await this.db('scenarios').where('id', id).first();
@@ -728,31 +740,56 @@ export class ScenariosController extends BaseController {
         // Detect conflicts first
         const conflicts = await this.detectMergeConflicts(id, scenario.parent_scenario_id, trx);
 
-        if (conflicts.length > 0 && resolve_conflicts_as === 'manual') {
-          // Save conflicts for manual resolution
+        if (resolve_conflicts_as === 'manual') {
+          // 冲突行 upsert 复用(2026-10-17 返工):按 (type,entity_id) 对账
+          // 已有行——已裁决行保留裁决不复位,pending 行刷新最新数据,真新
+          // 冲突才插。旧实现按活数据重算后无条件重插 pending,已裁决被
+          // 无视,manual 永远无法闭环且冲突表积重
+          const existing = await trx('scenario_merge_conflicts')
+            .where('source_scenario_id', id)
+            .where('target_scenario_id', scenario.parent_scenario_id);
+          const existingByKey = new Map(
+            existing.map((r: Record<string, unknown>) => [`${r.conflict_type}|${r.entity_id ?? ''}`, r])
+          );
+          let pendingCount = 0;
           for (const conflict of conflicts) {
-            const conflictId = randomUUID();
-            await trx('scenario_merge_conflicts').insert({
-              id: conflictId,
-              source_scenario_id: id,
-              target_scenario_id: scenario.parent_scenario_id,
-              conflict_type: conflict.type,
-              entity_id: conflict.entity_id,
-              source_data: JSON.stringify(conflict.source_data),
-              target_data: JSON.stringify(conflict.target_data),
-              resolution: 'pending',
-              created_at: new Date()
-            });
+            const key = `${conflict.type}|${conflict.entity_id ?? ''}`;
+            const prior = existingByKey.get(key);
+            if (prior) {
+              if (prior.resolution !== 'pending') continue; // 已裁决:保留裁决
+              await trx('scenario_merge_conflicts').where({ id: prior.id }).update({
+                source_data: JSON.stringify(conflict.source_data),
+                target_data: JSON.stringify(conflict.target_data)
+              });
+              pendingCount++;
+            } else {
+              await trx('scenario_merge_conflicts').insert({
+                id: randomUUID(),
+                source_scenario_id: id,
+                target_scenario_id: scenario.parent_scenario_id,
+                conflict_type: conflict.type,
+                entity_id: conflict.entity_id,
+                source_data: JSON.stringify(conflict.source_data),
+                target_data: JSON.stringify(conflict.target_data),
+                resolution: 'pending',
+                created_at: new Date()
+              });
+              pendingCount++;
+            }
           }
 
-          // 状态流转与冲突落表同事务
-          await trx('scenarios').where({ id }).update({ status: 'conflict', updated_at: new Date() });
-
-          return {
-            success: false,
-            message: 'Merge conflicts detected. Manual resolution required.',
-            conflicts: conflicts.length
-          };
+          if (pendingCount > 0) {
+            // 2026-10-17 返工:不再写 status='conflict'——真库 CHECK 只允许
+            // active/archived/merged(手写测试 DDL 无 CHECK 掩盖了这颗雷,
+            // UI 实机走查踩中)。冲突态的事实源是 pending 冲突行本身,
+            // 场景保持 active(可继续裁决、可再合并)
+            return {
+              success: false,
+              message: 'Merge conflicts detected. Manual resolution required.',
+              conflicts: pendingCount
+            };
+          }
+          // 无未决冲突:落入 performMerge,应用已裁决数据完成合并
         }
 
         // Perform the merge (strategy-aware, same transaction)
@@ -787,11 +824,60 @@ export class ScenariosController extends BaseController {
           recordId: id,
           action: 'UPDATE',
           oldValues: null,
-          newValues: { status: 'conflict' },
+          newValues: { pendingConflicts: result.conflicts },
           comment: `Merge blocked: ${result.conflicts} conflicts require manual resolution`
         });
       }
       res.json(result);
+    }
+  }
+
+  // GET /api/scenarios/:id/merge-conflicts — manual 裁决清单(信封 {data})
+  async getMergeConflicts(req: Request, res: Response) {
+    try {
+      const { id } = req.params;
+      const rows = await this.db('scenario_merge_conflicts')
+        .where('source_scenario_id', id)
+        .orderBy('created_at', 'asc');
+      res.json({ data: rows });
+    } catch (error) {
+      this.handleError(error, req, res);
+    }
+  }
+
+  // PATCH /api/scenarios/:id/merge-conflicts/:conflictId — 落一条裁决
+  // (2026-10-17 返工:此前全库无 resolution 写路径,manual 是结构性死路)
+  async resolveMergeConflict(req: Request, res: Response) {
+    try {
+      const { id, conflictId } = req.params;
+      const { resolution } = req.body;
+      if (resolution !== 'use_source' && resolution !== 'use_target') {
+        this.handleValidationError(req, res, "resolution must be 'use_source' or 'use_target'");
+        return;
+      }
+      const conflict = await this.db('scenario_merge_conflicts')
+        .where({ id: conflictId, source_scenario_id: id })
+        .first();
+      if (!conflict) {
+        this.handleNotFound(req, res, 'Merge conflict');
+        return;
+      }
+      if (conflict.resolution !== 'pending') {
+        this.handleValidationError(req, res, 'merge conflict already resolved');
+        return;
+      }
+      await this.db('scenario_merge_conflicts').where({ id: conflictId }).update({ resolution });
+      await auditModelChanges(req, {
+        tableName: 'scenario_merge_conflicts',
+        recordId: conflictId,
+        action: 'UPDATE',
+        oldValues: { resolution: 'pending' },
+        newValues: { resolution },
+        comment: `Merge conflict resolved as ${resolution}`
+      });
+      res.json({ data: { conflictId, resolution } });
+    } catch (error) {
+      this.handleError(error, req, res);
     }
   }
 

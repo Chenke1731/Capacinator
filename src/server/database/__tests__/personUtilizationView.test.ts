@@ -58,6 +58,24 @@ describe('person_utilization_view 相对可用率口径 (U01)', () => {
       // p-unavail: 覆盖 0 → Unavailable
       { person_id: 'p-unavail', start_date: '2026-10-01', end_date: '2026-10-31', availability_percentage: 0, is_approved: 1 }
     ]);
+    // 场景叠加反例(Codex 2026-10-17 复审): 复制相同 active 分支
+    await db('scenarios').insert([
+      { id: 'baseline-0000-0000-0000-000000000000', name: '基线', status: 'active', scenario_type: 'baseline', created_by: 'p-idle-0' },
+      { id: 's-branch', name: '分支副本', status: 'active', scenario_type: 'branch',
+        parent_scenario_id: 'baseline-0000-0000-0000-000000000000', created_by: 'p-idle-0' }
+    ]);
+    await db('scenario_project_assignments').insert({
+      id: 'sa-copy', scenario_id: 's-branch', project_id: 'prj1', person_id: 'p-partial-30',
+      role_id: 'r1', allocation_percentage: 30, status: 'active', change_type: 'added'
+    });
+    // 过期分配反例(独立人员,不挤占满载边界用例): 100% 但区间已结束
+    await db('people').insert({ id: 'p-expired', name: '过期分配', default_availability_percentage: 100, default_hours_per_day: 8, is_active: 1 });
+    await db('project_assignments').insert({
+      id: 'a4', project_id: 'prj1', person_id: 'p-expired', role_id: 'r1',
+      allocation_percentage: 100, status: 'active',
+      start_date: '2026-01-01', end_date: '2026-01-31',
+      computed_start_date: '2026-01-01', computed_end_date: '2026-01-31'
+    });
   }, 120000);
 
   afterAll(async () => {
@@ -87,5 +105,32 @@ describe('person_utilization_view 相对可用率口径 (U01)', () => {
 
   test('可用率覆盖 0 → Unavailable(不看分配)', async () => {
     expect(await statusOf('p-unavail')).toBe('Unavailable');
+  });
+
+  test('分支复制不双计: 视图只算基线切片(叠加反例曾 60→120% 幻影超载)', async () => {
+    // p-partial-30: 基线 30% + 分支复制 30% → 视图必须仍是 30
+    const row = await db('person_utilization_view').where('person_id', 'p-partial-30').first();
+    expect(Number(row.total_allocation_percentage)).toBe(30);
+    expect(row.utilization_status).toBe('Partially-allocated');
+  });
+
+  test('基线两轨都算: spa(baseline) 轨的分配也计入(dev 库 59 行全在此轨)', async () => {
+    // 真实数据形态: 基线事实常存于 scenario_project_assignments(baseline-uuid)
+    // 而非 project_assignments——只算后者的分子会把全员分子归零(dev 探针实证)
+    await db('scenario_project_assignments').insert({
+      id: 'sa-base-track', scenario_id: 'baseline-0000-0000-0000-000000000000',
+      project_id: 'prj1', person_id: 'p-idle-0', role_id: 'r1',
+      allocation_percentage: 20, status: 'active', change_type: 'added'
+    });
+    const row = await db('person_utilization_view').where('person_id', 'p-idle-0').first();
+    expect(Number(row.total_allocation_percentage)).toBe(20);
+    expect(row.utilization_status).toBe('Partially-allocated');
+  });
+
+  test('已结束的分配不计入当前负荷(时间窗反例曾把过期 100% 照算)', async () => {
+    // p-expired 的 100% 分配区间为 2026-01(已结束) → 当前 0 分配
+    const row = await db('person_utilization_view').where('person_id', 'p-expired').first();
+    expect(Number(row.total_allocation_percentage)).toBe(0);
+    expect(row.utilization_status).toBe('Available');
   });
 });

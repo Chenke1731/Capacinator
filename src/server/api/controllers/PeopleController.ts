@@ -2,6 +2,8 @@ import type { Request, Response } from 'express';
 import type { Knex } from 'knex';
 import { BaseController } from './BaseController.js';
 import { ServiceContainer } from '../../services/ServiceContainer.js';
+import { resolveScenarioId, BASELINE_SCENARIO_ID, activeAssignmentsInScenario } from '../../services/calc/effectiveAssignments.js';
+import { utilizationTier } from '../../services/calc/utilizationTier.js';
 
 export class PeopleController extends BaseController {
   constructor(container?: ServiceContainer) {
@@ -267,8 +269,38 @@ export class PeopleController extends BaseController {
 
   async getUtilization(req: Request, res: Response) {
     const result = await this.executeAuditedQuery(req, async (db) => {
-      const utilization = await db('person_utilization_view').select('*');
-      return utilization;
+      // IP-03b 续(2026-10-17,Codex 复审): 视图(070)是"基线+今天窗口"快照;
+      // 选定分支场景时分子按场景切片重算——旧实现把所有 active 分支叠加,
+      // 复制一个分支即 60%→120% 幻影超载
+      const scenarioId = resolveScenarioId(req.headers['x-scenario-id']);
+      const rows = await db('person_utilization_view').select('*');
+      if (scenarioId === BASELINE_SCENARIO_ID) {
+        return rows;
+      }
+
+      // 分支切片: 场景内 active 分配,与今天相交(null 日期=全窗,与视图同语义)
+      const today = new Date().toISOString().slice(0, 10);
+      const slice = await activeAssignmentsInScenario(db, scenarioId)
+        .whereRaw('(COALESCE(spa.computed_start_date, spa.start_date) IS NULL OR date(COALESCE(spa.computed_start_date, spa.start_date)) <= date(?))', [today])
+        .whereRaw('(COALESCE(spa.computed_end_date, spa.end_date) IS NULL OR date(COALESCE(spa.computed_end_date, spa.end_date)) >= date(?))', [today])
+        .select('spa.person_id')
+        .sum('spa.allocation_percentage as total_allocation')
+        .countDistinct('spa.project_id as project_total')
+        .groupBy('spa.person_id');
+      const byPerson = new Map(
+        (slice as Array<Record<string, unknown>>).map((r) => [String(r.person_id), r])
+      );
+      return rows.map((row: Record<string, unknown>) => {
+        const s = byPerson.get(String(row.person_id));
+        const total = Number(s?.total_allocation ?? 0);
+        const availability = Number(row.current_availability_percentage ?? 100);
+        return {
+          ...row,
+          total_allocation_percentage: total,
+          project_count: Number(s?.project_total ?? 0),
+          utilization_status: utilizationTier(total, availability)
+        };
+      });
     }, res, 'Failed to fetch person utilization data');
 
     if (result) {

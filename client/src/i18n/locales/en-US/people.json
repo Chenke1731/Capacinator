@@ -49,7 +49,8 @@
   "insights": {
     "overAllocated": "{{count}} over-allocated",
     "available": "{{count}} available",
-    "totalPeople": "{{count}} total people"
+    "totalPeople": "{{count}} total people",
+    "clickToFilter": "Click to filter the list by this status; click again to clear"
   },
   "quickActions": {
     "reduceLoad": "Reduce Load",

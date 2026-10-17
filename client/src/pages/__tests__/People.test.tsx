@@ -205,21 +205,23 @@ describe('People Page', () => {
         person_id: 'person-1',
         // 2026-10-13 批清: 改用视图真名列(原 total_allocation 系 mock 自造,
         // 生产代码靠 ?? 别名兜底链蒙对——mock 与实现不一致的典型)
+        // 2026-10-17 U01: 状态档位改 utilization_status(视图单一真相,相对
+        // 可用率口径)——旧 allocation_status 是视图没有的死字段
         total_allocation_percentage: 120,
         current_availability_percentage: 100,
-        allocation_status: 'OVER_ALLOCATED',
+        utilization_status: 'Over-allocated',
       },
       {
         person_id: 'person-2',
         total_allocation_percentage: 60,
         current_availability_percentage: 75,
-        allocation_status: 'FULLY_ALLOCATED',
+        utilization_status: 'Fully-allocated',
       },
       {
         person_id: 'person-3',
-        total_allocation_percentage: 10,
+        total_allocation_percentage: 0,
         current_availability_percentage: 50,
-        allocation_status: 'UNDER_ALLOCATED',
+        utilization_status: 'Available',
       },
     ],
   };
@@ -402,7 +404,7 @@ describe('People Page', () => {
       });
 
       expect(screen.getByText('80%')).toBeInTheDocument(); // Fully allocated
-      expect(screen.getByText('20%')).toBeInTheDocument(); // Under allocated
+      expect(screen.getByText('0%')).toBeInTheDocument(); // Available(零分配,person-3)
     });
 
     test('displays appropriate quick action buttons', async () => {
@@ -442,6 +444,27 @@ describe('People Page', () => {
 
       expect(screen.getByText(/1 available/)).toBeInTheDocument();
       expect(screen.getByText(/3 total people/)).toBeInTheDocument();
+    });
+
+    test('U01: 点击超载卡片筛选列表只剩该状态人员,再点取消', async () => {
+      const user = userEvent.setup();
+      renderComponent();
+
+      const card = await screen.findByRole('button', { name: /1 over-allocated/ });
+      await user.click(card);
+
+      const table = screen.getByTestId('data-table');
+      await waitFor(() => {
+        const rows = within(table).getAllByRole('row').slice(1);
+        expect(rows).toHaveLength(1);
+        expect(rows[0].textContent || '').toContain('John Doe'); // 仅超载者(person-1)
+      });
+
+      // 再点一次取消筛选,三人全部回来
+      await user.click(card);
+      await waitFor(() => {
+        expect(within(table).getAllByRole('row').slice(1)).toHaveLength(3);
+      });
     });
   });
 
@@ -767,7 +790,7 @@ describe('People Page', () => {
             person_id: 'person-1',
             total_allocation: 0,
             current_availability_percentage: 0, // Division by zero case
-            allocation_status: 'AVAILABLE',
+            utilization_status: 'Unavailable',
           },
         ],
       };

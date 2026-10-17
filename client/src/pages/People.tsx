@@ -191,7 +191,21 @@ export default function People() {
     const availability = Number(utilization.current_availability_percentage ?? 100);
     const utilizationPercentage = availability > 0 ? (allocation / availability) * 100 : 0;
 
-    if (utilizationPercentage > 100) {
+    // U01/IP-03b(2026-10-17):状态档位读视图 utilization_status 单一真相
+    // (相对可用率口径,迁移 069)——旧 40 私设线退役;percentage 仍按相对
+    // 可用率计算展示(与视图判档同分子分母)
+    const status = String(utilization.utilization_status ?? 'Available');
+    if (status === 'Unavailable') {
+      return {
+        status: 'unavailable',
+        color: 'gray',
+        icon: Eye,
+        action: t('common:viewDetails'),
+        actionType: 'view',
+        percentage: 0
+      };
+    }
+    if (status === 'Over-allocated') {
       return {
         status: 'over_allocated',
         color: 'danger',
@@ -200,7 +214,7 @@ export default function People() {
         actionType: 'reduce_workload',
         percentage: utilizationPercentage
       };
-    } else if (utilizationPercentage >= 80) {
+    } else if (status === 'Fully-allocated') {
       return {
         status: 'fully_allocated',
         color: 'warning',
@@ -209,7 +223,7 @@ export default function People() {
         actionType: 'monitor',
         percentage: utilizationPercentage
       };
-    } else if (utilizationPercentage >= 40) {
+    } else if (status === 'Partially-allocated') {
       return {
         status: 'under_allocated',
         color: 'info',
@@ -253,26 +267,45 @@ export default function People() {
     }
   };
 
-  // Summary insights for the page header
+  // Summary insights for the page header。
+  // U01/IP-03b(2026-10-17):汇总与明细共用 person_utilization_view 的
+  // utilization_status 单一真相(相对可用率口径,迁移 069)——旧代码读不存在的
+  // allocation_status 字段,"超负荷"恒 0 而明细却有 224%/362%
   const teamInsights = useMemo(() => {
     if (!utilizationData?.personUtilization || !people) {
       return { overAllocated: 0, available: 0, total: people?.length || 0 };
     }
-    
+
     const overAllocated = utilizationData.personUtilization.filter(
-      (u: any) => u.allocation_status === 'OVER_ALLOCATED'
+      (u: any) => u.utilization_status === 'Over-allocated'
     ).length;
-    
+
     const available = utilizationData.personUtilization.filter(
-      (u: any) => u.allocation_status === 'UNDER_ALLOCATED' || (u.total_allocation_percentage ?? u.total_allocation ?? 0) < 40
+      (u: any) => u.utilization_status === 'Available'
     ).length;
-    
+
     return {
       overAllocated,
       available,
       total: people.length
     };
   }, [utilizationData, people]);
+
+  // U01:点击汇总卡片 → 状态筛选(顶部人数=可定位的明细)
+  const [statusFilter, setStatusFilter] = useState<'Over-allocated' | 'Available' | null>(null);
+
+  const filteredPeople = useMemo(() => {
+    if (!statusFilter || !people) return people || [];
+    const byStatus = new Map(
+      (utilizationData?.personUtilization ?? []).map((u: any) => [u.person_id, u.utilization_status as string])
+    );
+    return people.filter((p: Person) => byStatus.get(p.id) === statusFilter);
+    // eslint 未装 react-hooks 插件,依赖数组按语义维护
+  }, [people, statusFilter, utilizationData]);
+
+  const toggleStatusFilter = (target: 'Over-allocated' | 'Available') => {
+    setStatusFilter((prev) => (prev === target ? null : target));
+  };
 
   const columns: Column<Person>[] = [
     {
@@ -482,14 +515,25 @@ export default function People() {
           {teamInsights.total > 0 && (
             <div className="team-insights">
               <div className="insight-summary">
-                <span className="insight-item text-danger">
+                {/* U01:卡片可点击 → 状态筛选;人数与明细同源视图状态 */}
+                <button
+                  type="button"
+                  className={`insight-item insight-toggle text-danger ${statusFilter === 'Over-allocated' ? 'active' : ''}`}
+                  onClick={() => toggleStatusFilter('Over-allocated')}
+                  title={t('people:insights.clickToFilter')}
+                >
                   <AlertTriangle size={16} />
                   {t('people:insights.overAllocated', { count: teamInsights.overAllocated })}
-                </span>
-                <span className="insight-item text-success">
+                </button>
+                <button
+                  type="button"
+                  className={`insight-item insight-toggle text-success ${statusFilter === 'Available' ? 'active' : ''}`}
+                  onClick={() => toggleStatusFilter('Available')}
+                  title={t('people:insights.clickToFilter')}
+                >
                   <CheckCircle size={16} />
                   {t('people:insights.available', { count: teamInsights.available })}
-                </span>
+                </button>
                 <span className="insight-item text-muted">
                   {t('people:insights.totalPeople', { count: teamInsights.total })}
                 </span>
@@ -541,7 +585,7 @@ export default function People() {
       )}
 
       <DataTable
-        data={people || []}
+        data={filteredPeople}
         columns={columns}
         onRowClick={(row) => navigate(`/people/${row.id}`)}
         itemsPerPage={20}

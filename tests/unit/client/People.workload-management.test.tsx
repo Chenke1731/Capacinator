@@ -239,29 +239,31 @@ const mockPeople: Person[] = [
 
 const mockUtilizationData = {
   personUtilization: [
+    // 2026-10-17 U01: 状态档位改视图 utilization_status(相对可用率口径,
+    // 迁移 069)——旧 allocation_status 是视图没有的死字段
     {
       person_id: '1',
       total_allocation_percentage: 120, // Over-allocated (120% of 100 availability)
       current_availability_percentage: 100,
-      allocation_status: 'OVER_ALLOCATED',
+      utilization_status: 'Over-allocated',
     },
     {
       person_id: '2',
-      total_allocation_percentage: 60, // Under-allocated (60% of 100 availability)
+      total_allocation_percentage: 60, // Partially (60% → 可再分配)
       current_availability_percentage: 100,
-      allocation_status: 'UNDER_ALLOCATED',
+      utilization_status: 'Partially-allocated',
     },
     {
       person_id: '3',
       total_allocation_percentage: 90, // Fully allocated (90% of 100 availability)
       current_availability_percentage: 100,
-      allocation_status: 'FULLY_ALLOCATED',
+      utilization_status: 'Fully-allocated',
     },
     {
       person_id: '4',
-      total_allocation_percentage: 20, // Available (20% of 100 availability)
+      total_allocation_percentage: 0, // Available (零分配)
       current_availability_percentage: 100,
-      allocation_status: 'AVAILABLE',
+      utilization_status: 'Available',
     },
   ],
 };
@@ -285,7 +287,7 @@ describe('People Workload Management', () => {
       await waitFor(() => {
         // Check for the insights in the header
         expect(screen.getByText(/1 over-allocated/i)).toBeInTheDocument();
-        expect(screen.getByText(/2 available/i)).toBeInTheDocument(); // 2 people are available based on our mock data
+        expect(screen.getByText(/1 available/i)).toBeInTheDocument(); // 零分配即可用(U01 相对口径)
         expect(screen.getByText(/4 total people/i)).toBeInTheDocument();
       });
     });
@@ -294,8 +296,8 @@ describe('People Workload Management', () => {
       const modifiedUtilizationData = {
         personUtilization: mockUtilizationData.personUtilization.map(p => ({
           ...p,
-          total_allocation_percentage: p.total_allocation > 100 ? 80 : p.total_allocation,
-          allocation_status: p.allocation_status === 'OVER_ALLOCATED' ? 'FULLY_ALLOCATED' : p.allocation_status,
+          total_allocation_percentage: p.total_allocation_percentage > 100 ? 80 : p.total_allocation_percentage,
+          utilization_status: p.utilization_status === 'Over-allocated' ? 'Fully-allocated' : p.utilization_status,
         })),
       };
       
@@ -316,9 +318,9 @@ describe('People Workload Management', () => {
       await waitFor(() => {
         // Check for workload status displays
         expect(screen.getByText('120%')).toBeInTheDocument(); // Over-allocated
-        expect(screen.getByText('60%')).toBeInTheDocument(); // Under-allocated
+        expect(screen.getByText('60%')).toBeInTheDocument(); // Partially
         expect(screen.getByText('90%')).toBeInTheDocument(); // Fully allocated
-        expect(screen.getByText('20%')).toBeInTheDocument(); // Available
+        expect(screen.getByText('0%')).toBeInTheDocument(); // Available(零分配)
       });
     });
 
@@ -392,8 +394,8 @@ describe('People Workload Management', () => {
         
         const underAllocated = statusIndicators.find(el => el.textContent === '60%');
         expect(underAllocated?.parentElement?.className).toContain('status-info');
-        
-        const available = statusIndicators.find(el => el.textContent === '20%');
+
+        const available = statusIndicators.find(el => el.textContent === '0%');
         expect(available?.parentElement?.className).toContain('status-success');
       });
     });

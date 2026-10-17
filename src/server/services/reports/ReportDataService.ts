@@ -602,6 +602,19 @@ export class ReportDataService {
     return { AVAILABLE: availablePeople, ASSIGNED: assignedPeople };
   }
 
+  /** 视图 utilization_status → 客户端枚举的单一映射（2026-10-17 U01 收敛：
+   *  判档真相在视图（相对可用率口径，迁移 069），消费方不得私设阈值） */
+  private mapUtilizationStatus(viewStatus: string):
+    'OVER_ALLOCATED' | 'FULLY_ALLOCATED' | 'PARTIALLY_ALLOCATED' | 'AVAILABLE' | 'UNAVAILABLE' {
+    switch (viewStatus) {
+      case 'Over-allocated': return 'OVER_ALLOCATED';
+      case 'Fully-allocated': return 'FULLY_ALLOCATED';
+      case 'Partially-allocated': return 'PARTIALLY_ALLOCATED';
+      case 'Unavailable': return 'UNAVAILABLE';
+      default: return 'AVAILABLE';
+    }
+  }
+
   private transformUtilizationData(raw: PersonUtilizationRow[]): TransformedUtilizationData[] {
     return raw.map((person) => {
       const totalAllocHours = person.total_allocation_percentage * (person.default_hours_per_day || 8) / 100.0;
@@ -611,11 +624,7 @@ export class ReportDataService {
         default_availability_percentage: person.current_availability_percentage,
         total_allocated_hours: totalAllocHours,
         available_hours: person.default_hours_per_day || 8,
-        allocation_status: person.utilization_status === 'Over-allocated' ? 'OVER_ALLOCATED' as const :
-          person.utilization_status === 'Fully-allocated' ? 'FULLY_ALLOCATED' as const :
-          person.utilization_status === 'Partially-allocated' ? 'PARTIALLY_ALLOCATED' as const :
-          person.utilization_status === 'Available' ? 'AVAILABLE' as const :
-          person.utilization_status === 'Unavailable' ? 'UNAVAILABLE' as const : 'AVAILABLE' as const,
+        allocation_status: this.mapUtilizationStatus(person.utilization_status ?? 'Available'),
         project_names: '',
       };
     });
@@ -638,11 +647,9 @@ export class ReportDataService {
         allocationWarning = 'high_overallocation';
       }
 
-      const alloc = person.total_allocation_percentage as number;
-      const allocation_status = alloc > 100 ? 'OVER_ALLOCATED' :
-        alloc >= 90 ? 'FULLY_ALLOCATED' :
-        alloc >= 50 ? 'PARTIALLY_ALLOCATED' :
-        alloc > 0 ? 'UNDER_ALLOCATED' : 'AVAILABLE';
+      // U01 收敛(2026-10-17):私设阈值(>100/>=90/>=50)废除,判档跟视图单一真相
+      // (相对可用率口径,迁移 069);UNDER_ALLOCATED 档随私设阈值一并退役
+      const allocation_status = this.mapUtilizationStatus(String(person.utilization_status ?? 'Available'));
 
       return {
         person_id: person.person_id as string,

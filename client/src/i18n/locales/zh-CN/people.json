@@ -49,7 +49,8 @@
   "insights": {
     "overAllocated": "超负荷 {{count}} 人",
     "available": "可用 {{count}} 人",
-    "totalPeople": "共 {{count}} 名人员"
+    "totalPeople": "共 {{count}} 名人员",
+    "clickToFilter": "点击按此状态筛选列表，再点一次取消"
   },
   "quickActions": {
     "reduceLoad": "减少负荷",

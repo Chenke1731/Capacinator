@@ -174,6 +174,34 @@
   font-weight: 500;
 }
 
+/* U01:汇总卡片 button 化(可点击筛选)——显式重置全局 button 规则
+ * (index.css:86 的 padding/border/hover 会把 span 形态撑变形) */
+.insight-toggle {
+  padding: 0.25rem 0.5rem;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  background: transparent;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+}
+
+.insight-toggle:hover {
+  background: var(--bg-tertiary);
+  border-color: var(--border-color);
+}
+
+.insight-toggle.active {
+  background: var(--bg-tertiary);
+  border-color: currentColor;
+}
+
+.insight-toggle:focus-visible {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 1px;
+}
+}
+
 /* Workload Status in Table */
 .workload-status {
   display: flex;

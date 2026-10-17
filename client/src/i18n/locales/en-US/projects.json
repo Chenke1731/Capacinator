@@ -584,7 +584,17 @@
     "searchPerson": "Search people…",
     "noMatch": "No match",
     "suggest": "Suggested {{pct}}% = {{pm}} pm ÷ {{months}} mo",
-    "defaultWindowNote": " (no iteration — default 30-day window; re-derive after attaching one)"
+    "defaultWindowNote": " (no iteration — default 30-day window; re-derive after attaching one)",
+    "assignmentDraft": "Assignment draft",
+    "currentLoad": "Current load (today snapshot)",
+    "thisAdd": "This add",
+    "afterLoad": "After",
+    "exceedsAvailability": "exceeds availability {{availability}}%",
+    "windowStart": "Start",
+    "windowEnd": "End",
+    "confirm": "Confirm",
+    "assignFailed": "Assignment failed — draft kept, adjust and retry",
+    "estimateFirst": "Effort is 0 — fill in the estimate before assigning (a 0% suggestion is not a valid offer)"
   },
   "primaryDev": {
     "hint": "Primary dev & window",

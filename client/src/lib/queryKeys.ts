@@ -186,6 +186,7 @@ export const queryKeys = {
     lists: () => [...queryKeys.people.all, 'list'] as const,
     list: (filters?: PeopleFilters, scenarioId?: string) =>
       [...queryKeys.people.lists(), filters, scenarioId] as const,
+    utilization: () => [...queryKeys.people.all, 'utilization'] as const,
     details: () => [...queryKeys.people.all, 'detail'] as const,
     detail: (id: string) => [...queryKeys.people.details(), id] as const,
     withAssignments: (id: string) =>
@@ -196,7 +197,6 @@ export const queryKeys = {
       [...queryKeys.people.all, 'utilizationTimeline', id, startDate, endDate] as const,
     assignments: (id: string, scenarioId?: string) =>
       [...queryKeys.people.all, 'assignments', id, scenarioId] as const,
-    utilization: () => [...queryKeys.people.all, 'utilization'] as const,
     availability: () => [...queryKeys.people.all, 'availability'] as const,
   },
 

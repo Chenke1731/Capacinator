@@ -200,6 +200,9 @@ export function RoleCell({
   const [pmDraft, setPmDraft] = useState('');
   const [q, setQ] = useState('');
   const [busy, setBusy] = useState(false);
+  // U13 两段式(2026-10-17,IP-06d):点候选只进草稿,预览负荷后确认才写入
+  const [draft, setDraft] = useState<{ personId: string; personName: string; pct: number; start: string; end: string } | null>(null);
+  const [draftError, setDraftError] = useState(false);
   const isSe = roleName === 'se';
   const label = isSe ? 'SE' : 'MDE';
 
@@ -221,6 +224,20 @@ export function RoleCell({
     enabled: pop.open
   });
   const people: any[] = Array.isArray(peopleResp) ? peopleResp : [];
+
+  // U13 预览数据源:今日快照口径的当前负荷/可用率(弹层内如实标注口径)。
+  // 该端点是信封规范前的裸数组直出(台账在册)——标准防御解析
+  const { data: utilResp } = useQuery({
+    queryKey: queryKeys.people.utilization(),
+    queryFn: async () => {
+      const payload = (await api.people.getUtilization()).data as unknown;
+      return Array.isArray(payload) ? payload : ((payload as { data?: unknown[] })?.data ?? []);
+    },
+    enabled: pop.open
+  });
+  const utilByPerson = new Map<string, any>(
+    (Array.isArray(utilResp) ? utilResp : []).map((u: any) => [String(u.person_id), u])
+  );
   const needle = q.trim().toLowerCase();
   const candidates = people
     .filter((pe) => !needle || String(pe.name).toLowerCase().includes(needle))
@@ -242,7 +259,16 @@ export function RoleCell({
   const workdays = window ? workdaysBetween(window.start, window.end) : 0;
   const months = Math.round((workdays / 21.75) * 100) / 100;
   const pmVal = pmDraft !== '' ? Number(pmDraft) || 0 : (pm ?? 0);
-  const suggestPct = months > 0 ? Math.min(200, Math.round(((pmVal || 0) / months) * 100)) : 100;
+  // U14(2026-10-17):0 工作量不产出建议(旧兜底 100 会把 0pm 包装成
+  // 有效 100% 占用);months<=0 同样不给——入口由 zeroWorkload 禁用
+  const suggestPct = months > 0 ? Math.min(200, Math.round(((pmVal || 0) / months) * 100)) : 0;
+  const zeroWorkload = !(pmVal > 0) || months <= 0;
+  // U13 草稿预览:当前负荷(今日快照口径)+本次增加=调整后;超可用率=冲突
+  const draftUtil = draft ? utilByPerson.get(draft.personId) : undefined;
+  const currentLoad = draftUtil ? Number(draftUtil.total_allocation_percentage ?? 0) : null;
+  const availability = draftUtil ? Number(draftUtil.current_availability_percentage ?? 100) : null;
+  const afterLoad = currentLoad != null && draft ? currentLoad + draft.pct : null;
+  const overAvailability = availability != null && afterLoad != null && afterLoad > availability;
 
   const invalidate = () => {
     queryClient.invalidateQueries({ queryKey: queryKeys.projects.all });
@@ -259,22 +285,27 @@ export function RoleCell({
     } finally { setBusy(false); }
   };
 
-  const assign = async (personId: string, pct: number) => {
-    if (!role) return;
+  // U13:确认草稿才写入;失败保留草稿可重试(不关弹层)
+  const confirmDraft = async () => {
+    if (!role || !draft) return;
     setBusy(true);
+    setDraftError(false);
     try {
       await api.assignments.create({
         project_id: project.id,
-        person_id: personId,
+        person_id: draft.personId,
         role_id: role.id,
-        allocation_percentage: pct,
+        allocation_percentage: draft.pct,
         assignment_date_mode: 'fixed',
-        start_date: window.start,
-        end_date: window.end,
+        start_date: draft.start,
+        end_date: draft.end,
         status: 'active'
       } as any);
+      setDraft(null);
       pop.setOpen(false);
       invalidate();
+    } catch {
+      setDraftError(true); // 草稿保留,操作者可调整后重试
     } finally { setBusy(false); }
   };
 
@@ -307,6 +338,11 @@ export function RoleCell({
         <PopoverPortal>
         <div className="lc-popover role-pop" style={pop.style}>
           <div className="lc-popover-title">{label}{t('projects:roleCell.titleSuffix')}</div>
+          {/* 草稿态隐藏 PM 估算编辑区(2026-10-17 U13 走查实锤):它是分配的前置
+              流程,聚焦子流程无需再改估算;实测草稿面板 449px 超出锚下方可用
+              352px,隐藏本块(116px)后 333px 恰好完整入框,Confirm 不再落到
+              滚动折叠线下。Cancel 后回到候选态即恢复 */}
+          {!draft && (
           <div className="lc-popover-form role-pop-pm">
             <label>{t('projects:roleCell.pmLabel')}
               <input type="number" min="0" step="0.1" value={pmDraft}
@@ -320,6 +356,7 @@ export function RoleCell({
               {!iter && t('projects:roleCell.defaultWindowNote')}
             </div>
           </div>
+          )}
 
           <div className="lc-popover-title">{t('projects:roleCell.assignTitle')}</div>
           {person && (
@@ -330,25 +367,99 @@ export function RoleCell({
               </button>
             </div>
           )}
-          <div className="cell-pop-search">
-            <input placeholder={t('projects:roleCell.searchPerson')} value={q}
-                   onChange={(e) => setQ(e.target.value)} />
-          </div>
-          <div className="iter-pop-list">
-            {candidates.map((pe) => (
-              <button key={pe.id} type="button" className="cell-pop-item" disabled={busy || !role}
-                      onClick={() => assign(pe.id, suggestPct)}>
-                <span className="cell-pop-item-label">{pe.name}</span>
-                <span className="cell-pop-item-meta">{pe.primary_role_name}</span>
-                {pe.primary_role_name === label && <span className="role-pop-match">{label}</span>}
-              </button>
-            ))}
-            {candidates.length === 0 && <div className="lc-popover-hint">{t('projects:roleCell.noMatch')}</div>}
-          </div>
-          {window && (
-            <div className="lc-popover-hint">
-              {t('projects:roleCell.suggest', { pct: suggestPct, pm: pmVal || 0, months })}
+          {zeroWorkload ? (
+            /* U14:0 工作量不生成可提交建议——先补估算 */
+            <div className="lc-popover-hint role-pop-zero">
+              {t('projects:roleCell.estimateFirst')}
             </div>
+          ) : draft ? (
+            /* U13 草稿摘要:预览负荷/窗口可编辑,确认才写入 */
+            <div className="role-pop-draft" aria-label={t('projects:roleCell.assignmentDraft')}>
+              <div className="role-pop-draft-title">
+                {t('projects:roleCell.assignmentDraft')} · {draft.personName}
+              </div>
+              <dl className="role-pop-draft-loads">
+                <div>
+                  <dt>{t('projects:roleCell.currentLoad')}</dt>
+                  <dd>{currentLoad != null ? `${currentLoad}%` : '—'}</dd>
+                </div>
+                <div>
+                  <dt>{t('projects:roleCell.thisAdd')}</dt>
+                  <dd>
+                    <input type="number" min={0} max={200} step={5}
+                           aria-label={t('projects:roleCell.thisAdd')}
+                           value={draft.pct}
+                           onChange={(e) => setDraft({ ...draft, pct: Math.max(0, Math.min(200, Number(e.target.value) || 0)) })} />
+                    %
+                  </dd>
+                </div>
+                <div>
+                  <dt>{t('projects:roleCell.afterLoad')}</dt>
+                  <dd className={overAvailability ? 'role-pop-over' : undefined}>
+                    {afterLoad != null ? `${afterLoad}%` : '—'}
+                  </dd>
+                </div>
+              </dl>
+              {/* 超载警告独立整行(2026-10-17 U13 走查实锤): 原先内联在第三列
+                  dd 里, 268px 弹层三列均分后每列仅 ~80px, 警告文案折行既把
+                  面板撑出锚下可用高度(Confirm 落进折叠线), 又横向溢出被弹层
+                  右缘裁掉("exceeds availabi…")——挪出网格, 数值列恒一行高 */}
+              {overAvailability && (
+                <div className="role-pop-over">
+                  {t('projects:roleCell.exceedsAvailability', { availability: availability ?? 0 })}
+                </div>
+              )}
+              <div className="role-pop-draft-window">
+                <label>
+                  {t('projects:roleCell.windowStart')}
+                  <input type="date" value={draft.start}
+                         onChange={(e) => setDraft({ ...draft, start: e.target.value })} />
+                </label>
+                <label>
+                  {t('projects:roleCell.windowEnd')}
+                  <input type="date" value={draft.end}
+                         onChange={(e) => setDraft({ ...draft, end: e.target.value })} />
+                </label>
+              </div>
+              {draftError && <div className="role-pop-draft-error">{t('projects:roleCell.assignFailed')}</div>}
+              <div className="role-pop-draft-actions">
+                <button type="button" className="btn btn-sm" disabled={busy}
+                        onClick={() => setDraft(null)}>
+                  {t('common:cancel')}
+                </button>
+                <button type="button" className="btn btn-sm btn-primary" disabled={busy}
+                        onClick={confirmDraft}>
+                  {t('projects:roleCell.confirm')}
+                </button>
+              </div>
+            </div>
+          ) : (
+            <>
+              <div className="cell-pop-search">
+                <input placeholder={t('projects:roleCell.searchPerson')} value={q}
+                       onChange={(e) => setQ(e.target.value)} />
+              </div>
+              <div className="iter-pop-list">
+                {candidates.map((pe) => (
+                  <button key={pe.id} type="button" className="cell-pop-item"
+                          disabled={busy || !role}
+                          onClick={() => setDraft({
+                            personId: pe.id, personName: pe.name,
+                            pct: suggestPct, start: window.start, end: window.end
+                          })}>
+                    <span className="cell-pop-item-label">{pe.name}</span>
+                    <span className="cell-pop-item-meta">{pe.primary_role_name}</span>
+                    {pe.primary_role_name === label && <span className="role-pop-match">{label}</span>}
+                  </button>
+                ))}
+                {candidates.length === 0 && <div className="lc-popover-hint">{t('projects:roleCell.noMatch')}</div>}
+              </div>
+              {window && (
+                <div className="lc-popover-hint">
+                  {t('projects:roleCell.suggest', { pct: suggestPct, pm: pmVal || 0, months })}
+                </div>
+              )}
+            </>
           )}
         </div>
         </PopoverPortal>

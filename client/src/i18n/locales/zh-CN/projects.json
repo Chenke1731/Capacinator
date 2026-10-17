@@ -582,7 +582,17 @@
     "searchPerson": "搜索人员…",
     "noMatch": "无匹配人员",
     "suggest": "默认占用 {{pct}}% = {{pm}} 人月 ÷ {{months}} 月（可改）",
-    "defaultWindowNote": "（未挂迭代，窗口为默认 30 天；挂迭代后可按真实窗口重算）"
+    "defaultWindowNote": "（未挂迭代，窗口为默认 30 天；挂迭代后可按真实窗口重算）",
+    "assignmentDraft": "分配草稿",
+    "currentLoad": "当前负荷（今日快照）",
+    "thisAdd": "本次增加",
+    "afterLoad": "调整后",
+    "exceedsAvailability": "超出可用率 {{availability}}%",
+    "windowStart": "开始",
+    "windowEnd": "结束",
+    "confirm": "确认",
+    "assignFailed": "分配失败——草稿已保留，可调整后重试",
+    "estimateFirst": "工作量为 0——请先补估算再分配（0% 建议不是有效建议）"
   },
   "primaryDev": {
     "hint": "主投入开发与投入窗口",

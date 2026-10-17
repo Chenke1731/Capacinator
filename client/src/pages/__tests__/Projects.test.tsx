@@ -51,6 +51,7 @@ jest.mock('../../lib/api-client', () => ({
     },
     people: {
       list: jest.fn(),
+      getUtilization: jest.fn(),
     },
     lifecycle: {
       transition: jest.fn(),
@@ -152,6 +153,8 @@ const mockProjects = [
     lifecycle_state: 'in_iteration',
     lifecycle_warnings: [],
     iteration: iterNov,
+    // U13 预览用例:有 SE 粗估但未派人
+    design_estimates: { se: 2, mde: 1 },
     tags: [],
   },
   // SR→AR: proj-1 的两个 AR 子行
@@ -261,6 +264,13 @@ describe('Requirements Board (需求台)', () => {
       data: { data: [
         { id: 'p-1', name: '陈主管', primary_role_name: 'SE' },
         { id: 'p-2', name: '李四', primary_role_name: '开发' }
+      ] }
+    });
+    // U13 预览数据源(今日快照口径,弹层内如实标注)
+    (api.people.getUtilization as jest.Mock).mockResolvedValue({
+      data: { data: [
+        { person_id: 'p-1', person_name: '陈主管', total_allocation_percentage: 30, current_availability_percentage: 100, utilization_status: 'Partially-allocated' },
+        { person_id: 'p-2', person_name: '李四', total_allocation_percentage: 0, current_availability_percentage: 100, utilization_status: 'Available' }
       ] }
     });
     (api.tags.create as jest.Mock).mockResolvedValue({
@@ -399,6 +409,77 @@ describe('Requirements Board (需求台)', () => {
       const betaRow = screen.getByText('Project Beta').closest('.requirements-row') as HTMLElement;
       expect(betaRow.querySelector('.req-role--se')!.textContent).toContain('—');
       expect(betaRow.querySelector('.req-role--mde')!.textContent).toContain('—');
+    });
+
+    // U13/U14(2026-10-17,IP-06d 第一批):分配先预览再确认;0 工作量保护
+    describe('RoleCell assign preview (U13/U14)', () => {
+      const openSePopover = async (projectName: string) => {
+        renderComponent();
+        await waitFor(() => { expect(screen.getByText(projectName)).toBeInTheDocument(); });
+        const row = screen.getByText(projectName).closest('.requirements-row') as HTMLElement;
+        fireEvent.click(row.querySelector('.req-role--se')!);
+        // 只等弹层本体:U14 零工作量分支没有候选列表/search
+        await waitFor(() => { expect(document.querySelector('.role-pop')).not.toBeNull(); });
+        return row;
+      };
+      const waitCandidates = async () => {
+        await waitFor(() => { expect(document.querySelector('.role-pop')!.textContent).toContain('陈主管'); });
+      };
+
+      test('U13: 点候选进草稿而非提交;预览当前负荷/本次增加/调整后;确认才写入', async () => {
+        await openSePopover('Project Beta');
+        await waitCandidates();
+        fireEvent.click(screen.getByText('陈主管'));
+        // 草稿出现且未提交
+        await waitFor(() => { expect(screen.getByText(/assignment draft/i)).toBeInTheDocument(); });
+        expect(api.assignments.create).not.toHaveBeenCalled();
+        // 预览三要素(mock:陈主管当前 30%)
+        expect(screen.getByText(/current load/i)).toBeInTheDocument();
+        expect(screen.getByText(/this add/i)).toBeInTheDocument();
+        expect(screen.getByText(/after/i)).toBeInTheDocument();
+        // 确认写入,载荷含人/角色/比例/起止
+        fireEvent.click(screen.getByRole('button', { name: /^confirm$/i }));
+        await waitFor(() => { expect(api.assignments.create).toHaveBeenCalledTimes(1); });
+        expect(api.assignments.create).toHaveBeenCalledWith(expect.objectContaining({
+          project_id: 'proj-2',
+          person_id: 'p-1',
+          role_id: 'r-se',
+          allocation_percentage: expect.any(Number),
+          start_date: expect.any(String),
+          end_date: expect.any(String)
+        }));
+      });
+
+      test('U13: 调整后超出可用率显示冲突提示(不阻止确认,操作者知情)', async () => {
+        await openSePopover('Project Beta');
+        await waitCandidates();
+        fireEvent.click(screen.getByText('陈主管'));
+        await waitFor(() => { expect(screen.getByText(/assignment draft/i)).toBeInTheDocument(); });
+        // se=2pm / iterNov≈0.97月 → 建议≈200%(封顶),30+200=230 > 可用率100
+        expect(screen.getByText(/exceeds availability/i)).toBeInTheDocument();
+      });
+
+      test('U13: 提交失败保留草稿(弹层不关,可改后重试)', async () => {
+        (api.assignments.create as jest.Mock).mockRejectedValueOnce(new Error('409 conflict'));
+        await openSePopover('Project Beta');
+        await waitCandidates();
+        fireEvent.click(screen.getByText('陈主管'));
+        await waitFor(() => { expect(screen.getByText(/assignment draft/i)).toBeInTheDocument(); });
+        fireEvent.click(screen.getByRole('button', { name: /^confirm$/i }));
+        await waitFor(() => { expect(api.assignments.create).toHaveBeenCalledTimes(1); });
+        // 失败后弹层不关、草稿仍在(草稿态不渲染候选 search——断言弹层本体)
+        expect(document.querySelector('.role-pop')).not.toBeNull();
+        expect(screen.getByText(/assignment draft/i)).toBeInTheDocument();
+        expect(screen.getByText(/draft kept/i)).toBeInTheDocument(); // 错误行可见
+      });
+
+      test('U14: SE 粗估为 0(未补估算)时候选禁用并提示先补估算,不再产出 0% 建议', async () => {
+        await openSePopover('Portal Home Rework');
+        // 零工作量分支:提示先补估算,不渲染候选列表
+        await waitFor(() => { expect(screen.getByText(/before assigning/i)).toBeInTheDocument(); });
+        expect(document.querySelector('.role-pop')!.textContent).not.toContain('陈主管');
+        expect(api.assignments.create).not.toHaveBeenCalled();
+      });
     });
 
     // 旧 "priority badge and owner render" 的等价断言: 负责人格退役,
@@ -560,7 +641,14 @@ describe('Requirements Board (需求台)', () => {
         return el as HTMLElement;
       });
 
+      // U13 两段式(2026-10-17 迁移):点击进草稿,确认才写入
       fireEvent.click(candidate);
+      await waitFor(() => {
+        expect(within(pop).getByText(/assignment draft/i)).toBeInTheDocument();
+      });
+      expect(api.assignments.create).not.toHaveBeenCalled();
+
+      fireEvent.click(within(pop).getByRole('button', { name: /^confirm$/i }));
 
       await waitFor(() => {
         expect(api.people.list).toHaveBeenCalled();

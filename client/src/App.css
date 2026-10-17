@@ -1713,6 +1713,31 @@ input[type="checkbox"].settings-checkbox,
 .cell-pop-item:hover { background: var(--bg-secondary, color-mix(in srgb, var(--neutral-surface-tint) 14.000000000000002%, transparent)); }
 .cell-pop-item--active { color: var(--primary-text); font-weight: 600; } /* 蓝 600: 选中项白底 5.2:1(蓝 500 曾 3.68<4.5) */
 .cell-pop-item--danger { color: var(--status-danger-text); }
+/* U13 分配草稿(2026-10-17,IP-06d 第一批):弹层内两段式预览区——
+   点候选只进草稿,预览负荷/窗口,确认才写入。全变量配色,双主题兼容。
+   弹层高度/滚动由 .lc-popover 基类 + useCellPopover 的 inline
+   maxHeight(视口感知)负责,此处不重复声明 */
+/* grid-template-columns:minmax(0,1fr)(2026-10-17 U13 走查实锤): 无模板
+   grid 的隐式 auto 轨道取内容 max-content——date input 固有 158px×2 把
+   轨道撑到 322px, 反超弹层内容宽 274px, 日期/After 列/警告全部右溢被裁。
+   minmax(0,1fr) 把轨道钉在容器宽, 三处溢出一次收敛 */
+.role-pop-draft { display: grid; grid-template-columns: minmax(0, 1fr); gap: 8px; padding: 6px 4px; }
+.role-pop-draft-title { font-size: var(--b-fs-body); font-weight: 600; color: var(--text-primary); }
+.role-pop-draft-loads { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; margin: 0; }
+.role-pop-draft-loads dt { font-size: 11px; color: var(--text-secondary); margin: 0 0 2px; }
+.role-pop-draft-loads dd { margin: 0; font-size: var(--b-fs-body); color: var(--text-primary); }
+.role-pop-draft-loads input { width: 56px; padding: 1px 4px; }
+.role-pop-over { color: var(--status-danger-text); font-weight: 600; }
+.role-pop-draft-window { display: flex; gap: 6px; }
+/* min-width:0(2026-10-17 U13 走查实锤): 原生 date input 固有宽 ~150px,
+   flex 子项默认 min-width:auto 不肯收缩, 两个并排把草稿面板撑到 322px,
+   弹层 max-width:300 封顶后日期/警告/After 列整体被右缘裁切——
+   允许收缩到 ~133px, ISO 日期仍完整可读 */
+.role-pop-draft-window label { flex: 1; min-width: 0; display: grid; grid-template-columns: minmax(0, 1fr); gap: 2px; font-size: 11px; color: var(--text-secondary); }
+.role-pop-draft-window input { width: 100%; }
+.role-pop-draft-error { font-size: 12px; color: var(--status-danger-text); }
+.role-pop-draft-actions { display: flex; justify-content: flex-end; gap: 6px; }
+.role-pop-zero { color: var(--status-warning-text); }
 /* 弹层经 Portal 到 body,深色主题下的选中/危险项(浅色意图色曾 3.43/2.84) */
 [data-theme='dark'] .cell-pop-item--active { color: var(--primary-text); }
 [data-theme='dark'] .cell-pop-item--danger { color: var(--status-danger-text); }

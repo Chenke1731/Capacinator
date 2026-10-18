@@ -2,7 +2,7 @@ import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useVirtualizer } from '@tanstack/react-virtual';
 import { flattenTrees, type FlatRow } from '../lib/demandTree';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Plus, Edit2, Trash2, Tag, ChevronDown, ChevronRight, Search, X, GitBranch, CornerDownRight, Info } from 'lucide-react';
 import { api } from '../lib/api-client';
@@ -124,6 +124,8 @@ const COL_PRESET_HIDDEN: Record<Exclude<ColPresetId, 'default'>, readonly ReqCol
   delivery: ['number', 'component', 'kloc', 'effort', 'se', 'mde']
 };
 const COL_PRESET_STORE = 'req-col-preset-v1';
+/** U20 返回上下文键: { scrollTop, selected[] } — sessionStorage(会话内有效) */
+const REQ_BOARD_CTX = 'req-board-ctx-v1';
 /** 批量端点单次上限(与服务端 ProjectsController batch-* 校验同步;
  *  超限走本地报错而非服务端 400——用户看到的必须是本地化文案) */
 const BATCH_LIMIT = 2000;
@@ -304,20 +306,31 @@ export function Projects() {
   const { t } = useTranslation();
   const { currentScenario } = useScenario();
 
-  const [filters, setFilters] = useState({
-    search: '',
-    lifecycle_state: '',
-    tag_id: '',
-    component: '',
-    subtype: '',
-    product_version: '',
-    release_version: ''
-  });
+  /** U20 URL 视图状态: 筛选/任务视图/同类告警/列预设入 URL——可分享、
+   *  刷新/返回即恢复;后续变化 replace 写回(不刷历史栈) */
+  const [searchParams, setSearchParams] = useSearchParams();
+  const urlFilters = {
+    search: searchParams.get('q') ?? '',
+    lifecycle_state: searchParams.get('lc') ?? '',
+    tag_id: searchParams.get('tag') ?? '',
+    component: searchParams.get('comp') ?? '',
+    subtype: searchParams.get('sub') ?? '',
+    product_version: searchParams.get('pv') ?? '',
+    release_version: searchParams.get('rv') ?? ''
+  };
+  const [filters, setFilters] = useState(urlFilters);
+  /** 搜索框本地值(U20: 初始与 URL q 同步——恢复时框内可见关键词) */
+  const [searchInput, setSearchInput] = useState(urlFilters.search);
   /** U15 任务视图(2026-10-17): ''=全部;谓词/计数单一真相在 lib/taskViews,
    *  六视图只组织服务端行事实(生命周期态/告警码/分配估算/冲突标志) */
-  const [taskView, setTaskView] = useState<TaskViewId | ''>('');
+  const [taskView, setTaskView] = useState<TaskViewId | ''>(() => {
+    const v = searchParams.get('tv') ?? '';
+    return (TASK_VIEW_IDS as readonly string[]).includes(v) ? (v as TaskViewId) : '';
+  });
   /** U16 列预设: localStorage 持久化,非法值回落默认档 */
   const [colPreset, setColPreset] = useState<ColPresetId>(() => {
+    const fromUrl = searchParams.get('preset') ?? '';
+    if ((COL_PRESET_IDS as readonly string[]).includes(fromUrl)) return fromUrl as ColPresetId;
     try {
       const v = JSON.parse(localStorage.getItem(COL_PRESET_STORE) ?? 'null');
       return (COL_PRESET_IDS as readonly string[]).includes(v) ? (v as ColPresetId) : 'default';
@@ -334,8 +347,25 @@ export function Projects() {
   /** U17 侧栏聚焦段: 告警 chip 进入时滚到告警区 */
   const [detailFocus, setDetailFocus] = useState<'warnings' | null>(null);
   /** U17 只看同类: 按告警码过滤——接入属性管线(chips 计数随筛选联动) */
-  const [warningFilter, setWarningFilter] = useState('');
+  const [warningFilter, setWarningFilter] = useState(searchParams.get('warn') ?? '');
   const closeDetail = () => { setDetailRow(null); setDetailFocus(null); };
+
+  /** U20 URL 写回: 任一视图状态变化 → replace 到当前查询串(空值不写)。
+   *  deps 不含 searchParams——写回不回流,无环 */
+  useEffect(() => {
+    const next: Record<string, string> = {};
+    if (filters.search) next.q = filters.search;
+    if (filters.lifecycle_state) next.lc = filters.lifecycle_state;
+    if (filters.tag_id) next.tag = filters.tag_id;
+    if (filters.component) next.comp = filters.component;
+    if (filters.subtype) next.sub = filters.subtype;
+    if (filters.product_version) next.pv = filters.product_version;
+    if (filters.release_version) next.rv = filters.release_version;
+    if (taskView) next.tv = taskView;
+    if (warningFilter) next.warn = warningFilter;
+    if (colPreset !== 'default') next.preset = colPreset;
+    setSearchParams(Object.keys(next).length > 0 ? next : {}, { replace: true });
+  }, [filters, taskView, warningFilter, colPreset, setSearchParams]);
   /** U15 个人视图: 任务视图+属性筛选快照,localStorage 按 profile 分键(保存/恢复/删除) */
   const { currentUser } = useUser();
   const personalViewsKey = `capacinator-req-personal-views:${currentUser?.id ?? 'default'}`;
@@ -355,7 +385,6 @@ export function Projects() {
   }, [personalViewsKey]);
   const [collapsedSR, setCollapsedSR] = useState<Set<string>>(new Set());
   /** 搜索防抖: 击键只更新本地值,150ms 静默后才触发全量过滤/排序/树重建 */
-  const [searchInput, setSearchInput] = useState('');
   useEffect(() => {
     const id = setTimeout(() => setFilters((prev) => (prev.search === searchInput ? prev : { ...prev, search: searchInput })), 150);
     return () => clearTimeout(id);
@@ -550,6 +579,21 @@ export function Projects() {
     [trees, collapsedSR, treeFilterActive, srAutoExpand]
   );
 
+  /** U20 同级位次: 同优先级顶层行按显示顺序 1..k——"同级先后"显式化
+   *  (P 级表达等级,位次表达队列序;实际调序依赖 D10 裁决,本批只展示) */
+  const priorityRanks = useMemo(() => {
+    const m = new Map<string, number>();
+    const counters = new Map<number, number>();
+    for (const r of flatRows) {
+      if (r.kind === 'child') continue;
+      const p = Math.min(5, Math.max(1, Number(r.project.priority) || 5));
+      const k = (counters.get(p) ?? 0) + 1;
+      counters.set(p, k);
+      m.set(String(r.project.id), k);
+    }
+    return m;
+  }, [flatRows]);
+
   /** U19 折叠快照/恢复: 进入筛选态前存原折叠,清除筛选恢复(用户在筛选期
    *  的手动折叠不被覆盖,恢复以进入前状态为准——回到"我原来的视角") */
   const wasFilteredRef = useRef(false);
@@ -563,8 +607,20 @@ export function Projects() {
     }
     wasFilteredRef.current = treeFilterActive;
   }, [treeFilterActive]);
+  /** U20 滚动恢复(初始偏移): 从会话上下文读回,交 virtualizer 挂载期应用——
+   *  effect 内写 scrollTop 在 SPA 返回路径被挂载测量回零(实机探针实证),
+   *  initialOffset 是虚拟列表管线下唯一无竞态的恢复口 */
+  const [initialScrollTop] = useState(() => {
+    try {
+      const saved = JSON.parse(sessionStorage.getItem(REQ_BOARD_CTX) ?? 'null');
+      return Number(saved?.scrollTop ?? 0) || 0;
+    } catch {
+      return 0;
+    }
+  });
   const rowVirtualizer = useVirtualizer({
     count: flatRows.length,
+    initialOffset: initialScrollTop,
     getScrollElement: () => tableRef.current,
     // 实测两档稳定行高(child 40 / sr+plain 43)且单行省略号锁定——固定
     // 尺寸免去 measureElement 的 mount→measure→recalculate 级联回流
@@ -573,6 +629,15 @@ export function Projects() {
     overscan: 10, // 编辑中滚动不丢行的缓冲(编辑态无全局信号,以距离兜底)
     getItemKey: (i) => flatRows[i].project.id,
   });
+  /** U20 直写兜底通道: jsdom 无 ResizeObserver,virtualizer 的 initialOffset
+   *  不落元素——一次性直写让无头环境可测;真浏览器 SPA 返回路径此直写会被
+   *  挂载测量回零,由 initialOffset 主通道兜住(双通道幂等无害) */
+  const directRestoreRef = useRef(false);
+  useEffect(() => {
+    if (directRestoreRef.current || initialScrollTop <= 0 || flatRows.length === 0 || !tableRef.current) return;
+    directRestoreRef.current = true;
+    tableRef.current.scrollTop = initialScrollTop;
+  }, [initialScrollTop, flatRows.length]);
   // 保存反馈(flash)的行可能在视口外——先滚过去再闪
   const flashTargetIndex = flashId ? flatRows.findIndex((r) => r.project.id === flashId) : -1;
   useEffect(() => {
@@ -669,8 +734,18 @@ export function Projects() {
   // ── 批量选择模型(2026-10-11): 统一闭包——勾 SR=整棵子树入选; ──
   // 全部操作(含删除)作用于同一集合,条上计数=实际作用行数(含折叠子行);
   // 筛选/折叠变化不丢选择;删除成功后仅移除已删 id,更新后保持(允许链式)。
-  const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
+  /** U20 返回上下文: 详情返回/会话内重进——滚动位与选择集可恢复 */
+  const ctxDirtyRef = useRef(false);
+  const [selectedIds, setSelectedIds] = useState<Set<string>>(() => {
+    try {
+      const saved = JSON.parse(sessionStorage.getItem(REQ_BOARD_CTX) ?? 'null');
+      return new Set<string>(Array.isArray(saved?.selected) ? saved.selected : []);
+    } catch {
+      return new Set<string>();
+    }
+  });
   const toggleIds = (ids: string[], select: boolean) => {
+    ctxDirtyRef.current = true; // U20: 有过选择交互,卸载时才值得写上下文
     setSelectedIds((prev) => {
       const next = new Set(prev);
       for (const id of ids) {
@@ -728,6 +803,7 @@ export function Projects() {
    *  (全有或全无 400,报错含用户看不见的 UUID)。基准=demandRows(全量行,
    *  不受筛选影响,跨筛选存续语义不变)。 */
   useEffect(() => {
+    if (projects === undefined) return; // U20: 加载中行集为空——不清刚恢复的选择
     setSelectedIds((prev) => {
       if (prev.size === 0) return prev;
       const alive = new Set(demandRows.map((r: any) => r.id as string));
@@ -739,7 +815,28 @@ export function Projects() {
       }
       return changed ? next : prev;
     });
-  }, [demandRows]);
+  }, [demandRows, projects]);
+  /** U20 上下文保存: 选择集变化即存,卸载清理时再存一次(带最新滚动位)——
+   *  详情页返回/重进即恢复;对账 effect 剔除已消失行防死 id */
+  /** 滚动位持续记入 ref——卸载清理时 tableRef.current 已被 React 摘成 null,
+   *  直接读元素必得 0(实机 goBack 探针实证);onScroll 实时镜像最稳。
+   *  dirty 门控: 只有本挂载发生过真实交互(选择/滚动)才写——挂载零写,
+   *  StrictMode 开发期双跑与"进页即出"都不会把预存上下文清成空载 */
+  const scrollPosRef = useRef(0);
+  useEffect(() => {
+    const save = () => {
+      if (!ctxDirtyRef.current) return;
+      try {
+        sessionStorage.setItem(REQ_BOARD_CTX, JSON.stringify({
+          scrollTop: scrollPosRef.current,
+          selected: [...selectedIds]
+        }));
+      } catch { /* 隐私模式等存储异常静默 */ }
+    };
+    save();
+    return save;
+  }, [selectedIds]);
+
 
   const batchDeleteMutation = useMutation({
     mutationFn: (ids: string[]) => {
@@ -1118,7 +1215,16 @@ export function Projects() {
         </div>
       </div>
 
-      <div ref={tableRef} className={`requirements-table ${selectedIds.size > 0 ? 'requirements-table--bulk' : ''}`} data-testid="requirements-table" style={colVars}>
+      <div
+        ref={tableRef}
+        className={`requirements-table ${selectedIds.size > 0 ? 'requirements-table--bulk' : ''}`}
+        data-testid="requirements-table"
+        style={colVars}
+        onScroll={(e) => {
+          scrollPosRef.current = e.currentTarget.scrollTop;
+          if (e.currentTarget.scrollTop > 0) ctxDirtyRef.current = true;
+        }}
+      >
         <div className="requirements-thead">
           <span className="req-select req-select--head">
             <ReqCheckbox
@@ -1168,7 +1274,7 @@ export function Projects() {
             <div
               key={project.id}
               className={`requirements-row ${hitCls} ${warned ? 'requirements-row--warned' : ''} ${project.id === flashId ? 'requirements-row--flash' : ''}`}
-              onClick={() => navigate(`/projects/${project.id}`)}
+              onClick={() => { scrollPosRef.current = tableRef.current?.scrollTop ?? scrollPosRef.current; navigate(`/projects/${project.id}`); }}
             >
               <span className="req-select" onClick={(e) => e.stopPropagation()}>
                 <ReqCheckbox
@@ -1226,7 +1332,7 @@ export function Projects() {
               {colVisible('release') && <ReleaseCell project={project} onSaved={() => handleCellSaved(project.id)} />}
               {colVisible('iter') && <IterationCell project={project} onSaved={() => handleCellSaved(project.id)} />}
 
-              {colVisible('priority') && <PriorityCell project={project} onSaved={() => handleCellSaved(project.id)} />}
+              {colVisible('priority') && <PriorityCell project={project} rank={priorityRanks.get(project.id)} onSaved={() => handleCellSaved(project.id)} />}
 
               {colVisible('primary') && <PrimaryDevCell primary={project.primary_dev} project={project} onSaved={() => handleCellSaved(project.id)} />}
 
@@ -1268,7 +1374,7 @@ export function Projects() {
             <div
               key={project.id}
               className={`requirements-row requirements-row--sr ${hitCls} ${warned ? 'requirements-row--warned' : ''} ${project.id === flashId ? 'requirements-row--flash' : ''}`}
-              onClick={() => navigate(`/projects/${project.id}`)}
+              onClick={() => { scrollPosRef.current = tableRef.current?.scrollTop ?? scrollPosRef.current; navigate(`/projects/${project.id}`); }}
             >
               <span className="req-select" onClick={(e) => e.stopPropagation()}>
                 <ReqCheckbox
@@ -1360,7 +1466,7 @@ export function Projects() {
               {colVisible('iter') && <IterationCell project={project} onSaved={() => handleCellSaved(project.id)}
                 readOnlyWindow={aggIterWindow(row.children ?? [])} />}
 
-              {colVisible('priority') && <PriorityCell project={project} onSaved={() => handleCellSaved(project.id)} />}
+              {colVisible('priority') && <PriorityCell project={project} rank={priorityRanks.get(project.id)} onSaved={() => handleCellSaved(project.id)} />}
               {colVisible('primary') && <span className="req-primary req-primary--agg" title={agg.primaryPersons.join('、') || undefined}>
                 {agg.primaryPersons.length > 0
                   ? <span className="req-primary-person">{agg.primaryPersons.length}人</span>
@@ -1400,7 +1506,7 @@ export function Projects() {
                   <div
                     key={child.id}
                     className={`requirements-row requirements-row--child ${hitIds ? (hitIds.has(child.id) ? 'requirements-row--hit' : 'requirements-row--context') : ''} ${child.id === flashId ? 'requirements-row--flash' : ''}`}
-                    onClick={() => navigate(`/projects/${child.id}`)}
+                    onClick={() => { scrollPosRef.current = tableRef.current?.scrollTop ?? scrollPosRef.current; navigate(`/projects/${child.id}`); }}
                   >
                     <span className="req-select" onClick={(e) => e.stopPropagation()}>
                       <ReqCheckbox

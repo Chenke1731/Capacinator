@@ -2127,6 +2127,9 @@ input[type="checkbox"].settings-checkbox,
 }
 .requirements-row--context { opacity: 0.6; }
 .requirements-row--context:hover { opacity: 1; } /* 悬停恢复全额——上下文行仍可交互 */
+
+/* U20 同级位次(2026-10-18,IP-06d): P 级表达等级,位次表达组内队列序 */
+.req-pri-rank { font-size: 10px; opacity: 0.75; margin-left: 1px; }
 .row-detail-children-title { font-size: 12px; font-weight: 600; color: var(--text-secondary); }
 .row-detail-children ul { margin: 0; padding-left: 16px; }
 .row-detail-children li { font-size: var(--b-fs-body); color: var(--text-primary); }

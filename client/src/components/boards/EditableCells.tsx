@@ -17,7 +17,7 @@ import { useCellPopover } from '../../hooks/useCellPopover';
 
 const PRIORITY_LABELS = ['highest', 'high', 'medium', 'low', 'lowest'] as const;
 
-export function PriorityCell({ project, onSaved }: { project: any; onSaved: () => void }) {
+export function PriorityCell({ project, onSaved, rank }: { project: any; onSaved: () => void; rank?: number }) {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
   const pop = useCellPopover('pri-pop', 180, 260);
@@ -48,6 +48,7 @@ export function PriorityCell({ project, onSaved }: { project: any; onSaved: () =
         onClick={pop.toggle}
       >
         P{level}
+        {rank != null && <span className="req-pri-rank" title={t('projects:board.rankHint')}>·{rank}</span>}
       </button>
       {pop.open && (
         <PopoverPortal>

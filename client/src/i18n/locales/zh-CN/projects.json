@@ -515,7 +515,8 @@
     "bulkDeleteConfirmBreakdown": "删除 {{n}} 项？（SR {{sr}} / AR {{ar}}）",
     "bulkVersionEmpty": "空",
     "bulkClearVersionHint": "{{n}} 项已有值将被清空",
-    "countHitContext": "命中 {{hit}} 项 · 连同上下文 {{total}} 项"
+    "countHitContext": "命中 {{hit}} 项 · 连同上下文 {{total}} 项",
+    "rankHint": "同优先级内的位次（队列顺序）"
   },
   "version": {
     "productTitle": "产品版本，点击填写（如 B）",

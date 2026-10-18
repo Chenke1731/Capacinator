@@ -104,9 +104,13 @@ jest.mock('../../components/tags/TagManagerDialog', () => ({
 }));
 
 const mockNavigate = jest.fn();
+/** U20: URL 视图状态——受控 mock 初始查询串,setSearchParams 记录调用 */
+let mockSearchString = '';
+const mockSetSearchParams = jest.fn();
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
   useNavigate: () => mockNavigate,
+  useSearchParams: () => [new URLSearchParams(mockSearchString), mockSetSearchParams],
 }));
 
 import { api } from '../../lib/api-client';
@@ -239,6 +243,8 @@ describe('Requirements Board (需求台)', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     mockNavigate.mockClear();
+    window.localStorage.clear();
+    window.sessionStorage.clear(); // U20 上下文恢复——防跨测试选择集泄漏
     (api.projects.list as jest.Mock).mockResolvedValue({
       data: { data: mockProjects },
     });
@@ -1521,6 +1527,7 @@ describe('Task views (U15)', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     window.localStorage.clear();
+    window.sessionStorage.clear();
     (useScenario as jest.Mock).mockReturnValue({
       currentScenario: { id: 'baseline-0000-0000-0000-000000000000', name: 'Baseline' }
     });
@@ -1677,6 +1684,7 @@ describe('Column presets & row detail (U16)', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     window.localStorage.clear();
+    window.sessionStorage.clear();
     Object.defineProperty(window, 'innerWidth', { writable: true, configurable: true, value: 1700 });
     (useScenario as jest.Mock).mockReturnValue({
       currentScenario: { id: 'baseline-0000-0000-0000-000000000000', name: 'Baseline' }
@@ -1847,6 +1855,7 @@ describe('Actionable warnings (U17)', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     window.localStorage.clear();
+    window.sessionStorage.clear();
     Object.defineProperty(window, 'innerWidth', { writable: true, configurable: true, value: 1700 });
     (useScenario as jest.Mock).mockReturnValue({
       currentScenario: { id: 'baseline-0000-0000-0000-000000000000', name: 'Baseline' }
@@ -1964,6 +1973,7 @@ describe('Bulk selection visibility (U18)', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     window.localStorage.clear();
+    window.sessionStorage.clear();
     Object.defineProperty(window, 'innerWidth', { writable: true, configurable: true, value: 1700 });
     (useScenario as jest.Mock).mockReturnValue({
       currentScenario: { id: 'baseline-0000-0000-0000-000000000000', name: 'Baseline' }
@@ -2125,6 +2135,7 @@ describe('Hit vs context distinction (U19)', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     window.localStorage.clear();
+    window.sessionStorage.clear();
     Object.defineProperty(window, 'innerWidth', { writable: true, configurable: true, value: 1700 });
     (useScenario as jest.Mock).mockReturnValue({
       currentScenario: { id: 'baseline-0000-0000-0000-000000000000', name: 'Baseline' }
@@ -2204,5 +2215,116 @@ describe('Hit vs context distinction (U19)', () => {
     expect(rowClassOf('Sibling AR')).toContain('requirements-row--hit');
     expect(rowClassOf('Parent SR')).toContain('requirements-row--context');
     expect(rowClassOf('Payment AR hit')).toContain('requirements-row--context');
+  });
+});
+
+// ── U20 URL 视图状态+返回上下文+同级位次(IP-06d,2026-10-18): 筛选/任务视图 ──
+// /同类告警/列预设写入 URL(可分享/可恢复);详情返回保留滚动与选择
+// (sessionStorage);同级同优先级显示位次(P2·1/P2·2——队列顺序显式化)。
+describe('URL state & board context (U20)', () => {
+  const u20Rows = [
+    {
+      id: 'sr-p2a', seq_number: 61, name: 'Queue SR Alpha', parent_id: null,
+      project_type_id: 'type-1', project_type_name: '需求交付', project_sub_type_name: '标准需求',
+      lifecycle_state: 'backlog', lifecycle_warnings: [], priority: 2, tags: []
+    },
+    {
+      id: 'sr-p2b', seq_number: 62, name: 'Queue SR Beta', parent_id: null,
+      project_type_id: 'type-1', project_type_name: '需求交付', project_sub_type_name: '定制需求',
+      lifecycle_state: 'backlog', lifecycle_warnings: [], priority: 2, tags: []
+    },
+    {
+      id: 'sr-p1', seq_number: 63, name: 'Queue SR Top', parent_id: null,
+      project_type_id: 'type-1', project_type_name: '需求交付', project_sub_type_name: '标准需求',
+      lifecycle_state: 'pending_rat', lifecycle_warnings: [], priority: 1, tags: []
+    }
+  ];
+
+  const renderBoard = () => {
+    const queryClient = new QueryClient({ defaultOptions: { queries: { retry: false } } });
+    return render(
+      <QueryClientProvider client={queryClient}>
+        <Projects />
+      </QueryClientProvider>
+    );
+  };
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+    window.localStorage.clear();
+    window.sessionStorage.clear();
+    window.sessionStorage.clear();
+    mockSearchString = '';
+    Object.defineProperty(window, 'innerWidth', { writable: true, configurable: true, value: 1700 });
+    (useScenario as jest.Mock).mockReturnValue({
+      currentScenario: { id: 'baseline-0000-0000-0000-000000000000', name: 'Baseline' }
+    });
+    (api.projects.boardFeed as jest.Mock).mockResolvedValue({
+      data: { data: { data: u20Rows, total: u20Rows.length } }
+    });
+    (api.projects.list as jest.Mock).mockResolvedValue({ data: { data: u20Rows } });
+    (api.tags.list as jest.Mock).mockResolvedValue({ data: { data: [] } });
+    (api.projects.update as jest.Mock).mockResolvedValue({ data: {} });
+    (api.projects.delete as jest.Mock).mockResolvedValue({ data: {} });
+    (api.projects.batchDelete as jest.Mock).mockResolvedValue({ data: { deleted: 0, items: [] } });
+    (api.projects.batchUpdate as jest.Mock).mockResolvedValue({ data: { updated: 0, skipped: 0, items: [] } });
+    (api.roles.list as jest.Mock).mockResolvedValue({ data: [] });
+    (api.people.list as jest.Mock).mockResolvedValue({ data: { data: [] } });
+    (api.people.getUtilization as jest.Mock).mockResolvedValue({ data: [] });
+    (api.iterations.list as jest.Mock).mockResolvedValue({ data: { data: [] } });
+  });
+
+  test('URL 恢复: q+tv 初始即筛选+任务视图激活', async () => {
+    mockSearchString = '?q=Queue+SR+Top&tv=pendingDecision';
+    renderBoard();
+    await waitFor(() => expect(screen.getByText('Queue SR Top')).toBeInTheDocument());
+    await waitFor(() => expect(screen.queryByText('Queue SR Alpha')).not.toBeInTheDocument());
+    expect(screen.getByTestId('task-view-pendingDecision').getAttribute('aria-pressed')).toBe('true');
+  });
+
+  test('筛选变化写入 URL(replace),reset 清 URL', async () => {
+    renderBoard();
+    await waitFor(() => expect(screen.getByText('Queue SR Top')).toBeInTheDocument());
+    mockSetSearchParams.mockClear();
+    fireEvent.change(screen.getByTestId('search-input'), { target: { value: 'Alpha' } });
+    await waitFor(() => expect(mockSetSearchParams).toHaveBeenCalled());
+    const last = mockSetSearchParams.mock.calls[mockSetSearchParams.mock.calls.length - 1];
+    const obj = last[0] as Record<string, string>;
+    expect(obj.q).toBe('Alpha');
+    // reset → 空 URL
+    mockSetSearchParams.mockClear();
+    fireEvent.click(screen.getByTestId('reset-filters'));
+    await waitFor(() => expect(mockSetSearchParams).toHaveBeenCalled());
+    const cleared = mockSetSearchParams.mock.calls[mockSetSearchParams.mock.calls.length - 1][0] as Record<string, string>;
+    expect(Object.keys(cleared)).toHaveLength(0);
+  });
+
+  test('选择集跨卸载/重挂保留(sessionStorage),对账剔除已消失行', async () => {
+    const { unmount } = renderBoard();
+    await waitFor(() => expect(screen.getByText('Queue SR Top')).toBeInTheDocument());
+    const boxes = () => document.querySelectorAll('.requirements-row .req-select');
+    fireEvent.click(within(boxes()[0] as HTMLElement).getByRole('checkbox'));
+    await waitFor(() => expect(screen.getByTestId('req-bulk-bar')).toBeInTheDocument());
+    expect(screen.getByTestId('req-bulk-bar').textContent).toContain('1');
+    unmount();
+
+    renderBoard(); // 详情返回等价:同会话重挂
+    await waitFor(() => expect(screen.getByTestId('req-bulk-bar')).toBeInTheDocument());
+    expect(screen.getByTestId('req-bulk-bar').textContent).toContain('1');
+  });
+
+  test('滚动位置恢复: 预存 ctx scrollTop=200,数据到位后应用', async () => {
+    window.sessionStorage.setItem('req-board-ctx-v1', JSON.stringify({ scrollTop: 200, selected: [] }));
+    renderBoard();
+    await waitFor(() => expect(screen.getByText('Queue SR Top')).toBeInTheDocument());
+    await waitFor(() => expect(document.querySelector('.requirements-table')?.scrollTop).toBe(200));
+  });
+
+  test('同级位次: 两个 P2 顶层行显示 ·1/·2(按显示顺序)', async () => {
+    renderBoard();
+    await waitFor(() => expect(screen.getByText('Queue SR Top')).toBeInTheDocument());
+    const ranks = [...document.querySelectorAll('.req-pri-rank')].map((e) => e.textContent);
+    // 排序: P1 Top 在前(P1 组 ·1),两个 P2 依次 P2 组 ·1 ·2——组内编号,组间独立
+    expect(ranks).toEqual(['·1', '·1', '·2']);
   });
 });

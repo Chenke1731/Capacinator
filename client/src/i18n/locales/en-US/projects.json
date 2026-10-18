@@ -517,7 +517,8 @@
     "bulkDeleteConfirmBreakdown": "Delete {{n}}? (SR {{sr}} / AR {{ar}})",
     "bulkVersionEmpty": "empty",
     "bulkClearVersionHint": "{{n}} items with a value will be cleared",
-    "countHitContext": "{{hit}} hits · {{total}} with context"
+    "countHitContext": "{{hit}} hits · {{total}} with context",
+    "rankHint": "Position within the same priority (queue order)"
   },
   "version": {
     "productTitle": "Product version, click to edit (e.g. B)",

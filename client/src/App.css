@@ -1995,6 +1995,53 @@ input[type="checkbox"].settings-checkbox,
 }
 .projects-board .board-reset:hover { background: var(--bg-secondary, color-mix(in srgb, var(--neutral-surface-tint) 12%, transparent)); color: var(--text-primary); }
 .board-toolbar-right { margin-left: auto; display: inline-flex; gap: 8px; align-items: center; }
+
+/* ── U15 任务视图行(2026-10-17,IP-06d): 六个事实锚定的队列入口 + 个人视图 ──
+   chips 全变量配色双主题;1366 视口 flex-wrap 兜底,不与 40px 工具栏挤一行 */
+.task-views {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-bottom: 1px solid var(--border-color);
+}
+.task-view-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  min-height: 26px;
+  padding: 0 10px;
+  font-size: var(--b-fs-body);
+  color: var(--text-secondary);
+  background: none;
+  border: 1px solid var(--border-color);
+  border-radius: 999px;
+  cursor: pointer;
+}
+.task-view-chip:hover { background: var(--bg-secondary, color-mix(in srgb, var(--neutral-surface-tint) 12%, transparent)); color: var(--text-primary); }
+.task-view-chip[aria-pressed="true"] {
+  color: var(--primary);
+  border-color: var(--primary);
+  font-weight: 600;
+}
+.task-view-count {
+  font-size: 11px;
+  line-height: 16px;
+  min-width: 18px;
+  text-align: center;
+  color: var(--text-secondary);
+  background: var(--bg-secondary, color-mix(in srgb, var(--neutral-surface-tint) 12%, transparent));
+  border-radius: 999px;
+  padding: 0 5px;
+}
+.task-view-chip[aria-pressed="true"] .task-view-count {
+  color: var(--solid-foreground);
+  background: var(--primary-solid);
+}
+.personal-views { margin-left: auto; display: inline-flex; gap: 6px; align-items: center; }
+.personal-views .board-select { min-height: 26px; }
+.personal-view-name { min-height: 26px; width: 130px; font-size: var(--b-fs-body); }
 .projects-board .board-ghost-btn {
   display: inline-flex;
   align-items: center;

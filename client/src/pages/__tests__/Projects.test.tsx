@@ -1474,3 +1474,158 @@ describe('Requirements Board (需求台)', () => {
     });
   });
 });
+
+// ── U15 任务视图(IP-06d,2026-10-17):六视图=服务端事实的行级谓词, ──
+// chips 计数与树过滤同源;个人视图 localStorage 保存/恢复/删除。
+describe('Task views (U15)', () => {
+  const viewRows = [
+    {
+      id: 'sr-1', seq_number: 11, name: 'Clean SR', parent_id: null,
+      project_type_id: 'type-1', project_type_name: '需求交付', project_sub_type_name: '标准需求',
+      lifecycle_state: null, lifecycle_warnings: [], tags: []
+    },
+    {
+      id: 'ar-1a', seq_number: 12, name: 'Backlog AR', parent_id: 'sr-1',
+      project_type_id: 'type-1', project_type_name: '需求交付', project_sub_type_name: '标准需求',
+      lifecycle_state: 'backlog', lifecycle_warnings: [], tags: []
+    },
+    {
+      id: 'ar-1b', seq_number: 13, name: 'Conflicted Estimate AR', parent_id: 'sr-1',
+      project_type_id: 'type-1', project_type_name: '需求交付', project_sub_type_name: '标准需求',
+      lifecycle_state: 'in_iteration', lifecycle_warnings: ['NO_LOC_ESTIMATE'],
+      primary_dev: { person_name: '李四' }, has_conflict: true, tags: []
+    },
+    {
+      id: 'sr-2', seq_number: 14, name: 'Rat SR', parent_id: null,
+      project_type_id: 'type-1', project_type_name: '需求交付', project_sub_type_name: '标准需求',
+      lifecycle_state: 'pending_rat', lifecycle_warnings: [],
+      design_estimates: { se: 1, mde: null }, tags: []
+    },
+    {
+      id: 'sr-3', seq_number: 15, name: 'Backfill SR', parent_id: null,
+      project_type_id: 'type-1', project_type_name: '需求交付', project_sub_type_name: '标准需求',
+      lifecycle_state: 'delivered', lifecycle_warnings: ['DESIGN_NOT_BACKFILLED'],
+      primary_dev: { person_name: '王五' }, tags: []
+    }
+  ];
+
+  const renderBoard = () => {
+    const queryClient = new QueryClient({ defaultOptions: { queries: { retry: false } } });
+    return render(
+      <QueryClientProvider client={queryClient}>
+        <Projects />
+      </QueryClientProvider>
+    );
+  };
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+    window.localStorage.clear();
+    (api.projects.boardFeed as jest.Mock).mockResolvedValue({
+      data: { data: { data: viewRows, total: viewRows.length } }
+    });
+    (api.projects.list as jest.Mock).mockResolvedValue({ data: { data: viewRows } });
+    (api.tags.list as jest.Mock).mockResolvedValue({ data: { data: [] } });
+    (api.projects.update as jest.Mock).mockResolvedValue({ data: {} });
+    (api.projects.delete as jest.Mock).mockResolvedValue({ data: {} });
+    (api.projects.batchDelete as jest.Mock).mockResolvedValue({ data: { deleted: 0, items: [] } });
+    (api.projects.batchUpdate as jest.Mock).mockResolvedValue({ data: { updated: 0, skipped: 0, items: [] } });
+    (api.roles.list as jest.Mock).mockResolvedValue({ data: [] });
+    (api.people.list as jest.Mock).mockResolvedValue({ data: { data: [] } });
+    (api.people.getUtilization as jest.Mock).mockResolvedValue({ data: [] });
+    (api.iterations.list as jest.Mock).mockResolvedValue({ data: { data: [] } });
+  });
+
+  test('六 chips 计数来自行级事实(一每视图),与树过滤同源', async () => {
+    renderBoard();
+    await waitFor(() => expect(screen.getByText('Clean SR')).toBeInTheDocument());
+
+    expect(screen.getByTestId('task-view-pendingDecision').textContent).toContain('1');
+    expect(screen.getByTestId('task-view-pendingEstimate').textContent).toContain('1');
+    expect(screen.getByTestId('task-view-pendingStaffing').textContent).toContain('1');
+    expect(screen.getByTestId('task-view-hasConflict').textContent).toContain('1');
+    expect(screen.getByTestId('task-view-pendingSchedule').textContent).toContain('1');
+    expect(screen.getByTestId('task-view-pendingBackfill').textContent).toContain('1');
+  });
+
+  test('点 chip 过滤=树语义(命中 AR 的整树保留为上下文,含未命中兄弟),再点取消恢复', async () => {
+    renderBoard();
+    await waitFor(() => expect(screen.getByText('Clean SR')).toBeInTheDocument());
+    expect(screen.getByText('Conflicted Estimate AR')).toBeInTheDocument();
+
+    fireEvent.click(screen.getByTestId('task-view-pendingSchedule'));
+    // 命中树(srp-1)整棵保留: 命中 AR + SR 上下文 + 未命中兄弟 AR(上下文行,
+    // 命中/上下文的视觉区分属 U19);其他树整棵隐藏
+    await waitFor(() => expect(screen.queryByText('Rat SR')).not.toBeInTheDocument());
+    expect(screen.getByText('Backlog AR')).toBeInTheDocument();
+    expect(screen.getByText('Clean SR')).toBeInTheDocument();
+    expect(screen.getByText('Conflicted Estimate AR')).toBeInTheDocument();
+    expect(screen.queryByText('Backfill SR')).not.toBeInTheDocument();
+
+    fireEvent.click(screen.getByTestId('task-view-pendingSchedule')); // 再点取消
+    await waitFor(() => expect(screen.getByText('Rat SR')).toBeInTheDocument());
+    expect(screen.getByText('Conflicted Estimate AR')).toBeInTheDocument();
+  });
+
+  test('chips 与属性筛选 AND 组合;reset 一并清任务视图', async () => {
+    renderBoard();
+    await waitFor(() => expect(screen.getByText('Clean SR')).toBeInTheDocument());
+
+    fireEvent.click(screen.getByTestId('task-view-hasConflict'));
+    await waitFor(() => expect(screen.getByText('Conflicted Estimate AR')).toBeInTheDocument());
+    expect(screen.queryByText('Rat SR')).not.toBeInTheDocument();
+
+    // reset 出现(任务视图活跃即计入)并清空两者
+    fireEvent.click(screen.getByTestId('reset-filters'));
+    await waitFor(() => expect(screen.getByText('Rat SR')).toBeInTheDocument());
+    expect(screen.getByText('Conflicted Estimate AR')).toBeInTheDocument();
+  });
+
+  test('个人视图:保存当前(任务视图+属性筛选)→改动→恢复→删除', async () => {
+    renderBoard();
+    await waitFor(() => expect(screen.getByText('Clean SR')).toBeInTheDocument());
+
+    // 组合一个上下文:任务视图 pendingBackfill + 生命周期筛选
+    fireEvent.click(screen.getByTestId('task-view-pendingBackfill'));
+    await waitFor(() => expect(screen.queryByText('Rat SR')).not.toBeInTheDocument());
+    fireEvent.change(screen.getByTestId('lifecycle-filter'), { target: { value: 'delivered' } });
+    // lifecycle 键换→重取→骨架屏一瞬: 等"筛后内容"而非"目标消失"(消失在骨架态假真)
+    await waitFor(() => expect(screen.getByText('Backfill SR')).toBeInTheDocument());
+    await waitFor(() => expect(screen.queryByText('Clean SR')).not.toBeInTheDocument());
+
+    // 保存为 'my-queue'
+    fireEvent.click(screen.getByTestId('personal-view-save'));
+    fireEvent.change(screen.getByTestId('personal-view-name'), { target: { value: 'my-queue' } });
+    fireEvent.click(screen.getByTestId('personal-view-confirm'));
+    await waitFor(() => {
+      const sel = screen.getByTestId('personal-view-select') as HTMLSelectElement;
+      expect([...sel.options].some((o) => o.value === 'my-queue')).toBe(true);
+    });
+
+    // 打散上下文
+    fireEvent.click(screen.getByTestId('reset-filters'));
+    await waitFor(() => expect(screen.getByText('Rat SR')).toBeInTheDocument());
+
+    // 恢复 my-queue(回放任务视图+筛选,lifecycle 键换再等一轮内容)
+    fireEvent.change(screen.getByTestId('personal-view-select'), { target: { value: 'my-queue' } });
+    await waitFor(() => expect(screen.getByText('Backfill SR')).toBeInTheDocument());
+    await waitFor(() => expect(screen.queryByText('Rat SR')).not.toBeInTheDocument());
+    expect((screen.getByTestId('lifecycle-filter') as HTMLSelectElement).value).toBe('delivered');
+
+    // 删除
+    fireEvent.click(screen.getByTestId('personal-view-delete'));
+    await waitFor(() => {
+      const sel = screen.getByTestId('personal-view-select') as HTMLSelectElement;
+      expect([...sel.options].some((o) => o.value === 'my-queue')).toBe(false);
+    });
+  });
+
+  test('localStorage 按 profile 分键:不同 currentUser 互不可见', async () => {
+    window.localStorage.setItem('capacinator-req-personal-views:user-a',
+      JSON.stringify([{ name: 'shared', taskView: 'hasConflict', filters: {} }]));
+    renderBoard(); // 测试环境无 UserProvider → currentUser null → default 键
+    await waitFor(() => expect(screen.getByText('Clean SR')).toBeInTheDocument());
+    const sel = screen.getByTestId('personal-view-select') as HTMLSelectElement;
+    expect([...sel.options].some((o) => o.value === 'shared')).toBe(false);
+  });
+});

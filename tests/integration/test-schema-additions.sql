@@ -810,3 +810,140 @@ CREATE TABLE IF NOT EXISTS project_design_estimations (
   created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
+;
+-- ── U15 board-feed 冲突标志依赖(2026-10-18): computeProjectConflictFlags join
+--    person_utilization_view(070 相对可用率口径),其分子依赖
+--    effective_project_assignments(055)——与迁移 up 版逐字同源,迁移改动须同步此处
+CREATE VIEW effective_project_assignments AS
+    SELECT
+      pa.id,
+      pa.project_id,
+      pa.person_id,
+      pa.role_id,
+      pa.phase_id,
+      pa.allocation_percentage,
+      pa.assignment_date_mode,
+      pa.start_date,
+      pa.end_date,
+      pa.computed_start_date,
+      pa.computed_end_date,
+      pa.notes,
+      pa.status,
+      'base' as source_type,
+      null as scenario_id,
+      'added' as change_type,
+      null as base_assignment_id,
+      pa.created_at,
+      pa.updated_at
+    FROM project_assignments pa
+    WHERE pa.status = 'active'
+
+    UNION ALL
+
+    SELECT
+      spa.id,
+      spa.project_id,
+      spa.person_id,
+      spa.role_id,
+      spa.phase_id,
+      spa.allocation_percentage,
+      spa.assignment_date_mode,
+      spa.start_date,
+      spa.end_date,
+      spa.computed_start_date,
+      spa.computed_end_date,
+      spa.notes,
+      spa.status,
+      'scenario' as source_type,
+      spa.scenario_id,
+      spa.change_type,
+      spa.base_assignment_id,
+      spa.created_at,
+      spa.updated_at
+    FROM scenario_project_assignments spa
+    WHERE spa.status = 'active';
+
+CREATE VIEW person_utilization_view AS
+    SELECT
+      p.id AS person_id,
+      p.name AS person_name,
+      p.email AS person_email,
+      p.worker_type,
+      COALESCE(av.availability_percentage, p.default_availability_percentage) as current_availability_percentage,
+      p.default_hours_per_day,
+      r.id AS primary_role_id,
+      r.name AS primary_role_name,
+      pr.proficiency_level AS primary_role_proficiency,
+      l.name AS location_name,
+      COALESCE(SUM(
+        CASE
+          WHEN (epa.scenario_id IS NULL OR epa.scenario_id = 'baseline-0000-0000-0000-000000000000')
+            AND (COALESCE(epa.computed_start_date, epa.start_date) IS NULL
+                 OR date(COALESCE(epa.computed_start_date, epa.start_date)) <= date('now'))
+            AND (COALESCE(epa.computed_end_date, epa.end_date) IS NULL
+                 OR date(COALESCE(epa.computed_end_date, epa.end_date)) >= date('now'))
+          THEN epa.allocation_percentage
+          ELSE 0
+        END
+      ), 0) AS total_allocation_percentage,
+      COUNT(DISTINCT CASE
+        WHEN (epa.scenario_id IS NULL OR epa.scenario_id = 'baseline-0000-0000-0000-000000000000')
+          AND (COALESCE(epa.computed_start_date, epa.start_date) IS NULL
+               OR date(COALESCE(epa.computed_start_date, epa.start_date)) <= date('now'))
+          AND (COALESCE(epa.computed_end_date, epa.end_date) IS NULL
+               OR date(COALESCE(epa.computed_end_date, epa.end_date)) >= date('now'))
+        THEN epa.project_id
+      END) AS project_count,
+      CASE
+        WHEN COALESCE(av.availability_percentage, p.default_availability_percentage) = 0 THEN 'Unavailable'
+        WHEN COALESCE(SUM(
+          CASE
+            WHEN (epa.scenario_id IS NULL OR epa.scenario_id = 'baseline-0000-0000-0000-000000000000')
+              AND (COALESCE(epa.computed_start_date, epa.start_date) IS NULL
+                   OR date(COALESCE(epa.computed_start_date, epa.start_date)) <= date('now'))
+              AND (COALESCE(epa.computed_end_date, epa.end_date) IS NULL
+                   OR date(COALESCE(epa.computed_end_date, epa.end_date)) >= date('now'))
+            THEN epa.allocation_percentage
+            ELSE 0
+          END
+        ), 0) * 100.0 / COALESCE(av.availability_percentage, p.default_availability_percentage) > 100 THEN 'Over-allocated'
+        WHEN COALESCE(SUM(
+          CASE
+            WHEN (epa.scenario_id IS NULL OR epa.scenario_id = 'baseline-0000-0000-0000-000000000000')
+              AND (COALESCE(epa.computed_start_date, epa.start_date) IS NULL
+                   OR date(COALESCE(epa.computed_start_date, epa.start_date)) <= date('now'))
+              AND (COALESCE(epa.computed_end_date, epa.end_date) IS NULL
+                   OR date(COALESCE(epa.computed_end_date, epa.end_date)) >= date('now'))
+            THEN epa.allocation_percentage
+            ELSE 0
+          END
+        ), 0) * 100.0 / COALESCE(av.availability_percentage, p.default_availability_percentage) >= 80 THEN 'Fully-allocated'
+        WHEN COALESCE(SUM(
+          CASE
+            WHEN (epa.scenario_id IS NULL OR epa.scenario_id = 'baseline-0000-0000-0000-000000000000')
+              AND (COALESCE(epa.computed_start_date, epa.start_date) IS NULL
+                   OR date(COALESCE(epa.computed_start_date, epa.start_date)) <= date('now'))
+              AND (COALESCE(epa.computed_end_date, epa.end_date) IS NULL
+                   OR date(COALESCE(epa.computed_end_date, epa.end_date)) >= date('now'))
+            THEN epa.allocation_percentage
+            ELSE 0
+          END
+        ), 0) > 0 THEN 'Partially-allocated'
+        ELSE 'Available'
+      END AS utilization_status,
+      av.reason as availability_reason,
+      av.start_date as availability_start,
+      av.end_date as availability_end
+    FROM people p
+    LEFT JOIN person_roles pr ON p.primary_person_role_id = pr.id
+    LEFT JOIN roles r ON pr.role_id = r.id
+    LEFT JOIN locations l ON p.location_id = l.id
+    LEFT JOIN effective_project_assignments epa ON p.id = epa.person_id
+    LEFT JOIN scenarios s ON epa.scenario_id = s.id
+    LEFT JOIN person_availability_overrides av ON p.id = av.person_id
+      AND av.start_date <= date('now')
+      AND av.end_date >= date('now')
+    WHERE p.is_active = true
+    GROUP BY p.id, p.name, p.email, p.worker_type, p.default_availability_percentage,
+             p.default_hours_per_day, r.id, r.name, pr.proficiency_level, l.name,
+             av.availability_percentage, av.reason, av.start_date, av.end_date;

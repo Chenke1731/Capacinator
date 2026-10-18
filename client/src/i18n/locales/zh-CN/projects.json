@@ -569,6 +569,27 @@
     "derivedHint": "AR 的计算和(删空输入可清除自定义值,恢复默认计算)"
   },
   "loadError": "需求加载失败",
+  "taskViews": {
+    "groupLabel": "任务视图",
+    "all": "全部",
+    "pendingDecision": "待裁决",
+    "pendingDecisionHint": "处于待RAT裁决门的需求",
+    "pendingEstimate": "待估算",
+    "pendingEstimateHint": "当前状态缺 LOC 或设计估算（服务端告警）",
+    "pendingStaffing": "待配人",
+    "pendingStaffingHint": "SE/MDE 有估算未派人、开发侧无主投入或缺开放池需求",
+    "hasConflict": "有冲突",
+    "hasConflictHint": "分配人员超载（服务端按可用率统一判档）",
+    "pendingSchedule": "待排期",
+    "pendingScheduleHint": "已进待排序池、未挂迭代",
+    "pendingBackfill": "交付待回填",
+    "pendingBackfillHint": "交付后设计或 LOC 估算未回填",
+    "myViews": "我的视图",
+    "save": "保存视图",
+    "namePlaceholder": "视图名称",
+    "confirmSave": "保存",
+    "delete": "删除"
+  },
   "roleCell": {
     "pickHint": "点击安排 {{role}} 投入",
     "srTooltip": "子行{{role}}投入：{{persons}}",

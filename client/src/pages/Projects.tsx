@@ -19,6 +19,8 @@ import { TagManagerDialog } from '../components/tags/TagManagerDialog';
 import { useModal } from '../hooks/useModal';
 import { useMutationFailureToaster } from '../hooks/useMutationFailureToaster';
 import { useScenario } from '../contexts/ScenarioContext';
+import { useUser } from '../contexts/UserContext';
+import { TASK_VIEW_IDS, countByTaskView, taskViewPredicate, type TaskViewId } from '../lib/taskViews';
 import { categoryOfTypeName } from '../lib/projectCategories';
 import type { Project } from '../types';
 import './Projects.css';
@@ -297,6 +299,26 @@ export function Projects() {
     product_version: '',
     release_version: ''
   });
+  /** U15 任务视图(2026-10-17): ''=全部;谓词/计数单一真相在 lib/taskViews,
+   *  六视图只组织服务端行事实(生命周期态/告警码/分配估算/冲突标志) */
+  const [taskView, setTaskView] = useState<TaskViewId | ''>('');
+  /** U15 个人视图: 任务视图+属性筛选快照,localStorage 按 profile 分键(保存/恢复/删除) */
+  const { currentUser } = useUser();
+  const personalViewsKey = `capacinator-req-personal-views:${currentUser?.id ?? 'default'}`;
+  const [personalViews, setPersonalViews] = useState<{ name: string; taskView: TaskViewId | ''; filters: Record<string, string> }[]>([]);
+  const [appliedPersonalView, setAppliedPersonalView] = useState('');
+  const [namingView, setNamingView] = useState(false);
+  const [viewName, setViewName] = useState('');
+  useEffect(() => {
+    try {
+      setPersonalViews(JSON.parse(localStorage.getItem(personalViewsKey) ?? '[]'));
+    } catch {
+      setPersonalViews([]);
+    }
+    setAppliedPersonalView('');
+    setNamingView(false);
+    setViewName('');
+  }, [personalViewsKey]);
   const [collapsedSR, setCollapsedSR] = useState<Set<string>>(new Set());
   /** 搜索防抖: 击键只更新本地值,150ms 静默后才触发全量过滤/排序/树重建 */
   const [searchInput, setSearchInput] = useState('');
@@ -393,13 +415,14 @@ export function Projects() {
   const productOptions = useMemo(() => distinctOf('product_version'), [demandRows]);
   const releaseOptions = useMemo(() => distinctOf('release_version'), [demandRows]);
 
-  // SR→AR: 筛选作用于行(父或任一子命中 → 整树保留); 平铺排序 优先级→版本→名称
-  const trees = useMemo(() => {
+  // U15: 属性匹配单源——trees 与 chips 计数共用(计数随筛选上下文走,
+  // 与表格数一致);任务视图谓词在 client/src/lib/taskViews.ts 单一真相。
+  const attrMatch = useMemo(() => {
     const versionMatch = (value: unknown, filter: string) => {
       const v = String(value ?? '').trim();
       return filter === VERSION_NONE ? v === '' : v === filter;
     };
-    const match = (p: any) => {
+    return (p: any) => {
       if (filters.search) {
         // 名称包含,或引用码精确命中(#序号)——截图指代到检索的闭环
         const q = filters.search.trim().toLowerCase();
@@ -416,8 +439,20 @@ export function Projects() {
       if (filters.release_version && !versionMatch(p.release_version, filters.release_version)) return false;
       return true;
     };
+  }, [filters.search, filters.tag_id, filters.component, filters.subtype, filters.product_version, filters.release_version]);
+
+  /** U15 chips 计数: 属性筛选后的行集 × 六视图行级谓词(非树口径——
+   *  chip 直接回答"多少件事待处理",树上下文由表格自己表达) */
+  const taskCounts = useMemo(
+    () => countByTaskView(demandRows.filter(attrMatch)),
+    [demandRows, attrMatch]
+  );
+
+  // SR→AR: 筛选作用于行(父或任一子命中 → 整树保留); 平铺排序 优先级→版本→名称
+  const trees = useMemo(() => {
+    const match = (p: any) => attrMatch(p) && (!taskView || taskViewPredicate(taskView, p));
     const anyFilter = filters.search || filters.tag_id || filters.component || filters.subtype
-      || filters.product_version || filters.release_version;
+      || filters.product_version || filters.release_version || taskView;
     if (!anyFilter) return sortTrees(buildTree(demandRows));
     // 命中父或任一子 → 父及其全部子行保留
     const childrenOf = new Map<string, any[]>();
@@ -434,7 +469,7 @@ export function Projects() {
     const keptIds = new Set(keptParents.map((p: any) => p.id));
     const keptChildren = demandRows.filter((p: any) => p.parent_id && keptIds.has(p.parent_id));
     return sortTrees(buildTree([...keptParents, ...keptChildren]));
-  }, [demandRows, filters.search, filters.tag_id, filters.component, filters.subtype, filters.product_version, filters.release_version]);
+  }, [demandRows, taskView, attrMatch, filters.search, filters.tag_id, filters.component, filters.subtype, filters.product_version, filters.release_version]);
 
   /** 表格容器宽(余量→列间距 分配的基础;jsdom 无 ResizeObserver 时跳过) */
   const [containerW, setContainerW] = useState(0);
@@ -479,7 +514,48 @@ export function Projects() {
   const anyFilterActive = Boolean(
     filters.search || filters.tag_id || filters.component || filters.subtype
     || filters.product_version || filters.release_version || filters.lifecycle_state
+    || taskView
   );
+
+  // ── U15 个人视图动作: 快照=任务视图+属性筛选(含未防抖搜索词),恢复全量回放 ──
+  const persistPersonalViews = (next: typeof personalViews) => {
+    setPersonalViews(next);
+    localStorage.setItem(personalViewsKey, JSON.stringify(next));
+  };
+  const savePersonalView = () => {
+    const name = viewName.trim();
+    if (!name) return;
+    const snapshot = {
+      name,
+      taskView,
+      filters: { ...filters, search: searchInput }
+    };
+    persistPersonalViews([...personalViews.filter((v) => v.name !== name), snapshot]);
+    setAppliedPersonalView(name);
+    setNamingView(false);
+    setViewName('');
+  };
+  const restorePersonalView = (name: string) => {
+    setAppliedPersonalView(name);
+    const v = personalViews.find((x) => x.name === name);
+    if (!v) return;
+    setSearchInput(v.filters.search ?? '');
+    setFilters({
+      search: v.filters.search ?? '',
+      lifecycle_state: v.filters.lifecycle_state ?? '',
+      tag_id: v.filters.tag_id ?? '',
+      component: v.filters.component ?? '',
+      subtype: v.filters.subtype ?? '',
+      product_version: v.filters.product_version ?? '',
+      release_version: v.filters.release_version ?? ''
+    });
+    setTaskView(v.taskView ?? '');
+  };
+  const deletePersonalView = () => {
+    if (!appliedPersonalView) return;
+    persistPersonalViews(personalViews.filter((v) => v.name !== appliedPersonalView));
+    setAppliedPersonalView('');
+  };
 
   /** Q3: chip 点击=按标签过滤,再点同枚取消(GitHub 式) */
   const toggleTagFilter = (tagId: string | number) => {
@@ -784,7 +860,7 @@ export function Projects() {
           <option value={VERSION_NONE}>{t('projects:version.releasePlaceholder')}</option>
         </select>
         {(filters.search || filters.lifecycle_state || filters.tag_id || filters.component || filters.subtype
-          || filters.product_version || filters.release_version) && (
+          || filters.product_version || filters.release_version || taskView) && (
           <button
             data-testid="reset-filters"
             className="board-reset"
@@ -793,7 +869,7 @@ export function Projects() {
               setFilters({
               search: '', lifecycle_state: '', tag_id: '', component: '', subtype: '',
               product_version: '', release_version: ''
-            }); }}
+            }); setTaskView(''); }}
           >
             <X size={13} />
           </button>
@@ -806,6 +882,76 @@ export function Projects() {
           <button className="board-primary-btn" onClick={addProjectModal.open}>
             <Plus size={15} />
             {t('projects:addNewProject')}
+          </button>
+        </div>
+      </div>
+
+      {/* U15 任务视图行(2026-10-17,IP-06d): 六个事实锚定的队列入口——点选过滤
+          (树语义:AR 命中保 SR 上下文),再点取消;计数随属性筛选上下文(与表格
+          同源,lib/taskViews 单一真相)。右侧个人视图:保存/恢复/删除本页上下文 */}
+      <div className="task-views" data-testid="task-views" role="group" aria-label={t('projects:taskViews.groupLabel')}>
+        <button
+          type="button"
+          data-testid="task-view-all"
+          className="task-view-chip"
+          aria-pressed={taskView === ''}
+          onClick={() => setTaskView('')}
+        >
+          {t('projects:taskViews.all')}
+        </button>
+        {TASK_VIEW_IDS.map((v) => (
+          <button
+            key={v}
+            type="button"
+            data-testid={`task-view-${v}`}
+            className="task-view-chip"
+            aria-pressed={taskView === v}
+            title={t(`projects:taskViews.${v}Hint`)}
+            onClick={() => setTaskView((cur) => (cur === v ? '' : v))}
+          >
+            {t(`projects:taskViews.${v}`)}
+            <span className="task-view-count">{taskCounts[v]}</span>
+          </button>
+        ))}
+        <div className="personal-views">
+          <select
+            data-testid="personal-view-select"
+            className="board-select"
+            value={appliedPersonalView}
+            onChange={(e) => restorePersonalView(e.target.value)}
+          >
+            <option value="">{t('projects:taskViews.myViews')}</option>
+            {personalViews.map((v) => (
+              <option key={v.name} value={v.name}>{v.name}</option>
+            ))}
+          </select>
+          {namingView ? (
+            <>
+              <input
+                data-testid="personal-view-name"
+                className="personal-view-name"
+                value={viewName}
+                placeholder={t('projects:taskViews.namePlaceholder')}
+                onChange={(e) => setViewName(e.target.value)}
+                onKeyDown={(e) => e.key === 'Enter' && savePersonalView()}
+              />
+              <button type="button" data-testid="personal-view-confirm" className="board-ghost-btn" onClick={savePersonalView}>
+                {t('projects:taskViews.confirmSave')}
+              </button>
+            </>
+          ) : (
+            <button type="button" data-testid="personal-view-save" className="board-ghost-btn" onClick={() => setNamingView(true)}>
+              {t('projects:taskViews.save')}
+            </button>
+          )}
+          <button
+            type="button"
+            data-testid="personal-view-delete"
+            className="board-ghost-btn"
+            disabled={!appliedPersonalView}
+            onClick={deletePersonalView}
+          >
+            {t('projects:taskViews.delete')}
           </button>
         </div>
       </div>

@@ -6,6 +6,7 @@ import { PhaseTemplateValidationService, type PhaseUpdateRequest } from '../../s
 import { CustomPhaseManagementService, type CustomPhaseData, type PhaseUpdateData } from '../../services/CustomPhaseManagementService.js';
 import { toIsoDateString } from '../../utils/isoDate.js';
 import { LifecycleService } from '../../services/lifecycle/LifecycleService.js';
+import { computeProjectConflictFlags } from '../../services/board/projectConflictFlags.js';
 import { logger } from '../../services/logging/config.js';
 
 // Alias for backward compatibility
@@ -613,9 +614,13 @@ export class ProjectsController extends BaseController {
       await this.attachStaffingSummaries(projects);
       await this.attachEstimationSummaries(projects);
       await this.attachBoardPlanning(projects);
+      // U15 有冲突视图: 消费 person_utilization_view 统一判档(相对可用率),
+      // 超载人员的活跃分配所涉项目置位——前端只组织不重算
+      const conflictProjects = await computeProjectConflictFlags(this.db);
       for (const project of projects) {
         project.tags = tagsByProject.get(project.id) ?? [];
         project.lifecycle_warnings = warningsByProject.get(project.id) ?? [];
+        project.has_conflict = conflictProjects.has(String(project.id));
       }
 
       return { data: projects, total: projects.length };

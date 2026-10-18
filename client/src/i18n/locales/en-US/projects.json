@@ -571,6 +571,27 @@
     "derivedHint": "Sum of ARs (clear the input to reset to default)"
   },
   "loadError": "Failed to load projects",
+  "taskViews": {
+    "groupLabel": "Task views",
+    "all": "All",
+    "pendingDecision": "Pending adjudication",
+    "pendingDecisionHint": "Items at the pending-RAT gate",
+    "pendingEstimate": "To estimate",
+    "pendingEstimateHint": "Missing LOC or design estimate for the current state (server warnings)",
+    "pendingStaffing": "To staff",
+    "pendingStaffingHint": "SE/MDE estimate without an assignment, dev side without primary staff, or no open pool demand",
+    "hasConflict": "Has conflicts",
+    "hasConflictHint": "An assignee is over-allocated (server calculation, relative to availability)",
+    "pendingSchedule": "To schedule",
+    "pendingScheduleHint": "Accepted into backlog, not yet attached to an iteration",
+    "pendingBackfill": "Delivery backfill",
+    "pendingBackfillHint": "Design or LOC estimate not backfilled after delivery",
+    "myViews": "My views",
+    "save": "Save view",
+    "namePlaceholder": "View name",
+    "confirmSave": "Save",
+    "delete": "Delete"
+  },
   "roleCell": {
     "pickHint": "Assign {{role}}",
     "srTooltip": "{{role}} staffing comes from child rows: {{persons}}",

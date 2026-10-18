@@ -2042,6 +2042,39 @@ input[type="checkbox"].settings-checkbox,
 .personal-views { margin-left: auto; display: inline-flex; gap: 6px; align-items: center; }
 .personal-views .board-select { min-height: 26px; }
 .personal-view-name { min-height: 26px; width: 130px; font-size: var(--b-fs-body); }
+
+/* ── U16 行详情侧栏(2026-10-18,IP-06d): 承接列预设/窄视口隐藏字段,只读。
+   层序: 内容 < 批量条(900) < 侧栏(930) < 气泡(950) < toast(980)——
+   侧栏是持续任务面板,盖批量条但不与气泡争层 */
+.row-detail-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: min(340px, calc(100vw - 24px));
+  z-index: 930;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 14px 16px;
+  overflow-y: auto;
+  background: var(--bg-primary);
+  border-left: 1px solid var(--border-color);
+  box-shadow: var(--shadow-lg, -8px 0 16px -4px color-mix(in srgb, var(--solid-shade) 15%, transparent));
+}
+.row-detail-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
+.row-detail-title { font-size: var(--b-fs-body); color: var(--text-primary); overflow-wrap: anywhere; }
+.row-detail-fields { margin: 0; display: grid; gap: 6px; }
+.row-detail-field { display: grid; gap: 1px; }
+.row-detail-field dt { font-size: 11px; color: var(--text-secondary); }
+.row-detail-field dd { margin: 0; font-size: var(--b-fs-body); color: var(--text-primary); overflow-wrap: anywhere; }
+.row-detail-warnings, .row-detail-children { display: grid; gap: 4px; }
+.row-detail-warnings-title { font-size: 12px; font-weight: 600; color: var(--status-warning-text); }
+.row-detail-warnings ul { margin: 0; padding-left: 16px; }
+.row-detail-warnings li { font-size: 12px; color: var(--text-primary); }
+.row-detail-children-title { font-size: 12px; font-weight: 600; color: var(--text-secondary); }
+.row-detail-children ul { margin: 0; padding-left: 16px; }
+.row-detail-children li { font-size: var(--b-fs-body); color: var(--text-primary); }
 .projects-board .board-ghost-btn {
   display: inline-flex;
   align-items: center;
@@ -2082,7 +2115,7 @@ input[type="checkbox"].settings-checkbox,
 .requirements-thead > span { position: relative; }
 .requirements-thead {
   display: grid;
-    grid-template-columns: var(--req-w-select, 26px) minmax(var(--req-w-name, 186px), var(--req-f-name, 1.2fr)) var(--req-w-number, 84px) var(--req-w-component, 84px) var(--req-w-lifecycle, 200px) var(--req-w-kloc, 64px) var(--req-w-effort, 64px) var(--req-w-se, 88px) var(--req-w-mde, 88px) var(--req-w-version, 68px) var(--req-w-release, 64px) minmax(var(--req-w-iter, 78px), var(--req-cap-iter, 88px)) var(--req-w-priority, 44px) var(--req-w-primary, 88px) var(--req-w-actions, 92px) var(--req-spacer, 0fr);
+    grid-template-columns: var(--req-template, var(--req-w-select, 26px) minmax(var(--req-w-name, 186px), var(--req-f-name, 1.2fr)) var(--req-w-number, 84px) var(--req-w-component, 84px) var(--req-w-lifecycle, 200px) var(--req-w-kloc, 64px) var(--req-w-effort, 64px) var(--req-w-se, 88px) var(--req-w-mde, 88px) var(--req-w-version, 68px) var(--req-w-release, 64px) minmax(var(--req-w-iter, 78px), var(--req-cap-iter, 88px)) var(--req-w-priority, 44px) var(--req-w-primary, 88px) var(--req-w-actions, 92px) var(--req-spacer, 0fr));
   gap: var(--req-gap, 8px); /* 余量优先摊进间距(2026-09-23),媒体档继承 */
   align-items: center;
   min-height: 36px;
@@ -2097,7 +2130,7 @@ input[type="checkbox"].settings-checkbox,
 
 .requirements-row {
   display: grid;
-    grid-template-columns: var(--req-w-select, 26px) minmax(var(--req-w-name, 186px), var(--req-f-name, 1.2fr)) var(--req-w-number, 84px) var(--req-w-component, 84px) var(--req-w-lifecycle, 200px) var(--req-w-kloc, 64px) var(--req-w-effort, 64px) var(--req-w-se, 88px) var(--req-w-mde, 88px) var(--req-w-version, 68px) var(--req-w-release, 64px) minmax(var(--req-w-iter, 78px), var(--req-cap-iter, 88px)) var(--req-w-priority, 44px) var(--req-w-primary, 88px) var(--req-w-actions, 92px) var(--req-spacer, 0fr);
+    grid-template-columns: var(--req-template, var(--req-w-select, 26px) minmax(var(--req-w-name, 186px), var(--req-f-name, 1.2fr)) var(--req-w-number, 84px) var(--req-w-component, 84px) var(--req-w-lifecycle, 200px) var(--req-w-kloc, 64px) var(--req-w-effort, 64px) var(--req-w-se, 88px) var(--req-w-mde, 88px) var(--req-w-version, 68px) var(--req-w-release, 64px) minmax(var(--req-w-iter, 78px), var(--req-cap-iter, 88px)) var(--req-w-priority, 44px) var(--req-w-primary, 88px) var(--req-w-actions, 92px) var(--req-spacer, 0fr));
   gap: var(--req-gap, 8px); /* 余量优先摊进间距(2026-09-23),媒体档继承 */
   align-items: center;
   min-height: 40px;
@@ -2599,7 +2632,7 @@ body.req-col-dragging * {
 @media (min-width: 1560px) and (max-width: 1679px) {
   .requirements-thead,
   .requirements-row {
-    grid-template-columns: var(--req-w-select, 26px) minmax(var(--req-w-name, 186px), var(--req-f-name, 1.1fr)) var(--req-w-number, 80px) var(--req-w-lifecycle, 200px) var(--req-w-kloc, 64px) var(--req-w-effort, 64px) var(--req-w-se, 88px) var(--req-w-mde, 88px) var(--req-w-version, 64px) var(--req-w-release, 78px) minmax(var(--req-w-iter, 78px), var(--req-cap-iter, 88px)) var(--req-w-priority, 44px) var(--req-w-primary, 80px) var(--req-w-actions, 92px) var(--req-spacer, 0fr);
+    grid-template-columns: var(--req-template, var(--req-w-select, 26px) minmax(var(--req-w-name, 186px), var(--req-f-name, 1.1fr)) var(--req-w-number, 80px) var(--req-w-lifecycle, 200px) var(--req-w-kloc, 64px) var(--req-w-effort, 64px) var(--req-w-se, 88px) var(--req-w-mde, 88px) var(--req-w-version, 64px) var(--req-w-release, 78px) minmax(var(--req-w-iter, 78px), var(--req-cap-iter, 88px)) var(--req-w-priority, 44px) var(--req-w-primary, 80px) var(--req-w-actions, 92px) var(--req-spacer, 0fr));
   }
   /* 前置选择列(2026-10-11)后表头索引整体 +1: 组件 3→4 */
   .requirements-thead > span:nth-child(4),
@@ -2609,7 +2642,7 @@ body.req-col-dragging * {
 @media (max-width: 1559px) {
   .requirements-thead,
   .requirements-row {
-    grid-template-columns: var(--req-w-select, 26px) minmax(var(--req-w-name, 186px), var(--req-f-name, 1.1fr)) var(--req-w-lifecycle, 196px) var(--req-w-kloc, 64px) var(--req-w-effort, 64px) var(--req-w-se, 88px) var(--req-w-mde, 88px) var(--req-w-version, 62px) minmax(var(--req-w-iter, 78px), var(--req-cap-iter, 88px)) var(--req-w-priority, 44px) var(--req-w-actions, 92px) var(--req-spacer, 0fr);
+    grid-template-columns: var(--req-template, var(--req-w-select, 26px) minmax(var(--req-w-name, 186px), var(--req-f-name, 1.1fr)) var(--req-w-lifecycle, 196px) var(--req-w-kloc, 64px) var(--req-w-effort, 64px) var(--req-w-se, 88px) var(--req-w-mde, 88px) var(--req-w-version, 62px) minmax(var(--req-w-iter, 78px), var(--req-cap-iter, 88px)) var(--req-w-priority, 44px) var(--req-w-actions, 92px) var(--req-spacer, 0fr));
   }
   /* 前置选择列(2026-10-11)后表头索引整体 +1: 编号 2→3 / 组件 3→4 / 交付 10→11 / 实名 12→14。
      顺带修存量错位: 旧 nth-child(12) 实际命中的是优先级表头(priority 在 12 位),

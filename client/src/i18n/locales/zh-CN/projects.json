@@ -569,6 +569,21 @@
     "derivedHint": "AR 的计算和(删空输入可清除自定义值,恢复默认计算)"
   },
   "loadError": "需求加载失败",
+  "colPresets": {
+    "label": "列预设",
+    "default": "默认列",
+    "estimate": "评估视图",
+    "staffing": "配人视图",
+    "delivery": "交付视图"
+  },
+  "rowDetail": {
+    "open": "行详情",
+    "title": "行详情：{{name}}",
+    "close": "关闭详情",
+    "warnings": "告警",
+    "children": "子行（{{count}}）",
+    "estimateOnly": "估算"
+  },
   "taskViews": {
     "groupLabel": "任务视图",
     "all": "全部",

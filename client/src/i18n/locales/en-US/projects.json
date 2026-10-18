@@ -571,6 +571,21 @@
     "derivedHint": "Sum of ARs (clear the input to reset to default)"
   },
   "loadError": "Failed to load projects",
+  "colPresets": {
+    "label": "Column preset",
+    "default": "Default columns",
+    "estimate": "Estimate view",
+    "staffing": "Staffing view",
+    "delivery": "Delivery view"
+  },
+  "rowDetail": {
+    "open": "Row details",
+    "title": "Row details: {{name}}",
+    "close": "Close details",
+    "warnings": "Warnings",
+    "children": "Child items ({{count}})",
+    "estimateOnly": "estimate"
+  },
   "taskViews": {
     "groupLabel": "Task views",
     "all": "All",

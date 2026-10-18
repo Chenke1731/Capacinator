@@ -1521,6 +1521,9 @@ describe('Task views (U15)', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     window.localStorage.clear();
+    (useScenario as jest.Mock).mockReturnValue({
+      currentScenario: { id: 'baseline-0000-0000-0000-000000000000', name: 'Baseline' }
+    });
     (api.projects.boardFeed as jest.Mock).mockResolvedValue({
       data: { data: { data: viewRows, total: viewRows.length } }
     });
@@ -1627,5 +1630,180 @@ describe('Task views (U15)', () => {
     await waitFor(() => expect(screen.getByText('Clean SR')).toBeInTheDocument());
     const sel = screen.getByTestId('personal-view-select') as HTMLSelectElement;
     expect([...sel.options].some((o) => o.value === 'shared')).toBe(false);
+  });
+});
+
+// ── U16 列预设+行详情(IP-06d,2026-10-18): 预设=JS 渲染驱动隐藏(默认档走 ──
+// CSS 媒体查询,零回归);选择/名称/状态三列任何预设不藏;隐藏字段由可键盘
+// 到达的行详情侧栏承接,不靠 title。
+// 档位确定性:某前序测试将 innerWidth 设 1700 未还原——本 describe 显式
+// 钉 1700(全列档,无档位隐藏),断言纯预设集语义(∪空集)。
+describe('Column presets & row detail (U16)', () => {
+  const u16Rows = [
+    {
+      id: 'sr-u16', seq_number: 21, name: 'U16 Feature SR', parent_id: null,
+      project_type_id: 'type-1', project_type_name: '需求交付', project_sub_type_name: '标准需求',
+      lifecycle_state: 'in_iteration',
+      lifecycle_warnings: ['NO_LOC_ESTIMATE', 'DEV_NO_MDE'],
+      external_number: 'SR-2026-777', component: 'HCCL_驱动组',
+      product_version: 'B', release_version: '26.RP4', priority: 2,
+      estimation_summary: { kloc: 4, pm: 8 },
+      design_estimates: { se: 0.5, mde: null },
+      se_assignment: { person_name: '陈设计', allocation_pct: 25 },
+      mde_assignment: null,
+      primary_dev: { person_name: '李开发', allocation_pct: 100 },
+      iteration: { id: 'it-1', name: '26FW43', start_date: '2026-10-19', end_date: '2026-11-16' },
+      tags: [{ id: 1, name: 'Reserved', color: '#f59e0b' }]
+    },
+    {
+      id: 'ar-u16', seq_number: 22, name: 'U16 Child AR', parent_id: 'sr-u16',
+      project_type_id: 'type-1', project_type_name: '需求交付', project_sub_type_name: '标准需求',
+      lifecycle_state: 'scheduled', lifecycle_warnings: [],
+      external_number: 'AR-2026-778', component: 'HCCL_驱动组',
+      product_version: 'B', release_version: '26.RP4', priority: 3,
+      tags: []
+    }
+  ];
+
+  const renderBoard = () => {
+    const queryClient = new QueryClient({ defaultOptions: { queries: { retry: false } } });
+    return render(
+      <QueryClientProvider client={queryClient}>
+        <Projects />
+      </QueryClientProvider>
+    );
+  };
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+    window.localStorage.clear();
+    Object.defineProperty(window, 'innerWidth', { writable: true, configurable: true, value: 1700 });
+    (useScenario as jest.Mock).mockReturnValue({
+      currentScenario: { id: 'baseline-0000-0000-0000-000000000000', name: 'Baseline' }
+    });
+    (api.projects.boardFeed as jest.Mock).mockResolvedValue({
+      data: { data: { data: u16Rows, total: u16Rows.length } }
+    });
+    (api.projects.list as jest.Mock).mockResolvedValue({ data: { data: u16Rows } });
+    (api.tags.list as jest.Mock).mockResolvedValue({ data: { data: [] } });
+    (api.projects.update as jest.Mock).mockResolvedValue({ data: {} });
+    (api.projects.delete as jest.Mock).mockResolvedValue({ data: {} });
+    (api.projects.batchDelete as jest.Mock).mockResolvedValue({ data: { deleted: 0, items: [] } });
+    (api.projects.batchUpdate as jest.Mock).mockResolvedValue({ data: { updated: 0, skipped: 0, items: [] } });
+    (api.roles.list as jest.Mock).mockResolvedValue({ data: [] });
+    (api.people.list as jest.Mock).mockResolvedValue({ data: { data: [] } });
+    (api.people.getUtilization as jest.Mock).mockResolvedValue({ data: [] });
+    (api.iterations.list as jest.Mock).mockResolvedValue({ data: { data: [] } });
+  });
+
+  const HEADER_LABELS: Record<string, string> = {
+    name: 'Name', number: 'Number', component: 'Component', lifecycle: 'Lifecycle',
+    kloc: 'KLOC', effort: 'Effort(pm)', se: 'SE', mde: 'MDE',
+    version: 'Version', release: 'Release', iter: 'Iteration', priority: 'Priority', primary: 'Primary Dev'
+  };
+  const setPreset = (v: string) =>
+    fireEvent.change(screen.getByTestId('col-preset-select'), { target: { value: v } });
+
+  const headText = () => document.querySelector('.requirements-thead')?.textContent ?? '';
+
+  test('默认档: 全列表头在 DOM(档位视觉隐藏由 CSS 管,与既有行为一致)', async () => {
+    renderBoard();
+    await waitFor(() => expect(screen.getByText('U16 Feature SR')).toBeInTheDocument());
+    for (const label of Object.values(HEADER_LABELS)) {
+      expect(headText()).toContain(label);
+    }
+  });
+
+  test('评估预设: 藏 组件/迭代/实名(+紧凑档编号/交付),名称与状态受保护', async () => {
+    renderBoard();
+    await waitFor(() => expect(screen.getByText('U16 Feature SR')).toBeInTheDocument());
+    setPreset('estimate');
+    await waitFor(() => expect(headText()).not.toContain('Component'));
+    // 预设集(1700 全列档∪空集): component/iter/primary 藏
+    expect(headText()).not.toContain('Primary Dev');
+    expect(headText()).not.toContain('Iteration');
+    // 非预设列仍在(1700 档无联合隐藏)
+    expect(headText()).toContain('Number');
+    expect(headText()).toContain('Release');
+    // 受保护三列 + 评估域列仍在
+    expect(headText()).toContain('Name');
+    expect(headText()).toContain('Lifecycle');
+    expect(headText()).toContain('KLOC');
+    expect(headText()).toContain('SE');
+    expect(headText()).toContain('MDE');
+    // 隐藏列的单元格也从行 DOM 消失(不是仅视觉隐藏)
+    expect(document.querySelector('.requirements-component-btn')).toBeNull();
+  });
+
+  test('配人预设: 藏 编号/组件/版本/RP/迭代(+档位),SE/MDE/实名投入保留', async () => {
+    renderBoard();
+    await waitFor(() => expect(screen.getByText('U16 Feature SR')).toBeInTheDocument());
+    setPreset('staffing');
+    await waitFor(() => expect(headText()).not.toContain('Version'));
+    expect(headText()).not.toContain('Number');
+    expect(headText()).not.toContain('Release');
+    expect(headText()).not.toContain('Iteration');
+    expect(headText()).toContain('Primary Dev'); // 配人域列(1700 档无联合隐藏)
+    expect(headText()).toContain('SE');
+    expect(headText()).toContain('MDE');
+    expect(headText()).toContain('Name');
+    expect(headText()).toContain('Lifecycle');
+  });
+
+  test('交付预设: 藏 编号/组件/规模/人力/SE/MDE,版本/RP/迭代保留', async () => {
+    renderBoard();
+    await waitFor(() => expect(screen.getByText('U16 Feature SR')).toBeInTheDocument());
+    setPreset('delivery');
+    await waitFor(() => expect(headText()).not.toContain('KLOC'));
+    expect(headText()).not.toContain('Effort(pm)');
+    expect(headText()).not.toContain('SE');
+    expect(headText()).not.toContain('MDE');
+    expect(headText()).not.toContain('Number');
+    expect(headText()).not.toContain('Component');
+    expect(headText()).toContain('Version');
+    expect(headText()).toContain('Lifecycle');
+    expect(headText()).toContain('Priority');
+  });
+
+  test('预设持久化 + 恢复默认', async () => {
+    renderBoard();
+    await waitFor(() => expect(screen.getByText('U16 Feature SR')).toBeInTheDocument());
+    setPreset('estimate');
+    await waitFor(() => expect(headText()).not.toContain('Component'));
+    expect(window.localStorage.getItem('req-col-preset-v1')).toBe('"estimate"');
+
+    setPreset('default');
+    await waitFor(() => expect(headText()).toContain('Component'));
+    expect(window.localStorage.getItem('req-col-preset-v1')).toBe('"default"');
+  });
+
+  test('行详情:按钮打开侧栏,隐藏字段(编号/组件/完整告警)可见,Esc 关闭', async () => {
+    renderBoard();
+    await waitFor(() => expect(screen.getByText('U16 Feature SR')).toBeInTheDocument());
+
+    fireEvent.click(screen.getAllByTestId('row-detail-btn')[0]);
+    const drawer = await waitFor(() => screen.getByTestId('row-detail-drawer'));
+    // 隐藏字段在侧栏完整可见——不再只靠 title(within 收窄:行内编号按钮同文)
+    expect(within(drawer).getByText('SR-2026-777')).toBeInTheDocument();
+    expect(within(drawer).getByText('HCCL_驱动组')).toBeInTheDocument();
+    // 完整告警文案(不是截断 chip)
+    expect(drawer.textContent).toContain('Scheduled / in iteration but no LOC estimation');
+    expect(drawer.textContent).toContain('Primary dev assigned but no MDE pairing');
+    // 迭代窗口与实名投入
+    expect(drawer.textContent).toContain('26FW43');
+    expect(drawer.textContent).toContain('李开发');
+    // 键盘: Esc 关闭(监听在 document 上)
+    fireEvent.keyDown(document, { key: 'Escape' });
+    await waitFor(() => expect(screen.queryByTestId('row-detail-drawer')).not.toBeInTheDocument());
+  });
+
+  test('SR 行详情列出子行名称', async () => {
+    renderBoard();
+    await waitFor(() => expect(screen.getByText('U16 Feature SR')).toBeInTheDocument());
+    // 展开树(默认展开?——先点开 SR 折叠钮保险),再开 SR 详情
+    fireEvent.click(screen.getAllByTestId('row-detail-btn')[0]);
+    await waitFor(() => screen.getByTestId('row-detail-drawer'));
+    // SR 的详情含子行清单
+    expect(screen.getByTestId('row-detail-drawer').textContent).toContain('U16 Child AR');
   });
 });

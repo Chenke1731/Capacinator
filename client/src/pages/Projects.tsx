@@ -4,12 +4,13 @@ import { useVirtualizer } from '@tanstack/react-virtual';
 import { flattenTrees, type FlatRow } from '../lib/demandTree';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Plus, Edit2, Trash2, Tag, ChevronDown, ChevronRight, Search, X, GitBranch, CornerDownRight } from 'lucide-react';
+import { Plus, Edit2, Trash2, Tag, ChevronDown, ChevronRight, Search, X, GitBranch, CornerDownRight, Info } from 'lucide-react';
 import { api } from '../lib/api-client';
 import { queryKeys } from '../lib/queryKeys';
 import { PriorityCell, TagsCell, ComponentCell } from '../components/boards/EditableCells';
 import { KlocCell, EffortCell, RoleCell, PrimaryDevCell, VersionPart, ReleaseCell, IterationCell } from '../components/boards/BoardCells';
 import { ReqCheckbox } from '../components/boards/ReqCheckbox';
+import { RowDetailDrawer } from '../components/boards/RowDetailDrawer';
 import { BulkActionBar } from '../components/boards/BulkActionBar';
 import { BoardNotifications } from '../components/boards/BoardNotifications';
 import { ErrorMessage } from '../components/ui/ErrorMessage';
@@ -110,6 +111,19 @@ const REQ_COLUMNS = [
 type ReqColKey = (typeof REQ_COLUMNS)[number]['key'];
 /* v5: 列集变更(前置选择列)必须 bump 版本,旧宽度按旧列预算调优,残留会挤压名称列 */
 const REQ_WIDTHS_STORE = 'req-col-widths-v5';
+
+/** U16 列预设(2026-10-18,IP-06d): 评估/配人/交付三预设聚焦当前任务域。
+ *  非默认预设=JS 渲染驱动隐藏(∪当前档位隐藏集,窄视口不破预算),默认档
+ *  维持 CSS 媒体查询路径零回归;选择/名称/状态/操作四列任何预设不藏
+ *  (受保护集)。隐藏字段由 RowDetailDrawer 侧栏完整承接,不靠 title。 */
+const COL_PRESET_IDS = ['default', 'estimate', 'staffing', 'delivery'] as const;
+type ColPresetId = (typeof COL_PRESET_IDS)[number];
+const COL_PRESET_HIDDEN: Record<Exclude<ColPresetId, 'default'>, readonly ReqColKey[]> = {
+  estimate: ['component', 'iter', 'primary'],
+  staffing: ['number', 'component', 'version', 'release', 'iter'],
+  delivery: ['number', 'component', 'kloc', 'effort', 'se', 'mde']
+};
+const COL_PRESET_STORE = 'req-col-preset-v1';
 /** 批量端点单次上限(与服务端 ProjectsController batch-* 校验同步;
  *  超限走本地报错而非服务端 400——用户看到的必须是本地化文案) */
 const BATCH_LIMIT = 2000;
@@ -302,6 +316,21 @@ export function Projects() {
   /** U15 任务视图(2026-10-17): ''=全部;谓词/计数单一真相在 lib/taskViews,
    *  六视图只组织服务端行事实(生命周期态/告警码/分配估算/冲突标志) */
   const [taskView, setTaskView] = useState<TaskViewId | ''>('');
+  /** U16 列预设: localStorage 持久化,非法值回落默认档 */
+  const [colPreset, setColPreset] = useState<ColPresetId>(() => {
+    try {
+      const v = JSON.parse(localStorage.getItem(COL_PRESET_STORE) ?? 'null');
+      return (COL_PRESET_IDS as readonly string[]).includes(v) ? (v as ColPresetId) : 'default';
+    } catch {
+      return 'default';
+    }
+  });
+  const applyColPreset = (v: ColPresetId) => {
+    setColPreset(v);
+    localStorage.setItem(COL_PRESET_STORE, JSON.stringify(v));
+  };
+  /** U16 行详情侧栏: 承接被预设/窄视口隐藏的字段 */
+  const [detailRow, setDetailRow] = useState<Record<string, any> | null>(null);
   /** U15 个人视图: 任务视图+属性筛选快照,localStorage 按 profile 分键(保存/恢复/删除) */
   const { currentUser } = useUser();
   const personalViewsKey = `capacinator-req-personal-views:${currentUser?.id ?? 'default'}`;
@@ -694,10 +723,22 @@ export function Projects() {
      (编号列加入的预算由负责人让位),紧凑档再藏编号 */
   const showAll = vw >= 1680;
   const compact = vw < 1560;
+  /** U16 预设隐藏集: 非默认预设=预设集∪档位集(联合口径,窄视口不破预算);
+   *  null=默认档,隐藏完全由 CSS 媒体查询管(JS 不参与,零回归)。iter 在
+   *  紧凑档今日即 0 宽(def[2]=0),联合集里显式列入等价处理 */
+  const hiddenCols: Set<ReqColKey> | null = useMemo(() => {
+    if (colPreset === 'default') return null;
+    const tierHidden: ReqColKey[] = compact
+      ? ['number', 'component', 'release', 'primary', 'iter']
+      : showAll ? [] : ['component'];
+    return new Set<ReqColKey>([...COL_PRESET_HIDDEN[colPreset], ...tierHidden]);
+  }, [colPreset, compact, showAll]);
+  const colVisible = (key: ReqColKey) => !hiddenCols?.has(key);
   const colVars = useMemo(() => {
     const vars: Record<string, string> = {};
     const hidden = compact ? ['component', 'number', 'release', 'primary'] : showAll ? [] : ['component'];
     const visible = REQ_COLUMNS.filter((c) => !hidden.includes(c.key));
+    const visibleForTemplate = hiddenCols ? visible.filter((c) => !hiddenCols.has(c.key)) : null;
     const nGaps = Math.max(1, visible.length - 1);
     const rawWidths = visible.map((c) => {
       const def = showAll ? c.def[0] : compact ? c.def[2] : c.def[1];
@@ -741,9 +782,26 @@ export function Projects() {
       }
     }
 
+    /* U16 预设模板: JS 按可见集生成 grid-template,经 --req-template 覆盖
+       CSS 四处字面量声明(已包 var fallback,默认档不设此变量=CSS 原路径)。
+       轨道语法与字面量同构: name=elastic minmax+fr, iter=cap minmax, 余定宽 */
+    if (visibleForTemplate) {
+      const tierIdx = showAll ? 0 : compact ? 2 : 1;
+      const tracks = visibleForTemplate.map((c) => {
+        const w = colWidths[c.key] ?? (showAll ? c.def[0] : compact ? c.def[2] : c.def[1]);
+        if (c.key === 'name') return `minmax(${w}px, ${colWidths.name !== undefined ? '0fr' : '1.2fr'})`;
+        if ((c as any).kind === 'cap') {
+          const cap = (colWidths as any)[c.key] ?? (c as any).cap[tierIdx];
+          return `minmax(${w}px, ${cap}px)`;
+        }
+        return `${w}px`;
+      });
+      vars['--req-template'] = `${tracks.join(' ')} var(--req-spacer, 0fr)`;
+    }
+
     vars['--req-total'] = containerW > 0 ? `${Math.min(total, containerW)}px` : `${total}px`;
     return vars as React.CSSProperties;
-  }, [colWidths, showAll, compact, containerW]);
+  }, [colWidths, showAll, compact, containerW, hiddenCols]);
 
   /** 批量操作成功反馈(2026-10-11): 与失败 toast 同形态。
    *  失败面由 useMutationFailureToaster 承担(2026-10-16 lint 清):
@@ -915,6 +973,17 @@ export function Projects() {
         ))}
         <div className="personal-views">
           <select
+            data-testid="col-preset-select"
+            className="board-select"
+            aria-label={t('projects:colPresets.label')}
+            value={colPreset}
+            onChange={(e) => applyColPreset(e.target.value as ColPresetId)}
+          >
+            {COL_PRESET_IDS.map((p) => (
+              <option key={p} value={p}>{t(`projects:colPresets.${p}`)}</option>
+            ))}
+          </select>
+          <select
             data-testid="personal-view-select"
             className="board-select"
             value={appliedPersonalView}
@@ -981,7 +1050,7 @@ export function Projects() {
             ['projects:board.colPriority', 'priority'],
             ['projects:board.colPrimary', 'primary'],
             ['common:actions', 'actions']
-          ] as const).map(([key, colKey]) => (
+          ] as const).filter(([, colKey]) => colVisible(colKey)).map(([key, colKey]) => (
             <span key={colKey} className={['lifecycle', 'priority', 'actions'].includes(colKey) ? 'col-c' : ''}>
               {t(key)}
               {colKey !== 'actions' && ( /* 2026-09-23 修: 硬编码 i<10 漏掉后加的列 */
@@ -1038,34 +1107,42 @@ export function Projects() {
                 </button>
               </span>
 
-              <NumberPart project={project} onSaved={() => handleCellSaved(project.id)} />
+              {colVisible('number') && <NumberPart project={project} onSaved={() => handleCellSaved(project.id)} />}
 
-              <ComponentCell project={project} options={componentOptions} onSaved={() => handleCellSaved(project.id)} />
+              {colVisible('component') && <ComponentCell project={project} options={componentOptions} onSaved={() => handleCellSaved(project.id)} />}
 
               <span className="req-cell-center" onClick={(e) => e.stopPropagation()}>
                 <LifecycleCellControls project={project} />
               </span>
 
-              <KlocCell project={project} kloc={project.estimation_summary?.kloc ?? null} onSaved={() => handleCellSaved(project.id)} />
+              {colVisible('kloc') && <KlocCell project={project} kloc={project.estimation_summary?.kloc ?? null} onSaved={() => handleCellSaved(project.id)} />}
 
-              <EffortCell project={project} pm={project.estimation_summary?.pm ?? null} overridden={project.estimation_summary?.pm_overridden} onSaved={() => handleCellSaved(project.id)} />
+              {colVisible('effort') && <EffortCell project={project} pm={project.estimation_summary?.pm ?? null} overridden={project.estimation_summary?.pm_overridden} onSaved={() => handleCellSaved(project.id)} />}
 
-              <RoleCell roleName="se" person={project.se_assignment} pm={project.design_estimates?.se ?? null} project={project} onSaved={() => handleCellSaved(project.id)} />
+              {colVisible('se') && <RoleCell roleName="se" person={project.se_assignment} pm={project.design_estimates?.se ?? null} project={project} onSaved={() => handleCellSaved(project.id)} />}
 
-              <RoleCell roleName="mde" person={project.mde_assignment} pm={project.design_estimates?.mde ?? null} project={project} onSaved={() => handleCellSaved(project.id)} />
+              {colVisible('mde') && <RoleCell roleName="mde" person={project.mde_assignment} pm={project.design_estimates?.mde ?? null} project={project} onSaved={() => handleCellSaved(project.id)} />}
 
-              <VersionPart project={project} field="product_version"
+              {colVisible('version') && <VersionPart project={project} field="product_version"
                 placeholder={t('projects:version.productPlaceholder')}
                 hint={t('projects:version.productTitle')}
-                onSaved={() => handleCellSaved(project.id)} />
-              <ReleaseCell project={project} onSaved={() => handleCellSaved(project.id)} />
-              <IterationCell project={project} onSaved={() => handleCellSaved(project.id)} />
+                onSaved={() => handleCellSaved(project.id)} />}
+              {colVisible('release') && <ReleaseCell project={project} onSaved={() => handleCellSaved(project.id)} />}
+              {colVisible('iter') && <IterationCell project={project} onSaved={() => handleCellSaved(project.id)} />}
 
-              <PriorityCell project={project} onSaved={() => handleCellSaved(project.id)} />
+              {colVisible('priority') && <PriorityCell project={project} onSaved={() => handleCellSaved(project.id)} />}
 
-              <PrimaryDevCell primary={project.primary_dev} project={project} onSaved={() => handleCellSaved(project.id)} />
+              {colVisible('primary') && <PrimaryDevCell primary={project.primary_dev} project={project} onSaved={() => handleCellSaved(project.id)} />}
 
               <span className="requirements-actions" onClick={(e) => e.stopPropagation()}>
+                <button
+                  className="req-icon-btn"
+                  data-testid="row-detail-btn"
+                  title={t('projects:rowDetail.open')}
+                  onClick={(e) => { e.stopPropagation(); setDetailRow(project); }}
+                >
+                  <Info size={14} />
+                </button>
                 <button
                   className="req-icon-btn"
                   title={t('common:edit')}
@@ -1137,9 +1214,9 @@ export function Projects() {
                 </button>
               </span>
 
-              <NumberPart project={project} onSaved={() => handleCellSaved(project.id)} />
+              {colVisible('number') && <NumberPart project={project} onSaved={() => handleCellSaved(project.id)} />}
 
-              <ComponentCell project={project} options={componentOptions} onSaved={() => handleCellSaved(project.id)} />
+              {colVisible('component') && <ComponentCell project={project} options={componentOptions} onSaved={() => handleCellSaved(project.id)} />}
 
               <span className="req-cell-center req-state-dist">
                 {agg.states.map((s: any) => (
@@ -1151,47 +1228,55 @@ export function Projects() {
 
               {/* SR 规模/人月(2026-09-23 用户裁决"参数都可调"):
                   显示 = SR 自身值 ?? 子行聚合; 偏差 = 两者都有且不等 → 琥珀告警 */}
-              <KlocCell project={project}
+              {colVisible('kloc') && <KlocCell project={project}
                 kloc={project.estimation_summary?.kloc ?? agg.kloc}
                 derived={project.estimation_summary?.kloc == null && agg.kloc != null}
                 deviated={project.estimation_summary?.kloc != null && agg.kloc != null && project.estimation_summary.kloc !== agg.kloc}
-                onSaved={() => handleCellSaved(project.id)} />
+                onSaved={() => handleCellSaved(project.id)} />}
 
-              <EffortCell project={project}
+              {colVisible('effort') && <EffortCell project={project}
                 pm={project.estimation_summary?.pm ?? agg.effortPm}
                 derived={project.estimation_summary?.pm == null && agg.effortPm != null}
                 deviated={project.estimation_summary?.pm != null && agg.effortPm != null && project.estimation_summary.pm !== agg.effortPm}
-                onSaved={() => handleCellSaved(project.id)} />
+                onSaved={() => handleCellSaved(project.id)} />}
 
-              <span className="req-role req-role--agg" title={t('projects:roleCell.srTooltip', { role: 'SE', persons: agg.sePersons.join('、') || '—' })}>
+              {colVisible('se') && <span className="req-role req-role--agg" title={t('projects:roleCell.srTooltip', { role: 'SE', persons: agg.sePersons.join('、') || '—' })}>
                 {agg.sePm != null
                   ? <span className="req-role-pm">Σ{agg.sePm}{agg.sePersons.length > 1 ? `·${agg.sePersons.length}人` : ''}</span>
                   : <span className="text-muted">—</span>}
-              </span>
+              </span>}
 
-              <span className="req-role req-role--agg" title={t('projects:roleCell.srTooltip', { role: 'MDE', persons: agg.mdePersons.join('、') || '—' })}>
+              {colVisible('mde') && <span className="req-role req-role--agg" title={t('projects:roleCell.srTooltip', { role: 'MDE', persons: agg.mdePersons.join('、') || '—' })}>
                 {agg.mdePm != null
                   ? <span className="req-role-pm">Σ{agg.mdePm}{agg.mdePersons.length > 1 ? `·${agg.mdePersons.length}人` : ''}</span>
                   : <span className="text-muted">—</span>}
-              </span>
+              </span>}
 
-              <VersionPart project={project} field="product_version"
+              {colVisible('version') && <VersionPart project={project} field="product_version"
                 placeholder={t('projects:version.productPlaceholder')}
                 hint={t('projects:version.productTitle')}
-                onSaved={() => handleCellSaved(project.id)} />
-              <ReleaseCell project={project} onSaved={() => handleCellSaved(project.id)}
-                readOnlyWindow={aggIterWindow(row.children ?? [])} />
-              <IterationCell project={project} onSaved={() => handleCellSaved(project.id)}
-                readOnlyWindow={aggIterWindow(row.children ?? [])} />
+                onSaved={() => handleCellSaved(project.id)} />}
+              {colVisible('release') && <ReleaseCell project={project} onSaved={() => handleCellSaved(project.id)}
+                readOnlyWindow={aggIterWindow(row.children ?? [])} />}
+              {colVisible('iter') && <IterationCell project={project} onSaved={() => handleCellSaved(project.id)}
+                readOnlyWindow={aggIterWindow(row.children ?? [])} />}
 
-              <PriorityCell project={project} onSaved={() => handleCellSaved(project.id)} />
-              <span className="req-primary req-primary--agg" title={agg.primaryPersons.join('、') || undefined}>
+              {colVisible('priority') && <PriorityCell project={project} onSaved={() => handleCellSaved(project.id)} />}
+              {colVisible('primary') && <span className="req-primary req-primary--agg" title={agg.primaryPersons.join('、') || undefined}>
                 {agg.primaryPersons.length > 0
                   ? <span className="req-primary-person">{agg.primaryPersons.length}人</span>
                   : <span className="text-muted">—</span>}
-              </span>
+              </span>}
 
               <span className="requirements-actions" onClick={(e) => e.stopPropagation()}>
+                <button
+                  className="req-icon-btn"
+                  data-testid="row-detail-btn"
+                  title={t('projects:rowDetail.open')}
+                  onClick={(e) => { e.stopPropagation(); setDetailRow(project); }}
+                >
+                  <Info size={14} />
+                </button>
                 <button
                   className="req-icon-btn"
                   title={t('common:edit')}
@@ -1231,30 +1316,38 @@ export function Projects() {
                       <TagsCell project={child} allTags={tags} onSaved={() => handleCellSaved(child.id)} onFilterByTag={toggleTagFilter} activeTagId={filters.tag_id} />
                     </span>
 
-                    <NumberPart project={child} onSaved={() => handleCellSaved(child.id)} />
+                    {colVisible('number') && <NumberPart project={child} onSaved={() => handleCellSaved(child.id)} />}
 
-                    <ComponentCell project={child} options={componentOptions} onSaved={() => handleCellSaved(child.id)} />
+                    {colVisible('component') && <ComponentCell project={child} options={componentOptions} onSaved={() => handleCellSaved(child.id)} />}
 
                     <span className="req-cell-center" onClick={(e) => e.stopPropagation()}>
                       <LifecycleCellControls project={child} />
                     </span>
 
-                    <KlocCell project={child} kloc={child.estimation_summary?.kloc ?? null} onSaved={() => handleCellSaved(child.id)} />
-                    <EffortCell project={child} pm={child.estimation_summary?.pm ?? null} overridden={child.estimation_summary?.pm_overridden} onSaved={() => handleCellSaved(child.id)} />
-                    <RoleCell roleName="se" person={child.se_assignment} pm={child.design_estimates?.se ?? null} project={child} onSaved={() => handleCellSaved(child.id)} />
-                    <RoleCell roleName="mde" person={child.mde_assignment} pm={child.design_estimates?.mde ?? null} project={child} onSaved={() => handleCellSaved(child.id)} />
+                    {colVisible('kloc') && <KlocCell project={child} kloc={child.estimation_summary?.kloc ?? null} onSaved={() => handleCellSaved(child.id)} />}
+                    {colVisible('effort') && <EffortCell project={child} pm={child.estimation_summary?.pm ?? null} overridden={child.estimation_summary?.pm_overridden} onSaved={() => handleCellSaved(child.id)} />}
+                    {colVisible('se') && <RoleCell roleName="se" person={child.se_assignment} pm={child.design_estimates?.se ?? null} project={child} onSaved={() => handleCellSaved(child.id)} />}
+                    {colVisible('mde') && <RoleCell roleName="mde" person={child.mde_assignment} pm={child.design_estimates?.mde ?? null} project={child} onSaved={() => handleCellSaved(child.id)} />}
 
-                    <VersionPart project={child} field="product_version"
+                    {colVisible('version') && <VersionPart project={child} field="product_version"
                       placeholder={t('projects:version.productPlaceholder')}
                       hint={t('projects:version.productTitle')}
-                      onSaved={() => handleCellSaved(child.id)} />
-                    <ReleaseCell project={child} onSaved={() => handleCellSaved(child.id)} />
-                    <IterationCell project={child} onSaved={() => handleCellSaved(child.id)} />
+                      onSaved={() => handleCellSaved(child.id)} />}
+                    {colVisible('release') && <ReleaseCell project={child} onSaved={() => handleCellSaved(child.id)} />}
+                    {colVisible('iter') && <IterationCell project={child} onSaved={() => handleCellSaved(child.id)} />}
 
-                    <PriorityCell project={child} onSaved={() => handleCellSaved(child.id)} />
-                    <PrimaryDevCell primary={child.primary_dev} project={child} onSaved={() => handleCellSaved(child.id)} />
+                    {colVisible('priority') && <PriorityCell project={child} onSaved={() => handleCellSaved(child.id)} />}
+                    {colVisible('primary') && <PrimaryDevCell primary={child.primary_dev} project={child} onSaved={() => handleCellSaved(child.id)} />}
 
                     <span className="requirements-actions" onClick={(e) => e.stopPropagation()}>
+                      <button
+                        className="req-icon-btn"
+                        data-testid="row-detail-btn"
+                        title={t('projects:rowDetail.open')}
+                        onClick={(e) => { e.stopPropagation(); setDetailRow(child); }}
+                      >
+                        <Info size={14} />
+                      </button>
                       <button
                         className="req-icon-btn"
                         title={t('common:edit')}
@@ -1341,6 +1434,15 @@ export function Projects() {
       />
 
       <TagManagerDialog isOpen={tagManagerOpen} onClose={() => setTagManagerOpen(false)} />
+
+      {/* U16 行详情侧栏: 承接预设/窄视口隐藏字段(只读,Esc 关闭) */}
+      {detailRow && (
+        <RowDetailDrawer
+          row={detailRow}
+          childRows={demandRows.filter((p: any) => p.parent_id === detailRow.id)}
+          onClose={() => setDetailRow(null)}
+        />
+      )}
 
       {selectedIds.size > 0 && (
         <BulkActionBar

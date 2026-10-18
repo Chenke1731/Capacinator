@@ -331,6 +331,11 @@ export function Projects() {
   };
   /** U16 行详情侧栏: 承接被预设/窄视口隐藏的字段 */
   const [detailRow, setDetailRow] = useState<Record<string, any> | null>(null);
+  /** U17 侧栏聚焦段: 告警 chip 进入时滚到告警区 */
+  const [detailFocus, setDetailFocus] = useState<'warnings' | null>(null);
+  /** U17 只看同类: 按告警码过滤——接入属性管线(chips 计数随筛选联动) */
+  const [warningFilter, setWarningFilter] = useState('');
+  const closeDetail = () => { setDetailRow(null); setDetailFocus(null); };
   /** U15 个人视图: 任务视图+属性筛选快照,localStorage 按 profile 分键(保存/恢复/删除) */
   const { currentUser } = useUser();
   const personalViewsKey = `capacinator-req-personal-views:${currentUser?.id ?? 'default'}`;
@@ -461,6 +466,7 @@ export function Projects() {
           || (byCode && Number(byCode[1]) === p.seq_number);
         if (!hit) return false;
       }
+      if (warningFilter && !(p.lifecycle_warnings ?? []).includes(warningFilter)) return false;
       if (filters.tag_id && !(p.tags ?? []).some((tag: any) => String(tag.id) === String(filters.tag_id))) return false;
       if (filters.component && String(p.component ?? '') !== filters.component) return false;
       if (filters.subtype && String(p.project_sub_type_name ?? '') !== filters.subtype) return false;
@@ -468,7 +474,7 @@ export function Projects() {
       if (filters.release_version && !versionMatch(p.release_version, filters.release_version)) return false;
       return true;
     };
-  }, [filters.search, filters.tag_id, filters.component, filters.subtype, filters.product_version, filters.release_version]);
+  }, [filters.search, filters.tag_id, filters.component, filters.subtype, filters.product_version, filters.release_version, warningFilter]);
 
   /** U15 chips 计数: 属性筛选后的行集 × 六视图行级谓词(非树口径——
    *  chip 直接回答"多少件事待处理",树上下文由表格自己表达) */
@@ -481,7 +487,7 @@ export function Projects() {
   const trees = useMemo(() => {
     const match = (p: any) => attrMatch(p) && (!taskView || taskViewPredicate(taskView, p));
     const anyFilter = filters.search || filters.tag_id || filters.component || filters.subtype
-      || filters.product_version || filters.release_version || taskView;
+      || filters.product_version || filters.release_version || taskView || warningFilter;
     if (!anyFilter) return sortTrees(buildTree(demandRows));
     // 命中父或任一子 → 父及其全部子行保留
     const childrenOf = new Map<string, any[]>();
@@ -498,7 +504,7 @@ export function Projects() {
     const keptIds = new Set(keptParents.map((p: any) => p.id));
     const keptChildren = demandRows.filter((p: any) => p.parent_id && keptIds.has(p.parent_id));
     return sortTrees(buildTree([...keptParents, ...keptChildren]));
-  }, [demandRows, taskView, attrMatch, filters.search, filters.tag_id, filters.component, filters.subtype, filters.product_version, filters.release_version]);
+  }, [demandRows, taskView, attrMatch, warningFilter, filters.search, filters.tag_id, filters.component, filters.subtype, filters.product_version, filters.release_version]);
 
   /** 表格容器宽(余量→列间距 分配的基础;jsdom 无 ResizeObserver 时跳过) */
   const [containerW, setContainerW] = useState(0);
@@ -543,7 +549,7 @@ export function Projects() {
   const anyFilterActive = Boolean(
     filters.search || filters.tag_id || filters.component || filters.subtype
     || filters.product_version || filters.release_version || filters.lifecycle_state
-    || taskView
+    || taskView || warningFilter
   );
 
   // ── U15 个人视图动作: 快照=任务视图+属性筛选(含未防抖搜索词),恢复全量回放 ──
@@ -918,7 +924,7 @@ export function Projects() {
           <option value={VERSION_NONE}>{t('projects:version.releasePlaceholder')}</option>
         </select>
         {(filters.search || filters.lifecycle_state || filters.tag_id || filters.component || filters.subtype
-          || filters.product_version || filters.release_version || taskView) && (
+          || filters.product_version || filters.release_version || taskView || warningFilter) && (
           <button
             data-testid="reset-filters"
             className="board-reset"
@@ -927,7 +933,7 @@ export function Projects() {
               setFilters({
               search: '', lifecycle_state: '', tag_id: '', component: '', subtype: '',
               product_version: '', release_version: ''
-            }); setTaskView(''); }}
+            }); setTaskView(''); setWarningFilter(''); }}
           >
             <X size={13} />
           </button>
@@ -971,6 +977,24 @@ export function Projects() {
             <span className="task-view-count">{taskCounts[v]}</span>
           </button>
         ))}
+        {warningFilter && (() => {
+          const count = demandRows.filter((p: any) => attrMatch(p) && (p.lifecycle_warnings ?? []).includes(warningFilter)).length;
+          return (
+            <span className="task-view-chip warn-filter-pill" data-testid="warn-filter-pill">
+              {t(`projects:lifecycle.warnings.${warningFilter}`, { defaultValue: warningFilter })}
+              <span className="task-view-count">{count}</span>
+              <button
+                type="button"
+                data-testid="warn-filter-clear"
+                className="warn-filter-clear"
+                title={t('projects:board.resetFilters')}
+                onClick={() => setWarningFilter('')}
+              >
+                <X size={11} />
+              </button>
+            </span>
+          );
+        })()}
         <div className="personal-views">
           <select
             data-testid="col-preset-select"
@@ -1086,11 +1110,13 @@ export function Projects() {
               <span className="requirements-name">
                 <span className="requirements-name-text" title={project.name}>{project.name}</span>
                 {(project.lifecycle_warnings ?? []).length > 0 && (
-                  <span
+                  <button
+                    type="button"
                     className="lifecycle-warn-chip"
                     title={(project.lifecycle_warnings ?? [])
                       .map((w: string) => t(`projects:lifecycle.warnings.${w}`))
                       .join('\n')}
+                    onClick={(e) => { e.stopPropagation(); setDetailRow(project); setDetailFocus('warnings'); }}
                   >
                     {t(`projects:lifecycle.warningShort.${(project.lifecycle_warnings ?? [])[0]}`, {
                       defaultValue: t('projects:lifecycle.warningShort.GENERIC')
@@ -1098,7 +1124,7 @@ export function Projects() {
                     {(project.lifecycle_warnings ?? []).length > 1
                       ? `+${(project.lifecycle_warnings ?? []).length - 1}`
                       : ''}
-                  </span>
+                  </button>
                 )}
                 <TagsCell project={project} allTags={tags} onSaved={() => handleCellSaved(project.id)} onFilterByTag={toggleTagFilter} activeTagId={filters.tag_id} />
                 <button type="button" className="req-ar-add" title={t('projects:board.decompose')}
@@ -1193,11 +1219,13 @@ export function Projects() {
                 <span className="requirements-name-text" title={project.name}>{project.name}</span>
                 <span className="req-sr-note">{t('projects:board.arCountNote', { count: agg.count })}</span>
                 {(project.lifecycle_warnings ?? []).length > 0 && (
-                  <span
+                  <button
+                    type="button"
                     className="lifecycle-warn-chip"
                     title={(project.lifecycle_warnings ?? [])
                       .map((w: string) => t(`projects:lifecycle.warnings.${w}`))
                       .join('\n')}
+                    onClick={(e) => { e.stopPropagation(); setDetailRow(project); setDetailFocus('warnings'); }}
                   >
                     {t(`projects:lifecycle.warningShort.${(project.lifecycle_warnings ?? [])[0]}`, {
                       defaultValue: t('projects:lifecycle.warningShort.GENERIC')
@@ -1205,7 +1233,7 @@ export function Projects() {
                     {(project.lifecycle_warnings ?? []).length > 1
                       ? `+${(project.lifecycle_warnings ?? []).length - 1}`
                       : ''}
-                  </span>
+                  </button>
                 )}
                 <TagsCell project={project} allTags={tags} onSaved={() => handleCellSaved(project.id)} onFilterByTag={toggleTagFilter} activeTagId={filters.tag_id} />
                 <button type="button" className="req-ar-add" title={t('projects:board.decompose')}
@@ -1400,7 +1428,7 @@ export function Projects() {
                   setFilters({
                   search: '', lifecycle_state: '', tag_id: '', component: '', subtype: '',
                   product_version: '', release_version: ''
-                }); }}
+                }); setTaskView(''); setWarningFilter(''); }}
               >
                 {t('projects:board.clearFilters')}
               </button>
@@ -1440,7 +1468,9 @@ export function Projects() {
         <RowDetailDrawer
           row={detailRow}
           childRows={demandRows.filter((p: any) => p.parent_id === detailRow.id)}
-          onClose={() => setDetailRow(null)}
+          focusSection={detailFocus}
+          onClose={closeDetail}
+          onFilterWarning={(code) => { setWarningFilter(code); closeDetail(); }}
         />
       )}
 

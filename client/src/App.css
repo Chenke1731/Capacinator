@@ -2072,6 +2072,31 @@ input[type="checkbox"].settings-checkbox,
 .row-detail-warnings-title { font-size: 12px; font-weight: 600; color: var(--status-warning-text); }
 .row-detail-warnings ul { margin: 0; padding-left: 16px; }
 .row-detail-warnings li { font-size: 12px; color: var(--text-primary); }
+/* U17 问题面板(2026-10-18): 告警卡=原因/影响/动作三段+定位与同类入口 */
+.row-detail-warn-empty { font-size: 12px; color: var(--text-secondary); }
+.row-detail-warn-card {
+  display: grid;
+  gap: 3px;
+  padding: 6px 8px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--b-r-sm, 6px);
+}
+.row-detail-warn-cause { font-size: 12px; font-weight: 600; color: var(--text-primary); }
+.row-detail-warn-impact, .row-detail-warn-action { font-size: 12px; color: var(--text-secondary); }
+.row-detail-warn-k { color: var(--text-secondary); font-weight: 600; margin-right: 4px; }
+.row-detail-warn-ops { display: flex; align-items: center; gap: 8px; margin-top: 2px; flex-wrap: wrap; }
+.row-detail-warn-locate { font-size: 11px; color: var(--text-secondary); }
+.row-detail-warn-ops .board-ghost-btn { min-height: 22px; padding: 0 8px; font-size: 11px; }
+/* 定位高亮: 告警对应字段卡(建议锚点,非门禁) */
+.row-detail-field--locate { border-left: 2px solid var(--primary); padding-left: 6px; background: color-mix(in srgb, var(--primary) 6%, transparent); }
+/* U17 同类筛选 pill(挂在任务视图行) */
+.warn-filter-pill { border-color: var(--status-warning-text); }
+.warn-filter-clear {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 14px; height: 14px; padding: 0; margin-left: 2px;
+  border: none; background: none; color: var(--text-secondary); cursor: pointer;
+}
+.warn-filter-clear:hover { color: var(--text-primary); }
 .row-detail-children-title { font-size: 12px; font-weight: 600; color: var(--text-secondary); }
 .row-detail-children ul { margin: 0; padding-left: 16px; }
 .row-detail-children li { font-size: var(--b-fs-body); color: var(--text-primary); }
@@ -2805,6 +2830,10 @@ body.req-col-dragging * {
   font-weight: 400;
   padding: 0;
   margin-left: 2px;
+  /* U17(2026-10-18): span→button(点击打开问题面板,键盘可达)——补控件复位 */
+  font-family: inherit;
+  cursor: pointer;
+  text-align: left;
 }
 [data-theme='dark'] .projects-board .lifecycle-warn-chip { color: var(--status-warning-text); }
 .projects-board .lifecycle-warn-chip::before {

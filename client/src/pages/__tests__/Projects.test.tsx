@@ -1807,3 +1807,118 @@ describe('Column presets & row detail (U16)', () => {
     expect(screen.getByTestId('row-detail-drawer').textContent).toContain('U16 Child AR');
   });
 });
+
+// ── U17 可操作告警(IP-06d,2026-10-18): chip 点击打开问题面板(侧栏聚焦告警 ──
+// 区),每条告警含原因/排产影响/推荐动作+对应字段定位;“只看同类”接入属性
+// 筛选管线;纯建议不设生命周期硬门禁。
+describe('Actionable warnings (U17)', () => {
+  const warnRows = [
+    {
+      id: 'sr-w17', seq_number: 31, name: 'Warned SR', parent_id: null,
+      project_type_id: 'type-1', project_type_name: '需求交付', project_sub_type_name: '标准需求',
+      lifecycle_state: 'in_iteration',
+      lifecycle_warnings: ['NO_LOC_ESTIMATE', 'DEV_NO_MDE'],
+      external_number: null, component: null,
+      tags: []
+    },
+    {
+      id: 'ar-w17', seq_number: 32, name: 'Peer AR', parent_id: 'sr-w17',
+      project_type_id: 'type-1', project_type_name: '需求交付', project_sub_type_name: '标准需求',
+      lifecycle_state: 'in_iteration', lifecycle_warnings: ['NO_LOC_ESTIMATE'],
+      tags: []
+    },
+    {
+      id: 'sr-clean', seq_number: 33, name: 'Clean Peer SR', parent_id: null,
+      project_type_id: 'type-1', project_type_name: '需求交付', project_sub_type_name: '标准需求',
+      lifecycle_state: 'designing', lifecycle_warnings: [],
+      tags: []
+    }
+  ];
+
+  const renderBoard = () => {
+    const queryClient = new QueryClient({ defaultOptions: { queries: { retry: false } } });
+    return render(
+      <QueryClientProvider client={queryClient}>
+        <Projects />
+      </QueryClientProvider>
+    );
+  };
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+    window.localStorage.clear();
+    Object.defineProperty(window, 'innerWidth', { writable: true, configurable: true, value: 1700 });
+    (useScenario as jest.Mock).mockReturnValue({
+      currentScenario: { id: 'baseline-0000-0000-0000-000000000000', name: 'Baseline' }
+    });
+    (api.projects.boardFeed as jest.Mock).mockResolvedValue({
+      data: { data: { data: warnRows, total: warnRows.length } }
+    });
+    (api.projects.list as jest.Mock).mockResolvedValue({ data: { data: warnRows } });
+    (api.tags.list as jest.Mock).mockResolvedValue({ data: { data: [] } });
+    (api.projects.update as jest.Mock).mockResolvedValue({ data: {} });
+    (api.projects.delete as jest.Mock).mockResolvedValue({ data: {} });
+    (api.projects.batchDelete as jest.Mock).mockResolvedValue({ data: { deleted: 0, items: [] } });
+    (api.projects.batchUpdate as jest.Mock).mockResolvedValue({ data: { updated: 0, skipped: 0, items: [] } });
+    (api.roles.list as jest.Mock).mockResolvedValue({ data: [] });
+    (api.people.list as jest.Mock).mockResolvedValue({ data: { data: [] } });
+    (api.people.getUtilization as jest.Mock).mockResolvedValue({ data: [] });
+    (api.iterations.list as jest.Mock).mockResolvedValue({ data: { data: [] } });
+  });
+
+  test('告警 chip 点击打开侧栏并聚焦告警区(不再只靠悬停 title)', async () => {
+    renderBoard();
+    await waitFor(() => expect(screen.getByText('Warned SR')).toBeInTheDocument());
+    // chip 是可聚焦按钮
+    const chip = document.querySelector('.lifecycle-warn-chip') as HTMLElement;
+    expect(chip.tagName).toBe('BUTTON');
+    fireEvent.click(chip);
+    await waitFor(() => expect(screen.getByTestId('row-detail-drawer')).toBeInTheDocument());
+    // 聚焦标志: 告警区滚动目标存在
+    expect(document.querySelector('[data-warn-section]')).not.toBeNull();
+  });
+
+  test('告警卡片含 原因/排产影响/推荐动作 三段 + 对应字段高亮', async () => {
+    renderBoard();
+    await waitFor(() => expect(screen.getByText('Warned SR')).toBeInTheDocument());
+    fireEvent.click(document.querySelector('.lifecycle-warn-chip') as HTMLElement);
+    const drawer = await waitFor(() => screen.getByTestId('row-detail-drawer'));
+    // 原因(已有全文)
+    expect(drawer.textContent).toContain('Scheduled / in iteration but no LOC estimation');
+    // 排产影响 + 推荐动作(本批新增文案)
+    expect(drawer.textContent).toContain('Dev demand unknown');
+    expect(drawer.textContent).toContain('Fill the LOC estimate');
+    // 对应字段高亮: NO_LOC_ESTIMATE → KLOC 字段卡带 locate 类
+    const klocField = drawer.querySelector('[data-field="kloc"]');
+    expect(klocField?.className).toContain('row-detail-field--locate');
+  });
+
+  test('“只看同类”过滤看板:点 NO_LOC_ESTIMATE 后只剩命中树,清筛选恢复', async () => {
+    renderBoard();
+    await waitFor(() => expect(screen.getByText('Warned SR')).toBeInTheDocument());
+    fireEvent.click(document.querySelector('.lifecycle-warn-chip') as HTMLElement);
+    await waitFor(() => screen.getByTestId('row-detail-drawer'));
+    // 卡片上的“只看同类”
+    const sameBtn = screen.getAllByTestId('filter-same-warn')[0];
+    fireEvent.click(sameBtn);
+    await waitFor(() => expect(screen.queryByTestId('row-detail-drawer')).not.toBeInTheDocument());
+    await waitFor(() => expect(screen.queryByText('Clean Peer SR')).not.toBeInTheDocument());
+    expect(screen.getByText('Warned SR')).toBeInTheDocument();
+    // 活跃同类筛选 pill 可见且可清(sr-w17+ar-w17 两行带该码)
+    const pill = screen.getByTestId('warn-filter-pill');
+    expect(pill.textContent).toContain('2');
+    fireEvent.click(screen.getByTestId('warn-filter-clear'));
+    await waitFor(() => expect(screen.getByText('Clean Peer SR')).toBeInTheDocument());
+  });
+
+  test('同类筛选与属性筛选 AND 组合,reset 一并清', async () => {
+    renderBoard();
+    await waitFor(() => expect(screen.getByText('Warned SR')).toBeInTheDocument());
+    fireEvent.click(document.querySelector('.lifecycle-warn-chip') as HTMLElement);
+    await waitFor(() => screen.getByTestId('row-detail-drawer'));
+    fireEvent.click(screen.getAllByTestId('filter-same-warn')[0]);
+    await waitFor(() => expect(screen.queryByText('Clean Peer SR')).not.toBeInTheDocument());
+    fireEvent.click(screen.getByTestId('reset-filters'));
+    await waitFor(() => expect(screen.getByText('Clean Peer SR')).toBeInTheDocument());
+  });
+});

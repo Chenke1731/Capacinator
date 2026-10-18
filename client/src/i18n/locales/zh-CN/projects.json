@@ -357,7 +357,35 @@
       "SE_WONT_MAKE_IT": "SE赶不上"
     },
     "numberLabel": "编号",
-    "advanceHint": "一键推进到：{{to}}"
+    "advanceHint": "一键推进到：{{to}}",
+    "warningImpact": {
+      "NO_DEV_DEMAND": "开发侧人力需求不可见——配人决策没有锚点。",
+      "NO_LOC_ESTIMATE": "开发工作量未知——容量规划无法为该项预留产能。",
+      "NO_DESIGN_ESTIMATE": "设计工作量未知——SE 窗口无法推导。",
+      "DESIGN_NOT_BACKFILLED": "实际设计投入未落账——后续估算失去校准参照。",
+      "DELIVERED_NOT_BACKFILLED": "交付实际值未回填——容量报表高估剩余工作。",
+      "NO_ITERATION_NUMBER": "缺外部引用号——迭代范围无法与源系统对账。",
+      "SE_WONT_MAKE_IT": "SE 工作量超过迭代开工前剩余时间——设计将拖累迭代。",
+      "ITER_RHYTHM_MISMATCH": "手填交付计划与迭代派生季度不一致——交付承诺可能出错。",
+      "ITER_OVER_DEADLINE": "迭代窗口末晚于设计死线——死线将失守。",
+      "ITER_ENDED_UNDONE": "迭代已结束但需求未交付——该迭代已交付范围被高估。",
+      "DEV_NO_MDE": "开发主投入无 MDE 结对——新开发交接与质量风险。",
+      "ASSIGN_AFTER_DELIVERY": "主投入窗口越过迭代末——交付后仍在计投入。"
+    },
+    "warningAction": {
+      "NO_DEV_DEMAND": "到项目详情页登记开发侧池需求。",
+      "NO_LOC_ESTIMATE": "补 LOC 粗估（KLOC 列或评估面板）。",
+      "NO_DESIGN_ESTIMATE": "在 SE/MDE 格补设计工作量估算。",
+      "DESIGN_NOT_BACKFILLED": "到设计评估面板回填实际设计投入。",
+      "DELIVERED_NOT_BACKFILLED": "交付已完成，回填实际 LOC/人月。",
+      "NO_ITERATION_NUMBER": "补外部编号（编号列）。",
+      "SE_WONT_MAKE_IT": "裁剪范围、增加 SE 产能或移到后续迭代（SE 格）。",
+      "ITER_RHYTHM_MISMATCH": "将 RP 值与迭代季度对齐（交付计划列）。",
+      "ITER_OVER_DEADLINE": "压缩窗口、移到更早迭代或重谈死线。",
+      "ITER_ENDED_UNDONE": "交付该项或移到进行中的迭代（迭代列）。",
+      "DEV_NO_MDE": "安排 MDE 分配（MDE 格）。",
+      "ASSIGN_AFTER_DELIVERY": "缩短实名投入窗口（实名投入字段）。"
+    }
   },
   "staffing": {
     "designSide": "设计侧(SE)",
@@ -582,7 +610,26 @@
     "close": "关闭详情",
     "warnings": "告警",
     "children": "子行（{{count}}）",
-    "estimateOnly": "估算"
+    "estimateOnly": "估算",
+    "impact": "排产影响",
+    "action": "推荐动作",
+    "locateField": "对应字段",
+    "filterSame": "只看同类问题",
+    "noWarnings": "无告警",
+    "fieldName": {
+      "number": "编号",
+      "component": "组件",
+      "kloc": "代码规模",
+      "effort": "人力",
+      "se": "SE",
+      "mde": "MDE",
+      "version": "版本",
+      "release": "交付计划",
+      "iter": "迭代",
+      "priority": "优先级",
+      "primary": "实名投入",
+      "tags": "标签"
+    }
   },
   "taskViews": {
     "groupLabel": "任务视图",

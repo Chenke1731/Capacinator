@@ -359,7 +359,35 @@
       "SE_WONT_MAKE_IT": "SE too late"
     },
     "numberLabel": "Number",
-    "advanceHint": "Advance to {{to}}"
+    "advanceHint": "Advance to {{to}}",
+    "warningImpact": {
+      "NO_DEV_DEMAND": "Dev headcount demand is invisible — staffing decisions have nothing to anchor on.",
+      "NO_LOC_ESTIMATE": "Dev demand unknown — capacity planning cannot reserve for this item.",
+      "NO_DESIGN_ESTIMATE": "Design effort unknown — the SE window cannot be derived.",
+      "DESIGN_NOT_BACKFILLED": "Actual design effort is unrecorded — future estimates lose their calibration reference.",
+      "DELIVERED_NOT_BACKFILLED": "Delivered actuals are unrecorded — capacity reports overstate remaining work.",
+      "NO_ITERATION_NUMBER": "External reference missing — iteration scope cannot be reconciled with the source system.",
+      "SE_WONT_MAKE_IT": "SE effort exceeds the time left before iteration start — design will delay the iteration.",
+      "ITER_RHYTHM_MISMATCH": "Manual release plan diverges from the iteration-derived quarter — delivery commitments may be wrong.",
+      "ITER_OVER_DEADLINE": "Iteration window ends after the design deadline — the deadline will be missed.",
+      "ITER_ENDED_UNDONE": "Iteration ended but the item is not delivered — the iteration's delivered scope is overstated.",
+      "DEV_NO_MDE": "Primary dev without MDE pairing — handoff and quality risk for new development.",
+      "ASSIGN_AFTER_DELIVERY": "Primary dev window extends past the iteration end — effort booked after delivery."
+    },
+    "warningAction": {
+      "NO_DEV_DEMAND": "Register the dev-side pool demand on the project detail page.",
+      "NO_LOC_ESTIMATE": "Fill the LOC estimate (KLOC column or the estimation panel).",
+      "NO_DESIGN_ESTIMATE": "Fill the SE/MDE effort estimates in the SE/MDE cells.",
+      "DESIGN_NOT_BACKFILLED": "Backfill the actual design effort in the design estimation panel.",
+      "DELIVERED_NOT_BACKFILLED": "Backfill actual LOC/pm now that delivery is complete.",
+      "NO_ITERATION_NUMBER": "Fill the external number (Number column).",
+      "SE_WONT_MAKE_IT": "Re-scope, add SE capacity, or move the item to a later iteration (SE cell).",
+      "ITER_RHYTHM_MISMATCH": "Align the RP value with the iteration quarter (Release column).",
+      "ITER_OVER_DEADLINE": "Shorten the window, move to an earlier iteration, or renegotiate the deadline.",
+      "ITER_ENDED_UNDONE": "Deliver the item or move it to an active iteration (Iteration column).",
+      "DEV_NO_MDE": "Assign an MDE (MDE column).",
+      "ASSIGN_AFTER_DELIVERY": "Shorten the primary dev window (Primary dev field)."
+    }
   },
   "staffing": {
     "designSide": "Design side (SE)",
@@ -584,7 +612,26 @@
     "close": "Close details",
     "warnings": "Warnings",
     "children": "Child items ({{count}})",
-    "estimateOnly": "estimate"
+    "estimateOnly": "estimate",
+    "impact": "Scheduling impact",
+    "action": "Recommended action",
+    "locateField": "Field",
+    "filterSame": "Only this problem",
+    "noWarnings": "No warnings",
+    "fieldName": {
+      "number": "Number",
+      "component": "Component",
+      "kloc": "KLOC",
+      "effort": "Effort(pm)",
+      "se": "SE",
+      "mde": "MDE",
+      "version": "Version",
+      "release": "Release",
+      "iter": "Iteration",
+      "priority": "Priority",
+      "primary": "Primary Dev",
+      "tags": "Tags"
+    }
   },
   "taskViews": {
     "groupLabel": "Task views",

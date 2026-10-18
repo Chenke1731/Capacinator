@@ -514,7 +514,8 @@
     "bulkIterWarnRhythm": "{{n}} 项 RP 与迭代季度不符",
     "bulkDeleteConfirmBreakdown": "删除 {{n}} 项？（SR {{sr}} / AR {{ar}}）",
     "bulkVersionEmpty": "空",
-    "bulkClearVersionHint": "{{n}} 项已有值将被清空"
+    "bulkClearVersionHint": "{{n}} 项已有值将被清空",
+    "countHitContext": "命中 {{hit}} 项 · 连同上下文 {{total}} 项"
   },
   "version": {
     "productTitle": "产品版本，点击填写（如 B）",

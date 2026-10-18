@@ -516,7 +516,8 @@
     "bulkIterWarnRhythm": "{{n}} RP values mismatch the iteration quarter",
     "bulkDeleteConfirmBreakdown": "Delete {{n}}? (SR {{sr}} / AR {{ar}})",
     "bulkVersionEmpty": "empty",
-    "bulkClearVersionHint": "{{n}} items with a value will be cleared"
+    "bulkClearVersionHint": "{{n}} items with a value will be cleared",
+    "countHitContext": "{{hit}} hits · {{total}} with context"
   },
   "version": {
     "productTitle": "Product version, click to edit (e.g. B)",

@@ -2118,6 +2118,15 @@ input[type="checkbox"].settings-checkbox,
 .bulk-version-dist { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 6px; }
 .bulk-version-dist-chip { font-size: 11px; color: var(--text-secondary); border: 1px solid var(--border-color); border-radius: 4px; padding: 0 5px; }
 .bulk-version-hint { font-size: 11px; color: var(--status-warning-text); margin-bottom: 6px; }
+
+/* ── U19 命中/上下文区分(2026-10-18,IP-06d): 树语义保留的上下文行弱化, ──
+   真命中行左缘主色高亮——"哪些是搜出来的、哪些只是陪着"一眼可分 */
+.requirements-row--hit {
+  box-shadow: inset 3px 0 0 var(--primary);
+  background: color-mix(in srgb, var(--primary) 5%, transparent);
+}
+.requirements-row--context { opacity: 0.6; }
+.requirements-row--context:hover { opacity: 1; } /* 悬停恢复全额——上下文行仍可交互 */
 .row-detail-children-title { font-size: 12px; font-weight: 600; color: var(--text-secondary); }
 .row-detail-children ul { margin: 0; padding-left: 16px; }
 .row-detail-children li { font-size: var(--b-fs-body); color: var(--text-primary); }

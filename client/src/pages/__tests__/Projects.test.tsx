@@ -2086,3 +2086,123 @@ describe('Bulk selection visibility (U18)', () => {
     expect(confirmText).toContain('AR 1');
   });
 });
+
+// ── U19 命中/上下文区分(IP-06d,2026-10-18): 树语义保留的上下文行视觉弱化, ──
+// 真命中高亮;计数"命中 N/连同上下文 M";筛选自动展开命中路径,清除恢复原折叠。
+describe('Hit vs context distinction (U19)', () => {
+  const u19Rows = [
+    {
+      id: 'sr-mix', seq_number: 51, name: 'Parent SR', parent_id: null,
+      project_type_id: 'type-1', project_type_name: '需求交付', project_sub_type_name: '标准需求',
+      lifecycle_state: 'designing', lifecycle_warnings: [], product_version: 'B', tags: []
+    },
+    {
+      id: 'ar-hit', seq_number: 52, name: 'Payment AR hit', parent_id: 'sr-mix',
+      project_type_id: 'type-1', project_type_name: '需求交付', project_sub_type_name: '标准需求',
+      lifecycle_state: 'designing', lifecycle_warnings: [], product_version: 'B', tags: []
+    },
+    {
+      id: 'ar-miss', seq_number: 53, name: 'Sibling AR', parent_id: 'sr-mix',
+      project_type_id: 'type-1', project_type_name: '需求交付', project_sub_type_name: '标准需求',
+      lifecycle_state: 'backlog', lifecycle_warnings: [], product_version: 'A', tags: []
+    },
+    {
+      id: 'sr-hit', seq_number: 54, name: 'Payment standalone SR', parent_id: null,
+      project_type_id: 'type-1', project_type_name: '需求交付', project_sub_type_name: '标准需求',
+      lifecycle_state: 'designing', lifecycle_warnings: [], product_version: 'B', tags: []
+    }
+  ];
+
+  const renderBoard = () => {
+    const queryClient = new QueryClient({ defaultOptions: { queries: { retry: false } } });
+    return render(
+      <QueryClientProvider client={queryClient}>
+        <Projects />
+      </QueryClientProvider>
+    );
+  };
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+    window.localStorage.clear();
+    Object.defineProperty(window, 'innerWidth', { writable: true, configurable: true, value: 1700 });
+    (useScenario as jest.Mock).mockReturnValue({
+      currentScenario: { id: 'baseline-0000-0000-0000-000000000000', name: 'Baseline' }
+    });
+    (api.projects.boardFeed as jest.Mock).mockResolvedValue({
+      data: { data: { data: u19Rows, total: u19Rows.length } }
+    });
+    (api.projects.list as jest.Mock).mockResolvedValue({ data: { data: u19Rows } });
+    (api.tags.list as jest.Mock).mockResolvedValue({ data: { data: [] } });
+    (api.projects.update as jest.Mock).mockResolvedValue({ data: {} });
+    (api.projects.delete as jest.Mock).mockResolvedValue({ data: {} });
+    (api.projects.batchDelete as jest.Mock).mockResolvedValue({ data: { deleted: 0, items: [] } });
+    (api.projects.batchUpdate as jest.Mock).mockResolvedValue({ data: { updated: 0, skipped: 0, items: [] } });
+    (api.roles.list as jest.Mock).mockResolvedValue({ data: [] });
+    (api.people.list as jest.Mock).mockResolvedValue({ data: { data: [] } });
+    (api.people.getUtilization as jest.Mock).mockResolvedValue({ data: [] });
+    (api.iterations.list as jest.Mock).mockResolvedValue({ data: { data: [] } });
+  });
+
+  const rowClassOf = (name: string) => {
+    const el = [...document.querySelectorAll('.requirements-name-text')]
+      .find((e) => (e.getAttribute('title') ?? e.textContent) === name);
+    return el?.closest('.requirements-row')?.className ?? '';
+  };
+
+  test('无筛选: 行无命中/上下文类;搜索后: 命中行高亮、上下文行弱化', async () => {
+    renderBoard();
+    await waitFor(() => expect(screen.getByText('Parent SR')).toBeInTheDocument());
+    expect(rowClassOf('Parent SR')).not.toContain('requirements-row--hit');
+    expect(rowClassOf('Parent SR')).not.toContain('requirements-row--context');
+
+    fireEvent.change(screen.getByTestId('search-input'), { target: { value: 'Payment' } });
+    // 等命中类出现(防抖 150ms 后过滤才生效——行本身未过滤时就在 DOM,存在≠已筛)
+    await waitFor(() => expect(rowClassOf('Payment AR hit')).toContain('requirements-row--hit'));
+    // 命中: 两个 Payment 行
+    expect(rowClassOf('Payment standalone SR')).toContain('requirements-row--hit');
+    // 上下文: 父 SR + 未命中兄弟 AR(树语义保留但弱化)
+    expect(rowClassOf('Parent SR')).toContain('requirements-row--context');
+    expect(rowClassOf('Sibling AR')).toContain('requirements-row--context');
+  });
+
+  test('计数文案区分 命中/连同上下文', async () => {
+    renderBoard();
+    await waitFor(() => expect(screen.getByText('Parent SR')).toBeInTheDocument());
+    fireEvent.change(screen.getByTestId('search-input'), { target: { value: 'Payment' } });
+    await waitFor(() => expect((document.querySelector('.board-count')?.textContent ?? '').toLowerCase()).toMatch(/hit|命中/));
+    const countText = document.querySelector('.board-count')?.textContent ?? '';
+    expect(countText).toContain('2');
+    expect(countText).toContain('4');
+    // 清筛选恢复普通计数
+    fireEvent.click(screen.getByTestId('reset-filters'));
+    await waitFor(() => expect(document.querySelector('.board-count')?.textContent).not.toMatch(/hit|命中/i));
+  });
+
+  test('搜索自动展开命中路径;清筛选恢复原折叠', async () => {
+    renderBoard();
+    await waitFor(() => expect(screen.getByText('Parent SR')).toBeInTheDocument());
+    // 先折叠 sr-mix
+    fireEvent.click(document.querySelector('.req-sr-toggle') as HTMLElement);
+    await waitFor(() => expect(screen.queryByText('Sibling AR')).not.toBeInTheDocument());
+    // 搜索命中其子行 → 自动展开
+    fireEvent.change(screen.getByTestId('search-input'), { target: { value: 'Payment' } });
+    await waitFor(() => expect(screen.getByText('Payment AR hit')).toBeInTheDocument());
+    expect(screen.getByText('Sibling AR')).toBeInTheDocument(); // 展开后上下文也可见
+    // 清筛选 → 恢复折叠
+    fireEvent.click(screen.getByTestId('reset-filters'));
+    await waitFor(() => expect(screen.getByText('Parent SR')).toBeInTheDocument());
+    await waitFor(() => expect(screen.queryByText('Sibling AR')).not.toBeInTheDocument());
+  });
+
+  test('任务视图同样区分命中/上下文', async () => {
+    renderBoard();
+    await waitFor(() => expect(screen.getByText('Parent SR')).toBeInTheDocument());
+    // backlog 只有 ar-miss 命中
+    fireEvent.click(screen.getByTestId('task-view-pendingSchedule'));
+    await waitFor(() => expect(screen.getByText('Sibling AR')).toBeInTheDocument());
+    expect(rowClassOf('Sibling AR')).toContain('requirements-row--hit');
+    expect(rowClassOf('Parent SR')).toContain('requirements-row--context');
+    expect(rowClassOf('Payment AR hit')).toContain('requirements-row--context');
+  });
+});

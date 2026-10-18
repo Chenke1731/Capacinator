@@ -483,11 +483,34 @@ export function Projects() {
     [demandRows, attrMatch]
   );
 
+  /** U19 树筛选谓词(单源): trees 保留逻辑与命中高亮共用同一 match */
+  const treeFilterActive = Boolean(
+    filters.search || filters.tag_id || filters.component || filters.subtype
+    || filters.product_version || filters.release_version || taskView || warningFilter
+  );
+  const matchRow = useMemo(
+    () => (p: any) => attrMatch(p) && (!taskView || taskViewPredicate(taskView, p)),
+    [attrMatch, taskView]
+  );
+  /** U19 命中行集合(筛选期才有——区分真命中与树语义保留的上下文行) */
+  const hitIds = useMemo(
+    () => (treeFilterActive ? new Set(demandRows.filter(matchRow).map((p: any) => p.id as string)) : null),
+    [treeFilterActive, demandRows, matchRow]
+  );
+  /** U19 命中路径自动展开: 有命中子行的 SR 在筛选期不折叠 */
+  const srAutoExpand = useMemo(() => {
+    if (!hitIds) return new Set<string>();
+    const s = new Set<string>();
+    for (const r of demandRows) {
+      if (r.parent_id && hitIds.has(r.id)) s.add(r.parent_id);
+    }
+    return s;
+  }, [hitIds, demandRows]);
+
   // SR→AR: 筛选作用于行(父或任一子命中 → 整树保留); 平铺排序 优先级→版本→名称
   const trees = useMemo(() => {
-    const match = (p: any) => attrMatch(p) && (!taskView || taskViewPredicate(taskView, p));
-    const anyFilter = filters.search || filters.tag_id || filters.component || filters.subtype
-      || filters.product_version || filters.release_version || taskView || warningFilter;
+    const match = matchRow;
+    const anyFilter = treeFilterActive;
     if (!anyFilter) return sortTrees(buildTree(demandRows));
     // 命中父或任一子 → 父及其全部子行保留
     const childrenOf = new Map<string, any[]>();
@@ -504,7 +527,7 @@ export function Projects() {
     const keptIds = new Set(keptParents.map((p: any) => p.id));
     const keptChildren = demandRows.filter((p: any) => p.parent_id && keptIds.has(p.parent_id));
     return sortTrees(buildTree([...keptParents, ...keptChildren]));
-  }, [demandRows, taskView, attrMatch, warningFilter, filters.search, filters.tag_id, filters.component, filters.subtype, filters.product_version, filters.release_version]);
+  }, [demandRows, matchRow, treeFilterActive]);
 
   /** 表格容器宽(余量→列间距 分配的基础;jsdom 无 ResizeObserver 时跳过) */
   const [containerW, setContainerW] = useState(0);
@@ -517,8 +540,29 @@ export function Projects() {
     if (el && Math.abs(el.clientWidth - containerW) > 1) setContainerW(el.clientWidth);
   });
 
-  /** 虚拟化平铺(P5+P6 根治): 树 → 均匀行序列,折叠态决定子行是否入列 */
-  const flatRows = useMemo(() => flattenTrees(trees, collapsedSR), [trees, collapsedSR]);
+  /** 虚拟化平铺(P5+P6 根治): 树 → 均匀行序列,折叠态决定子行是否入列。
+   *  U19: 筛选期命中路径自动展开(collapsedSR 本体不动——快照/恢复见下) */
+  const flatRows = useMemo(
+    () => flattenTrees(
+      trees,
+      treeFilterActive ? new Set([...collapsedSR].filter((id) => !srAutoExpand.has(id))) : collapsedSR
+    ),
+    [trees, collapsedSR, treeFilterActive, srAutoExpand]
+  );
+
+  /** U19 折叠快照/恢复: 进入筛选态前存原折叠,清除筛选恢复(用户在筛选期
+   *  的手动折叠不被覆盖,恢复以进入前状态为准——回到"我原来的视角") */
+  const wasFilteredRef = useRef(false);
+  const preFilterCollapsedRef = useRef<Set<string> | null>(null);
+  useEffect(() => {
+    if (treeFilterActive && !wasFilteredRef.current) {
+      preFilterCollapsedRef.current = new Set(collapsedSR);
+    } else if (!treeFilterActive && wasFilteredRef.current && preFilterCollapsedRef.current) {
+      setCollapsedSR(new Set(preFilterCollapsedRef.current));
+      preFilterCollapsedRef.current = null;
+    }
+    wasFilteredRef.current = treeFilterActive;
+  }, [treeFilterActive]);
   const rowVirtualizer = useVirtualizer({
     count: flatRows.length,
     getScrollElement: () => tableRef.current,
@@ -869,6 +913,10 @@ export function Projects() {
       <div className="projects-toolbar" data-testid="filter-bar">
         <span className="board-count">
           {(() => {
+            // U19: 筛选期区分 真命中/连同上下文(树语义保留的父与兄弟)
+            if (treeFilterActive && hitIds && hitIds.size < flatRows.length) {
+              return t('projects:board.countHitContext', { hit: hitIds.size, total: flatRows.length });
+            }
             const arCount = trees.reduce((n, tr) => n + tr.children.length, 0);
             return arCount > 0
               ? t('projects:board.countSummaryWithAr', { count: trees.length, ar: arCount })
@@ -1115,10 +1163,11 @@ export function Projects() {
           const srCollapsed = isSR && collapsedSR.has(project.id);
 
           if (row.kind === 'plain') {
+          const hitCls = hitIds ? (hitIds.has(project.id) ? 'requirements-row--hit' : 'requirements-row--context') : '';
           return (
             <div
               key={project.id}
-              className={`requirements-row ${warned ? 'requirements-row--warned' : ''} ${project.id === flashId ? 'requirements-row--flash' : ''}`}
+              className={`requirements-row ${hitCls} ${warned ? 'requirements-row--warned' : ''} ${project.id === flashId ? 'requirements-row--flash' : ''}`}
               onClick={() => navigate(`/projects/${project.id}`)}
             >
               <span className="req-select" onClick={(e) => e.stopPropagation()}>
@@ -1214,10 +1263,11 @@ export function Projects() {
           const agg = row.agg!;
           // 勾 SR=整棵子树入选(三态框),与批量删除的后代闭包语义一致
           const subtreeIds = [project.id as string, ...(row.children ?? []).map((c: any) => c.id as string)];
+          const hitCls = hitIds ? (hitIds.has(project.id) ? 'requirements-row--hit' : 'requirements-row--context') : '';
           return (
             <div
               key={project.id}
-              className={`requirements-row requirements-row--sr ${warned ? 'requirements-row--warned' : ''} ${project.id === flashId ? 'requirements-row--flash' : ''}`}
+              className={`requirements-row requirements-row--sr ${hitCls} ${warned ? 'requirements-row--warned' : ''} ${project.id === flashId ? 'requirements-row--flash' : ''}`}
               onClick={() => navigate(`/projects/${project.id}`)}
             >
               <span className="req-select" onClick={(e) => e.stopPropagation()}>
@@ -1349,7 +1399,7 @@ export function Projects() {
           const renderChildRow = (child: any) => (
                   <div
                     key={child.id}
-                    className={`requirements-row requirements-row--child ${child.id === flashId ? 'requirements-row--flash' : ''}`}
+                    className={`requirements-row requirements-row--child ${hitIds ? (hitIds.has(child.id) ? 'requirements-row--hit' : 'requirements-row--context') : ''} ${child.id === flashId ? 'requirements-row--flash' : ''}`}
                     onClick={() => navigate(`/projects/${child.id}`)}
                   >
                     <span className="req-select" onClick={(e) => e.stopPropagation()}>

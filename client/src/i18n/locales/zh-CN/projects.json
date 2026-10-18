@@ -501,7 +501,20 @@
     "bulkUpdated": "已更新 {{n}} 项",
     "bulkUpdatedSkip": "已更新 {{n}} 项，跳过 {{skip}} 个 SR 行",
     "bulkTooMany": "已选 {{n}} 项，超过单次批量上限 {{limit}}，请缩小选择范围后重试",
-    "bulkTagConflict": "已在另一段勾选，请先取消另一侧"
+    "bulkTagConflict": "已在另一段勾选，请先取消另一侧",
+    "bulkVisibility": "可见 {{v}} · 隐藏 {{h}}",
+    "bulkClearHidden": "清除隐藏 ({{n}})",
+    "bulkClearHiddenTitle": "把不在当前视野的选中项移出选择集",
+    "bulkRoster": "清单 ({{n}})",
+    "bulkRosterTitle": "选中项——点击定位",
+    "bulkRosterHidden": "隐藏",
+    "bulkRosterLocateHidden": "不在视野：清除筛选并滚动到该行",
+    "bulkIterFacts": "SR {{sr}} · AR {{ar}} · {{skip}} 个有子行的 SR 将跳过",
+    "bulkIterWarnLate": "{{n}} 项主投入窗口越过该迭代末",
+    "bulkIterWarnRhythm": "{{n}} 项 RP 与迭代季度不符",
+    "bulkDeleteConfirmBreakdown": "删除 {{n}} 项？（SR {{sr}} / AR {{ar}}）",
+    "bulkVersionEmpty": "空",
+    "bulkClearVersionHint": "{{n}} 项已有值将被清空"
   },
   "version": {
     "productTitle": "产品版本，点击填写（如 B）",

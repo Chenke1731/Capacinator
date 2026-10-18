@@ -657,6 +657,27 @@ export function Projects() {
     }
     return s;
   }, [selectedIds, rowById]);
+  /** U18 选择可见性: 可见行集合/可见选中数/选中行原文(清单与预检用) */
+  const visibleRowIdSet = useMemo(() => new Set(viewRowIds), [viewRowIds]);
+  const visibleSelectedCount = useMemo(
+    () => [...selectedIds].filter((id) => visibleRowIdSet.has(id)).length,
+    [selectedIds, visibleRowIdSet]
+  );
+  const selectionRowsRaw = useMemo(
+    () => [...selectedIds].map((id) => rowById.get(id)).filter(Boolean) as Array<Record<string, any>>,
+    [selectedIds, rowById]
+  );
+  /** U18 定位对象: 清全部筛选让目标回视野,复用 flash 滚动+闪烁 */
+  const locateSelected = (id: string) => {
+    setSearchInput('');
+    setFilters({
+      search: '', lifecycle_state: '', tag_id: '', component: '', subtype: '',
+      product_version: '', release_version: ''
+    });
+    setTaskView('');
+    setWarningFilter('');
+    setFlashId(id);
+  };
 
   /** 选择集↔活数据对账(2026-10-11 审视#1): 任何删除路径(行内删/详情页删/
    *  批量删/外部改库)在数据刷新后自动移出已消失行——否则死 id 毒化后续批量
@@ -1483,6 +1504,11 @@ export function Projects() {
           onBatchDelete={() => batchDeleteMutation.mutate(selectedList)}
           allTags={tags}
           tagsOnSelection={tagsOnSelection}
+          visibleCount={visibleSelectedCount}
+          selectionRows={selectionRowsRaw}
+          visibleIds={visibleRowIdSet}
+          onClearHidden={() => setSelectedIds((prev) => new Set([...prev].filter((id) => visibleRowIdSet.has(id))))}
+          onLocate={locateSelected}
         />
       )}
 

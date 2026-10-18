@@ -2097,6 +2097,27 @@ input[type="checkbox"].settings-checkbox,
   border: none; background: none; color: var(--text-secondary); cursor: pointer;
 }
 .warn-filter-clear:hover { color: var(--text-primary); }
+
+/* ── U18 批量选择可见性(2026-10-18,IP-06d): 总/可见/隐藏 + 清单 + 预检摘要 ── */
+.req-bulk-sub { font-size: 11px; color: var(--text-secondary); margin-left: 4px; }
+.req-bulk-btn--ghost { color: var(--text-secondary); }
+.bulk-roster-list { display: grid; gap: 2px; max-height: 260px; overflow-y: auto; }
+.bulk-roster-item {
+  display: flex; align-items: center; gap: 6px; width: 100%;
+  padding: 3px 6px; border: none; background: none; cursor: pointer;
+  font-size: var(--b-fs-body); color: var(--text-primary); text-align: left;
+  border-radius: var(--b-r-sm, 6px);
+}
+.bulk-roster-item:hover { background: var(--bg-secondary, color-mix(in srgb, var(--neutral-surface-tint) 12%, transparent)); }
+.bulk-roster-kind { font-size: 10px; font-weight: 600; color: var(--text-secondary); border: 1px solid var(--border-color); border-radius: 4px; padding: 0 3px; flex: none; }
+.bulk-roster-name { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.bulk-roster-flag { font-size: 10px; color: var(--status-warning-text); flex: none; }
+.bulk-roster-item--hidden .bulk-roster-name { color: var(--text-secondary); }
+.bulk-iter-facts { font-size: 11px; color: var(--text-secondary); padding: 2px 6px 6px; border-bottom: 1px solid var(--border-color); margin-bottom: 4px; }
+.bulk-iter-warn { font-size: 11px; color: var(--status-warning-text); font-weight: 600; margin-left: auto; flex: none; }
+.bulk-version-dist { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 6px; }
+.bulk-version-dist-chip { font-size: 11px; color: var(--text-secondary); border: 1px solid var(--border-color); border-radius: 4px; padding: 0 5px; }
+.bulk-version-hint { font-size: 11px; color: var(--status-warning-text); margin-bottom: 6px; }
 .row-detail-children-title { font-size: 12px; font-weight: 600; color: var(--text-secondary); }
 .row-detail-children ul { margin: 0; padding-left: 16px; }
 .row-detail-children li { font-size: var(--b-fs-body); color: var(--text-primary); }

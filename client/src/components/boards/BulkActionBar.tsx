@@ -24,6 +24,12 @@ interface BulkActionBarProps {
   onBatchDelete: () => unknown;
   allTags: Array<{ id: string | number; name: string; color_code?: string | null }>;
   tagsOnSelection: Set<string>;
+  /** U18 批量选择可见性: 可见/隐藏计数 + 选中行原文 + 定位/清隐藏回调 */
+  visibleCount: number;
+  selectionRows: Array<Record<string, any>>;
+  visibleIds: Set<string>;
+  onClearHidden: () => void;
+  onLocate: (id: string) => void;
 }
 
 /** 触发按钮 + 锚定气泡骨架(children 收 close 用于应用后收起)。
@@ -65,7 +71,7 @@ function BarPop({ popClass, width, height, label, title, disabled, children, tes
 
 const PRIORITY_LABELS = ['highest', 'high', 'medium', 'low', 'lowest'] as const;
 
-export function BulkActionBar({ count, pending, onClear, onBatchUpdate, onBatchDelete, allTags, tagsOnSelection }: BulkActionBarProps) {
+export function BulkActionBar({ count, pending, onClear, onBatchUpdate, onBatchDelete, allTags, tagsOnSelection, visibleCount, selectionRows, visibleIds, onClearHidden, onLocate }: BulkActionBarProps) {
   const { t } = useTranslation();
   const [confirmingDelete, setConfirmingDelete] = useState(false);
   useEffect(() => {
@@ -79,6 +85,37 @@ export function BulkActionBar({ count, pending, onClear, onBatchUpdate, onBatchD
     queryFn: async () => (await api.iterations.list()).data
   });
   const iterations: any[] = Array.isArray(itersResp) ? itersResp : (itersResp?.data ?? []);
+
+  // ── U18 选择可见性/预检事实(全部由选中行原文现算,不加请求) ──
+  const hiddenCount = Math.max(0, count - visibleCount);
+  const srCount = selectionRows.filter((r) => !r.parent_id).length;
+  const arCount = selectionRows.filter((r) => r.parent_id).length;
+  // 有子行的 SR(迭代列=子行聚合只读窗,挂迭代被服务端跳过)
+  const childParentIds = new Set(selectionRows.filter((r) => r.parent_id).map((r) => r.parent_id));
+  const iterSkipSr = selectionRows.filter((r) => !r.parent_id && childParentIds.has(r.id)).length;
+  const valueDist = (field: 'product_version' | 'release_version') => {
+    const m = new Map<string, number>();
+    for (const r of selectionRows) {
+      const v = String(r[field] ?? '').trim() || '∅';
+      m.set(v, (m.get(v) ?? 0) + 1);
+    }
+    return [...m.entries()].map(([value, c]) => ({ value, count: c }));
+  };
+  const hasValueCount = (field: 'product_version' | 'release_version') =>
+    selectionRows.filter((r) => String(r[field] ?? '').trim() !== '').length;
+  /** 可计算冲突摘要: 该迭代窗口下,主投入越窗数 + RP 节拍不符数(行内事实现算) */
+  const iterConflicts = (it: any) => {
+    let late = 0;
+    let rhythm = 0;
+    const end = String(it.end_date ?? '');
+    const startD = it.start_date ? new Date(String(it.start_date) + 'T00:00:00') : null;
+    const quarter = startD ? `${String(startD.getFullYear()).slice(2)}.RP${Math.floor(startD.getMonth() / 3) + 1}` : null;
+    for (const r of selectionRows) {
+      if (end && r.primary_dev?.end_date && String(r.primary_dev.end_date).slice(0, 10) > end) late += 1;
+      if (quarter && String(r.release_version ?? '').trim() && String(r.release_version).trim() !== quarter) rhythm += 1;
+    }
+    return { late, rhythm };
+  };
 
   const apply = (patch: BulkPatch, close: () => void) => {
     close();
@@ -96,7 +133,18 @@ export function BulkActionBar({ count, pending, onClear, onBatchUpdate, onBatchD
 
   return (
     <div className="req-bulk-bar" data-testid="req-bulk-bar">
-      <span className="req-bulk-count">{t('projects:board.bulkSelected', { n: count })}</span>
+      <span className="req-bulk-count">
+        {t('projects:board.bulkSelected', { n: count })}
+        {hiddenCount > 0 && (
+          <span className="req-bulk-sub"> {t('projects:board.bulkVisibility', { v: visibleCount, h: hiddenCount })}</span>
+        )}
+      </span>
+      {hiddenCount > 0 && (
+        <button type="button" data-testid="bulk-clear-hidden" className="req-bulk-btn req-bulk-btn--ghost"
+                title={t('projects:board.bulkClearHiddenTitle')} onClick={onClearHidden}>
+          {t('projects:board.bulkClearHidden', { n: hiddenCount })}
+        </button>
+      )}
 
       <BarPop popClass="bulk-pri-pop" width={200} height={260} testId="bulk-priority-btn"
               label={t('projects:board.bulkPriority')} title={t('projects:prioritySelect.title')} disabled={pending}>
@@ -119,7 +167,8 @@ export function BulkActionBar({ count, pending, onClear, onBatchUpdate, onBatchD
                 label={field === 'product_version' ? t('projects:board.bulkProductVersion') : t('projects:board.bulkReleaseVersion')}
                 title={field === 'product_version' ? t('projects:version.productTitle') : t('projects:version.releaseTitle')}
                 disabled={pending}>
-          {(close) => <VersionForm n={count} onApply={(v) => apply({ [field]: v }, close)} />}
+          {(close) => <VersionForm n={count} dist={valueDist(field)} existing={hasValueCount(field)}
+                                  onApply={(v) => apply({ [field]: v }, close)} />}
         </BarPop>
       ))}
 
@@ -135,6 +184,9 @@ export function BulkActionBar({ count, pending, onClear, onBatchUpdate, onBatchD
               label={t('projects:board.bulkIteration')} title={t('projects:board.colIteration')} disabled={pending}>
         {(close) => (
           <div className="cell-pop-list">
+            <div className="bulk-iter-facts" data-testid="bulk-iter-facts">
+              {t('projects:board.bulkIterFacts', { sr: srCount, ar: arCount, skip: iterSkipSr })}
+            </div>
             <button type="button" className="cell-pop-item" onClick={() => apply({ iteration_id: null }, close)}>
               <X size={13} />
               <span className="cell-pop-item-label">{t('projects:board.bulkIterDetach')}</span>
@@ -142,15 +194,45 @@ export function BulkActionBar({ count, pending, onClear, onBatchUpdate, onBatchD
             {iterations.length === 0 && (
               <div className="bulk-pop-empty">{t('projects:board.bulkIterNone')}</div>
             )}
-            {iterations.map((it: any) => (
-              <button key={it.id} type="button" className="cell-pop-item"
-                      onClick={() => apply({ iteration_id: it.id }, close)}>
-                <span className="cell-pop-item-label">{it.name}</span>
-                <span className="bulk-pop-window">
-                  {String(it.start_date ?? '').slice(5)}~{String(it.end_date ?? '').slice(5)}
-                </span>
-              </button>
-            ))}
+            {iterations.map((it: any) => {
+              const { late, rhythm } = iterConflicts(it);
+              const warn = late + rhythm;
+              return (
+                <button key={it.id} type="button" className="cell-pop-item"
+                        onClick={() => apply({ iteration_id: it.id }, close)}>
+                  <span className="cell-pop-item-label">{it.name}</span>
+                  <span className="bulk-pop-window">
+                    {String(it.start_date ?? '').slice(5)}~{String(it.end_date ?? '').slice(5)}
+                  </span>
+                  {warn > 0 && (
+                    <span className="bulk-iter-warn" title={
+                      t('projects:board.bulkIterWarnLate', { n: late }) + ' / ' + t('projects:board.bulkIterWarnRhythm', { n: rhythm })
+                    }>⚠{warn}</span>
+                  )}
+                </button>
+              );
+            })}
+          </div>
+        )}
+      </BarPop>
+
+      <BarPop popClass="bulk-roster-pop" width={300} height={340} testId="bulk-roster-btn"
+              label={t('projects:board.bulkRoster', { n: count })} title={t('projects:board.bulkRosterTitle')} disabled={pending}>
+        {(close) => (
+          <div className="bulk-roster-list">
+            {selectionRows.map((r) => {
+              const hidden = !visibleIds.has(String(r.id));
+              return (
+                <button key={String(r.id)} type="button"
+                        className={`bulk-roster-item ${hidden ? 'bulk-roster-item--hidden' : ''}`}
+                        title={hidden ? t('projects:board.bulkRosterLocateHidden') : undefined}
+                        onClick={() => { onLocate(String(r.id)); close(); }}>
+                  <span className="bulk-roster-kind">{r.parent_id ? 'AR' : 'SR'}</span>
+                  <span className="bulk-roster-name">{r.name}</span>
+                  {hidden && <span className="bulk-roster-flag">{t('projects:board.bulkRosterHidden')}</span>}
+                </button>
+              );
+            })}
           </div>
         )}
       </BarPop>
@@ -164,7 +246,9 @@ export function BulkActionBar({ count, pending, onClear, onBatchUpdate, onBatchD
         disabled={pending}
         onClick={doDelete}
       >
-        {confirmingDelete ? t('projects:board.bulkDeleteConfirm', { n: count }) : t('projects:board.bulkDelete')}
+        {confirmingDelete
+          ? t('projects:board.bulkDeleteConfirmBreakdown', { n: count, sr: srCount, ar: arCount })
+          : t('projects:board.bulkDelete')}
       </button>
       <button
         type="button"
@@ -180,12 +264,26 @@ export function BulkActionBar({ count, pending, onClear, onBatchUpdate, onBatchD
 }
 
 /** 版本输入: 空输入=清空(按钮文案显式标注后果后仍一步执行——准破坏性可见) */
-function VersionForm({ n, onApply }: { n: number; onApply: (v: string | null) => void }) {
+function VersionForm({ n, dist, existing, onApply }: {
+  n: number;
+  dist: Array<{ value: string; count: number }>;
+  existing: number;
+  onApply: (v: string | null) => void;
+}) {
   const { t } = useTranslation();
   const [value, setValue] = useState('');
   const trimmed = value.trim();
   return (
     <div className="bulk-version-form">
+      {/* U18 预检: 选中项当前值分布——覆盖面与清空后果在选择前可见 */}
+      <div className="bulk-version-dist">
+        {dist.map((d) => (
+          <span key={d.value} className="bulk-version-dist-chip">{d.value === '∅' ? t('projects:board.bulkVersionEmpty') : d.value}×{d.count}</span>
+        ))}
+      </div>
+      {trimmed === '' && existing > 0 && (
+        <div className="bulk-version-hint">{t('projects:board.bulkClearVersionHint', { n: existing })}</div>
+      )}
       <input
         className="inline-edit-input bulk-version-input"
         autoFocus

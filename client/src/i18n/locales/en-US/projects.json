@@ -503,7 +503,20 @@
     "bulkUpdated": "Updated {{n}} items",
     "bulkUpdatedSkip": "Updated {{n}} items, skipped {{skip}} SR rows",
     "bulkTooMany": "{{n}} items selected — above the batch limit of {{limit}}. Narrow the selection and retry",
-    "bulkTagConflict": "Already picked in the other section — unset it there first"
+    "bulkTagConflict": "Already picked in the other section — unset it there first",
+    "bulkVisibility": "visible {{v}} · hidden {{h}}",
+    "bulkClearHidden": "Drop hidden ({{n}})",
+    "bulkClearHiddenTitle": "Remove off-screen selections from the selection set",
+    "bulkRoster": "Roster ({{n}})",
+    "bulkRosterTitle": "Selected items — click to locate",
+    "bulkRosterHidden": "hidden",
+    "bulkRosterLocateHidden": "Off-screen: clears filters and scrolls to this row",
+    "bulkIterFacts": "SR {{sr}} · AR {{ar}} · {{skip}} SR with children will be skipped",
+    "bulkIterWarnLate": "{{n}} primary dev windows end past this iteration",
+    "bulkIterWarnRhythm": "{{n}} RP values mismatch the iteration quarter",
+    "bulkDeleteConfirmBreakdown": "Delete {{n}}? (SR {{sr}} / AR {{ar}})",
+    "bulkVersionEmpty": "empty",
+    "bulkClearVersionHint": "{{n}} items with a value will be cleared"
   },
   "version": {
     "productTitle": "Product version, click to edit (e.g. B)",

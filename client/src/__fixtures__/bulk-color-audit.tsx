@@ -15,6 +15,8 @@ export function mountBulkAudit(pending = false) {
   createRoot(host).render(<QueryClientProvider client={query}>
     <BulkActionBar count={3} pending={pending} onClear={() => {}} onBatchUpdate={unexpected} onBatchDelete={unexpected}
       allTags={[{id:'audit-add',name:'UI审计·添加'},{id:'audit-remove',name:'UI审计·移除'}]}
-      tagsOnSelection={new Set(['audit-add','audit-remove'])} />
+      tagsOnSelection={new Set(['audit-add','audit-remove'])}
+      visibleCount={3} selectionRows={[]} visibleIds={new Set()}
+      onClearHidden={() => {}} onLocate={() => {}} />
   </QueryClientProvider>);
 }

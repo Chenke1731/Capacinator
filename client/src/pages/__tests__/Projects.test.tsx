@@ -1414,7 +1414,7 @@ describe('Requirements Board (需求台)', () => {
       const delBtn = screen.getByTestId('bulk-delete-btn');
       expect(delBtn.textContent).toBe('Delete');
       fireEvent.click(delBtn); // 第一次: 进入确认态
-      expect(delBtn.textContent).toContain('Delete 1 items?');
+      expect(delBtn.textContent).toContain('Delete 1?'); // U18: 确认文案带 SR/AR 构成
       fireEvent.click(delBtn); // 第二次: 执行
 
       await waitFor(() => {
@@ -1920,5 +1920,169 @@ describe('Actionable warnings (U17)', () => {
     await waitFor(() => expect(screen.queryByText('Clean Peer SR')).not.toBeInTheDocument());
     fireEvent.click(screen.getByTestId('reset-filters'));
     await waitFor(() => expect(screen.getByText('Clean Peer SR')).toBeInTheDocument());
+  });
+});
+
+// ── U18 批量选择可见性(IP-06d,2026-10-18): 条上 总数/可见/隐藏 + 选中清单 ──
+// (点击定位=清筛选+滚到行+flash) + 清除隐藏;版本/迭代/删除弹层预检摘要
+// (SR/AR 数、值分布、跳过数、可计算冲突徽章)。
+describe('Bulk selection visibility (U18)', () => {
+  const u18Rows = [
+    {
+      id: 'sr-u18a', seq_number: 41, name: 'Bulk SR A', parent_id: null,
+      project_type_id: 'type-1', project_type_name: '需求交付', project_sub_type_name: '标准需求',
+      lifecycle_state: 'backlog', lifecycle_warnings: [],
+      product_version: 'B', release_version: '26.RP4', priority: 2, tags: []
+    },
+    {
+      id: 'ar-u18a', seq_number: 42, name: 'Bulk AR A1', parent_id: 'sr-u18a',
+      project_type_id: 'type-1', project_type_name: '需求交付', project_sub_type_name: '标准需求',
+      lifecycle_state: 'backlog', lifecycle_warnings: [],
+      product_version: '', release_version: '', priority: 3,
+      primary_dev: { person_name: '李开发', end_date: '2026-12-31' }, tags: []
+    },
+    {
+      id: 'sr-u18b', seq_number: 43, name: 'Bulk SR B', parent_id: null,
+      project_type_id: 'type-1', project_type_name: '需求交付', project_sub_type_name: '定制需求',
+      lifecycle_state: 'backlog', lifecycle_warnings: [],
+      product_version: 'A', release_version: '', priority: 1, tags: []
+    }
+  ];
+
+  const renderBoard = () => {
+    const queryClient = new QueryClient({ defaultOptions: { queries: { retry: false } } });
+    return render(
+      <QueryClientProvider client={queryClient}>
+        <Projects />
+      </QueryClientProvider>
+    );
+  };
+
+  const rowCheckbox = (idx: number) =>
+    document.querySelectorAll('.requirements-row .req-select input, .requirements-row .req-select [role="checkbox"], .requirements-row .req-select button')[idx];
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+    window.localStorage.clear();
+    Object.defineProperty(window, 'innerWidth', { writable: true, configurable: true, value: 1700 });
+    (useScenario as jest.Mock).mockReturnValue({
+      currentScenario: { id: 'baseline-0000-0000-0000-000000000000', name: 'Baseline' }
+    });
+    (api.projects.boardFeed as jest.Mock).mockResolvedValue({
+      data: { data: { data: u18Rows, total: u18Rows.length } }
+    });
+    (api.projects.list as jest.Mock).mockResolvedValue({ data: { data: u18Rows } });
+    (api.tags.list as jest.Mock).mockResolvedValue({ data: { data: [] } });
+    (api.projects.update as jest.Mock).mockResolvedValue({ data: {} });
+    (api.projects.delete as jest.Mock).mockResolvedValue({ data: {} });
+    (api.projects.batchDelete as jest.Mock).mockResolvedValue({ data: { deleted: 0, items: [] } });
+    (api.projects.batchUpdate as jest.Mock).mockResolvedValue({ data: { updated: 0, skipped: 0, items: [] } });
+    (api.roles.list as jest.Mock).mockResolvedValue({ data: [] });
+    (api.people.list as jest.Mock).mockResolvedValue({ data: { data: [] } });
+    (api.people.getUtilization as jest.Mock).mockResolvedValue({ data: [] });
+    (api.iterations.list as jest.Mock).mockResolvedValue({
+      data: { data: [
+        { id: 'it-x', name: '26FW45', start_date: '2026-11-02', end_date: '2026-11-29' },
+        { id: 'it-y', name: '26FW43', start_date: '2026-10-19', end_date: '2026-11-15' }
+      ] }
+    });
+  });
+
+  test('条上显示 总数/可见/隐藏;清除隐藏只留可见集', async () => {
+    renderBoard();
+    await waitFor(() => expect(screen.getByText('Bulk SR A')).toBeInTheDocument());
+    // 勾两棵树(全部 3 行)——平铺序: [0]=sr-u18b(P1) [1]=sr-u18a(P2,勾=整树2行)
+    const boxes = () => document.querySelectorAll('.requirements-row .req-select');
+    fireEvent.click(within(boxes()[0] as HTMLElement).getByRole('checkbox'));
+    fireEvent.click(within(boxes()[1] as HTMLElement).getByRole('checkbox'));
+    await waitFor(() => expect(screen.getByTestId('req-bulk-bar')).toBeInTheDocument());
+    expect(screen.getByTestId('req-bulk-bar').textContent).toContain('3');
+
+    // 筛掉 SR B(子类型=定制需求只剩 sr-u18b → 不对,子类型筛选定制需求=sr-u18b 树)——
+    // 用搜索词筛掉 B 树
+    fireEvent.change(screen.getByTestId('search-input'), { target: { value: 'Bulk SR A' } });
+    await waitFor(() => expect(screen.queryByText('Bulk SR B')).not.toBeInTheDocument());
+    // 条上: 总 3,可见 2(sr-u18a+ar-u18a),隐藏 1
+    const barText = screen.getByTestId('req-bulk-bar').textContent;
+    expect(barText).toContain('3');
+    expect(barText).toMatch(/2.*1/); // 可见2 隐藏1
+
+    fireEvent.click(screen.getByTestId('bulk-clear-hidden'));
+    await waitFor(() => expect(screen.getByTestId('req-bulk-bar').textContent).not.toContain('3'));
+    // 清筛选恢复全部
+    fireEvent.click(screen.getByTestId('reset-filters'));
+    await waitFor(() => expect(screen.getByText('Bulk SR B')).toBeInTheDocument());
+    await waitFor(() => expect(screen.getByTestId('req-bulk-bar').textContent).toContain('2'));
+  });
+
+  test('选中清单: 列名字+SR/AR;点隐藏项=清筛选+定位该行', async () => {
+    renderBoard();
+    await waitFor(() => expect(screen.getByText('Bulk SR A')).toBeInTheDocument());
+    const boxes = () => document.querySelectorAll('.requirements-row .req-select');
+    fireEvent.click(within(boxes()[0] as HTMLElement).getByRole('checkbox'));
+    fireEvent.click(within(boxes()[1] as HTMLElement).getByRole('checkbox'));
+    await waitFor(() => expect(screen.getByTestId('req-bulk-bar')).toBeInTheDocument());
+
+    fireEvent.change(screen.getByTestId('search-input'), { target: { value: 'Bulk SR A' } });
+    await waitFor(() => expect(screen.queryByText('Bulk SR B')).not.toBeInTheDocument());
+
+    fireEvent.click(screen.getByTestId('bulk-roster-btn'));
+    const roster = await waitFor(() => screen.getByTestId('bulk-roster-btn-popover'));
+    expect(roster.textContent).toContain('Bulk SR B');
+    expect(roster.textContent).toContain('SR');
+    expect(roster.textContent).toContain('AR');
+
+    // 点击隐藏项 Bulk SR B → 筛选被清 + 行回到视野
+    fireEvent.click(within(roster).getByText('Bulk SR B'));
+    await waitFor(() => expect(screen.getByText('Bulk SR A')).toBeInTheDocument());
+    expect(screen.getByText('Bulk SR B')).toBeInTheDocument();
+  });
+
+  test('版本弹层: 选中项当前值分布 + 清空后果计数', async () => {
+    renderBoard();
+    await waitFor(() => expect(screen.getByText('Bulk SR A')).toBeInTheDocument());
+    const boxes = () => document.querySelectorAll('.requirements-row .req-select');
+    fireEvent.click(within(boxes()[0] as HTMLElement).getByRole('checkbox'));
+    fireEvent.click(within(boxes()[1] as HTMLElement).getByRole('checkbox'));
+    await waitFor(() => expect(screen.getByTestId('req-bulk-bar')).toBeInTheDocument());
+
+    fireEvent.click(screen.getByTestId('bulk-product_version-btn'));
+    const pop = await waitFor(() => screen.getByTestId('bulk-product_version-btn-popover'));
+    // 分布(选中= sr-b:A + sr-a:B + ar:空): B×1 A×1 空×1
+    expect(pop.textContent).toContain('B×1');
+    expect(pop.textContent).toContain('A×1');
+    // 清空显式标后果: 2 项已有值将被清空
+    expect(pop.textContent).toContain('2 items with a value');
+  });
+
+  test('迭代弹层: SR/AR 数 + 有子行 SR 跳过提示 + 冲突徽章(节拍不符可计算)', async () => {
+    renderBoard();
+    await waitFor(() => expect(screen.getByText('Bulk SR A')).toBeInTheDocument());
+    const boxes = () => document.querySelectorAll('.requirements-row .req-select');
+    fireEvent.click(within(boxes()[0] as HTMLElement).getByRole('checkbox'));
+    fireEvent.click(within(boxes()[1] as HTMLElement).getByRole('checkbox'));
+    await waitFor(() => expect(screen.getByTestId('req-bulk-bar')).toBeInTheDocument());
+
+    fireEvent.click(screen.getByTestId('bulk-iteration-btn'));
+    const pop = await waitFor(() => screen.getByTestId('bulk-iteration-btn-popover'));
+    expect(pop.textContent).toContain('SR 2');
+    expect(pop.textContent).toContain('AR 1');
+    expect(pop.textContent).toContain('1'); // 1 个有子行 SR 将跳过
+    // it-x(11 月起=26.RP4) 对 sr-u18a 的 26.RP4 不冲突;it-y(10 月起=26.RP4? 10月=Q4→26.RP4)——
+    // 用 primary_dev 越窗: ar-u18a 主投入末 2026-12-31 > it-y 末 11-15 → it-y 带徽章
+    const badges = pop.querySelectorAll('.bulk-iter-warn');
+    expect(badges.length).toBeGreaterThan(0);
+  });
+
+  test('删除确认含 SR/AR 构成', async () => {
+    renderBoard();
+    await waitFor(() => expect(screen.getByText('Bulk SR A')).toBeInTheDocument());
+    const boxes = () => document.querySelectorAll('.requirements-row .req-select');
+    fireEvent.click(within(boxes()[1] as HTMLElement).getByRole('checkbox')); // sr-u18a 整树
+    await waitFor(() => expect(screen.getByTestId('req-bulk-bar')).toBeInTheDocument());
+    fireEvent.click(screen.getByTestId('bulk-delete-btn'));
+    const confirmText = screen.getByTestId('bulk-delete-btn').textContent;
+    expect(confirmText).toContain('SR 1');
+    expect(confirmText).toContain('AR 1');
   });
 });

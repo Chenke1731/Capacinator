@@ -6,6 +6,10 @@ import '@testing-library/jest-dom';
 import { EstimationPanel } from '../estimation/EstimationPanel';
 import { api } from '../../lib/api-client';
 
+jest.mock('../../contexts/ScenarioContext', () => ({
+  useScenario: () => ({ currentScenario: { id: 'baseline-0000-0000-0000-000000000000', name: 'Baseline' } })
+}));
+
 jest.mock('../../lib/api-client', () => ({
   api: {
     estimations: {
@@ -258,6 +262,8 @@ describe('EstimationPanel', () => {
     // R01/R02: 范围声明可见——总量口径/阶段节点未校验/单项不预留/非组合承诺
     expect(screen.getByText(/Total-window check/i)).toBeInTheDocument();
     expect(screen.getByText(/not a portfolio commitment/i)).toBeInTheDocument();
+    // R08 收尾: 场景+计算时点标注(冻结在校验时刻)
+    expect(screen.getByText(/Scenario: Baseline · computed /i)).toBeInTheDocument();
   });
 
   test('R08: editing the form after a check marks the old result stale', async () => {

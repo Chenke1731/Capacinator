@@ -1,5 +1,7 @@
 import { useMemo, useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useScenario } from '../../contexts/ScenarioContext';
+import { CheckMeta } from './CheckMeta';
 import { useTranslation } from 'react-i18next';
 import { Calculator, Save, Gauge, ClipboardCheck } from 'lucide-react';
 import { api } from '../../lib/api-client';
@@ -50,6 +52,7 @@ export function DesignEstimationPanel({
   designDeadline: string | null;
 }) {
   const { t } = useTranslation();
+  const { currentScenario } = useScenario();
   const queryClient = useQueryClient();
 
   const { data: estimationData, isLoading } = useQuery({
@@ -71,6 +74,9 @@ export function DesignEstimationPanel({
     estimationId: number;
     estimationCreatedAt: string;
     formSnapshot: DesignFormState;
+    /** R08 收尾: 场景/时点冻结在校验时刻 */
+    scenarioName?: string;
+    checkedAt?: string;
   } | null>(null);
   const [backfillForm, setBackfillForm] = useState({ actual_design_pm: '' });
   const [deviation, setDeviation] = useState<number | null>(null);
@@ -123,7 +129,13 @@ export function DesignEstimationPanel({
       const response = await api.designEstimations.check(current.id, {});
       return {
         result: (response.data as any)?.data ?? response.data,
-        version: { estimationId: current.id, estimationCreatedAt: current.created_at, formSnapshot: form }
+        version: {
+          estimationId: current.id,
+          estimationCreatedAt: current.created_at,
+          formSnapshot: form,
+          scenarioName: currentScenario?.name ?? 'Baseline',
+          checkedAt: new Date().toISOString()
+        }
       };
     },
     onSuccess: (payload) => {
@@ -240,6 +252,7 @@ export function DesignEstimationPanel({
                 })}
               </span>
             )}
+            <CheckMeta scenarioName={checkContext?.scenarioName} checkedAt={checkContext?.checkedAt} />
             {checkStale && <Badge variant="destructive">{t('projects:estimation.checkStale')}</Badge>}
             <span className="text-muted">
               {checkResult.window.start} → {checkResult.window.deadline}（{checkResult.window.months} {t('projects:estimation.months')}）
@@ -262,6 +275,8 @@ export function DesignEstimationPanel({
               <SideCheckRow side={checkResult.design} data={checkResult.design} />
             </tbody>
           </table>
+          {/* R01/R02: 范围声明——设计侧校验同为单项总量口径,不假装已验证的范围 */}
+          <p className="text-muted estimation-scope-note">{t('projects:estimation.scopeNote')}</p>
           <p className="text-muted estimation-assumptions">
             {t('projects:designEstimation.capacityNote')}
           </p>

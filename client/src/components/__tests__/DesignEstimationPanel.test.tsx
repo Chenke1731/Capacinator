@@ -20,6 +20,10 @@ jest.mock('../../lib/api-client', () => ({
 const mockedList = api.designEstimations.listByProject as jest.Mock;
 const mockedCreate = api.designEstimations.create as jest.Mock;
 const mockedBackfill = api.designEstimations.backfill as jest.Mock;
+jest.mock('../../contexts/ScenarioContext', () => ({
+  useScenario: () => ({ currentScenario: { id: 'baseline-0000-0000-0000-000000000000', name: 'Baseline' } })
+}));
+
 const mockedCheck = api.designEstimations.check as jest.Mock;
 
 const renderPanel = () => {
@@ -149,6 +153,10 @@ describe('DesignEstimationPanel backfill (IP-07a / C11 / C12)', () => {
 
     await userEvent.click(screen.getByRole('button', { name: /Design deadline check/i }));
     expect(await screen.findByText(/Based on saved version #3/i)).toBeInTheDocument();
+    // R08 收尾: 场景+计算时点标注(冻结在校验时刻)
+    expect(screen.getByText(/Scenario: Baseline · computed /i)).toBeInTheDocument();
+    // R01/R02: 范围声明可见(设计侧校验同为单项总量口径)
+    expect(screen.getByText(/Total-window check/i)).toBeInTheDocument();
     expect(screen.queryByText(/Inputs changed/i)).not.toBeInTheDocument();
 
     const pmInput = screen.getByLabelText(/Rough design effort/i);

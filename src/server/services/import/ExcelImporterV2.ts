@@ -50,6 +50,10 @@ export interface ImportResultV2 {
     roles: string[];
     locations: string[];
   };
+  /** IP-05 续批(2026-10-20):同名撞库明细(people/projects),预览冲突面板与执行拒绝同源 */
+  conflicts?: string[];
+  /** 本批次实际创建的业务实体(人员/项目)——预览逐实体清单与执行同源 */
+  createdEntities?: Array<{ type: string; name: string }>;
 }
 
 export class ExcelImporterV2 {
@@ -61,6 +65,10 @@ export class ExcelImporterV2 {
   // 本次导入实际新建数(不是全表存量):imported.locations/availabilityOverrides
   // 曾取整表 count,预览口径下会把存量记录计成"新增承诺"(IP-05b)
   private createdLocations = 0;
+  // IP-05 续批(2026-10-20):同名冲突清单+实际新建实体,importFromFile 开头重置——
+  // 预览(dryRun)与执行读同一份
+  private importConflicts: string[] = [];
+  private createdEntities: Array<{ type: string; name: string }> = [];
   private createdAvailabilityOverrides = 0;
 
   constructor(db?: any) {
@@ -625,6 +633,17 @@ export class ExcelImporterV2 {
 
         if (!personName) continue;
 
+        // IP-05 续批(2026-10-20/§4-260):同名≠身份——拒绝静默复制,语义同 V1;
+        // clearExisting 时表已在事务内清空,此检查自然通过
+        const existingPerson = await this.db('people')
+          .whereRaw('lower(name) = lower(?)', [personName])
+          .first();
+        if (existingPerson) {
+          this.importConflicts.push(`people: ${personName}`);
+          errors.push(`Roster Row ${rowNumber}: Duplicate person name conflicts with existing record: ${personName} — enable "Clear existing data" or remove/rename this row`);
+          continue;
+        }
+
         const personId = uuidv4();
         const roleId = roleName ? this.roleMap.get(roleName) : null;
 
@@ -659,6 +678,7 @@ export class ExcelImporterV2 {
           created_at: new Date(),
           updated_at: new Date()
         });
+        this.createdEntities.push({ type: 'person', name: personName });
 
         // Add person-role relationship. person_roles has no created_at column
         // and people.primary_person_role_id FKs the join row (the old code
@@ -794,6 +814,21 @@ export class ExcelImporterV2 {
           });
         }
 
+        // IP-05 续批(2026-10-20/§4-260):项目同名撞库=全批拒绝——按写入
+        // 库的裸名查重,不依赖文件 "Project @ Site" 格式解析的二次实现
+        const existingProject = await this.db('projects')
+          .whereRaw('lower(name) = lower(?)', [projectName])
+          .first();
+        if (existingProject) {
+          this.importConflicts.push(`projects: ${projectName}`);
+          errorCollector.addDataError(
+            'Projects', rowNumber, 'A', 'Project/Site', projectSite, 'string',
+            `Duplicate project name conflicts with existing record: ${projectName}`,
+            'Enable "Clear existing data" to replace existing data, or remove/rename this row'
+          );
+          continue;
+        }
+
         const projectId = uuidv4();
         await this.db('projects').insert({
           id: projectId,
@@ -808,6 +843,7 @@ export class ExcelImporterV2 {
         });
 
         this.projectMap.set(projectName, projectId);
+        this.createdEntities.push({ type: 'project', name: projectName });
         count++;
 
       } catch (error) {
@@ -1194,6 +1230,8 @@ export class ExcelImporterV2 {
     const errorCollector = new ImportErrorCollector();
     this.createdLocations = 0;
     this.createdAvailabilityOverrides = 0;
+    this.importConflicts = [];
+    this.createdEntities = [];
     const result: ImportResultV2 = {
       success: false,
       imported: {
@@ -1323,6 +1361,8 @@ export class ExcelImporterV2 {
       // 本次实际新建数(此前取整表 count,存量会被计入"导入数";预览口径下即错报新增承诺)
       result.imported.locations = this.createdLocations;
       result.imported.availabilityOverrides = this.createdAvailabilityOverrides;
+      result.conflicts = [...this.importConflicts];
+      result.createdEntities = [...this.createdEntities];
 
       // Collect all structured errors and warnings
       const errorSummary = errorCollector.toJSON();
@@ -1363,7 +1403,7 @@ export class ExcelImporterV2 {
   async analyzeImport(filePath: string, options: ImportOptions = {}): Promise<any> {
     const result = await this.importFromFile(filePath, { ...options, dryRun: true });
 
-    const conflicts: string[] = [];
+    const conflicts: string[] = [...(result.conflicts ?? [])];
     const duplicates = (result as any).duplicatesFound as Record<string, string[]> | undefined;
     if (duplicates) {
       for (const [type, names] of Object.entries(duplicates)) {
@@ -1387,7 +1427,9 @@ export class ExcelImporterV2 {
       warnings: [...result.warnings],
       errors: [...result.errors],
       preview: {
-        newEntities: [],
+        // IP-05 续批(2026-10-20):逐实体清单——管线实际创建的人员/项目,
+        // 与执行同源(此前恒空数组,预览无法核对具体对象)
+        newEntities: [...(result.createdEntities ?? [])],
         modifiedEntities: [],
         deletedEntities: [],
         duplicates: []

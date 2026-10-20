@@ -66,7 +66,9 @@
     "previewRow": "{{key}}：预览 {{preview}} / 实际 {{actual}}",
     "riskLevel": "风险等级：{{level}}",
     "totalChanges": "总变更数：{{count}}",
-    "previewConflicts": "冲突"
+    "previewConflicts": "冲突",
+    "entityListTitle": "将创建的实体",
+    "entityListMore": "另 + {{count}} 项……"
   },
   "results": {
     "success": "导入成功",

@@ -19,9 +19,9 @@
  *   starts ("Duplicate records found. Import cancelled …")
  * - unknown project types / locations / roles are auto-created
  *   (findOrCreate — not gated by the autoCreate settings)
- * - success → HTTP 200 { success, message, imported } where
- *   imported.projects/people are per-run counts (roles/locations/
- *   projectTypes/phases are whole-table counts — never assert exact)
+ * - success → HTTP 200 { success, message, imported } where all
+ *   imported.* keys are per-run counts (2026-10-20 IP-05 续批:
+ *   roles/locations/projectTypes/phases 从整表 count 收敛为本次新建数)
  * - UI: hidden file input + "Upload and Import" button; result panel
  *   heading echoes the server message; failures render "Import failed"
  */

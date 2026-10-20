@@ -694,6 +694,26 @@ function ImportUnified() {
                 </div>
               </div>
 
+              {/* IP-05 续批(2026-10-20):逐实体清单——预览可核对具体对象, */}
+              {/* 与服务端管线实际创建列表同源(此前恒空数组) */}
+              {preview.analysis.preview.newEntities.length > 0 && (
+                <div className="result-warnings">
+                  <h4>{t('importExport:import.entityListTitle')}</h4>
+                  <ul>
+                    {preview.analysis.preview.newEntities.slice(0, 50).map((entity, index) => (
+                      <li key={`${entity.type}-${entity.name}-${index}`}>
+                        {entity.type}: {entity.name}
+                      </li>
+                    ))}
+                  </ul>
+                  {preview.analysis.preview.newEntities.length > 50 && (
+                    <p className="text-muted">
+                      {t('importExport:import.entityListMore', { count: preview.analysis.preview.newEntities.length - 50 })}
+                    </p>
+                  )}
+                </div>
+              )}
+
               {preview.analysis.riskAssessment.factors.length > 0 && (
                 <div className="result-warnings">
                   <ul>

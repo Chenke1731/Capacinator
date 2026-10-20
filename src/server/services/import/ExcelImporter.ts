@@ -1,7 +1,7 @@
 import { getAuditedDb } from '../../database/index.js';
 import { logger } from '../logging/config.js';
 import { IMPORT_CLEAR_TABLES } from './clearTables.js';
-import type { Worksheet, Row } from 'exceljs';
+import type { Worksheet } from 'exceljs';
 
 // Import ExcelJS using dynamic import for better ES module compatibility
 let ExcelJS: any;
@@ -100,10 +100,19 @@ export interface ImportResult {
     roles: string[];
     locations: string[];
   };
+  /** IP-05 续批(2026-10-20):同名撞库明细(people/projects),预览冲突面板与执行拒绝同源 */
+  conflicts?: string[];
+  /** 本批次实际创建的业务实体(人员/项目)——预览逐实体清单与执行同源 */
+  createdEntities?: Array<{ type: string; name: string }>;
 }
 
 export class ExcelImporter {
   private db: any;
+  // 每运行收集(2026-10-20 IP-05 续批):同名冲突清单+实际新建实体/主数据计数,
+  // importFromFile 开头重置——预览(dryRun)与执行读同一份
+  private importConflicts: string[] = [];
+  private createdEntities: Array<{ type: string; name: string }> = [];
+  private createdMasterCounts = { locations: 0, projectTypes: 0, phases: 0, roles: 0 };
 
   // db 注入口(V2 同款,2026-10-17 IP-05b):真迁移库测试直连;
   // 生产不传走审计库。此前无注入口,测试只能重 mock 或误连 dev 真库
@@ -446,6 +455,7 @@ export class ExcelImporter {
         })
         .returning('*');
       location = newLocation;
+      this.createdMasterCounts.locations++;
     }
     
     return location.id;
@@ -464,6 +474,7 @@ export class ExcelImporter {
         })
         .returning('*');
       projectType = newType;
+      this.createdMasterCounts.projectTypes++;
     }
     
     return projectType.id;
@@ -511,6 +522,7 @@ export class ExcelImporter {
         })
         .returning('*');
       role = newRole;
+      this.createdMasterCounts.roles++;
     }
     
     return role.id;
@@ -530,6 +542,7 @@ export class ExcelImporter {
         })
         .returning('*');
       phase = newPhase;
+      this.createdMasterCounts.phases++;
     }
     
     return phase.id;
@@ -590,6 +603,20 @@ export class ExcelImporter {
         const projectTypeId = await this.findOrCreateProjectType(projectTypeName);
         const projectSubTypeId = await this.findOrCreateDefaultSubType(projectTypeId, projectTypeName);
 
+        // IP-05 续批(2026-10-20/§4-260):项目同名撞库=全批拒绝,语义同人员
+        const existingProject = await this.db('projects')
+          .whereRaw('lower(name) = lower(?)', [projectName])
+          .first();
+        if (existingProject) {
+          this.importConflicts.push(`projects: ${projectName}`);
+          errorCollector.addDataError(
+            'Projects', rowNumber, this.getColumnLetter(expectedColumns.name), 'Project Name', projectName, 'string',
+            `Duplicate project name conflicts with existing record: ${projectName}`,
+            'Enable "Clear existing data" to replace existing data, or remove/rename this row'
+          );
+          continue;
+        }
+
         // Find owner (if specified)
         let ownerId = null;
         const ownerName = values[expectedColumns.owner]?.toString();
@@ -616,6 +643,7 @@ export class ExcelImporter {
         };
 
         await this.db('projects').insert(projectData);
+        this.createdEntities.push({ type: 'project', name: projectName });
         count++;
 
       } catch (error) {
@@ -724,6 +752,22 @@ export class ExcelImporter {
           primaryRoleId = await this.findOrCreateRole(primaryRoleName);
         }
 
+        // IP-05 续批(2026-10-20/§4-260):同名≠身份——不静默复制人员,也不在
+        // 预览里承诺更新。撞库=高严重度错误,全批回滚;clearExisting 已在
+        // 事务内清库,此检查自然通过,无需特判
+        const existingPerson = await this.db('people')
+          .whereRaw('lower(name) = lower(?)', [personName])
+          .first();
+        if (existingPerson) {
+          this.importConflicts.push(`people: ${personName}`);
+          errorCollector.addDataError(
+            'People', rowNumber, 'A', 'Name', personName, 'string',
+            `Duplicate person name conflicts with existing record: ${personName}`,
+            'Enable "Clear existing data" to replace existing data, or remove/rename this row'
+          );
+          continue;
+        }
+
         const personData = {
           name: personName,
           email: personEmail && personEmail.trim() ? personEmail : null,
@@ -735,6 +779,7 @@ export class ExcelImporter {
         };
 
         const [insertedPerson] = await this.db('people').insert(personData).returning('*');
+        this.createdEntities.push({ type: 'person', name: personName });
 
         // Link the primary role through person_roles — people.primary_person_role_id
         // FKs that join table, not the roles table. The old code wrote a
@@ -931,6 +976,9 @@ export class ExcelImporter {
       errors: [],
       warnings: []
     };
+    this.importConflicts = [];
+    this.createdEntities = [];
+    this.createdMasterCounts = { locations: 0, projectTypes: 0, phases: 0, roles: 0 };
     
     // Estimate total operations for progress tracking
     progressTracker.setTotalOperations(10); // Basic estimate, will be refined
@@ -1014,11 +1062,14 @@ export class ExcelImporter {
       // Clean up temp table
       await trx.schema.dropTable('temp_supervisor_mapping').catch(() => {});
 
-      // Count imported entities
-      result.imported.locations = await this.db('locations').count('* as count').first().then((r: { count?: number | string } | undefined) => Number(r?.count) || 0);
-      result.imported.projectTypes = await this.db('project_types').count('* as count').first().then((r: { count?: number | string } | undefined) => Number(r?.count) || 0);
-      result.imported.phases = await this.db('project_phases').count('* as count').first().then((r: { count?: number | string } | undefined) => Number(r?.count) || 0);
-      result.imported.roles = await this.db('roles').count('* as count').first().then((r: { count?: number | string } | undefined) => Number(r?.count) || 0);
+      // 本次实际新建数(2026-10-20 IP-05 续批):旧取整表 count,存量会被
+      // 计成"导入数"——预览口径下即错报新增承诺(V2 已先修同类)
+      result.imported.locations = this.createdMasterCounts.locations;
+      result.imported.projectTypes = this.createdMasterCounts.projectTypes;
+      result.imported.phases = this.createdMasterCounts.phases;
+      result.imported.roles = this.createdMasterCounts.roles;
+      result.conflicts = [...this.importConflicts];
+      result.createdEntities = [...this.createdEntities];
 
       // Collect all structured errors and warnings
       const errorSummary = errorCollector.toJSON();
@@ -1031,6 +1082,12 @@ export class ExcelImporter {
         await trx.rollback();
         result.success = false;
         result.errors.unshift('Import rolled back due to errors.');
+      } else if (options.dryRun) {
+        // IP-05 续批:预览与执行同一解释器——真实管线跑完即回滚,
+        // 计数/实体清单/冲突判定即写入承诺(镜像 V2 的 dryRun 语义)
+        progressTracker.updateProgress('Dry-run complete, rolling back');
+        await trx.rollback();
+        result.success = true;
       } else {
         progressTracker.complete();
         await trx.commit();
@@ -1051,304 +1108,85 @@ export class ExcelImporter {
     return result;
   }
 
+  /**
+   * 预览分析(IP-05 续批 2026-10-20/F04):与执行共用同一解释器——
+   * 真实 V1 管线在事务内跑完即回滚,计数即写入承诺,实体清单与冲突
+   * 判定同源。旧实现是平行三工作表分析:同名被承诺"will update"而
+   * 执行却静默 insert 复制(同名漂移),且信封缺 wouldSucceed,客户端
+   * 确认按钮因此恒禁用——一并退役。
+   */
   async analyzeImport(filePath: string, options: ImportOptions = {}): Promise<any> {
-    logger.info('Starting dry-run import analysis', { filePath });
-    
-    const analysis = {
+    const result = await this.importFromFile(filePath, { ...options, dryRun: true });
+
+    // 删除面(照旧逐表白名单报数,2026-10-17 IP-05b 语义):dryRun 已回滚,
+    // this.db 读到的即"执行前存量"=将要被 clearExisting 清除的面
+    const wouldDelete: Record<string, number> = {};
+    const deletedEntities: Array<{ type: string; count: number; reason: string }> = [];
+    if (options.clearExisting) {
+      const WOULD_DELETE_BY_TABLE: Record<string, string> = {
+        locations: 'locations',
+        project_types: 'projectTypes',
+        project_phases: 'phases',
+        roles: 'roles',
+        people: 'people',
+        projects: 'projects',
+        // 046 改名后的真身;键名保留 UI 兼容
+        resource_templates: 'standardAllocations',
+        project_assignments: 'assignments'
+      };
+      for (const table of IMPORT_CLEAR_TABLES) {
+        const counted = await this.db(table).count('* as count').first() as { count: number } | undefined;
+        const n = Number(counted?.count ?? 0);
+        if (n <= 0) continue;
+        deletedEntities.push({ type: table, count: n, reason: 'Clear existing data option selected' });
+        const key = WOULD_DELETE_BY_TABLE[table];
+        if (key) wouldDelete[key] = (wouldDelete[key] ?? 0) + n;
+      }
+    }
+
+    const wouldCreate = { ...result.imported } as Record<string, number>;
+    const totalChanges =
+      Object.values(wouldCreate).reduce((s, n) => s + n, 0) +
+      Object.values(wouldDelete).reduce((s, n) => s + n, 0);
+
+    const conflicts = [...(result.conflicts ?? [])];
+    const factors: string[] = [];
+    if (options.clearExisting) factors.push('clearExisting=true: execution will clear existing data first');
+    if (conflicts.length > 0) {
+      factors.push(`${conflicts.length} same-name conflict(s) with existing records — resolve before importing`);
+    }
+
+    logger.info('Dry-run analysis completed (same interpreter as execution)', {
+      filePath, totalChanges, conflicts: conflicts.length, wouldSucceed: result.success
+    });
+
+    return {
       summary: {
-        totalChanges: 0,
-        wouldCreate: {
-          locations: 0,
-          projectTypes: 0,
-          phases: 0,
-          roles: 0,
-          people: 0,
-          projects: 0,
-          standardAllocations: 0,
-          assignments: 0
-        },
-        wouldUpdate: {
-          people: 0,
-          projects: 0,
-          assignments: 0
-        },
-        wouldDelete: {
-          locations: 0,
-          projectTypes: 0,
-          phases: 0,
-          roles: 0,
-          people: 0,
-          projects: 0,
-          standardAllocations: 0,
-          assignments: 0
-        }
+        totalChanges,
+        wouldCreate,
+        // 同名不再承诺"将更新"(§4-260:无业务匹配键,同名≠身份);键保留信封兼容
+        wouldUpdate: { people: 0, projects: 0, assignments: 0 },
+        wouldDelete
       },
-      conflicts: [] as string[],
-      warnings: [] as string[],
-      errors: [] as string[],
+      conflicts,
+      warnings: [...result.warnings],
+      errors: [...result.errors],
       preview: {
-        newEntities: [] as Array<{ type: string; name: string; action: string; details?: Record<string, unknown> }>,
+        newEntities: [...(result.createdEntities ?? [])],
         modifiedEntities: [] as Array<{ type: string; name: string; action: string; changes?: string[] }>,
-        deletedEntities: [] as Array<{ type: string; name: string; action: string }>,
+        deletedEntities,
         duplicates: [] as Array<{ type: string; name: string; existing: string }>
       },
       riskAssessment: {
-        level: 'low' as 'low' | 'medium' | 'high',
-        factors: [] as string[],
-        recommendations: [] as string[]
-      }
+        level: !result.success || conflicts.length > 0 || options.clearExisting
+          ? 'high'
+          : result.warnings.length > 0 ? 'medium' : 'low',
+        factors,
+        recommendations: []
+      },
+      dryRun: true,
+      wouldSucceed: result.success
     };
-
-    try {
-      const ExcelJSClass = await initializeExcelJS();
-      const workbook = new ExcelJSClass.Workbook();
-      await workbook.xlsx.readFile(filePath);
-      
-      // Initialize error collector for analysis
-      const errorCollector = new ImportErrorCollector();
-      
-      // Analyze each worksheet
-      const analysisPromises = [
-        this.analyzeProjectsWorksheet(workbook, options, analysis, errorCollector),
-        this.analyzePeopleWorksheet(workbook, options, analysis, errorCollector),
-        this.analyzeStandardAllocationsWorksheet(workbook, options, analysis, errorCollector)
-      ];
-
-      await Promise.all(analysisPromises);
-
-      // 删除面诚实化(2026-10-17 IP-05b):clearExisting 实际清整张清单,
-      // 预览必须逐表报数——旧版只报 standard_allocations 一类(且查旧表名
-      // 在改名后的库上必炸),用户以为只清分配,实际全库清空
-      if (options.clearExisting) {
-        const WOULD_DELETE_BY_TABLE: Record<string, keyof typeof analysis.summary.wouldDelete> = {
-          locations: 'locations',
-          project_types: 'projectTypes',
-          project_phases: 'phases',
-          roles: 'roles',
-          people: 'people',
-          projects: 'projects',
-          // 046 改名后的真身;键名保留 UI 兼容
-          resource_templates: 'standardAllocations',
-          project_assignments: 'assignments'
-        };
-        for (const table of IMPORT_CLEAR_TABLES) {
-          const counted = await this.db(table).count('* as count').first() as { count: number } | undefined;
-          const n = Number(counted?.count ?? 0);
-          if (n <= 0) continue;
-          analysis.preview.deletedEntities.push({
-            type: table,
-            count: n,
-            reason: 'Clear existing data option selected'
-          } as never);
-          const key = WOULD_DELETE_BY_TABLE[table];
-          if (key) analysis.summary.wouldDelete[key] = (analysis.summary.wouldDelete[key] ?? 0) + n;
-        }
-      }
-
-      // Calculate risk assessment
-      this.assessImportRisk(analysis);
-      
-      // Aggregate errors and warnings
-      const collectedErrors = errorCollector.getErrors();
-      analysis.errors = collectedErrors.filter(e => e.severity === 'critical' || e.severity === 'high').map(e => e.message);
-      analysis.warnings = collectedErrors.filter(e => e.severity === 'medium' || e.severity === 'low').map(e => e.message);
-
-      // Calculate total changes
-      analysis.summary.totalChanges = 
-        Object.values(analysis.summary.wouldCreate).reduce((sum, count) => sum + count, 0) +
-        Object.values(analysis.summary.wouldUpdate).reduce((sum, count) => sum + count, 0) +
-        Object.values(analysis.summary.wouldDelete).reduce((sum, count) => sum + count, 0);
-
-      logger.info('Dry-run analysis completed', { summary: analysis.summary });
-      return analysis;
-
-    } catch (error) {
-      analysis.errors.push(`Analysis failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
-      analysis.riskAssessment.level = 'high';
-      analysis.riskAssessment.factors.push('File analysis failed');
-      return analysis;
-    }
   }
 
-  private async analyzeProjectsWorksheet(workbook: any, options: ImportOptions, analysis: any, errorCollector: ImportErrorCollector) {
-    const projectsSheet = workbook.getWorksheet('Projects');
-    if (!projectsSheet) {
-      errorCollector.addError(ImportErrorUtils.missingWorksheet('Projects'));
-      return;
-    }
-
-    const projects = [];
-    const existingProjects = await this.db('projects').select('name', 'id');
-    const existingProjectNames = new Set(existingProjects.map((p: { name: string }) => p.name.toLowerCase()));
-
-    projectsSheet.eachRow((row: Row, rowNumber: number) => {
-      if (rowNumber === 1) return; // Skip header
-
-      const projectName = row.getCell(1).value?.toString()?.trim();
-      if (!projectName) return;
-
-      const isNew = !existingProjectNames.has(projectName.toLowerCase());
-      
-      if (isNew) {
-        analysis.summary.wouldCreate.projects++;
-        analysis.preview.newEntities.push({
-          type: 'project',
-          name: projectName,
-          action: 'create',
-          data: {
-            name: projectName,
-            type: row.getCell(2).value?.toString(),
-            location: row.getCell(3).value?.toString(),
-            priority: row.getCell(4).value?.toString()
-          }
-        });
-      } else if (!options.clearExisting) {
-        analysis.summary.wouldUpdate.projects++;
-        analysis.preview.modifiedEntities.push({
-          type: 'project',
-          name: projectName,
-          action: 'update',
-          changes: ['Will be updated with new data from import']
-        });
-      }
-
-      projects.push({ name: projectName, isNew });
-    });
-
-    // Check for potential deletions if clearExisting is true
-    if (options.clearExisting) {
-      const projectsToDelete = existingProjects.length;
-      analysis.summary.wouldDelete.projects = projectsToDelete;
-      if (projectsToDelete > 0) {
-        analysis.preview.deletedEntities.push({
-          type: 'projects',
-          count: projectsToDelete,
-          reason: 'Clear existing data option selected'
-        });
-        analysis.riskAssessment.factors.push(`${projectsToDelete} existing projects will be deleted`);
-      }
-    }
-  }
-
-  private async analyzePeopleWorksheet(workbook: any, options: ImportOptions, analysis: any, errorCollector: ImportErrorCollector) {
-    const peopleSheet = workbook.getWorksheet('Rosters') || workbook.getWorksheet('People');
-    if (!peopleSheet) {
-      errorCollector.addError(ImportErrorUtils.missingWorksheet('Rosters/People'));
-      return;
-    }
-
-    const existingPeople = await this.db('people').select('name', 'email', 'id');
-    const existingPeopleNames = new Set(existingPeople.map((p: { name: string }) => p.name.toLowerCase()));
-    const existingEmails = new Set(existingPeople.filter((p: { email?: string }) => p.email).map((p: { email: string }) => p.email.toLowerCase()));
-
-    peopleSheet.eachRow((row: Row, rowNumber: number) => {
-      if (rowNumber === 1) return; // Skip header
-
-      const personName = row.getCell(1).value?.toString()?.trim();
-      const personEmail = row.getCell(2).value?.toString()?.trim();
-      
-      if (!personName) return;
-
-      const isNewName = !existingPeopleNames.has(personName.toLowerCase());
-      const emailConflict = personEmail && existingEmails.has(personEmail.toLowerCase());
-
-      if (isNewName && !emailConflict) {
-        analysis.summary.wouldCreate.people++;
-        analysis.preview.newEntities.push({
-          type: 'person',
-          name: personName,
-          action: 'create',
-          data: {
-            name: personName,
-            email: personEmail,
-            role: row.getCell(3).value?.toString()
-          }
-        });
-      } else {
-        if (emailConflict) {
-          analysis.conflicts.push({
-            type: 'email_conflict',
-            message: `Email ${personEmail} already exists for a different person`,
-            entity: personName,
-            field: 'email',
-            existingValue: personEmail,
-            suggestedAction: 'Review and resolve email duplication'
-          });
-        } else {
-          analysis.summary.wouldUpdate.people++;
-          analysis.preview.modifiedEntities.push({
-            type: 'person',
-            name: personName,
-            action: 'update',
-            changes: ['Personal information will be updated']
-          });
-        }
-      }
-    });
-  }
-
-  private async analyzeStandardAllocationsWorksheet(workbook: any, options: ImportOptions, analysis: any, _errorCollector: ImportErrorCollector) {
-    void options; // 删除面统计已收敛到 analyzeImport 主流程(逐表白名单)
-    const allocationsSheet = workbook.getWorksheet('Standard Allocations');
-    if (!allocationsSheet) {
-      return; // Optional worksheet
-    }
-
-    let newAllocations = 0;
-
-    allocationsSheet.eachRow((row: any, rowNumber: number) => {
-      if (rowNumber === 1) return; // Skip header
-
-      const projectType = row.getCell(1).value?.toString()?.trim();
-      const role = row.getCell(3).value?.toString()?.trim();
-      const allocation = row.getCell(4).value;
-
-      if (projectType && role && allocation) {
-        newAllocations++;
-      }
-    });
-
-    analysis.summary.wouldCreate.standardAllocations = newAllocations;
-  }
-
-  private assessImportRisk(analysis: any) {
-    const riskFactors = [];
-    let riskLevel = 'low';
-
-    // Check for high-impact operations
-    const totalDeletions = Object.values(analysis.summary.wouldDelete as Record<string, number>).reduce((sum, count) => sum + count, 0);
-    const totalCreations = Object.values(analysis.summary.wouldCreate as Record<string, number>).reduce((sum, count) => sum + count, 0);
-
-    if (totalDeletions > 0) {
-      riskLevel = 'high';
-      riskFactors.push(`${totalDeletions} existing records will be deleted`);
-      analysis.riskAssessment.recommendations.push('Consider backing up data before proceeding');
-    }
-
-    if (totalCreations > 100) {
-      riskLevel = riskLevel === 'high' ? 'high' : 'medium';
-      riskFactors.push(`Large import: ${totalCreations} new records will be created`);
-      analysis.riskAssessment.recommendations.push('Consider importing in smaller batches');
-    }
-
-    if (analysis.conflicts.length > 0) {
-      riskLevel = 'high';
-      riskFactors.push(`${analysis.conflicts.length} data conflicts detected`);
-      analysis.riskAssessment.recommendations.push('Resolve conflicts before importing');
-    }
-
-    if (analysis.errors.length > 0) {
-      riskLevel = 'high';
-      riskFactors.push(`${analysis.errors.length} critical errors found`);
-      analysis.riskAssessment.recommendations.push('Fix errors before proceeding with import');
-    }
-
-    if (riskFactors.length === 0) {
-      riskFactors.push('No significant risks detected');
-      analysis.riskAssessment.recommendations.push('Import appears safe to proceed');
-    }
-
-    analysis.riskAssessment.level = riskLevel;
-    analysis.riskAssessment.factors = riskFactors;
-  }
 }

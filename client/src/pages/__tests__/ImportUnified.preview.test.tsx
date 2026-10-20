@@ -159,6 +159,32 @@ describe('ImportUnified preview → confirm flow (IP-05c)', () => {
     expect(screen.getByText(/projects: preview 3 \/ actual 4/i)).toBeInTheDocument();
   });
 
+  test('preview lists the entities that will be created (per-entity list, IP-05 续批)', async () => {
+    mockedAnalyze.mockResolvedValue({
+      data: {
+        ...ANALYSIS,
+        analysis: {
+          ...ANALYSIS.analysis,
+          preview: {
+            ...ANALYSIS.analysis.preview,
+            newEntities: [
+              { type: 'person', name: '张开发' },
+              { type: 'project', name: 'NewFeature' }
+            ]
+          }
+        }
+      }
+    });
+    renderPage();
+    await selectFile();
+    await userEvent.click(await screen.findByRole('button', { name: /Analyze before import/i }));
+    await screen.findByText(/Import preview/i);
+
+    expect(await screen.findByText('Entities to be created')).toBeInTheDocument();
+    expect(screen.getByText('person: 张开发')).toBeInTheDocument();
+    expect(screen.getByText('project: NewFeature')).toBeInTheDocument();
+  });
+
   test('changing an option after preview marks it stale and blocks confirm', async () => {
     mockedAnalyze.mockResolvedValue({ data: ANALYSIS });
     renderPage();

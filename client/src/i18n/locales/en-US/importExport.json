@@ -66,7 +66,9 @@
     "previewRow": "{{key}}: preview {{preview}} / actual {{actual}}",
     "riskLevel": "Risk level: {{level}}",
     "totalChanges": "Total changes: {{count}}",
-    "previewConflicts": "Conflicts"
+    "previewConflicts": "Conflicts",
+    "entityListTitle": "Entities to be created",
+    "entityListMore": "+ {{count}} more…"
   },
   "results": {
     "success": "Import Successful",

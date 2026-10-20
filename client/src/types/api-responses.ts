@@ -677,9 +677,10 @@ export interface ImportAnalysisResponse {
     warnings: string[];
     errors: string[];
     preview: {
-      newEntities: Array<{ type: string; name: string; action: string }>;
-      modifiedEntities: Array<{ type: string; name: string; action: string }>;
-      deletedEntities: Array<{ type: string; name: string; action: string }>;
+      newEntities: Array<{ type: string; name: string; action?: string }>;
+      modifiedEntities: Array<{ type: string; name: string; action?: string }>;
+      /** 逐表删除面:type=表名,count=行数(clearExisting;IP-05b 诚实化) */
+      deletedEntities: Array<{ type: string; name?: string; action?: string; count?: number; reason?: string }>;
       duplicates: Array<{ type: string; name: string; existing: string }>;
     };
     riskAssessment: {

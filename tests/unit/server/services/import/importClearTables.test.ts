@@ -203,13 +203,18 @@ describe('导入器清库清单 × 真实迁移 schema (IP-05b)', () => {
     // 旧实现:this.db('standard_allocations').count() 对改名后的库直接抛
     // → 外层 catch → errors 含 "Analysis failed"
     expect(analysis.errors.join(' ')).not.toMatch(/Analysis failed/);
-    // 删除面诚实化:clearExisting 实际清整张清单,预览必须逐表报数
+    // 删除面诚实化:clearExisting 实际清整张清单,预览必须逐表报数。
+    // 旧平行实现有双报缺陷:analyzeProjectsWorksheet 与主流程各报一次
+    // projects(同一表两条凑数);delegation 后每表至多一条(2026-10-20)
     const deleted = analysis.preview.deletedEntities;
     const coveredTypes = new Set(deleted.map((d: { type: string }) => d.type));
     expect(coveredTypes.has('resource_templates')).toBe(true);
     expect(coveredTypes.has('projects')).toBe(true);
-    // beforeEach 造了 4 类非空存量(resource_templates/project_types/
-    // project_sub_types/projects),空表不报数是正确语义——断言=全命中
-    expect(deleted.length).toBeGreaterThanOrEqual(4);
+    expect(coveredTypes.has('project_types')).toBe(true);
+    expect(deleted.length).toBe(coveredTypes.size);
+    // 报数与真实行数一致
+    const byType = new Map(deleted.map((d: { type: string; count: number }) => [d.type, d.count]));
+    expect(byType.get('projects')).toBe(1);
+    expect(byType.get('project_types')).toBe(2);
   });
 });

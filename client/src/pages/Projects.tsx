@@ -1005,7 +1005,7 @@ export function Projects() {
   if (error) return <ErrorMessage message={(error as any)?.message || t('projects:loadError')} />;
 
   return (
-    <div className="projects-board">
+    <div className={`projects-board ${selectedIds.size > 0 ? 'has-bulk' : ''}`}>
       {/* 单行工具栏(静区): 计数 + 搜索 | 筛选 | 动作 —— 40px 栅格,主色仅"新建"一处 */}
       <div className="projects-toolbar" data-testid="filter-bar">
         <span className="board-count">
@@ -1123,7 +1123,7 @@ export function Projects() {
         <button
           type="button"
           data-testid="task-view-all"
-          className="task-view-chip"
+          className="task-view-chip hit-24"
           aria-pressed={taskView === ''}
           onClick={() => setTaskView('')}
         >
@@ -1134,7 +1134,7 @@ export function Projects() {
             key={v}
             type="button"
             data-testid={`task-view-${v}`}
-            className="task-view-chip"
+            className="task-view-chip hit-24"
             aria-pressed={taskView === v}
             title={t(`projects:taskViews.${v}Hint`)}
             onClick={() => setTaskView((cur) => (cur === v ? '' : v))}
@@ -1152,7 +1152,7 @@ export function Projects() {
               <button
                 type="button"
                 data-testid="warn-filter-clear"
-                className="warn-filter-clear"
+                className="warn-filter-clear hit-24"
                 title={t('projects:board.resetFilters')}
                 onClick={() => setWarningFilter('')}
               >
@@ -1612,6 +1612,26 @@ export function Projects() {
             )}
           </div>
         )}
+
+        {/* 批量条驻滚动容器内(2026-10-21): sticky 让位取代 fixed 悬浮——
+            2026-10-11 预裁 fixed 盖交互件=缺陷,sticky 结构获让位豁免;
+            BarPop 气泡走 PopoverPortal 不受滚动容器裁剪 */}
+        {selectedIds.size > 0 && (
+          <BulkActionBar
+            count={selectedIds.size}
+            pending={batchPending}
+            onClear={() => setSelectedIds(new Set())}
+            onBatchUpdate={(patch) => batchUpdateMutation.mutate({ ids: selectedList, patch })}
+            onBatchDelete={() => batchDeleteMutation.mutate(selectedList)}
+            allTags={tags}
+            tagsOnSelection={tagsOnSelection}
+            visibleCount={visibleSelectedCount}
+            selectionRows={selectionRowsRaw}
+            visibleIds={visibleRowIdSet}
+            onClearHidden={() => setSelectedIds((prev) => new Set([...prev].filter((id) => visibleRowIdSet.has(id))))}
+            onLocate={locateSelected}
+          />
+        )}
       </div>
 
       <ProjectModal
@@ -1648,23 +1668,6 @@ export function Projects() {
           focusSection={detailFocus}
           onClose={closeDetail}
           onFilterWarning={(code) => { setWarningFilter(code); closeDetail(); }}
-        />
-      )}
-
-      {selectedIds.size > 0 && (
-        <BulkActionBar
-          count={selectedIds.size}
-          pending={batchPending}
-          onClear={() => setSelectedIds(new Set())}
-          onBatchUpdate={(patch) => batchUpdateMutation.mutate({ ids: selectedList, patch })}
-          onBatchDelete={() => batchDeleteMutation.mutate(selectedList)}
-          allTags={tags}
-          tagsOnSelection={tagsOnSelection}
-          visibleCount={visibleSelectedCount}
-          selectionRows={selectionRowsRaw}
-          visibleIds={visibleRowIdSet}
-          onClearHidden={() => setSelectedIds((prev) => new Set([...prev].filter((id) => visibleRowIdSet.has(id))))}
-          onLocate={locateSelected}
         />
       )}
 

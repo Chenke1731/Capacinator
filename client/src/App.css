@@ -2010,6 +2010,10 @@ input[type="checkbox"].settings-checkbox,
   display: inline-flex;
   align-items: center;
   gap: 5px;
+  /* min-height 只对非 button 消费方生效(warn-filter-pill span):板级
+     .projects-board button{min-height:0}(0,1,1) 压过本单类(0,1,0)——
+     button chips 的命中档来自组件挂的 hit-24(同族坑第 4 次:人力步进器/
+     编号钮/折叠箭头/外包 chip 之后,2026-10-21 verify:states 抓获) */
   min-height: 26px;
   padding: 0 10px;
   font-size: var(--b-fs-body);
@@ -2092,6 +2096,8 @@ input[type="checkbox"].settings-checkbox,
 /* U17 同类筛选 pill(挂在任务视图行) */
 .warn-filter-pill { border-color: var(--status-warning-text); }
 .warn-filter-clear {
+  /* width/height 14 是内容意图;实际命中档由组件挂 hit-24 兜底
+     (板级 button reset 压掉 min-*,同 task-view-chip 注) */
   display: inline-flex; align-items: center; justify-content: center;
   width: 14px; height: 14px; padding: 0; margin-left: 2px;
   border: none; background: none; color: var(--text-secondary); cursor: pointer;
@@ -2494,7 +2500,8 @@ body.req-col-dragging * {
    短码(title 保全文);保 名称底 70/折叠/分解/+ 标签入口 全存活 */
 @container (max-width: 240px) {
   .req-sr-note { display: none; }
-  .lifecycle-warn-chip { max-width: 22px; overflow: hidden; }
+  /* 22→24(2026-10-21): U17 后是 button,命中档 ≥24 接管;title 保全文不变 */
+  .lifecycle-warn-chip { max-width: 24px; overflow: hidden; }
 }
 /* 挤压阶梯第二级(2026-10-11 跨列裁切族·名称列,两档位 179/175px 实测):
    ≤190px 时保底集收敛到全固定件+确定性余量——间距 3/名称底 44(title 兜底)/
@@ -2863,7 +2870,11 @@ body.req-col-dragging * {
   font-weight: 400;
   padding: 0;
   margin-left: 2px;
-  /* U17(2026-10-18): span→button(点击打开问题面板,键盘可达)——补控件复位 */
+  /* U17(2026-10-18): span→button(点击打开问题面板,键盘可达)——补控件复位。
+     命中档(2026-10-21): 板级 button reset(0,1,1) 压掉默认尺寸,文字行高
+     只剩 17px——补 min-height 24(同行 req-kloc/req-tag 均已 24,行高已兜底;
+     不设 min-width,防反杀 @container 窄列 22px 截断降级梯子) */
+  min-height: 24px;
   font-family: inherit;
   cursor: pointer;
   text-align: left;
@@ -3067,8 +3078,9 @@ body.req-col-dragging * {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
 }
-/* 批量条在场时 toast 上移让位(兄弟选择器: 条不在 DOM 时恢复原位) */
-.projects-board .req-bulk-bar ~ .req-toast-stack { bottom: 76px; }
+/* 批量条在场时 toast 上移让位(2026-10-21 改板级状态类: 条移驻滚动容器后
+   与 toast 不再是兄弟,兄弟选择器失效——has-bulk 挂在板根,条不在时移除) */
+.projects-board.has-bulk .req-toast-stack { bottom: 76px; }
 /* 成功 toast(与失败同形态,绿色语义) */
 .req-error-toast.req-ok-toast {
   background: color-mix(in srgb, var(--status-success-border) 12%, var(--bg-primary));
@@ -3119,13 +3131,23 @@ body.req-col-dragging * {
 .req-checkbox:disabled { opacity: 0.4; cursor: not-allowed; }
 .req-checkbox-ind { display: flex; align-items: center; justify-content: center; color: var(--solid-foreground); line-height: 0; position: relative; }
 
-/* ── 批量操作条(2026-10-11): 选中>0 底部浮动,pending 全禁用,删除二次确认 ── */
-.req-bulk-bar {
-  position: fixed;
-  left: 50%;
-  bottom: 20px;
-  transform: translateX(-50%);
+/* ── 批量操作条(2026-10-11): 选中>0 底部驻留,pending 全禁用,删除二次确认。
+   2026-10-21 fixed→sticky 让位: 预裁"fixed 盖住别人就是缺陷"(verify:states
+   六处遮挡违例);车道驻滚动容器末端 sticky 钉底,横纵都钉住不随横向滚动漂移,
+   透明不挡行点击;条体只承视觉 */
+.req-bulk-lane {
+  position: sticky;
+  bottom: 0;
+  left: 0;
+  right: 0;
   z-index: 900;
+  display: flex;
+  justify-content: center;
+  padding: 12px 0;
+  pointer-events: none; /* 车道让点击,条体恢复 */
+}
+.req-bulk-bar {
+  pointer-events: auto;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -3138,8 +3160,8 @@ body.req-col-dragging * {
   animation: reqBulkIn 0.16s ease-out;
 }
 @keyframes reqBulkIn {
-  from { transform: translate(-50%, 12px); opacity: 0; }
-  to { transform: translate(-50%, 0); opacity: 1; }
+  from { transform: translateY(12px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
 }
 .req-bulk-count { font-size: 13px; font-weight: 500; color: var(--text-primary); padding: 0 6px; white-space: nowrap; }
 .req-bulk-anchor { display: inline-flex; }

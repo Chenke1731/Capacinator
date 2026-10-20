@@ -132,6 +132,9 @@ export function BulkActionBar({ count, pending, onClear, onBatchUpdate, onBatchD
   };
 
   return (
+    /* sticky 车道(2026-10-21): 批量条从 fixed 改驻滚动容器内 sticky 让位——
+       2026-10-11 预裁"fixed 盖住别人就是缺陷";车道透明不挡行点击,条体居中 */
+    <div className="req-bulk-lane">
     <div className="req-bulk-bar" data-testid="req-bulk-bar">
       <span className="req-bulk-count">
         {t('projects:board.bulkSelected', { n: count })}
@@ -259,6 +262,7 @@ export function BulkActionBar({ count, pending, onClear, onBatchUpdate, onBatchD
       >
         <X size={14} />
       </button>
+    </div>
     </div>
   );
 }

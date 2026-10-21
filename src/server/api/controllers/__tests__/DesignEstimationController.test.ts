@@ -39,7 +39,7 @@ describe('DesignEstimationController.backfill', () => {
     jest.spyOn(console, 'log').mockImplementation();
 
     controller = new DesignEstimationController();
-    mockReq = { params: { id: '3' }, body: {}, headers: {}, logger: mockLogger };
+    mockReq = { params: { id: '3' }, body: {}, headers: {}, logger: mockLogger, logAuditEvent: jest.fn() };
     mockRes = { json: jest.fn(), status: jest.fn().mockReturnThis() };
 
     mockDb = createMockDb();

@@ -99,6 +99,9 @@ export class DesignEstimationController extends BaseController {
         })
         .returning('*');
 
+      // IP-07e/§4-295: 新估算入史(修订历史数据源;可复核入口=AuditLog 页)
+      await (req as any).logAuditEvent('project_design_estimations', String(inserted.id), 'CREATE', undefined, inserted);
+
       return res.status(201).json({ success: true, data: inserted });
     }, res);
     return result;
@@ -133,6 +136,9 @@ export class DesignEstimationController extends BaseController {
         .where('id', req.params.id)
         .update(payload)
         .returning('*');
+
+      // IP-07e/§4-295: 回填修订留痕(前后值齐)
+      await (req as any).logAuditEvent('project_design_estimations', String(updated.id), 'UPDATE', estimation, updated);
 
       // Deviation = (actual - estimated) / estimated, in percent
       const deviationPct =

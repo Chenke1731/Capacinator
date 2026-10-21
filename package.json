@@ -97,6 +97,7 @@
     "shot": "node scripts/analyze-screenshot.mjs",
     "lint:css": "stylelint \"client/src/**/*.css\" \"client/src/styles/**/*.css\"",
     "perf:baseline": "node scripts/perf-baseline.mjs",
+    "perf:ops": "node scripts/perf-ops.mjs",
     "build:verify": "node scripts/check-build-paths.mjs"
   },
   "keywords": [],
@@ -106,6 +107,7 @@
     "node": ">=20.0.0"
   },
   "dependencies": {
+    "@anthropic-ai/claude-code": "^2.1.304",
     "@octokit/plugin-retry": "^8.0.3",
     "@octokit/plugin-throttling": "^11.0.3",
     "@octokit/rest": "^22.0.1",

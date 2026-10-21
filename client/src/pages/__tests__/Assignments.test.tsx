@@ -501,7 +501,7 @@ describe('Assignments Page', () => {
       expect(window.confirm).toHaveBeenCalledWith(
         expect.stringContaining('Are you sure you want to delete')
       );
-      expect(api.assignments.delete).toHaveBeenCalledWith('assign-1');
+      expect(api.assignments.delete).toHaveBeenCalledWith('assign-1', { expected_version: 3 });
     });
 
     test('cancels delete when not confirmed', async () => {

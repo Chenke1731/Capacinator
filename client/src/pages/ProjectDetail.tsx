@@ -152,10 +152,11 @@ export function ProjectDetail() {
     }
   });
 
-  // Delete assignment mutation
+  // Delete assignment mutation。IP-07e: 附行 version 作乐观锁令牌——
+  // 删除他人刚改的行会被 409 拒(行保留),刷新后重试
   const deleteAssignmentMutation = useMutation({
-    mutationFn: async (assignmentId: string) => {
-      await api.assignments.delete(assignmentId);
+    mutationFn: async (target: { id: string; version?: number }) => {
+      await api.assignments.delete(target.id, target.version !== undefined ? { expected_version: target.version } : undefined);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: queryKeys.projects.detail(id!) });
@@ -209,7 +210,7 @@ export function ProjectDetail() {
     if (!selectedAssignment) return;
 
     if (confirm(t('projects:deleteAssignmentConfirm'))) {
-      deleteAssignmentMutation.mutate(selectedAssignment.id);
+      deleteAssignmentMutation.mutate({ id: selectedAssignment.id, version: (selectedAssignment as any).version });
       setSelectedAssignment(null);
     }
   };
@@ -508,7 +509,7 @@ export function ProjectDetail() {
             project={project}
             canEdit={canEdit}
             onAssignmentClick={handleAssignmentClick}
-            onDeleteAssignment={(assignment) => deleteAssignmentMutation.mutate(assignment.id)}
+            onDeleteAssignment={(assignment) => deleteAssignmentMutation.mutate({ id: assignment.id, version: (assignment as any).version })}
           />
         </CollapsibleSection>
 

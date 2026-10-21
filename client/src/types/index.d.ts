@@ -129,6 +129,8 @@ export interface ProjectAssignment extends BaseEntity {
     person_name?: string;
     role_name?: string;
     phase_name?: string;
+    /** IP-07c/e 乐观锁版本令牌(服务端 version 列,SELECT * 自然携带) */
+    version?: number;
 }
 export interface PersonRole {
     person_id: string;

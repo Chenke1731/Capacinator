@@ -395,10 +395,11 @@ export default function PersonDetails() {
     }
   });
 
-  // Delete assignment mutation
+  // Delete assignment mutation。IP-07e: 附行 version 作乐观锁令牌——
+  // 删除他人刚改的行会被 409 拒(行保留),刷新后重试
   const deleteAssignmentMutation = useMutation({
-    mutationFn: async (assignmentId: string) => {
-      await api.assignments.delete(assignmentId);
+    mutationFn: async (target: { id: string; version?: number }) => {
+      await api.assignments.delete(target.id, target.version !== undefined ? { expected_version: target.version } : undefined);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: queryKeys.people.detail(id!) });
@@ -670,7 +671,7 @@ export default function PersonDetails() {
 
   const handleDeleteAssignment = (assignment: any) => {
     if (window.confirm(t('common:deleteAssignmentConfirm'))) {
-      deleteAssignmentMutation.mutate(assignment.id);
+      deleteAssignmentMutation.mutate({ id: assignment.id, version: assignment.version });
     }
   };
 

@@ -372,7 +372,9 @@ export const api = {
     // IP-07c: data 可附 expected_version 乐观锁令牌,冲突 409 载荷含当前值
     update: (id: string, data: Partial<ProjectAssignment> & { expected_version?: number }) =>
       apiClient.put<{ data: ProjectAssignment }>(`/assignments/${id}`, data),
-    delete: (id: string) => apiClient.delete<{ message: string }>(`/assignments/${id}`),
+    // IP-07e: data 可附 expected_version 乐观锁令牌(删除他人刚改的行=丢失更新)
+    delete: (id: string, data?: { expected_version?: number }) =>
+      apiClient.delete<{ message: string }>(`/assignments/${id}`, data ? { data } : undefined),
     bulkCreate: (data: Record<string, unknown>) => apiClient.post<{ data: ProjectAssignment[] }>('/assignments/bulk', data),
     getConflicts: (personId: string, params?: PaginationParams) => apiClient.get<AssignmentConflictsResponse>(`/assignments/conflicts/${personId}`, { params }),
     getSuggestions: (params: Record<string, unknown>) => apiClient.get<AssignmentSuggestionsResponse>('/assignments/suggestions', { params }),

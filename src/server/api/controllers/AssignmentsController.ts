@@ -701,6 +701,9 @@ export class AssignmentsController extends BaseController {
 
   delete = this.asyncHandler(async (req: RequestWithLogging, res: Response) => {
     const { id } = req.params;
+    // IP-07e/F06: 可选乐观锁令牌——删除他人刚改的行=丢失更新的一种,
+    // 与 update 同契约(WHERE version=expected 原子比较,过期 409+当前值)
+    const expectedVersion = (req.body ?? {}).expected_version;
 
     const result = await this.executeQuery(async () => {
       // Check if this is a scenario assignment
@@ -709,20 +712,24 @@ export class AssignmentsController extends BaseController {
       let assignment;
       let tableName;
       let actualId = id;
-      
+      // 令牌进删除条件本身(不是先读再判——并发窗口内行可被改)
+      const versionClause = expectedVersion !== undefined ? { version: Number(expectedVersion) } : {};
+
       if (isScenarioAssignment) {
         actualId = id.substring(4); // Remove 'spa-' prefix
         tableName = 'scenario_project_assignments';
         assignment = await this.db(tableName).where('id', actualId).first();
-        deleted = await this.db(tableName)
-          .where('id', actualId)
-          .del();
+        deleted = assignment
+          ? await this.db(tableName)
+              .where({ id: actualId, ...versionClause })
+              .del()
+          : 0;
       } else {
         tableName = 'project_assignments';
         assignment = await this.db(tableName).where('id', id).first();
         if (assignment) {
           deleted = await this.db(tableName)
-            .where('id', id)
+            .where({ id, ...versionClause })
             .del();
         } else {
           // POST /api/assignments returns the RAW scenario-row id (no spa-
@@ -731,9 +738,23 @@ export class AssignmentsController extends BaseController {
           tableName = 'scenario_project_assignments';
           assignment = await this.db(tableName).where('id', id).first();
           deleted = assignment
-            ? await this.db(tableName).where('id', id).del()
+            ? await this.db(tableName).where({ id, ...versionClause }).del()
             : 0;
         }
+      }
+
+      // 令牌过期: 行还在但版本不匹配 → 409+当前值(前端提示刷新)
+      if (deleted === 0 && assignment && expectedVersion !== undefined) {
+        const current = await this.db(tableName).where('id', actualId).first();
+        const presented = tableName === 'scenario_project_assignments' && current
+          ? { ...current, id: 'spa-' + current.id }
+          : current;
+        res.status(409).json({
+          error: 'Version conflict',
+          message: 'This assignment was modified by someone else. Review the current value and retry.',
+          current: presented
+        });
+        return null;
       }
 
       if (!assignment || deleted === 0) {

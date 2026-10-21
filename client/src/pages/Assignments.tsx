@@ -136,10 +136,10 @@ export default function Assignments() {
     }
   });
 
-  // Delete assignment mutation
+  // Delete assignment mutation。IP-07e: 附行 version 作乐观锁令牌
   const deleteAssignmentMutation = useMutation({
-    mutationFn: async (assignmentId: string) => {
-      await api.assignments.delete(assignmentId);
+    mutationFn: async (target: { id: string; version?: number }) => {
+      await api.assignments.delete(target.id, target.version !== undefined ? { expected_version: target.version } : undefined);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: queryKeys.assignments.all });
@@ -168,9 +168,9 @@ export default function Assignments() {
     }
   });
 
-  const handleDeleteAssignment = (assignmentId: string, assignmentInfo: string) => {
+  const handleDeleteAssignment = (assignment: ProjectAssignment, assignmentInfo: string) => {
     if (confirm(t('assignments:deleteConfirm', { name: assignmentInfo }))) {
-      deleteAssignmentMutation.mutate(assignmentId);
+      deleteAssignmentMutation.mutate({ id: assignment.id, version: assignment.version });
     }
   };
 
@@ -574,7 +574,7 @@ export default function Assignments() {
             className="btn table-action-btn btn-danger"
             onClick={(e) => {
               e.stopPropagation();
-              handleDeleteAssignment(row.id, `${row.person_name} - ${row.project_name}`);
+              handleDeleteAssignment(row, `${row.person_name} - ${row.project_name}`);
             }}
             title={t('common:delete')}
           >

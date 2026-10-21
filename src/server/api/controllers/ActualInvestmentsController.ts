@@ -77,6 +77,8 @@ export class ActualInvestmentsController extends BaseController {
       if (existing && existing.source === 'manual') {
         return { data: { ...existing, skipped: true } };
       }
+      // IP-07e/§4-298: 快照刷新也改变月账真相——记审计(动作+前后值);
+      // skipped 不记(无变化)
       // IP-07b/C10: source=snapshot 必须写进更新条件本身——读到旧快照后、写入前,
       // 并发 setManual 可能把行改成 manual;无条件 UPDATE 会覆盖人工值
       let row: any;
@@ -85,21 +87,32 @@ export class ActualInvestmentsController extends BaseController {
           .where({ id: existing.id, source: 'snapshot' })
           .update({ fte, updated_at: new Date(), version: this.db.raw('version + 1') })
           .returning('*');
+        if (row) {
+          await (req as any).logAuditEvent('project_actual_investments', String(row.id), 'UPDATE', existing, row);
+        }
       } else {
         try {
           [row] = await this.db('project_actual_investments')
             .insert({ project_id: req.params.projectId, month, fte, source: 'snapshot' })
             .returning('*');
+          await (req as any).logAuditEvent('project_actual_investments', String(row.id), 'CREATE', undefined, row);
         } catch (e: any) {
           // 插入竞速输给并发写入(唯一约束):落到下方守卫更新,manual 行跳过
           if (!/unique/i.test(String(e?.message ?? e))) throw e;
         }
       }
       if (!row) {
+        // 守卫更新前读旧值(竞速赢家的 snapshot 行)供审计前后值
+        const pre = await this.db('project_actual_investments')
+          .where({ project_id: req.params.projectId, month, source: 'snapshot' })
+          .first();
         [row] = await this.db('project_actual_investments')
           .where({ project_id: req.params.projectId, month, source: 'snapshot' })
           .update({ fte, updated_at: new Date(), version: this.db.raw('version + 1') })
           .returning('*');
+        if (row) {
+          await (req as any).logAuditEvent('project_actual_investments', String(row.id), 'UPDATE', pre, row);
+        }
       }
       if (!row) {
         const current = await this.db('project_actual_investments')
@@ -123,6 +136,8 @@ export class ActualInvestmentsController extends BaseController {
       return;
     }
     const result = await this.executeQuery(async () => {
+      // IP-07e/§4-298: 人工月账写入全路径记审计(修改者经 logAuditEvent 的
+      // req.user 带入);409 冲突无变化不记
       // IP-07c/F06: 带令牌=原子版本比较,过期 409(载荷含当前值,前端保留草稿);
       // 无令牌=旧覆盖行为(兼容),version 仍递增保证令牌永远可比
       if (expectedVersion !== undefined) {
@@ -134,6 +149,7 @@ export class ActualInvestmentsController extends BaseController {
           const [row] = await this.db('project_actual_investments')
             .insert({ project_id: req.params.projectId, month, fte, source: 'manual', created_by: (req as any).user?.id ?? null })
             .returning('*');
+          await (req as any).logAuditEvent('project_actual_investments', String(row.id), 'CREATE', undefined, row);
           const assignments = await this.activeAssignments(req.params.projectId);
           return { data: { ...row, planned_fte: this.monthPlannedFte(assignments, month) } };
         }
@@ -145,9 +161,14 @@ export class ActualInvestmentsController extends BaseController {
           return { __conflict: true, current };
         }
         const row = await this.db('project_actual_investments').where({ id: existing.id }).first();
+        await (req as any).logAuditEvent('project_actual_investments', String(row.id), 'UPDATE', existing, row);
         const assignments = await this.activeAssignments(req.params.projectId);
         return { data: { ...row, planned_fte: this.monthPlannedFte(assignments, month) } };
       }
+      // 无令牌 merge 路径:先读旧行供审计前后值(也区分 CREATE/UPDATE 动作)
+      const preRow = await this.db('project_actual_investments')
+        .where({ project_id: req.params.projectId, month })
+        .first();
       const [row] = await this.db('project_actual_investments')
         .insert({
           project_id: req.params.projectId,
@@ -159,6 +180,13 @@ export class ActualInvestmentsController extends BaseController {
         .onConflict(['project_id', 'month'])
         .merge({ fte, source: 'manual', updated_at: new Date(), version: this.db.raw('version + 1') })
         .returning('*');
+      await (req as any).logAuditEvent(
+        'project_actual_investments',
+        String(row.id),
+        preRow ? 'UPDATE' : 'CREATE',
+        preRow,
+        row
+      );
       const assignments = await this.activeAssignments(req.params.projectId);
       return { data: { ...row, planned_fte: this.monthPlannedFte(assignments, month) } };
     }, res, 'Failed to save actual investment');
@@ -174,14 +202,21 @@ export class ActualInvestmentsController extends BaseController {
     if (result) this.sendSuccess(req, res, result, undefined);
   });
 
-  /** 清除某月记录(manual 或 snapshot) */
+  /** 清除某月记录(manual 或 snapshot)。IP-07e: 删除记审计(前值),空删不记 */
   remove = this.asyncHandler(async (req: RequestWithContext, res: Response) => {
     const month = String(req.params.month ?? '');
     if (!ActualInvestmentsController.MONTH_RE.test(month)) return this.badMonth(res);
     const result = await this.executeQuery(async () => {
-      await this.db('project_actual_investments')
+      const existing = await this.db('project_actual_investments')
         .where({ project_id: req.params.projectId, month })
+        .first();
+      if (!existing) {
+        return { data: { month } };
+      }
+      await this.db('project_actual_investments')
+        .where({ id: existing.id })
         .del();
+      await (req as any).logAuditEvent('project_actual_investments', String(existing.id), 'DELETE', existing, undefined);
       return { data: { month } };
     }, res, 'Failed to remove actual investment');
     if (result) this.sendSuccess(req, res, result, undefined);

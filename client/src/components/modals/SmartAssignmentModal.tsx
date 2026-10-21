@@ -404,8 +404,9 @@ export function SmartAssignmentModal({
 
   // Delete assignment mutation
   const deleteAssignmentMutation = useMutation({
-    mutationFn: async (assignmentId: string) => {
-      return api.assignments.delete(assignmentId);
+    // IP-07e: 附行 version 作乐观锁令牌(删除他人刚改的行 409 拒)
+    mutationFn: async (target: { id: string; version?: number }) => {
+      return api.assignments.delete(target.id, target.version !== undefined ? { expected_version: target.version } : undefined);
     },
     onSuccess: () => {
       // Invalidate queries after deletion
@@ -705,7 +706,7 @@ export function SmartAssignmentModal({
                                 return;
                               }
                               if (confirm(t('assignments:smart.removeConfirm', { name: assignment.project_name }))) {
-                                deleteAssignmentMutation.mutate(assignment.id);
+                                deleteAssignmentMutation.mutate({ id: assignment.id, version: (assignment as any).version });
                               }
                             }}
                             disabled={deleteAssignmentMutation.isPending || !assignment.id}

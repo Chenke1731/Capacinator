@@ -73,17 +73,19 @@ describe('乐观锁: 人工月账与分配写入 (真迁移库)', () => {
   });
 
   beforeEach(async () => {
-    // 每用例重置夹具到已知版本
+    // 每用例重置夹具到已知版本(delete 用例会删行——幂等 upsert 而非裸 update)
     await db('project_actual_investments').where({ project_id: 'prj1', month: '2026-09' })
       .update({ fte: 0.9, source: 'snapshot' });
-    await db('scenario_project_assignments').where({ id: 'a-1' })
-      .update({ allocation_percentage: 40 });
+    await db('scenario_project_assignments').insert({
+      id: 'a-1', scenario_id: BASELINE, project_id: 'prj1', person_id: 'p1', role_id: 'r1',
+      allocation_percentage: 40, status: 'active', change_type: 'added'
+    }).onConflict('id').merge({ allocation_percentage: 40, version: 1 });
     jest.clearAllMocks();
   });
 
   const setManual = (body: Record<string, unknown>) =>
     run(() => actuals.setManual(
-      { params: { projectId: 'prj1' }, body, headers: {}, user: { id: 'u1' },
+      { params: { projectId: 'prj1' }, body, headers: {}, user: { id: 'u1' }, logAuditEvent: jest.fn(),
         logger: { info: jest.fn(), error: jest.fn(), warn: jest.fn(), debug: jest.fn() } } as never,
       mockRes as never
     ));
@@ -156,6 +158,47 @@ describe('乐观锁: 人工月账与分配写入 (真迁移库)', () => {
       expect(r.statusCode).toBe(200);
       const row = await db('scenario_project_assignments').where({ id: 'a-1' }).first();
       expect(Number(row.allocation_percentage)).toBe(50);
+    });
+  });
+
+  // IP-07e(2026-10-21): delete 上锁——07c 台账注记的"其余写路径"适用面
+  // 收窄结论:create/bulk 纯 INSERT 无既有版本可撞,pause 走已锁的 update,
+  // 唯一剩余=delete(删掉他人刚改的行=丢失更新的一种)。
+  describe('assignment delete', () => {
+    const deleteAssignment = (id: string, body: Record<string, unknown> = {}) =>
+      run(() => (assignments as any).delete(
+        { params: { id }, body, headers: { 'x-scenario-id': BASELINE }, user: { id: 'u1' },
+          logAuditEvent: jest.fn(),
+          logger: { info: jest.fn(), error: jest.fn(), warn: jest.fn(), debug: jest.fn() } } as never,
+        mockRes as never
+      ));
+
+    test('令牌过期: 他人已改后删除 → 409 + 行保留 + 载荷含当前值', async () => {
+      // B 先改(无令牌), 行版本前移
+      const b = await updateAssignment('a-1', { allocation_percentage: 65 });
+      expect(b.statusCode).toBe(200);
+      // A 带过期令牌(expected_version=1)删除 → 409
+      const a = await deleteAssignment('a-1', { expected_version: 1 });
+      expect(a.statusCode).toBe(409);
+      expect(a.body.error).toMatch(/conflict/i);
+      expect(a.body.current).toMatchObject({ id: 'spa-a-1', allocation_percentage: 65 });
+      // 行仍存活
+      const row = await db('scenario_project_assignments').where({ id: 'a-1' }).first();
+      expect(row).toBeDefined();
+      expect(Number(row.allocation_percentage)).toBe(65);
+    });
+
+    test('令牌正确: 删除成功', async () => {
+      const cur = await db('scenario_project_assignments').where({ id: 'a-1' }).first();
+      const r = await deleteAssignment('a-1', { expected_version: Number(cur.version) });
+      expect(r.statusCode).toBe(200);
+      expect(await db('scenario_project_assignments').where({ id: 'a-1' }).first()).toBeUndefined();
+    });
+
+    test('无令牌: 旧删除行为不变(兼容)', async () => {
+      const r = await deleteAssignment('a-1');
+      expect(r.statusCode).toBe(200);
+      expect(await db('scenario_project_assignments').where({ id: 'a-1' }).first()).toBeUndefined();
     });
   });
 });

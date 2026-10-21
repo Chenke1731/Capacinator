@@ -55,6 +55,7 @@ describe('SmartAssignmentModal', () => {
         project_name: 'Project Alpha',
         role_name: 'Developer',
         allocation_percentage: 40,
+        version: 4,
         computed_start_date: '2026-01-01',
         computed_end_date: '2026-12-31',
         start_date: '2026-01-01',
@@ -691,7 +692,7 @@ describe('SmartAssignmentModal', () => {
       fireEvent.click(removeButtons[0]);
 
       await waitFor(() => {
-        expect(api.assignments.delete).toHaveBeenCalledWith('assignment-1');
+        expect(api.assignments.delete).toHaveBeenCalledWith('assignment-1', { expected_version: 4 });
         expect(globalThis.confirm).toHaveBeenCalled();
       });
     });

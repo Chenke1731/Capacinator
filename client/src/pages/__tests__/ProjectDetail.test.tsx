@@ -100,6 +100,7 @@ const mockProject = {
       role_id: 'role-1',
       role_name: 'Developer',
       phase_id: 'phase-1',
+      version: 2,
       start_date: 1704067200000,
       end_date: 1706745600000,
       allocation_percentage: 75,
@@ -525,7 +526,7 @@ describe('ProjectDetail', () => {
       await user.click(within(row).getByText('Delete'));
 
       await waitFor(() => {
-        expect(api.assignments.delete).toHaveBeenCalledWith('assign-1');
+        expect(api.assignments.delete).toHaveBeenCalledWith('assign-1', { expected_version: 2 });
       });
 
       // Restore original confirm

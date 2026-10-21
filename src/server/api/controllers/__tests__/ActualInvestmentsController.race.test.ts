@@ -140,7 +140,7 @@ describe('ActualInvestmentsController snapshot/manual race (C10)', () => {
     await db('project_actual_investments').insert({ project_id: 'p1', month: '2026-01', fte: 0.2, source: 'snapshot' });
 
     const { release, readDone } = armReadGate();
-    const snapshotReq: any = { params: { projectId: 'p1' }, body: { month: '2026-01' }, headers: {}, logger: mockLogger };
+    const snapshotReq: any = { params: { projectId: 'p1' }, body: { month: '2026-01' }, headers: {}, logger: mockLogger, logAuditEvent: jest.fn() };
     controller.snapshot(snapshotReq, mockRes);
 
     await readDone; // 快照已读到旧 source=snapshot,正卡在写之前
@@ -150,7 +150,7 @@ describe('ActualInvestmentsController snapshot/manual race (C10)', () => {
     (manualController as any).db = db;
     const manualRes = { json: jest.fn(), status: jest.fn().mockReturnThis() };
     manualController.setManual(
-      { params: { projectId: 'p1' }, body: { month: '2026-01', fte: 0.9 }, headers: {}, logger: mockLogger, user: { id: 'u1' } } as any,
+      { params: { projectId: 'p1' }, body: { month: '2026-01', fte: 0.9 }, headers: {}, logger: mockLogger, user: { id: 'u1' }, logAuditEvent: jest.fn() } as any,
       manualRes as any
     );
     await waitForResponse(manualRes);
@@ -174,7 +174,7 @@ describe('ActualInvestmentsController snapshot/manual race (C10)', () => {
     await seedAssignments(db, '2026-02');
 
     const { release, readDone } = armReadGate();
-    const snapshotReq: any = { params: { projectId: 'p1' }, body: { month: '2026-02' }, headers: {}, logger: mockLogger };
+    const snapshotReq: any = { params: { projectId: 'p1' }, body: { month: '2026-02' }, headers: {}, logger: mockLogger, logAuditEvent: jest.fn() };
     controller.snapshot(snapshotReq, mockRes);
 
     await readDone; // 快照读到 null,卡在插入之前
@@ -183,7 +183,7 @@ describe('ActualInvestmentsController snapshot/manual race (C10)', () => {
     (manualController as any).db = db;
     const manualRes = { json: jest.fn(), status: jest.fn().mockReturnThis() };
     manualController.setManual(
-      { params: { projectId: 'p1' }, body: { month: '2026-02', fte: 0.9 }, headers: {}, logger: mockLogger, user: { id: 'u1' } } as any,
+      { params: { projectId: 'p1' }, body: { month: '2026-02', fte: 0.9 }, headers: {}, logger: mockLogger, user: { id: 'u1' }, logAuditEvent: jest.fn() } as any,
       manualRes as any
     );
     await waitForResponse(manualRes);
@@ -203,7 +203,7 @@ describe('ActualInvestmentsController snapshot/manual race (C10)', () => {
 
   test('sequential re-snapshot after manual keeps skipping (no race needed)', async () => {
     await seedAssignments(db, '2026-03');
-    const req = (month: string): any => ({ params: { projectId: 'p1' }, body: { month }, headers: {}, logger: mockLogger });
+    const req = (month: string): any => ({ params: { projectId: 'p1' }, body: { month }, headers: {}, logger: mockLogger, logAuditEvent: jest.fn() });
     (controller as any).db = db;
 
     const res1 = { json: jest.fn(), status: jest.fn().mockReturnThis() };
@@ -233,7 +233,7 @@ describe('ActualInvestmentsController snapshot/manual race (C10)', () => {
     (controller as any).db = db;
 
     const res = { json: jest.fn(), status: jest.fn().mockReturnThis() };
-    controller.snapshot({ params: { projectId: 'p1' }, body: { month: '2026-04' }, headers: {}, logger: mockLogger } as any, res as any);
+    controller.snapshot({ params: { projectId: 'p1' }, body: { month: '2026-04' }, headers: {}, logger: mockLogger, logAuditEvent: jest.fn() } as any, res as any);
     await waitForResponse(res);
 
     const row = await currentRow('2026-04');

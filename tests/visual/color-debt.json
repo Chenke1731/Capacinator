@@ -173,7 +173,7 @@
       "evidence": [
         {
           "fingerprint": "b49630bafbedf66e213bdae923060bc147bf141092976065105fd85d8a45c17d",
-          "fileHash": "2ec799f2dc0721a02a0ef2398a5f1aba0b18e7503e7ff056c7fd3bc5ed69878b",
+          "fileHash": "e8b0b6be2384863e9b58e9b1eb4560aa679b69ed859a9b65478027abdb76e20f",
           "theme": "light",
           "state": "all-palette-default-selected-hover-focus",
           "profile": "actual-palette-component",
@@ -186,20 +186,20 @@
           "foreground": "color(srgb 0.418667 0.428 0.448)",
           "background": "rgb(242.96470588235294, 242.96470588235294, 242.96470588235294)",
           "artifact": "tests/visual/reports/palette-color-evidence.json",
-          "artifactHash": "bf4501d06ae567f287c97767ebccbd25f4b4f26fea3b2a5278261550adc9d4e4",
-          "implementationHead": "5f40f0ea747601a58b4ccdec46653b10fc22cc99+validated-working-tree",
+          "artifactHash": "1ccfe0f8296c032abe28e7ff15d07d6c44eeb9b373bd08e4569fb4f71f0dbd16",
+          "implementationHead": "f97b162166811d62ea3e9849767abb3b754b7e7a+validated-working-tree",
           "dependencies": {
             "client/src/index.css": "6a6ad83d2453b60363403d43987a8e99970eb3c1f8f9fb163a7352110ee71e3a",
-            "client/src/App.css": "7b14606043fa8f1c93d363e6a23d1e189ca0c58f87bfc8a5de187c0a78c59ffd",
+            "client/src/App.css": "9477fea3d6a9cb8973472b589a03c6dcf1b01be74c63b69ba59e7120246dbd36",
             "client/src/lib/project-colors.ts": "04fa429d0ff0d8dee962c75741b9b5dc497bd08eeacabf37c7352e20832f512f",
             "client/src/__fixtures__/palette-color-audit.tsx": "ea45f91045e98bb2d80cb0d735eaf729e9d8b1006cefa31d3477c3038c602d58",
             "scripts/verify-palette-colors.mjs": "52f67d5e6a40a438f7bd859510adb19bf82c26937e1509f21c8f3309350519e0",
-            "client/src/components/boards/EditableCells.tsx": "2ec799f2dc0721a02a0ef2398a5f1aba0b18e7503e7ff056c7fd3bc5ed69878b"
+            "client/src/components/boards/EditableCells.tsx": "e8b0b6be2384863e9b58e9b1eb4560aa679b69ed859a9b65478027abdb76e20f"
           }
         },
         {
           "fingerprint": "b49630bafbedf66e213bdae923060bc147bf141092976065105fd85d8a45c17d",
-          "fileHash": "2ec799f2dc0721a02a0ef2398a5f1aba0b18e7503e7ff056c7fd3bc5ed69878b",
+          "fileHash": "e8b0b6be2384863e9b58e9b1eb4560aa679b69ed859a9b65478027abdb76e20f",
           "theme": "dark",
           "state": "all-palette-default-selected-hover-focus",
           "profile": "actual-palette-component",
@@ -212,15 +212,15 @@
           "foreground": "color(srgb 0.728 0.729333 0.730667)",
           "background": "rgb(33.898039215686275, 40.04705882352941, 53.2235294117647)",
           "artifact": "tests/visual/reports/palette-color-evidence.json",
-          "artifactHash": "bf4501d06ae567f287c97767ebccbd25f4b4f26fea3b2a5278261550adc9d4e4",
-          "implementationHead": "5f40f0ea747601a58b4ccdec46653b10fc22cc99+validated-working-tree",
+          "artifactHash": "1ccfe0f8296c032abe28e7ff15d07d6c44eeb9b373bd08e4569fb4f71f0dbd16",
+          "implementationHead": "f97b162166811d62ea3e9849767abb3b754b7e7a+validated-working-tree",
           "dependencies": {
             "client/src/index.css": "6a6ad83d2453b60363403d43987a8e99970eb3c1f8f9fb163a7352110ee71e3a",
-            "client/src/App.css": "7b14606043fa8f1c93d363e6a23d1e189ca0c58f87bfc8a5de187c0a78c59ffd",
+            "client/src/App.css": "9477fea3d6a9cb8973472b589a03c6dcf1b01be74c63b69ba59e7120246dbd36",
             "client/src/lib/project-colors.ts": "04fa429d0ff0d8dee962c75741b9b5dc497bd08eeacabf37c7352e20832f512f",
             "client/src/__fixtures__/palette-color-audit.tsx": "ea45f91045e98bb2d80cb0d735eaf729e9d8b1006cefa31d3477c3038c602d58",
             "scripts/verify-palette-colors.mjs": "52f67d5e6a40a438f7bd859510adb19bf82c26937e1509f21c8f3309350519e0",
-            "client/src/components/boards/EditableCells.tsx": "2ec799f2dc0721a02a0ef2398a5f1aba0b18e7503e7ff056c7fd3bc5ed69878b"
+            "client/src/components/boards/EditableCells.tsx": "e8b0b6be2384863e9b58e9b1eb4560aa679b69ed859a9b65478027abdb76e20f"
           }
         }
       ]
@@ -247,7 +247,7 @@
       "evidence": [
         {
           "fingerprint": "b6a9632134a46077361a9d43ddd23d1b3275e2d6ba44d9abe9e1a89d813e0e19",
-          "fileHash": "2ec799f2dc0721a02a0ef2398a5f1aba0b18e7503e7ff056c7fd3bc5ed69878b",
+          "fileHash": "e8b0b6be2384863e9b58e9b1eb4560aa679b69ed859a9b65478027abdb76e20f",
           "theme": "light",
           "state": "all-palette-default-selected-hover-focus",
           "profile": "actual-palette-component",
@@ -260,20 +260,20 @@
           "foreground": "color(srgb 0.180314 0.351059 0.472471)",
           "background": "rgb(233.9686274509804, 246.00392156862745, 251.9607843137255)",
           "artifact": "tests/visual/reports/palette-color-evidence.json",
-          "artifactHash": "bf4501d06ae567f287c97767ebccbd25f4b4f26fea3b2a5278261550adc9d4e4",
-          "implementationHead": "5f40f0ea747601a58b4ccdec46653b10fc22cc99+validated-working-tree",
+          "artifactHash": "1ccfe0f8296c032abe28e7ff15d07d6c44eeb9b373bd08e4569fb4f71f0dbd16",
+          "implementationHead": "f97b162166811d62ea3e9849767abb3b754b7e7a+validated-working-tree",
           "dependencies": {
             "client/src/index.css": "6a6ad83d2453b60363403d43987a8e99970eb3c1f8f9fb163a7352110ee71e3a",
-            "client/src/App.css": "7b14606043fa8f1c93d363e6a23d1e189ca0c58f87bfc8a5de187c0a78c59ffd",
+            "client/src/App.css": "9477fea3d6a9cb8973472b589a03c6dcf1b01be74c63b69ba59e7120246dbd36",
             "client/src/lib/project-colors.ts": "04fa429d0ff0d8dee962c75741b9b5dc497bd08eeacabf37c7352e20832f512f",
             "client/src/__fixtures__/palette-color-audit.tsx": "ea45f91045e98bb2d80cb0d735eaf729e9d8b1006cefa31d3477c3038c602d58",
             "scripts/verify-palette-colors.mjs": "52f67d5e6a40a438f7bd859510adb19bf82c26937e1509f21c8f3309350519e0",
-            "client/src/components/boards/EditableCells.tsx": "2ec799f2dc0721a02a0ef2398a5f1aba0b18e7503e7ff056c7fd3bc5ed69878b"
+            "client/src/components/boards/EditableCells.tsx": "e8b0b6be2384863e9b58e9b1eb4560aa679b69ed859a9b65478027abdb76e20f"
           }
         },
         {
           "fingerprint": "b6a9632134a46077361a9d43ddd23d1b3275e2d6ba44d9abe9e1a89d813e0e19",
-          "fileHash": "2ec799f2dc0721a02a0ef2398a5f1aba0b18e7503e7ff056c7fd3bc5ed69878b",
+          "fileHash": "e8b0b6be2384863e9b58e9b1eb4560aa679b69ed859a9b65478027abdb76e20f",
           "theme": "dark",
           "state": "all-palette-default-selected-hover-focus",
           "profile": "actual-palette-component",
@@ -286,15 +286,15 @@
           "foreground": "color(srgb 0.708 0.865098 0.954667)",
           "background": "rgb(24.901960784313726, 43.08627450980392, 62.219607843137254)",
           "artifact": "tests/visual/reports/palette-color-evidence.json",
-          "artifactHash": "bf4501d06ae567f287c97767ebccbd25f4b4f26fea3b2a5278261550adc9d4e4",
-          "implementationHead": "5f40f0ea747601a58b4ccdec46653b10fc22cc99+validated-working-tree",
+          "artifactHash": "1ccfe0f8296c032abe28e7ff15d07d6c44eeb9b373bd08e4569fb4f71f0dbd16",
+          "implementationHead": "f97b162166811d62ea3e9849767abb3b754b7e7a+validated-working-tree",
           "dependencies": {
             "client/src/index.css": "6a6ad83d2453b60363403d43987a8e99970eb3c1f8f9fb163a7352110ee71e3a",
-            "client/src/App.css": "7b14606043fa8f1c93d363e6a23d1e189ca0c58f87bfc8a5de187c0a78c59ffd",
+            "client/src/App.css": "9477fea3d6a9cb8973472b589a03c6dcf1b01be74c63b69ba59e7120246dbd36",
             "client/src/lib/project-colors.ts": "04fa429d0ff0d8dee962c75741b9b5dc497bd08eeacabf37c7352e20832f512f",
             "client/src/__fixtures__/palette-color-audit.tsx": "ea45f91045e98bb2d80cb0d735eaf729e9d8b1006cefa31d3477c3038c602d58",
             "scripts/verify-palette-colors.mjs": "52f67d5e6a40a438f7bd859510adb19bf82c26937e1509f21c8f3309350519e0",
-            "client/src/components/boards/EditableCells.tsx": "2ec799f2dc0721a02a0ef2398a5f1aba0b18e7503e7ff056c7fd3bc5ed69878b"
+            "client/src/components/boards/EditableCells.tsx": "e8b0b6be2384863e9b58e9b1eb4560aa679b69ed859a9b65478027abdb76e20f"
           }
         }
       ]
@@ -321,7 +321,7 @@
       "evidence": [
         {
           "fingerprint": "bce68aee60c9b9683dab3a715155cd071d0ece5c9254dc09f9bd42af44472e0c",
-          "fileHash": "2ec799f2dc0721a02a0ef2398a5f1aba0b18e7503e7ff056c7fd3bc5ed69878b",
+          "fileHash": "e8b0b6be2384863e9b58e9b1eb4560aa679b69ed859a9b65478027abdb76e20f",
           "theme": "light",
           "state": "all-palette-default-selected-hover-focus",
           "profile": "actual-palette-component",
@@ -334,20 +334,20 @@
           "foreground": "color(srgb 0.0226667 0.327059 0.512706)",
           "background": "rgb(224, 237.98039215686273, 246.00392156862745)",
           "artifact": "tests/visual/reports/palette-color-evidence.json",
-          "artifactHash": "bf4501d06ae567f287c97767ebccbd25f4b4f26fea3b2a5278261550adc9d4e4",
-          "implementationHead": "5f40f0ea747601a58b4ccdec46653b10fc22cc99+validated-working-tree",
+          "artifactHash": "1ccfe0f8296c032abe28e7ff15d07d6c44eeb9b373bd08e4569fb4f71f0dbd16",
+          "implementationHead": "f97b162166811d62ea3e9849767abb3b754b7e7a+validated-working-tree",
           "dependencies": {
             "client/src/index.css": "6a6ad83d2453b60363403d43987a8e99970eb3c1f8f9fb163a7352110ee71e3a",
-            "client/src/App.css": "7b14606043fa8f1c93d363e6a23d1e189ca0c58f87bfc8a5de187c0a78c59ffd",
+            "client/src/App.css": "9477fea3d6a9cb8973472b589a03c6dcf1b01be74c63b69ba59e7120246dbd36",
             "client/src/lib/project-colors.ts": "04fa429d0ff0d8dee962c75741b9b5dc497bd08eeacabf37c7352e20832f512f",
             "client/src/__fixtures__/palette-color-audit.tsx": "ea45f91045e98bb2d80cb0d735eaf729e9d8b1006cefa31d3477c3038c602d58",
             "scripts/verify-palette-colors.mjs": "52f67d5e6a40a438f7bd859510adb19bf82c26937e1509f21c8f3309350519e0",
-            "client/src/components/boards/EditableCells.tsx": "2ec799f2dc0721a02a0ef2398a5f1aba0b18e7503e7ff056c7fd3bc5ed69878b"
+            "client/src/components/boards/EditableCells.tsx": "e8b0b6be2384863e9b58e9b1eb4560aa679b69ed859a9b65478027abdb76e20f"
           }
         },
         {
           "fingerprint": "bce68aee60c9b9683dab3a715155cd071d0ece5c9254dc09f9bd42af44472e0c",
-          "fileHash": "2ec799f2dc0721a02a0ef2398a5f1aba0b18e7503e7ff056c7fd3bc5ed69878b",
+          "fileHash": "e8b0b6be2384863e9b58e9b1eb4560aa679b69ed859a9b65478027abdb76e20f",
           "theme": "dark",
           "state": "all-palette-default-selected-hover-focus",
           "profile": "actual-palette-component",
@@ -360,15 +360,15 @@
           "foreground": "color(srgb 0.332 0.628392 0.795373)",
           "background": "rgb(14.933333333333334, 35.062745098039215, 56.26274509803922)",
           "artifact": "tests/visual/reports/palette-color-evidence.json",
-          "artifactHash": "bf4501d06ae567f287c97767ebccbd25f4b4f26fea3b2a5278261550adc9d4e4",
-          "implementationHead": "5f40f0ea747601a58b4ccdec46653b10fc22cc99+validated-working-tree",
+          "artifactHash": "1ccfe0f8296c032abe28e7ff15d07d6c44eeb9b373bd08e4569fb4f71f0dbd16",
+          "implementationHead": "f97b162166811d62ea3e9849767abb3b754b7e7a+validated-working-tree",
           "dependencies": {
             "client/src/index.css": "6a6ad83d2453b60363403d43987a8e99970eb3c1f8f9fb163a7352110ee71e3a",
-            "client/src/App.css": "7b14606043fa8f1c93d363e6a23d1e189ca0c58f87bfc8a5de187c0a78c59ffd",
+            "client/src/App.css": "9477fea3d6a9cb8973472b589a03c6dcf1b01be74c63b69ba59e7120246dbd36",
             "client/src/lib/project-colors.ts": "04fa429d0ff0d8dee962c75741b9b5dc497bd08eeacabf37c7352e20832f512f",
             "client/src/__fixtures__/palette-color-audit.tsx": "ea45f91045e98bb2d80cb0d735eaf729e9d8b1006cefa31d3477c3038c602d58",
             "scripts/verify-palette-colors.mjs": "52f67d5e6a40a438f7bd859510adb19bf82c26937e1509f21c8f3309350519e0",
-            "client/src/components/boards/EditableCells.tsx": "2ec799f2dc0721a02a0ef2398a5f1aba0b18e7503e7ff056c7fd3bc5ed69878b"
+            "client/src/components/boards/EditableCells.tsx": "e8b0b6be2384863e9b58e9b1eb4560aa679b69ed859a9b65478027abdb76e20f"
           }
         }
       ]
@@ -395,7 +395,7 @@
       "evidence": [
         {
           "fingerprint": "c7f3671fe8c352709910d05b0bf019086f8d7d57d9e08908301ced0ac0d1a88e",
-          "fileHash": "2ec799f2dc0721a02a0ef2398a5f1aba0b18e7503e7ff056c7fd3bc5ed69878b",
+          "fileHash": "e8b0b6be2384863e9b58e9b1eb4560aa679b69ed859a9b65478027abdb76e20f",
           "theme": "light",
           "state": "all-palette-default-selected-hover-focus",
           "profile": "actual-palette-component",
@@ -408,20 +408,20 @@
           "foreground": "color(srgb 0.41749 0.316471 0.0887059)",
           "background": "rgb(251.9607843137255, 242.96470588235294, 224)",
           "artifact": "tests/visual/reports/palette-color-evidence.json",
-          "artifactHash": "bf4501d06ae567f287c97767ebccbd25f4b4f26fea3b2a5278261550adc9d4e4",
-          "implementationHead": "5f40f0ea747601a58b4ccdec46653b10fc22cc99+validated-working-tree",
+          "artifactHash": "1ccfe0f8296c032abe28e7ff15d07d6c44eeb9b373bd08e4569fb4f71f0dbd16",
+          "implementationHead": "f97b162166811d62ea3e9849767abb3b754b7e7a+validated-working-tree",
           "dependencies": {
             "client/src/index.css": "6a6ad83d2453b60363403d43987a8e99970eb3c1f8f9fb163a7352110ee71e3a",
-            "client/src/App.css": "7b14606043fa8f1c93d363e6a23d1e189ca0c58f87bfc8a5de187c0a78c59ffd",
+            "client/src/App.css": "9477fea3d6a9cb8973472b589a03c6dcf1b01be74c63b69ba59e7120246dbd36",
             "client/src/lib/project-colors.ts": "04fa429d0ff0d8dee962c75741b9b5dc497bd08eeacabf37c7352e20832f512f",
             "client/src/__fixtures__/palette-color-audit.tsx": "ea45f91045e98bb2d80cb0d735eaf729e9d8b1006cefa31d3477c3038c602d58",
             "scripts/verify-palette-colors.mjs": "52f67d5e6a40a438f7bd859510adb19bf82c26937e1509f21c8f3309350519e0",
-            "client/src/components/boards/EditableCells.tsx": "2ec799f2dc0721a02a0ef2398a5f1aba0b18e7503e7ff056c7fd3bc5ed69878b"
+            "client/src/components/boards/EditableCells.tsx": "e8b0b6be2384863e9b58e9b1eb4560aa679b69ed859a9b65478027abdb76e20f"
           }
         },
         {
           "fingerprint": "c7f3671fe8c352709910d05b0bf019086f8d7d57d9e08908301ced0ac0d1a88e",
-          "fileHash": "2ec799f2dc0721a02a0ef2398a5f1aba0b18e7503e7ff056c7fd3bc5ed69878b",
+          "fileHash": "e8b0b6be2384863e9b58e9b1eb4560aa679b69ed859a9b65478027abdb76e20f",
           "theme": "dark",
           "state": "all-palette-default-selected-hover-focus",
           "profile": "actual-palette-component",
@@ -434,15 +434,15 @@
           "foreground": "color(srgb 0.945176 0.83051 0.570902)",
           "background": "rgb(42.89411764705882, 40.04705882352941, 34.258823529411764)",
           "artifact": "tests/visual/reports/palette-color-evidence.json",
-          "artifactHash": "bf4501d06ae567f287c97767ebccbd25f4b4f26fea3b2a5278261550adc9d4e4",
-          "implementationHead": "5f40f0ea747601a58b4ccdec46653b10fc22cc99+validated-working-tree",
+          "artifactHash": "1ccfe0f8296c032abe28e7ff15d07d6c44eeb9b373bd08e4569fb4f71f0dbd16",
+          "implementationHead": "f97b162166811d62ea3e9849767abb3b754b7e7a+validated-working-tree",
           "dependencies": {
             "client/src/index.css": "6a6ad83d2453b60363403d43987a8e99970eb3c1f8f9fb163a7352110ee71e3a",
-            "client/src/App.css": "7b14606043fa8f1c93d363e6a23d1e189ca0c58f87bfc8a5de187c0a78c59ffd",
+            "client/src/App.css": "9477fea3d6a9cb8973472b589a03c6dcf1b01be74c63b69ba59e7120246dbd36",
             "client/src/lib/project-colors.ts": "04fa429d0ff0d8dee962c75741b9b5dc497bd08eeacabf37c7352e20832f512f",
             "client/src/__fixtures__/palette-color-audit.tsx": "ea45f91045e98bb2d80cb0d735eaf729e9d8b1006cefa31d3477c3038c602d58",
             "scripts/verify-palette-colors.mjs": "52f67d5e6a40a438f7bd859510adb19bf82c26937e1509f21c8f3309350519e0",
-            "client/src/components/boards/EditableCells.tsx": "2ec799f2dc0721a02a0ef2398a5f1aba0b18e7503e7ff056c7fd3bc5ed69878b"
+            "client/src/components/boards/EditableCells.tsx": "e8b0b6be2384863e9b58e9b1eb4560aa679b69ed859a9b65478027abdb76e20f"
           }
         }
       ]
@@ -469,7 +469,7 @@
       "evidence": [
         {
           "fingerprint": "d67c7fc41ac11a74f5a3cc082cfff3084d4ecca07d33c06793f350bc750d85e4",
-          "fileHash": "2ec799f2dc0721a02a0ef2398a5f1aba0b18e7503e7ff056c7fd3bc5ed69878b",
+          "fileHash": "e8b0b6be2384863e9b58e9b1eb4560aa679b69ed859a9b65478027abdb76e20f",
           "theme": "light",
           "state": "all-palette-default-selected-hover-focus",
           "profile": "actual-palette-component",
@@ -482,20 +482,20 @@
           "foreground": "color(srgb 0.0226667 0.440941 0.349647)",
           "background": "rgb(224, 242.96470588235294, 237.98039215686273)",
           "artifact": "tests/visual/reports/palette-color-evidence.json",
-          "artifactHash": "bf4501d06ae567f287c97767ebccbd25f4b4f26fea3b2a5278261550adc9d4e4",
-          "implementationHead": "5f40f0ea747601a58b4ccdec46653b10fc22cc99+validated-working-tree",
+          "artifactHash": "1ccfe0f8296c032abe28e7ff15d07d6c44eeb9b373bd08e4569fb4f71f0dbd16",
+          "implementationHead": "f97b162166811d62ea3e9849767abb3b754b7e7a+validated-working-tree",
           "dependencies": {
             "client/src/index.css": "6a6ad83d2453b60363403d43987a8e99970eb3c1f8f9fb163a7352110ee71e3a",
-            "client/src/App.css": "7b14606043fa8f1c93d363e6a23d1e189ca0c58f87bfc8a5de187c0a78c59ffd",
+            "client/src/App.css": "9477fea3d6a9cb8973472b589a03c6dcf1b01be74c63b69ba59e7120246dbd36",
             "client/src/lib/project-colors.ts": "04fa429d0ff0d8dee962c75741b9b5dc497bd08eeacabf37c7352e20832f512f",
             "client/src/__fixtures__/palette-color-audit.tsx": "ea45f91045e98bb2d80cb0d735eaf729e9d8b1006cefa31d3477c3038c602d58",
             "scripts/verify-palette-colors.mjs": "52f67d5e6a40a438f7bd859510adb19bf82c26937e1509f21c8f3309350519e0",
-            "client/src/components/boards/EditableCells.tsx": "2ec799f2dc0721a02a0ef2398a5f1aba0b18e7503e7ff056c7fd3bc5ed69878b"
+            "client/src/components/boards/EditableCells.tsx": "e8b0b6be2384863e9b58e9b1eb4560aa679b69ed859a9b65478027abdb76e20f"
           }
         },
         {
           "fingerprint": "d67c7fc41ac11a74f5a3cc082cfff3084d4ecca07d33c06793f350bc750d85e4",
-          "fileHash": "2ec799f2dc0721a02a0ef2398a5f1aba0b18e7503e7ff056c7fd3bc5ed69878b",
+          "fileHash": "e8b0b6be2384863e9b58e9b1eb4560aa679b69ed859a9b65478027abdb76e20f",
           "theme": "dark",
           "state": "all-palette-default-selected-hover-focus",
           "profile": "actual-palette-component",
@@ -508,15 +508,15 @@
           "foreground": "color(srgb 0.332 0.742275 0.632314)",
           "background": "rgb(14.933333333333334, 40.04705882352941, 48.239215686274505)",
           "artifact": "tests/visual/reports/palette-color-evidence.json",
-          "artifactHash": "bf4501d06ae567f287c97767ebccbd25f4b4f26fea3b2a5278261550adc9d4e4",
-          "implementationHead": "5f40f0ea747601a58b4ccdec46653b10fc22cc99+validated-working-tree",
+          "artifactHash": "1ccfe0f8296c032abe28e7ff15d07d6c44eeb9b373bd08e4569fb4f71f0dbd16",
+          "implementationHead": "f97b162166811d62ea3e9849767abb3b754b7e7a+validated-working-tree",
           "dependencies": {
             "client/src/index.css": "6a6ad83d2453b60363403d43987a8e99970eb3c1f8f9fb163a7352110ee71e3a",
-            "client/src/App.css": "7b14606043fa8f1c93d363e6a23d1e189ca0c58f87bfc8a5de187c0a78c59ffd",
+            "client/src/App.css": "9477fea3d6a9cb8973472b589a03c6dcf1b01be74c63b69ba59e7120246dbd36",
             "client/src/lib/project-colors.ts": "04fa429d0ff0d8dee962c75741b9b5dc497bd08eeacabf37c7352e20832f512f",
             "client/src/__fixtures__/palette-color-audit.tsx": "ea45f91045e98bb2d80cb0d735eaf729e9d8b1006cefa31d3477c3038c602d58",
             "scripts/verify-palette-colors.mjs": "52f67d5e6a40a438f7bd859510adb19bf82c26937e1509f21c8f3309350519e0",
-            "client/src/components/boards/EditableCells.tsx": "2ec799f2dc0721a02a0ef2398a5f1aba0b18e7503e7ff056c7fd3bc5ed69878b"
+            "client/src/components/boards/EditableCells.tsx": "e8b0b6be2384863e9b58e9b1eb4560aa679b69ed859a9b65478027abdb76e20f"
           }
         }
       ]
@@ -543,7 +543,7 @@
       "evidence": [
         {
           "fingerprint": "da6556ac36e88d07938ba203d10e0f20508d131b4d3ddd91fea5c4d5d9f39869",
-          "fileHash": "2ec799f2dc0721a02a0ef2398a5f1aba0b18e7503e7ff056c7fd3bc5ed69878b",
+          "fileHash": "e8b0b6be2384863e9b58e9b1eb4560aa679b69ed859a9b65478027abdb76e20f",
           "theme": "light",
           "state": "all-palette-default-selected-hover-focus",
           "profile": "actual-palette-component",
@@ -556,20 +556,20 @@
           "foreground": "color(srgb 0.573961 0.275294 0.052)",
           "background": "rgb(250.0156862745098, 234.94117647058823, 224)",
           "artifact": "tests/visual/reports/palette-color-evidence.json",
-          "artifactHash": "bf4501d06ae567f287c97767ebccbd25f4b4f26fea3b2a5278261550adc9d4e4",
-          "implementationHead": "5f40f0ea747601a58b4ccdec46653b10fc22cc99+validated-working-tree",
+          "artifactHash": "1ccfe0f8296c032abe28e7ff15d07d6c44eeb9b373bd08e4569fb4f71f0dbd16",
+          "implementationHead": "f97b162166811d62ea3e9849767abb3b754b7e7a+validated-working-tree",
           "dependencies": {
             "client/src/index.css": "6a6ad83d2453b60363403d43987a8e99970eb3c1f8f9fb163a7352110ee71e3a",
-            "client/src/App.css": "7b14606043fa8f1c93d363e6a23d1e189ca0c58f87bfc8a5de187c0a78c59ffd",
+            "client/src/App.css": "9477fea3d6a9cb8973472b589a03c6dcf1b01be74c63b69ba59e7120246dbd36",
             "client/src/lib/project-colors.ts": "04fa429d0ff0d8dee962c75741b9b5dc497bd08eeacabf37c7352e20832f512f",
             "client/src/__fixtures__/palette-color-audit.tsx": "ea45f91045e98bb2d80cb0d735eaf729e9d8b1006cefa31d3477c3038c602d58",
             "scripts/verify-palette-colors.mjs": "52f67d5e6a40a438f7bd859510adb19bf82c26937e1509f21c8f3309350519e0",
-            "client/src/components/boards/EditableCells.tsx": "2ec799f2dc0721a02a0ef2398a5f1aba0b18e7503e7ff056c7fd3bc5ed69878b"
+            "client/src/components/boards/EditableCells.tsx": "e8b0b6be2384863e9b58e9b1eb4560aa679b69ed859a9b65478027abdb76e20f"
           }
         },
         {
           "fingerprint": "da6556ac36e88d07938ba203d10e0f20508d131b4d3ddd91fea5c4d5d9f39869",
-          "fileHash": "2ec799f2dc0721a02a0ef2398a5f1aba0b18e7503e7ff056c7fd3bc5ed69878b",
+          "fileHash": "e8b0b6be2384863e9b58e9b1eb4560aa679b69ed859a9b65478027abdb76e20f",
           "theme": "dark",
           "state": "all-palette-default-selected-hover-focus",
           "profile": "actual-palette-component",
@@ -582,15 +582,15 @@
           "foreground": "color(srgb 0.883294 0.576627 0.334667)",
           "background": "rgb(40.94901960784314, 32.023529411764706, 34.258823529411764)",
           "artifact": "tests/visual/reports/palette-color-evidence.json",
-          "artifactHash": "bf4501d06ae567f287c97767ebccbd25f4b4f26fea3b2a5278261550adc9d4e4",
-          "implementationHead": "5f40f0ea747601a58b4ccdec46653b10fc22cc99+validated-working-tree",
+          "artifactHash": "1ccfe0f8296c032abe28e7ff15d07d6c44eeb9b373bd08e4569fb4f71f0dbd16",
+          "implementationHead": "f97b162166811d62ea3e9849767abb3b754b7e7a+validated-working-tree",
           "dependencies": {
             "client/src/index.css": "6a6ad83d2453b60363403d43987a8e99970eb3c1f8f9fb163a7352110ee71e3a",
-            "client/src/App.css": "7b14606043fa8f1c93d363e6a23d1e189ca0c58f87bfc8a5de187c0a78c59ffd",
+            "client/src/App.css": "9477fea3d6a9cb8973472b589a03c6dcf1b01be74c63b69ba59e7120246dbd36",
             "client/src/lib/project-colors.ts": "04fa429d0ff0d8dee962c75741b9b5dc497bd08eeacabf37c7352e20832f512f",
             "client/src/__fixtures__/palette-color-audit.tsx": "ea45f91045e98bb2d80cb0d735eaf729e9d8b1006cefa31d3477c3038c602d58",
             "scripts/verify-palette-colors.mjs": "52f67d5e6a40a438f7bd859510adb19bf82c26937e1509f21c8f3309350519e0",
-            "client/src/components/boards/EditableCells.tsx": "2ec799f2dc0721a02a0ef2398a5f1aba0b18e7503e7ff056c7fd3bc5ed69878b"
+            "client/src/components/boards/EditableCells.tsx": "e8b0b6be2384863e9b58e9b1eb4560aa679b69ed859a9b65478027abdb76e20f"
           }
         }
       ]
@@ -617,7 +617,7 @@
       "evidence": [
         {
           "fingerprint": "f174a62f98d67e44d6e9e90bc3cb800a15836e6c1dce86bc9b69859cbf98a1f8",
-          "fileHash": "2ec799f2dc0721a02a0ef2398a5f1aba0b18e7503e7ff056c7fd3bc5ed69878b",
+          "fileHash": "e8b0b6be2384863e9b58e9b1eb4560aa679b69ed859a9b65478027abdb76e20f",
           "theme": "light",
           "state": "all-palette-default-selected-hover-focus",
           "profile": "actual-palette-component",
@@ -630,20 +630,20 @@
           "foreground": "color(srgb 0.550667 0.345176 0.484235)",
           "background": "rgb(249.04313725490195, 238.95294117647057, 244.05882352941177)",
           "artifact": "tests/visual/reports/palette-color-evidence.json",
-          "artifactHash": "bf4501d06ae567f287c97767ebccbd25f4b4f26fea3b2a5278261550adc9d4e4",
-          "implementationHead": "5f40f0ea747601a58b4ccdec46653b10fc22cc99+validated-working-tree",
+          "artifactHash": "1ccfe0f8296c032abe28e7ff15d07d6c44eeb9b373bd08e4569fb4f71f0dbd16",
+          "implementationHead": "f97b162166811d62ea3e9849767abb3b754b7e7a+validated-working-tree",
           "dependencies": {
             "client/src/index.css": "6a6ad83d2453b60363403d43987a8e99970eb3c1f8f9fb163a7352110ee71e3a",
-            "client/src/App.css": "7b14606043fa8f1c93d363e6a23d1e189ca0c58f87bfc8a5de187c0a78c59ffd",
+            "client/src/App.css": "9477fea3d6a9cb8973472b589a03c6dcf1b01be74c63b69ba59e7120246dbd36",
             "client/src/lib/project-colors.ts": "04fa429d0ff0d8dee962c75741b9b5dc497bd08eeacabf37c7352e20832f512f",
             "client/src/__fixtures__/palette-color-audit.tsx": "ea45f91045e98bb2d80cb0d735eaf729e9d8b1006cefa31d3477c3038c602d58",
             "scripts/verify-palette-colors.mjs": "52f67d5e6a40a438f7bd859510adb19bf82c26937e1509f21c8f3309350519e0",
-            "client/src/components/boards/EditableCells.tsx": "2ec799f2dc0721a02a0ef2398a5f1aba0b18e7503e7ff056c7fd3bc5ed69878b"
+            "client/src/components/boards/EditableCells.tsx": "e8b0b6be2384863e9b58e9b1eb4560aa679b69ed859a9b65478027abdb76e20f"
           }
         },
         {
           "fingerprint": "f174a62f98d67e44d6e9e90bc3cb800a15836e6c1dce86bc9b69859cbf98a1f8",
-          "fileHash": "2ec799f2dc0721a02a0ef2398a5f1aba0b18e7503e7ff056c7fd3bc5ed69878b",
+          "fileHash": "e8b0b6be2384863e9b58e9b1eb4560aa679b69ed859a9b65478027abdb76e20f",
           "theme": "dark",
           "state": "all-palette-default-selected-hover-focus",
           "profile": "actual-palette-component",
@@ -656,15 +656,15 @@
           "foreground": "color(srgb 0.86 0.64651 0.766902)",
           "background": "rgb(39.976470588235294, 36.035294117647055, 54.317647058823525)",
           "artifact": "tests/visual/reports/palette-color-evidence.json",
-          "artifactHash": "bf4501d06ae567f287c97767ebccbd25f4b4f26fea3b2a5278261550adc9d4e4",
-          "implementationHead": "5f40f0ea747601a58b4ccdec46653b10fc22cc99+validated-working-tree",
+          "artifactHash": "1ccfe0f8296c032abe28e7ff15d07d6c44eeb9b373bd08e4569fb4f71f0dbd16",
+          "implementationHead": "f97b162166811d62ea3e9849767abb3b754b7e7a+validated-working-tree",
           "dependencies": {
             "client/src/index.css": "6a6ad83d2453b60363403d43987a8e99970eb3c1f8f9fb163a7352110ee71e3a",
-            "client/src/App.css": "7b14606043fa8f1c93d363e6a23d1e189ca0c58f87bfc8a5de187c0a78c59ffd",
+            "client/src/App.css": "9477fea3d6a9cb8973472b589a03c6dcf1b01be74c63b69ba59e7120246dbd36",
             "client/src/lib/project-colors.ts": "04fa429d0ff0d8dee962c75741b9b5dc497bd08eeacabf37c7352e20832f512f",
             "client/src/__fixtures__/palette-color-audit.tsx": "ea45f91045e98bb2d80cb0d735eaf729e9d8b1006cefa31d3477c3038c602d58",
             "scripts/verify-palette-colors.mjs": "52f67d5e6a40a438f7bd859510adb19bf82c26937e1509f21c8f3309350519e0",
-            "client/src/components/boards/EditableCells.tsx": "2ec799f2dc0721a02a0ef2398a5f1aba0b18e7503e7ff056c7fd3bc5ed69878b"
+            "client/src/components/boards/EditableCells.tsx": "e8b0b6be2384863e9b58e9b1eb4560aa679b69ed859a9b65478027abdb76e20f"
           }
         }
       ]
@@ -691,7 +691,7 @@
       "evidence": [
         {
           "fingerprint": "fab329839d26a17c28e564933b81625a1074eb0856aa5a86e637177c94e391b2",
-          "fileHash": "2ec799f2dc0721a02a0ef2398a5f1aba0b18e7503e7ff056c7fd3bc5ed69878b",
+          "fileHash": "e8b0b6be2384863e9b58e9b1eb4560aa679b69ed859a9b65478027abdb76e20f",
           "theme": "light",
           "state": "all-palette-default-selected-hover-focus",
           "profile": "actual-palette-component",
@@ -704,20 +704,20 @@
           "foreground": "color(srgb 0.433961 0.430118 0.197412)",
           "background": "rgb(253.05490196078432, 251.9607843137255, 232.0235294117647)",
           "artifact": "tests/visual/reports/palette-color-evidence.json",
-          "artifactHash": "bf4501d06ae567f287c97767ebccbd25f4b4f26fea3b2a5278261550adc9d4e4",
-          "implementationHead": "5f40f0ea747601a58b4ccdec46653b10fc22cc99+validated-working-tree",
+          "artifactHash": "1ccfe0f8296c032abe28e7ff15d07d6c44eeb9b373bd08e4569fb4f71f0dbd16",
+          "implementationHead": "f97b162166811d62ea3e9849767abb3b754b7e7a+validated-working-tree",
           "dependencies": {
             "client/src/index.css": "6a6ad83d2453b60363403d43987a8e99970eb3c1f8f9fb163a7352110ee71e3a",
-            "client/src/App.css": "7b14606043fa8f1c93d363e6a23d1e189ca0c58f87bfc8a5de187c0a78c59ffd",
+            "client/src/App.css": "9477fea3d6a9cb8973472b589a03c6dcf1b01be74c63b69ba59e7120246dbd36",
             "client/src/lib/project-colors.ts": "04fa429d0ff0d8dee962c75741b9b5dc497bd08eeacabf37c7352e20832f512f",
             "client/src/__fixtures__/palette-color-audit.tsx": "ea45f91045e98bb2d80cb0d735eaf729e9d8b1006cefa31d3477c3038c602d58",
             "scripts/verify-palette-colors.mjs": "52f67d5e6a40a438f7bd859510adb19bf82c26937e1509f21c8f3309350519e0",
-            "client/src/components/boards/EditableCells.tsx": "2ec799f2dc0721a02a0ef2398a5f1aba0b18e7503e7ff056c7fd3bc5ed69878b"
+            "client/src/components/boards/EditableCells.tsx": "e8b0b6be2384863e9b58e9b1eb4560aa679b69ed859a9b65478027abdb76e20f"
           }
         },
         {
           "fingerprint": "fab329839d26a17c28e564933b81625a1074eb0856aa5a86e637177c94e391b2",
-          "fileHash": "2ec799f2dc0721a02a0ef2398a5f1aba0b18e7503e7ff056c7fd3bc5ed69878b",
+          "fileHash": "e8b0b6be2384863e9b58e9b1eb4560aa679b69ed859a9b65478027abdb76e20f",
           "theme": "dark",
           "state": "all-palette-default-selected-hover-focus",
           "profile": "actual-palette-component",
@@ -730,15 +730,15 @@
           "foreground": "color(srgb 0.961647 0.944157 0.679608)",
           "background": "rgb(43.98823529411764, 49.043137254901964, 42.28235294117647)",
           "artifact": "tests/visual/reports/palette-color-evidence.json",
-          "artifactHash": "bf4501d06ae567f287c97767ebccbd25f4b4f26fea3b2a5278261550adc9d4e4",
-          "implementationHead": "5f40f0ea747601a58b4ccdec46653b10fc22cc99+validated-working-tree",
+          "artifactHash": "1ccfe0f8296c032abe28e7ff15d07d6c44eeb9b373bd08e4569fb4f71f0dbd16",
+          "implementationHead": "f97b162166811d62ea3e9849767abb3b754b7e7a+validated-working-tree",
           "dependencies": {
             "client/src/index.css": "6a6ad83d2453b60363403d43987a8e99970eb3c1f8f9fb163a7352110ee71e3a",
-            "client/src/App.css": "7b14606043fa8f1c93d363e6a23d1e189ca0c58f87bfc8a5de187c0a78c59ffd",
+            "client/src/App.css": "9477fea3d6a9cb8973472b589a03c6dcf1b01be74c63b69ba59e7120246dbd36",
             "client/src/lib/project-colors.ts": "04fa429d0ff0d8dee962c75741b9b5dc497bd08eeacabf37c7352e20832f512f",
             "client/src/__fixtures__/palette-color-audit.tsx": "ea45f91045e98bb2d80cb0d735eaf729e9d8b1006cefa31d3477c3038c602d58",
             "scripts/verify-palette-colors.mjs": "52f67d5e6a40a438f7bd859510adb19bf82c26937e1509f21c8f3309350519e0",
-            "client/src/components/boards/EditableCells.tsx": "2ec799f2dc0721a02a0ef2398a5f1aba0b18e7503e7ff056c7fd3bc5ed69878b"
+            "client/src/components/boards/EditableCells.tsx": "e8b0b6be2384863e9b58e9b1eb4560aa679b69ed859a9b65478027abdb76e20f"
           }
         }
       ]
@@ -1008,11 +1008,11 @@
           "foreground": "rgb(79, 70, 229)",
           "background": "rgb(255, 255, 255)",
           "artifact": "tests/visual/reports/palette-color-evidence.json",
-          "artifactHash": "bf4501d06ae567f287c97767ebccbd25f4b4f26fea3b2a5278261550adc9d4e4",
-          "implementationHead": "5f40f0ea747601a58b4ccdec46653b10fc22cc99+validated-working-tree",
+          "artifactHash": "1ccfe0f8296c032abe28e7ff15d07d6c44eeb9b373bd08e4569fb4f71f0dbd16",
+          "implementationHead": "f97b162166811d62ea3e9849767abb3b754b7e7a+validated-working-tree",
           "dependencies": {
             "client/src/index.css": "6a6ad83d2453b60363403d43987a8e99970eb3c1f8f9fb163a7352110ee71e3a",
-            "client/src/App.css": "7b14606043fa8f1c93d363e6a23d1e189ca0c58f87bfc8a5de187c0a78c59ffd",
+            "client/src/App.css": "9477fea3d6a9cb8973472b589a03c6dcf1b01be74c63b69ba59e7120246dbd36",
             "client/src/lib/project-colors.ts": "04fa429d0ff0d8dee962c75741b9b5dc497bd08eeacabf37c7352e20832f512f",
             "client/src/__fixtures__/palette-color-audit.tsx": "ea45f91045e98bb2d80cb0d735eaf729e9d8b1006cefa31d3477c3038c602d58",
             "scripts/verify-palette-colors.mjs": "52f67d5e6a40a438f7bd859510adb19bf82c26937e1509f21c8f3309350519e0",
@@ -1034,11 +1034,11 @@
           "foreground": "rgb(165, 180, 252)",
           "background": "rgb(17, 24, 39)",
           "artifact": "tests/visual/reports/palette-color-evidence.json",
-          "artifactHash": "bf4501d06ae567f287c97767ebccbd25f4b4f26fea3b2a5278261550adc9d4e4",
-          "implementationHead": "5f40f0ea747601a58b4ccdec46653b10fc22cc99+validated-working-tree",
+          "artifactHash": "1ccfe0f8296c032abe28e7ff15d07d6c44eeb9b373bd08e4569fb4f71f0dbd16",
+          "implementationHead": "f97b162166811d62ea3e9849767abb3b754b7e7a+validated-working-tree",
           "dependencies": {
             "client/src/index.css": "6a6ad83d2453b60363403d43987a8e99970eb3c1f8f9fb163a7352110ee71e3a",
-            "client/src/App.css": "7b14606043fa8f1c93d363e6a23d1e189ca0c58f87bfc8a5de187c0a78c59ffd",
+            "client/src/App.css": "9477fea3d6a9cb8973472b589a03c6dcf1b01be74c63b69ba59e7120246dbd36",
             "client/src/lib/project-colors.ts": "04fa429d0ff0d8dee962c75741b9b5dc497bd08eeacabf37c7352e20832f512f",
             "client/src/__fixtures__/palette-color-audit.tsx": "ea45f91045e98bb2d80cb0d735eaf729e9d8b1006cefa31d3477c3038c602d58",
             "scripts/verify-palette-colors.mjs": "52f67d5e6a40a438f7bd859510adb19bf82c26937e1509f21c8f3309350519e0",
@@ -1082,11 +1082,11 @@
           "foreground": "rgb(79, 70, 229)",
           "background": "rgb(255, 255, 255)",
           "artifact": "tests/visual/reports/palette-color-evidence.json",
-          "artifactHash": "bf4501d06ae567f287c97767ebccbd25f4b4f26fea3b2a5278261550adc9d4e4",
-          "implementationHead": "5f40f0ea747601a58b4ccdec46653b10fc22cc99+validated-working-tree",
+          "artifactHash": "1ccfe0f8296c032abe28e7ff15d07d6c44eeb9b373bd08e4569fb4f71f0dbd16",
+          "implementationHead": "f97b162166811d62ea3e9849767abb3b754b7e7a+validated-working-tree",
           "dependencies": {
             "client/src/index.css": "6a6ad83d2453b60363403d43987a8e99970eb3c1f8f9fb163a7352110ee71e3a",
-            "client/src/App.css": "7b14606043fa8f1c93d363e6a23d1e189ca0c58f87bfc8a5de187c0a78c59ffd",
+            "client/src/App.css": "9477fea3d6a9cb8973472b589a03c6dcf1b01be74c63b69ba59e7120246dbd36",
             "client/src/lib/project-colors.ts": "04fa429d0ff0d8dee962c75741b9b5dc497bd08eeacabf37c7352e20832f512f",
             "client/src/__fixtures__/palette-color-audit.tsx": "ea45f91045e98bb2d80cb0d735eaf729e9d8b1006cefa31d3477c3038c602d58",
             "scripts/verify-palette-colors.mjs": "52f67d5e6a40a438f7bd859510adb19bf82c26937e1509f21c8f3309350519e0",
@@ -1104,15 +1104,15 @@
             "height": 900
           },
           "threshold": 3,
-          "ratio": 9.93665773995049,
-          "foreground": "rgb(181, 192, 240)",
+          "ratio": 10.322957542406924,
+          "foreground": "rgb(187, 196, 236)",
           "background": "rgb(17, 24, 39)",
           "artifact": "tests/visual/reports/palette-color-evidence.json",
-          "artifactHash": "bf4501d06ae567f287c97767ebccbd25f4b4f26fea3b2a5278261550adc9d4e4",
-          "implementationHead": "5f40f0ea747601a58b4ccdec46653b10fc22cc99+validated-working-tree",
+          "artifactHash": "1ccfe0f8296c032abe28e7ff15d07d6c44eeb9b373bd08e4569fb4f71f0dbd16",
+          "implementationHead": "f97b162166811d62ea3e9849767abb3b754b7e7a+validated-working-tree",
           "dependencies": {
             "client/src/index.css": "6a6ad83d2453b60363403d43987a8e99970eb3c1f8f9fb163a7352110ee71e3a",
-            "client/src/App.css": "7b14606043fa8f1c93d363e6a23d1e189ca0c58f87bfc8a5de187c0a78c59ffd",
+            "client/src/App.css": "9477fea3d6a9cb8973472b589a03c6dcf1b01be74c63b69ba59e7120246dbd36",
             "client/src/lib/project-colors.ts": "04fa429d0ff0d8dee962c75741b9b5dc497bd08eeacabf37c7352e20832f512f",
             "client/src/__fixtures__/palette-color-audit.tsx": "ea45f91045e98bb2d80cb0d735eaf729e9d8b1006cefa31d3477c3038c602d58",
             "scripts/verify-palette-colors.mjs": "52f67d5e6a40a438f7bd859510adb19bf82c26937e1509f21c8f3309350519e0",
@@ -1156,11 +1156,11 @@
           "foreground": "rgb(79, 70, 229)",
           "background": "rgb(255, 255, 255)",
           "artifact": "tests/visual/reports/palette-color-evidence.json",
-          "artifactHash": "bf4501d06ae567f287c97767ebccbd25f4b4f26fea3b2a5278261550adc9d4e4",
-          "implementationHead": "5f40f0ea747601a58b4ccdec46653b10fc22cc99+validated-working-tree",
+          "artifactHash": "1ccfe0f8296c032abe28e7ff15d07d6c44eeb9b373bd08e4569fb4f71f0dbd16",
+          "implementationHead": "f97b162166811d62ea3e9849767abb3b754b7e7a+validated-working-tree",
           "dependencies": {
             "client/src/index.css": "6a6ad83d2453b60363403d43987a8e99970eb3c1f8f9fb163a7352110ee71e3a",
-            "client/src/App.css": "7b14606043fa8f1c93d363e6a23d1e189ca0c58f87bfc8a5de187c0a78c59ffd",
+            "client/src/App.css": "9477fea3d6a9cb8973472b589a03c6dcf1b01be74c63b69ba59e7120246dbd36",
             "client/src/lib/project-colors.ts": "04fa429d0ff0d8dee962c75741b9b5dc497bd08eeacabf37c7352e20832f512f",
             "client/src/__fixtures__/palette-color-audit.tsx": "ea45f91045e98bb2d80cb0d735eaf729e9d8b1006cefa31d3477c3038c602d58",
             "scripts/verify-palette-colors.mjs": "52f67d5e6a40a438f7bd859510adb19bf82c26937e1509f21c8f3309350519e0",
@@ -1178,15 +1178,15 @@
             "height": 900
           },
           "threshold": 3,
-          "ratio": 8.898600916846645,
-          "foreground": "rgb(165, 180, 252)",
+          "ratio": 10.322957542406924,
+          "foreground": "rgb(187, 196, 236)",
           "background": "rgb(17, 24, 39)",
           "artifact": "tests/visual/reports/palette-color-evidence.json",
-          "artifactHash": "bf4501d06ae567f287c97767ebccbd25f4b4f26fea3b2a5278261550adc9d4e4",
-          "implementationHead": "5f40f0ea747601a58b4ccdec46653b10fc22cc99+validated-working-tree",
+          "artifactHash": "1ccfe0f8296c032abe28e7ff15d07d6c44eeb9b373bd08e4569fb4f71f0dbd16",
+          "implementationHead": "f97b162166811d62ea3e9849767abb3b754b7e7a+validated-working-tree",
           "dependencies": {
             "client/src/index.css": "6a6ad83d2453b60363403d43987a8e99970eb3c1f8f9fb163a7352110ee71e3a",
-            "client/src/App.css": "7b14606043fa8f1c93d363e6a23d1e189ca0c58f87bfc8a5de187c0a78c59ffd",
+            "client/src/App.css": "9477fea3d6a9cb8973472b589a03c6dcf1b01be74c63b69ba59e7120246dbd36",
             "client/src/lib/project-colors.ts": "04fa429d0ff0d8dee962c75741b9b5dc497bd08eeacabf37c7352e20832f512f",
             "client/src/__fixtures__/palette-color-audit.tsx": "ea45f91045e98bb2d80cb0d735eaf729e9d8b1006cefa31d3477c3038c602d58",
             "scripts/verify-palette-colors.mjs": "52f67d5e6a40a438f7bd859510adb19bf82c26937e1509f21c8f3309350519e0",
@@ -1230,11 +1230,11 @@
           "foreground": "rgb(79, 70, 229)",
           "background": "rgb(255, 255, 255)",
           "artifact": "tests/visual/reports/palette-color-evidence.json",
-          "artifactHash": "bf4501d06ae567f287c97767ebccbd25f4b4f26fea3b2a5278261550adc9d4e4",
-          "implementationHead": "5f40f0ea747601a58b4ccdec46653b10fc22cc99+validated-working-tree",
+          "artifactHash": "1ccfe0f8296c032abe28e7ff15d07d6c44eeb9b373bd08e4569fb4f71f0dbd16",
+          "implementationHead": "f97b162166811d62ea3e9849767abb3b754b7e7a+validated-working-tree",
           "dependencies": {
             "client/src/index.css": "6a6ad83d2453b60363403d43987a8e99970eb3c1f8f9fb163a7352110ee71e3a",
-            "client/src/App.css": "7b14606043fa8f1c93d363e6a23d1e189ca0c58f87bfc8a5de187c0a78c59ffd",
+            "client/src/App.css": "9477fea3d6a9cb8973472b589a03c6dcf1b01be74c63b69ba59e7120246dbd36",
             "client/src/lib/project-colors.ts": "04fa429d0ff0d8dee962c75741b9b5dc497bd08eeacabf37c7352e20832f512f",
             "client/src/__fixtures__/palette-color-audit.tsx": "ea45f91045e98bb2d80cb0d735eaf729e9d8b1006cefa31d3477c3038c602d58",
             "scripts/verify-palette-colors.mjs": "52f67d5e6a40a438f7bd859510adb19bf82c26937e1509f21c8f3309350519e0",
@@ -1252,15 +1252,15 @@
             "height": 900
           },
           "threshold": 3,
-          "ratio": 8.898600916846645,
-          "foreground": "rgb(165, 180, 252)",
+          "ratio": 10.322957542406924,
+          "foreground": "rgb(187, 196, 236)",
           "background": "rgb(17, 24, 39)",
           "artifact": "tests/visual/reports/palette-color-evidence.json",
-          "artifactHash": "bf4501d06ae567f287c97767ebccbd25f4b4f26fea3b2a5278261550adc9d4e4",
-          "implementationHead": "5f40f0ea747601a58b4ccdec46653b10fc22cc99+validated-working-tree",
+          "artifactHash": "1ccfe0f8296c032abe28e7ff15d07d6c44eeb9b373bd08e4569fb4f71f0dbd16",
+          "implementationHead": "f97b162166811d62ea3e9849767abb3b754b7e7a+validated-working-tree",
           "dependencies": {
             "client/src/index.css": "6a6ad83d2453b60363403d43987a8e99970eb3c1f8f9fb163a7352110ee71e3a",
-            "client/src/App.css": "7b14606043fa8f1c93d363e6a23d1e189ca0c58f87bfc8a5de187c0a78c59ffd",
+            "client/src/App.css": "9477fea3d6a9cb8973472b589a03c6dcf1b01be74c63b69ba59e7120246dbd36",
             "client/src/lib/project-colors.ts": "04fa429d0ff0d8dee962c75741b9b5dc497bd08eeacabf37c7352e20832f512f",
             "client/src/__fixtures__/palette-color-audit.tsx": "ea45f91045e98bb2d80cb0d735eaf729e9d8b1006cefa31d3477c3038c602d58",
             "scripts/verify-palette-colors.mjs": "52f67d5e6a40a438f7bd859510adb19bf82c26937e1509f21c8f3309350519e0",
@@ -1304,11 +1304,11 @@
           "foreground": "rgb(79, 70, 229)",
           "background": "rgb(255, 255, 255)",
           "artifact": "tests/visual/reports/palette-color-evidence.json",
-          "artifactHash": "bf4501d06ae567f287c97767ebccbd25f4b4f26fea3b2a5278261550adc9d4e4",
-          "implementationHead": "5f40f0ea747601a58b4ccdec46653b10fc22cc99+validated-working-tree",
+          "artifactHash": "1ccfe0f8296c032abe28e7ff15d07d6c44eeb9b373bd08e4569fb4f71f0dbd16",
+          "implementationHead": "f97b162166811d62ea3e9849767abb3b754b7e7a+validated-working-tree",
           "dependencies": {
             "client/src/index.css": "6a6ad83d2453b60363403d43987a8e99970eb3c1f8f9fb163a7352110ee71e3a",
-            "client/src/App.css": "7b14606043fa8f1c93d363e6a23d1e189ca0c58f87bfc8a5de187c0a78c59ffd",
+            "client/src/App.css": "9477fea3d6a9cb8973472b589a03c6dcf1b01be74c63b69ba59e7120246dbd36",
             "client/src/lib/project-colors.ts": "04fa429d0ff0d8dee962c75741b9b5dc497bd08eeacabf37c7352e20832f512f",
             "client/src/__fixtures__/palette-color-audit.tsx": "ea45f91045e98bb2d80cb0d735eaf729e9d8b1006cefa31d3477c3038c602d58",
             "scripts/verify-palette-colors.mjs": "52f67d5e6a40a438f7bd859510adb19bf82c26937e1509f21c8f3309350519e0",
@@ -1330,11 +1330,11 @@
           "foreground": "rgb(165, 180, 252)",
           "background": "rgb(17, 24, 39)",
           "artifact": "tests/visual/reports/palette-color-evidence.json",
-          "artifactHash": "bf4501d06ae567f287c97767ebccbd25f4b4f26fea3b2a5278261550adc9d4e4",
-          "implementationHead": "5f40f0ea747601a58b4ccdec46653b10fc22cc99+validated-working-tree",
+          "artifactHash": "1ccfe0f8296c032abe28e7ff15d07d6c44eeb9b373bd08e4569fb4f71f0dbd16",
+          "implementationHead": "f97b162166811d62ea3e9849767abb3b754b7e7a+validated-working-tree",
           "dependencies": {
             "client/src/index.css": "6a6ad83d2453b60363403d43987a8e99970eb3c1f8f9fb163a7352110ee71e3a",
-            "client/src/App.css": "7b14606043fa8f1c93d363e6a23d1e189ca0c58f87bfc8a5de187c0a78c59ffd",
+            "client/src/App.css": "9477fea3d6a9cb8973472b589a03c6dcf1b01be74c63b69ba59e7120246dbd36",
             "client/src/lib/project-colors.ts": "04fa429d0ff0d8dee962c75741b9b5dc497bd08eeacabf37c7352e20832f512f",
             "client/src/__fixtures__/palette-color-audit.tsx": "ea45f91045e98bb2d80cb0d735eaf729e9d8b1006cefa31d3477c3038c602d58",
             "scripts/verify-palette-colors.mjs": "52f67d5e6a40a438f7bd859510adb19bf82c26937e1509f21c8f3309350519e0",
@@ -1378,11 +1378,11 @@
           "foreground": "rgb(79, 70, 229)",
           "background": "rgb(255, 255, 255)",
           "artifact": "tests/visual/reports/palette-color-evidence.json",
-          "artifactHash": "bf4501d06ae567f287c97767ebccbd25f4b4f26fea3b2a5278261550adc9d4e4",
-          "implementationHead": "5f40f0ea747601a58b4ccdec46653b10fc22cc99+validated-working-tree",
+          "artifactHash": "1ccfe0f8296c032abe28e7ff15d07d6c44eeb9b373bd08e4569fb4f71f0dbd16",
+          "implementationHead": "f97b162166811d62ea3e9849767abb3b754b7e7a+validated-working-tree",
           "dependencies": {
             "client/src/index.css": "6a6ad83d2453b60363403d43987a8e99970eb3c1f8f9fb163a7352110ee71e3a",
-            "client/src/App.css": "7b14606043fa8f1c93d363e6a23d1e189ca0c58f87bfc8a5de187c0a78c59ffd",
+            "client/src/App.css": "9477fea3d6a9cb8973472b589a03c6dcf1b01be74c63b69ba59e7120246dbd36",
             "client/src/lib/project-colors.ts": "04fa429d0ff0d8dee962c75741b9b5dc497bd08eeacabf37c7352e20832f512f",
             "client/src/__fixtures__/palette-color-audit.tsx": "ea45f91045e98bb2d80cb0d735eaf729e9d8b1006cefa31d3477c3038c602d58",
             "scripts/verify-palette-colors.mjs": "52f67d5e6a40a438f7bd859510adb19bf82c26937e1509f21c8f3309350519e0",
@@ -1400,15 +1400,15 @@
             "height": 900
           },
           "threshold": 3,
-          "ratio": 8.898600916846645,
-          "foreground": "rgb(165, 180, 252)",
+          "ratio": 9.93665773995049,
+          "foreground": "rgb(181, 192, 240)",
           "background": "rgb(17, 24, 39)",
           "artifact": "tests/visual/reports/palette-color-evidence.json",
-          "artifactHash": "bf4501d06ae567f287c97767ebccbd25f4b4f26fea3b2a5278261550adc9d4e4",
-          "implementationHead": "5f40f0ea747601a58b4ccdec46653b10fc22cc99+validated-working-tree",
+          "artifactHash": "1ccfe0f8296c032abe28e7ff15d07d6c44eeb9b373bd08e4569fb4f71f0dbd16",
+          "implementationHead": "f97b162166811d62ea3e9849767abb3b754b7e7a+validated-working-tree",
           "dependencies": {
             "client/src/index.css": "6a6ad83d2453b60363403d43987a8e99970eb3c1f8f9fb163a7352110ee71e3a",
-            "client/src/App.css": "7b14606043fa8f1c93d363e6a23d1e189ca0c58f87bfc8a5de187c0a78c59ffd",
+            "client/src/App.css": "9477fea3d6a9cb8973472b589a03c6dcf1b01be74c63b69ba59e7120246dbd36",
             "client/src/lib/project-colors.ts": "04fa429d0ff0d8dee962c75741b9b5dc497bd08eeacabf37c7352e20832f512f",
             "client/src/__fixtures__/palette-color-audit.tsx": "ea45f91045e98bb2d80cb0d735eaf729e9d8b1006cefa31d3477c3038c602d58",
             "scripts/verify-palette-colors.mjs": "52f67d5e6a40a438f7bd859510adb19bf82c26937e1509f21c8f3309350519e0",
@@ -1452,11 +1452,11 @@
           "foreground": "rgb(79, 70, 229)",
           "background": "rgb(255, 255, 255)",
           "artifact": "tests/visual/reports/palette-color-evidence.json",
-          "artifactHash": "bf4501d06ae567f287c97767ebccbd25f4b4f26fea3b2a5278261550adc9d4e4",
-          "implementationHead": "5f40f0ea747601a58b4ccdec46653b10fc22cc99+validated-working-tree",
+          "artifactHash": "1ccfe0f8296c032abe28e7ff15d07d6c44eeb9b373bd08e4569fb4f71f0dbd16",
+          "implementationHead": "f97b162166811d62ea3e9849767abb3b754b7e7a+validated-working-tree",
           "dependencies": {
             "client/src/index.css": "6a6ad83d2453b60363403d43987a8e99970eb3c1f8f9fb163a7352110ee71e3a",
-            "client/src/App.css": "7b14606043fa8f1c93d363e6a23d1e189ca0c58f87bfc8a5de187c0a78c59ffd",
+            "client/src/App.css": "9477fea3d6a9cb8973472b589a03c6dcf1b01be74c63b69ba59e7120246dbd36",
             "client/src/lib/project-colors.ts": "04fa429d0ff0d8dee962c75741b9b5dc497bd08eeacabf37c7352e20832f512f",
             "client/src/__fixtures__/palette-color-audit.tsx": "ea45f91045e98bb2d80cb0d735eaf729e9d8b1006cefa31d3477c3038c602d58",
             "scripts/verify-palette-colors.mjs": "52f67d5e6a40a438f7bd859510adb19bf82c26937e1509f21c8f3309350519e0",
@@ -1478,11 +1478,11 @@
           "foreground": "rgb(165, 180, 252)",
           "background": "rgb(17, 24, 39)",
           "artifact": "tests/visual/reports/palette-color-evidence.json",
-          "artifactHash": "bf4501d06ae567f287c97767ebccbd25f4b4f26fea3b2a5278261550adc9d4e4",
-          "implementationHead": "5f40f0ea747601a58b4ccdec46653b10fc22cc99+validated-working-tree",
+          "artifactHash": "1ccfe0f8296c032abe28e7ff15d07d6c44eeb9b373bd08e4569fb4f71f0dbd16",
+          "implementationHead": "f97b162166811d62ea3e9849767abb3b754b7e7a+validated-working-tree",
           "dependencies": {
             "client/src/index.css": "6a6ad83d2453b60363403d43987a8e99970eb3c1f8f9fb163a7352110ee71e3a",
-            "client/src/App.css": "7b14606043fa8f1c93d363e6a23d1e189ca0c58f87bfc8a5de187c0a78c59ffd",
+            "client/src/App.css": "9477fea3d6a9cb8973472b589a03c6dcf1b01be74c63b69ba59e7120246dbd36",
             "client/src/lib/project-colors.ts": "04fa429d0ff0d8dee962c75741b9b5dc497bd08eeacabf37c7352e20832f512f",
             "client/src/__fixtures__/palette-color-audit.tsx": "ea45f91045e98bb2d80cb0d735eaf729e9d8b1006cefa31d3477c3038c602d58",
             "scripts/verify-palette-colors.mjs": "52f67d5e6a40a438f7bd859510adb19bf82c26937e1509f21c8f3309350519e0",
@@ -1526,11 +1526,11 @@
           "foreground": "rgb(79, 70, 229)",
           "background": "rgb(255, 255, 255)",
           "artifact": "tests/visual/reports/palette-color-evidence.json",
-          "artifactHash": "bf4501d06ae567f287c97767ebccbd25f4b4f26fea3b2a5278261550adc9d4e4",
-          "implementationHead": "5f40f0ea747601a58b4ccdec46653b10fc22cc99+validated-working-tree",
+          "artifactHash": "1ccfe0f8296c032abe28e7ff15d07d6c44eeb9b373bd08e4569fb4f71f0dbd16",
+          "implementationHead": "f97b162166811d62ea3e9849767abb3b754b7e7a+validated-working-tree",
           "dependencies": {
             "client/src/index.css": "6a6ad83d2453b60363403d43987a8e99970eb3c1f8f9fb163a7352110ee71e3a",
-            "client/src/App.css": "7b14606043fa8f1c93d363e6a23d1e189ca0c58f87bfc8a5de187c0a78c59ffd",
+            "client/src/App.css": "9477fea3d6a9cb8973472b589a03c6dcf1b01be74c63b69ba59e7120246dbd36",
             "client/src/lib/project-colors.ts": "04fa429d0ff0d8dee962c75741b9b5dc497bd08eeacabf37c7352e20832f512f",
             "client/src/__fixtures__/palette-color-audit.tsx": "ea45f91045e98bb2d80cb0d735eaf729e9d8b1006cefa31d3477c3038c602d58",
             "scripts/verify-palette-colors.mjs": "52f67d5e6a40a438f7bd859510adb19bf82c26937e1509f21c8f3309350519e0",
@@ -1548,15 +1548,15 @@
             "height": 900
           },
           "threshold": 3,
-          "ratio": 8.898600916846645,
-          "foreground": "rgb(165, 180, 252)",
+          "ratio": 9.93665773995049,
+          "foreground": "rgb(181, 192, 240)",
           "background": "rgb(17, 24, 39)",
           "artifact": "tests/visual/reports/palette-color-evidence.json",
-          "artifactHash": "bf4501d06ae567f287c97767ebccbd25f4b4f26fea3b2a5278261550adc9d4e4",
-          "implementationHead": "5f40f0ea747601a58b4ccdec46653b10fc22cc99+validated-working-tree",
+          "artifactHash": "1ccfe0f8296c032abe28e7ff15d07d6c44eeb9b373bd08e4569fb4f71f0dbd16",
+          "implementationHead": "f97b162166811d62ea3e9849767abb3b754b7e7a+validated-working-tree",
           "dependencies": {
             "client/src/index.css": "6a6ad83d2453b60363403d43987a8e99970eb3c1f8f9fb163a7352110ee71e3a",
-            "client/src/App.css": "7b14606043fa8f1c93d363e6a23d1e189ca0c58f87bfc8a5de187c0a78c59ffd",
+            "client/src/App.css": "9477fea3d6a9cb8973472b589a03c6dcf1b01be74c63b69ba59e7120246dbd36",
             "client/src/lib/project-colors.ts": "04fa429d0ff0d8dee962c75741b9b5dc497bd08eeacabf37c7352e20832f512f",
             "client/src/__fixtures__/palette-color-audit.tsx": "ea45f91045e98bb2d80cb0d735eaf729e9d8b1006cefa31d3477c3038c602d58",
             "scripts/verify-palette-colors.mjs": "52f67d5e6a40a438f7bd859510adb19bf82c26937e1509f21c8f3309350519e0",
@@ -1600,11 +1600,11 @@
           "foreground": "rgb(79, 70, 229)",
           "background": "rgb(255, 255, 255)",
           "artifact": "tests/visual/reports/palette-color-evidence.json",
-          "artifactHash": "bf4501d06ae567f287c97767ebccbd25f4b4f26fea3b2a5278261550adc9d4e4",
-          "implementationHead": "5f40f0ea747601a58b4ccdec46653b10fc22cc99+validated-working-tree",
+          "artifactHash": "1ccfe0f8296c032abe28e7ff15d07d6c44eeb9b373bd08e4569fb4f71f0dbd16",
+          "implementationHead": "f97b162166811d62ea3e9849767abb3b754b7e7a+validated-working-tree",
           "dependencies": {
             "client/src/index.css": "6a6ad83d2453b60363403d43987a8e99970eb3c1f8f9fb163a7352110ee71e3a",
-            "client/src/App.css": "7b14606043fa8f1c93d363e6a23d1e189ca0c58f87bfc8a5de187c0a78c59ffd",
+            "client/src/App.css": "9477fea3d6a9cb8973472b589a03c6dcf1b01be74c63b69ba59e7120246dbd36",
             "client/src/lib/project-colors.ts": "04fa429d0ff0d8dee962c75741b9b5dc497bd08eeacabf37c7352e20832f512f",
             "client/src/__fixtures__/palette-color-audit.tsx": "ea45f91045e98bb2d80cb0d735eaf729e9d8b1006cefa31d3477c3038c602d58",
             "scripts/verify-palette-colors.mjs": "52f67d5e6a40a438f7bd859510adb19bf82c26937e1509f21c8f3309350519e0",
@@ -1626,11 +1626,11 @@
           "foreground": "rgb(165, 180, 252)",
           "background": "rgb(17, 24, 39)",
           "artifact": "tests/visual/reports/palette-color-evidence.json",
-          "artifactHash": "bf4501d06ae567f287c97767ebccbd25f4b4f26fea3b2a5278261550adc9d4e4",
-          "implementationHead": "5f40f0ea747601a58b4ccdec46653b10fc22cc99+validated-working-tree",
+          "artifactHash": "1ccfe0f8296c032abe28e7ff15d07d6c44eeb9b373bd08e4569fb4f71f0dbd16",
+          "implementationHead": "f97b162166811d62ea3e9849767abb3b754b7e7a+validated-working-tree",
           "dependencies": {
             "client/src/index.css": "6a6ad83d2453b60363403d43987a8e99970eb3c1f8f9fb163a7352110ee71e3a",
-            "client/src/App.css": "7b14606043fa8f1c93d363e6a23d1e189ca0c58f87bfc8a5de187c0a78c59ffd",
+            "client/src/App.css": "9477fea3d6a9cb8973472b589a03c6dcf1b01be74c63b69ba59e7120246dbd36",
             "client/src/lib/project-colors.ts": "04fa429d0ff0d8dee962c75741b9b5dc497bd08eeacabf37c7352e20832f512f",
             "client/src/__fixtures__/palette-color-audit.tsx": "ea45f91045e98bb2d80cb0d735eaf729e9d8b1006cefa31d3477c3038c602d58",
             "scripts/verify-palette-colors.mjs": "52f67d5e6a40a438f7bd859510adb19bf82c26937e1509f21c8f3309350519e0",
@@ -1674,11 +1674,11 @@
           "foreground": "rgb(79, 70, 229)",
           "background": "rgb(255, 255, 255)",
           "artifact": "tests/visual/reports/palette-color-evidence.json",
-          "artifactHash": "bf4501d06ae567f287c97767ebccbd25f4b4f26fea3b2a5278261550adc9d4e4",
-          "implementationHead": "5f40f0ea747601a58b4ccdec46653b10fc22cc99+validated-working-tree",
+          "artifactHash": "1ccfe0f8296c032abe28e7ff15d07d6c44eeb9b373bd08e4569fb4f71f0dbd16",
+          "implementationHead": "f97b162166811d62ea3e9849767abb3b754b7e7a+validated-working-tree",
           "dependencies": {
             "client/src/index.css": "6a6ad83d2453b60363403d43987a8e99970eb3c1f8f9fb163a7352110ee71e3a",
-            "client/src/App.css": "7b14606043fa8f1c93d363e6a23d1e189ca0c58f87bfc8a5de187c0a78c59ffd",
+            "client/src/App.css": "9477fea3d6a9cb8973472b589a03c6dcf1b01be74c63b69ba59e7120246dbd36",
             "client/src/lib/project-colors.ts": "04fa429d0ff0d8dee962c75741b9b5dc497bd08eeacabf37c7352e20832f512f",
             "client/src/__fixtures__/palette-color-audit.tsx": "ea45f91045e98bb2d80cb0d735eaf729e9d8b1006cefa31d3477c3038c602d58",
             "scripts/verify-palette-colors.mjs": "52f67d5e6a40a438f7bd859510adb19bf82c26937e1509f21c8f3309350519e0",
@@ -1696,15 +1696,15 @@
             "height": 900
           },
           "threshold": 3,
-          "ratio": 8.898600916846645,
-          "foreground": "rgb(165, 180, 252)",
+          "ratio": 9.93665773995049,
+          "foreground": "rgb(181, 192, 240)",
           "background": "rgb(17, 24, 39)",
           "artifact": "tests/visual/reports/palette-color-evidence.json",
-          "artifactHash": "bf4501d06ae567f287c97767ebccbd25f4b4f26fea3b2a5278261550adc9d4e4",
-          "implementationHead": "5f40f0ea747601a58b4ccdec46653b10fc22cc99+validated-working-tree",
+          "artifactHash": "1ccfe0f8296c032abe28e7ff15d07d6c44eeb9b373bd08e4569fb4f71f0dbd16",
+          "implementationHead": "f97b162166811d62ea3e9849767abb3b754b7e7a+validated-working-tree",
           "dependencies": {
             "client/src/index.css": "6a6ad83d2453b60363403d43987a8e99970eb3c1f8f9fb163a7352110ee71e3a",
-            "client/src/App.css": "7b14606043fa8f1c93d363e6a23d1e189ca0c58f87bfc8a5de187c0a78c59ffd",
+            "client/src/App.css": "9477fea3d6a9cb8973472b589a03c6dcf1b01be74c63b69ba59e7120246dbd36",
             "client/src/lib/project-colors.ts": "04fa429d0ff0d8dee962c75741b9b5dc497bd08eeacabf37c7352e20832f512f",
             "client/src/__fixtures__/palette-color-audit.tsx": "ea45f91045e98bb2d80cb0d735eaf729e9d8b1006cefa31d3477c3038c602d58",
             "scripts/verify-palette-colors.mjs": "52f67d5e6a40a438f7bd859510adb19bf82c26937e1509f21c8f3309350519e0",
@@ -3842,11 +3842,11 @@
           "foreground": "rgb(0, 0, 0)",
           "background": "rgb(230, 159, 0)",
           "artifact": "tests/visual/reports/palette-color-evidence.json",
-          "artifactHash": "bf4501d06ae567f287c97767ebccbd25f4b4f26fea3b2a5278261550adc9d4e4",
-          "implementationHead": "5f40f0ea747601a58b4ccdec46653b10fc22cc99+validated-working-tree",
+          "artifactHash": "1ccfe0f8296c032abe28e7ff15d07d6c44eeb9b373bd08e4569fb4f71f0dbd16",
+          "implementationHead": "f97b162166811d62ea3e9849767abb3b754b7e7a+validated-working-tree",
           "dependencies": {
             "client/src/index.css": "6a6ad83d2453b60363403d43987a8e99970eb3c1f8f9fb163a7352110ee71e3a",
-            "client/src/App.css": "7b14606043fa8f1c93d363e6a23d1e189ca0c58f87bfc8a5de187c0a78c59ffd",
+            "client/src/App.css": "9477fea3d6a9cb8973472b589a03c6dcf1b01be74c63b69ba59e7120246dbd36",
             "client/src/lib/project-colors.ts": "04fa429d0ff0d8dee962c75741b9b5dc497bd08eeacabf37c7352e20832f512f",
             "client/src/__fixtures__/palette-color-audit.tsx": "ea45f91045e98bb2d80cb0d735eaf729e9d8b1006cefa31d3477c3038c602d58",
             "scripts/verify-palette-colors.mjs": "52f67d5e6a40a438f7bd859510adb19bf82c26937e1509f21c8f3309350519e0",
@@ -3868,11 +3868,11 @@
           "foreground": "rgb(0, 0, 0)",
           "background": "rgb(230, 159, 0)",
           "artifact": "tests/visual/reports/palette-color-evidence.json",
-          "artifactHash": "bf4501d06ae567f287c97767ebccbd25f4b4f26fea3b2a5278261550adc9d4e4",
-          "implementationHead": "5f40f0ea747601a58b4ccdec46653b10fc22cc99+validated-working-tree",
+          "artifactHash": "1ccfe0f8296c032abe28e7ff15d07d6c44eeb9b373bd08e4569fb4f71f0dbd16",
+          "implementationHead": "f97b162166811d62ea3e9849767abb3b754b7e7a+validated-working-tree",
           "dependencies": {
             "client/src/index.css": "6a6ad83d2453b60363403d43987a8e99970eb3c1f8f9fb163a7352110ee71e3a",
-            "client/src/App.css": "7b14606043fa8f1c93d363e6a23d1e189ca0c58f87bfc8a5de187c0a78c59ffd",
+            "client/src/App.css": "9477fea3d6a9cb8973472b589a03c6dcf1b01be74c63b69ba59e7120246dbd36",
             "client/src/lib/project-colors.ts": "04fa429d0ff0d8dee962c75741b9b5dc497bd08eeacabf37c7352e20832f512f",
             "client/src/__fixtures__/palette-color-audit.tsx": "ea45f91045e98bb2d80cb0d735eaf729e9d8b1006cefa31d3477c3038c602d58",
             "scripts/verify-palette-colors.mjs": "52f67d5e6a40a438f7bd859510adb19bf82c26937e1509f21c8f3309350519e0",
@@ -3916,11 +3916,11 @@
           "foreground": "rgb(255, 255, 255)",
           "background": "rgb(0, 114, 178)",
           "artifact": "tests/visual/reports/palette-color-evidence.json",
-          "artifactHash": "bf4501d06ae567f287c97767ebccbd25f4b4f26fea3b2a5278261550adc9d4e4",
-          "implementationHead": "5f40f0ea747601a58b4ccdec46653b10fc22cc99+validated-working-tree",
+          "artifactHash": "1ccfe0f8296c032abe28e7ff15d07d6c44eeb9b373bd08e4569fb4f71f0dbd16",
+          "implementationHead": "f97b162166811d62ea3e9849767abb3b754b7e7a+validated-working-tree",
           "dependencies": {
             "client/src/index.css": "6a6ad83d2453b60363403d43987a8e99970eb3c1f8f9fb163a7352110ee71e3a",
-            "client/src/App.css": "7b14606043fa8f1c93d363e6a23d1e189ca0c58f87bfc8a5de187c0a78c59ffd",
+            "client/src/App.css": "9477fea3d6a9cb8973472b589a03c6dcf1b01be74c63b69ba59e7120246dbd36",
             "client/src/lib/project-colors.ts": "04fa429d0ff0d8dee962c75741b9b5dc497bd08eeacabf37c7352e20832f512f",
             "client/src/__fixtures__/palette-color-audit.tsx": "ea45f91045e98bb2d80cb0d735eaf729e9d8b1006cefa31d3477c3038c602d58",
             "scripts/verify-palette-colors.mjs": "52f67d5e6a40a438f7bd859510adb19bf82c26937e1509f21c8f3309350519e0",
@@ -3942,11 +3942,11 @@
           "foreground": "rgb(255, 255, 255)",
           "background": "rgb(0, 114, 178)",
           "artifact": "tests/visual/reports/palette-color-evidence.json",
-          "artifactHash": "bf4501d06ae567f287c97767ebccbd25f4b4f26fea3b2a5278261550adc9d4e4",
-          "implementationHead": "5f40f0ea747601a58b4ccdec46653b10fc22cc99+validated-working-tree",
+          "artifactHash": "1ccfe0f8296c032abe28e7ff15d07d6c44eeb9b373bd08e4569fb4f71f0dbd16",
+          "implementationHead": "f97b162166811d62ea3e9849767abb3b754b7e7a+validated-working-tree",
           "dependencies": {
             "client/src/index.css": "6a6ad83d2453b60363403d43987a8e99970eb3c1f8f9fb163a7352110ee71e3a",
-            "client/src/App.css": "7b14606043fa8f1c93d363e6a23d1e189ca0c58f87bfc8a5de187c0a78c59ffd",
+            "client/src/App.css": "9477fea3d6a9cb8973472b589a03c6dcf1b01be74c63b69ba59e7120246dbd36",
             "client/src/lib/project-colors.ts": "04fa429d0ff0d8dee962c75741b9b5dc497bd08eeacabf37c7352e20832f512f",
             "client/src/__fixtures__/palette-color-audit.tsx": "ea45f91045e98bb2d80cb0d735eaf729e9d8b1006cefa31d3477c3038c602d58",
             "scripts/verify-palette-colors.mjs": "52f67d5e6a40a438f7bd859510adb19bf82c26937e1509f21c8f3309350519e0",
@@ -3990,11 +3990,11 @@
           "foreground": "rgb(0, 0, 0)",
           "background": "rgb(204, 121, 167)",
           "artifact": "tests/visual/reports/palette-color-evidence.json",
-          "artifactHash": "bf4501d06ae567f287c97767ebccbd25f4b4f26fea3b2a5278261550adc9d4e4",
-          "implementationHead": "5f40f0ea747601a58b4ccdec46653b10fc22cc99+validated-working-tree",
+          "artifactHash": "1ccfe0f8296c032abe28e7ff15d07d6c44eeb9b373bd08e4569fb4f71f0dbd16",
+          "implementationHead": "f97b162166811d62ea3e9849767abb3b754b7e7a+validated-working-tree",
           "dependencies": {
             "client/src/index.css": "6a6ad83d2453b60363403d43987a8e99970eb3c1f8f9fb163a7352110ee71e3a",
-            "client/src/App.css": "7b14606043fa8f1c93d363e6a23d1e189ca0c58f87bfc8a5de187c0a78c59ffd",
+            "client/src/App.css": "9477fea3d6a9cb8973472b589a03c6dcf1b01be74c63b69ba59e7120246dbd36",
             "client/src/lib/project-colors.ts": "04fa429d0ff0d8dee962c75741b9b5dc497bd08eeacabf37c7352e20832f512f",
             "client/src/__fixtures__/palette-color-audit.tsx": "ea45f91045e98bb2d80cb0d735eaf729e9d8b1006cefa31d3477c3038c602d58",
             "scripts/verify-palette-colors.mjs": "52f67d5e6a40a438f7bd859510adb19bf82c26937e1509f21c8f3309350519e0",
@@ -4016,11 +4016,11 @@
           "foreground": "rgb(0, 0, 0)",
           "background": "rgb(204, 121, 167)",
           "artifact": "tests/visual/reports/palette-color-evidence.json",
-          "artifactHash": "bf4501d06ae567f287c97767ebccbd25f4b4f26fea3b2a5278261550adc9d4e4",
-          "implementationHead": "5f40f0ea747601a58b4ccdec46653b10fc22cc99+validated-working-tree",
+          "artifactHash": "1ccfe0f8296c032abe28e7ff15d07d6c44eeb9b373bd08e4569fb4f71f0dbd16",
+          "implementationHead": "f97b162166811d62ea3e9849767abb3b754b7e7a+validated-working-tree",
           "dependencies": {
             "client/src/index.css": "6a6ad83d2453b60363403d43987a8e99970eb3c1f8f9fb163a7352110ee71e3a",
-            "client/src/App.css": "7b14606043fa8f1c93d363e6a23d1e189ca0c58f87bfc8a5de187c0a78c59ffd",
+            "client/src/App.css": "9477fea3d6a9cb8973472b589a03c6dcf1b01be74c63b69ba59e7120246dbd36",
             "client/src/lib/project-colors.ts": "04fa429d0ff0d8dee962c75741b9b5dc497bd08eeacabf37c7352e20832f512f",
             "client/src/__fixtures__/palette-color-audit.tsx": "ea45f91045e98bb2d80cb0d735eaf729e9d8b1006cefa31d3477c3038c602d58",
             "scripts/verify-palette-colors.mjs": "52f67d5e6a40a438f7bd859510adb19bf82c26937e1509f21c8f3309350519e0",
@@ -4064,11 +4064,11 @@
           "foreground": "rgb(0, 0, 0)",
           "background": "rgb(153, 153, 153)",
           "artifact": "tests/visual/reports/palette-color-evidence.json",
-          "artifactHash": "bf4501d06ae567f287c97767ebccbd25f4b4f26fea3b2a5278261550adc9d4e4",
-          "implementationHead": "5f40f0ea747601a58b4ccdec46653b10fc22cc99+validated-working-tree",
+          "artifactHash": "1ccfe0f8296c032abe28e7ff15d07d6c44eeb9b373bd08e4569fb4f71f0dbd16",
+          "implementationHead": "f97b162166811d62ea3e9849767abb3b754b7e7a+validated-working-tree",
           "dependencies": {
             "client/src/index.css": "6a6ad83d2453b60363403d43987a8e99970eb3c1f8f9fb163a7352110ee71e3a",
-            "client/src/App.css": "7b14606043fa8f1c93d363e6a23d1e189ca0c58f87bfc8a5de187c0a78c59ffd",
+            "client/src/App.css": "9477fea3d6a9cb8973472b589a03c6dcf1b01be74c63b69ba59e7120246dbd36",
             "client/src/lib/project-colors.ts": "04fa429d0ff0d8dee962c75741b9b5dc497bd08eeacabf37c7352e20832f512f",
             "client/src/__fixtures__/palette-color-audit.tsx": "ea45f91045e98bb2d80cb0d735eaf729e9d8b1006cefa31d3477c3038c602d58",
             "scripts/verify-palette-colors.mjs": "52f67d5e6a40a438f7bd859510adb19bf82c26937e1509f21c8f3309350519e0",
@@ -4090,11 +4090,11 @@
           "foreground": "rgb(0, 0, 0)",
           "background": "rgb(153, 153, 153)",
           "artifact": "tests/visual/reports/palette-color-evidence.json",
-          "artifactHash": "bf4501d06ae567f287c97767ebccbd25f4b4f26fea3b2a5278261550adc9d4e4",
-          "implementationHead": "5f40f0ea747601a58b4ccdec46653b10fc22cc99+validated-working-tree",
+          "artifactHash": "1ccfe0f8296c032abe28e7ff15d07d6c44eeb9b373bd08e4569fb4f71f0dbd16",
+          "implementationHead": "f97b162166811d62ea3e9849767abb3b754b7e7a+validated-working-tree",
           "dependencies": {
             "client/src/index.css": "6a6ad83d2453b60363403d43987a8e99970eb3c1f8f9fb163a7352110ee71e3a",
-            "client/src/App.css": "7b14606043fa8f1c93d363e6a23d1e189ca0c58f87bfc8a5de187c0a78c59ffd",
+            "client/src/App.css": "9477fea3d6a9cb8973472b589a03c6dcf1b01be74c63b69ba59e7120246dbd36",
             "client/src/lib/project-colors.ts": "04fa429d0ff0d8dee962c75741b9b5dc497bd08eeacabf37c7352e20832f512f",
             "client/src/__fixtures__/palette-color-audit.tsx": "ea45f91045e98bb2d80cb0d735eaf729e9d8b1006cefa31d3477c3038c602d58",
             "scripts/verify-palette-colors.mjs": "52f67d5e6a40a438f7bd859510adb19bf82c26937e1509f21c8f3309350519e0",
@@ -4138,11 +4138,11 @@
           "foreground": "rgb(0, 0, 0)",
           "background": "rgb(213, 94, 0)",
           "artifact": "tests/visual/reports/palette-color-evidence.json",
-          "artifactHash": "bf4501d06ae567f287c97767ebccbd25f4b4f26fea3b2a5278261550adc9d4e4",
-          "implementationHead": "5f40f0ea747601a58b4ccdec46653b10fc22cc99+validated-working-tree",
+          "artifactHash": "1ccfe0f8296c032abe28e7ff15d07d6c44eeb9b373bd08e4569fb4f71f0dbd16",
+          "implementationHead": "f97b162166811d62ea3e9849767abb3b754b7e7a+validated-working-tree",
           "dependencies": {
             "client/src/index.css": "6a6ad83d2453b60363403d43987a8e99970eb3c1f8f9fb163a7352110ee71e3a",
-            "client/src/App.css": "7b14606043fa8f1c93d363e6a23d1e189ca0c58f87bfc8a5de187c0a78c59ffd",
+            "client/src/App.css": "9477fea3d6a9cb8973472b589a03c6dcf1b01be74c63b69ba59e7120246dbd36",
             "client/src/lib/project-colors.ts": "04fa429d0ff0d8dee962c75741b9b5dc497bd08eeacabf37c7352e20832f512f",
             "client/src/__fixtures__/palette-color-audit.tsx": "ea45f91045e98bb2d80cb0d735eaf729e9d8b1006cefa31d3477c3038c602d58",
             "scripts/verify-palette-colors.mjs": "52f67d5e6a40a438f7bd859510adb19bf82c26937e1509f21c8f3309350519e0",
@@ -4164,11 +4164,11 @@
           "foreground": "rgb(0, 0, 0)",
           "background": "rgb(213, 94, 0)",
           "artifact": "tests/visual/reports/palette-color-evidence.json",
-          "artifactHash": "bf4501d06ae567f287c97767ebccbd25f4b4f26fea3b2a5278261550adc9d4e4",
-          "implementationHead": "5f40f0ea747601a58b4ccdec46653b10fc22cc99+validated-working-tree",
+          "artifactHash": "1ccfe0f8296c032abe28e7ff15d07d6c44eeb9b373bd08e4569fb4f71f0dbd16",
+          "implementationHead": "f97b162166811d62ea3e9849767abb3b754b7e7a+validated-working-tree",
           "dependencies": {
             "client/src/index.css": "6a6ad83d2453b60363403d43987a8e99970eb3c1f8f9fb163a7352110ee71e3a",
-            "client/src/App.css": "7b14606043fa8f1c93d363e6a23d1e189ca0c58f87bfc8a5de187c0a78c59ffd",
+            "client/src/App.css": "9477fea3d6a9cb8973472b589a03c6dcf1b01be74c63b69ba59e7120246dbd36",
             "client/src/lib/project-colors.ts": "04fa429d0ff0d8dee962c75741b9b5dc497bd08eeacabf37c7352e20832f512f",
             "client/src/__fixtures__/palette-color-audit.tsx": "ea45f91045e98bb2d80cb0d735eaf729e9d8b1006cefa31d3477c3038c602d58",
             "scripts/verify-palette-colors.mjs": "52f67d5e6a40a438f7bd859510adb19bf82c26937e1509f21c8f3309350519e0",
@@ -4212,11 +4212,11 @@
           "foreground": "rgb(0, 0, 0)",
           "background": "rgb(86, 180, 233)",
           "artifact": "tests/visual/reports/palette-color-evidence.json",
-          "artifactHash": "bf4501d06ae567f287c97767ebccbd25f4b4f26fea3b2a5278261550adc9d4e4",
-          "implementationHead": "5f40f0ea747601a58b4ccdec46653b10fc22cc99+validated-working-tree",
+          "artifactHash": "1ccfe0f8296c032abe28e7ff15d07d6c44eeb9b373bd08e4569fb4f71f0dbd16",
+          "implementationHead": "f97b162166811d62ea3e9849767abb3b754b7e7a+validated-working-tree",
           "dependencies": {
             "client/src/index.css": "6a6ad83d2453b60363403d43987a8e99970eb3c1f8f9fb163a7352110ee71e3a",
-            "client/src/App.css": "7b14606043fa8f1c93d363e6a23d1e189ca0c58f87bfc8a5de187c0a78c59ffd",
+            "client/src/App.css": "9477fea3d6a9cb8973472b589a03c6dcf1b01be74c63b69ba59e7120246dbd36",
             "client/src/lib/project-colors.ts": "04fa429d0ff0d8dee962c75741b9b5dc497bd08eeacabf37c7352e20832f512f",
             "client/src/__fixtures__/palette-color-audit.tsx": "ea45f91045e98bb2d80cb0d735eaf729e9d8b1006cefa31d3477c3038c602d58",
             "scripts/verify-palette-colors.mjs": "52f67d5e6a40a438f7bd859510adb19bf82c26937e1509f21c8f3309350519e0",
@@ -4238,11 +4238,11 @@
           "foreground": "rgb(0, 0, 0)",
           "background": "rgb(86, 180, 233)",
           "artifact": "tests/visual/reports/palette-color-evidence.json",
-          "artifactHash": "bf4501d06ae567f287c97767ebccbd25f4b4f26fea3b2a5278261550adc9d4e4",
-          "implementationHead": "5f40f0ea747601a58b4ccdec46653b10fc22cc99+validated-working-tree",
+          "artifactHash": "1ccfe0f8296c032abe28e7ff15d07d6c44eeb9b373bd08e4569fb4f71f0dbd16",
+          "implementationHead": "f97b162166811d62ea3e9849767abb3b754b7e7a+validated-working-tree",
           "dependencies": {
             "client/src/index.css": "6a6ad83d2453b60363403d43987a8e99970eb3c1f8f9fb163a7352110ee71e3a",
-            "client/src/App.css": "7b14606043fa8f1c93d363e6a23d1e189ca0c58f87bfc8a5de187c0a78c59ffd",
+            "client/src/App.css": "9477fea3d6a9cb8973472b589a03c6dcf1b01be74c63b69ba59e7120246dbd36",
             "client/src/lib/project-colors.ts": "04fa429d0ff0d8dee962c75741b9b5dc497bd08eeacabf37c7352e20832f512f",
             "client/src/__fixtures__/palette-color-audit.tsx": "ea45f91045e98bb2d80cb0d735eaf729e9d8b1006cefa31d3477c3038c602d58",
             "scripts/verify-palette-colors.mjs": "52f67d5e6a40a438f7bd859510adb19bf82c26937e1509f21c8f3309350519e0",
@@ -4286,11 +4286,11 @@
           "foreground": "rgb(0, 0, 0)",
           "background": "rgb(0, 158, 115)",
           "artifact": "tests/visual/reports/palette-color-evidence.json",
-          "artifactHash": "bf4501d06ae567f287c97767ebccbd25f4b4f26fea3b2a5278261550adc9d4e4",
-          "implementationHead": "5f40f0ea747601a58b4ccdec46653b10fc22cc99+validated-working-tree",
+          "artifactHash": "1ccfe0f8296c032abe28e7ff15d07d6c44eeb9b373bd08e4569fb4f71f0dbd16",
+          "implementationHead": "f97b162166811d62ea3e9849767abb3b754b7e7a+validated-working-tree",
           "dependencies": {
             "client/src/index.css": "6a6ad83d2453b60363403d43987a8e99970eb3c1f8f9fb163a7352110ee71e3a",
-            "client/src/App.css": "7b14606043fa8f1c93d363e6a23d1e189ca0c58f87bfc8a5de187c0a78c59ffd",
+            "client/src/App.css": "9477fea3d6a9cb8973472b589a03c6dcf1b01be74c63b69ba59e7120246dbd36",
             "client/src/lib/project-colors.ts": "04fa429d0ff0d8dee962c75741b9b5dc497bd08eeacabf37c7352e20832f512f",
             "client/src/__fixtures__/palette-color-audit.tsx": "ea45f91045e98bb2d80cb0d735eaf729e9d8b1006cefa31d3477c3038c602d58",
             "scripts/verify-palette-colors.mjs": "52f67d5e6a40a438f7bd859510adb19bf82c26937e1509f21c8f3309350519e0",
@@ -4312,11 +4312,11 @@
           "foreground": "rgb(0, 0, 0)",
           "background": "rgb(0, 158, 115)",
           "artifact": "tests/visual/reports/palette-color-evidence.json",
-          "artifactHash": "bf4501d06ae567f287c97767ebccbd25f4b4f26fea3b2a5278261550adc9d4e4",
-          "implementationHead": "5f40f0ea747601a58b4ccdec46653b10fc22cc99+validated-working-tree",
+          "artifactHash": "1ccfe0f8296c032abe28e7ff15d07d6c44eeb9b373bd08e4569fb4f71f0dbd16",
+          "implementationHead": "f97b162166811d62ea3e9849767abb3b754b7e7a+validated-working-tree",
           "dependencies": {
             "client/src/index.css": "6a6ad83d2453b60363403d43987a8e99970eb3c1f8f9fb163a7352110ee71e3a",
-            "client/src/App.css": "7b14606043fa8f1c93d363e6a23d1e189ca0c58f87bfc8a5de187c0a78c59ffd",
+            "client/src/App.css": "9477fea3d6a9cb8973472b589a03c6dcf1b01be74c63b69ba59e7120246dbd36",
             "client/src/lib/project-colors.ts": "04fa429d0ff0d8dee962c75741b9b5dc497bd08eeacabf37c7352e20832f512f",
             "client/src/__fixtures__/palette-color-audit.tsx": "ea45f91045e98bb2d80cb0d735eaf729e9d8b1006cefa31d3477c3038c602d58",
             "scripts/verify-palette-colors.mjs": "52f67d5e6a40a438f7bd859510adb19bf82c26937e1509f21c8f3309350519e0",
@@ -4360,11 +4360,11 @@
           "foreground": "rgb(79, 70, 229)",
           "background": "rgb(255, 255, 255)",
           "artifact": "tests/visual/reports/palette-color-evidence.json",
-          "artifactHash": "bf4501d06ae567f287c97767ebccbd25f4b4f26fea3b2a5278261550adc9d4e4",
-          "implementationHead": "5f40f0ea747601a58b4ccdec46653b10fc22cc99+validated-working-tree",
+          "artifactHash": "1ccfe0f8296c032abe28e7ff15d07d6c44eeb9b373bd08e4569fb4f71f0dbd16",
+          "implementationHead": "f97b162166811d62ea3e9849767abb3b754b7e7a+validated-working-tree",
           "dependencies": {
             "client/src/index.css": "6a6ad83d2453b60363403d43987a8e99970eb3c1f8f9fb163a7352110ee71e3a",
-            "client/src/App.css": "7b14606043fa8f1c93d363e6a23d1e189ca0c58f87bfc8a5de187c0a78c59ffd",
+            "client/src/App.css": "9477fea3d6a9cb8973472b589a03c6dcf1b01be74c63b69ba59e7120246dbd36",
             "client/src/lib/project-colors.ts": "04fa429d0ff0d8dee962c75741b9b5dc497bd08eeacabf37c7352e20832f512f",
             "client/src/__fixtures__/palette-color-audit.tsx": "ea45f91045e98bb2d80cb0d735eaf729e9d8b1006cefa31d3477c3038c602d58",
             "scripts/verify-palette-colors.mjs": "52f67d5e6a40a438f7bd859510adb19bf82c26937e1509f21c8f3309350519e0",
@@ -4386,11 +4386,11 @@
           "foreground": "rgb(165, 180, 252)",
           "background": "rgb(17, 24, 39)",
           "artifact": "tests/visual/reports/palette-color-evidence.json",
-          "artifactHash": "bf4501d06ae567f287c97767ebccbd25f4b4f26fea3b2a5278261550adc9d4e4",
-          "implementationHead": "5f40f0ea747601a58b4ccdec46653b10fc22cc99+validated-working-tree",
+          "artifactHash": "1ccfe0f8296c032abe28e7ff15d07d6c44eeb9b373bd08e4569fb4f71f0dbd16",
+          "implementationHead": "f97b162166811d62ea3e9849767abb3b754b7e7a+validated-working-tree",
           "dependencies": {
             "client/src/index.css": "6a6ad83d2453b60363403d43987a8e99970eb3c1f8f9fb163a7352110ee71e3a",
-            "client/src/App.css": "7b14606043fa8f1c93d363e6a23d1e189ca0c58f87bfc8a5de187c0a78c59ffd",
+            "client/src/App.css": "9477fea3d6a9cb8973472b589a03c6dcf1b01be74c63b69ba59e7120246dbd36",
             "client/src/lib/project-colors.ts": "04fa429d0ff0d8dee962c75741b9b5dc497bd08eeacabf37c7352e20832f512f",
             "client/src/__fixtures__/palette-color-audit.tsx": "ea45f91045e98bb2d80cb0d735eaf729e9d8b1006cefa31d3477c3038c602d58",
             "scripts/verify-palette-colors.mjs": "52f67d5e6a40a438f7bd859510adb19bf82c26937e1509f21c8f3309350519e0",
@@ -9796,7 +9796,7 @@
       "semanticRole": "class-or-token-key",
       "reason": "TC-C6: 覆盖类型返回徽章类后缀或jsx类名条件分支，不作为CSS字面颜色",
       "evidence": [],
-      "classificationSourceHash": "f03c5e81a954615cbefffd9cdc053068ca7bf1979395271a7bb9fbe048ae3b06"
+      "classificationSourceHash": "93889b37a458638d7f212bb0920f7a21dbf78c996a3939790225257a23c7a6c6"
     },
     {
       "fingerprint": "4d98dd9142833ae44880368406e70edec6607de31fd9e62474ebc952ac6adbb9",
@@ -9818,7 +9818,7 @@
       "semanticRole": "class-or-token-key",
       "reason": "TC-C6: 覆盖类型返回徽章类后缀或jsx类名条件分支，不作为CSS字面颜色",
       "evidence": [],
-      "classificationSourceHash": "f03c5e81a954615cbefffd9cdc053068ca7bf1979395271a7bb9fbe048ae3b06"
+      "classificationSourceHash": "93889b37a458638d7f212bb0920f7a21dbf78c996a3939790225257a23c7a6c6"
     },
     {
       "fingerprint": "536845eab1420b7a675bfdcacfb65aaa93e5508d9982be2f67f8888703d11c87",
@@ -9840,7 +9840,7 @@
       "semanticRole": "class-or-token-key",
       "reason": "TC-C6: 覆盖类型返回徽章类后缀或jsx类名条件分支，不作为CSS字面颜色",
       "evidence": [],
-      "classificationSourceHash": "f03c5e81a954615cbefffd9cdc053068ca7bf1979395271a7bb9fbe048ae3b06"
+      "classificationSourceHash": "93889b37a458638d7f212bb0920f7a21dbf78c996a3939790225257a23c7a6c6"
     },
     {
       "fingerprint": "722b98c7d567c68f04db14250011ce56f8ca52e4a9974ba8c819bb089d48d71f",
@@ -9862,7 +9862,7 @@
       "semanticRole": "class-or-token-key",
       "reason": "TC-C6: 覆盖类型返回徽章类后缀或jsx类名条件分支，不作为CSS字面颜色",
       "evidence": [],
-      "classificationSourceHash": "f03c5e81a954615cbefffd9cdc053068ca7bf1979395271a7bb9fbe048ae3b06"
+      "classificationSourceHash": "93889b37a458638d7f212bb0920f7a21dbf78c996a3939790225257a23c7a6c6"
     },
     {
       "fingerprint": "c3223fa2d8fa50bf6ee1d5c03e1bdcde8c116ebb532889c423afe1b63462c992",
@@ -9884,7 +9884,7 @@
       "semanticRole": "class-or-token-key",
       "reason": "TC-C6: 覆盖类型返回徽章类后缀或jsx类名条件分支，不作为CSS字面颜色",
       "evidence": [],
-      "classificationSourceHash": "f03c5e81a954615cbefffd9cdc053068ca7bf1979395271a7bb9fbe048ae3b06"
+      "classificationSourceHash": "93889b37a458638d7f212bb0920f7a21dbf78c996a3939790225257a23c7a6c6"
     },
     {
       "fingerprint": "ede9a01e1a15cd932b64a16062b3f8c4dc26ac05b59be36fc9d4a1a7bacfd58c",
@@ -9916,7 +9916,7 @@
       "semanticRole": "class-or-token-key",
       "reason": "TC-C6: 覆盖类型返回徽章类后缀或jsx类名条件分支，不作为CSS字面颜色",
       "evidence": [],
-      "classificationSourceHash": "f03c5e81a954615cbefffd9cdc053068ca7bf1979395271a7bb9fbe048ae3b06"
+      "classificationSourceHash": "93889b37a458638d7f212bb0920f7a21dbf78c996a3939790225257a23c7a6c6"
     },
     {
       "fingerprint": "1d8faab27c3e6d3df80f2565c1665b42f14c7d310886d0e33cc01c46c827fe7e",
@@ -9940,7 +9940,7 @@
       "semanticRole": "class-or-token-key",
       "reason": "TC-C6: 未调用的优先级类别映射返回类名后缀；当前组件无此函数调用，不作为CSS颜色消费",
       "evidence": [],
-      "classificationSourceHash": "43e7f86beadeab7cb25728386d01b71e22fa157c456bea0a238bc38ed1ad6aff"
+      "classificationSourceHash": "a44f899762d99155c5d20cffb309eecbfb895b3826744a89d55aa10bdcacd64e"
     },
     {
       "fingerprint": "5e240a1861b68b06a1456855b88004e94bc13cebfabdfb7e86a70acd25e9be38",
@@ -9964,7 +9964,7 @@
       "semanticRole": "class-or-token-key",
       "reason": "TC-C6: 未调用的优先级类别映射返回类名后缀；当前组件无此函数调用，不作为CSS颜色消费",
       "evidence": [],
-      "classificationSourceHash": "43e7f86beadeab7cb25728386d01b71e22fa157c456bea0a238bc38ed1ad6aff"
+      "classificationSourceHash": "a44f899762d99155c5d20cffb309eecbfb895b3826744a89d55aa10bdcacd64e"
     },
     {
       "fingerprint": "954814b1cda54fd4f0fc80efc9e098660f6f5e25fe35f1aee1a58ef804520972",
@@ -9988,7 +9988,7 @@
       "semanticRole": "class-or-token-key",
       "reason": "TC-C6: 未调用的优先级类别映射返回类名后缀；当前组件无此函数调用，不作为CSS颜色消费",
       "evidence": [],
-      "classificationSourceHash": "43e7f86beadeab7cb25728386d01b71e22fa157c456bea0a238bc38ed1ad6aff"
+      "classificationSourceHash": "a44f899762d99155c5d20cffb309eecbfb895b3826744a89d55aa10bdcacd64e"
     },
     {
       "fingerprint": "9732d11ca57a8f3557c454bf8dee9fc64c96bfd73f0c2c2667bfb52931a11032",
@@ -10012,7 +10012,7 @@
       "semanticRole": "class-or-token-key",
       "reason": "TC-C6: 未调用的优先级类别映射返回类名后缀；当前组件无此函数调用，不作为CSS颜色消费",
       "evidence": [],
-      "classificationSourceHash": "43e7f86beadeab7cb25728386d01b71e22fa157c456bea0a238bc38ed1ad6aff"
+      "classificationSourceHash": "a44f899762d99155c5d20cffb309eecbfb895b3826744a89d55aa10bdcacd64e"
     },
     {
       "fingerprint": "cb7ba4400a0367644c307be46658d83bf0ec7d18d429a4f5b02816bd67d006f5",
@@ -10036,7 +10036,7 @@
       "semanticRole": "class-or-token-key",
       "reason": "TC-C6: 未调用的优先级类别映射返回类名后缀；当前组件无此函数调用，不作为CSS颜色消费",
       "evidence": [],
-      "classificationSourceHash": "43e7f86beadeab7cb25728386d01b71e22fa157c456bea0a238bc38ed1ad6aff"
+      "classificationSourceHash": "a44f899762d99155c5d20cffb309eecbfb895b3826744a89d55aa10bdcacd64e"
     },
     {
       "fingerprint": "48be1b77a3f368891be2ef3007fe8efaeb1cd5e2698fc24920bb9fa8fa79ab6d",

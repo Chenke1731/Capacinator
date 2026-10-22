@@ -17,7 +17,14 @@ const mockTokenPayload = {
   userRoleId: 'r1',
 };
 
-const mockUser = { id: 'u1', name: '测试用户', email: 'u1@example.com' };
+/** 与 shared/types/api.ts AuthUser 逐键一致（真身: getUserById select people 表 5 列） */
+const mockUser = {
+  id: 'u1',
+  name: '测试用户',
+  email: 'u1@example.com',
+  is_system_admin: false,
+  user_role_id: 'r1',
+};
 
 jest.mock('../../../services/auth/index.js', () => {
   class AuthError extends Error {

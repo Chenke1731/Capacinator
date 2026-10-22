@@ -1,10 +1,9 @@
 import React, { createContext, useContext, useState, useEffect, useCallback, ReactNode } from 'react';
-import { Person } from '../types';
+import { AuthUser } from '../types';
 import { api, saveAuthTokens, clearAuthTokens, isAuthenticated } from '../lib/api-client';
 
 interface UserContextType {
-  currentUser: Person | null;
-  setCurrentUser: (user: Person | null) => void;
+  currentUser: AuthUser | null;
   isLoggedIn: boolean;
   isLoading: boolean;
   login: (personId: string) => Promise<void>;
@@ -21,7 +20,7 @@ interface UserProviderProps {
 const USER_STORAGE_KEY = 'capacinator_current_user';
 
 export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
-  const [currentUser, setCurrentUserState] = useState<Person | null>(null);
+  const [currentUser, setCurrentUserState] = useState<AuthUser | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   // Clear user state and tokens
@@ -130,27 +129,12 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
     }
   };
 
-  // Set current user (for backward compatibility)
-  const setCurrentUser = (user: Person | null) => {
-    if (user) {
-      // If setting a user, try to login to get tokens
-      login(user.id).catch(() => {
-        // If login fails, just set the user locally (legacy behavior)
-        setCurrentUserState(user);
-        localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(user));
-      });
-    } else {
-      logout();
-    }
-  };
-
   const isLoggedIn = currentUser !== null;
 
   return (
     <UserContext.Provider
       value={{
         currentUser,
-        setCurrentUser,
         isLoggedIn,
         isLoading,
         login,

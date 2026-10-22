@@ -98,6 +98,7 @@ import type {
   GitHubAssociationDeleteResponse,
   AuditRecentResponse,
   TokenPayload,
+  AuthUser,
 } from '../types';
 
 // Import/Export options
@@ -692,12 +693,12 @@ export const api = {
 
   // Authentication
   auth: {
-    /* 真身: login={success,user,accessToken,refreshToken}; me={success,user}; verify={success,valid,user(TokenPayload)};
+    /* 真身: login={success,user(AuthUser),accessToken,refreshToken}; me={success,user(AuthUser)}; verify={success,valid,user(TokenPayload)};
        logout={success,message}; refresh={success,accessToken,refreshToken} — 五端点形状由 routes/__tests__/auth-contract.test.ts 钉死 */
-    login: (personId: string) => apiClient.post<{ success: boolean; user: Person; accessToken: string; refreshToken: string }>('/auth/login', { personId }),
+    login: (personId: string) => apiClient.post<{ success: boolean; user: AuthUser; accessToken: string; refreshToken: string }>('/auth/login', { personId }),
     logout: () => apiClient.post<{ success: boolean; message: string }>('/auth/logout'),
     refresh: (refreshToken: string) => apiClient.post<{ success: boolean; accessToken: string; refreshToken: string }>('/auth/refresh', { refreshToken }),
-    me: () => apiClient.get<{ success: boolean; user: Person }>('/auth/me'),
+    me: () => apiClient.get<{ success: boolean; user: AuthUser }>('/auth/me'),
     verify: () => apiClient.get<{ success: boolean; valid: boolean; user: TokenPayload }>('/auth/verify'),
   },
 

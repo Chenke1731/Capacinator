@@ -64,6 +64,7 @@ export type {
   CapacityReport,
   ImportResult,
   ExportOptions,
+  AuthUser,
   TokenPayload,
   LoginRequest,
   LoginResponse,

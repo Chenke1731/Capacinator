@@ -87,19 +87,25 @@ export interface LoginRequest {
 }
 
 /**
+ * auth user 载荷——真身: AuthService.getUserById 只 select people 表 5 列（snake_case 原样），
+ * 不是完整 Person。login/me 响应的 user 字段即此形状。
+ */
+export interface AuthUser {
+  id: string;
+  name: string;
+  email: string;
+  is_system_admin: boolean;
+  user_role_id?: string;
+}
+
+/**
  * Login response
  */
 export interface LoginResponse {
   success: boolean;
   accessToken: string;
   refreshToken: string;
-  user: {
-    id: string;
-    name: string;
-    email: string;
-    is_system_admin: boolean;
-    user_role_id?: string;
-  };
+  user: AuthUser;
 }
 
 /**

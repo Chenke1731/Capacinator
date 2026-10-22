@@ -20,7 +20,7 @@ jest.mock('../../lib/api-client', () => ({
 }));
 
 import { UserProvider, useUser } from '../UserContext';
-import { Person } from '../../types';
+import { AuthUser } from '../../types';
 import { api, isAuthenticated, saveAuthTokens, clearAuthTokens } from '../../lib/api-client';
 
 // Cast mocks for TypeScript
@@ -57,16 +57,12 @@ Object.defineProperty(window, 'localStorage', {
 const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
 
 describe('UserContext', () => {
-  const mockUser: Person = {
+  const mockUser: AuthUser = {
     id: 'user-1',
     name: 'John Doe',
     email: 'john@example.com',
-    roles: [],
-    worker_type: 'FTE' as never,
-    default_availability_percentage: 100,
-    default_hours_per_day: 8,
-    created_at: '2025-01-01',
-    updated_at: '2025-01-01'
+    is_system_admin: false,
+    user_role_id: 'role-1'
   };
 
   beforeEach(() => {
@@ -96,7 +92,7 @@ describe('UserContext', () => {
 
   // Helper component to test the hook
   function TestComponent() {
-    const { currentUser, isLoggedIn, setCurrentUser, logout, isLoading } = useUser();
+    const { currentUser, isLoggedIn, login, logout, isLoading } = useUser();
 
     return (
       <div>
@@ -105,9 +101,9 @@ describe('UserContext', () => {
         </div>
         <div data-testid="is-logged-in">{isLoggedIn ? 'yes' : 'no'}</div>
         <div data-testid="is-loading">{isLoading ? 'loading' : 'ready'}</div>
-        <button onClick={() => setCurrentUser(mockUser)}>Login</button>
-        <button onClick={() => logout()}>Logout</button>
-        <button onClick={() => setCurrentUser(null)}>Clear User</button>
+        <button onClick={() => { login(mockUser.id).catch(() => {}); }}>Login</button>
+        <button onClick={() => { logout(); }}>Logout</button>
+        <button onClick={() => { logout(); }}>Clear User</button>
       </div>
     );
   }
@@ -227,22 +223,18 @@ describe('UserContext', () => {
     it('allows changing users', async () => {
       mockIsAuthenticated.mockReturnValue(false);
 
-      const differentUser: Person = {
+      const differentUser: AuthUser = {
         id: 'user-2',
         name: 'Jane Smith',
         email: 'jane@example.com',
-        roles: [],
-    worker_type: 'FTE' as never,
-    default_availability_percentage: 100,
-    default_hours_per_day: 8,
-        created_at: '2025-01-02',
-        updated_at: '2025-01-02'
+        is_system_admin: false,
+        user_role_id: 'role-2'
       };
 
       function UpdateComponent() {
-        const { setCurrentUser } = useUser();
+        const { login } = useUser();
         return (
-          <button onClick={() => setCurrentUser(differentUser)}>Change User</button>
+          <button onClick={() => { login('user-2').catch(() => {}); }}>Change User</button>
         );
       }
 
@@ -405,9 +397,6 @@ describe('UserContext', () => {
             <div data-testid="has-current-user">
               {typeof context.currentUser !== 'undefined' ? 'yes' : 'no'}
             </div>
-            <div data-testid="has-set-function">
-              {typeof context.setCurrentUser === 'function' ? 'yes' : 'no'}
-            </div>
             <div data-testid="has-logout-function">
               {typeof context.logout === 'function' ? 'yes' : 'no'}
             </div>
@@ -431,7 +420,6 @@ describe('UserContext', () => {
       await renderWithProvider(<TestHookValues />);
 
       expect(screen.getByTestId('has-current-user')).toHaveTextContent('yes');
-      expect(screen.getByTestId('has-set-function')).toHaveTextContent('yes');
       expect(screen.getByTestId('has-logout-function')).toHaveTextContent('yes');
       expect(screen.getByTestId('has-is-logged-in')).toHaveTextContent('yes');
       expect(screen.getByTestId('has-is-loading')).toHaveTextContent('yes');
@@ -598,49 +586,6 @@ describe('UserContext', () => {
   });
 
   describe('Edge Cases', () => {
-    it('handles user object with missing fields', async () => {
-      mockIsAuthenticated.mockReturnValue(false);
-
-      const partialUser = {
-        id: 'user-1',
-        name: 'Partial User'
-      } as Person;
-
-      mockAuthLogin.mockResolvedValue({
-        data: {
-          user: partialUser,
-          accessToken: 'mock-access-token',
-          refreshToken: 'mock-refresh-token'
-        }
-      });
-
-      function TestPartialUser() {
-        const { currentUser, setCurrentUser, isLoading } = useUser();
-        return (
-          <div>
-            <div data-testid="current-user">{currentUser?.name || 'No user'}</div>
-            <div data-testid="is-loading">{isLoading ? 'loading' : 'ready'}</div>
-            <button onClick={() => setCurrentUser(partialUser)}>Set Partial User</button>
-          </div>
-        );
-      }
-
-      render(<UserProvider><TestPartialUser /></UserProvider>);
-
-      await waitFor(() => {
-        expect(screen.getByTestId('is-loading')).toHaveTextContent('ready');
-      });
-
-      const button = screen.getByText('Set Partial User');
-      await act(async () => {
-        button.click();
-      });
-
-      await waitFor(() => {
-        expect(screen.getByTestId('current-user')).toHaveTextContent('Partial User');
-      });
-    });
-
     it('handles login API errors gracefully', async () => {
       mockIsAuthenticated.mockReturnValue(false);
       mockAuthLogin.mockRejectedValue(new Error('Login failed'));
@@ -652,9 +597,10 @@ describe('UserContext', () => {
         loginButton.click();
       });
 
-      // When login fails, the user should still be set locally (legacy behavior)
+      // 登录失败=保持未登录态（旧 setCurrentUser 的"本地 setUser"遗留回退已随死 API 删除）
       await waitFor(() => {
-        expect(screen.getByTestId('current-user')).toHaveTextContent('John Doe');
+        expect(screen.getByTestId('current-user')).toHaveTextContent('No user');
+        expect(screen.getByTestId('is-logged-in')).toHaveTextContent('no');
       });
     });
 

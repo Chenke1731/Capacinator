@@ -79,11 +79,11 @@ export interface TokenPayload {
 }
 
 /**
- * Login request body
+ * Login request body (person selection — no password in this tool)
+ * 真身见 routes/auth.ts POST /login
  */
 export interface LoginRequest {
-  email: string;
-  password: string;
+  personId: string;
 }
 
 /**
@@ -93,7 +93,6 @@ export interface LoginResponse {
   success: boolean;
   accessToken: string;
   refreshToken: string;
-  expiresIn: number;
   user: {
     id: string;
     name: string;
@@ -116,7 +115,7 @@ export interface RefreshTokenRequest {
 export interface RefreshTokenResponse {
   success: boolean;
   accessToken: string;
-  expiresIn: number;
+  refreshToken: string;
 }
 
 /**

@@ -118,3 +118,5 @@ client/src/**/*.d.ts.map
 !.zcode/skills/
 !.zcode/skills/**
 .omc/
+pnpm-lock.yaml
+pnpm-workspace.yaml

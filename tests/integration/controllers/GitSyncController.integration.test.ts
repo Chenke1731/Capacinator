@@ -634,7 +634,7 @@ describe('GitSyncController Integration Tests', () => {
       expect(syncOps.completed_at).toBeDefined();
     });
 
-    test('should update sync operation to completed-with-errors when import has warnings', async () => {
+    test('should record import warnings on completed sync operation', async () => {
       mockGitService.repositoryExists.mockResolvedValue(true);
       mockGitService.pull.mockResolvedValue({ success: true, filesChanged: 1, conflicts: [] });
       mockExporter.detectConflictsAfterPull.mockResolvedValue([]);
@@ -649,8 +649,10 @@ describe('GitSyncController Integration Tests', () => {
 
       await controller.pull(req as any, res as any);
 
-      const syncOps = await db('sync_operations').where('status', 'completed-with-errors').first();
+      // 047 真身枚举无第六态: 部分成功=completed,警告落 error_message
+      const syncOps = await db('sync_operations').where('status', 'completed').first();
       expect(syncOps).toBeDefined();
+      expect(syncOps.error_message).toContain('Error importing row 5');
     });
 
     test('should update sync operation to failed on error', async () => {
@@ -1453,35 +1455,11 @@ describe('GitSyncController Integration Tests', () => {
         expect(project).toBeDefined();
       });
 
-      test('should handle entity type without table mapping gracefully', async () => {
-        // Use 'scenario' entity_type which exists in the CHECK constraint
-        // but doesn't have a table mapping in getTableNameForEntityType
-        const scenarioConflictId = `conflict-scenario-${Date.now()}`;
-        await db('conflicts').insert({
-          id: scenarioConflictId,
-          sync_operation_id: syncOpId,
-          entity_type: 'scenario', // Valid type but no table mapping in controller
-          entity_id: 'scenario-1',
-          entity_name: 'Test Scenario',
-          field: 'name',
-          local_value: 'Local Name',
-          remote_value: 'Remote Name',
-          resolution_status: 'pending',
-          created_at: new Date().toISOString()
-        });
-
-        const req = createMockRequest({
-          params: { id: scenarioConflictId },
-          body: { resolution: 'accept_local' },
-          user: { email: 'resolver@example.com' }
-        });
-        const res = createMockResponse();
-
-        await controller.resolveConflict(req as any, res as any);
-
-        // Controller should still work - no table update is made for unmapped entity types
-        expect(res.json).toHaveBeenCalled();
-      });
+      // 2026-10-22 删除 "unmapped entity type" 用例: 048 conflicts.entity_type
+      // CHECK 枚举 = {project,person,assignment,project_phase},与控制器
+      // getTableNameForEntityType 映射恰好同构——"枚举合法但无表映射"在真身
+      // 是空集,原用例靠枚举外的 'scenario' 值构造不可能状态(手写 DDL 缺
+      // CHECK 时才可插入)。控制器的 null 防御分支保留,但不可由合法数据触达。
     });
   });
 

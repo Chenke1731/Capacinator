@@ -9,7 +9,9 @@
 
 2. **Set up in-memory test database**:
    - Using SQLite in-memory database for fast, isolated tests
-   - Created `test-schema.sql` with minimal schema needed for testing
+   - 2026-10-22 起由全量 migrations 建库（setup.ts 手排执行器逐个跑 up()，
+     账本记 knex_migrations）——手写 test-schema*.sql 退役（曾缺 CHECK/UNIQUE/FK，
+     掩盖过 conflict 500、completed-with-errors 枚举外值等产品缺陷）
    - Database is created fresh for each test run
 
 3. **Fixed most integration tests**:
@@ -20,8 +22,8 @@
 ## Key Files Created/Modified
 
 1. `/tests/integration/helpers/test-routes.ts` - Factory functions for creating routes with test database
-2. `/tests/integration/test-schema.sql` - Minimal database schema for tests
-3. `/tests/integration/setup.ts` - Test database setup and teardown
+2. `/tests/integration/setup.ts` - Test database setup and teardown（migrations 建库入口）
+3. `/tests/integration/__tests__/migrations-built-db.test.ts` - 守卫：集成库必由 migrations 建出
 4. `/tests/integration/phase-dependencies-api.test.ts` - Updated to use proper test infrastructure
 
 ## Remaining Issues

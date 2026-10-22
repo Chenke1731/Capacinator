@@ -1,5 +1,5 @@
 import { describe, test, expect, beforeEach, afterEach } from '@jest/globals';
-import { db } from './setup';
+import { db, TEST_PROJECT_SUB_TYPE_ID } from './setup';
 import { v4 as uuidv4 } from 'uuid';
 
 describe('Utilization Report Simple Tests', () => {
@@ -59,6 +59,7 @@ describe('Utilization Report Simple Tests', () => {
       id: testProjectId,
       name: 'Test Project',
       project_type_id: testProjectTypeId,
+      project_sub_type_id: TEST_PROJECT_SUB_TYPE_ID,
       priority: 1,
       aspiration_start: '2025-01-01',
       aspiration_finish: '2025-12-31',
@@ -151,6 +152,7 @@ describe('Utilization Report Simple Tests', () => {
       id: secondProjectId,
       name: 'Second Project',
       project_type_id: testProjectTypeId,
+      project_sub_type_id: TEST_PROJECT_SUB_TYPE_ID,
       priority: 1,
       aspiration_start: '2025-01-01',
       aspiration_finish: '2025-12-31',

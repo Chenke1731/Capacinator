@@ -81,6 +81,7 @@ describe('ScenariosController - Complex Edge Cases', () => {
         id: 'proj1-000-0000-0000-000000000001',
         name: 'Test Project 1',
         description: 'First test project',
+        project_sub_type_id: 'test-sub-type-1',
         created_at: new Date().toISOString(),
         updated_at: new Date().toISOString()
       },
@@ -88,6 +89,7 @@ describe('ScenariosController - Complex Edge Cases', () => {
         id: 'proj2-000-0000-0000-000000000002',
         name: 'Test Project 2',
         description: 'Second test project',
+        project_sub_type_id: 'test-sub-type-1',
         created_at: new Date().toISOString(),
         updated_at: new Date().toISOString()
       }

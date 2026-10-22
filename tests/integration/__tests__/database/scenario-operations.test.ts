@@ -501,50 +501,16 @@ describe('Scenario Database Operations', () => {
         updated_at: new Date()
       });
 
-      // Check if foreign keys are enabled before testing deletes
+      // 001 真身: scenario_project_assignments 四个业务外键全为 onDelete CASCADE
+      // ——"引用完整性"由级联清理保障(删人=其场景分配随之删除),不是 RESTRICT 抛错。
+      // 旧断言假设"FK 开=删除必炸",与真实设计错位(migrations 建库后实锤)。
       const fkStatus = await db.raw('PRAGMA foreign_keys');
-      const foreignKeysEnabled = fkStatus[0]?.foreign_keys === 1;
-      
-      if (foreignKeysEnabled) {
-        // Test if foreign keys are actually enforced
-        let personDeleteFailed = false;
-        try {
-          await db('people').where('id', testData.people[0].id).del();
-        } catch (error) {
-          personDeleteFailed = true;
-        }
+      expect(fkStatus[0]?.foreign_keys).toBe(1);
 
-        if (personDeleteFailed) {
-          // Foreign keys are properly enforced, run the rest of the tests
-          let projectDeleteFailed = false;
-          let roleDeleteFailed = false;
-          
-          try {
-            await db('projects').where('id', testData.projects[0].id).del();
-          } catch (error) {
-            projectDeleteFailed = true;
-          }
-          
-          try {
-            await db('roles').where('id', testData.roles[0].id).del();
-          } catch (error) {
-            roleDeleteFailed = true;
-          }
-          
-          expect(projectDeleteFailed).toBe(true);
-          expect(roleDeleteFailed).toBe(true);
-        } else {
-          console.warn('Foreign keys enabled but not enforced in SQLite test environment');
-          // Just verify the assignment exists
-          const assignment = await db('scenario_project_assignments').where('id', assignmentId).first();
-          expect(assignment).toBeDefined();
-        }
-      } else {
-        console.warn('Foreign keys not enabled, skipping delete constraint checks');
-        // Just verify the assignment exists
-        const assignment = await db('scenario_project_assignments').where('id', assignmentId).first();
-        expect(assignment).toBeDefined();
-      }
+      await db('people').where('id', testData.people[0].id).del();
+
+      const assignment = await db('scenario_project_assignments').where('id', assignmentId).first();
+      expect(assignment).toBeUndefined(); // 级联清理:无孤儿行残留
     });
 
     it('should handle scenario hierarchy constraints', async () => {

@@ -1,5 +1,5 @@
 import { describe, test, expect, beforeEach, afterEach } from '@jest/globals';
-import { db } from './setup';
+import { db, TEST_PROJECT_SUB_TYPE_ID } from './setup';
 import { v4 as uuidv4 } from 'uuid';
 
 describe('Projects API Integration Tests - Simple', () => {
@@ -26,6 +26,7 @@ describe('Projects API Integration Tests - Simple', () => {
       const projectData = {
         id: testProjectId,
         name: 'Test Project Integration',
+        project_sub_type_id: TEST_PROJECT_SUB_TYPE_ID,
         priority: 1,
         include_in_demand: 1, // SQLite stores boolean as integer
         description: 'A test project for integration testing',
@@ -48,6 +49,7 @@ describe('Projects API Integration Tests - Simple', () => {
       await db('projects').insert({
         id: testProjectId,
         name: 'Original Name',
+        project_sub_type_id: TEST_PROJECT_SUB_TYPE_ID,
         created_at: new Date(),
         updated_at: new Date()
       });
@@ -72,6 +74,7 @@ describe('Projects API Integration Tests - Simple', () => {
       await db('projects').insert({
         id: testProjectId,
         name: 'Project with Phases',
+        project_sub_type_id: TEST_PROJECT_SUB_TYPE_ID,
         created_at: new Date(),
         updated_at: new Date()
       });
@@ -120,6 +123,7 @@ describe('Projects API Integration Tests - Simple', () => {
       await db('projects').insert({
         id: testProjectId,
         name: 'Project to Delete',
+        project_sub_type_id: TEST_PROJECT_SUB_TYPE_ID,
         created_at: new Date(),
         updated_at: new Date()
       });
@@ -144,6 +148,7 @@ describe('Projects API Integration Tests - Simple', () => {
         await db('projects').insert({
           id,
           name: `Metric Project ${i}`,
+          project_sub_type_id: TEST_PROJECT_SUB_TYPE_ID,
           priority: i === 0 ? 1 : 2,
           aspiration_start: '2026-01-01',
           created_at: new Date(),

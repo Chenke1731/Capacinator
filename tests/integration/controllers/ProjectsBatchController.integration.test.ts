@@ -19,6 +19,7 @@ describe('ProjectsController batch endpoints', () => {
     const row = {
       id: randomUUID(),
       name: 'Batch Fixture',
+      project_sub_type_id: 'test-sub-type-1', // 001 真身 NOT NULL+FK(setup 种子)
       priority: 5,
       created_at: new Date().toISOString(),
       updated_at: new Date().toISOString(),

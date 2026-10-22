@@ -76,9 +76,8 @@ describe('components CRUD (066)', () => {
 
 describe('projects.component_id wiring', () => {
   // Self-seeded type/sub_type via direct inserts in beforeEach — same
-  // db-access pattern as the (working) afterEach cleanup; the HTTP route
-  // is blocked by a test-schema gap (project_types lacks parent_id/
-  // is_default) and a one-off beforeAll insert hit pool contention.
+  // db-access pattern as the (working) afterEach cleanup.（原手写 test-schema
+  // 缺列的阻断注记已随 2026-10-22 migrations 建库切换作废）
   let subTypeId = '';
   beforeEach(async () => {
     const now = new Date();

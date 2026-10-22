@@ -61,6 +61,7 @@ describe.skip('Import/Export Workflow Integration', () => {
     const [projectResult] = await db('projects').insert({
       name: 'Integration Test Project',
       project_type_id: testDataIds.projectTypeId,
+      project_sub_type_id: 'test-sub-type-1',
       location_id: testDataIds.locationId,
       priority: 2,
       description: 'Test project for integration testing',

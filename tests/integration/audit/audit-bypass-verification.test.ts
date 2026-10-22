@@ -1,5 +1,5 @@
 import { describe, test, expect, beforeAll, afterAll } from '@jest/globals';
-import { db } from '../setup.js';
+import { db, TEST_PROJECT_SUB_TYPE_ID } from '../setup.js';
 import { createAuditedDatabase } from '../../../src/server/database/AuditedDatabase.js';
 import { AuditService } from '../../../src/server/services/audit/AuditService.js';
 import { getAuditConfig } from '../../../src/server/config/index.js';
@@ -254,6 +254,7 @@ describe('Audit Bypass Verification Tests', () => {
       const testProject = {
         id: 'bypass-test-context-project',
         name: 'Context Test Project',
+        project_sub_type_id: TEST_PROJECT_SUB_TYPE_ID,
         created_at: new Date(),
         updated_at: new Date()
       };

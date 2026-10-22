@@ -1,6 +1,6 @@
 import { describe, test, it, expect, beforeAll, afterAll, beforeEach, afterEach, jest } from '@jest/globals';
 
-import { db } from '../setup';
+import { db, TEST_PROJECT_SUB_TYPE_ID } from '../setup';
 import { randomUUID } from 'crypto';
 
 /**
@@ -59,6 +59,7 @@ describe('Assignment Business Rules Validation', () => {
         id: testData.project1_id,
         name: 'Business Rules Project 1',
         description: 'Test project 1',
+        project_sub_type_id: TEST_PROJECT_SUB_TYPE_ID,
         aspiration_start: '2024-01-01',
         aspiration_finish: '2024-06-30',
         created_at: new Date(),
@@ -68,6 +69,7 @@ describe('Assignment Business Rules Validation', () => {
         id: testData.project2_id,
         name: 'Business Rules Project 2',
         description: 'Test project 2',
+        project_sub_type_id: TEST_PROJECT_SUB_TYPE_ID,
         aspiration_start: '2024-03-01',
         aspiration_finish: '2024-09-30',
         created_at: new Date(),

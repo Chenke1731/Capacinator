@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeAll, afterAll, beforeEach, jest } from '@jest/globals';
 import knex from 'knex';
-import { db as testDb } from './setup';
+import { db as testDb, TEST_PROJECT_SUB_TYPE_ID } from './setup';
 
 // Mock the notification scheduler to prevent cron jobs
 jest.mock('../../src/server/services/NotificationScheduler.js', () => ({
@@ -55,7 +55,7 @@ describe.skip('Assignment Phase Alignment Integration Tests', () => {
     await testDb('projects').insert({
       id: testProjectId,
       name: 'Test Phase Alignment Project',
-      status: 'active',
+      project_sub_type_id: TEST_PROJECT_SUB_TYPE_ID, // status 已删:真实 projects 无此列
       aspiration_start: '2024-01-01',
       aspiration_finish: '2024-12-31',
       created_at: new Date(),

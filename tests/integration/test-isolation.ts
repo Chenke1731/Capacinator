@@ -27,7 +27,7 @@
  */
 
 import { Knex } from 'knex';
-import { db } from './setup';
+import { db, TEST_PROJECT_SUB_TYPE_ID } from './setup';
 
 /**
  * Represents a unique test context for isolation
@@ -341,7 +341,8 @@ export const createIsolatedTestData = {
       id: overrides.id || `${ctx.prefix}_proj_${uniqueId}`,
       name: overrides.name || `${ctx.prefix}_TestProject_${uniqueId}`,
       description: overrides.description || `Test project for ${ctx.id}`,
-      status: overrides.status || 'active',
+      // status 已删(真实 projects 无此列)——project_sub_type_id 为 001 真身 NOT NULL+FK
+      project_sub_type_id: overrides.project_sub_type_id || TEST_PROJECT_SUB_TYPE_ID,
       priority: overrides.priority ?? 3,
       aspiration_start:
         overrides.aspiration_start || today.toISOString().split('T')[0],

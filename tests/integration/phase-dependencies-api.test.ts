@@ -1,5 +1,5 @@
 import { describe, test, it, expect, beforeAll, afterAll, beforeEach, afterEach, jest } from '@jest/globals';
-import { db } from './setup';
+import { db, TEST_PROJECT_SUB_TYPE_ID } from './setup';
 import supertest from 'supertest';
 import express from 'express';
 import { ProjectPhaseDependenciesController } from '../../src/server/api/controllers/ProjectPhaseDependenciesController';
@@ -50,6 +50,7 @@ describe('Phase Dependencies API Integration Tests', () => {
     const [project] = await db('projects').insert({
       id: 'test-proj-1',
       name: 'Test Project for Dependencies',
+      project_sub_type_id: TEST_PROJECT_SUB_TYPE_ID,
       priority: 1,
       include_in_demand: 1,
       created_at: new Date(),
@@ -198,6 +199,7 @@ describe('Phase Dependencies API Integration Tests', () => {
       const [project2] = await db('projects').insert({
         id: 'test-proj-2',
         name: 'Project without dependencies',
+        project_sub_type_id: TEST_PROJECT_SUB_TYPE_ID,
         priority: 1,
         include_in_demand: 1,
         created_at: new Date().toISOString(),

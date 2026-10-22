@@ -52,6 +52,7 @@ describe('AssignmentsController Integration Tests', () => {
         id: testData.project1_id,
         name: 'Test Project 1',
         description: 'Test project 1',
+        project_sub_type_id: 'test-sub-type-1',
         aspiration_start: '2024-01-01',
         aspiration_finish: '2024-06-30',
         created_at: new Date(),
@@ -61,6 +62,7 @@ describe('AssignmentsController Integration Tests', () => {
         id: testData.project2_id,
         name: 'Test Project 2',
         description: 'Test project 2',
+        project_sub_type_id: 'test-sub-type-1',
         aspiration_start: '2024-03-01',
         aspiration_finish: '2024-09-30',
         created_at: new Date(),
@@ -381,7 +383,7 @@ describe('AssignmentsController Integration Tests', () => {
         .where('person_id', testData.person_id)
         .update({
           availability_percentage: 0,
-          override_type: 'UNAVAILABLE',
+          override_type: 'REDUCED_HOURS', // 001 真身枚举无 'UNAVAILABLE'——0% 属极端减时
           updated_at: new Date()
         });
 

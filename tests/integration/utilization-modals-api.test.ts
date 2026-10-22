@@ -1,7 +1,7 @@
 import { describe, test, it, expect, beforeAll, afterAll, beforeEach, afterEach, jest } from '@jest/globals';
 
 import { randomUUID } from 'crypto';
-import { db as testDb } from './setup';
+import { db as testDb, TEST_PROJECT_SUB_TYPE_ID } from './setup';
 
 // Mock the database module to use test database
 jest.mock('../../src/server/database/index.js', () => ({
@@ -104,6 +104,7 @@ describe('Utilization Modals API Integration', () => {
         description: 'High priority test project',
         priority: 1,
         location_id: testData.location_id,
+        project_sub_type_id: TEST_PROJECT_SUB_TYPE_ID,
         include_in_demand: true,
         aspiration_start: '2024-01-01',
         aspiration_finish: '2024-06-30',
@@ -116,6 +117,7 @@ describe('Utilization Modals API Integration', () => {
         description: 'Medium priority test project',
         priority: 2,
         location_id: testData.location_id,
+        project_sub_type_id: TEST_PROJECT_SUB_TYPE_ID,
         include_in_demand: true,
         aspiration_start: '2024-02-01',
         aspiration_finish: '2024-08-31',
@@ -128,6 +130,7 @@ describe('Utilization Modals API Integration', () => {
         description: 'Low priority test project',
         priority: 3,
         location_id: testData.location_id,
+        project_sub_type_id: TEST_PROJECT_SUB_TYPE_ID,
         include_in_demand: true,
         aspiration_start: '2024-03-01',
         aspiration_finish: '2024-09-30',
@@ -150,18 +153,15 @@ describe('Utilization Modals API Integration', () => {
     // Add person-role relationships
     await testDb('person_roles').insert([
       {
+        // 001 真身: proficiency_level 为整数(1-5),无 created_at/updated_at 列
         person_id: testData.person1_id,
         role_id: testData.role_id,
-        proficiency_level: 'Expert',
-        created_at: new Date(),
-        updated_at: new Date()
+        proficiency_level: 5
       },
       {
         person_id: testData.person2_id,
         role_id: testData.role_id,
-        proficiency_level: 'Junior',
-        created_at: new Date(),
-        updated_at: new Date()
+        proficiency_level: 2
       }
     ]);
   });
@@ -245,6 +245,7 @@ describe('Utilization Modals API Integration', () => {
           description: 'High priority test project',
           priority: 1,
           location_id: testData.location_id,
+          project_sub_type_id: TEST_PROJECT_SUB_TYPE_ID,
           include_in_demand: true,
           aspiration_start: '2024-01-01',
           aspiration_finish: '2024-06-30',
@@ -257,6 +258,7 @@ describe('Utilization Modals API Integration', () => {
           description: 'Medium priority test project',
           priority: 2,
           location_id: testData.location_id,
+          project_sub_type_id: TEST_PROJECT_SUB_TYPE_ID,
           include_in_demand: true,
           aspiration_start: '2024-02-01',
           aspiration_finish: '2024-08-31',
@@ -269,6 +271,7 @@ describe('Utilization Modals API Integration', () => {
           description: 'Low priority test project',
           priority: 3,
           location_id: testData.location_id,
+          project_sub_type_id: TEST_PROJECT_SUB_TYPE_ID,
           include_in_demand: true,
           aspiration_start: '2024-03-01',
           aspiration_finish: '2024-09-30',

@@ -1,7 +1,7 @@
 import { describe, test, it, expect, beforeAll, afterAll, beforeEach, afterEach } from '@jest/globals';
 import { join } from 'path';
 import { ExcelImporterV2 } from '../../src/server/services/import/ExcelImporterV2.js';
-import { db as testDb } from './setup.js';
+import { db as testDb, TEST_PROJECT_SUB_TYPE_ID } from './setup.js';
 
 // Test file paths - use process.cwd() to avoid __dirname conflicts
 const FIXTURES_DIR = join(process.cwd(), 'tests', 'fixtures', 'excel-imports');
@@ -207,6 +207,13 @@ describe('ExcelImporterV2 Integration Tests', () => {
         updated_at: new Date()
       });
 
+      // afterEach 清 project_sub_types——本测自建子类型行(afterEach 会清掉 setup 种子)
+      await db('project_sub_types').insert({
+        id: TEST_PROJECT_SUB_TYPE_ID,
+        name: 'SR',
+        project_type_id: 'test-type-id'
+      });
+
       await db('locations').insert({
         id: 'test-location-id',
         name: 'HQ',
@@ -219,6 +226,7 @@ describe('ExcelImporterV2 Integration Tests', () => {
         id: 'existing-project-id',
         name: 'Customer Portal',
         project_type_id: 'test-type-id',
+        project_sub_type_id: TEST_PROJECT_SUB_TYPE_ID,
         location_id: 'test-location-id',
         priority: 1,
         include_in_demand: 1,

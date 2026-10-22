@@ -1,5 +1,5 @@
 import { describe, test, it, expect, beforeAll, afterAll, beforeEach, afterEach, jest } from '@jest/globals';
-import { db } from './setup';
+import { db, TEST_PROJECT_SUB_TYPE_ID } from './setup';
 
 // Mock the notification scheduler to prevent cron jobs
 jest.mock('../../src/server/services/NotificationScheduler.js', () => ({
@@ -24,6 +24,7 @@ describe('Phase Dependencies Performance Tests', () => {
     const [project] = await db('projects').insert({
       id: 'perf-test-proj',
       name: 'Performance Test Project',
+      project_sub_type_id: TEST_PROJECT_SUB_TYPE_ID,
       priority: 1,
       include_in_demand: 1,
       created_at: new Date(),

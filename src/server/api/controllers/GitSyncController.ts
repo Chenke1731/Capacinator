@@ -168,11 +168,17 @@ export class GitSyncController extends BaseController {
           const importResult = await this.exporter.importFromJSON('working');
 
           // Update sync operation status
+          // 047 真身枚举五态(pending/in-progress/completed/failed/conflict)——
+          // 无 'completed-with-errors'(手写测试库时代曾掩盖此错:真库必炸)。
+          // 部分成功仍属 completed,警告落 error_message(客户端无第六态消费)。
           await this.db('sync_operations')
             .where('id', syncOperationId)
             .update({
-              status: importResult.success ? 'completed' : 'completed-with-errors',
+              status: 'completed',
               completed_at: new Date().toISOString(),
+              ...(importResult.errors.length > 0
+                ? { error_message: `Import warnings: ${importResult.errors.join('; ')}` }
+                : {}),
             });
 
           // Include import warnings if any records were skipped

@@ -1,5 +1,5 @@
 import { describe, test, expect, beforeEach, afterEach, beforeAll, afterAll, jest, it } from '@jest/globals';
-import { db } from './setup';
+import { db, TEST_PROJECT_SUB_TYPE_ID } from './setup';
 import { v4 as uuidv4 } from 'uuid';
 
 // Mock the database module to use test database
@@ -159,6 +159,7 @@ describe.skip('Gaps Analysis API Tests', () => {
         id: uuidv4(),
         name: 'AI Project',
         project_type_id: testProjectTypeId,
+        project_sub_type_id: TEST_PROJECT_SUB_TYPE_ID,
         priority: 1,
         aspiration_start: new Date().toISOString().split('T')[0],
         aspiration_finish: new Date(Date.now() + 180 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
@@ -170,6 +171,7 @@ describe.skip('Gaps Analysis API Tests', () => {
         id: uuidv4(),
         name: 'Frontend Project',
         project_type_id: testProjectTypeId,
+        project_sub_type_id: TEST_PROJECT_SUB_TYPE_ID,
         priority: 1,
         aspiration_start: new Date().toISOString().split('T')[0],
         aspiration_finish: new Date(Date.now() + 180 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],

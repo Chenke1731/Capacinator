@@ -61,8 +61,8 @@ jobs:
           node-version: 20
           cache: npm
       - run: npm ci
-      - name: Jest (client + server-unit incl. meta-tests)
-        run: npx jest --config jest.config.cjs --selectProjects client server-unit
+      - name: Jest (client + server-unit + server-integration)
+        run: npx jest --config jest.config.cjs --selectProjects client server-unit server-integration
 
   e2e:
     if: github.event_name != 'schedule'

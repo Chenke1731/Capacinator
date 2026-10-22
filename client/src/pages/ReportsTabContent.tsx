@@ -476,7 +476,7 @@ export const ReportsTabContent: React.FC<ReportsTabContentProps> = ({ activeRepo
     queryKey: queryKeys.people.assignments(selectedPerson?.id ?? '', currentScenario?.id),
     queryFn: async () => {
       const response = await api.assignments.list({ person_id: selectedPerson!.id, limit: 2000 } as never);
-      return response.data?.data || [];
+      return response.data.data;
     },
     enabled: !!selectedPerson?.id && (showReduceLoadModal || showAddProjectsModal)
   });

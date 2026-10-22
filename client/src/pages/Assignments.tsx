@@ -98,7 +98,7 @@ export default function Assignments() {
         .filter(([_, value]) => value)
         .reduce((acc, [key, value]) => ({ ...acc, [key]: value }), {});
       const response = await api.assignments.list({ ...params, limit: 2000 });
-      return response.data.data as ProjectAssignment[];
+      return response.data.data;
     },
     enabled: !!currentScenario // Only fetch when a scenario is selected
   });

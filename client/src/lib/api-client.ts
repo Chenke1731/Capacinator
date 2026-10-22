@@ -369,18 +369,26 @@ export const api = {
 
   // Assignments
   assignments: {
-    list: (params?: PaginationParams) => apiClient.get<PaginatedResponse<ProjectAssignment>>('/assignments', { params }),
-    create: (data: Partial<ProjectAssignment>) => apiClient.post<{ data: ProjectAssignment }>('/assignments', data),
+    /* 真身: list=sendPaginatedResponse{success,data,pagination{page,limit,total,totalPages,hasNextPage,hasPrevPage},requestId};
+       create/update/bulk=sendSuccess{success,data,requestId,message}; delete 同款(data 内外两层 message);
+       conflicts/suggestions/timeline=sendSuccess 信封、载荷在内层 data — 形状由 AssignmentsController.test 响应信封契约断言钉死 */
+    list: (params?: PaginationParams) => apiClient.get<{
+      success: boolean;
+      data: ProjectAssignment[];
+      pagination: { page: number; limit: number; total: number; totalPages: number; hasNextPage: boolean; hasPrevPage: boolean };
+      requestId: string;
+    }>('/assignments', { params }),
+    create: (data: Partial<ProjectAssignment>) => apiClient.post<{ success: boolean; data: ProjectAssignment; requestId: string; message: string }>('/assignments', data),
     // IP-07c: data 可附 expected_version 乐观锁令牌,冲突 409 载荷含当前值
     update: (id: string, data: Partial<ProjectAssignment> & { expected_version?: number }) =>
-      apiClient.put<{ data: ProjectAssignment }>(`/assignments/${id}`, data),
+      apiClient.put<{ success: boolean; data: ProjectAssignment; requestId: string; message: string }>(`/assignments/${id}`, data),
     // IP-07e: data 可附 expected_version 乐观锁令牌(删除他人刚改的行=丢失更新)
     delete: (id: string, data?: { expected_version?: number }) =>
-      apiClient.delete<{ message: string }>(`/assignments/${id}`, data ? { data } : undefined),
-    bulkCreate: (data: Record<string, unknown>) => apiClient.post<{ data: ProjectAssignment[] }>('/assignments/bulk', data),
-    getConflicts: (personId: string, params?: PaginationParams) => apiClient.get<AssignmentConflictsResponse>(`/assignments/conflicts/${personId}`, { params }),
-    getSuggestions: (params: Record<string, unknown>) => apiClient.get<AssignmentSuggestionsResponse>('/assignments/suggestions', { params }),
-    getTimeline: (personId: string, params?: PaginationParams) => apiClient.get<AssignmentTimelineResponse>(`/assignments/timeline/${personId}`, { params }),
+      apiClient.delete<{ success: boolean; data: { message: string }; requestId: string; message: string }>(`/assignments/${id}`, data ? { data } : undefined),
+    bulkCreate: (data: Record<string, unknown>) => apiClient.post<{ success: boolean; data: ProjectAssignment[]; requestId: string; message: string }>('/assignments/bulk', data),
+    getConflicts: (personId: string, params?: PaginationParams) => apiClient.get<{ success: boolean; data: AssignmentConflictsResponse; requestId: string; message: string }>(`/assignments/conflicts/${personId}`, { params }),
+    getSuggestions: (params: Record<string, unknown>) => apiClient.get<{ success: boolean; data: AssignmentSuggestionsResponse; requestId: string; message: string }>('/assignments/suggestions', { params }),
+    getTimeline: (personId: string, params?: PaginationParams) => apiClient.get<{ success: boolean; data: AssignmentTimelineResponse; requestId: string; message: string }>(`/assignments/timeline/${personId}`, { params }),
   },
 
   // Resource Templates

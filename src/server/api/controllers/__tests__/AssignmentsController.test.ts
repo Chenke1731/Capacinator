@@ -1225,4 +1225,65 @@ describe('AssignmentsController', () => {
       expect(groups[0].total_allocation).toBeGreaterThan(100);
     });
   });
+
+  /**
+   * IP-10 / S05: 响应信封契约——键集与 client/src/lib/api-client.ts assignments 块
+   * 声明逐键对应。服务端增删/改名键此处必红,强制连带改声明。
+   */
+  describe('响应信封契约 (IP-10/S05)', () => {
+    const keysOf = (o: unknown) => Object.keys(o as Record<string, unknown>).sort();
+
+    it('getAll = { success, data, pagination{6键}, requestId } — sendPaginatedResponse', async () => {
+      mockDb._setQueryResult([]);
+      mockDb._setCountResult(0);
+      await controller.getAll(mockReq, mockRes);
+      await flushPromises();
+      const body = mockRes.json.mock.calls[0][0];
+      expect(keysOf(body)).toEqual(['data', 'pagination', 'requestId', 'success']);
+      expect(keysOf(body.pagination)).toEqual(['hasNextPage', 'hasPrevPage', 'limit', 'page', 'total', 'totalPages']);
+      expect(Array.isArray(body.data)).toBe(true);
+    });
+
+    it('create = { success, data, requestId, message } — sendSuccess', async () => {
+      mockReq.body = {
+        project_id: 'proj-1', person_id: 'person-1', role_id: 'role-1',
+        allocation_percentage: 50, assignment_date_mode: 'fixed',
+        start_date: '2025-01-01', end_date: '2025-12-31'
+      };
+      mockReq.headers = { 'x-scenario-id': 'baseline-0000-0000-0000-000000000000' };
+      mockDb._queueFirstResult({ name: 'John Doe', default_availability_percentage: 100 });
+      mockDb._queueQueryResult([]);
+      mockDb._queueFirstResult({ effective_availability_percentage: 100 });
+      mockDb._queueInsertResult([{ id: 'new-assign' }]);
+      await controller.create(mockReq, mockRes);
+      await flushPromises();
+      const body = mockRes.json.mock.calls[0][0];
+      expect(keysOf(body)).toEqual(['data', 'message', 'requestId', 'success']);
+      expect(body.success).toBe(true);
+      expect(typeof body.message).toBe('string');
+    });
+
+    it('update = { success, data, requestId, message } — sendSuccess', async () => {
+      mockReq.params = { id: 'spa-123' };
+      mockReq.body = { allocation_percentage: 75 };
+      const existing = { id: '123', allocation_percentage: 50, project_id: 'proj-1', person_id: 'person-1', start_date: '2025-01-01', end_date: '2025-12-31', assignment_date_mode: 'fixed', scenario_id: 'baseline-0000-0000-0000-000000000000' };
+      mockDb._queueFirstResult(existing);
+      mockDb._queueUpdateResult([{ ...existing, allocation_percentage: 75 }]);
+      await controller.update(mockReq, mockRes);
+      await flushPromises();
+      const body = mockRes.json.mock.calls[0][0];
+      expect(keysOf(body)).toEqual(['data', 'message', 'requestId', 'success']);
+    });
+
+    it('delete = { success, data{message}, requestId, message } — 两层 message', async () => {
+      mockReq.params = { id: 'spa-123' };
+      mockDb._setFirstResult({ id: '123', project_id: 'proj-1', person_id: 'person-1' });
+      mockDb._setDeleteResult(1);
+      await controller.delete(mockReq, mockRes);
+      await flushPromises();
+      const body = mockRes.json.mock.calls[0][0];
+      expect(keysOf(body)).toEqual(['data', 'message', 'requestId', 'success']);
+      expect(keysOf(body.data)).toEqual(['message']);
+    });
+  });
 });

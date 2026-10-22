@@ -599,7 +599,8 @@ export interface AssignmentSuggestionsResponse {
 }
 
 export interface AssignmentTimelineEntry {
-  assignment_id: string;
+  /** assignments_view 出 spa- 前缀 id（032/035 视图），无 assignment_id 字段 */
+  id: string;
   project_id: string;
   project_name: string;
   role_name: string;
@@ -608,13 +609,29 @@ export interface AssignmentTimelineEntry {
   allocation_percentage: number;
 }
 
+export interface AssignmentTimelineOverride {
+  id: string;
+  person_id: string;
+  start_date: string;
+  end_date: string;
+  availability_percentage: number;
+  hours_per_day?: number;
+  reason?: string;
+  override_type?: string;
+}
+
+/** 真身: getTimeline 载荷 { person_id, timeline: { assignments, availability_overrides, summary } }（TimelineSummary 同构） */
 export interface AssignmentTimelineResponse {
-  timeline: AssignmentTimelineEntry[];
-  summary: {
-    total_assignments: number;
-    date_range: {
-      start: string;
-      end: string;
+  person_id: string;
+  timeline: {
+    assignments: AssignmentTimelineEntry[];
+    availability_overrides: AssignmentTimelineOverride[];
+    summary: {
+      totalAssignments: number;
+      averageAllocation: number;
+      timeSpan: { start: string; end: string } | null;
+      peakPeriod: { start: string; end: string; allocation: number } | null;
+      availabilityOverrideCount: number;
     };
   };
 }

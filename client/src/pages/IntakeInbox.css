@@ -226,3 +226,19 @@
     display: none;
   }
 }
+
+/* G-03/G-04（2026-11-10）：计数失败就地报错可重试；分页指示 + 加载更多 */
+.intake-counts--error {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.intake-pager {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 12px 0 4px;
+  color: var(--text-secondary);
+}

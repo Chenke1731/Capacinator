@@ -6039,13 +6039,13 @@
           "family": "btn btn-outline btn-sm intake-delete-btn|",
           "text": "删除",
           "foreground": "rgb(254, 202, 202)",
-          "background": "rgba(255, 255, 255, 0.024)",
+          "background": "rgba(255, 255, 255, 0.03)",
           "effectiveBackground": [
-            22.599999999999998,
-            29.435294117647057,
-            44.08235294117647
+            24.466666666666665,
+            31.24705882352941,
+            45.77647058823529
           ],
-          "contrast": 11.59334320578405,
+          "contrast": 11.360641610934243,
           "textual": true,
           "disabled": false,
           "width": 50.015625,

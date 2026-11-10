@@ -121,6 +121,33 @@ describe('IntakeInbox', () => {
     expect(screen.getByTestId('intake-empty').textContent).toContain('Alt+N');
   });
 
+  test('计数失败：显示错误与重试，不以 0 冒充（G-03）', async () => {
+    listMock.mockResolvedValue({ data: { success: true, data: [row()], pagination: { total: 1 } } });
+    countsMock.mockRejectedValue(new Error('500'));
+    renderPage();
+    await waitFor(() => expect(screen.getByTestId('intake-counts').textContent).toContain('Failed to load counts'));
+    // 列表正常渲染，计数不显示 0
+    expect(screen.getByTestId('intake-row-intake-1')).toBeTruthy();
+    expect(screen.getByTestId('intake-counts').textContent).not.toMatch(/Pending: 0/);
+
+    countsMock.mockResolvedValue({
+      data: { data: { new: 1, converted: 0, rejected: 0, by_source: { jdc_sr: 1 } } },
+    });
+    fireEvent.click(screen.getByTestId('intake-counts').querySelector('button')!);
+    await waitFor(() => expect(screen.getByTestId('intake-counts').textContent).toContain('Pending: 1'));
+  });
+
+  test('筛选无结果：显示"没有符合筛选"与清除入口，不冒充全局空态（G-11）', async () => {
+    listMock.mockResolvedValue({ data: { success: true, data: [], pagination: { total: 0 } } });
+    renderPage();
+    await waitFor(() => expect(screen.getByTestId('intake-search')).toBeTruthy());
+    fireEvent.change(screen.getByTestId('intake-search'), { target: { value: '不存在的关键字' } });
+    await waitFor(() => expect(screen.getByTestId('intake-empty')).toBeTruthy());
+    expect(screen.getByTestId('intake-empty').textContent).toContain('No items match');
+    expect(screen.getByTestId('intake-empty').textContent).not.toContain('Inbox is empty');
+    expect(screen.getByRole('button', { name: 'Clear filters' })).toBeTruthy();
+  });
+
   test('失败态：独立呈现可重试（U05 契约）', async () => {
     listMock.mockRejectedValue(new Error('500'));
     renderPage();

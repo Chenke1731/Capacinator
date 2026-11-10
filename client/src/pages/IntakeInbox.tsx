@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
@@ -54,6 +54,7 @@ export function IntakeInbox() {
   const [status, setStatus] = useState('new');
   const [sourceFilter, setSourceFilter] = useState('');
   const [q, setQ] = useState('');
+  const [page, setPage] = useState(1);
   const [expanded, setExpanded] = useState<Set<string>>(new Set());
   const [editing, setEditing] = useState<DemandIntake | null>(null);
   const [rejecting, setRejecting] = useState<DemandIntake | null>(null);
@@ -61,17 +62,21 @@ export function IntakeInbox() {
   const [deleting, setDeleting] = useState<DemandIntake | null>(null);
   const [triaging, setTriaging] = useState<DemandIntake | null>(null);
 
+  // G-04：API limit 上限 200——分页累积 + "已显示 x/共 y + 加载更多"，不静默截断
   const listQuery = useQuery({
     queryKey: queryKeys.intake.list({
       status,
       source: sourceFilter,
       q,
+      page,
     }),
     queryFn: async () => {
       const response = await api.intake.list({
         status,
         source_channel: sourceFilter || undefined,
         q: q || undefined,
+        // 首页不携带 page：保持 URL/fixture 键稳定（page=2 起才显式翻页）
+        page: page > 1 ? page : undefined,
         limit: 200,
       });
       return response.data;
@@ -83,12 +88,37 @@ export function IntakeInbox() {
     queryFn: async () => (await api.intake.counts()).data.data,
   });
 
-  const rows: DemandIntake[] = useMemo(() => {
+  const pageRows: DemandIntake[] = useMemo(() => {
     const data = (listQuery.data as any)?.data;
     return Array.isArray(data) ? data : [];
   }, [listQuery.data]);
 
-  const counts = countsQuery.data ?? { new: 0, converted: 0, rejected: 0, by_source: {} as Record<string, number> };
+  // G-03：计数未成功不得以 0 兜底冒充数据（失败≠空态同族）
+  const counts = countsQuery.isSuccess ? countsQuery.data! : null;
+  const hasActiveFilters = q.trim() !== '' || sourceFilter !== '' || status !== 'new';
+  const listTotal =
+    ((listQuery.data as any)?.pagination?.total as number | undefined) ??
+    (!hasActiveFilters && counts && ['new', 'converted', 'rejected'].includes(status)
+      ? counts[status as 'new' | 'converted' | 'rejected']
+      : undefined);
+
+  // 加载更多跨页累积；refetch/失效重放同页时按 id 去重，避免重复 append
+  const [allRows, setAllRows] = useState<DemandIntake[]>([]);
+  useEffect(() => {
+    if (!listQuery.isSuccess) return;
+    setAllRows((prev) => {
+      const merged = page === 1 ? [...pageRows] : [...prev, ...pageRows];
+      const seen = new Set<string>();
+      return merged.filter((item) => {
+        if (seen.has(item.id)) return false;
+        seen.add(item.id);
+        return true;
+      });
+    });
+  }, [listQuery.isSuccess, listQuery.data, pageRows, page]);
+  useEffect(() => {
+    setPage(1);
+  }, [status, sourceFilter, q]);
 
   const toggleExpand = (id: string) => {
     setExpanded((prev) => {
@@ -161,10 +191,20 @@ export function IntakeInbox() {
     <div className="intake-inbox" data-testid="intake-inbox">
       <div className="intake-toolbar">
         <h2 className="sr-only">{t('intake:title')}</h2>
-        <span className="intake-counts" data-testid="intake-counts">
-          {t('intake:inbox.counts.new')}: {counts.new} · {t('intake:inbox.counts.converted')}: {counts.converted} ·{' '}
-          {t('intake:inbox.counts.rejected')}: {counts.rejected}
-        </span>
+        {/* G-03：计数失败就地报错可重试；未就绪显示 —，不以 0 冒充 */}
+        {countsQuery.isError ? (
+          <span className="intake-counts intake-counts--error" data-testid="intake-counts">
+            <span role="alert">{t('intake:inbox.countsLoadError')}</span>
+            <Button variant="outline" size="sm" onClick={() => countsQuery.refetch()}>
+              {t('intake:inbox.retry')}
+            </Button>
+          </span>
+        ) : (
+          <span className="intake-counts" data-testid="intake-counts">
+            {t('intake:inbox.counts.new')}: {counts?.new ?? '—'} · {t('intake:inbox.counts.converted')}: {counts?.converted ?? '—'} ·{' '}
+            {t('intake:inbox.counts.rejected')}: {counts?.rejected ?? '—'}
+          </span>
+        )}
         <div className="intake-filters">
           <Select
             value={status}
@@ -244,14 +284,31 @@ export function IntakeInbox() {
         </div>
       )}
 
-      {listQuery.isSuccess && rows.length === 0 && (
-        <div className="intake-empty" data-testid="intake-empty">
-          <div className="intake-empty-title">{t('intake:inbox.empty')}</div>
-          <div className="intake-empty-hint">{t('intake:inbox.emptyHint')}</div>
-        </div>
-      )}
+      {/* G-11：筛选无结果 ≠ 全局空态——区分"没有符合筛选的条目"与"收件箱为空" */}
+      {listQuery.isSuccess && allRows.length === 0 &&
+        (hasActiveFilters ? (
+          <div className="intake-empty" data-testid="intake-empty">
+            <div className="intake-empty-title">{t('intake:inbox.noMatch')}</div>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => {
+                setQ('');
+                setSourceFilter('');
+                setStatus('new');
+              }}
+            >
+              {t('intake:inbox.clearFilters')}
+            </Button>
+          </div>
+        ) : (
+          <div className="intake-empty" data-testid="intake-empty">
+            <div className="intake-empty-title">{t('intake:inbox.empty')}</div>
+            <div className="intake-empty-hint">{t('intake:inbox.emptyHint')}</div>
+          </div>
+        ))}
 
-      {rows.length > 0 && (
+      {allRows.length > 0 && (
         <table className="intake-table">
           <thead>
             <tr>
@@ -267,7 +324,7 @@ export function IntakeInbox() {
             </tr>
           </thead>
           <tbody>
-            {rows.map((row) => {
+            {allRows.map((row) => {
               const isOpen = expanded.has(row.id);
               return (
                 <React.Fragment key={row.id}>
@@ -436,6 +493,20 @@ export function IntakeInbox() {
                                 {new Date(row.created_at).toLocaleString(getLocale())}
                               </span>
                             </div>
+                            {/* G-05：断点隐藏列（提出人/期望窗口）必须在只读详情承接，
+                                所有状态一致可见；编辑态已有对应三字段 */}
+                            <div className="intake-detail-field">
+                              <span className="intake-detail-label">{t('intake:inbox.columns.requester')}</span>
+                              <span className="intake-detail-value">{row.requester ?? '—'}</span>
+                            </div>
+                            <div className="intake-detail-field">
+                              <span className="intake-detail-label">{t('intake:inbox.columns.expected')}</span>
+                              <span className="intake-detail-value">
+                                {row.expected_start || row.expected_finish
+                                  ? `${row.expected_start ?? '—'} ~ ${row.expected_finish ?? '—'}`
+                                  : '—'}
+                              </span>
+                            </div>
                             {row.status === 'rejected' && row.reject_reason && (
                               <div className="intake-detail-field">
                                 <span className="intake-detail-label">{t('intake:inbox.detail.rejectReason')}</span>
@@ -462,6 +533,21 @@ export function IntakeInbox() {
             })}
           </tbody>
         </table>
+      )}
+
+      {/* G-04：total > 已显示行数时给出指示 + 加载更多，不静默截断 */}
+      {typeof listTotal === 'number' && allRows.length > 0 && allRows.length < listTotal && (
+        <div className="intake-pager" data-testid="intake-pagination">
+          <span>{t('intake:inbox.shownOf', { shown: allRows.length, total: listTotal })}</span>
+          <Button
+            variant="outline"
+            size="sm"
+            disabled={listQuery.isFetching}
+            onClick={() => setPage((prev) => prev + 1)}
+          >
+            {t('intake:inbox.loadMore')}
+          </Button>
+        </div>
       )}
 
       <IntakeTriageDialog

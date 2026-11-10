@@ -1147,7 +1147,11 @@
   padding: 0 1.5rem 1.5rem 1.5rem;
 }
 
-.btn {
+/* 2026-11-10 收口：本组原为未作用域的 .btn 覆盖，随 /projects 路由全量加载后
+   泄漏到同路由所有按钮（收件箱"录入"按钮 hover translateY(-1px) 越过 tab 栏
+   边界的直接根因）。全部限定到 .project-roadmap 作用域；hover 去掉位移
+   （项目裁决：按钮不做 hover bounce，只保留阴影/底色）。 */
+.project-roadmap .btn {
   padding: 0.5rem 1rem;
   border-radius: var(--roadmap-border-radius);
   font-size: 0.875rem;
@@ -1158,34 +1162,32 @@
   box-shadow: var(--roadmap-shadow-sm);
 }
 
-.btn-sm {
+.project-roadmap .btn-sm {
   padding: 0.375rem 0.75rem;
   font-size: 0.75rem;
 }
 
-.btn-primary {
+.project-roadmap .btn-primary {
   background: var(--primary);
   color: hsl(var(--primary-foreground));
   border-color: var(--primary);
 }
 
-.btn-primary:hover {
+.project-roadmap .btn-primary:hover {
   background: color-mix(in srgb, var(--primary) 90%, transparent);
   border-color: color-mix(in srgb, var(--primary) 90%, transparent);
-  transform: translateY(-1px);
   box-shadow: var(--roadmap-shadow-md);
 }
 
-.btn-secondary {
+.project-roadmap .btn-secondary {
   background: hsl(var(--card));
   color: hsl(var(--foreground));
   border-color: hsl(var(--border));
 }
 
-.btn-secondary:hover {
+.project-roadmap .btn-secondary:hover {
   background: hsl(var(--accent));
   border-color: hsl(var(--border));
-  transform: translateY(-1px);
   box-shadow: var(--roadmap-shadow-md);
 }
 

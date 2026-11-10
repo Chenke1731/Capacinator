@@ -41,7 +41,15 @@ function enumerateState({root,fonts}) {
     const text=Boolean(e.textContent.trim()||e.matches('input,select'));
     const disabled=e.disabled||e.getAttribute('aria-disabled')==='true';
     const contrast=bg&&fg?window.__auditColor.ratio(window.__auditColor.over(bg,fg),bg):null;
-    const row={selector:sel,family:`${e.className}|${e.getAttribute('data-state')??''}`,text:e.textContent.trim().slice(0,30),foreground:s.color,background:s.backgroundColor,effectiveBackground:bg,contrast,textual:text,disabled,width:r.width,height:r.height,font:parseFloat(s.fontSize)};
+    // 2026-11-10（录入按钮 hover 越界事故）：容器边界几何——最近滚动/裁剪祖先
+    // 的 top + 元素相对其的 offsetTop。用相对量比较可免疫"Playwright 滚动
+    // 到视口"造成的整页位移，只捕捉元素自身的悬停位移。
+    let clip=null;
+    for(let n=e.parentElement;n&&n!==document.body;n=n.parentElement){
+      const cs=getComputedStyle(n);
+      if(cs.overflowY!=='visible'||cs.overflowX!=='visible'){clip=n.getBoundingClientRect().top;break;}
+    }
+    const row={selector:sel,family:`${e.className}|${e.getAttribute('data-state')??''}`,text:e.textContent.trim().slice(0,30),foreground:s.color,background:s.backgroundColor,effectiveBackground:bg,contrast,textual:text,disabled,width:r.width,height:r.height,font:parseFloat(s.fontSize),top:r.top,clipTop:clip,offsetTop:clip===null?null:r.top-clip};
     rows.push(row);
     if(!disabled&&contrast===null)issues.push({selector:sel,kind:'unknown-background'});
     if(!disabled&&text&&contrast!==null&&contrast<4.5)issues.push({selector:sel,kind:'text-contrast',ratio:contrast});
@@ -50,7 +58,40 @@ function enumerateState({root,fonts}) {
     const hit=document.elementFromPoint(r.left+r.width/2,Math.min(innerHeight-2,r.top+r.height/2));
     if(!disabled&&hit&&!e.contains(hit)&&hit!==e&&!hit.contains(e))issues.push({selector:sel,kind:'occlusion'});
   }
+  // 同排工具栏控件等高（2026-11-10 录入按钮事故）：同一 toolbar/filters 行内
+  // 的文字控件高度差 >2px 即报——只有更高的那个会顶到容器边界并在悬停时越界。
+  const rowGroups=new Map();
+  for(const e of nodes.filter(visible)){
+    const p=e.parentElement;if(!p)continue;
+    if(!/(toolbar|filters)/i.test(String(p.className||'')))continue;
+    if(!e.textContent.trim())continue;
+    if(e.disabled||e.getAttribute('aria-disabled')==='true')continue;
+    let key;try{key=selector(p);}catch{continue;}
+    const h=e.getBoundingClientRect().height,g=rowGroups.get(key)??{min:Infinity,max:0};
+    g.min=Math.min(g.min,h);g.max=Math.max(g.max,h);rowGroups.set(key,g);
+  }
+  for(const [sel,g] of rowGroups)if(g.max-g.min>2)issues.push({selector:sel,kind:'row-height-mismatch',value:`${g.min}~${g.max}`});
   return {rows,issues};
+}
+
+/**
+ * 悬停几何不变量（2026-11-10，新机制切片：悬停位移 × 容器边界）：
+ * 对比 default 与 hover 两态的同选择器行——元素相对其裁剪容器向上位移，
+ * 且位移后距容器顶边 <4px，即判 hover-crosses-container-top。
+ * 只比较 offsetTop（相对量）→ 滚动导致的整页位移不误报。
+ */
+export function checkHoverGeometry(defaultRows, currentRows){
+  const issues=[];
+  const baseBySelector=new Map((defaultRows??[]).map(r=>[r.selector,r]));
+  for(const row of currentRows??[]){
+    const base=baseBySelector.get(row.selector);
+    if(!base||row.offsetTop==null||base.offsetTop==null)continue;
+    const movedUp=row.offsetTop<base.offsetTop-0.5;
+    if(movedUp&&row.offsetTop<4){
+      issues.push({selector:row.selector,kind:'hover-crosses-container-top',value:`offset ${row.offsetTop.toFixed(1)} (was ${base.offsetTop.toFixed(1)})`});
+    }
+  }
+  return issues;
 }
 
 export function assertCoverage(data,profile){
@@ -73,11 +114,15 @@ export async function runProfileStates(profileName,{selftest=false,quick=false,r
       await prepareProfile(page,profile);
       await page.evaluate(installContrastHelpers);
       if(await page.locator('html').getAttribute('data-theme')!==theme)throw new Error('Theme did not render');
+      let hoverBase=null;
       const capture=async(state)=>{
         const floating=profile.floatingRoot&&await page.locator(profile.floatingRoot).filter({visible:true}).count();
         const root=floating?profile.floatingRoot:profile.root;
         const data=await page.evaluate(enumerateState,{root,fonts:profile.fonts});
         data.scope=root;
+        // 2026-11-10 新机制切片：悬停位移 × 容器边界（见 checkHoverGeometry）
+        if(state==='default')hoverBase=data.rows;
+        else if(hoverBase&&state.startsWith('hover'))data.issues.push(...checkHoverGeometry(hoverBase,data.rows));
         // Hover/focus can hide hover-only actions or scroll another control
         // into view. The ready/default scene keeps its profile cardinality;
         // subsequent states still enumerate every visible control and reject 0.
@@ -112,10 +157,27 @@ export async function runProfileStates(profileName,{selftest=false,quick=false,r
         await first.evaluate(e=>{e.style.position='fixed';e.style.left='-200px';});
         await page.waitForTimeout(450);
         const out=await page.evaluate(enumerateState,{root:profile.root});if(!out.issues.some(i=>i.kind==='viewport'))throw new Error('Out-of-bounds injection was not detected');
+        await first.evaluate(e=>{e.style.position='';e.style.left='';});
+        // 2026-11-10 悬停越界注入自证：把带裁剪容器的元素上移，必须被
+        // checkHoverGeometry 抓到（新切片的变异自证，防恒绿防线）。
+        const targetRow=initial.rows.find(r=>r.offsetTop!=null);
+        if(!targetRow)throw new Error('Hover-cross selftest: no element inside a clipping container');
+        const target=page.locator(profile.root).locator(targetRow.selector).first();
+        const targetCount=await target.count();
+        if(!targetCount)throw new Error('Hover-cross selftest: target selector missing');
+        // 精确上移出容器顶边 10px（而非 -500：移出视口会被可见性过滤排除，
+        // 枚举不到就谈不上比较——注入必须留在枚举闭包内）
+        const shift=Math.round(targetRow.offsetTop+10);
+        await target.evaluate((e,dy)=>{e.style.transform=`translateY(-${dy}px)`;},shift);
+        await page.waitForTimeout(200);
+        const moved=await page.evaluate(enumerateState,{root:profile.root});
+        if(!checkHoverGeometry(initial.rows,moved.rows).some(i=>i.kind==='hover-crosses-container-top'))throw new Error('Hover-cross-container injection was not detected');
+        await target.evaluate(e=>{e.style.transform='';});
+        await page.waitForTimeout(150);
         await page.locator(profile.root).first().evaluate(e=>e.remove());
         const empty=await page.evaluate(enumerateState,{root:profile.root});if(empty.rows.length!==0)throw new Error('Missing-root injection failed');
         let zeroRejected=false;try{assertCoverage(empty,profile);}catch{zeroRejected=true;}if(!zeroRejected)throw new Error('Zero-coverage guard has no teeth');
-        console.log(`SELFTEST PASS ${profileName}/${theme}: contrast, unknown gradient, viewport, root/zero coverage`);
+        console.log(`SELFTEST PASS ${profileName}/${theme}: contrast, unknown gradient, viewport, hover-cross-container, root/zero coverage`);
         await context.close();continue;
       }
       const representatives=new Map();

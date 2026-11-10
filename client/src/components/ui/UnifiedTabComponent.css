@@ -199,7 +199,10 @@
   display: flex;
   flex-direction: column;
   min-height: 0;
-  padding: 0;
+  /* 页面顶边呼吸契约（2026-11-10）：tab 内容首行不得与 tab 栏零间距贴合——
+     悬停位移/阴影需要落点，否则出现"上沿被截断"观感（收件箱录入按钮事故）。
+     所有 tab 页共享此内边距，页面不再各自管顶边间距。 */
+  padding: var(--page-top-gap, 8px) 0 0;
   
   /* Ensure content is accessible */
   outline: none;

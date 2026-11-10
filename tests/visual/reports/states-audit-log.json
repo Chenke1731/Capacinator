@@ -17,7 +17,10 @@
           "disabled": false,
           "width": 288.5,
           "height": 39,
-          "font": 14
+          "font": 14,
+          "top": 714.578125,
+          "clipTop": 40,
+          "offsetTop": 674.578125
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
@@ -31,7 +34,10 @@
           "disabled": false,
           "width": 288.5,
           "height": 39,
-          "font": 14
+          "font": 14,
+          "top": 714.578125,
+          "clipTop": 40,
+          "offsetTop": 674.578125
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > input:nth-of-type(1)",
@@ -49,7 +55,10 @@
           "disabled": false,
           "width": 288.5,
           "height": 39,
-          "font": 14
+          "font": 14,
+          "top": 714.578125,
+          "clipTop": 40,
+          "offsetTop": 674.578125
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > input:nth-of-type(1)",
@@ -67,7 +76,10 @@
           "disabled": false,
           "width": 288.5,
           "height": 39,
-          "font": 14
+          "font": 14,
+          "top": 714.578125,
+          "clipTop": 40,
+          "offsetTop": 674.578125
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -85,7 +97,10 @@
           "disabled": false,
           "width": 44,
           "height": 28,
-          "font": 12
+          "font": 12,
+          "top": 852.078125,
+          "clipTop": 787.578125,
+          "offsetTop": 64.5
         }
       ],
       "issues": [
@@ -118,7 +133,10 @@
           "disabled": false,
           "width": 288.5,
           "height": 39,
-          "font": 14
+          "font": 14,
+          "top": 714.578125,
+          "clipTop": 40,
+          "offsetTop": 674.578125
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
@@ -132,7 +150,10 @@
           "disabled": false,
           "width": 288.5,
           "height": 39,
-          "font": 14
+          "font": 14,
+          "top": 714.578125,
+          "clipTop": 40,
+          "offsetTop": 674.578125
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > input:nth-of-type(1)",
@@ -150,7 +171,10 @@
           "disabled": false,
           "width": 288.5,
           "height": 39,
-          "font": 14
+          "font": 14,
+          "top": 714.578125,
+          "clipTop": 40,
+          "offsetTop": 674.578125
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > input:nth-of-type(1)",
@@ -168,7 +192,10 @@
           "disabled": false,
           "width": 288.5,
           "height": 39,
-          "font": 14
+          "font": 14,
+          "top": 714.578125,
+          "clipTop": 40,
+          "offsetTop": 674.578125
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -186,7 +213,10 @@
           "disabled": false,
           "width": 44,
           "height": 28,
-          "font": 12
+          "font": 12,
+          "top": 852.078125,
+          "clipTop": 787.578125,
+          "offsetTop": 64.5
         }
       ],
       "issues": [
@@ -219,7 +249,10 @@
           "disabled": false,
           "width": 288.5,
           "height": 39,
-          "font": 14
+          "font": 14,
+          "top": 714.578125,
+          "clipTop": 40,
+          "offsetTop": 674.578125
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
@@ -233,7 +266,10 @@
           "disabled": false,
           "width": 288.5,
           "height": 39,
-          "font": 14
+          "font": 14,
+          "top": 714.578125,
+          "clipTop": 40,
+          "offsetTop": 674.578125
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > input:nth-of-type(1)",
@@ -251,7 +287,10 @@
           "disabled": false,
           "width": 288.5,
           "height": 39,
-          "font": 14
+          "font": 14,
+          "top": 714.578125,
+          "clipTop": 40,
+          "offsetTop": 674.578125
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > input:nth-of-type(1)",
@@ -269,7 +308,10 @@
           "disabled": false,
           "width": 288.5,
           "height": 39,
-          "font": 14
+          "font": 14,
+          "top": 714.578125,
+          "clipTop": 40,
+          "offsetTop": 674.578125
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -287,7 +329,10 @@
           "disabled": false,
           "width": 44,
           "height": 28,
-          "font": 12
+          "font": 12,
+          "top": 852.078125,
+          "clipTop": 787.578125,
+          "offsetTop": 64.5
         }
       ],
       "issues": [
@@ -320,7 +365,10 @@
           "disabled": false,
           "width": 288.5,
           "height": 39,
-          "font": 14
+          "font": 14,
+          "top": 714.578125,
+          "clipTop": 40,
+          "offsetTop": 674.578125
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
@@ -334,7 +382,10 @@
           "disabled": false,
           "width": 288.5,
           "height": 39,
-          "font": 14
+          "font": 14,
+          "top": 714.578125,
+          "clipTop": 40,
+          "offsetTop": 674.578125
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > input:nth-of-type(1)",
@@ -352,7 +403,10 @@
           "disabled": false,
           "width": 288.5,
           "height": 39,
-          "font": 14
+          "font": 14,
+          "top": 714.578125,
+          "clipTop": 40,
+          "offsetTop": 674.578125
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > input:nth-of-type(1)",
@@ -370,7 +424,10 @@
           "disabled": false,
           "width": 288.5,
           "height": 39,
-          "font": 14
+          "font": 14,
+          "top": 714.578125,
+          "clipTop": 40,
+          "offsetTop": 674.578125
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -388,7 +445,10 @@
           "disabled": false,
           "width": 44,
           "height": 28,
-          "font": 12
+          "font": 12,
+          "top": 852.078125,
+          "clipTop": 787.578125,
+          "offsetTop": 64.5
         }
       ],
       "issues": [
@@ -421,7 +481,10 @@
           "disabled": false,
           "width": 288.5,
           "height": 39,
-          "font": 14
+          "font": 14,
+          "top": 714.578125,
+          "clipTop": 40,
+          "offsetTop": 674.578125
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
@@ -435,7 +498,10 @@
           "disabled": false,
           "width": 288.5,
           "height": 39,
-          "font": 14
+          "font": 14,
+          "top": 714.578125,
+          "clipTop": 40,
+          "offsetTop": 674.578125
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > input:nth-of-type(1)",
@@ -453,7 +519,10 @@
           "disabled": false,
           "width": 288.5,
           "height": 39,
-          "font": 14
+          "font": 14,
+          "top": 714.578125,
+          "clipTop": 40,
+          "offsetTop": 674.578125
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > input:nth-of-type(1)",
@@ -471,7 +540,10 @@
           "disabled": false,
           "width": 288.5,
           "height": 39,
-          "font": 14
+          "font": 14,
+          "top": 714.578125,
+          "clipTop": 40,
+          "offsetTop": 674.578125
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -489,7 +561,10 @@
           "disabled": false,
           "width": 44,
           "height": 28,
-          "font": 12
+          "font": 12,
+          "top": 852.078125,
+          "clipTop": 787.578125,
+          "offsetTop": 64.5
         }
       ],
       "issues": [
@@ -522,7 +597,10 @@
           "disabled": false,
           "width": 288.5,
           "height": 39,
-          "font": 14
+          "font": 14,
+          "top": 714.578125,
+          "clipTop": 40,
+          "offsetTop": 674.578125
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
@@ -536,7 +614,10 @@
           "disabled": false,
           "width": 288.5,
           "height": 39,
-          "font": 14
+          "font": 14,
+          "top": 714.578125,
+          "clipTop": 40,
+          "offsetTop": 674.578125
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > input:nth-of-type(1)",
@@ -554,7 +635,10 @@
           "disabled": false,
           "width": 288.5,
           "height": 39,
-          "font": 14
+          "font": 14,
+          "top": 714.578125,
+          "clipTop": 40,
+          "offsetTop": 674.578125
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > input:nth-of-type(1)",
@@ -572,7 +656,10 @@
           "disabled": false,
           "width": 288.5,
           "height": 39,
-          "font": 14
+          "font": 14,
+          "top": 714.578125,
+          "clipTop": 40,
+          "offsetTop": 674.578125
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -590,7 +677,10 @@
           "disabled": false,
           "width": 44,
           "height": 28,
-          "font": 12
+          "font": 12,
+          "top": 852.078125,
+          "clipTop": 787.578125,
+          "offsetTop": 64.5
         }
       ],
       "issues": [
@@ -623,7 +713,10 @@
           "disabled": false,
           "width": 288.5,
           "height": 39,
-          "font": 14
+          "font": 14,
+          "top": 714.578125,
+          "clipTop": 40,
+          "offsetTop": 674.578125
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
@@ -637,7 +730,10 @@
           "disabled": false,
           "width": 288.5,
           "height": 39,
-          "font": 14
+          "font": 14,
+          "top": 714.578125,
+          "clipTop": 40,
+          "offsetTop": 674.578125
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > input:nth-of-type(1)",
@@ -655,7 +751,10 @@
           "disabled": false,
           "width": 288.5,
           "height": 39,
-          "font": 14
+          "font": 14,
+          "top": 714.578125,
+          "clipTop": 40,
+          "offsetTop": 674.578125
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > input:nth-of-type(1)",
@@ -673,7 +772,10 @@
           "disabled": false,
           "width": 288.5,
           "height": 39,
-          "font": 14
+          "font": 14,
+          "top": 714.578125,
+          "clipTop": 40,
+          "offsetTop": 674.578125
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -691,7 +793,10 @@
           "disabled": false,
           "width": 44,
           "height": 28,
-          "font": 12
+          "font": 12,
+          "top": 852.078125,
+          "clipTop": 787.578125,
+          "offsetTop": 64.5
         }
       ],
       "issues": [
@@ -724,7 +829,10 @@
           "disabled": false,
           "width": 288.5,
           "height": 39,
-          "font": 14
+          "font": 14,
+          "top": 714.578125,
+          "clipTop": 40,
+          "offsetTop": 674.578125
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
@@ -738,7 +846,10 @@
           "disabled": false,
           "width": 288.5,
           "height": 39,
-          "font": 14
+          "font": 14,
+          "top": 714.578125,
+          "clipTop": 40,
+          "offsetTop": 674.578125
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > input:nth-of-type(1)",
@@ -756,7 +867,10 @@
           "disabled": false,
           "width": 288.5,
           "height": 39,
-          "font": 14
+          "font": 14,
+          "top": 714.578125,
+          "clipTop": 40,
+          "offsetTop": 674.578125
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > input:nth-of-type(1)",
@@ -774,7 +888,10 @@
           "disabled": false,
           "width": 288.5,
           "height": 39,
-          "font": 14
+          "font": 14,
+          "top": 714.578125,
+          "clipTop": 40,
+          "offsetTop": 674.578125
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -792,7 +909,10 @@
           "disabled": false,
           "width": 44,
           "height": 28,
-          "font": 12
+          "font": 12,
+          "top": 852.078125,
+          "clipTop": 787.578125,
+          "offsetTop": 64.5
         }
       ],
       "issues": [
@@ -825,7 +945,10 @@
           "disabled": false,
           "width": 288.5,
           "height": 39,
-          "font": 14
+          "font": 14,
+          "top": 714.578125,
+          "clipTop": 40,
+          "offsetTop": 674.578125
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
@@ -839,7 +962,10 @@
           "disabled": false,
           "width": 288.5,
           "height": 39,
-          "font": 14
+          "font": 14,
+          "top": 714.578125,
+          "clipTop": 40,
+          "offsetTop": 674.578125
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > input:nth-of-type(1)",
@@ -857,7 +983,10 @@
           "disabled": false,
           "width": 288.5,
           "height": 39,
-          "font": 14
+          "font": 14,
+          "top": 714.578125,
+          "clipTop": 40,
+          "offsetTop": 674.578125
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > input:nth-of-type(1)",
@@ -875,7 +1004,10 @@
           "disabled": false,
           "width": 288.5,
           "height": 39,
-          "font": 14
+          "font": 14,
+          "top": 714.578125,
+          "clipTop": 40,
+          "offsetTop": 674.578125
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -893,7 +1025,10 @@
           "disabled": false,
           "width": 44,
           "height": 28,
-          "font": 12
+          "font": 12,
+          "top": 852.078125,
+          "clipTop": 787.578125,
+          "offsetTop": 64.5
         }
       ],
       "issues": [
@@ -926,7 +1061,10 @@
           "disabled": false,
           "width": 288.5,
           "height": 39,
-          "font": 14
+          "font": 14,
+          "top": 714.578125,
+          "clipTop": 40,
+          "offsetTop": 674.578125
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
@@ -940,7 +1078,10 @@
           "disabled": false,
           "width": 288.5,
           "height": 39,
-          "font": 14
+          "font": 14,
+          "top": 714.578125,
+          "clipTop": 40,
+          "offsetTop": 674.578125
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > input:nth-of-type(1)",
@@ -958,7 +1099,10 @@
           "disabled": false,
           "width": 288.5,
           "height": 39,
-          "font": 14
+          "font": 14,
+          "top": 714.578125,
+          "clipTop": 40,
+          "offsetTop": 674.578125
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > input:nth-of-type(1)",
@@ -976,7 +1120,10 @@
           "disabled": false,
           "width": 288.5,
           "height": 39,
-          "font": 14
+          "font": 14,
+          "top": 714.578125,
+          "clipTop": 40,
+          "offsetTop": 674.578125
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -994,7 +1141,10 @@
           "disabled": false,
           "width": 44,
           "height": 28,
-          "font": 12
+          "font": 12,
+          "top": 852.078125,
+          "clipTop": 787.578125,
+          "offsetTop": 64.5
         }
       ],
       "issues": [

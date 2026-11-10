@@ -1,0 +1,927 @@
+{
+  "profile": "dashboard",
+  "phases": [
+    {
+      "theme": "light",
+      "state": "default",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "w-full flex items-center justify-between gap-2 p-2 text-sm border rounded-md hover:bg-accent focus:outline-none focus:ring-2 focus:ring-blue-500|",
+          "text": "当前状态",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(249, 250, 251)",
+          "effectiveBackground": [
+            249,
+            250,
+            251
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 139.59375,
+          "height": 44,
+          "font": 14,
+          "top": 75,
+          "clipTop": 40,
+          "offsetTop": 35
+        },
+        {
+          "selector": "div:nth-of-type(1) > section:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1)",
+          "family": "p-4|",
+          "text": "资源效率0%/ 85% 目标团队整体利用率相对可用产能的情况",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 259.5,
+          "height": 216.796875,
+          "font": 16,
+          "top": 665.671875,
+          "clipTop": 40,
+          "offsetTop": 625.671875
+        },
+        {
+          "selector": "div:nth-of-type(1) > section:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1)",
+          "family": "p-4|",
+          "text": "项目健康度评分100%/ 80% 目标基于项目时间计划与资源",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 259.5,
+          "height": 200.796875,
+          "font": 16,
+          "top": 665.671875,
+          "clipTop": 40,
+          "offsetTop": 625.671875
+        },
+        {
+          "selector": "div:nth-of-type(1) > section:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1)",
+          "family": "p-4|",
+          "text": "产能消耗率60%/ 70% 目标可用产能的消耗速度查看产能报",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 259.5,
+          "height": 200.796875,
+          "font": 16,
+          "top": 665.671875,
+          "clipTop": 40,
+          "offsetTop": 625.671875
+        },
+        {
+          "selector": "div:nth-of-type(1) > section:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1)",
+          "family": "p-4|",
+          "text": "分配准确率33%/ 95% 目标在产能限制内正确分配的人员占",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 259.5,
+          "height": 200.796875,
+          "font": 16,
+          "top": 665.671875,
+          "clipTop": 40,
+          "offsetTop": 625.671875
+        }
+      ],
+      "issues": [],
+      "scope": "main",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "light",
+      "state": "hover-0",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "w-full flex items-center justify-between gap-2 p-2 text-sm border rounded-md hover:bg-accent focus:outline-none focus:ring-2 focus:ring-blue-500|",
+          "text": "当前状态",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(243, 244, 246)",
+          "effectiveBackground": [
+            243,
+            244,
+            246
+          ],
+          "contrast": 16.119468339438853,
+          "textual": true,
+          "disabled": false,
+          "width": 139.59375,
+          "height": 44,
+          "font": 14,
+          "top": 75,
+          "clipTop": 40,
+          "offsetTop": 35
+        },
+        {
+          "selector": "div:nth-of-type(1) > section:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1)",
+          "family": "p-4|",
+          "text": "资源效率0%/ 85% 目标团队整体利用率相对可用产能的情况",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 259.5,
+          "height": 216.796875,
+          "font": 16,
+          "top": 665.671875,
+          "clipTop": 40,
+          "offsetTop": 625.671875
+        },
+        {
+          "selector": "div:nth-of-type(1) > section:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1)",
+          "family": "p-4|",
+          "text": "项目健康度评分100%/ 80% 目标基于项目时间计划与资源",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 259.5,
+          "height": 200.796875,
+          "font": 16,
+          "top": 665.671875,
+          "clipTop": 40,
+          "offsetTop": 625.671875
+        },
+        {
+          "selector": "div:nth-of-type(1) > section:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1)",
+          "family": "p-4|",
+          "text": "产能消耗率60%/ 70% 目标可用产能的消耗速度查看产能报",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 259.5,
+          "height": 200.796875,
+          "font": 16,
+          "top": 665.671875,
+          "clipTop": 40,
+          "offsetTop": 625.671875
+        },
+        {
+          "selector": "div:nth-of-type(1) > section:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1)",
+          "family": "p-4|",
+          "text": "分配准确率33%/ 95% 目标在产能限制内正确分配的人员占",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 259.5,
+          "height": 200.796875,
+          "font": 16,
+          "top": 665.671875,
+          "clipTop": 40,
+          "offsetTop": 625.671875
+        }
+      ],
+      "issues": [],
+      "scope": "main",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "light",
+      "state": "hover-1",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "w-full flex items-center justify-between gap-2 p-2 text-sm border rounded-md hover:bg-accent focus:outline-none focus:ring-2 focus:ring-blue-500|",
+          "text": "当前状态",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(249, 250, 251)",
+          "effectiveBackground": [
+            249,
+            250,
+            251
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 139.59375,
+          "height": 44,
+          "font": 14,
+          "top": 75,
+          "clipTop": 40,
+          "offsetTop": 35
+        },
+        {
+          "selector": "div:nth-of-type(1) > section:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1)",
+          "family": "p-4|",
+          "text": "资源效率0%/ 85% 目标团队整体利用率相对可用产能的情况",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 259.5,
+          "height": 216.796875,
+          "font": 16,
+          "top": 661.671875,
+          "clipTop": 40,
+          "offsetTop": 621.671875
+        },
+        {
+          "selector": "div:nth-of-type(1) > section:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1)",
+          "family": "p-4|",
+          "text": "项目健康度评分100%/ 80% 目标基于项目时间计划与资源",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 259.5,
+          "height": 200.796875,
+          "font": 16,
+          "top": 665.671875,
+          "clipTop": 40,
+          "offsetTop": 625.671875
+        },
+        {
+          "selector": "div:nth-of-type(1) > section:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1)",
+          "family": "p-4|",
+          "text": "产能消耗率60%/ 70% 目标可用产能的消耗速度查看产能报",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 259.5,
+          "height": 200.796875,
+          "font": 16,
+          "top": 665.671875,
+          "clipTop": 40,
+          "offsetTop": 625.671875
+        },
+        {
+          "selector": "div:nth-of-type(1) > section:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1)",
+          "family": "p-4|",
+          "text": "分配准确率33%/ 95% 目标在产能限制内正确分配的人员占",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 259.5,
+          "height": 200.796875,
+          "font": 16,
+          "top": 665.671875,
+          "clipTop": 40,
+          "offsetTop": 625.671875
+        }
+      ],
+      "issues": [],
+      "scope": "main",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "light",
+      "state": "keyboard-focus",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "w-full flex items-center justify-between gap-2 p-2 text-sm border rounded-md hover:bg-accent focus:outline-none focus:ring-2 focus:ring-blue-500|",
+          "text": "当前状态",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(249, 250, 251)",
+          "effectiveBackground": [
+            249,
+            250,
+            251
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 139.59375,
+          "height": 44,
+          "font": 14,
+          "top": 75,
+          "clipTop": 40,
+          "offsetTop": 35
+        },
+        {
+          "selector": "div:nth-of-type(1) > section:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1)",
+          "family": "p-4|",
+          "text": "资源效率0%/ 85% 目标团队整体利用率相对可用产能的情况",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 259.5,
+          "height": 216.796875,
+          "font": 16,
+          "top": 662.5986938476562,
+          "clipTop": 40,
+          "offsetTop": 622.5986938476562
+        },
+        {
+          "selector": "div:nth-of-type(1) > section:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1)",
+          "family": "p-4|",
+          "text": "项目健康度评分100%/ 80% 目标基于项目时间计划与资源",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 259.5,
+          "height": 200.796875,
+          "font": 16,
+          "top": 665.671875,
+          "clipTop": 40,
+          "offsetTop": 625.671875
+        },
+        {
+          "selector": "div:nth-of-type(1) > section:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1)",
+          "family": "p-4|",
+          "text": "产能消耗率60%/ 70% 目标可用产能的消耗速度查看产能报",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 259.5,
+          "height": 200.796875,
+          "font": 16,
+          "top": 665.671875,
+          "clipTop": 40,
+          "offsetTop": 625.671875
+        },
+        {
+          "selector": "div:nth-of-type(1) > section:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1)",
+          "family": "p-4|",
+          "text": "分配准确率33%/ 95% 目标在产能限制内正确分配的人员占",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 259.5,
+          "height": 200.796875,
+          "font": 16,
+          "top": 665.671875,
+          "clipTop": 40,
+          "offsetTop": 625.671875
+        }
+      ],
+      "issues": [],
+      "scope": "main",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "dark",
+      "state": "default",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "w-full flex items-center justify-between gap-2 p-2 text-sm border rounded-md hover:bg-accent focus:outline-none focus:ring-2 focus:ring-blue-500|",
+          "text": "当前状态",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": true,
+          "disabled": false,
+          "width": 139.59375,
+          "height": 44,
+          "font": 14,
+          "top": 75,
+          "clipTop": 40,
+          "offsetTop": 35
+        },
+        {
+          "selector": "div:nth-of-type(1) > section:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1)",
+          "family": "p-4|",
+          "text": "资源效率0%/ 85% 目标团队整体利用率相对可用产能的情况",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 259.5,
+          "height": 216.796875,
+          "font": 16,
+          "top": 665.671875,
+          "clipTop": 40,
+          "offsetTop": 625.671875
+        },
+        {
+          "selector": "div:nth-of-type(1) > section:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1)",
+          "family": "p-4|",
+          "text": "项目健康度评分100%/ 80% 目标基于项目时间计划与资源",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 259.5,
+          "height": 200.796875,
+          "font": 16,
+          "top": 665.671875,
+          "clipTop": 40,
+          "offsetTop": 625.671875
+        },
+        {
+          "selector": "div:nth-of-type(1) > section:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1)",
+          "family": "p-4|",
+          "text": "产能消耗率60%/ 70% 目标可用产能的消耗速度查看产能报",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 259.5,
+          "height": 200.796875,
+          "font": 16,
+          "top": 665.671875,
+          "clipTop": 40,
+          "offsetTop": 625.671875
+        },
+        {
+          "selector": "div:nth-of-type(1) > section:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1)",
+          "family": "p-4|",
+          "text": "分配准确率33%/ 95% 目标在产能限制内正确分配的人员占",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 259.5,
+          "height": 200.796875,
+          "font": 16,
+          "top": 665.671875,
+          "clipTop": 40,
+          "offsetTop": 625.671875
+        }
+      ],
+      "issues": [],
+      "scope": "main",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "dark",
+      "state": "hover-0",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "w-full flex items-center justify-between gap-2 p-2 text-sm border rounded-md hover:bg-accent focus:outline-none focus:ring-2 focus:ring-blue-500|",
+          "text": "当前状态",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(55, 65, 81)",
+          "effectiveBackground": [
+            55,
+            65,
+            81
+          ],
+          "contrast": 9.863254791756054,
+          "textual": true,
+          "disabled": false,
+          "width": 139.59375,
+          "height": 44,
+          "font": 14,
+          "top": 75,
+          "clipTop": 40,
+          "offsetTop": 35
+        },
+        {
+          "selector": "div:nth-of-type(1) > section:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1)",
+          "family": "p-4|",
+          "text": "资源效率0%/ 85% 目标团队整体利用率相对可用产能的情况",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 259.5,
+          "height": 216.796875,
+          "font": 16,
+          "top": 665.671875,
+          "clipTop": 40,
+          "offsetTop": 625.671875
+        },
+        {
+          "selector": "div:nth-of-type(1) > section:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1)",
+          "family": "p-4|",
+          "text": "项目健康度评分100%/ 80% 目标基于项目时间计划与资源",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 259.5,
+          "height": 200.796875,
+          "font": 16,
+          "top": 665.671875,
+          "clipTop": 40,
+          "offsetTop": 625.671875
+        },
+        {
+          "selector": "div:nth-of-type(1) > section:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1)",
+          "family": "p-4|",
+          "text": "产能消耗率60%/ 70% 目标可用产能的消耗速度查看产能报",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 259.5,
+          "height": 200.796875,
+          "font": 16,
+          "top": 665.671875,
+          "clipTop": 40,
+          "offsetTop": 625.671875
+        },
+        {
+          "selector": "div:nth-of-type(1) > section:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1)",
+          "family": "p-4|",
+          "text": "分配准确率33%/ 95% 目标在产能限制内正确分配的人员占",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 259.5,
+          "height": 200.796875,
+          "font": 16,
+          "top": 665.671875,
+          "clipTop": 40,
+          "offsetTop": 625.671875
+        }
+      ],
+      "issues": [],
+      "scope": "main",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "dark",
+      "state": "hover-1",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "w-full flex items-center justify-between gap-2 p-2 text-sm border rounded-md hover:bg-accent focus:outline-none focus:ring-2 focus:ring-blue-500|",
+          "text": "当前状态",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": true,
+          "disabled": false,
+          "width": 139.59375,
+          "height": 44,
+          "font": 14,
+          "top": 75,
+          "clipTop": 40,
+          "offsetTop": 35
+        },
+        {
+          "selector": "div:nth-of-type(1) > section:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1)",
+          "family": "p-4|",
+          "text": "资源效率0%/ 85% 目标团队整体利用率相对可用产能的情况",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 259.5,
+          "height": 216.796875,
+          "font": 16,
+          "top": 661.671875,
+          "clipTop": 40,
+          "offsetTop": 621.671875
+        },
+        {
+          "selector": "div:nth-of-type(1) > section:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1)",
+          "family": "p-4|",
+          "text": "项目健康度评分100%/ 80% 目标基于项目时间计划与资源",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 259.5,
+          "height": 200.796875,
+          "font": 16,
+          "top": 665.671875,
+          "clipTop": 40,
+          "offsetTop": 625.671875
+        },
+        {
+          "selector": "div:nth-of-type(1) > section:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1)",
+          "family": "p-4|",
+          "text": "产能消耗率60%/ 70% 目标可用产能的消耗速度查看产能报",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 259.5,
+          "height": 200.796875,
+          "font": 16,
+          "top": 665.671875,
+          "clipTop": 40,
+          "offsetTop": 625.671875
+        },
+        {
+          "selector": "div:nth-of-type(1) > section:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1)",
+          "family": "p-4|",
+          "text": "分配准确率33%/ 95% 目标在产能限制内正确分配的人员占",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 259.5,
+          "height": 200.796875,
+          "font": 16,
+          "top": 665.671875,
+          "clipTop": 40,
+          "offsetTop": 625.671875
+        }
+      ],
+      "issues": [],
+      "scope": "main",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "dark",
+      "state": "keyboard-focus",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "w-full flex items-center justify-between gap-2 p-2 text-sm border rounded-md hover:bg-accent focus:outline-none focus:ring-2 focus:ring-blue-500|",
+          "text": "当前状态",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": true,
+          "disabled": false,
+          "width": 139.59375,
+          "height": 44,
+          "font": 14,
+          "top": 75,
+          "clipTop": 40,
+          "offsetTop": 35
+        },
+        {
+          "selector": "div:nth-of-type(1) > section:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1)",
+          "family": "p-4|",
+          "text": "资源效率0%/ 85% 目标团队整体利用率相对可用产能的情况",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 259.5,
+          "height": 216.796875,
+          "font": 16,
+          "top": 662.188232421875,
+          "clipTop": 40,
+          "offsetTop": 622.188232421875
+        },
+        {
+          "selector": "div:nth-of-type(1) > section:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1)",
+          "family": "p-4|",
+          "text": "项目健康度评分100%/ 80% 目标基于项目时间计划与资源",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 259.5,
+          "height": 200.796875,
+          "font": 16,
+          "top": 665.671875,
+          "clipTop": 40,
+          "offsetTop": 625.671875
+        },
+        {
+          "selector": "div:nth-of-type(1) > section:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1)",
+          "family": "p-4|",
+          "text": "产能消耗率60%/ 70% 目标可用产能的消耗速度查看产能报",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 259.5,
+          "height": 200.796875,
+          "font": 16,
+          "top": 665.671875,
+          "clipTop": 40,
+          "offsetTop": 625.671875
+        },
+        {
+          "selector": "div:nth-of-type(1) > section:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1)",
+          "family": "p-4|",
+          "text": "分配准确率33%/ 95% 目标在产能限制内正确分配的人员占",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 259.5,
+          "height": 200.796875,
+          "font": 16,
+          "top": 665.671875,
+          "clipTop": 40,
+          "offsetTop": 625.671875
+        }
+      ],
+      "issues": [],
+      "scope": "main",
+      "axe": [],
+      "newIssues": []
+    }
+  ],
+  "writes": [],
+  "errors": []
+}

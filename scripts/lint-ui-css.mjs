@@ -54,6 +54,10 @@ for (const rel of files) {
 const GLOBAL_UTIL_CLASSES = [
   'text-muted', 'text-primary', 'text-secondary', 'text-success',
   'text-warning', 'text-danger', 'text-info', 'btn',
+  // 2026-11-10 扩充（收件箱录入按钮 hover 越界事故）: 共享组件修饰类同样是
+  // 全局定义权——页面里裸定义会随路由加载泄漏到同路由所有按钮。
+  'btn-primary', 'btn-secondary', 'btn-danger', 'btn-outline', 'btn-ghost',
+  'btn-sm', 'btn-lg',
 ];
 // 增量拦截: 存量违例登记在册只拦新增,清单格式 "文件 :: 类名"(同文件同类多规则合并一条)。
 // 2026-09-22 扫描快照: .text-muted 已从 Locations.css/Import.css 清出(那次只清了它),
@@ -68,10 +72,29 @@ const UTIL_ALLOWLIST = [
   'client/src/pages/People.css :: .text-warning',
   'client/src/pages/People.css :: .text-danger',
   'client/src/pages/People.css :: .text-info',
-  'client/src/pages/ProjectRoadmap.css :: .btn',
+  // 2026-11-10 修饰类扩充时的存量快照（冻新增、不追溯）：
   'client/src/components/InteractiveTimeline.css :: .btn',
+  'client/src/components/InteractiveTimeline.css :: .btn-primary',
+  'client/src/components/InteractiveTimeline.css :: .btn-secondary',
   'client/src/components/PhaseTemplateDesigner.css :: .btn',
-  'client/src/components/ProjectPhaseManager.css :: .btn',
+  'client/src/components/PhaseTemplateDesigner.css :: .btn-danger',
+  'client/src/components/PhaseTemplateDesigner.css :: .btn-primary',
+  'client/src/components/PhaseTemplateDesigner.css :: .btn-secondary',
+  'client/src/components/PhaseTemplateDesigner.css :: .btn-sm',
+  'client/src/components/ProjectsTable.css :: .btn-sm',
+  'client/src/pages/Assignments.css :: .btn-sm',
+  'client/src/pages/Import.css :: .btn-ghost',
+  'client/src/pages/Import.css :: .btn-outline',
+  'client/src/pages/Import.css :: .btn-primary',
+  'client/src/pages/Import.css :: .btn-sm',
+  'client/src/pages/Locations.css :: .btn-danger',
+  'client/src/pages/Locations.css :: .btn-ghost',
+  'client/src/pages/Locations.css :: .btn-primary',
+  'client/src/pages/Locations.css :: .btn-sm',
+  'client/src/pages/People.css :: .btn-danger',
+  'client/src/pages/Scenarios.css :: .btn-primary',
+  'client/src/pages/Scenarios.css :: .btn-secondary',
+  'client/src/pages/Scenarios.css :: .btn-sm',
 ];
 
 function listCss(relDir, recursive) {
@@ -189,6 +212,40 @@ for (const rel of PROD_FILES) {
   }
 }
 
+// ── 规则 4: 未作用域 .btn* 的 hover 位移（2026-11-10 收件箱录入按钮事故）──
+// 事故链: ProjectRoadmap.css 裸定义 `.btn-primary:hover{transform:translateY(-1px)}`
+// → 随 /projects 路由全量加载 → 泄漏到收件箱的录入按钮 → 悬停上移越过 tab 栏
+// 底边, 视觉上"上沿被截断"。按钮 hover 位移在本项目属禁止项（design-system
+// no-bounce 裁决）；页面确有需要时必须限定作用域（.页面根 .btn…）。
+export function matchUnscopedBtnMotion(source) {
+  const stripped = String(source).replace(/\/\*[\s\S]*?\*\//g, (c) => c.replace(/[^\n]/g, ' '));
+  const hits = [];
+  for (const m of stripped.matchAll(/([^{}]+)\{([^{}]*)\}/g)) {
+    const sel = m[1].trim();
+    const body = m[2];
+    if (!sel || sel.startsWith('@') || sel.includes('@')) continue;
+    const hasMotion =
+      /(?:^|[;\s])transform\s*:[^;]*(?:translate|matrix)/.test(body) ||
+      /(?:^|[;\s])translate\s*:/.test(body);
+    if (!hasMotion) continue;
+    for (const raw of sel.split(',')) {
+      const item = raw.replace(/\s+/g, ' ').trim();
+      if (/^\.btn(-[a-z0-9-]+)?(::?[-\w]+(?:\([^)]*\))?)*$/.test(item)) {
+        hits.push({ selector: item, index: m.index });
+      }
+    }
+  }
+  return hits;
+}
+
+for (const rel of [...utilScanFiles, ...listCss('client/src/styles', true)]) {
+  const text = readFileSync(resolve(root, rel), 'utf8');
+  for (const hit of matchUnscopedBtnMotion(text)) {
+    const line = text.slice(0, hit.index).split('\n').length;
+    violations.push(`${rel}:${line} 「${hit.selector}」 未作用域 .btn 位移 → 随路由加载泄漏到所有按钮(录入按钮 hover 越界事故);页面内写 .页面根 .btn…,且按钮不做 hover 位移`);
+  }
+}
+
 // 白名单腐化提示(不拦门): 存量清掉后条目要及时删,防止清单变成永久豁免
 for (const k of UTIL_ALLOWLIST) {
   if (!allowlistedSeen.has(k)) console.log(`note: 工具类白名单条目已无对应违例,可删除: ${k}`);
@@ -251,6 +308,21 @@ if (process.env.SELF_TEST === '1') {
     process.exit(1);
   }
   console.log('SELF-TEST PASS: 页面 CSS 工具类裸定义检测器(检出+不误报+白名单增量拦截)');
+
+  // 规则 4 压力自证: 未作用域 .btn 位移必须抓到;作用域/无色态不得误报
+  const motionCases = [
+    ['.btn-primary:hover { transform: translateY(-1px); }', true],
+    ['.btn:hover{transform:translateY(-2px)}', true],
+    ['.page .btn-primary:hover { transform: translateY(-1px); }', false],
+    ['.btn-primary:hover { background: red; }', false],
+    ['.btn { transform: none; }', false],
+  ];
+  const motionFails = motionCases.filter(([src, expect]) => (matchUnscopedBtnMotion(src).length > 0) !== expect);
+  if (motionFails.length) {
+    console.error(`SELF-TEST FAIL: 未作用域按钮位移检测器失灵 ${JSON.stringify(motionFails.map(([s]) => s))}`);
+    process.exit(1);
+  }
+  console.log('SELF-TEST PASS: 未作用域 .btn 悬停位移检测器(5 例)——生产函数直调');
 
   // 任务B收口②③: 主色 hsl 家族检测器——评审注入案例入仓,直接调生产函数
   const hslCases = [

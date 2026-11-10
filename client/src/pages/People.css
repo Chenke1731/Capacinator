@@ -13,7 +13,12 @@
   /* 主色文字令牌保证双主题 AA; 跨文件同名规则已从 App.css 删除, 无需 !important */
   color: var(--primary-text);
 }
-.person-name .name:hover { color: var(--primary-hover); }
+.person-name .name:hover {
+  /* 2026-11-10: --primary-hover 在深色仅 3.5:1；用语义文字令牌 + 下划线
+     保持可点暗示（双主题 AA）。 */
+  color: var(--primary-text);
+  text-decoration: underline;
+}
 
 
 .person-name .email {
@@ -187,8 +192,11 @@
 }
 
 .insight-toggle:hover {
-  background: var(--bg-tertiary);
+  /* 2026-11-10: 深色主题下 --bg-tertiary 会把状态色文字压到 2.74:1——
+     hover 不改变底色，只用描边+阴影表达可点（保持默认态对比度）。 */
+  background: transparent;
   border-color: var(--border-color);
+  box-shadow: var(--shadow-sm);
 }
 
 .insight-toggle.active {

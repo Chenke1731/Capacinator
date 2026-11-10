@@ -29,6 +29,15 @@
   flex-wrap: wrap;
 }
 
+/* 控件高度族契约（2026-11-10）：同排工具栏的按钮/输入/下拉必须同高，
+   否则只有更高的那个顶到容器边界，hover 时越界（录入按钮事故）。
+   .btn 受全局 button min-height:44 影响，这里显式收敛到 --control-h。 */
+.intake-inbox .intake-filters .btn,
+.intake-inbox .intake-filters .intake-filter {
+  height: var(--button-min-height, 40px);
+  min-height: var(--button-min-height, 40px);
+}
+
 .intake-filter {
   width: 150px;
 }

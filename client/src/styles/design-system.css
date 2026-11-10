@@ -47,6 +47,8 @@
   --min-touch-target: 44px;
   --button-min-height: 40px;
   --input-min-height: 40px;
+  /* 页面顶边呼吸：tab 内容首行与 tab 栏的间距（悬停位移/阴影落点） */
+  --page-top-gap: 8px;
   
   /* Z-index Scale */
   --z-base: 0;

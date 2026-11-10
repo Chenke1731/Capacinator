@@ -112,7 +112,8 @@
 
 .btn:hover {
   background: var(--primary-hover);
-  transform: translateY(-1px);
+  /* 2026-11-10: 移除 hover translateY(-1px)——未作用域按钮位移随路由泄漏
+     （收件箱录入按钮越界事故同族）；按钮只做底色变化，不做 bounce。 */
 }
 
 .btn:disabled {

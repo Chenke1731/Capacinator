@@ -21,7 +21,10 @@
           "disabled": false,
           "width": 120.015625,
           "height": 48,
-          "font": 16
+          "font": 16,
+          "top": 56,
+          "clipTop": 40,
+          "offsetTop": 16
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
@@ -39,7 +42,10 @@
           "disabled": false,
           "width": 300,
           "height": 47,
-          "font": 14
+          "font": 14,
+          "top": 148.890625,
+          "clipTop": 40,
+          "offsetTop": 108.890625
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
@@ -57,7 +63,10 @@
           "disabled": false,
           "width": 108,
           "height": 47,
-          "font": 14
+          "font": 14,
+          "top": 148.890625,
+          "clipTop": 40,
+          "offsetTop": 108.890625
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -75,7 +84,10 @@
           "disabled": false,
           "width": 117.921875,
           "height": 44,
-          "font": 14
+          "font": 14,
+          "top": 142.390625,
+          "clipTop": 40,
+          "offsetTop": 102.390625
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1)",
@@ -93,7 +105,10 @@
           "disabled": false,
           "width": 1316,
           "height": 72,
-          "font": 16
+          "font": 16,
+          "top": 326.390625,
+          "clipTop": 218.390625,
+          "offsetTop": 108
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -111,7 +126,10 @@
           "disabled": false,
           "width": 32,
           "height": 44,
-          "font": 14.4
+          "font": 14.4,
+          "top": 340.390625,
+          "clipTop": 218.390625,
+          "offsetTop": 122
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -129,7 +147,10 @@
           "disabled": false,
           "width": 32,
           "height": 44,
-          "font": 14.4
+          "font": 14.4,
+          "top": 340.390625,
+          "clipTop": 218.390625,
+          "offsetTop": 122
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(3)",
@@ -147,7 +168,10 @@
           "disabled": false,
           "width": 32,
           "height": 44,
-          "font": 14.4
+          "font": 14.4,
+          "top": 340.390625,
+          "clipTop": 218.390625,
+          "offsetTop": 122
         }
       ],
       "issues": [],
@@ -175,7 +199,10 @@
           "disabled": false,
           "width": 120.015625,
           "height": 48,
-          "font": 16
+          "font": 16,
+          "top": 56,
+          "clipTop": 40,
+          "offsetTop": 16
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
@@ -193,7 +220,10 @@
           "disabled": false,
           "width": 300,
           "height": 47,
-          "font": 14
+          "font": 14,
+          "top": 148.890625,
+          "clipTop": 40,
+          "offsetTop": 108.890625
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
@@ -211,7 +241,10 @@
           "disabled": false,
           "width": 108,
           "height": 47,
-          "font": 14
+          "font": 14,
+          "top": 148.890625,
+          "clipTop": 40,
+          "offsetTop": 108.890625
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -229,7 +262,10 @@
           "disabled": false,
           "width": 117.921875,
           "height": 44,
-          "font": 14
+          "font": 14,
+          "top": 142.390625,
+          "clipTop": 40,
+          "offsetTop": 102.390625
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1)",
@@ -247,7 +283,10 @@
           "disabled": false,
           "width": 1316,
           "height": 72,
-          "font": 16
+          "font": 16,
+          "top": 326.390625,
+          "clipTop": 218.390625,
+          "offsetTop": 108
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -265,7 +304,10 @@
           "disabled": false,
           "width": 32,
           "height": 44,
-          "font": 14.4
+          "font": 14.4,
+          "top": 340.390625,
+          "clipTop": 218.390625,
+          "offsetTop": 122
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -283,7 +325,10 @@
           "disabled": false,
           "width": 32,
           "height": 44,
-          "font": 14.4
+          "font": 14.4,
+          "top": 340.390625,
+          "clipTop": 218.390625,
+          "offsetTop": 122
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(3)",
@@ -301,7 +346,10 @@
           "disabled": false,
           "width": 32,
           "height": 44,
-          "font": 14.4
+          "font": 14.4,
+          "top": 340.390625,
+          "clipTop": 218.390625,
+          "offsetTop": 122
         }
       ],
       "issues": [],
@@ -329,7 +377,10 @@
           "disabled": false,
           "width": 120.015625,
           "height": 48,
-          "font": 16
+          "font": 16,
+          "top": 56,
+          "clipTop": 40,
+          "offsetTop": 16
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
@@ -347,7 +398,10 @@
           "disabled": false,
           "width": 300,
           "height": 47,
-          "font": 14
+          "font": 14,
+          "top": 148.890625,
+          "clipTop": 40,
+          "offsetTop": 108.890625
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
@@ -365,7 +419,10 @@
           "disabled": false,
           "width": 108,
           "height": 47,
-          "font": 14
+          "font": 14,
+          "top": 148.890625,
+          "clipTop": 40,
+          "offsetTop": 108.890625
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -383,7 +440,10 @@
           "disabled": false,
           "width": 117.921875,
           "height": 44,
-          "font": 14
+          "font": 14,
+          "top": 142.390625,
+          "clipTop": 40,
+          "offsetTop": 102.390625
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1)",
@@ -401,7 +461,10 @@
           "disabled": false,
           "width": 1316,
           "height": 72,
-          "font": 16
+          "font": 16,
+          "top": 326.390625,
+          "clipTop": 218.390625,
+          "offsetTop": 108
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -419,7 +482,10 @@
           "disabled": false,
           "width": 32,
           "height": 44,
-          "font": 14.4
+          "font": 14.4,
+          "top": 340.390625,
+          "clipTop": 218.390625,
+          "offsetTop": 122
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -437,7 +503,10 @@
           "disabled": false,
           "width": 32,
           "height": 44,
-          "font": 14.4
+          "font": 14.4,
+          "top": 340.390625,
+          "clipTop": 218.390625,
+          "offsetTop": 122
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(3)",
@@ -455,7 +524,10 @@
           "disabled": false,
           "width": 32,
           "height": 44,
-          "font": 14.4
+          "font": 14.4,
+          "top": 340.390625,
+          "clipTop": 218.390625,
+          "offsetTop": 122
         }
       ],
       "issues": [],
@@ -483,7 +555,10 @@
           "disabled": false,
           "width": 120.015625,
           "height": 48,
-          "font": 16
+          "font": 16,
+          "top": 56,
+          "clipTop": 40,
+          "offsetTop": 16
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
@@ -501,7 +576,10 @@
           "disabled": false,
           "width": 300,
           "height": 47,
-          "font": 14
+          "font": 14,
+          "top": 148.890625,
+          "clipTop": 40,
+          "offsetTop": 108.890625
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
@@ -519,7 +597,10 @@
           "disabled": false,
           "width": 108,
           "height": 47,
-          "font": 14
+          "font": 14,
+          "top": 148.890625,
+          "clipTop": 40,
+          "offsetTop": 108.890625
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -537,7 +618,10 @@
           "disabled": false,
           "width": 117.921875,
           "height": 44,
-          "font": 14
+          "font": 14,
+          "top": 142.390625,
+          "clipTop": 40,
+          "offsetTop": 102.390625
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1)",
@@ -555,7 +639,10 @@
           "disabled": false,
           "width": 1316,
           "height": 72,
-          "font": 16
+          "font": 16,
+          "top": 326.390625,
+          "clipTop": 218.390625,
+          "offsetTop": 108
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -573,7 +660,10 @@
           "disabled": false,
           "width": 32,
           "height": 44,
-          "font": 14.4
+          "font": 14.4,
+          "top": 340.390625,
+          "clipTop": 218.390625,
+          "offsetTop": 122
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -591,7 +681,10 @@
           "disabled": false,
           "width": 32,
           "height": 44,
-          "font": 14.4
+          "font": 14.4,
+          "top": 340.390625,
+          "clipTop": 218.390625,
+          "offsetTop": 122
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(3)",
@@ -609,7 +702,10 @@
           "disabled": false,
           "width": 32,
           "height": 44,
-          "font": 14.4
+          "font": 14.4,
+          "top": 340.390625,
+          "clipTop": 218.390625,
+          "offsetTop": 122
         }
       ],
       "issues": [],
@@ -637,7 +733,10 @@
           "disabled": false,
           "width": 120.015625,
           "height": 48,
-          "font": 16
+          "font": 16,
+          "top": 56,
+          "clipTop": 40,
+          "offsetTop": 16
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
@@ -655,7 +754,10 @@
           "disabled": false,
           "width": 300,
           "height": 47,
-          "font": 14
+          "font": 14,
+          "top": 148.890625,
+          "clipTop": 40,
+          "offsetTop": 108.890625
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
@@ -673,7 +775,10 @@
           "disabled": false,
           "width": 108,
           "height": 47,
-          "font": 14
+          "font": 14,
+          "top": 148.890625,
+          "clipTop": 40,
+          "offsetTop": 108.890625
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -691,7 +796,10 @@
           "disabled": false,
           "width": 117.921875,
           "height": 44,
-          "font": 14
+          "font": 14,
+          "top": 142.390625,
+          "clipTop": 40,
+          "offsetTop": 102.390625
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1)",
@@ -709,7 +817,10 @@
           "disabled": false,
           "width": 1316,
           "height": 72,
-          "font": 16
+          "font": 16,
+          "top": 326.390625,
+          "clipTop": 218.390625,
+          "offsetTop": 108
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -727,7 +838,10 @@
           "disabled": false,
           "width": 32,
           "height": 44,
-          "font": 14.4
+          "font": 14.4,
+          "top": 340.390625,
+          "clipTop": 218.390625,
+          "offsetTop": 122
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -745,7 +859,10 @@
           "disabled": false,
           "width": 32,
           "height": 44,
-          "font": 14.4
+          "font": 14.4,
+          "top": 340.390625,
+          "clipTop": 218.390625,
+          "offsetTop": 122
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(3)",
@@ -763,7 +880,10 @@
           "disabled": false,
           "width": 32,
           "height": 44,
-          "font": 14.4
+          "font": 14.4,
+          "top": 340.390625,
+          "clipTop": 218.390625,
+          "offsetTop": 122
         }
       ],
       "issues": [],
@@ -791,7 +911,10 @@
           "disabled": false,
           "width": 120.015625,
           "height": 48,
-          "font": 16
+          "font": 16,
+          "top": 56,
+          "clipTop": 40,
+          "offsetTop": 16
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
@@ -809,7 +932,10 @@
           "disabled": false,
           "width": 300,
           "height": 47,
-          "font": 14
+          "font": 14,
+          "top": 148.890625,
+          "clipTop": 40,
+          "offsetTop": 108.890625
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
@@ -827,7 +953,10 @@
           "disabled": false,
           "width": 108,
           "height": 47,
-          "font": 14
+          "font": 14,
+          "top": 148.890625,
+          "clipTop": 40,
+          "offsetTop": 108.890625
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -845,7 +974,10 @@
           "disabled": false,
           "width": 117.921875,
           "height": 44,
-          "font": 14
+          "font": 14,
+          "top": 142.390625,
+          "clipTop": 40,
+          "offsetTop": 102.390625
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1)",
@@ -863,7 +995,10 @@
           "disabled": false,
           "width": 1316,
           "height": 72,
-          "font": 16
+          "font": 16,
+          "top": 326.390625,
+          "clipTop": 218.390625,
+          "offsetTop": 108
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -881,7 +1016,10 @@
           "disabled": false,
           "width": 32,
           "height": 44,
-          "font": 14.4
+          "font": 14.4,
+          "top": 340.390625,
+          "clipTop": 218.390625,
+          "offsetTop": 122
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -899,7 +1037,10 @@
           "disabled": false,
           "width": 32,
           "height": 44,
-          "font": 14.4
+          "font": 14.4,
+          "top": 340.390625,
+          "clipTop": 218.390625,
+          "offsetTop": 122
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(3)",
@@ -917,7 +1058,10 @@
           "disabled": false,
           "width": 32,
           "height": 44,
-          "font": 14.4
+          "font": 14.4,
+          "top": 340.390625,
+          "clipTop": 218.390625,
+          "offsetTop": 122
         }
       ],
       "issues": [],
@@ -945,7 +1089,10 @@
           "disabled": false,
           "width": 120.015625,
           "height": 48,
-          "font": 16
+          "font": 16,
+          "top": 56,
+          "clipTop": 40,
+          "offsetTop": 16
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
@@ -963,7 +1110,10 @@
           "disabled": false,
           "width": 300,
           "height": 47,
-          "font": 14
+          "font": 14,
+          "top": 148.890625,
+          "clipTop": 40,
+          "offsetTop": 108.890625
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
@@ -981,7 +1131,10 @@
           "disabled": false,
           "width": 108,
           "height": 47,
-          "font": 14
+          "font": 14,
+          "top": 148.890625,
+          "clipTop": 40,
+          "offsetTop": 108.890625
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -999,7 +1152,10 @@
           "disabled": false,
           "width": 117.921875,
           "height": 44,
-          "font": 14
+          "font": 14,
+          "top": 142.390625,
+          "clipTop": 40,
+          "offsetTop": 102.390625
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1)",
@@ -1017,7 +1173,10 @@
           "disabled": false,
           "width": 1316,
           "height": 72,
-          "font": 16
+          "font": 16,
+          "top": 326.390625,
+          "clipTop": 218.390625,
+          "offsetTop": 108
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -1035,7 +1194,10 @@
           "disabled": false,
           "width": 32,
           "height": 44,
-          "font": 14.4
+          "font": 14.4,
+          "top": 338.390625,
+          "clipTop": 218.390625,
+          "offsetTop": 120
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -1053,7 +1215,10 @@
           "disabled": false,
           "width": 32,
           "height": 44,
-          "font": 14.4
+          "font": 14.4,
+          "top": 340.390625,
+          "clipTop": 218.390625,
+          "offsetTop": 122
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(3)",
@@ -1071,7 +1236,10 @@
           "disabled": false,
           "width": 32,
           "height": 44,
-          "font": 14.4
+          "font": 14.4,
+          "top": 340.390625,
+          "clipTop": 218.390625,
+          "offsetTop": 122
         }
       ],
       "issues": [],
@@ -1099,7 +1267,10 @@
           "disabled": false,
           "width": 120.015625,
           "height": 48,
-          "font": 16
+          "font": 16,
+          "top": 56,
+          "clipTop": 40,
+          "offsetTop": 16
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
@@ -1117,7 +1288,10 @@
           "disabled": false,
           "width": 300,
           "height": 47,
-          "font": 14
+          "font": 14,
+          "top": 148.890625,
+          "clipTop": 40,
+          "offsetTop": 108.890625
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
@@ -1135,7 +1309,10 @@
           "disabled": false,
           "width": 108,
           "height": 47,
-          "font": 14
+          "font": 14,
+          "top": 148.890625,
+          "clipTop": 40,
+          "offsetTop": 108.890625
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -1153,7 +1330,10 @@
           "disabled": false,
           "width": 117.921875,
           "height": 44,
-          "font": 14
+          "font": 14,
+          "top": 142.390625,
+          "clipTop": 40,
+          "offsetTop": 102.390625
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1)",
@@ -1171,7 +1351,10 @@
           "disabled": false,
           "width": 1316,
           "height": 72,
-          "font": 16
+          "font": 16,
+          "top": 326.390625,
+          "clipTop": 218.390625,
+          "offsetTop": 108
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -1189,7 +1372,10 @@
           "disabled": false,
           "width": 32,
           "height": 44,
-          "font": 14.4
+          "font": 14.4,
+          "top": 340.390625,
+          "clipTop": 218.390625,
+          "offsetTop": 122
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -1207,7 +1393,10 @@
           "disabled": false,
           "width": 32,
           "height": 44,
-          "font": 14.4
+          "font": 14.4,
+          "top": 338.390625,
+          "clipTop": 218.390625,
+          "offsetTop": 120
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(3)",
@@ -1225,7 +1414,10 @@
           "disabled": false,
           "width": 32,
           "height": 44,
-          "font": 14.4
+          "font": 14.4,
+          "top": 340.390625,
+          "clipTop": 218.390625,
+          "offsetTop": 122
         }
       ],
       "issues": [],
@@ -1253,7 +1445,10 @@
           "disabled": false,
           "width": 120.015625,
           "height": 48,
-          "font": 16
+          "font": 16,
+          "top": 56,
+          "clipTop": 40,
+          "offsetTop": 16
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
@@ -1271,7 +1466,10 @@
           "disabled": false,
           "width": 300,
           "height": 47,
-          "font": 14
+          "font": 14,
+          "top": 148.890625,
+          "clipTop": 40,
+          "offsetTop": 108.890625
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
@@ -1289,7 +1487,10 @@
           "disabled": false,
           "width": 108,
           "height": 47,
-          "font": 14
+          "font": 14,
+          "top": 148.890625,
+          "clipTop": 40,
+          "offsetTop": 108.890625
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -1307,7 +1508,10 @@
           "disabled": false,
           "width": 117.921875,
           "height": 44,
-          "font": 14
+          "font": 14,
+          "top": 142.390625,
+          "clipTop": 40,
+          "offsetTop": 102.390625
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1)",
@@ -1325,7 +1529,10 @@
           "disabled": false,
           "width": 1316,
           "height": 72,
-          "font": 16
+          "font": 16,
+          "top": 326.390625,
+          "clipTop": 218.390625,
+          "offsetTop": 108
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -1343,7 +1550,10 @@
           "disabled": false,
           "width": 32,
           "height": 44,
-          "font": 14.4
+          "font": 14.4,
+          "top": 340.390625,
+          "clipTop": 218.390625,
+          "offsetTop": 122
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -1361,7 +1571,10 @@
           "disabled": false,
           "width": 32,
           "height": 44,
-          "font": 14.4
+          "font": 14.4,
+          "top": 340.390625,
+          "clipTop": 218.390625,
+          "offsetTop": 122
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(3)",
@@ -1379,7 +1592,10 @@
           "disabled": false,
           "width": 32,
           "height": 44,
-          "font": 14.4
+          "font": 14.4,
+          "top": 338.390625,
+          "clipTop": 218.390625,
+          "offsetTop": 120
         }
       ],
       "issues": [],
@@ -1407,7 +1623,10 @@
           "disabled": false,
           "width": 120.015625,
           "height": 48,
-          "font": 16
+          "font": 16,
+          "top": 56,
+          "clipTop": 40,
+          "offsetTop": 16
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
@@ -1425,7 +1644,10 @@
           "disabled": false,
           "width": 300,
           "height": 47,
-          "font": 14
+          "font": 14,
+          "top": 148.890625,
+          "clipTop": 40,
+          "offsetTop": 108.890625
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
@@ -1443,7 +1665,10 @@
           "disabled": false,
           "width": 108,
           "height": 47,
-          "font": 14
+          "font": 14,
+          "top": 148.890625,
+          "clipTop": 40,
+          "offsetTop": 108.890625
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -1461,7 +1686,10 @@
           "disabled": false,
           "width": 117.921875,
           "height": 44,
-          "font": 14
+          "font": 14,
+          "top": 142.390625,
+          "clipTop": 40,
+          "offsetTop": 102.390625
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1)",
@@ -1479,7 +1707,10 @@
           "disabled": false,
           "width": 1316,
           "height": 72,
-          "font": 16
+          "font": 16,
+          "top": 326.390625,
+          "clipTop": 218.390625,
+          "offsetTop": 108
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -1497,7 +1728,10 @@
           "disabled": false,
           "width": 32,
           "height": 44,
-          "font": 14.4
+          "font": 14.4,
+          "top": 340.390625,
+          "clipTop": 218.390625,
+          "offsetTop": 122
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -1515,7 +1749,10 @@
           "disabled": false,
           "width": 32,
           "height": 44,
-          "font": 14.4
+          "font": 14.4,
+          "top": 340.390625,
+          "clipTop": 218.390625,
+          "offsetTop": 122
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(3)",
@@ -1533,7 +1770,10 @@
           "disabled": false,
           "width": 32,
           "height": 44,
-          "font": 14.4
+          "font": 14.4,
+          "top": 339.2092590332031,
+          "clipTop": 218.390625,
+          "offsetTop": 120.81863403320312
         }
       ],
       "issues": [],
@@ -1561,7 +1801,10 @@
           "disabled": false,
           "width": 398,
           "height": 40,
-          "font": 14
+          "font": 14,
+          "top": 337.796875,
+          "clipTop": null,
+          "offsetTop": null
         },
         {
           "selector": "form:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > textarea:nth-of-type(1)",
@@ -1579,7 +1822,10 @@
           "disabled": false,
           "width": 398,
           "height": 80,
-          "font": 14
+          "font": 14,
+          "top": 417.796875,
+          "clipTop": null,
+          "offsetTop": null
         },
         {
           "selector": "form:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > button:nth-of-type(1)",
@@ -1597,7 +1843,10 @@
           "disabled": false,
           "width": 398,
           "height": 44,
-          "font": 14
+          "font": 14,
+          "top": 537.796875,
+          "clipTop": null,
+          "offsetTop": null
         },
         {
           "selector": "form:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
@@ -1615,7 +1864,10 @@
           "disabled": false,
           "width": 63.59375,
           "height": 44,
-          "font": 14
+          "font": 14,
+          "top": 605.796875,
+          "clipTop": null,
+          "offsetTop": null
         },
         {
           "selector": "form:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(2)",
@@ -1633,25 +1885,31 @@
           "disabled": true,
           "width": 91.59375,
           "height": 44,
-          "font": 14
+          "font": 14,
+          "top": 605.796875,
+          "clipTop": null,
+          "offsetTop": null
         },
         {
           "selector": "button:nth-of-type(1)",
-          "family": "absolute right-4 top-4 h-8 w-8 rounded-md opacity-70 ring-offset-background transition-opacity hover:opacity-100 hover:bg-accent focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none flex items-center justify-center|",
+          "family": "dialog-close-btn|",
           "text": "Close",
-          "foreground": "rgb(17, 24, 39)",
-          "background": "rgb(249, 250, 251)",
+          "foreground": "rgb(55, 65, 81)",
+          "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
-            249,
-            250,
-            251
+            255,
+            255,
+            255
           ],
-          "contrast": 16.97538624440406,
+          "contrast": 10.307355969735845,
           "textual": true,
           "disabled": false,
-          "width": 44,
-          "height": 44,
-          "font": 16
+          "width": 32,
+          "height": 32,
+          "font": 16,
+          "top": 242.203125,
+          "clipTop": null,
+          "offsetTop": null
         }
       ],
       "issues": [],
@@ -1679,7 +1937,10 @@
           "disabled": false,
           "width": 120.015625,
           "height": 48,
-          "font": 16
+          "font": 16,
+          "top": 56,
+          "clipTop": 40,
+          "offsetTop": 16
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
@@ -1697,7 +1958,10 @@
           "disabled": false,
           "width": 300,
           "height": 47,
-          "font": 14
+          "font": 14,
+          "top": 148.890625,
+          "clipTop": 40,
+          "offsetTop": 108.890625
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
@@ -1715,7 +1979,10 @@
           "disabled": false,
           "width": 108,
           "height": 47,
-          "font": 14
+          "font": 14,
+          "top": 148.890625,
+          "clipTop": 40,
+          "offsetTop": 108.890625
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > input:nth-of-type(1)",
@@ -1733,7 +2000,10 @@
           "disabled": false,
           "width": 16,
           "height": 16,
-          "font": 14
+          "font": 14,
+          "top": 230.890625,
+          "clipTop": 40,
+          "offsetTop": 190.890625
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > input:nth-of-type(1)",
@@ -1751,7 +2021,10 @@
           "disabled": false,
           "width": 16,
           "height": 16,
-          "font": 14
+          "font": 14,
+          "top": 336.890625,
+          "clipTop": 40,
+          "offsetTop": 296.890625
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > input:nth-of-type(1)",
@@ -1769,7 +2042,10 @@
           "disabled": false,
           "width": 16,
           "height": 16,
-          "font": 14
+          "font": 14,
+          "top": 442.890625,
+          "clipTop": 40,
+          "offsetTop": 402.890625
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -1787,7 +2063,10 @@
           "disabled": false,
           "width": 117.921875,
           "height": 44,
-          "font": 14
+          "font": 14,
+          "top": 142.390625,
+          "clipTop": 40,
+          "offsetTop": 102.390625
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1)",
@@ -1805,7 +2084,10 @@
           "disabled": false,
           "width": 1316,
           "height": 72,
-          "font": 16
+          "font": 16,
+          "top": 326.390625,
+          "clipTop": 218.390625,
+          "offsetTop": 108
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -1823,7 +2105,10 @@
           "disabled": false,
           "width": 32,
           "height": 44,
-          "font": 14.4
+          "font": 14.4,
+          "top": 340.390625,
+          "clipTop": 218.390625,
+          "offsetTop": 122
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -1841,7 +2126,10 @@
           "disabled": false,
           "width": 32,
           "height": 44,
-          "font": 14.4
+          "font": 14.4,
+          "top": 340.390625,
+          "clipTop": 218.390625,
+          "offsetTop": 122
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(3)",
@@ -1859,7 +2147,10 @@
           "disabled": false,
           "width": 32,
           "height": 44,
-          "font": 14.4
+          "font": 14.4,
+          "top": 340.390625,
+          "clipTop": 218.390625,
+          "offsetTop": 122
         }
       ],
       "issues": [
@@ -1903,7 +2194,10 @@
           "disabled": false,
           "width": 398,
           "height": 40,
-          "font": 14
+          "font": 14,
+          "top": 383.796875,
+          "clipTop": null,
+          "offsetTop": null
         },
         {
           "selector": "form:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > textarea:nth-of-type(1)",
@@ -1921,7 +2215,10 @@
           "disabled": false,
           "width": 398,
           "height": 80,
-          "font": 14
+          "font": 14,
+          "top": 463.796875,
+          "clipTop": null,
+          "offsetTop": null
         },
         {
           "selector": "form:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
@@ -1939,7 +2236,10 @@
           "disabled": false,
           "width": 63.59375,
           "height": 44,
-          "font": 14
+          "font": 14,
+          "top": 559.796875,
+          "clipTop": null,
+          "offsetTop": null
         },
         {
           "selector": "form:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(2)",
@@ -1957,25 +2257,31 @@
           "disabled": false,
           "width": 91.59375,
           "height": 44,
-          "font": 14
+          "font": 14,
+          "top": 559.796875,
+          "clipTop": null,
+          "offsetTop": null
         },
         {
           "selector": "button:nth-of-type(1)",
-          "family": "absolute right-4 top-4 h-8 w-8 rounded-md opacity-70 ring-offset-background transition-opacity hover:opacity-100 hover:bg-accent focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none flex items-center justify-center|",
+          "family": "dialog-close-btn|",
           "text": "Close",
-          "foreground": "rgb(17, 24, 39)",
-          "background": "rgb(249, 250, 251)",
+          "foreground": "rgb(55, 65, 81)",
+          "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
-            249,
-            250,
-            251
+            255,
+            255,
+            255
           ],
-          "contrast": 16.97538624440406,
+          "contrast": 10.307355969735845,
           "textual": true,
           "disabled": false,
-          "width": 44,
-          "height": 44,
-          "font": 16
+          "width": 32,
+          "height": 32,
+          "font": 16,
+          "top": 288.203125,
+          "clipTop": null,
+          "offsetTop": null
         }
       ],
       "issues": [],
@@ -2003,7 +2309,10 @@
           "disabled": false,
           "width": 120.015625,
           "height": 48,
-          "font": 16
+          "font": 16,
+          "top": 56,
+          "clipTop": 40,
+          "offsetTop": 16
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
@@ -2021,7 +2330,10 @@
           "disabled": false,
           "width": 300,
           "height": 47,
-          "font": 14
+          "font": 14,
+          "top": 148.890625,
+          "clipTop": 40,
+          "offsetTop": 108.890625
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
@@ -2039,7 +2351,10 @@
           "disabled": false,
           "width": 108,
           "height": 47,
-          "font": 14
+          "font": 14,
+          "top": 148.890625,
+          "clipTop": 40,
+          "offsetTop": 108.890625
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -2057,7 +2372,10 @@
           "disabled": false,
           "width": 117.921875,
           "height": 44,
-          "font": 14
+          "font": 14,
+          "top": 142.390625,
+          "clipTop": 40,
+          "offsetTop": 102.390625
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1)",
@@ -2075,7 +2393,10 @@
           "disabled": false,
           "width": 1316,
           "height": 72,
-          "font": 16
+          "font": 16,
+          "top": 326.390625,
+          "clipTop": 218.390625,
+          "offsetTop": 108
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -2093,7 +2414,10 @@
           "disabled": false,
           "width": 32,
           "height": 44,
-          "font": 14.4
+          "font": 14.4,
+          "top": 340.390625,
+          "clipTop": 218.390625,
+          "offsetTop": 122
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -2111,7 +2435,10 @@
           "disabled": false,
           "width": 32,
           "height": 44,
-          "font": 14.4
+          "font": 14.4,
+          "top": 340.390625,
+          "clipTop": 218.390625,
+          "offsetTop": 122
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(3)",
@@ -2129,7 +2456,10 @@
           "disabled": false,
           "width": 32,
           "height": 44,
-          "font": 14.4
+          "font": 14.4,
+          "top": 340.390625,
+          "clipTop": 218.390625,
+          "offsetTop": 122
         }
       ],
       "issues": [],
@@ -2157,7 +2487,10 @@
           "disabled": false,
           "width": 120.015625,
           "height": 48,
-          "font": 16
+          "font": 16,
+          "top": 56,
+          "clipTop": 40,
+          "offsetTop": 16
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
@@ -2175,7 +2508,10 @@
           "disabled": false,
           "width": 300,
           "height": 47,
-          "font": 14
+          "font": 14,
+          "top": 148.890625,
+          "clipTop": 40,
+          "offsetTop": 108.890625
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
@@ -2193,7 +2529,10 @@
           "disabled": false,
           "width": 108,
           "height": 47,
-          "font": 14
+          "font": 14,
+          "top": 148.890625,
+          "clipTop": 40,
+          "offsetTop": 108.890625
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -2211,7 +2550,10 @@
           "disabled": false,
           "width": 117.921875,
           "height": 44,
-          "font": 14
+          "font": 14,
+          "top": 142.390625,
+          "clipTop": 40,
+          "offsetTop": 102.390625
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1)",
@@ -2229,7 +2571,10 @@
           "disabled": false,
           "width": 1316,
           "height": 72,
-          "font": 16
+          "font": 16,
+          "top": 326.390625,
+          "clipTop": 218.390625,
+          "offsetTop": 108
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -2247,7 +2592,10 @@
           "disabled": false,
           "width": 32,
           "height": 44,
-          "font": 14.4
+          "font": 14.4,
+          "top": 340.390625,
+          "clipTop": 218.390625,
+          "offsetTop": 122
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -2265,7 +2613,10 @@
           "disabled": false,
           "width": 32,
           "height": 44,
-          "font": 14.4
+          "font": 14.4,
+          "top": 340.390625,
+          "clipTop": 218.390625,
+          "offsetTop": 122
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(3)",
@@ -2283,7 +2634,10 @@
           "disabled": false,
           "width": 32,
           "height": 44,
-          "font": 14.4
+          "font": 14.4,
+          "top": 340.390625,
+          "clipTop": 218.390625,
+          "offsetTop": 122
         }
       ],
       "issues": [],
@@ -2311,7 +2665,10 @@
           "disabled": false,
           "width": 120.015625,
           "height": 48,
-          "font": 16
+          "font": 16,
+          "top": 56,
+          "clipTop": 40,
+          "offsetTop": 16
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
@@ -2329,7 +2686,10 @@
           "disabled": false,
           "width": 300,
           "height": 47,
-          "font": 14
+          "font": 14,
+          "top": 148.890625,
+          "clipTop": 40,
+          "offsetTop": 108.890625
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
@@ -2347,7 +2707,10 @@
           "disabled": false,
           "width": 108,
           "height": 47,
-          "font": 14
+          "font": 14,
+          "top": 148.890625,
+          "clipTop": 40,
+          "offsetTop": 108.890625
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -2365,7 +2728,10 @@
           "disabled": false,
           "width": 117.921875,
           "height": 44,
-          "font": 14
+          "font": 14,
+          "top": 142.390625,
+          "clipTop": 40,
+          "offsetTop": 102.390625
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1)",
@@ -2383,7 +2749,10 @@
           "disabled": false,
           "width": 1316,
           "height": 72,
-          "font": 16
+          "font": 16,
+          "top": 326.390625,
+          "clipTop": 218.390625,
+          "offsetTop": 108
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -2401,7 +2770,10 @@
           "disabled": false,
           "width": 32,
           "height": 44,
-          "font": 14.4
+          "font": 14.4,
+          "top": 340.390625,
+          "clipTop": 218.390625,
+          "offsetTop": 122
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -2419,7 +2791,10 @@
           "disabled": false,
           "width": 32,
           "height": 44,
-          "font": 14.4
+          "font": 14.4,
+          "top": 340.390625,
+          "clipTop": 218.390625,
+          "offsetTop": 122
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(3)",
@@ -2437,7 +2812,10 @@
           "disabled": false,
           "width": 32,
           "height": 44,
-          "font": 14.4
+          "font": 14.4,
+          "top": 340.390625,
+          "clipTop": 218.390625,
+          "offsetTop": 122
         }
       ],
       "issues": [],
@@ -2465,7 +2843,10 @@
           "disabled": false,
           "width": 120.015625,
           "height": 48,
-          "font": 16
+          "font": 16,
+          "top": 56,
+          "clipTop": 40,
+          "offsetTop": 16
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
@@ -2483,7 +2864,10 @@
           "disabled": false,
           "width": 300,
           "height": 47,
-          "font": 14
+          "font": 14,
+          "top": 148.890625,
+          "clipTop": 40,
+          "offsetTop": 108.890625
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
@@ -2501,7 +2885,10 @@
           "disabled": false,
           "width": 108,
           "height": 47,
-          "font": 14
+          "font": 14,
+          "top": 148.890625,
+          "clipTop": 40,
+          "offsetTop": 108.890625
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -2519,7 +2906,10 @@
           "disabled": false,
           "width": 117.921875,
           "height": 44,
-          "font": 14
+          "font": 14,
+          "top": 142.390625,
+          "clipTop": 40,
+          "offsetTop": 102.390625
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1)",
@@ -2537,7 +2927,10 @@
           "disabled": false,
           "width": 1316,
           "height": 72,
-          "font": 16
+          "font": 16,
+          "top": 326.390625,
+          "clipTop": 218.390625,
+          "offsetTop": 108
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -2555,7 +2948,10 @@
           "disabled": false,
           "width": 32,
           "height": 44,
-          "font": 14.4
+          "font": 14.4,
+          "top": 340.390625,
+          "clipTop": 218.390625,
+          "offsetTop": 122
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -2573,7 +2969,10 @@
           "disabled": false,
           "width": 32,
           "height": 44,
-          "font": 14.4
+          "font": 14.4,
+          "top": 340.390625,
+          "clipTop": 218.390625,
+          "offsetTop": 122
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(3)",
@@ -2591,7 +2990,10 @@
           "disabled": false,
           "width": 32,
           "height": 44,
-          "font": 14.4
+          "font": 14.4,
+          "top": 340.390625,
+          "clipTop": 218.390625,
+          "offsetTop": 122
         }
       ],
       "issues": [],
@@ -2619,7 +3021,10 @@
           "disabled": false,
           "width": 120.015625,
           "height": 48,
-          "font": 16
+          "font": 16,
+          "top": 56,
+          "clipTop": 40,
+          "offsetTop": 16
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
@@ -2637,7 +3042,10 @@
           "disabled": false,
           "width": 300,
           "height": 47,
-          "font": 14
+          "font": 14,
+          "top": 148.890625,
+          "clipTop": 40,
+          "offsetTop": 108.890625
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
@@ -2655,7 +3063,10 @@
           "disabled": false,
           "width": 108,
           "height": 47,
-          "font": 14
+          "font": 14,
+          "top": 148.890625,
+          "clipTop": 40,
+          "offsetTop": 108.890625
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -2673,7 +3084,10 @@
           "disabled": false,
           "width": 117.921875,
           "height": 44,
-          "font": 14
+          "font": 14,
+          "top": 142.390625,
+          "clipTop": 40,
+          "offsetTop": 102.390625
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1)",
@@ -2691,7 +3105,10 @@
           "disabled": false,
           "width": 1316,
           "height": 72,
-          "font": 16
+          "font": 16,
+          "top": 326.390625,
+          "clipTop": 218.390625,
+          "offsetTop": 108
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -2709,7 +3126,10 @@
           "disabled": false,
           "width": 32,
           "height": 44,
-          "font": 14.4
+          "font": 14.4,
+          "top": 340.390625,
+          "clipTop": 218.390625,
+          "offsetTop": 122
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -2727,7 +3147,10 @@
           "disabled": false,
           "width": 32,
           "height": 44,
-          "font": 14.4
+          "font": 14.4,
+          "top": 340.390625,
+          "clipTop": 218.390625,
+          "offsetTop": 122
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(3)",
@@ -2745,7 +3168,10 @@
           "disabled": false,
           "width": 32,
           "height": 44,
-          "font": 14.4
+          "font": 14.4,
+          "top": 340.390625,
+          "clipTop": 218.390625,
+          "offsetTop": 122
         }
       ],
       "issues": [],
@@ -2773,7 +3199,10 @@
           "disabled": false,
           "width": 120.015625,
           "height": 48,
-          "font": 16
+          "font": 16,
+          "top": 56,
+          "clipTop": 40,
+          "offsetTop": 16
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
@@ -2791,7 +3220,10 @@
           "disabled": false,
           "width": 300,
           "height": 47,
-          "font": 14
+          "font": 14,
+          "top": 148.890625,
+          "clipTop": 40,
+          "offsetTop": 108.890625
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
@@ -2809,7 +3241,10 @@
           "disabled": false,
           "width": 108,
           "height": 47,
-          "font": 14
+          "font": 14,
+          "top": 148.890625,
+          "clipTop": 40,
+          "offsetTop": 108.890625
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -2827,7 +3262,10 @@
           "disabled": false,
           "width": 117.921875,
           "height": 44,
-          "font": 14
+          "font": 14,
+          "top": 142.390625,
+          "clipTop": 40,
+          "offsetTop": 102.390625
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1)",
@@ -2845,7 +3283,10 @@
           "disabled": false,
           "width": 1316,
           "height": 72,
-          "font": 16
+          "font": 16,
+          "top": 326.390625,
+          "clipTop": 218.390625,
+          "offsetTop": 108
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -2863,7 +3304,10 @@
           "disabled": false,
           "width": 32,
           "height": 44,
-          "font": 14.4
+          "font": 14.4,
+          "top": 340.390625,
+          "clipTop": 218.390625,
+          "offsetTop": 122
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -2881,7 +3325,10 @@
           "disabled": false,
           "width": 32,
           "height": 44,
-          "font": 14.4
+          "font": 14.4,
+          "top": 340.390625,
+          "clipTop": 218.390625,
+          "offsetTop": 122
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(3)",
@@ -2899,7 +3346,10 @@
           "disabled": false,
           "width": 32,
           "height": 44,
-          "font": 14.4
+          "font": 14.4,
+          "top": 340.390625,
+          "clipTop": 218.390625,
+          "offsetTop": 122
         }
       ],
       "issues": [],
@@ -2927,7 +3377,10 @@
           "disabled": false,
           "width": 120.015625,
           "height": 48,
-          "font": 16
+          "font": 16,
+          "top": 56,
+          "clipTop": 40,
+          "offsetTop": 16
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
@@ -2945,7 +3398,10 @@
           "disabled": false,
           "width": 300,
           "height": 47,
-          "font": 14
+          "font": 14,
+          "top": 148.890625,
+          "clipTop": 40,
+          "offsetTop": 108.890625
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
@@ -2963,7 +3419,10 @@
           "disabled": false,
           "width": 108,
           "height": 47,
-          "font": 14
+          "font": 14,
+          "top": 148.890625,
+          "clipTop": 40,
+          "offsetTop": 108.890625
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -2981,7 +3440,10 @@
           "disabled": false,
           "width": 117.921875,
           "height": 44,
-          "font": 14
+          "font": 14,
+          "top": 142.390625,
+          "clipTop": 40,
+          "offsetTop": 102.390625
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1)",
@@ -2999,7 +3461,10 @@
           "disabled": false,
           "width": 1316,
           "height": 72,
-          "font": 16
+          "font": 16,
+          "top": 326.390625,
+          "clipTop": 218.390625,
+          "offsetTop": 108
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -3017,7 +3482,10 @@
           "disabled": false,
           "width": 32,
           "height": 44,
-          "font": 14.4
+          "font": 14.4,
+          "top": 338.390625,
+          "clipTop": 218.390625,
+          "offsetTop": 120
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -3035,7 +3503,10 @@
           "disabled": false,
           "width": 32,
           "height": 44,
-          "font": 14.4
+          "font": 14.4,
+          "top": 340.390625,
+          "clipTop": 218.390625,
+          "offsetTop": 122
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(3)",
@@ -3053,7 +3524,10 @@
           "disabled": false,
           "width": 32,
           "height": 44,
-          "font": 14.4
+          "font": 14.4,
+          "top": 340.390625,
+          "clipTop": 218.390625,
+          "offsetTop": 122
         }
       ],
       "issues": [],
@@ -3081,7 +3555,10 @@
           "disabled": false,
           "width": 120.015625,
           "height": 48,
-          "font": 16
+          "font": 16,
+          "top": 56,
+          "clipTop": 40,
+          "offsetTop": 16
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
@@ -3099,7 +3576,10 @@
           "disabled": false,
           "width": 300,
           "height": 47,
-          "font": 14
+          "font": 14,
+          "top": 148.890625,
+          "clipTop": 40,
+          "offsetTop": 108.890625
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
@@ -3117,7 +3597,10 @@
           "disabled": false,
           "width": 108,
           "height": 47,
-          "font": 14
+          "font": 14,
+          "top": 148.890625,
+          "clipTop": 40,
+          "offsetTop": 108.890625
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -3135,7 +3618,10 @@
           "disabled": false,
           "width": 117.921875,
           "height": 44,
-          "font": 14
+          "font": 14,
+          "top": 142.390625,
+          "clipTop": 40,
+          "offsetTop": 102.390625
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1)",
@@ -3153,7 +3639,10 @@
           "disabled": false,
           "width": 1316,
           "height": 72,
-          "font": 16
+          "font": 16,
+          "top": 326.390625,
+          "clipTop": 218.390625,
+          "offsetTop": 108
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -3171,7 +3660,10 @@
           "disabled": false,
           "width": 32,
           "height": 44,
-          "font": 14.4
+          "font": 14.4,
+          "top": 340.390625,
+          "clipTop": 218.390625,
+          "offsetTop": 122
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -3189,7 +3681,10 @@
           "disabled": false,
           "width": 32,
           "height": 44,
-          "font": 14.4
+          "font": 14.4,
+          "top": 338.390625,
+          "clipTop": 218.390625,
+          "offsetTop": 120
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(3)",
@@ -3207,7 +3702,10 @@
           "disabled": false,
           "width": 32,
           "height": 44,
-          "font": 14.4
+          "font": 14.4,
+          "top": 340.390625,
+          "clipTop": 218.390625,
+          "offsetTop": 122
         }
       ],
       "issues": [],
@@ -3235,7 +3733,10 @@
           "disabled": false,
           "width": 120.015625,
           "height": 48,
-          "font": 16
+          "font": 16,
+          "top": 56,
+          "clipTop": 40,
+          "offsetTop": 16
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
@@ -3253,7 +3754,10 @@
           "disabled": false,
           "width": 300,
           "height": 47,
-          "font": 14
+          "font": 14,
+          "top": 148.890625,
+          "clipTop": 40,
+          "offsetTop": 108.890625
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
@@ -3271,7 +3775,10 @@
           "disabled": false,
           "width": 108,
           "height": 47,
-          "font": 14
+          "font": 14,
+          "top": 148.890625,
+          "clipTop": 40,
+          "offsetTop": 108.890625
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -3289,7 +3796,10 @@
           "disabled": false,
           "width": 117.921875,
           "height": 44,
-          "font": 14
+          "font": 14,
+          "top": 142.390625,
+          "clipTop": 40,
+          "offsetTop": 102.390625
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1)",
@@ -3307,7 +3817,10 @@
           "disabled": false,
           "width": 1316,
           "height": 72,
-          "font": 16
+          "font": 16,
+          "top": 326.390625,
+          "clipTop": 218.390625,
+          "offsetTop": 108
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -3325,7 +3838,10 @@
           "disabled": false,
           "width": 32,
           "height": 44,
-          "font": 14.4
+          "font": 14.4,
+          "top": 340.390625,
+          "clipTop": 218.390625,
+          "offsetTop": 122
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -3343,7 +3859,10 @@
           "disabled": false,
           "width": 32,
           "height": 44,
-          "font": 14.4
+          "font": 14.4,
+          "top": 340.390625,
+          "clipTop": 218.390625,
+          "offsetTop": 122
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(3)",
@@ -3361,7 +3880,10 @@
           "disabled": false,
           "width": 32,
           "height": 44,
-          "font": 14.4
+          "font": 14.4,
+          "top": 338.390625,
+          "clipTop": 218.390625,
+          "offsetTop": 120
         }
       ],
       "issues": [],
@@ -3389,7 +3911,10 @@
           "disabled": false,
           "width": 120.015625,
           "height": 48,
-          "font": 16
+          "font": 16,
+          "top": 56,
+          "clipTop": 40,
+          "offsetTop": 16
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
@@ -3407,7 +3932,10 @@
           "disabled": false,
           "width": 300,
           "height": 47,
-          "font": 14
+          "font": 14,
+          "top": 148.890625,
+          "clipTop": 40,
+          "offsetTop": 108.890625
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
@@ -3425,7 +3953,10 @@
           "disabled": false,
           "width": 108,
           "height": 47,
-          "font": 14
+          "font": 14,
+          "top": 148.890625,
+          "clipTop": 40,
+          "offsetTop": 108.890625
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -3443,7 +3974,10 @@
           "disabled": false,
           "width": 117.921875,
           "height": 44,
-          "font": 14
+          "font": 14,
+          "top": 142.390625,
+          "clipTop": 40,
+          "offsetTop": 102.390625
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1)",
@@ -3461,7 +3995,10 @@
           "disabled": false,
           "width": 1316,
           "height": 72,
-          "font": 16
+          "font": 16,
+          "top": 326.390625,
+          "clipTop": 218.390625,
+          "offsetTop": 108
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -3479,7 +4016,10 @@
           "disabled": false,
           "width": 32,
           "height": 44,
-          "font": 14.4
+          "font": 14.4,
+          "top": 340.390625,
+          "clipTop": 218.390625,
+          "offsetTop": 122
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -3497,25 +4037,31 @@
           "disabled": false,
           "width": 32,
           "height": 44,
-          "font": 14.4
+          "font": 14.4,
+          "top": 340.390625,
+          "clipTop": 218.390625,
+          "offsetTop": 122
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(3)",
           "family": "action-button edit|",
           "text": "",
-          "foreground": "rgb(254, 242, 180)",
-          "background": "rgb(157, 110, 29)",
+          "foreground": "rgb(254, 237, 149)",
+          "background": "rgb(122, 91, 36)",
           "effectiveBackground": [
-            157,
-            110,
-            29
+            122,
+            91,
+            36
           ],
-          "contrast": 3.967350094606784,
+          "contrast": 5.302949126332281,
           "textual": false,
           "disabled": false,
           "width": 32,
           "height": 44,
-          "font": 14.4
+          "font": 14.4,
+          "top": 339.543212890625,
+          "clipTop": 218.390625,
+          "offsetTop": 121.152587890625
         }
       ],
       "issues": [],
@@ -3543,7 +4089,10 @@
           "disabled": false,
           "width": 398,
           "height": 40,
-          "font": 14
+          "font": 14,
+          "top": 337.796875,
+          "clipTop": null,
+          "offsetTop": null
         },
         {
           "selector": "form:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > textarea:nth-of-type(1)",
@@ -3561,7 +4110,10 @@
           "disabled": false,
           "width": 398,
           "height": 80,
-          "font": 14
+          "font": 14,
+          "top": 417.796875,
+          "clipTop": null,
+          "offsetTop": null
         },
         {
           "selector": "form:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > button:nth-of-type(1)",
@@ -3579,7 +4131,10 @@
           "disabled": false,
           "width": 398,
           "height": 44,
-          "font": 14
+          "font": 14,
+          "top": 537.796875,
+          "clipTop": null,
+          "offsetTop": null
         },
         {
           "selector": "form:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
@@ -3597,7 +4152,10 @@
           "disabled": false,
           "width": 63.59375,
           "height": 44,
-          "font": 14
+          "font": 14,
+          "top": 605.796875,
+          "clipTop": null,
+          "offsetTop": null
         },
         {
           "selector": "form:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(2)",
@@ -3615,25 +4173,31 @@
           "disabled": true,
           "width": 91.59375,
           "height": 44,
-          "font": 14
+          "font": 14,
+          "top": 605.796875,
+          "clipTop": null,
+          "offsetTop": null
         },
         {
           "selector": "button:nth-of-type(1)",
-          "family": "absolute right-4 top-4 h-8 w-8 rounded-md opacity-70 ring-offset-background transition-opacity hover:opacity-100 hover:bg-accent focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none flex items-center justify-center|",
+          "family": "dialog-close-btn|",
           "text": "Close",
-          "foreground": "rgb(249, 250, 251)",
-          "background": "rgb(31, 41, 55)",
+          "foreground": "rgb(229, 231, 235)",
+          "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
-            31,
-            41,
-            55
+            17,
+            24,
+            39
           ],
-          "contrast": 14.046656202460271,
+          "contrast": 14.328284912339392,
           "textual": true,
           "disabled": false,
-          "width": 44,
-          "height": 44,
-          "font": 16
+          "width": 32,
+          "height": 32,
+          "font": 16,
+          "top": 242.203125,
+          "clipTop": null,
+          "offsetTop": null
         }
       ],
       "issues": [],
@@ -3661,7 +4225,10 @@
           "disabled": false,
           "width": 120.015625,
           "height": 48,
-          "font": 16
+          "font": 16,
+          "top": 56,
+          "clipTop": 40,
+          "offsetTop": 16
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
@@ -3679,7 +4246,10 @@
           "disabled": false,
           "width": 300,
           "height": 47,
-          "font": 14
+          "font": 14,
+          "top": 148.890625,
+          "clipTop": 40,
+          "offsetTop": 108.890625
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
@@ -3697,7 +4267,10 @@
           "disabled": false,
           "width": 108,
           "height": 47,
-          "font": 14
+          "font": 14,
+          "top": 148.890625,
+          "clipTop": 40,
+          "offsetTop": 108.890625
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > input:nth-of-type(1)",
@@ -3715,7 +4288,10 @@
           "disabled": false,
           "width": 16,
           "height": 16,
-          "font": 14
+          "font": 14,
+          "top": 230.890625,
+          "clipTop": 40,
+          "offsetTop": 190.890625
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > input:nth-of-type(1)",
@@ -3733,7 +4309,10 @@
           "disabled": false,
           "width": 16,
           "height": 16,
-          "font": 14
+          "font": 14,
+          "top": 336.890625,
+          "clipTop": 40,
+          "offsetTop": 296.890625
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > input:nth-of-type(1)",
@@ -3751,7 +4330,10 @@
           "disabled": false,
           "width": 16,
           "height": 16,
-          "font": 14
+          "font": 14,
+          "top": 442.890625,
+          "clipTop": 40,
+          "offsetTop": 402.890625
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -3769,7 +4351,10 @@
           "disabled": false,
           "width": 117.921875,
           "height": 44,
-          "font": 14
+          "font": 14,
+          "top": 142.390625,
+          "clipTop": 40,
+          "offsetTop": 102.390625
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1)",
@@ -3787,7 +4372,10 @@
           "disabled": false,
           "width": 1316,
           "height": 72,
-          "font": 16
+          "font": 16,
+          "top": 326.390625,
+          "clipTop": 218.390625,
+          "offsetTop": 108
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -3805,7 +4393,10 @@
           "disabled": false,
           "width": 32,
           "height": 44,
-          "font": 14.4
+          "font": 14.4,
+          "top": 340.390625,
+          "clipTop": 218.390625,
+          "offsetTop": 122
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -3823,7 +4414,10 @@
           "disabled": false,
           "width": 32,
           "height": 44,
-          "font": 14.4
+          "font": 14.4,
+          "top": 340.390625,
+          "clipTop": 218.390625,
+          "offsetTop": 122
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(3)",
@@ -3841,7 +4435,10 @@
           "disabled": false,
           "width": 32,
           "height": 44,
-          "font": 14.4
+          "font": 14.4,
+          "top": 340.390625,
+          "clipTop": 218.390625,
+          "offsetTop": 122
         }
       ],
       "issues": [
@@ -3885,7 +4482,10 @@
           "disabled": false,
           "width": 398,
           "height": 40,
-          "font": 14
+          "font": 14,
+          "top": 383.796875,
+          "clipTop": null,
+          "offsetTop": null
         },
         {
           "selector": "form:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > textarea:nth-of-type(1)",
@@ -3903,7 +4503,10 @@
           "disabled": false,
           "width": 398,
           "height": 80,
-          "font": 14
+          "font": 14,
+          "top": 463.796875,
+          "clipTop": null,
+          "offsetTop": null
         },
         {
           "selector": "form:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(1)",
@@ -3921,7 +4524,10 @@
           "disabled": false,
           "width": 63.59375,
           "height": 44,
-          "font": 14
+          "font": 14,
+          "top": 559.796875,
+          "clipTop": null,
+          "offsetTop": null
         },
         {
           "selector": "form:nth-of-type(1) > div:nth-of-type(2) > button:nth-of-type(2)",
@@ -3939,25 +4545,31 @@
           "disabled": false,
           "width": 91.59375,
           "height": 44,
-          "font": 14
+          "font": 14,
+          "top": 559.796875,
+          "clipTop": null,
+          "offsetTop": null
         },
         {
           "selector": "button:nth-of-type(1)",
-          "family": "absolute right-4 top-4 h-8 w-8 rounded-md opacity-70 ring-offset-background transition-opacity hover:opacity-100 hover:bg-accent focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none flex items-center justify-center|",
+          "family": "dialog-close-btn|",
           "text": "Close",
-          "foreground": "rgb(249, 250, 251)",
-          "background": "rgb(31, 41, 55)",
+          "foreground": "rgb(229, 231, 235)",
+          "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
-            31,
-            41,
-            55
+            17,
+            24,
+            39
           ],
-          "contrast": 14.046656202460271,
+          "contrast": 14.328284912339392,
           "textual": true,
           "disabled": false,
-          "width": 44,
-          "height": 44,
-          "font": 16
+          "width": 32,
+          "height": 32,
+          "font": 16,
+          "top": 288.203125,
+          "clipTop": null,
+          "offsetTop": null
         }
       ],
       "issues": [],

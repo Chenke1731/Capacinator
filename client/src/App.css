@@ -2025,7 +2025,9 @@ input[type="checkbox"].settings-checkbox,
 }
 .task-view-chip:hover { background: var(--bg-secondary, color-mix(in srgb, var(--neutral-surface-tint) 12%, transparent)); color: var(--text-primary); }
 .task-view-chip[aria-pressed="true"] {
-  color: var(--primary);
+  /* 2026-11-10: 文字用 --primary-text（深色主题 #a5b4fc）而非 --primary——
+     激活 chip 原色 #6366f1 在深底仅 3.97:1，verify:states 全量双主题首跑暴露 */
+  color: var(--primary-text);
   border-color: var(--primary);
   font-weight: 600;
 }

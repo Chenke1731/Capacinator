@@ -1050,8 +1050,8 @@
   margin-left: 0.5rem;
 }
 
-/* Modal */
-.modal-overlay {
+/* Modal（2026-11-10 同类排查：页内 modal 在 .project-roadmap 树内，收进页面根） */
+.project-roadmap .modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -1066,7 +1066,7 @@
   animation: fadeIn 0.2s ease-out;
 }
 
-.modal-container {
+.project-roadmap .modal-container {
   background: hsl(var(--card));
   border-radius: var(--roadmap-border-radius-lg);
   box-shadow: 0 20px 40px -5px color-mix(in srgb, var(--solid-shade) 15%, transparent), 0 0 0 1px hsl(var(--border));
@@ -1078,21 +1078,21 @@
   animation: slideIn 0.3s ease-out;
 }
 
-.modal-header {
+.project-roadmap .modal-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 1.5rem 1.5rem 0 1.5rem;
 }
 
-.modal-header h3 {
+.project-roadmap .modal-header h3 {
   font-size: 1.125rem;
   font-weight: 600;
   color: hsl(var(--foreground));
   margin: 0;
 }
 
-.modal-header button {
+.project-roadmap .modal-header button {
   background: none;
   border: none;
   color: hsl(var(--muted-foreground));
@@ -1101,20 +1101,20 @@
   border-radius: 4px;
 }
 
-.modal-header button:hover {
+.project-roadmap .modal-header button:hover {
   background: hsl(var(--accent));
   color: hsl(var(--foreground));
 }
 
-.modal-content {
+.project-roadmap .modal-content {
   padding: 1.5rem;
 }
 
-.form-group {
+.project-roadmap .form-group {
   margin-bottom: 1rem;
 }
 
-.form-group label {
+.project-roadmap .form-group label {
   display: block;
   font-size: 0.875rem;
   font-weight: 500;
@@ -1122,7 +1122,7 @@
   margin-bottom: 0.5rem;
 }
 
-.form-group input {
+.project-roadmap .form-group input {
   width: 100%;
   padding: 0.5rem 0.75rem;
   border: 1px solid hsl(var(--input));
@@ -1132,13 +1132,13 @@
   color: hsl(var(--foreground));
 }
 
-.form-group input:focus {
+.project-roadmap .form-group input:focus {
   outline: none;
   border-color: hsl(var(--ring));
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--status-info-border) 10%, transparent);
 }
 
-.modal-actions {
+.project-roadmap .modal-actions {
   display: flex;
   justify-content: flex-end;
   gap: 0.75rem;

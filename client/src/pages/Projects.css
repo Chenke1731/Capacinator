@@ -49,8 +49,8 @@
   }
 }
 
-/* Large modal for allocations */
-.modal-overlay {
+/* Large modal for allocations（2026-11-10 同类排查：收进 .projects-board 作用域） */
+.projects-board .modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -63,7 +63,7 @@
   z-index: 1000;
 }
 
-.modal-container {
+.projects-board .modal-container {
   background: var(--bg-secondary);
   border: 1px solid var(--border-color);
   border-radius: 8px;
@@ -73,7 +73,7 @@
   margin: 20px;
 }
 
-.modal-container.large {
+.projects-board .modal-container.large {
   width: 95%;
   max-width: 1200px;
 }

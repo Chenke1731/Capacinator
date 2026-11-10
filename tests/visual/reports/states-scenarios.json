@@ -1195,9 +1195,9 @@
           "width": 32,
           "height": 44,
           "font": 14.4,
-          "top": 338.390625,
+          "top": 340.390625,
           "clipTop": 218.390625,
-          "offsetTop": 120
+          "offsetTop": 122
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -1394,9 +1394,9 @@
           "width": 32,
           "height": 44,
           "font": 14.4,
-          "top": 338.390625,
+          "top": 340.390625,
           "clipTop": 218.390625,
-          "offsetTop": 120
+          "offsetTop": 122
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(3)",
@@ -1593,9 +1593,9 @@
           "width": 32,
           "height": 44,
           "font": 14.4,
-          "top": 338.390625,
+          "top": 340.390625,
           "clipTop": 218.390625,
-          "offsetTop": 120
+          "offsetTop": 122
         }
       ],
       "issues": [],
@@ -1758,22 +1758,22 @@
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(3)",
           "family": "action-button edit|",
           "text": "",
-          "foreground": "rgb(210, 177, 156)",
-          "background": "rgb(211, 153, 110)",
+          "foreground": "rgb(192, 145, 116)",
+          "background": "rgb(223, 182, 151)",
           "effectiveBackground": [
-            211,
-            153,
-            110
+            223,
+            182,
+            151
           ],
-          "contrast": 1.22894611423188,
+          "contrast": 1.4947216065910562,
           "textual": false,
           "disabled": false,
           "width": 32,
           "height": 44,
           "font": 14.4,
-          "top": 339.2088928222656,
+          "top": 340.390625,
           "clipTop": 218.390625,
-          "offsetTop": 120.81826782226562
+          "offsetTop": 122
         }
       ],
       "issues": [],
@@ -3483,9 +3483,9 @@
           "width": 32,
           "height": 44,
           "font": 14.4,
-          "top": 338.390625,
+          "top": 340.390625,
           "clipTop": 218.390625,
-          "offsetTop": 120
+          "offsetTop": 122
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -3682,9 +3682,9 @@
           "width": 32,
           "height": 44,
           "font": 14.4,
-          "top": 338.390625,
+          "top": 340.390625,
           "clipTop": 218.390625,
-          "offsetTop": 120
+          "offsetTop": 122
         },
         {
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(3)",
@@ -3881,9 +3881,9 @@
           "width": 32,
           "height": 44,
           "font": 14.4,
-          "top": 338.390625,
+          "top": 340.390625,
           "clipTop": 218.390625,
-          "offsetTop": 120
+          "offsetTop": 122
         }
       ],
       "issues": [],
@@ -4046,22 +4046,22 @@
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(3)",
           "family": "action-button edit|",
           "text": "",
-          "foreground": "rgb(254, 242, 180)",
-          "background": "rgb(158, 110, 29)",
+          "foreground": "rgb(254, 237, 149)",
+          "background": "rgb(122, 91, 36)",
           "effectiveBackground": [
-            158,
-            110,
-            29
+            122,
+            91,
+            36
           ],
-          "contrast": 3.9503055694809466,
+          "contrast": 5.302949126332281,
           "textual": false,
           "disabled": false,
           "width": 32,
           "height": 44,
           "font": 14.4,
-          "top": 339.2080993652344,
+          "top": 340.390625,
           "clipTop": 218.390625,
-          "offsetTop": 120.81747436523438
+          "offsetTop": 122
         }
       ],
       "issues": [],

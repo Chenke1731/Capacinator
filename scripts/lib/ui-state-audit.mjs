@@ -78,6 +78,8 @@ function enumerateState({root,fonts}) {
   for(const e of nodes.filter(visible)){
     const p=rowContainer(e);if(!p)continue;
     const cls=String(p.className||'');
+    // checkbox/radio 是行内标记而非同排控件（16px 属正常尺寸），不参与等高比较
+    if(e.tagName==='INPUT'&&/^(checkbox|radio)$/i.test(e.getAttribute('type')||''))continue;
     const isField=/^(INPUT|SELECT|TEXTAREA)$/.test(e.tagName);
     if(isField&&!/(filters|filter-bar)/i.test(cls))continue;
     if(!isField&&!e.textContent.trim())continue;
@@ -123,7 +125,9 @@ export async function runProfileStates(profileName,{selftest=false,quick=false,r
   let failed=false;
   try {
     for(const theme of quick?['light']:['light','dark']) {
-      const context=await browser.newContext({viewport:{width:1600,height:900}});
+      // profile 可按需指定视口（1366 档历史事故高发，见 U06/U16）
+      const viewport=profile.viewport??{width:1600,height:900};
+      const context=await browser.newContext({viewport});
       const r=await setupReadOnlyPage(context,auth,theme),page=r.page;
       await page.goto(`${auditEnvironment.base}${profile.path}`,{waitUntil:'networkidle'});
       await assertProfileReady(page,profile,auditEnvironment.base);

@@ -314,8 +314,9 @@
   border-color: var(--danger);
 }
 
-/* Modal Styles */
-.modal-overlay {
+/* Modal Styles（2026-11-10 同类排查：页面已全用 Radix，本组收进 .scenarios-page
+   作用域，避免随路由泄漏到共享 modal/form） */
+.scenarios-page .modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -328,7 +329,7 @@
   z-index: 1000;
 }
 
-.modal-content {
+.scenarios-page .modal-content {
   background: var(--card-bg);
   border-radius: 8px;
   max-width: 500px;
@@ -340,7 +341,7 @@
   overflow: visible;
 }
 
-.modal-header {
+.scenarios-page .modal-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -349,14 +350,14 @@
   margin-bottom: 1.5rem;
 }
 
-.modal-header h2 {
+.scenarios-page .modal-header h2 {
   margin: 0;
   font-size: 1.25rem;
   font-weight: 600;
   color: var(--text-primary);
 }
 
-.modal-close {
+.scenarios-page .modal-close {
   background: none;
   border: none;
   font-size: 1.5rem;
@@ -372,12 +373,12 @@
   transition: all 0.2s;
 }
 
-.modal-close:hover {
+.scenarios-page .modal-close:hover {
   background: var(--bg-hover);
   color: var(--text-primary);
 }
 
-.modal-body {
+.scenarios-page .modal-body {
   padding: 1.5rem;
   overflow-y: auto;
   flex: 1;
@@ -504,13 +505,13 @@
 }
 
 /* Fix scenario name contrast in modal */
-.modal-content .scenario-card-mini .scenario-name,
-.comparison-setup .scenario-card-mini .scenario-name {
+.scenarios-page .modal-content .scenario-card-mini .scenario-name,
+.scenarios-page .comparison-setup .scenario-card-mini .scenario-name {
   color: var(--text-primary) !important; /* Dark gray for light mode */
 }
 
-[data-theme="dark"] .modal-content .scenario-card-mini .scenario-name,
-[data-theme="dark"] .comparison-setup .scenario-card-mini .scenario-name {
+[data-theme="dark"] .scenarios-page .modal-content .scenario-card-mini .scenario-name,
+[data-theme="dark"] .scenarios-page .comparison-setup .scenario-card-mini .scenario-name {
   color: var(--text-primary) !important; /* Light gray for dark mode */
 }
 
@@ -549,10 +550,10 @@
 }
 
 /* Ensure scenario badges in modal have proper contrast */
-.modal-content .scenario-type,
-.modal-content .scenario-status,
-.scenario-card-mini .scenario-type,
-.scenario-card-mini .scenario-status {
+.scenarios-page .modal-content .scenario-type,
+.scenarios-page .modal-content .scenario-status,
+.scenarios-page .scenario-card-mini .scenario-type,
+.scenarios-page .scenario-card-mini .scenario-status {
   padding: 0.25rem 0.5rem;
   border-radius: 4px;
   font-size: 0.75rem;
@@ -560,38 +561,38 @@
   text-transform: uppercase;
 }
 
-.modal-content .scenario-type.baseline,
-.scenario-card-mini .scenario-type.baseline {
+.scenarios-page .modal-content .scenario-type.baseline,
+.scenarios-page .scenario-card-mini .scenario-type.baseline {
   background: var(--badge-success-bg) !important;
   color: var(--badge-success-text) !important;
 }
 
-.modal-content .scenario-type.branch,
-.scenario-card-mini .scenario-type.branch {
+.scenarios-page .modal-content .scenario-type.branch,
+.scenarios-page .scenario-card-mini .scenario-type.branch {
   background: var(--scenario-branch-soft) !important;
   color: var(--scenario-branch-text) !important;
 }
 
-.modal-content .scenario-type.sandbox,
-.scenario-card-mini .scenario-type.sandbox {
+.scenarios-page .modal-content .scenario-type.sandbox,
+.scenarios-page .scenario-card-mini .scenario-type.sandbox {
   background: var(--scenario-sandbox-soft) !important;
   color: var(--scenario-sandbox-text) !important;
 }
 
-.modal-content .scenario-status.active,
-.scenario-card-mini .scenario-status.active {
+.scenarios-page .modal-content .scenario-status.active,
+.scenarios-page .scenario-card-mini .scenario-status.active {
   background: var(--badge-success-bg) !important;
   color: var(--badge-success-text) !important;
 }
 
-.modal-content .scenario-status.draft,
-.scenario-card-mini .scenario-status.draft {
+.scenarios-page .modal-content .scenario-status.draft,
+.scenarios-page .scenario-card-mini .scenario-status.draft {
   background: var(--badge-warning-bg) !important;
   color: var(--badge-warning-text) !important;
 }
 
-.modal-content .scenario-status.archived,
-.scenario-card-mini .scenario-status.archived {
+.scenarios-page .modal-content .scenario-status.archived,
+.scenarios-page .scenario-card-mini .scenario-status.archived {
   background: var(--bg-tertiary) !important;
   color: var(--text-tertiary) !important;
 }
@@ -638,14 +639,14 @@
 }
 
 /* Ensure modal-large is properly sized */
-.modal-large {
+.scenarios-page .modal-large {
   max-width: 900px !important;
   width: 90vw !important;
   height: auto !important;
   max-height: 90vh !important;
 }
 
-.modal-large .modal-body {
+.scenarios-page .modal-large .modal-body {
   min-height: 300px;
   max-height: calc(90vh - 160px);
   overflow-y: auto;
@@ -663,11 +664,11 @@
   font-size: 0.875rem;
 }
 
-.form-group {
+.scenarios-page .form-group {
   margin-bottom: 1rem;
 }
 
-.form-group label {
+.scenarios-page .form-group label {
   display: block;
   margin-bottom: 0.5rem;
   color: var(--text-primary);
@@ -675,9 +676,9 @@
   font-size: 0.875rem;
 }
 
-.form-group input,
-.form-group textarea,
-.form-group select {
+.scenarios-page .form-group input,
+.scenarios-page .form-group textarea,
+.scenarios-page .form-group select {
   width: 100%;
   padding: 0.75rem;
   border: 1px solid var(--border-color);
@@ -688,19 +689,19 @@
   transition: border-color 0.2s;
 }
 
-.form-group input:focus,
-.form-group textarea:focus,
-.form-group select:focus {
+.scenarios-page .form-group input:focus,
+.scenarios-page .form-group textarea:focus,
+.scenarios-page .form-group select:focus {
   outline: none;
   border-color: var(--primary);
 }
 
-.form-group textarea {
+.scenarios-page .form-group textarea {
   resize: vertical;
   min-height: 4rem;
 }
 
-.modal-footer {
+.scenarios-page .modal-footer {
   display: flex;
   justify-content: flex-end;
   gap: 1rem;

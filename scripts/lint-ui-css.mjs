@@ -15,6 +15,7 @@ import { readFileSync, readdirSync, existsSync } from 'node:fs';
 import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { execSync } from 'node:child_process';
+import { SHARED_CLASSES, ALLOWLIST, isAllowlisted, allowlistExpiry, isOwnerFile } from './lib/shared-ui-classes.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const files = [
@@ -281,6 +282,40 @@ for (const rel of [...utilScanFiles, ...listCss('client/src/styles', true)]) {
   }
 }
 
+// ── 规则 6: 共享组件类所有权（D-03 v1，2026-11-10 同类排查）──
+// 页面/组件 CSS 裸定义或派生覆盖共享组件类（.form-group input / .modal-header h3）
+// 会随路由 CSS 全量加载泄漏到同路由及后续访问页面。只认“选择器左端锚点”：
+// 左端复合选择器命中共享类即报；`.page-root .shared` 这种作用域前缀合法。
+export function matchSharedClassLeaks(source) {
+  const stripped = String(source).replace(/\/\*[\s\S]*?\*\//g, (c) => c.replace(/[^\n]/g, ' '));
+  const hits = [];
+  for (const m of stripped.matchAll(/([^{}]+)\{([^{}]*)\}/g)) {
+    const sel = m[1].trim();
+    if (!sel || sel.startsWith('@') || sel.includes('@')) continue;
+    for (const raw of sel.split(',')) {
+      const item = raw.replace(/\s+/g, ' ').trim();
+      const lm = item.match(/^(?:[a-z][\w-]*)?\.([a-zA-Z][\w-]*)/);
+      if (!lm) continue;
+      if (SHARED_CLASSES.has(lm[1])) hits.push({ selector: item, class: lm[1], index: m.index });
+    }
+  }
+  return hits;
+}
+
+const allowlistSeen = new Set();
+for (const rel of [...utilScanFiles, ...listCss('client/src/styles', true)]) {
+  if (isOwnerFile(rel)) continue;
+  const text = readFileSync(resolve(root, rel), 'utf8');
+  for (const hit of matchSharedClassLeaks(text)) {
+    if (isAllowlisted(rel, hit.class)) { allowlistSeen.add(`${rel} :: .${hit.class}`); continue; }
+    const line = text.slice(0, hit.index).split('\n').length;
+    violations.push(`${rel}:${line} 「${hit.selector}」 裸定义/派生覆盖共享组件类 .${hit.class} → 会随路由泄漏到其他页;请写 .页面根 .${hit.class} 或迁移共享原语（冻结违例见 shared-ui-classes.mjs，到期 ${allowlistExpiry()}）`);
+  }
+}
+for (const key of ALLOWLIST.keys()) {
+  if (!allowlistSeen.has(key)) console.log(`note: 共享类白名单条目已无对应违例,可删除: ${key}`);
+}
+
 // 白名单腐化提示(不拦门): 存量清掉后条目要及时删,防止清单变成永久豁免
 for (const k of UTIL_ALLOWLIST) {
   if (!allowlistedSeen.has(k)) console.log(`note: 工具类白名单条目已无对应违例,可删除: ${k}`);
@@ -376,6 +411,22 @@ if (process.env.SELF_TEST === '1') {
     process.exit(1);
   }
   console.log('SELF-TEST PASS: 交互态几何位移检测器(7 例)——生产函数直调');
+
+  // 规则 6 自证: 共享类裸定义/派生必红;页面根作用域/近似类名必绿
+  const sharedCases = [
+    ['.form-group input{margin:0}', true],
+    ['.modal-header h3{color:red}', true],
+    ['.badge{padding:0}', true],
+    ['.import-container .form-group input{margin:0}', false],
+    ['.scenarios-page .modal-content{padding:0}', false],
+    ['.form-group-x input{margin:0}', false],
+  ];
+  const sharedFails = sharedCases.filter(([src, expect]) => (matchSharedClassLeaks(src).length > 0) !== expect);
+  if (sharedFails.length) {
+    console.error(`SELF-TEST FAIL: 共享类所有权检测器失灵 ${JSON.stringify(sharedFails.map(([s]) => s))}`);
+    process.exit(1);
+  }
+  console.log('SELF-TEST PASS: 共享类所有权检测器(6 例)——生产函数直调');
 
   // 任务B收口②③: 主色 hsl 家族检测器——评审注入案例入仓,直接调生产函数
   const hslCases = [

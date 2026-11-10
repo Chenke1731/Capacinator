@@ -14768,13 +14768,13 @@
           "family": "btn btn-sm btn-danger quick-action-btn|",
           "text": "减少负荷",
           "foreground": "rgb(185, 28, 28)",
-          "background": "rgba(247, 189, 189, 0.365)",
+          "background": "rgba(252, 214, 214, 0.63)",
           "effectiveBackground": [
-            252.08235294117645,
-            230.9294117647059,
-            230.9294117647059
+            253.10588235294117,
+            229.11372549019606,
+            229.11372549019606
           ],
-          "contrast": 5.458787838432032,
+          "contrast": 5.402031618275549,
           "textual": true,
           "disabled": false,
           "width": 94.015625,
@@ -30188,13 +30188,13 @@
           "family": "btn btn-sm btn-danger quick-action-btn|",
           "text": "减少负荷",
           "foreground": "rgb(255, 255, 255)",
-          "background": "rgba(192, 33, 33, 0.66)",
+          "background": "rgba(197, 37, 37, 0.525)",
           "effectiveBackground": [
-            131.63529411764705,
-            29.929411764705883,
-            35.04705882352941
+            112.11372549019607,
+            30.305882352941175,
+            37.423529411764704
           ],
-          "contrast": 9.6129314401305,
+          "contrast": 11.014875956932281,
           "textual": true,
           "disabled": false,
           "width": 94.015625,

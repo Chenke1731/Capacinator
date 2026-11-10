@@ -30,6 +30,9 @@ export const profiles = {
   // I01 收件箱（2026-11-10）:新页面上守卫——ready 收紧到表格出现（避开加载态,
   // 行操作/筛选/展开钮全量过检查器;空态只有工具栏 3 元素会假阴）
   intake: {path:'/projects?tab=intake',root:'.intake-inbox',ready:'table.intake-table',minElements:10,scroll:'.intake-table'},
+  // 1366 档（2026-11-10 同类排查）：历史布局事故高发视口；空态工具栏 4 控件
+  'intake-1366': {path:'/projects?tab=intake',root:'.intake-inbox',ready:'[data-testid="intake-inbox"]',minElements:4,viewport:{width:1366,height:900}},
+  'people-1366': {path:'/people',root:'main',ready:'table',minElements:5,viewport:{width:1366,height:900}},
   roadmap: {path:'/projects?tab=roadmap',root:'.project-roadmap',ready:'.interactive-timeline',minElements:8,scroll:'.timeline-scroll-container',safeTriggers:'.nav-btn, .today-btn, .zoom-controls button',requiredTriggers:5},
   'project-detail': {path:'/projects/project-1789912193111-zikdnz8c5',root:'main > .max-w-7xl',ready:'.chart-container .chart-tab',minElements:8,safeTriggers:'.chart-tab'},
   'project-detail-phases': {path:'/projects/:audit-id',entity:'phased-project',root:'main > .max-w-7xl',ready:'.project-phase-timeline .timeline-container',minElements:5,safeTriggers:'.chart-tab',scrollInto:'.chart-container'},

@@ -656,7 +656,7 @@ export default function Assignments() {
   );
 
   return (
-    <div className="page-container">
+    <div className="page-container assignments-page">
       <div className="page-header">
         <div>
           <h1>{t('assignments:title')}</h1>

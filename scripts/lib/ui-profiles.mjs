@@ -27,6 +27,9 @@ function persistFixture(update) {
 // Roots are real production DOM. Profiles describe setup, never excuse a failed measurement.
 export const profiles = {
   projects: {path:'/projects',root:'.projects-board',ready:'[data-testid="requirements-table"]',minElements:20,scroll:'.requirements-table',fonts:[10,11,12.5,13,14]},
+  // I01 收件箱（2026-11-10）:新页面上守卫——ready 收紧到表格出现（避开加载态,
+  // 行操作/筛选/展开钮全量过检查器;空态只有工具栏 3 元素会假阴）
+  intake: {path:'/projects?tab=intake',root:'.intake-inbox',ready:'table.intake-table',minElements:10,scroll:'.intake-table'},
   roadmap: {path:'/projects?tab=roadmap',root:'.project-roadmap',ready:'.interactive-timeline',minElements:8,scroll:'.timeline-scroll-container',safeTriggers:'.nav-btn, .today-btn, .zoom-controls button',requiredTriggers:5},
   'project-detail': {path:'/projects/project-1789912193111-zikdnz8c5',root:'main > .max-w-7xl',ready:'.chart-container .chart-tab',minElements:8,safeTriggers:'.chart-tab'},
   'project-detail-phases': {path:'/projects/:audit-id',entity:'phased-project',root:'main > .max-w-7xl',ready:'.project-phase-timeline .timeline-container',minElements:5,safeTriggers:'.chart-tab',scrollInto:'.chart-container'},

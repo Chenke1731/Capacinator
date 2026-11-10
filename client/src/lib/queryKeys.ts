@@ -272,6 +272,16 @@ export const queryKeys = {
     items: () => [...queryKeys.iterations.all, 'items'] as const,
   },
 
+  // Intake (I01 需求收件箱): 捕获/收件箱列表/计数/分流结果——转换成功
+  // 除 intake.all 外还必须失效 projects.all（board-feed/board 数据面变化）
+  intake: {
+    all: ['intake'] as const,
+    list: (filters?: Record<string, unknown>) =>
+      [...queryKeys.intake.all, 'list', filters ?? {}] as const,
+    detail: (id: string) => [...queryKeys.intake.all, 'detail', id] as const,
+    counts: () => [...queryKeys.intake.all, 'counts'] as const,
+  },
+
   // Scenarios
   scenarios: {
     all: ['scenarios'] as const,

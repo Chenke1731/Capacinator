@@ -28,4 +28,21 @@ describe('集成库由 migrations 建出 (IP-01)', () => {
     // knex 落库形态: check (`status` in ('active','archived','merged')) —— 反引号列名
     expect(row?.sql).toMatch(/check\s*\(\s*`?status`?\s+in/i);
   });
+
+  test('demand_intake 表 + rejected 豁免唯一索引在库（I01 / 074）', async () => {
+    const tables = await db('sqlite_master').where({ type: 'table' }).select('name');
+    expect(tables.map((t: { name: string }) => t.name)).toContain('demand_intake');
+
+    // 074 的关键语义：部分唯一索引排除 rejected（被拒编号可重新捕获）。
+    // 手写 DDL/旧迁移回退都会丢 WHERE 子句——指纹必须钉住。
+    const indexes = await db('sqlite_master').where({ type: 'index' }).select('name', 'sql');
+    const unique = indexes.find((i: { name: string }) => i.name === 'idx_demand_intake_source_ref_unique');
+    expect(unique?.sql).toMatch(/source_channel/i);
+    expect(unique?.sql).toMatch(/status\s*<>\s*'rejected'/i);
+
+    // status/source_channel 的 CHECK 同样来自 074（table.enum 落库形态）
+    const [row] = await db('sqlite_master').where({ type: 'table', name: 'demand_intake' }).select('sql');
+    expect(row?.sql).toMatch(/check\s*\(\s*`?status`?\s+in/i);
+    expect(row?.sql).toMatch(/check\s*\(\s*`?source_channel`?\s+in/i);
+  });
 });

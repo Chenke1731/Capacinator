@@ -91,3 +91,14 @@ export type {
   ScenarioComparison,
   ScenarioAssignmentsView,
 } from './scenarios.js';
+
+// Intake types (I01 需求收件箱)
+export type {
+  IntakeSourceChannel,
+  IntakeStatus,
+  DemandIntake,
+  IntakeCaptureInput,
+  IntakeConvertInput,
+  IntakeConvertResult,
+} from './intake.js';
+export { INTAKE_SOURCE_CHANNELS } from './intake.js';

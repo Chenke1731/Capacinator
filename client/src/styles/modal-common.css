@@ -25,7 +25,6 @@
 .modal-container,
 .modal-content,
 .modal,
-[role="dialog"] > div:first-child,
 .ReactModal__Content,
 .dialog-content {
   background: var(--bg-primary) !important; /* Solid white/theme background */

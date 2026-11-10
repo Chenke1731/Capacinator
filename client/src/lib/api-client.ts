@@ -13,6 +13,10 @@ import type {
   ProjectPhase,
   ProjectPhaseTimeline,
   Scenario,
+  DemandIntake,
+  IntakeCaptureInput,
+  IntakeConvertInput,
+  IntakeConvertResult,
   PaginationParams,
   PaginatedResponse,
   // API Response types(2026-10-13 批清: 导入名对齐 types/api-responses.ts 实际导出——
@@ -817,6 +821,52 @@ export const api = {
       apiClient.patch<{ data: any }>(`/pool-demands/${id}`, data),
     delete: (id: string) =>
       apiClient.delete<{ data: { id: string } }>(`/pool-demands/${id}`),
+  },
+
+  // I01 需求收件箱（收件-first，类型后置；信封 success+data，捕获带 warnings）
+  intake: {
+    capture: (data: IntakeCaptureInput) =>
+      apiClient.post<{ success: true; data: DemandIntake; warnings: { type: string; existing_id: string }[] }>(
+        '/intake',
+        data
+      ),
+    captureBatch: (items: IntakeCaptureInput[]) =>
+      apiClient.post<{
+        success: true;
+        data: {
+          created: DemandIntake[];
+          skipped: { index: number; reason: string; existing_id?: string }[];
+        };
+      }>('/intake/batch', { items }),
+    list: (params?: {
+      status?: string;
+      source_channel?: string;
+      q?: string;
+      page?: number;
+      limit?: number;
+      sort?: 'oldest' | 'newest';
+    }) =>
+      apiClient.get<{
+        success: true;
+        data: DemandIntake[];
+        pagination: { page: number; limit: number; total: number; totalPages: number };
+      }>('/intake', { params }),
+    counts: () =>
+      apiClient.get<{
+        success: true;
+        data: { new: number; converted: number; rejected: number; by_source: Record<string, number> };
+      }>('/intake/counts'),
+    get: (id: string) => apiClient.get<{ success: true; data: DemandIntake }>(`/intake/${id}`),
+    update: (id: string, data: Partial<IntakeCaptureInput>) =>
+      apiClient.patch<{ success: true; data: DemandIntake }>(`/intake/${id}`, data),
+    convert: (id: string, data: IntakeConvertInput) =>
+      apiClient.post<{ success: true; message?: string; data: IntakeConvertResult }>(
+        `/intake/${id}/convert`,
+        data
+      ),
+    reject: (id: string, reason: string) =>
+      apiClient.post<{ success: true; data: DemandIntake }>(`/intake/${id}/reject`, { reason }),
+    remove: (id: string) => apiClient.delete<{ success: true }>(`/intake/${id}`),
   },
 
   // 迭代域(BOARD_REDESIGN_2026-09-23 §9): 执行窗口的唯一日期真相

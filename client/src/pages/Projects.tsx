@@ -20,6 +20,7 @@ import { TagManagerDialog } from '../components/tags/TagManagerDialog';
 import { useModal } from '../hooks/useModal';
 import { useMutationFailureToaster } from '../hooks/useMutationFailureToaster';
 import { useScenario } from '../contexts/ScenarioContext';
+import { useIntakeCapture } from '../contexts/IntakeCaptureContext';
 import { useUser } from '../contexts/UserContext';
 import { TASK_VIEW_IDS, countByTaskView, taskViewPredicate, type TaskViewId } from '../lib/taskViews';
 import { categoryOfTypeName } from '../lib/projectCategories';
@@ -305,6 +306,7 @@ export function Projects() {
   const queryClient = useQueryClient();
   const { t } = useTranslation();
   const { currentScenario } = useScenario();
+  const { openCapture } = useIntakeCapture();
 
   /** U20 URL 视图状态: 筛选/任务视图/同类告警/列预设入 URL——可分享、
    *  刷新/返回即恢复;后续变化 replace 写回(不刷历史栈) */
@@ -1108,6 +1110,11 @@ export function Projects() {
           <button className="board-ghost-btn" onClick={() => setTagManagerOpen(true)}>
             <Tag size={14} />
             {t('projects:tags.manageButton')}
+          </button>
+          {/* I01 快速录入：与顶栏/Alt+N 同一捕捉 Dialog（板内按钮被板级 reset，须带 hit-24） */}
+          <button className="board-ghost-btn hit-24" onClick={openCapture} data-testid="board-capture-btn">
+            <Plus size={14} />
+            {t('intake:capture.boardButton')}
           </button>
           <button className="board-primary-btn" onClick={addProjectModal.open}>
             <Plus size={15} />

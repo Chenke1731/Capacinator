@@ -9,10 +9,12 @@ import {
   Wifi,
   WifiOff,
   ChevronDown,
-  LogOut
+  LogOut,
+  Plus
 } from 'lucide-react';
 import { useUser } from '../contexts/UserContext';
 import { useScenario } from '../contexts/ScenarioContext';
+import { useIntakeCapture } from '../contexts/IntakeCaptureContext';
 import { useTheme } from '../contexts/ThemeContext';
 import { useLanguage } from '../hooks/useLanguage';
 import { getLocale } from '../i18n';
@@ -29,6 +31,7 @@ export const AppHeader: React.FC = () => {
   const { currentScenario, scenarios, setCurrentScenario, isLoading } = useScenario();
   const { theme, toggleTheme } = useTheme();
   const { language, setLanguage } = useLanguage();
+  const { openCapture } = useIntakeCapture();
   const [currentTime, setCurrentTime] = useState(new Date());
   const [isOnline, setIsOnline] = useState(navigator.onLine);
   const [isScenarioDropdownOpen, setIsScenarioDropdownOpen] = useState(false);
@@ -180,6 +183,18 @@ export const AppHeader: React.FC = () => {
 
       <div className="header-right">
         <div className="header-controls">
+          {/* I01 全局快速捕捉入口（Alt+N 等价） */}
+          <button
+            className="header-capture-btn"
+            onClick={openCapture}
+            title={`${t('intake:capture.headerButton')} (Alt+N)`}
+            aria-label={t('intake:capture.headerButton')}
+            data-testid="header-capture-btn"
+          >
+            <Plus size={14} />
+            <span>{t('intake:capture.headerButton')}</span>
+          </button>
+
           <button
             className="theme-toggle"
             onClick={toggleTheme}

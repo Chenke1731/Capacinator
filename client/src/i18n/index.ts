@@ -23,6 +23,7 @@ import auditLogEn from './locales/en-US/auditLog.json';
 import phasesEn from './locales/en-US/phases.json';
 import rolesEn from './locales/en-US/roles.json';
 import gitSyncEn from './locales/en-US/gitSync.json';
+import intakeEn from './locales/en-US/intake.json';
 
 import commonZh from './locales/zh-CN/common.json';
 import navigationZh from './locales/zh-CN/navigation.json';
@@ -45,6 +46,7 @@ import auditLogZh from './locales/zh-CN/auditLog.json';
 import phasesZh from './locales/zh-CN/phases.json';
 import rolesZh from './locales/zh-CN/roles.json';
 import gitSyncZh from './locales/zh-CN/gitSync.json';
+import intakeZh from './locales/zh-CN/intake.json';
 
 export const LANGUAGE_STORAGE_KEY = 'capacinator-language';
 
@@ -77,6 +79,7 @@ export const NAMESPACES = [
   'phases',
   'roles',
   'gitSync',
+  'intake',
 ] as const;
 
 const enResources = {
@@ -101,6 +104,7 @@ const enResources = {
   phases: phasesEn,
   roles: rolesEn,
   gitSync: gitSyncEn,
+  intake: intakeEn,
 };
 
 const zhResources = {
@@ -125,6 +129,7 @@ const zhResources = {
   phases: phasesZh,
   roles: rolesZh,
   gitSync: gitSyncZh,
+  intake: intakeZh,
 };
 
 const resources = {

@@ -90,5 +90,16 @@ export type {
   ScenarioAssignmentsView,
 } from '../../../shared/types/scenarios';
 
+// Intake types (I01 需求收件箱)
+export type {
+  IntakeSourceChannel,
+  IntakeStatus,
+  DemandIntake,
+  IntakeCaptureInput,
+  IntakeConvertInput,
+  IntakeConvertResult,
+} from '../../../shared/types/intake';
+export { INTAKE_SOURCE_CHANNELS } from '../../../shared/types/intake';
+
 // API Response types (for api-client.ts)
 export * from './api-responses';

@@ -35,6 +35,7 @@ import recommendationsRoutes from './recommendations.js';
 import authRoutes from './auth.js';
 import syncRoutes from './sync.js';
 import githubConnectionsRoutes from './github-connections.js';
+import intakeRoutes from './intake.js';
 // Note: createAuditRoutes and getAuditService removed - unused imports
 import type { RequestWithLogging } from '../../middleware/requestLogger.js';
 
@@ -51,6 +52,7 @@ router.use('/github-connections', githubConnectionsRoutes);
 
 // Mount all route modules
 router.use('/projects', projectRoutes);
+router.use('/intake', intakeRoutes);
 router.use('/people', peopleRoutes);
 router.use('/roles', rolesRoutes);
 router.use('/locations', locationsRoutes);

@@ -6,6 +6,7 @@ import './i18n';
 import { UserProvider, useUser } from './contexts/UserContext';
 import { ScenarioProvider } from './contexts/ScenarioContext';
 import { ThemeProvider } from './contexts/ThemeContext';
+import { IntakeCaptureProvider } from './contexts/IntakeCaptureContext';
 import { Layout } from './components/Layout';
 import { Login } from './components/Login';
 import { Toaster } from './components/ui/toaster';
@@ -81,8 +82,10 @@ const AppContent: React.FC = () => {
   return (
     <>
       {DevPanel && <DevPanel />}
-      <Layout>
-        <Routes>
+      {/* I01 全局快速捕捉：Layout(AppHeader)与各页经 useIntakeCapture 唤起同一 Dialog */}
+      <IntakeCaptureProvider>
+        <Layout>
+          <Routes>
           <Route path="/" element={<Navigate to="/dashboard" replace />} />
           <Route path="/dashboard" element={page(<Dashboard />)} />
           <Route path="/projects" element={page(<ProjectsUnified />)} />
@@ -111,7 +114,8 @@ const AppContent: React.FC = () => {
           <Route path="/settings" element={page(<Settings />)} />
           <Route path="*" element={page(<NotFound />)} />
         </Routes>
-      </Layout>
+        </Layout>
+      </IntakeCaptureProvider>
       {!isLoggedIn && <Login />}
     </>
   );

@@ -37698,6 +37698,95 @@
         "overutilized": [],
         "skillMatches": []
       }
+    },
+    "/api/intake/counts": {
+      "status": 200,
+      "body": {
+        "success": true,
+        "data": {
+          "new": 3,
+          "converted": 0,
+          "rejected": 0,
+          "by_source": {
+            "internal": 3
+          }
+        },
+        "requestId": "3c492b71-930e-464d-98f6-d4a3c8366908"
+      }
+    },
+    "/api/intake?status=new&limit=200": {
+      "status": 200,
+      "body": {
+        "success": true,
+        "data": [
+          {
+            "id": "intake-1794294953407-jkgdb41ey",
+            "title": "守卫-收件箱走查1",
+            "raw_text": null,
+            "source_channel": "internal",
+            "source_ref": "AUD-1",
+            "requester": null,
+            "priority_hint": null,
+            "expected_start": null,
+            "expected_finish": null,
+            "note": null,
+            "status": "new",
+            "reject_reason": null,
+            "converted_project_id": null,
+            "converted_at": null,
+            "created_by": null,
+            "created_at": "2026-11-10T07:15:53.407Z",
+            "updated_at": "2026-11-10T07:15:53.407Z"
+          },
+          {
+            "id": "intake-1794294953424-02xfdvrdz",
+            "title": "守卫-收件箱走查2",
+            "raw_text": null,
+            "source_channel": "internal",
+            "source_ref": "AUD-2",
+            "requester": null,
+            "priority_hint": null,
+            "expected_start": null,
+            "expected_finish": null,
+            "note": null,
+            "status": "new",
+            "reject_reason": null,
+            "converted_project_id": null,
+            "converted_at": null,
+            "created_by": null,
+            "created_at": "2026-11-10T07:15:53.424Z",
+            "updated_at": "2026-11-10T07:15:53.424Z"
+          },
+          {
+            "id": "intake-1794294953435-q23mus20a",
+            "title": "守卫-收件箱走查3",
+            "raw_text": null,
+            "source_channel": "internal",
+            "source_ref": "AUD-3",
+            "requester": null,
+            "priority_hint": null,
+            "expected_start": null,
+            "expected_finish": null,
+            "note": null,
+            "status": "new",
+            "reject_reason": null,
+            "converted_project_id": null,
+            "converted_at": null,
+            "created_by": null,
+            "created_at": "2026-11-10T07:15:53.435Z",
+            "updated_at": "2026-11-10T07:15:53.435Z"
+          }
+        ],
+        "pagination": {
+          "page": 1,
+          "limit": 200,
+          "total": 3,
+          "totalPages": 1,
+          "hasNextPage": false,
+          "hasPrevPage": false
+        },
+        "requestId": "9693a02b-fa6e-4f29-9fa1-4839c3db1eaf"
+      }
     }
   },
   "entities": {

@@ -1,0 +1,133 @@
+/* I01 快速捕捉弹层 —— 仅本组件布局细节；颜色一律内联走应用令牌
+   (白盒事故硬化:不引入任何依赖 PortalThemeProvider 复制链的颜色类) */
+
+.qc-mode-btn {
+  display: inline-flex;
+  align-items: center;
+  height: 26px;
+  /* 全局触控规则 min-height/min-width:44 会撑大分段键（实测 44×70）——
+     显式重置，命中档仍 ≥24 */
+  min-height: 26px;
+  min-width: 0;
+  padding: 0 10px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  font-size: var(--b-fs-caption, 12px);
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.qc-mode-btn:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 1px;
+}
+
+.qc-preview-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 8px;
+  border-radius: 8px;
+}
+
+.qc-preview-title {
+  flex: 1;
+  min-width: 0;
+  background: transparent;
+  border: 1px solid transparent;
+}
+
+.qc-preview-title:focus {
+  border-color: var(--input-focus-border, var(--border-color));
+  background: var(--input-bg, transparent);
+}
+
+.qc-preview-chip {
+  flex-shrink: 0;
+  font-size: var(--b-fs-caption, 12px);
+  white-space: nowrap;
+}
+
+.qc-preview-ref {
+  max-width: 12rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-variant-numeric: tabular-nums;
+}
+
+.qc-more-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  height: 26px;
+  min-height: 24px;
+  min-width: 0;
+  padding: 0 4px;
+  border: none;
+  background: transparent;
+  font-size: var(--b-fs-caption, 12px);
+  cursor: pointer;
+}
+
+.qc-more-toggle:hover {
+  color: var(--text-primary);
+}
+
+.qc-more-toggle:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 1px;
+}
+
+/* 已识别 chips：贴着输入区的解析反馈，按钮型 chip 重置全局 button 尺寸/底色 */
+.qc-parsed {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.qc-parsed-label {
+  font-size: var(--b-fs-caption, 12px);
+}
+
+.qc-chip {
+  display: inline-flex;
+  align-items: center;
+  min-width: 0;
+  min-height: 0;
+  padding: 1px 8px;
+  border: 1px solid var(--border-color);
+  border-radius: 999px;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  font-size: var(--b-fs-caption, 12px);
+  font-variant-numeric: tabular-nums;
+  line-height: 1.6;
+  white-space: nowrap;
+  cursor: default;
+}
+
+button.qc-chip {
+  cursor: pointer;
+}
+
+button.qc-chip:hover {
+  background: var(--bg-tertiary);
+}
+
+button.qc-chip:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 1px;
+}
+
+/* 主按钮的 Enter 提示键帽 */
+.qc-kbd {
+  margin-left: 6px;
+  padding: 0 4px;
+  border: 1px solid color-mix(in srgb, var(--solid-foreground) 45%, transparent);
+  border-radius: 4px;
+  font-family: var(--font-mono, monospace);
+  font-size: 11px;
+  line-height: 1.5;
+  opacity: 0.85;
+}

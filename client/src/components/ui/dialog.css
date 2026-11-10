@@ -1,0 +1,129 @@
+/* dialog.css —— shadcn Dialog 的共享原语收口（2026-11-10 I01 视觉修复）
+ *
+ * 背景：Tailwind v4 的工具类位于 @layer utilities，而本项目的 index.css /
+ * design-system.css 是**未分层** CSS——未分层规则天然压过所有工具类，
+ * 与特异度无关。实锤两例：
+ * ① design-system `button{position:relative}` 压掉关闭钮的 `absolute
+ *    right-4 top-4` → 按钮掉进 grid 流：底部多 44px 空行、× 出现在左下角；
+ * ② index `button{background-color:var(--bg-secondary)}` 压掉主按钮的
+ *    `bg-blue-600 text-white` → 主次按钮同灰、操作层级消失。
+ *
+ * 修复模式遵循 CLAUDE.md 的"自定义控件先查全局元素级规则并显式重置"：
+ * 用**未分层、类选择器**的对话原语显式声明全部相关属性（位置/尺寸/底色/
+ * hover/active/disabled），类特异度 (0,1,0) 高于元素规则 (0,0,1)。
+ * 所有 Dialog / 弹层按钮共用，禁止逐弹窗打补丁。
+ */
+
+/* 关闭钮：钉在右上角（32×32，不再被全局 44px 触控规则撑大） */
+.dialog-close-btn {
+  position: absolute !important;
+  top: 1rem !important;
+  right: 1rem !important;
+  left: auto !important;
+  bottom: auto !important;
+  width: 32px !important;
+  height: 32px !important;
+  min-width: 32px !important;
+  min-height: 32px !important;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  border-radius: 6px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  z-index: 10;
+}
+
+.dialog-close-btn:hover {
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+}
+
+.dialog-close-btn:active {
+  transform: translateY(0);
+}
+
+.dialog-close-btn:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 1px;
+}
+
+/* 弹层表单控件统一材质（2026-11-10）：
+ * SelectTrigger 是 <button>，shadcn 的 `h-10 border-input bg-background`
+ * 工具类会被未分层 `button{padding/background}` 规则压掉——实测同排
+ * Select 44px 灰底无边框、Input 40px 白底灰边框，视觉错位。类选择器
+ * (0,1,0) 显式重置为与 Input 一致的 40px/白底/描边。 */
+.dialog-field {
+  height: 40px;
+  min-height: 40px;
+  min-width: 0;
+  padding: 0 12px;
+  background-color: var(--bg-primary) !important;
+  color: var(--text-primary) !important;
+  border: 1px solid var(--input-border, var(--border-color)) !important;
+  border-radius: 8px;
+}
+
+.dialog-field:hover {
+  background-color: var(--bg-primary) !important;
+  border-color: var(--border-color) !important;
+}
+
+.dialog-field:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 1px;
+}
+
+/* 弹层主操作：实心主色（--primary-solid 是本项目实心底唯一口径） */
+.dialog-primary-btn {
+  background-color: var(--primary-solid) !important;
+  color: var(--solid-foreground) !important;
+  border: 1px solid var(--primary-solid) !important;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-weight: 500;
+}
+
+.dialog-primary-btn:hover {
+  background-color: var(--primary-solid) !important;
+  filter: brightness(0.92);
+}
+
+.dialog-primary-btn:active {
+  background-color: var(--primary-solid) !important;
+  filter: brightness(0.85);
+  transform: translateY(0);
+}
+
+.dialog-primary-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  filter: none;
+}
+
+/* 弹层次操作：透明底 + 描边 */
+.dialog-secondary-btn {
+  background-color: transparent !important;
+  color: var(--text-primary) !important;
+  border: 1px solid var(--border-color) !important;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-weight: 500;
+}
+
+.dialog-secondary-btn:hover {
+  background-color: var(--bg-tertiary) !important;
+}
+
+.dialog-secondary-btn:active {
+  background-color: var(--bg-tertiary) !important;
+  transform: translateY(0);
+}
+
+.dialog-secondary-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

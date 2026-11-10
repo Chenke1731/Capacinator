@@ -1,5 +1,5 @@
 import React from 'react';
-import { FolderKanban, GanttChart, Palette, Inbox, ListTodo, Boxes } from 'lucide-react';
+import { FolderKanban, GanttChart, Palette, Inbox, ListTodo, Boxes, FileInput } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 // Import existing page components
@@ -9,6 +9,7 @@ import { AffairsBoard } from './AffairsBoard';
 import ProjectRoadmap from './ProjectRoadmap';
 import ProjectTypes from './ProjectTypes';
 import { Components } from './Components';
+import { IntakeInbox } from './IntakeInbox';
 
 // Import the new unified tab component
 import { UnifiedTabComponent, type UnifiedTabConfig } from '../components/ui/UnifiedTabComponent';
@@ -27,6 +28,13 @@ export default function ProjectsUnified() {
 
   // Tab labels are defined inside the component so they re-evaluate on language switch
   const tabs: UnifiedTabConfig[] = [
+    {
+      // I01 收件箱：需求的出生地（捕获→分流），排需求台之前；/projects 默认仍是需求台
+      id: 'intake',
+      label: t('intake:tab'),
+      icon: FileInput,
+      component: IntakeInbox
+    },
     {
       id: 'demand',
       label: t('projects:tabs.demand'),

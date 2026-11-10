@@ -304,9 +304,9 @@ COMMIT
 
 | 入口 | 行为 |
 |---|---|
-| 顶栏「＋ 录入」按钮 | 打开全局捕捉 Dialog |
+| 收件箱页「＋ 录入」按钮 | 页面级主按钮——捕捉属于收件箱这个域动作，不占全局 chrome（2026-11-10 层次裁决：顶栏按钮已撤） |
 | 快捷键 `Alt+N` | 全局打开（用 `event.code === 'KeyN'`，避免 mac Alt 组合键 `event.key` 异常；输入框内不拦截） |
-| 需求台工具栏「快速录入」 | 打开同一 Dialog |
+| 需求台工具栏「快速录入」 | 打开同一 Dialog（页面级入口，保留） |
 | 项目 tab「收件箱」 | 进入 `/projects?tab=intake` |
 
 全局 Provider：`client/src/contexts/IntakeCaptureContext.tsx`，在 `App.tsx` 的 `AppContent` 内、`Layout` 外层挂载 `<IntakeCaptureProvider>`，Provider 内渲染 `<QuickCaptureDialog />`。`AppHeader` / `Projects` 通过 `useIntakeCapture().open()` 调用。

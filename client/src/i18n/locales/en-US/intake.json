@@ -80,7 +80,7 @@
       "cancel": "Cancel"
     },
     "empty": "Inbox is empty",
-    "emptyHint": "Press Alt+N anywhere to capture a demand in seconds",
+    "emptyHint": "Press Alt+N anywhere, or use Capture above, to add a demand in seconds",
     "loadError": "Failed to load the inbox",
     "retry": "Retry",
     "waitingDays": "{{count}}d",

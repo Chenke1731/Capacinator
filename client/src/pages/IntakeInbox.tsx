@@ -2,11 +2,12 @@ import React, { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
-import { AlertCircle, ChevronDown, ChevronRight, RefreshCw } from 'lucide-react';
+import { AlertCircle, ChevronDown, ChevronRight, Plus, RefreshCw } from 'lucide-react';
 import { api } from '../lib/api-client';
 import { queryKeys } from '../lib/queryKeys';
 import { INTAKE_SOURCE_CHANNELS, type DemandIntake, type IntakeConvertResult } from '../types';
 import { IntakeTriageDialog } from '../components/intake/IntakeTriageDialog';
+import { useIntakeCapture } from '../contexts/IntakeCaptureContext';
 import { ConfirmDialog } from '../components/ui/ConfirmDialog';
 import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
@@ -47,6 +48,8 @@ export function IntakeInbox() {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const { toast } = useToast();
+  // 捕捉是收件箱的页面级动作（顶栏不放：全局 chrome 不承载域动作；Alt+N 仍在）
+  const { openCapture } = useIntakeCapture();
 
   const [status, setStatus] = useState('new');
   const [sourceFilter, setSourceFilter] = useState('');
@@ -212,6 +215,16 @@ export function IntakeInbox() {
             onChange={(e) => setQ(e.target.value)}
             data-testid="intake-search"
           />
+          <button
+            type="button"
+            className="btn btn-primary"
+            onClick={openCapture}
+            title={`${t('intake:capture.headerButton')} (Alt+N)`}
+            data-testid="inbox-capture-btn"
+          >
+            <Plus size={14} />
+            {t('intake:capture.headerButton')}
+          </button>
         </div>
       </div>
 

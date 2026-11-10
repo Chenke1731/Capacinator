@@ -60,6 +60,24 @@
           "font": 14
         },
         {
+          "selector": "[data-testid=\"inbox-capture-btn\"]",
+          "family": "btn btn-primary|",
+          "text": "录入",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 82,
+          "height": 44,
+          "font": 14
+        },
+        {
           "selector": "[data-testid=\"intake-toggle-intake-1794294953407-jkgdb41ey\"]",
           "family": "intake-toggle|",
           "text": "",
@@ -337,6 +355,24 @@
           "disabled": false,
           "width": 220,
           "height": 40,
+          "font": 14
+        },
+        {
+          "selector": "[data-testid=\"inbox-capture-btn\"]",
+          "family": "btn btn-primary|",
+          "text": "录入",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 82,
+          "height": 44,
           "font": 14
         },
         {
@@ -620,6 +656,24 @@
           "font": 14
         },
         {
+          "selector": "[data-testid=\"inbox-capture-btn\"]",
+          "family": "btn btn-primary|",
+          "text": "录入",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 82,
+          "height": 44,
+          "font": 14
+        },
+        {
           "selector": "[data-testid=\"intake-toggle-intake-1794294953407-jkgdb41ey\"]",
           "family": "intake-toggle|",
           "text": "",
@@ -900,17 +954,35 @@
           "font": 14
         },
         {
+          "selector": "[data-testid=\"inbox-capture-btn\"]",
+          "family": "btn btn-primary|",
+          "text": "录入",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 82,
+          "height": 44,
+          "font": 14
+        },
+        {
           "selector": "[data-testid=\"intake-toggle-intake-1794294953407-jkgdb41ey\"]",
           "family": "intake-toggle|",
           "text": "",
           "foreground": "rgb(55, 65, 81)",
-          "background": "rgb(243, 244, 246)",
+          "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
-            243,
-            244,
-            246
+            255,
+            255,
+            255
           ],
-          "contrast": 9.365938485902875,
+          "contrast": 10.307355969735845,
           "textual": false,
           "disabled": false,
           "width": 44,
@@ -1180,17 +1252,35 @@
           "font": 14
         },
         {
+          "selector": "[data-testid=\"inbox-capture-btn\"]",
+          "family": "btn btn-primary|",
+          "text": "录入",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 82,
+          "height": 44,
+          "font": 14
+        },
+        {
           "selector": "[data-testid=\"intake-toggle-intake-1794294953407-jkgdb41ey\"]",
           "family": "intake-toggle|",
           "text": "",
           "foreground": "rgb(55, 65, 81)",
-          "background": "rgba(0, 0, 0, 0)",
+          "background": "rgb(243, 244, 246)",
           "effectiveBackground": [
-            255,
-            255,
-            255
+            243,
+            244,
+            246
           ],
-          "contrast": 10.307355969735845,
+          "contrast": 9.365938485902875,
           "textual": false,
           "disabled": false,
           "width": 44,
@@ -1202,13 +1292,13 @@
           "family": "btn btn-sm|",
           "text": "转为事项",
           "foreground": "rgb(17, 24, 39)",
-          "background": "rgb(243, 244, 246)",
+          "background": "rgb(249, 250, 251)",
           "effectiveBackground": [
-            243,
-            244,
-            246
+            249,
+            250,
+            251
           ],
-          "contrast": 16.119468339438853,
+          "contrast": 16.97538624440406,
           "textual": true,
           "disabled": false,
           "width": 74.015625,
@@ -1460,6 +1550,24 @@
           "font": 14
         },
         {
+          "selector": "[data-testid=\"inbox-capture-btn\"]",
+          "family": "btn btn-primary|",
+          "text": "录入",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 82,
+          "height": 44,
+          "font": 14
+        },
+        {
           "selector": "[data-testid=\"intake-toggle-intake-1794294953407-jkgdb41ey\"]",
           "family": "intake-toggle|",
           "text": "",
@@ -1482,13 +1590,13 @@
           "family": "btn btn-sm|",
           "text": "转为事项",
           "foreground": "rgb(17, 24, 39)",
-          "background": "rgb(249, 250, 251)",
+          "background": "rgb(243, 244, 246)",
           "effectiveBackground": [
-            249,
-            250,
-            251
+            243,
+            244,
+            246
           ],
-          "contrast": 16.97538624440406,
+          "contrast": 16.119468339438853,
           "textual": true,
           "disabled": false,
           "width": 74.015625,
@@ -1500,13 +1608,13 @@
           "family": "btn btn-outline btn-sm|",
           "text": "拒绝",
           "foreground": "rgb(17, 24, 39)",
-          "background": "rgba(0, 0, 0, 0.03)",
+          "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
-            247,
-            247,
-            247
+            255,
+            255,
+            255
           ],
-          "contrast": 16.55894215257156,
+          "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
           "width": 50.015625,
@@ -1737,6 +1845,322 @@
           "disabled": false,
           "width": 220,
           "height": 40,
+          "font": 14
+        },
+        {
+          "selector": "[data-testid=\"inbox-capture-btn\"]",
+          "family": "btn btn-primary|",
+          "text": "录入",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 82,
+          "height": 44,
+          "font": 14
+        },
+        {
+          "selector": "[data-testid=\"intake-toggle-intake-1794294953407-jkgdb41ey\"]",
+          "family": "intake-toggle|",
+          "text": "",
+          "foreground": "rgb(55, 65, 81)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 10.307355969735845,
+          "textual": false,
+          "disabled": false,
+          "width": 44,
+          "height": 44,
+          "font": 12.5
+        },
+        {
+          "selector": "[data-testid=\"intake-convert-intake-1794294953407-jkgdb41ey\"]",
+          "family": "btn btn-sm|",
+          "text": "转为事项",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(249, 250, 251)",
+          "effectiveBackground": [
+            249,
+            250,
+            251
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 74.015625,
+          "height": 44,
+          "font": 12
+        },
+        {
+          "selector": "[data-testid=\"intake-reject-intake-1794294953407-jkgdb41ey\"]",
+          "family": "btn btn-outline btn-sm|",
+          "text": "拒绝",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgba(0, 0, 0, 0.03)",
+          "effectiveBackground": [
+            247,
+            247,
+            247
+          ],
+          "contrast": 16.55894215257156,
+          "textual": true,
+          "disabled": false,
+          "width": 50.015625,
+          "height": 44,
+          "font": 12
+        },
+        {
+          "selector": "[data-testid=\"intake-delete-intake-1794294953407-jkgdb41ey\"]",
+          "family": "btn btn-outline btn-sm intake-delete-btn|",
+          "text": "删除",
+          "foreground": "rgb(153, 27, 27)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 8.310050481211189,
+          "textual": true,
+          "disabled": false,
+          "width": 50.015625,
+          "height": 44,
+          "font": 12
+        },
+        {
+          "selector": "[data-testid=\"intake-toggle-intake-1794294953424-02xfdvrdz\"]",
+          "family": "intake-toggle|",
+          "text": "",
+          "foreground": "rgb(55, 65, 81)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 10.307355969735845,
+          "textual": false,
+          "disabled": false,
+          "width": 44,
+          "height": 44,
+          "font": 12.5
+        },
+        {
+          "selector": "[data-testid=\"intake-convert-intake-1794294953424-02xfdvrdz\"]",
+          "family": "btn btn-sm|",
+          "text": "转为事项",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(249, 250, 251)",
+          "effectiveBackground": [
+            249,
+            250,
+            251
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 74.015625,
+          "height": 44,
+          "font": 12
+        },
+        {
+          "selector": "[data-testid=\"intake-reject-intake-1794294953424-02xfdvrdz\"]",
+          "family": "btn btn-outline btn-sm|",
+          "text": "拒绝",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 50.015625,
+          "height": 44,
+          "font": 12
+        },
+        {
+          "selector": "[data-testid=\"intake-delete-intake-1794294953424-02xfdvrdz\"]",
+          "family": "btn btn-outline btn-sm intake-delete-btn|",
+          "text": "删除",
+          "foreground": "rgb(153, 27, 27)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 8.310050481211189,
+          "textual": true,
+          "disabled": false,
+          "width": 50.015625,
+          "height": 44,
+          "font": 12
+        },
+        {
+          "selector": "[data-testid=\"intake-toggle-intake-1794294953435-q23mus20a\"]",
+          "family": "intake-toggle|",
+          "text": "",
+          "foreground": "rgb(55, 65, 81)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 10.307355969735845,
+          "textual": false,
+          "disabled": false,
+          "width": 44,
+          "height": 44,
+          "font": 12.5
+        },
+        {
+          "selector": "[data-testid=\"intake-convert-intake-1794294953435-q23mus20a\"]",
+          "family": "btn btn-sm|",
+          "text": "转为事项",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(249, 250, 251)",
+          "effectiveBackground": [
+            249,
+            250,
+            251
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 74.015625,
+          "height": 44,
+          "font": 12
+        },
+        {
+          "selector": "[data-testid=\"intake-reject-intake-1794294953435-q23mus20a\"]",
+          "family": "btn btn-outline btn-sm|",
+          "text": "拒绝",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 50.015625,
+          "height": 44,
+          "font": 12
+        },
+        {
+          "selector": "[data-testid=\"intake-delete-intake-1794294953435-q23mus20a\"]",
+          "family": "btn btn-outline btn-sm intake-delete-btn|",
+          "text": "删除",
+          "foreground": "rgb(153, 27, 27)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 8.310050481211189,
+          "textual": true,
+          "disabled": false,
+          "width": 50.015625,
+          "height": 44,
+          "font": 12
+        }
+      ],
+      "issues": [],
+      "scope": ".intake-inbox",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "light",
+      "state": "hover-6",
+      "rows": [
+        {
+          "selector": "[data-testid=\"intake-status-filter\"]",
+          "family": "flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1 intake-filter|closed",
+          "text": "待处理",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(249, 250, 251)",
+          "effectiveBackground": [
+            249,
+            250,
+            251
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 150,
+          "height": 44,
+          "font": 14
+        },
+        {
+          "selector": "[data-testid=\"intake-source-filter\"]",
+          "family": "flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1 intake-filter|closed",
+          "text": "全部",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(249, 250, 251)",
+          "effectiveBackground": [
+            249,
+            250,
+            251
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 150,
+          "height": 44,
+          "font": 14
+        },
+        {
+          "selector": "[data-testid=\"intake-search\"]",
+          "family": "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 intake-filter intake-search|",
+          "text": "",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 220,
+          "height": 40,
+          "font": 14
+        },
+        {
+          "selector": "[data-testid=\"inbox-capture-btn\"]",
+          "family": "btn btn-primary|",
+          "text": "录入",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 82,
+          "height": 44,
           "font": 14
         },
         {
@@ -2020,6 +2444,24 @@
           "font": 14
         },
         {
+          "selector": "[data-testid=\"inbox-capture-btn\"]",
+          "family": "btn btn-primary|",
+          "text": "录入",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 82,
+          "height": 44,
+          "font": 14
+        },
+        {
           "selector": "[data-testid=\"intake-toggle-intake-1794294953407-jkgdb41ey\"]",
           "family": "intake-toggle|",
           "text": "",
@@ -2297,6 +2739,24 @@
           "disabled": false,
           "width": 220,
           "height": 40,
+          "font": 14
+        },
+        {
+          "selector": "[data-testid=\"inbox-capture-btn\"]",
+          "family": "btn btn-primary|",
+          "text": "录入",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 82,
+          "height": 44,
           "font": 14
         },
         {
@@ -2580,6 +3040,24 @@
           "font": 14
         },
         {
+          "selector": "[data-testid=\"inbox-capture-btn\"]",
+          "family": "btn btn-primary|",
+          "text": "录入",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 82,
+          "height": 44,
+          "font": 14
+        },
+        {
           "selector": "[data-testid=\"intake-toggle-intake-1794294953407-jkgdb41ey\"]",
           "family": "intake-toggle|",
           "text": "",
@@ -2857,6 +3335,24 @@
           "disabled": false,
           "width": 220,
           "height": 40,
+          "font": 14
+        },
+        {
+          "selector": "[data-testid=\"inbox-capture-btn\"]",
+          "family": "btn btn-primary|",
+          "text": "录入",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 82,
+          "height": 44,
           "font": 14
         },
         {
@@ -3140,17 +3636,35 @@
           "font": 14
         },
         {
+          "selector": "[data-testid=\"inbox-capture-btn\"]",
+          "family": "btn btn-primary|",
+          "text": "录入",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 82,
+          "height": 44,
+          "font": 14
+        },
+        {
           "selector": "[data-testid=\"intake-toggle-intake-1794294953407-jkgdb41ey\"]",
           "family": "intake-toggle|",
           "text": "",
           "foreground": "rgb(229, 231, 235)",
-          "background": "rgb(55, 65, 81)",
+          "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
-            55,
-            65,
-            81
+            17,
+            24,
+            39
           ],
-          "contrast": 8.3252023126051,
+          "contrast": 14.328284912339392,
           "textual": false,
           "disabled": false,
           "width": 44,
@@ -3420,17 +3934,35 @@
           "font": 14
         },
         {
+          "selector": "[data-testid=\"inbox-capture-btn\"]",
+          "family": "btn btn-primary|",
+          "text": "录入",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 82,
+          "height": 44,
+          "font": 14
+        },
+        {
           "selector": "[data-testid=\"intake-toggle-intake-1794294953407-jkgdb41ey\"]",
           "family": "intake-toggle|",
           "text": "",
           "foreground": "rgb(229, 231, 235)",
-          "background": "rgba(0, 0, 0, 0)",
+          "background": "rgb(55, 65, 81)",
           "effectiveBackground": [
-            17,
-            24,
-            39
+            55,
+            65,
+            81
           ],
-          "contrast": 14.328284912339392,
+          "contrast": 8.3252023126051,
           "textual": false,
           "disabled": false,
           "width": 44,
@@ -3442,13 +3974,13 @@
           "family": "btn btn-sm|",
           "text": "转为事项",
           "foreground": "rgb(249, 250, 251)",
-          "background": "rgb(55, 65, 81)",
+          "background": "rgb(31, 41, 55)",
           "effectiveBackground": [
-            55,
-            65,
-            81
+            31,
+            41,
+            55
           ],
-          "contrast": 9.863254791756054,
+          "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
           "width": 74.015625,
@@ -3700,6 +4232,24 @@
           "font": 14
         },
         {
+          "selector": "[data-testid=\"inbox-capture-btn\"]",
+          "family": "btn btn-primary|",
+          "text": "录入",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 82,
+          "height": 44,
+          "font": 14
+        },
+        {
           "selector": "[data-testid=\"intake-toggle-intake-1794294953407-jkgdb41ey\"]",
           "family": "intake-toggle|",
           "text": "",
@@ -3722,13 +4272,13 @@
           "family": "btn btn-sm|",
           "text": "转为事项",
           "foreground": "rgb(249, 250, 251)",
-          "background": "rgb(31, 41, 55)",
+          "background": "rgb(55, 65, 81)",
           "effectiveBackground": [
-            31,
-            41,
-            55
+            55,
+            65,
+            81
           ],
-          "contrast": 14.046656202460271,
+          "contrast": 9.863254791756054,
           "textual": true,
           "disabled": false,
           "width": 74.015625,
@@ -3740,13 +4290,13 @@
           "family": "btn btn-outline btn-sm|",
           "text": "拒绝",
           "foreground": "rgb(249, 250, 251)",
-          "background": "rgba(255, 255, 255, 0.05)",
+          "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
-            29.133333333333333,
-            35.77647058823529,
-            50.01176470588235
+            17,
+            24,
+            39
           ],
-          "contrast": 14.903408662771534,
+          "contrast": 16.97538624440406,
           "textual": true,
           "disabled": false,
           "width": 50.015625,
@@ -3977,6 +4527,322 @@
           "disabled": false,
           "width": 220,
           "height": 40,
+          "font": 14
+        },
+        {
+          "selector": "[data-testid=\"inbox-capture-btn\"]",
+          "family": "btn btn-primary|",
+          "text": "录入",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 82,
+          "height": 44,
+          "font": 14
+        },
+        {
+          "selector": "[data-testid=\"intake-toggle-intake-1794294953407-jkgdb41ey\"]",
+          "family": "intake-toggle|",
+          "text": "",
+          "foreground": "rgb(229, 231, 235)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 14.328284912339392,
+          "textual": false,
+          "disabled": false,
+          "width": 44,
+          "height": 44,
+          "font": 12.5
+        },
+        {
+          "selector": "[data-testid=\"intake-convert-intake-1794294953407-jkgdb41ey\"]",
+          "family": "btn btn-sm|",
+          "text": "转为事项",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": true,
+          "disabled": false,
+          "width": 74.015625,
+          "height": 44,
+          "font": 12
+        },
+        {
+          "selector": "[data-testid=\"intake-reject-intake-1794294953407-jkgdb41ey\"]",
+          "family": "btn btn-outline btn-sm|",
+          "text": "拒绝",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgba(255, 255, 255, 0.05)",
+          "effectiveBackground": [
+            29.133333333333333,
+            35.77647058823529,
+            50.01176470588235
+          ],
+          "contrast": 14.903408662771534,
+          "textual": true,
+          "disabled": false,
+          "width": 50.015625,
+          "height": 44,
+          "font": 12
+        },
+        {
+          "selector": "[data-testid=\"intake-delete-intake-1794294953407-jkgdb41ey\"]",
+          "family": "btn btn-outline btn-sm intake-delete-btn|",
+          "text": "删除",
+          "foreground": "rgb(254, 202, 202)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 12.261719107308613,
+          "textual": true,
+          "disabled": false,
+          "width": 50.015625,
+          "height": 44,
+          "font": 12
+        },
+        {
+          "selector": "[data-testid=\"intake-toggle-intake-1794294953424-02xfdvrdz\"]",
+          "family": "intake-toggle|",
+          "text": "",
+          "foreground": "rgb(229, 231, 235)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 14.328284912339392,
+          "textual": false,
+          "disabled": false,
+          "width": 44,
+          "height": 44,
+          "font": 12.5
+        },
+        {
+          "selector": "[data-testid=\"intake-convert-intake-1794294953424-02xfdvrdz\"]",
+          "family": "btn btn-sm|",
+          "text": "转为事项",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": true,
+          "disabled": false,
+          "width": 74.015625,
+          "height": 44,
+          "font": 12
+        },
+        {
+          "selector": "[data-testid=\"intake-reject-intake-1794294953424-02xfdvrdz\"]",
+          "family": "btn btn-outline btn-sm|",
+          "text": "拒绝",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 50.015625,
+          "height": 44,
+          "font": 12
+        },
+        {
+          "selector": "[data-testid=\"intake-delete-intake-1794294953424-02xfdvrdz\"]",
+          "family": "btn btn-outline btn-sm intake-delete-btn|",
+          "text": "删除",
+          "foreground": "rgb(254, 202, 202)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 12.261719107308613,
+          "textual": true,
+          "disabled": false,
+          "width": 50.015625,
+          "height": 44,
+          "font": 12
+        },
+        {
+          "selector": "[data-testid=\"intake-toggle-intake-1794294953435-q23mus20a\"]",
+          "family": "intake-toggle|",
+          "text": "",
+          "foreground": "rgb(229, 231, 235)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 14.328284912339392,
+          "textual": false,
+          "disabled": false,
+          "width": 44,
+          "height": 44,
+          "font": 12.5
+        },
+        {
+          "selector": "[data-testid=\"intake-convert-intake-1794294953435-q23mus20a\"]",
+          "family": "btn btn-sm|",
+          "text": "转为事项",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": true,
+          "disabled": false,
+          "width": 74.015625,
+          "height": 44,
+          "font": 12
+        },
+        {
+          "selector": "[data-testid=\"intake-reject-intake-1794294953435-q23mus20a\"]",
+          "family": "btn btn-outline btn-sm|",
+          "text": "拒绝",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 50.015625,
+          "height": 44,
+          "font": 12
+        },
+        {
+          "selector": "[data-testid=\"intake-delete-intake-1794294953435-q23mus20a\"]",
+          "family": "btn btn-outline btn-sm intake-delete-btn|",
+          "text": "删除",
+          "foreground": "rgb(254, 202, 202)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 12.261719107308613,
+          "textual": true,
+          "disabled": false,
+          "width": 50.015625,
+          "height": 44,
+          "font": 12
+        }
+      ],
+      "issues": [],
+      "scope": ".intake-inbox",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "dark",
+      "state": "hover-6",
+      "rows": [
+        {
+          "selector": "[data-testid=\"intake-status-filter\"]",
+          "family": "flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1 intake-filter|closed",
+          "text": "待处理",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": true,
+          "disabled": false,
+          "width": 150,
+          "height": 44,
+          "font": 14
+        },
+        {
+          "selector": "[data-testid=\"intake-source-filter\"]",
+          "family": "flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1 intake-filter|closed",
+          "text": "全部",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": true,
+          "disabled": false,
+          "width": 150,
+          "height": 44,
+          "font": 14
+        },
+        {
+          "selector": "[data-testid=\"intake-search\"]",
+          "family": "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 intake-filter intake-search|",
+          "text": "",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": true,
+          "disabled": false,
+          "width": 220,
+          "height": 40,
+          "font": 14
+        },
+        {
+          "selector": "[data-testid=\"inbox-capture-btn\"]",
+          "family": "btn btn-primary|",
+          "text": "录入",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 82,
+          "height": 44,
           "font": 14
         },
         {
@@ -4257,6 +5123,24 @@
           "disabled": false,
           "width": 220,
           "height": 40,
+          "font": 14
+        },
+        {
+          "selector": "[data-testid=\"inbox-capture-btn\"]",
+          "family": "btn btn-primary|",
+          "text": "录入",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 82,
+          "height": 44,
           "font": 14
         },
         {

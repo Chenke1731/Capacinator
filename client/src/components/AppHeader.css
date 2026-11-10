@@ -246,39 +246,6 @@
   stroke-width: 2;
 }
 
-/* I01 全局快速捕捉入口：与 theme-toggle 同族规格，带文字；
-   :hover/:active 显式重声明（全局 button 态 (0,1,1) 压单类 (0,1,0)——D3 红线） */
-.header-capture-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
-  height: 32px;
-  padding: 0 10px;
-  background: color-mix(in srgb, var(--solid-foreground) 10%, transparent);
-  border: 1px solid color-mix(in srgb, var(--solid-foreground) 20%, transparent);
-  border-radius: 6px;
-  color: var(--sidebar-text);
-  font-size: var(--b-fs-caption, 12px);
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.header-capture-btn:hover {
-  background: color-mix(in srgb, var(--solid-foreground) 15%, transparent);
-  color: var(--sidebar-text-hover);
-  border-color: color-mix(in srgb, var(--solid-foreground) 30%, transparent);
-}
-
-.header-capture-btn:active {
-  transform: translateY(0);
-}
-
-.header-capture-btn:focus-visible {
-  outline: 2px solid var(--primary);
-  outline-offset: 2px;
-}
-
 /* Status Indicators */
 .status-indicators {
   display: flex;

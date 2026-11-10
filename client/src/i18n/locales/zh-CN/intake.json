@@ -80,7 +80,7 @@
       "cancel": "取消"
     },
     "empty": "收件箱为空",
-    "emptyHint": "任意页面按 Alt+N，几秒收进一条需求",
+    "emptyHint": "任意页面按 Alt+N，或点上方「录入」，几秒收进一条需求",
     "loadError": "收件箱加载失败",
     "retry": "重试",
     "waitingDays": "{{count}}天",

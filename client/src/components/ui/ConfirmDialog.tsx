@@ -37,6 +37,13 @@ export const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
   const resolvedConfirmText = confirmText ?? t('common:confirm');
   const resolvedCancelText = cancelText ?? t('common:cancel');
 
+  // G-08 收尾：打开时记住触发元素，关闭（Esc/遮罩/关闭钮）后焦点回触发点——
+  // Radix 只对 DialogTrigger 自动回落，受控打开时默认落 body
+  const triggerRef = React.useRef<HTMLElement | null>(null);
+  React.useEffect(() => {
+    if (isOpen) triggerRef.current = document.activeElement as HTMLElement | null;
+  }, [isOpen]);
+
   return (
     <Dialog open={isOpen} onOpenChange={(next) => { if (!next) onCancel(); }}>
       <DialogContent
@@ -47,6 +54,10 @@ export const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
           borderColor: 'var(--border-color)',
         }}
         data-testid="confirm-dialog"
+        onCloseAutoFocus={(event) => {
+          event.preventDefault();
+          triggerRef.current?.focus();
+        }}
       >
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">

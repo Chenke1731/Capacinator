@@ -1,5 +1,6 @@
 import * as React from "react"
 import * as DialogPrimitive from "@radix-ui/react-dialog"
+import { useTranslation } from "react-i18next"
 import { X } from "lucide-react"
 
 import { cn } from "@/lib/utils"
@@ -32,12 +33,16 @@ DialogOverlay.displayName = DialogPrimitive.Overlay.displayName
 const DialogContent = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content>
->(({ className, children, style, ...props }, ref) => (
+>(({ className, children, style, ...props }, ref) => {
+  const { t } = useTranslation()
+  return (
   <DialogPortal>
     <DialogOverlay />
     <PortalThemeProvider>
       <DialogPrimitive.Content
         ref={ref}
+        // Radix 1.1.x 不输出 aria-modal（隔离走 hideOthers）；读屏显式声明模态语义
+        aria-modal="true"
         className={cn(
           "fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%]",
           "p-6 border border-border shadow-lg duration-200",
@@ -58,12 +63,13 @@ const DialogContent = React.forwardRef<
         {children}
         <DialogPrimitive.Close className="dialog-close-btn">
           <X className="h-4 w-4" />
-          <span className="sr-only">Close</span>
+          <span className="sr-only">{t('common:close')}</span>
         </DialogPrimitive.Close>
       </DialogPrimitive.Content>
     </PortalThemeProvider>
   </DialogPortal>
-))
+  )
+})
 DialogContent.displayName = DialogPrimitive.Content.displayName
 
 const DialogHeader = ({

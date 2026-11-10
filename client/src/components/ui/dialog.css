@@ -14,17 +14,18 @@
  * 所有 Dialog / 弹层按钮共用，禁止逐弹窗打补丁。
  */
 
-/* 关闭钮：钉在右上角（32×32，不再被全局 44px 触控规则撑大） */
+/* 关闭钮：钉在右上角，44×44 对齐 --min-touch-target 触控令牌
+ * （2026-11-10 G-08 收尾：原 32×32 低于项目触控契约，evidence bundle delete-close-size 判 WARN） */
 .dialog-close-btn {
   position: absolute !important;
-  top: 1rem !important;
-  right: 1rem !important;
+  top: 0.75rem !important;
+  right: 0.75rem !important;
   left: auto !important;
   bottom: auto !important;
-  width: 32px !important;
-  height: 32px !important;
-  min-width: 32px !important;
-  min-height: 32px !important;
+  width: 44px !important;
+  height: 44px !important;
+  min-width: 44px !important;
+  min-height: 44px !important;
   padding: 0;
   display: flex;
   align-items: center;

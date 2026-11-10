@@ -14768,13 +14768,13 @@
           "family": "btn btn-sm btn-danger quick-action-btn|",
           "text": "减少负荷",
           "foreground": "rgb(185, 28, 28)",
-          "background": "rgba(250, 203, 203, 0.482)",
+          "background": "rgba(247, 189, 189, 0.365)",
           "effectiveBackground": [
-            253.0705882352941,
-            229.9176470588235,
-            229.9176470588235
+            252.08235294117645,
+            230.9294117647059,
+            230.9294117647059
           ],
-          "contrast": 5.431894896009417,
+          "contrast": 5.458787838432032,
           "textual": true,
           "disabled": false,
           "width": 94.015625,

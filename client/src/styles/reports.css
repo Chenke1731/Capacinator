@@ -457,6 +457,19 @@
   margin-bottom: 1.5rem;
 }
 
+/* 2026-11-10 同类排查（D-01 B+）：筛选行控件等高——日期/下拉实测 36px，
+   Reset 按钮 44px；统一到控件高度令牌（行内等比全局 40 更精准）。 */
+.report-filters .filter-group input,
+.report-filters .filter-group select {
+  height: var(--input-min-height, 40px);
+  min-height: var(--input-min-height, 40px);
+}
+
+.report-filters .btn {
+  height: var(--button-min-height, 40px);
+  min-height: var(--button-min-height, 40px);
+}
+
 .filter-group {
   flex: 0 1 auto;
   min-width: 150px;

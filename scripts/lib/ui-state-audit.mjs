@@ -64,10 +64,20 @@ function enumerateState({root,fonts}) {
   // input/select/textarea 也计入；普通 toolbar 行仍只比文字控件，避免把搜索框
   // 与自定义图标钮混比。
   const rowGroups=new Map();
+  // 行容器按“最近匹配祖先”识别（2026-11-10 D-01 B+）：控件常嵌在
+  // .filter-item/.filter-group 里，只看直接父级会漏检（report-filters 实测
+  // 36 vs 44 未红）。向上 climb 到最近的 toolbar/filters/filter-bar 容器。
+  const rowContainer=(e)=>{
+    for(let n=e.parentElement;n&&n!==document.body;n=n.parentElement){
+      const cls=String(n.className||'');
+      if(/(toolbar|filters|filter-bar)/i.test(cls))return n;
+      try{if(n.matches(root))break;}catch{/* selector 非法则继续 climb */}
+    }
+    return null;
+  };
   for(const e of nodes.filter(visible)){
-    const p=e.parentElement;if(!p)continue;
+    const p=rowContainer(e);if(!p)continue;
     const cls=String(p.className||'');
-    if(!/(toolbar|filters|filter-bar)/i.test(cls))continue;
     const isField=/^(INPUT|SELECT|TEXTAREA)$/.test(e.tagName);
     if(isField&&!/(filters|filter-bar)/i.test(cls))continue;
     if(!isField&&!e.textContent.trim())continue;

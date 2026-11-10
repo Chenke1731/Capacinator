@@ -104,6 +104,33 @@
   filter: none;
 }
 
+/* 弹层危险操作：实心危险色（ConfirmDialog danger 变体） */
+.dialog-danger-btn {
+  background-color: var(--status-danger-solid) !important;
+  color: var(--solid-foreground) !important;
+  border: 1px solid var(--status-danger-solid) !important;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-weight: 500;
+}
+
+.dialog-danger-btn:hover {
+  background-color: var(--status-danger-solid) !important;
+  filter: brightness(0.92);
+}
+
+.dialog-danger-btn:active {
+  background-color: var(--status-danger-solid) !important;
+  filter: brightness(0.85);
+  transform: translateY(0);
+}
+
+.dialog-danger-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  filter: none;
+}
+
 /* 弹层次操作：透明底 + 描边 */
 .dialog-secondary-btn {
   background-color: transparent !important;

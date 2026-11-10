@@ -85,6 +85,31 @@ describe('QuickCaptureDialog', () => {
     );
   });
 
+  test('单行：清空自动提取的编号/日期 → 载荷不带旧值，chips 不再显示（D13）', async () => {
+    renderDialog();
+    const text = screen.getByTestId('intake-text');
+    await userEvent.type(text, 'SR123456 用户登录改造 2026-11-30');
+    await waitFor(() => {
+      expect((screen.getByTestId('intake-ref') as HTMLInputElement).value).toBe('SR123456');
+    });
+
+    // 未编辑：解析值即提交值 → chips 显示
+    expect(screen.getByTestId('intake-parsed-chips').textContent).toContain('SR123456');
+
+    // 清空两个自动填充字段（touched 后字段值为准）
+    fireEvent.change(screen.getByTestId('intake-ref'), { target: { value: '' } });
+    fireEvent.change(screen.getByTestId('intake-finish'), { target: { value: '' } });
+
+    // chips 不再把解析值呈现为将提交值
+    expect(screen.queryByTestId('intake-parsed-chips')?.textContent ?? '').not.toContain('SR123456');
+
+    await userEvent.type(text, '{Enter}');
+    await waitFor(() => expect(captureMock).toHaveBeenCalledTimes(1));
+    const payload = captureMock.mock.calls[0][0];
+    expect(payload.source_ref).toBeUndefined();
+    expect(payload.expected_finish).toBeUndefined();
+  });
+
   test('多行：预览逐行可改标题；提交走批量端点（一行一条，共用来源）', async () => {
     renderDialog();
     // 多行来自粘贴（Enter 在单行内容下会直接提交）——模拟 paste 语义

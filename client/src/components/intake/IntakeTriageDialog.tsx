@@ -75,7 +75,11 @@ export function IntakeTriageDialog({ open, intake, onClose, onConverted }: Intak
       setTitle(intake.title);
       setPriority(intake.priority_hint ?? 3);
       setOwnerId('');
-      setExpectedStart('');
+      // D14（2026-11-10 裁决 a）：行已有期望开始日则预填。弹窗陈述必须与服务端
+      // 行为一致——IntakeConversionService 用 inStart ?? intake.expected_start 回落，
+      // 空 start 提交后服务端仍按行值建基线；旧版硬编码空导致 UI 承诺
+      // "不生成阶段"而实际生成（G-01 / triage-start-divergence）。
+      setExpectedStart(intake.expected_start ?? '');
       setExpectedFinish(intake.expected_finish ?? '');
       setError(null);
       const remembered = localStorage.getItem(SUBTYPE_STORAGE) ?? '';

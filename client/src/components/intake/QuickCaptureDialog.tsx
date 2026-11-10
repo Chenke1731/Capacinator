@@ -168,14 +168,20 @@ export function QuickCaptureDialog({ open, onClose }: { open: boolean; onClose: 
       }));
     }
     const title = rowTitleOf(0, singleParsed!);
+    // D13（2026-11-10 裁决 a）：字段被编辑过（含清空）后以字段值为准，不回落解析值；
+    // 未编辑时解析值已由上方 useEffect 自动填入字段，回落仅兜底同帧竞态。
+    const effectiveRef = refTouched ? refValue : (refValue || singleParsed?.source_ref || '');
+    const effectiveFinish = finishTouched
+      ? finishValue
+      : (finishValue || singleParsed?.expected_finish || '');
     return [
       {
         title,
         raw_text: mode === 'single' ? text : lines[0],
         source_channel: source,
-        source_ref: (refValue || singleParsed?.source_ref) || undefined,
+        source_ref: effectiveRef || undefined,
         priority_hint: singleParsed?.priority_hint ?? undefined,
-        expected_finish: (finishValue || singleParsed?.expected_finish) || undefined,
+        expected_finish: effectiveFinish || undefined,
         requester: requester || undefined,
         note: note || undefined,
       },
@@ -273,14 +279,18 @@ export function QuickCaptureDialog({ open, onClose }: { open: boolean; onClose: 
             )}
           </div>
 
-          {/* 已识别 chips：解析结果紧贴输入区，点击跳到对应字段（B2 自标注/冲突可见） */}
+          {/* 已识别 chips：解析结果紧贴输入区，点击跳到对应字段（B2 自标注/冲突可见）。
+              D13：chips 只在"解析值即提交值"时显示——字段被编辑/清空后不再把
+              解析值呈现为将提交值（capture-stale-chips 断言） */}
           {!multi && hasContent &&
-            (singleParsed?.source_ref || singleParsed?.priority_hint || singleParsed?.expected_finish) && (
+            (singleParsed?.priority_hint ||
+              (!refTouched && singleParsed?.source_ref) ||
+              (!finishTouched && singleParsed?.expected_finish)) && (
               <div className="qc-parsed" data-testid="intake-parsed-chips">
                 <span className="qc-parsed-label" style={{ color: 'var(--text-secondary)' }}>
                   {t('intake:capture.parsed')}
                 </span>
-                {singleParsed?.source_ref && (
+                {!refTouched && singleParsed?.source_ref && (
                   <button
                     type="button"
                     className="qc-chip"
@@ -293,7 +303,7 @@ export function QuickCaptureDialog({ open, onClose }: { open: boolean; onClose: 
                 {singleParsed?.priority_hint && (
                   <span className="qc-chip">{`P${singleParsed.priority_hint}`}</span>
                 )}
-                {singleParsed?.expected_finish && (
+                {!finishTouched && singleParsed?.expected_finish && (
                   <button
                     type="button"
                     className="qc-chip"

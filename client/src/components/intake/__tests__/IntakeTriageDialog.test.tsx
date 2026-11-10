@@ -127,6 +127,22 @@ describe('IntakeTriageDialog', () => {
     expect(payload.expected_start).toBeNull();
   });
 
+  test('行有期望开始日：start 预填行值、说明为有基线文案、载荷携带（D14）', async () => {
+    renderDialog({ ...baseIntake, expected_start: '2027-03-01' });
+    await waitFor(() =>
+      expect((screen.getByTestId('triage-submit') as HTMLButtonElement).disabled).toBe(false)
+    );
+
+    // 预填行值，而非空 + "不生成阶段"（与服务端 inStart ?? intake.expected_start 回落一致）
+    expect((screen.getByTestId('triage-start') as HTMLInputElement).value).toBe('2027-03-01');
+    expect(screen.getByTestId('triage-baseline-note').textContent).toMatch(/generated from that date/i);
+
+    fireEvent.click(screen.getByTestId('triage-submit'));
+    await waitFor(() => expect(api.intake.convert).toHaveBeenCalledTimes(1));
+    const payload = (api.intake.convert as jest.Mock).mock.calls[0][1];
+    expect(payload.expected_start).toBe('2027-03-01');
+  });
+
   test('invalid_status（双击/他处已转换）→ 专属错误文案，不清空表单', async () => {
     (api.intake.convert as jest.Mock).mockRejectedValueOnce({
       response: { data: { error: 'invalid_status', message: 'already' } },

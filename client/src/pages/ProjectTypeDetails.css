@@ -319,16 +319,16 @@
   margin-top: 16px;
 }
 
-.empty-state {
-  text-align: center;
+/* Card-form empty state (framed panel) — deliberate local hierarchy on the
+   type detail page, scoped to the page root (D-03 Batch 1, review D3=a). */
+.role-details-page .empty-state {
   padding: 32px;
-  color: var(--text-secondary);
   background: var(--bg-secondary);
   border: 1px solid var(--border-color);
   border-radius: 8px;
 }
 
-.empty-state p {
+.role-details-page .empty-state p {
   margin: 0;
   font-size: 16px;
 }

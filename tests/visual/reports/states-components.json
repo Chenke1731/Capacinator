@@ -1,0 +1,927 @@
+{
+  "profile": "components",
+  "phases": [
+    {
+      "theme": "light",
+      "state": "default",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn btn-primary|",
+          "text": "新增组件",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 114,
+          "height": 44,
+          "font": 14,
+          "top": 93.1875,
+          "clipTop": 40,
+          "offsetTop": 53.1875
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(4) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn table-action-btn btn-danger|",
+          "text": "删除",
+          "foreground": "rgb(153, 27, 27)",
+          "background": "rgb(254, 226, 226)",
+          "effectiveBackground": [
+            254,
+            226,
+            226
+          ],
+          "contrast": 6.802728419777387,
+          "textual": true,
+          "disabled": false,
+          "width": 68.015625,
+          "height": 28.5625,
+          "font": 13,
+          "top": 255.890625,
+          "clipTop": 191.390625,
+          "offsetTop": 64.5
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(4) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn table-action-btn btn-danger|",
+          "text": "删除",
+          "foreground": "rgb(153, 27, 27)",
+          "background": "rgb(254, 226, 226)",
+          "effectiveBackground": [
+            254,
+            226,
+            226
+          ],
+          "contrast": 6.802728419777387,
+          "textual": true,
+          "disabled": false,
+          "width": 68.015625,
+          "height": 28.5625,
+          "font": 13,
+          "top": 317.453125,
+          "clipTop": 191.390625,
+          "offsetTop": 126.0625
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(3) > td:nth-of-type(4) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn table-action-btn btn-danger|",
+          "text": "删除",
+          "foreground": "rgb(153, 27, 27)",
+          "background": "rgb(254, 226, 226)",
+          "effectiveBackground": [
+            254,
+            226,
+            226
+          ],
+          "contrast": 6.802728419777387,
+          "textual": true,
+          "disabled": false,
+          "width": 68.015625,
+          "height": 28.5625,
+          "font": 13,
+          "top": 379.015625,
+          "clipTop": 191.390625,
+          "offsetTop": 187.625
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(4) > td:nth-of-type(4) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn table-action-btn btn-danger|",
+          "text": "删除",
+          "foreground": "rgb(153, 27, 27)",
+          "background": "rgb(254, 226, 226)",
+          "effectiveBackground": [
+            254,
+            226,
+            226
+          ],
+          "contrast": 6.802728419777387,
+          "textual": true,
+          "disabled": false,
+          "width": 68.015625,
+          "height": 28.5625,
+          "font": 13,
+          "top": 440.578125,
+          "clipTop": 191.390625,
+          "offsetTop": 249.1875
+        }
+      ],
+      "issues": [],
+      "scope": ".page-container",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "light",
+      "state": "hover-0",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn btn-primary|",
+          "text": "新增组件",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 114,
+          "height": 44,
+          "font": 14,
+          "top": 93.1875,
+          "clipTop": 40,
+          "offsetTop": 53.1875
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(4) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn table-action-btn btn-danger|",
+          "text": "删除",
+          "foreground": "rgb(153, 27, 27)",
+          "background": "rgb(254, 226, 226)",
+          "effectiveBackground": [
+            254,
+            226,
+            226
+          ],
+          "contrast": 6.802728419777387,
+          "textual": true,
+          "disabled": false,
+          "width": 68.015625,
+          "height": 28.5625,
+          "font": 13,
+          "top": 255.890625,
+          "clipTop": 191.390625,
+          "offsetTop": 64.5
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(4) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn table-action-btn btn-danger|",
+          "text": "删除",
+          "foreground": "rgb(153, 27, 27)",
+          "background": "rgb(254, 226, 226)",
+          "effectiveBackground": [
+            254,
+            226,
+            226
+          ],
+          "contrast": 6.802728419777387,
+          "textual": true,
+          "disabled": false,
+          "width": 68.015625,
+          "height": 28.5625,
+          "font": 13,
+          "top": 317.453125,
+          "clipTop": 191.390625,
+          "offsetTop": 126.0625
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(3) > td:nth-of-type(4) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn table-action-btn btn-danger|",
+          "text": "删除",
+          "foreground": "rgb(153, 27, 27)",
+          "background": "rgb(254, 226, 226)",
+          "effectiveBackground": [
+            254,
+            226,
+            226
+          ],
+          "contrast": 6.802728419777387,
+          "textual": true,
+          "disabled": false,
+          "width": 68.015625,
+          "height": 28.5625,
+          "font": 13,
+          "top": 379.015625,
+          "clipTop": 191.390625,
+          "offsetTop": 187.625
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(4) > td:nth-of-type(4) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn table-action-btn btn-danger|",
+          "text": "删除",
+          "foreground": "rgb(153, 27, 27)",
+          "background": "rgb(254, 226, 226)",
+          "effectiveBackground": [
+            254,
+            226,
+            226
+          ],
+          "contrast": 6.802728419777387,
+          "textual": true,
+          "disabled": false,
+          "width": 68.015625,
+          "height": 28.5625,
+          "font": 13,
+          "top": 440.578125,
+          "clipTop": 191.390625,
+          "offsetTop": 249.1875
+        }
+      ],
+      "issues": [],
+      "scope": ".page-container",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "light",
+      "state": "hover-1",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn btn-primary|",
+          "text": "新增组件",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 114,
+          "height": 44,
+          "font": 14,
+          "top": 93.1875,
+          "clipTop": 40,
+          "offsetTop": 53.1875
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(4) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn table-action-btn btn-danger|",
+          "text": "删除",
+          "foreground": "rgb(153, 27, 27)",
+          "background": "rgb(254, 226, 226)",
+          "effectiveBackground": [
+            254,
+            226,
+            226
+          ],
+          "contrast": 6.802728419777387,
+          "textual": true,
+          "disabled": false,
+          "width": 68.015625,
+          "height": 28.5625,
+          "font": 13,
+          "top": 255.890625,
+          "clipTop": 191.390625,
+          "offsetTop": 64.5
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(4) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn table-action-btn btn-danger|",
+          "text": "删除",
+          "foreground": "rgb(153, 27, 27)",
+          "background": "rgb(254, 226, 226)",
+          "effectiveBackground": [
+            254,
+            226,
+            226
+          ],
+          "contrast": 6.802728419777387,
+          "textual": true,
+          "disabled": false,
+          "width": 68.015625,
+          "height": 28.5625,
+          "font": 13,
+          "top": 317.453125,
+          "clipTop": 191.390625,
+          "offsetTop": 126.0625
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(3) > td:nth-of-type(4) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn table-action-btn btn-danger|",
+          "text": "删除",
+          "foreground": "rgb(153, 27, 27)",
+          "background": "rgb(254, 226, 226)",
+          "effectiveBackground": [
+            254,
+            226,
+            226
+          ],
+          "contrast": 6.802728419777387,
+          "textual": true,
+          "disabled": false,
+          "width": 68.015625,
+          "height": 28.5625,
+          "font": 13,
+          "top": 379.015625,
+          "clipTop": 191.390625,
+          "offsetTop": 187.625
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(4) > td:nth-of-type(4) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn table-action-btn btn-danger|",
+          "text": "删除",
+          "foreground": "rgb(153, 27, 27)",
+          "background": "rgb(254, 226, 226)",
+          "effectiveBackground": [
+            254,
+            226,
+            226
+          ],
+          "contrast": 6.802728419777387,
+          "textual": true,
+          "disabled": false,
+          "width": 68.015625,
+          "height": 28.5625,
+          "font": 13,
+          "top": 440.578125,
+          "clipTop": 191.390625,
+          "offsetTop": 249.1875
+        }
+      ],
+      "issues": [],
+      "scope": ".page-container",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "light",
+      "state": "keyboard-focus",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn btn-primary|",
+          "text": "新增组件",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 114,
+          "height": 44,
+          "font": 14,
+          "top": 93.1875,
+          "clipTop": 40,
+          "offsetTop": 53.1875
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(4) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn table-action-btn btn-danger|",
+          "text": "删除",
+          "foreground": "rgb(153, 27, 27)",
+          "background": "rgb(254, 226, 226)",
+          "effectiveBackground": [
+            254,
+            226,
+            226
+          ],
+          "contrast": 6.802728419777387,
+          "textual": true,
+          "disabled": false,
+          "width": 68.015625,
+          "height": 28.5625,
+          "font": 13,
+          "top": 255.890625,
+          "clipTop": 191.390625,
+          "offsetTop": 64.5
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(4) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn table-action-btn btn-danger|",
+          "text": "删除",
+          "foreground": "rgb(153, 27, 27)",
+          "background": "rgb(254, 226, 226)",
+          "effectiveBackground": [
+            254,
+            226,
+            226
+          ],
+          "contrast": 6.802728419777387,
+          "textual": true,
+          "disabled": false,
+          "width": 68.015625,
+          "height": 28.5625,
+          "font": 13,
+          "top": 317.453125,
+          "clipTop": 191.390625,
+          "offsetTop": 126.0625
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(3) > td:nth-of-type(4) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn table-action-btn btn-danger|",
+          "text": "删除",
+          "foreground": "rgb(153, 27, 27)",
+          "background": "rgb(254, 226, 226)",
+          "effectiveBackground": [
+            254,
+            226,
+            226
+          ],
+          "contrast": 6.802728419777387,
+          "textual": true,
+          "disabled": false,
+          "width": 68.015625,
+          "height": 28.5625,
+          "font": 13,
+          "top": 379.015625,
+          "clipTop": 191.390625,
+          "offsetTop": 187.625
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(4) > td:nth-of-type(4) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn table-action-btn btn-danger|",
+          "text": "删除",
+          "foreground": "rgb(153, 27, 27)",
+          "background": "rgb(254, 226, 226)",
+          "effectiveBackground": [
+            254,
+            226,
+            226
+          ],
+          "contrast": 6.802728419777387,
+          "textual": true,
+          "disabled": false,
+          "width": 68.015625,
+          "height": 28.5625,
+          "font": 13,
+          "top": 440.578125,
+          "clipTop": 191.390625,
+          "offsetTop": 249.1875
+        }
+      ],
+      "issues": [],
+      "scope": ".page-container",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "dark",
+      "state": "default",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn btn-primary|",
+          "text": "新增组件",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 114,
+          "height": 44,
+          "font": 14,
+          "top": 93.1875,
+          "clipTop": 40,
+          "offsetTop": 53.1875
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(4) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn table-action-btn btn-danger|",
+          "text": "删除",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(185, 28, 28)",
+          "effectiveBackground": [
+            185,
+            28,
+            28
+          ],
+          "contrast": 6.4700447145121895,
+          "textual": true,
+          "disabled": false,
+          "width": 68.015625,
+          "height": 28.5625,
+          "font": 13,
+          "top": 255.890625,
+          "clipTop": 191.390625,
+          "offsetTop": 64.5
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(4) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn table-action-btn btn-danger|",
+          "text": "删除",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(185, 28, 28)",
+          "effectiveBackground": [
+            185,
+            28,
+            28
+          ],
+          "contrast": 6.4700447145121895,
+          "textual": true,
+          "disabled": false,
+          "width": 68.015625,
+          "height": 28.5625,
+          "font": 13,
+          "top": 317.453125,
+          "clipTop": 191.390625,
+          "offsetTop": 126.0625
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(3) > td:nth-of-type(4) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn table-action-btn btn-danger|",
+          "text": "删除",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(185, 28, 28)",
+          "effectiveBackground": [
+            185,
+            28,
+            28
+          ],
+          "contrast": 6.4700447145121895,
+          "textual": true,
+          "disabled": false,
+          "width": 68.015625,
+          "height": 28.5625,
+          "font": 13,
+          "top": 379.015625,
+          "clipTop": 191.390625,
+          "offsetTop": 187.625
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(4) > td:nth-of-type(4) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn table-action-btn btn-danger|",
+          "text": "删除",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(185, 28, 28)",
+          "effectiveBackground": [
+            185,
+            28,
+            28
+          ],
+          "contrast": 6.4700447145121895,
+          "textual": true,
+          "disabled": false,
+          "width": 68.015625,
+          "height": 28.5625,
+          "font": 13,
+          "top": 440.578125,
+          "clipTop": 191.390625,
+          "offsetTop": 249.1875
+        }
+      ],
+      "issues": [],
+      "scope": ".page-container",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "dark",
+      "state": "hover-0",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn btn-primary|",
+          "text": "新增组件",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 114,
+          "height": 44,
+          "font": 14,
+          "top": 93.1875,
+          "clipTop": 40,
+          "offsetTop": 53.1875
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(4) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn table-action-btn btn-danger|",
+          "text": "删除",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(185, 28, 28)",
+          "effectiveBackground": [
+            185,
+            28,
+            28
+          ],
+          "contrast": 6.4700447145121895,
+          "textual": true,
+          "disabled": false,
+          "width": 68.015625,
+          "height": 28.5625,
+          "font": 13,
+          "top": 255.890625,
+          "clipTop": 191.390625,
+          "offsetTop": 64.5
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(4) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn table-action-btn btn-danger|",
+          "text": "删除",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(185, 28, 28)",
+          "effectiveBackground": [
+            185,
+            28,
+            28
+          ],
+          "contrast": 6.4700447145121895,
+          "textual": true,
+          "disabled": false,
+          "width": 68.015625,
+          "height": 28.5625,
+          "font": 13,
+          "top": 317.453125,
+          "clipTop": 191.390625,
+          "offsetTop": 126.0625
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(3) > td:nth-of-type(4) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn table-action-btn btn-danger|",
+          "text": "删除",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(185, 28, 28)",
+          "effectiveBackground": [
+            185,
+            28,
+            28
+          ],
+          "contrast": 6.4700447145121895,
+          "textual": true,
+          "disabled": false,
+          "width": 68.015625,
+          "height": 28.5625,
+          "font": 13,
+          "top": 379.015625,
+          "clipTop": 191.390625,
+          "offsetTop": 187.625
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(4) > td:nth-of-type(4) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn table-action-btn btn-danger|",
+          "text": "删除",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(185, 28, 28)",
+          "effectiveBackground": [
+            185,
+            28,
+            28
+          ],
+          "contrast": 6.4700447145121895,
+          "textual": true,
+          "disabled": false,
+          "width": 68.015625,
+          "height": 28.5625,
+          "font": 13,
+          "top": 440.578125,
+          "clipTop": 191.390625,
+          "offsetTop": 249.1875
+        }
+      ],
+      "issues": [],
+      "scope": ".page-container",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "dark",
+      "state": "hover-1",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn btn-primary|",
+          "text": "新增组件",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 114,
+          "height": 44,
+          "font": 14,
+          "top": 93.1875,
+          "clipTop": 40,
+          "offsetTop": 53.1875
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(4) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn table-action-btn btn-danger|",
+          "text": "删除",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(185, 28, 28)",
+          "effectiveBackground": [
+            185,
+            28,
+            28
+          ],
+          "contrast": 6.4700447145121895,
+          "textual": true,
+          "disabled": false,
+          "width": 68.015625,
+          "height": 28.5625,
+          "font": 13,
+          "top": 255.890625,
+          "clipTop": 191.390625,
+          "offsetTop": 64.5
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(4) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn table-action-btn btn-danger|",
+          "text": "删除",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(185, 28, 28)",
+          "effectiveBackground": [
+            185,
+            28,
+            28
+          ],
+          "contrast": 6.4700447145121895,
+          "textual": true,
+          "disabled": false,
+          "width": 68.015625,
+          "height": 28.5625,
+          "font": 13,
+          "top": 317.453125,
+          "clipTop": 191.390625,
+          "offsetTop": 126.0625
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(3) > td:nth-of-type(4) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn table-action-btn btn-danger|",
+          "text": "删除",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(185, 28, 28)",
+          "effectiveBackground": [
+            185,
+            28,
+            28
+          ],
+          "contrast": 6.4700447145121895,
+          "textual": true,
+          "disabled": false,
+          "width": 68.015625,
+          "height": 28.5625,
+          "font": 13,
+          "top": 379.015625,
+          "clipTop": 191.390625,
+          "offsetTop": 187.625
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(4) > td:nth-of-type(4) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn table-action-btn btn-danger|",
+          "text": "删除",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(185, 28, 28)",
+          "effectiveBackground": [
+            185,
+            28,
+            28
+          ],
+          "contrast": 6.4700447145121895,
+          "textual": true,
+          "disabled": false,
+          "width": 68.015625,
+          "height": 28.5625,
+          "font": 13,
+          "top": 440.578125,
+          "clipTop": 191.390625,
+          "offsetTop": 249.1875
+        }
+      ],
+      "issues": [],
+      "scope": ".page-container",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "dark",
+      "state": "keyboard-focus",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn btn-primary|",
+          "text": "新增组件",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 114,
+          "height": 44,
+          "font": 14,
+          "top": 93.1875,
+          "clipTop": 40,
+          "offsetTop": 53.1875
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(4) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn table-action-btn btn-danger|",
+          "text": "删除",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(185, 28, 28)",
+          "effectiveBackground": [
+            185,
+            28,
+            28
+          ],
+          "contrast": 6.4700447145121895,
+          "textual": true,
+          "disabled": false,
+          "width": 68.015625,
+          "height": 28.5625,
+          "font": 13,
+          "top": 255.890625,
+          "clipTop": 191.390625,
+          "offsetTop": 64.5
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(4) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn table-action-btn btn-danger|",
+          "text": "删除",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(185, 28, 28)",
+          "effectiveBackground": [
+            185,
+            28,
+            28
+          ],
+          "contrast": 6.4700447145121895,
+          "textual": true,
+          "disabled": false,
+          "width": 68.015625,
+          "height": 28.5625,
+          "font": 13,
+          "top": 317.453125,
+          "clipTop": 191.390625,
+          "offsetTop": 126.0625
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(3) > td:nth-of-type(4) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn table-action-btn btn-danger|",
+          "text": "删除",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(185, 28, 28)",
+          "effectiveBackground": [
+            185,
+            28,
+            28
+          ],
+          "contrast": 6.4700447145121895,
+          "textual": true,
+          "disabled": false,
+          "width": 68.015625,
+          "height": 28.5625,
+          "font": 13,
+          "top": 379.015625,
+          "clipTop": 191.390625,
+          "offsetTop": 187.625
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(4) > td:nth-of-type(4) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn table-action-btn btn-danger|",
+          "text": "删除",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(185, 28, 28)",
+          "effectiveBackground": [
+            185,
+            28,
+            28
+          ],
+          "contrast": 6.4700447145121895,
+          "textual": true,
+          "disabled": false,
+          "width": 68.015625,
+          "height": 28.5625,
+          "font": 13,
+          "top": 440.578125,
+          "clipTop": 191.390625,
+          "offsetTop": 249.1875
+        }
+      ],
+      "issues": [],
+      "scope": ".page-container",
+      "axe": [],
+      "newIssues": []
+    }
+  ],
+  "writes": [],
+  "errors": []
+}

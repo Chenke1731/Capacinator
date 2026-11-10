@@ -33,6 +33,11 @@ export const profiles = {
   // 1366 档（2026-11-10 同类排查）：历史布局事故高发视口；空态工具栏 4 控件
   'intake-1366': {path:'/projects?tab=intake',root:'.intake-inbox',ready:'[data-testid="intake-inbox"]',minElements:4,viewport:{width:1366,height:900}},
   'people-1366': {path:'/people',root:'main',ready:'table',minElements:5,viewport:{width:1366,height:900}},
+  // I01e Batch 1（2026-11-10）：badge/btn-icon 所有权收敛的两块活性作用面补档——
+  // availability 日历（44px 独立图标钮 + 徽章药丸化）与 components 表
+  // （ui/InlineEdit 布尔徽章宿主，此前无 profile 零验证）
+  'people-availability': {path:'/people?tab=availability',root:'main',ready:'.calendar-view',minElements:5},
+  components: {path:'/components',root:'.page-container',ready:'table',minElements:5},
   roadmap: {path:'/projects?tab=roadmap',root:'.project-roadmap',ready:'.interactive-timeline',minElements:8,scroll:'.timeline-scroll-container',safeTriggers:'.nav-btn, .today-btn, .zoom-controls button',requiredTriggers:5},
   'project-detail': {path:'/projects/project-1789912193111-zikdnz8c5',root:'main > .max-w-7xl',ready:'.chart-container .chart-tab',minElements:8,safeTriggers:'.chart-tab'},
   'project-detail-phases': {path:'/projects/:audit-id',entity:'phased-project',root:'main > .max-w-7xl',ready:'.project-phase-timeline .timeline-container',minElements:5,safeTriggers:'.chart-tab',scrollInto:'.chart-container'},

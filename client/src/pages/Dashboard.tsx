@@ -98,7 +98,7 @@ export function Dashboard() {
     : [{ name: t('dashboard:noData'), value: 0, color: COLORS.primary }];
 
   return (
-    <div className="page-container">
+    <div className="page-container dashboard-page">
       {/* Compact toolbar: the sidebar already says where you are — no 62px
           title strip; the date-range selector sits in one slim row */}
       <div className="dashboard-toolbar">

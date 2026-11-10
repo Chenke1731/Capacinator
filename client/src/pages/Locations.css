@@ -101,23 +101,23 @@
   border-top: 1px solid var(--border-color);
 }
 
-.empty-state {
-  text-align: center;
+/* Tall empty state with icon + centered narrow copy — real local delta,
+   scoped to the locations page root (D-03 Batch 1). */
+.locations-page .empty-state {
   padding: 60px 20px;
-  color: var(--text-secondary);
 }
 
-.empty-state svg {
+.locations-page .empty-state svg {
   color: var(--text-tertiary);
   margin-bottom: 16px;
 }
 
-.empty-state h3 {
+.locations-page .empty-state h3 {
   margin: 0 0 8px 0;
   color: var(--text-primary);
 }
 
-.empty-state p {
+.locations-page .empty-state p {
   margin: 0 0 24px 0;
   max-width: 400px;
   margin-left: auto;

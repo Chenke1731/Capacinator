@@ -15,7 +15,7 @@ import { readFileSync, readdirSync, existsSync } from 'node:fs';
 import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { execSync } from 'node:child_process';
-import { SHARED_CLASSES, ALLOWLIST, isAllowlisted, allowlistExpiry, isOwnerFile } from './lib/shared-ui-classes.mjs';
+import { SHARED_CLASSES, ALLOWLIST, OWNER_FILES, isAllowlisted, allowlistExpiry, isOwnerFile, OWNER_DUPS, OWNER_MISSING } from './lib/shared-ui-classes.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const files = [
@@ -316,6 +316,75 @@ for (const key of ALLOWLIST.keys()) {
   if (!allowlistSeen.has(key)) console.log(`note: 共享类白名单条目已无对应违例,可删除: ${key}`);
 }
 
+// ── 规则 7: 所有者内部唯一性 + 注册完备性（D-03 Batch 1，2026-11-10）──
+// 同族三次事故升级（chart-container / summary-card / checkbox-label 都是
+// OWNER_FILES 之间的双定义——级联顺序决定谁生效；empty-state 的 index.css
+// 副本从未赢过）。所有权登记此前只管"文件合法性"，没管所有者内部唯一性。
+// 7a: 共享类在所有者文件集合中最多一个定义文件；7b: 每个注册类至少一个
+// 所有者定义（badge-secondary 曾注册缺主，裸 span 无底色）。
+// 够用级: 按 OWNER_FILES 原文件扫描，不展开 @import（tailwind.css 仅含
+// @import 链，自身无定义，不产生假双计）。
+export function collectSharedClassOwners(ownerTexts) {
+  const defs = {};
+  for (const [rel, text] of Object.entries(ownerTexts)) {
+    const stripped = String(text).replace(/\/\*[\s\S]*?\*\//g, (c) => c.replace(/[^\n]/g, ' '));
+    for (const m of stripped.matchAll(/([^{}]+)\{([^{}]*)\}/g)) {
+      const sel = m[1].trim();
+      if (!sel || sel.startsWith('@') || sel.includes('@')) continue;
+      for (const raw of sel.split(',')) {
+        const item = raw.replace(/\s+/g, ' ').trim();
+        const lm = item.match(/^(?:[a-z][\w-]*)?\.([a-zA-Z][\w-]*)/);
+        if (lm && SHARED_CLASSES.has(lm[1])) { (defs[lm[1]] ??= new Set()).add(rel); }
+      }
+    }
+  }
+  return defs;
+}
+
+export function checkOwnerUniqueness(defs, classes = SHARED_CLASSES) {
+  const problems = [];
+  const expired = (e) => new Date(e).getTime() < Date.now();
+  for (const cls of classes) {
+    const files = defs[cls] ? [...defs[cls]] : [];
+    if (files.length === 0) {
+      const frozen = OWNER_MISSING.get(cls);
+      if (!frozen) problems.push(`共享类 .${cls} 已注册但没有任何所有者定义 → 注册即须有主（badge-secondary 缺主事故）；补所有者定义或从 SHARED_CLASSES 移除`);
+      else if (expired(frozen.expiry)) problems.push(`共享类 .${cls} 缺所有者定义且冻结 ${frozen.expiry} 已到期 → ${frozen.note}`);
+      continue;
+    }
+    if (files.length > 1) {
+      const frozen = OWNER_DUPS.get(cls);
+      const actual = new Set(files);
+      if (!frozen) { problems.push(`共享类 .${cls} 有 ${files.length} 个所有者定义文件（${files.join(' | ')}）→ 级联顺序决定谁生效（empty-state 双所有者事故）；收敛为单所有者，页面差量写作用域覆盖`); continue; }
+      const unexpected = files.filter((f) => !frozen.files.includes(f));
+      if (unexpected.length) problems.push(`共享类 .${cls} 出现冻结名单外的第三个所有者（${unexpected.join(' | ')}）→ 新增所有者定义必须拦截`);
+      else if (expired(frozen.expiry)) problems.push(`共享类 .${cls} 双所有者冻结 ${frozen.expiry} 已到期 → ${frozen.note}`);
+    }
+  }
+  return problems;
+}
+
+const ownerScanFiles = [...new Set([
+  ...OWNER_FILES,
+  'client/src/components/Charts.css',
+  ...listCss('client/src/components/ui', true),
+])];
+const ownerTexts = {};
+for (const rel of ownerScanFiles) {
+  try { ownerTexts[rel] = readFileSync(resolve(root, rel), 'utf8'); }
+  catch { violations.push(`${rel} 登记的所有者文件缺失（规则 7 扫描对象）`); }
+}
+const ownerDefs = collectSharedClassOwners(ownerTexts);
+violations.push(...checkOwnerUniqueness(ownerDefs));
+// 冻结名单腐化提示(不拦门): 收敛完成后条目要及时删
+for (const [cls, frozen] of OWNER_DUPS) {
+  const n = ownerDefs[cls] ? ownerDefs[cls].size : 0;
+  if (n <= 1) console.log(`note: OWNER_DUPS 条目 .${cls} 已收敛到 ${n} 个所有者文件,可删除`);
+}
+for (const cls of OWNER_MISSING.keys()) {
+  if (ownerDefs[cls]) console.log(`note: OWNER_MISSING 条目 .${cls} 已有所有者定义,可删除`);
+}
+
 // 白名单腐化提示(不拦门): 存量清掉后条目要及时删,防止清单变成永久豁免
 for (const k of UTIL_ALLOWLIST) {
   if (!allowlistedSeen.has(k)) console.log(`note: 工具类白名单条目已无对应违例,可删除: ${k}`);
@@ -427,6 +496,25 @@ if (process.env.SELF_TEST === '1') {
     process.exit(1);
   }
   console.log('SELF-TEST PASS: 共享类所有权检测器(6 例)——生产函数直调');
+
+  // 规则 7 自证: 所有者内部唯一性+注册完备性——双所有者必红,冻结名单内必绿,
+  // 名单外第三者/注册缺主必红,缺主冻结/单所有者必绿。
+  // defs 结构 = { 类名: Set(所有者文件) }（与 collectSharedClassOwners 一致）。
+  const dupDefs = { badge: new Set(['client/src/a.css', 'client/src/b.css']) };
+  const frozenDupDefs = { 'chart-container': new Set(['client/src/index.css', 'client/src/components/Charts.css']) };
+  const thirdOwnerDefs = { 'chart-container': new Set(['client/src/index.css', 'client/src/components/Charts.css', 'client/src/pages/rogue.css']) };
+  const emptyDefs = {};
+  const r7 = (defs, classes) => checkOwnerUniqueness(defs, classes).join('\n');
+  if (!r7(dupDefs, ['badge']).includes('有 2 个所有者定义文件')) throw Error('规则7: 未冻结双所有者未检出');
+  if (r7(frozenDupDefs, ['chart-container']) !== '') throw Error('规则7: 冻结名单内双所有者被误报');
+  if (!r7(thirdOwnerDefs, ['chart-container']).includes('冻结名单外的第三个所有者')) throw Error('规则7: 名单外第三所有者未检出');
+  if (r7(emptyDefs, ['modal-title', 'modal-large']) !== '') throw Error('规则7: 缺主冻结(modal-title/modal-large)未生效');
+  if (!r7(emptyDefs, ['badge-info']).includes('已注册但没有任何所有者定义')) throw Error('规则7: 注册缺主未检出');
+  if (r7({ 'btn-icon': new Set(['client/src/App.css']) }, ['btn-icon']) !== '') throw Error('规则7: 单所有者被误报');
+  // 同一选择器列表含多个共享类时必须全记录(不因首项命中而漏记其余)
+  const listScan = collectSharedClassOwners({ 'client/src/x.css': '.modal-container,\n.modal-content,\n.modal { display:block }' });
+  if (!listScan['modal-container'] || !listScan['modal-content']) throw Error('规则7: 选择器列表多共享类漏记(modal-common.css 同款结构)');
+  console.log('SELF-TEST PASS: 所有权唯一性检测器(7 组)——生产函数直调');
 
   // 任务B收口②③: 主色 hsl 家族检测器——评审注入案例入仓,直接调生产函数
   const hslCases = [

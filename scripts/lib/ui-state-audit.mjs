@@ -16,7 +16,14 @@ export function installContrastHelpers() {
   const over=(base,c)=>c.slice(0,3).map((v,i)=>v*(c[3]??1)+base[i]*(1-(c[3]??1)));
   const background=el=>{
     const layers=[];
-    for(let n=el;n;n=n.parentElement){const s=getComputedStyle(n);if(s.backgroundImage!=='none')return null;const c=parse(s.backgroundColor);if(c&&c[3]>0){layers.push(c);if(c[3]>=.999)break;}}
+    // 2026-11-10（availability 首档）：不透明 backgroundColor 先行短路——
+    // form-select 的箭头是 background-image 装饰画在不透明底上，整体 bail
+    // 会把可解析的白色底误报 unknown-background。透明/半透明底之上仍有
+    // image（渐变填充）时维持 bail：无法合成，见 selftest 渐变案例。
+    for(let n=el;n;n=n.parentElement){const s=getComputedStyle(n);const c=parse(s.backgroundColor);
+      if(c&&c[3]>=.999){layers.push(c);break;}
+      if(s.backgroundImage!=='none')return null;
+      if(c&&c[3]>0)layers.push(c);}
     if(!layers.length||layers.at(-1)[3]<.999)return null;
     let b=layers.pop().slice(0,3);while(layers.length)b=over(b,layers.pop());return b;
   };

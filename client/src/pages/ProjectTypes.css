@@ -178,13 +178,13 @@
   background: var(--bg-secondary);
 }
 
-.empty-state {
-  text-align: center;
+/* Slightly roomier empty state than the shared default — real local delta,
+   scoped to the page root (D-03 Batch 1). */
+.project-types-page .empty-state {
   padding: 48px 24px;
-  color: var(--text-secondary);
 }
 
-.empty-state p {
+.project-types-page .empty-state p {
   margin: 0;
   font-size: 16px;
 }

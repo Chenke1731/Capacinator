@@ -1,6 +1,6 @@
-.dashboard {
-  padding: 2rem;
-}
+/* Dead `.dashboard { padding: 2rem }` removed (D-03 Batch 1 review): no JSX
+   uses that class; keeping it next to the new .dashboard-page anchor would
+   invite an accidental collision. */
 
 .page-header {
   margin-bottom: 2rem;
@@ -44,7 +44,10 @@
   margin-top: 2rem;
 }
 
-.chart-container {
+/* Dashboard charts sit flush (1rem padding, fixed min-height, centered
+   column) — a real local delta over the shared chart card, scoped to the
+   dashboard page root (D-03 Batch 1). */
+.dashboard-page .chart-container {
   padding: 1rem;
   min-height: 350px;
   display: flex;

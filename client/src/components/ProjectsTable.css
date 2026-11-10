@@ -46,40 +46,9 @@
   margin-top: 2px;
 }
 
-.badge {
-  display: inline-flex;
-  align-items: center;
-  padding: 4px 8px;
-  border-radius: 12px;
-  font-size: 0.75rem;
-  font-weight: 500;
-  text-transform: capitalize;
-}
-
-.badge-primary {
-  background: var(--badge-primary-bg);
-  color: var(--badge-primary-text);
-}
-
-.badge-success {
-  background: var(--status-success-soft);
-  color: var(--status-success-text);
-}
-
-.badge-warning {
-  background: var(--status-warning-soft);
-  color: var(--status-warning-text);
-}
-
-.badge-secondary {
-  background: var(--bg-secondary);
-  color: var(--text-secondary);
-}
-
-.badge-danger {
-  background: var(--status-danger-soft);
-  color: var(--status-danger-text);
-}
+/* badge / badge-variant / btn-icon rules removed (D-03 Batch 1): identical
+   bodies now live in their owner App.css — these unscoped copies leaked the
+   pill design into every page visited after this component's chunk loaded. */
 
 .table-footer {
   padding: 12px 16px;
@@ -88,47 +57,26 @@
   text-align: center;
 }
 
-.btn-icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 36px;
-  height: 36px;
-  padding: 6px;
-  border: 1px solid var(--control-border);
-  border-radius: 6px;
-  background: var(--bg-primary);
-  color: var(--text-tertiary);
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.btn-icon:hover {
-  background: var(--bg-secondary);
-  color: var(--text-secondary);
-  border-color: var(--control-border);
-}
-
 .btn-sm {
   padding: 6px 12px;
   font-size: 0.875rem;
 }
 
-.empty-state {
-  text-align: center;
+/* Local empty-state deltas only (base comes from App.css owner); scoped to
+   the component root so the mini table's look can't drift onto other pages. */
+.projects-mini-table .empty-state {
   padding: 40px 20px;
-  color: var(--text-secondary);
 }
 
-.empty-state p {
+.projects-mini-table .empty-state p {
   margin: 0 0 8px 0;
 }
 
-.empty-state .text-muted {
+.projects-mini-table .empty-state .text-muted {
   font-size: 0.875rem;
   margin-bottom: 16px;
 }
 
-.empty-state .btn {
+.projects-mini-table .empty-state .btn {
   margin-top: 8px;
 }

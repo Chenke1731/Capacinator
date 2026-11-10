@@ -111,7 +111,10 @@
   flex-wrap: wrap;
 }
 
-.badge {
+/* Comparison badges: uppercase + solid-color scenario variants are a local
+   design language — scoped to the comparison page so the shared .badge class
+   isn't redefined globally (D-03 Batch 1). */
+.scenario-comparison .badge {
   padding: 0.25rem 0.75rem;
   border-radius: 12px;
   font-size: 0.75rem;
@@ -120,27 +123,27 @@
   letter-spacing: 0.25px;
 }
 
-.badge.scenario-type.baseline {
+.scenario-comparison .badge.scenario-type.baseline {
   background: var(--primary-color);
   color: white;
 }
 
-.badge.scenario-type.branch {
+.scenario-comparison .badge.scenario-type.branch {
   background: var(--secondary-color);
   color: white;
 }
 
-.badge.scenario-status.active {
+.scenario-comparison .badge.scenario-status.active {
   background: var(--success-color);
   color: white;
 }
 
-.badge.scenario-status.merged {
+.scenario-comparison .badge.scenario-status.merged {
   background: var(--info-color);
   color: white;
 }
 
-.badge.scenario-date {
+.scenario-comparison .badge.scenario-date {
   background: var(--bg-tertiary);
   color: var(--text-secondary);
   border: 1px solid var(--border-color);
@@ -212,14 +215,16 @@
   gap: 1.5rem;
 }
 
-.summary-card {
+/* Summary cards with larger h3 than the shared default — a real local delta,
+   scoped to the comparison page (D-03 Batch 1). */
+.scenario-comparison .summary-card {
   background: var(--bg-primary);
   border: 1px solid var(--border-color);
   border-radius: 8px;
   padding: 1.5rem;
 }
 
-.summary-card h3 {
+.scenario-comparison .summary-card h3 {
   margin: 0 0 1rem 0;
   color: var(--text-primary);
   font-size: 1.1rem;

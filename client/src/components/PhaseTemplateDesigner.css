@@ -256,14 +256,6 @@
   font-size: 0.75rem;
 }
 
-.btn-icon.btn-sm {
-  width: 36px;
-  height: 36px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 .template-phase {
   border: 1px solid var(--border-color);
   border-radius: 6px;
@@ -316,33 +308,9 @@
   flex-wrap: wrap;
 }
 
-.badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  padding: 2px 8px;
-  border-radius: 12px;
-  font-size: 0.75rem;
-  font-weight: 500;
-}
-
-.badge-mandatory {
-  background: var(--status-warning-soft);
-  color: var(--status-warning-text);
-  border: 1px solid var(--status-warning-border);
-}
-
-.badge-locked {
-  background: var(--status-danger-soft);
-  color: var(--status-danger-text);
-  border: 1px solid var(--status-danger-border);
-}
-
-.badge-duration {
-  background: var(--status-info-soft);
-  color: var(--status-info-text);
-  border: 1px solid var(--status-info-border);
-}
+/* badge/badge-mandatory/badge-locked/badge-duration removed (D-03 Batch 1):
+   zero references in PhaseTemplateDesigner.tsx — dead code cleared, not
+   scoped. Live badge styling comes from the App.css owner. */
 
 .phase-actions {
   display: flex;
@@ -376,11 +344,9 @@
   cursor: not-allowed;
 }
 
-.btn-icon {
-  padding: 6px;
-  min-width: 32px;
-  justify-content: center;
-}
+/* Local .btn-icon override removed (D-03 Batch 1): the App.css owner now
+   defines the box-style icon button; the old min-width:32 delta was already
+   dead under a fixed-width owner. */
 
 .btn-primary {
   background: var(--primary-solid);
@@ -425,51 +391,10 @@
   margin-bottom: 16px;
 }
 
-.checkbox-label {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  cursor: pointer;
-}
-
-.checkbox-label input[type="checkbox"] {
-  width: 16px;
-  height: 16px;
-  margin-right: 8px;
-}
-
-.checkbox-label span {
-  font-weight: 500;
-  color: var(--text-primary);
-}
-
-.checkbox-label small {
-  color: var(--text-secondary);
-  font-size: 0.8rem;
-  margin-left: 24px;
-}
-
-.form-textarea,
-.form-input {
-  width: 100%;
-  padding: 8px 12px;
-  border: 1px solid var(--border-color);
-  border-radius: 6px;
-  font-size: 0.875rem;
-  transition: border-color 0.2s ease;
-}
-
-.form-textarea {
-  resize: vertical;
-  min-height: 80px;
-}
-
-.form-textarea:focus,
-.form-input:focus {
-  outline: none;
-  border-color: var(--primary-text);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 10%, transparent);
-}
+/* checkbox-label/form-input/form-textarea blocks removed (D-03 Batch 1):
+   zero references in PhaseTemplateDesigner.tsx — dead code cleared. The
+   designer's live checkboxes use checkbox-input/checkbox-mark (see the
+   scoped border rules at the bottom of this file). */
 
 .duration-constraints {
   margin-bottom: 20px;
@@ -573,20 +498,20 @@
   color: var(--primary-text);
 }
 
-.empty-state {
-  text-align: center;
+/* Scoped empty-state deltas (base comes from the App.css owner) so the
+   designer's compact empty look can't drift onto other pages (D-03 Batch 1). */
+.phase-template-designer .empty-state {
   padding: 40px 20px;
-  color: var(--text-secondary);
 }
 
-.empty-state h4 {
+.phase-template-designer .empty-state h4 {
   margin: 16px 0 8px 0;
   color: var(--text-secondary);
   font-size: 1.1rem;
   font-weight: 500;
 }
 
-.empty-state p {
+.phase-template-designer .empty-state p {
   margin: 0;
   font-size: 0.9rem;
 }
@@ -620,16 +545,12 @@
 :root { --neutral-button-solid: #6b7280; --neutral-button-hover: #4b5563; }
 [data-theme] { --control-border: var(--text-tertiary); }
 .phase-template-designer .checkbox-mark,
-.phase-template-designer .form-input,
-.phase-template-designer .form-textarea,
 .phase-template-designer .duration-input {
   border-color: var(--control-border);
 }
 .phase-template-designer .checkbox-input:checked ~ .checkbox-mark {
   border-color: var(--primary-text);
 }
-.phase-template-designer .duration-input:focus,
-.phase-template-designer .form-input:focus,
-.phase-template-designer .form-textarea:focus {
+.phase-template-designer .duration-input:focus {
   border-color: var(--primary-text);
 }

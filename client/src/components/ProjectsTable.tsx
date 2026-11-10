@@ -40,16 +40,20 @@ export default function ProjectsTable({ projects, maxRows = 10 }: ProjectsTableP
   const hasMore = projects.length > maxRows;
 
   if (projects.length === 0) {
+    // Component root stays .projects-mini-table in every state so the scoped
+    // empty-state deltas in ProjectsTable.css always apply (D-03 Batch 1).
     return (
-      <div className="empty-state">
-        <p>{t('projects:miniTable.emptyTitle')}</p>
-        <p className="text-muted">{t('projects:miniTable.emptyHint')}</p>
-        <button
-          className="btn btn-primary"
-          onClick={() => navigate('/projects/new')}
-        >
-          {t('projects:miniTable.createFirst')}
-        </button>
+      <div className="projects-mini-table">
+        <div className="empty-state">
+          <p>{t('projects:miniTable.emptyTitle')}</p>
+          <p className="text-muted">{t('projects:miniTable.emptyHint')}</p>
+          <button
+            className="btn btn-primary"
+            onClick={() => navigate('/projects/new')}
+          >
+            {t('projects:miniTable.createFirst')}
+          </button>
+        </div>
       </div>
     );
   }

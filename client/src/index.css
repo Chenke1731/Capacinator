@@ -333,11 +333,9 @@ input:focus, select:focus, textarea:focus {
   font-size: 0.875rem;
 }
 
-.empty-state {
-  text-align: center;
-  padding: 3rem;
-  color: var(--text-secondary);
-}
+/* .empty-state moved to a single owner: App.css (cascade-last among owner
+   files) — this duplicate never won and kept the "which owner is real"
+   ambiguity that D-03 rule 7 now blocks (2026-11-10, I01e Batch 1). */
 
 .error-page {
   text-align: center;
@@ -398,6 +396,15 @@ input:focus, select:focus, textarea:focus {
   font-size: 1.25rem;
 }
 
+/* Month-flip buttons are standalone icon buttons (no adjacent controls), so
+   they take the 44px standalone-icon size, not the 36px table-row size the
+   .btn-icon owner now defines (UI_GENERATION_CONTRACT §135; D-03 Batch 1). */
+.calendar-header .btn-icon {
+  width: 44px;
+  height: 44px;
+  padding: 6px;
+}
+
 .calendar-grid {
   border: 1px solid var(--border-color);
   border-radius: 8px;
@@ -438,7 +445,12 @@ input:focus, select:focus, textarea:focus {
 
 .calendar-day.other-month {
   background: var(--bg-tertiary);
-  opacity: 0.6;
+}
+
+/* 2026-11-10（availability 首档 axe 实锤）：整格 opacity:0.6 会把日期数字
+   压到 4:1 以下——弱化只走文字 token，不再走透明度。 */
+.calendar-day.other-month .day-number {
+  color: var(--text-secondary);
 }
 
 .day-number {

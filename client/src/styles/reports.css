@@ -16,7 +16,11 @@
   margin-bottom: 2rem;
 }
 
-.summary-card {
+/* Summary cards: reports-local restyling of the shared class, scoped to the
+   reports tab so it can't restyle summary cards on other pages (D-03 Batch 1).
+   The hover lift is card elevation, not button motion — outside lint rule 5
+   by design (see its comment). */
+.reports-tab-content .summary-card {
   background: var(--bg-primary);
   border: 1px solid var(--border-color);
   border-radius: 8px;
@@ -25,12 +29,12 @@
   transition: all 0.2s ease;
 }
 
-.summary-card:hover {
+.reports-tab-content .summary-card:hover {
   box-shadow: var(--shadow-md);
   transform: translateY(-2px);
 }
 
-.summary-card h3 {
+.reports-tab-content .summary-card h3 {
   margin: 0 0 0.5rem 0;
   font-size: 0.875rem;
   color: var(--text-secondary);
@@ -82,7 +86,10 @@
   margin-bottom: 2rem;
 }
 
-.chart-container {
+/* Chart cards: reports-local variant (adds shadow + h3 typography), scoped
+   to the reports tab (D-03 Batch 1) — the unscoped copy restyled every
+   .chart-container on pages visited after this chunk loaded. */
+.reports-tab-content .chart-container {
   background: var(--bg-primary);
   border: 1px solid var(--border-color);
   border-radius: 8px;
@@ -90,7 +97,7 @@
   box-shadow: var(--shadow-sm);
 }
 
-.chart-container h3 {
+.reports-tab-content .chart-container h3 {
   margin: 0 0 1rem 0;
   font-size: 1.125rem;
   color: var(--text-primary);
@@ -195,7 +202,11 @@
   background: var(--status-danger-soft);
 }
 
-/* Status Badges */
+/* Status Badges — geometry comes from the reports-private .report-status-badge
+   base. The success/warning/danger/info color variants were removed (D-03
+   Batch 1): token-identical to the new App.css owner (--status-*-soft are
+   literal aliases of --badge-*-bg in both themes). badge-default is a
+   reports-only variant (ReportStatusBadge default), scoped here. */
 .report-status-badge {
   display: inline-block;
   padding: 0.25rem 0.75rem;
@@ -206,27 +217,7 @@
   letter-spacing: 0.5px;
 }
 
-.badge-success {
-  background: var(--status-success-soft);
-  color: var(--status-success-text);
-}
-
-.badge-warning {
-  background: var(--status-warning-soft);
-  color: var(--status-warning-text);
-}
-
-.badge-danger {
-  background: var(--status-danger-soft);
-  color: var(--status-danger-text);
-}
-
-.badge-info {
-  background: var(--status-info-soft);
-  color: var(--status-info-text);
-}
-
-.badge-default {
+.reports-tab-content .badge-default {
   background: var(--bg-secondary);
   color: var(--text-secondary);
 }

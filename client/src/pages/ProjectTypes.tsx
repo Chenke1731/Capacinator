@@ -305,7 +305,7 @@ export default function ProjectTypes() {
   }
 
   return (
-    <div className="page-container">
+    <div className="page-container project-types-page">
       <div className="page-header">
         <div className="header-content">
           <h1>{t('projects:projectTypes.title')}</h1>

@@ -173,7 +173,8 @@
 }
 
 .info-value a:hover {
-  color: var(--primary-hover);
+  /* 2026-11-10: 深色 --primary-hover 3.50:1 → 语义文字令牌 */
+  color: var(--primary-text);
   text-decoration: underline;
 }
 
@@ -268,7 +269,8 @@
 }
 
 .assignment-project:hover {
-  color: var(--primary-hover);
+  color: var(--primary-text);
+  text-decoration: underline;
 }
 
 .assignment-details {
@@ -725,7 +727,7 @@
 }
 
 .action-btn:hover {
-  transform: translateY(-1px);
+  /* 2026-11-10 同类排查：按钮不做 hover 位移 */
   box-shadow: var(--shadow-md);
 }
 

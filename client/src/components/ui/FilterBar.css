@@ -9,6 +9,20 @@
   margin-bottom: 1rem;
 }
 
+/* 2026-11-10 同类排查（F-06）：筛选行控件同高——select 默认 39px 与
+   44px 按钮混排；统一到控件高度令牌。 */
+.filter-bar .form-control,
+.filter-bar .form-select,
+.filter-bar .search-input {
+  height: var(--input-min-height, 40px);
+  min-height: var(--input-min-height, 40px);
+}
+
+.filter-bar .btn {
+  height: var(--button-min-height, 40px);
+  min-height: var(--button-min-height, 40px);
+}
+
 .filter-bar-content {
   flex: 1;
   display: flex;

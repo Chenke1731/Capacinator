@@ -97,20 +97,20 @@
   gap: 0.75rem;
 }
 
-.form-group {
+.import-container .form-group {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
 }
 
-.form-group label {
+.import-container .form-group label {
   font-size: 0.875rem;
   font-weight: 600;
   color: var(--text-primary);
   margin-bottom: 0.25rem;
 }
 
-.form-select {
+.import-container .form-select {
   padding: 0.75rem 1rem;
   border: 2px solid var(--border-color);
   border-radius: 6px;
@@ -121,17 +121,17 @@
   min-height: 44px;
 }
 
-.form-select:focus {
+.import-container .form-select:focus {
   outline: none;
   border-color: var(--primary);
   box-shadow: 0 0 0 3px rgba(var(--primary-rgb), 0.1);
 }
 
-.form-select:hover {
+.import-container .form-select:hover {
   border-color: var(--primary);
 }
 
-.checkbox-label {
+.import-container .checkbox-label {
   display: flex;
   align-items: center;
   gap: 0.75rem;
@@ -141,23 +141,23 @@
   font-weight: 500;
 }
 
-.checkbox-label input[type="checkbox"] {
+.import-container .checkbox-label input[type="checkbox"] {
   cursor: pointer;
   width: 1.125rem;
   height: 1.125rem;
   accent-color: var(--primary);
 }
 
-.checkbox-label:hover {
+.import-container .checkbox-label:hover {
   color: var(--text-primary);
 }
 
-.checkbox-label span {
+.import-container .checkbox-label span {
   color: var(--text-secondary);
   transition: color 0.2s ease;
 }
 
-.checkbox-label:hover span {
+.import-container .checkbox-label:hover span {
   color: var(--text-primary);
 }
 
@@ -695,13 +695,13 @@
   border: 1px solid var(--border-color);
 }
 
-.checkbox-label {
+.import-container .checkbox-label {
   padding: 0.5rem;
   border-radius: 6px;
   transition: background-color 0.2s;
 }
 
-.checkbox-label:hover {
+.import-container .checkbox-label:hover {
   background: var(--bg-primary);
 }
 
@@ -742,7 +742,7 @@
 }
 
 .export-action-button:hover:not(:disabled) {
-  transform: translateY(-1px);
+  /* 2026-11-10 同类排查：按钮不做 hover 位移 */
   box-shadow: 0 4px 6px -1px color-mix(in srgb, var(--solid-shade) 10%, transparent), 0 2px 4px -1px color-mix(in srgb, var(--solid-shade) 6%, transparent);
 }
 
@@ -797,78 +797,80 @@
   transform: none !important;
 }
 
-.btn:focus {
+.import-container .btn:focus {
   outline: 2px solid var(--primary);
   outline-offset: 2px;
 }
 
-.btn-primary {
+/* 2026-11-10 同类排查（F-11/F-13/F-14）：以下原为未作用域共享类覆盖，
+   随 /import 路由加载改写其他页按钮/表单/徽标。全部限定到 .import-container。 */
+.import-container .btn-primary {
   background: var(--primary);
   color: var(--solid-foreground);
   border-color: var(--primary);
 }
 
-.btn-primary:hover:not(:disabled) {
+.import-container .btn-primary:hover:not(:disabled) {
   background: var(--primary-dark);
   border-color: var(--primary-dark);
 }
 
-.btn-outline {
+.import-container .btn-outline {
   background: transparent;
   color: var(--primary-text);
   border-color: var(--primary);
 }
 
-.btn-outline:hover:not(:disabled) {
+.import-container .btn-outline:hover:not(:disabled) {
   background: var(--primary-solid);
   color: var(--solid-foreground);
 }
 
 /* Button Size Variants */
-.btn-sm {
+.import-container .btn-sm {
   padding: 0.375rem 0.75rem;
   font-size: 0.8125rem;
   min-height: 32px;
   gap: 0.375rem;
 }
 
-.btn-sm svg {
+.import-container .btn-sm svg {
   width: 14px;
   height: 14px;
 }
 
 /* Button Style Variants */
-.btn-ghost {
+.import-container .btn-ghost {
   background: transparent;
   color: var(--text-secondary);
   border-color: transparent;
   font-weight: 500;
 }
 
-.btn-ghost:hover:not(:disabled) {
+.import-container .btn-ghost:hover:not(:disabled) {
   background: var(--bg-tertiary);
   color: var(--text-primary);
   border-color: var(--border-color);
 }
 
-.btn-ghost:focus {
+.import-container .btn-ghost:focus {
   background: var(--bg-tertiary);
   border-color: var(--primary);
   color: var(--text-primary);
 }
 
 /* Design System Typography Scale */
-.text-xs {
+.import-container .text-xs {
   font-size: 0.75rem;
   line-height: 1.5;
 }
 
-.text-sm {
+.import-container .text-sm {
   font-size: 0.875rem;
   line-height: 1.5;
 }
 
-.text-base {
+.import-container .text-base {
   font-size: 1rem;
   line-height: 1.6;
 }
@@ -927,22 +929,22 @@ legend {
 }
 
 /* Enhanced Focus Styles for Accessibility */
-.btn:focus-visible,
-.form-select:focus-visible,
-input[type="checkbox"]:focus-visible {
+.import-container .btn:focus-visible,
+.import-container .form-select:focus-visible,
+.import-container input[type="checkbox"]:focus-visible {
   outline: 2px solid var(--primary);
   outline-offset: 2px;
   box-shadow: 0 0 0 4px rgba(var(--primary-rgb), 0.2);
 }
 
-.btn:focus:not(:focus-visible) {
+.import-container .btn:focus:not(:focus-visible) {
   outline: none;
   box-shadow: none;
 }
 
 /* High Contrast Mode Support */
 @media (prefers-contrast: high) {
-  .btn {
+  .import-container .btn {
     border-width: 2px;
   }
   
@@ -950,7 +952,7 @@ input[type="checkbox"]:focus-visible {
     border-width: 2px;
   }
   
-  .form-select {
+  .import-container .form-select {
     border-width: 2px;
   }
 }

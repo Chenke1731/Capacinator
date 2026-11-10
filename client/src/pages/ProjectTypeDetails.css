@@ -12,7 +12,8 @@
 }
 
 .back-button:hover {
-  transform: translateX(-2px);
+  /* 2026-11-10 同类排查：按钮不做 hover 位移 */
+  background: var(--bg-tertiary);
 }
 
 /* Project Type Header */

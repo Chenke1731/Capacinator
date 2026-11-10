@@ -467,7 +467,10 @@
   margin-top: 24px;
 }
 
-.btn {
+/* 2026-11-10 同类排查：本组原为未作用域 .btn* 覆盖，随 /projects 全 tab
+   加载后改写其他页按钮（project-types 视图切换 hover 实测 3.997:1）。
+   全部限定到组件根 .interactive-timeline。 */
+.interactive-timeline .btn {
   padding: 8px 16px;
   border-radius: 6px;
   font-size: 14px;
@@ -478,35 +481,35 @@
   gap: 6px;
 }
 
-.btn-secondary {
+.interactive-timeline .btn-secondary {
   border: 1px solid hsl(var(--border));
   background-color: hsl(var(--background));
   color: hsl(var(--muted-foreground));
 }
 
-.btn-secondary:hover {
+.interactive-timeline .btn-secondary:hover {
   background-color: hsl(var(--accent));
   border-color: hsl(var(--border));
 }
 
-.btn-primary {
+.interactive-timeline .btn-primary {
   border: none;
   background-color: var(--primary-solid);
   color: var(--solid-foreground);
 }
 
-.btn-primary:hover:not(:disabled),
-.btn-primary:active:not(:disabled) {
+.interactive-timeline .btn-primary:hover:not(:disabled),
+.interactive-timeline .btn-primary:active:not(:disabled) {
   background-color: var(--primary-solid);
   color: var(--solid-foreground);
 }
 
-.btn-primary:disabled {
+.interactive-timeline .btn-primary:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
 
-.btn-primary:disabled:hover {
+.interactive-timeline .btn-primary:disabled:hover {
   background-color: var(--primary-solid);
 }
 
@@ -570,13 +573,13 @@
     color: hsl(var(--muted-foreground));
   }
   
-  .btn-secondary {
+  .interactive-timeline .btn-secondary {
     background-color: hsl(var(--muted));
     border-color: hsl(var(--border));
     color: hsl(var(--foreground));
   }
   
-  .btn-secondary:hover {
+  .interactive-timeline .btn-secondary:hover {
     background-color: hsl(var(--muted));
     border-color: hsl(var(--border));
   }

@@ -73,9 +73,6 @@ const UTIL_ALLOWLIST = [
   'client/src/pages/People.css :: .text-danger',
   'client/src/pages/People.css :: .text-info',
   // 2026-11-10 修饰类扩充时的存量快照（冻新增、不追溯）：
-  'client/src/components/InteractiveTimeline.css :: .btn',
-  'client/src/components/InteractiveTimeline.css :: .btn-primary',
-  'client/src/components/InteractiveTimeline.css :: .btn-secondary',
   'client/src/components/PhaseTemplateDesigner.css :: .btn',
   'client/src/components/PhaseTemplateDesigner.css :: .btn-danger',
   'client/src/components/PhaseTemplateDesigner.css :: .btn-primary',
@@ -83,10 +80,7 @@ const UTIL_ALLOWLIST = [
   'client/src/components/PhaseTemplateDesigner.css :: .btn-sm',
   'client/src/components/ProjectsTable.css :: .btn-sm',
   'client/src/pages/Assignments.css :: .btn-sm',
-  'client/src/pages/Import.css :: .btn-ghost',
-  'client/src/pages/Import.css :: .btn-outline',
-  'client/src/pages/Import.css :: .btn-primary',
-  'client/src/pages/Import.css :: .btn-sm',
+  'client/src/pages/Import.css :: .text-primary',
   'client/src/pages/Locations.css :: .btn-danger',
   'client/src/pages/Locations.css :: .btn-ghost',
   'client/src/pages/Locations.css :: .btn-primary',
@@ -246,6 +240,47 @@ for (const rel of [...utilScanFiles, ...listCss('client/src/styles', true)]) {
   }
 }
 
+// ── 规则 5: 交互态布局几何位移（2026-11-10 同类排查 F-02/F-05）──
+// 事故族：hover/focus 上改变几何属性的"外扩/位移"——padding+负 margin 旧式
+// 外扩（roadmap project-name-link 实测被 overflow 裁切）、按钮/链接 translate。
+// 静态判据：①单复合选择器且名字像交互控件（btn/button/link/nav/tab/chip/action）
+// 同时改几何 → 报；②任何作用域下 padding+负 margin 组合 → 报（布局位移技巧）。
+// 卡片类 elevation（card/stat/insight/summary/timeline-item…）不在拦截面。
+export function matchInteractiveGeometry(source) {
+  const stripped = String(source).replace(/\/\*[\s\S]*?\*\//g, (c) => c.replace(/[^\n]/g, ' '));
+  const LAYOUT = /(?:^|[;\s])(?:padding|margin|height|min-height|max-height|line-height|top|left|right|bottom)\s*:/;
+  const MOTION = /(?:^|[;\s])(?:transform|translate|scale|rotate)\s*:[^;]*(?:translate|scale|rotate|matrix)/;
+  const hits = [];
+  for (const m of stripped.matchAll(/([^{}]+)\{([^{}]*)\}/g)) {
+    const sel = m[1].trim();
+    const body = m[2];
+    if (!sel || sel.startsWith('@') || sel.includes('@')) continue;
+    if (!/:hover|:focus|:focus-visible/.test(sel)) continue;
+    if (/::(?:before|after)/.test(sel)) continue; // 伪元素装饰位移不占布局
+    const geometry = MOTION.test(body) || LAYOUT.test(body);
+    if (!geometry) continue;
+    const negativeMargin = /(?:^|[;\s])margin[^;]*-[0-9.]+(?:px|rem|em)/.test(body);
+    const paddingAndNegative = /(?:^|[;\s])padding\s*:/.test(body) && negativeMargin;
+    for (const raw of sel.split(',')) {
+      const item = raw.replace(/\s+/g, ' ').trim();
+      const singleCompound = !/[\s>+~]/.test(item);
+      const interactiveName = /(?:btn|button|link|nav|tab|chip)/i.test(item);
+      if ((singleCompound && interactiveName) || paddingAndNegative) {
+        hits.push({ selector: item, index: m.index });
+      }
+    }
+  }
+  return hits;
+}
+
+for (const rel of [...utilScanFiles, ...listCss('client/src/styles', true)]) {
+  const text = readFileSync(resolve(root, rel), 'utf8');
+  for (const hit of matchInteractiveGeometry(text)) {
+    const line = text.slice(0, hit.index).split('\n').length;
+    violations.push(`${rel}:${line} 「${hit.selector}」 交互态布局位移（未作用域按钮/链接位移或 padding+负 margin 外扩）→ 会被容器裁切/越过边界;改底色/描边/下划线表达`);
+  }
+}
+
 // 白名单腐化提示(不拦门): 存量清掉后条目要及时删,防止清单变成永久豁免
 for (const k of UTIL_ALLOWLIST) {
   if (!allowlistedSeen.has(k)) console.log(`note: 工具类白名单条目已无对应违例,可删除: ${k}`);
@@ -323,6 +358,24 @@ if (process.env.SELF_TEST === '1') {
     process.exit(1);
   }
   console.log('SELF-TEST PASS: 未作用域 .btn 悬停位移检测器(5 例)——生产函数直调');
+
+  // 规则 5 自证: 交互态几何位移——旧式外扩/按钮位移必红,卡片 elevation/纯色态必绿
+  const geometryCases = [
+    ['.project-name-link:hover{padding:.125rem .25rem;margin:-.125rem -.25rem}', true],
+    ['.nav-btn:hover{transform:translateY(-1px)}', true],
+    ['.back-button:focus{transform:translateX(-2px)}', true],
+    ['.card:hover{transform:translateY(-2px)}', false],
+    ['.actionable-item:hover{transform:translateY(-2px)}', false],
+    ['.page .btn:hover{transform:translateY(-1px)}', false],
+    ['.x:hover{background:red}', false],
+    ['.export-action-button:hover::before{transform:translateX(100%)}', false],
+  ];
+  const geometryFails = geometryCases.filter(([src, expect]) => (matchInteractiveGeometry(src).length > 0) !== expect);
+  if (geometryFails.length) {
+    console.error(`SELF-TEST FAIL: 交互态几何位移检测器失灵 ${JSON.stringify(geometryFails.map(([s]) => s))}`);
+    process.exit(1);
+  }
+  console.log('SELF-TEST PASS: 交互态几何位移检测器(7 例)——生产函数直调');
 
   // 任务B收口②③: 主色 hsl 家族检测器——评审注入案例入仓,直接调生产函数
   const hslCases = [

@@ -314,7 +314,10 @@
   text-overflow: ellipsis;
 }
 
-.it-item-row:hover .it-item-name { color: var(--primary); }
+.it-item-row:hover .it-item-name {
+  /* 2026-11-10: 深色 --primary 3.97:1 → 语义文字令牌 */
+  color: var(--primary-text);
+}
 
 .it-item-state {
   flex: none;

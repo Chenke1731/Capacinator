@@ -58,13 +58,19 @@ function enumerateState({root,fonts}) {
     const hit=document.elementFromPoint(r.left+r.width/2,Math.min(innerHeight-2,r.top+r.height/2));
     if(!disabled&&hit&&!e.contains(hit)&&hit!==e&&!hit.contains(e))issues.push({selector:sel,kind:'occlusion'});
   }
-  // 同排工具栏控件等高（2026-11-10 录入按钮事故）：同一 toolbar/filters 行内
-  // 的文字控件高度差 >2px 即报——只有更高的那个会顶到容器边界并在悬停时越界。
+  // 同排工具栏控件等高（2026-11-10 录入按钮事故）：同一 toolbar/filters/filter-bar
+  // 行内的控件高度差 >2px 即报——只有更高的那个会顶到容器边界并在悬停时越界。
+  // FilterBar（F-06）：裸 select 无 textContent，filters/filter-bar 行内的
+  // input/select/textarea 也计入；普通 toolbar 行仍只比文字控件，避免把搜索框
+  // 与自定义图标钮混比。
   const rowGroups=new Map();
   for(const e of nodes.filter(visible)){
     const p=e.parentElement;if(!p)continue;
-    if(!/(toolbar|filters)/i.test(String(p.className||'')))continue;
-    if(!e.textContent.trim())continue;
+    const cls=String(p.className||'');
+    if(!/(toolbar|filters|filter-bar)/i.test(cls))continue;
+    const isField=/^(INPUT|SELECT|TEXTAREA)$/.test(e.tagName);
+    if(isField&&!/(filters|filter-bar)/i.test(cls))continue;
+    if(!isField&&!e.textContent.trim())continue;
     if(e.disabled||e.getAttribute('aria-disabled')==='true')continue;
     let key;try{key=selector(p);}catch{continue;}
     const h=e.getBoundingClientRect().height,g=rowGroups.get(key)??{min:Infinity,max:0};
@@ -121,8 +127,9 @@ export async function runProfileStates(profileName,{selftest=false,quick=false,r
         const data=await page.evaluate(enumerateState,{root,fonts:profile.fonts});
         data.scope=root;
         // 2026-11-10 新机制切片：悬停位移 × 容器边界（见 checkHoverGeometry）
+        // F-08：focus 态同样可能有 padding+负 margin 外扩，纳入同一断言。
         if(state==='default')hoverBase=data.rows;
-        else if(hoverBase&&state.startsWith('hover'))data.issues.push(...checkHoverGeometry(hoverBase,data.rows));
+        else if(hoverBase&&(state.startsWith('hover')||state==='keyboard-focus'))data.issues.push(...checkHoverGeometry(hoverBase,data.rows));
         // Hover/focus can hide hover-only actions or scroll another control
         // into view. The ready/default scene keeps its profile cardinality;
         // subsequent states still enumerate every visible control and reject 0.

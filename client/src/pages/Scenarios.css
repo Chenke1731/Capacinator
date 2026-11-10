@@ -1557,7 +1557,7 @@
 }
 
 .action-button:hover {
-  transform: translateY(-2px);
+  /* 2026-11-10 同类排查：按钮不做 hover 位移 */
   box-shadow: 0 4px 12px color-mix(in srgb, var(--solid-shade) 15%, transparent);
   border-color: var(--border-hover);
 }
@@ -2086,10 +2086,9 @@
 }
 
 .connector-expand-button:hover {
-  transform: scale(1.1);
+  /* 2026-11-10 同类排查：按钮不做 hover 缩放（容器边缘会被裁切） */
   box-shadow: 0 2px 4px color-mix(in srgb, var(--solid-shade) 10%, transparent);
-  /* 重声明底色(全局 button:hover 换底同族,2026-10-13): 缩放反馈已足,
-     底色不换灰块 */
+  /* 重声明底色(全局 button:hover 换底同族,2026-10-13) */
   background: var(--bg-primary);
 }
 

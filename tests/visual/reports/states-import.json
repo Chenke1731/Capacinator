@@ -21,7 +21,10 @@
           "disabled": false,
           "width": 16,
           "height": 16,
-          "font": 14
+          "font": 14,
+          "top": 167,
+          "clipTop": 100,
+          "offsetTop": 67
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > label:nth-of-type(2) > input:nth-of-type(1)",
@@ -39,7 +42,10 @@
           "disabled": false,
           "width": 16,
           "height": 16,
-          "font": 14
+          "font": 14,
+          "top": 167,
+          "clipTop": 100,
+          "offsetTop": 67
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -57,7 +63,10 @@
           "disabled": false,
           "width": 98.015625,
           "height": 33.5,
-          "font": 13
+          "font": 13,
+          "top": 259,
+          "clipTop": 100,
+          "offsetTop": 159
         }
       ],
       "issues": [
@@ -96,7 +105,10 @@
           "disabled": false,
           "width": 16,
           "height": 16,
-          "font": 14
+          "font": 14,
+          "top": 167,
+          "clipTop": 100,
+          "offsetTop": 67
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > label:nth-of-type(2) > input:nth-of-type(1)",
@@ -114,7 +126,10 @@
           "disabled": false,
           "width": 16,
           "height": 16,
-          "font": 14
+          "font": 14,
+          "top": 167,
+          "clipTop": 100,
+          "offsetTop": 67
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -132,7 +147,10 @@
           "disabled": false,
           "width": 98.015625,
           "height": 33.5,
-          "font": 13
+          "font": 13,
+          "top": 259,
+          "clipTop": 100,
+          "offsetTop": 159
         }
       ],
       "issues": [
@@ -171,7 +189,10 @@
           "disabled": false,
           "width": 16,
           "height": 16,
-          "font": 14
+          "font": 14,
+          "top": 167,
+          "clipTop": 100,
+          "offsetTop": 67
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > label:nth-of-type(2) > input:nth-of-type(1)",
@@ -189,7 +210,10 @@
           "disabled": false,
           "width": 16,
           "height": 16,
-          "font": 14
+          "font": 14,
+          "top": 167,
+          "clipTop": 100,
+          "offsetTop": 67
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -207,7 +231,10 @@
           "disabled": false,
           "width": 98.015625,
           "height": 33.5,
-          "font": 13
+          "font": 13,
+          "top": 259,
+          "clipTop": 100,
+          "offsetTop": 159
         }
       ],
       "issues": [
@@ -246,7 +273,10 @@
           "disabled": false,
           "width": 16,
           "height": 16,
-          "font": 14
+          "font": 14,
+          "top": 167,
+          "clipTop": 100,
+          "offsetTop": 67
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > label:nth-of-type(2) > input:nth-of-type(1)",
@@ -264,7 +294,10 @@
           "disabled": false,
           "width": 16,
           "height": 16,
-          "font": 14
+          "font": 14,
+          "top": 167,
+          "clipTop": 100,
+          "offsetTop": 67
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -282,7 +315,10 @@
           "disabled": false,
           "width": 98.015625,
           "height": 33.5,
-          "font": 13
+          "font": 13,
+          "top": 259,
+          "clipTop": 100,
+          "offsetTop": 159
         }
       ],
       "issues": [
@@ -321,7 +357,10 @@
           "disabled": false,
           "width": 16,
           "height": 16,
-          "font": 14
+          "font": 14,
+          "top": 167,
+          "clipTop": 100,
+          "offsetTop": 67
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > label:nth-of-type(2) > input:nth-of-type(1)",
@@ -339,7 +378,10 @@
           "disabled": false,
           "width": 16,
           "height": 16,
-          "font": 14
+          "font": 14,
+          "top": 167,
+          "clipTop": 100,
+          "offsetTop": 67
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -357,7 +399,10 @@
           "disabled": false,
           "width": 124.015625,
           "height": 33.5,
-          "font": 13
+          "font": 13,
+          "top": 259,
+          "clipTop": 100,
+          "offsetTop": 159
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(1) > label:nth-of-type(1) > input:nth-of-type(1)",
@@ -375,7 +420,10 @@
           "disabled": false,
           "width": 16,
           "height": 16,
-          "font": 14
+          "font": 14,
+          "top": 407.09375,
+          "clipTop": 100,
+          "offsetTop": 307.09375
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(1) > label:nth-of-type(2) > input:nth-of-type(1)",
@@ -393,7 +441,10 @@
           "disabled": false,
           "width": 16,
           "height": 16,
-          "font": 14
+          "font": 14,
+          "top": 407.09375,
+          "clipTop": 100,
+          "offsetTop": 307.09375
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(1) > label:nth-of-type(3) > input:nth-of-type(1)",
@@ -411,7 +462,10 @@
           "disabled": false,
           "width": 16,
           "height": 16,
-          "font": 14
+          "font": 14,
+          "top": 407.09375,
+          "clipTop": 100,
+          "offsetTop": 307.09375
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > select:nth-of-type(1)",
@@ -429,7 +483,10 @@
           "disabled": false,
           "width": 326.65625,
           "height": 49,
-          "font": 14
+          "font": 14,
+          "top": 503.09375,
+          "clipTop": 100,
+          "offsetTop": 403.09375
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
@@ -447,7 +504,10 @@
           "disabled": false,
           "width": 326.671875,
           "height": 49,
-          "font": 14
+          "font": 14,
+          "top": 503.09375,
+          "clipTop": 100,
+          "offsetTop": 403.09375
         }
       ],
       "issues": [
@@ -501,7 +561,10 @@
           "disabled": false,
           "width": 16,
           "height": 16,
-          "font": 14
+          "font": 14,
+          "top": 167,
+          "clipTop": 100,
+          "offsetTop": 67
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > label:nth-of-type(2) > input:nth-of-type(1)",
@@ -519,7 +582,10 @@
           "disabled": false,
           "width": 16,
           "height": 16,
-          "font": 14
+          "font": 14,
+          "top": 167,
+          "clipTop": 100,
+          "offsetTop": 67
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -537,7 +603,10 @@
           "disabled": false,
           "width": 98.015625,
           "height": 33.5,
-          "font": 13
+          "font": 13,
+          "top": 259,
+          "clipTop": 100,
+          "offsetTop": 159
         }
       ],
       "issues": [
@@ -576,7 +645,10 @@
           "disabled": false,
           "width": 16,
           "height": 16,
-          "font": 14
+          "font": 14,
+          "top": 167,
+          "clipTop": 100,
+          "offsetTop": 67
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > label:nth-of-type(2) > input:nth-of-type(1)",
@@ -594,7 +666,10 @@
           "disabled": false,
           "width": 16,
           "height": 16,
-          "font": 14
+          "font": 14,
+          "top": 167,
+          "clipTop": 100,
+          "offsetTop": 67
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -612,7 +687,10 @@
           "disabled": false,
           "width": 98.015625,
           "height": 33.5,
-          "font": 13
+          "font": 13,
+          "top": 259,
+          "clipTop": 100,
+          "offsetTop": 159
         }
       ],
       "issues": [
@@ -651,7 +729,10 @@
           "disabled": false,
           "width": 16,
           "height": 16,
-          "font": 14
+          "font": 14,
+          "top": 167,
+          "clipTop": 100,
+          "offsetTop": 67
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > label:nth-of-type(2) > input:nth-of-type(1)",
@@ -669,7 +750,10 @@
           "disabled": false,
           "width": 16,
           "height": 16,
-          "font": 14
+          "font": 14,
+          "top": 167,
+          "clipTop": 100,
+          "offsetTop": 67
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -687,7 +771,10 @@
           "disabled": false,
           "width": 98.015625,
           "height": 33.5,
-          "font": 13
+          "font": 13,
+          "top": 259,
+          "clipTop": 100,
+          "offsetTop": 159
         }
       ],
       "issues": [
@@ -726,7 +813,10 @@
           "disabled": false,
           "width": 16,
           "height": 16,
-          "font": 14
+          "font": 14,
+          "top": 167,
+          "clipTop": 100,
+          "offsetTop": 67
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > label:nth-of-type(2) > input:nth-of-type(1)",
@@ -744,7 +834,10 @@
           "disabled": false,
           "width": 16,
           "height": 16,
-          "font": 14
+          "font": 14,
+          "top": 167,
+          "clipTop": 100,
+          "offsetTop": 67
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -762,7 +855,10 @@
           "disabled": false,
           "width": 98.015625,
           "height": 33.5,
-          "font": 13
+          "font": 13,
+          "top": 259,
+          "clipTop": 100,
+          "offsetTop": 159
         }
       ],
       "issues": [
@@ -801,7 +897,10 @@
           "disabled": false,
           "width": 16,
           "height": 16,
-          "font": 14
+          "font": 14,
+          "top": 167,
+          "clipTop": 100,
+          "offsetTop": 67
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > label:nth-of-type(2) > input:nth-of-type(1)",
@@ -819,7 +918,10 @@
           "disabled": false,
           "width": 16,
           "height": 16,
-          "font": 14
+          "font": 14,
+          "top": 167,
+          "clipTop": 100,
+          "offsetTop": 67
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -837,7 +939,10 @@
           "disabled": false,
           "width": 124.015625,
           "height": 33.5,
-          "font": 13
+          "font": 13,
+          "top": 259,
+          "clipTop": 100,
+          "offsetTop": 159
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(1) > label:nth-of-type(1) > input:nth-of-type(1)",
@@ -855,7 +960,10 @@
           "disabled": false,
           "width": 16,
           "height": 16,
-          "font": 14
+          "font": 14,
+          "top": 407.09375,
+          "clipTop": 100,
+          "offsetTop": 307.09375
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(1) > label:nth-of-type(2) > input:nth-of-type(1)",
@@ -873,7 +981,10 @@
           "disabled": false,
           "width": 16,
           "height": 16,
-          "font": 14
+          "font": 14,
+          "top": 407.09375,
+          "clipTop": 100,
+          "offsetTop": 307.09375
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(1) > label:nth-of-type(3) > input:nth-of-type(1)",
@@ -891,7 +1002,10 @@
           "disabled": false,
           "width": 16,
           "height": 16,
-          "font": 14
+          "font": 14,
+          "top": 407.09375,
+          "clipTop": 100,
+          "offsetTop": 307.09375
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > select:nth-of-type(1)",
@@ -909,7 +1023,10 @@
           "disabled": false,
           "width": 326.65625,
           "height": 49,
-          "font": 14
+          "font": 14,
+          "top": 503.09375,
+          "clipTop": 100,
+          "offsetTop": 403.09375
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
@@ -927,7 +1044,10 @@
           "disabled": false,
           "width": 326.671875,
           "height": 49,
-          "font": 14
+          "font": 14,
+          "top": 503.09375,
+          "clipTop": 100,
+          "offsetTop": 403.09375
         }
       ],
       "issues": [

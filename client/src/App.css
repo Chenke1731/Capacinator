@@ -830,8 +830,9 @@ input[type="checkbox"].settings-checkbox,
 }
 
 .card-action-link:hover {
-  color: var(--primary-hover);
-  transform: translateX(2px);
+  /* 2026-11-10 同类排查：--primary-hover 深色 3.50:1；且链接不做 hover 位移 */
+  color: var(--primary-text);
+  text-decoration: underline;
 }
 
 .btn-sm {

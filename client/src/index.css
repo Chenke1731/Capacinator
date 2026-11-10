@@ -60,7 +60,9 @@ a {
   transition: color 0.2s;
 }
 a:hover {
-  color: var(--primary-hover);
+  /* 2026-11-10: --primary-hover 在深色仅 3.50:1；文字 hover 用语义令牌 + 下划线 */
+  color: var(--primary-text);
+  text-decoration: underline;
 }
 
 body {

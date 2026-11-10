@@ -102,7 +102,6 @@
 .nav-btn:hover {
   background: color-mix(in srgb, var(--primary) 10%, transparent) !important;
   color: var(--primary-text) !important;
-  transform: translateY(-1px);
   box-shadow: 0 2px 4px color-mix(in srgb, var(--solid-shade) 10%, transparent);
 }
 
@@ -186,7 +185,6 @@
 .today-btn:hover {
   background: color-mix(in srgb, var(--primary) 90%, transparent) !important;
   border-color: color-mix(in srgb, var(--primary) 90%, transparent) !important;
-  transform: translateY(-2px);
   box-shadow: 0 4px 12px color-mix(in srgb, var(--primary) 30%, transparent);
 }
 
@@ -1446,9 +1444,10 @@ body.dragging * {
 .project-name-link:hover {
   color: var(--status-info-text);
   background: var(--status-info-soft);
-  padding: 0.125rem 0.25rem;
-  margin: -0.125rem -0.25rem;
+  /* 2026-11-10: 删除 padding+负 margin 的"外扩"位移——容器 overflow:hidden
+     会把悬停/焦点态裁掉（roadmap hover-5 双主题实测红）。用底色/下划线表达。 */
   border-radius: 3px;
+  text-decoration: underline;
 }
 [data-theme='dark'] .project-name-link:hover,
 .dark .project-name-link:hover,
@@ -1462,9 +1461,9 @@ body.dragging * {
   outline: none;
   color: var(--status-info-text);
   background: var(--status-info-soft);
-  padding: 0.125rem 0.25rem;
-  margin: -0.125rem -0.25rem;
+  /* 同上：不改变盒子几何，焦点环完整可见 */
   border-radius: 3px;
+  text-decoration: underline;
   box-shadow: 0 0 0 2px color-mix(in srgb, var(--status-info-border) 20%, transparent);
 }
 

@@ -151,7 +151,7 @@
 }
 
 .action-btn:hover {
-  transform: translateY(-1px);
+  /* 2026-11-10 同类排查：按钮不做 hover 位移（布局边界契约 3） */
   box-shadow: 0 2px 8px var(--shadow-md);
 }
 

@@ -21,7 +21,10 @@
           "disabled": false,
           "width": 44,
           "height": 44,
-          "font": 14
+          "font": 14,
+          "top": 64,
+          "clipTop": 40,
+          "offsetTop": 24
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -39,7 +42,10 @@
           "disabled": false,
           "width": 620,
           "height": 45,
-          "font": 14
+          "font": 14,
+          "top": 499.109375,
+          "clipTop": 166,
+          "offsetTop": 333.109375
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -57,7 +63,10 @@
           "disabled": false,
           "width": 620,
           "height": 45,
-          "font": 14
+          "font": 14,
+          "top": 499.109375,
+          "clipTop": 166,
+          "offsetTop": 333.109375
         }
       ],
       "issues": [],
@@ -85,7 +94,10 @@
           "disabled": false,
           "width": 44,
           "height": 44,
-          "font": 14
+          "font": 14,
+          "top": 64,
+          "clipTop": 40,
+          "offsetTop": 24
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -103,7 +115,10 @@
           "disabled": false,
           "width": 620,
           "height": 45,
-          "font": 14
+          "font": 14,
+          "top": 499.109375,
+          "clipTop": 166,
+          "offsetTop": 333.109375
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -121,7 +136,10 @@
           "disabled": false,
           "width": 620,
           "height": 45,
-          "font": 14
+          "font": 14,
+          "top": 499.109375,
+          "clipTop": 166,
+          "offsetTop": 333.109375
         }
       ],
       "issues": [],
@@ -149,7 +167,10 @@
           "disabled": false,
           "width": 44,
           "height": 44,
-          "font": 14
+          "font": 14,
+          "top": 64,
+          "clipTop": 40,
+          "offsetTop": 24
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -167,7 +188,10 @@
           "disabled": false,
           "width": 620,
           "height": 45,
-          "font": 14
+          "font": 14,
+          "top": 498.109375,
+          "clipTop": 166,
+          "offsetTop": 332.109375
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -185,7 +209,10 @@
           "disabled": false,
           "width": 620,
           "height": 45,
-          "font": 14
+          "font": 14,
+          "top": 499.109375,
+          "clipTop": 166,
+          "offsetTop": 333.109375
         }
       ],
       "issues": [],
@@ -213,7 +240,10 @@
           "disabled": false,
           "width": 44,
           "height": 44,
-          "font": 14
+          "font": 14,
+          "top": 64,
+          "clipTop": 40,
+          "offsetTop": 24
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -231,7 +261,10 @@
           "disabled": false,
           "width": 620,
           "height": 45,
-          "font": 14
+          "font": 14,
+          "top": 499.109375,
+          "clipTop": 166,
+          "offsetTop": 333.109375
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -249,7 +282,10 @@
           "disabled": false,
           "width": 620,
           "height": 45,
-          "font": 14
+          "font": 14,
+          "top": 498.109375,
+          "clipTop": 166,
+          "offsetTop": 332.109375
         }
       ],
       "issues": [],
@@ -277,7 +313,10 @@
           "disabled": false,
           "width": 44,
           "height": 44,
-          "font": 14
+          "font": 14,
+          "top": 64,
+          "clipTop": 40,
+          "offsetTop": 24
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -295,7 +334,10 @@
           "disabled": false,
           "width": 620,
           "height": 45,
-          "font": 14
+          "font": 14,
+          "top": 499.109375,
+          "clipTop": 166,
+          "offsetTop": 333.109375
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -313,7 +355,10 @@
           "disabled": false,
           "width": 620,
           "height": 45,
-          "font": 14
+          "font": 14,
+          "top": 498.68572998046875,
+          "clipTop": 166,
+          "offsetTop": 332.68572998046875
         }
       ],
       "issues": [],
@@ -341,7 +386,10 @@
           "disabled": false,
           "width": 44,
           "height": 44,
-          "font": 14
+          "font": 14,
+          "top": 64,
+          "clipTop": 40,
+          "offsetTop": 24
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -359,7 +407,10 @@
           "disabled": false,
           "width": 620,
           "height": 47,
-          "font": 14
+          "font": 14,
+          "top": 501.109375,
+          "clipTop": 166,
+          "offsetTop": 335.109375
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -377,7 +428,10 @@
           "disabled": false,
           "width": 620,
           "height": 47,
-          "font": 14
+          "font": 14,
+          "top": 501.109375,
+          "clipTop": 166,
+          "offsetTop": 335.109375
         }
       ],
       "issues": [],
@@ -405,7 +459,10 @@
           "disabled": false,
           "width": 44,
           "height": 44,
-          "font": 14
+          "font": 14,
+          "top": 64,
+          "clipTop": 40,
+          "offsetTop": 24
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -423,7 +480,10 @@
           "disabled": false,
           "width": 620,
           "height": 47,
-          "font": 14
+          "font": 14,
+          "top": 501.109375,
+          "clipTop": 166,
+          "offsetTop": 335.109375
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -441,7 +501,10 @@
           "disabled": false,
           "width": 620,
           "height": 47,
-          "font": 14
+          "font": 14,
+          "top": 501.109375,
+          "clipTop": 166,
+          "offsetTop": 335.109375
         }
       ],
       "issues": [],
@@ -469,7 +532,10 @@
           "disabled": false,
           "width": 44,
           "height": 44,
-          "font": 14
+          "font": 14,
+          "top": 64,
+          "clipTop": 40,
+          "offsetTop": 24
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -487,7 +553,10 @@
           "disabled": false,
           "width": 620,
           "height": 47,
-          "font": 14
+          "font": 14,
+          "top": 500.109375,
+          "clipTop": 166,
+          "offsetTop": 334.109375
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -505,7 +574,10 @@
           "disabled": false,
           "width": 620,
           "height": 47,
-          "font": 14
+          "font": 14,
+          "top": 501.109375,
+          "clipTop": 166,
+          "offsetTop": 335.109375
         }
       ],
       "issues": [],
@@ -533,7 +605,10 @@
           "disabled": false,
           "width": 44,
           "height": 44,
-          "font": 14
+          "font": 14,
+          "top": 64,
+          "clipTop": 40,
+          "offsetTop": 24
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -551,7 +626,10 @@
           "disabled": false,
           "width": 620,
           "height": 47,
-          "font": 14
+          "font": 14,
+          "top": 501.109375,
+          "clipTop": 166,
+          "offsetTop": 335.109375
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -569,7 +647,10 @@
           "disabled": false,
           "width": 620,
           "height": 47,
-          "font": 14
+          "font": 14,
+          "top": 500.109375,
+          "clipTop": 166,
+          "offsetTop": 334.109375
         }
       ],
       "issues": [],
@@ -597,7 +678,10 @@
           "disabled": false,
           "width": 44,
           "height": 44,
-          "font": 14
+          "font": 14,
+          "top": 64,
+          "clipTop": 40,
+          "offsetTop": 24
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -615,7 +699,10 @@
           "disabled": false,
           "width": 620,
           "height": 47,
-          "font": 14
+          "font": 14,
+          "top": 501.109375,
+          "clipTop": 166,
+          "offsetTop": 335.109375
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -632,8 +719,11 @@
           "textual": true,
           "disabled": false,
           "width": 620,
-          "height": 47,
-          "font": 14
+          "height": 47.000030517578125,
+          "font": 14,
+          "top": 500.5173034667969,
+          "clipTop": 166,
+          "offsetTop": 334.5173034667969
         }
       ],
       "issues": [],

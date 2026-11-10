@@ -21,7 +21,10 @@
           "disabled": false,
           "width": 100,
           "height": 55,
-          "font": 14
+          "font": 14,
+          "top": 42,
+          "clipTop": 40,
+          "offsetTop": 2
         },
         {
           "selector": "div:nth-of-type(1) > button:nth-of-type(2)",
@@ -39,7 +42,10 @@
           "disabled": false,
           "width": 100,
           "height": 55,
-          "font": 14
+          "font": 14,
+          "top": 42,
+          "clipTop": 40,
+          "offsetTop": 2
         },
         {
           "selector": "div:nth-of-type(1) > button:nth-of-type(3)",
@@ -57,7 +63,10 @@
           "disabled": false,
           "width": 128,
           "height": 55,
-          "font": 14
+          "font": 14,
+          "top": 42,
+          "clipTop": 40,
+          "offsetTop": 2
         },
         {
           "selector": "div:nth-of-type(1) > button:nth-of-type(4)",
@@ -75,7 +84,10 @@
           "disabled": false,
           "width": 120.515625,
           "height": 55,
-          "font": 14
+          "font": 14,
+          "top": 42,
+          "clipTop": 40,
+          "offsetTop": 2
         },
         {
           "selector": "div:nth-of-type(1) > button:nth-of-type(5)",
@@ -93,7 +105,10 @@
           "disabled": false,
           "width": 100,
           "height": 55,
-          "font": 14
+          "font": 14,
+          "top": 42,
+          "clipTop": 40,
+          "offsetTop": 2
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -111,7 +126,10 @@
           "disabled": false,
           "width": 62,
           "height": 44,
-          "font": 14
+          "font": 14,
+          "top": 305.1875,
+          "clipTop": 100,
+          "offsetTop": 205.1875
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -129,7 +147,10 @@
           "disabled": false,
           "width": 84.5625,
           "height": 44,
-          "font": 14
+          "font": 14,
+          "top": 305.1875,
+          "clipTop": 100,
+          "offsetTop": 205.1875
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -147,7 +168,10 @@
           "disabled": false,
           "width": 83.921875,
           "height": 44,
-          "font": 14
+          "font": 14,
+          "top": 305.1875,
+          "clipTop": 100,
+          "offsetTop": 205.1875
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -165,7 +189,10 @@
           "disabled": false,
           "width": 83.921875,
           "height": 44,
-          "font": 14
+          "font": 14,
+          "top": 305.1875,
+          "clipTop": 100,
+          "offsetTop": 205.1875
         }
       ],
       "issues": [],
@@ -193,7 +220,10 @@
           "disabled": false,
           "width": 100,
           "height": 55,
-          "font": 14
+          "font": 14,
+          "top": 42,
+          "clipTop": 40,
+          "offsetTop": 2
         },
         {
           "selector": "div:nth-of-type(1) > button:nth-of-type(2)",
@@ -211,7 +241,10 @@
           "disabled": false,
           "width": 100,
           "height": 55,
-          "font": 14
+          "font": 14,
+          "top": 42,
+          "clipTop": 40,
+          "offsetTop": 2
         },
         {
           "selector": "div:nth-of-type(1) > button:nth-of-type(3)",
@@ -229,7 +262,10 @@
           "disabled": false,
           "width": 128,
           "height": 55,
-          "font": 14
+          "font": 14,
+          "top": 42,
+          "clipTop": 40,
+          "offsetTop": 2
         },
         {
           "selector": "div:nth-of-type(1) > button:nth-of-type(4)",
@@ -247,7 +283,10 @@
           "disabled": false,
           "width": 120.515625,
           "height": 55,
-          "font": 14
+          "font": 14,
+          "top": 42,
+          "clipTop": 40,
+          "offsetTop": 2
         },
         {
           "selector": "div:nth-of-type(1) > button:nth-of-type(5)",
@@ -265,7 +304,10 @@
           "disabled": false,
           "width": 100,
           "height": 55,
-          "font": 14
+          "font": 14,
+          "top": 42,
+          "clipTop": 40,
+          "offsetTop": 2
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -283,7 +325,10 @@
           "disabled": false,
           "width": 62,
           "height": 44,
-          "font": 14
+          "font": 14,
+          "top": 305.1875,
+          "clipTop": 100,
+          "offsetTop": 205.1875
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -301,7 +346,10 @@
           "disabled": false,
           "width": 84.5625,
           "height": 44,
-          "font": 14
+          "font": 14,
+          "top": 305.1875,
+          "clipTop": 100,
+          "offsetTop": 205.1875
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -319,7 +367,10 @@
           "disabled": false,
           "width": 83.921875,
           "height": 44,
-          "font": 14
+          "font": 14,
+          "top": 305.1875,
+          "clipTop": 100,
+          "offsetTop": 205.1875
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -337,7 +388,10 @@
           "disabled": false,
           "width": 83.921875,
           "height": 44,
-          "font": 14
+          "font": 14,
+          "top": 305.1875,
+          "clipTop": 100,
+          "offsetTop": 205.1875
         }
       ],
       "issues": [],
@@ -365,7 +419,10 @@
           "disabled": false,
           "width": 100,
           "height": 55,
-          "font": 14
+          "font": 14,
+          "top": 42,
+          "clipTop": 40,
+          "offsetTop": 2
         },
         {
           "selector": "div:nth-of-type(1) > button:nth-of-type(2)",
@@ -383,7 +440,10 @@
           "disabled": false,
           "width": 100,
           "height": 55,
-          "font": 14
+          "font": 14,
+          "top": 42,
+          "clipTop": 40,
+          "offsetTop": 2
         },
         {
           "selector": "div:nth-of-type(1) > button:nth-of-type(3)",
@@ -401,7 +461,10 @@
           "disabled": false,
           "width": 128,
           "height": 55,
-          "font": 14
+          "font": 14,
+          "top": 42,
+          "clipTop": 40,
+          "offsetTop": 2
         },
         {
           "selector": "div:nth-of-type(1) > button:nth-of-type(4)",
@@ -419,7 +482,10 @@
           "disabled": false,
           "width": 120.515625,
           "height": 55,
-          "font": 14
+          "font": 14,
+          "top": 42,
+          "clipTop": 40,
+          "offsetTop": 2
         },
         {
           "selector": "div:nth-of-type(1) > button:nth-of-type(5)",
@@ -437,7 +503,10 @@
           "disabled": false,
           "width": 100,
           "height": 55,
-          "font": 14
+          "font": 14,
+          "top": 42,
+          "clipTop": 40,
+          "offsetTop": 2
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -455,7 +524,10 @@
           "disabled": false,
           "width": 62,
           "height": 44,
-          "font": 14
+          "font": 14,
+          "top": 305.1875,
+          "clipTop": 100,
+          "offsetTop": 205.1875
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -473,7 +545,10 @@
           "disabled": false,
           "width": 84.5625,
           "height": 44,
-          "font": 14
+          "font": 14,
+          "top": 305.1875,
+          "clipTop": 100,
+          "offsetTop": 205.1875
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -491,7 +566,10 @@
           "disabled": false,
           "width": 83.921875,
           "height": 44,
-          "font": 14
+          "font": 14,
+          "top": 305.1875,
+          "clipTop": 100,
+          "offsetTop": 205.1875
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -509,7 +587,10 @@
           "disabled": false,
           "width": 83.921875,
           "height": 44,
-          "font": 14
+          "font": 14,
+          "top": 305.1875,
+          "clipTop": 100,
+          "offsetTop": 205.1875
         }
       ],
       "issues": [],
@@ -537,7 +618,10 @@
           "disabled": false,
           "width": 100,
           "height": 55,
-          "font": 14
+          "font": 14,
+          "top": 42,
+          "clipTop": 40,
+          "offsetTop": 2
         },
         {
           "selector": "div:nth-of-type(1) > button:nth-of-type(2)",
@@ -555,7 +639,10 @@
           "disabled": false,
           "width": 100,
           "height": 55,
-          "font": 14
+          "font": 14,
+          "top": 42,
+          "clipTop": 40,
+          "offsetTop": 2
         },
         {
           "selector": "div:nth-of-type(1) > button:nth-of-type(3)",
@@ -573,7 +660,10 @@
           "disabled": false,
           "width": 128,
           "height": 55,
-          "font": 14
+          "font": 14,
+          "top": 42,
+          "clipTop": 40,
+          "offsetTop": 2
         },
         {
           "selector": "div:nth-of-type(1) > button:nth-of-type(4)",
@@ -591,7 +681,10 @@
           "disabled": false,
           "width": 120.515625,
           "height": 55,
-          "font": 14
+          "font": 14,
+          "top": 42,
+          "clipTop": 40,
+          "offsetTop": 2
         },
         {
           "selector": "div:nth-of-type(1) > button:nth-of-type(5)",
@@ -609,7 +702,10 @@
           "disabled": false,
           "width": 100,
           "height": 55,
-          "font": 14
+          "font": 14,
+          "top": 42,
+          "clipTop": 40,
+          "offsetTop": 2
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -627,7 +723,10 @@
           "disabled": false,
           "width": 62,
           "height": 44,
-          "font": 14
+          "font": 14,
+          "top": 305.1875,
+          "clipTop": 100,
+          "offsetTop": 205.1875
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -645,7 +744,10 @@
           "disabled": false,
           "width": 84.5625,
           "height": 44,
-          "font": 14
+          "font": 14,
+          "top": 305.1875,
+          "clipTop": 100,
+          "offsetTop": 205.1875
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -663,7 +765,10 @@
           "disabled": false,
           "width": 83.921875,
           "height": 44,
-          "font": 14
+          "font": 14,
+          "top": 305.1875,
+          "clipTop": 100,
+          "offsetTop": 205.1875
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -681,7 +786,10 @@
           "disabled": false,
           "width": 83.921875,
           "height": 44,
-          "font": 14
+          "font": 14,
+          "top": 305.1875,
+          "clipTop": 100,
+          "offsetTop": 205.1875
         }
       ],
       "issues": [],
@@ -709,7 +817,10 @@
           "disabled": false,
           "width": 100,
           "height": 55,
-          "font": 14
+          "font": 14,
+          "top": 42,
+          "clipTop": 40,
+          "offsetTop": 2
         },
         {
           "selector": "div:nth-of-type(1) > button:nth-of-type(2)",
@@ -727,7 +838,10 @@
           "disabled": false,
           "width": 100,
           "height": 55,
-          "font": 14
+          "font": 14,
+          "top": 42,
+          "clipTop": 40,
+          "offsetTop": 2
         },
         {
           "selector": "div:nth-of-type(1) > button:nth-of-type(3)",
@@ -745,7 +859,10 @@
           "disabled": false,
           "width": 128,
           "height": 55,
-          "font": 14
+          "font": 14,
+          "top": 42,
+          "clipTop": 40,
+          "offsetTop": 2
         },
         {
           "selector": "div:nth-of-type(1) > button:nth-of-type(4)",
@@ -763,7 +880,10 @@
           "disabled": false,
           "width": 120.515625,
           "height": 55,
-          "font": 14
+          "font": 14,
+          "top": 42,
+          "clipTop": 40,
+          "offsetTop": 2
         },
         {
           "selector": "div:nth-of-type(1) > button:nth-of-type(5)",
@@ -781,7 +901,10 @@
           "disabled": false,
           "width": 100,
           "height": 55,
-          "font": 14
+          "font": 14,
+          "top": 42,
+          "clipTop": 40,
+          "offsetTop": 2
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -799,7 +922,10 @@
           "disabled": false,
           "width": 62,
           "height": 44,
-          "font": 14
+          "font": 14,
+          "top": 305.1875,
+          "clipTop": 100,
+          "offsetTop": 205.1875
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -817,7 +943,10 @@
           "disabled": false,
           "width": 84.5625,
           "height": 44,
-          "font": 14
+          "font": 14,
+          "top": 305.1875,
+          "clipTop": 100,
+          "offsetTop": 205.1875
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -835,7 +964,10 @@
           "disabled": false,
           "width": 83.921875,
           "height": 44,
-          "font": 14
+          "font": 14,
+          "top": 305.1875,
+          "clipTop": 100,
+          "offsetTop": 205.1875
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -853,7 +985,10 @@
           "disabled": false,
           "width": 83.921875,
           "height": 44,
-          "font": 14
+          "font": 14,
+          "top": 305.1875,
+          "clipTop": 100,
+          "offsetTop": 205.1875
         }
       ],
       "issues": [],
@@ -881,7 +1016,10 @@
           "disabled": false,
           "width": 100,
           "height": 55,
-          "font": 14
+          "font": 14,
+          "top": 42,
+          "clipTop": 40,
+          "offsetTop": 2
         },
         {
           "selector": "div:nth-of-type(1) > button:nth-of-type(2)",
@@ -899,7 +1037,10 @@
           "disabled": false,
           "width": 100,
           "height": 55,
-          "font": 14
+          "font": 14,
+          "top": 42,
+          "clipTop": 40,
+          "offsetTop": 2
         },
         {
           "selector": "div:nth-of-type(1) > button:nth-of-type(3)",
@@ -917,7 +1058,10 @@
           "disabled": false,
           "width": 128,
           "height": 55,
-          "font": 14
+          "font": 14,
+          "top": 42,
+          "clipTop": 40,
+          "offsetTop": 2
         },
         {
           "selector": "div:nth-of-type(1) > button:nth-of-type(4)",
@@ -935,7 +1079,10 @@
           "disabled": false,
           "width": 120.515625,
           "height": 55,
-          "font": 14
+          "font": 14,
+          "top": 42,
+          "clipTop": 40,
+          "offsetTop": 2
         },
         {
           "selector": "div:nth-of-type(1) > button:nth-of-type(5)",
@@ -953,7 +1100,10 @@
           "disabled": false,
           "width": 100,
           "height": 55,
-          "font": 14
+          "font": 14,
+          "top": 42,
+          "clipTop": 40,
+          "offsetTop": 2
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -971,25 +1121,31 @@
           "disabled": false,
           "width": 62,
           "height": 44,
-          "font": 14
+          "font": 14,
+          "top": 305.1875,
+          "clipTop": 100,
+          "offsetTop": 205.1875
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
           "family": "btn btn-outline theme-option |",
           "text": "English",
           "foreground": "rgb(17, 24, 39)",
-          "background": "rgba(0, 0, 0, 0.01)",
+          "background": "rgba(0, 0, 0, 0.02)",
           "effectiveBackground": [
-            252,
-            252,
-            252
+            250,
+            250,
+            250
           ],
-          "contrast": 17.291076019828804,
+          "contrast": 16.995888190744548,
           "textual": true,
           "disabled": false,
           "width": 84.5625,
           "height": 44,
-          "font": 14
+          "font": 14,
+          "top": 305.1875,
+          "clipTop": 100,
+          "offsetTop": 205.1875
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -1007,7 +1163,10 @@
           "disabled": false,
           "width": 83.921875,
           "height": 44,
-          "font": 14
+          "font": 14,
+          "top": 305.1875,
+          "clipTop": 100,
+          "offsetTop": 205.1875
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -1025,7 +1184,10 @@
           "disabled": false,
           "width": 83.921875,
           "height": 44,
-          "font": 14
+          "font": 14,
+          "top": 305.1875,
+          "clipTop": 100,
+          "offsetTop": 205.1875
         }
       ],
       "issues": [],
@@ -1053,7 +1215,10 @@
           "disabled": false,
           "width": 100,
           "height": 55,
-          "font": 14
+          "font": 14,
+          "top": 42,
+          "clipTop": 40,
+          "offsetTop": 2
         },
         {
           "selector": "div:nth-of-type(1) > button:nth-of-type(2)",
@@ -1071,7 +1236,10 @@
           "disabled": false,
           "width": 100,
           "height": 55,
-          "font": 14
+          "font": 14,
+          "top": 42,
+          "clipTop": 40,
+          "offsetTop": 2
         },
         {
           "selector": "div:nth-of-type(1) > button:nth-of-type(3)",
@@ -1089,7 +1257,10 @@
           "disabled": false,
           "width": 128,
           "height": 55,
-          "font": 14
+          "font": 14,
+          "top": 42,
+          "clipTop": 40,
+          "offsetTop": 2
         },
         {
           "selector": "div:nth-of-type(1) > button:nth-of-type(4)",
@@ -1107,7 +1278,10 @@
           "disabled": false,
           "width": 120.515625,
           "height": 55,
-          "font": 14
+          "font": 14,
+          "top": 42,
+          "clipTop": 40,
+          "offsetTop": 2
         },
         {
           "selector": "div:nth-of-type(1) > button:nth-of-type(5)",
@@ -1125,7 +1299,10 @@
           "disabled": false,
           "width": 100,
           "height": 55,
-          "font": 14
+          "font": 14,
+          "top": 42,
+          "clipTop": 40,
+          "offsetTop": 2
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -1143,7 +1320,10 @@
           "disabled": false,
           "width": 62,
           "height": 44,
-          "font": 14
+          "font": 14,
+          "top": 305.1875,
+          "clipTop": 100,
+          "offsetTop": 205.1875
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -1161,7 +1341,10 @@
           "disabled": false,
           "width": 84.5625,
           "height": 44,
-          "font": 14
+          "font": 14,
+          "top": 305.1875,
+          "clipTop": 100,
+          "offsetTop": 205.1875
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -1179,7 +1362,10 @@
           "disabled": false,
           "width": 83.921875,
           "height": 44,
-          "font": 14
+          "font": 14,
+          "top": 305.1875,
+          "clipTop": 100,
+          "offsetTop": 205.1875
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -1197,7 +1383,10 @@
           "disabled": false,
           "width": 83.921875,
           "height": 44,
-          "font": 14
+          "font": 14,
+          "top": 305.1875,
+          "clipTop": 100,
+          "offsetTop": 205.1875
         }
       ],
       "issues": [],
@@ -1225,7 +1414,10 @@
           "disabled": false,
           "width": 100,
           "height": 55,
-          "font": 14
+          "font": 14,
+          "top": 42,
+          "clipTop": 40,
+          "offsetTop": 2
         },
         {
           "selector": "div:nth-of-type(1) > button:nth-of-type(2)",
@@ -1243,7 +1435,10 @@
           "disabled": false,
           "width": 100,
           "height": 55,
-          "font": 14
+          "font": 14,
+          "top": 42,
+          "clipTop": 40,
+          "offsetTop": 2
         },
         {
           "selector": "div:nth-of-type(1) > button:nth-of-type(3)",
@@ -1261,7 +1456,10 @@
           "disabled": false,
           "width": 128,
           "height": 55,
-          "font": 14
+          "font": 14,
+          "top": 42,
+          "clipTop": 40,
+          "offsetTop": 2
         },
         {
           "selector": "div:nth-of-type(1) > button:nth-of-type(4)",
@@ -1279,7 +1477,10 @@
           "disabled": false,
           "width": 120.515625,
           "height": 55,
-          "font": 14
+          "font": 14,
+          "top": 42,
+          "clipTop": 40,
+          "offsetTop": 2
         },
         {
           "selector": "div:nth-of-type(1) > button:nth-of-type(5)",
@@ -1297,7 +1498,10 @@
           "disabled": false,
           "width": 100,
           "height": 55,
-          "font": 14
+          "font": 14,
+          "top": 42,
+          "clipTop": 40,
+          "offsetTop": 2
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -1315,7 +1519,10 @@
           "disabled": false,
           "width": 62,
           "height": 44,
-          "font": 14
+          "font": 14,
+          "top": 305.1875,
+          "clipTop": 100,
+          "offsetTop": 205.1875
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -1333,7 +1540,10 @@
           "disabled": false,
           "width": 84.5625,
           "height": 44,
-          "font": 14
+          "font": 14,
+          "top": 305.1875,
+          "clipTop": 100,
+          "offsetTop": 205.1875
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -1351,7 +1561,10 @@
           "disabled": false,
           "width": 83.921875,
           "height": 44,
-          "font": 14
+          "font": 14,
+          "top": 305.1875,
+          "clipTop": 100,
+          "offsetTop": 205.1875
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -1369,7 +1582,10 @@
           "disabled": false,
           "width": 83.921875,
           "height": 44,
-          "font": 14
+          "font": 14,
+          "top": 305.1875,
+          "clipTop": 100,
+          "offsetTop": 205.1875
         }
       ],
       "issues": [],
@@ -1397,7 +1613,10 @@
           "disabled": false,
           "width": 100,
           "height": 55,
-          "font": 14
+          "font": 14,
+          "top": 42,
+          "clipTop": 40,
+          "offsetTop": 2
         },
         {
           "selector": "div:nth-of-type(1) > button:nth-of-type(2)",
@@ -1415,7 +1634,10 @@
           "disabled": false,
           "width": 100,
           "height": 55,
-          "font": 14
+          "font": 14,
+          "top": 42,
+          "clipTop": 40,
+          "offsetTop": 2
         },
         {
           "selector": "div:nth-of-type(1) > button:nth-of-type(3)",
@@ -1433,7 +1655,10 @@
           "disabled": false,
           "width": 128,
           "height": 55,
-          "font": 14
+          "font": 14,
+          "top": 42,
+          "clipTop": 40,
+          "offsetTop": 2
         },
         {
           "selector": "div:nth-of-type(1) > button:nth-of-type(4)",
@@ -1451,7 +1676,10 @@
           "disabled": false,
           "width": 120.515625,
           "height": 55,
-          "font": 14
+          "font": 14,
+          "top": 42,
+          "clipTop": 40,
+          "offsetTop": 2
         },
         {
           "selector": "div:nth-of-type(1) > button:nth-of-type(5)",
@@ -1469,7 +1697,10 @@
           "disabled": false,
           "width": 100,
           "height": 55,
-          "font": 14
+          "font": 14,
+          "top": 42,
+          "clipTop": 40,
+          "offsetTop": 2
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -1487,7 +1718,10 @@
           "disabled": false,
           "width": 62,
           "height": 44,
-          "font": 14
+          "font": 14,
+          "top": 305.1875,
+          "clipTop": 100,
+          "offsetTop": 205.1875
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -1505,7 +1739,10 @@
           "disabled": false,
           "width": 84.5625,
           "height": 44,
-          "font": 14
+          "font": 14,
+          "top": 305.1875,
+          "clipTop": 100,
+          "offsetTop": 205.1875
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -1523,7 +1760,10 @@
           "disabled": false,
           "width": 83.921875,
           "height": 44,
-          "font": 14
+          "font": 14,
+          "top": 305.1875,
+          "clipTop": 100,
+          "offsetTop": 205.1875
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -1541,7 +1781,10 @@
           "disabled": false,
           "width": 83.921875,
           "height": 44,
-          "font": 14
+          "font": 14,
+          "top": 305.1875,
+          "clipTop": 100,
+          "offsetTop": 205.1875
         }
       ],
       "issues": [],
@@ -1569,7 +1812,10 @@
           "disabled": false,
           "width": 100,
           "height": 55,
-          "font": 14
+          "font": 14,
+          "top": 42,
+          "clipTop": 40,
+          "offsetTop": 2
         },
         {
           "selector": "div:nth-of-type(1) > button:nth-of-type(2)",
@@ -1587,7 +1833,10 @@
           "disabled": false,
           "width": 100,
           "height": 55,
-          "font": 14
+          "font": 14,
+          "top": 42,
+          "clipTop": 40,
+          "offsetTop": 2
         },
         {
           "selector": "div:nth-of-type(1) > button:nth-of-type(3)",
@@ -1605,7 +1854,10 @@
           "disabled": false,
           "width": 128,
           "height": 55,
-          "font": 14
+          "font": 14,
+          "top": 42,
+          "clipTop": 40,
+          "offsetTop": 2
         },
         {
           "selector": "div:nth-of-type(1) > button:nth-of-type(4)",
@@ -1623,7 +1875,10 @@
           "disabled": false,
           "width": 120.515625,
           "height": 55,
-          "font": 14
+          "font": 14,
+          "top": 42,
+          "clipTop": 40,
+          "offsetTop": 2
         },
         {
           "selector": "div:nth-of-type(1) > button:nth-of-type(5)",
@@ -1641,7 +1896,10 @@
           "disabled": false,
           "width": 100,
           "height": 55,
-          "font": 14
+          "font": 14,
+          "top": 42,
+          "clipTop": 40,
+          "offsetTop": 2
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -1659,7 +1917,10 @@
           "disabled": false,
           "width": 62,
           "height": 44,
-          "font": 14
+          "font": 14,
+          "top": 305.1875,
+          "clipTop": 100,
+          "offsetTop": 205.1875
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -1677,7 +1938,10 @@
           "disabled": false,
           "width": 84.5625,
           "height": 44,
-          "font": 14
+          "font": 14,
+          "top": 305.1875,
+          "clipTop": 100,
+          "offsetTop": 205.1875
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -1695,7 +1959,10 @@
           "disabled": false,
           "width": 83.921875,
           "height": 44,
-          "font": 14
+          "font": 14,
+          "top": 305.1875,
+          "clipTop": 100,
+          "offsetTop": 205.1875
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -1713,7 +1980,10 @@
           "disabled": false,
           "width": 83.921875,
           "height": 44,
-          "font": 14
+          "font": 14,
+          "top": 305.1875,
+          "clipTop": 100,
+          "offsetTop": 205.1875
         }
       ],
       "issues": [],
@@ -1741,7 +2011,10 @@
           "disabled": false,
           "width": 100,
           "height": 55,
-          "font": 14
+          "font": 14,
+          "top": 42,
+          "clipTop": 40,
+          "offsetTop": 2
         },
         {
           "selector": "div:nth-of-type(1) > button:nth-of-type(2)",
@@ -1759,7 +2032,10 @@
           "disabled": false,
           "width": 100,
           "height": 55,
-          "font": 14
+          "font": 14,
+          "top": 42,
+          "clipTop": 40,
+          "offsetTop": 2
         },
         {
           "selector": "div:nth-of-type(1) > button:nth-of-type(3)",
@@ -1777,7 +2053,10 @@
           "disabled": false,
           "width": 128,
           "height": 55,
-          "font": 14
+          "font": 14,
+          "top": 42,
+          "clipTop": 40,
+          "offsetTop": 2
         },
         {
           "selector": "div:nth-of-type(1) > button:nth-of-type(4)",
@@ -1795,7 +2074,10 @@
           "disabled": false,
           "width": 120.515625,
           "height": 55,
-          "font": 14
+          "font": 14,
+          "top": 42,
+          "clipTop": 40,
+          "offsetTop": 2
         },
         {
           "selector": "div:nth-of-type(1) > button:nth-of-type(5)",
@@ -1813,7 +2095,10 @@
           "disabled": false,
           "width": 100,
           "height": 55,
-          "font": 14
+          "font": 14,
+          "top": 42,
+          "clipTop": 40,
+          "offsetTop": 2
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -1831,7 +2116,10 @@
           "disabled": false,
           "width": 62,
           "height": 44,
-          "font": 14
+          "font": 14,
+          "top": 305.1875,
+          "clipTop": 100,
+          "offsetTop": 205.1875
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -1849,7 +2137,10 @@
           "disabled": false,
           "width": 84.5625,
           "height": 44,
-          "font": 14
+          "font": 14,
+          "top": 305.1875,
+          "clipTop": 100,
+          "offsetTop": 205.1875
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -1867,7 +2158,10 @@
           "disabled": false,
           "width": 83.921875,
           "height": 44,
-          "font": 14
+          "font": 14,
+          "top": 305.1875,
+          "clipTop": 100,
+          "offsetTop": 205.1875
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -1885,7 +2179,10 @@
           "disabled": false,
           "width": 83.921875,
           "height": 44,
-          "font": 14
+          "font": 14,
+          "top": 305.1875,
+          "clipTop": 100,
+          "offsetTop": 205.1875
         }
       ],
       "issues": [],
@@ -1913,7 +2210,10 @@
           "disabled": false,
           "width": 100,
           "height": 55,
-          "font": 14
+          "font": 14,
+          "top": 42,
+          "clipTop": 40,
+          "offsetTop": 2
         },
         {
           "selector": "div:nth-of-type(1) > button:nth-of-type(2)",
@@ -1931,7 +2231,10 @@
           "disabled": false,
           "width": 100,
           "height": 55,
-          "font": 14
+          "font": 14,
+          "top": 42,
+          "clipTop": 40,
+          "offsetTop": 2
         },
         {
           "selector": "div:nth-of-type(1) > button:nth-of-type(3)",
@@ -1949,7 +2252,10 @@
           "disabled": false,
           "width": 128,
           "height": 55,
-          "font": 14
+          "font": 14,
+          "top": 42,
+          "clipTop": 40,
+          "offsetTop": 2
         },
         {
           "selector": "div:nth-of-type(1) > button:nth-of-type(4)",
@@ -1967,7 +2273,10 @@
           "disabled": false,
           "width": 120.515625,
           "height": 55,
-          "font": 14
+          "font": 14,
+          "top": 42,
+          "clipTop": 40,
+          "offsetTop": 2
         },
         {
           "selector": "div:nth-of-type(1) > button:nth-of-type(5)",
@@ -1985,7 +2294,10 @@
           "disabled": false,
           "width": 100,
           "height": 55,
-          "font": 14
+          "font": 14,
+          "top": 42,
+          "clipTop": 40,
+          "offsetTop": 2
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -2003,7 +2315,10 @@
           "disabled": false,
           "width": 62,
           "height": 44,
-          "font": 14
+          "font": 14,
+          "top": 305.1875,
+          "clipTop": 100,
+          "offsetTop": 205.1875
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -2021,7 +2336,10 @@
           "disabled": false,
           "width": 84.5625,
           "height": 44,
-          "font": 14
+          "font": 14,
+          "top": 305.1875,
+          "clipTop": 100,
+          "offsetTop": 205.1875
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -2039,7 +2357,10 @@
           "disabled": false,
           "width": 83.921875,
           "height": 44,
-          "font": 14
+          "font": 14,
+          "top": 305.1875,
+          "clipTop": 100,
+          "offsetTop": 205.1875
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -2057,7 +2378,10 @@
           "disabled": false,
           "width": 83.921875,
           "height": 44,
-          "font": 14
+          "font": 14,
+          "top": 305.1875,
+          "clipTop": 100,
+          "offsetTop": 205.1875
         }
       ],
       "issues": [],

@@ -133,7 +133,8 @@
 
 1. **页面顶边呼吸**：tab 内容区首行与 tab 栏之间必须 ≥8px（`--page-top-gap`，由 `UnifiedTabComponent` 统一提供），页面不得自己贴边——悬停位移/阴影需要落点。
 2. **同排控件等高**：同一 toolbar/filters 行内的按钮/输入/下拉必须同高（`--button-min-height`/`--input-min-height` = 40px；44px 只用于独立图标钮）。只有更高的那个会顶到容器边界并在悬停时越界。
-3. **按钮不做 hover 位移**：禁止 `:hover` 上的 `translate/translateY`（尤其未作用域 `.btn*` 覆盖——随路由 CSS 加载泄漏到同路由所有按钮）。悬停用底色/描边/阴影表达。`lint:ui` 规则 4 静态拦截；`verify:states` 新机制切片（悬停位移×容器边界、同排控件等高）渲染时刻兜底，`--selftest` 注入必红。
+3. **按钮不做 hover 位移**：禁止在 `:hover/:focus` 上改变 `transform/translate/scale/padding/margin/height/top/left…`（尤其未作用域 `.btn*`/按钮/链接类覆盖——随路由 CSS 加载泄漏到同路由所有按钮）。旧式"padding+负 margin 外扩"默认禁止（会被 `overflow:hidden` 裁切，roadmap 项目名链接实测）。悬停用底色/描边/下划线/阴影表达。卡片类 elevation（card/stat/insight/summary…）不在拦截面。
+   `npm run lint:ui` 规则 4（未作用域 `.btn*` 位移）+ 规则 5（交互态布局几何）静态拦截；`verify:states` 新机制切片（悬停/焦点位移×容器边界、同排控件等高）渲染时刻兜底，`--selftest` 注入必红。
 
 ## 默认色板（Okabe-Ito 色盲安全八色）
 

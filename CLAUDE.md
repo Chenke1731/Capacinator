@@ -296,7 +296,7 @@ npm run dist:linux       # Linux package (.AppImage)
 | PreToolUse hook(.zcode) | 命令文本×文件后缀 | 行动时刻(每次 Bash) |
 | verify-cache-keys 静态配对 | 缓存键签名×端点归属×失效前缀匹配(数据闭包;同键异端点=互投毒,悬空失效=回滚静默失败) | 提交时刻(pre-commit,2026-10-13 审计元问题:缓存闭包此前零防线;已知残余:同键不同运行时实参静态不可辨) |
 | verify-states 全称检查器 | 状态×对比度×命中×遮挡×越界×字号×贴锚（渲染闭包）**+ 悬停位移×容器边界、同排控件等高（2026-11-10 录入按钮越界事故新增切片）** | 渲染时刻(--quick 迭代)/交付时刻(verify-boards 收编) |
-| lint:ui 规则 4 | 未作用域 `.btn*` 选择器的 `:hover` 位移声明（跨路由泄漏闭包；2026-11-10 收件箱事故） | 生成时/提交前（`npm run lint:ui`，SELF_TEST 自证） |
+| lint:ui 规则 4/5 | 未作用域 `.btn*` 的 `:hover` 位移声明；任何交互态（hover/focus）的布局几何位移（按钮/链接 translate/scale、padding+负 margin 外扩）——跨路由泄漏与裁切闭包 | 生成时/提交前（`npm run lint:ui`，SELF_TEST 自证） |
 | useCellPopover DEV 自检 | 浮层贴锚/层顶/越界(几何闭包) | 产物时刻(每次打开) |
 | jest 语义测试 | 业务语义 | 提交前 |
 | pre-commit | 类型/迁移不可变/CSS 语法 | 提交时刻 |

@@ -1771,9 +1771,9 @@
           "width": 32,
           "height": 44,
           "font": 14.4,
-          "top": 339.2092590332031,
+          "top": 339.2088928222656,
           "clipTop": 218.390625,
-          "offsetTop": 120.81863403320312
+          "offsetTop": 120.81826782226562
         }
       ],
       "issues": [],
@@ -4046,22 +4046,22 @@
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(3)",
           "family": "action-button edit|",
           "text": "",
-          "foreground": "rgb(254, 237, 149)",
-          "background": "rgb(122, 91, 36)",
+          "foreground": "rgb(254, 242, 180)",
+          "background": "rgb(158, 110, 29)",
           "effectiveBackground": [
-            122,
-            91,
-            36
+            158,
+            110,
+            29
           ],
-          "contrast": 5.302949126332281,
+          "contrast": 3.9503055694809466,
           "textual": false,
           "disabled": false,
           "width": 32,
           "height": 44,
           "font": 14.4,
-          "top": 339.543212890625,
+          "top": 339.2080993652344,
           "clipTop": 218.390625,
-          "offsetTop": 121.152587890625
+          "offsetTop": 120.81747436523438
         }
       ],
       "issues": [],

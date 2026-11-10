@@ -1893,7 +1893,7 @@
         {
           "selector": "button:nth-of-type(1)",
           "family": "dialog-close-btn|",
-          "text": "Close",
+          "text": "关闭",
           "foreground": "rgb(55, 65, 81)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -1904,10 +1904,10 @@
           "contrast": 10.307355969735845,
           "textual": true,
           "disabled": false,
-          "width": 32,
-          "height": 32,
+          "width": 44,
+          "height": 44,
           "font": 16,
-          "top": 242.203125,
+          "top": 238.203125,
           "clipTop": null,
           "offsetTop": null
         }
@@ -2265,7 +2265,7 @@
         {
           "selector": "button:nth-of-type(1)",
           "family": "dialog-close-btn|",
-          "text": "Close",
+          "text": "关闭",
           "foreground": "rgb(55, 65, 81)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -2276,10 +2276,10 @@
           "contrast": 10.307355969735845,
           "textual": true,
           "disabled": false,
-          "width": 32,
-          "height": 32,
+          "width": 44,
+          "height": 44,
           "font": 16,
-          "top": 288.203125,
+          "top": 284.203125,
           "clipTop": null,
           "offsetTop": null
         }
@@ -4046,14 +4046,14 @@
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(3)",
           "family": "action-button edit|",
           "text": "",
-          "foreground": "rgb(254, 237, 149)",
-          "background": "rgb(122, 91, 36)",
+          "foreground": "rgb(254, 242, 180)",
+          "background": "rgb(158, 110, 29)",
           "effectiveBackground": [
-            122,
-            91,
-            36
+            158,
+            110,
+            29
           ],
-          "contrast": 5.302949126332281,
+          "contrast": 3.9503055694809466,
           "textual": false,
           "disabled": false,
           "width": 32,
@@ -4181,7 +4181,7 @@
         {
           "selector": "button:nth-of-type(1)",
           "family": "dialog-close-btn|",
-          "text": "Close",
+          "text": "关闭",
           "foreground": "rgb(229, 231, 235)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -4192,10 +4192,10 @@
           "contrast": 14.328284912339392,
           "textual": true,
           "disabled": false,
-          "width": 32,
-          "height": 32,
+          "width": 44,
+          "height": 44,
           "font": 16,
-          "top": 242.203125,
+          "top": 238.203125,
           "clipTop": null,
           "offsetTop": null
         }
@@ -4553,7 +4553,7 @@
         {
           "selector": "button:nth-of-type(1)",
           "family": "dialog-close-btn|",
-          "text": "Close",
+          "text": "关闭",
           "foreground": "rgb(229, 231, 235)",
           "background": "rgba(0, 0, 0, 0)",
           "effectiveBackground": [
@@ -4564,10 +4564,10 @@
           "contrast": 14.328284912339392,
           "textual": true,
           "disabled": false,
-          "width": 32,
-          "height": 32,
+          "width": 44,
+          "height": 44,
           "font": 16,
-          "top": 288.203125,
+          "top": 284.203125,
           "clipTop": null,
           "offsetTop": null
         }

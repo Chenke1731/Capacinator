@@ -487,19 +487,22 @@ td input[type="date"] {
   padding: 0.5rem;
 }
 
-/* Responsive Design */
+/* Responsive Design — the 768px header collapse is scoped to the page root
+   (D-03 Batch 2): the shared .page-header/.header-actions classes must not be
+   redefined globally; the mobile breakpoint is a guard blind zone, so keep the
+   collapse byte-identical and local. */
 @media (max-width: 768px) {
-  .page-header {
+  .assignments-page .page-header {
     flex-direction: column;
     gap: 1rem;
   }
 
-  .header-actions {
+  .assignments-page .header-actions {
     width: 100%;
     flex-direction: column;
   }
 
-  .header-actions .btn {
+  .assignments-page .header-actions .btn {
     width: 100%;
     justify-content: center;
   }

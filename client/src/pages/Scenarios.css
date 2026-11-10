@@ -31,9 +31,10 @@
   min-height: 0;
 }
 
-.page-header {
-  display: flex;
-  justify-content: space-between;
+/* Compact top-aligned header (1rem vs owner 2rem, plus gap + flex-shrink for
+   the fixed-height scenarios layout) — real local delta, scoped to the page
+   root (D-03 Batch 2). */
+.scenarios-page .page-header {
   align-items: flex-start;
   margin-bottom: 1rem;
   gap: 2rem;
@@ -1779,8 +1780,8 @@
   .scenarios-page {
     padding: 1rem;
   }
-  
-  .page-header {
+
+  .scenarios-page .page-header {
     flex-direction: column;
     align-items: stretch;
     gap: 1rem;

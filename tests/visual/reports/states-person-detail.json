@@ -189,9 +189,9 @@
           "width": 620,
           "height": 45,
           "font": 14,
-          "top": 498.109375,
+          "top": 499.109375,
           "clipTop": 166,
-          "offsetTop": 332.109375
+          "offsetTop": 333.109375
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -283,9 +283,9 @@
           "width": 620,
           "height": 45,
           "font": 14,
-          "top": 498.109375,
+          "top": 499.109375,
           "clipTop": 166,
-          "offsetTop": 332.109375
+          "offsetTop": 333.109375
         }
       ],
       "issues": [],
@@ -356,9 +356,9 @@
           "width": 620,
           "height": 45,
           "font": 14,
-          "top": 498.68572998046875,
+          "top": 499.109375,
           "clipTop": 166,
-          "offsetTop": 332.68572998046875
+          "offsetTop": 333.109375
         }
       ],
       "issues": [],
@@ -554,9 +554,9 @@
           "width": 620,
           "height": 47,
           "font": 14,
-          "top": 500.109375,
+          "top": 501.109375,
           "clipTop": 166,
-          "offsetTop": 334.109375
+          "offsetTop": 335.109375
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -648,9 +648,9 @@
           "width": 620,
           "height": 47,
           "font": 14,
-          "top": 500.109375,
+          "top": 501.109375,
           "clipTop": 166,
-          "offsetTop": 334.109375
+          "offsetTop": 335.109375
         }
       ],
       "issues": [],
@@ -719,11 +719,11 @@
           "textual": true,
           "disabled": false,
           "width": 620,
-          "height": 47.000030517578125,
+          "height": 47,
           "font": 14,
-          "top": 500.5173034667969,
+          "top": 501.109375,
           "clipTop": 166,
-          "offsetTop": 334.5173034667969
+          "offsetTop": 335.109375
         }
       ],
       "issues": [],

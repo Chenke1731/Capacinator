@@ -4,10 +4,9 @@
   margin: 0 auto;
 }
 
-.page-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+/* Tighter header spacing than the shared 2rem default — real local delta,
+   scoped to the page root (D-03 Batch 2). */
+.locations-page .page-header {
   margin-bottom: 16px;
 }
 

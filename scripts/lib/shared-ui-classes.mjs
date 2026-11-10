@@ -59,9 +59,9 @@ export function isOwnerFile(rel) {
  * 到期后 lint 会报错，必须清理或续期（续期需在台账说明）。
  * 说明：InteractiveTimeline.css 的 modal/form 组是手写 phase-modal 的共享样式，
  * 等 D-04 Stage 2（迁移 Radix）删除，不单独作用域化。
- * 快照生成：2026-11-10 I01e Phase A（137 违例 → 67 文件×类键）；
- * Batch 1（I01e Phase B，2026-11-10）清理 24 条 → 剩 45 条（含 badge-info
- * 注册带来的 People/PersonDetails 2 条新冻结）。
+ * 计数勘误（2026-11-11）：Phase A 头注曾写"137 违例 → 67 文件×类键"，逐条
+ * 重数实为 63；Batch 1 清 24 条 + badge-info 注册冻结 2 条 → 41；Batch 2 清
+ * 22 条 → 19。
  */
 export const ALLOWLIST = new Map([
   ['client/src/components/InteractiveTimeline.css :: .form-group', '2026-12-31'],
@@ -77,34 +77,12 @@ export const ALLOWLIST = new Map([
   ['client/src/components/Login.css :: .form-group', '2026-12-31'],
   ['client/src/components/ProjectAllocations.css :: .form-group', '2026-12-31'],
   ['client/src/components/ProjectAllocations.css :: .form-input', '2026-12-31'],
-  ['client/src/pages/Assignments.css :: .header-actions', '2026-12-31'],
-  ['client/src/pages/Assignments.css :: .page-header', '2026-12-31'],
-  ['client/src/pages/Dashboard.css :: .page-header', '2026-12-31'],
   ['client/src/pages/Import.css :: .form-group', '2026-12-31'],
-  ['client/src/pages/Locations.css :: .page-header', '2026-12-31'],
-  ['client/src/pages/People.css :: .badge-danger', '2026-12-31'],
-  ['client/src/pages/People.css :: .badge-info', '2026-12-31'],
-  ['client/src/pages/People.css :: .badge-success', '2026-12-31'],
-  ['client/src/pages/People.css :: .badge-warning', '2026-12-31'],
-  ['client/src/pages/People.css :: .header-actions', '2026-12-31'],
-  ['client/src/pages/People.css :: .page-header', '2026-12-31'],
-  ['client/src/pages/People.css :: .table-actions', '2026-12-31'],
-  ['client/src/pages/PersonDetails.css :: .badge-danger', '2026-12-31'],
-  ['client/src/pages/PersonDetails.css :: .badge-gray', '2026-12-31'],
-  ['client/src/pages/PersonDetails.css :: .badge-info', '2026-12-31'],
-  ['client/src/pages/PersonDetails.css :: .badge-success', '2026-12-31'],
-  ['client/src/pages/PersonDetails.css :: .badge-warning', '2026-12-31'],
   ['client/src/pages/ProjectDetail.css :: .form-group', '2026-12-31'],
   ['client/src/pages/ProjectDetail.css :: .form-input', '2026-12-31'],
   ['client/src/pages/ProjectDetail.css :: .form-label', '2026-12-31'],
-  ['client/src/pages/Projects.css :: .header-actions', '2026-12-31'],
-  ['client/src/pages/Projects.css :: .page-header', '2026-12-31'],
-  ['client/src/pages/Projects.css :: .table-actions', '2026-12-31'],
   ['client/src/pages/ProjectTypeDetails.css :: .form-group', '2026-12-31'],
   ['client/src/pages/ProjectTypeDetails.css :: .form-input', '2026-12-31'],
-  ['client/src/pages/Roles.css :: .header-actions', '2026-12-31'],
-  ['client/src/pages/Roles.css :: .page-header', '2026-12-31'],
-  ['client/src/pages/Scenarios.css :: .page-header', '2026-12-31'],
 ]);
 
 /**

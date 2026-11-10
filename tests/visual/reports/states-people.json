@@ -179,8 +179,12 @@
           "text": "全部主要角色MDESE交付管理开发测试",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgb(255, 255, 255)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
           "width": 301,
@@ -196,8 +200,12 @@
           "text": "全部人员类型正式员工合同工顾问",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgb(255, 255, 255)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
           "width": 301,
@@ -213,8 +221,12 @@
           "text": "全部地点总部",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgb(255, 255, 255)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
           "width": 301,
@@ -982,18 +994,6 @@
         }
       ],
       "issues": [
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(4) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(1) > div:nth-of-type(1) > a:nth-of-type(1)",
           "kind": "target-size",
@@ -1207,8 +1207,12 @@
           "text": "全部主要角色MDESE交付管理开发测试",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgb(255, 255, 255)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
           "width": 301,
@@ -1224,8 +1228,12 @@
           "text": "全部人员类型正式员工合同工顾问",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgb(255, 255, 255)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
           "width": 301,
@@ -1241,8 +1249,12 @@
           "text": "全部地点总部",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgb(255, 255, 255)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
           "width": 301,
@@ -2010,18 +2022,6 @@
         }
       ],
       "issues": [
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(4) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(1) > div:nth-of-type(1) > a:nth-of-type(1)",
           "kind": "target-size",
@@ -2235,8 +2235,12 @@
           "text": "全部主要角色MDESE交付管理开发测试",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgb(255, 255, 255)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
           "width": 301,
@@ -2252,8 +2256,12 @@
           "text": "全部人员类型正式员工合同工顾问",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgb(255, 255, 255)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
           "width": 301,
@@ -2269,8 +2277,12 @@
           "text": "全部地点总部",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgb(255, 255, 255)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
           "width": 301,
@@ -3038,18 +3050,6 @@
         }
       ],
       "issues": [
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(4) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(1) > div:nth-of-type(1) > a:nth-of-type(1)",
           "kind": "target-size",
@@ -3263,8 +3263,12 @@
           "text": "全部主要角色MDESE交付管理开发测试",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgb(255, 255, 255)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
           "width": 301,
@@ -3280,8 +3284,12 @@
           "text": "全部人员类型正式员工合同工顾问",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgb(255, 255, 255)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
           "width": 301,
@@ -3297,8 +3305,12 @@
           "text": "全部地点总部",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgb(255, 255, 255)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
           "width": 301,
@@ -4066,18 +4078,6 @@
         }
       ],
       "issues": [
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(4) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(1) > div:nth-of-type(1) > a:nth-of-type(1)",
           "kind": "target-size",
@@ -4291,8 +4291,12 @@
           "text": "全部主要角色MDESE交付管理开发测试",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgb(255, 255, 255)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
           "width": 301,
@@ -4308,8 +4312,12 @@
           "text": "全部人员类型正式员工合同工顾问",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgb(255, 255, 255)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
           "width": 301,
@@ -4325,8 +4333,12 @@
           "text": "全部地点总部",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgb(255, 255, 255)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
           "width": 301,
@@ -5094,18 +5106,6 @@
         }
       ],
       "issues": [
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(4) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(1) > div:nth-of-type(1) > a:nth-of-type(1)",
           "kind": "target-size",
@@ -5319,8 +5319,12 @@
           "text": "全部主要角色MDESE交付管理开发测试",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgb(255, 255, 255)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
           "width": 301,
@@ -5336,8 +5340,12 @@
           "text": "全部人员类型正式员工合同工顾问",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgb(255, 255, 255)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
           "width": 301,
@@ -5353,8 +5361,12 @@
           "text": "全部地点总部",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgb(255, 255, 255)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
           "width": 301,
@@ -6122,18 +6134,6 @@
         }
       ],
       "issues": [
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(4) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(1) > div:nth-of-type(1) > a:nth-of-type(1)",
           "kind": "target-size",
@@ -6347,8 +6347,12 @@
           "text": "全部主要角色MDESE交付管理开发测试",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgb(255, 255, 255)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
           "width": 301,
@@ -6364,8 +6368,12 @@
           "text": "全部人员类型正式员工合同工顾问",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgb(255, 255, 255)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
           "width": 301,
@@ -6381,8 +6389,12 @@
           "text": "全部地点总部",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgb(255, 255, 255)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
           "width": 301,
@@ -7150,18 +7162,6 @@
         }
       ],
       "issues": [
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(4) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(1) > div:nth-of-type(1) > a:nth-of-type(1)",
           "kind": "target-size",
@@ -7375,8 +7375,12 @@
           "text": "全部主要角色MDESE交付管理开发测试",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgb(255, 255, 255)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
           "width": 301,
@@ -7392,8 +7396,12 @@
           "text": "全部人员类型正式员工合同工顾问",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgb(255, 255, 255)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
           "width": 301,
@@ -7409,8 +7417,12 @@
           "text": "全部地点总部",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgb(255, 255, 255)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
           "width": 301,
@@ -8178,18 +8190,6 @@
         }
       ],
       "issues": [
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(4) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(1) > div:nth-of-type(1) > a:nth-of-type(1)",
           "kind": "target-size",
@@ -8403,8 +8403,12 @@
           "text": "全部主要角色MDESE交付管理开发测试",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgb(255, 255, 255)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
           "width": 301,
@@ -8420,8 +8424,12 @@
           "text": "全部人员类型正式员工合同工顾问",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgb(255, 255, 255)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
           "width": 301,
@@ -8437,8 +8445,12 @@
           "text": "全部地点总部",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgb(255, 255, 255)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
           "width": 301,
@@ -9206,18 +9218,6 @@
         }
       ],
       "issues": [
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(4) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(1) > div:nth-of-type(1) > a:nth-of-type(1)",
           "kind": "target-size",
@@ -9431,8 +9431,12 @@
           "text": "全部主要角色MDESE交付管理开发测试",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgb(255, 255, 255)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
           "width": 301,
@@ -9448,8 +9452,12 @@
           "text": "全部人员类型正式员工合同工顾问",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgb(255, 255, 255)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
           "width": 301,
@@ -9465,8 +9473,12 @@
           "text": "全部地点总部",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgb(255, 255, 255)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
           "width": 301,
@@ -10234,18 +10246,6 @@
         }
       ],
       "issues": [
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(4) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(1) > div:nth-of-type(1) > a:nth-of-type(1)",
           "kind": "target-size",
@@ -10459,8 +10459,12 @@
           "text": "全部主要角色MDESE交付管理开发测试",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgb(255, 255, 255)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
           "width": 301,
@@ -10476,8 +10480,12 @@
           "text": "全部人员类型正式员工合同工顾问",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgb(255, 255, 255)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
           "width": 301,
@@ -10493,8 +10501,12 @@
           "text": "全部地点总部",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgb(255, 255, 255)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
           "width": 301,
@@ -11262,18 +11274,6 @@
         }
       ],
       "issues": [
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(4) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(1) > div:nth-of-type(1) > a:nth-of-type(1)",
           "kind": "target-size",
@@ -11487,8 +11487,12 @@
           "text": "全部主要角色MDESE交付管理开发测试",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgb(255, 255, 255)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
           "width": 301,
@@ -11504,8 +11508,12 @@
           "text": "全部人员类型正式员工合同工顾问",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgb(255, 255, 255)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
           "width": 301,
@@ -11521,8 +11529,12 @@
           "text": "全部地点总部",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgb(255, 255, 255)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
           "width": 301,
@@ -12290,18 +12302,6 @@
         }
       ],
       "issues": [
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(4) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(1) > div:nth-of-type(1) > a:nth-of-type(1)",
           "kind": "target-size",
@@ -12515,8 +12515,12 @@
           "text": "全部主要角色MDESE交付管理开发测试",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgb(255, 255, 255)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
           "width": 301,
@@ -12532,8 +12536,12 @@
           "text": "全部人员类型正式员工合同工顾问",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgb(255, 255, 255)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
           "width": 301,
@@ -12549,8 +12557,12 @@
           "text": "全部地点总部",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgb(255, 255, 255)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
           "width": 301,
@@ -13319,18 +13331,6 @@
       ],
       "issues": [
         {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(4) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(1) > div:nth-of-type(1) > a:nth-of-type(1)",
           "kind": "target-size",
           "value": 20
@@ -13543,8 +13543,12 @@
           "text": "全部主要角色MDESE交付管理开发测试",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgb(255, 255, 255)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
           "width": 301,
@@ -13560,8 +13564,12 @@
           "text": "全部人员类型正式员工合同工顾问",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgb(255, 255, 255)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
           "width": 301,
@@ -13577,8 +13585,12 @@
           "text": "全部地点总部",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgb(255, 255, 255)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
           "width": 301,
@@ -14347,18 +14359,6 @@
       ],
       "issues": [
         {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(4) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(1) > div:nth-of-type(1) > a:nth-of-type(1)",
           "kind": "target-size",
           "value": 20
@@ -14571,8 +14571,12 @@
           "text": "全部主要角色MDESE交付管理开发测试",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgb(255, 255, 255)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
           "width": 301,
@@ -14588,8 +14592,12 @@
           "text": "全部人员类型正式员工合同工顾问",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgb(255, 255, 255)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
           "width": 301,
@@ -14605,8 +14613,12 @@
           "text": "全部地点总部",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgb(255, 255, 255)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
           "width": 301,
@@ -14768,13 +14780,13 @@
           "family": "btn btn-sm btn-danger quick-action-btn|",
           "text": "减少负荷",
           "foreground": "rgb(185, 28, 28)",
-          "background": "rgba(252, 214, 214, 0.63)",
+          "background": "rgba(247, 189, 189, 0.365)",
           "effectiveBackground": [
-            253.10588235294117,
-            229.11372549019606,
-            229.11372549019606
+            252.08235294117645,
+            230.9294117647059,
+            230.9294117647059
           ],
-          "contrast": 5.402031618275549,
+          "contrast": 5.458787838432032,
           "textual": true,
           "disabled": false,
           "width": 94.015625,
@@ -15374,18 +15386,6 @@
         }
       ],
       "issues": [
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(4) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(1) > div:nth-of-type(1) > a:nth-of-type(1)",
           "kind": "target-size",
@@ -15599,8 +15599,12 @@
           "text": "全部主要角色MDESE交付管理开发测试",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(31, 41, 55)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
           "width": 301,
@@ -15616,8 +15620,12 @@
           "text": "全部人员类型正式员工合同工顾问",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(31, 41, 55)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
           "width": 301,
@@ -15633,8 +15641,12 @@
           "text": "全部地点总部",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(31, 41, 55)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
           "width": 301,
@@ -16402,18 +16414,6 @@
         }
       ],
       "issues": [
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(4) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(1) > div:nth-of-type(1) > a:nth-of-type(1)",
           "kind": "target-size",
@@ -16627,8 +16627,12 @@
           "text": "全部主要角色MDESE交付管理开发测试",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(31, 41, 55)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
           "width": 301,
@@ -16644,8 +16648,12 @@
           "text": "全部人员类型正式员工合同工顾问",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(31, 41, 55)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
           "width": 301,
@@ -16661,8 +16669,12 @@
           "text": "全部地点总部",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(31, 41, 55)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
           "width": 301,
@@ -17430,18 +17442,6 @@
         }
       ],
       "issues": [
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(4) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(1) > div:nth-of-type(1) > a:nth-of-type(1)",
           "kind": "target-size",
@@ -17655,8 +17655,12 @@
           "text": "全部主要角色MDESE交付管理开发测试",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(31, 41, 55)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
           "width": 301,
@@ -17672,8 +17676,12 @@
           "text": "全部人员类型正式员工合同工顾问",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(31, 41, 55)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
           "width": 301,
@@ -17689,8 +17697,12 @@
           "text": "全部地点总部",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(31, 41, 55)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
           "width": 301,
@@ -18458,18 +18470,6 @@
         }
       ],
       "issues": [
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(4) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(1) > div:nth-of-type(1) > a:nth-of-type(1)",
           "kind": "target-size",
@@ -18683,8 +18683,12 @@
           "text": "全部主要角色MDESE交付管理开发测试",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(31, 41, 55)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
           "width": 301,
@@ -18700,8 +18704,12 @@
           "text": "全部人员类型正式员工合同工顾问",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(31, 41, 55)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
           "width": 301,
@@ -18717,8 +18725,12 @@
           "text": "全部地点总部",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(31, 41, 55)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
           "width": 301,
@@ -19486,18 +19498,6 @@
         }
       ],
       "issues": [
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(4) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(1) > div:nth-of-type(1) > a:nth-of-type(1)",
           "kind": "target-size",
@@ -19711,8 +19711,12 @@
           "text": "全部主要角色MDESE交付管理开发测试",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(31, 41, 55)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
           "width": 301,
@@ -19728,8 +19732,12 @@
           "text": "全部人员类型正式员工合同工顾问",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(31, 41, 55)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
           "width": 301,
@@ -19745,8 +19753,12 @@
           "text": "全部地点总部",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(31, 41, 55)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
           "width": 301,
@@ -20514,18 +20526,6 @@
         }
       ],
       "issues": [
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(4) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(1) > div:nth-of-type(1) > a:nth-of-type(1)",
           "kind": "target-size",
@@ -20739,8 +20739,12 @@
           "text": "全部主要角色MDESE交付管理开发测试",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(31, 41, 55)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
           "width": 301,
@@ -20756,8 +20760,12 @@
           "text": "全部人员类型正式员工合同工顾问",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(31, 41, 55)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
           "width": 301,
@@ -20773,8 +20781,12 @@
           "text": "全部地点总部",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(31, 41, 55)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
           "width": 301,
@@ -21542,18 +21554,6 @@
         }
       ],
       "issues": [
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(4) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(1) > div:nth-of-type(1) > a:nth-of-type(1)",
           "kind": "target-size",
@@ -21767,8 +21767,12 @@
           "text": "全部主要角色MDESE交付管理开发测试",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(31, 41, 55)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
           "width": 301,
@@ -21784,8 +21788,12 @@
           "text": "全部人员类型正式员工合同工顾问",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(31, 41, 55)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
           "width": 301,
@@ -21801,8 +21809,12 @@
           "text": "全部地点总部",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(31, 41, 55)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
           "width": 301,
@@ -22570,18 +22582,6 @@
         }
       ],
       "issues": [
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(4) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(1) > div:nth-of-type(1) > a:nth-of-type(1)",
           "kind": "target-size",
@@ -22795,8 +22795,12 @@
           "text": "全部主要角色MDESE交付管理开发测试",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(31, 41, 55)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
           "width": 301,
@@ -22812,8 +22816,12 @@
           "text": "全部人员类型正式员工合同工顾问",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(31, 41, 55)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
           "width": 301,
@@ -22829,8 +22837,12 @@
           "text": "全部地点总部",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(31, 41, 55)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
           "width": 301,
@@ -23598,18 +23610,6 @@
         }
       ],
       "issues": [
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(4) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(1) > div:nth-of-type(1) > a:nth-of-type(1)",
           "kind": "target-size",
@@ -23823,8 +23823,12 @@
           "text": "全部主要角色MDESE交付管理开发测试",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(31, 41, 55)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
           "width": 301,
@@ -23840,8 +23844,12 @@
           "text": "全部人员类型正式员工合同工顾问",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(31, 41, 55)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
           "width": 301,
@@ -23857,8 +23865,12 @@
           "text": "全部地点总部",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(31, 41, 55)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
           "width": 301,
@@ -24626,18 +24638,6 @@
         }
       ],
       "issues": [
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(4) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(1) > div:nth-of-type(1) > a:nth-of-type(1)",
           "kind": "target-size",
@@ -24851,8 +24851,12 @@
           "text": "全部主要角色MDESE交付管理开发测试",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(31, 41, 55)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
           "width": 301,
@@ -24868,8 +24872,12 @@
           "text": "全部人员类型正式员工合同工顾问",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(31, 41, 55)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
           "width": 301,
@@ -24885,8 +24893,12 @@
           "text": "全部地点总部",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(31, 41, 55)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
           "width": 301,
@@ -25654,18 +25666,6 @@
         }
       ],
       "issues": [
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(4) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(1) > div:nth-of-type(1) > a:nth-of-type(1)",
           "kind": "target-size",
@@ -25879,8 +25879,12 @@
           "text": "全部主要角色MDESE交付管理开发测试",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(31, 41, 55)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
           "width": 301,
@@ -25896,8 +25900,12 @@
           "text": "全部人员类型正式员工合同工顾问",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(31, 41, 55)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
           "width": 301,
@@ -25913,8 +25921,12 @@
           "text": "全部地点总部",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(31, 41, 55)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
           "width": 301,
@@ -26682,18 +26694,6 @@
         }
       ],
       "issues": [
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(4) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(1) > div:nth-of-type(1) > a:nth-of-type(1)",
           "kind": "target-size",
@@ -26907,8 +26907,12 @@
           "text": "全部主要角色MDESE交付管理开发测试",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(31, 41, 55)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
           "width": 301,
@@ -26924,8 +26928,12 @@
           "text": "全部人员类型正式员工合同工顾问",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(31, 41, 55)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
           "width": 301,
@@ -26941,8 +26949,12 @@
           "text": "全部地点总部",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(31, 41, 55)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
           "width": 301,
@@ -27710,18 +27722,6 @@
         }
       ],
       "issues": [
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(4) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(1) > div:nth-of-type(1) > a:nth-of-type(1)",
           "kind": "target-size",
@@ -27935,8 +27935,12 @@
           "text": "全部主要角色MDESE交付管理开发测试",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(31, 41, 55)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
           "width": 301,
@@ -27952,8 +27956,12 @@
           "text": "全部人员类型正式员工合同工顾问",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(31, 41, 55)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
           "width": 301,
@@ -27969,8 +27977,12 @@
           "text": "全部地点总部",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(31, 41, 55)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
           "width": 301,
@@ -28739,18 +28751,6 @@
       ],
       "issues": [
         {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(4) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(1) > div:nth-of-type(1) > a:nth-of-type(1)",
           "kind": "target-size",
           "value": 20
@@ -28963,8 +28963,12 @@
           "text": "全部主要角色MDESE交付管理开发测试",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(31, 41, 55)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
           "width": 301,
@@ -28980,8 +28984,12 @@
           "text": "全部人员类型正式员工合同工顾问",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(31, 41, 55)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
           "width": 301,
@@ -28997,8 +29005,12 @@
           "text": "全部地点总部",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(31, 41, 55)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
           "width": 301,
@@ -29767,18 +29779,6 @@
       ],
       "issues": [
         {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(4) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(1) > div:nth-of-type(1) > a:nth-of-type(1)",
           "kind": "target-size",
           "value": 20
@@ -29991,8 +29991,12 @@
           "text": "全部主要角色MDESE交付管理开发测试",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(31, 41, 55)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
           "width": 301,
@@ -30008,8 +30012,12 @@
           "text": "全部人员类型正式员工合同工顾问",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(31, 41, 55)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
           "width": 301,
@@ -30025,8 +30033,12 @@
           "text": "全部地点总部",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(31, 41, 55)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
           "width": 301,
@@ -30188,13 +30200,13 @@
           "family": "btn btn-sm btn-danger quick-action-btn|",
           "text": "减少负荷",
           "foreground": "rgb(255, 255, 255)",
-          "background": "rgba(197, 37, 37, 0.525)",
+          "background": "rgba(192, 33, 33, 0.663)",
           "effectiveBackground": [
-            112.11372549019607,
-            30.305882352941175,
-            37.423529411764704
+            132.98039215686273,
+            29.96470588235294,
+            35.023529411764706
           ],
-          "contrast": 11.014875956932281,
+          "contrast": 9.516731787893882,
           "textual": true,
           "disabled": false,
           "width": 94.015625,
@@ -30794,18 +30806,6 @@
         }
       ],
       "issues": [
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(4) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(1) > div:nth-of-type(1) > a:nth-of-type(1)",
           "kind": "target-size",

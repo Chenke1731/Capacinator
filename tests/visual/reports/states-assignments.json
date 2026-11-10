@@ -95,8 +95,12 @@
           "text": "全部项目问题单支持项目事务客户门户改版移动端改版门户首页改版",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgb(255, 255, 255)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
           "width": 237.609375,
@@ -112,8 +116,12 @@
           "text": "全部人员陈主管沈设计韩架构王开发李后端张前端赵全栈钱后端孙前",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgb(255, 255, 255)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
           "width": 237.59375,
@@ -129,8 +137,12 @@
           "text": "全部角色MDESE交付管理开发测试",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgb(255, 255, 255)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
           "width": 237.609375,
@@ -146,8 +158,12 @@
           "text": "全部日期范围当前即将开始已结束本月下月",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgb(255, 255, 255)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
           "width": 237.59375,
@@ -1041,22 +1057,6 @@
         }
       ],
       "issues": [
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(4) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(5) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
           "kind": "target-size",
@@ -1186,8 +1186,12 @@
           "text": "全部项目问题单支持项目事务客户门户改版移动端改版门户首页改版",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgb(255, 255, 255)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
           "width": 237.609375,
@@ -1203,8 +1207,12 @@
           "text": "全部人员陈主管沈设计韩架构王开发李后端张前端赵全栈钱后端孙前",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgb(255, 255, 255)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
           "width": 237.59375,
@@ -1220,8 +1228,12 @@
           "text": "全部角色MDESE交付管理开发测试",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgb(255, 255, 255)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
           "width": 237.609375,
@@ -1237,8 +1249,12 @@
           "text": "全部日期范围当前即将开始已结束本月下月",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgb(255, 255, 255)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
           "width": 237.59375,
@@ -2132,22 +2148,6 @@
         }
       ],
       "issues": [
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(4) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(5) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
           "kind": "target-size",
@@ -2277,8 +2277,12 @@
           "text": "全部项目问题单支持项目事务客户门户改版移动端改版门户首页改版",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgb(255, 255, 255)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
           "width": 237.609375,
@@ -2294,8 +2298,12 @@
           "text": "全部人员陈主管沈设计韩架构王开发李后端张前端赵全栈钱后端孙前",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgb(255, 255, 255)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
           "width": 237.59375,
@@ -2311,8 +2319,12 @@
           "text": "全部角色MDESE交付管理开发测试",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgb(255, 255, 255)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
           "width": 237.609375,
@@ -2328,8 +2340,12 @@
           "text": "全部日期范围当前即将开始已结束本月下月",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgb(255, 255, 255)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
           "width": 237.59375,
@@ -3223,22 +3239,6 @@
         }
       ],
       "issues": [
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(4) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(5) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
           "kind": "target-size",
@@ -3368,8 +3368,12 @@
           "text": "全部项目问题单支持项目事务客户门户改版移动端改版门户首页改版",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgb(255, 255, 255)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
           "width": 237.609375,
@@ -3385,8 +3389,12 @@
           "text": "全部人员陈主管沈设计韩架构王开发李后端张前端赵全栈钱后端孙前",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgb(255, 255, 255)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
           "width": 237.59375,
@@ -3402,8 +3410,12 @@
           "text": "全部角色MDESE交付管理开发测试",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgb(255, 255, 255)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
           "width": 237.609375,
@@ -3419,8 +3431,12 @@
           "text": "全部日期范围当前即将开始已结束本月下月",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgb(255, 255, 255)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
           "width": 237.59375,
@@ -4314,22 +4330,6 @@
         }
       ],
       "issues": [
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(4) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(5) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
           "kind": "target-size",
@@ -4459,8 +4459,12 @@
           "text": "全部项目问题单支持项目事务客户门户改版移动端改版门户首页改版",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgb(255, 255, 255)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
           "width": 237.609375,
@@ -4476,8 +4480,12 @@
           "text": "全部人员陈主管沈设计韩架构王开发李后端张前端赵全栈钱后端孙前",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgb(255, 255, 255)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
           "width": 237.59375,
@@ -4493,8 +4501,12 @@
           "text": "全部角色MDESE交付管理开发测试",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgb(255, 255, 255)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
           "width": 237.609375,
@@ -4510,8 +4522,12 @@
           "text": "全部日期范围当前即将开始已结束本月下月",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgb(255, 255, 255)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
           "width": 237.59375,
@@ -5405,22 +5421,6 @@
         }
       ],
       "issues": [
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(4) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(5) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
           "kind": "target-size",
@@ -5550,8 +5550,12 @@
           "text": "全部项目问题单支持项目事务客户门户改版移动端改版门户首页改版",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgb(255, 255, 255)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
           "width": 237.609375,
@@ -5567,8 +5571,12 @@
           "text": "全部人员陈主管沈设计韩架构王开发李后端张前端赵全栈钱后端孙前",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgb(255, 255, 255)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
           "width": 237.59375,
@@ -5584,8 +5592,12 @@
           "text": "全部角色MDESE交付管理开发测试",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgb(255, 255, 255)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
           "width": 237.609375,
@@ -5601,8 +5613,12 @@
           "text": "全部日期范围当前即将开始已结束本月下月",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgb(255, 255, 255)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
           "width": 237.59375,
@@ -6496,22 +6512,6 @@
         }
       ],
       "issues": [
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(4) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(5) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
           "kind": "target-size",
@@ -6641,8 +6641,12 @@
           "text": "全部项目问题单支持项目事务客户门户改版移动端改版门户首页改版",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgb(255, 255, 255)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
           "width": 237.609375,
@@ -6658,8 +6662,12 @@
           "text": "全部人员陈主管沈设计韩架构王开发李后端张前端赵全栈钱后端孙前",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgb(255, 255, 255)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
           "width": 237.59375,
@@ -6675,8 +6683,12 @@
           "text": "全部角色MDESE交付管理开发测试",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgb(255, 255, 255)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
           "width": 237.609375,
@@ -6692,8 +6704,12 @@
           "text": "全部日期范围当前即将开始已结束本月下月",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgb(255, 255, 255)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
           "width": 237.59375,
@@ -7587,22 +7603,6 @@
         }
       ],
       "issues": [
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(4) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(5) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
           "kind": "target-size",
@@ -7732,8 +7732,12 @@
           "text": "全部项目问题单支持项目事务客户门户改版移动端改版门户首页改版",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgb(255, 255, 255)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
           "width": 237.609375,
@@ -7749,8 +7753,12 @@
           "text": "全部人员陈主管沈设计韩架构王开发李后端张前端赵全栈钱后端孙前",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgb(255, 255, 255)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
           "width": 237.59375,
@@ -7766,8 +7774,12 @@
           "text": "全部角色MDESE交付管理开发测试",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgb(255, 255, 255)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
           "width": 237.609375,
@@ -7783,8 +7795,12 @@
           "text": "全部日期范围当前即将开始已结束本月下月",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgb(255, 255, 255)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
           "width": 237.59375,
@@ -8678,22 +8694,6 @@
         }
       ],
       "issues": [
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(4) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(5) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
           "kind": "target-size",
@@ -8823,8 +8823,12 @@
           "text": "全部项目问题单支持项目事务客户门户改版移动端改版门户首页改版",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgb(255, 255, 255)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
           "width": 237.609375,
@@ -8840,8 +8844,12 @@
           "text": "全部人员陈主管沈设计韩架构王开发李后端张前端赵全栈钱后端孙前",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgb(255, 255, 255)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
           "width": 237.59375,
@@ -8857,8 +8865,12 @@
           "text": "全部角色MDESE交付管理开发测试",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgb(255, 255, 255)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
           "width": 237.609375,
@@ -8874,8 +8886,12 @@
           "text": "全部日期范围当前即将开始已结束本月下月",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgb(255, 255, 255)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
           "width": 237.59375,
@@ -9769,22 +9785,6 @@
         }
       ],
       "issues": [
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(4) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(5) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
           "kind": "target-size",
@@ -9914,8 +9914,12 @@
           "text": "全部项目问题单支持项目事务客户门户改版移动端改版门户首页改版",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgb(255, 255, 255)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
           "width": 237.609375,
@@ -9931,8 +9935,12 @@
           "text": "全部人员陈主管沈设计韩架构王开发李后端张前端赵全栈钱后端孙前",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgb(255, 255, 255)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
           "width": 237.59375,
@@ -9948,8 +9956,12 @@
           "text": "全部角色MDESE交付管理开发测试",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgb(255, 255, 255)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
           "width": 237.609375,
@@ -9965,8 +9977,12 @@
           "text": "全部日期范围当前即将开始已结束本月下月",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgb(255, 255, 255)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
           "width": 237.59375,
@@ -10860,22 +10876,6 @@
         }
       ],
       "issues": [
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(4) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(5) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
           "kind": "target-size",
@@ -11005,8 +11005,12 @@
           "text": "全部项目问题单支持项目事务客户门户改版移动端改版门户首页改版",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgb(255, 255, 255)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
           "width": 237.609375,
@@ -11022,8 +11026,12 @@
           "text": "全部人员陈主管沈设计韩架构王开发李后端张前端赵全栈钱后端孙前",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgb(255, 255, 255)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
           "width": 237.59375,
@@ -11039,8 +11047,12 @@
           "text": "全部角色MDESE交付管理开发测试",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgb(255, 255, 255)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
           "width": 237.609375,
@@ -11056,8 +11068,12 @@
           "text": "全部日期范围当前即将开始已结束本月下月",
           "foreground": "rgb(17, 24, 39)",
           "background": "rgb(255, 255, 255)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
           "width": 237.59375,
@@ -11951,22 +11967,6 @@
         }
       ],
       "issues": [
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(4) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(5) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
           "kind": "target-size",
@@ -12096,8 +12096,12 @@
           "text": "全部项目问题单支持项目事务客户门户改版移动端改版门户首页改版",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(31, 41, 55)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
           "width": 237.609375,
@@ -12113,8 +12117,12 @@
           "text": "全部人员陈主管沈设计韩架构王开发李后端张前端赵全栈钱后端孙前",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(31, 41, 55)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
           "width": 237.59375,
@@ -12130,8 +12138,12 @@
           "text": "全部角色MDESE交付管理开发测试",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(31, 41, 55)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
           "width": 237.609375,
@@ -12147,8 +12159,12 @@
           "text": "全部日期范围当前即将开始已结束本月下月",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(31, 41, 55)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
           "width": 237.59375,
@@ -13042,22 +13058,6 @@
         }
       ],
       "issues": [
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(4) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(5) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
           "kind": "target-size",
@@ -13187,8 +13187,12 @@
           "text": "全部项目问题单支持项目事务客户门户改版移动端改版门户首页改版",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(31, 41, 55)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
           "width": 237.609375,
@@ -13204,8 +13208,12 @@
           "text": "全部人员陈主管沈设计韩架构王开发李后端张前端赵全栈钱后端孙前",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(31, 41, 55)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
           "width": 237.59375,
@@ -13221,8 +13229,12 @@
           "text": "全部角色MDESE交付管理开发测试",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(31, 41, 55)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
           "width": 237.609375,
@@ -13238,8 +13250,12 @@
           "text": "全部日期范围当前即将开始已结束本月下月",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(31, 41, 55)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
           "width": 237.59375,
@@ -14133,22 +14149,6 @@
         }
       ],
       "issues": [
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(4) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(5) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
           "kind": "target-size",
@@ -14278,8 +14278,12 @@
           "text": "全部项目问题单支持项目事务客户门户改版移动端改版门户首页改版",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(31, 41, 55)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
           "width": 237.609375,
@@ -14295,8 +14299,12 @@
           "text": "全部人员陈主管沈设计韩架构王开发李后端张前端赵全栈钱后端孙前",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(31, 41, 55)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
           "width": 237.59375,
@@ -14312,8 +14320,12 @@
           "text": "全部角色MDESE交付管理开发测试",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(31, 41, 55)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
           "width": 237.609375,
@@ -14329,8 +14341,12 @@
           "text": "全部日期范围当前即将开始已结束本月下月",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(31, 41, 55)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
           "width": 237.59375,
@@ -15224,22 +15240,6 @@
         }
       ],
       "issues": [
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(4) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(5) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
           "kind": "target-size",
@@ -15369,8 +15369,12 @@
           "text": "全部项目问题单支持项目事务客户门户改版移动端改版门户首页改版",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(31, 41, 55)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
           "width": 237.609375,
@@ -15386,8 +15390,12 @@
           "text": "全部人员陈主管沈设计韩架构王开发李后端张前端赵全栈钱后端孙前",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(31, 41, 55)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
           "width": 237.59375,
@@ -15403,8 +15411,12 @@
           "text": "全部角色MDESE交付管理开发测试",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(31, 41, 55)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
           "width": 237.609375,
@@ -15420,8 +15432,12 @@
           "text": "全部日期范围当前即将开始已结束本月下月",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(31, 41, 55)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
           "width": 237.59375,
@@ -16315,22 +16331,6 @@
         }
       ],
       "issues": [
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(4) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(5) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
           "kind": "target-size",
@@ -16460,8 +16460,12 @@
           "text": "全部项目问题单支持项目事务客户门户改版移动端改版门户首页改版",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(31, 41, 55)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
           "width": 237.609375,
@@ -16477,8 +16481,12 @@
           "text": "全部人员陈主管沈设计韩架构王开发李后端张前端赵全栈钱后端孙前",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(31, 41, 55)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
           "width": 237.59375,
@@ -16494,8 +16502,12 @@
           "text": "全部角色MDESE交付管理开发测试",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(31, 41, 55)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
           "width": 237.609375,
@@ -16511,8 +16523,12 @@
           "text": "全部日期范围当前即将开始已结束本月下月",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(31, 41, 55)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
           "width": 237.59375,
@@ -17406,22 +17422,6 @@
         }
       ],
       "issues": [
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(4) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(5) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
           "kind": "target-size",
@@ -17551,8 +17551,12 @@
           "text": "全部项目问题单支持项目事务客户门户改版移动端改版门户首页改版",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(31, 41, 55)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
           "width": 237.609375,
@@ -17568,8 +17572,12 @@
           "text": "全部人员陈主管沈设计韩架构王开发李后端张前端赵全栈钱后端孙前",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(31, 41, 55)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
           "width": 237.59375,
@@ -17585,8 +17593,12 @@
           "text": "全部角色MDESE交付管理开发测试",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(31, 41, 55)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
           "width": 237.609375,
@@ -17602,8 +17614,12 @@
           "text": "全部日期范围当前即将开始已结束本月下月",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(31, 41, 55)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
           "width": 237.59375,
@@ -18497,22 +18513,6 @@
         }
       ],
       "issues": [
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(4) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(5) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
           "kind": "target-size",
@@ -18642,8 +18642,12 @@
           "text": "全部项目问题单支持项目事务客户门户改版移动端改版门户首页改版",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(31, 41, 55)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
           "width": 237.609375,
@@ -18659,8 +18663,12 @@
           "text": "全部人员陈主管沈设计韩架构王开发李后端张前端赵全栈钱后端孙前",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(31, 41, 55)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
           "width": 237.59375,
@@ -18676,8 +18684,12 @@
           "text": "全部角色MDESE交付管理开发测试",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(31, 41, 55)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
           "width": 237.609375,
@@ -18693,8 +18705,12 @@
           "text": "全部日期范围当前即将开始已结束本月下月",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(31, 41, 55)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
           "width": 237.59375,
@@ -19588,22 +19604,6 @@
         }
       ],
       "issues": [
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(4) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(5) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
           "kind": "target-size",
@@ -19733,8 +19733,12 @@
           "text": "全部项目问题单支持项目事务客户门户改版移动端改版门户首页改版",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(31, 41, 55)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
           "width": 237.609375,
@@ -19750,8 +19754,12 @@
           "text": "全部人员陈主管沈设计韩架构王开发李后端张前端赵全栈钱后端孙前",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(31, 41, 55)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
           "width": 237.59375,
@@ -19767,8 +19775,12 @@
           "text": "全部角色MDESE交付管理开发测试",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(31, 41, 55)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
           "width": 237.609375,
@@ -19784,8 +19796,12 @@
           "text": "全部日期范围当前即将开始已结束本月下月",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(31, 41, 55)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
           "width": 237.59375,
@@ -20679,22 +20695,6 @@
         }
       ],
       "issues": [
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(4) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(5) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
           "kind": "target-size",
@@ -20824,8 +20824,12 @@
           "text": "全部项目问题单支持项目事务客户门户改版移动端改版门户首页改版",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(31, 41, 55)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
           "width": 237.609375,
@@ -20841,8 +20845,12 @@
           "text": "全部人员陈主管沈设计韩架构王开发李后端张前端赵全栈钱后端孙前",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(31, 41, 55)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
           "width": 237.59375,
@@ -20858,8 +20866,12 @@
           "text": "全部角色MDESE交付管理开发测试",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(31, 41, 55)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
           "width": 237.609375,
@@ -20875,8 +20887,12 @@
           "text": "全部日期范围当前即将开始已结束本月下月",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(31, 41, 55)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
           "width": 237.59375,
@@ -21770,22 +21786,6 @@
         }
       ],
       "issues": [
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(4) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(5) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
           "kind": "target-size",
@@ -21915,8 +21915,12 @@
           "text": "全部项目问题单支持项目事务客户门户改版移动端改版门户首页改版",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(31, 41, 55)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
           "width": 237.609375,
@@ -21932,8 +21936,12 @@
           "text": "全部人员陈主管沈设计韩架构王开发李后端张前端赵全栈钱后端孙前",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(31, 41, 55)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
           "width": 237.59375,
@@ -21949,8 +21957,12 @@
           "text": "全部角色MDESE交付管理开发测试",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(31, 41, 55)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
           "width": 237.609375,
@@ -21966,8 +21978,12 @@
           "text": "全部日期范围当前即将开始已结束本月下月",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(31, 41, 55)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
           "width": 237.59375,
@@ -22861,22 +22877,6 @@
         }
       ],
       "issues": [
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(4) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(5) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
           "kind": "target-size",
@@ -23006,8 +23006,12 @@
           "text": "全部项目问题单支持项目事务客户门户改版移动端改版门户首页改版",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(31, 41, 55)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
           "width": 237.609375,
@@ -23023,8 +23027,12 @@
           "text": "全部人员陈主管沈设计韩架构王开发李后端张前端赵全栈钱后端孙前",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(31, 41, 55)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
           "width": 237.59375,
@@ -23040,8 +23048,12 @@
           "text": "全部角色MDESE交付管理开发测试",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(31, 41, 55)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
           "width": 237.609375,
@@ -23057,8 +23069,12 @@
           "text": "全部日期范围当前即将开始已结束本月下月",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(31, 41, 55)",
-          "effectiveBackground": null,
-          "contrast": null,
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
           "width": 237.59375,
@@ -23952,22 +23968,6 @@
         }
       ],
       "issues": [
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(2) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(4) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(5) > select:nth-of-type(1)",
-          "kind": "unknown-background"
-        },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
           "kind": "target-size",

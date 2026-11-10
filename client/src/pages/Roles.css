@@ -23,18 +23,22 @@
   color: var(--text-secondary);
 }
 
+/* 768px header collapse scoped to the people-unified shell (D-03 Batch 2):
+   the roles tab renders inside PeopleUnified and has no root class of its
+   own; the Availability tab's header (no CSS of its own) also relies on this
+   collapse today — container-level scope intentionally preserves that. */
 @media (max-width: 768px) {
-  .page-header {
+  .people-unified-container .page-header {
     flex-direction: column;
     gap: 1rem;
   }
 
-  .header-actions {
+  .people-unified-container .header-actions {
     width: 100%;
     flex-direction: column;
   }
 
-  .header-actions .btn {
+  .people-unified-container .header-actions .btn {
     width: 100%;
     justify-content: center;
   }

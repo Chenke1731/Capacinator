@@ -1,17 +1,8 @@
 /* Dead `.dashboard { padding: 2rem }` removed (D-03 Batch 1 review): no JSX
    uses that class; keeping it next to the new .dashboard-page anchor would
-   invite an accidental collision. */
-
-.page-header {
-  margin-bottom: 2rem;
-}
-
-.page-header h1 {
-  font-size: 2rem;
-  font-weight: 600;
-  color: var(--text-primary);
-  margin: 0 0 0.5rem 0;
-}
+   invite an accidental collision.
+   Dead .page-header/.page-header h1 removed too (D-03 Batch 2): the toolbar
+   redesign left Dashboard with an sr-only h1 and zero .page-header renders. */
 
 .page-subtitle {
   color: var(--text-secondary);

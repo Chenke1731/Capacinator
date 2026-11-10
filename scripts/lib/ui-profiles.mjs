@@ -33,6 +33,17 @@ export const profiles = {
   // 1366 档（2026-11-10 同类排查）：历史布局事故高发视口；空态工具栏 4 控件
   'intake-1366': {path:'/projects?tab=intake',root:'.intake-inbox',ready:'[data-testid="intake-inbox"]',minElements:4,viewport:{width:1366,height:900}},
   'people-1366': {path:'/people',root:'main',ready:'table',minElements:5,viewport:{width:1366,height:900}},
+  // D-03 Batch 2（2026-11-11）：1366 高发视口扩档 ×7——reports/assignments/
+  // scenarios/iterations/dashboard/settings + project-types（与 intake-1366
+  // 同一 unified 壳，EXP-005 G-05「1366 隐藏列」事故面；project-detail 不入：
+  // 根 main>.max-w-7xl 在 1366 下内容盒不变）
+  'project-types-1366': {path:'/projects?tab=types',root:'.unified-tab-content .page-container',ready:'.view-mode-toggle',minElements:5,viewport:{width:1366,height:900}},
+  'reports-1366': {path:'/reports',root:'.reports-tab-content',ready:'.page-header',minElements:5,viewport:{width:1366,height:900}},
+  'assignments-1366': {path:'/assignments',root:'main',ready:'table',minElements:5,viewport:{width:1366,height:900}},
+  'scenarios-1366': {path:'/scenarios',root:'.scenarios-page',ready:'.hierarchy-row',minElements:5,viewport:{width:1366,height:900}},
+  'iterations-1366': {path:'/iterations',root:'.iterations-page',ready:'.it-card-head',minElements:3,hoverReveal:'.it-card-head',viewport:{width:1366,height:900}},
+  'dashboard-1366': {path:'/dashboard',root:'main',ready:'.stats-grid',minElements:3,viewport:{width:1366,height:900}},
+  'settings-1366': {path:'/settings',root:'.unified-tab-container',ready:'.settings-section',minElements:5,viewport:{width:1366,height:900}},
   // I01e Batch 1（2026-11-10）：badge/btn-icon 所有权收敛的两块活性作用面补档——
   // availability 日历（44px 独立图标钮 + 徽章药丸化）与 components 表
   // （ui/InlineEdit 布尔徽章宿主，此前无 profile 零验证）
@@ -102,7 +113,7 @@ export async function resolveProfile(profile,auth){
 }
 export async function prepareProfile(page,profile){
   if(profile.scrollInto)await page.locator(profile.scrollInto).first().scrollIntoViewIfNeeded();
-  if(profile.name==='iterations') {
+  if(profile.name.startsWith('iterations')) {
     const target=page.locator('.it-card-head').filter({hasText:'11月迭代'});
     if(await target.count()!==1)throw Error('Expected the frozen November iteration with nonempty workload');
     await target.click();await page.locator('.it-load-row--over').waitFor({state:'visible'});

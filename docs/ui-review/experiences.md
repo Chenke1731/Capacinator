@@ -55,3 +55,16 @@ status: candidate
 checklist_item: 表单派生值是否经 `field || parsed` 回落或"硬编码空+服务端回落"提交（人工项；守卫上线后删除）
 note: QuickCaptureDialog `refValue || singleParsed?.source_ref` 清空后复活旧值；IntakeTriageDialog 硬编码 setExpectedStart('') + 服务端 `inStart ?? intake.expected_start` 回落——UI 承诺“不生成阶段”而服务端实际生成。与 D11（缺省≠null）同族：显式编辑必须可见生效；裁决见 D13/D14
 ```
+
+```yaml exp
+id: EXP-005
+source: review/2026-11-10-intake-pilot（states 4×P1：counts 失败显 0 / 空筛冒充全局空 / 209 静默截断 / 1366 详情缺列）
+class: 查询状态×摘要/空态/分页矩阵
+mechanism_slice: query-state × summary-empty × pagination × breakpoint-parity
+disposition: GUARD
+guard: proposed — collect-ui-evidence states：counts 失败不得显示 0 且必须有可重试错误；筛选无结果不得显示全局空态；total>已显示行数必须有指示+分页；断点隐藏列必须在只读详情承接
+verification: reproduced 2026-11-10 — HEAD 9f70977 bundle states 4×P1 红；修复 696b62f 后 `--only all` 28/28 绿；verify:states intake 双主题 PASS；守卫迁常驻 profile 待做
+status: candidate
+checklist_item: 列表页摘要/空态是否按 query 成败与筛选状态区分、截断是否有指示（人工项；守卫上线后删除）
+note: `countsQuery.data ?? {new:0,…}` 失败静默兜底 0（U05 同族）；空态单分支吞掉"无匹配"（G-11）；API limit 200 截断无指示（G-04）；1366 隐藏列不进详情（G-05，U16 同族）。bundle 首次把四态做成可重复断言
+```

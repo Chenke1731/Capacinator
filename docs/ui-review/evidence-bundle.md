@@ -166,6 +166,7 @@ P1/P0 失败 → run `fail`；只有 P2/ warn → `warn`；否则 `pass`。
 | 工作区 Radix ConfirmDialog | role/isolation/name/初始焦点/焦点圈禁/关闭钮/Esc PASS；`aria-modal` attr、32px 关闭钮、英文 Close、焦点返回 4 个 WARN | 4.3s |
 | 工作区 all（29 checks） | **8 blocking + 5 warnings**；target 全绿；capture 2 P1；delete 4 P1 全绿；states 4 P1、triage 2 P1 | 16.6s |
 | 工作区 `--only states,triage` | 6 个 P1 FAIL（counts 0、全局空态、209 无分页、1366 详情缺字段、triage start/note） | 14.1s |
+| I01f–I01h 修复后 all（28 checks） | **28/28 PASS，0 blocking 0 warning**（aria-modal 补齐后 attr 断言不再产生）；期间 fail-loud 捕获一次真实回归（默认请求多带 page=1 → Missing read fixture） | ~17s |
 | 纯不变量 selftest | 好证据全绿；hover 位移、去 role、去 name、无 isolation、焦点逃逸、清空后仍提交、空 row、counts 0、全局空态、209 无分页、详情缺字段、triage 分叉 → 红 | <1s |
 
 端到端复测：同一张截图、只给 `summary.md` + `evidence.json` 再派一次盲评，

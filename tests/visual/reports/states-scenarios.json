@@ -1758,14 +1758,14 @@
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(3)",
           "family": "action-button edit|",
           "text": "",
-          "foreground": "rgb(192, 145, 116)",
-          "background": "rgb(223, 182, 151)",
+          "foreground": "rgb(178, 120, 85)",
+          "background": "rgb(233, 204, 183)",
           "effectiveBackground": [
-            223,
-            182,
-            151
+            233,
+            204,
+            183
           ],
-          "contrast": 1.4947216065910562,
+          "contrast": 2.4139790854988337,
           "textual": false,
           "disabled": false,
           "width": 32,
@@ -4046,14 +4046,14 @@
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(3)",
           "family": "action-button edit|",
           "text": "",
-          "foreground": "rgb(254, 242, 180)",
-          "background": "rgb(158, 110, 29)",
+          "foreground": "rgb(254, 237, 149)",
+          "background": "rgb(122, 91, 36)",
           "effectiveBackground": [
-            158,
-            110,
-            29
+            122,
+            91,
+            36
           ],
-          "contrast": 3.9503055694809466,
+          "contrast": 5.302949126332281,
           "textual": false,
           "disabled": false,
           "width": 32,

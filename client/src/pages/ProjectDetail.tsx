@@ -227,16 +227,9 @@ export function ProjectDetail() {
   };
 
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const getPriorityColor = (priority: number) => {
-    switch (priority) {
-      case 1: return 'red';
-      case 2: return 'orange';
-      case 3: return 'yellow';
-      case 4: return 'green';
-      default: return 'gray';
-    }
-  };
+  /* getPriorityColor removed (I01l, review D1): zero-call dead function
+     carrying five non-color string identities — deleting it retires the
+     debt instead of re-stamping hashes every time this file changes. */
 
   const getPriorityLabel = (priority: number) => {
     switch (priority) {

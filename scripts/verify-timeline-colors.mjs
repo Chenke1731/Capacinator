@@ -62,7 +62,10 @@ try {
   }
 }finally{await browser.close();}
 const artifact=saveAuditReport(process.cwd(),'timeline-color-evidence',{evidence});
-// Refresh only the three explicitly classified data exceptions. New identities,
+// Refresh covers every accepted-literal entry in the filter below — as of
+// 2026-11-11 that is the project-colors data triple plus the nine-color
+// phase palette in phase-manager/types.ts (12 entries; an earlier comment
+// said "three", counting only the project-colors side). New identities,
 // changed literals or counts still require a separate, reviewable decision.
 if(process.argv.includes('--refresh-evidence')) {
   const file='tests/visual/color-debt.json',ledger=JSON.parse(fs.readFileSync(file));

@@ -33,7 +33,8 @@ describe('Audit Configuration', () => {
         sensitiveFields: ['password', 'token', 'secret', 'key', 'hash'],
         // 2026-10-13 审计修正: 'assignments' 表不存在,真实分配表为
         // project_assignments / scenario_project_assignments
-        enabledTables: ['people', 'projects', 'roles', 'project_assignments', 'scenario_project_assignments', 'availability']
+        // I01v/D16: demand_intake 入默认白名单（收件箱状态翻转留痕）
+        enabledTables: ['people', 'projects', 'roles', 'project_assignments', 'scenario_project_assignments', 'availability', 'demand_intake']
       });
     });
 

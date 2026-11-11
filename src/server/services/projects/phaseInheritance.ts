@@ -62,7 +62,9 @@ export async function inheritProjectPhases(
 
     // Create timeline entries for each template phase
     const timelineEntries = projectTypePhases.map((templatePhase: Record<string, any>, index: number) => {
-      const phaseDurationDays = templatePhase.default_duration_days || 30;
+      // I01v/D17：nullish 而非 ||——显式 0 天=零时长里程碑（合法），只有
+      // null/undefined 才缺省 30（B05/EXP-B05 族：|| 静默吞合法 0 值）
+      const phaseDurationDays = templatePhase.default_duration_days ?? 30;
       const phaseStart = new Date(currentDate);
       const phaseEnd = new Date(currentDate.getTime() + (phaseDurationDays * 24 * 60 * 60 * 1000));
 

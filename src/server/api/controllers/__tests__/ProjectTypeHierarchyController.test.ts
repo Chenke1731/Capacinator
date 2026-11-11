@@ -314,6 +314,56 @@ describe('ProjectTypeHierarchyController', () => {
       expect(mockRes.json).toHaveBeenCalledWith({ success: true });
     });
 
+    it('I01v/D17：显式 0 天模板保留（零时长里程碑，旧 || 30 会吞成 30）', async () => {
+      mockDb._queueFirstResult({ id: 'type-1', parent_id: null });
+      mockDb._queueFirstResult(null);
+      mockDb._setInsertResult([]);
+      mockDb._queueQueryResult([]);
+      mockReq.body = {
+        phaseId: 'phase-1',
+        orderIndex: 1,
+        default_duration_days: 0,
+        min_duration_days: 0,
+      };
+
+      await controller.addPhase(mockReq, mockRes);
+      await flushPromises();
+
+      const insertCall = mockDb.insert.mock.calls[0][0];
+      expect(insertCall.default_duration_days).toBe(0);
+      expect(insertCall.min_duration_days).toBe(0);
+    });
+
+    it('I01v/D17：脏输入 default_duration_days 负数 → 400（不再静默纠正）', async () => {
+      mockDb._queueFirstResult({ id: 'type-1', parent_id: null });
+      mockDb._queueFirstResult(null);
+      mockReq.body = { phaseId: 'phase-1', orderIndex: 1, default_duration_days: -5 };
+
+      await controller.addPhase(mockReq, mockRes);
+      await flushPromises();
+
+      expect(mockRes.status).toHaveBeenCalledWith(400);
+      expect(mockRes.json).toHaveBeenCalledWith({
+        error: 'default_duration_days must be a non-negative integer'
+      });
+      expect(mockDb.insert).not.toHaveBeenCalled();
+    });
+
+    it('I01v/D17：缺省 default_duration_days → 30', async () => {
+      mockDb._queueFirstResult({ id: 'type-1', parent_id: null });
+      mockDb._queueFirstResult(null);
+      mockDb._setInsertResult([]);
+      mockDb._queueQueryResult([]);
+      mockReq.body = { phaseId: 'phase-1', orderIndex: 1 };
+
+      await controller.addPhase(mockReq, mockRes);
+      await flushPromises();
+
+      const insertCall = mockDb.insert.mock.calls[0][0];
+      expect(insertCall.default_duration_days).toBe(30);
+      expect(insertCall.min_duration_days).toBeNull();
+    });
+
     it('returns 404 when project type not found', async () => {
       mockDb._setFirstResult(null);
 

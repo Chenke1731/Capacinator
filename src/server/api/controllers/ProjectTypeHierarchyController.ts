@@ -21,6 +21,29 @@ export class ProjectTypeHierarchyController extends BaseController {
     super({}, { container });
   }
 
+  /**
+   * I01v/D17（EXP-B05 族）：模板时长录入校验。
+   * 显式数值 0 合法（零时长里程碑）；脏输入（负数/非整数/非数值/非数字串）
+   * → 400——旧实现 `|| 30` / `|| null` 把 0 和脏输入一起静默纠正（读取侧
+   * 0 天被吞成 30 的另一半）。缺省（undefined/null/空串）交由调用方 fallback。
+   */
+  private validateDurationField(
+    value: unknown,
+    field: string
+  ): { value?: number | null; error?: string } {
+    if (value === undefined || value === null || value === '') return { value: undefined };
+    const num =
+      typeof value === 'number'
+        ? value
+        : typeof value === 'string' && /^\d+$/.test(value.trim())
+          ? Number(value)
+          : NaN;
+    if (!Number.isFinite(num) || !Number.isInteger(num) || num < 0) {
+      return { error: `${field} must be a non-negative integer` };
+    }
+    return { value: num };
+  }
+
   // Get all project types with hierarchy structure
   getHierarchy = async (req: Request, res: Response): Promise<void> => {
     try {
@@ -144,6 +167,14 @@ export class ProjectTypeHierarchyController extends BaseController {
       // Get the actual order index if not provided
       const actualOrderIndex = orderIndex || await this.getNextPhaseOrderIndex(projectTypeId);
 
+      // I01v/D17：时长字段显式校验（显式 0 合法；脏输入 400；缺省兜底）
+      const defaultDuration = this.validateDurationField(req.body.default_duration_days, 'default_duration_days');
+      if (defaultDuration.error) return res.status(400).json({ error: defaultDuration.error });
+      const minDuration = this.validateDurationField(req.body.min_duration_days, 'min_duration_days');
+      if (minDuration.error) return res.status(400).json({ error: minDuration.error });
+      const maxDuration = this.validateDurationField(req.body.max_duration_days, 'max_duration_days');
+      if (maxDuration.error) return res.status(400).json({ error: maxDuration.error });
+
       await this.db('project_type_phases').insert({
         id: `project-type-phase-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
         project_type_id: projectTypeId,
@@ -151,9 +182,9 @@ export class ProjectTypeHierarchyController extends BaseController {
         is_inherited: false,
         order_index: actualOrderIndex,
         is_mandatory: req.body.is_mandatory || false,
-        min_duration_days: req.body.min_duration_days || null,
-        max_duration_days: req.body.max_duration_days || null,
-        default_duration_days: req.body.default_duration_days || 30,
+        min_duration_days: minDuration.value ?? null,
+        max_duration_days: maxDuration.value ?? null,
+        default_duration_days: defaultDuration.value ?? 30,
         is_locked_order: req.body.is_locked_order || false,
         template_description: req.body.template_description || null,
         template_metadata: req.body.template_metadata ? JSON.stringify(req.body.template_metadata) : null,
@@ -245,9 +276,22 @@ export class ProjectTypeHierarchyController extends BaseController {
       };
 
       if (updateData.is_mandatory !== undefined) updateFields.is_mandatory = updateData.is_mandatory;
-      if (updateData.min_duration_days !== undefined) updateFields.min_duration_days = updateData.min_duration_days;
-      if (updateData.max_duration_days !== undefined) updateFields.max_duration_days = updateData.max_duration_days;
-      if (updateData.default_duration_days !== undefined) updateFields.default_duration_days = updateData.default_duration_days;
+      // I01v/D17：更新侧同校验（显式 0 保留；脏输入 400；null=清为未设置）
+      if (updateData.min_duration_days !== undefined) {
+        const min = this.validateDurationField(updateData.min_duration_days, 'min_duration_days');
+        if (min.error) return res.status(400).json({ error: min.error });
+        updateFields.min_duration_days = min.value ?? null;
+      }
+      if (updateData.max_duration_days !== undefined) {
+        const max = this.validateDurationField(updateData.max_duration_days, 'max_duration_days');
+        if (max.error) return res.status(400).json({ error: max.error });
+        updateFields.max_duration_days = max.value ?? null;
+      }
+      if (updateData.default_duration_days !== undefined) {
+        const def = this.validateDurationField(updateData.default_duration_days, 'default_duration_days');
+        if (def.error) return res.status(400).json({ error: def.error });
+        updateFields.default_duration_days = def.value ?? null;
+      }
       if (updateData.is_locked_order !== undefined) updateFields.is_locked_order = updateData.is_locked_order;
       if (updateData.template_description !== undefined) updateFields.template_description = updateData.template_description;
       if (updateData.template_metadata !== undefined) {

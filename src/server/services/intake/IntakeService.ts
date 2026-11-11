@@ -281,13 +281,16 @@ export class IntakeService {
     return this.get(id);
   }
 
-  /** 硬删除：仅 new（converted/rejected 留档走 409） */
+  /** 硬删除：仅 new（converted/rejected 留档走 409）。
+   *  I01v/F2：条件删除防 TOCTOU——旧实现 get→check→del，检查与删除之间
+   *  并发 convert 即可删掉 converted 留档；改原子条件 del（reject:273-282 同型）。 */
   async remove(id: string): Promise<void> {
-    const current = await this.get(id);
-    if (current.status !== 'new') {
-      throw new IntakeError(`Intake is ${current.status} and cannot be deleted`, 409, 'invalid_status');
+    const changed = await this.db('demand_intake').where({ id, status: 'new' }).del();
+    if (changed === 0) {
+      const row = await this.db('demand_intake').where('id', id).first();
+      if (!row) throw new IntakeError('Intake not found', 404, 'not_found');
+      throw new IntakeError(`Intake is ${row.status} and cannot be deleted`, 409, 'invalid_status');
     }
-    await this.db('demand_intake').where('id', id).del();
   }
 
   // ── 内部 ─────────────────────────────────────────────────────────

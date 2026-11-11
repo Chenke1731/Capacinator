@@ -93,6 +93,8 @@
     "verify:cache": "node scripts/verify-cache-keys.mjs",
     "verify:ui-review": "node scripts/check-ui-review-experiences.mjs",
     "verify:backend-review": "node scripts/check-backend-review-experiences.mjs",
+    "verify:backend-gates": "node scripts/check-backend-gates.mjs",
+    "verify:backend-gates:selftest": "node scripts/check-backend-gates.mjs --self-test",
     "verify:ledger": "node scripts/check-ledger.mjs",
     "verify:states:selftest": "node scripts/verify-states.mjs --selftest",
     "verify:visual:update": "UPDATE_BASELINES=1 node scripts/verify-visual.mjs",

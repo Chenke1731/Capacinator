@@ -123,6 +123,15 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 
+# 后端门禁四合(I01v 批0 地基, 2026-11-11): 审计白名单(INV-1)/审计await(INV-4)/
+# 旧表写入(G2)/数值缺省(INV-2)。经验来源 EXP-B01/B05/B07/B08；SELF_TEST 不进钩子。
+echo "── Backend gates (INV-1/INV-4/G2/INV-2) ──"
+node scripts/check-backend-gates.mjs
+if [ $? -ne 0 ]; then
+  echo "✗ Backend gates — commit blocked"
+  exit 1
+fi
+
 # 台账完整性(2026-11-11 四次撞号 I01o/I01q/I01s/I01t 后立项): 同表行首编号唯一、
 # 跨表视图复用合法、HALVES 白名单豁免历史半边拆批。领号用 --next,接手用 --status。
 echo "── Ledger integrity ──"

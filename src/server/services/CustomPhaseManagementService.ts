@@ -392,7 +392,9 @@ export class CustomPhaseManagementService {
     affectedPhases: Array<{ id: string; start_date: number; end_date: number }>;
   }> {
     const affectedPhases: Array<{ id: string; start_date: number; end_date: number }> = [];
-    const phaseDuration = phaseData.durationDays || 30; // Default 30 days
+    // I01v/D17 同族第 3 实例（EXP-B05）：nullish——显式 0 天=零时长里程碑，
+    // 只有缺省才 30（旧 || 把 0 天自定义阶段吞成 30 天）
+    const phaseDuration = phaseData.durationDays ?? 30; // Default 30 days
 
     // If specific dates are provided, use them
     if (phaseData.startDate && phaseData.endDate) {

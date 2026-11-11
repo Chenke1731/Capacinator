@@ -1046,7 +1046,9 @@ export class AssignmentsController extends BaseController {
           .where('person_id', person.id)
           .first();
 
-        const availableCapacity = (availability?.effective_availability_percentage || 100) - currentAllocation;
+        // I01v/C09 族（EXP-B05）：nullish——显式 0% 可用率是真 0，只有缺省
+        // （view 无行）才回退 100；旧 || 把 0% 当满载候选
+        const availableCapacity = (availability?.effective_availability_percentage ?? 100) - currentAllocation;
 
         if (availableCapacity >= Number(required_allocation)) {
           suggestions.push({

@@ -181,6 +181,39 @@ describe('I01 捕获（单条/校验/去重）', () => {
     // 拒绝记录必须留档不可删
     await expectIntakeError(() => S.remove(intake.id), 409, 'invalid_status');
   });
+
+  test('F2 原子删除：检查与删除间并发转态（TOCTOU 等价）也不删留档', async () => {
+    const { intake } = await S.capture({ title: '并发转档', source_channel: 'internal' });
+    // 模拟 remove 判定通过后、原子 del 前并发 convert 已提交：直接 DB 转态
+    await db('demand_intake').where('id', intake.id).update({ status: 'converted' });
+    await expectIntakeError(() => S.remove(intake.id), 409, 'invalid_status');
+    const row = await db('demand_intake').where('id', intake.id).first();
+    expect(row).toBeTruthy();
+    expect(row.status).toBe('converted');
+  });
+
+  test('F2 删除不存在 → 404 not_found', async () => {
+    await expectIntakeError(() => S.remove('intake-no-such'), 404, 'not_found');
+  });
+
+  test('F2 红证形态：stale 快照（TOCTOU 窗口）下原子删除仍拒删 converted', async () => {
+    const { intake } = await S.capture({ title: 'stale 窗口', source_channel: 'internal' });
+    const stale = await S.get(intake.id); // 旧实现会读到这份 'new' 快照并放行 del
+    expect(stale.status).toBe('new');
+    await db('demand_intake').where('id', intake.id).update({ status: 'converted' });
+
+    const originalGet = (S as any).get;
+    (S as any).get = async () => stale; // 模拟"检查后、删除前"并发转态已完成
+    try {
+      // 新实现走原子条件 del（不读 get）→ 0 行 → 409；旧实现读 stale → 误删 converted
+      await expectIntakeError(() => S.remove(intake.id), 409, 'invalid_status');
+    } finally {
+      (S as any).get = originalGet;
+    }
+    const row = await db('demand_intake').where('id', intake.id).first();
+    expect(row).toBeTruthy();
+    expect(row.status).toBe('converted');
+  });
 });
 
 describe('I01 批量捕获', () => {

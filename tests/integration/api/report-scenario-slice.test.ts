@@ -345,4 +345,25 @@ describe('G1 报表读侧场景切片（D15/EXP-B09）', () => {
       await db('project_assignments').where({ id: 'i01y-legacy-pa-1' }).del();
     }
   });
+
+  test('F. 项目健康视图场景切片（I01z）：baseline 80% → FULLY_ALLOCATED 不翻倍；gaps 不误标 UNASSIGNED', async () => {
+    // 旧视图（006）只读旧表 project_assignments（运行时 0 行）→ spa 有真实分配时
+    // allocation_health 恒 UNASSIGNED、criticalProjectGaps 全量误标。
+    const service = new ReportDataService(db);
+
+    const before = await service.getProjectReport({});
+    const mine = before.projects.find((p) => p.project_id === PROJECT_ID)!;
+    expect(round6(mine.total_allocation_percentage)).toBe(80); // spa 50+30（baseline 切片）
+    expect(mine.allocation_health).toBe('FULLY_ALLOCATED'); // >=80 档（006 阈值不变）
+
+    // 建未改动分支（复制 spa 行）后仍 80——基线切片不得把分支行叠加进来
+    await createUnchangedBranch();
+    const after = await service.getProjectReport({});
+    expect(round6(after.projects.find((p) => p.project_id === PROJECT_ID)!.total_allocation_percentage)).toBe(80);
+
+    // 缺口分析：项目已有分配 → 不得再以 UNASSIGNED 归类（池需求可使其为 UNDER_COVERED）
+    const gaps = await service.getGapsAnalysis();
+    const mineGap = gaps.criticalProjectGaps.find((p) => p.project_id === PROJECT_ID);
+    if (mineGap) expect(mineGap.gap_type).not.toBe('UNASSIGNED');
+  });
 });

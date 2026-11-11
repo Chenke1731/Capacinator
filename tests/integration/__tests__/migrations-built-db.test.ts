@@ -29,6 +29,16 @@ describe('集成库由 migrations 建出 (IP-01)', () => {
     expect(row?.sql).toMatch(/check\s*\(\s*`?status`?\s+in/i);
   });
 
+  test('project_health_view 为场景切片定义（I01z / 075；回退读旧表即红）', async () => {
+    // 006 版只读旧表 project_assignments（运行时 0 行）→ spa 轨数据下分配健康
+    // 恒 UNASSIGNED。075 改读 effective_project_assignments 的 baseline 切片；
+    // 手写 DDL/迁移回退都会丢 epa 与 baseline 条件——指纹钉住。
+    const [row] = await db('sqlite_master').where({ type: 'view', name: 'project_health_view' }).select('sql');
+    expect(row?.sql).toMatch(/effective_project_assignments/i);
+    expect(row?.sql).toMatch(/baseline-0000-0000-0000-000000000000/);
+    expect(row?.sql).not.toMatch(/FROM\s+project_assignments\b/i);
+  });
+
   test('demand_intake 表 + rejected 豁免唯一索引在库（I01 / 074）', async () => {
     const tables = await db('sqlite_master').where({ type: 'table' }).select('name');
     expect(tables.map((t: { name: string }) => t.name)).toContain('demand_intake');

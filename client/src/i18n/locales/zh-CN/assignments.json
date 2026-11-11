@@ -2,7 +2,6 @@
   "title": "分配",
   "subtitle": "管理项目资源分配与优化建议",
   "newAssignment": "新建分配",
-  "calendarView": "日历视图",
   "tabs": {
     "assignments": "分配",
     "assignmentsCount": "分配 ({{number}})"

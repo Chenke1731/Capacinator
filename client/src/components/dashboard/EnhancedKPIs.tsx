@@ -67,8 +67,25 @@ const TREND_ICONS = {
   stable: Activity
 };
 
-function calculateResourceEfficiency(dashboard: DashboardSummary): number {
-  const totalPeople = dashboard.summary?.people || 0;
+/** I02b/U25+D5：KPI 深链映射（单一导出，测试与实现同源） */
+export const KPI_NAVIGATION = {
+  resourceEfficiency: '/people',
+  projectHealth: '/projects',
+  capacityBurnRate: '/reports?tab=capacity',
+  allocationAccuracy: '/people?status=over-allocated',
+} as const;
+
+/** I02b/D2：比例型 KPI 的分母必须与分档人口一致——person_utilization_view
+ *  只含 is_active 人员，summary.people 是全量（含停用）；混用会漏报/虚高。 */
+function utilizationPopulation(dashboard: DashboardSummary): number {
+  return Object.values(dashboard.utilization ?? {}).reduce(
+    (sum: number, count) => sum + Number(count || 0),
+    0
+  );
+}
+
+export function calculateResourceEfficiency(dashboard: DashboardSummary): number {
+  const totalPeople = utilizationPopulation(dashboard);
 
   // If no people, return 0
   if (totalPeople === 0) return 0;
@@ -118,10 +135,12 @@ function calculateCapacityBurnRate(dashboard: DashboardSummary): number {
   return Math.round(burnRate);
 }
 
-function calculateAllocationAccuracy(dashboard: DashboardSummary): number {
-  const totalPeople = dashboard.summary?.people || 1;
+export function calculateAllocationAccuracy(dashboard: DashboardSummary): number {
+  // I02b/D2：与分档同源的在用人口分母（原 summary.people 含停用人员会虚高）
+  const totalPeople = utilizationPopulation(dashboard);
   const overAllocated = dashboard.utilization?.OVER_ALLOCATED ?? dashboard.utilization?.['Over-allocated'] ?? 0;
 
+  if (totalPeople === 0) return 0;
   // Accuracy = people allocated correctly / total people
   const accuracy = ((totalPeople - overAllocated) / totalPeople) * 100;
   return Math.max(0, Math.min(100, Math.round(accuracy)));
@@ -151,7 +170,8 @@ export function EnhancedKPIs({ dashboard, className = '' }: EnhancedKPIsProps) {
                 resourceEfficiency >= 60 ? 'warning' : 'critical',
         description: t('dashboard:kpis.resourceEfficiency.description'),
         actionText: t('dashboard:kpis.resourceEfficiency.action'),
-        navigationPath: '/people?tab=utilization',
+        // I02b/D5：效率低常因"尚未分配"，落地应是全量名册承接分配，不能映射到超载筛选
+        navigationPath: KPI_NAVIGATION.resourceEfficiency,
         icon: Gauge
       },
       {
@@ -167,7 +187,7 @@ export function EnhancedKPIs({ dashboard, className = '' }: EnhancedKPIsProps) {
                 projectHealthScore >= 50 ? 'warning' : 'critical',
         description: t('dashboard:kpis.projectHealth.description'),
         actionText: t('dashboard:kpis.projectHealth.action'),
-        navigationPath: '/projects',
+        navigationPath: KPI_NAVIGATION.projectHealth,
         icon: Target
       },
       {
@@ -183,7 +203,7 @@ export function EnhancedKPIs({ dashboard, className = '' }: EnhancedKPIsProps) {
                 capacityBurnRate <= 85 ? 'warning' : 'critical',
         description: t('dashboard:kpis.capacityBurnRate.description'),
         actionText: t('dashboard:kpis.capacityBurnRate.action'),
-        navigationPath: '/reports?tab=capacity',
+        navigationPath: KPI_NAVIGATION.capacityBurnRate,
         icon: Activity
       },
       {
@@ -199,7 +219,8 @@ export function EnhancedKPIs({ dashboard, className = '' }: EnhancedKPIsProps) {
                 allocationAccuracy >= 70 ? 'warning' : 'critical',
         description: t('dashboard:kpis.allocationAccuracy.description'),
         actionText: t('dashboard:kpis.allocationAccuracy.action'),
-        navigationPath: '/people?filter=overallocated',
+        // I02b/U25：准确率的动作=修复超负荷 → 人员页超载筛选（真参数）
+        navigationPath: KPI_NAVIGATION.allocationAccuracy,
         icon: Clock
       }
     ];

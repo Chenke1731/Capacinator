@@ -2,7 +2,7 @@ import React from 'react';
 import { render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { BrowserRouter, MemoryRouter } from 'react-router-dom';
+import { BrowserRouter, MemoryRouter, useLocation } from 'react-router-dom';
 import '@testing-library/jest-dom';
 import People from '../People';
 import { api } from '../../lib/api-client';
@@ -24,10 +24,16 @@ jest.mock('../../lib/api-client', () => ({
   },
 }));
 
+// I02b/G3：利用率查询依赖场景上下文（键含 scenarioId）
+jest.mock('../../contexts/ScenarioContext', () => ({
+  useScenario: () => ({ currentScenario: { id: 'baseline-0000-0000-0000-000000000000' } }),
+}));
+
 // Mock the UI components
 jest.mock('../../components/ui/DataTable', () => ({
-  DataTable: ({ data, columns, onRowClick }: any) => (
+  DataTable: ({ data, columns, onRowClick, emptyMessage }: any) => (
     <div data-testid="data-table">
+      {data.length === 0 ? <div data-testid="empty-message">{emptyMessage ?? ''}</div> : null}
       <table>
         <thead>
           <tr>
@@ -465,6 +471,89 @@ describe('People Page', () => {
       await waitFor(() => {
         expect(within(table).getAllByRole('row').slice(1)).toHaveLength(3);
       });
+    });
+
+    test('I02b/G1+U25: status URL 派生——初始链接即筛选，切换写回 URL，非法值被清理', async () => {
+      const user = userEvent.setup();
+      const LocationProbe = () => {
+        const location = useLocation();
+        return <div data-testid="location-search">{location.search}</div>;
+      };
+      const renderAt = (initialEntry: string) =>
+        render(
+          <QueryClientProvider client={queryClient}>
+            <MemoryRouter initialEntries={[initialEntry]}>
+              <People />
+              <LocationProbe />
+            </MemoryRouter>
+          </QueryClientProvider>
+        );
+
+      // 1) 深链落地即筛选超载
+      const view = renderAt('/people?status=over-allocated');
+      await waitFor(() => {
+        expect(screen.getByText(/Filtered: Over-allocated \(1 people\)/)).toBeInTheDocument();
+      });
+      const table = screen.getByTestId('data-table');
+      expect(within(table).getAllByRole('row').slice(1)).toHaveLength(1);
+      expect(screen.getByTestId('location-search').textContent).toContain('status=over-allocated');
+
+      // 2) 卡片切换到 Available → URL 更新（replace 语义不在 URL 层断言）
+      await user.click(screen.getByRole('button', { name: /1 available/i }));
+      await waitFor(() => {
+        expect(screen.getByTestId('location-search').textContent).toContain('status=available');
+      });
+
+      // 3) 清除按钮移除 status
+      await user.click(screen.getByRole('button', { name: /clear filter/i }));
+      await waitFor(() => {
+        expect(screen.getByTestId('location-search').textContent).not.toContain('status=');
+      });
+
+      view.unmount();
+
+      // 4) 非法值：全量展示 + URL 被清理（N2：不得"URL 声称筛选、页面全量"）
+      renderAt('/people?status=bogus');
+      await waitFor(() => {
+        expect(within(screen.getByTestId('data-table')).getAllByRole('row').slice(1)).toHaveLength(3);
+      });
+      await waitFor(() => {
+        expect(screen.getByTestId('location-search').textContent).not.toContain('status=bogus');
+      });
+    });
+
+    test('I02b/G2: 筛选无结果用筛选专属空态（不得冒充全局空）', async () => {
+      // 覆盖率档位无人：仅返回一个超载者
+      (api.people.getUtilization as jest.Mock).mockResolvedValue({
+        data: { personUtilization: [mockUtilizationData.personUtilization[0]] },
+      });
+      render(
+        <QueryClientProvider client={queryClient}>
+          <MemoryRouter initialEntries={['/people?status=fully-allocated']}>
+            <People />
+          </MemoryRouter>
+        </QueryClientProvider>
+      );
+
+      await waitFor(() => {
+        expect(screen.getByTestId('empty-message')).toHaveTextContent('No people match the current filter');
+      });
+    });
+
+    test('I02b/G2: 利用率请求失败时筛选态显示错误与重试（不得显示 0 人）', async () => {
+      (api.people.getUtilization as jest.Mock).mockRejectedValue(new Error('boom'));
+      render(
+        <QueryClientProvider client={queryClient}>
+          <MemoryRouter initialEntries={['/people?status=over-allocated']}>
+            <People />
+          </MemoryRouter>
+        </QueryClientProvider>
+      );
+
+      await waitFor(() => {
+        expect(screen.getByText('Failed to load utilization data')).toBeInTheDocument();
+      });
+      expect(screen.getByRole('button', { name: /retry/i })).toBeInTheDocument();
     });
   });
 

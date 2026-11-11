@@ -186,7 +186,10 @@ export const queryKeys = {
     lists: () => [...queryKeys.people.all, 'list'] as const,
     list: (filters?: PeopleFilters, scenarioId?: string) =>
       [...queryKeys.people.lists(), filters, scenarioId] as const,
-    utilization: () => [...queryKeys.people.all, 'utilization'] as const,
+    // I02b/G3：利用率按场景切片取数（X-Scenario-Id 由拦截器附加），缓存键
+    // 必须含场景维度——否则切场景后 staleTime 内复用旧数据，告警数与落地
+    // 名单不一致（P0 热缓存假绿）
+    utilization: (scenarioId?: string) => [...queryKeys.people.all, 'utilization', scenarioId] as const,
     details: () => [...queryKeys.people.all, 'detail'] as const,
     detail: (id: string) => [...queryKeys.people.details(), id] as const,
     withAssignments: (id: string) =>

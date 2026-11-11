@@ -50,8 +50,17 @@
     "overAllocated": "超负荷 {{count}} 人",
     "available": "可用 {{count}} 人",
     "totalPeople": "共 {{count}} 名人员",
-    "clickToFilter": "点击按此状态筛选列表，再点一次取消"
+    "clickToFilter": "点击按此状态筛选列表，再点一次取消",
+    "activeFilter": "已筛选：{{label}}（{{count}} 人）",
+    "clearStatusFilter": "清除筛选"
   },
+  "statusLabels": {
+    "over-allocated": "超负荷",
+    "fully-allocated": "满载",
+    "available": "可用"
+  },
+  "utilizationFailed": "利用率数据加载失败",
+  "noMatchesForStatus": "当前筛选下没有人员",
   "quickActions": {
     "reduceLoad": "减少负荷",
     "monitor": "监控",

@@ -52,6 +52,7 @@
     "title": "关键告警",
     "systemStatus": "系统状态",
     "allHealthy": "所有系统运行正常",
+    "loadFailed": "告警数据加载失败",
     "noIssues": "未检测到关键产能问题",
     "issueCount_other": "{{count}} 个问题需要关注",
     "listAria": "关键产能规划告警",

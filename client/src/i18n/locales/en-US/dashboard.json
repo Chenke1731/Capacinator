@@ -52,6 +52,7 @@
     "title": "Critical Alerts",
     "systemStatus": "System Status",
     "allHealthy": "All Systems Healthy",
+    "loadFailed": "Failed to load alerts",
     "noIssues": "No critical capacity issues detected",
     "issueCount_one": "{{count}} issue requiring attention",
     "issueCount_other": "{{count}} issues requiring attention",
@@ -82,7 +83,7 @@
       "highUtilization": {
         "title": "High Team Utilization",
         "description": "{{percent}}% of team is fully allocated. Limited flexibility for new projects",
-        "action": "Review Utilization"
+        "action": "View fully loaded people"
       },
       "tightCapacity": {
         "title": "Tight Capacity Constraints",

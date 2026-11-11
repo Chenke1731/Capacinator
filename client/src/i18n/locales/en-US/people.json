@@ -50,8 +50,17 @@
     "overAllocated": "{{count}} over-allocated",
     "available": "{{count}} available",
     "totalPeople": "{{count}} total people",
-    "clickToFilter": "Click to filter the list by this status; click again to clear"
+    "clickToFilter": "Click to filter the list by this status; click again to clear",
+    "activeFilter": "Filtered: {{label}} ({{count}} people)",
+    "clearStatusFilter": "Clear filter"
   },
+  "statusLabels": {
+    "over-allocated": "Over-allocated",
+    "fully-allocated": "Fully-allocated",
+    "available": "Available"
+  },
+  "utilizationFailed": "Failed to load utilization data",
+  "noMatchesForStatus": "No people match the current filter",
   "quickActions": {
     "reduceLoad": "Reduce Load",
     "monitor": "Monitor",

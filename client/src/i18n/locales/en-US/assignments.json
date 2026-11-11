@@ -2,7 +2,6 @@
   "title": "Assignments",
   "subtitle": "Manage project resource assignments and optimization recommendations",
   "newAssignment": "New Assignment",
-  "calendarView": "Calendar View",
   "tabs": {
     "assignments": "Assignments",
     "assignmentsCount": "Assignments ({{number}})"

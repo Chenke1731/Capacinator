@@ -624,12 +624,14 @@ describe('Assignments Page', () => {
       expect(buttons.length).toBeGreaterThan(0);
     });
 
-    test('shows calendar view button', async () => {
+    test('I02b/U26: 日历死环按钮已移除，新建分配仍在', async () => {
       renderComponent();
 
       await waitFor(() => {
-        expect(screen.getByRole('button', { name: /calendar view/i })).toBeInTheDocument();
+        expect(screen.getByRole('button', { name: /new assignment/i })).toBeInTheDocument();
       });
+      // /assignments/calendar 会被 /assignments/:id 重定向回自身=死环，已删
+      expect(screen.queryByRole('button', { name: /calendar view/i })).not.toBeInTheDocument();
     });
   });
 });

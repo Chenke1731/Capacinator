@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Plus, Edit2, Trash2, Eye, Calendar, AlertTriangle, Users } from 'lucide-react';
+import { Plus, Edit2, Trash2, Eye, AlertTriangle, Users } from 'lucide-react';
 import { useBookmarkableTabs } from '../hooks/useBookmarkableTabs';
 import { getLocale } from '../i18n';
 import { api } from '../lib/api-client';
@@ -678,13 +678,9 @@ export default function Assignments() {
                 <Plus size={16} />
                 {t('assignments:newAssignment')}
               </button>
-              <button
-                className="btn btn-secondary"
-                onClick={() => navigate('/assignments/calendar')}
-              >
-                <Calendar size={16} />
-                {t('assignments:calendarView')}
-              </button>
+              {/* I02b/U26：原「日历视图」按钮指向 /assignments/calendar，被
+                  /assignments/:id 重定向回自身（死环，全应用无该视图）——移除。
+                  若需日历能力，另立台账实现真实视图+路由。 */}
             </>
           )}
         </div>

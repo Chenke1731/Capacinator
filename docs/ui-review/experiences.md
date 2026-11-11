@@ -104,3 +104,42 @@ verification: SELF_TEST 4 例生产函数直调 — `<style>.badge{}</style>` �
 status: enforced
 note: 同族前身：规则 2/6 以 .css 扩展名划定守卫边界，注入式 `<style>` 是零覆盖盲区——教训是守卫边界应按"样式定义来源"而非文件类型划定。批 D 执行中该家族整个死代码删除（PhaseTimeline.tsx 零导入者），注入源消失，规则 8 作为防线常驻
 ```
+
+```yaml exp
+id: EXP-009
+source: review/2026-11-11-i02b-plan（U25 People status URL 方案评审 G1：Projects.tsx:317-326/355-373 是"初始复制+全量写回"现成反例，Back/Forward 不恢复且抹掉无关参数）
+class: URL状态×派生/镜像双源
+mechanism_slice: search-params × derived-state × replace-scope
+disposition: GUARD
+guard: proposed — URL 过滤器必须由 searchParams 纯派生；禁止 useState(initialFromUrl) 镜像；写回 clone 后只改目标键并 {replace:true}；测试覆盖 navigate(-1)/navigate(1) 与无关参数保留
+verification: pending — 变异自证：copy-init 镜像→Back/Forward 用例红；setSearchParams(object) 全量写回→无关参数保留用例红。I02b 实施时 People 页已按此形落地（useSearchParams 纯派生 + clone 写回 + 非法值清理），守卫本体待机器化
+status: candidate
+checklist_item: 列表页 URL 过滤是否派生而非镜像、写回是否保留无关参数（人工项；守卫上线后删除）
+note: U25 原缺陷=深链参数被丢弃；若用镜像写法会把"可分享 URL"做成"仅首次挂载有效"。I02b/People 为正面范例，Projects.tsx 为反例（预存，未改）
+```
+
+```yaml exp
+id: EXP-010
+source: review/2026-11-11-i02b-plan（U25/D1：fully-allocated 仅 URL 可达，无卡片=无标识；筛选子集被误读为全量名册）
+class: 筛选状态×可见性
+mechanism_slice: url-filter × active-indicator × clear-action
+disposition: GUARD
+guard: proposed — 任何生效的列表筛选必须在 DOM 有可见标识（文字/药丸）与清除动作；toggle 卡必须 aria-pressed；筛选空态不得用全局空文案（EXP-005 同族第二面）
+verification: pending — 变异自证：去掉药丸/aria-pressed→DOM 断言红；筛选 0 行改用 common:noData→空态断言红。I02b 已实现：People 药丸（activeFilter/clearStatusFilter）+ aria-pressed + noMatchesForStatus 专属空态 + 加载/失败态区分
+status: candidate
+checklist_item: URL 筛选是否有可见标识与清除（人工项；守卫上线后删除）
+note: Projects warn-filter-pill 是可复用模式；EXP-005 管"空与失败"，本条管"非空但隐筛"
+```
+
+```yaml exp
+id: EXP-011
+source: review/2026-11-11-i02b-plan（D2：070 视图 WHERE is_active=true，summary.people 全量含停用；高利用告警 9/12=75% 漏报、KPI 对不上）
+class: 比例口径×人口来源
+mechanism_slice: kpi-ratio × population-source × inactive-people
+disposition: GUARD
+guard: proposed — 以 utilization_status 分档的比例/KPI，分母必须与分档人口一致（利用率行总数）；测试夹具必含至少 1 名停用人员
+verification: verified（I02b 实施）— useCriticalAlerts 高利用分母与 EnhancedKPIs 资源效率/准确率分母均改 utilizationPopulation；单测含"在用 10 + 停用 2，9/10=90% 仍报"反例（旧 9/12=75% 漏报）；变异：分母改回 summary.people→该用例红。机器化静态断言待做
+status: candidate
+checklist_item: 比例型 KPI 的分母是否与分档人口一致（人工项；静态断言上线后删除）
+note: 同族风险点：任何新"利用率百分比/比例"必须经 utilizationPopulation，禁止 summary.people
+```

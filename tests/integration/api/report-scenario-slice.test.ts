@@ -24,6 +24,7 @@ import supertest from 'supertest';
 import { db, TEST_PROJECT_SUB_TYPE_ID, TEST_PROJECT_TYPE_ID } from '../setup';
 import { BASELINE_SCENARIO_ID } from '../../../src/server/services/calc/effectiveAssignments';
 import { roleCapacityGaps } from '../../../src/server/services/calc/roleGaps';
+import { personUtilizationRows } from '../../../src/server/services/calc/personUtilization';
 import { ReportDataService } from '../../../src/server/services/reports/ReportDataService';
 import { ReportingController } from '../../../src/server/api/controllers/ReportingController';
 
@@ -365,5 +366,37 @@ describe('G1 报表读侧场景切片（D15/EXP-B09）', () => {
     const gaps = await service.getGapsAnalysis();
     const mineGap = gaps.criticalProjectGaps.find((p) => p.project_id === PROJECT_ID);
     if (mineGap) expect(mineGap.gap_type).not.toBe('UNASSIGNED');
+  });
+
+  test('G. 口径对齐（U25 验收）：dashboard utilization 分档 = 人员利用率行分档（同源）', async () => {
+    // 告警数与人员页筛选数同源：dashboard 统计与 People 页都消费
+    // personUtilizationRows（同一 person_utilization_view + 同一场景切片）。
+    // HTTP 层的场景头接线由 G1-C 钉住；此处钉数据层分档计数逐一相等。
+    const service = new ReportDataService(db);
+
+    const countByStatus = (rows: Array<Record<string, unknown>>) => {
+      const counts: Record<string, number> = {};
+      for (const row of rows) {
+        const status = String(row.utilization_status ?? 'UNKNOWN');
+        counts[status] = (counts[status] ?? 0) + 1;
+      }
+      return counts;
+    };
+
+    const baselineRows = await personUtilizationRows(db, BASELINE_SCENARIO_ID);
+    const baselineCounts = countByStatus(baselineRows);
+    const dash = await service.getDashboardStats({});
+    expect(Number(dash.utilization['Over-allocated'] ?? 0)).toBe(baselineCounts['Over-allocated'] ?? 0);
+    expect(Number(dash.utilization['Fully-allocated'] ?? 0)).toBe(baselineCounts['Fully-allocated'] ?? 0);
+    expect(Number(dash.utilization['Available'] ?? 0)).toBe(baselineCounts['Available'] ?? 0);
+
+    // 分支场景：两侧同时按 branch 切片，计数仍逐一相等
+    await createUnchangedBranch();
+    const branchRows = await personUtilizationRows(db, BRANCH_ID);
+    const branchCounts = countByStatus(branchRows);
+    const dashBranch = await service.getDashboardStats({ scenarioId: BRANCH_ID });
+    expect(Number(dashBranch.utilization['Over-allocated'] ?? 0)).toBe(branchCounts['Over-allocated'] ?? 0);
+    expect(Number(dashBranch.utilization['Fully-allocated'] ?? 0)).toBe(branchCounts['Fully-allocated'] ?? 0);
+    expect(Number(dashBranch.utilization['Available'] ?? 0)).toBe(branchCounts['Available'] ?? 0);
   });
 });

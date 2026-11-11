@@ -21,12 +21,14 @@ import { Card } from '../components/ui/CustomCard';
 import { StatCard } from '../components/ui/StatCard';
 import { LoadingSpinner } from '../components/ui/LoadingSpinner';
 import { ErrorMessage } from '../components/ui/ErrorMessage';
+import { Alert, AlertDescription } from '../components/ui/alert';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 import { CriticalAlertsPanel } from '../components/dashboard/CriticalAlertsPanel';
 import { DateRangeSelector, DateRangePreset } from '../components/dashboard/DateRangeSelector';
 import { EnhancedKPIs } from '../components/dashboard/EnhancedKPIs';
  
 import { useCriticalAlerts } from '../hooks/useCriticalAlerts';
+import { peopleStatusPath } from '../lib/peopleStatusFilter';
 import './Dashboard.css';
 import '../components/chart-colors.css';
 
@@ -66,7 +68,13 @@ export function Dashboard() {
     enabled: !!currentScenario
   });
 
-  const { alerts, hasAlerts } = useCriticalAlerts();
+  const {
+    alerts,
+    hasAlerts,
+    isLoading: alertsLoading,
+    error: alertsError,
+    refetch: refetchAlerts
+  } = useCriticalAlerts();
 
   if (isLoading) return <LoadingSpinner />;
   if (error) return <ErrorMessage message={t('dashboard:errors.loadFailed')} />;
@@ -111,12 +119,29 @@ export function Dashboard() {
       </div>
 
       {/* Critical Alerts Panel */}
-      {hasAlerts && (
+      {/* I02b/D4：数据源失败必须可见可重试——不得因 capacity 查询失败而让
+          面板凭空消失（那等于向用户宣称"没有告警"） */}
+      {alertsError ? (
+        <section className="mb-6" role="alert">
+          <Alert variant="destructive">
+            <AlertDescription className="flex items-center gap-2">
+              <span>{t('dashboard:alerts.loadFailed')}</span>
+              <button type="button" className="btn btn-sm btn-outline" onClick={() => refetchAlerts()}>
+                {t('common:retry')}
+              </button>
+            </AlertDescription>
+          </Alert>
+        </section>
+      ) : alertsLoading ? (
+        <section className="mb-6" aria-busy="true">
+          <LoadingSpinner />
+        </section>
+      ) : hasAlerts ? (
         <section className="mb-6" role="region" aria-labelledby="alerts-heading">
           <h2 id="alerts-heading" className="sr-only">{t('dashboard:srHeadings.alerts')}</h2>
           <CriticalAlertsPanel alerts={alerts} />
         </section>
-      )}
+      ) : null}
 
       <section className="stats-grid" role="region" aria-labelledby="stats-heading">
         <h2 id="stats-heading" className="sr-only">{t('dashboard:srHeadings.stats')}</h2>
@@ -293,11 +318,11 @@ export function Dashboard() {
               role="listitem"
               tabIndex={0}
               aria-label={t('dashboard:quickStats.availableAria', { count: dashboard.availability?.AVAILABLE || 0 })}
-              onClick={() => navigate('/people')}
+              onClick={() => navigate(peopleStatusPath('available'))}
               onKeyDown={(e) => {
                 if (e.key === 'Enter' || e.key === ' ') {
                   e.preventDefault();
-                  navigate('/people');
+                  navigate(peopleStatusPath('available'));
                 }
               }}
             >
@@ -350,11 +375,11 @@ export function Dashboard() {
               role="listitem"
               tabIndex={0}
               aria-label={t('dashboard:quickStats.overAllocatedAria', { count: dashboard.utilization?.OVER_ALLOCATED ?? dashboard.utilization?.['Over-allocated'] ?? 0 })}
-              onClick={() => navigate('/people')}
+              onClick={() => navigate(peopleStatusPath('over-allocated'))}
               onKeyDown={(e) => {
                 if (e.key === 'Enter' || e.key === ' ') {
                   e.preventDefault();
-                  navigate('/people');
+                  navigate(peopleStatusPath('over-allocated'));
                 }
               }}
             >

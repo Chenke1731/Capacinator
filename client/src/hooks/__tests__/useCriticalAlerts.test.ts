@@ -134,7 +134,9 @@ describe('useCriticalAlerts', () => {
       id: 'over-allocation',
       type: 'over_allocation',
       severity: 'critical',
-      count: 4
+      count: 4,
+      // I02b/U25：真参数深链（People 页按 status 派生筛选）
+      navigationPath: '/people?status=over-allocated'
     });
   });
 
@@ -179,7 +181,7 @@ describe('useCriticalAlerts', () => {
   it('should generate high utilization warnings', () => {
     const mockDashboard = {
       capacityGaps: {},
-      utilization: { FULLY_ALLOCATED: 9 },
+      utilization: { FULLY_ALLOCATED: 9, AVAILABLE: 1 },
       projectHealth: {},
       summary: { people: 10 }
     };
@@ -194,14 +196,15 @@ describe('useCriticalAlerts', () => {
     expect(result.current.alerts[0]).toMatchObject({
       id: 'high-utilization',
       type: 'deadline_warning',
-      severity: 'medium'
+      severity: 'medium',
+      navigationPath: '/people?status=fully-allocated'
     });
   });
 
   it('should not generate high utilization warning below 80%', () => {
     const mockDashboard = {
       capacityGaps: {},
-      utilization: { FULLY_ALLOCATED: 7 },
+      utilization: { FULLY_ALLOCATED: 7, AVAILABLE: 3 },
       projectHealth: {},
       summary: { people: 10 }
     };
@@ -213,6 +216,26 @@ describe('useCriticalAlerts', () => {
     const { result } = renderHook(() => useCriticalAlerts());
 
     expect(result.current.alerts).toHaveLength(0);
+  });
+
+  it('I02b/D2: 分母用利用率行（在用人口），不因停用人员稀释而漏报', () => {
+    // 在用 10 人（9 满载 + 1 可用），另 2 人已停用 → 全量 12
+    // 旧实现 9/12=75% 不报；在用口径 9/10=90% 应报
+    const mockDashboard = {
+      capacityGaps: {},
+      utilization: { FULLY_ALLOCATED: 9, AVAILABLE: 1 },
+      projectHealth: {},
+      summary: { people: 12 }
+    };
+
+    mockUseQuery
+      .mockReturnValueOnce({ data: mockDashboard, isLoading: false, error: null } as any)
+      .mockReturnValueOnce({ data: { summary: {} }, isLoading: false, error: null } as any);
+
+    const { result } = renderHook(() => useCriticalAlerts());
+
+    expect(result.current.alerts).toHaveLength(1);
+    expect(result.current.alerts[0].id).toBe('high-utilization');
   });
 
   it('should generate tight capacity warnings', () => {

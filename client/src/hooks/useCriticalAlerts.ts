@@ -3,6 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { api } from '../lib/api-client';
 import { queryKeys } from '../lib/queryKeys';
+import { peopleStatusPath } from '../lib/peopleStatusFilter';
 import { useScenario } from '../contexts/ScenarioContext';
 
 interface CriticalAlert {
@@ -32,7 +33,12 @@ export function useCriticalAlerts() {
   });
 
   // Fetch capacity report for more detailed information
-  const { data: capacityReport, isLoading: capacityLoading } = useQuery({
+  const {
+    data: capacityReport,
+    isLoading: capacityLoading,
+    error: capacityError,
+    refetch: refetchCapacity
+  } = useQuery({
     queryKey: queryKeys.reports.capacity(undefined, currentScenario?.id),
     queryFn: async () => {
       const response = await api.reporting.getCapacity();
@@ -73,7 +79,8 @@ export function useCriticalAlerts() {
         title: t('dashboard:alerts.types.overAllocation.title'),
         description: t('dashboard:alerts.types.overAllocation.description', { count: overAllocated }),
         actionText: t('dashboard:alerts.types.overAllocation.action'),
-        navigationPath: '/people?tab=utilization',
+        // I02b/U25：真参数深链——People 页按 status 派生筛选
+        navigationPath: peopleStatusPath('over-allocated'),
         count: overAllocated
       });
     }
@@ -88,7 +95,10 @@ export function useCriticalAlerts() {
         title: t('dashboard:alerts.types.projectOverdue.title'),
         description: t('dashboard:alerts.types.projectOverdue.description', { count: overdueProjects }),
         actionText: t('dashboard:alerts.types.projectOverdue.action'),
-        navigationPath: '/projects?filter=overdue',
+        // I02b/D3：dashboard 的 OVERDUE 数基于"窗口内重叠阶段"推导，而本 hook
+        // 不传日期窗口 → 该计数当前恒 0（评审确认）。深链不再带假参数
+        // filter=overdue（Projects 从未读取）；"逾期视图"另立台账待口径修正。
+        navigationPath: '/projects',
         count: overdueProjects
       });
     }
@@ -114,8 +124,13 @@ export function useCriticalAlerts() {
 
     // High utilization warnings (potential future over-allocation)
     const fullyAllocated = dashboard.utilization?.FULLY_ALLOCATED ?? dashboard.utilization?.['Fully-allocated'] ?? 0;
-    const totalPeople = dashboard.summary?.people || 1;
-    const highUtilizationRatio = fullyAllocated / totalPeople;
+    // I02b/D2：分母必须与分档人口一致（person_utilization_view 只含 is_active，
+    // 而 summary.people 是全量含停用）——用利用率行总数作在用人口
+    const utilizationPopulation = Object.values(dashboard.utilization ?? {}).reduce(
+      (sum: number, count) => sum + Number(count || 0),
+      0
+    );
+    const highUtilizationRatio = utilizationPopulation > 0 ? fullyAllocated / utilizationPopulation : 0;
 
     if (highUtilizationRatio > 0.8) {
       alertList.push({
@@ -125,7 +140,8 @@ export function useCriticalAlerts() {
         title: t('dashboard:alerts.types.highUtilization.title'),
         description: t('dashboard:alerts.types.highUtilization.description', { percent: Math.round(highUtilizationRatio * 100) }),
         actionText: t('dashboard:alerts.types.highUtilization.action'),
-        navigationPath: '/people?tab=utilization'
+        // I02b/D1：fully-allocated 无卡片入口，People 以"已筛选药丸"呈现
+        navigationPath: peopleStatusPath('fully-allocated')
       });
     }
 
@@ -166,7 +182,12 @@ export function useCriticalAlerts() {
   return {
     alerts,
     isLoading: dashboardLoading || capacityLoading,
-    error: dashboardError,
+    // I02b/D4：任一数据源失败必须可见（此前 Dashboard 忽略 error，capacity
+    // 500 时面板凭空消失=伪装"无告警"）
+    error: dashboardError ?? capacityError ?? null,
+    refetch: () => {
+      void refetchCapacity();
+    },
     hasAlerts: alerts.length > 0,
     criticalCount: alerts.filter(alert => alert.severity === 'critical').length,
     highCount: alerts.filter(alert => alert.severity === 'high').length

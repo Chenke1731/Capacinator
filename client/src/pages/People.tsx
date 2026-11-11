@@ -1,10 +1,18 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { useNavigate, Link } from 'react-router-dom';
-import { Plus, Edit2, Eye, Users, UserPlus, TrendingUp, AlertTriangle, CheckCircle, Trash2, Power } from 'lucide-react';
+import { useNavigate, Link, useSearchParams } from 'react-router-dom';
+import { Plus, Edit2, Eye, Users, UserPlus, TrendingUp, AlertTriangle, CheckCircle, Trash2, Power, X } from 'lucide-react';
 import { api } from '../lib/api-client';
 import { queryKeys } from '../lib/queryKeys';
+import { useScenario } from '../contexts/ScenarioContext';
+import {
+  PEOPLE_STATUS_PARAM,
+  parsePeopleStatus,
+  toUtilizationStatus,
+  isPeopleStatusParam,
+  type PeopleStatusParam,
+} from '../lib/peopleStatusFilter';
 import i18n from '../i18n';
 import { DataTable, Column } from '../components/ui/DataTable';
 import { Alert, AlertDescription } from '../components/ui/alert';
@@ -21,6 +29,8 @@ export default function People() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
+  const { currentScenario } = useScenario();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [filters, setFilters] = useState({
     search: '',
     primary_role_id: '', // API filter name still uses this for backwards compatibility
@@ -53,8 +63,15 @@ export default function People() {
   // Fetch utilization data for actionable insights.
   // The endpoint returns a bare array; normalize to { personUtilization } so
   // downstream consumers always see one shape.
-  const { data: utilizationData } = useQuery({
-    queryKey: queryKeys.people.utilization(),
+  // I02b/G3(P0)：场景维度进查询键——切场景后必须重新取数（后端按
+  // X-Scenario-Id 切片返回），否则 staleTime 内旧数据造成"告警数≠名单"。
+  const {
+    data: utilizationData,
+    isLoading: utilizationLoading,
+    error: utilizationError,
+    refetch: refetchUtilization
+  } = useQuery({
+    queryKey: queryKeys.people.utilization(currentScenario?.id),
     queryFn: async () => {
       const response = await api.people.getUtilization();
       const payload = response.data;
@@ -62,7 +79,8 @@ export default function People() {
         return { personUtilization: payload };
       }
       return payload;
-    }
+    },
+    enabled: !!currentScenario
   });
 
   // Fetch roles for filter
@@ -146,6 +164,8 @@ export default function People() {
       worker_type: '',
       location: ''
     });
+    // I02b/D1：重置同时清除 URL 状态筛选（含仅 URL 可达的 fully-allocated）
+    setStatusParam(null);
   };
 
   const getWorkerTypeBadgeClass = (workerType: string) => {
@@ -291,8 +311,27 @@ export default function People() {
     };
   }, [utilizationData, people]);
 
-  // U01:点击汇总卡片 → 状态筛选(顶部人数=可定位的明细)
-  const [statusFilter, setStatusFilter] = useState<'Over-allocated' | 'Available' | null>(null);
+  // I02b/G1：status 只由 URL 派生（禁止 useState 镜像——Projects 全量写回是
+  // 现成反例）；写回 clone 后只改 status 键并 replace；非法值从 URL 清理（N2）
+  const rawStatusParam = searchParams.get(PEOPLE_STATUS_PARAM);
+  const statusParam: PeopleStatusParam | null = parsePeopleStatus(rawStatusParam);
+  const statusFilter = statusParam ? toUtilizationStatus(statusParam) : null;
+
+  useEffect(() => {
+    if (rawStatusParam && !isPeopleStatusParam(rawStatusParam)) {
+      const next = new URLSearchParams(searchParams);
+      next.delete(PEOPLE_STATUS_PARAM);
+      setSearchParams(next, { replace: true });
+    }
+    // eslint 未装 react-hooks 插件,依赖数组按语义维护
+  }, [rawStatusParam]);
+
+  const setStatusParam = (value: PeopleStatusParam | null) => {
+    const next = new URLSearchParams(searchParams);
+    if (value) next.set(PEOPLE_STATUS_PARAM, value);
+    else next.delete(PEOPLE_STATUS_PARAM);
+    setSearchParams(next, { replace: true });
+  };
 
   const filteredPeople = useMemo(() => {
     if (!statusFilter || !people) return people || [];
@@ -303,8 +342,9 @@ export default function People() {
     // eslint 未装 react-hooks 插件,依赖数组按语义维护
   }, [people, statusFilter, utilizationData]);
 
-  const toggleStatusFilter = (target: 'Over-allocated' | 'Available') => {
-    setStatusFilter((prev) => (prev === target ? null : target));
+  // U01（I02b 起 URL 化）：点击汇总卡片 → status 筛选（可分享/返回恢复）
+  const toggleStatusFilter = (target: PeopleStatusParam) => {
+    setStatusParam(statusParam === target ? null : target);
   };
 
   const columns: Column<Person>[] = [
@@ -515,21 +555,24 @@ export default function People() {
           {teamInsights.total > 0 && (
             <div className="team-insights">
               <div className="insight-summary">
-                {/* U01:卡片可点击 → 状态筛选;人数与明细同源视图状态 */}
+                {/* U01:卡片可点击 → 状态筛选;人数与明细同源视图状态。I02b：
+                    URL 派生 + aria-pressed（切换态对读屏可见） */}
                 <button
                   type="button"
-                  className={`insight-item insight-toggle text-danger ${statusFilter === 'Over-allocated' ? 'active' : ''}`}
-                  onClick={() => toggleStatusFilter('Over-allocated')}
+                  className={`insight-item insight-toggle text-danger ${statusParam === 'over-allocated' ? 'active' : ''}`}
+                  onClick={() => toggleStatusFilter('over-allocated')}
                   title={t('people:insights.clickToFilter')}
+                  aria-pressed={statusParam === 'over-allocated'}
                 >
                   <AlertTriangle size={16} />
                   {t('people:insights.overAllocated', { count: teamInsights.overAllocated })}
                 </button>
                 <button
                   type="button"
-                  className={`insight-item insight-toggle text-success ${statusFilter === 'Available' ? 'active' : ''}`}
-                  onClick={() => toggleStatusFilter('Available')}
+                  className={`insight-item insight-toggle text-success ${statusParam === 'available' ? 'active' : ''}`}
+                  onClick={() => toggleStatusFilter('available')}
                   title={t('people:insights.clickToFilter')}
+                  aria-pressed={statusParam === 'available'}
                 >
                   <CheckCircle size={16} />
                   {t('people:insights.available', { count: teamInsights.available })}
@@ -566,6 +609,30 @@ export default function People() {
         onReset={handleResetFilters}
       />
 
+      {/* I02b/D1：生效中的状态筛选必须有可见标识与清除入口——fully-allocated
+          仅 URL 可达（无卡片），不能把筛选子集伪装成全量名册 */}
+      {statusParam && (
+        <Alert className="mb-3" role="status">
+          <AlertDescription className="flex items-center gap-2">
+            <span>
+              {t('people:insights.activeFilter', {
+                label: t(`people:statusLabels.${statusParam}`),
+                count: filteredPeople.length
+              })}
+            </span>
+            <button
+              type="button"
+              className="btn btn-sm btn-outline"
+              onClick={() => setStatusParam(null)}
+              aria-label={t('people:insights.clearStatusFilter')}
+            >
+              <X size={14} aria-hidden="true" />
+              {t('people:insights.clearStatusFilter')}
+            </button>
+          </AlertDescription>
+        </Alert>
+      )}
+
       {/* Delete failure must stay visible (E pillar: 失败可见) — the server
           refuses deletion while the person has scenario assignments */}
       {deleteError && (
@@ -584,12 +651,27 @@ export default function People() {
         </Alert>
       )}
 
-      <DataTable
-        data={filteredPeople}
-        columns={columns}
-        onRowClick={(row) => navigate(`/people/${row.id}`)}
-        itemsPerPage={20}
-      />
+      {/* I02b/G2：状态筛选生效时，加载/失败不得冒充"0 人"或全局空态 */}
+      {statusParam && utilizationLoading ? (
+        <LoadingSpinner />
+      ) : statusParam && utilizationError ? (
+        <Alert variant="destructive" role="alert" className="mb-3">
+          <AlertDescription className="flex items-center gap-2">
+            <span>{t('people:utilizationFailed')}</span>
+            <button type="button" className="btn btn-sm btn-outline" onClick={() => refetchUtilization()}>
+              {t('common:retry')}
+            </button>
+          </AlertDescription>
+        </Alert>
+      ) : (
+        <DataTable
+          data={filteredPeople}
+          columns={columns}
+          onRowClick={(row) => navigate(`/people/${row.id}`)}
+          itemsPerPage={20}
+          emptyMessage={statusParam ? t('people:noMatchesForStatus') : undefined}
+        />
+      )}
 
       {/* Add Person Modal */}
       <PersonModal

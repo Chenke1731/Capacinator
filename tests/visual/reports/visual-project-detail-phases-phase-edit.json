@@ -1,7 +1,7 @@
 {
   "combinations": 4,
   "checks": 20,
-  "updatePixels": true,
+  "updatePixels": false,
   "registerExistingAxe": false,
   "evidence": [
     {
@@ -38,7 +38,7 @@
           "ok": true
         },
         {
-          "name": "基线 project-detail-phases-phase-edit-dark-1600: 已采集",
+          "name": "像素 project-detail-phases-phase-edit-dark-1600: 与基线一致(≤0.5%)",
           "ok": true
         },
         {
@@ -361,7 +361,7 @@
           "ok": true
         },
         {
-          "name": "基线 project-detail-phases-phase-edit-dark-1366: 已采集",
+          "name": "像素 project-detail-phases-phase-edit-dark-1366: 与基线一致(≤0.5%)",
           "ok": true
         },
         {
@@ -684,7 +684,7 @@
           "ok": true
         },
         {
-          "name": "基线 project-detail-phases-phase-edit-light-1600: 已采集",
+          "name": "像素 project-detail-phases-phase-edit-light-1600: 与基线一致(≤0.5%)",
           "ok": true
         },
         {
@@ -1007,7 +1007,7 @@
           "ok": true
         },
         {
-          "name": "基线 project-detail-phases-phase-edit-light-1366: 已采集",
+          "name": "像素 project-detail-phases-phase-edit-light-1366: 与基线一致(≤0.5%)",
           "ok": true
         },
         {

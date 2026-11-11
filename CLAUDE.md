@@ -305,6 +305,32 @@ npm run dist:linux       # Linux package (.AppImage)
 
 **准入规则**:新增防线须声明自己新增的"机制切片"或"触发时机";同切片同时机不得计入纵深(common-mode 教训:四层静态防线冗余度为 1)。检查器自身健康=verify:states:selftest 注入坏规则必红,定期跑。
 
+## 验证分级与会话效率纪律(2026-11-11,I01i→I01s 十四批耗时审计沉淀)
+
+耗时审计结论:系列 11.9h 中**验证运行占 60-67%,编辑仅 ~15%**;~20-26%(145-185 min)属可回收浪费。以下纪律按此立规。
+
+### 验证分级(批内只跑低档,高档留给批末/里程碑)
+- **T0 批内改动后**:`npm run lint:ui` + `npm run typecheck` + 受影响面的 targeted jest(<1 min)。
+- **T1 批末提交前**:受影响单档 `node scripts/verify-states.mjs --profile X` ×N + `verify:colors`(若本批碰过 index.css/App.css,**批末统一刷一次** palette/timeline refresh——这两文件是 38 条证据的依赖锚,每编辑一次全陈旧,批内刷多轮纯浪费)。
+- **T2 系列里程碑/合并前**:states 全量(107) + visual 全量(780) + client jest 全量 + verify:colors。
+- **visual 迭代期一律页级过滤**(`--page`/`--profile`);**任何全量 visual 之前必须先跑冒烟**:`node scripts/verify-visual-smoke.mjs`(3 组合 ~5 min,一次性暴露死档/状态机/信封三类陈旧假设——批 C 实录:四个陈旧假设串行暴露耗了 4 次全量 ≈ 90 min)。
+
+### 探针纪律
+- 带身份取值一律用 `scripts/lib/probe.mjs`(probe/probeSession,自证 `--selftest`):手写登录样板曾致身份缺失误开 Login 对话框、误诊一个来回。
+- **探针函数体禁内联 `-e` 传参**(双引号 bash 吞反引号,批 C/D 实录 6-8 次失败):写 /tmp/*.mjs 文件后运行。
+- 后台任务**等完成通知,禁 sleep 轮询**(审计实录累计 sleep 30-40 min 纯浪费)。
+
+### git 与提交纪律
+- **禁对含未提交改动的文件用 `git checkout --`**(审计实录两次自毁 harness 修复,重贴 20 min);诊断前先 `git diff > /tmp/backup.patch`。
+- **提交前本地 dry-run**(targeted jest + typecheck):pre-commit 拦截后再返工一轮 ≈ 10 min,本地先跑 <1 min。
+
+### 普查与方案纪律
+- **计数/扫描结论必须出自 checked-in 工具**(带 selftest):临时 node -e 计数脚本在系列里出过 6 次口径错误(break 漏记、shell 吞反引号 343 假死键等),每次引发一轮评审往返。
+- **迁移/删除类方案先做导入级普查**(`grep "from.*X"` 全库):PhaseTimeline 全家族死代码在方案期被当作迁移对象,写了两个 modal 迁移后才由探针失败发现,整族改删(≈15 min 返工)。
+
+### 评审纪律(数据辩护,勿削)
+续会话评审 agent 的单位发现成本**递减**(B1:53 工具/33min/4 GUARD → 批A:7 工具/6.4min/2 GUARD),12 个 GUARD 每个的返工成本都 ≥ 对应评审时长。问题从不在评审,在执行侧验证冗余。
+
 ## 结构性 Bug 三步法(2026-09-29 待排序漂移事故沉淀)
 
 修复任何"某类元素缺 X"的结构性 bug 时,强制三步,缺一即返工:

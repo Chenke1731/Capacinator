@@ -17,6 +17,7 @@
   "undoConfirm": "确定要撤销该记录的最近一次变更吗?",
   "undoSuccess": "变更已撤销",
   "undoFailed": "撤销失败:{{message}}",
+  "undoNotApplicable": "该操作不支持撤销",
   "unknownError": "未知错误",
   "filters": {
     "allTables": "全部数据表",
@@ -51,6 +52,11 @@
     "CREATE": "创建",
     "UPDATE": "更新",
     "DELETE": "删除",
+    "INTAKE_CREATE": "收件箱录入",
+    "INTAKE_UPDATE": "收件箱更新",
+    "INTAKE_CONVERT": "收件箱转换",
+    "INTAKE_REJECT": "收件箱拒绝",
+    "INTAKE_DELETE": "收件箱删除",
     "UNKNOWN": "未知"
   },
   "invalidDate": "无效日期"

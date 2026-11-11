@@ -49,7 +49,10 @@ export class DemandIntakeController extends BaseController {
         req.body as IntakeCaptureInput,
         (req as any).user?.id ?? null
       );
-      (req as any).logAuditEvent?.('demand_intake', intake.id, 'CREATE', undefined, intake);
+      // I01v/D16+F4：审计 action 对齐设计稿 §4.4（INTAKE_*）+ 必须 await——
+      // logAuditEvent 内部 catch 后 rethrow，浮动 Promise 失败即
+      // UnhandledRejection（dev/test exit(1)，EXP-B08 探针红证）
+      await (req as any).logAuditEvent?.('demand_intake', intake.id, 'INTAKE_CREATE', undefined, intake);
       // 信封：写操作 success + data；warnings 是标题重复的非阻塞提示（§4.1）
       res.json({ success: true, data: intake, warnings, requestId: req.requestId });
     } catch (error) {
@@ -64,7 +67,7 @@ export class DemandIntakeController extends BaseController {
         (req as any).user?.id ?? null
       );
       for (const row of created) {
-        (req as any).logAuditEvent?.('demand_intake', row.id, 'CREATE', undefined, row);
+        await (req as any).logAuditEvent?.('demand_intake', row.id, 'INTAKE_CREATE', undefined, row);
       }
       this.sendSuccess(req, res, { created, skipped });
     } catch (error) {
@@ -109,7 +112,7 @@ export class DemandIntakeController extends BaseController {
     try {
       const before = await this.intake().get(req.params.id);
       const after = await this.intake().update(req.params.id, req.body ?? {});
-      (req as any).logAuditEvent?.('demand_intake', after.id, 'UPDATE', before, after);
+      await (req as any).logAuditEvent?.('demand_intake', after.id, 'INTAKE_UPDATE', before, after);
       this.sendSuccess(req, res, after);
     } catch (error) {
       this.sendIntakeError(req, res, error);
@@ -123,8 +126,12 @@ export class DemandIntakeController extends BaseController {
         (req.body ?? {}) as IntakeConvertInput,
         (req as any).user?.id ?? null
       );
-      (req as any).logAuditEvent?.('demand_intake', req.params.id, 'CONVERT', undefined, result.intake);
-      (req as any).logAuditEvent?.('projects', String(result.project.id), 'CREATE', undefined, result.project);
+      // R5（评审裁决）：convert 事务已提交（项目已建、intake 已 converted），
+      // 此处审计失败将返回 500——恢复路径=重试→409 existing_project_id→跳转
+      // 项目；不吞审计错误（Never bypass audit logging），审计入事务超批
+      await (req as any).logAuditEvent?.('demand_intake', req.params.id, 'INTAKE_CONVERT', undefined, result.intake);
+      // projects 表事件保持基础 action（设计稿 §4.3:264「intake CONVERT + project CREATE」）
+      await (req as any).logAuditEvent?.('projects', String(result.project.id), 'CREATE', undefined, result.project);
       this.sendSuccess(req, res, result, 'Intake converted');
     } catch (error) {
       this.sendIntakeError(req, res, error);
@@ -134,7 +141,7 @@ export class DemandIntakeController extends BaseController {
   reject = this.asyncHandler(async (req: RequestWithLogging, res: Response) => {
     try {
       const intake = await this.intake().reject(req.params.id, req.body?.reason);
-      (req as any).logAuditEvent?.('demand_intake', intake.id, 'REJECT', undefined, intake);
+      await (req as any).logAuditEvent?.('demand_intake', intake.id, 'INTAKE_REJECT', undefined, intake);
       this.sendSuccess(req, res, intake);
     } catch (error) {
       this.sendIntakeError(req, res, error);
@@ -145,7 +152,7 @@ export class DemandIntakeController extends BaseController {
     try {
       const before = await this.intake().get(req.params.id);
       await this.intake().remove(req.params.id);
-      (req as any).logAuditEvent?.('demand_intake', req.params.id, 'DELETE', before, undefined);
+      await (req as any).logAuditEvent?.('demand_intake', req.params.id, 'INTAKE_DELETE', before, undefined);
       res.json({ success: true, requestId: req.requestId });
     } catch (error) {
       this.sendIntakeError(req, res, error);

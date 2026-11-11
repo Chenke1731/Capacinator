@@ -5,7 +5,8 @@ export interface AuditLogEntry {
   id: string;
   table_name: string;
   record_id: string;
-  action: 'CREATE' | 'UPDATE' | 'DELETE';
+  /** 基础为 CREATE/UPDATE/DELETE；业务域前缀事件（INTAKE_* 等）同列存储（034 迁移无 CHECK） */
+  action: string;
   changed_by: string | null;
   old_values: Record<string, any> | null;
   new_values: Record<string, any> | null;
@@ -21,7 +22,7 @@ interface AuditLogDbEntry {
   id: string;
   table_name: string;
   record_id: string;
-  action: 'CREATE' | 'UPDATE' | 'DELETE';
+  action: string;
   changed_by: string | null;
   old_values: string | null;
   new_values: string | null;
@@ -52,7 +53,7 @@ export class AuditService {
   async logChange(params: {
     tableName: string;
     recordId: string;
-    action: 'CREATE' | 'UPDATE' | 'DELETE';
+    action: string;
     changedBy?: string;
     oldValues?: Record<string, any>;
     newValues?: Record<string, any>;

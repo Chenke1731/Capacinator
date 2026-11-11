@@ -368,7 +368,8 @@ function loadConfig(): Config {
       // 'assignments' 表不存在(2026-10-13 全库审计)——真实分配表为
     // project_assignments / scenario_project_assignments;名单缺真表时
     // logAuditEvent 会静默跳过,分配写操作全部零审计
-    enabledTables: getEnvList('AUDIT_ENABLED_TABLES', ['people', 'projects', 'roles', 'project_assignments', 'scenario_project_assignments', 'availability']),
+    // I01v/D16：demand_intake 入白名单（收件箱状态翻转须有痕；EXP-B07）
+    enabledTables: getEnvList('AUDIT_ENABLED_TABLES', ['people', 'projects', 'roles', 'project_assignments', 'scenario_project_assignments', 'availability', 'demand_intake']),
     },
 
     email: {

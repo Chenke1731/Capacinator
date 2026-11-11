@@ -156,6 +156,10 @@ npx playwright test tests/e2e/suites/crud/          # Playwright folder
 - Phase changes cascade to assignments
 - Use ProjectPhaseCascadeService for phase modifications
 - Assignment recalculation handled by AssignmentRecalculationService
+  ⚠️ 实际零生产调用（BR-F02；D18 待裁决）：该服务读写已退役旧表 `project_assignments`
+  且引用已删 enum——**不要按此文档接线**；活路径=scenario_project_assignments 切片 +
+  ProjectPhaseCascadeService/computed dates。守卫：`scripts/check-legacy-table-writes.mjs`
+  （G2，冻结条目随 D18 结算销账）。
 
 ## Database
 

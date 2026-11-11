@@ -13,7 +13,8 @@ interface AuditEntry {
   id: string;
   table_name: string;
   record_id: string;
-  action: 'CREATE' | 'UPDATE' | 'DELETE' | null | undefined;
+  /** 基础 CREATE/UPDATE/DELETE + 业务域前缀事件（INTAKE_* 等，I01v/D16） */
+  action: string | null | undefined;
   changed_by: string | null;
   old_values: Record<string, any> | null;
   new_values: Record<string, any> | null;
@@ -99,8 +100,14 @@ export function AuditLog() {
 
     try {
       setUndoingEntry(`${tableName}:${recordId}`);
-      await apiClient.post(`/audit/undo/${tableName}/${recordId}`, { comment });
+      const response = await apiClient.post(`/audit/undo/${tableName}/${recordId}`, { comment });
       await loadAuditData();
+      // I01v/R4：服务端对不可撤销事件（INTAKE_* 等）返回 success:true+undone:false，
+      // 旧实现一律 alert 成功=决策支持谎言——必须读 undone 字段
+      if (response.data?.data?.undone === false) {
+        alert(t('auditLog:undoNotApplicable'));
+        return;
+      }
       alert(t('auditLog:undoSuccess'));
     } catch (err) {
       alert(t('auditLog:undoFailed', { message: (err as any).response?.data?.error || t('auditLog:unknownError') }));
@@ -180,7 +187,9 @@ export function AuditLog() {
             >
               {expandedEntry === entry.id ? t('auditLog:hide') : t('auditLog:details')}
             </button>
-            {entry.action && entry.action !== 'DELETE' && entry.table_name && entry.record_id && (
+            {/* 撤销仅支持基础 CREATE/UPDATE（AuditService 三值分支）；INTAKE_*
+                等前缀事件不提供入口（I01v/R4，防"成功但零操作"谎言） */}
+            {entry.action && (entry.action === 'CREATE' || entry.action === 'UPDATE') && entry.table_name && entry.record_id && (
               <button
                 onClick={() => handleUndoChange(entry.table_name, entry.record_id)}
                 disabled={undoingEntry === `${entry.table_name}:${entry.record_id}`}

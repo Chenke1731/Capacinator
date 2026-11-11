@@ -69,7 +69,7 @@ export interface RequestWithAudit extends RequestWithLogging {
   logBulkAuditEvents?: (events: Array<{
     tableName: string;
     recordId: string;
-    action: 'CREATE' | 'UPDATE' | 'DELETE';
+    action: string;
     oldValues?: Record<string, any>;
     newValues?: Record<string, any>;
     comment?: string;
@@ -174,7 +174,7 @@ export function createEnhancedAuditMiddleware(database: Knex) {
     (req as any).logAuditEvent = async (
       tableName: string,
       recordId: string,
-      action: 'CREATE' | 'UPDATE' | 'DELETE',
+      action: string,
       oldValues?: Record<string, any>,
       newValues?: Record<string, any>,
       comment?: string
@@ -221,7 +221,7 @@ export function createEnhancedAuditMiddleware(database: Knex) {
     (req as any).logBulkAuditEvents = async (events: Array<{
       tableName: string;
       recordId: string;
-      action: 'CREATE' | 'UPDATE' | 'DELETE';
+      action: string;
       oldValues?: Record<string, any>;
       newValues?: Record<string, any>;
       comment?: string;

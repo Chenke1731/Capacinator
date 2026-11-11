@@ -17,6 +17,7 @@
   "undoConfirm": "Are you sure you want to undo the last change to this record?",
   "undoSuccess": "Change undone successfully",
   "undoFailed": "Failed to undo change: {{message}}",
+  "undoNotApplicable": "This action cannot be undone",
   "unknownError": "Unknown error",
   "filters": {
     "allTables": "All Tables",
@@ -51,6 +52,11 @@
     "CREATE": "CREATE",
     "UPDATE": "UPDATE",
     "DELETE": "DELETE",
+    "INTAKE_CREATE": "Intake captured",
+    "INTAKE_UPDATE": "Intake updated",
+    "INTAKE_CONVERT": "Intake converted",
+    "INTAKE_REJECT": "Intake rejected",
+    "INTAKE_DELETE": "Intake deleted",
     "UNKNOWN": "UNKNOWN"
   },
   "invalidDate": "Invalid Date"

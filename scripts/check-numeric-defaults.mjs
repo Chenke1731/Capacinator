@@ -65,12 +65,8 @@ export const LEGAL = new Map([
 /** 存量缺陷冻结（必须引用台账行；销账条件写理由） */
 export const FROZEN = new Map([
   [
-    'src/server/api/controllers/ProjectPhasesController.ts::|| 99',
-    'order_index 显式 0 被吞为尾序 99（I01v 评审 R2 挂账，待台账立行另批修复；销账=改 ?? + 顺序语义测试）',
-  ],
-  [
     'src/server/services/AssignmentRecalculationService.ts::|| 100',
-    'BR-F03 可用率 ||100 族（D18 待裁决死服务；销账=随 D18 处置删除/重写该服务）',
+    'BR-F03 可用率 ||100 族（D18 已裁决路线 B，I02a 重写时销账）',
   ],
 ]);
 

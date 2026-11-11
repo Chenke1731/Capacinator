@@ -850,6 +850,23 @@ describe('ProjectPhasesController', () => {
       const insertCall = mockDb.insert.mock.calls[0][0];
       expect(insertCall.order_index).toBe(99);
     });
+
+    it('I01w：显式 order_index=0 保留（零序合法，旧 || 99 会吞成尾序）', async () => {
+      mockReq.body.order_index = 0;
+
+      mockDb.transaction.mockImplementationOnce(async (callback: (db: unknown) => Promise<unknown>) => {
+        mockDb._queueFirstResult({ id: 'proj-1', name: 'Project Alpha' });
+        mockDb._queueInsertResult([{ id: 'new-phase-def-1', order_index: 0 }]);
+        mockDb._queueInsertResult([{ id: 'new-timeline-1' }]);
+        return await callback(mockDb);
+      });
+
+      await controller.createCustomPhase(mockReq, mockRes);
+      await flushPromises();
+
+      const insertCall = mockDb.insert.mock.calls[0][0];
+      expect(insertCall.order_index).toBe(0);
+    });
   });
 
   describe('Error Handling', () => {

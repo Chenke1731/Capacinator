@@ -376,6 +376,20 @@ describe('ProjectTypeHierarchyController', () => {
       expect(insertCall.min_duration_days).toBeNull();
     });
 
+    it('I01w：显式 orderIndex=0 保留（不再被 || 吞成尾序）', async () => {
+      mockDb._queueFirstResult({ id: 'type-1', parent_id: null });
+      mockDb._queueFirstResult(null);
+      mockDb._setInsertResult([]);
+      mockDb._queueQueryResult([]);
+      mockReq.body = { phaseId: 'phase-1', orderIndex: 0 };
+
+      await controller.addPhase(mockReq, mockRes);
+      await flushPromises();
+
+      const insertCall = mockDb.insert.mock.calls[0][0];
+      expect(insertCall.order_index).toBe(0);
+    });
+
     it('returns 404 when project type not found', async () => {
       mockDb._setFirstResult(null);
 

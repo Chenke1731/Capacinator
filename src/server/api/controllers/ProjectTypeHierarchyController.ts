@@ -167,7 +167,8 @@ export class ProjectTypeHierarchyController extends BaseController {
       }
 
       // Get the actual order index if not provided
-      const actualOrderIndex = orderIndex || await this.getNextPhaseOrderIndex(projectTypeId);
+      // I01w：nullish——显式 0 序保持（RHS 为 await 表达式，INV-2 静态扫描不覆盖，此处手工核）
+      const actualOrderIndex = orderIndex ?? await this.getNextPhaseOrderIndex(projectTypeId);
 
       // I01v/D17：时长字段显式校验（显式 0 合法；脏输入 400；缺省兜底）
       const defaultDuration = this.validateDurationField(req.body.default_duration_days, 'default_duration_days');

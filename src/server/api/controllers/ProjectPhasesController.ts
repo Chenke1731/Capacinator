@@ -624,7 +624,8 @@ export class ProjectPhasesController extends BaseController {
           .insert({
             name: uniquePhaseName,
             description: description || `Custom phase for project: ${project.name}`,
-            order_index: order_index || 99, // Default to end
+            // I01w（EXP-B05 族）：nullish——显式 0 序是合法排序值，仅缺省落尾序
+            order_index: order_index ?? 99, // Default to end
             created_at: new Date(),
             updated_at: new Date()
           })

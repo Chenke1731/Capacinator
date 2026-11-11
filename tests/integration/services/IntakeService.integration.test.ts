@@ -7,7 +7,7 @@
  * - 转换事务：基线锚定期望开始日、无开始日不建阶段、无模板、
  *   双击 409、非生命周期类型、external_number 回填、事件留档
  */
-import { describe, test, expect, beforeAll, beforeEach, afterEach } from '@jest/globals';
+import { describe, test, expect, beforeAll, beforeEach, afterEach, jest } from '@jest/globals';
 import { db } from '../setup';
 import {
   IntakeService,
@@ -213,6 +213,54 @@ describe('I01 捕获（单条/校验/去重）', () => {
     const row = await db('demand_intake').where('id', intake.id).first();
     expect(row).toBeTruthy();
     expect(row.status).toBe('converted');
+  });
+
+  test('I01y/#3 编辑竞态：检查后并发转态（stale 快照）不写留档', async () => {
+    const { intake } = await S.capture({ title: '编辑竞态原文', source_channel: 'internal' });
+    const stale = await S.get(intake.id); // 'new' 快照
+    await db('demand_intake').where('id', intake.id).update({ status: 'converted' });
+
+    const originalGet = (S as any).get;
+    (S as any).get = async () => stale; // 模拟"检查后、写入前"并发 convert 已提交
+    try {
+      // 新实现条件 UPDATE（WHERE status='new'）→ 0 行 → 409；旧实现无条件写 → 改写留档
+      await expectIntakeError(() => S.update(intake.id, { title: '试图改写留档' }), 409, 'invalid_status');
+    } finally {
+      (S as any).get = originalGet;
+    }
+    const row = await db('demand_intake').where('id', intake.id).first();
+    expect(row.status).toBe('converted');
+    expect(row.title).toBe('编辑竞态原文');
+  });
+
+  test('I01y/#4 并发唯一约束（捕获）：索引冲突映射 409 而非 500', async () => {
+    await S.capture({ title: '已有', source_channel: 'jdc_sr', source_ref: 'SR-I01Y-1' });
+    // 模拟前置查重通过后的并发窗口：插入时才撞部分唯一索引
+    const spy = jest.spyOn(S as any, 'findDuplicate').mockResolvedValue(null);
+    try {
+      await expectIntakeError(
+        () => S.capture({ title: '并发', source_channel: 'jdc_sr', source_ref: 'SR-I01Y-1' }),
+        409,
+        'duplicate_source_ref'
+      );
+    } finally {
+      spy.mockRestore();
+    }
+  });
+
+  test('I01y/#4 并发唯一约束（编辑改编号）：同样映射 409', async () => {
+    await S.capture({ title: 'A', source_channel: 'jdc_sr', source_ref: 'SR-I01Y-2' });
+    const b = await S.capture({ title: 'B', source_channel: 'jdc_sr', source_ref: 'SR-I01Y-3' });
+    const spy = jest.spyOn(S as any, 'findDuplicate').mockResolvedValue(null);
+    try {
+      await expectIntakeError(
+        () => S.update(b.intake.id, { source_ref: 'SR-I01Y-2' }),
+        409,
+        'duplicate_source_ref'
+      );
+    } finally {
+      spy.mockRestore();
+    }
   });
 });
 

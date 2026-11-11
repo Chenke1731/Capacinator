@@ -505,4 +505,65 @@ describe('ExportController', () => {
       expect(mockRes.status).toHaveBeenCalledWith(500);
     });
   });
+
+  describe('I01y/#2 场景头贯通（所有格式 × 报表类型）', () => {
+    const BRANCH = 'review-branch';
+    beforeEach(() => {
+      mockReq.headers['x-scenario-id'] = BRANCH;
+      mockReportDataService.getCapacityReport.mockResolvedValue({ byRole: [] } as any);
+      mockReportDataService.getUtilizationReport.mockResolvedValue({
+        utilizationData: [],
+        summary: { averageUtilization: 0 },
+      } as any);
+      mockReportDataService.getDemandReport.mockResolvedValue({
+        summary: { total_hours: 0 },
+        by_project_type: [],
+      } as any);
+      mockReportDataService.getGapsAnalysis.mockResolvedValue({
+        summary: { totalGapHours: 0 },
+        capacityGaps: [],
+      } as any);
+    });
+
+    it('CSV 入口：capacity/demand/gaps/utilization 均收到分支场景', async () => {
+      for (const reportType of ['capacity', 'demand', 'gaps', 'utilization']) {
+        mockReq.body = { reportType, filters: {} };
+        await controller.exportReportAsCSV(mockReq, mockRes);
+        await flushPromises();
+      }
+      expect(mockReportDataService.getCapacityReport).toHaveBeenCalledWith(
+        expect.objectContaining({ scenarioId: BRANCH })
+      );
+      expect(mockReportDataService.getDemandReport).toHaveBeenCalledWith(
+        expect.objectContaining({ scenarioId: BRANCH })
+      );
+      expect(mockReportDataService.getGapsAnalysis).toHaveBeenCalledWith(BRANCH);
+      expect(mockReportDataService.getUtilizationReport).toHaveBeenCalledWith(
+        expect.objectContaining({ scenarioId: BRANCH })
+      );
+    });
+
+    it('PDF 入口：demand 收到分支场景', async () => {
+      mockReq.body = { reportType: 'demand', filters: {} };
+      await controller.exportReportAsPDF(mockReq, mockRes);
+      await flushPromises();
+      expect(mockReportDataService.getDemandReport).toHaveBeenCalledWith(
+        expect.objectContaining({ scenarioId: BRANCH })
+      );
+    });
+
+    it('Excel 入口：demand/gaps 适配器不再丢弃场景', async () => {
+      mockReq.body = { reportType: 'demand', filters: {} };
+      await controller.exportReportAsExcel(mockReq, mockRes);
+      await flushPromises();
+      mockReq.body = { reportType: 'gaps', filters: {} };
+      await controller.exportReportAsExcel(mockReq, mockRes);
+      await flushPromises();
+
+      expect(mockReportDataService.getDemandReport).toHaveBeenCalledWith(
+        expect.objectContaining({ scenarioId: BRANCH })
+      );
+      expect(mockReportDataService.getGapsAnalysis).toHaveBeenCalledWith(BRANCH);
+    });
+  });
 });

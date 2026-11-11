@@ -482,15 +482,27 @@ describe('RolesController', () => {
 
       expect(mockDb.raw).toHaveBeenCalledTimes(1);
       expect(String((mockDb.raw as jest.Mock).mock.calls[0][0])).toContain('role_capacity');
-      // 缺省场景头 = baseline（resolveScenarioId）
+      // 缺省场景头 = baseline（resolveScenarioId）；I01y/#1：baseline 捆绑参数
+      // includeLegacy=1（并入旧表 active 行）
       expect((mockDb.raw as jest.Mock).mock.calls[0][1]).toEqual([
-        'baseline-0000-0000-0000-000000000000'
+        'baseline-0000-0000-0000-000000000000',
+        1,
       ]);
       // 降序：-2.0 在 -5.5 之前
       expect(mockRes.json).toHaveBeenCalledWith([
         expect.objectContaining({ role_id: 'role-2' }),
         expect.objectContaining({ role_id: 'role-1' })
       ]);
+    });
+
+    it('I01y/#1：分支场景 includeLegacy=0（纯切片，不掺旧表全局行）', async () => {
+      mockDb.raw = jest.fn().mockResolvedValue([]);
+      mockReq.headers['x-scenario-id'] = 'branch-x';
+
+      await controller.getCapacityGaps(mockReq, mockRes);
+      await flushPromises();
+
+      expect((mockDb.raw as jest.Mock).mock.calls[0][1]).toEqual(['branch-x', 0]);
     });
 
     it('returns empty array when no gaps exist', async () => {

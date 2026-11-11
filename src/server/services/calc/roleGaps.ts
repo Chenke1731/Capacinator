@@ -11,10 +11,14 @@
  * - role_capacity CTE 与 055 视图**逐字一致**（人×角色×可用率覆盖×
  *   worker_type 折扣，场景无关）——漂移由 report-scenario-slice 测试的
  *   baseline-视图对等断言锁定（评审 R3：两侧同错相消的守卫失明）。
- * - role_demand = 选定场景的 active 分配求和（activeAssignmentsInScenario
- *   同谓词）+ project_pool_demands open 求和（无 scenario 维度，维持视图
- *   语义）。无日期窗——与 055 现行为对齐，本原语只修场景维度。
+ * - role_demand = 场景切片 + 开放池需求；**baseline 额外并入旧表
+ *   project_assignments 的 active 行**（I01y/#1：055 视图需求侧经
+ *   effective_project_assignments 含 `scenario_id IS NULL` 旧表轨道，
+ *   070 视图/需求报表同样保留；恢复库/legacy 部署下角色缺口不得漏计）。
+ *   分支保持独立切片（与 PeopleController 分支先例一致，不掺全局旧表行）。
+ * - 无日期窗——与 055 现行为对齐，本原语只修场景维度。
  */
+import { BASELINE_SCENARIO_ID } from './effectiveAssignments.js';
 export interface RoleGapRow {
   role_id: string;
   role_name: string;
@@ -33,6 +37,8 @@ export async function roleCapacityGaps(
   db: any,
   scenarioId: string
 ): Promise<RoleGapRow[]> {
+  // baseline 并入旧表轨道（055 视图需求侧含 scenario_id IS NULL）；分支纯切片
+  const includeLegacy = scenarioId === BASELINE_SCENARIO_ID ? 1 : 0;
   const rows = await db.raw(
     `
     WITH role_capacity AS (
@@ -79,11 +85,19 @@ export async function roleCapacityGaps(
         (COALESCE(a.fte, 0) + COALESCE(pd.fte, 0)) * 8.0 as total_demand_hours
       FROM roles r
       LEFT JOIN (
-        -- 场景切片（activeAssignmentsInScenario 同谓词）：只计选定场景
-        SELECT spa.role_id as role_id, SUM(spa.allocation_percentage / 100.0) as fte
-        FROM scenario_project_assignments spa
-        WHERE spa.scenario_id = ? AND spa.status = 'active'
-        GROUP BY spa.role_id
+        -- 场景切片（activeAssignmentsInScenario 同谓词）：只计选定场景；
+        -- baseline 再并入旧表 active 行（捆绑参数=1 时），与视图/需求报表同口径
+        SELECT role_id, SUM(allocation_percentage / 100.0) as fte
+        FROM (
+          SELECT spa.role_id as role_id, spa.allocation_percentage
+          FROM scenario_project_assignments spa
+          WHERE spa.scenario_id = ? AND spa.status = 'active'
+          UNION ALL
+          SELECT pa.role_id as role_id, pa.allocation_percentage
+          FROM project_assignments pa
+          WHERE pa.status = 'active' AND ? = 1
+        ) pick
+        GROUP BY role_id
       ) a ON a.role_id = r.id
       LEFT JOIN (
         -- 开放池需求无场景维度（表无 scenario_id 列），维持视图语义
@@ -114,7 +128,7 @@ export async function roleCapacityGaps(
     LEFT JOIN role_demand rd ON rc.role_id = rd.role_id
     ORDER BY rc.role_name
     `,
-    [scenarioId]
+    [scenarioId, includeLegacy]
   );
   return rows as RoleGapRow[];
 }

@@ -7,9 +7,10 @@
  * exit(1)（探针实证）；createBatch 200 条=200 个浮动 Promise 放大面。
  *
  * 断言：src/server 生产中所有 `.logAuditEvent` 直接调用点前必须有 await。
- * 守卫强度限制（EXP-B04 同式注记）：只拦直接成员调用；`const f = req.logAuditEvent`
- * 别名后调用、`req['logAuditEvent']` 方括号访问、`logBulkAuditEvents` 均不在
- * 扫描面（现有 logBulk 调用点均 await，人工核）；评审触及审计接线时须核对。
+ * 守卫强度限制（EXP-B04 同式注记）：别名调用（`const f = req.logAuditEvent`）、
+ * 方括号访问（`req['logAuditEvent']`）与 `logBulkAuditEvents` 不在扫描面
+ * （现有 logBulk 调用点均 await，人工核）；评审触及审计接线时须核对。
+ * I01y/#5：普通成员调用（非可选链）此前被漏检，正则已覆盖两形态。
  *
  * 用法：
  *   node scripts/check-audit-await.mjs              # 检查（pre-commit）
@@ -24,7 +25,8 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 /** 返回未 await 的调用点 [{line, snippet}] */
 export function scanFloatingAuditCalls(source) {
   const violations = [];
-  const callRe = /\.logAuditEvent\??\.\s*\(/g;
+  // 同时匹配 `x.logAuditEvent(` 与 `x.logAuditEvent?.(`（I01y/#5）
+  const callRe = /\.logAuditEvent(?:\?\.)?\s*\(/g;
   let m;
   while ((m = callRe.exec(source))) {
     const before = source.slice(Math.max(0, m.index - 120), m.index);
@@ -56,8 +58,8 @@ function walk(dir, acc = []) {
 
 function selfTest() {
   let pass = 0;
-  const total = 4;
-  // 1. 浮动调用 → 红
+  const total = 6;
+  // 1. 浮动调用（可选链）→ 红
   const bad = scanFloatingAuditCalls(
     "      (req as any).logAuditEvent?.('demand_intake', id, 'CREATE', undefined, row);"
   );
@@ -79,6 +81,18 @@ function selfTest() {
   const memberOnly = scanFloatingAuditCalls('      if ((req as any).logAuditEvent) {');
   if (memberOnly.length === 0) pass++;
   else console.error('SELF_TEST 4 失败: 成员访问误报', memberOnly);
+  // 5. I01y/#5：普通成员调用（非可选链）未 await → 红
+  const plainBad = scanFloatingAuditCalls(
+    "      (req as any).logAuditEvent('people', id, 'CREATE');"
+  );
+  if (plainBad.length === 1) pass++;
+  else console.error('SELF_TEST 5 失败: 普通成员调用未拦', plainBad);
+  // 6. 普通成员调用 await → 绿
+  const plainGood = scanFloatingAuditCalls(
+    "      await (req as any).logAuditEvent('people', id, 'CREATE');"
+  );
+  if (plainGood.length === 0) pass++;
+  else console.error('SELF_TEST 6 失败: 普通 await 调用误报', plainGood);
   console.log(`SELF_TEST check-audit-await: ${pass}/${total} 组通过`);
   return pass === total;
 }

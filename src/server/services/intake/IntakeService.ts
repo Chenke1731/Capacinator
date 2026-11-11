@@ -259,7 +259,25 @@ export class IntakeService {
     }
 
     next.updated_at = nowIso();
-    await this.db('demand_intake').where('id', id).update(next);
+    // I01y/#3：条件写入防 TOCTOU（与 reject/remove 同型）——检查与写入之间
+    // 并发 convert 即会改写 converted 留档，来源记录与生成项目脱节
+    let changed: number;
+    try {
+      changed = await this.db('demand_intake').where({ id, status: 'new' }).update(next);
+    } catch (error) {
+      if (this.isDuplicateSourceRefError(error)) {
+        const dupChannel = String(next.source_channel ?? current.source_channel);
+        const dupRef = (next.source_ref !== undefined ? next.source_ref : current.source_ref) as string | null;
+        const existing = dupRef ? await this.findDuplicate(dupChannel, dupRef) : null;
+        throw new IntakeError('Source ref already captured', 409, 'duplicate_source_ref', existing?.id ?? undefined);
+      }
+      throw error;
+    }
+    if (changed === 0) {
+      const row = await this.db('demand_intake').where('id', id).first();
+      if (!row) throw new IntakeError('Intake not found', 404, 'not_found');
+      throw new IntakeError(`Intake is ${row.status} and no longer editable`, 409, 'invalid_status');
+    }
     return this.get(id);
   }
 
@@ -401,13 +419,25 @@ export class IntakeService {
     };
     try {
       await db('demand_intake').insert(payload);
-    } catch (error: any) {
-      // 部分唯一索引兜底（并发窗口）：SQLITE_CONSTRAINT → 友好 409
-      if (String(error?.message ?? '').includes('idx_demand_intake_source_ref_unique')) {
-        throw new IntakeError('Source ref already captured', 409, 'duplicate_source_ref');
+    } catch (error) {
+      // 部分唯一索引兜底（并发窗口）：I01y/#4——SQLite 约束错误消息只列
+      // 列名不含索引名（"UNIQUE constraint failed: demand_intake.source_channel,
+      // demand_intake.source_ref"），按 code + 目标列识别
+      if (this.isDuplicateSourceRefError(error)) {
+        const existing = await this.findDuplicate(payload.source_channel, payload.source_ref ?? null);
+        throw new IntakeError('Source ref already captured', 409, 'duplicate_source_ref', existing?.id ?? undefined);
       }
       throw error;
     }
     return db('demand_intake').where('id', id).first();
+  }
+
+  /** 唯一约束命中 demand_intake(source_channel, source_ref) 部分索引的识别
+   *  （I01y/#4：不认索引名；同时排除主键 id 冲突与其他表约束） */
+  private isDuplicateSourceRefError(error: unknown): boolean {
+    const err = error as { code?: string; message?: string };
+    const msg = String(err?.message ?? '');
+    const unique = err?.code === 'SQLITE_CONSTRAINT_UNIQUE' || msg.includes('UNIQUE constraint failed');
+    return unique && msg.includes('demand_intake.source_ref') && !msg.includes('demand_intake.id');
   }
 }

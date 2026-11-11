@@ -310,4 +310,39 @@ describe('G1 报表读侧场景切片（D15/EXP-B09）', () => {
       ]);
     }
   });
+
+  test('E. 旧表轨道兼容（I01y/#1）：baseline 角色缺口 ⊇ 旧表 active 行且与视图对等；分支保持独立切片', async () => {
+    // 恢复库/legacy 部署态：旧表 project_assignments 有真实分配（运行时正常库为 0）。
+    // 055 视图需求侧含 epa.scenario_id IS NULL 的旧表行；roleGaps 原语必须同口径，
+    // 否则需求报表/利用率可见而角色缺口为 0（Codex 复评 #1）。
+    await db('project_assignments').insert({
+      id: 'i01y-legacy-pa-1',
+      project_id: PROJECT_ID,
+      person_id: PERSON_FTE,
+      role_id: ROLE_ID,
+      allocation_percentage: 20,
+      assignment_date_mode: 'fixed',
+      start_date: '2026-01-05',
+      end_date: '2026-12-31',
+      status: 'active',
+    });
+
+    try {
+      const fresh = await roleCapacityGaps(db, BASELINE_SCENARIO_ID);
+      const mine = fresh.find((r) => r.role_id === ROLE_ID)!;
+      const view = (await db('capacity_gaps_view').where({ role_id: ROLE_ID }).first()) as Record<string, unknown>;
+
+      // baseline = spa 0.8 + 旧表 0.2 + 开放池 0.5 = 1.5（视图同口径）
+      expect(round6(mine.total_demand_fte)).toBe(1.5);
+      expect(round6(mine.total_demand_fte)).toBe(round6(view.total_demand_fte));
+
+      // 分支 = 纯场景切片（复制 spa 0.8 + 池 0.5 = 1.3），不含全局旧表行
+      await createUnchangedBranch();
+      const branch = await roleCapacityGaps(db, BRANCH_ID);
+      const branchMine = branch.find((r) => r.role_id === ROLE_ID)!;
+      expect(round6(branchMine.total_demand_fte)).toBe(1.3);
+    } finally {
+      await db('project_assignments').where({ id: 'i01y-legacy-pa-1' }).del();
+    }
+  });
 });

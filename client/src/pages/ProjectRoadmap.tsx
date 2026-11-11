@@ -2,7 +2,7 @@ import React, { useState, useRef, useCallback } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Calendar, X, ZoomIn, ZoomOut, Search, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Calendar, ZoomIn, ZoomOut, Search, ChevronLeft, ChevronRight } from 'lucide-react';
 import { api } from '../lib/api-client';
 import { queryKeys } from '../lib/queryKeys';
 import { LoadingSpinner } from '../components/ui/LoadingSpinner';

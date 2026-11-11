@@ -38,6 +38,16 @@ export function parseEnvTables(content) {
     .filter(Boolean);
 }
 
+/** 该环境文件是否显式配置了 AUDIT_ENABLED_TABLES（有键则覆盖默认，无键回落默认） */
+export function hasAuditKey(content) {
+  return /^\s*AUDIT_ENABLED_TABLES\s*=/m.test(content);
+}
+
+/** I01y/#6：单环境有效白名单——有键用该环境值，无键回落 config 默认 */
+export function effectiveWhitelist(content, configDefault) {
+  return hasAuditKey(content) ? parseEnvTables(content) : configDefault;
+}
+
 /** config/index.ts 默认数组解析：enabledTables: getEnvList('AUDIT_ENABLED_TABLES', [...]) */
 export function parseConfigDefault(content) {
   const m = content.match(
@@ -94,7 +104,7 @@ function readWhitelistUnion() {
 
 function selfTest() {
   let pass = 0;
-  const total = 4;
+  const total = 5;
   // 1. .env 解析（含注释剥离）
   const env = parseEnvTables('AUDIT_ENABLED_TABLES=people, projects,demand_intake  # note');
   if (JSON.stringify(env) === JSON.stringify(['people', 'projects', 'demand_intake'])) pass++;
@@ -116,6 +126,13 @@ function selfTest() {
   const real = evaluate({ whitelist: readWhitelistUnion(), calls: [], required: REQUIRED_TABLES });
   if (real.errors.length === 0) pass++;
   else console.error('SELF_TEST 4 失败: 真实白名单缺 required', real.errors);
+  // 5. I01y/#6 逐环境有效集：有键环境的漏表必红；无键环境回落默认不误报
+  const defaultTables = ['people', 'demand_intake'];
+  const envGoodNoKey = effectiveWhitelist('PORT=3000\n', defaultTables); // 无键 → 默认
+  const envBad = effectiveWhitelist('AUDIT_ENABLED_TABLES=people\n', defaultTables); // 有键但漏表
+  const badEnvErrors = REQUIRED_TABLES.filter((t) => !envBad.includes(t));
+  if (envGoodNoKey.includes('demand_intake') && badEnvErrors.includes('demand_intake')) pass++;
+  else console.error('SELF_TEST 5 失败: 逐环境有效集', { envGoodNoKey, envBad, badEnvErrors });
   console.log(`SELF_TEST check-audit-whitelist: ${pass}/${total} 组通过`);
   return pass === total;
 }
@@ -124,6 +141,9 @@ if (process.argv[1]?.endsWith('check-audit-whitelist.mjs')) {
   if (process.argv.includes('--self-test')) {
     process.exit(selfTest() ? 0 : 1);
   }
+  const configDefault = parseConfigDefault(
+    fs.readFileSync(path.join(root, 'src/server/config/index.ts'), 'utf8')
+  );
   const whitelist = readWhitelistUnion();
   const files = walk(path.join(root, 'src/server'));
   const calls = [];
@@ -131,16 +151,31 @@ if (process.argv[1]?.endsWith('check-audit-whitelist.mjs')) {
     const found = scanAuditCalls(fs.readFileSync(f, 'utf8'));
     if (found.length) calls.push(...found);
   }
-  const { errors, census } = evaluate({ whitelist, calls });
+  const { census } = evaluate({ whitelist, calls });
+
+  // I01y/#6：主断言改为逐环境有效集（有键→该环境值；无键→回落 config 默认），
+  // 并集只用于存量普查（单环境漏配必须红）
+  const envFailures = [];
+  const defaultMissing = REQUIRED_TABLES.filter((t) => !configDefault.includes(t));
+  if (defaultMissing.length) envFailures.push({ file: 'config/index.ts 默认', missing: defaultMissing });
+  for (const f of fs.readdirSync(root)) {
+    if (!/^\.env(\..+)?$/.test(f) || f.endsWith('.local')) continue;
+    const content = fs.readFileSync(path.join(root, f), 'utf8');
+    const effective = effectiveWhitelist(content, configDefault);
+    const missing = REQUIRED_TABLES.filter((t) => !effective.includes(t));
+    if (missing.length) envFailures.push({ file: f, missing });
+  }
+
   if (census.length) {
     console.log(`普查：在编控制器审计表名不在白名单并集（存量静默跳过，待台账 D 行裁决）：`);
     for (const t of census) console.log(`  - ${t}`);
   }
-  if (errors.length) {
-    console.error(`✗ INV-1 失败：新增审计表未入白名单并集：${errors.join(', ')}`);
+  if (envFailures.length) {
+    console.error(`✗ INV-1 失败：以下环境生效白名单缺新增审计表：`);
+    for (const f of envFailures) console.error(`  ${f.file}: 缺 ${f.missing.join(', ')}`);
     process.exit(1);
   }
   console.log(
-    `✓ INV-1 通过：本批审计面 ⊆ 白名单并集（并集 ${whitelist.length} 表；存量普查违例 ${census.length} 条已报告）`
+    `✓ INV-1 通过：逐环境有效集均含本批审计面（默认 ${configDefault.length} 表；并集 ${whitelist.length} 表；存量普查违例 ${census.length} 条已报告）`
   );
 }

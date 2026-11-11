@@ -14,6 +14,8 @@ interface ReportFilters extends DateRangeFilter {
   projectTypeId?: string;
   locationId?: string;
   roleId?: string;
+  /** I01y/#2（并入 I01x）：导出报表按选中场景切片（缺省 baseline） */
+  scenarioId?: string;
 }
 
 export class ExportController extends BaseController {
@@ -68,7 +70,8 @@ export class ExportController extends BaseController {
         return res.status(400).json({ error: 'Report type is required' });
       }
 
-      const data = await this.getReportData(reportType, filters);
+      // I01y/#2：与 Excel 入口同口径——所有导出格式按选中场景切片
+      const data = await this.getReportData(reportType, { ...filters, scenarioId: resolveScenarioId(req.headers['x-scenario-id']) });
       const csvContent = this.exportFormatterService.generateCSV(reportType, data);
       const filename = this.exportFormatterService.getFilename(reportType, 'csv');
 
@@ -88,7 +91,8 @@ export class ExportController extends BaseController {
         return res.status(400).json({ error: 'Report type is required' });
       }
 
-      const data = await this.getReportData(reportType, filters);
+      // I01y/#2：PDF 入口同口径（Excel/CSV 之外的第三入口）
+      const data = await this.getReportData(reportType, { ...filters, scenarioId: resolveScenarioId(req.headers['x-scenario-id']) });
       const pdfBuffer = await this.exportFormatterService.generatePDF(reportType, data);
       const filename = this.exportFormatterService.getFilename(reportType, 'pdf');
 
@@ -112,7 +116,7 @@ export class ExportController extends BaseController {
       case 'demand':
         return this.getDemandExportData(filters);
       case 'gaps':
-        return this.getGapsExportData();
+        return this.getGapsExportData(filters);
       default:
         throw new Error('Invalid report type');
     }
@@ -151,6 +155,8 @@ export class ExportController extends BaseController {
     const report = await this.reportDataService.getDemandReport({
       startDate: filters.startDate,
       endDate: filters.endDate,
+      // I01y/#2：适配器不得丢弃入口传入的场景（此前 demand Excel 回落 baseline）
+      scenarioId: filters.scenarioId,
     });
 
     return {
@@ -162,8 +168,9 @@ export class ExportController extends BaseController {
     };
   }
 
-  private async getGapsExportData(): Promise<ExportGapsData> {
-    const report = await this.reportDataService.getGapsAnalysis();
+  private async getGapsExportData(filters: ReportFilters): Promise<ExportGapsData> {
+    // I01y/#2：缺口导出同接场景头（此前无参 → 恒 baseline）
+    const report = await this.reportDataService.getGapsAnalysis(filters.scenarioId);
 
     return {
       totalGap: report.summary.totalGapHours,

@@ -34,7 +34,13 @@ describe('Audit Configuration', () => {
         // 2026-10-13 审计修正: 'assignments' 表不存在,真实分配表为
         // project_assignments / scenario_project_assignments
         // I01v/D16: demand_intake 入默认白名单（收件箱状态翻转留痕）
-        enabledTables: ['people', 'projects', 'roles', 'project_assignments', 'scenario_project_assignments', 'availability', 'demand_intake']
+        // D21（2026-11-12）: 权限/规划人/估算/投入 6 表全加入（审计普查违例清零）
+        enabledTables: [
+          'people', 'projects', 'roles', 'project_assignments',
+          'scenario_project_assignments', 'availability', 'demand_intake',
+          'project_actual_investments', 'project_design_estimations', 'project_estimations',
+          'role_planners', 'user_permissions', 'user_role_permissions'
+        ]
       });
     });
 

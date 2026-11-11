@@ -24,8 +24,17 @@ import { fileURLToPath } from 'node:url';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 
-/** 本批新增审计面（新表接入审计时在此登记——登记即门禁） */
-export const REQUIRED_TABLES = ['demand_intake'];
+/** 本批新增审计面（新表接入审计时在此登记——登记即门禁）。
+ *  I01v/D16 加 demand_intake；D21（2026-11-12 用户"按推荐"）加 6 表全量。 */
+export const REQUIRED_TABLES = [
+  'demand_intake',
+  'project_actual_investments',
+  'project_design_estimations',
+  'project_estimations',
+  'role_planners',
+  'user_permissions',
+  'user_role_permissions',
+];
 
 /** .env 行解析：AUDIT_ENABLED_TABLES=a,b,c  # 注释 */
 export function parseEnvTables(content) {

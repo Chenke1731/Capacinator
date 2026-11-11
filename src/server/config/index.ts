@@ -369,7 +369,9 @@ function loadConfig(): Config {
     // project_assignments / scenario_project_assignments;名单缺真表时
     // logAuditEvent 会静默跳过,分配写操作全部零审计
     // I01v/D16：demand_intake 入白名单（收件箱状态翻转须有痕；EXP-B07）
-    enabledTables: getEnvList('AUDIT_ENABLED_TABLES', ['people', 'projects', 'roles', 'project_assignments', 'scenario_project_assignments', 'availability', 'demand_intake']),
+    // D21（2026-11-12 用户裁决"按推荐"）：权限/规划人/估算/投入 6 表全加入——
+    // 在编控制器对这 6 表的 logAuditEvent 此前全部静默跳过（INV-1 普查输出）
+    enabledTables: getEnvList('AUDIT_ENABLED_TABLES', ['people', 'projects', 'roles', 'project_assignments', 'scenario_project_assignments', 'availability', 'demand_intake', 'project_actual_investments', 'project_design_estimations', 'project_estimations', 'role_planners', 'user_permissions', 'user_role_permissions']),
     },
 
     email: {

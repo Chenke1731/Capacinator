@@ -542,6 +542,9 @@ UI代码定位：[People](../../client/src/pages/People.tsx)、[Projects](../../
 
 | I01t / 批 T：耗时审计落地——验证分级纪律 + 探针工装 + visual 冒烟（用户："落地吧"） | 完成 / Claude（2026-11-11 会话） | 689a52a / 干净 | `9ee4c62`（分支 feature/i01-demand-intake）；**审计结论先行**（提交时间戳重建 11 批真实耗时线：系列 11.9h，验证运行占 60-67%、编辑仅 ~15%、可回收浪费 145-185 min≈20-26%；Top3 大户：批C 199min（visual 复活四陈旧假设串行暴露×4 次全量+import 信封 4 轮调试+sleep 25min）、D-04S2 118min（PhaseTimeline 迁移后改删返工+color-debt 连锁+探针身份误诊）、收官 45min（诊断是价值，sleep 是浪费））。**落地三件**：①scripts/lib/probe.mjs 探针工装（probe/probeSession，fixture 链+身份+抛错冒泡，--selftest 三断言——消灭手写样板 20 遍与内联传参失败面）；②scripts/verify-visual-smoke.mjs（3 代表组合 ~5min 一次暴露死档/状态机/信封三类假设——批C 90min 串行教训的解；不加 npm 别名，package.json 属用户并行文件）；③CLAUDE.md 新章"验证分级与会话效率纪律"（T0/T1/T2 分级+批末 refresh 聚合+页级过滤+禁 sleep 轮询+禁 checkout 覆盖未提交+提交前 dry-run+普查须 checked-in 工具+迁移先导入普查+评审勿削的数据辩护） | probe --selftest PASS（真值/缺失可判/抛错冒泡）；冒烟 ×3 PASS（projects/phases+phase-edit/import+import-file，~5min）；lint:ui PASS；verify:colors 331/0；verify:states 107/107 | 预计回收 145-185 min/系列（~20-26%）；纪律条目随 CLAUDE.md 常驻，工具随仓库沉淀 |
 
+
+| I01v / T0 批0 地基：D15 执行批（报表读侧场景感知，BR-F01 P0）+ D16/D17 执行批（F1 审计白名单+F4 await 同批、F2 del() 竞态、F3 0 天模板；守卫 G1~G4/INV-1~4 随批） | 进行中 / Claude（2026-11-11 会话，用户："先领T0 生成方案"） | 55c3cc1 / 干净 | —（方案评审后实施） | — | 裁决依据 D15(B)/D16(A)/D17(A+双保险)；原立项号 I01o 撞号作废，本行领号经 check-ledger --next I01；`.env.production` 部署方 AUDIT_ENABLED_TABLES 覆盖在本批核（D16）；F1/F4 必须同批（白名单生效即引入审计失败 crash 面） |
+
 ## 8. 四角色排产决策样例与记录模板
 
 ### 8.1 合成会议样例：总工时不变，关键窗口撞车

@@ -115,8 +115,6 @@
       "revoked": "已撤销"
     },
     "toasts": {
-      "loadFailed": "GitHub 连接加载失败",
-      "loadOneFailed": "GitHub 连接加载失败",
       "initiateFailed": "发起 GitHub 连接失败",
       "connected": "GitHub 账号已连接",
       "connectedDesc": "你的 GitHub 账号已成功连接。",
@@ -127,7 +125,6 @@
       "removed": "连接已移除",
       "removedDesc": "GitHub 连接已移除。",
       "removeFailed": "连接移除失败",
-      "assocLoadFailed": "关联关系加载失败",
       "assocCreated": "关联已创建",
       "assocCreatedDesc": "人员已关联到 GitHub 账号。",
       "assocCreateFailed": "创建关联失败",

@@ -1,11 +1,7 @@
 {
   "generic": {
     "networkError": "Network error. Please check your connection and try again.",
-    "requestFailed": "Request failed",
-    "serverError": "Server error. Please try again later.",
-    "notFound": "The requested resource was not found",
-    "unauthorized": "Your session has expired. Please log in again.",
-    "forbidden": "You do not have permission to perform this action"
+    "requestFailed": "Request failed"
   },
   "messages": {
     "authenticationRequired": "Authentication required",
@@ -35,7 +31,6 @@
     "allocationMaxExceeded": "Allocation percentage cannot exceed 200%",
     "invalidAssignmentDateMode": "Invalid assignment date mode. Must be one of: fixed, project, phase",
     "startBeforeEnd": "Start date must be before or equal to end date",
-    "cannotDetermineDates": "Unable to determine assignment dates. Please provide explicit dates or ensure the project has phases.",
     "assignmentDeleted": "Assignment deleted successfully",
     "personIdRequired": "Person ID is required"
   },

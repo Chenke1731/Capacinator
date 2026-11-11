@@ -1,7 +1,6 @@
 {
   "tab": "收件箱",
   "title": "需求收件箱",
-  "subtitle": "先收进来、再分类——粘贴需求文字、JDC 链接或 SR 号",
   "sources": {
     "jdc_sr": "JDC/SR",
     "internal": "内部提出",
@@ -95,7 +94,6 @@
       "raw": "原始内容",
       "note": "备注",
       "createdAt": "收件时间",
-      "convertedProject": "已转换为项目",
       "rejectReason": "拒绝理由",
       "editHint": "待处理状态可编辑"
     },
@@ -133,8 +131,6 @@
   },
   "errors": {
     "duplicate": "该编号/链接已收入过",
-    "invalidStatus": "该条目已不在待处理状态",
-    "notFound": "收件记录不存在",
     "generic": "操作失败"
   }
 }

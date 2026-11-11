@@ -1,14 +1,12 @@
 {
   "dashboard": "Dashboard",
   "projects": "Projects",
-  "components": "Components",
   "iterations": "Iterations",
   "people": "People",
   "assignments": "Assignments",
   "scenarios": "Scenarios",
   "reports": "Reports",
   "importExport": "Import & Export",
-  "locations": "Locations",
   "auditLog": "Audit Log",
   "settings": "Settings"
 }

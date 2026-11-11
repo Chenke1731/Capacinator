@@ -1,7 +1,6 @@
 {
   "tab": "Inbox",
   "title": "Demand Inbox",
-  "subtitle": "Capture first, classify later — paste demand text, JDC links or SR numbers",
   "sources": {
     "jdc_sr": "JDC/SR",
     "internal": "Internal",
@@ -95,7 +94,6 @@
       "raw": "Original text",
       "note": "Note",
       "createdAt": "Captured at",
-      "convertedProject": "Converted to project",
       "rejectReason": "Reject reason",
       "editHint": "Editable while pending"
     },
@@ -133,8 +131,6 @@
   },
   "errors": {
     "duplicate": "This source ref is already captured",
-    "invalidStatus": "This intake is no longer pending",
-    "notFound": "Intake not found",
     "generic": "Operation failed"
   }
 }

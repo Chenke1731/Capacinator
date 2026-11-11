@@ -179,13 +179,14 @@ for (const combo of COMBOS) {
   const collisionScope=await page.locator('[role="dialog"]').filter({visible:true}).count()?'[role="dialog"]':await page.locator('.modal-overlay').count()?'.modal-overlay':STATE==='filter'?'.filter-dropdown-content':await page.locator('.unified-tab-content').count()?'.unified-tab-content':profile.root;
   if(!await page.locator(collisionScope).count())throw new Error(`Missing collision root ${collisionScope}`);
   const collisions = await findCollisions(page, collisionScope);
-  // 碰撞旧债冻结（批 C，2026-11-11，ALLOWLIST 同款纪律）：verify:visual 停跑
-  // 数月间积累的两对 1600 档需求台右缘裁剪幽灵条——worktree 实证存在于批 A
-  // 之前（480cd54 复现），非本系列回归；修复=需求台列宽产品级重排。键=碰撞
-  // 文本前缀（y 坐标随行序浮动，文本为稳定锚）；到期未修转红。
+  // 碰撞旧债冻结（批 C 立、批 D 更正注记，2026-11-11）：需求台 1600 档两对
+  // 4×24px 重叠——批 D 诊断实锤为**真实列间渗出**（req-primary 药丸 77px 全
+  // 可见，向右渗入操作列压住 req-icon-btn 4px），非裁剪残片——findCollisions
+  // 的裁剪感知判据（确属被裁且 <8px 才跳）正确地未吞掉它们。修复=需求台
+  // 默认列宽/药丸收缩的产品级调整。键=碰撞文本前缀（y 随行序浮动）。
   const COLLISION_EXCEPTIONS = new Map([
-    ['未投入×', { expiry: '2026-12-31', note: '需求台 1600 右缘:药丸被列容器裁成 4px 幽灵条×icon-btn,pre-A 旧债' }],
-    ['孙孙前端11-0×', { expiry: '2026-12-31', note: '同族:req-primary 药丸右缘裁剪幽灵条' }],
+    ['未投入×', { expiry: '2026-12-31', note: '需求台 1600:primary 药丸渗入操作列 4px 压住 icon-btn,pre-A 旧债(批 D 更正:真实渗出非裁剪残片)' }],
+    ['孙孙前端11-0×', { expiry: '2026-12-31', note: '同族:聚合行 primary 药丸列间渗出' }],
   ]);
   const novelCollisions = collisions.filter(c =>
     ![...COLLISION_EXCEPTIONS].some(([prefix, meta]) =>

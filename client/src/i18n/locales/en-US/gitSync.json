@@ -115,8 +115,6 @@
       "revoked": "Revoked"
     },
     "toasts": {
-      "loadFailed": "Failed to load GitHub connections",
-      "loadOneFailed": "Failed to load GitHub connection",
       "initiateFailed": "Failed to initiate GitHub connection",
       "connected": "GitHub account connected",
       "connectedDesc": "Your GitHub account has been successfully connected.",
@@ -127,7 +125,6 @@
       "removed": "Connection removed",
       "removedDesc": "GitHub connection has been removed.",
       "removeFailed": "Failed to remove connection",
-      "assocLoadFailed": "Failed to load associations",
       "assocCreated": "Association created",
       "assocCreatedDesc": "Person has been linked to GitHub account.",
       "assocCreateFailed": "Failed to create association",

@@ -71,7 +71,6 @@
     "phone": "电话",
     "title": "职位",
     "department": "部门",
-    "location": "地点",
     "primaryRole": "主要角色",
     "supervisor": "上级",
     "workerType": "人员类型",
@@ -87,7 +86,6 @@
     "titleShort": "职位",
     "department": "请输入部门",
     "departmentShort": "部门",
-    "selectLocation": "请选择地点",
     "selectPrimaryRole": "请选择主要角色",
     "selectSupervisor": "请选择上级"
   },

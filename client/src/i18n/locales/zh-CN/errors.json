@@ -1,11 +1,7 @@
 {
   "generic": {
     "networkError": "网络错误,请检查网络连接后重试。",
-    "requestFailed": "请求失败",
-    "serverError": "服务器错误,请稍后重试。",
-    "notFound": "请求的资源不存在",
-    "unauthorized": "登录状态已过期,请重新登录。",
-    "forbidden": "你没有执行此操作的权限"
+    "requestFailed": "请求失败"
   },
   "messages": {
     "authenticationRequired": "请先登录",
@@ -35,7 +31,6 @@
     "allocationMaxExceeded": "分配比例不能超过 200%",
     "invalidAssignmentDateMode": "无效的分配日期模式,只能是 fixed、project 或 phase",
     "startBeforeEnd": "开始日期必须早于或等于结束日期",
-    "cannotDetermineDates": "无法确定分配日期,请显式指定日期,或确保项目已定义阶段。",
     "assignmentDeleted": "分配已删除",
     "personIdRequired": "缺少人员 ID"
   },

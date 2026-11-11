@@ -71,7 +71,6 @@
     "phone": "Phone",
     "title": "Title",
     "department": "Department",
-    "location": "Location",
     "primaryRole": "Primary Role",
     "supervisor": "Supervisor",
     "workerType": "Worker Type",
@@ -87,7 +86,6 @@
     "titleShort": "Job title",
     "department": "Enter department",
     "departmentShort": "Department",
-    "selectLocation": "Select location",
     "selectPrimaryRole": "Select primary role",
     "selectSupervisor": "Select supervisor"
   },

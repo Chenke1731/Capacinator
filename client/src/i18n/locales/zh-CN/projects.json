@@ -1,8 +1,5 @@
 {
-  "title": "项目",
-  "subtitle": "管理项目时间计划和资源分配",
   "newProject": "新建项目",
-  "viewDemands": "查看需求",
   "createProject": "创建项目",
   "updateProject": "更新项目",
   "editProject": "编辑项目",
@@ -28,17 +25,13 @@
   "noOwner": "无负责人",
   "noTitle": "无职位",
   "sameLocation": "(同地点)",
-  "manageAllocations": "管理分配",
   "searchPlaceholder": "搜索项目…",
-  "deleteConfirmation": "确定要删除项目“{{name}}”吗?此操作无法撤销。",
-  "loadFailed": "加载项目失败",
   "createFailed": "创建项目失败。请检查输入后重试。",
   "fixErrors": "请先修正下方的错误再提交。",
   "a11yRequired": "(必填)",
   "resourceDemand": "资源需求",
   "teamAssignments": "团队分配",
   "noTeamAssignments": "暂无团队分配",
-  "addAssignment": "添加分配",
   "history": "历史记录",
   "deleteAssignmentConfirm": "确定要删除此分配吗?",
   "editAssignment": "编辑分配",
@@ -77,7 +70,6 @@
     "enterName": "请输入项目名称",
     "selectProjectType": "选择项目类型",
     "selectSubType": "选择子类型",
-    "selectLocation": "选择地点",
     "selectPriority": "选择优先级",
     "selectOwner": "选择项目负责人",
     "selectCurrentPhase": "选择当前阶段",
@@ -94,9 +86,7 @@
   "validation": {
     "nameRequired": "项目名称为必填项",
     "typeRequired": "项目类型为必填项",
-    "subTypeRequired": "项目子类型为必填项",
-    "locationRequired": "地点为必填项",
-    "ownerRequired": "项目负责人为必填项"
+    "subTypeRequired": "项目子类型为必填项"
   },
   "preview": {
     "title": "项目预览",
@@ -136,11 +126,7 @@
     "addSubType": "添加项目子类型",
     "subTypesCount_other": "{{count}} 个子类型",
     "noDescription": "暂无描述",
-    "typeName": "类型名称",
-    "typeNamePlaceholder": "类型名称…",
-    "descriptionPlaceholder": "描述…",
     "color": "颜色",
-    "clickToChangeColor": "点击更换颜色",
     "loadingDetails": "正在加载项目类型详情…",
     "notFoundTitle": "未找到项目类型",
     "notFoundDetail": "您查找的项目类型不存在或无法加载。",
@@ -261,8 +247,6 @@
   },
   "lifecycle": {
     "filterLabel": "生命周期",
-    "standingOption": "常驻类(无生命周期)",
-    "deadlineShort": "死线 {{date}}",
     "state": {
       "pending_rat": "待RAT",
       "nok": "NOK",
@@ -320,12 +304,10 @@
       "more": "全部状态操作",
       "dateAuto": "留空=项目周期",
       "dateAutoHint": "日期留空则默认取项目期望起止;排序即建池,池占位与实名同权参与产能计算。",
-      "terminal": "终态,无后续流转",
       "transitionFailed": "流转失败"
     },
     "selectorTitle": "切换状态",
     "currentLabel": "当前",
-    "jumpFailed": "切换失败",
     "warningDot": "存在状态告警",
     "warningsTitle": "状态告警",
     "warnings": {
@@ -412,19 +394,7 @@
     "confirmNaming": "确认分配 {{count}} 人",
     "nameFailed": "实名化失败",
     "poolSaveFailed": "保存池占位失败",
-    "designShort": "设",
-    "devShort": "开",
-    "summaryTitle": "设计侧: 实名{{dn}} + 池{{dp}} FTE\\n开发侧: 实名{{vn}} + 池{{vp}} FTE",
-    "designFull": "设计",
-    "devFull": "开发",
-    "adjustTitle": "人力调整",
-    "adjustHint": "点击调整人力",
-    "adjustHintFooter": "池占位即刻参与产能计算。",
-    "breakdown": "实名 {{named}} + 池 {{pool}}",
-    "namedLabel": "实名 {{n}}",
-    "poolLabel": "池 {{n}}",
-    "adjustHow": "单位 FTE · 此处只调池占位（±0.5）；实名在详情页选人",
-    "poolShort": "池"
+    "devFull": "开发"
   },
   "tags": {
     "label": "标签",
@@ -448,16 +418,13 @@
   "board": {
     "countSummary": "共 {{count}} 项需求",
     "colName": "项目名称",
-    "colStaffing": "人力（实＋池）",
     "colVersion": "版本",
     "colPriority": "优先级",
-    "colOwner": "负责人",
     "empty": "暂无需求事项",
     "resetFilters": "清除筛选",
     "colRelease": "交付计划",
     "resizeHint": "拖拽调整列宽，双击重置",
     "colComponent": "组件",
-    "colScale": "规模",
     "filterComponent": "组件",
     "arCount": "{{count}} AR",
     "decompose": "分解出 AR",
@@ -542,7 +509,6 @@
     "title": "编辑标签",
     "searchPlaceholder": "搜索标签…",
     "empty": "无匹配标签",
-    "none": "无",
     "newPlaceholder": "新建标签…",
     "newAdd": "新建并打上",
     "filterHint": "点击按此标签筛选，再点取消",
@@ -568,14 +534,10 @@
     "none": "—",
     "empty": "暂无组件，输入即新建",
     "clear": "清除组件",
-    "fieldLabel": "所属组件",
-    "fieldPlaceholder": "如 HCCL_驱动组"
+    "fieldLabel": "所属组件"
   },
   "scale": {
     "tooltip": "口径：最新一次评估（KLOC 与人月由估算 LOC 换算）；评估在详情页做",
-    "pmUnit": "人月",
-    "srTooltip": "子行评估之和；各行评估在详情页做",
-    "empty": "—",
     "editPlaceholder": "KLOC",
     "deviationHint": "SR 值与子 AR 之和不一致(琥珀=偏差提醒)",
     "derivedHint": "AR 的计算和(删空输入可清除自定义值,恢复默认计算)"
@@ -606,7 +568,6 @@
   },
   "effort": {
     "tooltip": "评估开发人月（最新评估换算）",
-    "srTooltip": "子行评估人月之和",
     "editPlaceholder": "人月",
     "overriddenHint": "手动编辑的人月(覆盖自动换算);修改代码规模不会重置它",
     "deviationHint": "SR 值与子 AR 之和不一致(琥珀=偏差提醒)",

@@ -34,9 +34,19 @@ export async function findCollisions(page, scopeSelector = '.unified-tab-content
         }
         return r;
       };
+      // 批 D（2026-11-11，评审 D2-a 裁剪感知版）：裁剪残片跳过——仅当元素
+      // 确属被祖先裁剪（未裁宽 − 可见宽 > 1px）且可见宽 < 8px 时视为残片。
+      // 天然窄元素（未裁宽即窄，如单字符徽章）不在此列，其真实重叠仍报。
+      const isClippedSliver = (el) => {
+        const full = el.getBoundingClientRect();
+        const vis = visRect(el);
+        return (full.width - (vis.right - vis.left) > 1) && (vis.right - vis.left) < 8;
+      };
       for (let a = 0; a < els.length; a++) {
+        if (isClippedSliver(els[a])) continue;
         for (let b = a + 1; b < els.length; b++) {
           if (els[a].contains(els[b]) || els[b].contains(els[a])) continue;
+          if (isClippedSliver(els[b])) continue;
           const A = visRect(els[a]);
           const B = visRect(els[b]);
           if (A.right - A.left < 2 || B.right - B.left < 2) continue;

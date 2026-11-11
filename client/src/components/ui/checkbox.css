@@ -73,19 +73,9 @@
   cursor: not-allowed;
 }
 
-/* Label styling */
-.checkbox-label {
-  margin-left: var(--space-2);
-  font-size: var(--text-base);
-  color: var(--text-primary);
-  user-select: none;
-  cursor: pointer;
-}
-
-.checkbox:disabled ~ .checkbox-label {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
+/* .checkbox-label + .checkbox:disabled ~ .checkbox-label 已随批 A 表单原语
+   收敛移除：checkbox.tsx 渲染 Tailwind 类不渲染该类（零消费者死定义），
+   唯一所有者为 App.css。 */
 
 /* Indeterminate state */
 .checkbox:indeterminate {

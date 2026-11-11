@@ -388,9 +388,9 @@
           "width": 259.5,
           "height": 216.796875,
           "font": 16,
-          "top": 662.5980834960938,
+          "top": 662.5977172851562,
           "clipTop": 40,
-          "offsetTop": 622.5980834960938
+          "offsetTop": 622.5977172851562
         },
         {
           "selector": "div:nth-of-type(1) > section:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1)",
@@ -848,9 +848,9 @@
           "width": 259.5,
           "height": 216.796875,
           "font": 16,
-          "top": 662.1884765625,
+          "top": 662.5996704101562,
           "clipTop": 40,
-          "offsetTop": 622.1884765625
+          "offsetTop": 622.5996704101562
         },
         {
           "selector": "div:nth-of-type(1) > section:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1)",

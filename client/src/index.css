@@ -604,6 +604,85 @@ input:focus, select:focus, textarea:focus {
   font-size: 1.125rem;
 }
 
+/* Recharts 主题化规则（批 A 图表收敛，2026-11-11 自 Charts.css 迁入全局）：
+   此前仅 person-detail 加载 Charts.css 时生效，其余图表页用 recharts 默认灰；
+   迁入后全站图表获得一致的轴/网格/legend/tooltip 主题。字号类规则只影响
+   未内联 fontSize 的图表（内联 props 恒胜 CSS——评审核实三组件 tick 字号
+   全部内联，故本组只实际裁颜色/材质）。 */
+.recharts-tooltip-wrapper {
+  z-index: 1000;
+  outline: none !important;
+}
+
+.recharts-tooltip-content {
+  background: hsl(var(--card)) !important;
+  border: 1px solid hsl(var(--border)) !important;
+  border-radius: 6px !important;
+  box-shadow: 0 4px 6px -1px color-mix(in srgb, var(--solid-shade) 10%, transparent) !important;
+}
+
+.recharts-legend-wrapper {
+  padding-top: 20px !important;
+}
+
+.recharts-legend-item {
+  margin-right: 20px !important;
+}
+
+.recharts-legend-item-text {
+  color: var(--text-secondary) !important;
+  fill: hsl(var(--muted-foreground)) !important;
+  font-size: 14px;
+}
+
+.recharts-default-tooltip .recharts-tooltip-item {
+  color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .recharts-legend-item-text {
+  fill: var(--text-secondary) !important;
+}
+
+[data-theme="dark"] .recharts-default-legend {
+  color: var(--text-secondary) !important;
+}
+
+[data-theme="dark"] .recharts-legend-wrapper {
+  color: var(--text-secondary) !important;
+}
+
+[data-theme="dark"] .recharts-layer.recharts-legend text {
+  fill: var(--text-secondary) !important;
+}
+
+.chart-container .recharts-line {
+  stroke-width: 2;
+}
+
+.chart-container .recharts-area {
+  fill-opacity: 0.1;
+}
+
+.chart-container .recharts-dot {
+  stroke-width: 2;
+}
+
+.chart-container .recharts-cartesian-grid line {
+  stroke: hsl(var(--muted));
+}
+
+.chart-container .recharts-xaxis text,
+.chart-container .recharts-yaxis text {
+  fill: hsl(var(--muted-foreground));
+  font-size: 12px;
+}
+
+.chart-container .recharts-xaxis .recharts-cartesian-axis-label,
+.chart-container .recharts-yaxis .recharts-cartesian-axis-label {
+  fill: hsl(var(--foreground));
+  font-weight: 500;
+}
+
 /* Actionable Tables Layout Styles */
 .actionable-sections {
   margin-top: 2rem;
@@ -863,39 +942,8 @@ input:focus, select:focus, textarea:focus {
   border-color: var(--primary-solid) !important;
 }
 
-.checkbox-label {
-  display: flex;
-  align-items: flex-start;
-  gap: 1rem;
-  cursor: pointer;
-  font-size: 0.875rem;
-  color: var(--text-primary);
-  user-select: none;
-  line-height: 1.5;
-  margin-bottom: 1rem;
-}
-
-/* Aggressive checkbox sizing override to defeat design system */
-.settings-section .checkbox-label input[type="checkbox"],
-.checkbox-label input[type="checkbox"],
-input[type="checkbox"].settings-checkbox,
-.settings-section input[type="checkbox"] {
-  width: 16px !important;
-  height: 16px !important;
-  min-width: 16px !important;
-  min-height: 16px !important;
-  max-width: 16px !important;
-  max-height: 16px !important;
-  padding: 0 !important;
-  margin: 0 !important;
-  margin-top: 2px !important;
-  accent-color: var(--primary-color);
-  cursor: pointer;
-  flex-shrink: 0;
-  transform: scale(1) !important;
-  border-radius: 3px !important;
-  appearance: auto !important;
-}
+/* checkbox-label 基线与 sizing 副本已随批 A 表单原语收敛移除（唯一所有者
+   App.css——本块为级联恒败的死副本） */
 
 .help-text {
   display: block;
@@ -963,49 +1011,9 @@ input[type="checkbox"].settings-checkbox,
   color: var(--danger);
 }
 
-/* NUCLEAR OPTION: Override ALL checkbox sizing in settings with maximum specificity */
-html body div.page-container div.settings-content input[type="checkbox"],
-html body div.page-container div.settings-section input[type="checkbox"], 
-html body div.page-container label.checkbox-label input[type="checkbox"],
-html body div.page-container div.settings-content label.checkbox-label input[type="checkbox"],
-html body div.page-container div.settings-section label.checkbox-label input[type="checkbox"],
-html body div.page-container div.settings-content div.settings-section input[type="checkbox"],
-input[type="checkbox"][class*="checkbox"],
-input[type="checkbox"] {
-  min-width: 16px !important;
-  min-height: 16px !important;
-  width: 16px !important;
-  height: 16px !important;
-  max-width: 16px !important;
-  max-height: 16px !important;
-  padding: 0 !important;
-  margin: 0 !important;
-  margin-top: 2px !important;
-  flex-shrink: 0 !important;
-  transform: none !important;
-  box-sizing: border-box !important;
-  appearance: auto !important;
-  -webkit-appearance: checkbox !important;
-  -moz-appearance: checkbox !important;
-}
-
-/* Force checkbox-label spacing */
-html body div.page-container label.checkbox-label,
-html body .settings-content .checkbox-label,
-html body .settings-section .checkbox-label,
-.checkbox-label {
-  display: flex !important;
-  align-items: flex-start !important;
-  gap: 0.75rem !important;
-  cursor: pointer !important;
-  font-size: 0.875rem !important;
-  color: var(--text-primary) !important;
-  user-select: none !important;
-  line-height: 1.5 !important;
-  margin-bottom: 1.5rem !important;
-  flex-wrap: nowrap !important;
-  flex-direction: row !important;
-}
+/* NUCLEAR OPTION 两块（input 全局 16px / label 间距强制）已随批 A 表单原语
+   收敛移除：生效值被 App.css 所有者吸收（gap 0.75rem / mb 1.5rem / nowrap /
+   row / 裸 input 16px 选择器），本处军备残骸删除后行为逐属性等价。 */
 
 /* Enhanced settings layout with responsive grid */
 .settings-content {
@@ -1326,14 +1334,8 @@ html body .settings-section .checkbox-label,
   font-size: 0.75rem;
 }
 
-.recharts-legend-item-text {
-  color: var(--text-secondary) !important;
-  font-size: 0.875rem;
-}
-
-.recharts-tooltip-wrapper {
-  outline: none !important;
-}
+/* .recharts-legend-item-text / .recharts-tooltip-wrapper 旧副本已并入上方
+   图表收敛区（值等价/并集），不再重复定义 */
 
 .recharts-default-tooltip {
   background-color: var(--bg-secondary) !important;

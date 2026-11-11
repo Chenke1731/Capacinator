@@ -498,23 +498,47 @@
   border-color: var(--danger-color);
 }
 
+/* checkbox-label 唯一所有者（批 A 表单原语收敛，2026-11-11）：生效值吸收
+   自 index.css "NUCLEAR" 块——包括其选择器清单与 !important：非重要声明
+   无法胜过 `.setting-item label{display:block}`（0,1,1）等历史 scoped 规则
+   （批后探针实测 margin/display 即因此回归）。16px 为已基线在案的
+   target-size 债，触控修复归批 B 整体重写。 */
 .checkbox-label {
   display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
   align-items: flex-start;
-  gap: 0.5rem;
+  gap: 0.75rem;
   cursor: pointer;
   font-size: 0.875rem;
   color: var(--text-primary);
   user-select: none;
   line-height: 1.5;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
 }
 
-/* Aggressive checkbox sizing override to defeat design system */
+html body div.page-container label.checkbox-label,
+html body .settings-content .checkbox-label,
+html body .settings-section .checkbox-label,
+.setting-item .checkbox-label {
+  display: flex !important;
+  align-items: flex-start !important;
+  gap: 0.75rem !important;
+  cursor: pointer !important;
+  font-size: 0.875rem !important;
+  color: var(--text-primary) !important;
+  user-select: none !important;
+  line-height: 1.5 !important;
+  margin-bottom: 1.5rem !important;
+  flex-wrap: nowrap !important;
+  flex-direction: row !important;
+}
+
 .settings-section .checkbox-label input[type="checkbox"],
 .checkbox-label input[type="checkbox"],
 input[type="checkbox"].settings-checkbox,
-.settings-section input[type="checkbox"] {
+.settings-section input[type="checkbox"],
+input[type="checkbox"] {
   width: 16px !important;
   height: 16px !important;
   min-width: 16px !important;
@@ -526,10 +550,13 @@ input[type="checkbox"].settings-checkbox,
   margin-top: 2px !important;
   accent-color: var(--primary-color);
   cursor: pointer;
-  flex-shrink: 0;
-  transform: scale(1) !important;
+  flex-shrink: 0 !important;
+  transform: none !important;
+  box-sizing: border-box !important;
   border-radius: 3px !important;
   appearance: auto !important;
+  -webkit-appearance: checkbox !important;
+  -moz-appearance: checkbox !important;
 }
 
 .checkbox-text {

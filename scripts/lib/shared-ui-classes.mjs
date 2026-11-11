@@ -66,13 +66,13 @@ export const ALLOWLIST = new Map([]);
  * 所有者内部冲突冻结（规则 7a，D-03 Batch 1）：共享类在 OWNER_FILES 中
  * 只允许一个定义文件。同族三次实锤（chart-container、summary-card、
  * checkbox-label 均为所有者文件之间级联互踩；empty-state 已在 Batch 1
- * 收敛为 App.css 单所有者）。三组存量冻结，到期未收敛则 lint 转红。
+ * 收敛）。批 A（2026-11-11）三组全部收敛：chart-container/summary-card
+ * 归 index.css（recharts 主题规则随迁全局，Charts.css 只留图表私有类）、
+ * checkbox-label 归 App.css（吸收 NUCLEAR 生效值 + 全局裸 input 选择器，
+ * index.css 军备残骸与 ui/checkbox.css 死定义删除）。**冻结清单自此为空
+ * ——2026-12-31 到期面上不再有任何冻结依赖。**
  */
-export const OWNER_DUPS = new Map([
-  ['chart-container', {files:['client/src/index.css','client/src/components/Charts.css'], expiry:'2026-12-31', note:'两所有者几何不同（1.5rem+border vs 20px+shadow+margin），待图表批次收敛'}],
-  ['summary-card', {files:['client/src/index.css','client/src/components/Charts.css'], expiry:'2026-12-31', note:'同上，与 chart-container 同批收敛'}],
-  ['checkbox-label', {files:['client/src/App.css','client/src/index.css','client/src/components/ui/checkbox.css'], expiry:'2026-12-31', note:'三处定义（横排/纵排并存），待表单原语批次收敛'}],
-]);
+export const OWNER_DUPS = new Map([]);
 
 /**
  * 注册缺主冻结（规则 7b，D-03 Batch 1）：注册进 SHARED_CLASSES 的类必须

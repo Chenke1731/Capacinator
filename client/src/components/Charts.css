@@ -1,11 +1,8 @@
-/* Chart Container Styles */
-.chart-container {
-  background: hsl(var(--card));
-  border-radius: 8px;
-  box-shadow: 0 1px 3px 0 color-mix(in srgb, var(--solid-shade) 10%, transparent), 0 1px 2px -1px color-mix(in srgb, var(--solid-shade) 10%, transparent);
-  margin: 20px 0;
-  padding: 20px;
-}
+/* .chart-container/.summary-card 基线定义已移除（批 A 图表收敛，2026-11-11）：
+   唯一所有者为 index.css（此前两所有者几何不同 + Charts.css 仅由
+   PersonDetails 加载，导致 person-detail 与全站卡片分裂且随导航序漂移）。
+   recharts 主题化规则同样迁至 index.css 全局生效。本文件保留图表组件
+   私有类（.chart-header/.summary-value/.custom-tooltip 等）。 */
 
 .chart-header {
   margin-bottom: 20px;
@@ -63,13 +60,8 @@
   gap: 15px;
 }
 
-.summary-card {
-  background: hsl(var(--muted));
-  border: 1px solid hsl(var(--border));
-  border-radius: 6px;
-  padding: 15px;
-  text-align: center;
-}
+/* .summary-card 基线随图表收敛移除（owner=index.css）；.summary-value 为
+   本文件图表组件私有类，保留 */
 
 .summary-value {
   font-size: 1.5rem;
@@ -141,99 +133,23 @@
   box-shadow: 0 0 0 1px color-mix(in srgb, var(--solid-foreground) 20%, transparent);
 }
 
-/* Responsive Design */
+/* Responsive Design（.chart-container 的 768 伴随规则随基线删除——迁移它会把
+   全站移动端图表卡片改成 15px+10px margin 的旧 Charts.css 几何，768 是
+   守卫盲区无人验收；私有类的响应式规则保留） */
 @media (max-width: 768px) {
-  .chart-container {
-    margin: 10px 0;
-    padding: 15px;
-  }
-  
   .summary-cards {
     grid-template-columns: repeat(2, 1fr);
   }
-  
+
   .breakdown-legend {
     flex-direction: column;
     gap: 10px;
   }
 }
 
-/* Recharts Customization */
-.recharts-tooltip-wrapper {
-  z-index: 1000;
-}
-
-.recharts-tooltip-content {
-  background: hsl(var(--card)) !important;
-  border: 1px solid hsl(var(--border)) !important;
-  border-radius: 6px !important;
-  box-shadow: 0 4px 6px -1px color-mix(in srgb, var(--solid-shade) 10%, transparent) !important;
-}
-
-.recharts-legend-wrapper {
-  padding-top: 20px !important;
-}
-
-.recharts-legend-item {
-  margin-right: 20px !important;
-}
-
-.recharts-legend-item-text {
-  color: var(--text-secondary) !important;
-  fill: hsl(var(--muted-foreground)) !important;
-  font-size: 14px;
-}
-
-.recharts-default-tooltip .recharts-tooltip-item {
-  color: var(--text-primary) !important;
-}
-
-/* Dark mode legend text improvements */
-[data-theme="dark"] .recharts-legend-item-text {
-  fill: var(--text-secondary) !important;
-}
-
-[data-theme="dark"] .recharts-default-legend {
-  color: var(--text-secondary) !important;
-}
-
-/* Fix legend visibility in dark mode */
-[data-theme="dark"] .recharts-legend-wrapper {
-  color: var(--text-secondary) !important;
-}
-
-[data-theme="dark"] .recharts-layer.recharts-legend text {
-  fill: var(--text-secondary) !important;
-}
-
-/* Chart Colors */
-.chart-container .recharts-line {
-  stroke-width: 2;
-}
-
-.chart-container .recharts-area {
-  fill-opacity: 0.1;
-}
-
-.chart-container .recharts-dot {
-  stroke-width: 2;
-}
-
-.chart-container .recharts-cartesian-grid line {
-  stroke: hsl(var(--muted));
-}
-
-.chart-container .recharts-xaxis text,
-.chart-container .recharts-yaxis text {
-  fill: hsl(var(--muted-foreground));
-  font-size: 12px;
-}
-
-.chart-container .recharts-xaxis .recharts-cartesian-axis-label,
-.chart-container .recharts-yaxis .recharts-cartesian-axis-label {
-  fill: hsl(var(--foreground));
-  font-weight: 500;
-}
+/* Recharts 主题化规则全段（含 8 条非作用域 tooltip/legend 规则与
+   chart-container 后代规则）已随图表收敛迁至 index.css 全局生效——
+   此前仅 person-detail 加载本文件时生效，其余图表页用 recharts 默认灰。 */
 
 /* Custom Tooltip Styles */
 .custom-tooltip {

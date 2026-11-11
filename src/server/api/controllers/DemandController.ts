@@ -122,7 +122,9 @@ export class DemandController extends BaseController {
 
   async getDemandGaps(req: Request, res: Response) {
     const result = await this.executeQuery(
-      async () => this.demandService.getDemandGaps(),
+      // I01v/D15：缺口按选定场景切片（缺省 baseline）——与报表读侧同一原语，
+      // 旧 capacity_gaps_view 会把全部 active 分支叠加（EXP-B09 同缺陷）
+      async () => this.demandService.getDemandGaps(resolveScenarioId(req.headers['x-scenario-id'])),
       res,
       'Failed to fetch demand gaps'
     );

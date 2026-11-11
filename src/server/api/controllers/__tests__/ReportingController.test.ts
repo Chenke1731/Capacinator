@@ -171,9 +171,11 @@ describe('ReportingController', () => {
       await controller.getCapacityReport(mockReq, mockRes);
       await flushPromises();
 
+      // I01v/D15：容量报表按场景切片，缺省头回退 baseline
       expect(mockReportDataService.getCapacityReport).toHaveBeenCalledWith({
         startDate: '2024-01-01',
-        endDate: '2024-12-31'
+        endDate: '2024-12-31',
+        scenarioId: 'baseline-0000-0000-0000-000000000000'
       });
       expect(mockRes.json).toHaveBeenCalledWith(
         expect.objectContaining({

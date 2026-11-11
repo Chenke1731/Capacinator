@@ -28,10 +28,11 @@ export class ReportingController extends BaseController {
 
     const result = await this.executeQuery(
       // 日期窗口参数贯通(2026-10-13 全库审计: 原先客户端日期只进 queryKey,
-      // 服务端不读——换日期拉同一份数据)
+      // 服务端不读——换日期拉同一份数据)；I01v/D15 场景切片贯通(缺省 baseline)
       async () => this.reportDataService.getDashboardStats({
         startDate: req.query.start_date as string | undefined,
-        endDate: req.query.end_date as string | undefined
+        endDate: req.query.end_date as string | undefined,
+        scenarioId: resolveScenarioId(req.headers['x-scenario-id']),
       }),
       res,
       'Failed to fetch dashboard data'
@@ -55,9 +56,11 @@ export class ReportingController extends BaseController {
   });
 
   getCapacityReport = this.asyncHandler(async (req: RequestWithLogging, res: Response) => {
-    const filters: DateRangeFilter = {
+    const filters: DateRangeFilter & { scenarioId?: string } = {
       startDate: req.query.startDate as string | undefined,
       endDate: req.query.endDate as string | undefined,
+      // I01v/D15：容量报表按选定场景切片（缺省 baseline）
+      scenarioId: resolveScenarioId(req.headers['x-scenario-id']),
     };
 
     const result = await this.executeQuery(
@@ -193,7 +196,8 @@ export class ReportingController extends BaseController {
     const filters: DemandReportFilters = {
       startDate: req.query.startDate as string | undefined,
       endDate: req.query.endDate as string | undefined,
-      scenarioId: req.headers['x-scenario-id'] as string | undefined,
+      // I01v/D15：缺省回退 baseline（旧行为缺省=全量叠加，EXP-B09）
+      scenarioId: resolveScenarioId(req.headers['x-scenario-id']),
       includeAllScenarios: req.query.includeAllScenarios === 'true',
     };
 
@@ -235,7 +239,8 @@ export class ReportingController extends BaseController {
     req.logger.info('Gaps analysis endpoint called');
 
     const result = await this.executeQuery(
-      async () => this.reportDataService.getGapsAnalysis(),
+      // I01v/D15：缺口分析按选定场景切片（缺省 baseline）
+      async () => this.reportDataService.getGapsAnalysis(resolveScenarioId(req.headers['x-scenario-id'])),
       res,
       'Failed to fetch gaps analysis'
     );

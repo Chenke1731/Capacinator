@@ -7,6 +7,7 @@ import {
   HOURS_PER_WORKDAY
 } from '../calc/workCalendar.js';
 import { BASELINE_SCENARIO_ID } from '../calc/effectiveAssignments.js';
+import { roleCapacityGaps } from '../calc/roleGaps.js';
 import type {
   DemandSummaryFilters,
   ProjectDemandsData,
@@ -384,18 +385,20 @@ export class DemandCalculationService {
 
   /**
    * Get demand gaps where demand exceeds capacity
+   * I01v/D15：改吃场景切片原语（缺省 baseline）——旧 capacity_gaps_view 汇总
+   * 全部 active 分支，建分支即翻倍（EXP-B09 同缺陷，报表读侧同批修复）
    */
-  async getDemandGaps(): Promise<DemandGapsData> {
-    const gapsData = await this.db('capacity_gaps_view').select('*');
+  async getDemandGaps(scenarioId: string = BASELINE_SCENARIO_ID): Promise<DemandGapsData> {
+    const gapsData = await roleCapacityGaps(this.db, scenarioId);
 
     const gaps = gapsData
-      .map((role: Record<string, unknown>) => {
-        const gapFte = (role.total_demand_fte as number) - (role.total_capacity_fte as number);
+      .map((role) => {
+        const gapFte = Number(role.total_demand_fte) - Number(role.total_capacity_fte);
         return {
-          role_id: role.role_id as string,
-          role_name: role.role_name as string,
-          total_demand_fte: (role.total_demand_fte as number) || 0,
-          total_capacity_fte: (role.total_capacity_fte as number) || 0,
+          role_id: role.role_id,
+          role_name: role.role_name,
+          total_demand_fte: Number(role.total_demand_fte) || 0,
+          total_capacity_fte: Number(role.total_capacity_fte) || 0,
           gap_fte: gapFte,
         };
       })

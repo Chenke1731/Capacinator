@@ -2,6 +2,8 @@ import type { Knex } from 'knex';
 import { BASELINE_SCENARIO_ID } from '../calc/effectiveAssignments.js';
 import { segmentedWorkHours } from '../calc/capacitySegments.js';
 import { fetchApprovedAvailabilityOverrides } from '../calc/availabilityOverrides.js';
+import { roleCapacityGaps } from '../calc/roleGaps.js';
+import { personUtilizationRows } from '../calc/personUtilization.js';
 import type {
   DateRangeFilter,
   DemandReportFilters,
@@ -39,10 +41,13 @@ export class ReportDataService {
   /**
    * Get dashboard summary statistics
    */
-  async getDashboardStats(filters: DateRangeFilter = {}): Promise<DashboardStats> {
+  async getDashboardStats(filters: DateRangeFilter & { scenarioId?: string } = {}): Promise<DashboardStats> {
+    // I01v/D15：场景切片——缺省回退 baseline（EXP-B09：聚合视图全场景叠加
+    // 会让建分支后的缺口/利用率数字翻倍）
+    const scenarioId = filters.scenarioId || BASELINE_SCENARIO_ID;
     // 日期窗口参数化(2026-10-13 全库审计): 缺省=今天,保持旧行为;给窗口时
-    // "活跃"= 与窗口重叠(start<=窗口末 && end>=窗口头),参考日期取窗口末
-    const currentDate = filters.endDate || new Date().toISOString().split('T')[0];
+    // "活跃"= 与窗口重叠(start<=窗口末 && end>=窗口始),参考日期取窗口末
+    const currentDate = filters.endDate || toISODateLocal(new Date());
     const windowStart = filters.startDate || currentDate;
 
     // Get summary stats - count projects that have phases overlapping the window
@@ -76,12 +81,12 @@ export class ReportDataService {
     // Calculate project health status
     const projectHealth = this.calculateProjectHealth(currentProjects, currentDate);
 
-    // Get capacity gaps
-    const capacityGapsData = await this.db('capacity_gaps_view').select('*');
+    // Get capacity gaps（场景切片原语；055 CTE 内联 + 需求侧只计选定场景）
+    const capacityGapsData = await roleCapacityGaps(this.db, scenarioId);
     const capacityGaps = this.categorizeCapacityGaps(capacityGapsData);
 
-    // Get utilization overview
-    const personUtilizationData = await this.db('person_utilization_view').select('*');
+    // Get utilization overview（场景切片；非 baseline 时分子按场景重算）
+    const personUtilizationData = await personUtilizationRows(this.db, scenarioId);
     const utilization = this.calculateUtilizationStats(personUtilizationData);
     const availability = this.calculateAvailability(personUtilizationData);
 
@@ -149,14 +154,16 @@ export class ReportDataService {
   /**
    * Get capacity report with gaps and utilization data
    */
-  async getCapacityReport(filters: DateRangeFilter): Promise<CapacityReportData> {
+  async getCapacityReport(filters: DateRangeFilter & { scenarioId?: string }): Promise<CapacityReportData> {
     const { startDate, endDate } = filters;
+    // I01v/D15：场景切片（缺省 baseline）；需求侧走 applyScenarioFilter
+    const scenarioId = filters.scenarioId || BASELINE_SCENARIO_ID;
 
-    // Get capacity gaps
-    const capacityGaps = await this.db('capacity_gaps_view').select('*') as CapacityGapRow[];
+    // Get capacity gaps（场景切片原语，替代 capacity_gaps_view 全场景叠加）
+    const capacityGaps = await roleCapacityGaps(this.db, scenarioId) as CapacityGapRow[];
 
-    // Get person utilization
-    const personUtilizationRaw = await this.db('person_utilization_view').select('*') as PersonUtilizationRow[];
+    // Get person utilization（场景切片；非 baseline 时分子按场景重算）
+    const personUtilizationRaw = await personUtilizationRows(this.db, scenarioId) as unknown as PersonUtilizationRow[];
 
     // Transform utilization data
     const utilizationData = this.transformUtilizationData(personUtilizationRaw);
@@ -170,6 +177,9 @@ export class ReportDataService {
         'projects.name as project_name',
         'roles.name as role_name'
       );
+
+    const scenarioType = await this.getScenarioType(scenarioId);
+    demandsQuery = this.applyScenarioFilter(demandsQuery, scenarioId, undefined, scenarioType);
 
     if (startDate) {
       demandsQuery = demandsQuery.where('project_demands_view.end_date', '>=', startDate);
@@ -224,10 +234,10 @@ export class ReportDataService {
 
     // Use current date as endDate if not provided
     const effectiveEndDate = endDate || (startDate
-      ? new Date(new Date(startDate).getTime() + 90 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
-      : new Date().toISOString().split('T')[0]);
+      ? toISODateLocal(new Date(new Date(startDate).getTime() + 90 * 24 * 60 * 60 * 1000))
+      : toISODateLocal(new Date()));
 
-    const effectiveStartDate = startDate || new Date().toISOString().split('T')[0];
+    const effectiveStartDate = startDate || toISODateLocal(new Date());
 
     // Get utilization data with proper date filtering
     const utilizationQuery = `
@@ -318,7 +328,9 @@ export class ReportDataService {
    * Get demand report with aggregations
    */
   async getDemandReport(filters: DemandReportFilters): Promise<DemandReportData> {
-    const { startDate, endDate, scenarioId, includeAllScenarios } = filters;
+    const { startDate, endDate, includeAllScenarios } = filters;
+    // I01v/D15：缺省回退 baseline 而非全量叠加（EXP-B09）
+    const scenarioId = filters.scenarioId || BASELINE_SCENARIO_ID;
 
     // Build base query with scenario filtering
     let demandQuery = this.db('project_demands_view').select('*');
@@ -329,21 +341,21 @@ export class ReportDataService {
     const demandData = await demandQuery as DemandDataRow[];
 
     // Aggregate by project
-    const byProject = await this.aggregateDemandByProject(filters);
+    const byProject = await this.aggregateDemandByProject({ ...filters, scenarioId });
 
     // Aggregate by role
-    const by_role = await this.aggregateDemandByRole(filters);
+    const by_role = await this.aggregateDemandByRole({ ...filters, scenarioId });
 
     // Aggregate by project type
-    const by_project_type = await this.aggregateDemandByProjectType(filters);
+    const by_project_type = await this.aggregateDemandByProjectType({ ...filters, scenarioId });
 
     // Generate timeline
-    const timeline = await this.generateDemandTimeline(filters);
+    const timeline = await this.generateDemandTimeline({ ...filters, scenarioId });
 
     // Calculate summary
     const totalHours = byProject.reduce((sum, project) => sum + project.demand, 0);
-    const projectsWithDemand = await this.countDistinctProjects(filters);
-    const rolesWithDemand = await this.countDistinctRoles(filters);
+    const projectsWithDemand = await this.countDistinctProjects({ ...filters, scenarioId });
+    const rolesWithDemand = await this.countDistinctRoles({ ...filters, scenarioId });
 
     return {
       demandData,
@@ -362,9 +374,12 @@ export class ReportDataService {
   /**
    * Get gaps analysis with capacity vs demand comparison
    */
-  async getGapsAnalysis(): Promise<GapsAnalysisData> {
-    // Get capacity gaps data
-    const capacityGapsRaw = await this.db('capacity_gaps_view').select('*') as CapacityGapRow[];
+  async getGapsAnalysis(scenarioId?: string): Promise<GapsAnalysisData> {
+    // I01v/D15：场景切片（缺省 baseline）
+    const sid = scenarioId || BASELINE_SCENARIO_ID;
+
+    // Get capacity gaps data（场景切片原语）
+    const capacityGapsRaw = await roleCapacityGaps(this.db, sid) as CapacityGapRow[];
 
     // Calculate gap percentage and status for each role
     const capacityGaps: ExtendedCapacityGap[] = capacityGapsRaw.map((gap) => {
@@ -395,10 +410,13 @@ export class ReportDataService {
       .select('*')
       .orderBy('total_allocation_percentage', 'asc') as ProjectHealthRow[];
 
-    // Get project demands
-    const projectDemands = await this.db('project_demands_view')
+    // Get project demands（场景切片；缺省 baseline 不再全量叠加）
+    let projectDemandsQuery = this.db('project_demands_view')
       .select('*')
       .where('time_status', '!=', 'PAST');
+    const scenarioType = await this.getScenarioType(sid);
+    projectDemandsQuery = this.applyScenarioFilter(projectDemandsQuery, sid, undefined, scenarioType);
+    const projectDemands = await projectDemandsQuery;
 
     // Calculate projects with unmet demands
     const criticalProjectGaps = this.calculateProjectsWithUnmetDemands(projectDemands, projectHealth);
@@ -562,7 +580,7 @@ export class ReportDataService {
   }
 
   private categorizeCapacityGaps(
-    capacityGapsData: Record<string, unknown>[]
+    capacityGapsData: Array<{ total_demand_fte?: number; total_capacity_fte?: number }>
   ): { GAP: number; TIGHT: number; OK: number } {
     let gapRoles = 0;
     let okRoles = 0;
@@ -617,13 +635,14 @@ export class ReportDataService {
 
   private transformUtilizationData(raw: PersonUtilizationRow[]): TransformedUtilizationData[] {
     return raw.map((person) => {
-      const totalAllocHours = person.total_allocation_percentage * (person.default_hours_per_day || 8) / 100.0;
+      // nullish 而非 ||：显式 0 工时是真 0（EXP-B05 族，BR-F07）
+      const totalAllocHours = person.total_allocation_percentage * (person.default_hours_per_day ?? 8) / 100.0;
 
       return {
         ...person,
         default_availability_percentage: person.current_availability_percentage,
         total_allocated_hours: totalAllocHours,
-        available_hours: person.default_hours_per_day || 8,
+        available_hours: person.default_hours_per_day ?? 8,
         allocation_status: this.mapUtilizationStatus(person.utilization_status ?? 'Available'),
         project_names: '',
       };
@@ -633,7 +652,7 @@ export class ReportDataService {
   private transformUtilizationReportData(raw: Record<string, unknown>[]): UtilizationReportData['utilizationData'] {
     return raw.map((person) => {
       const totalAllocHours = (person.total_allocation_percentage as number) *
-        (person.default_hours_per_day as number || 8) / 100.0;
+        ((person.default_hours_per_day as number | null) ?? 8) / 100.0;
 
       let allocationWarning: string | null = null;
       let displayAllocationPercentage = person.total_allocation_percentage as number;
@@ -665,7 +684,7 @@ export class ReportDataService {
         project_count: person.project_count as number,
         project_names: (person.project_names as string) || '',
         total_allocated_hours: totalAllocHours,
-        available_hours: (person.default_hours_per_day as number) || 8,
+        available_hours: (person.default_hours_per_day as number | null) ?? 8,
         allocation_status,
         allocation_warning: allocationWarning,
         display_allocation_percentage: displayAllocationPercentage,
@@ -928,8 +947,10 @@ export class ReportDataService {
         const currentMonth = (startMonth + i) % 12;
         months.push({
           monthKey: `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}`,
-          monthStart: new Date(currentYear, currentMonth, 1).toISOString().split('T')[0],
-          monthEnd: new Date(currentYear, currentMonth + 1, 0).toISOString().split('T')[0],
+          // 本地零点构造（R05 教训：toISOString 会把本地零点倒退一天——
+          // 2027-01-01 在 +08:00 变 2026-12-31，月桶边界错位）
+          monthStart: toISODateLocal(new Date(currentYear, currentMonth, 1)),
+          monthEnd: toISODateLocal(new Date(currentYear, currentMonth + 1, 0)),
         });
       }
 

@@ -2,6 +2,8 @@ import type { Response } from 'express';
 import { BaseController, RequestWithContext } from './BaseController.js';
 import { ServiceContainer } from '../../services/ServiceContainer.js';
 import { logger } from '../../services/logging/config.js';
+import { resolveScenarioId } from '../../services/calc/effectiveAssignments.js';
+import { roleCapacityGaps } from '../../services/calc/roleGaps.js';
 
 // Alias for backward compatibility
 type RequestWithLogging = RequestWithContext;
@@ -301,11 +303,11 @@ export class RolesController extends BaseController {
 
   async getCapacityGaps(req: RequestWithLogging, res: Response) {
     const result = await this.executeQuery(async () => {
-      const gaps = await this.db('capacity_gaps_view')
-        .select('*')
-        .orderBy('gap_fte', 'desc');
-
-      return gaps;
+      // I01v/D15：场景切片原语（缺省 baseline）；旧实现读 capacity_gaps_view
+      // 且 orderBy('gap_fte') 列不存在（视图列名 capacity_gap_fte）——本端点
+      // 此前必 500（客户端 api-client.ts:371 死声明，无消费方）
+      const gaps = await roleCapacityGaps(this.db, resolveScenarioId(req.headers['x-scenario-id']));
+      return gaps.sort((a, b) => b.capacity_gap_fte - a.capacity_gap_fte);
     }, req, res, 'Failed to fetch capacity gaps');
 
     if (result) {

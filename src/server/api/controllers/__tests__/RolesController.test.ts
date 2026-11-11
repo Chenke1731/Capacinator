@@ -468,35 +468,33 @@ describe('RolesController', () => {
 
   describe('getCapacityGaps - Get Capacity Gaps', () => {
     it('retrieves capacity gaps from view', async () => {
+      // I01v/D15：改吃 roleCapacityGaps 原语（场景切片），旧视图/死列
+      // orderBy('gap_fte') 退役——原语行按 capacity_gap_fte 降序返回
       const mockGaps = [
-        {
-          role_id: 'role-1',
-          role_name: 'Software Engineer',
-          gap_fte: 5.5,
-          demand_fte: 20,
-          supply_fte: 14.5
-        },
-        {
-          role_id: 'role-2',
-          role_name: 'Product Manager',
-          gap_fte: 2.0,
-          demand_fte: 10,
-          supply_fte: 8
-        }
+        { role_id: 'role-1', role_name: 'Software Engineer', capacity_gap_fte: -5.5 },
+        { role_id: 'role-2', role_name: 'Product Manager', capacity_gap_fte: -2.0 }
       ];
 
-      mockDb._setQueryResult(mockGaps);
+      mockDb.raw = jest.fn().mockResolvedValue(mockGaps);
 
       await controller.getCapacityGaps(mockReq, mockRes);
       await flushPromises();
 
-      expect(mockDb).toHaveBeenCalledWith('capacity_gaps_view');
-      expect(mockDb.orderBy).toHaveBeenCalledWith('gap_fte', 'desc');
-      expect(mockRes.json).toHaveBeenCalledWith(mockGaps);
+      expect(mockDb.raw).toHaveBeenCalledTimes(1);
+      expect(String((mockDb.raw as jest.Mock).mock.calls[0][0])).toContain('role_capacity');
+      // 缺省场景头 = baseline（resolveScenarioId）
+      expect((mockDb.raw as jest.Mock).mock.calls[0][1]).toEqual([
+        'baseline-0000-0000-0000-000000000000'
+      ]);
+      // 降序：-2.0 在 -5.5 之前
+      expect(mockRes.json).toHaveBeenCalledWith([
+        expect.objectContaining({ role_id: 'role-2' }),
+        expect.objectContaining({ role_id: 'role-1' })
+      ]);
     });
 
     it('returns empty array when no gaps exist', async () => {
-      mockDb._setQueryResult([]);
+      mockDb.raw = jest.fn().mockResolvedValue([]);
 
       await controller.getCapacityGaps(mockReq, mockRes);
       await flushPromises();

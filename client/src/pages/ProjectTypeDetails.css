@@ -279,23 +279,11 @@
   margin-bottom: 16px;
 }
 
-.form-group {
-  display: flex;
-  flex-direction: column;
-}
-
-.form-group.span-2 {
-  grid-column: span 2;
-}
-
-.form-group label {
-  font-weight: 500;
-  color: var(--text-secondary);
-  margin-bottom: 4px;
-  font-size: 14px;
-}
-
-.form-input {
+/* form-group/.span-2/label removed (D-03 Batch 3, review G-1): zero
+   consumers in ProjectTypeDetails.tsx and its child components — dead rules
+   cleared, not scoped. The live form-input (inline-edit inputs ×3) keeps its
+   local delta scoped to the page root. */
+.role-details-page .form-input {
   padding: 8px 12px;
   border: 1px solid var(--border-color);
   border-radius: 6px;
@@ -303,7 +291,7 @@
   transition: border-color 0.2s, box-shadow 0.2s;
 }
 
-.form-input:focus {
+.role-details-page .form-input:focus {
   outline: none;
   border-color: var(--primary-text);
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 10%, transparent);

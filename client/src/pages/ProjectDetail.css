@@ -93,18 +93,23 @@
   border-radius: 0.5rem;
 }
 
-/* Form Styles for Modal */
-.form-group {
+/* Form styles for the assignment edit dialog — scoped to the dialog's own
+   root class (D-03 Batch 3): the dialog portals to body, so a page-root
+   scope would miss it; Radix DialogContent ships no primitive class of its
+   own, hence the assignment-modal anchor added in ProjectDetail.tsx. The
+   dead `ring:`/`ring-color:` declarations (Tailwind class names, invalid CSS)
+   were dropped — focus ring comes from the App.css owner. */
+.assignment-modal .form-group {
   margin-bottom: 1rem;
 }
 
-.form-group.grid {
+.assignment-modal .form-group.grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
 }
 
-.form-label {
+.assignment-modal .form-label {
   display: block;
   margin-bottom: 0.5rem;
   font-size: 0.875rem;
@@ -112,7 +117,7 @@
   color: hsl(var(--foreground));
 }
 
-.form-input {
+.assignment-modal .form-input {
   width: 100%;
   padding: 0.5rem 0.75rem;
   border: 1px solid hsl(var(--border));
@@ -123,11 +128,9 @@
   transition: all 0.2s;
 }
 
-.form-input:focus {
+.assignment-modal .form-input:focus {
   outline: none;
   border-color: hsl(var(--ring));
-  ring: 2px;
-  ring-color: hsl(var(--ring));
 }
 
 /* Responsive */
@@ -140,7 +143,7 @@
     grid-template-columns: 1fr;
   }
 
-  .form-group.grid {
+  .assignment-modal .form-group.grid {
     grid-template-columns: 1fr;
   }
 }

@@ -870,110 +870,6 @@
       "evidence": []
     },
     {
-      "fingerprint": "03a5140e6fa785b24706cc6335820dbca14b54b4325c1f5930618c18ced19007",
-      "file": "client/src/components/Login.css",
-      "context": [],
-      "owner": ".login-container",
-      "property": "background",
-      "literal": "rgba(0, 0, 0, 0.8)",
-      "locations": [
-        {
-          "line": 7,
-          "column": 15
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "not-in-entry-import-closure",
-      "decision": "retained-unused",
-      "semanticRole": "legacy-unloaded-color-consumer",
-      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
-      "evidence": [],
-      "unusedEvidence": {
-        "entry": "client/src/main.tsx",
-        "fileHash": "c6832d93693db5b1e9519736b9df093a44f8ae5b679be28f46d7f6b79601c65f",
-        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
-      }
-    },
-    {
-      "fingerprint": "593df5a521e2e376bd9e4bae1743764ba164017326b887756a7d8cde4344f8eb",
-      "file": "client/src/components/Login.css",
-      "context": [],
-      "owner": ".login-button",
-      "property": "color",
-      "literal": "white",
-      "locations": [
-        {
-          "line": 78,
-          "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "not-in-entry-import-closure",
-      "decision": "retained-unused",
-      "semanticRole": "legacy-unloaded-color-consumer",
-      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
-      "evidence": [],
-      "unusedEvidence": {
-        "entry": "client/src/main.tsx",
-        "fileHash": "c6832d93693db5b1e9519736b9df093a44f8ae5b679be28f46d7f6b79601c65f",
-        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
-      }
-    },
-    {
-      "fingerprint": "5f43adf80fd8d32e0802f8ca027e27cb3cbc6dc6db7111b49fdc11483cc81e6b",
-      "file": "client/src/components/Login.css",
-      "context": [],
-      "owner": ".person-dropdown:focus",
-      "property": "box-shadow",
-      "literal": "rgba(59, 130, 246, 0.1)",
-      "locations": [
-        {
-          "line": 71,
-          "column": 25
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "not-in-entry-import-closure",
-      "decision": "retained-unused",
-      "semanticRole": "legacy-unloaded-color-consumer",
-      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
-      "evidence": [],
-      "unusedEvidence": {
-        "entry": "client/src/main.tsx",
-        "fileHash": "c6832d93693db5b1e9519736b9df093a44f8ae5b679be28f46d7f6b79601c65f",
-        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
-      }
-    },
-    {
-      "fingerprint": "dc89c8937b4c9b9b9578e89001473542a8e3f8c9d8b3c5d0f744384ea34148e9",
-      "file": "client/src/components/Login.css",
-      "context": [],
-      "owner": ".login-card",
-      "property": "box-shadow",
-      "literal": "rgba(0, 0, 0, 0.3)",
-      "locations": [
-        {
-          "line": 20,
-          "column": 27
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "not-in-entry-import-closure",
-      "decision": "retained-unused",
-      "semanticRole": "legacy-unloaded-color-consumer",
-      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
-      "evidence": [],
-      "unusedEvidence": {
-        "entry": "client/src/main.tsx",
-        "fileHash": "c6832d93693db5b1e9519736b9df093a44f8ae5b679be28f46d7f6b79601c65f",
-        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
-      }
-    },
-    {
       "fingerprint": "1ae786796ca01566679ee56939d63f5c67c9571b36924ac7211613e472075e7a",
       "file": "client/src/components/modals/ProjectTypeModal.tsx",
       "context": [],
@@ -2688,812 +2584,6 @@
       "semanticRole": null,
       "reason": "TC-C5 既有中性实心按钮色定义，两主题均配白字且验收对比度",
       "evidence": []
-    },
-    {
-      "fingerprint": "00dcaa6b310ff8be2bc78f05236999afd7573b8874606d37fd2cfae0cf2c2e9b",
-      "file": "client/src/components/ProjectAllocations.css",
-      "context": [],
-      "owner": ".form-group label",
-      "property": "color",
-      "literal": "#374151",
-      "locations": [
-        {
-          "line": 222,
-          "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "not-in-entry-import-closure",
-      "decision": "retained-unused",
-      "semanticRole": "legacy-unloaded-color-consumer",
-      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
-      "evidence": [],
-      "unusedEvidence": {
-        "entry": "client/src/main.tsx",
-        "fileHash": "95154aa1ff15f94c758570b36859300908557433ebe3e625416915e64c6ff491",
-        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
-      }
-    },
-    {
-      "fingerprint": "0496717d28d376474915e8dba068a34077e41e1ffa92f520d368e3091eb92a3d",
-      "file": "client/src/components/ProjectAllocations.css",
-      "context": [],
-      "owner": ".allocation-card:hover",
-      "property": "box-shadow",
-      "literal": "rgba(0, 0, 0, 0.1)",
-      "locations": [
-        {
-          "line": 115,
-          "column": 26
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "not-in-entry-import-closure",
-      "decision": "retained-unused",
-      "semanticRole": "legacy-unloaded-color-consumer",
-      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
-      "evidence": [],
-      "unusedEvidence": {
-        "entry": "client/src/main.tsx",
-        "fileHash": "95154aa1ff15f94c758570b36859300908557433ebe3e625416915e64c6ff491",
-        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
-      }
-    },
-    {
-      "fingerprint": "249f62dd1524d44cb3efdcb5dcc4a9e44b090058adb39059a01522755b5b42c3",
-      "file": "client/src/components/ProjectAllocations.css",
-      "context": [],
-      "owner": ".project-allocations-error",
-      "property": "color",
-      "literal": "#dc2626",
-      "locations": [
-        {
-          "line": 38,
-          "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "not-in-entry-import-closure",
-      "decision": "retained-unused",
-      "semanticRole": "legacy-unloaded-color-consumer",
-      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
-      "evidence": [],
-      "unusedEvidence": {
-        "entry": "client/src/main.tsx",
-        "fileHash": "95154aa1ff15f94c758570b36859300908557433ebe3e625416915e64c6ff491",
-        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
-      }
-    },
-    {
-      "fingerprint": "3aafce88532b35dde725cd77833ee8c1792470b28608c67101cd49ec9f7d9514",
-      "file": "client/src/components/ProjectAllocations.css",
-      "context": [],
-      "owner": ".form-input:focus",
-      "property": "box-shadow",
-      "literal": "rgba(59, 130, 246, 0.1)",
-      "locations": [
-        {
-          "line": 238,
-          "column": 25
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "not-in-entry-import-closure",
-      "decision": "retained-unused",
-      "semanticRole": "legacy-unloaded-color-consumer",
-      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
-      "evidence": [],
-      "unusedEvidence": {
-        "entry": "client/src/main.tsx",
-        "fileHash": "95154aa1ff15f94c758570b36859300908557433ebe3e625416915e64c6ff491",
-        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
-      }
-    },
-    {
-      "fingerprint": "3e5eeb27c53e8c6cce2b918fbd985b9911c61d59a5b75314ccea9f9a6d9637a1",
-      "file": "client/src/components/ProjectAllocations.css",
-      "context": [],
-      "owner": ".allocation-notes",
-      "property": "border-left",
-      "literal": "#e2e8f0",
-      "locations": [
-        {
-          "line": 183,
-          "column": 26
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "not-in-entry-import-closure",
-      "decision": "retained-unused",
-      "semanticRole": "legacy-unloaded-color-consumer",
-      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
-      "evidence": [],
-      "unusedEvidence": {
-        "entry": "client/src/main.tsx",
-        "fileHash": "95154aa1ff15f94c758570b36859300908557433ebe3e625416915e64c6ff491",
-        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
-      }
-    },
-    {
-      "fingerprint": "4883f92581ecb659931c7f73478dbb9ed666fd4458971693439545d9e2d8daef",
-      "file": "client/src/components/ProjectAllocations.css",
-      "context": [],
-      "owner": ".allocation-notes",
-      "property": "color",
-      "literal": "#475569",
-      "locations": [
-        {
-          "line": 178,
-          "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "not-in-entry-import-closure",
-      "decision": "retained-unused",
-      "semanticRole": "legacy-unloaded-color-consumer",
-      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
-      "evidence": [],
-      "unusedEvidence": {
-        "entry": "client/src/main.tsx",
-        "fileHash": "95154aa1ff15f94c758570b36859300908557433ebe3e625416915e64c6ff491",
-        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
-      }
-    },
-    {
-      "fingerprint": "5069e9fa992157314977c6b73ff1ad9555588f77de22083c7fbc2a305b7210b7",
-      "file": "client/src/components/ProjectAllocations.css",
-      "context": [],
-      "owner": ".legend-color",
-      "property": "border",
-      "literal": "#d1d5db",
-      "locations": [
-        {
-          "line": 64,
-          "column": 21
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "not-in-entry-import-closure",
-      "decision": "retained-unused",
-      "semanticRole": "legacy-unloaded-color-consumer",
-      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
-      "evidence": [],
-      "unusedEvidence": {
-        "entry": "client/src/main.tsx",
-        "fileHash": "95154aa1ff15f94c758570b36859300908557433ebe3e625416915e64c6ff491",
-        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
-      }
-    },
-    {
-      "fingerprint": "51e28a40f4cc6f3584e7f82d264a0d0f9ae0d9e2a11776f3e768d8093f29408f",
-      "file": "client/src/components/ProjectAllocations.css",
-      "context": [],
-      "owner": ".form-input:focus",
-      "property": "border-color",
-      "literal": "#3b82f6",
-      "locations": [
-        {
-          "line": 237,
-          "column": 17
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "not-in-entry-import-closure",
-      "decision": "retained-unused",
-      "semanticRole": "legacy-unloaded-color-consumer",
-      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
-      "evidence": [],
-      "unusedEvidence": {
-        "entry": "client/src/main.tsx",
-        "fileHash": "95154aa1ff15f94c758570b36859300908557433ebe3e625416915e64c6ff491",
-        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
-      }
-    },
-    {
-      "fingerprint": "57a7f6fb0647eff57702220731943bd4b611ddbe49b75f931b398bec583b77cb",
-      "file": "client/src/components/ProjectAllocations.css",
-      "context": [],
-      "owner": ".phase-title",
-      "property": "color",
-      "literal": "#1e293b",
-      "locations": [
-        {
-          "line": 93,
-          "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "not-in-entry-import-closure",
-      "decision": "retained-unused",
-      "semanticRole": "legacy-unloaded-color-consumer",
-      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
-      "evidence": [],
-      "unusedEvidence": {
-        "entry": "client/src/main.tsx",
-        "fileHash": "95154aa1ff15f94c758570b36859300908557433ebe3e625416915e64c6ff491",
-        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
-      }
-    },
-    {
-      "fingerprint": "6175912735dcfe706f7bc6703b14d1974fc01e17e848fb8a8bd020e966367f50",
-      "file": "client/src/components/ProjectAllocations.css",
-      "context": [],
-      "owner": ".legend-item",
-      "property": "color",
-      "literal": "#475569",
-      "locations": [
-        {
-          "line": 57,
-          "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "not-in-entry-import-closure",
-      "decision": "retained-unused",
-      "semanticRole": "legacy-unloaded-color-consumer",
-      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
-      "evidence": [],
-      "unusedEvidence": {
-        "entry": "client/src/main.tsx",
-        "fileHash": "95154aa1ff15f94c758570b36859300908557433ebe3e625416915e64c6ff491",
-        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
-      }
-    },
-    {
-      "fingerprint": "657310e052962e89297038c75056444789885b4f1011b3a58d2e9579fdf97f55",
-      "file": "client/src/components/ProjectAllocations.css",
-      "context": [],
-      "owner": ".allocation-header h4",
-      "property": "color",
-      "literal": "#1e293b",
-      "locations": [
-        {
-          "line": 137,
-          "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "not-in-entry-import-closure",
-      "decision": "retained-unused",
-      "semanticRole": "legacy-unloaded-color-consumer",
-      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
-      "evidence": [],
-      "unusedEvidence": {
-        "entry": "client/src/main.tsx",
-        "fileHash": "95154aa1ff15f94c758570b36859300908557433ebe3e625416915e64c6ff491",
-        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
-      }
-    },
-    {
-      "fingerprint": "69f98b7c976fbde6e006d038e78ff6f3bd4dce399050ab6760f202ac7a39cf65",
-      "file": "client/src/components/ProjectAllocations.css",
-      "context": [],
-      "owner": ".form-input",
-      "property": "border",
-      "literal": "#d1d5db",
-      "locations": [
-        {
-          "line": 229,
-          "column": 21
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "not-in-entry-import-closure",
-      "decision": "retained-unused",
-      "semanticRole": "legacy-unloaded-color-consumer",
-      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
-      "evidence": [],
-      "unusedEvidence": {
-        "entry": "client/src/main.tsx",
-        "fileHash": "95154aa1ff15f94c758570b36859300908557433ebe3e625416915e64c6ff491",
-        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
-      }
-    },
-    {
-      "fingerprint": "6b569e19289be38141ff51872415fb68634534ec9e55f5e7cfe0ecf6024d1092",
-      "file": "client/src/components/ProjectAllocations.css",
-      "context": [],
-      "owner": ".allocation-card.inherited .allocation-status",
-      "property": "background",
-      "literal": "#dbeafe",
-      "locations": [
-        {
-          "line": 197,
-          "column": 15
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "not-in-entry-import-closure",
-      "decision": "retained-unused",
-      "semanticRole": "legacy-unloaded-color-consumer",
-      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
-      "evidence": [],
-      "unusedEvidence": {
-        "entry": "client/src/main.tsx",
-        "fileHash": "95154aa1ff15f94c758570b36859300908557433ebe3e625416915e64c6ff491",
-        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
-      }
-    },
-    {
-      "fingerprint": "79797f65d801f64da3b8996b85a115a6cd8f442bd1548bedaa46bc135137f4e6",
-      "file": "client/src/components/ProjectAllocations.css",
-      "context": [],
-      "owner": ".allocation-card.inherited .allocation-status",
-      "property": "color",
-      "literal": "#1e40af",
-      "locations": [
-        {
-          "line": 198,
-          "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "not-in-entry-import-closure",
-      "decision": "retained-unused",
-      "semanticRole": "legacy-unloaded-color-consumer",
-      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
-      "evidence": [],
-      "unusedEvidence": {
-        "entry": "client/src/main.tsx",
-        "fileHash": "95154aa1ff15f94c758570b36859300908557433ebe3e625416915e64c6ff491",
-        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
-      }
-    },
-    {
-      "fingerprint": "7f58dd68d462fc971f56628e592c1d73def326b0b85f19a5d9719b4eb8e734d1",
-      "file": "client/src/components/ProjectAllocations.css",
-      "context": [],
-      "owner": ".legend-color.inherited",
-      "property": "border-color",
-      "literal": "#93c5fd",
-      "locations": [
-        {
-          "line": 69,
-          "column": 17
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "not-in-entry-import-closure",
-      "decision": "retained-unused",
-      "semanticRole": "legacy-unloaded-color-consumer",
-      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
-      "evidence": [],
-      "unusedEvidence": {
-        "entry": "client/src/main.tsx",
-        "fileHash": "95154aa1ff15f94c758570b36859300908557433ebe3e625416915e64c6ff491",
-        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
-      }
-    },
-    {
-      "fingerprint": "88770c36987b2d102fa5cb33f52d1c0aef470f9efc0d926f64cba22e89688932",
-      "file": "client/src/components/ProjectAllocations.css",
-      "context": [],
-      "owner": ".allocation-card.overridden .allocation-status",
-      "property": "background",
-      "literal": "#fef3c7",
-      "locations": [
-        {
-          "line": 202,
-          "column": 15
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "not-in-entry-import-closure",
-      "decision": "retained-unused",
-      "semanticRole": "legacy-unloaded-color-consumer",
-      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
-      "evidence": [],
-      "unusedEvidence": {
-        "entry": "client/src/main.tsx",
-        "fileHash": "95154aa1ff15f94c758570b36859300908557433ebe3e625416915e64c6ff491",
-        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
-      }
-    },
-    {
-      "fingerprint": "8b988a9b85a25f60db4103e0eda2bff612c55889e541d942c155d2c3be59eeaf",
-      "file": "client/src/components/ProjectAllocations.css",
-      "context": [],
-      "owner": ".allocation-card",
-      "property": "border",
-      "literal": "#e5e7eb",
-      "locations": [
-        {
-          "line": 108,
-          "column": 21
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "not-in-entry-import-closure",
-      "decision": "retained-unused",
-      "semanticRole": "legacy-unloaded-color-consumer",
-      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
-      "evidence": [],
-      "unusedEvidence": {
-        "entry": "client/src/main.tsx",
-        "fileHash": "95154aa1ff15f94c758570b36859300908557433ebe3e625416915e64c6ff491",
-        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
-      }
-    },
-    {
-      "fingerprint": "99dcf2de55b33ee58cb46cb4aa096cfd419f69e9d2aa3b12cbf79f8c4a8d1c38",
-      "file": "client/src/components/ProjectAllocations.css",
-      "context": [],
-      "owner": ".original-percentage",
-      "property": "color",
-      "literal": "#6b7280",
-      "locations": [
-        {
-          "line": 172,
-          "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "not-in-entry-import-closure",
-      "decision": "retained-unused",
-      "semanticRole": "legacy-unloaded-color-consumer",
-      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
-      "evidence": [],
-      "unusedEvidence": {
-        "entry": "client/src/main.tsx",
-        "fileHash": "95154aa1ff15f94c758570b36859300908557433ebe3e625416915e64c6ff491",
-        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
-      }
-    },
-    {
-      "fingerprint": "9e693e12296b020bbecbbfb67a710094139676e8cc25ef4af46587250f0ee2c0",
-      "file": "client/src/components/ProjectAllocations.css",
-      "context": [],
-      "owner": ".legend-color.overridden",
-      "property": "border-color",
-      "literal": "#f59e0b",
-      "locations": [
-        {
-          "line": 74,
-          "column": 17
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "not-in-entry-import-closure",
-      "decision": "retained-unused",
-      "semanticRole": "legacy-unloaded-color-consumer",
-      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
-      "evidence": [],
-      "unusedEvidence": {
-        "entry": "client/src/main.tsx",
-        "fileHash": "95154aa1ff15f94c758570b36859300908557433ebe3e625416915e64c6ff491",
-        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
-      }
-    },
-    {
-      "fingerprint": "a8691807651d81c23183e5b399fe6913891a9c9e75344d26a7aa5f20757b852d",
-      "file": "client/src/components/ProjectAllocations.css",
-      "context": [],
-      "owner": ".legend-color.overridden",
-      "property": "background-color",
-      "literal": "#fef3c7",
-      "locations": [
-        {
-          "line": 73,
-          "column": 21
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "not-in-entry-import-closure",
-      "decision": "retained-unused",
-      "semanticRole": "legacy-unloaded-color-consumer",
-      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
-      "evidence": [],
-      "unusedEvidence": {
-        "entry": "client/src/main.tsx",
-        "fileHash": "95154aa1ff15f94c758570b36859300908557433ebe3e625416915e64c6ff491",
-        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
-      }
-    },
-    {
-      "fingerprint": "ac3f9d697ab5f0cf1c3b06938e04ec54ff92ec635b5212cf7d94c9b7f6cc6331",
-      "file": "client/src/components/ProjectAllocations.css",
-      "context": [],
-      "owner": ".project-allocations-loading, .project-allocations-error",
-      "property": "color",
-      "literal": "#64748b",
-      "locations": [
-        {
-          "line": 34,
-          "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "not-in-entry-import-closure",
-      "decision": "retained-unused",
-      "semanticRole": "legacy-unloaded-color-consumer",
-      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
-      "evidence": [],
-      "unusedEvidence": {
-        "entry": "client/src/main.tsx",
-        "fileHash": "95154aa1ff15f94c758570b36859300908557433ebe3e625416915e64c6ff491",
-        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
-      }
-    },
-    {
-      "fingerprint": "ace9ada82f5416f83d7120544d93cb50696368abb18d386f22fca60698a90611",
-      "file": "client/src/components/ProjectAllocations.css",
-      "context": [],
-      "owner": ".percentage-input span",
-      "property": "color",
-      "literal": "#6b7280",
-      "locations": [
-        {
-          "line": 254,
-          "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "not-in-entry-import-closure",
-      "decision": "retained-unused",
-      "semanticRole": "legacy-unloaded-color-consumer",
-      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
-      "evidence": [],
-      "unusedEvidence": {
-        "entry": "client/src/main.tsx",
-        "fileHash": "95154aa1ff15f94c758570b36859300908557433ebe3e625416915e64c6ff491",
-        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
-      }
-    },
-    {
-      "fingerprint": "b865c5203a2308819167966718e30411d3ef972329310335b7e302d975c9bace",
-      "file": "client/src/components/ProjectAllocations.css",
-      "context": [],
-      "owner": ".allocation-card.overridden .allocation-status",
-      "property": "color",
-      "literal": "#a16207",
-      "locations": [
-        {
-          "line": 203,
-          "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "not-in-entry-import-closure",
-      "decision": "retained-unused",
-      "semanticRole": "legacy-unloaded-color-consumer",
-      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
-      "evidence": [],
-      "unusedEvidence": {
-        "entry": "client/src/main.tsx",
-        "fileHash": "95154aa1ff15f94c758570b36859300908557433ebe3e625416915e64c6ff491",
-        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
-      }
-    },
-    {
-      "fingerprint": "c2ff0af4632a458b4a527e4721e0478a011c40b8003d34b679b7499a7cd72ea5",
-      "file": "client/src/components/ProjectAllocations.css",
-      "context": [],
-      "owner": ".legend-color.inherited",
-      "property": "background-color",
-      "literal": "#dbeafe",
-      "locations": [
-        {
-          "line": 68,
-          "column": 21
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "not-in-entry-import-closure",
-      "decision": "retained-unused",
-      "semanticRole": "legacy-unloaded-color-consumer",
-      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
-      "evidence": [],
-      "unusedEvidence": {
-        "entry": "client/src/main.tsx",
-        "fileHash": "95154aa1ff15f94c758570b36859300908557433ebe3e625416915e64c6ff491",
-        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
-      }
-    },
-    {
-      "fingerprint": "c74dee4397f7684b8178f20ff68952ab0935b76ee98d05ecd2a653a8626cd719",
-      "file": "client/src/components/ProjectAllocations.css",
-      "context": [],
-      "owner": ".project-allocations-header h2",
-      "property": "color",
-      "literal": "#1e293b",
-      "locations": [
-        {
-          "line": 19,
-          "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "not-in-entry-import-closure",
-      "decision": "retained-unused",
-      "semanticRole": "legacy-unloaded-color-consumer",
-      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
-      "evidence": [],
-      "unusedEvidence": {
-        "entry": "client/src/main.tsx",
-        "fileHash": "95154aa1ff15f94c758570b36859300908557433ebe3e625416915e64c6ff491",
-        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
-      }
-    },
-    {
-      "fingerprint": "c92699b8445378d20c9a2b9a9094b7f94f72b814d81f911efeedcf58fd99bfd8",
-      "file": "client/src/components/ProjectAllocations.css",
-      "context": [],
-      "owner": ".allocation-percentage",
-      "property": "color",
-      "literal": "#1e293b",
-      "locations": [
-        {
-          "line": 167,
-          "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "not-in-entry-import-closure",
-      "decision": "retained-unused",
-      "semanticRole": "legacy-unloaded-color-consumer",
-      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
-      "evidence": [],
-      "unusedEvidence": {
-        "entry": "client/src/main.tsx",
-        "fileHash": "95154aa1ff15f94c758570b36859300908557433ebe3e625416915e64c6ff491",
-        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
-      }
-    },
-    {
-      "fingerprint": "e580012fafc64df9d862e5a5e03cd8786aabea605acb5f10464ff12165fe81a4",
-      "file": "client/src/components/ProjectAllocations.css",
-      "context": [],
-      "owner": ".allocation-summary",
-      "property": "color",
-      "literal": "#64748b",
-      "locations": [
-        {
-          "line": 26,
-          "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "not-in-entry-import-closure",
-      "decision": "retained-unused",
-      "semanticRole": "legacy-unloaded-color-consumer",
-      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
-      "evidence": [],
-      "unusedEvidence": {
-        "entry": "client/src/main.tsx",
-        "fileHash": "95154aa1ff15f94c758570b36859300908557433ebe3e625416915e64c6ff491",
-        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
-      }
-    },
-    {
-      "fingerprint": "ee2bd19f2b5c991bc5b2c1a3f9a9398414481d2b4ab3dd28a4d21debd13eb21e",
-      "file": "client/src/components/ProjectAllocations.css",
-      "context": [],
-      "owner": ".allocation-legend",
-      "property": "border",
-      "literal": "#e2e8f0",
-      "locations": [
-        {
-          "line": 48,
-          "column": 21
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "not-in-entry-import-closure",
-      "decision": "retained-unused",
-      "semanticRole": "legacy-unloaded-color-consumer",
-      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
-      "evidence": [],
-      "unusedEvidence": {
-        "entry": "client/src/main.tsx",
-        "fileHash": "95154aa1ff15f94c758570b36859300908557433ebe3e625416915e64c6ff491",
-        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
-      }
-    },
-    {
-      "fingerprint": "f0f6da0e21dd235b2e7d694aa1aef4998fa64c9e29af51ce0dad175e77fb9d97",
-      "file": "client/src/components/ProjectAllocations.css",
-      "context": [],
-      "owner": ".project-allocations-header",
-      "property": "border-bottom",
-      "literal": "#e5e7eb",
-      "locations": [
-        {
-          "line": 14,
-          "column": 28
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "not-in-entry-import-closure",
-      "decision": "retained-unused",
-      "semanticRole": "legacy-unloaded-color-consumer",
-      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
-      "evidence": [],
-      "unusedEvidence": {
-        "entry": "client/src/main.tsx",
-        "fileHash": "95154aa1ff15f94c758570b36859300908557433ebe3e625416915e64c6ff491",
-        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
-      }
-    },
-    {
-      "fingerprint": "f13417135f07e055f7c0e758cd3c6d7b6f6255901f5b713a6b9f0a216744736e",
-      "file": "client/src/components/ProjectAllocations.css",
-      "context": [],
-      "owner": ".phase-title",
-      "property": "border-bottom",
-      "literal": "#e2e8f0",
-      "locations": [
-        {
-          "line": 97,
-          "column": 28
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "not-in-entry-import-closure",
-      "decision": "retained-unused",
-      "semanticRole": "legacy-unloaded-color-consumer",
-      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
-      "evidence": [],
-      "unusedEvidence": {
-        "entry": "client/src/main.tsx",
-        "fileHash": "95154aa1ff15f94c758570b36859300908557433ebe3e625416915e64c6ff491",
-        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
-      }
-    },
-    {
-      "fingerprint": "f7fb7ff50b6f8c4e40de7a0f8be1caecdbc308a491966c8f8fe43a5b7017e3ce",
-      "file": "client/src/components/ProjectAllocations.css",
-      "context": [],
-      "owner": ".allocation-card.inherited",
-      "property": "border-color",
-      "literal": "#93c5fd",
-      "locations": [
-        {
-          "line": 120,
-          "column": 17
-        }
-      ],
-      "count": 1,
-      "kind": "semantic-color",
-      "reachability": "not-in-entry-import-closure",
-      "decision": "retained-unused",
-      "semanticRole": "legacy-unloaded-color-consumer",
-      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
-      "evidence": [],
-      "unusedEvidence": {
-        "entry": "client/src/main.tsx",
-        "fileHash": "95154aa1ff15f94c758570b36859300908557433ebe3e625416915e64c6ff491",
-        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
-      }
     },
     {
       "fingerprint": "196f1d73fa29297dfbfc38be00a0a2ae90582672948126efe52c98f3431e8377",
@@ -10126,32 +9216,6 @@
       "classificationSourceHash": "530a4298a38b5457d5b823994f3c665fce8aac508307a7d2da8f8cdca65a17e9"
     },
     {
-      "fingerprint": "012c08bbfe725aa9878465f785fd072615b14bc5441352266bd2b4776d61c595",
-      "file": "client/src/pages/ScenarioComparison.css",
-      "context": [],
-      "owner": ".badge.scenario-type.baseline",
-      "property": "color",
-      "literal": "white",
-      "locations": [
-        {
-          "line": 126,
-          "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "not-in-entry-import-closure",
-      "decision": "retained-unused",
-      "semanticRole": "legacy-unloaded-color-consumer",
-      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
-      "evidence": [],
-      "unusedEvidence": {
-        "entry": "client/src/main.tsx",
-        "fileHash": "ac5294bd5c68577cc332428deaad967ead97aa985eef8dea81fbd7dcc17a7a3e",
-        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
-      }
-    },
-    {
       "fingerprint": "016ea3708749df18b7cce751c1620c705b92a9507dc18328dd647dd8678800ec",
       "file": "client/src/pages/ScenarioComparison.css",
       "context": [],
@@ -10171,32 +9235,6 @@
       "semanticRole": null,
       "reason": "CSS custom-property definition; render validation is separate.",
       "evidence": []
-    },
-    {
-      "fingerprint": "031817c887f9de7316005c0fa8d505b9c76d747fe6f3ba3e70fee71416aadab5",
-      "file": "client/src/pages/ScenarioComparison.css",
-      "context": [],
-      "owner": ".badge.scenario-status.merged",
-      "property": "color",
-      "literal": "white",
-      "locations": [
-        {
-          "line": 141,
-          "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "not-in-entry-import-closure",
-      "decision": "retained-unused",
-      "semanticRole": "legacy-unloaded-color-consumer",
-      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
-      "evidence": [],
-      "unusedEvidence": {
-        "entry": "client/src/main.tsx",
-        "fileHash": "ac5294bd5c68577cc332428deaad967ead97aa985eef8dea81fbd7dcc17a7a3e",
-        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
-      }
     },
     {
       "fingerprint": "083dede1c63d4557f49f72ca957c2eb5d9e4912d0316783dae8c447ab9266f6b",
@@ -10329,32 +9367,6 @@
       "evidence": []
     },
     {
-      "fingerprint": "4c23556e78135aa793f7355eb362560d1bd20ca5146a246614f30191532395b6",
-      "file": "client/src/pages/ScenarioComparison.css",
-      "context": [],
-      "owner": ".badge.scenario-status.active",
-      "property": "color",
-      "literal": "white",
-      "locations": [
-        {
-          "line": 136,
-          "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "not-in-entry-import-closure",
-      "decision": "retained-unused",
-      "semanticRole": "legacy-unloaded-color-consumer",
-      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
-      "evidence": [],
-      "unusedEvidence": {
-        "entry": "client/src/main.tsx",
-        "fileHash": "ac5294bd5c68577cc332428deaad967ead97aa985eef8dea81fbd7dcc17a7a3e",
-        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
-      }
-    },
-    {
       "fingerprint": "72d8bbd34be8bd3a80b87a3cdbfb58ef98f24ede09c583f583ccf23d281b8d00",
       "file": "client/src/pages/ScenarioComparison.css",
       "context": [],
@@ -10397,32 +9409,6 @@
       "semanticRole": null,
       "reason": "CSS custom-property definition; render validation is separate.",
       "evidence": []
-    },
-    {
-      "fingerprint": "99a483774f6b052c6eccfec5cd1aafdce7858ffb0ca8c27bdca7f06d6ec8c6d5",
-      "file": "client/src/pages/ScenarioComparison.css",
-      "context": [],
-      "owner": ".badge.scenario-type.branch",
-      "property": "color",
-      "literal": "white",
-      "locations": [
-        {
-          "line": 131,
-          "column": 10
-        }
-      ],
-      "count": 1,
-      "kind": "neutral-literal",
-      "reachability": "not-in-entry-import-closure",
-      "decision": "retained-unused",
-      "semanticRole": "legacy-unloaded-color-consumer",
-      "reason": "TC-C6: 当前UI入口的保守引用闭包（含CSS @import、lazy及开发热键导入）不可达；不虚构双主题渲染证据，不额外删除资产。",
-      "evidence": [],
-      "unusedEvidence": {
-        "entry": "client/src/main.tsx",
-        "fileHash": "ac5294bd5c68577cc332428deaad967ead97aa985eef8dea81fbd7dcc17a7a3e",
-        "futureDisposition": "重新导入前必须完成颜色语义迁移、实际页面双主题验收；检查器会拒绝重新可达或内容变化的此处置。"
-      }
     },
     {
       "fingerprint": "99b193acb64dc6fc4620881d1ecc28e69b4bf41965f7c6125feb58f9f281b96d",
@@ -21902,37 +20888,386 @@
       "resolution": "delete",
       "reason": "TC-C6 replace fixed white tag ink with production WCAG black/white contrast selector for arbitrary data colors",
       "baselineHead": "5f40f0e"
+    },
+    {
+      "fingerprint": "c2ff0af4632a458b4a527e4721e0478a011c40b8003d34b679b7499a7cd72ea5",
+      "file": "client/src/components/ProjectAllocations.css",
+      "literal": "#dbeafe",
+      "count": 1,
+      "resolution": "delete",
+      "reason": "D-03 Batch 3: 死文件删除(Login.css/ProjectAllocations.css)与 Batch 2 死规则删除，规则随文件/规则块移除",
+      "baselineHead": "1bc1920978a0b0b08f6b91a615556a79f714eace"
+    },
+    {
+      "fingerprint": "c74dee4397f7684b8178f20ff68952ab0935b76ee98d05ecd2a653a8626cd719",
+      "file": "client/src/components/ProjectAllocations.css",
+      "literal": "#1e293b",
+      "count": 1,
+      "resolution": "delete",
+      "reason": "D-03 Batch 3: 死文件删除(Login.css/ProjectAllocations.css)与 Batch 2 死规则删除，规则随文件/规则块移除",
+      "baselineHead": "1bc1920978a0b0b08f6b91a615556a79f714eace"
+    },
+    {
+      "fingerprint": "c92699b8445378d20c9a2b9a9094b7f94f72b814d81f911efeedcf58fd99bfd8",
+      "file": "client/src/components/ProjectAllocations.css",
+      "literal": "#1e293b",
+      "count": 1,
+      "resolution": "delete",
+      "reason": "D-03 Batch 3: 死文件删除(Login.css/ProjectAllocations.css)与 Batch 2 死规则删除，规则随文件/规则块移除",
+      "baselineHead": "1bc1920978a0b0b08f6b91a615556a79f714eace"
+    },
+    {
+      "fingerprint": "e580012fafc64df9d862e5a5e03cd8786aabea605acb5f10464ff12165fe81a4",
+      "file": "client/src/components/ProjectAllocations.css",
+      "literal": "#64748b",
+      "count": 1,
+      "resolution": "delete",
+      "reason": "D-03 Batch 3: 死文件删除(Login.css/ProjectAllocations.css)与 Batch 2 死规则删除，规则随文件/规则块移除",
+      "baselineHead": "1bc1920978a0b0b08f6b91a615556a79f714eace"
+    },
+    {
+      "fingerprint": "ee2bd19f2b5c991bc5b2c1a3f9a9398414481d2b4ab3dd28a4d21debd13eb21e",
+      "file": "client/src/components/ProjectAllocations.css",
+      "literal": "#e2e8f0",
+      "count": 1,
+      "resolution": "delete",
+      "reason": "D-03 Batch 3: 死文件删除(Login.css/ProjectAllocations.css)与 Batch 2 死规则删除，规则随文件/规则块移除",
+      "baselineHead": "1bc1920978a0b0b08f6b91a615556a79f714eace"
+    },
+    {
+      "fingerprint": "f0f6da0e21dd235b2e7d694aa1aef4998fa64c9e29af51ce0dad175e77fb9d97",
+      "file": "client/src/components/ProjectAllocations.css",
+      "literal": "#e5e7eb",
+      "count": 1,
+      "resolution": "delete",
+      "reason": "D-03 Batch 3: 死文件删除(Login.css/ProjectAllocations.css)与 Batch 2 死规则删除，规则随文件/规则块移除",
+      "baselineHead": "1bc1920978a0b0b08f6b91a615556a79f714eace"
+    },
+    {
+      "fingerprint": "f13417135f07e055f7c0e758cd3c6d7b6f6255901f5b713a6b9f0a216744736e",
+      "file": "client/src/components/ProjectAllocations.css",
+      "literal": "#e2e8f0",
+      "count": 1,
+      "resolution": "delete",
+      "reason": "D-03 Batch 3: 死文件删除(Login.css/ProjectAllocations.css)与 Batch 2 死规则删除，规则随文件/规则块移除",
+      "baselineHead": "1bc1920978a0b0b08f6b91a615556a79f714eace"
+    },
+    {
+      "fingerprint": "f7fb7ff50b6f8c4e40de7a0f8be1caecdbc308a491966c8f8fe43a5b7017e3ce",
+      "file": "client/src/components/ProjectAllocations.css",
+      "literal": "#93c5fd",
+      "count": 1,
+      "resolution": "delete",
+      "reason": "D-03 Batch 3: 死文件删除(Login.css/ProjectAllocations.css)与 Batch 2 死规则删除，规则随文件/规则块移除",
+      "baselineHead": "1bc1920978a0b0b08f6b91a615556a79f714eace"
+    },
+    {
+      "fingerprint": "012c08bbfe725aa9878465f785fd072615b14bc5441352266bd2b4776d61c595",
+      "file": "client/src/pages/ScenarioComparison.css",
+      "literal": "white",
+      "count": 1,
+      "resolution": "delete",
+      "reason": "D-03 Batch 3: 死文件删除(Login.css/ProjectAllocations.css)与 Batch 2 死规则删除，规则随文件/规则块移除",
+      "baselineHead": "1bc1920978a0b0b08f6b91a615556a79f714eace"
+    },
+    {
+      "fingerprint": "031817c887f9de7316005c0fa8d505b9c76d747fe6f3ba3e70fee71416aadab5",
+      "file": "client/src/pages/ScenarioComparison.css",
+      "literal": "white",
+      "count": 1,
+      "resolution": "delete",
+      "reason": "D-03 Batch 3: 死文件删除(Login.css/ProjectAllocations.css)与 Batch 2 死规则删除，规则随文件/规则块移除",
+      "baselineHead": "1bc1920978a0b0b08f6b91a615556a79f714eace"
+    },
+    {
+      "fingerprint": "4c23556e78135aa793f7355eb362560d1bd20ca5146a246614f30191532395b6",
+      "file": "client/src/pages/ScenarioComparison.css",
+      "literal": "white",
+      "count": 1,
+      "resolution": "delete",
+      "reason": "D-03 Batch 3: 死文件删除(Login.css/ProjectAllocations.css)与 Batch 2 死规则删除，规则随文件/规则块移除",
+      "baselineHead": "1bc1920978a0b0b08f6b91a615556a79f714eace"
+    },
+    {
+      "fingerprint": "99a483774f6b052c6eccfec5cd1aafdce7858ffb0ca8c27bdca7f06d6ec8c6d5",
+      "file": "client/src/pages/ScenarioComparison.css",
+      "literal": "white",
+      "count": 1,
+      "resolution": "delete",
+      "reason": "D-03 Batch 3: 死文件删除(Login.css/ProjectAllocations.css)与 Batch 2 死规则删除，规则随文件/规则块移除",
+      "baselineHead": "1bc1920978a0b0b08f6b91a615556a79f714eace"
+    },
+    {
+      "fingerprint": "ac3f9d697ab5f0cf1c3b06938e04ec54ff92ec635b5212cf7d94c9b7f6cc6331",
+      "file": "client/src/components/ProjectAllocations.css",
+      "literal": "#64748b",
+      "count": 1,
+      "resolution": "delete",
+      "reason": "D-03 Batch 3: 死文件/死规则删除的颜色声明随块移除",
+      "baselineHead": "1bc1920978a0b0b08f6b91a615556a79f714eace"
+    },
+    {
+      "fingerprint": "ace9ada82f5416f83d7120544d93cb50696368abb18d386f22fca60698a90611",
+      "file": "client/src/components/ProjectAllocations.css",
+      "literal": "#6b7280",
+      "count": 1,
+      "resolution": "delete",
+      "reason": "D-03 Batch 3: 死文件/死规则删除的颜色声明随块移除",
+      "baselineHead": "1bc1920978a0b0b08f6b91a615556a79f714eace"
+    },
+    {
+      "fingerprint": "b865c5203a2308819167966718e30411d3ef972329310335b7e302d975c9bace",
+      "file": "client/src/components/ProjectAllocations.css",
+      "literal": "#a16207",
+      "count": 1,
+      "resolution": "delete",
+      "reason": "D-03 Batch 3: 死文件/死规则删除的颜色声明随块移除",
+      "baselineHead": "1bc1920978a0b0b08f6b91a615556a79f714eace"
+    },
+    {
+      "fingerprint": "03a5140e6fa785b24706cc6335820dbca14b54b4325c1f5930618c18ced19007",
+      "file": "client/src/components/Login.css",
+      "literal": "rgba(0, 0, 0, 0.8)",
+      "count": 1,
+      "resolution": "delete",
+      "reason": "D-03 Batch 3: 文件删除（Login.css/ProjectAllocations.css），retained-unused 颜色随文件移除",
+      "baselineHead": "1bc1920978a0b0b08f6b91a615556a79f714eace"
+    },
+    {
+      "fingerprint": "593df5a521e2e376bd9e4bae1743764ba164017326b887756a7d8cde4344f8eb",
+      "file": "client/src/components/Login.css",
+      "literal": "white",
+      "count": 1,
+      "resolution": "delete",
+      "reason": "D-03 Batch 3: 文件删除（Login.css/ProjectAllocations.css），retained-unused 颜色随文件移除",
+      "baselineHead": "1bc1920978a0b0b08f6b91a615556a79f714eace"
+    },
+    {
+      "fingerprint": "5f43adf80fd8d32e0802f8ca027e27cb3cbc6dc6db7111b49fdc11483cc81e6b",
+      "file": "client/src/components/Login.css",
+      "literal": "rgba(59, 130, 246, 0.1)",
+      "count": 1,
+      "resolution": "delete",
+      "reason": "D-03 Batch 3: 文件删除（Login.css/ProjectAllocations.css），retained-unused 颜色随文件移除",
+      "baselineHead": "1bc1920978a0b0b08f6b91a615556a79f714eace"
+    },
+    {
+      "fingerprint": "dc89c8937b4c9b9b9578e89001473542a8e3f8c9d8b3c5d0f744384ea34148e9",
+      "file": "client/src/components/Login.css",
+      "literal": "rgba(0, 0, 0, 0.3)",
+      "count": 1,
+      "resolution": "delete",
+      "reason": "D-03 Batch 3: 文件删除（Login.css/ProjectAllocations.css），retained-unused 颜色随文件移除",
+      "baselineHead": "1bc1920978a0b0b08f6b91a615556a79f714eace"
+    },
+    {
+      "fingerprint": "00dcaa6b310ff8be2bc78f05236999afd7573b8874606d37fd2cfae0cf2c2e9b",
+      "file": "client/src/components/ProjectAllocations.css",
+      "literal": "#374151",
+      "count": 1,
+      "resolution": "delete",
+      "reason": "D-03 Batch 3: 文件删除（Login.css/ProjectAllocations.css），retained-unused 颜色随文件移除",
+      "baselineHead": "1bc1920978a0b0b08f6b91a615556a79f714eace"
+    },
+    {
+      "fingerprint": "0496717d28d376474915e8dba068a34077e41e1ffa92f520d368e3091eb92a3d",
+      "file": "client/src/components/ProjectAllocations.css",
+      "literal": "rgba(0, 0, 0, 0.1)",
+      "count": 1,
+      "resolution": "delete",
+      "reason": "D-03 Batch 3: 文件删除（Login.css/ProjectAllocations.css），retained-unused 颜色随文件移除",
+      "baselineHead": "1bc1920978a0b0b08f6b91a615556a79f714eace"
+    },
+    {
+      "fingerprint": "249f62dd1524d44cb3efdcb5dcc4a9e44b090058adb39059a01522755b5b42c3",
+      "file": "client/src/components/ProjectAllocations.css",
+      "literal": "#dc2626",
+      "count": 1,
+      "resolution": "delete",
+      "reason": "D-03 Batch 3: 文件删除（Login.css/ProjectAllocations.css），retained-unused 颜色随文件移除",
+      "baselineHead": "1bc1920978a0b0b08f6b91a615556a79f714eace"
+    },
+    {
+      "fingerprint": "3aafce88532b35dde725cd77833ee8c1792470b28608c67101cd49ec9f7d9514",
+      "file": "client/src/components/ProjectAllocations.css",
+      "literal": "rgba(59, 130, 246, 0.1)",
+      "count": 1,
+      "resolution": "delete",
+      "reason": "D-03 Batch 3: 文件删除（Login.css/ProjectAllocations.css），retained-unused 颜色随文件移除",
+      "baselineHead": "1bc1920978a0b0b08f6b91a615556a79f714eace"
+    },
+    {
+      "fingerprint": "3e5eeb27c53e8c6cce2b918fbd985b9911c61d59a5b75314ccea9f9a6d9637a1",
+      "file": "client/src/components/ProjectAllocations.css",
+      "literal": "#e2e8f0",
+      "count": 1,
+      "resolution": "delete",
+      "reason": "D-03 Batch 3: 文件删除（Login.css/ProjectAllocations.css），retained-unused 颜色随文件移除",
+      "baselineHead": "1bc1920978a0b0b08f6b91a615556a79f714eace"
+    },
+    {
+      "fingerprint": "4883f92581ecb659931c7f73478dbb9ed666fd4458971693439545d9e2d8daef",
+      "file": "client/src/components/ProjectAllocations.css",
+      "literal": "#475569",
+      "count": 1,
+      "resolution": "delete",
+      "reason": "D-03 Batch 3: 文件删除（Login.css/ProjectAllocations.css），retained-unused 颜色随文件移除",
+      "baselineHead": "1bc1920978a0b0b08f6b91a615556a79f714eace"
+    },
+    {
+      "fingerprint": "5069e9fa992157314977c6b73ff1ad9555588f77de22083c7fbc2a305b7210b7",
+      "file": "client/src/components/ProjectAllocations.css",
+      "literal": "#d1d5db",
+      "count": 1,
+      "resolution": "delete",
+      "reason": "D-03 Batch 3: 文件删除（Login.css/ProjectAllocations.css），retained-unused 颜色随文件移除",
+      "baselineHead": "1bc1920978a0b0b08f6b91a615556a79f714eace"
+    },
+    {
+      "fingerprint": "51e28a40f4cc6f3584e7f82d264a0d0f9ae0d9e2a11776f3e768d8093f29408f",
+      "file": "client/src/components/ProjectAllocations.css",
+      "literal": "#3b82f6",
+      "count": 1,
+      "resolution": "delete",
+      "reason": "D-03 Batch 3: 文件删除（Login.css/ProjectAllocations.css），retained-unused 颜色随文件移除",
+      "baselineHead": "1bc1920978a0b0b08f6b91a615556a79f714eace"
+    },
+    {
+      "fingerprint": "57a7f6fb0647eff57702220731943bd4b611ddbe49b75f931b398bec583b77cb",
+      "file": "client/src/components/ProjectAllocations.css",
+      "literal": "#1e293b",
+      "count": 1,
+      "resolution": "delete",
+      "reason": "D-03 Batch 3: 文件删除（Login.css/ProjectAllocations.css），retained-unused 颜色随文件移除",
+      "baselineHead": "1bc1920978a0b0b08f6b91a615556a79f714eace"
+    },
+    {
+      "fingerprint": "6175912735dcfe706f7bc6703b14d1974fc01e17e848fb8a8bd020e966367f50",
+      "file": "client/src/components/ProjectAllocations.css",
+      "literal": "#475569",
+      "count": 1,
+      "resolution": "delete",
+      "reason": "D-03 Batch 3: 文件删除（Login.css/ProjectAllocations.css），retained-unused 颜色随文件移除",
+      "baselineHead": "1bc1920978a0b0b08f6b91a615556a79f714eace"
+    },
+    {
+      "fingerprint": "657310e052962e89297038c75056444789885b4f1011b3a58d2e9579fdf97f55",
+      "file": "client/src/components/ProjectAllocations.css",
+      "literal": "#1e293b",
+      "count": 1,
+      "resolution": "delete",
+      "reason": "D-03 Batch 3: 文件删除（Login.css/ProjectAllocations.css），retained-unused 颜色随文件移除",
+      "baselineHead": "1bc1920978a0b0b08f6b91a615556a79f714eace"
+    },
+    {
+      "fingerprint": "69f98b7c976fbde6e006d038e78ff6f3bd4dce399050ab6760f202ac7a39cf65",
+      "file": "client/src/components/ProjectAllocations.css",
+      "literal": "#d1d5db",
+      "count": 1,
+      "resolution": "delete",
+      "reason": "D-03 Batch 3: 文件删除（Login.css/ProjectAllocations.css），retained-unused 颜色随文件移除",
+      "baselineHead": "1bc1920978a0b0b08f6b91a615556a79f714eace"
+    },
+    {
+      "fingerprint": "6b569e19289be38141ff51872415fb68634534ec9e55f5e7cfe0ecf6024d1092",
+      "file": "client/src/components/ProjectAllocations.css",
+      "literal": "#dbeafe",
+      "count": 1,
+      "resolution": "delete",
+      "reason": "D-03 Batch 3: 文件删除（Login.css/ProjectAllocations.css），retained-unused 颜色随文件移除",
+      "baselineHead": "1bc1920978a0b0b08f6b91a615556a79f714eace"
+    },
+    {
+      "fingerprint": "79797f65d801f64da3b8996b85a115a6cd8f442bd1548bedaa46bc135137f4e6",
+      "file": "client/src/components/ProjectAllocations.css",
+      "literal": "#1e40af",
+      "count": 1,
+      "resolution": "delete",
+      "reason": "D-03 Batch 3: 文件删除（Login.css/ProjectAllocations.css），retained-unused 颜色随文件移除",
+      "baselineHead": "1bc1920978a0b0b08f6b91a615556a79f714eace"
+    },
+    {
+      "fingerprint": "7f58dd68d462fc971f56628e592c1d73def326b0b85f19a5d9719b4eb8e734d1",
+      "file": "client/src/components/ProjectAllocations.css",
+      "literal": "#93c5fd",
+      "count": 1,
+      "resolution": "delete",
+      "reason": "D-03 Batch 3: 文件删除（Login.css/ProjectAllocations.css），retained-unused 颜色随文件移除",
+      "baselineHead": "1bc1920978a0b0b08f6b91a615556a79f714eace"
+    },
+    {
+      "fingerprint": "88770c36987b2d102fa5cb33f52d1c0aef470f9efc0d926f64cba22e89688932",
+      "file": "client/src/components/ProjectAllocations.css",
+      "literal": "#fef3c7",
+      "count": 1,
+      "resolution": "delete",
+      "reason": "D-03 Batch 3: 文件删除（Login.css/ProjectAllocations.css），retained-unused 颜色随文件移除",
+      "baselineHead": "1bc1920978a0b0b08f6b91a615556a79f714eace"
+    },
+    {
+      "fingerprint": "8b988a9b85a25f60db4103e0eda2bff612c55889e541d942c155d2c3be59eeaf",
+      "file": "client/src/components/ProjectAllocations.css",
+      "literal": "#e5e7eb",
+      "count": 1,
+      "resolution": "delete",
+      "reason": "D-03 Batch 3: 文件删除（Login.css/ProjectAllocations.css），retained-unused 颜色随文件移除",
+      "baselineHead": "1bc1920978a0b0b08f6b91a615556a79f714eace"
+    },
+    {
+      "fingerprint": "99dcf2de55b33ee58cb46cb4aa096cfd419f69e9d2aa3b12cbf79f8c4a8d1c38",
+      "file": "client/src/components/ProjectAllocations.css",
+      "literal": "#6b7280",
+      "count": 1,
+      "resolution": "delete",
+      "reason": "D-03 Batch 3: 文件删除（Login.css/ProjectAllocations.css），retained-unused 颜色随文件移除",
+      "baselineHead": "1bc1920978a0b0b08f6b91a615556a79f714eace"
+    },
+    {
+      "fingerprint": "9e693e12296b020bbecbbfb67a710094139676e8cc25ef4af46587250f0ee2c0",
+      "file": "client/src/components/ProjectAllocations.css",
+      "literal": "#f59e0b",
+      "count": 1,
+      "resolution": "delete",
+      "reason": "D-03 Batch 3: 文件删除（Login.css/ProjectAllocations.css），retained-unused 颜色随文件移除",
+      "baselineHead": "1bc1920978a0b0b08f6b91a615556a79f714eace"
+    },
+    {
+      "fingerprint": "a8691807651d81c23183e5b399fe6913891a9c9e75344d26a7aa5f20757b852d",
+      "file": "client/src/components/ProjectAllocations.css",
+      "literal": "#fef3c7",
+      "count": 1,
+      "resolution": "delete",
+      "reason": "D-03 Batch 3: 文件删除（Login.css/ProjectAllocations.css），retained-unused 颜色随文件移除",
+      "baselineHead": "1bc1920978a0b0b08f6b91a615556a79f714eace"
     }
   ],
   "additions": [],
   "summary": {
-    "occurrences": 408,
-    "identities": 405,
-    "uniqueColors": 156,
-    "files": 26,
+    "occurrences": 369,
+    "identities": 366,
+    "uniqueColors": 148,
+    "files": 24,
     "byKind": {
       "token-definition": 254,
       "data-color": 47,
-      "neutral-literal": 28,
-      "semantic-color": 54,
-      "non-color": 25
+      "neutral-literal": 16,
+      "non-color": 25,
+      "semantic-color": 27
     },
     "byDecision": {
       "not-debt": 279,
       "accepted-literal": 38,
-      "retained-unused": 91
+      "retained-unused": 52
     },
     "byFile": {
       "client/src/App.css": 7,
       "client/src/components/boards/EditableCells.tsx": 8,
       "client/src/components/InteractiveTimeline.css": 6,
-      "client/src/components/Login.css": 4,
       "client/src/components/modals/ProjectTypeModal.tsx": 10,
       "client/src/components/phase-manager/types.ts": 9,
       "client/src/components/phase-timeline/PhaseTimelineStyles.tsx": 2,
       "client/src/components/phase-timeline/PhaseTimelineTable.tsx": 9,
       "client/src/components/PhaseTemplateDesigner.css": 2,
-      "client/src/components/ProjectAllocations.css": 31,
       "client/src/components/ScenarioSelector.css": 12,
       "client/src/components/tags/TagManagerDialog.tsx": 8,
       "client/src/components/ui/StatCard.css": 1,
@@ -21947,7 +21282,7 @@
       "client/src/pages/ProjectDetail.tsx": 5,
       "client/src/pages/ProjectRoadmap.css": 3,
       "client/src/pages/ProjectTypeDetails.tsx": 1,
-      "client/src/pages/ScenarioComparison.css": 23,
+      "client/src/pages/ScenarioComparison.css": 19,
       "client/src/styles/design-system.css": 20
     }
   },

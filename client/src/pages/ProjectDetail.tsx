@@ -566,7 +566,9 @@ export function ProjectDetail() {
             }
           }}
         >
-          <DialogContent className="max-w-2xl">
+          {/* assignment-modal: stable anchor for the dialog-scoped form styles
+              in ProjectDetail.css (portaled to body — page-root scopes miss) */}
+          <DialogContent className="max-w-2xl assignment-modal">
             <DialogHeader>
               <DialogTitle>
                 {isEditingAssignment ? t('projects:editAssignment') : t('projects:assignmentDetails')}

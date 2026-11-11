@@ -1035,7 +1035,7 @@ legend {
     font-size: 0.9375rem;
   }
   
-  .form-group {
+  .import-container .form-group {
     width: 100%;
     max-width: 320px;
     margin: 0 auto;

@@ -61,7 +61,8 @@ export function isOwnerFile(rel) {
  * 等 D-04 Stage 2（迁移 Radix）删除，不单独作用域化。
  * 计数勘误（2026-11-11）：Phase A 头注曾写"137 违例 → 67 文件×类键"，逐条
  * 重数实为 63；Batch 1 清 24 条 + badge-info 注册冻结 2 条 → 41；Batch 2 清
- * 22 条 → 19。
+ * 22 条 → 19；Batch 3 清 9 条（form-* 作用域化 + Login.css/ProjectAllocations
+ * 死文件删除）→ 10，全部为 InteractiveTimeline（D-04 Stage 2 随迁 Radix 删除）。
  */
 export const ALLOWLIST = new Map([
   ['client/src/components/InteractiveTimeline.css :: .form-group', '2026-12-31'],
@@ -74,15 +75,6 @@ export const ALLOWLIST = new Map([
   ['client/src/components/InteractiveTimeline.css :: .modal-header', '2026-12-31'],
   ['client/src/components/InteractiveTimeline.css :: .modal-overlay', '2026-12-31'],
   ['client/src/components/InteractiveTimeline.css :: .modal-title', '2026-12-31'],
-  ['client/src/components/Login.css :: .form-group', '2026-12-31'],
-  ['client/src/components/ProjectAllocations.css :: .form-group', '2026-12-31'],
-  ['client/src/components/ProjectAllocations.css :: .form-input', '2026-12-31'],
-  ['client/src/pages/Import.css :: .form-group', '2026-12-31'],
-  ['client/src/pages/ProjectDetail.css :: .form-group', '2026-12-31'],
-  ['client/src/pages/ProjectDetail.css :: .form-input', '2026-12-31'],
-  ['client/src/pages/ProjectDetail.css :: .form-label', '2026-12-31'],
-  ['client/src/pages/ProjectTypeDetails.css :: .form-group', '2026-12-31'],
-  ['client/src/pages/ProjectTypeDetails.css :: .form-input', '2026-12-31'],
 ]);
 
 /**

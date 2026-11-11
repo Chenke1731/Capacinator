@@ -106,4 +106,21 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 
+# UI 评审经验库完整性(2026-11-10 评审员试点): 每条经验必须可追溯、
+# GUARD 必须有断言/自证、同族≥2 禁止 NIT、enforced 后禁止人机双源。
+echo "── UI review experiences integrity ──"
+node scripts/check-ui-review-experiences.mjs
+if [ $? -ne 0 ]; then
+  echo "✗ UI review experiences — commit blocked"
+  exit 1
+fi
+
+# 后端评审经验库完整性(2026-11-11 backend-reviewer 建立): 规则与 UI 版同构。
+echo "── Backend review experiences integrity ──"
+node scripts/check-backend-review-experiences.mjs
+if [ $? -ne 0 ]; then
+  echo "✗ Backend review experiences — commit blocked"
+  exit 1
+fi
+
 echo "✓ pre-commit passed"

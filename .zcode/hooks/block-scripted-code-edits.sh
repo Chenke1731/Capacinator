@@ -6,11 +6,14 @@
 # 只有在工具调用的物理路径上拦截(exit 2 = deny)才是可靠的。
 # 读类分析(python 处理 png/json/探针)不受影响——仅当命令同时含
 # 解释器/就地编辑标志 与 .ts/.tsx/.jsx 后缀时拦截。
+# 2026-11-11 收窄: 原 `sed .*-i` 过宽(含 -inheritance/-i 字样的只读 sed 也拦,
+# 见改进计划 §7 I01a 行遗留注),改为仅匹配 sed 的就地编辑标志(-i/--in-place,
+# 允许前面有其他短旗标)。backend-reviewer(带 Bash)上线前先行修复。
 input=$(cat)
 cmd=$(printf '%s' "$input" | jq -r '.tool_input.command // empty' 2>/dev/null)
 [ -z "$cmd" ] && exit 0
 
-if printf '%s' "$cmd" | grep -qE '\.(tsx?|jsx)\b' && printf '%s' "$cmd" | grep -qE '(python3?|perl|ruby) |sed -i|sed .*-i'; then
+if printf '%s' "$cmd" | grep -qE '\.(tsx?|jsx)\b' && printf '%s' "$cmd" | grep -qE '(python3?|perl|ruby) |sed +(-[a-zA-Z]+ +)*-i\b|sed +--in-place\b'; then
   jq -n '{
     hookSpecificOutput: {
       hookEventName: "PreToolUse",

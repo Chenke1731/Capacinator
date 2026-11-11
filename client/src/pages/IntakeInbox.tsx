@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { AlertCircle, ChevronDown, ChevronRight, Plus, RefreshCw } from 'lucide-react';
 import { api } from '../lib/api-client';
 import { queryKeys } from '../lib/queryKeys';
+import { useDebouncedValue } from '../hooks/useDebouncedValue';
 import { INTAKE_SOURCE_CHANNELS, type DemandIntake, type IntakeConvertResult } from '../types';
 import { IntakeTriageDialog } from '../components/intake/IntakeTriageDialog';
 import { useIntakeCapture } from '../contexts/IntakeCaptureContext';
@@ -54,6 +55,9 @@ export function IntakeInbox() {
   const [status, setStatus] = useState('new');
   const [sourceFilter, setSourceFilter] = useState('');
   const [q, setQ] = useState('');
+  // G-17（批 C 尾项）：防抖后喂 queryKey——输入停顿 300ms 才发请求，
+  // 逐字符 GET 消除；受控输入仍用原始 q 保持即时回显。
+  const debouncedQ = useDebouncedValue(q, 300);
   const [page, setPage] = useState(1);
   const [expanded, setExpanded] = useState<Set<string>>(new Set());
   const [editing, setEditing] = useState<DemandIntake | null>(null);
@@ -72,14 +76,14 @@ export function IntakeInbox() {
     queryKey: queryKeys.intake.list({
       status,
       source: sourceFilter,
-      q,
+      q: debouncedQ,
       page,
     }),
     queryFn: async () => {
       const response = await api.intake.list({
         status,
         source_channel: sourceFilter || undefined,
-        q: q || undefined,
+        q: debouncedQ || undefined,
         // 首页不携带 page：保持 URL/fixture 键稳定（page=2 起才显式翻页）
         page: page > 1 ? page : undefined,
         limit: 200,
@@ -123,7 +127,7 @@ export function IntakeInbox() {
   }, [listQuery.isSuccess, listQuery.data, pageRows, page]);
   useEffect(() => {
     setPage(1);
-  }, [status, sourceFilter, q]);
+  }, [status, sourceFilter, debouncedQ]);
 
   const toggleExpand = (id: string) => {
     setExpanded((prev) => {

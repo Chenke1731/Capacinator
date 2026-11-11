@@ -673,7 +673,9 @@ function ImportUnified() {
               </div>
 
               {previewStale && (
-                <p className="text-danger" role="alert">
+                /* 批 C：--danger 在暗色底 3.3:1 破线（axe 实锤）——告警文字用
+                   语义 AA 对 --status-danger-text（暗色 #fecaca 同 badge 家族） */
+                <p className="text-danger" role="alert" style={{ color: 'var(--status-danger-text)' }}>
                   {t('importExport:import.previewStale')}
                 </p>
               )}

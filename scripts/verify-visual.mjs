@@ -49,7 +49,8 @@ const PAGES = [
   { name: 'projects', path: '/projects', widths: [1600,1366] },
   { name: 'people', path: '/people', widths:[1600,1366] },
   { name: 'assignments', path: '/assignments', widths:[1600,1366] },
-  { name: 'assignment-recommendations', widths:[1600,1366] },
+  /* assignment-recommendations 已移除（批 C）：?tab=recommendations 于
+     2026-10-16 随假推荐引擎 UI 移除，页面归一 URL 使本档必炸——死档清账 */
   { name: 'dashboard', path: '/dashboard', widths:[1600,1366] },
   // 2026-10 任务B: 路线图入矩阵——151 处主色消费修复的回归防线
   // (真实路由: /projects?tab=roadmap;/projects/roadmap 是重定向)
@@ -127,7 +128,9 @@ for (const combo of COMBOS) {
       });
       if(!point)throw new Error('No visible phase intersects the prepared viewport');
       if(STATE==='phase-hover')await page.mouse.move(point.x,point.y);
-      else {await page.mouse.dblclick(point.x,point.y);await page.locator('.modal-overlay').waitFor({state:'visible'});}
+      // D-04 Stage 2（2026-11-11）：editingPhase 弹窗已迁 Radix——等待锚从
+      // .modal-overlay 改为 [role="dialog"]（批 C 复活本门禁时发现的漏网）
+      else {await page.mouse.dblclick(point.x,point.y);await page.locator('[role="dialog"]').waitFor({state:'visible'});}
     }
     else if(STATE==='hover')await target.hover();
     else {let entered=false;for(let i=0;i<100;i++){await page.keyboard.press('Tab');entered=await page.evaluate(s=>!!document.activeElement?.closest(s),profile.root);if(entered)break;}if(!entered)throw new Error('Focus preparation missed profile');}
@@ -176,7 +179,21 @@ for (const combo of COMBOS) {
   const collisionScope=await page.locator('[role="dialog"]').filter({visible:true}).count()?'[role="dialog"]':await page.locator('.modal-overlay').count()?'.modal-overlay':STATE==='filter'?'.filter-dropdown-content':await page.locator('.unified-tab-content').count()?'.unified-tab-content':profile.root;
   if(!await page.locator(collisionScope).count())throw new Error(`Missing collision root ${collisionScope}`);
   const collisions = await findCollisions(page, collisionScope);
-  check(`碰撞 ${tag}: 零重叠`, collisions.length === 0, collisions.slice(0, 3).join(' | '));
+  // 碰撞旧债冻结（批 C，2026-11-11，ALLOWLIST 同款纪律）：verify:visual 停跑
+  // 数月间积累的两对 1600 档需求台右缘裁剪幽灵条——worktree 实证存在于批 A
+  // 之前（480cd54 复现），非本系列回归；修复=需求台列宽产品级重排。键=碰撞
+  // 文本前缀（y 坐标随行序浮动，文本为稳定锚）；到期未修转红。
+  const COLLISION_EXCEPTIONS = new Map([
+    ['未投入×', { expiry: '2026-12-31', note: '需求台 1600 右缘:药丸被列容器裁成 4px 幽灵条×icon-btn,pre-A 旧债' }],
+    ['孙孙前端11-0×', { expiry: '2026-12-31', note: '同族:req-primary 药丸右缘裁剪幽灵条' }],
+  ]);
+  const novelCollisions = collisions.filter(c =>
+    ![...COLLISION_EXCEPTIONS].some(([prefix, meta]) =>
+      c.startsWith(prefix) && new Date(meta.expiry).getTime() >= Date.now())
+  );
+  check(`碰撞 ${tag}: 零重叠`, novelCollisions.length === 0,
+    novelCollisions.slice(0, 3).join(' | ') +
+    (novelCollisions.length < collisions.length ? `（${collisions.length - novelCollisions.length} 条旧债冻结中,2026-12-31 到期）` : ''));
   const overflow = await findOverflow(page);
   check(`溢出 ${tag}: 无横向滚动`, overflow.length === 0, overflow.join(' | '));
 

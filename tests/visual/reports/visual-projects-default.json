@@ -1,7 +1,7 @@
 {
   "combinations": 4,
   "checks": 20,
-  "updatePixels": true,
+  "updatePixels": false,
   "registerExistingAxe": false,
   "evidence": [
     {
@@ -20,7 +20,10 @@
         "added": [],
         "identities": []
       },
-      "collisions": [],
+      "collisions": [
+        "未投入× 4x24px @y317",
+        "孙孙前端11-0× 4x24px @y357"
+      ],
       "overflow": [],
       "writes": [],
       "errors": [],
@@ -38,7 +41,7 @@
           "ok": true
         },
         {
-          "name": "基线 projects-dark-1600: 已采集",
+          "name": "像素 projects-dark-1600: 与基线一致(≤0.5%)",
           "ok": true
         },
         {
@@ -47,7 +50,9 @@
         }
       ],
       "artifact": "tests/visual/reports/visual-projects-dark-1600.png",
-      "baseline": "tests/visual/__screenshots__/projects-dark-1600.png"
+      "baseline": "tests/visual/__screenshots__/projects-dark-1600.png",
+      "backdrops": [],
+      "svgAxisText": []
     },
     {
       "tag": "projects-dark-1366",
@@ -83,7 +88,7 @@
           "ok": true
         },
         {
-          "name": "基线 projects-dark-1366: 已采集",
+          "name": "像素 projects-dark-1366: 与基线一致(≤0.5%)",
           "ok": true
         },
         {
@@ -92,7 +97,9 @@
         }
       ],
       "artifact": "tests/visual/reports/visual-projects-dark-1366.png",
-      "baseline": "tests/visual/__screenshots__/projects-dark-1366.png"
+      "baseline": "tests/visual/__screenshots__/projects-dark-1366.png",
+      "backdrops": [],
+      "svgAxisText": []
     },
     {
       "tag": "projects-light-1600",
@@ -110,7 +117,10 @@
         "added": [],
         "identities": []
       },
-      "collisions": [],
+      "collisions": [
+        "未投入× 4x24px @y317",
+        "孙孙前端11-0× 4x24px @y357"
+      ],
       "overflow": [],
       "writes": [],
       "errors": [],
@@ -128,7 +138,7 @@
           "ok": true
         },
         {
-          "name": "基线 projects-light-1600: 已采集",
+          "name": "像素 projects-light-1600: 与基线一致(≤0.5%)",
           "ok": true
         },
         {
@@ -137,7 +147,9 @@
         }
       ],
       "artifact": "tests/visual/reports/visual-projects-light-1600.png",
-      "baseline": "tests/visual/__screenshots__/projects-light-1600.png"
+      "baseline": "tests/visual/__screenshots__/projects-light-1600.png",
+      "backdrops": [],
+      "svgAxisText": []
     },
     {
       "tag": "projects-light-1366",
@@ -173,7 +185,7 @@
           "ok": true
         },
         {
-          "name": "基线 projects-light-1366: 已采集",
+          "name": "像素 projects-light-1366: 与基线一致(≤0.5%)",
           "ok": true
         },
         {
@@ -182,7 +194,9 @@
         }
       ],
       "artifact": "tests/visual/reports/visual-projects-light-1366.png",
-      "baseline": "tests/visual/__screenshots__/projects-light-1366.png"
+      "baseline": "tests/visual/__screenshots__/projects-light-1366.png",
+      "backdrops": [],
+      "svgAxisText": []
     }
   ]
 }

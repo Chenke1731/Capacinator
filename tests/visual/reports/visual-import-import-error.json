@@ -1,7 +1,7 @@
 {
   "combinations": 4,
   "checks": 20,
-  "updatePixels": false,
+  "updatePixels": true,
   "registerExistingAxe": false,
   "evidence": [
     {
@@ -38,8 +38,8 @@
           "ok": true
         },
         {
-          "name": "基线 import-import-error-dark-1600: 缺失,须显式采集",
-          "ok": false
+          "name": "基线 import-import-error-dark-1600: 已采集",
+          "ok": true
         },
         {
           "name": "只读与运行 import-import-error-dark-1600",
@@ -48,6 +48,8 @@
       ],
       "artifact": "tests/visual/reports/visual-import-import-error-dark-1600.png",
       "baseline": "tests/visual/__screenshots__/import-import-error-dark-1600.png",
+      "backdrops": [],
+      "svgAxisText": [],
       "mockedWrites": [
         {
           "method": "POST",
@@ -91,8 +93,8 @@
           "ok": true
         },
         {
-          "name": "基线 import-import-error-dark-1366: 缺失,须显式采集",
-          "ok": false
+          "name": "基线 import-import-error-dark-1366: 已采集",
+          "ok": true
         },
         {
           "name": "只读与运行 import-import-error-dark-1366",
@@ -101,6 +103,8 @@
       ],
       "artifact": "tests/visual/reports/visual-import-import-error-dark-1366.png",
       "baseline": "tests/visual/__screenshots__/import-import-error-dark-1366.png",
+      "backdrops": [],
+      "svgAxisText": [],
       "mockedWrites": [
         {
           "method": "POST",
@@ -144,8 +148,8 @@
           "ok": true
         },
         {
-          "name": "基线 import-import-error-light-1600: 缺失,须显式采集",
-          "ok": false
+          "name": "基线 import-import-error-light-1600: 已采集",
+          "ok": true
         },
         {
           "name": "只读与运行 import-import-error-light-1600",
@@ -154,6 +158,8 @@
       ],
       "artifact": "tests/visual/reports/visual-import-import-error-light-1600.png",
       "baseline": "tests/visual/__screenshots__/import-import-error-light-1600.png",
+      "backdrops": [],
+      "svgAxisText": [],
       "mockedWrites": [
         {
           "method": "POST",
@@ -197,8 +203,8 @@
           "ok": true
         },
         {
-          "name": "基线 import-import-error-light-1366: 缺失,须显式采集",
-          "ok": false
+          "name": "基线 import-import-error-light-1366: 已采集",
+          "ok": true
         },
         {
           "name": "只读与运行 import-import-error-light-1366",
@@ -207,6 +213,8 @@
       ],
       "artifact": "tests/visual/reports/visual-import-import-error-light-1366.png",
       "baseline": "tests/visual/__screenshots__/import-import-error-light-1366.png",
+      "backdrops": [],
+      "svgAxisText": [],
       "mockedWrites": [
         {
           "method": "POST",

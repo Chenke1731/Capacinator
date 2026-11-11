@@ -165,6 +165,11 @@ export async function runProfileStates(profileName,{selftest=false,quick=false,r
         const colorProblems=data.issues.filter(i=>i.kind==='text-contrast'||i.kind==='axe:color-contrast');
         const registered=recordExisting&&!colorProblems.length&&!Object.hasOwn(budget,key);
         if(registered){budget[key]=keys;registeredKeys.add(key);}
+        // N6（批 C 尾项，2026-11-11）预算腐化提示（不拦门，同 lint:ui ALLOWLIST
+        // note 先例）：本相位登记在册但当前未再产出的条目——连续多轮未命中即为
+        // 陈旧候选（DOM 变更致 nth-of-type 路径失配），修复后应手术清除。
+        const stale=(budget[key]??[]).filter(k=>!keys.includes(k));
+        if(stale.length&&!registered)console.log(`note: 预算条目当前未命中(陈旧候选,修复后可手术清除) ${key}: ${stale.length} 条`);
         const added=keys.filter(k=>!(budget[key]??[]).includes(k));
         if((added.length&&!registered||colorProblems.length)&&!selftest)failed=true;
         report.phases.push({theme,state,...data,newIssues:added});

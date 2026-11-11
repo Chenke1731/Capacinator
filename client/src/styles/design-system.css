@@ -115,9 +115,18 @@ select,
   transition: all var(--transition-base);
 }
 
-/* Ensure minimum touch target sizes */
+/* Ensure minimum touch target sizes.
+   批 C（D-01 全局收口，2026-11-11）：按钮行内控件最小盒 44→40px，对齐
+   --button-min-height 契约（同排控件等高 40；44px 只用于独立图标钮如
+   .page-back-btn/.page-back 样式族与 Radix 关闭钮）。checkbox/radio/.clickable
+   保持 44 触达——命中区不等于视觉盒（复选框视觉 24px 由 owner 覆盖块提供）。 */
 button,
-[role="button"],
+[role="button"] {
+  min-width: var(--button-min-height);
+  min-height: var(--button-min-height);
+  position: relative;
+}
+
 input[type="checkbox"],
 input[type="radio"],
 .clickable {

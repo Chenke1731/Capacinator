@@ -20,7 +20,7 @@
           "textual": true,
           "disabled": false,
           "width": 102,
-          "height": 44,
+          "height": 40,
           "font": 14,
           "top": 108,
           "clipTop": 100,
@@ -41,11 +41,11 @@
           "textual": true,
           "disabled": false,
           "width": 158,
-          "height": 39,
+          "height": 40,
           "font": 14,
-          "top": 231,
+          "top": 227,
           "clipTop": 100,
-          "offsetTop": 131
+          "offsetTop": 127
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(2) > input:nth-of-type(1)",
@@ -62,11 +62,11 @@
           "textual": true,
           "disabled": false,
           "width": 158,
-          "height": 39,
+          "height": 40,
           "font": 14,
-          "top": 231,
+          "top": 227,
           "clipTop": 100,
-          "offsetTop": 131
+          "offsetTop": 127
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(3) > select:nth-of-type(1)",
@@ -83,11 +83,11 @@
           "textual": true,
           "disabled": false,
           "width": 150,
-          "height": 36,
+          "height": 40,
           "font": 14,
-          "top": 234,
+          "top": 227,
           "clipTop": 100,
-          "offsetTop": 134
+          "offsetTop": 127
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(4) > select:nth-of-type(1)",
@@ -104,11 +104,11 @@
           "textual": true,
           "disabled": false,
           "width": 150,
-          "height": 36,
+          "height": 40,
           "font": 14,
-          "top": 234,
+          "top": 227,
           "clipTop": 100,
-          "offsetTop": 134
+          "offsetTop": 127
         },
         {
           "selector": "div:nth-of-type(2) > button:nth-of-type(1)",
@@ -123,13 +123,34 @@
           ],
           "contrast": 6.287528596095884,
           "textual": true,
-          "disabled": true,
+          "disabled": false,
           "width": 82,
-          "height": 44,
+          "height": 40,
           "font": 14,
-          "top": 226,
+          "top": 227,
           "clipTop": 100,
-          "offsetTop": 126
+          "offsetTop": 127
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(1)",
+          "family": "card-action-link|",
+          "text": "查看人员",
+          "foreground": "rgb(79, 70, 229)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 66.015625,
+          "height": 24,
+          "font": 12,
+          "top": 437.796875,
+          "clipTop": 100,
+          "offsetTop": 337.796875
         }
       ],
       "issues": [],
@@ -156,7 +177,7 @@
           "textual": true,
           "disabled": false,
           "width": 102,
-          "height": 44,
+          "height": 40,
           "font": 14,
           "top": 108,
           "clipTop": 100,
@@ -177,11 +198,11 @@
           "textual": true,
           "disabled": false,
           "width": 158,
-          "height": 39,
+          "height": 40,
           "font": 14,
-          "top": 231,
+          "top": 227,
           "clipTop": 100,
-          "offsetTop": 131
+          "offsetTop": 127
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(2) > input:nth-of-type(1)",
@@ -198,11 +219,11 @@
           "textual": true,
           "disabled": false,
           "width": 158,
-          "height": 39,
+          "height": 40,
           "font": 14,
-          "top": 231,
+          "top": 227,
           "clipTop": 100,
-          "offsetTop": 131
+          "offsetTop": 127
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(3) > select:nth-of-type(1)",
@@ -219,11 +240,11 @@
           "textual": true,
           "disabled": false,
           "width": 150,
-          "height": 36,
+          "height": 40,
           "font": 14,
-          "top": 234,
+          "top": 227,
           "clipTop": 100,
-          "offsetTop": 134
+          "offsetTop": 127
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(4) > select:nth-of-type(1)",
@@ -240,11 +261,11 @@
           "textual": true,
           "disabled": false,
           "width": 150,
-          "height": 36,
+          "height": 40,
           "font": 14,
-          "top": 234,
+          "top": 227,
           "clipTop": 100,
-          "offsetTop": 134
+          "offsetTop": 127
         },
         {
           "selector": "div:nth-of-type(2) > button:nth-of-type(1)",
@@ -261,11 +282,32 @@
           "textual": true,
           "disabled": false,
           "width": 82,
-          "height": 44,
+          "height": 40,
           "font": 14,
-          "top": 226,
+          "top": 227,
           "clipTop": 100,
-          "offsetTop": 126
+          "offsetTop": 127
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(1)",
+          "family": "card-action-link|",
+          "text": "查看人员",
+          "foreground": "rgb(79, 70, 229)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 66.015625,
+          "height": 24,
+          "font": 12,
+          "top": 437.796875,
+          "clipTop": 100,
+          "offsetTop": 337.796875
         }
       ],
       "issues": [],
@@ -292,7 +334,7 @@
           "textual": true,
           "disabled": false,
           "width": 102,
-          "height": 44,
+          "height": 40,
           "font": 14,
           "top": 108,
           "clipTop": 100,
@@ -313,11 +355,11 @@
           "textual": true,
           "disabled": false,
           "width": 158,
-          "height": 39,
+          "height": 40,
           "font": 14,
-          "top": 231,
+          "top": 227,
           "clipTop": 100,
-          "offsetTop": 131
+          "offsetTop": 127
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(2) > input:nth-of-type(1)",
@@ -334,11 +376,11 @@
           "textual": true,
           "disabled": false,
           "width": 158,
-          "height": 39,
+          "height": 40,
           "font": 14,
-          "top": 231,
+          "top": 227,
           "clipTop": 100,
-          "offsetTop": 131
+          "offsetTop": 127
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(3) > select:nth-of-type(1)",
@@ -355,11 +397,11 @@
           "textual": true,
           "disabled": false,
           "width": 150,
-          "height": 36,
+          "height": 40,
           "font": 14,
-          "top": 234,
+          "top": 227,
           "clipTop": 100,
-          "offsetTop": 134
+          "offsetTop": 127
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(4) > select:nth-of-type(1)",
@@ -376,11 +418,11 @@
           "textual": true,
           "disabled": false,
           "width": 150,
-          "height": 36,
+          "height": 40,
           "font": 14,
-          "top": 234,
+          "top": 227,
           "clipTop": 100,
-          "offsetTop": 134
+          "offsetTop": 127
         },
         {
           "selector": "div:nth-of-type(2) > button:nth-of-type(1)",
@@ -397,11 +439,346 @@
           "textual": true,
           "disabled": false,
           "width": 82,
-          "height": 44,
+          "height": 40,
           "font": 14,
-          "top": 226,
+          "top": 227,
           "clipTop": 100,
-          "offsetTop": 126
+          "offsetTop": 127
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(1)",
+          "family": "card-action-link|",
+          "text": "查看人员",
+          "foreground": "rgb(79, 70, 229)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 66.015625,
+          "height": 24,
+          "font": 12,
+          "top": 437.796875,
+          "clipTop": 100,
+          "offsetTop": 337.796875
+        }
+      ],
+      "issues": [],
+      "scope": ".reports-tab-content",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "light",
+      "state": "hover-2",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn btn-secondary|",
+          "text": "导出",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(249, 250, 251)",
+          "effectiveBackground": [
+            249,
+            250,
+            251
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 102,
+          "height": 40,
+          "font": 14,
+          "top": 108,
+          "clipTop": 100,
+          "offsetTop": 8
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "|",
+          "text": "",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 158,
+          "height": 40,
+          "font": 14,
+          "top": 227,
+          "clipTop": 100,
+          "offsetTop": 127
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > input:nth-of-type(1)",
+          "family": "|",
+          "text": "",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 158,
+          "height": 40,
+          "font": 14,
+          "top": 227,
+          "clipTop": 100,
+          "offsetTop": 127
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(3) > select:nth-of-type(1)",
+          "family": "|",
+          "text": "所有类型问题单支持零星事项需求交付项目事务",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 150,
+          "height": 40,
+          "font": 14,
+          "top": 227,
+          "clipTop": 100,
+          "offsetTop": 127
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(4) > select:nth-of-type(1)",
+          "family": "|",
+          "text": "所有地点总部",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 150,
+          "height": 40,
+          "font": 14,
+          "top": 227,
+          "clipTop": 100,
+          "offsetTop": 127
+        },
+        {
+          "selector": "div:nth-of-type(2) > button:nth-of-type(1)",
+          "family": "btn btn-primary|",
+          "text": "刷新",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 82,
+          "height": 40,
+          "font": 14,
+          "top": 227,
+          "clipTop": 100,
+          "offsetTop": 127
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(1)",
+          "family": "card-action-link|",
+          "text": "查看人员",
+          "foreground": "rgb(79, 70, 229)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 66.015625,
+          "height": 24,
+          "font": 12,
+          "top": 437.796875,
+          "clipTop": 100,
+          "offsetTop": 337.796875
+        }
+      ],
+      "issues": [],
+      "scope": ".reports-tab-content",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "light",
+      "state": "hover-3",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn btn-secondary|",
+          "text": "导出",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(249, 250, 251)",
+          "effectiveBackground": [
+            249,
+            250,
+            251
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 102,
+          "height": 40,
+          "font": 14,
+          "top": 108,
+          "clipTop": 100,
+          "offsetTop": 8
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "|",
+          "text": "",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 158,
+          "height": 40,
+          "font": 14,
+          "top": 227,
+          "clipTop": 100,
+          "offsetTop": 127
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > input:nth-of-type(1)",
+          "family": "|",
+          "text": "",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 158,
+          "height": 40,
+          "font": 14,
+          "top": 227,
+          "clipTop": 100,
+          "offsetTop": 127
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(3) > select:nth-of-type(1)",
+          "family": "|",
+          "text": "所有类型问题单支持零星事项需求交付项目事务",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 150,
+          "height": 40,
+          "font": 14,
+          "top": 227,
+          "clipTop": 100,
+          "offsetTop": 127
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(4) > select:nth-of-type(1)",
+          "family": "|",
+          "text": "所有地点总部",
+          "foreground": "rgb(17, 24, 39)",
+          "background": "rgb(255, 255, 255)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 17.73971700407407,
+          "textual": true,
+          "disabled": false,
+          "width": 150,
+          "height": 40,
+          "font": 14,
+          "top": 227,
+          "clipTop": 100,
+          "offsetTop": 127
+        },
+        {
+          "selector": "div:nth-of-type(2) > button:nth-of-type(1)",
+          "family": "btn btn-primary|",
+          "text": "刷新",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 82,
+          "height": 40,
+          "font": 14,
+          "top": 227,
+          "clipTop": 100,
+          "offsetTop": 127
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(1)",
+          "family": "card-action-link|",
+          "text": "查看人员",
+          "foreground": "rgb(79, 70, 229)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 66.015625,
+          "height": 24,
+          "font": 12,
+          "top": 435.796875,
+          "clipTop": 100,
+          "offsetTop": 335.796875
         }
       ],
       "issues": [],
@@ -428,7 +805,7 @@
           "textual": true,
           "disabled": false,
           "width": 102,
-          "height": 44,
+          "height": 40,
           "font": 14,
           "top": 108,
           "clipTop": 100,
@@ -449,11 +826,11 @@
           "textual": true,
           "disabled": false,
           "width": 158,
-          "height": 39,
+          "height": 40,
           "font": 14,
-          "top": 231,
+          "top": 227,
           "clipTop": 100,
-          "offsetTop": 131
+          "offsetTop": 127
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(2) > input:nth-of-type(1)",
@@ -470,11 +847,11 @@
           "textual": true,
           "disabled": false,
           "width": 158,
-          "height": 39,
+          "height": 40,
           "font": 14,
-          "top": 231,
+          "top": 227,
           "clipTop": 100,
-          "offsetTop": 131
+          "offsetTop": 127
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(3) > select:nth-of-type(1)",
@@ -491,11 +868,11 @@
           "textual": true,
           "disabled": false,
           "width": 150,
-          "height": 36,
+          "height": 40,
           "font": 14,
-          "top": 234,
+          "top": 227,
           "clipTop": 100,
-          "offsetTop": 134
+          "offsetTop": 127
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(4) > select:nth-of-type(1)",
@@ -512,11 +889,11 @@
           "textual": true,
           "disabled": false,
           "width": 150,
-          "height": 36,
+          "height": 40,
           "font": 14,
-          "top": 234,
+          "top": 227,
           "clipTop": 100,
-          "offsetTop": 134
+          "offsetTop": 127
         },
         {
           "selector": "div:nth-of-type(2) > button:nth-of-type(1)",
@@ -533,11 +910,32 @@
           "textual": true,
           "disabled": false,
           "width": 82,
-          "height": 44,
+          "height": 40,
           "font": 14,
-          "top": 226,
+          "top": 227,
           "clipTop": 100,
-          "offsetTop": 126
+          "offsetTop": 127
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(1)",
+          "family": "card-action-link|",
+          "text": "查看人员",
+          "foreground": "rgb(79, 70, 229)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            255,
+            255,
+            255
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 66.015625,
+          "height": 24,
+          "font": 12,
+          "top": 436.94879150390625,
+          "clipTop": 100,
+          "offsetTop": 336.94879150390625
         }
       ],
       "issues": [],
@@ -564,7 +962,7 @@
           "textual": true,
           "disabled": false,
           "width": 102,
-          "height": 44,
+          "height": 40,
           "font": 14,
           "top": 108,
           "clipTop": 100,
@@ -585,11 +983,11 @@
           "textual": true,
           "disabled": false,
           "width": 158,
-          "height": 39,
+          "height": 40,
           "font": 14,
-          "top": 231,
+          "top": 227,
           "clipTop": 100,
-          "offsetTop": 131
+          "offsetTop": 127
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(2) > input:nth-of-type(1)",
@@ -606,11 +1004,11 @@
           "textual": true,
           "disabled": false,
           "width": 158,
-          "height": 39,
+          "height": 40,
           "font": 14,
-          "top": 231,
+          "top": 227,
           "clipTop": 100,
-          "offsetTop": 131
+          "offsetTop": 127
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(3) > select:nth-of-type(1)",
@@ -627,11 +1025,11 @@
           "textual": true,
           "disabled": false,
           "width": 150,
-          "height": 36,
+          "height": 40,
           "font": 14,
-          "top": 234,
+          "top": 227,
           "clipTop": 100,
-          "offsetTop": 134
+          "offsetTop": 127
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(4) > select:nth-of-type(1)",
@@ -648,11 +1046,11 @@
           "textual": true,
           "disabled": false,
           "width": 150,
-          "height": 36,
+          "height": 40,
           "font": 14,
-          "top": 234,
+          "top": 227,
           "clipTop": 100,
-          "offsetTop": 134
+          "offsetTop": 127
         },
         {
           "selector": "div:nth-of-type(2) > button:nth-of-type(1)",
@@ -667,13 +1065,34 @@
           ],
           "contrast": 6.287528596095884,
           "textual": true,
-          "disabled": true,
+          "disabled": false,
           "width": 82,
-          "height": 44,
+          "height": 40,
           "font": 14,
-          "top": 226,
+          "top": 227,
           "clipTop": 100,
-          "offsetTop": 126
+          "offsetTop": 127
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(1)",
+          "family": "card-action-link|",
+          "text": "查看人员",
+          "foreground": "rgb(165, 180, 252)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 8.898600916846645,
+          "textual": true,
+          "disabled": false,
+          "width": 66.015625,
+          "height": 24,
+          "font": 12,
+          "top": 437.796875,
+          "clipTop": 100,
+          "offsetTop": 337.796875
         }
       ],
       "issues": [],
@@ -700,7 +1119,7 @@
           "textual": true,
           "disabled": false,
           "width": 102,
-          "height": 44,
+          "height": 40,
           "font": 14,
           "top": 108,
           "clipTop": 100,
@@ -721,11 +1140,11 @@
           "textual": true,
           "disabled": false,
           "width": 158,
-          "height": 39,
+          "height": 40,
           "font": 14,
-          "top": 231,
+          "top": 227,
           "clipTop": 100,
-          "offsetTop": 131
+          "offsetTop": 127
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(2) > input:nth-of-type(1)",
@@ -742,11 +1161,11 @@
           "textual": true,
           "disabled": false,
           "width": 158,
-          "height": 39,
+          "height": 40,
           "font": 14,
-          "top": 231,
+          "top": 227,
           "clipTop": 100,
-          "offsetTop": 131
+          "offsetTop": 127
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(3) > select:nth-of-type(1)",
@@ -763,11 +1182,11 @@
           "textual": true,
           "disabled": false,
           "width": 150,
-          "height": 36,
+          "height": 40,
           "font": 14,
-          "top": 234,
+          "top": 227,
           "clipTop": 100,
-          "offsetTop": 134
+          "offsetTop": 127
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(4) > select:nth-of-type(1)",
@@ -784,11 +1203,11 @@
           "textual": true,
           "disabled": false,
           "width": 150,
-          "height": 36,
+          "height": 40,
           "font": 14,
-          "top": 234,
+          "top": 227,
           "clipTop": 100,
-          "offsetTop": 134
+          "offsetTop": 127
         },
         {
           "selector": "div:nth-of-type(2) > button:nth-of-type(1)",
@@ -805,11 +1224,32 @@
           "textual": true,
           "disabled": false,
           "width": 82,
-          "height": 44,
+          "height": 40,
           "font": 14,
-          "top": 226,
+          "top": 227,
           "clipTop": 100,
-          "offsetTop": 126
+          "offsetTop": 127
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(1)",
+          "family": "card-action-link|",
+          "text": "查看人员",
+          "foreground": "rgb(165, 180, 252)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 8.898600916846645,
+          "textual": true,
+          "disabled": false,
+          "width": 66.015625,
+          "height": 24,
+          "font": 12,
+          "top": 437.796875,
+          "clipTop": 100,
+          "offsetTop": 337.796875
         }
       ],
       "issues": [],
@@ -836,7 +1276,7 @@
           "textual": true,
           "disabled": false,
           "width": 102,
-          "height": 44,
+          "height": 40,
           "font": 14,
           "top": 108,
           "clipTop": 100,
@@ -857,11 +1297,11 @@
           "textual": true,
           "disabled": false,
           "width": 158,
-          "height": 39,
+          "height": 40,
           "font": 14,
-          "top": 231,
+          "top": 227,
           "clipTop": 100,
-          "offsetTop": 131
+          "offsetTop": 127
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(2) > input:nth-of-type(1)",
@@ -878,11 +1318,11 @@
           "textual": true,
           "disabled": false,
           "width": 158,
-          "height": 39,
+          "height": 40,
           "font": 14,
-          "top": 231,
+          "top": 227,
           "clipTop": 100,
-          "offsetTop": 131
+          "offsetTop": 127
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(3) > select:nth-of-type(1)",
@@ -899,11 +1339,11 @@
           "textual": true,
           "disabled": false,
           "width": 150,
-          "height": 36,
+          "height": 40,
           "font": 14,
-          "top": 234,
+          "top": 227,
           "clipTop": 100,
-          "offsetTop": 134
+          "offsetTop": 127
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(4) > select:nth-of-type(1)",
@@ -920,11 +1360,11 @@
           "textual": true,
           "disabled": false,
           "width": 150,
-          "height": 36,
+          "height": 40,
           "font": 14,
-          "top": 234,
+          "top": 227,
           "clipTop": 100,
-          "offsetTop": 134
+          "offsetTop": 127
         },
         {
           "selector": "div:nth-of-type(2) > button:nth-of-type(1)",
@@ -941,11 +1381,346 @@
           "textual": true,
           "disabled": false,
           "width": 82,
-          "height": 44,
+          "height": 40,
           "font": 14,
-          "top": 226,
+          "top": 227,
           "clipTop": 100,
-          "offsetTop": 126
+          "offsetTop": 127
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(1)",
+          "family": "card-action-link|",
+          "text": "查看人员",
+          "foreground": "rgb(165, 180, 252)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 8.898600916846645,
+          "textual": true,
+          "disabled": false,
+          "width": 66.015625,
+          "height": 24,
+          "font": 12,
+          "top": 437.796875,
+          "clipTop": 100,
+          "offsetTop": 337.796875
+        }
+      ],
+      "issues": [],
+      "scope": ".reports-tab-content",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "dark",
+      "state": "hover-2",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn btn-secondary|",
+          "text": "导出",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": true,
+          "disabled": false,
+          "width": 102,
+          "height": 40,
+          "font": 14,
+          "top": 108,
+          "clipTop": 100,
+          "offsetTop": 8
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "|",
+          "text": "",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(17, 24, 39)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 158,
+          "height": 40,
+          "font": 14,
+          "top": 227,
+          "clipTop": 100,
+          "offsetTop": 127
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > input:nth-of-type(1)",
+          "family": "|",
+          "text": "",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(17, 24, 39)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 158,
+          "height": 40,
+          "font": 14,
+          "top": 227,
+          "clipTop": 100,
+          "offsetTop": 127
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(3) > select:nth-of-type(1)",
+          "family": "|",
+          "text": "所有类型问题单支持零星事项需求交付项目事务",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(17, 24, 39)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 150,
+          "height": 40,
+          "font": 14,
+          "top": 227,
+          "clipTop": 100,
+          "offsetTop": 127
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(4) > select:nth-of-type(1)",
+          "family": "|",
+          "text": "所有地点总部",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(17, 24, 39)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 150,
+          "height": 40,
+          "font": 14,
+          "top": 227,
+          "clipTop": 100,
+          "offsetTop": 127
+        },
+        {
+          "selector": "div:nth-of-type(2) > button:nth-of-type(1)",
+          "family": "btn btn-primary|",
+          "text": "刷新",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 82,
+          "height": 40,
+          "font": 14,
+          "top": 227,
+          "clipTop": 100,
+          "offsetTop": 127
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(1)",
+          "family": "card-action-link|",
+          "text": "查看人员",
+          "foreground": "rgb(165, 180, 252)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 8.898600916846645,
+          "textual": true,
+          "disabled": false,
+          "width": 66.015625,
+          "height": 24,
+          "font": 12,
+          "top": 437.796875,
+          "clipTop": 100,
+          "offsetTop": 337.796875
+        }
+      ],
+      "issues": [],
+      "scope": ".reports-tab-content",
+      "axe": [],
+      "newIssues": []
+    },
+    {
+      "theme": "dark",
+      "state": "hover-3",
+      "rows": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "family": "btn btn-secondary|",
+          "text": "导出",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(31, 41, 55)",
+          "effectiveBackground": [
+            31,
+            41,
+            55
+          ],
+          "contrast": 14.046656202460271,
+          "textual": true,
+          "disabled": false,
+          "width": 102,
+          "height": 40,
+          "font": 14,
+          "top": 108,
+          "clipTop": 100,
+          "offsetTop": 8
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > input:nth-of-type(1)",
+          "family": "|",
+          "text": "",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(17, 24, 39)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 158,
+          "height": 40,
+          "font": 14,
+          "top": 227,
+          "clipTop": 100,
+          "offsetTop": 127
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(2) > input:nth-of-type(1)",
+          "family": "|",
+          "text": "",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(17, 24, 39)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 158,
+          "height": 40,
+          "font": 14,
+          "top": 227,
+          "clipTop": 100,
+          "offsetTop": 127
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(3) > select:nth-of-type(1)",
+          "family": "|",
+          "text": "所有类型问题单支持零星事项需求交付项目事务",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(17, 24, 39)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 150,
+          "height": 40,
+          "font": 14,
+          "top": 227,
+          "clipTop": 100,
+          "offsetTop": 127
+        },
+        {
+          "selector": "div:nth-of-type(2) > div:nth-of-type(4) > select:nth-of-type(1)",
+          "family": "|",
+          "text": "所有地点总部",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(17, 24, 39)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 16.97538624440406,
+          "textual": true,
+          "disabled": false,
+          "width": 150,
+          "height": 40,
+          "font": 14,
+          "top": 227,
+          "clipTop": 100,
+          "offsetTop": 127
+        },
+        {
+          "selector": "div:nth-of-type(2) > button:nth-of-type(1)",
+          "family": "btn btn-primary|",
+          "text": "刷新",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(79, 70, 229)",
+          "effectiveBackground": [
+            79,
+            70,
+            229
+          ],
+          "contrast": 6.287528596095884,
+          "textual": true,
+          "disabled": false,
+          "width": 82,
+          "height": 40,
+          "font": 14,
+          "top": 227,
+          "clipTop": 100,
+          "offsetTop": 127
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(1)",
+          "family": "card-action-link|",
+          "text": "查看人员",
+          "foreground": "rgb(165, 180, 252)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 8.898600916846645,
+          "textual": true,
+          "disabled": false,
+          "width": 66.015625,
+          "height": 24,
+          "font": 12,
+          "top": 435.796875,
+          "clipTop": 100,
+          "offsetTop": 335.796875
         }
       ],
       "issues": [],
@@ -972,7 +1747,7 @@
           "textual": true,
           "disabled": false,
           "width": 102,
-          "height": 44,
+          "height": 40,
           "font": 14,
           "top": 108,
           "clipTop": 100,
@@ -993,11 +1768,11 @@
           "textual": true,
           "disabled": false,
           "width": 158,
-          "height": 39,
+          "height": 40,
           "font": 14,
-          "top": 231,
+          "top": 227,
           "clipTop": 100,
-          "offsetTop": 131
+          "offsetTop": 127
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(2) > input:nth-of-type(1)",
@@ -1014,11 +1789,11 @@
           "textual": true,
           "disabled": false,
           "width": 158,
-          "height": 39,
+          "height": 40,
           "font": 14,
-          "top": 231,
+          "top": 227,
           "clipTop": 100,
-          "offsetTop": 131
+          "offsetTop": 127
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(3) > select:nth-of-type(1)",
@@ -1035,11 +1810,11 @@
           "textual": true,
           "disabled": false,
           "width": 150,
-          "height": 36,
+          "height": 40,
           "font": 14,
-          "top": 234,
+          "top": 227,
           "clipTop": 100,
-          "offsetTop": 134
+          "offsetTop": 127
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(4) > select:nth-of-type(1)",
@@ -1056,11 +1831,11 @@
           "textual": true,
           "disabled": false,
           "width": 150,
-          "height": 36,
+          "height": 40,
           "font": 14,
-          "top": 234,
+          "top": 227,
           "clipTop": 100,
-          "offsetTop": 134
+          "offsetTop": 127
         },
         {
           "selector": "div:nth-of-type(2) > button:nth-of-type(1)",
@@ -1077,11 +1852,32 @@
           "textual": true,
           "disabled": false,
           "width": 82,
-          "height": 44,
+          "height": 40,
           "font": 14,
-          "top": 226,
+          "top": 227,
           "clipTop": 100,
-          "offsetTop": 126
+          "offsetTop": 127
+        },
+        {
+          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > a:nth-of-type(1)",
+          "family": "card-action-link|",
+          "text": "查看人员",
+          "foreground": "rgb(165, 180, 252)",
+          "background": "rgba(0, 0, 0, 0)",
+          "effectiveBackground": [
+            17,
+            24,
+            39
+          ],
+          "contrast": 8.898600916846645,
+          "textual": true,
+          "disabled": false,
+          "width": 66.015625,
+          "height": 24,
+          "font": 12,
+          "top": 437.2086486816406,
+          "clipTop": 100,
+          "offsetTop": 337.2086486816406
         }
       ],
       "issues": [],
@@ -1091,10 +1887,5 @@
     }
   ],
   "writes": [],
-  "errors": [
-    "Missing read fixture /api/reporting/capacity?startDate=2026-10-01&endDate=2027-01-31",
-    "Missing read fixture /api/reporting/capacity?startDate=2026-10-01&endDate=2027-01-31",
-    "Missing read fixture /api/reporting/capacity?startDate=2026-10-01&endDate=2027-01-31",
-    "Missing read fixture /api/reporting/capacity?startDate=2026-10-01&endDate=2027-01-31"
-  ]
+  "errors": []
 }

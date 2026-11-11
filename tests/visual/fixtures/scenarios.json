@@ -24094,6 +24094,12 @@
           }
         }
       }
+    },
+    "/api/scenarios/ui-audit-branch-active/merge-conflicts": {
+      "status": 200,
+      "body": {
+        "data": []
+      }
     }
   },
   "entities": {

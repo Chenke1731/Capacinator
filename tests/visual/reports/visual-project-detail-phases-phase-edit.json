@@ -1,7 +1,7 @@
 {
   "combinations": 4,
   "checks": 20,
-  "updatePixels": false,
+  "updatePixels": true,
   "registerExistingAxe": false,
   "evidence": [
     {
@@ -16,7 +16,7 @@
       },
       "axe": {
         "count": 0,
-        "cap": 3,
+        "cap": 0,
         "added": [],
         "identities": []
       },
@@ -38,7 +38,7 @@
           "ok": true
         },
         {
-          "name": "像素 project-detail-phases-phase-edit-dark-1600: 与基线一致(≤0.5%)",
+          "name": "基线 project-detail-phases-phase-edit-dark-1600: 已采集",
           "ok": true
         },
         {
@@ -48,15 +48,282 @@
       ],
       "artifact": "tests/visual/reports/visual-project-detail-phases-phase-edit-dark-1600.png",
       "baseline": "tests/visual/__screenshots__/project-detail-phases-phase-edit-dark-1600.png",
-      "backdrops": [
+      "backdrops": [],
+      "svgAxisText": [
         {
-          "color": "color(srgb 0 0 0 / 0.85)",
-          "rgba": [
-            0,
-            0,
-            0,
-            217
-          ]
+          "text": "9月21日",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "9月24日",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "9月27日",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "9月30日",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月3日",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月6日",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月9日",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月12日",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月15日",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月18日",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月21日",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月24日",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月27日",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月30日",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月2日",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月5日",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月8日",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月11日",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月14日",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月17日",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月20日",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月23日",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月26日",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月30日",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "FTE(人数)",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
         }
       ]
     },
@@ -72,7 +339,7 @@
       },
       "axe": {
         "count": 0,
-        "cap": 3,
+        "cap": 0,
         "added": [],
         "identities": []
       },
@@ -94,7 +361,7 @@
           "ok": true
         },
         {
-          "name": "像素 project-detail-phases-phase-edit-dark-1366: 与基线一致(≤0.5%)",
+          "name": "基线 project-detail-phases-phase-edit-dark-1366: 已采集",
           "ok": true
         },
         {
@@ -104,15 +371,282 @@
       ],
       "artifact": "tests/visual/reports/visual-project-detail-phases-phase-edit-dark-1366.png",
       "baseline": "tests/visual/__screenshots__/project-detail-phases-phase-edit-dark-1366.png",
-      "backdrops": [
+      "backdrops": [],
+      "svgAxisText": [
         {
-          "color": "color(srgb 0 0 0 / 0.85)",
-          "rgba": [
-            0,
-            0,
-            0,
-            217
-          ]
+          "text": "9月21日",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "9月24日",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "9月27日",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "9月30日",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月3日",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月6日",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月9日",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月12日",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月15日",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月18日",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月21日",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月24日",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月27日",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月30日",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月2日",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月5日",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月8日",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月11日",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月14日",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月17日",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月20日",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月23日",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月26日",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月30日",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "FTE(人数)",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
         }
       ]
     },
@@ -128,7 +662,7 @@
       },
       "axe": {
         "count": 0,
-        "cap": 12,
+        "cap": 0,
         "added": [],
         "identities": []
       },
@@ -150,7 +684,7 @@
           "ok": true
         },
         {
-          "name": "像素 project-detail-phases-phase-edit-light-1600: 与基线一致(≤0.5%)",
+          "name": "基线 project-detail-phases-phase-edit-light-1600: 已采集",
           "ok": true
         },
         {
@@ -160,15 +694,282 @@
       ],
       "artifact": "tests/visual/reports/visual-project-detail-phases-phase-edit-light-1600.png",
       "baseline": "tests/visual/__screenshots__/project-detail-phases-phase-edit-light-1600.png",
-      "backdrops": [
+      "backdrops": [],
+      "svgAxisText": [
         {
-          "color": "color(srgb 0 0 0 / 0.75)",
-          "rgba": [
-            0,
-            0,
-            0,
-            191
-          ]
+          "text": "9月21日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "9月24日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "9月27日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "9月30日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月3日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月6日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月9日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月12日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月15日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月18日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月21日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月24日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月27日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月30日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月2日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月5日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月8日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月11日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月14日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月17日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月20日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月23日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月26日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月30日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "FTE(人数)",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
         }
       ]
     },
@@ -184,7 +985,7 @@
       },
       "axe": {
         "count": 0,
-        "cap": 12,
+        "cap": 0,
         "added": [],
         "identities": []
       },
@@ -206,7 +1007,7 @@
           "ok": true
         },
         {
-          "name": "像素 project-detail-phases-phase-edit-light-1366: 与基线一致(≤0.5%)",
+          "name": "基线 project-detail-phases-phase-edit-light-1366: 已采集",
           "ok": true
         },
         {
@@ -216,15 +1017,282 @@
       ],
       "artifact": "tests/visual/reports/visual-project-detail-phases-phase-edit-light-1366.png",
       "baseline": "tests/visual/__screenshots__/project-detail-phases-phase-edit-light-1366.png",
-      "backdrops": [
+      "backdrops": [],
+      "svgAxisText": [
         {
-          "color": "color(srgb 0 0 0 / 0.75)",
-          "rgba": [
-            0,
-            0,
-            0,
-            191
-          ]
+          "text": "9月21日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "9月24日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "9月27日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "9月30日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月3日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月6日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月9日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月12日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月15日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月18日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月21日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月24日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月27日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "10月30日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月2日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月5日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月8日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月11日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月14日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月17日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月20日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月23日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月26日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "11月30日",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "FTE(人数)",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
         }
       ]
     }

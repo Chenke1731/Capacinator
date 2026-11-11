@@ -72,7 +72,9 @@ export const profiles = {
   'role-detail': {path:'/roles/501d8abc-0c77-45e9-98c8-7832302e63cb',root:'.role-details-page',ready:'.role-content',minElements:3},
   people: {path:'/people',root:'main',ready:'table',minElements:5},
   assignments: {path:'/assignments',root:'main',ready:'table',minElements:5},
-  'assignment-recommendations': {path:'/assignments?tab=recommendations',root:'.page-container',ready:'.recommendations-container',minElements:3},
+  // assignment-recommendations 档已移除（批 C，2026-11-11）：指向的
+  // ?tab=recommendations 于 2026-10-16 随假推荐引擎 UI 整体移除，页面会把
+  // 无效 tab 参数归一回 /assignments 使 assertProfileReady 必炸——死档清账。
   dashboard: {path:'/dashboard',root:'main',ready:'.stats-grid',minElements:3},
   settings: {path:'/settings',root:'.unified-tab-container',ready:'.settings-section',minElements:5},
   'settings-appearance': {path:'/settings?tab=appearance',root:'.unified-tab-container',ready:'.theme-selector',minElements:5},

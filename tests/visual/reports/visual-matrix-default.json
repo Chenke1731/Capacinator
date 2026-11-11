@@ -1,6 +1,6 @@
 {
-  "combinations": 160,
-  "checks": 800,
+  "combinations": 156,
+  "checks": 780,
   "updatePixels": false,
   "registerExistingAxe": false,
   "evidence": [
@@ -20,7 +20,10 @@
         "added": [],
         "identities": []
       },
-      "collisions": [],
+      "collisions": [
+        "未投入× 4x24px @y317",
+        "孙孙前端11-0× 4x24px @y357"
+      ],
       "overflow": [],
       "writes": [],
       "errors": [],
@@ -114,7 +117,10 @@
         "added": [],
         "identities": []
       },
-      "collisions": [],
+      "collisions": [
+        "未投入× 4x24px @y317",
+        "孙孙前端11-0× 4x24px @y357"
+      ],
       "overflow": [],
       "writes": [],
       "errors": [],
@@ -565,194 +571,6 @@
       ],
       "artifact": "tests/visual/reports/visual-assignments-light-1366.png",
       "baseline": "tests/visual/__screenshots__/assignments-light-1366.png",
-      "backdrops": [],
-      "svgAxisText": []
-    },
-    {
-      "tag": "assignment-recommendations-dark-1600",
-      "profile": "assignment-recommendations",
-      "path": "/assignments?tab=recommendations",
-      "theme": "dark",
-      "state": "default",
-      "viewport": {
-        "width": 1600,
-        "height": 900
-      },
-      "axe": {
-        "count": 0,
-        "cap": 0,
-        "added": [],
-        "identities": []
-      },
-      "collisions": [],
-      "overflow": [],
-      "writes": [],
-      "errors": [],
-      "checks": [
-        {
-          "name": "axe assignment-recommendations-dark-1600: 对比度/命中目标违规 ≤ 预算",
-          "ok": true
-        },
-        {
-          "name": "碰撞 assignment-recommendations-dark-1600: 零重叠",
-          "ok": true
-        },
-        {
-          "name": "溢出 assignment-recommendations-dark-1600: 无横向滚动",
-          "ok": true
-        },
-        {
-          "name": "像素 assignment-recommendations-dark-1600: 与基线一致(≤0.5%)",
-          "ok": true
-        },
-        {
-          "name": "只读与运行 assignment-recommendations-dark-1600",
-          "ok": true
-        }
-      ],
-      "artifact": "tests/visual/reports/visual-assignment-recommendations-dark-1600.png",
-      "baseline": "tests/visual/__screenshots__/assignment-recommendations-dark-1600.png",
-      "backdrops": [],
-      "svgAxisText": []
-    },
-    {
-      "tag": "assignment-recommendations-dark-1366",
-      "profile": "assignment-recommendations",
-      "path": "/assignments?tab=recommendations",
-      "theme": "dark",
-      "state": "default",
-      "viewport": {
-        "width": 1366,
-        "height": 768
-      },
-      "axe": {
-        "count": 0,
-        "cap": 0,
-        "added": [],
-        "identities": []
-      },
-      "collisions": [],
-      "overflow": [],
-      "writes": [],
-      "errors": [],
-      "checks": [
-        {
-          "name": "axe assignment-recommendations-dark-1366: 对比度/命中目标违规 ≤ 预算",
-          "ok": true
-        },
-        {
-          "name": "碰撞 assignment-recommendations-dark-1366: 零重叠",
-          "ok": true
-        },
-        {
-          "name": "溢出 assignment-recommendations-dark-1366: 无横向滚动",
-          "ok": true
-        },
-        {
-          "name": "像素 assignment-recommendations-dark-1366: 与基线一致(≤0.5%)",
-          "ok": true
-        },
-        {
-          "name": "只读与运行 assignment-recommendations-dark-1366",
-          "ok": true
-        }
-      ],
-      "artifact": "tests/visual/reports/visual-assignment-recommendations-dark-1366.png",
-      "baseline": "tests/visual/__screenshots__/assignment-recommendations-dark-1366.png",
-      "backdrops": [],
-      "svgAxisText": []
-    },
-    {
-      "tag": "assignment-recommendations-light-1600",
-      "profile": "assignment-recommendations",
-      "path": "/assignments?tab=recommendations",
-      "theme": "light",
-      "state": "default",
-      "viewport": {
-        "width": 1600,
-        "height": 900
-      },
-      "axe": {
-        "count": 0,
-        "cap": 0,
-        "added": [],
-        "identities": []
-      },
-      "collisions": [],
-      "overflow": [],
-      "writes": [],
-      "errors": [],
-      "checks": [
-        {
-          "name": "axe assignment-recommendations-light-1600: 对比度/命中目标违规 ≤ 预算",
-          "ok": true
-        },
-        {
-          "name": "碰撞 assignment-recommendations-light-1600: 零重叠",
-          "ok": true
-        },
-        {
-          "name": "溢出 assignment-recommendations-light-1600: 无横向滚动",
-          "ok": true
-        },
-        {
-          "name": "像素 assignment-recommendations-light-1600: 与基线一致(≤0.5%)",
-          "ok": true
-        },
-        {
-          "name": "只读与运行 assignment-recommendations-light-1600",
-          "ok": true
-        }
-      ],
-      "artifact": "tests/visual/reports/visual-assignment-recommendations-light-1600.png",
-      "baseline": "tests/visual/__screenshots__/assignment-recommendations-light-1600.png",
-      "backdrops": [],
-      "svgAxisText": []
-    },
-    {
-      "tag": "assignment-recommendations-light-1366",
-      "profile": "assignment-recommendations",
-      "path": "/assignments?tab=recommendations",
-      "theme": "light",
-      "state": "default",
-      "viewport": {
-        "width": 1366,
-        "height": 768
-      },
-      "axe": {
-        "count": 0,
-        "cap": 0,
-        "added": [],
-        "identities": []
-      },
-      "collisions": [],
-      "overflow": [],
-      "writes": [],
-      "errors": [],
-      "checks": [
-        {
-          "name": "axe assignment-recommendations-light-1366: 对比度/命中目标违规 ≤ 预算",
-          "ok": true
-        },
-        {
-          "name": "碰撞 assignment-recommendations-light-1366: 零重叠",
-          "ok": true
-        },
-        {
-          "name": "溢出 assignment-recommendations-light-1366: 无横向滚动",
-          "ok": true
-        },
-        {
-          "name": "像素 assignment-recommendations-light-1366: 与基线一致(≤0.5%)",
-          "ok": true
-        },
-        {
-          "name": "只读与运行 assignment-recommendations-light-1366",
-          "ok": true
-        }
-      ],
-      "artifact": "tests/visual/reports/visual-assignment-recommendations-light-1366.png",
-      "baseline": "tests/visual/__screenshots__/assignment-recommendations-light-1366.png",
       "backdrops": [],
       "svgAxisText": []
     },
@@ -5408,17 +5226,7 @@
       ],
       "artifact": "tests/visual/reports/visual-project-detail-phases-phase-edit-dark-1600.png",
       "baseline": "tests/visual/__screenshots__/project-detail-phases-phase-edit-dark-1600.png",
-      "backdrops": [
-        {
-          "color": "color(srgb 0 0 0 / 0.85)",
-          "rgba": [
-            0,
-            0,
-            0,
-            217
-          ]
-        }
-      ],
+      "backdrops": [],
       "svgAxisText": [
         {
           "text": "9月21日",
@@ -5741,17 +5549,7 @@
       ],
       "artifact": "tests/visual/reports/visual-project-detail-phases-phase-edit-dark-1366.png",
       "baseline": "tests/visual/__screenshots__/project-detail-phases-phase-edit-dark-1366.png",
-      "backdrops": [
-        {
-          "color": "color(srgb 0 0 0 / 0.85)",
-          "rgba": [
-            0,
-            0,
-            0,
-            217
-          ]
-        }
-      ],
+      "backdrops": [],
       "svgAxisText": [
         {
           "text": "9月21日",
@@ -6074,17 +5872,7 @@
       ],
       "artifact": "tests/visual/reports/visual-project-detail-phases-phase-edit-light-1600.png",
       "baseline": "tests/visual/__screenshots__/project-detail-phases-phase-edit-light-1600.png",
-      "backdrops": [
-        {
-          "color": "color(srgb 0 0 0 / 0.75)",
-          "rgba": [
-            0,
-            0,
-            0,
-            191
-          ]
-        }
-      ],
+      "backdrops": [],
       "svgAxisText": [
         {
           "text": "9月21日",
@@ -6407,17 +6195,7 @@
       ],
       "artifact": "tests/visual/reports/visual-project-detail-phases-phase-edit-light-1366.png",
       "baseline": "tests/visual/__screenshots__/project-detail-phases-phase-edit-light-1366.png",
-      "backdrops": [
-        {
-          "color": "color(srgb 0 0 0 / 0.75)",
-          "rgba": [
-            0,
-            0,
-            0,
-            191
-          ]
-        }
-      ],
+      "backdrops": [],
       "svgAxisText": [
         {
           "text": "9月21日",
@@ -12211,6 +11989,39 @@
       "backdrops": [],
       "svgAxisText": [
         {
+          "text": "项目事务",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "分析-平台-多租户隔离",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "数据平台升级",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
           "text": "0",
           "foreground": "rgb(229, 231, 235)",
           "background": [
@@ -12222,7 +12033,7 @@
           "threshold": 4.5
         },
         {
-          "text": "400",
+          "text": "350",
           "foreground": "rgb(229, 231, 235)",
           "background": [
             17,
@@ -12233,7 +12044,7 @@
           "threshold": 4.5
         },
         {
-          "text": "800",
+          "text": "700",
           "foreground": "rgb(229, 231, 235)",
           "background": [
             17,
@@ -12244,7 +12055,7 @@
           "threshold": 4.5
         },
         {
-          "text": "1200",
+          "text": "1050",
           "foreground": "rgb(229, 231, 235)",
           "background": [
             17,
@@ -12255,7 +12066,7 @@
           "threshold": 4.5
         },
         {
-          "text": "1600",
+          "text": "1400",
           "foreground": "rgb(229, 231, 235)",
           "background": [
             17,
@@ -12289,6 +12100,105 @@
         },
         {
           "text": "SE",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "0",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "750",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "1500",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "2250",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "3000",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "2026年10月",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "2026年11月",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "2026年12月",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "2027年1月",
           "foreground": "rgb(229, 231, 235)",
           "background": [
             17,
@@ -12344,105 +12254,6 @@
         },
         {
           "text": "6000",
-          "foreground": "rgb(229, 231, 235)",
-          "background": [
-            17,
-            24,
-            39
-          ],
-          "ratio": 14.328284912339392,
-          "threshold": 4.5
-        },
-        {
-          "text": "2024年1月",
-          "foreground": "rgb(229, 231, 235)",
-          "background": [
-            17,
-            24,
-            39
-          ],
-          "ratio": 14.328284912339392,
-          "threshold": 4.5
-        },
-        {
-          "text": "2025年2月",
-          "foreground": "rgb(229, 231, 235)",
-          "background": [
-            17,
-            24,
-            39
-          ],
-          "ratio": 14.328284912339392,
-          "threshold": 4.5
-        },
-        {
-          "text": "2026年3月",
-          "foreground": "rgb(229, 231, 235)",
-          "background": [
-            17,
-            24,
-            39
-          ],
-          "ratio": 14.328284912339392,
-          "threshold": 4.5
-        },
-        {
-          "text": "2027年9月",
-          "foreground": "rgb(229, 231, 235)",
-          "background": [
-            17,
-            24,
-            39
-          ],
-          "ratio": 14.328284912339392,
-          "threshold": 4.5
-        },
-        {
-          "text": "0",
-          "foreground": "rgb(229, 231, 235)",
-          "background": [
-            17,
-            24,
-            39
-          ],
-          "ratio": 14.328284912339392,
-          "threshold": 4.5
-        },
-        {
-          "text": "2000",
-          "foreground": "rgb(229, 231, 235)",
-          "background": [
-            17,
-            24,
-            39
-          ],
-          "ratio": 14.328284912339392,
-          "threshold": 4.5
-        },
-        {
-          "text": "4000",
-          "foreground": "rgb(229, 231, 235)",
-          "background": [
-            17,
-            24,
-            39
-          ],
-          "ratio": 14.328284912339392,
-          "threshold": 4.5
-        },
-        {
-          "text": "6000",
-          "foreground": "rgb(229, 231, 235)",
-          "background": [
-            17,
-            24,
-            39
-          ],
-          "ratio": 14.328284912339392,
-          "threshold": 4.5
-        },
-        {
-          "text": "8000",
           "foreground": "rgb(229, 231, 235)",
           "background": [
             17,
@@ -12501,6 +12312,50 @@
       "backdrops": [],
       "svgAxisText": [
         {
+          "text": "项目事务",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "客户门户改版",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "分析-平台-权限矩阵重构",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "数据平台升级",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
           "text": "0",
           "foreground": "rgb(229, 231, 235)",
           "background": [
@@ -12512,7 +12367,7 @@
           "threshold": 4.5
         },
         {
-          "text": "400",
+          "text": "350",
           "foreground": "rgb(229, 231, 235)",
           "background": [
             17,
@@ -12523,7 +12378,7 @@
           "threshold": 4.5
         },
         {
-          "text": "800",
+          "text": "700",
           "foreground": "rgb(229, 231, 235)",
           "background": [
             17,
@@ -12534,7 +12389,7 @@
           "threshold": 4.5
         },
         {
-          "text": "1200",
+          "text": "1050",
           "foreground": "rgb(229, 231, 235)",
           "background": [
             17,
@@ -12545,7 +12400,7 @@
           "threshold": 4.5
         },
         {
-          "text": "1600",
+          "text": "1400",
           "foreground": "rgb(229, 231, 235)",
           "background": [
             17,
@@ -12579,6 +12434,105 @@
         },
         {
           "text": "SE",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "0",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "750",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "1500",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "2250",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "3000",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "2026年10月",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "2026年11月",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "2026年12月",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "2027年1月",
           "foreground": "rgb(229, 231, 235)",
           "background": [
             17,
@@ -12634,116 +12588,6 @@
         },
         {
           "text": "6000",
-          "foreground": "rgb(229, 231, 235)",
-          "background": [
-            17,
-            24,
-            39
-          ],
-          "ratio": 14.328284912339392,
-          "threshold": 4.5
-        },
-        {
-          "text": "2023年11月",
-          "foreground": "rgb(229, 231, 235)",
-          "background": [
-            17,
-            24,
-            39
-          ],
-          "ratio": 14.328284912339392,
-          "threshold": 4.5
-        },
-        {
-          "text": "2024年10月",
-          "foreground": "rgb(229, 231, 235)",
-          "background": [
-            17,
-            24,
-            39
-          ],
-          "ratio": 14.328284912339392,
-          "threshold": 4.5
-        },
-        {
-          "text": "2025年9月",
-          "foreground": "rgb(229, 231, 235)",
-          "background": [
-            17,
-            24,
-            39
-          ],
-          "ratio": 14.328284912339392,
-          "threshold": 4.5
-        },
-        {
-          "text": "2026年7月",
-          "foreground": "rgb(229, 231, 235)",
-          "background": [
-            17,
-            24,
-            39
-          ],
-          "ratio": 14.328284912339392,
-          "threshold": 4.5
-        },
-        {
-          "text": "2027年9月",
-          "foreground": "rgb(229, 231, 235)",
-          "background": [
-            17,
-            24,
-            39
-          ],
-          "ratio": 14.328284912339392,
-          "threshold": 4.5
-        },
-        {
-          "text": "0",
-          "foreground": "rgb(229, 231, 235)",
-          "background": [
-            17,
-            24,
-            39
-          ],
-          "ratio": 14.328284912339392,
-          "threshold": 4.5
-        },
-        {
-          "text": "2000",
-          "foreground": "rgb(229, 231, 235)",
-          "background": [
-            17,
-            24,
-            39
-          ],
-          "ratio": 14.328284912339392,
-          "threshold": 4.5
-        },
-        {
-          "text": "4000",
-          "foreground": "rgb(229, 231, 235)",
-          "background": [
-            17,
-            24,
-            39
-          ],
-          "ratio": 14.328284912339392,
-          "threshold": 4.5
-        },
-        {
-          "text": "6000",
-          "foreground": "rgb(229, 231, 235)",
-          "background": [
-            17,
-            24,
-            39
-          ],
-          "ratio": 14.328284912339392,
-          "threshold": 4.5
-        },
-        {
-          "text": "8000",
           "foreground": "rgb(229, 231, 235)",
           "background": [
             17,
@@ -12802,6 +12646,39 @@
       "backdrops": [],
       "svgAxisText": [
         {
+          "text": "项目事务",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "分析-平台-多租户隔离",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "数据平台升级",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
           "text": "0",
           "foreground": "rgb(55, 65, 81)",
           "background": [
@@ -12813,7 +12690,7 @@
           "threshold": 4.5
         },
         {
-          "text": "400",
+          "text": "350",
           "foreground": "rgb(55, 65, 81)",
           "background": [
             255,
@@ -12824,7 +12701,7 @@
           "threshold": 4.5
         },
         {
-          "text": "800",
+          "text": "700",
           "foreground": "rgb(55, 65, 81)",
           "background": [
             255,
@@ -12835,7 +12712,7 @@
           "threshold": 4.5
         },
         {
-          "text": "1200",
+          "text": "1050",
           "foreground": "rgb(55, 65, 81)",
           "background": [
             255,
@@ -12846,7 +12723,7 @@
           "threshold": 4.5
         },
         {
-          "text": "1600",
+          "text": "1400",
           "foreground": "rgb(55, 65, 81)",
           "background": [
             255,
@@ -12880,6 +12757,105 @@
         },
         {
           "text": "SE",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "0",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "750",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "1500",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "2250",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "3000",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "2026年10月",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "2026年11月",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "2026年12月",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "2027年1月",
           "foreground": "rgb(55, 65, 81)",
           "background": [
             255,
@@ -12935,105 +12911,6 @@
         },
         {
           "text": "6000",
-          "foreground": "rgb(55, 65, 81)",
-          "background": [
-            255,
-            255,
-            255
-          ],
-          "ratio": 10.307355969735845,
-          "threshold": 4.5
-        },
-        {
-          "text": "2024年1月",
-          "foreground": "rgb(55, 65, 81)",
-          "background": [
-            255,
-            255,
-            255
-          ],
-          "ratio": 10.307355969735845,
-          "threshold": 4.5
-        },
-        {
-          "text": "2025年2月",
-          "foreground": "rgb(55, 65, 81)",
-          "background": [
-            255,
-            255,
-            255
-          ],
-          "ratio": 10.307355969735845,
-          "threshold": 4.5
-        },
-        {
-          "text": "2026年3月",
-          "foreground": "rgb(55, 65, 81)",
-          "background": [
-            255,
-            255,
-            255
-          ],
-          "ratio": 10.307355969735845,
-          "threshold": 4.5
-        },
-        {
-          "text": "2027年9月",
-          "foreground": "rgb(55, 65, 81)",
-          "background": [
-            255,
-            255,
-            255
-          ],
-          "ratio": 10.307355969735845,
-          "threshold": 4.5
-        },
-        {
-          "text": "0",
-          "foreground": "rgb(55, 65, 81)",
-          "background": [
-            255,
-            255,
-            255
-          ],
-          "ratio": 10.307355969735845,
-          "threshold": 4.5
-        },
-        {
-          "text": "2000",
-          "foreground": "rgb(55, 65, 81)",
-          "background": [
-            255,
-            255,
-            255
-          ],
-          "ratio": 10.307355969735845,
-          "threshold": 4.5
-        },
-        {
-          "text": "4000",
-          "foreground": "rgb(55, 65, 81)",
-          "background": [
-            255,
-            255,
-            255
-          ],
-          "ratio": 10.307355969735845,
-          "threshold": 4.5
-        },
-        {
-          "text": "6000",
-          "foreground": "rgb(55, 65, 81)",
-          "background": [
-            255,
-            255,
-            255
-          ],
-          "ratio": 10.307355969735845,
-          "threshold": 4.5
-        },
-        {
-          "text": "8000",
           "foreground": "rgb(55, 65, 81)",
           "background": [
             255,
@@ -13092,6 +12969,50 @@
       "backdrops": [],
       "svgAxisText": [
         {
+          "text": "项目事务",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "客户门户改版",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "分析-平台-权限矩阵重构",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "数据平台升级",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
           "text": "0",
           "foreground": "rgb(55, 65, 81)",
           "background": [
@@ -13103,7 +13024,7 @@
           "threshold": 4.5
         },
         {
-          "text": "400",
+          "text": "350",
           "foreground": "rgb(55, 65, 81)",
           "background": [
             255,
@@ -13114,7 +13035,7 @@
           "threshold": 4.5
         },
         {
-          "text": "800",
+          "text": "700",
           "foreground": "rgb(55, 65, 81)",
           "background": [
             255,
@@ -13125,7 +13046,7 @@
           "threshold": 4.5
         },
         {
-          "text": "1200",
+          "text": "1050",
           "foreground": "rgb(55, 65, 81)",
           "background": [
             255,
@@ -13136,7 +13057,7 @@
           "threshold": 4.5
         },
         {
-          "text": "1600",
+          "text": "1400",
           "foreground": "rgb(55, 65, 81)",
           "background": [
             255,
@@ -13170,6 +13091,105 @@
         },
         {
           "text": "SE",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "0",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "750",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "1500",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "2250",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "3000",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "2026年10月",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "2026年11月",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "2026年12月",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "2027年1月",
           "foreground": "rgb(55, 65, 81)",
           "background": [
             255,
@@ -13225,116 +13245,6 @@
         },
         {
           "text": "6000",
-          "foreground": "rgb(55, 65, 81)",
-          "background": [
-            255,
-            255,
-            255
-          ],
-          "ratio": 10.307355969735845,
-          "threshold": 4.5
-        },
-        {
-          "text": "2023年11月",
-          "foreground": "rgb(55, 65, 81)",
-          "background": [
-            255,
-            255,
-            255
-          ],
-          "ratio": 10.307355969735845,
-          "threshold": 4.5
-        },
-        {
-          "text": "2024年10月",
-          "foreground": "rgb(55, 65, 81)",
-          "background": [
-            255,
-            255,
-            255
-          ],
-          "ratio": 10.307355969735845,
-          "threshold": 4.5
-        },
-        {
-          "text": "2025年9月",
-          "foreground": "rgb(55, 65, 81)",
-          "background": [
-            255,
-            255,
-            255
-          ],
-          "ratio": 10.307355969735845,
-          "threshold": 4.5
-        },
-        {
-          "text": "2026年7月",
-          "foreground": "rgb(55, 65, 81)",
-          "background": [
-            255,
-            255,
-            255
-          ],
-          "ratio": 10.307355969735845,
-          "threshold": 4.5
-        },
-        {
-          "text": "2027年9月",
-          "foreground": "rgb(55, 65, 81)",
-          "background": [
-            255,
-            255,
-            255
-          ],
-          "ratio": 10.307355969735845,
-          "threshold": 4.5
-        },
-        {
-          "text": "0",
-          "foreground": "rgb(55, 65, 81)",
-          "background": [
-            255,
-            255,
-            255
-          ],
-          "ratio": 10.307355969735845,
-          "threshold": 4.5
-        },
-        {
-          "text": "2000",
-          "foreground": "rgb(55, 65, 81)",
-          "background": [
-            255,
-            255,
-            255
-          ],
-          "ratio": 10.307355969735845,
-          "threshold": 4.5
-        },
-        {
-          "text": "4000",
-          "foreground": "rgb(55, 65, 81)",
-          "background": [
-            255,
-            255,
-            255
-          ],
-          "ratio": 10.307355969735845,
-          "threshold": 4.5
-        },
-        {
-          "text": "6000",
-          "foreground": "rgb(55, 65, 81)",
-          "background": [
-            255,
-            255,
-            255
-          ],
-          "ratio": 10.307355969735845,
-          "threshold": 4.5
-        },
-        {
-          "text": "8000",
           "foreground": "rgb(55, 65, 81)",
           "background": [
             255,
@@ -14817,7 +14727,7 @@
       "backdrops": [],
       "svgAxisText": [
         {
-          "text": "孙前端",
+          "text": "王开发",
           "foreground": "rgb(229, 231, 235)",
           "background": [
             17,
@@ -14828,7 +14738,7 @@
           "threshold": 4.5
         },
         {
-          "text": "张前端",
+          "text": "沈设计",
           "foreground": "rgb(229, 231, 235)",
           "background": [
             17,
@@ -14883,7 +14793,7 @@
           "threshold": 4.5
         },
         {
-          "text": "300",
+          "text": "70",
           "foreground": "rgb(229, 231, 235)",
           "background": [
             17,
@@ -14894,7 +14804,7 @@
           "threshold": 4.5
         },
         {
-          "text": "600",
+          "text": "140",
           "foreground": "rgb(229, 231, 235)",
           "background": [
             17,
@@ -14905,7 +14815,7 @@
           "threshold": 4.5
         },
         {
-          "text": "900",
+          "text": "210",
           "foreground": "rgb(229, 231, 235)",
           "background": [
             17,
@@ -14916,7 +14826,7 @@
           "threshold": 4.5
         },
         {
-          "text": "1200",
+          "text": "280",
           "foreground": "rgb(229, 231, 235)",
           "background": [
             17,
@@ -14982,7 +14892,7 @@
           "threshold": 4.5
         },
         {
-          "text": "70",
+          "text": "40",
           "foreground": "rgb(229, 231, 235)",
           "background": [
             17,
@@ -14993,7 +14903,7 @@
           "threshold": 4.5
         },
         {
-          "text": "140",
+          "text": "80",
           "foreground": "rgb(229, 231, 235)",
           "background": [
             17,
@@ -15004,7 +14914,7 @@
           "threshold": 4.5
         },
         {
-          "text": "210",
+          "text": "120",
           "foreground": "rgb(229, 231, 235)",
           "background": [
             17,
@@ -15015,7 +14925,7 @@
           "threshold": 4.5
         },
         {
-          "text": "280",
+          "text": "160",
           "foreground": "rgb(229, 231, 235)",
           "background": [
             17,
@@ -15173,17 +15083,6 @@
       "backdrops": [],
       "svgAxisText": [
         {
-          "text": "孙前端",
-          "foreground": "rgb(229, 231, 235)",
-          "background": [
-            17,
-            24,
-            39
-          ],
-          "ratio": 14.328284912339392,
-          "threshold": 4.5
-        },
-        {
           "text": "王开发",
           "foreground": "rgb(229, 231, 235)",
           "background": [
@@ -15207,6 +15106,17 @@
         },
         {
           "text": "沈设计",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "孙前端",
           "foreground": "rgb(229, 231, 235)",
           "background": [
             17,
@@ -15294,7 +15204,7 @@
           "threshold": 4.5
         },
         {
-          "text": "300",
+          "text": "70",
           "foreground": "rgb(229, 231, 235)",
           "background": [
             17,
@@ -15305,7 +15215,7 @@
           "threshold": 4.5
         },
         {
-          "text": "600",
+          "text": "140",
           "foreground": "rgb(229, 231, 235)",
           "background": [
             17,
@@ -15316,7 +15226,7 @@
           "threshold": 4.5
         },
         {
-          "text": "900",
+          "text": "210",
           "foreground": "rgb(229, 231, 235)",
           "background": [
             17,
@@ -15327,7 +15237,7 @@
           "threshold": 4.5
         },
         {
-          "text": "1200",
+          "text": "280",
           "foreground": "rgb(229, 231, 235)",
           "background": [
             17,
@@ -15393,7 +15303,7 @@
           "threshold": 4.5
         },
         {
-          "text": "70",
+          "text": "40",
           "foreground": "rgb(229, 231, 235)",
           "background": [
             17,
@@ -15404,7 +15314,7 @@
           "threshold": 4.5
         },
         {
-          "text": "140",
+          "text": "80",
           "foreground": "rgb(229, 231, 235)",
           "background": [
             17,
@@ -15415,7 +15325,7 @@
           "threshold": 4.5
         },
         {
-          "text": "210",
+          "text": "120",
           "foreground": "rgb(229, 231, 235)",
           "background": [
             17,
@@ -15426,7 +15336,7 @@
           "threshold": 4.5
         },
         {
-          "text": "280",
+          "text": "160",
           "foreground": "rgb(229, 231, 235)",
           "background": [
             17,
@@ -15584,7 +15494,7 @@
       "backdrops": [],
       "svgAxisText": [
         {
-          "text": "孙前端",
+          "text": "王开发",
           "foreground": "rgb(55, 65, 81)",
           "background": [
             255,
@@ -15595,7 +15505,7 @@
           "threshold": 4.5
         },
         {
-          "text": "张前端",
+          "text": "沈设计",
           "foreground": "rgb(55, 65, 81)",
           "background": [
             255,
@@ -15650,7 +15560,7 @@
           "threshold": 4.5
         },
         {
-          "text": "300",
+          "text": "70",
           "foreground": "rgb(55, 65, 81)",
           "background": [
             255,
@@ -15661,7 +15571,7 @@
           "threshold": 4.5
         },
         {
-          "text": "600",
+          "text": "140",
           "foreground": "rgb(55, 65, 81)",
           "background": [
             255,
@@ -15672,7 +15582,7 @@
           "threshold": 4.5
         },
         {
-          "text": "900",
+          "text": "210",
           "foreground": "rgb(55, 65, 81)",
           "background": [
             255,
@@ -15683,7 +15593,7 @@
           "threshold": 4.5
         },
         {
-          "text": "1200",
+          "text": "280",
           "foreground": "rgb(55, 65, 81)",
           "background": [
             255,
@@ -15749,7 +15659,7 @@
           "threshold": 4.5
         },
         {
-          "text": "70",
+          "text": "40",
           "foreground": "rgb(55, 65, 81)",
           "background": [
             255,
@@ -15760,7 +15670,7 @@
           "threshold": 4.5
         },
         {
-          "text": "140",
+          "text": "80",
           "foreground": "rgb(55, 65, 81)",
           "background": [
             255,
@@ -15771,7 +15681,7 @@
           "threshold": 4.5
         },
         {
-          "text": "210",
+          "text": "120",
           "foreground": "rgb(55, 65, 81)",
           "background": [
             255,
@@ -15782,7 +15692,7 @@
           "threshold": 4.5
         },
         {
-          "text": "280",
+          "text": "160",
           "foreground": "rgb(55, 65, 81)",
           "background": [
             255,
@@ -15940,17 +15850,6 @@
       "backdrops": [],
       "svgAxisText": [
         {
-          "text": "孙前端",
-          "foreground": "rgb(55, 65, 81)",
-          "background": [
-            255,
-            255,
-            255
-          ],
-          "ratio": 10.307355969735845,
-          "threshold": 4.5
-        },
-        {
           "text": "王开发",
           "foreground": "rgb(55, 65, 81)",
           "background": [
@@ -15974,6 +15873,17 @@
         },
         {
           "text": "沈设计",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "孙前端",
           "foreground": "rgb(55, 65, 81)",
           "background": [
             255,
@@ -16061,7 +15971,7 @@
           "threshold": 4.5
         },
         {
-          "text": "300",
+          "text": "70",
           "foreground": "rgb(55, 65, 81)",
           "background": [
             255,
@@ -16072,7 +15982,7 @@
           "threshold": 4.5
         },
         {
-          "text": "600",
+          "text": "140",
           "foreground": "rgb(55, 65, 81)",
           "background": [
             255,
@@ -16083,7 +15993,7 @@
           "threshold": 4.5
         },
         {
-          "text": "900",
+          "text": "210",
           "foreground": "rgb(55, 65, 81)",
           "background": [
             255,
@@ -16094,7 +16004,7 @@
           "threshold": 4.5
         },
         {
-          "text": "1200",
+          "text": "280",
           "foreground": "rgb(55, 65, 81)",
           "background": [
             255,
@@ -16160,7 +16070,7 @@
           "threshold": 4.5
         },
         {
-          "text": "70",
+          "text": "40",
           "foreground": "rgb(55, 65, 81)",
           "background": [
             255,
@@ -16171,7 +16081,7 @@
           "threshold": 4.5
         },
         {
-          "text": "140",
+          "text": "80",
           "foreground": "rgb(55, 65, 81)",
           "background": [
             255,
@@ -16182,7 +16092,7 @@
           "threshold": 4.5
         },
         {
-          "text": "210",
+          "text": "120",
           "foreground": "rgb(55, 65, 81)",
           "background": [
             255,
@@ -16193,7 +16103,7 @@
           "threshold": 4.5
         },
         {
-          "text": "280",
+          "text": "160",
           "foreground": "rgb(55, 65, 81)",
           "background": [
             255,
@@ -16516,17 +16426,6 @@
           "threshold": 4.5
         },
         {
-          "text": "开发",
-          "foreground": "rgb(229, 231, 235)",
-          "background": [
-            17,
-            24,
-            39
-          ],
-          "ratio": 14.328284912339392,
-          "threshold": 4.5
-        },
-        {
           "text": "MDE",
           "foreground": "rgb(229, 231, 235)",
           "background": [
@@ -16549,6 +16448,17 @@
           "threshold": 4.5
         },
         {
+          "text": "开发",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
           "text": "交付管理",
           "foreground": "rgb(229, 231, 235)",
           "background": [
@@ -16560,7 +16470,7 @@
           "threshold": 4.5
         },
         {
-          "text": "-500",
+          "text": "-250",
           "foreground": "rgb(229, 231, 235)",
           "background": [
             17,
@@ -16582,6 +16492,17 @@
           "threshold": 4.5
         },
         {
+          "text": "250",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
           "text": "500",
           "foreground": "rgb(229, 231, 235)",
           "background": [
@@ -16593,18 +16514,7 @@
           "threshold": 4.5
         },
         {
-          "text": "1000",
-          "foreground": "rgb(229, 231, 235)",
-          "background": [
-            17,
-            24,
-            39
-          ],
-          "ratio": 14.328284912339392,
-          "threshold": 4.5
-        },
-        {
-          "text": "1500",
+          "text": "750",
           "foreground": "rgb(229, 231, 235)",
           "background": [
             17,
@@ -16659,7 +16569,7 @@
           "threshold": 4.5
         },
         {
-          "text": "200",
+          "text": "85",
           "foreground": "rgb(229, 231, 235)",
           "background": [
             17,
@@ -16670,7 +16580,7 @@
           "threshold": 4.5
         },
         {
-          "text": "400",
+          "text": "170",
           "foreground": "rgb(229, 231, 235)",
           "background": [
             17,
@@ -16681,7 +16591,7 @@
           "threshold": 4.5
         },
         {
-          "text": "600",
+          "text": "255",
           "foreground": "rgb(229, 231, 235)",
           "background": [
             17,
@@ -16692,7 +16602,7 @@
           "threshold": 4.5
         },
         {
-          "text": "800",
+          "text": "340",
           "foreground": "rgb(229, 231, 235)",
           "background": [
             17,
@@ -16938,17 +16848,6 @@
           "threshold": 4.5
         },
         {
-          "text": "开发",
-          "foreground": "rgb(229, 231, 235)",
-          "background": [
-            17,
-            24,
-            39
-          ],
-          "ratio": 14.328284912339392,
-          "threshold": 4.5
-        },
-        {
           "text": "MDE",
           "foreground": "rgb(229, 231, 235)",
           "background": [
@@ -16971,6 +16870,17 @@
           "threshold": 4.5
         },
         {
+          "text": "开发",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
           "text": "交付管理",
           "foreground": "rgb(229, 231, 235)",
           "background": [
@@ -16982,7 +16892,7 @@
           "threshold": 4.5
         },
         {
-          "text": "-500",
+          "text": "-250",
           "foreground": "rgb(229, 231, 235)",
           "background": [
             17,
@@ -17004,6 +16914,17 @@
           "threshold": 4.5
         },
         {
+          "text": "250",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
           "text": "500",
           "foreground": "rgb(229, 231, 235)",
           "background": [
@@ -17015,18 +16936,7 @@
           "threshold": 4.5
         },
         {
-          "text": "1000",
-          "foreground": "rgb(229, 231, 235)",
-          "background": [
-            17,
-            24,
-            39
-          ],
-          "ratio": 14.328284912339392,
-          "threshold": 4.5
-        },
-        {
-          "text": "1500",
+          "text": "750",
           "foreground": "rgb(229, 231, 235)",
           "background": [
             17,
@@ -17081,7 +16991,7 @@
           "threshold": 4.5
         },
         {
-          "text": "200",
+          "text": "85",
           "foreground": "rgb(229, 231, 235)",
           "background": [
             17,
@@ -17092,7 +17002,7 @@
           "threshold": 4.5
         },
         {
-          "text": "400",
+          "text": "170",
           "foreground": "rgb(229, 231, 235)",
           "background": [
             17,
@@ -17103,7 +17013,7 @@
           "threshold": 4.5
         },
         {
-          "text": "600",
+          "text": "255",
           "foreground": "rgb(229, 231, 235)",
           "background": [
             17,
@@ -17114,7 +17024,7 @@
           "threshold": 4.5
         },
         {
-          "text": "800",
+          "text": "340",
           "foreground": "rgb(229, 231, 235)",
           "background": [
             17,
@@ -17338,17 +17248,6 @@
           "threshold": 4.5
         },
         {
-          "text": "开发",
-          "foreground": "rgb(55, 65, 81)",
-          "background": [
-            255,
-            255,
-            255
-          ],
-          "ratio": 10.307355969735845,
-          "threshold": 4.5
-        },
-        {
           "text": "MDE",
           "foreground": "rgb(55, 65, 81)",
           "background": [
@@ -17371,6 +17270,17 @@
           "threshold": 4.5
         },
         {
+          "text": "开发",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
           "text": "交付管理",
           "foreground": "rgb(55, 65, 81)",
           "background": [
@@ -17382,7 +17292,7 @@
           "threshold": 4.5
         },
         {
-          "text": "-500",
+          "text": "-250",
           "foreground": "rgb(55, 65, 81)",
           "background": [
             255,
@@ -17404,6 +17314,17 @@
           "threshold": 4.5
         },
         {
+          "text": "250",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
           "text": "500",
           "foreground": "rgb(55, 65, 81)",
           "background": [
@@ -17415,18 +17336,7 @@
           "threshold": 4.5
         },
         {
-          "text": "1000",
-          "foreground": "rgb(55, 65, 81)",
-          "background": [
-            255,
-            255,
-            255
-          ],
-          "ratio": 10.307355969735845,
-          "threshold": 4.5
-        },
-        {
-          "text": "1500",
+          "text": "750",
           "foreground": "rgb(55, 65, 81)",
           "background": [
             255,
@@ -17481,7 +17391,7 @@
           "threshold": 4.5
         },
         {
-          "text": "200",
+          "text": "85",
           "foreground": "rgb(55, 65, 81)",
           "background": [
             255,
@@ -17492,7 +17402,7 @@
           "threshold": 4.5
         },
         {
-          "text": "400",
+          "text": "170",
           "foreground": "rgb(55, 65, 81)",
           "background": [
             255,
@@ -17503,7 +17413,7 @@
           "threshold": 4.5
         },
         {
-          "text": "600",
+          "text": "255",
           "foreground": "rgb(55, 65, 81)",
           "background": [
             255,
@@ -17514,7 +17424,7 @@
           "threshold": 4.5
         },
         {
-          "text": "800",
+          "text": "340",
           "foreground": "rgb(55, 65, 81)",
           "background": [
             255,
@@ -17760,17 +17670,6 @@
           "threshold": 4.5
         },
         {
-          "text": "开发",
-          "foreground": "rgb(55, 65, 81)",
-          "background": [
-            255,
-            255,
-            255
-          ],
-          "ratio": 10.307355969735845,
-          "threshold": 4.5
-        },
-        {
           "text": "MDE",
           "foreground": "rgb(55, 65, 81)",
           "background": [
@@ -17793,6 +17692,17 @@
           "threshold": 4.5
         },
         {
+          "text": "开发",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
           "text": "交付管理",
           "foreground": "rgb(55, 65, 81)",
           "background": [
@@ -17804,7 +17714,7 @@
           "threshold": 4.5
         },
         {
-          "text": "-500",
+          "text": "-250",
           "foreground": "rgb(55, 65, 81)",
           "background": [
             255,
@@ -17826,6 +17736,17 @@
           "threshold": 4.5
         },
         {
+          "text": "250",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
           "text": "500",
           "foreground": "rgb(55, 65, 81)",
           "background": [
@@ -17837,18 +17758,7 @@
           "threshold": 4.5
         },
         {
-          "text": "1000",
-          "foreground": "rgb(55, 65, 81)",
-          "background": [
-            255,
-            255,
-            255
-          ],
-          "ratio": 10.307355969735845,
-          "threshold": 4.5
-        },
-        {
-          "text": "1500",
+          "text": "750",
           "foreground": "rgb(55, 65, 81)",
           "background": [
             255,
@@ -17903,7 +17813,7 @@
           "threshold": 4.5
         },
         {
-          "text": "200",
+          "text": "85",
           "foreground": "rgb(55, 65, 81)",
           "background": [
             255,
@@ -17914,7 +17824,7 @@
           "threshold": 4.5
         },
         {
-          "text": "400",
+          "text": "170",
           "foreground": "rgb(55, 65, 81)",
           "background": [
             255,
@@ -17925,7 +17835,7 @@
           "threshold": 4.5
         },
         {
-          "text": "600",
+          "text": "255",
           "foreground": "rgb(55, 65, 81)",
           "background": [
             255,
@@ -17936,7 +17846,7 @@
           "threshold": 4.5
         },
         {
-          "text": "800",
+          "text": "340",
           "foreground": "rgb(55, 65, 81)",
           "background": [
             255,
@@ -18374,99 +18284,99 @@
           "text": "26年10月",
           "foreground": "rgb(229, 231, 235)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 11.971289512692591,
+          "ratio": 14.328284912339392,
           "threshold": 4.5
         },
         {
           "text": "26年11月",
           "foreground": "rgb(229, 231, 235)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 11.971289512692591,
+          "ratio": 14.328284912339392,
           "threshold": 4.5
         },
         {
           "text": "26年12月",
           "foreground": "rgb(229, 231, 235)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 11.971289512692591,
+          "ratio": 14.328284912339392,
           "threshold": 4.5
         },
         {
           "text": "0",
           "foreground": "rgb(229, 231, 235)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 11.971289512692591,
+          "ratio": 14.328284912339392,
           "threshold": 4.5
         },
         {
           "text": "25",
           "foreground": "rgb(229, 231, 235)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 11.971289512692591,
+          "ratio": 14.328284912339392,
           "threshold": 4.5
         },
         {
           "text": "50",
           "foreground": "rgb(229, 231, 235)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 11.971289512692591,
+          "ratio": 14.328284912339392,
           "threshold": 4.5
         },
         {
           "text": "75",
           "foreground": "rgb(229, 231, 235)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 11.971289512692591,
+          "ratio": 14.328284912339392,
           "threshold": 4.5
         },
         {
           "text": "100",
           "foreground": "rgb(229, 231, 235)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 11.971289512692591,
+          "ratio": 14.328284912339392,
           "threshold": 4.5
         },
         {
           "text": "百分比 (%)",
           "foreground": "rgb(229, 231, 235)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 11.971289512692591,
+          "ratio": 14.328284912339392,
           "threshold": 4.5
         }
       ]
@@ -18521,99 +18431,99 @@
           "text": "26年10月",
           "foreground": "rgb(229, 231, 235)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 11.971289512692591,
+          "ratio": 14.328284912339392,
           "threshold": 4.5
         },
         {
           "text": "26年11月",
           "foreground": "rgb(229, 231, 235)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 11.971289512692591,
+          "ratio": 14.328284912339392,
           "threshold": 4.5
         },
         {
           "text": "26年12月",
           "foreground": "rgb(229, 231, 235)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 11.971289512692591,
+          "ratio": 14.328284912339392,
           "threshold": 4.5
         },
         {
           "text": "0",
           "foreground": "rgb(229, 231, 235)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 11.971289512692591,
+          "ratio": 14.328284912339392,
           "threshold": 4.5
         },
         {
           "text": "25",
           "foreground": "rgb(229, 231, 235)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 11.971289512692591,
+          "ratio": 14.328284912339392,
           "threshold": 4.5
         },
         {
           "text": "50",
           "foreground": "rgb(229, 231, 235)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 11.971289512692591,
+          "ratio": 14.328284912339392,
           "threshold": 4.5
         },
         {
           "text": "75",
           "foreground": "rgb(229, 231, 235)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 11.971289512692591,
+          "ratio": 14.328284912339392,
           "threshold": 4.5
         },
         {
           "text": "100",
           "foreground": "rgb(229, 231, 235)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 11.971289512692591,
+          "ratio": 14.328284912339392,
           "threshold": 4.5
         },
         {
           "text": "百分比 (%)",
           "foreground": "rgb(229, 231, 235)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 11.971289512692591,
+          "ratio": 14.328284912339392,
           "threshold": 4.5
         }
       ]

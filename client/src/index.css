@@ -683,6 +683,201 @@ input:focus, select:focus, textarea:focus {
   font-weight: 500;
 }
 
+/* ── 图表组件私有类家族（批 B 自 Charts.css 迁入，整文件退役）──
+   此前 Charts.css 仅由 PersonDetails 加载：ProjectDemandChart 在
+   project-detail 需求图渲染 .chart-header 时无样式。迁入后两个图表
+   组件在任何宿主下样式一致。 */
+.chart-header {
+  margin-bottom: 20px;
+  border-bottom: 1px solid hsl(var(--border));
+  padding-bottom: 15px;
+}
+
+.chart-header h3 {
+  margin: 0 0 5px 0;
+  color: hsl(var(--foreground));
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.chart-subtitle {
+  margin: 0;
+  color: hsl(var(--muted-foreground));
+  font-size: 0.875rem;
+}
+
+.chart-content {
+  margin: 20px 0;
+}
+
+.chart-loading,
+.chart-error,
+.chart-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  font-size: 1rem;
+  color: hsl(var(--muted-foreground));
+}
+
+.chart-error {
+  color: hsl(var(--destructive));
+}
+
+.chart-summary {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid hsl(var(--border));
+}
+
+.summary-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 15px;
+}
+
+.summary-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: hsl(var(--foreground));
+  margin-bottom: 5px;
+}
+
+.summary-label {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.chart-breakdown {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid hsl(var(--border));
+}
+
+.chart-breakdown h4 {
+  margin: 0 0 15px 0;
+  color: hsl(var(--foreground));
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.breakdown-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.breakdown-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.breakdown-color {
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.breakdown-label {
+  font-size: 0.875rem;
+  color: hsl(var(--muted-foreground));
+  font-weight: 500;
+}
+
+[data-theme="dark"] .breakdown-label {
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+[data-theme="dark"] .breakdown-item {
+  background: hsl(var(--muted) / 0.5);
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  border: 1px solid var(--status-info-border);
+}
+
+[data-theme="dark"] .breakdown-color {
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--solid-foreground) 20%, transparent);
+}
+
+@media (max-width: 768px) {
+  .summary-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .breakdown-legend {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+/* Custom Tooltip Styles */
+.custom-tooltip {
+  background: hsl(var(--card));
+  border: 1px solid hsl(var(--border));
+  border-radius: 8px;
+  padding: 12px;
+  box-shadow: 0 4px 12px color-mix(in srgb, var(--solid-shade) 15%, transparent);
+  max-width: 250px;
+}
+
+.tooltip-title {
+  margin: 0 0 8px 0;
+  font-weight: 600;
+  color: hsl(var(--foreground));
+  font-size: 0.875rem;
+}
+
+.tooltip-capacity {
+  margin: 0 0 4px 0;
+  color: var(--primary-text);
+  font-weight: 500;
+  font-size: 0.875rem;
+}
+
+.tooltip-total {
+  margin: 0 0 8px 0;
+  color: hsl(var(--foreground));
+  font-weight: 500;
+  font-size: 0.875rem;
+}
+
+.tooltip-projects {
+  border-top: 1px solid hsl(var(--border));
+  padding-top: 8px;
+  margin: 8px 0;
+}
+
+.tooltip-project {
+  margin: 0 0 4px 0;
+  color: hsl(var(--muted-foreground));
+  font-size: 0.8rem;
+  padding-left: 8px;
+  position: relative;
+}
+
+.tooltip-project:before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: var(--primary-text);
+}
+
+.tooltip-warning {
+  margin: 8px 0 0 0;
+  color: var(--status-danger-text);
+  font-weight: 600;
+  font-size: 0.8rem;
+  background: var(--status-danger-soft);
+  padding: 4px 8px;
+  border-radius: 4px;
+  border: 1px solid var(--status-danger-border);
+}
+
 /* Actionable Tables Layout Styles */
 .actionable-sections {
   margin-top: 2rem;

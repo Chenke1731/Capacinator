@@ -156,7 +156,14 @@
   background: var(--bg-hover) !important;
 }
 
+/* 批 B N4：所有者语义补全——此前仅 flex-wrap（无 display），people-unified
+   外全部渲染为 block（子件 inline-flex 恰好横排但无 gap）。补 flex+gap 后
+   与 People 页 scoped 版逐值全等；可见变化面 = ProjectTypes/Assignments
+   两页获得 8px 间距。 */
 .table-actions {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
   flex-wrap: nowrap;
 }
 
@@ -539,12 +546,15 @@ html body .settings-section .checkbox-label,
 input[type="checkbox"].settings-checkbox,
 .settings-section input[type="checkbox"],
 input[type="checkbox"] {
-  width: 16px !important;
-  height: 16px !important;
-  min-width: 16px !important;
-  min-height: 16px !important;
-  max-width: 16px !important;
-  max-height: 16px !important;
+  /* 批 B 触控债：16→24px（WCAG 2.5.8 AA 最小命中区；settings/import 与
+     六处裸复选框全局面）。PTD 的视觉隐藏 .checkbox-input 热区反超视觉盒
+     6px——透明增益无害。 */
+  width: 24px !important;
+  height: 24px !important;
+  min-width: 24px !important;
+  min-height: 24px !important;
+  max-width: 24px !important;
+  max-height: 24px !important;
   padding: 0 !important;
   margin: 0 !important;
   margin-top: 2px !important;
@@ -2400,6 +2410,9 @@ body.req-col-dragging * {
   /* 宽度由 React style={{width:Nch}} 驱动——内容长就宽,短就窄 */
   min-width: 48px;
   max-width: 320px;
+  /* 批 B 触控债：行内编辑输入 20→24px 命中区（需求台/项目详情/人员页统一）；
+     bundle 若采集编辑态会看到 +4px 行高——预期变化，非回归 */
+  min-height: 24px;
   z-index: 10;
   position: relative;
 }

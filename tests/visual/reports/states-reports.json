@@ -146,20 +146,14 @@
           "textual": true,
           "disabled": false,
           "width": 66.015625,
-          "height": 18,
+          "height": 24,
           "font": 12,
           "top": 515.796875,
           "clipTop": 100,
           "offsetTop": 415.796875
         }
       ],
-      "issues": [
-        {
-          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > a:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 18
-        }
-      ],
+      "issues": [],
       "scope": ".reports-tab-content",
       "axe": [],
       "newIssues": []
@@ -309,20 +303,14 @@
           "textual": true,
           "disabled": false,
           "width": 66.015625,
-          "height": 18,
+          "height": 24,
           "font": 12,
           "top": 515.796875,
           "clipTop": 100,
           "offsetTop": 415.796875
         }
       ],
-      "issues": [
-        {
-          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > a:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 18
-        }
-      ],
+      "issues": [],
       "scope": ".reports-tab-content",
       "axe": [],
       "newIssues": []
@@ -472,20 +460,14 @@
           "textual": true,
           "disabled": false,
           "width": 66.015625,
-          "height": 18,
+          "height": 24,
           "font": 12,
           "top": 515.796875,
           "clipTop": 100,
           "offsetTop": 415.796875
         }
       ],
-      "issues": [
-        {
-          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > a:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 18
-        }
-      ],
+      "issues": [],
       "scope": ".reports-tab-content",
       "axe": [],
       "newIssues": []
@@ -635,20 +617,14 @@
           "textual": true,
           "disabled": false,
           "width": 66.015625,
-          "height": 18,
+          "height": 24,
           "font": 12,
           "top": 515.796875,
           "clipTop": 100,
           "offsetTop": 415.796875
         }
       ],
-      "issues": [
-        {
-          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > a:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 18
-        }
-      ],
+      "issues": [],
       "scope": ".reports-tab-content",
       "axe": [],
       "newIssues": []
@@ -798,20 +774,14 @@
           "textual": true,
           "disabled": false,
           "width": 66.015625,
-          "height": 18,
+          "height": 24,
           "font": 12,
           "top": 513.796875,
           "clipTop": 100,
           "offsetTop": 413.796875
         }
       ],
-      "issues": [
-        {
-          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > a:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 18
-        }
-      ],
+      "issues": [],
       "scope": ".reports-tab-content",
       "axe": [],
       "newIssues": []
@@ -961,20 +931,14 @@
           "textual": true,
           "disabled": false,
           "width": 66.015625,
-          "height": 18,
+          "height": 24,
           "font": 12,
-          "top": 515.2083740234375,
+          "top": 515.2074584960938,
           "clipTop": 100,
-          "offsetTop": 415.2083740234375
+          "offsetTop": 415.20745849609375
         }
       ],
-      "issues": [
-        {
-          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > a:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 18
-        }
-      ],
+      "issues": [],
       "scope": ".reports-tab-content",
       "axe": [],
       "newIssues": []
@@ -1124,20 +1088,14 @@
           "textual": true,
           "disabled": false,
           "width": 66.015625,
-          "height": 18,
+          "height": 24,
           "font": 12,
           "top": 515.796875,
           "clipTop": 100,
           "offsetTop": 415.796875
         }
       ],
-      "issues": [
-        {
-          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > a:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 18
-        }
-      ],
+      "issues": [],
       "scope": ".reports-tab-content",
       "axe": [],
       "newIssues": []
@@ -1287,20 +1245,14 @@
           "textual": true,
           "disabled": false,
           "width": 66.015625,
-          "height": 18,
+          "height": 24,
           "font": 12,
           "top": 515.796875,
           "clipTop": 100,
           "offsetTop": 415.796875
         }
       ],
-      "issues": [
-        {
-          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > a:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 18
-        }
-      ],
+      "issues": [],
       "scope": ".reports-tab-content",
       "axe": [],
       "newIssues": []
@@ -1450,20 +1402,14 @@
           "textual": true,
           "disabled": false,
           "width": 66.015625,
-          "height": 18,
+          "height": 24,
           "font": 12,
           "top": 515.796875,
           "clipTop": 100,
           "offsetTop": 415.796875
         }
       ],
-      "issues": [
-        {
-          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > a:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 18
-        }
-      ],
+      "issues": [],
       "scope": ".reports-tab-content",
       "axe": [],
       "newIssues": []
@@ -1613,20 +1559,14 @@
           "textual": true,
           "disabled": false,
           "width": 66.015625,
-          "height": 18,
+          "height": 24,
           "font": 12,
           "top": 515.796875,
           "clipTop": 100,
           "offsetTop": 415.796875
         }
       ],
-      "issues": [
-        {
-          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > a:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 18
-        }
-      ],
+      "issues": [],
       "scope": ".reports-tab-content",
       "axe": [],
       "newIssues": []
@@ -1776,20 +1716,14 @@
           "textual": true,
           "disabled": false,
           "width": 66.015625,
-          "height": 18,
+          "height": 24,
           "font": 12,
           "top": 513.796875,
           "clipTop": 100,
           "offsetTop": 413.796875
         }
       ],
-      "issues": [
-        {
-          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > a:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 18
-        }
-      ],
+      "issues": [],
       "scope": ".reports-tab-content",
       "axe": [],
       "newIssues": []
@@ -1939,20 +1873,14 @@
           "textual": true,
           "disabled": false,
           "width": 66.015625,
-          "height": 18,
+          "height": 24,
           "font": 12,
-          "top": 514.9481811523438,
+          "top": 514.6144409179688,
           "clipTop": 100,
-          "offsetTop": 414.94818115234375
+          "offsetTop": 414.61444091796875
         }
       ],
-      "issues": [
-        {
-          "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2) > a:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 18
-        }
-      ],
+      "issues": [],
       "scope": ".reports-tab-content",
       "axe": [],
       "newIssues": []

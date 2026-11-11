@@ -18,7 +18,6 @@ import { SmartAssignmentModal } from '../components/modals/SmartAssignmentModal'
 import { DetailTable, DetailTableColumn } from '../components/ui/DetailTable';
 import { Badge } from '../components/ui/badge';
 import './PersonDetails.css';
-import '../components/Charts.css';
 
 interface PersonDetails {
   id: string;

@@ -187,8 +187,8 @@
           "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
-          "width": 16,
-          "height": 16,
+          "width": 24,
+          "height": 24,
           "font": 14,
           "top": 278.1875,
           "clipTop": 100,
@@ -211,9 +211,9 @@
           "width": 120,
           "height": 39,
           "font": 14,
-          "top": 350.1875,
+          "top": 355.1875,
           "clipTop": 100,
-          "offsetTop": 250.1875
+          "offsetTop": 255.1875
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > label:nth-of-type(1) > input:nth-of-type(1)",
@@ -229,12 +229,12 @@
           "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
-          "width": 16,
-          "height": 16,
+          "width": 24,
+          "height": 24,
           "font": 14,
-          "top": 466.1875,
+          "top": 471.1875,
           "clipTop": 100,
-          "offsetTop": 366.1875
+          "offsetTop": 371.1875
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > button:nth-of-type(1)",
@@ -253,23 +253,12 @@
           "width": 146,
           "height": 44,
           "font": 14,
-          "top": 622.1875,
+          "top": 632.1875,
           "clipTop": 100,
-          "offsetTop": 522.1875
+          "offsetTop": 532.1875
         }
       ],
-      "issues": [
-        {
-          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > label:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 16
-        },
-        {
-          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > label:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 16
-        }
-      ],
+      "issues": [],
       "scope": ".unified-tab-container",
       "axe": [],
       "newIssues": []
@@ -460,8 +449,8 @@
           "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
-          "width": 16,
-          "height": 16,
+          "width": 24,
+          "height": 24,
           "font": 14,
           "top": 278.1875,
           "clipTop": 100,
@@ -484,9 +473,9 @@
           "width": 120,
           "height": 39,
           "font": 14,
-          "top": 350.1875,
+          "top": 355.1875,
           "clipTop": 100,
-          "offsetTop": 250.1875
+          "offsetTop": 255.1875
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > label:nth-of-type(1) > input:nth-of-type(1)",
@@ -502,12 +491,12 @@
           "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
-          "width": 16,
-          "height": 16,
+          "width": 24,
+          "height": 24,
           "font": 14,
-          "top": 466.1875,
+          "top": 471.1875,
           "clipTop": 100,
-          "offsetTop": 366.1875
+          "offsetTop": 371.1875
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > button:nth-of-type(1)",
@@ -526,23 +515,12 @@
           "width": 146,
           "height": 44,
           "font": 14,
-          "top": 622.1875,
+          "top": 632.1875,
           "clipTop": 100,
-          "offsetTop": 522.1875
+          "offsetTop": 532.1875
         }
       ],
-      "issues": [
-        {
-          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > label:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 16
-        },
-        {
-          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > label:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 16
-        }
-      ],
+      "issues": [],
       "scope": ".unified-tab-container",
       "axe": [],
       "newIssues": []
@@ -733,8 +711,8 @@
           "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
-          "width": 16,
-          "height": 16,
+          "width": 24,
+          "height": 24,
           "font": 14,
           "top": 278.1875,
           "clipTop": 100,
@@ -757,9 +735,9 @@
           "width": 120,
           "height": 39,
           "font": 14,
-          "top": 350.1875,
+          "top": 355.1875,
           "clipTop": 100,
-          "offsetTop": 250.1875
+          "offsetTop": 255.1875
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > label:nth-of-type(1) > input:nth-of-type(1)",
@@ -775,12 +753,12 @@
           "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
-          "width": 16,
-          "height": 16,
+          "width": 24,
+          "height": 24,
           "font": 14,
-          "top": 466.1875,
+          "top": 471.1875,
           "clipTop": 100,
-          "offsetTop": 366.1875
+          "offsetTop": 371.1875
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > button:nth-of-type(1)",
@@ -799,23 +777,12 @@
           "width": 146,
           "height": 44,
           "font": 14,
-          "top": 622.1875,
+          "top": 632.1875,
           "clipTop": 100,
-          "offsetTop": 522.1875
+          "offsetTop": 532.1875
         }
       ],
-      "issues": [
-        {
-          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > label:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 16
-        },
-        {
-          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > label:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 16
-        }
-      ],
+      "issues": [],
       "scope": ".unified-tab-container",
       "axe": [],
       "newIssues": []
@@ -1006,8 +973,8 @@
           "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
-          "width": 16,
-          "height": 16,
+          "width": 24,
+          "height": 24,
           "font": 14,
           "top": 278.1875,
           "clipTop": 100,
@@ -1030,9 +997,9 @@
           "width": 120,
           "height": 39,
           "font": 14,
-          "top": 350.1875,
+          "top": 355.1875,
           "clipTop": 100,
-          "offsetTop": 250.1875
+          "offsetTop": 255.1875
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > label:nth-of-type(1) > input:nth-of-type(1)",
@@ -1048,12 +1015,12 @@
           "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
-          "width": 16,
-          "height": 16,
+          "width": 24,
+          "height": 24,
           "font": 14,
-          "top": 466.1875,
+          "top": 471.1875,
           "clipTop": 100,
-          "offsetTop": 366.1875
+          "offsetTop": 371.1875
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > button:nth-of-type(1)",
@@ -1072,23 +1039,12 @@
           "width": 146,
           "height": 44,
           "font": 14,
-          "top": 622.1875,
+          "top": 632.1875,
           "clipTop": 100,
-          "offsetTop": 522.1875
+          "offsetTop": 532.1875
         }
       ],
-      "issues": [
-        {
-          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > label:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 16
-        },
-        {
-          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > label:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 16
-        }
-      ],
+      "issues": [],
       "scope": ".unified-tab-container",
       "axe": [],
       "newIssues": []
@@ -1279,8 +1235,8 @@
           "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
-          "width": 16,
-          "height": 16,
+          "width": 24,
+          "height": 24,
           "font": 14,
           "top": 278.1875,
           "clipTop": 100,
@@ -1303,9 +1259,9 @@
           "width": 120,
           "height": 39,
           "font": 14,
-          "top": 350.1875,
+          "top": 355.1875,
           "clipTop": 100,
-          "offsetTop": 250.1875
+          "offsetTop": 255.1875
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > label:nth-of-type(1) > input:nth-of-type(1)",
@@ -1321,12 +1277,12 @@
           "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
-          "width": 16,
-          "height": 16,
+          "width": 24,
+          "height": 24,
           "font": 14,
-          "top": 466.1875,
+          "top": 471.1875,
           "clipTop": 100,
-          "offsetTop": 366.1875
+          "offsetTop": 371.1875
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > button:nth-of-type(1)",
@@ -1345,23 +1301,12 @@
           "width": 146,
           "height": 44,
           "font": 14,
-          "top": 622.1875,
+          "top": 632.1875,
           "clipTop": 100,
-          "offsetTop": 522.1875
+          "offsetTop": 532.1875
         }
       ],
-      "issues": [
-        {
-          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > label:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 16
-        },
-        {
-          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > label:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 16
-        }
-      ],
+      "issues": [],
       "scope": ".unified-tab-container",
       "axe": [],
       "newIssues": []
@@ -1552,8 +1497,8 @@
           "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
-          "width": 16,
-          "height": 16,
+          "width": 24,
+          "height": 24,
           "font": 14,
           "top": 278.1875,
           "clipTop": 100,
@@ -1576,9 +1521,9 @@
           "width": 120,
           "height": 39,
           "font": 14,
-          "top": 350.1875,
+          "top": 355.1875,
           "clipTop": 100,
-          "offsetTop": 250.1875
+          "offsetTop": 255.1875
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > label:nth-of-type(1) > input:nth-of-type(1)",
@@ -1594,12 +1539,12 @@
           "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
-          "width": 16,
-          "height": 16,
+          "width": 24,
+          "height": 24,
           "font": 14,
-          "top": 466.1875,
+          "top": 471.1875,
           "clipTop": 100,
-          "offsetTop": 366.1875
+          "offsetTop": 371.1875
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > button:nth-of-type(1)",
@@ -1618,23 +1563,12 @@
           "width": 146,
           "height": 44,
           "font": 14,
-          "top": 622.1875,
+          "top": 632.1875,
           "clipTop": 100,
-          "offsetTop": 522.1875
+          "offsetTop": 532.1875
         }
       ],
-      "issues": [
-        {
-          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > label:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 16
-        },
-        {
-          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > label:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 16
-        }
-      ],
+      "issues": [],
       "scope": ".unified-tab-container",
       "axe": [],
       "newIssues": []
@@ -1825,8 +1759,8 @@
           "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
-          "width": 16,
-          "height": 16,
+          "width": 24,
+          "height": 24,
           "font": 14,
           "top": 278.1875,
           "clipTop": 100,
@@ -1849,9 +1783,9 @@
           "width": 120,
           "height": 39,
           "font": 14,
-          "top": 350.1875,
+          "top": 355.1875,
           "clipTop": 100,
-          "offsetTop": 250.1875
+          "offsetTop": 255.1875
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > label:nth-of-type(1) > input:nth-of-type(1)",
@@ -1867,12 +1801,12 @@
           "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
-          "width": 16,
-          "height": 16,
+          "width": 24,
+          "height": 24,
           "font": 14,
-          "top": 466.1875,
+          "top": 471.1875,
           "clipTop": 100,
-          "offsetTop": 366.1875
+          "offsetTop": 371.1875
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > button:nth-of-type(1)",
@@ -1891,23 +1825,12 @@
           "width": 146,
           "height": 44,
           "font": 14,
-          "top": 622.1875,
+          "top": 632.1875,
           "clipTop": 100,
-          "offsetTop": 522.1875
+          "offsetTop": 532.1875
         }
       ],
-      "issues": [
-        {
-          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > label:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 16
-        },
-        {
-          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > label:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 16
-        }
-      ],
+      "issues": [],
       "scope": ".unified-tab-container",
       "axe": [],
       "newIssues": []
@@ -2098,8 +2021,8 @@
           "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
-          "width": 16,
-          "height": 16,
+          "width": 24,
+          "height": 24,
           "font": 14,
           "top": 278.1875,
           "clipTop": 100,
@@ -2122,9 +2045,9 @@
           "width": 120,
           "height": 39,
           "font": 14,
-          "top": 350.1875,
+          "top": 355.1875,
           "clipTop": 100,
-          "offsetTop": 250.1875
+          "offsetTop": 255.1875
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > label:nth-of-type(1) > input:nth-of-type(1)",
@@ -2140,12 +2063,12 @@
           "contrast": 17.73971700407407,
           "textual": true,
           "disabled": false,
-          "width": 16,
-          "height": 16,
+          "width": 24,
+          "height": 24,
           "font": 14,
-          "top": 466.1875,
+          "top": 471.1875,
           "clipTop": 100,
-          "offsetTop": 366.1875
+          "offsetTop": 371.1875
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > button:nth-of-type(1)",
@@ -2164,23 +2087,12 @@
           "width": 146,
           "height": 44,
           "font": 14,
-          "top": 622.1875,
+          "top": 632.1875,
           "clipTop": 100,
-          "offsetTop": 522.1875
+          "offsetTop": 532.1875
         }
       ],
-      "issues": [
-        {
-          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > label:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 16
-        },
-        {
-          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > label:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 16
-        }
-      ],
+      "issues": [],
       "scope": ".unified-tab-container",
       "axe": [],
       "newIssues": []
@@ -2371,8 +2283,8 @@
           "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
-          "width": 16,
-          "height": 16,
+          "width": 24,
+          "height": 24,
           "font": 14,
           "top": 278.1875,
           "clipTop": 100,
@@ -2395,9 +2307,9 @@
           "width": 120,
           "height": 39,
           "font": 14,
-          "top": 350.1875,
+          "top": 355.1875,
           "clipTop": 100,
-          "offsetTop": 250.1875
+          "offsetTop": 255.1875
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > label:nth-of-type(1) > input:nth-of-type(1)",
@@ -2413,12 +2325,12 @@
           "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
-          "width": 16,
-          "height": 16,
+          "width": 24,
+          "height": 24,
           "font": 14,
-          "top": 466.1875,
+          "top": 471.1875,
           "clipTop": 100,
-          "offsetTop": 366.1875
+          "offsetTop": 371.1875
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > button:nth-of-type(1)",
@@ -2437,23 +2349,12 @@
           "width": 146,
           "height": 44,
           "font": 14,
-          "top": 622.1875,
+          "top": 632.1875,
           "clipTop": 100,
-          "offsetTop": 522.1875
+          "offsetTop": 532.1875
         }
       ],
-      "issues": [
-        {
-          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > label:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 16
-        },
-        {
-          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > label:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 16
-        }
-      ],
+      "issues": [],
       "scope": ".unified-tab-container",
       "axe": [],
       "newIssues": []
@@ -2644,8 +2545,8 @@
           "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
-          "width": 16,
-          "height": 16,
+          "width": 24,
+          "height": 24,
           "font": 14,
           "top": 278.1875,
           "clipTop": 100,
@@ -2668,9 +2569,9 @@
           "width": 120,
           "height": 39,
           "font": 14,
-          "top": 350.1875,
+          "top": 355.1875,
           "clipTop": 100,
-          "offsetTop": 250.1875
+          "offsetTop": 255.1875
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > label:nth-of-type(1) > input:nth-of-type(1)",
@@ -2686,12 +2587,12 @@
           "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
-          "width": 16,
-          "height": 16,
+          "width": 24,
+          "height": 24,
           "font": 14,
-          "top": 466.1875,
+          "top": 471.1875,
           "clipTop": 100,
-          "offsetTop": 366.1875
+          "offsetTop": 371.1875
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > button:nth-of-type(1)",
@@ -2710,23 +2611,12 @@
           "width": 146,
           "height": 44,
           "font": 14,
-          "top": 622.1875,
+          "top": 632.1875,
           "clipTop": 100,
-          "offsetTop": 522.1875
+          "offsetTop": 532.1875
         }
       ],
-      "issues": [
-        {
-          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > label:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 16
-        },
-        {
-          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > label:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 16
-        }
-      ],
+      "issues": [],
       "scope": ".unified-tab-container",
       "axe": [],
       "newIssues": []
@@ -2917,8 +2807,8 @@
           "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
-          "width": 16,
-          "height": 16,
+          "width": 24,
+          "height": 24,
           "font": 14,
           "top": 278.1875,
           "clipTop": 100,
@@ -2941,9 +2831,9 @@
           "width": 120,
           "height": 39,
           "font": 14,
-          "top": 350.1875,
+          "top": 355.1875,
           "clipTop": 100,
-          "offsetTop": 250.1875
+          "offsetTop": 255.1875
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > label:nth-of-type(1) > input:nth-of-type(1)",
@@ -2959,12 +2849,12 @@
           "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
-          "width": 16,
-          "height": 16,
+          "width": 24,
+          "height": 24,
           "font": 14,
-          "top": 466.1875,
+          "top": 471.1875,
           "clipTop": 100,
-          "offsetTop": 366.1875
+          "offsetTop": 371.1875
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > button:nth-of-type(1)",
@@ -2983,23 +2873,12 @@
           "width": 146,
           "height": 44,
           "font": 14,
-          "top": 622.1875,
+          "top": 632.1875,
           "clipTop": 100,
-          "offsetTop": 522.1875
+          "offsetTop": 532.1875
         }
       ],
-      "issues": [
-        {
-          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > label:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 16
-        },
-        {
-          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > label:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 16
-        }
-      ],
+      "issues": [],
       "scope": ".unified-tab-container",
       "axe": [],
       "newIssues": []
@@ -3190,8 +3069,8 @@
           "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
-          "width": 16,
-          "height": 16,
+          "width": 24,
+          "height": 24,
           "font": 14,
           "top": 278.1875,
           "clipTop": 100,
@@ -3214,9 +3093,9 @@
           "width": 120,
           "height": 39,
           "font": 14,
-          "top": 350.1875,
+          "top": 355.1875,
           "clipTop": 100,
-          "offsetTop": 250.1875
+          "offsetTop": 255.1875
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > label:nth-of-type(1) > input:nth-of-type(1)",
@@ -3232,12 +3111,12 @@
           "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
-          "width": 16,
-          "height": 16,
+          "width": 24,
+          "height": 24,
           "font": 14,
-          "top": 466.1875,
+          "top": 471.1875,
           "clipTop": 100,
-          "offsetTop": 366.1875
+          "offsetTop": 371.1875
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > button:nth-of-type(1)",
@@ -3256,23 +3135,12 @@
           "width": 146,
           "height": 44,
           "font": 14,
-          "top": 622.1875,
+          "top": 632.1875,
           "clipTop": 100,
-          "offsetTop": 522.1875
+          "offsetTop": 532.1875
         }
       ],
-      "issues": [
-        {
-          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > label:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 16
-        },
-        {
-          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > label:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 16
-        }
-      ],
+      "issues": [],
       "scope": ".unified-tab-container",
       "axe": [],
       "newIssues": []
@@ -3463,8 +3331,8 @@
           "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
-          "width": 16,
-          "height": 16,
+          "width": 24,
+          "height": 24,
           "font": 14,
           "top": 278.1875,
           "clipTop": 100,
@@ -3487,9 +3355,9 @@
           "width": 120,
           "height": 39,
           "font": 14,
-          "top": 350.1875,
+          "top": 355.1875,
           "clipTop": 100,
-          "offsetTop": 250.1875
+          "offsetTop": 255.1875
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > label:nth-of-type(1) > input:nth-of-type(1)",
@@ -3505,12 +3373,12 @@
           "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
-          "width": 16,
-          "height": 16,
+          "width": 24,
+          "height": 24,
           "font": 14,
-          "top": 466.1875,
+          "top": 471.1875,
           "clipTop": 100,
-          "offsetTop": 366.1875
+          "offsetTop": 371.1875
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > button:nth-of-type(1)",
@@ -3529,23 +3397,12 @@
           "width": 146,
           "height": 44,
           "font": 14,
-          "top": 622.1875,
+          "top": 632.1875,
           "clipTop": 100,
-          "offsetTop": 522.1875
+          "offsetTop": 532.1875
         }
       ],
-      "issues": [
-        {
-          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > label:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 16
-        },
-        {
-          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > label:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 16
-        }
-      ],
+      "issues": [],
       "scope": ".unified-tab-container",
       "axe": [],
       "newIssues": []
@@ -3736,8 +3593,8 @@
           "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
-          "width": 16,
-          "height": 16,
+          "width": 24,
+          "height": 24,
           "font": 14,
           "top": 278.1875,
           "clipTop": 100,
@@ -3760,9 +3617,9 @@
           "width": 120,
           "height": 39,
           "font": 14,
-          "top": 350.1875,
+          "top": 355.1875,
           "clipTop": 100,
-          "offsetTop": 250.1875
+          "offsetTop": 255.1875
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > label:nth-of-type(1) > input:nth-of-type(1)",
@@ -3778,12 +3635,12 @@
           "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
-          "width": 16,
-          "height": 16,
+          "width": 24,
+          "height": 24,
           "font": 14,
-          "top": 466.1875,
+          "top": 471.1875,
           "clipTop": 100,
-          "offsetTop": 366.1875
+          "offsetTop": 371.1875
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > button:nth-of-type(1)",
@@ -3802,23 +3659,12 @@
           "width": 146,
           "height": 44,
           "font": 14,
-          "top": 622.1875,
+          "top": 632.1875,
           "clipTop": 100,
-          "offsetTop": 522.1875
+          "offsetTop": 532.1875
         }
       ],
-      "issues": [
-        {
-          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > label:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 16
-        },
-        {
-          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > label:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 16
-        }
-      ],
+      "issues": [],
       "scope": ".unified-tab-container",
       "axe": [],
       "newIssues": []
@@ -4009,8 +3855,8 @@
           "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
-          "width": 16,
-          "height": 16,
+          "width": 24,
+          "height": 24,
           "font": 14,
           "top": 278.1875,
           "clipTop": 100,
@@ -4033,9 +3879,9 @@
           "width": 120,
           "height": 39,
           "font": 14,
-          "top": 350.1875,
+          "top": 355.1875,
           "clipTop": 100,
-          "offsetTop": 250.1875
+          "offsetTop": 255.1875
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > label:nth-of-type(1) > input:nth-of-type(1)",
@@ -4051,12 +3897,12 @@
           "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
-          "width": 16,
-          "height": 16,
+          "width": 24,
+          "height": 24,
           "font": 14,
-          "top": 466.1875,
+          "top": 471.1875,
           "clipTop": 100,
-          "offsetTop": 366.1875
+          "offsetTop": 371.1875
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > button:nth-of-type(1)",
@@ -4075,23 +3921,12 @@
           "width": 146,
           "height": 44,
           "font": 14,
-          "top": 622.1875,
+          "top": 632.1875,
           "clipTop": 100,
-          "offsetTop": 522.1875
+          "offsetTop": 532.1875
         }
       ],
-      "issues": [
-        {
-          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > label:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 16
-        },
-        {
-          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > label:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 16
-        }
-      ],
+      "issues": [],
       "scope": ".unified-tab-container",
       "axe": [],
       "newIssues": []
@@ -4282,8 +4117,8 @@
           "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
-          "width": 16,
-          "height": 16,
+          "width": 24,
+          "height": 24,
           "font": 14,
           "top": 278.1875,
           "clipTop": 100,
@@ -4306,9 +4141,9 @@
           "width": 120,
           "height": 39,
           "font": 14,
-          "top": 350.1875,
+          "top": 355.1875,
           "clipTop": 100,
-          "offsetTop": 250.1875
+          "offsetTop": 255.1875
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > label:nth-of-type(1) > input:nth-of-type(1)",
@@ -4324,12 +4159,12 @@
           "contrast": 14.046656202460271,
           "textual": true,
           "disabled": false,
-          "width": 16,
-          "height": 16,
+          "width": 24,
+          "height": 24,
           "font": 14,
-          "top": 466.1875,
+          "top": 471.1875,
           "clipTop": 100,
-          "offsetTop": 366.1875
+          "offsetTop": 371.1875
         },
         {
           "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > button:nth-of-type(1)",
@@ -4348,23 +4183,12 @@
           "width": 146,
           "height": 44,
           "font": 14,
-          "top": 622.1875,
+          "top": 632.1875,
           "clipTop": 100,
-          "offsetTop": 522.1875
+          "offsetTop": 532.1875
         }
       ],
-      "issues": [
-        {
-          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > label:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 16
-        },
-        {
-          "selector": "div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(3) > label:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 16
-        }
-      ],
+      "issues": [],
       "scope": ".unified-tab-container",
       "axe": [],
       "newIssues": []

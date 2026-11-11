@@ -188,11 +188,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 457.953125,
+          "top": 455.953125,
           "clipTop": 346.390625,
-          "offsetTop": 111.5625
+          "offsetTop": 109.5625
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -335,11 +335,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 540.09375,
+          "top": 538.09375,
           "clipTop": 346.390625,
-          "offsetTop": 193.703125
+          "offsetTop": 191.703125
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -482,11 +482,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 622.234375,
+          "top": 620.234375,
           "clipTop": 346.390625,
-          "offsetTop": 275.84375
+          "offsetTop": 273.84375
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(3) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -629,11 +629,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 704.375,
+          "top": 702.375,
           "clipTop": 346.390625,
-          "offsetTop": 357.984375
+          "offsetTop": 355.984375
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(4) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -776,11 +776,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 786.515625,
+          "top": 784.515625,
           "clipTop": 346.390625,
-          "offsetTop": 440.125
+          "offsetTop": 438.125
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(5) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -923,11 +923,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 868.65625,
+          "top": 866.65625,
           "clipTop": 346.390625,
-          "offsetTop": 522.265625
+          "offsetTop": 520.265625
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(6) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -1056,38 +1056,7 @@
           "offsetTop": 517.984375
         }
       ],
-      "issues": [
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(3) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(4) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(5) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(6) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        }
-      ],
+      "issues": [],
       "scope": "main",
       "axe": [],
       "newIssues": []
@@ -1279,11 +1248,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 457.953125,
+          "top": 455.953125,
           "clipTop": 346.390625,
-          "offsetTop": 111.5625
+          "offsetTop": 109.5625
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -1426,11 +1395,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 540.09375,
+          "top": 538.09375,
           "clipTop": 346.390625,
-          "offsetTop": 193.703125
+          "offsetTop": 191.703125
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -1573,11 +1542,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 622.234375,
+          "top": 620.234375,
           "clipTop": 346.390625,
-          "offsetTop": 275.84375
+          "offsetTop": 273.84375
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(3) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -1720,11 +1689,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 704.375,
+          "top": 702.375,
           "clipTop": 346.390625,
-          "offsetTop": 357.984375
+          "offsetTop": 355.984375
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(4) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -1867,11 +1836,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 786.515625,
+          "top": 784.515625,
           "clipTop": 346.390625,
-          "offsetTop": 440.125
+          "offsetTop": 438.125
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(5) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -2014,11 +1983,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 868.65625,
+          "top": 866.65625,
           "clipTop": 346.390625,
-          "offsetTop": 522.265625
+          "offsetTop": 520.265625
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(6) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -2147,38 +2116,7 @@
           "offsetTop": 517.984375
         }
       ],
-      "issues": [
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(3) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(4) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(5) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(6) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        }
-      ],
+      "issues": [],
       "scope": "main",
       "axe": [],
       "newIssues": []
@@ -2370,11 +2308,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 457.953125,
+          "top": 455.953125,
           "clipTop": 346.390625,
-          "offsetTop": 111.5625
+          "offsetTop": 109.5625
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -2517,11 +2455,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 540.09375,
+          "top": 538.09375,
           "clipTop": 346.390625,
-          "offsetTop": 193.703125
+          "offsetTop": 191.703125
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -2664,11 +2602,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 622.234375,
+          "top": 620.234375,
           "clipTop": 346.390625,
-          "offsetTop": 275.84375
+          "offsetTop": 273.84375
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(3) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -2811,11 +2749,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 704.375,
+          "top": 702.375,
           "clipTop": 346.390625,
-          "offsetTop": 357.984375
+          "offsetTop": 355.984375
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(4) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -2958,11 +2896,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 786.515625,
+          "top": 784.515625,
           "clipTop": 346.390625,
-          "offsetTop": 440.125
+          "offsetTop": 438.125
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(5) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -3105,11 +3043,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 868.65625,
+          "top": 866.65625,
           "clipTop": 346.390625,
-          "offsetTop": 522.265625
+          "offsetTop": 520.265625
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(6) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -3238,38 +3176,7 @@
           "offsetTop": 517.984375
         }
       ],
-      "issues": [
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(3) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(4) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(5) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(6) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        }
-      ],
+      "issues": [],
       "scope": "main",
       "axe": [],
       "newIssues": []
@@ -3461,11 +3368,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 457.953125,
+          "top": 455.953125,
           "clipTop": 346.390625,
-          "offsetTop": 111.5625
+          "offsetTop": 109.5625
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -3608,11 +3515,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 540.09375,
+          "top": 538.09375,
           "clipTop": 346.390625,
-          "offsetTop": 193.703125
+          "offsetTop": 191.703125
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -3755,11 +3662,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 622.234375,
+          "top": 620.234375,
           "clipTop": 346.390625,
-          "offsetTop": 275.84375
+          "offsetTop": 273.84375
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(3) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -3902,11 +3809,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 704.375,
+          "top": 702.375,
           "clipTop": 346.390625,
-          "offsetTop": 357.984375
+          "offsetTop": 355.984375
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(4) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -4049,11 +3956,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 786.515625,
+          "top": 784.515625,
           "clipTop": 346.390625,
-          "offsetTop": 440.125
+          "offsetTop": 438.125
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(5) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -4196,11 +4103,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 868.65625,
+          "top": 866.65625,
           "clipTop": 346.390625,
-          "offsetTop": 522.265625
+          "offsetTop": 520.265625
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(6) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -4329,38 +4236,7 @@
           "offsetTop": 517.984375
         }
       ],
-      "issues": [
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(3) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(4) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(5) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(6) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        }
-      ],
+      "issues": [],
       "scope": "main",
       "axe": [],
       "newIssues": []
@@ -4552,11 +4428,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 457.953125,
+          "top": 455.953125,
           "clipTop": 346.390625,
-          "offsetTop": 111.5625
+          "offsetTop": 109.5625
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -4699,11 +4575,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 540.09375,
+          "top": 538.09375,
           "clipTop": 346.390625,
-          "offsetTop": 193.703125
+          "offsetTop": 191.703125
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -4846,11 +4722,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 622.234375,
+          "top": 620.234375,
           "clipTop": 346.390625,
-          "offsetTop": 275.84375
+          "offsetTop": 273.84375
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(3) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -4993,11 +4869,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 704.375,
+          "top": 702.375,
           "clipTop": 346.390625,
-          "offsetTop": 357.984375
+          "offsetTop": 355.984375
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(4) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -5140,11 +5016,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 786.515625,
+          "top": 784.515625,
           "clipTop": 346.390625,
-          "offsetTop": 440.125
+          "offsetTop": 438.125
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(5) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -5287,11 +5163,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 868.65625,
+          "top": 866.65625,
           "clipTop": 346.390625,
-          "offsetTop": 522.265625
+          "offsetTop": 520.265625
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(6) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -5420,38 +5296,7 @@
           "offsetTop": 517.984375
         }
       ],
-      "issues": [
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(3) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(4) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(5) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(6) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        }
-      ],
+      "issues": [],
       "scope": "main",
       "axe": [],
       "newIssues": []
@@ -5643,11 +5488,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 457.953125,
+          "top": 455.953125,
           "clipTop": 346.390625,
-          "offsetTop": 111.5625
+          "offsetTop": 109.5625
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -5790,11 +5635,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 540.09375,
+          "top": 538.09375,
           "clipTop": 346.390625,
-          "offsetTop": 193.703125
+          "offsetTop": 191.703125
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -5937,11 +5782,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 622.234375,
+          "top": 620.234375,
           "clipTop": 346.390625,
-          "offsetTop": 275.84375
+          "offsetTop": 273.84375
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(3) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -6084,11 +5929,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 704.375,
+          "top": 702.375,
           "clipTop": 346.390625,
-          "offsetTop": 357.984375
+          "offsetTop": 355.984375
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(4) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -6231,11 +6076,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 786.515625,
+          "top": 784.515625,
           "clipTop": 346.390625,
-          "offsetTop": 440.125
+          "offsetTop": 438.125
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(5) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -6378,11 +6223,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 868.65625,
+          "top": 866.65625,
           "clipTop": 346.390625,
-          "offsetTop": 522.265625
+          "offsetTop": 520.265625
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(6) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -6511,38 +6356,7 @@
           "offsetTop": 517.984375
         }
       ],
-      "issues": [
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(3) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(4) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(5) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(6) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        }
-      ],
+      "issues": [],
       "scope": "main",
       "axe": [],
       "newIssues": []
@@ -6734,11 +6548,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 457.953125,
+          "top": 455.953125,
           "clipTop": 346.390625,
-          "offsetTop": 111.5625
+          "offsetTop": 109.5625
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -6881,11 +6695,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 540.09375,
+          "top": 538.09375,
           "clipTop": 346.390625,
-          "offsetTop": 193.703125
+          "offsetTop": 191.703125
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -7028,11 +6842,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 622.234375,
+          "top": 620.234375,
           "clipTop": 346.390625,
-          "offsetTop": 275.84375
+          "offsetTop": 273.84375
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(3) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -7175,11 +6989,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 704.375,
+          "top": 702.375,
           "clipTop": 346.390625,
-          "offsetTop": 357.984375
+          "offsetTop": 355.984375
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(4) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -7322,11 +7136,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 786.515625,
+          "top": 784.515625,
           "clipTop": 346.390625,
-          "offsetTop": 440.125
+          "offsetTop": 438.125
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(5) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -7469,11 +7283,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 868.65625,
+          "top": 866.65625,
           "clipTop": 346.390625,
-          "offsetTop": 522.265625
+          "offsetTop": 520.265625
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(6) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -7602,38 +7416,7 @@
           "offsetTop": 517.984375
         }
       ],
-      "issues": [
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(3) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(4) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(5) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(6) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        }
-      ],
+      "issues": [],
       "scope": "main",
       "axe": [],
       "newIssues": []
@@ -7825,11 +7608,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 457.953125,
+          "top": 455.953125,
           "clipTop": 346.390625,
-          "offsetTop": 111.5625
+          "offsetTop": 109.5625
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -7972,11 +7755,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 540.09375,
+          "top": 538.09375,
           "clipTop": 346.390625,
-          "offsetTop": 193.703125
+          "offsetTop": 191.703125
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -8119,11 +7902,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 622.234375,
+          "top": 620.234375,
           "clipTop": 346.390625,
-          "offsetTop": 275.84375
+          "offsetTop": 273.84375
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(3) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -8266,11 +8049,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 704.375,
+          "top": 702.375,
           "clipTop": 346.390625,
-          "offsetTop": 357.984375
+          "offsetTop": 355.984375
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(4) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -8413,11 +8196,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 786.515625,
+          "top": 784.515625,
           "clipTop": 346.390625,
-          "offsetTop": 440.125
+          "offsetTop": 438.125
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(5) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -8560,11 +8343,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 868.65625,
+          "top": 866.65625,
           "clipTop": 346.390625,
-          "offsetTop": 522.265625
+          "offsetTop": 520.265625
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(6) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -8693,38 +8476,7 @@
           "offsetTop": 517.984375
         }
       ],
-      "issues": [
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(3) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(4) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(5) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(6) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        }
-      ],
+      "issues": [],
       "scope": "main",
       "axe": [],
       "newIssues": []
@@ -8916,11 +8668,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 457.953125,
+          "top": 455.953125,
           "clipTop": 346.390625,
-          "offsetTop": 111.5625
+          "offsetTop": 109.5625
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -9063,11 +8815,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 540.09375,
+          "top": 538.09375,
           "clipTop": 346.390625,
-          "offsetTop": 193.703125
+          "offsetTop": 191.703125
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -9210,11 +8962,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 622.234375,
+          "top": 620.234375,
           "clipTop": 346.390625,
-          "offsetTop": 275.84375
+          "offsetTop": 273.84375
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(3) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -9357,11 +9109,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 704.375,
+          "top": 702.375,
           "clipTop": 346.390625,
-          "offsetTop": 357.984375
+          "offsetTop": 355.984375
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(4) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -9504,11 +9256,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 786.515625,
+          "top": 784.515625,
           "clipTop": 346.390625,
-          "offsetTop": 440.125
+          "offsetTop": 438.125
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(5) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -9651,11 +9403,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 868.65625,
+          "top": 866.65625,
           "clipTop": 346.390625,
-          "offsetTop": 522.265625
+          "offsetTop": 520.265625
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(6) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -9784,38 +9536,7 @@
           "offsetTop": 517.984375
         }
       ],
-      "issues": [
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(3) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(4) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(5) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(6) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        }
-      ],
+      "issues": [],
       "scope": "main",
       "axe": [],
       "newIssues": []
@@ -10007,11 +9728,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 457.953125,
+          "top": 455.953125,
           "clipTop": 346.390625,
-          "offsetTop": 111.5625
+          "offsetTop": 109.5625
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -10154,11 +9875,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 540.09375,
+          "top": 538.09375,
           "clipTop": 346.390625,
-          "offsetTop": 193.703125
+          "offsetTop": 191.703125
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -10301,11 +10022,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 622.234375,
+          "top": 620.234375,
           "clipTop": 346.390625,
-          "offsetTop": 275.84375
+          "offsetTop": 273.84375
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(3) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -10448,11 +10169,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 704.375,
+          "top": 702.375,
           "clipTop": 346.390625,
-          "offsetTop": 357.984375
+          "offsetTop": 355.984375
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(4) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -10595,11 +10316,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 786.515625,
+          "top": 784.515625,
           "clipTop": 346.390625,
-          "offsetTop": 440.125
+          "offsetTop": 438.125
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(5) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -10742,11 +10463,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 868.65625,
+          "top": 866.65625,
           "clipTop": 346.390625,
-          "offsetTop": 522.265625
+          "offsetTop": 520.265625
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(6) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -10875,38 +10596,7 @@
           "offsetTop": 517.984375
         }
       ],
-      "issues": [
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(3) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(4) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(5) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(6) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        }
-      ],
+      "issues": [],
       "scope": "main",
       "axe": [],
       "newIssues": []
@@ -11098,11 +10788,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 457.953125,
+          "top": 455.953125,
           "clipTop": 346.390625,
-          "offsetTop": 111.5625
+          "offsetTop": 109.5625
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -11245,11 +10935,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 540.09375,
+          "top": 538.09375,
           "clipTop": 346.390625,
-          "offsetTop": 193.703125
+          "offsetTop": 191.703125
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -11392,11 +11082,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 622.234375,
+          "top": 620.234375,
           "clipTop": 346.390625,
-          "offsetTop": 275.84375
+          "offsetTop": 273.84375
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(3) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -11539,11 +11229,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 704.375,
+          "top": 702.375,
           "clipTop": 346.390625,
-          "offsetTop": 357.984375
+          "offsetTop": 355.984375
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(4) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -11686,11 +11376,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 786.515625,
+          "top": 784.515625,
           "clipTop": 346.390625,
-          "offsetTop": 440.125
+          "offsetTop": 438.125
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(5) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -11833,11 +11523,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 868.65625,
+          "top": 866.65625,
           "clipTop": 346.390625,
-          "offsetTop": 522.265625
+          "offsetTop": 520.265625
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(6) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -11966,38 +11656,7 @@
           "offsetTop": 517.984375
         }
       ],
-      "issues": [
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(3) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(4) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(5) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(6) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        }
-      ],
+      "issues": [],
       "scope": "main",
       "axe": [],
       "newIssues": []
@@ -12189,11 +11848,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 457.953125,
+          "top": 455.953125,
           "clipTop": 346.390625,
-          "offsetTop": 111.5625
+          "offsetTop": 109.5625
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -12336,11 +11995,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 540.09375,
+          "top": 538.09375,
           "clipTop": 346.390625,
-          "offsetTop": 193.703125
+          "offsetTop": 191.703125
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -12483,11 +12142,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 622.234375,
+          "top": 620.234375,
           "clipTop": 346.390625,
-          "offsetTop": 275.84375
+          "offsetTop": 273.84375
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(3) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -12630,11 +12289,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 704.375,
+          "top": 702.375,
           "clipTop": 346.390625,
-          "offsetTop": 357.984375
+          "offsetTop": 355.984375
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(4) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -12777,11 +12436,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 786.515625,
+          "top": 784.515625,
           "clipTop": 346.390625,
-          "offsetTop": 440.125
+          "offsetTop": 438.125
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(5) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -12924,11 +12583,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 868.65625,
+          "top": 866.65625,
           "clipTop": 346.390625,
-          "offsetTop": 522.265625
+          "offsetTop": 520.265625
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(6) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -13057,38 +12716,7 @@
           "offsetTop": 517.984375
         }
       ],
-      "issues": [
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(3) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(4) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(5) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(6) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        }
-      ],
+      "issues": [],
       "scope": "main",
       "axe": [],
       "newIssues": []
@@ -13280,11 +12908,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 457.953125,
+          "top": 455.953125,
           "clipTop": 346.390625,
-          "offsetTop": 111.5625
+          "offsetTop": 109.5625
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -13427,11 +13055,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 540.09375,
+          "top": 538.09375,
           "clipTop": 346.390625,
-          "offsetTop": 193.703125
+          "offsetTop": 191.703125
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -13574,11 +13202,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 622.234375,
+          "top": 620.234375,
           "clipTop": 346.390625,
-          "offsetTop": 275.84375
+          "offsetTop": 273.84375
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(3) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -13721,11 +13349,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 704.375,
+          "top": 702.375,
           "clipTop": 346.390625,
-          "offsetTop": 357.984375
+          "offsetTop": 355.984375
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(4) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -13868,11 +13496,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 786.515625,
+          "top": 784.515625,
           "clipTop": 346.390625,
-          "offsetTop": 440.125
+          "offsetTop": 438.125
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(5) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -14015,11 +13643,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 868.65625,
+          "top": 866.65625,
           "clipTop": 346.390625,
-          "offsetTop": 522.265625
+          "offsetTop": 520.265625
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(6) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -14148,38 +13776,7 @@
           "offsetTop": 517.984375
         }
       ],
-      "issues": [
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(3) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(4) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(5) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(6) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        }
-      ],
+      "issues": [],
       "scope": "main",
       "axe": [],
       "newIssues": []
@@ -14371,11 +13968,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 457.953125,
+          "top": 455.953125,
           "clipTop": 346.390625,
-          "offsetTop": 111.5625
+          "offsetTop": 109.5625
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -14518,11 +14115,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 540.09375,
+          "top": 538.09375,
           "clipTop": 346.390625,
-          "offsetTop": 193.703125
+          "offsetTop": 191.703125
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -14665,11 +14262,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 622.234375,
+          "top": 620.234375,
           "clipTop": 346.390625,
-          "offsetTop": 275.84375
+          "offsetTop": 273.84375
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(3) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -14812,11 +14409,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 704.375,
+          "top": 702.375,
           "clipTop": 346.390625,
-          "offsetTop": 357.984375
+          "offsetTop": 355.984375
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(4) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -14959,11 +14556,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 786.515625,
+          "top": 784.515625,
           "clipTop": 346.390625,
-          "offsetTop": 440.125
+          "offsetTop": 438.125
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(5) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -15106,11 +14703,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 868.65625,
+          "top": 866.65625,
           "clipTop": 346.390625,
-          "offsetTop": 522.265625
+          "offsetTop": 520.265625
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(6) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -15239,38 +14836,7 @@
           "offsetTop": 517.984375
         }
       ],
-      "issues": [
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(3) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(4) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(5) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(6) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        }
-      ],
+      "issues": [],
       "scope": "main",
       "axe": [],
       "newIssues": []
@@ -15462,11 +15028,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 457.953125,
+          "top": 455.953125,
           "clipTop": 346.390625,
-          "offsetTop": 111.5625
+          "offsetTop": 109.5625
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -15609,11 +15175,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 540.09375,
+          "top": 538.09375,
           "clipTop": 346.390625,
-          "offsetTop": 193.703125
+          "offsetTop": 191.703125
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -15756,11 +15322,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 622.234375,
+          "top": 620.234375,
           "clipTop": 346.390625,
-          "offsetTop": 275.84375
+          "offsetTop": 273.84375
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(3) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -15903,11 +15469,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 704.375,
+          "top": 702.375,
           "clipTop": 346.390625,
-          "offsetTop": 357.984375
+          "offsetTop": 355.984375
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(4) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -16050,11 +15616,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 786.515625,
+          "top": 784.515625,
           "clipTop": 346.390625,
-          "offsetTop": 440.125
+          "offsetTop": 438.125
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(5) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -16197,11 +15763,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 868.65625,
+          "top": 866.65625,
           "clipTop": 346.390625,
-          "offsetTop": 522.265625
+          "offsetTop": 520.265625
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(6) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -16330,38 +15896,7 @@
           "offsetTop": 517.984375
         }
       ],
-      "issues": [
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(3) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(4) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(5) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(6) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        }
-      ],
+      "issues": [],
       "scope": "main",
       "axe": [],
       "newIssues": []
@@ -16553,11 +16088,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 457.953125,
+          "top": 455.953125,
           "clipTop": 346.390625,
-          "offsetTop": 111.5625
+          "offsetTop": 109.5625
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -16700,11 +16235,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 540.09375,
+          "top": 538.09375,
           "clipTop": 346.390625,
-          "offsetTop": 193.703125
+          "offsetTop": 191.703125
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -16847,11 +16382,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 622.234375,
+          "top": 620.234375,
           "clipTop": 346.390625,
-          "offsetTop": 275.84375
+          "offsetTop": 273.84375
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(3) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -16994,11 +16529,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 704.375,
+          "top": 702.375,
           "clipTop": 346.390625,
-          "offsetTop": 357.984375
+          "offsetTop": 355.984375
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(4) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -17141,11 +16676,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 786.515625,
+          "top": 784.515625,
           "clipTop": 346.390625,
-          "offsetTop": 440.125
+          "offsetTop": 438.125
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(5) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -17288,11 +16823,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 868.65625,
+          "top": 866.65625,
           "clipTop": 346.390625,
-          "offsetTop": 522.265625
+          "offsetTop": 520.265625
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(6) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -17421,38 +16956,7 @@
           "offsetTop": 517.984375
         }
       ],
-      "issues": [
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(3) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(4) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(5) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(6) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        }
-      ],
+      "issues": [],
       "scope": "main",
       "axe": [],
       "newIssues": []
@@ -17644,11 +17148,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 457.953125,
+          "top": 455.953125,
           "clipTop": 346.390625,
-          "offsetTop": 111.5625
+          "offsetTop": 109.5625
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -17791,11 +17295,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 540.09375,
+          "top": 538.09375,
           "clipTop": 346.390625,
-          "offsetTop": 193.703125
+          "offsetTop": 191.703125
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -17938,11 +17442,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 622.234375,
+          "top": 620.234375,
           "clipTop": 346.390625,
-          "offsetTop": 275.84375
+          "offsetTop": 273.84375
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(3) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -18085,11 +17589,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 704.375,
+          "top": 702.375,
           "clipTop": 346.390625,
-          "offsetTop": 357.984375
+          "offsetTop": 355.984375
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(4) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -18232,11 +17736,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 786.515625,
+          "top": 784.515625,
           "clipTop": 346.390625,
-          "offsetTop": 440.125
+          "offsetTop": 438.125
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(5) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -18379,11 +17883,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 868.65625,
+          "top": 866.65625,
           "clipTop": 346.390625,
-          "offsetTop": 522.265625
+          "offsetTop": 520.265625
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(6) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -18512,38 +18016,7 @@
           "offsetTop": 517.984375
         }
       ],
-      "issues": [
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(3) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(4) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(5) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(6) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        }
-      ],
+      "issues": [],
       "scope": "main",
       "axe": [],
       "newIssues": []
@@ -18735,11 +18208,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 457.953125,
+          "top": 455.953125,
           "clipTop": 346.390625,
-          "offsetTop": 111.5625
+          "offsetTop": 109.5625
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -18882,11 +18355,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 540.09375,
+          "top": 538.09375,
           "clipTop": 346.390625,
-          "offsetTop": 193.703125
+          "offsetTop": 191.703125
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -19029,11 +18502,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 622.234375,
+          "top": 620.234375,
           "clipTop": 346.390625,
-          "offsetTop": 275.84375
+          "offsetTop": 273.84375
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(3) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -19176,11 +18649,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 704.375,
+          "top": 702.375,
           "clipTop": 346.390625,
-          "offsetTop": 357.984375
+          "offsetTop": 355.984375
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(4) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -19323,11 +18796,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 786.515625,
+          "top": 784.515625,
           "clipTop": 346.390625,
-          "offsetTop": 440.125
+          "offsetTop": 438.125
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(5) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -19470,11 +18943,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 868.65625,
+          "top": 866.65625,
           "clipTop": 346.390625,
-          "offsetTop": 522.265625
+          "offsetTop": 520.265625
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(6) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -19603,38 +19076,7 @@
           "offsetTop": 517.984375
         }
       ],
-      "issues": [
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(3) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(4) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(5) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(6) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        }
-      ],
+      "issues": [],
       "scope": "main",
       "axe": [],
       "newIssues": []
@@ -19826,11 +19268,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 457.953125,
+          "top": 455.953125,
           "clipTop": 346.390625,
-          "offsetTop": 111.5625
+          "offsetTop": 109.5625
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -19973,11 +19415,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 540.09375,
+          "top": 538.09375,
           "clipTop": 346.390625,
-          "offsetTop": 193.703125
+          "offsetTop": 191.703125
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -20120,11 +19562,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 622.234375,
+          "top": 620.234375,
           "clipTop": 346.390625,
-          "offsetTop": 275.84375
+          "offsetTop": 273.84375
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(3) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -20267,11 +19709,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 704.375,
+          "top": 702.375,
           "clipTop": 346.390625,
-          "offsetTop": 357.984375
+          "offsetTop": 355.984375
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(4) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -20414,11 +19856,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 786.515625,
+          "top": 784.515625,
           "clipTop": 346.390625,
-          "offsetTop": 440.125
+          "offsetTop": 438.125
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(5) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -20561,11 +20003,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 868.65625,
+          "top": 866.65625,
           "clipTop": 346.390625,
-          "offsetTop": 522.265625
+          "offsetTop": 520.265625
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(6) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -20694,38 +20136,7 @@
           "offsetTop": 517.984375
         }
       ],
-      "issues": [
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(3) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(4) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(5) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(6) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        }
-      ],
+      "issues": [],
       "scope": "main",
       "axe": [],
       "newIssues": []
@@ -20917,11 +20328,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 457.953125,
+          "top": 455.953125,
           "clipTop": 346.390625,
-          "offsetTop": 111.5625
+          "offsetTop": 109.5625
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -21064,11 +20475,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 540.09375,
+          "top": 538.09375,
           "clipTop": 346.390625,
-          "offsetTop": 193.703125
+          "offsetTop": 191.703125
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -21211,11 +20622,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 622.234375,
+          "top": 620.234375,
           "clipTop": 346.390625,
-          "offsetTop": 275.84375
+          "offsetTop": 273.84375
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(3) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -21358,11 +20769,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 704.375,
+          "top": 702.375,
           "clipTop": 346.390625,
-          "offsetTop": 357.984375
+          "offsetTop": 355.984375
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(4) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -21505,11 +20916,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 786.515625,
+          "top": 784.515625,
           "clipTop": 346.390625,
-          "offsetTop": 440.125
+          "offsetTop": 438.125
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(5) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -21652,11 +21063,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 868.65625,
+          "top": 866.65625,
           "clipTop": 346.390625,
-          "offsetTop": 522.265625
+          "offsetTop": 520.265625
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(6) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -21785,38 +21196,7 @@
           "offsetTop": 517.984375
         }
       ],
-      "issues": [
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(3) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(4) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(5) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(6) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        }
-      ],
+      "issues": [],
       "scope": "main",
       "axe": [],
       "newIssues": []
@@ -22008,11 +21388,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 457.953125,
+          "top": 455.953125,
           "clipTop": 346.390625,
-          "offsetTop": 111.5625
+          "offsetTop": 109.5625
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -22155,11 +21535,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 540.09375,
+          "top": 538.09375,
           "clipTop": 346.390625,
-          "offsetTop": 193.703125
+          "offsetTop": 191.703125
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -22302,11 +21682,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 622.234375,
+          "top": 620.234375,
           "clipTop": 346.390625,
-          "offsetTop": 275.84375
+          "offsetTop": 273.84375
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(3) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -22449,11 +21829,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 704.375,
+          "top": 702.375,
           "clipTop": 346.390625,
-          "offsetTop": 357.984375
+          "offsetTop": 355.984375
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(4) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -22596,11 +21976,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 786.515625,
+          "top": 784.515625,
           "clipTop": 346.390625,
-          "offsetTop": 440.125
+          "offsetTop": 438.125
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(5) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -22743,11 +22123,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 868.65625,
+          "top": 866.65625,
           "clipTop": 346.390625,
-          "offsetTop": 522.265625
+          "offsetTop": 520.265625
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(6) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -22876,38 +22256,7 @@
           "offsetTop": 517.984375
         }
       ],
-      "issues": [
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(3) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(4) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(5) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(6) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        }
-      ],
+      "issues": [],
       "scope": "main",
       "axe": [],
       "newIssues": []
@@ -23099,11 +22448,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 457.953125,
+          "top": 455.953125,
           "clipTop": 346.390625,
-          "offsetTop": 111.5625
+          "offsetTop": 109.5625
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -23246,11 +22595,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 540.09375,
+          "top": 538.09375,
           "clipTop": 346.390625,
-          "offsetTop": 193.703125
+          "offsetTop": 191.703125
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -23393,11 +22742,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 622.234375,
+          "top": 620.234375,
           "clipTop": 346.390625,
-          "offsetTop": 275.84375
+          "offsetTop": 273.84375
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(3) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -23540,11 +22889,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 704.375,
+          "top": 702.375,
           "clipTop": 346.390625,
-          "offsetTop": 357.984375
+          "offsetTop": 355.984375
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(4) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -23687,11 +23036,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 786.515625,
+          "top": 784.515625,
           "clipTop": 346.390625,
-          "offsetTop": 440.125
+          "offsetTop": 438.125
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(5) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -23834,11 +23183,11 @@
           "textual": true,
           "disabled": false,
           "width": 48,
-          "height": 20,
+          "height": 24,
           "font": 14,
-          "top": 868.65625,
+          "top": 866.65625,
           "clipTop": 346.390625,
-          "offsetTop": 522.265625
+          "offsetTop": 520.265625
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(6) > td:nth-of-type(5) > input:nth-of-type(1)",
@@ -23967,38 +23316,7 @@
           "offsetTop": 517.984375
         }
       ],
-      "issues": [
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(1) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(2) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(3) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(4) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(5) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        },
-        {
-          "selector": "div:nth-of-type(1) > div:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > table:nth-of-type(1) > tbody:nth-of-type(1) > tr:nth-of-type(6) > td:nth-of-type(4) > div:nth-of-type(1) > div:nth-of-type(1) > input:nth-of-type(1)",
-          "kind": "target-size",
-          "value": 20
-        }
-      ],
+      "issues": [],
       "scope": "main",
       "axe": [],
       "newIssues": []

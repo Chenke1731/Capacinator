@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
@@ -58,6 +58,11 @@ export function IntakeInbox() {
   const [expanded, setExpanded] = useState<Set<string>>(new Set());
   const [editing, setEditing] = useState<DemandIntake | null>(null);
   const [rejecting, setRejecting] = useState<DemandIntake | null>(null);
+  // G-13 收口（批 B）：拒绝弹层关闭后焦点返回该行的拒绝按钮
+  const rejectTriggerRef = useRef<HTMLElement | null>(null);
+  useEffect(() => {
+    if (rejecting) rejectTriggerRef.current = document.activeElement as HTMLElement | null;
+  }, [rejecting]);
   const [rejectReason, setRejectReason] = useState('');
   const [deleting, setDeleting] = useState<DemandIntake | null>(null);
   const [triaging, setTriaging] = useState<DemandIntake | null>(null);
@@ -566,6 +571,10 @@ export function IntakeInbox() {
             borderColor: 'var(--border-color)',
           }}
           data-testid="intake-reject-dialog"
+          onCloseAutoFocus={(event) => {
+            event.preventDefault();
+            rejectTriggerRef.current?.focus();
+          }}
         >
           <DialogHeader>
             <DialogTitle>{t('intake:inbox.rejectTitle')}</DialogTitle>

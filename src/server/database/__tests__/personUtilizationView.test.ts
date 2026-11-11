@@ -21,6 +21,14 @@ import fs from 'fs';
  */
 const MIGRATIONS = path.join(process.cwd(), 'src/server/database/migrations');
 
+/** 批 B（2026-11-11）：以运行日为中心的 ±7 天覆写窗口——取代曾钉死
+ *  2026-10 的硬编码（测试随日历老化而红）。toISOString 为 UTC，与东八区
+ *  日界最多偏 1 天，±7 余量充足（评审核实）。 */
+const windowAroundToday = (availability_percentage: number) => {
+  const day = (offset: number) => new Date(Date.now() + offset * 864e5).toISOString().slice(0, 10);
+  return { start_date: day(-7), end_date: day(7), availability_percentage };
+};
+
 describe('person_utilization_view 相对可用率口径 (U01)', () => {
   let db: any;
 
@@ -53,10 +61,12 @@ describe('person_utilization_view 相对可用率口径 (U01)', () => {
       { id: 'a3', project_id: 'prj1', person_id: 'p-partial-30', role_id: 'r1', allocation_percentage: 30, status: 'active' }
     ]);
     await db('person_availability_overrides').insert([
+      // 批 B 修复：覆写窗口原钉死 2026-10-01..31，测试随日历老化而红（评审核实
+      // ±7 余量对 UTC/本地日界 ±1 偏差充足）。p-expired 的过去窗口是故意反例，保持。
       // p-low-80: 可用率覆盖 50%(当前窗口) → 80/50 = 160% 超载
-      { person_id: 'p-low-80', start_date: '2026-10-01', end_date: '2026-10-31', availability_percentage: 50, is_approved: 1 },
+      { person_id: 'p-low-80', ...windowAroundToday(50), is_approved: 1 },
       // p-unavail: 覆盖 0 → Unavailable
-      { person_id: 'p-unavail', start_date: '2026-10-01', end_date: '2026-10-31', availability_percentage: 0, is_approved: 1 }
+      { person_id: 'p-unavail', ...windowAroundToday(0), is_approved: 1 }
     ]);
     // 场景叠加反例(Codex 2026-10-17 复审): 复制相同 active 分支
     await db('scenarios').insert([

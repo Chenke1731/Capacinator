@@ -368,7 +368,6 @@ export function checkOwnerUniqueness(defs, classes = SHARED_CLASSES, { dups = OW
 
 const ownerScanFiles = [...new Set([
   ...OWNER_FILES,
-  'client/src/components/Charts.css',
   ...listCss('client/src/components/ui', true),
 ])];
 const ownerTexts = {};

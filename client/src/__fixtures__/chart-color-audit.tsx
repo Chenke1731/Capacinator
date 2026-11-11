@@ -11,9 +11,7 @@ import {queryKeys} from '../lib/queryKeys';
 
 // Nonempty controlled query data for actual components, with no server writes.
 export async function mountChartAudit(mode:'demand'|'person'|'report-palette') {
-  // PersonDetails supplies the legacy geometry stylesheet. Demand-chart direct
-  // URLs supply their own color stylesheet and must pass without that parent.
-  if(mode!=='demand')await import('../components/Charts.css');
+  // Charts.css 已整退役（批 B）：图表类全部在 index.css 全局生效，无需按宿主区分
   const host=document.createElement('div');host.id='chart-color-audit';
   host.style.cssText='position:fixed;inset:65px 20px 20px 270px;z-index:1100;background:hsl(var(--card));color:var(--text-primary);padding:20px;overflow:auto';document.body.append(host);
   const query=new QueryClient({defaultOptions:{queries:{staleTime:Infinity,retry:false}}}),project='audit-color-project',person='audit-color-person';

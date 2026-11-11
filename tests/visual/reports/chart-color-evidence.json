@@ -605,7 +605,7 @@
           ],
           "ratio": 5.483924052498799,
           "threshold": 3,
-          "pathLength": 1118,
+          "pathLength": 1110,
           "rendered": true
         },
         {
@@ -617,7 +617,7 @@
           ],
           "ratio": 5.168555560022562,
           "threshold": 3,
-          "pathLength": 1118,
+          "pathLength": 1110,
           "rendered": true
         },
         {
@@ -629,7 +629,7 @@
           ],
           "ratio": 5.483924052498799,
           "threshold": 3,
-          "pathLength": 1118,
+          "pathLength": 1110,
           "rendered": true
         },
         {
@@ -641,7 +641,7 @@
           ],
           "ratio": 5.02163257594014,
           "threshold": 3,
-          "pathLength": 1118,
+          "pathLength": 1110,
           "rendered": true
         },
         {
@@ -653,7 +653,7 @@
           ],
           "ratio": 6.4700447145121895,
           "threshold": 3,
-          "pathLength": 1118,
+          "pathLength": 1110,
           "rendered": true
         },
         {
@@ -665,7 +665,7 @@
           ],
           "ratio": 5.698586217871195,
           "threshold": 3,
-          "pathLength": 1118,
+          "pathLength": 1110,
           "rendered": true
         },
         {
@@ -677,7 +677,7 @@
           ],
           "ratio": 5.3577549124490425,
           "threshold": 3,
-          "pathLength": 1118,
+          "pathLength": 1110,
           "rendered": true
         },
         {
@@ -689,7 +689,7 @@
           ],
           "ratio": 4.993443527975628,
           "threshold": 3,
-          "pathLength": 1118,
+          "pathLength": 1110,
           "rendered": true
         },
         {
@@ -701,7 +701,7 @@
           ],
           "ratio": 5.178415705888697,
           "threshold": 3,
-          "pathLength": 1118,
+          "pathLength": 1110,
           "rendered": true
         },
         {
@@ -713,7 +713,7 @@
           ],
           "ratio": 6.037699049194929,
           "threshold": 3,
-          "pathLength": 1118,
+          "pathLength": 1110,
           "rendered": true
         },
         {
@@ -725,7 +725,7 @@
           ],
           "ratio": 7.577663953533317,
           "threshold": 3,
-          "pathLength": 1118,
+          "pathLength": 1110,
           "rendered": true
         },
         {
@@ -737,7 +737,7 @@
           ],
           "ratio": 7.104892978519159,
           "threshold": 3,
-          "pathLength": 1178,
+          "pathLength": 1170,
           "rendered": true
         }
       ],
@@ -1090,7 +1090,7 @@
           ],
           "ratio": 6.287528596095884,
           "threshold": 3,
-          "pathLength": 157,
+          "pathLength": 155,
           "rendered": true
         },
         {
@@ -1102,7 +1102,7 @@
           ],
           "ratio": 5.483924052498799,
           "threshold": 3,
-          "pathLength": 205.99998474121094,
+          "pathLength": 204,
           "rendered": true
         },
         {
@@ -1114,7 +1114,7 @@
           ],
           "ratio": 5.02163257594014,
           "threshold": 3,
-          "pathLength": 255,
+          "pathLength": 253,
           "rendered": true
         },
         {
@@ -1126,7 +1126,7 @@
           ],
           "ratio": 6.4700447145121895,
           "threshold": 3,
-          "pathLength": 304,
+          "pathLength": 302,
           "rendered": true
         },
         {
@@ -1138,7 +1138,7 @@
           ],
           "ratio": 6.287528596095884,
           "threshold": 3,
-          "pathLength": 353,
+          "pathLength": 351,
           "rendered": true
         },
         {
@@ -1150,7 +1150,7 @@
           ],
           "ratio": 5.483924052498799,
           "threshold": 3,
-          "pathLength": 402,
+          "pathLength": 400,
           "rendered": true
         },
         {
@@ -1162,7 +1162,7 @@
           ],
           "ratio": 6.4700447145121895,
           "threshold": 3,
-          "pathLength": 451,
+          "pathLength": 449,
           "rendered": true
         },
         {
@@ -1174,7 +1174,7 @@
           ],
           "ratio": 5.698586217871195,
           "threshold": 3,
-          "pathLength": 500,
+          "pathLength": 498,
           "rendered": true
         },
         {
@@ -1186,7 +1186,7 @@
           ],
           "ratio": 6.287528596095884,
           "threshold": 3,
-          "pathLength": 549,
+          "pathLength": 547,
           "rendered": true
         },
         {
@@ -1198,7 +1198,7 @@
           ],
           "ratio": 5.483924052498799,
           "threshold": 3,
-          "pathLength": 598,
+          "pathLength": 596,
           "rendered": true
         },
         {
@@ -1210,7 +1210,7 @@
           ],
           "ratio": 5.698586217871195,
           "threshold": 3,
-          "pathLength": 647,
+          "pathLength": 645,
           "rendered": true
         },
         {
@@ -1222,7 +1222,7 @@
           ],
           "ratio": 5.02163257594014,
           "threshold": 3,
-          "pathLength": 696,
+          "pathLength": 694,
           "rendered": true
         },
         {
@@ -1234,7 +1234,7 @@
           ],
           "ratio": 6.4700447145121895,
           "threshold": 3,
-          "pathLength": 745,
+          "pathLength": 743,
           "rendered": true
         },
         {
@@ -1246,7 +1246,7 @@
           ],
           "ratio": 5.02163257594014,
           "threshold": 3,
-          "pathLength": 794,
+          "pathLength": 792,
           "rendered": true
         },
         {
@@ -1258,7 +1258,7 @@
           ],
           "ratio": 5.483924052498799,
           "threshold": 3,
-          "pathLength": 843.0000610351562,
+          "pathLength": 841,
           "rendered": true
         },
         {
@@ -1270,7 +1270,7 @@
           ],
           "ratio": 6.287528596095884,
           "threshold": 3,
-          "pathLength": 892,
+          "pathLength": 890,
           "rendered": true
         }
       ],
@@ -2170,7 +2170,7 @@
           ],
           "ratio": 5.483924052498799,
           "threshold": 3,
-          "pathLength": 884,
+          "pathLength": 876,
           "rendered": true
         },
         {
@@ -2182,7 +2182,7 @@
           ],
           "ratio": 5.168555560022562,
           "threshold": 3,
-          "pathLength": 884,
+          "pathLength": 876,
           "rendered": true
         },
         {
@@ -2194,7 +2194,7 @@
           ],
           "ratio": 5.483924052498799,
           "threshold": 3,
-          "pathLength": 884,
+          "pathLength": 876,
           "rendered": true
         },
         {
@@ -2206,7 +2206,7 @@
           ],
           "ratio": 5.02163257594014,
           "threshold": 3,
-          "pathLength": 884,
+          "pathLength": 876,
           "rendered": true
         },
         {
@@ -2218,7 +2218,7 @@
           ],
           "ratio": 6.4700447145121895,
           "threshold": 3,
-          "pathLength": 884,
+          "pathLength": 876,
           "rendered": true
         },
         {
@@ -2230,7 +2230,7 @@
           ],
           "ratio": 5.698586217871195,
           "threshold": 3,
-          "pathLength": 884,
+          "pathLength": 876,
           "rendered": true
         },
         {
@@ -2242,7 +2242,7 @@
           ],
           "ratio": 5.3577549124490425,
           "threshold": 3,
-          "pathLength": 884,
+          "pathLength": 876,
           "rendered": true
         },
         {
@@ -2254,7 +2254,7 @@
           ],
           "ratio": 4.993443527975628,
           "threshold": 3,
-          "pathLength": 884,
+          "pathLength": 876,
           "rendered": true
         },
         {
@@ -2266,7 +2266,7 @@
           ],
           "ratio": 5.178415705888697,
           "threshold": 3,
-          "pathLength": 884,
+          "pathLength": 876,
           "rendered": true
         },
         {
@@ -2278,7 +2278,7 @@
           ],
           "ratio": 6.037699049194929,
           "threshold": 3,
-          "pathLength": 884,
+          "pathLength": 876,
           "rendered": true
         },
         {
@@ -2290,7 +2290,7 @@
           ],
           "ratio": 7.577663953533317,
           "threshold": 3,
-          "pathLength": 884,
+          "pathLength": 876,
           "rendered": true
         },
         {
@@ -2302,7 +2302,7 @@
           ],
           "ratio": 7.104892978519159,
           "threshold": 3,
-          "pathLength": 944,
+          "pathLength": 936,
           "rendered": true
         }
       ],
@@ -2739,7 +2739,7 @@
           ],
           "ratio": 5.698586217871195,
           "threshold": 3,
-          "pathLength": 476.0000305175781,
+          "pathLength": 475.9999694824219,
           "rendered": true
         },
         {
@@ -3729,145 +3729,145 @@
         {
           "color": "rgb(52, 211, 153)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 7.709814126902995,
+          "ratio": 9.227778955167766,
           "threshold": 3,
-          "pathLength": 1118,
+          "pathLength": 1110,
           "rendered": true
         },
         {
           "color": "rgb(96, 165, 250)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 5.829692645699951,
+          "ratio": 6.977485348624819,
           "threshold": 3,
-          "pathLength": 1118,
+          "pathLength": 1110,
           "rendered": true
         },
         {
           "color": "rgb(52, 211, 153)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 7.709814126902995,
+          "ratio": 9.227778955167766,
           "threshold": 3,
-          "pathLength": 1118,
+          "pathLength": 1110,
           "rendered": true
         },
         {
           "color": "rgb(251, 191, 36)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 8.8785569638574,
+          "ratio": 10.626632465425244,
           "threshold": 3,
-          "pathLength": 1118,
+          "pathLength": 1110,
           "rendered": true
         },
         {
           "color": "rgb(248, 113, 113)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 5.358194883756896,
+          "ratio": 6.413155644503334,
           "threshold": 3,
-          "pathLength": 1118,
+          "pathLength": 1110,
           "rendered": true
         },
         {
           "color": "rgb(167, 139, 250)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 5.446261305402162,
+          "ratio": 6.518561230025738,
           "threshold": 3,
-          "pathLength": 1118,
+          "pathLength": 1110,
           "rendered": true
         },
         {
           "color": "rgb(34, 211, 238)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 8.201487867221255,
+          "ratio": 9.816257032464812,
           "threshold": 3,
-          "pathLength": 1118,
+          "pathLength": 1110,
           "rendered": true
         },
         {
           "color": "rgb(163, 230, 53)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 9.829816628348041,
+          "ratio": 11.76518311896905,
           "threshold": 3,
-          "pathLength": 1118,
+          "pathLength": 1110,
           "rendered": true
         },
         {
           "color": "rgb(251, 146, 60)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 6.54875650539127,
+          "ratio": 7.8381237820116265,
           "threshold": 3,
-          "pathLength": 1118,
+          "pathLength": 1110,
           "rendered": true
         },
         {
           "color": "rgb(244, 114, 182)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 5.596208463205953,
+          "ratio": 6.69803108551042,
           "threshold": 3,
-          "pathLength": 1118,
+          "pathLength": 1110,
           "rendered": true
         },
         {
           "color": "rgb(156, 163, 175)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 5.837916434084455,
+          "ratio": 6.987328296864191,
           "threshold": 3,
-          "pathLength": 1118,
+          "pathLength": 1110,
           "rendered": true
         },
         {
           "color": "rgb(180, 171, 255)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 7.205968496032906,
+          "ratio": 8.624732496113394,
           "threshold": 3,
-          "pathLength": 1178,
+          "pathLength": 1170,
           "rendered": true
         }
       ],
@@ -3876,110 +3876,110 @@
           "text": "26年9月",
           "foreground": "rgb(229, 231, 235)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 11.971289512692591,
+          "ratio": 14.328284912339392,
           "threshold": 4.5
         },
         {
           "text": "26年10月",
           "foreground": "rgb(229, 231, 235)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 11.971289512692591,
+          "ratio": 14.328284912339392,
           "threshold": 4.5
         },
         {
           "text": "26年11月",
           "foreground": "rgb(229, 231, 235)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 11.971289512692591,
+          "ratio": 14.328284912339392,
           "threshold": 4.5
         },
         {
           "text": "26年12月",
           "foreground": "rgb(229, 231, 235)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 11.971289512692591,
+          "ratio": 14.328284912339392,
           "threshold": 4.5
         },
         {
           "text": "0",
           "foreground": "rgb(229, 231, 235)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 11.971289512692591,
+          "ratio": 14.328284912339392,
           "threshold": 4.5
         },
         {
           "text": "35",
           "foreground": "rgb(229, 231, 235)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 11.971289512692591,
+          "ratio": 14.328284912339392,
           "threshold": 4.5
         },
         {
           "text": "70",
           "foreground": "rgb(229, 231, 235)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 11.971289512692591,
+          "ratio": 14.328284912339392,
           "threshold": 4.5
         },
         {
           "text": "105",
           "foreground": "rgb(229, 231, 235)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 11.971289512692591,
+          "ratio": 14.328284912339392,
           "threshold": 4.5
         },
         {
           "text": "125",
           "foreground": "rgb(229, 231, 235)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 11.971289512692591,
+          "ratio": 14.328284912339392,
           "threshold": 4.5
         },
         {
           "text": "百分比 (%)",
           "foreground": "rgb(229, 231, 235)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 11.971289512692591,
+          "ratio": 14.328284912339392,
           "threshold": 4.5
         }
       ],
@@ -4214,193 +4214,193 @@
         {
           "color": "rgb(129, 140, 248)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 4.968831177157661,
+          "ratio": 5.947131151756474,
           "threshold": 3,
-          "pathLength": 157,
+          "pathLength": 155,
           "rendered": true
         },
         {
           "color": "rgb(52, 211, 153)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 7.709814126902995,
+          "ratio": 9.227778955167766,
           "threshold": 3,
-          "pathLength": 205.99998474121094,
+          "pathLength": 204,
           "rendered": true
         },
         {
           "color": "rgb(251, 191, 36)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 8.8785569638574,
+          "ratio": 10.626632465425244,
           "threshold": 3,
-          "pathLength": 255,
+          "pathLength": 253,
           "rendered": true
         },
         {
           "color": "rgb(248, 113, 113)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 5.358194883756896,
+          "ratio": 6.413155644503334,
           "threshold": 3,
-          "pathLength": 304,
+          "pathLength": 302,
           "rendered": true
         },
         {
           "color": "rgb(129, 140, 248)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 4.968831177157661,
+          "ratio": 5.947131151756474,
           "threshold": 3,
-          "pathLength": 353,
+          "pathLength": 351,
           "rendered": true
         },
         {
           "color": "rgb(52, 211, 153)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 7.709814126902995,
+          "ratio": 9.227778955167766,
           "threshold": 3,
-          "pathLength": 402,
+          "pathLength": 400,
           "rendered": true
         },
         {
           "color": "rgb(248, 113, 113)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 5.358194883756896,
+          "ratio": 6.413155644503334,
           "threshold": 3,
-          "pathLength": 451,
+          "pathLength": 449,
           "rendered": true
         },
         {
           "color": "rgb(167, 139, 250)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 5.446261305402162,
+          "ratio": 6.518561230025738,
           "threshold": 3,
-          "pathLength": 500,
+          "pathLength": 498,
           "rendered": true
         },
         {
           "color": "rgb(129, 140, 248)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 4.968831177157661,
+          "ratio": 5.947131151756474,
           "threshold": 3,
-          "pathLength": 549,
+          "pathLength": 547,
           "rendered": true
         },
         {
           "color": "rgb(52, 211, 153)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 7.709814126902995,
+          "ratio": 9.227778955167766,
           "threshold": 3,
-          "pathLength": 598,
+          "pathLength": 596,
           "rendered": true
         },
         {
           "color": "rgb(167, 139, 250)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 5.446261305402162,
+          "ratio": 6.518561230025738,
           "threshold": 3,
-          "pathLength": 647,
+          "pathLength": 645,
           "rendered": true
         },
         {
           "color": "rgb(251, 191, 36)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 8.8785569638574,
+          "ratio": 10.626632465425244,
           "threshold": 3,
-          "pathLength": 696,
+          "pathLength": 694,
           "rendered": true
         },
         {
           "color": "rgb(248, 113, 113)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 5.358194883756896,
+          "ratio": 6.413155644503334,
           "threshold": 3,
-          "pathLength": 745,
+          "pathLength": 743,
           "rendered": true
         },
         {
           "color": "rgb(251, 191, 36)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 8.8785569638574,
+          "ratio": 10.626632465425244,
           "threshold": 3,
-          "pathLength": 794,
+          "pathLength": 792,
           "rendered": true
         },
         {
           "color": "rgb(52, 211, 153)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 7.709814126902995,
+          "ratio": 9.227778955167766,
           "threshold": 3,
-          "pathLength": 843.0000610351562,
+          "pathLength": 841,
           "rendered": true
         },
         {
           "color": "rgb(129, 140, 248)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 4.968831177157661,
+          "ratio": 5.947131151756474,
           "threshold": 3,
-          "pathLength": 892,
+          "pathLength": 890,
           "rendered": true
         }
       ],
@@ -4409,66 +4409,66 @@
           "text": "调色板",
           "foreground": "rgb(229, 231, 235)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 11.971289512692591,
+          "ratio": 14.328284912339392,
           "threshold": 4.5
         },
         {
           "text": "0",
           "foreground": "rgb(229, 231, 235)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 11.971289512692591,
+          "ratio": 14.328284912339392,
           "threshold": 4.5
         },
         {
           "text": "4",
           "foreground": "rgb(229, 231, 235)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 11.971289512692591,
+          "ratio": 14.328284912339392,
           "threshold": 4.5
         },
         {
           "text": "8",
           "foreground": "rgb(229, 231, 235)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 11.971289512692591,
+          "ratio": 14.328284912339392,
           "threshold": 4.5
         },
         {
           "text": "12",
           "foreground": "rgb(229, 231, 235)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 11.971289512692591,
+          "ratio": 14.328284912339392,
           "threshold": 4.5
         },
         {
           "text": "16",
           "foreground": "rgb(229, 231, 235)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 11.971289512692591,
+          "ratio": 14.328284912339392,
           "threshold": 4.5
         }
       ],
@@ -5294,145 +5294,145 @@
         {
           "color": "rgb(52, 211, 153)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 7.709814126902995,
+          "ratio": 9.227778955167766,
           "threshold": 3,
-          "pathLength": 884,
+          "pathLength": 876,
           "rendered": true
         },
         {
           "color": "rgb(96, 165, 250)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 5.829692645699951,
+          "ratio": 6.977485348624819,
           "threshold": 3,
-          "pathLength": 884,
+          "pathLength": 876,
           "rendered": true
         },
         {
           "color": "rgb(52, 211, 153)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 7.709814126902995,
+          "ratio": 9.227778955167766,
           "threshold": 3,
-          "pathLength": 884,
+          "pathLength": 876,
           "rendered": true
         },
         {
           "color": "rgb(251, 191, 36)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 8.8785569638574,
+          "ratio": 10.626632465425244,
           "threshold": 3,
-          "pathLength": 884,
+          "pathLength": 876,
           "rendered": true
         },
         {
           "color": "rgb(248, 113, 113)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 5.358194883756896,
+          "ratio": 6.413155644503334,
           "threshold": 3,
-          "pathLength": 884,
+          "pathLength": 876,
           "rendered": true
         },
         {
           "color": "rgb(167, 139, 250)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 5.446261305402162,
+          "ratio": 6.518561230025738,
           "threshold": 3,
-          "pathLength": 884,
+          "pathLength": 876,
           "rendered": true
         },
         {
           "color": "rgb(34, 211, 238)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 8.201487867221255,
+          "ratio": 9.816257032464812,
           "threshold": 3,
-          "pathLength": 884,
+          "pathLength": 876,
           "rendered": true
         },
         {
           "color": "rgb(163, 230, 53)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 9.829816628348041,
+          "ratio": 11.76518311896905,
           "threshold": 3,
-          "pathLength": 884,
+          "pathLength": 876,
           "rendered": true
         },
         {
           "color": "rgb(251, 146, 60)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 6.54875650539127,
+          "ratio": 7.8381237820116265,
           "threshold": 3,
-          "pathLength": 884,
+          "pathLength": 876,
           "rendered": true
         },
         {
           "color": "rgb(244, 114, 182)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 5.596208463205953,
+          "ratio": 6.69803108551042,
           "threshold": 3,
-          "pathLength": 884,
+          "pathLength": 876,
           "rendered": true
         },
         {
           "color": "rgb(156, 163, 175)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 5.837916434084455,
+          "ratio": 6.987328296864191,
           "threshold": 3,
-          "pathLength": 884,
+          "pathLength": 876,
           "rendered": true
         },
         {
           "color": "rgb(180, 171, 255)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 7.205968496032906,
+          "ratio": 8.624732496113394,
           "threshold": 3,
-          "pathLength": 944,
+          "pathLength": 936,
           "rendered": true
         }
       ],
@@ -5441,110 +5441,110 @@
           "text": "26年9月",
           "foreground": "rgb(229, 231, 235)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 11.971289512692591,
+          "ratio": 14.328284912339392,
           "threshold": 4.5
         },
         {
           "text": "26年10月",
           "foreground": "rgb(229, 231, 235)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 11.971289512692591,
+          "ratio": 14.328284912339392,
           "threshold": 4.5
         },
         {
           "text": "26年11月",
           "foreground": "rgb(229, 231, 235)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 11.971289512692591,
+          "ratio": 14.328284912339392,
           "threshold": 4.5
         },
         {
           "text": "26年12月",
           "foreground": "rgb(229, 231, 235)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 11.971289512692591,
+          "ratio": 14.328284912339392,
           "threshold": 4.5
         },
         {
           "text": "0",
           "foreground": "rgb(229, 231, 235)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 11.971289512692591,
+          "ratio": 14.328284912339392,
           "threshold": 4.5
         },
         {
           "text": "35",
           "foreground": "rgb(229, 231, 235)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 11.971289512692591,
+          "ratio": 14.328284912339392,
           "threshold": 4.5
         },
         {
           "text": "70",
           "foreground": "rgb(229, 231, 235)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 11.971289512692591,
+          "ratio": 14.328284912339392,
           "threshold": 4.5
         },
         {
           "text": "105",
           "foreground": "rgb(229, 231, 235)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 11.971289512692591,
+          "ratio": 14.328284912339392,
           "threshold": 4.5
         },
         {
           "text": "125",
           "foreground": "rgb(229, 231, 235)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 11.971289512692591,
+          "ratio": 14.328284912339392,
           "threshold": 4.5
         },
         {
           "text": "百分比 (%)",
           "foreground": "rgb(229, 231, 235)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 11.971289512692591,
+          "ratio": 14.328284912339392,
           "threshold": 4.5
         }
       ],
@@ -5779,11 +5779,11 @@
         {
           "color": "rgb(129, 140, 248)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 4.968831177157661,
+          "ratio": 5.947131151756474,
           "threshold": 3,
           "pathLength": 133,
           "rendered": true
@@ -5791,11 +5791,11 @@
         {
           "color": "rgb(52, 211, 153)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 7.709814126902995,
+          "ratio": 9.227778955167766,
           "threshold": 3,
           "pathLength": 182,
           "rendered": true
@@ -5803,11 +5803,11 @@
         {
           "color": "rgb(251, 191, 36)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 8.8785569638574,
+          "ratio": 10.626632465425244,
           "threshold": 3,
           "pathLength": 231,
           "rendered": true
@@ -5815,11 +5815,11 @@
         {
           "color": "rgb(248, 113, 113)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 5.358194883756896,
+          "ratio": 6.413155644503334,
           "threshold": 3,
           "pathLength": 280,
           "rendered": true
@@ -5827,11 +5827,11 @@
         {
           "color": "rgb(129, 140, 248)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 4.968831177157661,
+          "ratio": 5.947131151756474,
           "threshold": 3,
           "pathLength": 329,
           "rendered": true
@@ -5839,11 +5839,11 @@
         {
           "color": "rgb(52, 211, 153)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 7.709814126902995,
+          "ratio": 9.227778955167766,
           "threshold": 3,
           "pathLength": 378,
           "rendered": true
@@ -5851,11 +5851,11 @@
         {
           "color": "rgb(248, 113, 113)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 5.358194883756896,
+          "ratio": 6.413155644503334,
           "threshold": 3,
           "pathLength": 427,
           "rendered": true
@@ -5863,23 +5863,23 @@
         {
           "color": "rgb(167, 139, 250)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 5.446261305402162,
+          "ratio": 6.518561230025738,
           "threshold": 3,
-          "pathLength": 476.0000305175781,
+          "pathLength": 475.9999694824219,
           "rendered": true
         },
         {
           "color": "rgb(129, 140, 248)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 4.968831177157661,
+          "ratio": 5.947131151756474,
           "threshold": 3,
           "pathLength": 525,
           "rendered": true
@@ -5887,11 +5887,11 @@
         {
           "color": "rgb(52, 211, 153)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 7.709814126902995,
+          "ratio": 9.227778955167766,
           "threshold": 3,
           "pathLength": 574,
           "rendered": true
@@ -5899,11 +5899,11 @@
         {
           "color": "rgb(167, 139, 250)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 5.446261305402162,
+          "ratio": 6.518561230025738,
           "threshold": 3,
           "pathLength": 623,
           "rendered": true
@@ -5911,11 +5911,11 @@
         {
           "color": "rgb(251, 191, 36)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 8.8785569638574,
+          "ratio": 10.626632465425244,
           "threshold": 3,
           "pathLength": 672,
           "rendered": true
@@ -5923,11 +5923,11 @@
         {
           "color": "rgb(248, 113, 113)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 5.358194883756896,
+          "ratio": 6.413155644503334,
           "threshold": 3,
           "pathLength": 721,
           "rendered": true
@@ -5935,11 +5935,11 @@
         {
           "color": "rgb(251, 191, 36)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 8.8785569638574,
+          "ratio": 10.626632465425244,
           "threshold": 3,
           "pathLength": 770,
           "rendered": true
@@ -5947,11 +5947,11 @@
         {
           "color": "rgb(52, 211, 153)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 7.709814126902995,
+          "ratio": 9.227778955167766,
           "threshold": 3,
           "pathLength": 819,
           "rendered": true
@@ -5959,11 +5959,11 @@
         {
           "color": "rgb(129, 140, 248)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 4.968831177157661,
+          "ratio": 5.947131151756474,
           "threshold": 3,
           "pathLength": 868,
           "rendered": true
@@ -5974,66 +5974,66 @@
           "text": "调色板",
           "foreground": "rgb(229, 231, 235)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 11.971289512692591,
+          "ratio": 14.328284912339392,
           "threshold": 4.5
         },
         {
           "text": "0",
           "foreground": "rgb(229, 231, 235)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 11.971289512692591,
+          "ratio": 14.328284912339392,
           "threshold": 4.5
         },
         {
           "text": "4",
           "foreground": "rgb(229, 231, 235)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 11.971289512692591,
+          "ratio": 14.328284912339392,
           "threshold": 4.5
         },
         {
           "text": "8",
           "foreground": "rgb(229, 231, 235)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 11.971289512692591,
+          "ratio": 14.328284912339392,
           "threshold": 4.5
         },
         {
           "text": "12",
           "foreground": "rgb(229, 231, 235)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 11.971289512692591,
+          "ratio": 14.328284912339392,
           "threshold": 4.5
         },
         {
           "text": "16",
           "foreground": "rgb(229, 231, 235)",
           "background": [
-            29,
-            40,
-            58
+            17,
+            24,
+            39
           ],
-          "ratio": 11.971289512692591,
+          "ratio": 14.328284912339392,
           "threshold": 4.5
         }
       ],

@@ -45,11 +45,11 @@ export const SHARED_CLASSES = new Set([
   'inline-edit-input',
 ]);
 
-/** 共享组件类的合法所有者：全局样式表 + ui 原语 + 共享图表样式 */
+/** 共享组件类的合法所有者：全局样式表 + ui 原语（Charts.css 已于批 B 整退役，
+    图表私有类与 recharts 主题规则全部迁入 index.css） */
 export function isOwnerFile(rel) {
   return OWNER_FILES.has(rel)
-    || rel.startsWith('client/src/components/ui/')
-    || rel === 'client/src/components/Charts.css';
+    || rel.startsWith('client/src/components/ui/');
 }
 
 /**

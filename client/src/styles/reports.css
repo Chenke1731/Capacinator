@@ -71,6 +71,8 @@
   color: var(--primary-text);
   text-decoration: none;
   margin-top: 0.5rem;
+  /* 批 B 触控债：18px → 24px 命中区（WCAG 2.5.8，checker 阈值同源） */
+  min-height: 24px;
 }
 
 .card-action-link:hover {

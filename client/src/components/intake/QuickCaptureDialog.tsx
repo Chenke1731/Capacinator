@@ -44,6 +44,11 @@ export function QuickCaptureDialog({ open, onClose }: { open: boolean; onClose: 
   const queryClient = useQueryClient();
   const { toast } = useToast();
   const textRef = useRef<HTMLTextAreaElement | null>(null);
+  // G-13 收口（批 B）：受控打开（Alt+N/各页按钮）记住触发元素，关闭后焦点返回
+  const triggerRef = useRef<HTMLElement | null>(null);
+  useEffect(() => {
+    if (open) triggerRef.current = document.activeElement as HTMLElement | null;
+  }, [open]);
 
   const [text, setText] = useState('');
   const [mode, setMode] = useState<'auto' | 'single'>('auto');
@@ -240,6 +245,10 @@ export function QuickCaptureDialog({ open, onClose }: { open: boolean; onClose: 
           // 捕捉第一意图是"打字"，不是操作分段键——阻止 Radix 默认聚焦
           event.preventDefault();
           textRef.current?.focus();
+        }}
+        onCloseAutoFocus={(event) => {
+          event.preventDefault();
+          triggerRef.current?.focus();
         }}
       >
         <DialogHeader>

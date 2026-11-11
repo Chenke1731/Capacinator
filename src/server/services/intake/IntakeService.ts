@@ -142,24 +142,36 @@ export class IntakeService {
     });
 
     // 库内重复同样跳过（不阻塞其余）
-    const toInsert: CaptureRow[] = [];
+    const toInsert: { row: CaptureRow; index: number }[] = [];
     for (const { row, index } of pending) {
       const duplicate = await this.findDuplicate(row.source_channel, row.source_ref);
       if (duplicate) {
         skipped.push({ index, reason: 'duplicate_source_ref', existing_id: duplicate.id });
         continue;
       }
-      toInsert.push(row);
+      toInsert.push({ row, index });
     }
 
     const created: DemandIntake[] = [];
     if (toInsert.length > 0) {
       await this.db.transaction(async (trx: any) => {
-        for (const row of toInsert) {
-          created.push(await this.insertRow(row, actorId, trx));
+        for (const { row, index } of toInsert) {
+          try {
+            created.push(await this.insertRow(row, actorId, trx));
+          } catch (error) {
+            // 复评：预检后、插入前的并发重复——按"跳过该条"语义处理（与预检
+            // 一致，不整批回滚）；错误路径已用 trx 连接，不会占线死锁
+            if (error instanceof IntakeError && error.code === 'duplicate_source_ref') {
+              skipped.push({ index, reason: 'duplicate_source_ref', existing_id: error.existingId });
+              continue;
+            }
+            throw error;
+          }
         }
       });
     }
+    // 预检跳过与并发跳过统一按原始行号排序（响应稳定）
+    skipped.sort((a, b) => a.index - b.index);
     return { created, skipped };
   }
 
@@ -379,12 +391,15 @@ export class IntakeService {
     return s.length > max ? s.slice(0, max) : s;
   }
 
+  /** 查重；conn 可传当前事务句柄——单连接池（max:1）下事务内不得再用
+   *  this.db 取连接（I01y 复评：批量错误路径曾因此等满 30s 死锁） */
   private async findDuplicate(
     channel: string,
-    ref: string | null
+    ref: string | null,
+    conn: any = this.db
   ): Promise<{ id: string; status: string } | undefined> {
     if (!ref) return undefined;
-    return await this.db('demand_intake')
+    return await conn('demand_intake')
       .where({ source_channel: channel, source_ref: ref })
       .whereNot('status', 'rejected')
       .first(['id', 'status']);
@@ -424,7 +439,9 @@ export class IntakeService {
       // 列名不含索引名（"UNIQUE constraint failed: demand_intake.source_channel,
       // demand_intake.source_ref"），按 code + 目标列识别
       if (this.isDuplicateSourceRefError(error)) {
-        const existing = await this.findDuplicate(payload.source_channel, payload.source_ref ?? null);
+        // 事务内必须复用当前连接（trx）查冲突行（I01y 复评：单连接池下
+        // this.db 会等满 acquireConnectionTimeout）
+        const existing = await this.findDuplicate(payload.source_channel, payload.source_ref ?? null, db);
         throw new IntakeError('Source ref already captured', 409, 'duplicate_source_ref', existing?.id ?? undefined);
       }
       throw error;

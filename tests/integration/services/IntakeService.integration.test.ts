@@ -262,6 +262,34 @@ describe('I01 捕获（单条/校验/去重）', () => {
       spy.mockRestore();
     }
   });
+
+  test('复评回归：批量并发唯一约束不死锁（事务内复用连接），该条 skipped 其余入库', async () => {
+    await S.capture({ title: '已有', source_channel: 'jdc_sr', source_ref: 'SR-BATCH-1' });
+    // 确定性交错：前两次 findDuplicate（批量预检，行 1/行 2）返回 null 模拟
+    // "预检通过后另一请求写入同编号"；错误路径的查找**真实委托**——旧实现
+    // 不传 trx 会用 this.db，在单连接池（max:1）事务内等满 30s 死锁
+    const orig = (S as any).findDuplicate.bind(S);
+    let calls = 0;
+    const spy = jest
+      .spyOn(S as any, 'findDuplicate')
+      .mockImplementation(async (channel: string, ref: string | null, conn?: any) => {
+        calls += 1;
+        if (calls <= 2) return null; // 预检窗口：并发写入尚未被看见
+        return orig(channel, ref, conn); // 错误路径：按调用方连接真查
+      });
+    try {
+      const result = await S.captureBatch([
+        { title: '并发重复', source_channel: 'jdc_sr', source_ref: 'SR-BATCH-1' },
+        { title: '正常入', source_channel: 'jdc_sr', source_ref: 'SR-BATCH-2' },
+      ]);
+      expect(result.created.map((r) => r.title)).toEqual(['正常入']);
+      expect(result.skipped).toEqual([
+        expect.objectContaining({ index: 0, reason: 'duplicate_source_ref' }),
+      ]);
+    } finally {
+      spy.mockRestore();
+    }
+  });
 });
 
 describe('I01 批量捕获', () => {

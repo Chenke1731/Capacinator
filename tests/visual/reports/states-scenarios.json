@@ -1758,14 +1758,14 @@
           "selector": "div:nth-of-type(3) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6) > div:nth-of-type(1) > button:nth-of-type(3)",
           "family": "action-button edit|",
           "text": "",
-          "foreground": "rgb(178, 120, 85)",
-          "background": "rgb(233, 204, 183)",
+          "foreground": "rgb(210, 177, 157)",
+          "background": "rgb(211, 153, 110)",
           "effectiveBackground": [
-            233,
-            204,
-            183
+            211,
+            153,
+            110
           ],
-          "contrast": 2.4139790854988337,
+          "contrast": 1.2297417991029964,
           "textual": false,
           "disabled": false,
           "width": 32,

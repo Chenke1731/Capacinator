@@ -5,7 +5,9 @@
   max-height: 85vh;
 }
 
-.scenario-merge-modal .modal-body {
+/* D-04 Stage 2（2026-11-11）：随 modal-* 家族全站退役，.modal-body 更名
+   merge-body（对话框级锚点，传送门内命中；规则体不变，零视觉差） */
+.scenario-merge-modal .merge-body {
   padding: 0;
   max-height: calc(85vh - 120px);
   overflow-y: auto;

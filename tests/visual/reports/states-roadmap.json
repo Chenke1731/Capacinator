@@ -9557,7 +9557,7 @@
           "family": "project-name-link|",
           "text": "问题单支持",
           "foreground": "rgb(96, 165, 250)",
-          "background": "rgba(0, 0, 0, 0)",
+          "background": "oklab(0.713726 -0.0379879 -0.138233 / 0.00125684)",
           "effectiveBackground": [
             29,
             40,

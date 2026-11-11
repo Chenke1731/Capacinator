@@ -20,23 +20,21 @@ export const OWNER_FILES = new Set([
   'client/src/index.css',
   'client/src/globals.css',
   'client/src/styles/design-system.css',
-  'client/src/styles/modal-common.css',
   'client/src/tailwind.css',
 ]);
 
 /**
  * 共享组件类清单（只收“有跨页面/跨组件消费证据”的类）：
- * - modal-*：phase modals（AddPhase/PhaseAdd/...）、旧 modal-common；
- * - form-*：FilterBar、ui/InlineEdit、phase modals、Availability；
+ * - form-*：FilterBar、ui/InlineEdit、dialog 表单、Availability；
  * - badge*：ui/InlineEdit、ReportStatusBadge、表格；
- * - btn-icon/empty-state：ProjectsTable、PhaseTemplateDesigner、各页表格；
+ * - btn-icon/empty-state：表格与空态（所有者 App.css）；
  * - page-header/header-actions/table-actions：全站页面/表格；
  * - chart-container/summary-card：ProjectDemandChart、PersonAllocationChart、reports；
  * - inline-edit-input：需求台/项目详情/人员页就地编辑。
+ * modal-* 家族已整体退役（D-04 Stage 2，2026-11-11）：全部弹层迁 Radix
+ * dialog 原语后全站零定义零消费，撤出注册（modal-common.css 随之删除）。
  */
 export const SHARED_CLASSES = new Set([
-  'modal-overlay', 'modal-container', 'modal-content', 'modal-header', 'modal-body',
-  'modal-footer', 'modal-close', 'modal-actions', 'modal-title', 'modal-large',
   'form-group', 'form-label', 'form-input', 'form-select', 'form-textarea', 'form-control',
   'checkbox-label',
   'badge', 'badge-primary', 'badge-secondary', 'badge-success', 'badge-warning',
@@ -57,25 +55,12 @@ export function isOwnerFile(rel) {
 /**
  * 存量违例冻结（文件 :: .类 → 到期日）。
  * 到期后 lint 会报错，必须清理或续期（续期需在台账说明）。
- * 说明：InteractiveTimeline.css 的 modal/form 组是手写 phase-modal 的共享样式，
- * 等 D-04 Stage 2（迁移 Radix）删除，不单独作用域化。
- * 计数勘误（2026-11-11）：Phase A 头注曾写"137 违例 → 67 文件×类键"，逐条
- * 重数实为 63；Batch 1 清 24 条 + badge-info 注册冻结 2 条 → 41；Batch 2 清
- * 22 条 → 19；Batch 3 清 9 条（form-* 作用域化 + Login.css/ProjectAllocations
- * 死文件删除）→ 10，全部为 InteractiveTimeline（D-04 Stage 2 随迁 Radix 删除）。
+ * 计数全程：Phase A 快照 63 条（头注曾误写 67，2026-11-11 勘误）→
+ * Batch 1 清 24（+2 badge-info 注册冻结）→ 41 → Batch 2 清 22 → 19 →
+ * Batch 3 清 9 → 10 → **D-04 Stage 2 清 10（InteractiveTimeline.css modal/
+ * form 块随五个 phase modal 迁 Radix 删除）→ 0**。冻结清单自此为空。
  */
-export const ALLOWLIST = new Map([
-  ['client/src/components/InteractiveTimeline.css :: .form-group', '2026-12-31'],
-  ['client/src/components/InteractiveTimeline.css :: .form-input', '2026-12-31'],
-  ['client/src/components/InteractiveTimeline.css :: .form-label', '2026-12-31'],
-  ['client/src/components/InteractiveTimeline.css :: .form-select', '2026-12-31'],
-  ['client/src/components/InteractiveTimeline.css :: .modal-actions', '2026-12-31'],
-  ['client/src/components/InteractiveTimeline.css :: .modal-close', '2026-12-31'],
-  ['client/src/components/InteractiveTimeline.css :: .modal-content', '2026-12-31'],
-  ['client/src/components/InteractiveTimeline.css :: .modal-header', '2026-12-31'],
-  ['client/src/components/InteractiveTimeline.css :: .modal-overlay', '2026-12-31'],
-  ['client/src/components/InteractiveTimeline.css :: .modal-title', '2026-12-31'],
-]);
+export const ALLOWLIST = new Map([]);
 
 /**
  * 所有者内部冲突冻结（规则 7a，D-03 Batch 1）：共享类在 OWNER_FILES 中
@@ -91,14 +76,10 @@ export const OWNER_DUPS = new Map([
 
 /**
  * 注册缺主冻结（规则 7b，D-03 Batch 1）：注册进 SHARED_CLASSES 的类必须
- * 至少有一个所有者定义（badge-secondary 曾注册缺主，评审 G-B）。两组存量
- * 缺主：真实定义在非所有者文件（InteractiveTimeline.css 手写 phase-modal，
- * 冻结于 ALLOWLIST，等 D-04 Stage 2 迁 Radix 后归属 dialog 原语）。
+ * 至少有一个所有者定义。modal-title/modal-large 曾冻结于此——D-04 Stage 2
+ * 后全站零定义零消费，随 modal-* 家族撤注册，冻结清空。
  */
-export const OWNER_MISSING = new Map([
-  ['modal-title', {expiry:'2026-12-31', note:'唯一定义在 InteractiveTimeline.css（非所有者，ALLOWLIST 冻结）；D-04 Stage 2 迁 Radix 后归 dialog.tsx 原语'}],
-  ['modal-large', {expiry:'2026-12-31', note:'仅 Scenarios.css 作用域变体在用，无裸所有者定义；D-04 Stage 2 一并裁决尺寸族'}],
-]);
+export const OWNER_MISSING = new Map([]);
 
 const EXPIRY = '2026-12-31';
 

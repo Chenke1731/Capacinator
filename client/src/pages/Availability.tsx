@@ -4,6 +4,7 @@ import { Calendar, Plus, Edit2, Trash2, Check, ChevronLeft, ChevronRight } from 
 import { useTranslation } from 'react-i18next';
 import { useSearchParams } from 'react-router-dom';
 import { api } from '../lib/api-client';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '../components/ui/dialog';
 import { queryKeys } from '../lib/queryKeys';
 import { useBookmarkableTabs } from '../hooks/useBookmarkableTabs';
 import { getLocale } from '../i18n';
@@ -42,6 +43,11 @@ export default function Availability() {
   const viewMode = activeTab as 'calendar' | 'list';
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const [showAddForm, setShowAddForm] = useState(false);
+  // G-13 收口：受控打开记住触发元素，关闭后焦点返回添加/编辑钮
+  const overrideFormTriggerRef = React.useRef<HTMLElement | null>(null);
+  React.useEffect(() => {
+    if (showAddForm) overrideFormTriggerRef.current = document.activeElement as HTMLElement | null;
+  }, [showAddForm]);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [formData, setFormData] = useState<OverrideForm>({
     person_id: '',
@@ -354,103 +360,117 @@ export default function Availability() {
         </div>
       </div>
 
-      {showAddForm && (
-        <div className="modal">
-          <div className="modal-content">
-            <h2>{editingId ? t('people:availability.editTitle') : t('people:availability.addTitle')}</h2>
-            <form onSubmit={handleSubmit}>
-              <div className="form-grid">
-                <div className="form-group">
-                  <label>{t('people:availability.person')}</label>
-                  <select
-                    value={formData.person_id}
-                    onChange={(e) => setFormData({...formData, person_id: e.target.value})}
-                    className="form-select"
-                    required
-                  >
-                    <option value="">{t('people:availability.selectPerson')}</option>
-                    {people?.map(person => (
-                      <option key={person.id} value={person.id}>{person.name}</option>
-                    ))}
-                  </select>
-                </div>
-                <div className="form-group">
-                  <label>{t('people:columns.type')}</label>
-                  <select
-                    value={formData.override_type}
-                    onChange={(e) => setFormData({...formData, override_type: e.target.value as any})}
-                    className="form-select"
-                    required
-                  >
-                    <option value="vacation">{t('people:availability.overrideType.vacation')}</option>
-                    <option value="training">{t('people:availability.overrideType.training')}</option>
-                    <option value="partial">{t('people:availability.overrideType.partial')}</option>
-                    <option value="medical">{t('people:availability.overrideType.medical')}</option>
-                    <option value="other">{t('people:availability.overrideType.other')}</option>
-                  </select>
-                </div>
-                <div className="form-group">
-                  <label>{t('common:startDate')}</label>
-                  <input
-                    type="date"
-                    value={formData.start_date}
-                    onChange={(e) => setFormData({...formData, start_date: e.target.value})}
-                    className="form-input"
-                    required
-                  />
-                </div>
-                <div className="form-group">
-                  <label>{t('common:endDate')}</label>
-                  <input
-                    type="date"
-                    value={formData.end_date}
-                    onChange={(e) => setFormData({...formData, end_date: e.target.value})}
-                    className="form-input"
-                    required
-                  />
-                </div>
-                <div className="form-group">
-                  <label>{t('people:details.hoursPerDay')}</label>
-                  <input
-                    type="number"
-                    value={formData.hours_per_day}
-                    onChange={(e) => setFormData({...formData, hours_per_day: parseInt(e.target.value, 10) || 0})}
-                    className="form-input"
-                    min="0"
-                    max="8"
-                    required
-                  />
-                </div>
-                <div className="form-group full-width">
-                  <label>{t('people:details.reason')}</label>
-                  <textarea
-                    value={formData.reason}
-                    onChange={(e) => setFormData({...formData, reason: e.target.value})}
-                    className="form-input"
-                    rows={3}
-                  />
-                </div>
-              </div>
-              <div className="form-actions">
-                <button type="submit" className="btn btn-primary">
-                  {editingId ? t('common:update') : t('common:create')}
-                </button>
-                <button
-                  type="button"
-                  className="btn btn-secondary"
-                  onClick={() => {
-                    setShowAddForm(false);
-                    setEditingId(null);
-                    resetForm();
-                  }}
+      {/* 覆盖表单 — D-04 Stage 2（2026-11-11）：手写 .modal 外壳迁 Radix；
+          内层 form-grid/form-group 等为全局所有者类，传送门内照常生效。
+          G-13 收口：关闭后焦点返回触发钮。 */}
+      <Dialog open={showAddForm} onOpenChange={(next) => { if (!next) { setShowAddForm(false); setEditingId(null); resetForm(); } }}>
+        <DialogContent
+          className="max-w-lg"
+          style={{
+            backgroundColor: 'var(--bg-primary)',
+            color: 'var(--text-primary)',
+            borderColor: 'var(--border-color)',
+          }}
+          onCloseAutoFocus={(event) => {
+            event.preventDefault();
+            overrideFormTriggerRef.current?.focus();
+          }}
+        >
+          <DialogHeader>
+            <DialogTitle>{editingId ? t('people:availability.editTitle') : t('people:availability.addTitle')}</DialogTitle>
+          </DialogHeader>
+          <form onSubmit={handleSubmit}>
+            <div className="form-grid">
+              <div className="form-group">
+                <label className="form-label">{t('people:availability.person')}</label>
+                <select
+                  value={formData.person_id}
+                  onChange={(e) => setFormData({...formData, person_id: e.target.value})}
+                  className="form-select"
+                  required
                 >
-                  {t('common:cancel')}
-                </button>
+                  <option value="">{t('people:availability.selectPerson')}</option>
+                  {people?.map(person => (
+                    <option key={person.id} value={person.id}>{person.name}</option>
+                  ))}
+                </select>
               </div>
-            </form>
-          </div>
-        </div>
-      )}
+              <div className="form-group">
+                <label className="form-label">{t('people:columns.type')}</label>
+                <select
+                  value={formData.override_type}
+                  onChange={(e) => setFormData({...formData, override_type: e.target.value as any})}
+                  className="form-select"
+                  required
+                >
+                  <option value="vacation">{t('people:availability.overrideType.vacation')}</option>
+                  <option value="training">{t('people:availability.overrideType.training')}</option>
+                  <option value="partial">{t('people:availability.overrideType.partial')}</option>
+                  <option value="medical">{t('people:availability.overrideType.medical')}</option>
+                  <option value="other">{t('people:availability.overrideType.other')}</option>
+                </select>
+              </div>
+              <div className="form-group">
+                <label className="form-label">{t('common:startDate')}</label>
+                <input
+                  type="date"
+                  value={formData.start_date}
+                  onChange={(e) => setFormData({...formData, start_date: e.target.value})}
+                  className="form-input"
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label className="form-label">{t('common:endDate')}</label>
+                <input
+                  type="date"
+                  value={formData.end_date}
+                  onChange={(e) => setFormData({...formData, end_date: e.target.value})}
+                  className="form-input"
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label className="form-label">{t('people:details.hoursPerDay')}</label>
+                <input
+                  type="number"
+                  value={formData.hours_per_day}
+                  onChange={(e) => setFormData({...formData, hours_per_day: parseInt(e.target.value, 10) || 0})}
+                  className="form-input"
+                  min="0"
+                  max="8"
+                  required
+                />
+              </div>
+              <div className="form-group full-width">
+                <label className="form-label">{t('people:details.reason')}</label>
+                <textarea
+                  value={formData.reason}
+                  onChange={(e) => setFormData({...formData, reason: e.target.value})}
+                  className="form-input"
+                  rows={3}
+                />
+              </div>
+            </div>
+            <DialogFooter className="mt-2 gap-2">
+              <button type="submit" className="dialog-primary-btn">
+                {editingId ? t('common:update') : t('common:create')}
+              </button>
+              <button
+                type="button"
+                className="dialog-secondary-btn"
+                onClick={() => {
+                  setShowAddForm(false);
+                  setEditingId(null);
+                  resetForm();
+                }}
+              >
+                {t('common:cancel')}
+              </button>
+            </DialogFooter>
+          </form>
+        </DialogContent>
+      </Dialog>
 
       {viewMode === 'calendar' ? renderCalendarView() : renderListView()}
     </div>

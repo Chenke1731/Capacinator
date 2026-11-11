@@ -1,5 +1,5 @@
-/* Smart Assignment Modal Styles */
-@import "../../styles/modal-common.css";
+/* Smart Assignment Modal Styles（@import modal-common 移除——D-04 Stage 2，
+   .modal-* 家族全站退役；Radix 弹层护栏已迁 index.css） */
 
 .smart-assignment-modal {
   --space-0-5: 0.25rem;

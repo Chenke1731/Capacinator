@@ -13,34 +13,9 @@
   gap: 0.25rem;
 }
 
-/* Large modal for allocations（2026-11-10 同类排查：收进 .projects-board 作用域） */
-.projects-board .modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: var(--modal-backdrop);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-}
+/* .projects-board .modal-* 组移除（D-04 Stage 2）：board 页与其 ProjectModal
+   均零 modal-* 类消费（普查复核），随 .modal-* 家族全站退役。 */
 
-.projects-board .modal-container {
-  background: var(--bg-secondary);
-  border: 1px solid var(--border-color);
-  border-radius: 8px;
-  box-shadow: var(--shadow-lg);
-  max-height: 90vh;
-  overflow-y: auto;
-  margin: 20px;
-}
-
-.projects-board .modal-container.large {
-  width: 95%;
-  max-width: 1200px;
-}
 /* Tag chips (project classification labels) */
 .tag-chip {
   display: inline-flex;

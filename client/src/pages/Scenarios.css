@@ -315,78 +315,11 @@
   border-color: var(--danger);
 }
 
-/* Modal Styles（2026-11-10 同类排查：页面已全用 Radix，本组收进 .scenarios-page
-   作用域，避免随路由泄漏到共享 modal/form） */
-.scenarios-page .modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: color-mix(in srgb, var(--solid-shade) 50%, transparent);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-}
+/* Modal Styles 组移除（D-04 Stage 2，2026-11-11）：scenarios 页的弹层全部
+   为 Radix（merge 弹窗自有 .scenario-merge-modal 锚点样式），本组在传送门
+   下零命中且 .modal-* 家族全站退役。 */
 
-.scenarios-page .modal-content {
-  background: var(--card-bg);
-  border-radius: 8px;
-  max-width: 500px;
-  width: 90%;
-  max-height: 90vh;
-  display: flex;
-  flex-direction: column;
-  box-shadow: var(--shadow-lg);
-  overflow: visible;
-}
-
-.scenarios-page .modal-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1.5rem 1.5rem 0 1.5rem;
-  border-bottom: 1px solid var(--border-color);
-  margin-bottom: 1.5rem;
-}
-
-.scenarios-page .modal-header h2 {
-  margin: 0;
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: var(--text-primary);
-}
-
-.scenarios-page .modal-close {
-  background: none;
-  border: none;
-  font-size: 1.5rem;
-  color: var(--text-secondary);
-  cursor: pointer;
-  padding: 0;
-  width: 2rem;
-  height: 2rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 4px;
-  transition: all 0.2s;
-}
-
-.scenarios-page .modal-close:hover {
-  background: var(--bg-hover);
-  color: var(--text-primary);
-}
-
-.scenarios-page .modal-body {
-  padding: 1.5rem;
-  overflow-y: auto;
-  flex: 1;
-  min-height: 0;
-}
-
-/* Comparison Modal Styles */
+/* Comparison panel styles（页内对比面板，非弹层） */
 .comparison-setup {
   padding: 0;
   display: flex;
@@ -505,13 +438,12 @@
   color: var(--text-primary);
 }
 
-/* Fix scenario name contrast in modal */
-.scenarios-page .modal-content .scenario-card-mini .scenario-name,
+/* Fix scenario name contrast in the in-page comparison panel（modal-content
+   项已随弹层退役删除，D-04 Stage 2） */
 .scenarios-page .comparison-setup .scenario-card-mini .scenario-name {
   color: var(--text-primary) !important; /* Dark gray for light mode */
 }
 
-[data-theme="dark"] .scenarios-page .modal-content .scenario-card-mini .scenario-name,
 [data-theme="dark"] .scenarios-page .comparison-setup .scenario-card-mini .scenario-name {
   color: var(--text-primary) !important; /* Light gray for dark mode */
 }
@@ -550,9 +482,8 @@
   color: var(--scenario-branch-text) !important;
 }
 
-/* Ensure scenario badges in modal have proper contrast */
-.scenarios-page .modal-content .scenario-type,
-.scenarios-page .modal-content .scenario-status,
+/* Ensure scenario badges in the comparison panel have proper contrast
+   （.modal-content 项已随弹层退役删除，D-04 Stage 2） */
 .scenarios-page .scenario-card-mini .scenario-type,
 .scenarios-page .scenario-card-mini .scenario-status {
   padding: 0.25rem 0.5rem;
@@ -562,37 +493,31 @@
   text-transform: uppercase;
 }
 
-.scenarios-page .modal-content .scenario-type.baseline,
 .scenarios-page .scenario-card-mini .scenario-type.baseline {
   background: var(--badge-success-bg) !important;
   color: var(--badge-success-text) !important;
 }
 
-.scenarios-page .modal-content .scenario-type.branch,
 .scenarios-page .scenario-card-mini .scenario-type.branch {
   background: var(--scenario-branch-soft) !important;
   color: var(--scenario-branch-text) !important;
 }
 
-.scenarios-page .modal-content .scenario-type.sandbox,
 .scenarios-page .scenario-card-mini .scenario-type.sandbox {
   background: var(--scenario-sandbox-soft) !important;
   color: var(--scenario-sandbox-text) !important;
 }
 
-.scenarios-page .modal-content .scenario-status.active,
 .scenarios-page .scenario-card-mini .scenario-status.active {
   background: var(--badge-success-bg) !important;
   color: var(--badge-success-text) !important;
 }
 
-.scenarios-page .modal-content .scenario-status.draft,
 .scenarios-page .scenario-card-mini .scenario-status.draft {
   background: var(--badge-warning-bg) !important;
   color: var(--badge-warning-text) !important;
 }
 
-.scenarios-page .modal-content .scenario-status.archived,
 .scenarios-page .scenario-card-mini .scenario-status.archived {
   background: var(--bg-tertiary) !important;
   color: var(--text-tertiary) !important;
@@ -639,19 +564,7 @@
   cursor: not-allowed;
 }
 
-/* Ensure modal-large is properly sized */
-.scenarios-page .modal-large {
-  max-width: 900px !important;
-  width: 90vw !important;
-  height: auto !important;
-  max-height: 90vh !important;
-}
-
-.scenarios-page .modal-large .modal-body {
-  min-height: 300px;
-  max-height: calc(90vh - 160px);
-  overflow-y: auto;
-}
+/* .modal-large 组移除（D-04 Stage 2）：全库 0 消费，随 .modal-* 家族退役。 */
 
 .parent-info {
   display: flex;
@@ -700,15 +613,6 @@
 .scenarios-page .form-group textarea {
   resize: vertical;
   min-height: 4rem;
-}
-
-.scenarios-page .modal-footer {
-  display: flex;
-  justify-content: flex-end;
-  gap: 1rem;
-  padding: 1.5rem;
-  border-top: 1px solid var(--border-color);
-  margin-top: 1.5rem;
 }
 
 /* Loading and Error States */

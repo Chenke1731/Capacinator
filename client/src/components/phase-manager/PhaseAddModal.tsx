@@ -1,6 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { X, Calendar, Type, Save } from 'lucide-react';
+import { Calendar, Type, Save } from 'lucide-react';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '../ui/dialog';
 import { AddPhaseFormData, PhaseTemplate } from './types';
 
 interface PhaseAddModalProps {
@@ -12,6 +13,9 @@ interface PhaseAddModalProps {
   onClose: () => void;
 }
 
+// D-04 Stage 2（2026-11-11）：手写 modal-overlay 外壳迁 Radix dialog 原语——
+// Esc/焦点圈/滚动锁/aria-modal 由原语承接；关闭钮/操作钮/44px 触控来自 dialog.css。
+// G-13 收口：受控打开记住触发元素，关闭后焦点返回（ConfirmDialog 先例）。
 export function PhaseAddModal({
   isOpen,
   formData,
@@ -22,7 +26,10 @@ export function PhaseAddModal({
 }: PhaseAddModalProps) {
   const { t } = useTranslation();
 
-  if (!isOpen) return null;
+  const triggerRef = React.useRef<HTMLElement | null>(null);
+  React.useEffect(() => {
+    if (isOpen) triggerRef.current = document.activeElement as HTMLElement | null;
+  }, [isOpen]);
 
   // Normalize phase templates - handle both { data: [...] } and [...] formats
   const templates = Array.isArray(phaseTemplates)
@@ -30,21 +37,24 @@ export function PhaseAddModal({
     : (phaseTemplates as any)?.data || [];
 
   return (
-    <div className="modal-overlay">
-      <div className="modal-content">
-        <div className="modal-header">
-          <h3 className="modal-title">
-            {t('phases:modal.addNewPhase')}
-          </h3>
-          <button
-            onClick={onClose}
-            className="modal-close"
-          >
-            <X size={20} />
-          </button>
-        </div>
+    <Dialog open={isOpen} onOpenChange={(next) => { if (!next) onClose(); }}>
+      <DialogContent
+        className="max-w-md"
+        style={{
+          backgroundColor: 'var(--bg-primary)',
+          color: 'var(--text-primary)',
+          borderColor: 'var(--border-color)',
+        }}
+        onCloseAutoFocus={(event) => {
+          event.preventDefault();
+          triggerRef.current?.focus();
+        }}
+      >
+        <DialogHeader>
+          <DialogTitle>{t('phases:modal.addNewPhase')}</DialogTitle>
+        </DialogHeader>
 
-        <form className="modal-form" onSubmit={onSubmit}>
+        <form onSubmit={onSubmit}>
           <div className="form-group">
             <label className="form-label">
               <Type size={16} />
@@ -65,7 +75,7 @@ export function PhaseAddModal({
             </select>
           </div>
 
-          <div className="form-group grid">
+          <div className="form-group grid grid-cols-2 gap-4">
             <div>
               <label className="form-label">
                 <Calendar size={16} />
@@ -96,26 +106,22 @@ export function PhaseAddModal({
             </div>
           </div>
 
-          <div className="modal-actions">
-            <button
-              type="button"
-              onClick={onClose}
-              className="btn btn-secondary"
-            >
+          <DialogFooter className="mt-2 gap-2">
+            <button type="button" onClick={onClose} className="dialog-secondary-btn">
               {t('common:cancel')}
             </button>
             <button
               type="submit"
               disabled={!formData.phase_id || !formData.start_date || !formData.end_date}
-              className="btn btn-primary"
+              className="dialog-primary-btn"
             >
               <Save size={16} />
               {t('phases:manager.addPhase')}
             </button>
-          </div>
+          </DialogFooter>
         </form>
-      </div>
-    </div>
+      </DialogContent>
+    </Dialog>
   );
 }
 

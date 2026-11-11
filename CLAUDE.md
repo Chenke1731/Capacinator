@@ -298,6 +298,7 @@ npm run dist:linux       # Linux package (.AppImage)
 | verify-states 全称检查器 | 状态×对比度×命中×遮挡×越界×字号×贴锚（渲染闭包）**+ 悬停位移×容器边界、同排控件等高（2026-11-10 录入按钮越界事故新增切片）** | 渲染时刻(--quick 迭代)/交付时刻(verify-boards 收编) |
 | lint:ui 规则 4/5 | 未作用域 `.btn*` 的 `:hover` 位移声明；任何交互态（hover/focus）的布局几何位移（按钮/链接 translate/scale、padding+负 margin 外扩）——跨路由泄漏与裁切闭包 | 生成时/提交前（`npm run lint:ui`，SELF_TEST 自证） |
 | lint:ui 规则 6/7（2026-11-10） | 共享类左端锚点×文件归属合法性（规则 6，路由 CSS 泄漏闭包）；所有者内部唯一性×注册完备性（规则 7——empty-state/chart-container 双所有者级联互踩与 badge-secondary 注册缺主两类事故的静态化；OWNER_DUPS/OWNER_MISSING 冻结存量） | 生成时/提交前（同上；冻结债 2026-12-31 到期转红） |
+| lint:ui 规则 8（2026-11-11，D-04 Stage 2） | tsx 注入 `<style>` 文本块 × 共享类/工具类定义（PhaseTimelineStyles 影子表事故：运行时注入全局定义压过 owner，规则 2/6 只扫 .css 全盲；INJECTED_STYLE_ALLOWLIST 冻结存量——当前为空） | 生成时/提交前（同上） |
 | useCellPopover DEV 自检 | 浮层贴锚/层顶/越界(几何闭包) | 产物时刻(每次打开) |
 | jest 语义测试 | 业务语义 | 提交前 |
 | pre-commit | 类型/迁移不可变/CSS 语法 | 提交时刻 |

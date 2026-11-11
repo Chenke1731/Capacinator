@@ -1,6 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { X, Calendar, Type, Save } from 'lucide-react';
+import { Calendar, Type, Save } from 'lucide-react';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '../ui/dialog';
 import { EditPhaseFormData, ProjectPhaseTimeline } from './types';
 
 interface PhaseEditModalProps {
@@ -12,6 +13,7 @@ interface PhaseEditModalProps {
   onClose: () => void;
 }
 
+// D-04 Stage 2（2026-11-11）：手写 modal 外壳迁 Radix；G-13 收口焦点返回。
 export function PhaseEditModal({
   isOpen,
   editingPhase,
@@ -22,24 +24,30 @@ export function PhaseEditModal({
 }: PhaseEditModalProps) {
   const { t } = useTranslation();
 
-  if (!isOpen || !editingPhase) return null;
+  const triggerRef = React.useRef<HTMLElement | null>(null);
+  React.useEffect(() => {
+    if (isOpen) triggerRef.current = document.activeElement as HTMLElement | null;
+  }, [isOpen]);
 
   return (
-    <div className="modal-overlay">
-      <div className="modal-content">
-        <div className="modal-header">
-          <h3 className="modal-title">
-            {t('phases:modal.editPhaseTitle', { name: editingPhase.phase_name })}
-          </h3>
-          <button
-            onClick={onClose}
-            className="modal-close"
-          >
-            <X size={20} />
-          </button>
-        </div>
+    <Dialog open={isOpen} onOpenChange={(next) => { if (!next) onClose(); }}>
+      <DialogContent
+        className="max-w-md"
+        style={{
+          backgroundColor: 'var(--bg-primary)',
+          color: 'var(--text-primary)',
+          borderColor: 'var(--border-color)',
+        }}
+        onCloseAutoFocus={(event) => {
+          event.preventDefault();
+          triggerRef.current?.focus();
+        }}
+      >
+        <DialogHeader>
+          <DialogTitle>{t('phases:modal.editPhaseTitle', { name: editingPhase?.phase_name })}</DialogTitle>
+        </DialogHeader>
 
-        <form className="modal-form" onSubmit={onSubmit}>
+        <form onSubmit={onSubmit}>
           <div className="form-group">
             <label className="form-label">
               <Type size={16} />
@@ -53,7 +61,7 @@ export function PhaseEditModal({
             />
           </div>
 
-          <div className="form-group grid">
+          <div className="form-group grid grid-cols-2 gap-4">
             <div>
               <label className="form-label">
                 <Calendar size={16} />
@@ -84,26 +92,22 @@ export function PhaseEditModal({
             </div>
           </div>
 
-          <div className="modal-actions">
-            <button
-              type="button"
-              onClick={onClose}
-              className="btn btn-secondary"
-            >
+          <DialogFooter className="mt-2 gap-2">
+            <button type="button" onClick={onClose} className="dialog-secondary-btn">
               {t('common:cancel')}
             </button>
             <button
               type="submit"
               disabled={!formData.start_date || !formData.end_date}
-              className="btn btn-primary"
+              className="dialog-primary-btn"
             >
               <Save size={16} />
               {t('phases:common.saveChanges')}
             </button>
-          </div>
+          </DialogFooter>
         </form>
-      </div>
-    </div>
+      </DialogContent>
+    </Dialog>
   );
 }
 

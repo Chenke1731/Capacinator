@@ -484,7 +484,7 @@ export const ScenarioMergeModal: React.FC<ScenarioMergeModalProps> = ({
           </DialogDescription>
         </DialogHeader>
 
-        <div className="modal-body">
+        <div className="merge-body">
           {currentStep === 'setup' && renderSetupStep()}
           {currentStep === 'conflicts' && renderConflictsStep()}
           {currentStep === 'preview' && renderPreviewStep()}

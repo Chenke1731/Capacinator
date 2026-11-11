@@ -1549,14 +1549,14 @@
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > button:nth-of-type(1)",
           "family": "btn-icon|",
           "text": "",
-          "foreground": "rgb(63, 73, 88)",
-          "background": "rgb(251, 252, 253)",
+          "foreground": "rgb(67, 77, 91)",
+          "background": "rgb(252, 253, 253)",
           "effectiveBackground": [
-            251,
             252,
+            253,
             253
           ],
-          "contrast": 8.86847804144929,
+          "contrast": 8.406877021118506,
           "textual": false,
           "disabled": false,
           "width": 44,

@@ -7,6 +7,7 @@ import { api } from '../lib/api-client';
 import { queryKeys } from '../lib/queryKeys';
 import { LoadingSpinner } from '../components/ui/LoadingSpinner';
 import { ErrorMessage } from '../components/ui/ErrorMessage';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '../components/ui/dialog';
 import InteractiveTimeline, { TimelineItem, TimelineViewport } from '../components/InteractiveTimeline';
 import { getLocale } from '../i18n';
 import type { Project } from '../types';
@@ -135,6 +136,11 @@ export default function ProjectRoadmap() {
   }, []);
   
   const [editingPhase, setEditingPhase] = useState<EditingPhase | null>(null);
+  // G-13 收口：受控打开记住触发元素，关闭后焦点返回相条操作钮
+  const phaseEditTriggerRef = useRef<HTMLElement | null>(null);
+  React.useEffect(() => {
+    if (editingPhase) phaseEditTriggerRef.current = document.activeElement as HTMLElement | null;
+  }, [editingPhase]);
   
   const [filters, setFilters] = useState({
     search: '',
@@ -1054,48 +1060,60 @@ export default function ProjectRoadmap() {
         </div>
       </div>
 
-      {/* Edit Phase Modal */}
-      {editingPhase && (
-        <div className="modal-overlay">
-          <div className="modal-container">
-            <div className="modal-header">
-              <h3>{t('phases:roadmap.editPhaseDates')}</h3>
-              <button onClick={() => setEditingPhase(null)}>
-                <X size={20} />
-              </button>
+      {/* Edit Phase Modal — D-04 Stage 2（2026-11-11）：手写外壳迁 Radix；
+          关闭后焦点返回触发相条（G-13 收口，ConfirmDialog 先例） */}
+      <Dialog
+        open={Boolean(editingPhase)}
+        onOpenChange={(next) => { if (!next) setEditingPhase(null); }}
+      >
+        <DialogContent
+          className="max-w-md"
+          style={{
+            backgroundColor: 'var(--bg-primary)',
+            color: 'var(--text-primary)',
+            borderColor: 'var(--border-color)',
+          }}
+          onCloseAutoFocus={(event) => {
+            event.preventDefault();
+            phaseEditTriggerRef.current?.focus();
+          }}
+        >
+          <DialogHeader>
+            <DialogTitle>{t('phases:roadmap.editPhaseDates')}</DialogTitle>
+          </DialogHeader>
+
+          <div>
+            <div className="form-group">
+              <label className="form-label">{t('common:startDate')}</label>
+              <input
+                type="date"
+                className="form-input"
+                value={editingPhase?.startDate ?? ''}
+                onChange={(e) => setEditingPhase(prev => prev ? { ...prev, startDate: e.target.value } : null)}
+              />
             </div>
 
-            <div className="modal-content">
-              <div className="form-group">
-                <label>{t('common:startDate')}</label>
-                <input
-                  type="date"
-                  value={editingPhase.startDate}
-                  onChange={(e) => setEditingPhase(prev => prev ? { ...prev, startDate: e.target.value } : null)}
-                />
-              </div>
-
-              <div className="form-group">
-                <label>{t('common:endDate')}</label>
-                <input
-                  type="date"
-                  value={editingPhase.endDate}
-                  onChange={(e) => setEditingPhase(prev => prev ? { ...prev, endDate: e.target.value } : null)}
-                />
-              </div>
-            </div>
-
-            <div className="modal-actions">
-              <button onClick={() => setEditingPhase(null)} className="btn btn-secondary">
-                {t('common:cancel')}
-              </button>
-              <button onClick={savePhaseEdit} className="btn btn-primary">
-                {t('phases:common.saveChanges')}
-              </button>
+            <div className="form-group">
+              <label className="form-label">{t('common:endDate')}</label>
+              <input
+                type="date"
+                className="form-input"
+                value={editingPhase?.endDate ?? ''}
+                onChange={(e) => setEditingPhase(prev => prev ? { ...prev, endDate: e.target.value } : null)}
+              />
             </div>
           </div>
-        </div>
-      )}
+
+          <DialogFooter className="gap-2">
+            <button onClick={() => setEditingPhase(null)} className="dialog-secondary-btn">
+              {t('common:cancel')}
+            </button>
+            <button onClick={savePhaseEdit} className="dialog-primary-btn">
+              {t('phases:common.saveChanges')}
+            </button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
 
     </div>
   );

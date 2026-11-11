@@ -1,5 +1,6 @@
 @import './globals.css';
-@import './styles/modal-common.css';
+/* @import './styles/modal-common.css' 移除（D-04 Stage 2）：.modal-* 家族
+   全站退役，Radix 弹层护栏已迁入本文件上方。 */
 
 /* TC-C6: categorical series retain their hue/order. These are graphic inks
    (>=3:1 on chart surfaces); legend/tooltip text uses neutral text tokens. */
@@ -331,6 +332,18 @@ input:focus, select:focus, textarea:focus {
   margin-left: 0.25rem;
   color: var(--text-secondary);
   font-size: 0.875rem;
+}
+
+/* Radix 弹层护栏（D-04 Stage 2 自 modal-common.css 原文迁入——modal-common
+   随 .modal-* 家族退役整删）：实底弹窗 + popper 包装层透明。放 index.css
+   而非 dialog.css：后者只随 dialog.tsx 加载，单独使用 Select 的页面会失去
+   popper 护栏；index.css 与 modal-common 原 @import 加载特性严格等价。 */
+[data-radix-popper-content-wrapper] {
+  background: transparent !important;
+}
+
+[role="dialog"][data-state="open"] {
+  background: var(--bg-primary) !important;
 }
 
 /* .empty-state moved to a single owner: App.css (cascade-last among owner

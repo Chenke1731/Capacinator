@@ -1,6 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { X, Save } from 'lucide-react';
+import { Save } from 'lucide-react';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '../ui/dialog';
 import { DependencyFormData, DependencyType, PhaseDependency } from './types';
 import { TimelineItem } from '../InteractiveTimeline';
 
@@ -14,6 +15,7 @@ interface DependencyModalProps {
   onClose: () => void;
 }
 
+// D-04 Stage 2（2026-11-11）：手写 modal 外壳迁 Radix；G-13 收口焦点返回。
 export function DependencyModal({
   isOpen,
   editingDependency,
@@ -25,24 +27,32 @@ export function DependencyModal({
 }: DependencyModalProps) {
   const { t } = useTranslation();
 
-  if (!isOpen) return null;
+  const triggerRef = React.useRef<HTMLElement | null>(null);
+  React.useEffect(() => {
+    if (isOpen) triggerRef.current = document.activeElement as HTMLElement | null;
+  }, [isOpen]);
 
   return (
-    <div className="modal-overlay">
-      <div className="modal-content">
-        <div className="modal-header">
-          <h3 className="modal-title">
+    <Dialog open={isOpen} onOpenChange={(next) => { if (!next) onClose(); }}>
+      <DialogContent
+        className="max-w-md"
+        style={{
+          backgroundColor: 'var(--bg-primary)',
+          color: 'var(--text-primary)',
+          borderColor: 'var(--border-color)',
+        }}
+        onCloseAutoFocus={(event) => {
+          event.preventDefault();
+          triggerRef.current?.focus();
+        }}
+      >
+        <DialogHeader>
+          <DialogTitle>
             {editingDependency ? t('phases:dependency.modalTitleEdit') : t('phases:dependency.modalTitleAdd')}
-          </h3>
-          <button
-            onClick={onClose}
-            className="modal-close"
-          >
-            <X size={20} />
-          </button>
-        </div>
+          </DialogTitle>
+        </DialogHeader>
 
-        <form className="modal-form" onSubmit={onSubmit}>
+        <form onSubmit={onSubmit}>
           <div className="form-group">
             <label className="form-label">
               {t('phases:dependency.predecessorLabel')}
@@ -115,26 +125,22 @@ export function DependencyModal({
             </div>
           </div>
 
-          <div className="modal-actions">
-            <button
-              type="button"
-              onClick={onClose}
-              className="btn btn-secondary"
-            >
+          <DialogFooter className="mt-2 gap-2">
+            <button type="button" onClick={onClose} className="dialog-secondary-btn">
               {t('common:cancel')}
             </button>
             <button
               type="submit"
               disabled={!formData.predecessor_phase_timeline_id || !formData.successor_phase_timeline_id}
-              className="btn btn-primary"
+              className="dialog-primary-btn"
             >
               <Save size={16} />
               {editingDependency ? t('phases:dependency.updateDependency') : t('phases:dependency.createDependency')}
             </button>
-          </div>
+          </DialogFooter>
         </form>
-      </div>
-    </div>
+      </DialogContent>
+    </Dialog>
   );
 }
 

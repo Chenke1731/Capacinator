@@ -341,19 +341,21 @@ export function collectSharedClassOwners(ownerTexts) {
   return defs;
 }
 
-export function checkOwnerUniqueness(defs, classes = SHARED_CLASSES) {
+// options 参数注入（D-04 Stage 2，评审 D3）：生产默认不变（直读登记处），
+// SELF_TEST 传合成冻结名单——检测器语义与登记处实况彻底解耦。
+export function checkOwnerUniqueness(defs, classes = SHARED_CLASSES, { dups = OWNER_DUPS, missing = OWNER_MISSING } = {}) {
   const problems = [];
   const expired = (e) => new Date(e).getTime() < Date.now();
   for (const cls of classes) {
     const files = defs[cls] ? [...defs[cls]] : [];
     if (files.length === 0) {
-      const frozen = OWNER_MISSING.get(cls);
+      const frozen = missing.get(cls);
       if (!frozen) problems.push(`共享类 .${cls} 已注册但没有任何所有者定义 → 注册即须有主（badge-secondary 缺主事故）；补所有者定义或从 SHARED_CLASSES 移除`);
       else if (expired(frozen.expiry)) problems.push(`共享类 .${cls} 缺所有者定义且冻结 ${frozen.expiry} 已到期 → ${frozen.note}`);
       continue;
     }
     if (files.length > 1) {
-      const frozen = OWNER_DUPS.get(cls);
+      const frozen = dups.get(cls);
       const actual = new Set(files);
       if (!frozen) { problems.push(`共享类 .${cls} 有 ${files.length} 个所有者定义文件（${files.join(' | ')}）→ 级联顺序决定谁生效（empty-state 双所有者事故）；收敛为单所有者，页面差量写作用域覆盖`); continue; }
       const unexpected = files.filter((f) => !frozen.files.includes(f));
@@ -383,6 +385,43 @@ for (const [cls, frozen] of OWNER_DUPS) {
 }
 for (const cls of OWNER_MISSING.keys()) {
   if (ownerDefs[cls]) console.log(`note: OWNER_MISSING 条目 .${cls} 已有所有者定义,可删除`);
+}
+
+// ── 规则 8: tsx 注入 <style> 的共享类/工具类盲区（D-04 Stage 2，2026-11-11）──
+// 事故：PhaseTimelineStyles 以运行时 <style> 注入 .modal-content/.form-* 全局
+// 定义——规则 2/6 只扫 .css 文件，注入版压过 App.css owner 且随页面挂载状态
+// 漂移，D-03 三批清理从未见过这个第二样式源（评审 G-1/EXP-NEW-3）。
+// 判据：提取 tsx 中 <style>{`...`}</style> 文本，复用规则 6 左端锚点与
+// 规则 2 工具类裸定义；命中即报。存量注入冻结于 INJECTED_STYLE_ALLOWLIST。
+export function extractStyleTagCss(source) {
+  const out = [];
+  const RX = /<style[^>]*>\s*\{`([\s\S]*?)`\}\s*<\/style>/g;
+  for (const m of source.matchAll(RX)) out.push(m[1]);
+  return out.join('\n');
+}
+
+export const INJECTED_STYLE_ALLOWLIST = new Map([
+  // PhaseTimelineStyles 影子表已随死代码家族整删（PhaseTimeline.tsx 零导入者，
+  // 2026-11-11 import 级核实）——无冻结存量。新注入即拦。
+]);
+
+for (const rel of PROD_FILES.filter((f) => f.endsWith('.tsx'))) {
+  const text = readFileSync(resolve(root, rel), 'utf8');
+  const css = extractStyleTagCss(text);
+  if (!css) continue;
+  for (const hit of matchSharedClassLeaks(css)) {
+    const key = `${rel} :: .${hit.class}`;
+    const expiry = INJECTED_STYLE_ALLOWLIST.get(key);
+    if (expiry && new Date(expiry).getTime() >= Date.now()) continue;
+    const line = 1 + css.slice(0, hit.index).split('\n').length;
+    violations.push(`${rel}:<style> 注入块第 ${line} 行 「${hit.selector}」 运行时注入定义共享类 .${hit.class} → 全局生效且压过 owner（PhaseTimelineStyles 事故）；共享样式入 .css 文件并遵守所有权，或页面根作用域`);
+  }
+  for (const d of detectUtilDefs(css)) {
+    const key = `${rel} :: .${d.cls}`;
+    const expiry = INJECTED_STYLE_ALLOWLIST.get(key);
+    if (expiry && new Date(expiry).getTime() >= Date.now()) continue;
+    violations.push(`${rel}:<style> 注入块 「${d.item}」 注入定义全局工具类 .${d.cls} → 跨文件覆盖全局定义；共享样式入 .css 文件`);
+  }
 }
 
 // 白名单腐化提示(不拦门): 存量清掉后条目要及时删,防止清单变成永久豁免
@@ -482,12 +521,13 @@ if (process.env.SELF_TEST === '1') {
   console.log('SELF-TEST PASS: 交互态几何位移检测器(7 例)——生产函数直调');
 
   // 规则 6 自证: 共享类裸定义/派生必红;页面根作用域/近似类名必绿
+  // （D-04 Stage 2：modal-* 家族退役后，正例改用仍在册的 chart-container）
   const sharedCases = [
     ['.form-group input{margin:0}', true],
-    ['.modal-header h3{color:red}', true],
+    ['.chart-container h3{color:red}', true],
     ['.badge{padding:0}', true],
     ['.import-container .form-group input{margin:0}', false],
-    ['.scenarios-page .modal-content{padding:0}', false],
+    ['.scenarios-page .chart-container{padding:0}', false],
     ['.form-group-x input{margin:0}', false],
   ];
   const sharedFails = sharedCases.filter(([src, expect]) => (matchSharedClassLeaks(src).length > 0) !== expect);
@@ -500,21 +540,40 @@ if (process.env.SELF_TEST === '1') {
   // 规则 7 自证: 所有者内部唯一性+注册完备性——双所有者必红,冻结名单内必绿,
   // 名单外第三者/注册缺主必红,缺主冻结/单所有者必绿。
   // defs 结构 = { 类名: Set(所有者文件) }（与 collectSharedClassOwners 一致）。
+  // D-04 Stage 2（评审 D3）: 冻结名单改合成注入——检测器与登记处实况解耦
+  // （此前用 modal-title/chart-container 活例，登记处任何变动都要改 selftest）。
+  const syntheticDups = new Map([['frozen-x', { files: ['a.css', 'b.css'], expiry: '2099-01-01', note: 'synthetic' }]]);
+  const syntheticMissing = new Map([['missing-x', { expiry: '2099-01-01', note: 'synthetic' }]]);
   const dupDefs = { badge: new Set(['client/src/a.css', 'client/src/b.css']) };
-  const frozenDupDefs = { 'chart-container': new Set(['client/src/index.css', 'client/src/components/Charts.css']) };
-  const thirdOwnerDefs = { 'chart-container': new Set(['client/src/index.css', 'client/src/components/Charts.css', 'client/src/pages/rogue.css']) };
+  const frozenDupDefs = { 'frozen-x': new Set(['a.css', 'b.css']) };
+  const thirdOwnerDefs = { 'frozen-x': new Set(['a.css', 'b.css', 'rogue.css']) };
   const emptyDefs = {};
-  const r7 = (defs, classes) => checkOwnerUniqueness(defs, classes).join('\n');
+  const r7 = (defs, classes, opts) => checkOwnerUniqueness(defs, classes, opts).join('\n');
   if (!r7(dupDefs, ['badge']).includes('有 2 个所有者定义文件')) throw Error('规则7: 未冻结双所有者未检出');
-  if (r7(frozenDupDefs, ['chart-container']) !== '') throw Error('规则7: 冻结名单内双所有者被误报');
-  if (!r7(thirdOwnerDefs, ['chart-container']).includes('冻结名单外的第三个所有者')) throw Error('规则7: 名单外第三所有者未检出');
-  if (r7(emptyDefs, ['modal-title', 'modal-large']) !== '') throw Error('规则7: 缺主冻结(modal-title/modal-large)未生效');
+  if (r7(frozenDupDefs, ['frozen-x'], { dups: syntheticDups }) !== '') throw Error('规则7: 冻结名单内双所有者被误报');
+  if (!r7(thirdOwnerDefs, ['frozen-x'], { dups: syntheticDups }).includes('冻结名单外的第三个所有者')) throw Error('规则7: 名单外第三所有者未检出');
+  if (r7(emptyDefs, ['missing-x'], { missing: syntheticMissing }) !== '') throw Error('规则7: 缺主冻结未生效');
   if (!r7(emptyDefs, ['badge-info']).includes('已注册但没有任何所有者定义')) throw Error('规则7: 注册缺主未检出');
   if (r7({ 'btn-icon': new Set(['client/src/App.css']) }, ['btn-icon']) !== '') throw Error('规则7: 单所有者被误报');
   // 同一选择器列表含多个共享类时必须全记录(不因首项命中而漏记其余)
-  const listScan = collectSharedClassOwners({ 'client/src/x.css': '.modal-container,\n.modal-content,\n.modal { display:block }' });
-  if (!listScan['modal-container'] || !listScan['modal-content']) throw Error('规则7: 选择器列表多共享类漏记(modal-common.css 同款结构)');
-  console.log('SELF-TEST PASS: 所有权唯一性检测器(7 组)——生产函数直调');
+  const listScan = collectSharedClassOwners({ 'client/src/x.css': '.form-group,\n.form-input,\n.x { display:block }' });
+  if (!listScan['form-group'] || !listScan['form-input']) throw Error('规则7: 选择器列表多共享类漏记');
+  console.log('SELF-TEST PASS: 所有权唯一性检测器(7 组,合成冻结名单)——生产函数直调');
+
+  // 规则 8 自证: tsx 注入 <style> 的共享类/工具类必红;作用域前缀/无私有 style 必绿
+  const injectedCases = [
+    ['<style>{`.badge { color: red }`}</style>', true],
+    ['<style>{`.x-page .form-group { margin: 0 }`}</style>', false],
+    ['<style>{`.btn-sm { padding: 0 }`}</style>', true],
+    ['<div>no style tag</div>', false],
+  ];
+  for (const [src, expect] of injectedCases) {
+    const css = extractStyleTagCss(src);
+    const sharedHit = matchSharedClassLeaks(css).length > 0;
+    const utilHit = detectUtilDefs(css).length > 0;
+    if ((sharedHit || utilHit) !== expect) throw Error(`规则8: 注入样式检测器失灵 ${JSON.stringify(src)}`);
+  }
+  console.log('SELF-TEST PASS: tsx 注入样式盲区检测器(4 例)——生产函数直调');
 
   // 任务B收口②③: 主色 hsl 家族检测器——评审注入案例入仓,直接调生产函数
   const hslCases = [

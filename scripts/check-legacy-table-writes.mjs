@@ -8,6 +8,10 @@
  *
  * 断言：src/server 生产代码禁止对 `project_assignments` 的写操作
  * （insert/update/del/delete/increment/decrement）。
+ * 守卫强度限制（EXP-B04 同式注记）：只识别 `db/trx/knex/conn/connection('project_assignments')`
+ * 字面量调用；raw SQL 写（`db.raw('INSERT INTO project_assignments…')`）、
+ * 别名表名（`const T='project_assignments'; db(T)`）扫不到（当前 raw 旧表写=0，
+ * 评审触及旧表读写时人工核）。
  * 白名单类别（EXP-B01 裁决）：迁移 / import / backup（restore）/ 工具端点，
  * 逐条挂理由；AssignmentRecalculationService 属冻结条目（D18 处置后销账）。
  *

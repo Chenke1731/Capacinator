@@ -305,7 +305,9 @@ export class RolesController extends BaseController {
     const result = await this.executeQuery(async () => {
       // I01v/D15：场景切片原语（缺省 baseline）；旧实现读 capacity_gaps_view
       // 且 orderBy('gap_fte') 列不存在（视图列名 capacity_gap_fte）——本端点
-      // 此前必 500（客户端 api-client.ts:371 死声明，无消费方）
+      // 此前必 500（客户端 api-client.ts:371 死声明，无消费方）。
+      // 排序口径（评审 N8）：capacity_gap_fte 降序=盈余最大在前（负数=缺口）；
+      // 若将来消费方要"缺口最大优先"应改升序并改此注记。
       const gaps = await roleCapacityGaps(this.db, resolveScenarioId(req.headers['x-scenario-id']));
       return gaps.sort((a, b) => b.capacity_gap_fte - a.capacity_gap_fte);
     }, req, res, 'Failed to fetch capacity gaps');

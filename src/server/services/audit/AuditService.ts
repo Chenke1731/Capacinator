@@ -69,7 +69,9 @@ export class AuditService {
     const filteredNewValues = this.filterSensitiveFields(params.newValues);
     
     // Calculate changed fields for UPDATE operations
-    const changedFields = params.action === 'UPDATE' 
+    // I01v 交付评审 N5：业务域前缀事件（INTAKE_UPDATE 等）同样应记变更字段
+    const isUpdateAction = params.action === 'UPDATE' || String(params.action).endsWith('_UPDATE');
+    const changedFields = isUpdateAction
       ? this.getChangedFields(filteredOldValues || undefined, filteredNewValues || undefined)
       : null;
 

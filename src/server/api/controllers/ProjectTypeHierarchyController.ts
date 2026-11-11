@@ -31,7 +31,9 @@ export class ProjectTypeHierarchyController extends BaseController {
     value: unknown,
     field: string
   ): { value?: number | null; error?: string } {
-    if (value === undefined || value === null || value === '') return { value: undefined };
+    // 仅 undefined/null 视为"未提供"；空串/空白串属脏输入（400）——
+    // 客户端清空字段发送的是 undefined（JSON 序列化即省略），不含空串
+    if (value === undefined || value === null) return { value: undefined };
     const num =
       typeof value === 'number'
         ? value

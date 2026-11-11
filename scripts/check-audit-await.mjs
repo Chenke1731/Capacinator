@@ -8,7 +8,8 @@
  *
  * 断言：src/server 生产中所有 `.logAuditEvent` 直接调用点前必须有 await。
  * 守卫强度限制（EXP-B04 同式注记）：只拦直接成员调用；`const f = req.logAuditEvent`
- * 别名后调用扫不到——评审触及审计接线时须人工核别名。
+ * 别名后调用、`req['logAuditEvent']` 方括号访问、`logBulkAuditEvents` 均不在
+ * 扫描面（现有 logBulk 调用点均 await，人工核）；评审触及审计接线时须核对。
  *
  * 用法：
  *   node scripts/check-audit-await.mjs              # 检查（pre-commit）

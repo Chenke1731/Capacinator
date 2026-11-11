@@ -19,6 +19,7 @@ const GATES = [
   ['INV-1', 'check-audit-whitelist.mjs'],
   ['INV-4', 'check-audit-await.mjs'],
   ['G2', 'check-legacy-table-writes.mjs'],
+  ['G3', 'check-reports-dates.mjs'],
   ['INV-2', 'check-numeric-defaults.mjs'],
 ];
 
@@ -32,4 +33,4 @@ for (const [label, script] of GATES) {
     process.exit(1);
   }
 }
-console.log(`✓ 后端门禁四合一通过（INV-1/INV-4/G2/INV-2${selftest ? '，含 SELF_TEST' : ''}）`);
+console.log(`✓ 后端门禁聚合通过（INV-1/INV-4/G2/G3/INV-2${selftest ? '，含 SELF_TEST' : ''}）`);

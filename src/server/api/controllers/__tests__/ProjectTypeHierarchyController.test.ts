@@ -349,6 +349,18 @@ describe('ProjectTypeHierarchyController', () => {
       expect(mockDb.insert).not.toHaveBeenCalled();
     });
 
+    it('I01v/D17：空串属脏输入 → 400（仅 undefined/null 才算未提供）', async () => {
+      mockDb._queueFirstResult({ id: 'type-1', parent_id: null });
+      mockDb._queueFirstResult(null);
+      mockReq.body = { phaseId: 'phase-1', orderIndex: 1, default_duration_days: '' };
+
+      await controller.addPhase(mockReq, mockRes);
+      await flushPromises();
+
+      expect(mockRes.status).toHaveBeenCalledWith(400);
+      expect(mockDb.insert).not.toHaveBeenCalled();
+    });
+
     it('I01v/D17：缺省 default_duration_days → 30', async () => {
       mockDb._queueFirstResult({ id: 'type-1', parent_id: null });
       mockDb._queueFirstResult(null);
@@ -603,6 +615,44 @@ describe('ProjectTypeHierarchyController', () => {
         })
       );
       expect(mockRes.json).toHaveBeenCalledWith({ success: true });
+    });
+
+    it('I01v/D17：update 显式 0 天保留（零时长里程碑）', async () => {
+      mockDb._queueFirstResult({ id: 'type-1', parent_id: null });
+      mockDb._queueFirstResult({ id: 'ptp-1' });
+      mockDb._setUpdateResult(1);
+      mockReq.body = { default_duration_days: 0, min_duration_days: 0 };
+
+      await controller.updatePhase(mockReq, mockRes);
+      await flushPromises();
+
+      const updateCall = mockDb.update.mock.calls[0][0];
+      expect(updateCall.default_duration_days).toBe(0);
+      expect(updateCall.min_duration_days).toBe(0);
+    });
+
+    it('I01v/D17：update 脏输入（非数字串）→ 400', async () => {
+      mockDb._queueFirstResult({ id: 'type-1', parent_id: null });
+      mockDb._queueFirstResult({ id: 'ptp-1' });
+      mockReq.body = { default_duration_days: 'abc' };
+
+      await controller.updatePhase(mockReq, mockRes);
+      await flushPromises();
+
+      expect(mockRes.status).toHaveBeenCalledWith(400);
+      expect(mockDb.update).not.toHaveBeenCalled();
+    });
+
+    it('I01v/D17：update 空白串 → 400', async () => {
+      mockDb._queueFirstResult({ id: 'type-1', parent_id: null });
+      mockDb._queueFirstResult({ id: 'ptp-1' });
+      mockReq.body = { min_duration_days: '   ' };
+
+      await controller.updatePhase(mockReq, mockRes);
+      await flushPromises();
+
+      expect(mockRes.status).toHaveBeenCalledWith(400);
+      expect(mockDb.update).not.toHaveBeenCalled();
     });
 
     it('returns 404 when project type not found', async () => {

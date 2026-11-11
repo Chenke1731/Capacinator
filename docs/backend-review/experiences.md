@@ -11,11 +11,10 @@ source: incident/2026-10-15-v2-import-writes-legacy-table（IP-02b 发现，IP-0
 class: 写路径×读侧切片
 mechanism_slice: write-path × scenario-slice-read
 disposition: GUARD
-guard: proposed — 导入/回填管线落表必须断言"切片读侧可见"：写完跑 effectiveAssignments/场景切片读，导入行不可见即红；禁止只断言 insert 行数
-verification: pending — 变异自证：把导入落表改回旧表 project_assignments（运行时 0 行），断言必须变红；当前实现（05d 导入写场景切片）上必须变绿
-status: candidate
-checklist_item: 写路径与读侧是否同一数据形状（人工项；守卫上线后删除）
-note: V2 导入写旧表 project_assignments，运行时 0 行，导入分配对切片读侧完全不可见（IP-02b 台账遗留列）；IP-05d 已修导入落表，防复发守卫待提炼。2026-11-11 场一评审同族第 2 次命中：AssignmentRecalculationService 全服务读写旧表且零生产调用（探针：'project' enum 已删 INSERT 被 CHECK 拒、recalc 恒 0 行；CLAUDE.md:158 仍宣称其负责级联）——同族 ≥2，守卫待办 G2：静态断言生产代码禁写 project_assignments（白名单=迁移/import/backup）
+guard: enforced — scripts/check-legacy-table-writes.mjs（G2，pre-commit 聚合 verify:backend-gates）：生产代码禁写 project_assignments（白名单=迁移/seed 整类豁免 + AssignmentRecalculationService 冻结/D18 + 工具端点/备份/生命周期兼容逐条理由）；SELF_TEST 4/4
+verification: done（2026-11-11，I01v v2/v3）— 变异自证：注入未授权 `trx('project_assignments').del()` → 脚本红；真实扫描绿（白名单 4 条）；G2 之外导出/导入/备份链路逐条核过
+status: enforced
+note: V2 导入写旧表 project_assignments，运行时 0 行，导入分配对切片读侧完全不可见（IP-02b 台账遗留列）；IP-05d 已修导入落表。2026-11-11 场一评审同族第 2 次命中：AssignmentRecalculationService 全服务读写旧表且零生产调用（探针：'project' enum 已删 INSERT 被 CHECK 拒、recalc 恒 0 行；CLAUDE.md:158 仍宣称其负责级联）——同族 ≥2，G2 已落地（I01v）；冻结条目随 D18 处置销账
 ```
 
 ```yaml exp
@@ -24,11 +23,10 @@ source: incident/2026-10-15-daybefore-utc-pitfall（IP-02d 途中修）
 class: 日期边界×UTC序列化
 mechanism_slice: date-boundary × toISOString-utc-shift
 disposition: GUARD
-guard: proposed — 日界比较/前推后推必须走统一日期原语（本地零点构造，workCalendar 族）；禁止 toISOString 结果直接做日界比较（UTC 序列化使本地零点倒退一天）
-verification: pending — 变异自证：对 dayBefore 注入 toISOString 直比实现，跨 UTC 边界用例必须变红
-status: candidate
-checklist_item: 日期差/边界计算是否经统一原语（人工项；守卫上线后删除）
-note: IP-02d SE 窗口计算中 dayBefore 的 toISOString UTC 时区坑——本地零点倒退一天；修复时已收敛进统一窗口计算，但项目无静态/用例守卫拦同类写法。2026-11-11 场一评审同族第 2 次命中：ReportDataService.ts:931 月桶边界 UTC 偏移（2027-01-01→2026-12-31 实测）+:45 缺省今天——同文件 :28-30 已有 toISODateLocal 原语未推广；守卫待办 G3：静态断言 reports 服务无 toISOString().split('T')[0] 裸写
+guard: enforced — scripts/check-reports-dates.mjs（G3，pre-commit 聚合）：reports 服务禁 toISOString().split('T')[0] 裸写，日期串统一 toISODateLocal/storedDateToIso；SELF_TEST 4/4（裸写/双引号变体红，原语/注释绿）。范围局限：仅 services/reports 目录、仅该写法（其他目录按需另立）
+verification: done（2026-11-11，I01v v1/v4）— 调用面收敛实测：ReportDataService 裸写×6→toISODateLocal（含 :931 月桶边界 2027-01-01→2026-12-31 实害）；变异自证：脚本 SELF_TEST 注入裸写→红
+status: enforced
+note: IP-02d SE 窗口计算中 dayBefore 的 toISOString UTC 时区坑——本地零点倒退一天；修复时已收敛进统一窗口计算。2026-11-11 场一评审同族第 2 次命中：ReportDataService.ts:931 月桶边界 UTC 偏移（2027-01-01→2026-12-31 实测）+:45 缺省今天——同文件 :28-30 已有 toISODateLocal 原语未推广。G3 原拟 reports 服务静态断言，已落地（I01v），台账"实体 6 条"计数由此对齐为 6（G1/G2/G3/INV-1/INV-2≡G4/INV-4）
 ```
 
 ```yaml exp
@@ -41,7 +39,7 @@ guard: proposed — 覆盖日期窗口的测试夹具必须相对"今天"生成�
 verification: pending — 变异自证：把夹具钉死 2026-10 并将假时钟拨到 2026-12，用例必须变红；相对化后拨钟必须仍绿
 status: candidate
 checklist_item: 日期窗口夹具是否相对化或冻结时钟（人工项；守卫上线后删除）
-note: personUtilizationView 2 例存量红：夹具钉 2026-10 窗口已滚出，stash 干净 HEAD 同样红（I01 台账 I01a 行记录，与本批无关，待另立小修）
+note: personUtilizationView 2 例存量红：夹具钉 2026-10 窗口已滚出，stash 干净 HEAD 同样红（I01 台账 I01a 行记录）。2026-11-11 更新（交付评审 R9）：批 B a0c8161 已改 windowAroundToday(±7) 相对窗口，隔离自跑 8/8 绿；本守卫（静态禁绝对月份）仍 candidate，检查项保留
 ```
 
 ```yaml exp
@@ -62,11 +60,10 @@ source: incident/2026-10-16-availability-100-fallback（ReportDataService.ts:693
 class: 缺省回退×合法零值
 mechanism_slice: default-fallback × explicit-zero-swallowed
 disposition: GUARD
-guard: proposed — 可用率/比例/工时读取一律区分 null（未设置→缺省）与 0（显式合法值）；禁止 `field || 100`/`field || 0` 直读——显式 0% 被当 100%、显式 0 工时被当缺省兜底
-verification: reproduced 2026-11-11 — 两场评审探针红证：AssignmentRecalculationService.ts:317（0% 人员+50% 分配→无冲突，场一 BR-F03）+ phaseInheritance.ts:65 `|| 30` 吞 0 天模板（场二 F3，同族第 2 活跃实例，修共享原语即双修 ProjectsController 同链）+ ReportDataService.ts:620/626/636/668 `||8` 四处（BR-F07；同文件 :729 已 ?? 修复形成新旧并存）；升级载体=INV-2 静态 lint（数值读取禁 || 缺省），lint 上线后 enforced
-status: candidate
-checklist_item: 数值读取是否区分 null 与显式 0（人工项；守卫上线后删除）
-note: `person.default_availability_percentage || 100`（AssignmentRecalculationService.ts:317）吞显式 0%；ReportDataService.ts:693 注释自认同类（"可用率 || 100 回退（显式 0% 被吞）"）。与 R07"合法 0 全保留"同族——本条是 backend-reviewer 试点第一场盲评对象
+guard: enforced — scripts/check-numeric-defaults.mjs（INV-2≡G4，pre-commit 聚合）：生产代码 `|| 非零数字字面量` 必须双栏归类（合法参数缺省 30 条逐条理由 / 存量缺陷冻结 2 条带台账引用），未分类即红；SELF_TEST 5/5。局限：按 file::literal 聚合（同文件同字面量共享豁免），`||0` 不扫（数值上≡??0）
+verification: done（2026-11-11，I01v v1/v3/v4）— 两场评审探针红证：AssignmentRecalculationService.ts:317（0% 人员+50% 分配→无冲突，场一 BR-F03）+ phaseInheritance.ts:65 `|| 30` 吞 0 天模板（场二 F3，同族第 2 活跃实例，修共享原语即双修 ProjectsController 同链）+ ReportDataService.ts:620/626/636/668 `||8` 四处（BR-F07）；INV-2 落地实测：全库 32 命中全归类，注入 `|| 30` 变异红证，同批修 CustomPhaseManagementService:395（同族第 3 实例）+AssignmentsController:1049（C09 族）
+status: enforced
+note: `person.default_availability_percentage || 100`（AssignmentRecalculationService.ts:317）吞显式 0%；ReportDataService.ts:693 注释自认同类（"可用率 || 100 回退（显式 0% 被吞）"）。与 R07"合法 0 全保留"同族——本条是 backend-reviewer 试点第一场盲评对象。INV-2 已落地（I01v），常驻检查项移除
 ```
 
 ```yaml exp
@@ -86,11 +83,10 @@ source: incident/2026-11-11-i01-intake-audit-whitelist-silent-skip（backend-rev
 class: 审计白名单×新表静默
 mechanism_slice: audit-whitelist × new-table-silent-skip
 disposition: GUARD
-guard: proposed — 接入 logAuditEvent 的新表必须同时进入 AUDIT_ENABLED_TABLES（config 默认+各 .env）；静态断言控制器审计表名 ⊆ 白名单并集（INV-1，提交时刻）
-verification: reproduced 2026-11-11 — 探针 isTableAudited("demand_intake")=false 对照 ("projects")=true；主代理抽查 .env 白名单 9 表证实；HTTP 断言（capture 后 audit_log 有行）修复前必红
-status: candidate
-checklist_item: 新表接入审计时白名单是否同步（人工项；INV-1 上线后删除）
-note: 白名单外仅 debug 日志静默跳过（enhancedAuditMiddleware.ts:182-185）；设计稿 §4.4 承诺 INTAKE_* 审计与 §7"不改白名单"裁决组合=承诺必然落空；裁决 D16=A（加白名单+action 对齐，须与 F4 await 修复同批）
+guard: enforced — scripts/check-audit-whitelist.mjs（INV-1，pre-commit 聚合）两态形：主断言=新增审计表（REQUIRED_TABLES）⊆ 白名单并集（config 默认+各 .env 解析）；普查报告=在编控制器审计表名中不在并集者逐条输出供台账裁决（不静默冻结）；SELF_TEST 4/4
+verification: done（2026-11-11，I01v v2）— 探针 isTableAudited("demand_intake")=false 对照 ("projects")=true；HTTP 断言（capture 后 audit_log 有行）修复前必红已实证（.env.test 移除 demand_intake → 审计套件 5/6 红）；普查实绩=存量 6 表立案 D21
+status: enforced
+note: 白名单外仅 debug 日志静默跳过（enhancedAuditMiddleware.ts:182-185）；设计稿 §4.4 承诺 INTAKE_* 审计与 §7"不改白名单"裁决组合=承诺必然落空；裁决 D16=A（加白名单+action 对齐，与 F4 await 同批落地）。INV-1 已上线（I01v），常驻检查项移除
 ```
 
 ```yaml exp
@@ -99,11 +95,10 @@ source: incident/2026-11-11-i01-floating-audit-crash（试点场二 F4，A 级�
 class: 浮动审计Promise×进程退出
 mechanism_slice: floating-promise × audit-rethrow
 disposition: GUARD
-guard: proposed — logAuditEvent 调用必须 await（存量全项目约定，对照 ProjectsController.ts:745/945/987）；静态规则禁未 await 调用（INV-4，提交前 lint）
-verification: reproduced 2026-11-11 — 探针（dev 模式+drop audit_log）实证未 await 审计调用→Unhandled Rejection→exit(1)；补 await 后失败进 sendIntakeError 错误路径
-status: candidate
-checklist_item: 审计调用点是否全部 await（人工项；INV-4 上线后删除）
-note: middleware 审计失败 re-throw + enhancedErrorHandler dev/test exit(1)、production 仅 log 静默丢失；createBatch 200 条=200 个浮动 Promise 放大面
+guard: enforced — scripts/check-audit-await.mjs（INV-4，pre-commit 聚合）：src/server 生产代码 `.logAuditEvent` 直接调用点必须 await，否则红；SELF_TEST 4/4（浮动/await/多行/成员访问）。局限：别名调用/方括号访问/logBulkAuditEvents 不在扫描面（人工核）
+verification: done（2026-11-11，I01v v2）— 探针（dev 模式+drop audit_log）实证未 await→Unhandled Rejection→exit(1)；7 处 intake 调用补 await 后失败进错误路径（intake-audit R5 用例固化 500+重试 409）
+status: enforced
+note: middleware 审计失败 re-throw + enhancedErrorHandler dev/test exit(1)、production 仅 log 静默丢失；createBatch 200 条=200 个浮动 Promise 放大面。INV-4 已上线（I01v），常驻检查项移除
 ```
 
 ```yaml exp
@@ -112,11 +107,10 @@ source: incident/2026-11-11-report-scenario-stacking（试点场一 BR-F01，A �
 class: 报表聚合×场景叠加
 mechanism_slice: report-aggregate × scenario-stacking
 disposition: GUARD
-guard: proposed — 隔离库断言：建 baseline 单分配记录数字→创建未改动分支场景→dashboard gaps/capacity/demand(缺省头) 数字必须逐一相等（G1，playwright api/集成测试提交点）；变异自证：对切片实现注入"去场景过滤"变体必红
-verification: reproduced 2026-11-11 — 真迁移探针：baseline 0.6 FTE/86h → 分支后 1.2/172；070 迁移注释自认"60% 变 120% 幻影超载"；getUtilizationReport 切片正确反衬口径分裂
-status: candidate
-checklist_item: 报表读侧是否全部走场景切片（人工项；G1 上线后删除）
-note: 缺省路径 applyScenarioFilter 直接 return + capacity_gaps_view/person_utilization 系视图无场景维度；裁决 D15=B（弃聚合视图改 activeAssignmentsInScenario 原语内联）
+guard: enforced — tests/integration/api/report-scenario-slice.test.ts（G1，server-integration 套件常驻）：A=baseline 原语 vs capacity_gaps_view 逐列对等（1.8FTE/1.3FTE 非空断言防抄写漂移）；B=建未改动分支前后四报表（dashboard/capacity/gaps/demand 缺省头）逐一相等；C=显式 baseline 头≡缺省头+branch 头敏感；D=baseline 行缺失态旧表轨道行仍计入（评审 N10）
+verification: done（2026-11-11，I01v v1/v4）— 真迁移探针红证：baseline 0.6 FTE/86h → 分支后 1.2/172；**变异自证**：去场景过滤→B/C 红（A 绿，A 只比对 CTE 抄写）；去 Contractor 0.8 折扣→A 红 B/C 绿
+status: enforced
+note: 缺省路径 applyScenarioFilter 直接 return + capacity_gaps_view/person_utilization 系视图无场景维度；裁决 D15=B（弃聚合视图改 activeAssignmentsInScenario 原语内联）。G1 已落地（I01v），常驻检查项移除
 ```
 
 ```yaml exp
@@ -127,7 +121,7 @@ mechanism_slice: architecture-doc × actual-call-graph
 disposition: DECISION
 decision: pending — D18 待裁决（先确认冲突检测使用频率：高频→C 读侧去物化；低频→B 接线切片轨）；处置前 CLAUDE.md:158 必须标注实际零调用
 status: candidate
-note: AssignmentRecalculationService 零生产调用（grep 仅 skip 测试）、读写已废弃旧表、引用已被迁移 024 删除的 'project' enum（INSERT 被 CHECK 拒、recalc 恒 0 行）；而 CLAUDE.md 仍宣称其负责阶段→分配级联，后续 agent 按文档接线会写废弃表
+note: AssignmentRecalculationService 零生产调用（grep 仅 skip 测试）、读写已废弃旧表、引用已被迁移 024 删除的 'project' enum（INSERT 被 CHECK 拒、recalc 恒 0 行）；而 CLAUDE.md 仍宣称其负责阶段→分配级联，后续 agent 按文档接线会写废弃表。D18 前置条件已执行：CLAUDE.md:158 已标注实际零调用（I01v v2）；裁决 D18 仍未定
 ```
 
 ```yaml exp
@@ -136,9 +130,43 @@ source: incident/2026-11-11-partial-refactor-primitive-not-adopted（试点场�
 class: 部分重构×原语未推广
 mechanism_slice: partial-refactor × primitive-not-adopted
 disposition: GUARD
-guard: proposed — 修复点名的行后必须收敛同文件/同族调用面，静态扫描承载（G3：reports 服务无 toISOString().split('T')[0] 裸写；G4/INV-2：数值读取禁 || 缺省）——只改增量行不改调用面=新旧口径并存
-verification: reproduced 2026-11-11 — ReportDataService.ts 同文件并存：?? 8（:729 已修）vs ||8（:620/626/636/668 未收敛）；toISODateLocal（:28-30 注释明记 R05 教训）vs toISOString 裸写（:931/:45）
+guard: enforced — 修复点名的行后必须收敛同文件/同族调用面，静态扫描承载（G3=scripts/check-reports-dates.mjs；G4/INV-2=scripts/check-numeric-defaults.mjs，均入 pre-commit 聚合）——只改增量行不改调用面=新旧口径并存
+verification: done（2026-11-11，I01v）— ReportDataService 同文件收敛：??8 推广至 :620/626/636/668（原与 :729 并存）、toISODateLocal 推广至 :45/:227/:228/:230/:931/:932（原与 :28-30 并存）；两守卫 SELF_TEST 4/4+5/5、真实扫描绿
+status: enforced
+note: 两处"正确原语就在同文件"却未被新代码采用——修复批必须含调用面收敛，不是只改被点名行。G3/G4 已上线（I01v），常驻检查项移除
+```
+
+```yaml exp
+id: EXP-B12
+source: review/2026-11-11-i01v-design+delivery（两轮评审新增）
+class: 守卫立项×存量违例未普查
+mechanism_slice: static-guard × violation-inventory-gap
+disposition: GUARD
+guard: proposed — 静态守卫立项批必须附"全库命中普查输出"；命中超预期时守卫形状须重设计（分栏冻结/普查报告两态），禁止把活缺陷静默塞进豁免清单。断言草案：守卫 PR/批的账目必须含普查命令与命中清单（数量+分类），SELF_TEST 覆盖"超预期命中"分支
+verification: reproduced 2026-11-11 — INV-1 按首版"全量⊆白名单"落地即红（存量 6 表）；INV-2 首版"仅参数缺省合法"与实况不符（非参数活命中 6+）→双栏冻结形
 status: candidate
-checklist_item: 修 bug 时是否顺带收敛同文件同族调用点（人工项；静态守卫上线后删除）
-note: 两处"正确原语就在同文件"却未被新代码采用——修复批必须含调用面收敛，不是只改被点名行
+checklist_item: 守卫立项时是否做过全库命中普查（人工项；守卫上线后删除）
+```
+
+```yaml exp
+id: EXP-B13
+source: review/2026-11-11-i01v-delivery（R4 同族）
+class: 审计枚举扩展×消费端失步
+mechanism_slice: audit-action-enum × consumer-fanout
+disposition: GUARD
+guard: proposed — 新增审计 action 字面量前缀（如 INTAKE_*）必须同时盘点三读者：①middleware 两处签名类型 ②AuditService 分支（UNDO 只认 CREATE/UPDATE/DELETE）③客户端撤销可用性与提示。断言草案：单测 undoSpecificChange(前缀 action 行)===false 不抛 + 客户端渲染该行无撤销按钮/undone:false 提示；静态断言审计 action 字面量集合 ⊆ 导出枚举
+verification: done（2026-11-11，I01v）— intake-audit「undoSpecificChange 对 INTAKE_* 返回 false」+ AuditLog 客户端两用例（INTAKE 行无撤销入口/undone:false 提示）已实证；静态枚举断言未做（三读者为人工盘点+测试承载）
+status: candidate
+checklist_item: 扩展审计 action 时三读者是否同步（人工项；静态断言上线后删除）
+```
+
+```yaml exp
+id: EXP-B14
+source: review/2026-11-11-i01v-delivery（N1-N3 台账数值不可复现）
+class: 台账证据×可复现性
+mechanism_slice: ledger-evidence × reproducibility
+disposition: NIT
+expires: 2027-02-11
+status: candidate
+note: 台账证据列出现 4655/1 vs HEAD 4656/0、21/21 vs 22/22、"A/B/C 全红"vs 实际 B/C 红——根因=数字未附命令、未区分中间态与 HEAD、未标 project 范围。台账规范：数字必须附可复现命令+范围+时点；同族再现升级 GUARD。
 ```

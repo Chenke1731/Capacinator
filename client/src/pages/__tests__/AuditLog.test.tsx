@@ -445,6 +445,61 @@ describe('AuditLog Page', () => {
         );
       });
     });
+
+    test('I01v/R4：INTAKE_* 行不渲染撤销按钮（仅 CREATE/UPDATE 可撤销）', async () => {
+      const intakeRow = {
+        ...mockAuditEntries[0],
+        id: 'audit-intake',
+        table_name: 'demand_intake',
+        record_id: 'intake-1',
+        action: 'INTAKE_CREATE',
+        changed_by: null,
+        old_values: null,
+        new_values: { title: '录入' },
+        changed_fields: null,
+      };
+      (apiClient.get as jest.Mock).mockImplementation((url) => {
+        if (url.includes('/audit/stats')) {
+          return Promise.resolve({ data: { data: mockStats } });
+        }
+        if (url.includes('/audit/search')) {
+          return Promise.resolve({ data: { data: [intakeRow, mockAuditEntries[0]] } });
+        }
+        return Promise.reject(new Error('Unknown endpoint'));
+      });
+
+      render(<AuditLog />);
+
+      await waitFor(() => {
+        expect(screen.getAllByText('Details')).toHaveLength(2);
+      });
+
+      // 两行中只有 CREATE 行有撤销入口
+      expect(screen.getAllByText('Undo')).toHaveLength(1);
+      expect(screen.getByText('Intake captured')).toBeInTheDocument();
+    });
+
+    test('I01v/R4：undone:false 时提示不支持撤销（不再谎报成功）', async () => {
+      const user = userEvent.setup();
+      (window.confirm as jest.Mock).mockReturnValue(true);
+      (window.alert as jest.Mock).mockImplementation(() => {});
+      (apiClient.post as jest.Mock).mockResolvedValue({
+        data: { success: true, data: { undone: false } },
+      });
+
+      render(<AuditLog />);
+
+      await waitFor(() => {
+        expect(screen.getAllByText('Undo')[0]).toBeInTheDocument();
+      });
+
+      await user.click(screen.getAllByText('Undo')[0]);
+
+      await waitFor(() => {
+        expect(window.alert).toHaveBeenCalledWith('This action cannot be undone');
+      });
+      expect(window.alert).not.toHaveBeenCalledWith('Change undone successfully');
+    });
   });
 
   describe('Filtering', () => {

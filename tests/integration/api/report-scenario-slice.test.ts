@@ -271,4 +271,43 @@ describe('G1 报表读侧场景切片（D15/EXP-B09）', () => {
       defaultResp.status === 200 ? (await request.get('/api/reporting/dashboard')).body.data.capacityGaps : null
     );
   });
+
+  test('D. baseline 场景行缺失（迁移-only/恢复库态）：旧表轨道行仍计入缺省需求报表', async () => {
+    // 部署态：迁移不建 baseline scenarios 行（seeds/恢复库才有），旧表
+    // project_assignments 尚有行。旧实现 getScenarioType 返回 undefined →
+    // 走 scenario_id=baseline-uuid 分支 → scenario_id IS NULL 的旧表行被漏计。
+    await db('scenario_project_assignments').where({ scenario_id: BASELINE_SCENARIO_ID }).del();
+    await db('scenarios').where({ id: BASELINE_SCENARIO_ID }).del();
+    await db('project_assignments').insert({
+      id: 'i01v-legacy-pa-1',
+      project_id: PROJECT_ID,
+      person_id: PERSON_FTE,
+      role_id: ROLE_ID,
+      allocation_percentage: 20,
+      assignment_date_mode: 'fixed',
+      start_date: '2026-01-05',
+      end_date: '2026-12-31',
+      status: 'active',
+    });
+
+    try {
+      const service = new ReportDataService(db);
+      const demand = await service.getDemandReport({});
+      expect(demand.summary.total_hours).toBeGreaterThan(0);
+    } finally {
+      await db('project_assignments').where({ id: 'i01v-legacy-pa-1' }).del();
+      // 恢复 baseline 场景行与分配（本用例在文件内最后执行，仍保持自清理）
+      await db('scenarios').insert({
+        id: BASELINE_SCENARIO_ID,
+        name: '基线',
+        created_by: PERSON_FTE,
+        status: 'active',
+        scenario_type: 'baseline',
+      });
+      await seedScenarioAssignments(BASELINE_SCENARIO_ID, [
+        { person: PERSON_FTE, allocation: 50 },
+        { person: PERSON_CONTRACTOR, allocation: 30 },
+      ]);
+    }
+  });
 });

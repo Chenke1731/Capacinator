@@ -154,7 +154,7 @@ export function AuditLog() {
         if (!value) return t('auditLog:actions.UNKNOWN');
         return (
           <span className={`audit-action audit-action--${value.toLowerCase()}`}>
-            {t(`auditLog:actions.${value}`)}
+            {t(`auditLog:actions.${value}`, { defaultValue: value })}
           </span>
         );
       }

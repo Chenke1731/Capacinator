@@ -834,7 +834,10 @@ export class ReportDataService {
       return query;
     }
 
-    if (scenarioType === 'baseline') {
+    // I01v 交付评审 N10：baseline 特例不能只依赖 scenarios 行存在——迁移不建
+    // baseline 行（seeds/恢复库才有），此时 getScenarioType 返回 undefined，
+    // 旧表轨道（scenario_id IS NULL）的行会被漏计。按 id 常量短路。
+    if (scenarioType === 'baseline' || scenarioId === BASELINE_SCENARIO_ID) {
       return query.where(function (this: Knex.QueryBuilder) {
         this.whereNull('scenario_id').orWhere('scenario_id', scenarioId);
       });

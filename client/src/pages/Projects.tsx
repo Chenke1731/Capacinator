@@ -107,7 +107,10 @@ const REQ_COLUMNS = [
   { key: 'iter', def: [80, 78, 0], min: 60, max: 200, kind: 'cap', cap: [90, 88, 0] }, /* 迭代窗口(2026-09-23 拆列) */
   { key: 'priority', def: [44, 44, 44], min: 40, max: 120 },
   { key: 'primary', def: [88, 80, 0], min: 56, max: 200 },
-  { key: 'actions', def: [92, 92, 92], min: 64, max: 200 }
+  /* 批 D 收官(2026-11-11): 92→112——3 钮(3×32px)+2 间距(2×8px)=112px,
+     92px 装不下时居中 flex 两侧各溢 12px,左钮渗过 8px 列距压进 primary 列
+     (verify:visual 碰撞×2 真因)。CSS 四处字面量兜底同步。 */
+  { key: 'actions', def: [112, 112, 112], min: 64, max: 200 }
 ] as const;
 type ReqColKey = (typeof REQ_COLUMNS)[number]['key'];
 /* v5: 列集变更(前置选择列)必须 bump 版本,旧宽度按旧列预算调优,残留会挤压名称列 */

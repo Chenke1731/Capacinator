@@ -179,22 +179,12 @@ for (const combo of COMBOS) {
   const collisionScope=await page.locator('[role="dialog"]').filter({visible:true}).count()?'[role="dialog"]':await page.locator('.modal-overlay').count()?'.modal-overlay':STATE==='filter'?'.filter-dropdown-content':await page.locator('.unified-tab-content').count()?'.unified-tab-content':profile.root;
   if(!await page.locator(collisionScope).count())throw new Error(`Missing collision root ${collisionScope}`);
   const collisions = await findCollisions(page, collisionScope);
-  // 碰撞旧债冻结（批 C 立、批 D 更正注记，2026-11-11）：需求台 1600 档两对
-  // 4×24px 重叠——批 D 诊断实锤为**真实列间渗出**（req-primary 药丸 77px 全
-  // 可见，向右渗入操作列压住 req-icon-btn 4px），非裁剪残片——findCollisions
-  // 的裁剪感知判据（确属被裁且 <8px 才跳）正确地未吞掉它们。修复=需求台
-  // 默认列宽/药丸收缩的产品级调整。键=碰撞文本前缀（y 随行序浮动）。
-  const COLLISION_EXCEPTIONS = new Map([
-    ['未投入×', { expiry: '2026-12-31', note: '需求台 1600:primary 药丸渗入操作列 4px 压住 icon-btn,pre-A 旧债(批 D 更正:真实渗出非裁剪残片)' }],
-    ['孙孙前端11-0×', { expiry: '2026-12-31', note: '同族:聚合行 primary 药丸列间渗出' }],
-  ]);
-  const novelCollisions = collisions.filter(c =>
-    ![...COLLISION_EXCEPTIONS].some(([prefix, meta]) =>
-      c.startsWith(prefix) && new Date(meta.expiry).getTime() >= Date.now())
-  );
-  check(`碰撞 ${tag}: 零重叠`, novelCollisions.length === 0,
-    novelCollisions.slice(0, 3).join(' | ') +
-    (novelCollisions.length < collisions.length ? `（${collisions.length - novelCollisions.length} 条旧债冻结中,2026-12-31 到期）` : ''));
+  // COLLISION_EXCEPTIONS 已解冻移除（批 D 收官，2026-11-11）：两对需求台
+  // 重叠真因=操作列默认宽 92px 装不下 112px 内容（3 钮+2 间距），居中 flex
+  // 左侧溢出 12px、左钮渗过 8px 列距压进 primary 列——列宽默认 92→112px
+  //（JS def + CSS 四处字面量）+ .requirements-actions min-width:max-content
+  // 兜底后碰撞双主题清零，冻结清账。
+  check(`碰撞 ${tag}: 零重叠`, collisions.length === 0, collisions.slice(0, 3).join(' | '));
   const overflow = await findOverflow(page);
   check(`溢出 ${tag}: 无横向滚动`, overflow.length === 0, overflow.join(' | '));
 

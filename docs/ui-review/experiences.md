@@ -68,3 +68,39 @@ status: candidate
 checklist_item: 列表页摘要/空态是否按 query 成败与筛选状态区分、截断是否有指示（人工项；守卫上线后删除）
 note: `countsQuery.data ?? {new:0,…}` 失败静默兜底 0（U05 同族）；空态单分支吞掉"无匹配"（G-11）；API limit 200 截断无指示（G-04）；1366 隐藏列不进详情（G-05，U16 同族）。bundle 首次把四态做成可重复断言
 ```
+
+```yaml exp
+id: EXP-006
+source: series/2026-11-10~11-d03-batches（消费证据六次命中：B1 G-D PTD badge/checkbox 族、B2 G-1 People badge-info、B3 G-1 ProjectTypeDetails form-group、批A NUCLEAR"同值冗余"实为生效值异值、批D visual 活簇误判+模板非直缀漏网）
+class: 消费证据×保留决策（存在≠消费）
+mechanism_slice: consumption-evidence × preservation-decision
+disposition: GUARD
+guard: 方案评审门禁（enforced as process gate）— 任何"作用域化保留/差量保留"决策必须附消费证据 file:line，且消费判定必须覆盖四类非字面构造：①i18next 复数/区间后缀折叠 ②常量组映射（ENUM_GROUPS 经 i18n.exists 全动态）③模板串非 t() 直缀（helper-return/const 赋值）④定义面≠生效面（!important 层压下的真实生效值）；零消费只允许删除清账
+verification: 六次命中回放 — 每例按"存在≠消费"回放均被拒：PTD badge 族 TSX 零引用、People badge-info 全库仅 1 处消费、PTD form-group 三组零消费、NUCLEAR label 块异值生效（删而不吸收则 13 label 漂移）、visual 簇 16 键活消费、lifecycle.state.* 63 键经 helper-return 模板消费（不修正扫描器则全站显原始键串）
+status: candidate
+note: 台账 I01i/I01j/I01k/I01n/I01q 五行均有"第 N 次普查修正"记录；配套工具 check-i18n-dead-keys.mjs 已实现四类折叠判定。enforced 化为机器门禁的路径：方案 diff 扫描保留类关键词时强制检查消费证据节存在性（未做，触发条件=下一次保留类方案）
+```
+
+```yaml exp
+id: EXP-007
+source: series/2026-11-11（删文件×守卫台账解绑四次命中：B3 G-2 Login.css/ProjectAllocations 预估 8 实际 42、I01l ScenarioComparison 死页 19+getPriorityColor 5、批B G-1 Charts.css fixture 动态 import 尾巴、批D personUtilizationView 台账豁免销账）
+class: 删文件×守卫台账解绑
+mechanism_slice: file-deletion × guard-ledger
+disposition: GUARD
+guard: 方案必填节（enforced as process gate）— 删除任何源文件前：①grep tests/ 台账 JSON（color-debt/state-budget/axe-exceptions）枚举将孤儿化的注册身份数目 ②grep 全库动态导入字符串（await import 含 fixtures）③删除后逐指纹 --resolve-orphan + 对应 --check 绿；三者写入方案 C 步骤
+verification: 四次命中回放 — B3 不解绑则 verify:colors checkLedger"Orphan still in ledger"必红（CI 实锤）；批B fixture 动态 import 不删则 vite 构建炸+verify-chart-colors 崩；tokenize 解绑在消费者消亡后"Invaliate rename mapping/no matching consumer"红（批D 实测改判 delete）
+status: candidate
+note: 台账 I01k/I01l/I01o/I01q 均有 EXP-NEW-2 命中记录。机器化路径：pre-commit 钩子检测 staged 删除的源文件 × 台账 JSON 引用（未做，触发条件=下一次删文件批）
+```
+
+```yaml exp
+id: EXP-008
+source: incident/2026-11-11-PhaseTimelineStyles-shadow-stylesheet（D-04 Stage 2 评审 G-1 发现：运行时 <style> 注入 .modal-content/.form-* 全局定义，规则 2/6 只扫 .css 全盲——D-03 三批清理从未见过这个第二样式源）
+class: 注入样式×共享类定义（守卫边界按扩展名划定而非样式来源）
+mechanism_slice: injected-style-tag × shared-class-definitions
+disposition: GUARD
+guard: lint:ui 规则 8 — tsx `<style>{...}</style>` 文本块提取（正则够用级），复用规则 6 左端锚点与规则 2 工具类判据；命中共享类/工具类即报；INJECTED_STYLE_ALLOWLIST 冻结存量（当前为空）
+verification: SELF_TEST 4 例生产函数直调 — `<style>.badge{}</style>` 必红 / `.x-page .form-group` 必绿 / `.btn-sm` 必红 / 无 style 块必绿；PhaseTimelineStyles 事故实例回放即红；上线后生产扫描零违例
+status: enforced
+note: 同族前身：规则 2/6 以 .css 扩展名划定守卫边界，注入式 `<style>` 是零覆盖盲区——教训是守卫边界应按"样式定义来源"而非文件类型划定。批 D 执行中该家族整个死代码删除（PhaseTimeline.tsx 零导入者），注入源消失，规则 8 作为防线常驻
+```

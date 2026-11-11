@@ -24,7 +24,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 282,
+          "clipLeft": 250,
+          "offsetLeft": 32
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -45,7 +48,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 382,
+          "clipLeft": 250,
+          "offsetLeft": 132
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(3)",
@@ -66,7 +72,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 482,
+          "clipLeft": 250,
+          "offsetLeft": 232
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -83,11 +92,14 @@
           "textual": true,
           "disabled": false,
           "width": 90,
-          "height": 44,
+          "height": 40,
           "font": 14,
           "top": 124,
           "clipTop": 100,
-          "offsetTop": 24
+          "offsetTop": 24,
+          "left": 282,
+          "clipLeft": 250,
+          "offsetLeft": 32
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -104,11 +116,14 @@
           "textual": true,
           "disabled": false,
           "width": 90,
-          "height": 44,
+          "height": 40,
           "font": 14,
           "top": 124,
           "clipTop": 100,
-          "offsetTop": 24
+          "offsetTop": 24,
+          "left": 380,
+          "clipLeft": 250,
+          "offsetLeft": 130
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -125,11 +140,14 @@
           "textual": true,
           "disabled": false,
           "width": 118,
-          "height": 44,
+          "height": 40,
           "font": 14,
           "top": 124,
           "clipTop": 100,
-          "offsetTop": 24
+          "offsetTop": 24,
+          "left": 486,
+          "clipLeft": 250,
+          "offsetLeft": 236
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > select:nth-of-type(1)",
@@ -148,9 +166,12 @@
           "width": 110,
           "height": 39,
           "font": 14,
-          "top": 246,
+          "top": 242,
           "clipTop": 100,
-          "offsetTop": 146
+          "offsetTop": 142,
+          "left": 299,
+          "clipLeft": 250,
+          "offsetLeft": 49
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -169,9 +190,12 @@
           "width": 44,
           "height": 44,
           "font": 16,
-          "top": 358,
+          "top": 354,
           "clipTop": 100,
-          "offsetTop": 258
+          "offsetTop": 254,
+          "left": 306,
+          "clipLeft": 250,
+          "offsetLeft": 56
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -190,13 +214,33 @@
           "width": 44,
           "height": 44,
           "font": 16,
-          "top": 358,
+          "top": 354,
           "clipTop": 100,
-          "offsetTop": 258
+          "offsetTop": 254,
+          "left": 1500,
+          "clipLeft": 250,
+          "offsetLeft": 1250
         }
       ],
       "issues": [],
       "scope": "main",
+      "staticGaps": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "kind": "static-top-gap",
+          "value": "offset 2.0"
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
+          "kind": "static-top-gap",
+          "value": "offset 2.0"
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(3)",
+          "kind": "static-top-gap",
+          "value": "offset 2.0"
+        }
+      ],
       "axe": [],
       "newIssues": []
     },
@@ -223,7 +267,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 282,
+          "clipLeft": 250,
+          "offsetLeft": 32
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -244,7 +291,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 382,
+          "clipLeft": 250,
+          "offsetLeft": 132
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(3)",
@@ -265,7 +315,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 482,
+          "clipLeft": 250,
+          "offsetLeft": 232
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -282,11 +335,14 @@
           "textual": true,
           "disabled": false,
           "width": 90,
-          "height": 44,
+          "height": 40,
           "font": 14,
           "top": 124,
           "clipTop": 100,
-          "offsetTop": 24
+          "offsetTop": 24,
+          "left": 282,
+          "clipLeft": 250,
+          "offsetLeft": 32
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -303,11 +359,14 @@
           "textual": true,
           "disabled": false,
           "width": 90,
-          "height": 44,
+          "height": 40,
           "font": 14,
           "top": 124,
           "clipTop": 100,
-          "offsetTop": 24
+          "offsetTop": 24,
+          "left": 380,
+          "clipLeft": 250,
+          "offsetLeft": 130
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -324,11 +383,14 @@
           "textual": true,
           "disabled": false,
           "width": 118,
-          "height": 44,
+          "height": 40,
           "font": 14,
           "top": 124,
           "clipTop": 100,
-          "offsetTop": 24
+          "offsetTop": 24,
+          "left": 486,
+          "clipLeft": 250,
+          "offsetLeft": 236
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > select:nth-of-type(1)",
@@ -347,9 +409,12 @@
           "width": 110,
           "height": 39,
           "font": 14,
-          "top": 246,
+          "top": 242,
           "clipTop": 100,
-          "offsetTop": 146
+          "offsetTop": 142,
+          "left": 299,
+          "clipLeft": 250,
+          "offsetLeft": 49
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -368,9 +433,12 @@
           "width": 44,
           "height": 44,
           "font": 16,
-          "top": 358,
+          "top": 354,
           "clipTop": 100,
-          "offsetTop": 258
+          "offsetTop": 254,
+          "left": 306,
+          "clipLeft": 250,
+          "offsetLeft": 56
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -389,9 +457,12 @@
           "width": 44,
           "height": 44,
           "font": 16,
-          "top": 358,
+          "top": 354,
           "clipTop": 100,
-          "offsetTop": 258
+          "offsetTop": 254,
+          "left": 1500,
+          "clipLeft": 250,
+          "offsetLeft": 1250
         }
       ],
       "issues": [],
@@ -422,7 +493,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 282,
+          "clipLeft": 250,
+          "offsetLeft": 32
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -443,7 +517,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 382,
+          "clipLeft": 250,
+          "offsetLeft": 132
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(3)",
@@ -464,7 +541,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 482,
+          "clipLeft": 250,
+          "offsetLeft": 232
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -481,11 +561,14 @@
           "textual": true,
           "disabled": false,
           "width": 90,
-          "height": 44,
+          "height": 40,
           "font": 14,
           "top": 124,
           "clipTop": 100,
-          "offsetTop": 24
+          "offsetTop": 24,
+          "left": 282,
+          "clipLeft": 250,
+          "offsetLeft": 32
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -502,11 +585,14 @@
           "textual": true,
           "disabled": false,
           "width": 90,
-          "height": 44,
+          "height": 40,
           "font": 14,
           "top": 124,
           "clipTop": 100,
-          "offsetTop": 24
+          "offsetTop": 24,
+          "left": 380,
+          "clipLeft": 250,
+          "offsetLeft": 130
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -523,11 +609,14 @@
           "textual": true,
           "disabled": false,
           "width": 118,
-          "height": 44,
+          "height": 40,
           "font": 14,
           "top": 124,
           "clipTop": 100,
-          "offsetTop": 24
+          "offsetTop": 24,
+          "left": 486,
+          "clipLeft": 250,
+          "offsetLeft": 236
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > select:nth-of-type(1)",
@@ -546,9 +635,12 @@
           "width": 110,
           "height": 39,
           "font": 14,
-          "top": 246,
+          "top": 242,
           "clipTop": 100,
-          "offsetTop": 146
+          "offsetTop": 142,
+          "left": 299,
+          "clipLeft": 250,
+          "offsetLeft": 49
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -567,9 +659,12 @@
           "width": 44,
           "height": 44,
           "font": 16,
-          "top": 358,
+          "top": 354,
           "clipTop": 100,
-          "offsetTop": 258
+          "offsetTop": 254,
+          "left": 306,
+          "clipLeft": 250,
+          "offsetLeft": 56
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -588,9 +683,12 @@
           "width": 44,
           "height": 44,
           "font": 16,
-          "top": 358,
+          "top": 354,
           "clipTop": 100,
-          "offsetTop": 258
+          "offsetTop": 254,
+          "left": 1500,
+          "clipLeft": 250,
+          "offsetLeft": 1250
         }
       ],
       "issues": [],
@@ -621,7 +719,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 282,
+          "clipLeft": 250,
+          "offsetLeft": 32
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -642,7 +743,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 382,
+          "clipLeft": 250,
+          "offsetLeft": 132
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(3)",
@@ -663,7 +767,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 482,
+          "clipLeft": 250,
+          "offsetLeft": 232
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -680,11 +787,14 @@
           "textual": true,
           "disabled": false,
           "width": 90,
-          "height": 44,
+          "height": 40,
           "font": 14,
           "top": 124,
           "clipTop": 100,
-          "offsetTop": 24
+          "offsetTop": 24,
+          "left": 282,
+          "clipLeft": 250,
+          "offsetLeft": 32
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -701,11 +811,14 @@
           "textual": true,
           "disabled": false,
           "width": 90,
-          "height": 44,
+          "height": 40,
           "font": 14,
           "top": 124,
           "clipTop": 100,
-          "offsetTop": 24
+          "offsetTop": 24,
+          "left": 380,
+          "clipLeft": 250,
+          "offsetLeft": 130
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -722,11 +835,14 @@
           "textual": true,
           "disabled": false,
           "width": 118,
-          "height": 44,
+          "height": 40,
           "font": 14,
           "top": 124,
           "clipTop": 100,
-          "offsetTop": 24
+          "offsetTop": 24,
+          "left": 486,
+          "clipLeft": 250,
+          "offsetLeft": 236
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > select:nth-of-type(1)",
@@ -745,9 +861,12 @@
           "width": 110,
           "height": 39,
           "font": 14,
-          "top": 246,
+          "top": 242,
           "clipTop": 100,
-          "offsetTop": 146
+          "offsetTop": 142,
+          "left": 299,
+          "clipLeft": 250,
+          "offsetLeft": 49
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -766,9 +885,12 @@
           "width": 44,
           "height": 44,
           "font": 16,
-          "top": 358,
+          "top": 354,
           "clipTop": 100,
-          "offsetTop": 258
+          "offsetTop": 254,
+          "left": 306,
+          "clipLeft": 250,
+          "offsetLeft": 56
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -787,9 +909,12 @@
           "width": 44,
           "height": 44,
           "font": 16,
-          "top": 358,
+          "top": 354,
           "clipTop": 100,
-          "offsetTop": 258
+          "offsetTop": 254,
+          "left": 1500,
+          "clipLeft": 250,
+          "offsetLeft": 1250
         }
       ],
       "issues": [],
@@ -820,7 +945,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 282,
+          "clipLeft": 250,
+          "offsetLeft": 32
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -841,7 +969,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 382,
+          "clipLeft": 250,
+          "offsetLeft": 132
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(3)",
@@ -862,7 +993,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 482,
+          "clipLeft": 250,
+          "offsetLeft": 232
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -879,11 +1013,14 @@
           "textual": true,
           "disabled": false,
           "width": 90,
-          "height": 44,
+          "height": 40,
           "font": 14,
           "top": 124,
           "clipTop": 100,
-          "offsetTop": 24
+          "offsetTop": 24,
+          "left": 282,
+          "clipLeft": 250,
+          "offsetLeft": 32
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -900,11 +1037,14 @@
           "textual": true,
           "disabled": false,
           "width": 90,
-          "height": 44,
+          "height": 40,
           "font": 14,
           "top": 124,
           "clipTop": 100,
-          "offsetTop": 24
+          "offsetTop": 24,
+          "left": 380,
+          "clipLeft": 250,
+          "offsetLeft": 130
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -921,11 +1061,14 @@
           "textual": true,
           "disabled": false,
           "width": 118,
-          "height": 44,
+          "height": 40,
           "font": 14,
           "top": 124,
           "clipTop": 100,
-          "offsetTop": 24
+          "offsetTop": 24,
+          "left": 486,
+          "clipLeft": 250,
+          "offsetLeft": 236
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > select:nth-of-type(1)",
@@ -944,9 +1087,12 @@
           "width": 110,
           "height": 39,
           "font": 14,
-          "top": 246,
+          "top": 242,
           "clipTop": 100,
-          "offsetTop": 146
+          "offsetTop": 142,
+          "left": 299,
+          "clipLeft": 250,
+          "offsetLeft": 49
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -965,9 +1111,12 @@
           "width": 44,
           "height": 44,
           "font": 16,
-          "top": 358,
+          "top": 354,
           "clipTop": 100,
-          "offsetTop": 258
+          "offsetTop": 254,
+          "left": 306,
+          "clipLeft": 250,
+          "offsetLeft": 56
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -986,9 +1135,12 @@
           "width": 44,
           "height": 44,
           "font": 16,
-          "top": 358,
+          "top": 354,
           "clipTop": 100,
-          "offsetTop": 258
+          "offsetTop": 254,
+          "left": 1500,
+          "clipLeft": 250,
+          "offsetLeft": 1250
         }
       ],
       "issues": [],
@@ -1019,7 +1171,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 282,
+          "clipLeft": 250,
+          "offsetLeft": 32
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -1040,7 +1195,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 382,
+          "clipLeft": 250,
+          "offsetLeft": 132
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(3)",
@@ -1061,7 +1219,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 482,
+          "clipLeft": 250,
+          "offsetLeft": 232
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -1078,11 +1239,14 @@
           "textual": true,
           "disabled": false,
           "width": 90,
-          "height": 44,
+          "height": 40,
           "font": 14,
           "top": 124,
           "clipTop": 100,
-          "offsetTop": 24
+          "offsetTop": 24,
+          "left": 282,
+          "clipLeft": 250,
+          "offsetLeft": 32
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -1099,11 +1263,14 @@
           "textual": true,
           "disabled": false,
           "width": 90,
-          "height": 44,
+          "height": 40,
           "font": 14,
           "top": 124,
           "clipTop": 100,
-          "offsetTop": 24
+          "offsetTop": 24,
+          "left": 380,
+          "clipLeft": 250,
+          "offsetLeft": 130
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -1120,11 +1287,14 @@
           "textual": true,
           "disabled": false,
           "width": 118,
-          "height": 44,
+          "height": 40,
           "font": 14,
           "top": 124,
           "clipTop": 100,
-          "offsetTop": 24
+          "offsetTop": 24,
+          "left": 486,
+          "clipLeft": 250,
+          "offsetLeft": 236
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > select:nth-of-type(1)",
@@ -1143,9 +1313,12 @@
           "width": 110,
           "height": 39,
           "font": 14,
-          "top": 246,
+          "top": 242,
           "clipTop": 100,
-          "offsetTop": 146
+          "offsetTop": 142,
+          "left": 299,
+          "clipLeft": 250,
+          "offsetLeft": 49
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -1164,9 +1337,12 @@
           "width": 44,
           "height": 44,
           "font": 16,
-          "top": 358,
+          "top": 354,
           "clipTop": 100,
-          "offsetTop": 258
+          "offsetTop": 254,
+          "left": 306,
+          "clipLeft": 250,
+          "offsetLeft": 56
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -1185,9 +1361,12 @@
           "width": 44,
           "height": 44,
           "font": 16,
-          "top": 358,
+          "top": 354,
           "clipTop": 100,
-          "offsetTop": 258
+          "offsetTop": 254,
+          "left": 1500,
+          "clipLeft": 250,
+          "offsetLeft": 1250
         }
       ],
       "issues": [],
@@ -1218,7 +1397,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 282,
+          "clipLeft": 250,
+          "offsetLeft": 32
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -1239,7 +1421,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 382,
+          "clipLeft": 250,
+          "offsetLeft": 132
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(3)",
@@ -1260,7 +1445,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 482,
+          "clipLeft": 250,
+          "offsetLeft": 232
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -1277,11 +1465,14 @@
           "textual": true,
           "disabled": false,
           "width": 90,
-          "height": 44,
+          "height": 40,
           "font": 14,
           "top": 124,
           "clipTop": 100,
-          "offsetTop": 24
+          "offsetTop": 24,
+          "left": 282,
+          "clipLeft": 250,
+          "offsetLeft": 32
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -1298,11 +1489,14 @@
           "textual": true,
           "disabled": false,
           "width": 90,
-          "height": 44,
+          "height": 40,
           "font": 14,
           "top": 124,
           "clipTop": 100,
-          "offsetTop": 24
+          "offsetTop": 24,
+          "left": 380,
+          "clipLeft": 250,
+          "offsetLeft": 130
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -1319,11 +1513,14 @@
           "textual": true,
           "disabled": false,
           "width": 118,
-          "height": 44,
+          "height": 40,
           "font": 14,
           "top": 124,
           "clipTop": 100,
-          "offsetTop": 24
+          "offsetTop": 24,
+          "left": 486,
+          "clipLeft": 250,
+          "offsetLeft": 236
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > select:nth-of-type(1)",
@@ -1342,9 +1539,12 @@
           "width": 110,
           "height": 39,
           "font": 14,
-          "top": 246,
+          "top": 242,
           "clipTop": 100,
-          "offsetTop": 146
+          "offsetTop": 142,
+          "left": 299,
+          "clipLeft": 250,
+          "offsetLeft": 49
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -1363,9 +1563,12 @@
           "width": 44,
           "height": 44,
           "font": 16,
-          "top": 358,
+          "top": 354,
           "clipTop": 100,
-          "offsetTop": 258
+          "offsetTop": 254,
+          "left": 306,
+          "clipLeft": 250,
+          "offsetLeft": 56
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -1384,9 +1587,12 @@
           "width": 44,
           "height": 44,
           "font": 16,
-          "top": 358,
+          "top": 354,
           "clipTop": 100,
-          "offsetTop": 258
+          "offsetTop": 254,
+          "left": 1500,
+          "clipLeft": 250,
+          "offsetLeft": 1250
         }
       ],
       "issues": [],
@@ -1417,7 +1623,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 282,
+          "clipLeft": 250,
+          "offsetLeft": 32
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -1438,7 +1647,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 382,
+          "clipLeft": 250,
+          "offsetLeft": 132
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(3)",
@@ -1459,7 +1671,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 482,
+          "clipLeft": 250,
+          "offsetLeft": 232
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -1476,11 +1691,14 @@
           "textual": true,
           "disabled": false,
           "width": 90,
-          "height": 44,
+          "height": 40,
           "font": 14,
           "top": 124,
           "clipTop": 100,
-          "offsetTop": 24
+          "offsetTop": 24,
+          "left": 282,
+          "clipLeft": 250,
+          "offsetLeft": 32
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -1497,11 +1715,14 @@
           "textual": true,
           "disabled": false,
           "width": 90,
-          "height": 44,
+          "height": 40,
           "font": 14,
           "top": 124,
           "clipTop": 100,
-          "offsetTop": 24
+          "offsetTop": 24,
+          "left": 380,
+          "clipLeft": 250,
+          "offsetLeft": 130
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -1518,11 +1739,14 @@
           "textual": true,
           "disabled": false,
           "width": 118,
-          "height": 44,
+          "height": 40,
           "font": 14,
           "top": 124,
           "clipTop": 100,
-          "offsetTop": 24
+          "offsetTop": 24,
+          "left": 486,
+          "clipLeft": 250,
+          "offsetLeft": 236
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > select:nth-of-type(1)",
@@ -1541,9 +1765,12 @@
           "width": 110,
           "height": 39,
           "font": 14,
-          "top": 246,
+          "top": 242,
           "clipTop": 100,
-          "offsetTop": 146
+          "offsetTop": 142,
+          "left": 299,
+          "clipLeft": 250,
+          "offsetLeft": 49
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -1562,9 +1789,12 @@
           "width": 44,
           "height": 44,
           "font": 16,
-          "top": 358,
+          "top": 354,
           "clipTop": 100,
-          "offsetTop": 258
+          "offsetTop": 254,
+          "left": 306,
+          "clipLeft": 250,
+          "offsetLeft": 56
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -1583,9 +1813,12 @@
           "width": 44,
           "height": 44,
           "font": 16,
-          "top": 358,
+          "top": 354,
           "clipTop": 100,
-          "offsetTop": 258
+          "offsetTop": 254,
+          "left": 1500,
+          "clipLeft": 250,
+          "offsetLeft": 1250
         }
       ],
       "issues": [],
@@ -1616,7 +1849,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 282,
+          "clipLeft": 250,
+          "offsetLeft": 32
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -1637,7 +1873,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 382,
+          "clipLeft": 250,
+          "offsetLeft": 132
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(3)",
@@ -1658,7 +1897,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 482,
+          "clipLeft": 250,
+          "offsetLeft": 232
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -1675,11 +1917,14 @@
           "textual": true,
           "disabled": false,
           "width": 90,
-          "height": 44,
+          "height": 40,
           "font": 14,
           "top": 124,
           "clipTop": 100,
-          "offsetTop": 24
+          "offsetTop": 24,
+          "left": 282,
+          "clipLeft": 250,
+          "offsetLeft": 32
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -1696,11 +1941,14 @@
           "textual": true,
           "disabled": false,
           "width": 90,
-          "height": 44,
+          "height": 40,
           "font": 14,
           "top": 124,
           "clipTop": 100,
-          "offsetTop": 24
+          "offsetTop": 24,
+          "left": 380,
+          "clipLeft": 250,
+          "offsetLeft": 130
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -1717,11 +1965,14 @@
           "textual": true,
           "disabled": false,
           "width": 118,
-          "height": 44,
+          "height": 40,
           "font": 14,
           "top": 124,
           "clipTop": 100,
-          "offsetTop": 24
+          "offsetTop": 24,
+          "left": 486,
+          "clipLeft": 250,
+          "offsetLeft": 236
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > select:nth-of-type(1)",
@@ -1740,9 +1991,12 @@
           "width": 110,
           "height": 39,
           "font": 14,
-          "top": 246,
+          "top": 242,
           "clipTop": 100,
-          "offsetTop": 146
+          "offsetTop": 142,
+          "left": 299,
+          "clipLeft": 250,
+          "offsetLeft": 49
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -1761,9 +2015,12 @@
           "width": 44,
           "height": 44,
           "font": 16,
-          "top": 358,
+          "top": 354,
           "clipTop": 100,
-          "offsetTop": 258
+          "offsetTop": 254,
+          "left": 306,
+          "clipLeft": 250,
+          "offsetLeft": 56
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -1782,13 +2039,33 @@
           "width": 44,
           "height": 44,
           "font": 16,
-          "top": 358,
+          "top": 354,
           "clipTop": 100,
-          "offsetTop": 258
+          "offsetTop": 254,
+          "left": 1500,
+          "clipLeft": 250,
+          "offsetLeft": 1250
         }
       ],
       "issues": [],
       "scope": "main",
+      "staticGaps": [
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
+          "kind": "static-top-gap",
+          "value": "offset 2.0"
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
+          "kind": "static-top-gap",
+          "value": "offset 2.0"
+        },
+        {
+          "selector": "div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(3)",
+          "kind": "static-top-gap",
+          "value": "offset 2.0"
+        }
+      ],
       "axe": [],
       "newIssues": []
     },
@@ -1815,7 +2092,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 282,
+          "clipLeft": 250,
+          "offsetLeft": 32
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -1836,7 +2116,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 382,
+          "clipLeft": 250,
+          "offsetLeft": 132
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(3)",
@@ -1857,7 +2140,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 482,
+          "clipLeft": 250,
+          "offsetLeft": 232
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -1874,11 +2160,14 @@
           "textual": true,
           "disabled": false,
           "width": 90,
-          "height": 44,
+          "height": 40,
           "font": 14,
           "top": 124,
           "clipTop": 100,
-          "offsetTop": 24
+          "offsetTop": 24,
+          "left": 282,
+          "clipLeft": 250,
+          "offsetLeft": 32
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -1895,11 +2184,14 @@
           "textual": true,
           "disabled": false,
           "width": 90,
-          "height": 44,
+          "height": 40,
           "font": 14,
           "top": 124,
           "clipTop": 100,
-          "offsetTop": 24
+          "offsetTop": 24,
+          "left": 380,
+          "clipLeft": 250,
+          "offsetLeft": 130
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -1916,11 +2208,14 @@
           "textual": true,
           "disabled": false,
           "width": 118,
-          "height": 44,
+          "height": 40,
           "font": 14,
           "top": 124,
           "clipTop": 100,
-          "offsetTop": 24
+          "offsetTop": 24,
+          "left": 486,
+          "clipLeft": 250,
+          "offsetLeft": 236
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > select:nth-of-type(1)",
@@ -1939,9 +2234,12 @@
           "width": 110,
           "height": 39,
           "font": 14,
-          "top": 246,
+          "top": 242,
           "clipTop": 100,
-          "offsetTop": 146
+          "offsetTop": 142,
+          "left": 299,
+          "clipLeft": 250,
+          "offsetLeft": 49
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -1960,9 +2258,12 @@
           "width": 44,
           "height": 44,
           "font": 16,
-          "top": 358,
+          "top": 354,
           "clipTop": 100,
-          "offsetTop": 258
+          "offsetTop": 254,
+          "left": 306,
+          "clipLeft": 250,
+          "offsetLeft": 56
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -1981,9 +2282,12 @@
           "width": 44,
           "height": 44,
           "font": 16,
-          "top": 358,
+          "top": 354,
           "clipTop": 100,
-          "offsetTop": 258
+          "offsetTop": 254,
+          "left": 1500,
+          "clipLeft": 250,
+          "offsetLeft": 1250
         }
       ],
       "issues": [],
@@ -2014,7 +2318,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 282,
+          "clipLeft": 250,
+          "offsetLeft": 32
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -2035,7 +2342,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 382,
+          "clipLeft": 250,
+          "offsetLeft": 132
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(3)",
@@ -2056,7 +2366,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 482,
+          "clipLeft": 250,
+          "offsetLeft": 232
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -2073,11 +2386,14 @@
           "textual": true,
           "disabled": false,
           "width": 90,
-          "height": 44,
+          "height": 40,
           "font": 14,
           "top": 124,
           "clipTop": 100,
-          "offsetTop": 24
+          "offsetTop": 24,
+          "left": 282,
+          "clipLeft": 250,
+          "offsetLeft": 32
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -2094,11 +2410,14 @@
           "textual": true,
           "disabled": false,
           "width": 90,
-          "height": 44,
+          "height": 40,
           "font": 14,
           "top": 124,
           "clipTop": 100,
-          "offsetTop": 24
+          "offsetTop": 24,
+          "left": 380,
+          "clipLeft": 250,
+          "offsetLeft": 130
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -2115,11 +2434,14 @@
           "textual": true,
           "disabled": false,
           "width": 118,
-          "height": 44,
+          "height": 40,
           "font": 14,
           "top": 124,
           "clipTop": 100,
-          "offsetTop": 24
+          "offsetTop": 24,
+          "left": 486,
+          "clipLeft": 250,
+          "offsetLeft": 236
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > select:nth-of-type(1)",
@@ -2138,9 +2460,12 @@
           "width": 110,
           "height": 39,
           "font": 14,
-          "top": 246,
+          "top": 242,
           "clipTop": 100,
-          "offsetTop": 146
+          "offsetTop": 142,
+          "left": 299,
+          "clipLeft": 250,
+          "offsetLeft": 49
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -2159,9 +2484,12 @@
           "width": 44,
           "height": 44,
           "font": 16,
-          "top": 358,
+          "top": 354,
           "clipTop": 100,
-          "offsetTop": 258
+          "offsetTop": 254,
+          "left": 306,
+          "clipLeft": 250,
+          "offsetLeft": 56
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -2180,9 +2508,12 @@
           "width": 44,
           "height": 44,
           "font": 16,
-          "top": 358,
+          "top": 354,
           "clipTop": 100,
-          "offsetTop": 258
+          "offsetTop": 254,
+          "left": 1500,
+          "clipLeft": 250,
+          "offsetLeft": 1250
         }
       ],
       "issues": [],
@@ -2213,7 +2544,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 282,
+          "clipLeft": 250,
+          "offsetLeft": 32
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -2234,7 +2568,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 382,
+          "clipLeft": 250,
+          "offsetLeft": 132
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(3)",
@@ -2255,7 +2592,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 482,
+          "clipLeft": 250,
+          "offsetLeft": 232
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -2272,11 +2612,14 @@
           "textual": true,
           "disabled": false,
           "width": 90,
-          "height": 44,
+          "height": 40,
           "font": 14,
           "top": 124,
           "clipTop": 100,
-          "offsetTop": 24
+          "offsetTop": 24,
+          "left": 282,
+          "clipLeft": 250,
+          "offsetLeft": 32
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -2293,11 +2636,14 @@
           "textual": true,
           "disabled": false,
           "width": 90,
-          "height": 44,
+          "height": 40,
           "font": 14,
           "top": 124,
           "clipTop": 100,
-          "offsetTop": 24
+          "offsetTop": 24,
+          "left": 380,
+          "clipLeft": 250,
+          "offsetLeft": 130
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -2314,11 +2660,14 @@
           "textual": true,
           "disabled": false,
           "width": 118,
-          "height": 44,
+          "height": 40,
           "font": 14,
           "top": 124,
           "clipTop": 100,
-          "offsetTop": 24
+          "offsetTop": 24,
+          "left": 486,
+          "clipLeft": 250,
+          "offsetLeft": 236
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > select:nth-of-type(1)",
@@ -2337,9 +2686,12 @@
           "width": 110,
           "height": 39,
           "font": 14,
-          "top": 246,
+          "top": 242,
           "clipTop": 100,
-          "offsetTop": 146
+          "offsetTop": 142,
+          "left": 299,
+          "clipLeft": 250,
+          "offsetLeft": 49
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -2358,9 +2710,12 @@
           "width": 44,
           "height": 44,
           "font": 16,
-          "top": 358,
+          "top": 354,
           "clipTop": 100,
-          "offsetTop": 258
+          "offsetTop": 254,
+          "left": 306,
+          "clipLeft": 250,
+          "offsetLeft": 56
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -2379,9 +2734,12 @@
           "width": 44,
           "height": 44,
           "font": 16,
-          "top": 358,
+          "top": 354,
           "clipTop": 100,
-          "offsetTop": 258
+          "offsetTop": 254,
+          "left": 1500,
+          "clipLeft": 250,
+          "offsetLeft": 1250
         }
       ],
       "issues": [],
@@ -2412,7 +2770,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 282,
+          "clipLeft": 250,
+          "offsetLeft": 32
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -2433,7 +2794,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 382,
+          "clipLeft": 250,
+          "offsetLeft": 132
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(3)",
@@ -2454,7 +2818,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 482,
+          "clipLeft": 250,
+          "offsetLeft": 232
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -2471,11 +2838,14 @@
           "textual": true,
           "disabled": false,
           "width": 90,
-          "height": 44,
+          "height": 40,
           "font": 14,
           "top": 124,
           "clipTop": 100,
-          "offsetTop": 24
+          "offsetTop": 24,
+          "left": 282,
+          "clipLeft": 250,
+          "offsetLeft": 32
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -2492,11 +2862,14 @@
           "textual": true,
           "disabled": false,
           "width": 90,
-          "height": 44,
+          "height": 40,
           "font": 14,
           "top": 124,
           "clipTop": 100,
-          "offsetTop": 24
+          "offsetTop": 24,
+          "left": 380,
+          "clipLeft": 250,
+          "offsetLeft": 130
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -2513,11 +2886,14 @@
           "textual": true,
           "disabled": false,
           "width": 118,
-          "height": 44,
+          "height": 40,
           "font": 14,
           "top": 124,
           "clipTop": 100,
-          "offsetTop": 24
+          "offsetTop": 24,
+          "left": 486,
+          "clipLeft": 250,
+          "offsetLeft": 236
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > select:nth-of-type(1)",
@@ -2536,9 +2912,12 @@
           "width": 110,
           "height": 39,
           "font": 14,
-          "top": 246,
+          "top": 242,
           "clipTop": 100,
-          "offsetTop": 146
+          "offsetTop": 142,
+          "left": 299,
+          "clipLeft": 250,
+          "offsetLeft": 49
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -2557,9 +2936,12 @@
           "width": 44,
           "height": 44,
           "font": 16,
-          "top": 358,
+          "top": 354,
           "clipTop": 100,
-          "offsetTop": 258
+          "offsetTop": 254,
+          "left": 306,
+          "clipLeft": 250,
+          "offsetLeft": 56
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -2578,9 +2960,12 @@
           "width": 44,
           "height": 44,
           "font": 16,
-          "top": 358,
+          "top": 354,
           "clipTop": 100,
-          "offsetTop": 258
+          "offsetTop": 254,
+          "left": 1500,
+          "clipLeft": 250,
+          "offsetLeft": 1250
         }
       ],
       "issues": [],
@@ -2611,7 +2996,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 282,
+          "clipLeft": 250,
+          "offsetLeft": 32
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -2632,7 +3020,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 382,
+          "clipLeft": 250,
+          "offsetLeft": 132
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(3)",
@@ -2653,7 +3044,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 482,
+          "clipLeft": 250,
+          "offsetLeft": 232
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -2670,11 +3064,14 @@
           "textual": true,
           "disabled": false,
           "width": 90,
-          "height": 44,
+          "height": 40,
           "font": 14,
           "top": 124,
           "clipTop": 100,
-          "offsetTop": 24
+          "offsetTop": 24,
+          "left": 282,
+          "clipLeft": 250,
+          "offsetLeft": 32
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -2691,11 +3088,14 @@
           "textual": true,
           "disabled": false,
           "width": 90,
-          "height": 44,
+          "height": 40,
           "font": 14,
           "top": 124,
           "clipTop": 100,
-          "offsetTop": 24
+          "offsetTop": 24,
+          "left": 380,
+          "clipLeft": 250,
+          "offsetLeft": 130
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -2712,11 +3112,14 @@
           "textual": true,
           "disabled": false,
           "width": 118,
-          "height": 44,
+          "height": 40,
           "font": 14,
           "top": 124,
           "clipTop": 100,
-          "offsetTop": 24
+          "offsetTop": 24,
+          "left": 486,
+          "clipLeft": 250,
+          "offsetLeft": 236
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > select:nth-of-type(1)",
@@ -2735,9 +3138,12 @@
           "width": 110,
           "height": 39,
           "font": 14,
-          "top": 246,
+          "top": 242,
           "clipTop": 100,
-          "offsetTop": 146
+          "offsetTop": 142,
+          "left": 299,
+          "clipLeft": 250,
+          "offsetLeft": 49
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -2756,9 +3162,12 @@
           "width": 44,
           "height": 44,
           "font": 16,
-          "top": 358,
+          "top": 354,
           "clipTop": 100,
-          "offsetTop": 258
+          "offsetTop": 254,
+          "left": 306,
+          "clipLeft": 250,
+          "offsetLeft": 56
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -2777,9 +3186,12 @@
           "width": 44,
           "height": 44,
           "font": 16,
-          "top": 358,
+          "top": 354,
           "clipTop": 100,
-          "offsetTop": 258
+          "offsetTop": 254,
+          "left": 1500,
+          "clipLeft": 250,
+          "offsetLeft": 1250
         }
       ],
       "issues": [],
@@ -2810,7 +3222,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 282,
+          "clipLeft": 250,
+          "offsetLeft": 32
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -2831,7 +3246,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 382,
+          "clipLeft": 250,
+          "offsetLeft": 132
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(3)",
@@ -2852,7 +3270,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 482,
+          "clipLeft": 250,
+          "offsetLeft": 232
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -2869,11 +3290,14 @@
           "textual": true,
           "disabled": false,
           "width": 90,
-          "height": 44,
+          "height": 40,
           "font": 14,
           "top": 124,
           "clipTop": 100,
-          "offsetTop": 24
+          "offsetTop": 24,
+          "left": 282,
+          "clipLeft": 250,
+          "offsetLeft": 32
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -2890,11 +3314,14 @@
           "textual": true,
           "disabled": false,
           "width": 90,
-          "height": 44,
+          "height": 40,
           "font": 14,
           "top": 124,
           "clipTop": 100,
-          "offsetTop": 24
+          "offsetTop": 24,
+          "left": 380,
+          "clipLeft": 250,
+          "offsetLeft": 130
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -2911,11 +3338,14 @@
           "textual": true,
           "disabled": false,
           "width": 118,
-          "height": 44,
+          "height": 40,
           "font": 14,
           "top": 124,
           "clipTop": 100,
-          "offsetTop": 24
+          "offsetTop": 24,
+          "left": 486,
+          "clipLeft": 250,
+          "offsetLeft": 236
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > select:nth-of-type(1)",
@@ -2934,9 +3364,12 @@
           "width": 110,
           "height": 39,
           "font": 14,
-          "top": 246,
+          "top": 242,
           "clipTop": 100,
-          "offsetTop": 146
+          "offsetTop": 142,
+          "left": 299,
+          "clipLeft": 250,
+          "offsetLeft": 49
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -2955,9 +3388,12 @@
           "width": 44,
           "height": 44,
           "font": 16,
-          "top": 358,
+          "top": 354,
           "clipTop": 100,
-          "offsetTop": 258
+          "offsetTop": 254,
+          "left": 306,
+          "clipLeft": 250,
+          "offsetLeft": 56
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -2976,9 +3412,12 @@
           "width": 44,
           "height": 44,
           "font": 16,
-          "top": 358,
+          "top": 354,
           "clipTop": 100,
-          "offsetTop": 258
+          "offsetTop": 254,
+          "left": 1500,
+          "clipLeft": 250,
+          "offsetLeft": 1250
         }
       ],
       "issues": [],
@@ -3009,7 +3448,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 282,
+          "clipLeft": 250,
+          "offsetLeft": 32
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -3030,7 +3472,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 382,
+          "clipLeft": 250,
+          "offsetLeft": 132
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(3)",
@@ -3051,7 +3496,10 @@
           "font": 14,
           "top": 42,
           "clipTop": 40,
-          "offsetTop": 2
+          "offsetTop": 2,
+          "left": 482,
+          "clipLeft": 250,
+          "offsetLeft": 232
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -3068,11 +3516,14 @@
           "textual": true,
           "disabled": false,
           "width": 90,
-          "height": 44,
+          "height": 40,
           "font": 14,
           "top": 124,
           "clipTop": 100,
-          "offsetTop": 24
+          "offsetTop": 24,
+          "left": 282,
+          "clipLeft": 250,
+          "offsetLeft": 32
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -3089,11 +3540,14 @@
           "textual": true,
           "disabled": false,
           "width": 90,
-          "height": 44,
+          "height": 40,
           "font": 14,
           "top": 124,
           "clipTop": 100,
-          "offsetTop": 24
+          "offsetTop": 24,
+          "left": 380,
+          "clipLeft": 250,
+          "offsetLeft": 130
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -3110,11 +3564,14 @@
           "textual": true,
           "disabled": false,
           "width": 118,
-          "height": 44,
+          "height": 40,
           "font": 14,
           "top": 124,
           "clipTop": 100,
-          "offsetTop": 24
+          "offsetTop": 24,
+          "left": 486,
+          "clipLeft": 250,
+          "offsetLeft": 236
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > select:nth-of-type(1)",
@@ -3133,9 +3590,12 @@
           "width": 110,
           "height": 39,
           "font": 14,
-          "top": 246,
+          "top": 242,
           "clipTop": 100,
-          "offsetTop": 146
+          "offsetTop": 142,
+          "left": 299,
+          "clipLeft": 250,
+          "offsetLeft": 49
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > button:nth-of-type(1)",
@@ -3154,9 +3614,12 @@
           "width": 44,
           "height": 44,
           "font": 16,
-          "top": 358,
+          "top": 354,
           "clipTop": 100,
-          "offsetTop": 258
+          "offsetTop": 254,
+          "left": 306,
+          "clipLeft": 250,
+          "offsetLeft": 56
         },
         {
           "selector": "div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3) > div:nth-of-type(1) > button:nth-of-type(2)",
@@ -3175,9 +3638,12 @@
           "width": 44,
           "height": 44,
           "font": 16,
-          "top": 358,
+          "top": 354,
           "clipTop": 100,
-          "offsetTop": 258
+          "offsetTop": 254,
+          "left": 1500,
+          "clipLeft": 250,
+          "offsetLeft": 1250
         }
       ],
       "issues": [],

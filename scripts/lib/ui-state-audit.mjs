@@ -51,12 +51,13 @@ function enumerateState({root,fonts}) {
     // 2026-11-10（录入按钮 hover 越界事故）：容器边界几何——最近滚动/裁剪祖先
     // 的 top + 元素相对其的 offsetTop。用相对量比较可免疫"Playwright 滚动
     // 到视口"造成的整页位移，只捕捉元素自身的悬停位移。
-    let clip=null;
+    // 批 R（2026-11-11，F-09）：同步取 left（横向悬停位移判定用）。
+    let clip=null,clipL=null;
     for(let n=e.parentElement;n&&n!==document.body;n=n.parentElement){
       const cs=getComputedStyle(n);
-      if(cs.overflowY!=='visible'||cs.overflowX!=='visible'){clip=n.getBoundingClientRect().top;break;}
+      if(cs.overflowY!=='visible'||cs.overflowX!=='visible'){const pr=n.getBoundingClientRect();clip=pr.top;clipL=pr.left;break;}
     }
-    const row={selector:sel,family:`${e.className}|${e.getAttribute('data-state')??''}`,text:e.textContent.trim().slice(0,30),foreground:s.color,background:s.backgroundColor,effectiveBackground:bg,contrast,textual:text,disabled,width:r.width,height:r.height,font:parseFloat(s.fontSize),top:r.top,clipTop:clip,offsetTop:clip===null?null:r.top-clip};
+    const row={selector:sel,family:`${e.className}|${e.getAttribute('data-state')??''}`,text:e.textContent.trim().slice(0,30),foreground:s.color,background:s.backgroundColor,effectiveBackground:bg,contrast,textual:text,disabled,width:r.width,height:r.height,font:parseFloat(s.fontSize),top:r.top,clipTop:clip,offsetTop:clip===null?null:r.top-clip,left:r.left,clipLeft:clipL,offsetLeft:clipL===null?null:r.left-clipL};
     rows.push(row);
     if(!disabled&&contrast===null)issues.push({selector:sel,kind:'unknown-background'});
     if(!disabled&&text&&contrast!==null&&contrast<4.5)issues.push({selector:sel,kind:'text-contrast',ratio:contrast});
@@ -104,6 +105,11 @@ function enumerateState({root,fonts}) {
  * 对比 default 与 hover 两态的同选择器行——元素相对其裁剪容器向上位移，
  * 且位移后距容器顶边 <4px，即判 hover-crosses-container-top。
  * 只比较 offsetTop（相对量）→ 滚动导致的整页位移不误报。
+ *
+ * 批 R（2026-11-11，F-09 四向化）：横向同理——元素相对裁剪容器左移且距
+ * 左边 <4px 判 hover-crosses-container-left。顶/左两个方向都有真实事故形态
+ * （translateY 上移越顶、translateX/负 margin 左移越左）；底/右方向的"越界"
+ * 表现为容器内容区遮挡/横向滚动，由 overflow/碰撞检测独立覆盖，不在此重复。
  */
 export function checkHoverGeometry(defaultRows, currentRows){
   const issues=[];
@@ -114,6 +120,30 @@ export function checkHoverGeometry(defaultRows, currentRows){
     const movedUp=row.offsetTop<base.offsetTop-0.5;
     if(movedUp&&row.offsetTop<4){
       issues.push({selector:row.selector,kind:'hover-crosses-container-top',value:`offset ${row.offsetTop.toFixed(1)} (was ${base.offsetTop.toFixed(1)})`});
+    }
+    // F-09（批 R）：左向——hover 后相对裁剪容器左移且距左边 <4px
+    if(row.offsetLeft!=null&&base.offsetLeft!=null){
+      const movedLeft=row.offsetLeft<base.offsetLeft-0.5;
+      if(movedLeft&&row.offsetLeft<4){
+        issues.push({selector:row.selector,kind:'hover-crosses-container-left',value:`offset ${row.offsetLeft.toFixed(1)} (was ${base.offsetLeft.toFixed(1)})`});
+      }
+    }
+  }
+  return issues;
+}
+
+/**
+ * F-10 静息顶边（2026-11-11，批 R）：default 态（无悬停/焦点）下，控件距其
+ * 裁剪容器顶边的静息间隙 <4px 即报——悬停态不变量的静态姊妹版。契约值
+ * --page-top-gap:8px 是页面级顶距；控件级硬底线取 <4px（与 hover 版一致），
+ * 4~8px 属契约漂移留给人看，不拦门。
+ */
+export function checkStaticTopGap(defaultRows){
+  const issues=[];
+  for(const row of defaultRows??[]){
+    if(row.offsetTop==null||row.disabled)continue;
+    if(row.offsetTop<4&&row.offsetTop>=0){
+      issues.push({selector:row.selector,kind:'static-top-gap',value:`offset ${row.offsetTop.toFixed(1)}`});
     }
   }
   return issues;
@@ -149,7 +179,13 @@ export async function runProfileStates(profileName,{selftest=false,quick=false,r
         data.scope=root;
         // 2026-11-10 新机制切片：悬停位移 × 容器边界（见 checkHoverGeometry）
         // F-08：focus 态同样可能有 padding+负 margin 外扩，纳入同一断言。
-        if(state==='default')hoverBase=data.rows;
+        if(state==='default'){
+          hoverBase=data.rows;
+          // F-10（批 R）：静息顶边——非门禁观察值（预算键不含），先量后裁，
+          // 存量清零后可升硬门禁
+          data.staticGaps=checkStaticTopGap(data.rows);
+          if(data.staticGaps.length)console.log(`note: 静息顶边 <4px ×${data.staticGaps.length}（F-10 观察值，未拦门） [${profileName}|${theme}]`);
+        }
         else if(hoverBase&&(state.startsWith('hover')||state==='keyboard-focus'))data.issues.push(...checkHoverGeometry(hoverBase,data.rows));
         // Hover/focus can hide hover-only actions or scroll another control
         // into view. The ready/default scene keeps its profile cardinality;
@@ -207,6 +243,17 @@ export async function runProfileStates(profileName,{selftest=false,quick=false,r
         if(!checkHoverGeometry(initial.rows,moved.rows).some(i=>i.kind==='hover-crosses-container-top'))throw new Error('Hover-cross-container injection was not detected');
         await target.evaluate(e=>{e.style.transform='';});
         await page.waitForTimeout(150);
+        // 批 R（F-09/F-10）变异自证：左移越容器左边必须红；静息 <4px 顶边必须量到
+        if(targetRow.offsetLeft!=null){
+          const shiftL=Math.round(targetRow.offsetLeft+10);
+          await target.evaluate((e,dx)=>{e.style.transform=`translateX(-${dx}px)`;},shiftL);
+          await page.waitForTimeout(200);
+          const movedL=await page.evaluate(enumerateState,{root:profile.root});
+          if(!checkHoverGeometry(initial.rows,movedL.rows).some(i=>i.kind==='hover-crosses-container-left'))throw new Error('Hover-cross-container-left injection was not detected');
+          await target.evaluate(e=>{e.style.transform='';});
+          await page.waitForTimeout(150);
+        }
+        if(!Array.isArray(checkStaticTopGap([{selector:'x',offsetTop:2,disabled:false},{selector:'y',offsetTop:8,disabled:false}]))||checkStaticTopGap([{selector:'x',offsetTop:2},{selector:'y',offsetTop:8}]).length!==1)throw new Error('Static-top-gap detector has no teeth');
         await page.locator(profile.root).first().evaluate(e=>e.remove());
         const empty=await page.evaluate(enumerateState,{root:profile.root});if(empty.rows.length!==0)throw new Error('Missing-root injection failed');
         let zeroRejected=false;try{assertCoverage(empty,profile);}catch{zeroRejected=true;}if(!zeroRejected)throw new Error('Zero-coverage guard has no teeth');

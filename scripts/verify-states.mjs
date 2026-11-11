@@ -316,6 +316,35 @@ async function auditPhase(page, theme, phase, scopeSelector) {
   const info = `${clipped ? `, 裁切折叠 ${clipped}` : ''}${chromeCovered ? `, 页框让位 ${chromeCovered}` : ''}${unknownBg ? `, 背板未知 ${unknownBg}` : ''}`;
   check(`[${theme}] ${phase} 元素枚举 0<数量≤${ELEMENT_CAP} (实测 ${tested}${info})`, tested > 0 && tested <= ELEMENT_CAP,
     tested > ELEMENT_CAP ? '枚举截断风险——静默通过即假绿,必须人工分片' : '');
+  // F-07（批 R，2026-11-11）：旧路径补新切片①——同排控件等高（rowGroups
+  // 逻辑与 ui-state-audit 同源：toolbar/filters/filter-bar 行内交互件高度差
+  // >2px 即报；checkbox/radio 天然 16/24px 不混比）。
+  if (phase === '默认态') {
+    const rowIssues = await page.evaluate((scope) => {
+      const bad = [];
+      const rowOf = (n) => { for (let p = n; p && p !== document.body; p = p.parentElement) { if (/toolbar|filters|filter-bar/.test(String(p.className))) return p; } return null; };
+      const groups = new Map();
+      document.querySelectorAll(`${scope} button, ${scope} input, ${scope} select, ${scope} textarea`)
+        .forEach((e) => {
+          const r = e.getBoundingClientRect(); if (!r.width || !r.height) return;
+          if (e.closest('[hidden], [aria-hidden="true"]')) return;
+          if (e.type === 'checkbox' || e.type === 'radio') return;
+          if (!/btn|button|input|select|textarea|search/i.test(String(e.className) + e.tagName)) return;
+          const g = rowOf(e); if (!g) return;
+          const k = (g) => (g.classList.length ? `.${[...g.classList].join('.')}` : g.tagName);
+          const key = k(g);
+          if (!groups.has(key)) groups.set(key, []);
+          groups.get(key).push({ h: Math.round(r.height), label: (e.getAttribute('data-testid') || e.textContent || e.tagName).trim().slice(0, 14) });
+        });
+      for (const [g, arr] of groups) {
+        if (arr.length < 2) continue;
+        const min = Math.min(...arr.map((x) => x.h)), max = Math.max(...arr.map((x) => x.h));
+        if (max - min > 2) bad.push(`${g} 行 ${min}~${max}px (${arr.map((x) => `${x.label}:${x.h}`).slice(0, 4).join(',')})`);
+      }
+      return bad;
+    }, scopeSelector);
+    check(`[${theme}] 同排控件等高（row-height ≤2px 容差）`, rowIssues.length === 0, rowIssues.slice(0, 3).join(' | '));
+  }
   const byEl = new Map();
   for (const i of issues) {
     const key = `${i.name}|${i.kind}`;
@@ -340,18 +369,25 @@ async function hoverSweep(page, theme) {
         // 族代表去重(2026-10-11 截断决策): 悬停态由 类名×data-state 决定,墨色键
         // 兼容 inline 变体(标签 chip 逐 tag color-mix)——同键悬停一个代表,
         // 成本 ~1/8 而状态覆盖不缩水;曾 90 上限截断 165-172 个元素
+        // F-07（批 R）：代表点附带静息几何（相对最近裁剪祖先），供位移判定
+        let clipTop = null, clipLeft = null;
+        for (let n = e.parentElement; n && n !== document.body; n = n.parentElement) {
+          const cs = getComputedStyle(n);
+          if (cs.overflowY !== 'visible' || cs.overflowX !== 'visible') { const pr = n.getBoundingClientRect(); clipTop = pr.top; clipLeft = pr.left; break; }
+        }
         const key = `${String(e.className)}|${e.getAttribute('data-state') ?? ''}|${getComputedStyle(e).color}`;
-        if (!fams.has(key)) fams.set(key, { x: r.left + r.width / 2, y: r.top + r.height / 2 });
+        if (!fams.has(key)) fams.set(key, { x: r.left + r.width / 2, y: r.top + r.height / 2, baseTop: r.top, baseLeft: r.left, clipTop, clipLeft });
       });
     return { list: [...fams.values()].slice(0, 300), families: fams.size, total };
   });
   check(`[${theme}] 悬停扫族覆盖 ≤300 (${els.total} 元素/${els.families} 族)`, els.families <= 300,
     els.families > 300 ? `族数截断 ${els.families - 300}——静默截断即假绿` : '');
   const bad = [];
+  const moved = [];
   for (const el of els.list) {
     await page.mouse.move(el.x, el.y);
     await page.waitForTimeout(SETTLE);
-    const r = await page.evaluate(([x, y]) => {
+    const r = await page.evaluate(([x, y, baseTop, baseLeft, clipTop, clipLeft]) => {
       const target = document.elementFromPoint(x, y);
       if (!target || target.closest('button,[role="button"],input,select') === null) return null;
       const e = target.closest('button,[role="button"],input,select');
@@ -360,12 +396,28 @@ async function hoverSweep(page, theme) {
       // 图标钮走 color(1.4.11 图形对象)——曾只查边框读到 0, 每个裸图标钮都是伪报
       const hasGlyph = !!e.querySelector('svg, img');
       const ratio = text || isInput ? window.__contrast(e) : (hasGlyph ? window.__contrast(e) : window.__borderContrast(e));
-      return { ratio, need: text || isInput ? 4.5 : 3, label: (e.getAttribute('data-testid') || text || e.tagName).slice(0, 20) };
-    }, [el.x, el.y]);
+      // F-07（批 R）：悬停位移 × 容器边界（与 checkHoverGeometry 同语义——
+      // 相对最近裁剪祖先比较，免疫滚动整页位移）
+      let cT = null, cL = null;
+      for (let n = e.parentElement; n && n !== document.body; n = n.parentElement) {
+        const cs = getComputedStyle(n);
+        if (cs.overflowY !== 'visible' || cs.overflowX !== 'visible') { const pr = n.getBoundingClientRect(); cT = pr.top; cL = pr.left; break; }
+      }
+      const rc = e.getBoundingClientRect();
+      const offTop = cT != null ? rc.top - cT : null, offLeft = cL != null ? rc.left - cL : null;
+      const baseOffTop = clipTop != null ? baseTop - clipTop : null, baseOffLeft = clipLeft != null ? baseLeft - clipLeft : null;
+      let disp = null;
+      if (offTop != null && baseOffTop != null && offTop < baseOffTop - 0.5 && offTop < 4) disp = `top ${offTop.toFixed(1)} (was ${baseOffTop.toFixed(1)})`;
+      else if (offLeft != null && baseOffLeft != null && offLeft < baseOffLeft - 0.5 && offLeft < 4) disp = `left ${offLeft.toFixed(1)} (was ${baseOffLeft.toFixed(1)})`;
+      return { ratio, need: text || isInput ? 4.5 : 3, label: (e.getAttribute('data-testid') || text || e.tagName).slice(0, 20), disp };
+    }, [el.x, el.y, el.baseTop, el.baseLeft, el.clipTop, el.clipLeft]);
     if (r && r.ratio >= 0 && r.ratio < r.need) bad.push(`${r.label}:${r.ratio}<${r.need}`);
+    if (r && r.disp) moved.push(`${r.label}: ${r.disp}`);
   }
   check(`[${theme}] 悬停态对比度全称零违例`, bad.length === 0, bad.slice(0, 6).join(' | '));
-  return bad.length;
+  // F-07（批 R）：旧路径补新切片②——悬停位移越容器边界（顶/左，4px 硬底线）
+  check(`[${theme}] 悬停位移零越界（hover-crosses-container 顶/左）`, moved.length === 0, moved.slice(0, 4).join(' | '));
+  return bad.length + moved.length;
 }
 
 // 发现循环的环境卫生: 上一个触发器可能(a)导航去了详情页(b)留下未关闭的就地

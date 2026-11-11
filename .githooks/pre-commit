@@ -123,4 +123,13 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 
+# 台账完整性(2026-11-11 四次撞号 I01o/I01q/I01s/I01t 后立项): 同表行首编号唯一、
+# 跨表视图复用合法、HALVES 白名单豁免历史半边拆批。领号用 --next,接手用 --status。
+echo "── Ledger integrity ──"
+node scripts/check-ledger.mjs
+if [ $? -ne 0 ]; then
+  echo "✗ Ledger duplicate IDs — commit blocked (领号先跑 node scripts/check-ledger.mjs --next <前缀>)"
+  exit 1
+fi
+
 echo "✓ pre-commit passed"

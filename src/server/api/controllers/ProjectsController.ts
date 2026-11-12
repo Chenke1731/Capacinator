@@ -1499,7 +1499,18 @@ export class ProjectsController extends BaseController {
    */
   addCustomPhase = this.asyncHandler(async (req: RequestWithLogging, res: Response) => {
     const { id: projectId } = req.params;
-    const phaseData = req.body as CustomPhaseData;
+    // I02l：HTTP 载荷是 JSON（日期只能是字符串），服务层契约是 camelCase +
+    // Date 对象——在边界归一，同时兼容 snake_case（与 project-phases 端点同形）
+    const body = (req.body ?? {}) as Record<string, any>;
+    const phaseData: CustomPhaseData = {
+      name: body.name,
+      description: body.description,
+      durationDays: body.durationDays ?? body.duration_days,
+      startDate: body.startDate ?? (body.start_date ? new Date(body.start_date) : undefined),
+      endDate: body.endDate ?? (body.end_date ? new Date(body.end_date) : undefined),
+      insertIndex: body.insertIndex ?? body.insert_index,
+      metadata: body.metadata,
+    };
 
     if (!phaseData.name) {
       return this.sendError(req, res, 'Phase name is required', 400);
@@ -1534,7 +1545,16 @@ export class ProjectsController extends BaseController {
    */
   updateProjectPhase = this.asyncHandler(async (req: RequestWithLogging, res: Response) => {
     const { id: projectId, phaseTimelineId } = req.params;
-    const updateData = req.body as PhaseUpdateData;
+    // I02l：同 addCustomPhase——JSON 日期字符串/蛇形字段在控制器边界归一
+    const body = (req.body ?? {}) as Record<string, any>;
+    const updateData: PhaseUpdateData = {
+      name: body.name,
+      description: body.description,
+      durationDays: body.durationDays ?? body.duration_days,
+      startDate: body.startDate ?? (body.start_date ? new Date(body.start_date) : undefined),
+      endDate: body.endDate ?? (body.end_date ? new Date(body.end_date) : undefined),
+      metadata: body.metadata,
+    };
 
     const result = await this.executeQuery(async () => {
       const phaseService = new CustomPhaseManagementService(this.db);

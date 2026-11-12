@@ -107,6 +107,8 @@ function makeApp() {
 
   const projectRoutes = express.Router();
   projectRoutes.put('/:id', (req, res) => projects.update(req, res));
+  projectRoutes.post('/:id/phases/custom', (req, res) => projects.addCustomPhase(req, res));
+  projectRoutes.put('/:id/phases/:phaseTimelineId', (req, res) => projects.updateProjectPhase(req, res));
   projectRoutes.delete('/:id/phases/:phaseTimelineId', (req, res) => projects.deleteProjectPhase(req, res));
   testApp.use('/api/projects', projectRoutes);
 
@@ -508,6 +510,83 @@ describe('G-B3 项目 aspiration 刷新', () => {
     const project = await db('projects').where('id', PROJECT_ID).first();
     expect(project.aspiration_start).toBeNull();
     expect(project.aspiration_finish).toBeNull();
+  });
+});
+
+describe('G-B4 custom phase add/update 接线（I02l/P2-7）', () => {
+  test('addCustomPhase 中间插入 → 后续阶段分配刷新 + 提交后审计', async () => {
+    const bAssignment = await insertAssignment({
+      id: `i02a-custom-b-${SUFFIX}`,
+      phase_id: PHASE_B_ID,
+      computed_start_date: B_START,
+      computed_end_date: B_END,
+    });
+    const res = await request.post(`/api/projects/${PROJECT_ID}/phases/custom`).send({
+      name: `I02L Custom ${SUFFIX}`,
+      insertIndex: 1,
+      durationDays: 10,
+    });
+    expect(res.status).toBe(200);
+    expect(res.body.data.assignmentChanges).toHaveLength(1);
+    const bRow = await db('scenario_project_assignments').where('id', bAssignment.id).first();
+    expect(bRow.computed_start_date).toBe('2026-04-10');
+    expect(bRow.computed_end_date).toBe('2026-05-10');
+    expect(
+      auditEvents.filter(
+        (e) => e.table === 'scenario_project_assignments' && e.recordId === bAssignment.id
+      )
+    ).toHaveLength(1);
+  });
+
+  test('updateProjectPhase 日期 → 该阶段分配刷新 + 提交后审计', async () => {
+    const addRes = await request.post(`/api/projects/${PROJECT_ID}/phases/custom`).send({
+      name: `I02L Update ${SUFFIX}`,
+      insertIndex: 2,
+      durationDays: 10,
+    });
+    expect(addRes.status).toBe(200);
+    const timelineId = String(addRes.body.data.phaseId);
+    const timeline = await db('project_phases_timeline').where('id', timelineId).first();
+    const assignment = await insertAssignment({
+      id: `i02a-custom-update-${SUFFIX}`,
+      phase_id: timeline.phase_id,
+      computed_start_date: timeline.start_date,
+      computed_end_date: timeline.end_date,
+    });
+
+    const res = await request.put(`/api/projects/${PROJECT_ID}/phases/${timelineId}`).send({
+      start_date: '2026-04-01',
+      end_date: '2026-04-12',
+    });
+    expect(res.status).toBe(200);
+    expect(res.body.data.assignmentChanges).toHaveLength(1);
+    const row = await db('scenario_project_assignments').where('id', assignment.id).first();
+    expect(row.computed_start_date).toBe('2026-04-01');
+    expect(row.computed_end_date).toBe('2026-04-12');
+    expect(
+      auditEvents.filter(
+        (e) => e.table === 'scenario_project_assignments' && e.recordId === assignment.id
+      )
+    ).toHaveLength(1);
+  });
+
+  test('重复自定义阶段名 → 400 且不写时间线', async () => {
+    const name = `I02L Duplicate ${SUFFIX}`;
+    const first = await request.post(`/api/projects/${PROJECT_ID}/phases/custom`).send({
+      name,
+      durationDays: 5,
+    });
+    expect(first.status).toBe(200);
+    const second = await request.post(`/api/projects/${PROJECT_ID}/phases/custom`).send({
+      name,
+      durationDays: 5,
+    });
+    expect(second.status).toBe(400);
+    const rows = await db('project_phases_timeline')
+      .join('project_phases', 'project_phases_timeline.phase_id', 'project_phases.id')
+      .where('project_phases_timeline.project_id', PROJECT_ID)
+      .where('project_phases.name', name);
+    expect(rows).toHaveLength(1);
   });
 });
 

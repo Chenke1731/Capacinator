@@ -148,6 +148,17 @@ export class DemandIntakeController extends BaseController {
     }
   });
 
+  /** D19①：拒绝可逆——rejected → new（审计 INTAKE_REOPEN，留痕完整） */
+  reopen = this.asyncHandler(async (req: RequestWithLogging, res: Response) => {
+    try {
+      const intake = await this.intake().reopen(req.params.id);
+      await (req as any).logAuditEvent?.('demand_intake', intake.id, 'INTAKE_REOPEN', undefined, intake);
+      this.sendSuccess(req, res, intake);
+    } catch (error) {
+      this.sendIntakeError(req, res, error);
+    }
+  });
+
   remove = this.asyncHandler(async (req: RequestWithLogging, res: Response) => {
     try {
       const before = await this.intake().get(req.params.id);

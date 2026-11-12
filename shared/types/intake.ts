@@ -36,6 +36,8 @@ export interface DemandIntake {
   reject_reason: string | null;
   converted_project_id: string | null;
   converted_at: string | null;
+  /** 回链项目是否仍存在（0/1；D19③ 死链防护：项目被删后列表显式标注） */
+  converted_project_exists?: number;
   created_by: string | null;
   created_at: string;
   updated_at: string;

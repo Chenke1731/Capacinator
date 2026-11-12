@@ -263,6 +263,29 @@ describe('I01 捕获（单条/校验/去重）', () => {
     }
   });
 
+  test('I01u/D19① reopen：rejected→new 清理由；非 rejected 409；不存在 404', async () => {
+    const { intake } = await S.capture({ title: '误拒可复活', source_channel: 'ticket' });
+    await S.reject(intake.id, '信息不足');
+    const reopened = await S.reopen(intake.id);
+    expect(reopened.status).toBe('new');
+    expect(reopened.reject_reason).toBeNull();
+
+    await expectIntakeError(() => S.reopen(intake.id), 409, 'invalid_status');
+    await expectIntakeError(() => S.reopen('intake-no-such'), 404, 'not_found');
+  });
+
+  test('I01u/D19① reopen 撞号边界：拒绝期间同编号被重录 → 409 duplicate_source_ref 带 existing_id', async () => {
+    const first = await S.capture({ title: '误拒', source_channel: 'jdc_sr', source_ref: 'SR-REOPEN-1' });
+    await S.reject(first.intake.id, '误拒');
+    // rejected 行豁免唯一索引——同编号重新捕获合法
+    const second = await S.capture({ title: '重录', source_channel: 'jdc_sr', source_ref: 'SR-REOPEN-1' });
+    await expectIntakeError(() => S.reopen(first.intake.id), 409, 'duplicate_source_ref');
+    // existing_id 指向已存在的新行
+    const err = await S.reopen(first.intake.id).catch((e) => e);
+    expect(err).toBeInstanceOf(IntakeError);
+    expect((err as IntakeError).existingId).toBe(second.intake.id);
+  });
+
   test('复评回归：批量并发唯一约束不死锁（事务内复用连接），该条 skipped 其余入库', async () => {
     await S.capture({ title: '已有', source_channel: 'jdc_sr', source_ref: 'SR-BATCH-1' });
     // 确定性交错：前两次 findDuplicate（批量预检，行 1/行 2）返回 null 模拟

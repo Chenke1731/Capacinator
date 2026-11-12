@@ -866,6 +866,9 @@ export const api = {
       ),
     reject: (id: string, reason: string) =>
       apiClient.post<{ success: true; data: DemandIntake }>(`/intake/${id}/reject`, { reason }),
+    /** D19①：拒绝可逆（rejected → new） */
+    reopen: (id: string) =>
+      apiClient.post<{ success: true; data: DemandIntake }>(`/intake/${id}/reopen`),
     remove: (id: string) => apiClient.delete<{ success: true }>(`/intake/${id}`),
   },
 

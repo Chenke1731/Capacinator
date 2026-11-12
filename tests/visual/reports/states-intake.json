@@ -3331,13 +3331,13 @@
           "family": "btn btn-outline btn-sm intake-delete-btn|",
           "text": "删除",
           "foreground": "rgb(153, 27, 27)",
-          "background": "rgba(0, 0, 0, 0.01)",
+          "background": "rgba(0, 0, 0, 0.008)",
           "effectiveBackground": [
-            252,
-            252,
-            252
+            253,
+            253,
+            253
           ],
-          "contrast": 8.099887645684431,
+          "contrast": 8.169575411929747,
           "textual": true,
           "disabled": false,
           "width": 50.015625,
@@ -6878,13 +6878,13 @@
           "family": "btn btn-outline btn-sm intake-delete-btn|",
           "text": "删除",
           "foreground": "rgb(254, 202, 202)",
-          "background": "rgba(255, 255, 255, 0.016)",
+          "background": "rgba(255, 255, 255, 0.024)",
           "effectiveBackground": [
-            20.733333333333334,
-            27.623529411764707,
-            42.38823529411765
+            22.599999999999998,
+            29.435294117647057,
+            44.08235294117647
           ],
-          "contrast": 11.821652525848473,
+          "contrast": 11.59334320578405,
           "textual": true,
           "disabled": false,
           "width": 50.015625,

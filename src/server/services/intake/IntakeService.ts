@@ -187,26 +187,31 @@ export class IntakeService {
     const page = Math.max(Number(filters.page) || 1, 1);
     const limit = Math.min(Math.max(Number(filters.limit) || 50, 1), 200);
 
-    let query = this.db('demand_intake').where('status', status);
+    // D19③：converted 行回链项目存在性随行返回（0/1）——项目被删后前端
+    // 显示"项目已删除"而非死链
+    const base = this.db('demand_intake as di')
+      .leftJoin('projects as cp', 'di.converted_project_id', 'cp.id')
+      .where('di.status', status);
     if (filters.source_channel !== undefined && filters.source_channel !== '') {
       if (!SOURCE_CHANNEL_SET.has(filters.source_channel)) {
         throw new IntakeError(`Invalid source_channel "${filters.source_channel}"`, 400, 'validation_error');
       }
-      query = query.where('source_channel', filters.source_channel);
+      base.where('di.source_channel', filters.source_channel);
     }
     if (filters.q && filters.q.trim()) {
       const like = `%${filters.q.trim()}%`;
-      query = query.where((b: any) =>
-        b.where('title', 'like', like)
-          .orWhere('source_ref', 'like', like)
-          .orWhere('requester', 'like', like)
+      base.where((b: any) =>
+        b.where('di.title', 'like', like)
+          .orWhere('di.source_ref', 'like', like)
+          .orWhere('di.requester', 'like', like)
       );
     }
 
-    const [{ count }] = await query.clone().count('* as count');
-    const rows = await query
+    const [{ count }] = await base.clone().count('* as count');
+    const rows = await base
       .clone()
-      .orderBy('created_at', filters.sort === 'newest' ? 'desc' : 'asc')
+      .select('di.*', this.db.raw('CASE WHEN cp.id IS NULL THEN 0 ELSE 1 END as converted_project_exists'))
+      .orderBy('di.created_at', filters.sort === 'newest' ? 'desc' : 'asc')
       .offset((page - 1) * limit)
       .limit(limit);
     return { rows, total: Number(count), page, limit };
@@ -229,7 +234,12 @@ export class IntakeService {
   }
 
   async get(id: string): Promise<DemandIntake> {
-    const row = await this.db('demand_intake').where('id', id).first();
+    // D19③：单条也带 converted_project_exists（刷新/详情保持一致）
+    const row = await this.db('demand_intake as di')
+      .leftJoin('projects as cp', 'di.converted_project_id', 'cp.id')
+      .select('di.*', this.db.raw('CASE WHEN cp.id IS NULL THEN 0 ELSE 1 END as converted_project_exists'))
+      .where('di.id', id)
+      .first();
     if (!row) throw new IntakeError('Intake not found', 404, 'not_found');
     return row;
   }
@@ -307,6 +317,40 @@ export class IntakeService {
       const row = await this.db('demand_intake').where('id', id).first();
       if (!row) throw new IntakeError('Intake not found', 404, 'not_found');
       throw new IntakeError(`Intake is ${row.status} and cannot be rejected`, 409, 'invalid_status');
+    }
+    return this.get(id);
+  }
+
+  /**
+   * D19①：拒绝可逆——rejected → new（条件更新防并发），清 reject_reason。
+   * 边界：rejected 曾豁免唯一索引，若拒绝后同编号已被重新录入，重开会使
+   * 两行同时为 new 撞部分唯一索引 → 映射 409 duplicate_source_ref（给
+   * existing_id），而非 500。
+   */
+  async reopen(id: string): Promise<DemandIntake> {
+    let changed: number;
+    try {
+      changed = await this.db('demand_intake')
+        .where({ id, status: 'rejected' })
+        .update({ status: 'new', reject_reason: null, updated_at: nowIso() });
+    } catch (error) {
+      if (this.isDuplicateSourceRefError(error)) {
+        const current = await this.get(id);
+        const existing = current.source_ref
+          ? await this.findDuplicate(current.source_channel, current.source_ref)
+          : null;
+        throw new IntakeError(
+          'Source ref already captured by another entry',
+          409,
+          'duplicate_source_ref',
+          existing?.id ?? undefined
+        );
+      }
+      throw error;
+    }
+    if (changed === 0) {
+      const row = await this.get(id);
+      throw new IntakeError(`Intake is ${row.status} and cannot be reopened`, 409, 'invalid_status');
     }
     return this.get(id);
   }

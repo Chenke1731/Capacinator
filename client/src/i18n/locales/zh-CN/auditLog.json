@@ -56,6 +56,7 @@
     "INTAKE_UPDATE": "收件箱更新",
     "INTAKE_CONVERT": "收件箱转换",
     "INTAKE_REJECT": "收件箱拒绝",
+    "INTAKE_REOPEN": "收件箱重新打开",
     "INTAKE_DELETE": "收件箱删除",
     "UNKNOWN": "未知"
   },

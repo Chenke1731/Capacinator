@@ -18,6 +18,8 @@ router.get('/:id', (req, res) => controller.getById(req, res));
 router.patch('/:id', (req, res) => controller.update(req, res));
 router.post('/:id/convert', (req, res) => controller.convert(req, res));
 router.post('/:id/reject', (req, res) => controller.reject(req, res));
+// D19①：拒绝可逆（rejected → new）
+router.post('/:id/reopen', (req, res) => controller.reopen(req, res));
 router.delete('/:id', (req, res) => controller.remove(req, res));
 
 export default router;

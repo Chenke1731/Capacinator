@@ -56,6 +56,7 @@
     "INTAKE_UPDATE": "Intake updated",
     "INTAKE_CONVERT": "Intake converted",
     "INTAKE_REJECT": "Intake rejected",
+    "INTAKE_REOPEN": "Intake reopened",
     "INTAKE_DELETE": "Intake deleted",
     "UNKNOWN": "UNKNOWN"
   },

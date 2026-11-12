@@ -65,6 +65,7 @@ function buildApp(options: { failAudit?: boolean } = {}): ReturnType<typeof supe
   router.patch('/:id', (req, res) => controller.update(req, res));
   router.post('/:id/convert', (req, res) => controller.convert(req, res));
   router.post('/:id/reject', (req, res) => controller.reject(req, res));
+  router.post('/:id/reopen', (req, res) => controller.reopen(req, res));
   router.delete('/:id', (req, res) => controller.remove(req, res));
   app.use('/api/intake', router);
   return supertest(app);
@@ -178,6 +179,18 @@ describe('D16 白名单 + INTAKE_* 审计落库', () => {
     });
     expect(projectCreates).toHaveLength(1);
     expect(projectCreates[0].record_id).toBe(String(res.body.data.project.id));
+  });
+
+  test('I01u/D19① 重开 → INTAKE_REOPEN 审计行（new_values.status=new）', async () => {
+    const created = await request.post('/api/intake').send({ title: '重开留痕', source_channel: 'internal' });
+    await request.post(`/api/intake/${created.body.data.id}/reject`).send({ reason: '误拒' });
+    const reopened = await request.post(`/api/intake/${created.body.data.id}/reopen`);
+    expect(reopened.status).toBe(200);
+
+    const rows = await auditRows('INTAKE_REOPEN');
+    expect(rows).toHaveLength(1);
+    expect(rows[0].record_id).toBe(created.body.data.id);
+    expect(JSON.parse(String(rows[0].new_values))).toMatchObject({ status: 'new', reject_reason: null });
   });
 });
 

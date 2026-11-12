@@ -74,6 +74,7 @@
     "actions": {
       "convert": "Convert",
       "reject": "Reject",
+      "reopen": "Reopen",
       "delete": "Delete",
       "save": "Save",
       "cancel": "Cancel"
@@ -95,7 +96,9 @@
       "note": "Note",
       "createdAt": "Captured at",
       "rejectReason": "Reject reason",
-      "editHint": "Editable while pending"
+      "editHint": "Editable while pending",
+      "convertedProject": "View project",
+      "convertedProjectDeleted": "Project deleted"
     },
     "deleteTitle": "Delete this intake?",
     "deleteMessage": "\"{{title}}\" will be removed from the inbox. This cannot be undone.",
@@ -105,6 +108,7 @@
     "rejectPlaceholder": "Why is this demand rejected (required)",
     "rejectSubmit": "Reject",
     "rejectToast": "Rejected",
+    "reopenToast": "Reopened",
     "editSaved": "Saved"
   },
   "triage": {

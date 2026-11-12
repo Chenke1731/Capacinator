@@ -18,6 +18,7 @@ jest.mock('../../lib/api-client', () => ({
       counts: jest.fn(),
       update: jest.fn(),
       reject: jest.fn(),
+      reopen: jest.fn(),
       remove: jest.fn(),
     },
   },
@@ -211,5 +212,53 @@ describe('IntakeInbox', () => {
     expect(toastCall.title).toContain('转换后项目');
     expect(toastCall.description).toContain('2'); // baselineSet 带 phase_count
     expect(toastCall.action.props.children).toBe('Open project');
+  });
+
+  test('I01u/D19① 拒绝行可重开：按钮调用 reopen 并提示', async () => {
+    listMock.mockResolvedValue({
+      data: {
+        success: true,
+        data: [row({ status: 'rejected', reject_reason: '信息不足' })],
+        pagination: { total: 1 },
+      },
+    });
+    (api.intake.reopen as jest.Mock).mockResolvedValue({
+      data: { success: true, data: row({ status: 'new' }) },
+    });
+    renderPage();
+
+    await waitFor(() => expect(screen.getByTestId('intake-reopen-intake-1')).toBeTruthy());
+    fireEvent.click(screen.getByTestId('intake-reopen-intake-1'));
+    await waitFor(() => expect(api.intake.reopen).toHaveBeenCalledWith('intake-1'));
+    await waitFor(() => expect(getToastMock()).toHaveBeenCalledWith({ title: 'Reopened' }));
+  });
+
+  test('I01u/D19③ converted 行：项目已删显示死链态，不再给跳转按钮', async () => {
+    listMock.mockResolvedValue({
+      data: {
+        success: true,
+        data: [
+          row({
+            id: 'intake-dead',
+            status: 'converted',
+            converted_project_id: 'deleted-project',
+            converted_project_exists: 0,
+          }),
+          row({
+            id: 'intake-alive',
+            status: 'converted',
+            converted_project_id: 'live-project',
+            converted_project_exists: 1,
+          }),
+        ],
+        pagination: { total: 2 },
+      },
+    });
+    renderPage();
+
+    await waitFor(() => expect(screen.getByTestId('intake-project-deleted-intake-dead')).toBeTruthy());
+    expect(screen.getByTestId('intake-project-deleted-intake-dead').textContent).toBe('Project deleted');
+    // 存活项目仍有跳转按钮
+    expect(screen.getByRole('button', { name: 'View project' })).toBeTruthy();
   });
 });

@@ -167,6 +167,15 @@ export function IntakeInbox() {
     },
   });
 
+  // D19①：拒绝可逆——rejected → new（审计 INTAKE_REOPEN 由服务端写）
+  const reopenMutation = useMutation({
+    mutationFn: async (id: string) => (await api.intake.reopen(id)).data.data,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: queryKeys.intake.all });
+      toast({ title: t('intake:inbox.reopenToast') });
+    },
+  });
+
   const handleConverted = (result: IntakeConvertResult) => {
     const project = result.project as { id: string; name: string };
     const descriptionParts: string[] = [];
@@ -403,17 +412,41 @@ export function IntakeInbox() {
                           </button>
                         </div>
                       ) : row.converted_project_id ? (
-                        <button
-                          type="button"
-                          className="btn btn-outline btn-sm"
-                          onClick={() => navigate(`/projects/${row.converted_project_id}`)}
-                        >
-                          {t('intake:detail.convertedProject')}
-                        </button>
+                        row.converted_project_exists === 0 ? (
+                          // D19③：回链项目已删——显示明确死链态，不点进 404
+                          <span
+                            className="intake-rejected-hint"
+                            data-testid={`intake-project-deleted-${row.id}`}
+                          >
+                            {t('intake:inbox.detail.convertedProjectDeleted')}
+                          </span>
+                        ) : (
+                          <button
+                            type="button"
+                            className="btn btn-outline btn-sm"
+                            onClick={() => navigate(`/projects/${row.converted_project_id}`)}
+                          >
+                            {t('intake:inbox.detail.convertedProject')}
+                          </button>
+                        )
                       ) : (
-                        <span title={row.reject_reason ?? undefined} className="intake-rejected-hint">
-                          {renderStatus(row.status)}
-                        </span>
+                        <div className="flex items-center gap-2">
+                          <span title={row.reject_reason ?? undefined} className="intake-rejected-hint">
+                            {renderStatus(row.status)}
+                          </span>
+                          {row.status === 'rejected' && (
+                            // D19①：误拒恢复——reopen 回 new（重录会丢原文/来源时间戳）
+                            <button
+                              type="button"
+                              className="btn btn-outline btn-sm"
+                              onClick={() => reopenMutation.mutate(row.id)}
+                              disabled={reopenMutation.isPending}
+                              data-testid={`intake-reopen-${row.id}`}
+                            >
+                              {t('intake:inbox.actions.reopen')}
+                            </button>
+                          )}
+                        </div>
                       )}
                     </td>
                   </tr>

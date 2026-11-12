@@ -54,6 +54,7 @@ beforeAll(async () => {
   router.patch('/:id', (req, res) => controller.update(req, res));
   router.post('/:id/convert', (req, res) => controller.convert(req, res));
   router.post('/:id/reject', (req, res) => controller.reject(req, res));
+  router.post('/:id/reopen', (req, res) => controller.reopen(req, res));
   router.delete('/:id', (req, res) => controller.remove(req, res));
   app.use('/api/intake', router);
   request = supertest(app);
@@ -161,6 +162,41 @@ describe('PATCH/DELETE/REJECT 维护信封', () => {
     const ok = await request.post(`/api/intake/${created.body.data.id}/reject`).send({ reason: '重复提交' });
     expect(ok.status).toBe(200);
     expect(ok.body.data).toMatchObject({ status: 'rejected', reject_reason: '重复提交' });
+  });
+
+  test('I01u/D19① REOPEN：rejected→new 清理由；非 rejected 409；不存在 404', async () => {
+    const created = await request.post('/api/intake').send({ title: '可复活', source_channel: 'internal' });
+    const id = created.body.data.id;
+    await request.post(`/api/intake/${id}/reject`).send({ reason: '信息不足' });
+
+    const reopen = await request.post(`/api/intake/${id}/reopen`);
+    expect(reopen.status).toBe(200);
+    expect(reopen.body).toMatchObject({
+      success: true,
+      data: { status: 'new', reject_reason: null },
+    });
+
+    const again = await request.post(`/api/intake/${id}/reopen`);
+    expect(again.status).toBe(409);
+    expect(again.body).toMatchObject({ error: 'invalid_status' });
+
+    const missing = await request.post('/api/intake/intake-no-such/reopen');
+    expect(missing.status).toBe(404);
+    expect(missing.body).toMatchObject({ error: 'not_found' });
+  });
+
+  test('I01u/D19③ converted 行携带回链项目存在性（项目在=1）', async () => {
+    const created = await request.post('/api/intake').send({ title: '回链', source_channel: 'jdc_sr', source_ref: 'SR-I01U-01' });
+    const conv = await request
+      .post(`/api/intake/${created.body.data.id}/convert`)
+      .send({ project_type_id: DEMAND_TYPE_ID, project_sub_type_id: DEMAND_SUB_ID });
+    createdProjectIds.push(conv.body.data.project.id);
+
+    const list = await request.get('/api/intake?status=converted');
+    const row = list.body.data.find((r: { id: string }) => r.id === created.body.data.id);
+    expect(row).toBeTruthy();
+    expect(row.converted_project_id).toBe(conv.body.data.project.id);
+    expect(Number(row.converted_project_exists)).toBe(1);
   });
 
   test('DELETE new → success；converted → 409', async () => {

@@ -12,6 +12,8 @@ export class PeopleController extends BaseController {
   async getAll(req: Request, res: Response) {
     const page = parseInt(req.query.page as string, 10) || 1;
     const limit = parseInt(req.query.limit as string, 10) || 50;
+    // I02c：People 搜索框的 search 此前被完全忽略（页面无本地过滤，输入无效）
+    const search = typeof req.query.search === 'string' ? req.query.search.trim() : '';
     const filters = {
       primary_role_id: req.query.primary_role_id, // Still allow filtering by role_id for API compatibility
       supervisor_id: req.query.supervisor_id,
@@ -38,6 +40,13 @@ export class PeopleController extends BaseController {
       if (filters.supervisor_id) query = query.where('people.supervisor_id', filters.supervisor_id);
       if (filters.worker_type) query = query.where('people.worker_type', filters.worker_type);
       if (filters.location_id) query = query.where('people.location_id', filters.location_id);
+      if (search) {
+        // 姓名/邮箱子串；与分页 total 共用同一过滤链（下方 clone count）
+        const like = `%${search}%`;
+        query = query.where((builder: any) => {
+          builder.where('people.name', 'like', like).orWhere('people.email', 'like', like);
+        });
+      }
       // 停用过滤(2026-10-13): ?is_active=true 是分配/负责人选择器的口径——
       // 停用者保留历史,但不再进入"给新人排产"的候选集
       if (req.query.is_active === 'true') query = query.where('people.is_active', true);

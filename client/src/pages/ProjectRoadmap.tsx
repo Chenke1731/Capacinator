@@ -1,6 +1,6 @@
-import React, { useState, useRef, useCallback } from 'react';
+import React, { useState, useRef, useCallback, useEffect } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Calendar, ZoomIn, ZoomOut, Search, ChevronLeft, ChevronRight } from 'lucide-react';
 import { api } from '../lib/api-client';
@@ -35,6 +35,10 @@ export default function ProjectRoadmap() {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const timelineRef = useRef<HTMLDivElement>(null);
+  // U23 锚点：/projects?tab=roadmap&projectId=<id>——定位项目并把视口挪到其阶段范围
+  const [searchParams] = useSearchParams();
+  const anchorProjectId = searchParams.get('projectId');
+  const anchorAppliedRef = useRef(false);
   // Calculate initial viewport with Today at 30% from left
   const calculateInitialViewport = () => {
     const today = new Date();
@@ -257,6 +261,46 @@ export default function ProjectRoadmap() {
       return projectsWithPhases;
     }
   });
+
+  // U23 锚点消费：项目命中且有阶段 → 视口挪到阶段 min..max（±7 天）+ 行高亮/滚动；
+  // 无阶段/未找到 → banner 明确说明（F6/G7：禁止静默落在空白行）
+  const anchorProject = React.useMemo(() => {
+    if (!anchorProjectId || !projects) return undefined;
+    return (projects as ProjectWithPhases[]).find((p) => p.id === anchorProjectId);
+  }, [anchorProjectId, projects]);
+  const anchorBanner = React.useMemo(() => {
+    if (!anchorProjectId || !projects) return null;
+    if (!anchorProject) return { kind: 'missing' as const };
+    if (!(anchorProject.phases?.length)) {
+      return { kind: 'noPhases' as const, name: anchorProject.name };
+    }
+    return { kind: 'ok' as const };
+  }, [anchorProjectId, projects, anchorProject]);
+  useEffect(() => {
+    if (!anchorProjectId || !projects || anchorAppliedRef.current) return;
+    anchorAppliedRef.current = true;
+    const project = (projects as ProjectWithPhases[]).find((p) => p.id === anchorProjectId);
+    if (!project) return;
+    const phases = project.phases ?? [];
+    if (phases.length) {
+      const starts = phases.map((ph) => parseDate(ph.start_date).getTime()).filter((n) => Number.isFinite(n));
+      const ends = phases.map((ph) => parseDate(ph.end_date).getTime()).filter((n) => Number.isFinite(n));
+      if (starts.length && ends.length) {
+        const pad = 7 * 24 * 60 * 60 * 1000;
+        setViewport({
+          startDate: new Date(Math.min(...starts) - pad),
+          endDate: new Date(Math.max(...ends) + pad),
+          pixelsPerDay: 2,
+        });
+      }
+    }
+    requestAnimationFrame(() => {
+      document
+        .querySelector(`[data-project-id="${anchorProjectId}"]`)
+        ?.scrollIntoView({ block: 'center' });
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- 只在数据就绪时应用一次
+  }, [anchorProjectId, projects]);
 
   // Debounced phase move state to prevent excessive API calls
   const [pendingPhaseUpdates, setPendingPhaseUpdates] = useState<Map<string, {
@@ -919,6 +963,31 @@ export default function ProjectRoadmap() {
           return null;
         })()}
 
+        {/* U23 锚点反馈（F6/G7）：无阶段/未找到必须可见，不得静默落在空白行 */}
+        {anchorBanner && anchorBanner.kind !== 'ok' && (
+          <div
+            className={`roadmap-anchor-banner roadmap-anchor-banner--${anchorBanner.kind}`}
+            role="status"
+            data-testid="roadmap-anchor-banner"
+          >
+            <span>
+              {anchorBanner.kind === 'missing'
+                ? t('phases:roadmap.anchorMissing')
+                : t('phases:roadmap.anchorNoPhases', { name: anchorBanner.name })}
+            </span>
+            {anchorBanner.kind === 'noPhases' && (
+              <button
+                type="button"
+                className="btn btn-sm btn-outline"
+                data-testid="roadmap-anchor-show-only"
+                onClick={() => setFilters((prev) => ({ ...prev, search: anchorBanner.name }))}
+              >
+                {t('phases:roadmap.anchorShowOnly')}
+              </button>
+            )}
+          </div>
+        )}
+
         <div className="timeline-container" ref={timelineRef}>
           {/* Timeline Header */}
           <div className="timeline-header">
@@ -980,7 +1049,11 @@ export default function ProjectRoadmap() {
           <div className="projects-timeline">
             {projects?.map((project) => {
               return (
-                <div key={project.id} className="project-row">
+                <div
+                  key={project.id}
+                  className={`project-row ${anchorProjectId === project.id ? 'project-row--anchor' : ''}`}
+                  data-project-id={project.id}
+                >
                   <div className="project-info">
                     <div className="project-header">
                       <div className="project-name-row">

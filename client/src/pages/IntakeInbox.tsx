@@ -187,6 +187,10 @@ export function IntakeInbox() {
     } else {
       descriptionParts.push(t('intake:triage.baselineUnset'));
     }
+    // I02h/U24：转换时挂接迭代的可见反馈（未挂接不额外提示）
+    if (result.iteration_name) {
+      descriptionParts.push(t('intake:triage.iterationAttached', { name: result.iteration_name }));
+    }
     toast({
       title: t('intake:triage.convertedToast', { name: project.name }),
       description: descriptionParts.join('；'),

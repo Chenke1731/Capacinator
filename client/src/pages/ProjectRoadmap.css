@@ -1577,3 +1577,28 @@ body.dragging * {
   transform: translateY(-50%) scale(1.1);
   box-shadow: 0 4px 16px color-mix(in srgb, var(--status-danger-border) 40%, transparent);
 }
+
+/* I02h/U23：锚点高亮（.project-roadmap .project-row.project-row--anchor
+   特异度 0,3,0 > 既有 :nth-child 偶数行背景 0,2,0） */
+.project-roadmap .project-row.project-row--anchor {
+  background: var(--status-info-soft);
+  outline: 1px solid var(--primary);
+}
+
+/* 锚点无阶段/未找到 banner（F6：禁止静默落在空白行） */
+.roadmap-anchor-banner {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0 16px 8px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 13px;
+  background: var(--status-info-soft);
+  color: var(--text-primary);
+}
+
+.roadmap-anchor-banner--missing,
+.roadmap-anchor-banner--noPhases {
+  background: var(--status-warning-soft);
+}

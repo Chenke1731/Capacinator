@@ -28,5 +28,23 @@
   "state": "状态",
   "noPrimaryDev": "—",
   "createFailed": "创建失败",
-  "deleteFailed": "删除失败"
+  "deleteFailed": "删除失败",
+  "attach": {
+    "selectAria": "为 {{name}} 选择迭代",
+    "placeholder": "挂接到迭代…",
+    "confirm": "挂接",
+    "pending": "挂接中…",
+    "failed": "挂接失败，请重试",
+    "success": "已挂接到『{{name}}』",
+    "aggregateNote": "{{count}} 个 SR 由子项聚合，不在此挂接",
+    "aggregateRowHint": "由子项聚合（请在子项上挂接）"
+  },
+  "anchor": {
+    "assigned": "该项目已在『{{name}}』中",
+    "unsupported": "该项目类型或状态不支持迭代挂接，请在需求台或看板处理",
+    "aggregate": "该项目由子项聚合，请在子项上挂接迭代",
+    "missing": "项目不存在或不在当前数据中",
+    "viewCard": "查看迭代卡",
+    "gotoProjects": "去需求台"
+  }
 }

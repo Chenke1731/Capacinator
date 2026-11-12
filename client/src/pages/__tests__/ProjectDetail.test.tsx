@@ -189,6 +189,23 @@ describe('ProjectDetail', () => {
       expect(screen.getByText('Development')).toBeInTheDocument(); // Project type
     });
 
+    test('I02h/U23: 头部上下文链接（路线图/挂接迭代，带 projectId 锚点）', async () => {
+      render(
+        <TestWrapper>
+          <ProjectDetail />
+        </TestWrapper>
+      );
+      await waitFor(() => expect(screen.getByTestId('project-detail-links')).toBeInTheDocument());
+
+      fireEvent.click(screen.getByTestId('project-detail-roadmap-link'));
+      expect(mockNavigate).toHaveBeenCalledWith('/projects?tab=roadmap&projectId=project-1');
+
+      const iterLink = screen.getByTestId('project-detail-iteration-link');
+      expect(iterLink.textContent).toMatch(/attach to iteration/i);
+      fireEvent.click(iterLink);
+      expect(mockNavigate).toHaveBeenCalledWith('/iterations?projectId=project-1');
+    });
+
     test('renders error state when project fails to load', async () => {
       (api.projects.get as jest.Mock).mockRejectedValue(new Error('Failed to fetch'));
 

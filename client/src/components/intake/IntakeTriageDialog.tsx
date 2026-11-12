@@ -12,6 +12,7 @@ import { Label } from '../ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
 import { Alert, AlertDescription } from '../ui/alert';
 import { Spinner } from '../ui/spinner';
+import { isLifecycleTypeName } from '../../../../shared/types/lifecycle';
 
 /**
  * IntakeTriageDialog —— 收件箱分流（I01 设计稿 §5.4）。
@@ -46,6 +47,7 @@ export function IntakeTriageDialog({ open, intake, onClose, onConverted }: Intak
   const [ownerId, setOwnerId] = useState('');
   const [expectedStart, setExpectedStart] = useState('');
   const [expectedFinish, setExpectedFinish] = useState('');
+  const [iterationId, setIterationId] = useState('');
   const [error, setError] = useState<string | null>(null);
 
   const { data: groups } = useQuery({
@@ -69,6 +71,24 @@ export function IntakeTriageDialog({ open, intake, onClose, onConverted }: Intak
   });
   const activePeople: { id: string; name: string }[] = Array.isArray(people) ? people : [];
 
+  // I02h/U24（D6）：可选挂接迭代——仅生命周期类型显示；四态（loading/error/
+  // empty/options）显式区分（EXP-005：失败不得冒充"没有迭代"）
+  const {
+    data: iterationsResp,
+    isLoading: iterationsLoading,
+    error: iterationsError,
+    refetch: refetchIterations
+  } = useQuery({
+    queryKey: queryKeys.iterations.list(),
+    queryFn: async () => (await api.iterations.list()).data,
+    enabled: open,
+  });
+  const iterations: { id: string; name: string }[] = useMemo(() => {
+    const payload = iterationsResp as any;
+    const rows = Array.isArray(payload) ? payload : payload?.data ?? [];
+    return Array.isArray(rows) ? rows : [];
+  }, [iterationsResp]);
+
   // 打开时按 intake 初始化 + 记住的子类型
   useEffect(() => {
     if (open && intake) {
@@ -81,6 +101,7 @@ export function IntakeTriageDialog({ open, intake, onClose, onConverted }: Intak
       // "不生成阶段"而实际生成（G-01 / triage-start-divergence）。
       setExpectedStart(intake.expected_start ?? '');
       setExpectedFinish(intake.expected_finish ?? '');
+      setIterationId('');
       setError(null);
       const remembered = localStorage.getItem(SUBTYPE_STORAGE) ?? '';
       const exists = subTypeGroups.some((g) =>
@@ -104,6 +125,8 @@ export function IntakeTriageDialog({ open, intake, onClose, onConverted }: Intak
     [subTypeGroups]
   );
   const selectedSub = flatSubTypes.find((s) => s.id === subTypeId);
+  // D6：迭代字段只在生命周期类型出现（服务端同源校验）
+  const lifecycleSelected = isLifecycleTypeName(selectedSub?.projectTypeName);
 
   const convertMutation = useMutation({
     mutationFn: async () => {
@@ -115,22 +138,27 @@ export function IntakeTriageDialog({ open, intake, onClose, onConverted }: Intak
         owner_id: ownerId || null,
         expected_start: expectedStart || null,
         expected_finish: expectedFinish || null,
+        iteration_id: lifecycleSelected && iterationId ? iterationId : null,
       });
       return (response.data as any).data as IntakeConvertResult;
     },
     onSuccess: (result) => {
-      // A2 新鲜度：转换改变收件箱、项目面与仪表盘计数
+      // A2 新鲜度：转换改变收件箱、项目面、仪表盘计数与迭代卡（I02h 四键）
       queryClient.invalidateQueries({ queryKey: queryKeys.intake.all });
       queryClient.invalidateQueries({ queryKey: queryKeys.projects.all });
       queryClient.invalidateQueries({ queryKey: queryKeys.dashboard.all });
+      queryClient.invalidateQueries({ queryKey: queryKeys.iterations.all });
       localStorage.setItem(SUBTYPE_STORAGE, subTypeId);
-      onConverted(result);
+      const iterationName = iterationId ? iterations.find((it) => it.id === iterationId)?.name ?? null : null;
+      onConverted({ ...result, iteration_name: iterationName });
     },
     onError: (err: any) => {
       const code = err?.response?.data?.error;
       if (code === 'invalid_status') {
         setError(t('intake:triage.invalidStatus'));
         queryClient.invalidateQueries({ queryKey: queryKeys.intake.all });
+      } else if (code === 'invalid_iteration') {
+        setError(t('intake:triage.iterationInvalid'));
       } else if (code === 'invalid_type') {
         setError(err?.response?.data?.message || t('intake:errors.generic'));
       } else {
@@ -217,6 +245,50 @@ export function IntakeTriageDialog({ open, intake, onClose, onConverted }: Intak
               </SelectContent>
             </Select>
           </div>
+
+          {lifecycleSelected && (
+            <div className="space-y-2">
+              <Label htmlFor="triage-iteration">{t('intake:triage.iteration')}</Label>
+              <Select
+                value={iterationId || 'none'}
+                onValueChange={(v) => setIterationId(v === 'none' ? '' : v)}
+                disabled={iterationsLoading || !!iterationsError}
+              >
+                <SelectTrigger
+                  id="triage-iteration"
+                  className="dialog-field"
+                  data-testid="triage-iteration"
+                  disabled={iterationsLoading || !!iterationsError}
+                >
+                  <SelectValue placeholder={t('intake:triage.iterationPlaceholder')} />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="none">{t('intake:triage.noIteration')}</SelectItem>
+                  {iterations.map((it) => (
+                    <SelectItem key={it.id} value={it.id}>{it.name}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              {iterationsLoading && (
+                <p className="text-xs text-muted-foreground" data-testid="triage-iteration-loading">
+                  {t('intake:triage.iterationLoading')}
+                </p>
+              )}
+              {iterationsError && (
+                <div className="flex items-center gap-2" data-testid="triage-iteration-error">
+                  <p className="text-xs text-danger">{t('intake:triage.iterationLoadFailed')}</p>
+                  <Button type="button" variant="outline" size="sm" onClick={() => refetchIterations()}>
+                    {t('common:retry')}
+                  </Button>
+                </div>
+              )}
+              {!iterationsLoading && !iterationsError && iterations.length === 0 && (
+                <p className="text-xs text-muted-foreground" data-testid="triage-iteration-empty">
+                  {t('intake:triage.iterationEmpty')}
+                </p>
+              )}
+            </div>
+          )}
 
           <div className="grid grid-cols-2 gap-3">
             <div className="space-y-2">

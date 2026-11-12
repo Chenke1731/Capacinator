@@ -1,10 +1,11 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { queryKeys } from '../lib/queryKeys';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Plus, ChevronDown, ChevronRight, Pencil, Trash2, CalendarRange } from 'lucide-react';
 import { api } from '../lib/api-client';
+import { useToast } from '../hooks/use-toast';
 import { categoryOfTypeName } from '../lib/projectCategories';
 import { LoadingSpinner } from '../components/ui/LoadingSpinner';
 import { ErrorMessage } from '../components/ui/ErrorMessage';
@@ -55,13 +56,49 @@ const fmtPm = (v: number | null | undefined): string =>
 const stateLabel = (state: string | null, t: (k: string, o?: any) => string): string =>
   state ? t(`projects:lifecycle.state.${state}`, { defaultValue: state }) : '—';
 
-/** 事项行: 名称 / 优先级 P / 状态中文 / 主投入人名; 点击跳详情 */
-function ItemRow({ project }: { project: any }) {
+/** 事项行: 名称 / 优先级 P / 状态中文 / 主投入人名; 点击跳详情。
+ *  I02h/U24-B：沉底区（attach 传入时）带行内挂接控件——select + 显式确认钮，
+ *  change 即写会随箭头键误发请求（评审 F2）；pending/失败回滚/行内错误。 */
+function ItemRow({
+  project,
+  attach,
+  anchor = false,
+  rowRef,
+}: {
+  project: any;
+  attach?: {
+    iterations: Iteration[];
+    onAttach: (iterationId: string) => Promise<void>;
+    disabled?: boolean;
+    disabledHint?: string;
+  };
+  anchor?: boolean;
+  rowRef?: (el: HTMLDivElement | null) => void;
+}) {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const [selected, setSelected] = useState('');
+  const [pending, setPending] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const doAttach = async () => {
+    if (!attach || !selected || pending) return;
+    setPending(true);
+    setError(null);
+    try {
+      await attach.onAttach(selected);
+    } catch (err: any) {
+      setError(err?.response?.data?.message || t('iterations:attach.failed'));
+      setSelected('');
+    } finally {
+      setPending(false);
+    }
+  };
+
   return (
     <div
-      className="it-item-row"
+      className={`it-item-row ${anchor ? 'it-item-row--anchor' : ''}`}
+      ref={rowRef}
       onClick={() => navigate(`/projects/${project.id}`)}
       title={project.name}
     >
@@ -73,6 +110,44 @@ function ItemRow({ project }: { project: any }) {
       <span className="it-item-dev">
         {project.primary_dev?.person_name ?? t('iterations:noPrimaryDev')}
       </span>
+      {attach && (
+        <span
+          className="it-attach"
+          onClick={(e) => e.stopPropagation()}
+          onKeyDown={(e) => e.stopPropagation()}
+        >
+          <select
+            className="it-attach-select"
+            value={selected}
+            onChange={(e) => setSelected(e.target.value)}
+            disabled={pending || attach.disabled}
+            aria-label={t('iterations:attach.selectAria', { name: project.name })}
+            data-testid={`iter-attach-select-${project.id}`}
+          >
+            <option value="">{t('iterations:attach.placeholder')}</option>
+            {attach.iterations.map((it) => (
+              <option key={it.id} value={it.id}>{it.name}</option>
+            ))}
+          </select>
+          <button
+            type="button"
+            className="it-btn it-btn--ghost it-attach-confirm"
+            disabled={!selected || pending || attach.disabled}
+            onClick={doAttach}
+            data-testid={`iter-attach-confirm-${project.id}`}
+          >
+            {pending ? t('iterations:attach.pending') : t('iterations:attach.confirm')}
+          </button>
+          {attach.disabled && attach.disabledHint && (
+            <span className="it-attach-hint">{attach.disabledHint}</span>
+          )}
+          {error && (
+            <span className="it-attach-error" role="alert" data-testid={`iter-attach-error-${project.id}`}>
+              {error}
+            </span>
+          )}
+        </span>
+      )}
     </div>
   );
 }
@@ -151,7 +226,9 @@ function IterationCard({
   });
 
   const stats = iteration.stats;
-  const cardItems = items.filter((p) => p.iteration_id === iteration.id);
+  // I02h（F4 兜底）：展开清单与卡头 stats 同用 lifecycle 谓词——非生命周期
+  // 项目即使带 iteration_id 也不进清单（服务端统计本来就只数 lifecycle）
+  const cardItems = items.filter((p) => p.iteration_id === iteration.id && p.lifecycle_state);
 
   if (editing) {
     return (
@@ -208,7 +285,7 @@ function IterationCard({
   }
 
   return (
-    <div className={`it-card ${expanded ? 'it-card--open' : ''}`}>
+    <div className={`it-card ${expanded ? 'it-card--open' : ''}`} data-iteration-id={iteration.id}>
       <div
         className="it-card-head"
         onClick={onToggle}
@@ -297,6 +374,11 @@ function IterationCard({
 export function Iterations() {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const anchorProjectId = searchParams.get('projectId');
+  const { toast } = useToast();
+  const anchorRowRef = useRef<HTMLDivElement | null>(null);
   const [creating, setCreating] = useState(false);
   const [newName, setNewName] = useState('');
   const [newStart, setNewStart] = useState('');
@@ -333,6 +415,24 @@ export function Iterations() {
     [itemsResp]
   );
 
+  // SR 聚合父行（有子项）：服务端对父行设置/清除迭代一律 400（聚合只读窗），
+  // 沉底区不给挂接控件（I02h/D5+F3）
+  const parentIds = useMemo(
+    () => new Set(items.map((p) => p.parent_id).filter(Boolean) as string[]),
+    [items]
+  );
+
+  // U23 锚点：/iterations?projectId=<id> —— 四态可见反馈（已挂/不可挂/父行/未找到）
+  const anchorQuery = useQuery({
+    queryKey: ['project', anchorProjectId],
+    queryFn: async () => {
+      const resp = (await api.projects.get(anchorProjectId!)).data as any;
+      return resp?.data ?? resp;
+    },
+    enabled: !!anchorProjectId,
+    retry: false,
+  });
+
   /** 按季度(start_date 派生值)分组, 保持 API 的 start_date 倒序 */
   const groups = useMemo(() => {
     const map = new Map<string, Iteration[]>();
@@ -357,6 +457,44 @@ export function Iterations() {
         .sort((a, b) => (a.priority ?? 5) - (b.priority ?? 5) || a.name.localeCompare(b.name)),
     [items]
   );
+  const aggregateRowCount = useMemo(
+    () => unassigned.filter((p) => parentIds.has(p.id)).length,
+    [unassigned, parentIds]
+  );
+
+  /** 锚点四态（F5/G7）：loading 静默；assigned/unsupported/aggregate/missing 显 banner；
+   * highlight=可挂接且未挂 → 高亮行 + scrollIntoView */
+  const anchor = useMemo(() => {
+    if (!anchorProjectId) return null;
+    if (anchorQuery.isLoading) return { kind: 'loading' as const };
+    const project = anchorQuery.data as any;
+    if (!project) return { kind: 'missing' as const };
+    if (project.iteration_id) {
+      const it = iterations.find((i) => i.id === project.iteration_id);
+      return { kind: 'assigned' as const, iterationId: String(project.iteration_id), name: it?.name ?? '' };
+    }
+    const typeName = project.project_type_name ?? project.project_type?.name ?? null;
+    if (categoryOfTypeName(typeName) !== 'demand' || !project.lifecycle_state) {
+      return { kind: 'unsupported' as const };
+    }
+    if (parentIds.has(project.id)) return { kind: 'aggregate' as const };
+    return { kind: 'highlight' as const };
+  }, [anchorProjectId, anchorQuery.isLoading, anchorQuery.data, iterations, parentIds]);
+
+  useEffect(() => {
+    if (anchor?.kind === 'highlight' && anchorRowRef.current) {
+      anchorRowRef.current.scrollIntoView({ block: 'center' });
+    }
+  }, [anchor?.kind, itemsLoading]);
+
+  /** U24-B 行内挂接：显式确认后写 + 双域缓存失效 + 成功 toast（失败由行内呈现） */
+  const attachTo = async (projectId: string, iterationId: string) => {
+    await api.projects.update(projectId, { iteration_id: iterationId } as any);
+    queryClient.invalidateQueries({ queryKey: queryKeys.projects.all });
+    queryClient.invalidateQueries({ queryKey: queryKeys.iterations.all });
+    const name = iterations.find((it) => it.id === iterationId)?.name;
+    toast({ title: t('iterations:attach.success', { name: name ?? '' }) });
+  };
 
   const createMutation = useMutation({
     mutationFn: () =>
@@ -389,6 +527,45 @@ export function Iterations() {
           </button>
         </div>
       </div>
+
+      {anchor && anchor.kind !== 'highlight' && anchor.kind !== 'loading' && (
+        <div
+          className={`it-anchor-banner it-anchor-banner--${anchor.kind}`}
+          role="status"
+          data-testid="iterations-anchor-banner"
+        >
+          <span>
+            {anchor.kind === 'assigned' && t('iterations:anchor.assigned', { name: anchor.name })}
+            {anchor.kind === 'unsupported' && t('iterations:anchor.unsupported')}
+            {anchor.kind === 'aggregate' && t('iterations:anchor.aggregate')}
+            {anchor.kind === 'missing' && t('iterations:anchor.missing')}
+          </span>
+          {anchor.kind === 'assigned' && anchor.iterationId && (
+            <button
+              type="button"
+              className="it-btn it-btn--ghost"
+              data-testid="iterations-anchor-view-card"
+              onClick={() =>
+                document
+                  .querySelector(`[data-iteration-id="${anchor.iterationId}"]`)
+                  ?.scrollIntoView({ block: 'center' })
+              }
+            >
+              {t('iterations:anchor.viewCard')}
+            </button>
+          )}
+          {anchor.kind === 'unsupported' && (
+            <button
+              type="button"
+              className="it-btn it-btn--ghost"
+              data-testid="iterations-anchor-goto-projects"
+              onClick={() => navigate('/projects')}
+            >
+              {t('iterations:anchor.gotoProjects')}
+            </button>
+          )}
+        </div>
+      )}
 
       {creating && (
         <div className="it-create-form">
@@ -464,7 +641,34 @@ export function Iterations() {
         ) : unassigned.length === 0 ? (
           <div className="it-items-empty">{t('iterations:unassignedEmpty')}</div>
         ) : (
-          unassigned.map((p) => <ItemRow key={p.id} project={p} />)
+          <>
+            {aggregateRowCount > 0 && (
+              <div className="it-subtitle" data-testid="iterations-aggregate-note">
+                {t('iterations:attach.aggregateNote', { count: aggregateRowCount })}
+              </div>
+            )}
+            {unassigned.map((p) => {
+              const isAnchor = anchor?.kind === 'highlight' && anchorProjectId === p.id;
+              return (
+                <ItemRow
+                  key={p.id}
+                  project={p}
+                  anchor={isAnchor}
+                  rowRef={isAnchor ? (el) => { anchorRowRef.current = el; } : undefined}
+                  attach={
+                    parentIds.has(p.id)
+                      ? {
+                          iterations,
+                          onAttach: async () => {},
+                          disabled: true,
+                          disabledHint: t('iterations:attach.aggregateRowHint'),
+                        }
+                      : { iterations, onAttach: (iterId) => attachTo(p.id, iterId) }
+                  }
+                />
+              );
+            })}
+          </>
         )}
       </section>
     </div>

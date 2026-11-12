@@ -116,4 +116,9 @@ if (typeof window !== 'undefined') {
       dispatchEvent: jest.fn(),
     })),
   });
+
+  // jsdom 未实现 scrollIntoView：Radix Select 打开时与页面锚点逻辑都会调用
+  if (!Element.prototype.scrollIntoView) {
+    Element.prototype.scrollIntoView = function scrollIntoView() {};
+  }
 }

@@ -286,6 +286,76 @@ describe('I01 捕获（单条/校验/去重）', () => {
     expect((err as IntakeError).existingId).toBe(second.intake.id);
   });
 
+  test('I02h/U24: convert 可选挂接迭代——写入项目；不存在/非生命周期 → 400 invalid_iteration', async () => {
+    await db('iterations').insert({
+      id: 'ITER-I02H-1',
+      name: '2027 Q1',
+      start_date: '2027-01-01',
+      end_date: '2027-03-31',
+    });
+    const created = await S.capture({ title: '带迭代转换', source_channel: 'internal' });
+
+    // 成功：项目行落 iteration_id，返回体可见
+    const converted = await C.convert(
+      created.intake.id,
+      {
+        project_type_id: DEMAND_TYPE_ID,
+        project_sub_type_id: DEMAND_SUB_ID,
+        iteration_id: 'ITER-I02H-1',
+      },
+      'tester'
+    );
+    const project = await db('projects').where('id', converted.project.id).first();
+    expect(project.iteration_id).toBe('ITER-I02H-1');
+    createdProjectIds.push(String(converted.project.id));
+
+    // 不挂接：字段为 null
+    const plain = await S.capture({ title: '不挂接', source_channel: 'internal' });
+    const plainConverted = await C.convert(
+      plain.intake.id,
+      { project_type_id: DEMAND_TYPE_ID, project_sub_type_id: DEMAND_SUB_ID },
+      'tester'
+    );
+    const plainProject = await db('projects').where('id', plainConverted.project.id).first();
+    expect(plainProject.iteration_id).toBeNull();
+    createdProjectIds.push(String(plainConverted.project.id));
+
+    // 不存在的迭代 → 400（不依赖 FK 的 500）
+    const bad = await S.capture({ title: '坏迭代', source_channel: 'internal' });
+    await expectIntakeError(
+      () =>
+        C.convert(
+          bad.intake.id,
+          {
+            project_type_id: DEMAND_TYPE_ID,
+            project_sub_type_id: DEMAND_SUB_ID,
+            iteration_id: 'ITER-NO-SUCH',
+          },
+          'tester'
+        ),
+      400,
+      'invalid_iteration'
+    );
+
+    // 非生命周期类型 + 迭代 → 400（D6：字段只对生命周期类型；'零星事项' 属生命周期，用 '问题单支持'）
+    const nonLife = await S.capture({ title: '问题单挂迭代', source_channel: 'internal' });
+    await expectIntakeError(
+      () =>
+        C.convert(
+          nonLife.intake.id,
+          {
+            project_type_id: STANDING_TYPE_ID,
+            project_sub_type_id: STANDING_SUB_ID,
+            iteration_id: 'ITER-I02H-1',
+          },
+          'tester'
+        ),
+      400,
+      'invalid_iteration'
+    );
+    await db('iterations').where('id', 'ITER-I02H-1').del();
+  });
+
   test('复评回归：批量并发唯一约束不死锁（事务内复用连接），该条 skipped 其余入库', async () => {
     await S.capture({ title: '已有', source_channel: 'jdc_sr', source_ref: 'SR-BATCH-1' });
     // 确定性交错：前两次 findDuplicate（批量预检，行 1/行 2）返回 null 模拟

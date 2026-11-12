@@ -28,5 +28,23 @@
   "state": "State",
   "noPrimaryDev": "—",
   "createFailed": "Create failed",
-  "deleteFailed": "Delete failed"
+  "deleteFailed": "Delete failed",
+  "attach": {
+    "selectAria": "Select an iteration for {{name}}",
+    "placeholder": "Attach to iteration…",
+    "confirm": "Attach",
+    "pending": "Attaching…",
+    "failed": "Attach failed, try again",
+    "success": "Attached to \"{{name}}\"",
+    "aggregateNote": "{{count}} SR rows are aggregated from child items and cannot be attached here",
+    "aggregateRowHint": "Aggregated from child items (attach on a child)"
+  },
+  "anchor": {
+    "assigned": "This project is already in \"{{name}}\"",
+    "unsupported": "This project type/state does not support iteration attach; use the Demand board",
+    "aggregate": "This project aggregates child items; attach iterations on a child",
+    "missing": "Project not found in the current data",
+    "viewCard": "View iteration card",
+    "gotoProjects": "Go to Demand board"
+  }
 }

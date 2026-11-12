@@ -65,6 +65,8 @@ export interface IntakeConvertInput {
   owner_id?: string | null;
   expected_start?: string | null;
   expected_finish?: string | null;
+  /** I02h/U24：可选挂接迭代（仅生命周期类型；服务端校验存在性） */
+  iteration_id?: string | null;
 }
 
 /** 转换结果：baseline='unset' 时 phase_count 恒为 0 */
@@ -73,6 +75,8 @@ export interface IntakeConvertResult {
   intake: DemandIntake;
   baseline: 'set' | 'unset';
   baseline_reason: 'no_expected_start' | 'no_template' | null;
+  /** 客户端附加（I02h）：挂接的迭代名，供 toast 反馈；服务端不返回 */
+  iteration_name?: string | null;
   phase_count: number;
   external_number_linked: string | null;
   baseline_warnings: string[];

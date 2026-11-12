@@ -419,3 +419,83 @@
 
   .it-create-name { width: 100%; }
 }
+
+/* I02h/U24-B：沉底区行内挂接（select + 显式确认；行可换行容纳错误） */
+.it-item-row { flex-wrap: wrap; }
+
+.it-attach {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+}
+
+.it-attach-select {
+  min-height: 24px;
+  height: 24px;
+  padding: 0 0.375rem;
+  font-size: 12px;
+  line-height: 1;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  max-width: 160px;
+}
+
+.it-attach-select:hover,
+.it-attach-select:focus-visible {
+  border-color: var(--primary);
+  outline: none;
+}
+
+.it-attach-confirm {
+  min-height: 24px;
+  padding: 0 0.5rem;
+  font-size: 12px;
+  line-height: 1;
+}
+
+.it-attach-confirm:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.it-attach-hint,
+.it-attach-error {
+  font-size: 11px;
+}
+
+.it-attach-hint { color: var(--text-muted); }
+.it-attach-error {
+  flex-basis: 100%;
+  color: var(--status-danger-text);
+}
+
+/* 行内错误出现时占满第二行，不挤压名称 */
+.it-attach-error { margin-left: 0; }
+
+/* U23 锚点行高亮（选择器特异度压过既有行背景） */
+.it-item-row.it-item-row--anchor {
+  background: var(--status-info-soft);
+  outline: 1px solid var(--primary);
+}
+
+/* U23 锚点四态 banner */
+.it-anchor-banner {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0 0 12px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 13px;
+  background: var(--status-info-soft);
+  color: var(--text-primary);
+}
+
+.it-anchor-banner--missing,
+.it-anchor-banner--unsupported,
+.it-anchor-banner--aggregate {
+  background: var(--status-warning-soft);
+}

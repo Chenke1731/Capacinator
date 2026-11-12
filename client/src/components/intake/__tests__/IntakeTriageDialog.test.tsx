@@ -17,6 +17,7 @@ jest.mock('../../../lib/api-client', () => ({
     projectSubTypes: { list: jest.fn() },
     people: { list: jest.fn() },
     intake: { convert: jest.fn() },
+    iterations: { list: jest.fn() },
   },
 }));
 
@@ -81,6 +82,59 @@ describe('IntakeTriageDialog', () => {
       },
     });
     localStorage.setItem('intake-triage-subtype', 'sub-1');
+    (api.iterations.list as jest.Mock).mockResolvedValue({ data: [] });
+  });
+
+  test('I02h/D6: 迭代字段仅生命周期类型可见；空列表给"可先不挂"提示', async () => {
+    renderDialog(baseIntake);
+    await waitFor(() => expect(screen.getByTestId('triage-iteration')).toBeInTheDocument());
+    await waitFor(() => expect(screen.getByTestId('triage-iteration-empty')).toBeInTheDocument());
+    expect(screen.getByTestId('triage-iteration-empty').textContent).toMatch(/No iterations yet/i);
+  });
+
+  test('I02h/F1: 迭代列表失败显示错误与重试，不冒充空列表', async () => {
+    (api.iterations.list as jest.Mock).mockRejectedValue(new Error('boom'));
+    renderDialog(baseIntake);
+    await waitFor(() => expect(screen.getByTestId('triage-iteration-error')).toBeInTheDocument());
+    expect(screen.queryByTestId('triage-iteration-empty')).not.toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /retry/i })).toBeInTheDocument();
+  });
+
+  test('I02h/D6: 非生命周期类型（问题单支持）不渲染迭代字段', async () => {
+    (api.projectSubTypes.list as jest.Mock).mockResolvedValue({
+      data: {
+        data: [
+          {
+            project_type_id: 'type-st',
+            project_type_name: '问题单支持',
+            sub_types: [{ id: 'sub-st', name: 'TICKET', is_active: 1 }],
+          },
+        ],
+      },
+    });
+    localStorage.setItem('intake-triage-subtype', 'sub-st');
+    renderDialog(baseIntake);
+    await waitFor(() =>
+      expect((screen.getByTestId('triage-submit') as HTMLButtonElement).disabled).toBe(false)
+    );
+    expect(screen.queryByTestId('triage-iteration')).not.toBeInTheDocument();
+  });
+
+  test('I02h/U24: 选择迭代后转换载荷携带 iteration_id', async () => {
+    (api.iterations.list as jest.Mock).mockResolvedValue({
+      data: [{ id: 'it-1', name: '2027 Q1', start_date: '2027-01-01', end_date: '2027-03-31' }],
+    });
+    renderDialog(baseIntake);
+    await waitFor(() => expect(screen.getByTestId('triage-iteration')).toBeInTheDocument());
+
+    fireEvent.keyDown(screen.getByTestId('triage-iteration'), { key: 'Enter', code: 'Enter' });
+    const option = await screen.findByRole('option', { name: '2027 Q1' });
+    fireEvent.click(option);
+
+    fireEvent.click(screen.getByTestId('triage-submit'));
+    await waitFor(() => expect(api.intake.convert).toHaveBeenCalledTimes(1));
+    const [, payload] = (api.intake.convert as jest.Mock).mock.calls[0];
+    expect(payload.iteration_id).toBe('it-1');
   });
 
   test('默认值预填：priority_hint 优先级、期望结束来自收件箱；提交载荷派生父类型', async () => {

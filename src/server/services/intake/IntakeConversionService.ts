@@ -20,9 +20,7 @@ import type {
   IntakeConvertInput,
   IntakeConvertResult,
 } from '../../../../shared/types/intake.js';
-
-/** 与 ProjectsController.create 同一口径：这些类型名进入生命周期（055/控制器的硬编码裁决） */
-const LIFECYCLE_TYPE_NAMES = ['需求交付', '零星事项'];
+import { isLifecycleTypeName } from '../../../../shared/types/lifecycle.js';
 
 const MAX_TITLE = 255;
 const ISO_DATE = /^\d{4}-\d{2}-\d{2}$/;
@@ -87,7 +85,25 @@ export class IntakeConversionService {
       const projectTypeId: string = subType.project_type_id;
       const typeRow = await trx('project_types').where('id', projectTypeId).first();
       const typeName: string | null = typeRow?.name ?? null;
-      const lifecycleEnabled = LIFECYCLE_TYPE_NAMES.includes(typeName ?? '');
+      const lifecycleEnabled = isLifecycleTypeName(typeName);
+
+      // I02h/U24（D6）：可选挂接迭代——仅生命周期类型允许（非生命周期项目不进
+      // 迭代卡统计，挂接会造成"卡头 0 项、展开有行"）；存在性用 trx 查，
+      // 不依赖 FK（FK 冲突会变 500，评审 D1）
+      const iterationIdRaw = input.iteration_id as unknown;
+      if (iterationIdRaw !== undefined && iterationIdRaw !== null && typeof iterationIdRaw !== 'string') {
+        throw new IntakeError('iteration_id must be a string or null', 400, 'invalid_iteration');
+      }
+      const iterationId = iterationIdRaw ? String(iterationIdRaw) : null;
+      if (iterationId) {
+        if (!lifecycleEnabled) {
+          throw new IntakeError('Iterations apply only to lifecycle project types', 400, 'invalid_iteration');
+        }
+        const iteration = await trx('iterations').where('id', iterationId).first();
+        if (!iteration) {
+          throw new IntakeError('Iteration not found', 400, 'invalid_iteration');
+        }
+      }
 
       // 3. 生效字段（载荷优先，回落收件箱值）
       let title: string = intake.title;
@@ -124,6 +140,7 @@ export class IntakeConversionService {
         aspiration_start: expected_start,
         aspiration_finish: expected_finish,
         external_number: externalNumber,
+        iteration_id: iterationId,
         lifecycle_state: lifecycleEnabled ? 'pending_rat' : null,
         created_at: nowIso(),
         updated_at: nowIso(),

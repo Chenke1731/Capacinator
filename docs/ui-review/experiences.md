@@ -143,3 +143,42 @@ status: candidate
 checklist_item: 比例型 KPI 的分母是否与分档人口一致（人工项；静态断言上线后删除）
 note: 同族风险点：任何新"利用率百分比/比例"必须经 utilizationPopulation，禁止 summary.people
 ```
+
+```yaml exp
+id: EXP-012
+source: review/2026-11-12-i02h-plan（U23 锚点四态；项目详情只有 iteration_id 无迭代名，"已挂接→落地无反馈"）
+class: 上下文跳转×静默 no-op
+mechanism_slice: url-intent × silent-no-op
+disposition: GUARD
+guard: proposed — 带 projectId 锚点的跳转必须对「命中/已满足/不满足/找不到」四态各给可见文案或高亮；断言：四态 fixture 渲染后均有 banner 或高亮，且不存在"已挂接却无反馈"分支
+verification: implemented 2026-11-12（I02h）— Iterations 四态 banner+高亮、Roadmap 无阶段/未找到 banner；组件测试覆盖四态；变异自证：删已挂接分支→用例红
+status: candidate
+checklist_item: 锚点跳转四态是否各有可见反馈（人工项；机器化后删除）
+note: U23 方案原文「若已被挂接则忽略」被评审否决——静默 no-op 等于入口失信；EXP-010 同族（状态可见性）
+```
+
+```yaml exp
+id: EXP-013
+source: review/2026-11-12-i02h-plan（U24-B 沉底区行内挂接：onChange 即写会随箭头键误发、成功后行卸载丢焦点）
+class: 行内写控件×提交触发/卸载
+mechanism_slice: inline-write × commit-trigger
+disposition: GUARD
+guard: proposed — 成功后行会卸载的行内写控件禁止裸 onChange 提交；必须显式确认或 pending 串行化+失败回滚+焦点转移；断言：连续两次 change 只发一次写、失败后显示值回退、成功后 focus 不在 body
+verification: implemented 2026-11-12（I02h）— select+确认钮；change 不发请求、pending 禁用、失败回滚占位+行内错误、成功 toast；测试覆盖
+status: candidate
+checklist_item: 行内写控件是否显式确认/pending/回滚（人工项；机器化后删除）
+note: 与 EXP-004 同族（显示值≠持久值），新增「卸载导致焦点丢失/并发写」面
+```
+
+```yaml exp
+id: EXP-014
+source: review/2026-11-12-i02h-plan（SR 聚合父行永久死控件 + 卡头 stats 与展开清单双源计数）
+class: 聚合语义×行级写入口/计数
+mechanism_slice: aggregate-row × write-affordance × dual-source-count
+disposition: GUARD
+guard: proposed — 行级写控件必须排除有子项的父行；卡头 stats 与展开清单必须同一 lifecycle 谓词；断言：SR+AR 夹具中父行无可写控件（或只读说明），挂非生命周期项目的卡头计数===行数
+verification: implemented 2026-11-12（I02h）— 父行 select 禁用+聚合说明；cardItems 加 lifecycle 谓词；测试覆盖（p1 禁用/p3 排除）
+status: candidate
+checklist_item: 聚合行写入口与卡头/清单计数是否同源（人工项；机器化后删除）
+note: 夹具实测 42 条未排中 5 条为 SR 父行（含 in_iteration 仍列未排）；服务端 ProjectsController 对父行一律 400
+```

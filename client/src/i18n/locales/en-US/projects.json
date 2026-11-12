@@ -46,6 +46,11 @@
   "loadErrorTitle": "Error Loading Project",
   "loadErrorDetail": "Failed to load project details. This could be due to a network issue or the project may not exist.",
   "backToProjects": "Back to Projects",
+  "detailActions": {
+    "viewInRoadmap": "View in roadmap",
+    "attachIteration": "Attach to iteration",
+    "viewIteration": "View iteration"
+  },
   "historyProjectCreated": "Project created",
   "historyLastUpdated": "Last updated",
   "priorityLevel": {

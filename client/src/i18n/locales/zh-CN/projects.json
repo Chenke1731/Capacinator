@@ -46,6 +46,11 @@
   "loadErrorTitle": "加载项目失败",
   "loadErrorDetail": "加载项目详情失败。可能是网络问题,或项目不存在。",
   "backToProjects": "返回项目列表",
+  "detailActions": {
+    "viewInRoadmap": "在路线图中查看",
+    "attachIteration": "挂接迭代",
+    "viewIteration": "查看迭代"
+  },
   "historyProjectCreated": "项目已创建",
   "historyLastUpdated": "最后更新",
   "priorityLevel": {

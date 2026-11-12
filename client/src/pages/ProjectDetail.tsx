@@ -7,7 +7,7 @@ import {
   ArrowLeft, Users, Briefcase, Clock,
   Target, AlertTriangle, AlertCircle,
   CheckCircle, XCircle, Circle, RefreshCw, Edit2, Trash2, Save,
-  Calculator
+  Calculator, CalendarRange, Map as MapIcon
 } from 'lucide-react';
 import {
   Dialog,
@@ -384,6 +384,29 @@ export function ProjectDetail() {
               })()}
               {getPriorityLabel(project.priority)}
             </Badge>
+          </div>
+          {/* I02h/U23：上下文互链（带项目锚点；目标页承担四态反馈） */}
+          <div className="flex flex-wrap items-center gap-2 pt-3" data-testid="project-detail-links">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => navigate(`/projects?tab=roadmap&projectId=${project.id}`)}
+              data-testid="project-detail-roadmap-link"
+            >
+              <MapIcon size={14} className="mr-1" />
+              {t('projects:detailActions.viewInRoadmap')}
+            </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => navigate(`/iterations?projectId=${project.id}`)}
+              data-testid="project-detail-iteration-link"
+            >
+              <CalendarRange size={14} className="mr-1" />
+              {(project as any).iteration_id
+                ? t('projects:detailActions.viewIteration')
+                : t('projects:detailActions.attachIteration')}
+            </Button>
           </div>
         </CardHeader>
       </Card>

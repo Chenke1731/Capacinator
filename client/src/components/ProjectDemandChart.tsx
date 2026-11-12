@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 import { api } from '../lib/api-client';
 import { queryKeys } from '../lib/queryKeys';
+import { invalidateSchedulingReads } from '../lib/invalidateSchedulingReads';
 import { formatDate } from '../utils/date';
 import { getLocale } from '../i18n';
 import { VisualPhaseManager } from './VisualPhaseManager';
@@ -289,6 +290,8 @@ export function ProjectDemandChart({ projectId, projectName }: ProjectDemandChar
     queryClient.invalidateQueries({ queryKey: queryKeys.demands.project(projectId) });
     // Also invalidate assignments as they might be affected
     queryClient.invalidateQueries({ queryKey: queryKeys.projects.assignments(projectId) });
+    // I02k：阶段/分配写后统一失效利用率/报表/看板读侧
+    void invalidateSchedulingReads(queryClient, projectId);
   }, [queryClient, projectId]);
 
   // Get project phases for integrated visualization (used by VisualPhaseManager child component)

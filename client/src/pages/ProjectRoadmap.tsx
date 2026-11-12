@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { Calendar, ZoomIn, ZoomOut, Search, ChevronLeft, ChevronRight } from 'lucide-react';
 import { api } from '../lib/api-client';
 import { queryKeys } from '../lib/queryKeys';
+import { invalidateSchedulingReads } from '../lib/invalidateSchedulingReads';
 import { LoadingSpinner } from '../components/ui/LoadingSpinner';
 import { ErrorMessage } from '../components/ui/ErrorMessage';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '../components/ui/dialog';
@@ -196,6 +197,10 @@ export default function ProjectRoadmap() {
       // roadmap() 尾参 undefined 与 filters 对象 typeof 不匹配,前缀匹配
       // 失败——失败拖拽的幽灵日期曾因此滞留,2026-10-13 全库审计)
       queryClient.invalidateQueries({ queryKey: queryKeys.projects.roadmap(debouncedFilters) });
+    },
+    onSuccess: (_result, variables) => {
+      // I02k：阶段日期写成功后失效全部排产读侧（People/报表/看板 5min 缓存）
+      void invalidateSchedulingReads(queryClient, variables.projectId);
     }
   });
 
@@ -212,10 +217,11 @@ export default function ProjectRoadmap() {
         end_date: endDate
       });
     },
-    onSuccess: () => {
+    onSuccess: (_result, variables) => {
       // 键对齐活跃查询(原先 roadmap() 失配,手动编辑成功后界面不刷新,
       // 2026-10-13 全库审计)——该路径无乐观更新,失效即唯一回显通道
       queryClient.invalidateQueries({ queryKey: queryKeys.projects.roadmap(debouncedFilters) });
+      void invalidateSchedulingReads(queryClient, variables.projectId);
       setEditingPhase(null);
     }
   });

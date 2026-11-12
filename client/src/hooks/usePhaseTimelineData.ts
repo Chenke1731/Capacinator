@@ -1,6 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { api } from '../lib/api-client';
 import { queryKeys } from '../lib/queryKeys';
+import { invalidateSchedulingReads } from '../lib/invalidateSchedulingReads';
 import type { ProjectPhaseTimeline } from '../types';
 
 export interface Phase {
@@ -82,6 +83,8 @@ export function usePhaseTimelineData({ projectId, onPhaseUpdateError }: UsePhase
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: queryKeys.projectPhases.byProject(projectId) });
+      // I02k：阶段写影响 computed/利用率/报表，统一失效读侧
+      void invalidateSchedulingReads(queryClient, projectId);
     },
     onError: (err: Error & { response?: { data?: { validation_errors?: string[] } } }) => {
       if (err?.response?.data?.validation_errors) {
@@ -150,6 +153,7 @@ export function usePhaseTimelineData({ projectId, onPhaseUpdateError }: UsePhase
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: queryKeys.projectPhases.all });
+      void invalidateSchedulingReads(queryClient, projectId);
     }
   });
 

@@ -463,6 +463,52 @@ describe('G-B3 项目 aspiration 刷新', () => {
     expect(assignmentAudits).toHaveLength(1);
     expect(assignmentAudits[0].comment).toBe('recomputed from project aspiration');
   });
+
+  test('D22：有 project 模式分配时拒绝清空 aspiration（409，数据不变）', async () => {
+    const seeded = await insertAssignment({
+      assignment_date_mode: 'project',
+      phase_id: null,
+      computed_start_date: ASPIRATION_START,
+      computed_end_date: ASPIRATION_FINISH,
+    });
+    const res = await request.put(`/api/projects/${PROJECT_ID}`).send({
+      aspiration_start: null,
+      aspiration_finish: null,
+    });
+    expect(res.status).toBe(409);
+    expect(res.body.references.project_mode_assignments).toBe(1);
+    const project = await db('projects').where('id', PROJECT_ID).first();
+    expect(project.aspiration_start).toBe(ASPIRATION_START);
+    expect(project.aspiration_finish).toBe(ASPIRATION_FINISH);
+    const row = await db('scenario_project_assignments').where('id', seeded.id).first();
+    expect(row.computed_start_date).toBe(ASPIRATION_START);
+    expect(row.computed_end_date).toBe(ASPIRATION_FINISH);
+  });
+
+  test('D22：只清除一端也拒绝（结果不完整）', async () => {
+    await insertAssignment({ assignment_date_mode: 'project', phase_id: null });
+    const res = await request.put(`/api/projects/${PROJECT_ID}`).send({
+      aspiration_start: null,
+    });
+    expect(res.status).toBe(409);
+  });
+
+  test('D22：无 project 模式分配时允许清空', async () => {
+    await insertAssignment({
+      assignment_date_mode: 'fixed',
+      phase_id: null,
+      start_date: '2026-02-01',
+      end_date: '2026-02-10',
+    });
+    const res = await request.put(`/api/projects/${PROJECT_ID}`).send({
+      aspiration_start: null,
+      aspiration_finish: null,
+    });
+    expect(res.status).toBe(200);
+    const project = await db('projects').where('id', PROJECT_ID).first();
+    expect(project.aspiration_start).toBeNull();
+    expect(project.aspiration_finish).toBeNull();
+  });
 });
 
 describe('G-C 事务边界（单连接池死锁防线）', () => {

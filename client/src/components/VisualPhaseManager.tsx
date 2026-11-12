@@ -3,6 +3,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { api } from '../lib/api-client';
 import { queryKeys } from '../lib/queryKeys';
+import { invalidateSchedulingReads } from '../lib/invalidateSchedulingReads';
 import InteractiveTimeline, { TimelineItem, TimelineViewport } from './InteractiveTimeline';
 import './InteractiveTimeline.css';
 import { addDays, format } from 'date-fns';
@@ -277,6 +278,8 @@ export function VisualPhaseManager({ projectId, projectName: _projectName, onPha
     onSettled: () => {
       // Always refetch after error or success
       queryClient.invalidateQueries({ queryKey: queryKeys.projectPhases.byProject(projectId) });
+      // I02k：阶段写影响 computed/利用率/报表，统一失效读侧
+      void invalidateSchedulingReads(queryClient, projectId);
       onPhasesChange?.();
     }
   });
@@ -288,6 +291,7 @@ export function VisualPhaseManager({ projectId, projectName: _projectName, onPha
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: queryKeys.projectPhases.byProject(projectId) });
+      void invalidateSchedulingReads(queryClient, projectId);
       onPhasesChange?.();
     }
   });

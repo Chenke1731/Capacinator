@@ -7,6 +7,7 @@ import {
 } from 'lucide-react';
 import { api } from '../../lib/api-client';
 import { queryKeys } from '../../lib/queryKeys';
+import { invalidateSchedulingReads } from '../../lib/invalidateSchedulingReads';
 import { getLocale } from '../../i18n';
 import { calculatePhaseDurationWeeks } from '../../utils/phaseDurations';
 import { useAssignmentRecommendations, ProjectRecommendation } from '../../hooks/useAssignmentRecommendations';
@@ -381,6 +382,8 @@ export function SmartAssignmentModal({
       // General queries
       queryClient.invalidateQueries({ queryKey: queryKeys.assignments.all });
       queryClient.invalidateQueries({ queryKey: queryKeys.projects.all });
+      // I02k：分配写后统一失效利用率/报表/看板读侧
+      void invalidateSchedulingReads(queryClient, projectId);
 
       onClose();
     },
@@ -415,6 +418,7 @@ export function SmartAssignmentModal({
       queryClient.invalidateQueries({ queryKey: queryKeys.people.timeline(personId) });
       queryClient.invalidateQueries({ queryKey: queryKeys.people.all });
       queryClient.invalidateQueries({ queryKey: queryKeys.assignments.all });
+      void invalidateSchedulingReads(queryClient);
     },
     onError: (error: ApiError) => {
       console.error('Failed to delete assignment:', error);

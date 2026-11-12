@@ -845,6 +845,39 @@ export class ProjectsController extends BaseController {
         }
       });
 
+      // D22（I02a 交付评审 P2-3 裁决 b）：project 模式分配的 computed 依赖
+      // aspiration 起止；清空或只填一半会让刷新按严格口径跳过，旧窗口继续
+      // 计入利用率/缺口。存在 project 模式行时拒绝（409），用户须先改分配。
+      // 不过滤 change_type='removed'：当前读侧 effectiveAssignments 未过滤
+      // 墓碑，removed 行仍可能参与容量口径（NIT-6 同口径）。
+      const aspirationTouched =
+        'aspiration_start' in sanitizedData || 'aspiration_finish' in sanitizedData;
+      if (aspirationTouched) {
+        const nextStart =
+          'aspiration_start' in sanitizedData
+            ? sanitizedData.aspiration_start
+            : currentProject.aspiration_start;
+        const nextFinish =
+          'aspiration_finish' in sanitizedData
+            ? sanitizedData.aspiration_finish
+            : currentProject.aspiration_finish;
+        if (!nextStart || !nextFinish) {
+          const dependents = await this.db('scenario_project_assignments')
+            .where({ project_id: id, assignment_date_mode: 'project' })
+            .count('* as count')
+            .first();
+          const dependentCount = Number(dependents?.count ?? 0);
+          if (dependentCount > 0) {
+            res.status(409).json({
+              error: 'Conflict',
+              message: `Cannot clear project dates: ${dependentCount} project-aligned assignment(s) depend on the aspiration window; change their date mode or delete them first`,
+              references: { project_mode_assignments: dependentCount },
+            });
+            return null;
+          }
+        }
+      }
+
       // 五段写入同事务(2026-10-13 全库审计): 主表+两类评估+标签先删后插,
       // 任一失败整体回滚(标签段原先 del 后 insert 失败即丢整组标签)
       // I02a/D18：aspiration 日期变化时同事务刷新 project 模式分配的 computed

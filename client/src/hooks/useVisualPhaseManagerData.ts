@@ -1,6 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { api } from '../lib/api-client';
 import { queryKeys } from '../lib/queryKeys';
+import { invalidateSchedulingReads } from '../lib/invalidateSchedulingReads';
 
 // 对齐实体版(2026-10-13 批清): 第三份同名本地副本,phase_name/order
 // join 注入可选——与 api 返回的实体 ProjectPhaseTimeline 互不兼容
@@ -81,6 +82,8 @@ export function useVisualPhaseManagerData({ projectId, onPhasesChange }: UseVisu
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: queryKeys.projectPhases.all });
+      // I02k：阶段写影响 computed/利用率/报表，统一失效读侧
+      void invalidateSchedulingReads(queryClient, projectId);
       onPhasesChange?.();
     }
   });
@@ -92,6 +95,8 @@ export function useVisualPhaseManagerData({ projectId, onPhasesChange }: UseVisu
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: queryKeys.projectPhases.all });
+      // I02k：阶段写影响 computed/利用率/报表，统一失效读侧
+      void invalidateSchedulingReads(queryClient, projectId);
       onPhasesChange?.();
     }
   });
@@ -103,6 +108,8 @@ export function useVisualPhaseManagerData({ projectId, onPhasesChange }: UseVisu
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: queryKeys.projectPhases.all });
+      // I02k：阶段写影响 computed/利用率/报表，统一失效读侧
+      void invalidateSchedulingReads(queryClient, projectId);
       onPhasesChange?.();
     }
   });

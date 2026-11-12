@@ -29,6 +29,7 @@ import { Skeleton } from '../components/ui/skeleton';
 import { Alert, AlertDescription, AlertTitle } from '../components/ui/alert';
 import { api } from '../lib/api-client';
 import { queryKeys } from '../lib/queryKeys';
+import { invalidateSchedulingReads } from '../lib/invalidateSchedulingReads';
 import { formatDate } from '../utils/date';
 import { ProjectDemandChart } from '../components/ProjectDemandChart';
 import { InlineEdit } from '../components/ui/InlineEdit';
@@ -149,6 +150,8 @@ export function ProjectDetail() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: queryKeys.projects.detail(id!) });
+      // I02k：项目字段（含 aspiration 日期）写后失效排产读侧
+      void invalidateSchedulingReads(queryClient, id!);
     }
   });
 
@@ -160,6 +163,7 @@ export function ProjectDetail() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: queryKeys.projects.detail(id!) });
+      void invalidateSchedulingReads(queryClient, id!);
     }
   });
 
@@ -171,6 +175,7 @@ export function ProjectDetail() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: queryKeys.projects.detail(id!) });
+      void invalidateSchedulingReads(queryClient, id!);
       setSelectedAssignment(null);
       setIsEditingAssignment(false);
     }

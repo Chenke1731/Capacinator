@@ -7,6 +7,7 @@ import { useBookmarkableTabs } from '../hooks/useBookmarkableTabs';
 import { getLocale } from '../i18n';
 import { api } from '../lib/api-client';
 import { queryKeys } from '../lib/queryKeys';
+import { invalidateSchedulingReads } from '../lib/invalidateSchedulingReads';
 import { DataTable, Column } from '../components/ui/DataTable';
 import { FilterBar } from '../components/ui/FilterBar';
 import { LoadingSpinner } from '../components/ui/LoadingSpinner';
@@ -143,6 +144,8 @@ export default function Assignments() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: queryKeys.assignments.all });
+      // I02k：分配写后统一失效利用率/报表/看板读侧
+      void invalidateSchedulingReads(queryClient);
     }
   });
 
@@ -153,6 +156,7 @@ export default function Assignments() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: queryKeys.assignments.all });
+      void invalidateSchedulingReads(queryClient);
     },
     onError: (error) => {
       logger.error('Failed to update assignment', { error });
@@ -182,6 +186,8 @@ export default function Assignments() {
   const handleAssignmentSuccess = () => {
     // Both modals will close automatically via onClose
     setEditingAssignment(null);
+    // I02k：弹窗内 useModalForm 只失效 ['assignments']，补齐利用率/报表/看板
+    void invalidateSchedulingReads(queryClient);
   };
 
   const handleFilterChange = (name: string, value: string) => {

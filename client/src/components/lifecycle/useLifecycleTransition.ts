@@ -1,6 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { api } from '../../lib/api-client';
 import { queryKeys } from '../../lib/queryKeys';
+import { invalidateSchedulingReads } from '../../lib/invalidateSchedulingReads';
 
 /**
  * Shared lifecycle transition mutation — invalidates everything that shows
@@ -16,6 +17,8 @@ export function useLifecycleTransition(projectId: string) {
       queryClient.invalidateQueries({ queryKey: queryKeys.projects.detail(projectId) });
       queryClient.invalidateQueries({ queryKey: queryKeys.projects.lists() });
       queryClient.invalidateQueries({ queryKey: queryKeys.dashboard.all });
+      // I02k：生命周期 pause/release 会改分配状态，统一失效排产读侧
+      void invalidateSchedulingReads(queryClient, projectId);
     }
   });
 }

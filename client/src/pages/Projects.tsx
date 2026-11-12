@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { Plus, Edit2, Trash2, Tag, ChevronDown, ChevronRight, Search, X, GitBranch, CornerDownRight, Info } from 'lucide-react';
 import { api } from '../lib/api-client';
 import { queryKeys } from '../lib/queryKeys';
+import { invalidateSchedulingReads } from '../lib/invalidateSchedulingReads';
 import { PriorityCell, TagsCell, ComponentCell } from '../components/boards/EditableCells';
 import { KlocCell, EffortCell, RoleCell, PrimaryDevCell, VersionPart, ReleaseCell, IterationCell } from '../components/boards/BoardCells';
 import { ReqCheckbox } from '../components/boards/ReqCheckbox';
@@ -734,7 +735,11 @@ export function Projects() {
     deleteProjectMutation.mutate(project.id);
   };
 
-  const invalidate = () => queryClient.invalidateQueries({ queryKey: queryKeys.projects.all });
+  const invalidate = () => {
+    queryClient.invalidateQueries({ queryKey: queryKeys.projects.all });
+    // I02k：项目日期/字段编辑后统一失效利用率/报表/看板读侧
+    void invalidateSchedulingReads(queryClient);
+  };
 
   // ── 批量选择模型(2026-10-11): 统一闭包——勾 SR=整棵子树入选; ──
   // 全部操作(含删除)作用于同一集合,条上计数=实际作用行数(含折叠子行);

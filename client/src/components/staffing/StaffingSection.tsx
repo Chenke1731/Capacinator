@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { Plus, Diamond, AlertTriangle, Pause } from 'lucide-react';
 import { api, apiClient } from '../../lib/api-client';
 import { queryKeys } from '../../lib/queryKeys';
+import { invalidateSchedulingReads } from '../../lib/invalidateSchedulingReads';
 
 // Minimal axios accessors (avoid widening api-client typings for these two calls)
 async function apiClientGet(url: string): Promise<unknown> {
@@ -147,6 +148,8 @@ function NamingPanel({
       queryClient.invalidateQueries({ queryKey: queryKeys.projects.detail(project.id) });
       queryClient.invalidateQueries({ queryKey: queryKeys.people.all });
       queryClient.invalidateQueries({ queryKey: ['people-utilization'] });
+      // I02k：分配写后统一失效利用率/报表/看板读侧
+      void invalidateSchedulingReads(queryClient, project.id);
       onFinished(personIds.length);
     },
     onError: (err: any) =>

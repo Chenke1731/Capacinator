@@ -30,6 +30,8 @@ export interface PhaseManagementResult {
   affectedPhases?: string[];
   /** I02a：本次操作触发的 computed 刷新变更（控制器负责提交后逐条审计） */
   assignmentChanges?: AssignmentDateChange[];
+  /** I02j/P2-6：业务冲突（如被 phase 模式分配引用），控制器映射 409 */
+  conflict?: boolean;
 }
 
 export class CustomPhaseManagementService {
@@ -222,6 +224,7 @@ export class CustomPhaseManagementService {
       }
 
       // Handle name updates (requires updating the phase itself)
+      let renamePhase = false;
       if (updateData.name && updateData.name !== currentPhase.phase_name) {
         if (currentPhase.phase_source === 'template') {
           updates.is_name_customized = true;
@@ -230,9 +233,7 @@ export class CustomPhaseManagementService {
         // For custom phases, we can update the phase name directly
         // For template phases, we should consider creating a project-specific override
         if (currentPhase.phase_source === 'custom') {
-          await this.db('project_phases')
-            .where('id', currentPhase.phase_id)
-            .update({ name: updateData.name, updated_at: new Date() });
+          renamePhase = true;
         }
       }
 
@@ -248,9 +249,15 @@ export class CustomPhaseManagementService {
         });
       }
 
-      // Apply the update（I02a/D18：时间线写 + computed 刷新同事务）
+      // Apply the update（I02a/D18：时间线写 + computed 刷新同事务；
+      // I02j/NIT-7：自定义阶段改名也收进同一事务，刷新失败时名称一并回滚）
       let assignmentChanges: AssignmentDateChange[] = [];
       await this.db.transaction(async (trx: any) => {
+        if (renamePhase && currentPhase.phase_id) {
+          await trx('project_phases')
+            .where('id', currentPhase.phase_id)
+            .update({ name: updateData.name, updated_at: new Date() });
+        }
         await trx('project_phases_timeline')
           .where('id', phaseTimelineId)
           .update(updates);
@@ -314,6 +321,7 @@ export class CustomPhaseManagementService {
         if (Number(refs?.count ?? 0) > 0) {
           return {
             success: false,
+            conflict: true,
             message: `Phase has ${refs!.count} phase-aligned assignment(s); reassign or delete them first`
           };
         }

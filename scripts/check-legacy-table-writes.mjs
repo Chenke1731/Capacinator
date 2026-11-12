@@ -30,7 +30,7 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 export const ALLOWLIST = new Map([
   [
     'src/server/api/controllers/AssignmentsController.ts',
-    '工具端点 deleteTestData：仅清理 Test_ 前缀夹具行的 .del()（非业务写路径）',
+    '工具端点 deleteTestData：仅清理 Test_ 前缀夹具行的 .del()；同文件 update/delete 的 this.db(tableName) 动态回退路径不在本守卫扫描面（见文件头局限）',
   ],
   [
     'src/server/services/git/ScenarioExporter.ts',

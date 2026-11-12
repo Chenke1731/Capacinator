@@ -35,6 +35,10 @@ const PHASE_B_ID = `i02a-phase-b-${SUFFIX}`;
 const TIMELINE_A_ID = `i02a-tl-a-${SUFFIX}`;
 const TIMELINE_B_ID = `i02a-tl-b-${SUFFIX}`;
 const BRANCH_ID = `i02a-branch-${SUFFIX}`;
+const PROJECT2_ID = `i02a-project2-${SUFFIX}`;
+const PHASE2_ID = `i02a-phase2-${SUFFIX}`;
+const TIMELINE2_ID = `i02a-tl2-${SUFFIX}`;
+const PHASE_NO_TIMELINE_ID = `i02a-phase3-${SUFFIX}`;
 
 const A_START = '2026-03-01';
 const A_END = '2026-03-31';
@@ -96,12 +100,14 @@ function makeApp() {
   testApp.use('/api/assignments', assignmentRoutes);
 
   const phaseRoutes = express.Router();
+  phaseRoutes.post('/bulk', (req, res) => phases.bulkUpdate(req, res));
   phaseRoutes.put('/:id', (req, res) => phases.update(req, res));
   phaseRoutes.delete('/:id', (req, res) => phases.delete(req, res));
   testApp.use('/api/project-phases', phaseRoutes);
 
   const projectRoutes = express.Router();
   projectRoutes.put('/:id', (req, res) => projects.update(req, res));
+  projectRoutes.delete('/:id/phases/:phaseTimelineId', (req, res) => projects.deleteProjectPhase(req, res));
   testApp.use('/api/projects', projectRoutes);
 
   const scenarioRoutes = express.Router();
@@ -160,6 +166,8 @@ beforeAll(async () => {
   await db('project_phases').insert([
     { id: PHASE_A_ID, name: `I02A 分析 ${SUFFIX}`, order_index: 1 },
     { id: PHASE_B_ID, name: `I02A 开发 ${SUFFIX}`, order_index: 2 },
+    { id: PHASE_NO_TIMELINE_ID, name: `I02A 孤儿 ${SUFFIX}`, order_index: 3 },
+    { id: PHASE2_ID, name: `I02A 他项目阶段 ${SUFFIX}`, order_index: 1 },
   ]);
   await db('projects').insert({
     id: PROJECT_ID,
@@ -169,6 +177,22 @@ beforeAll(async () => {
     aspiration_finish: ASPIRATION_FINISH,
     created_at: new Date(),
     updated_at: new Date(),
+  });
+  await db('projects').insert({
+    id: PROJECT2_ID,
+    name: `I02A Project 2 ${SUFFIX}`,
+    project_sub_type_id: TEST_PROJECT_SUB_TYPE_ID,
+    aspiration_start: '2026-01-01',
+    aspiration_finish: '2026-02-01',
+    created_at: new Date(),
+    updated_at: new Date(),
+  });
+  await db('project_phases_timeline').insert({
+    id: TIMELINE2_ID,
+    project_id: PROJECT2_ID,
+    phase_id: PHASE2_ID,
+    start_date: '2026-01-01',
+    end_date: '2026-01-31',
   });
   const baseline = await db('scenarios').where('id', BASELINE_SCENARIO_ID).first();
   if (!baseline) {
@@ -340,6 +364,84 @@ describe('G-B 阶段时间线刷新接线（跨场景）', () => {
     expect(assignmentAudits).toHaveLength(0);
   });
 
+  test('bulkUpdate → 同事务刷新 + 提交后逐条审计', async () => {
+    const seeded = await insertAssignment();
+    const res = await request.post('/api/project-phases/bulk').send({
+      updates: [{ id: TIMELINE_A_ID, start_date: '2026-03-05', end_date: '2026-04-04' }],
+    });
+    expect(res.status).toBe(200);
+    expect(res.body.updated).toHaveLength(1);
+    const row = await db('scenario_project_assignments').where('id', seeded.id).first();
+    expect(row.computed_start_date).toBe('2026-03-05');
+    expect(row.computed_end_date).toBe('2026-04-04');
+    expect(
+      auditEvents.filter((e) => e.table === 'scenario_project_assignments' && e.recordId === seeded.id)
+    ).toHaveLength(1);
+  });
+
+  test('阶段变化只动 phase 模式行：fixed 行原样保留', async () => {
+    const fixed = await insertAssignment({
+      id: `i02a-fixed-${SUFFIX}`,
+      assignment_date_mode: 'fixed',
+      phase_id: null,
+      start_date: '2026-02-01',
+      end_date: '2026-02-10',
+      computed_start_date: '2026-02-01',
+      computed_end_date: '2026-02-10',
+    });
+    const phase = await insertAssignment();
+    const res = await request.put(`/api/project-phases/${TIMELINE_A_ID}`).send({
+      start_date: '2026-03-11',
+      end_date: '2026-04-10',
+    });
+    expect(res.status).toBe(200);
+    const fixedRow = await db('scenario_project_assignments').where('id', fixed.id).first();
+    expect(fixedRow.computed_start_date).toBe('2026-02-01');
+    expect(fixedRow.computed_end_date).toBe('2026-02-10');
+    const phaseRow = await db('scenario_project_assignments').where('id', phase.id).first();
+    expect(phaseRow.computed_start_date).toBe('2026-03-11');
+  });
+
+  test('孤儿 phase 行（无时间线）跳过刷新，不写 NULL', async () => {
+    const orphan = await insertAssignment({
+      id: `i02a-orphan-${SUFFIX}`,
+      phase_id: PHASE_NO_TIMELINE_ID,
+      computed_start_date: '2026-01-05',
+      computed_end_date: '2026-01-06',
+    });
+    const res = await request.put(`/api/project-phases/${TIMELINE_A_ID}`).send({
+      start_date: '2026-03-12',
+      end_date: '2026-04-11',
+    });
+    expect(res.status).toBe(200);
+    const row = await db('scenario_project_assignments').where('id', orphan.id).first();
+    expect(row.computed_start_date).toBe('2026-01-05');
+    expect(row.computed_end_date).toBe('2026-01-06');
+  });
+});
+
+describe('G-B2 阶段 bulkUpdate / updateProjectPhases', () => {
+  test('updateProjectPhases → 返回 phase_changes 并刷新分配', async () => {
+    const { ProjectPhaseCascadeService } = await import(
+      '../../../src/server/services/ProjectPhaseCascadeService'
+    );
+    const seeded = await insertAssignment();
+    const service = new ProjectPhaseCascadeService(db as any);
+    const result = await service.updateProjectPhases(PROJECT_ID, [
+      { phase_id: PHASE_A_ID, start_date: new Date('2026-03-18'), end_date: new Date('2026-04-17') },
+    ]);
+    expect(result.phase_changes).toHaveLength(1);
+    expect(result.phase_changes[0]).toMatchObject({
+      phase_id: PHASE_A_ID,
+      new_start_date: '2026-03-18',
+      new_end_date: '2026-04-17',
+    });
+    const row = await db('scenario_project_assignments').where('id', seeded.id).first();
+    expect(row.computed_start_date).toBe('2026-03-18');
+    expect(row.computed_end_date).toBe('2026-04-17');
+  });
+});
+describe('G-B3 项目 aspiration 刷新', () => {
   test('项目 aspiration 更新 → project 模式分配刷新并审计', async () => {
     const seeded = await insertAssignment({
       assignment_date_mode: 'project',
@@ -437,6 +539,12 @@ describe('G-D 原子性与删除护栏', () => {
     expect(timeline.end_date).toBe(A_END);
   });
 
+  test('custom-phase 删除端点同规则 → 409（P2-6）', async () => {
+    await insertAssignment();
+    const blocked = await request.delete(`/api/projects/${PROJECT_ID}/phases/${TIMELINE_A_ID}`);
+    expect(blocked.status).toBe(409);
+  });
+
   test('被 phase 模式分配引用 → 删除阶段 409 带引用清单', async () => {
     const seeded = await insertAssignment();
     const blocked = await request.delete(`/api/project-phases/${TIMELINE_A_ID}`);
@@ -453,6 +561,33 @@ describe('G-D 原子性与删除护栏', () => {
 });
 
 describe('G-E cascade 同事务刷新', () => {
+  test('cascade 拒绝跨项目 timeline（400，他项目零变化；P2-4）', async () => {
+    const res = await request.post('/api/project-phase-dependencies/apply-cascade').send({
+      project_id: PROJECT_ID,
+      cascade_data: {
+        affected_phases: [
+          {
+            phase_timeline_id: TIMELINE2_ID,
+            phase_name: '他项目阶段',
+            current_start_date: '2026-01-01',
+            current_end_date: '2026-01-31',
+            new_start_date: '2026-01-10',
+            new_end_date: '2026-02-09',
+            dependency_type: 'finish-to-start',
+            lag_days: 0,
+            affects_count: 0,
+          },
+        ],
+        cascade_count: 1,
+        circular_dependencies: [],
+      },
+    });
+    expect(res.status).toBe(400);
+    const other = await db('project_phases_timeline').where('id', TIMELINE2_ID).first();
+    expect(other.start_date).toBe('2026-01-01');
+    expect(other.end_date).toBe('2026-01-31');
+  });
+
   test('applyCascade → 时间线更新 + 分配刷新 + 返回审计变更', async () => {
     const seeded = await insertAssignment();
     const res = await request.post('/api/project-phase-dependencies/apply-cascade').send({

@@ -37,6 +37,14 @@ export interface CascadeApplyResult {
   assignment_changes: AssignmentDateChange[];
 }
 
+/** cascade 入参的时间线不属于请求 project_id（I02j/P2-4：拒绝跨项目写） */
+export class CascadeProjectMismatchError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = 'CascadeProjectMismatchError';
+  }
+}
+
 
 export class ProjectPhaseCascadeService {
   private db: any;
@@ -162,10 +170,27 @@ export class ProjectPhaseCascadeService {
       const timelineIds = changes.map(change => change.phase_timeline_id);
       const before = await trx('project_phases_timeline')
         .whereIn('id', timelineIds)
-        .select('id', 'phase_id', 'start_date', 'end_date');
+        .select('id', 'project_id', 'phase_id', 'start_date', 'end_date');
       const beforeById = new Map<string, any>(
         (before as any[]).map(row => [String(row.id), row])
       );
+
+      // I02j/P2-4：cascade 只允许改本项目的阶段时间线（否则会写他项目数据，
+      // 且刷新只按请求 project_id 跑，他项目 computed 会静默 stale）
+      const missing = timelineIds.filter(timelineId => !beforeById.has(String(timelineId)));
+      if (missing.length > 0) {
+        throw new CascadeProjectMismatchError(
+          `Phase timeline(s) not found for project ${projectId}: ${missing.join(', ')}`
+        );
+      }
+      const foreign = (before as any[]).filter(
+        row => String(row.project_id) !== String(projectId)
+      );
+      if (foreign.length > 0) {
+        throw new CascadeProjectMismatchError(
+          `Phase timeline(s) belong to another project: ${foreign.map(row => String(row.id)).join(', ')}`
+        );
+      }
 
       for (const change of changes) {
         await trx('project_phases_timeline')
@@ -226,6 +251,7 @@ export class ProjectPhaseCascadeService {
   }>, opts: { trx?: Knex.Transaction } = {}): Promise<CascadeApplyResult> {
     const run = async (trx: any): Promise<CascadeApplyResult> => {
       const touchedPhaseIds = new Set<string>();
+      const phaseChanges: PhaseTimelineChange[] = [];
       let assignmentChanges: AssignmentDateChange[] = [];
 
       for (const update of phaseUpdates) {
@@ -239,12 +265,25 @@ export class ProjectPhaseCascadeService {
           throw new Error(`Timeline not found for phase ${update.phase_id} in project ${projectId}`);
         }
 
+        const nextStart = this.formatDateSafe(update.start_date);
+        const nextEnd = this.formatDateSafe(update.end_date);
+        if (String(timeline.start_date) !== nextStart || String(timeline.end_date) !== nextEnd) {
+          phaseChanges.push({
+            timeline_id: String(timeline.id),
+            phase_id: String(update.phase_id),
+            old_start_date: timeline.start_date ?? null,
+            old_end_date: timeline.end_date ?? null,
+            new_start_date: nextStart,
+            new_end_date: nextEnd
+          });
+        }
+
         // Update the phase timeline
         await trx('project_phases_timeline')
           .where('id', timeline.id)
           .update({
-            start_date: this.formatDateSafe(update.start_date),
-            end_date: this.formatDateSafe(update.end_date),
+            start_date: nextStart,
+            end_date: nextEnd,
             updated_at: new Date().toISOString()
           });
         touchedPhaseIds.add(String(update.phase_id));
@@ -267,6 +306,7 @@ export class ProjectPhaseCascadeService {
           const applied = await this.applyCascade(projectId, cascadeResult, { trx });
           applied.phase_changes.forEach(change => {
             if (change.phase_id) touchedPhaseIds.add(change.phase_id);
+            phaseChanges.push(change);
           });
           assignmentChanges = assignmentChanges.concat(applied.assignment_changes);
         }
@@ -283,7 +323,7 @@ export class ProjectPhaseCascadeService {
 
       return {
         updated_phases: touchedPhaseIds.size,
-        phase_changes: [],
+        phase_changes: phaseChanges,
         assignment_changes: assignmentChanges
       };
     };

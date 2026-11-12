@@ -259,6 +259,8 @@ export class ProjectPhasesController extends BaseController {
       // "阶段已改、分配未跟"的半状态）；审计一律移到提交后（F8：回滚不留
       // phantom 审计）
       const dateChanged = Object.keys(timelineUpdateData).length > 0;
+      // I02j/NIT-4：DB 写入与审计复用同一时刻，审计回放不产生毫秒偏差
+      const now = new Date();
       let assignmentChanges: AssignmentDateChange[] = [];
       await this.db.transaction(async (trx: Knex.Transaction) => {
         if (dateChanged) {
@@ -266,7 +268,7 @@ export class ProjectPhasesController extends BaseController {
             .where('id', id)
             .update({
               ...timelineUpdateData,
-              updated_at: new Date()
+              updated_at: now
             });
         }
 
@@ -276,7 +278,7 @@ export class ProjectPhasesController extends BaseController {
             .where('id', currentPhase.phase_id)
             .update({
               ...phaseUpdateData,
-              updated_at: new Date()
+              updated_at: now
             });
         }
 
@@ -299,7 +301,7 @@ export class ProjectPhasesController extends BaseController {
           newValues: {
             ...currentPhase,
             ...timelineUpdateData,
-            updated_at: new Date()
+            updated_at: now
           }
         });
       }
@@ -448,12 +450,14 @@ export class ProjectPhasesController extends BaseController {
               continue;
             }
 
+            // I02j/NIT-4：DB 写入与审计复用同一时刻
+            const now = new Date();
             const [updated] = await trx('project_phases_timeline')
               .where('id', update.id)
               .update({
                 start_date: update.start_date,
                 end_date: update.end_date,
-                updated_at: new Date()
+                updated_at: now
               })
               .returning('*');
             
@@ -462,7 +466,7 @@ export class ProjectPhasesController extends BaseController {
               auditEntries.push({
                 recordId: update.id,
                 oldValues: existingRecord,
-                newValues: { ...existingRecord, start_date: update.start_date, end_date: update.end_date, updated_at: new Date() }
+                newValues: { ...existingRecord, start_date: update.start_date, end_date: update.end_date, updated_at: now }
               });
               if (existingRecord.project_id && existingRecord.phase_id) {
                 const key = String(existingRecord.project_id);

@@ -170,3 +170,15 @@ expires: 2027-02-11
 status: candidate
 note: 台账证据列出现 4655/1 vs HEAD 4656/0、21/21 vs 22/22、"A/B/C 全红"vs 实际 B/C 红——根因=数字未附命令、未区分中间态与 HEAD、未标 project 范围。台账规范：数字必须附可复现命令+范围+时点；同族再现升级 GUARD。
 ```
+
+```yaml exp
+id: EXP-B15
+source: review/2026-11-13-i02a-delivery（P2-1：G-E 文件级 includes 假阴性）
+class: 静态守卫×文件级假阴性
+mechanism_slice: static-guard × file-scope-false-negative
+disposition: GUARD
+guard: enforced — scripts/check-write-path-registry.mjs（G-E，pre-commit 聚合）：敏感写点后 120 行内必须出现刷新调用；spread 写点按写点前 1500 字符调度字段上下文识别；project_phases_timeline 删除/ computed_* 写入须登记；REFRESH_WIRED/EXEMPT/DELETE_GUARDED 惰性条目红；注释先经状态机剥离（`// ... /lifecycle/*` 不再吞代码）；SELF_TEST 7/7
+verification: done（2026-11-13，I02j）— 变异红证：完整删除 ProjectsController.update 刷新调用→红线 860；删除 ProjectPhasesController.update 单阶段刷新（bulk 保留）→红线 265；注入未登记 `trx('project_phases_timeline').del()` + computed spread→两类红；SELF_TEST 4 空豁免红/登记绿
+status: enforced
+note: 初版 G-E 用 `source.includes(refresh)` 整文件判定——删掉单阶段刷新仍绿（bulk 的调用在文件里），spread 写点/删除/computed spread 全盲；评审用四条变异证明守卫不成立。修复后守卫以写点为中心，且登记表不养死条目。同族警惕：任何"文件里出现过 X"式守卫都需 per-site 窗口与反向自证
+```

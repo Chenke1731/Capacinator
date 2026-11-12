@@ -228,7 +228,7 @@ describe('ProjectPhaseCascadeService', () => {
         where: jest.fn().mockReturnThis(),
         whereIn: jest.fn().mockReturnThis(),
         select: jest.fn().mockResolvedValue([
-          { id: 'phase-2', phase_id: 'phase-2', start_date: '2024-01-16', end_date: '2024-02-15' }
+          { id: 'phase-2', project_id: 'proj-1', phase_id: 'phase-2', start_date: '2024-01-16', end_date: '2024-02-15' }
         ]),
         update: updateSpy
       };

@@ -77,12 +77,22 @@ export class AssignmentRecalculationService {
         });
       }
 
+      // I02j/P2-5：同一日期对的变化行合并为一条 UPDATE（场景副本×分配行
+      // 共享同一阶段日期；逐行 N+1 会在多场景下放大事务持锁时间）
+      const groups = new Map<string, { start: string | null; end: string | null; ids: string[] }>();
       for (const change of changes) {
+        const key = `${change.new.start ?? ''}|${change.new.end ?? ''}`;
+        if (!groups.has(key)) {
+          groups.set(key, { start: change.new.start, end: change.new.end, ids: [] });
+        }
+        groups.get(key)!.ids.push(change.assignment_id);
+      }
+      for (const group of groups.values()) {
         await conn('scenario_project_assignments')
-          .where('id', change.assignment_id)
+          .whereIn('id', group.ids)
           .update({
-            computed_start_date: change.new.start,
-            computed_end_date: change.new.end,
+            computed_start_date: group.start,
+            computed_end_date: group.end,
           });
       }
       return changes;
@@ -123,33 +133,27 @@ export class AssignmentRecalculationService {
           reason: 'project_aspiration',
         });
       }
+      // I02j/P2-5：同一日期对的变化行合并为一条 UPDATE（场景副本×分配行
+      // 共享同一阶段日期；逐行 N+1 会在多场景下放大事务持锁时间）
+      const groups = new Map<string, { start: string | null; end: string | null; ids: string[] }>();
       for (const change of changes) {
+        const key = `${change.new.start ?? ''}|${change.new.end ?? ''}`;
+        if (!groups.has(key)) {
+          groups.set(key, { start: change.new.start, end: change.new.end, ids: [] });
+        }
+        groups.get(key)!.ids.push(change.assignment_id);
+      }
+      for (const group of groups.values()) {
         await conn('scenario_project_assignments')
-          .where('id', change.assignment_id)
+          .whereIn('id', group.ids)
           .update({
-            computed_start_date: change.new.start,
-            computed_end_date: change.new.end,
+            computed_start_date: group.start,
+            computed_end_date: group.end,
           });
       }
       return changes;
     };
 
     return opts.trx ? run(opts.trx) : this.db.transaction(run);
-  }
-
-  /** 维护入口（Q10 一次性回填脚本用）：项目全量刷新（phase + project 模式） */
-  async recalculateAllProjectAssignments(projectId: string): Promise<AssignmentDateChange[]> {
-    return this.db.transaction(async (trx) => {
-      const phaseIds = await trx('scenario_project_assignments')
-        .where({ project_id: projectId, assignment_date_mode: 'phase' })
-        .distinct('phase_id');
-      const phaseChanges = await this.recalculateForPhaseTimelineChange(
-        projectId,
-        phaseIds.map((r: any) => String(r.phase_id)).filter(Boolean),
-        { trx }
-      );
-      const projectChanges = await this.recalculateForProjectDateChange(projectId, { trx });
-      return [...phaseChanges, ...projectChanges];
-    });
   }
 }

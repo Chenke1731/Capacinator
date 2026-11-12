@@ -228,6 +228,13 @@ export class ProjectPhaseDependenciesController {
         updated_assignments: result.assignment_changes.length
       });
     } catch (error) {
+      // I02j/P2-4：cascade 入参校验失败 → 400（不把他项目数据写坏后 500）。
+      // 按 name 判定而非 instanceof：动态 import/测试替身下类对象可能缺失。
+      if (error instanceof Error && error.name === 'CascadeProjectMismatchError') {
+        logger.warn('Rejected cascade apply', { projectId: req.body?.project_id, reason: error.message });
+        res.status(400).json({ error: 'Validation error', message: error.message });
+        return;
+      }
       logger.error('Error applying cascade', error instanceof Error ? error : undefined);
       res.status(500).json({ error: 'Failed to apply cascade changes' });
     }

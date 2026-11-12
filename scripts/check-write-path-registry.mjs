@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * G-E 写点注册表守卫（I02a，D18 路线 B）。
+ * G-E 写点注册表守卫（I02a，D18 路线 B；I02j 返修强化）。
  *
  * 背景：computed_start_date/computed_end_date 是「调度输入的派生缓存」。
  * 任何修改调度输入（阶段时间线 start/end、项目 aspiration、分配
@@ -9,16 +9,20 @@
  * 265% vs 145% 即此漂移（2026-10-22 起）。
  *
  * 静态断言（字面量启发式，与 G2 同强度口径）：
- *   1. 生产代码 update project_phases_timeline 且语句含 start_date/end_date：
- *      文件必须出现 recalculateForPhaseTimelineChange，或登记为豁免（插入
- *      新阶段/无既有分配的初始化路径）。
- *   2. 生产代码 update projects 且语句含 aspiration_start/aspiration_finish：
- *      文件必须出现 recalculateForProjectDateChange，或登记豁免。
- *   3. 生产代码写 scenario_project_assignments 的 computed_* 列：文件必须在
- *      COMPUTED_WRITERS 白名单（写路径原语/刷新服务/复制合并保真）。
+ *   1. 生产代码 update project_phases_timeline 且语句含 start_date/end_date，
+ *      或 update projects 且语句含 aspiration_start/aspiration_finish：
+ *      写点之后 REFRESH_WINDOW_LINES 行内必须出现对应刷新调用，否则红。
+ *      spread 形态（`update({ ...payload })`）在写点前 120 行内出现调度
+ *      字段名时同样视为敏感写点（防 P2-1 的"文件级 includes 假阴性"）。
+ *   2. project_phases_timeline 的 del/delete 必须登记在 DELETE_GUARDED
+ *      （Q1 引用护栏或清库/恢复路径），否则红。
+ *   3. scenario_project_assignments 的 computed_* 写点（含 insert，以及
+ *      带 spread 的 update/insert）必须登记在 COMPUTED_WRITERS。
+ *   4. REFRESH_WIRED / EXEMPT / DELETE_GUARDED 条目必须在扫描中真实命中，
+ *      否则报"惰性条目"红——登记表不养死条目（EXP-B12 同族）。
  *
- * 扫描不到的形状（raw SQL、别名表名、跨语句拼接）与 G2 相同，评审触及
- * 调度输入写点时人工核。
+ * 扫描不到的形状（raw SQL、别名表名、动态表名、跨语句拼接）与 G2 相同，
+ * 评审触及调度输入写点时人工核。
  *
  * 用法：
  *   node scripts/check-write-path-registry.mjs              # 检查（pre-commit）
@@ -32,8 +36,10 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 
 const PHASE_REFRESH = 'recalculateForPhaseTimelineChange';
 const PROJECT_REFRESH = 'recalculateForProjectDateChange';
+const REFRESH_WINDOW_LINES = 120;
+const LOOKBACK_CHARS = 1500;
 
-/** 已接线的调度输入写点（必须同时出现对应刷新调用） */
+/** 已接线的调度输入写点（文件中必须真实命中写点，且每个敏感写点附近有刷新调用） */
 export const REFRESH_WIRED = new Map([
   [
     'src/server/api/controllers/ProjectPhasesController.ts',
@@ -72,12 +78,24 @@ export const EXEMPT = new Map([
     '需求转项目：新项目/阶段初始化（insert），无既有分配',
   ],
   [
-    'src/server/services/import/clearTables.ts',
-    '清库/恢复前删除，之后由导入链路重建，无存量引用',
-  ],
-  [
     'src/server/services/git/ScenarioExporter.ts',
     'git 快照恢复：整库级 restore 后由快照自带 computed 值，非增量写',
+  ],
+]);
+
+/** project_phases_timeline 删除点：必须有引用护栏或属清库/恢复路径 */
+export const DELETE_GUARDED = new Map([
+  [
+    'src/server/api/controllers/ProjectPhasesController.ts',
+    'delete 前统计 phase 模式分配引用，409 阻止（Q1）',
+  ],
+  [
+    'src/server/services/CustomPhaseManagementService.ts',
+    'deletePhase 前统计 phase 模式分配引用，阻止删除（Q1）',
+  ],
+  [
+    'src/server/api/controllers/TestDataController.ts',
+    'e2e/测试数据清理端点：只删 Test_ 前缀项目的阶段，非业务写路径',
   ],
 ]);
 
@@ -117,21 +135,125 @@ const INPUT_TARGETS = [
 ];
 
 function statementAt(source, index) {
-  const tail = source.slice(index, index + 1200);
+  const tail = source.slice(index, index + 1500);
   return tail.split(/;\s*\n/)[0];
+}
+
+/** 剥离注释（保留行号/字符位）：注释里提到刷新调用不算接线。
+ *  状态机而非正则——源码字符串/注释里出现 `//`、`/*`（如
+ *  `POST /projects/:id/lifecycle/*`）时，正则会把后续代码整段吞掉。 */
+export function stripComments(source) {
+  const out = source.split('');
+  let state = 'code';
+  let i = 0;
+  while (i < source.length) {
+    const ch = source[i];
+    const next = source[i + 1];
+    if (state === 'code') {
+      if (ch === '/' && next === '*') {
+        out[i] = ' ';
+        out[i + 1] = ' ';
+        state = 'block';
+        i += 2;
+        continue;
+      }
+      if (ch === '/' && next === '/') {
+        out[i] = ' ';
+        out[i + 1] = ' ';
+        state = 'line';
+        i += 2;
+        continue;
+      }
+      if (ch === "'" || ch === '"' || ch === '`') {
+        state = ch;
+      }
+      i += 1;
+      continue;
+    }
+    if (state === 'block') {
+      if (ch === '*' && next === '/') {
+        out[i] = ' ';
+        out[i + 1] = ' ';
+        state = 'code';
+        i += 2;
+        continue;
+      }
+      if (ch !== '\n') out[i] = ' ';
+      i += 1;
+      continue;
+    }
+    if (state === 'line') {
+      if (ch === '\n') {
+        state = 'code';
+        i += 1;
+        continue;
+      }
+      out[i] = ' ';
+      i += 1;
+      continue;
+    }
+    // 字符串态：保留内容（避免把字符串里的 // 当注释），处理转义
+    if (ch === '\\') {
+      i += 2;
+      continue;
+    }
+    if (ch === state) {
+      state = 'code';
+    }
+    i += 1;
+  }
+  return out.join('');
+}
+
+function lineOf(source, index) {
+  return source.slice(0, index).split('\n').length;
 }
 
 function containsAny(haystack, needles) {
   return needles.some((needle) => haystack.includes(needle));
 }
 
+/** 敏感 spread：写点前 LOOKBACK_CHARS 内出现调度字段名（或已知载荷变量） */
+function hasSchedulingContext(source, index) {
+  const lookback = source.slice(Math.max(0, index - LOOKBACK_CHARS), index);
+  return containsAny(lookback, [
+    'start_date',
+    'end_date',
+    'aspiration_start',
+    'aspiration_finish',
+    'timelineUpdateData',
+    'sanitizedData',
+  ]);
+}
+
+/** 刷新调用是否在写点之后 REFRESH_WINDOW_LINES 行内 */
+function hasRefreshWithinWindow(source, index, refresh) {
+  const writeLine = lineOf(source, index);
+  let from = index;
+  while (from < source.length) {
+    const found = source.indexOf(refresh, from);
+    if (found < 0) return false;
+    const distance = lineOf(source, found) - writeLine;
+    if (distance < 0) {
+      from = found + refresh.length;
+      continue;
+    }
+    return distance <= REFRESH_WINDOW_LINES;
+  }
+  return false;
+}
+
 /**
  * 扫描单文件：
- * - inputWrites: [{table, line}] update 语句命中调度输入列
- * - computedWrites: [{line}] 写 scenario_project_assignments 的 computed_*
+ * - inputWrites: [{table, line, kind}] 敏感 update（literal/spread）
+ * - inserts: [{table, line}] 目标表 insert（用于惰性条目核验）
+ * - deletes: [{line, table}]
+ * - computedWrites: [{line, kind}]
  */
 export function scanSchedulingWrites(source) {
   const inputWrites = [];
+  const inserts = [];
+  const deletes = [];
   const computedWrites = [];
 
   for (const target of INPUT_TARGETS) {
@@ -142,12 +264,25 @@ export function scanSchedulingWrites(source) {
     let m;
     while ((m = callRe.exec(source))) {
       const stmt = statementAt(source, m.index);
+      const line = lineOf(source, m.index);
+      if (/\.insert\s*\(/.test(stmt)) {
+        inserts.push({ table: target.label, line });
+        continue;
+      }
+      if (/\.(del|delete)\s*\(/.test(stmt)) {
+        deletes.push({ table: target.label, line });
+        continue;
+      }
       if (!/\.update\s*\(/.test(stmt)) continue;
-      if (!containsAny(stmt, target.fields)) continue;
-      inputWrites.push({
-        table: target.label,
-        line: source.slice(0, m.index).split('\n').length,
-      });
+      const literal = containsAny(stmt, target.fields);
+      const spread =
+        /\.update\s*\(\s*\{[\s\S]*?\.\.\./.test(stmt) ||
+        /\.update\s*\(\s*[A-Za-z_$][\w$]*\s*\)/.test(stmt);
+      if (literal) {
+        inputWrites.push({ table: target.label, line, kind: 'literal' });
+      } else if (spread && hasSchedulingContext(source, m.index)) {
+        inputWrites.push({ table: target.label, line, kind: 'spread' });
+      }
     }
   }
 
@@ -157,11 +292,14 @@ export function scanSchedulingWrites(source) {
   while ((c = computedRe.exec(source))) {
     const stmt = statementAt(source, c.index);
     if (!/\.(?:update|insert)\s*\(/.test(stmt)) continue;
-    if (!containsAny(stmt, ['computed_start_date', 'computed_end_date'])) continue;
-    computedWrites.push({ line: source.slice(0, c.index).split('\n').length });
+    const literal = containsAny(stmt, ['computed_start_date', 'computed_end_date']);
+    const spread = /\.(?:update|insert)\s*\(\s*\{[\s\S]*?\.\.\./.test(stmt);
+    if (literal || spread) {
+      computedWrites.push({ line: lineOf(source, c.index), kind: literal ? 'literal' : 'spread' });
+    }
   }
 
-  return { inputWrites, computedWrites };
+  return { inputWrites, inserts, deletes, computedWrites };
 }
 
 export function classifyFile({
@@ -169,38 +307,90 @@ export function classifyFile({
   source,
   wired = REFRESH_WIRED,
   exempt = EXEMPT,
+  deletes = DELETE_GUARDED,
   computedWriters = COMPUTED_WRITERS,
 }) {
-  const { inputWrites, computedWrites } = scanSchedulingWrites(source);
+  const code = stripComments(source);
+  const scan = scanSchedulingWrites(code);
   const errors = [];
 
-  if (inputWrites.length > 0 && !exempt.has(relPath)) {
+  // 1) 敏感写点：逐点要求刷新调用在窗口内
+  for (const write of scan.inputWrites) {
+    if (exempt.has(relPath)) continue; // 豁免文件（insert-only 初始化）不要求刷新
     if (!wired.has(relPath)) {
       errors.push({
         kind: 'unregistered-input-write',
         file: relPath,
-        line: inputWrites[0].line,
-        message: '修改调度输入但未登记刷新接线/豁免',
+        line: write.line,
+        message: `${write.table} 敏感 ${write.kind} 写点未登记刷新接线/豁免`,
       });
-    } else {
-      const refresh = inputWrites[0].table === 'projects' ? PROJECT_REFRESH : PHASE_REFRESH;
-      if (!source.includes(refresh)) {
-        errors.push({
-          kind: 'missing-refresh-call',
-          file: relPath,
-          line: inputWrites[0].line,
-          message: `登记为接线但文件中找不到 ${refresh}`,
-        });
-      }
+      continue;
+    }
+    const refresh = write.table === 'projects' ? PROJECT_REFRESH : PHASE_REFRESH;
+    const writeIndex = code.split('\n').slice(0, write.line - 1).join('\n').length;
+    if (!hasRefreshWithinWindow(code, writeIndex, refresh)) {
+      errors.push({
+        kind: 'missing-refresh-call',
+        file: relPath,
+        line: write.line,
+        message: `写点后 ${REFRESH_WINDOW_LINES} 行内找不到 ${refresh}`,
+      });
     }
   }
 
-  if (computedWrites.length > 0 && !computedWriters.has(relPath)) {
+  // 2) 时间线删除点
+  for (const del of scan.deletes) {
+    if (del.table !== 'project_phases_timeline') continue;
+    if (!deletes.has(relPath)) {
+      errors.push({
+        kind: 'unregistered-timeline-delete',
+        file: relPath,
+        line: del.line,
+        message: '删除阶段时间线未登记引用护栏/清库路径',
+      });
+    }
+  }
+
+  // 3) computed 写点
+  for (const write of scan.computedWrites) {
+    if (!computedWriters.has(relPath)) {
+      errors.push({
+        kind: 'unregistered-computed-write',
+        file: relPath,
+        line: write.line,
+        message: `${write.kind} 写 computed_* 但不在来源白名单`,
+      });
+    }
+  }
+
+  // 4) 惰性条目：登记表必须被真实写点命中
+  const fileHasAnyWrite =
+    scan.inputWrites.length > 0 || scan.inserts.length > 0 || scan.deletes.length > 0;
+  if (wired.has(relPath) && scan.inputWrites.length === 0) {
     errors.push({
-      kind: 'unregistered-computed-write',
+      kind: 'stale-wired-entry',
       file: relPath,
-      line: computedWrites[0].line,
-      message: '写 computed_* 但不在来源白名单',
+      line: 1,
+      message: '登记为刷新接线但扫描不到任何敏感 update 写点',
+    });
+  }
+  if (exempt.has(relPath) && !fileHasAnyWrite) {
+    errors.push({
+      kind: 'stale-exempt-entry',
+      file: relPath,
+      line: 1,
+      message: '登记为豁免但扫描不到任何目标表写点',
+    });
+  }
+  if (
+    deletes.has(relPath) &&
+    !scan.deletes.some((d) => d.table === 'project_phases_timeline')
+  ) {
+    errors.push({
+      kind: 'stale-delete-entry',
+      file: relPath,
+      line: 1,
+      message: '登记为删除护栏但扫描不到 project_phases_timeline 删除点',
     });
   }
 
@@ -223,33 +413,34 @@ function walk(dir, acc = []) {
 
 function selfTest() {
   let pass = 0;
-  const total = 5;
+  const total = 7;
 
   // 1. 未登记的阶段更新时间线 → 红
-  const fixtureWired = new Map();
   const e1 = classifyFile({
     relPath: 'src/x/unregistered.ts',
     source: "await db('project_phases_timeline').where('id', 1).update({ start_date: '2026-01-01' });",
-    wired: fixtureWired,
+    wired: new Map(),
     exempt: new Map(),
+    deletes: new Map(),
     computedWriters: new Map(),
   });
-  if (e1.length === 1 && e1[0].kind === 'unregistered-input-write') pass++;
+  if (e1.some((e) => e.kind === 'unregistered-input-write')) pass++;
   else console.error('SELF_TEST 1 失败: 未登记写点未拦', e1);
 
-  // 2. 已登记但缺刷新调用 → 红
+  // 2. 已登记但写点后无刷新调用 → 红
   const wiredMap = new Map([['src/x/wired.ts', 'fixture']]);
   const e2 = classifyFile({
     relPath: 'src/x/wired.ts',
     source: "await trx('project_phases_timeline').where('id', 1).update({ end_date: '2026-02-01' });",
     wired: wiredMap,
     exempt: new Map(),
+    deletes: new Map(),
     computedWriters: new Map(),
   });
-  if (e2.length === 1 && e2[0].kind === 'missing-refresh-call') pass++;
+  if (e2.some((e) => e.kind === 'missing-refresh-call')) pass++;
   else console.error('SELF_TEST 2 失败: 缺刷新未拦', e2);
 
-  // 3. 已登记且带刷新调用 → 绿
+  // 3. 已登记且刷新紧随写点 → 绿
   const e3 = classifyFile({
     relPath: 'src/x/wired.ts',
     source:
@@ -257,34 +448,86 @@ function selfTest() {
       'await service.recalculateForPhaseTimelineChange(projectId, [phaseId], { trx });',
     wired: wiredMap,
     exempt: new Map(),
+    deletes: new Map(),
     computedWriters: new Map(),
   });
   if (e3.length === 0) pass++;
   else console.error('SELF_TEST 3 失败: 正常接线误报', e3);
 
-  // 4. 豁免文件 → 绿（insert 初始化路径本就不该扫为 update；这里给 update 也豁免）
-  const exemptMap = new Map([['src/x/init.ts', 'new project init']]);
-  const e4 = classifyFile({
+  // 4. 豁免机制：空豁免表红；登记豁免绿
+  const e4a = classifyFile({
     relPath: 'src/x/init.ts',
-    source: "await conn('project_phases_timeline').insert({ start_date: '2026-01-01' });",
+    source: "await conn('project_phases_timeline').where('id', 1).update({ start_date: '2026-01-01' });",
     wired: new Map(),
-    exempt: exemptMap,
+    exempt: new Map(),
+    deletes: new Map(),
     computedWriters: new Map(),
   });
-  if (e4.length === 0) pass++;
-  else console.error('SELF_TEST 4 失败: 豁免/插入误报', e4);
+  const e4b = classifyFile({
+    relPath: 'src/x/init.ts',
+    source: "await conn('project_phases_timeline').where('id', 1).update({ start_date: '2026-01-01' });",
+    wired: new Map(),
+    exempt: new Map([['src/x/init.ts', 'fixture init']]),
+    deletes: new Map(),
+    computedWriters: new Map(),
+  });
+  if (e4a.length > 0 && e4b.length === 0) pass++;
+  else console.error('SELF_TEST 4 失败: 豁免机制未验证', { e4a, e4b });
 
-  // 5. 未登记的 computed 写入 → 红
+  // 5. 未登记的 computed spread 写入 → 红
   const e5 = classifyFile({
     relPath: 'src/x/rogue.ts',
     source:
-      "await db('scenario_project_assignments').where('id', 1).update({ computed_start_date: null });",
+      "await db('scenario_project_assignments').where('id', 1).update({ ...patch });",
     wired: new Map(),
     exempt: new Map(),
+    deletes: new Map(),
     computedWriters: new Map(),
   });
-  if (e5.length === 1 && e5[0].kind === 'unregistered-computed-write') pass++;
-  else console.error('SELF_TEST 5 失败: computed 写点未拦', e5);
+  if (e5.some((e) => e.kind === 'unregistered-computed-write')) pass++;
+  else console.error('SELF_TEST 5 失败: computed spread 写点未拦', e5);
+
+  // 6. 未登记的时间线删除 → 红；登记后绿
+  const delSource = "await trx('project_phases_timeline').where('id', 1).del();";
+  const e6a = classifyFile({
+    relPath: 'src/x/del.ts',
+    source: delSource,
+    wired: new Map(),
+    exempt: new Map(),
+    deletes: new Map(),
+    computedWriters: new Map(),
+  });
+  const e6b = classifyFile({
+    relPath: 'src/x/del.ts',
+    source: delSource,
+    wired: new Map(),
+    exempt: new Map(),
+    deletes: new Map([['src/x/del.ts', 'fixture guard']]),
+    computedWriters: new Map(),
+  });
+  if (e6a.some((e) => e.kind === 'unregistered-timeline-delete') && e6b.length === 0) pass++;
+  else console.error('SELF_TEST 6 失败: 删除护栏未验证', { e6a, e6b });
+
+  // 7. spread update 的敏感上下文：近处有调度字段 → 要求刷新；无字段 → 不敏感
+  const e7a = classifyFile({
+    relPath: 'src/x/spread.ts',
+    source:
+      "const patch = { start_date: '2026-01-01' };\nawait trx('projects').where('id', 1).update({ ...patch });",
+    wired: new Map([['src/x/spread.ts', 'fixture']]),
+    exempt: new Map(),
+    deletes: new Map(),
+    computedWriters: new Map(),
+  });
+  const e7b = classifyFile({
+    relPath: 'src/x/spread.ts',
+    source: "await trx('projects').where('id', 1).update({ ...scalarPatch });",
+    wired: new Map(),
+    exempt: new Map(),
+    deletes: new Map(),
+    computedWriters: new Map(),
+  });
+  if (e7a.some((e) => e.kind === 'missing-refresh-call') && e7b.length === 0) pass++;
+  else console.error('SELF_TEST 7 失败: spread 敏感判定错误', { e7a, e7b });
 
   console.log(`SELF_TEST check-write-path-registry: ${pass}/${total} 组通过`);
   return pass === total;
@@ -307,6 +550,6 @@ if (process.argv[1]?.endsWith('check-write-path-registry.mjs')) {
     process.exit(1);
   }
   console.log(
-    `✓ G-E 通过：调度输入写点 ${REFRESH_WIRED.size} 接线 / ${EXEMPT.size} 豁免；computed 写点 ${COMPUTED_WRITERS.size} 白名单`
+    `✓ G-E 通过：调度输入写点 ${REFRESH_WIRED.size} 接线 / ${EXEMPT.size} 豁免；时间线删除 ${DELETE_GUARDED.size} 护栏；computed 写点 ${COMPUTED_WRITERS.size} 白名单`
   );
 }

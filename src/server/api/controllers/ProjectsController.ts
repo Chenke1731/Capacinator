@@ -1552,7 +1552,8 @@ export class ProjectsController extends BaseController {
         }
         this.sendSuccess(req, res, result);
       } else {
-        this.sendError(req, res, result.message, 400);
+        // I02j/P2-6：引用冲突与普通校验失败同规则不同状态码（409 vs 400）
+        this.sendError(req, res, result.message, result.conflict ? 409 : 400);
       }
     }
   })

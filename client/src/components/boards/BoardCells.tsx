@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { api } from '../../lib/api-client';
 import { queryKeys } from '../../lib/queryKeys';
+import { fetchPersonUtilization, personUtilizationRowsFrom } from '../../lib/personUtilizationData';
 import { useScenario } from '../../contexts/ScenarioContext';
 import { useCellPopover } from '../../hooks/useCellPopover';
 
@@ -230,16 +231,13 @@ export function RoleCell({
   // U13 预览数据源:今日快照口径的当前负荷/可用率(弹层内如实标注口径)。
   // 该端点是信封规范前的裸数组直出(台账在册)——标准防御解析
   const { data: utilResp } = useQuery({
-    // I02b/G3：与 People 页同一场景化键（同一端点 → 同一缓存语义）
+    // I02b/G3：与 People 页同一场景化键 + 同一归一 helper（复评#1：同键载荷必须同形）
     queryKey: queryKeys.people.utilization(currentScenario?.id),
-    queryFn: async () => {
-      const payload = (await api.people.getUtilization()).data as unknown;
-      return Array.isArray(payload) ? payload : ((payload as { data?: unknown[] })?.data ?? []);
-    },
+    queryFn: fetchPersonUtilization,
     enabled: pop.open && !!currentScenario
   });
   const utilByPerson = new Map<string, any>(
-    (Array.isArray(utilResp) ? utilResp : []).map((u: any) => [String(u.person_id), u])
+    (personUtilizationRowsFrom(utilResp) as any[]).map((u: any) => [String(u.person_id), u])
   );
   const needle = q.trim().toLowerCase();
   const candidates = people

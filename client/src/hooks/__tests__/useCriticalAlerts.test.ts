@@ -31,8 +31,7 @@ describe('useCriticalAlerts', () => {
     jest.clearAllMocks();
   });
 
-  it('should return empty alerts when data is not loaded', () => {
-    mockUseQuery
+  it('should return empty alerts when data is not loaded', () => {    mockUseQuery
       .mockReturnValueOnce({
         data: null,
         isLoading: true,
@@ -236,6 +235,30 @@ describe('useCriticalAlerts', () => {
 
     expect(result.current.alerts).toHaveLength(1);
     expect(result.current.alerts[0].id).toBe('high-utilization');
+  });
+
+  it('I02b 复评#2: 重试覆盖摘要与容量两个数据源（摘要失败时按钮不再空转）', () => {
+    const refetchDashboard = jest.fn();
+    const refetchCapacity = jest.fn();
+    mockUseQuery
+      .mockReturnValueOnce({
+        data: null,
+        isLoading: false,
+        error: new Error('dashboard down'),
+        refetch: refetchDashboard
+      } as any)
+      .mockReturnValueOnce({
+        data: null,
+        isLoading: false,
+        error: null,
+        refetch: refetchCapacity
+      } as any);
+
+    const { result } = renderHook(() => useCriticalAlerts());
+    result.current.refetch();
+
+    expect(refetchDashboard).toHaveBeenCalledTimes(1);
+    expect(refetchCapacity).toHaveBeenCalledTimes(1);
   });
 
   it('should generate tight capacity warnings', () => {

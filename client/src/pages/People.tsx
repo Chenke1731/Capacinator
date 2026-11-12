@@ -13,6 +13,7 @@ import {
   isPeopleStatusParam,
   type PeopleStatusParam,
 } from '../lib/peopleStatusFilter';
+import { fetchPersonUtilization, personUtilizationRowsFrom } from '../lib/personUtilizationData';
 import i18n from '../i18n';
 import { DataTable, Column } from '../components/ui/DataTable';
 import { Alert, AlertDescription } from '../components/ui/alert';
@@ -72,14 +73,8 @@ export default function People() {
     refetch: refetchUtilization
   } = useQuery({
     queryKey: queryKeys.people.utilization(currentScenario?.id),
-    queryFn: async () => {
-      const response = await api.people.getUtilization();
-      const payload = response.data;
-      if (Array.isArray(payload)) {
-        return { personUtilization: payload };
-      }
-      return payload;
-    },
+    // I02b 复评#1：写侧统一形状（与 BoardCells 共用同一 helper，杜绝同键分叉）
+    queryFn: fetchPersonUtilization,
     enabled: !!currentScenario
   });
 
@@ -207,7 +202,7 @@ export default function People() {
 
     // person_utilization_view 真身: current_availability_percentage 在视图里
     // (原 UtilizationItem 类型漏了它;total_allocation 是 mock 时代别名)
-    const allocation = utilization.total_allocation_percentage ?? 0;
+    const allocation = Number(utilization.total_allocation_percentage ?? 0);
     const availability = Number(utilization.current_availability_percentage ?? 100);
     const utilizationPercentage = availability > 0 ? (allocation / availability) * 100 : 0;
 
@@ -292,15 +287,17 @@ export default function People() {
   // utilization_status 单一真相(相对可用率口径,迁移 069)——旧代码读不存在的
   // allocation_status 字段,"超负荷"恒 0 而明细却有 224%/362%
   const teamInsights = useMemo(() => {
-    if (!utilizationData?.personUtilization || !people) {
+    // I02b 复评#1：读取侧容忍旧缓存形状（裸数组/{data}/{personUtilization}）
+    const rows = personUtilizationRowsFrom(utilizationData);
+    if (!rows.length || !people) {
       return { overAllocated: 0, available: 0, total: people?.length || 0 };
     }
 
-    const overAllocated = utilizationData.personUtilization.filter(
+    const overAllocated = rows.filter(
       (u: any) => u.utilization_status === 'Over-allocated'
     ).length;
 
-    const available = utilizationData.personUtilization.filter(
+    const available = rows.filter(
       (u: any) => u.utilization_status === 'Available'
     ).length;
 
@@ -336,7 +333,7 @@ export default function People() {
   const filteredPeople = useMemo(() => {
     if (!statusFilter || !people) return people || [];
     const byStatus = new Map(
-      (utilizationData?.personUtilization ?? []).map((u: any) => [u.person_id, u.utilization_status as string])
+      (personUtilizationRowsFrom(utilizationData)).map((u: any) => [u.person_id, u.utilization_status as string])
     );
     return people.filter((p: Person) => byStatus.get(p.id) === statusFilter);
     // eslint 未装 react-hooks 插件,依赖数组按语义维护

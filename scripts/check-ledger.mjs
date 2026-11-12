@@ -50,13 +50,16 @@ export function parseRows(text) {
       block += 1;
       inTable = true;
     }
-    const cells = raw.split('|').slice(1);
+    // I02b 复评#3：按未转义管道切分——`\|`（markdown 单元格内字面管道）不是分隔符
+    const cells = raw.split(/(?<!\\)\|/).slice(1);
     const firstCell = (cells[0] ?? '').trim();
     const secondCell = (cells[1] ?? '').trim();
     // 子任务行首格形如 "I01s / 标题"；编号取 " /" 前的 token
     const head = firstCell.split(/\s+\/\s+/)[0].trim();
     const id = ID_RE.test(head) ? head : null;
-    rows.push({ line: i + 1, block, id, firstCell, secondCell, raw });
+    // 规则 4 输入：ID 行含未转义 ||（会拆散单元格、让状态列漂移/快照漏行）
+    const hasBrokenPipes = /(?<!\\)\|\|/.test(raw);
+    rows.push({ line: i + 1, block, id, firstCell, secondCell, raw, hasBrokenPipes });
   });
   return rows;
 }
@@ -118,12 +121,18 @@ function runCheck(text) {
   for (const d of dups) {
     console.error(`✗ 表块 ${d.block} 内编号重复: ${d.id} 出现在行 ${d.lines.join('、')}`);
   }
-  return { rows, dups };
+  // 规则 4（I02b 复评#3）：ID 行内未转义 || 会拆散单元格——状态列漂移导致
+  // --status 快照漏行（I02a 实证：状态列被挤到第 4 格，快照与检查都"通过"）
+  const brokenPipes = rows.filter((r) => r.id && r.hasBrokenPipes);
+  for (const r of brokenPipes) {
+    console.error(`✗ 行 ${r.line}（${r.id}）含未转义 ||——请写成 \\|\\|：${r.firstCell.slice(0, 80)}`);
+  }
+  return { rows, dups, brokenPipes };
 }
 
 function selfTest() {
   let pass = 0;
-  const total = 11;
+  const total = 13;
   const fail = [];
   const expect = (name, cond) => (cond ? pass++ : fail.push(name));
 
@@ -176,6 +185,18 @@ function selfTest() {
   // 组8：非法前缀
   expect('非法前缀拒绝', !!nextFree([], 'i01').error);
 
+  // 组9：转义管道不拆格，状态列仍在第二格（I02a 快照漏行的回归钉）
+  {
+    const rows = parseRows('| I02a / 任务含 `\\|\\|100` 字样 | 待处理 / — | — |\n');
+    const { openTasks } = statusDigest(rows);
+    expect('转义管道不拆格', rows[0].secondCell.startsWith('待处理') && openTasks.length === 1 && !rows[0].hasBrokenPipes);
+  }
+  // 组10：ID 行未转义 || 必红（check-ledger 解析器不得静默拆散）
+  {
+    const rows = parseRows('| I02a / 任务含 `||100` 字样 | 待处理 / — |\n');
+    expect('未转义管道检出', rows[0].hasBrokenPipes === true);
+  }
+
   console.log(`SELF_TEST check-ledger: ${pass}/${total} 组通过`);
   if (fail.length) {
     for (const f of fail) console.error(`✗ 自测失败: ${f}`);
@@ -218,9 +239,13 @@ if (args.includes('--self-test')) {
     console.error(`✗ 台账不存在: ${path.relative(root, LEDGER)}`);
     process.exit(1);
   }
-  const { dups } = runCheck(fs.readFileSync(LEDGER, 'utf8'));
+  const { dups, brokenPipes } = runCheck(fs.readFileSync(LEDGER, 'utf8'));
   if (dups.length) {
     console.error(`✗ verify:ledger 失败：${dups.length} 个表内编号重复`);
+    process.exit(1);
+  }
+  if (brokenPipes.length) {
+    console.error(`✗ verify:ledger 失败：${brokenPipes.length} 行含未转义 ||（拆散表格/快照漏行）——改为 \\|\\|`);
     process.exit(1);
   }
   console.log('✓ verify:ledger 通过：表内编号唯一（跨表视图复用合法，HALVES 白名单豁免半边拆批）');

@@ -23,7 +23,12 @@ export function useCriticalAlerts() {
   const { t } = useTranslation();
 
   // Fetch dashboard data
-  const { data: dashboard, isLoading: dashboardLoading, error: dashboardError } = useQuery({
+  const {
+    data: dashboard,
+    isLoading: dashboardLoading,
+    error: dashboardError,
+    refetch: refetchDashboard
+  } = useQuery({
     queryKey: queryKeys.dashboard.summary(currentScenario?.id),
     queryFn: async () => {
       const response = await api.reporting.getDashboard();
@@ -185,7 +190,9 @@ export function useCriticalAlerts() {
     // I02b/D4：任一数据源失败必须可见（此前 Dashboard 忽略 error，capacity
     // 500 时面板凭空消失=伪装"无告警"）
     error: dashboardError ?? capacityError ?? null,
+    // I02b 复评#2：重试必须覆盖失败来源——此前只刷容量查询，摘要失败时重试无效
     refetch: () => {
+      void refetchDashboard();
       void refetchCapacity();
     },
     hasAlerts: alerts.length > 0,

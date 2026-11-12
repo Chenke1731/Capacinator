@@ -6,6 +6,7 @@ import { BrowserRouter, MemoryRouter, useLocation } from 'react-router-dom';
 import '@testing-library/jest-dom';
 import People from '../People';
 import { api } from '../../lib/api-client';
+import { queryKeys } from '../../lib/queryKeys';
 
 // Mock the API client
 jest.mock('../../lib/api-client', () => ({
@@ -554,6 +555,33 @@ describe('People Page', () => {
         expect(screen.getByText('Failed to load utilization data')).toBeInTheDocument();
       });
       expect(screen.getByRole('button', { name: /retry/i })).toBeInTheDocument();
+    });
+
+    test('I02b 复评#1: 旧缓存裸数组形状不再导致超载名单 0 人（同键载荷容忍）', async () => {
+      // 模拟分配弹层旧版 queryFn 写入的裸数组（同一 queryKey 的污染态）
+      const seeded = new QueryClient({
+        defaultOptions: { queries: { retry: false, staleTime: 5 * 60 * 1000 } },
+      });
+      const baselineId = 'baseline-0000-0000-0000-000000000000';
+      seeded.setQueryData(
+        queryKeys.people.utilization(baselineId),
+        mockUtilizationData.personUtilization // 裸数组
+      );
+      (api.people.getUtilization as jest.Mock).mockClear();
+
+      render(
+        <QueryClientProvider client={seeded}>
+          <MemoryRouter initialEntries={['/people?status=over-allocated']}>
+            <People />
+          </MemoryRouter>
+        </QueryClientProvider>
+      );
+
+      await waitFor(() => {
+        expect(screen.getByText(/Filtered: Over-allocated \(1 people\)/)).toBeInTheDocument();
+      });
+      // 5 分钟新鲜期内不得因形状污染而重取或显示 0
+      expect(api.people.getUtilization).not.toHaveBeenCalled();
     });
   });
 

@@ -17,6 +17,21 @@ export function toIsoDateString(date: Date): string {
 }
 
 /**
+ * Format a Date as a 'YYYY-MM-DD' string using LOCAL calendar components.
+ *
+ * Use this for "today"-style business dates: the local wall clock is the
+ * source of truth (toISOString's UTC shift can move the date back a day).
+ * Contrast with toIsoDateString, which reads UTC components and is for
+ * timestamps that were written as UTC.
+ */
+export function toISODateLocal(date: Date): string {
+  if (!(date instanceof Date) || isNaN(date.getTime())) {
+    throw new Error('Invalid date object');
+  }
+  return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+}
+
+/**
  * Normalize a STORED date-column value to canonical 'YYYY-MM-DD' for export.
  * (2026-10-13 全库审计: 导出侧原先统一 new Date(x).toISOString().split——
  * 对日期串是恒等,但存量带时间分量的值经 UTC 切片会偏一天。)

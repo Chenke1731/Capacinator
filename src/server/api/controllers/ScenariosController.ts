@@ -4,6 +4,7 @@ import { BaseController } from './BaseController.js';
 import { ServiceContainer } from '../../services/ServiceContainer.js';
 import { randomUUID } from 'crypto';
 import { evaluateWindowCapacity } from '../../services/calc/capacitySegments.js';
+import { computeAssignmentDates } from '../../services/calc/assignmentDates.js';
 import { auditModelChanges } from '../../middleware/enhancedAuditMiddleware.js';
 import { isMergeStrategy } from '../../../../shared/types/scenarios.js';
 
@@ -285,6 +286,15 @@ export class ScenariosController extends BaseController {
     const result = await this.executeQuery(async () => {
       const assignmentId = randomUUID();
       const now = new Date();
+      // I02a/G-A：派生日期随写落库（共享原语；旧 upsert 不写 computed，
+      // 分支编辑行在利用率视图里落到 COALESCE 回退）
+      const computedDates = await computeAssignmentDates(this.db, {
+        assignment_date_mode,
+        start_date,
+        end_date,
+        phase_id: phase_id || null,
+        project_id,
+      });
 
       // Check if assignment already exists for this combination
       const existing = await this.db('scenario_project_assignments')
@@ -307,6 +317,9 @@ export class ScenariosController extends BaseController {
           notes,
           change_type,
           base_assignment_id,
+          // I02a/G-A：派生列同步（随写落库）
+          computed_start_date: computedDates.computed_start_date ?? null,
+          computed_end_date: computedDates.computed_end_date ?? null,
           updated_at: now
         };
 
@@ -342,6 +355,9 @@ export class ScenariosController extends BaseController {
           notes,
           change_type,
           base_assignment_id,
+          // I02a/G-A：派生列同步（随写落库）
+          computed_start_date: computedDates.computed_start_date ?? null,
+          computed_end_date: computedDates.computed_end_date ?? null,
           created_at: now,
           updated_at: now
         };

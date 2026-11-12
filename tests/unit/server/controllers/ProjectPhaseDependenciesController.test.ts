@@ -17,7 +17,11 @@ jest.mock('../../../../src/server/services/ProjectPhaseCascadeService', () => ({
       affected: [],
       conflicts: []
     }),
-    applyCascade: jest.fn().mockResolvedValue(undefined)
+    applyCascade: jest.fn().mockResolvedValue({
+      updated_phases: 0,
+      phase_changes: [],
+      assignment_changes: []
+    })
   }))
 }));
 
@@ -370,7 +374,9 @@ describe('ProjectPhaseDependenciesController', () => {
       await controller.applyCascade(mockReq as Request, mockRes as Response);
 
       expect(mockRes.json).toHaveBeenCalledWith({
-        message: 'Cascade changes applied successfully'
+        message: 'Cascade changes applied successfully',
+        updated_phases: 0,
+        updated_assignments: 0
       });
     });
 

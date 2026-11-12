@@ -223,22 +223,31 @@ describe('ProjectPhaseCascadeService', () => {
         circular_dependencies: []
       };
 
+      const updateSpy = jest.fn().mockResolvedValue(1);
       const updateQuery = {
         where: jest.fn().mockReturnThis(),
-        update: jest.fn().mockResolvedValue(1)
+        whereIn: jest.fn().mockReturnThis(),
+        select: jest.fn().mockResolvedValue([
+          { id: 'phase-2', phase_id: 'phase-2', start_date: '2024-01-16', end_date: '2024-02-15' }
+        ]),
+        update: updateSpy
+      };
+      const assignmentQuery = {
+        where: jest.fn().mockReturnThis(),
+        whereIn: jest.fn().mockReturnThis(),
+        select: jest.fn().mockResolvedValue([])
       };
 
-      const trxMock = jest.fn(() => updateQuery);
-      trxMock.commit = jest.fn().mockResolvedValue(undefined);
-      trxMock.rollback = jest.fn().mockResolvedValue(undefined);
-      
+      const trxMock: any = jest.fn((tableName: string) =>
+        tableName === 'scenario_project_assignments' ? assignmentQuery : updateQuery
+      );
       mockDb.mockImplementation(() => updateQuery);
-      mockDb.transaction = jest.fn().mockResolvedValue(trxMock);
+      mockDb.transaction = jest.fn(async (callback: any) => callback(trxMock));
 
       await expect(service.applyCascade(projectId, cascadeResult))
         .resolves.not.toThrow();
 
-      expect(updateQuery.update).toHaveBeenCalled();
+      expect(updateSpy).toHaveBeenCalled();
     });
 
     it('should rollback on error', async () => {

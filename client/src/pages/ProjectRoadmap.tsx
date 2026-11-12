@@ -299,7 +299,7 @@ export default function ProjectRoadmap() {
         .querySelector(`[data-project-id="${anchorProjectId}"]`)
         ?.scrollIntoView({ block: 'center' });
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- 只在数据就绪时应用一次
+    // 只在数据就绪时应用一次（依赖刻意只列 anchorProjectId/projects）
   }, [anchorProjectId, projects]);
 
   // Debounced phase move state to prevent excessive API calls

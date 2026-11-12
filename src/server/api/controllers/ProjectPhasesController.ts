@@ -4,6 +4,7 @@ import { BaseController, RequestWithContext } from './BaseController.js';
 import { ServiceContainer } from '../../services/ServiceContainer.js';
 import { auditModelChanges } from '../../middleware/enhancedAuditMiddleware.js';
 import { validateDateRange, formatDateForDB } from '../../utils/dateValidation.js';
+import { AssignmentRecalculationService, type AssignmentDateChange } from '../../services/AssignmentRecalculationService.js';
 
 // Alias for backward compatibility
 type RequestWithLogging = RequestWithContext;
@@ -254,9 +255,42 @@ export class ProjectPhasesController extends BaseController {
         return null;
       }
 
-      // Update timeline data
-      if (Object.keys(timelineUpdateData).length > 0) {
-        // Log audit event before update
+      // I02a/D18：timeline 写 + computed 刷新同事务（刷新失败整体回滚，不留
+      // "阶段已改、分配未跟"的半状态）；审计一律移到提交后（F8：回滚不留
+      // phantom 审计）
+      const dateChanged = Object.keys(timelineUpdateData).length > 0;
+      let assignmentChanges: AssignmentDateChange[] = [];
+      await this.db.transaction(async (trx: Knex.Transaction) => {
+        if (dateChanged) {
+          await trx('project_phases_timeline')
+            .where('id', id)
+            .update({
+              ...timelineUpdateData,
+              updated_at: new Date()
+            });
+        }
+
+        // Update phase name if it's a custom phase
+        if (phaseUpdateData && currentPhase.phase_id) {
+          await trx('project_phases')
+            .where('id', currentPhase.phase_id)
+            .update({
+              ...phaseUpdateData,
+              updated_at: new Date()
+            });
+        }
+
+        if (dateChanged && currentPhase.phase_id) {
+          assignmentChanges = await new AssignmentRecalculationService(this.db)
+            .recalculateForPhaseTimelineChange(
+              String(currentPhase.project_id),
+              [String(currentPhase.phase_id)],
+              { trx }
+            );
+        }
+      });
+
+      if (dateChanged) {
         await auditModelChanges(req, {
           tableName: 'project_phases_timeline',
           recordId: id,
@@ -268,23 +302,16 @@ export class ProjectPhasesController extends BaseController {
             updated_at: new Date()
           }
         });
-
-        await this.db('project_phases_timeline')
-          .where('id', id)
-          .update({
-            ...timelineUpdateData,
-            updated_at: new Date()
-          });
       }
-
-      // Update phase name if it's a custom phase
-      if (phaseUpdateData && currentPhase.phase_id) {
-        await this.db('project_phases')
-          .where('id', currentPhase.phase_id)
-          .update({
-            ...phaseUpdateData,
-            updated_at: new Date()
-          });
+      for (const change of assignmentChanges) {
+        await (req as any).logAuditEvent?.(
+          'scenario_project_assignments',
+          change.assignment_id,
+          'UPDATE',
+          { computed_start_date: change.old.start, computed_end_date: change.old.end },
+          { computed_start_date: change.new.start, computed_end_date: change.new.end },
+          'recomputed from phase timeline'
+        );
       }
 
       // Get the updated phase data
@@ -325,14 +352,26 @@ export class ProjectPhasesController extends BaseController {
         return null;
       }
 
-      // Log audit event before deletion
-      await auditModelChanges(req, {
-        tableName: 'project_phases_timeline',
-        recordId: id,
-        action: 'DELETE',
-        oldValues: existingRecord,
-        newValues: null
-      });
+      // I02a/Q1（D18 评审裁决③）：被 phase 模式分配引用的阶段禁止删除——
+      // 删除会让引用行 computed 失去来源（写 NULL 在利用率视图=无边界全窗，
+      // 永久虚增负荷），返回引用清单供用户先改挂/删除分配
+      if (existingRecord.phase_id) {
+        const refs = await this.db('scenario_project_assignments')
+          .where({
+            project_id: existingRecord.project_id,
+            phase_id: existingRecord.phase_id,
+            assignment_date_mode: 'phase',
+          })
+          .select('id', 'scenario_id', 'person_id', 'allocation_percentage');
+        if (refs.length > 0) {
+          res.status(409).json({
+            error: 'Conflict',
+            message: `Phase has ${refs.length} phase-aligned assignment(s); reassign or delete them first`,
+            references: refs.slice(0, 20),
+          });
+          return null;
+        }
+      }
 
       const deletedCount = await this.db('project_phases_timeline')
         .where('id', id)
@@ -342,6 +381,15 @@ export class ProjectPhasesController extends BaseController {
         this.handleNotFound(req, res, 'Project phase');
         return null;
       }
+
+      // 审计后置（删除成功后）
+      await auditModelChanges(req, {
+        tableName: 'project_phases_timeline',
+        recordId: id,
+        action: 'DELETE',
+        oldValues: existingRecord,
+        newValues: null
+      });
 
       return { message: 'Project phase deleted successfully' };
     }, req, res, 'Failed to delete project phase');
@@ -364,6 +412,11 @@ export class ProjectPhasesController extends BaseController {
         updated: [] as any[],
         failed: [] as any[]
       };
+      // I02a/F7：审计收集到事务外（事务内调 logAuditEvent 在单连接池会等连接）；
+      // 刷新在事务内，按 project 分组一次
+      const auditEntries: Array<{ recordId: string; oldValues: any; newValues: any }> = [];
+      const affectedByProject = new Map<string, Set<string>>();
+      const assignmentChanges: AssignmentDateChange[] = [];
 
       await this.db.transaction(async (trx: Knex.Transaction) => {
         for (const update of updates) {
@@ -395,15 +448,6 @@ export class ProjectPhasesController extends BaseController {
               continue;
             }
 
-            // Log audit event before update
-            const newValues = {
-              ...existingRecord,
-              start_date: update.start_date,
-              end_date: update.end_date,
-              updated_at: new Date()
-            };
-            await (req as any).logAuditEvent('project_phases_timeline', update.id, 'UPDATE', existingRecord, newValues);
-
             const [updated] = await trx('project_phases_timeline')
               .where('id', update.id)
               .update({
@@ -415,6 +459,16 @@ export class ProjectPhasesController extends BaseController {
             
             if (updated) {
               results.updated.push(updated);
+              auditEntries.push({
+                recordId: update.id,
+                oldValues: existingRecord,
+                newValues: { ...existingRecord, start_date: update.start_date, end_date: update.end_date, updated_at: new Date() }
+              });
+              if (existingRecord.project_id && existingRecord.phase_id) {
+                const key = String(existingRecord.project_id);
+                if (!affectedByProject.has(key)) affectedByProject.set(key, new Set());
+                affectedByProject.get(key)!.add(String(existingRecord.phase_id));
+              }
             } else {
               results.failed.push({
                 id: update.id,
@@ -428,7 +482,29 @@ export class ProjectPhasesController extends BaseController {
             });
           }
         }
+
+        const service = new AssignmentRecalculationService(this.db);
+        for (const [projectId, phaseIds] of affectedByProject) {
+          assignmentChanges.push(
+            ...(await service.recalculateForPhaseTimelineChange(projectId, [...phaseIds], { trx }))
+          );
+        }
       });
+
+      // 提交后审计：timeline 行 + 刷新变更行（逐条 await，INV-4 覆盖）
+      for (const entry of auditEntries) {
+        await (req as any).logAuditEvent?.('project_phases_timeline', entry.recordId, 'UPDATE', entry.oldValues, entry.newValues);
+      }
+      for (const change of assignmentChanges) {
+        await (req as any).logAuditEvent?.(
+          'scenario_project_assignments',
+          change.assignment_id,
+          'UPDATE',
+          { computed_start_date: change.old.start, computed_end_date: change.old.end },
+          { computed_start_date: change.new.start, computed_end_date: change.new.end },
+          'recomputed from phase timeline'
+        );
+      }
 
       return results;
     }, req, res, 'Failed to bulk update project phases');

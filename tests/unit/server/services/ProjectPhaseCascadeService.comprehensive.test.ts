@@ -40,6 +40,19 @@ describe('ProjectPhaseCascadeService - Comprehensive Tests', () => {
       table.integer('lag_days').defaultTo(0);
     });
 
+    // I02a/D18：applyCascade 会刷新 phase 模式分配的 computed（刷新服务只读
+    // 这张切片表）；最小列即可，空表时刷新为 no-op。
+    await db.schema.createTable('scenario_project_assignments', (table) => {
+      table.uuid('id').primary();
+      table.string('scenario_id').notNullable();
+      table.string('project_id').notNullable();
+      table.string('person_id').notNullable();
+      table.string('phase_id');
+      table.string('assignment_date_mode').defaultTo('project');
+      table.date('computed_start_date');
+      table.date('computed_end_date');
+    });
+
     service = new ProjectPhaseCascadeService(db);
   });
 

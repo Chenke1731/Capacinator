@@ -1,6 +1,7 @@
 import { Knex } from 'knex';
 import { getAuditedDb } from '../database/index.js';
 import { DependencyType } from '../types/project-phases.js';
+import { AssignmentRecalculationService, type AssignmentDateChange } from './AssignmentRecalculationService.js';
 
 export interface CascadeCalculation {
   phase_timeline_id: string;
@@ -20,6 +21,22 @@ export interface CascadeResult {
   circular_dependencies: string[]; // Any circular dependency issues found
   validation_errors?: string[]; // Validation errors that prevent the update
 }
+
+export interface PhaseTimelineChange {
+  timeline_id: string;
+  phase_id: string;
+  old_start_date: string | null;
+  old_end_date: string | null;
+  new_start_date: string;
+  new_end_date: string;
+}
+
+export interface CascadeApplyResult {
+  updated_phases: number;
+  phase_changes: PhaseTimelineChange[];
+  assignment_changes: AssignmentDateChange[];
+}
+
 
 export class ProjectPhaseCascadeService {
   private db: any;
@@ -123,13 +140,34 @@ export class ProjectPhaseCascadeService {
   }
 
   /**
-   * Apply cascade changes to the database
+   * Apply cascade changes to the database.
+   *
+   * Phase timeline writes and the phase-mode assignment refresh happen in the
+   * same transaction. Callers that already own a transaction pass `trx` so the
+   * refresh is atomic with their own writes (single-connection sqlite pool:
+   * never open a nested transaction). Returns the applied timeline changes and
+   * the assignment rows whose computed dates were refreshed, for audit.
    */
-  async applyCascade(projectId: string, cascadeResult: CascadeResult): Promise<void> {
-    const trx = await this.db.transaction();
-    
-    try {
-      for (const change of cascadeResult.affected_phases) {
+  async applyCascade(
+    projectId: string,
+    cascadeResult: CascadeResult,
+    opts: { trx?: Knex.Transaction } = {}
+  ): Promise<CascadeApplyResult> {
+    const run = async (trx: any): Promise<CascadeApplyResult> => {
+      const changes = cascadeResult.affected_phases ?? [];
+      if (!changes.length) {
+        return { updated_phases: 0, phase_changes: [], assignment_changes: [] };
+      }
+
+      const timelineIds = changes.map(change => change.phase_timeline_id);
+      const before = await trx('project_phases_timeline')
+        .whereIn('id', timelineIds)
+        .select('id', 'phase_id', 'start_date', 'end_date');
+      const beforeById = new Map<string, any>(
+        (before as any[]).map(row => [String(row.id), row])
+      );
+
+      for (const change of changes) {
         await trx('project_phases_timeline')
           .where('id', change.phase_timeline_id)
           .update({
@@ -138,26 +176,58 @@ export class ProjectPhaseCascadeService {
             updated_at: new Date().toISOString()
           });
       }
-      
-      await trx.commit();
-    } catch (error) {
-      await trx.rollback();
-      throw error;
-    }
+
+      const phaseIds = [
+        ...new Set(
+          (before as any[])
+            .map(row => (row.phase_id === null || row.phase_id === undefined ? null : String(row.phase_id)))
+            .filter((phaseId): phaseId is string => phaseId !== null)
+        )
+      ];
+      const assignmentChanges = phaseIds.length
+        ? await new AssignmentRecalculationService(this.db).recalculateForPhaseTimelineChange(
+            projectId,
+            phaseIds,
+            { trx }
+          )
+        : [];
+
+      const phaseChanges: PhaseTimelineChange[] = changes.map(change => {
+        const old = beforeById.get(String(change.phase_timeline_id));
+        return {
+          timeline_id: String(change.phase_timeline_id),
+          phase_id: old?.phase_id === null || old?.phase_id === undefined ? '' : String(old.phase_id),
+          old_start_date: old?.start_date ?? null,
+          old_end_date: old?.end_date ?? null,
+          new_start_date: change.new_start_date,
+          new_end_date: change.new_end_date
+        };
+      });
+
+      return {
+        updated_phases: changes.length,
+        phase_changes: phaseChanges,
+        assignment_changes: assignmentChanges
+      };
+    };
+
+    return opts.trx ? run(opts.trx) : this.db.transaction(run);
   }
 
   /**
-   * Update project phases and handle cascading effects
-   * This method is used by tests to verify audit functionality
+   * Update project phases and handle cascading effects.
+   * Phase timeline writes and phase-mode assignment refreshes share one
+   * transaction, so a failed refresh rolls the timeline writes back too.
    */
   async updateProjectPhases(projectId: string, phaseUpdates: Array<{
     phase_id: string;
     start_date: Date;
     end_date: Date;
-  }>): Promise<void> {
-    const trx = await this.db.transaction();
-    
-    try {
+  }>, opts: { trx?: Knex.Transaction } = {}): Promise<CascadeApplyResult> {
+    const run = async (trx: any): Promise<CascadeApplyResult> => {
+      const touchedPhaseIds = new Set<string>();
+      let assignmentChanges: AssignmentDateChange[] = [];
+
       for (const update of phaseUpdates) {
         // Get the timeline ID for this phase
         const timeline = await trx('project_phases_timeline')
@@ -177,6 +247,7 @@ export class ProjectPhaseCascadeService {
             end_date: this.formatDateSafe(update.end_date),
             updated_at: new Date().toISOString()
           });
+        touchedPhaseIds.add(String(update.phase_id));
 
         // Calculate and apply cascading effects using timeline ID
         // Pass the transaction so queries don't deadlock
@@ -187,30 +258,37 @@ export class ProjectPhaseCascadeService {
           update.end_date,
           trx  // Pass transaction to avoid deadlock
         );
-        
+
         if (cascadeResult.validation_errors && cascadeResult.validation_errors.length > 0) {
           throw new Error(`Phase update validation failed: ${cascadeResult.validation_errors.join(', ')}`);
         }
 
-        // Apply cascade changes
         if (cascadeResult.affected_phases.length > 0) {
-          for (const change of cascadeResult.affected_phases) {
-            await trx('project_phases_timeline')
-              .where('id', change.phase_timeline_id)
-              .update({
-                start_date: change.new_start_date,
-                end_date: change.new_end_date,
-                updated_at: new Date().toISOString()
-              });
-          }
+          const applied = await this.applyCascade(projectId, cascadeResult, { trx });
+          applied.phase_changes.forEach(change => {
+            if (change.phase_id) touchedPhaseIds.add(change.phase_id);
+          });
+          assignmentChanges = assignmentChanges.concat(applied.assignment_changes);
         }
       }
-      
-      await trx.commit();
-    } catch (error) {
-      await trx.rollback();
-      throw error;
-    }
+
+      if (touchedPhaseIds.size > 0) {
+        const refreshed = await new AssignmentRecalculationService(this.db).recalculateForPhaseTimelineChange(
+          projectId,
+          [...touchedPhaseIds],
+          { trx }
+        );
+        assignmentChanges = assignmentChanges.concat(refreshed);
+      }
+
+      return {
+        updated_phases: touchedPhaseIds.size,
+        phase_changes: [],
+        assignment_changes: assignmentChanges
+      };
+    };
+
+    return opts.trx ? run(opts.trx) : this.db.transaction(run);
   }
 
   /**

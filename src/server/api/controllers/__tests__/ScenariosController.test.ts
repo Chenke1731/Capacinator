@@ -605,7 +605,14 @@ describe('ScenariosController', () => {
         change_type: 'added'
       };
 
-      mockDb._setFirstResult(null); // No existing assignment
+      // I02a/G-A：upsert 先经共享原语查项目 aspiration 算 computed，再查既有分配
+      mockDb._queueFirstResult({
+        id: 'project-1',
+        name: 'Project 1',
+        aspiration_start: '2024-01-01',
+        aspiration_finish: '2024-06-30'
+      });
+      mockDb._queueFirstResult(null); // No existing assignment
 
       await controller.upsertAssignment(mockReq, mockRes);
       await flushPromises();

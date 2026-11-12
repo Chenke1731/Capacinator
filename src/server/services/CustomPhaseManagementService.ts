@@ -1,6 +1,7 @@
 import type { Knex } from 'knex';
 import { PhaseTemplateValidationService, type PhaseUpdateRequest } from './PhaseTemplateValidationService.js';
 import { toIsoDateString } from '../utils/isoDate.js';
+import { AssignmentRecalculationService, type AssignmentDateChange } from './AssignmentRecalculationService.js';
 
 export interface CustomPhaseData {
   name: string;
@@ -27,6 +28,8 @@ export interface PhaseManagementResult {
   message: string;
   warnings?: string[];
   affectedPhases?: string[];
+  /** I02a：本次操作触发的 computed 刷新变更（控制器负责提交后逐条审计） */
+  assignmentChanges?: AssignmentDateChange[];
 }
 
 export class CustomPhaseManagementService {
@@ -104,6 +107,7 @@ export class CustomPhaseManagementService {
       };
 
       // Use transaction to ensure consistency
+      let assignmentChanges: AssignmentDateChange[] = [];
       await this.db.transaction(async (trx: any) => {
         // Insert the custom phase
         await trx('project_phases_timeline').insert(customPhaseEntry);
@@ -118,6 +122,18 @@ export class CustomPhaseManagementService {
               updated_at: new Date()
             });
         }
+
+        // I02a/D18：插入点后的既有阶段被移动 → 同事务刷新其 phase 模式分配
+        if (affectedPhases.length > 0) {
+          const moved = await trx('project_phases_timeline')
+            .whereIn('id', affectedPhases.map((p) => p.id))
+            .select('phase_id') as Array<{ phase_id: unknown }>;
+          const phaseIds: string[] = [...new Set(moved.map((r) => String(r.phase_id)))].filter(Boolean);
+          if (phaseIds.length > 0) {
+            assignmentChanges = await new AssignmentRecalculationService(this.db)
+              .recalculateForPhaseTimelineChange(projectId, phaseIds, { trx });
+          }
+        }
       });
 
       return {
@@ -125,7 +141,8 @@ export class CustomPhaseManagementService {
         phaseId: customPhaseEntry.id,
         message: `Custom phase "${phaseData.name}" added successfully`,
         warnings: validation.warnings,
-        affectedPhases: affectedPhases.map(p => p.id)
+        affectedPhases: affectedPhases.map(p => p.id),
+        assignmentChanges
       };
 
     } catch (error) {
@@ -231,16 +248,25 @@ export class CustomPhaseManagementService {
         });
       }
 
-      // Apply the update
-      await this.db('project_phases_timeline')
-        .where('id', phaseTimelineId)
-        .update(updates);
+      // Apply the update（I02a/D18：时间线写 + computed 刷新同事务）
+      let assignmentChanges: AssignmentDateChange[] = [];
+      await this.db.transaction(async (trx: any) => {
+        await trx('project_phases_timeline')
+          .where('id', phaseTimelineId)
+          .update(updates);
+
+        if (currentPhase.phase_id) {
+          assignmentChanges = await new AssignmentRecalculationService(this.db)
+            .recalculateForPhaseTimelineChange(projectId, [String(currentPhase.phase_id)], { trx });
+        }
+      });
 
       return {
         success: true,
         phaseId: phaseTimelineId,
         message: `Phase "${currentPhase.phase_name}" updated successfully`,
-        warnings: validation.warnings
+        warnings: validation.warnings,
+        assignmentChanges
       };
 
     } catch (error) {
@@ -272,6 +298,25 @@ export class CustomPhaseManagementService {
           success: false,
           message: `Phase ${phaseTimelineId} not found in project ${projectId}`
         };
+      }
+
+      // I02a/Q1：被 phase 模式分配引用的阶段禁止删除（计算源消失会让引用行
+      // 的 computed 失去来源；NULL 在利用率视图等价无边界全窗）
+      if (currentPhase.phase_id) {
+        const refs = await this.db('scenario_project_assignments')
+          .where({
+            project_id: projectId,
+            phase_id: currentPhase.phase_id,
+            assignment_date_mode: 'phase',
+          })
+          .count('* as count')
+          .first();
+        if (Number(refs?.count ?? 0) > 0) {
+          return {
+            success: false,
+            message: `Phase has ${refs!.count} phase-aligned assignment(s); reassign or delete them first`
+          };
+        }
       }
 
       // Create validation request for deletion

@@ -62,13 +62,8 @@ export const LEGAL = new Map([
   ['src/server/middleware/enhancedErrorHandler.ts::|| 500', 'HTTP 状态码缺省'],
 ]);
 
-/** 存量缺陷冻结（必须引用台账行；销账条件写理由） */
-export const FROZEN = new Map([
-  [
-    'src/server/services/AssignmentRecalculationService.ts::|| 100',
-    'BR-F03 可用率 ||100 族（D18 已裁决路线 B，I02a 重写时销账）',
-  ],
-]);
+/** 存量缺陷冻结（必须引用台账行；销账条件写理由）— I02a 后清零 */
+export const FROZEN = new Map();
 
 /** 剥离注释（块注释保行号；行注释遮蔽 `//` 之后同行内容） */
 export function stripComments(source) {

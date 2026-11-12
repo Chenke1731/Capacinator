@@ -1,430 +1,155 @@
-import { Knex } from 'knex';
-import { getAuditedDb } from '../database/index.js';
-import { logger } from './logging/config.js';
+/**
+ * 分配日期刷新服务（I02a/D18 路线 B 重写，2026-11-12）。
+ *
+ * 旧版（已删除）读/写已退役旧表 project_assignments、零生产调用、内联
+ * `||100` 缺省——D18 裁决路线 B：重写并接线**场景切片轨**
+ * （scenario_project_assignments）的 computed_start_date/computed_end_date。
+ *
+ * 约束（backend-review 设计评审 Q1-Q10 裁决）：
+ * - 触发面：阶段时间线/项目 aspiration 的写路径（见各控制器接线）；分配
+ *   写路径自身用共享原语计算并落库（AssignmentsController）。
+ * - 事务：调用方可传 {trx} 与外层写同事务（单连接池 max:1，禁止事务内另取
+ *   连接——I01y 复刻教训）；不传时自建事务。
+ * - 范围：全部场景副本（全局 timeline/aspiration 是唯一计算源；分支
+ *   scenario_project_phases 只是比较/合并元数据），含 paused 行（派生事实）。
+ * - 删除引用：被 phase 模式分配引用的 timeline 行由调用方 409 阻止；
+ *   本服务对缺失 timeline 的孤儿行**跳过**（不写 NULL——NULL 在利用率
+ *   视图里等价"无边界全窗"，会永久虚增负荷）。
+ * - project 模式严格口径：aspiration 起止不完整 → 跳过（幂等，见原语）。
+ * - 只写变化行；不 bump version、不更新 updated_at（派生列刷新不制造并发
+ *   编辑冲突）。审计由调用方在**事务提交后**逐条 await logAuditEvent。
+ */
+import type { Knex } from 'knex';
+import { completeProjectModeDates } from './calc/assignmentDates.js';
 
-export interface AssignmentRecalculationResult {
-  updated_assignments: Array<{
-    assignment_id: string;
-    old_computed_start_date?: string;
-    old_computed_end_date?: string;
-    new_computed_start_date?: string;
-    new_computed_end_date?: string;
-    person_name: string;
-    project_name: string;
-    role_name: string;
-  }>;
-  conflicts: Array<{
-    person_id: string;
-    person_name: string;
-    conflict_type: 'over_allocation' | 'availability_override';
-    details: string;
-  }>;
+export interface AssignmentDateChange {
+  assignment_id: string;
+  scenario_id: string;
+  person_id: string;
+  old: { start: string | null; end: string | null };
+  new: { start: string | null; end: string | null };
+  reason: 'phase_timeline' | 'project_aspiration';
 }
 
 export class AssignmentRecalculationService {
-  private db: any;
+  constructor(private db: Knex) {}
 
-  constructor(database?: Knex) {
-    // Use provided database or default to audited database
-    this.db = database || getAuditedDb();
+  /**
+   * 阶段时间线变化后刷新：phase 模式分配（全部场景/状态）的 computed 跟随
+   * 对应阶段的新起止。返回实际变更行（供审计/测试）。
+   */
+  async recalculateForPhaseTimelineChange(
+    projectId: string,
+    phaseIds: string[],
+    opts: { trx?: Knex.Transaction } = {}
+  ): Promise<AssignmentDateChange[]> {
+    if (!phaseIds.length) return [];
+    const run = async (conn: any): Promise<AssignmentDateChange[]> => {
+      const rows = await conn('scenario_project_assignments')
+        .where({ project_id: projectId, assignment_date_mode: 'phase' })
+        .whereIn('phase_id', phaseIds)
+        .select('id', 'scenario_id', 'person_id', 'phase_id', 'computed_start_date', 'computed_end_date');
+      if (!rows.length) return [];
+
+      // phase 在新时间线里的映射（project_id+phase_id 唯一，迁移 060）
+      const timelines = await conn('project_phases_timeline')
+        .where('project_id', projectId)
+        .whereIn('phase_id', phaseIds)
+        .select('phase_id', 'start_date', 'end_date');
+      const byPhase = new Map<string, { start_date: string; end_date: string }>(
+        timelines.map((t: any) => [String(t.phase_id), t])
+      );
+
+      const changes: AssignmentDateChange[] = [];
+      for (const row of rows as any[]) {
+        const timeline = byPhase.get(String(row.phase_id));
+        if (!timeline) continue; // 孤儿行：不写 NULL（见文件头），跳过
+        const nextStart = timeline.start_date ?? null;
+        const nextEnd = timeline.end_date ?? null;
+        if (row.computed_start_date === nextStart && row.computed_end_date === nextEnd) continue;
+        changes.push({
+          assignment_id: String(row.id),
+          scenario_id: String(row.scenario_id),
+          person_id: String(row.person_id),
+          old: { start: row.computed_start_date ?? null, end: row.computed_end_date ?? null },
+          new: { start: nextStart, end: nextEnd },
+          reason: 'phase_timeline',
+        });
+      }
+
+      for (const change of changes) {
+        await conn('scenario_project_assignments')
+          .where('id', change.assignment_id)
+          .update({
+            computed_start_date: change.new.start,
+            computed_end_date: change.new.end,
+          });
+      }
+      return changes;
+    };
+
+    return opts.trx ? run(opts.trx) : this.db.transaction(run);
   }
 
   /**
-   * Recalculate assignments affected by phase timeline changes
+   * 项目 aspiration 日期变化后刷新：project 模式分配（全部场景/状态）的
+   * computed 跟随新 aspiration。aspiration 不完整时跳过（严格幂等口径）。
    */
-  async recalculateAssignmentsForPhaseChanges(
+  async recalculateForProjectDateChange(
     projectId: string,
-    affectedPhaseIds: string[]
-  ): Promise<AssignmentRecalculationResult> {
-    const updatedAssignments: AssignmentRecalculationResult['updated_assignments'] = [];
-    const conflicts: AssignmentRecalculationResult['conflicts'] = [];
+    opts: { trx?: Knex.Transaction } = {}
+  ): Promise<AssignmentDateChange[]> {
+    const run = async (conn: any): Promise<AssignmentDateChange[]> => {
+      const next = await completeProjectModeDates(conn, projectId);
+      if (!next) return [];
 
-    // Find all phase-aligned assignments for affected phases
-    const phaseAssignments = await this.db('project_assignments')
-      .join('people', 'project_assignments.person_id', 'people.id')
-      .join('projects', 'project_assignments.project_id', 'projects.id')
-      .join('roles', 'project_assignments.role_id', 'roles.id')
-      .where('project_assignments.project_id', projectId)
-      .where('project_assignments.assignment_date_mode', 'phase')
-      .whereIn('project_assignments.phase_id', affectedPhaseIds)
-      .select(
-        'project_assignments.*',
-        'people.name as person_name',
-        'projects.name as project_name',
-        'roles.name as role_name'
-      );
-
-    // Batch fetch all phase timelines to reduce queries
-    const phaseTimelines = await this.db('project_phases_timeline')
-      .where('project_id', projectId)
-      .whereIn('phase_id', affectedPhaseIds)
-      .select('phase_id', 'start_date', 'end_date') as { phase_id: string; start_date: string; end_date: string }[];
-
-    const phaseTimelineMap = new Map(
-      phaseTimelines.map(pt => [pt.phase_id, pt])
-    );
-
-    const trx = await this.db.transaction();
-
-    try {
-      // Batch update preparations
-      const updates: Array<{
-        id: string;
-        computed_start_date: string;
-        computed_end_date: string;
-      }> = [];
-
-      for (const assignment of phaseAssignments) {
-        // Get the current computed dates
-        const oldComputedStartDate = assignment.computed_start_date;
-        const oldComputedEndDate = assignment.computed_end_date;
-
-        // Get new dates from pre-fetched phase timeline
-        const phaseTimeline = phaseTimelineMap.get(assignment.phase_id);
-        if (!phaseTimeline) {
-          logger.warn('No timeline found for phase', { phaseId: assignment.phase_id });
+      const rows = await conn('scenario_project_assignments')
+        .where({ project_id: projectId, assignment_date_mode: 'project' })
+        .select('id', 'scenario_id', 'person_id', 'computed_start_date', 'computed_end_date');
+      const changes: AssignmentDateChange[] = [];
+      for (const row of rows as any[]) {
+        if (
+          row.computed_start_date === next.computed_start_date &&
+          row.computed_end_date === next.computed_end_date
+        ) {
           continue;
         }
-
-        const newDates = {
-          computed_start_date: phaseTimeline.start_date,
-          computed_end_date: phaseTimeline.end_date
-        };
-
-        // Update the assignment if dates changed
-        if (
-          oldComputedStartDate !== newDates.computed_start_date ||
-          oldComputedEndDate !== newDates.computed_end_date
-        ) {
-          updates.push({
-            id: assignment.id,
-            computed_start_date: newDates.computed_start_date,
-            computed_end_date: newDates.computed_end_date
-          });
-
-          updatedAssignments.push({
-            assignment_id: assignment.id,
-            old_computed_start_date: oldComputedStartDate,
-            old_computed_end_date: oldComputedEndDate,
-            new_computed_start_date: newDates.computed_start_date,
-            new_computed_end_date: newDates.computed_end_date,
-            person_name: assignment.person_name,
-            project_name: assignment.project_name,
-            role_name: assignment.role_name
-          });
-        }
-      }
-
-      // Batch update assignments to reduce transaction time
-      if (updates.length > 0) {
-        // Process updates in batches of 100 to avoid query size limits
-        const batchSize = 100;
-        for (let i = 0; i < updates.length; i += batchSize) {
-          const batch = updates.slice(i, i + batchSize);
-          
-          // Use database-agnostic batch update
-          if (batch.length > 0) {
-            const now = new Date();
-            // Update each assignment individually for compatibility
-            for (const update of batch) {
-              await trx('project_assignments')
-                .where('id', update.id)
-                .update({
-                  computed_start_date: update.computed_start_date,
-                  computed_end_date: update.computed_end_date,
-                  updated_at: now
-                });
-            }
-          }
-        }
-      }
-
-      await trx.commit();
-
-      // Check conflicts after transaction to avoid holding locks
-      // Only check for updated assignments to reduce processing time
-      const conflictCheckPromises = updatedAssignments.map(async (ua) => {
-        const assignment = phaseAssignments.find((a: { id: string }) => a.id === ua.assignment_id);
-        if (assignment && ua.new_computed_start_date && ua.new_computed_end_date) {
-          return this.checkAssignmentConflicts(
-            assignment.person_id,
-            ua.new_computed_start_date,
-            ua.new_computed_end_date,
-            assignment.allocation_percentage,
-            assignment.id
-          );
-        }
-        return [];
-      });
-
-      // Process conflict checks in parallel for better performance
-      const conflictResults = await Promise.all(conflictCheckPromises);
-      conflictResults.forEach(personConflicts => {
-        conflicts.push(...personConflicts);
-      });
-
-    } catch (error) {
-      await trx.rollback();
-      throw error;
-    }
-
-    return {
-      updated_assignments: updatedAssignments,
-      conflicts
-    };
-  }
-
-  /**
-   * Recalculate assignments affected by project date changes
-   */
-  async recalculateAssignmentsForProjectChanges(
-    projectId: string
-  ): Promise<AssignmentRecalculationResult> {
-    const updatedAssignments: AssignmentRecalculationResult['updated_assignments'] = [];
-    const conflicts: AssignmentRecalculationResult['conflicts'] = [];
-
-    // Find all project-aligned assignments
-    const projectAssignments = await this.db('project_assignments')
-      .join('people', 'project_assignments.person_id', 'people.id')
-      .join('projects', 'project_assignments.project_id', 'projects.id')
-      .join('roles', 'project_assignments.role_id', 'roles.id')
-      .where('project_assignments.project_id', projectId)
-      .where('project_assignments.assignment_date_mode', 'project')
-      .select(
-        'project_assignments.*',
-        'people.name as person_name',
-        'projects.name as project_name',
-        'roles.name as role_name',
-        'projects.aspiration_start',
-        'projects.aspiration_finish'
-      );
-
-    const trx = await this.db.transaction();
-
-    try {
-      for (const assignment of projectAssignments) {
-        const oldComputedStartDate = assignment.computed_start_date;
-        const oldComputedEndDate = assignment.computed_end_date;
-        
-        const newComputedStartDate = assignment.aspiration_start;
-        const newComputedEndDate = assignment.aspiration_finish;
-
-        // Update if dates changed
-        if (
-          oldComputedStartDate !== newComputedStartDate ||
-          oldComputedEndDate !== newComputedEndDate
-        ) {
-          await trx('project_assignments')
-            .where('id', assignment.id)
-            .update({
-              computed_start_date: newComputedStartDate,
-              computed_end_date: newComputedEndDate,
-              updated_at: new Date().toISOString()
-            });
-
-          updatedAssignments.push({
-            assignment_id: assignment.id,
-            old_computed_start_date: oldComputedStartDate,
-            old_computed_end_date: oldComputedEndDate,
-            new_computed_start_date: newComputedStartDate,
-            new_computed_end_date: newComputedEndDate,
-            person_name: assignment.person_name,
-            project_name: assignment.project_name,
-            role_name: assignment.role_name
-          });
-
-          // Check for conflicts
-          if (newComputedStartDate && newComputedEndDate) {
-            const personConflicts = await this.checkAssignmentConflicts(
-              assignment.person_id,
-              newComputedStartDate,
-              newComputedEndDate,
-              assignment.allocation_percentage,
-              assignment.id
-            );
-
-            conflicts.push(...personConflicts);
-          }
-        }
-      }
-
-      await trx.commit();
-    } catch (error) {
-      await trx.rollback();
-      throw error;
-    }
-
-    return {
-      updated_assignments: updatedAssignments,
-      conflicts
-    };
-  }
-
-  /**
-   * Get computed dates for a phase-aligned assignment
-   */
-  private async computePhaseAssignmentDates(
-    projectId: string,
-    phaseId: string
-  ): Promise<{
-    computed_start_date?: string;
-    computed_end_date?: string;
-  }> {
-    const phaseTimeline = await this.db('project_phases_timeline')
-      .where('project_id', projectId)
-      .where('phase_id', phaseId)
-      .first();
-
-    if (!phaseTimeline) {
-      throw new Error(`No timeline found for phase ${phaseId} in project ${projectId}`);
-    }
-
-    return {
-      computed_start_date: phaseTimeline.start_date,
-      computed_end_date: phaseTimeline.end_date
-    };
-  }
-
-  /**
-   * Check for assignment conflicts for a person during specific dates
-   */
-  private async checkAssignmentConflicts(
-    personId: string,
-    startDate: string,
-    endDate: string,
-    allocationPercentage: number,
-    excludeAssignmentId?: string
-  ): Promise<Array<{
-    person_id: string;
-    person_name: string;
-    conflict_type: 'over_allocation' | 'availability_override';
-    details: string;
-  }>> {
-    const conflicts: Array<{
-      person_id: string;
-      person_name: string;
-      conflict_type: 'over_allocation' | 'availability_override';
-      details: string;
-    }> = [];
-
-    // Get person's default availability
-    const person = await this.db('people')
-      .where('id', personId)
-      .first();
-
-    if (!person) return [];
-
-    const defaultAvailability = person.default_availability_percentage || 100;
-
-    // Check for overlapping assignments
-    let query = this.db('project_assignments')
-      .join('people', 'project_assignments.person_id', 'people.id')
-      .where('project_assignments.person_id', personId)
-      .where(function(this: any) {
-        // Overlapping date logic using computed dates
-        this.where(function(this: any) {
-          this.where('project_assignments.computed_start_date', '<=', endDate)
-            .where('project_assignments.computed_end_date', '>=', startDate);
+        changes.push({
+          assignment_id: String(row.id),
+          scenario_id: String(row.scenario_id),
+          person_id: String(row.person_id),
+          old: { start: row.computed_start_date ?? null, end: row.computed_end_date ?? null },
+          new: { start: next.computed_start_date ?? null, end: next.computed_end_date ?? null },
+          reason: 'project_aspiration',
         });
-      });
-
-    if (excludeAssignmentId) {
-      query = query.where('project_assignments.id', '!=', excludeAssignmentId);
-    }
-
-    const overlappingAssignments = await query.select(
-      'project_assignments.*',
-      'people.name as person_name'
-    );
-
-    // Calculate total allocation during overlap period
-    const totalAllocation = overlappingAssignments.reduce(
-      (sum: number, assignment: { allocation_percentage: number }) => sum + assignment.allocation_percentage,
-      allocationPercentage
-    );
-
-    // Check availability overrides during this period
-    const availabilityOverrides = await this.db('person_availability_overrides')
-      .where('person_id', personId)
-      .where(function(this: any) {
-        this.where('start_date', '<=', endDate)
-          .where('end_date', '>=', startDate);
-      });
-
-    let effectiveAvailability = defaultAvailability;
-    if (availabilityOverrides.length > 0) {
-      // Use the most restrictive availability override in the period
-      effectiveAvailability = Math.min(
-        effectiveAvailability,
-        ...availabilityOverrides.map((override: { availability_percentage?: number }) => override.availability_percentage || 0)
-      );
-    }
-
-    // Check for over-allocation
-    if (totalAllocation > effectiveAvailability) {
-      conflicts.push({
-        person_id: personId,
-        person_name: person.name,
-        conflict_type: 'over_allocation',
-        details: `Total allocation ${totalAllocation}% exceeds available capacity ${effectiveAvailability}% during ${startDate} to ${endDate}`
-      });
-    }
-
-    // Check for availability overrides
-    if (availabilityOverrides.length > 0) {
-      conflicts.push({
-        person_id: personId,
-        person_name: person.name,
-        conflict_type: 'availability_override',
-        details: `Availability override active during ${startDate} to ${endDate}: ${availabilityOverrides.map((o: { override_type: string; availability_percentage: number }) => `${o.override_type} (${o.availability_percentage}%)`).join(', ')}`
-      });
-    }
-
-    return conflicts;
-  }
-
-  /**
-   * Bulk recalculate all assignments for a project
-   */
-  async recalculateAllProjectAssignments(projectId: string): Promise<AssignmentRecalculationResult> {
-    const allAssignments = await this.db('project_assignments')
-      .where('project_id', projectId)
-      .whereIn('assignment_date_mode', ['phase', 'project'])
-      .select('id', 'phase_id', 'assignment_date_mode');
-
-    // Group by mode
-    interface AssignmentDateMode {
-      id: string;
-      phase_id: string;
-      assignment_date_mode: string;
-    }
-    const phaseAssignments = allAssignments
-      .filter((a: AssignmentDateMode) => a.assignment_date_mode === 'phase')
-      .map((a: AssignmentDateMode) => a.phase_id)
-      .filter((id: string, index: number, arr: string[]) => arr.indexOf(id) === index); // unique phase_ids
-
-    const hasProjectAssignments = allAssignments.some((a: AssignmentDateMode) => a.assignment_date_mode === 'project');
-
-    // Recalculate phase assignments
-    const phaseResults = phaseAssignments.length > 0 
-      ? await this.recalculateAssignmentsForPhaseChanges(projectId, phaseAssignments)
-      : { updated_assignments: [], conflicts: [] };
-
-    // Recalculate project assignments
-    const projectResults = hasProjectAssignments
-      ? await this.recalculateAssignmentsForProjectChanges(projectId)
-      : { updated_assignments: [], conflicts: [] };
-
-    return {
-      updated_assignments: [...phaseResults.updated_assignments, ...projectResults.updated_assignments],
-      conflicts: [...phaseResults.conflicts, ...projectResults.conflicts]
+      }
+      for (const change of changes) {
+        await conn('scenario_project_assignments')
+          .where('id', change.assignment_id)
+          .update({
+            computed_start_date: change.new.start,
+            computed_end_date: change.new.end,
+          });
+      }
+      return changes;
     };
+
+    return opts.trx ? run(opts.trx) : this.db.transaction(run);
   }
 
-  /**
-   * Alias for recalculateAllProjectAssignments - used by test
-   */
-  async recalculateAssignments(projectId: string): Promise<AssignmentRecalculationResult> {
-    return this.recalculateAllProjectAssignments(projectId);
+  /** 维护入口（Q10 一次性回填脚本用）：项目全量刷新（phase + project 模式） */
+  async recalculateAllProjectAssignments(projectId: string): Promise<AssignmentDateChange[]> {
+    return this.db.transaction(async (trx) => {
+      const phaseIds = await trx('scenario_project_assignments')
+        .where({ project_id: projectId, assignment_date_mode: 'phase' })
+        .distinct('phase_id');
+      const phaseChanges = await this.recalculateForPhaseTimelineChange(
+        projectId,
+        phaseIds.map((r: any) => String(r.phase_id)).filter(Boolean),
+        { trx }
+      );
+      const projectChanges = await this.recalculateForProjectDateChange(projectId, { trx });
+      return [...phaseChanges, ...projectChanges];
+    });
   }
 }

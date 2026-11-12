@@ -154,12 +154,22 @@ npx playwright test tests/e2e/suites/crud/          # Playwright folder
 
 ### Cascading Updates
 - Phase changes cascade to assignments
-- Use ProjectPhaseCascadeService for phase modifications
-- Assignment recalculation handled by AssignmentRecalculationService
-  ⚠️ 实际零生产调用（BR-F02；D18 待裁决）：该服务读写已退役旧表 `project_assignments`
-  且引用已删 enum——**不要按此文档接线**；活路径=scenario_project_assignments 切片 +
-  ProjectPhaseCascadeService/computed dates。守卫：`scripts/check-legacy-table-writes.mjs`
-  （G2，冻结条目随 D18 结算销账）。
+- Use ProjectPhaseCascadeService for phase modifications（其 `applyCascade` /
+  `updateProjectPhases` 接受 `{ trx }`，时间线写 + computed 刷新同事务）
+- `AssignmentRecalculationService`（I02a/D18 路线 B 重写）只读写
+  `scenario_project_assignments` 切片：调度输入（阶段时间线 start/end、项目
+  aspiration）变化后刷新 phase/project 模式的 `computed_start_date/end_date`。
+  写路径共用 `src/server/services/calc/assignmentDates.ts` 原语；触发面：
+  AssignmentsController（create/update/bulk）、ScenariosController.upsert、
+  ProjectPhasesController（update/bulkUpdate/delete）、ProjectsController
+  （aspiration update + custom phase 端点）、CustomPhaseManagementService、
+  ProjectPhaseCascadeService、ProjectPhaseDependenciesController.applyCascade。
+  审计一律事务提交后逐条 `await logAuditEvent`（事务内调用会在单连接池死锁）。
+  守卫：`scripts/check-write-path-registry.mjs`（G-E，调度输入写点必须接线/
+  登记豁免）与 `scripts/check-legacy-table-writes.mjs`（G2，旧表零写入——
+  仅剩生命周期兼容双写/备份恢复/工具清理白名单）。
+- 存量漂移回填：`npx tsx scripts/recalculate-assignment-dates.ts`（默认
+  dry-run，事务回滚；`--apply` 落库并逐条写审计）。
 
 ## Database
 

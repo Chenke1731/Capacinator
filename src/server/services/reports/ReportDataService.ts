@@ -4,6 +4,7 @@ import { segmentedWorkHours } from '../calc/capacitySegments.js';
 import { fetchApprovedAvailabilityOverrides } from '../calc/availabilityOverrides.js';
 import { roleCapacityGaps } from '../calc/roleGaps.js';
 import { personUtilizationRows } from '../calc/personUtilization.js';
+import { toISODateLocal } from '../../utils/isoDate.js';
 import type {
   DateRangeFilter,
   DemandReportFilters,
@@ -25,11 +26,6 @@ import type {
   ProjectHealthRow,
   DemandDataRow,
 } from './types.js';
-
-/** 本地时区日期串（R05 教训：toISOString 的 UTC 位移会让日期倒退一天） */
-function toISODateLocal(d: Date): string {
-  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
-}
 
 /**
  * Service for fetching and aggregating report data.

@@ -11,10 +11,10 @@ source: incident/2026-10-15-v2-import-writes-legacy-table（IP-02b 发现，IP-0
 class: 写路径×读侧切片
 mechanism_slice: write-path × scenario-slice-read
 disposition: GUARD
-guard: enforced — scripts/check-legacy-table-writes.mjs（G2，pre-commit 聚合 verify:backend-gates）：生产代码禁写 project_assignments（白名单=迁移/seed 整类豁免 + AssignmentRecalculationService 冻结/D18 + 工具端点/备份/生命周期兼容逐条理由）；SELF_TEST 4/4
-verification: done（2026-11-11，I01v v2/v3）— 变异自证：注入未授权 `trx('project_assignments').del()` → 脚本红；真实扫描绿（白名单 4 条）；G2 之外导出/导入/备份链路逐条核过
+guard: enforced — scripts/check-legacy-table-writes.mjs（G2，pre-commit 聚合 verify:backend-gates）：生产代码禁写 project_assignments（白名单=迁移/seed 整类豁免 + 工具端点/备份/生命周期兼容逐条理由）；SELF_TEST 4/4
+verification: done（2026-11-11，I01v v2/v3）— 变异自证：注入未授权 `trx('project_assignments').del()` → 脚本红；真实扫描绿（白名单 4 条）；G2 之外导出/导入/备份链路逐条核过；I02a 销账后白名单 3 条、SELF_TEST 改夹具白名单（不与真实清单耦合）
 status: enforced
-note: V2 导入写旧表 project_assignments，运行时 0 行，导入分配对切片读侧完全不可见（IP-02b 台账遗留列）；IP-05d 已修导入落表。2026-11-11 场一评审同族第 2 次命中：AssignmentRecalculationService 全服务读写旧表且零生产调用（探针：'project' enum 已删 INSERT 被 CHECK 拒、recalc 恒 0 行；CLAUDE.md:158 仍宣称其负责级联）——同族 ≥2，G2 已落地（I01v）；冻结条目随 D18 处置销账
+note: V2 导入写旧表 project_assignments，运行时 0 行，导入分配对切片读侧完全不可见（IP-02b 台账遗留列）；IP-05d 已修导入落表。2026-11-11 场一评审同族第 2 次命中：AssignmentRecalculationService 全服务读写旧表且零生产调用（探针：'project' enum 已删 INSERT 被 CHECK 拒、recalc 恒 0 行；CLAUDE.md:158 仍宣称其负责级联）——同族 ≥2，G2 已落地（I01v）。D18=B 已执行（I02a）：服务重写为只读 scenario_project_assignments 的 computed 刷新，冻结条目销账；新增 G-E `scripts/check-write-path-registry.mjs` 防"改调度输入不刷新 computed"复发
 ```
 
 ```yaml exp
@@ -60,10 +60,10 @@ source: incident/2026-10-16-availability-100-fallback（ReportDataService.ts:693
 class: 缺省回退×合法零值
 mechanism_slice: default-fallback × explicit-zero-swallowed
 disposition: GUARD
-guard: enforced — scripts/check-numeric-defaults.mjs（INV-2≡G4，pre-commit 聚合）：生产代码 `|| 非零数字字面量` 必须双栏归类（合法参数缺省 30 条逐条理由 / 存量缺陷冻结 2 条带台账引用），未分类即红；SELF_TEST 5/5。局限：按 file::literal 聚合（同文件同字面量共享豁免），`||0` 不扫（数值上≡??0）
+guard: enforced — scripts/check-numeric-defaults.mjs（INV-2≡G4，pre-commit 聚合）：生产代码 `|| 非零数字字面量` 必须双栏归类（合法参数缺省逐条理由 / 存量缺陷冻结 0 条——I02a 清零），未分类即红；SELF_TEST 5/5。局限：按 file::literal 聚合（同文件同字面量共享豁免），`||0` 不扫（数值上≡??0）
 verification: done（2026-11-11，I01v v1/v3/v4）— 两场评审探针红证：AssignmentRecalculationService.ts:317（0% 人员+50% 分配→无冲突，场一 BR-F03）+ phaseInheritance.ts:65 `|| 30` 吞 0 天模板（场二 F3，同族第 2 活跃实例，修共享原语即双修 ProjectsController 同链）+ ReportDataService.ts:620/626/636/668 `||8` 四处（BR-F07）；INV-2 落地实测：全库 32 命中全归类，注入 `|| 30` 变异红证，同批修 CustomPhaseManagementService:395（同族第 3 实例）+AssignmentsController:1049（C09 族）
 status: enforced
-note: `person.default_availability_percentage || 100`（AssignmentRecalculationService.ts:317）吞显式 0%；ReportDataService.ts:693 注释自认同类（"可用率 || 100 回退（显式 0% 被吞）"）。与 R07"合法 0 全保留"同族——本条是 backend-reviewer 试点第一场盲评对象。INV-2 已落地（I01v），常驻检查项移除
+note: `person.default_availability_percentage || 100`（AssignmentRecalculationService.ts:317）吞显式 0%；ReportDataService.ts:693 注释自认同类（"可用率 || 100 回退（显式 0% 被吞）"）。与 R07"合法 0 全保留"同族——本条是 backend-reviewer 试点第一场盲评对象。INV-2 已落地（I01v），常驻检查项移除；I02a 重写该服务后 `|| 100` 命中消失，FROZEN 清零（冻结条目与代码同步销账）
 ```
 
 ```yaml exp
@@ -119,9 +119,9 @@ source: incident/2026-11-11-doc-claim-dead-wiring（试点场一 BR-F02）
 class: 文档宣称×死接线
 mechanism_slice: architecture-doc × actual-call-graph
 disposition: DECISION
-decision: pending — D18 待裁决（先确认冲突检测使用频率：高频→C 读侧去物化；低频→B 接线切片轨）；处置前 CLAUDE.md:158 必须标注实际零调用
-status: candidate
-note: AssignmentRecalculationService 零生产调用（grep 仅 skip 测试）、读写已废弃旧表、引用已被迁移 024 删除的 'project' enum（INSERT 被 CHECK 拒、recalc 恒 0 行）；而 CLAUDE.md 仍宣称其负责阶段→分配级联，后续 agent 按文档接线会写废弃表。D18 前置条件已执行：CLAUDE.md:158 已标注实际零调用（I01v v2）；裁决 D18 仍未定
+decision: D18=B（2026-11-12 用户裁决：低频审视/月度排产画像，选择接线切片轨）——已执行 I02a：服务重写为 scenario_project_assignments 的 computed 刷新，CLAUDE.md Cascading Updates 段改写，G-E 写点注册表守卫落地
+status: retired
+note: AssignmentRecalculationService 零生产调用（grep 仅 skip 测试）、读写已废弃旧表、引用已被迁移 024 删除的 'project' enum（INSERT 被 CHECK 拒、recalc 恒 0 行）；而 CLAUDE.md 仍宣称其负责阶段→分配级联，后续 agent 按文档接线会写废弃表。D18 前置条件已执行：CLAUDE.md:158 已标注实际零调用（I01v v2）。D18=B 执行后本决策关闭：文档与活接线一致（新服务只读写切片表），不再构成误导风险
 ```
 
 ```yaml exp

@@ -195,10 +195,38 @@ export class ProjectPhaseDependenciesController {
       const { ProjectPhaseCascadeService } = await import('../../services/ProjectPhaseCascadeService.js');
       const cascadeService = new ProjectPhaseCascadeService(this.db);
 
-      // Apply cascade changes
-      await cascadeService.applyCascade(project_id, cascade_data);
+      // Apply cascade changes (timeline writes + assignment refresh share one transaction)
+      const result = await cascadeService.applyCascade(project_id, cascade_data);
 
-      res.json({ message: 'Cascade changes applied successfully' });
+      // Post-commit audit: timeline rows and refreshed assignment rows.
+      // logAuditEvent is awaited per row (INV-4); never inside the transaction
+      // (single-connection pool would deadlock).
+      for (const change of result.phase_changes) {
+        await (req as any).logAuditEvent?.(
+          'project_phases_timeline',
+          change.timeline_id,
+          'UPDATE',
+          { start_date: change.old_start_date, end_date: change.old_end_date },
+          { start_date: change.new_start_date, end_date: change.new_end_date },
+          'cascade applied from phase dependency'
+        );
+      }
+      for (const change of result.assignment_changes) {
+        await (req as any).logAuditEvent?.(
+          'scenario_project_assignments',
+          change.assignment_id,
+          'UPDATE',
+          { computed_start_date: change.old.start, computed_end_date: change.old.end },
+          { computed_start_date: change.new.start, computed_end_date: change.new.end },
+          'recomputed from phase timeline'
+        );
+      }
+
+      res.json({
+        message: 'Cascade changes applied successfully',
+        updated_phases: result.updated_phases,
+        updated_assignments: result.assignment_changes.length
+      });
     } catch (error) {
       logger.error('Error applying cascade', error instanceof Error ? error : undefined);
       res.status(500).json({ error: 'Failed to apply cascade changes' });

@@ -8,6 +8,7 @@ import { validateProjectSubType } from '../../services/projects/projectTypeValid
 import { inheritProjectPhases } from '../../services/projects/phaseInheritance.js';
 import { LifecycleService } from '../../services/lifecycle/LifecycleService.js';
 import { computeProjectConflictFlags } from '../../services/board/projectConflictFlags.js';
+import { AssignmentRecalculationService, type AssignmentDateChange } from '../../services/AssignmentRecalculationService.js';
 import { logger } from '../../services/logging/config.js';
 
 // Alias for backward compatibility
@@ -846,6 +847,15 @@ export class ProjectsController extends BaseController {
 
       // 五段写入同事务(2026-10-13 全库审计): 主表+两类评估+标签先删后插,
       // 任一失败整体回滚(标签段原先 del 后 insert 失败即丢整组标签)
+      // I02a/D18：aspiration 日期变化时同事务刷新 project 模式分配的 computed
+      let assignmentChanges: AssignmentDateChange[] = [];
+      const aspirationChanged =
+        !!currentProject &&
+        ((updateData.aspiration_start !== undefined &&
+          String(updateData.aspiration_start ?? '') !== String(currentProject.aspiration_start ?? '')) ||
+          (updateData.aspiration_finish !== undefined &&
+            String(updateData.aspiration_finish ?? '') !== String(currentProject.aspiration_finish ?? '')));
+
       await this.db.transaction(async (trx: any) => {
         await trx('projects')
           .where('id', id)
@@ -853,6 +863,11 @@ export class ProjectsController extends BaseController {
             ...sanitizedData,
             updated_at: new Date()
           });
+
+        if (aspirationChanged) {
+          assignmentChanges = await new AssignmentRecalculationService(this.db)
+            .recalculateForProjectDateChange(id, { trx });
+        }
 
         // 设计粗估分量落最新记录(D3): 有分量入参时写
         if (seEst !== undefined || mdeEst !== undefined) {
@@ -947,6 +962,18 @@ export class ProjectsController extends BaseController {
           projectName: project.name,
           fieldsUpdated: Object.keys(updateData)
         });
+      }
+
+      // I02a：刷新产生的分配变更逐条审计（事务提交后）
+      for (const change of assignmentChanges) {
+        await (req as any).logAuditEvent?.(
+          'scenario_project_assignments',
+          change.assignment_id,
+          'UPDATE',
+          { computed_start_date: change.old.start, computed_end_date: change.old.end },
+          { computed_start_date: change.new.start, computed_end_date: change.new.end },
+          'recomputed from project aspiration'
+        );
       }
 
       return project;
@@ -1452,6 +1479,16 @@ export class ProjectsController extends BaseController {
 
     if (result) {
       if (result.success) {
+        for (const change of result.assignmentChanges ?? []) {
+          await (req as any).logAuditEvent?.(
+            'scenario_project_assignments',
+            change.assignment_id,
+            'UPDATE',
+            { computed_start_date: change.old.start, computed_end_date: change.old.end },
+            { computed_start_date: change.new.start, computed_end_date: change.new.end },
+            'recomputed from phase timeline'
+          );
+        }
         this.sendSuccess(req, res, result);
       } else {
         this.sendError(req, res, result.message, 400);
@@ -1473,6 +1510,16 @@ export class ProjectsController extends BaseController {
 
     if (result) {
       if (result.success) {
+        for (const change of result.assignmentChanges ?? []) {
+          await (req as any).logAuditEvent?.(
+            'scenario_project_assignments',
+            change.assignment_id,
+            'UPDATE',
+            { computed_start_date: change.old.start, computed_end_date: change.old.end },
+            { computed_start_date: change.new.start, computed_end_date: change.new.end },
+            'recomputed from phase timeline'
+          );
+        }
         this.sendSuccess(req, res, result);
       } else {
         this.sendError(req, res, result.message, 400);
@@ -1493,6 +1540,16 @@ export class ProjectsController extends BaseController {
 
     if (result) {
       if (result.success) {
+        for (const change of result.assignmentChanges ?? []) {
+          await (req as any).logAuditEvent?.(
+            'scenario_project_assignments',
+            change.assignment_id,
+            'UPDATE',
+            { computed_start_date: change.old.start, computed_end_date: change.old.end },
+            { computed_start_date: change.new.start, computed_end_date: change.new.end },
+            'recomputed from phase timeline'
+          );
+        }
         this.sendSuccess(req, res, result);
       } else {
         this.sendError(req, res, result.message, 400);

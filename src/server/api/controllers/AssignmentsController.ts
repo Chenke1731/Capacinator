@@ -4,9 +4,9 @@ import { BaseController, RequestWithContext } from './BaseController.js';
 import { ServiceContainer } from '../../services/ServiceContainer.js';
 import { transformDates, transformDatesInArray, COMMON_DATE_FIELDS } from '../../utils/dateTransform.js';
 import { notificationScheduler } from '../../services/NotificationScheduler.js';
-import { logger } from '../../services/logging/config.js';
 import { activeAssignmentsInScenario } from '../../services/calc/effectiveAssignments.js';
 import { evaluateWindowCapacity } from '../../services/calc/capacitySegments.js';
+import { computeAssignmentDates } from '../../services/calc/assignmentDates.js';
 
 // Alias for backward compatibility with existing code
 type RequestWithLogging = RequestWithContext;
@@ -638,6 +638,9 @@ export class AssignmentsController extends BaseController {
         .where({ id: actualId, ...versionClause })
         .update({
           ...updateData,
+          // I02a/F1（P0）：派生日期必须随写落库——旧实现算了不写，fixed 日期
+          // 编辑/mode 切换后 computed 永久停留旧窗口（dev 库实证漂移 3 周+）
+          ...computedDates,
           updated_at: new Date(),
           version: this.db.raw('version + 1')
         })
@@ -826,8 +829,14 @@ export class AssignmentsController extends BaseController {
               person_id: assignment.person_id,
               role_id: assignment.role_id,
               allocation_percentage: assignment.allocation_percentage,
+              // I02a/G-A：批量分配显式 fixed 模式 + 派生日期落库（旧插入不带
+              // 模式→落库默认 project，需求视图会改用 aspiration 而忽略这里的
+              // start/end；computed 也缺失）
+              assignment_date_mode: 'fixed',
               start_date: assignment.start_date,
               end_date: assignment.end_date,
+              computed_start_date: assignment.start_date,
+              computed_end_date: assignment.end_date,
               notes: assignment.notes,
               scenario_id: scenarioId,
               created_at: new Date(),
@@ -1358,85 +1367,17 @@ export class AssignmentsController extends BaseController {
   /**
    * Compute assignment start and end dates based on assignment_date_mode
    */
-  private async computeAssignmentDates(assignment: AssignmentRow & { project?: { name?: string; aspiration_start?: string; aspiration_finish?: string; start_date?: string | null; end_date?: string | null } }): Promise<{
+  /** I02a：委托共享原语（services/calc/assignmentDates）——写路径与刷新路径
+   *  单一算法，防两处口径漂移（EXP-B11） */
+  private async computeAssignmentDates(
+    assignment: AssignmentRow & { project?: { name?: string; aspiration_start?: string; aspiration_finish?: string; start_date?: string | null; end_date?: string | null } }
+  ): Promise<{
     computed_start_date?: string;
     computed_end_date?: string;
   }> {
-    const mode = assignment.assignment_date_mode || 'fixed';
-    
-    switch (mode) {
-      case 'fixed':
-        // Use explicit start_date and end_date
-        return {
-          computed_start_date: assignment.start_date,
-          computed_end_date: assignment.end_date
-        };
-        
-      case 'phase': {
-        // Get dates from project phase timeline
-        if (!assignment.phase_id || !assignment.project_id) {
-          throw new Error('Phase mode requires both phase_id and project_id');
-        }
-
-        const phaseTimeline = await this.db('project_phases_timeline')
-          .where('project_id', assignment.project_id)
-          .where('phase_id', assignment.phase_id)
-          .first();
-
-        if (!phaseTimeline) {
-          throw new Error(`No timeline found for phase ${assignment.phase_id} in project ${assignment.project_id}`);
-        }
-
-        return {
-          computed_start_date: phaseTimeline.start_date,
-          computed_end_date: phaseTimeline.end_date
-        };
-      }
-
-      case 'project': {
-        // Get dates from project aspiration dates
-        if (!assignment.project_id) {
-          throw new Error('Project mode requires project_id');
-        }
-
-        // Use project data from assignment if available (when called from getAll),
-        // otherwise fetch from database
-        let project = assignment.project;
-        if (!project) {
-          project = await this.db('projects')
-            .where('id', assignment.project_id)
-            .first();
-
-          if (!project) {
-            throw new Error(`Project ${assignment.project_id} not found`);
-          }
-        }
-
-        // Use aspiration dates if available, otherwise fall back to project start/end dates
-        const startDate = project.aspiration_start || project.start_date;
-        const endDate = project.aspiration_finish || project.end_date;
-
-        if (!startDate || !endDate) {
-          logger.warn('Project missing both aspiration and start/end dates, using assignment dates as fallback', { projectId: assignment.project_id, projectName: project.name || 'Unknown' });
-
-          // If assignment dates are also missing, use reasonable defaults
-          const fallbackStartDate = assignment.start_date || new Date().toISOString().split('T')[0];
-          const fallbackEndDate = assignment.end_date || new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]; // 90 days from now
-
-          return {
-            computed_start_date: fallbackStartDate,
-            computed_end_date: fallbackEndDate
-          };
-        }
-
-        return {
-          computed_start_date: startDate,
-          computed_end_date: endDate
-        };
-      }
-
-      default:
-        throw new Error(`Unknown assignment_date_mode: ${mode}`);
-    }
+    return computeAssignmentDates(this.db, assignment as any) as Promise<{
+      computed_start_date?: string;
+      computed_end_date?: string;
+    }>;
   }
 }

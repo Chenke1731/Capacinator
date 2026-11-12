@@ -3,8 +3,9 @@
  * G2 旧表写入守卫（I01v，EXP-B01；backend-review 场一 BR-F02）。
  *
  * 事故链（同族≥2）：①V2 导入曾写旧表 project_assignments（IP-05d 修）；
- * ②AssignmentRecalculationService 全服务读写旧表且零生产调用——运行时
- * 旧表 0 行，切片读侧完全不可见（BR-F02，D18 待裁决）。
+ * ②AssignmentRecalculationService 旧版全服务读写旧表且零生产调用——运行时
+ * 旧表 0 行，切片读侧完全不可见（BR-F02）。I02a/D18 路线 B 已重写为只读
+ * 新表 scenario_project_assignments 的 computed 刷新，冻结条目销账。
  *
  * 断言：src/server 生产代码禁止对 `project_assignments` 的写操作
  * （insert/update/del/delete/increment/decrement）。
@@ -13,7 +14,7 @@
  * 别名表名（`const T='project_assignments'; db(T)`）扫不到（当前 raw 旧表写=0，
  * 评审触及旧表读写时人工核）。
  * 白名单类别（EXP-B01 裁决）：迁移 / import / backup（restore）/ 工具端点，
- * 逐条挂理由；AssignmentRecalculationService 属冻结条目（D18 处置后销账）。
+ * 逐条挂理由。
  *
  * 用法：
  *   node scripts/check-legacy-table-writes.mjs              # 检查（pre-commit）
@@ -27,10 +28,6 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 
 /** 白名单（相对仓库根）：理由必须指向裁决/台账行；冻结条目须带销账条件 */
 export const ALLOWLIST = new Map([
-  [
-    'src/server/services/AssignmentRecalculationService.ts',
-    '冻结（D18 待裁决）：BR-F02 死服务零生产调用但读写旧表；处置裁决后销账',
-  ],
   [
     'src/server/api/controllers/AssignmentsController.ts',
     '工具端点 deleteTestData：仅清理 Test_ 前缀夹具行的 .del()（非业务写路径）',
@@ -99,10 +96,12 @@ function selfTest() {
   const s = scanLegacyWrites("await db('scenario_project_assignments').insert({ id: 1 });");
   if (s.length === 0) pass++;
   else console.error('SELF_TEST 3 失败: 新表误报', s);
-  // 4. 白名单文件 → 豁免；同内容放在非白名单路径 → 红（由调用方按路径豁免，此处验证扫描本体稳定）
+  // 4. 白名单机制与扫描本体解耦：用本地夹具白名单验证「命中 + 豁免」
+  //    （不依赖真实 ALLOWLIST 条目，避免销账后自测同红——F5）
+  const fixtureAllowlist = new Map([['src/fixture/allowed.ts', '测试夹具豁免']]);
   const allowed = scanLegacyWrites("await trx('project_assignments').del();");
-  if (allowed.length === 1 && ALLOWLIST.has('src/server/services/AssignmentRecalculationService.ts')) pass++;
-  else console.error('SELF_TEST 4 失败: del 未命中或白名单缺失', allowed);
+  if (allowed.length === 1 && fixtureAllowlist.has('src/fixture/allowed.ts')) pass++;
+  else console.error('SELF_TEST 4 失败: del 未命中或白名单机制失效', allowed);
   console.log(`SELF_TEST check-legacy-table-writes: ${pass}/${total} 组通过`);
   return pass === total;
 }
@@ -125,6 +124,6 @@ if (process.argv[1]?.endsWith('check-legacy-table-writes.mjs')) {
     process.exit(1);
   }
   console.log(
-    `✓ G2 通过：旧表零未授权写点（白名单 ${ALLOWLIST.size} 条：冻结 1=AssignmentRecalculationService/D18、工具 1、备份 1、生命周期兼容双写 1；迁移/seed 目录整类豁免）`
+    `✓ G2 通过：旧表零未授权写点（白名单 ${ALLOWLIST.size} 条：工具 1、备份 1、生命周期兼容双写 1；迁移/seed 目录整类豁免）`
   );
 }

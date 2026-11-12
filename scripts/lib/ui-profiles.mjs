@@ -42,7 +42,7 @@ export const profiles = {
   'assignments-1366': {path:'/assignments',root:'main',ready:'table',minElements:5,viewport:{width:1366,height:900}},
   'scenarios-1366': {path:'/scenarios',root:'.scenarios-page',ready:'.hierarchy-row',minElements:5,viewport:{width:1366,height:900}},
   'iterations-1366': {path:'/iterations',root:'.iterations-page',ready:'.it-card-head',minElements:3,hoverReveal:'.it-card-head',scrollInto:'.it-unassigned',viewport:{width:1366,height:900}},
-  'dashboard-1366': {path:'/dashboard',root:'main',ready:'.stats-grid',minElements:3,viewport:{width:1366,height:900}},
+  'dashboard-1366': {path:'/dashboard',root:'main',ready:'.stats-grid',minElements:3,scrollInto:'.enhanced-kpis',viewport:{width:1366,height:900}},
   'settings-1366': {path:'/settings',root:'.unified-tab-container',ready:'.settings-section',minElements:5,viewport:{width:1366,height:900}},
   // I01e Batch 1（2026-11-10）：badge/btn-icon 所有权收敛的两块活性作用面补档——
   // availability 日历（44px 独立图标钮 + 徽章药丸化）与 components 表

@@ -2064,5 +2064,23 @@
   "assignments-1366|dark|hover-6": [],
   "assignments-1366|dark|hover-7": [],
   "assignments-1366|dark|hover-8": [],
-  "assignments-1366|dark|keyboard-focus": []
+  "assignments-1366|dark|keyboard-focus": [],
+  "dashboard|light|default": [],
+  "dashboard|light|hover-0": [],
+  "dashboard|light|hover-1": [
+    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)|hover-crosses-container-top"
+  ],
+  "dashboard|light|keyboard-focus": [],
+  "dashboard|dark|default": [],
+  "dashboard|dark|hover-0": [],
+  "dashboard|dark|hover-1": [
+    "div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(1) > button:nth-of-type(1)|hover-crosses-container-top"
+  ],
+  "dashboard|dark|keyboard-focus": [],
+  "dashboard-1366|light|default": [],
+  "dashboard-1366|light|hover-0": [],
+  "dashboard-1366|light|keyboard-focus": [],
+  "dashboard-1366|dark|default": [],
+  "dashboard-1366|dark|hover-0": [],
+  "dashboard-1366|dark|keyboard-focus": []
 }

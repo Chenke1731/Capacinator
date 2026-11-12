@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { AlertCircle, ChevronDown, ChevronRight } from 'lucide-react';
 import { api } from '../../lib/api-client';
@@ -13,6 +14,7 @@ import { Label } from '../ui/label';
 import { Textarea } from '../ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
 import { Alert, AlertDescription } from '../ui/alert';
+import { ToastAction } from '../ui/toast';
 import { useToast } from '../../hooks/use-toast';
 import './QuickCaptureDialog.css';
 
@@ -42,6 +44,7 @@ interface CaptureItem extends IntakeCaptureInput {
 export function QuickCaptureDialog({ open, onClose }: { open: boolean; onClose: () => void }) {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
+  const navigate = useNavigate();
   const { toast } = useToast();
   const textRef = useRef<HTMLTextAreaElement | null>(null);
   // G-13 收口（批 B）：受控打开（Alt+N/各页按钮）记住触发元素，关闭后焦点返回
@@ -130,7 +133,24 @@ export function QuickCaptureDialog({ open, onClose }: { open: boolean; onClose: 
       if (result.warnings.some((w) => w.type === 'duplicate_title')) {
         parts.push(t('intake:capture.duplicateTitle'));
       }
-      toast({ title, description: parts.length > 0 ? parts.join('；') : undefined });
+      // U21（D20 批5）：成功 toast **恒带**「去分流」动作——日常月度收集
+      // 可无视，月中紧急 A 路径（未谈清→快录）直达收件箱分流
+      toast({
+        title,
+        description: parts.length > 0 ? parts.join('；') : undefined,
+        action: (
+          <ToastAction
+            altText={t('intake:capture.goTriage')}
+            onClick={() => {
+              onClose();
+              navigate('/projects?tab=intake');
+            }}
+            data-testid="capture-go-triage"
+          >
+            {t('intake:capture.goTriage')}
+          </ToastAction>
+        ),
+      });
       setError(null);
       // 继续：清正文/编号/日期/提出人/备注，保留来源；关闭：整域复位
       setText('');

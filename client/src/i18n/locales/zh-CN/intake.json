@@ -41,6 +41,7 @@
     "submitAndContinue": "收入并继续",
     "capturedOne": "已收入收件箱 1 条",
     "capturedMany": "已收入收件箱 {{count}} 条",
+    "goTriage": "去分流",
     "skippedInfo": "跳过 {{count}} 条（重复）",
     "duplicateTitle": "已有同名待处理条目",
     "inBatchDuplicate": "批内重复",

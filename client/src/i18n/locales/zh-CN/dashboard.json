@@ -167,5 +167,11 @@
       "description": "在产能限制内正确分配的人员占比",
       "action": "修复超负荷"
     }
+  },
+  "inbox": {
+    "title": "待分流收件箱",
+    "action": "去分流",
+    "loading": "加载中…",
+    "loadFailed": "收件箱计数加载失败"
   }
 }

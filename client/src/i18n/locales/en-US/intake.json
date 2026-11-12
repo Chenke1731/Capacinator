@@ -41,6 +41,7 @@
     "submitAndContinue": "Capture & continue",
     "capturedOne": "Captured 1 item to the inbox",
     "capturedMany": "Captured {{count}} items to the inbox",
+    "goTriage": "Go to triage",
     "skippedInfo": "{{count}} skipped as duplicates",
     "duplicateTitle": "A pending item with the same title already exists",
     "inBatchDuplicate": "Duplicate in batch",

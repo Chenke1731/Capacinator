@@ -10,6 +10,9 @@ jest.mock('../../lib/api-client', () => ({
   api: {
     reporting: {
       getDashboard: jest.fn()
+    },
+    intake: {
+      counts: jest.fn().mockResolvedValue({ data: { data: { new: 0, converted: 0, rejected: 0, by_source: {} } } })
     }
   }
 }));

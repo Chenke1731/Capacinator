@@ -168,5 +168,11 @@
       "description": "Percentage of people allocated within their capacity limits",
       "action": "Fix Over-allocations"
     }
+  },
+  "inbox": {
+    "title": "Inbox to triage",
+    "action": "Go to triage",
+    "loading": "Loading…",
+    "loadFailed": "Failed to load inbox count"
   }
 }

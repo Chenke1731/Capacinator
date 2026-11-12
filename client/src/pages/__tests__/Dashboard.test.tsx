@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen, waitFor, fireEvent, within } from '@testing-library/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { BrowserRouter } from 'react-router-dom';
 import { Dashboard } from '../Dashboard';
@@ -10,6 +10,9 @@ jest.mock('../../lib/api-client', () => ({
   api: {
     reporting: {
       getDashboard: jest.fn()
+    },
+    intake: {
+      counts: jest.fn()
     }
   }
 }));
@@ -47,6 +50,9 @@ describe('Dashboard Component', () => {
       }
     });
     jest.clearAllMocks();
+    (api.intake.counts as jest.Mock).mockResolvedValue({
+      data: { data: { new: 3, converted: 1, rejected: 0, by_source: { jdc_sr: 3 } } }
+    });
   });
 
   const renderDashboard = () => {
@@ -151,5 +157,39 @@ describe('Dashboard Component', () => {
     await waitFor(() => {
       expect(screen.getByText('Failed to load dashboard data')).toBeInTheDocument();
     });
+  });
+
+  test('U22: 收件箱面板显示 new 计数并可深链收件箱', async () => {
+    (api.reporting.getDashboard as any).mockResolvedValue({
+      data: { data: {
+        summary: { projects: 1, people: 1, roles: 1 },
+        projectHealth: {}, capacityGaps: {}, utilization: {},
+        availability: {}, design_watch: [], lifecycle_summary: {}
+      } }
+    });
+    renderDashboard();
+
+    await waitFor(() => expect(screen.getByTestId('dashboard-inbox-count')).toBeInTheDocument());
+    expect(screen.getByTestId('dashboard-inbox-count').textContent).toBe('3');
+    // 点击冒泡到 Card（section 本身无 handler）
+    fireEvent.click(screen.getByTestId('dashboard-inbox-count'));
+    expect(mockNavigate).toHaveBeenCalledWith('/projects?tab=intake');
+  });
+
+  test('U22: 收件箱计数失败显示错误+重试（不得显示 0）', async () => {
+    (api.reporting.getDashboard as any).mockResolvedValue({
+      data: { data: {
+        summary: { projects: 1, people: 1, roles: 1 },
+        projectHealth: {}, capacityGaps: {}, utilization: {},
+        availability: {}, design_watch: [], lifecycle_summary: {}
+      } }
+    });
+    (api.intake.counts as jest.Mock).mockRejectedValue(new Error('boom'));
+    renderDashboard();
+
+    await waitFor(() => expect(screen.getByTestId('dashboard-inbox-error')).toBeInTheDocument());
+    // 告警区也可能有 Retry——限定在收件箱错误块内
+    expect(within(screen.getByTestId('dashboard-inbox-error')).getByRole('button', { name: /retry/i })).toBeInTheDocument();
+    expect(screen.queryByTestId('dashboard-inbox-count')).not.toBeInTheDocument();
   });
 });

@@ -32,6 +32,12 @@ jest.mock('../../../hooks/use-toast', () => {
 
 const getToastMock = () => (toastHook as any).__intakeToastMock;
 
+// U21：toast 动作需要导航
+const mockNavigate = jest.fn();
+jest.mock('react-router-dom', () => ({
+  useNavigate: () => mockNavigate,
+}));
+
 const renderDialog = (onClose = jest.fn()) => {
   const client = new QueryClient({
     defaultOptions: { queries: { retry: false }, mutations: { retry: false } },

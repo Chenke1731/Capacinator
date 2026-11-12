@@ -1,7 +1,7 @@
 {
   "combinations": 4,
   "checks": 20,
-  "updatePixels": true,
+  "updatePixels": false,
   "registerExistingAxe": false,
   "evidence": [
     {
@@ -38,7 +38,7 @@
           "ok": true
         },
         {
-          "name": "基线 dashboard-dark-1600: 已采集",
+          "name": "像素 dashboard-dark-1600: 与基线一致(≤0.5%)",
           "ok": true
         },
         {
@@ -48,7 +48,97 @@
       ],
       "artifact": "tests/visual/reports/visual-dashboard-dark-1600.png",
       "baseline": "tests/visual/__screenshots__/dashboard-dark-1600.png",
-      "backdrops": []
+      "backdrops": [],
+      "svgAxisText": [
+        {
+          "text": "Over-allocated",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "Fully-allocated",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "Partially-allocated",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "0",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "2",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "4",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "6",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "8",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        }
+      ]
     },
     {
       "tag": "dashboard-dark-1366",
@@ -84,7 +174,7 @@
           "ok": true
         },
         {
-          "name": "基线 dashboard-dark-1366: 已采集",
+          "name": "像素 dashboard-dark-1366: 与基线一致(≤0.5%)",
           "ok": true
         },
         {
@@ -94,7 +184,97 @@
       ],
       "artifact": "tests/visual/reports/visual-dashboard-dark-1366.png",
       "baseline": "tests/visual/__screenshots__/dashboard-dark-1366.png",
-      "backdrops": []
+      "backdrops": [],
+      "svgAxisText": [
+        {
+          "text": "Over-allocated",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "Fully-allocated",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "Partially-allocated",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "0",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "2",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "4",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "6",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        },
+        {
+          "text": "8",
+          "foreground": "rgb(229, 231, 235)",
+          "background": [
+            17,
+            24,
+            39
+          ],
+          "ratio": 14.328284912339392,
+          "threshold": 4.5
+        }
+      ]
     },
     {
       "tag": "dashboard-light-1600",
@@ -130,7 +310,7 @@
           "ok": true
         },
         {
-          "name": "基线 dashboard-light-1600: 已采集",
+          "name": "像素 dashboard-light-1600: 与基线一致(≤0.5%)",
           "ok": true
         },
         {
@@ -140,7 +320,97 @@
       ],
       "artifact": "tests/visual/reports/visual-dashboard-light-1600.png",
       "baseline": "tests/visual/__screenshots__/dashboard-light-1600.png",
-      "backdrops": []
+      "backdrops": [],
+      "svgAxisText": [
+        {
+          "text": "Over-allocated",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "Fully-allocated",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "Partially-allocated",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "0",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "2",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "4",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "6",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "8",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        }
+      ]
     },
     {
       "tag": "dashboard-light-1366",
@@ -176,7 +446,7 @@
           "ok": true
         },
         {
-          "name": "基线 dashboard-light-1366: 已采集",
+          "name": "像素 dashboard-light-1366: 与基线一致(≤0.5%)",
           "ok": true
         },
         {
@@ -186,7 +456,97 @@
       ],
       "artifact": "tests/visual/reports/visual-dashboard-light-1366.png",
       "baseline": "tests/visual/__screenshots__/dashboard-light-1366.png",
-      "backdrops": []
+      "backdrops": [],
+      "svgAxisText": [
+        {
+          "text": "Over-allocated",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "Fully-allocated",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "Partially-allocated",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "0",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "2",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "4",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "6",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        },
+        {
+          "text": "8",
+          "foreground": "rgb(55, 65, 81)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 10.307355969735845,
+          "threshold": 4.5
+        }
+      ]
     }
   ]
 }

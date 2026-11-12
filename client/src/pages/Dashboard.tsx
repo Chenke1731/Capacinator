@@ -76,6 +76,20 @@ export function Dashboard() {
     refetch: refetchAlerts
   } = useCriticalAlerts();
 
+  // U22（D20 批5）：收件箱待分流计数——失败/加载不得显示 0（EXP-005）
+  const {
+    data: inboxCounts,
+    isLoading: inboxLoading,
+    error: inboxError,
+    refetch: refetchInbox
+  } = useQuery({
+    queryKey: queryKeys.intake.counts(),
+    queryFn: async () => {
+      const body = (await api.intake.counts()).data as any;
+      return (body?.data ?? body) as { new?: number } | undefined;
+    },
+  });
+
   if (isLoading) return <LoadingSpinner />;
   if (error) return <ErrorMessage message={t('dashboard:errors.loadFailed')} />;
   if (!dashboard) return null;
@@ -177,6 +191,39 @@ export function Dashboard() {
           onClick={() => navigate('/reports')}
           aria-label={t('dashboard:stats.capacityGapsAria', { count: dashboard.capacityGaps?.GAP || 0 })}
         />
+      </section>
+
+      {/* U22（D20 批5）：收件箱待分流信号——计数 + 深链收件箱；侧边栏角标不做。
+          放在统计卡之后：顶部首屏布局保持稳定（states 覆盖率依赖首屏交互位置） */}
+      <section className="mb-6" role="region" aria-labelledby="inbox-signal-heading" data-testid="dashboard-inbox-signal">
+        <h2 id="inbox-signal-heading" className="sr-only">{t('dashboard:inbox.title')}</h2>
+        <Card title={t('dashboard:inbox.title')} onClick={() => navigate('/projects?tab=intake')}>
+          <div className="flex items-center justify-between gap-4">
+            {inboxLoading ? (
+              <span className="text-sm text-muted-foreground" data-testid="dashboard-inbox-loading">
+                {t('dashboard:inbox.loading')}
+              </span>
+            ) : inboxError ? (
+              <span className="flex items-center gap-2 text-sm" data-testid="dashboard-inbox-error">
+                {t('dashboard:inbox.loadFailed')}
+                <button
+                  type="button"
+                  className="btn btn-sm btn-outline"
+                  onClick={(e) => { e.stopPropagation(); refetchInbox(); }}
+                >
+                  {t('common:retry')}
+                </button>
+              </span>
+            ) : (
+              <>
+                <span className="text-2xl font-bold" data-testid="dashboard-inbox-count">
+                  {inboxCounts?.new ?? 0}
+                </span>
+                <span className="text-sm text-muted-foreground">{t('dashboard:inbox.action')}</span>
+              </>
+            )}
+          </div>
+        </Card>
       </section>
 
       {/* Enhanced KPIs Section */}

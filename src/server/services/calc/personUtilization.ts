@@ -19,12 +19,15 @@ export async function personUtilizationRows(
   scenarioId: string
 ): Promise<Array<Record<string, unknown>>> {
   const rows = (await db('person_utilization_view').select('*')) as Array<Record<string, unknown>>;
+  // 参考日随行返回：编辑器/前端不得各自 new Date() 取“今天”，否则跨时区
+  // 或跨午夜会出现容量条与列表口径不一致（设计 §12.3）。
+  const asOf = new Date().toISOString().slice(0, 10);
   if (scenarioId === BASELINE_SCENARIO_ID) {
-    return rows;
+    return rows.map((row) => ({ ...row, as_of: asOf }));
   }
 
   // 分支切片: 场景内 active 分配,与今天相交(null 日期=全窗,与视图同语义)
-  const today = new Date().toISOString().slice(0, 10);
+  const today = asOf;
   const slice = await activeAssignmentsInScenario(db, scenarioId)
     .whereRaw(
       '(COALESCE(spa.computed_start_date, spa.start_date) IS NULL OR date(COALESCE(spa.computed_start_date, spa.start_date)) <= date(?))',
@@ -50,6 +53,7 @@ export async function personUtilizationRows(
       total_allocation_percentage: total,
       project_count: Number(s?.project_total ?? 0),
       utilization_status: utilizationTier(total, availability),
+      as_of: asOf,
     };
   });
 }

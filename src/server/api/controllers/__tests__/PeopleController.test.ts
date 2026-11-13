@@ -419,7 +419,13 @@ describe('PeopleController', () => {
       await controller.getUtilization(mockReq, mockRes);
 
       expect(mockDb).toHaveBeenCalledWith('person_utilization_view');
-      expect(mockRes.json).toHaveBeenCalledWith(mockUtilization);
+      // I02s：利用率行随带服务端参考日，前端不再各自取“今天”
+      expect(mockRes.json).toHaveBeenCalledWith(
+        mockUtilization.map((row) => ({
+          ...row,
+          as_of: expect.stringMatching(/^\d{4}-\d{2}-\d{2}$/),
+        }))
+      );
     });
   });
 

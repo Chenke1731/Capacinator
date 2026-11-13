@@ -385,6 +385,10 @@ describe('G1 报表读侧场景切片（D15/EXP-B09）', () => {
 
     const baselineRows = await personUtilizationRows(db, BASELINE_SCENARIO_ID);
     const baselineCounts = countByStatus(baselineRows);
+    // I02s：参考日随行返回，baseline/branch 同一请求日内必须一致；前端
+    // 不再各自 new Date() 取“今天”造成容量条与列表跨日漂移。
+    expect(baselineRows.length).toBeGreaterThan(0);
+    expect(baselineRows.every((row) => /^\d{4}-\d{2}-\d{2}$/.test(String(row.as_of)))).toBe(true);
     const dash = await service.getDashboardStats({});
     expect(Number(dash.utilization['Over-allocated'] ?? 0)).toBe(baselineCounts['Over-allocated'] ?? 0);
     expect(Number(dash.utilization['Fully-allocated'] ?? 0)).toBe(baselineCounts['Fully-allocated'] ?? 0);
@@ -393,6 +397,8 @@ describe('G1 报表读侧场景切片（D15/EXP-B09）', () => {
     // 分支场景：两侧同时按 branch 切片，计数仍逐一相等
     await createUnchangedBranch();
     const branchRows = await personUtilizationRows(db, BRANCH_ID);
+    expect(branchRows.length).toBeGreaterThan(0);
+    expect(new Set([...baselineRows, ...branchRows].map((row) => row.as_of)).size).toBe(1);
     const branchCounts = countByStatus(branchRows);
     const dashBranch = await service.getDashboardStats({ scenarioId: BRANCH_ID });
     expect(Number(dashBranch.utilization['Over-allocated'] ?? 0)).toBe(branchCounts['Over-allocated'] ?? 0);

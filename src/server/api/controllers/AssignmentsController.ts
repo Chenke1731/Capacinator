@@ -205,8 +205,11 @@ export class AssignmentsController extends BaseController {
     super({ enableLogging: true }, { container });
   }
   getAll = this.asyncHandler(async (req: RequestWithLogging, res: Response) => {
-    const page = parseInt(req.query.page as string, 10) || 1;
-    const limit = parseInt(req.query.limit as string, 10) || 50;
+    // 上限与既有调用方对齐（Assignments/Reports/ProjectDemandChart 都传 2000，
+    // 用于“一次取全 + 自己做完整筛选”）；超过上限仍可分页取全。
+    const MAX_LIST_LIMIT = 2000;
+    const page = Math.max(1, parseInt(req.query.page as string, 10) || 1);
+    const limit = Math.min(MAX_LIST_LIMIT, Math.max(1, parseInt(req.query.limit as string, 10) || 50));
     const filters = {
       project_id: req.query.project_id,
       person_id: req.query.person_id,
@@ -214,8 +217,8 @@ export class AssignmentsController extends BaseController {
       status: req.query.status
     };
 
-    // Get scenario from header
-    const scenarioId = req.headers['x-scenario-id'] as string;
+    // Get scenario from header（缺省 baseline，不再“无头=全场景”）
+    const scenarioId = resolveScenarioId(req.headers['x-scenario-id']);
     const includeAllScenarios = req.query.includeAllScenarios === 'true';
 
     const result = await this.executeQuery(async () => {
@@ -234,8 +237,8 @@ export class AssignmentsController extends BaseController {
           'project_phases.name as phase_name'
         );
 
-      // Filter by scenario if provided and not including all scenarios
-      if (scenarioId && !includeAllScenarios) {
+      // Filter by scenario if not including all scenarios
+      if (!includeAllScenarios) {
         query = query.where('assignments_view.scenario_id', scenarioId);
       }
 
@@ -263,32 +266,41 @@ export class AssignmentsController extends BaseController {
       // total 与数据同过滤(2026-10-13 全库审计: 原先裸视图 count)——克隆清投影
       const total = await query.clone().clearSelect().count('* as count').first();
       query = this.paginate(query, page, limit);
-      query = query.orderBy('assignments_view.start_date', 'desc');
+      // 稳定排序：同 start_date 的行用 id 兜底，分页不会重复/丢行
+      query = query
+        .orderBy('assignments_view.start_date', 'desc')
+        .orderBy('assignments_view.id', 'asc');
 
       const assignments = await query;
 
-      // Compute dates for each assignment
-      const assignmentsWithComputedDates = await Promise.all(
-        assignments.map(async (assignment: AssignmentRow) => {
-          // Map the query result fields to what computeAssignmentDates expects
-          const assignmentForComputation = {
-            ...assignment,
-            // Create a mock project object with the dates
-            project: {
-              aspiration_start: assignment.aspiration_start,
-              aspiration_finish: assignment.aspiration_finish,
-              start_date: null, // Projects table doesn't have start_date
-              end_date: null,   // Projects table doesn't have end_date
-              name: assignment.project_name
-            }
-          };
-          const computedDates = await this.computeAssignmentDates(assignmentForComputation);
-          return { ...assignment, ...computedDates };
-        })
-      );
+      // 读契约（设计 §11.1）：直接使用视图持久化的 computed_*（视图已
+      // COALESCE 原始日期）；不在读路径重算——旧实现逐行 compute 会因
+      // 单行缺阶段/缺 aspiration 拖垮整页，并把 project 缺日期回退成
+      // today/+90（每次读都变），且 phase 行 N+1。
+      const assignmentsWithDates = assignments.map((assignment: AssignmentRow) => {
+        const computedStart = assignment.computed_start_date || assignment.start_date || null;
+        const computedEnd = assignment.computed_end_date || assignment.end_date || null;
+        const resolved = Boolean(computedStart && computedEnd);
+        const mode = assignment.assignment_date_mode || 'fixed';
+        const dateResolutionError = resolved
+          ? null
+          : mode === 'phase'
+            ? 'PHASE_TIMELINE_MISSING'
+            : mode === 'project'
+              ? 'PROJECT_DATES_MISSING'
+              : 'ASSIGNMENT_DATES_MISSING';
+
+        return {
+          ...assignment,
+          computed_start_date: computedStart,
+          computed_end_date: computedEnd,
+          computed_dates_resolved: resolved,
+          date_resolution_error: dateResolutionError
+        };
+      });
 
       // Transform date fields from timestamps to date strings
-      const transformedAssignments = transformDatesInArray(assignmentsWithComputedDates, [
+      const transformedAssignments = transformDatesInArray(assignmentsWithDates, [
         ...COMMON_DATE_FIELDS,
         'computed_start_date',
         'computed_end_date',

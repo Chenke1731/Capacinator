@@ -142,6 +142,9 @@ export function TaskSelectionDialog(props: TaskSelectionDialogProps) {
     if (!open) return undefined;
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
+        // N-05：原生 select 下拉展开时 ESC 先收起下拉，不关闭整个弹窗
+        const target = event.target as HTMLElement | null;
+        if (target && (target.tagName === 'SELECT' || target.tagName === 'OPTION')) return;
         event.stopPropagation();
         onCloseRef.current();
         return;
@@ -342,9 +345,17 @@ export function TaskSelectionDialog(props: TaskSelectionDialogProps) {
     setFlash(t('assignments:workbench.dialog.addedToLane', { count: drafts.length }));
   }, [tempDrafts, onAddToLane, t, selectedTasks]);
 
-  /** Phase 3 命令式快速添加：最近任务一键入泳道，不经过勾选 */
+  /** Phase 3 命令式快速添加：最近任务一键入泳道，不经过勾选。
+   * N-04：快照会冻结终态——快速添加前按快照里的 lifecycle_state 复核，
+   * 终态任务拒加并提示（不让它到提交才被服务端拒）。 */
   const quickAddRecent = useCallback(
     (task: SelectionTask) => {
+      if (task.lifecycle_state === 'delivered' || task.lifecycle_state === 'cancelled') {
+        setFlash(t('assignments:workbench.dialog.quickAddTerminal', { name: task.name }));
+        saveRecentTasks(loadRecentTasks().filter((entry) => entry.id !== task.id));
+        setRecentTasks(loadRecentTasks());
+        return;
+      }
       const draft = createDraftFromTask(task, {
         personId,
         personPrimaryRoleId,

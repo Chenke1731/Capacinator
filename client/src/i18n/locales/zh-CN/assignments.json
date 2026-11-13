@@ -406,7 +406,8 @@
       "replaceAdded": "已生成替换草稿：{{role}} 将整条删除 {{incumbent}} 的分配，请在泳道中确认。",
       "recent": "最近选择：",
       "quickAdd": "快速添加 {{name}}",
-      "quickAdded": "已快速添加 {{name}} 到泳道。"
+      "quickAdded": "已快速添加 {{name}} 到泳道。",
+      "quickAddTerminal": "{{name}} 已交付或取消，不可再分配（已从最近选择移除）。"
     },
     "composer": {
       "role": "统一角色",
@@ -496,7 +497,8 @@
       "loading": "加载中…",
       "error": "加载失败。",
       "empty": "当前场景下该项目还没有分配。",
-      "person": "人员"
+      "person": "人员",
+      "truncated": "该项目分配超过 200 条，仅显示前 200 条。"
     },
     "leaveConfirm": "有未提交的分配草稿，离开将丢弃。确定离开？",
     "clearConfirm": "确定清空全部待提交草稿？此操作不可撤销。"

@@ -144,11 +144,15 @@ export function WorkloadGantt({
     const onPointerUp = () => {
       dragRef.current = null;
     };
+    // N-05：触摸设备拖拽被系统手势打断（pointercancel）也要复位，避免
+    // 残留 dragRef 让后续 pointermove 空转
     document.addEventListener('pointermove', onPointerMove);
     document.addEventListener('pointerup', onPointerUp);
+    document.addEventListener('pointercancel', onPointerUp);
     return () => {
       document.removeEventListener('pointermove', onPointerMove);
       document.removeEventListener('pointerup', onPointerUp);
+      document.removeEventListener('pointercancel', onPointerUp);
     };
   }, [applyDrag, totalDays]);
 

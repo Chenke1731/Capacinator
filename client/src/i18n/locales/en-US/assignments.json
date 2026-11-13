@@ -406,7 +406,8 @@
       "replaceAdded": "Replacement draft created: {{role}} will delete {{incumbent}}'s assignment entirely; confirm it in the lane.",
       "recent": "Recent:",
       "quickAdd": "Quick add {{name}}",
-      "quickAdded": "Quick-added {{name}} to the lane."
+      "quickAdded": "Quick-added {{name}} to the lane.",
+      "quickAddTerminal": "{{name}} is delivered or cancelled and can no longer be assigned (removed from recents)."
     },
     "composer": {
       "role": "Unified role",
@@ -496,7 +497,8 @@
       "loading": "Loading…",
       "error": "Failed to load.",
       "empty": "No assignments for this project in the current scenario.",
-      "person": "Person"
+      "person": "Person",
+      "truncated": "This project has more than 200 assignments; showing the first 200."
     },
     "leaveConfirm": "There are unsubmitted assignment drafts. Leave and discard them?",
     "clearConfirm": "Clear all pending drafts? This cannot be undone."

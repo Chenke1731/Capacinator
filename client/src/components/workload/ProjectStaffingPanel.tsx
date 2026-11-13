@@ -77,6 +77,12 @@ export function ProjectStaffingPanel({ projectId, projectName, scenarioId, onClo
       ) : rows.length === 0 ? (
         <div>{t('assignments:workbench.staffing.empty')}</div>
       ) : (
+        <>
+          {(staffingQuery.data ?? []).length >= 200 ? (
+            <div className="pw-staffing-truncated" role="status">
+              {t('assignments:workbench.staffing.truncated')}
+            </div>
+          ) : null}
         <table className="pw-board-table">
           <caption className="sr-only">{t('assignments:workbench.staffing.title', { name: projectName })}</caption>
           <thead>
@@ -94,7 +100,7 @@ export function ProjectStaffingPanel({ projectId, projectName, scenarioId, onClo
               const start = workloadDateOnly(row.computed_start_date ?? row.start_date);
               const end = workloadDateOnly(row.computed_end_date ?? row.end_date);
               return (
-                <tr key={row.id} className={row.status === 'paused' ? 'pw-board-row--terminal' : undefined}>
+                <tr key={row.id} className={row.status === 'paused' ? 'pw-staffing-row--paused' : undefined}>
                   <td>{row.person_name ?? t('common:na')}</td>
                   <td>{row.role_name ?? t('common:na')}</td>
                   <td>{row.phase_name ?? t('common:na')}</td>
@@ -106,6 +112,7 @@ export function ProjectStaffingPanel({ projectId, projectName, scenarioId, onClo
             })}
           </tbody>
         </table>
+        </>
       )}
     </div>
   );

@@ -552,7 +552,22 @@ test('ghost inspector: fixed dates + allocation edit, then sequential create per
     }),
     { scenarioId: 'baseline-0000-0000-0000-000000000000' }
   );
-  // 全部成功后回到 Idle：commit bar 消失（§11.1）
+  // 全部成功后草稿清空：只剩“撤销创建”条（§11.1 + Phase 3 撤销 CREATE）
+  await waitFor(() => {
+    expect(screen.getByTestId('pw-undo-create')).toBeInTheDocument();
+  });
+  expect(screen.getByText(/Created 1 assignments/i)).toBeInTheDocument();
+
+  // 撤销 CREATE：删除刚创建的行（新行 version=1）
+  (api.assignments.delete as jest.Mock).mockResolvedValue({ data: { success: true } });
+  fireEvent.click(screen.getByTestId('pw-undo-create'));
+  await waitFor(() => {
+    expect(api.assignments.delete).toHaveBeenCalledWith(
+      'new-assignment',
+      { expected_version: 1 },
+      { scenarioId: 'baseline-0000-0000-0000-000000000000' }
+    );
+  });
   await waitFor(() => {
     expect(screen.queryByTestId('pw-commit-bar')).not.toBeInTheDocument();
   });
@@ -702,6 +717,92 @@ test('partial failure keeps failed ghost; UNKNOWN reconciles via read-back under
   await waitFor(() => {
     expect(screen.getByTestId('pw-commit-count')).toHaveTextContent('2');
   });
+});
+
+test('retry-failed only resubmits the failed row; batch edit applies unified params', async () => {
+  mockBoard();
+  renderPage();
+  await openDialog();
+
+  fireEvent.click(screen.getByTestId('pw-select-task-task-leaf'));
+  fireEvent.click(screen.getByTestId('pw-select-task-task-fixed'));
+  fireEvent.click(screen.getByTestId('pw-add-to-lane'));
+  await screen.findByTestId('pw-commit-bar');
+
+  // 批量编辑：统一比例 33 + 统一 fixed 日期（补齐 fixed 任务的缺日期）
+  fireEvent.click(screen.getByTestId('pw-batch-edit'));
+  fireEvent.change(screen.getByLabelText('Unified allocation %'), { target: { value: '33' } });
+  fireEvent.change(screen.getAllByLabelText('Date mode')[0], { target: { value: 'fixed' } });
+  fireEvent.change(screen.getByLabelText('Start date'), { target: { value: '2026-04-01' } });
+  fireEvent.change(screen.getByLabelText('End date'), { target: { value: '2026-04-30' } });
+  fireEvent.click(screen.getByRole('button', { name: /Apply to 2/i }));
+  await waitFor(() => {
+    expect(screen.getByText(/Confirm assignments \(2\)/i)).toBeInTheDocument();
+  });
+
+  // 第一条 5xx（明确失败，非冲突）、第二条成功 → 重试按钮只重发失败行
+  (api.assignments.create as jest.Mock)
+    .mockRejectedValueOnce({ response: { status: 500, data: { message: 'boom' } } })
+    .mockResolvedValueOnce({ data: { id: 'created-ok' } })
+    .mockResolvedValueOnce({ data: { id: 'created-retry' } });
+  fireEvent.click(screen.getByTestId('pw-confirm-assign'));
+  await waitFor(() => {
+    expect(api.assignments.create).toHaveBeenCalledTimes(2);
+  });
+  const retry = await screen.findByTestId('pw-retry-failed');
+  expect(retry).toHaveTextContent(/Retry failed \(1\)/i);
+
+  fireEvent.click(retry);
+  await waitFor(() => {
+    expect(api.assignments.create).toHaveBeenCalledTimes(3);
+  });
+});
+
+test('project lane mode: lane click opens the project staffing panel; minimap moves the window', async () => {
+  mockBoard();
+  renderPage();
+  await waitFor(() => {
+    expect(screen.getAllByTestId('pw-gantt-bar').length).toBeGreaterThan(0);
+  });
+
+  // Phase 3 项目泳道模式：点击 lane 项目名查看全员配置
+  const laneLink = screen.getAllByRole('button', { name: /View staffing for/i })[0];
+  fireEvent.click(laneLink);
+  expect(await screen.findByTestId('pw-project-staffing')).toBeInTheDocument();
+  fireEvent.click(screen.getByRole('button', { name: 'Close' }));
+  await waitFor(() => {
+    expect(screen.queryByTestId('pw-project-staffing')).not.toBeInTheDocument();
+  });
+
+  // Phase 3 mini-map：点击第 4 个月桶移动观察窗（范围标签更新）
+  const minimap = screen.getByTestId('pw-minimap');
+  const months = minimap.querySelectorAll('button');
+  expect(months.length).toBeGreaterThanOrEqual(4);
+  const originalRange = screen.getByTestId('pw-gantt').textContent;
+  fireEvent.click(months[3]);
+  await waitFor(() => {
+    expect(screen.getByTestId('pw-gantt').textContent).not.toBe(originalRange);
+  });
+});
+
+test('recent quick add: added tasks resurface as one-click chips', async () => {
+  window.localStorage.clear();
+  mockBoard();
+  renderPage();
+  await openDialog();
+  fireEvent.click(screen.getByTestId('pw-select-task-task-leaf'));
+  fireEvent.click(screen.getByTestId('pw-add-to-lane'));
+  await screen.findByTestId('pw-commit-count');
+
+  // 重开弹窗：最近选择里出现刚加的任务，点击即快速加入（命令式快速添加）
+  fireEvent.click(screen.getByTestId('pw-add-assignment'));
+  await screen.findByTestId('pw-task-board');
+  const chip = await screen.findByRole('button', { name: /Quick add Leaf Task/i });
+  fireEvent.click(chip);
+  await waitFor(() => {
+    expect(screen.getByTestId('pw-commit-count')).toHaveTextContent('2');
+  });
+  window.localStorage.clear();
 });
 
 test('scenario switch after adding ghosts: submit disabled until back or discard', async () => {

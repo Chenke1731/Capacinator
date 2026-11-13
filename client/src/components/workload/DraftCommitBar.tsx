@@ -1,12 +1,21 @@
 /**
- * DraftCommitBar（工作台 v2 §5.2C/§10）——待提交操作条：
- * 有 ghost 时显示 [继续选择] [确认分配] [清空] + 状态摘要；无 ghost 隐藏。
- * 确认只发 status=NORMAL 的草稿；INVALID/CONFLICT/UNKNOWN 显示计数。
+ * DraftCommitBar（工作台 v2 §5.2C/§10 + Phase 2/3）——待提交操作条：
+ * [继续选择] [确认分配] [清空] + 状态摘要 + [重试失败]（Phase 2 重试优化，
+ * 只重发明确失败行）+ [批量编辑]（统一参数套用到全部可编辑 ghost）+
+ * [撤销创建]（Phase 3：删除本会话刚创建的行）。
  * 容量超载只提醒（附 warning），不禁用确认（§2.1 目标 6）。
  */
-import { forwardRef } from 'react';
+import { forwardRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { AlertTriangle, CheckCheck, ListPlus, Trash2 } from 'lucide-react';
+import { AlertTriangle, CheckCheck, ListPlus, PencilLine, RotateCcw, Trash2, Undo2 } from 'lucide-react';
+import type { AssignmentDraft } from '../../lib/assignmentDrafts';
+
+export interface BatchEditValue {
+  allocation: string;
+  dateMode: 'fixed' | 'phase' | 'project' | '';
+  startDate: string;
+  endDate: string;
+}
 
 export interface DraftCommitBarProps {
   total: number;
@@ -23,6 +32,15 @@ export interface DraftCommitBarProps {
   onConfirm: () => void;
   onClear: () => void;
   lastSummary?: { succeeded: number; failed: number; unknown: number } | null;
+  /** Phase 2：只重试上一轮明确失败的行 */
+  onRetryFailed?: () => void;
+  /** Phase 3：删除本会话刚成功创建的分配行 */
+  onUndoCreate?: () => void;
+  lastCreatedCount?: number;
+  undoing?: boolean;
+  /** Phase 3 批量编辑：统一参数套用到全部可编辑 ghost */
+  onBatchApply?: (value: BatchEditValue) => void;
+  editableDrafts?: AssignmentDraft[];
 }
 
 export const DraftCommitBar = forwardRef<HTMLDivElement, DraftCommitBarProps>(
@@ -41,11 +59,43 @@ export const DraftCommitBar = forwardRef<HTMLDivElement, DraftCommitBarProps>(
       onConfirm,
       onClear,
       lastSummary,
+      onRetryFailed,
+      onUndoCreate,
+      lastCreatedCount = 0,
+      undoing = false,
+      onBatchApply,
+      editableDrafts = [],
     },
     ref
   ) {
     const { t } = useTranslation(['assignments']);
-    if (total === 0) return null;
+    const [batchOpen, setBatchOpen] = useState(false);
+    const [batch, setBatch] = useState<BatchEditValue>({ allocation: '', dateMode: '', startDate: '', endDate: '' });
+
+    if (total === 0) {
+      // Phase 3：无草稿但可撤销刚创建的行
+      if (lastCreatedCount > 0 && onUndoCreate) {
+        return (
+          <div className="pw-commit-bar pw-commit-bar--undo" ref={ref} data-testid="pw-commit-bar" tabIndex={-1}>
+            <span className="pw-commit-summary">{t('assignments:workbench.commit.createdCount', { count: lastCreatedCount })}</span>
+            <div className="pw-commit-actions">
+              <button
+                type="button"
+                className="btn btn-secondary btn-sm"
+                disabled={undoing}
+                onClick={onUndoCreate}
+                data-testid="pw-undo-create"
+              >
+                <Undo2 size={14} /> {undoing ? t('assignments:workbench.commit.undoing') : t('assignments:workbench.commit.undoCreate')}
+              </button>
+            </div>
+          </div>
+        );
+      }
+      return null;
+    }
+
+    const failedCount = lastSummary?.failed ?? 0;
 
     return (
       <div className="pw-commit-bar" ref={ref} data-testid="pw-commit-bar" tabIndex={-1}>
@@ -78,7 +128,80 @@ export const DraftCommitBar = forwardRef<HTMLDivElement, DraftCommitBarProps>(
             {t('assignments:workbench.commit.summary', lastSummary)}
           </span>
         ) : null}
+        {batchOpen && onBatchApply ? (
+          <div className="pw-commit-batch" data-testid="pw-batch-edit-form">
+            <input
+              type="number"
+              min={1}
+              max={200}
+              placeholder={t('assignments:workbench.commit.batchAllocation')}
+              aria-label={t('assignments:workbench.commit.batchAllocation')}
+              value={batch.allocation}
+              onChange={(event) => setBatch((prev) => ({ ...prev, allocation: event.target.value }))}
+            />
+            <select
+              aria-label={t('assignments:workload.picker.dateMode')}
+              value={batch.dateMode}
+              onChange={(event) => setBatch((prev) => ({ ...prev, dateMode: event.target.value as BatchEditValue['dateMode'] }))}
+            >
+              <option value="">{t('assignments:workbench.composer.modePerTask')}</option>
+              <option value="fixed">{t('assignments:workload.dateMode.fixed')}</option>
+              <option value="project">{t('assignments:workload.dateMode.project')}</option>
+            </select>
+            {batch.dateMode === 'fixed' ? (
+              <>
+                <input
+                  type="date"
+                  aria-label={t('assignments:workload.edit.startDate')}
+                  value={batch.startDate}
+                  onChange={(event) => setBatch((prev) => ({ ...prev, startDate: event.target.value }))}
+                />
+                <input
+                  type="date"
+                  aria-label={t('assignments:workload.edit.endDate')}
+                  value={batch.endDate}
+                  onChange={(event) => setBatch((prev) => ({ ...prev, endDate: event.target.value }))}
+                />
+              </>
+            ) : null}
+            <button
+              type="button"
+              className="btn btn-primary btn-sm"
+              onClick={() => {
+                onBatchApply(batch);
+                setBatchOpen(false);
+              }}
+            >
+              {t('assignments:workbench.commit.batchApply', { count: editableDrafts.length })}
+            </button>
+            <button type="button" className="btn btn-ghost btn-sm" onClick={() => setBatchOpen(false)}>
+              {t('assignments:workload.actions.cancel')}
+            </button>
+          </div>
+        ) : null}
         <div className="pw-commit-actions">
+          {onRetryFailed && failedCount > 0 ? (
+            <button
+              type="button"
+              className="btn btn-secondary btn-sm"
+              disabled={submitting}
+              onClick={onRetryFailed}
+              data-testid="pw-retry-failed"
+            >
+              <RotateCcw size={14} /> {t('assignments:workbench.commit.retryFailed', { count: failedCount })}
+            </button>
+          ) : null}
+          {onBatchApply && editableDrafts.length > 0 ? (
+            <button
+              type="button"
+              className="btn btn-secondary btn-sm"
+              disabled={submitting}
+              onClick={() => setBatchOpen((prev) => !prev)}
+              data-testid="pw-batch-edit"
+            >
+              <PencilLine size={14} /> {t('assignments:workbench.commit.batchEdit')}
+            </button>
+          ) : null}
           <button
             type="button"
             className="btn btn-secondary btn-sm"

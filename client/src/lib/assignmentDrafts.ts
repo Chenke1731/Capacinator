@@ -489,6 +489,10 @@ export interface DraftCommitOutcome {
   /** 409 code 或错误文案键 */
   code?: string;
   message?: string;
+  /** CREATE 成功后新分配 id（撤销 CREATE 用） */
+  createdId?: string;
+  /** outcome 对应草稿绑定的场景（撤销/回读用） */
+  scenarioId?: string;
 }
 
 function rawAssignmentId(id: string): string {
@@ -533,7 +537,9 @@ function classifyCommitError(error: unknown): { submitState: DraftSubmitState; c
 
 /**
  * 逐条提交（§10.2）：只发 status=NORMAL 且未被上一轮锁定的草稿；顺序执行；
- * 每条独立分流 409 code；部分失败不清空草稿。
+ * 每条独立分流 409 code；部分失败不清空草稿。Phase 2 重试优化（§17）：
+ * retryFailedOnly=true 时只重发上一轮明确失败的行（UNKNOWN 需先回读核对，
+ * 不在盲重发范围）。
  */
 export async function commitDrafts(
   drafts: AssignmentDraft[],
@@ -541,14 +547,15 @@ export async function commitDrafts(
   deps: DraftCommitDeps,
   callbacks?: {
     onStateChange?: (draftId: string, outcome: DraftCommitOutcome) => void;
-  }
+  },
+  options?: { retryFailedOnly?: boolean }
 ): Promise<DraftCommitOutcome[]> {
   const outcomes: DraftCommitOutcome[] = [];
-  const eligible = drafts.filter(
-    (draft) =>
-      draft.status === 'NORMAL' &&
-      (draft.submitState === 'IDLE' || draft.submitState === 'FAILED')
-  );
+  const eligible = drafts.filter((draft) => {
+    if (draft.status !== 'NORMAL') return false;
+    if (options?.retryFailedOnly) return draft.submitState === 'FAILED';
+    return draft.submitState === 'IDLE' || draft.submitState === 'FAILED';
+  });
   for (const draft of eligible) {
     callbacks?.onStateChange?.(draft.draftId, { draftId: draft.draftId, submitState: 'SUBMITTING' });
     let outcome: DraftCommitOutcome;
@@ -561,13 +568,17 @@ export async function commitDrafts(
         delete payload.replace_expected_version;
         if (draft.expectedVersion !== null) payload.expected_version = draft.expectedVersion;
         await deps.update(draft.targetAssignmentId, payload, draft.scenarioId);
+        outcome = { draftId: draft.draftId, submitState: 'SUCCEEDED' };
       } else {
-        await deps.create(buildPayload(draft, personId), draft.scenarioId);
+        const result = (await deps.create(buildPayload(draft, personId), draft.scenarioId)) as
+          | { data?: { id?: string }; id?: string }
+          | undefined;
+        const createdId = result?.data?.id ?? result?.id;
+        outcome = { draftId: draft.draftId, submitState: 'SUCCEEDED', ...(createdId ? { createdId } : {}), scenarioId: draft.scenarioId };
       }
-      outcome = { draftId: draft.draftId, submitState: 'SUCCEEDED' };
     } catch (error) {
       const classified = classifyCommitError(error);
-      outcome = { draftId: draft.draftId, ...classified };
+      outcome = { draftId: draft.draftId, ...classified, scenarioId: draft.scenarioId };
     }
     outcomes.push(outcome);
     callbacks?.onStateChange?.(draft.draftId, outcome);

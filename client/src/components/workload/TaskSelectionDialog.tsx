@@ -32,6 +32,31 @@ import { SelectionComposer, type ComposerValue } from './SelectionComposer';
 import { TaskSelectionBoard, type BoardRowAction } from './TaskSelectionBoard';
 
 const PAGE_SIZE = 50;
+const RECENT_KEY = 'workbench-recent-tasks';
+const RECENT_MAX = 8;
+
+/** Phase 3 最近选择：加泳道时记录任务快照，重开弹窗可一键再选（命令式快速添加） */
+function loadRecentTasks(): SelectionTask[] {
+  try {
+    const raw = window.localStorage.getItem(RECENT_KEY);
+    const parsed = raw ? (JSON.parse(raw) as SelectionTask[]) : [];
+    return Array.isArray(parsed) ? parsed.slice(0, RECENT_MAX) : [];
+  } catch {
+    return [];
+  }
+}
+
+function saveRecentTasks(tasks: SelectionTask[]): void {
+  try {
+    const deduped: SelectionTask[] = [];
+    for (const task of tasks) {
+      if (!deduped.some((entry) => entry.id === task.id)) deduped.push(task);
+    }
+    window.localStorage.setItem(RECENT_KEY, JSON.stringify(deduped.slice(0, RECENT_MAX)));
+  } catch {
+    // localStorage 不可用（隐私模式等）时静默降级为会话内不可用
+  }
+}
 
 export interface TaskSelectionDialogProps {
   open: boolean;
@@ -88,6 +113,7 @@ export function TaskSelectionDialog(props: TaskSelectionDialogProps) {
     endDate: '',
   });
   const [flash, setFlash] = useState<string | null>(null);
+  const [recentTasks, setRecentTasks] = useState<SelectionTask[]>([]);
 
   const dialogRef = useRef<HTMLDivElement | null>(null);
   const searchRef = useRef<HTMLInputElement | null>(null);
@@ -100,6 +126,7 @@ export function TaskSelectionDialog(props: TaskSelectionDialogProps) {
       setSelectedTaskIds(new Set());
       setSelectedTasks([]);
       setFlash(null);
+      setRecentTasks(loadRecentTasks());
       window.setTimeout(() => searchRef.current?.focus(), 0);
     }
   }, [open]);
@@ -271,10 +298,31 @@ export function TaskSelectionDialog(props: TaskSelectionDialogProps) {
     );
     if (drafts.length === 0) return;
     onAddToLane(drafts);
+    saveRecentTasks([...selectedTasks, ...loadRecentTasks()]);
+    setRecentTasks(loadRecentTasks());
     setSelectedTaskIds(new Set());
     setSelectedTasks([]);
     setFlash(t('assignments:workbench.dialog.addedToLane', { count: drafts.length }));
-  }, [tempDrafts, onAddToLane, t]);
+  }, [tempDrafts, onAddToLane, t, selectedTasks]);
+
+  /** Phase 3 命令式快速添加：最近任务一键入泳道，不经过勾选 */
+  const quickAddRecent = useCallback(
+    (task: SelectionTask) => {
+      const draft = createDraftFromTask(task, {
+        personId,
+        personPrimaryRoleId,
+        personPrimaryRoleName,
+        scenarioId,
+        assignments,
+      });
+      if (!draft) return;
+      onAddToLane([draft]);
+      saveRecentTasks([task, ...loadRecentTasks().filter((entry) => entry.id !== task.id)]);
+      setRecentTasks(loadRecentTasks());
+      setFlash(t('assignments:workbench.dialog.quickAdded', { name: task.name }));
+    },
+    [personId, personPrimaryRoleId, personPrimaryRoleName, scenarioId, assignments, onAddToLane, t]
+  );
 
   const handleRowAction = useCallback(
     (task: SelectionTask, action: BoardRowAction, payload?: { existingId?: string; slot?: SelectionTask['single_person_slots'][number] }) => {
@@ -402,6 +450,22 @@ export function TaskSelectionDialog(props: TaskSelectionDialogProps) {
         </div>
 
         <div className="pw-dialog-body">
+          {recentTasks.length > 0 ? (
+            <div className="pw-dialog-recent" data-testid="pw-recent-tasks">
+              <span className="pw-dialog-recent-label">{t('assignments:workbench.dialog.recent')}</span>
+              {recentTasks.map((task) => (
+                <button
+                  key={task.id}
+                  type="button"
+                  className="pw-chip pw-chip--quick"
+                  onClick={() => quickAddRecent(task)}
+                  aria-label={t('assignments:workbench.dialog.quickAdd', { name: task.name })}
+                >
+                  + {task.name}
+                </button>
+              ))}
+            </div>
+          ) : null}
           {rowsQuery.isError ? (
             <div className="pw-board pw-board--error" role="alert">
               <span>{t('assignments:workbench.board.loadFailed')}</span>

@@ -7,12 +7,12 @@
  * future/ended 淡化；ghost 斜纹半透明（§18 视觉验收）。范围外 ghost 给
  * 定位入口（§20.3）。可折叠为紧凑容量条（1366）。
  */
-import { useMemo, type CSSProperties } from 'react';
+import { useCallback, useEffect, useMemo, useRef, type CSSProperties, type PointerEvent as ReactPointerEvent, type KeyboardEvent as ReactKeyboardEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ChevronDown, ChevronUp, Crosshair, Lock } from 'lucide-react';
 import { workloadDateOnly, type WorkloadAssignment } from '../../lib/personWorkload';
 import type { AssignmentDraft } from '../../lib/assignmentDrafts';
-import type { WorkloadTimelineResult } from '../../lib/workloadTimeline';
+import type { WorkloadTimelineBucket, WorkloadTimelineResult } from '../../lib/workloadTimeline';
 import { CapacityHeatStrip } from './CapacityHeatStrip';
 
 const DAY_MS = 24 * 60 * 60 * 1000;
@@ -38,6 +38,24 @@ export interface WorkloadGanttProps {
   onBarClick: (assignmentId: string) => void;
   /** 范围外 ghost 的定位（切到该 ghost 的日期范围） */
   onLocateGhost?: (draftId: string) => void;
+  /** Phase 2：fixed ghost 拖动/缩放落点（已按天对齐，页面负责钳制） */
+  onGhostDatesChange?: (draftId: string, next: { startDate: string; endDate: string }) => void;
+  /** Phase 3 mini-map：12 个月月桶总览；点击月桶移动观察窗 */
+  minimapBuckets?: WorkloadTimelineBucket[];
+  onNavigateRange?: (monthStart: string) => void;
+  /** Phase 3 项目泳道模式：lane 点击查看该项目全员配置 */
+  onProjectLaneClick?: (projectId: string, projectName: string) => void;
+}
+
+type DragMode = 'move' | 'start' | 'end';
+
+interface DragState {
+  draftId: string;
+  mode: DragMode;
+  pointerStartX: number;
+  trackWidth: number;
+  origStart: number | null;
+  origEnd: number | null;
 }
 
 interface BarModel {
@@ -69,12 +87,108 @@ export function WorkloadGantt({
   onGhostClick,
   onBarClick,
   onLocateGhost,
+  onGhostDatesChange,
+  minimapBuckets,
+  onNavigateRange,
+  onProjectLaneClick,
 }: WorkloadGanttProps) {
   const { t } = useTranslation(['assignments']);
 
   const rangeStartDay = toDayNumber(timeline.rangeStart);
   const rangeEndDay = toDayNumber(timeline.rangeEnd);
   const totalDays = Math.max(rangeEndDay - rangeStartDay + 1, 1);
+
+  // ---- Phase 2：fixed ghost 拖动/缩放（指针 + 键盘）----
+  const dragRef = useRef<DragState | null>(null);
+  const dragGhostEditable = (draft: AssignmentDraft | undefined): boolean =>
+    Boolean(
+      onGhostDatesChange &&
+        draft &&
+        draft.assignmentDateMode === 'fixed' &&
+        draft.startDate &&
+        draft.endDate &&
+        (draft.submitState === 'IDLE' || draft.submitState === 'FAILED')
+    );
+
+  const applyDrag = useCallback(
+    (state: DragState, deltaDays: number) => {
+      const next = onGhostDatesChange;
+      if (!next || !state.origStart || !state.origEnd) return;
+      const draft = drafts.find((entry) => entry.draftId === state.draftId);
+      if (!dragGhostEditable(draft)) return;
+      let startDay = state.origStart;
+      let endDay = state.origEnd;
+      if (state.mode === 'move') {
+        startDay += deltaDays;
+        endDay += deltaDays;
+      } else if (state.mode === 'start') {
+        startDay = Math.min(state.origStart + deltaDays, state.origEnd);
+      } else {
+        endDay = Math.max(state.origEnd + deltaDays, state.origStart);
+      }
+      next(state.draftId, {
+        startDate: new Date(startDay * DAY_MS).toISOString().slice(0, 10),
+        endDate: new Date(endDay * DAY_MS).toISOString().slice(0, 10),
+      });
+    },
+    [drafts, onGhostDatesChange]
+  );
+
+  useEffect(() => {
+    const onPointerMove = (event: PointerEvent) => {
+      const state = dragRef.current;
+      if (!state) return;
+      const deltaDays = Math.round(((event.clientX - state.pointerStartX) / state.trackWidth) * totalDays);
+      applyDrag(state, deltaDays);
+    };
+    const onPointerUp = () => {
+      dragRef.current = null;
+    };
+    document.addEventListener('pointermove', onPointerMove);
+    document.addEventListener('pointerup', onPointerUp);
+    return () => {
+      document.removeEventListener('pointermove', onPointerMove);
+      document.removeEventListener('pointerup', onPointerUp);
+    };
+  }, [applyDrag, totalDays]);
+
+  const beginGhostDrag = (event: ReactPointerEvent, bar: BarModel, mode: DragMode) => {
+    if (!dragGhostEditable(bar.ghost)) return;
+    event.preventDefault();
+    event.stopPropagation();
+    const track = (event.currentTarget as HTMLElement).closest('.pw-gantt-lane-track') as HTMLElement | null;
+    if (!track) return;
+    dragRef.current = {
+      draftId: bar.draftId!,
+      mode,
+      pointerStartX: event.clientX,
+      trackWidth: track.getBoundingClientRect().width || 1,
+      origStart: bar.startDate ? toDayNumber(bar.startDate) : null,
+      origEnd: bar.endDate ? toDayNumber(bar.endDate) : null,
+    };
+  };
+
+  const onGhostKeyDown = (event: ReactKeyboardEvent, bar: BarModel) => {
+    if (!dragGhostEditable(bar.ghost) || !bar.draftId || !onGhostDatesChange) return;
+    const draft = bar.ghost!;
+    const start = toDayNumber(draft.startDate!);
+    const end = toDayNumber(draft.endDate!);
+    const iso = (day: number) => new Date(day * DAY_MS).toISOString().slice(0, 10);
+    const step = event.shiftKey ? 7 : 1;
+    if (event.key === 'ArrowLeft') {
+      event.preventDefault();
+      onGhostDatesChange(bar.draftId, { startDate: iso(start - step), endDate: iso(end - step) });
+    } else if (event.key === 'ArrowRight') {
+      event.preventDefault();
+      onGhostDatesChange(bar.draftId, { startDate: iso(start + step), endDate: iso(end + step) });
+    } else if (event.key === '+' || event.key === '=') {
+      event.preventDefault();
+      onGhostDatesChange(bar.draftId, { startDate: iso(start), endDate: iso(end + 1) });
+    } else if (event.key === '-') {
+      event.preventDefault();
+      if (end - start >= 1) onGhostDatesChange(bar.draftId, { startDate: iso(start), endDate: iso(end - 1) });
+    }
+  };
 
   const lanes = useMemo<LaneModel[]>(() => {
     const byProject = new Map<string, LaneModel>();
@@ -184,6 +298,29 @@ export function WorkloadGantt({
     <section className="pw-gantt" aria-labelledby="pw-gantt-title" data-testid="pw-gantt">
       <div className="pw-gantt-head">
         <h2 id="pw-gantt-title">{t('assignments:workbench.gantt.title')}</h2>
+        {minimapBuckets && minimapBuckets.length > 0 && onNavigateRange ? (
+          <div className="pw-minimap" role="group" aria-label={t('assignments:workbench.gantt.minimapLabel')} data-testid="pw-minimap">
+            {minimapBuckets.map((bucket) => {
+              const inWindow =
+                bucket.start <= timeline.rangeEnd && bucket.end >= timeline.rangeStart;
+              const relative = bucket.relativeUtilization;
+              const height = relative === null ? 4 : Math.max(4, Math.min(relative, 200) / 2);
+              return (
+                <button
+                  key={bucket.key}
+                  type="button"
+                  className={`pw-minimap-month${inWindow ? ' pw-minimap-month--active' : ''}${bucket.overloaded ? ' pw-minimap-month--over' : ''}`}
+                  onClick={() => onNavigateRange(bucket.start)}
+                  title={`${bucket.key}${relative !== null ? ` · ${Math.round(relative)}%` : ''}`}
+                  aria-label={`${bucket.key}${relative !== null ? ` ${Math.round(relative)}%` : ''}`}
+                >
+                  <span className="pw-minimap-bar" style={{ height: `${height}%` }} aria-hidden="true" />
+                  <span className="pw-minimap-label" aria-hidden="true">{bucket.key.slice(5)}</span>
+                </button>
+              );
+            })}
+          </div>
+        ) : null}
         <span className="pw-gantt-range">
           {timeline.rangeStart.slice(0, 7)} ~ {timeline.rangeEnd.slice(0, 7)}
         </span>
@@ -220,6 +357,9 @@ export function WorkloadGantt({
             <span className="pw-legend pw-legend--paused">{t('assignments:workbench.gantt.paused')}</span>
             <span className="pw-legend pw-legend--ghost">{t('assignments:workbench.gantt.ghost')}</span>
           </div>
+          <p className="sr-only" id="pw-gantt-drag-help">
+            {t('assignments:workbench.gantt.dragHelp')}
+          </p>
 
           <div className="pw-gantt-body">
             {lanes.length === 0 ? (
@@ -228,17 +368,34 @@ export function WorkloadGantt({
               lanes.map((lane) => (
                 <div className="pw-gantt-lane" key={lane.projectId} data-lane-project={lane.projectId}>
                   <div className="pw-gantt-lane-label" title={lane.projectName}>
-                    {lane.projectName}
+                    {onProjectLaneClick ? (
+                      <button
+                        type="button"
+                        className="pw-gantt-lane-link"
+                        onClick={() => onProjectLaneClick(lane.projectId, lane.projectName)}
+                        aria-label={t('assignments:workbench.gantt.projectLane', { name: lane.projectName })}
+                      >
+                        {lane.projectName}
+                      </button>
+                    ) : (
+                      lane.projectName
+                    )}
                   </div>
                   <div className="pw-gantt-lane-track">
                     <span className="pw-gantt-asof" style={{ left: `${Math.min(Math.max(asOfOffset, 0), 100)}%` }} aria-hidden="true" />
-                    {lane.bars.map((bar) => (
+                    {lane.bars.map((bar) => {
+                      const ghostDraggable = bar.kind === 'ghost' && dragGhostEditable(bar.ghost);
+                      return (
                       <button
                         key={bar.key}
                         type="button"
                         className={barClasses(bar)}
                         style={barStyle(bar)}
-                        title={bar.label}
+                        title={
+                          ghostDraggable
+                            ? `${bar.label} · ${t('assignments:workbench.gantt.dragHint')}`
+                            : bar.label
+                        }
                         data-testid={bar.kind === 'ghost' ? 'pw-ghost-bar' : 'pw-gantt-bar'}
                         data-draft-id={bar.draftId}
                         data-assignment-id={bar.assignmentId}
@@ -246,14 +403,36 @@ export function WorkloadGantt({
                           if (bar.kind === 'ghost' && bar.draftId) onGhostClick(bar.draftId);
                           else if (bar.assignmentId) onBarClick(bar.assignmentId);
                         }}
+                        onKeyDown={(event) => {
+                          if (ghostDraggable) onGhostKeyDown(event, bar);
+                        }}
+                        onPointerDown={(event) => {
+                          if (ghostDraggable) beginGhostDrag(event, bar, 'move');
+                        }}
                         aria-label={bar.label}
+                        aria-describedby={ghostDraggable ? 'pw-gantt-drag-help' : undefined}
                       >
+                        {ghostDraggable ? (
+                          <span
+                            className="pw-gantt-resize pw-gantt-resize--start"
+                            role="presentation"
+                            onPointerDown={(event) => beginGhostDrag(event, bar, 'start')}
+                          />
+                        ) : null}
                         {(bar.mode === 'phase' || bar.mode === 'project') && bar.kind === 'committed' ? (
                           <Lock size={10} className="pw-gantt-lock" aria-hidden="true" />
                         ) : null}
                         <span className="pw-gantt-bar-text">{bar.label}</span>
+                        {ghostDraggable ? (
+                          <span
+                            className="pw-gantt-resize pw-gantt-resize--end"
+                            role="presentation"
+                            onPointerDown={(event) => beginGhostDrag(event, bar, 'end')}
+                          />
+                        ) : null}
                       </button>
-                    ))}
+                      );
+                    })}
                   </div>
                 </div>
               ))

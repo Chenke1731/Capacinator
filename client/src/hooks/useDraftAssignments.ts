@@ -45,6 +45,9 @@ export function useDraftAssignments(options: UseDraftAssignmentsOptions) {
   const [drafts, setDrafts] = useState<AssignmentDraft[]>([]);
   const [submitting, setSubmitting] = useState(false);
   const [lastSummary, setLastSummary] = useState<DraftSubmitSummary | null>(null);
+  /** 最近一次成功 CREATE 的行（撤销 CREATE 用，§17 Phase 3） */
+  const [lastCreated, setLastCreated] = useState<Array<{ id: string; scenarioId: string }>>([]);
+  const [undoing, setUndoing] = useState(false);
 
   // 校验上下文用最新值，但 dispatch 身份稳定（避免渲染期回调抖动）
   const contextRef = useRef({ assignments, personId });
@@ -68,7 +71,7 @@ export function useDraftAssignments(options: UseDraftAssignmentsOptions) {
   );
   const clearDrafts = useCallback(() => dispatch({ type: 'clear' }), [dispatch]);
 
-  const submit = useCallback(async () => {
+  const submit = useCallback(async (submitOptions?: { retryFailedOnly?: boolean }) => {
     if (submitting) return;
     setSubmitting(true);
     setLastSummary(null);
@@ -94,7 +97,8 @@ export function useDraftAssignments(options: UseDraftAssignmentsOptions) {
                 : undefined,
             });
           },
-        }
+        },
+        submitOptions
       );
 
       // UNKNOWN 回读核对：永远用草稿绑定的原场景（§10.4/盯点 3）
@@ -130,12 +134,17 @@ export function useDraftAssignments(options: UseDraftAssignmentsOptions) {
         failed: 0,
         unknown: 0,
       };
+      const created: Array<{ id: string; scenarioId: string }> = [];
       for (const outcome of outcomes) {
         if (outcome.submitState === 'SUCCEEDED') summary.succeeded += 1;
         else if (outcome.submitState === 'FAILED') summary.failed += 1;
         else if (outcome.submitState === 'UNKNOWN') summary.unknown += 1;
+        if (outcome.submitState === 'SUCCEEDED' && outcome.createdId && outcome.scenarioId) {
+          created.push({ id: outcome.createdId, scenarioId: outcome.scenarioId });
+        }
       }
       setLastSummary(summary);
+      if (created.length > 0) setLastCreated(created);
 
       if (summary.succeeded > 0) {
         await onAfterCommit?.();
@@ -161,16 +170,38 @@ export function useDraftAssignments(options: UseDraftAssignmentsOptions) {
     };
   }, [drafts]);
 
+  /** 撤销 CREATE（§17 Phase 3）：删除本会话刚成功创建的行（新建行 version=1） */
+  const undoLastCreate = useCallback(async () => {
+    if (undoing || lastCreated.length === 0) return;
+    setUndoing(true);
+    try {
+      for (const row of lastCreated) {
+        try {
+          await api.assignments.delete(row.id, { expected_version: 1 }, { scenarioId: row.scenarioId });
+        } catch {
+          // 逐条撤销，失败行留给用户在明细表处理
+        }
+      }
+      setLastCreated([]);
+      await onAfterCommit?.();
+    } finally {
+      setUndoing(false);
+    }
+  }, [undoing, lastCreated, onAfterCommit]);
+
   return {
     drafts,
     counts,
     submitting,
     lastSummary,
+    lastCreatedCount: lastCreated.length,
+    undoing,
     addDrafts,
     updateDraft,
     removeDraft,
     clearDrafts,
     submit,
+    undoLastCreate,
     dispatch,
   };
 }

@@ -36,6 +36,7 @@ import { Badge } from '../components/ui/badge';
 import { AssignmentImpactPreview } from '../components/workload/AssignmentImpactPreview';
 import { DraftCommitBar } from '../components/workload/DraftCommitBar';
 import { GhostInspector } from '../components/workload/GhostInspector';
+import { ProjectStaffingPanel } from '../components/workload/ProjectStaffingPanel';
 import { TaskSelectionDialog } from '../components/workload/TaskSelectionDialog';
 import { WorkloadGantt } from '../components/workload/WorkloadGantt';
 import './PersonWorkload.css';
@@ -171,9 +172,10 @@ export default function PersonWorkload() {
     [assignmentsQuery.data, asOf, availability]
   );
 
-  // ---- 工作台 v2：泳道时间范围（默认未来 3 个月，§20.3）----
+  // ---- 工作台 v2：泳道时间范围（默认未来 3 个月，§20.3；mini-map 可移动窗口）----
   const [rangeEndOverride, setRangeEndOverride] = useState<string | null>(null);
-  const rangeStart = asOf;
+  const [rangeStartOverride, setRangeStartOverride] = useState<string | null>(null);
+  const rangeStart = rangeStartOverride ?? asOf;
   const defaultRangeEnd = useMemo(() => shiftMonths(asOf, 3), [asOf]);
   const rangeEnd = rangeEndOverride ?? defaultRangeEnd;
 
@@ -201,6 +203,7 @@ export default function PersonWorkload() {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [ganttCollapsed, setGanttCollapsed] = useState(false);
   const [inspectorDraftId, setInspectorDraftId] = useState<string | null>(null);
+  const [staffingProject, setStaffingProject] = useState<{ id: string; name: string } | null>(null);
   const addAssignmentButtonRef = useRef<HTMLButtonElement | null>(null);
   const commitBarRef = useRef<HTMLDivElement | null>(null);
 
@@ -304,6 +307,79 @@ export default function PersonWorkload() {
   );
 
   const inspectorDraft = draftStore.drafts.find((draft) => draft.draftId === inspectorDraftId) ?? null;
+
+  // Phase 3 mini-map：12 个月月桶总览（含 ghost 投影），点击月桶移动观察窗
+  const minimapTimeline = useMemo(
+    () =>
+      workloadTimeline(
+        (assignmentsQuery.data ?? []).map((row) => ({
+          id: String(row.id),
+          allocationPercentage: Number(row.allocation_percentage ?? 0),
+          startDate: row.computed_start_date ?? row.start_date ?? null,
+          endDate: row.computed_end_date ?? row.end_date ?? null,
+          status: row.status ?? null,
+        })),
+        draftStore.drafts.map((draft) => ({
+          id: draft.draftId,
+          draftId: draft.draftId,
+          kind: draft.kind,
+          targetAssignmentId: draft.targetAssignmentId,
+          allocationPercentage: draft.allocationPercentage,
+          startDate: draft.startDate,
+          endDate: draft.endDate,
+          submitState: draft.submitState,
+        })),
+        {
+          asOf,
+          rangeStart: asOf,
+          rangeEnd: shiftMonths(asOf, 12),
+          defaultAvailability: availability ?? defaultAvailability,
+          availabilityOverrides,
+          granularity: 'month',
+        }
+      ),
+    [assignmentsQuery.data, draftStore.drafts, asOf, availability, defaultAvailability, availabilityOverrides]
+  );
+
+  // Phase 2：拖动/缩放落点（钳制 start<=end 且至少 1 天）
+  const handleGhostDatesChange = useCallback(
+    (draftId: string, next: { startDate: string; endDate: string }) => {
+      if (!next.startDate || !next.endDate) return;
+      const start = next.startDate <= next.endDate ? next.startDate : next.endDate;
+      const end = next.startDate <= next.endDate ? next.endDate : next.startDate;
+      draftStore.updateDraft(draftId, { startDate: start, endDate: end });
+    },
+    [draftStore]
+  );
+
+  // Phase 3 批量编辑：统一参数套用到全部可编辑 ghost（未在途、未成功、未锁定）
+  const editableDrafts = draftStore.drafts.filter(
+    (draft) => draft.submitState === 'IDLE' || draft.submitState === 'FAILED'
+  );
+  const handleBatchApply = useCallback(
+    (value: { allocation: string; dateMode: string; startDate: string; endDate: string }) => {
+      const allocation = Number(value.allocation);
+      for (const draft of editableDrafts) {
+        const patch: Partial<AssignmentDraft> = {};
+        if (Number.isFinite(allocation) && allocation > 0 && allocation <= 200) {
+          patch.allocationPercentage = allocation;
+        }
+        if (value.dateMode === 'fixed' && value.startDate && value.endDate && value.startDate <= value.endDate) {
+          patch.assignmentDateMode = 'fixed';
+          patch.startDate = value.startDate;
+          patch.endDate = value.endDate;
+          patch.phaseId = null;
+        } else if (value.dateMode === 'project') {
+          patch.assignmentDateMode = 'project';
+          patch.startDate = draft.taskContext.aspirationStart;
+          patch.endDate = draft.taskContext.aspirationFinish;
+          patch.phaseId = null;
+        }
+        if (Object.keys(patch).length > 0) draftStore.updateDraft(draft.draftId, patch);
+      }
+    },
+    [editableDrafts, draftStore]
+  );
 
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editScenarioId, setEditScenarioId] = useState<string | null>(null);
@@ -1197,19 +1273,20 @@ export default function PersonWorkload() {
         onToggleCollapse={() => setGanttCollapsed((prev) => !prev)}
         onGhostClick={(draftId) => setInspectorDraftId(draftId)}
         onBarClick={(assignmentId) => {
-          document
-            .querySelector<HTMLElement>(`[data-assignment-id="${assignmentId}"]`)
-            ?.scrollIntoView?.({ block: 'center', behavior: 'smooth' });
-          document
-            .querySelector<HTMLElement>(`[data-assignment-id="${assignmentId}"] [data-testid="pw-edit-row"]`)
-            ?.focus?.();
+          // Phase 2：已有 bar 点击直接进入行编辑并定位（§17）
+          const row = allWorkloadRows().find((candidate) => String(candidate.id) === assignmentId);
+          if (row) beginEditRef.current?.(row);
+          window.requestAnimationFrame(() => {
+            document
+              .querySelector<HTMLElement>(`[data-assignment-id="${assignmentId}"]`)
+              ?.scrollIntoView?.({ block: 'center', behavior: 'smooth' });
+          });
         }}
         onLocateGhost={(draftId) => {
           const draft = draftStore.drafts.find((entry) => entry.draftId === draftId);
           if (!draft) return;
           setGanttCollapsed(false);
           if (draft.startDate && draft.startDate < rangeStart) {
-            // 泳道左界不能早于参考日（默认未来 3 个月口径），先定位右界
             setRangeEndOverride((prev) => {
               const neededEnd = draft.endDate && draft.endDate > (prev ?? defaultRangeEnd) ? draft.endDate : prev;
               return neededEnd ?? prev;
@@ -1219,7 +1296,23 @@ export default function PersonWorkload() {
           }
           setInspectorDraftId(draftId);
         }}
+        onGhostDatesChange={handleGhostDatesChange}
+        minimapBuckets={minimapTimeline.buckets}
+        onNavigateRange={(monthStart) => {
+          setRangeStartOverride(monthStart >= asOf ? monthStart : asOf);
+          setRangeEndOverride(shiftMonths(monthStart >= asOf ? monthStart : asOf, 3));
+        }}
+        onProjectLaneClick={(projectId, projectName) => setStaffingProject({ id: projectId, name: projectName })}
       />
+
+      {staffingProject ? (
+        <ProjectStaffingPanel
+          projectId={staffingProject.id}
+          projectName={staffingProject.name}
+          scenarioId={activeScenarioId}
+          onClose={() => setStaffingProject(null)}
+        />
+      ) : null}
 
       <DraftCommitBar
         ref={commitBarRef}
@@ -1234,13 +1327,16 @@ export default function PersonWorkload() {
         overload={projectedOverload}
         onContinueSelect={() => {
           setDialogOpen(true);
-          window.requestAnimationFrame(() => {
-            // 焦点回“继续选择”链路：弹窗打开后焦点落搜索框
-          });
         }}
         onConfirm={() => void draftStore.submit()}
         onClear={draftStore.clearDrafts}
         lastSummary={draftStore.lastSummary}
+        onRetryFailed={() => void draftStore.submit({ retryFailedOnly: true })}
+        onUndoCreate={() => void draftStore.undoLastCreate()}
+        lastCreatedCount={draftStore.lastCreatedCount}
+        undoing={draftStore.undoing}
+        onBatchApply={handleBatchApply}
+        editableDrafts={editableDrafts}
       />
 
       {inspectorDraft ? (

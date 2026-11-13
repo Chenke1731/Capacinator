@@ -403,7 +403,10 @@
       "cancel": "Cancel",
       "addToLane": "Add to lane ({{count}})",
       "addedToLane": "Added {{count}} drafts to the lane; click a striped bar to adjust.",
-      "replaceAdded": "Replacement draft created: {{role}} will delete {{incumbent}}'s assignment entirely; confirm it in the lane."
+      "replaceAdded": "Replacement draft created: {{role}} will delete {{incumbent}}'s assignment entirely; confirm it in the lane.",
+      "recent": "Recent:",
+      "quickAdd": "Quick add {{name}}",
+      "quickAdded": "Quick-added {{name}} to the lane."
     },
     "composer": {
       "role": "Unified role",
@@ -422,7 +425,11 @@
       "paused": "Paused",
       "ghost": "Pending draft",
       "empty": "No assignments in range.",
-      "outOfRange": "{{count}} drafts out of range:"
+      "outOfRange": "{{count}} drafts out of range:",
+      "dragHint": "Drag to move; side handles resize; ←/→ move (Shift=7d); +/− adjust end",
+      "dragHelp": "Fixed-date drafts: drag the bar to move, drag the side handles to resize; arrow keys move, Shift speeds up, plus/minus adjusts the end date.",
+      "minimapLabel": "12-month overview (click a month to move the window)",
+      "projectLane": "View staffing for {{name}}"
     },
     "inspector": {
       "title": "Draft parameters: {{name}}",
@@ -454,7 +461,14 @@
       "confirm": "Confirm assignments ({{count}})",
       "submitting": "Submitting…",
       "clear": "Clear",
-      "lockReason": "Assignments are being submitted; scenario switching is locked"
+      "lockReason": "Assignments are being submitted; scenario switching is locked",
+      "retryFailed": "Retry failed ({{count}})",
+      "batchEdit": "Batch edit",
+      "batchAllocation": "Unified allocation %",
+      "batchApply": "Apply to {{count}}",
+      "undoCreate": "Undo create",
+      "undoing": "Undoing…",
+      "createdCount": "Created {{count}} assignments"
     },
     "errors": {
       "missing_role": "Missing role",
@@ -470,6 +484,14 @@
       "slot_unconfirmed": "Single-person slot is occupied; confirm the replacement first",
       "version_conflict": "The assignment was modified by someone else; refresh and retry",
       "scenario_mismatch": "Draft scenario differs from the active scenario"
+    },
+    "staffing": {
+      "title": "{{name}} · staffing",
+      "close": "Close",
+      "loading": "Loading…",
+      "error": "Failed to load.",
+      "empty": "No assignments for this project in the current scenario.",
+      "person": "Person"
     }
   }
 }

@@ -314,9 +314,10 @@ describe('commitDrafts（§10.2/§10.4）', () => {
     deps.update.mockResolvedValue({});
   });
 
-  test('CREATE 成功 → SUCCEEDED，payload 用草稿场景', async () => {
+  test('CREATE 成功 → SUCCEEDED（带场景与新建 id），payload 用草稿场景', async () => {
+    deps.create.mockResolvedValue({ data: { id: 'created-1' } });
     const outcomes = await commitDrafts([draft('CREATE')], 'person-1', deps);
-    expect(outcomes).toEqual([{ draftId: 'dc', submitState: 'SUCCEEDED' }]);
+    expect(outcomes).toEqual([{ draftId: 'dc', submitState: 'SUCCEEDED', createdId: 'created-1', scenarioId: 'scenario-a' }]);
     expect(deps.create).toHaveBeenCalledWith(
       expect.objectContaining({ project_id: 'task-1', assignment_date_mode: 'fixed', start_date: '2026-04-01' }),
       'scenario-a'

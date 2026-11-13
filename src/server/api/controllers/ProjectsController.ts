@@ -10,6 +10,7 @@ import { LifecycleService } from '../../services/lifecycle/LifecycleService.js';
 import { computeProjectConflictFlags } from '../../services/board/projectConflictFlags.js';
 import { overdueProjectIds, resolveOverdueReferenceDate } from '../../services/projects/overdueProjects.js';
 import { AssignmentRecalculationService, type AssignmentDateChange } from '../../services/AssignmentRecalculationService.js';
+import { resolveScenarioId } from '../../services/calc/effectiveAssignments.js';
 import { logger } from '../../services/logging/config.js';
 
 // Alias for backward compatibility
@@ -130,6 +131,172 @@ export class ProjectsController extends BaseController {
         }
       };
     }
+  }
+
+  /**
+   * 任务选择模式投影（工作台 v2 §13.1）：GET /api/projects?selection=1 的
+   * 行形状。只服务人员工作台的任务选择弹窗——真实层级/状态/角色需求/日期/
+   * 人力摘要/SE·MDE 槽位，裁掉 tags/告警/评估/看板等列表页负载。
+   *
+   * 口径裁决（§20.1 + Claude 复评盯点 1）：
+   * - role_demand 只来自 project_allocation_overrides（显式覆盖）或其继承的
+   *   resource_templates；单位换算为人头（percentage/100）；percentage 为
+   *   NULL 显示"未配置"（required_headcount=null，不得给 0）；
+   * - assigned_summary 按**请求场景**过滤且**不限状态**（同业务键查重=任意
+   *   状态 + phase NULL 显式判等，与服务端 findDuplicateAssignment 同构）；
+   * - single_person_slots 与服务端 SE/MDE 单人制谓词同构：scenario+project+
+   *   role+status='active'，不按 phase/person 过滤；
+   * - timeline_start/end 只用于展示；project 模式写入窗口一律取 aspiration。
+   */
+  private async buildSelectionRows(projects: any[], scenarioId: string): Promise<any[]> {
+    const blank = () => ({
+      role_demands: [] as any[],
+      assigned_summary: [] as any[],
+      single_person_slots: [] as any[]
+    });
+    const extras = new Map<string, ReturnType<typeof blank>>();
+    for (const p of projects) extras.set(p.id, blank());
+    const ids = projects.map((p: any) => p.id).filter((id: string) => extras.has(id));
+    if (ids.length === 0) {
+      return projects.map((p: any) => ({ ...p, ...blank(), has_children: Number(p.child_count ?? 0) > 0 }));
+    }
+
+    // 阶段时间线存在性（决定默认 phase 模式）+ 包络
+    const timelineRows = await this.db('project_phases_timeline')
+      .whereIn('project_id', ids)
+      .select('project_id')
+      .min('start_date as min_start')
+      .max('end_date as max_end')
+      .groupBy('project_id');
+    const timelineByProject = new Map<string, any>(timelineRows.map((r: any) => [r.project_id, r]));
+
+    // 角色需求：显式覆盖优先；无任何覆盖行的项目回落到类型资源模板
+    const overrideRows = await this.db('project_allocation_overrides as pao')
+      .join('roles', 'pao.role_id', 'roles.id')
+      .whereIn('pao.project_id', ids)
+      .select('pao.project_id', 'pao.phase_id', 'pao.role_id', 'roles.name as role_name', 'pao.allocation_percentage', 'pao.is_inherited');
+    const overrideProjects = new Set(overrideRows.map((r: any) => r.project_id));
+    const roundHeadcount = (pct: unknown) =>
+      pct === null || pct === undefined || !Number.isFinite(Number(pct))
+        ? null
+        : Math.round((Number(pct) / 100) * 100) / 100;
+    for (const row of overrideRows) {
+      extras.get(row.project_id)?.role_demands.push({
+        role_id: row.role_id,
+        role_name: row.role_name,
+        phase_id: row.phase_id,
+        required_headcount: roundHeadcount(row.allocation_percentage),
+        source: row.allocation_percentage === null || row.allocation_percentage === undefined ? 'unconfigured' : (row.is_inherited ? 'template' : 'override')
+      });
+    }
+    const templateFallbackProjects = projects.filter(
+      (p: any) => extras.has(p.id) && !overrideProjects.has(p.id) && p.project_type_id
+    );
+    if (templateFallbackProjects.length > 0) {
+      const typeIds = [...new Set(templateFallbackProjects.map((p: any) => p.project_type_id))];
+      const subTypeIds = templateFallbackProjects.map((p: any) => p.project_sub_type_id).filter(Boolean);
+      const templateRows = await this.db('resource_templates as rt')
+        .join('roles', 'rt.role_id', 'roles.id')
+        .where((builder: any) => {
+          builder.whereIn('rt.project_type_id', typeIds);
+          // 模板 sub_type 为 NULL 表示通配；项目 sub_type 缺失只吃通配模板
+          if (subTypeIds.length > 0) {
+            builder.where((b: any) => b.whereIn('rt.project_sub_type_id', [...new Set(subTypeIds)]).orWhereNull('rt.project_sub_type_id'));
+          } else {
+            builder.whereNull('rt.project_sub_type_id');
+          }
+        })
+        .select('rt.project_type_id', 'rt.project_sub_type_id', 'rt.phase_id', 'rt.role_id', 'roles.name as role_name', 'rt.allocation_percentage');
+      for (const project of templateFallbackProjects) {
+        for (const row of templateRows) {
+          if (row.project_type_id !== project.project_type_id) continue;
+          const templateSub = row.project_sub_type_id ?? null;
+          const projectSub = project.project_sub_type_id ?? null;
+          if (templateSub !== projectSub) continue;
+          extras.get(project.id)?.role_demands.push({
+            role_id: row.role_id,
+            role_name: row.role_name,
+            phase_id: row.phase_id,
+            required_headcount: roundHeadcount(row.allocation_percentage),
+            source: row.allocation_percentage === null || row.allocation_percentage === undefined ? 'unconfigured' : 'template'
+          });
+        }
+      }
+    }
+
+    // 已分配摘要：按请求场景切片，任意状态（同键查重口径）
+    const assignedRows = await this.db('assignments_view as av')
+      .join('people as pe', 'av.person_id', 'pe.id')
+      .where('av.scenario_id', scenarioId)
+      .whereIn('av.project_id', ids)
+      .select('av.id', 'av.project_id', 'av.role_id', 'av.phase_id', 'av.person_id', 'pe.name as person_name', 'av.allocation_percentage', 'av.status');
+    for (const row of assignedRows) {
+      extras.get(row.project_id)?.assigned_summary.push({
+        id: row.id,
+        role_id: row.role_id,
+        phase_id: row.phase_id,
+        person_id: row.person_id,
+        person_name: row.person_name,
+        allocation_percentage: Number(row.allocation_percentage ?? 0),
+        status: row.status
+      });
+    }
+
+    // SE/MDE 槽位：与服务端 create 谓词同构（scenario+project+role+active）
+    const slotRows = await this.db('scenario_project_assignments as spa')
+      .join('roles as r', 'spa.role_id', 'r.id')
+      .join('people as pe', 'spa.person_id', 'pe.id')
+      .where('spa.scenario_id', scenarioId)
+      .whereIn('spa.project_id', ids)
+      .where('spa.status', 'active')
+      .whereIn('r.name', ['SE', 'MDE'])
+      .select(
+        'spa.project_id',
+        'spa.role_id',
+        'r.name as role_name',
+        'spa.id as incumbent_assignment_id',
+        'spa.person_id as incumbent_person_id',
+        'pe.name as incumbent_person_name',
+        'spa.version as incumbent_version',
+        this.db.raw('COALESCE(spa.computed_start_date, spa.start_date) as incumbent_start_date'),
+        this.db.raw('COALESCE(spa.computed_end_date, spa.end_date) as incumbent_end_date')
+      );
+    for (const row of slotRows) {
+      extras.get(row.project_id)?.single_person_slots.push({
+        role_id: row.role_id,
+        role_name: row.role_name,
+        incumbent_assignment_id: `spa-${row.incumbent_assignment_id}`,
+        incumbent_person_id: row.incumbent_person_id,
+        incumbent_person_name: row.incumbent_person_name,
+        incumbent_version: Number(row.incumbent_version ?? 1),
+        incumbent_start_date: row.incumbent_start_date ?? null,
+        incumbent_end_date: row.incumbent_end_date ?? null
+      });
+    }
+
+    return projects.map((p: any) => {
+      const timeline = timelineByProject.get(p.id);
+      const extra = extras.get(p.id) ?? blank();
+      return {
+        id: p.id,
+        name: p.name,
+        parent_id: p.parent_id ?? null,
+        child_count: Number(p.child_count ?? 0),
+        has_children: Number(p.child_count ?? 0) > 0,
+        lifecycle_state: p.lifecycle_state ?? null,
+        project_type_name: p.project_type_name ?? null,
+        project_sub_type_name: p.project_sub_type_name ?? null,
+        is_ancestor: p.is_ancestor === true,
+        timeline_start: p.is_ancestor === true ? null : (timeline?.min_start ?? null),
+        timeline_end: p.is_ancestor === true ? null : (timeline?.max_end ?? null),
+        aspiration_start: p.aspiration_start ?? null,
+        aspiration_finish: p.aspiration_finish ?? null,
+        has_phase_timeline: Boolean(timeline),
+        role_demands: extra.role_demands,
+        assigned_summary: extra.assigned_summary,
+        single_person_slots: extra.single_person_slots
+      };
+    });
   }
 
   /**
@@ -268,7 +435,11 @@ export class ProjectsController extends BaseController {
     // pages, so 2000 is the protective ceiling (a single runaway
     // request must not drag the whole table).
     const limit = Math.min(parseInt(req.query.limit as string, 10) || 50, 2000);
-    const filters = {
+    // 任务选择模式（工作台 v2 §13.1）：scope=demand 映射 include_in_demand=1，
+    // scope=all 不加需求过滤；祖先补齐仍走 include_ancestors=1，跨页勾选由
+    // 前端保存 selectedTaskIds，服务端只负责当前页。
+    const selectionMode = req.query.selection === '1' || req.query.selection === 'true';
+    const filters: Record<string, unknown> = {
       location_id: req.query.location_id,
       project_type_id: req.query.project_type_id,
       priority: req.query.priority,
@@ -278,6 +449,11 @@ export class ProjectsController extends BaseController {
       owner_id: req.query.owner_id,
       lifecycle_state: req.query.lifecycle_state
     };
+    if (selectionMode && req.query.scope === 'demand') {
+      filters.include_in_demand = '1';
+    } else if (selectionMode && req.query.scope === 'all') {
+      filters.include_in_demand = undefined;
+    }
 
     const result = await this.executeQuery(async () => {
       let query = this.db('projects')
@@ -387,7 +563,7 @@ export class ProjectsController extends BaseController {
       const projects = await query;
       const pageIds = projects.map((p: any) => p.id);
       const pageIdSet = new Set(pageIds);
-      const slim = req.query.slim === '1' || req.query.slim === 'true';
+      const slim = req.query.slim === '1' || req.query.slim === 'true' || selectionMode;
 
       // 任务挑选器（人员工作负载页）用：搜索命中项 + 祖先路径。祖先按
       // parent_id 逐层补齐（不依赖 LIMIT，也不受 2000 行看板上限影响），
@@ -478,6 +654,12 @@ export class ProjectsController extends BaseController {
 
       const total = await countQuery.count('* as count').first();
       const totalCount = Number(total?.count) || 0;
+
+      // 选择模式行投影（§13.1）：裁列 + 角色需求/分配摘要/槽位，按请求场景
+      const scenarioId = resolveScenarioId(req.headers['x-scenario-id']);
+      if (selectionMode) {
+        data = await this.buildSelectionRows(data, scenarioId);
+      }
 
       return {
         data,

@@ -24,7 +24,7 @@ class: 级联层错位（Tailwind utilities vs 未分层 app CSS）
 mechanism_slice: cascade-layers × unlayered-element-rules
 disposition: GUARD
 guard: enforced — lint:ui 规则 9（2026-11-13）：从 TSX 的 `<DialogContent className="...">` 提取字面量业务类，CSS 同元素选择器（`.foo`/`.foo:hover`，不含 `.foo .child`）禁止声明 position/inset/top/right/bottom/left/transform；叠加 SmartAssignmentModal CSS 契约测试与 e2e 几何断言（position=fixed/水平居中/不越视口）。局限：`className={cn(...)}` 动态拼接不在静态扫描面，需人工核
-verification: done（2026-11-13）— 变异自证：给 `.smart-assignment-modal` 重新注入 `position: relative` → lint:ui 红并点名该选择器；移除后绿；SELF_TEST 5 例通过（同元素定位红、子元素定位/内部尺寸绿）
+verification: done（2026-11-13）— 变异自证：给 `.smart-assignment-modal` 重新注入 `position: relative` → lint:ui 红并点名该选择器；移除后绿；SELF_TEST 6 例通过（同元素定位红、子元素定位/内部尺寸/伪元素定位绿）
 status: enforced
 note: 未分层 `button{position:relative}` 压掉 `absolute right-4 top-4`（关闭钮掉流 + 底部空行）；`button{background:var(--bg-secondary)}` 压掉 `bg-blue-600 text-white`（主次按钮同灰）。2026-11-13 同族第 3 次：`.smart-assignment-modal { position: relative }` 压掉 DialogContent 的 `fixed`，弹窗掉到文档流底部（I02n）；规则 9 把防线从“单个组件类”泛化到所有 DialogContent 业务类
 ```

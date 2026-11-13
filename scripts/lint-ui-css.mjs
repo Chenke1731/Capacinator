@@ -238,6 +238,8 @@ export function matchDialogContentPositioning(source, contentClasses) {
     if (!/(?:^|[;\s])(?:position|inset|top|right|bottom|left|transform)\s*:/.test(body)) continue;
     for (const raw of sel.split(',')) {
       const item = raw.replace(/\s+/g, ' ').trim();
+      // 伪元素定位属于组件内部装饰，不是 DialogContent 本体的定位
+      if (item.includes('::')) continue;
       const base = item.replace(/::?[-\w]+(?:\([^)]*\))?/g, '').trim();
       if (!base.startsWith('.') || /[\s>+~]/.test(base)) continue;
       const cls = base.slice(1);
@@ -644,6 +646,7 @@ if (process.env.SELF_TEST === '1') {
     ['.smart-assignment-modal:hover { transform: translateY(-1px); }', true],
     ['.smart-assignment-modal .child { position: relative; }', false],
     ['.smart-assignment-modal { max-height: 90dvh; overflow-y: auto; }', false],
+    ['.smart-assignment-modal::before { position: absolute; }', false],
     ['.other-dialog { position: fixed; }', false],
   ];
   for (const [css, expect] of dlgCases) {
@@ -651,7 +654,7 @@ if (process.env.SELF_TEST === '1') {
       throw Error(`规则9: DialogContent 定位覆盖检测器失灵 ${JSON.stringify(css)}`);
     }
   }
-  console.log('SELF-TEST PASS: DialogContent 定位覆盖检测器(5 例)——生产函数直调');
+  console.log('SELF-TEST PASS: DialogContent 定位覆盖检测器(6 例)——生产函数直调');
 
   // 任务B收口②③: 主色 hsl 家族检测器——评审注入案例入仓,直接调生产函数
   const hslCases = [

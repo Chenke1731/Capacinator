@@ -207,6 +207,68 @@ for (const rel of PROD_FILES) {
   }
 }
 
+// ── 规则 9: DialogContent 业务类不得覆盖原语定位（2026-11-13 弹窗掉底事故）──
+// 事故：`.smart-assignment-modal { position: relative }` 覆盖 DialogContent 的
+// Tailwind `fixed`（未分层 CSS 压过 @layer utilities），弹窗进入文档流落到页面
+// 底部。规则 6/8 只查共享类与注入样式，未覆盖“业务类接管原语定位”。
+// 判据：从 TSX 的 `<DialogContent className="...">` 提取业务类，CSS 中仅匹配
+// 同一元素的选择器（`.foo`/`.foo:hover`，不含 `.foo .child`）若声明
+// position/inset/top/right/bottom/left/transform，即报。
+// 局限：只识别字面量 className；`className={cn(...)}` 等动态拼接需人工核。
+export function extractDialogContentClasses(source) {
+  const classes = new Set();
+  const tagRe = /<DialogContent\b([\s\S]*?)>/g;
+  for (const m of String(source).matchAll(tagRe)) {
+    const cm = m[1].match(/className=(?:"([^"]*)"|'([^']*)')/);
+    if (!cm) continue;
+    for (const token of (cm[1] ?? cm[2] ?? '').split(/\s+/)) {
+      if (token) classes.add(token);
+    }
+  }
+  return classes;
+}
+
+export function matchDialogContentPositioning(source, contentClasses) {
+  const stripped = String(source).replace(/\/\*[\s\S]*?\*\//g, (c) => c.replace(/[^\n]/g, ' '));
+  const hits = [];
+  for (const m of stripped.matchAll(/([^{}]+)\{([^{}]*)\}/g)) {
+    const sel = m[1].trim();
+    const body = m[2];
+    if (!sel || sel.startsWith('@') || sel.includes('@')) continue;
+    if (!/(?:^|[;\s])(?:position|inset|top|right|bottom|left|transform)\s*:/.test(body)) continue;
+    for (const raw of sel.split(',')) {
+      const item = raw.replace(/\s+/g, ' ').trim();
+      const base = item.replace(/::?[-\w]+(?:\([^)]*\))?/g, '').trim();
+      if (!base.startsWith('.') || /[\s>+~]/.test(base)) continue;
+      const cls = base.slice(1);
+      if (contentClasses.has(cls)) hits.push({ selector: item, cls, index: m.index });
+    }
+  }
+  return hits;
+}
+
+const dialogContentClasses = new Set();
+for (const rel of PROD_FILES.filter((f) => f.endsWith('.tsx'))) {
+  for (const cls of extractDialogContentClasses(readFileSync(resolve(root, rel), 'utf8'))) {
+    dialogContentClasses.add(cls);
+  }
+}
+const dialogCssFiles = [...new Set([
+  ...utilScanFiles,
+  'client/src/App.css',
+  'client/src/index.css',
+  ...listCss('client/src/styles', true),
+])];
+for (const rel of dialogCssFiles) {
+  let text;
+  try { text = readFileSync(resolve(root, rel), 'utf8'); }
+  catch { continue; }
+  for (const hit of matchDialogContentPositioning(text, dialogContentClasses)) {
+    const line = text.slice(0, hit.index).split('\n').length;
+    violations.push(`${rel}:${line} 「${hit.selector}」 DialogContent 业务类声明定位属性 → 会覆盖原语 fixed/居中（弹窗掉底事故）；定位只属于 ui/dialog.tsx，业务类只管内部布局`);
+  }
+}
+
 // ── 规则 4: 未作用域 .btn* 的 hover 位移（2026-11-10 收件箱录入按钮事故）──
 // 事故链: ProjectRoadmap.css 裸定义 `.btn-primary:hover{transform:translateY(-1px)}`
 // → 随 /projects 路由全量加载 → 泄漏到收件箱的录入按钮 → 悬停上移越过 tab 栏
@@ -573,6 +635,23 @@ if (process.env.SELF_TEST === '1') {
     if ((sharedHit || utilHit) !== expect) throw Error(`规则8: 注入样式检测器失灵 ${JSON.stringify(src)}`);
   }
   console.log('SELF-TEST PASS: tsx 注入样式盲区检测器(4 例)——生产函数直调');
+
+  // 规则 9 自证: DialogContent 业务类覆盖定位必红;子元素定位/内部尺寸必绿
+  const dlgClasses = extractDialogContentClasses('<DialogContent className="smart-assignment-modal max-w-4xl">x</DialogContent>');
+  if (!dlgClasses.has('smart-assignment-modal')) throw Error('规则9: DialogContent className 未提取');
+  const dlgCases = [
+    ['.smart-assignment-modal { position: relative; }', true],
+    ['.smart-assignment-modal:hover { transform: translateY(-1px); }', true],
+    ['.smart-assignment-modal .child { position: relative; }', false],
+    ['.smart-assignment-modal { max-height: 90dvh; overflow-y: auto; }', false],
+    ['.other-dialog { position: fixed; }', false],
+  ];
+  for (const [css, expect] of dlgCases) {
+    if ((matchDialogContentPositioning(css, dlgClasses).length > 0) !== expect) {
+      throw Error(`规则9: DialogContent 定位覆盖检测器失灵 ${JSON.stringify(css)}`);
+    }
+  }
+  console.log('SELF-TEST PASS: DialogContent 定位覆盖检测器(5 例)——生产函数直调');
 
   // 任务B收口②③: 主色 hsl 家族检测器——评审注入案例入仓,直接调生产函数
   const hslCases = [

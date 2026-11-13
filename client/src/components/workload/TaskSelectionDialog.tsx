@@ -119,6 +119,11 @@ export function TaskSelectionDialog(props: TaskSelectionDialogProps) {
   const dialogRef = useRef<HTMLDivElement | null>(null);
   const searchRef = useRef<HTMLInputElement | null>(null);
   const openerRef = useRef<Element | null>(null);
+  // G-04（评审）：onClose 入 ref——父组件 inline 箭头函数每次渲染换身份，
+  // 若入 effect deps，弹窗打开期间任一父级重渲染都会执行 cleanup 把焦点
+  // 夺回遮罩后的按钮，focus trap 可逃逸。
+  const onCloseRef = useRef(onClose);
+  onCloseRef.current = onClose;
 
   // 打开时重置临时勾选（pickerState 与 draftStore 分离，§11）
   useEffect(() => {
@@ -132,13 +137,13 @@ export function TaskSelectionDialog(props: TaskSelectionDialogProps) {
     }
   }, [open]);
 
-  // focus trap + ESC（§15）
+  // focus trap + ESC（§15）——仅依赖 open 翻转；焦点归还发生在真正关闭时
   useEffect(() => {
     if (!open) return undefined;
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
         event.stopPropagation();
-        onClose();
+        onCloseRef.current();
         return;
       }
       if (event.key !== 'Tab') return;
@@ -164,7 +169,7 @@ export function TaskSelectionDialog(props: TaskSelectionDialogProps) {
       const opener = openerRef.current as HTMLElement | null;
       opener?.focus?.();
     };
-  }, [open, onClose]);
+  }, [open]);
 
   const rowsQuery = useQuery({
     queryKey: queryKeys.projects.list(

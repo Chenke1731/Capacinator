@@ -31,6 +31,8 @@ export interface DraftCommitBarProps {
   onContinueSelect: () => void;
   onConfirm: () => void;
   onClear: () => void;
+  /** D-02a：场景失配期禁"继续选择"——新弹窗会绑定新场景造成双场景草稿 */
+  continueDisabled?: boolean;
   lastSummary?: { succeeded: number; failed: number; unknown: number } | null;
   /** Phase 2：只重试上一轮明确失败的行 */
   onRetryFailed?: () => void;
@@ -38,6 +40,9 @@ export interface DraftCommitBarProps {
   onUndoCreate?: () => void;
   lastCreatedCount?: number;
   undoing?: boolean;
+  /** 含不可恢复的 REPLACE 行（旧槽位快照缺字段）时禁用撤销（不丢数据） */
+  undoDisabled?: boolean;
+  undoDisabledReason?: string | null;
   /** Phase 3 批量编辑：统一参数套用到全部可编辑 ghost */
   onBatchApply?: (value: BatchEditValue) => void;
   editableDrafts?: AssignmentDraft[];
@@ -53,6 +58,7 @@ export const DraftCommitBar = forwardRef<HTMLDivElement, DraftCommitBarProps>(
       unknown,
       submitting,
       confirmDisabled,
+      continueDisabled,
       confirmDisabledReason,
       overload,
       onContinueSelect,
@@ -63,6 +69,8 @@ export const DraftCommitBar = forwardRef<HTMLDivElement, DraftCommitBarProps>(
       onUndoCreate,
       lastCreatedCount = 0,
       undoing = false,
+      undoDisabled = false,
+      undoDisabledReason,
       onBatchApply,
       editableDrafts = [],
     },
@@ -82,7 +90,8 @@ export const DraftCommitBar = forwardRef<HTMLDivElement, DraftCommitBarProps>(
               <button
                 type="button"
                 className="btn btn-secondary btn-sm"
-                disabled={undoing}
+                disabled={undoing || undoDisabled}
+                title={undoDisabled ? undoDisabledReason ?? undefined : undefined}
                 onClick={onUndoCreate}
                 data-testid="pw-undo-create"
               >
@@ -205,7 +214,7 @@ export const DraftCommitBar = forwardRef<HTMLDivElement, DraftCommitBarProps>(
           <button
             type="button"
             className="btn btn-secondary btn-sm"
-            disabled={submitting}
+            disabled={submitting || continueDisabled}
             onClick={onContinueSelect}
           >
             <ListPlus size={14} /> {t('assignments:workbench.commit.continue')}

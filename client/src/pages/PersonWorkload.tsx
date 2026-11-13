@@ -197,6 +197,15 @@ export default function PersonWorkload() {
   }, [utilizationRow]);
 
   const defaultAvailability = personQuery.data?.default_availability_percentage ?? null;
+  // C2（Codex P2#4 + D-01a）：热区默认可用率=人员档案默认值，而不是当前
+  // 生效值——临时覆盖(50%)到期后必须回落 100，此前 `availability ?? 默认`
+  // 让覆盖值成了全时间轴默认。utilization 行缺失/失败时热区判"数据不可用"
+  //（null），不伪造。覆盖窗口本身由 availabilityOverrides 承载。
+  const heatDefaultAvailability = utilizationQuery.isLoading
+    ? null
+    : utilizationQuery.isError || !utilizationRow
+      ? null
+      : defaultAvailability;
 
   // ---- 工作台 v2：草稿（draftStore）----
   const activeScenarioId = currentScenario?.id ?? '';
@@ -218,7 +227,6 @@ export default function PersonWorkload() {
   const draftStore = useDraftAssignments({
     personId: id ?? '',
     assignments: assignmentsQuery.data ?? [],
-    assignmentsQuery,
     onAfterCommit: refreshAssignments,
   });
 
@@ -249,6 +257,30 @@ export default function PersonWorkload() {
     return () => window.removeEventListener('beforeunload', onBeforeUnload);
   }, [hasPendingDrafts]);
 
+  // G-05（评审）：SPA 内导航守卫——beforeunload 只覆盖刷新/关窗，页内路由
+  // （返回按钮/侧栏链接）在有未提交 ghost 时也必须确认。捕获阶段拦站内
+  // <a href="/...">；浏览器返回键不在本守卫范围（BrowserRouter 无法拦截
+  // popstate 而不破坏历史栈，边界已记录）。
+  const hasPendingDraftsRef = useRef(false);
+  hasPendingDraftsRef.current = hasPendingDrafts;
+  const leaveConfirmText = t('assignments:workbench.leaveConfirm');
+  const confirmLeaveIfPending = useCallback(() => {
+    if (!hasPendingDraftsRef.current) return true;
+    return window.confirm(leaveConfirmText);
+  }, [leaveConfirmText]);
+  useEffect(() => {
+    const onClickCapture = (event: MouseEvent) => {
+      if (!hasPendingDraftsRef.current || event.defaultPrevented) return;
+      const anchor = (event.target as HTMLElement | null)?.closest?.('a');
+      if (!anchor) return;
+      const href = anchor.getAttribute('href');
+      if (!href || !href.startsWith('/') || href.startsWith('//')) return;
+      if (!window.confirm(leaveConfirmText)) event.preventDefault();
+    };
+    document.addEventListener('click', onClickCapture, true);
+    return () => document.removeEventListener('click', onClickCapture, true);
+  }, [leaveConfirmText]);
+
   // 加入泳道后焦点移到草稿摘要（§15）
   const handleAddToLane = useCallback(
     (drafts: AssignmentDraft[]) => {
@@ -273,7 +305,10 @@ export default function PersonWorkload() {
   // beginEdit 在表格渲染闭包里定义较晚，用 ref 转发（dialog 从表格外部调用）
   const beginEditRef = useRef<((row: AssignmentRow) => void) | null>(null);
 
-  // 泳道 timeline：committed + ghost（三处容量展示共用，§9）
+  // 泳道 timeline：committed + ghost（三处容量展示共用，§9）。
+  // D-02a：场景失配时草稿只读且不进入热区投影（A 场景草稿叠加 B 场景
+  // committed 的"预计值"没有业务含义）——泳道 bar 层仍显示 ghost。
+  const projectedDrafts = draftScenarioMismatch ? [] : draftStore.drafts;
   const timeline = useMemo(
     () =>
       workloadTimeline(
@@ -284,7 +319,7 @@ export default function PersonWorkload() {
           endDate: row.computed_end_date ?? row.end_date ?? null,
           status: row.status ?? null,
         })),
-        draftStore.drafts.map((draft) => ({
+        projectedDrafts.map((draft) => ({
           id: draft.draftId,
           draftId: draft.draftId,
           kind: draft.kind,
@@ -298,23 +333,24 @@ export default function PersonWorkload() {
           asOf,
           rangeStart,
           rangeEnd,
-          defaultAvailability: availability ?? defaultAvailability,
+          defaultAvailability: heatDefaultAvailability,
           availabilityOverrides,
           granularity: 'week',
         }
       ),
-    [assignmentsQuery.data, draftStore.drafts, asOf, rangeStart, rangeEnd, availability, defaultAvailability, availabilityOverrides]
+    [assignmentsQuery.data, projectedDrafts, asOf, rangeStart, rangeEnd, heatDefaultAvailability, availabilityOverrides]
   );
 
   const inspectorDraft = draftStore.drafts.find((draft) => draft.draftId === inspectorDraftId) ?? null;
 
-  /** §15：关闭 inspector 后焦点回原 ghost；ghost 已移除则回草稿摘要 */
+  /** §15：关闭 inspector 后焦点回原 ghost；ghost 已移除则回草稿摘要，
+   * 草稿清空后回"添加分配"（N-06：焦点不落 body） */
   const focusGhostOrCommitBar = useCallback((draftId: string) => {
     window.requestAnimationFrame(() => {
       const ghost = document.querySelector<HTMLElement>(
         `[data-testid="pw-ghost-bar"][data-draft-id="${draftId}"]`
       );
-      (ghost ?? commitBarRef.current)?.focus?.();
+      (ghost ?? commitBarRef.current ?? addAssignmentButtonRef.current)?.focus?.();
     });
   }, []);
 
@@ -329,7 +365,7 @@ export default function PersonWorkload() {
           endDate: row.computed_end_date ?? row.end_date ?? null,
           status: row.status ?? null,
         })),
-        draftStore.drafts.map((draft) => ({
+        projectedDrafts.map((draft) => ({
           id: draft.draftId,
           draftId: draft.draftId,
           kind: draft.kind,
@@ -343,23 +379,27 @@ export default function PersonWorkload() {
           asOf,
           rangeStart: asOf,
           rangeEnd: shiftMonths(asOf, 12),
-          defaultAvailability: availability ?? defaultAvailability,
+          defaultAvailability: heatDefaultAvailability,
           availabilityOverrides,
           granularity: 'month',
         }
       ),
-    [assignmentsQuery.data, draftStore.drafts, asOf, availability, defaultAvailability, availabilityOverrides]
+    [assignmentsQuery.data, projectedDrafts, asOf, heatDefaultAvailability, availabilityOverrides]
   );
 
-  // Phase 2：拖动/缩放落点（钳制 start<=end 且至少 1 天）
+  // Phase 2：拖动/缩放落点（钳制 start<=end、至少 1 天、且不早于参考日——
+  // G-08：泳道左界=asOf，ghost 拖/改到过去会永久不可见且定位空转）
   const handleGhostDatesChange = useCallback(
     (draftId: string, next: { startDate: string; endDate: string }) => {
       if (!next.startDate || !next.endDate) return;
-      const start = next.startDate <= next.endDate ? next.startDate : next.endDate;
-      const end = next.startDate <= next.endDate ? next.endDate : next.startDate;
+      const floor = asOf;
+      const rawStart = next.startDate <= next.endDate ? next.startDate : next.endDate;
+      const rawEnd = next.startDate <= next.endDate ? next.endDate : next.startDate;
+      const start = rawStart < floor ? floor : rawStart;
+      const end = rawEnd < start ? start : rawEnd;
       draftStore.updateDraft(draftId, { startDate: start, endDate: end });
     },
-    [draftStore]
+    [draftStore, asOf]
   );
 
   // Phase 3 批量编辑：统一参数套用到全部可编辑 ghost（未在途、未成功、未锁定）
@@ -394,6 +434,15 @@ export default function PersonWorkload() {
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editScenarioId, setEditScenarioId] = useState<string | null>(null);
   const [draft, setDraft] = useState<RowDraft>({ allocation: '', startDate: '', endDate: '' });
+  /** B8（Codex P1#2）：编辑开始时的行快照（版本+字段基线）——保存只发相对
+   * 快照改过的字段并用快照版本做乐观锁；后台刷新拿到新 version 也不允许
+   * 旧表单值借着新令牌覆盖他人修改。 */
+  const [editBaseline, setEditBaseline] = useState<{
+    version?: number;
+    allocation: number;
+    startDate: string;
+    endDate: string;
+  } | null>(null);
   const [rowError, setRowError] = useState<{ id: string; message: string } | null>(null);
   const [savingId, setSavingId] = useState<string | null>(null);
   const [handoverRowId, setHandoverRowId] = useState<string | null>(null);
@@ -405,6 +454,8 @@ export default function PersonWorkload() {
   const [handoverMessage, setHandoverMessage] = useState<{ tone: 'error' | 'warning' | 'success'; text: string } | null>(null);
   const [batchMode, setBatchMode] = useState(false);
   const [batchDrafts, setBatchDrafts] = useState<Record<string, string>>({});
+  /** 批量编辑开始时的快照：只发用户改过的行 + 行自己的快照版本 */
+  const [batchBaselines, setBatchBaselines] = useState<Record<string, { version?: number; allocation: number }>>({});
   const [batchMessage, setBatchMessage] = useState<{ tone: 'error' | 'warning' | 'success'; text: string } | null>(null);
   const scenarioMismatch = Boolean(editingId && editScenarioId && editScenarioId !== activeScenarioId);
 
@@ -412,10 +463,18 @@ export default function PersonWorkload() {
     setEditingId(row.id);
     setEditScenarioId(activeScenarioId || null);
     setRowError(null);
+    const startDate = workloadDateOnly(row.start_date) ?? '';
+    const endDate = workloadDateOnly(row.end_date) ?? '';
     setDraft({
       allocation: String(Number(row.allocation_percentage ?? 0)),
-      startDate: workloadDateOnly(row.start_date) ?? '',
-      endDate: workloadDateOnly(row.end_date) ?? '',
+      startDate,
+      endDate,
+    });
+    setEditBaseline({
+      version: row.version,
+      allocation: Number(row.allocation_percentage ?? 0),
+      startDate,
+      endDate,
     });
   };
   beginEditRef.current = beginEdit;
@@ -424,6 +483,7 @@ export default function PersonWorkload() {
     setEditingId(null);
     setEditScenarioId(null);
     setRowError(null);
+    setEditBaseline(null);
   };
 
   const saveMutation = useMutation({
@@ -433,7 +493,14 @@ export default function PersonWorkload() {
       if (!Number.isFinite(allocation) || allocation <= 0 || allocation > 200) {
         throw new Error(t('assignments:workload.edit.invalidAllocation'));
       }
-      if (allocation !== Number(row.allocation_percentage ?? 0)) {
+      // 与编辑时快照比较（而非最新行）：后台刷新后的行值不是用户所见基线
+      const baseline = editBaseline ?? {
+        version: row.version,
+        allocation: Number(row.allocation_percentage ?? 0),
+        startDate: workloadDateOnly(row.start_date) ?? '',
+        endDate: workloadDateOnly(row.end_date) ?? '',
+      };
+      if (allocation !== baseline.allocation) {
         payload.allocation_percentage = allocation;
       }
 
@@ -445,10 +512,10 @@ export default function PersonWorkload() {
         if (next.startDate > next.endDate) {
           throw new Error(t('assignments:workload.edit.invalidDateOrder'));
         }
-        if (next.startDate !== (workloadDateOnly(row.start_date) ?? '')) {
+        if (next.startDate !== baseline.startDate) {
           payload.start_date = next.startDate;
         }
-        if (next.endDate !== (workloadDateOnly(row.end_date) ?? '')) {
+        if (next.endDate !== baseline.endDate) {
           payload.end_date = next.endDate;
         }
       }
@@ -456,7 +523,8 @@ export default function PersonWorkload() {
       if (Object.keys(payload).length === 0) {
         return { noop: true, row };
       }
-      if (row.version !== undefined) payload.expected_version = row.version;
+      // 乐观锁令牌取编辑时快照的版本——他人已改则 409，不借新令牌写旧值
+      if (baseline.version !== undefined) payload.expected_version = baseline.version;
       const response = await api.assignments.update(row.id, payload as never, { scenarioId });
       return response.data;
     },
@@ -469,6 +537,7 @@ export default function PersonWorkload() {
       setEditingId(null);
       setEditScenarioId(null);
       setRowError(null);
+      setEditBaseline(null);
       void invalidateSchedulingReads(queryClient, String(row.project_id ?? ''));
     },
     onError: (error: any, { row }) => {
@@ -656,10 +725,13 @@ export default function PersonWorkload() {
 
   const startBatch = () => {
     const drafts: Record<string, string> = {};
+    const baselines: Record<string, { version?: number; allocation: number }> = {};
     for (const row of allWorkloadRows()) {
       drafts[row.id] = String(Number(row.allocation_percentage ?? 0));
+      baselines[row.id] = { version: row.version, allocation: Number(row.allocation_percentage ?? 0) };
     }
     setBatchDrafts(drafts);
+    setBatchBaselines(baselines);
     setBatchMessage(null);
     setBatchMode(true);
     setEditingId(null);
@@ -670,14 +742,23 @@ export default function PersonWorkload() {
 
   const batchSaveMutation = useMutation({
     mutationFn: async () => {
+      // B8（Codex P1#2/#7）：只发用户相对"开始批量时快照"实际改过的行，
+      // 乐观锁用各行的快照版本——后台刷新既不会把未编辑行卷进保存，
+      // 也不会借新版本令牌覆盖他人修改。
       const updates = allWorkloadRows()
-        .map((row) => ({ row, value: batchDrafts[row.id] }))
-        .filter(({ row, value }) => value !== undefined && value !== String(Number(row.allocation_percentage ?? 0)));
+        .map((row) => ({ row, value: batchDrafts[row.id], baseline: batchBaselines[row.id] }))
+        .filter(
+          ({ value, baseline }) =>
+            value !== undefined &&
+            baseline !== undefined &&
+            value !== String(baseline.allocation)
+        );
       if (updates.length === 0) return { saved: 0, failed: 0, noChanges: true };
 
       let saved = 0;
       let failed = 0;
-      for (const { row, value } of updates) {
+      const savedIds: string[] = [];
+      for (const { row, value, baseline } of updates) {
         const allocation = Number(value);
         if (!Number.isFinite(allocation) || allocation <= 0 || allocation > 200) {
           failed += 1;
@@ -688,30 +769,41 @@ export default function PersonWorkload() {
             row.id,
             {
               allocation_percentage: allocation,
-              ...(row.version !== undefined ? { expected_version: row.version } : {}),
+              ...(baseline.version !== undefined ? { expected_version: baseline.version } : {}),
             } as never,
             { scenarioId: activeScenarioId }
           );
           saved += 1;
+          savedIds.push(row.id);
         } catch {
           failed += 1;
         }
       }
-      return { saved, failed, noChanges: false };
+      return { saved, failed, noChanges: false, savedIds };
     },
-    onSuccess: ({ saved, failed, noChanges }) => {
-      setBatchMode(false);
-      setBatchDrafts({});
+    onSuccess: ({ saved, failed, noChanges, savedIds }) => {
       if (noChanges) {
         setBatchMessage({ tone: 'warning', text: t('assignments:workload.batch.noChanges') });
         return;
       }
-      setBatchMessage({
-        tone: failed > 0 ? 'warning' : 'success',
-        text: failed > 0
-          ? t('assignments:workload.batch.partial', { saved, failed })
-          : t('assignments:workload.batch.saved', { count: saved }),
-      });
+      if (failed > 0) {
+        // Codex P2#7：部分失败保留批量草稿——失败行（及其余未保存行）的
+        // 输入不清空，用户可改值重试；只移除已保存成功的行
+        setBatchDrafts((prev) => {
+          const next = { ...prev };
+          for (const id of savedIds ?? []) delete next[id];
+          return next;
+        });
+        setBatchMessage({
+          tone: 'warning',
+          text: t('assignments:workload.batch.partial', { saved, failed }),
+        });
+      } else {
+        setBatchMode(false);
+        setBatchDrafts({});
+        setBatchBaselines({});
+        setBatchMessage({ tone: 'success', text: t('assignments:workload.batch.saved', { count: saved }) });
+      }
       void invalidateSchedulingReads(queryClient);
     },
     onError: (error: any) => {
@@ -1114,7 +1206,13 @@ export default function PersonWorkload() {
 
   return (
     <div className="page-container person-workload-page">
-      <button className="btn btn-ghost pw-back" onClick={() => navigate(`/people/${person.id}`)}>
+      <button
+        className="btn btn-ghost pw-back"
+        data-testid="pw-back"
+        onClick={() => {
+          if (confirmLeaveIfPending()) navigate(`/people/${person.id}`);
+        }}
+      >
         <ArrowLeft size={16} /> {t('assignments:workload.back')}
       </button>
 
@@ -1338,13 +1436,21 @@ export default function PersonWorkload() {
         onContinueSelect={() => {
           setDialogOpen(true);
         }}
+        continueDisabled={draftScenarioMismatch}
         onConfirm={() => void draftStore.submit()}
-        onClear={draftStore.clearDrafts}
+        onClear={() => {
+          // N-02（评审）：清空是破坏性操作——已调参的草稿需二次确认
+          if (draftStore.drafts.length > 0 && window.confirm(t('assignments:workbench.clearConfirm'))) {
+            draftStore.clearDrafts();
+          }
+        }}
         lastSummary={draftStore.lastSummary}
         onRetryFailed={() => void draftStore.submit({ retryFailedOnly: true })}
         onUndoCreate={() => void draftStore.undoLastCreate()}
         lastCreatedCount={draftStore.lastCreatedCount}
         undoing={draftStore.undoing}
+        undoDisabled={draftStore.undoBlocked}
+        undoDisabledReason={t('assignments:workbench.commit.undoBlocked')}
         onBatchApply={handleBatchApply}
         editableDrafts={editableDrafts}
       />
@@ -1353,7 +1459,7 @@ export default function PersonWorkload() {
         <GhostInspector
           draft={inspectorDraft}
           assignments={assignmentsQuery.data ?? []}
-          availability={availability ?? defaultAvailability}
+          availability={heatDefaultAvailability}
           availabilityOverrides={availabilityOverrides}
           asOf={asOf}
           rangeStart={rangeStart}
@@ -1369,7 +1475,12 @@ export default function PersonWorkload() {
             setInspectorDraftId(null);
             focusGhostOrCommitBar(draftId);
           }}
-          disabled={draftStore.submitting || inspectorDraft.submitState === 'SUBMITTING'}
+          disabled={
+            draftStore.submitting ||
+            inspectorDraft.submitState === 'SUBMITTING' ||
+            inspectorDraft.submitState === 'UNKNOWN' ||
+            draftScenarioMismatch // D-02a：失配期草稿只读（§12）
+          }
         />
       ) : null}
 
@@ -1470,7 +1581,7 @@ export default function PersonWorkload() {
         asOf={asOf}
         rangeStart={rangeStart}
         rangeEnd={rangeEnd}
-        availability={availability ?? defaultAvailability}
+        availability={heatDefaultAvailability}
         availabilityOverrides={availabilityOverrides}
         onAddToLane={handleAddToLane}
         onEditExisting={handleDialogEditExisting}

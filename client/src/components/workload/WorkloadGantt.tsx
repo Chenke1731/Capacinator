@@ -352,13 +352,15 @@ export function WorkloadGantt({
             <CapacityHeatStrip buckets={timeline.buckets} data-testid="pw-gantt-heat-full" />
           </div>
 
-          <div className="pw-gantt-legend" aria-hidden="true">
+          <div className="pw-gantt-legend">
             <span className="pw-legend pw-legend--fixed">{t('assignments:workbench.gantt.fixed')}</span>
             <span className="pw-legend pw-legend--derived">
-              <Lock size={11} /> {t('assignments:workbench.gantt.derived')}
+              <Lock size={11} aria-hidden="true" /> {t('assignments:workbench.gantt.derived')}
             </span>
             <span className="pw-legend pw-legend--paused">{t('assignments:workbench.gantt.paused')}</span>
             <span className="pw-legend pw-legend--ghost">{t('assignments:workbench.gantt.ghost')}</span>
+            <span className="pw-legend pw-legend--future">{t('assignments:workbench.gantt.future')}</span>
+            <span className="pw-legend pw-legend--ended">{t('assignments:workbench.gantt.ended')}</span>
           </div>
           <p className="sr-only" id="pw-gantt-drag-help">
             {t('assignments:workbench.gantt.dragHelp')}
@@ -463,9 +465,24 @@ export function WorkloadGantt({
 
           <ul className="sr-only">
             {lanes.flatMap((lane) =>
-              lane.bars.map((bar) => (
-                <li key={`${lane.projectId}-${bar.key}`}>{`${bar.label} ${bar.startDate ?? '—'} → ${bar.endDate ?? '—'}`}</li>
-              ))
+              lane.bars.map((bar) => {
+                // N-01：读屏 bar 清单带状态词——paused/派生/未定日期不能只靠颜色
+                const stateWord =
+                  bar.kind === 'ghost'
+                    ? t('assignments:workbench.gantt.ghost')
+                    : bar.status === 'paused'
+                      ? t('assignments:workbench.gantt.paused')
+                      : bar.mode === 'phase' || bar.mode === 'project'
+                        ? t('assignments:workbench.gantt.derived')
+                        : bar.startDate && bar.startDate > timeline.asOf
+                          ? t('assignments:workbench.gantt.future')
+                          : bar.endDate && bar.endDate < timeline.asOf
+                            ? t('assignments:workbench.gantt.ended')
+                            : '';
+                return (
+                  <li key={`${lane.projectId}-${bar.key}`}>{`${bar.label}${stateWord ? ` · ${stateWord}` : ''} ${bar.startDate ?? t('assignments:workbench.gantt.undated')} → ${bar.endDate ?? t('assignments:workbench.gantt.undated')}`}</li>
+                );
+              })
             )}
           </ul>
         </>

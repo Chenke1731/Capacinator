@@ -478,3 +478,14 @@
     font-size: 0.75rem;
   }
 }
+
+/* 工作台 v2（评审 G-06）：提交中场景锁的可见反馈——ScenarioContext 静默
+   忽略切换会让用户以为点了没反应；禁用 + 原因文案同时呈现。 */
+.header-center .scenario-selector .scenario-lock-note {
+  font-size: 10px;
+  color: var(--warning, #b54708);
+  max-width: 180px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

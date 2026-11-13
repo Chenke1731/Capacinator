@@ -429,7 +429,10 @@
       "dragHint": "Drag to move; side handles resize; ←/→ move (Shift=7d); +/− adjust end",
       "dragHelp": "Fixed-date drafts: drag the bar to move, drag the side handles to resize; arrow keys move, Shift speeds up, plus/minus adjusts the end date.",
       "minimapLabel": "12-month overview (click a month to move the window)",
-      "projectLane": "View staffing for {{name}}"
+      "projectLane": "View staffing for {{name}}",
+      "future": "Future",
+      "ended": "Ended",
+      "undated": "undated"
     },
     "inspector": {
       "title": "Draft parameters: {{name}}",
@@ -468,7 +471,8 @@
       "batchApply": "Apply to {{count}}",
       "undoCreate": "Undo create",
       "undoing": "Undoing…",
-      "createdCount": "Created {{count}} assignments"
+      "createdCount": "Created {{count}} assignments",
+      "undoBlocked": "This batch contains a replacement whose incumbent fields are incomplete; undo would lose the old assignment — handle it in the table instead"
     },
     "errors": {
       "missing_role": "Missing role",
@@ -483,7 +487,8 @@
       "duplicate_in_drafts": "Another draft has the same business key",
       "slot_unconfirmed": "Single-person slot is occupied; confirm the replacement first",
       "version_conflict": "The assignment was modified by someone else; refresh and retry",
-      "scenario_mismatch": "Draft scenario differs from the active scenario"
+      "scenario_mismatch": "Draft scenario differs from the active scenario",
+      "reconcile_missing": "Submit result unknown: read-back found no matching saved assignment; check the table and retry"
     },
     "staffing": {
       "title": "{{name}} · staffing",
@@ -492,6 +497,8 @@
       "error": "Failed to load.",
       "empty": "No assignments for this project in the current scenario.",
       "person": "Person"
-    }
+    },
+    "leaveConfirm": "There are unsubmitted assignment drafts. Leave and discard them?",
+    "clearConfirm": "Clear all pending drafts? This cannot be undone."
   }
 }

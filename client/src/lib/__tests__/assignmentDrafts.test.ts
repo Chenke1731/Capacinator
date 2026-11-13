@@ -13,12 +13,33 @@ import {
   matchesReconciledRow,
   validateDraft,
   phaseKeyEqual,
+  incumbentRestorable,
+  incumbentRestorePayload,
   type AssignmentDraft,
   type SelectionTask,
 } from '../assignmentDrafts';
 import type { WorkloadAssignment } from '../personWorkload';
 
 type Fixture = Record<string, unknown> & WorkloadAssignment;
+
+/** IncumbentSummary 完整夹具（撤销替换需要全字段） */
+function incumbentFixture(overrides: Partial<import('../assignmentDrafts').IncumbentSummary> = {}) {
+  return {
+    assignmentId: 'spa-x',
+    personId: 'person-old',
+    personName: 'Old SE',
+    roleName: 'SE',
+    allocationPercentage: 40,
+    version: 2,
+    startDate: '2026-04-01',
+    endDate: '2026-04-30',
+    phaseId: null,
+    assignmentDateMode: 'fixed',
+    rawStartDate: '2026-04-01',
+    rawEndDate: '2026-04-30',
+    ...overrides,
+  };
+}
 
 function task(overrides: Record<string, unknown> = {}): SelectionTask {
   return {
@@ -177,6 +198,11 @@ describe('createDraftFromTask（§7.3 默认值）', () => {
             incumbent_version: 4,
             incumbent_start_date: '2026-01-01',
             incumbent_end_date: '2026-12-31',
+            incumbent_allocation_percentage: 60,
+            incumbent_phase_id: null,
+            incumbent_assignment_date_mode: 'fixed',
+            incumbent_raw_start_date: '2026-01-01',
+            incumbent_raw_end_date: '2026-12-31',
           },
         ],
       }),
@@ -184,8 +210,25 @@ describe('createDraftFromTask（§7.3 默认值）', () => {
     )!;
     expect(draft.kind).toBe('REPLACE');
     expect(draft.incumbent?.version).toBe(4);
+    expect(draft.incumbent?.allocationPercentage).toBe(60);
+    expect(draft.incumbent?.assignmentDateMode).toBe('fixed');
     expect(draft.replaceConfirmed).toBe(false);
     expect(draft.targetAssignmentId).toBe('spa-old');
+  });
+
+  test('C3：phase 草稿默认带任务阶段包络（不留 null 被当全时间轴计入）', () => {
+    const draft = createDraftFromTask(
+      task({
+        has_phase_timeline: true,
+        timeline_start: '2026-04-01',
+        timeline_end: '2026-04-30',
+        role_demands: [{ role_id: 'role-se', role_name: 'SE', phase_id: 'phase-d', required_headcount: 1, source: 'template' }],
+      }),
+      params
+    )!;
+    expect(draft.assignmentDateMode).toBe('phase');
+    expect(draft.startDate).toBe('2026-04-01');
+    expect(draft.endDate).toBe('2026-04-30');
   });
 });
 
@@ -237,7 +280,11 @@ describe('validateDraft（§10.3 阻断条件）', () => {
     const other = baseDraft({ draftId: 'd2' });
     const ctx = { drafts: [other], assignments: [], personId: 'person-1' };
     expect(validateDraft(baseDraft(), ctx)).toContain('duplicate_in_drafts');
-    const replace = baseDraft({ kind: 'REPLACE', targetAssignmentId: 'spa-x', incumbent: { assignmentId: 'spa-x', personId: 'p', personName: 'P', roleName: 'SE', allocationPercentage: 100, version: 1, startDate: null, endDate: null } });
+    const replace = baseDraft({
+      kind: 'REPLACE',
+      targetAssignmentId: 'spa-x',
+      incumbent: incumbentFixture(),
+    });
     expect(validateDraft(replace, { drafts: [], assignments: [], personId: 'person-1' })).toContain('slot_unconfirmed');
   });
 
@@ -291,7 +338,7 @@ describe('commitDrafts（§10.2/§10.4）', () => {
       expectedVersion: null,
       incumbent:
         kind === 'REPLACE'
-          ? { assignmentId: 'spa-old', personId: 'p-old', personName: 'Old', roleName: 'SE', allocationPercentage: 100, version: 7, startDate: null, endDate: null }
+          ? incumbentFixture({ assignmentId: 'spa-old', personId: 'p-old', personName: 'Old', version: 7, allocationPercentage: 100 })
           : null,
       scenarioId: 'scenario-a',
       taskContext: { hasPhaseTimeline: false, aspirationStart: null, aspirationFinish: null, terminal: false },
@@ -330,6 +377,40 @@ describe('commitDrafts（§10.2/§10.4）', () => {
       expect.objectContaining({ replace_assignment_id: 'old', replace_expected_version: 7 }),
       'scenario-a'
     );
+  });
+
+  test('B7：REPLACE 成功 outcome 附旧行完整重建载荷（撤销恢复用）', async () => {
+    const [outcome] = await commitDrafts([draft('REPLACE')], 'person-1', deps);
+    expect(outcome.restore).toEqual({
+      project_id: 'task-1',
+      person_id: 'p-old',
+      role_id: 'role-se',
+      allocation_percentage: 100,
+      assignment_date_mode: 'fixed',
+      start_date: '2026-04-01',
+      end_date: '2026-04-30',
+    });
+    // CREATE outcome 不带 restore
+    const [createOutcome] = await commitDrafts([draft('CREATE')], 'person-1', deps);
+    expect(createOutcome.restore).toBeUndefined();
+  });
+
+  test('B7：旧行字段不全 → incumbentRestorable=false，不给重建载荷', () => {
+    const complete = incumbentFixture();
+    expect(incumbentRestorable(complete)).toBe(true);
+    // 旧槽位快照缺 allocation/日期 → 不可恢复（撤销须禁用而不是丢数据）
+    expect(incumbentRestorable({ ...complete, allocationPercentage: 0 })).toBe(false);
+    expect(incumbentRestorable({ ...complete, assignmentDateMode: 'fixed', rawStartDate: null })).toBe(false);
+    expect(incumbentRestorable({ ...complete, assignmentDateMode: 'phase', phaseId: null })).toBe(false);
+    expect(incumbentRestorePayload(draft('REPLACE', { incumbent: { ...complete, allocationPercentage: 0 } }))).toBeNull();
+    // phase 模式载荷带 phase_id 不带日期
+    const phasePayload = incumbentRestorePayload(
+      draft('REPLACE', {
+        incumbent: incumbentFixture({ assignmentDateMode: 'phase', phaseId: 'ph-1', rawStartDate: null, rawEndDate: null }),
+      })
+    );
+    expect(phasePayload).toMatchObject({ assignment_date_mode: 'phase', phase_id: 'ph-1' });
+    expect(phasePayload).not.toHaveProperty('start_date');
   });
 
   test('INVALID 草稿不参与提交', async () => {

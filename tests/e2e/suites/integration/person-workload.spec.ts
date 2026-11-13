@@ -37,6 +37,34 @@ test.describe('Person workbench v2 (dialog selection → ghost → commit)', () 
     }));
     expect(rootOverflow.scrollWidth).toBeLessThanOrEqual(rootOverflow.innerWidth + 1);
 
+    // G-01 守卫：bar 计算高度不得超 20px 堆叠间距；同泳道 bar 矩形零相交
+    const barGeometry = await authenticatedPage.evaluate(() => {
+      const bars = [...document.querySelectorAll<HTMLElement>('[data-testid="pw-gantt-bar"], [data-testid="pw-ghost-bar"]')];
+      const oversized = bars.filter((bar) => bar.getBoundingClientRect().height > 20);
+      const byTrack = new Map<Element, DOMRect[]>();
+      for (const bar of bars) {
+        const track = bar.closest('.pw-gantt-lane-track');
+        if (!track) continue;
+        const list = byTrack.get(track) ?? [];
+        list.push(bar.getBoundingClientRect());
+        byTrack.set(track, list);
+      }
+      const overlaps: string[] = [];
+      for (const [track, rects] of byTrack) {
+        for (let i = 0; i < rects.length; i += 1) {
+          for (let j = i + 1; j < rects.length; j += 1) {
+            const a = rects[i];
+            const b = rects[j];
+            const intersects = a.left < b.right && b.left < a.right && a.top < b.bottom && b.top < a.bottom;
+            if (intersects) overlaps.push((track.previousElementSibling as HTMLElement)?.textContent ?? 'lane');
+          }
+        }
+      }
+      return { barCount: bars.length, oversized: oversized.length, overlaps };
+    });
+    expect(barGeometry.oversized).toBe(0);
+    expect(barGeometry.overlaps).toEqual([]);
+
     // 行级编辑入口仍可用
     const editButtons = authenticatedPage.getByRole('button', { name: 'Edit' });
     if ((await editButtons.count()) > 0) {

@@ -58,6 +58,13 @@ export interface SelectionTaskSlot {
   incumbent_version: number;
   incumbent_start_date: string | null;
   incumbent_end_date: string | null;
+  /** 撤销替换需要完整重建旧行（D-03a/Codex P1#1）；旧快照缺这些字段时
+   * 撤销按钮对含替换的批次禁用而不是丢数据 */
+  incumbent_allocation_percentage?: number;
+  incumbent_phase_id?: string | null;
+  incumbent_assignment_date_mode?: string;
+  incumbent_raw_start_date?: string | null;
+  incumbent_raw_end_date?: string | null;
 }
 
 /** selection=1 行形状（§13.1）；页面上禁止再从 board-feed 拼装 */
@@ -89,6 +96,11 @@ export interface IncumbentSummary {
   version: number;
   startDate: string | null;
   endDate: string | null;
+  /** 撤销重建旧行需要的完整写载荷事实（缺任一关键字段则不可恢复） */
+  phaseId: string | null;
+  assignmentDateMode: string;
+  rawStartDate: string | null;
+  rawEndDate: string | null;
 }
 
 export interface AssignmentDraft {
@@ -264,6 +276,12 @@ export function createDraftFromTask(
   if (mode === 'project') {
     startDate = task.aspiration_start ?? null;
     endDate = task.aspiration_finish ?? null;
+  } else if (mode === 'phase') {
+    // C3（Codex P2#5）：phase 草稿默认带任务阶段包络（阶段具体日期由
+    // inspector 选阶段时刷新）——留 null 会被容量投影当"未定日期=全时间轴"
+    // 计入当前负荷，四月任务污染三月容量线。
+    startDate = task.timeline_start ?? null;
+    endDate = task.timeline_end ?? null;
   } else if (mode === 'fixed') {
     startDate = params.overrides?.startDate ?? null;
     endDate = params.overrides?.endDate ?? null;
@@ -324,10 +342,14 @@ export function createDraftFromTask(
         personId: slot.incumbent_person_id,
         personName: slot.incumbent_person_name,
         roleName: slot.role_name,
-        allocationPercentage: 0,
+        allocationPercentage: Number(slot.incumbent_allocation_percentage ?? 0),
         version: slot.incumbent_version,
         startDate: slot.incumbent_start_date,
         endDate: slot.incumbent_end_date,
+        phaseId: slot.incumbent_phase_id ?? null,
+        assignmentDateMode: slot.incumbent_assignment_date_mode ?? 'fixed',
+        rawStartDate: slot.incumbent_raw_start_date ?? null,
+        rawEndDate: slot.incumbent_raw_end_date ?? null,
       },
     };
   }
@@ -495,6 +517,43 @@ export interface DraftCommitOutcome {
   createdId?: string;
   /** outcome 对应草稿绑定的场景（撤销/回读用） */
   scenarioId?: string;
+  /** REPLACE 成功后旧行的完整重建载荷（撤销 CREATE 用；不可恢复时不给） */
+  restore?: Record<string, unknown>;
+}
+
+/** REPLACE 旧行是否具备完整重建事实（Codex P1#1：撤销只删新行=两人分配全丢；
+ * 旧槽位快照缺字段时该批次禁用撤销而不是丢数据） */
+export function incumbentRestorable(incumbent: IncumbentSummary | null): boolean {
+  if (!incumbent) return false;
+  if (!incumbent.personId) return false;
+  if (!(incumbent.allocationPercentage > 0)) return false;
+  if (incumbent.assignmentDateMode === 'fixed') {
+    return Boolean(incumbent.rawStartDate && incumbent.rawEndDate);
+  }
+  if (incumbent.assignmentDateMode === 'phase') return Boolean(incumbent.phaseId);
+  return true; // project 模式无额外必填
+}
+
+/** 撤销 REPLACE：按原业务字段重建旧行（删新行释放 SE/MDE 槽后再建） */
+export function incumbentRestorePayload(
+  draft: AssignmentDraft
+): Record<string, unknown> | null {
+  const incumbent = draft.incumbent;
+  if (!incumbent || !incumbentRestorable(incumbent) || !draft.roleId) return null;
+  const payload: Record<string, unknown> = {
+    project_id: draft.projectId,
+    person_id: incumbent.personId,
+    role_id: draft.roleId,
+    allocation_percentage: incumbent.allocationPercentage,
+    assignment_date_mode: incumbent.assignmentDateMode,
+  };
+  if (incumbent.assignmentDateMode === 'fixed') {
+    payload.start_date = incumbent.rawStartDate;
+    payload.end_date = incumbent.rawEndDate;
+  } else if (incumbent.assignmentDateMode === 'phase') {
+    payload.phase_id = incumbent.phaseId;
+  }
+  return payload;
 }
 
 function rawAssignmentId(id: string): string {
@@ -578,7 +637,13 @@ export async function commitDrafts(
           | { data?: { id?: string }; id?: string }
           | undefined;
         const createdId = result?.data?.id ?? result?.id;
-        outcome = { draftId: draft.draftId, submitState: 'SUCCEEDED', ...(createdId ? { createdId } : {}), scenarioId: draft.scenarioId };
+        outcome = {
+          draftId: draft.draftId,
+          submitState: 'SUCCEEDED',
+          ...(createdId ? { createdId } : {}),
+          scenarioId: draft.scenarioId,
+          ...(draft.kind === 'REPLACE' ? { restore: incumbentRestorePayload(draft) ?? undefined } : {}),
+        };
       }
     } catch (error) {
       const classified = classifyCommitError(error);
@@ -617,6 +682,10 @@ export function matchesReconciledRow(draft: AssignmentDraft, personId: string, r
   return true;
 }
 
+/** UNKNOWN 回读核对（§10.4）：同键 + 参数一致 → 成功；否则失败可重试。
+ * 调用方传入"本轮提交结果为 UNKNOWN"的草稿（来自 outcomes）——不能在
+ * 函数内按 submitState 再筛：闭包里的草稿快照是提交前的 IDLE 态，按它筛
+ * 会把所有候选静默跳过（Codex P2#3 的真身）。 */
 export function reconcileUnknownDrafts(
   drafts: AssignmentDraft[],
   personId: string,
@@ -624,7 +693,6 @@ export function reconcileUnknownDrafts(
 ): Array<{ draftId: string; submitState: DraftSubmitState }> {
   const results: Array<{ draftId: string; submitState: DraftSubmitState }> = [];
   for (const draft of drafts) {
-    if (draft.submitState !== 'UNKNOWN') continue;
     const matched = rows.some((row) => matchesReconciledRow(draft, personId, row));
     results.push({ draftId: draft.draftId, submitState: matched ? 'SUCCEEDED' : 'FAILED' });
   }

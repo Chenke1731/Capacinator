@@ -429,7 +429,10 @@
       "dragHint": "拖动移动；两侧手柄缩放；←/→ 移动（Shift=7天）；+/− 调整结束日",
       "dragHelp": "固定日期草稿：拖动条整体移动，拖两侧手柄缩放；键盘左右键移动，Shift 加速，加号或减号调整结束日期。",
       "minimapLabel": "12 个月总览（点击月份移动观察窗）",
-      "projectLane": "查看 {{name}} 的全员配置"
+      "projectLane": "查看 {{name}} 的全员配置",
+      "future": "未来",
+      "ended": "已结束",
+      "undated": "未定日期"
     },
     "inspector": {
       "title": "草稿参数：{{name}}",
@@ -468,7 +471,8 @@
       "batchApply": "套用到 {{count}} 条",
       "undoCreate": "撤销创建",
       "undoing": "撤销中…",
-      "createdCount": "已创建 {{count}} 条分配"
+      "createdCount": "已创建 {{count}} 条分配",
+      "undoBlocked": "含替换的批次缺少旧分配完整字段，撤销会丢失旧分配；请到明细表手动处理"
     },
     "errors": {
       "missing_role": "缺少角色",
@@ -483,7 +487,8 @@
       "duplicate_in_drafts": "草稿中存在同键条目",
       "slot_unconfirmed": "单人角色槽位被占用，替换需先确认",
       "version_conflict": "该分配已被他人修改，请刷新后重试",
-      "scenario_mismatch": "草稿场景与当前场景不一致"
+      "scenario_mismatch": "草稿场景与当前场景不一致",
+      "reconcile_missing": "提交结果未知：回读未找到匹配的已保存分配，请检查明细表后重试"
     },
     "staffing": {
       "title": "{{name}} · 全员配置",
@@ -492,6 +497,8 @@
       "error": "加载失败。",
       "empty": "当前场景下该项目还没有分配。",
       "person": "人员"
-    }
+    },
+    "leaveConfirm": "有未提交的分配草稿，离开将丢弃。确定离开？",
+    "clearConfirm": "确定清空全部待提交草稿？此操作不可撤销。"
   }
 }

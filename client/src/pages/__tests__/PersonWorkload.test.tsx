@@ -34,7 +34,7 @@ const mockScenarios = [
   { id: 'branch-1', name: 'Branch' },
 ];
 const mockSetCurrentScenario = jest.fn();
-var mockCurrentScenario = mockScenarios[0];
+let mockCurrentScenario = mockScenarios[0];
 
 jest.mock('../../contexts/ScenarioContext', () => ({
   useScenario: () => ({
@@ -841,5 +841,235 @@ test('ESC closes the dialog and focus returns to the add-assignment button', asy
   });
   await waitFor(() => {
     expect(document.activeElement).toBe(screen.getByTestId('pw-add-assignment'));
+  });
+});
+
+/* ===================== 评审修复批回归 ===================== */
+
+test('B4: 弹窗打开期间父组件重渲染不夺焦点（onClose ref 化）', async () => {
+  mockBoard();
+  const view = renderPage();
+  await openDialog();
+
+  // 父级重渲染（inline onClose 换身份）后焦点仍在 dialog 内
+  view.rerender(pageElement(view.queryClient));
+  await waitFor(() => {
+    expect(screen.getByRole('dialog')).toBeInTheDocument();
+  });
+  expect((document.activeElement as HTMLElement)?.closest('[role="dialog"]')).toBeTruthy();
+  expect(document.activeElement).not.toBe(screen.getByTestId('pw-add-assignment'));
+});
+
+test('B5: 未提交 ghost 时 SPA 返回需确认；确认丢弃才离开', async () => {
+  window.localStorage.clear();
+  const confirmSpy = jest.spyOn(window, 'confirm').mockReturnValue(false);
+  mockBoard();
+  const view = renderPage();
+  await openDialog();
+  fireEvent.click(screen.getByTestId('pw-select-task-task-leaf'));
+  fireEvent.click(screen.getByTestId('pw-add-to-lane'));
+  await screen.findByTestId('pw-commit-bar');
+
+  // 拒绝离开：仍在工作负载页
+  fireEvent.click(screen.getByTestId('pw-back'));
+  expect(confirmSpy).toHaveBeenCalledTimes(1);
+  expect(screen.getByRole('heading', { name: 'Adjust Assignments' })).toBeInTheDocument();
+
+  // 确认离开：导航生效
+  confirmSpy.mockReturnValue(true);
+  fireEvent.click(screen.getByTestId('pw-back'));
+  await waitFor(() => {
+    expect(screen.queryByRole('heading', { name: 'Adjust Assignments' })).not.toBeInTheDocument();
+  });
+  confirmSpy.mockRestore();
+});
+
+test('B8: 行编辑用编辑时版本快照——后台刷新后保存旧值必 409，不借新令牌覆盖', async () => {
+  renderPage();
+  await waitFor(() => {
+    expect(screen.getAllByRole('button', { name: 'Edit' }).length).toBeGreaterThan(0);
+  });
+
+  // 用户基于 v1 打开编辑
+  fireEvent.click(screen.getAllByRole('button', { name: 'Edit' })[0]);
+  fireEvent.change(screen.getByLabelText('Allocation %'), { target: { value: '45' } });
+
+  // 后台刷新：a1 已被他人改成 v2/allocation 99
+  (api.assignments.list as jest.Mock).mockResolvedValue({
+    data: {
+      data: [{ ...assignments[0], version: 2, allocation_percentage: 99 }, ...assignments.slice(1)],
+      pagination: { total: assignments.length, totalPages: 1 },
+    },
+  });
+  const view = window;
+  void view;
+  // 保存：乐观锁必须用编辑时快照 v1 → 服务端 409，而不是拿 v2 写旧值 45
+  (api.assignments.update as jest.Mock).mockRejectedValueOnce({ response: { status: 409, data: { code: 'ASSIGNMENT_VERSION_CONFLICT' } } });
+  fireEvent.click(screen.getByRole('button', { name: 'Save' }));
+
+  await waitFor(() => {
+    expect(api.assignments.update).toHaveBeenCalledWith(
+      'a1',
+      expect.objectContaining({ allocation_percentage: 45, expected_version: 1 }),
+      { scenarioId: 'baseline-0000-0000-0000-000000000000' }
+    );
+  });
+});
+
+test('B8: 批量保存只发改过的行（按开始快照）；失败保留草稿不清空', async () => {
+  renderPage();
+
+  fireEvent.click(await screen.findByRole('button', { name: /Batch adjust allocations/i }));
+  const inputs = screen.getAllByLabelText('Allocation %');
+  expect(inputs).toHaveLength(4);
+  fireEvent.change(inputs[0], { target: { value: '30' } });
+
+  // 后台刷新改变其他行的比例——未编辑行不得被卷进保存
+  (api.assignments.list as jest.Mock).mockResolvedValue({
+    data: {
+      data: assignments.map((row, i) => (i === 0 ? row : { ...row, allocation_percentage: 77 })),
+      pagination: { total: assignments.length, totalPages: 1 },
+    },
+  });
+
+  // 保存：唯一一次 update 是用户改过的 a1（快照 v1），且失败后批量草稿保留
+  (api.assignments.update as jest.Mock).mockRejectedValueOnce({ response: { status: 409 } });
+  fireEvent.click(screen.getByRole('button', { name: /Save changed rows/i }));
+
+  await waitFor(() => {
+    expect(api.assignments.update).toHaveBeenCalledTimes(1);
+  });
+  expect(api.assignments.update).toHaveBeenCalledWith(
+    'a1',
+    expect.objectContaining({ allocation_percentage: 30, expected_version: 1 }),
+    { scenarioId: 'baseline-0000-0000-0000-000000000000' }
+  );
+  await waitFor(() => {
+    expect(screen.getByText(/saved 0 row|failed 1/i)).toBeInTheDocument();
+  });
+  // 批量模式仍在，输入值保留（可改值重试）
+  expect(screen.getAllByLabelText('Allocation %').length).toBeGreaterThan(0);
+  expect((screen.getAllByLabelText('Allocation %')[0] as HTMLInputElement).value).toBe('30');
+});
+
+test('B7: 撤销替换恢复旧分配——删新行后按完整字段重建旧行', async () => {
+  window.localStorage.clear();
+  mockBoard([
+    selectionTask({
+      id: 'task-slot',
+      name: 'Slot Task',
+      role_demands: [{ role_id: 'role-se', role_name: 'SE', phase_id: null, required_headcount: 1, source: 'template' }],
+      single_person_slots: [
+        {
+          role_id: 'role-se',
+          role_name: 'SE',
+          incumbent_assignment_id: 'spa-old-se',
+          incumbent_person_id: 'person-old',
+          incumbent_person_name: 'Old SE',
+          incumbent_version: 3,
+          incumbent_start_date: '2026-01-01',
+          incumbent_end_date: '2026-12-31',
+          incumbent_allocation_percentage: 60,
+          incumbent_phase_id: null,
+          incumbent_assignment_date_mode: 'fixed',
+          incumbent_raw_start_date: '2026-01-01',
+          incumbent_raw_end_date: '2026-12-31',
+        },
+      ],
+    }),
+  ]);
+  renderPage();
+  await openDialog();
+
+  fireEvent.click(screen.getByRole('button', { name: 'Replace Old SE' }));
+  await screen.findByTestId('pw-commit-bar');
+  const ghost = await screen.findByTestId('pw-ghost-bar');
+  fireEvent.click(ghost);
+  fireEvent.change(screen.getByLabelText('Start date'), { target: { value: '2026-04-01' } });
+  fireEvent.change(screen.getByLabelText('End date'), { target: { value: '2026-04-30' } });
+  fireEvent.click(screen.getByLabelText(/I confirm deleting the old row/i));
+  fireEvent.click(screen.getByRole('button', { name: 'Done' }));
+
+  (api.assignments.create as jest.Mock).mockResolvedValue({ data: { id: 'created-replacement' } });
+  (api.assignments.delete as jest.Mock).mockResolvedValue({ data: { success: true } });
+  fireEvent.click(screen.getByTestId('pw-confirm-assign'));
+  await screen.findByTestId('pw-undo-create');
+
+  fireEvent.click(screen.getByTestId('pw-undo-create'));
+  await waitFor(() => {
+    // 1) 删除新行；2) 按旧行完整字段重建（人/比例/日期/模式）
+    expect(api.assignments.delete).toHaveBeenCalledWith(
+      'created-replacement',
+      { expected_version: 1 },
+      { scenarioId: 'baseline-0000-0000-0000-000000000000' }
+    );
+    expect(api.assignments.create).toHaveBeenLastCalledWith(
+      expect.objectContaining({
+        project_id: 'task-slot',
+        person_id: 'person-old',
+        role_id: 'role-se',
+        allocation_percentage: 60,
+        assignment_date_mode: 'fixed',
+        start_date: '2026-01-01',
+        end_date: '2026-12-31',
+      }),
+      { scenarioId: 'baseline-0000-0000-0000-000000000000' }
+    );
+  });
+  await waitFor(() => {
+    expect(screen.queryByTestId('pw-commit-bar')).not.toBeInTheDocument();
+  });
+});
+
+test('C1: UNKNOWN 回读命中 → 解除锁定并清空草稿（不再永远锁住）', async () => {
+  mockBoard();
+  renderPage();
+  await openDialog();
+
+  fireEvent.click(screen.getByTestId('pw-select-task-task-leaf'));
+  fireEvent.click(screen.getByTestId('pw-add-to-lane'));
+  await screen.findByTestId('pw-commit-bar');
+
+  // 无 HTTP 响应（网络断开）→ UNKNOWN；回读按原场景找到完全匹配的已保存行。
+  // 页面初始读已消费默认 mock；此后所有 list 调用（回读 + 成功后的刷新）
+  // 一律返回含 saved-row 的集合——回读命中，刷新后的列表也包含新行。
+  (api.assignments.create as jest.Mock).mockRejectedValueOnce(new Error('Network Error'));
+  const savedRow = {
+    id: 'saved-unknown-row',
+    version: 1,
+    person_id: 'person-1',
+    project_id: 'task-leaf',
+    role_id: 'role-se',
+    phase_id: 'phase-design',
+    assignment_date_mode: 'phase',
+    allocation_percentage: 20,
+    status: 'active',
+    start_date: null,
+    end_date: null,
+  };
+  (api.assignments.list as jest.Mock).mockImplementation(() =>
+    Promise.resolve({
+      data: { data: [...assignments, savedRow], pagination: { total: assignments.length + 1, totalPages: 1 } },
+    })
+  );
+
+  fireEvent.click(screen.getByTestId('pw-confirm-assign'));
+  await waitFor(() => {
+    // 回读判成功：草稿清空、commit bar 消失，且没有"结果未知"滞留
+    expect(screen.queryByTestId('pw-commit-bar')).not.toBeInTheDocument();
+  });
+  expect(screen.queryByText(/1 unknown/i)).not.toBeInTheDocument();
+});
+
+test('C2/D-01a: utilization 缺失时弹窗热区判数据不可用（不按默认可用率出数）', async () => {
+  (api.people.getUtilization as jest.Mock).mockResolvedValue({ data: [] });
+  mockBoard();
+  renderPage();
+  await openDialog();
+
+  const heat = screen.getByTestId('pw-mini-heat');
+  await waitFor(() => {
+    expect(heat).toHaveAttribute('role', 'img');
+    expect(heat.getAttribute('aria-label')).toMatch(/unknown|数据不可用/i);
   });
 });

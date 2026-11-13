@@ -28,7 +28,7 @@ export interface TimelineRowInput {
   status?: string | null;
 }
 
-export interface CommittedTimelineRow extends TimelineRowInput {}
+export type CommittedTimelineRow = TimelineRowInput;
 
 export type DraftKind = 'CREATE' | 'EDIT' | 'REPLACE';
 export type DraftSubmitState = 'IDLE' | 'SUBMITTING' | 'UNKNOWN' | 'SUCCEEDED' | 'FAILED';

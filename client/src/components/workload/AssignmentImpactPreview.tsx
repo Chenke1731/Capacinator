@@ -6,6 +6,7 @@ import { api } from '../../lib/api-client';
 import { queryKeys } from '../../lib/queryKeys';
 import { useScenario } from '../../contexts/ScenarioContext';
 import { workloadDateOnly, type WorkloadAssignment } from '../../lib/personWorkload';
+import { workloadTimeline } from '../../lib/workloadTimeline';
 
 interface AssignmentRow extends WorkloadAssignment {
   project_id: string;
@@ -30,13 +31,52 @@ interface AssignmentImpactPreviewProps {
   availability: number | null;
 }
 
-function overlapsWindow(row: WorkloadAssignment, start: string, end: string) {
-  if (row.status === 'paused') return false;
-  const rowStart = workloadDateOnly(row.computed_start_date ?? row.start_date);
-  const rowEnd = workloadDateOnly(row.computed_end_date ?? row.end_date);
-  if (rowStart && rowStart > end) return false;
-  if (rowEnd && rowEnd < start) return false;
-  return true;
+/**
+ * D-04a（前端评审）：第 4 处容量展示并入 workloadTimeline——此前这里自算
+ * "窗口求和"，与泳道/弹窗/inspector 的日分段+peak 口径漂移（相邻不重叠的
+ * 分配会被加成同时超载）。from=现状（含被编辑行原值），to=扣原行加提议值，
+ * 均取窗口内日分段 peak。
+ */
+function peakLoadInWindow(
+  committed: WorkloadAssignment[],
+  proposed: { allocation: number; start: string; end: string } | null,
+  asOf: string,
+  start: string,
+  end: string,
+  availability: number | null
+): number {
+  const drafts = proposed
+    ? [
+        {
+          id: 'impact-preview',
+          draftId: 'impact-preview',
+          kind: 'CREATE' as const,
+          targetAssignmentId: null,
+          allocationPercentage: proposed.allocation,
+          startDate: proposed.start,
+          endDate: proposed.end,
+          submitState: 'IDLE' as const,
+        },
+      ]
+    : [];
+  const timeline = workloadTimeline(
+    committed.map((row) => ({
+      id: String(row.id),
+      allocationPercentage: Number(row.allocation_percentage ?? 0),
+      startDate: row.computed_start_date ?? row.start_date ?? null,
+      endDate: row.computed_end_date ?? row.end_date ?? null,
+      status: row.status ?? null,
+    })),
+    drafts,
+    {
+      asOf,
+      rangeStart: start,
+      rangeEnd: end,
+      defaultAvailability: availability,
+      granularity: 'day',
+    }
+  );
+  return timeline.segments.reduce((max, segment) => Math.max(max, segment.load), 0);
 }
 
 export function AssignmentImpactPreview({
@@ -54,9 +94,9 @@ export function AssignmentImpactPreview({
   const { t } = useTranslation();
   const { currentScenario } = useScenario();
   const projectQuery = useQuery<AssignmentRow[]>({
-    queryKey: queryKeys.assignments.list({ project_id: projectId, limit: 2000 }, currentScenario?.id),
+    queryKey: queryKeys.assignments.list({ project_id: projectId, limit: 200 }, currentScenario?.id),
     queryFn: async () => {
-      const response = await api.assignments.list({ project_id: projectId, limit: 2000 } as never);
+      const response = await api.assignments.list({ project_id: projectId, limit: 200 } as never);
       return response.data.data as unknown as AssignmentRow[];
     },
     staleTime: 30_000,
@@ -64,24 +104,35 @@ export function AssignmentImpactPreview({
 
   const start = workloadDateOnly(windowStart) ?? asOf;
   const end = workloadDateOnly(windowEnd) ?? start;
-  const originalRow = editingRowId
-    ? personAssignments.find((row) => row.id === editingRowId)
-    : undefined;
-  const originalInWindow = originalRow && overlapsWindow(originalRow, start, end);
-  const personWindow = personAssignments
-    .filter((row) => row.id !== editingRowId && overlapsWindow(row, start, end))
-    .reduce((sum, row) => sum + Number(row.allocation_percentage ?? 0), 0);
-  const personFrom = personWindow + (originalInWindow ? originalAllocation : 0);
-  const personTo = personWindow + proposedAllocation;
+
+  const personWithoutEditing = editingRowId
+    ? personAssignments.filter((row) => row.id !== editingRowId)
+    : personAssignments;
+  const personFrom = peakLoadInWindow(personAssignments, null, asOf, start, end, availability);
+  const personTo = peakLoadInWindow(
+    personWithoutEditing,
+    { allocation: proposedAllocation, start, end },
+    asOf,
+    start,
+    end,
+    availability
+  );
 
   const rows = projectQuery.data ?? [];
-  const projectWindow = rows
-    .filter((row) => row.project_id === projectId && row.id !== editingRowId && overlapsWindow(row, start, end))
-    .reduce((sum, row) => sum + Number(row.allocation_percentage ?? 0), 0);
-  const projectFrom =
-    projectWindow +
-    (originalInWindow && originalRow?.project_id === projectId ? originalAllocation : 0);
-  const projectTo = projectWindow + proposedAllocation;
+  const projectRows = rows.filter((row) => row.project_id === projectId);
+  const projectWithoutEditing = editingRowId
+    ? projectRows.filter((row) => row.id !== editingRowId)
+    : projectRows;
+  const projectFrom = peakLoadInWindow(projectRows, null, asOf, start, end, availability);
+  const projectTo = peakLoadInWindow(
+    projectWithoutEditing,
+    { allocation: proposedAllocation, start, end },
+    asOf,
+    start,
+    end,
+    availability
+  );
+  void originalAllocation; // from 值已由"现状集合"承载（含被编辑行原值）
   const relative =
     availability !== null && availability > 0 ? (personTo / availability) * 100 : null;
   const over = availability !== null && personTo > availability;

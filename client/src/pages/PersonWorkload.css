@@ -516,285 +516,7 @@
   min-width: 0;
 }
 
-.person-workload-page .pw-picker {
-  background: var(--bg-primary);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-sm);
-  padding: var(--space-3);
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-2);
-  align-self: start;
-}
-
-.person-workload-page .pw-picker-head {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: var(--space-2);
-}
-
-.person-workload-page .pw-picker-head h2 {
-  margin: 0;
-  color: var(--text-primary);
-  font-size: var(--text-lg);
-  font-weight: var(--font-semibold);
-}
-
-.person-workload-page .pw-picker-head p {
-  margin: 0.25rem 0 0;
-  color: var(--text-secondary);
-  font-size: var(--text-xs);
-}
-
-.person-workload-page .pw-picker-count {
-  color: var(--text-secondary);
-  font-size: var(--text-xs);
-  white-space: nowrap;
-}
-
-.person-workload-page .pw-search {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  color: var(--text-secondary);
-  background: var(--bg-secondary);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-md);
-  padding: 0.35rem 0.5rem;
-}
-
-.person-workload-page .pw-search input {
-  flex: 1;
-  min-width: 0;
-  border: 0;
-  outline: 0;
-  background: transparent;
-  color: var(--text-primary);
-  font: inherit;
-}
-
-.person-workload-page .pw-task-list {
-  max-height: 360px;
-  overflow-y: auto;
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-md);
-  background: var(--bg-secondary);
-}
-
-.person-workload-page .pw-scope {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.5rem;
-  color: var(--text-secondary);
-  font-size: var(--text-xs);
-}
-
-.person-workload-page .pw-scope select {
-  color: var(--text-primary);
-  background: var(--bg-primary);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-sm);
-  padding: 0.25rem 0.35rem;
-  font: inherit;
-}
-
-.person-workload-page .pw-task {
-  display: flex;
-  flex-direction: column;
-  gap: 0.15rem;
-  width: 100%;
-  text-align: left;
-  border: 0;
-  border-bottom: 1px solid var(--border-color);
-  background: transparent;
-  color: var(--text-primary);
-  font: inherit;
-  padding: 0.45rem 0.55rem;
-  cursor: pointer;
-}
-
-.person-workload-page .pw-task:last-child {
-  border-bottom: 0;
-}
-
-.person-workload-page .pw-task:hover:not(:disabled),
-.person-workload-page .pw-task:focus-visible {
-  background: var(--bg-hover);
-}
-
-.person-workload-page .pw-task--ancestor {
-  color: var(--text-secondary);
-}
-
-.person-workload-page .pw-task--disabled {
-  cursor: not-allowed;
-  opacity: 0.55;
-}
-
-.person-workload-page .pw-task--selected {
-  background: color-mix(in srgb, var(--primary) 12%, var(--bg-primary));
-  box-shadow: inset 3px 0 0 var(--primary);
-}
-
-.person-workload-page .pw-task-name {
-  display: flex;
-  align-items: center;
-  gap: 0.25rem;
-  font-size: var(--text-sm);
-  font-weight: var(--font-medium);
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.person-workload-page .pw-task-chevron {
-  display: inline-block;
-  width: 0.8rem;
-  color: var(--text-secondary);
-  flex-shrink: 0;
-}
-
-.person-workload-page .pw-task-meta {
-  color: var(--text-secondary);
-  font-size: var(--text-xs);
-}
-
-.person-workload-page .pw-load-more {
-  align-self: flex-start;
-}
-
-.person-workload-page .pw-picker-state {
-  color: var(--text-secondary);
-  font-size: var(--text-sm);
-  padding: var(--space-2);
-  text-align: center;
-}
-
-.person-workload-page .pw-picker-state--error {
-  color: var(--danger);
-}
-
-.person-workload-page .pw-add-form {
-  border-top: 1px solid var(--border-color);
-  padding-top: var(--space-2);
-  display: flex;
-  flex-direction: column;
-  gap: 0.55rem;
-}
-
-.person-workload-page .pw-add-title {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.5rem;
-  color: var(--text-primary);
-  font-size: var(--text-sm);
-}
-
-.person-workload-page .pw-add-note {
-  margin: 0;
-  color: var(--text-secondary);
-  font-size: var(--text-xs);
-}
-
-.person-workload-page .pw-existing-hint {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.4rem;
-  color: var(--text-secondary);
-  font-size: var(--text-xs);
-}
-
-.person-workload-page .pw-slot-conflict {
-  display: flex;
-  flex-direction: column;
-  gap: 0.35rem;
-  border: 1px solid var(--warning);
-  border-radius: var(--radius-sm);
-  background: color-mix(in srgb, var(--warning) 10%, var(--bg-primary));
-  padding: 0.45rem 0.55rem;
-  color: var(--text-primary);
-  font-size: var(--text-xs);
-}
-
-.person-workload-page .pw-slot-candidate {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.4rem;
-}
-
-.person-workload-page .pw-add-form label {
-  display: flex;
-  flex-direction: column;
-  gap: 0.2rem;
-  color: var(--text-secondary);
-  font-size: var(--text-xs);
-}
-
-.person-workload-page .pw-add-form input,
-.person-workload-page .pw-add-form select {
-  color: var(--text-primary);
-  background: var(--bg-primary);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-sm);
-  padding: 0.35rem 0.45rem;
-  font: inherit;
-}
-
-.person-workload-page .pw-add-dates {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.5rem;
-}
-
-.person-workload-page .pw-derived-dates {
-  display: flex;
-  flex-direction: column;
-  gap: 0.2rem;
-  background: var(--bg-secondary);
-  border: 1px dashed var(--border-color);
-  border-radius: var(--radius-sm);
-  padding: 0.45rem 0.55rem;
-  color: var(--text-secondary);
-  font-size: var(--text-xs);
-}
-
-.person-workload-page .pw-derived-dates strong {
-  color: var(--text-primary);
-  font-size: var(--text-sm);
-  font-variant-numeric: tabular-nums;
-}
-
-.person-workload-page .pw-add-error {
-  margin: 0;
-  color: var(--danger);
-  font-size: var(--text-xs);
-}
-
-.person-workload-page .pw-add-message {
-  margin: 0;
-  display: flex;
-  align-items: flex-start;
-  gap: 0.3rem;
-  font-size: var(--text-xs);
-}
-
-.person-workload-page .pw-add-message--error {
-  color: var(--danger);
-}
-
-.person-workload-page .pw-add-message--warning {
-  color: var(--warning);
-}
-
-.person-workload-page .pw-add-message--success {
-  color: var(--success);
-}
+/* 旧任务托盘（PersonTaskPicker）随工作台 v2 移除，相关样式一并清退（N-07） */
 
 .person-workload-page .pw-scenario-banner {
   display: flex;
@@ -913,7 +635,9 @@
 .person-workload-page .pw-dialog-overlay {
   position: fixed;
   inset: 0;
-  z-index: 60;
+  /* 全局层序阶梯模态档（评审 G-03）：遮罩必须盖过 AppHeader(z:1000)，
+   * 否则场景切换器/个人菜单在 aria-modal 弹窗下仍可点。 */
+  z-index: 1100;
   background: color-mix(in srgb, var(--bg-primary, #0b1220) 55%, transparent);
   display: flex;
   justify-content: center;
@@ -1055,6 +779,8 @@
   align-items: center;
   gap: 0.25rem;
   padding: 0.1rem 0.5rem;
+  min-height: 0;
+  min-width: 0;
   font-size: var(--text-xs);
   border: 1px solid var(--border-color);
   border-radius: 999px;
@@ -1387,6 +1113,8 @@
   gap: 0.3rem;
   max-height: 320px;
   overflow: auto;
+  /* 首条 bar 距滚动容器顶边的静息间隙（states static-top-gap 底线 4px） */
+  padding-top: 4px;
 }
 
 .person-workload-page .pw-gantt-lane {
@@ -1424,6 +1152,12 @@
 .person-workload-page .pw-gantt-bar {
   position: absolute;
   height: 18px;
+  /* 泳道 bar 是数据展示件不是按钮目标：解除全局 button 40px 最小尺寸
+   *（design-system `button{min-width/min-height:40px}` 会把 18px bar 撑到
+   * 40px，压过 20px 堆叠间距——评审 G-01/EXP-NEW-2）。键盘可达仍由原生
+   * button 保证，命中目标小于 24px 的取舍已在泳道大间距下接受。 */
+  min-width: 6px;
+  min-height: 0;
   box-sizing: border-box;
   padding: 0 4px;
   display: inline-flex;
@@ -1437,7 +1171,6 @@
   white-space: nowrap;
   overflow: hidden;
   cursor: pointer;
-  min-width: 6px;
 }
 
 .person-workload-page .pw-gantt-bar-text {
@@ -1779,6 +1512,7 @@
   justify-content: flex-end;
   align-items: center;
   min-width: 26px; /* axe target-size：可点击目标 ≥24×24 */
+  min-height: 0; /* 解除全局 button 40px 最小高（容器 34px） */
   height: 100%;
   border: none;
   background: transparent;
@@ -1815,6 +1549,8 @@
   background: none;
   border: none;
   padding: 0;
+  min-height: 0;
+  min-width: 0;
   color: var(--text-primary);
   font-size: var(--text-xs);
   text-decoration: underline dotted;
@@ -1885,4 +1621,14 @@
   .person-workload-page .pw-minimap {
     max-width: 40%;
   }
+}
+
+.person-workload-page .pw-legend--future::before,
+.person-workload-page .pw-legend--ended::before {
+  content: '';
+  width: 14px;
+  height: 8px;
+  border-radius: 2px;
+  background: var(--primary-color, #2563eb);
+  opacity: 0.45;
 }

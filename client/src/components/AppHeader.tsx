@@ -26,7 +26,7 @@ import './AppHeader.css';
 export const AppHeader: React.FC = () => {
   const { t } = useTranslation();
   const { currentUser, logout } = useUser();
-  const { currentScenario, scenarios, setCurrentScenario, isLoading } = useScenario();
+  const { currentScenario, scenarios, setCurrentScenario, isLoading, scenarioLock } = useScenario();
   const { theme, toggleTheme } = useTheme();
   const { language, setLanguage } = useLanguage();
   const [currentTime, setCurrentTime] = useState(new Date());
@@ -128,14 +128,22 @@ export const AppHeader: React.FC = () => {
         <div className="scenario-selector">
           <GitBranch size={12} />
           <button
-            className={`scenario-button ${isLoading ? 'disabled' : ''}`}
-            onClick={() => !isLoading && setIsScenarioDropdownOpen(!isScenarioDropdownOpen)}
-            disabled={isLoading}
-            title={currentScenario ? t('common:currentScenario', { name: currentScenario.name }) : t('common:selectScenario')}
+            className={`scenario-button ${isLoading || scenarioLock ? 'disabled' : ''}`}
+            onClick={() => !isLoading && !scenarioLock && setIsScenarioDropdownOpen(!isScenarioDropdownOpen)}
+            disabled={isLoading || Boolean(scenarioLock)}
+            aria-disabled={Boolean(scenarioLock) || undefined}
+            title={
+              scenarioLock
+                ? scenarioLock
+                : currentScenario
+                  ? t('common:currentScenario', { name: currentScenario.name })
+                  : t('common:selectScenario')
+            }
           >
             <span className="scenario-name">
               {isLoading ? t('common:loading') : currentScenario?.name || t('common:selectScenario')}
             </span>
+            {scenarioLock ? <span className="scenario-lock-note">{scenarioLock}</span> : null}
             <ChevronDown size={12} className={`chevron ${isScenarioDropdownOpen ? 'open' : ''}`} />
           </button>
           

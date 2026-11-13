@@ -240,6 +240,7 @@ export function GhostInspector({
               <input
                 type="date"
                 value={draft.startDate ?? ''}
+                min={asOf}
                 disabled={disabled}
                 aria-label={t('assignments:workload.edit.startDate')}
                 onChange={(event) => onUpdate(draft.draftId, { startDate: event.target.value || null })}
@@ -250,6 +251,7 @@ export function GhostInspector({
               <input
                 type="date"
                 value={draft.endDate ?? ''}
+                min={asOf}
                 disabled={disabled}
                 aria-label={t('assignments:workload.edit.endDate')}
                 onChange={(event) => onUpdate(draft.draftId, { endDate: event.target.value || null })}
@@ -305,7 +307,11 @@ export function GhostInspector({
         </ul>
       ) : null}
       {draft.submitState === 'FAILED' && draft.submitError ? (
-        <p className="pw-inspector-submit-error" role="alert">{draft.submitError}</p>
+        <p className="pw-inspector-submit-error" role="alert">
+          {draft.submitError === 'reconcile_missing'
+            ? t('assignments:workbench.errors.reconcile_missing')
+            : draft.submitError}
+        </p>
       ) : null}
       {draft.submitState === 'UNKNOWN' ? (
         <p className="pw-inspector-unknown" role="status">{t('assignments:workbench.inspector.unknown')}</p>

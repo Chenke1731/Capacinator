@@ -1773,7 +1773,7 @@
   flex-direction: column;
   justify-content: flex-end;
   align-items: center;
-  min-width: 22px;
+  min-width: 26px; /* axe target-size：可点击目标 ≥24×24 */
   height: 100%;
   border: none;
   background: transparent;

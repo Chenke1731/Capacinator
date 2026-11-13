@@ -74,6 +74,13 @@ beforeAll(async () => {
     table.string('id').primary();
     table.string('name').notNullable();
   });
+  await database.schema.createTable('person_availability_overrides', (table) => {
+    table.string('person_id').notNullable();
+    table.string('start_date').notNullable();
+    table.string('end_date').notNullable();
+    table.float('availability_percentage').notNullable();
+    table.integer('is_approved').defaultTo(0);
+  });
   await database.schema.createTable('projects', (table) => {
     table.string('id').primary();
     table.string('name').notNullable();
@@ -130,7 +137,7 @@ beforeAll(async () => {
   await database('projects').insert({ id: PROJECT_ID, name: 'I02M Project' });
   await database('scenario_project_assignments').insert({
     id: ASSIGNMENT_ID,
-    scenario_id: 'baseline',
+    scenario_id: 'baseline-0000-0000-0000-000000000000',
     project_id: PROJECT_ID,
     person_id: PERSON_ID,
     role_id: ROLE_ID,
@@ -201,7 +208,9 @@ describe('P1 并发：阶段改日期 vs 分配保存', () => {
     // supertest Test 是惰性 thenable：必须立刻挂 then 才会真正发请求
     const assignmentResPromise = request
       .put(`/api/assignments/${ASSIGNMENT_ID}`)
-      .send({ notes: 'race-edit' })
+      // I02r: 只有调度字段（日期/mode/phase）触碰才重算；notes-only 不再触发
+      // compute。用 mode 字段保持“保存会重算日期”的并发前提。
+      .send({ assignment_date_mode: 'phase', notes: 'race-edit' })
       .then((res) => res);
     const deadline = Date.now() + 5000;
     while (!(assignmentController as any).__computeFinished()) {

@@ -655,8 +655,9 @@ describe('AssignmentsController Integration Tests', () => {
         updated_at: new Date()
       });
 
-      // 同项目同角色换人但 person_id 不存在: 事务内先删旧 SE 再插入,插入撞
-      // person FK → 整体回滚——旧分配必须还在(无事务时此处即永久丢数据)
+      // 同项目同角色换人但 person_id 不存在: 显式替换后事务内先删旧 SE
+      // 再插入,插入撞 person FK → 整体回滚——旧分配必须还在(无事务时此处
+      // 即永久丢数据)。I02r 起替换必须成对带目标 id + 版本。
       const req: any = createMockRequest({
         body: {
           project_id: testData.project1_id,
@@ -665,7 +666,9 @@ describe('AssignmentsController Integration Tests', () => {
           allocation_percentage: 50,
           assignment_date_mode: 'fixed',
           start_date: '2026-02-01',
-          end_date: '2026-02-28'
+          end_date: '2026-02-28',
+          replace_assignment_id: oldRowId,
+          replace_expected_version: 1
         },
         headers: { 'x-scenario-id': 'baseline-0000-0000-0000-000000000000' }
       });

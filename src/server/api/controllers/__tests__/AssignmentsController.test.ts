@@ -220,10 +220,12 @@ describe('AssignmentsController', () => {
       mockReq.body = assignmentData;
       mockReq.headers = { 'x-scenario-id': 'baseline-0000-0000-0000-000000000000' };
 
-      // checkConflicts makes 3 sequential queries:
-      mockDb._queueFirstResult({ name: 'John Doe', default_availability_percentage: 100 }); // 1. Person lookup
-      mockDb._queueQueryResult([]); // 2. Overlapping assignments (no conflicts)
-      mockDb._queueFirstResult({ effective_availability_percentage: 100 }); // 3. Availability
+      // I02r: 事务内先查重、再查角色（SE/MDE 单人制），然后才进入冲突检查
+      mockDb._queueFirstResult(null); // 1. Duplicate precheck
+      mockDb._queueFirstResult({ name: 'Developer' }); // 2. Role lookup
+      mockDb._queueFirstResult({ name: 'John Doe', default_availability_percentage: 100 }); // 3. Person lookup
+      mockDb._queueQueryResult([]); // 4. Overlapping assignments (no conflicts)
+      mockDb._queueFirstResult({ effective_availability_percentage: 100 }); // 5. Availability
 
       // Main insert
       mockDb._queueInsertResult([{ id: 'new-assign', ...assignmentData }]);
@@ -382,10 +384,12 @@ describe('AssignmentsController', () => {
       };
       mockReq.headers = { 'x-scenario-id': 'baseline-0000-0000-0000-000000000000' };
 
-      // checkConflicts makes 3 sequential queries:
-      mockDb._queueFirstResult({ name: 'John Doe', default_availability_percentage: 100 }); // 1. Person lookup
-      mockDb._queueQueryResult([{ allocation_percentage: 50, project_name: 'Existing Project' }]); // 2. Overlapping
-      mockDb._queueFirstResult({ effective_availability_percentage: 100 }); // 3. Availability
+      // I02r: 事务内先查重、再查角色（SE/MDE 单人制）
+      mockDb._queueFirstResult(null); // 1. Duplicate precheck
+      mockDb._queueFirstResult({ name: 'Developer' }); // 2. Role lookup
+      mockDb._queueFirstResult({ name: 'John Doe', default_availability_percentage: 100 }); // 3. Person lookup
+      mockDb._queueQueryResult([{ allocation_percentage: 50, project_name: 'Existing Project' }]); // 4. Overlapping
+      mockDb._queueFirstResult({ effective_availability_percentage: 100 }); // 5. Availability
 
       // Main insert
       mockDb._queueInsertResult([{ id: 'new-assign' }]);
@@ -538,6 +542,7 @@ describe('AssignmentsController', () => {
       mockDb._setDeleteResult(1);
 
       await controller.delete(mockReq, mockRes);
+      await flushPromises();
 
       expect(mockDb).toHaveBeenCalledWith('project_assignments');
     });
@@ -1251,6 +1256,8 @@ describe('AssignmentsController', () => {
         start_date: '2025-01-01', end_date: '2025-12-31'
       };
       mockReq.headers = { 'x-scenario-id': 'baseline-0000-0000-0000-000000000000' };
+      mockDb._queueFirstResult(null); // Duplicate precheck
+      mockDb._queueFirstResult({ name: 'Developer' }); // Role lookup
       mockDb._queueFirstResult({ name: 'John Doe', default_availability_percentage: 100 });
       mockDb._queueQueryResult([]);
       mockDb._queueFirstResult({ effective_availability_percentage: 100 });

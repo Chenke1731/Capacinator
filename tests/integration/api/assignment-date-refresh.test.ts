@@ -570,6 +570,94 @@ describe('G-B4 custom phase add/update 接线（I02l/P2-7）', () => {
     ).toHaveLength(1);
   });
 
+  test('camelCase 日期字符串 → 正确解析并落库（P2 #2）', async () => {
+    const addRes = await request.post(`/api/projects/${PROJECT_ID}/phases/custom`).send({
+      name: `I02M Camel ${SUFFIX}`,
+      insertIndex: 2,
+      durationDays: 10,
+    });
+    expect(addRes.status).toBe(200);
+    const timelineId = String(addRes.body.data.phaseId);
+
+    const res = await request.put(`/api/projects/${PROJECT_ID}/phases/${timelineId}`).send({
+      startDate: '2026-04-02',
+      endDate: '2026-04-13',
+    });
+    expect(res.status).toBe(200);
+    const row = await db('project_phases_timeline').where('id', timelineId).first();
+    expect(row.start_date).toBe('2026-04-02');
+    expect(row.end_date).toBe('2026-04-13');
+  });
+
+  test('非法 camelCase 日期 → 400 且不写库', async () => {
+    const addRes = await request.post(`/api/projects/${PROJECT_ID}/phases/custom`).send({
+      name: `I02M Bad ${SUFFIX}`,
+      insertIndex: 2,
+      durationDays: 10,
+    });
+    expect(addRes.status).toBe(200);
+    const timelineId = String(addRes.body.data.phaseId);
+    const before = await db('project_phases_timeline').where('id', timelineId).first();
+
+    const res = await request.put(`/api/projects/${PROJECT_ID}/phases/${timelineId}`).send({
+      startDate: 'not-a-date',
+    });
+    expect(res.status).toBe(400);
+    const after = await db('project_phases_timeline').where('id', timelineId).first();
+    expect(after.start_date).toBe(before.start_date);
+    expect(after.end_date).toBe(before.end_date);
+  });
+
+  test('startDate + durationDays → 起始日不变，结束日=起始+工期（P2 #3）', async () => {
+    const addRes = await request.post(`/api/projects/${PROJECT_ID}/phases/custom`).send({
+      name: `I02M Duration ${SUFFIX}`,
+      insertIndex: 2,
+      durationDays: 10,
+    });
+    expect(addRes.status).toBe(200);
+    const timelineId = String(addRes.body.data.phaseId);
+
+    const res = await request.put(`/api/projects/${PROJECT_ID}/phases/${timelineId}`).send({
+      startDate: '2026-04-01',
+      durationDays: 10,
+    });
+    expect(res.status).toBe(200);
+    const row = await db('project_phases_timeline').where('id', timelineId).first();
+    expect(row.start_date).toBe('2026-04-01');
+    expect(row.end_date).toBe('2026-04-11');
+  });
+
+  test('snake_case start_date + duration_days 同样正确', async () => {
+    const addRes = await request.post(`/api/projects/${PROJECT_ID}/phases/custom`).send({
+      name: `I02M Snake ${SUFFIX}`,
+      insert_index: 2,
+      duration_days: 10,
+    });
+    expect(addRes.status).toBe(200);
+    const timelineId = String(addRes.body.data.phaseId);
+
+    const res = await request.put(`/api/projects/${PROJECT_ID}/phases/${timelineId}`).send({
+      start_date: '2026-05-01',
+      duration_days: 10,
+    });
+    expect(res.status).toBe(200);
+    const row = await db('project_phases_timeline').where('id', timelineId).first();
+    expect(row.start_date).toBe('2026-05-01');
+    expect(row.end_date).toBe('2026-05-11');
+  });
+
+  test('addCustomPhase camelCase 日期 → 落库为指定起止', async () => {
+    const res = await request.post(`/api/projects/${PROJECT_ID}/phases/custom`).send({
+      name: `I02M Add Camel ${SUFFIX}`,
+      startDate: '2026-06-01',
+      endDate: '2026-06-10',
+    });
+    expect(res.status).toBe(200);
+    const row = await db('project_phases_timeline').where('id', String(res.body.data.phaseId)).first();
+    expect(row.start_date).toBe('2026-06-01');
+    expect(row.end_date).toBe('2026-06-10');
+  });
+
   test('重复自定义阶段名 → 400 且不写时间线', async () => {
     const name = `I02L Duplicate ${SUFFIX}`;
     const first = await request.post(`/api/projects/${PROJECT_ID}/phases/custom`).send({

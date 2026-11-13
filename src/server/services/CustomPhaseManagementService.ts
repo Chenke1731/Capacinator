@@ -205,8 +205,15 @@ export class CustomPhaseManagementService {
 
       // Handle duration updates
       if (updateData.durationDays !== undefined) {
-        const newEndDate = updateData.startDate || new Date(currentPhase.start_date);
-        newEndDate.setTime(newEndDate.getTime() + (updateData.durationDays * 24 * 60 * 60 * 1000));
+        // I02m/P2：必须克隆日期——旧实现 newEndDate 与 updateData.startDate 是
+        // 同一引用，setTime 把起始日原地改成结束日，后续 start_date 写回时
+        // 保存成"开始+工期"（04-01 + 10 天 → 04-11～04-11）
+        const baseStart = updateData.startDate
+          ? new Date(updateData.startDate.getTime())
+          : new Date(currentPhase.start_date);
+        const newEndDate = new Date(
+          baseStart.getTime() + (updateData.durationDays * 24 * 60 * 60 * 1000)
+        );
 
         updates.end_date = toIsoDateString(newEndDate);
 

@@ -54,6 +54,19 @@ export class ProjectsController extends BaseController {
   }
 
   /**
+   * I02m：HTTP JSON 里的日期只能是字符串，服务层契约是 Date。camelCase 与
+   * snake_case 统一过这里；非法日期返回 invalid，由端点映射 400。
+   */
+  private parseOptionalDate(value: unknown): { date?: Date; invalid: boolean } {
+    if (value === undefined || value === null || value === '') return { invalid: false };
+    if (value instanceof Date) {
+      return Number.isNaN(value.getTime()) ? { invalid: true } : { date: value, invalid: false };
+    }
+    const date = new Date(String(value));
+    return Number.isNaN(date.getTime()) ? { invalid: true } : { date, invalid: false };
+  }
+
+  /**
    * Per-project side summaries for the list's 人力 column (batched):
    * named FTE from active assignments (SE → design side, others → dev),
    * pool FTE from open pool placeholders.
@@ -1502,12 +1515,17 @@ export class ProjectsController extends BaseController {
     // I02l：HTTP 载荷是 JSON（日期只能是字符串），服务层契约是 camelCase +
     // Date 对象——在边界归一，同时兼容 snake_case（与 project-phases 端点同形）
     const body = (req.body ?? {}) as Record<string, any>;
+    const start = this.parseOptionalDate(body.startDate !== undefined ? body.startDate : body.start_date);
+    const end = this.parseOptionalDate(body.endDate !== undefined ? body.endDate : body.end_date);
+    if (start.invalid || end.invalid) {
+      return this.sendError(req, res, 'Invalid start or end date', 400);
+    }
     const phaseData: CustomPhaseData = {
       name: body.name,
       description: body.description,
       durationDays: body.durationDays ?? body.duration_days,
-      startDate: body.startDate ?? (body.start_date ? new Date(body.start_date) : undefined),
-      endDate: body.endDate ?? (body.end_date ? new Date(body.end_date) : undefined),
+      startDate: start.date,
+      endDate: end.date,
       insertIndex: body.insertIndex ?? body.insert_index,
       metadata: body.metadata,
     };
@@ -1547,12 +1565,17 @@ export class ProjectsController extends BaseController {
     const { id: projectId, phaseTimelineId } = req.params;
     // I02l：同 addCustomPhase——JSON 日期字符串/蛇形字段在控制器边界归一
     const body = (req.body ?? {}) as Record<string, any>;
+    const start = this.parseOptionalDate(body.startDate !== undefined ? body.startDate : body.start_date);
+    const end = this.parseOptionalDate(body.endDate !== undefined ? body.endDate : body.end_date);
+    if (start.invalid || end.invalid) {
+      return this.sendError(req, res, 'Invalid start or end date', 400);
+    }
     const updateData: PhaseUpdateData = {
       name: body.name,
       description: body.description,
       durationDays: body.durationDays ?? body.duration_days,
-      startDate: body.startDate ?? (body.start_date ? new Date(body.start_date) : undefined),
-      endDate: body.endDate ?? (body.end_date ? new Date(body.end_date) : undefined),
+      startDate: start.date,
+      endDate: end.date,
       metadata: body.metadata,
     };
 

@@ -592,59 +592,75 @@ export class AssignmentsController extends BaseController {
         }
       }
 
-      // Compute dates for the updated assignment
+      // I02m/P1：compute + 冲突检查 + 写入必须同一事务。旧实现事务外先算日期
+      // 再写：另一请求在此期间改阶段并刷新 computed（刷新不 bump version），
+      // 本请求随后用旧日期+旧 version 覆盖成功——最终"阶段四月、分配三月"。
+      // 生产 pool.max=1 下事务串行化：B 先提交则本请求读到新日期；本请求先
+      // 提交则 B 的刷新随后覆盖 computed，最终态一致。
       const assignmentForComputation = { ...existing, ...updateData };
-      const computedDates = await this.computeAssignmentDates(assignmentForComputation);
-      
-      // Use computed dates for conflict checking
-      const effectiveStartDate = computedDates.computed_start_date || updateData.start_date || existing.start_date;
-      const effectiveEndDate = computedDates.computed_end_date || updateData.end_date || existing.end_date;
-
-      // Ensure we have valid dates
-      if (!effectiveStartDate || !effectiveEndDate) {
-        return res.status(400).json({
-          error: 'Unable to determine assignment dates. Check project/phase configuration.'
-        });
-      }
-
-      // Check conflicts if dates or allocation changed
       let warning = null;
       let totalAllocation = null;
-      
+      let updated: any;
+      let dateResolutionFailed = false;
+
       // Get scenario from existing assignment or header
       const scenarioId = existing.scenario_id || req.headers['x-scenario-id'] as string || 'baseline-0000-0000-0000-000000000000';
-      
-      if (updateData.start_date || updateData.end_date || updateData.allocation_percentage || 
-          updateData.assignment_date_mode || updateData.phase_id) {
-        const conflict = await this.checkConflicts(
-          updateData.person_id || existing.person_id,
-          effectiveStartDate,
-          effectiveEndDate,
-          updateData.allocation_percentage || existing.allocation_percentage,
-          id, // Exclude current assignment
-          scenarioId
-        );
-
-        if (conflict && conflict.total_allocation > 100) {
-          warning = `Person will be overallocated at ${conflict.total_allocation}% during this period`;
-          totalAllocation = conflict.total_allocation;
-        }
-      }
 
       // Update assignment。IP-07c/F06: 带令牌=原子版本比较(WHERE version=expected),
       // 令牌过期 409 载荷含当前值(前端保留草稿);无令牌=旧行为,version 仍递增
       const versionClause = expectedVersion !== undefined ? { version: Number(expectedVersion) } : {};
-      const [updated] = await this.db(tableName)
-        .where({ id: actualId, ...versionClause })
-        .update({
-          ...updateData,
-          // I02a/F1（P0）：派生日期必须随写落库——旧实现算了不写，fixed 日期
-          // 编辑/mode 切换后 computed 永久停留旧窗口（dev 库实证漂移 3 周+）
-          ...computedDates,
-          updated_at: new Date(),
-          version: this.db.raw('version + 1')
-        })
-        .returning('*');
+
+      await this.db.transaction(async (trx: any) => {
+        const computedDates = await this.computeAssignmentDates(assignmentForComputation, trx);
+
+        // Use computed dates for conflict checking
+        const effectiveStartDate = computedDates.computed_start_date || updateData.start_date || existing.start_date;
+        const effectiveEndDate = computedDates.computed_end_date || updateData.end_date || existing.end_date;
+
+        if (!effectiveStartDate || !effectiveEndDate) {
+          dateResolutionFailed = true;
+          return;
+        }
+
+        // Check conflicts if dates or allocation changed（同一事务连接，避免
+        // max:1 池内另取连接等待）
+        if (updateData.start_date || updateData.end_date || updateData.allocation_percentage ||
+            updateData.assignment_date_mode || updateData.phase_id) {
+          const conflict = await this.checkConflicts(
+            updateData.person_id || existing.person_id,
+            effectiveStartDate,
+            effectiveEndDate,
+            updateData.allocation_percentage || existing.allocation_percentage,
+            id, // Exclude current assignment
+            scenarioId,
+            trx
+          );
+
+          if (conflict && conflict.total_allocation > 100) {
+            warning = `Person will be overallocated at ${conflict.total_allocation}% during this period`;
+            totalAllocation = conflict.total_allocation;
+          }
+        }
+
+        [updated] = await trx(tableName)
+          .where({ id: actualId, ...versionClause })
+          .update({
+            ...updateData,
+            // I02a/F1（P0）：派生日期必须随写落库——旧实现算了不写，fixed 日期
+            // 编辑/mode 切换后 computed 永久停留旧窗口（dev 库实证漂移 3 周+）
+            ...computedDates,
+            updated_at: new Date(),
+            version: trx.raw('version + 1')
+          })
+          .returning('*');
+      });
+
+      if (dateResolutionFailed) {
+        res.status(400).json({
+          error: 'Unable to determine assignment dates. Check project/phase configuration.'
+        });
+        return null;
+      }
 
       if (!updated && expectedVersion !== undefined) {
         const current = await this.db(tableName).where('id', actualId).first();
@@ -1370,12 +1386,13 @@ export class AssignmentsController extends BaseController {
   /** I02a：委托共享原语（services/calc/assignmentDates）——写路径与刷新路径
    *  单一算法，防两处口径漂移（EXP-B11） */
   private async computeAssignmentDates(
-    assignment: AssignmentRow & { project?: { name?: string; aspiration_start?: string; aspiration_finish?: string; start_date?: string | null; end_date?: string | null } }
+    assignment: AssignmentRow & { project?: { name?: string; aspiration_start?: string; aspiration_finish?: string; start_date?: string | null; end_date?: string | null } },
+    conn: any = this.db
   ): Promise<{
     computed_start_date?: string;
     computed_end_date?: string;
   }> {
-    return computeAssignmentDates(this.db, assignment as any) as Promise<{
+    return computeAssignmentDates(conn, assignment as any) as Promise<{
       computed_start_date?: string;
       computed_end_date?: string;
     }>;

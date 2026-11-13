@@ -404,6 +404,24 @@
   background: var(--bg-secondary);
 }
 
+.person-workload-page .pw-scope {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  color: var(--text-secondary);
+  font-size: var(--text-xs);
+}
+
+.person-workload-page .pw-scope select {
+  color: var(--text-primary);
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  padding: 0.25rem 0.35rem;
+  font: inherit;
+}
+
 .person-workload-page .pw-task {
   display: flex;
   flex-direction: column;
@@ -515,6 +533,24 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 0.5rem;
+}
+
+.person-workload-page .pw-derived-dates {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  background: var(--bg-secondary);
+  border: 1px dashed var(--border-color);
+  border-radius: var(--radius-sm);
+  padding: 0.45rem 0.55rem;
+  color: var(--text-secondary);
+  font-size: var(--text-xs);
+}
+
+.person-workload-page .pw-derived-dates strong {
+  color: var(--text-primary);
+  font-size: var(--text-sm);
+  font-variant-numeric: tabular-nums;
 }
 
 .person-workload-page .pw-add-error {

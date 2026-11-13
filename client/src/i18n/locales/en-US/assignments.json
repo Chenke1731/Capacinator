@@ -130,7 +130,9 @@
       "edit": "Edit",
       "save": "Save",
       "cancel": "Cancel",
-      "delete": "Delete"
+      "delete": "Delete",
+      "pause": "Pause",
+      "resume": "Resume"
     },
     "edit": {
       "allocation": "Allocation %",
@@ -144,6 +146,8 @@
       "deleteFailed": "Could not delete assignment.",
       "deleteConfirm": "Delete this assignment?",
       "deleteDirectConfirm": "This is a baseline-global assignment. Deleting it affects all scenarios. Continue?",
+      "pauseDirectConfirm": "This is a baseline-global assignment. Pausing it affects all scenarios. Continue?",
+      "resumeDirectConfirm": "This is a baseline-global assignment. Resuming it affects all scenarios. Continue?",
       "derivedDatesReadonly": "Dates follow the project/phase; only allocation can be edited here."
     },
     "source": {
@@ -172,12 +176,21 @@
       "subtitle": "Search the task tree and pick a leaf task.",
       "count": "{{shown}} of {{total}}",
       "searchPlaceholder": "Search tasks",
+      "scopeLabel": "Task scope",
+      "scopeDemand": "Demand delivery",
+      "scopeAll": "All assignable",
       "loading": "Loading tasks…",
       "loadFailed": "Could not load tasks.",
       "noMatches": "No matching tasks.",
       "noTasks": "No demand tasks to show.",
       "loadMore": "Load more",
-      "fixedOnly": "New assignments use fixed dates in this step.",
+      "dateModeHint": "Choose fixed dates, a phase, or the project window.",
+      "dateMode": "Date mode",
+      "selectPhase": "Select a phase",
+      "loadingPhases": "Loading phases…",
+      "noPhases": "No phase timeline for this project; use fixed dates or project mode.",
+      "derivedDates": "Derived dates are read-only.",
+      "projectNoDates": "Project has no aspiration dates; the server will use its create fallback.",
       "role": "Role",
       "selectRole": "Select a role",
       "noRoles": "This person has no roles; add a role before assigning.",

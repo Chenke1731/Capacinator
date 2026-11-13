@@ -38,7 +38,7 @@ test.describe('Person workload editor (I02w)', () => {
     const enabledTask = authenticatedPage.locator('[role="treeitem"][aria-disabled="false"]').first();
     expect(await enabledTask.count()).toBeGreaterThan(0);
     await enabledTask.click();
-    await expect(authenticatedPage.getByText(/New assignments use fixed dates/i)).toBeVisible();
+    await expect(authenticatedPage.getByLabel('Date mode')).toBeVisible();
 
     const editButtons = authenticatedPage.getByRole('button', { name: 'Edit' });
     if ((await editButtons.count()) > 0) {

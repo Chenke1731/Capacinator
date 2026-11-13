@@ -38,7 +38,21 @@ interface TaskPage {
   pagination: { total: number; has_more?: boolean };
 }
 
+interface PhaseOption {
+  id: string;
+  name: string;
+  start_date?: string | null;
+  end_date?: string | null;
+}
+
 const TERMINAL_STATES = new Set(['delivered', 'cancelled']);
+
+function isTaskDisabled(row: TaskRow) {
+  return (
+    TERMINAL_STATES.has(String(row.lifecycle_state ?? '')) ||
+    (row.project_sub_type_name === 'SR' && Number(row.child_count ?? 0) > 0)
+  );
+}
 
 function buildTaskOrder(rows: TaskRow[]): Array<{ row: TaskRow; depth: number }> {
   const byId = new Map(rows.map((row) => [row.id, row]));
@@ -76,11 +90,15 @@ export function PersonTaskPicker({ personId, roles }: PersonTaskPickerProps) {
   const { currentScenario, scenarios, setCurrentScenario } = useScenario();
   const [searchInput, setSearchInput] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
+  const [scope, setScope] = useState<'demand' | 'all'>('demand');
   const [limit, setLimit] = useState(50);
   const [selected, setSelected] = useState<TaskRow | null>(null);
+  const [activeTaskId, setActiveTaskId] = useState<string | null>(null);
   const [draftScenarioId, setDraftScenarioId] = useState<string | null>(null);
   const [roleId, setRoleId] = useState('');
   const [allocation, setAllocation] = useState('20');
+  const [dateMode, setDateMode] = useState<'fixed' | 'phase' | 'project'>('fixed');
+  const [phaseId, setPhaseId] = useState('');
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [message, setMessage] = useState<{ tone: 'error' | 'warning' | 'success'; text: string } | null>(null);
@@ -97,7 +115,7 @@ export function PersonTaskPicker({ personId, roles }: PersonTaskPickerProps) {
 
   const tasksQuery = useQuery<TaskPage>({
     queryKey: queryKeys.projects.list(
-      { search: searchTerm, limit, slim: '1', include_ancestors: '1', include_in_demand: searchTerm ? undefined : '1' },
+      { search: searchTerm, limit, scope, slim: '1', include_ancestors: '1', include_in_demand: searchTerm || scope === 'all' ? undefined : '1' },
       currentScenario?.id
     ),
     queryFn: async () => {
@@ -107,7 +125,7 @@ export function PersonTaskPicker({ personId, roles }: PersonTaskPickerProps) {
         include_ancestors: '1',
       };
       if (searchTerm) params.search = searchTerm;
-      else params.include_in_demand = '1';
+      else if (scope === 'demand') params.include_in_demand = '1';
       const response = await api.projects.list(params as never);
       return response.data as unknown as TaskPage;
     },
@@ -116,12 +134,51 @@ export function PersonTaskPicker({ personId, roles }: PersonTaskPickerProps) {
 
   const rows = tasksQuery.data?.data ?? [];
   const ordered = useMemo(() => buildTaskOrder(rows), [rows]);
+
+  useEffect(() => {
+    const enabled = ordered.filter(({ row }) => !isTaskDisabled(row));
+    if (activeTaskId && enabled.some(({ row }) => row.id === activeTaskId)) return;
+    setActiveTaskId(enabled[0]?.row.id ?? null);
+  }, [ordered, activeTaskId]);
+
   const selectedRole = roles.find((role) => role.role_id === roleId);
+
+  const phasesQuery = useQuery<PhaseOption[]>({
+    queryKey: queryKeys.projects.phases(selected?.id ?? ''),
+    queryFn: async () => {
+      const response = await api.projectPhases.list({ project_id: selected!.id, limit: 200 });
+      const payload = response.data as unknown as { data?: Array<Record<string, any>> };
+      return (payload.data ?? []).map((row) => ({
+        id: String(row.phase_id ?? row.id),
+        name: String(row.phase_name ?? row.name ?? row.phase_id ?? ''),
+        start_date: row.start_date ?? null,
+        end_date: row.end_date ?? null,
+      }));
+    },
+    enabled: Boolean(selected && dateMode === 'phase'),
+  });
+  const phaseOptions = phasesQuery.data ?? [];
+  const effectivePhaseId = phaseId || phaseOptions[0]?.id || '';
+  const selectedPhase = phaseOptions.find((phase) => phase.id === effectivePhaseId);
+  const derivedStart =
+    dateMode === 'phase'
+      ? selectedPhase?.start_date
+      : dateMode === 'project'
+        ? selected?.start_date ?? selected?.aspiration_start
+        : null;
+  const derivedEnd =
+    dateMode === 'phase'
+      ? selectedPhase?.end_date
+      : dateMode === 'project'
+        ? selected?.end_date ?? selected?.aspiration_finish
+        : null;
 
   const resetForm = (row: TaskRow) => {
     const primary = roles.find((role) => role.is_primary) ?? roles[0];
     setRoleId(primary?.role_id ?? '');
     setAllocation('20');
+    setDateMode('fixed');
+    setPhaseId('');
     setStartDate((row.start_date ?? row.aspiration_start ?? '').slice(0, 10));
     setEndDate((row.end_date ?? row.aspiration_finish ?? '').slice(0, 10));
     setMessage(null);
@@ -147,18 +204,27 @@ export function PersonTaskPicker({ personId, roles }: PersonTaskPickerProps) {
       if (!Number.isFinite(allocationNumber) || allocationNumber <= 0 || allocationNumber > 200) {
         throw new Error(t('assignments:workload.edit.invalidAllocation'));
       }
-      if (!startDate || !endDate) throw new Error(t('assignments:workload.edit.invalidDates'));
-      if (startDate > endDate) throw new Error(t('assignments:workload.edit.invalidDateOrder'));
 
-      const response = await api.assignments.create({
+      const payload: Record<string, unknown> = {
         project_id: selected.id,
         person_id: personId,
         role_id: roleId,
         allocation_percentage: allocationNumber,
-        assignment_date_mode: 'fixed',
-        start_date: startDate,
-        end_date: endDate,
-      } as never, { scenarioId: draftScenarioId ?? activeScenarioId });
+        assignment_date_mode: dateMode,
+      };
+      if (dateMode === 'fixed') {
+        if (!startDate || !endDate) throw new Error(t('assignments:workload.edit.invalidDates'));
+        if (startDate > endDate) throw new Error(t('assignments:workload.edit.invalidDateOrder'));
+        payload.start_date = startDate;
+        payload.end_date = endDate;
+      } else if (dateMode === 'phase') {
+        if (!effectivePhaseId) throw new Error(t('assignments:workload.picker.noPhases'));
+        payload.phase_id = effectivePhaseId;
+      }
+
+      const response = await api.assignments.create(payload as never, {
+        scenarioId: draftScenarioId ?? activeScenarioId,
+      });
       return response.data as unknown as { warning?: string };
     },
     onSuccess: (created) => {
@@ -191,10 +257,7 @@ export function PersonTaskPicker({ personId, roles }: PersonTaskPickerProps) {
     },
   });
 
-  const isDisabled = (row: TaskRow) => {
-    if (TERMINAL_STATES.has(String(row.lifecycle_state ?? ''))) return true;
-    return row.project_sub_type_name === 'SR' && Number(row.child_count ?? 0) > 0;
-  };
+  const isDisabled = isTaskDisabled;
   const disabledReason = (row: TaskRow) => {
     if (TERMINAL_STATES.has(String(row.lifecycle_state ?? ''))) {
       return t('assignments:workload.picker.terminal');
@@ -203,6 +266,31 @@ export function PersonTaskPicker({ personId, roles }: PersonTaskPickerProps) {
       return t('assignments:workload.picker.srParent');
     }
     return '';
+  };
+
+  const handleTaskKeyDown = (event: React.KeyboardEvent<HTMLButtonElement>, row: TaskRow) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      if (!isDisabled(row)) selectTask(row);
+      return;
+    }
+    if (!['ArrowDown', 'ArrowUp', 'Home', 'End'].includes(event.key)) return;
+    event.preventDefault();
+    const tree = event.currentTarget.closest('[role="tree"]');
+    const items = Array.from(
+      tree?.querySelectorAll<HTMLElement>('[role="treeitem"]:not([aria-disabled="true"])') ?? []
+    );
+    const index = items.indexOf(event.currentTarget);
+    if (index < 0) return;
+    const nextIndex =
+      event.key === 'ArrowDown'
+        ? Math.min(items.length - 1, index + 1)
+        : event.key === 'ArrowUp'
+          ? Math.max(0, index - 1)
+          : event.key === 'Home'
+            ? 0
+            : items.length - 1;
+    items[nextIndex]?.focus();
   };
 
   const total = tasksQuery.data?.pagination.total ?? rows.length;
@@ -230,6 +318,21 @@ export function PersonTaskPicker({ personId, roles }: PersonTaskPickerProps) {
         />
       </label>
 
+      <label className="pw-scope">
+        {t('assignments:workload.picker.scopeLabel')}
+        <select
+          aria-label={t('assignments:workload.picker.scopeLabel')}
+          value={scope}
+          onChange={(event) => {
+            setScope(event.target.value as 'demand' | 'all');
+            setLimit(50);
+          }}
+        >
+          <option value="demand">{t('assignments:workload.picker.scopeDemand')}</option>
+          <option value="all">{t('assignments:workload.picker.scopeAll')}</option>
+        </select>
+      </label>
+
       {tasksQuery.isLoading ? (
         <div className="pw-picker-state" role="status">{t('assignments:workload.picker.loading')}</div>
       ) : tasksQuery.isError ? (
@@ -252,6 +355,8 @@ export function PersonTaskPicker({ personId, roles }: PersonTaskPickerProps) {
                 aria-level={depth + 1}
                 aria-selected={isSelected}
                 aria-disabled={disabled}
+                aria-expanded={Number(row.child_count ?? 0) > 0 ? true : undefined}
+                tabIndex={activeTaskId === row.id ? 0 : -1}
                 title={reason || row.name}
                 className={[
                   'pw-task',
@@ -260,6 +365,8 @@ export function PersonTaskPicker({ personId, roles }: PersonTaskPickerProps) {
                   isSelected ? 'pw-task--selected' : '',
                 ].filter(Boolean).join(' ')}
                 style={{ paddingLeft: `${0.55 + depth * 0.9}rem` }}
+                onFocus={() => setActiveTaskId(row.id)}
+                onKeyDown={(event) => handleTaskKeyDown(event, row)}
                 onClick={() => {
                   if (!disabled) selectTask(row);
                 }}
@@ -295,7 +402,7 @@ export function PersonTaskPicker({ personId, roles }: PersonTaskPickerProps) {
               ×
             </button>
           </div>
-          <p className="pw-add-note">{t('assignments:workload.picker.fixedOnly')}</p>
+          <p className="pw-add-note">{t('assignments:workload.picker.dateModeHint')}</p>
           {scenarioMismatch ? (
             <div className="pw-scenario-banner" role="alert">
               <div>
@@ -344,16 +451,69 @@ export function PersonTaskPicker({ personId, roles }: PersonTaskPickerProps) {
               required
             />
           </label>
-          <div className="pw-add-dates">
-            <label>
-              {t('assignments:workload.edit.startDate')}
-              <input type="date" value={startDate} onChange={(event) => setStartDate(event.target.value)} required />
-            </label>
-            <label>
-              {t('assignments:workload.edit.endDate')}
-              <input type="date" value={endDate} onChange={(event) => setEndDate(event.target.value)} required />
-            </label>
-          </div>
+          <label>
+            {t('assignments:workload.picker.dateMode')}
+            <select
+              value={dateMode}
+              onChange={(event) => {
+                setDateMode(event.target.value as 'fixed' | 'phase' | 'project');
+                setMessage(null);
+              }}
+            >
+              <option value="fixed">{t('assignments:dateModeOptions.fixed')}</option>
+              <option value="phase">{t('assignments:dateModeOptions.phase')}</option>
+              <option value="project">{t('assignments:dateModeOptions.project')}</option>
+            </select>
+          </label>
+
+          {dateMode === 'fixed' ? (
+            <div className="pw-add-dates">
+              <label>
+                {t('assignments:workload.edit.startDate')}
+                <input type="date" value={startDate} onChange={(event) => setStartDate(event.target.value)} required />
+              </label>
+              <label>
+                {t('assignments:workload.edit.endDate')}
+                <input type="date" value={endDate} onChange={(event) => setEndDate(event.target.value)} required />
+              </label>
+            </div>
+          ) : dateMode === 'phase' ? (
+            <>
+              <label>
+                {t('assignments:workload.columns.phase')}
+                <select
+                  value={effectivePhaseId}
+                  onChange={(event) => setPhaseId(event.target.value)}
+                  disabled={phasesQuery.isLoading || phaseOptions.length === 0}
+                >
+                  <option value="">{t('assignments:workload.picker.selectPhase')}</option>
+                  {phaseOptions.map((phase) => (
+                    <option key={phase.id} value={phase.id}>
+                      {phase.name}
+                    </option>
+                  ))}
+                </select>
+              </label>
+              {phasesQuery.isLoading ? (
+                <p className="pw-add-note">{t('assignments:workload.picker.loadingPhases')}</p>
+              ) : phasesQuery.isError || phaseOptions.length === 0 ? (
+                <p className="pw-add-error">{t('assignments:workload.picker.noPhases')}</p>
+              ) : (
+                <div className="pw-derived-dates" data-testid="pw-derived-dates">
+                  <span>{t('assignments:workload.picker.derivedDates')}</span>
+                  <strong>{String(derivedStart ?? '—').slice(0, 10)} → {String(derivedEnd ?? '—').slice(0, 10)}</strong>
+                </div>
+              )}
+            </>
+          ) : (
+            <div className="pw-derived-dates" data-testid="pw-derived-dates">
+              <span>{t('assignments:workload.picker.derivedDates')}</span>
+              <strong>{String(derivedStart ?? '—').slice(0, 10)} → {String(derivedEnd ?? '—').slice(0, 10)}</strong>
+              {!derivedStart || !derivedEnd ? (
+                <p className="pw-add-error">{t('assignments:workload.picker.projectNoDates')}</p>
+              ) : null}
+            </div>
+          )}
 
           <button type="submit" className="btn btn-primary btn-sm" disabled={createMutation.isPending || roles.length === 0 || scenarioMismatch}>
             <Plus size={14} /> {createMutation.isPending ? t('assignments:workload.picker.adding') : t('assignments:workload.picker.add')}

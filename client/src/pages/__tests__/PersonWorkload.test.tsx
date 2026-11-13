@@ -1,5 +1,5 @@
 import React from 'react';
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
@@ -19,6 +19,9 @@ jest.mock('../../lib/api-client', () => ({
       create: jest.fn(),
     },
     projects: {
+      list: jest.fn(),
+    },
+    projectPhases: {
       list: jest.fn(),
     },
   },
@@ -149,6 +152,9 @@ beforeEach(() => {
   (api.assignments.create as jest.Mock).mockResolvedValue({ data: { id: 'new-assignment' } });
   (api.projects.list as jest.Mock).mockResolvedValue({
     data: { data: [], pagination: { total: 0, has_more: false } },
+  });
+  (api.projectPhases.list as jest.Mock).mockResolvedValue({
+    data: { data: [], pagination: { total: 0 } },
   });
 });
 
@@ -305,6 +311,32 @@ test('direct assignment deletion requires the baseline-global confirmation', asy
   });
 });
 
+test('pause and resume send status with the row version and draft scenario', async () => {
+  renderPage();
+
+  await waitFor(() => {
+    expect(screen.getAllByRole('button', { name: 'Pause' }).length).toBeGreaterThan(0);
+  });
+
+  fireEvent.click(screen.getAllByRole('button', { name: 'Pause' })[0]);
+  await waitFor(() => {
+    expect(api.assignments.update).toHaveBeenCalledWith(
+      'a1',
+      expect.objectContaining({ status: 'paused', expected_version: 1 }),
+      { scenarioId: 'baseline-0000-0000-0000-000000000000' }
+    );
+  });
+
+  fireEvent.click(screen.getByRole('button', { name: 'Resume' }));
+  await waitFor(() => {
+    expect(api.assignments.update).toHaveBeenCalledWith(
+      'a3',
+      expect.objectContaining({ status: 'active', expected_version: 1 }),
+      { scenarioId: 'baseline-0000-0000-0000-000000000000' }
+    );
+  });
+});
+
 test('phase/project rows keep derived dates read-only and edit allocation only', async () => {
   (api.assignments.list as jest.Mock).mockResolvedValue({
     data: {
@@ -356,6 +388,17 @@ const taskTree = [
     start_date: '2026-03-01',
     end_date: '2026-03-31',
   },
+  {
+    id: 'task-leaf-2',
+    name: 'Leaf Task 2',
+    parent_id: 'task-root',
+    child_count: 0,
+    project_sub_type_name: 'AR',
+    lifecycle_state: 'developing',
+    include_in_demand: 1,
+    start_date: '2026-04-01',
+    end_date: '2026-04-30',
+  },
 ];
 
 test('task picker disables SR parent and adds a leaf in one create request', async () => {
@@ -367,7 +410,7 @@ test('task picker disables SR parent and adds a leaf in one create request', asy
   const parent = await screen.findByRole('treeitem', { name: /SR Parent/i });
   expect(parent).toHaveAttribute('aria-disabled', 'true');
 
-  const leaf = screen.getByRole('treeitem', { name: /Leaf Task/i });
+  const leaf = screen.getByRole('treeitem', { name: /^Leaf Task AR/i });
   fireEvent.click(leaf);
 
   await waitFor(() => {
@@ -393,6 +436,42 @@ test('task picker disables SR parent and adds a leaf in one create request', asy
   );
 });
 
+test('task scope switches from demand delivery to all assignable', async () => {
+  (api.projects.list as jest.Mock).mockResolvedValue({
+    data: { data: taskTree, pagination: { total: 2, has_more: false } },
+  });
+  renderPage();
+
+  await screen.findByRole('treeitem', { name: /^Leaf Task AR/i });
+  fireEvent.change(screen.getByLabelText('Task scope'), { target: { value: 'all' } });
+
+  await waitFor(() => {
+    const lastCall = (api.projects.list as jest.Mock).mock.calls.at(-1)?.[0];
+    expect(lastCall).not.toHaveProperty('include_in_demand');
+    expect(lastCall).toMatchObject({ slim: '1', include_ancestors: '1' });
+  });
+});
+
+test('task picker supports roving tabindex and arrow/Enter keyboard selection', async () => {
+  (api.projects.list as jest.Mock).mockResolvedValue({
+    data: { data: taskTree, pagination: { total: 3, has_more: false } },
+  });
+  renderPage();
+
+  const first = await screen.findByRole('treeitem', { name: /^Leaf Task AR/i });
+  const second = screen.getByRole('treeitem', { name: /^Leaf Task 2 AR/i });
+  expect(screen.getByRole('treeitem', { name: /SR Parent/i })).toHaveAttribute('tabindex', '-1');
+  expect(first).toHaveAttribute('tabindex', '0');
+
+  act(() => first.focus());
+  fireEvent.keyDown(first, { key: 'ArrowDown' });
+  expect(document.activeElement).toBe(second);
+
+  fireEvent.keyDown(second, { key: 'Enter' });
+  expect(await screen.findByLabelText('Date mode')).toBeInTheDocument();
+  expect(screen.getByRole('treeitem', { name: /^Leaf Task 2 AR/i })).toHaveAttribute('aria-selected', 'true');
+});
+
 test('duplicate create 409 is shown as an inline edit-existing message, not a generic failure', async () => {
   (api.projects.list as jest.Mock).mockResolvedValue({
     data: { data: taskTree, pagination: { total: 2, has_more: false } },
@@ -402,10 +481,84 @@ test('duplicate create 409 is shown as an inline edit-existing message, not a ge
   });
   renderPage();
 
-  fireEvent.click(await screen.findByRole('treeitem', { name: /Leaf Task/i }));
+  fireEvent.click(await screen.findByRole('treeitem', { name: /^Leaf Task AR/i }));
   fireEvent.click(await screen.findByRole('button', { name: /^Add$/i }));
 
   await waitFor(() => {
     expect(screen.getByRole('alert')).toHaveTextContent(/Adjust the existing row/i);
   });
+});
+
+test('phase mode creates with phase_id and no manual dates', async () => {
+  (api.projects.list as jest.Mock).mockResolvedValue({
+    data: { data: taskTree, pagination: { total: 2, has_more: false } },
+  });
+  (api.projectPhases.list as jest.Mock).mockResolvedValue({
+    data: {
+      data: [
+        {
+          id: 'timeline-1',
+          phase_id: 'phase-design',
+          phase_name: 'Design',
+          start_date: '2026-03-01',
+          end_date: '2026-03-15',
+        },
+      ],
+      pagination: { total: 1 },
+    },
+  });
+  renderPage();
+
+  fireEvent.click(await screen.findByRole('treeitem', { name: /^Leaf Task AR/i }));
+  fireEvent.change(screen.getByLabelText('Date mode'), { target: { value: 'phase' } });
+
+  await waitFor(() => {
+    expect(screen.getByLabelText('Phase')).toBeInTheDocument();
+  });
+  expect(await screen.findByText(/2026-03-01/)).toBeInTheDocument();
+  fireEvent.click(screen.getByRole('button', { name: /^Add$/i }));
+
+  await waitFor(() => {
+    expect(api.assignments.create).toHaveBeenCalledTimes(1);
+  });
+  expect(api.assignments.create).toHaveBeenCalledWith(
+    expect.objectContaining({
+      project_id: 'task-leaf',
+      assignment_date_mode: 'phase',
+      phase_id: 'phase-design',
+    }),
+    { scenarioId: 'baseline-0000-0000-0000-000000000000' }
+  );
+  const payload = (api.assignments.create as jest.Mock).mock.calls[0][0];
+  expect(payload).not.toHaveProperty('start_date');
+  expect(payload).not.toHaveProperty('end_date');
+});
+
+test('project mode creates with project mode and derived read-only dates', async () => {
+  (api.projects.list as jest.Mock).mockResolvedValue({
+    data: { data: taskTree, pagination: { total: 2, has_more: false } },
+  });
+  renderPage();
+
+  fireEvent.click(await screen.findByRole('treeitem', { name: /^Leaf Task AR/i }));
+  fireEvent.change(screen.getByLabelText('Date mode'), { target: { value: 'project' } });
+
+  await waitFor(() => {
+    expect(screen.getByTestId('pw-derived-dates')).toHaveTextContent('2026-03-01');
+  });
+  fireEvent.click(screen.getByRole('button', { name: /^Add$/i }));
+
+  await waitFor(() => {
+    expect(api.assignments.create).toHaveBeenCalledTimes(1);
+  });
+  expect(api.assignments.create).toHaveBeenCalledWith(
+    expect.objectContaining({
+      project_id: 'task-leaf',
+      assignment_date_mode: 'project',
+    }),
+    { scenarioId: 'baseline-0000-0000-0000-000000000000' }
+  );
+  const payload = (api.assignments.create as jest.Mock).mock.calls[0][0];
+  expect(payload).not.toHaveProperty('start_date');
+  expect(payload).not.toHaveProperty('end_date');
 });

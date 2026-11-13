@@ -7,6 +7,8 @@ import {
   ArrowLeft,
   BriefcaseBusiness,
   Pencil,
+  Pause,
+  Play,
   RefreshCw,
   Save,
   Trash2,
@@ -232,6 +234,52 @@ export default function PersonWorkload() {
     },
   });
 
+  const statusMutation = useMutation({
+    mutationFn: async ({ row, status, scenarioId }: { row: AssignmentRow; status: 'active' | 'paused'; scenarioId: string }) =>
+      api.assignments.update(
+        row.id,
+        {
+          status,
+          ...(row.version !== undefined ? { expected_version: row.version } : {}),
+        } as never,
+        { scenarioId }
+      ),
+    onMutate: ({ row }) => {
+      setSavingId(row.id);
+      setRowError(null);
+    },
+    onSuccess: (_data, { row }) => {
+      setSavingId(null);
+      setRowError(null);
+      void invalidateSchedulingReads(queryClient, String(row.project_id ?? ''));
+    },
+    onError: (error: any, { row }) => {
+      setSavingId(null);
+      setRowError({
+        id: row.id,
+        message: String(
+          error?.response?.data?.error ??
+            error?.response?.data?.message ??
+            error?.message ??
+            t('assignments:workload.edit.saveFailed')
+        ),
+      });
+    },
+  });
+
+  const toggleStatus = (row: AssignmentRow) => {
+    const nextStatus = row.status === 'paused' ? 'active' : 'paused';
+    if (row.assignment_type === 'direct') {
+      const message = t(
+        nextStatus === 'paused'
+          ? 'assignments:workload.edit.pauseDirectConfirm'
+          : 'assignments:workload.edit.resumeDirectConfirm'
+      );
+      if (!window.confirm(message)) return;
+    }
+    statusMutation.mutate({ row, status: nextStatus, scenarioId: activeScenarioId });
+  };
+
   const confirmDelete = (row: AssignmentRow) => {
     const message =
       row.assignment_type === 'direct'
@@ -427,6 +475,19 @@ export default function PersonWorkload() {
                       </div>
                     ) : (
                       <div className="pw-row-actions">
+                        <button
+                          type="button"
+                          className="btn btn-ghost btn-sm"
+                          aria-label={
+                            item.status === 'paused'
+                              ? t('assignments:workload.actions.resume')
+                              : t('assignments:workload.actions.pause')
+                          }
+                          disabled={saving}
+                          onClick={() => toggleStatus(item)}
+                        >
+                          {item.status === 'paused' ? <Play size={14} /> : <Pause size={14} />}
+                        </button>
                         <button
                           type="button"
                           className="btn btn-ghost btn-sm"

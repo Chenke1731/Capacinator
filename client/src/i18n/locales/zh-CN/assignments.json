@@ -130,7 +130,9 @@
       "edit": "编辑",
       "save": "保存",
       "cancel": "取消",
-      "delete": "删除"
+      "delete": "删除",
+      "pause": "暂停",
+      "resume": "恢复"
     },
     "edit": {
       "allocation": "分配比例 %",
@@ -144,6 +146,8 @@
       "deleteFailed": "删除分配失败。",
       "deleteConfirm": "删除这条分配？",
       "deleteDirectConfirm": "这是基线全局分配，删除会影响所有场景。继续？",
+      "pauseDirectConfirm": "这是基线全局分配，暂停会影响所有场景。继续？",
+      "resumeDirectConfirm": "这是基线全局分配，恢复会影响所有场景。继续？",
       "derivedDatesReadonly": "日期随项目/阶段，当前只能调整分配比例。"
     },
     "source": {
@@ -172,12 +176,21 @@
       "subtitle": "在任务树中搜索并选择叶子任务。",
       "count": "{{shown}} / {{total}}",
       "searchPlaceholder": "搜索任务",
+      "scopeLabel": "任务范围",
+      "scopeDemand": "需求交付",
+      "scopeAll": "全部可分配",
       "loading": "任务加载中…",
       "loadFailed": "任务加载失败。",
       "noMatches": "没有匹配的任务。",
       "noTasks": "没有可显示的需求任务。",
       "loadMore": "加载更多",
-      "fixedOnly": "本步骤新增分配使用固定日期。",
+      "dateModeHint": "选择固定日期、阶段或项目窗口。",
+      "dateMode": "日期模式",
+      "selectPhase": "选择阶段",
+      "loadingPhases": "阶段加载中…",
+      "noPhases": "该项目没有阶段时间线；请使用固定日期或项目模式。",
+      "derivedDates": "派生日期为只读。",
+      "projectNoDates": "项目没有 aspiration 日期；服务端将使用创建回退。",
       "role": "角色",
       "selectRole": "选择角色",
       "noRoles": "该人员还没有角色；请先添加角色再分配。",

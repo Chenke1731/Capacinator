@@ -246,16 +246,18 @@ export function createDraftFromTask(
   const roleId = params.overrides?.roleId ?? defaultRoleId;
   const roleName = roleId === defaultRoleId ? defaultRoleName : findRoleName(task, roleId) ?? params.personPrimaryRoleName ?? null;
 
-  // 默认阶段：默认角色对应的需求阶段（无则 null）
+  // 默认阶段：默认角色对应的需求阶段（无则 null）；phase 只在 phase 模式携带
   const defaultPhaseId = demand?.phase_id ?? null;
-  const phaseId = defaultPhaseId;
 
-  // 默认日期模式（§7.3）：阶段时间线 → phase；否则 aspiration → project；否则 fixed 空日期
+  // 默认日期模式（§7.3）：阶段时间线 → phase；否则 aspiration → project；否则 fixed 空日期。
+  // phase 只在 phase 模式下携带需求阶段；fixed/project 模式 phase 必须为 null
+  // （服务端按 phase NULL 显式判重，残留 phaseId 会造成"客户端键≠服务端键"）。
   let mode: 'fixed' | 'phase' | 'project';
   if (task.has_phase_timeline) mode = 'phase';
   else if (task.aspiration_start || task.aspiration_finish) mode = 'project';
   else mode = 'fixed';
   if (params.overrides?.assignmentDateMode) mode = params.overrides.assignmentDateMode;
+  const phaseId = mode === 'phase' ? defaultPhaseId : null;
 
   let startDate: string | null = null;
   let endDate: string | null = null;
@@ -510,6 +512,8 @@ function buildPayload(draft: AssignmentDraft, personId: string): Record<string, 
   if (draft.assignmentDateMode === 'fixed') {
     payload.start_date = draft.startDate;
     payload.end_date = draft.endDate;
+    // fixed 模式显式置空 phase：服务端按 phase NULL 判重，不能靠"缺省"
+    payload.phase_id = null;
   } else if (draft.assignmentDateMode === 'phase') {
     payload.phase_id = draft.phaseId;
   }

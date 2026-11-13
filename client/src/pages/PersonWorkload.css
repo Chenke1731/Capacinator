@@ -52,9 +52,8 @@
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-sm);
   padding: var(--space-3);
-  position: sticky;
-  top: 0;
-  z-index: 5;
+  /* 工作台 v2：泳道插到容量区与明细表之间后取消 sticky——粘顶卡片会
+     盖住泳道顶部的 bar（点击被拦截），滚动上下文改为整页。 */
 }
 
 .person-workload-page .pw-capacity-head {
@@ -972,9 +971,10 @@
 
 .person-workload-page .pw-dialog-heat-row {
   display: flex;
-  align-items: center;
+  align-items: stretch;
   gap: var(--space-3);
   min-height: 56px;
+  max-height: 64px;
 }
 
 .person-workload-page .pw-dialog-heat-label {
@@ -1217,6 +1217,8 @@
   display: flex;
   align-items: stretch;
   gap: var(--space-2);
+  /* 高度由外层给定（泳道 72px / 弹窗紧凑 28px），子条形按 % 撑开 */
+  align-self: stretch;
 }
 
 .person-workload-page .pw-heat--empty {
@@ -1230,7 +1232,7 @@
   display: flex;
   align-items: flex-end;
   gap: 2px;
-  min-height: 40px;
+  height: 100%;
   border-bottom: 1px solid var(--border-color);
 }
 
@@ -1259,10 +1261,7 @@
 }
 
 .person-workload-page .pw-heat--compact {
-  min-height: 28px;
-}
-
-.person-workload-page .pw-heat--compact .pw-heat-bars {
+  height: 28px;
   min-height: 28px;
 }
 
@@ -1424,8 +1423,8 @@
 
 .person-workload-page .pw-gantt-bar {
   position: absolute;
-  height: 16px;
-  margin: 1px 0;
+  height: 18px;
+  box-sizing: border-box;
   padding: 0 4px;
   display: inline-flex;
   align-items: center;
@@ -1460,6 +1459,7 @@
   background: repeating-linear-gradient(45deg, color-mix(in srgb, var(--text-secondary) 18%, transparent), color-mix(in srgb, var(--text-secondary) 18%, transparent) 4px, transparent 4px, transparent 8px);
   border: 1px dashed var(--text-secondary);
   color: var(--text-primary);
+  box-shadow: none;
 }
 
 .person-workload-page .pw-gantt-bar--ghost.pw-gantt-bar--conflict {

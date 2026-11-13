@@ -18,6 +18,7 @@ import { ChevronLeft, ChevronRight, RefreshCw, Search, X } from 'lucide-react';
 import { api } from '../../lib/api-client';
 import { queryKeys } from '../../lib/queryKeys';
 import {
+  classifySelection,
   createDraftFromTask,
   type AssignmentDraft,
   type SelectionTask,
@@ -235,6 +236,37 @@ export function TaskSelectionDialog(props: TaskSelectionDialogProps) {
     }
     return options;
   }, [selectedTasks, personPrimaryRoleId, personPrimaryRoleName]);
+
+  /** composer 统一参数变化后，勾选时合法、现在不可 CREATE 的任务必须退出勾选
+   *（分类按完整业务键，参数变了键就变了——§6.4/§7.1 重新分类） */
+  useEffect(() => {
+    if (selectedTasks.length === 0) return;
+    const eligible = new Set(
+      selectedTasks
+        .filter((task) => {
+          const demand = task.role_demands[0] ?? null;
+          const roleId = composer.roleId ?? demand?.role_id ?? personPrimaryRoleId ?? null;
+          const roleName =
+            composer.roleId !== null
+              ? composerRoleName
+              : demand?.role_name ?? personPrimaryRoleName ?? null;
+          const phaseId =
+            composer.dateMode === 'fixed' || composer.dateMode === 'project'
+              ? null
+              : demand?.phase_id ?? null;
+          return classifySelection(task, { personId, roleId, roleName, phaseId, assignments }).kind === 'CREATE';
+        })
+        .map((task) => task.id)
+    );
+    setSelectedTaskIds((prev) => {
+      const next = new Set([...prev].filter((id) => eligible.has(id)));
+      return next.size === prev.size ? prev : next;
+    });
+    setSelectedTasks((prev) => {
+      const next = prev.filter((task) => eligible.has(task.id));
+      return next.length === prev.length ? prev : next;
+    });
+  }, [composer.roleId, composer.dateMode, composerRoleName, personId, personPrimaryRoleId, personPrimaryRoleName, assignments, selectedTasks]);
 
   // 临时勾选的容量投影（§9.2.4：临时勾选只进弹窗迷你热区，与已加入 ghost 并列）
   const tempDrafts = useMemo(
@@ -480,6 +512,9 @@ export function TaskSelectionDialog(props: TaskSelectionDialogProps) {
               assignments={assignments}
               unifiedRoleId={composer.roleId}
               unifiedRoleName={composerRoleName}
+              unifiedDateMode={composer.dateMode}
+              primaryRoleId={personPrimaryRoleId ?? null}
+              primaryRoleName={personPrimaryRoleName ?? null}
               selectedTaskIds={selectedTaskIds}
               onToggle={toggleTask}
               onRowAction={handleRowAction}

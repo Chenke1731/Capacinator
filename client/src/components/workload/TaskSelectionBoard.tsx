@@ -24,6 +24,11 @@ export interface TaskSelectionBoardProps {
   /** composer 统一角色覆盖（null=未统一，用各任务默认角色分类） */
   unifiedRoleId: string | null;
   unifiedRoleName: string | null;
+  /** composer 统一日期模式：fixed/project 时分类键的 phase 必须为 null（与草稿同键） */
+  unifiedDateMode?: 'fixed' | 'phase' | 'project' | '';
+  /** 人员主角色兜底：无角色需求的任务按主角色分类（与 createDraftFromTask 同口径） */
+  primaryRoleId?: string | null;
+  primaryRoleName?: string | null;
   selectedTaskIds: Set<string>;
   onToggle: (task: SelectionTask, checked: boolean) => void;
   onRowAction: (task: SelectionTask, action: BoardRowAction, payload?: { existingId?: string; slot?: SelectionTask['single_person_slots'][number] }) => void;
@@ -90,6 +95,9 @@ export function TaskSelectionBoard({
   assignments,
   unifiedRoleId,
   unifiedRoleName,
+  unifiedDateMode = '',
+  primaryRoleId = null,
+  primaryRoleName = null,
   selectedTaskIds,
   onToggle,
   onRowAction,
@@ -100,10 +108,17 @@ export function TaskSelectionBoard({
   const annotated = useMemo(() => {
     return rows.map((task) => {
       const defaultDemand = task.role_demands[0] ?? null;
-      const roleId = unifiedRoleId ?? defaultDemand?.role_id ?? null;
+      // 与 createDraftFromTask 同口径：任务需求角色优先，无需求回落人员主角色；
+      // 统一 fixed/project 模式下草稿 phase 为 null，分类键必须同键
+      const roleId = unifiedRoleId ?? defaultDemand?.role_id ?? primaryRoleId;
       const roleName =
-        unifiedRoleId !== null ? unifiedRoleName : defaultDemand?.role_name ?? null;
-      const phaseId = defaultDemand?.phase_id ?? null;
+        unifiedRoleId !== null
+          ? unifiedRoleName
+          : defaultDemand?.role_name ?? primaryRoleName;
+      const phaseId =
+        unifiedDateMode === 'fixed' || unifiedDateMode === 'project'
+          ? null
+          : defaultDemand?.phase_id ?? null;
       const classification = classifySelection(task, {
         personId,
         roleId,
@@ -115,7 +130,7 @@ export function TaskSelectionBoard({
       const selectable = !task.is_ancestor && !task.has_children && !terminal && classification.kind === 'CREATE';
       return { task, classification, terminal, selectable };
     });
-  }, [rows, personId, assignments, unifiedRoleId, unifiedRoleName]);
+  }, [rows, personId, assignments, unifiedRoleId, unifiedRoleName, unifiedDateMode, primaryRoleId, primaryRoleName]);
 
   if (loading) {
     return (

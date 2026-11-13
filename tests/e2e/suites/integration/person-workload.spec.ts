@@ -1,7 +1,8 @@
 /**
- * I02w：人员工作负载编辑器浏览器验收（1366 最低宽度）。
- * jsdom 只覆盖逻辑；本 spec 覆盖两栏布局、容量条、任务树预备态、
- * 行级编辑入口与双主题可见性。
+ * 工作台 v2 浏览器验收（§18）：默认页无常驻任务树；添加分配打开顶部大弹窗；
+ * 弹窗显示真实任务表 + 迷你容量热区；跨页多选 → ghost → 调整 → 确认提交 →
+ * 泳道更新；1366 无横向溢出；双主题可读。E2E 会真实创建分配，结束时用
+ * “撤销创建”清理，避免污染共享 e2e 库。
  */
 import { test, expect, tags } from '../../fixtures';
 
@@ -12,8 +13,8 @@ async function firstPerson(apiContext: any) {
   return people.find((person: any) => person.is_active !== false) ?? people[0];
 }
 
-test.describe('Person workload editor (I02w)', () => {
-  test(`${tags.integration} 1366 layout, capacity summary, row edit and task picker`, async ({
+test.describe('Person workbench v2 (dialog selection → ghost → commit)', () => {
+  test(`${tags.integration} 1366 layout, dialog multi-select, ghost adjust, commit, swimlane update`, async ({
     authenticatedPage,
     apiContext,
   }) => {
@@ -24,24 +25,19 @@ test.describe('Person workload editor (I02w)', () => {
     await authenticatedPage.goto(`/people/${person.id}/workload`);
     await expect(authenticatedPage.getByRole('heading', { name: /Adjust Assignments/i })).toBeVisible();
     await expect(authenticatedPage.getByTestId('pw-total')).toBeVisible();
-    await expect(authenticatedPage.getByRole('heading', { name: 'Counted in current workload', exact: true })).toBeVisible();
-    await expect(authenticatedPage.getByRole('complementary', { name: /Add assignment/i })).toBeVisible();
 
+    // §18 功能：默认页面无常驻任务树（旧 aside 选择器不再存在）
+    await expect(authenticatedPage.getByRole('complementary')).toHaveCount(0);
+
+    // 泳道可见 + 1366 无页面级横向溢出
+    await expect(authenticatedPage.getByTestId('pw-gantt')).toBeVisible();
     const rootOverflow = await authenticatedPage.evaluate(() => ({
       scrollWidth: document.documentElement.scrollWidth,
       innerWidth: window.innerWidth,
     }));
     expect(rootOverflow.scrollWidth).toBeLessThanOrEqual(rootOverflow.innerWidth + 1);
 
-    const treeItems = authenticatedPage.getByRole('treeitem');
-    await expect(treeItems.first()).toBeVisible({ timeout: 10000 });
-    const enabledTask = authenticatedPage
-      .locator('[role="treeitem"]:not([aria-disabled="true"]):not([aria-expanded])')
-      .first();
-    expect(await enabledTask.count()).toBeGreaterThan(0);
-    await enabledTask.click();
-    await expect(authenticatedPage.getByLabel('Date mode')).toBeVisible();
-
+    // 行级编辑入口仍可用
     const editButtons = authenticatedPage.getByRole('button', { name: 'Edit' });
     if ((await editButtons.count()) > 0) {
       await editButtons.first().click();
@@ -49,6 +45,65 @@ test.describe('Person workload editor (I02w)', () => {
       await authenticatedPage.locator('.pw-row-actions').getByRole('button', { name: 'Cancel' }).click();
       await expect(authenticatedPage.locator('.pw-allocation-input')).toHaveCount(0);
     }
+
+    // §18：点“添加分配”打开顶部大弹窗，真实任务表 + 迷你热区可达
+    await authenticatedPage.getByTestId('pw-add-assignment').click();
+    const dialog = authenticatedPage.getByRole('dialog');
+    await expect(dialog).toBeVisible();
+    await expect(dialog).toHaveAttribute('aria-modal', 'true');
+    await expect(dialog.getByTestId('pw-mini-heat')).toBeVisible();
+    await expect(dialog.getByTestId('pw-task-board')).toBeVisible({ timeout: 15000 });
+
+    const overflowInDialog = await authenticatedPage.evaluate(() => ({
+      scrollWidth: document.documentElement.scrollWidth,
+      innerWidth: window.innerWidth,
+    }));
+    expect(overflowInDialog.scrollWidth).toBeLessThanOrEqual(overflowInDialog.innerWidth + 1);
+
+    const checkboxes = dialog.locator('input[type="checkbox"][data-testid^="pw-select-task-"]');
+    const checkboxCount = await checkboxes.count();
+    test.skip(checkboxCount < 1, 'No selectable leaf tasks in e2e database');
+
+    // 勾选两个任务（不足两个则选一个）
+    await checkboxes.first().check();
+    if (checkboxCount > 1) {
+      await checkboxes.nth(1).check();
+    }
+
+    // 统一 fixed 日期，保证草稿可提交
+    await dialog.getByLabel('Unified date mode').selectOption('fixed');
+    const now = Date.now();
+    const iso = (offsetDays: number) => new Date(now + offsetDays * 86400000).toISOString().slice(0, 10);
+    await dialog.getByLabel('Start date').fill(iso(7));
+    await dialog.getByLabel('End date').fill(iso(37));
+    await dialog.getByTestId('pw-add-to-lane').click();
+    await expect(dialog).toHaveCount(0);
+
+    // §18：加入泳道后 ghost 出现在泳道；待提交条可达
+    const commitBar = authenticatedPage.getByTestId('pw-commit-bar');
+    await expect(commitBar).toBeVisible();
+    await expect(authenticatedPage.getByTestId('pw-ghost-bar').first()).toBeVisible();
+
+    // ghost 参数面板：调整比例后关闭
+    await authenticatedPage.getByTestId('pw-ghost-bar').first().click();
+    const allocationInput = authenticatedPage.getByTestId('pw-ghost-inspector').getByLabel('Allocation %');
+    await expect(allocationInput).toBeVisible();
+    await allocationInput.fill('25');
+    await authenticatedPage.getByTestId('pw-ghost-inspector').getByRole('button', { name: 'Done' }).click();
+
+    // §18：超载仍可确认（容量只提醒不阻断）→ 逐条提交成功后进入撤销条
+    await authenticatedPage.getByTestId('pw-confirm-assign').click();
+    await expect(authenticatedPage.getByTestId('pw-undo-create')).toBeVisible({ timeout: 20000 });
+    // 泳道更新：ghost 消失（成功行变实心 committed bar）
+    await expect(authenticatedPage.getByTestId('pw-ghost-bar')).toHaveCount(0);
+
+    // 清理：撤销创建，避免污染共享 e2e 库
+    await authenticatedPage.getByTestId('pw-undo-create').click();
+    await expect(authenticatedPage.getByTestId('pw-commit-bar')).toHaveCount(0, { timeout: 20000 });
+
+    // 泳道可折叠（§18 视觉）
+    await authenticatedPage.getByTestId('pw-gantt-toggle').click();
+    await expect(authenticatedPage.getByTestId('pw-gantt-heat-compact')).toBeVisible();
   });
 
   test(`${tags.integration} light and dark themes keep the workload page readable`, async ({
@@ -72,5 +127,14 @@ test.describe('Person workload editor (I02w)', () => {
     await expect(authenticatedPage.locator('html')).toHaveAttribute('data-theme', 'dark');
     const darkColor = await heading.evaluate((element) => getComputedStyle(element).color);
     expect(darkColor).not.toBe('rgba(0, 0, 0, 0)');
+
+    // 弹窗在暗色下同样可读（标题 + 热区）
+    await authenticatedPage.getByTestId('pw-add-assignment').click();
+    const dialog = authenticatedPage.getByRole('dialog');
+    await expect(dialog).toBeVisible();
+    const dialogTitleColor = await dialog
+      .getByRole('heading', { name: /Select tasks for/i })
+      .evaluate((element) => getComputedStyle(element).color);
+    expect(dialogTitleColor).not.toBe('rgba(0, 0, 0, 0)');
   });
 });

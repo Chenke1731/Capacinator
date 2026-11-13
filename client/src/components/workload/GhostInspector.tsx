@@ -220,9 +220,10 @@ export function GhostInspector({
             onChange={(event) =>
               onUpdate(draft.draftId, {
                 assignmentDateMode: event.target.value as AssignmentDraft['assignmentDateMode'],
-                // 切模式时重置派生窗口
+                // 切模式时重置派生窗口；fixed/project 的 phase 必须为 null
                 startDate: null,
                 endDate: null,
+                phaseId: event.target.value === 'phase' ? draft.phaseId : null,
               })
             }
           >

@@ -381,16 +381,19 @@ export function WorkloadGantt({
                       lane.projectName
                     )}
                   </div>
-                  <div className="pw-gantt-lane-track">
+                  <div
+                    className="pw-gantt-lane-track"
+                    style={{ minHeight: `${Math.max(lane.bars.length * 18 + 4, 30)}px` }}
+                  >
                     <span className="pw-gantt-asof" style={{ left: `${Math.min(Math.max(asOfOffset, 0), 100)}%` }} aria-hidden="true" />
-                    {lane.bars.map((bar) => {
+                    {lane.bars.map((bar, barIndex) => {
                       const ghostDraggable = bar.kind === 'ghost' && dragGhostEditable(bar.ghost);
                       return (
                       <button
                         key={bar.key}
                         type="button"
                         className={barClasses(bar)}
-                        style={barStyle(bar)}
+                        style={{ ...barStyle(bar), top: `${barIndex * 18}px` }}
                         title={
                           ghostDraggable
                             ? `${bar.label} · ${t('assignments:workbench.gantt.dragHint')}`

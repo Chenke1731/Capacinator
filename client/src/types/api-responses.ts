@@ -235,6 +235,10 @@ export interface DashboardReportResponse {
   availability: {
     AVAILABLE: number;
     ASSIGNED: number;
+    /* I02d：可用率 0（视图 Unavailable） */
+    UNAVAILABLE?: number;
+    /* I02d：0<可用率<100（与 AVAILABLE/ASSIGNED 正交） */
+    LIMITED?: number;
   };
   /* 2026-10-13 实测真身(原类型缺这两个键): 生命周期机制产出 */
   design_watch: Array<{

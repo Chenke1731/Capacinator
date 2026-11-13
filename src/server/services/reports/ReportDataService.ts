@@ -610,10 +610,35 @@ export class ReportDataService {
 
   private calculateAvailability(
     personUtilizationData: Record<string, unknown>[]
-  ): { AVAILABLE: number; ASSIGNED: number } {
+  ): {
+    AVAILABLE: number;
+    ASSIGNED: number;
+    UNAVAILABLE: number;
+    LIMITED: number;
+  } {
     const availablePeople = personUtilizationData.filter((p) => p.utilization_status === 'Available').length;
     const assignedPeople = personUtilizationData.filter((p) => p.utilization_status !== 'Available').length;
-    return { AVAILABLE: availablePeople, ASSIGNED: assignedPeople };
+
+    // I02d：快捷统计此前只返回 AVAILABLE/ASSIGNED，UI 的"休假中/产能受限"
+    // 恒为 undefined→0（假 0）。Unavailable 是视图真身状态（可用率 0）；
+    // LIMITED 无法用视图状态表达（0<可用率<100 的人可能仍 Available），
+    // 故按 current_availability_percentage 派生。两档与 AVAILABLE/ASSIGNED
+    // 口径正交（同一人可既 Available 又 Limited），保留既有数字不变。
+    const unavailablePeople = personUtilizationData.filter(
+      (p) => p.utilization_status === 'Unavailable'
+    ).length;
+    const limitedPeople = personUtilizationData.filter((p) => {
+      if (p.utilization_status === 'Unavailable') return false;
+      const availability = Number(p.current_availability_percentage ?? 100);
+      return Number.isFinite(availability) && availability > 0 && availability < 100;
+    }).length;
+
+    return {
+      AVAILABLE: availablePeople,
+      ASSIGNED: assignedPeople,
+      UNAVAILABLE: unavailablePeople,
+      LIMITED: limitedPeople,
+    };
   }
 
   /** 视图 utilization_status → 客户端枚举的单一映射（2026-10-17 U01 收敛：

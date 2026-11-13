@@ -111,6 +111,36 @@ describe('Dashboard Component', () => {
     expect(screen.getByText('13')).toBeInTheDocument(); // roles count
   });
 
+  test('renders real unavailable/limited counts from availability (I02d)', async () => {
+    const mockApiResponse = {
+      data: {
+        success: true,
+        data: {
+          summary: { projects: 0, people: 12, roles: 3 },
+          projectHealth: {},
+          capacityGaps: {},
+          utilization: {},
+          availability: {
+            AVAILABLE: 5,
+            ASSIGNED: 7,
+            UNAVAILABLE: 2,
+            LIMITED: 3
+          }
+        },
+        requestId: 'test-i02d'
+      }
+    };
+
+    (api.reporting.getDashboard as any).mockResolvedValue(mockApiResponse);
+
+    renderDashboard();
+
+    await waitFor(() => {
+      expect(screen.getByLabelText(/2 people on leave/i)).toBeInTheDocument();
+    });
+    expect(screen.getByLabelText(/3 people with limited capacity/i)).toBeInTheDocument();
+  });
+
   test('should handle undefined projectHealth gracefully', async () => {
     // Test case where projectHealth might be undefined
     const mockApiResponse = {

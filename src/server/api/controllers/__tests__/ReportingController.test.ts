@@ -90,7 +90,9 @@ describe('ReportingController', () => {
         },
         availability: {
           AVAILABLE: 5,
-          ASSIGNED: 15
+          ASSIGNED: 15,
+          UNAVAILABLE: 1,
+          LIMITED: 4
         },
         design_watch: [],
         lifecycle_summary: {}
@@ -120,7 +122,7 @@ describe('ReportingController', () => {
         projectHealth: {},
         capacityGaps: { GAP: 0, TIGHT: 0, OK: 0 },
         utilization: {},
-        availability: { AVAILABLE: 0, ASSIGNED: 0 },
+        availability: { AVAILABLE: 0, ASSIGNED: 0, UNAVAILABLE: 0, LIMITED: 0 },
         design_watch: [],
         lifecycle_summary: {}
       };

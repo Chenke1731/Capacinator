@@ -48,6 +48,10 @@ export interface DashboardStats {
   availability: {
     AVAILABLE: number;
     ASSIGNED: number;
+    /** I02d：可用率 0（视图 Unavailable） */
+    UNAVAILABLE: number;
+    /** I02d：0<可用率<100（与 AVAILABLE/ASSIGNED 正交） */
+    LIMITED: number;
   };
   /** Items in 设计中 whose design deadline is due or overdue */
   design_watch: Array<{

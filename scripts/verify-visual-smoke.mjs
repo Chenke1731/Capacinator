@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 /**
- * visual 冒烟（批 T，2026-11-11）：任何 verify:visual 全量运行（18-25 min/轮）
- * 之前，先用 3 个代表组合在 ~4-6 min 内暴露 harness 层的陈旧假设。
+ * visual 冒烟（批 T，2026-11-11）：任何 verify:visual 全量运行（单进程
+ * 18-25 min/轮；4 分片约 5-7 min，见 verify-visual-shards.mjs）之前，
+ * 先用 3 个代表组合在 ~4-6 min 内暴露 harness 层的陈旧假设。
  *
  * 背景（耗时审计批 C 实录）：visual 复活时四个独立陈旧假设（死 profile、
  * .modal-overlay 锚、import 两步流、缺夹具键）在 4 次全量尝试里**串行**
@@ -26,7 +27,7 @@ for (const { label, args } of SMOKE) {
   try {
     execSync(`node scripts/verify-visual.mjs ${args.join(' ')}`, { stdio: 'inherit' });
   } catch {
-    console.error(`\n✗ 冒烟失败: ${label}\n  该组合暴露了 harness 陈旧假设——修完再跑全量（全量 18-25 min/轮，别拿它试错）。`);
+    console.error(`\n✗ 冒烟失败: ${label}\n  该组合暴露了 harness 陈旧假设——修完再跑全量（单进程 18-25 min/轮；4 分片 ~5-7 min，用 npm run verify:visual:shards；别拿全量试错）。`);
     process.exit(1);
   }
 }

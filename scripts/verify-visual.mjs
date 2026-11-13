@@ -1,6 +1,9 @@
 // 视觉防线: 像素基线 diff + axe 规则扫描 + 几何碰撞,主题×视口矩阵。
 // 用法:
 //   node scripts/verify-visual.mjs                 # 对比基线(基线缺失的组合自动报警)
+//   node scripts/verify-visual.mjs --shard 1/4     # 只跑第 1/4 片(供并行运行器调用)
+//   npm run verify:visual:shards -- --shards 4     # 4 进程并行全量
+//   node scripts/verify-visual.mjs --timing        # 打印每个组合耗时
 //   UPDATE_BASELINES=1 node scripts/verify-visual.mjs   # (重新)采集基线——仅在页面确认无问题时用
 // 基线锁定的是采集当日的数据内容;用户改了演示数据导致的 diff 属"内容变化",需人工判断是否回归。
 import { chromium } from 'playwright';
@@ -16,18 +19,20 @@ import { assessAxe, pixelOperation, isNeutralBackdrop } from './lib/visual-budge
 import {prepareImportState} from './lib/ui-prepared-states.mjs';
 import {installContrastHelpers} from './lib/ui-state-audit.mjs';
 import {measureSvgAxes} from './lib/svg-chart-audit.mjs';
+import {parseShard, applyShard, shardSuffix} from './lib/visual-shard.mjs';
 
 const BASE = auditEnvironment.base;
 const CHROME = auditEnvironment.chrome;
+const processStartedAt = Date.now();
 const DIR = path.join(path.dirname(fileURLToPath(import.meta.url)), '..', 'tests', 'visual');
 const SHOT_DIR = path.join(DIR, '__screenshots__');
 const BUDGET_FILE = path.join(DIR, 'axe-budget.json');
 const EXCEPTIONS_FILE = path.join(DIR, 'axe-exceptions.json');
 const argv=process.argv.slice(2),value=k=>argv.includes(k)?argv[argv.indexOf(k)+1]:undefined;
-const valid=new Set(['--profile','--page','--state','--selftest','--help','--record-existing-axe','--capture-fixtures','--inject-test-violation','--inject-svg-test-violation']);
-for(let i=0;i<argv.length;i++){if(!valid.has(argv[i]))throw new Error(`Unknown argument ${argv[i]}`);if(['--profile','--page','--state'].includes(argv[i])){if(!argv[i+1]||argv[i+1].startsWith('--'))throw new Error(`Missing value for ${argv[i]}`);i++;}}
+const valid=new Set(['--profile','--page','--state','--shard','--timing','--selftest','--help','--record-existing-axe','--capture-fixtures','--inject-test-violation','--inject-svg-test-violation']);
+for(let i=0;i<argv.length;i++){if(!valid.has(argv[i]))throw new Error(`Unknown argument ${argv[i]}`);if(['--profile','--page','--state','--shard'].includes(argv[i])){if(!argv[i+1]||argv[i+1].startsWith('--'))throw new Error(`Missing value for ${argv[i]}`);i++;}}
 if(argv.includes('--selftest')){const t=await import('./tests/visual-budget.test.mjs');t.runVisualSelfTests();process.exit(0);}
-if(argv.includes('--help')){console.log('verify-visual: [--profile name|--page path] [--state default|hover|focus|phase-hover|phase-edit|create|edit|filter|merge|merge-confirm|compare|compare-results] [--record-existing-axe] [--capture-fixtures]; UPDATE_BASELINES=1 only updates pixels; branch states require scenarios-rich');process.exit(0);}
+if(argv.includes('--help')){console.log('verify-visual: [--profile name|--page path] [--state default|hover|focus|phase-hover|phase-edit|create|edit|filter|merge|merge-confirm|compare|compare-results] [--shard i/n] [--timing] [--record-existing-axe] [--capture-fixtures]; UPDATE_BASELINES=1 only updates pixels; branch states require scenarios-rich');process.exit(0);}
 const UPDATE = process.env.UPDATE_BASELINES==='1';
 const REGISTER=argv.includes('--record-existing-axe');
 if(value('--profile')&&value('--page'))throw new Error('Select either profile or page');
@@ -43,6 +48,16 @@ if(requestedState==='template-add'&&FILTER?.name!=='phase-template')throw new Er
 if(requestedState?.startsWith('import-')&&FILTER?.name!=='import')throw Error('Import states require import profile');
 if(argv.includes('--inject-test-violation')&&(!FILTER||REGISTER))throw new Error('Injection requires a single profile and cannot register exceptions');
 if(argv.includes('--inject-svg-test-violation')&&(!FILTER||REGISTER||argv.includes('--inject-test-violation')))throw Error('SVG injection requires a single profile, no other injection, and no exception registration');
+
+// 全量矩阵 156 组合串行约 18–25 min。--shard i/n 按组合序号轮转切分，
+// 让多个进程并行跑互不相交的页面/主题/视口；报告与基线路径天然按 tag
+// 隔离。--record-existing-axe / --capture-fixtures 会写共享预算/夹具文件，
+// 与分片并发写冲突，直接拒绝而不是让后写者静默覆盖。
+const shardRaw=value('--shard');
+const SHARD=parseShard(shardRaw);
+if(SHARD.total>1&&REGISTER)throw new Error('--shard cannot be combined with --record-existing-axe (shared budget writes)');
+if(SHARD.total>1&&argv.includes('--capture-fixtures'))throw new Error('--shard cannot be combined with --capture-fixtures (shared fixture write)');
+const TIMING=argv.includes('--timing');
 
 // 矩阵: 页面 × 主题 × 视口(核心页加测 1366)
 const PAGES = [
@@ -68,16 +83,19 @@ const PAGES = [
   { name: 'phase-template', widths: [1600,1366], states:['default','template-add'] },
   ...['import','import-export','project-types','project-types-hierarchy','iterations','reports','reports-capacity','reports-utilization','reports-gaps','locations','audit-log','person-detail','role-detail'].map(name=>({name,widths:[1600,1366],...(name==='import'?{states:['default','import-advanced','import-file','import-success','import-error','import-running']}: {})})),
 ];
-const COMBOS = [];
+const ALL_COMBOS = [];
 const selected=FILTER?[{name:FILTER.name,path:FILTER.path,widths:[1600,1366],states:[requestedState??'default']}]:PAGES;
-for (const p of selected) for(const state of p.states??['default']) for (const theme of ['dark', 'light']) for(const w of p.widths??[1600]) COMBOS.push({ ...p, state, theme, w, h:w===1600?900:768 });
-if(!COMBOS.length)throw new Error('No visual combinations selected');
+for (const p of selected) for(const state of p.states??['default']) for (const theme of ['dark', 'light']) for(const w of p.widths??[1600]) ALL_COMBOS.push({ ...p, state, theme, w, h:w===1600?900:768 });
+const COMBOS = applyShard(ALL_COMBOS, SHARD);
+if(!COMBOS.length)throw new Error(`No visual combinations selected${SHARD.total>1?` for shard ${SHARD.index}/${SHARD.total}`:''}`);
 
 const results = [];
+const comboDurations = [];
 const check = (name, ok, detail = '') => {
   results.push({ name, ok });
   console.log(`${ok ? 'PASS' : 'FAIL'} ${name}${detail ? ' — ' + detail : ''}`);
 };
+const shardLabel = SHARD.total>1 ? ` [shard ${SHARD.index}/${SHARD.total}]` : '';
 
 const browser = await chromium.launch({ executablePath: CHROME });
 fs.mkdirSync(SHOT_DIR, { recursive: true });
@@ -88,6 +106,7 @@ const auth=await authenticate();
 const evidence=[];
 try {
 for (const combo of COMBOS) {
+  const comboStartedAt=Date.now();
   const STATE=combo.state;
   const comboStart=results.length;
   const tag = `${combo.name}${STATE==='default'?'':`-${STATE}`}-${combo.theme}-${combo.w}`;
@@ -237,6 +256,10 @@ for (const combo of COMBOS) {
   if(session.mockedWrites)evidence.at(-1).mockedWrites=session.mockedWrites;
   if(session.releaseMock)await session.releaseMock();
   await context.close();
+  const comboDurationMs=Date.now()-comboStartedAt;
+  evidence.at(-1).durationMs=comboDurationMs;
+  comboDurations.push({tag,ms:comboDurationMs});
+  if(TIMING)console.log(`TIMING ${tag} ${comboDurationMs}ms`);
 }
 
 if (REGISTER) {
@@ -246,10 +269,14 @@ if (REGISTER) {
   }
 } else if(JSON.stringify(budget)!==originalBudget)throw new Error('Pixel update mutated accessibility budgets');
 } finally {await browser.close();}
-saveAuditReport(process.cwd(),`visual-${FILTER?.name??'matrix'}-${requestedState??'default'}${argv.includes('--inject-test-violation')?'-injection':argv.includes('--inject-svg-test-violation')?'-svg-injection':''}`,{combinations:COMBOS.length,checks:results.length,updatePixels:UPDATE,registerExistingAxe:REGISTER,evidence});
+const reportName=`visual-${FILTER?.name??'matrix'}-${requestedState??'default'}${shardSuffix(SHARD)}${argv.includes('--inject-test-violation')?'-injection':argv.includes('--inject-svg-test-violation')?'-svg-injection':''}`;
+saveAuditReport(process.cwd(),reportName,{totalCombinations:ALL_COMBOS.length,combinations:COMBOS.length,shard:SHARD,checks:results.length,updatePixels:UPDATE,registerExistingAxe:REGISTER,evidence});
 
 const failed = results.filter((r) => !r.ok);
-console.log(`\n${results.filter((r) => r.ok).length}/${results.length} passed`);
+console.log(`\n${shardLabel}${results.filter((r) => r.ok).length}/${results.length} passed`);
+const totalComboMs=comboDurations.reduce((sum,row)=>sum+row.ms,0);
+const slowest=[...comboDurations].sort((a,b)=>b.ms-a.ms).slice(0,5);
+if(comboDurations.length)console.log(`TIMING${shardLabel} combo-sum=${(totalComboMs/1000).toFixed(1)}s wall=${((Date.now()-processStartedAt)/1000).toFixed(1)}s combos=${comboDurations.length}${slowest.length?` slowest=${slowest.map(row=>`${row.tag}:${(row.ms/1000).toFixed(1)}s`).join(', ')}`:''}`);
 if (failed.length) {
   console.log('FAILED:', failed.map((f) => f.name).join(' | '));
   process.exit(1);

@@ -347,6 +347,7 @@ npm run dist:linux       # Linux package (.AppImage)
 - **T1 批末提交前**:受影响单档 `node scripts/verify-states.mjs --profile X` ×N + `verify:colors`(若本批碰过 index.css/App.css,**批末统一刷一次** palette/timeline refresh——这两文件是 38 条证据的依赖锚,每编辑一次全陈旧,批内刷多轮纯浪费)。
 - **T2 系列里程碑/合并前**:states 全量(107) + visual 全量(780) + client jest 全量 + verify:colors。
 - **visual 迭代期一律页级过滤**(`--page`/`--profile`);**任何全量 visual 之前必须先跑冒烟**:`node scripts/verify-visual-smoke.mjs`(3 组合 ~5 min,一次性暴露死档/状态机/信封三类陈旧假设——批 C 实录:四个陈旧假设串行暴露耗了 4 次全量 ≈ 90 min)。
+- **全量 visual 用分片**:`npm run verify:visual:shards -- --shards 4`(4 进程,单组合实测 ~6s,全量预计 5-7 min;单进程 18-25 min)。分片报告带 `-shard-i-of-n` 后缀;`--record-existing-axe`/`--capture-fixtures` 会写共享文件,已禁止与 `--shard` 同用。分片只并行化独立页面组合,不减少 axe/碰撞/像素检查。
 
 ### 探针纪律
 - 带身份取值一律用 `scripts/lib/probe.mjs`(probe/probeSession,自证 `--selftest`):手写登录样板曾致身份缺失误开 Login 对话框、误诊一个来回。

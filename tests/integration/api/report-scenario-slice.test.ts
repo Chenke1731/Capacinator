@@ -208,6 +208,50 @@ describe('G1 报表读侧场景切片（D15/EXP-B09）', () => {
     expect(round6(mine.total_demand_fte)).toBe(1.3);
   });
 
+  test('A2. approved-only 家族对等（G-F2/EXP-B11）：待审批覆盖不改写角色容量线，原语≡视图', async () => {
+    // 覆盖今天、未批准的 50% 降时申请——容量线必须等于"无覆盖"基线（1.8 FTE/16h）
+    const today = new Date().toISOString().slice(0, 10);
+    const shift = (days: number) => {
+      const d = new Date(`${today}T00:00:00Z`);
+      d.setUTCDate(d.getUTCDate() + days);
+      return d.toISOString().slice(0, 10);
+    };
+    const overrideId = 'i01v-pending-override';
+    await db('person_availability_overrides').insert({
+      id: overrideId,
+      person_id: PERSON_FTE,
+      start_date: shift(-5),
+      end_date: shift(5),
+      availability_percentage: 50,
+      reason: 'pending leave request',
+      is_approved: false,
+    });
+    try {
+      const fresh = await roleCapacityGaps(db, BASELINE_SCENARIO_ID);
+      const view = (await db('capacity_gaps_view').select('*')) as Array<Record<string, unknown>>;
+      const mine = fresh.find((r) => r.role_id === ROLE_ID)!;
+      const viewMine = view.find((r) => r.role_id === ROLE_ID)!;
+
+      // 待审批不折减：仍是 1.0 + 0.8 = 1.8 FTE / 16h，无"降时人数"
+      expect(round6(mine.total_capacity_fte)).toBe(1.8);
+      expect(round6(mine.total_capacity_hours)).toBe(16);
+      expect(Number(mine.people_with_reduced_availability)).toBe(0);
+      // 视图同口径（077），两侧逐列相等
+      expect(pickGapColumns(mine as never)).toEqual(pickGapColumns(viewMine));
+
+      // 批准后才折减：FTE 0.5 + Contractor 0.8 = 1.3 FTE / 12h——证明夹具确实命中 join
+      await db('person_availability_overrides').where({ id: overrideId }).update({ is_approved: true });
+      const approved = (await roleCapacityGaps(db, BASELINE_SCENARIO_ID)).find((r) => r.role_id === ROLE_ID)!;
+      const approvedView = (await db('capacity_gaps_view').where({ role_id: ROLE_ID }).first()) as Record<string, unknown>;
+      expect(round6(approved.total_capacity_fte)).toBe(1.3);
+      expect(round6(approved.total_capacity_hours)).toBe(12);
+      expect(Number(approved.people_with_reduced_availability)).toBe(1);
+      expect(pickGapColumns(approved as never)).toEqual(pickGapColumns(approvedView));
+    } finally {
+      await db('person_availability_overrides').where({ id: overrideId }).del();
+    }
+  });
+
   test('B. 分支不变性：建未改动分支前后，四报表（缺省头）数字逐一相等', async () => {
     const service = new ReportDataService(db);
     const snapshot = async () => ({

@@ -28,6 +28,12 @@ const INTENTIONAL_AMENDMENTS = new Set([
   // 修复= config.transaction=false(执行器裸跑) + PRAGMA 自检 fail-loud,
   // 双态守卫测试锁定。修改业务语义的迁移不可走此门(先例即止于此)。
   '071_scenarios_created_by_set_null.ts',
+  // 076 只修 down() 的 SQL 损坏(别名 epc 不存在/括号不平衡/谓词被改写,
+  // CREATE VIEW 恒语法错误——回滚必炸,事务外执行还会连带把视图删没)。
+  // up() 未动;dev/e2e 库按名记录 076 不重放且 knex 不校验 checksum,
+  // 修改对已应用库零影响;分支未合入 main=零生产应用面。执行安全缺陷
+  // 由 migration-down-contract 守卫(视图族迁移逐个 down+up)锁定。
+  '076_person_utilization_approved_override_only.ts',
 ]);
 
 let staged;

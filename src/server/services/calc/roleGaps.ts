@@ -8,8 +8,9 @@
  * 改场景切片原语内联（与 getUtilizationReport 已修同型）。
  *
  * 口径承诺：
- * - role_capacity CTE 与 055 视图**逐字一致**（人×角色×可用率覆盖×
- *   worker_type 折扣，场景无关）——漂移由 report-scenario-slice 测试的
+ * - role_capacity CTE 与 capacity_gaps_view（077 起）**逐字一致**（人×角色×
+ *   可用率覆盖×worker_type 折扣，场景无关；覆盖只取 is_approved=1，与
+ *   076/工作台口径同族）——漂移由 report-scenario-slice 测试的
  *   baseline-视图对等断言锁定（评审 R3：两侧同错相消的守卫失明）。
  * - role_demand = 场景切片 + 开放池需求；**baseline 额外并入旧表
  *   project_assignments 的 active 行**（I01y/#1：055 视图需求侧经
@@ -74,6 +75,7 @@ export async function roleCapacityGaps(
       LEFT JOIN person_roles pr ON r.id = pr.role_id
       LEFT JOIN people p ON pr.person_id = p.id AND p.is_active = 1
       LEFT JOIN person_availability_overrides av ON p.id = av.person_id
+        AND av.is_approved = 1
         AND av.start_date <= date('now')
         AND av.end_date >= date('now')
       GROUP BY r.id, r.name

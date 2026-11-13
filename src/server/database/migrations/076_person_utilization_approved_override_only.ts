@@ -165,17 +165,19 @@ export async function down(knex: Knex): Promise<void> {
           CASE
             WHEN (epa.scenario_id IS NULL OR epa.scenario_id = 'baseline-0000-0000-0000-000000000000')
               AND (COALESCE(epa.computed_start_date, epa.start_date) IS NULL
-                   OR date(COALESCE(epc.computed_end_date, epa.end_date) IS NULL)
-          THEN epa.allocation_percentage
-          ELSE 0
-        END
-      ), 0) > 0 THEN 'Partially-allocated'
-      ELSE 'Available'
-    END AS utilization_status,
-    av.reason as availability_reason,
-    av.start_date as availability_start,
-    av.end_date as availability_end
-  FROM people p
+                   OR date(COALESCE(epa.computed_start_date, epa.start_date)) <= date('now'))
+              AND (COALESCE(epa.computed_end_date, epa.end_date) IS NULL
+                   OR date(COALESCE(epa.computed_end_date, epa.end_date)) >= date('now'))
+            THEN epa.allocation_percentage
+            ELSE 0
+          END
+        ), 0) > 0 THEN 'Partially-allocated'
+        ELSE 'Available'
+      END AS utilization_status,
+      av.reason as availability_reason,
+      av.start_date as availability_start,
+      av.end_date as availability_end
+    FROM people p
   LEFT JOIN person_roles pr ON p.primary_person_role_id = pr.id
   LEFT JOIN roles r ON pr.role_id = r.id
   LEFT JOIN locations l ON p.location_id = l.id

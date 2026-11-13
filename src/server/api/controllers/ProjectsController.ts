@@ -11,6 +11,7 @@ import { computeProjectConflictFlags } from '../../services/board/projectConflic
 import { overdueProjectIds, resolveOverdueReferenceDate } from '../../services/projects/overdueProjects.js';
 import { AssignmentRecalculationService, type AssignmentDateChange } from '../../services/AssignmentRecalculationService.js';
 import { resolveScenarioId } from '../../services/calc/effectiveAssignments.js';
+import { matchResourceTemplates, type ResourceTemplateLike } from '../../services/projects/resourceTemplateMatch.js';
 import { logger } from '../../services/logging/config.js';
 
 // Alias for backward compatibility
@@ -156,7 +157,9 @@ export class ProjectsController extends BaseController {
     });
     const extras = new Map<string, ReturnType<typeof blank>>();
     for (const p of projects) extras.set(p.id, blank());
-    const ids = projects.map((p: any) => p.id).filter((id: string) => extras.has(id));
+    // 祖先行（include_ancestors 补齐）只导航：不查摘要，输出恒为空（实现保证，
+    // 不靠夹具碰巧无数据——后端评审 F3）
+    const ids = projects.filter((p: any) => p.is_ancestor !== true).map((p: any) => p.id);
     if (ids.length === 0) {
       return projects.map((p: any) => ({ ...p, ...blank(), has_children: Number(p.child_count ?? 0) > 0 }));
     }
@@ -190,16 +193,16 @@ export class ProjectsController extends BaseController {
       });
     }
     const templateFallbackProjects = projects.filter(
-      (p: any) => extras.has(p.id) && !overrideProjects.has(p.id) && p.project_type_id
+      (p: any) => extras.has(p.id) && p.is_ancestor !== true && !overrideProjects.has(p.id) && p.project_type_id
     );
     if (templateFallbackProjects.length > 0) {
       const typeIds = [...new Set(templateFallbackProjects.map((p: any) => p.project_type_id))];
       const subTypeIds = templateFallbackProjects.map((p: any) => p.project_sub_type_id).filter(Boolean);
-      const templateRows = await this.db('resource_templates as rt')
+      const templateRows: Array<ResourceTemplateLike & Record<string, any>> = await this.db('resource_templates as rt')
         .join('roles', 'rt.role_id', 'roles.id')
         .where((builder: any) => {
           builder.whereIn('rt.project_type_id', typeIds);
-          // 模板 sub_type 为 NULL 表示通配；项目 sub_type 缺失只吃通配模板
+          // 预筛：同 sub_type 或 NULL 通配（精确/通配优先级由共享匹配器裁决）
           if (subTypeIds.length > 0) {
             builder.where((b: any) => b.whereIn('rt.project_sub_type_id', [...new Set(subTypeIds)]).orWhereNull('rt.project_sub_type_id'));
           } else {
@@ -208,11 +211,11 @@ export class ProjectsController extends BaseController {
         })
         .select('rt.project_type_id', 'rt.project_sub_type_id', 'rt.phase_id', 'rt.role_id', 'roles.name as role_name', 'rt.allocation_percentage');
       for (const project of templateFallbackProjects) {
-        for (const row of templateRows) {
-          if (row.project_type_id !== project.project_type_id) continue;
-          const templateSub = row.project_sub_type_id ?? null;
-          const projectSub = project.project_sub_type_id ?? null;
-          if (templateSub !== projectSub) continue;
+        // 与 initialize 共用同一匹配规则（F5 裁决 A）：精确 sub_type 优先，NULL 通配
+        for (const row of matchResourceTemplates(templateRows, {
+          project_type_id: project.project_type_id,
+          project_sub_type_id: project.project_sub_type_id ?? null,
+        })) {
           extras.get(project.id)?.role_demands.push({
             role_id: row.role_id,
             role_name: row.role_name,
@@ -242,7 +245,8 @@ export class ProjectsController extends BaseController {
       });
     }
 
-    // SE/MDE 槽位：与服务端 create 谓词同构（scenario+project+role+active）
+    // SE/MDE 槽位：与服务端 create 谓词同构（scenario+project+role+active）。
+    // 占用者的比例/阶段/日期模式一并透出——工作台"撤销替换"要按完整字段重建旧行。
     const slotRows = await this.db('scenario_project_assignments as spa')
       .join('roles as r', 'spa.role_id', 'r.id')
       .join('people as pe', 'spa.person_id', 'pe.id')
@@ -258,6 +262,11 @@ export class ProjectsController extends BaseController {
         'spa.person_id as incumbent_person_id',
         'pe.name as incumbent_person_name',
         'spa.version as incumbent_version',
+        'spa.allocation_percentage as incumbent_allocation',
+        'spa.phase_id as incumbent_phase_id',
+        'spa.assignment_date_mode as incumbent_date_mode',
+        'spa.start_date as incumbent_raw_start_date',
+        'spa.end_date as incumbent_raw_end_date',
         this.db.raw('COALESCE(spa.computed_start_date, spa.start_date) as incumbent_start_date'),
         this.db.raw('COALESCE(spa.computed_end_date, spa.end_date) as incumbent_end_date')
       );
@@ -269,8 +278,13 @@ export class ProjectsController extends BaseController {
         incumbent_person_id: row.incumbent_person_id,
         incumbent_person_name: row.incumbent_person_name,
         incumbent_version: Number(row.incumbent_version ?? 1),
+        incumbent_allocation_percentage: Number(row.incumbent_allocation ?? 0),
+        incumbent_phase_id: row.incumbent_phase_id ?? null,
+        incumbent_assignment_date_mode: row.incumbent_date_mode ?? 'fixed',
         incumbent_start_date: row.incumbent_start_date ?? null,
-        incumbent_end_date: row.incumbent_end_date ?? null
+        incumbent_end_date: row.incumbent_end_date ?? null,
+        incumbent_raw_start_date: row.incumbent_raw_start_date ?? null,
+        incumbent_raw_end_date: row.incumbent_raw_end_date ?? null
       });
     }
 
@@ -449,10 +463,10 @@ export class ProjectsController extends BaseController {
       owner_id: req.query.owner_id,
       lifecycle_state: req.query.lifecycle_state
     };
-    if (selectionMode && req.query.scope === 'demand') {
-      filters.include_in_demand = '1';
-    } else if (selectionMode && req.query.scope === 'all') {
-      filters.include_in_demand = undefined;
+    if (selectionMode) {
+      // scope 是选择模式的唯一需求过滤真源：demand=收窄，其余（含缺省）=全量，
+      // 原始 include_in_demand 参数不再直通（防旧调用方残留参数静默收窄"全量"）
+      filters.include_in_demand = req.query.scope === 'demand' ? '1' : undefined;
     }
 
     const result = await this.executeQuery(async () => {
@@ -560,7 +574,7 @@ export class ProjectsController extends BaseController {
       // 在前、名次排序稳定——平铺分页也能按层级阅读，翻页不抖动。
       if (selectionMode) {
         query = query.orderByRaw(
-          'COALESCE(projects.parent_id, projects.id), CASE WHEN projects.parent_id IS NULL THEN 0 ELSE 1 END, projects.name'
+          'COALESCE(projects.parent_id, projects.id), CASE WHEN projects.parent_id IS NULL THEN 0 ELSE 1 END, projects.name, projects.id'
         );
       }
 

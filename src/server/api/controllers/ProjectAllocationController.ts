@@ -2,6 +2,7 @@ import type { Request, Response } from 'express';
 import { BaseController } from './BaseController.js';
 import { ServiceContainer } from '../../services/ServiceContainer.js';
 import { randomUUID } from 'crypto';
+import { matchResourceTemplates } from '../../services/projects/resourceTemplateMatch.js';
 
 
 export class ProjectAllocationController extends BaseController {
@@ -49,8 +50,10 @@ export class ProjectAllocationController extends BaseController {
         return res.status(404).json({ error: 'Project not found' });
       }
 
-      // Get project type allocations
-      const projectTypeAllocations = await this.db('resource_templates')
+      // Get project type allocations——与选择弹窗的需求回落共用同一匹配规则
+      // （后端评审 F5 裁决 A：sub_type 精确优先 + NULL 通配；此前只按
+      // project_type_id，会把该类型下**所有** sub_type 的模板都复制成覆盖）
+      const typeTemplates = await this.db('resource_templates')
         .where('project_type_id', project.project_type_id)
         .join('project_phases', 'resource_templates.phase_id', 'project_phases.id')
         .join('roles', 'resource_templates.role_id', 'roles.id')
@@ -59,6 +62,10 @@ export class ProjectAllocationController extends BaseController {
           'project_phases.name as phase_name',
           'roles.name as role_name'
         );
+      const projectTypeAllocations = matchResourceTemplates(typeTemplates as any[], {
+        project_type_id: project.project_type_id ?? null,
+        project_sub_type_id: project.project_sub_type_id ?? null,
+      });
 
       // Create inherited allocations for this project
       const inheritedAllocations = projectTypeAllocations.map((template: Record<string, any>) => ({

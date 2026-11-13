@@ -308,6 +308,16 @@ export default function PersonWorkload() {
 
   const inspectorDraft = draftStore.drafts.find((draft) => draft.draftId === inspectorDraftId) ?? null;
 
+  /** §15：关闭 inspector 后焦点回原 ghost；ghost 已移除则回草稿摘要 */
+  const focusGhostOrCommitBar = useCallback((draftId: string) => {
+    window.requestAnimationFrame(() => {
+      const ghost = document.querySelector<HTMLElement>(
+        `[data-testid="pw-ghost-bar"][data-draft-id="${draftId}"]`
+      );
+      (ghost ?? commitBarRef.current)?.focus?.();
+    });
+  }, []);
+
   // Phase 3 mini-map：12 个月月桶总览（含 ghost 投影），点击月桶移动观察窗
   const minimapTimeline = useMemo(
     () =>
@@ -1352,8 +1362,13 @@ export default function PersonWorkload() {
           onRemove={(draftId) => {
             draftStore.removeDraft(draftId);
             setInspectorDraftId(null);
+            focusGhostOrCommitBar(draftId);
           }}
-          onClose={() => setInspectorDraftId(null)}
+          onClose={() => {
+            const draftId = inspectorDraft.draftId;
+            setInspectorDraftId(null);
+            focusGhostOrCommitBar(draftId);
+          }}
           disabled={draftStore.submitting || inspectorDraft.submitState === 'SUBMITTING'}
         />
       ) : null}

@@ -290,6 +290,9 @@ export function WorkloadGantt({
     } else {
       if (bar.mode === 'phase' || bar.mode === 'project') classes.push('pw-gantt-bar--derived');
       if (bar.status === 'paused') classes.push('pw-gantt-bar--paused');
+      // 未来/已结束行保留在泳道但淡化（§5.2 bar 层契约）
+      if (bar.startDate && bar.startDate > timeline.asOf) classes.push('pw-gantt-bar--future');
+      else if (bar.endDate && bar.endDate < timeline.asOf) classes.push('pw-gantt-bar--ended');
     }
     return classes.join(' ');
   };

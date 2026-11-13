@@ -24,7 +24,9 @@ export function matchResourceTemplates<T extends ResourceTemplateLike>(
   const projectSub = project.project_sub_type_id ?? null;
   const byKey = new Map<string, T>();
   for (const template of templates) {
-    if (template.project_type_id !== project.project_type_id) continue;
+    // 类型过滤：调用方 SQL 通常已按类型预筛；行缺失该字段（如既有单测夹具）
+    // 时不做二次排除，只信预筛
+    if (template.project_type_id !== undefined && template.project_type_id !== project.project_type_id) continue;
     const templateSub = template.project_sub_type_id ?? null;
     const exact = templateSub === projectSub;
     const wildcard = templateSub === null;

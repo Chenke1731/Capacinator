@@ -16,6 +16,10 @@ jest.mock('../../lib/api-client', () => ({
       list: jest.fn(),
       update: jest.fn(),
       delete: jest.fn(),
+      create: jest.fn(),
+    },
+    projects: {
+      list: jest.fn(),
     },
   },
 }));
@@ -30,6 +34,7 @@ const person = {
   id: 'person-1',
   name: 'Jane Doe',
   primary_role_name: 'SE',
+  roles: [{ role_id: 'role-se', role_name: 'SE', is_primary: 1 }],
 };
 
 const assignments = [
@@ -123,6 +128,10 @@ beforeEach(() => {
   });
   (api.assignments.update as jest.Mock).mockResolvedValue({ data: { success: true } });
   (api.assignments.delete as jest.Mock).mockResolvedValue({ data: { success: true } });
+  (api.assignments.create as jest.Mock).mockResolvedValue({ data: { id: 'new-assignment' } });
+  (api.projects.list as jest.Mock).mockResolvedValue({
+    data: { data: [], pagination: { total: 0, has_more: false } },
+  });
 });
 
 test('current total, excluded rows, and scenario source badges share one selector', async () => {
@@ -279,4 +288,78 @@ test('phase/project rows keep derived dates read-only and edit allocation only',
   expect(screen.getByLabelText('Allocation %')).toBeInTheDocument();
   expect(screen.queryByLabelText('Start date')).not.toBeInTheDocument();
   expect(screen.getByText(/Dates follow the project\/phase/i)).toBeInTheDocument();
+});
+
+const taskTree = [
+  {
+    id: 'task-root',
+    name: 'SR Parent',
+    parent_id: null,
+    child_count: 1,
+    project_sub_type_name: 'SR',
+    lifecycle_state: 'developing',
+    include_in_demand: 1,
+  },
+  {
+    id: 'task-leaf',
+    name: 'Leaf Task',
+    parent_id: 'task-root',
+    child_count: 0,
+    project_sub_type_name: 'AR',
+    lifecycle_state: 'developing',
+    include_in_demand: 1,
+    start_date: '2026-03-01',
+    end_date: '2026-03-31',
+  },
+];
+
+test('task picker disables SR parent and adds a leaf in one create request', async () => {
+  (api.projects.list as jest.Mock).mockResolvedValue({
+    data: { data: taskTree, pagination: { total: 2, has_more: false } },
+  });
+  renderPage();
+
+  const parent = await screen.findByRole('treeitem', { name: /SR Parent/i });
+  expect(parent).toHaveAttribute('aria-disabled', 'true');
+
+  const leaf = screen.getByRole('treeitem', { name: /Leaf Task/i });
+  fireEvent.click(leaf);
+
+  await waitFor(() => {
+    expect(screen.getByRole('button', { name: /^Add$/i })).toBeInTheDocument();
+  });
+  fireEvent.change(screen.getByLabelText('Allocation %'), { target: { value: '40' } });
+  fireEvent.click(screen.getByRole('button', { name: /^Add$/i }));
+
+  await waitFor(() => {
+    expect(api.assignments.create).toHaveBeenCalledTimes(1);
+  });
+  expect(api.assignments.create).toHaveBeenCalledWith(
+    expect.objectContaining({
+      project_id: 'task-leaf',
+      person_id: 'person-1',
+      role_id: 'role-se',
+      allocation_percentage: 40,
+      assignment_date_mode: 'fixed',
+      start_date: '2026-03-01',
+      end_date: '2026-03-31',
+    })
+  );
+});
+
+test('duplicate create 409 is shown as an inline edit-existing message, not a generic failure', async () => {
+  (api.projects.list as jest.Mock).mockResolvedValue({
+    data: { data: taskTree, pagination: { total: 2, has_more: false } },
+  });
+  (api.assignments.create as jest.Mock).mockRejectedValue({
+    response: { status: 409, data: { code: 'ASSIGNMENT_DUPLICATE' } },
+  });
+  renderPage();
+
+  fireEvent.click(await screen.findByRole('treeitem', { name: /Leaf Task/i }));
+  fireEvent.click(await screen.findByRole('button', { name: /^Add$/i }));
+
+  await waitFor(() => {
+    expect(screen.getByRole('alert')).toHaveTextContent(/Adjust the existing row/i);
+  });
 });

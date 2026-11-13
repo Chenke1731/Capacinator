@@ -25,6 +25,7 @@ import {
 } from '../lib/personWorkload';
 import { toISODateString } from '../utils/dateUtils';
 import { Badge } from '../components/ui/badge';
+import { PersonTaskPicker } from '../components/workload/PersonTaskPicker';
 import './PersonWorkload.css';
 
 interface PersonRow {
@@ -32,6 +33,7 @@ interface PersonRow {
   name: string;
   primary_role_name?: string | null;
   default_availability_percentage?: number | null;
+  roles?: Array<{ role_id?: string; role_name?: string; is_primary?: number }>;
 }
 
 interface AssignmentRow extends WorkloadAssignment {
@@ -537,6 +539,9 @@ export default function PersonWorkload() {
         ) : null}
       </section>
 
+      <div className="pw-layout">
+        <PersonTaskPicker personId={person.id} roles={person.roles ?? []} />
+        <main className="pw-main">
       {assignmentsQuery.isError ? (
         <div className="pw-alert" role="alert">
           <span>{t('assignments:workload.states.assignmentsError')}</span>
@@ -579,6 +584,8 @@ export default function PersonWorkload() {
       </section>
 
       <p className="pw-note">{t('assignments:workload.note')}</p>
+        </main>
+      </div>
     </div>
   );
 }

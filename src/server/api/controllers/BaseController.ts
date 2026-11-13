@@ -458,7 +458,8 @@ export abstract class BaseController {
     data: any[],
     total: number,
     page: number,
-    limit: number
+    limit: number,
+    extraPagination: Record<string, unknown> = {}
   ): void {
     const totalPages = Math.ceil(total / limit);
 
@@ -471,7 +472,8 @@ export abstract class BaseController {
         total,
         totalPages,
         hasNextPage: page < totalPages,
-        hasPrevPage: page > 1
+        hasPrevPage: page > 1,
+        ...extraPagination
       },
       requestId: req.requestId
     });

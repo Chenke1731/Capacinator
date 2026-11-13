@@ -310,6 +310,7 @@ export class ProjectsController extends BaseController {
           'projects.component',
           'projects.component_id',
           'projects.parent_id',
+          this.db.raw('(SELECT COUNT(*) FROM projects child WHERE child.parent_id = projects.id) as child_count'),
           'projects.iteration_label',
           'projects.created_at',
           'projects.updated_at',
@@ -384,49 +385,116 @@ export class ProjectsController extends BaseController {
       query = this.paginate(query, page, limit);
 
       const projects = await query;
-
-      // Attach tags (id/name/color) to each project row
       const pageIds = projects.map((p: any) => p.id);
-      const tagRows = pageIds.length
-        ? await this.db('project_tags as pt')
-            .join('tags', 'pt.tag_id', 'tags.id')
-            .whereIn('pt.project_id', pageIds)
-            .select('pt.project_id', 'tags.id', 'tags.name', 'tags.color')
-        : [];
-      const tagsByProject = new Map<string, any[]>();
-      for (const row of tagRows) {
-        const list = tagsByProject.get(row.project_id) ?? [];
-        list.push({ id: row.id, name: row.name, color: row.color });
-        tagsByProject.set(row.project_id, list);
+      const pageIdSet = new Set(pageIds);
+      const slim = req.query.slim === '1' || req.query.slim === 'true';
+
+      // 任务挑选器（人员工作负载页）用：搜索命中项 + 祖先路径。祖先按
+      // parent_id 逐层补齐（不依赖 LIMIT，也不受 2000 行看板上限影响），
+      // 前端才能把命中节点放回树上而不丢父级。
+      const includeAncestors = req.query.include_ancestors === '1' || req.query.include_ancestors === 'true';
+      const ancestorIds = new Set<string>();
+      if (includeAncestors && projects.length > 0) {
+        const visited = new Set<string>();
+        let frontier: string[] = projects.map((p: any) => p.parent_id).filter(Boolean);
+        while (frontier.length > 0) {
+          const ids = [...new Set<string>(frontier)].filter((id) => !visited.has(id));
+          if (ids.length === 0) break;
+          ids.forEach((id) => visited.add(id));
+          const parents = await this.db('projects')
+            .whereIn('id', ids)
+            .select('id', 'parent_id');
+          for (const parent of parents) {
+            if (!pageIdSet.has(parent.id)) ancestorIds.add(parent.id);
+          }
+          frontier = parents.map((p: any) => p.parent_id).filter(Boolean);
+        }
       }
 
-      // Advisory lifecycle warnings (状态告警) + 人力汇总 — batched for the page
-      const lifecycleService = new LifecycleService(this.db);
-      const warningsByProject = await lifecycleService.computeWarningsForProjects(projects);
-      await this.attachStaffingSummaries(projects);
-      await this.attachEstimationSummaries(projects);
-      await this.attachBoardPlanning(projects);
+      if (slim) {
+        for (const project of projects) {
+          project.tags = [];
+          project.lifecycle_warnings = [];
+        }
+      } else {
+        // Attach tags (id/name/color) to each project row
+        const tagRows = pageIds.length
+          ? await this.db('project_tags as pt')
+              .join('tags', 'pt.tag_id', 'tags.id')
+              .whereIn('pt.project_id', pageIds)
+              .select('pt.project_id', 'tags.id', 'tags.name', 'tags.color')
+          : [];
+        const tagsByProject = new Map<string, any[]>();
+        for (const row of tagRows) {
+          const list = tagsByProject.get(row.project_id) ?? [];
+          list.push({ id: row.id, name: row.name, color: row.color });
+          tagsByProject.set(row.project_id, list);
+        }
 
-      for (const project of projects) {
-        project.tags = tagsByProject.get(project.id) ?? [];
-        project.lifecycle_warnings = warningsByProject.get(project.id) ?? [];
+        // Advisory lifecycle warnings (状态告警) + 人力汇总 — batched for the page
+        const lifecycleService = new LifecycleService(this.db);
+        const warningsByProject = await lifecycleService.computeWarningsForProjects(projects);
+        await this.attachStaffingSummaries(projects);
+        await this.attachEstimationSummaries(projects);
+        await this.attachBoardPlanning(projects);
+
+        for (const project of projects) {
+          project.tags = tagsByProject.get(project.id) ?? [];
+          project.lifecycle_warnings = warningsByProject.get(project.id) ?? [];
+        }
+      }
+
+      let data = projects;
+      if (ancestorIds.size > 0) {
+        const ancestors = await this.db('projects')
+          .leftJoin('project_types', 'projects.project_type_id', 'project_types.id')
+          .leftJoin('project_sub_types', 'projects.project_sub_type_id', 'project_sub_types.id')
+          .whereIn('projects.id', [...ancestorIds])
+          .select(
+            'projects.id',
+            'projects.name',
+            'projects.parent_id',
+            'projects.priority',
+            this.db.raw('(SELECT COUNT(*) FROM projects child WHERE child.parent_id = projects.id) as child_count'),
+            'projects.lifecycle_state',
+            'projects.project_type_id',
+            'projects.project_sub_type_id',
+            'project_types.name as project_type_name',
+            'project_sub_types.name as project_sub_type_name',
+            'projects.aspiration_start',
+            'projects.aspiration_finish'
+          )
+          .orderBy('projects.name');
+        data = [
+          ...projects,
+          ...ancestors.map((row: any) => ({
+            ...row,
+            is_ancestor: true,
+            tags: [],
+            lifecycle_warnings: []
+          }))
+        ];
       }
 
       const total = await countQuery.count('* as count').first();
+      const totalCount = Number(total?.count) || 0;
 
       return {
-        data: projects,
+        data,
         pagination: {
           page,
           limit,
-          total: Number(total?.count) || 0,
-          totalPages: Math.ceil((Number(total?.count) || 0) / limit)
+          total: totalCount,
+          totalPages: Math.ceil(totalCount / limit),
+          has_more: page * limit < totalCount
         }
       };
     }, req, res, 'Failed to fetch projects');
 
     if (result) {
-      this.sendPaginatedResponse(req, res, result.data, result.pagination.total, result.pagination.page, result.pagination.limit);
+      this.sendPaginatedResponse(req, res, result.data, result.pagination.total, result.pagination.page, result.pagination.limit, {
+        has_more: result.pagination.has_more
+      });
     }
   })
 
@@ -559,6 +627,7 @@ export class ProjectsController extends BaseController {
           'projects.component',
           'projects.component_id',
           'projects.parent_id',
+          this.db.raw('(SELECT COUNT(*) FROM projects child WHERE child.parent_id = projects.id) as child_count'),
           'projects.iteration_label',
           'projects.created_at',
           'projects.updated_at',

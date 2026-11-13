@@ -113,21 +113,33 @@ function enumerateState({root,fonts}) {
  */
 export function checkHoverGeometry(defaultRows, currentRows){
   const issues=[];
-  const baseBySelector=new Map((defaultRows??[]).map(r=>[r.selector,r]));
-  for(const row of currentRows??[]){
-    const base=baseBySelector.get(row.selector);
-    if(!base||row.offsetTop==null||base.offsetTop==null)continue;
-    const movedUp=row.offsetTop<base.offsetTop-0.5;
-    if(movedUp&&row.offsetTop<4){
-      issues.push({selector:row.selector,kind:'hover-crosses-container-top',value:`offset ${row.offsetTop.toFixed(1)} (was ${base.offsetTop.toFixed(1)})`});
-    }
-    // F-09（批 R）：左向——hover 后相对裁剪容器左移且距左边 <4px
-    if(row.offsetLeft!=null&&base.offsetLeft!=null){
-      const movedLeft=row.offsetLeft<base.offsetLeft-0.5;
-      if(movedLeft&&row.offsetLeft<4){
-        issues.push({selector:row.selector,kind:'hover-crosses-container-left',value:`offset ${row.offsetLeft.toFixed(1)} (was ${base.offsetLeft.toFixed(1)})`});
+  // G-02（工作台 v2 评审）：同选择器多元素按 selector#ordinal 配对——重复
+  // data-testid 的列表元素（泳道 bar 等）若按 selector 整键匹配，default
+  // 基线 Map 取"最后一条"而 hover 行逐条比较，产生 "0.0 (was 44.8)" 串键
+  // 假阳性。数量不齐时（悬停态元素增删）多余行跳过，不猜配对。
+  const groupBySelector=(rows)=>{
+    const m=new Map();
+    for(const r of rows??[]){const l=m.get(r.selector)??[];l.push(r);m.set(r.selector,l);}
+    return m;
+  };
+  const baseGroups=groupBySelector(defaultRows);
+  for(const [sel,currentGroup] of groupBySelector(currentRows)){
+    const baseGroup=baseGroups.get(sel)??[];
+    currentGroup.forEach((row,i)=>{
+      const base=baseGroup[i];
+      if(!base||row.offsetTop==null||base.offsetTop==null)return;
+      const movedUp=row.offsetTop<base.offsetTop-0.5;
+      if(movedUp&&row.offsetTop<4){
+        issues.push({selector:sel,kind:'hover-crosses-container-top',value:`offset ${row.offsetTop.toFixed(1)} (was ${base.offsetTop.toFixed(1)})`});
       }
-    }
+      // F-09（批 R）：左向——hover 后相对裁剪容器左移且距左边 <4px
+      if(row.offsetLeft!=null&&base.offsetLeft!=null){
+        const movedLeft=row.offsetLeft<base.offsetLeft-0.5;
+        if(movedLeft&&row.offsetLeft<4){
+          issues.push({selector:sel,kind:'hover-crosses-container-left',value:`offset ${row.offsetLeft.toFixed(1)} (was ${base.offsetLeft.toFixed(1)})`});
+        }
+      }
+    });
   }
   return issues;
 }

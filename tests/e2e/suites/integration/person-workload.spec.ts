@@ -37,10 +37,11 @@ test.describe('Person workbench v2 (dialog selection → ghost → commit)', () 
     }));
     expect(rootOverflow.scrollWidth).toBeLessThanOrEqual(rootOverflow.innerWidth + 1);
 
-    // G-01 守卫：bar 计算高度不得超 20px 堆叠间距；同泳道 bar 矩形零相交
+    // G-01 守卫：bar 计算高度不得超 26px 堆叠间距（axe target-size 下限 24）；
+    // 同泳道 bar 矩形零相交
     const barGeometry = await authenticatedPage.evaluate(() => {
       const bars = [...document.querySelectorAll<HTMLElement>('[data-testid="pw-gantt-bar"], [data-testid="pw-ghost-bar"]')];
-      const oversized = bars.filter((bar) => bar.getBoundingClientRect().height > 20);
+      const oversized = bars.filter((bar) => bar.getBoundingClientRect().height > 26);
       const byTrack = new Map<Element, DOMRect[]>();
       for (const bar of bars) {
         const track = bar.closest('.pw-gantt-lane-track');

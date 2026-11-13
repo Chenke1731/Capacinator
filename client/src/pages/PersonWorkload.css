@@ -1151,15 +1151,14 @@
 
 .person-workload-page .pw-gantt-bar {
   position: absolute;
-  height: 18px;
-  /* 泳道 bar 是数据展示件不是按钮目标：解除全局 button 40px 最小尺寸
-   *（design-system `button{min-width/min-height:40px}` 会把 18px bar 撑到
-   * 40px，压过 20px 堆叠间距——评审 G-01/EXP-NEW-2）。键盘可达仍由原生
-   * button 保证，命中目标小于 24px 的取舍已在泳道大间距下接受。 */
-  min-width: 6px;
+  height: 24px;
+  /* 泳道 bar 尺寸契约：解除全局 button 40px 最小尺寸（G-01/EXP-017：40px
+   * bar 压过堆叠间距互相遮挡），同时满足 axe target-size ≥24×24——
+   * 24px 高 + 26px 堆叠间距（WorkloadGantt 同步）。 */
+  min-width: 24px;
   min-height: 0;
   box-sizing: border-box;
-  padding: 0 4px;
+  padding: 0 6px;
   display: inline-flex;
   align-items: center;
   gap: 2px;
@@ -1548,9 +1547,12 @@
 .person-workload-page .pw-gantt-lane-link {
   background: none;
   border: none;
-  padding: 0;
-  min-height: 0;
-  min-width: 0;
+  padding: 0 2px;
+  /* 解除全局 40px 最小高，但保持 axe target-size ≥24×24 */
+  min-height: 24px;
+  min-width: 24px;
+  display: inline-flex;
+  align-items: center;
   color: var(--text-primary);
   font-size: var(--text-xs);
   text-decoration: underline dotted;

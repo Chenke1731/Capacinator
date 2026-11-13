@@ -182,3 +182,27 @@ verification: done（2026-11-13，I02j）— 变异红证：完整删除 Project
 status: enforced
 note: 初版 G-E 用 `source.includes(refresh)` 整文件判定——删掉单阶段刷新仍绿（bulk 的调用在文件里），spread 写点/删除/computed spread 全盲；评审用四条变异证明守卫不成立。修复后守卫以写点为中心，且登记表不养死条目。同族警惕：任何"文件里出现过 X"式守卫都需 per-site 窗口与反向自证
 ```
+
+```yaml exp
+id: EXP-B16
+source: review/2026-11-14-workbench-v2-fix（F1：076 迁移 down SQL 损坏——epc 别名/括号失衡/谓词改写，CREATE VIEW 恒语法错误）
+class: 迁移可逆性×down SQL 零校验
+mechanism_slice: migration-down × raw-sql-unvalidated
+disposition: GUARD
+guard: enforced — tests/integration/api/migration-down-contract.test.ts（G-F1）：隔离内存库跑全链 up 后，对每个纯视图族迁移（只 DROP/CREATE VIEW，无表级 DDL/数据写）按升序逐个 down+up，断言零抛错且 sqlite_master 视图数收尾一致
+verification: done 2026-11-14 — 守卫先于修复上线即在真实损坏上红（near "THEN": syntax error），修复后绿（红→绿自证）；076 修入走 check-migrations-immutable 的 INTENTIONAL_AMENDMENTS 名单（up 未动+按名不重放+执行安全缺陷三条件齐备）
+status: enforced
+note: 手排迁移执行器只跑 up，down SQL 从未被任何测试编译或执行——损坏的 down 是"回滚链断"定时炸弹，且事务外执行会连带 DROP 掉视图。修复顺手把 077 重建 capacity_gaps_view 也纳入守卫覆盖。同族警惕：所有"重建型迁移"的 down 必须可执行，新增视图迁移自动被守卫纳管
+```
+
+```yaml exp
+id: EXP-B17
+source: review/2026-11-14-workbench-v2-fix（F2：approved-only 只修 person_utilization_view，roleGaps 活链路×3 与 055 capacity_gaps_view 同谓词未收敛——待审批 50% 覆盖把 1 FTE 折成 0.5）
+class: 部分重构×同族调用面未收敛
+mechanism_slice: capacity-line × approved-override-family
+disposition: GUARD
+guard: enforced — report-scenario-slice A2 用例（G-F2）：夹具插待审批 50% 覆盖，断言 roleCapacityGaps 与 capacity_gaps_view 逐列等于无覆盖基线（1.8 FTE/16h/0 降时人），批准后折减到 1.3/12h 证明夹具命中
+verification: done 2026-11-14 — 变异红证：去掉 roleGaps 谓词 → Expected 1.8 Received 1.3 必红
+status: enforced
+note: EXP-B11 第 3 活跃实例（前两例：ReportDataService 日期、phaseInheritance）。可用率 join 家族消费方普查：4 处（fetchApprovedAvailabilityOverrides 正身、076 已修、roleGaps+055 本批修）。新口径修复必须附同族消费方清单，否则守卫只护住第一个门
+```

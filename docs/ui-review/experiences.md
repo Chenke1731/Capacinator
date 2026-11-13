@@ -193,3 +193,51 @@ verification: done 2026-11-13（I02p）— 重新向 People.css 注入 `.insight
 status: enforced
 note: People.css 改版后遗留整套 insights/action 通用类；People.css 全局常驻，`.insights-section .section-header h2`（0,2,1）覆盖 PersonDetails.css 的 `.section-header h2`（0,1,1），浅色主题 `--bg-primary`=白 → 白字白底。既有 lint:ui 只检查注册共享类，visual/states 直接打开目标路由不经过 People.css 已加载状态，因此全绿漏检。新守卫只冻结存量重复；彻底方案是页面 CSS 全部根类作用域化/CSS Modules，存量按 A/B 基线逐步清理
 ```
+
+```yaml exp
+id: EXP-016
+source: review/2026-11-14-workbench-v2（G-02：states 报 18 处 hover-crosses-container-top——重复 data-testid 的泳道 bar 被 selector 整键配对，default 基线取"最后一条"而 hover 行取"第一条"，"0.0 (was 44.8)"为串键假阳性）
+class: 守卫键控×重复 testid 列表元素
+mechanism_slice: state-diff-keying × repeated-testid
+disposition: GUARD
+guard: enforced — scripts/lib/ui-state-audit.mjs checkHoverGeometry 改为 selector#ordinal 分组配对（同 selector 多元素按序匹配，数量不齐跳过不猜）
+verification: done 2026-11-14 — 修复前 person-workload profile 18 处假阳性红；修复后同 profile 绿且 static-top-gap 真实项独立暴露（gantt-body 4px 顶隙修复）
+status: enforced
+note: 一切"按 selector 对两态行做 diff"的守卫都必须带序数消歧——列表渲染的同类元素（泳道 bar/表格行）天然重复 testid。真位移与假阳性必须能分离，否则交付闸恒红会诱发烧基线惯性
+```
+
+```yaml exp
+id: EXP-017
+source: review/2026-11-14-workbench-v2（G-01：泳道 bar 设计 18px 实渲染 40px——design-system `button{min-width/min-height:40px}` 全局规则压过组件 height；同泳道 ≥2 条 bar 必然重叠 20px、点击上半区命中上一条）
+class: 全局元素规则×button 型自定义控件
+mechanism_slice: global-element-sizing × button-typed-custom-control
+disposition: GUARD
+guard: enforced — tests/e2e/suites/integration/person-workload.spec.ts 几何断言：全部 [data-testid=pw-gantt-bar/pw-ghost-bar] 计算高度 ≤20px 堆叠间距且同泳道 rect 零相交
+verification: done 2026-11-14 — lint:ui 规则 9（unlayered 元素规则）只管 position 类属性，尺寸属性是盲区；E2E 断言直接锁渲染结果（min-height 重置删除即红）
+status: enforced
+note: 新增 button 型控件（数据条/迷你图/链接式按钮）必须显式重置全局 button 尺寸规则或接受 40px 家族——EXP-002 同根因不同属性面（此前是 utilities 分层，这次是尺寸）。候选后续：lint 规则扩展到"组件类声明 height<40px 且作用于 button 时须同块重置 min-height"
+```
+
+```yaml exp
+id: EXP-018
+source: review/2026-11-14-workbench-v2（G-03：弹窗遮罩 z=60 低于 AppHeader z=1000，aria-modal=true 下场景切换器仍可点击，弹窗内切场景静默重绑）
+class: 层序阶梯×全局 chrome 遮挡
+mechanism_slice: overlay-z-index × global-chrome-ladder
+disposition: GUARD
+guard: enforced — PersonWorkload.css 注释锚定 App.css 层序阶梯"模态档"；弹窗打开时 header 交互钮不可点由 E2E 弹窗流覆盖（间接）
+verification: partial 2026-11-14 — z 提到 1100；elementFromPoint 专项断言未单列（后续候选）
+status: candidate
+note: 页面级弹窗的 z-index 不能只看页面内邻居，必须查 App.css 全局层序阶梯（header 1000/模态档）；aria-modal 是对读屏的承诺，指针可达性必须同真。新浮层入仓前先对照阶梯表选档
+```
+
+```yaml exp
+id: EXP-019
+source: review/2026-11-14-workbench-v2（G-04：focus-trap effect 依赖 inline onClose，父组件任一重渲染触发 cleanup 把焦点夺回遮罩后按钮，trap 逃逸）
+class: 焦点归还×不稳定回调依赖
+mechanism_slice: focus-return-cleanup × unstable-dep-rerun
+disposition: GUARD
+guard: enforced — 组件测试：弹窗打开时父组件 rerender（onClose 换身份）后 activeElement 仍在 dialog 内
+verification: done 2026-11-14 — 修复=onClose 入 ref、effect 仅依赖 open 翻转；测试红绿有效
+status: enforced
+note: "cleanup 里做焦点归还"的 effect 凡依赖父级 inline 回调都有此雷——归还只应发生在 open 翻转/卸载，回调一律 ref 化。同族：ESC 处理器同样走 ref
+```

@@ -13,7 +13,8 @@ jest.mock('../../lib/api-client', () => ({
       get: jest.fn(),
       list: jest.fn(),
       update: jest.fn(),
-      removeRole: jest.fn()
+      removeRole: jest.fn(),
+      getUtilization: jest.fn()
     },
     locations: {
       list: jest.fn()
@@ -22,6 +23,7 @@ jest.mock('../../lib/api-client', () => ({
       list: jest.fn()
     },
     assignments: {
+      list: jest.fn(),
       delete: jest.fn()
     }
   },
@@ -29,6 +31,12 @@ jest.mock('../../lib/api-client', () => ({
   clearAuthTokens: jest.fn(),
   saveAuthTokens: jest.fn(),
   getAccessToken: jest.fn(() => 'mock-token')
+}));
+
+jest.mock('../../contexts/ScenarioContext', () => ({
+  useScenario: () => ({
+    currentScenario: { id: 'baseline-0000-0000-0000-000000000000', name: 'Baseline' }
+  })
 }));
 
 // Mock the chart library
@@ -139,6 +147,22 @@ const mockPeopleList = [
   { id: 'person-3', name: 'Bob Johnson' }
 ];
 
+/** PersonDetails now reads the unified workload selector: person + scenario
+ * assignments + utilization must move together in tests. */
+const mockPerson = (data: any = mockPersonData) => {
+  (api.people.get as jest.Mock).mockResolvedValue({ data });
+  (api.assignments.list as jest.Mock).mockResolvedValue({
+    data: { data: data.assignments ?? [], pagination: { total: (data.assignments ?? []).length } }
+  });
+  (api.people.getUtilization as jest.Mock).mockResolvedValue({
+    data: [{
+      person_id: data.id,
+      current_availability_percentage: data.default_availability_percentage ?? 100,
+      as_of: '2026-03-15'
+    }]
+  });
+};
+
 describe('PersonDetails', () => {
   let queryClient: QueryClient;
 
@@ -152,7 +176,7 @@ describe('PersonDetails', () => {
     });
 
     // Default mock responses
-    (api.people.get as jest.Mock).mockResolvedValue({ data: mockPersonData });
+    mockPerson(mockPersonData);
     (api.locations.list as jest.Mock).mockResolvedValue({ data: { data: mockLocations } });
     (api.roles.list as jest.Mock).mockResolvedValue({ data: mockRoles });
     (api.people.list as jest.Mock).mockResolvedValue({ data: { data: mockPeopleList } });
@@ -481,7 +505,7 @@ describe('PersonDetails', () => {
         ]
       };
 
-      (api.people.get as jest.Mock).mockResolvedValue({ data: overAllocatedPerson });
+      mockPerson(overAllocatedPerson);
 
       renderComponent();
 
@@ -543,7 +567,7 @@ describe('PersonDetails', () => {
         ]
       };
 
-      (api.people.get as jest.Mock).mockResolvedValue({ data: personWithTimeOff });
+      mockPerson(personWithTimeOff);
 
       renderComponent();
 
@@ -737,7 +761,7 @@ describe('PersonDetails', () => {
         ]
       };
 
-      (api.people.get as jest.Mock).mockResolvedValue({ data: personWithTimeOff });
+      mockPerson(personWithTimeOff);
 
       renderComponent();
 
@@ -827,7 +851,7 @@ describe('PersonDetails', () => {
         ]
       };
 
-      (api.people.get as jest.Mock).mockResolvedValue({ data: personWithTimeOff });
+      mockPerson(personWithTimeOff);
 
       renderComponent();
 
@@ -854,7 +878,7 @@ describe('PersonDetails', () => {
         ]
       };
 
-      (api.people.get as jest.Mock).mockResolvedValue({ data: fullyAllocatedPerson });
+      mockPerson(fullyAllocatedPerson);
 
       renderComponent();
 
@@ -878,7 +902,7 @@ describe('PersonDetails', () => {
         ]
       };
 
-      (api.people.get as jest.Mock).mockResolvedValue({ data: availablePerson });
+      mockPerson(availablePerson);
 
       renderComponent();
 
@@ -903,7 +927,7 @@ describe('PersonDetails', () => {
         ]
       };
 
-      (api.people.get as jest.Mock).mockResolvedValue({ data: personWithComplexData });
+      mockPerson(personWithComplexData);
 
       renderComponent();
 
@@ -937,7 +961,7 @@ describe('PersonDetails', () => {
         ]
       };
 
-      (api.people.get as jest.Mock).mockResolvedValue({ data: fullyAllocatedPerson });
+      mockPerson(fullyAllocatedPerson);
 
       renderComponent();
 
@@ -958,7 +982,7 @@ describe('PersonDetails', () => {
         ]
       };
 
-      (api.people.get as jest.Mock).mockResolvedValue({ data: overAllocatedPerson });
+      mockPerson(overAllocatedPerson);
 
       renderComponent();
 
@@ -1085,7 +1109,7 @@ describe('PersonDetails', () => {
         ]
       };
 
-      (api.people.get as jest.Mock).mockResolvedValue({ data: personWithTimeOff });
+      mockPerson(personWithTimeOff);
 
       renderComponent();
 

@@ -71,7 +71,7 @@ export default function PersonWorkload() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const { currentScenario } = useScenario();
+  const { currentScenario, scenarios, setCurrentScenario } = useScenario();
 
   const personQuery = useQuery<PersonRow>({
     queryKey: queryKeys.people.detail(id ?? ''),
@@ -117,12 +117,16 @@ export default function PersonWorkload() {
 
   const queryClient = useQueryClient();
   const [editingId, setEditingId] = useState<string | null>(null);
+  const [editScenarioId, setEditScenarioId] = useState<string | null>(null);
   const [draft, setDraft] = useState<RowDraft>({ allocation: '', startDate: '', endDate: '' });
   const [rowError, setRowError] = useState<{ id: string; message: string } | null>(null);
   const [savingId, setSavingId] = useState<string | null>(null);
+  const activeScenarioId = currentScenario?.id ?? '';
+  const scenarioMismatch = Boolean(editingId && editScenarioId && editScenarioId !== activeScenarioId);
 
   const beginEdit = (row: AssignmentRow) => {
     setEditingId(row.id);
+    setEditScenarioId(activeScenarioId || null);
     setRowError(null);
     setDraft({
       allocation: String(Number(row.allocation_percentage ?? 0)),
@@ -133,11 +137,12 @@ export default function PersonWorkload() {
 
   const cancelEdit = () => {
     setEditingId(null);
+    setEditScenarioId(null);
     setRowError(null);
   };
 
   const saveMutation = useMutation({
-    mutationFn: async ({ row, draft: next }: { row: AssignmentRow; draft: RowDraft }) => {
+    mutationFn: async ({ row, draft: next, scenarioId }: { row: AssignmentRow; draft: RowDraft; scenarioId: string }) => {
       const payload: Record<string, unknown> = {};
       const allocation = Number(next.allocation);
       if (!Number.isFinite(allocation) || allocation <= 0 || allocation > 200) {
@@ -167,7 +172,7 @@ export default function PersonWorkload() {
         return { noop: true, row };
       }
       if (row.version !== undefined) payload.expected_version = row.version;
-      const response = await api.assignments.update(row.id, payload as never);
+      const response = await api.assignments.update(row.id, payload as never, { scenarioId });
       return response.data;
     },
     onMutate: ({ row }) => {
@@ -177,6 +182,7 @@ export default function PersonWorkload() {
     onSuccess: (_data, { row }) => {
       setSavingId(null);
       setEditingId(null);
+      setEditScenarioId(null);
       setRowError(null);
       void invalidateSchedulingReads(queryClient, String(row.project_id ?? ''));
     },
@@ -197,21 +203,22 @@ export default function PersonWorkload() {
   });
 
   const deleteMutation = useMutation({
-    mutationFn: async (row: AssignmentRow) =>
+    mutationFn: async ({ row, scenarioId }: { row: AssignmentRow; scenarioId: string }) =>
       api.assignments.delete(
         row.id,
-        row.version !== undefined ? { expected_version: row.version } : undefined
+        row.version !== undefined ? { expected_version: row.version } : undefined,
+        { scenarioId }
       ),
-    onMutate: (row) => {
+    onMutate: ({ row }) => {
       setSavingId(row.id);
       setRowError(null);
     },
-    onSuccess: (_data, row) => {
+    onSuccess: (_data, { row }) => {
       setSavingId(null);
       setRowError(null);
       void invalidateSchedulingReads(queryClient, String(row.project_id ?? ''));
     },
-    onError: (error: any, row) => {
+    onError: (error: any, { row }) => {
       setSavingId(null);
       setRowError({
         id: row.id,
@@ -230,7 +237,9 @@ export default function PersonWorkload() {
       row.assignment_type === 'direct'
         ? t('assignments:workload.edit.deleteDirectConfirm')
         : t('assignments:workload.edit.deleteConfirm');
-    if (window.confirm(message)) deleteMutation.mutate(row);
+    if (window.confirm(message)) {
+      deleteMutation.mutate({ row, scenarioId: activeScenarioId });
+    }
   };
 
   if (!id) return null;
@@ -397,8 +406,12 @@ export default function PersonWorkload() {
                           type="button"
                           className="btn btn-primary btn-sm"
                           aria-label={t('assignments:workload.actions.save')}
-                          disabled={saving}
-                          onClick={() => saveMutation.mutate({ row: item, draft })}
+                          disabled={saving || scenarioMismatch}
+                          onClick={() => saveMutation.mutate({
+                            row: item,
+                            draft,
+                            scenarioId: editScenarioId ?? activeScenarioId
+                          })}
                         >
                           <Save size={14} />
                         </button>
@@ -542,6 +555,29 @@ export default function PersonWorkload() {
       <div className="pw-layout">
         <PersonTaskPicker personId={person.id} roles={person.roles ?? []} />
         <main className="pw-main">
+      {scenarioMismatch ? (
+        <div className="pw-scenario-banner" role="alert">
+          <div>
+            <strong>{t('assignments:workload.scenarioMismatch.title')}</strong>
+            <p>{t('assignments:workload.scenarioMismatch.body')}</p>
+          </div>
+          <div className="pw-scenario-actions">
+            <button type="button" className="btn btn-secondary btn-sm" onClick={cancelEdit}>
+              {t('assignments:workload.scenarioMismatch.discard')}
+            </button>
+            <button
+              type="button"
+              className="btn btn-primary btn-sm"
+              onClick={() => {
+                const original = scenarios.find((scenario) => scenario.id === editScenarioId);
+                if (original) setCurrentScenario(original);
+              }}
+            >
+              {t('assignments:workload.scenarioMismatch.back')}
+            </button>
+          </div>
+        </div>
+      ) : null}
       {assignmentsQuery.isError ? (
         <div className="pw-alert" role="alert">
           <span>{t('assignments:workload.states.assignmentsError')}</span>

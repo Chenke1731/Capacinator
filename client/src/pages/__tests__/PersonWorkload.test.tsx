@@ -24,9 +24,18 @@ jest.mock('../../lib/api-client', () => ({
   },
 }));
 
+const mockScenarios = [
+  { id: 'baseline-0000-0000-0000-000000000000', name: 'Baseline' },
+  { id: 'branch-1', name: 'Branch' },
+];
+const mockSetCurrentScenario = jest.fn();
+var mockCurrentScenario = mockScenarios[0];
+
 jest.mock('../../contexts/ScenarioContext', () => ({
   useScenario: () => ({
-    currentScenario: { id: 'baseline-0000-0000-0000-000000000000', name: 'Baseline' },
+    currentScenario: mockCurrentScenario,
+    scenarios: mockScenarios,
+    setCurrentScenario: mockSetCurrentScenario,
   }),
 }));
 
@@ -95,11 +104,8 @@ const assignments = [
   },
 ];
 
-function renderPage() {
-  const queryClient = new QueryClient({
-    defaultOptions: { queries: { retry: false } },
-  });
-  return render(
+function pageElement(queryClient: QueryClient) {
+  return (
     <QueryClientProvider client={queryClient}>
       <MemoryRouter initialEntries={['/people/person-1/workload']}>
         <Routes>
@@ -110,8 +116,20 @@ function renderPage() {
   );
 }
 
+function renderPage() {
+  const queryClient = new QueryClient({
+    defaultOptions: { queries: { retry: false } },
+  });
+  return {
+    ...render(pageElement(queryClient)),
+    queryClient,
+  };
+}
+
 beforeEach(() => {
   jest.clearAllMocks();
+  mockCurrentScenario = mockScenarios[0];
+  mockSetCurrentScenario.mockClear();
   (api.people.get as jest.Mock).mockResolvedValue({ data: person });
   (api.assignments.list as jest.Mock).mockResolvedValue({
     data: { data: assignments, pagination: { total: assignments.length } },
@@ -221,7 +239,8 @@ test('row edit saves allocation + dates in one PUT with one expected_version', a
       allocation_percentage: 35,
       start_date: '2026-02-01',
       expected_version: 1,
-    })
+    }),
+    { scenarioId: 'baseline-0000-0000-0000-000000000000' }
   );
 });
 
@@ -243,6 +262,28 @@ test('409 keeps the row draft and shows an inline conflict message', async () =>
   expect(screen.getByLabelText('Allocation %')).toHaveValue(45);
 });
 
+test('switching scenario disables save and keeps the row draft', async () => {
+  const view = renderPage();
+
+  await waitFor(() => {
+    expect(screen.getAllByRole('button', { name: 'Edit' }).length).toBeGreaterThan(0);
+  });
+
+  fireEvent.click(screen.getAllByRole('button', { name: 'Edit' })[0]);
+  fireEvent.change(screen.getByLabelText('Allocation %'), { target: { value: '45' } });
+
+  mockCurrentScenario = mockScenarios[1];
+  view.rerender(pageElement(view.queryClient));
+
+  await waitFor(() => {
+    expect(screen.getByText('Scenario changed')).toBeInTheDocument();
+  });
+  await waitFor(() => {
+    expect(screen.getByRole('button', { name: 'Save' })).toBeDisabled();
+  });
+  expect(screen.getByLabelText('Allocation %')).toHaveValue(45);
+});
+
 test('direct assignment deletion requires the baseline-global confirmation', async () => {
   const confirmSpy = jest.spyOn(window, 'confirm').mockReturnValue(true);
   renderPage();
@@ -256,7 +297,11 @@ test('direct assignment deletion requires the baseline-global confirmation', asy
 
   expect(confirmSpy).toHaveBeenCalledWith(expect.stringContaining('baseline-global'));
   await waitFor(() => {
-    expect(api.assignments.delete).toHaveBeenCalledWith('a2', { expected_version: 1 });
+    expect(api.assignments.delete).toHaveBeenCalledWith(
+      'a2',
+      { expected_version: 1 },
+      { scenarioId: 'baseline-0000-0000-0000-000000000000' }
+    );
   });
 });
 
@@ -343,7 +388,8 @@ test('task picker disables SR parent and adds a leaf in one create request', asy
       assignment_date_mode: 'fixed',
       start_date: '2026-03-01',
       end_date: '2026-03-31',
-    })
+    }),
+    { scenarioId: 'baseline-0000-0000-0000-000000000000' }
   );
 });
 

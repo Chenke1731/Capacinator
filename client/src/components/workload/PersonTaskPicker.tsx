@@ -73,16 +73,19 @@ function buildTaskOrder(rows: TaskRow[]): Array<{ row: TaskRow; depth: number }>
 export function PersonTaskPicker({ personId, roles }: PersonTaskPickerProps) {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
-  const { currentScenario } = useScenario();
+  const { currentScenario, scenarios, setCurrentScenario } = useScenario();
   const [searchInput, setSearchInput] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
   const [limit, setLimit] = useState(50);
   const [selected, setSelected] = useState<TaskRow | null>(null);
+  const [draftScenarioId, setDraftScenarioId] = useState<string | null>(null);
   const [roleId, setRoleId] = useState('');
   const [allocation, setAllocation] = useState('20');
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [message, setMessage] = useState<{ tone: 'error' | 'warning' | 'success'; text: string } | null>(null);
+  const activeScenarioId = currentScenario?.id ?? '';
+  const scenarioMismatch = Boolean(selected && draftScenarioId && draftScenarioId !== activeScenarioId);
 
   useEffect(() => {
     const timer = window.setTimeout(() => {
@@ -126,7 +129,14 @@ export function PersonTaskPicker({ personId, roles }: PersonTaskPickerProps) {
 
   const selectTask = (row: TaskRow) => {
     setSelected(row);
+    setDraftScenarioId(activeScenarioId || null);
     resetForm(row);
+  };
+
+  const discardDraft = () => {
+    setSelected(null);
+    setDraftScenarioId(null);
+    setMessage(null);
   };
 
   const createMutation = useMutation({
@@ -148,7 +158,7 @@ export function PersonTaskPicker({ personId, roles }: PersonTaskPickerProps) {
         assignment_date_mode: 'fixed',
         start_date: startDate,
         end_date: endDate,
-      } as never);
+      } as never, { scenarioId: draftScenarioId ?? activeScenarioId });
       return response.data as unknown as { warning?: string };
     },
     onSuccess: (created) => {
@@ -159,6 +169,7 @@ export function PersonTaskPicker({ personId, roles }: PersonTaskPickerProps) {
           : t('assignments:workload.picker.created'),
       });
       setSelected(null);
+      setDraftScenarioId(null);
       void invalidateSchedulingReads(queryClient);
     },
     onError: (error: any) => {
@@ -280,11 +291,34 @@ export function PersonTaskPicker({ personId, roles }: PersonTaskPickerProps) {
         >
           <div className="pw-add-title">
             <strong>{selected.name}</strong>
-            <button type="button" className="btn btn-ghost btn-sm" onClick={() => setSelected(null)} aria-label={t('assignments:workload.actions.cancel')}>
+            <button type="button" className="btn btn-ghost btn-sm" onClick={discardDraft} aria-label={t('assignments:workload.actions.cancel')}>
               ×
             </button>
           </div>
           <p className="pw-add-note">{t('assignments:workload.picker.fixedOnly')}</p>
+          {scenarioMismatch ? (
+            <div className="pw-scenario-banner" role="alert">
+              <div>
+                <strong>{t('assignments:workload.scenarioMismatch.title')}</strong>
+                <p>{t('assignments:workload.scenarioMismatch.body')}</p>
+              </div>
+              <div className="pw-scenario-actions">
+                <button type="button" className="btn btn-secondary btn-sm" onClick={discardDraft}>
+                  {t('assignments:workload.scenarioMismatch.discard')}
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-primary btn-sm"
+                  onClick={() => {
+                    const original = scenarios.find((scenario) => scenario.id === draftScenarioId);
+                    if (original) setCurrentScenario(original);
+                  }}
+                >
+                  {t('assignments:workload.scenarioMismatch.back')}
+                </button>
+              </div>
+            </div>
+          ) : null}
 
           <label>
             {t('assignments:workload.picker.role')}
@@ -321,7 +355,7 @@ export function PersonTaskPicker({ personId, roles }: PersonTaskPickerProps) {
             </label>
           </div>
 
-          <button type="submit" className="btn btn-primary btn-sm" disabled={createMutation.isPending || roles.length === 0}>
+          <button type="submit" className="btn btn-primary btn-sm" disabled={createMutation.isPending || roles.length === 0 || scenarioMismatch}>
             <Plus size={14} /> {createMutation.isPending ? t('assignments:workload.picker.adding') : t('assignments:workload.picker.add')}
           </button>
           {message ? (

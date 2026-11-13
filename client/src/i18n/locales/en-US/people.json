@@ -67,6 +67,7 @@
   },
   "workloadStatus": {
     "unknown": "unknown",
+    "unavailable": "unavailable",
     "over_allocated": "over allocated",
     "fully_allocated": "fully allocated",
     "under_allocated": "under allocated",
@@ -119,6 +120,7 @@
     "workloadInsights": "Workload Insights & Actions",
     "totalAllocation": "Total Allocation",
     "vsAvailable": "vs {{availability}}% available",
+    "availabilityUnknown": "Availability data unavailable",
     "utilization": "Utilization",
     "activeProjects": "Active Projects",
     "skillsCount_one": "{{count}} skill",

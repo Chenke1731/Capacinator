@@ -543,6 +543,37 @@
   color: var(--success);
 }
 
+.person-workload-page .pw-scenario-banner {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-2);
+  background: color-mix(in srgb, var(--warning) 12%, var(--bg-primary));
+  border: 1px solid var(--warning);
+  border-left-width: 3px;
+  border-radius: var(--radius-md);
+  padding: 0.6rem 0.75rem;
+}
+
+.person-workload-page .pw-scenario-banner strong {
+  color: var(--text-primary);
+  font-size: var(--text-sm);
+}
+
+.person-workload-page .pw-scenario-banner p {
+  margin: 0.2rem 0 0;
+  color: var(--text-secondary);
+  font-size: var(--text-xs);
+}
+
+.person-workload-page .pw-scenario-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+}
+
 @media (max-width: 1100px) {
   .person-workload-page .pw-layout {
     grid-template-columns: 1fr;

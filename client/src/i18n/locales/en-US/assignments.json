@@ -161,6 +161,12 @@
       "ended": "Ended"
     },
     "included": "Included in current",
+    "scenarioMismatch": {
+      "title": "Scenario changed",
+      "body": "This draft belongs to another scenario. Saving is disabled until you return or discard it.",
+      "discard": "Discard draft",
+      "back": "Return to original scenario"
+    },
     "picker": {
       "title": "Add assignment",
       "subtitle": "Search the task tree and pick a leaf task.",

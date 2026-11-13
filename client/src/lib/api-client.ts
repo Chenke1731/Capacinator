@@ -145,6 +145,17 @@ const API_BASE_URL = '/api';
 const AUTH_TOKEN_KEY = 'auth_token';
 const REFRESH_TOKEN_KEY = 'refresh_token';
 
+/** 写请求的显式场景绑定：草稿开始时的场景，不随全局切换漂移。 */
+export interface ScenarioScopedRequest {
+  scenarioId?: string;
+}
+
+function scenarioRequestConfig(options?: ScenarioScopedRequest) {
+  return options?.scenarioId
+    ? { headers: { 'X-Scenario-Id': options.scenarioId } }
+    : undefined;
+}
+
 // Flag to prevent multiple refresh attempts
 let isRefreshing = false;
 let refreshSubscribers: Array<(token: string) => void> = [];
@@ -175,9 +186,17 @@ apiClient.interceptors.request.use((config) => {
     config.headers.Authorization = `Bearer ${token}`;
   }
 
-  // Add scenario context from localStorage
+  // Add scenario context from localStorage. An explicit per-request header
+  // wins: editors capture the scenario when a draft starts, so switching the
+  // global scenario mid-form must not redirect an in-flight write.
+  const hasExplicitScenario = (() => {
+    const headers = config.headers as any;
+    if (!headers) return false;
+    if (typeof headers.get === 'function') return Boolean(headers.get('X-Scenario-Id'));
+    return Boolean(headers['X-Scenario-Id'] ?? headers['x-scenario-id']);
+  })();
   const scenarioContext = localStorage.getItem('currentScenario');
-  if (scenarioContext) {
+  if (!hasExplicitScenario && scenarioContext) {
     try {
       const scenario = JSON.parse(scenarioContext) as { id?: string };
       if (scenario?.id) {
@@ -382,13 +401,29 @@ export const api = {
       pagination: { page: number; limit: number; total: number; totalPages: number; hasNextPage: boolean; hasPrevPage: boolean };
       requestId: string;
     }>('/assignments', { params }),
-    create: (data: Partial<ProjectAssignment>) => apiClient.post<{ success: boolean; data: ProjectAssignment; requestId: string; message: string }>('/assignments', data),
+    create: (data: Partial<ProjectAssignment>, options?: ScenarioScopedRequest) =>
+      apiClient.post<{ success: boolean; data: ProjectAssignment; requestId: string; message: string }>(
+        '/assignments',
+        data,
+        scenarioRequestConfig(options)
+      ),
     // IP-07c: data 可附 expected_version 乐观锁令牌,冲突 409 载荷含当前值
-    update: (id: string, data: Partial<ProjectAssignment> & { expected_version?: number }) =>
-      apiClient.put<{ success: boolean; data: ProjectAssignment; requestId: string; message: string }>(`/assignments/${id}`, data),
+    update: (id: string, data: Partial<ProjectAssignment> & { expected_version?: number }, options?: ScenarioScopedRequest) =>
+      apiClient.put<{ success: boolean; data: ProjectAssignment; requestId: string; message: string }>(
+        `/assignments/${id}`,
+        data,
+        scenarioRequestConfig(options)
+      ),
     // IP-07e: data 可附 expected_version 乐观锁令牌(删除他人刚改的行=丢失更新)
-    delete: (id: string, data?: { expected_version?: number }) =>
-      apiClient.delete<{ success: boolean; data: { message: string }; requestId: string; message: string }>(`/assignments/${id}`, data ? { data } : undefined),
+    delete: (id: string, data?: { expected_version?: number }, options?: ScenarioScopedRequest) => {
+      const config: Record<string, unknown> = {};
+      if (data) config.data = data;
+      if (options?.scenarioId) config.headers = { 'X-Scenario-Id': options.scenarioId };
+      return apiClient.delete<{ success: boolean; data: { message: string }; requestId: string; message: string }>(
+        `/assignments/${id}`,
+        Object.keys(config).length > 0 ? config : undefined
+      );
+    },
     bulkCreate: (data: Record<string, unknown>) => apiClient.post<{ success: boolean; data: ProjectAssignment[]; requestId: string; message: string }>('/assignments/bulk', data),
     getConflicts: (personId: string, params?: PaginationParams) => apiClient.get<{ success: boolean; data: AssignmentConflictsResponse; requestId: string; message: string }>(`/assignments/conflicts/${personId}`, { params }),
     getSuggestions: (params: Record<string, unknown>) => apiClient.get<{ success: boolean; data: AssignmentSuggestionsResponse; requestId: string; message: string }>('/assignments/suggestions', { params }),

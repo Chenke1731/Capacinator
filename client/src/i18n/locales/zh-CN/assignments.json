@@ -161,6 +161,12 @@
       "ended": "已结束"
     },
     "included": "计入当前",
+    "scenarioMismatch": {
+      "title": "场景已切换",
+      "body": "该草稿属于另一个场景。在返回原场景或丢弃草稿前，保存已禁用。",
+      "discard": "丢弃草稿",
+      "back": "回到原场景"
+    },
     "picker": {
       "title": "添加分配",
       "subtitle": "在任务树中搜索并选择叶子任务。",

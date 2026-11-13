@@ -67,6 +67,7 @@
   },
   "workloadStatus": {
     "unknown": "未知",
+    "unavailable": "无可用容量",
     "over_allocated": "超负荷",
     "fully_allocated": "满负荷",
     "under_allocated": "分配不足",
@@ -119,6 +120,7 @@
     "workloadInsights": "工作负载洞察与操作",
     "totalAllocation": "总分配",
     "vsAvailable": "可用性 {{availability}}%",
+    "availabilityUnknown": "可用容量数据不可用",
     "utilization": "利用率",
     "activeProjects": "活跃项目",
     "skillsCount_other": "{{count}} 项技能",

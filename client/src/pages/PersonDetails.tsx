@@ -12,6 +12,9 @@ import {
 } from 'lucide-react';
 import { api } from '../lib/api-client';
 import { queryKeys } from '../lib/queryKeys';
+import { useScenario } from '../contexts/ScenarioContext';
+import { fetchPersonUtilization, personUtilizationRowsFrom } from '../lib/personUtilizationData';
+import { summarizePersonWorkload, type WorkloadAssignment } from '../lib/personWorkload';
 import { formatDate } from '../utils/date';
 import { PersonAllocationChart } from '../components/PersonAllocationChart';
 import PersonRoleModal from '../components/modals/PersonRoleModal';
@@ -85,11 +88,18 @@ interface PersonDetails {
   }>;
 }
 
+interface PersonAssignmentRow extends WorkloadAssignment {
+  project_name?: string;
+  role_name?: string;
+  phase_name?: string | null;
+}
+
 export default function PersonDetails() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const { t } = useTranslation();
+  const { currentScenario } = useScenario();
   
   const [expandedSections, setExpandedSections] = useState({
     basic: true,
@@ -276,6 +286,38 @@ export default function PersonDetails() {
     },
     enabled: !!id
   });
+
+  // 工作负载统一口径：当前场景分配 + utilization 端点 as_of/可用率。
+  // 旧实现用 people.assignments（跨场景）+ default_availability，会与
+  // /people/:id/workload 出现两个利用率数字。
+  const { data: workloadAssignments } = useQuery<PersonAssignmentRow[]>({
+    queryKey: queryKeys.assignments.list({ person_id: id, limit: 2000 }, currentScenario?.id),
+    queryFn: async () => {
+      const response = await api.assignments.list({ person_id: id!, limit: 2000 } as never);
+      return response.data.data as unknown as PersonAssignmentRow[];
+    },
+    enabled: !!id,
+  });
+  const { data: utilizationData, isError: utilizationError } = useQuery({
+    queryKey: queryKeys.people.utilization(currentScenario?.id),
+    queryFn: fetchPersonUtilization,
+  });
+
+  const utilizationRow = personUtilizationRowsFrom(utilizationData).find(
+    (row) => String(row.person_id) === id
+  );
+  const workloadAsOf =
+    typeof utilizationRow?.as_of === 'string' && utilizationRow.as_of
+      ? utilizationRow.as_of
+      : toISODateString(new Date());
+  const workload = useMemo(
+    () =>
+      summarizePersonWorkload<PersonAssignmentRow>(workloadAssignments ?? [], {
+        asOf: workloadAsOf,
+        availability: utilizationError ? null : utilizationRow?.current_availability_percentage,
+      }),
+    [workloadAssignments, workloadAsOf, utilizationError, utilizationRow]
+  );
 
   
 
@@ -691,71 +733,66 @@ export default function PersonDetails() {
 
   const allocationInsights = useMemo(() => {
     if (!person) return null;
-    
-    // Only include assignments that are currently active (overlapping with today)
-    const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD format
-    const activeAssignments = person.assignments.filter(assignment => {
-      const startDate = assignment.computed_start_date || assignment.start_date;
-      const endDate = assignment.computed_end_date || assignment.end_date;
-      return startDate <= today && endDate >= today;
-    });
-    
-    const totalAllocation = activeAssignments.reduce((sum, assignment) => {
-      return sum + assignment.allocation_percentage;
-    }, 0);
-    
-    const availability = person.default_availability_percentage;
-    const utilizationPercentage = availability > 0 ? (totalAllocation / availability) * 100 : 0;
-    
-    let status: 'over_allocated' | 'fully_allocated' | 'under_allocated' | 'available';
+
+    const status =
+      workload.status === 'over'
+        ? 'over_allocated'
+        : workload.status === 'full'
+          ? 'fully_allocated'
+          : workload.status === 'partial'
+            ? 'under_allocated'
+            : workload.status === 'available'
+              ? 'available'
+              : workload.status;
     let statusColor: string;
     let actions: Array<{ label: string; action: string; icon: any; variant: string }> = [];
-    
-    if (utilizationPercentage > 100) {
-      status = 'over_allocated';
+
+    if (status === 'over_allocated') {
       statusColor = 'danger';
       actions = [
         { label: t('people:details.actions.adjustAssignments'), action: 'adjust_assignments', icon: SlidersHorizontal, variant: 'danger' },
         { label: t('people:details.actions.monitorLoad'), action: 'monitor_load', icon: TrendingUp, variant: 'warning' }
       ];
-    } else if (utilizationPercentage >= 80) {
-      status = 'fully_allocated';
+    } else if (status === 'fully_allocated') {
       statusColor = 'warning';
       actions = [
         { label: t('people:details.actions.adjustAssignments'), action: 'adjust_assignments', icon: SlidersHorizontal, variant: 'warning' },
         { label: t('people:details.actions.monitorLoad'), action: 'monitor_load', icon: TrendingUp, variant: 'warning' },
         { label: t('people:details.actions.planAhead'), action: 'plan_ahead', icon: Target, variant: 'secondary' }
       ];
-    } else if (utilizationPercentage >= 40) {
-      status = 'under_allocated';
+    } else if (status === 'under_allocated') {
       statusColor = 'info';
       actions = [
         { label: t('people:details.actions.adjustAssignments'), action: 'adjust_assignments', icon: SlidersHorizontal, variant: 'primary' },
         { label: t('people:details.actions.findProjects'), action: 'find_projects', icon: Search, variant: 'info' }
       ];
-    } else {
-      status = 'available';
+    } else if (status === 'available') {
       statusColor = 'success';
       actions = [
         { label: t('people:details.actions.adjustAssignments'), action: 'adjust_assignments', icon: SlidersHorizontal, variant: 'success' },
         { label: t('people:details.actions.viewOpportunities'), action: 'view_opportunities', icon: Zap, variant: 'primary' }
       ];
+    } else {
+      statusColor = 'gray';
+      actions = [
+        { label: t('people:details.actions.adjustAssignments'), action: 'adjust_assignments', icon: SlidersHorizontal, variant: 'secondary' }
+      ];
     }
-    
+
     return {
-      totalAllocation,
-      availability,
-      utilizationPercentage,
+      totalAllocation: workload.totalAllocation,
+      availability: workload.availability,
+      utilizationPercentage: workload.relativeUtilization,
       status,
       statusColor,
       actions,
-      hasUpcomingTimeOff: person.availabilityOverrides.some(override => 
+      hasUpcomingTimeOff: person.availabilityOverrides.some(override =>
         new Date(override.start_date) > new Date()
       ),
-      currentProjects: activeAssignments.length,
+      currentProjects: workload.current.length,
       skillsCount: person.roles.length
     };
-  }, [person, t]);
+  }, [person, t, workload]);
 
   if (isLoading) return <div className="loading">{t('people:details.loading')}</div>;
   if (error || !person) {
@@ -841,14 +878,18 @@ export default function PersonDetails() {
                   <div className="insight-label">{t('people:details.totalAllocation')}</div>
                 </div>
                 <div className="insight-comparison">
-                  {t('people:details.vsAvailable', { availability: allocationInsights?.availability ?? 0 })}
+                  {allocationInsights?.availability == null
+                    ? t('people:details.availabilityUnknown')
+                    : t('people:details.vsAvailable', { availability: allocationInsights.availability })}
                 </div>
               </div>
 
               <div className="insight-card">
                 <div className="insight-header">
                   <div className={`insight-value ${getStatusClassName(allocationInsights?.statusColor ?? 'gray')}`}>
-                    {allocationInsights?.utilizationPercentage.toFixed(0) ?? 0}%
+                    {allocationInsights?.utilizationPercentage == null
+                      ? '—'
+                      : `${allocationInsights.utilizationPercentage.toFixed(0)}%`}
                   </div>
                   <div className="insight-label">{t('people:details.utilization')}</div>
                 </div>

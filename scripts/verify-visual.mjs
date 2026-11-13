@@ -49,7 +49,7 @@ if(requestedState?.startsWith('import-')&&FILTER?.name!=='import')throw Error('I
 if(argv.includes('--inject-test-violation')&&(!FILTER||REGISTER))throw new Error('Injection requires a single profile and cannot register exceptions');
 if(argv.includes('--inject-svg-test-violation')&&(!FILTER||REGISTER||argv.includes('--inject-test-violation')))throw Error('SVG injection requires a single profile, no other injection, and no exception registration');
 
-// 全量矩阵 156 组合串行约 18–25 min。--shard i/n 按组合序号轮转切分，
+// 全量矩阵约 160 组合串行约 18–25 min。--shard i/n 按组合序号轮转切分，
 // 让多个进程并行跑互不相交的页面/主题/视口；报告与基线路径天然按 tag
 // 隔离。--record-existing-axe / --capture-fixtures 会写共享预算/夹具文件，
 // 与分片并发写冲突，直接拒绝而不是让后写者静默覆盖。
@@ -81,6 +81,7 @@ const PAGES = [
   { name: 'project-type-detail', widths: [1600,1366] },
   { name: 'project-detail-tagged', widths: [1600,1366] },
   { name: 'phase-template', widths: [1600,1366], states:['default','template-add'] },
+  { name: 'person-workload', widths: [1600,1366] },
   ...['import','import-export','project-types','project-types-hierarchy','iterations','reports','reports-capacity','reports-utilization','reports-gaps','locations','audit-log','person-detail','role-detail'].map(name=>({name,widths:[1600,1366],...(name==='import'?{states:['default','import-advanced','import-file','import-success','import-error','import-running']}: {})})),
 ];
 const ALL_COMBOS = [];

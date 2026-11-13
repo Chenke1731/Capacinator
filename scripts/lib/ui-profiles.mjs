@@ -69,6 +69,7 @@ export const profiles = {
   locations: {path:'/locations',root:'.page-container',ready:'table',minElements:2},
   'audit-log': {path:'/audit-log',root:'.page-container',ready:'.audit-stats',minElements:3},
   'person-detail': {path:'/people/eb8ecaf7-44a3-4384-a74b-2c18e9e894b1',root:'.person-details',ready:'.person-details-content',minElements:3},
+  'person-workload': {path:'/people/eb8ecaf7-44a3-4384-a74b-2c18e9e894b1/workload',root:'.person-workload-page',ready:'[data-testid="pw-total"]',minElements:12,fixture:'tests/visual/fixtures/person-workload.json'},
   'role-detail': {path:'/roles/501d8abc-0c77-45e9-98c8-7832302e63cb',root:'.role-details-page',ready:'.role-content',minElements:3},
   people: {path:'/people',root:'main',ready:'table',minElements:5},
   assignments: {path:'/assignments',root:'main',ready:'table',minElements:5},

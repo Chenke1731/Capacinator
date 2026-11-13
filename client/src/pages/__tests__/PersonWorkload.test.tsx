@@ -309,6 +309,9 @@ test('direct assignment deletion requires the baseline-global confirmation', asy
       { scenarioId: 'baseline-0000-0000-0000-000000000000' }
     );
   });
+  await waitFor(() => {
+    expect(document.activeElement).toHaveAttribute('data-testid', 'pw-edit-row');
+  });
 });
 
 test('pause and resume send status with the row version and draft scenario', async () => {

@@ -205,7 +205,7 @@ export default function PersonWorkload() {
   });
 
   const deleteMutation = useMutation({
-    mutationFn: async ({ row, scenarioId }: { row: AssignmentRow; scenarioId: string }) =>
+    mutationFn: async ({ row, scenarioId }: { row: AssignmentRow; scenarioId: string; focusIndex?: number }) =>
       api.assignments.delete(
         row.id,
         row.version !== undefined ? { expected_version: row.version } : undefined,
@@ -215,10 +215,18 @@ export default function PersonWorkload() {
       setSavingId(row.id);
       setRowError(null);
     },
-    onSuccess: (_data, { row }) => {
+    onSuccess: async (_data, { row, focusIndex }) => {
       setSavingId(null);
       setRowError(null);
-      void invalidateSchedulingReads(queryClient, String(row.project_id ?? ''));
+      await invalidateSchedulingReads(queryClient, String(row.project_id ?? ''));
+      window.requestAnimationFrame(() => {
+        const buttons = document.querySelectorAll<HTMLElement>(
+          '.person-workload-page [data-testid="pw-edit-row"]'
+        );
+        if (buttons.length === 0) return;
+        const index = focusIndex === undefined ? 0 : Math.min(Math.max(focusIndex, 0), buttons.length - 1);
+        buttons[index]?.focus();
+      });
     },
     onError: (error: any, { row }) => {
       setSavingId(null);
@@ -286,7 +294,16 @@ export default function PersonWorkload() {
         ? t('assignments:workload.edit.deleteDirectConfirm')
         : t('assignments:workload.edit.deleteConfirm');
     if (window.confirm(message)) {
-      deleteMutation.mutate({ row, scenarioId: activeScenarioId });
+      const allRows = [
+        ...summary.current,
+        ...summary.excluded.map((excludedRow) => excludedRow.assignment),
+      ];
+      const focusIndex = allRows.findIndex((candidate) => candidate.id === row.id);
+      deleteMutation.mutate({
+        row,
+        scenarioId: activeScenarioId,
+        focusIndex: focusIndex >= 0 ? focusIndex : 0,
+      });
     }
   };
 
@@ -341,13 +358,13 @@ export default function PersonWorkload() {
         </caption>
         <thead>
           <tr>
-            <th>{t('assignments:workload.columns.project')}</th>
-            <th>{t('assignments:workload.columns.role')}</th>
-            <th>{t('assignments:workload.columns.phase')}</th>
-            <th>{t('assignments:workload.columns.source')}</th>
-            <th>{t('assignments:workload.columns.dates')}</th>
-            <th className="pw-num">{t('assignments:workload.columns.allocation')}</th>
-            <th>{t('assignments:workload.columns.status')}</th>
+            <th className="pw-col-project">{t('assignments:workload.columns.project')}</th>
+            <th className="pw-col-role">{t('assignments:workload.columns.role')}</th>
+            <th className="pw-col-phase">{t('assignments:workload.columns.phase')}</th>
+            <th className="pw-col-source">{t('assignments:workload.columns.source')}</th>
+            <th className="pw-col-dates">{t('assignments:workload.columns.dates')}</th>
+            <th className="pw-num pw-col-allocation">{t('assignments:workload.columns.allocation')}</th>
+            <th className="pw-col-status">{t('assignments:workload.columns.status')}</th>
             <th className="pw-actions-col">{t('assignments:workload.columns.actions')}</th>
           </tr>
         </thead>
@@ -362,6 +379,8 @@ export default function PersonWorkload() {
             const direct = item.assignment_type === 'direct';
             const unresolved = Boolean(item.date_resolution_error) || !start || !end;
             const allocation = Number(item.allocation_percentage ?? 0);
+            const endDisplay =
+              start && end && start.slice(0, 4) === end.slice(0, 4) ? end.slice(5) : end;
             const editing = editingId === item.id;
             const saving = savingId === item.id;
             const error = rowError?.id === item.id ? rowError.message : null;
@@ -369,22 +388,25 @@ export default function PersonWorkload() {
             return (
               <React.Fragment key={item.id}>
                 <tr className={excluded ? 'pw-row--excluded' : undefined}>
-                  <td>
+                  <td className="pw-col-project">
                     <div className="pw-project">
                       <BriefcaseBusiness size={15} aria-hidden="true" />
                       <span>{item.project_name || t('common:na')}</span>
                     </div>
+                    <span className="pw-project-meta">
+                      {item.role_name || t('common:na')} · {item.phase_name || t('common:na')}
+                    </span>
                   </td>
-                  <td>{item.role_name || t('common:na')}</td>
-                  <td>{item.phase_name || t('common:na')}</td>
-                  <td>
+                  <td className="pw-col-role">{item.role_name || t('common:na')}</td>
+                  <td className="pw-col-phase">{item.phase_name || t('common:na')}</td>
+                  <td className="pw-col-source">
                     <Badge variant={direct ? 'secondary' : 'outline'}>
                       {direct
                         ? t('assignments:workload.source.direct')
                         : t('assignments:workload.source.scenario')}
                     </Badge>
                   </td>
-                  <td>
+                  <td className="pw-col-dates">
                     {editing && mode === 'fixed' ? (
                       <div className="pw-date-inputs">
                         <input
@@ -404,7 +426,9 @@ export default function PersonWorkload() {
                     ) : (
                       <>
                         <div className="pw-dates">
-                          {start || '—'} → {end || '—'}
+                          <span>{start || '—'}</span>
+                          <span className="pw-date-separator" aria-hidden="true">→</span>
+                          <span>{endDisplay || '—'}</span>
                         </div>
                         {derived ? (
                           <span className="pw-date-mode">
@@ -425,7 +449,7 @@ export default function PersonWorkload() {
                       </>
                     )}
                   </td>
-                  <td className="pw-num">
+                  <td className="pw-num pw-col-allocation">
                     {editing ? (
                       <input
                         type="number"
@@ -440,7 +464,7 @@ export default function PersonWorkload() {
                       `${allocation}%`
                     )}
                   </td>
-                  <td>
+                  <td className="pw-col-status">
                     {reason ? (
                       <Badge variant="warning">{t(`assignments:workload.exclusion.${reason}`)}</Badge>
                     ) : (
@@ -491,6 +515,7 @@ export default function PersonWorkload() {
                         <button
                           type="button"
                           className="btn btn-ghost btn-sm"
+                          data-testid="pw-edit-row"
                           aria-label={t('assignments:workload.actions.edit')}
                           onClick={() => beginEdit(item)}
                         >

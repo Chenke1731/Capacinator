@@ -1,0 +1,4496 @@
+{
+  "version": 1,
+  "capturedAt": "2026-11-13T11:18:07.819Z",
+  "responses": {
+    "/api/people/eb8ecaf7-44a3-4384-a74b-2c18e9e894b1": {
+      "status": 200,
+      "body": {
+        "id": "eb8ecaf7-44a3-4384-a74b-2c18e9e894b1",
+        "name": "陈主管",
+        "email": "manager@placeholder.local",
+        "primary_person_role_id": "ac9685e2-1ed2-4fff-8dcd-428b383ced48",
+        "worker_type": "FTE",
+        "supervisor_id": null,
+        "default_availability_percentage": 100,
+        "default_hours_per_day": 8,
+        "created_at": 1789912192357,
+        "updated_at": 1789912192357,
+        "user_role_id": null,
+        "is_system_admin": 0,
+        "is_active": 1,
+        "last_login": null,
+        "location_id": "6a3550e9-7abe-45d6-90f9-38681f24c920",
+        "github_username": null,
+        "github_user_id": null,
+        "supervisor_name": null,
+        "primary_role_name": "交付管理",
+        "primary_role_proficiency_level": 4,
+        "location_name": "总部",
+        "roles": [
+          {
+            "id": "ac9685e2-1ed2-4fff-8dcd-428b383ced48",
+            "person_id": "eb8ecaf7-44a3-4384-a74b-2c18e9e894b1",
+            "role_id": "b671152e-d0bb-4049-9e97-8e3b59a51bee",
+            "proficiency_level": 4,
+            "is_primary": 1,
+            "role_name": "交付管理",
+            "role_description": "人力主管登录身份,不参与产能统计"
+          }
+        ],
+        "assignments": [
+          {
+            "id": "spa-74a919e4-094e-46e6-ac7b-a08759205891",
+            "project_id": "project-1790694013954-7ze17jl8m",
+            "person_id": "eb8ecaf7-44a3-4384-a74b-2c18e9e894b1",
+            "role_id": "b521024f-650e-4953-a796-b4d664272276",
+            "phase_id": null,
+            "allocation_percentage": 25,
+            "assignment_date_mode": "fixed",
+            "start_date": "2026-11-01",
+            "end_date": "2026-12-31",
+            "notes": null,
+            "created_at": 1790694150185,
+            "updated_at": 1790694150185,
+            "computed_start_date": "2026-11-01",
+            "computed_end_date": "2026-12-31",
+            "assignment_type": "scenario",
+            "scenario_id": "baseline-0000-0000-0000-000000000000",
+            "scenario_name": "基线",
+            "scenario_type": "baseline",
+            "status": "active",
+            "version": 1,
+            "project_name": "分析-报表-移动端适配",
+            "role_name": "SE"
+          },
+          {
+            "id": "spa-e31b7d2a-35fc-4bf5-9b9c-dd53822fe45a",
+            "project_id": "project-1790694014087-fe34n5zua",
+            "person_id": "eb8ecaf7-44a3-4384-a74b-2c18e9e894b1",
+            "role_id": "b521024f-650e-4953-a796-b4d664272276",
+            "phase_id": null,
+            "allocation_percentage": 40,
+            "assignment_date_mode": "fixed",
+            "start_date": "2026-11-01",
+            "end_date": "2026-12-31",
+            "notes": null,
+            "created_at": 1790694150283,
+            "updated_at": 1790694150283,
+            "computed_start_date": "2026-11-01",
+            "computed_end_date": "2026-12-31",
+            "assignment_type": "scenario",
+            "scenario_id": "baseline-0000-0000-0000-000000000000",
+            "scenario_name": "基线",
+            "scenario_type": "baseline",
+            "status": "active",
+            "version": 1,
+            "project_name": "分析-报表-数据脱敏",
+            "role_name": "SE"
+          }
+        ],
+        "availabilityOverrides": []
+      }
+    },
+    "/api/assignments?person_id=eb8ecaf7-44a3-4384-a74b-2c18e9e894b1&limit=2000": {
+      "status": 200,
+      "body": {
+        "success": true,
+        "data": [
+          {
+            "id": "spa-74a919e4-094e-46e6-ac7b-a08759205891",
+            "project_id": "project-1790694013954-7ze17jl8m",
+            "person_id": "eb8ecaf7-44a3-4384-a74b-2c18e9e894b1",
+            "role_id": "b521024f-650e-4953-a796-b4d664272276",
+            "phase_id": null,
+            "allocation_percentage": 25,
+            "assignment_date_mode": "fixed",
+            "start_date": "2026-11-01",
+            "end_date": "2026-12-31",
+            "notes": null,
+            "created_at": "2026-09-29",
+            "updated_at": "2026-09-29",
+            "computed_start_date": "2026-11-01",
+            "computed_end_date": "2026-12-31",
+            "assignment_type": "scenario",
+            "scenario_id": "baseline-0000-0000-0000-000000000000",
+            "scenario_name": "基线",
+            "scenario_type": "baseline",
+            "status": "active",
+            "version": 1,
+            "project_name": "分析-报表-移动端适配",
+            "aspiration_start": null,
+            "aspiration_finish": null,
+            "person_name": "陈主管",
+            "role_name": "SE",
+            "phase_name": null
+          },
+          {
+            "id": "spa-e31b7d2a-35fc-4bf5-9b9c-dd53822fe45a",
+            "project_id": "project-1790694014087-fe34n5zua",
+            "person_id": "eb8ecaf7-44a3-4384-a74b-2c18e9e894b1",
+            "role_id": "b521024f-650e-4953-a796-b4d664272276",
+            "phase_id": null,
+            "allocation_percentage": 40,
+            "assignment_date_mode": "fixed",
+            "start_date": "2026-11-01",
+            "end_date": "2026-12-31",
+            "notes": null,
+            "created_at": "2026-09-29",
+            "updated_at": "2026-09-29",
+            "computed_start_date": "2026-11-01",
+            "computed_end_date": "2026-12-31",
+            "assignment_type": "scenario",
+            "scenario_id": "baseline-0000-0000-0000-000000000000",
+            "scenario_name": "基线",
+            "scenario_type": "baseline",
+            "status": "active",
+            "version": 1,
+            "project_name": "分析-报表-数据脱敏",
+            "aspiration_start": null,
+            "aspiration_finish": null,
+            "person_name": "陈主管",
+            "role_name": "SE",
+            "phase_name": null
+          }
+        ],
+        "pagination": {
+          "page": 1,
+          "limit": 2000,
+          "total": 2,
+          "totalPages": 1,
+          "hasNextPage": false,
+          "hasPrevPage": false
+        },
+        "requestId": "27d0ae30-ea16-4d6b-8f7c-0947b9eb443f"
+      }
+    },
+    "/api/people/dashboard/utilization": {
+      "status": 200,
+      "body": [
+        {
+          "person_id": "0a5ea5e3-5eca-4394-9d07-6ee317d46308",
+          "person_name": "孙前端",
+          "person_email": "dev6@placeholder.local",
+          "worker_type": "FTE",
+          "current_availability_percentage": 100,
+          "default_hours_per_day": 8,
+          "primary_role_id": "0ade5711-1d6c-4674-9baa-f9480743ea93",
+          "primary_role_name": "开发",
+          "primary_role_proficiency": 4,
+          "location_name": "总部",
+          "total_allocation_percentage": 195,
+          "project_count": 4,
+          "utilization_status": "Over-allocated",
+          "availability_reason": null,
+          "availability_start": null,
+          "availability_end": null
+        },
+        {
+          "person_id": "264666e2-469e-433a-ae7d-efee94dedf65",
+          "person_name": "李后端",
+          "person_email": "dev2@placeholder.local",
+          "worker_type": "FTE",
+          "current_availability_percentage": 100,
+          "default_hours_per_day": 8,
+          "primary_role_id": "0ade5711-1d6c-4674-9baa-f9480743ea93",
+          "primary_role_name": "开发",
+          "primary_role_proficiency": 4,
+          "location_name": "总部",
+          "total_allocation_percentage": 155,
+          "project_count": 4,
+          "utilization_status": "Over-allocated",
+          "availability_reason": null,
+          "availability_start": null,
+          "availability_end": null
+        },
+        {
+          "person_id": "508cb6ed-28a0-44f5-a175-909d5cf798dd",
+          "person_name": "王开发",
+          "person_email": "dev1@placeholder.local",
+          "worker_type": "FTE",
+          "current_availability_percentage": 100,
+          "default_hours_per_day": 8,
+          "primary_role_id": "0ade5711-1d6c-4674-9baa-f9480743ea93",
+          "primary_role_name": "开发",
+          "primary_role_proficiency": 4,
+          "location_name": "总部",
+          "total_allocation_percentage": 265,
+          "project_count": 6,
+          "utilization_status": "Over-allocated",
+          "availability_reason": null,
+          "availability_start": null,
+          "availability_end": null
+        },
+        {
+          "person_id": "5b734589-1c45-4b20-b380-2af910cd583b",
+          "person_name": "张前端",
+          "person_email": "dev3@placeholder.local",
+          "worker_type": "FTE",
+          "current_availability_percentage": 100,
+          "default_hours_per_day": 8,
+          "primary_role_id": "0ade5711-1d6c-4674-9baa-f9480743ea93",
+          "primary_role_name": "开发",
+          "primary_role_proficiency": 4,
+          "location_name": "总部",
+          "total_allocation_percentage": 226,
+          "project_count": 5,
+          "utilization_status": "Over-allocated",
+          "availability_reason": null,
+          "availability_start": null,
+          "availability_end": null
+        },
+        {
+          "person_id": "751627bd-825f-4929-be3a-df2222e078c0",
+          "person_name": "赵全栈",
+          "person_email": "dev4@placeholder.local",
+          "worker_type": "FTE",
+          "current_availability_percentage": 100,
+          "default_hours_per_day": 8,
+          "primary_role_id": "0ade5711-1d6c-4674-9baa-f9480743ea93",
+          "primary_role_name": "开发",
+          "primary_role_proficiency": 4,
+          "location_name": "总部",
+          "total_allocation_percentage": 115,
+          "project_count": 3,
+          "utilization_status": "Over-allocated",
+          "availability_reason": null,
+          "availability_start": null,
+          "availability_end": null
+        },
+        {
+          "person_id": "8c09ba2d-76c2-487b-8ca2-8f2be6da9950",
+          "person_name": "周开发",
+          "person_email": "dev7@placeholder.local",
+          "worker_type": "FTE",
+          "current_availability_percentage": 100,
+          "default_hours_per_day": 8,
+          "primary_role_id": "0ade5711-1d6c-4674-9baa-f9480743ea93",
+          "primary_role_name": "开发",
+          "primary_role_proficiency": 4,
+          "location_name": "总部",
+          "total_allocation_percentage": 80,
+          "project_count": 3,
+          "utilization_status": "Fully-allocated",
+          "availability_reason": null,
+          "availability_start": null,
+          "availability_end": null
+        },
+        {
+          "person_id": "916509a7-3fc3-40ca-9d18-5a7d9ca7fafb",
+          "person_name": "钱后端",
+          "person_email": "dev5@placeholder.local",
+          "worker_type": "FTE",
+          "current_availability_percentage": 100,
+          "default_hours_per_day": 8,
+          "primary_role_id": "0ade5711-1d6c-4674-9baa-f9480743ea93",
+          "primary_role_name": "开发",
+          "primary_role_proficiency": 4,
+          "location_name": "总部",
+          "total_allocation_percentage": 135,
+          "project_count": 3,
+          "utilization_status": "Over-allocated",
+          "availability_reason": null,
+          "availability_start": null,
+          "availability_end": null
+        },
+        {
+          "person_id": "9402f10c-a3be-4198-8c7e-ab7ab04921f5",
+          "person_name": "韩架构",
+          "person_email": "se2@placeholder.local",
+          "worker_type": "FTE",
+          "current_availability_percentage": 100,
+          "default_hours_per_day": 8,
+          "primary_role_id": "b521024f-650e-4953-a796-b4d664272276",
+          "primary_role_name": "SE",
+          "primary_role_proficiency": 4,
+          "location_name": "总部",
+          "total_allocation_percentage": 20,
+          "project_count": 1,
+          "utilization_status": "Partially-allocated",
+          "availability_reason": null,
+          "availability_start": null,
+          "availability_end": null
+        },
+        {
+          "person_id": "99af9ad8-ac88-47da-bfc0-13df579e5415",
+          "person_name": "吴开发",
+          "person_email": "dev8@placeholder.local",
+          "worker_type": "FTE",
+          "current_availability_percentage": 100,
+          "default_hours_per_day": 8,
+          "primary_role_id": "0ade5711-1d6c-4674-9baa-f9480743ea93",
+          "primary_role_name": "开发",
+          "primary_role_proficiency": 4,
+          "location_name": "总部",
+          "total_allocation_percentage": 80,
+          "project_count": 3,
+          "utilization_status": "Fully-allocated",
+          "availability_reason": null,
+          "availability_start": null,
+          "availability_end": null
+        },
+        {
+          "person_id": "bfce427c-5d2a-4cb2-b532-0005fc834016",
+          "person_name": "沈设计",
+          "person_email": "se1@placeholder.local",
+          "worker_type": "FTE",
+          "current_availability_percentage": 100,
+          "default_hours_per_day": 8,
+          "primary_role_id": "b521024f-650e-4953-a796-b4d664272276",
+          "primary_role_name": "SE",
+          "primary_role_proficiency": 4,
+          "location_name": "总部",
+          "total_allocation_percentage": 129,
+          "project_count": 4,
+          "utilization_status": "Over-allocated",
+          "availability_reason": null,
+          "availability_start": null,
+          "availability_end": null
+        },
+        {
+          "person_id": "demo-mde-person-0001",
+          "person_name": "赵设计",
+          "person_email": "mde@demo.local",
+          "worker_type": "FTE",
+          "current_availability_percentage": 100,
+          "default_hours_per_day": 8,
+          "primary_role_id": "501d8abc-0c77-45e9-98c8-7832302e63cb",
+          "primary_role_name": "MDE",
+          "primary_role_proficiency": 3,
+          "location_name": null,
+          "total_allocation_percentage": 120,
+          "project_count": 3,
+          "utilization_status": "Over-allocated",
+          "availability_reason": null,
+          "availability_start": null,
+          "availability_end": null
+        },
+        {
+          "person_id": "eb8ecaf7-44a3-4384-a74b-2c18e9e894b1",
+          "person_name": "陈主管",
+          "person_email": "manager@placeholder.local",
+          "worker_type": "FTE",
+          "current_availability_percentage": 100,
+          "default_hours_per_day": 8,
+          "primary_role_id": "b671152e-d0bb-4049-9e97-8e3b59a51bee",
+          "primary_role_name": "交付管理",
+          "primary_role_proficiency": 4,
+          "location_name": "总部",
+          "total_allocation_percentage": 65,
+          "project_count": 2,
+          "utilization_status": "Partially-allocated",
+          "availability_reason": null,
+          "availability_start": null,
+          "availability_end": null
+        }
+      ]
+    },
+    "/api/projects?limit=50&slim=1&include_ancestors=1&include_in_demand=1": {
+      "status": 200,
+      "body": {
+        "success": true,
+        "data": [
+          {
+            "id": "project-1789912193028-uo604tadh",
+            "seq_number": 1,
+            "iteration_id": null,
+            "name": "问题单支持",
+            "description": "常驻容量预留:按月看单量调整比例",
+            "priority": 3,
+            "project_type_id": "3922612d-7858-4d25-bcf0-406b6f3e1ac9",
+            "project_sub_type_id": "21d8671d-4039-4465-aed3-0137a666487f",
+            "location_id": "6a3550e9-7abe-45d6-90f9-38681f24c920",
+            "owner_id": null,
+            "current_phase_id": null,
+            "aspiration_start": null,
+            "aspiration_finish": null,
+            "include_in_demand": 1,
+            "data_restrictions": null,
+            "external_id": null,
+            "lifecycle_state": null,
+            "external_number": null,
+            "product_version": null,
+            "release_version": null,
+            "component": null,
+            "component_id": null,
+            "parent_id": null,
+            "iteration_label": null,
+            "created_at": 1789912193028,
+            "updated_at": 1789923020489,
+            "location_name": "总部",
+            "project_type_name": "问题单支持",
+            "project_type_color_code": "#000000",
+            "project_sub_type_name": "问题单池",
+            "owner_name": null,
+            "current_phase_name": null,
+            "start_date": null,
+            "end_date": null,
+            "design_deadline": null,
+            "staffing_summary": {
+              "design": {
+                "named": 0,
+                "pool": 0,
+                "named_detail": []
+              },
+              "dev": {
+                "named": 2.4,
+                "pool": 0,
+                "named_detail": [
+                  {
+                    "name": "王开发",
+                    "fte": 0.3
+                  },
+                  {
+                    "name": "李后端",
+                    "fte": 0.3
+                  },
+                  {
+                    "name": "张前端",
+                    "fte": 0.3
+                  },
+                  {
+                    "name": "赵全栈",
+                    "fte": 0.3
+                  },
+                  {
+                    "name": "钱后端",
+                    "fte": 0.3
+                  },
+                  {
+                    "name": "孙前端",
+                    "fte": 0.3
+                  },
+                  {
+                    "name": "周开发",
+                    "fte": 0.3
+                  },
+                  {
+                    "name": "吴开发",
+                    "fte": 0.3
+                  }
+                ]
+              }
+            },
+            "estimation_summary": null,
+            "iteration": null,
+            "design_estimates": null,
+            "se_assignment": null,
+            "mde_assignment": null,
+            "iter_start_date": null,
+            "iter_end_date": null,
+            "primary_dev_name": null,
+            "primary_dev_end": null,
+            "mde_person_name": null,
+            "se_estimate_pm": null,
+            "se_pct": null,
+            "primary_dev": null,
+            "tags": [
+              {
+                "id": 1,
+                "name": "预留",
+                "color": "#f59e0b"
+              }
+            ],
+            "lifecycle_warnings": []
+          },
+          {
+            "id": "project-1789912193067-yja6vt8ku",
+            "seq_number": 2,
+            "iteration_id": null,
+            "name": "项目事务",
+            "description": "常驻容量预留:会议/评审/支持",
+            "priority": 3,
+            "project_type_id": "aa06623f-e53a-4b68-802a-ad4f6acc3da3",
+            "project_sub_type_id": "53117c7c-49fb-4eac-a8e9-11e5696c46c5",
+            "location_id": "6a3550e9-7abe-45d6-90f9-38681f24c920",
+            "owner_id": null,
+            "current_phase_id": null,
+            "aspiration_start": null,
+            "aspiration_finish": null,
+            "include_in_demand": 1,
+            "data_restrictions": null,
+            "external_id": null,
+            "lifecycle_state": null,
+            "external_number": null,
+            "product_version": null,
+            "release_version": null,
+            "component": null,
+            "component_id": null,
+            "parent_id": null,
+            "iteration_label": null,
+            "created_at": 1789912193067,
+            "updated_at": 1789912193067,
+            "location_name": "总部",
+            "project_type_name": "项目事务",
+            "project_type_color_code": "#000000",
+            "project_sub_type_name": "日常事务",
+            "owner_name": null,
+            "current_phase_name": null,
+            "start_date": null,
+            "end_date": null,
+            "design_deadline": null,
+            "staffing_summary": {
+              "design": {
+                "named": 0.25,
+                "pool": 0,
+                "named_detail": [
+                  {
+                    "name": "沈设计",
+                    "fte": 0.25
+                  }
+                ]
+              },
+              "dev": {
+                "named": 2,
+                "pool": 0,
+                "named_detail": [
+                  {
+                    "name": "王开发",
+                    "fte": 0.25
+                  },
+                  {
+                    "name": "李后端",
+                    "fte": 0.25
+                  },
+                  {
+                    "name": "张前端",
+                    "fte": 0.25
+                  },
+                  {
+                    "name": "赵全栈",
+                    "fte": 0.25
+                  },
+                  {
+                    "name": "钱后端",
+                    "fte": 0.25
+                  },
+                  {
+                    "name": "孙前端",
+                    "fte": 0.25
+                  },
+                  {
+                    "name": "周开发",
+                    "fte": 0.25
+                  },
+                  {
+                    "name": "吴开发",
+                    "fte": 0.25
+                  }
+                ]
+              }
+            },
+            "estimation_summary": null,
+            "iteration": null,
+            "design_estimates": null,
+            "se_assignment": {
+              "id": "spa-d471a915-a036-43b0-b541-d19640c7397a",
+              "person_name": "沈设计",
+              "allocation_pct": 25,
+              "start_date": "2026-10-01",
+              "end_date": "2026-12-31"
+            },
+            "mde_assignment": null,
+            "iter_start_date": null,
+            "iter_end_date": null,
+            "primary_dev_name": null,
+            "primary_dev_end": null,
+            "mde_person_name": null,
+            "se_estimate_pm": null,
+            "se_pct": 25,
+            "primary_dev": null,
+            "tags": [
+              {
+                "id": 1,
+                "name": "预留",
+                "color": "#f59e0b"
+              }
+            ],
+            "lifecycle_warnings": []
+          },
+          {
+            "id": "project-1789912193111-zikdnz8c5",
+            "seq_number": 3,
+            "iteration_id": null,
+            "name": "客户门户改版",
+            "description": "虚拟高优需求:演示 SE 设计 + 开发投入",
+            "priority": 1,
+            "project_type_id": "0a1bb90f-62dc-4779-b78a-eb686789b79e",
+            "project_sub_type_id": "30f5e4a9-be36-489d-ab25-8dec2194dd89",
+            "location_id": "6a3550e9-7abe-45d6-90f9-38681f24c920",
+            "owner_id": "9402f10c-a3be-4198-8c7e-ab7ab04921f5",
+            "current_phase_id": null,
+            "aspiration_start": null,
+            "aspiration_finish": null,
+            "include_in_demand": 1,
+            "data_restrictions": "",
+            "external_id": "",
+            "lifecycle_state": "in_iteration",
+            "external_number": null,
+            "product_version": "B",
+            "release_version": "26.RP4",
+            "component": "HCCL_驱动组",
+            "component_id": "4f36a5b7-dcd2-4916-8532-eb53bf654b74",
+            "parent_id": null,
+            "iteration_label": null,
+            "created_at": 1789912193111,
+            "updated_at": 1790756869767,
+            "location_name": "总部",
+            "project_type_name": "需求交付",
+            "project_type_color_code": "#000000",
+            "project_sub_type_name": "标准需求",
+            "owner_name": "韩架构",
+            "current_phase_name": null,
+            "start_date": "2026-09-20",
+            "end_date": "2026-12-15",
+            "design_deadline": "2026-12-15",
+            "staffing_summary": {
+              "design": {
+                "named": 0.5,
+                "pool": 0,
+                "named_detail": [
+                  {
+                    "name": "沈设计",
+                    "fte": 0.5
+                  }
+                ]
+              },
+              "dev": {
+                "named": 0.9,
+                "pool": 0,
+                "named_detail": [
+                  {
+                    "name": "李后端",
+                    "fte": 0.5
+                  },
+                  {
+                    "name": "王开发",
+                    "fte": 0.4
+                  }
+                ]
+              }
+            },
+            "estimation_summary": {
+              "kloc": 99,
+              "pm": 198,
+              "pm_overridden": false
+            },
+            "iteration": null,
+            "design_estimates": null,
+            "se_assignment": {
+              "id": "spa-71e387e4-4f61-49e0-98a2-6614a2c854d5",
+              "person_name": "沈设计",
+              "allocation_pct": 50,
+              "start_date": "2026-09-21",
+              "end_date": "2026-10-20"
+            },
+            "mde_assignment": null,
+            "iter_start_date": null,
+            "iter_end_date": null,
+            "primary_dev_name": null,
+            "primary_dev_end": null,
+            "mde_person_name": null,
+            "se_estimate_pm": null,
+            "se_pct": 50,
+            "primary_dev": null,
+            "tags": [],
+            "lifecycle_warnings": [
+              "NO_ITERATION_NUMBER"
+            ]
+          },
+          {
+            "id": "project-1789912193228-89aoh4wyx",
+            "seq_number": 5,
+            "iteration_id": "iter-2026-11",
+            "name": "移动端改版",
+            "description": "虚拟低优需求:暂不排产",
+            "priority": 3,
+            "project_type_id": "0a1bb90f-62dc-4779-b78a-eb686789b79e",
+            "project_sub_type_id": "30f5e4a9-be36-489d-ab25-8dec2194dd89",
+            "location_id": "6a3550e9-7abe-45d6-90f9-38681f24c920",
+            "owner_id": null,
+            "current_phase_id": null,
+            "aspiration_start": null,
+            "aspiration_finish": null,
+            "include_in_demand": 1,
+            "data_restrictions": null,
+            "external_id": null,
+            "lifecycle_state": "pending_rat",
+            "external_number": null,
+            "product_version": null,
+            "release_version": null,
+            "component": "HCCL_驱动组",
+            "component_id": "4f36a5b7-dcd2-4916-8532-eb53bf654b74",
+            "parent_id": null,
+            "iteration_label": null,
+            "created_at": 1789912193228,
+            "updated_at": 1792052866699,
+            "location_name": "总部",
+            "project_type_name": "需求交付",
+            "project_type_color_code": "#000000",
+            "project_sub_type_name": "标准需求",
+            "owner_name": null,
+            "current_phase_name": null,
+            "start_date": "2026-09-20",
+            "end_date": "2026-11-19",
+            "design_deadline": "2026-10-20",
+            "staffing_summary": {
+              "design": {
+                "named": 0,
+                "pool": 0,
+                "named_detail": []
+              },
+              "dev": {
+                "named": 0,
+                "pool": 0,
+                "named_detail": []
+              }
+            },
+            "estimation_summary": null,
+            "iteration": {
+              "id": "iter-2026-11",
+              "name": "门户项目11月迭代",
+              "start_date": "2026-11-01",
+              "end_date": "2026-11-30"
+            },
+            "design_estimates": {
+              "se": 0.2,
+              "mde": 0.2
+            },
+            "se_assignment": null,
+            "mde_assignment": null,
+            "iter_start_date": "2026-11-01",
+            "iter_end_date": "2026-11-30",
+            "primary_dev_name": null,
+            "primary_dev_end": null,
+            "mde_person_name": null,
+            "se_estimate_pm": 0.2,
+            "se_pct": null,
+            "primary_dev": null,
+            "tags": [
+              {
+                "id": 1,
+                "name": "预留",
+                "color": "#f59e0b"
+              }
+            ],
+            "lifecycle_warnings": []
+          },
+          {
+            "id": "project-1790060477097-ukqzb62ls",
+            "seq_number": 7,
+            "iteration_id": null,
+            "name": "门户首页改版",
+            "description": null,
+            "priority": 2,
+            "project_type_id": "0a1bb90f-62dc-4779-b78a-eb686789b79e",
+            "project_sub_type_id": "30f5e4a9-be36-489d-ab25-8dec2194dd89",
+            "location_id": null,
+            "owner_id": null,
+            "current_phase_id": null,
+            "aspiration_start": null,
+            "aspiration_finish": null,
+            "include_in_demand": 1,
+            "data_restrictions": null,
+            "external_id": null,
+            "lifecycle_state": "backlog",
+            "external_number": "AR-2026-102",
+            "product_version": "B130",
+            "release_version": "26.RP4",
+            "component": null,
+            "component_id": null,
+            "parent_id": "project-1789912193111-zikdnz8c5",
+            "iteration_label": null,
+            "created_at": 1790060477097,
+            "updated_at": 1792332321944,
+            "location_name": null,
+            "project_type_name": "需求交付",
+            "project_type_color_code": "#000000",
+            "project_sub_type_name": "标准需求",
+            "owner_name": null,
+            "current_phase_name": null,
+            "start_date": "2026-09-22",
+            "end_date": "2026-11-21",
+            "design_deadline": "2026-10-22",
+            "staffing_summary": {
+              "design": {
+                "named": 0.27,
+                "pool": 0,
+                "named_detail": [
+                  {
+                    "name": "沈设计",
+                    "fte": 0.27
+                  }
+                ]
+              },
+              "dev": {
+                "named": 0.9,
+                "pool": 0,
+                "named_detail": [
+                  {
+                    "name": "王开发",
+                    "fte": 0.6
+                  },
+                  {
+                    "name": "赵设计",
+                    "fte": 0.3
+                  }
+                ]
+              }
+            },
+            "estimation_summary": {
+              "kloc": 0.3,
+              "pm": 0.6,
+              "pm_overridden": false
+            },
+            "iteration": null,
+            "design_estimates": {
+              "se": 0.3,
+              "mde": 0.3
+            },
+            "se_assignment": {
+              "id": "spa-3ac71370-660f-486d-9147-916177151eb2",
+              "person_name": "沈设计",
+              "allocation_pct": 27,
+              "start_date": "2026-09-29",
+              "end_date": "2026-11-01"
+            },
+            "mde_assignment": {
+              "id": "spa-f7daead9-b230-40f7-99c8-3309a9c485a4",
+              "person_name": "赵设计",
+              "allocation_pct": 30,
+              "start_date": "2026-11-01",
+              "end_date": "2026-11-30"
+            },
+            "iter_start_date": null,
+            "iter_end_date": null,
+            "primary_dev_name": null,
+            "primary_dev_end": null,
+            "mde_person_name": "赵设计",
+            "se_estimate_pm": 0.3,
+            "se_pct": 27,
+            "primary_dev": null,
+            "tags": [
+              {
+                "id": 1,
+                "name": "预留",
+                "color": "#f59e0b"
+              }
+            ],
+            "lifecycle_warnings": [
+              "DESIGN_NOT_BACKFILLED"
+            ]
+          },
+          {
+            "id": "project-1789912193169-c7bg4iere",
+            "seq_number": 4,
+            "iteration_id": "iter-2026-11",
+            "name": "数据平台升级",
+            "description": "虚拟中优需求:排队中",
+            "priority": 2,
+            "project_type_id": "0a1bb90f-62dc-4779-b78a-eb686789b79e",
+            "project_sub_type_id": "30f5e4a9-be36-489d-ab25-8dec2194dd89",
+            "location_id": "6a3550e9-7abe-45d6-90f9-38681f24c920",
+            "owner_id": null,
+            "current_phase_id": null,
+            "aspiration_start": null,
+            "aspiration_finish": null,
+            "include_in_demand": 1,
+            "data_restrictions": null,
+            "external_id": null,
+            "lifecycle_state": "in_iteration",
+            "external_number": null,
+            "product_version": null,
+            "release_version": null,
+            "component": "调度组",
+            "component_id": "cbfe9fb9-1898-4d65-b08c-72aaddb91f62",
+            "parent_id": null,
+            "iteration_label": null,
+            "created_at": 1789912193169,
+            "updated_at": 1790693163416,
+            "location_name": "总部",
+            "project_type_name": "需求交付",
+            "project_type_color_code": "#000000",
+            "project_sub_type_name": "标准需求",
+            "owner_name": null,
+            "current_phase_name": null,
+            "start_date": "2026-09-20",
+            "end_date": "2027-01-14",
+            "design_deadline": "2026-10-20",
+            "staffing_summary": {
+              "design": {
+                "named": 0.5,
+                "pool": 0.5,
+                "named_detail": [
+                  {
+                    "name": "韩架构",
+                    "fte": 0.5
+                  }
+                ]
+              },
+              "dev": {
+                "named": 0.81,
+                "pool": 0.5,
+                "named_detail": [
+                  {
+                    "name": "赵设计",
+                    "fte": 0.5
+                  },
+                  {
+                    "name": "张前端",
+                    "fte": 0.31
+                  }
+                ]
+              }
+            },
+            "estimation_summary": {
+              "kloc": 15,
+              "pm": 30,
+              "pm_overridden": false
+            },
+            "iteration": {
+              "id": "iter-2026-11",
+              "name": "门户项目11月迭代",
+              "start_date": "2026-11-01",
+              "end_date": "2026-11-30"
+            },
+            "design_estimates": {
+              "se": 0.5,
+              "mde": 0.5
+            },
+            "se_assignment": {
+              "id": "spa-b9e654a4-8b44-4e2a-9217-f59ede0e5107",
+              "person_name": "韩架构",
+              "allocation_pct": 50,
+              "start_date": "2026-10-15",
+              "end_date": "2026-10-31"
+            },
+            "mde_assignment": {
+              "id": "spa-28373d3f-c860-4296-a9b3-d816018263cc",
+              "person_name": "赵设计",
+              "allocation_pct": 50,
+              "start_date": "2026-11-01",
+              "end_date": "2026-11-30"
+            },
+            "iter_start_date": "2026-11-01",
+            "iter_end_date": "2026-11-30",
+            "primary_dev_name": "张前端",
+            "primary_dev_end": "2026-12-15",
+            "mde_person_name": "赵设计",
+            "se_estimate_pm": 0.5,
+            "se_pct": 50,
+            "primary_dev": {
+              "id": "spa-seed-p2-front-27960",
+              "person_name": "张前端",
+              "role_name": "开发",
+              "allocation_pct": 31,
+              "start_date": "2026-11-01",
+              "end_date": "2026-12-15"
+            },
+            "tags": [],
+            "lifecycle_warnings": [
+              "DESIGN_NOT_BACKFILLED",
+              "NO_ITERATION_NUMBER"
+            ]
+          },
+          {
+            "id": "project-1790060477017-ye4faipsv",
+            "seq_number": 6,
+            "iteration_id": "iter-2026-11",
+            "name": "门户登录改造",
+            "description": null,
+            "priority": 3,
+            "project_type_id": "0a1bb90f-62dc-4779-b78a-eb686789b79e",
+            "project_sub_type_id": "30f5e4a9-be36-489d-ab25-8dec2194dd89",
+            "location_id": null,
+            "owner_id": null,
+            "current_phase_id": null,
+            "aspiration_start": null,
+            "aspiration_finish": null,
+            "include_in_demand": 1,
+            "data_restrictions": null,
+            "external_id": null,
+            "lifecycle_state": "backlog",
+            "external_number": "AR-2026-101",
+            "product_version": "B150",
+            "release_version": "26.RP4",
+            "component": "HCCL_驱动组",
+            "component_id": "4f36a5b7-dcd2-4916-8532-eb53bf654b74",
+            "parent_id": "project-1789912193111-zikdnz8c5",
+            "iteration_label": null,
+            "created_at": 1790060477017,
+            "updated_at": 1790478863442,
+            "location_name": null,
+            "project_type_name": "需求交付",
+            "project_type_color_code": "#000000",
+            "project_sub_type_name": "标准需求",
+            "owner_name": null,
+            "current_phase_name": null,
+            "start_date": "2026-09-22",
+            "end_date": "2026-11-21",
+            "design_deadline": "2026-10-22",
+            "staffing_summary": {
+              "design": {
+                "named": 0.18,
+                "pool": 0,
+                "named_detail": [
+                  {
+                    "name": "沈设计",
+                    "fte": 0.18
+                  }
+                ]
+              },
+              "dev": {
+                "named": 1,
+                "pool": 0.5,
+                "named_detail": [
+                  {
+                    "name": "孙前端",
+                    "fte": 0.6
+                  },
+                  {
+                    "name": "赵设计",
+                    "fte": 0.4
+                  }
+                ]
+              }
+            },
+            "estimation_summary": {
+              "kloc": 0.6,
+              "pm": 1.2,
+              "pm_overridden": false
+            },
+            "iteration": {
+              "id": "iter-2026-11",
+              "name": "门户项目11月迭代",
+              "start_date": "2026-11-01",
+              "end_date": "2026-11-30"
+            },
+            "design_estimates": {
+              "se": 0.2,
+              "mde": 0.4
+            },
+            "se_assignment": {
+              "id": "spa-5806af29-0e06-4c43-b69b-26e39d84c4c1",
+              "person_name": "沈设计",
+              "allocation_pct": 18,
+              "start_date": "2026-09-29",
+              "end_date": "2026-11-01"
+            },
+            "mde_assignment": {
+              "id": "spa-09a24cb2-5d35-491e-bc27-cca2e9768340",
+              "person_name": "赵设计",
+              "allocation_pct": 40,
+              "start_date": "2026-11-01",
+              "end_date": "2026-11-30"
+            },
+            "iter_start_date": "2026-11-01",
+            "iter_end_date": "2026-11-30",
+            "primary_dev_name": null,
+            "primary_dev_end": null,
+            "mde_person_name": "赵设计",
+            "se_estimate_pm": 0.2,
+            "se_pct": 18,
+            "primary_dev": null,
+            "tags": [
+              {
+                "id": 1,
+                "name": "预留",
+                "color": "#f59e0b"
+              }
+            ],
+            "lifecycle_warnings": [
+              "DESIGN_NOT_BACKFILLED"
+            ]
+          },
+          {
+            "id": "project-1790694013842-u2z7lkm56",
+            "seq_number": 8,
+            "iteration_id": null,
+            "name": "分析-报表-图表导出",
+            "description": null,
+            "priority": 2,
+            "project_type_id": "0a1bb90f-62dc-4779-b78a-eb686789b79e",
+            "project_sub_type_id": "30f5e4a9-be36-489d-ab25-8dec2194dd89",
+            "location_id": null,
+            "owner_id": null,
+            "current_phase_id": null,
+            "aspiration_start": null,
+            "aspiration_finish": null,
+            "include_in_demand": 1,
+            "data_restrictions": null,
+            "external_id": null,
+            "lifecycle_state": "delivered",
+            "external_number": null,
+            "product_version": "V2.5",
+            "release_version": null,
+            "component": null,
+            "component_id": "4ed07acb-9075-436e-a909-ec9ffdb875b8",
+            "parent_id": null,
+            "iteration_label": null,
+            "created_at": 1790694013842,
+            "updated_at": "2026-09-29 15:00:13",
+            "location_name": null,
+            "project_type_name": "需求交付",
+            "project_type_color_code": "#000000",
+            "project_sub_type_name": "标准需求",
+            "owner_name": null,
+            "current_phase_name": null,
+            "start_date": "2026-09-29",
+            "end_date": "2026-11-28",
+            "design_deadline": "2026-10-29",
+            "staffing_summary": {
+              "design": {
+                "named": 0,
+                "pool": 0,
+                "named_detail": []
+              },
+              "dev": {
+                "named": 0,
+                "pool": 0,
+                "named_detail": []
+              }
+            },
+            "estimation_summary": {
+              "kloc": 12,
+              "pm": 3.5,
+              "pm_overridden": true
+            },
+            "iteration": null,
+            "design_estimates": null,
+            "se_assignment": null,
+            "mde_assignment": null,
+            "iter_start_date": null,
+            "iter_end_date": null,
+            "primary_dev_name": null,
+            "primary_dev_end": null,
+            "mde_person_name": null,
+            "se_estimate_pm": null,
+            "se_pct": null,
+            "primary_dev": null,
+            "tags": [
+              {
+                "id": 7,
+                "name": "外包",
+                "color": "#3b82f6"
+              }
+            ],
+            "lifecycle_warnings": [
+              "DELIVERED_NOT_BACKFILLED"
+            ]
+          },
+          {
+            "id": "project-1790694013868-ymwi17yfl",
+            "seq_number": 9,
+            "iteration_id": null,
+            "name": "分析-报表-透视表性能",
+            "description": null,
+            "priority": 3,
+            "project_type_id": "0a1bb90f-62dc-4779-b78a-eb686789b79e",
+            "project_sub_type_id": "30f5e4a9-be36-489d-ab25-8dec2194dd89",
+            "location_id": null,
+            "owner_id": null,
+            "current_phase_id": null,
+            "aspiration_start": null,
+            "aspiration_finish": null,
+            "include_in_demand": 1,
+            "data_restrictions": null,
+            "external_id": null,
+            "lifecycle_state": "delivered",
+            "external_number": null,
+            "product_version": "V2.5",
+            "release_version": null,
+            "component": null,
+            "component_id": "4ed07acb-9075-436e-a909-ec9ffdb875b8",
+            "parent_id": null,
+            "iteration_label": null,
+            "created_at": 1790694013868,
+            "updated_at": "2026-09-29 15:00:13",
+            "location_name": null,
+            "project_type_name": "需求交付",
+            "project_type_color_code": "#000000",
+            "project_sub_type_name": "标准需求",
+            "owner_name": null,
+            "current_phase_name": null,
+            "start_date": "2026-09-29",
+            "end_date": "2026-11-28",
+            "design_deadline": "2026-10-29",
+            "staffing_summary": {
+              "design": {
+                "named": 0,
+                "pool": 0,
+                "named_detail": []
+              },
+              "dev": {
+                "named": 0,
+                "pool": 0,
+                "named_detail": []
+              }
+            },
+            "estimation_summary": {
+              "kloc": 8,
+              "pm": 16,
+              "pm_overridden": false
+            },
+            "iteration": null,
+            "design_estimates": null,
+            "se_assignment": null,
+            "mde_assignment": null,
+            "iter_start_date": null,
+            "iter_end_date": null,
+            "primary_dev_name": null,
+            "primary_dev_end": null,
+            "mde_person_name": null,
+            "se_estimate_pm": null,
+            "se_pct": null,
+            "primary_dev": null,
+            "tags": [],
+            "lifecycle_warnings": [
+              "DELIVERED_NOT_BACKFILLED"
+            ]
+          },
+          {
+            "id": "project-1790694013889-psif6rt61",
+            "seq_number": 10,
+            "iteration_id": null,
+            "name": "分析-平台-会话改造",
+            "description": null,
+            "priority": 2,
+            "project_type_id": "0a1bb90f-62dc-4779-b78a-eb686789b79e",
+            "project_sub_type_id": "30f5e4a9-be36-489d-ab25-8dec2194dd89",
+            "location_id": null,
+            "owner_id": null,
+            "current_phase_id": null,
+            "aspiration_start": null,
+            "aspiration_finish": null,
+            "include_in_demand": 1,
+            "data_restrictions": null,
+            "external_id": null,
+            "lifecycle_state": "delivered",
+            "external_number": null,
+            "product_version": "V2.5",
+            "release_version": null,
+            "component": null,
+            "component_id": "19ebb042-90cb-4283-8ab2-e9bcb2c9b476",
+            "parent_id": null,
+            "iteration_label": null,
+            "created_at": 1790694013889,
+            "updated_at": "2026-09-29 15:00:13",
+            "location_name": null,
+            "project_type_name": "需求交付",
+            "project_type_color_code": "#000000",
+            "project_sub_type_name": "标准需求",
+            "owner_name": null,
+            "current_phase_name": null,
+            "start_date": "2026-09-29",
+            "end_date": "2026-11-28",
+            "design_deadline": "2026-10-29",
+            "staffing_summary": {
+              "design": {
+                "named": 0,
+                "pool": 0,
+                "named_detail": []
+              },
+              "dev": {
+                "named": 0,
+                "pool": 0,
+                "named_detail": []
+              }
+            },
+            "estimation_summary": {
+              "kloc": 15,
+              "pm": 4,
+              "pm_overridden": true
+            },
+            "iteration": null,
+            "design_estimates": null,
+            "se_assignment": null,
+            "mde_assignment": null,
+            "iter_start_date": null,
+            "iter_end_date": null,
+            "primary_dev_name": null,
+            "primary_dev_end": null,
+            "mde_person_name": null,
+            "se_estimate_pm": null,
+            "se_pct": null,
+            "primary_dev": null,
+            "tags": [
+              {
+                "id": 18,
+                "name": "跨团队",
+                "color": "#0072B2"
+              }
+            ],
+            "lifecycle_warnings": [
+              "DELIVERED_NOT_BACKFILLED"
+            ]
+          },
+          {
+            "id": "project-1790694013929-orrkqmguf",
+            "seq_number": 12,
+            "iteration_id": null,
+            "name": "分析-调度-节假日排除",
+            "description": null,
+            "priority": 3,
+            "project_type_id": "0a1bb90f-62dc-4779-b78a-eb686789b79e",
+            "project_sub_type_id": "30f5e4a9-be36-489d-ab25-8dec2194dd89",
+            "location_id": null,
+            "owner_id": null,
+            "current_phase_id": null,
+            "aspiration_start": null,
+            "aspiration_finish": null,
+            "include_in_demand": 1,
+            "data_restrictions": null,
+            "external_id": null,
+            "lifecycle_state": "delivered",
+            "external_number": null,
+            "product_version": "V2.5",
+            "release_version": null,
+            "component": null,
+            "component_id": "cbfe9fb9-1898-4d65-b08c-72aaddb91f62",
+            "parent_id": null,
+            "iteration_label": null,
+            "created_at": 1790694013929,
+            "updated_at": "2026-09-29 15:00:13",
+            "location_name": null,
+            "project_type_name": "需求交付",
+            "project_type_color_code": "#000000",
+            "project_sub_type_name": "标准需求",
+            "owner_name": null,
+            "current_phase_name": null,
+            "start_date": "2026-09-29",
+            "end_date": "2026-12-24",
+            "design_deadline": "2026-12-24",
+            "staffing_summary": {
+              "design": {
+                "named": 0,
+                "pool": 0,
+                "named_detail": []
+              },
+              "dev": {
+                "named": 0,
+                "pool": 0,
+                "named_detail": []
+              }
+            },
+            "estimation_summary": {
+              "kloc": 5,
+              "pm": 1.5,
+              "pm_overridden": true
+            },
+            "iteration": null,
+            "design_estimates": null,
+            "se_assignment": null,
+            "mde_assignment": null,
+            "iter_start_date": null,
+            "iter_end_date": null,
+            "primary_dev_name": null,
+            "primary_dev_end": null,
+            "mde_person_name": null,
+            "se_estimate_pm": null,
+            "se_pct": null,
+            "primary_dev": null,
+            "tags": [],
+            "lifecycle_warnings": [
+              "DELIVERED_NOT_BACKFILLED"
+            ]
+          },
+          {
+            "id": "project-1790694013954-7ze17jl8m",
+            "seq_number": 13,
+            "iteration_id": null,
+            "name": "分析-报表-移动端适配",
+            "description": null,
+            "priority": 2,
+            "project_type_id": "0a1bb90f-62dc-4779-b78a-eb686789b79e",
+            "project_sub_type_id": "30f5e4a9-be36-489d-ab25-8dec2194dd89",
+            "location_id": null,
+            "owner_id": null,
+            "current_phase_id": null,
+            "aspiration_start": null,
+            "aspiration_finish": null,
+            "include_in_demand": 1,
+            "data_restrictions": null,
+            "external_id": null,
+            "lifecycle_state": "in_iteration",
+            "external_number": null,
+            "product_version": "V3.0",
+            "release_version": null,
+            "component": null,
+            "component_id": "4ed07acb-9075-436e-a909-ec9ffdb875b8",
+            "parent_id": null,
+            "iteration_label": null,
+            "created_at": 1790694013954,
+            "updated_at": "2026-09-29 15:00:13",
+            "location_name": null,
+            "project_type_name": "需求交付",
+            "project_type_color_code": "#000000",
+            "project_sub_type_name": "标准需求",
+            "owner_name": null,
+            "current_phase_name": null,
+            "start_date": "2026-09-29",
+            "end_date": "2026-11-28",
+            "design_deadline": "2026-10-29",
+            "staffing_summary": {
+              "design": {
+                "named": 0.25,
+                "pool": 0,
+                "named_detail": [
+                  {
+                    "name": "陈主管",
+                    "fte": 0.25
+                  }
+                ]
+              },
+              "dev": {
+                "named": 0.4,
+                "pool": 0,
+                "named_detail": [
+                  {
+                    "name": "沈设计",
+                    "fte": 0.4
+                  }
+                ]
+              }
+            },
+            "estimation_summary": {
+              "kloc": 20,
+              "pm": 6,
+              "pm_overridden": true
+            },
+            "iteration": null,
+            "design_estimates": null,
+            "se_assignment": {
+              "id": "spa-74a919e4-094e-46e6-ac7b-a08759205891",
+              "person_name": "陈主管",
+              "allocation_pct": 25,
+              "start_date": "2026-11-01",
+              "end_date": "2026-12-31"
+            },
+            "mde_assignment": {
+              "id": "spa-35b3aa88-378e-47e8-9b45-39d656efda3a",
+              "person_name": "沈设计",
+              "allocation_pct": 40,
+              "start_date": "2026-11-01",
+              "end_date": "2026-12-31"
+            },
+            "iter_start_date": null,
+            "iter_end_date": null,
+            "primary_dev_name": null,
+            "primary_dev_end": null,
+            "mde_person_name": "沈设计",
+            "se_estimate_pm": null,
+            "se_pct": 25,
+            "primary_dev": null,
+            "tags": [],
+            "lifecycle_warnings": [
+              "NO_DEV_DEMAND",
+              "NO_ITERATION_NUMBER"
+            ]
+          },
+          {
+            "id": "project-1790694013979-gkpm4by7f",
+            "seq_number": 14,
+            "iteration_id": null,
+            "name": "分析-平台-登录双因素",
+            "description": null,
+            "priority": 1,
+            "project_type_id": "0a1bb90f-62dc-4779-b78a-eb686789b79e",
+            "project_sub_type_id": "30f5e4a9-be36-489d-ab25-8dec2194dd89",
+            "location_id": null,
+            "owner_id": null,
+            "current_phase_id": null,
+            "aspiration_start": null,
+            "aspiration_finish": null,
+            "include_in_demand": 1,
+            "data_restrictions": null,
+            "external_id": null,
+            "lifecycle_state": "in_iteration",
+            "external_number": null,
+            "product_version": "V3.0",
+            "release_version": null,
+            "component": null,
+            "component_id": "19ebb042-90cb-4283-8ab2-e9bcb2c9b476",
+            "parent_id": null,
+            "iteration_label": null,
+            "created_at": 1790694013979,
+            "updated_at": "2026-09-29 15:00:13",
+            "location_name": null,
+            "project_type_name": "需求交付",
+            "project_type_color_code": "#000000",
+            "project_sub_type_name": "标准需求",
+            "owner_name": null,
+            "current_phase_name": null,
+            "start_date": "2026-09-29",
+            "end_date": "2026-11-28",
+            "design_deadline": "2026-10-29",
+            "staffing_summary": {
+              "design": {
+                "named": 0,
+                "pool": 0,
+                "named_detail": []
+              },
+              "dev": {
+                "named": 0.5,
+                "pool": 0,
+                "named_detail": [
+                  {
+                    "name": "王开发",
+                    "fte": 0.5
+                  }
+                ]
+              }
+            },
+            "estimation_summary": null,
+            "iteration": null,
+            "design_estimates": null,
+            "se_assignment": null,
+            "mde_assignment": {
+              "id": "spa-fea05c14-1800-4c61-aad1-212b5fb8f332",
+              "person_name": "王开发",
+              "allocation_pct": 50,
+              "start_date": "2026-11-01",
+              "end_date": "2026-12-31"
+            },
+            "iter_start_date": null,
+            "iter_end_date": null,
+            "primary_dev_name": null,
+            "primary_dev_end": null,
+            "mde_person_name": "王开发",
+            "se_estimate_pm": null,
+            "se_pct": null,
+            "primary_dev": null,
+            "tags": [
+              {
+                "id": 7,
+                "name": "外包",
+                "color": "#3b82f6"
+              },
+              {
+                "id": 18,
+                "name": "跨团队",
+                "color": "#0072B2"
+              }
+            ],
+            "lifecycle_warnings": [
+              "NO_DEV_DEMAND",
+              "NO_LOC_ESTIMATE",
+              "NO_ITERATION_NUMBER"
+            ]
+          },
+          {
+            "id": "project-1790694013993-bb3wwwvkj",
+            "seq_number": 15,
+            "iteration_id": null,
+            "name": "分析-驱动-新传感器接入",
+            "description": null,
+            "priority": 3,
+            "project_type_id": "0a1bb90f-62dc-4779-b78a-eb686789b79e",
+            "project_sub_type_id": "30f5e4a9-be36-489d-ab25-8dec2194dd89",
+            "location_id": null,
+            "owner_id": null,
+            "current_phase_id": null,
+            "aspiration_start": null,
+            "aspiration_finish": null,
+            "include_in_demand": 1,
+            "data_restrictions": null,
+            "external_id": null,
+            "lifecycle_state": "in_iteration",
+            "external_number": null,
+            "product_version": "V3.0",
+            "release_version": null,
+            "component": null,
+            "component_id": "4f36a5b7-dcd2-4916-8532-eb53bf654b74",
+            "parent_id": null,
+            "iteration_label": null,
+            "created_at": 1790694013994,
+            "updated_at": "2026-09-29 15:00:14",
+            "location_name": null,
+            "project_type_name": "需求交付",
+            "project_type_color_code": "#000000",
+            "project_sub_type_name": "标准需求",
+            "owner_name": null,
+            "current_phase_name": null,
+            "start_date": "2026-09-29",
+            "end_date": "2026-11-28",
+            "design_deadline": "2026-10-29",
+            "staffing_summary": {
+              "design": {
+                "named": 0.5,
+                "pool": 0,
+                "named_detail": [
+                  {
+                    "name": "李后端",
+                    "fte": 0.5
+                  }
+                ]
+              },
+              "dev": {
+                "named": 0.6,
+                "pool": 0,
+                "named_detail": [
+                  {
+                    "name": "张前端",
+                    "fte": 0.6
+                  }
+                ]
+              }
+            },
+            "estimation_summary": {
+              "kloc": 10,
+              "pm": 3,
+              "pm_overridden": true
+            },
+            "iteration": null,
+            "design_estimates": null,
+            "se_assignment": {
+              "id": "spa-a9e3aaf4-7088-4d5a-b7ef-8b347ee5beea",
+              "person_name": "李后端",
+              "allocation_pct": 50,
+              "start_date": "2026-11-01",
+              "end_date": "2026-12-31"
+            },
+            "mde_assignment": {
+              "id": "spa-ee8280ef-548e-4ba7-8c31-6f5def583683",
+              "person_name": "张前端",
+              "allocation_pct": 60,
+              "start_date": "2026-11-01",
+              "end_date": "2026-12-31"
+            },
+            "iter_start_date": null,
+            "iter_end_date": null,
+            "primary_dev_name": null,
+            "primary_dev_end": null,
+            "mde_person_name": "张前端",
+            "se_estimate_pm": null,
+            "se_pct": 50,
+            "primary_dev": null,
+            "tags": [],
+            "lifecycle_warnings": [
+              "NO_DEV_DEMAND",
+              "NO_ITERATION_NUMBER"
+            ]
+          },
+          {
+            "id": "project-1790694014019-1y6e4vxci",
+            "seq_number": 16,
+            "iteration_id": null,
+            "name": "分析-报表-订阅推送",
+            "description": null,
+            "priority": 4,
+            "project_type_id": "0a1bb90f-62dc-4779-b78a-eb686789b79e",
+            "project_sub_type_id": "30f5e4a9-be36-489d-ab25-8dec2194dd89",
+            "location_id": null,
+            "owner_id": null,
+            "current_phase_id": null,
+            "aspiration_start": null,
+            "aspiration_finish": null,
+            "include_in_demand": 1,
+            "data_restrictions": null,
+            "external_id": null,
+            "lifecycle_state": "in_iteration",
+            "external_number": null,
+            "product_version": "V3.1",
+            "release_version": null,
+            "component": null,
+            "component_id": "4ed07acb-9075-436e-a909-ec9ffdb875b8",
+            "parent_id": null,
+            "iteration_label": null,
+            "created_at": 1790694014019,
+            "updated_at": "2026-09-29 15:00:14",
+            "location_name": null,
+            "project_type_name": "需求交付",
+            "project_type_color_code": "#000000",
+            "project_sub_type_name": "标准需求",
+            "owner_name": null,
+            "current_phase_name": null,
+            "start_date": "2026-09-29",
+            "end_date": "2026-11-28",
+            "design_deadline": "2026-10-29",
+            "staffing_summary": {
+              "design": {
+                "named": 0.6,
+                "pool": 0,
+                "named_detail": [
+                  {
+                    "name": "赵全栈",
+                    "fte": 0.6
+                  }
+                ]
+              },
+              "dev": {
+                "named": 0.8,
+                "pool": 0,
+                "named_detail": [
+                  {
+                    "name": "钱后端",
+                    "fte": 0.8
+                  }
+                ]
+              }
+            },
+            "estimation_summary": {
+              "kloc": 6,
+              "pm": 12,
+              "pm_overridden": false
+            },
+            "iteration": null,
+            "design_estimates": null,
+            "se_assignment": {
+              "id": "spa-9e534b46-7180-48ca-bb10-e594d536c6e6",
+              "person_name": "赵全栈",
+              "allocation_pct": 60,
+              "start_date": "2026-11-01",
+              "end_date": "2026-12-31"
+            },
+            "mde_assignment": {
+              "id": "spa-f4b987c5-138f-4f3e-9d63-9b8d23136aca",
+              "person_name": "钱后端",
+              "allocation_pct": 80,
+              "start_date": "2026-11-01",
+              "end_date": "2026-12-31"
+            },
+            "iter_start_date": null,
+            "iter_end_date": null,
+            "primary_dev_name": null,
+            "primary_dev_end": null,
+            "mde_person_name": "钱后端",
+            "se_estimate_pm": null,
+            "se_pct": 60,
+            "primary_dev": null,
+            "tags": [],
+            "lifecycle_warnings": [
+              "NO_DEV_DEMAND",
+              "NO_ITERATION_NUMBER"
+            ]
+          },
+          {
+            "id": "project-1790694014038-vuhkmral2",
+            "seq_number": 17,
+            "iteration_id": null,
+            "name": "分析-平台-权限矩阵重构",
+            "description": null,
+            "priority": 2,
+            "project_type_id": "0a1bb90f-62dc-4779-b78a-eb686789b79e",
+            "project_sub_type_id": "30f5e4a9-be36-489d-ab25-8dec2194dd89",
+            "location_id": null,
+            "owner_id": null,
+            "current_phase_id": null,
+            "aspiration_start": null,
+            "aspiration_finish": null,
+            "include_in_demand": 1,
+            "data_restrictions": null,
+            "external_id": null,
+            "lifecycle_state": "scheduled",
+            "external_number": null,
+            "product_version": "V3.0",
+            "release_version": null,
+            "component": null,
+            "component_id": "19ebb042-90cb-4283-8ab2-e9bcb2c9b476",
+            "parent_id": null,
+            "iteration_label": null,
+            "created_at": 1790694014039,
+            "updated_at": "2026-09-29 15:00:14",
+            "location_name": null,
+            "project_type_name": "需求交付",
+            "project_type_color_code": "#000000",
+            "project_sub_type_name": "标准需求",
+            "owner_name": null,
+            "current_phase_name": null,
+            "start_date": "2026-09-29",
+            "end_date": "2026-11-28",
+            "design_deadline": "2026-10-29",
+            "staffing_summary": {
+              "design": {
+                "named": 0.8,
+                "pool": 0,
+                "named_detail": [
+                  {
+                    "name": "孙前端",
+                    "fte": 0.8
+                  }
+                ]
+              },
+              "dev": {
+                "named": 0.25,
+                "pool": 0,
+                "named_detail": [
+                  {
+                    "name": "周开发",
+                    "fte": 0.25
+                  }
+                ]
+              }
+            },
+            "estimation_summary": {
+              "kloc": 30,
+              "pm": 9,
+              "pm_overridden": true
+            },
+            "iteration": null,
+            "design_estimates": null,
+            "se_assignment": {
+              "id": "spa-0a99ef36-65da-44f9-ae54-122cd4ebe77b",
+              "person_name": "孙前端",
+              "allocation_pct": 80,
+              "start_date": "2026-11-01",
+              "end_date": "2026-12-31"
+            },
+            "mde_assignment": {
+              "id": "spa-4916b3fd-bef0-44a2-84b5-d2bae38448ae",
+              "person_name": "周开发",
+              "allocation_pct": 25,
+              "start_date": "2026-11-01",
+              "end_date": "2026-12-31"
+            },
+            "iter_start_date": null,
+            "iter_end_date": null,
+            "primary_dev_name": null,
+            "primary_dev_end": null,
+            "mde_person_name": "周开发",
+            "se_estimate_pm": null,
+            "se_pct": 80,
+            "primary_dev": null,
+            "tags": [
+              {
+                "id": 18,
+                "name": "跨团队",
+                "color": "#0072B2"
+              }
+            ],
+            "lifecycle_warnings": [
+              "NO_DEV_DEMAND"
+            ]
+          },
+          {
+            "id": "project-1790694014063-an6gkmpqp",
+            "seq_number": 18,
+            "iteration_id": null,
+            "name": "分析-调度-优先级抢占",
+            "description": null,
+            "priority": 2,
+            "project_type_id": "0a1bb90f-62dc-4779-b78a-eb686789b79e",
+            "project_sub_type_id": "30f5e4a9-be36-489d-ab25-8dec2194dd89",
+            "location_id": null,
+            "owner_id": null,
+            "current_phase_id": null,
+            "aspiration_start": null,
+            "aspiration_finish": null,
+            "include_in_demand": 1,
+            "data_restrictions": null,
+            "external_id": null,
+            "lifecycle_state": "scheduled",
+            "external_number": null,
+            "product_version": "V3.0",
+            "release_version": null,
+            "component": null,
+            "component_id": "cbfe9fb9-1898-4d65-b08c-72aaddb91f62",
+            "parent_id": null,
+            "iteration_label": null,
+            "created_at": 1790694014063,
+            "updated_at": "2026-09-29 15:00:14",
+            "location_name": null,
+            "project_type_name": "需求交付",
+            "project_type_color_code": "#000000",
+            "project_sub_type_name": "标准需求",
+            "owner_name": null,
+            "current_phase_name": null,
+            "start_date": "2026-09-29",
+            "end_date": "2026-11-28",
+            "design_deadline": "2026-10-29",
+            "staffing_summary": {
+              "design": {
+                "named": 0.25,
+                "pool": 0,
+                "named_detail": [
+                  {
+                    "name": "吴开发",
+                    "fte": 0.25
+                  }
+                ]
+              },
+              "dev": {
+                "named": 0,
+                "pool": 0,
+                "named_detail": []
+              }
+            },
+            "estimation_summary": {
+              "kloc": 12,
+              "pm": 4,
+              "pm_overridden": true
+            },
+            "iteration": null,
+            "design_estimates": null,
+            "se_assignment": {
+              "id": "spa-2dffa581-5174-4560-86b5-87a24b5bf77f",
+              "person_name": "吴开发",
+              "allocation_pct": 25,
+              "start_date": "2026-11-01",
+              "end_date": "2026-12-31"
+            },
+            "mde_assignment": null,
+            "iter_start_date": null,
+            "iter_end_date": null,
+            "primary_dev_name": null,
+            "primary_dev_end": null,
+            "mde_person_name": null,
+            "se_estimate_pm": null,
+            "se_pct": 25,
+            "primary_dev": null,
+            "tags": [],
+            "lifecycle_warnings": [
+              "NO_DEV_DEMAND"
+            ]
+          },
+          {
+            "id": "project-1790694014087-fe34n5zua",
+            "seq_number": 19,
+            "iteration_id": null,
+            "name": "分析-报表-数据脱敏",
+            "description": null,
+            "priority": 1,
+            "project_type_id": "0a1bb90f-62dc-4779-b78a-eb686789b79e",
+            "project_sub_type_id": "30f5e4a9-be36-489d-ab25-8dec2194dd89",
+            "location_id": null,
+            "owner_id": null,
+            "current_phase_id": null,
+            "aspiration_start": null,
+            "aspiration_finish": null,
+            "include_in_demand": 1,
+            "data_restrictions": null,
+            "external_id": null,
+            "lifecycle_state": "scheduled",
+            "external_number": null,
+            "product_version": "V3.0",
+            "release_version": null,
+            "component": null,
+            "component_id": "4ed07acb-9075-436e-a909-ec9ffdb875b8",
+            "parent_id": null,
+            "iteration_label": null,
+            "created_at": 1790694014087,
+            "updated_at": "2026-09-29 15:00:14",
+            "location_name": null,
+            "project_type_name": "需求交付",
+            "project_type_color_code": "#000000",
+            "project_sub_type_name": "标准需求",
+            "owner_name": null,
+            "current_phase_name": null,
+            "start_date": "2026-09-29",
+            "end_date": "2026-11-28",
+            "design_deadline": "2026-10-29",
+            "staffing_summary": {
+              "design": {
+                "named": 0.4,
+                "pool": 0,
+                "named_detail": [
+                  {
+                    "name": "陈主管",
+                    "fte": 0.4
+                  }
+                ]
+              },
+              "dev": {
+                "named": 0.5,
+                "pool": 0,
+                "named_detail": [
+                  {
+                    "name": "沈设计",
+                    "fte": 0.5
+                  }
+                ]
+              }
+            },
+            "estimation_summary": {
+              "kloc": 18,
+              "pm": 36,
+              "pm_overridden": false
+            },
+            "iteration": null,
+            "design_estimates": null,
+            "se_assignment": {
+              "id": "spa-e31b7d2a-35fc-4bf5-9b9c-dd53822fe45a",
+              "person_name": "陈主管",
+              "allocation_pct": 40,
+              "start_date": "2026-11-01",
+              "end_date": "2026-12-31"
+            },
+            "mde_assignment": {
+              "id": "spa-78fad277-a90c-4f96-acbe-0804b3b252dd",
+              "person_name": "沈设计",
+              "allocation_pct": 50,
+              "start_date": "2026-11-01",
+              "end_date": "2026-12-31"
+            },
+            "iter_start_date": null,
+            "iter_end_date": null,
+            "primary_dev_name": null,
+            "primary_dev_end": null,
+            "mde_person_name": "沈设计",
+            "se_estimate_pm": null,
+            "se_pct": 40,
+            "primary_dev": null,
+            "tags": [],
+            "lifecycle_warnings": [
+              "NO_DEV_DEMAND"
+            ]
+          },
+          {
+            "id": "project-1790694014107-p97skcjpo",
+            "seq_number": 20,
+            "iteration_id": null,
+            "name": "分析-门户-消息中心",
+            "description": null,
+            "priority": 3,
+            "project_type_id": "0a1bb90f-62dc-4779-b78a-eb686789b79e",
+            "project_sub_type_id": "30f5e4a9-be36-489d-ab25-8dec2194dd89",
+            "location_id": null,
+            "owner_id": null,
+            "current_phase_id": null,
+            "aspiration_start": null,
+            "aspiration_finish": null,
+            "include_in_demand": 1,
+            "data_restrictions": null,
+            "external_id": null,
+            "lifecycle_state": "scheduled",
+            "external_number": null,
+            "product_version": "V3.1",
+            "release_version": null,
+            "component": null,
+            "component_id": null,
+            "parent_id": null,
+            "iteration_label": null,
+            "created_at": 1790694014107,
+            "updated_at": "2026-09-29 15:00:14",
+            "location_name": null,
+            "project_type_name": "需求交付",
+            "project_type_color_code": "#000000",
+            "project_sub_type_name": "标准需求",
+            "owner_name": null,
+            "current_phase_name": null,
+            "start_date": "2026-09-29",
+            "end_date": "2026-11-28",
+            "design_deadline": "2026-10-29",
+            "staffing_summary": {
+              "design": {
+                "named": 0,
+                "pool": 0,
+                "named_detail": []
+              },
+              "dev": {
+                "named": 0.6,
+                "pool": 0,
+                "named_detail": [
+                  {
+                    "name": "王开发",
+                    "fte": 0.6
+                  }
+                ]
+              }
+            },
+            "estimation_summary": {
+              "kloc": 8,
+              "pm": 2.5,
+              "pm_overridden": true
+            },
+            "iteration": null,
+            "design_estimates": null,
+            "se_assignment": null,
+            "mde_assignment": {
+              "id": "spa-3778a26f-4e5e-4859-8a03-9f3282de3b5e",
+              "person_name": "王开发",
+              "allocation_pct": 60,
+              "start_date": "2027-02-01",
+              "end_date": "2027-03-31"
+            },
+            "iter_start_date": null,
+            "iter_end_date": null,
+            "primary_dev_name": null,
+            "primary_dev_end": null,
+            "mde_person_name": "王开发",
+            "se_estimate_pm": null,
+            "se_pct": null,
+            "primary_dev": null,
+            "tags": [],
+            "lifecycle_warnings": [
+              "NO_DEV_DEMAND"
+            ]
+          },
+          {
+            "id": "project-1790694014151-pude04pdr",
+            "seq_number": 21,
+            "iteration_id": null,
+            "name": "分析-平台-审计流水查询",
+            "description": null,
+            "priority": 3,
+            "project_type_id": "0a1bb90f-62dc-4779-b78a-eb686789b79e",
+            "project_sub_type_id": "30f5e4a9-be36-489d-ab25-8dec2194dd89",
+            "location_id": null,
+            "owner_id": null,
+            "current_phase_id": null,
+            "aspiration_start": null,
+            "aspiration_finish": null,
+            "include_in_demand": 1,
+            "data_restrictions": null,
+            "external_id": null,
+            "lifecycle_state": "backlog",
+            "external_number": null,
+            "product_version": null,
+            "release_version": null,
+            "component": null,
+            "component_id": "19ebb042-90cb-4283-8ab2-e9bcb2c9b476",
+            "parent_id": null,
+            "iteration_label": null,
+            "created_at": 1790694014151,
+            "updated_at": "2026-09-29 15:00:14",
+            "location_name": null,
+            "project_type_name": "需求交付",
+            "project_type_color_code": "#000000",
+            "project_sub_type_name": "标准需求",
+            "owner_name": null,
+            "current_phase_name": null,
+            "start_date": "2026-09-29",
+            "end_date": "2026-11-28",
+            "design_deadline": "2026-10-29",
+            "staffing_summary": {
+              "design": {
+                "named": 0,
+                "pool": 0,
+                "named_detail": []
+              },
+              "dev": {
+                "named": 0,
+                "pool": 0,
+                "named_detail": []
+              }
+            },
+            "estimation_summary": null,
+            "iteration": null,
+            "design_estimates": null,
+            "se_assignment": null,
+            "mde_assignment": null,
+            "iter_start_date": null,
+            "iter_end_date": null,
+            "primary_dev_name": null,
+            "primary_dev_end": null,
+            "mde_person_name": null,
+            "se_estimate_pm": null,
+            "se_pct": null,
+            "primary_dev": null,
+            "tags": [],
+            "lifecycle_warnings": []
+          },
+          {
+            "id": "project-1790694014167-6noen19c1",
+            "seq_number": 22,
+            "iteration_id": null,
+            "name": "分析-报表-自定义指标",
+            "description": null,
+            "priority": 3,
+            "project_type_id": "0a1bb90f-62dc-4779-b78a-eb686789b79e",
+            "project_sub_type_id": "30f5e4a9-be36-489d-ab25-8dec2194dd89",
+            "location_id": null,
+            "owner_id": null,
+            "current_phase_id": null,
+            "aspiration_start": null,
+            "aspiration_finish": null,
+            "include_in_demand": 1,
+            "data_restrictions": null,
+            "external_id": null,
+            "lifecycle_state": "backlog",
+            "external_number": null,
+            "product_version": "V3.1",
+            "release_version": null,
+            "component": null,
+            "component_id": "4ed07acb-9075-436e-a909-ec9ffdb875b8",
+            "parent_id": null,
+            "iteration_label": null,
+            "created_at": 1790694014167,
+            "updated_at": "2026-09-29 15:00:14",
+            "location_name": null,
+            "project_type_name": "需求交付",
+            "project_type_color_code": "#000000",
+            "project_sub_type_name": "标准需求",
+            "owner_name": null,
+            "current_phase_name": null,
+            "start_date": "2026-09-29",
+            "end_date": "2026-11-28",
+            "design_deadline": "2026-10-29",
+            "staffing_summary": {
+              "design": {
+                "named": 0,
+                "pool": 0,
+                "named_detail": []
+              },
+              "dev": {
+                "named": 0,
+                "pool": 0,
+                "named_detail": []
+              }
+            },
+            "estimation_summary": {
+              "kloc": 25,
+              "pm": 50,
+              "pm_overridden": false
+            },
+            "iteration": null,
+            "design_estimates": null,
+            "se_assignment": null,
+            "mde_assignment": null,
+            "iter_start_date": null,
+            "iter_end_date": null,
+            "primary_dev_name": null,
+            "primary_dev_end": null,
+            "mde_person_name": null,
+            "se_estimate_pm": null,
+            "se_pct": null,
+            "primary_dev": null,
+            "tags": [],
+            "lifecycle_warnings": []
+          },
+          {
+            "id": "project-1790694014201-7r1vbzy7c",
+            "seq_number": 24,
+            "iteration_id": null,
+            "name": "分析-平台-多租户隔离",
+            "description": null,
+            "priority": 1,
+            "project_type_id": "0a1bb90f-62dc-4779-b78a-eb686789b79e",
+            "project_sub_type_id": "30f5e4a9-be36-489d-ab25-8dec2194dd89",
+            "location_id": null,
+            "owner_id": null,
+            "current_phase_id": null,
+            "aspiration_start": null,
+            "aspiration_finish": null,
+            "include_in_demand": 1,
+            "data_restrictions": null,
+            "external_id": null,
+            "lifecycle_state": "designing",
+            "external_number": null,
+            "product_version": "V3.1",
+            "release_version": null,
+            "component": null,
+            "component_id": "19ebb042-90cb-4283-8ab2-e9bcb2c9b476",
+            "parent_id": null,
+            "iteration_label": null,
+            "created_at": 1790694014201,
+            "updated_at": 1790696301051,
+            "location_name": null,
+            "project_type_name": "需求交付",
+            "project_type_color_code": "#000000",
+            "project_sub_type_name": "标准需求",
+            "owner_name": null,
+            "current_phase_name": null,
+            "start_date": "2026-09-29",
+            "end_date": "2026-11-28",
+            "design_deadline": "2026-10-29",
+            "staffing_summary": {
+              "design": {
+                "named": 0.57,
+                "pool": 0,
+                "named_detail": [
+                  {
+                    "name": "王开发",
+                    "fte": 0.57
+                  }
+                ]
+              },
+              "dev": {
+                "named": 0.8,
+                "pool": 0,
+                "named_detail": [
+                  {
+                    "name": "张前端",
+                    "fte": 0.8
+                  }
+                ]
+              }
+            },
+            "estimation_summary": {
+              "kloc": 45,
+              "pm": 14,
+              "pm_overridden": true
+            },
+            "iteration": null,
+            "design_estimates": {
+              "se": 0.6,
+              "mde": null
+            },
+            "se_assignment": {
+              "id": "spa-b3ccf070-4896-4017-b4c2-257c032acd0d",
+              "person_name": "王开发",
+              "allocation_pct": 57,
+              "start_date": "2026-09-29",
+              "end_date": "2026-10-29"
+            },
+            "mde_assignment": {
+              "id": "spa-426ab090-d057-4353-b5c1-45424dd6e901",
+              "person_name": "张前端",
+              "allocation_pct": 80,
+              "start_date": "2026-11-01",
+              "end_date": "2026-12-31"
+            },
+            "iter_start_date": null,
+            "iter_end_date": null,
+            "primary_dev_name": null,
+            "primary_dev_end": null,
+            "mde_person_name": "张前端",
+            "se_estimate_pm": 0.6,
+            "se_pct": 57,
+            "primary_dev": null,
+            "tags": [
+              {
+                "id": 18,
+                "name": "跨团队",
+                "color": "#0072B2"
+              }
+            ],
+            "lifecycle_warnings": []
+          },
+          {
+            "id": "project-1790694014224-09yef9xmo",
+            "seq_number": 25,
+            "iteration_id": null,
+            "name": "分析-报表-实时大屏",
+            "description": null,
+            "priority": 2,
+            "project_type_id": "0a1bb90f-62dc-4779-b78a-eb686789b79e",
+            "project_sub_type_id": "30f5e4a9-be36-489d-ab25-8dec2194dd89",
+            "location_id": null,
+            "owner_id": null,
+            "current_phase_id": null,
+            "aspiration_start": null,
+            "aspiration_finish": null,
+            "include_in_demand": 1,
+            "data_restrictions": null,
+            "external_id": null,
+            "lifecycle_state": "designing",
+            "external_number": null,
+            "product_version": "V3.1",
+            "release_version": null,
+            "component": null,
+            "component_id": "4ed07acb-9075-436e-a909-ec9ffdb875b8",
+            "parent_id": null,
+            "iteration_label": null,
+            "created_at": 1790694014225,
+            "updated_at": "2026-09-29 15:00:14",
+            "location_name": null,
+            "project_type_name": "需求交付",
+            "project_type_color_code": "#000000",
+            "project_sub_type_name": "标准需求",
+            "owner_name": null,
+            "current_phase_name": null,
+            "start_date": "2026-09-29",
+            "end_date": "2026-11-28",
+            "design_deadline": "2026-10-29",
+            "staffing_summary": {
+              "design": {
+                "named": 0,
+                "pool": 0,
+                "named_detail": []
+              },
+              "dev": {
+                "named": 0,
+                "pool": 0,
+                "named_detail": []
+              }
+            },
+            "estimation_summary": {
+              "kloc": 22,
+              "pm": 7,
+              "pm_overridden": true
+            },
+            "iteration": null,
+            "design_estimates": null,
+            "se_assignment": null,
+            "mde_assignment": null,
+            "iter_start_date": null,
+            "iter_end_date": null,
+            "primary_dev_name": null,
+            "primary_dev_end": null,
+            "mde_person_name": null,
+            "se_estimate_pm": null,
+            "se_pct": null,
+            "primary_dev": null,
+            "tags": [],
+            "lifecycle_warnings": [
+              "NO_DESIGN_ESTIMATE"
+            ]
+          },
+          {
+            "id": "project-1790694014249-gjwmgqpip",
+            "seq_number": 26,
+            "iteration_id": null,
+            "name": "分析-调度-资源画像",
+            "description": null,
+            "priority": 3,
+            "project_type_id": "0a1bb90f-62dc-4779-b78a-eb686789b79e",
+            "project_sub_type_id": "30f5e4a9-be36-489d-ab25-8dec2194dd89",
+            "location_id": null,
+            "owner_id": null,
+            "current_phase_id": null,
+            "aspiration_start": null,
+            "aspiration_finish": null,
+            "include_in_demand": 1,
+            "data_restrictions": null,
+            "external_id": null,
+            "lifecycle_state": "designing",
+            "external_number": null,
+            "product_version": "V3.1",
+            "release_version": null,
+            "component": null,
+            "component_id": "cbfe9fb9-1898-4d65-b08c-72aaddb91f62",
+            "parent_id": null,
+            "iteration_label": null,
+            "created_at": 1790694014249,
+            "updated_at": "2026-09-29 15:00:14",
+            "location_name": null,
+            "project_type_name": "需求交付",
+            "project_type_color_code": "#000000",
+            "project_sub_type_name": "标准需求",
+            "owner_name": null,
+            "current_phase_name": null,
+            "start_date": "2026-09-29",
+            "end_date": "2026-11-28",
+            "design_deadline": "2026-10-29",
+            "staffing_summary": {
+              "design": {
+                "named": 0,
+                "pool": 0,
+                "named_detail": []
+              },
+              "dev": {
+                "named": 0,
+                "pool": 0,
+                "named_detail": []
+              }
+            },
+            "estimation_summary": {
+              "kloc": 9,
+              "pm": 18,
+              "pm_overridden": false
+            },
+            "iteration": null,
+            "design_estimates": null,
+            "se_assignment": null,
+            "mde_assignment": null,
+            "iter_start_date": null,
+            "iter_end_date": null,
+            "primary_dev_name": null,
+            "primary_dev_end": null,
+            "mde_person_name": null,
+            "se_estimate_pm": null,
+            "se_pct": null,
+            "primary_dev": null,
+            "tags": [],
+            "lifecycle_warnings": [
+              "NO_DESIGN_ESTIMATE"
+            ]
+          },
+          {
+            "id": "project-1790694014270-rzywrg6q4",
+            "seq_number": 27,
+            "iteration_id": null,
+            "name": "分析-门户-暗色主题",
+            "description": null,
+            "priority": 5,
+            "project_type_id": "0a1bb90f-62dc-4779-b78a-eb686789b79e",
+            "project_sub_type_id": "30f5e4a9-be36-489d-ab25-8dec2194dd89",
+            "location_id": null,
+            "owner_id": null,
+            "current_phase_id": null,
+            "aspiration_start": null,
+            "aspiration_finish": null,
+            "include_in_demand": 1,
+            "data_restrictions": null,
+            "external_id": null,
+            "lifecycle_state": "designing",
+            "external_number": null,
+            "product_version": null,
+            "release_version": null,
+            "component": null,
+            "component_id": null,
+            "parent_id": null,
+            "iteration_label": null,
+            "created_at": 1790694014270,
+            "updated_at": "2026-09-29 15:00:14",
+            "location_name": null,
+            "project_type_name": "需求交付",
+            "project_type_color_code": "#000000",
+            "project_sub_type_name": "标准需求",
+            "owner_name": null,
+            "current_phase_name": null,
+            "start_date": "2026-09-29",
+            "end_date": "2026-11-28",
+            "design_deadline": "2026-10-29",
+            "staffing_summary": {
+              "design": {
+                "named": 0,
+                "pool": 0,
+                "named_detail": []
+              },
+              "dev": {
+                "named": 0,
+                "pool": 0,
+                "named_detail": []
+              }
+            },
+            "estimation_summary": {
+              "kloc": 4,
+              "pm": 1,
+              "pm_overridden": true
+            },
+            "iteration": null,
+            "design_estimates": null,
+            "se_assignment": null,
+            "mde_assignment": null,
+            "iter_start_date": null,
+            "iter_end_date": null,
+            "primary_dev_name": null,
+            "primary_dev_end": null,
+            "mde_person_name": null,
+            "se_estimate_pm": null,
+            "se_pct": null,
+            "primary_dev": null,
+            "tags": [],
+            "lifecycle_warnings": [
+              "NO_DESIGN_ESTIMATE"
+            ]
+          },
+          {
+            "id": "project-1790694014298-bllwjazch",
+            "seq_number": 28,
+            "iteration_id": null,
+            "name": "分析-报表-导出中心",
+            "description": null,
+            "priority": 3,
+            "project_type_id": "0a1bb90f-62dc-4779-b78a-eb686789b79e",
+            "project_sub_type_id": "30f5e4a9-be36-489d-ab25-8dec2194dd89",
+            "location_id": null,
+            "owner_id": null,
+            "current_phase_id": null,
+            "aspiration_start": null,
+            "aspiration_finish": null,
+            "include_in_demand": 1,
+            "data_restrictions": null,
+            "external_id": null,
+            "lifecycle_state": "pending_rat",
+            "external_number": null,
+            "product_version": null,
+            "release_version": null,
+            "component": null,
+            "component_id": "4ed07acb-9075-436e-a909-ec9ffdb875b8",
+            "parent_id": null,
+            "iteration_label": null,
+            "created_at": 1790694014298,
+            "updated_at": 1790694014303,
+            "location_name": null,
+            "project_type_name": "需求交付",
+            "project_type_color_code": "#000000",
+            "project_sub_type_name": "标准需求",
+            "owner_name": null,
+            "current_phase_name": null,
+            "start_date": "2026-09-29",
+            "end_date": "2026-11-28",
+            "design_deadline": "2026-10-29",
+            "staffing_summary": {
+              "design": {
+                "named": 0,
+                "pool": 0,
+                "named_detail": []
+              },
+              "dev": {
+                "named": 0,
+                "pool": 0,
+                "named_detail": []
+              }
+            },
+            "estimation_summary": null,
+            "iteration": null,
+            "design_estimates": null,
+            "se_assignment": null,
+            "mde_assignment": null,
+            "iter_start_date": null,
+            "iter_end_date": null,
+            "primary_dev_name": null,
+            "primary_dev_end": null,
+            "mde_person_name": null,
+            "se_estimate_pm": null,
+            "se_pct": null,
+            "primary_dev": null,
+            "tags": [],
+            "lifecycle_warnings": []
+          },
+          {
+            "id": "project-1790694014312-bxkkj4u6i",
+            "seq_number": 29,
+            "iteration_id": null,
+            "name": "分析-平台-网关限流",
+            "description": null,
+            "priority": 2,
+            "project_type_id": "0a1bb90f-62dc-4779-b78a-eb686789b79e",
+            "project_sub_type_id": "30f5e4a9-be36-489d-ab25-8dec2194dd89",
+            "location_id": null,
+            "owner_id": null,
+            "current_phase_id": null,
+            "aspiration_start": null,
+            "aspiration_finish": null,
+            "include_in_demand": 1,
+            "data_restrictions": null,
+            "external_id": null,
+            "lifecycle_state": "pending_rat",
+            "external_number": null,
+            "product_version": null,
+            "release_version": null,
+            "component": null,
+            "component_id": "19ebb042-90cb-4283-8ab2-e9bcb2c9b476",
+            "parent_id": null,
+            "iteration_label": null,
+            "created_at": 1790694014312,
+            "updated_at": 1790694014318,
+            "location_name": null,
+            "project_type_name": "需求交付",
+            "project_type_color_code": "#000000",
+            "project_sub_type_name": "标准需求",
+            "owner_name": null,
+            "current_phase_name": null,
+            "start_date": "2026-09-29",
+            "end_date": "2026-11-28",
+            "design_deadline": "2026-10-29",
+            "staffing_summary": {
+              "design": {
+                "named": 0,
+                "pool": 0,
+                "named_detail": []
+              },
+              "dev": {
+                "named": 0,
+                "pool": 0,
+                "named_detail": []
+              }
+            },
+            "estimation_summary": null,
+            "iteration": null,
+            "design_estimates": null,
+            "se_assignment": null,
+            "mde_assignment": null,
+            "iter_start_date": null,
+            "iter_end_date": null,
+            "primary_dev_name": null,
+            "primary_dev_end": null,
+            "mde_person_name": null,
+            "se_estimate_pm": null,
+            "se_pct": null,
+            "primary_dev": null,
+            "tags": [],
+            "lifecycle_warnings": []
+          },
+          {
+            "id": "project-1790694014326-jkou6ch8b",
+            "seq_number": 30,
+            "iteration_id": null,
+            "name": "分析-驱动-遥测协议V2",
+            "description": null,
+            "priority": 3,
+            "project_type_id": "0a1bb90f-62dc-4779-b78a-eb686789b79e",
+            "project_sub_type_id": "30f5e4a9-be36-489d-ab25-8dec2194dd89",
+            "location_id": null,
+            "owner_id": null,
+            "current_phase_id": null,
+            "aspiration_start": null,
+            "aspiration_finish": null,
+            "include_in_demand": 1,
+            "data_restrictions": null,
+            "external_id": null,
+            "lifecycle_state": "pending_rat",
+            "external_number": null,
+            "product_version": null,
+            "release_version": null,
+            "component": null,
+            "component_id": "4f36a5b7-dcd2-4916-8532-eb53bf654b74",
+            "parent_id": null,
+            "iteration_label": null,
+            "created_at": 1790694014326,
+            "updated_at": 1790694014331,
+            "location_name": null,
+            "project_type_name": "需求交付",
+            "project_type_color_code": "#000000",
+            "project_sub_type_name": "标准需求",
+            "owner_name": null,
+            "current_phase_name": null,
+            "start_date": "2026-09-29",
+            "end_date": "2026-11-28",
+            "design_deadline": "2026-10-29",
+            "staffing_summary": {
+              "design": {
+                "named": 0,
+                "pool": 0,
+                "named_detail": []
+              },
+              "dev": {
+                "named": 0,
+                "pool": 0,
+                "named_detail": []
+              }
+            },
+            "estimation_summary": null,
+            "iteration": null,
+            "design_estimates": null,
+            "se_assignment": null,
+            "mde_assignment": null,
+            "iter_start_date": null,
+            "iter_end_date": null,
+            "primary_dev_name": null,
+            "primary_dev_end": null,
+            "mde_person_name": null,
+            "se_estimate_pm": null,
+            "se_pct": null,
+            "primary_dev": null,
+            "tags": [
+              {
+                "id": 7,
+                "name": "外包",
+                "color": "#3b82f6"
+              }
+            ],
+            "lifecycle_warnings": []
+          },
+          {
+            "id": "project-1790694014340-wo5uqs89z",
+            "seq_number": 31,
+            "iteration_id": null,
+            "name": "分析-门户-新手引导",
+            "description": null,
+            "priority": 5,
+            "project_type_id": "0a1bb90f-62dc-4779-b78a-eb686789b79e",
+            "project_sub_type_id": "30f5e4a9-be36-489d-ab25-8dec2194dd89",
+            "location_id": null,
+            "owner_id": null,
+            "current_phase_id": null,
+            "aspiration_start": null,
+            "aspiration_finish": null,
+            "include_in_demand": 1,
+            "data_restrictions": null,
+            "external_id": null,
+            "lifecycle_state": "pending_rat",
+            "external_number": null,
+            "product_version": null,
+            "release_version": null,
+            "component": null,
+            "component_id": null,
+            "parent_id": null,
+            "iteration_label": null,
+            "created_at": 1790694014340,
+            "updated_at": 1790694014346,
+            "location_name": null,
+            "project_type_name": "需求交付",
+            "project_type_color_code": "#000000",
+            "project_sub_type_name": "标准需求",
+            "owner_name": null,
+            "current_phase_name": null,
+            "start_date": "2026-09-29",
+            "end_date": "2026-11-28",
+            "design_deadline": "2026-10-29",
+            "staffing_summary": {
+              "design": {
+                "named": 0,
+                "pool": 0,
+                "named_detail": []
+              },
+              "dev": {
+                "named": 0,
+                "pool": 0,
+                "named_detail": []
+              }
+            },
+            "estimation_summary": null,
+            "iteration": null,
+            "design_estimates": null,
+            "se_assignment": null,
+            "mde_assignment": null,
+            "iter_start_date": null,
+            "iter_end_date": null,
+            "primary_dev_name": null,
+            "primary_dev_end": null,
+            "mde_person_name": null,
+            "se_estimate_pm": null,
+            "se_pct": null,
+            "primary_dev": null,
+            "tags": [],
+            "lifecycle_warnings": []
+          },
+          {
+            "id": "project-1790694014354-jp0sk21ms",
+            "seq_number": 32,
+            "iteration_id": null,
+            "name": "分析-报表-OLAP加速",
+            "description": null,
+            "priority": 2,
+            "project_type_id": "0a1bb90f-62dc-4779-b78a-eb686789b79e",
+            "project_sub_type_id": "30f5e4a9-be36-489d-ab25-8dec2194dd89",
+            "location_id": null,
+            "owner_id": null,
+            "current_phase_id": null,
+            "aspiration_start": null,
+            "aspiration_finish": null,
+            "include_in_demand": 1,
+            "data_restrictions": null,
+            "external_id": null,
+            "lifecycle_state": "nok",
+            "external_number": null,
+            "product_version": null,
+            "release_version": null,
+            "component": null,
+            "component_id": "4ed07acb-9075-436e-a909-ec9ffdb875b8",
+            "parent_id": null,
+            "iteration_label": null,
+            "created_at": 1790694014355,
+            "updated_at": "2026-09-29 15:00:14",
+            "location_name": null,
+            "project_type_name": "需求交付",
+            "project_type_color_code": "#000000",
+            "project_sub_type_name": "标准需求",
+            "owner_name": null,
+            "current_phase_name": null,
+            "start_date": "2026-09-29",
+            "end_date": "2026-11-28",
+            "design_deadline": "2026-10-29",
+            "staffing_summary": {
+              "design": {
+                "named": 0,
+                "pool": 0,
+                "named_detail": []
+              },
+              "dev": {
+                "named": 0,
+                "pool": 0,
+                "named_detail": []
+              }
+            },
+            "estimation_summary": null,
+            "iteration": null,
+            "design_estimates": null,
+            "se_assignment": null,
+            "mde_assignment": null,
+            "iter_start_date": null,
+            "iter_end_date": null,
+            "primary_dev_name": null,
+            "primary_dev_end": null,
+            "mde_person_name": null,
+            "se_estimate_pm": null,
+            "se_pct": null,
+            "primary_dev": null,
+            "tags": [],
+            "lifecycle_warnings": []
+          },
+          {
+            "id": "project-1790694014368-iad1v7rpk",
+            "seq_number": 33,
+            "iteration_id": null,
+            "name": "分析-平台-存储分层",
+            "description": null,
+            "priority": 3,
+            "project_type_id": "0a1bb90f-62dc-4779-b78a-eb686789b79e",
+            "project_sub_type_id": "30f5e4a9-be36-489d-ab25-8dec2194dd89",
+            "location_id": null,
+            "owner_id": null,
+            "current_phase_id": null,
+            "aspiration_start": null,
+            "aspiration_finish": null,
+            "include_in_demand": 1,
+            "data_restrictions": null,
+            "external_id": null,
+            "lifecycle_state": "nok",
+            "external_number": null,
+            "product_version": null,
+            "release_version": null,
+            "component": null,
+            "component_id": "19ebb042-90cb-4283-8ab2-e9bcb2c9b476",
+            "parent_id": null,
+            "iteration_label": null,
+            "created_at": 1790694014369,
+            "updated_at": "2026-09-29 15:00:14",
+            "location_name": null,
+            "project_type_name": "需求交付",
+            "project_type_color_code": "#000000",
+            "project_sub_type_name": "标准需求",
+            "owner_name": null,
+            "current_phase_name": null,
+            "start_date": "2026-09-29",
+            "end_date": "2026-11-28",
+            "design_deadline": "2026-10-29",
+            "staffing_summary": {
+              "design": {
+                "named": 0,
+                "pool": 0,
+                "named_detail": []
+              },
+              "dev": {
+                "named": 0,
+                "pool": 0,
+                "named_detail": []
+              }
+            },
+            "estimation_summary": null,
+            "iteration": null,
+            "design_estimates": null,
+            "se_assignment": null,
+            "mde_assignment": null,
+            "iter_start_date": null,
+            "iter_end_date": null,
+            "primary_dev_name": null,
+            "primary_dev_end": null,
+            "mde_person_name": null,
+            "se_estimate_pm": null,
+            "se_pct": null,
+            "primary_dev": null,
+            "tags": [
+              {
+                "id": 18,
+                "name": "跨团队",
+                "color": "#0072B2"
+              }
+            ],
+            "lifecycle_warnings": []
+          },
+          {
+            "id": "project-1790694014383-chwk5ng5r",
+            "seq_number": 34,
+            "iteration_id": null,
+            "name": "分析-调度-跨集群",
+            "description": null,
+            "priority": 3,
+            "project_type_id": "0a1bb90f-62dc-4779-b78a-eb686789b79e",
+            "project_sub_type_id": "30f5e4a9-be36-489d-ab25-8dec2194dd89",
+            "location_id": null,
+            "owner_id": null,
+            "current_phase_id": null,
+            "aspiration_start": null,
+            "aspiration_finish": null,
+            "include_in_demand": 1,
+            "data_restrictions": null,
+            "external_id": null,
+            "lifecycle_state": "cancelled",
+            "external_number": null,
+            "product_version": null,
+            "release_version": null,
+            "component": null,
+            "component_id": "cbfe9fb9-1898-4d65-b08c-72aaddb91f62",
+            "parent_id": null,
+            "iteration_label": null,
+            "created_at": 1790694014383,
+            "updated_at": "2026-09-29 15:00:14",
+            "location_name": null,
+            "project_type_name": "需求交付",
+            "project_type_color_code": "#000000",
+            "project_sub_type_name": "标准需求",
+            "owner_name": null,
+            "current_phase_name": null,
+            "start_date": "2026-09-29",
+            "end_date": "2026-11-28",
+            "design_deadline": "2026-10-29",
+            "staffing_summary": {
+              "design": {
+                "named": 0,
+                "pool": 0,
+                "named_detail": []
+              },
+              "dev": {
+                "named": 0,
+                "pool": 0,
+                "named_detail": []
+              }
+            },
+            "estimation_summary": null,
+            "iteration": null,
+            "design_estimates": null,
+            "se_assignment": null,
+            "mde_assignment": null,
+            "iter_start_date": null,
+            "iter_end_date": null,
+            "primary_dev_name": null,
+            "primary_dev_end": null,
+            "mde_person_name": null,
+            "se_estimate_pm": null,
+            "se_pct": null,
+            "primary_dev": null,
+            "tags": [],
+            "lifecycle_warnings": []
+          },
+          {
+            "id": "project-1790694014410-k6oj9f13n",
+            "seq_number": 36,
+            "iteration_id": null,
+            "name": "分析-驱动-蓝牙直连",
+            "description": null,
+            "priority": 4,
+            "project_type_id": "0a1bb90f-62dc-4779-b78a-eb686789b79e",
+            "project_sub_type_id": "30f5e4a9-be36-489d-ab25-8dec2194dd89",
+            "location_id": null,
+            "owner_id": null,
+            "current_phase_id": null,
+            "aspiration_start": null,
+            "aspiration_finish": null,
+            "include_in_demand": 1,
+            "data_restrictions": null,
+            "external_id": null,
+            "lifecycle_state": "cancelled",
+            "external_number": null,
+            "product_version": null,
+            "release_version": null,
+            "component": null,
+            "component_id": "4f36a5b7-dcd2-4916-8532-eb53bf654b74",
+            "parent_id": null,
+            "iteration_label": null,
+            "created_at": 1790694014411,
+            "updated_at": "2026-09-29 15:00:14",
+            "location_name": null,
+            "project_type_name": "需求交付",
+            "project_type_color_code": "#000000",
+            "project_sub_type_name": "标准需求",
+            "owner_name": null,
+            "current_phase_name": null,
+            "start_date": "2026-09-29",
+            "end_date": "2026-11-28",
+            "design_deadline": "2026-10-29",
+            "staffing_summary": {
+              "design": {
+                "named": 0,
+                "pool": 0,
+                "named_detail": []
+              },
+              "dev": {
+                "named": 0,
+                "pool": 0,
+                "named_detail": []
+              }
+            },
+            "estimation_summary": null,
+            "iteration": null,
+            "design_estimates": null,
+            "se_assignment": null,
+            "mde_assignment": null,
+            "iter_start_date": null,
+            "iter_end_date": null,
+            "primary_dev_name": null,
+            "primary_dev_end": null,
+            "mde_person_name": null,
+            "se_estimate_pm": null,
+            "se_pct": null,
+            "primary_dev": null,
+            "tags": [
+              {
+                "id": 7,
+                "name": "外包",
+                "color": "#3b82f6"
+              }
+            ],
+            "lifecycle_warnings": []
+          },
+          {
+            "id": "project-1790694014425-pu7v9148a",
+            "seq_number": 37,
+            "iteration_id": null,
+            "name": "分析-平台-工单集成",
+            "description": null,
+            "priority": 4,
+            "project_type_id": "0a1bb90f-62dc-4779-b78a-eb686789b79e",
+            "project_sub_type_id": "30f5e4a9-be36-489d-ab25-8dec2194dd89",
+            "location_id": null,
+            "owner_id": null,
+            "current_phase_id": null,
+            "aspiration_start": null,
+            "aspiration_finish": null,
+            "include_in_demand": 1,
+            "data_restrictions": null,
+            "external_id": null,
+            "lifecycle_state": "cancelled",
+            "external_number": null,
+            "product_version": null,
+            "release_version": null,
+            "component": null,
+            "component_id": null,
+            "parent_id": null,
+            "iteration_label": null,
+            "created_at": 1790694014425,
+            "updated_at": "2026-09-29 15:00:14",
+            "location_name": null,
+            "project_type_name": "需求交付",
+            "project_type_color_code": "#000000",
+            "project_sub_type_name": "标准需求",
+            "owner_name": null,
+            "current_phase_name": null,
+            "start_date": "2026-09-29",
+            "end_date": "2026-11-28",
+            "design_deadline": "2026-10-29",
+            "staffing_summary": {
+              "design": {
+                "named": 0,
+                "pool": 0,
+                "named_detail": []
+              },
+              "dev": {
+                "named": 0,
+                "pool": 0,
+                "named_detail": []
+              }
+            },
+            "estimation_summary": null,
+            "iteration": null,
+            "design_estimates": null,
+            "se_assignment": null,
+            "mde_assignment": null,
+            "iter_start_date": null,
+            "iter_end_date": null,
+            "primary_dev_name": null,
+            "primary_dev_end": null,
+            "mde_person_name": null,
+            "se_estimate_pm": null,
+            "se_pct": null,
+            "primary_dev": null,
+            "tags": [],
+            "lifecycle_warnings": []
+          },
+          {
+            "id": "project-1790694014439-n8yeqkxqo",
+            "seq_number": 38,
+            "iteration_id": null,
+            "name": "分析-平台-微前端拆壳",
+            "description": null,
+            "priority": 1,
+            "project_type_id": "0a1bb90f-62dc-4779-b78a-eb686789b79e",
+            "project_sub_type_id": "30f5e4a9-be36-489d-ab25-8dec2194dd89",
+            "location_id": null,
+            "owner_id": null,
+            "current_phase_id": null,
+            "aspiration_start": null,
+            "aspiration_finish": null,
+            "include_in_demand": 1,
+            "data_restrictions": null,
+            "external_id": null,
+            "lifecycle_state": "scheduled",
+            "external_number": null,
+            "product_version": "V3.1",
+            "release_version": null,
+            "component": null,
+            "component_id": "19ebb042-90cb-4283-8ab2-e9bcb2c9b476",
+            "parent_id": null,
+            "iteration_label": null,
+            "created_at": 1790694014439,
+            "updated_at": "2026-09-29 15:00:14",
+            "location_name": null,
+            "project_type_name": "需求交付",
+            "project_type_color_code": "#000000",
+            "project_sub_type_name": "标准需求",
+            "owner_name": null,
+            "current_phase_name": null,
+            "start_date": "2026-09-29",
+            "end_date": "2026-11-28",
+            "design_deadline": "2026-10-29",
+            "staffing_summary": {
+              "design": {
+                "named": 0,
+                "pool": 0,
+                "named_detail": []
+              },
+              "dev": {
+                "named": 0,
+                "pool": 0,
+                "named_detail": []
+              }
+            },
+            "estimation_summary": {
+              "kloc": 60,
+              "pm": 18,
+              "pm_overridden": true
+            },
+            "iteration": null,
+            "design_estimates": null,
+            "se_assignment": null,
+            "mde_assignment": null,
+            "iter_start_date": null,
+            "iter_end_date": null,
+            "primary_dev_name": null,
+            "primary_dev_end": null,
+            "mde_person_name": null,
+            "se_estimate_pm": null,
+            "se_pct": null,
+            "primary_dev": null,
+            "tags": [],
+            "lifecycle_warnings": [
+              "NO_DEV_DEMAND"
+            ]
+          },
+          {
+            "id": "project-1790694014488-vxw9a34j7",
+            "seq_number": 39,
+            "iteration_id": null,
+            "name": "分析-平台-微前端拆壳:壳工程搭建",
+            "description": null,
+            "priority": 1,
+            "project_type_id": "0a1bb90f-62dc-4779-b78a-eb686789b79e",
+            "project_sub_type_id": "30f5e4a9-be36-489d-ab25-8dec2194dd89",
+            "location_id": null,
+            "owner_id": null,
+            "current_phase_id": null,
+            "aspiration_start": null,
+            "aspiration_finish": null,
+            "include_in_demand": 1,
+            "data_restrictions": null,
+            "external_id": null,
+            "lifecycle_state": "scheduled",
+            "external_number": null,
+            "product_version": null,
+            "release_version": null,
+            "component": null,
+            "component_id": "19ebb042-90cb-4283-8ab2-e9bcb2c9b476",
+            "parent_id": "project-1790694014439-n8yeqkxqo",
+            "iteration_label": null,
+            "created_at": 1790694014488,
+            "updated_at": 1790695145615,
+            "location_name": null,
+            "project_type_name": "需求交付",
+            "project_type_color_code": "#000000",
+            "project_sub_type_name": "标准需求",
+            "owner_name": null,
+            "current_phase_name": null,
+            "start_date": "2026-09-29",
+            "end_date": "2026-11-28",
+            "design_deadline": "2026-10-29",
+            "staffing_summary": {
+              "design": {
+                "named": 0,
+                "pool": 0,
+                "named_detail": []
+              },
+              "dev": {
+                "named": 0,
+                "pool": 0,
+                "named_detail": []
+              }
+            },
+            "estimation_summary": {
+              "kloc": 10,
+              "pm": 3,
+              "pm_overridden": true
+            },
+            "iteration": null,
+            "design_estimates": {
+              "se": 0.3,
+              "mde": null
+            },
+            "se_assignment": null,
+            "mde_assignment": null,
+            "iter_start_date": null,
+            "iter_end_date": null,
+            "primary_dev_name": null,
+            "primary_dev_end": null,
+            "mde_person_name": null,
+            "se_estimate_pm": 0.3,
+            "se_pct": null,
+            "primary_dev": null,
+            "tags": [],
+            "lifecycle_warnings": [
+              "NO_DEV_DEMAND",
+              "DESIGN_NOT_BACKFILLED"
+            ]
+          },
+          {
+            "id": "project-1790694014508-m51earbno",
+            "seq_number": 40,
+            "iteration_id": null,
+            "name": "分析-平台-微前端拆壳:子应用接入规范",
+            "description": null,
+            "priority": 1,
+            "project_type_id": "0a1bb90f-62dc-4779-b78a-eb686789b79e",
+            "project_sub_type_id": "30f5e4a9-be36-489d-ab25-8dec2194dd89",
+            "location_id": null,
+            "owner_id": null,
+            "current_phase_id": null,
+            "aspiration_start": null,
+            "aspiration_finish": null,
+            "include_in_demand": 1,
+            "data_restrictions": null,
+            "external_id": null,
+            "lifecycle_state": "scheduled",
+            "external_number": null,
+            "product_version": null,
+            "release_version": null,
+            "component": null,
+            "component_id": "19ebb042-90cb-4283-8ab2-e9bcb2c9b476",
+            "parent_id": "project-1790694014439-n8yeqkxqo",
+            "iteration_label": null,
+            "created_at": 1790694014508,
+            "updated_at": "2026-09-29 15:00:14",
+            "location_name": null,
+            "project_type_name": "需求交付",
+            "project_type_color_code": "#000000",
+            "project_sub_type_name": "标准需求",
+            "owner_name": null,
+            "current_phase_name": null,
+            "start_date": "2026-09-29",
+            "end_date": "2026-11-28",
+            "design_deadline": "2026-10-29",
+            "staffing_summary": {
+              "design": {
+                "named": 0,
+                "pool": 0,
+                "named_detail": []
+              },
+              "dev": {
+                "named": 0,
+                "pool": 0,
+                "named_detail": []
+              }
+            },
+            "estimation_summary": {
+              "kloc": 8,
+              "pm": 2.5,
+              "pm_overridden": true
+            },
+            "iteration": null,
+            "design_estimates": null,
+            "se_assignment": null,
+            "mde_assignment": null,
+            "iter_start_date": null,
+            "iter_end_date": null,
+            "primary_dev_name": null,
+            "primary_dev_end": null,
+            "mde_person_name": null,
+            "se_estimate_pm": null,
+            "se_pct": null,
+            "primary_dev": null,
+            "tags": [],
+            "lifecycle_warnings": [
+              "NO_DEV_DEMAND"
+            ]
+          },
+          {
+            "id": "project-1790694014527-u2yz8lpd9",
+            "seq_number": 41,
+            "iteration_id": null,
+            "name": "分析-平台-微前端拆壳:灰度发布机制",
+            "description": null,
+            "priority": 1,
+            "project_type_id": "0a1bb90f-62dc-4779-b78a-eb686789b79e",
+            "project_sub_type_id": "30f5e4a9-be36-489d-ab25-8dec2194dd89",
+            "location_id": null,
+            "owner_id": null,
+            "current_phase_id": null,
+            "aspiration_start": null,
+            "aspiration_finish": null,
+            "include_in_demand": 1,
+            "data_restrictions": null,
+            "external_id": null,
+            "lifecycle_state": "scheduled",
+            "external_number": null,
+            "product_version": null,
+            "release_version": null,
+            "component": null,
+            "component_id": "19ebb042-90cb-4283-8ab2-e9bcb2c9b476",
+            "parent_id": "project-1790694014439-n8yeqkxqo",
+            "iteration_label": null,
+            "created_at": 1790694014527,
+            "updated_at": "2026-09-29 15:00:14",
+            "location_name": null,
+            "project_type_name": "需求交付",
+            "project_type_color_code": "#000000",
+            "project_sub_type_name": "标准需求",
+            "owner_name": null,
+            "current_phase_name": null,
+            "start_date": "2026-09-29",
+            "end_date": "2026-11-28",
+            "design_deadline": "2026-10-29",
+            "staffing_summary": {
+              "design": {
+                "named": 0,
+                "pool": 0,
+                "named_detail": []
+              },
+              "dev": {
+                "named": 0,
+                "pool": 0,
+                "named_detail": []
+              }
+            },
+            "estimation_summary": {
+              "kloc": 12,
+              "pm": 4,
+              "pm_overridden": true
+            },
+            "iteration": null,
+            "design_estimates": null,
+            "se_assignment": null,
+            "mde_assignment": null,
+            "iter_start_date": null,
+            "iter_end_date": null,
+            "primary_dev_name": null,
+            "primary_dev_end": null,
+            "mde_person_name": null,
+            "se_estimate_pm": null,
+            "se_pct": null,
+            "primary_dev": null,
+            "tags": [],
+            "lifecycle_warnings": [
+              "NO_DEV_DEMAND"
+            ]
+          },
+          {
+            "id": "project-1790694014546-a372ew3tb",
+            "seq_number": 42,
+            "iteration_id": null,
+            "name": "分析-报表-建模工作台",
+            "description": null,
+            "priority": 2,
+            "project_type_id": "0a1bb90f-62dc-4779-b78a-eb686789b79e",
+            "project_sub_type_id": "30f5e4a9-be36-489d-ab25-8dec2194dd89",
+            "location_id": null,
+            "owner_id": null,
+            "current_phase_id": null,
+            "aspiration_start": null,
+            "aspiration_finish": null,
+            "include_in_demand": 1,
+            "data_restrictions": null,
+            "external_id": null,
+            "lifecycle_state": "designing",
+            "external_number": null,
+            "product_version": "V3.1",
+            "release_version": null,
+            "component": null,
+            "component_id": "4ed07acb-9075-436e-a909-ec9ffdb875b8",
+            "parent_id": null,
+            "iteration_label": null,
+            "created_at": 1790694014546,
+            "updated_at": "2026-09-29 15:00:14",
+            "location_name": null,
+            "project_type_name": "需求交付",
+            "project_type_color_code": "#000000",
+            "project_sub_type_name": "标准需求",
+            "owner_name": null,
+            "current_phase_name": null,
+            "start_date": "2026-09-29",
+            "end_date": "2026-11-28",
+            "design_deadline": "2026-10-29",
+            "staffing_summary": {
+              "design": {
+                "named": 0.2,
+                "pool": 0,
+                "named_detail": [
+                  {
+                    "name": "韩架构",
+                    "fte": 0.2
+                  }
+                ]
+              },
+              "dev": {
+                "named": 0,
+                "pool": 0,
+                "named_detail": []
+              }
+            },
+            "estimation_summary": {
+              "kloc": 50,
+              "pm": 100,
+              "pm_overridden": false
+            },
+            "iteration": null,
+            "design_estimates": null,
+            "se_assignment": {
+              "id": "spa-b3f51263-10c3-415a-9495-90dc190acd29",
+              "person_name": "韩架构",
+              "allocation_pct": 20,
+              "start_date": "2026-09-29",
+              "end_date": "2026-11-28"
+            },
+            "mde_assignment": null,
+            "iter_start_date": null,
+            "iter_end_date": null,
+            "primary_dev_name": null,
+            "primary_dev_end": null,
+            "mde_person_name": null,
+            "se_estimate_pm": null,
+            "se_pct": 20,
+            "primary_dev": null,
+            "tags": [],
+            "lifecycle_warnings": [
+              "NO_DESIGN_ESTIMATE"
+            ]
+          },
+          {
+            "id": "project-1790694014564-hqsgiqgw7",
+            "seq_number": 43,
+            "iteration_id": null,
+            "name": "分析-报表-建模工作台:拖拽画布",
+            "description": null,
+            "priority": 2,
+            "project_type_id": "0a1bb90f-62dc-4779-b78a-eb686789b79e",
+            "project_sub_type_id": "30f5e4a9-be36-489d-ab25-8dec2194dd89",
+            "location_id": null,
+            "owner_id": null,
+            "current_phase_id": null,
+            "aspiration_start": null,
+            "aspiration_finish": null,
+            "include_in_demand": 1,
+            "data_restrictions": null,
+            "external_id": null,
+            "lifecycle_state": "designing",
+            "external_number": null,
+            "product_version": null,
+            "release_version": null,
+            "component": null,
+            "component_id": "4ed07acb-9075-436e-a909-ec9ffdb875b8",
+            "parent_id": "project-1790694014546-a372ew3tb",
+            "iteration_label": null,
+            "created_at": 1790694014565,
+            "updated_at": 1791699033368,
+            "location_name": null,
+            "project_type_name": "需求交付",
+            "project_type_color_code": "#000000",
+            "project_sub_type_name": "标准需求",
+            "owner_name": null,
+            "current_phase_name": null,
+            "start_date": "2026-09-29",
+            "end_date": "2026-11-28",
+            "design_deadline": "2026-10-29",
+            "staffing_summary": {
+              "design": {
+                "named": 0,
+                "pool": 0,
+                "named_detail": []
+              },
+              "dev": {
+                "named": 0,
+                "pool": 0,
+                "named_detail": []
+              }
+            },
+            "estimation_summary": {
+              "kloc": 20,
+              "pm": 6,
+              "pm_overridden": true
+            },
+            "iteration": null,
+            "design_estimates": null,
+            "se_assignment": null,
+            "mde_assignment": null,
+            "iter_start_date": null,
+            "iter_end_date": null,
+            "primary_dev_name": null,
+            "primary_dev_end": null,
+            "mde_person_name": null,
+            "se_estimate_pm": null,
+            "se_pct": null,
+            "primary_dev": null,
+            "tags": [],
+            "lifecycle_warnings": [
+              "NO_DESIGN_ESTIMATE"
+            ]
+          },
+          {
+            "id": "project-1790694014584-pb105713u",
+            "seq_number": 44,
+            "iteration_id": null,
+            "name": "分析-报表-建模工作台:公式引擎",
+            "description": null,
+            "priority": 2,
+            "project_type_id": "0a1bb90f-62dc-4779-b78a-eb686789b79e",
+            "project_sub_type_id": "30f5e4a9-be36-489d-ab25-8dec2194dd89",
+            "location_id": null,
+            "owner_id": null,
+            "current_phase_id": null,
+            "aspiration_start": null,
+            "aspiration_finish": null,
+            "include_in_demand": 1,
+            "data_restrictions": null,
+            "external_id": null,
+            "lifecycle_state": "designing",
+            "external_number": null,
+            "product_version": null,
+            "release_version": null,
+            "component": null,
+            "component_id": "4ed07acb-9075-436e-a909-ec9ffdb875b8",
+            "parent_id": "project-1790694014546-a372ew3tb",
+            "iteration_label": null,
+            "created_at": 1790694014585,
+            "updated_at": 1791699033368,
+            "location_name": null,
+            "project_type_name": "需求交付",
+            "project_type_color_code": "#000000",
+            "project_sub_type_name": "标准需求",
+            "owner_name": null,
+            "current_phase_name": null,
+            "start_date": "2026-09-29",
+            "end_date": "2026-11-28",
+            "design_deadline": "2026-10-29",
+            "staffing_summary": {
+              "design": {
+                "named": 0,
+                "pool": 0,
+                "named_detail": []
+              },
+              "dev": {
+                "named": 0,
+                "pool": 0,
+                "named_detail": []
+              }
+            },
+            "estimation_summary": {
+              "kloc": 18,
+              "pm": 36,
+              "pm_overridden": false
+            },
+            "iteration": null,
+            "design_estimates": null,
+            "se_assignment": null,
+            "mde_assignment": null,
+            "iter_start_date": null,
+            "iter_end_date": null,
+            "primary_dev_name": null,
+            "primary_dev_end": null,
+            "mde_person_name": null,
+            "se_estimate_pm": null,
+            "se_pct": null,
+            "primary_dev": null,
+            "tags": [],
+            "lifecycle_warnings": [
+              "NO_DESIGN_ESTIMATE"
+            ]
+          },
+          {
+            "id": "project-1790694014598-97qz29gjk",
+            "seq_number": 45,
+            "iteration_id": null,
+            "name": "分析-调度-混部调度器",
+            "description": null,
+            "priority": 2,
+            "project_type_id": "0a1bb90f-62dc-4779-b78a-eb686789b79e",
+            "project_sub_type_id": "30f5e4a9-be36-489d-ab25-8dec2194dd89",
+            "location_id": null,
+            "owner_id": null,
+            "current_phase_id": null,
+            "aspiration_start": null,
+            "aspiration_finish": null,
+            "include_in_demand": 1,
+            "data_restrictions": null,
+            "external_id": null,
+            "lifecycle_state": "backlog",
+            "external_number": null,
+            "product_version": null,
+            "release_version": null,
+            "component": null,
+            "component_id": "cbfe9fb9-1898-4d65-b08c-72aaddb91f62",
+            "parent_id": null,
+            "iteration_label": null,
+            "created_at": 1790694014599,
+            "updated_at": "2026-09-29 15:00:14",
+            "location_name": null,
+            "project_type_name": "需求交付",
+            "project_type_color_code": "#000000",
+            "project_sub_type_name": "标准需求",
+            "owner_name": null,
+            "current_phase_name": null,
+            "start_date": "2026-09-29",
+            "end_date": "2026-11-28",
+            "design_deadline": "2026-10-29",
+            "staffing_summary": {
+              "design": {
+                "named": 0,
+                "pool": 0,
+                "named_detail": []
+              },
+              "dev": {
+                "named": 0,
+                "pool": 0,
+                "named_detail": []
+              }
+            },
+            "estimation_summary": null,
+            "iteration": null,
+            "design_estimates": null,
+            "se_assignment": null,
+            "mde_assignment": null,
+            "iter_start_date": null,
+            "iter_end_date": null,
+            "primary_dev_name": null,
+            "primary_dev_end": null,
+            "mde_person_name": null,
+            "se_estimate_pm": null,
+            "se_pct": null,
+            "primary_dev": null,
+            "tags": [],
+            "lifecycle_warnings": []
+          },
+          {
+            "id": "project-1790694014612-pubsoy3pm",
+            "seq_number": 46,
+            "iteration_id": null,
+            "name": "分析-调度-混部调度器:在线离线混部",
+            "description": null,
+            "priority": 2,
+            "project_type_id": "0a1bb90f-62dc-4779-b78a-eb686789b79e",
+            "project_sub_type_id": "30f5e4a9-be36-489d-ab25-8dec2194dd89",
+            "location_id": null,
+            "owner_id": null,
+            "current_phase_id": null,
+            "aspiration_start": null,
+            "aspiration_finish": null,
+            "include_in_demand": 1,
+            "data_restrictions": null,
+            "external_id": null,
+            "lifecycle_state": "backlog",
+            "external_number": null,
+            "product_version": null,
+            "release_version": null,
+            "component": null,
+            "component_id": "cbfe9fb9-1898-4d65-b08c-72aaddb91f62",
+            "parent_id": "project-1790694014598-97qz29gjk",
+            "iteration_label": null,
+            "created_at": 1790694014613,
+            "updated_at": "2026-09-29 15:00:14",
+            "location_name": null,
+            "project_type_name": "需求交付",
+            "project_type_color_code": "#000000",
+            "project_sub_type_name": "标准需求",
+            "owner_name": null,
+            "current_phase_name": null,
+            "start_date": "2026-09-29",
+            "end_date": "2026-11-28",
+            "design_deadline": "2026-10-29",
+            "staffing_summary": {
+              "design": {
+                "named": 0,
+                "pool": 0,
+                "named_detail": []
+              },
+              "dev": {
+                "named": 0,
+                "pool": 0,
+                "named_detail": []
+              }
+            },
+            "estimation_summary": {
+              "kloc": 15,
+              "pm": 5,
+              "pm_overridden": true
+            },
+            "iteration": null,
+            "design_estimates": null,
+            "se_assignment": null,
+            "mde_assignment": null,
+            "iter_start_date": null,
+            "iter_end_date": null,
+            "primary_dev_name": null,
+            "primary_dev_end": null,
+            "mde_person_name": null,
+            "se_estimate_pm": null,
+            "se_pct": null,
+            "primary_dev": null,
+            "tags": [],
+            "lifecycle_warnings": []
+          },
+          {
+            "id": "project-1790694014631-fs9ly50bv",
+            "seq_number": 47,
+            "iteration_id": null,
+            "name": "分析-平台-开放API网关",
+            "description": null,
+            "priority": 1,
+            "project_type_id": "0a1bb90f-62dc-4779-b78a-eb686789b79e",
+            "project_sub_type_id": "30f5e4a9-be36-489d-ab25-8dec2194dd89",
+            "location_id": null,
+            "owner_id": null,
+            "current_phase_id": null,
+            "aspiration_start": null,
+            "aspiration_finish": null,
+            "include_in_demand": 1,
+            "data_restrictions": null,
+            "external_id": null,
+            "lifecycle_state": "in_iteration",
+            "external_number": null,
+            "product_version": "V3.0",
+            "release_version": null,
+            "component": null,
+            "component_id": "19ebb042-90cb-4283-8ab2-e9bcb2c9b476",
+            "parent_id": null,
+            "iteration_label": null,
+            "created_at": 1790694014631,
+            "updated_at": "2026-09-29 15:00:14",
+            "location_name": null,
+            "project_type_name": "需求交付",
+            "project_type_color_code": "#000000",
+            "project_sub_type_name": "标准需求",
+            "owner_name": null,
+            "current_phase_name": null,
+            "start_date": "2026-09-29",
+            "end_date": "2026-11-28",
+            "design_deadline": "2026-10-29",
+            "staffing_summary": {
+              "design": {
+                "named": 0,
+                "pool": 0,
+                "named_detail": []
+              },
+              "dev": {
+                "named": 0,
+                "pool": 0,
+                "named_detail": []
+              }
+            },
+            "estimation_summary": {
+              "kloc": 35,
+              "pm": 11,
+              "pm_overridden": true
+            },
+            "iteration": null,
+            "design_estimates": null,
+            "se_assignment": null,
+            "mde_assignment": null,
+            "iter_start_date": null,
+            "iter_end_date": null,
+            "primary_dev_name": null,
+            "primary_dev_end": null,
+            "mde_person_name": null,
+            "se_estimate_pm": null,
+            "se_pct": null,
+            "primary_dev": null,
+            "tags": [
+              {
+                "id": 18,
+                "name": "跨团队",
+                "color": "#0072B2"
+              }
+            ],
+            "lifecycle_warnings": [
+              "NO_DEV_DEMAND",
+              "NO_ITERATION_NUMBER"
+            ]
+          },
+          {
+            "id": "project-1790694014652-pgm60a6si",
+            "seq_number": 48,
+            "iteration_id": null,
+            "name": "分析-平台-开放API网关:鉴权中心",
+            "description": null,
+            "priority": 1,
+            "project_type_id": "0a1bb90f-62dc-4779-b78a-eb686789b79e",
+            "project_sub_type_id": "30f5e4a9-be36-489d-ab25-8dec2194dd89",
+            "location_id": null,
+            "owner_id": null,
+            "current_phase_id": null,
+            "aspiration_start": null,
+            "aspiration_finish": null,
+            "include_in_demand": 1,
+            "data_restrictions": null,
+            "external_id": null,
+            "lifecycle_state": "in_iteration",
+            "external_number": null,
+            "product_version": null,
+            "release_version": null,
+            "component": null,
+            "component_id": "19ebb042-90cb-4283-8ab2-e9bcb2c9b476",
+            "parent_id": "project-1790694014631-fs9ly50bv",
+            "iteration_label": null,
+            "created_at": 1790694014653,
+            "updated_at": 1790694424723,
+            "location_name": null,
+            "project_type_name": "需求交付",
+            "project_type_color_code": "#000000",
+            "project_sub_type_name": "标准需求",
+            "owner_name": null,
+            "current_phase_name": null,
+            "start_date": "2026-09-29",
+            "end_date": "2026-11-28",
+            "design_deadline": "2026-10-29",
+            "staffing_summary": {
+              "design": {
+                "named": 0,
+                "pool": 0,
+                "named_detail": []
+              },
+              "dev": {
+                "named": 0,
+                "pool": 0,
+                "named_detail": []
+              }
+            },
+            "estimation_summary": {
+              "kloc": 12,
+              "pm": 4,
+              "pm_overridden": true
+            },
+            "iteration": null,
+            "design_estimates": {
+              "se": 0.3,
+              "mde": null
+            },
+            "se_assignment": null,
+            "mde_assignment": null,
+            "iter_start_date": null,
+            "iter_end_date": null,
+            "primary_dev_name": null,
+            "primary_dev_end": null,
+            "mde_person_name": null,
+            "se_estimate_pm": 0.3,
+            "se_pct": null,
+            "primary_dev": null,
+            "tags": [],
+            "lifecycle_warnings": [
+              "NO_DEV_DEMAND",
+              "DESIGN_NOT_BACKFILLED",
+              "NO_ITERATION_NUMBER"
+            ]
+          },
+          {
+            "id": "project-1790694014671-c6nxtvai0",
+            "seq_number": 49,
+            "iteration_id": null,
+            "name": "分析-平台-开放API网关:流量控制",
+            "description": null,
+            "priority": 1,
+            "project_type_id": "0a1bb90f-62dc-4779-b78a-eb686789b79e",
+            "project_sub_type_id": "30f5e4a9-be36-489d-ab25-8dec2194dd89",
+            "location_id": null,
+            "owner_id": null,
+            "current_phase_id": null,
+            "aspiration_start": null,
+            "aspiration_finish": null,
+            "include_in_demand": 1,
+            "data_restrictions": null,
+            "external_id": null,
+            "lifecycle_state": "in_iteration",
+            "external_number": null,
+            "product_version": null,
+            "release_version": null,
+            "component": null,
+            "component_id": "19ebb042-90cb-4283-8ab2-e9bcb2c9b476",
+            "parent_id": "project-1790694014631-fs9ly50bv",
+            "iteration_label": null,
+            "created_at": 1790694014671,
+            "updated_at": 1790695649277,
+            "location_name": null,
+            "project_type_name": "需求交付",
+            "project_type_color_code": "#000000",
+            "project_sub_type_name": "标准需求",
+            "owner_name": null,
+            "current_phase_name": null,
+            "start_date": "2026-09-29",
+            "end_date": "2026-11-28",
+            "design_deadline": "2026-10-29",
+            "staffing_summary": {
+              "design": {
+                "named": 0.14,
+                "pool": 0,
+                "named_detail": [
+                  {
+                    "name": "沈设计",
+                    "fte": 0.14
+                  }
+                ]
+              },
+              "dev": {
+                "named": 0,
+                "pool": 0,
+                "named_detail": []
+              }
+            },
+            "estimation_summary": {
+              "kloc": 10,
+              "pm": 3,
+              "pm_overridden": true
+            },
+            "iteration": null,
+            "design_estimates": {
+              "se": 0.3,
+              "mde": null
+            },
+            "se_assignment": {
+              "id": "spa-f8eea34b-0f35-4572-8313-ccda1c63be0d",
+              "person_name": "沈设计",
+              "allocation_pct": 14,
+              "start_date": "2026-09-29",
+              "end_date": "2026-12-01"
+            },
+            "mde_assignment": null,
+            "iter_start_date": null,
+            "iter_end_date": null,
+            "primary_dev_name": null,
+            "primary_dev_end": null,
+            "mde_person_name": null,
+            "se_estimate_pm": 0.3,
+            "se_pct": 14,
+            "primary_dev": null,
+            "tags": [],
+            "lifecycle_warnings": [
+              "NO_DEV_DEMAND",
+              "DESIGN_NOT_BACKFILLED",
+              "NO_ITERATION_NUMBER"
+            ]
+          },
+          {
+            "id": "project-1790694014690-jfdsazpkx",
+            "seq_number": 50,
+            "iteration_id": null,
+            "name": "分析-平台-开放API网关:计量计费",
+            "description": null,
+            "priority": 1,
+            "project_type_id": "0a1bb90f-62dc-4779-b78a-eb686789b79e",
+            "project_sub_type_id": "30f5e4a9-be36-489d-ab25-8dec2194dd89",
+            "location_id": null,
+            "owner_id": null,
+            "current_phase_id": null,
+            "aspiration_start": null,
+            "aspiration_finish": null,
+            "include_in_demand": 1,
+            "data_restrictions": null,
+            "external_id": null,
+            "lifecycle_state": "in_iteration",
+            "external_number": null,
+            "product_version": null,
+            "release_version": null,
+            "component": null,
+            "component_id": "19ebb042-90cb-4283-8ab2-e9bcb2c9b476",
+            "parent_id": "project-1790694014631-fs9ly50bv",
+            "iteration_label": null,
+            "created_at": 1790694014690,
+            "updated_at": 1790695134398,
+            "location_name": null,
+            "project_type_name": "需求交付",
+            "project_type_color_code": "#000000",
+            "project_sub_type_name": "标准需求",
+            "owner_name": null,
+            "current_phase_name": null,
+            "start_date": "2026-09-29",
+            "end_date": "2026-11-28",
+            "design_deadline": "2026-10-29",
+            "staffing_summary": {
+              "design": {
+                "named": 0,
+                "pool": 0,
+                "named_detail": []
+              },
+              "dev": {
+                "named": 0,
+                "pool": 0,
+                "named_detail": []
+              }
+            },
+            "estimation_summary": {
+              "kloc": 8,
+              "pm": 2.5,
+              "pm_overridden": true
+            },
+            "iteration": null,
+            "design_estimates": {
+              "se": 0.5,
+              "mde": null
+            },
+            "se_assignment": null,
+            "mde_assignment": null,
+            "iter_start_date": null,
+            "iter_end_date": null,
+            "primary_dev_name": null,
+            "primary_dev_end": null,
+            "mde_person_name": null,
+            "se_estimate_pm": 0.5,
+            "se_pct": null,
+            "primary_dev": null,
+            "tags": [],
+            "lifecycle_warnings": [
+              "NO_DEV_DEMAND",
+              "DESIGN_NOT_BACKFILLED",
+              "NO_ITERATION_NUMBER"
+            ]
+          },
+          {
+            "id": "project-1794533827866-69sdhrcrp",
+            "seq_number": 51,
+            "iteration_id": null,
+            "name": "用户登录改造",
+            "description": "SR123456 用户登录改造",
+            "priority": 3,
+            "project_type_id": "0a1bb90f-62dc-4779-b78a-eb686789b79e",
+            "project_sub_type_id": "30f5e4a9-be36-489d-ab25-8dec2194dd89",
+            "location_id": null,
+            "owner_id": "264666e2-469e-433a-ae7d-efee94dedf65",
+            "current_phase_id": null,
+            "aspiration_start": null,
+            "aspiration_finish": null,
+            "include_in_demand": 1,
+            "data_restrictions": null,
+            "external_id": null,
+            "lifecycle_state": "pending_rat",
+            "external_number": "SR123456",
+            "product_version": null,
+            "release_version": null,
+            "component": null,
+            "component_id": null,
+            "parent_id": null,
+            "iteration_label": null,
+            "created_at": "2026-11-13T01:37:07.866Z",
+            "updated_at": "2026-11-13T01:37:07.866Z",
+            "location_name": null,
+            "project_type_name": "需求交付",
+            "project_type_color_code": "#000000",
+            "project_sub_type_name": "标准需求",
+            "owner_name": "李后端",
+            "current_phase_name": null,
+            "start_date": null,
+            "end_date": null,
+            "design_deadline": null,
+            "staffing_summary": {
+              "design": {
+                "named": 0,
+                "pool": 0,
+                "named_detail": []
+              },
+              "dev": {
+                "named": 0,
+                "pool": 0,
+                "named_detail": []
+              }
+            },
+            "estimation_summary": null,
+            "iteration": null,
+            "design_estimates": null,
+            "se_assignment": null,
+            "mde_assignment": null,
+            "iter_start_date": null,
+            "iter_end_date": null,
+            "primary_dev_name": null,
+            "primary_dev_end": null,
+            "mde_person_name": null,
+            "se_estimate_pm": null,
+            "se_pct": null,
+            "primary_dev": null,
+            "tags": [],
+            "lifecycle_warnings": []
+          }
+        ],
+        "pagination": {
+          "page": 1,
+          "limit": 50,
+          "total": 48,
+          "totalPages": 1,
+          "hasNextPage": false,
+          "hasPrevPage": false
+        },
+        "requestId": "bbdce1fa-06c8-472b-a26b-d118850689e3"
+      }
+    },
+    "/api/scenarios": {
+      "status": 200,
+      "body": [
+        {
+          "id": "baseline-0000-0000-0000-000000000000",
+          "name": "基线",
+          "description": "正式计划",
+          "parent_scenario_id": null,
+          "created_by": "eb8ecaf7-44a3-4384-a74b-2c18e9e894b1",
+          "status": "active",
+          "scenario_type": "baseline",
+          "branch_point": null,
+          "created_at": 1789912193004,
+          "updated_at": 1789912193004,
+          "created_by_name": "陈主管",
+          "parent_scenario_name": null
+        }
+      ]
+    },
+    "/api/people?limit=500": {
+      "status": 200,
+      "body": {
+        "data": [
+          {
+            "id": "eb8ecaf7-44a3-4384-a74b-2c18e9e894b1",
+            "name": "陈主管",
+            "email": "manager@placeholder.local",
+            "primary_person_role_id": "ac9685e2-1ed2-4fff-8dcd-428b383ced48",
+            "worker_type": "FTE",
+            "supervisor_id": null,
+            "default_availability_percentage": 100,
+            "default_hours_per_day": 8,
+            "created_at": 1789912192357,
+            "updated_at": 1789912192357,
+            "user_role_id": null,
+            "is_system_admin": 0,
+            "is_active": 1,
+            "last_login": null,
+            "location_id": "6a3550e9-7abe-45d6-90f9-38681f24c920",
+            "github_username": null,
+            "github_user_id": null,
+            "supervisor_name": null,
+            "primary_role_name": "交付管理",
+            "primary_role_proficiency_level": 4,
+            "location_name": "总部"
+          },
+          {
+            "id": "bfce427c-5d2a-4cb2-b532-0005fc834016",
+            "name": "沈设计",
+            "email": "se1@placeholder.local",
+            "primary_person_role_id": "a734dc00-b471-4d7e-8a65-a20b6fee9481",
+            "worker_type": "FTE",
+            "supervisor_id": null,
+            "default_availability_percentage": 100,
+            "default_hours_per_day": 8,
+            "created_at": 1789912192421,
+            "updated_at": 1789912192421,
+            "user_role_id": null,
+            "is_system_admin": 0,
+            "is_active": 1,
+            "last_login": null,
+            "location_id": "6a3550e9-7abe-45d6-90f9-38681f24c920",
+            "github_username": null,
+            "github_user_id": null,
+            "supervisor_name": null,
+            "primary_role_name": "SE",
+            "primary_role_proficiency_level": 4,
+            "location_name": "总部"
+          },
+          {
+            "id": "9402f10c-a3be-4198-8c7e-ab7ab04921f5",
+            "name": "韩架构",
+            "email": "se2@placeholder.local",
+            "primary_person_role_id": "a1ba56ac-acd3-4442-9b7f-2985dcb1e9dd",
+            "worker_type": "FTE",
+            "supervisor_id": null,
+            "default_availability_percentage": 100,
+            "default_hours_per_day": 8,
+            "created_at": 1789912192480,
+            "updated_at": 1789912192480,
+            "user_role_id": null,
+            "is_system_admin": 0,
+            "is_active": 1,
+            "last_login": null,
+            "location_id": "6a3550e9-7abe-45d6-90f9-38681f24c920",
+            "github_username": null,
+            "github_user_id": null,
+            "supervisor_name": null,
+            "primary_role_name": "SE",
+            "primary_role_proficiency_level": 4,
+            "location_name": "总部"
+          },
+          {
+            "id": "508cb6ed-28a0-44f5-a175-909d5cf798dd",
+            "name": "王开发",
+            "email": "dev1@placeholder.local",
+            "primary_person_role_id": "1368b621-8696-4d9a-b5af-8f6cbeb762c5",
+            "worker_type": "FTE",
+            "supervisor_id": null,
+            "default_availability_percentage": 100,
+            "default_hours_per_day": 8,
+            "created_at": 1789912192540,
+            "updated_at": 1789912192540,
+            "user_role_id": null,
+            "is_system_admin": 0,
+            "is_active": 1,
+            "last_login": null,
+            "location_id": "6a3550e9-7abe-45d6-90f9-38681f24c920",
+            "github_username": null,
+            "github_user_id": null,
+            "supervisor_name": null,
+            "primary_role_name": "开发",
+            "primary_role_proficiency_level": 4,
+            "location_name": "总部"
+          },
+          {
+            "id": "264666e2-469e-433a-ae7d-efee94dedf65",
+            "name": "李后端",
+            "email": "dev2@placeholder.local",
+            "primary_person_role_id": "ce4a905b-8221-4cfb-923c-a7bf2c0bf2a4",
+            "worker_type": "FTE",
+            "supervisor_id": null,
+            "default_availability_percentage": 100,
+            "default_hours_per_day": 8,
+            "created_at": 1789912192596,
+            "updated_at": 1789912192596,
+            "user_role_id": null,
+            "is_system_admin": 0,
+            "is_active": 1,
+            "last_login": null,
+            "location_id": "6a3550e9-7abe-45d6-90f9-38681f24c920",
+            "github_username": null,
+            "github_user_id": null,
+            "supervisor_name": null,
+            "primary_role_name": "开发",
+            "primary_role_proficiency_level": 4,
+            "location_name": "总部"
+          },
+          {
+            "id": "5b734589-1c45-4b20-b380-2af910cd583b",
+            "name": "张前端",
+            "email": "dev3@placeholder.local",
+            "primary_person_role_id": "466b6eda-d127-42d3-a59d-0c339d2e44a6",
+            "worker_type": "FTE",
+            "supervisor_id": null,
+            "default_availability_percentage": 100,
+            "default_hours_per_day": 8,
+            "created_at": 1789912192656,
+            "updated_at": 1789912192656,
+            "user_role_id": null,
+            "is_system_admin": 0,
+            "is_active": 1,
+            "last_login": null,
+            "location_id": "6a3550e9-7abe-45d6-90f9-38681f24c920",
+            "github_username": null,
+            "github_user_id": null,
+            "supervisor_name": null,
+            "primary_role_name": "开发",
+            "primary_role_proficiency_level": 4,
+            "location_name": "总部"
+          },
+          {
+            "id": "751627bd-825f-4929-be3a-df2222e078c0",
+            "name": "赵全栈",
+            "email": "dev4@placeholder.local",
+            "primary_person_role_id": "60537d6b-dec4-4668-beda-f454dbe418e2",
+            "worker_type": "FTE",
+            "supervisor_id": null,
+            "default_availability_percentage": 100,
+            "default_hours_per_day": 8,
+            "created_at": 1789912192713,
+            "updated_at": 1789912192713,
+            "user_role_id": null,
+            "is_system_admin": 0,
+            "is_active": 1,
+            "last_login": null,
+            "location_id": "6a3550e9-7abe-45d6-90f9-38681f24c920",
+            "github_username": null,
+            "github_user_id": null,
+            "supervisor_name": null,
+            "primary_role_name": "开发",
+            "primary_role_proficiency_level": 4,
+            "location_name": "总部"
+          },
+          {
+            "id": "916509a7-3fc3-40ca-9d18-5a7d9ca7fafb",
+            "name": "钱后端",
+            "email": "dev5@placeholder.local",
+            "primary_person_role_id": "632bd8a4-9ab9-47c5-a500-56a2705022a3",
+            "worker_type": "FTE",
+            "supervisor_id": null,
+            "default_availability_percentage": 100,
+            "default_hours_per_day": 8,
+            "created_at": 1789912192768,
+            "updated_at": 1789912192768,
+            "user_role_id": null,
+            "is_system_admin": 0,
+            "is_active": 1,
+            "last_login": null,
+            "location_id": "6a3550e9-7abe-45d6-90f9-38681f24c920",
+            "github_username": null,
+            "github_user_id": null,
+            "supervisor_name": null,
+            "primary_role_name": "开发",
+            "primary_role_proficiency_level": 4,
+            "location_name": "总部"
+          },
+          {
+            "id": "0a5ea5e3-5eca-4394-9d07-6ee317d46308",
+            "name": "孙前端",
+            "email": "dev6@placeholder.local",
+            "primary_person_role_id": "9f937ca3-c8df-49db-8bc7-880a63ee032a",
+            "worker_type": "FTE",
+            "supervisor_id": null,
+            "default_availability_percentage": 100,
+            "default_hours_per_day": 8,
+            "created_at": 1789912192819,
+            "updated_at": 1789912192819,
+            "user_role_id": null,
+            "is_system_admin": 0,
+            "is_active": 1,
+            "last_login": null,
+            "location_id": "6a3550e9-7abe-45d6-90f9-38681f24c920",
+            "github_username": null,
+            "github_user_id": null,
+            "supervisor_name": null,
+            "primary_role_name": "开发",
+            "primary_role_proficiency_level": 4,
+            "location_name": "总部"
+          },
+          {
+            "id": "8c09ba2d-76c2-487b-8ca2-8f2be6da9950",
+            "name": "周开发",
+            "email": "dev7@placeholder.local",
+            "primary_person_role_id": "eada9bc4-322d-40b6-a2ca-3c97250e7d75",
+            "worker_type": "FTE",
+            "supervisor_id": null,
+            "default_availability_percentage": 100,
+            "default_hours_per_day": 8,
+            "created_at": 1789912192876,
+            "updated_at": 1789912192876,
+            "user_role_id": null,
+            "is_system_admin": 0,
+            "is_active": 1,
+            "last_login": null,
+            "location_id": "6a3550e9-7abe-45d6-90f9-38681f24c920",
+            "github_username": null,
+            "github_user_id": null,
+            "supervisor_name": null,
+            "primary_role_name": "开发",
+            "primary_role_proficiency_level": 4,
+            "location_name": "总部"
+          },
+          {
+            "id": "99af9ad8-ac88-47da-bfc0-13df579e5415",
+            "name": "吴开发",
+            "email": "dev8@placeholder.local",
+            "primary_person_role_id": "68681cf8-8d26-4969-9c6d-ba1d5bc39608",
+            "worker_type": "FTE",
+            "supervisor_id": null,
+            "default_availability_percentage": 100,
+            "default_hours_per_day": 8,
+            "created_at": 1789912192934,
+            "updated_at": 1789912192934,
+            "user_role_id": null,
+            "is_system_admin": 0,
+            "is_active": 1,
+            "last_login": null,
+            "location_id": "6a3550e9-7abe-45d6-90f9-38681f24c920",
+            "github_username": null,
+            "github_user_id": null,
+            "supervisor_name": null,
+            "primary_role_name": "开发",
+            "primary_role_proficiency_level": 4,
+            "location_name": "总部"
+          },
+          {
+            "id": "demo-mde-person-0001",
+            "name": "赵设计",
+            "email": "mde@demo.local",
+            "primary_person_role_id": "demo-mde-pr-0001",
+            "worker_type": "FTE",
+            "supervisor_id": null,
+            "default_availability_percentage": 100,
+            "default_hours_per_day": 8,
+            "created_at": "2026-09-22 17:03:40",
+            "updated_at": "2026-09-22 17:03:40",
+            "user_role_id": null,
+            "is_system_admin": 0,
+            "is_active": 1,
+            "last_login": null,
+            "location_id": null,
+            "github_username": null,
+            "github_user_id": null,
+            "supervisor_name": null,
+            "primary_role_name": "MDE",
+            "primary_role_proficiency_level": 3,
+            "location_name": null
+          }
+        ],
+        "pagination": {
+          "page": 1,
+          "limit": 500,
+          "total": 12,
+          "totalPages": 1
+        }
+      }
+    },
+    "/api/health": {
+      "status": 200,
+      "body": {
+        "status": "ok",
+        "timestamp": "2026-11-13T00:00:00.000Z",
+        "environment": "development"
+      }
+    }
+  },
+  "entities": {}
+}

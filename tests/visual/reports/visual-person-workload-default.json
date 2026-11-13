@@ -1,0 +1,205 @@
+{
+  "totalCombinations": 4,
+  "combinations": 4,
+  "shard": {
+    "index": 1,
+    "total": 1
+  },
+  "checks": 20,
+  "updatePixels": true,
+  "registerExistingAxe": false,
+  "evidence": [
+    {
+      "tag": "person-workload-dark-1600",
+      "profile": "person-workload",
+      "path": "/people/eb8ecaf7-44a3-4384-a74b-2c18e9e894b1/workload",
+      "theme": "dark",
+      "state": "default",
+      "viewport": {
+        "width": 1600,
+        "height": 900
+      },
+      "axe": {
+        "count": 0,
+        "cap": 0,
+        "added": [],
+        "identities": []
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe person-workload-dark-1600: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 person-workload-dark-1600: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 person-workload-dark-1600: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "基线 person-workload-dark-1600: 已采集",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 person-workload-dark-1600",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/reports/visual-person-workload-dark-1600.png",
+      "baseline": "tests/visual/__screenshots__/person-workload-dark-1600.png",
+      "backdrops": [],
+      "svgAxisText": [],
+      "durationMs": 8023
+    },
+    {
+      "tag": "person-workload-dark-1366",
+      "profile": "person-workload",
+      "path": "/people/eb8ecaf7-44a3-4384-a74b-2c18e9e894b1/workload",
+      "theme": "dark",
+      "state": "default",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "axe": {
+        "count": 0,
+        "cap": 0,
+        "added": [],
+        "identities": []
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe person-workload-dark-1366: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 person-workload-dark-1366: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 person-workload-dark-1366: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "基线 person-workload-dark-1366: 已采集",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 person-workload-dark-1366",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/reports/visual-person-workload-dark-1366.png",
+      "baseline": "tests/visual/__screenshots__/person-workload-dark-1366.png",
+      "backdrops": [],
+      "svgAxisText": [],
+      "durationMs": 6463
+    },
+    {
+      "tag": "person-workload-light-1600",
+      "profile": "person-workload",
+      "path": "/people/eb8ecaf7-44a3-4384-a74b-2c18e9e894b1/workload",
+      "theme": "light",
+      "state": "default",
+      "viewport": {
+        "width": 1600,
+        "height": 900
+      },
+      "axe": {
+        "count": 0,
+        "cap": 0,
+        "added": [],
+        "identities": []
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe person-workload-light-1600: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 person-workload-light-1600: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 person-workload-light-1600: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "基线 person-workload-light-1600: 已采集",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 person-workload-light-1600",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/reports/visual-person-workload-light-1600.png",
+      "baseline": "tests/visual/__screenshots__/person-workload-light-1600.png",
+      "backdrops": [],
+      "svgAxisText": [],
+      "durationMs": 6698
+    },
+    {
+      "tag": "person-workload-light-1366",
+      "profile": "person-workload",
+      "path": "/people/eb8ecaf7-44a3-4384-a74b-2c18e9e894b1/workload",
+      "theme": "light",
+      "state": "default",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "axe": {
+        "count": 0,
+        "cap": 0,
+        "added": [],
+        "identities": []
+      },
+      "collisions": [],
+      "overflow": [],
+      "writes": [],
+      "errors": [],
+      "checks": [
+        {
+          "name": "axe person-workload-light-1366: 对比度/命中目标违规 ≤ 预算",
+          "ok": true
+        },
+        {
+          "name": "碰撞 person-workload-light-1366: 零重叠",
+          "ok": true
+        },
+        {
+          "name": "溢出 person-workload-light-1366: 无横向滚动",
+          "ok": true
+        },
+        {
+          "name": "基线 person-workload-light-1366: 已采集",
+          "ok": true
+        },
+        {
+          "name": "只读与运行 person-workload-light-1366",
+          "ok": true
+        }
+      ],
+      "artifact": "tests/visual/reports/visual-person-workload-light-1366.png",
+      "baseline": "tests/visual/__screenshots__/person-workload-light-1366.png",
+      "backdrops": [],
+      "svgAxisText": [],
+      "durationMs": 6466
+    }
+  ]
+}

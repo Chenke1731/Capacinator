@@ -343,5 +343,133 @@
       "unknownError": "未知错误",
       "createAssignmentFailed": "创建分配失败"
     }
+  },
+  "workbench": {
+    "addAssignment": "添加分配",
+    "mismatch": {
+      "title": "场景已切换",
+      "body": "有 {{count}} 条草稿绑定在其他场景：草稿只读、提交已禁用。可回到原场景继续，或丢弃草稿。",
+      "discard": "丢弃草稿",
+      "back": "回到原场景",
+      "submitDisabled": "草稿绑定的场景与当前场景不一致，不能提交"
+    },
+    "heat": {
+      "noData": "暂无容量数据",
+      "summary": "预计峰值 {{peak}}%，超载 {{overloaded}} 个区间",
+      "summaryUnknown": "可用率数据不可用，无法计算相对利用率",
+      "unknown": "数据不可用",
+      "overload": "超载",
+      "overloadCount": "{{count}} 个区间超载（容量只提醒，不阻断）"
+    },
+    "demand": {
+      "unconfigured": "未配置",
+      "gap": "缺 {{count}}"
+    },
+    "board": {
+      "loading": "任务加载中…",
+      "empty": "没有匹配的任务。",
+      "caption": "任务选择表",
+      "select": "选择",
+      "task": "项目 / 任务",
+      "state": "状态",
+      "demand": "角色需求（人头）",
+      "dates": "日期",
+      "staffing": "人力（已分配/需求）",
+      "actions": "操作",
+      "selectTask": "选择 {{name}}",
+      "terminal": "已完成或已取消的任务不可分配",
+      "parentOnly": "父节点只用于组织层级，不可分配",
+      "alreadyAssigned": "同项目、角色、阶段已有本人员的分配",
+      "slotOccupied": "单人角色槽位由 {{name}} 占用",
+      "editExisting": "编辑已有分配",
+      "replaceOccupant": "替换 {{name}}",
+      "stateNone": "未设状态",
+      "loadFailed": "任务加载失败。"
+    },
+    "dialog": {
+      "title": "为 {{name}} 选择任务",
+      "selectedCount": "已选 {{count}}",
+      "close": "关闭",
+      "heatCurrent": "当前 {{value}}",
+      "heatProjected": "预计 {{value}}",
+      "heatOver": "（超出 {{value}}%）",
+      "searchPlaceholder": "搜索项目 / 任务",
+      "search": "搜索",
+      "prevPage": "上一页",
+      "nextPage": "下一页",
+      "pageOf": "第 {{page}} / {{pages}} 页 · 共 {{total}} 条",
+      "removeChip": "移除 {{name}}",
+      "impact": "影响预览：当前 {{current}} → 预计 {{projected}}",
+      "cancel": "取消",
+      "addToLane": "加入泳道（{{count}}）",
+      "addedToLane": "已加入泳道 {{count}} 条，点击泳道中的虚线条目调整参数。",
+      "replaceAdded": "已生成替换草稿：{{role}} 将整条删除 {{incumbent}} 的分配，请在泳道中确认。"
+    },
+    "composer": {
+      "role": "统一角色",
+      "rolePerTask": "按任务默认",
+      "allocation": "统一比例 %",
+      "dateMode": "统一日期模式",
+      "modePerTask": "按任务默认",
+      "phaseFallbackHint": "部分任务没有阶段时间线，将以无效草稿进入泳道，可改为项目/固定日期。"
+    },
+    "gantt": {
+      "title": "工作负载泳道",
+      "expand": "展开泳道",
+      "collapse": "折叠为紧凑容量条",
+      "fixed": "固定日期",
+      "derived": "派生日期（阶段/项目）",
+      "paused": "已暂停",
+      "ghost": "待提交草稿",
+      "empty": "当前范围没有分配。",
+      "outOfRange": "{{count}} 条草稿在范围外："
+    },
+    "inspector": {
+      "title": "草稿参数：{{name}}",
+      "close": "关闭参数面板",
+      "incumbent": "当前占用：{{name}}（{{role}}）",
+      "replaceWarning": "确认替换将立即整条删除该占用者的这条分配（未来日期交接请使用交接功能）。",
+      "confirmReplace": "我确认整条删除旧行并替换",
+      "noRoles": "无可用角色",
+      "projectWindow": "项目 aspiration 窗口（只读）",
+      "impact": "影响预览：当前 {{before}} → 调整后 {{after}}",
+      "overloadWarn": "{{count}} 个区间超载（仍可提交）",
+      "remove": "移除草稿",
+      "done": "完成",
+      "unknown": "提交结果未知：已锁定，按原场景回读核对后再重试。"
+    },
+    "kind": {
+      "create": "新增",
+      "edit": "编辑",
+      "replace": "替换"
+    },
+    "commit": {
+      "pending": "待提交 {{count}} 条",
+      "invalid": "无效 {{count}}",
+      "conflict": "冲突 {{count}}",
+      "unknown": "结果未知 {{count}}",
+      "overloadWarn": "预计超载：容量只提醒，不阻断提交",
+      "summary": "上次提交：成功 {{succeeded}} / 失败 {{failed}} / 未知 {{unknown}}",
+      "continue": "继续选择",
+      "confirm": "确认分配（{{count}}）",
+      "submitting": "提交中…",
+      "clear": "清空",
+      "lockReason": "分配提交中，暂不能切换场景"
+    },
+    "errors": {
+      "missing_role": "缺少角色",
+      "missing_phase": "阶段模式下必须选择阶段",
+      "phase_no_timeline": "该项目没有阶段时间线，请改用项目或固定日期",
+      "project_no_aspiration": "项目没有 aspiration 日期，请改用固定日期",
+      "missing_dates": "固定日期模式下必须填写起止日期",
+      "invalid_date_order": "开始日期不能晚于结束日期",
+      "invalid_allocation": "比例必须在 1–200 之间",
+      "terminal_task": "任务已结束，不可分配",
+      "duplicate_key": "同项目、人员、角色、阶段已有分配",
+      "duplicate_in_drafts": "草稿中存在同键条目",
+      "slot_unconfirmed": "单人角色槽位被占用，替换需先确认",
+      "version_conflict": "该分配已被他人修改，请刷新后重试",
+      "scenario_mismatch": "草稿场景与当前场景不一致"
+    }
   }
 }

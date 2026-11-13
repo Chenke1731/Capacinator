@@ -908,3 +908,825 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* ===================== 工作台 v2：任务选择弹窗 ===================== */
+
+.person-workload-page .pw-dialog-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  background: color-mix(in srgb, var(--bg-primary, #0b1220) 55%, transparent);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: clamp(12px, 3vh, 40px) clamp(8px, 2vw, 40px) 24px;
+  overflow-y: auto;
+}
+
+.person-workload-page .pw-dialog {
+  width: min(1280px, 92vw);
+  max-height: min(85vh, calc(100vh - 24px));
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg, 12px);
+  box-shadow: var(--shadow-lg, 0 18px 48px rgba(0, 0, 0, 0.35));
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.person-workload-page .pw-dialog-head {
+  padding: var(--space-3) var(--space-4) var(--space-2);
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.person-workload-page .pw-dialog-title-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.person-workload-page .pw-dialog-title-row h2 {
+  margin: 0;
+  font-size: var(--text-lg);
+  color: var(--text-primary);
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.person-workload-page .pw-dialog-selected-count {
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+  white-space: nowrap;
+}
+
+.person-workload-page .pw-dialog-close {
+  margin-left: auto;
+}
+
+.person-workload-page .pw-dialog-heat-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: 56px;
+}
+
+.person-workload-page .pw-dialog-heat-label {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+.person-workload-page .pw-dialog-heat-over {
+  color: var(--danger, #d92d20);
+  font-weight: var(--font-semibold, 600);
+  margin-left: 0.5rem;
+}
+
+.person-workload-page .pw-dialog-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-4);
+  border-bottom: 1px solid var(--border-color);
+  flex-wrap: wrap;
+}
+
+.person-workload-page .pw-dialog-search {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex: 1;
+  min-width: 260px;
+  color: var(--text-secondary);
+}
+
+.person-workload-page .pw-dialog-search input {
+  flex: 1;
+  min-width: 0;
+}
+
+.person-workload-page .pw-dialog-scope {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+}
+
+.person-workload-page .pw-dialog-body {
+  flex: 1;
+  min-height: 200px;
+  overflow: auto;
+  padding: 0 var(--space-4);
+}
+
+.person-workload-page .pw-dialog-foot {
+  border-top: 1px solid var(--border-color);
+  padding: var(--space-2) var(--space-4) var(--space-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.person-workload-page .pw-dialog-pagination {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+}
+
+.person-workload-page .pw-dialog-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.person-workload-page .pw-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.1rem 0.5rem;
+  font-size: var(--text-xs);
+  border: 1px solid var(--border-color);
+  border-radius: 999px;
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+  max-width: 240px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.person-workload-page .pw-composer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-3);
+  align-items: flex-end;
+  padding: var(--space-2);
+  border: 1px dashed var(--border-color);
+  border-radius: var(--radius-md, 8px);
+}
+
+.person-workload-page .pw-composer-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+  min-width: 130px;
+}
+
+.person-workload-page .pw-composer-field--num {
+  min-width: 90px;
+}
+
+.person-workload-page .pw-composer-hint {
+  flex-basis: 100%;
+  font-size: var(--text-xs);
+  color: var(--warning, #b54708);
+}
+
+.person-workload-page .pw-dialog-flash {
+  font-size: var(--text-sm);
+  color: var(--success, #067647);
+}
+
+.person-workload-page .pw-dialog-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-2);
+}
+
+.person-workload-page .pw-dialog-impact {
+  margin-right: auto;
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+}
+
+/* ===================== 任务选择表 ===================== */
+
+.person-workload-page .pw-board-wrap {
+  margin-top: var(--space-2);
+}
+
+.person-workload-page .pw-board-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--text-sm);
+}
+
+.person-workload-page .pw-board-table th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: var(--bg-secondary);
+  text-align: left;
+  padding: 0.45rem 0.5rem;
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  font-weight: var(--font-semibold, 600);
+  white-space: nowrap;
+}
+
+.person-workload-page .pw-board-table td {
+  padding: 0.4rem 0.5rem;
+  border-bottom: 1px solid var(--border-color);
+  vertical-align: middle;
+}
+
+.person-workload-page .pw-board-row--parent .pw-board-name {
+  font-weight: var(--font-semibold, 600);
+}
+
+.person-workload-page .pw-board-row--child .pw-board-name {
+  padding-left: 1rem;
+}
+
+.person-workload-page .pw-board-row--child .pw-board-name::before {
+  content: '└ ';
+  color: var(--text-secondary);
+}
+
+.person-workload-page .pw-board-row--terminal {
+  opacity: 0.55;
+}
+
+.person-workload-page .pw-board-row--checked {
+  background: color-mix(in srgb, var(--primary-color, #2563eb) 8%, transparent);
+}
+
+.person-workload-page .pw-board-subtype {
+  display: block;
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+}
+
+.person-workload-page .pw-board-state-chip {
+  font-size: var(--text-xs);
+  padding: 0.05rem 0.4rem;
+  border-radius: 999px;
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+.person-workload-page .pw-board-lock {
+  display: inline-flex;
+  align-items: center;
+  color: var(--text-secondary);
+  gap: 0.25rem;
+}
+
+.person-workload-page .pw-board-reason {
+  font-size: var(--text-xs);
+  color: var(--warning, #b54708);
+}
+
+.person-workload-page .pw-board--loading,
+.person-workload-page .pw-board--empty,
+.person-workload-page .pw-board--error {
+  padding: var(--space-4);
+  text-align: center;
+  color: var(--text-secondary);
+}
+
+.person-workload-page .pw-board--error {
+  color: var(--danger, #d92d20);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+}
+
+/* ===================== 容量热区 ===================== */
+
+.person-workload-page .pw-heat {
+  position: relative;
+  flex: 1;
+  min-width: 120px;
+  display: flex;
+  align-items: stretch;
+  gap: var(--space-2);
+}
+
+.person-workload-page .pw-heat--empty {
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+}
+
+.person-workload-page .pw-heat-bars {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  min-height: 40px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.person-workload-page .pw-heat-bar {
+  flex: 1;
+  min-width: 3px;
+  background: var(--primary-color, #2563eb);
+  opacity: 0.55;
+  border-radius: 2px 2px 0 0;
+}
+
+.person-workload-page .pw-heat-bar--over {
+  background: repeating-linear-gradient(
+    45deg,
+    var(--danger, #d92d20),
+    var(--danger, #d92d20) 3px,
+    color-mix(in srgb, var(--danger, #d92d20) 55%, transparent) 3px,
+    color-mix(in srgb, var(--danger, #d92d20) 55%, transparent) 6px
+  );
+  opacity: 0.95;
+}
+
+.person-workload-page .pw-heat-bar--unknown {
+  background: var(--border-color);
+  opacity: 0.5;
+}
+
+.person-workload-page .pw-heat--compact {
+  min-height: 28px;
+}
+
+.person-workload-page .pw-heat--compact .pw-heat-bars {
+  min-height: 28px;
+}
+
+.person-workload-page .pw-heat-overload-note {
+  position: absolute;
+  top: -1.15rem;
+  right: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2rem;
+  font-size: var(--text-xs);
+  color: var(--danger, #d92d20);
+  white-space: nowrap;
+}
+
+.person-workload-page .pw-heat-axis {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+  text-align: right;
+  min-width: 38px;
+}
+
+/* ===================== 工作负载泳道 ===================== */
+
+.person-workload-page .pw-gantt {
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md, 8px);
+  background: var(--bg-secondary);
+  padding: var(--space-2) var(--space-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.person-workload-page .pw-gantt-head {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.person-workload-page .pw-gantt-head h2 {
+  margin: 0;
+  font-size: var(--text-md, 0.95rem);
+  color: var(--text-primary);
+}
+
+.person-workload-page .pw-gantt-range {
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+  margin-left: auto;
+}
+
+.person-workload-page .pw-gantt-heat {
+  display: flex;
+  gap: var(--space-2);
+  align-items: stretch;
+  min-height: 72px;
+}
+
+.person-workload-page .pw-gantt-heat-scale {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+  text-align: right;
+  min-width: 40px;
+}
+
+.person-workload-page .pw-gantt-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+}
+
+.person-workload-page .pw-legend {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.person-workload-page .pw-legend--fixed::before {
+  content: '';
+  width: 14px;
+  height: 8px;
+  border-radius: 2px;
+  background: var(--primary-color, #2563eb);
+}
+
+.person-workload-page .pw-legend--derived::before {
+  content: '';
+  width: 14px;
+  height: 8px;
+  border-radius: 2px;
+  border: 1px dashed var(--text-secondary);
+}
+
+.person-workload-page .pw-legend--paused::before {
+  content: '';
+  width: 14px;
+  height: 8px;
+  border-radius: 2px;
+  background: var(--border-color);
+}
+
+.person-workload-page .pw-legend--ghost::before {
+  content: '';
+  width: 14px;
+  height: 8px;
+  border-radius: 2px;
+  background: repeating-linear-gradient(45deg, transparent, transparent 2px, var(--text-secondary) 2px, var(--text-secondary) 3px);
+  border: 1px solid var(--text-secondary);
+}
+
+.person-workload-page .pw-gantt-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  max-height: 320px;
+  overflow: auto;
+}
+
+.person-workload-page .pw-gantt-lane {
+  display: grid;
+  grid-template-columns: minmax(120px, 200px) 1fr;
+  gap: var(--space-2);
+  align-items: stretch;
+}
+
+.person-workload-page .pw-gantt-lane-label {
+  font-size: var(--text-xs);
+  color: var(--text-primary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  align-self: center;
+}
+
+.person-workload-page .pw-gantt-lane-track {
+  position: relative;
+  min-height: 30px;
+  background: color-mix(in srgb, var(--bg-primary) 60%, transparent);
+  border-radius: 4px;
+}
+
+.person-workload-page .pw-gantt-asof {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--warning, #b54708);
+  opacity: 0.7;
+}
+
+.person-workload-page .pw-gantt-bar {
+  position: absolute;
+  height: 16px;
+  margin: 1px 0;
+  padding: 0 4px;
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  border: none;
+  border-radius: 3px;
+  background: var(--primary-color, #2563eb);
+  color: var(--bg-secondary);
+  font-size: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  cursor: pointer;
+  min-width: 6px;
+}
+
+.person-workload-page .pw-gantt-bar-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.person-workload-page .pw-gantt-bar--derived {
+  background: repeating-linear-gradient(90deg, var(--primary-color, #2563eb), var(--primary-color, #2563eb) 6px, color-mix(in srgb, var(--primary-color, #256320) 40%, transparent) 6px, color-mix(in srgb, var(--primary-color, #2563eb) 40%, transparent) 10px);
+  opacity: 0.85;
+}
+
+.person-workload-page .pw-gantt-bar--paused {
+  background: var(--border-color);
+  color: var(--text-secondary);
+}
+
+.person-workload-page .pw-gantt-bar--ghost {
+  background: repeating-linear-gradient(45deg, color-mix(in srgb, var(--text-secondary) 18%, transparent), color-mix(in srgb, var(--text-secondary) 18%, transparent) 4px, transparent 4px, transparent 8px);
+  border: 1px dashed var(--text-secondary);
+  color: var(--text-primary);
+}
+
+.person-workload-page .pw-gantt-bar--ghost.pw-gantt-bar--conflict {
+  border-color: var(--danger, #d92d20);
+  box-shadow: 0 0 0 1px var(--danger, #d92d20);
+}
+
+.person-workload-page .pw-gantt-bar--ghost.pw-gantt-bar--invalid {
+  border-color: var(--warning, #b54708);
+  box-shadow: 0 0 0 1px var(--warning, #b54708);
+}
+
+.person-workload-page .pw-gantt-bar--submitting {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.person-workload-page .pw-gantt-bar--failed {
+  box-shadow: 0 0 0 2px var(--danger, #d92d20);
+}
+
+.person-workload-page .pw-gantt-empty {
+  padding: var(--space-3);
+  text-align: center;
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+}
+
+.person-workload-page .pw-gantt-oor {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+}
+
+/* ===================== 待提交操作条 ===================== */
+
+.person-workload-page .pw-commit-bar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--primary-color, #2563eb);
+  border-radius: var(--radius-md, 8px);
+  background: color-mix(in srgb, var(--primary-color, #2563eb) 6%, var(--bg-secondary));
+}
+
+.person-workload-page .pw-commit-count {
+  font-weight: var(--font-semibold, 600);
+  color: var(--text-primary);
+}
+
+.person-workload-page .pw-commit-flag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: var(--text-xs);
+  padding: 0.05rem 0.45rem;
+  border-radius: 999px;
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+}
+
+.person-workload-page .pw-commit-flag--invalid {
+  color: var(--warning, #b54708);
+  border-color: var(--warning, #b54708);
+}
+
+.person-workload-page .pw-commit-flag--conflict {
+  color: var(--danger, #d92d20);
+  border-color: var(--danger, #d92d20);
+}
+
+.person-workload-page .pw-commit-flag--unknown {
+  color: var(--text-primary);
+  border-style: dashed;
+}
+
+.person-workload-page .pw-commit-flag--overload {
+  color: var(--warning, #b54708);
+  border-color: var(--warning, #b54708);
+}
+
+.person-workload-page .pw-commit-summary {
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+}
+
+.person-workload-page .pw-commit-actions {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.person-workload-page .pw-commit-bar:focus {
+  outline: 2px solid var(--primary-color, #2563eb);
+  outline-offset: 2px;
+}
+
+/* ===================== Ghost 参数面板 ===================== */
+
+.person-workload-page .pw-inspector {
+  border: 1px dashed var(--text-secondary);
+  border-radius: var(--radius-md, 8px);
+  background: var(--bg-secondary);
+  padding: var(--space-2) var(--space-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.person-workload-page .pw-inspector-head {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.person-workload-page .pw-inspector-head strong {
+  color: var(--text-primary);
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.person-workload-page .pw-inspector-kind {
+  font-size: var(--text-xs);
+  padding: 0.05rem 0.45rem;
+  border-radius: 999px;
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+}
+
+.person-workload-page .pw-inspector-kind--replace {
+  color: var(--danger, #d92d20);
+  border-color: var(--danger, #d92d20);
+}
+
+.person-workload-page .pw-inspector-incumbent {
+  display: flex;
+  gap: 0.5rem;
+  padding: var(--space-2);
+  border: 1px solid var(--warning, #b54708);
+  border-radius: var(--radius-md, 8px);
+  color: var(--warning, #b54708);
+  font-size: var(--text-sm);
+}
+
+.person-workload-page .pw-inspector-incumbent div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.person-workload-page .pw-inspector-incumbent em {
+  color: var(--text-secondary);
+}
+
+.person-workload-page .pw-inspector-confirm {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--text-primary);
+  font-size: var(--text-sm);
+}
+
+.person-workload-page .pw-inspector-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: var(--space-2) var(--space-3);
+}
+
+.person-workload-page .pw-inspector-grid label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+}
+
+.person-workload-page .pw-inspector-derived,
+.person-workload-page .pw-inspector-derived-box {
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+}
+
+.person-workload-page .pw-inspector-errors {
+  margin: 0;
+  padding-left: 1.1rem;
+  font-size: var(--text-xs);
+}
+
+.person-workload-page .pw-error--conflict {
+  color: var(--danger, #d92d20);
+}
+
+.person-workload-page .pw-error--invalid {
+  color: var(--warning, #b54708);
+}
+
+.person-workload-page .pw-inspector-submit-error {
+  margin: 0;
+  font-size: var(--text-xs);
+  color: var(--danger, #d92d20);
+}
+
+.person-workload-page .pw-inspector-unknown {
+  margin: 0;
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+  border: 1px dashed var(--border-color);
+  padding: 0.3rem 0.5rem;
+  border-radius: 4px;
+}
+
+.person-workload-page .pw-inspector-impact {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+}
+
+.person-workload-page .pw-inspector-impact-over {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  color: var(--warning, #b54708);
+  font-size: var(--text-xs);
+}
+
+.person-workload-page .pw-inspector-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  justify-content: flex-end;
+}
+
+/* 头部操作区 */
+.person-workload-page .pw-header-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+/* 窄屏：弹窗高度上限放宽但保持顶部对齐（不降级底部弹层） */
+@media (max-height: 820px) {
+  .person-workload-page .pw-dialog {
+    max-height: 92vh;
+  }
+
+  .person-workload-page .pw-dialog-overlay {
+    padding-top: 12px;
+  }
+}
+
+@media (max-width: 1366px) {
+  .person-workload-page .pw-gantt-lane {
+    grid-template-columns: minmax(110px, 150px) 1fr;
+  }
+
+  .person-workload-page .pw-composer-field {
+    min-width: 110px;
+  }
+}

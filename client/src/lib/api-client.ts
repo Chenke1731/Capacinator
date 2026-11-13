@@ -395,12 +395,13 @@ export const api = {
     /* 真身: list=sendPaginatedResponse{success,data,pagination{page,limit,total,totalPages,hasNextPage,hasPrevPage},requestId};
        create/update/bulk=sendSuccess{success,data,requestId,message}; delete 同款(data 内外两层 message);
        conflicts/suggestions/timeline=sendSuccess 信封、载荷在内层 data — 形状由 AssignmentsController.test 响应信封契约断言钉死 */
-    list: (params?: PaginationParams) => apiClient.get<{
-      success: boolean;
-      data: ProjectAssignment[];
-      pagination: { page: number; limit: number; total: number; totalPages: number; hasNextPage: boolean; hasPrevPage: boolean };
-      requestId: string;
-    }>('/assignments', { params }),
+    list: (params?: PaginationParams, options?: ScenarioScopedRequest) =>
+      apiClient.get<{
+        success: boolean;
+        data: ProjectAssignment[];
+        pagination: { page: number; limit: number; total: number; totalPages: number; hasNextPage: boolean; hasPrevPage: boolean };
+        requestId: string;
+      }>('/assignments', { params, ...scenarioRequestConfig(options) }),
     create: (data: Partial<ProjectAssignment>, options?: ScenarioScopedRequest) =>
       apiClient.post<{ success: boolean; data: ProjectAssignment; requestId: string; message: string }>(
         '/assignments',

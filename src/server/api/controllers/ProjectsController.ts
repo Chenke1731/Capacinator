@@ -556,6 +556,14 @@ export class ProjectsController extends BaseController {
         });
       }
 
+      // 选择模式树序：父行与其子行同键（COALESCE(parent_id,id)）聚簇、父行
+      // 在前、名次排序稳定——平铺分页也能按层级阅读，翻页不抖动。
+      if (selectionMode) {
+        query = query.orderByRaw(
+          'COALESCE(projects.parent_id, projects.id), CASE WHEN projects.parent_id IS NULL THEN 0 ELSE 1 END, projects.name'
+        );
+      }
+
       // Count with the same filters as the list (cloned before pagination)
       const countQuery = query.clone().clearSelect().clearOrder();
       query = this.paginate(query, page, limit);

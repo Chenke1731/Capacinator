@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
@@ -7,6 +7,7 @@ import {
   ArrowLeft,
   ArrowRightLeft,
   BriefcaseBusiness,
+  ListPlus,
   Pencil,
   Pause,
   Play,
@@ -20,16 +21,23 @@ import { queryKeys } from '../lib/queryKeys';
 import { useScenario } from '../contexts/ScenarioContext';
 import { invalidateSchedulingReads } from '../lib/invalidateSchedulingReads';
 import { fetchPersonUtilization, personUtilizationRowsFrom } from '../lib/personUtilizationData';
+import { fetchAllPersonAssignments } from '../lib/personAssignments';
 import {
   summarizePersonWorkload,
   workloadDateOnly,
   type ExcludedWorkloadAssignment,
   type WorkloadAssignment,
 } from '../lib/personWorkload';
+import { workloadTimeline, type AvailabilityOverrideInput } from '../lib/workloadTimeline';
+import type { AssignmentDraft } from '../lib/assignmentDrafts';
+import { useDraftAssignments } from '../hooks/useDraftAssignments';
 import { toISODateString } from '../utils/dateUtils';
 import { Badge } from '../components/ui/badge';
 import { AssignmentImpactPreview } from '../components/workload/AssignmentImpactPreview';
-import { PersonTaskPicker } from '../components/workload/PersonTaskPicker';
+import { DraftCommitBar } from '../components/workload/DraftCommitBar';
+import { GhostInspector } from '../components/workload/GhostInspector';
+import { TaskSelectionDialog } from '../components/workload/TaskSelectionDialog';
+import { WorkloadGantt } from '../components/workload/WorkloadGantt';
 import './PersonWorkload.css';
 
 interface PersonRow {
@@ -83,11 +91,27 @@ const statusVariant: Record<string, 'default' | 'secondary' | 'destructive' | 'o
   available: 'success',
 };
 
+function shiftMonths(iso: string, months: number): string {
+  const date = new Date(`${iso}T00:00:00Z`);
+  const day = date.getUTCDate();
+  date.setUTCDate(1);
+  date.setUTCMonth(date.getUTCMonth() + months);
+  const lastDay = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth() + 1, 0)).getUTCDate();
+  date.setUTCDate(Math.min(day, lastDay));
+  return date.toISOString().slice(0, 10);
+}
+
+function shiftDays(iso: string, days: number): string {
+  const date = new Date(`${iso}T00:00:00Z`);
+  date.setUTCDate(date.getUTCDate() + days);
+  return date.toISOString().slice(0, 10);
+}
+
 export default function PersonWorkload() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const { currentScenario, scenarios, setCurrentScenario } = useScenario();
+  const { currentScenario, scenarios, setCurrentScenario, lockScenarioSwitching, unlockScenarioSwitching } = useScenario();
 
   const personQuery = useQuery<PersonRow>({
     queryKey: queryKeys.people.detail(id ?? ''),
@@ -95,11 +119,12 @@ export default function PersonWorkload() {
     enabled: !!id,
   });
 
-  const assignmentsQuery = useQuery<AssignmentRow[]>({
-    queryKey: queryKeys.assignments.list({ person_id: id, limit: 2000 }, currentScenario?.id),
+  // §13.1 完整分页读取：不允许把 limit=2000 当完整集合
+  const assignmentsQuery = useQuery<AssignmentRow[], Error>({
+    queryKey: queryKeys.assignments.list({ person_id: id, limit: 200 }, currentScenario?.id),
     queryFn: async () => {
-      const response = await api.assignments.list({ person_id: id!, limit: 2000 } as never);
-      return response.data.data as unknown as AssignmentRow[];
+      const page = await fetchAllPersonAssignments(id!, currentScenario?.id);
+      return page.rows as unknown as AssignmentRow[];
     },
     enabled: !!id,
   });
@@ -126,9 +151,16 @@ export default function PersonWorkload() {
     typeof utilizationRow?.as_of === 'string' && utilizationRow.as_of
       ? utilizationRow.as_of
       : toISODateString(new Date());
-  const availability = utilizationQuery.isError
+  const availabilityRaw = utilizationQuery.isError
     ? null
     : utilizationRow?.current_availability_percentage;
+  // 归一为 number|null：缺失=null（数据不可用），不回退 100%
+  const availability =
+    availabilityRaw === null || availabilityRaw === undefined || availabilityRaw === ''
+      ? null
+      : Number.isFinite(Number(availabilityRaw))
+        ? Number(availabilityRaw)
+        : null;
 
   const summary = useMemo(
     () =>
@@ -139,7 +171,140 @@ export default function PersonWorkload() {
     [assignmentsQuery.data, asOf, availability]
   );
 
+  // ---- 工作台 v2：泳道时间范围（默认未来 3 个月，§20.3）----
+  const [rangeEndOverride, setRangeEndOverride] = useState<string | null>(null);
+  const rangeStart = asOf;
+  const defaultRangeEnd = useMemo(() => shiftMonths(asOf, 3), [asOf]);
+  const rangeEnd = rangeEndOverride ?? defaultRangeEnd;
+
+  // 可用率 override：服务端视图已 approved-only（076）；这里把生效窗口转成
+  // workloadTimeline 的 override 输入（单一窗口，Phase 1 口径）
+  const availabilityOverrides = useMemo<AvailabilityOverrideInput[]>(() => {
+    const start = utilizationRow?.availability_start;
+    const end = utilizationRow?.availability_end;
+    const percentage = utilizationRow?.current_availability_percentage;
+    if (!start || !end || percentage === null || percentage === undefined) return [];
+    return [
+      {
+        start: String(start).slice(0, 10),
+        end: String(end).slice(0, 10),
+        percentage: Number(percentage),
+        isApproved: true,
+      },
+    ];
+  }, [utilizationRow]);
+
+  const defaultAvailability = personQuery.data?.default_availability_percentage ?? null;
+
+  // ---- 工作台 v2：草稿（draftStore）----
+  const activeScenarioId = currentScenario?.id ?? '';
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [ganttCollapsed, setGanttCollapsed] = useState(false);
+  const [inspectorDraftId, setInspectorDraftId] = useState<string | null>(null);
+  const addAssignmentButtonRef = useRef<HTMLButtonElement | null>(null);
+  const commitBarRef = useRef<HTMLDivElement | null>(null);
+
   const queryClient = useQueryClient();
+  const refreshAssignments = useCallback(async () => {
+    await invalidateSchedulingReads(queryClient);
+    await queryClient.invalidateQueries({
+      queryKey: queryKeys.assignments.list({ person_id: id }, currentScenario?.id),
+    });
+  }, [queryClient, id, currentScenario?.id]);
+
+  const draftStore = useDraftAssignments({
+    personId: id ?? '',
+    assignments: assignmentsQuery.data ?? [],
+    assignmentsQuery,
+    onAfterCommit: refreshAssignments,
+  });
+
+  // 场景绑定（§12）：草稿绑定加入时的场景；切场景→只读+禁提交
+  const draftScenarioId = draftStore.drafts[0]?.scenarioId ?? activeScenarioId;
+  const draftScenarioMismatch =
+    draftStore.drafts.length > 0 && draftScenarioId !== activeScenarioId;
+
+  // CommitInFlight 锁（§12）：提交中锁定场景切换与页面离开
+  useEffect(() => {
+    if (draftStore.submitting) {
+      lockScenarioSwitching(t('assignments:workbench.commit.lockReason'));
+    } else {
+      unlockScenarioSwitching();
+    }
+    return () => unlockScenarioSwitching();
+  }, [draftStore.submitting, lockScenarioSwitching, unlockScenarioSwitching, t]);
+
+  // 刷新/离开守卫（§16：未提交 ghost 提示丢弃）
+  const hasPendingDrafts = draftStore.drafts.some((draft) => draft.submitState !== 'SUCCEEDED');
+  useEffect(() => {
+    if (!hasPendingDrafts) return undefined;
+    const onBeforeUnload = (event: BeforeUnloadEvent) => {
+      event.preventDefault();
+      event.returnValue = '';
+    };
+    window.addEventListener('beforeunload', onBeforeUnload);
+    return () => window.removeEventListener('beforeunload', onBeforeUnload);
+  }, [hasPendingDrafts]);
+
+  // 加入泳道后焦点移到草稿摘要（§15）
+  const handleAddToLane = useCallback(
+    (drafts: AssignmentDraft[]) => {
+      draftStore.addDrafts(drafts);
+      setDialogOpen(false);
+      window.requestAnimationFrame(() => commitBarRef.current?.focus());
+    },
+    [draftStore]
+  );
+
+  const handleDialogEditExisting = useCallback(
+    (existingId: string) => {
+      setDialogOpen(false);
+      const row = (assignmentsQuery.data ?? []).find((candidate) => String(candidate.id) === existingId);
+      if (row) {
+        beginEditRef.current?.(row);
+      }
+    },
+    [assignmentsQuery.data]
+  );
+
+  // beginEdit 在表格渲染闭包里定义较晚，用 ref 转发（dialog 从表格外部调用）
+  const beginEditRef = useRef<((row: AssignmentRow) => void) | null>(null);
+
+  // 泳道 timeline：committed + ghost（三处容量展示共用，§9）
+  const timeline = useMemo(
+    () =>
+      workloadTimeline(
+        (assignmentsQuery.data ?? []).map((row) => ({
+          id: String(row.id),
+          allocationPercentage: Number(row.allocation_percentage ?? 0),
+          startDate: row.computed_start_date ?? row.start_date ?? null,
+          endDate: row.computed_end_date ?? row.end_date ?? null,
+          status: row.status ?? null,
+        })),
+        draftStore.drafts.map((draft) => ({
+          id: draft.draftId,
+          draftId: draft.draftId,
+          kind: draft.kind,
+          targetAssignmentId: draft.targetAssignmentId,
+          allocationPercentage: draft.allocationPercentage,
+          startDate: draft.startDate,
+          endDate: draft.endDate,
+          submitState: draft.submitState,
+        })),
+        {
+          asOf,
+          rangeStart,
+          rangeEnd,
+          defaultAvailability: availability ?? defaultAvailability,
+          availabilityOverrides,
+          granularity: 'week',
+        }
+      ),
+    [assignmentsQuery.data, draftStore.drafts, asOf, rangeStart, rangeEnd, availability, defaultAvailability, availabilityOverrides]
+  );
+
+  const inspectorDraft = draftStore.drafts.find((draft) => draft.draftId === inspectorDraftId) ?? null;
+
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editScenarioId, setEditScenarioId] = useState<string | null>(null);
   const [draft, setDraft] = useState<RowDraft>({ allocation: '', startDate: '', endDate: '' });
@@ -155,7 +320,6 @@ export default function PersonWorkload() {
   const [batchMode, setBatchMode] = useState(false);
   const [batchDrafts, setBatchDrafts] = useState<Record<string, string>>({});
   const [batchMessage, setBatchMessage] = useState<{ tone: 'error' | 'warning' | 'success'; text: string } | null>(null);
-  const activeScenarioId = currentScenario?.id ?? '';
   const scenarioMismatch = Boolean(editingId && editScenarioId && editScenarioId !== activeScenarioId);
 
   const beginEdit = (row: AssignmentRow) => {
@@ -168,6 +332,7 @@ export default function PersonWorkload() {
       endDate: workloadDateOnly(row.end_date) ?? '',
     });
   };
+  beginEditRef.current = beginEdit;
 
   const cancelEdit = () => {
     setEditingId(null);
@@ -331,9 +496,7 @@ export default function PersonWorkload() {
     const end = workloadDateOnly(row.end_date);
     let effectiveDate = asOf;
     if (!start || effectiveDate <= start) {
-      const date = new Date(`${start ?? asOf}T00:00:00Z`);
-      date.setUTCDate(date.getUTCDate() + 1);
-      effectiveDate = date.toISOString().slice(0, 10);
+      effectiveDate = shiftDays(start ?? asOf, 1);
     }
     if (end && effectiveDate > end) effectiveDate = end;
     setHandoverRowId(row.id);
@@ -404,17 +567,6 @@ export default function PersonWorkload() {
     ...summary.current,
     ...summary.excluded.map((excludedRow) => excludedRow.assignment),
   ];
-
-  const openExistingAssignment = (projectId: string) => {
-    const existing = allWorkloadRows().find((row) => String(row.project_id) === String(projectId));
-    if (!existing) return;
-    beginEdit(existing);
-    window.requestAnimationFrame(() => {
-      document
-        .querySelector<HTMLElement>(`[data-assignment-id="${existing.id}"]`)
-        ?.scrollIntoView?.({ block: 'center', behavior: 'smooth' });
-    });
-  };
 
   const startBatch = () => {
     const drafts: Record<string, string> = {};
@@ -543,6 +695,10 @@ export default function PersonWorkload() {
       : `${summary.availability}%`;
   const remainingLabel =
     summary.remainingCapacity === null ? '—' : `${summary.remainingCapacity}%`;
+
+  const primaryRole = (person.roles ?? []).find((role) => role.is_primary) ?? (person.roles ?? [])[0];
+  const projectedOverload =
+    timeline.projectedRelativeUtilization !== null && timeline.projectedRelativeUtilization > 100;
 
   const renderTable = (rows: Row[], excluded: boolean) => (
     <div className="pw-table-wrap">
@@ -886,7 +1042,18 @@ export default function PersonWorkload() {
             })}
           </p>
         </div>
-        <div className="pw-asof">{t('assignments:workload.asOf', { date: summary.asOf })}</div>
+        <div className="pw-header-actions">
+          <span className="pw-asof">{t('assignments:workload.asOf', { date: summary.asOf })}</span>
+          <button
+            type="button"
+            ref={addAssignmentButtonRef}
+            className="btn btn-primary"
+            onClick={() => setDialogOpen(true)}
+            data-testid="pw-add-assignment"
+          >
+            <ListPlus size={16} /> {t('assignments:workbench.addAssignment')}
+          </button>
+        </div>
       </header>
 
       {utilizationQuery.isError ? (
@@ -961,16 +1128,35 @@ export default function PersonWorkload() {
         ) : null}
       </section>
 
-      <div className="pw-layout">
-        <PersonTaskPicker
-          personId={person.id}
-          roles={person.roles ?? []}
-          asOf={summary.asOf}
-          availability={summary.availability}
-          assignments={assignmentsQuery.data ?? []}
-          onOpenExisting={openExistingAssignment}
-        />
-        <main className="pw-main">
+      {draftScenarioMismatch ? (
+        <div className="pw-scenario-banner" role="alert" data-testid="pw-draft-scenario-mismatch">
+          <div>
+            <strong>{t('assignments:workbench.mismatch.title')}</strong>
+            <p>
+              {t('assignments:workbench.mismatch.body', {
+                count: draftStore.drafts.length,
+              })}
+            </p>
+          </div>
+          <div className="pw-scenario-actions">
+            <button type="button" className="btn btn-secondary btn-sm" onClick={draftStore.clearDrafts}>
+              {t('assignments:workbench.mismatch.discard')}
+            </button>
+            <button
+              type="button"
+              className="btn btn-primary btn-sm"
+              onClick={() => {
+                const original = scenarios.find((scenario) => scenario.id === draftScenarioId);
+                if (original) setCurrentScenario(original);
+              }}
+            >
+              {t('assignments:workbench.mismatch.back')}
+            </button>
+          </div>
+        </div>
+      ) : null}
+
+      <main className="pw-main">
       {scenarioMismatch ? (
         <div className="pw-scenario-banner" role="alert">
           <div>
@@ -1002,6 +1188,80 @@ export default function PersonWorkload() {
           {handoverMessage.text}
         </div>
       ) : null}
+
+      <WorkloadGantt
+        timeline={timeline}
+        committedRows={allWorkloadRows()}
+        drafts={draftStore.drafts}
+        collapsed={ganttCollapsed}
+        onToggleCollapse={() => setGanttCollapsed((prev) => !prev)}
+        onGhostClick={(draftId) => setInspectorDraftId(draftId)}
+        onBarClick={(assignmentId) => {
+          document
+            .querySelector<HTMLElement>(`[data-assignment-id="${assignmentId}"]`)
+            ?.scrollIntoView?.({ block: 'center', behavior: 'smooth' });
+          document
+            .querySelector<HTMLElement>(`[data-assignment-id="${assignmentId}"] [data-testid="pw-edit-row"]`)
+            ?.focus?.();
+        }}
+        onLocateGhost={(draftId) => {
+          const draft = draftStore.drafts.find((entry) => entry.draftId === draftId);
+          if (!draft) return;
+          setGanttCollapsed(false);
+          if (draft.startDate && draft.startDate < rangeStart) {
+            // 泳道左界不能早于参考日（默认未来 3 个月口径），先定位右界
+            setRangeEndOverride((prev) => {
+              const neededEnd = draft.endDate && draft.endDate > (prev ?? defaultRangeEnd) ? draft.endDate : prev;
+              return neededEnd ?? prev;
+            });
+          } else if (draft.endDate) {
+            setRangeEndOverride((prev) => (draft.endDate! > (prev ?? defaultRangeEnd) ? draft.endDate : prev));
+          }
+          setInspectorDraftId(draftId);
+        }}
+      />
+
+      <DraftCommitBar
+        ref={commitBarRef}
+        total={draftStore.counts.total}
+        submittable={draftStore.counts.submittable}
+        invalid={draftStore.counts.invalid}
+        conflict={draftStore.counts.conflict}
+        unknown={draftStore.counts.unknown}
+        submitting={draftStore.submitting}
+        confirmDisabled={draftScenarioMismatch}
+        confirmDisabledReason={t('assignments:workbench.mismatch.submitDisabled')}
+        overload={projectedOverload}
+        onContinueSelect={() => {
+          setDialogOpen(true);
+          window.requestAnimationFrame(() => {
+            // 焦点回“继续选择”链路：弹窗打开后焦点落搜索框
+          });
+        }}
+        onConfirm={() => void draftStore.submit()}
+        onClear={draftStore.clearDrafts}
+        lastSummary={draftStore.lastSummary}
+      />
+
+      {inspectorDraft ? (
+        <GhostInspector
+          draft={inspectorDraft}
+          assignments={assignmentsQuery.data ?? []}
+          availability={availability ?? defaultAvailability}
+          availabilityOverrides={availabilityOverrides}
+          asOf={asOf}
+          rangeStart={rangeStart}
+          rangeEnd={rangeEnd}
+          onUpdate={draftStore.updateDraft}
+          onRemove={(draftId) => {
+            draftStore.removeDraft(draftId);
+            setInspectorDraftId(null);
+          }}
+          onClose={() => setInspectorDraftId(null)}
+          disabled={draftStore.submitting || inspectorDraft.submitState === 'SUBMITTING'}
+        />
+      ) : null}
+
       <div className="pw-batch-bar">
         {batchMode ? (
           <>
@@ -1085,8 +1345,31 @@ export default function PersonWorkload() {
       </section>
 
       <p className="pw-note">{t('assignments:workload.note')}</p>
-        </main>
-      </div>
+      </main>
+
+      <TaskSelectionDialog
+        open={dialogOpen}
+        personId={person.id}
+        personName={person.name}
+        personPrimaryRoleId={primaryRole?.role_id ?? null}
+        personPrimaryRoleName={primaryRole?.role_name ?? null}
+        scenarioId={activeScenarioId}
+        assignments={assignmentsQuery.data ?? []}
+        laneDrafts={draftStore.drafts}
+        asOf={asOf}
+        rangeStart={rangeStart}
+        rangeEnd={rangeEnd}
+        availability={availability ?? defaultAvailability}
+        availabilityOverrides={availabilityOverrides}
+        onAddToLane={handleAddToLane}
+        onEditExisting={handleDialogEditExisting}
+        onClose={() => {
+          setDialogOpen(false);
+          window.requestAnimationFrame(() => {
+            (addAssignmentButtonRef.current ?? commitBarRef.current)?.focus();
+          });
+        }}
+      />
     </div>
   );
 }

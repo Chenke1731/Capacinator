@@ -343,5 +343,133 @@
       "unknownError": "Unknown error",
       "createAssignmentFailed": "Failed to create assignment"
     }
+  },
+  "workbench": {
+    "addAssignment": "Add assignment",
+    "mismatch": {
+      "title": "Scenario switched",
+      "body": "{{count}} drafts are bound to another scenario: drafts are read-only and submitting is disabled. Return to the original scenario or discard them.",
+      "discard": "Discard drafts",
+      "back": "Return to original scenario",
+      "submitDisabled": "Drafts are bound to a different scenario; submit is disabled"
+    },
+    "heat": {
+      "noData": "No capacity data",
+      "summary": "Projected peak {{peak}}%, {{overloaded}} overloaded intervals",
+      "summaryUnknown": "Availability unknown; relative utilization cannot be computed",
+      "unknown": "unknown",
+      "overload": "overloaded",
+      "overloadCount": "{{count}} intervals over capacity (warning only, never blocks)"
+    },
+    "demand": {
+      "unconfigured": "unconfigured",
+      "gap": "gap {{count}}"
+    },
+    "board": {
+      "loading": "Loading tasks…",
+      "empty": "No matching tasks.",
+      "caption": "Task selection board",
+      "select": "Select",
+      "task": "Project / task",
+      "state": "State",
+      "demand": "Role demand (headcount)",
+      "dates": "Dates",
+      "staffing": "Staffing (assigned/required)",
+      "actions": "Actions",
+      "selectTask": "Select {{name}}",
+      "terminal": "Delivered or cancelled tasks cannot be assigned",
+      "parentOnly": "Parents only organize the hierarchy; not assignable",
+      "alreadyAssigned": "This person already has an assignment for the same project, role and phase",
+      "slotOccupied": "Single-person slot occupied by {{name}}",
+      "editExisting": "Edit existing assignment",
+      "replaceOccupant": "Replace {{name}}",
+      "stateNone": "no state",
+      "loadFailed": "Failed to load tasks."
+    },
+    "dialog": {
+      "title": "Select tasks for {{name}}",
+      "selectedCount": "{{count}} selected",
+      "close": "Close",
+      "heatCurrent": "Current {{value}}",
+      "heatProjected": "projected {{value}}",
+      "heatOver": "({{value}}% over)",
+      "searchPlaceholder": "Search projects / tasks",
+      "search": "Search",
+      "prevPage": "Previous page",
+      "nextPage": "Next page",
+      "pageOf": "Page {{page}} / {{pages}} · {{total}} total",
+      "removeChip": "Remove {{name}}",
+      "impact": "Impact: current {{current}} → projected {{projected}}",
+      "cancel": "Cancel",
+      "addToLane": "Add to lane ({{count}})",
+      "addedToLane": "Added {{count}} drafts to the lane; click a striped bar to adjust.",
+      "replaceAdded": "Replacement draft created: {{role}} will delete {{incumbent}}'s assignment entirely; confirm it in the lane."
+    },
+    "composer": {
+      "role": "Unified role",
+      "rolePerTask": "Per task default",
+      "allocation": "Unified allocation %",
+      "dateMode": "Unified date mode",
+      "modePerTask": "Per task default",
+      "phaseFallbackHint": "Some tasks have no phase timeline; they enter the lane as invalid drafts — switch to project or fixed dates."
+    },
+    "gantt": {
+      "title": "Workload swimlane",
+      "expand": "Expand swimlane",
+      "collapse": "Collapse to compact capacity strip",
+      "fixed": "Fixed dates",
+      "derived": "Derived dates (phase/project)",
+      "paused": "Paused",
+      "ghost": "Pending draft",
+      "empty": "No assignments in range.",
+      "outOfRange": "{{count}} drafts out of range:"
+    },
+    "inspector": {
+      "title": "Draft parameters: {{name}}",
+      "close": "Close inspector",
+      "incumbent": "Current occupant: {{name}} ({{role}})",
+      "replaceWarning": "Confirming replaces by deleting the occupant's entire assignment now (future handover uses handover instead).",
+      "confirmReplace": "I confirm deleting the old row entirely and replacing it",
+      "noRoles": "No roles available",
+      "projectWindow": "Project aspiration window (read-only)",
+      "impact": "Impact: current {{before}} → after {{after}}",
+      "overloadWarn": "{{count}} intervals over capacity (submit still allowed)",
+      "remove": "Remove draft",
+      "done": "Done",
+      "unknown": "Submit result unknown: locked until reconciled under the original scenario."
+    },
+    "kind": {
+      "create": "Create",
+      "edit": "Edit",
+      "replace": "Replace"
+    },
+    "commit": {
+      "pending": "{{count}} pending drafts",
+      "invalid": "{{count}} invalid",
+      "conflict": "{{count}} conflicting",
+      "unknown": "{{count}} unknown",
+      "overloadWarn": "Projected over capacity: warning only, never blocks",
+      "summary": "Last submit: {{succeeded}} succeeded / {{failed}} failed / {{unknown}} unknown",
+      "continue": "Continue selecting",
+      "confirm": "Confirm assignments ({{count}})",
+      "submitting": "Submitting…",
+      "clear": "Clear",
+      "lockReason": "Assignments are being submitted; scenario switching is locked"
+    },
+    "errors": {
+      "missing_role": "Missing role",
+      "missing_phase": "Phase mode requires a phase",
+      "phase_no_timeline": "This task has no phase timeline; use project or fixed dates",
+      "project_no_aspiration": "No aspiration dates on the project; use fixed dates",
+      "missing_dates": "Fixed mode requires start and end dates",
+      "invalid_date_order": "Start date is after end date",
+      "invalid_allocation": "Allocation must be between 1 and 200",
+      "terminal_task": "Task is closed; not assignable",
+      "duplicate_key": "An assignment with the same project, person, role and phase exists",
+      "duplicate_in_drafts": "Another draft has the same business key",
+      "slot_unconfirmed": "Single-person slot is occupied; confirm the replacement first",
+      "version_conflict": "The assignment was modified by someone else; refresh and retry",
+      "scenario_mismatch": "Draft scenario differs from the active scenario"
+    }
   }
 }

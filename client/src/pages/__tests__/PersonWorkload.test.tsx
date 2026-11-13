@@ -41,6 +41,9 @@ jest.mock('../../contexts/ScenarioContext', () => ({
     currentScenario: mockCurrentScenario,
     scenarios: mockScenarios,
     setCurrentScenario: mockSetCurrentScenario,
+    scenarioLock: null,
+    lockScenarioSwitching: jest.fn(),
+    unlockScenarioSwitching: jest.fn(),
   }),
 }));
 
@@ -55,8 +58,10 @@ const assignments = [
   {
     id: 'a1',
     version: 1,
+    person_id: 'person-1',
     project_id: 'p1',
     project_name: 'Alpha',
+    role_id: 'role-se',
     role_name: 'SE',
     phase_name: 'Design',
     allocation_percentage: 20,
@@ -71,8 +76,10 @@ const assignments = [
   {
     id: 'a2',
     version: 1,
+    person_id: 'person-1',
     project_id: 'p2',
     project_name: 'Beta',
+    role_id: 'role-mde',
     role_name: 'MDE',
     allocation_percentage: 10,
     status: 'active',
@@ -86,8 +93,10 @@ const assignments = [
   {
     id: 'a3',
     version: 1,
+    person_id: 'person-1',
     project_id: 'p3',
     project_name: 'Gamma',
+    role_id: 'role-se',
     role_name: 'SE',
     allocation_percentage: 5,
     status: 'paused',
@@ -98,8 +107,10 @@ const assignments = [
   {
     id: 'a4',
     version: 1,
+    person_id: 'person-1',
     project_id: 'p4',
     project_name: 'Delta',
+    role_id: 'role-se',
     role_name: 'SE',
     allocation_percentage: 15,
     status: 'active',
@@ -179,13 +190,13 @@ test('current total, excluded rows, and scenario source badges share one selecto
   expect(screen.getByTestId('pw-remaining')).toHaveTextContent('20%');
   expect(screen.getByTestId('pw-excluded')).toHaveTextContent('2 · 20%');
 
-  expect(screen.getByText('Alpha')).toBeInTheDocument();
-  expect(screen.getByText('Beta')).toBeInTheDocument();
+  expect(screen.getAllByText('Alpha').length).toBeGreaterThan(0);
+  expect(screen.getAllByText('Beta').length).toBeGreaterThan(0);
   expect(screen.getByText('Baseline (global)')).toBeInTheDocument();
   expect(screen.getAllByText('Current scenario').length).toBeGreaterThan(0);
-  expect(screen.getByText('Paused')).toBeInTheDocument();
-  expect(screen.getByText('Not started')).toBeInTheDocument();
-  expect(screen.queryByText('Gamma')).toBeInTheDocument();
+  expect(screen.getAllByText('Paused').length).toBeGreaterThan(0);
+  expect(screen.getAllByText('Not started').length).toBeGreaterThan(0);
+  expect(screen.getAllByText('Gamma').length).toBeGreaterThan(0);
 });
 
 test('availability 0 is shown as no capacity, relative utilization is —', async () => {
@@ -382,329 +393,277 @@ test('phase/project rows keep derived dates read-only and edit allocation only',
   expect(screen.getByText(/Dates follow the project\/phase/i)).toBeInTheDocument();
 });
 
-const taskTree = [
-  {
-    id: 'task-root',
-    name: 'SR Parent',
+/* ===================== 工作台 v2：任务选择弹窗 → ghost → 提交 ===================== */
+
+/** selection=1 行形状（§13.1） */
+function selectionTask(overrides: Record<string, unknown>): Record<string, any> {
+  return {
     parent_id: null,
-    child_count: 1,
-    project_sub_type_name: 'SR',
+    child_count: 0,
+    has_children: false,
     lifecycle_state: 'developing',
-    include_in_demand: 1,
-  },
-  {
+    project_sub_type_name: 'AR',
+    is_ancestor: false,
+    timeline_start: null,
+    timeline_end: null,
+    aspiration_start: null,
+    aspiration_finish: null,
+    has_phase_timeline: false,
+    role_demands: [],
+    assigned_summary: [],
+    single_person_slots: [],
+    ...overrides,
+  };
+}
+
+const boardTasks = [
+  selectionTask({
+    id: 'task-parent',
+    name: 'SR Parent',
+    child_count: 1,
+    has_children: true,
+    project_sub_type_name: 'SR',
+  }),
+  selectionTask({
     id: 'task-leaf',
     name: 'Leaf Task',
-    parent_id: 'task-root',
-    child_count: 0,
-    project_sub_type_name: 'AR',
-    lifecycle_state: 'developing',
-    include_in_demand: 1,
-    start_date: '2026-03-01',
-    end_date: '2026-03-31',
-  },
-  {
+    parent_id: 'task-parent',
+    role_demands: [{ role_id: 'role-se', role_name: 'SE', phase_id: 'phase-design', required_headcount: 1, source: 'template' }],
+    assigned_summary: [],
+    has_phase_timeline: true,
+    timeline_start: '2026-04-01',
+    timeline_end: '2026-04-30',
+  }),
+  selectionTask({
     id: 'task-leaf-2',
     name: 'Leaf Task 2',
-    parent_id: 'task-root',
-    child_count: 0,
-    project_sub_type_name: 'AR',
-    lifecycle_state: 'developing',
-    include_in_demand: 1,
-    start_date: '2026-04-01',
-    end_date: '2026-04-30',
-  },
-  {
-    id: 'p1',
-    name: 'Assigned Task',
-    parent_id: null,
-    child_count: 0,
-    project_sub_type_name: 'AR',
-    lifecycle_state: 'developing',
-    include_in_demand: 1,
-    start_date: '2026-01-01',
-    end_date: '2026-12-31',
-  },
-  {
-    id: 'future-task',
-    name: 'Future Task',
-    parent_id: null,
-    child_count: 0,
-    project_sub_type_name: 'AR',
-    lifecycle_state: 'developing',
-    include_in_demand: 1,
-    start_date: '2027-01-01',
-    end_date: '2027-01-31',
-  },
+    parent_id: 'task-parent',
+    role_demands: [{ role_id: 'role-mde', role_name: 'MDE', phase_id: null, required_headcount: null, source: 'unconfigured' }],
+    aspiration_start: '2026-05-01',
+    aspiration_finish: '2026-05-31',
+  }),
+  selectionTask({
+    id: 'task-terminal',
+    name: 'Delivered Task',
+    lifecycle_state: 'delivered',
+  }),
+  selectionTask({
+    id: 'task-fixed',
+    name: 'Fixed Window Task',
+    role_demands: [{ role_id: 'role-se', role_name: 'SE', phase_id: null, required_headcount: 1, source: 'template' }],
+  }),
 ];
 
-test('task picker disables SR parent and adds a leaf in one create request', async () => {
+function mockBoard(tasks: Record<string, any>[] = boardTasks, total = tasks.length) {
   (api.projects.list as jest.Mock).mockResolvedValue({
-    data: { data: taskTree, pagination: { total: 2, has_more: false } },
+    data: { data: tasks, pagination: { page: 1, total, totalPages: 1, has_more: false } },
   });
+}
+
+async function openDialog() {
+  fireEvent.click(await screen.findByTestId('pw-add-assignment'));
+  await screen.findByRole('dialog');
+  await screen.findByTestId('pw-task-board');
+}
+
+test('dialog: parent/terminal rows locked, leaf selectable; scope=demand by default', async () => {
+  mockBoard();
   renderPage();
+  await openDialog();
 
-  const parent = await screen.findByRole('treeitem', { name: /SR Parent/i });
-  expect(parent).toHaveAttribute('aria-expanded', 'true');
+  expect((api.projects.list as jest.Mock).mock.calls.at(-1)?.[0]).toMatchObject({
+    selection: '1',
+    scope: 'demand',
+  });
 
-  const leaf = screen.getByRole('treeitem', { name: /^Leaf Task AR/i });
-  fireEvent.click(leaf);
+  // 父行与终态行只有锁；叶子行是复选框
+  expect(screen.getByTestId('pw-select-task-task-leaf')).toBeInstanceOf(HTMLInputElement);
+  expect(screen.queryByTestId('pw-select-task-task-parent')).not.toBeInTheDocument();
+  expect(screen.queryByTestId('pw-select-task-task-terminal')).not.toBeInTheDocument();
+  expect(screen.getAllByTitle(/Delivered or cancelled/i).length).toBeGreaterThan(0);
+
+  // scope 切换到 all
+  fireEvent.change(screen.getByLabelText('Task scope'), { target: { value: 'all' } });
+  await waitFor(() => {
+    expect((api.projects.list as jest.Mock).mock.calls.at(-1)?.[0]).toMatchObject({
+      selection: '1',
+      scope: 'all',
+    });
+  });
+});
+
+test('multi-select → 加入泳道 → ghosts in gantt + commit bar', async () => {
+  mockBoard();
+  renderPage();
+  await openDialog();
+
+  fireEvent.click(screen.getByTestId('pw-select-task-task-leaf'));
+  fireEvent.click(screen.getByTestId('pw-select-task-task-fixed'));
+  expect(screen.getByTestId('pw-dialog-count')).toHaveTextContent('2');
+
+  // 迷你热区实时进入
+  expect(screen.getByTestId('pw-mini-heat')).toBeInTheDocument();
+
+  fireEvent.click(screen.getByTestId('pw-add-to-lane'));
 
   await waitFor(() => {
-    expect(screen.getByRole('button', { name: /^Add$/i })).toBeInTheDocument();
+    expect(screen.getByTestId('pw-commit-count')).toHaveTextContent('2');
   });
-  expect(screen.getByTestId('pw-impact-preview')).toHaveTextContent(/Person: 30% → 50%/);
-  expect(screen.getByTestId('pw-impact-preview')).toHaveTextContent(/Project Leaf Task: 0% → 20%/);
-  fireEvent.change(screen.getByLabelText('Allocation %'), { target: { value: '40' } });
-  fireEvent.click(screen.getByRole('button', { name: /^Add$/i }));
+  expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+  // 泳道出现 ghost bar（Leaf Task 为 phase 默认模式；fixed 任务无日期 → 未定日期 bar）
+  expect(await screen.findAllByTestId('pw-ghost-bar').then((bars) => bars.length)).toBe(2);
+});
+
+test('ghost inspector: fixed dates + allocation edit, then sequential create per draft', async () => {
+  mockBoard();
+  renderPage();
+  await openDialog();
+
+  // 统一 fixed 模式并给日期（§6.5 统一参数）
+  fireEvent.click(screen.getByTestId('pw-select-task-task-fixed'));
+  fireEvent.change(screen.getByLabelText('Unified date mode'), { target: { value: 'fixed' } });
+  fireEvent.change(screen.getByLabelText('Start date'), { target: { value: '2026-04-01' } });
+  fireEvent.change(screen.getByLabelText('End date'), { target: { value: '2026-04-30' } });
+  fireEvent.click(screen.getByTestId('pw-add-to-lane'));
+
+  await screen.findByTestId('pw-commit-bar');
+  const ghost = await screen.findByTestId('pw-ghost-bar');
+  fireEvent.click(ghost);
+
+  const allocation = await screen.findByLabelText('Allocation %');
+  fireEvent.change(allocation, { target: { value: '40' } });
+  expect(screen.getByTestId('pw-ghost-impact')).toBeInTheDocument();
+  fireEvent.click(screen.getByRole('button', { name: 'Done' }));
+
+  fireEvent.click(screen.getByTestId('pw-confirm-assign'));
 
   await waitFor(() => {
     expect(api.assignments.create).toHaveBeenCalledTimes(1);
   });
   expect(api.assignments.create).toHaveBeenCalledWith(
     expect.objectContaining({
-      project_id: 'task-leaf',
+      project_id: 'task-fixed',
       person_id: 'person-1',
       role_id: 'role-se',
       allocation_percentage: 40,
       assignment_date_mode: 'fixed',
-      start_date: '2026-03-01',
-      end_date: '2026-03-31',
+      start_date: '2026-04-01',
+      end_date: '2026-04-30',
     }),
     { scenarioId: 'baseline-0000-0000-0000-000000000000' }
   );
-});
-
-test('task scope switches from demand delivery to all assignable', async () => {
-  (api.projects.list as jest.Mock).mockResolvedValue({
-    data: { data: taskTree, pagination: { total: 2, has_more: false } },
-  });
-  renderPage();
-
-  await screen.findByRole('treeitem', { name: /^Leaf Task AR/i });
-  fireEvent.change(screen.getByLabelText('Task scope'), { target: { value: 'all' } });
-
+  // 全部成功后回到 Idle：commit bar 消失（§11.1）
   await waitFor(() => {
-    const lastCall = (api.projects.list as jest.Mock).mock.calls.at(-1)?.[0];
-    expect(lastCall).not.toHaveProperty('include_in_demand');
-    expect(lastCall).toMatchObject({ slim: '1', include_ancestors: '1' });
+    expect(screen.queryByTestId('pw-commit-bar')).not.toBeInTheDocument();
   });
 });
 
-test('handover sends successor/effective date/allocation with one expected_version', async () => {
+test('phase default mode creates with phase_id from the task demand, no manual dates', async () => {
+  mockBoard();
   renderPage();
+  await openDialog();
+
+  fireEvent.click(screen.getByTestId('pw-select-task-task-leaf'));
+  fireEvent.click(screen.getByTestId('pw-add-to-lane'));
+  await screen.findByTestId('pw-commit-bar');
+  fireEvent.click(screen.getByTestId('pw-confirm-assign'));
 
   await waitFor(() => {
-    expect(screen.getAllByRole('button', { name: 'Hand over' }).length).toBeGreaterThan(0);
+    expect(api.assignments.create).toHaveBeenCalledTimes(1);
   });
-  fireEvent.click(screen.getAllByRole('button', { name: 'Hand over' })[0]);
-
-  expect(await screen.findByLabelText('Successor')).toHaveValue('person-2');
-  expect(screen.getByLabelText('Effective date')).toHaveValue('2026-03-15');
-  fireEvent.click(screen.getByRole('button', { name: 'Confirm handover' }));
-
-  await waitFor(() => {
-    expect(api.assignments.handover).toHaveBeenCalledWith(
-      'a1',
-      {
-        successor_person_id: 'person-2',
-        effective_date: '2026-03-15',
-        allocation_percentage: 20,
-        expected_version: 1,
-      },
-      { scenarioId: 'baseline-0000-0000-0000-000000000000' }
-    );
+  const payload = (api.assignments.create as jest.Mock).mock.calls[0][0];
+  expect(payload).toMatchObject({
+    project_id: 'task-leaf',
+    assignment_date_mode: 'phase',
+    phase_id: 'phase-design',
   });
-  expect(await screen.findByText('Assignment handed over.')).toBeInTheDocument();
+  expect(payload).not.toHaveProperty('start_date');
+  expect(payload).not.toHaveProperty('end_date');
 });
 
-test('task node shows assigned count and opens the existing row for editing', async () => {
-  (api.projects.list as jest.Mock).mockResolvedValue({
-    data: { data: taskTree, pagination: { total: 4, has_more: false } },
-  });
+test('project-mode draft (aspiration window) sends no raw dates', async () => {
+  mockBoard();
   renderPage();
+  await openDialog();
 
-  const task = await screen.findByRole('treeitem', { name: /Assigned Task/i });
-  expect(task).toHaveTextContent(/Assigned 1/);
-  fireEvent.click(task);
-  fireEvent.click(await screen.findByRole('button', { name: /View existing/i }));
+  fireEvent.click(screen.getByTestId('pw-select-task-task-leaf-2'));
+  fireEvent.click(screen.getByTestId('pw-add-to-lane'));
+  await screen.findByTestId('pw-commit-bar');
+  fireEvent.click(screen.getByTestId('pw-confirm-assign'));
+
+  await waitFor(() => {
+    expect(api.assignments.create).toHaveBeenCalledTimes(1);
+  });
+  const payload = (api.assignments.create as jest.Mock).mock.calls[0][0];
+  expect(payload).toMatchObject({ project_id: 'task-leaf-2', assignment_date_mode: 'project' });
+  expect(payload).not.toHaveProperty('start_date');
+  expect(payload).not.toHaveProperty('end_date');
+});
+
+test('duplicate-key row: checkbox locked, inline edit opens the existing row', async () => {
+  // p1/Alpha 已有本人分配（role-se, phase null）；任务 p1 同键 → EDIT 入口
+  mockBoard([
+    selectionTask({
+      id: 'p1',
+      name: 'Assigned Task',
+      role_demands: [{ role_id: 'role-se', role_name: 'SE', phase_id: null, required_headcount: 1, source: 'template' }],
+    }),
+  ]);
+  renderPage();
+  await openDialog();
+
+  expect(screen.queryByTestId('pw-select-task-p1')).not.toBeInTheDocument();
+  fireEvent.click(screen.getByRole('button', { name: 'Edit existing assignment' }));
 
   expect(await screen.findByLabelText('Allocation %')).toHaveValue(20);
-  expect(screen.getByTestId('pw-impact-preview')).toHaveTextContent(/Project Alpha/);
 });
 
-test('batch adjust saves each dirty row with its own version and scenario', async () => {
-  renderPage();
-
-  fireEvent.click(await screen.findByRole('button', { name: /Batch adjust allocations/i }));
-  const inputs = screen.getAllByLabelText('Allocation %');
-  expect(inputs).toHaveLength(4);
-  fireEvent.change(inputs[0], { target: { value: '30' } });
-  fireEvent.change(inputs[1], { target: { value: '15' } });
-  fireEvent.click(screen.getByRole('button', { name: /Save changed rows/i }));
-
-  await waitFor(() => {
-    expect(api.assignments.update).toHaveBeenCalledTimes(2);
-  });
-  expect(api.assignments.update).toHaveBeenNthCalledWith(
-    1,
-    'a1',
-    expect.objectContaining({ allocation_percentage: 30, expected_version: 1 }),
-    { scenarioId: 'baseline-0000-0000-0000-000000000000' }
-  );
-  expect(api.assignments.update).toHaveBeenNthCalledWith(
-    2,
-    'a2',
-    expect.objectContaining({ allocation_percentage: 15, expected_version: 1 }),
-    { scenarioId: 'baseline-0000-0000-0000-000000000000' }
-  );
-  expect(await screen.findByText(/Saved 2 row/)).toBeInTheDocument();
-});
-
-test('task tree parents expand/collapse descendants', async () => {
-  (api.projects.list as jest.Mock).mockResolvedValue({
-    data: { data: taskTree, pagination: { total: 3, has_more: false } },
-  });
-  renderPage();
-
-  const parent = await screen.findByRole('treeitem', { name: /SR Parent/i });
-  expect(parent).toHaveAttribute('aria-expanded', 'true');
-  expect(screen.getByRole('treeitem', { name: /^Leaf Task AR/i })).toBeInTheDocument();
-
-  fireEvent.click(parent);
-  expect(parent).toHaveAttribute('aria-expanded', 'false');
-  expect(screen.queryByRole('treeitem', { name: /^Leaf Task AR/i })).not.toBeInTheDocument();
-
-  fireEvent.click(parent);
-  expect(parent).toHaveAttribute('aria-expanded', 'true');
-  expect(screen.getByRole('treeitem', { name: /^Leaf Task AR/i })).toBeInTheDocument();
-});
-
-test('impact preview uses the proposed window, not just asOf', async () => {
-  (api.projects.list as jest.Mock).mockResolvedValue({
-    data: { data: taskTree, pagination: { total: 5, has_more: false } },
-  });
-  renderPage();
-
-  fireEvent.click(await screen.findByRole('treeitem', { name: /Future Task/i }));
-  expect(await screen.findByTestId('pw-impact-preview')).toHaveTextContent(/Person: 10% → 30%/);
-  expect(screen.getByTestId('pw-impact-preview')).toHaveTextContent(/Project Future Task: 0% → 20%/);
-});
-
-test('task picker supports roving tabindex and arrow/Enter keyboard selection', async () => {
-  (api.projects.list as jest.Mock).mockResolvedValue({
-    data: { data: taskTree, pagination: { total: 3, has_more: false } },
-  });
-  renderPage();
-
-  const first = await screen.findByRole('treeitem', { name: /^Leaf Task AR/i });
-  const second = screen.getByRole('treeitem', { name: /^Leaf Task 2 AR/i });
-  expect(screen.getByRole('treeitem', { name: /SR Parent/i })).toHaveAttribute('tabindex', '-1');
-  expect(screen.getAllByRole('treeitem').some((item) => item.getAttribute('tabindex') === '0')).toBe(true);
-
-  act(() => first.focus());
-  fireEvent.keyDown(first, { key: 'ArrowDown' });
-  expect(document.activeElement).toBe(second);
-
-  fireEvent.keyDown(second, { key: 'Enter' });
-  expect(await screen.findByLabelText('Date mode')).toBeInTheDocument();
-  expect(screen.getByRole('treeitem', { name: /^Leaf Task 2 AR/i })).toHaveAttribute('aria-selected', 'true');
-});
-
-test('duplicate create 409 is shown as an inline edit-existing message, not a generic failure', async () => {
-  (api.projects.list as jest.Mock).mockResolvedValue({
-    data: { data: taskTree, pagination: { total: 2, has_more: false } },
-  });
-  (api.assignments.create as jest.Mock).mockRejectedValue({
-    response: { status: 409, data: { code: 'ASSIGNMENT_DUPLICATE' } },
-  });
-  renderPage();
-
-  fireEvent.click(await screen.findByRole('treeitem', { name: /^Leaf Task AR/i }));
-  fireEvent.click(await screen.findByRole('button', { name: /^Add$/i }));
-
-  await waitFor(() => {
-    expect(screen.getByRole('alert')).toHaveTextContent(/Adjust the existing row/i);
-  });
-});
-
-test('phase mode creates with phase_id and no manual dates', async () => {
-  (api.projects.list as jest.Mock).mockResolvedValue({
-    data: { data: taskTree, pagination: { total: 2, has_more: false } },
-  });
-  (api.projectPhases.list as jest.Mock).mockResolvedValue({
-    data: {
-      data: [
+test('SE slot occupied: 替换占用者 → REPLACE ghost with incumbent; explicit confirm before submit', async () => {
+  mockBoard([
+    selectionTask({
+      id: 'task-slot',
+      name: 'Slot Task',
+      role_demands: [{ role_id: 'role-se', role_name: 'SE', phase_id: null, required_headcount: 1, source: 'template' }],
+      single_person_slots: [
         {
-          id: 'timeline-1',
-          phase_id: 'phase-design',
-          phase_name: 'Design',
-          start_date: '2026-03-01',
-          end_date: '2026-03-15',
+          role_id: 'role-se',
+          role_name: 'SE',
+          incumbent_assignment_id: 'spa-old-se',
+          incumbent_person_id: 'person-old',
+          incumbent_person_name: 'Old SE',
+          incumbent_version: 3,
+          incumbent_start_date: '2026-01-01',
+          incumbent_end_date: '2026-12-31',
         },
       ],
-      pagination: { total: 1 },
-    },
-  });
+    }),
+  ]);
   renderPage();
+  await openDialog();
 
-  fireEvent.click(await screen.findByRole('treeitem', { name: /^Leaf Task AR/i }));
-  fireEvent.change(screen.getByLabelText('Date mode'), { target: { value: 'phase' } });
+  fireEvent.click(screen.getByRole('button', { name: 'Replace Old SE' }));
+  await screen.findByTestId('pw-commit-bar');
 
-  await waitFor(() => {
-    expect(screen.getByLabelText('Phase')).toBeInTheDocument();
-  });
-  expect(await screen.findByText(/2026-03-01/)).toBeInTheDocument();
-  fireEvent.click(screen.getByRole('button', { name: /^Add$/i }));
+  // 未确认前是 CONFLICT：确认按钮计数为 0
+  expect(screen.getByTestId('pw-confirm-assign')).toBeDisabled();
 
+  const ghost = await screen.findByTestId('pw-ghost-bar');
+  fireEvent.click(ghost);
+  expect(screen.getByTestId('pw-replace-incumbent')).toHaveTextContent('Old SE');
+  // 无时间线/无 aspiration 的任务默认 fixed 空日期：补日期才可提交（§16）
+  fireEvent.change(screen.getByLabelText('Start date'), { target: { value: '2026-04-01' } });
+  fireEvent.change(screen.getByLabelText('End date'), { target: { value: '2026-04-30' } });
+  fireEvent.click(screen.getByLabelText(/I confirm deleting the old row/i));
+  fireEvent.click(screen.getByRole('button', { name: 'Done' }));
+
+  fireEvent.click(screen.getByTestId('pw-confirm-assign'));
   await waitFor(() => {
     expect(api.assignments.create).toHaveBeenCalledTimes(1);
   });
   expect(api.assignments.create).toHaveBeenCalledWith(
     expect.objectContaining({
-      project_id: 'task-leaf',
-      assignment_date_mode: 'phase',
-      phase_id: 'phase-design',
-    }),
-    { scenarioId: 'baseline-0000-0000-0000-000000000000' }
-  );
-  const payload = (api.assignments.create as jest.Mock).mock.calls[0][0];
-  expect(payload).not.toHaveProperty('start_date');
-  expect(payload).not.toHaveProperty('end_date');
-});
-
-test('SE slot occupied shows the incumbent and sends explicit replacement fields', async () => {
-  (api.projects.list as jest.Mock).mockResolvedValue({
-    data: { data: taskTree, pagination: { total: 5, has_more: false } },
-  });
-  (api.assignments.create as jest.Mock)
-    .mockRejectedValueOnce({
-      response: {
-        status: 409,
-        data: {
-          code: 'ASSIGNMENT_SLOT_OCCUPIED',
-          incumbents: [{
-            id: 'old-se',
-            person_id: 'person-old',
-            person_name: 'Old SE',
-            allocation_percentage: 100,
-            version: 3,
-          }],
-        },
-      },
-    })
-    .mockResolvedValue({ data: { id: 'replacement' } });
-  renderPage();
-
-  fireEvent.click(await screen.findByRole('treeitem', { name: /^Leaf Task AR/i }));
-  fireEvent.click(await screen.findByRole('button', { name: /^Add$/i }));
-  fireEvent.click(await screen.findByRole('button', { name: /Replace Old SE/i }));
-
-  await waitFor(() => {
-    expect(api.assignments.create).toHaveBeenCalledTimes(2);
-  });
-  expect(api.assignments.create).toHaveBeenLastCalledWith(
-    expect.objectContaining({
+      project_id: 'task-slot',
+      role_id: 'role-se',
       replace_assignment_id: 'old-se',
       replace_expected_version: 3,
     }),
@@ -712,31 +671,74 @@ test('SE slot occupied shows the incumbent and sends explicit replacement fields
   );
 });
 
-test('project mode creates with project mode and derived read-only dates', async () => {
-  (api.projects.list as jest.Mock).mockResolvedValue({
-    data: { data: taskTree, pagination: { total: 2, has_more: false } },
-  });
+test('partial failure keeps failed ghost; UNKNOWN reconciles via read-back under draft scenario', async () => {
+  mockBoard();
   renderPage();
+  await openDialog();
 
-  fireEvent.click(await screen.findByRole('treeitem', { name: /^Leaf Task AR/i }));
-  fireEvent.change(screen.getByLabelText('Date mode'), { target: { value: 'project' } });
+  fireEvent.click(screen.getByTestId('pw-select-task-task-leaf'));
+  fireEvent.click(screen.getByTestId('pw-select-task-task-leaf-2'));
+  fireEvent.click(screen.getByTestId('pw-add-to-lane'));
+  await screen.findByTestId('pw-commit-bar');
+
+  // 第一条明确 409；第二条网络断开（无 response）→ UNKNOWN
+  (api.assignments.create as jest.Mock)
+    .mockRejectedValueOnce({ response: { status: 409, data: { code: 'ASSIGNMENT_DUPLICATE' } } })
+    .mockRejectedValueOnce(new Error('Network Error'));
+
+  fireEvent.click(screen.getByTestId('pw-confirm-assign'));
 
   await waitFor(() => {
-    expect(screen.getByTestId('pw-derived-dates')).toHaveTextContent('2026-03-01');
+    expect(api.assignments.create).toHaveBeenCalledTimes(2);
   });
-  fireEvent.click(screen.getByRole('button', { name: /^Add$/i }));
+  // UNKNOWN 回读发生在草稿绑定的原场景
+  await waitFor(() => {
+    const listCalls = (api.assignments.list as jest.Mock).mock.calls.filter(
+      (call) => call[1] && call[1].scenarioId
+    );
+    expect(listCalls.length).toBeGreaterThan(0);
+  });
+  // 回读没有同键新行 → 标记失败，失败 ghost 保留
+  await waitFor(() => {
+    expect(screen.getByTestId('pw-commit-count')).toHaveTextContent('2');
+  });
+});
+
+test('scenario switch after adding ghosts: submit disabled until back or discard', async () => {
+  mockBoard();
+  const view = renderPage();
+  await openDialog();
+  fireEvent.click(screen.getByTestId('pw-select-task-task-leaf'));
+  fireEvent.click(screen.getByTestId('pw-add-to-lane'));
+  await screen.findByTestId('pw-commit-bar');
+
+  mockCurrentScenario = mockScenarios[1];
+  view.rerender(pageElement(view.queryClient));
 
   await waitFor(() => {
-    expect(api.assignments.create).toHaveBeenCalledTimes(1);
+    expect(screen.getByTestId('pw-draft-scenario-mismatch')).toBeInTheDocument();
   });
-  expect(api.assignments.create).toHaveBeenCalledWith(
-    expect.objectContaining({
-      project_id: 'task-leaf',
-      assignment_date_mode: 'project',
-    }),
-    { scenarioId: 'baseline-0000-0000-0000-000000000000' }
-  );
-  const payload = (api.assignments.create as jest.Mock).mock.calls[0][0];
-  expect(payload).not.toHaveProperty('start_date');
-  expect(payload).not.toHaveProperty('end_date');
+  expect(screen.getByTestId('pw-confirm-assign')).toBeDisabled();
+
+  // 回到原场景恢复可提交
+  mockCurrentScenario = mockScenarios[0];
+  view.rerender(pageElement(view.queryClient));
+  await waitFor(() => {
+    expect(screen.queryByTestId('pw-draft-scenario-mismatch')).not.toBeInTheDocument();
+  });
+  expect(screen.getByTestId('pw-confirm-assign')).toBeEnabled();
+});
+
+test('ESC closes the dialog and focus returns to the add-assignment button', async () => {
+  mockBoard();
+  renderPage();
+  await openDialog();
+
+  fireEvent.keyDown(document, { key: 'Escape' });
+  await waitFor(() => {
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+  });
+  await waitFor(() => {
+    expect(document.activeElement).toBe(screen.getByTestId('pw-add-assignment'));
+  });
 });

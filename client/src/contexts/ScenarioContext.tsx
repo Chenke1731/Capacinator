@@ -10,6 +10,10 @@ interface ScenarioContextType {
   setCurrentScenario: (scenario: Scenario | null) => void;
   isLoading: boolean;
   error: any;
+  /** 提交中锁定场景切换（工作台 v2 §12）；reason 供 UI 提示 */
+  scenarioLock: string | null;
+  lockScenarioSwitching: (reason: string) => void;
+  unlockScenarioSwitching: () => void;
 }
 
 const ScenarioContext = createContext<ScenarioContextType | undefined>(undefined);
@@ -20,6 +24,10 @@ interface ScenarioProviderProps {
 
 export function ScenarioProvider({ children }: ScenarioProviderProps) {
   const [currentScenario, setCurrentScenario] = useState<Scenario | null>(null);
+  // 工作台 v2 §12：CommitInFlight 期间禁止切换场景——草稿绑定原场景，
+  // 在途请求虽带显式场景头，切换仍会让泳道口径与草稿脱节。锁定期间静默
+  // 忽略切换（选择器仍可见，原因由页面横幅说明）。
+  const [scenarioLock, setScenarioLock] = useState<string | null>(null);
 
   // Fetch all scenarios
   const { data: scenarios = [], isLoading, error } = useQuery({
@@ -65,9 +73,15 @@ export function ScenarioProvider({ children }: ScenarioProviderProps) {
   const value: ScenarioContextType = {
     currentScenario,
     scenarios,
-    setCurrentScenario,
+    setCurrentScenario: (scenario: Scenario | null) => {
+      if (scenarioLock) return;
+      setCurrentScenario(scenario);
+    },
     isLoading,
     error,
+    scenarioLock,
+    lockScenarioSwitching: (reason: string) => setScenarioLock(reason),
+    unlockScenarioSwitching: () => setScenarioLock(null),
   };
 
   return (

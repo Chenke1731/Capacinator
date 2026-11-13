@@ -94,6 +94,7 @@ describe('ReportingController', () => {
           UNAVAILABLE: 1,
           LIMITED: 4
         },
+        overdue_reference_date: '2026-11-13',
         design_watch: [],
         lifecycle_summary: {}
       };
@@ -122,6 +123,7 @@ describe('ReportingController', () => {
         projectHealth: {},
         capacityGaps: { GAP: 0, TIGHT: 0, OK: 0 },
         utilization: {},
+        overdue_reference_date: '2026-11-13',
         availability: { AVAILABLE: 0, ASSIGNED: 0, UNAVAILABLE: 0, LIMITED: 0 },
         design_watch: [],
         lifecycle_summary: {}

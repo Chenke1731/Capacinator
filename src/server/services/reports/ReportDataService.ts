@@ -4,6 +4,7 @@ import { segmentedWorkHours } from '../calc/capacitySegments.js';
 import { fetchApprovedAvailabilityOverrides } from '../calc/availabilityOverrides.js';
 import { roleCapacityGaps } from '../calc/roleGaps.js';
 import { personUtilizationRows } from '../calc/personUtilization.js';
+import { overdueProjects, resolveOverdueReferenceDate } from '../projects/overdueProjects.js';
 import { toISODateLocal } from '../../utils/isoDate.js';
 import type {
   DateRangeFilter,
@@ -74,8 +75,12 @@ export class ReportDataService {
       .where('projects.include_in_demand', true)
       .orderBy(['projects.id', 'project_phases_timeline.start_date']);
 
-    // Calculate project health status
-    const projectHealth = this.calculateProjectHealth(currentProjects, currentDate);
+    // Calculate project health status（I02g：逾期改为独立原语的项目级 MAX，
+    // 参考日钳制到今天；旧实现取窗口内第一条阶段，default 窗口下恒 0）
+    const overdueReferenceDate = resolveOverdueReferenceDate(currentDate);
+    const overdueRows = await overdueProjects(this.db, overdueReferenceDate);
+    const overdueIds = new Set(overdueRows.map((row) => row.project_id));
+    const projectHealth = this.calculateProjectHealth(currentProjects, currentDate, overdueIds);
 
     // Get capacity gaps（场景切片原语；055 CTE 内联 + 需求侧只计选定场景）
     const capacityGapsData = await roleCapacityGaps(this.db, scenarioId);
@@ -142,6 +147,7 @@ export class ReportDataService {
       capacityGaps,
       utilization,
       availability,
+      overdue_reference_date: overdueReferenceDate,
       design_watch,
       lifecycle_summary,
     };
@@ -553,26 +559,29 @@ export class ReportDataService {
 
   private calculateProjectHealth(
     currentProjects: Record<string, unknown>[],
-    currentDate: string
+    currentDate: string,
+    overdueIds: Set<string> = new Set()
   ): Record<string, number> {
     const projectHealthMap = new Map<string, string>();
 
     currentProjects.forEach((project) => {
-      if (!projectHealthMap.has(project.id as string)) {
-        let healthStatus = 'ACTIVE';
-        if (project.phase_end && (project.phase_end as string) < currentDate) {
-          healthStatus = 'OVERDUE';
-        } else if (project.phase_start && (project.phase_start as string) > currentDate) {
-          healthStatus = 'PLANNING';
-        }
-        projectHealthMap.set(project.id as string, healthStatus);
+      const projectId = String(project.id);
+      if (projectHealthMap.has(projectId)) return;
+      // 逾期项目由独立原语计数（可能不在窗口内），窗口分档里剔除，避免双计
+      if (overdueIds.has(projectId)) return;
+      let healthStatus = 'ACTIVE';
+      if (project.phase_start && (project.phase_start as string) > currentDate) {
+        healthStatus = 'PLANNING';
       }
+      projectHealthMap.set(projectId, healthStatus);
     });
 
-    return Array.from(projectHealthMap.values()).reduce((acc, status) => {
+    const health = Array.from(projectHealthMap.values()).reduce((acc, status) => {
       acc[status] = (acc[status] || 0) + 1;
       return acc;
     }, {} as Record<string, number>);
+    if (overdueIds.size > 0) health.OVERDUE = overdueIds.size;
+    return health;
   }
 
   private categorizeCapacityGaps(

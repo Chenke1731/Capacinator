@@ -45,6 +45,8 @@ export interface DashboardStats {
     OK: number;
   };
   utilization: Record<string, number>;
+  /** I02g：排期逾期计数使用的参考日（已钳制到今天） */
+  overdue_reference_date: string;
   availability: {
     AVAILABLE: number;
     ASSIGNED: number;

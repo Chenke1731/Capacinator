@@ -18,20 +18,30 @@ interface CriticalAlert {
   dueDate?: string;
 }
 
-export function useCriticalAlerts() {
+interface AlertDateRange {
+  startDate?: string;
+  endDate?: string;
+  preset?: string;
+}
+
+export function useCriticalAlerts(dateRange?: AlertDateRange) {
   const { currentScenario } = useScenario();
   const { t } = useTranslation();
 
-  // Fetch dashboard data
+  // Fetch dashboard data（I02g：与 Dashboard 图表共用同一日期窗口/查询键，
+  // 否则告警按"今天"、图表按选中窗口，逾期/健康数字会各说各话）
   const {
     data: dashboard,
     isLoading: dashboardLoading,
     error: dashboardError,
     refetch: refetchDashboard
   } = useQuery({
-    queryKey: queryKeys.dashboard.summary(currentScenario?.id),
+    queryKey: queryKeys.dashboard.summary(currentScenario?.id, dateRange as Record<string, string> | undefined),
     queryFn: async () => {
-      const response = await api.reporting.getDashboard();
+      const response = await api.reporting.getDashboard({
+        start_date: dateRange?.startDate,
+        end_date: dateRange?.endDate
+      });
       return response.data.data;
     },
     enabled: !!currentScenario
@@ -100,10 +110,11 @@ export function useCriticalAlerts() {
         title: t('dashboard:alerts.types.projectOverdue.title'),
         description: t('dashboard:alerts.types.projectOverdue.description', { count: overdueProjects }),
         actionText: t('dashboard:alerts.types.projectOverdue.action'),
-        // I02b/D3：dashboard 的 OVERDUE 数基于"窗口内重叠阶段"推导，而本 hook
-        // 不传日期窗口 → 该计数当前恒 0（评审确认）。深链不再带假参数
-        // filter=overdue（Projects 从未读取）；"逾期视图"另立台账待口径修正。
-        navigationPath: '/projects',
+        // I02g：服务端 OVERDUE 已是项目级“排期逾期”计数（参考日已钳制）；
+        // 深链带同一参考日，Projects 行级 is_overdue 与该数同源。
+        navigationPath: dashboard.overdue_reference_date
+          ? `/projects?tv=overdue&reference_date=${dashboard.overdue_reference_date}`
+          : '/projects?tv=overdue',
         count: overdueProjects
       });
     }

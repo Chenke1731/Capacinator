@@ -624,6 +624,8 @@
     "pendingStaffingHint": "SE/MDE 有估算未派人、开发侧无主投入或缺开放池需求",
     "hasConflict": "有冲突",
     "hasConflictHint": "分配人员超载（服务端按可用率统一判档）",
+    "overdue": "排期逾期",
+    "overdueHint": "计划完成日（最晚阶段结束日）早于参考日且项目未交付/未取消",
     "pendingSchedule": "待排期",
     "pendingScheduleHint": "已进待排序池、未挂迭代",
     "pendingBackfill": "交付待回填",

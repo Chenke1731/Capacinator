@@ -143,7 +143,8 @@ describe('useCriticalAlerts', () => {
     const mockDashboard = {
       capacityGaps: {},
       utilization: {},
-      projectHealth: { OVERDUE: 2 }
+      projectHealth: { OVERDUE: 2 },
+      overdue_reference_date: '2026-11-13'
     };
 
     mockUseQuery
@@ -157,7 +158,8 @@ describe('useCriticalAlerts', () => {
       id: 'project-overdue',
       type: 'project_risk',
       severity: 'high',
-      count: 2
+      count: 2,
+      navigationPath: '/projects?tv=overdue&reference_date=2026-11-13'
     });
   });
 

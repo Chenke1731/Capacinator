@@ -321,7 +321,7 @@ export const api = {
   projects: {
     list: (params?: PaginationParams) => apiClient.get<PaginatedResponse<Project>>('/projects', { params }),
     /** Whole board in one request — slim projection for the virtualized demand table (P7). */
-    boardFeed: (params?: { lifecycle_state?: string }) =>
+    boardFeed: (params?: { lifecycle_state?: string; reference_date?: string }) =>
       apiClient.get<{ data: Project[] }>('/projects/board-feed', { params }),
     get: (id: string) => apiClient.get<{ data: Project }>(`/projects/${id}`),
     create: (data: Partial<Project>) => apiClient.post<{ data: Project }>('/projects', data),

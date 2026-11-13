@@ -232,6 +232,8 @@ export interface DashboardReportResponse {
     OK: number;
   };
   utilization: Record<string, number>;
+  /** I02g：逾期计数参考日（服务端已钳制到今天） */
+  overdue_reference_date?: string;
   availability: {
     AVAILABLE: number;
     ASSIGNED: number;

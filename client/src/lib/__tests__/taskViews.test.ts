@@ -3,7 +3,7 @@ import { taskViewPredicate, countByTaskView, TASK_VIEW_IDS } from '../taskViews'
 /**
  * U15 任务视图谓词（IP-06d，2026-10-17）。
  *
- * 六视图全部锚定服务端事实（board-feed 行字段）：生命周期态/告警码/
+ * 七视图全部锚定服务端事实（board-feed 行字段）：生命周期态/告警码/
  * 分配与估算挂载/冲突标志。本模块是 chips 计数与树过滤的单一真相——
  * 两处消费禁止各写一份谓词。
  */
@@ -15,7 +15,8 @@ const baseRow = {
   se_assignment: null as any,
   mde_assignment: null as any,
   primary_dev: null as any,
-  has_conflict: false
+  has_conflict: false,
+  is_overdue: false
 };
 
 describe('taskViewPredicate (U15)', () => {
@@ -65,6 +66,12 @@ describe('taskViewPredicate (U15)', () => {
     expect(taskViewPredicate('hasConflict', baseRow)).toBe(false);
   });
 
+  test('排期逾期: 只认服务端 is_overdue 标志,前端不判日期', () => {
+    expect(taskViewPredicate('overdue', { ...baseRow, is_overdue: true })).toBe(true);
+    expect(taskViewPredicate('overdue', { ...baseRow, is_overdue: false })).toBe(false);
+    expect(taskViewPredicate('overdue', baseRow)).toBe(false);
+  });
+
   test('待排期: backlog 态(域词表"待排序")', () => {
     expect(taskViewPredicate('pendingSchedule', { ...baseRow, lifecycle_state: 'backlog' })).toBe(true);
     expect(taskViewPredicate('pendingSchedule', { ...baseRow, lifecycle_state: 'scheduled' })).toBe(false);
@@ -78,17 +85,19 @@ describe('taskViewPredicate (U15)', () => {
 });
 
 describe('countByTaskView (U15)', () => {
-  test('六视图计数=行级独立命中数(非树口径)', () => {
+  test('七视图计数=行级独立命中数(非树口径)', () => {
     const rows = [
       { ...baseRow, id: '1', lifecycle_state: 'pending_rat' },
       { ...baseRow, id: '2', lifecycle_state: 'pending_rat' },
       { ...baseRow, id: '3', lifecycle_state: 'backlog' },
-      { ...baseRow, id: '4', has_conflict: true }
+      { ...baseRow, id: '4', has_conflict: true },
+      { ...baseRow, id: '5', is_overdue: true }
     ];
     const counts = countByTaskView(rows);
     expect(counts.pendingDecision).toBe(2);
     expect(counts.pendingSchedule).toBe(1);
     expect(counts.hasConflict).toBe(1);
+    expect(counts.overdue).toBe(1);
     expect(counts.pendingEstimate).toBe(0);
   });
 
@@ -97,9 +106,9 @@ describe('countByTaskView (U15)', () => {
     expect(countByTaskView([{}]).pendingDecision).toBe(0);
   });
 
-  test('TASK_VIEW_IDS 六项齐全且有序', () => {
+  test('TASK_VIEW_IDS 七项齐全且有序', () => {
     expect(TASK_VIEW_IDS).toEqual([
-      'pendingDecision', 'pendingEstimate', 'pendingStaffing', 'hasConflict', 'pendingSchedule', 'pendingBackfill'
+      'pendingDecision', 'pendingEstimate', 'pendingStaffing', 'hasConflict', 'overdue', 'pendingSchedule', 'pendingBackfill'
     ]);
   });
 });

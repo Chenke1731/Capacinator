@@ -2,10 +2,10 @@
  * U15 任务视图（IP-06d，2026-10-17）：把"发现问题→判断影响→完成排产"
  * 的队列问题从属性筛选里解放出来。
  *
- * 六视图全部锚定 board-feed 行上的**服务端事实**（生命周期态/告警码/
- * 分配与估算挂载/冲突标志），本模块只组织结果、不做容量计算——
+ * 七视图全部锚定 board-feed 行上的**服务端事实**（生命周期态/告警码/
+ * 分配与估算挂载/冲突/排期逾期标志），本模块只组织结果、不做容量计算——
  * "有冲突"只认服务端 has_conflict（person_utilization_view 统一判档），
- * 服务端未给即不命中，不以前端猜测替代。
+ * "排期逾期"只认服务端 is_overdue（overdueProjects 原语），服务端未给即不命中。
  *
  * 本模块是 chips 计数与树过滤的单一真相：两处消费同一谓词，禁止各写一份。
  */
@@ -14,6 +14,7 @@ export const TASK_VIEW_IDS = [
   'pendingEstimate',
   'pendingStaffing',
   'hasConflict',
+  'overdue',
   'pendingSchedule',
   'pendingBackfill'
 ] as const;
@@ -43,6 +44,9 @@ export function taskViewPredicate(view: TaskViewId, p: unknown): boolean {
     case 'hasConflict':
       // 只认服务端统一计算结果(相对可用率超载档);标志缺失≠无冲突成立
       return row.has_conflict === true;
+    case 'overdue':
+      // I02g：只认服务端 is_overdue（项目级 MAX 结束日 < 参考日）；前端不判日期
+      return row.is_overdue === true;
     case 'pendingSchedule':
       // 域词表: backlog="待排序"——已裁决进池、未挂迭代
       return row.lifecycle_state === 'backlog';

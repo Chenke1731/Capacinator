@@ -29,6 +29,7 @@ import { EnhancedKPIs } from '../components/dashboard/EnhancedKPIs';
  
 import { useCriticalAlerts } from '../hooks/useCriticalAlerts';
 import { peopleStatusPath, peopleStatusPathForUtilization } from '../lib/peopleStatusFilter';
+import { toISODateString } from '../utils/dateUtils';
 import './Dashboard.css';
 import '../components/chart-colors.css';
 
@@ -48,8 +49,8 @@ export function Dashboard() {
   
   // Date range state for time-based filtering
   const [dateRange, setDateRange] = React.useState({
-    startDate: new Date().toISOString().split('T')[0],
-    endDate: new Date().toISOString().split('T')[0],
+    startDate: toISODateString(new Date()),
+    endDate: toISODateString(new Date()),
     preset: 'current' as DateRangePreset
   });
   
@@ -74,7 +75,7 @@ export function Dashboard() {
     isLoading: alertsLoading,
     error: alertsError,
     refetch: refetchAlerts
-  } = useCriticalAlerts();
+  } = useCriticalAlerts(dateRange);
 
   // U22（D20 批5）：收件箱待分流计数——失败/加载不得显示 0（EXP-005）
   const {

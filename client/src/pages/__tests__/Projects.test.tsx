@@ -2282,6 +2282,21 @@ describe('URL state & board context (U20)', () => {
     expect(screen.getByTestId('task-view-pendingDecision').getAttribute('aria-pressed')).toBe('true');
   });
 
+  test('I02g URL 恢复: tv=overdue + reference_date 传给 board-feed', async () => {
+    mockSearchString = '?tv=overdue&reference_date=2026-11-13';
+    const rows = u20Rows.map((row) => ({ ...row, is_overdue: row.name === 'Queue SR Top' }));
+    (api.projects.boardFeed as jest.Mock).mockResolvedValue({
+      data: { data: { data: rows, total: rows.length } }
+    });
+    renderBoard();
+    await waitFor(() => expect(screen.getByText('Queue SR Top')).toBeInTheDocument());
+    expect(screen.queryByText('Queue SR Alpha')).not.toBeInTheDocument();
+    expect(screen.getByTestId('task-view-overdue').getAttribute('aria-pressed')).toBe('true');
+    expect(api.projects.boardFeed).toHaveBeenLastCalledWith(
+      expect.objectContaining({ reference_date: '2026-11-13' })
+    );
+  });
+
   test('筛选变化写入 URL(replace),reset 清 URL', async () => {
     renderBoard();
     await waitFor(() => expect(screen.getByText('Queue SR Top')).toBeInTheDocument());

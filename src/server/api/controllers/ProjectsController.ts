@@ -8,6 +8,7 @@ import { validateProjectSubType } from '../../services/projects/projectTypeValid
 import { inheritProjectPhases } from '../../services/projects/phaseInheritance.js';
 import { LifecycleService } from '../../services/lifecycle/LifecycleService.js';
 import { computeProjectConflictFlags } from '../../services/board/projectConflictFlags.js';
+import { overdueProjectIds, resolveOverdueReferenceDate } from '../../services/projects/overdueProjects.js';
 import { AssignmentRecalculationService, type AssignmentDateChange } from '../../services/AssignmentRecalculationService.js';
 import { logger } from '../../services/logging/config.js';
 
@@ -475,6 +476,13 @@ export class ProjectsController extends BaseController {
 
       const projects = await query;
 
+      // I02g：排期逾期行级标志（与 Dashboard 共用原语/参考日；iid=0、终态、
+      // NULL 生命周期、无阶段均不命中）
+      const overdueReferenceDate = resolveOverdueReferenceDate(
+        req.query.reference_date as string | undefined
+      );
+      const overdueIds = await overdueProjectIds(this.db, overdueReferenceDate);
+
       // Same assembly chain as getAll (board cells depend on these)
       const pageIds = projects.map((p: any) => p.id);
       const tagRows = pageIds.length
@@ -501,9 +509,15 @@ export class ProjectsController extends BaseController {
         project.tags = tagsByProject.get(project.id) ?? [];
         project.lifecycle_warnings = warningsByProject.get(project.id) ?? [];
         project.has_conflict = conflictProjects.has(String(project.id));
+        project.is_overdue = overdueIds.has(String(project.id));
       }
 
-      return { data: projects, total: projects.length };
+      return {
+        data: projects,
+        total: projects.length,
+        overdue_total: overdueIds.size,
+        overdue_reference_date: overdueReferenceDate
+      };
     }, req, res, 'Failed to fetch board feed');
 
     if (result) {

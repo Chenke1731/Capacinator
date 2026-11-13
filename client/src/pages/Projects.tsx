@@ -328,11 +328,13 @@ export function Projects() {
   /** 搜索框本地值(U20: 初始与 URL q 同步——恢复时框内可见关键词) */
   const [searchInput, setSearchInput] = useState(urlFilters.search);
   /** U15 任务视图(2026-10-17): ''=全部;谓词/计数单一真相在 lib/taskViews,
-   *  六视图只组织服务端行事实(生命周期态/告警码/分配估算/冲突标志) */
+   *  七视图只组织服务端行事实(生命周期态/告警码/分配估算/冲突/逾期标志) */
   const [taskView, setTaskView] = useState<TaskViewId | ''>(() => {
     const v = searchParams.get('tv') ?? '';
     return (TASK_VIEW_IDS as readonly string[]).includes(v) ? (v as TaskViewId) : '';
   });
+  /** I02g 逾期参考日：告警深链携带，board-feed 与 Dashboard 用同一参考日 */
+  const [referenceDate, setReferenceDate] = useState(() => searchParams.get('reference_date') ?? '');
   /** U16 列预设: localStorage 持久化,非法值回落默认档 */
   const [colPreset, setColPreset] = useState<ColPresetId>(() => {
     const fromUrl = searchParams.get('preset') ?? '';
@@ -368,10 +370,11 @@ export function Projects() {
     if (filters.product_version) next.pv = filters.product_version;
     if (filters.release_version) next.rv = filters.release_version;
     if (taskView) next.tv = taskView;
+    if (referenceDate) next.reference_date = referenceDate;
     if (warningFilter) next.warn = warningFilter;
     if (colPreset !== 'default') next.preset = colPreset;
     setSearchParams(Object.keys(next).length > 0 ? next : {}, { replace: true });
-  }, [filters, taskView, warningFilter, colPreset, setSearchParams]);
+  }, [filters, taskView, referenceDate, warningFilter, colPreset, setSearchParams]);
   /** U15 个人视图: 任务视图+属性筛选快照,localStorage 按 profile 分键(保存/恢复/删除) */
   const { currentUser } = useUser();
   const personalViewsKey = `capacinator-req-personal-views:${currentUser?.id ?? 'default'}`;
@@ -408,14 +411,15 @@ export function Projects() {
   const { data: projects, isLoading, error } = useQuery({
     // board-feed 裸 {data} 信封与 list 分页信封不同形——专用键,不再借
     // list 键(2026-10-13 缓存键守卫首战: 同签名换端点即互投毒)
-    queryKey: queryKeys.projects.boardFeed(filters.lifecycle_state, currentScenario?.id),
+    queryKey: queryKeys.projects.boardFeed(filters.lifecycle_state, currentScenario?.id, referenceDate),
     queryFn: async () => {
       // board-feed (P7): the whole board in one slim request — projection
       // audited against the board's 14 cells + tree/filter/category inputs.
       // Replaces the loop-paging stopgap that itself replaced limit:200.
-      const response = await api.projects.boardFeed(
-        filters.lifecycle_state ? { lifecycle_state: filters.lifecycle_state } : undefined
-      );
+      const response = await api.projects.boardFeed({
+        ...(filters.lifecycle_state ? { lifecycle_state: filters.lifecycle_state } : {}),
+        ...(referenceDate ? { reference_date: referenceDate } : {})
+      });
       // sendSuccess wraps once ({success, data}), the controller once more
       // ({data: rows, total}) — unwrap to the rows array either way.
       const payload = (response.data as any)?.data;
@@ -511,7 +515,7 @@ export function Projects() {
     };
   }, [filters.search, filters.tag_id, filters.component, filters.subtype, filters.product_version, filters.release_version, warningFilter]);
 
-  /** U15 chips 计数: 属性筛选后的行集 × 六视图行级谓词(非树口径——
+  /** U15 chips 计数: 属性筛选后的行集 × 七视图行级谓词(非树口径——
    *  chip 直接回答"多少件事待处理",树上下文由表格自己表达) */
   const taskCounts = useMemo(
     () => countByTaskView(demandRows.filter(attrMatch)),
@@ -804,6 +808,7 @@ export function Projects() {
       product_version: '', release_version: ''
     });
     setTaskView('');
+    setReferenceDate('');
     setWarningFilter('');
     setFlashId(id);
   };
@@ -1109,7 +1114,7 @@ export function Projects() {
               setFilters({
               search: '', lifecycle_state: '', tag_id: '', component: '', subtype: '',
               product_version: '', release_version: ''
-            }); setTaskView(''); setWarningFilter(''); }}
+            }); setTaskView(''); setReferenceDate(''); setWarningFilter(''); }}
           >
             <X size={13} />
           </button>
@@ -1140,7 +1145,7 @@ export function Projects() {
           data-testid="task-view-all"
           className="task-view-chip hit-24"
           aria-pressed={taskView === ''}
-          onClick={() => setTaskView('')}
+          onClick={() => { setTaskView(''); setReferenceDate(''); }}
         >
           {t('projects:taskViews.all')}
         </button>
@@ -1620,7 +1625,7 @@ export function Projects() {
                   setFilters({
                   search: '', lifecycle_state: '', tag_id: '', component: '', subtype: '',
                   product_version: '', release_version: ''
-                }); setTaskView(''); setWarningFilter(''); }}
+                }); setTaskView(''); setReferenceDate(''); setWarningFilter(''); }}
               >
                 {t('projects:board.clearFilters')}
               </button>

@@ -281,6 +281,8 @@ export interface DashboardSummary {
     capacityGaps: Record<string, number>;
     utilization: Record<string, number>;
     availability: Record<string, number>;
+    /** I02g：逾期计数参考日（服务端已钳制到今天） */
+    overdue_reference_date?: string;
 }
 export interface CapacityReport {
     capacityGaps: CapacityGap[];

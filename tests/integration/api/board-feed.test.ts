@@ -71,4 +71,41 @@ describe('GET /api/projects/board-feed', () => {
       expect(heavy in row).toBe(false);
     }
   });
+
+  test('I02g: overdue flag uses project MAX end + reference_date', async () => {
+    const created = await request.post('/api/projects')
+      .send({ name: 'bf-overdue', project_type_id: 'bf-type-id', project_sub_type_id: 'bf-sub-id' });
+    const projectId = (created.body.data ?? created.body).id;
+    await mockSetupDb('project_phases').insert({
+      id: 'bf-overdue-phase', name: 'bf-overdue-phase', order_index: 1,
+      created_at: new Date(), updated_at: new Date()
+    });
+    await mockSetupDb('projects').where('id', projectId).update({ lifecycle_state: 'backlog' });
+    await mockSetupDb('project_phases_timeline').insert({
+      id: 'bf-overdue-timeline', project_id: projectId, phase_id: 'bf-overdue-phase',
+      start_date: '2026-05-01', end_date: '2026-06-01', phase_source: 'template',
+      created_at: new Date(), updated_at: new Date()
+    });
+
+    const overdue = await request.get('/api/projects/board-feed').query({ reference_date: '2026-06-15' });
+    expect(overdue.status).toBe(200);
+    const overduePayload = overdue.body.data;
+    const overdueRows = Array.isArray(overduePayload) ? overduePayload : overduePayload.data;
+    expect(overdueRows.find((r: any) => r.id === projectId).is_overdue).toBe(true);
+    expect(overduePayload.overdue_total).toBeGreaterThanOrEqual(1);
+    expect(overduePayload.overdue_reference_date).toBe('2026-06-15');
+
+    // 未来参考日钳制到今天：2026-06-01 早已过去，仍逾期；参考日不能被 2999 放大
+    const clamped = await request.get('/api/projects/board-feed').query({ reference_date: '2999-12-31' });
+    const clampedPayload = clamped.body.data;
+    const clampedRows = Array.isArray(clampedPayload) ? clampedPayload : clampedPayload.data;
+    expect(clampedRows.find((r: any) => r.id === projectId).is_overdue).toBe(true);
+    expect(clampedPayload.overdue_reference_date).not.toBe('2999-12-31');
+
+    await mockSetupDb('project_phases_timeline').where('project_id', projectId).update({ end_date: '2999-01-01' });
+    const future = await request.get('/api/projects/board-feed').query({ reference_date: '2999-12-31' });
+    const futurePayload = future.body.data;
+    const futureRows = Array.isArray(futurePayload) ? futurePayload : futurePayload.data;
+    expect(futureRows.find((r: any) => r.id === projectId).is_overdue).toBe(false);
+  });
 });

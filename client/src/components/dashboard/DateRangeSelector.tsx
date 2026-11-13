@@ -3,6 +3,7 @@ import { Calendar, ChevronDown } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Card } from '../ui/CustomCard';
 import { getLocale } from '../../i18n';
+import { toISODateString } from '../../utils/dateUtils';
 
 export type DateRangePreset = 'current' | 'this_week' | 'this_month' | 'next_month' | 'this_quarter' | 'next_quarter' | 'custom';
 
@@ -23,7 +24,7 @@ function getDateRangeForPreset(preset: DateRangePreset): { startDate: string; en
   
   switch (preset) {
     case 'current': {
-      const currentDate = now.toISOString().split('T')[0];
+      const currentDate = toISODateString(now);
       return { startDate: currentDate, endDate: currentDate };
     }
 
@@ -33,8 +34,8 @@ function getDateRangeForPreset(preset: DateRangePreset): { startDate: string; en
       const weekEnd = new Date(weekStart);
       weekEnd.setDate(weekStart.getDate() + 6);
       return {
-        startDate: weekStart.toISOString().split('T')[0],
-        endDate: weekEnd.toISOString().split('T')[0]
+        startDate: toISODateString(weekStart),
+        endDate: toISODateString(weekEnd)
       };
     }
 
@@ -42,8 +43,8 @@ function getDateRangeForPreset(preset: DateRangePreset): { startDate: string; en
       const monthStart = new Date(now.getFullYear(), now.getMonth(), 1);
       const monthEnd = new Date(now.getFullYear(), now.getMonth() + 1, 0);
       return {
-        startDate: monthStart.toISOString().split('T')[0],
-        endDate: monthEnd.toISOString().split('T')[0]
+        startDate: toISODateString(monthStart),
+        endDate: toISODateString(monthEnd)
       };
     }
 
@@ -51,8 +52,8 @@ function getDateRangeForPreset(preset: DateRangePreset): { startDate: string; en
       const nextMonthStart = new Date(now.getFullYear(), now.getMonth() + 1, 1);
       const nextMonthEnd = new Date(now.getFullYear(), now.getMonth() + 2, 0);
       return {
-        startDate: nextMonthStart.toISOString().split('T')[0],
-        endDate: nextMonthEnd.toISOString().split('T')[0]
+        startDate: toISODateString(nextMonthStart),
+        endDate: toISODateString(nextMonthEnd)
       };
     }
 
@@ -60,8 +61,8 @@ function getDateRangeForPreset(preset: DateRangePreset): { startDate: string; en
       const quarterStart = new Date(now.getFullYear(), Math.floor(now.getMonth() / 3) * 3, 1);
       const quarterEnd = new Date(now.getFullYear(), Math.floor(now.getMonth() / 3) * 3 + 3, 0);
       return {
-        startDate: quarterStart.toISOString().split('T')[0],
-        endDate: quarterEnd.toISOString().split('T')[0]
+        startDate: toISODateString(quarterStart),
+        endDate: toISODateString(quarterEnd)
       };
     }
 
@@ -69,8 +70,8 @@ function getDateRangeForPreset(preset: DateRangePreset): { startDate: string; en
       const nextQuarterStart = new Date(now.getFullYear(), Math.floor(now.getMonth() / 3) * 3 + 3, 1);
       const nextQuarterEnd = new Date(now.getFullYear(), Math.floor(now.getMonth() / 3) * 3 + 6, 0);
       return {
-        startDate: nextQuarterStart.toISOString().split('T')[0],
-        endDate: nextQuarterEnd.toISOString().split('T')[0]
+        startDate: toISODateString(nextQuarterStart),
+        endDate: toISODateString(nextQuarterEnd)
       };
     }
 

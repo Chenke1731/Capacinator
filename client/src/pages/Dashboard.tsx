@@ -28,7 +28,7 @@ import { DateRangeSelector, DateRangePreset } from '../components/dashboard/Date
 import { EnhancedKPIs } from '../components/dashboard/EnhancedKPIs';
  
 import { useCriticalAlerts } from '../hooks/useCriticalAlerts';
-import { peopleStatusPath } from '../lib/peopleStatusFilter';
+import { peopleStatusPath, peopleStatusPathForUtilization } from '../lib/peopleStatusFilter';
 import './Dashboard.css';
 import '../components/chart-colors.css';
 
@@ -103,13 +103,15 @@ export function Dashboard() {
       }))
     : [{ status: '', name: t('dashboard:noProjects'), value: 0 }];
 
-  // Handle empty utilization data gracefully
+  // Handle empty utilization data gracefully（I02f：保留原始 status，柱点击
+  // 按状态过滤；不能只留本地化 name）
   const utilizationData = dashboard.utilization && Object.keys(dashboard.utilization).length > 0
     ? Object.entries(dashboard.utilization).map(([status, count]) => ({
+        status,
         name: status === 'NO_ASSIGNMENTS' ? t('dashboard:noAssignmentsYet') : allocationStatusLabel(status),
         value: count,
       }))
-    : [{ name: t('dashboard:noData'), value: 0 }];
+    : [{ status: 'NO_DATA', name: t('dashboard:noData'), value: 0 }];
 
   const capacityData = dashboard.capacityGaps && Object.keys(dashboard.capacityGaps).length > 0
     ? Object.entries(dashboard.capacityGaps).map(([status, count]) => ({
@@ -308,7 +310,13 @@ export function Dashboard() {
                 <Bar 
                   dataKey="value" 
                   fill={COLORS.primary}
-                  onClick={() => navigate('/people')}
+                  onClick={(entry: any, _index: number, event: any) => {
+                    // I02f：柱点击按原始 status 过滤；阻止冒泡，避免 Card 的
+                    // 全量 /people 跳转随后覆盖筛选目标
+                    event?.stopPropagation?.();
+                    const status = entry?.status ?? entry?.payload?.status;
+                    navigate(peopleStatusPathForUtilization(status));
+                  }}
                   style={{ cursor: 'pointer' }}
                 />
               </BarChart>

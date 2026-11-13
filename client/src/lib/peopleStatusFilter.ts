@@ -43,6 +43,18 @@ export function statusParamForUtilization(utilizationStatus: string | null | und
   return found ? found[0] : null;
 }
 
+/**
+ * I02f：图表柱点击的落地路径。可映射的三档（Over/Fully/Available）直达
+ * People 筛选；Partially-allocated/Unavailable/NO_DATA 等 People 暂无筛选
+ * 口径的状态回落全量人员目录（不发假筛选）。
+ */
+export function peopleStatusPathForUtilization(
+  utilizationStatus: string | null | undefined
+): string {
+  const param = statusParamForUtilization(utilizationStatus);
+  return param ? peopleStatusPath(param) : '/people';
+}
+
 /** 便捷构造：`/people?status=over-allocated`（告警/KPI 深链统一走这里） */
 export function peopleStatusPath(value: PeopleStatusParam): string {
   return `/people?${PEOPLE_STATUS_PARAM}=${value}`;

@@ -419,13 +419,11 @@ describe('People Page', () => {
 
       await waitFor(() => {
         const table = screen.getByTestId('data-table');
-        expect(within(table).getByText('Reduce Load')).toBeInTheDocument();
+        expect(within(table).getAllByText('Adjust Assignments').length).toBeGreaterThanOrEqual(2);
       });
 
       const table = screen.getByTestId('data-table');
       expect(within(table).getByText('Monitor')).toBeInTheDocument();
-      // Person 3 has low allocation, so it shows "Assign Project" instead of "Assign More"
-      expect(within(table).getByText('Assign Project')).toBeInTheDocument();
     });
 
     test('handles missing utilization data', async () => {
@@ -746,35 +744,30 @@ describe('People Page', () => {
   });
 
   describe('Quick Actions', () => {
-    test('handles reduce workload action', async () => {
+    test('navigates to the workload editor for adjust action', async () => {
       const user = userEvent.setup();
       renderComponent();
 
       await waitFor(() => {
-        expect(screen.getByText('Reduce Load')).toBeInTheDocument();
+        expect(screen.getAllByText('Adjust Assignments')[0]).toBeInTheDocument();
       });
 
-      await user.click(screen.getByText('Reduce Load'));
+      await user.click(screen.getAllByText('Adjust Assignments')[0]);
 
-      expect(mockNavigate).toHaveBeenCalledWith('/assignments?person=person-1&action=reduce');
+      expect(mockNavigate).toHaveBeenCalledWith('/people/person-1/workload');
     });
 
-    test('opens smart assignment modal for assign more action', async () => {
+    test('uses the same adjust entry for available people', async () => {
       const user = userEvent.setup();
       renderComponent();
 
       await waitFor(() => {
-        const table = screen.getByTestId('data-table');
-        // Assign More appears for person-3 who is under-allocated
-        expect(within(table).getByText('Assign Project')).toBeInTheDocument();
+        expect(screen.getAllByText('Adjust Assignments').length).toBeGreaterThanOrEqual(2);
       });
 
-      const table = screen.getByTestId('data-table');
-      // Click on "Assign Project" button for the under-allocated person
-      await user.click(within(table).getByText('Assign Project'));
+      await user.click(screen.getAllByText('Adjust Assignments')[1]);
 
-      // The modal would be shown if the component state was properly managed
-      // For now, just verify the button is clickable
+      expect(mockNavigate).toHaveBeenCalledWith('/people/person-3/workload');
     });
 
     test('navigates to reports for monitor action', async () => {

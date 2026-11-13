@@ -169,6 +169,7 @@ describe('PersonDetails', () => {
         <MemoryRouter initialEntries={[`/people/${personId}`]}>
           <Routes>
             <Route path="/people/:id" element={<PersonDetails />} />
+            <Route path="/people/:id/workload" element={<div data-testid="person-workload-page" />} />
           </Routes>
         </MemoryRouter>
       </QueryClientProvider>
@@ -412,18 +413,17 @@ describe('PersonDetails', () => {
       expect(projectAlphaElements.length + allocationElements.length).toBeGreaterThan(0);
     });
 
-    it('opens smart assignment modal when adding assignment', async () => {
+    it('navigates to the workload editor when adding assignment', async () => {
       renderComponent();
 
       await waitFor(() => {
         expect(screen.getByText('Add Assignment')).toBeInTheDocument();
       });
 
-      const addButton = screen.getByText('Add Assignment');
-      fireEvent.click(addButton);
+      fireEvent.click(screen.getByText('Add Assignment'));
 
       await waitFor(() => {
-        expect(screen.getByTestId('smart-assignment-modal')).toBeInTheDocument();
+        expect(screen.getByTestId('person-workload-page')).toBeInTheDocument();
       });
     });
 
@@ -497,8 +497,9 @@ describe('PersonDetails', () => {
         expect(screen.getByText('Recommended Actions')).toBeInTheDocument();
       });
 
-      // Under-allocated should show "Assign More Work" action
-      expect(screen.getByText(/Assign More Work/i)).toBeInTheDocument();
+      // Under-allocated still has the unified adjust entry, plus context action
+      expect(screen.getByText(/Adjust Assignments/i)).toBeInTheDocument();
+      expect(screen.getByText(/Find Projects/i)).toBeInTheDocument();
     });
   });
 
@@ -919,7 +920,7 @@ describe('PersonDetails', () => {
 
       await waitFor(() => {
         // Under-allocated status should show certain actions
-        expect(screen.getByText(/Assign More Work/i)).toBeInTheDocument();
+        expect(screen.getByText(/Adjust Assignments/i)).toBeInTheDocument();
         expect(screen.getByText(/Find Projects/i)).toBeInTheDocument();
       });
     });
@@ -946,7 +947,7 @@ describe('PersonDetails', () => {
       });
     });
 
-    it('opens assignment modal for reduce_workload action', async () => {
+    it('navigates to the workload editor for adjust_assignments action', async () => {
       const overAllocatedPerson = {
         ...mockPersonData,
         assignments: [
@@ -962,29 +963,27 @@ describe('PersonDetails', () => {
       renderComponent();
 
       await waitFor(() => {
-        expect(screen.getByText(/Reduce Workload/i)).toBeInTheDocument();
+        expect(screen.getByText(/Adjust Assignments/i)).toBeInTheDocument();
       });
 
-      const reduceWorkloadButton = screen.getByText(/Reduce Workload/i);
-      fireEvent.click(reduceWorkloadButton);
+      fireEvent.click(screen.getByText(/Adjust Assignments/i));
 
       await waitFor(() => {
-        expect(screen.getByTestId('smart-assignment-modal')).toBeInTheDocument();
+        expect(screen.getByTestId('person-workload-page')).toBeInTheDocument();
       });
     });
 
-    it('opens assignment modal for assign_more action', async () => {
+    it('uses the same adjust entry for under-allocated people', async () => {
       renderComponent();
 
       await waitFor(() => {
-        expect(screen.getByText(/Assign More Work/i)).toBeInTheDocument();
+        expect(screen.getByText(/Adjust Assignments/i)).toBeInTheDocument();
       });
 
-      const assignMoreButton = screen.getByText(/Assign More Work/i);
-      fireEvent.click(assignMoreButton);
+      fireEvent.click(screen.getByText(/Adjust Assignments/i));
 
       await waitFor(() => {
-        expect(screen.getByTestId('smart-assignment-modal')).toBeInTheDocument();
+        expect(screen.getByTestId('person-workload-page')).toBeInTheDocument();
       });
     });
   });

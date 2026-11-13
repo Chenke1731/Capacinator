@@ -6,15 +6,15 @@ import { useTranslation } from 'react-i18next';
 import {
   ArrowLeft, Calendar, Briefcase, Users, Clock, UserX,
   Mail, Phone, AlertCircle, History,
-  Plus, ChevronDown, ChevronUp, UserPlus, UserMinus,
-  TrendingUp, Target, Zap, Shield, Award, Edit2, Save, X, Search, Pause
+  ChevronDown, ChevronUp,
+  TrendingUp, Target, Zap, Shield, Award, Edit2, Save, X, Search, Pause,
+  SlidersHorizontal
 } from 'lucide-react';
 import { api } from '../lib/api-client';
 import { queryKeys } from '../lib/queryKeys';
 import { formatDate } from '../utils/date';
 import { PersonAllocationChart } from '../components/PersonAllocationChart';
 import PersonRoleModal from '../components/modals/PersonRoleModal';
-import { SmartAssignmentModal } from '../components/modals/SmartAssignmentModal';
 import { DetailTable, DetailTableColumn } from '../components/ui/DetailTable';
 import { Badge } from '../components/ui/badge';
 import './PersonDetails.css';
@@ -112,11 +112,6 @@ export default function PersonDetails() {
   // New time off creation state
   const [isCreatingTimeOff, setIsCreatingTimeOff] = useState<boolean>(false);
   const [newTimeOffData, setNewTimeOffData] = useState<any>(null);
-
-  // Smart assignment modal state
-  const [smartAssignmentModalOpen, setSmartAssignmentModalOpen] = useState(false);
-  const [assignmentTriggerContext, setAssignmentTriggerContext] = useState<'workload_action' | 'manual_add' | 'quick_assign'>('manual_add');
-  const [assignmentActionType, setAssignmentActionType] = useState('');
 
   // TODO: Replace with proper auth context when authentication is implemented
   // For now, check localStorage or default to allowing edits
@@ -663,9 +658,7 @@ export default function PersonDetails() {
 
   // Assignment handlers
   const handleAddAssignment = () => {
-    setAssignmentTriggerContext('manual_add');
-    setAssignmentActionType('');
-    setSmartAssignmentModalOpen(true);
+    navigate(`/people/${id}/workload`);
   };
 
   const handleDeleteAssignment = (assignment: any) => {
@@ -722,14 +715,14 @@ export default function PersonDetails() {
       status = 'over_allocated';
       statusColor = 'danger';
       actions = [
-        { label: t('people:details.actions.reduceWorkload'), action: 'reduce_workload', icon: UserMinus, variant: 'danger' },
-        { label: t('people:details.actions.findCoverage'), action: 'find_coverage', icon: Search, variant: 'warning' },
-        { label: t('people:details.actions.extendTimeline'), action: 'extend_timeline', icon: Calendar, variant: 'secondary' }
+        { label: t('people:details.actions.adjustAssignments'), action: 'adjust_assignments', icon: SlidersHorizontal, variant: 'danger' },
+        { label: t('people:details.actions.monitorLoad'), action: 'monitor_load', icon: TrendingUp, variant: 'warning' }
       ];
     } else if (utilizationPercentage >= 80) {
       status = 'fully_allocated';
       statusColor = 'warning';
       actions = [
+        { label: t('people:details.actions.adjustAssignments'), action: 'adjust_assignments', icon: SlidersHorizontal, variant: 'warning' },
         { label: t('people:details.actions.monitorLoad'), action: 'monitor_load', icon: TrendingUp, variant: 'warning' },
         { label: t('people:details.actions.planAhead'), action: 'plan_ahead', icon: Target, variant: 'secondary' }
       ];
@@ -737,14 +730,14 @@ export default function PersonDetails() {
       status = 'under_allocated';
       statusColor = 'info';
       actions = [
-        { label: t('people:details.actions.assignMoreWork'), action: 'assign_more', icon: UserPlus, variant: 'primary' },
+        { label: t('people:details.actions.adjustAssignments'), action: 'adjust_assignments', icon: SlidersHorizontal, variant: 'primary' },
         { label: t('people:details.actions.findProjects'), action: 'find_projects', icon: Search, variant: 'info' }
       ];
     } else {
       status = 'available';
       statusColor = 'success';
       actions = [
-        { label: t('people:details.actions.assignToProject'), action: 'assign_project', icon: Plus, variant: 'success' },
+        { label: t('people:details.actions.adjustAssignments'), action: 'adjust_assignments', icon: SlidersHorizontal, variant: 'success' },
         { label: t('people:details.actions.viewOpportunities'), action: 'view_opportunities', icon: Zap, variant: 'primary' }
       ];
     }
@@ -789,22 +782,10 @@ export default function PersonDetails() {
 
   const handleActionClick = (action: string) => {
     switch (action) {
-      case 'reduce_workload':
-      case 'find_coverage':
-        setAssignmentTriggerContext('workload_action');
-        setAssignmentActionType(action);
-        setSmartAssignmentModalOpen(true);
-        break;
-      case 'extend_timeline':
-        // U03: 日历入口指向人员可用率日历(/people 的 availability tab),
-        // 带 person 上下文预选——不再错开智能分配弹窗
-        navigate(`/people?tab=availability&person=${person.id}`);
-        break;
-      case 'assign_more':
-      case 'assign_project':
-        setAssignmentTriggerContext('workload_action');
-        setAssignmentActionType(action);
-        setSmartAssignmentModalOpen(true);
+      case 'adjust_assignments':
+        // 统一入口：所有利用率档位都进入同一个“调整分配”页，不再从
+        // 超载/低载各开旧弹窗，也不再单独提供 find_coverage/extend_timeline。
+        navigate(`/people/${person.id}/workload`);
         break;
       case 'find_projects':
       case 'view_opportunities':
@@ -1279,16 +1260,6 @@ export default function PersonDetails() {
         onSuccess={handleRoleModalSuccess}
         personId={id!}
         editingRole={editingRole}
-      />
-      
-      {/* Smart Assignment Modal */}
-      <SmartAssignmentModal
-        isOpen={smartAssignmentModalOpen}
-        onClose={() => setSmartAssignmentModalOpen(false)}
-        personId={person.id}
-        personName={person.name}
-        triggerContext={assignmentTriggerContext}
-        actionType={assignmentActionType}
       />
     </div>
   );

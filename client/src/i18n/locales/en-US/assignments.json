@@ -93,6 +93,100 @@
     "create": "Create Assignment",
     "update": "Update Assignment"
   },
+  "workload": {
+    "title": "Adjust Assignments",
+    "subtitle": "Review {{name}}'s current workload and adjust assignments in {{scenario}}.",
+    "back": "Back to person",
+    "asOf": "As of {{date}}",
+    "scenarioLabel": "Scenario: {{name}}",
+    "metrics": {
+      "current": "Current allocation",
+      "availability": "Available capacity",
+      "relative": "Relative utilization",
+      "remaining": "Remaining",
+      "excluded": "Not counted"
+    },
+    "metricHelp": {
+      "current": "Active assignments intersecting the reference date; undated counts as ongoing.",
+      "excluded": "{{count}} row(s), {{allocation}}% excluded (paused/future/ended)."
+    },
+    "sections": {
+      "currentTitle": "Counted in current workload",
+      "currentDescription": "These rows add up to the current allocation above.",
+      "excludedTitle": "Not counted in current workload",
+      "excludedDescription": "Paused, future, or ended assignments stay visible but do not consume current capacity."
+    },
+    "columns": {
+      "project": "Project",
+      "role": "Role",
+      "phase": "Phase",
+      "source": "Source",
+      "dates": "Dates",
+      "allocation": "Allocation",
+      "status": "Status",
+      "actions": "Actions"
+    },
+    "actions": {
+      "edit": "Edit",
+      "save": "Save",
+      "cancel": "Cancel",
+      "delete": "Delete"
+    },
+    "edit": {
+      "allocation": "Allocation %",
+      "startDate": "Start date",
+      "endDate": "End date",
+      "invalidAllocation": "Allocation must be between 1 and 200.",
+      "invalidDates": "Start and end date are required for fixed assignments.",
+      "invalidDateOrder": "Start date must be before or equal to end date.",
+      "versionConflict": "This assignment changed elsewhere. Your draft is kept; cancel and reload before retrying.",
+      "saveFailed": "Could not save assignment.",
+      "deleteFailed": "Could not delete assignment.",
+      "deleteConfirm": "Delete this assignment?",
+      "deleteDirectConfirm": "This is a baseline-global assignment. Deleting it affects all scenarios. Continue?",
+      "derivedDatesReadonly": "Dates follow the project/phase; only allocation can be edited here."
+    },
+    "source": {
+      "direct": "Baseline (global)",
+      "scenario": "Current scenario"
+    },
+    "dateMode": {
+      "fixed": "Fixed",
+      "phase": "From phase",
+      "project": "From project"
+    },
+    "exclusion": {
+      "paused": "Paused",
+      "future": "Not started",
+      "ended": "Ended"
+    },
+    "included": "Included in current",
+    "status": {
+      "unknown": "Data unavailable",
+      "unavailable": "No available capacity",
+      "over": "Over capacity",
+      "full": "Fully allocated",
+      "partial": "Partially allocated",
+      "available": "Available"
+    },
+    "states": {
+      "loading": "Loading workload…",
+      "assignmentsError": "Could not load assignments.",
+      "utilizationLoading": "Loading capacity…",
+      "utilizationError": "Could not load capacity. Utilization is hidden until retry.",
+      "noUtilization": "No utilization row for this person; relative utilization is unavailable.",
+      "retry": "Retry",
+      "emptyCurrent": "No assignments count toward current workload.",
+      "emptyExcluded": "No paused, future, or ended assignments.",
+      "missingDates": "Dates unresolved",
+      "personNotFound": "Person not found"
+    },
+    "warning": {
+      "over": "This person is over capacity. You can still adjust assignments; capacity is advisory, not a save blocker.",
+      "unavailable": "This person has no available capacity. Assignments remain editable; the capacity bar reports the overage."
+    },
+    "note": "Capacity warnings never block adding, removing, or saving assignments. Data-integrity rules still apply."
+  },
   "smart": {
     "title": "Smart Assignment for {{name}}",
     "description": "Create a new assignment for {{name}}",

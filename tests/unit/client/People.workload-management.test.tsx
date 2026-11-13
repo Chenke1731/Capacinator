@@ -340,21 +340,21 @@ describe('People Workload Management', () => {
   });
 
   describe('Quick Action Buttons', () => {
-    test('should show "Reduce Load" action for over-allocated people', async () => {
+    test('should show "Adjust Assignments" action for over-allocated people', async () => {
       renderWithProviders(<People />);
 
       await waitFor(() => {
-        const reduceButtons = screen.getAllByRole('button', { name: /Reduce Load/i });
-        expect(reduceButtons.length).toBeGreaterThan(0);
+        const buttons = screen.getAllByRole('button', { name: /Adjust Assignments/i });
+        expect(buttons.length).toBeGreaterThan(0);
       });
     });
 
-    test('should show "Assign More" action for under-allocated people', async () => {
+    test('should show "Adjust Assignments" action for under-allocated people', async () => {
       renderWithProviders(<People />);
 
       await waitFor(() => {
-        const assignMoreButtons = screen.getAllByRole('button', { name: /Assign More/i });
-        expect(assignMoreButtons.length).toBeGreaterThan(0);
+        const buttons = screen.getAllByRole('button', { name: /Adjust Assignments/i });
+        expect(buttons.length).toBeGreaterThan(0);
       });
     });
 
@@ -367,12 +367,12 @@ describe('People Workload Management', () => {
       });
     });
 
-    test('should show "Assign Project" action for available people', async () => {
+    test('should show "Adjust Assignments" action for available people', async () => {
       renderWithProviders(<People />);
 
       await waitFor(() => {
-        const assignProjectButtons = screen.getAllByRole('button', { name: /Assign Project/i });
-        expect(assignProjectButtons.length).toBeGreaterThan(0);
+        const buttons = screen.getAllByRole('button', { name: /Adjust Assignments/i });
+        expect(buttons.length).toBeGreaterThanOrEqual(2);
       });
     });
   });
@@ -402,21 +402,18 @@ describe('People Workload Management', () => {
   });
 
   describe('Button Styling and Variants', () => {
-    test('should apply correct button variants for different actions', async () => {
+    test('should keep status-specific variants on the shared adjust action', async () => {
       renderWithProviders(<People />);
 
       await waitFor(() => {
-        const reduceButton = screen.getByRole('button', { name: /Reduce Load/i });
-        expect(reduceButton.className).toContain('btn-danger');
-        
-        const assignMoreButton = screen.getByRole('button', { name: /Assign More/i });
-        expect(assignMoreButton.className).toContain('btn-info');
-        
+        const adjustButtons = screen.getAllByRole('button', { name: /Adjust Assignments/i });
+        const classes = adjustButtons.map((button) => button.className).join(' ');
+        expect(classes).toContain('btn-danger');
+        expect(classes).toContain('btn-info');
+        expect(classes).toContain('btn-success');
+
         const monitorButton = screen.getByRole('button', { name: /Monitor/i });
         expect(monitorButton.className).toContain('btn-warning');
-        
-        const assignProjectButton = screen.getByRole('button', { name: /Assign Project/i });
-        expect(assignProjectButton.className).toContain('btn-success');
       });
     });
   });
@@ -475,8 +472,8 @@ describe('People Workload Management', () => {
       renderWithProviders(<People />);
 
       await waitFor(() => {
-        const reduceButton = screen.getByRole('button', { name: /Reduce Load/i });
-        expect(reduceButton).toHaveAttribute('title', 'Reduce Load');
+        const adjustButton = screen.getAllByRole('button', { name: /Adjust Assignments/i })[0];
+        expect(adjustButton).toHaveAttribute('title', 'Adjust Assignments');
       });
     });
   });

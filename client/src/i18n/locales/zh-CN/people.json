@@ -62,10 +62,8 @@
   "utilizationFailed": "利用率数据加载失败",
   "noMatchesForStatus": "当前筛选下没有人员",
   "quickActions": {
-    "reduceLoad": "减少负荷",
-    "monitor": "监控",
-    "assignMore": "增加分配",
-    "assignProject": "分配项目"
+    "adjustAssignments": "调整分配",
+    "monitor": "监控"
   },
   "workloadStatus": {
     "unknown": "未知",
@@ -128,14 +126,10 @@
     "planCoverageNeeded": "需要安排工作交接",
     "recommendedActions": "推荐操作",
     "actions": {
-      "reduceWorkload": "降低工作负载",
-      "findCoverage": "安排工作交接",
-      "extendTimeline": "延长时间线",
+      "adjustAssignments": "调整分配",
       "monitorLoad": "监控工作负载",
       "planAhead": "提前规划",
-      "assignMoreWork": "分配更多工作",
       "findProjects": "寻找项目",
-      "assignToProject": "分配至项目",
       "viewOpportunities": "查看机会"
     },
     "hoursPerDay": "每日工时",

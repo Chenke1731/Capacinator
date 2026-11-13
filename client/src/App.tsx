@@ -21,6 +21,7 @@ const Dashboard = lazy(() => import('./pages/Dashboard').then(m => ({ default: m
 const ProjectDetail = lazy(() => import('./pages/ProjectDetail').then(m => ({ default: m.ProjectDetail })));
 const ProjectNew = lazy(() => import('./pages/ProjectNew').then(m => ({ default: m.ProjectNew })));
 const PersonDetails = lazy(() => import('./pages/PersonDetails'));
+const PersonWorkload = lazy(() => import('./pages/PersonWorkload'));
 const PersonNew = lazy(() => import('./pages/PersonNew').then(m => ({ default: m.PersonNew })));
 const RoleDetails = lazy(() => import('./pages/RoleDetails'));
 const ProjectTypeDetails = lazy(() => import('./pages/ProjectTypeDetails'));
@@ -96,6 +97,7 @@ const AppContent: React.FC = () => {
           <Route path="/people" element={page(<PeopleUnified />)} />
           <Route path="/people/new" element={page(<PersonNew />)} />
           <Route path="/people/:id" element={page(<PersonDetails />)} />
+          <Route path="/people/:id/workload" element={page(<PersonWorkload />)} />
           <Route path="/roles" element={<Navigate to="/people" replace />} />
           <Route path="/roles/:id" element={page(<RoleDetails />)} />
           <Route path="/resource-templates" element={<Navigate to="/people" replace />} />

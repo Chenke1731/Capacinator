@@ -21,7 +21,6 @@ import { FilterBar } from '../components/ui/FilterBar';
 import { LoadingSpinner } from '../components/ui/LoadingSpinner';
 import { ErrorMessage } from '../components/ui/ErrorMessage';
 import PersonModal from '../components/modals/PersonModal';
-import { SmartAssignmentModal } from '../components/modals/SmartAssignmentModal';
 import { useModal } from '../hooks/useModal';
 import type { Person, Location } from '../types';
 import './People.css';
@@ -42,12 +41,6 @@ export default function People() {
   const addPersonModal = useModal();
   const editPersonModal = useModal();
   const [editingPerson, setEditingPerson] = useState<Person | null>(null);
-  
-  // Smart assignment modal state
-  const [smartAssignmentModalOpen, setSmartAssignmentModalOpen] = useState(false);
-  const [assignmentPersonId, setAssignmentPersonId] = useState<string | undefined>();
-  const [assignmentTriggerContext, setAssignmentTriggerContext] = useState<'workload_action' | 'manual_add' | 'quick_assign'>('quick_assign');
-  const [assignmentActionType, setAssignmentActionType] = useState('');
 
   // Fetch people
   const { data: people, isLoading: peopleLoading, error: peopleError } = useQuery({
@@ -225,8 +218,8 @@ export default function People() {
         status: 'over_allocated',
         color: 'danger',
         icon: AlertTriangle,
-        action: t('people:quickActions.reduceLoad'),
-        actionType: 'reduce_workload',
+        action: t('people:quickActions.adjustAssignments'),
+        actionType: 'adjust_assignments',
         percentage: utilizationPercentage
       };
     } else if (status === 'Fully-allocated') {
@@ -243,8 +236,8 @@ export default function People() {
         status: 'under_allocated',
         color: 'info',
         icon: UserPlus,
-        action: t('people:quickActions.assignMore'),
-        actionType: 'assign_more',
+        action: t('people:quickActions.adjustAssignments'),
+        actionType: 'adjust_assignments',
         percentage: utilizationPercentage
       };
     } else {
@@ -252,8 +245,8 @@ export default function People() {
         status: 'available',
         color: 'success',
         icon: CheckCircle,
-        action: t('people:quickActions.assignProject'),
-        actionType: 'assign_project',
+        action: t('people:quickActions.adjustAssignments'),
+        actionType: 'adjust_assignments',
         percentage: utilizationPercentage
       };
     }
@@ -261,15 +254,9 @@ export default function People() {
 
   const handleQuickAction = (actionType: string, personId: string) => {
     switch (actionType) {
-      case 'reduce_workload':
-        navigate(`/assignments?person=${personId}&action=reduce`);
-        break;
-      case 'assign_more':
-      case 'assign_project':
-        setAssignmentPersonId(personId);
-        setAssignmentTriggerContext('quick_assign');
-        setAssignmentActionType(actionType);
-        setSmartAssignmentModalOpen(true);
+      case 'adjust_assignments':
+        // 所有利用率档位统一进入调整分配页；不再从超载/低载各开旧弹窗。
+        navigate(`/people/${personId}/workload`);
         break;
       case 'monitor':
         // U03: ReportsUnified 的 tab 参数名是 ?tab=(旧 ?type= 被忽略落到默认需求报表)
@@ -686,18 +673,6 @@ export default function People() {
         }}
         onSuccess={handlePersonSuccess}
         editingPerson={editingPerson ?? undefined}
-      />
-
-      {/* Smart Assignment Modal */}
-      <SmartAssignmentModal
-        isOpen={smartAssignmentModalOpen}
-        onClose={() => {
-          setSmartAssignmentModalOpen(false);
-          setAssignmentPersonId(undefined);
-        }}
-        personId={assignmentPersonId || ''}
-        triggerContext={assignmentTriggerContext}
-        actionType={assignmentActionType}
       />
     </div>
   );

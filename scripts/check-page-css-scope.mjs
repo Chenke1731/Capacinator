@@ -28,6 +28,7 @@ const BASELINE_PATH = path.join(root, 'scripts/lib/page-css-scope-baseline.json'
 export const PAGE_ROOTS = {
   'client/src/pages/People.css': ['.people-page'],
   'client/src/pages/PersonDetails.css': ['.person-details'],
+  'client/src/pages/PersonWorkload.css': ['.person-workload-page'],
   'client/src/pages/Dashboard.css': ['.dashboard-page'],
   'client/src/pages/Assignments.css': ['.assignments-page'],
   'client/src/pages/Locations.css': ['.locations-page'],

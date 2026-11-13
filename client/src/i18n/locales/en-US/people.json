@@ -62,10 +62,8 @@
   "utilizationFailed": "Failed to load utilization data",
   "noMatchesForStatus": "No people match the current filter",
   "quickActions": {
-    "reduceLoad": "Reduce Load",
-    "monitor": "Monitor",
-    "assignMore": "Assign More",
-    "assignProject": "Assign Project"
+    "adjustAssignments": "Adjust Assignments",
+    "monitor": "Monitor"
   },
   "workloadStatus": {
     "unknown": "unknown",
@@ -129,14 +127,10 @@
     "planCoverageNeeded": "Plan coverage needed",
     "recommendedActions": "Recommended Actions",
     "actions": {
-      "reduceWorkload": "Reduce Workload",
-      "findCoverage": "Find Coverage",
-      "extendTimeline": "Extend Timeline",
+      "adjustAssignments": "Adjust Assignments",
       "monitorLoad": "Monitor Load",
       "planAhead": "Plan Ahead",
-      "assignMoreWork": "Assign More Work",
       "findProjects": "Find Projects",
-      "assignToProject": "Assign to Project",
       "viewOpportunities": "View Opportunities"
     },
     "hoursPerDay": "Hours per Day",

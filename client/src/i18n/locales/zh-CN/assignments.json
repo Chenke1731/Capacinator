@@ -93,6 +93,100 @@
     "create": "创建分配",
     "update": "更新分配"
   },
+  "workload": {
+    "title": "调整分配",
+    "subtitle": "审视 {{name}} 在 {{scenario}} 的工作负载并调整分配。",
+    "back": "返回人员详情",
+    "asOf": "参考日 {{date}}",
+    "scenarioLabel": "场景：{{name}}",
+    "metrics": {
+      "current": "当前分配",
+      "availability": "可用容量",
+      "relative": "相对利用率",
+      "remaining": "剩余",
+      "excluded": "不计入当前"
+    },
+    "metricHelp": {
+      "current": "与参考日相交且状态为 active 的分配；无日期按持续中计入。",
+      "excluded": "{{count}} 条不计入，合计 {{allocation}}%（暂停/未开始/已结束）。"
+    },
+    "sections": {
+      "currentTitle": "计入当前工作负载",
+      "currentDescription": "这些行的合计等于上方的当前分配。",
+      "excludedTitle": "不计入当前工作负载",
+      "excludedDescription": "暂停、未开始或已结束的分配仍保留在列表中，但不占用当前容量。"
+    },
+    "columns": {
+      "project": "项目",
+      "role": "角色",
+      "phase": "阶段",
+      "source": "来源",
+      "dates": "日期",
+      "allocation": "分配比例",
+      "status": "状态",
+      "actions": "操作"
+    },
+    "actions": {
+      "edit": "编辑",
+      "save": "保存",
+      "cancel": "取消",
+      "delete": "删除"
+    },
+    "edit": {
+      "allocation": "分配比例 %",
+      "startDate": "开始日期",
+      "endDate": "结束日期",
+      "invalidAllocation": "分配比例必须在 1 到 200 之间。",
+      "invalidDates": "固定日期分配必须填写开始和结束日期。",
+      "invalidDateOrder": "开始日期必须早于或等于结束日期。",
+      "versionConflict": "该分配已被他人修改。草稿已保留；请取消并重新加载后再试。",
+      "saveFailed": "保存分配失败。",
+      "deleteFailed": "删除分配失败。",
+      "deleteConfirm": "删除这条分配？",
+      "deleteDirectConfirm": "这是基线全局分配，删除会影响所有场景。继续？",
+      "derivedDatesReadonly": "日期随项目/阶段，当前只能调整分配比例。"
+    },
+    "source": {
+      "direct": "基线全局",
+      "scenario": "当前场景"
+    },
+    "dateMode": {
+      "fixed": "固定",
+      "phase": "随阶段",
+      "project": "随项目"
+    },
+    "exclusion": {
+      "paused": "已暂停",
+      "future": "未开始",
+      "ended": "已结束"
+    },
+    "included": "计入当前",
+    "status": {
+      "unknown": "数据不可用",
+      "unavailable": "无可用容量",
+      "over": "超出容量",
+      "full": "已满载",
+      "partial": "部分分配",
+      "available": "可用"
+    },
+    "states": {
+      "loading": "工作负载加载中…",
+      "assignmentsError": "分配加载失败。",
+      "utilizationLoading": "容量加载中…",
+      "utilizationError": "可用容量加载失败，重试前不显示利用率。",
+      "noUtilization": "未找到该人员的利用率记录，相对利用率不可用。",
+      "retry": "重试",
+      "emptyCurrent": "当前没有计入工作负载的分配。",
+      "emptyExcluded": "没有暂停、未开始或已结束的分配。",
+      "missingDates": "日期未解析",
+      "personNotFound": "未找到人员"
+    },
+    "warning": {
+      "over": "该人员已超出容量。仍可继续调整分配；容量只提醒，不阻止保存。",
+      "unavailable": "该人员没有可用容量。分配仍可编辑；容量条会显示超出量。"
+    },
+    "note": "容量警告不会阻止新增、删除或保存分配；数据完整性规则仍然生效。"
+  },
   "smart": {
     "title": "{{name}} 的智能分配",
     "description": "为 {{name}} 创建新分配",

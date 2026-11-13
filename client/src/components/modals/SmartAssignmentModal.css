@@ -22,12 +22,17 @@
 
 /* Dialog theme variables are now properly inherited through PortalThemeProvider */
 .smart-assignment-modal {
-  max-height: fit-content;
+  /* 定位/居中由 DialogContent 原语负责（fixed + left/top/translate）。
+     禁止在本类上声明 position/inset/transform：Tailwind v4 工具类位于
+     @layer utilities，未分层 CSS 会直接覆盖 fixed —— 2026-11-13 事故：
+     position:relative 让弹窗掉进文档流底部并超出视口。 */
+  max-height: 90vh;
+  max-height: 90dvh;
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
   padding: var(--space-4);
   gap: var(--space-3);
-  position: relative;
 }
 
 /* Adjust close button position for new padding */

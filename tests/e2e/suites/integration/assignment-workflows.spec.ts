@@ -252,6 +252,18 @@ test.describe('Assignment Integration Workflows', () => {
       // Open reduce workload
       await authenticatedPage.getByRole('button', { name: /reduce workload/i }).click();
       await expect(authenticatedPage.locator('text=Smart Assignment')).toBeVisible({ timeout: 10000 });
+      // 2026-11-13 回归：未分层 .smart-assignment-modal 的 position:relative
+      // 曾覆盖 DialogContent 的 fixed，弹窗掉到文档流底部。这里用真实布局守住。
+      const dialog = authenticatedPage.getByRole('dialog');
+      expect(await dialog.evaluate((el) => getComputedStyle(el).position)).toBe('fixed');
+      const dialogBox = await dialog.boundingBox();
+      const viewport = authenticatedPage.viewportSize();
+      expect(dialogBox).not.toBeNull();
+      if (dialogBox && viewport) {
+        expect(Math.abs(dialogBox.x + dialogBox.width / 2 - viewport.width / 2)).toBeLessThanOrEqual(4);
+        expect(dialogBox.y).toBeGreaterThanOrEqual(0);
+        expect(dialogBox.y + dialogBox.height).toBeLessThanOrEqual(viewport.height + 1);
+      }
       const manualTab = authenticatedPage.locator('button[role="tab"]:has-text("Manual Selection")');
       if (await manualTab.isVisible()) {
         await manualTab.click();

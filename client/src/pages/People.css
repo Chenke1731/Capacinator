@@ -37,127 +37,14 @@
   color: var(--danger);
 }
 
-/* Insights Section Styles */
-.insights-section {
-  background: linear-gradient(135deg, var(--primary) 0%, var(--color-purple) 100%);
-  border-radius: 12px;
-  margin-bottom: 2rem;
-  overflow: hidden;
-}
-
-.insights-section .section-header {
-  background: var(--bg-hover);
-  color: var(--bg-primary);
-  padding: 1rem 1.5rem;
-  margin: 0;
-}
-
-.insights-section .section-header h2 {
-  color: var(--bg-primary);
-  margin: 0;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.insights-section .section-content {
-  padding: 1.5rem;
-  background: var(--bg-primary);
-}
-
-.insights-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1rem;
-  margin-bottom: 2rem;
-}
-
-.insight-card {
-  background: var(--bg-secondary);
-  border: 1px solid var(--border-color);
-  border-radius: 8px;
-  padding: 1rem;
-  text-align: center;
-  transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.insight-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px var(--shadow-sm);
-}
-
-.alert-card {
-  border-color: var(--warning);
-  background: var(--warning-bg);
-}
-
-.insight-header {
-  margin-bottom: 0.5rem;
-}
-
-.insight-value {
-  font-size: 2rem;
-  font-weight: 700;
-  line-height: 1;
-  color: var(--text-primary);
-}
-
-.insight-label {
-  font-size: 0.875rem;
-  color: var(--text-tertiary);
-  font-weight: 500;
-  margin-top: 0.25rem;
-}
-
-.insight-comparison {
-  font-size: 0.75rem;
-  color: var(--text-muted);
-}
-
-.insight-status {
-  font-size: 0.75rem;
-  padding: 0.25rem 0.5rem;
-  border-radius: 4px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.quick-actions h4 {
-  margin: 0 0 1rem 0;
-  color: var(--text-secondary);
-  font-size: 1.1rem;
-  font-weight: 600;
-}
-
-.actions-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 0.75rem;
-}
-
-.action-btn {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.75rem 1rem;
-  border-radius: 6px;
-  font-weight: 500;
-  transition: all 0.2s;
-  text-decoration: none;
-  border: none;
-  cursor: pointer;
-  justify-content: center;
-}
-
-.action-btn:hover {
-  /* 2026-11-10 同类排查：按钮不做 hover 位移（布局边界契约 3） */
-  box-shadow: 0 2px 8px var(--shadow-md);
-}
-
-.action-btn:active {
-  transform: translateY(0);
-}
+/* 2026-11-13: 此处曾定义 .insights-section/.insights-grid/.insight-card/
+   .quick-actions/.action-btn 等通用类，但 People 页已不再使用这些类；
+   PersonDetails 页有自己的同名定义。未分层 CSS 全局常驻，导致从 People
+   进入 PersonDetails 后 People.css 的
+   `.insights-section .section-header h2 { color: var(--bg-primary) }`
+   以更高特异度覆盖标题色，浅色主题下标题变白不可见。死规则整段删除，
+   同名类所有权归 PersonDetails.css（跨页共享类必须作用域化，见 D-03）。
+*/
 
 /* Team Insights */
 .team-insights {
@@ -416,19 +303,7 @@
     width: 100%;
     justify-content: center;
   }
-  
-  .insights-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .actions-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .insight-value {
-    font-size: 1.5rem;
-  }
-  
+
   .insight-summary {
     flex-direction: column;
     align-items: flex-start;

@@ -41,6 +41,7 @@ interface PersonRow {
 }
 
 interface AssignmentRow extends WorkloadAssignment {
+  project_id: string;
   project_name?: string | null;
   role_name?: string | null;
   phase_name?: string | null;
@@ -404,6 +405,17 @@ export default function PersonWorkload() {
     ...summary.excluded.map((excludedRow) => excludedRow.assignment),
   ];
 
+  const openExistingAssignment = (projectId: string) => {
+    const existing = allWorkloadRows().find((row) => String(row.project_id) === String(projectId));
+    if (!existing) return;
+    beginEdit(existing);
+    window.requestAnimationFrame(() => {
+      document
+        .querySelector<HTMLElement>(`[data-assignment-id="${existing.id}"]`)
+        ?.scrollIntoView?.({ block: 'center', behavior: 'smooth' });
+    });
+  };
+
   const startBatch = () => {
     const drafts: Record<string, string> = {};
     for (const row of allWorkloadRows()) {
@@ -571,7 +583,10 @@ export default function PersonWorkload() {
 
             return (
               <React.Fragment key={item.id}>
-                <tr className={excluded ? 'pw-row--excluded' : undefined}>
+                <tr
+                  className={excluded ? 'pw-row--excluded' : undefined}
+                  data-assignment-id={item.id}
+                >
                   <td className="pw-col-project">
                     <div className="pw-project">
                       <BriefcaseBusiness size={15} aria-hidden="true" />
@@ -747,11 +762,11 @@ export default function PersonWorkload() {
                       <AssignmentImpactPreview
                         projectId={String(item.project_id)}
                         projectName={item.project_name}
+                        windowStart={mode === 'fixed' ? draft.startDate : start}
+                        windowEnd={mode === 'fixed' ? draft.endDate : end}
                         asOf={summary.asOf}
-                        personCurrent={summary.totalAllocation}
-                        originalAllocation={
-                          summary.current.some((currentRow) => currentRow.id === item.id) ? allocation : 0
-                        }
+                        personAssignments={assignmentsQuery.data ?? []}
+                        originalAllocation={allocation}
                         proposedAllocation={Number(draft.allocation) || 0}
                         editingRowId={item.id}
                         availability={summary.availability}
@@ -950,9 +965,10 @@ export default function PersonWorkload() {
         <PersonTaskPicker
           personId={person.id}
           roles={person.roles ?? []}
-          currentPersonAllocation={summary.totalAllocation}
           asOf={summary.asOf}
           availability={summary.availability}
+          assignments={assignmentsQuery.data ?? []}
+          onOpenExisting={openExistingAssignment}
         />
         <main className="pw-main">
       {scenarioMismatch ? (

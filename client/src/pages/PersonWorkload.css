@@ -701,6 +701,34 @@
   font-size: var(--text-xs);
 }
 
+.person-workload-page .pw-existing-hint {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.4rem;
+  color: var(--text-secondary);
+  font-size: var(--text-xs);
+}
+
+.person-workload-page .pw-slot-conflict {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  border: 1px solid var(--warning);
+  border-radius: var(--radius-sm);
+  background: color-mix(in srgb, var(--warning) 10%, var(--bg-primary));
+  padding: 0.45rem 0.55rem;
+  color: var(--text-primary);
+  font-size: var(--text-xs);
+}
+
+.person-workload-page .pw-slot-candidate {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.4rem;
+}
+
 .person-workload-page .pw-add-form label {
   display: flex;
   flex-direction: column;

@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { AlertTriangle, ChevronDown, Plus, Search } from 'lucide-react';
@@ -14,12 +14,25 @@ interface PersonRoleOption {
   is_primary?: number;
 }
 
+interface AssignmentRef {
+  id: string;
+  project_id: string;
+  allocation_percentage?: number | string | null;
+  status?: string | null;
+  start_date?: string | number | null;
+  end_date?: string | number | null;
+  computed_start_date?: string | number | null;
+  computed_end_date?: string | number | null;
+  [key: string]: unknown;
+}
+
 interface PersonTaskPickerProps {
   personId: string;
   roles: PersonRoleOption[];
-  currentPersonAllocation: number;
   asOf: string;
   availability: number | null;
+  assignments?: AssignmentRef[];
+  onOpenExisting?: (projectId: string) => void;
 }
 
 interface TaskRow {
@@ -88,9 +101,10 @@ function buildTaskOrder(rows: TaskRow[], collapsed: Set<string>): Array<{ row: T
 export function PersonTaskPicker({
   personId,
   roles,
-  currentPersonAllocation,
   asOf,
   availability,
+  assignments = [],
+  onOpenExisting,
 }: PersonTaskPickerProps) {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
@@ -110,6 +124,15 @@ export function PersonTaskPicker({
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [message, setMessage] = useState<{ tone: 'error' | 'warning' | 'success'; text: string } | null>(null);
+  const [slotConflict, setSlotConflict] = useState<{
+    incumbents: Array<{
+      id: string;
+      person_id?: string;
+      person_name?: string;
+      allocation_percentage?: number;
+      version?: number;
+    }>;
+  } | null>(null);
   const activeScenarioId = currentScenario?.id ?? '';
   const scenarioMismatch = Boolean(selected && draftScenarioId && draftScenarioId !== activeScenarioId);
 
@@ -142,6 +165,20 @@ export function PersonTaskPicker({
 
   const rows = tasksQuery.data?.data ?? [];
   const ordered = useMemo(() => buildTaskOrder(rows, collapsedTaskIds), [rows, collapsedTaskIds]);
+  const formRef = useRef<HTMLFormElement>(null);
+  const assignedCountByProject = useMemo(() => {
+    const counts = new Map<string, number>();
+    for (const assignment of assignments) {
+      const key = String(assignment.project_id);
+      counts.set(key, (counts.get(key) ?? 0) + 1);
+    }
+    return counts;
+  }, [assignments]);
+
+  useEffect(() => {
+    if (!selected) return;
+    formRef.current?.scrollIntoView?.({ block: 'nearest', behavior: 'smooth' });
+  }, [selected]);
 
   useEffect(() => {
     setCollapsedTaskIds(new Set());
@@ -193,6 +230,7 @@ export function PersonTaskPicker({
     setPhaseId('');
     setStartDate((row.start_date ?? row.aspiration_start ?? '').slice(0, 10));
     setEndDate((row.end_date ?? row.aspiration_finish ?? '').slice(0, 10));
+    setSlotConflict(null);
     setMessage(null);
   };
 
@@ -205,11 +243,12 @@ export function PersonTaskPicker({
   const discardDraft = () => {
     setSelected(null);
     setDraftScenarioId(null);
+    setSlotConflict(null);
     setMessage(null);
   };
 
   const createMutation = useMutation({
-    mutationFn: async () => {
+    mutationFn: async (replace?: { assignmentId: string; version: number }) => {
       if (!selected) throw new Error(t('assignments:workload.picker.selectTask'));
       if (!roleId) throw new Error(t('assignments:workload.picker.selectRole'));
       const allocationNumber = Number(allocation);
@@ -233,6 +272,10 @@ export function PersonTaskPicker({
         if (!effectivePhaseId) throw new Error(t('assignments:workload.picker.noPhases'));
         payload.phase_id = effectivePhaseId;
       }
+      if (replace) {
+        payload.replace_assignment_id = replace.assignmentId;
+        payload.replace_expected_version = replace.version;
+      }
 
       const response = await api.assignments.create(payload as never, {
         scenarioId: draftScenarioId ?? activeScenarioId,
@@ -240,6 +283,7 @@ export function PersonTaskPicker({
       return response.data as unknown as { warning?: string };
     },
     onSuccess: (created) => {
+      setSlotConflict(null);
       setMessage({
         tone: created?.warning ? 'warning' : 'success',
         text: created?.warning
@@ -255,6 +299,14 @@ export function PersonTaskPicker({
       const code = error?.response?.data?.code;
       if (status === 409 && code === 'ASSIGNMENT_DUPLICATE') {
         setMessage({ tone: 'error', text: t('assignments:workload.picker.duplicate') });
+        return;
+      }
+      if (status === 409 && code === 'ASSIGNMENT_SLOT_OCCUPIED') {
+        const incumbents = Array.isArray(error?.response?.data?.incumbents)
+          ? error.response.data.incumbents
+          : [];
+        setSlotConflict({ incumbents });
+        setMessage({ tone: 'error', text: t('assignments:workload.picker.slotOccupied') });
         return;
       }
       setMessage({
@@ -374,6 +426,7 @@ export function PersonTaskPicker({
             const collapsed = collapsedTaskIds.has(row.id);
             const reason = disabledReason(row);
             const isSelected = selected?.id === row.id;
+            const assignedCount = assignedCountByProject.get(row.id) ?? 0;
             return (
               <button
                 key={row.id}
@@ -410,6 +463,9 @@ export function PersonTaskPicker({
                 </span>
                 <span className="pw-task-meta">
                   {row.project_sub_type_name ?? '—'}
+                  {assignedCount > 0
+                    ? ` · ${t('assignments:workload.picker.assignedCount', { count: assignedCount })}`
+                    : ''}
                   {reason ? ` · ${reason}` : ''}
                 </span>
               </button>
@@ -426,10 +482,11 @@ export function PersonTaskPicker({
 
       {selected ? (
         <form
+          ref={formRef}
           className="pw-add-form"
           onSubmit={(event) => {
             event.preventDefault();
-            createMutation.mutate();
+            createMutation.mutate(undefined);
           }}
         >
           <div className="pw-add-title">
@@ -439,6 +496,25 @@ export function PersonTaskPicker({
             </button>
           </div>
           <p className="pw-add-note">{t('assignments:workload.picker.dateModeHint')}</p>
+          {(assignedCountByProject.get(selected.id) ?? 0) > 0 ? (
+            <div className="pw-existing-hint">
+              <span>
+                {t('assignments:workload.picker.assignedCount', {
+                  count: assignedCountByProject.get(selected.id) ?? 0,
+                })}
+              </span>
+              <button
+                type="button"
+                className="btn btn-outline btn-sm"
+                onClick={() => {
+                  onOpenExisting?.(selected.id);
+                  discardDraft();
+                }}
+              >
+                {t('assignments:workload.picker.viewExisting')}
+              </button>
+            </div>
+          ) : null}
           {scenarioMismatch ? (
             <div className="pw-scenario-banner" role="alert">
               <div>
@@ -554,12 +630,49 @@ export function PersonTaskPicker({
           <AssignmentImpactPreview
             projectId={selected.id}
             projectName={selected.name}
+            windowStart={dateMode === 'fixed' ? startDate : derivedStart}
+            windowEnd={dateMode === 'fixed' ? endDate : derivedEnd}
             asOf={asOf}
-            personCurrent={currentPersonAllocation}
+            personAssignments={assignments}
             originalAllocation={0}
             proposedAllocation={Number(allocation) || 0}
             availability={availability}
           />
+
+          {slotConflict ? (
+            <div className="pw-slot-conflict" role="alert">
+              <strong>{t('assignments:workload.picker.slotOccupied')}</strong>
+              {slotConflict.incumbents.length === 0 ? (
+                <span>{t('assignments:workload.picker.slotOccupiedUnknown')}</span>
+              ) : (
+                slotConflict.incumbents.map((incumbent) => (
+                  <div key={incumbent.id} className="pw-slot-candidate">
+                    <span>
+                      {incumbent.person_name ?? incumbent.person_id ?? incumbent.id}
+                      {incumbent.allocation_percentage !== undefined
+                        ? ` · ${incumbent.allocation_percentage}%`
+                        : ''}
+                    </span>
+                    <button
+                      type="button"
+                      className="btn btn-warning btn-sm"
+                      disabled={createMutation.isPending}
+                      onClick={() =>
+                        createMutation.mutate({
+                          assignmentId: incumbent.id,
+                          version: Number(incumbent.version ?? 1),
+                        })
+                      }
+                    >
+                      {t('assignments:workload.picker.replaceWith', {
+                        name: incumbent.person_name ?? incumbent.person_id ?? incumbent.id,
+                      })}
+                    </button>
+                  </div>
+                ))
+              )}
+            </div>
+          ) : null}
 
           <button type="submit" className="btn btn-primary btn-sm" disabled={createMutation.isPending || roles.length === 0 || scenarioMismatch}>
             <Plus size={14} /> {createMutation.isPending ? t('assignments:workload.picker.adding') : t('assignments:workload.picker.add')}

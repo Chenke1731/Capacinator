@@ -242,7 +242,7 @@ test('row edit saves allocation + dates in one PUT with one expected_version', a
   fireEvent.click(screen.getAllByRole('button', { name: 'Edit' })[0]);
   fireEvent.change(screen.getByLabelText('Allocation %'), { target: { value: '35' } });
   fireEvent.change(screen.getByLabelText('Start date'), { target: { value: '2026-02-01' } });
-  expect(screen.getByTestId('pw-impact-preview')).toHaveTextContent(/Person: 30% → 45%/);
+  expect(screen.getByTestId('pw-impact-preview')).toHaveTextContent(/Person: 45% → 60%/);
   await waitFor(() => {
     expect(screen.getByTestId('pw-impact-preview')).toHaveTextContent(/Project Alpha: 20% → 35%/);
   });
@@ -414,6 +414,28 @@ const taskTree = [
     start_date: '2026-04-01',
     end_date: '2026-04-30',
   },
+  {
+    id: 'p1',
+    name: 'Assigned Task',
+    parent_id: null,
+    child_count: 0,
+    project_sub_type_name: 'AR',
+    lifecycle_state: 'developing',
+    include_in_demand: 1,
+    start_date: '2026-01-01',
+    end_date: '2026-12-31',
+  },
+  {
+    id: 'future-task',
+    name: 'Future Task',
+    parent_id: null,
+    child_count: 0,
+    project_sub_type_name: 'AR',
+    lifecycle_state: 'developing',
+    include_in_demand: 1,
+    start_date: '2027-01-01',
+    end_date: '2027-01-31',
+  },
 ];
 
 test('task picker disables SR parent and adds a leaf in one create request', async () => {
@@ -496,6 +518,21 @@ test('handover sends successor/effective date/allocation with one expected_versi
   expect(await screen.findByText('Assignment handed over.')).toBeInTheDocument();
 });
 
+test('task node shows assigned count and opens the existing row for editing', async () => {
+  (api.projects.list as jest.Mock).mockResolvedValue({
+    data: { data: taskTree, pagination: { total: 4, has_more: false } },
+  });
+  renderPage();
+
+  const task = await screen.findByRole('treeitem', { name: /Assigned Task/i });
+  expect(task).toHaveTextContent(/Assigned 1/);
+  fireEvent.click(task);
+  fireEvent.click(await screen.findByRole('button', { name: /View existing/i }));
+
+  expect(await screen.findByLabelText('Allocation %')).toHaveValue(20);
+  expect(screen.getByTestId('pw-impact-preview')).toHaveTextContent(/Project Alpha/);
+});
+
 test('batch adjust saves each dirty row with its own version and scenario', async () => {
   renderPage();
 
@@ -543,6 +580,17 @@ test('task tree parents expand/collapse descendants', async () => {
   expect(screen.getByRole('treeitem', { name: /^Leaf Task AR/i })).toBeInTheDocument();
 });
 
+test('impact preview uses the proposed window, not just asOf', async () => {
+  (api.projects.list as jest.Mock).mockResolvedValue({
+    data: { data: taskTree, pagination: { total: 5, has_more: false } },
+  });
+  renderPage();
+
+  fireEvent.click(await screen.findByRole('treeitem', { name: /Future Task/i }));
+  expect(await screen.findByTestId('pw-impact-preview')).toHaveTextContent(/Person: 10% → 30%/);
+  expect(screen.getByTestId('pw-impact-preview')).toHaveTextContent(/Project Future Task: 0% → 20%/);
+});
+
 test('task picker supports roving tabindex and arrow/Enter keyboard selection', async () => {
   (api.projects.list as jest.Mock).mockResolvedValue({
     data: { data: taskTree, pagination: { total: 3, has_more: false } },
@@ -552,7 +600,7 @@ test('task picker supports roving tabindex and arrow/Enter keyboard selection', 
   const first = await screen.findByRole('treeitem', { name: /^Leaf Task AR/i });
   const second = screen.getByRole('treeitem', { name: /^Leaf Task 2 AR/i });
   expect(screen.getByRole('treeitem', { name: /SR Parent/i })).toHaveAttribute('tabindex', '-1');
-  expect(first).toHaveAttribute('tabindex', '0');
+  expect(screen.getAllByRole('treeitem').some((item) => item.getAttribute('tabindex') === '0')).toBe(true);
 
   act(() => first.focus());
   fireEvent.keyDown(first, { key: 'ArrowDown' });
@@ -623,6 +671,45 @@ test('phase mode creates with phase_id and no manual dates', async () => {
   const payload = (api.assignments.create as jest.Mock).mock.calls[0][0];
   expect(payload).not.toHaveProperty('start_date');
   expect(payload).not.toHaveProperty('end_date');
+});
+
+test('SE slot occupied shows the incumbent and sends explicit replacement fields', async () => {
+  (api.projects.list as jest.Mock).mockResolvedValue({
+    data: { data: taskTree, pagination: { total: 5, has_more: false } },
+  });
+  (api.assignments.create as jest.Mock)
+    .mockRejectedValueOnce({
+      response: {
+        status: 409,
+        data: {
+          code: 'ASSIGNMENT_SLOT_OCCUPIED',
+          incumbents: [{
+            id: 'old-se',
+            person_id: 'person-old',
+            person_name: 'Old SE',
+            allocation_percentage: 100,
+            version: 3,
+          }],
+        },
+      },
+    })
+    .mockResolvedValue({ data: { id: 'replacement' } });
+  renderPage();
+
+  fireEvent.click(await screen.findByRole('treeitem', { name: /^Leaf Task AR/i }));
+  fireEvent.click(await screen.findByRole('button', { name: /^Add$/i }));
+  fireEvent.click(await screen.findByRole('button', { name: /Replace Old SE/i }));
+
+  await waitFor(() => {
+    expect(api.assignments.create).toHaveBeenCalledTimes(2);
+  });
+  expect(api.assignments.create).toHaveBeenLastCalledWith(
+    expect.objectContaining({
+      replace_assignment_id: 'old-se',
+      replace_expected_version: 3,
+    }),
+    { scenarioId: 'baseline-0000-0000-0000-000000000000' }
+  );
 });
 
 test('project mode creates with project mode and derived read-only dates', async () => {

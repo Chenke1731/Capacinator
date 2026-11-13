@@ -181,3 +181,15 @@ status: candidate
 checklist_item: 聚合行写入口与卡头/清单计数是否同源（人工项；机器化后删除）
 note: 夹具实测 42 条未排中 5 条为 SR 父行（含 in_iteration 仍列未排）；服务端 ProjectsController 对父行一律 400
 ```
+
+```yaml exp
+id: EXP-015
+source: incident/2026-11-13-person-details-heading-css-leak（I02p；用户截图：工作负载标题白字不可见）
+class: 跨页样式×全局 CSS 泄漏
+mechanism_slice: css-global-lifetime × shared-class-collision
+disposition: GUARD
+guard: enforced — scripts/check-css-duplicates.mjs（A：跨文件重复 class 基线，新增重复/新增 owner 红）+ scripts/check-page-css-scope.mjs（B：登记页面新增顶层选择器必须以页面根类开头，存量冻结）+ tests/unit/client/PeoplePersonDetails.css.test.ts（C 静态归属）+ tests/e2e/suites/integration/person-details-theme.spec.ts（真实 People→PersonDetails 路由切换后标题对比度≥4.5）；两条静态守卫入 lint:ui 与 pre-commit
+verification: done 2026-11-13（I02p）— 重新向 People.css 注入 `.insights-section .section-header h2` → B 守卫红；A SELF_TEST 4/4（新重复/新增 owner 必红）；CSS 契约测试 2/2；client 全量 81 套件 1596/0；e2e 路由对比度用例已入仓（本批未启动 e2e server 执行）
+status: enforced
+note: People.css 改版后遗留整套 insights/action 通用类；People.css 全局常驻，`.insights-section .section-header h2`（0,2,1）覆盖 PersonDetails.css 的 `.section-header h2`（0,1,1），浅色主题 `--bg-primary`=白 → 白字白底。既有 lint:ui 只检查注册共享类，visual/states 直接打开目标路由不经过 People.css 已加载状态，因此全绿漏检。新守卫只冻结存量重复；彻底方案是页面 CSS 全部根类作用域化/CSS Modules，存量按 A/B 基线逐步清理
+```

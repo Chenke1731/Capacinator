@@ -106,6 +106,21 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 
+# UI CSS 三层守卫（2026-11-13 I02p）：跨文件重复类基线 + 页面作用域基线。
+# 背景：People.css 死规则 .insights-section... 以更高特异度覆盖 PersonDetails
+# 标题色（浅色主题白字不可见）；这两条静态守卫在提交时拦截新增泄漏。
+echo "── UI CSS guards (duplicates + page scope) ──"
+node scripts/check-css-duplicates.mjs
+if [ $? -ne 0 ]; then
+  echo "✗ CSS duplicate guard — commit blocked"
+  exit 1
+fi
+node scripts/check-page-css-scope.mjs
+if [ $? -ne 0 ]; then
+  echo "✗ Page CSS scope guard — commit blocked"
+  exit 1
+fi
+
 # UI 评审经验库完整性(2026-11-10 评审员试点): 每条经验必须可追溯、
 # GUARD 必须有断言/自证、同族≥2 禁止 NIT、enforced 后禁止人机双源。
 echo "── UI review experiences integrity ──"

@@ -544,7 +544,7 @@ export default function People() {
   }
 
   return (
-    <div className="page-container">
+    <div className="page-container people-page">
       <div className="page-header">
         <div>
           <h1>{t('people:title')}</h1>

@@ -1,0 +1,456 @@
+{
+  "actionable-item": [
+    "client/src/index.css",
+    "client/src/styles/reports.css"
+  ],
+  "actionable-items-grid": [
+    "client/src/index.css",
+    "client/src/styles/reports.css"
+  ],
+  "actionable-sections": [
+    "client/src/index.css",
+    "client/src/styles/reports.css"
+  ],
+  "actionable-table": [
+    "client/src/index.css",
+    "client/src/styles/reports.css"
+  ],
+  "actionable-table-container": [
+    "client/src/index.css",
+    "client/src/styles/reports.css"
+  ],
+  "actions-cell": [
+    "client/src/components/PhaseTemplateDesigner.css",
+    "client/src/styles/reports.css"
+  ],
+  "allocation-cell": [
+    "client/src/index.css",
+    "client/src/pages/Assignments.css"
+  ],
+  "allocation-empty": [
+    "client/src/App.css",
+    "client/src/index.css"
+  ],
+  "allocation-value": [
+    "client/src/App.css",
+    "client/src/index.css"
+  ],
+  "baseline-star": [
+    "client/src/components/AppHeader.css",
+    "client/src/components/ScenarioSelector.css"
+  ],
+  "btn": [
+    "client/src/App.css",
+    "client/src/components/PhaseTemplateDesigner.css",
+    "client/src/pages/AuditLog.css",
+    "client/src/pages/Import.css",
+    "client/src/pages/Locations.css",
+    "client/src/styles/reports.css"
+  ],
+  "btn-danger": [
+    "client/src/App.css",
+    "client/src/components/PhaseTemplateDesigner.css",
+    "client/src/pages/Locations.css",
+    "client/src/pages/People.css",
+    "client/src/styles/reports.css"
+  ],
+  "btn-outline": [
+    "client/src/App.css",
+    "client/src/styles/reports.css"
+  ],
+  "btn-primary": [
+    "client/src/App.css",
+    "client/src/components/PhaseTemplateDesigner.css",
+    "client/src/pages/Locations.css",
+    "client/src/pages/Scenarios.css",
+    "client/src/styles/reports.css"
+  ],
+  "btn-secondary": [
+    "client/src/App.css",
+    "client/src/components/PhaseTemplateDesigner.css",
+    "client/src/pages/Scenarios.css",
+    "client/src/styles/reports.css"
+  ],
+  "btn-sm": [
+    "client/src/App.css",
+    "client/src/components/PhaseTemplateDesigner.css",
+    "client/src/components/ProjectsTable.css",
+    "client/src/pages/Assignments.css",
+    "client/src/pages/Locations.css",
+    "client/src/pages/Scenarios.css",
+    "client/src/styles/reports.css"
+  ],
+  "card-action-link": [
+    "client/src/App.css",
+    "client/src/styles/reports.css"
+  ],
+  "card-header": [
+    "client/src/components/ui/Card.css",
+    "client/src/pages/Import.css"
+  ],
+  "charts-grid": [
+    "client/src/index.css",
+    "client/src/pages/Dashboard.css",
+    "client/src/styles/reports.css"
+  ],
+  "chevron": [
+    "client/src/components/AppHeader.css",
+    "client/src/components/ScenarioSelector.css"
+  ],
+  "count-badge": [
+    "client/src/pages/ProjectTypes.css",
+    "client/src/pages/Roles.css"
+  ],
+  "enhanced-kpis": [
+    "client/src/components/dashboard/Dashboard.css",
+    "client/src/pages/Dashboard.css"
+  ],
+  "expand-toggle": [
+    "client/src/pages/ProjectTypes.css",
+    "client/src/pages/Scenarios.css"
+  ],
+  "filter-group": [
+    "client/src/App.css",
+    "client/src/styles/reports.css"
+  ],
+  "filter-section": [
+    "client/src/App.css",
+    "client/src/pages/Scenarios.css"
+  ],
+  "form-actions": [
+    "client/src/App.css",
+    "client/src/pages/ProjectTypeDetails.css"
+  ],
+  "form-grid": [
+    "client/src/App.css",
+    "client/src/index.css",
+    "client/src/pages/ProjectTypeDetails.css"
+  ],
+  "header-left": [
+    "client/src/components/AppHeader.css",
+    "client/src/index.css",
+    "client/src/pages/PersonDetails.css"
+  ],
+  "help-text": [
+    "client/src/App.css",
+    "client/src/index.css"
+  ],
+  "history-timeline": [
+    "client/src/pages/PersonDetails.css",
+    "client/src/pages/ProjectDetail.css"
+  ],
+  "info-grid": [
+    "client/src/index.css",
+    "client/src/pages/PersonDetails.css",
+    "client/src/pages/ProjectDetail.css"
+  ],
+  "info-item": [
+    "client/src/index.css",
+    "client/src/pages/PersonDetails.css",
+    "client/src/pages/ProjectDetail.css"
+  ],
+  "info-value": [
+    "client/src/pages/PersonDetails.css",
+    "client/src/pages/ProjectDetail.css"
+  ],
+  "item-actions": [
+    "client/src/index.css",
+    "client/src/styles/reports.css"
+  ],
+  "item-detail": [
+    "client/src/index.css",
+    "client/src/styles/reports.css"
+  ],
+  "legend-item": [
+    "client/src/pages/ProjectTypeDetails.css",
+    "client/src/pages/Scenarios.css"
+  ],
+  "level-badge": [
+    "client/src/pages/ProjectTypeDetails.css",
+    "client/src/pages/ProjectTypes.css"
+  ],
+  "loading": [
+    "client/src/App.css",
+    "client/src/pages/Locations.css"
+  ],
+  "metric": [
+    "client/src/index.css",
+    "client/src/styles/reports.css"
+  ],
+  "nav-link": [
+    "client/src/App.css",
+    "client/src/components/Layout.css"
+  ],
+  "person-name": [
+    "client/src/App.css",
+    "client/src/pages/People.css"
+  ],
+  "phase-name": [
+    "client/src/components/PhaseTemplateDesigner.css",
+    "client/src/pages/ProjectRoadmap.css"
+  ],
+  "priority-badge": [
+    "client/src/pages/Assignments.css",
+    "client/src/pages/ProjectRoadmap.css"
+  ],
+  "project-info": [
+    "client/src/pages/Assignments.css",
+    "client/src/pages/ProjectRoadmap.css"
+  ],
+  "project-name": [
+    "client/src/pages/Assignments.css",
+    "client/src/pages/ProjectRoadmap.css",
+    "client/src/pages/Projects.css"
+  ],
+  "project-type-color": [
+    "client/src/App.css",
+    "client/src/pages/ProjectTypes.css"
+  ],
+  "project-type-name": [
+    "client/src/App.css",
+    "client/src/index.css",
+    "client/src/pages/ProjectTypes.css"
+  ],
+  "recharts-cartesian-axis-tick-value": [
+    "client/src/components/chart-colors.css",
+    "client/src/index.css"
+  ],
+  "recharts-default-tooltip": [
+    "client/src/components/chart-colors.css",
+    "client/src/index.css"
+  ],
+  "recharts-legend-item-text": [
+    "client/src/components/chart-colors.css",
+    "client/src/index.css"
+  ],
+  "recharts-tooltip-label": [
+    "client/src/components/chart-colors.css",
+    "client/src/index.css"
+  ],
+  "recommendation-card": [
+    "client/src/components/modals/SmartAssignmentModal.css",
+    "client/src/pages/Assignments.css"
+  ],
+  "recommendation-details": [
+    "client/src/components/modals/SmartAssignmentModal.css",
+    "client/src/pages/Assignments.css"
+  ],
+  "recommendation-header": [
+    "client/src/components/modals/SmartAssignmentModal.css",
+    "client/src/pages/Assignments.css"
+  ],
+  "recommendations-list": [
+    "client/src/components/modals/SmartAssignmentModal.css",
+    "client/src/pages/Assignments.css"
+  ],
+  "report-content": [
+    "client/src/index.css",
+    "client/src/styles/reports.css"
+  ],
+  "report-summary": [
+    "client/src/index.css",
+    "client/src/styles/reports.css"
+  ],
+  "resize-handle": [
+    "client/src/components/InteractiveTimeline.css",
+    "client/src/pages/ProjectRoadmap.css"
+  ],
+  "save-message": [
+    "client/src/App.css",
+    "client/src/index.css"
+  ],
+  "scenario-badges": [
+    "client/src/components/AppHeader.css",
+    "client/src/components/ScenarioSelector.css"
+  ],
+  "scenario-details": [
+    "client/src/components/AppHeader.css",
+    "client/src/components/ScenarioSelector.css",
+    "client/src/pages/Scenarios.css"
+  ],
+  "scenario-icon": [
+    "client/src/components/ScenarioSelector.css",
+    "client/src/pages/Scenarios.css"
+  ],
+  "scenario-info": [
+    "client/src/components/ScenarioSelector.css",
+    "client/src/pages/Scenarios.css"
+  ],
+  "scenario-name": [
+    "client/src/components/AppHeader.css",
+    "client/src/components/ScenarioSelector.css",
+    "client/src/pages/Scenarios.css"
+  ],
+  "scenario-option": [
+    "client/src/components/AppHeader.css",
+    "client/src/components/ScenarioSelector.css"
+  ],
+  "scenario-option-name": [
+    "client/src/components/AppHeader.css",
+    "client/src/components/ScenarioSelector.css"
+  ],
+  "scenario-selector": [
+    "client/src/components/AppHeader.css",
+    "client/src/components/ScenarioSelector.css",
+    "client/src/pages/Scenarios.css"
+  ],
+  "scenario-status-badge": [
+    "client/src/components/AppHeader.css",
+    "client/src/components/ScenarioSelector.css"
+  ],
+  "scenario-type": [
+    "client/src/components/AppHeader.css",
+    "client/src/pages/Scenarios.css"
+  ],
+  "scenario-type-badge": [
+    "client/src/components/AppHeader.css",
+    "client/src/components/ScenarioSelector.css",
+    "client/src/pages/Scenarios.css"
+  ],
+  "search-input": [
+    "client/src/components/ui/FilterBar.css",
+    "client/src/pages/Scenarios.css"
+  ],
+  "section-header": [
+    "client/src/index.css",
+    "client/src/pages/PersonDetails.css",
+    "client/src/pages/ProjectTypeDetails.css"
+  ],
+  "setting-description": [
+    "client/src/App.css",
+    "client/src/index.css"
+  ],
+  "setting-item": [
+    "client/src/App.css",
+    "client/src/index.css"
+  ],
+  "settings-actions": [
+    "client/src/App.css",
+    "client/src/index.css"
+  ],
+  "settings-grid": [
+    "client/src/index.css",
+    "client/src/pages/Import.css"
+  ],
+  "settings-group": [
+    "client/src/App.css",
+    "client/src/index.css"
+  ],
+  "settings-section": [
+    "client/src/App.css",
+    "client/src/index.css"
+  ],
+  "spinner": [
+    "client/src/components/ui/LoadingSpinner.css",
+    "client/src/pages/Assignments.css"
+  ],
+  "sr-only": [
+    "client/src/components/PhaseTemplateDesigner.css",
+    "client/src/pages/Import.css",
+    "client/src/pages/Scenarios.css"
+  ],
+  "stat-item": [
+    "client/src/pages/Dashboard.css",
+    "client/src/pages/Import.css"
+  ],
+  "stat-label": [
+    "client/src/pages/Dashboard.css",
+    "client/src/pages/Import.css"
+  ],
+  "stat-value": [
+    "client/src/pages/Dashboard.css",
+    "client/src/pages/Import.css"
+  ],
+  "stats-grid": [
+    "client/src/pages/Dashboard.css",
+    "client/src/pages/Import.css"
+  ],
+  "status-indicator": [
+    "client/src/components/AppHeader.css",
+    "client/src/index.css",
+    "client/src/pages/People.css"
+  ],
+  "summary-item": [
+    "client/src/components/modals/SmartAssignmentModal.css",
+    "client/src/pages/PersonDetails.css"
+  ],
+  "summary-label": [
+    "client/src/components/modals/SmartAssignmentModal.css",
+    "client/src/index.css"
+  ],
+  "summary-value": [
+    "client/src/components/modals/SmartAssignmentModal.css",
+    "client/src/index.css",
+    "client/src/pages/PersonDetails.css"
+  ],
+  "table": [
+    "client/src/App.css",
+    "client/src/pages/ProjectTypeDetails.css"
+  ],
+  "table-container": [
+    "client/src/App.css",
+    "client/src/pages/Assignments.css",
+    "client/src/pages/ProjectTypeDetails.css"
+  ],
+  "table-empty": [
+    "client/src/components/ui/DataTable.css",
+    "client/src/components/ui/enhanced-table.css"
+  ],
+  "table-loading": [
+    "client/src/components/ui/DataTable.css",
+    "client/src/components/ui/enhanced-table.css"
+  ],
+  "tag-new-input": [
+    "client/src/App.css",
+    "client/src/pages/Projects.css"
+  ],
+  "text-danger": [
+    "client/src/App.css",
+    "client/src/pages/People.css"
+  ],
+  "text-sm": [
+    "client/src/App.css",
+    "client/src/pages/Assignments.css"
+  ],
+  "text-success": [
+    "client/src/App.css",
+    "client/src/pages/People.css"
+  ],
+  "text-warning": [
+    "client/src/App.css",
+    "client/src/pages/People.css"
+  ],
+  "theme-selector": [
+    "client/src/App.css",
+    "client/src/index.css"
+  ],
+  "timeline-container": [
+    "client/src/components/InteractiveTimeline.css",
+    "client/src/pages/ProjectRoadmap.css"
+  ],
+  "timeline-content": [
+    "client/src/pages/PersonDetails.css",
+    "client/src/pages/ProjectDetail.css"
+  ],
+  "timeline-date": [
+    "client/src/pages/PersonDetails.css",
+    "client/src/pages/ProjectDetail.css"
+  ],
+  "timeline-item": [
+    "client/src/components/InteractiveTimeline.css",
+    "client/src/pages/PersonDetails.css",
+    "client/src/pages/ProjectDetail.css"
+  ],
+  "today-line": [
+    "client/src/components/InteractiveTimeline.css",
+    "client/src/pages/ProjectRoadmap.css"
+  ],
+  "view-controls": [
+    "client/src/pages/ProjectRoadmap.css",
+    "client/src/pages/Scenarios.css"
+  ],
+  "view-mode-toggle": [
+    "client/src/pages/ProjectTypes.css",
+    "client/src/pages/Scenarios.css"
+  ]
+}

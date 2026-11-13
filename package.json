@@ -64,7 +64,7 @@
     "test:installer:cleanup": "tsx scripts/cleanup-installer-test.ts",
     "test:scenarios:e2e": "playwright test --config=playwright.scenario.config.ts",
     "lint": "eslint src client/src shared --ext .ts,.tsx",
-    "lint:ui": "node scripts/lint-ui-css.mjs",
+    "lint:ui": "node scripts/lint-ui-css.mjs && node scripts/check-css-duplicates.mjs && node scripts/check-page-css-scope.mjs",
     "audit:colors": "node scripts/audit-color-debt.mjs --scan",
     "verify:colors": "node scripts/audit-color-debt.mjs --check",
     "verify:colors:selftest": "node scripts/audit-color-debt.mjs --selftest",

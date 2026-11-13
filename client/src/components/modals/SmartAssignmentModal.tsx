@@ -77,6 +77,8 @@ interface ActiveAssignment {
   computed_end_date?: string;
   start_date?: string;
   end_date?: string;
+  status?: string;
+  version?: number;
 }
 
 // Project with demand for selection
@@ -131,8 +133,15 @@ export function SmartAssignmentModal({
 }: SmartAssignmentModalProps) {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
+  const isReduceMode = actionType === 'reduce_workload';
   const [activeTab, setActiveTab] = useState(triggerContext === 'manual_add' ? 'manual' : 'recommended');
   const [selectedRecommendation, setSelectedRecommendation] = useState<ProjectRecommendation | null>(null);
+  // reduce 模式：勾选要移除的分配（批量释放产能）
+  const [selectedAssignmentIds, setSelectedAssignmentIds] = useState<Set<string>>(new Set());
+
+  useEffect(() => {
+    if (!isOpen) setSelectedAssignmentIds(new Set());
+  }, [isOpen, personId]);
   
   // Form state for manual assignment
   const [formData, setFormData] = useState({
@@ -256,6 +265,58 @@ export function SmartAssignmentModal({
     actionType,
   });
 
+  // reduce 模式派生：目标释放量 + 勾选后的投影（全部按百分点，不做二次四舍五入）
+  const activeAssignments = utilizationData.activeAssignments ?? [];
+  const selectableAssignments = activeAssignments.filter((a) => Boolean(a.id));
+  const selectedAssignments = activeAssignments.filter(
+    (a) => a.id && selectedAssignmentIds.has(a.id)
+  );
+  const selectedAllocation = selectedAssignments.reduce(
+    (sum, a) => sum + (a.allocation_percentage || 0),
+    0
+  );
+  const overloadAmount = Math.max(
+    0,
+    utilizationData.totalAllocation - utilizationData.availability
+  );
+  const projectedTotal = Math.max(0, utilizationData.totalAllocation - selectedAllocation);
+  const projectedOverload = Math.max(0, projectedTotal - utilizationData.availability);
+  const allSelectableSelected =
+    selectableAssignments.length > 0 &&
+    selectableAssignments.every((a) => selectedAssignmentIds.has(a.id));
+  const toggleAssignment = (assignmentId: string) => {
+    setSelectedAssignmentIds((prev) => {
+      const next = new Set(prev);
+      if (next.has(assignmentId)) next.delete(assignmentId);
+      else next.add(assignmentId);
+      return next;
+    });
+  };
+  const toggleAllAssignments = () => {
+    if (allSelectableSelected) {
+      setSelectedAssignmentIds(new Set());
+      return;
+    }
+    setSelectedAssignmentIds(new Set(selectableAssignments.map((a) => a.id)));
+  };
+  const removeSelectedAssignments = async () => {
+    if (selectedAssignments.length === 0) return;
+    if (!confirm(t('assignments:smart.removeSelectedConfirm', { count: selectedAssignments.length }))) {
+      return;
+    }
+    try {
+      for (const assignment of selectedAssignments) {
+        await deleteAssignmentMutation.mutateAsync({
+          id: assignment.id,
+          version: assignment.version
+        });
+      }
+      setSelectedAssignmentIds(new Set());
+    } catch {
+      // deleteAssignmentMutation.onError 已提示；保留选择便于重试
+    }
+  };
+
   // Set default role based on person's primary role
   useEffect(() => {
     if (person && !formData.role_id) {
@@ -338,17 +399,19 @@ export function SmartAssignmentModal({
   // Calculate impact preview
   const impactPreview = useMemo(() => {
     const allocation = selectedRecommendation?.suggestedAllocation || formData.allocation_percentage;
-    const newUtilization = utilizationData.currentUtilization + allocation;
-    const utilizationPercentage = (newUtilization / utilizationData.availability) * 100;
+    const newAllocationTotal = utilizationData.totalAllocation + allocation;
+    const utilizationPercentage = utilizationData.availability > 0
+      ? (newAllocationTotal / utilizationData.availability) * 100
+      : 0;
 
     return {
-      newUtilization,
+      newUtilization: newAllocationTotal,
       utilizationPercentage,
-      isOverallocated: newUtilization > utilizationData.availability,
-      message: newUtilization > utilizationData.availability
+      isOverallocated: newAllocationTotal > utilizationData.availability,
+      message: newAllocationTotal > utilizationData.availability
         ? t('assignments:smart.overallocateMessage', {
             name: person?.name || t('assignments:smart.thePerson'),
-            percent: newUtilization - utilizationData.availability
+            percent: newAllocationTotal - utilizationData.availability
           })
         : t('assignments:smart.utilizationMessage', {
             name: person?.name || t('assignments:smart.thePersonCapital'),
@@ -560,10 +623,16 @@ export function SmartAssignmentModal({
         <DialogHeader>
           <DialogTitle className="text-lg font-semibold leading-none tracking-tight flex items-center gap-2">
             <Sparkles size={20} />
-            {t('assignments:smart.title', { name: personName || person?.name })}
+            {t(
+              isReduceMode ? 'assignments:smart.reduceTitle' : 'assignments:smart.title',
+              { name: personName || person?.name }
+            )}
           </DialogTitle>
           <DialogDescription className="sr-only">
-            {t('assignments:smart.description', { name: personName || person?.name })}
+            {t(
+              isReduceMode ? 'assignments:smart.reduceDescription' : 'assignments:smart.description',
+              { name: personName || person?.name }
+            )}
           </DialogDescription>
         </DialogHeader>
 
@@ -571,11 +640,25 @@ export function SmartAssignmentModal({
         <div className="status-bar">
           <div className="status-item">
             <BarChart3 size={20} />
-            <span>{t('assignments:smart.currentUtilization')}: <strong>{utilizationData.currentUtilization}%</strong></span>
+            <span>
+              {t('assignments:smart.currentUtilization')}: <strong>
+                {utilizationData.availability > 0
+                  ? `${Math.round(utilizationData.currentUtilization)}%`
+                  : '—'}
+              </strong>
+            </span>
           </div>
           <div className="status-item">
             <Users size={20} />
-            <span>{t('assignments:smart.availableCapacity')}: <strong>{utilizationData.remainingCapacity}%</strong></span>
+            <span>
+              {t('assignments:smart.availableCapacity')}: <strong>
+                {utilizationData.remainingCapacity < 0
+                  ? t('assignments:smart.overloadAmount', {
+                      amount: Math.abs(utilizationData.remainingCapacity)
+                    })
+                  : `${utilizationData.remainingCapacity}%`}
+              </strong>
+            </span>
           </div>
           <div className="status-item">
             <Clock size={20} />
@@ -584,19 +667,22 @@ export function SmartAssignmentModal({
         </div>
 
         <form onSubmit={handleSubmit} className="assignment-form">
-          <Tabs value={activeTab} onValueChange={setActiveTab}>
-            <TabsList className="grid w-full grid-cols-2">
-              <TabsTrigger value="recommended">
-                <TrendingUp className="mr-2" size={16} />
-                {t('assignments:smart.tab.recommended')}
-              </TabsTrigger>
-              <TabsTrigger value="manual">
-                <Calendar className="mr-2" size={16} />
-                {t('assignments:smart.tab.manual')}
-              </TabsTrigger>
-            </TabsList>
+          <Tabs value={isReduceMode ? 'manual' : activeTab} onValueChange={setActiveTab}>
+            {!isReduceMode && (
+              <TabsList className="grid w-full grid-cols-2">
+                <TabsTrigger value="recommended">
+                  <TrendingUp className="mr-2" size={16} />
+                  {t('assignments:smart.tab.recommended')}
+                </TabsTrigger>
+                <TabsTrigger value="manual">
+                  <Calendar className="mr-2" size={16} />
+                  {t('assignments:smart.tab.manual')}
+                </TabsTrigger>
+              </TabsList>
+            )}
 
-            <TabsContent value="recommended" className="recommendations-tab">
+            {!isReduceMode && (
+              <TabsContent value="recommended" className="recommendations-tab">
               {projectRecommendations.length > 0 ? (
                 <div className="recommendations-list">
                   {projectRecommendations.map((rec, _index) => (
@@ -655,81 +741,176 @@ export function SmartAssignmentModal({
                   </div>
                 </div>
               )}
-            </TabsContent>
+              </TabsContent>
+            )}
 
             <TabsContent value="manual" className="manual-tab">
               {actionType === 'reduce_workload' ? (
                 // Show delete interface for reducing workload
                 <div className="delete-assignments-container">
-                  <div style={{ 
+                  <div style={{
                     marginBottom: '1rem',
                     padding: '0.75rem',
-                    backgroundColor: 'var(--status-danger-soft)',
-                    border: '1px solid var(--status-danger-border)',
+                    backgroundColor: 'var(--bg-tertiary)',
+                    border: '1px solid var(--border-color)',
                     borderRadius: '0.375rem',
-                    color: 'var(--status-danger-text)'
+                    color: 'var(--text-primary)'
                   }}>
                     <strong>{t('assignments:smart.selectToRemove')}</strong>
                     <p style={{ fontSize: '0.875rem', marginTop: '0.25rem' }}>
-                      {t('assignments:smart.removingHint', { name: personName })}
+                      {t('assignments:smart.removingHint', {
+                        name: personName,
+                        total: utilizationData.totalAllocation,
+                        amount: overloadAmount
+                      })}
                     </p>
+                    {overloadAmount > 0 && (
+                      <p style={{ fontSize: '0.875rem', marginTop: '0.25rem', color: 'var(--status-danger-text)' }}>
+                        {t('assignments:smart.releaseTarget', { amount: overloadAmount })}
+                      </p>
+                    )}
                   </div>
-                  
-                  {utilizationData.activeAssignments && utilizationData.activeAssignments.length > 0 ? (
-                    <div className="assignments-list">
-                      {utilizationData.activeAssignments.map((assignment: ActiveAssignment, index: number) => (
-                        <div key={assignment.id || `assignment-${index}`} className="assignment-item" style={{
-                          padding: '1rem',
-                          marginBottom: '0.5rem',
-                          backgroundColor: 'var(--bg-secondary)',
-                          border: '1px solid var(--border-color)',
-                          borderRadius: '0.375rem',
-                          display: 'flex',
-                          justifyContent: 'space-between',
-                          alignItems: 'center'
-                        }}>
-                          <div>
-                            <div style={{ fontWeight: 600, marginBottom: '0.25rem' }}>
-                              {assignment.project_name || t('assignments:smart.unknownProject')}
-                              {!assignment.id && <span style={{ color: 'var(--status-danger-text)', fontSize: '0.75rem', marginLeft: '0.5rem' }}>{t('assignments:smart.noId')}</span>}
-                            </div>
-                            <div style={{ fontSize: '0.875rem', color: 'var(--text-secondary)' }}>
-                              {assignment.role_name || t('assignments:smart.unknownRole')} • {t('assignments:smart.allocationAmount', { amount: assignment.allocation_percentage || 0 })}
-                              {assignment.phase_name && ` • ${assignment.phase_name}`}
-                            </div>
-                            <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', marginTop: '0.25rem' }}>
-                              {new Date(assignment.computed_start_date || assignment.start_date || '').toLocaleDateString(getLocale())} -
-                              {new Date(assignment.computed_end_date || assignment.end_date || '').toLocaleDateString(getLocale())}
-                            </div>
-                          </div>
-                          <button
-                            type="button"
-                            onClick={() => {
-                              if (!assignment.id) {
-                                alert(t('assignments:smart.errors.missingAssignmentId'));
-                                return;
-                              }
-                              if (confirm(t('assignments:smart.removeConfirm', { name: assignment.project_name }))) {
-                                deleteAssignmentMutation.mutate({ id: assignment.id, version: (assignment as any).version });
-                              }
-                            }}
-                            disabled={deleteAssignmentMutation.isPending || !assignment.id}
-                            className="btn btn-danger btn-sm"
-                            style={{
+
+                  {activeAssignments.length > 0 ? (
+                    <>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem' }}>
+                        <input
+                          id="select-all-assignments"
+                          type="checkbox"
+                          checked={allSelectableSelected}
+                          onChange={toggleAllAssignments}
+                          disabled={deleteAssignmentMutation.isPending}
+                        />
+                        <label htmlFor="select-all-assignments" style={{ fontSize: '0.875rem', cursor: 'pointer' }}>
+                          {t('assignments:smart.selectAll')}
+                        </label>
+                      </div>
+                      <div className="assignments-list">
+                        {activeAssignments.map((assignment: ActiveAssignment, index: number) => {
+                          const allocation = assignment.allocation_percentage || 0;
+                          const afterTotal = Math.max(0, utilizationData.totalAllocation - allocation);
+                          const afterOverload = Math.max(0, afterTotal - utilizationData.availability);
+                          const assignmentId = assignment.id;
+                          return (
+                            <div key={assignmentId || `assignment-${index}`} className="assignment-item" style={{
+                              padding: '1rem',
+                              marginBottom: '0.5rem',
+                              backgroundColor: 'var(--bg-secondary)',
+                              border: '1px solid var(--border-color)',
+                              borderRadius: '0.375rem',
                               display: 'flex',
-                              alignItems: 'center',
-                              gap: '0.25rem',
-                              opacity: !assignment.id ? 0.5 : 1,
-                              cursor: !assignment.id ? 'not-allowed' : 'pointer'
-                            }}
-                            title={!assignment.id ? t('assignments:smart.cannotDeleteMissingId') : undefined}
-                          >
-                            <Trash2 size={16} />
-                            {t('common:remove')}
-                          </button>
-                        </div>
-                      ))}
-                    </div>
+                              justifyContent: 'space-between',
+                              alignItems: 'flex-start',
+                              gap: '0.75rem'
+                            }}>
+                              <input
+                                type="checkbox"
+                                checked={Boolean(assignmentId && selectedAssignmentIds.has(assignmentId))}
+                                onChange={() => assignmentId && toggleAssignment(assignmentId)}
+                                disabled={!assignmentId || deleteAssignmentMutation.isPending}
+                                aria-label={t('assignments:smart.selectAssignment', {
+                                  name: assignment.project_name || t('assignments:smart.unknownProject')
+                                })}
+                                style={{ marginTop: '0.2rem' }}
+                              />
+                              <div style={{ flex: 1 }}>
+                                <div style={{ fontWeight: 600, marginBottom: '0.25rem' }}>
+                                  {assignment.project_name || t('assignments:smart.unknownProject')}
+                                  {!assignmentId && <span style={{ color: 'var(--status-danger-text)', fontSize: '0.75rem', marginLeft: '0.5rem' }}>{t('assignments:smart.noId')}</span>}
+                                </div>
+                                <div style={{ fontSize: '0.875rem', color: 'var(--text-secondary)' }}>
+                                  {assignment.role_name || t('assignments:smart.unknownRole')} • {t('assignments:smart.allocationAmount', { amount: allocation })}
+                                  {assignment.phase_name && ` • ${assignment.phase_name}`}
+                                </div>
+                                <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', marginTop: '0.25rem' }}>
+                                  {assignment.computed_start_date || assignment.start_date || assignment.computed_end_date || assignment.end_date ? (
+                                    <>
+                                      {assignment.computed_start_date || assignment.start_date
+                                        ? new Date(assignment.computed_start_date || assignment.start_date || '').toLocaleDateString(getLocale())
+                                        : '—'}
+                                      {' - '}
+                                      {assignment.computed_end_date || assignment.end_date
+                                        ? new Date(assignment.computed_end_date || assignment.end_date || '').toLocaleDateString(getLocale())
+                                        : '—'}
+                                    </>
+                                  ) : t('assignments:smart.noDates')}
+                                </div>
+                                <div style={{
+                                  fontSize: '0.75rem',
+                                  marginTop: '0.25rem',
+                                  color: afterOverload > 0 ? 'var(--status-danger-text)' : 'var(--status-success-text)'
+                                }}>
+                                  {t('assignments:smart.afterRemoval', { total: afterTotal })} ·{' '}
+                                  {afterOverload > 0
+                                    ? t('assignments:smart.stillOver', { amount: afterOverload })
+                                    : t('assignments:smart.withinCapacity')}
+                                </div>
+                              </div>
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  if (!assignmentId) {
+                                    alert(t('assignments:smart.errors.missingAssignmentId'));
+                                    return;
+                                  }
+                                  if (confirm(t('assignments:smart.removeConfirm', { name: assignment.project_name }))) {
+                                    deleteAssignmentMutation.mutate({ id: assignmentId, version: assignment.version });
+                                  }
+                                }}
+                                disabled={deleteAssignmentMutation.isPending || !assignmentId}
+                                className="btn btn-danger btn-sm"
+                                style={{
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  gap: '0.25rem',
+                                  opacity: !assignmentId ? 0.5 : 1,
+                                  cursor: !assignmentId ? 'not-allowed' : 'pointer'
+                                }}
+                                title={!assignmentId ? t('assignments:smart.cannotDeleteMissingId') : undefined}
+                              >
+                                <Trash2 size={16} />
+                                {t('common:remove')}
+                              </button>
+                            </div>
+                          );
+                        })}
+                      </div>
+                      <div style={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                        gap: '1rem',
+                        marginTop: '0.75rem',
+                        paddingTop: '0.75rem',
+                        borderTop: '1px solid var(--border-color)'
+                      }}>
+                        <span style={{ fontSize: '0.875rem', color: 'var(--text-secondary)' }} role="status" aria-live="polite">
+                          {selectedAssignments.length > 0 ? (
+                            <>
+                              {t('assignments:smart.selectionSummary', {
+                                count: selectedAssignments.length,
+                                total: selectedAllocation,
+                                projected: projectedTotal
+                              })}{' '}
+                              <strong style={{ color: projectedOverload > 0 ? 'var(--status-danger-text)' : 'var(--status-success-text)' }}>
+                                {projectedOverload > 0
+                                  ? t('assignments:smart.stillOver', { amount: projectedOverload })
+                                  : t('assignments:smart.withinCapacity')}
+                              </strong>
+                            </>
+                          ) : t('assignments:smart.selectPrompt')}
+                        </span>
+                        <button
+                          type="button"
+                          className="btn btn-danger btn-sm"
+                          disabled={selectedAssignments.length === 0 || deleteAssignmentMutation.isPending}
+                          onClick={removeSelectedAssignments}
+                        >
+                          <Trash2 size={16} />
+                          {t('assignments:smart.removeSelected', { count: selectedAssignments.length })}
+                        </button>
+                      </div>
+                    </>
                   ) : (
                     <div style={{
                       textAlign: 'center',

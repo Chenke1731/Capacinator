@@ -7,6 +7,7 @@
  */
 
 import { useMemo } from 'react';
+import { toISODateString } from '../utils/dateUtils';
 import {
   calculateRoleBasedScore,
   calculatePriorityBasedScore,
@@ -40,6 +41,9 @@ export interface Assignment {
   project_name?: string;
   role_name?: string;
   phase_name?: string;
+  /** assignments_view 透出的状态；paused 仅展示、不参与容量 */
+  status?: string;
+  version?: number;
 }
 
 /**
@@ -104,9 +108,13 @@ export interface ProjectRecommendation {
  * Utilization data for a person
  */
 export interface UtilizationData {
+  /** 相对可用率的利用率（totalAllocation / availability × 100） */
   currentUtilization: number;
   availability: number;
+  /** 剩余可用百分点（可为负，表示超载百分点） */
   remainingCapacity: number;
+  /** 当前 active 分配绝对值之和（百分点） */
+  totalAllocation: number;
   activeAssignments?: Assignment[];
 }
 
@@ -171,18 +179,21 @@ export function useAssignmentRecommendations({
   // Calculate current utilization and availability
   const utilizationData = useMemo((): UtilizationData => {
     if (!person) {
-      return { currentUtilization: 0, availability: 100, remainingCapacity: 100 };
+      return { currentUtilization: 0, availability: 100, remainingCapacity: 100, totalAllocation: 0 };
     }
 
+    // 统一口径（2026-11-13 P1）：
+    // - paused 只展示、不参与容量（PeopleController 注释/视图同义）
+    // - 无日期 = 无界 ongoing（controller 注释；capacity 视图 NULL 视为无界）
+    // - 本地日历日，不用 UTC（东八区凌晨边界）
+    const today = toISODateString(new Date());
     const activeAssignments = person.assignments?.filter((a) => {
-      const today = new Date().toISOString().split('T')[0];
+      if (a.status && a.status !== 'active') return false;
       const startDate = a.computed_start_date || a.start_date;
       const endDate = a.computed_end_date || a.end_date;
-
-      // If no dates are set, don't count it as active
-      if (!startDate || !endDate) return false;
-
-      return startDate <= today && endDate >= today;
+      if (startDate && startDate > today) return false;
+      if (endDate && endDate < today) return false;
+      return true;
     }) || [];
 
     const totalAllocation = activeAssignments.reduce(
@@ -190,13 +201,17 @@ export function useAssignmentRecommendations({
       0
     );
 
-    const availability = person.default_availability_percentage || 100;
+    const availability = person.default_availability_percentage ?? 100;
     const remainingCapacity = availability - totalAllocation;
+    const currentUtilization = availability > 0
+      ? (totalAllocation / availability) * 100
+      : 0;
 
     return {
-      currentUtilization: totalAllocation,
+      currentUtilization,
       availability,
       remainingCapacity,
+      totalAllocation,
       activeAssignments,
     };
   }, [person]);

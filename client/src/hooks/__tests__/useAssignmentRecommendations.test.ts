@@ -62,6 +62,7 @@ describe('useAssignmentRecommendations', () => {
         currentUtilization: 0,
         availability: 100,
         remainingCapacity: 100,
+        totalAllocation: 0,
       });
     });
 
@@ -147,7 +148,7 @@ describe('useAssignmentRecommendations', () => {
       expect(result.current.utilizationData.currentUtilization).toBe(50);
     });
 
-    it('ignores assignments without dates', () => {
+    it('counts assignments without dates as ongoing (controller/view semantics)', () => {
       const person = createMockPerson({
         assignments: [
           {
@@ -170,7 +171,83 @@ describe('useAssignmentRecommendations', () => {
         })
       );
 
-      expect(result.current.utilizationData.currentUtilization).toBe(0);
+      expect(result.current.utilizationData.currentUtilization).toBe(50);
+      expect(result.current.utilizationData.totalAllocation).toBe(50);
+    });
+
+    it('excludes paused assignments and computes utilization relative to availability', () => {
+      const past = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
+      const future = new Date(Date.now() + 30 * 86400000).toISOString().slice(0, 10);
+      const person = createMockPerson({
+        default_availability_percentage: 50,
+        assignments: [
+          {
+            id: 'a1',
+            project_id: 'p1',
+            role_id: 'r1',
+            allocation_percentage: 40,
+            status: 'active',
+            computed_start_date: past,
+            computed_end_date: future,
+          },
+          {
+            id: 'a2',
+            project_id: 'p2',
+            role_id: 'r1',
+            allocation_percentage: 30,
+            status: 'paused',
+            computed_start_date: past,
+            computed_end_date: future,
+          },
+        ],
+      });
+
+      const { result } = renderHook(() =>
+        useAssignmentRecommendations({
+          person,
+          projects: [],
+          roles: [],
+          allProjectAllocations: [],
+          isLoadingAllocations: false,
+        })
+      );
+
+      // active 40 / availability 50 = 80%；paused 30 不参与
+      expect(result.current.utilizationData.totalAllocation).toBe(40);
+      expect(result.current.utilizationData.currentUtilization).toBe(80);
+      expect(result.current.utilizationData.activeAssignments?.map((a) => a.id)).toEqual(['a1']);
+    });
+
+    it('does not fall back to 100 when availability is explicit 0', () => {
+      const past = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
+      const future = new Date(Date.now() + 30 * 86400000).toISOString().slice(0, 10);
+      const person = createMockPerson({
+        default_availability_percentage: 0,
+        assignments: [
+          {
+            id: 'a1',
+            project_id: 'p1',
+            role_id: 'r1',
+            allocation_percentage: 40,
+            status: 'active',
+            computed_start_date: past,
+            computed_end_date: future,
+          },
+        ],
+      });
+
+      const { result } = renderHook(() =>
+        useAssignmentRecommendations({
+          person,
+          projects: [],
+          roles: [],
+          allProjectAllocations: [],
+          isLoadingAllocations: false,
+        })
+      );
+
+      expect(result.current.utilizationData.availability).toBe(0);
+      expect(result.current.utilizationData.totalAllocation).toBe(40);
     });
 
     it('uses default availability when not specified', () => {
@@ -596,6 +673,7 @@ describe('useAssignmentRecommendations', () => {
         currentUtilization: 0,
         availability: 100,
         remainingCapacity: 100,
+        totalAllocation: 0,
       });
     });
 

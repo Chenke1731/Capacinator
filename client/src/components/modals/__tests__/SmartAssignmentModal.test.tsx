@@ -372,6 +372,76 @@ describe('SmartAssignmentModal', () => {
       });
     });
 
+    it('hides recommended tab and retitles reduce mode', async () => {
+      renderComponent({ actionType: 'reduce_workload' });
+
+      await waitFor(() => {
+        expect(screen.getByRole('heading', { name: /Reduce Workload for John Doe/i })).toBeInTheDocument();
+      });
+      expect(screen.queryByRole('tab', { name: /Recommended Assignments/i })).not.toBeInTheDocument();
+      expect(screen.queryByRole('tab')).not.toBeInTheDocument();
+    });
+
+    it('uses relative utilization, excludes paused, includes undated assignments, and shows release target', async () => {
+      const past = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
+      const future = new Date(Date.now() + 30 * 86400000).toISOString().slice(0, 10);
+      const person = {
+        ...mockPerson,
+        default_availability_percentage: 50,
+        assignments: [
+          { id: 'active-1', project_id: 'p1', role_id: 'r1', project_name: 'Project Active', role_name: 'Developer', allocation_percentage: 70, status: 'active', computed_start_date: past, computed_end_date: future },
+          { id: 'paused-1', project_id: 'p2', role_id: 'r1', project_name: 'Project Paused', role_name: 'Developer', allocation_percentage: 30, status: 'paused', computed_start_date: past, computed_end_date: future },
+          { id: 'undated-1', project_id: 'p3', role_id: 'r1', project_name: 'Project Undated', role_name: 'Developer', allocation_percentage: 10, status: 'active' }
+        ]
+      };
+      (api.people.get as jest.Mock).mockResolvedValue({ data: person });
+
+      renderComponent({ actionType: 'reduce_workload' });
+
+      await waitFor(() => {
+        expect(screen.getByText('160%')).toBeInTheDocument();
+      });
+      expect(screen.getByText('Over by 30%')).toBeInTheDocument();
+      expect(screen.getByText(/Release at least 30 points/i)).toBeInTheDocument();
+      expect(screen.getByText('Project Active')).toBeInTheDocument();
+      expect(screen.getByText('Project Undated')).toBeInTheDocument();
+      expect(screen.getByText(/Dates not set \(ongoing\)/i)).toBeInTheDocument();
+      expect(screen.queryByText('Project Paused')).not.toBeInTheDocument();
+      // select-all + 2 selectable active rows（paused 不渲染）
+      expect(screen.getAllByRole('checkbox')).toHaveLength(3);
+    });
+
+    it('projects selected removal and batch-deletes selected assignments', async () => {
+      (api.assignments.delete as jest.Mock).mockResolvedValue({});
+      globalThis.confirm = jest.fn(() => true);
+      const person = {
+        ...mockPerson,
+        default_availability_percentage: 100,
+        assignments: [
+          { id: 'big', project_id: 'p1', role_id: 'r1', project_name: 'Project Big', role_name: 'Developer', allocation_percentage: 80, version: 2, status: 'active', computed_start_date: '2026-01-01', computed_end_date: '2026-12-31' },
+          { id: 'small', project_id: 'p2', role_id: 'r1', project_name: 'Project Small', role_name: 'Developer', allocation_percentage: 40, version: 3, status: 'active', computed_start_date: '2026-01-01', computed_end_date: '2026-12-31' }
+        ]
+      };
+      (api.people.get as jest.Mock).mockResolvedValue({ data: person });
+
+      renderComponent({ actionType: 'reduce_workload' });
+
+      await waitFor(() => {
+        expect(screen.getByText('120%')).toBeInTheDocument();
+      });
+      fireEvent.click(screen.getByLabelText('Select Project Small'));
+
+      expect(screen.getByText(/Selected 1 \(40 points\): projected 80%/i)).toBeInTheDocument();
+      expect(screen.getAllByText(/within capacity/i).length).toBeGreaterThan(0);
+
+      fireEvent.click(screen.getByRole('button', { name: /Remove selected \(1\)/i }));
+
+      await waitFor(() => {
+        expect(globalThis.confirm).toHaveBeenCalled();
+        expect(api.assignments.delete).toHaveBeenCalledWith('small', { expected_version: 3 });
+      });
+    });
+
     it('shows Done button instead of Cancel in workload reduction mode', async () => {
       renderComponent({
         triggerContext: 'manual_add',

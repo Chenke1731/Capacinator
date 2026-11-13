@@ -6,7 +6,7 @@
     "total": 1
   },
   "checks": 20,
-  "updatePixels": true,
+  "updatePixels": false,
   "registerExistingAxe": false,
   "evidence": [
     {
@@ -43,7 +43,7 @@
           "ok": true
         },
         {
-          "name": "基线 person-workload-dark-1600: 已采集",
+          "name": "像素 person-workload-dark-1600: 与基线一致(≤0.5%)",
           "ok": true
         },
         {
@@ -55,7 +55,7 @@
       "baseline": "tests/visual/__screenshots__/person-workload-dark-1600.png",
       "backdrops": [],
       "svgAxisText": [],
-      "durationMs": 8023
+      "durationMs": 7888
     },
     {
       "tag": "person-workload-dark-1366",
@@ -91,7 +91,7 @@
           "ok": true
         },
         {
-          "name": "基线 person-workload-dark-1366: 已采集",
+          "name": "像素 person-workload-dark-1366: 与基线一致(≤0.5%)",
           "ok": true
         },
         {
@@ -103,7 +103,7 @@
       "baseline": "tests/visual/__screenshots__/person-workload-dark-1366.png",
       "backdrops": [],
       "svgAxisText": [],
-      "durationMs": 6463
+      "durationMs": 6561
     },
     {
       "tag": "person-workload-light-1600",
@@ -139,7 +139,7 @@
           "ok": true
         },
         {
-          "name": "基线 person-workload-light-1600: 已采集",
+          "name": "像素 person-workload-light-1600: 与基线一致(≤0.5%)",
           "ok": true
         },
         {
@@ -151,7 +151,7 @@
       "baseline": "tests/visual/__screenshots__/person-workload-light-1600.png",
       "backdrops": [],
       "svgAxisText": [],
-      "durationMs": 6698
+      "durationMs": 6793
     },
     {
       "tag": "person-workload-light-1366",
@@ -187,7 +187,7 @@
           "ok": true
         },
         {
-          "name": "基线 person-workload-light-1366: 已采集",
+          "name": "像素 person-workload-light-1366: 与基线一致(≤0.5%)",
           "ok": true
         },
         {
@@ -199,7 +199,7 @@
       "baseline": "tests/visual/__screenshots__/person-workload-light-1366.png",
       "backdrops": [],
       "svgAxisText": [],
-      "durationMs": 6466
+      "durationMs": 6539
     }
   ]
 }

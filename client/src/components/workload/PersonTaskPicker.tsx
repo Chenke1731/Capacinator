@@ -6,6 +6,7 @@ import { api } from '../../lib/api-client';
 import { invalidateSchedulingReads } from '../../lib/invalidateSchedulingReads';
 import { queryKeys } from '../../lib/queryKeys';
 import { useScenario } from '../../contexts/ScenarioContext';
+import { AssignmentImpactPreview } from './AssignmentImpactPreview';
 
 interface PersonRoleOption {
   role_id?: string;
@@ -16,6 +17,9 @@ interface PersonRoleOption {
 interface PersonTaskPickerProps {
   personId: string;
   roles: PersonRoleOption[];
+  currentPersonAllocation: number;
+  asOf: string;
+  availability: number | null;
 }
 
 interface TaskRow {
@@ -54,7 +58,7 @@ function isTaskDisabled(row: TaskRow) {
   );
 }
 
-function buildTaskOrder(rows: TaskRow[]): Array<{ row: TaskRow; depth: number }> {
+function buildTaskOrder(rows: TaskRow[], collapsed: Set<string>): Array<{ row: TaskRow; depth: number }> {
   const byId = new Map(rows.map((row) => [row.id, row]));
   const children = new Map<string | null, TaskRow[]>();
   for (const row of rows) {
@@ -74,17 +78,20 @@ function buildTaskOrder(rows: TaskRow[]): Array<{ row: TaskRow; depth: number }>
       if (visited.has(row.id)) continue;
       visited.add(row.id);
       ordered.push({ row, depth });
-      walk(row.id, depth + 1);
+      if (!collapsed.has(row.id)) walk(row.id, depth + 1);
     }
   };
   walk(null, 0);
-  for (const row of rows) {
-    if (!visited.has(row.id)) ordered.push({ row, depth: 0 });
-  }
   return ordered;
 }
 
-export function PersonTaskPicker({ personId, roles }: PersonTaskPickerProps) {
+export function PersonTaskPicker({
+  personId,
+  roles,
+  currentPersonAllocation,
+  asOf,
+  availability,
+}: PersonTaskPickerProps) {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
   const { currentScenario, scenarios, setCurrentScenario } = useScenario();
@@ -94,6 +101,7 @@ export function PersonTaskPicker({ personId, roles }: PersonTaskPickerProps) {
   const [limit, setLimit] = useState(50);
   const [selected, setSelected] = useState<TaskRow | null>(null);
   const [activeTaskId, setActiveTaskId] = useState<string | null>(null);
+  const [collapsedTaskIds, setCollapsedTaskIds] = useState<Set<string>>(new Set());
   const [draftScenarioId, setDraftScenarioId] = useState<string | null>(null);
   const [roleId, setRoleId] = useState('');
   const [allocation, setAllocation] = useState('20');
@@ -133,7 +141,11 @@ export function PersonTaskPicker({ personId, roles }: PersonTaskPickerProps) {
   });
 
   const rows = tasksQuery.data?.data ?? [];
-  const ordered = useMemo(() => buildTaskOrder(rows), [rows]);
+  const ordered = useMemo(() => buildTaskOrder(rows, collapsedTaskIds), [rows, collapsedTaskIds]);
+
+  useEffect(() => {
+    setCollapsedTaskIds(new Set());
+  }, [searchTerm, scope]);
 
   useEffect(() => {
     const enabled = ordered.filter(({ row }) => !isTaskDisabled(row));
@@ -268,9 +280,22 @@ export function PersonTaskPicker({ personId, roles }: PersonTaskPickerProps) {
     return '';
   };
 
+  const toggleTask = (id: string) => {
+    setCollapsedTaskIds((previous) => {
+      const next = new Set(previous);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  };
+
   const handleTaskKeyDown = (event: React.KeyboardEvent<HTMLButtonElement>, row: TaskRow) => {
     if (event.key === 'Enter' || event.key === ' ') {
       event.preventDefault();
+      if (Number(row.child_count ?? 0) > 0) {
+        toggleTask(row.id);
+        return;
+      }
       if (!isDisabled(row)) selectTask(row);
       return;
     }
@@ -345,6 +370,8 @@ export function PersonTaskPicker({ personId, roles }: PersonTaskPickerProps) {
         <div className="pw-task-list" role="tree" aria-label={t('assignments:workload.picker.title')}>
           {ordered.map(({ row, depth }) => {
             const disabled = isDisabled(row);
+            const hasChildren = Number(row.child_count ?? 0) > 0;
+            const collapsed = collapsedTaskIds.has(row.id);
             const reason = disabledReason(row);
             const isSelected = selected?.id === row.id;
             return (
@@ -354,24 +381,33 @@ export function PersonTaskPicker({ personId, roles }: PersonTaskPickerProps) {
                 role="treeitem"
                 aria-level={depth + 1}
                 aria-selected={isSelected}
-                aria-disabled={disabled}
-                aria-expanded={Number(row.child_count ?? 0) > 0 ? true : undefined}
+                aria-disabled={disabled && !hasChildren ? true : undefined}
+                aria-expanded={hasChildren ? !collapsed : undefined}
                 tabIndex={activeTaskId === row.id ? 0 : -1}
                 title={reason || row.name}
                 className={[
                   'pw-task',
                   row.is_ancestor ? 'pw-task--ancestor' : '',
-                  disabled ? 'pw-task--disabled' : '',
+                  disabled && !hasChildren ? 'pw-task--disabled' : '',
+                  hasChildren ? 'pw-task--parent' : '',
                   isSelected ? 'pw-task--selected' : '',
                 ].filter(Boolean).join(' ')}
                 style={{ paddingLeft: `${0.55 + depth * 0.9}rem` }}
                 onFocus={() => setActiveTaskId(row.id)}
                 onKeyDown={(event) => handleTaskKeyDown(event, row)}
                 onClick={() => {
-                  if (!disabled) selectTask(row);
+                  if (hasChildren) toggleTask(row.id);
+                  else if (!disabled) selectTask(row);
                 }}
               >
-                <span className="pw-task-name">{row.name}</span>
+                <span className="pw-task-name">
+                  {hasChildren ? (
+                    <span className="pw-task-chevron" aria-hidden="true">
+                      {collapsed ? '▸' : '▾'}
+                    </span>
+                  ) : null}
+                  {row.name}
+                </span>
                 <span className="pw-task-meta">
                   {row.project_sub_type_name ?? '—'}
                   {reason ? ` · ${reason}` : ''}
@@ -514,6 +550,16 @@ export function PersonTaskPicker({ personId, roles }: PersonTaskPickerProps) {
               ) : null}
             </div>
           )}
+
+          <AssignmentImpactPreview
+            projectId={selected.id}
+            projectName={selected.name}
+            asOf={asOf}
+            personCurrent={currentPersonAllocation}
+            originalAllocation={0}
+            proposedAllocation={Number(allocation) || 0}
+            availability={availability}
+          />
 
           <button type="submit" className="btn btn-primary btn-sm" disabled={createMutation.isPending || roles.length === 0 || scenarioMismatch}>
             <Plus size={14} /> {createMutation.isPending ? t('assignments:workload.picker.adding') : t('assignments:workload.picker.add')}

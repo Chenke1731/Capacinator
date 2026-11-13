@@ -14,6 +14,7 @@ router.get('/', controller.getAll);
 router.get('/:id', controller.getById);
 router.post('/', controller.create);
 router.put('/:id', controller.update);
+router.post('/:id/handover', controller.handover);
 router.delete('/:id', controller.delete);
 
 // Bulk operations

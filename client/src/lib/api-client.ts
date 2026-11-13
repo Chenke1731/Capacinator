@@ -424,6 +424,22 @@ export const api = {
         Object.keys(config).length > 0 ? config : undefined
       );
     },
+    handover: (
+      id: string,
+      data: {
+        successor_person_id: string;
+        effective_date: string;
+        allocation_percentage?: number;
+        expected_version: number;
+      },
+      options?: ScenarioScopedRequest
+    ) =>
+      apiClient.post<{
+        success: boolean;
+        data: { original: ProjectAssignment; created: ProjectAssignment; warning?: string };
+        requestId: string;
+        message: string;
+      }>(`/assignments/${id}/handover`, data, scenarioRequestConfig(options)),
     bulkCreate: (data: Record<string, unknown>) => apiClient.post<{ success: boolean; data: ProjectAssignment[]; requestId: string; message: string }>('/assignments/bulk', data),
     getConflicts: (personId: string, params?: PaginationParams) => apiClient.get<{ success: boolean; data: AssignmentConflictsResponse; requestId: string; message: string }>(`/assignments/conflicts/${personId}`, { params }),
     getSuggestions: (params: Record<string, unknown>) => apiClient.get<{ success: boolean; data: AssignmentSuggestionsResponse; requestId: string; message: string }>('/assignments/suggestions', { params }),

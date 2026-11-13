@@ -950,6 +950,196 @@ export class AssignmentsController extends BaseController {
     }
   })
 
+  /**
+   * P2 完整交接（fixed 模式、场景轨）：同一事务缩短原人分配 + 为接手人
+   * 创建剩余窗口分配。原人 end_date 截到 effective_date 前一天，新人从
+   * effective_date 接续；版本不匹配/重复键不产生半提交。
+   */
+  handover = this.asyncHandler(async (req: RequestWithLogging, res: Response) => {
+    const { id } = req.params;
+    const body = (req.body ?? {}) as Record<string, any>;
+    const expectedVersion = Number(body.expected_version);
+    if (!Number.isInteger(expectedVersion) || expectedVersion < 1) {
+      throw this.createOperationalError('expected_version must be a positive integer', 400);
+    }
+    const successorPersonId = typeof body.successor_person_id === 'string'
+      ? body.successor_person_id.trim()
+      : '';
+    if (!successorPersonId) {
+      throw this.createOperationalError('successor_person_id is required', 400);
+    }
+    const effective = parseAssignmentDate(body.effective_date);
+    if (effective.invalid || !effective.value) {
+      throw this.createOperationalError('effective_date must be a valid YYYY-MM-DD date', 400);
+    }
+    const headerScenarioId = resolveScenarioId(req.headers['x-scenario-id']);
+
+    const result = await this.executeQuery(async () => {
+      const target = await this.findAssignmentForWrite(id, headerScenarioId);
+      if (!target) {
+        this.handleNotFound(req, res, 'Assignment');
+        return null;
+      }
+      if (!target.isScenarioAssignment) {
+        throw this.createOperationalError('Handover is only supported for scenario assignments', 400);
+      }
+
+      const existing = target.row;
+      if (existing.status !== 'active') {
+        throw this.createOperationalError('Only active assignments can be handed over', 400);
+      }
+      if (existing.assignment_date_mode !== 'fixed') {
+        throw this.createOperationalError('Handover currently requires fixed-date assignments', 400);
+      }
+      const originalStart = parseAssignmentDate(existing.start_date);
+      const originalEnd = parseAssignmentDate(existing.end_date);
+      if (originalStart.invalid || originalEnd.invalid || !originalStart.value || !originalEnd.value) {
+        throw this.createOperationalError('Original assignment dates are invalid', 400);
+      }
+      const effectiveDate = effective.value as string;
+      const originalStartDate = originalStart.value as string;
+      const originalEndDate = originalEnd.value as string;
+      if (effectiveDate <= originalStartDate || effectiveDate > originalEndDate) {
+        throw this.createOperationalError(
+          'effective_date must be after the original start date and on or before its end date',
+          400
+        );
+      }
+      if (successorPersonId === existing.person_id) {
+        throw this.createOperationalError('Successor must be a different person', 400);
+      }
+      const allocation = body.allocation_percentage === undefined
+        ? Number(existing.allocation_percentage)
+        : Number(body.allocation_percentage);
+      const allocationError = allocationValidationError(allocation);
+      if (allocationError) {
+        throw this.createOperationalError(allocationError, 400);
+      }
+
+      const dayBefore = (() => {
+        const date = new Date(`${effectiveDate}T00:00:00Z`);
+        date.setUTCDate(date.getUTCDate() - 1);
+        return date.toISOString().slice(0, 10);
+      })();
+
+      let created: any;
+      let updatedOriginal: any;
+      let warning: string | null = null;
+
+      try {
+        await this.db.transaction(async (trx: any) => {
+          const successor = await trx('people').where('id', successorPersonId).first();
+          if (!successor) {
+            throw this.createOperationalError('Successor person not found', 400);
+          }
+
+          const duplicate = await this.findDuplicateAssignment(trx, 'scenario_project_assignments', {
+            scenarioId: target.scenarioId,
+            projectId: existing.project_id,
+            personId: successorPersonId,
+            roleId: existing.role_id,
+            phaseId: existing.phase_id ?? null,
+          });
+          if (duplicate) {
+            throw new AssignmentWriteConflict(409, {
+              error: 'Conflict',
+              code: 'ASSIGNMENT_DUPLICATE',
+              message: 'The successor already has this project/role/phase assignment',
+              existing_id: duplicate.id,
+              current: duplicate,
+            });
+          }
+
+          [updatedOriginal] = await trx('scenario_project_assignments')
+            .where({
+              id: target.actualId,
+              scenario_id: target.scenarioId,
+              version: expectedVersion,
+            })
+            .update({
+              end_date: dayBefore,
+              computed_end_date: dayBefore,
+              updated_at: new Date(),
+              version: trx.raw('version + 1'),
+            })
+            .returning('*');
+          if (!updatedOriginal) {
+            throw new AssignmentWriteConflict(409, {
+              error: 'Version conflict',
+              code: 'ASSIGNMENT_VERSION_CONFLICT',
+              message: 'This assignment was modified by someone else. Review the current value and retry.',
+              current: existing,
+            });
+          }
+
+          const conflict = await this.checkConflicts(
+            successorPersonId,
+            effectiveDate,
+            originalEndDate,
+            allocation,
+            undefined,
+            target.scenarioId,
+            trx
+          );
+          if (conflict && conflict.total_allocation > 100) {
+            warning = `Successor will be overallocated at ${conflict.total_allocation}% during this period`;
+          }
+
+          [created] = await trx('scenario_project_assignments')
+            .insert({
+              scenario_id: target.scenarioId,
+              project_id: existing.project_id,
+              person_id: successorPersonId,
+              role_id: existing.role_id,
+              phase_id: existing.phase_id ?? null,
+              allocation_percentage: allocation,
+              status: 'active',
+              assignment_date_mode: 'fixed',
+              start_date: effectiveDate,
+              end_date: originalEndDate,
+              computed_start_date: effectiveDate,
+              computed_end_date: originalEndDate,
+              is_primary: false,
+              created_at: new Date(),
+              updated_at: new Date(),
+            })
+            .returning('*');
+        });
+      } catch (error) {
+        if (error instanceof AssignmentWriteConflict) {
+          res.status(error.statusCode).json(error.payload);
+          return null;
+        }
+        throw error;
+      }
+
+      await (req as any).logAuditEvent(
+        'scenario_project_assignments',
+        target.actualId,
+        'UPDATE',
+        existing,
+        updatedOriginal
+      );
+      await (req as any).logAuditEvent(
+        'scenario_project_assignments',
+        created.id,
+        'CREATE',
+        undefined,
+        created
+      );
+
+      return {
+        original: updatedOriginal,
+        created,
+        ...(warning ? { warning } : {}),
+      };
+    }, req, res, 'Failed to hand over assignment');
+
+    if (result) {
+      this.sendSuccess(req, res, result, 'Assignment handed over successfully');
+    }
+  })
+
   delete = this.asyncHandler(async (req: RequestWithLogging, res: Response) => {
     const { id } = req.params;
     // IP-07e/F06: 可选乐观锁令牌——删除他人刚改的行=丢失更新的一种,

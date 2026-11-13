@@ -132,7 +132,8 @@
       "cancel": "取消",
       "delete": "删除",
       "pause": "暂停",
-      "resume": "恢复"
+      "resume": "恢复",
+      "handover": "交接"
     },
     "edit": {
       "allocation": "分配比例 %",
@@ -150,6 +151,26 @@
       "resumeDirectConfirm": "这是基线全局分配，恢复会影响所有场景。继续？",
       "derivedDatesReadonly": "日期随项目/阶段，当前只能调整分配比例。"
     },
+    "handover": {
+      "title": "交接分配",
+      "successor": "接手人",
+      "selectSuccessor": "选择接手人",
+      "effectiveDate": "生效日期",
+      "confirm": "确认交接",
+      "success": "分配已交接。",
+      "failed": "交接失败。",
+      "invalidDate": "请填写生效日期。"
+    },
+    "batch": {
+      "edit": "批量调整比例",
+      "save": "保存改动行",
+      "cancel": "取消批量",
+      "hint": "每个改动行按自己的版本逐行保存；失败行保留草稿。",
+      "saved": "已保存 {{count}} 行。",
+      "partial": "已保存 {{saved}} 行，失败 {{failed}} 行；失败行保留草稿。",
+      "noChanges": "没有比例改动。",
+      "failed": "批量保存失败。"
+    },
     "source": {
       "direct": "基线全局",
       "scenario": "当前场景"
@@ -165,6 +186,13 @@
       "ended": "已结束"
     },
     "included": "计入当前",
+    "impact": {
+      "title": "影响预览",
+      "person": "人员：{{from}}% → {{to}}%（占可用率 {{relative}}%）",
+      "project": "项目 {{project}}：{{from}}% → {{to}}%",
+      "over": "超出可用容量——仅提醒。",
+      "note": "仅预览；容量不会阻止保存。"
+    },
     "scenarioMismatch": {
       "title": "场景已切换",
       "body": "该草稿属于另一个场景。在返回原场景或丢弃草稿前，保存已禁用。",

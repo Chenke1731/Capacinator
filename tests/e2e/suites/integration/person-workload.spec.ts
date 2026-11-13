@@ -35,7 +35,9 @@ test.describe('Person workload editor (I02w)', () => {
 
     const treeItems = authenticatedPage.getByRole('treeitem');
     await expect(treeItems.first()).toBeVisible({ timeout: 10000 });
-    const enabledTask = authenticatedPage.locator('[role="treeitem"][aria-disabled="false"]').first();
+    const enabledTask = authenticatedPage
+      .locator('[role="treeitem"]:not([aria-disabled="true"]):not([aria-expanded])')
+      .first();
     expect(await enabledTask.count()).toBeGreaterThan(0);
     await enabledTask.click();
     await expect(authenticatedPage.getByLabel('Date mode')).toBeVisible();

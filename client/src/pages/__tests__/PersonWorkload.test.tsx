@@ -11,12 +11,14 @@ jest.mock('../../lib/api-client', () => ({
     people: {
       get: jest.fn(),
       getUtilization: jest.fn(),
+      list: jest.fn(),
     },
     assignments: {
       list: jest.fn(),
       update: jest.fn(),
       delete: jest.fn(),
       create: jest.fn(),
+      handover: jest.fn(),
     },
     projects: {
       list: jest.fn(),
@@ -150,6 +152,12 @@ beforeEach(() => {
   (api.assignments.update as jest.Mock).mockResolvedValue({ data: { success: true } });
   (api.assignments.delete as jest.Mock).mockResolvedValue({ data: { success: true } });
   (api.assignments.create as jest.Mock).mockResolvedValue({ data: { id: 'new-assignment' } });
+  (api.assignments.handover as jest.Mock).mockResolvedValue({
+    data: { success: true, data: { original: {}, created: {} } },
+  });
+  (api.people.list as jest.Mock).mockResolvedValue({
+    data: { data: [{ id: 'person-1', name: 'Jane Doe' }, { id: 'person-2', name: 'John Smith' }] },
+  });
   (api.projects.list as jest.Mock).mockResolvedValue({
     data: { data: [], pagination: { total: 0, has_more: false } },
   });
@@ -234,6 +242,10 @@ test('row edit saves allocation + dates in one PUT with one expected_version', a
   fireEvent.click(screen.getAllByRole('button', { name: 'Edit' })[0]);
   fireEvent.change(screen.getByLabelText('Allocation %'), { target: { value: '35' } });
   fireEvent.change(screen.getByLabelText('Start date'), { target: { value: '2026-02-01' } });
+  expect(screen.getByTestId('pw-impact-preview')).toHaveTextContent(/Person: 30% → 45%/);
+  await waitFor(() => {
+    expect(screen.getByTestId('pw-impact-preview')).toHaveTextContent(/Project Alpha: 20% → 35%/);
+  });
   fireEvent.click(screen.getByRole('button', { name: 'Save' }));
 
   await waitFor(() => {
@@ -411,7 +423,7 @@ test('task picker disables SR parent and adds a leaf in one create request', asy
   renderPage();
 
   const parent = await screen.findByRole('treeitem', { name: /SR Parent/i });
-  expect(parent).toHaveAttribute('aria-disabled', 'true');
+  expect(parent).toHaveAttribute('aria-expanded', 'true');
 
   const leaf = screen.getByRole('treeitem', { name: /^Leaf Task AR/i });
   fireEvent.click(leaf);
@@ -419,6 +431,8 @@ test('task picker disables SR parent and adds a leaf in one create request', asy
   await waitFor(() => {
     expect(screen.getByRole('button', { name: /^Add$/i })).toBeInTheDocument();
   });
+  expect(screen.getByTestId('pw-impact-preview')).toHaveTextContent(/Person: 30% → 50%/);
+  expect(screen.getByTestId('pw-impact-preview')).toHaveTextContent(/Project Leaf Task: 0% → 20%/);
   fireEvent.change(screen.getByLabelText('Allocation %'), { target: { value: '40' } });
   fireEvent.click(screen.getByRole('button', { name: /^Add$/i }));
 
@@ -453,6 +467,80 @@ test('task scope switches from demand delivery to all assignable', async () => {
     expect(lastCall).not.toHaveProperty('include_in_demand');
     expect(lastCall).toMatchObject({ slim: '1', include_ancestors: '1' });
   });
+});
+
+test('handover sends successor/effective date/allocation with one expected_version', async () => {
+  renderPage();
+
+  await waitFor(() => {
+    expect(screen.getAllByRole('button', { name: 'Hand over' }).length).toBeGreaterThan(0);
+  });
+  fireEvent.click(screen.getAllByRole('button', { name: 'Hand over' })[0]);
+
+  expect(await screen.findByLabelText('Successor')).toHaveValue('person-2');
+  expect(screen.getByLabelText('Effective date')).toHaveValue('2026-03-15');
+  fireEvent.click(screen.getByRole('button', { name: 'Confirm handover' }));
+
+  await waitFor(() => {
+    expect(api.assignments.handover).toHaveBeenCalledWith(
+      'a1',
+      {
+        successor_person_id: 'person-2',
+        effective_date: '2026-03-15',
+        allocation_percentage: 20,
+        expected_version: 1,
+      },
+      { scenarioId: 'baseline-0000-0000-0000-000000000000' }
+    );
+  });
+  expect(await screen.findByText('Assignment handed over.')).toBeInTheDocument();
+});
+
+test('batch adjust saves each dirty row with its own version and scenario', async () => {
+  renderPage();
+
+  fireEvent.click(await screen.findByRole('button', { name: /Batch adjust allocations/i }));
+  const inputs = screen.getAllByLabelText('Allocation %');
+  expect(inputs).toHaveLength(4);
+  fireEvent.change(inputs[0], { target: { value: '30' } });
+  fireEvent.change(inputs[1], { target: { value: '15' } });
+  fireEvent.click(screen.getByRole('button', { name: /Save changed rows/i }));
+
+  await waitFor(() => {
+    expect(api.assignments.update).toHaveBeenCalledTimes(2);
+  });
+  expect(api.assignments.update).toHaveBeenNthCalledWith(
+    1,
+    'a1',
+    expect.objectContaining({ allocation_percentage: 30, expected_version: 1 }),
+    { scenarioId: 'baseline-0000-0000-0000-000000000000' }
+  );
+  expect(api.assignments.update).toHaveBeenNthCalledWith(
+    2,
+    'a2',
+    expect.objectContaining({ allocation_percentage: 15, expected_version: 1 }),
+    { scenarioId: 'baseline-0000-0000-0000-000000000000' }
+  );
+  expect(await screen.findByText(/Saved 2 row/)).toBeInTheDocument();
+});
+
+test('task tree parents expand/collapse descendants', async () => {
+  (api.projects.list as jest.Mock).mockResolvedValue({
+    data: { data: taskTree, pagination: { total: 3, has_more: false } },
+  });
+  renderPage();
+
+  const parent = await screen.findByRole('treeitem', { name: /SR Parent/i });
+  expect(parent).toHaveAttribute('aria-expanded', 'true');
+  expect(screen.getByRole('treeitem', { name: /^Leaf Task AR/i })).toBeInTheDocument();
+
+  fireEvent.click(parent);
+  expect(parent).toHaveAttribute('aria-expanded', 'false');
+  expect(screen.queryByRole('treeitem', { name: /^Leaf Task AR/i })).not.toBeInTheDocument();
+
+  fireEvent.click(parent);
+  expect(parent).toHaveAttribute('aria-expanded', 'true');
+  expect(screen.getByRole('treeitem', { name: /^Leaf Task AR/i })).toBeInTheDocument();
 });
 
 test('task picker supports roving tabindex and arrow/Enter keyboard selection', async () => {

@@ -132,7 +132,8 @@
       "cancel": "Cancel",
       "delete": "Delete",
       "pause": "Pause",
-      "resume": "Resume"
+      "resume": "Resume",
+      "handover": "Hand over"
     },
     "edit": {
       "allocation": "Allocation %",
@@ -150,6 +151,26 @@
       "resumeDirectConfirm": "This is a baseline-global assignment. Resuming it affects all scenarios. Continue?",
       "derivedDatesReadonly": "Dates follow the project/phase; only allocation can be edited here."
     },
+    "handover": {
+      "title": "Hand over assignment",
+      "successor": "Successor",
+      "selectSuccessor": "Select a successor",
+      "effectiveDate": "Effective date",
+      "confirm": "Confirm handover",
+      "success": "Assignment handed over.",
+      "failed": "Handover failed.",
+      "invalidDate": "Effective date is required."
+    },
+    "batch": {
+      "edit": "Batch adjust allocations",
+      "save": "Save changed rows",
+      "cancel": "Cancel batch",
+      "hint": "Each changed row is saved with its own version; failures stay editable.",
+      "saved": "Saved {{count}} row(s).",
+      "partial": "Saved {{saved}}, failed {{failed}}. Failed rows keep their drafts.",
+      "noChanges": "No allocation changed.",
+      "failed": "Batch save failed."
+    },
     "source": {
       "direct": "Baseline (global)",
       "scenario": "Current scenario"
@@ -165,6 +186,13 @@
       "ended": "Ended"
     },
     "included": "Included in current",
+    "impact": {
+      "title": "Impact preview",
+      "person": "Person: {{from}}% → {{to}}% ({{relative}}% of availability)",
+      "project": "Project {{project}}: {{from}}% → {{to}}%",
+      "over": "Exceeds available capacity — advisory only.",
+      "note": "Preview only; saving is never blocked by capacity."
+    },
     "scenarioMismatch": {
       "title": "Scenario changed",
       "body": "This draft belongs to another scenario. Saving is disabled until you return or discard it.",

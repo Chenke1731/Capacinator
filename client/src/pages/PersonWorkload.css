@@ -204,23 +204,23 @@
 }
 
 .person-workload-page .pw-col-project {
-  width: 22%;
+  width: 21%;
 }
 
 .person-workload-page .pw-col-role {
-  width: 7%;
+  width: 6%;
 }
 
 .person-workload-page .pw-col-phase {
-  width: 7%;
+  width: 6%;
 }
 
 .person-workload-page .pw-col-source {
-  width: 11%;
+  width: 10%;
 }
 
 .person-workload-page .pw-col-dates {
-  width: 18%;
+  width: 17%;
 }
 
 .person-workload-page .pw-col-allocation {
@@ -237,7 +237,7 @@
 }
 
 .person-workload-page .pw-actions-col {
-  width: 13%;
+  width: 15%;
 }
 
 .person-workload-page .pw-project span:not(.pw-project-meta) {
@@ -336,6 +336,130 @@
   font-size: var(--text-xs);
   padding-top: 0.4rem;
   padding-bottom: 0.4rem;
+}
+
+.person-workload-page .pw-handover-row td {
+  background: var(--bg-secondary);
+  padding: 0.6rem;
+}
+
+.person-workload-page .pw-handover-form {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.person-workload-page .pw-handover-form > strong {
+  color: var(--text-primary);
+  font-size: var(--text-sm);
+  margin-right: 0.3rem;
+}
+
+.person-workload-page .pw-handover-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  color: var(--text-secondary);
+  font-size: var(--text-xs);
+}
+
+.person-workload-page .pw-handover-form input,
+.person-workload-page .pw-handover-form select {
+  color: var(--text-primary);
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  padding: 0.3rem 0.4rem;
+  font: inherit;
+}
+
+.person-workload-page .pw-handover-actions {
+  display: flex;
+  gap: 0.35rem;
+}
+
+.person-workload-page .pw-handover-flash {
+  border-radius: var(--radius-md);
+  padding: 0.55rem 0.75rem;
+  font-size: var(--text-sm);
+}
+
+.person-workload-page .pw-handover-flash--success {
+  color: var(--success);
+  background: color-mix(in srgb, var(--success) 10%, var(--bg-primary));
+  border: 1px solid var(--success);
+}
+
+.person-workload-page .pw-handover-flash--warning {
+  color: var(--warning);
+  background: color-mix(in srgb, var(--warning) 10%, var(--bg-primary));
+  border: 1px solid var(--warning);
+}
+
+.person-workload-page .pw-handover-flash--error {
+  color: var(--danger);
+  background: color-mix(in srgb, var(--danger) 10%, var(--bg-primary));
+  border: 1px solid var(--danger);
+}
+
+.person-workload-page .pw-impact-row td {
+  background: var(--bg-secondary);
+  padding: 0.45rem 0.6rem;
+}
+
+.person-workload-page .pw-impact {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem 0.8rem;
+  color: var(--text-secondary);
+  font-size: var(--text-xs);
+}
+
+.person-workload-page .pw-impact-title {
+  color: var(--text-primary);
+  font-weight: var(--font-semibold);
+}
+
+.person-workload-page .pw-impact-over {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  color: var(--warning);
+}
+
+.person-workload-page .pw-impact-note {
+  color: var(--text-secondary);
+  opacity: 0.85;
+}
+
+.person-workload-page .pw-batch-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.person-workload-page .pw-batch-hint {
+  color: var(--text-secondary);
+  font-size: var(--text-xs);
+}
+
+.person-workload-page .pw-batch-message {
+  font-size: var(--text-xs);
+}
+
+.person-workload-page .pw-batch-message--success {
+  color: var(--success);
+}
+
+.person-workload-page .pw-batch-message--warning {
+  color: var(--warning);
+}
+
+.person-workload-page .pw-batch-message--error {
+  color: var(--danger);
 }
 
 .person-workload-page .pw-dates {
@@ -517,11 +641,21 @@
 }
 
 .person-workload-page .pw-task-name {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
   font-size: var(--text-sm);
   font-weight: var(--font-medium);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.person-workload-page .pw-task-chevron {
+  display: inline-block;
+  width: 0.8rem;
+  color: var(--text-secondary);
+  flex-shrink: 0;
 }
 
 .person-workload-page .pw-task-meta {
@@ -677,15 +811,15 @@
   }
 
   .person-workload-page .pw-col-project {
-    width: 27%;
+    width: 23%;
   }
 
   .person-workload-page .pw-col-source {
-    width: 13%;
+    width: 12%;
   }
 
   .person-workload-page .pw-col-dates {
-    width: 17%;
+    width: 15%;
   }
 
   .person-workload-page .pw-col-allocation {
@@ -693,11 +827,11 @@
   }
 
   .person-workload-page .pw-col-status {
-    width: 15%;
+    width: 17%;
   }
 
   .person-workload-page .pw-actions-col {
-    width: 14%;
+    width: 18%;
   }
 
   .person-workload-page .pw-dates {

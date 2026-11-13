@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import {
   AlertTriangle,
   ArrowLeft,
+  ArrowRightLeft,
   BriefcaseBusiness,
   Pencil,
   Pause,
@@ -27,6 +28,7 @@ import {
 } from '../lib/personWorkload';
 import { toISODateString } from '../utils/dateUtils';
 import { Badge } from '../components/ui/badge';
+import { AssignmentImpactPreview } from '../components/workload/AssignmentImpactPreview';
 import { PersonTaskPicker } from '../components/workload/PersonTaskPicker';
 import './PersonWorkload.css';
 
@@ -52,6 +54,17 @@ interface RowDraft {
   allocation: string;
   startDate: string;
   endDate: string;
+}
+
+interface PersonOption {
+  id: string;
+  name: string;
+}
+
+interface HandoverDraft {
+  successorId: string;
+  effectiveDate: string;
+  allocation: string;
 }
 
 type Row = AssignmentRow | ExcludedWorkloadAssignment<AssignmentRow>;
@@ -94,6 +107,14 @@ export default function PersonWorkload() {
     queryKey: queryKeys.people.utilization(currentScenario?.id),
     queryFn: fetchPersonUtilization,
   });
+  const peopleQuery = useQuery<PersonOption[]>({
+    queryKey: queryKeys.people.list({ is_active: 'true' }, currentScenario?.id),
+    queryFn: async () => {
+      const response = await api.people.list({ limit: 500, is_active: 'true' });
+      return response.data.data as unknown as PersonOption[];
+    },
+    staleTime: 60_000,
+  });
 
   const utilizationRow = personUtilizationRowsFrom(utilizationQuery.data).find(
     (row) => String(row.person_id) === id
@@ -123,6 +144,16 @@ export default function PersonWorkload() {
   const [draft, setDraft] = useState<RowDraft>({ allocation: '', startDate: '', endDate: '' });
   const [rowError, setRowError] = useState<{ id: string; message: string } | null>(null);
   const [savingId, setSavingId] = useState<string | null>(null);
+  const [handoverRowId, setHandoverRowId] = useState<string | null>(null);
+  const [handoverDraft, setHandoverDraft] = useState<HandoverDraft>({
+    successorId: '',
+    effectiveDate: '',
+    allocation: '',
+  });
+  const [handoverMessage, setHandoverMessage] = useState<{ tone: 'error' | 'warning' | 'success'; text: string } | null>(null);
+  const [batchMode, setBatchMode] = useState(false);
+  const [batchDrafts, setBatchDrafts] = useState<Record<string, string>>({});
+  const [batchMessage, setBatchMessage] = useState<{ tone: 'error' | 'warning' | 'success'; text: string } | null>(null);
   const activeScenarioId = currentScenario?.id ?? '';
   const scenarioMismatch = Boolean(editingId && editScenarioId && editScenarioId !== activeScenarioId);
 
@@ -288,6 +319,159 @@ export default function PersonWorkload() {
     statusMutation.mutate({ row, status: nextStatus, scenarioId: activeScenarioId });
   };
 
+  const canHandover = (row: AssignmentRow) =>
+    row.assignment_type !== 'direct' &&
+    row.status === 'active' &&
+    (row.assignment_date_mode ?? 'fixed') === 'fixed' &&
+    Boolean(workloadDateOnly(row.start_date) && workloadDateOnly(row.end_date));
+
+  const beginHandover = (row: AssignmentRow) => {
+    const start = workloadDateOnly(row.start_date);
+    const end = workloadDateOnly(row.end_date);
+    let effectiveDate = asOf;
+    if (!start || effectiveDate <= start) {
+      const date = new Date(`${start ?? asOf}T00:00:00Z`);
+      date.setUTCDate(date.getUTCDate() + 1);
+      effectiveDate = date.toISOString().slice(0, 10);
+    }
+    if (end && effectiveDate > end) effectiveDate = end;
+    setHandoverRowId(row.id);
+    setHandoverMessage(null);
+    setHandoverDraft({
+      successorId: peopleQuery.data?.find((candidate) => candidate.id !== id)?.id ?? '',
+      effectiveDate,
+      allocation: String(Number(row.allocation_percentage ?? 0)),
+    });
+  };
+
+  const handoverMutation = useMutation({
+    mutationFn: async ({
+      row,
+      draft: next,
+      scenarioId,
+    }: {
+      row: AssignmentRow;
+      draft: HandoverDraft;
+      scenarioId: string;
+    }) => {
+      if (!next.successorId) throw new Error(t('assignments:workload.handover.selectSuccessor'));
+      if (!next.effectiveDate) throw new Error(t('assignments:workload.handover.invalidDate'));
+      const allocation = Number(next.allocation);
+      if (!Number.isFinite(allocation) || allocation <= 0 || allocation > 200) {
+        throw new Error(t('assignments:workload.edit.invalidAllocation'));
+      }
+      const response = await api.assignments.handover(
+        row.id,
+        {
+          successor_person_id: next.successorId,
+          effective_date: next.effectiveDate,
+          allocation_percentage: allocation,
+          expected_version: row.version ?? 1,
+        },
+        { scenarioId }
+      );
+      return response.data.data;
+    },
+    onMutate: ({ row }) => setSavingId(row.id),
+    onSuccess: (data, { row }) => {
+      setSavingId(null);
+      setHandoverRowId(null);
+      setHandoverMessage({
+        tone: data.warning ? 'warning' : 'success',
+        text: data.warning
+          ? `${t('assignments:workload.handover.success')} ${data.warning}`
+          : t('assignments:workload.handover.success'),
+      });
+      void invalidateSchedulingReads(queryClient, String(row.project_id ?? ''));
+    },
+    onError: (error: any, { row }) => {
+      setSavingId(null);
+      setHandoverMessage({
+        tone: 'error',
+        text: String(
+          error?.response?.data?.message ??
+            error?.response?.data?.error ??
+            error?.message ??
+            t('assignments:workload.handover.failed')
+        ),
+      });
+      setRowError({ id: row.id, message: String(error?.message ?? t('assignments:workload.handover.failed')) });
+    },
+  });
+
+  const allWorkloadRows = (): AssignmentRow[] => [
+    ...summary.current,
+    ...summary.excluded.map((excludedRow) => excludedRow.assignment),
+  ];
+
+  const startBatch = () => {
+    const drafts: Record<string, string> = {};
+    for (const row of allWorkloadRows()) {
+      drafts[row.id] = String(Number(row.allocation_percentage ?? 0));
+    }
+    setBatchDrafts(drafts);
+    setBatchMessage(null);
+    setBatchMode(true);
+    setEditingId(null);
+    setEditScenarioId(null);
+    setHandoverRowId(null);
+    setHandoverMessage(null);
+  };
+
+  const batchSaveMutation = useMutation({
+    mutationFn: async () => {
+      const updates = allWorkloadRows()
+        .map((row) => ({ row, value: batchDrafts[row.id] }))
+        .filter(({ row, value }) => value !== undefined && value !== String(Number(row.allocation_percentage ?? 0)));
+      if (updates.length === 0) return { saved: 0, failed: 0, noChanges: true };
+
+      let saved = 0;
+      let failed = 0;
+      for (const { row, value } of updates) {
+        const allocation = Number(value);
+        if (!Number.isFinite(allocation) || allocation <= 0 || allocation > 200) {
+          failed += 1;
+          continue;
+        }
+        try {
+          await api.assignments.update(
+            row.id,
+            {
+              allocation_percentage: allocation,
+              ...(row.version !== undefined ? { expected_version: row.version } : {}),
+            } as never,
+            { scenarioId: activeScenarioId }
+          );
+          saved += 1;
+        } catch {
+          failed += 1;
+        }
+      }
+      return { saved, failed, noChanges: false };
+    },
+    onSuccess: ({ saved, failed, noChanges }) => {
+      setBatchMode(false);
+      setBatchDrafts({});
+      if (noChanges) {
+        setBatchMessage({ tone: 'warning', text: t('assignments:workload.batch.noChanges') });
+        return;
+      }
+      setBatchMessage({
+        tone: failed > 0 ? 'warning' : 'success',
+        text: failed > 0
+          ? t('assignments:workload.batch.partial', { saved, failed })
+          : t('assignments:workload.batch.saved', { count: saved }),
+      });
+      void invalidateSchedulingReads(queryClient);
+    },
+    onError: (error: any) => {
+      setBatchMessage({
+        tone: 'error',
+        text: String(error?.message ?? t('assignments:workload.batch.failed')),
+      });
+    },
+  });
+
   const confirmDelete = (row: AssignmentRow) => {
     const message =
       row.assignment_type === 'direct'
@@ -450,7 +634,19 @@ export default function PersonWorkload() {
                     )}
                   </td>
                   <td className="pw-num pw-col-allocation">
-                    {editing ? (
+                    {batchMode ? (
+                      <input
+                        type="number"
+                        min={1}
+                        max={200}
+                        className="pw-allocation-input"
+                        aria-label={t('assignments:workload.edit.allocation')}
+                        value={batchDrafts[item.id] ?? String(allocation)}
+                        onChange={(event) =>
+                          setBatchDrafts((prev) => ({ ...prev, [item.id]: event.target.value }))
+                        }
+                      />
+                    ) : editing ? (
                       <input
                         type="number"
                         min={1}
@@ -472,7 +668,7 @@ export default function PersonWorkload() {
                     )}
                   </td>
                   <td className="pw-actions-col">
-                    {editing ? (
+                    {batchMode ? null : editing ? (
                       <div className="pw-row-actions">
                         <button
                           type="button"
@@ -499,6 +695,17 @@ export default function PersonWorkload() {
                       </div>
                     ) : (
                       <div className="pw-row-actions">
+                        {canHandover(item) ? (
+                          <button
+                            type="button"
+                            className="btn btn-ghost btn-sm"
+                            aria-label={t('assignments:workload.actions.handover')}
+                            disabled={saving}
+                            onClick={() => beginHandover(item)}
+                          >
+                            <ArrowRightLeft size={14} />
+                          </button>
+                        ) : null}
                         <button
                           type="button"
                           className="btn btn-ghost btn-sm"
@@ -534,9 +741,110 @@ export default function PersonWorkload() {
                     )}
                   </td>
                 </tr>
+                {editing ? (
+                  <tr className="pw-impact-row">
+                    <td colSpan={8}>
+                      <AssignmentImpactPreview
+                        projectId={String(item.project_id)}
+                        projectName={item.project_name}
+                        asOf={summary.asOf}
+                        personCurrent={summary.totalAllocation}
+                        originalAllocation={
+                          summary.current.some((currentRow) => currentRow.id === item.id) ? allocation : 0
+                        }
+                        proposedAllocation={Number(draft.allocation) || 0}
+                        editingRowId={item.id}
+                        availability={summary.availability}
+                      />
+                    </td>
+                  </tr>
+                ) : null}
                 {error ? (
                   <tr className="pw-row-error">
                     <td colSpan={8} role="alert">{error}</td>
+                  </tr>
+                ) : null}
+                {handoverRowId === item.id ? (
+                  <tr className="pw-handover-row">
+                    <td colSpan={8}>
+                      <form
+                        className="pw-handover-form"
+                        onSubmit={(event) => {
+                          event.preventDefault();
+                          handoverMutation.mutate({
+                            row: item,
+                            draft: handoverDraft,
+                            scenarioId: activeScenarioId,
+                          });
+                        }}
+                      >
+                        <strong>{t('assignments:workload.handover.title')}</strong>
+                        <label>
+                          {t('assignments:workload.handover.successor')}
+                          <select
+                            aria-label={t('assignments:workload.handover.successor')}
+                            value={handoverDraft.successorId}
+                            onChange={(event) =>
+                              setHandoverDraft((prev) => ({ ...prev, successorId: event.target.value }))
+                            }
+                          >
+                            <option value="">{t('assignments:workload.handover.selectSuccessor')}</option>
+                            {(peopleQuery.data ?? [])
+                              .filter((candidate) => candidate.id !== id)
+                              .map((candidate) => (
+                                <option key={candidate.id} value={candidate.id}>
+                                  {candidate.name}
+                                </option>
+                              ))}
+                          </select>
+                        </label>
+                        <label>
+                          {t('assignments:workload.handover.effectiveDate')}
+                          <input
+                            type="date"
+                            aria-label={t('assignments:workload.handover.effectiveDate')}
+                            value={handoverDraft.effectiveDate}
+                            onChange={(event) =>
+                              setHandoverDraft((prev) => ({ ...prev, effectiveDate: event.target.value }))
+                            }
+                            required
+                          />
+                        </label>
+                        <label>
+                          {t('assignments:workload.edit.allocation')}
+                          <input
+                            type="number"
+                            min={1}
+                            max={200}
+                            aria-label={t('assignments:workload.edit.allocation')}
+                            value={handoverDraft.allocation}
+                            onChange={(event) =>
+                              setHandoverDraft((prev) => ({ ...prev, allocation: event.target.value }))
+                            }
+                            required
+                          />
+                        </label>
+                        <div className="pw-handover-actions">
+                          <button
+                            type="submit"
+                            className="btn btn-primary btn-sm"
+                            disabled={saving}
+                          >
+                            {t('assignments:workload.handover.confirm')}
+                          </button>
+                          <button
+                            type="button"
+                            className="btn btn-secondary btn-sm"
+                            onClick={() => {
+                              setHandoverRowId(null);
+                              setHandoverMessage(null);
+                            }}
+                          >
+                            {t('assignments:workload.actions.cancel')}
+                          </button>
+                        </div>
+                      </form>
+                    </td>
                   </tr>
                 ) : null}
               </React.Fragment>
@@ -639,7 +947,13 @@ export default function PersonWorkload() {
       </section>
 
       <div className="pw-layout">
-        <PersonTaskPicker personId={person.id} roles={person.roles ?? []} />
+        <PersonTaskPicker
+          personId={person.id}
+          roles={person.roles ?? []}
+          currentPersonAllocation={summary.totalAllocation}
+          asOf={summary.asOf}
+          availability={summary.availability}
+        />
         <main className="pw-main">
       {scenarioMismatch ? (
         <div className="pw-scenario-banner" role="alert">
@@ -664,6 +978,55 @@ export default function PersonWorkload() {
           </div>
         </div>
       ) : null}
+      {handoverMessage ? (
+        <div
+          className={`pw-handover-flash pw-handover-flash--${handoverMessage.tone}`}
+          role={handoverMessage.tone === 'error' ? 'alert' : 'status'}
+        >
+          {handoverMessage.text}
+        </div>
+      ) : null}
+      <div className="pw-batch-bar">
+        {batchMode ? (
+          <>
+            <button
+              type="button"
+              className="btn btn-primary btn-sm"
+              disabled={batchSaveMutation.isPending}
+              onClick={() => batchSaveMutation.mutate()}
+            >
+              {t('assignments:workload.batch.save')}
+            </button>
+            <button
+              type="button"
+              className="btn btn-secondary btn-sm"
+              disabled={batchSaveMutation.isPending}
+              onClick={() => {
+                setBatchMode(false);
+                setBatchDrafts({});
+                setBatchMessage(null);
+              }}
+            >
+              {t('assignments:workload.batch.cancel')}
+            </button>
+            <span className="pw-batch-hint">{t('assignments:workload.batch.hint')}</span>
+          </>
+        ) : (
+          <button
+            type="button"
+            className="btn btn-secondary btn-sm"
+            disabled={Boolean(editingId || handoverRowId)}
+            onClick={startBatch}
+          >
+            {t('assignments:workload.batch.edit')}
+          </button>
+        )}
+        {batchMessage ? (
+          <span className={`pw-batch-message pw-batch-message--${batchMessage.tone}`} role="status">
+            {batchMessage.text}
+          </span>
+        ) : null}
+      </div>
       {assignmentsQuery.isError ? (
         <div className="pw-alert" role="alert">
           <span>{t('assignments:workload.states.assignmentsError')}</span>

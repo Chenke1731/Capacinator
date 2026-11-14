@@ -57,7 +57,7 @@ jobs:
       - name: Install browsers (project + vlmkit)
         run: |
           npx playwright install --with-deps chromium
-          node "$(npm root -g)/playwright/cli.js" install --with-deps chromium
+          npx --yes playwright@1.65.1 install --with-deps chromium
 
       - name: Start isolated e2e stack
         run: |

@@ -281,7 +281,8 @@ EditSession {
 
 ## 11. S8：泳道默认窗口自适应（有上限）
 
-- `rangeEnd = clamp(最远 committed/ghost end_date, asOf+3个月, asOf+12个月)`；`rangeStart = asOf` 不变。
+- `rangeEnd = clamp(最远 committed/ghost end_date, asOf+3个月, asOf+12个月)`。
+- **`rangeStart` 包含历史起点**（2026-11-14 用户反馈修订）：取 `min(asOf, 跨参考日进行中分配的最早 start)`，回看上限 `asOf-3 个月`；更早部分仍裁剪。目的：已开始行的左缘对应真实日期，整块拖动/左把手才能 1:1 跟手（旧实现左界=asOf，bar 被裁剪在 0%，拖动前 N 天只拉伸右缘）。历史段用斜纹带 + 图例标注，范围标签显示完整日期。
 - **不无限放大**（评审 Codex P1）：一个多年后的结束日不得压缩整个默认视图；超出 12 个月的分配走既有"范围外 N 条"定位入口（点击定位时窗口显式扩展并可能超过 12 个月），minimap 范围 = `max(12 个月, 当前窗口跨度)`。
 - 覆盖查询窗口与泳道窗口同步：当前 availability 查询固定 12 个月，若窗口经"定位"扩展超过 12 个月，覆盖查询窗口必须随之扩展，否则未来覆盖缺失（复用 `fetchApprovedAvailabilityOverrides(person, rangeStart, rangeEnd)`）。
 - 当窗口超过 6 个月时，热区展示粒度从周切到月（仅换展示桶，不换计算口径）。
@@ -478,4 +479,5 @@ Defer：S5 回程 chip、跳过原因文案细化、paused 行是否纳入平移
   - 跟随指针的浮动提示：精确起止、持续天数、位移量；原窗口虚线框对比。
   - 拖动中 `grabbing`/禁止选中；pointercancel、窗口失焦、Esc 取消回原位且不打开面板。
   - 松手后面板预填日期与提示一致；精确调整仍走面板日期输入。
+  - 后续根因修复 `3c15b1a`：左界包含已开始行的真实 start（最多回看 3 个月），整块拖动/左把手 1:1 平移；提示显示**应用后**位移（钳制时标“已达下限”）；范围标签显示完整日期。
 - 验证：drag 10/10、client 1766、E2E 5/5（提示值 = 面板预填值）、visual 20/20、states PASS。

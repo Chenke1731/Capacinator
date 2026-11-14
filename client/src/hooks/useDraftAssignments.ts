@@ -49,6 +49,10 @@ export function useDraftAssignments(options: UseDraftAssignmentsOptions) {
   const [undoing, setUndoing] = useState(false);
   /** 有不可恢复的 REPLACE 成功行时禁用撤销（而不是丢数据） */
   const [undoBlocked, setUndoBlocked] = useState(false);
+  /** F5（DeepSeek P2 #5）：UNKNOWN 手动重新核对——首次回读失败后网络恢复，
+   * 用户可再次按草稿原场景回读，不能永远锁死。 */
+  const [reconciling, setReconciling] = useState(false);
+  const [reconcileError, setReconcileError] = useState<string | null>(null);
 
   // 校验上下文用最新值，但 dispatch 身份稳定（避免渲染期回调抖动）
   const contextRef = useRef({ assignments, personId });
@@ -180,6 +184,45 @@ export function useDraftAssignments(options: UseDraftAssignmentsOptions) {
     };
   }, [drafts]);
 
+  /** F5：手动重新核对 UNKNOWN 草稿（按草稿绑定的原场景回读）。
+   * 回读成功且命中 → 判成功并清理；未命中 → 判失败可重试；
+   * 回读本身仍失败 → 状态保持 UNKNOWN，错误可见可再按。 */
+  const reconcileUnknown = useCallback(async () => {
+    if (reconciling) return;
+    const unknown = drafts.filter((draft) => draft.submitState === 'UNKNOWN');
+    if (unknown.length === 0) return;
+    const scenarioId = unknown[0]?.scenarioId;
+    if (!scenarioId) return;
+    setReconciling(true);
+    setReconcileError(null);
+    try {
+      let readBack;
+      try {
+        readBack = await fetchAllPersonAssignments(personId, scenarioId);
+      } catch (error) {
+        setReconcileError(String((error as Error)?.message ?? 'reconcile_failed'));
+        return;
+      }
+      const results = reconcileUnknownDrafts(unknown, personId, readBack.rows as never);
+      let succeeded = 0;
+      for (const result of results) {
+        dispatch({
+          type: 'setSubmitState',
+          draftId: result.draftId,
+          submitState: result.submitState,
+          submitError: result.submitState === 'FAILED' ? 'reconcile_missing' : null,
+        });
+        if (result.submitState === 'SUCCEEDED') succeeded += 1;
+      }
+      if (succeeded > 0) {
+        await onAfterCommit?.();
+        setDrafts((prev) => prev.filter((draft) => draft.submitState !== 'SUCCEEDED'));
+      }
+    } finally {
+      setReconciling(false);
+    }
+  }, [reconciling, drafts, personId, dispatch, onAfterCommit]);
+
   /** 撤销 CREATE（§17 Phase 3 + DeepSeek P1）：删除本会话刚创建的行。
    * REPLACE 行走服务端单事务端点 undo-replace（删新行+重建旧行原子完成，
    * 任一步失败整体回滚）——此前客户端两条独立请求会"删成功+建 409 = 两人
@@ -234,6 +277,9 @@ export function useDraftAssignments(options: UseDraftAssignmentsOptions) {
     undoing,
     undoBlocked,
     undoError,
+    reconciling,
+    reconcileError,
+    reconcileUnknown,
     addDrafts,
     updateDraft,
     removeDraft,

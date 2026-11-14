@@ -104,6 +104,9 @@ export function AssignmentImpactPreview({
 
   const start = workloadDateOnly(windowStart) ?? asOf;
   const end = workloadDateOnly(windowEnd) ?? start;
+  // F2（DeepSeek P2）：用户逐键编辑会把开始日临时改到结束日之后——原语已
+  // 归一不崩，这里只把"日期顺序无效"作为数据提示呈现（提示≠崩溃防护）。
+  const datesInverted = start > end;
 
   const personWithoutEditing = editingRowId
     ? personAssignments.filter((row) => row.id !== editingRowId)
@@ -154,6 +157,11 @@ export function AssignmentImpactPreview({
           to: projectTo,
         })}
       </span>
+      {datesInverted ? (
+        <span className="pw-impact-note" role="status" data-testid="pw-impact-inverted">
+          {t('assignments:workload.impact.invalidOrder')}
+        </span>
+      ) : null}
       {over ? (
         <span className="pw-impact-over">
           <AlertTriangle size={13} aria-hidden="true" />

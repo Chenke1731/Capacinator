@@ -191,7 +191,8 @@
       "person": "Person: {{from}}% → {{to}}% ({{relative}}% of availability)",
       "project": "Project {{project}}: {{from}}% → {{to}}%",
       "over": "Exceeds available capacity — advisory only.",
-      "note": "Preview only; saving is never blocked by capacity."
+      "note": "Preview only; saving is never blocked by capacity.",
+      "invalidOrder": "Start date is after end date: preview computes over the ordered window"
     },
     "scenarioMismatch": {
       "title": "Scenario changed",
@@ -474,7 +475,10 @@
       "undoing": "Undoing…",
       "createdCount": "Created {{count}} assignments",
       "undoBlocked": "This batch contains a replacement whose incumbent fields are incomplete; undo would lose the old assignment — handle it in the table instead",
-      "undoFailed": "Undo failed: the incumbent was not restored (transaction rolled back, assignment still present). Retry is safe."
+      "undoFailed": "Undo failed: the incumbent was not restored (transaction rolled back, assignment still present). Retry is safe.",
+      "reconcile": "Reconcile unknown",
+      "reconciling": "Reconciling…",
+      "reconcileFailed": "Reconcile failed: network unavailable, retry later"
     },
     "errors": {
       "missing_role": "Missing role",

@@ -191,7 +191,8 @@
       "person": "人员：{{from}}% → {{to}}%（占可用率 {{relative}}%）",
       "project": "项目 {{project}}：{{from}}% → {{to}}%",
       "over": "超出可用容量——仅提醒。",
-      "note": "仅预览；容量不会阻止保存。"
+      "note": "仅预览；容量不会阻止保存。",
+      "invalidOrder": "开始日期晚于结束日期：预览按两者先后顺序计算"
     },
     "scenarioMismatch": {
       "title": "场景已切换",
@@ -474,7 +475,10 @@
       "undoing": "撤销中…",
       "createdCount": "已创建 {{count}} 条分配",
       "undoBlocked": "含替换的批次缺少旧分配完整字段，撤销会丢失旧分配；请到明细表手动处理",
-      "undoFailed": "撤销失败：旧分配未恢复（事务已回滚，分配仍在），可重试"
+      "undoFailed": "撤销失败：旧分配未恢复（事务已回滚，分配仍在），可重试",
+      "reconcile": "重新核对",
+      "reconciling": "核对中…",
+      "reconcileFailed": "核对失败：网络不可用，可稍后重试"
     },
     "errors": {
       "missing_role": "缺少角色",

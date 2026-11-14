@@ -293,13 +293,22 @@ describe('工作台 v2 selection=1 数据契约', () => {
     expect(row!.lifecycle_warnings).toBeUndefined();
   });
 
-  test('role_demands：显式覆盖 override/template 来源区分', async () => {
+  test('role_demands：显式覆盖 override/template 来源区分 + F4 阶段日期随需求下发', async () => {
     const row = await getRow(`/api/projects?selection=1&scope=all&limit=200`, PROJECT_A_ID);
     const demands = row!.role_demands as Array<Record<string, any>>;
     const se = demands.find((d) => d.role_name === 'SE');
     const dev = demands.find((d) => d.role_name?.startsWith('Sel Dev'));
     expect(se).toMatchObject({ required_headcount: 1, source: 'template', phase_id: PHASE_A_ID });
     expect(dev).toMatchObject({ required_headcount: 0.5, source: 'override' });
+    // F4：阶段 A 有时间线（2027-03-01~03-31），需求行携带精确窗口
+    expect(se).toMatchObject({
+      phase_start_date: '2027-03-01',
+      phase_end_date: '2027-03-31',
+    });
+    // 阶段 B 无时间线 → null（客户端回落项目包络）
+    const mdeB = ((await getRow(`/api/projects?selection=1&scope=all&limit=200`, PROJECT_B_ID))!
+      .role_demands as Array<Record<string, any>>).find((d) => d.role_name === 'MDE');
+    expect(mdeB).toMatchObject({ phase_id: PHASE_B_ID, phase_start_date: null, phase_end_date: null });
   });
 
   test('role_demands：模板回落=精确 sub_type + NULL 通配；无模板类型=未配置空数组', async () => {

@@ -27,6 +27,9 @@ jest.mock('../../lib/api-client', () => ({
     projectPhases: {
       list: jest.fn(),
     },
+    availability: {
+      list: jest.fn(),
+    },
   },
 }));
 
@@ -174,6 +177,9 @@ beforeEach(() => {
     data: { data: [], pagination: { total: 0, has_more: false } },
   });
   (api.projectPhases.list as jest.Mock).mockResolvedValue({
+    data: { data: [], pagination: { total: 0 } },
+  });
+  (api.availability.list as jest.Mock).mockResolvedValue({
     data: { data: [], pagination: { total: 0 } },
   });
 });
@@ -1128,5 +1134,108 @@ test('C2/D-01a: utilization 缺失时弹窗热区判数据不可用（不按默�
   await waitFor(() => {
     expect(heat).toHaveAttribute('role', 'img');
     expect(heat.getAttribute('aria-label')).toMatch(/unknown|数据不可用/i);
+  });
+});
+
+test('F2: 行编辑把开始日改到结束日之后 → 预览不崩且显示日期顺序提示', async () => {
+  renderPage();
+  await waitFor(() => {
+    expect(screen.getAllByRole('button', { name: 'Edit' }).length).toBeGreaterThan(0);
+  });
+
+  fireEvent.click(screen.getAllByRole('button', { name: 'Edit' })[0]);
+  // 逐键中间态：开始日越过结束日（2026-12-31）——此前 workloadTimeline 抛错导致整页崩溃
+  fireEvent.change(screen.getByLabelText('Start date'), { target: { value: '2027-03-01' } });
+
+  expect(await screen.findByTestId('pw-impact-inverted')).toBeInTheDocument();
+  // 页面仍存活（标题还在），预览数值基于归一窗口
+  expect(screen.getByRole('heading', { name: 'Adjust Assignments' })).toBeInTheDocument();
+  expect(screen.getByTestId('pw-impact-preview')).toBeInTheDocument();
+});
+
+test('F3: 未来已批准覆盖进热区——整窗 0% 可用率 → 热区不再按默认可用率出数', async () => {
+  window.localStorage.clear();
+  // 覆盖热区窗口的已批准 0% 覆盖（如整段休假）——旧实现只看"今天生效"窗口会漏掉
+  (api.availability.list as jest.Mock).mockResolvedValue({
+    data: {
+      data: [
+        {
+          id: 'ov-future-leave',
+          person_id: 'person-1',
+          start_date: '2026-03-15',
+          end_date: '2027-03-15',
+          availability_percentage: 0,
+          is_approved: 1,
+        },
+      ],
+      pagination: { total: 1 },
+    },
+  });
+  mockBoard();
+  renderPage();
+  await openDialog();
+
+  await waitFor(() => {
+    expect(api.availability.list).toHaveBeenCalledWith(
+      expect.objectContaining({
+        person_id: 'person-1',
+        is_approved: true,
+        start_date: '2026-03-15',
+      })
+    );
+  });
+  const heat = await screen.findByTestId('pw-mini-heat');
+  await waitFor(() => {
+    // 0% 可用率下没有可算的相对利用率（—），热区摘要不能是默认可用率的常规峰值
+    expect(heat.getAttribute('aria-label')).toMatch(/unknown|不可用|unavailable/i);
+  });
+});
+
+test('F5: 首次回读也失败 → UNKNOWN 锁定但[重新核对]可用；网络恢复后核对命中解锁', async () => {
+  window.localStorage.clear();
+  mockBoard();
+  renderPage();
+  await openDialog();
+
+  fireEvent.click(screen.getByTestId('pw-select-task-task-leaf'));
+  fireEvent.click(screen.getByTestId('pw-add-to-lane'));
+  await screen.findByTestId('pw-commit-bar');
+
+  const savedRow = {
+    id: 'saved-after-recovery',
+    version: 1,
+    person_id: 'person-1',
+    project_id: 'task-leaf',
+    role_id: 'role-se',
+    phase_id: 'phase-design',
+    assignment_date_mode: 'phase',
+    allocation_percentage: 20,
+    status: 'active',
+    start_date: null,
+    end_date: null,
+  };
+  // 页面初始读已消费默认 mock；此后：第 1 次 list = 提交内回读（网络仍断），
+  // 第 2 次起 = 手动核对回读（网络恢复，命中已保存行）
+  let listCalls = 0;
+  (api.assignments.list as jest.Mock).mockImplementation(() => {
+    listCalls += 1;
+    if (listCalls === 1) return Promise.reject(new Error('Network Error'));
+    return Promise.resolve({
+      data: { data: [...assignments, savedRow], pagination: { total: assignments.length + 1, totalPages: 1 } },
+    });
+  });
+  (api.assignments.create as jest.Mock).mockRejectedValueOnce(new Error('Network Error'));
+
+  fireEvent.click(screen.getByTestId('pw-confirm-assign'));
+
+  // 回读失败：保持 UNKNOWN（锁定），但出口按钮在位
+  const reconcileButton = await screen.findByTestId('pw-reconcile');
+  expect(screen.getByTestId('pw-confirm-assign')).toBeDisabled();
+  expect(screen.getAllByText(/1 unknown/i).length).toBeGreaterThan(0);
+
+  // 网络恢复后手动核对：命中已保存行 → 解锁并清空
+  fireEvent.click(reconcileButton);
+  await waitFor(() => {
+    expect(screen.queryByTestId('pw-commit-bar')).not.toBeInTheDocument();
   });
 });

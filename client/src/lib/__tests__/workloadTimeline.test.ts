@@ -321,8 +321,26 @@ describe('workloadTimeline 输出形态', () => {
     expect(result.projectedRelativeUtilization).toBe(80);
   });
 
-  test('非法输入直接抛错：缺 asOf / 倒置区间', () => {
+  test('缺 asOf 直接抛错（契约输入）', () => {
     expect(() => workloadTimeline([], [], { asOf: '', rangeStart: '2026-11-01', rangeEnd: '2026-11-30' })).toThrow();
-    expect(() => workloadTimeline([], [], { asOf: '2026-11-01', rangeStart: '2026-11-30', rangeEnd: '2026-11-01' })).toThrow();
+  });
+
+  test('F2：倒置区间按 min/max 归一（原语 total——实时预览逐键中间态不得崩）', () => {
+    // 用户把开始日临时改到结束日之后：不抛错，载荷按 [11-01, 11-30] 计算
+    const result = workloadTimeline(
+      [committed('a1', 40, '2026-11-10', '2026-11-20')],
+      [],
+      { asOf: '2026-11-01', rangeStart: '2026-11-30', rangeEnd: '2026-11-01' }
+    );
+    expect(result.rangeStart).toBe('2026-11-01');
+    expect(result.rangeEnd).toBe('2026-11-30');
+    expect(result.segments.some((segment) => segment.load === 40)).toBe(true);
+    // 语义等价于正序输入
+    const ordered = workloadTimeline(
+      [committed('a1', 40, '2026-11-10', '2026-11-20')],
+      [],
+      { asOf: '2026-11-01', rangeStart: '2026-11-01', rangeEnd: '2026-11-30' }
+    );
+    expect(JSON.stringify(result)).toBe(JSON.stringify(ordered));
   });
 });

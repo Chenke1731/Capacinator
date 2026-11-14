@@ -219,11 +219,15 @@ export function workloadTimeline(
   options: WorkloadTimelineOptions
 ): WorkloadTimelineResult {
   const asOf = workloadDateOnly(options.asOf);
-  const rangeStart = workloadDateOnly(options.rangeStart);
-  const rangeEnd = workloadDateOnly(options.rangeEnd);
+  const rangeStartInput = workloadDateOnly(options.rangeStart);
+  const rangeEndInput = workloadDateOnly(options.rangeEnd);
   if (!asOf) throw new Error('workloadTimeline requires a valid asOf date');
-  if (!rangeStart || !rangeEnd) throw new Error('workloadTimeline requires a valid time range');
-  if (rangeStart > rangeEnd) throw new Error('workloadTimeline requires rangeStart <= rangeEnd');
+  if (!rangeStartInput || !rangeEndInput) throw new Error('workloadTimeline requires a valid time range');
+  // F2（DeepSeek P2）：倒置区间按 min/max 归一而不是抛错——实时预览（行编辑
+  // 逐键渲染）必然经过"开始日 > 结束日"的中间态，契约函数对任意日期输入
+  // 必须 total（原语级修复，N 个调用点自动安全；EXP 候选）。
+  const rangeStart = rangeStartInput <= rangeEndInput ? rangeStartInput : rangeEndInput;
+  const rangeEnd = rangeStartInput <= rangeEndInput ? rangeEndInput : rangeStartInput;
 
   const granularity = options.granularity ?? 'week';
   const defaultAvailability =

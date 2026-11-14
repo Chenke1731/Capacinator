@@ -37,6 +37,9 @@ export interface SelectionTaskRoleDemand {
   phase_id: string | null;
   required_headcount: number | null;
   source: string;
+  /** F4：需求阶段自身的时间线窗口（无阶段/无时间线=null） */
+  phase_start_date?: string | null;
+  phase_end_date?: string | null;
 }
 
 export interface SelectionTaskAssignedSummary {
@@ -277,11 +280,15 @@ export function createDraftFromTask(
     startDate = task.aspiration_start ?? null;
     endDate = task.aspiration_finish ?? null;
   } else if (mode === 'phase') {
-    // C3（Codex P2#5）：phase 草稿默认带任务阶段包络（阶段具体日期由
-    // inspector 选阶段时刷新）——留 null 会被容量投影当"未定日期=全时间轴"
-    // 计入当前负荷，四月任务污染三月容量线。
-    startDate = task.timeline_start ?? null;
-    endDate = task.timeline_end ?? null;
+    // C3/F4（DeepSeek P2#4/#5）：phase 草稿日期优先级——
+    // 1) 需求阶段的精确时间线窗口（selection 投影下发）；
+    // 2) 回落任务阶段包络（项目级 MIN/MAX，粗但不再是 null）；
+    // 3) 都无 → null（未定日期，capacity 投影按设计标注）。
+    const phaseDemand = phaseId
+      ? task.role_demands.find((demand) => demand.phase_id === phaseId)
+      : null;
+    startDate = phaseDemand?.phase_start_date ?? task.timeline_start ?? null;
+    endDate = phaseDemand?.phase_end_date ?? task.timeline_end ?? null;
   } else if (mode === 'fixed') {
     startDate = params.overrides?.startDate ?? null;
     endDate = params.overrides?.endDate ?? null;

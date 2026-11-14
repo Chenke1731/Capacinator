@@ -45,6 +45,10 @@ export interface DraftCommitBarProps {
   undoDisabledReason?: string | null;
   /** 撤销失败原因（失败行保留在撤销记录中可重试，不静默清空） */
   undoError?: string | null;
+  /** F5：UNKNOWN 草稿的重新核对出口（锁定态必须有出口） */
+  onReconcile?: () => void;
+  reconciling?: boolean;
+  reconcileError?: string | null;
   /** Phase 3 批量编辑：统一参数套用到全部可编辑 ghost */
   onBatchApply?: (value: BatchEditValue) => void;
   editableDrafts?: AssignmentDraft[];
@@ -74,6 +78,9 @@ export const DraftCommitBar = forwardRef<HTMLDivElement, DraftCommitBarProps>(
       undoDisabled = false,
       undoDisabledReason,
       undoError,
+      onReconcile,
+      reconciling = false,
+      reconcileError,
       onBatchApply,
       editableDrafts = [],
     },
@@ -132,6 +139,11 @@ export const DraftCommitBar = forwardRef<HTMLDivElement, DraftCommitBarProps>(
         {unknown > 0 ? (
           <span className="pw-commit-flag pw-commit-flag--unknown">
             {t('assignments:workbench.commit.unknown', { count: unknown })}
+          </span>
+        ) : null}
+        {reconcileError ? (
+          <span className="pw-commit-flag pw-commit-flag--conflict" role="alert" data-testid="pw-reconcile-error">
+            {t('assignments:workbench.commit.reconcileFailed')}
           </span>
         ) : null}
         {overload ? (
@@ -197,6 +209,20 @@ export const DraftCommitBar = forwardRef<HTMLDivElement, DraftCommitBarProps>(
           </div>
         ) : null}
         <div className="pw-commit-actions">
+          {onReconcile && unknown > 0 ? (
+            <button
+              type="button"
+              className="btn btn-secondary btn-sm"
+              disabled={submitting || reconciling}
+              onClick={onReconcile}
+              data-testid="pw-reconcile"
+            >
+              <RotateCcw size={14} />{' '}
+              {reconciling
+                ? t('assignments:workbench.commit.reconciling')
+                : t('assignments:workbench.commit.reconcile')}
+            </button>
+          ) : null}
           {onRetryFailed && failedCount > 0 ? (
             <button
               type="button"

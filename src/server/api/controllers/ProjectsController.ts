@@ -227,6 +227,33 @@ export class ProjectsController extends BaseController {
       }
     }
 
+    // F4（DeepSeek P2 #4）：角色需求携带阶段自身的时间线窗口——phase 草稿
+    // 默认用"需求阶段"的精确日期，而不是整项目包络（四月阶段不再计入三月
+    // 负荷）；阶段无时间线时为 null，由客户端回落项目包络或提示。
+    const demands = [...extras.values()].flatMap((extra) => extra.role_demands);
+    const demandPhaseIds = [...new Set(demands.map((d: any) => d.phase_id).filter(Boolean))];
+    const phaseWindow = new Map<string, { start: string | null; end: string | null }>();
+    if (demandPhaseIds.length > 0) {
+      const phaseRows = await this.db('project_phases_timeline')
+        .whereIn('project_id', ids)
+        .whereIn('phase_id', demandPhaseIds)
+        .select('project_id', 'phase_id', 'start_date', 'end_date');
+      for (const row of phaseRows) {
+        phaseWindow.set(`${row.project_id}::${row.phase_id}`, {
+          start: row.start_date ? String(row.start_date).slice(0, 10) : null,
+          end: row.end_date ? String(row.end_date).slice(0, 10) : null,
+        });
+      }
+    }
+    // 每个需求行都带这两个键（无阶段/无时间线=null），客户端无需容错缺键
+    for (const [projectId, extra] of extras.entries()) {
+      for (const demand of extra.role_demands as Array<Record<string, any>>) {
+        const window = demand.phase_id ? phaseWindow.get(`${projectId}::${demand.phase_id}`) : undefined;
+        demand.phase_start_date = window?.start ?? null;
+        demand.phase_end_date = window?.end ?? null;
+      }
+    }
+
     // 已分配摘要：按请求场景切片，任意状态（同键查重口径）
     const assignedRows = await this.db('assignments_view as av')
       .join('people as pe', 'av.person_id', 'pe.id')

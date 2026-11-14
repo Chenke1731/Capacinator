@@ -216,7 +216,7 @@ describe('createDraftFromTask（§7.3 默认值）', () => {
     expect(draft.targetAssignmentId).toBe('spa-old');
   });
 
-  test('C3：phase 草稿默认带任务阶段包络（不留 null 被当全时间轴计入）', () => {
+  test('C3：phase 草稿无阶段窗口时回落任务阶段包络（不留 null 被当全时间轴计入）', () => {
     const draft = createDraftFromTask(
       task({
         has_phase_timeline: true,
@@ -227,6 +227,32 @@ describe('createDraftFromTask（§7.3 默认值）', () => {
       params
     )!;
     expect(draft.assignmentDateMode).toBe('phase');
+    expect(draft.startDate).toBe('2026-04-01');
+    expect(draft.endDate).toBe('2026-04-30');
+  });
+
+  test('F4：phase 草稿优先使用需求阶段自身的精确窗口（四月阶段不计入三月负荷）', () => {
+    const draft = createDraftFromTask(
+      task({
+        has_phase_timeline: true,
+        // 项目级包络跨三、四月；需求阶段只有四月
+        timeline_start: '2026-03-15',
+        timeline_end: '2026-04-30',
+        role_demands: [
+          {
+            role_id: 'role-se',
+            role_name: 'SE',
+            phase_id: 'phase-apr',
+            required_headcount: 1,
+            source: 'template',
+            phase_start_date: '2026-04-01',
+            phase_end_date: '2026-04-30',
+          },
+        ],
+      }),
+      params
+    )!;
+    expect(draft.phaseId).toBe('phase-apr');
     expect(draft.startDate).toBe('2026-04-01');
     expect(draft.endDate).toBe('2026-04-30');
   });

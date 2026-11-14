@@ -22,6 +22,7 @@ import { useScenario } from '../contexts/ScenarioContext';
 import { invalidateSchedulingReads } from '../lib/invalidateSchedulingReads';
 import { fetchPersonUtilization, personUtilizationRowsFrom } from '../lib/personUtilizationData';
 import { fetchAllPersonAssignments } from '../lib/personAssignments';
+import { fetchApprovedAvailabilityOverrides } from '../lib/availabilityOverrides';
 import {
   summarizePersonWorkload,
   workloadDateOnly,
@@ -179,9 +180,25 @@ export default function PersonWorkload() {
   const defaultRangeEnd = useMemo(() => shiftMonths(asOf, 3), [asOf]);
   const rangeEnd = rangeEndOverride ?? defaultRangeEnd;
 
-  // 可用率 override：服务端视图已 approved-only（076）；这里把生效窗口转成
-  // workloadTimeline 的 override 输入（单一窗口，Phase 1 口径）
+  // F3（DeepSeek P2 #3）：覆盖全集按时间轴窗口取数（approved-only）——
+  // 旧实现只从 utilization 行取"今天生效"的单一窗口，未来已批准休假
+  // （整周 0%）不可见，热区按默认可用率误报正常。所有容量面共用本数组。
+  const overridesWindowEnd = useMemo(() => shiftMonths(asOf, 12), [asOf]);
+  const overridesQuery = useQuery<AvailabilityOverrideInput[]>({
+    queryKey: queryKeys.availability.list({
+      person_id: id,
+      is_approved: true,
+      start_date: asOf,
+      end_date: overridesWindowEnd,
+    } as never),
+    queryFn: () => fetchApprovedAvailabilityOverrides(id!, asOf, overridesWindowEnd),
+    enabled: Boolean(id) && !utilizationQuery.isError,
+    staleTime: 60_000,
+  });
   const availabilityOverrides = useMemo<AvailabilityOverrideInput[]>(() => {
+    if (overridesQuery.data) return overridesQuery.data;
+    // 查询未完成/失败时的保底：utilization 行的当前生效窗口（旧口径，
+    // 不丢当前信息）；查询成功后以完整集合为准
     const start = utilizationRow?.availability_start;
     const end = utilizationRow?.availability_end;
     const percentage = utilizationRow?.current_availability_percentage;
@@ -194,7 +211,7 @@ export default function PersonWorkload() {
         isApproved: true,
       },
     ];
-  }, [utilizationRow]);
+  }, [overridesQuery.data, utilizationRow]);
 
   const defaultAvailability = personQuery.data?.default_availability_percentage ?? null;
   // C2（Codex P2#4 + D-01a）：热区默认可用率=人员档案默认值，而不是当前
@@ -1452,6 +1469,9 @@ export default function PersonWorkload() {
         undoDisabled={draftStore.undoBlocked}
         undoDisabledReason={t('assignments:workbench.commit.undoBlocked')}
         undoError={draftStore.undoError}
+        onReconcile={() => void draftStore.reconcileUnknown()}
+        reconciling={draftStore.reconciling}
+        reconcileError={draftStore.reconcileError}
         onBatchApply={handleBatchApply}
         editableDrafts={editableDrafts}
       />

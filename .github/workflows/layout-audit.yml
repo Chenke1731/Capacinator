@@ -16,6 +16,7 @@ on:
       - 'scripts/layout-audit.config.json'
       - 'scripts/layout-audit.allow.json'
       - 'scripts/check-layout-audit-map.mjs'
+      - '.github/workflows/layout-audit.yml'
       - 'package.json'
       - 'package-lock.json'
   pull_request:
@@ -26,6 +27,7 @@ on:
       - 'scripts/layout-audit.config.json'
       - 'scripts/layout-audit.allow.json'
       - 'scripts/check-layout-audit-map.mjs'
+      - '.github/workflows/layout-audit.yml'
       - 'package.json'
       - 'package-lock.json'
   schedule:

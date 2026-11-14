@@ -10,7 +10,7 @@ describe.skip('Import/Export Workflow Integration', () => {
   let app: any;
   let db: any;
   let testScenarioId: string;
-  let testDataIds: any = {};
+  const testDataIds: any = {};
 
   beforeAll(async () => {
     app = await setupTestApp();

@@ -4,17 +4,11 @@ jest.mock('exceljs', () => {
   return { __esModule: true, ...actual, default: actual };
 });
 
-// eslint-disable-next-line import/first
 import { ExcelImporter } from '../../../../../src/server/services/import/ExcelImporter.js';
-// eslint-disable-next-line import/first
 import { ExcelImporterV2 } from '../../../../../src/server/services/import/ExcelImporterV2.js';
-// eslint-disable-next-line import/first
 import knexFactory from 'knex';
-// eslint-disable-next-line import/first
 import fs from 'fs';
-// eslint-disable-next-line import/first
 import path from 'path';
-// eslint-disable-next-line import/first
 import os from 'os';
 
 /**

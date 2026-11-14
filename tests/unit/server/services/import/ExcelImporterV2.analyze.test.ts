@@ -21,7 +21,6 @@ jest.mock('exceljs', () => {
   return { __esModule: true, ...actual, default: actual };
 });
 
-// eslint-disable-next-line import/first
 import { ExcelImporterV2 } from '../../../../../src/server/services/import/ExcelImporterV2';
 
 const DDL = [

@@ -108,12 +108,12 @@ acquireLock();
 const ok = await startStack();
 if (!ok) { console.error('✗ 夜审未运行：隔离栈不可用'); process.exit(1); }
 try {
-  console.log(`── [1/3] layout map guard ──`);
+  console.log(`── [1/4] layout map guard ──`);
   const map = run('node', ['scripts/check-layout-audit-map.mjs']);
   console.log(map.out.trim().split('\n').slice(-1)[0]);
   if (map.code !== 0) blocking.push('map-guard');
 
-  console.log(`── [2/3] vlmkit 布局体检（${pagesArg ? pagesArg : '全量'}，advisory）──`);
+  console.log(`── [2/4] vlmkit 布局体检（${pagesArg ? pagesArg : '全量'}，advisory）──`);
   const layout = run('node', ['scripts/audit-layout.mjs', ...(pagesArg ? ['--pages', pagesArg] : ['--all']), '--base-url', WEB, '--api-url', API, '--out', path.join(outDir, 'layout')], { LAYOUT_AUDIT_ALLOW_WRITES: '1' });
   const layoutFindings = /findings (\d+)/.exec(layout.out)?.[1] ?? '?';
   console.log(layout.out.trim().split('\n').slice(-2).join('\n'));
@@ -121,10 +121,15 @@ try {
   if (strict && Number(layoutFindings) > 0) blocking.push('layout-findings(strict)');
   if (Number(layoutFindings) > 0) notes.push(`⚠ 布局 findings ${layoutFindings}（advisory）→ ${path.relative(ROOT, path.join(outDir, 'layout', 'summary.md'))}`);
 
-  console.log(`── [3/3] typography guard（${pagesArg ? pagesArg : '全量'}，阻塞）──`);
+  console.log(`── [3/4] typography guard（${pagesArg ? pagesArg : '全量'}，阻塞）──`);
   const typo = run('node', ['scripts/audit-typography.mjs', ...(pagesArg ? ['--pages', pagesArg] : ['--all']), '--base-url', WEB, '--api-url', API, '--out', path.join(outDir, 'typography')]);
   console.log(typo.out.trim().split('\n').slice(-2).join('\n'));
   if (typo.code !== 0) blocking.push('typography');
+
+  console.log(`── [4/4] docs local links（阻塞）──`);
+  const links = run('node', ['scripts/check-doc-links.mjs', '--strict']);
+  console.log(links.out.trim().split('\n').slice(-2).join('\n'));
+  if (links.code !== 0) blocking.push('docs-links');
 } finally {
   stopStack();
 }

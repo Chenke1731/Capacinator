@@ -1,0 +1,8 @@
+{
+  "totalGzipBytes": 689773,
+  "largestChunkGzipBytes": 283410,
+  "largestChunk": "index-Dgbusocf.js",
+  "chunks": 77,
+  "updated": "2026-11-14T15:04:49.007Z",
+  "note": "Baseline for 10% headroom gate; update only after reviewing the stats.html diff."
+}

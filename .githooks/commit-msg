@@ -1,0 +1,14 @@
+#!/bin/sh
+. "$(git rev-parse --show-toplevel 2>/dev/null || pwd)/.githooks/_node.sh"
+# Conventional commit gate (I19g). Project-local install; no npx -y downloads.
+if ! command -v npx >/dev/null 2>&1; then
+  echo "⚠ commitlint skipped: npx not available"
+  exit 0
+fi
+npx --no-install commitlint --edit "$1"
+STATUS=$?
+if [ "$STATUS" -ne 0 ]; then
+  echo "✗ commit message rejected by commitlint (use: type(scope): subject)"
+  exit 1
+fi
+exit 0

@@ -14,7 +14,7 @@ import { ProjectPhaseCascadeService } from '../../src/server/services/ProjectPha
 
 describe('Phase Dependencies Performance Tests', () => {
   let testProjectId: string;
-  let phaseTimelineIds: string[] = [];
+  const phaseTimelineIds: string[] = [];
   let cascadeService: ProjectPhaseCascadeService;
 
   beforeEach(async () => {

@@ -1,5 +1,6 @@
 import { defineConfig, loadEnv } from 'vite'
 import react from '@vitejs/plugin-react'
+import { visualizer } from 'rollup-plugin-visualizer'
 import fs from 'fs'
 import path from 'path'
 
@@ -18,7 +19,13 @@ export default defineConfig(({ mode }) => {
           ['@babel/plugin-transform-react-jsx', { runtime: 'automatic' }]
         ]
       }
-    })
+    }),
+    visualizer({
+      filename: 'dist-client/stats.html',
+      emitFile: false,
+      gzipSize: true,
+      template: 'treemap',
+    }),
   ],
   resolve: {
     alias: {

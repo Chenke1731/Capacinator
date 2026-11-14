@@ -18,10 +18,10 @@ import { v4 as uuidv4 } from 'uuid';
 describe('ScenariosController - Complex Edge Cases', () => {
   let app: express.Application;
   let database: any;
-  let testScenarios: any[] = [];
+  const testScenarios: any[] = [];
   let testUsers: any[] = [];
   let testProjects: any[] = [];
-  let testAssignments: any[] = [];
+  const testAssignments: any[] = [];
 
   beforeEach(async () => {
     // Clean up test data using centralized utility

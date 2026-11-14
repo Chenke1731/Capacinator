@@ -1,0 +1,53 @@
+{
+  "$schema": "https://unpkg.com/knip@6/schema.json",
+  // Production entry points + dynamic/tooling entry points + every test entry.
+  "entry": [
+    "client/src/main.tsx",
+    "src/server/index.ts",
+    "src/server/database/migrations/*.ts",
+    "src/server/database/seeds/*.ts",
+    "client/src/__fixtures__/**/*.tsx",
+    "scripts/*.{mjs,ts}",
+    "scripts/lib/probe.mjs",
+    "client/src/**/__tests__/**/*.test.{ts,tsx}",
+    "tests/unit/**/*.test.ts",
+    "tests/integration/**/*.test.ts",
+    "tests/e2e/**/*.spec.ts",
+    "shared/types/index.ts",
+    "shared/utils/index.ts"
+  ],
+  "project": [
+    "client/src/**/*.{ts,tsx}",
+    "src/**/*.ts",
+    "shared/**/*.ts",
+    "scripts/**/*.{mjs,ts}",
+    "tests/**/*.ts"
+  ],
+  "ignore": [
+    "dist/**",
+    "dist-client/**",
+    "dist-electron/**",
+    "coverage/**",
+    "tmp/**",
+    "data/**",
+    "tests/e2e/archived/**",
+    "tests/archived/**",
+    "tests/visual/**",
+    "vite.config.ts",
+    "client/src/**/*.d.ts"
+  ],
+  // Dynamic imports that static analysis cannot see, plus tooling deps that
+  // are invoked through config/CLI rather than imported.
+  "ignoreDependencies": [
+    "puppeteer-core",
+    "github-issue-prioritizer",
+    "@client/pages",
+    "@client/components",
+    "@client/lib",
+    "knip",
+    "dependency-cruiser",
+    "@typescript-eslint/eslint-plugin",
+    "@typescript-eslint/parser",
+    "stylelint-config-standard"
+  ]
+}

@@ -1,4 +1,5 @@
 #!/bin/sh
+. "$(git rev-parse --show-toplevel 2>/dev/null || pwd)/.githooks/_node.sh"
 # Layout audit pre-push（2026-11-14，触发盲区收口）：
 # UI 改动离开本机前跑一次 advisory 布局体检——此前唯一自动触发在 push 之后
 # （CI），缺陷产生窗口（本地开发）零覆盖。
@@ -9,6 +10,18 @@
 if [ "$SKIP_LAYOUT_AUDIT" = "1" ]; then
   echo "⚠ Layout audit pre-push：SKIP_LAYOUT_AUDIT=1，本次跳过"
   exit 0
+fi
+
+# Architecture guard (I19d): new dependency-cruiser violations block; a missing
+# tool is a loud warning (exit 2), not a silent pass.
+echo "── Architecture (new violations vs baseline) ──"
+node scripts/check-architecture.mjs
+ARCH_STATUS=$?
+if [ "$ARCH_STATUS" -eq 2 ]; then
+  echo "⚠ architecture check could not run (exit 2) — warning only"
+elif [ "$ARCH_STATUS" -ne 0 ]; then
+  echo "✗ architecture violations — push blocked"
+  exit 1
 fi
 
 UI_CHANGED=0

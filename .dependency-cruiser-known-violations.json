@@ -1,0 +1,340 @@
+[
+  {
+    "type": "cycle",
+    "from": "client/src/components/estimation/DesignEstimationPanel.tsx",
+    "to": "client/src/components/estimation/EstimationPanel.tsx",
+    "unresolvedTo": "./EstimationPanel",
+    "dependencyTypes": [
+      "local",
+      "import"
+    ],
+    "rule": {
+      "severity": "error",
+      "name": "no-circular"
+    },
+    "cycle": [
+      {
+        "name": "client/src/components/estimation/EstimationPanel.tsx",
+        "dependencyTypes": [
+          "local",
+          "import"
+        ]
+      },
+      {
+        "name": "client/src/components/estimation/DesignEstimationPanel.tsx",
+        "dependencyTypes": [
+          "local",
+          "import"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "cycle",
+    "from": "client/src/components/interactive-timeline/DependencyLines.tsx",
+    "to": "client/src/components/interactive-timeline/utils.ts",
+    "unresolvedTo": "./utils",
+    "dependencyTypes": [
+      "local",
+      "import"
+    ],
+    "rule": {
+      "severity": "error",
+      "name": "no-circular"
+    },
+    "cycle": [
+      {
+        "name": "client/src/components/interactive-timeline/utils.ts",
+        "dependencyTypes": [
+          "local",
+          "import"
+        ]
+      },
+      {
+        "name": "client/src/components/InteractiveTimeline.tsx",
+        "dependencyTypes": [
+          "local",
+          "type-only",
+          "import"
+        ]
+      },
+      {
+        "name": "client/src/components/interactive-timeline/index.ts",
+        "dependencyTypes": [
+          "local",
+          "import"
+        ]
+      },
+      {
+        "name": "client/src/components/interactive-timeline/DependencyLines.tsx",
+        "dependencyTypes": [
+          "local",
+          "export"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "cycle",
+    "from": "client/src/components/interactive-timeline/index.ts",
+    "to": "client/src/components/interactive-timeline/TimelineGrid.tsx",
+    "unresolvedTo": "./TimelineGrid",
+    "dependencyTypes": [
+      "local",
+      "export"
+    ],
+    "rule": {
+      "severity": "error",
+      "name": "no-circular"
+    },
+    "cycle": [
+      {
+        "name": "client/src/components/interactive-timeline/TimelineGrid.tsx",
+        "dependencyTypes": [
+          "local",
+          "export"
+        ]
+      },
+      {
+        "name": "client/src/components/InteractiveTimeline.tsx",
+        "dependencyTypes": [
+          "local",
+          "type-only",
+          "import"
+        ]
+      },
+      {
+        "name": "client/src/components/interactive-timeline/index.ts",
+        "dependencyTypes": [
+          "local",
+          "import"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "cycle",
+    "from": "client/src/components/interactive-timeline/index.ts",
+    "to": "client/src/components/interactive-timeline/utils.ts",
+    "unresolvedTo": "./utils",
+    "dependencyTypes": [
+      "local",
+      "export"
+    ],
+    "rule": {
+      "severity": "error",
+      "name": "no-circular"
+    },
+    "cycle": [
+      {
+        "name": "client/src/components/interactive-timeline/utils.ts",
+        "dependencyTypes": [
+          "local",
+          "export"
+        ]
+      },
+      {
+        "name": "client/src/components/InteractiveTimeline.tsx",
+        "dependencyTypes": [
+          "local",
+          "type-only",
+          "import"
+        ]
+      },
+      {
+        "name": "client/src/components/interactive-timeline/index.ts",
+        "dependencyTypes": [
+          "local",
+          "import"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "cycle",
+    "from": "client/src/components/InteractiveTimeline.tsx",
+    "to": "client/src/hooks/useTimelineEvents.ts",
+    "unresolvedTo": "../hooks/useTimelineEvents",
+    "dependencyTypes": [
+      "local",
+      "import"
+    ],
+    "rule": {
+      "severity": "error",
+      "name": "no-circular"
+    },
+    "cycle": [
+      {
+        "name": "client/src/hooks/useTimelineEvents.ts",
+        "dependencyTypes": [
+          "local",
+          "import"
+        ]
+      },
+      {
+        "name": "client/src/components/InteractiveTimeline.tsx",
+        "dependencyTypes": [
+          "local",
+          "import"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "cycle",
+    "from": "client/src/components/lifecycle/LifecycleBanner.tsx",
+    "to": "client/src/components/lifecycle/LifecycleStateList.tsx",
+    "unresolvedTo": "./LifecycleStateList",
+    "dependencyTypes": [
+      "local",
+      "import"
+    ],
+    "rule": {
+      "severity": "error",
+      "name": "no-circular"
+    },
+    "cycle": [
+      {
+        "name": "client/src/components/lifecycle/LifecycleStateList.tsx",
+        "dependencyTypes": [
+          "local",
+          "import"
+        ]
+      },
+      {
+        "name": "client/src/components/lifecycle/LifecycleBanner.tsx",
+        "dependencyTypes": [
+          "local",
+          "import"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "cycle",
+    "from": "client/src/components/reports/DemandReport.tsx",
+    "to": "client/src/components/reports/index.ts",
+    "unresolvedTo": "./index",
+    "dependencyTypes": [
+      "local",
+      "import"
+    ],
+    "rule": {
+      "severity": "error",
+      "name": "no-circular"
+    },
+    "cycle": [
+      {
+        "name": "client/src/components/reports/index.ts",
+        "dependencyTypes": [
+          "local",
+          "import"
+        ]
+      },
+      {
+        "name": "client/src/components/reports/DemandReport.tsx",
+        "dependencyTypes": [
+          "local",
+          "export"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "cycle",
+    "from": "client/src/components/reports/GapsReport.tsx",
+    "to": "client/src/components/reports/index.ts",
+    "unresolvedTo": "./index",
+    "dependencyTypes": [
+      "local",
+      "import"
+    ],
+    "rule": {
+      "severity": "error",
+      "name": "no-circular"
+    },
+    "cycle": [
+      {
+        "name": "client/src/components/reports/index.ts",
+        "dependencyTypes": [
+          "local",
+          "import"
+        ]
+      },
+      {
+        "name": "client/src/components/reports/GapsReport.tsx",
+        "dependencyTypes": [
+          "local",
+          "export"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "cycle",
+    "from": "client/src/components/reports/index.ts",
+    "to": "client/src/components/reports/UtilizationReport.tsx",
+    "unresolvedTo": "./UtilizationReport",
+    "dependencyTypes": [
+      "local",
+      "export"
+    ],
+    "rule": {
+      "severity": "error",
+      "name": "no-circular"
+    },
+    "cycle": [
+      {
+        "name": "client/src/components/reports/UtilizationReport.tsx",
+        "dependencyTypes": [
+          "local",
+          "export"
+        ]
+      },
+      {
+        "name": "client/src/components/reports/index.ts",
+        "dependencyTypes": [
+          "local",
+          "import"
+        ]
+      }
+    ]
+  },
+  {
+    "type": "cycle",
+    "from": "src/server/database/index.ts",
+    "to": "src/server/services/audit/index.ts",
+    "unresolvedTo": "../services/audit/index.js",
+    "dependencyTypes": [
+      "local",
+      "import"
+    ],
+    "rule": {
+      "severity": "error",
+      "name": "no-circular"
+    },
+    "cycle": [
+      {
+        "name": "src/server/services/audit/index.ts",
+        "dependencyTypes": [
+          "local",
+          "import"
+        ]
+      },
+      {
+        "name": "src/server/middleware/enhancedAuditMiddleware.ts",
+        "dependencyTypes": [
+          "local",
+          "export"
+        ]
+      },
+      {
+        "name": "src/server/database/index.ts",
+        "dependencyTypes": [
+          "local",
+          "dynamic-import"
+        ]
+      }
+    ]
+  }
+]

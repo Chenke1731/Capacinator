@@ -53,6 +53,8 @@ coverage/
 .nyc_output/
 
 # Test reports
+reports/
+.stryker-tmp/
 test-results/
 playwright-report/
 client/test-results/
@@ -126,6 +128,8 @@ client/src/**/*.d.ts.map
 !.zcode/hooks/**
 !.zcode/skills/
 !.zcode/skills/**
+!.zcode/commands/
+!.zcode/commands/**
 .omc/
 pnpm-lock.yaml
 pnpm-workspace.yaml

@@ -517,30 +517,10 @@ P3   I19h 技能/工作流（P1 后按需）
 
 ---
 
-## 9. 台账登记草案（开工时粘贴）
+## 9. 台账登记
 
-> 当前 `I19` 空闲（`I18` 已被 2026-11-14 夜审占用）。正式开工前用
-> `node scripts/check-ledger.mjs --next I19` 复核；以下为 §7 汇总行与子任务行的草案，
-> 状态从“待处理”开始，实施后补 HEAD/提交/验收命令/实际值。
-
-**§7 汇总行（草案）**
-
-| 工作包 | 覆盖来源/证据 | 状态 | 负责人 | 实施提交/PR | 验收记录 |
-|---|---|---|---|---|---|
-| I19 | 2026-11-14 工具调研；本方案 §1 E1–E13 | 待处理 | — | — | — |
-
-**§7 子任务行（草案）**
-
-| 子任务 / 证据 | 状态 / 负责人 | 领取HEAD / 原有改动 | 实施提交 / 变更文件 | 验收命令 / 用例及实际结果 | 未关闭项 / 裁决 |
-|---|---|---|---|---|---|
-| I19a / 安全与凭证治理（E1–E3） | 待处理 / — | — | `.mcp.json`、`.gitignore`、`.env.example`、`.env.e2e`、`scripts/setup-env.mjs`、`gitleaks.toml`、`.githooks/pre-commit`、`package.json` | `gitleaks git --pre-commit --staged` 0；`gitleaks git` 全史 0 未豁免；`osv-scanner scan -L` 0 critical/high；`npm audit signatures` 通过；`git ls-files '.env*'` 仅 example/e2e | 历史重写需裁决；ENCRYPTION_KEY 存量盘点；Jenkins 使用方确认 |
-| I19b / 环境确定性与夜审隔离（E4–E5） | 待处理 / — | — | `.nvmrc`、`package.json`、`scripts/lib/browser.mjs`、`scripts/verify-doctor.mjs`、`src/server/database/knexfile.e2e.ts`、`src/server/database/init-e2e.ts`、`scripts/audit-nightly.mjs`、`.github/workflows/*`（删除）、20 处脚本替换 | `verify:doctor` PASS；夜审/E2E 并发不删库；不设 `UI_AUDIT_CHROME` 跑 states/visual；`grep chromium-1223`=0；GitHub workflows 已删、PR push 仍可用 | Node 24 vs 22 spike；DB 隔离回归 |
-| I19c / 验证编排与选择性运行（E7–E8） | 待处理 / — | — | `scripts/verify-tier.mjs`、`scripts/lib/verify-map.mjs`、`scripts/check-verify-map.mjs`、`package.json` | 抽样 3 类改动 T0 p50≤2min/p95≤4min；映射枚举守卫；注入删除映射必红；T2 dry-run 全量 | 映射漂移；E2E 分片暂缓（需 DB 隔离） |
-| I19d / 静态熵治理（E6、E10） | 待处理 / — | — | `knip.jsonc`、`.dependency-cruiser.cjs`、`scripts/README.md`、`scripts/archive/` | knip 死依赖 0（保留 puppeteer-core）；depcruise 新增 0；脚本数下降 | jscpd 延后；knip 误报；depcruise 基线复查 |
-| I19e / 测试静态质量与 bundle（E10–E11） | 待处理 / — | — | `eslint.config.mjs`、`package.json` lint 脚本、`client-vite.config.ts`、`scripts/check-bundle-size.mjs`、`bundle-budget.json` | lint 覆盖顶层 tests；顶层 focused test 必红；总 JS/最大 chunk gzip PASS；注入超大 chunk 必红 | type-aware 规则先 warning |
-| I19f / 测试强度（E9） | 待处理 / — | — | `*.property.test.ts`、`stryker.config.mjs`、`jest.stryker.config.cjs` | property 300 runs 绿（固定 asOf）；`@stryker-mutator/core@10.1.1` 报告生成；coverage 报告 | Stryker 不排期/不 break；property 真实 bug 单列 |
-| I19g / 供应链与文档（E12） | 待处理 / — | — | `renovate.json`（或 nightly ncu）、可选 commitlint/markdownlint/lychee | Renovate PR；接入项验收 | GitHub vs 本地 CI 裁决；commitlint/docs 延后 |
-| I19h / 技能与工作流（E13） | 待处理 / — | — | `AGENTS.md`、`.zcode/skills/{verify,security}/SKILL.md`、`.zcode/commands/{verify,security}.md` | `/verify` 可执行；双读兼容 spike 通过；skill 无规则复制 | 其余 skills/promptfoo 延后；MCP 可选 |
+本方案已按 `I19a–I19h` 登记到主台账（`docs/plans/2026-10-14-capacinator-improvement-plan.md` §7）。
+实际状态、提交、验收命令与残留以主台账为准；本文件不再维护第二份台账，避免状态漂移。
 
 ---
 

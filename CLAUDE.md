@@ -38,6 +38,16 @@ npm run commands         # List all available commands
 See [docs/PLATFORM_AGNOSTIC_SETUP.md](docs/PLATFORM_AGNOSTIC_SETUP.md) for details on the cross-platform architecture.
 See [docs/BUILD_AND_TEST_SETUP.md](docs/BUILD_AND_TEST_SETUP.md) for build system and test configuration.
 
+## Node 环境与本地验证（I19，2026-11-14）
+
+- **Node 基线**：`.nvmrc` = 22（本机 22.23.1 + npm 12.0.2）；先 `nvm use`，再 `npm run verify:doctor`。vlmkit 0.24 的 `>=24` 是已记录例外（夜审实测可运行），Node 24 升级拆独立 spike。
+- **干净检出**：`npm run setup:env` 生成本地 `.env.development`（随机 JWT/ENCRYPTION）；`.env.test`/`.env.e2e` 是 test-only 模板，不提交真实凭证。
+- **验证分级**：`npm run verify:t0`（批内）→ `verify:t1`（批末）→ `verify:t2`（里程碑，先 `--dry-run`）；`verify:map` 拦页面/profile/E2E 映射缺口，`verify:arch` 拦新增循环/跨层依赖。
+- **本地 PR 门禁**：`npm run verify:pr -- --skip-e2e`（lint/typecheck/arch/unit/collection/redline/build+bundle）；全量去掉 `--skip-e2e`。**不使用 GitHub CI**，PR 推送能力保留。
+- **安全**：`npm run security:audit`（gitleaks + OSV baseline + signatures）；永不把新告警直接改 baseline 当修复。
+- **代码健康**：`npm run quality:knip`（report-only）、`npm run mutation`（手动定向，无排期）、`npm run bundle:check`。
+- **AGENTS.md 是生成镜像**：改本文件后跑 `npm run agents:sync`；`verify:agents` 拦漂移。
+
 ## UI 生成契约（写任何 UI 前必读）
 
 用户用**浅色主题**。契约按**演绎优先**组织：从项目本质（人力主管的排产决策要【正确、快、有把握】）推出五根支柱——A 计算可信（聚合/新鲜度/单位/边界数值/规模）、B 语义透明（域语言/自标注/状态可预测/告警可读）、C 决策流就绪（就地/回路速度/后果可见）、D 呈现健壮（双主题/视口/全局规则兼容/物理可见/i18n/键盘）、E 操作安全（防误触/失败可见/可逆/并发）——历史失败只是各支柱的佐证。写 UI 时先跑 `/ui-preflight`（项目 skill）：FMEA-lite 支柱失效排查 + pre-mortem 红框推演；交付前认知走查四问（想产生此效果吗/看得到操作吗/能联系操作与效果吗/能看到反馈吗）。核心红线：自定义控件先查 index.css/design-system.css 全局元素规则并显式重置（定宽按钮同块必写 padding，`npm run lint:ui` 静态拦截）；**新浮层/选择器优先用已装 Radix 原语**；视觉决策过"视觉战术速查"八条与 Okabe-Ito 默认色板；交付前双主题渲染人眼看（陌生人三问：看得见吗/知道改什么吗/有反馈吗）。守卫（verify:boards/verify:visual）是兜底，不是第一道防线。全文：[docs/UI_GENERATION_CONTRACT.md](docs/UI_GENERATION_CONTRACT.md)

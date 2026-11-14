@@ -37,11 +37,14 @@ function commandExists(cmd) {
 }
 
 function run(cmd, cmdArgs, opts = {}) {
+  // Hooks can run from a Node 18 login shell; force the project Node for npm/npx.
+  const PATH = `${path.dirname(process.execPath)}${path.delimiter}${process.env.PATH ?? ''}`;
   return spawnSync(cmd, cmdArgs, {
     cwd: ROOT,
     encoding: 'utf8',
     maxBuffer: 32 * 1024 * 1024,
     ...opts,
+    env: { ...process.env, PATH, ...(opts.env ?? {}) },
   });
 }
 
@@ -123,6 +126,10 @@ function deps() {
   }
 
   const baseline = loadBaseline();
+  if (all.length === 0 && baseline.size > 0) {
+    console.error('✗ osv-scanner returned no results while a non-empty baseline exists; treat as scan-not-run');
+    return 2;
+  }
   const fresh = serious.filter((v) => !baseline.has(v.key));
   console.log(`OSV: ${all.length} findings; critical/high ${serious.length}; baseline ${baseline.size}; new critical/high ${fresh.length}`);
   if (counts.CRITICAL || counts.HIGH) console.log(`severity counts: ${JSON.stringify(counts)}`);

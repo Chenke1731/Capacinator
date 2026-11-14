@@ -459,3 +459,12 @@ Defer：S5 回程 chip、跳过原因文案细化、paused 行是否纳入平移
 - S6：批量平移与批量比例保存均提供一次撤销（逆补丁 + 保存响应版本，toast 单例）；表格行保存补上撤销；暂停/恢复按设计不纳入。
 - 验证：client 91 suites / 1750 passed；person-workload E2E 5/5；visual 20/20；verify:states PASS；check-collection 360/160；全量 Jest 4996 passed。
 - 范围：Phase C（S4 convert、S7 统一 ConfirmDialog、S8 自适应窗口）未开工。
+
+## 22. 交付记录（Phase C 与交付评审修复，2026-11-14）
+
+- 实施：`7c15a6a`（S4/S7/S8 + 交付评审修复）、`4a10773`（direct 平移披露、minimap 轴）。
+- S4：`POST /api/assignments/:id/convert` 单事务（版本先行校验、墓碑/direct/角色/阶段预检、目标键查重、SE/MDE 槽位、字段继承、条件删除 rows=1、双审计同事务）；审计对标记 `[composite]`，`AuditService.undoLastChange` 拒绝逐条撤销，审计页不再显示撤销按钮（同步覆盖 `undoReplace`）。前端面板转换表单：direct 隐藏、字段校验复用、phase 目标窗口/影响预览、加载/失败/重试、失败焦点归位、在途全局互斥。
+- S7：`window.confirm` 全部替换 ConfirmDialog；离页守卫异步化并覆盖 ghost/面板/行编辑/批量/交接/在途；修饰键与新窗口不劫持；删除确认带对象身份；动作确认 danger 语义。
+- S8：默认窗口 `clamp(最远 committed/ghost end, asOf+3..12 月)`；>6 月热区月粒度；覆盖查询随窗口扩展；minimap 范围 = max(12 月, 当前窗口)；远未来与超 12 月行提供范围外定位入口。
+- 交付评审：UI（P0×1、P1×8、P2×3、NIT×9）与后端（P0×1、P1×1、P2×4）发现全部处置或明确留项；P0/P1 已修复并加回归测试，D-02（已结束行面板入口）与 D-05（审计撤销端点鉴权，存量）留待裁决/独立立项。
+- 验证：后端集成 12/12；全量 Jest 5022 passed/0 failed；client 91 suites；E2E 5/5；visual 20/20；verify:states PASS；check-collection 360/160；lint 0 error；typecheck 0。

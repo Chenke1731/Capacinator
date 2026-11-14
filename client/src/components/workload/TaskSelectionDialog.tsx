@@ -338,6 +338,17 @@ export function TaskSelectionDialog(props: TaskSelectionDialogProps) {
       (draft) => draft.kind === 'CREATE' || draft.kind === 'REPLACE'
     );
     if (drafts.length === 0) return;
+    // W-36：fixed 草稿不得早于参考日（与 ghost 拖动/面板 min 同口径）
+    const past = drafts.find(
+      (draft) =>
+        draft.assignmentDateMode === 'fixed' &&
+        draft.startDate !== null &&
+        draft.startDate < asOf
+    );
+    if (past) {
+      setFlash(t('assignments:workbench.dialog.pastFixed'));
+      return;
+    }
     onAddToLane(drafts);
     saveRecentTasks([...selectedTasks, ...loadRecentTasks()]);
     setRecentTasks(loadRecentTasks());

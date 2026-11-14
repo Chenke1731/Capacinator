@@ -234,7 +234,12 @@ export function GhostInspector({
                 min={asOf}
                 disabled={disabled}
                 aria-label={t('assignments:workload.edit.startDate')}
-                onChange={(event) => onUpdate(draft.draftId, { startDate: event.target.value || null })}
+                onChange={(event) => {
+                  const value = event.target.value;
+                  onUpdate(draft.draftId, {
+                    startDate: value && value < asOf ? asOf : value || null,
+                  });
+                }}
               />
             </label>
             <label>
@@ -245,7 +250,12 @@ export function GhostInspector({
                 min={asOf}
                 disabled={disabled}
                 aria-label={t('assignments:workload.edit.endDate')}
-                onChange={(event) => onUpdate(draft.draftId, { endDate: event.target.value || null })}
+                onChange={(event) => {
+                  const value = event.target.value;
+                  onUpdate(draft.draftId, {
+                    endDate: value && value < asOf ? asOf : value || null,
+                  });
+                }}
               />
             </label>
           </>

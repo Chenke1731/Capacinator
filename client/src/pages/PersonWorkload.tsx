@@ -658,9 +658,11 @@ export default function PersonWorkload() {
           patch.allocationPercentage = allocation;
         }
         if (value.dateMode === 'fixed' && value.startDate && value.endDate && value.startDate <= value.endDate) {
+          const start = value.startDate < asOf ? asOf : value.startDate;
+          const end = value.endDate < start ? start : value.endDate;
           patch.assignmentDateMode = 'fixed';
-          patch.startDate = value.startDate;
-          patch.endDate = value.endDate;
+          patch.startDate = start;
+          patch.endDate = end;
           patch.phaseId = null;
         } else if (value.dateMode === 'project') {
           patch.assignmentDateMode = 'project';

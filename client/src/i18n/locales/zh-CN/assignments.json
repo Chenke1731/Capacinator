@@ -462,7 +462,8 @@
       "recent": "最近选择：",
       "quickAdd": "快速添加 {{name}}",
       "quickAdded": "已快速添加 {{name}} 到泳道。",
-      "quickAddTerminal": "{{name}} 已交付或取消，不可再分配（已从最近选择移除）。"
+      "quickAddTerminal": "{{name}} 已交付或取消，不可再分配（已从最近选择移除）。",
+      "pastFixed": "固定日期不能早于参考日。"
     },
     "composer": {
       "role": "统一角色",

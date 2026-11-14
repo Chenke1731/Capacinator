@@ -462,7 +462,8 @@
       "recent": "Recent:",
       "quickAdd": "Quick add {{name}}",
       "quickAdded": "Quick-added {{name}} to the lane.",
-      "quickAddTerminal": "{{name}} is delivered or cancelled and can no longer be assigned (removed from recents)."
+      "quickAddTerminal": "{{name}} is delivered or cancelled and can no longer be assigned (removed from recents).",
+      "pastFixed": "Fixed dates cannot be earlier than the reference date."
     },
     "composer": {
       "role": "Unified role",

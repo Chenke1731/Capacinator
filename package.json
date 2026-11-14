@@ -5,6 +5,8 @@
   "main": "src/electron/main-with-setup.cjs",
   "type": "module",
   "scripts": {
+    "setup:env": "node scripts/setup-env.mjs",
+    "predev": "node scripts/setup-env.mjs",
     "dev": "npx tsx scripts/start-dev.ts",
     "dev:stop": "npx tsx scripts/stop-dev.ts",
     "dev:logs": "npx tsx scripts/dev-logs.ts",
@@ -92,11 +94,18 @@
     "verify:site": "node scripts/verify-site.mjs",
     "verify:states": "node scripts/verify-states.mjs",
     "verify:cache": "node scripts/verify-cache-keys.mjs",
+    "security:secrets": "node scripts/security-audit.mjs --secrets",
+    "security:deps": "node scripts/security-audit.mjs --deps",
+    "security:signatures": "node scripts/security-audit.mjs --signatures",
+    "security:audit": "node scripts/security-audit.mjs --all",
+    "security:baseline": "node scripts/security-audit.mjs --deps --update-baseline",
     "verify:ui-review": "node scripts/check-ui-review-experiences.mjs",
     "verify:backend-review": "node scripts/check-backend-review-experiences.mjs",
     "verify:backend-gates": "node scripts/check-backend-gates.mjs",
     "verify:backend-gates:selftest": "node scripts/check-backend-gates.mjs --self-test",
     "verify:ledger": "node scripts/check-ledger.mjs",
+    "verify:doctor": "node scripts/verify-doctor.mjs",
+    "verify:pr": "node scripts/verify-pr.mjs",
     "verify:states:selftest": "node scripts/verify-states.mjs --selftest",
     "verify:visual:update": "UPDATE_BASELINES=1 node scripts/verify-visual.mjs",
     "debug:board": "node scripts/debug-board.mjs",
@@ -117,8 +126,10 @@
   "author": "",
   "license": "MIT",
   "engines": {
-    "node": ">=20.0.0"
+    "node": ">=22.12.0",
+    "npm": ">=12.0.0"
   },
+  "packageManager": "npm@12.0.2",
   "dependencies": {
     "@octokit/plugin-retry": "^8.0.3",
     "@octokit/plugin-throttling": "^11.0.3",

@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
+import { resolveChromium } from './browser.mjs';
 
 const repository=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../..');
 const defaultFixtureFile=process.env.UI_AUDIT_FIXTURES??path.join(repository,'tests/visual/fixtures/runtime-data.json');
@@ -147,7 +148,7 @@ export async function assertProfileReady(page, profile, base) {
 export const auditEnvironment = {
   base:process.env.UI_AUDIT_BASE??'http://127.0.0.1:3120',
   api:process.env.UI_AUDIT_API??'http://127.0.0.1:3110',
-  chrome:process.env.UI_AUDIT_CHROME??'/root/.cache/ms-playwright/chromium-1223/chrome-linux64/chrome'
+  chrome:resolveChromium()
 };
 export async function authenticate() {
   const res=await fetch(`${auditEnvironment.api}/api/people?limit=1`);

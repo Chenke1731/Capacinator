@@ -1,7 +1,8 @@
 import { Knex } from 'knex';
 import knex from 'knex';
 import fs from 'fs/promises';
-import e2eConfig, { E2E_DB_FILE, E2E_DB_DIR } from './knexfile.e2e.js';
+import path from 'node:path';
+import e2eConfig, { DEFAULT_E2E_DB_DIR, E2E_DB_FILE, E2E_DB_DIR } from './knexfile.e2e.js';
 import { initializeAuditService } from '../services/audit/index.js';
 
 let e2eDb: Knex | null = null;
@@ -12,7 +13,17 @@ let e2eDb: Knex | null = null;
  */
 export async function initializeE2EDatabase(): Promise<Knex> {
   console.log('🧪 Initializing E2E test database...');
-  
+
+  // Safety: E2E initialization deletes the target file. Never allow it to
+  // point outside the dedicated .e2e-data directory (e.g. a production DB).
+  const resolvedDbFile = path.resolve(E2E_DB_FILE);
+  const allowedRoot = path.resolve(DEFAULT_E2E_DB_DIR);
+  if (!resolvedDbFile.startsWith(`${allowedRoot}${path.sep}`)) {
+    throw new Error(
+      `Refusing to initialize E2E database outside ${allowedRoot}: ${resolvedDbFile}`
+    );
+  }
+
   // Close existing connection if any
   if (e2eDb) {
     await e2eDb.destroy();

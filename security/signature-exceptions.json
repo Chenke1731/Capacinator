@@ -1,0 +1,9 @@
+{
+  "note": "Packages allowed to pass `npm audit signatures` despite registry signature issues. Each entry needs a reason and expiry; remove after the registry/package is fixed.",
+  "allowExpiredKeys": true,
+  "packages": [
+    "class-variance-authority@0.7.1"
+  ],
+  "reason": "npm registry signature key expired 2025-01-29; package is pinned by package-lock.json and not newly installed.",
+  "expires": "2026-12-31"
+}

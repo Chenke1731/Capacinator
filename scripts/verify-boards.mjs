@@ -4,7 +4,7 @@ import { chromium } from 'playwright';
 
 const BASE = 'http://127.0.0.1:3120';
 const API = 'http://127.0.0.1:3110';
-const CHROME = '/root/.cache/ms-playwright/chromium-1223/chrome-linux64/chrome';
+const CHROME = resolveChromium();
 const results = [];
 const check = (name, ok, detail = '') => {
   results.push({ name, ok });
@@ -20,6 +20,7 @@ page.on('pageerror', (e) => pageErrors.push(e.message));
 // 未登录脚本——旧"只塞 user 无 token"在纯 evaluate 时代侥幸工作。
 // token 缓存 12min 复用: login 严档 10/15min,反复跑守卫不吃光配额。
 import { readFileSync, writeFileSync } from 'node:fs';
+import { resolveChromium } from './lib/browser.mjs';
 const TOKEN_CACHE = '/tmp/verify-boards-token.json';
 let auth = null;
 try {

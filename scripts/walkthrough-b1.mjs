@@ -1,5 +1,6 @@
 import { chromium } from 'playwright';
-const browser = await chromium.launch({ executablePath: '/root/.cache/ms-playwright/chromium-1223/chrome-linux64/chrome' });
+import { resolveChromium } from './lib/browser.mjs';
+const browser = await chromium.launch({ executablePath: resolveChromium() });
 for (const theme of ['light', 'dark']) {
   const page = await browser.newPage({ viewport: { width: 1600, height: 900 } });
   await page.addInitScript((t) => {

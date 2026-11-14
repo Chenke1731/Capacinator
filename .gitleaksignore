@@ -1,0 +1,14 @@
+# Rotated/removed historical findings.
+# Fingerprints are commit:file:rule:line. Secrets are not copied here.
+#
+# 2026-11-14: .env.development was untracked and its dev JWT/encryption keys
+# were rotated (scripts/setup-env.mjs --rotate). The historical value is dead.
+84e87e614dc1164668185251ce52eaafbe77c199:.env.development:generic-api-key:19
+
+# 2026-11-14: scripts/seed-local-correct.sql was removed earlier; the finding
+# is historical only and the file is not in HEAD.
+9ee8a0f030dd42e6b8e741a933de39110ebca74d:scripts/seed-local-correct.sql:generic-api-key:56
+
+# 2026-11-14: ssl/dev.capacinator.com.key was untracked. Treat the dev key as
+# compromised; reissue the certificate if dev.capacinator.com is still used.
+724adf7f02fa7efd7bc430754979b0970a55f6ba:ssl/dev.capacinator.com.key:private-key:1

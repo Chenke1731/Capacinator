@@ -1,7 +1,8 @@
 // 列宽拖拽真机点检: 拖宽生效 / localStorage 持久化(重载后仍在) / 双击重置 / 拖宽超容器出横向滚动。
 import { chromium } from 'playwright';
+import { resolveChromium } from './lib/browser.mjs';
 
-const browser = await chromium.launch({ executablePath: '/root/.cache/ms-playwright/chromium-1223/chrome-linux64/chrome' });
+const browser = await chromium.launch({ executablePath: resolveChromium() });
 const results = [];
 const check = (name, ok, detail = '') => {
   results.push(ok);

@@ -3,9 +3,15 @@ node_modules/
 client/node_modules/
 
 # Environment files
+# Tracked templates: .env.example, .env.test (test-only), .env.e2e (test-only).
+# All real/local env files are ignored.
 .env
 .env.local
 .env.*.local
+.env.development
+.env.qa
+.env.staging
+.env.production
 
 # Build outputs
 dist/
@@ -13,6 +19,9 @@ client/dist/
 client/build/
 *.tsbuildinfo
 shared/types/*.js
+
+# Local TLS private keys (generate per machine; never commit)
+ssl/*.key
 
 # Database
 *.db

@@ -1,9 +1,10 @@
 // Headless verification: 人力线 (person page inline adjust + pause/resume)
 import { chromium } from 'playwright';
+import { resolveChromium } from './lib/browser.mjs';
 
 const BASE = 'http://127.0.0.1:3120';
 const API = 'http://127.0.0.1:3110';
-const CHROME = '/root/.cache/ms-playwright/chromium-1223/chrome-linux64/chrome';
+const CHROME = resolveChromium();
 
 const results = [];
 const check = (name, ok, detail = '') => {

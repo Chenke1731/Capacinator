@@ -20,11 +20,12 @@ import { chromium } from 'playwright';
 import { execSync, spawn } from 'node:child_process';
 import { existsSync, mkdirSync, appendFileSync } from 'node:fs';
 import { setTimeout as sleep } from 'node:timers/promises';
+import { resolveChromium } from './lib/browser.mjs';
 
 const API = process.env.PERF_API || 'http://127.0.0.1:3110';
 const PREVIEW_PORT = Number(process.env.PREVIEW_PORT || 4173);
 const WEB = `http://127.0.0.1:${PREVIEW_PORT}`;
-const CHROME = '/root/.cache/ms-playwright/chromium-1223/chrome-linux64/chrome';
+const CHROME = resolveChromium();
 const RUNS = Number(process.env.PERF_RUNS || 3);
 const HISTORY = 'docs/perf/perf-history.jsonl';
 

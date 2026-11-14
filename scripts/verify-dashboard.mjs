@@ -1,8 +1,9 @@
 // 视口预算看护: 仪表盘 (2026-09-21 协议落地——审计粒度=用户消费单位=视口)
 import { chromium } from 'playwright';
+import { resolveChromium } from './lib/browser.mjs';
 
 const BASE = 'http://127.0.0.1:3120';
-const CHROME = '/root/.cache/ms-playwright/chromium-1223/chrome-linux64/chrome';
+const CHROME = resolveChromium();
 
 const results = [];
 const check = (name, ok, detail = '') => {

@@ -8,10 +8,11 @@
  * 前置:后端(3110)与前端(3120)应当已启动;本脚本失败 = 发布阻断。
  */
 import { chromium } from 'playwright';
+import { resolveChromium } from './lib/browser.mjs';
 
 const API = process.env.SMOKE_API || 'http://127.0.0.1:3110';
 const WEB = process.env.SMOKE_WEB || 'http://127.0.0.1:3120';
-const CHROME = '/root/.cache/ms-playwright/chromium-1223/chrome-linux64/chrome';
+const CHROME = resolveChromium();
 const USER = JSON.stringify({ id: 'eb8ecaf7-44a3-4384-a74b-2c18e9e894b1', name: '陈主管', email: 'manager@placeholder.local' });
 
 const failures = [];

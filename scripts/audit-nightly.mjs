@@ -6,9 +6,11 @@
  *   2) vlmkit 布局体检 --all（advisory；LAYOUT_AUDIT_ALLOW_WRITES=1 启用
  *      "已结束形状"临时人员；--strict 时 findings 也失败）
  *   3) typography guard --all（阻塞）
- * 自起隔离 e2e 栈（API 3111 / Vite 3122）；若端口上已有 e2e 栈则复用，
- * 只清理自己拉起的进程。报告落在 tmp/audit-nightly/<日期>/（gitignored），
- * 状态行追加 tmp/audit-nightly.log。
+ * 自起隔离 e2e 栈（API 3131 / Vite 3132）并使用独立数据库
+ * `.e2e-data/audit-nightly.db`——换端口不换 DB 会在启动时删掉正在跑的
+ * Playwright e2e 库（init-e2e.ts 会 unlink 目标文件）。若端口上已有完整
+ * 夜审栈则复用；只清理自己拉起的进程。报告落在
+ * tmp/audit-nightly/<日期>/（gitignored），状态行追加 tmp/audit-nightly.log。
  *
  * 用法： node scripts/audit-nightly.mjs [--pages a,b] [--strict] [--keep-stack]
  * 定时： npm run audit:nightly:cron（安装/刷新 crontab，默认每日 02:30）
@@ -28,6 +30,31 @@ const keepStack = args.includes('--keep-stack');
 const pagesArg = args.includes('--pages') ? args[args.indexOf('--pages') + 1] : null;
 const dateTag = new Date().toISOString().slice(0, 10);
 const outDir = path.join(ROOT, 'tmp', 'audit-nightly', dateTag);
+const AUDIT_DB = path.join(ROOT, '.e2e-data', 'audit-nightly.db');
+const NIGHTLY_LOCK = path.join(ROOT, '.e2e-data', 'audit-nightly.lock');
+
+const acquireLock = () => {
+  fs.mkdirSync(path.dirname(NIGHTLY_LOCK), { recursive: true });
+  if (fs.existsSync(NIGHTLY_LOCK)) {
+    const pid = Number(fs.readFileSync(NIGHTLY_LOCK, 'utf8').trim());
+    let alive = false;
+    if (pid) { try { process.kill(pid, 0); alive = true; } catch {} }
+    if (alive) {
+      console.error(`✗ another audit-nightly is already running (pid ${pid}); refusing to start`);
+      process.exit(1);
+    }
+    fs.rmSync(NIGHTLY_LOCK, { force: true });
+  }
+  fs.writeFileSync(NIGHTLY_LOCK, String(process.pid));
+};
+const releaseLock = () => {
+  try {
+    if (fs.readFileSync(NIGHTLY_LOCK, 'utf8').trim() === String(process.pid)) {
+      fs.rmSync(NIGHTLY_LOCK, { force: true });
+    }
+  } catch {}
+};
+process.on('exit', releaseLock);
 fs.rmSync(outDir, { recursive: true, force: true });
 fs.mkdirSync(outDir, { recursive: true });
 
@@ -58,7 +85,7 @@ const startStack = async () => {
   if (apiOk && webOk) { console.log('· 复用已运行的 e2e 栈（3111/3122）'); return true; }
   if (apiOk || webOk) { console.error(`✗ ${API}/${WEB} 只有单边可用且不是完整 e2e 栈（api=${apiOk} web=${webOk}）；先清理残留再重试`); return false; }
   const envBase = { ...process.env, PATH: pathWithNode };
-  const api = spawn('npx', ['tsx', 'src/server/index.ts'], { cwd: ROOT, env: { ...envBase, NODE_ENV: 'e2e', PORT: new URL(API).port, FORCE_COLOR: '0' }, detached: true, stdio: 'ignore' });
+  const api = spawn('npx', ['tsx', 'src/server/index.ts'], { cwd: ROOT, env: { ...envBase, NODE_ENV: 'e2e', PORT: new URL(API).port, E2E_DB_PATH: AUDIT_DB, AUDIT_NIGHTLY_DB: AUDIT_DB, FORCE_COLOR: '0' }, detached: true, stdio: 'ignore' });
   const web = spawn('npx', ['vite', '--config', 'client-vite.config.ts', '--port', new URL(WEB).port, '--strictPort'], { cwd: ROOT, env: { ...envBase, VITE_E2E: '1', PORT: new URL(API).port }, detached: true, stdio: 'ignore' });
   spawned.push(api.pid, web.pid);
   const ok = (await waitOk(`${API}/api/health`, 'API')) && (await waitOk(WEB, '前端'));
@@ -77,6 +104,7 @@ const stopStack = () => {
 
 const blocking = [];
 const notes = [];
+acquireLock();
 const ok = await startStack();
 if (!ok) { console.error('✗ 夜审未运行：隔离栈不可用'); process.exit(1); }
 try {

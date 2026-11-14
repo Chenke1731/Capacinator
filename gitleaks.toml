@@ -1,0 +1,31 @@
+# Gitleaks configuration for Capacinator.
+#
+# The default rule set is extended; project-specific allowlists below cover
+# test-only fixtures and explicit placeholders. Real credentials must never be
+# added here. Historical findings that have been rotated are tracked in
+# `.gitleaksignore` by fingerprint, not by copying the secret into this file.
+
+[extend]
+useDefault = true
+
+[[allowlists]]
+description = "Test-only fixtures and documented placeholders"
+paths = [
+  '''(^|/)\.env\.test$''',
+  '''(^|/)\.env\.e2e$''',
+  '''(^|/)\.env\.example$''',
+  '''(^|/)tests/fixtures/''',
+  '''(^|/)tests/e2e/fixtures/''',
+  '''(^|/)tests/e2e/archived/''',
+  '''(^|/)tests/visual/fixtures/''',
+  '''(^|/)tests/unit/server/services/git/__tests__/GitRepositoryService\.test\.ts$''',
+  '''(^|/)tests/integration/audit/audit-security\.test\.ts$''',
+]
+regexTarget = "match"
+regexes = [
+  '''REPLACE_ME_WITH_BASE64_32_BYTES''',
+  '''your_github_oauth_app_client_secret''',
+  '''your-super-secret-jwt-key-change-in-production''',
+  '''e2e-test-encryption-key-32-bytes''',
+  '''test-only-jwt-secret''',
+]

@@ -1,5 +1,6 @@
 import { chromium } from 'playwright';
-const browser = await chromium.launch({ executablePath: '/root/.cache/ms-playwright/chromium-1223/chrome-linux64/chrome' });
+import { resolveChromium } from './lib/browser.mjs';
+const browser = await chromium.launch({ executablePath: resolveChromium() });
 const page = await browser.newPage({ viewport: { width: 1600, height: 900 } });
 await page.addInitScript(() => {
   localStorage.setItem('capacinator_current_user', JSON.stringify({ id: 'eb8ecaf7-44a3-4384-a74b-2c18e9e894b1', name: '陈主管' }));

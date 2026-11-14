@@ -12,6 +12,22 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 
+# Secret scan (I19a): staged diff only, <1s when gitleaks is installed.
+# Missing tool is a loud warning by default; REQUIRE_GITLEAKS=1 turns it into a block.
+echo "── Secret scan (staged) ──"
+if command -v gitleaks >/dev/null 2>&1; then
+  node scripts/security-audit.mjs --secrets --staged
+  if [ $? -ne 0 ]; then
+    echo "✗ Secret scan failed — commit blocked"
+    exit 1
+  fi
+else
+  echo "⚠ gitleaks not installed — secret scan skipped (set REQUIRE_GITLEAKS=1 to block)"
+  if [ "$REQUIRE_GITLEAKS" = "1" ]; then
+    exit 1
+  fi
+fi
+
 if [ -n "$STAGED_CSS" ]; then
   echo "── CSS changed, checking syntax (all client CSS, not just App.css) ──"
   # 2026-10-17 修复:旧版固定只读 App.css——People.css 的多余 } 直接漏网

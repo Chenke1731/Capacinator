@@ -4,9 +4,10 @@
 // 来源: 2026-09-22 全站审计发现两处 P0 均在 verify-visual 四页矩阵之外——本守卫补上矩阵缺口。
 import { chromium } from 'playwright';
 import { AxeBuilder } from '@axe-core/playwright';
+import { resolveChromium } from './lib/browser.mjs';
 
 const BASE = 'http://127.0.0.1:3120';
-const CHROME = '/root/.cache/ms-playwright/chromium-1223/chrome-linux64/chrome';
+const CHROME = resolveChromium();
 const USER = JSON.stringify({ id: 'eb8ecaf7-44a3-4384-a74b-2c18e9e894b1', name: '陈主管' });
 const API = 'http://127.0.0.1:3110/api';
 

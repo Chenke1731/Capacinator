@@ -4,9 +4,10 @@
 import { chromium } from 'playwright';
 import { AxeBuilder } from '@axe-core/playwright';
 import fs from 'node:fs';
+import { resolveChromium } from './lib/browser.mjs';
 
 const BASE = 'http://127.0.0.1:3120';
-const CHROME = '/root/.cache/ms-playwright/chromium-1223/chrome-linux64/chrome';
+const CHROME = resolveChromium();
 const USER = JSON.stringify({ id: 'eb8ecaf7-44a3-4384-a74b-2c18e9e894b1', name: '陈主管' });
 const API = 'http://127.0.0.1:3110/api';
 

@@ -11,10 +11,11 @@ import fs from 'node:fs';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {chromium} from 'playwright';
+import { resolveChromium } from '../browser.mjs';
 
 const repository=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../../..');
 export const defaultFixture=path.join(repository,'tests/visual/fixtures/runtime-data.json');
-export const defaultChrome=process.env.UI_AUDIT_CHROME??'/root/.cache/ms-playwright/chromium-1223/chrome-linux64/chrome';
+export const defaultChrome=resolveChromium();
 
 export function loadFixture(file=defaultFixture){
   if(!file)return null;

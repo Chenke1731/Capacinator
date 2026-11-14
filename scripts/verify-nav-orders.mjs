@@ -1,9 +1,10 @@
 // 顺序敏感导航扫描: 同一浏览器上下文里按对抗顺序遍历主路由,
 // 断言零页面错误 + 每页内容真实渲染(共享缓存键投毒只在特定访问顺序下爆)
 import { chromium } from 'playwright';
+import { resolveChromium } from './lib/browser.mjs';
 
 const BASE = 'http://127.0.0.1:3120';
-const CHROME = '/root/.cache/ms-playwright/chromium-1223/chrome-linux64/chrome';
+const CHROME = resolveChromium();
 
 const results = [];
 const check = (name, ok, detail = '') => {

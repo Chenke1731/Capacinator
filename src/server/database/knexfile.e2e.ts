@@ -6,9 +6,16 @@ import path from 'path';
  * Uses a file-based SQLite database for proper cross-process access
  */
 
-// E2E database path
-const E2E_DB_DIR = path.join(process.cwd(), '.e2e-data');
-const E2E_DB_FILE = path.join(E2E_DB_DIR, 'e2e-test.db');
+// E2E database path.
+// E2E_DB_PATH (or DATABASE_URL) lets a second isolated stack (nightly audit)
+// use its own file instead of deleting the Playwright e2e database.
+const DEFAULT_E2E_DB_DIR = path.resolve(process.cwd(), '.e2e-data');
+const configuredDb = process.env.E2E_DB_PATH ?? process.env.DATABASE_URL;
+const normalizeDb = (value: string) => (value.startsWith('sqlite:') ? value.slice('sqlite:'.length) : value);
+const E2E_DB_FILE = configuredDb
+  ? path.resolve(normalizeDb(configuredDb))
+  : path.join(DEFAULT_E2E_DB_DIR, 'e2e-test.db');
+const E2E_DB_DIR = configuredDb ? path.dirname(E2E_DB_FILE) : DEFAULT_E2E_DB_DIR;
 
 const e2eConfig: Knex.Config = {
   client: 'better-sqlite3',
@@ -45,4 +52,4 @@ const e2eConfig: Knex.Config = {
 };
 
 export default e2eConfig;
-export { E2E_DB_FILE, E2E_DB_DIR };
+export { DEFAULT_E2E_DB_DIR, E2E_DB_FILE, E2E_DB_DIR };

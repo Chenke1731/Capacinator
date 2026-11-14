@@ -1,6 +1,7 @@
 // 全站对比度违规全量明细(选择器/类名/前景/背景/文本) → 按模式分组修
 import { chromium } from 'playwright';
 import { AxeBuilder } from '@axe-core/playwright';
+import { resolveChromium } from './lib/browser.mjs';
 
 const BASE = ' ' || 'http://127.0.0.1:3120';
 const API = 'http://127.0.0.1:3110/api';
@@ -12,7 +13,7 @@ const PAGES = [
   ['人员详情', '/people/eb8ecaf7-44a3-4384-a74b-2c18e9e894b1'],
   ['assignments', '/assignments'], ['settings', '/settings'], ['reports', '/reports'], ['audit-log', '/audit-log'],
 ];
-const browser = await chromium.launch({ executablePath: '/root/.cache/ms-playwright/chromium-1223/chrome-linux64/chrome' });
+const browser = await chromium.launch({ executablePath: resolveChromium() });
 const all = [];
 for (const [name, path] of PAGES) {
   for (const theme of ['light', 'dark']) {

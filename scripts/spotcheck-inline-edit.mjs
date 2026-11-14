@@ -1,6 +1,7 @@
 // 行内编辑三件套真实浏览器点检: 优先级/负责人/标签气泡的锚定、选择、落库、行 flash。
 // 只在演示库上操作,结束后用 reset-demo-lifecycle.sql 还原(由调用方执行)。
 import { chromium } from 'playwright';
+import { resolveChromium } from './lib/browser.mjs';
 
 const BASE = 'http://localhost:3120';
 const results = [];
@@ -10,7 +11,7 @@ const check = (name, ok, detail = '') => {
 };
 
 const browser = await chromium.launch({
-  executablePath: '/root/.cache/ms-playwright/chromium-1223/chrome-linux64/chrome'
+  executablePath: resolveChromium()
 });
 const page = await browser.newPage({ viewport: { width: 1600, height: 900 } });
 await page.addInitScript(() => {

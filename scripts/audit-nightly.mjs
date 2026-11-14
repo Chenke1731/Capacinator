@@ -94,6 +94,52 @@ try {
 }
 
 const verdict = blocking.length ? `FAIL（${blocking.join(', ')}）` : 'PASS';
+
+// ---- 呈现层：结构化抽取 → 与上次 diff → history → 自包含 HTML → latest → 保留期 ----
+const readJsonSafe = (file) => { try { return JSON.parse(fs.readFileSync(file, 'utf8')); } catch { return null; } };
+const layoutData = readJsonSafe(path.join(outDir, 'layout', 'findings.json'));
+const typoData = readJsonSafe(path.join(outDir, 'typography', 'typography.json'));
+const findingsBy = new Map(); // key -> {rule,page,message,viewports:Set}
+for (const f of layoutData?.findings ?? []) {
+  const key = `${f.rule}|${f.page}|${String(f.message ?? '').slice(0, 90)}`;
+  const hit = findingsBy.get(key) ?? { rule: f.rule, page: f.page, message: f.message, selector: f.selector, viewports: new Set() };
+  hit.viewports.add(f.viewport); findingsBy.set(key, hit);
+}
+const statePath = path.join(ROOT, 'tmp', 'audit-nightly', '.state.json');
+const prevState = readJsonSafe(statePath);
+const prevKeys = new Set(prevState?.keys ?? []);
+const currentKeys = new Set(findingsBy.keys());
+const added = [...currentKeys].filter((k) => !prevKeys.has(k)).map((k) => findingsBy.get(k));
+const resolved = [...prevKeys].filter((k) => !currentKeys.has(k));
+const kept = [...currentKeys].filter((k) => prevKeys.has(k)).map((k) => findingsBy.get(k));
+fs.writeFileSync(statePath, JSON.stringify({ date: dateTag, keys: [...currentKeys] }, null, 2));
+const exempted = (layoutData?.results ?? []).reduce((sum, r) => sum + (r.exempted?.length ?? 0), 0);
+
+const historyPath = path.join(ROOT, 'tmp', 'audit-nightly', 'history.json');
+const history = readJsonSafe(historyPath) ?? [];
+history.push({ date: dateTag, verdict, findings: currentKeys.size, added: added.length, resolved: resolved.length, exempted, typo: typoData?.violations?.length ?? 0, blocking });
+fs.writeFileSync(historyPath, JSON.stringify(history.slice(-90), null, 2));
+
+const esc = (v) => String(v ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const rowsHtml = (list) => list.map((f) => `<tr><td>${esc(f.rule)}</td><td>${esc(f.page)}</td><td>${esc([...f.viewports].join(' / '))}</td><td>${esc(f.message)}</td><td><code>${esc(f.selector ?? '')}</code></td></tr>`).join('');
+const histRows = history.slice(-14).reverse().map((h) => `<tr><td>${h.date}</td><td class="${h.verdict === 'PASS' ? 'ok' : 'bad'}">${h.verdict}</td><td>${h.findings}</td><td>${h.added}</td><td>${h.resolved}</td><td>${h.typo}</td></tr>`).join('');
+const html = `<!doctype html><html lang="zh"><meta charset="utf-8"><title>夜审 ${dateTag}</title>
+<style>body{font:14px/1.6 system-ui;margin:0;padding:24px;background:#f8fafc;color:#0f172a}main{max-width:1080px;margin:auto}h1{font-size:20px}h2{font-size:16px;margin-top:28px;border-left:4px solid #2563eb;padding-left:8px}table{border-collapse:collapse;width:100%;background:#fff;font-size:13px}th,td{border:1px solid #e2e8f0;padding:6px 9px;text-align:left;vertical-align:top}th{background:#f1f5f9}code{font-size:12px}.banner{padding:12px 16px;border-radius:8px;font-weight:600}.pass{background:#dcfce7;color:#166534}.fail{background:#fee2e2;color:#991b1b}.muted{color:#64748b}.tag{display:inline-block;margin:0 6px 6px 0;padding:2px 8px;border-radius:99px;background:#e0e7ff;font-size:12px}</style>
+<main><h1>Capacinator 夜审报告 <span class="muted">${dateTag}</span></h1>
+<div class="banner ${blocking.length ? 'fail' : 'pass'}">${verdict}${notes.length ? ' · 布局 findings ' + currentKeys.size + '（advisory）' : ''}</div>
+<p class="muted">页面 ${pagesArg ?? '全量'} · 已结束形状 ${layoutData?.trigger?.endedShape?.created ? '已启用' : '未启用'} · 豁免 ${exempted} 条 · 基线对比：${prevState ? '与 ' + prevState.date : '首次（下次起显示 新增/消解）'}</p>
+<h2>自上次变化</h2><p><span class="tag">新增 ${added.length}</span><span class="tag">持续 ${kept.length}</span><span class="tag">已消解 ${resolved.length}</span></p>
+${added.length ? '<h3>🆕 新增</h3><table><tr><th>规则</th><th>页面</th><th>视口</th><th>说明</th><th>selector</th></tr>' + rowsHtml(added) + '</table>' : ''}
+${kept.length ? '<h3>⏳ 持续存在</h3><table><tr><th>规则</th><th>页面</th><th>视口</th><th>说明</th><th>selector</th></tr>' + rowsHtml(kept) + '</table>' : ''}
+${resolved.length ? '<h3>✅ 已消解</h3><ul>' + resolved.map((k) => '<li><code>' + esc(k.split('|')[0]) + '</code> ' + esc(k.split('|')[1]) + '</li>').join('') + '</ul>' : ''}
+${(typoData?.violations?.length ?? 0) > 0 ? '<h2>字号/标题违规（阻塞）</h2><ul>' + typoData.violations.map((v) => '<li>' + esc(v.rule) + ' · ' + esc(v.page) + ' — ' + esc(v.fs ?? v.sizes?.join('/')) + ' ' + esc(v.cls ?? v.text ?? '') + '</li>').join('') + '</ul>' : ''}
+<h2>历史（最近 ${Math.min(14, history.length)} 次）</h2><table><tr><th>日期</th><th>结论</th><th>findings</th><th>新增</th><th>消解</th><th>字号违规</th></tr>${histRows}</table>
+<p class="muted">明细：<a href="layout/summary.md">vlmkit summary</a> · <a href="typography/summary.md">typography summary</a> · 原始 <a href="layout/findings.json">findings.json</a>；本报告为本地自包含文件，直接浏览器打开。</p></main>`;
+fs.writeFileSync(path.join(outDir, 'report.html'), html);
+const latest = path.join(ROOT, 'tmp', 'audit-nightly', 'latest');
+try { fs.rmSync(latest, { force: true }); fs.symlinkSync(outDir, latest, 'dir'); } catch { fs.cpSync(outDir, path.join(ROOT, 'tmp', 'audit-nightly', 'latest-dir'), { recursive: true }); }
+for (const dir of fs.readdirSync(path.join(ROOT, 'tmp', 'audit-nightly')).filter((d) => /^\d{4}-\d{2}-\d{2}$/.test(d)).sort().slice(0, -30)) fs.rmSync(path.join(ROOT, 'tmp', 'audit-nightly', dir), { recursive: true, force: true });
+
 const summary = [
   `# Nightly audit ${dateTag} — ${verdict}`,
   '',
@@ -104,5 +150,5 @@ const summary = [
 ].join('\n');
 fs.writeFileSync(path.join(outDir, 'summary.md'), summary + '\n');
 fs.appendFileSync(path.join(ROOT, 'tmp', 'audit-nightly.log'), `${new Date().toISOString()} ${verdict}${notes.length ? ' | ' + notes.join(' ; ') : ''}${blocking.length ? ' | ' + blocking.join(',') : ''}\n`);
-console.log(`\n夜审 ${verdict}；报告 ${path.relative(ROOT, path.join(outDir, 'summary.md'))}${notes.length ? '\n' + notes.join('\n') : ''}`);
+console.log(`\n夜审 ${verdict}；报告 ${path.relative(ROOT, path.join(outDir, 'report.html'))}（稳定入口 tmp/audit-nightly/latest/report.html）\n新增 ${added.length} · 持续 ${kept.length} · 已消解 ${resolved.length}${notes.length ? '\n' + notes.join('\n') : ''}`);
 process.exit(blocking.length ? 1 : 0);

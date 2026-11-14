@@ -23,12 +23,15 @@ export interface BatchShiftRowInput {
   computed_start_date?: string | number | null;
   computed_end_date?: string | number | null;
   project_name?: string | null;
+  assignment_type?: string | null;
 }
 
 export interface BatchShiftPlanRow {
   id: string;
   version?: number;
   label: string;
+  /** direct 行是 baseline 全局数据：批量平移会跨场景生效，预览需披露 */
+  direct: boolean;
   originalStart: string;
   originalEnd: string;
   newStart: string;
@@ -139,6 +142,7 @@ export function planBatchShift(
       id: row.id,
       version: row.version,
       label: row.project_name ?? row.id,
+      direct: row.assignment_type === 'direct',
       originalStart,
       originalEnd,
       newStart,
@@ -151,4 +155,8 @@ export function planBatchShift(
 
 export function batchShiftSkipTotal(skipped: BatchShiftSkipCounts): number {
   return skipped.paused + skipped.phase + skipped.project + skipped.undated;
+}
+
+export function batchShiftDirectCount(plan: BatchShiftPlan): number {
+  return plan.rows.filter((row) => row.direct).length;
 }

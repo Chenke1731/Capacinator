@@ -31,6 +31,7 @@ import {
 } from '../lib/personWorkload';
 import { workloadTimeline, type AvailabilityOverrideInput } from '../lib/workloadTimeline';
 import {
+  batchShiftDirectCount,
   batchShiftSkipTotal,
   planBatchShift,
   shiftIsoDate,
@@ -2933,6 +2934,13 @@ export default function PersonWorkload() {
                     undated: batchShiftPlan.skipped.undated,
                   })}
                 </span>
+                {batchShiftDirectCount(batchShiftPlan) > 0 ? (
+                  <span className="pw-batch-shift-blocked" data-testid="pw-batch-shift-direct">
+                    {t('assignments:workload.batch.shiftDirectWarning', {
+                      count: batchShiftDirectCount(batchShiftPlan),
+                    })}
+                  </span>
+                ) : null}
                 {batchShiftPlan.blocked.length > 0 ? (
                   <span className="pw-batch-shift-blocked" data-testid="pw-batch-shift-blocked">
                     {t('assignments:workload.batch.shiftBlockedSummary', {

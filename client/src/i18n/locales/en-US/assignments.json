@@ -217,7 +217,8 @@
       "undoFailed": "Undo failed: one or more rows were changed.",
       "shiftApplying": "Applying…",
       "shiftMoreRows": "+{{count}} more row(s)",
-      "outOfRangeCommitted": "{{count}} committed assignment(s) outside the window"
+      "outOfRangeCommitted": "{{count}} committed assignment(s) outside the window",
+      "shiftDirectWarning": "Includes {{count}} baseline-global (direct) row(s); changes affect all scenarios."
     },
     "source": {
       "direct": "Baseline (global)",
@@ -478,7 +479,7 @@
       "outOfRange": "{{count}} drafts out of range:",
       "dragHint": "Drag to move; side handles resize; ←/→ move (Shift=7d); +/− adjust end",
       "dragHelp": "Fixed-date drafts: drag the bar to move, drag the side handles to resize; arrow keys move, Shift speeds up, plus/minus adjusts the end date.",
-      "minimapLabel": "12-month overview (click a month to move the window)",
+      "minimapLabel": "Capacity overview (click a month to move the window)",
       "projectLane": "View staffing for {{name}}",
       "future": "Future",
       "ended": "Ended",

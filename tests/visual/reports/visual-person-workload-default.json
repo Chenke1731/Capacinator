@@ -55,7 +55,7 @@
       "baseline": "tests/visual/__screenshots__/person-workload-dark-1600.png",
       "backdrops": [],
       "svgAxisText": [],
-      "durationMs": 7101
+      "durationMs": 6944
     },
     {
       "tag": "person-workload-dark-1366",
@@ -103,7 +103,7 @@
       "baseline": "tests/visual/__screenshots__/person-workload-dark-1366.png",
       "backdrops": [],
       "svgAxisText": [],
-      "durationMs": 5468
+      "durationMs": 5518
     },
     {
       "tag": "person-workload-light-1600",
@@ -151,7 +151,7 @@
       "baseline": "tests/visual/__screenshots__/person-workload-light-1600.png",
       "backdrops": [],
       "svgAxisText": [],
-      "durationMs": 5768
+      "durationMs": 5614
     },
     {
       "tag": "person-workload-light-1366",
@@ -199,7 +199,7 @@
       "baseline": "tests/visual/__screenshots__/person-workload-light-1366.png",
       "backdrops": [],
       "svgAxisText": [],
-      "durationMs": 5395
+      "durationMs": 5692
     }
   ]
 }

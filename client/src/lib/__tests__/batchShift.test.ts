@@ -8,6 +8,7 @@
  * - 版本/冻结字段随计划带出。
  */
 import {
+  batchShiftDirectCount,
   batchShiftSkipTotal,
   planBatchShift,
   shiftIsoDate,
@@ -53,6 +54,7 @@ describe('planBatchShift', () => {
         id: 'a1',
         version: 3,
         label: 'Alpha',
+        direct: false,
         originalStart: '2026-07-01',
         originalEnd: '2026-07-31',
         newStart: '2026-07-06',
@@ -131,6 +133,15 @@ describe('planBatchShift', () => {
     });
     expect(plan.rows[0]?.newStart).toBe('2026-02-28');
     expect(plan.rows[0]?.newEnd).toBe('2026-03-28');
+  });
+
+  test('direct 行随计划带出标记（预览需披露跨场景影响）', () => {
+    const plan = planBatchShift(
+      [row({ id: 'direct', assignment_type: 'direct' }), row({ id: 'scenario' })],
+      { direction: 'later', amount: 1, unit: 'day', asOf: AS_OF }
+    );
+    expect(batchShiftDirectCount(plan)).toBe(1);
+    expect(plan.rows.find((entry) => entry.id === 'direct')?.direct).toBe(true);
   });
 
   test('使用 computed 日期兜底（fixed 行 start_date 缺失）', () => {

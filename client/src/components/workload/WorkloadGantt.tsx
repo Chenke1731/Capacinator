@@ -469,7 +469,9 @@ export function WorkloadGantt({
                   aria-label={`${bucket.key}${relative !== null ? ` ${Math.round(relative)}%` : ''}`}
                 >
                   <span className="pw-minimap-bar" style={{ height: `${height}%` }} aria-hidden="true" />
-                  <span className="pw-minimap-label" aria-hidden="true">{bucket.key.slice(5)}</span>
+                  <span className="pw-minimap-label" aria-hidden="true">
+                      {minimapBuckets.length > 12 ? bucket.key.slice(2, 7) : bucket.key.slice(5)}
+                    </span>
                 </button>
               );
             })}

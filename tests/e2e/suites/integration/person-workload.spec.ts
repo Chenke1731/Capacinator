@@ -234,6 +234,13 @@ test.describe('Person workbench v2 (S1/S2/S6 committed drag + panel + undo)', ()
       await authenticatedPage.mouse.move(cx, cy);
       await authenticatedPage.mouse.down();
       await authenticatedPage.mouse.move(cx + 40, cy, { steps: 6 });
+
+      // 拖动中即时反馈：浮动提示给出精确到日的起止（不必等松手）
+      const dragTip = authenticatedPage.getByTestId('pw-gantt-drag-tip');
+      await expect(dragTip).toBeVisible();
+      await expect(dragTip).toContainText('→');
+      const tipStart = (await dragTip.textContent())?.match(/\d{4}-\d{2}-\d{2}/)?.[0];
+      expect(tipStart).toBeTruthy();
       await authenticatedPage.mouse.up();
 
       // 松手后不触发 click 重开：直接进入 committed 面板且预填拖动后的日期
@@ -241,6 +248,7 @@ test.describe('Person workbench v2 (S1/S2/S6 committed drag + panel + undo)', ()
       await expect(panel).toBeVisible();
       const startInput = panel.getByLabel('Start date');
       const previewStart = await startInput.inputValue();
+      expect(previewStart).toBe(tipStart);
       expect(previewStart).not.toBe(originalStart);
       await expect(panel.getByLabel('End date')).not.toHaveValue(originalEnd);
 

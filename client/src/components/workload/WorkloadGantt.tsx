@@ -11,7 +11,7 @@
  * future/ended 淡化；ghost 斜纹半透明（§18 视觉验收）。范围外 ghost 给
  * 定位入口（§20.3）。可折叠为紧凑容量条（1366）。
  */
-import { useCallback, useEffect, useMemo, useRef, useState, type CSSProperties, type PointerEvent as ReactPointerEvent, type KeyboardEvent as ReactKeyboardEvent } from 'react';
+import { Fragment, useCallback, useEffect, useMemo, useRef, useState, type CSSProperties, type PointerEvent as ReactPointerEvent, type KeyboardEvent as ReactKeyboardEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ChevronDown, ChevronUp, Crosshair, Lock } from 'lucide-react';
 import { workloadDateOnly, type WorkloadAssignment } from '../../lib/personWorkload';
@@ -81,6 +81,7 @@ interface DragState {
   origEnd: number | null;
   /** committed：越过 3px 阈值后才算拖动成立（否则视为点击） */
   started: boolean;
+  lastDelta?: number;
   lastPreview?: CommittedDatePreview;
 }
 
@@ -149,9 +150,64 @@ export function WorkloadGantt({
   useEffect(() => () => trackResizeObserverRef.current?.disconnect(), []);
   // S1：拖拽成立后吞掉随后 click（否则会按 S2 重开并覆盖预填）
   const suppressClickRef = useRef(false);
+  // S1 手感改造：拖动中本地即时预览（bar 跟手），页面热区投影按 80ms 节流；
+  // 浮动提示显示精确到日的起止与时长，解决"不知道拖到哪天"。
+  const [localDragPreview, setLocalDragPreview] = useState<CommittedDatePreview | null>(null);
+  const [dragTip, setDragTip] = useState<{
+    x: number;
+    y: number;
+    preview: CommittedDatePreview;
+    mode: DragMode;
+    deltaDays: number;
+    durationDays: number;
+  } | null>(null);
+  const dragNotifyRef = useRef<{
+    last: number;
+    timer: number | null;
+    pending: CommittedDatePreview | null;
+  }>({ last: 0, timer: null, pending: null });
+  const bodyCursorRef = useRef<{ cursor: string; userSelect: string } | null>(null);
+
+  const notifyCommittedPreview = useCallback(
+    (preview: CommittedDatePreview) => {
+      const notify = onCommittedDragPreview;
+      if (!notify) return;
+      const state = dragNotifyRef.current;
+      state.pending = preview;
+      const flush = () => {
+        state.timer = null;
+        state.last = Date.now();
+        const next = state.pending;
+        state.pending = null;
+        if (next) notify(next);
+      };
+      if (Date.now() - state.last >= 80) flush();
+      else if (state.timer === null) {
+        state.timer = window.setTimeout(flush, 80);
+      }
+    },
+    [onCommittedDragPreview]
+  );
+
+  const clearDragFeedback = useCallback(() => {
+    const state = dragNotifyRef.current;
+    if (state.timer !== null) {
+      window.clearTimeout(state.timer);
+      state.timer = null;
+    }
+    state.pending = null;
+    setLocalDragPreview(null);
+    setDragTip(null);
+    if (bodyCursorRef.current) {
+      document.body.style.cursor = bodyCursorRef.current.cursor;
+      document.body.style.userSelect = bodyCursorRef.current.userSelect;
+      bodyCursorRef.current = null;
+    }
+  }, []);
 
   // ---- Phase 2/S1：ghost 与已提交 fixed bar 的拖拽/缩放（指针 + 键盘）----
   const dragRef = useRef<DragState | null>(null);
+  const lastPointer = useRef({ x: 0, y: 0 });
   const dragGhostEditable = (draft: AssignmentDraft | undefined): boolean =>
     Boolean(
       onGhostDatesChange &&
@@ -214,7 +270,18 @@ export function WorkloadGantt({
       });
       const preview = { assignmentId: state.id, ...next };
       state.lastPreview = preview;
-      onCommittedDragPreview(preview);
+      setLocalDragPreview(preview);
+      const durationDays =
+        Math.round((toDayNumber(preview.endDate) - toDayNumber(preview.startDate)) / DAY_MS) + 1;
+      setDragTip({
+        x: lastPointer.current.x,
+        y: lastPointer.current.y,
+        preview,
+        mode: state.mode,
+        deltaDays,
+        durationDays,
+      });
+      notifyCommittedPreview(preview);
     },
     [drafts, onGhostDatesChange, onCommittedDragPreview, timeline.asOf]
   );
@@ -223,12 +290,15 @@ export function WorkloadGantt({
     const onPointerMove = (event: PointerEvent) => {
       const state = dragRef.current;
       if (!state) return;
+      lastPointer.current = { x: event.clientX, y: event.clientY };
       const deltaDays = Math.round(((event.clientX - state.pointerStartX) / state.trackWidth) * totalDays);
       if (state.kind === 'committed' && !state.started) {
         // 阈值：<3px 视为点击，不进入拖动
         if (Math.abs(event.clientX - state.pointerStartX) < 3) return;
         state.started = true;
       }
+      if (state.lastDelta === deltaDays && state.kind === 'committed') return;
+      state.lastDelta = deltaDays;
       applyDrag(state, deltaDays);
     };
     const onPointerUp = () => {
@@ -243,18 +313,33 @@ export function WorkloadGantt({
         }, 0);
         onCommittedDragEnd?.(state.lastPreview);
       }
+      clearDragFeedback();
     };
-    // N-05：触摸设备拖拽被系统手势打断（pointercancel）也要复位，避免
-    // 残留 dragRef 让后续 pointermove 空转
+    // pointercancel / 窗口失焦 / Esc：取消拖动并回到原位（不打开面板）
+    const cancelDrag = () => {
+      if (!dragRef.current) return;
+      dragRef.current = null;
+      clearDragFeedback();
+    };
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape' && dragRef.current?.started) {
+        event.preventDefault();
+        cancelDrag();
+      }
+    };
     document.addEventListener('pointermove', onPointerMove);
     document.addEventListener('pointerup', onPointerUp);
-    document.addEventListener('pointercancel', onPointerUp);
+    document.addEventListener('pointercancel', cancelDrag);
+    window.addEventListener('blur', cancelDrag);
+    document.addEventListener('keydown', onKeyDown);
     return () => {
       document.removeEventListener('pointermove', onPointerMove);
       document.removeEventListener('pointerup', onPointerUp);
-      document.removeEventListener('pointercancel', onPointerUp);
+      document.removeEventListener('pointercancel', cancelDrag);
+      window.removeEventListener('blur', cancelDrag);
+      document.removeEventListener('keydown', onKeyDown);
     };
-  }, [applyDrag, totalDays, onCommittedDragEnd]);
+  }, [applyDrag, totalDays, onCommittedDragEnd, clearDragFeedback]);
 
   const beginPointerDrag = (event: ReactPointerEvent, bar: BarModel, mode: DragMode) => {
     const isGhost = bar.kind === 'ghost' && dragGhostEditable(bar.ghost);
@@ -264,6 +349,14 @@ export function WorkloadGantt({
     event.stopPropagation();
     const track = (event.currentTarget as HTMLElement).closest('.pw-gantt-lane-track') as HTMLElement | null;
     if (!track) return;
+    if (isCommitted) {
+      bodyCursorRef.current = {
+        cursor: document.body.style.cursor,
+        userSelect: document.body.style.userSelect,
+      };
+      document.body.style.cursor = 'grabbing';
+      document.body.style.userSelect = 'none';
+    }
     dragRef.current = {
       kind: isGhost ? 'draft' : 'committed',
       id: isGhost ? bar.draftId! : bar.assignmentId!,
@@ -385,6 +478,10 @@ export function WorkloadGantt({
 
   /** 拖动中/确认面板未保存期：已提交 bar 以临时预览日期定位（不写库）。 */
   const effectiveDates = (bar: BarModel): { startDate: string | null; endDate: string | null } => {
+    const local = localDragPreview;
+    if (bar.kind === 'committed' && local && local.assignmentId === bar.assignmentId) {
+      return { startDate: local.startDate, endDate: local.endDate };
+    }
     if (
       bar.kind === 'committed' &&
       committedPreview &&
@@ -395,13 +492,12 @@ export function WorkloadGantt({
     return { startDate: bar.startDate, endDate: bar.endDate };
   };
 
-  const barStyle = (bar: BarModel): CSSProperties => {
-    const dates = effectiveDates(bar);
-    if (!dates.startDate && !dates.endDate) {
+  const styleForWindow = (startDate: string | null, endDate: string | null): CSSProperties => {
+    if (!startDate && !endDate) {
       return { left: '0%', width: '100%' };
     }
-    const start = dates.startDate ? toDayNumber(dates.startDate) : rangeStartDay;
-    const end = dates.endDate ? toDayNumber(dates.endDate) : rangeEndDay;
+    const start = startDate ? toDayNumber(startDate) : rangeStartDay;
+    const end = endDate ? toDayNumber(endDate) : rangeEndDay;
     const clampedStart = Math.max(start, rangeStartDay);
     const clampedEnd = Math.min(end, rangeEndDay);
     if (clampedEnd < rangeStartDay || clampedStart > rangeEndDay) {
@@ -410,6 +506,11 @@ export function WorkloadGantt({
     const left = ((clampedStart - rangeStartDay) / totalDays) * 100;
     const width = ((clampedEnd - clampedStart + 1) / totalDays) * 100;
     return { left: `${left}%`, width: `${Math.max(width, 0.8)}%` };
+  };
+
+  const barStyle = (bar: BarModel): CSSProperties => {
+    const dates = effectiveDates(bar);
+    return styleForWindow(dates.startDate, dates.endDate);
   };
 
   /** 与 barStyle 同口径的宽度百分比（用于判断能否容纳两端 24px 手柄）。 */
@@ -546,18 +647,31 @@ export function WorkloadGantt({
                   >
                     <span className="pw-gantt-asof" style={{ left: `${Math.min(Math.max(asOfOffset, 0), 100)}%` }} aria-hidden="true" />
                     {lane.bars.map((bar, barIndex) => {
+                      const originalOutline =
+                        bar.kind === 'committed' &&
+                        localDragPreview?.assignmentId === bar.assignmentId
+                          ? styleForWindow(bar.startDate, bar.endDate)
+                          : null;
                       const ghostDraggable = bar.kind === 'ghost' && dragGhostEditable(bar.ghost);
                       const committedDraggable = bar.kind === 'committed' && dragCommittedEditable(bar);
                       const draggable = ghostDraggable || committedDraggable;
                       const showResizeHandles =
                         (ghostDraggable || committedDraggable) && barWideEnoughForHandles(bar);
                       const dragging =
-                        committedPreview !== undefined &&
-                        committedPreview !== null &&
-                        committedPreview.assignmentId === bar.assignmentId;
+                        localDragPreview?.assignmentId === bar.assignmentId ||
+                        (committedPreview !== undefined &&
+                          committedPreview !== null &&
+                          committedPreview.assignmentId === bar.assignmentId);
                       return (
+                      <Fragment key={bar.key}>
+                      {originalOutline ? (
+                        <span
+                          className="pw-gantt-orig-window"
+                          style={{ ...originalOutline, top: `${barIndex * 26}px` }}
+                          aria-hidden="true"
+                        />
+                      ) : null}
                       <button
-                        key={bar.key}
                         type="button"
                         className={barClasses(bar) + (dragging ? ' pw-gantt-bar--dragging' : '')}
                         style={{ ...barStyle(bar), top: `${barIndex * 26}px` }}
@@ -602,6 +716,7 @@ export function WorkloadGantt({
                           />
                         ) : null}
                       </button>
+                      </Fragment>
                       );
                     })}
                   </div>
@@ -673,6 +788,33 @@ export function WorkloadGantt({
           </ul>
         </>
       )}
+
+      {dragTip ? (
+        <div
+          className="pw-gantt-drag-tip"
+          aria-hidden="true"
+          data-testid="pw-gantt-drag-tip"
+          style={{
+            left: Math.min(
+              Math.max(dragTip.x + 14, 8),
+              (typeof window !== 'undefined' ? window.innerWidth : 1280) - 260
+            ),
+            top: dragTip.y + 16,
+          }}
+        >
+          {t(
+            dragTip.mode === 'move'
+              ? 'assignments:workbench.gantt.dragTipMove'
+              : 'assignments:workbench.gantt.dragTipWindow',
+            {
+              start: dragTip.preview.startDate,
+              end: dragTip.preview.endDate,
+              days: dragTip.durationDays,
+              delta: `${dragTip.deltaDays > 0 ? '+' : ''}${dragTip.deltaDays}`,
+            }
+          )}
+        </div>
+      ) : null}
     </section>
   );
 }

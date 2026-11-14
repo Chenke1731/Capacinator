@@ -483,7 +483,9 @@
       "projectLane": "查看 {{name}} 的全员配置",
       "future": "未来",
       "ended": "已结束",
-      "undated": "未定日期"
+      "undated": "未定日期",
+      "dragTipWindow": "{{start}} → {{end}} · {{days}} 天",
+      "dragTipMove": "{{start}} → {{end}} · {{days}} 天（{{delta}}）"
     },
     "inspector": {
       "title": "草稿参数：{{name}}",

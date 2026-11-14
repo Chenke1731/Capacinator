@@ -8,7 +8,7 @@
  * - 拖动成立后吞掉随后 click（否则面板会被再次打开并覆盖预填）。
  */
 import React from 'react';
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import {
   WorkloadGantt,
@@ -110,7 +110,7 @@ describe('WorkloadGantt 已提交 bar 拖拽（S1）', () => {
     expect(onBarClick).toHaveBeenCalledWith('a1');
   });
 
-  test('越过阈值后整段移动：预览/落点一致，且吞掉随后 click', () => {
+  test('越过阈值后整段移动：预览/落点一致，且吞掉随后 click', async () => {
     const { onPreview, onDragEnd, onBarClick } = renderGantt({});
     const bar = screen.getByTestId('pw-gantt-bar');
 
@@ -120,6 +120,14 @@ describe('WorkloadGantt 已提交 bar 拖拽（S1）', () => {
       assignmentId: 'a1',
       startDate: '2026-01-16',
       endDate: '2026-10-15',
+    });
+    // 拖动中即时反馈：精确日期提示 + 原窗口虚框（不必等松手/面板）
+    expect(await screen.findByTestId('pw-gantt-drag-tip')).toHaveTextContent(
+      '2026-01-16 → 2026-10-15'
+    );
+    await waitFor(() => {
+      expect(document.querySelectorAll('.pw-gantt-orig-window')).toHaveLength(1);
+      expect(document.querySelector('.pw-gantt-bar--dragging')).toBeTruthy();
     });
 
     pointer('pointerup', 115, document);
@@ -132,6 +140,36 @@ describe('WorkloadGantt 已提交 bar 拖拽（S1）', () => {
     // 松手后的合成 click 不得重开面板/覆盖预填
     fireEvent.click(bar);
     expect(onBarClick).not.toHaveBeenCalled();
+    await waitFor(() => {
+      expect(screen.queryByTestId('pw-gantt-drag-tip')).not.toBeInTheDocument();
+      expect(document.querySelector('.pw-gantt-orig-window')).toBeNull();
+    });
+  });
+
+  test('拖动中 Esc 取消：回原位、不打开面板', async () => {
+    const { onDragEnd, onBarClick } = renderGantt({});
+    const bar = screen.getByTestId('pw-gantt-bar');
+    pointer('pointerdown', 100, bar);
+    pointer('pointermove', 120, document);
+    expect(await screen.findByTestId('pw-gantt-drag-tip')).toBeInTheDocument();
+
+    document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
+    await waitFor(() => {
+      expect(screen.queryByTestId('pw-gantt-drag-tip')).not.toBeInTheDocument();
+    });
+    pointer('pointerup', 120, document);
+    expect(onDragEnd).not.toHaveBeenCalled();
+    fireEvent.click(bar);
+    expect(onBarClick).toHaveBeenCalledWith('a1');
+  });
+
+  test('同一像素位移不重复触发预览（节流/去抖）', () => {
+    const { onPreview } = renderGantt({});
+    const bar = screen.getByTestId('pw-gantt-bar');
+    pointer('pointerdown', 100, bar);
+    pointer('pointermove', 115, document);
+    pointer('pointermove', 115, document);
+    expect(onPreview).toHaveBeenCalledTimes(1);
   });
 
   test('已开始行向左移动停在下限：窗口不前移、不截断历史', () => {

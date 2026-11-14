@@ -483,7 +483,9 @@
       "projectLane": "View staffing for {{name}}",
       "future": "Future",
       "ended": "Ended",
-      "undated": "undated"
+      "undated": "undated",
+      "dragTipWindow": "{{start}} → {{end}} · {{days}} days",
+      "dragTipMove": "{{start}} → {{end}} · {{days}} days ({{delta}})"
     },
     "inspector": {
       "title": "Draft parameters: {{name}}",

@@ -835,7 +835,9 @@ export function WorkloadGantt({
 
           <ul className="sr-only">
             {lanes.flatMap((lane) =>
-              lane.bars.map((bar) => {
+              lane.bars
+                .filter((bar) => styleForWindow(bar.startDate, bar.endDate).display !== 'none')
+                .map((bar) => {
                 // N-01：读屏 bar 清单带状态词——paused/派生/未定日期不能只靠颜色
                 const stateWord =
                   bar.kind === 'ghost'

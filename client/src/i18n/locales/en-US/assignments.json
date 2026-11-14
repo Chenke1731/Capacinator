@@ -123,7 +123,7 @@
       "source": "Source",
       "dates": "Dates",
       "allocation": "Allocation",
-      "status": "Status",
+      "status": "Inclusion",
       "actions": "Actions"
     },
     "actions": {
@@ -221,7 +221,8 @@
       "shiftMoreRows": "+{{count}} more row(s)",
       "outOfRangeCommitted": "{{count}} committed assignment(s) outside the window",
       "shiftDirectWarning": "Includes {{count}} baseline-global (direct) row(s); changes affect all scenarios.",
-      "finishGhostFirst": "Close the draft inspector before editing a row."
+      "finishGhostFirst": "Close the draft inspector before editing a row.",
+      "batchStale": "Some rows failed with stale versions; cancel batch and re-enter before retrying."
     },
     "source": {
       "direct": "Baseline (global)",

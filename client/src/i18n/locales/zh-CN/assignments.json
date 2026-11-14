@@ -123,7 +123,7 @@
       "source": "来源",
       "dates": "日期",
       "allocation": "分配比例",
-      "status": "状态",
+      "status": "计入情况",
       "actions": "操作"
     },
     "actions": {
@@ -180,7 +180,7 @@
       "failed": "批量保存失败。",
       "finishEditFirst": "请先保存或取消当前行的编辑，再进入批量调整。",
       "finishHandoverFirst": "请先完成或取消当前行交接，再进入批量调整。",
-      "scopeHint": "仅调整下方当前人员的分配比例；设备上方的“全员配置”是只读项目视角",
+      "scopeHint": "仅调整下方当前人员的分配比例；页面上方的“全员配置”是只读项目视角",
       "shiftToggle": "整体平移",
       "shiftHide": "收起平移",
       "shiftDirection": "方向",
@@ -221,7 +221,8 @@
       "shiftMoreRows": "另有 {{count}} 行",
       "outOfRangeCommitted": "{{count}} 条已提交分配在窗口外",
       "shiftDirectWarning": "其中 {{count}} 条为基线全局（direct）行，修改会影响所有场景。",
-      "finishGhostFirst": "请先关闭草稿参数面板，再编辑表格行。"
+      "finishGhostFirst": "请先关闭草稿参数面板，再编辑表格行。",
+      "batchStale": "部分行版本已失效；请取消批量后重新进入再试。"
     },
     "source": {
       "direct": "基线全局",

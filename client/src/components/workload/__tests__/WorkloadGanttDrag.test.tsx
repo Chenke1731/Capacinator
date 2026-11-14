@@ -301,3 +301,24 @@ describe('S1 手柄命中策略（Claude R4）', () => {
     });
   });
 });
+
+test('a11y 对账：sr-only 清单只播报可见 bar（窗口外/已结束行不进清单）', () => {
+  // 窗口 2026-01-01..12-31：远端行 start 2027-06 → styleForWindow display:none
+  renderGantt({
+    rows: [
+      committedRow(),
+      committedRow({
+        id: 'future-hidden',
+        project_name: 'FutureHidden',
+        start_date: '2027-06-01',
+        end_date: '2027-06-30',
+      }),
+    ],
+  });
+  const items = screen
+    .getByText(/Alpha · SE · 20% 2026-01-01/)
+    .closest('ul')!
+    .querySelectorAll('li');
+  expect(items).toHaveLength(1);
+  expect(items[0]?.textContent).not.toContain('FutureHidden');
+});

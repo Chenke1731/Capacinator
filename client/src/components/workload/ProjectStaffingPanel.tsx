@@ -4,6 +4,7 @@
  * 比例、日期、状态），不离开人员页。数据走 assignments 列表接口的
  * project_id 过滤（场景绑定），只读。
  */
+import { useEffect, useRef } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { X } from 'lucide-react';
@@ -45,6 +46,11 @@ export function ProjectStaffingPanel({
   onClose,
 }: ProjectStaffingPanelProps) {
   const { t } = useTranslation(['assignments']);
+  const closeRef = useRef<HTMLButtonElement | null>(null);
+  useEffect(() => {
+    closeRef.current?.scrollIntoView?.({ block: 'nearest' });
+    closeRef.current?.focus?.();
+  }, []);
   const staffingQuery = useQuery<StaffingRow[]>({
     queryKey: queryKeys.assignments.list({ project_id: projectId, limit: 200 }, scenarioId),
     queryFn: async () => {
@@ -78,6 +84,7 @@ export function ProjectStaffingPanel({
       <div className="pw-project-staffing-head">
         <strong>{t('assignments:workbench.staffing.title', { name: projectName })}</strong>
         <button
+          ref={closeRef}
           type="button"
           className="btn btn-ghost btn-sm"
           aria-label={t('assignments:workbench.staffing.close')}

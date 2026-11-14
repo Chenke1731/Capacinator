@@ -53,7 +53,12 @@ export function CapacityHeatStrip({ buckets, axisMax = 200, compact = false, 'da
       <div className="pw-heat-bars" aria-hidden="true">
         {buckets.map((bucket) => {
           const relative = bucket.relativeUtilization;
-          const height = relative === null ? 4 : Math.max(4, Math.min(relative, axisMax) / axisMax * 100);
+          const height =
+            relative === null
+              ? 4
+              : relative <= 0
+                ? 0
+                : Math.max(4, (Math.min(relative, axisMax) / axisMax) * 100);
           const title =
             relative === null
               ? `${labelForBucket(bucket, compact)} · ${t('assignments:workbench.heat.unknown')}`

@@ -141,6 +141,9 @@
 }
 
 .person-workload-page .pw-deeplink {
+  position: sticky;
+  top: var(--space-2);
+  z-index: 5;
   display: flex;
   align-items: center;
   gap: var(--space-2);
@@ -942,7 +945,7 @@
   align-items: center;
   gap: 0.25rem;
   padding: 0.1rem 0.5rem;
-  min-height: 0;
+  min-height: 24px;
   min-width: 0;
   font-size: var(--text-xs);
   border: 1px solid var(--border-color);
@@ -1393,11 +1396,16 @@
   color: var(--text-secondary);
 }
 
-.person-workload-page .pw-gantt-bar--future,
-.person-workload-page .pw-gantt-bar--ended {
+.person-workload-page .pw-gantt-bar--future {
   /* 整条降透明会连带文字跌破 AA；改为背景淡化、文字保持实色 */
   opacity: 1;
   background: color-mix(in srgb, var(--primary-color) 55%, var(--bg-primary));
+  color: var(--text-primary);
+}
+
+.person-workload-page .pw-gantt-bar--ended {
+  opacity: 1;
+  background: color-mix(in srgb, var(--text-secondary) 32%, var(--bg-primary));
   color: var(--text-primary);
 }
 
@@ -1882,14 +1890,20 @@
   }
 }
 
-.person-workload-page .pw-legend--future::before,
+.person-workload-page .pw-legend--future::before {
+  content: '';
+  width: 14px;
+  height: 8px;
+  border-radius: 2px;
+  background: color-mix(in srgb, var(--primary-color) 55%, var(--bg-primary));
+}
+
 .person-workload-page .pw-legend--ended::before {
   content: '';
   width: 14px;
   height: 8px;
   border-radius: 2px;
-  background: var(--primary-color, #2563eb);
-  opacity: 0.45;
+  background: color-mix(in srgb, var(--text-secondary) 32%, var(--bg-primary));
 }
 
 .person-workload-page .pw-staffing-truncated {

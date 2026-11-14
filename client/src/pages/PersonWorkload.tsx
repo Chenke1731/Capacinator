@@ -452,6 +452,7 @@ export default function PersonWorkload() {
     setBatchMessage(null);
     setBatchShiftOpen(false);
     setBatchShiftPlan(null);
+    setBatchStale(false);
     setBatchShiftError(null);
     setBatchStatusConfirm(null);
     setActionConfirm(null);
@@ -699,6 +700,7 @@ export default function PersonWorkload() {
   /** 批量编辑开始时的快照：只发用户改过的行 + 行自己的快照版本 */
   const [batchBaselines, setBatchBaselines] = useState<Record<string, { version?: number; allocation: number }>>({});
   const [batchMessage, setBatchMessage] = useState<{ tone: 'error' | 'warning' | 'success'; text: string } | null>(null);
+  const [batchStale, setBatchStale] = useState(false);
   // S3（§6）：批量工具条——整体平移（预览冻结）与批量暂停/恢复（统一确认）
   const [batchShiftOpen, setBatchShiftOpen] = useState(false);
   const [batchShiftForm, setBatchShiftForm] = useState<{
@@ -1144,11 +1146,16 @@ export default function PersonWorkload() {
     apply();
   };
 
-  const canHandover = (row: AssignmentRow) =>
-    row.assignment_type !== 'direct' &&
-    row.status === 'active' &&
-    (row.assignment_date_mode ?? 'fixed') === 'fixed' &&
-    Boolean(workloadDateOnly(row.start_date) && workloadDateOnly(row.end_date));
+  const canHandover = (row: AssignmentRow) => {
+    const end = workloadDateOnly(row.end_date);
+    return (
+      row.assignment_type !== 'direct' &&
+      row.status === 'active' &&
+      (row.assignment_date_mode ?? 'fixed') === 'fixed' &&
+      Boolean(workloadDateOnly(row.start_date) && end) &&
+      Boolean(end && end >= asOf)
+    );
+  };
 
   const beginHandover = (row: AssignmentRow) => {
     const start = workloadDateOnly(row.start_date);
@@ -1834,6 +1841,7 @@ export default function PersonWorkload() {
           for (const id of savedIds ?? []) delete next[id];
           return next;
         });
+        setBatchStale(true);
         setBatchMessage({
           tone: 'warning',
           text: t('assignments:workload.batch.partial', { saved, failed }),
@@ -2157,6 +2165,7 @@ export default function PersonWorkload() {
             const mode = item.assignment_date_mode ?? 'fixed';
             const start = workloadDateOnly(item.computed_start_date ?? item.start_date);
             const end = workloadDateOnly(item.computed_end_date ?? item.end_date);
+            const endedRow = Boolean(end && end < asOf);
             const sessionRow =
               committedSession && String(committedSession.row.id) === String(item.id);
             // W-05：面板打开时表格读同一可见窗口，而不是服务端旧值
@@ -2330,30 +2339,39 @@ export default function PersonWorkload() {
                             type="button"
                             className="btn btn-ghost btn-sm"
                             aria-label={t('assignments:workload.actions.handover')}
+                            title={t('assignments:workload.actions.handover')}
                             disabled={saving || committedSaving || committedConverting}
                             onClick={() => beginHandover(item)}
                           >
                             <ArrowRightLeft size={14} />
                           </button>
                         ) : null}
-                        <button
-                          type="button"
-                          className="btn btn-ghost btn-sm"
-                          aria-label={
-                            item.status === 'paused'
-                              ? t('assignments:workload.actions.resume')
-                              : t('assignments:workload.actions.pause')
-                          }
-                          disabled={saving || committedSaving || committedConverting}
-                          onClick={() => toggleStatus(item)}
-                        >
-                          {item.status === 'paused' ? <Play size={14} /> : <Pause size={14} />}
-                        </button>
+                        {endedRow ? null : (
+                          <button
+                            type="button"
+                            className="btn btn-ghost btn-sm"
+                            aria-label={
+                              item.status === 'paused'
+                                ? t('assignments:workload.actions.resume')
+                                : t('assignments:workload.actions.pause')
+                            }
+                            title={
+                              item.status === 'paused'
+                                ? t('assignments:workload.actions.resume')
+                                : t('assignments:workload.actions.pause')
+                            }
+                            disabled={saving || committedSaving || committedConverting}
+                            onClick={() => toggleStatus(item)}
+                          >
+                            {item.status === 'paused' ? <Play size={14} /> : <Pause size={14} />}
+                          </button>
+                        )}
                         <button
                           type="button"
                           className="btn btn-ghost btn-sm"
                           data-testid="pw-edit-row"
                           aria-label={t('assignments:workload.actions.edit')}
+                          title={t('assignments:workload.actions.edit')}
                           disabled={committedSaving || committedConverting}
                           onClick={() => beginEdit(item)}
                         >
@@ -2363,6 +2381,7 @@ export default function PersonWorkload() {
                           type="button"
                           className="btn btn-ghost btn-sm pw-delete-btn"
                           aria-label={t('assignments:workload.actions.delete')}
+                          title={t('assignments:workload.actions.delete')}
                           disabled={saving || committedSaving || committedConverting}
                           onClick={() => confirmDelete(item)}
                         >
@@ -3027,7 +3046,7 @@ export default function PersonWorkload() {
                 <button
                   type="button"
                   className="btn btn-primary btn-sm"
-                  disabled={batchSaveMutation.isPending}
+                  disabled={batchSaveMutation.isPending || batchStale}
                   onClick={() => batchSaveMutation.mutate()}
                 >
                   {t('assignments:workload.batch.save')}
@@ -3039,6 +3058,7 @@ export default function PersonWorkload() {
                   onClick={() => {
                     setBatchMode(false);
                     setBatchDrafts({});
+                    setBatchStale(false);
                     setBatchShiftOpen(false);
                     setBatchShiftPlan(null);
                     setBatchShiftError(null);
@@ -3242,8 +3262,22 @@ export default function PersonWorkload() {
             {batchMessage.text}
           </span>
         ) : null}
+        {batchStale ? (
+          <span className="pw-batch-message pw-batch-message--warning" role="status" data-testid="pw-batch-stale">
+            {t('assignments:workload.batch.batchStale')}
+          </span>
+        ) : null}
         {summary.current.length === 0 ? (
-          <div className="pw-empty-row">{t('assignments:workload.states.emptyCurrent')}</div>
+          <div className="pw-empty-row">
+            <span>{t('assignments:workload.states.emptyCurrent')}</span>{' '}
+            <button
+              type="button"
+              className="btn btn-secondary btn-sm"
+              onClick={() => setDialogOpen(true)}
+            >
+              {t('assignments:workbench.addAssignment')}
+            </button>
+          </div>
         ) : (
           renderTable(summary.current, false)
         )}

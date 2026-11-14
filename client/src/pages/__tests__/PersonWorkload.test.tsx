@@ -976,8 +976,10 @@ test('B8: 批量保存只发改过的行（按开始快照）；失败保留草�
   await waitFor(() => {
     expect(screen.getByText(/saved 0 row|failed 1/i)).toBeInTheDocument();
   });
-  // 批量模式仍在，输入值保留（可改值重试）
+  // 批量模式仍在，输入值保留；但版本已失效，必须退出批量后重进
   expect(screen.getAllByLabelText('Allocation %').length).toBeGreaterThan(0);
+  expect(screen.getByTestId('pw-batch-stale')).toHaveTextContent(/stale versions/i);
+  expect(screen.getByRole('button', { name: /Save changed rows/i })).toBeDisabled();
   expect((screen.getAllByLabelText('Allocation %')[0] as HTMLInputElement).value).toBe('30');
 });
 
@@ -2412,6 +2414,33 @@ test('W-21/W-22: 接手人加载失败给出错误与重试；交接时不允许
   fireEvent.click(screen.getAllByRole('button', { name: 'Edit' })[0]);
   expect(await screen.findByText(/Finish or cancel the current handover/i)).toBeInTheDocument();
   expect(screen.getByText('Hand over assignment')).toBeInTheDocument();
+});
+
+test('W-27: 已结束行不再提供暂停/交接等无效动作', async () => {
+  (api.assignments.list as jest.Mock).mockResolvedValue({
+    data: {
+      data: [
+        {
+          ...assignments[0],
+          id: 'ended-row',
+          start_date: '2026-01-01',
+          end_date: '2026-02-01',
+          computed_start_date: '2026-01-01',
+          computed_end_date: '2026-02-01',
+        },
+      ],
+      pagination: { total: 1, totalPages: 1 },
+    },
+  });
+  renderPage();
+  const row = await waitFor(() => {
+    const element = document.querySelector('tr[data-assignment-id="ended-row"]');
+    expect(element).toBeTruthy();
+    return element as HTMLElement;
+  });
+  expect(within(row).queryByRole('button', { name: 'Pause' })).not.toBeInTheDocument();
+  expect(within(row).queryByRole('button', { name: 'Hand over' })).not.toBeInTheDocument();
+  expect(within(row).getByRole('button', { name: 'Edit' })).toBeInTheDocument();
 });
 
 test('W-19: 草稿批量编辑非法值不关闭表单、不静默套用', async () => {

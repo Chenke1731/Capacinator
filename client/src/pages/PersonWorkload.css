@@ -140,6 +140,28 @@
   padding: 0.6rem 0.8rem;
 }
 
+.person-workload-page .pw-deeplink {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--text-secondary);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 0.45rem 0.8rem;
+  font-size: var(--text-xs);
+}
+
+.person-workload-page .pw-deeplink--warning {
+  color: var(--warning);
+  border-color: var(--warning);
+}
+
+.person-workload-page .pw-row--deeplink > td {
+  background: color-mix(in srgb, var(--primary-color, #2563eb) 18%, transparent);
+  transition: background 0.3s ease-out;
+}
+
 .person-workload-page .pw-section {
   background: var(--bg-primary);
   border: 1px solid var(--border-color);
@@ -462,6 +484,58 @@
 
 .person-workload-page .pw-batch-message--error {
   color: var(--danger);
+}
+
+.person-workload-page .pw-batch-tools {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-top: 0.4rem;
+}
+
+.person-workload-page .pw-batch-tools-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.person-workload-page .pw-batch-shift-form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 0.5rem;
+}
+
+.person-workload-page .pw-batch-shift-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  color: var(--text-secondary);
+  font-size: var(--text-xs);
+}
+
+.person-workload-page .pw-batch-shift-form input {
+  width: 5.5rem;
+}
+
+.person-workload-page .pw-batch-shift-summary {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  color: var(--text-secondary);
+  font-size: var(--text-xs);
+}
+
+.person-workload-page .pw-batch-shift-blocked {
+  color: var(--warning);
+}
+
+.person-workload-page .pw-batch-shift-windows {
+  margin: 0;
+  padding-left: 1.1rem;
+  color: var(--text-secondary);
+  font-size: var(--text-xs);
 }
 
 .person-workload-page .pw-dates {

@@ -6,7 +6,6 @@
  */
 import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
 import { X } from 'lucide-react';
 import { api } from '../../lib/api-client';
 import { queryKeys } from '../../lib/queryKeys';
@@ -30,12 +29,19 @@ export interface ProjectStaffingPanelProps {
   projectId: string;
   projectName: string;
   scenarioId: string;
+  /** S5：跳转必须经页面守卫（未保存 ghost/面板修改时拒绝）；面板只在允许后关闭 */
+  onNavigateToPerson: (personId: string, assignmentId: string) => void;
   onClose: () => void;
 }
 
-export function ProjectStaffingPanel({ projectId, projectName, scenarioId, onClose }: ProjectStaffingPanelProps) {
+export function ProjectStaffingPanel({
+  projectId,
+  projectName,
+  scenarioId,
+  onNavigateToPerson,
+  onClose,
+}: ProjectStaffingPanelProps) {
   const { t } = useTranslation(['assignments']);
-  const navigate = useNavigate();
   const staffingQuery = useQuery<StaffingRow[]>({
     queryKey: queryKeys.assignments.list({ project_id: projectId, limit: 200 }, scenarioId),
     queryFn: async () => {
@@ -118,10 +124,7 @@ export function ProjectStaffingPanel({ projectId, projectName, scenarioId, onClo
                       className="btn btn-ghost btn-sm"
                       data-testid={`pw-staffing-adjust-${row.person_id}`}
                       aria-label={`${t('assignments:workbench.staffing.adjustPerson')} ${row.person_name ?? ''}`}
-                      onClick={() => {
-                        onClose();
-                        navigate(`/people/${row.person_id}/workload`);
-                      }}
+                      onClick={() => onNavigateToPerson(row.person_id, row.id)}
                     >
                       {t('assignments:workbench.staffing.adjustPerson')}
                     </button>

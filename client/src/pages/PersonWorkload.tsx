@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import {
@@ -30,6 +30,14 @@ import {
   type WorkloadAssignment,
 } from '../lib/personWorkload';
 import { workloadTimeline, type AvailabilityOverrideInput } from '../lib/workloadTimeline';
+import {
+  batchShiftSkipTotal,
+  planBatchShift,
+  shiftIsoDate,
+  shiftIsoMonths,
+  type BatchShiftPlan,
+  type BatchShiftUnit,
+} from '../lib/batchShift';
 import type { AssignmentDraft } from '../lib/assignmentDrafts';
 import { useDraftAssignments } from '../hooks/useDraftAssignments';
 import { toISODateString } from '../utils/dateUtils';
@@ -97,25 +105,10 @@ const statusVariant: Record<string, 'default' | 'secondary' | 'destructive' | 'o
   available: 'success',
 };
 
-function shiftMonths(iso: string, months: number): string {
-  const date = new Date(`${iso}T00:00:00Z`);
-  const day = date.getUTCDate();
-  date.setUTCDate(1);
-  date.setUTCMonth(date.getUTCMonth() + months);
-  const lastDay = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth() + 1, 0)).getUTCDate();
-  date.setUTCDate(Math.min(day, lastDay));
-  return date.toISOString().slice(0, 10);
-}
-
-function shiftDays(iso: string, days: number): string {
-  const date = new Date(`${iso}T00:00:00Z`);
-  date.setUTCDate(date.getUTCDate() + days);
-  return date.toISOString().slice(0, 10);
-}
-
 export default function PersonWorkload() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const { t } = useTranslation();
   const { currentScenario, scenarios, setCurrentScenario, lockScenarioSwitching, unlockScenarioSwitching } = useScenario();
 
@@ -181,13 +174,13 @@ export default function PersonWorkload() {
   const [rangeEndOverride, setRangeEndOverride] = useState<string | null>(null);
   const [rangeStartOverride, setRangeStartOverride] = useState<string | null>(null);
   const rangeStart = rangeStartOverride ?? asOf;
-  const defaultRangeEnd = useMemo(() => shiftMonths(asOf, 3), [asOf]);
+  const defaultRangeEnd = useMemo(() => shiftIsoMonths(asOf, 3), [asOf]);
   const rangeEnd = rangeEndOverride ?? defaultRangeEnd;
 
   // F3（DeepSeek P2 #3）：覆盖全集按时间轴窗口取数（approved-only）——
   // 旧实现只从 utilization 行取"今天生效"的单一窗口，未来已批准休假
   // （整周 0%）不可见，热区按默认可用率误报正常。所有容量面共用本数组。
-  const overridesWindowEnd = useMemo(() => shiftMonths(asOf, 12), [asOf]);
+  const overridesWindowEnd = useMemo(() => shiftIsoMonths(asOf, 12), [asOf]);
   const overridesQuery = useQuery<AvailabilityOverrideInput[]>({
     queryKey: queryKeys.availability.list({
       person_id: id,
@@ -236,6 +229,12 @@ export default function PersonWorkload() {
   const [ganttCollapsed, setGanttCollapsed] = useState(false);
   const [inspectorDraftId, setInspectorDraftId] = useState<string | null>(null);
   const [staffingProject, setStaffingProject] = useState<{ id: string; name: string } | null>(null);
+  // S5（§8）：来自项目配置的深链（?project=&assignment=）
+  const [deepLinkHint, setDeepLinkHint] = useState(false);
+  const [deepLinkNotice, setDeepLinkNotice] = useState<'located' | 'missing' | null>(null);
+  const [deepLinkHighlightId, setDeepLinkHighlightId] = useState<string | null>(null);
+  const deepLinkHandledRef = useRef<string | null>(null);
+  const lastPersonIdRef = useRef(id);
   const addAssignmentButtonRef = useRef<HTMLButtonElement | null>(null);
   const commitBarRef = useRef<HTMLDivElement | null>(null);
 
@@ -318,14 +317,21 @@ export default function PersonWorkload() {
   // popstate 而不破坏历史栈，边界已记录）。
   const hasPendingDraftsRef = useRef(false);
   hasPendingDraftsRef.current = hasPendingDrafts;
+  const hasUnsavedCommittedRef = useRef(false);
+  hasUnsavedCommittedRef.current = hasUnsavedCommitted;
   const leaveConfirmText = t('assignments:workbench.leaveConfirm');
   const confirmLeaveIfPending = useCallback(() => {
-    if (!hasPendingDraftsRef.current) return true;
+    if (!hasPendingDraftsRef.current && !hasUnsavedCommittedRef.current) return true;
     return window.confirm(leaveConfirmText);
   }, [leaveConfirmText]);
   useEffect(() => {
     const onClickCapture = (event: MouseEvent) => {
-      if (!hasPendingDraftsRef.current || event.defaultPrevented) return;
+      if (
+        (!hasPendingDraftsRef.current && !hasUnsavedCommittedRef.current) ||
+        event.defaultPrevented
+      ) {
+        return;
+      }
       const anchor = (event.target as HTMLElement | null)?.closest?.('a');
       if (!anchor) return;
       const href = anchor.getAttribute('href');
@@ -335,6 +341,43 @@ export default function PersonWorkload() {
     document.addEventListener('click', onClickCapture, true);
     return () => document.removeEventListener('click', onClickCapture, true);
   }, [leaveConfirmText]);
+
+  // S5（§8）：同一路由组件从 A 人员切到 B 人员时，上一人员的编辑会话/
+  // ghost/批量/深链状态必须清掉，否则残留会话会指向他人的分配。
+  const clearDrafts = draftStore.clearDrafts;
+  useEffect(() => {
+    if (lastPersonIdRef.current === id) return;
+    lastPersonIdRef.current = id;
+    setEditingId(null);
+    setEditScenarioId(null);
+    setEditBaseline(null);
+    setRowError(null);
+    setHandoverRowId(null);
+    setHandoverMessage(null);
+    setCommittedSession(null);
+    setCommittedForm({ allocation: '', startDate: '', endDate: '' });
+    setCommittedPreview(null);
+    setCommittedError(null);
+    setCommittedConflict(false);
+    setCommittedConfirmOpen(false);
+    committedReturnFocusRef.current = null;
+    setBatchMode(false);
+    setBatchDrafts({});
+    setBatchBaselines({});
+    setBatchMessage(null);
+    setBatchShiftOpen(false);
+    setBatchShiftPlan(null);
+    setBatchShiftError(null);
+    setBatchStatusConfirm(null);
+    setInspectorDraftId(null);
+    setDialogOpen(false);
+    setStaffingProject(null);
+    setDeepLinkHint(false);
+    setDeepLinkNotice(null);
+    setDeepLinkHighlightId(null);
+    deepLinkHandledRef.current = null;
+    clearDrafts();
+  }, [id, clearDrafts]);
 
   // 加入泳道后焦点移到草稿摘要（§15）
   const handleAddToLane = useCallback(
@@ -441,7 +484,7 @@ export default function PersonWorkload() {
         {
           asOf,
           rangeStart: asOf,
-          rangeEnd: shiftMonths(asOf, 12),
+          rangeEnd: shiftIsoMonths(asOf, 12),
           defaultAvailability: heatDefaultAvailability,
           availabilityOverrides,
           granularity: 'month',
@@ -520,6 +563,19 @@ export default function PersonWorkload() {
   /** 批量编辑开始时的快照：只发用户改过的行 + 行自己的快照版本 */
   const [batchBaselines, setBatchBaselines] = useState<Record<string, { version?: number; allocation: number }>>({});
   const [batchMessage, setBatchMessage] = useState<{ tone: 'error' | 'warning' | 'success'; text: string } | null>(null);
+  // S3（§6）：批量工具条——整体平移（预览冻结）与批量暂停/恢复（统一确认）
+  const [batchShiftOpen, setBatchShiftOpen] = useState(false);
+  const [batchShiftForm, setBatchShiftForm] = useState<{
+    direction: 'earlier' | 'later';
+    amount: string;
+    unit: BatchShiftUnit;
+  }>({ direction: 'later', amount: '1', unit: 'day' });
+  const [batchShiftPlan, setBatchShiftPlan] = useState<BatchShiftPlan | null>(null);
+  const [batchShiftError, setBatchShiftError] = useState<string | null>(null);
+  const [batchStatusConfirm, setBatchStatusConfirm] = useState<{
+    action: 'pause' | 'resume';
+    rows: AssignmentRow[];
+  } | null>(null);
   const scenarioMismatch = Boolean(editingId && editScenarioId && editScenarioId !== activeScenarioId);
 
   const beginEdit = (row: AssignmentRow) => {
@@ -559,7 +615,23 @@ export default function PersonWorkload() {
   };
 
   const saveMutation = useMutation({
-    mutationFn: async ({ row, draft: next, scenarioId }: { row: AssignmentRow; draft: RowDraft; scenarioId: string }) => {
+    mutationFn: async ({
+      row,
+      draft: next,
+      scenarioId,
+    }: {
+      row: AssignmentRow;
+      draft: RowDraft;
+      scenarioId: string;
+    }): Promise<{
+      noop: boolean;
+      undo?: {
+        id: string;
+        scenarioId: string;
+        inverse: Record<string, unknown>;
+        savedVersion: number;
+      };
+    }> => {
       const payload: Record<string, unknown> = {};
       const allocation = Number(next.allocation);
       if (!Number.isFinite(allocation) || allocation <= 0 || allocation > 200) {
@@ -593,23 +665,54 @@ export default function PersonWorkload() {
       }
 
       if (Object.keys(payload).length === 0) {
-        return { noop: true, row };
+        return { noop: true };
       }
       // 乐观锁令牌取编辑时快照的版本——他人已改则 409，不借新令牌写旧值
       if (baseline.version !== undefined) payload.expected_version = baseline.version;
       const response = await api.assignments.update(row.id, payload as never, { scenarioId });
-      return response.data;
+      // S6：单行表格保存同样给一次撤销（只含实际改动字段的逆补丁 + 响应版本）
+      const inverse: Record<string, unknown> = {};
+      if ('allocation_percentage' in payload) {
+        inverse.allocation_percentage = baseline.allocation;
+      }
+      if ('start_date' in payload || 'end_date' in payload) {
+        inverse.start_date = baseline.startDate;
+        inverse.end_date = baseline.endDate;
+      }
+      const savedRow = (response.data as any)?.data;
+      return {
+        noop: false,
+        undo:
+          typeof savedRow?.version === 'number' && Object.keys(inverse).length > 0
+            ? { id: row.id, scenarioId, inverse, savedVersion: savedRow.version }
+            : undefined,
+      };
     },
     onMutate: ({ row }) => {
       setSavingId(row.id);
       setRowError(null);
     },
-    onSuccess: (_data, { row }) => {
+    onSuccess: (data, { row }) => {
       setSavingId(null);
       setEditingId(null);
       setEditScenarioId(null);
       setRowError(null);
       setEditBaseline(null);
+      if (data.undo) {
+        const undo = data.undo;
+        toast({
+          title: t('assignments:workbench.committed.savedToast'),
+          duration: 5000,
+          action: (
+            <ToastAction
+              altText={t('assignments:workbench.committed.undo')}
+              onClick={() => void performUndoCommitted(undo)}
+            >
+              {t('assignments:workbench.committed.undo')}
+            </ToastAction>
+          ),
+        });
+      }
       void invalidateSchedulingReads(queryClient, String(row.project_id ?? ''));
     },
     onError: (error: any, { row }) => {
@@ -723,7 +826,7 @@ export default function PersonWorkload() {
     const end = workloadDateOnly(row.end_date);
     let effectiveDate = asOf;
     if (!start || effectiveDate <= start) {
-      effectiveDate = shiftDays(start ?? asOf, 1);
+      effectiveDate = shiftIsoDate(start ?? asOf, 1, 'day', 'later');
     }
     if (end && effectiveDate > end) effectiveDate = end;
     setHandoverRowId(row.id);
@@ -794,6 +897,75 @@ export default function PersonWorkload() {
     ...summary.current,
     ...summary.excluded.map((excludedRow) => excludedRow.assignment),
   ];
+
+  const deepLinkProject = searchParams.get('project');
+  const deepLinkAssignment = searchParams.get('assignment');
+
+  // S5（§8）：等目标人员分配数据加载完成后定位——assignment 优先，其次
+  // project（泳道或该项目的首行）；目标不存在只提示不报错。
+  useEffect(() => {
+    if (!id || !assignmentsQuery.isSuccess) return;
+    if (!deepLinkProject && !deepLinkAssignment) return;
+    const key = `${id}|${deepLinkProject ?? ''}|${deepLinkAssignment ?? ''}`;
+    if (deepLinkHandledRef.current === key) return;
+    deepLinkHandledRef.current = key;
+    setDeepLinkHint(true);
+    const rows = allWorkloadRows();
+    const target = deepLinkAssignment
+      ? rows.find((row) => String(row.id) === deepLinkAssignment)
+      : undefined;
+
+    if (target) {
+      setDeepLinkNotice('located');
+      setDeepLinkHighlightId(String(target.id));
+      window.requestAnimationFrame(() => {
+        const rowElement = document.querySelector<HTMLElement>(
+          `[data-assignment-id="${target.id}"]`
+        );
+        rowElement?.scrollIntoView?.({ block: 'center', behavior: 'smooth' });
+        rowElement?.querySelector<HTMLElement>('[data-testid="pw-edit-row"]')?.focus?.();
+      });
+      window.setTimeout(() => setDeepLinkHighlightId(null), 2000);
+      return;
+    }
+
+    if (deepLinkProject) {
+      const lane = document.querySelector<HTMLElement>(
+        `[data-lane-project="${deepLinkProject}"]`
+      );
+      lane?.scrollIntoView?.({ block: 'center', behavior: 'smooth' });
+      const firstRow = rows.find((row) => String(row.project_id) === deepLinkProject);
+      if (firstRow) {
+        setDeepLinkHighlightId(String(firstRow.id));
+        window.setTimeout(() => setDeepLinkHighlightId(null), 2000);
+      }
+    }
+    if (deepLinkAssignment || !document.querySelector(`[data-lane-project="${deepLinkProject}"]`)) {
+      setDeepLinkNotice('missing');
+    }
+    // summary 代表当前人员已加载的完整行集合；allWorkloadRows 是从它派生的纯读取
+  }, [id, assignmentsQuery.isSuccess, summary, deepLinkProject, deepLinkAssignment]);
+
+  // 无深链参数（浏览器返回）时收起"来自项目配置"提示
+  useEffect(() => {
+    if (deepLinkProject || deepLinkAssignment) return;
+    setDeepLinkHint(false);
+    setDeepLinkNotice(null);
+  }, [deepLinkProject, deepLinkAssignment]);
+
+  /**
+   * S5：staffing 面板的程序化跳转必须经过页面守卫（Codex P1——capture 阶段
+   * 的 <a> 守卫拦不到 navigate）。拒绝时保留源面板。
+   */
+  const handleStaffingNavigate = (personId: string, assignmentId: string) => {
+    if (!confirmLeaveIfPending()) return;
+    const projectId = staffingProject?.id;
+    setStaffingProject(null);
+    const query = new URLSearchParams();
+    if (projectId) query.set('project', projectId);
+    query.set('assignment', assignmentId);
+    navigate(`/people/${personId}/workload?${query.toString()}`);
+  };
 
   // ---------------------------------------------------------------------
   // S1/S2 Phase A：已提交分配的就地编辑会话（§4.5）
@@ -1056,6 +1228,11 @@ export default function PersonWorkload() {
     }
     setBatchDrafts(drafts);
     setBatchBaselines(baselines);
+    setBatchShiftOpen(false);
+    setBatchShiftPlan(null);
+    setBatchShiftError(null);
+    setBatchShiftForm({ direction: 'later', amount: '1', unit: 'day' });
+    setBatchStatusConfirm(null);
     setBatchMessage(null);
     setBatchMode(true);
     setEditingId(null);
@@ -1115,6 +1292,41 @@ export default function PersonWorkload() {
     startBatch();
   };
 
+  /** S6 批量撤销：一次保存视为一个操作，逆补丁逐行 + 保存响应版本。 */
+  const performBatchUndo = async (
+    records: Array<{
+      id: string;
+      scenarioId: string;
+      inverse: Record<string, unknown>;
+      savedVersion: number;
+    }>
+  ) => {
+    let undone = 0;
+    let failed = 0;
+    for (const record of records) {
+      try {
+        await api.assignments.update(
+          record.id,
+          { ...record.inverse, expected_version: record.savedVersion } as never,
+          { scenarioId: record.scenarioId }
+        );
+        undone += 1;
+      } catch {
+        failed += 1;
+      }
+    }
+    toast({
+      title:
+        failed > 0
+          ? t('assignments:workload.batch.undoPartial', { failed, total: records.length })
+          : t('assignments:workload.batch.undoneToast', { count: undone }),
+      variant: failed > 0 ? 'destructive' : undefined,
+      duration: failed > 0 ? 4000 : 3000,
+    });
+    void invalidateSchedulingReads(queryClient);
+    void refreshAssignments();
+  };
+
   const batchSaveMutation = useMutation({
     mutationFn: async () => {
       // B8（Codex P1#2/#7）：只发用户相对"开始批量时快照"实际改过的行，
@@ -1133,6 +1345,12 @@ export default function PersonWorkload() {
       let saved = 0;
       let failed = 0;
       const savedIds: string[] = [];
+      const undoRecords: Array<{
+        id: string;
+        scenarioId: string;
+        inverse: { allocation_percentage: number };
+        savedVersion: number;
+      }> = [];
       for (const { row, value, baseline } of updates) {
         const allocation = Number(value);
         if (!Number.isFinite(allocation) || allocation <= 0 || allocation > 200) {
@@ -1140,7 +1358,7 @@ export default function PersonWorkload() {
           continue;
         }
         try {
-          await api.assignments.update(
+          const response = await api.assignments.update(
             row.id,
             {
               allocation_percentage: allocation,
@@ -1150,13 +1368,23 @@ export default function PersonWorkload() {
           );
           saved += 1;
           savedIds.push(row.id);
+          // S6：只记录实际改动字段的逆补丁 + 保存响应的新版本
+          const savedRow = (response.data as any)?.data;
+          if (typeof savedRow?.version === 'number') {
+            undoRecords.push({
+              id: row.id,
+              scenarioId: activeScenarioId,
+              inverse: { allocation_percentage: baseline.allocation },
+              savedVersion: savedRow.version,
+            });
+          }
         } catch {
           failed += 1;
         }
       }
-      return { saved, failed, noChanges: false, savedIds };
+      return { saved, failed, noChanges: false, savedIds, undoRecords };
     },
-    onSuccess: ({ saved, failed, noChanges, savedIds }) => {
+    onSuccess: ({ saved, failed, noChanges, savedIds, undoRecords }) => {
       if (noChanges) {
         setBatchMessage({ tone: 'warning', text: t('assignments:workload.batch.noChanges') });
         return;
@@ -1179,6 +1407,21 @@ export default function PersonWorkload() {
         setBatchBaselines({});
         setBatchMessage({ tone: 'success', text: t('assignments:workload.batch.saved', { count: saved }) });
       }
+      // S6：成功子集（需每行都有保存版本）给 5 秒撤销，一次操作一个 toast。
+      if (undoRecords && undoRecords.length > 0 && undoRecords.length === saved) {
+        toast({
+          title: t('assignments:workload.batch.undoToast', { count: saved }),
+          duration: 5000,
+          action: (
+            <ToastAction
+              altText={t('assignments:workbench.committed.undo')}
+              onClick={() => void performBatchUndo(undoRecords)}
+            >
+              {t('assignments:workbench.committed.undo')}
+            </ToastAction>
+          ),
+        });
+      }
       void invalidateSchedulingReads(queryClient);
     },
     onError: (error: any) => {
@@ -1188,6 +1431,199 @@ export default function PersonWorkload() {
       });
     },
   });
+
+  // ---- S3：批量平移（预览冻结 → 应用）与批量暂停/恢复 ----
+  const batchShiftMax = batchShiftForm.unit === 'day' ? 365 : batchShiftForm.unit === 'week' ? 52 : 12;
+
+  const updateBatchShiftForm = (patch: Partial<typeof batchShiftForm>) => {
+    setBatchShiftForm((prev) => ({ ...prev, ...patch }));
+    // 参数一变，旧预览作废（§6.2：显式重新预览才更新冻结清单）
+    setBatchShiftPlan(null);
+    setBatchShiftError(null);
+  };
+
+  const previewBatchShift = () => {
+    const amount = Number(batchShiftForm.amount);
+    if (!Number.isInteger(amount) || amount < 1 || amount > batchShiftMax) {
+      setBatchShiftPlan(null);
+      setBatchShiftError(t('assignments:workload.batch.shiftInvalid', { max: batchShiftMax }));
+      return;
+    }
+    setBatchShiftError(null);
+    setBatchShiftPlan(
+      planBatchShift(allWorkloadRows(), {
+        direction: batchShiftForm.direction,
+        amount,
+        unit: batchShiftForm.unit,
+        asOf,
+      })
+    );
+  };
+
+  const batchShiftMutation = useMutation({
+    mutationFn: async (plan: BatchShiftPlan) => {
+      let saved = 0;
+      let failed = 0;
+      const savedIds: string[] = [];
+      const undoRecords: Array<{
+        id: string;
+        scenarioId: string;
+        inverse: Record<string, unknown>;
+        savedVersion: number;
+      }> = [];
+      for (const target of plan.rows) {
+        try {
+          const response = await api.assignments.update(
+            target.id,
+            {
+              start_date: target.newStart,
+              end_date: target.newEnd,
+              ...(target.version !== undefined ? { expected_version: target.version } : {}),
+            } as never,
+            { scenarioId: activeScenarioId }
+          );
+          saved += 1;
+          savedIds.push(target.id);
+          const savedRow = (response.data as any)?.data;
+          if (typeof savedRow?.version === 'number') {
+            undoRecords.push({
+              id: target.id,
+              scenarioId: activeScenarioId,
+              inverse: {
+                start_date: target.originalStart,
+                end_date: target.originalEnd,
+              },
+              savedVersion: savedRow.version,
+            });
+          }
+        } catch {
+          failed += 1;
+        }
+      }
+      return { saved, failed, savedIds, blocked: plan.blocked.length, undoRecords };
+    },
+    onSuccess: ({ saved, failed, savedIds, blocked, undoRecords }, plan) => {
+      // 已成功/已判定 blocked 的行移出冻结清单；网络失败行保留可重试
+      const remaining = plan.rows.filter((row) => !savedIds.includes(row.id));
+      if (remaining.length === 0) {
+        setBatchShiftPlan(null);
+      } else {
+        setBatchShiftPlan({ ...plan, rows: remaining, blocked: [] });
+      }
+      const failedTotal = failed + blocked;
+      if (failedTotal === 0) {
+        setBatchMessage({
+          tone: 'success',
+          text: t('assignments:workload.batch.shiftApplied', { saved }),
+        });
+        if (!batchDraftsDirty()) {
+          setBatchShiftOpen(false);
+        }
+      } else {
+        setBatchMessage({
+          tone: 'warning',
+          text: t('assignments:workload.batch.shiftPartial', {
+            saved,
+            failed: failedTotal,
+            blocked,
+          }),
+        });
+      }
+      if (undoRecords.length > 0 && undoRecords.length === saved) {
+        toast({
+          title: t('assignments:workload.batch.undoToast', { count: saved }),
+          duration: 5000,
+          action: (
+            <ToastAction
+              altText={t('assignments:workbench.committed.undo')}
+              onClick={() => void performBatchUndo(undoRecords)}
+            >
+              {t('assignments:workbench.committed.undo')}
+            </ToastAction>
+          ),
+        });
+      }
+      void invalidateSchedulingReads(queryClient);
+      void refreshAssignments();
+    },
+    onError: (error: any) => {
+      setBatchShiftError(
+        String(error?.response?.data?.message ?? error?.message ?? t('assignments:workload.batch.failed'))
+      );
+    },
+  });
+
+  const requestBatchStatus = (action: 'pause' | 'resume') => {
+    const rows = allWorkloadRows().filter((row) =>
+      action === 'pause' ? row.status !== 'paused' : row.status === 'paused'
+    );
+    if (rows.length === 0) {
+      setBatchMessage({
+        tone: 'warning',
+        text: t(action === 'pause' ? 'assignments:workload.batch.pauseNothing' : 'assignments:workload.batch.resumeNothing'),
+      });
+      return;
+    }
+    setBatchStatusConfirm({ action, rows });
+  };
+
+  const batchStatusMutation = useMutation({
+    mutationFn: async ({ action, rows }: { action: 'pause' | 'resume'; rows: AssignmentRow[] }) => {
+      const nextStatus = action === 'pause' ? 'paused' : 'active';
+      let saved = 0;
+      let failed = 0;
+      for (const row of rows) {
+        try {
+          await api.assignments.update(
+            row.id,
+            {
+              status: nextStatus,
+              ...(row.version !== undefined ? { expected_version: row.version } : {}),
+            } as never,
+            { scenarioId: activeScenarioId }
+          );
+          saved += 1;
+        } catch {
+          failed += 1;
+        }
+      }
+      return { saved, failed, action };
+    },
+    onSuccess: ({ saved, failed, action }) => {
+      setBatchStatusConfirm(null);
+      setBatchMessage(
+        failed > 0
+          ? { tone: 'warning', text: t('assignments:workload.batch.statusPartial', { saved, failed }) }
+          : {
+              tone: 'success',
+              text: t(
+                action === 'pause'
+                  ? 'assignments:workload.batch.pauseSaved'
+                  : 'assignments:workload.batch.resumeSaved',
+                { count: saved }
+              ),
+            }
+      );
+      void invalidateSchedulingReads(queryClient);
+      void refreshAssignments();
+    },
+    onError: (error: any) => {
+      setBatchStatusConfirm(null);
+      setBatchMessage({
+        tone: 'error',
+        text: String(error?.message ?? t('assignments:workload.batch.statusFailed')),
+      });
+    },
+  });
+
+  /** 批量里是否还有未保存比例改动（平移全部成功后决定是否收起平移表单）。 */
+  const batchDraftsDirty = () =>
+    allWorkloadRows().some(
+      (row) =>
+        batchDrafts[row.id] !== undefined &&
+        batchBaselines[row.id] !== undefined &&
+        batchDrafts[row.id] !== String(batchBaselines[row.id].allocation)
+    );
 
   const confirmDelete = (row: AssignmentRow) => {
     const message =
@@ -1293,7 +1729,12 @@ export default function PersonWorkload() {
             return (
               <React.Fragment key={item.id}>
                 <tr
-                  className={excluded ? 'pw-row--excluded' : undefined}
+                  className={[
+                    excluded ? 'pw-row--excluded' : '',
+                    deepLinkHighlightId === String(item.id) ? 'pw-row--deeplink' : '',
+                  ]
+                    .filter(Boolean)
+                    .join(' ') || undefined}
                   data-assignment-id={item.id}
                 >
                   <td className="pw-col-project">
@@ -1615,6 +2056,24 @@ export default function PersonWorkload() {
         </div>
       </header>
 
+      {deepLinkHint ? (
+        <div
+          className={`pw-deeplink${deepLinkNotice === 'missing' ? ' pw-deeplink--warning' : ''}`}
+          role="status"
+          data-testid="pw-deeplink"
+        >
+          <BriefcaseBusiness size={14} aria-hidden="true" />
+          <span>
+            {t('assignments:workbench.staffing.fromProject')}
+            {deepLinkNotice === 'located'
+              ? ` · ${t('assignments:workbench.staffing.deepLinkLocated')}`
+              : deepLinkNotice === 'missing'
+                ? ` · ${t('assignments:workbench.staffing.deepLinkMissing')}`
+                : ''}
+          </span>
+        </div>
+      ) : null}
+
       {utilizationQuery.isError ? (
         <div className="pw-alert" role="alert">
           <span>{t('assignments:workload.states.utilizationError')}</span>
@@ -1815,7 +2274,7 @@ export default function PersonWorkload() {
         minimapBuckets={minimapTimeline.buckets}
         onNavigateRange={(monthStart) => {
           setRangeStartOverride(monthStart >= asOf ? monthStart : asOf);
-          setRangeEndOverride(shiftMonths(monthStart >= asOf ? monthStart : asOf, 3));
+          setRangeEndOverride(shiftIsoMonths(monthStart >= asOf ? monthStart : asOf, 3));
         }}
         onProjectLaneClick={(projectId, projectName) => setStaffingProject({ id: projectId, name: projectName })}
       />
@@ -1825,6 +2284,7 @@ export default function PersonWorkload() {
           projectId={staffingProject.id}
           projectName={staffingProject.name}
           scenarioId={activeScenarioId}
+          onNavigateToPerson={handleStaffingNavigate}
           onClose={() => setStaffingProject(null)}
         />
       ) : null}
@@ -1952,6 +2412,40 @@ export default function PersonWorkload() {
         onCancel={() => setCommittedConfirmOpen(false)}
       />
 
+      {batchStatusConfirm ? (
+        <ConfirmDialog
+          isOpen
+          title={t(
+            batchStatusConfirm.action === 'pause'
+              ? 'assignments:workload.batch.pauseConfirmTitle'
+              : 'assignments:workload.batch.resumeConfirmTitle'
+          )}
+          message={t(
+            batchStatusConfirm.action === 'pause'
+              ? 'assignments:workload.batch.pauseConfirmBody'
+              : 'assignments:workload.batch.resumeConfirmBody',
+            {
+              count: batchStatusConfirm.rows.length,
+              direct: batchStatusConfirm.rows.filter(
+                (row) => row.assignment_type === 'direct'
+              ).length,
+            }
+          )}
+          confirmText={t(
+            batchStatusConfirm.action === 'pause'
+              ? 'assignments:workload.actions.pause'
+              : 'assignments:workload.actions.resume'
+          )}
+          variant={batchStatusConfirm.action === 'pause' ? 'danger' : 'default'}
+          onConfirm={() => {
+            if (!batchStatusMutation.isPending) {
+              batchStatusMutation.mutate(batchStatusConfirm);
+            }
+          }}
+          onCancel={() => setBatchStatusConfirm(null)}
+        />
+      ) : null}
+
       {assignmentsQuery.isError ? (
         <div className="pw-alert" role="alert">
           <span>{t('assignments:workload.states.assignmentsError')}</span>
@@ -1986,6 +2480,9 @@ export default function PersonWorkload() {
                   onClick={() => {
                     setBatchMode(false);
                     setBatchDrafts({});
+                    setBatchShiftOpen(false);
+                    setBatchShiftPlan(null);
+                    setBatchShiftError(null);
                     setBatchMessage(null);
                   }}
                 >
@@ -2007,8 +2504,165 @@ export default function PersonWorkload() {
           </div>
         </div>
         {batchMode ? <p className="pw-batch-hint">{t('assignments:workload.batch.hint')}</p> : null}
+        {batchMode ? (
+          <div className="pw-batch-tools" data-testid="pw-batch-tools">
+            <div className="pw-batch-tools-row">
+              <button
+                type="button"
+                className="btn btn-ghost btn-sm"
+                aria-expanded={batchShiftOpen}
+                onClick={() => {
+                  setBatchShiftOpen((open) => !open);
+                  setBatchShiftError(null);
+                }}
+                data-testid="pw-batch-shift-toggle"
+              >
+                {batchShiftOpen
+                  ? t('assignments:workload.batch.shiftHide')
+                  : t('assignments:workload.batch.shiftToggle')}
+              </button>
+              <button
+                type="button"
+                className="btn btn-secondary btn-sm"
+                disabled={batchStatusMutation.isPending}
+                onClick={() => requestBatchStatus('pause')}
+                data-testid="pw-batch-pause"
+              >
+                <Pause size={14} /> {t('assignments:workload.batch.pauseAll')}
+              </button>
+              <button
+                type="button"
+                className="btn btn-secondary btn-sm"
+                disabled={batchStatusMutation.isPending}
+                onClick={() => requestBatchStatus('resume')}
+                data-testid="pw-batch-resume"
+              >
+                <Play size={14} /> {t('assignments:workload.batch.resumeAll')}
+              </button>
+            </div>
+
+            {batchShiftOpen ? (
+              <div
+                className="pw-batch-shift-form"
+                role="group"
+                aria-label={t('assignments:workload.batch.shiftToggle')}
+              >
+                <label>
+                  <span>{t('assignments:workload.batch.shiftDirection')}</span>
+                  <select
+                    value={batchShiftForm.direction}
+                    aria-label={t('assignments:workload.batch.shiftDirection')}
+                    onChange={(event) =>
+                      updateBatchShiftForm({
+                        direction: event.target.value as 'earlier' | 'later',
+                      })
+                    }
+                  >
+                    <option value="later">{t('assignments:workload.batch.shiftLater')}</option>
+                    <option value="earlier">{t('assignments:workload.batch.shiftEarlier')}</option>
+                  </select>
+                </label>
+                <label>
+                  <span>{t('assignments:workload.batch.shiftAmount')}</span>
+                  <input
+                    type="number"
+                    min={1}
+                    max={batchShiftMax}
+                    value={batchShiftForm.amount}
+                    aria-label={t('assignments:workload.batch.shiftAmount')}
+                    onChange={(event) => updateBatchShiftForm({ amount: event.target.value })}
+                  />
+                </label>
+                <label>
+                  <span>{t('assignments:workload.batch.shiftUnit')}</span>
+                  <select
+                    value={batchShiftForm.unit}
+                    aria-label={t('assignments:workload.batch.shiftUnit')}
+                    onChange={(event) =>
+                      updateBatchShiftForm({ unit: event.target.value as BatchShiftUnit })
+                    }
+                  >
+                    <option value="day">{t('assignments:workload.batch.shiftUnitDay')}</option>
+                    <option value="week">{t('assignments:workload.batch.shiftUnitWeek')}</option>
+                    <option value="month">{t('assignments:workload.batch.shiftUnitMonth')}</option>
+                  </select>
+                </label>
+                <button
+                  type="button"
+                  className="btn btn-secondary btn-sm"
+                  onClick={previewBatchShift}
+                  data-testid="pw-batch-shift-preview"
+                >
+                  {batchShiftPlan
+                    ? t('assignments:workload.batch.shiftRePreview')
+                    : t('assignments:workload.batch.shiftPreview')}
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-primary btn-sm"
+                  disabled={
+                    !batchShiftPlan ||
+                    batchShiftPlan.rows.length === 0 ||
+                    batchShiftMutation.isPending
+                  }
+                  onClick={() => {
+                    if (batchShiftPlan) batchShiftMutation.mutate(batchShiftPlan);
+                  }}
+                  data-testid="pw-batch-shift-apply"
+                >
+                  {t('assignments:workload.batch.shiftApply')}
+                </button>
+              </div>
+            ) : null}
+
+            {batchShiftError ? (
+              <span
+                className="pw-batch-message pw-batch-message--error"
+                role="alert"
+                data-testid="pw-batch-shift-error"
+              >
+                {batchShiftError}
+              </span>
+            ) : null}
+            {batchShiftPlan ? (
+              <div className="pw-batch-shift-summary" role="status" data-testid="pw-batch-shift-summary">
+                <span>
+                  {t('assignments:workload.batch.shiftPreviewSummary', {
+                    count: batchShiftPlan.rows.length,
+                    skipped: batchShiftSkipTotal(batchShiftPlan.skipped),
+                    paused: batchShiftPlan.skipped.paused,
+                    phase: batchShiftPlan.skipped.phase,
+                    project: batchShiftPlan.skipped.project,
+                    undated: batchShiftPlan.skipped.undated,
+                  })}
+                </span>
+                {batchShiftPlan.blocked.length > 0 ? (
+                  <span className="pw-batch-shift-blocked" data-testid="pw-batch-shift-blocked">
+                    {t('assignments:workload.batch.shiftBlockedSummary', {
+                      count: batchShiftPlan.blocked.length,
+                      names: batchShiftPlan.blocked
+                        .slice(0, 3)
+                        .map((row) => row.label)
+                        .join(', '),
+                    })}
+                  </span>
+                ) : null}
+                {batchShiftPlan.rows.length > 0 ? (
+                  <ul className="pw-batch-shift-windows">
+                    {batchShiftPlan.rows.slice(0, 3).map((row) => (
+                      <li key={row.id}>
+                        {row.label}: {row.originalStart} → {row.newStart} · {row.originalEnd} →{' '}
+                        {row.newEnd}
+                      </li>
+                    ))}
+                  </ul>
+                ) : null}
+              </div>
+            ) : null}
+          </div>
+        ) : null}
         {batchMessage ? (
-          <span className={`pw-batch-message pw-batch-message--${batchMessage.tone}`} role="status">
+          <span className={`pw-batch-message pw-batch-message--${batchMessage.tone}`} role="status" data-testid="pw-batch-message">
             {batchMessage.text}
           </span>
         ) : null}

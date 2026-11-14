@@ -1,5 +1,5 @@
 import React from 'react';
-import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { act, fireEvent, render, screen, waitFor, within } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
@@ -125,10 +125,10 @@ const assignments = [
   },
 ];
 
-function pageElement(queryClient: QueryClient) {
+function pageElement(queryClient: QueryClient, entry = '/people/person-1/workload') {
   return (
     <QueryClientProvider client={queryClient}>
-      <MemoryRouter initialEntries={['/people/person-1/workload']}>
+      <MemoryRouter initialEntries={[entry]}>
         <Routes>
           <Route path="/people/:id/workload" element={<PersonWorkload />} />
         </Routes>
@@ -139,12 +139,12 @@ function pageElement(queryClient: QueryClient) {
   );
 }
 
-function renderPage() {
+function renderPage(entry?: string) {
   const queryClient = new QueryClient({
     defaultOptions: { queries: { retry: false } },
   });
   return {
-    ...render(pageElement(queryClient)),
+    ...render(pageElement(queryClient, entry)),
     queryClient,
   };
 }
@@ -1520,4 +1520,279 @@ test('S2: phase 派生行可打开面板——日期只读派生、仅比例可�
   expect(panel.querySelector('input[type="number"]')).toBeTruthy();
   // 派生行不可拖（canDragCommittedBar 拒绝 phase/project）
   expect(findGanttBarFor('Alpha').querySelector('.pw-gantt-resize')).toBeNull();
+});
+
+/* ===================== Phase B：S3 批量平移/暂停恢复 + S6 批量撤销 ===================== */
+
+async function enterBatch() {
+  fireEvent.click(await screen.findByTestId('pw-batch-entry'));
+  await waitFor(() => {
+    expect(screen.getAllByLabelText('Allocation %')).toHaveLength(4);
+  });
+}
+
+test('S3: 平移预览给出影响/跳过分项，应用后逐行 PUT（冻结版本）', async () => {
+  (api.assignments.update as jest.Mock).mockResolvedValue({ data: { data: { version: 2 } } });
+  renderPage();
+  await enterBatch();
+
+  fireEvent.click(screen.getByTestId('pw-batch-shift-toggle'));
+  fireEvent.change(screen.getByLabelText('Amount'), { target: { value: '7' } });
+  fireEvent.click(screen.getByTestId('pw-batch-shift-preview'));
+
+  const summary = await screen.findByTestId('pw-batch-shift-summary');
+  expect(summary).toHaveTextContent('Will shift 2 row(s)');
+  expect(summary).toHaveTextContent('skip 2');
+  expect(summary).toHaveTextContent('paused 1');
+  expect(summary).toHaveTextContent('undated 1');
+  expect(summary).toHaveTextContent('Alpha: 2026-01-01 → 2026-01-08');
+
+  fireEvent.click(screen.getByTestId('pw-batch-shift-apply'));
+  await waitFor(() => {
+    expect(api.assignments.update).toHaveBeenCalledTimes(2);
+  });
+  expect(api.assignments.update).toHaveBeenCalledWith(
+    'a1',
+    expect.objectContaining({
+      start_date: '2026-01-08',
+      end_date: '2027-01-07',
+      expected_version: 1,
+    }),
+    { scenarioId: 'baseline-0000-0000-0000-000000000000' }
+  );
+  expect(api.assignments.update).toHaveBeenCalledWith(
+    'a4',
+    expect.objectContaining({
+      start_date: '2026-06-08',
+      end_date: '2026-07-07',
+      expected_version: 1,
+    }),
+    { scenarioId: 'baseline-0000-0000-0000-000000000000' }
+  );
+  expect(await screen.findByTestId('pw-batch-message')).toHaveTextContent('Shifted 2 row(s).');
+
+  // S6：批量平移同样是一次保存操作——一次撤销把两行日期还原
+  expect(await screen.findByText('Saved 2 row(s)')).toBeInTheDocument();
+  fireEvent.click(screen.getByRole('button', { name: /^Undo$/ }));
+  await waitFor(() => {
+    expect(api.assignments.update).toHaveBeenCalledTimes(4);
+  });
+  const updateMock = api.assignments.update as jest.Mock;
+  expect(updateMock).toHaveBeenNthCalledWith(
+    3,
+    'a1',
+    expect.objectContaining({
+      start_date: '2026-01-01',
+      end_date: '2026-12-31',
+      expected_version: 2,
+    }),
+    { scenarioId: 'baseline-0000-0000-0000-000000000000' }
+  );
+  expect(updateMock).toHaveBeenNthCalledWith(
+    4,
+    'a4',
+    expect.objectContaining({ start_date: '2026-06-01', end_date: '2026-06-30' }),
+    { scenarioId: 'baseline-0000-0000-0000-000000000000' }
+  );
+});
+
+test('S3: 提前平移触及下限的行标失败、其余继续；参数变更后旧预览作废', async () => {
+  (api.assignments.update as jest.Mock).mockResolvedValue({ data: { data: { version: 2 } } });
+  renderPage();
+  await enterBatch();
+
+  fireEvent.click(screen.getByTestId('pw-batch-shift-toggle'));
+  fireEvent.change(screen.getByLabelText('Direction'), { target: { value: 'earlier' } });
+  fireEvent.change(screen.getByLabelText('Amount'), { target: { value: '30' } });
+  fireEvent.click(screen.getByTestId('pw-batch-shift-preview'));
+
+  const summary = await screen.findByTestId('pw-batch-shift-summary');
+  expect(summary).toHaveTextContent('Will shift 1 row(s)');
+  expect(screen.getByTestId('pw-batch-shift-blocked')).toHaveTextContent('1 row(s) blocked');
+
+  fireEvent.click(screen.getByTestId('pw-batch-shift-apply'));
+  await waitFor(() => {
+    expect(api.assignments.update).toHaveBeenCalledTimes(1);
+  });
+  // 只有未来行 a4 被平移；已开始行 a1 因新开始日早于原 start 被判 blocked
+  expect(api.assignments.update).toHaveBeenCalledWith(
+    'a4',
+    expect.objectContaining({ start_date: '2026-05-02', end_date: '2026-05-31' }),
+    expect.anything()
+  );
+  expect(await screen.findByTestId('pw-batch-message')).toHaveTextContent('failed 1');
+
+  // 参数一改，冻结预览作废：应用按钮禁用，需重新预览
+  fireEvent.change(screen.getByLabelText('Amount'), { target: { value: '31' } });
+  expect(screen.queryByTestId('pw-batch-shift-summary')).not.toBeInTheDocument();
+  expect(screen.getByTestId('pw-batch-shift-apply')).toBeDisabled();
+});
+
+test('S3: 批量暂停 = 一次统一确认（含 direct 计数），逐行快照版本保存', async () => {
+  (api.assignments.update as jest.Mock).mockResolvedValue({ data: { data: { version: 2 } } });
+  renderPage();
+  await enterBatch();
+
+  fireEvent.click(screen.getByTestId('pw-batch-pause'));
+  const dialog = await screen.findByTestId('confirm-dialog');
+  expect(dialog).toHaveTextContent('Pause 3 active row(s), including 1 baseline-global row(s)?');
+  fireEvent.click(within(dialog).getByRole('button', { name: 'Pause' }));
+
+  await waitFor(() => {
+    expect(api.assignments.update).toHaveBeenCalledTimes(3);
+  });
+  const updateMock = api.assignments.update as jest.Mock;
+  for (const [id, payload] of updateMock.mock.calls as Array<[string, any]>) {
+    expect(payload).toMatchObject({ status: 'paused', expected_version: 1 });
+    expect(['a1', 'a2', 'a4']).toContain(id);
+  }
+  expect(await screen.findByTestId('pw-batch-message')).toHaveTextContent('Paused 3 row(s).');
+});
+
+test('S6: 批量保存成功给一次撤销；撤销逐行逆补丁 + 保存响应版本', async () => {
+  (api.assignments.update as jest.Mock)
+    .mockResolvedValueOnce({ data: { data: { version: 2 } } })
+    .mockResolvedValueOnce({ data: { data: { version: 5 } } });
+  renderPage();
+  await enterBatch();
+
+  const inputs = screen.getAllByLabelText('Allocation %');
+  fireEvent.change(inputs[0], { target: { value: '30' } });
+  fireEvent.change(inputs[1], { target: { value: '22' } });
+  fireEvent.click(screen.getByRole('button', { name: /Save changed rows/i }));
+
+  await waitFor(() => {
+    expect(api.assignments.update).toHaveBeenCalledTimes(2);
+  });
+  expect(await screen.findByText('Saved 2 row(s)')).toBeInTheDocument();
+  const undo = screen.getByRole('button', { name: /^Undo$/ });
+  fireEvent.click(undo);
+
+  await waitFor(() => {
+    expect(api.assignments.update).toHaveBeenCalledTimes(4);
+  });
+  expect(api.assignments.update).toHaveBeenNthCalledWith(
+    3,
+    'a1',
+    expect.objectContaining({ allocation_percentage: 20, expected_version: 2 }),
+    { scenarioId: 'baseline-0000-0000-0000-000000000000' }
+  );
+  expect(api.assignments.update).toHaveBeenNthCalledWith(
+    4,
+    'a2',
+    expect.objectContaining({ allocation_percentage: 10, expected_version: 5 }),
+    { scenarioId: 'baseline-0000-0000-0000-000000000000' }
+  );
+  expect(await screen.findByText('Undid 2 row(s).')).toBeInTheDocument();
+});
+
+/* ===================== Phase B：S5 跨人员上下文接力 ===================== */
+
+const staffingRow = {
+  id: 'staff-1',
+  person_id: 'person-2',
+  person_name: 'John Smith',
+  role_name: 'SE',
+  phase_name: null,
+  allocation_percentage: 50,
+  status: 'active',
+  start_date: '2026-01-01',
+  end_date: '2026-12-31',
+  computed_start_date: '2026-01-01',
+  computed_end_date: '2026-12-31',
+};
+
+function mockStaffingAndTarget() {
+  (api.assignments.list as jest.Mock).mockImplementation(async (params: any) => {
+    if (params?.project_id) {
+      return { data: { data: [staffingRow], pagination: { total: 1, totalPages: 1 } } };
+    }
+    if (params?.person_id === 'person-2') {
+      return { data: { data: [staffingRow], pagination: { total: 1, totalPages: 1 } } };
+    }
+    return {
+      data: { data: assignments, pagination: { total: assignments.length, totalPages: 1 } },
+    };
+  });
+}
+
+test('S5: staffing 面板“调整此人”经守卫跳转，目标页深链定位并高亮', async () => {
+  mockStaffingAndTarget();
+  renderPage();
+  await waitFor(() => {
+    expect(screen.getAllByTestId('pw-gantt-bar').length).toBeGreaterThan(0);
+  });
+
+  fireEvent.click(screen.getAllByRole('button', { name: /View staffing for/i })[0]);
+  const panel = await screen.findByTestId('pw-project-staffing');
+  fireEvent.click(await within(panel).findByTestId('pw-staffing-adjust-person-2'));
+
+  // 目标人员页（同一路由组件）读取深链：等待数据后定位 + 高亮 + 提示
+  const banner = await screen.findByTestId('pw-deeplink');
+  expect(banner).toHaveTextContent('From project staffing');
+  expect(banner).toHaveTextContent('Located the assignment');
+  expect(document.querySelector('tr[data-assignment-id="staff-1"]')).toHaveClass('pw-row--deeplink');
+  expect(screen.queryByTestId('pw-project-staffing')).not.toBeInTheDocument();
+});
+
+test('S5: 目标不存在时只提示不报错', async () => {
+  renderPage('/people/person-1/workload?project=p1&assignment=gone');
+  const banner = await screen.findByTestId('pw-deeplink');
+  expect(banner).toHaveTextContent('Source assignment not found');
+});
+
+test('S5（Codex P1）: 有未提交 ghost 时跳转被拒 → 保留源面板不导航', async () => {
+  mockBoard();
+  mockStaffingAndTarget();
+  const confirmSpy = jest.spyOn(window, 'confirm').mockReturnValue(false);
+  renderPage();
+  await openDialog();
+  fireEvent.click(screen.getByTestId('pw-select-task-task-leaf'));
+  fireEvent.click(screen.getByTestId('pw-add-to-lane'));
+  await screen.findByTestId('pw-commit-bar');
+
+  fireEvent.click(screen.getAllByRole('button', { name: /View staffing for/i })[0]);
+  const panel = await screen.findByTestId('pw-project-staffing');
+  fireEvent.click(await within(panel).findByTestId('pw-staffing-adjust-person-2'));
+
+  expect(confirmSpy).toHaveBeenCalled();
+  expect(screen.getByTestId('pw-project-staffing')).toBeInTheDocument();
+  expect(screen.queryByTestId('pw-deeplink')).not.toBeInTheDocument();
+  confirmSpy.mockRestore();
+});
+
+test('S6: 表格行保存也提供一次撤销（逆补丁 + 保存响应版本）', async () => {
+  (api.assignments.update as jest.Mock).mockResolvedValueOnce({
+    data: { data: { ...assignments[0], allocation_percentage: 45, version: 3 } },
+  });
+  renderPage();
+  await waitFor(() => {
+    expect(screen.getAllByRole('button', { name: 'Edit' }).length).toBeGreaterThan(0);
+  });
+
+  fireEvent.click(screen.getAllByRole('button', { name: 'Edit' })[0]);
+  const allocation = screen.getByLabelText('Allocation %');
+  fireEvent.change(allocation, { target: { value: '45' } });
+  fireEvent.click(screen.getByRole('button', { name: 'Save' }));
+
+  await waitFor(() => {
+    expect(api.assignments.update).toHaveBeenNthCalledWith(
+      1,
+      'a1',
+      expect.objectContaining({ allocation_percentage: 45, expected_version: 1 }),
+      { scenarioId: 'baseline-0000-0000-0000-000000000000' }
+    );
+  });
+  expect(await screen.findByText('Assignment saved')).toBeInTheDocument();
+  fireEvent.click(screen.getByRole('button', { name: /^Undo$/ }));
+
+  await waitFor(() => {
+    expect(api.assignments.update).toHaveBeenNthCalledWith(
+      2,
+      'a1',
+      expect.objectContaining({ allocation_percentage: 20, expected_version: 3 }),
+      { scenarioId: 'baseline-0000-0000-0000-000000000000' }
+    );
+  });
+  expect(await screen.findByText('Save undone')).toBeInTheDocument();
 });

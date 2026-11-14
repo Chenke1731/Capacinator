@@ -120,6 +120,14 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 
+# Verify-tier 映射完整性（I19c）：新页面/新 profile/新 e2e 未入映射即拦截。
+echo "── Verify map (page/profile/e2e completeness) ──"
+node scripts/check-verify-map.mjs
+if [ $? -ne 0 ]; then
+  echo "✗ Verify map guard — commit blocked (add the page/profile to scripts/lib/verify-map.mjs)"
+  exit 1
+fi
+
 # 缓存键配对守卫(2026-10-13 全库审计元问题): 渲染闭包有 verify-states,
 # React Query 键闭包此前零防线——撞键/悬空失效全靠人眼。静态扫描 <3s,
 # 不随 staged 文件门控(键配对是跨文件性质,staged 子集无意义)

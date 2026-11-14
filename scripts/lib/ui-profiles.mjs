@@ -148,7 +148,7 @@ export async function assertProfileReady(page, profile, base) {
 export const auditEnvironment = {
   base:process.env.UI_AUDIT_BASE??'http://127.0.0.1:3120',
   api:process.env.UI_AUDIT_API??'http://127.0.0.1:3110',
-  chrome:resolveChromium()
+  get chrome(){ return resolveChromium(); }
 };
 export async function authenticate() {
   const res=await fetch(`${auditEnvironment.api}/api/people?limit=1`);

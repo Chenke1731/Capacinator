@@ -107,6 +107,7 @@
     "build:verify": "node scripts/check-build-paths.mjs",
     "audit:layout": "node scripts/audit-layout.mjs",
     "audit:layout:changed": "node scripts/audit-layout.mjs --changed",
+    "audit:typography": "node scripts/audit-typography.mjs",
     "verify:layout-map": "node scripts/check-layout-audit-map.mjs"
   },
   "keywords": [],

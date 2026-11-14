@@ -20,6 +20,10 @@ on:
     - cron: '17 18 * * 1'
   workflow_dispatch:
 
+permissions:
+  contents: read
+  pull-requests: write
+
 jobs:
   audit:
     runs-on: ubuntu-24.04
@@ -70,6 +74,44 @@ jobs:
           else
             node scripts/audit-layout.mjs --all --base-url http://localhost:3122 --api-url http://localhost:3111 --out tmp/layout-audit
           fi
+
+      # 确定性字号/标题守卫（页面审计 2026-11-14 沉淀）：违规即红，非 advisory
+      - name: Typography guard
+        run: node scripts/audit-typography.mjs --all --base-url http://localhost:3122 --api-url http://localhost:3111 --out tmp/typography-audit
+
+      # 消费回路：findings 以 ::warning 注解进 PR checks（advisory 但可见）
+      - name: Annotate findings
+        if: always()
+        run: |
+          node -e "
+          const fs=require('fs');
+          let data;try{data=JSON.parse(fs.readFileSync('tmp/layout-audit/findings.json','utf8'))}catch{process.exit(0)}
+          for(const f of (data.findings??[]).slice(0,10)){
+            const msg=String(f.message??'').replace(/[\r\n|%]/g,' ').slice(0,120);
+            console.log('::warning title=layout:'+f.rule+'::'+f.page+'@'+f.viewport+' '+msg);
+          }
+          "
+
+      # 消费回路：PR 评论置顶 summary（同一条评论更新，不刷屏）
+      - name: Post summary to PR
+        if: always() && github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            let summary = '';
+            try { summary = fs.readFileSync('tmp/layout-audit/summary.md', 'utf8'); } catch { return; }
+            const body = '<!-- layout-audit -->\n## Layout audit（advisory）\n\n' + summary.slice(0, 5800);
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner, repo: context.repo.repo, issue_number: context.issue.number, per_page: 100,
+            });
+            const marker = '<!-- layout-audit -->';
+            const existing = comments.find((c) => c.body.includes(marker));
+            if (existing) {
+              await github.rest.issues.updateComment({ owner: context.repo.owner, repo: context.repo.repo, comment_id: existing.id, body });
+            } else {
+              await github.rest.issues.createComment({ owner: context.repo.owner, repo: context.repo.repo, issue_number: context.issue.number, body });
+            }
 
       - name: Upload layout audit artifact
         if: always()

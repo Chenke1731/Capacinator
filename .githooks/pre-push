@@ -1,0 +1,53 @@
+#!/bin/sh
+# Layout audit pre-push（2026-11-14，触发盲区收口）：
+# UI 改动离开本机前跑一次 advisory 布局体检——此前唯一自动触发在 push 之后
+# （CI），缺陷产生窗口（本地开发）零覆盖。
+#
+# 语义（与 CI 一致）：findings 不拦截（advisory）；"没跑成"（exit 2）默认
+# 大声警告放行，REQUIRE_LAYOUT_AUDIT=1 时拦截；SKIP_LAYOUT_AUDIT=1 显式跳过。
+# 审计栈默认取 dev（3120/3110）；未起栈视为"没跑成"。
+if [ "$SKIP_LAYOUT_AUDIT" = "1" ]; then
+  echo "⚠ Layout audit pre-push：SKIP_LAYOUT_AUDIT=1，本次跳过"
+  exit 0
+fi
+
+UI_CHANGED=0
+ZERO=0000000000000000000000000000000000000000
+while read -r local_ref local_sha remote_ref remote_sha; do
+  [ -z "$remote_sha" ] && continue
+  if [ "$remote_sha" = "$ZERO" ]; then
+    UI_CHANGED=1   # 新分支：无法算 diff，保守视为有 UI 改动
+    continue
+  fi
+  if git diff --name-only "$remote_sha" "$local_sha" -- 'client/src' | grep -q .; then
+    UI_CHANGED=1
+  fi
+done
+
+if [ "$UI_CHANGED" -ne 1 ]; then
+  exit 0   # 本次推送不含 UI 改动，快速放行
+fi
+
+echo "── Layout audit pre-push（client/src 变更，advisory）──"
+if ! command -v vlmkit >/dev/null 2>&1; then
+  MSG="vlmkit 未安装（npm i -g @mizchi/vlmkit@0.24.0），布局体检未运行"
+  if [ "$REQUIRE_LAYOUT_AUDIT" = "1" ]; then
+    echo "✗ $MSG；REQUIRE_LAYOUT_AUDIT=1 → 拦截推送"
+    exit 1
+  fi
+  echo "⚠ $MSG（警告放行）"
+  exit 0
+fi
+
+node scripts/audit-layout.mjs --changed
+STATUS=$?
+if [ $STATUS -eq 0 ]; then
+  exit 0
+fi
+# exit 2 = 没跑成（栈/登录/浏览器），不是 findings
+if [ "$REQUIRE_LAYOUT_AUDIT" = "1" ]; then
+  echo "✗ layout audit 未完成（exit $STATUS）；REQUIRE_LAYOUT_AUDIT=1 → 拦截推送"
+  exit 1
+fi
+echo "⚠ layout audit 未完成（exit $STATUS，通常是本地未起 3120/3110 栈）——警告放行"
+exit 0

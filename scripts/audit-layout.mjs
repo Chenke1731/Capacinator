@@ -176,7 +176,7 @@ async function resolveFixtures() {
   ];
   const storagePath = path.join(outDir, 'storage-state.json');
   fs.writeFileSync(storagePath, JSON.stringify({ cookies: [], origins: [{ origin, localStorage }] }));
-  return { fixtures, storagePath, person };
+  return { fixtures, storagePath, person, token: auth.accessToken };
 }
 
 const allowArgs = (allow.entries ?? []).map((entry) => {
@@ -212,12 +212,82 @@ const fixtureData = await resolveFixtures();
 await waitFor(`${args.apiUrl}/api/health`, 'API');
 await waitFor(args.baseUrl, 'frontend');
 
+// —— 已结束形状人员（2026-11-14 页面审计 F-01 沉淀）：
+// 夹具单一化（行全部跨参考日）让"已结束行在泳道消失"这类数据形状缺陷
+// 对一切门禁不可见。允许写库的环境（CI 隔离 e2e 栈）临时造一名
+// active/ended/paused 三行人员，并对 person-workload 追加一次访问；
+// 本地 dev 栈不写库，记录 skipped 原因。
+const endedShape = { created: false, reason: 'allow-writes-off（本地 dev 栈禁止写库；CI 设 LAYOUT_AUDIT_ALLOW_WRITES=1）' };
+const endedCleanup = { personId: null, assignmentIds: [] };
+const authHeaders = { Authorization: `Bearer ${fixtureData.token}`, 'Content-Type': 'application/json' };
+const iso = (offsetDays) => new Date(Date.now() + offsetDays * 86400000).toISOString().slice(0, 10);
+if (process.env.LAYOUT_AUDIT_ALLOW_WRITES === '1' && fixtureData.fixtures.projectId && fixtureData.fixtures.roleId) {
+  try {
+    const stamp = Date.now();
+    const personRes = await fetch(`${args.apiUrl}/api/people`, { method: 'POST', headers: authHeaders, body: JSON.stringify({ name: `LayoutAudit Ended ${stamp}`, email: `layout-audit-ended-${stamp}@example.com`, is_active: true }) });
+    if (!personRes.ok) throw new Error(`create person ${personRes.status}`);
+    const personBody = await personRes.json();
+    const created = personBody.data ?? personBody;
+    endedCleanup.personId = created.id;
+    const mk = async (start, end, allocation, roleId) => {
+      const res = await fetch(`${args.apiUrl}/api/assignments`, { method: 'POST', headers: authHeaders, body: JSON.stringify({ person_id: endedCleanup.personId, project_id: fixtureData.fixtures.projectId, role_id: roleId, allocation_percentage: allocation, assignment_date_mode: 'fixed', start_date: start, end_date: end }) });
+      if (!res.ok) { const errBody = await res.json().catch(() => ({})); throw new Error(`create assignment ${res.status}: roleId=${roleId} project=${fixtureData.fixtures.projectId} err=${JSON.stringify(errBody)}`); }
+      const row = (await res.json()).data ?? {};
+      endedCleanup.assignmentIds.push(row.id);
+      return row;
+    };
+    const rolesRes = await fetch(`${args.apiUrl}/api/roles?limit=50`, { headers: authHeaders });
+    const rolesBody = await rolesRes.json();
+    const roleRows = rolesBody.data?.data ?? rolesBody.data ?? [];
+    const roleFor = (i) => roleRows[i % Math.max(roleRows.length, 1)]?.id ?? fixtureData.fixtures.roleId;
+    await mk(iso(-7), iso(21), 20, roleFor(0));   // 进行中（跨参考日）
+    await mk(iso(-45), iso(-15), 50, roleFor(1)); // 已结束（早于参考日）
+    const paused = await mk(iso(-3), iso(30), 10, roleFor(2));
+    const pauseRes = await fetch(`${args.apiUrl}/api/assignments/${paused.id}`, { method: 'PUT', headers: authHeaders, body: JSON.stringify({ status: 'paused' }) });
+    if (!pauseRes.ok) throw new Error(`pause ${pauseRes.status}`);
+    fixtureData.fixtures.personEndedId = endedCleanup.personId;
+    endedShape.created = true; endedShape.reason = 'created';
+    const base = routeById.get('person-workload');
+    if (base && selection.pages.includes('person-workload')) {
+      routeById.set('person-workload:ended', { ...base, id: 'person-workload:ended', path: base.path.replace('${personId}', '${personEndedId}') });
+      selection.pages.push('person-workload:ended');
+    }
+  } catch (error) {
+    endedShape.reason = `create-failed: ${String(error.message ?? error)}`;
+  }
+}
+
 const results = [];
-for (const page of selection.pages) {
-  for (const viewport of viewports) {
-    const result = runVlmkit(page, viewport, fixtureData.storagePath, fixtureData.fixtures);
-    results.push(result);
-    process.stdout.write(`${result.status === 'completed' ? '·' : '✗'}`);
+try {
+
+  for (const page of selection.pages) {
+    for (const viewport of viewports) {
+      const result = runVlmkit(page, viewport, fixtureData.storagePath, fixtureData.fixtures);
+      results.push(result);
+      process.stdout.write(`${result.status === 'completed' ? '·' : '✗'}`);
+    }
+  }
+} finally {
+  if (endedCleanup.personId) {
+    const warn = (what, status) => console.warn(`⚠ layout-audit 清理失败 ${what}: ${status}`);
+    const del = async (url) => {
+      const res = await fetch(url, { method: 'DELETE', headers: authHeaders }).catch(() => null);
+      return res ? res.status : 'network';
+    };
+    // 兜底：反查该人员全部分配（创建中断时 ids 可能不全），删行后再删人
+    try {
+      const listRes = await fetch(`${args.apiUrl}/api/assignments?person_id=${endedCleanup.personId}&limit=200`, { headers: authHeaders });
+      const listBody = await listRes.json();
+      const rows = listBody.data?.data ?? listBody.data ?? [];
+      for (const row of rows) {
+        const status = await del(`${args.apiUrl}/api/assignments/${row.id}`);
+        if (status >= 400) warn(`assignment ${row.id}`, status);
+      }
+    } catch (error) {
+      warn('assignments list', String(error.message ?? error));
+    }
+    const personStatus = await del(`${args.apiUrl}/api/people/${endedCleanup.personId}`);
+    if (personStatus >= 400) warn(`person ${endedCleanup.personId}`, personStatus);
   }
 }
 process.stdout.write('\n');
@@ -237,6 +307,7 @@ const trigger = {
   viewports,
   disabledRules,
   allowEntries: allow.entries?.length ?? 0,
+  endedShape,
   results: results.map(({ page, viewport, status, exitCode, verdict }) => ({ page, viewport, status, exitCode, verdict })),
   infraFailures: infraFailures.length,
   findings: findings.length,
@@ -255,6 +326,7 @@ const lines = [
   `- 视口: ${viewports.join(', ')}`,
   `- 禁用规则: ${disabledRules.join(', ') || '无'}`,
   `- findings: ${findings.length}；未能运行: ${infraFailures.length}`,
+  `- 已结束形状: ${endedShape.created ? '已创建（person-workload:ended）' : `未创建——${endedShape.reason}`}`,
   '',
   '## 按规则',
   '',

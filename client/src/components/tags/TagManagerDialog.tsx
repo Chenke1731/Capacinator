@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { isImeComposing } from '../../lib/ime';
 import { useTranslation } from 'react-i18next';
 import { Tag as TagIcon, Trash2 } from 'lucide-react';
 import { api } from '../../lib/api-client';
@@ -128,7 +129,7 @@ export function TagManagerDialog({ isOpen, onClose }: { isOpen: boolean; onClose
               value={newName}
               placeholder={t('projects:tags.newPlaceholder')}
               onChange={(e) => setNewName(e.target.value)}
-              onKeyDown={(e) => { if (e.key === 'Enter' && newName.trim()) createMutation.mutate(); }}
+              onKeyDown={(e) => { if (e.key === 'Enter' && !isImeComposing(e) && newName.trim()) createMutation.mutate(); }}
               className="tag-new-input"
               data-testid="tag-new-input"
             />
@@ -169,7 +170,7 @@ export function TagManagerDialog({ isOpen, onClose }: { isOpen: boolean; onClose
                     onChange={(e) => setEditName(e.target.value)}
                     onBlur={commitRename}
                     onKeyDown={(e) => {
-                      if (e.key === 'Enter') commitRename();
+                      if (e.key === 'Enter' && !isImeComposing(e)) commitRename();
                       if (e.key === 'Escape') setEditingId(null);
                     }}
                     className="tag-rename-input"

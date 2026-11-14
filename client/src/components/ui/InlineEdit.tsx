@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { isImeComposing } from '../../lib/ime';
 import { Check, X, Edit2 } from 'lucide-react';
 import { cn } from '../../lib/utils';
 
@@ -77,7 +78,7 @@ export function InlineEdit({
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter' && (type !== 'textarea' || e.ctrlKey)) {
+    if (e.key === 'Enter' && !isImeComposing(e) && (type !== 'textarea' || e.ctrlKey)) {
       handleSave();
     } else if (e.key === 'Escape') {
       handleCancel();

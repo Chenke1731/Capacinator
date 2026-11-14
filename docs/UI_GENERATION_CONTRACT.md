@@ -136,6 +136,25 @@
 3. **按钮不做 hover 位移**：禁止在 `:hover/:focus` 上改变 `transform/translate/scale/padding/margin/height/top/left…`（尤其未作用域 `.btn*`/按钮/链接类覆盖——随路由 CSS 加载泄漏到同路由所有按钮）。旧式"padding+负 margin 外扩"默认禁止（会被 `overflow:hidden` 裁切，roadmap 项目名链接实测）。悬停用底色/描边/下划线/阴影表达。卡片类 elevation（card/stat/insight/summary…）不在拦截面。
    `npm run lint:ui` 规则 4（未作用域 `.btn*` 位移）+ 规则 5（交互态布局几何）静态拦截；`verify:states` 新机制切片（悬停/焦点位移×容器边界、同排控件等高）渲染时刻兜底，`--selftest` 注入必红。
 
+## 交互与状态判据（judged 层，2026-11-14）
+
+来源：UI UX Pro Max 120 条清单逐项对照后的 gap 分析（只收本项目确实缺失的 6 条）：
+
+1. **输入法组合态**：文本输入上的 Enter 提交/失焦保存必须判 `isComposing`/229
+   （中文/日韩输入法的 Enter 是"确认候选词"）。共享原语 `client/src/lib/ime.ts`；
+   结构不变量守卫 `tests/unit/meta/ime-enter-guard.test.ts` 全库扫描 + 非文本输入
+   激活白名单（删守卫必红，已变异自证）。
+2. **错误摘要 + 首错聚焦**：表单提交失败时，除行内错误外提供可聚焦的错误摘要
+   （链到各字段）；无摘要时聚焦第一个非法字段（WCAG 3.3.1/3.3.3）。
+3. **路由切换焦点**：SPA 导航后焦点移到主内容区（跳过导航），不只停留在点击处
+   （WCAG 2.4.3 的 SPA 形态）。
+4. **截断策略**：优先换行；必须截断时提供全文（tooltip/title 或展开）——泳道
+   bar/lane 标签等截断点在评审时抽查 title 覆盖率。
+5. **只读 ≠ 禁用**：只读态视觉与语义（aria-readonly）区别于禁用（disabled），
+   二者不可共用灰化样式。
+6. **加载与布局稳定**：>1s 的等待用骨架（按来件形状）；异步内容预留尺寸防 CLS；
+   50+ 项列表评估虚拟化（看板已虚拟化，其余列表按需）。
+
 ## 数据可视化契约（judged 层，2026-11-14）
 
 守卫（对比度/重叠/溢出/axe）判不了的**读图正确性**，评审按以下八条判。来源：Hallmark
@@ -217,6 +236,7 @@ Cognitive Walkthrough（认知走查，Polson/Wharton，可用性工程标准方
 | Refactoring UI 战术 | 开发者向 UI 设计（Wathan & Schoger） | 视觉战术速查八条（层级靠字重/灰字不过灰/间距成体系/少框/主色一处/等宽数字/状态色克制） |
 | Okabe-Ito 色板 | 色觉无障碍科学 | 默认色板：类别编码专用，同屏 ≤4 色，量值不用色 |
 | Hallmark（v2，Together AI）`data-viz.md` / app screens | 设计工程（anti-AI-slop 门禁体系） | 数据可视化契约八条 + app 四态 + "signature=工具的那个对象"；其主题库/照片库/hero/门禁脚本不引入（单一产品一致性优先，且与现有 verify 链重复） |
+| UI UX Pro Max（120 条 UX 清单） | 设计工程（可检索检查清单） | 逐项 gap 分析后只收 6 条：IME 组合态（含共享原语+结构守卫）、错误摘要/首错聚焦、路由切换焦点、截断全文、只读≠禁用、加载/CLS；配色/字体/风格/GSAP/22 栈指南不引入 |
 | frontend-design（Anthropic）写作纪律 | 设计工程（通用设计助理技能） | 界面文案契约四条（动作名一致/错误可修/空态邀请/用户语言）；"通用性自检"列为新页面可选步骤，不进强制模板 |
 
 未引入及理由：QFD/House of Quality（面向大规模需求工程，单用户工具过重）；

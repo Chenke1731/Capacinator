@@ -1,4 +1,5 @@
 import { toISODateString } from '../utils/dateUtils';
+import { isImeComposing } from '../lib/ime';
 import React, { useState, useMemo } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
@@ -406,7 +407,7 @@ export default function PersonDetails() {
           }
         }}
         onKeyDown={(e) => {
-          if (e.key === 'Enter') (e.target as HTMLInputElement).blur();
+          if (e.key === 'Enter' && !isImeComposing(e)) (e.target as HTMLInputElement).blur();
           if (e.key === 'Escape') {
             setValue(String(assignment.allocation_percentage));
             setEditing(false);
@@ -556,7 +557,7 @@ export default function PersonDetails() {
               className="form-select"
               onBlur={handleSave}
               onKeyDown={(e) => {
-                if (e.key === 'Enter') handleSave();
+                if (e.key === 'Enter' && !isImeComposing(e)) handleSave();
                 if (e.key === 'Escape') handleCancel();
               }}
               autoFocus
@@ -576,7 +577,7 @@ export default function PersonDetails() {
               className="form-input"
               onBlur={handleSave}
               onKeyDown={(e) => {
-                if (e.key === 'Enter') handleSave();
+                if (e.key === 'Enter' && !isImeComposing(e)) handleSave();
                 if (e.key === 'Escape') handleCancel();
               }}
               placeholder={placeholder}

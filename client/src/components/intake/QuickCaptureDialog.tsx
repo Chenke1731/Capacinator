@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { isImeComposing } from '../../lib/ime';
 import { useNavigate } from 'react-router-dom';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { AlertCircle, ChevronDown, ChevronRight } from 'lucide-react';
@@ -221,6 +222,10 @@ export function QuickCaptureDialog({ open, onClose }: { open: boolean; onClose: 
   };
 
   const onKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    // 输入法组合态：Enter 是确认候选词，不是提交
+    if (isImeComposing(e)) return;
+    // 输入法组合态：Enter 是确认候选词，不是提交
+    
     if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {
       e.preventDefault();
       submit(false);

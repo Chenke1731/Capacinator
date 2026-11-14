@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { PopoverPortal } from '../PopoverPortal';
+import { isImeComposing } from '../../lib/ime';
 import { Avatar } from './EditableCells';
 import { useTranslation } from 'react-i18next';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
@@ -67,7 +68,7 @@ export function KlocCell({ project, kloc, derived, deviated, onSaved }: { projec
           else setEditing(false);
         }}
         onKeyDown={(e) => {
-          if (e.key === 'Enter') (e.target as HTMLInputElement).blur();
+          if (e.key === 'Enter' && !isImeComposing(e)) (e.target as HTMLInputElement).blur();
           if (e.key === 'Escape') setEditing(false);
         }}
       />
@@ -118,7 +119,7 @@ export function EffortCell({ project, pm, overridden, derived, deviated, onSaved
           else setEditing(false);
         }}
         onKeyDown={(e) => {
-          if (e.key === 'Enter') (e.target as HTMLInputElement).blur();
+          if (e.key === 'Enter' && !isImeComposing(e)) (e.target as HTMLInputElement).blur();
           if (e.key === 'Escape') setEditing(false);
         }}
       />
@@ -167,7 +168,7 @@ export function VersionPart({ project, field, placeholder, hint, onSaved }: {
           else setEditing(false);
         }}
         onKeyDown={(e) => {
-          if (e.key === 'Enter') (e.target as HTMLInputElement).blur();
+          if (e.key === 'Enter' && !isImeComposing(e)) (e.target as HTMLInputElement).blur();
           if (e.key === 'Escape') setEditing(false);
         }}
       />

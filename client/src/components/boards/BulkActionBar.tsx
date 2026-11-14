@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
+import { isImeComposing } from '../../lib/ime';
 import { useTranslation } from 'react-i18next';
 import { Check, Minus, Plus, X } from 'lucide-react';
 import { PopoverPortal } from '../PopoverPortal';
@@ -294,7 +295,7 @@ function VersionForm({ n, dist, existing, onApply }: {
         value={value}
         placeholder={t('projects:board.bulkVersionPlaceholder')}
         onChange={(e) => setValue(e.target.value)}
-        onKeyDown={(e) => { if (e.key === 'Enter' && trimmed) onApply(trimmed); }}
+        onKeyDown={(e) => { if (e.key === 'Enter' && !isImeComposing(e) && trimmed) onApply(trimmed); }}
       />
       <button
         type="button"

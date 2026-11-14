@@ -1,4 +1,5 @@
 import { useState, useEffect, useMemo } from 'react';
+import { isImeComposing } from '../lib/ime';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -367,7 +368,7 @@ export default function Assignments() {
                   e.target.style.background = 'transparent';
                 }}
                 onKeyDown={(e) => {
-                  if (e.key === 'Enter') {
+                  if (e.key === 'Enter' && !isImeComposing(e)) {
                     e.currentTarget.blur();
                   } else if (e.key === 'Escape') {
                     e.currentTarget.value = value.toString();
@@ -524,7 +525,7 @@ export default function Assignments() {
             e.target.style.background = 'transparent';
           }}
           onKeyDown={(e) => {
-            if (e.key === 'Enter') {
+            if (e.key === 'Enter' && !isImeComposing(e)) {
               e.currentTarget.blur();
             } else if (e.key === 'Escape') {
               e.currentTarget.value = value || '';

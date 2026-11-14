@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { isImeComposing } from '../../lib/ime';
 import { useTranslation } from 'react-i18next';
 import { Camera, Trash2 } from 'lucide-react';
 import { api } from '../../lib/api-client';
@@ -148,7 +149,7 @@ export function ActualInvestmentsPanel({ projectId }: { projectId: string }) {
                     onChange={(e) => setDraft(e.target.value)}
                     onBlur={() => saveManual(month, draft)}
                     onKeyDown={(e) => {
-                      if (e.key === 'Enter') (e.target as HTMLInputElement).blur();
+                      if (e.key === 'Enter' && !isImeComposing(e)) (e.target as HTMLInputElement).blur();
                       if (e.key === 'Escape') setEditing(null);
                     }}
                   />

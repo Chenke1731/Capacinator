@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { isImeComposing } from '../lib/ime';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { ArrowLeft, Edit2 } from 'lucide-react';
@@ -126,7 +127,7 @@ export default function RoleDetails() {
               className="form-input"
               onBlur={handleSave}
               onKeyDown={(e) => {
-                if (e.key === 'Enter' && e.ctrlKey) handleSave();
+                if (e.key === 'Enter' && !isImeComposing(e) && e.ctrlKey) handleSave();
                 if (e.key === 'Escape') handleCancel();
               }}
               placeholder={placeholder}
@@ -141,7 +142,7 @@ export default function RoleDetails() {
               className="form-input"
               onBlur={handleSave}
               onKeyDown={(e) => {
-                if (e.key === 'Enter') handleSave();
+                if (e.key === 'Enter' && !isImeComposing(e)) handleSave();
                 if (e.key === 'Escape') handleCancel();
               }}
               placeholder={placeholder}

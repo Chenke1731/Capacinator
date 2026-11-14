@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useMutation, useQuery } from '@tanstack/react-query';
+import { isImeComposing } from '../lib/ime';
 import { useTranslation } from 'react-i18next';
 import {
   Plus,
@@ -233,7 +234,7 @@ export default function PhaseTemplateDesigner({ projectTypeId, phases }: PhaseTe
             onChange={(e) => setValue(e.target.value)}
             onBlur={handleSave}
             onKeyDown={(e) => {
-              if (e.key === 'Enter') handleSave();
+              if (e.key === 'Enter' && !isImeComposing(e)) handleSave();
               if (e.key === 'Escape') handleCancel();
             }}
             className="duration-input"

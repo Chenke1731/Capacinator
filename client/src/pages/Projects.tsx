@@ -1,5 +1,6 @@
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { isImeComposing } from '../lib/ime';
 import { useVirtualizer } from '@tanstack/react-virtual';
 import { flattenTrees, type FlatRow } from '../lib/demandTree';
 import { useNavigate, useSearchParams } from 'react-router-dom';
@@ -66,7 +67,7 @@ function NumberPart({ project, onSaved }: { project: any; onSaved: () => void })
           else setEditing(false);
         }}
         onKeyDown={(e) => {
-          if (e.key === 'Enter') (e.target as HTMLInputElement).blur();
+          if (e.key === 'Enter' && !isImeComposing(e)) (e.target as HTMLInputElement).blur();
           if (e.key === 'Escape') setEditing(false);
         }}
       />
@@ -1212,7 +1213,7 @@ export function Projects() {
                 value={viewName}
                 placeholder={t('projects:taskViews.namePlaceholder')}
                 onChange={(e) => setViewName(e.target.value)}
-                onKeyDown={(e) => e.key === 'Enter' && savePersonalView()}
+                onKeyDown={(e) => e.key === 'Enter' && !isImeComposing(e) && savePersonalView()}
               />
               <button type="button" data-testid="personal-view-confirm" className="board-ghost-btn" onClick={savePersonalView}>
                 {t('projects:taskViews.confirmSave')}

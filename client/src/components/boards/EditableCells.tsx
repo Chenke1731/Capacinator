@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react';
 import { PopoverPortal } from '../PopoverPortal';
+import { isImeComposing } from '../../lib/ime';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import { Check, Pencil, Plus, Search, X } from 'lucide-react';
@@ -373,7 +374,7 @@ export function TagsCell({
               value={draftName}
               placeholder={t('projects:tagSelect.newPlaceholder')}
               onChange={(e) => setDraftName(e.target.value)}
-              onKeyDown={(e) => e.key === 'Enter' && createAndAdd()}
+              onKeyDown={(e) => e.key === 'Enter' && !isImeComposing(e) && createAndAdd()}
             />
             <button
               type="button"
@@ -452,7 +453,7 @@ export function ComponentCell({
               placeholder={t('projects:component.searchPlaceholder')}
               onChange={(e) => setDraft(e.target.value)}
               onKeyDown={(e) => {
-                if (e.key === 'Enter') commit(draft.trim());
+                if (e.key === 'Enter' && !isImeComposing(e)) commit(draft.trim());
               }}
             />
           </div>

@@ -5,7 +5,7 @@
  * "收入并继续"清正文保来源不关闭、来源记住上次选择。
  */
 import React from 'react';
-import { render, screen, fireEvent, waitFor, within } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor, within, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { QuickCaptureDialog } from '../QuickCaptureDialog';
@@ -60,6 +60,28 @@ describe('QuickCaptureDialog', () => {
     captureMock.mockResolvedValue({
       data: { success: true, data: { id: 'intake-1', status: 'new' }, warnings: [] },
     });
+  });
+
+  test('输入法组合态 Enter 不提交（IME 确认候选词，UI UX Pro Max gap 分析缺陷类）', async () => {
+    renderDialog();
+    const text = screen.getByTestId('intake-text');
+    await userEvent.type(text, '4月上线新报表');
+
+    // 中文输入法组合期间按 Enter = 确认候选词：keydown 带 isComposing
+    const composingEnter = new KeyboardEvent('keydown', { key: 'Enter', bubbles: true });
+    Object.defineProperty(composingEnter, 'isComposing', { value: true });
+    act(() => {
+      text.dispatchEvent(composingEnter);
+    });
+
+    // 不得触发提交（此前会把拼音/半截文本提交出去）
+    await new Promise((resolve) => setTimeout(resolve, 50));
+    expect(captureMock).not.toHaveBeenCalled();
+    expect(captureBatchMock).not.toHaveBeenCalled();
+
+    // 组合结束后的正常 Enter 仍应提交
+    await userEvent.type(text, '{Enter}');
+    await waitFor(() => expect(captureMock).toHaveBeenCalledTimes(1));
   });
 
   test('单行：粘贴 SR+日期+P 档 → ref/日期自动填充；Enter 直接提交且载荷正确', async () => {

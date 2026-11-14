@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { isImeComposing } from '../../lib/ime';
 import { useTranslation } from 'react-i18next';
 import { Check, AlertTriangle, ChevronRight, ChevronDown } from 'lucide-react';
 import { api } from '../../lib/api-client';
@@ -337,7 +338,7 @@ export function LifecycleBanner({ project }: { project: any }) {
               }
             }}
             onKeyDown={(e) => {
-              if (e.key === 'Enter') (e.target as HTMLInputElement).blur();
+              if (e.key === 'Enter' && !isImeComposing(e)) (e.target as HTMLInputElement).blur();
             }}
           />
         </div>

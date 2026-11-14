@@ -691,15 +691,15 @@ AGENTS.md
 
 | ID | 事项 | 处置/推荐 |
 |---|---|---|
-| D1 | ENCRYPTION_KEY 轮换范围 | **不是用户裁决**：由 `scripts/rotate-encryption-key.mjs --check` 只读盘点；0 行直接轮换，>0 行先重加密或暂缓；开发库已实测 0 行；生产部署机跑同一检查 |
+| D1 | ENCRYPTION_KEY 轮换范围 | **不是用户裁决**：`scripts/rotate-encryption-key.mjs` 已实现并盘点；开发库 0 行，`--rotate` 通过；生产部署机跑同一 `--check`，>0 行先 `--re-encrypt` 或暂缓 |
 | D2 | 敏感历史是否已 push | **已核实**：`.mcp.json` 在 `origin/main` 与 `origin/feature/i01-demand-intake` 历史中；按已泄露处理，立即撤销 |
 | D3 | packageManager npm@12 vs 本机 9.2.0 | 固定到所选 Node 实际自带 npm 版本；`verify:doctor` 检查，不写“以本机为准” |
 | D4 | Stryker 是否常设 | 本方案按“手动、无排期、无 CI、不 break”执行；季度化须先修订 `TEST_FRAMEWORK_DESIGN.md` §5.3 并裁决 |
 | D5 | OSV 联网 | 允许联网查询包元数据；断网记“未完成”，不能当 0 漏洞通过 |
 | D6 | Playwright 升级 | 1.58 已具备本批所需；1.65 拆为独立可选项，不阻塞 P1 |
-| D7 | Jenkins MCP | **用户裁决（2026-11-14）**：删除 Jenkins MCP；保留 Jenkinsfile；token 轮换 |
+| D7 | Jenkins MCP | **用户裁决（2026-11-14）**：已删除 `.mcp.json`（Jenkins+shadcn）；保留 Jenkinsfile；token 需外部撤销/轮换 |
 | D8 | AGENTS.md 正本 | 先做 Claude/Codex 双读兼容 spike；默认 CLAUDE.md 完整 + AGENTS.md 镜像/符号链接 + 漂移检查 |
-| D9 | GitHub CI | **用户裁决（2026-11-14）**：保留 PR 推送能力，不使用 GitHub CI；删除 3 个 workflows；本地 `verify:pr` + 夜审承接 |
+| D9 | GitHub CI | **用户裁决（2026-11-14）**：保留 PR 推送能力，不使用 GitHub CI；3 个 workflows 已删除；`scripts/verify-pr.mjs` 已承接本地门禁 |
 
 ### 15.4 未采纳/NIT（附理由）
 
@@ -722,3 +722,46 @@ AGENTS.md
 ### 15.6 结论
 
 三方一致 **APPROVE_WITH_CHANGES**。按 §15.2 修订后，方案可进入 P0；剩余需用户/工程裁决的是 D1（ENCRYPTION_KEY 范围）、D4（Stryker 是否季度化）、D7（Jenkins MCP 去留）、D8（AGENTS 正本方式），其余按默认推荐执行。
+
+---
+
+## 16. P0 实施记录（2026-11-14）
+
+**提交**：`888f45d`（`feat(tooling): land P0 security and environment hardening (I19a/I19b)`）
+
+### 16.1 已落地
+
+- **凭证/secret**：删除 `.mcp.json`（Jenkins + shadcn，含明文 token/TLS 关闭）；取消跟踪 `.env.development/.qa/.staging/.production`，保留 `.env.test`/`.env.e2e` 测试模板并标注；`.env.example` 具体 key 改占位符；新增 `scripts/setup-env.mjs`（`--self-test`/`--rotate`，开发 JWT/ENCRYPTION 已轮换）。
+- **扫描**：`gitleaks.toml` + `.gitleaksignore` + pre-commit staged 扫描；`scripts/security-audit.mjs` 统一 secrets/deps/signatures；`security/osv-baseline.json`（160 critical/high 存量基线，只拦新增）+ `security/signature-exceptions.json`。
+- **数据密钥**：`scripts/rotate-encryption-key.mjs`（`--check`/`--re-encrypt`/`--rotate`）；开发库实测 0 行，`--rotate` 通过。
+- **环境**：`.nvmrc=22`、`engines>=22.12`、`packageManager npm@12.0.2`；`scripts/lib/browser.mjs` 统一 20 处 Chromium 路径；`scripts/verify-doctor.mjs`。
+- **夜审隔离**：`knexfile.e2e.ts` 支持 `E2E_DB_PATH`/`DATABASE_URL`；`init-e2e.ts` 拒绝删除 `.e2e-data` 外路径；`audit-nightly.mjs` 使用 `audit-nightly.db` + 互斥锁。
+- **GitHub**：删除 `test.yml`/`layout-audit.yml`/`auto-merge.yml`；保留 PR push；新增 `scripts/verify-pr.mjs` 本地承接 lint/typecheck/unit/collection/redline，`--skip-e2e` 可用。
+- **TLS**：取消跟踪 `ssl/dev.capacinator.com.key`，`.gitignore` 加 `ssl/*.key`。
+
+### 16.2 验证结果
+
+| 命令 | 实际结果 |
+|---|---|
+| `node scripts/setup-env.mjs --self-test` / `--rotate` | PASS；开发 JWT/ENCRYPTION 已轮换 |
+| `gitleaks git --pre-commit --staged` / `gitleaks git` | 暂存 0；全历史 815 commits，0 未豁免（3 条已轮换/删除历史 finding 用 fingerprint 豁免） |
+| `node scripts/security-audit.mjs --all` | secrets 0；OSV 310 findings（160 critical/high）基线 160、新增 0；signatures 1 个过期 key 有例外 |
+| `node scripts/rotate-encryption-key.mjs --check` / `--rotate` | 开发库 `github_connections` 0 行；安全轮换通过 |
+| `node scripts/verify-doctor.mjs` | PASS；vlmkit `>=24` 对 Node 22 为 WARN 例外 |
+| `E2E_DB_PATH=.e2e-data/audit-nightly-test.db ... src/server/index.ts` | `/api/health` 200 environment=e2e；默认 `.e2e-data/e2e-test.db` mtime 不变 |
+| `node scripts/verify-pr.mjs --skip-e2e` | 全绿；Jest **5046 passed / 0 failed**；collection 361/160；redline annotations 2 files |
+| `.githooks/pre-commit` | 全门禁过（含新 secret scan） |
+
+### 16.3 残留（未关闭）
+
+1. **Jenkins token** 需在 Jenkins 侧撤销/轮换；本地已从 HEAD 删除，但历史仍在。
+2. **生产 ENCRYPTION_KEY** 需在部署机跑 `node scripts/rotate-encryption-key.mjs --check --db /var/www/capacinator/data/capacinator.db`；>0 行则先重加密或暂缓。
+3. **历史重写**未做（需用户批准）；`.gitleaksignore` 只覆盖已轮换/删除的历史 fingerprint。
+4. **OSV 160 critical/high 存量**仅基线，未清偿；按 follow-up 分批处理。
+5. **Node 24** 未升级；当前固定 22，vlmkit `>=24` 为已记录例外；升级需重建 better-sqlite3 ABI，拆独立 spike。
+6. **Full E2E smoke/L3** 未在活跃 e2e 栈上重跑；`verify:pr` 已提供 `--skip-e2e`/全量两种模式。
+7. **dev.capacinator.com TLS key** 已从 HEAD 移除但历史仍在；若该域名仍使用，需重签证书。
+
+### 16.4 下一步
+
+P1-1 `verify-tier`（T0/T1/T2 + `findRelatedTests` + page→E2E 映射 + 映射枚举守卫），随后 P1-2/P1-3。

@@ -56,7 +56,11 @@ jobs:
 
       - name: Install browsers (project + vlmkit)
         run: |
-          npx playwright install --with-deps chromium
+          if ! npx playwright install --with-deps chromium > /tmp/project-browser.log 2>&1; then
+            MSG=$(tail -20 /tmp/project-browser.log | tr '\n' ' ' | sed 's/%/%25/g')
+            echo "::error title=project playwright install failed::$MSG"
+            exit 1
+          fi
           if ! npx --yes playwright@1.65.1 install chromium > /tmp/vlmkit-browser.log 2>&1; then
             MSG=$(tail -20 /tmp/vlmkit-browser.log | tr '\n' ' ' | sed 's/%/%25/g')
             echo "::error title=vlmkit browser install failed::$MSG"

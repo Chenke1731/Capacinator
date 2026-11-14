@@ -206,3 +206,27 @@ verification: done 2026-11-14 — 变异红证：去掉 roleGaps 谓词 → Expe
 status: enforced
 note: EXP-B11 第 3 活跃实例（前两例：ReportDataService 日期、phaseInheritance）。可用率 join 家族消费方普查：4 处（fetchApprovedAvailabilityOverrides 正身、076 已修、roleGaps+055 本批修）。新口径修复必须附同族消费方清单，否则守卫只护住第一个门
 ```
+
+```yaml exp
+id: EXP-B18
+source: review/2026-11-14-workbench-v2-round2（DeepSeek P1：客户端撤销替换=删新行+重建旧行两条独立请求，删成功+建 409 → 两人分配全丢）
+class: 跨请求补偿×非事务
+mechanism_slice: compensating-pair × non-transactional
+disposition: GUARD
+guard: enforced — POST /assignments/:id/undo-replace 单事务（版本校验→同键查重→删替换行→重建旧行），任一失败整体回滚；tests/integration/api/assignment-undo-replace.test.ts 矩阵：成功(fixed/phase)、DUPLICATE 409 回滚（替换行仍在）、VERSION 冲突、404、非法日期——**不变式：撤销失败后撤销前状态原样保留**
+verification: done 2026-11-14 — 回滚用例在实现前即红（拆分两请求时删除已生效、重建 409 → 旧行丢失）；实现后绿；客户端失败保留撤销记录可重试
+status: enforced
+note: 客户端"先 A 后 B"的补偿操作（尤其删除+重建）必须收进服务端单事务；跨请求的原子性只能由服务端提供。类枚举（客户端 assignments 写点）：BoardCells/Assignments/ProjectDetail/PersonDetails/SmartAssignmentModal 均为独立用户动作，唯一补偿对是 undo-replace——清单即修复范围
+```
+
+```yaml exp
+id: EXP-B19
+source: review/2026-11-14-workbench-v2-round2（DeepSeek P2：未来已批准请假不入容量——utilization 视图只 JOIN 覆盖今天的行）
+class: 部分集合×权威口径
+mechanism_slice: partial-source × authoritative-capacity-set
+disposition: GUARD
+guard: enforced — 客户端 fetchApprovedAvailabilityOverrides(personId, window)（approved-only 窗口全集）为唯一取数原语，页面所有容量面共用；服务端 4 消费方见 EXP-B16/B17。页面测试：整窗 0% 覆盖必须使热区离开默认可用率口径
+verification: done 2026-11-14 — 映射单测（未批准/畸形/倒置过滤）+ 页面用例（未来 0% 覆盖 → 热区不可用提示 + 查询参数断言）
+status: enforced
+note: EXP-B11 家族第 4 实例（服务端 3 处已在 B16/B17 修）；本次是客户端近似："今天生效的单一窗口"≠"窗口内 approved 全集"。凡"权威集合"在跨端消费，每端都要有全集取数原语，近似只能在原语内部登记
+```

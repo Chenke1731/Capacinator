@@ -241,3 +241,39 @@ verification: done 2026-11-14 — 修复=onClose 入 ref、effect 仅依赖 open
 status: enforced
 note: "cleanup 里做焦点归还"的 effect 凡依赖父级 inline 回调都有此雷——归还只应发生在 open 翻转/卸载，回调一律 ref 化。同族：ESC 处理器同样走 ref
 ```
+
+```yaml exp
+id: EXP-020
+source: review/2026-11-14-workbench-v2-round2（DeepSeek P2：行编辑把开始日改到结束日之后，实时预览 workloadTimeline 抛错整页崩溃）
+class: 实时预览×任意输入安全
+mechanism_slice: realtime-preview × arbitrary-input-safety
+disposition: GUARD
+guard: enforced — workloadTimeline 对倒置区间按 min/max 归一（asOf/缺区间仍 throw）；单测断言倒置输入语义等价正序输入；页面测试逐键中间态（开始日越过结束日）页面存活 + 显示"日期顺序无效"提示
+verification: done 2026-11-14 — 原实现 throw → 组件测试红（整页崩溃）；原语归一后绿
+status: enforced
+note: "契约函数主动 throw"对批处理正确，对**实时预览**是雷：逐键渲染必然经过中间态。规矩=用户可编辑输入进入原语前不得假定有序/完整；原语级 total 化（一处修，N 调用点安全）优先于调用点防御
+```
+
+```yaml exp
+id: EXP-021
+source: review/2026-11-14-workbench-v2-round2（DeepSeek P2：首次 UNKNOWN 回读也失败后无任何重新核对入口，草稿永久锁定）
+class: 锁定态×无出口
+mechanism_slice: locked-state × no-exit
+disposition: GUARD
+guard: enforced — DraftCommitBar 锁定态矩阵测试（9 用例）：confirm 禁用且非提交中时必须存在至少一个可用按钮；UNKNOWN→[重新核对]（按草稿原场景回读）、FAILED→[重试失败]、CONFLICT/INVALID/失配→[清空]；SUBMITTING 为设计例外（在途无出口，文案在位）
+verification: done 2026-11-14 — 矩阵在加 [重新核对] 前 UNKNOWN 用例红；加后绿；页面用例覆盖"回读失败→锁定→网络恢复→核对命中解锁"
+status: enforced
+note: 任何"禁用主操作"的状态都必须在 UI 上给出用户可执行的下一步——注释里写"等用户手动重试"而入口不存在是缺陷。矩阵枚举（状态×可用动作）是覆盖证明，单点用例不算
+```
+
+```yaml exp
+id: EXP-022
+source: review/2026-11-14-workbench-v2-round2（DeepSeek P2：阶段草稿用整项目包络，四月阶段计入三月负荷）
+class: 派生日期×来源优先级
+mechanism_slice: derived-dates × source-priority
+disposition: GUARD
+guard: enforced — selection=1 role_demands 携带需求阶段时间线窗口（phase_start_date/phase_end_date）；createDraftFromTask phase 模式优先级=需求阶段窗口→任务包络→null；integration 断言窗口下发，单测断言优先级与回落
+verification: done 2026-11-14 — 集成 10/10、单测 25/25
+status: enforced
+note: "显示包络"（时间线 MIN/MAX 只用于展示）与"写入窗口"必须区分；派生日期默认值要有明确优先级链，且链路每一跳都有测试（需求窗口存在/缺失/无阶段）
+```

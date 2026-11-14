@@ -192,7 +192,9 @@ export default function PersonWorkload() {
       end_date: overridesWindowEnd,
     } as never),
     queryFn: () => fetchApprovedAvailabilityOverrides(id!, asOf, overridesWindowEnd),
-    enabled: Boolean(id) && !utilizationQuery.isError,
+    // asOf 来自 utilization 的 as_of：必须等它落定后再取覆盖窗口，
+    // 否则先用"今天"发一轮再换键重发（多一轮请求+夹具/缓存额外键）
+    enabled: Boolean(id) && utilizationQuery.isSuccess,
     staleTime: 60_000,
   });
   const availabilityOverrides = useMemo<AvailabilityOverrideInput[]>(() => {

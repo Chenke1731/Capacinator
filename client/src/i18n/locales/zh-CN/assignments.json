@@ -485,7 +485,9 @@
       "ended": "已结束",
       "undated": "未定日期",
       "dragTipWindow": "{{start}} → {{end}} · {{days}} 天",
-      "dragTipMove": "{{start}} → {{end}} · {{days}} 天（{{delta}}）"
+      "dragTipMove": "{{start}} → {{end}} · {{days}} 天（{{delta}}）",
+      "history": "历史",
+      "dragTipClamped": " · 已达下限"
     },
     "inspector": {
       "title": "草稿参数：{{name}}",

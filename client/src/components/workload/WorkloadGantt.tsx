@@ -159,6 +159,8 @@ export function WorkloadGantt({
     preview: CommittedDatePreview;
     mode: DragMode;
     deltaDays: number;
+    appliedDelta: number;
+    clamped: boolean;
     durationDays: number;
   } | null>(null);
   const dragNotifyRef = useRef<{
@@ -271,14 +273,21 @@ export function WorkloadGantt({
       const preview = { assignmentId: state.id, ...next };
       state.lastPreview = preview;
       setLocalDragPreview(preview);
-      const durationDays =
-        Math.round((toDayNumber(preview.endDate) - toDayNumber(preview.startDate)) / DAY_MS) + 1;
+      // toDayNumber 已是"天"，不能再除 DAY_MS（否则恒为 1 天）
+      const durationDays = toDayNumber(preview.endDate) - toDayNumber(preview.startDate) + 1;
+      // 提示里的位移必须是"应用后"的位移，不是鼠标原始位移（钳制时两者不同）
+      const appliedDelta =
+        state.mode === 'end'
+          ? toDayNumber(preview.endDate) - state.origEnd
+          : toDayNumber(preview.startDate) - state.origStart;
       setDragTip({
         x: lastPointer.current.x,
         y: lastPointer.current.y,
         preview,
         mode: state.mode,
         deltaDays,
+        appliedDelta,
+        clamped: appliedDelta !== deltaDays,
         durationDays,
       });
       notifyCommittedPreview(preview);
@@ -579,7 +588,7 @@ export function WorkloadGantt({
           </div>
         ) : null}
         <span className="pw-gantt-range">
-          {timeline.rangeStart.slice(0, 7)} ~ {timeline.rangeEnd.slice(0, 7)}
+          {timeline.rangeStart} ~ {timeline.rangeEnd}
         </span>
         <button
           type="button"
@@ -608,6 +617,9 @@ export function WorkloadGantt({
 
           <div className="pw-gantt-legend">
             <span className="pw-legend pw-legend--fixed">{t('assignments:workbench.gantt.fixed')}</span>
+            {asOfOffset > 0 ? (
+              <span className="pw-legend pw-legend--history">{t('assignments:workbench.gantt.history')}</span>
+            ) : null}
             <span className="pw-legend pw-legend--derived">
               <Lock size={11} aria-hidden="true" /> {t('assignments:workbench.gantt.derived')}
             </span>
@@ -645,6 +657,13 @@ export function WorkloadGantt({
                     ref={laneIndex === 0 ? measureTrackRef : undefined}
                     style={{ minHeight: `${Math.max(lane.bars.length * 26 + 2, 30)}px` }}
                   >
+                    {asOfOffset > 0 ? (
+                      <span
+                        className="pw-gantt-history"
+                        style={{ width: `${Math.min(asOfOffset, 100)}%` }}
+                        aria-hidden="true"
+                      />
+                    ) : null}
                     <span className="pw-gantt-asof" style={{ left: `${Math.min(Math.max(asOfOffset, 0), 100)}%` }} aria-hidden="true" />
                     {lane.bars.map((bar, barIndex) => {
                       const originalOutline =
@@ -810,9 +829,10 @@ export function WorkloadGantt({
               start: dragTip.preview.startDate,
               end: dragTip.preview.endDate,
               days: dragTip.durationDays,
-              delta: `${dragTip.deltaDays > 0 ? '+' : ''}${dragTip.deltaDays}`,
+              delta: `${dragTip.appliedDelta > 0 ? '+' : ''}${dragTip.appliedDelta}`,
             }
           )}
+          {dragTip.clamped ? t('assignments:workbench.gantt.dragTipClamped') : ''}
         </div>
       ) : null}
     </section>

@@ -485,7 +485,9 @@
       "ended": "Ended",
       "undated": "undated",
       "dragTipWindow": "{{start}} → {{end}} · {{days}} days",
-      "dragTipMove": "{{start}} → {{end}} · {{days}} days ({{delta}})"
+      "dragTipMove": "{{start}} → {{end}} · {{days}} days ({{delta}})",
+      "history": "History",
+      "dragTipClamped": " · lower bound"
     },
     "inspector": {
       "title": "Draft parameters: {{name}}",

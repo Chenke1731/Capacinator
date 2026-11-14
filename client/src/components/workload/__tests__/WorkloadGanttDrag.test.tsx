@@ -122,9 +122,11 @@ describe('WorkloadGantt 已提交 bar 拖拽（S1）', () => {
       endDate: '2026-10-15',
     });
     // 拖动中即时反馈：精确日期提示 + 原窗口虚框（不必等松手/面板）
-    expect(await screen.findByTestId('pw-gantt-drag-tip')).toHaveTextContent(
-      '2026-01-16 → 2026-10-15'
-    );
+    const tip = await screen.findByTestId('pw-gantt-drag-tip');
+    expect(tip).toHaveTextContent('2026-01-16 → 2026-10-15');
+    expect(tip).toHaveTextContent('273 days');
+    expect(tip).toHaveTextContent('(+15)');
+    expect(tip).not.toHaveTextContent('lower bound');
     await waitFor(() => {
       expect(document.querySelectorAll('.pw-gantt-orig-window')).toHaveLength(1);
       expect(document.querySelector('.pw-gantt-bar--dragging')).toBeTruthy();
@@ -172,7 +174,7 @@ describe('WorkloadGantt 已提交 bar 拖拽（S1）', () => {
     expect(onPreview).toHaveBeenCalledTimes(1);
   });
 
-  test('已开始行向左移动停在下限：窗口不前移、不截断历史', () => {
+  test('已开始行向左移动停在下限：窗口不前移、不截断历史', async () => {
     const { onPreview } = renderGantt({});
     const bar = screen.getByTestId('pw-gantt-bar');
 
@@ -183,6 +185,9 @@ describe('WorkloadGantt 已提交 bar 拖拽（S1）', () => {
       startDate: '2026-01-01',
       endDate: '2026-09-30',
     });
+    // 提示必须显示"应用后"的位移（0），而不是鼠标原始位移，并标出已达下限
+    expect(await screen.findByTestId('pw-gantt-drag-tip')).toHaveTextContent('(0)');
+    expect(screen.getByTestId('pw-gantt-drag-tip')).toHaveTextContent('lower bound');
   });
 
   test('右端缩放只改结束日，开始日保持不变', () => {

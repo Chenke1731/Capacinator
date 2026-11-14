@@ -1952,8 +1952,12 @@ test('S8: 默认窗口取最远结束日（clamp 到 3–12 个月）', async ()
   await waitFor(() => {
     expect(screen.getAllByTestId('pw-gantt-bar').length).toBeGreaterThan(0);
   });
-  // 夹具最远 end=2026-12-31；asOf=2026-03-15 → 窗口末端取 2026-12
-  expect(screen.getByTestId('pw-gantt')).toHaveTextContent('2026-03 ~ 2026-12');
+  // 夹具最远 end=2026-12-31；asOf=2026-03-15；a1 跨参考日且 start=2026-01-01
+  // → 左界包含历史起点 2026-01（修复“左缘钉在 asOf”），末端取 2026-12
+  expect(screen.getByTestId('pw-gantt')).toHaveTextContent('2026-01-01 ~ 2026-12-31');
+  // 左界含历史段：有历史斜纹带 + 图例，bar 左缘对应真实 start
+  expect(document.querySelector('.pw-gantt-history')).toBeTruthy();
+  expect(screen.getByTestId('pw-gantt')).toHaveTextContent(/History/i);
   // 跨度 > 6 个月 → 热区按月桶（约 10 个），不是周桶（约 42 个）
   const heatBars = screen.getByTestId('pw-gantt-heat-full').querySelectorAll('.pw-heat-bar');
   expect(heatBars.length).toBeGreaterThan(0);
@@ -1971,11 +1975,11 @@ test('S8: 超远结束日被 12 个月上限截断，并出现在范围外入口
   await waitFor(() => {
     expect(screen.getAllByTestId('pw-gantt-bar').length).toBeGreaterThan(0);
   });
-  expect(screen.getByTestId('pw-gantt')).toHaveTextContent('2026-03 ~ 2027-03');
+  expect(screen.getByTestId('pw-gantt')).toHaveTextContent('2026-01-01 ~ 2027-03-15');
   const locate = await screen.findByTestId('pw-locate-committed-a1');
   fireEvent.click(locate);
   await waitFor(() => {
-    expect(screen.getByTestId('pw-gantt')).toHaveTextContent('2026-03 ~ 2029-12');
+    expect(screen.getByTestId('pw-gantt')).toHaveTextContent('2026-01-01 ~ 2029-12-31');
   });
 });
 
@@ -1997,11 +2001,11 @@ test('S8: 远未来 committed 行走“范围外”定位入口，点击才扩�
   });
   renderPage();
   const locate = await screen.findByTestId('pw-locate-committed-far-row');
-  expect(screen.getByTestId('pw-gantt')).toHaveTextContent('2026-03 ~ 2027-03');
+  expect(screen.getByTestId('pw-gantt')).toHaveTextContent('2026-03-15 ~ 2027-03-15');
 
   fireEvent.click(locate);
   await waitFor(() => {
-    expect(screen.getByTestId('pw-gantt')).toHaveTextContent('2026-03 ~ 2028-12');
+    expect(screen.getByTestId('pw-gantt')).toHaveTextContent('2026-03-15 ~ 2028-12-31');
   });
 });
 

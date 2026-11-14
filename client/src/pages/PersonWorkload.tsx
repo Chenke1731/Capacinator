@@ -181,7 +181,24 @@ export default function PersonWorkload() {
   // ---- 工作台 v2：泳道时间范围（S8 自适应；mini-map 可移动窗口）----
   const [rangeEndOverride, setRangeEndOverride] = useState<string | null>(null);
   const [rangeStartOverride, setRangeStartOverride] = useState<string | null>(null);
-  const rangeStart = rangeStartOverride ?? asOf;
+  // 用户反馈（2026-11-14）：已开始行的 start < asOf，若左界固定 asOf，bar 被
+  // 裁剪到 0%，整块拖动前 N 天只拉伸右缘、左缘不动（越过 asOf 才跳）。
+  // 修复：左界包含"跨参考日的进行中分配"的最早 start（最多回看 3 个月），
+  // 让左缘真实对应日期；更早的历史仍裁剪，避免压缩未来视图。
+  const historyRangeStart = useMemo(() => {
+    let earliest = '';
+    for (const row of assignmentsQuery.data ?? []) {
+      const start = workloadDateOnly(row.computed_start_date ?? row.start_date);
+      const end = workloadDateOnly(row.computed_end_date ?? row.end_date);
+      if (!start || !end) continue;
+      if (end < asOf || start >= asOf) continue;
+      if (!earliest || start < earliest) earliest = start;
+    }
+    if (!earliest) return asOf;
+    const floor = shiftIsoMonths(asOf, -3);
+    return earliest < floor ? floor : earliest;
+  }, [assignmentsQuery.data, asOf]);
+  const rangeStart = rangeStartOverride ?? historyRangeStart;
 
   const defaultAvailability = personQuery.data?.default_availability_percentage ?? null;
   // C2（Codex P2#4 + D-01a）：热区默认可用率=人员档案默认值，而不是当前

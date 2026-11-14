@@ -167,3 +167,119 @@ test.describe('Person workbench v2 (dialog selection → ghost → commit)', () 
     expect(dialogTitleColor).not.toBe('rgba(0, 0, 0, 0)');
   });
 });
+
+/**
+ * Phase A（S1/S2/S6）：已提交 fixed bar 拖动 → 就地面板预填 → 单 PUT 保存 → 撤销。
+ * 用 API 创建一条"已开始、未结束"的临时分配，测试结束删除，避免污染共享库。
+ */
+test.describe('Person workbench v2 (S1/S2/S6 committed drag + panel + undo)', () => {
+  const iso = (offsetDays: number) => new Date(Date.now() + offsetDays * 86400000).toISOString().slice(0, 10);
+
+  test(`${tags.integration} drag committed bar, save in place, undo restores dates/allocation`, async ({
+    authenticatedPage,
+    apiContext,
+  }) => {
+    const person = await firstPerson(apiContext);
+    test.skip(!person, 'No people fixture in e2e database');
+
+    const projectsBody = await (await apiContext.get('/api/projects')).json();
+    const projects = projectsBody?.data?.data ?? projectsBody?.data ?? [];
+    const rolesBody = await (await apiContext.get('/api/roles')).json();
+    const roles = rolesBody?.data?.data ?? rolesBody?.data ?? [];
+    const roleId = person.roles?.[0]?.role_id ?? roles[0]?.id;
+    const project = projects[0];
+    test.skip(!project || !roleId, 'No project/role fixture in e2e database');
+
+    const originalStart = iso(-20);
+    const originalEnd = iso(60);
+    const createRes = await apiContext.post('/api/assignments', {
+      data: {
+        person_id: person.id,
+        project_id: project.id,
+        role_id: roleId,
+        allocation_percentage: 20,
+        assignment_date_mode: 'fixed',
+        start_date: originalStart,
+        end_date: originalEnd,
+      },
+    });
+    expect(createRes.ok()).toBe(true);
+    const created = (await createRes.json())?.data ?? {};
+    const createdId = created.id as string;
+    expect(createdId).toBeTruthy();
+
+    // 页面按场景投影读取：行 id 带 `spa-` 前缀（baseline 投影包装），
+    // DOM / PUT / 读回都用投影 id，清理仍用创建返回的底层 id。
+    const listedBody = await (
+      await apiContext.get(`/api/assignments?person_id=${person.id}&limit=200`)
+    ).json();
+    const listedRows = listedBody?.data?.data ?? listedBody?.data ?? [];
+    const projected = listedRows.find(
+      (row: any) => String(row.id).endsWith(createdId) || String(row.base_assignment_id) === createdId
+    );
+    const assignmentId = String(projected?.id ?? createdId);
+
+    try {
+      await authenticatedPage.goto(`/people/${person.id}/workload`);
+      const bar = authenticatedPage.locator(
+        `[data-testid="pw-gantt-bar"][data-assignment-id="${assignmentId}"]`
+      );
+      await expect(bar).toBeVisible({ timeout: 15000 });
+
+      // 拖动整段（中心按下，避开两端缩放手柄）
+      const box = await bar.boundingBox();
+      expect(box).toBeTruthy();
+      const cx = box!.x + box!.width / 2;
+      const cy = box!.y + box!.height / 2;
+      await authenticatedPage.mouse.move(cx, cy);
+      await authenticatedPage.mouse.down();
+      await authenticatedPage.mouse.move(cx + 40, cy, { steps: 6 });
+      await authenticatedPage.mouse.up();
+
+      // 松手后不触发 click 重开：直接进入 committed 面板且预填拖动后的日期
+      const panel = authenticatedPage.getByTestId('pw-committed-inspector');
+      await expect(panel).toBeVisible();
+      const startInput = panel.getByLabel('Start date');
+      const previewStart = await startInput.inputValue();
+      expect(previewStart).not.toBe(originalStart);
+      await expect(panel.getByLabel('End date')).not.toHaveValue(originalEnd);
+
+      // 面板内改比例 → 单 PUT（带快照版本）→ 关闭 + 撤销 toast
+      await panel.getByLabel('Allocation %').fill('33');
+      const [saveResponse] = await Promise.all([
+        authenticatedPage.waitForResponse(
+          (response) =>
+            response.url().includes(`/api/assignments/${assignmentId}`) &&
+            response.request().method() === 'PUT'
+        ),
+        panel.getByTestId('pw-committed-save').click(),
+      ]);
+      expect(saveResponse.ok()).toBe(true);
+      await expect(panel).toHaveCount(0);
+
+      const readAssignment = async () => {
+        const response = await apiContext.get(`/api/assignments/${assignmentId}`);
+        const body = await response.json();
+        return body?.data?.data ?? body?.data ?? body;
+      };
+      await expect
+        .poll(async () => (await readAssignment()).allocation_percentage, { timeout: 10000 })
+        .toBe(33);
+      const saved = await readAssignment();
+      expect(saved.start_date.slice(0, 10)).toBe(previewStart);
+
+      const undoButton = authenticatedPage.getByRole('button', { name: 'Undo', exact: true });
+      await expect(undoButton).toBeVisible();
+      await undoButton.click();
+
+      await expect
+        .poll(async () => (await readAssignment()).allocation_percentage, { timeout: 10000 })
+        .toBe(20);
+      const restored = await readAssignment();
+      expect(restored.start_date.slice(0, 10)).toBe(originalStart);
+      expect(restored.end_date.slice(0, 10)).toBe(originalEnd);
+    } finally {
+      await apiContext.delete(`/api/assignments/${createdId}`).catch(() => undefined);
+    }
+  });
+});

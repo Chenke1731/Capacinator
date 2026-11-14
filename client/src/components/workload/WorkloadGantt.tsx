@@ -1,8 +1,12 @@
 /**
- * WorkloadGantt（工作台 v2 §5.2/§8）——工作负载泳道：
+ * WorkloadGantt（工作台 v2 §5.2/§8 + 交互优化 S1/S2）——工作负载泳道：
  * 容量热区（workloadTimeline buckets，100% 相对线）+ 分配 bar 层。
  *
- * 第一版不做拖拽：点击 ghost → 参数面板；点击已有 bar → 定位明细表行。
+ * 拖拽：ghost 即时改草稿；已提交 fixed bar 越过 3px 阈值后进入"预览 →
+ * 松手开确认面板"（不直存）。边界由 committedBarDrag 纯函数统一（已开始行
+ * 不截断历史、右端缩放不改开始日、已结束行不可拖）。拖拽成立后吞掉随后
+ * click，避免确认面板被 S2 重开覆盖。
+ *
  * bar 视觉契约：fixed 实心；phase/project 派生虚线+锁形 aria；paused 灰；
  * future/ended 淡化；ghost 斜纹半透明（§18 视觉验收）。范围外 ghost 给
  * 定位入口（§20.3）。可折叠为紧凑容量条（1366）。
@@ -13,6 +17,7 @@ import { ChevronDown, ChevronUp, Crosshair, Lock } from 'lucide-react';
 import { workloadDateOnly, type WorkloadAssignment } from '../../lib/personWorkload';
 import type { AssignmentDraft } from '../../lib/assignmentDrafts';
 import type { WorkloadTimelineBucket, WorkloadTimelineResult } from '../../lib/workloadTimeline';
+import { canDragCommittedBar, computeCommittedDragDates } from '../../lib/committedBarDrag';
 import { CapacityHeatStrip } from './CapacityHeatStrip';
 
 const DAY_MS = 24 * 60 * 60 * 1000;
@@ -26,6 +31,12 @@ function toDayNumber(iso: string): number {
 export interface GanttAssignmentMeta extends WorkloadAssignment {
   project_name?: string | null;
   role_name?: string | null;
+}
+
+export interface CommittedDatePreview {
+  assignmentId: string;
+  startDate: string;
+  endDate: string;
 }
 
 export interface WorkloadGanttProps {
@@ -45,17 +56,29 @@ export interface WorkloadGanttProps {
   onNavigateRange?: (monthStart: string) => void;
   /** Phase 3 项目泳道模式：lane 点击查看该项目全员配置 */
   onProjectLaneClick?: (projectId: string, projectName: string) => void;
+  /** S1：已提交 fixed bar 拖动中的临时预览（页面用它驱动热区投影） */
+  committedPreview?: CommittedDatePreview | null;
+  /** S1：拖动中（每次位移后）更新预览 */
+  onCommittedDragPreview?: (preview: CommittedDatePreview) => void;
+  /** S1：松手且日期变化 → 页面打开 committed 面板（沿用会话） */
+  onCommittedDragEnd?: (preview: CommittedDatePreview) => void;
+  /** S1：拖拽总开关（提交中/场景失配/只读时关闭） */
+  committedDragEnabled?: boolean;
 }
 
 type DragMode = 'move' | 'start' | 'end';
 
 interface DragState {
-  draftId: string;
+  kind: 'draft' | 'committed';
+  id: string;
   mode: DragMode;
   pointerStartX: number;
   trackWidth: number;
   origStart: number | null;
   origEnd: number | null;
+  /** committed：越过 3px 阈值后才算拖动成立（否则视为点击） */
+  started: boolean;
+  lastPreview?: CommittedDatePreview;
 }
 
 interface BarModel {
@@ -91,14 +114,20 @@ export function WorkloadGantt({
   minimapBuckets,
   onNavigateRange,
   onProjectLaneClick,
+  committedPreview,
+  onCommittedDragPreview,
+  onCommittedDragEnd,
+  committedDragEnabled = false,
 }: WorkloadGanttProps) {
   const { t } = useTranslation(['assignments']);
 
   const rangeStartDay = toDayNumber(timeline.rangeStart);
   const rangeEndDay = toDayNumber(timeline.rangeEnd);
   const totalDays = Math.max(rangeEndDay - rangeStartDay + 1, 1);
+  // S1：拖拽成立后吞掉随后 click（否则会按 S2 重开并覆盖预填）
+  const suppressClickRef = useRef(false);
 
-  // ---- Phase 2：fixed ghost 拖动/缩放（指针 + 键盘）----
+  // ---- Phase 2/S1：ghost 与已提交 fixed bar 的拖拽/缩放（指针 + 键盘）----
   const dragRef = useRef<DragState | null>(null);
   const dragGhostEditable = (draft: AssignmentDraft | undefined): boolean =>
     Boolean(
@@ -109,29 +138,62 @@ export function WorkloadGantt({
         draft.endDate &&
         (draft.submitState === 'IDLE' || draft.submitState === 'FAILED')
     );
+  const dragCommittedEditable = (bar: BarModel): boolean =>
+    Boolean(
+      committedDragEnabled &&
+        onCommittedDragPreview &&
+        onCommittedDragEnd &&
+        bar.kind === 'committed' &&
+        bar.assignmentId &&
+        canDragCommittedBar(
+          {
+            dateMode: bar.mode,
+            status: bar.status,
+            startDate: bar.startDate ?? '',
+            endDate: bar.endDate ?? '',
+          },
+          timeline.asOf
+        )
+    );
 
   const applyDrag = useCallback(
     (state: DragState, deltaDays: number) => {
-      const next = onGhostDatesChange;
-      if (!next || !state.origStart || !state.origEnd) return;
-      const draft = drafts.find((entry) => entry.draftId === state.draftId);
-      if (!dragGhostEditable(draft)) return;
-      let startDay = state.origStart;
-      let endDay = state.origEnd;
-      if (state.mode === 'move') {
-        startDay += deltaDays;
-        endDay += deltaDays;
-      } else if (state.mode === 'start') {
-        startDay = Math.min(state.origStart + deltaDays, state.origEnd);
-      } else {
-        endDay = Math.max(state.origEnd + deltaDays, state.origStart);
+      if (state.kind === 'draft') {
+        const next = onGhostDatesChange;
+        if (!next || !state.origStart || !state.origEnd) return;
+        const draft = drafts.find((entry) => entry.draftId === state.id);
+        if (!dragGhostEditable(draft)) return;
+        let startDay = state.origStart;
+        let endDay = state.origEnd;
+        if (state.mode === 'move') {
+          startDay += deltaDays;
+          endDay += deltaDays;
+        } else if (state.mode === 'start') {
+          startDay = Math.min(state.origStart + deltaDays, state.origEnd);
+        } else {
+          endDay = Math.max(state.origEnd + deltaDays, state.origStart);
+        }
+        next(state.id, {
+          startDate: new Date(startDay * DAY_MS).toISOString().slice(0, 10),
+          endDate: new Date(endDay * DAY_MS).toISOString().slice(0, 10),
+        });
+        return;
       }
-      next(state.draftId, {
-        startDate: new Date(startDay * DAY_MS).toISOString().slice(0, 10),
-        endDate: new Date(endDay * DAY_MS).toISOString().slice(0, 10),
+
+      // committed：纯函数统一边界（已开始行不截断历史/右端不改开始日）
+      if (!state.origStart || !state.origEnd || !onCommittedDragPreview) return;
+      const next = computeCommittedDragDates({
+        origStart: new Date(state.origStart * DAY_MS).toISOString().slice(0, 10),
+        origEnd: new Date(state.origEnd * DAY_MS).toISOString().slice(0, 10),
+        mode: state.mode,
+        deltaDays,
+        asOf: timeline.asOf,
       });
+      const preview = { assignmentId: state.id, ...next };
+      state.lastPreview = preview;
+      onCommittedDragPreview(preview);
     },
-    [drafts, onGhostDatesChange]
+    [drafts, onGhostDatesChange, onCommittedDragPreview, timeline.asOf]
   );
 
   useEffect(() => {
@@ -139,10 +201,25 @@ export function WorkloadGantt({
       const state = dragRef.current;
       if (!state) return;
       const deltaDays = Math.round(((event.clientX - state.pointerStartX) / state.trackWidth) * totalDays);
+      if (state.kind === 'committed' && !state.started) {
+        // 阈值：<3px 视为点击，不进入拖动
+        if (Math.abs(event.clientX - state.pointerStartX) < 3) return;
+        state.started = true;
+      }
       applyDrag(state, deltaDays);
     };
     const onPointerUp = () => {
+      const state = dragRef.current;
       dragRef.current = null;
+      if (!state) return;
+      if (state.kind === 'committed' && state.started && state.lastPreview) {
+        // 吞掉随后 click；日期无变化则只清理预览（页面负责）
+        suppressClickRef.current = true;
+        window.setTimeout(() => {
+          suppressClickRef.current = false;
+        }, 0);
+        onCommittedDragEnd?.(state.lastPreview);
+      }
     };
     // N-05：触摸设备拖拽被系统手势打断（pointercancel）也要复位，避免
     // 残留 dragRef 让后续 pointermove 空转
@@ -154,21 +231,26 @@ export function WorkloadGantt({
       document.removeEventListener('pointerup', onPointerUp);
       document.removeEventListener('pointercancel', onPointerUp);
     };
-  }, [applyDrag, totalDays]);
+  }, [applyDrag, totalDays, onCommittedDragEnd]);
 
-  const beginGhostDrag = (event: ReactPointerEvent, bar: BarModel, mode: DragMode) => {
-    if (!dragGhostEditable(bar.ghost)) return;
+  const beginPointerDrag = (event: ReactPointerEvent, bar: BarModel, mode: DragMode) => {
+    const isGhost = bar.kind === 'ghost' && dragGhostEditable(bar.ghost);
+    const isCommitted = bar.kind === 'committed' && dragCommittedEditable(bar);
+    if (!isGhost && !isCommitted) return;
     event.preventDefault();
     event.stopPropagation();
     const track = (event.currentTarget as HTMLElement).closest('.pw-gantt-lane-track') as HTMLElement | null;
     if (!track) return;
     dragRef.current = {
-      draftId: bar.draftId!,
+      kind: isGhost ? 'draft' : 'committed',
+      id: isGhost ? bar.draftId! : bar.assignmentId!,
       mode,
       pointerStartX: event.clientX,
       trackWidth: track.getBoundingClientRect().width || 1,
       origStart: bar.startDate ? toDayNumber(bar.startDate) : null,
       origEnd: bar.endDate ? toDayNumber(bar.endDate) : null,
+      // 桌面点击（无位移）不进入拖动；ghost 保持即时（草稿可回退）
+      started: isGhost,
     };
   };
 
@@ -267,12 +349,25 @@ export function WorkloadGantt({
 
   const asOfOffset = ((toDayNumber(timeline.asOf) - rangeStartDay) / totalDays) * 100;
 
+  /** 拖动中/确认面板未保存期：已提交 bar 以临时预览日期定位（不写库）。 */
+  const effectiveDates = (bar: BarModel): { startDate: string | null; endDate: string | null } => {
+    if (
+      bar.kind === 'committed' &&
+      committedPreview &&
+      committedPreview.assignmentId === bar.assignmentId
+    ) {
+      return { startDate: committedPreview.startDate, endDate: committedPreview.endDate };
+    }
+    return { startDate: bar.startDate, endDate: bar.endDate };
+  };
+
   const barStyle = (bar: BarModel): CSSProperties => {
-    if (!bar.startDate && !bar.endDate) {
+    const dates = effectiveDates(bar);
+    if (!dates.startDate && !dates.endDate) {
       return { left: '0%', width: '100%' };
     }
-    const start = bar.startDate ? toDayNumber(bar.startDate) : rangeStartDay;
-    const end = bar.endDate ? toDayNumber(bar.endDate) : rangeEndDay;
+    const start = dates.startDate ? toDayNumber(dates.startDate) : rangeStartDay;
+    const end = dates.endDate ? toDayNumber(dates.endDate) : rangeEndDay;
     const clampedStart = Math.max(start, rangeStartDay);
     const clampedEnd = Math.min(end, rangeEndDay);
     if (clampedEnd < rangeStartDay || clampedStart > rangeEndDay) {
@@ -397,14 +492,20 @@ export function WorkloadGantt({
                     <span className="pw-gantt-asof" style={{ left: `${Math.min(Math.max(asOfOffset, 0), 100)}%` }} aria-hidden="true" />
                     {lane.bars.map((bar, barIndex) => {
                       const ghostDraggable = bar.kind === 'ghost' && dragGhostEditable(bar.ghost);
+                      const committedDraggable = bar.kind === 'committed' && dragCommittedEditable(bar);
+                      const draggable = ghostDraggable || committedDraggable;
+                      const dragging =
+                        committedPreview !== undefined &&
+                        committedPreview !== null &&
+                        committedPreview.assignmentId === bar.assignmentId;
                       return (
                       <button
                         key={bar.key}
                         type="button"
-                        className={barClasses(bar)}
+                        className={barClasses(bar) + (dragging ? ' pw-gantt-bar--dragging' : '')}
                         style={{ ...barStyle(bar), top: `${barIndex * 26}px` }}
                         title={
-                          ghostDraggable
+                          draggable
                             ? `${bar.label} · ${t('assignments:workbench.gantt.dragHint')}`
                             : bar.label
                         }
@@ -412,6 +513,7 @@ export function WorkloadGantt({
                         data-draft-id={bar.draftId}
                         data-assignment-id={bar.assignmentId}
                         onClick={() => {
+                          if (suppressClickRef.current) return;
                           if (bar.kind === 'ghost' && bar.draftId) onGhostClick(bar.draftId);
                           else if (bar.assignmentId) onBarClick(bar.assignmentId);
                         }}
@@ -419,27 +521,27 @@ export function WorkloadGantt({
                           if (ghostDraggable) onGhostKeyDown(event, bar);
                         }}
                         onPointerDown={(event) => {
-                          if (ghostDraggable) beginGhostDrag(event, bar, 'move');
+                          if (draggable) beginPointerDrag(event, bar, 'move');
                         }}
                         aria-label={bar.label}
-                        aria-describedby={ghostDraggable ? 'pw-gantt-drag-help' : undefined}
+                        aria-describedby={draggable ? 'pw-gantt-drag-help' : undefined}
                       >
-                        {ghostDraggable ? (
+                        {draggable ? (
                           <span
                             className="pw-gantt-resize pw-gantt-resize--start"
                             role="presentation"
-                            onPointerDown={(event) => beginGhostDrag(event, bar, 'start')}
+                            onPointerDown={(event) => beginPointerDrag(event, bar, 'start')}
                           />
                         ) : null}
                         {(bar.mode === 'phase' || bar.mode === 'project') && bar.kind === 'committed' ? (
                           <Lock size={10} className="pw-gantt-lock" aria-hidden="true" />
                         ) : null}
                         <span className="pw-gantt-bar-text">{bar.label}</span>
-                        {ghostDraggable ? (
+                        {draggable ? (
                           <span
                             className="pw-gantt-resize pw-gantt-resize--end"
                             role="presentation"
-                            onPointerDown={(event) => beginGhostDrag(event, bar, 'end')}
+                            onPointerDown={(event) => beginPointerDrag(event, bar, 'end')}
                           />
                         ) : null}
                       </button>

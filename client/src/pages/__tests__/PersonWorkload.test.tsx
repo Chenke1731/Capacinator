@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import PersonWorkload from '../PersonWorkload';
 import { api } from '../../lib/api-client';
+import { Toaster } from '../../components/ui/toaster';
 
 jest.mock('../../lib/api-client', () => ({
   api: {
@@ -132,6 +133,8 @@ function pageElement(queryClient: QueryClient) {
           <Route path="/people/:id/workload" element={<PersonWorkload />} />
         </Routes>
       </MemoryRouter>
+      {/* S6 撤销 toast 依赖 Toaster；应用里挂在 App，测试需显式挂载 */}
+      <Toaster />
     </QueryClientProvider>
   );
 }
@@ -1297,4 +1300,136 @@ test('I03f: 批量入口在“计入当前工作负载”标题区；进入批�
       expect(screen.getAllByLabelText('Allocation %').length).toBe(4);
     });
   }
+});
+
+/* ===================== Phase A：已提交分配就地编辑（S1/S2/S6） ===================== */
+
+function findGanttBarFor(projectName: string) {
+  const bar = screen
+    .getAllByTestId('pw-gantt-bar')
+    .find((candidate) => candidate.getAttribute('aria-label')?.includes(projectName));
+  if (!bar) throw new Error(`gantt bar not found: ${projectName}`);
+  return bar;
+}
+
+test('S2: 点击已提交 fixed bar 打开面板——身份只读、比例/日期可改、无 asOf 下限', async () => {
+  renderPage();
+  await waitFor(() => {
+    expect(screen.getAllByTestId('pw-gantt-bar').length).toBeGreaterThan(0);
+  });
+
+  fireEvent.click(findGanttBarFor('Alpha'));
+
+  const panel = await screen.findByTestId('pw-committed-inspector');
+  expect(panel).toHaveTextContent('Alpha');
+  expect(panel).toHaveTextContent('SE');
+  expect(panel.querySelector('.pw-inspector-readonly')).toBeTruthy();
+
+  const allocation = panel.querySelector<HTMLInputElement>('input[type="number"]')!;
+  expect(allocation.value).toBe('20');
+  const dateInputs = panel.querySelectorAll<HTMLInputElement>('input[type="date"]');
+  expect(dateInputs).toHaveLength(2);
+  expect(dateInputs[0].value).toBe('2026-01-01');
+  // committed 行已开始：日期输入不得套用 ghost 的 min=asOf（评审 B2）
+  expect(dateInputs[0].getAttribute('min')).toBeNull();
+
+  // 表行编辑入口与面板互斥：行编辑按钮仍存在但面板是当前编辑面
+  expect(screen.queryByTestId('pw-ghost-inspector')).not.toBeInTheDocument();
+});
+
+test('S6: 面板保存单 PUT（快照版本）→ 撤销 toast 逆补丁恢复原值', async () => {
+  (api.assignments.update as jest.Mock).mockResolvedValue({
+    data: { data: { ...assignments[0], version: 2, allocation_percentage: 35 } },
+  });
+  renderPage();
+  await waitFor(() => {
+    expect(screen.getAllByTestId('pw-gantt-bar').length).toBeGreaterThan(0);
+  });
+
+  fireEvent.click(findGanttBarFor('Alpha'));
+  const panel = await screen.findByTestId('pw-committed-inspector');
+  const allocation = panel.querySelector<HTMLInputElement>('input[type="number"]')!;
+  fireEvent.change(allocation, { target: { value: '35' } });
+  fireEvent.click(screen.getByTestId('pw-committed-save'));
+
+  await waitFor(() => {
+    expect(api.assignments.update).toHaveBeenCalledWith(
+      'a1',
+      expect.objectContaining({ allocation_percentage: 35, expected_version: 1 }),
+      { scenarioId: 'baseline-0000-0000-0000-000000000000' }
+    );
+  });
+  await waitFor(() => {
+    expect(screen.queryByTestId('pw-committed-inspector')).not.toBeInTheDocument();
+  });
+
+  // 撤销 toast（Toaster 已挂载）→ 逆补丁 + 保存响应版本
+  const undo = await screen.findByRole('button', { name: /Undo/i });
+  fireEvent.click(undo);
+  await waitFor(() => {
+    expect(api.assignments.update).toHaveBeenLastCalledWith(
+      'a1',
+      expect.objectContaining({ allocation_percentage: 20, expected_version: 2 }),
+      { scenarioId: 'baseline-0000-0000-0000-000000000000' }
+    );
+  });
+});
+
+test('S2: 409 保留用户值并提示，使用最新值刷新后基线更新', async () => {
+  (api.assignments.update as jest.Mock).mockRejectedValueOnce({
+    response: { status: 409, data: { message: 'conflict' } },
+  });
+  renderPage();
+  await waitFor(() => {
+    expect(screen.getAllByTestId('pw-gantt-bar').length).toBeGreaterThan(0);
+  });
+
+  fireEvent.click(findGanttBarFor('Alpha'));
+  const panel = await screen.findByTestId('pw-committed-inspector');
+  const allocation = panel.querySelector<HTMLInputElement>('input[type="number"]')!;
+  fireEvent.change(allocation, { target: { value: '45' } });
+  fireEvent.click(screen.getByTestId('pw-committed-save'));
+
+  await waitFor(() => {
+    expect(screen.getByTestId('pw-committed-error')).toBeInTheDocument();
+  });
+  // 用户值保留，不静默清空/换令牌
+  expect((panel.querySelector('input[type="number"]') as HTMLInputElement).value).toBe('45');
+  expect(screen.getByTestId('pw-committed-refresh')).toBeInTheDocument();
+
+  // 最新值刷新：refetch 返回他人修改后的行（allocation 99 / v5）
+  (api.assignments.list as jest.Mock).mockResolvedValue({
+    data: {
+      data: [{ ...assignments[0], allocation_percentage: 99, version: 5 }, ...assignments.slice(1)],
+      pagination: { total: assignments.length, totalPages: 1 },
+    },
+  });
+  fireEvent.click(screen.getByTestId('pw-committed-refresh'));
+  await waitFor(() => {
+    expect((panel.querySelector('input[type="number"]') as HTMLInputElement).value).toBe('99');
+  });
+  expect(screen.queryByTestId('pw-committed-error')).not.toBeInTheDocument();
+});
+
+test('S2: 未保存修改关闭 → 确认对话框；继续编辑保留面板，确认丢弃关闭', async () => {
+  renderPage();
+  await waitFor(() => {
+    expect(screen.getAllByTestId('pw-gantt-bar').length).toBeGreaterThan(0);
+  });
+
+  fireEvent.click(findGanttBarFor('Alpha'));
+  const panel = await screen.findByTestId('pw-committed-inspector');
+  fireEvent.change(panel.querySelector('input[type="number"]')!, { target: { value: '30' } });
+
+  fireEvent.click(screen.getByRole('button', { name: 'Close inspector' }));
+  expect(await screen.findByTestId('confirm-dialog')).toBeInTheDocument();
+  fireEvent.click(screen.getByRole('button', { name: /Keep editing/i }));
+  expect(screen.getByTestId('pw-committed-inspector')).toBeInTheDocument();
+
+  fireEvent.click(screen.getByRole('button', { name: 'Close inspector' }));
+  await screen.findByTestId('confirm-dialog');
+  fireEvent.click(screen.getByRole('button', { name: /Discard changes/i }));
+  await waitFor(() => {
+    expect(screen.queryByTestId('pw-committed-inspector')).not.toBeInTheDocument();
+  });
 });

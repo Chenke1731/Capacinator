@@ -451,7 +451,8 @@
       "overloadWarn": "{{count}} 个区间超载（仍可提交）",
       "remove": "移除草稿",
       "done": "完成",
-      "unknown": "提交结果未知：已锁定，按原场景回读核对后再重试。"
+      "unknown": "提交结果未知：已锁定，按原场景回读核对后再重试。",
+      "impactWindow": "影响预览：窗口峰值 {{before}} → {{after}}"
     },
     "kind": {
       "create": "新增",
@@ -510,6 +511,25 @@
       "adjustPerson": "调整此人"
     },
     "leaveConfirm": "有未提交的分配草稿，离开将丢弃。确定离开？",
-    "clearConfirm": "确定清空全部待提交草稿？此操作不可撤销。"
+    "clearConfirm": "确定清空全部待提交草稿？此操作不可撤销。",
+    "committed": {
+      "title": "{{name}} · 分配详情",
+      "save": "保存",
+      "saving": "保存中…",
+      "locateInTable": "在表格中定位",
+      "refreshLatest": "使用最新值刷新",
+      "versionConflict": "该分配已被他人修改（{{detail}}）。请确认后使用最新值刷新再保存。",
+      "rowGone": "该分配已被删除，无法保存。",
+      "savedToast": "分配已保存",
+      "undo": "撤销",
+      "undoneToast": "已撤销保存",
+      "undoFailed": "撤销失败：该分配已被修改",
+      "finishBatchFirst": "请先完成或取消批量调整，再编辑泳道中的分配。",
+      "finishPanelFirst": "请先保存或关闭当前分配面板。",
+      "discardTitle": "未保存的修改",
+      "discardBody": "当前分配的修改尚未保存，关闭将丢失这些修改。",
+      "discardConfirm": "丢弃修改",
+      "discardCancel": "继续编辑"
+    }
   }
 }

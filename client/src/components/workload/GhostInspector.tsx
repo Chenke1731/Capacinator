@@ -3,19 +3,20 @@
  * 角色/比例/日期模式/fixed 起止/phase 阶段选择/project 派生窗口只读/
  * 影响预览/移除草稿。REPLACE 额外显示占用者摘要 + 显式确认替换（未确认
  * 不参与提交，§10.3）。关闭后焦点回原 ghost（§15）。
+ *
+ * 布局与影响预览复用 AssignmentInspector 的 InspectorShell/InspectorImpact；
+ * 控制逻辑（即时改草稿）仍在本组件，committed 面板不共享该逻辑。
  */
-import { useEffect, useMemo, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
-import { AlertTriangle, Trash2, X } from 'lucide-react';
+import { AlertTriangle, Trash2 } from 'lucide-react';
 import { api } from '../../lib/api-client';
 import { queryKeys } from '../../lib/queryKeys';
 import type { AssignmentDraft } from '../../lib/assignmentDrafts';
-import {
-  workloadTimeline,
-  type AvailabilityOverrideInput,
-} from '../../lib/workloadTimeline';
+import type { AvailabilityOverrideInput } from '../../lib/workloadTimeline';
 import type { WorkloadAssignment } from '../../lib/personWorkload';
+import { InspectorImpact, InspectorShell } from './AssignmentInspector';
 
 interface PhaseOption {
   id: string;
@@ -52,7 +53,6 @@ export function GhostInspector({
   disabled = false,
 }: GhostInspectorProps) {
   const { t } = useTranslation(['assignments']);
-  const panelRef = useRef<HTMLDivElement | null>(null);
   const firstControlRef = useRef<HTMLSelectElement | null>(null);
 
   useEffect(() => {
@@ -77,99 +77,90 @@ export function GhostInspector({
   const phaseOptions = phasesQuery.data ?? [];
   const selectedPhase = phaseOptions.find((phase) => phase.id === draft.phaseId);
 
-  // 影响预览：单条 ghost 的 before → after（共用 workloadTimeline，§9）
-  const impact = useMemo(() => {
-    const committed = assignments.map((row) => ({
-      id: String(row.id),
-      allocationPercentage: Number(row.allocation_percentage ?? 0),
-      startDate: row.computed_start_date ?? row.start_date ?? null,
-      endDate: row.computed_end_date ?? row.end_date ?? null,
-      status: row.status ?? null,
-    }));
-    const options = {
-      asOf,
-      rangeStart,
-      rangeEnd,
-      defaultAvailability: availability,
-      availabilityOverrides,
-      granularity: 'week' as const,
-    };
-    const before = workloadTimeline(committed, [], options);
-    const after = workloadTimeline(
-      committed,
-      [
-        {
-          id: draft.draftId,
-          draftId: draft.draftId,
-          kind: draft.kind,
-          targetAssignmentId: draft.targetAssignmentId,
-          allocationPercentage: draft.allocationPercentage,
-          startDate: draft.startDate,
-          endDate: draft.endDate,
-          submitState: draft.submitState,
-        },
-      ],
-      options
-    );
-    return { before, after };
-  }, [assignments, draft, asOf, rangeStart, rangeEnd, availability, availabilityOverrides]);
-
-  const pct = (value: number | null) => (value === null ? '—' : `${Math.round(value)}%`);
   const errorCodes = new Set(draft.errors);
   const errorText = (code: string) => t(`assignments:workbench.errors.${code}`);
 
   return (
-    <div
-      ref={panelRef}
-      className="pw-inspector"
-      role="group"
-      aria-label={t('assignments:workbench.inspector.title', { name: draft.projectName })}
-      data-testid="pw-ghost-inspector"
-    >
-      <div className="pw-inspector-head">
-        <strong>{draft.projectName}</strong>
+    <InspectorShell
+      title={draft.projectName}
+      testId="pw-ghost-inspector"
+      ariaLabel={t('assignments:workbench.inspector.title', { name: draft.projectName })}
+      onClose={onClose}
+      closeDisabled={disabled}
+      badge={
         <span className={`pw-inspector-kind pw-inspector-kind--${draft.kind.toLowerCase()}`}>
           {t(`assignments:workbench.kind.${draft.kind}`)}
         </span>
-        <button
-          type="button"
-          className="btn btn-ghost btn-sm"
-          aria-label={t('assignments:workbench.inspector.close')}
-          onClick={onClose}
-        >
-          <X size={14} />
-        </button>
-      </div>
-
-      {draft.kind === 'REPLACE' && draft.incumbent ? (
-        <div className="pw-inspector-incumbent" data-testid="pw-replace-incumbent">
-          <AlertTriangle size={14} aria-hidden="true" />
-          <div>
-            <strong>
-              {t('assignments:workbench.inspector.incumbent', {
-                name: draft.incumbent.personName,
-                role: draft.incumbent.roleName,
-              })}
-            </strong>
-            <span>
-              {draft.incumbent.startDate ?? '—'} → {draft.incumbent.endDate ?? '—'} · v
-              {draft.incumbent.version}
-            </span>
-            <em>{t('assignments:workbench.inspector.replaceWarning')}</em>
-            <label className="pw-inspector-confirm">
-              <input
-                type="checkbox"
-                checked={draft.replaceConfirmed}
-                disabled={disabled}
-                onChange={(event) => onUpdate(draft.draftId, { replaceConfirmed: event.target.checked })}
-                aria-label={t('assignments:workbench.inspector.confirmReplace')}
-              />
-              {t('assignments:workbench.inspector.confirmReplace')}
-            </label>
+      }
+      extraTop={
+        draft.kind === 'REPLACE' && draft.incumbent ? (
+          <div className="pw-inspector-incumbent" data-testid="pw-replace-incumbent">
+            <AlertTriangle size={14} aria-hidden="true" />
+            <div>
+              <strong>
+                {t('assignments:workbench.inspector.incumbent', {
+                  name: draft.incumbent.personName,
+                  role: draft.incumbent.roleName,
+                })}
+              </strong>
+              <span>
+                {draft.incumbent.startDate ?? '—'} → {draft.incumbent.endDate ?? '—'} · v
+                {draft.incumbent.version}
+              </span>
+              <em>{t('assignments:workbench.inspector.replaceWarning')}</em>
+              <label className="pw-inspector-confirm">
+                <input
+                  type="checkbox"
+                  checked={draft.replaceConfirmed}
+                  disabled={disabled}
+                  onChange={(event) => onUpdate(draft.draftId, { replaceConfirmed: event.target.checked })}
+                  aria-label={t('assignments:workbench.inspector.confirmReplace')}
+                />
+                {t('assignments:workbench.inspector.confirmReplace')}
+              </label>
+            </div>
           </div>
+        ) : null
+      }
+      impact={
+        <InspectorImpact
+          projection={{
+            mode: 'draft',
+            draft: {
+              draftId: draft.draftId,
+              kind: draft.kind,
+              targetAssignmentId: draft.targetAssignmentId,
+              allocationPercentage: draft.allocationPercentage,
+              startDate: draft.startDate,
+              endDate: draft.endDate,
+              submitState: draft.submitState,
+            },
+          }}
+          assignments={assignments}
+          availability={availability}
+          availabilityOverrides={availabilityOverrides}
+          asOf={asOf}
+          rangeStart={rangeStart}
+          rangeEnd={rangeEnd}
+          testId="pw-ghost-impact"
+        />
+      }
+      actions={
+        <div className="pw-inspector-actions">
+          <button
+            type="button"
+            className="btn btn-secondary btn-sm"
+            disabled={disabled}
+            onClick={() => onRemove(draft.draftId)}
+          >
+            <Trash2 size={14} /> {t('assignments:workbench.inspector.remove')}
+          </button>
+          <button type="button" className="btn btn-ghost btn-sm" onClick={onClose}>
+            {t('assignments:workbench.inspector.done')}
+          </button>
         </div>
-      ) : null}
-
+      }
+    >
       <div className="pw-inspector-grid">
         <label>
           <span>{t('assignments:workload.picker.role')}</span>
@@ -316,37 +307,6 @@ export function GhostInspector({
       {draft.submitState === 'UNKNOWN' ? (
         <p className="pw-inspector-unknown" role="status">{t('assignments:workbench.inspector.unknown')}</p>
       ) : null}
-
-      <div className="pw-inspector-impact" data-testid="pw-ghost-impact">
-        <span>
-          {t('assignments:workbench.inspector.impact', {
-            before: pct(impact.before.currentRelativeUtilization),
-            after: pct(impact.after.projectedRelativeUtilization),
-          })}
-        </span>
-        {impact.after.overloadSegments.length > 0 ? (
-          <span className="pw-inspector-impact-over">
-            <AlertTriangle size={13} aria-hidden="true" />
-            {t('assignments:workbench.inspector.overloadWarn', {
-              count: impact.after.overloadSegments.length,
-            })}
-          </span>
-        ) : null}
-      </div>
-
-      <div className="pw-inspector-actions">
-        <button
-          type="button"
-          className="btn btn-secondary btn-sm"
-          disabled={disabled}
-          onClick={() => onRemove(draft.draftId)}
-        >
-          <Trash2 size={14} /> {t('assignments:workbench.inspector.remove')}
-        </button>
-        <button type="button" className="btn btn-ghost btn-sm" onClick={onClose}>
-          {t('assignments:workbench.inspector.done')}
-        </button>
-      </div>
-    </div>
+    </InspectorShell>
   );
 }

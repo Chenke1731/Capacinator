@@ -451,7 +451,8 @@
       "overloadWarn": "{{count}} intervals over capacity (submit still allowed)",
       "remove": "Remove draft",
       "done": "Done",
-      "unknown": "Submit result unknown: locked until reconciled under the original scenario."
+      "unknown": "Submit result unknown: locked until reconciled under the original scenario.",
+      "impactWindow": "Impact: window peak {{before}} → {{after}}"
     },
     "kind": {
       "create": "Create",
@@ -510,6 +511,25 @@
       "adjustPerson": "Adjust this person"
     },
     "leaveConfirm": "There are unsubmitted assignment drafts. Leave and discard them?",
-    "clearConfirm": "Clear all pending drafts? This cannot be undone."
+    "clearConfirm": "Clear all pending drafts? This cannot be undone.",
+    "committed": {
+      "title": "{{name}} · assignment",
+      "save": "Save",
+      "saving": "Saving…",
+      "locateInTable": "Locate in table",
+      "refreshLatest": "Refresh latest values",
+      "versionConflict": "This assignment was modified by someone else ({{detail}}). Review and refresh the latest values before saving.",
+      "rowGone": "This assignment was deleted and cannot be saved.",
+      "savedToast": "Assignment saved",
+      "undo": "Undo",
+      "undoneToast": "Save undone",
+      "undoFailed": "Undo failed: the assignment was changed",
+      "finishBatchFirst": "Finish or cancel batch adjust before editing a swimlane assignment.",
+      "finishPanelFirst": "Save or close the current assignment panel first.",
+      "discardTitle": "Unsaved changes",
+      "discardBody": "The current assignment has unsaved changes; closing will discard them.",
+      "discardConfirm": "Discard changes",
+      "discardCancel": "Keep editing"
+    }
   }
 }

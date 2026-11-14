@@ -34,12 +34,16 @@ import type { AssignmentDraft } from '../lib/assignmentDrafts';
 import { useDraftAssignments } from '../hooks/useDraftAssignments';
 import { toISODateString } from '../utils/dateUtils';
 import { Badge } from '../components/ui/badge';
+import { ConfirmDialog } from '../components/ui/ConfirmDialog';
+import { ToastAction } from '../components/ui/toast';
+import { useToast } from '../hooks/use-toast';
 import { AssignmentImpactPreview } from '../components/workload/AssignmentImpactPreview';
+import { CommittedInspector, type CommittedInspectorForm } from '../components/workload/CommittedInspector';
 import { DraftCommitBar } from '../components/workload/DraftCommitBar';
 import { GhostInspector } from '../components/workload/GhostInspector';
 import { ProjectStaffingPanel } from '../components/workload/ProjectStaffingPanel';
 import { TaskSelectionDialog } from '../components/workload/TaskSelectionDialog';
-import { WorkloadGantt } from '../components/workload/WorkloadGantt';
+import { WorkloadGantt, type CommittedDatePreview } from '../components/workload/WorkloadGantt';
 import './PersonWorkload.css';
 
 interface PersonRow {
@@ -254,27 +258,57 @@ export default function PersonWorkload() {
   const draftScenarioMismatch =
     draftStore.drafts.length > 0 && draftScenarioId !== activeScenarioId;
 
-  // CommitInFlight 锁（§12）：提交中锁定场景切换与页面离开
+  // ---- S1/S2 Phase A：已提交分配的就地编辑会话状态（§4.5）----
+  // 声明前置于锁/守卫 effect（依赖 committedSaving/committedRowDirty）。
+  const [committedPreview, setCommittedPreview] = useState<CommittedDatePreview | null>(null);
+  const [committedSession, setCommittedSession] = useState<{
+    row: AssignmentRow;
+    scenarioId: string;
+    baseline: { version?: number; allocation: number; startDate: string; endDate: string };
+    source: 'drag' | 'click';
+  } | null>(null);
+  const [committedForm, setCommittedForm] = useState<CommittedInspectorForm>({
+    allocation: '',
+    startDate: '',
+    endDate: '',
+  });
+  const [committedSaving, setCommittedSaving] = useState(false);
+  const [committedError, setCommittedError] = useState<string | null>(null);
+  const [committedConflict, setCommittedConflict] = useState(false);
+  const [committedConfirmOpen, setCommittedConfirmOpen] = useState(false);
+  const committedRowDirty = Boolean(
+    committedSession &&
+      (Number(committedForm.allocation) !== committedSession.baseline.allocation ||
+        (((committedSession.row.assignment_date_mode ?? 'fixed') === 'fixed') &&
+          (committedForm.startDate !== committedSession.baseline.startDate ||
+            committedForm.endDate !== committedSession.baseline.endDate)))
+  );
+  const committedScenarioMismatch = Boolean(
+    committedSession && committedSession.scenarioId !== activeScenarioId
+  );
+
+  // CommitInFlight / 面板保存锁（§12/§4.5）：在途写请求期间锁定场景切换
   useEffect(() => {
-    if (draftStore.submitting) {
+    if (draftStore.submitting || committedSaving) {
       lockScenarioSwitching(t('assignments:workbench.commit.lockReason'));
     } else {
       unlockScenarioSwitching();
     }
     return () => unlockScenarioSwitching();
-  }, [draftStore.submitting, lockScenarioSwitching, unlockScenarioSwitching, t]);
+  }, [draftStore.submitting, committedSaving, lockScenarioSwitching, unlockScenarioSwitching, t]);
 
-  // 刷新/离开守卫（§16：未提交 ghost 提示丢弃）
+  // 刷新/离开守卫（§16 + §4.5：未提交 ghost / 未保存面板修改提示丢弃）
   const hasPendingDrafts = draftStore.drafts.some((draft) => draft.submitState !== 'SUCCEEDED');
+  const hasUnsavedCommitted = Boolean(committedSession && committedRowDirty);
   useEffect(() => {
-    if (!hasPendingDrafts) return undefined;
+    if (!hasPendingDrafts && !hasUnsavedCommitted) return undefined;
     const onBeforeUnload = (event: BeforeUnloadEvent) => {
       event.preventDefault();
       event.returnValue = '';
     };
     window.addEventListener('beforeunload', onBeforeUnload);
     return () => window.removeEventListener('beforeunload', onBeforeUnload);
-  }, [hasPendingDrafts]);
+  }, [hasPendingDrafts, hasUnsavedCommitted]);
 
   // G-05（评审）：SPA 内导航守卫——beforeunload 只覆盖刷新/关窗，页内路由
   // （返回按钮/侧栏链接）在有未提交 ghost 时也必须确认。捕获阶段拦站内
@@ -324,6 +358,26 @@ export default function PersonWorkload() {
   // beginEdit 在表格渲染闭包里定义较晚，用 ref 转发（dialog 从表格外部调用）
   const beginEditRef = useRef<((row: AssignmentRow) => void) | null>(null);
 
+  // 已提交行投影：拖动/面板未保存期用预览日期（保留原 status——paused 行
+  // 预览不得计入负载，评审 Claude 盯点 1）。
+  const committedTimelineRows = useMemo(
+    () =>
+      (assignmentsQuery.data ?? []).map((row) => {
+        const preview =
+          committedPreview && committedPreview.assignmentId === String(row.id)
+            ? committedPreview
+            : null;
+        return {
+          id: String(row.id),
+          allocationPercentage: Number(row.allocation_percentage ?? 0),
+          startDate: preview?.startDate ?? row.computed_start_date ?? row.start_date ?? null,
+          endDate: preview?.endDate ?? row.computed_end_date ?? row.end_date ?? null,
+          status: row.status ?? null,
+        };
+      }),
+    [assignmentsQuery.data, committedPreview]
+  );
+
   // 泳道 timeline：committed + ghost（三处容量展示共用，§9）。
   // D-02a：场景失配时草稿只读且不进入热区投影（A 场景草稿叠加 B 场景
   // committed 的"预计值"没有业务含义）——泳道 bar 层仍显示 ghost。
@@ -331,13 +385,7 @@ export default function PersonWorkload() {
   const timeline = useMemo(
     () =>
       workloadTimeline(
-        (assignmentsQuery.data ?? []).map((row) => ({
-          id: String(row.id),
-          allocationPercentage: Number(row.allocation_percentage ?? 0),
-          startDate: row.computed_start_date ?? row.start_date ?? null,
-          endDate: row.computed_end_date ?? row.end_date ?? null,
-          status: row.status ?? null,
-        })),
+        committedTimelineRows,
         projectedDrafts.map((draft) => ({
           id: draft.draftId,
           draftId: draft.draftId,
@@ -357,7 +405,7 @@ export default function PersonWorkload() {
           granularity: 'week',
         }
       ),
-    [assignmentsQuery.data, projectedDrafts, asOf, rangeStart, rangeEnd, heatDefaultAvailability, availabilityOverrides]
+    [committedTimelineRows, projectedDrafts, asOf, rangeStart, rangeEnd, heatDefaultAvailability, availabilityOverrides]
   );
 
   const inspectorDraft = draftStore.drafts.find((draft) => draft.draftId === inspectorDraftId) ?? null;
@@ -377,13 +425,7 @@ export default function PersonWorkload() {
   const minimapTimeline = useMemo(
     () =>
       workloadTimeline(
-        (assignmentsQuery.data ?? []).map((row) => ({
-          id: String(row.id),
-          allocationPercentage: Number(row.allocation_percentage ?? 0),
-          startDate: row.computed_start_date ?? row.start_date ?? null,
-          endDate: row.computed_end_date ?? row.end_date ?? null,
-          status: row.status ?? null,
-        })),
+        committedTimelineRows,
         projectedDrafts.map((draft) => ({
           id: draft.draftId,
           draftId: draft.draftId,
@@ -403,7 +445,7 @@ export default function PersonWorkload() {
           granularity: 'month',
         }
       ),
-    [assignmentsQuery.data, projectedDrafts, asOf, heatDefaultAvailability, availabilityOverrides]
+    [committedTimelineRows, projectedDrafts, asOf, heatDefaultAvailability, availabilityOverrides]
   );
 
   // Phase 2：拖动/缩放落点（钳制 start<=end、至少 1 天、且不早于参考日——
@@ -479,6 +521,15 @@ export default function PersonWorkload() {
   const scenarioMismatch = Boolean(editingId && editScenarioId && editScenarioId !== activeScenarioId);
 
   const beginEdit = (row: AssignmentRow) => {
+    // §4.5 互斥：committed 面板未结束时不并存第二个编辑器
+    if (committedSession) {
+      if (committedRowDirty) {
+        setBatchMessage({ tone: 'warning', text: t('assignments:workbench.committed.finishPanelFirst') });
+        jumpToVisible('[data-testid="pw-committed-save"]');
+        return;
+      }
+      closeCommittedSession();
+    }
     setEditingId(row.id);
     setEditScenarioId(activeScenarioId || null);
     setRowError(null);
@@ -742,6 +793,246 @@ export default function PersonWorkload() {
     ...summary.excluded.map((excludedRow) => excludedRow.assignment),
   ];
 
+  // ---------------------------------------------------------------------
+  // S1/S2 Phase A：已提交分配的就地编辑会话（§4.5）
+  // 共享布局（CommittedInspector）但控制逻辑独立：暂存值 + 显式保存 +
+  // 编辑时快照版本；未保存关闭必须确认；409 保留用户值、显式刷新才换版本。
+  // ---------------------------------------------------------------------
+  const { toast } = useToast();
+  const findWorkloadRow = (assignmentId: string): AssignmentRow | undefined =>
+    allWorkloadRows().find((row) => String(row.id) === String(assignmentId));
+
+  const closeCommittedSession = () => {
+    setCommittedSession(null);
+    setCommittedPreview(null);
+    setCommittedError(null);
+    setCommittedConflict(false);
+  };
+
+  const jumpToVisible = (selector: string) => {
+    window.requestAnimationFrame(() => {
+      const target = document.querySelector<HTMLElement>(selector);
+      target?.scrollIntoView?.({ block: 'center', behavior: 'smooth' });
+      target?.focus?.();
+    });
+  };
+
+  /**
+   * 打开已提交分配面板。互斥矩阵（§4.5）：同一时刻仅一个编辑面；行编辑/
+   * 交接/批量未结束时给出明确原因并跳到那个表单（不静默吞掉）。
+   */
+  const openCommittedSession = (
+    row: AssignmentRow,
+    source: 'drag' | 'click',
+    preview?: CommittedDatePreview | null
+  ) => {
+    if (draftStore.submitting || committedSaving) return;
+    if (batchMode) {
+      setBatchMessage({ tone: 'warning', text: t('assignments:workbench.committed.finishBatchFirst') });
+      jumpToVisible('.person-workload-page .pw-allocation-input');
+      return;
+    }
+    if (editingId) {
+      setBatchMessage({ tone: 'warning', text: t('assignments:workload.batch.finishEditFirst') });
+      jumpToVisible(`[data-assignment-id="${editingId}"] .pw-allocation-input`);
+      return;
+    }
+    if (handoverRowId) {
+      setBatchMessage({ tone: 'warning', text: t('assignments:workload.batch.finishHandoverFirst') });
+      jumpToVisible(`[data-assignment-id="${handoverRowId}"]`);
+      return;
+    }
+    // 同一时刻只开一个面板；ghost 草稿仍保存在 draftStore，不丢
+    if (inspectorDraftId) setInspectorDraftId(null);
+    const startDate = workloadDateOnly(row.start_date) ?? '';
+    const endDate = workloadDateOnly(row.end_date) ?? '';
+    setCommittedSession({
+      row,
+      scenarioId: activeScenarioId,
+      baseline: {
+        version: row.version,
+        allocation: Number(row.allocation_percentage ?? 0),
+        startDate,
+        endDate,
+      },
+      source,
+    });
+    setCommittedForm({
+      allocation: String(Number(row.allocation_percentage ?? 0)),
+      startDate: preview?.startDate ?? startDate,
+      endDate: preview?.endDate ?? endDate,
+    });
+    setCommittedError(null);
+    setCommittedConflict(false);
+    setCommittedPreview(preview ?? null);
+  };
+
+  const requestCloseCommitted = () => {
+    if (committedSaving) return;
+    if (committedRowDirty) {
+      setCommittedConfirmOpen(true);
+      return;
+    }
+    closeCommittedSession();
+  };
+
+  const refreshCommittedLatest = async () => {
+    const session = committedSession;
+    if (!session) return;
+    const result = await assignmentsQuery.refetch();
+    const latest = (result.data ?? []).find(
+      (candidate) => String(candidate.id) === String(session.row.id)
+    );
+    if (!latest) {
+      setCommittedError(t('assignments:workbench.committed.rowGone'));
+      setCommittedConflict(false);
+      return;
+    }
+    const startDate = workloadDateOnly(latest.start_date) ?? '';
+    const endDate = workloadDateOnly(latest.end_date) ?? '';
+    setCommittedSession({
+      ...session,
+      row: latest,
+      baseline: {
+        version: latest.version,
+        allocation: Number(latest.allocation_percentage ?? 0),
+        startDate,
+        endDate,
+      },
+    });
+    setCommittedForm({
+      allocation: String(Number(latest.allocation_percentage ?? 0)),
+      startDate,
+      endDate,
+    });
+    setCommittedError(null);
+    setCommittedConflict(false);
+  };
+
+  const saveCommitted = async () => {
+    const session = committedSession;
+    if (!session || committedSaving) return;
+    const mode = session.row.assignment_date_mode ?? 'fixed';
+    const allocation = Number(committedForm.allocation);
+    if (!Number.isFinite(allocation) || allocation <= 0 || allocation > 200) {
+      setCommittedError(t('assignments:workload.edit.invalidAllocation'));
+      return;
+    }
+    const payload: Record<string, unknown> = {};
+    if (allocation !== session.baseline.allocation) {
+      payload.allocation_percentage = allocation;
+    }
+    if (mode === 'fixed') {
+      if (!committedForm.startDate || !committedForm.endDate) {
+        setCommittedError(t('assignments:workload.edit.invalidDates'));
+        return;
+      }
+      if (committedForm.startDate > committedForm.endDate) {
+        setCommittedError(t('assignments:workload.edit.invalidDateOrder'));
+        return;
+      }
+      if (
+        committedForm.startDate !== session.baseline.startDate ||
+        committedForm.endDate !== session.baseline.endDate
+      ) {
+        payload.start_date = committedForm.startDate;
+        payload.end_date = committedForm.endDate;
+      }
+    }
+    if (Object.keys(payload).length === 0) {
+      closeCommittedSession();
+      return;
+    }
+    if (session.baseline.version !== undefined) {
+      payload.expected_version = session.baseline.version;
+    }
+    setCommittedSaving(true);
+    setCommittedError(null);
+    setCommittedConflict(false);
+    try {
+      const response = await api.assignments.update(session.row.id, payload as never, {
+        scenarioId: session.scenarioId,
+      });
+      const saved = response.data.data as unknown as AssignmentRow;
+      // S6：逆补丁只含本次实际改动的字段 + 保存响应的新版本
+      const inverse: Record<string, unknown> = {};
+      if ('allocation_percentage' in payload) {
+        inverse.allocation_percentage = session.baseline.allocation;
+      }
+      if ('start_date' in payload) {
+        inverse.start_date = session.baseline.startDate;
+        inverse.end_date = session.baseline.endDate;
+      }
+      const record = {
+        id: session.row.id,
+        scenarioId: session.scenarioId,
+        inverse,
+        savedVersion: saved.version,
+      };
+      closeCommittedSession();
+      if (record.savedVersion !== undefined) {
+        toast({
+          title: t('assignments:workbench.committed.savedToast'),
+          duration: 5000,
+          action: (
+            <ToastAction
+              altText={t('assignments:workbench.committed.undo')}
+              onClick={() => void performUndoCommitted(record)}
+            >
+              {t('assignments:workbench.committed.undo')}
+            </ToastAction>
+          ),
+        });
+      }
+      void refreshAssignments();
+    } catch (error: any) {
+      const status = error?.response?.status;
+      const serverMessage = String(
+        error?.response?.data?.message ?? error?.response?.data?.error ?? error?.message ?? ''
+      );
+      if (status === 409) {
+        setCommittedConflict(true);
+        setCommittedError(
+          t('assignments:workbench.committed.versionConflict', { detail: serverMessage })
+        );
+      } else {
+        setCommittedError(
+          serverMessage || t('assignments:workload.edit.saveFailed')
+        );
+      }
+    } finally {
+      setCommittedSaving(false);
+    }
+  };
+
+  const performUndoCommitted = async (record: {
+    id: string;
+    scenarioId: string;
+    inverse: Record<string, unknown>;
+    savedVersion?: number;
+  }) => {
+    try {
+      await api.assignments.update(
+        record.id,
+        {
+          ...record.inverse,
+          ...(record.savedVersion !== undefined
+            ? { expected_version: record.savedVersion }
+            : {}),
+        } as never,
+        { scenarioId: record.scenarioId }
+      );
+      toast({ title: t('assignments:workbench.committed.undoneToast'), duration: 3000 });
+      void refreshAssignments();
+    } catch {
+      toast({
+        title: t('assignments:workbench.committed.undoFailed'),
+        variant: 'destructive',
+        duration: 4000,
+      });
+    }
+  };
+
   const startBatch = () => {
     const drafts: Record<string, string> = {};
     const baselines: Record<string, { version?: number; allocation: number }> = {};
@@ -798,6 +1089,14 @@ export default function PersonWorkload() {
         t('assignments:workload.batch.finishHandoverFirst')
       );
       return;
+    }
+    // §4.5 互斥：committed 面板未结束时不进入批量（有未保存值则提示）
+    if (committedSession) {
+      if (committedRowDirty) {
+        jumpTo('[data-testid="pw-committed-save"]', t('assignments:workbench.committed.finishPanelFirst'));
+        return;
+      }
+      closeCommittedSession();
     }
     startBatch();
   };
@@ -1374,25 +1673,35 @@ export default function PersonWorkload() {
         ) : null}
       </section>
 
-      {draftScenarioMismatch ? (
+      {draftScenarioMismatch || committedScenarioMismatch ? (
         <div className="pw-scenario-banner" role="alert" data-testid="pw-draft-scenario-mismatch">
           <div>
             <strong>{t('assignments:workbench.mismatch.title')}</strong>
             <p>
               {t('assignments:workbench.mismatch.body', {
-                count: draftStore.drafts.length,
+                count: draftStore.drafts.length + (committedScenarioMismatch ? 1 : 0),
               })}
             </p>
           </div>
           <div className="pw-scenario-actions">
-            <button type="button" className="btn btn-secondary btn-sm" onClick={draftStore.clearDrafts}>
+            <button
+              type="button"
+              className="btn btn-secondary btn-sm"
+              onClick={() => {
+                draftStore.clearDrafts();
+                closeCommittedSession();
+              }}
+            >
               {t('assignments:workbench.mismatch.discard')}
             </button>
             <button
               type="button"
               className="btn btn-primary btn-sm"
               onClick={() => {
-                const original = scenarios.find((scenario) => scenario.id === draftScenarioId);
+                const targetId = committedScenarioMismatch
+                  ? committedSession?.scenarioId
+                  : draftScenarioId;
+                const original = scenarios.find((scenario) => scenario.id === targetId);
                 if (original) setCurrentScenario(original);
               }}
             >
@@ -1443,15 +1752,37 @@ export default function PersonWorkload() {
         onToggleCollapse={() => setGanttCollapsed((prev) => !prev)}
         onGhostClick={(draftId) => setInspectorDraftId(draftId)}
         onBarClick={(assignmentId) => {
-          // Phase 2：已有 bar 点击直接进入行编辑并定位（§17）
-          const row = allWorkloadRows().find((candidate) => String(candidate.id) === assignmentId);
-          if (row) beginEditRef.current?.(row);
-          window.requestAnimationFrame(() => {
-            document
-              .querySelector<HTMLElement>(`[data-assignment-id="${assignmentId}"]`)
-              ?.scrollIntoView?.({ block: 'center', behavior: 'smooth' });
-          });
+          // S2（§5.2）：点击已提交 bar → 就地打开 committed 面板（替换旧的
+          // "定位到表格行"行为）；面板内提供「在表格中定位」。
+          const row = findWorkloadRow(assignmentId);
+          if (row) openCommittedSession(row, 'click');
         }}
+        committedPreview={committedPreview}
+        onCommittedDragPreview={(preview) => setCommittedPreview(preview)}
+        onCommittedDragEnd={(preview) => {
+          const row = findWorkloadRow(preview.assignmentId);
+          if (!row) {
+            setCommittedPreview(null);
+            return;
+          }
+          const sameStart = preview.startDate === (workloadDateOnly(row.start_date) ?? '');
+          const sameEnd = preview.endDate === (workloadDateOnly(row.end_date) ?? '');
+          if (sameStart && sameEnd) {
+            setCommittedPreview(null);
+            return;
+          }
+          openCommittedSession(row, 'drag', preview);
+        }}
+        committedDragEnabled={
+          !draftStore.submitting &&
+          !committedSaving &&
+          !committedScenarioMismatch &&
+          !draftScenarioMismatch &&
+          !editingId &&
+          !handoverRowId &&
+          !batchMode &&
+          !inspectorDraftId
+        }
         onLocateGhost={(draftId) => {
           const draft = draftStore.drafts.find((entry) => entry.draftId === draftId);
           if (!draft) return;
@@ -1549,6 +1880,63 @@ export default function PersonWorkload() {
           }
         />
       ) : null}
+
+      {committedSession ? (
+        <CommittedInspector
+          row={{
+            id: String(committedSession.row.id),
+            projectName: committedSession.row.project_name ?? String(committedSession.row.project_id),
+            roleName: committedSession.row.role_name ?? null,
+            phaseName: committedSession.row.phase_name ?? null,
+            source: committedSession.row.assignment_type ?? null,
+            version: committedSession.row.version ?? null,
+            dateMode: committedSession.row.assignment_date_mode ?? 'fixed',
+            derivedStartDate: workloadDateOnly(
+              committedSession.row.computed_start_date ?? committedSession.row.start_date
+            ),
+            derivedEndDate: workloadDateOnly(
+              committedSession.row.computed_end_date ?? committedSession.row.end_date
+            ),
+          }}
+          form={committedForm}
+          baseline={{
+            allocation: committedSession.baseline.allocation,
+            startDate: committedSession.baseline.startDate,
+            endDate: committedSession.baseline.endDate,
+          }}
+          saving={committedSaving}
+          error={committedError}
+          conflict={committedConflict}
+          disabled={committedScenarioMismatch}
+          onChange={(patch) => setCommittedForm((prev) => ({ ...prev, ...patch }))}
+          onSave={() => void saveCommitted()}
+          onRefreshLatest={() => void refreshCommittedLatest()}
+          onLocateInTable={() => {
+            jumpToVisible(`[data-assignment-id="${committedSession.row.id}"]`);
+          }}
+          onRequestClose={requestCloseCommitted}
+          assignments={assignmentsQuery.data ?? []}
+          availability={heatDefaultAvailability}
+          availabilityOverrides={availabilityOverrides}
+          asOf={asOf}
+          rangeStart={rangeStart}
+          rangeEnd={rangeEnd}
+        />
+      ) : null}
+
+      <ConfirmDialog
+        isOpen={committedConfirmOpen}
+        title={t('assignments:workbench.committed.discardTitle')}
+        message={t('assignments:workbench.committed.discardBody')}
+        confirmText={t('assignments:workbench.committed.discardConfirm')}
+        cancelText={t('assignments:workbench.committed.discardCancel')}
+        variant="danger"
+        onConfirm={() => {
+          setCommittedConfirmOpen(false);
+          closeCommittedSession();
+        }}
+        onCancel={() => setCommittedConfirmOpen(false)}
+      />
 
       {assignmentsQuery.isError ? (
         <div className="pw-alert" role="alert">

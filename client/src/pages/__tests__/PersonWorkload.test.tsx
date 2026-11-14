@@ -1239,3 +1239,29 @@ test('F5: 首次回读也失败 → UNKNOWN 锁定但[重新核对]可用；网�
     expect(screen.queryByTestId('pw-commit-bar')).not.toBeInTheDocument();
   });
 });
+
+test('批量入口不再静默禁用：行编辑中点击 → 明确提示且编辑保留；结束后点击进入批量并聚焦首个输入', async () => {
+  renderPage();
+  await waitFor(() => {
+    expect(screen.getAllByRole('button', { name: 'Edit' }).length).toBeGreaterThan(0);
+  });
+
+  // 1) 行编辑未结束：入口可点，点击给出原因，不进入批量、不丢编辑
+  fireEvent.click(screen.getAllByRole('button', { name: 'Edit' })[0]);
+  const entry = screen.getByTestId('pw-batch-entry');
+  expect(entry).toBeEnabled();
+  fireEvent.click(entry);
+  expect(await screen.findByText(/Finish or cancel the current row edit/i)).toBeInTheDocument();
+  expect(screen.queryByRole('button', { name: /Save changed rows/i })).not.toBeInTheDocument();
+  expect(screen.getByRole('button', { name: 'Cancel' })).toBeInTheDocument();
+
+  // 2) 取消编辑后再点：进入批量，焦点落到第一个比例输入（用户立刻可改）
+  fireEvent.click(screen.getByRole('button', { name: 'Cancel' }));
+  fireEvent.click(entry);
+  await waitFor(() => {
+    expect(screen.getAllByLabelText('Allocation %').length).toBe(4);
+  });
+  await waitFor(() => {
+    expect((document.activeElement as HTMLElement)?.classList.contains('pw-allocation-input')).toBe(true);
+  });
+});

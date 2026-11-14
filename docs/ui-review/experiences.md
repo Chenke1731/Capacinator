@@ -277,3 +277,15 @@ verification: done 2026-11-14 — 集成 10/10、单测 25/25
 status: enforced
 note: "显示包络"（时间线 MIN/MAX 只用于展示）与"写入窗口"必须区分；派生日期默认值要有明确优先级链，且链路每一跳都有测试（需求窗口存在/缺失/无阶段）
 ```
+
+```yaml exp
+id: EXP-023
+source: incident/2026-11-14-workload-batch-entry-silent-disabled（用户截图：点"批量调整比例"无反应；根因=存在未结束的行编辑/交接时按钮 disabled，阻止原因在按钮下方的表内、常不在视口）
+class: 入口静默禁用×阻止原因不可见
+mechanism_slice: silent-disabled-entry × offscreen-blocking-reason
+disposition: GUARD
+guard: enabled — 批量入口不再 disabled：行编辑/交接未结束时点击 → 明确警告 + 滚动并聚焦到那个表单（不丢输入）；进入批量后滚到明细表并聚焦首个比例输入；页面回归测试断言"点击必有可见结果（进入批量或警告）且编辑输入保留"
+verification: done 2026-11-14 — 浏览器实测：编辑中点击 → 警告文案 + 编辑保留 + 焦点落编辑输入；取消后点击 → 批量输入出现 + 焦点落首个输入；client 1703/0
+status: candidate
+note: 与 EXP-012/EXP-021 同族（入口失信）。规则：`disabled` 只允许用于"用户就在眼前、原因自明"的瞬时态；若阻止原因可能在视口外（表格行、表单项），必须改为可点击+反馈+跳转。类扫描提示：批量入口是当前唯一"阻止原因离屏"的按钮；其余 disabled 均有就地可见原因（保存中/无权/无数据）
+```

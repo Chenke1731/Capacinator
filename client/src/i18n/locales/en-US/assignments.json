@@ -169,7 +169,9 @@
       "saved": "Saved {{count}} row(s).",
       "partial": "Saved {{saved}}, failed {{failed}}. Failed rows keep their drafts.",
       "noChanges": "No allocation changed.",
-      "failed": "Batch save failed."
+      "failed": "Batch save failed.",
+      "finishEditFirst": "Finish or cancel the current row edit before entering batch adjust.",
+      "finishHandoverFirst": "Finish or cancel the current handover before entering batch adjust."
     },
     "source": {
       "direct": "Baseline (global)",

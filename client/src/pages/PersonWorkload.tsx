@@ -757,6 +757,46 @@ export default function PersonWorkload() {
     setEditScenarioId(null);
     setHandoverRowId(null);
     setHandoverMessage(null);
+    // 批量输入在明细表里：进入后把工作区带入视野并聚焦首个比例输入，
+    // 否则用户在按钮附近看不到任何变化（"点了没反应"）。
+    window.requestAnimationFrame(() => {
+      const firstInput = document.querySelector<HTMLElement>(
+        '.person-workload-page .pw-allocation-input'
+      );
+      firstInput?.scrollIntoView?.({ block: 'center', behavior: 'smooth' });
+      firstInput?.focus?.();
+    });
+  };
+
+  /**
+   * 批量入口（EXP-012/021 同族整改）：不允许静默禁用。行编辑/交接未结束
+   * 时点击 → 明确提示 + 滚动并聚焦到那个表单（原因可能不在视口内），
+   * 绝不丢弃用户正在编辑的输入。
+   */
+  const handleBatchEntryClick = () => {
+    const jumpTo = (selector: string, message: string) => {
+      setBatchMessage({ tone: 'warning', text: message });
+      window.requestAnimationFrame(() => {
+        const target = document.querySelector<HTMLElement>(selector);
+        target?.scrollIntoView?.({ block: 'center', behavior: 'smooth' });
+        target?.focus?.();
+      });
+    };
+    if (editingId) {
+      jumpTo(
+        `[data-assignment-id="${editingId}"] .pw-allocation-input`,
+        t('assignments:workload.batch.finishEditFirst')
+      );
+      return;
+    }
+    if (handoverRowId) {
+      jumpTo(
+        `[data-assignment-id="${handoverRowId}"]`,
+        t('assignments:workload.batch.finishHandoverFirst')
+      );
+      return;
+    }
+    startBatch();
   };
 
   const batchSaveMutation = useMutation({
@@ -1536,8 +1576,8 @@ export default function PersonWorkload() {
           <button
             type="button"
             className="btn btn-secondary btn-sm"
-            disabled={Boolean(editingId || handoverRowId)}
-            onClick={startBatch}
+            onClick={handleBatchEntryClick}
+            data-testid="pw-batch-entry"
           >
             {t('assignments:workload.batch.edit')}
           </button>

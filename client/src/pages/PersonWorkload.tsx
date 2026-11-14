@@ -485,24 +485,58 @@ export default function PersonWorkload() {
   // beginEdit 在表格渲染闭包里定义较晚，用 ref 转发（dialog 从表格外部调用）
   const beginEditRef = useRef<((row: AssignmentRow) => void) | null>(null);
 
+  // W-05：面板表单是当前可见值的一部分——固定日期会话打开时，bar/表格/
+  // 拖动基准统一读表单，而不是服务端原始行。
+  const visibleCommittedPreview = useMemo(() => {
+    const session = committedSession;
+    if (!session) return committedPreview;
+    if ((session.row.assignment_date_mode ?? 'fixed') !== 'fixed') return committedPreview;
+    if (!isIsoCalendarDate(committedForm.startDate) || !isIsoCalendarDate(committedForm.endDate)) {
+      return committedPreview;
+    }
+    return {
+      assignmentId: String(session.row.id),
+      startDate: committedForm.startDate,
+      endDate: committedForm.endDate,
+    };
+  }, [committedSession, committedForm, committedPreview]);
+
   // 已提交行投影：拖动/面板未保存期用预览日期（保留原 status——paused 行
   // 预览不得计入负载，评审 Claude 盯点 1）。
   const committedTimelineRows = useMemo(
     () =>
       (assignmentsQuery.data ?? []).map((row) => {
+        const sessionRow =
+          committedSession && String(committedSession.row.id) === String(row.id);
         const preview =
-          committedPreview && committedPreview.assignmentId === String(row.id)
+          !sessionRow && committedPreview && committedPreview.assignmentId === String(row.id)
             ? committedPreview
+            : null;
+        const formPreview =
+          sessionRow && (committedSession?.row.assignment_date_mode ?? 'fixed') === 'fixed'
+            ? visibleCommittedPreview
             : null;
         return {
           id: String(row.id),
-          allocationPercentage: Number(row.allocation_percentage ?? 0),
-          startDate: preview?.startDate ?? row.computed_start_date ?? row.start_date ?? null,
-          endDate: preview?.endDate ?? row.computed_end_date ?? row.end_date ?? null,
+          allocationPercentage: sessionRow
+            ? Number(committedForm.allocation) || 0
+            : Number(row.allocation_percentage ?? 0),
+          startDate:
+            formPreview?.startDate ??
+            preview?.startDate ??
+            row.computed_start_date ??
+            row.start_date ??
+            null,
+          endDate:
+            formPreview?.endDate ??
+            preview?.endDate ??
+            row.computed_end_date ??
+            row.end_date ??
+            null,
           status: row.status ?? null,
         };
       }),
-    [assignmentsQuery.data, committedPreview]
+    [assignmentsQuery.data, committedPreview, committedSession, committedForm, visibleCommittedPreview]
   );
 
   // 泳道 timeline：committed + ghost（三处容量展示共用，§9）。
@@ -722,9 +756,45 @@ export default function PersonWorkload() {
       startDate,
       endDate,
     });
+    // W-09：行编辑开始后滚动到行并聚焦首个输入（含从任务弹窗进入的路径）
+    window.requestAnimationFrame(() => {
+      window.requestAnimationFrame(() => {
+        const rowElement = document.querySelector<HTMLElement>(
+          `tr[data-assignment-id="${row.id}"]`
+        );
+        rowElement?.scrollIntoView?.({ block: 'center', behavior: 'smooth' });
+        rowElement
+          ?.querySelector<HTMLElement>('.pw-allocation-input')
+          ?.focus?.();
+      });
+    });
   };
 
   const beginEdit = (row: AssignmentRow) => {
+    // W-22：交接/草稿面板/批量与行编辑同属互斥矩阵，不允许并存
+    if (handoverRowId) {
+      setBatchMessage({
+        tone: 'warning',
+        text: t('assignments:workload.batch.finishHandoverFirst'),
+      });
+      jumpToVisible(`[data-assignment-id="${handoverRowId}"]`);
+      return;
+    }
+    if (inspectorDraftId) {
+      setBatchMessage({
+        tone: 'warning',
+        text: t('assignments:workload.batch.finishGhostFirst'),
+      });
+      jumpToVisible('[data-testid="pw-ghost-inspector"]');
+      return;
+    }
+    if (batchMode) {
+      setBatchMessage({
+        tone: 'warning',
+        text: t('assignments:workbench.committed.finishBatchFirst'),
+      });
+      return;
+    }
     // §4.5 互斥：committed 面板未结束时不并存第二个编辑器
     if (committedSession) {
       if (committedSaving || committedConverting) {
@@ -899,6 +969,11 @@ export default function PersonWorkload() {
                 t('assignments:workload.edit.saveFailed')
             );
       setRowError({ id: row.id, message });
+      window.requestAnimationFrame(() => {
+        document
+          .querySelector<HTMLElement>(`[data-assignment-id="${row.id}"] .pw-allocation-input`)
+          ?.focus?.();
+      });
     },
   });
 
@@ -2018,12 +2093,29 @@ export default function PersonWorkload() {
             const mode = item.assignment_date_mode ?? 'fixed';
             const start = workloadDateOnly(item.computed_start_date ?? item.start_date);
             const end = workloadDateOnly(item.computed_end_date ?? item.end_date);
+            const sessionRow =
+              committedSession && String(committedSession.row.id) === String(item.id);
+            // W-05：面板打开时表格读同一可见窗口，而不是服务端旧值
+            const displayStart =
+              sessionRow && mode === 'fixed' && committedForm.startDate
+                ? committedForm.startDate
+                : start;
+            const displayEnd =
+              sessionRow && mode === 'fixed' && committedForm.endDate
+                ? committedForm.endDate
+                : end;
             const derived = mode === 'phase' || mode === 'project';
             const direct = item.assignment_type === 'direct';
-            const unresolved = Boolean(item.date_resolution_error) || !start || !end;
-            const allocation = Number(item.allocation_percentage ?? 0);
+            const unresolved = Boolean(item.date_resolution_error) || !displayStart || !displayEnd;
+            const formAllocation = sessionRow ? Number(committedForm.allocation) : NaN;
+            const allocation =
+              sessionRow && Number.isFinite(formAllocation) && formAllocation > 0
+                ? formAllocation
+                : Number(item.allocation_percentage ?? 0);
             const endDisplay =
-              start && end && start.slice(0, 4) === end.slice(0, 4) ? end.slice(5) : end;
+              displayStart && displayEnd && displayStart.slice(0, 4) === displayEnd.slice(0, 4)
+                ? displayEnd.slice(5)
+                : displayEnd;
             const editing = editingId === item.id;
             const saving = savingId === item.id;
             const error = rowError?.id === item.id ? rowError.message : null;
@@ -2079,7 +2171,7 @@ export default function PersonWorkload() {
                     ) : (
                       <>
                         <div className="pw-dates">
-                          <span>{start || '—'}</span>
+                          <span>{displayStart || '—'}</span>
                           <span className="pw-date-separator" aria-hidden="true">→</span>
                           <span>{endDisplay || '—'}</span>
                         </div>
@@ -2273,6 +2365,18 @@ export default function PersonWorkload() {
                               ))}
                           </select>
                         </label>
+                        {peopleQuery.isError ? (
+                          <div className="pw-handover-error" role="alert">
+                            {t('assignments:workload.handover.peopleError')}{' '}
+                            <button
+                              type="button"
+                              className="btn btn-secondary btn-sm"
+                              onClick={() => peopleQuery.refetch()}
+                            >
+                              {t('assignments:workload.states.retry')}
+                            </button>
+                          </div>
+                        ) : null}
                         <label>
                           {t('assignments:workload.handover.effectiveDate')}
                           <IsoDateInput
@@ -2301,7 +2405,13 @@ export default function PersonWorkload() {
                           <button
                             type="submit"
                             className="btn btn-primary btn-sm"
-                            disabled={saving || committedSaving || committedConverting}
+                            disabled={
+                              saving ||
+                              committedSaving ||
+                              committedConverting ||
+                              peopleQuery.isLoading ||
+                              peopleQuery.isError
+                            }
                           >
                             {t('assignments:workload.handover.confirm')}
                           </button>
@@ -2391,6 +2501,23 @@ export default function PersonWorkload() {
         </div>
       ) : null}
 
+      <div className="pw-main">
+      {assignmentsQuery.isLoading ? (
+        <div className="pw-data-state" role="status" aria-busy="true" data-testid="pw-assignments-loading">
+          <span className="pw-data-skeleton pw-data-skeleton--metrics" aria-hidden="true" />
+          <span className="pw-data-skeleton pw-data-skeleton--gantt" aria-hidden="true" />
+          <span>{t('assignments:workload.states.loading')}</span>
+        </div>
+      ) : assignmentsQuery.isError ? (
+        <div className="pw-data-state pw-data-state--error" role="alert" data-testid="pw-assignments-error">
+          <AlertTriangle size={16} aria-hidden="true" />
+          <strong>{t('assignments:workload.states.assignmentsError')}</strong>
+          <button className="btn btn-secondary btn-sm" onClick={() => assignmentsQuery.refetch()}>
+            <RefreshCw size={14} /> {t('assignments:workload.states.retry')}
+          </button>
+        </div>
+      ) : (
+        <React.Fragment>
       <section className="pw-capacity" aria-label={t('assignments:workload.metrics.current')}>
         <div className="pw-capacity-head">
           <Badge variant={statusVariant[summary.status]}>
@@ -2492,7 +2619,6 @@ export default function PersonWorkload() {
         </div>
       ) : null}
 
-      <div className="pw-main">
       {scenarioMismatch ? (
         <div className="pw-scenario-banner" role="alert">
           <div>
@@ -2538,7 +2664,7 @@ export default function PersonWorkload() {
           const row = findWorkloadRow(assignmentId);
           if (row) openCommittedSession(row, 'click');
         }}
-        committedPreview={committedPreview}
+        committedPreview={visibleCommittedPreview}
         onCommittedDragPreview={(preview) => setCommittedPreview(preview)}
         onCommittedDragEnd={(preview) => {
           const row = findWorkloadRow(preview.assignmentId);
@@ -2590,21 +2716,24 @@ export default function PersonWorkload() {
           const draft = draftStore.drafts.find((entry) => entry.draftId === draftId);
           if (!draft) return;
           setGanttCollapsed(false);
+          // 左右越界都要真正移动窗口，而不是只开面板（W-14）
           if (draft.startDate && draft.startDate < rangeStart) {
-            setRangeEndOverride((prev) => {
-              const neededEnd = draft.endDate && draft.endDate > (prev ?? defaultRangeEnd) ? draft.endDate : prev;
-              return neededEnd ?? prev;
-            });
-          } else if (draft.endDate) {
-            setRangeEndOverride((prev) => (draft.endDate! > (prev ?? defaultRangeEnd) ? draft.endDate : prev));
+            setRangeStartOverride(draft.startDate);
+          }
+          if (draft.endDate && draft.endDate > rangeEnd) {
+            setRangeEndOverride((prev) =>
+              draft.endDate! > (prev ?? defaultRangeEnd) ? draft.endDate : prev
+            );
           }
           setInspectorDraftId(draftId);
         }}
         onGhostDatesChange={handleGhostDatesChange}
         minimapBuckets={minimapTimeline.buckets}
         onNavigateRange={(monthStart) => {
-          setRangeStartOverride(monthStart >= asOf ? monthStart : asOf);
-          setRangeEndOverride(shiftIsoMonths(monthStart >= asOf ? monthStart : asOf, 3));
+          // W-06：移动未来窗口不得回退历史左界（进行中分配的真实 start）
+          setRangeStartOverride(historyRangeStart === asOf ? null : historyRangeStart);
+          const anchor = monthStart >= asOf ? monthStart : asOf;
+          setRangeEndOverride(shiftIsoMonths(anchor, 3));
         }}
         onLocateCommitted={(assignmentId) => {
           const row = findWorkloadRow(assignmentId);
@@ -2815,15 +2944,6 @@ export default function PersonWorkload() {
           }}
           onCancel={() => setBatchStatusConfirm(null)}
         />
-      ) : null}
-
-      {assignmentsQuery.isError ? (
-        <div className="pw-alert" role="alert">
-          <span>{t('assignments:workload.states.assignmentsError')}</span>
-          <button className="btn btn-secondary" onClick={() => assignmentsQuery.refetch()}>
-            <RefreshCw size={14} /> {t('assignments:workload.states.retry')}
-          </button>
-        </div>
       ) : null}
 
       <section className="pw-section" aria-labelledby="pw-current-title">
@@ -3079,6 +3199,8 @@ export default function PersonWorkload() {
       </section>
 
       <p className="pw-note">{t('assignments:workload.note')}</p>
+        </React.Fragment>
+      )}
       </div>
 
       <TaskSelectionDialog

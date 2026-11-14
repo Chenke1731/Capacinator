@@ -72,8 +72,13 @@ function staffingLabel(
   if (byRole.size === 0) return '—';
   return [...byRole.entries()]
     .map(([roleId, entry]) => {
-      const name = task.role_demands.find((demand) => demand.role_id === roleId)?.role_name ?? roleId.slice(0, 6);
-      const required = entry.required === null ? '?' : String(entry.required);
+      const name =
+        task.role_demands.find((demand) => demand.role_id === roleId)?.role_name ??
+        t('assignments:workbench.demand.unknownRole');
+      const required =
+        entry.required === null
+          ? t('assignments:workbench.demand.unconfigured')
+          : String(entry.required);
       const round = Math.round(entry.assigned * 10) / 10;
       const gap = entry.required !== null && round < entry.required ? ` ${t('assignments:workbench.demand.gap', { count: Math.ceil(entry.required - round) })}` : '';
       return `${name} ${round}/${required}${gap}`;
@@ -103,7 +108,7 @@ export function TaskSelectionBoard({
   onRowAction,
   loading = false,
 }: TaskSelectionBoardProps) {
-  const { t } = useTranslation(['assignments']);
+  const { t } = useTranslation(['assignments', 'projects']);
 
   const annotated = useMemo(() => {
     return rows.map((task) => {
@@ -167,6 +172,7 @@ export function TaskSelectionBoard({
           {annotated.map(({ task, classification, terminal, selectable }) => {
             const checked = selectedTaskIds.has(task.id);
             const parent = task.is_ancestor || task.has_children;
+            const writable = !parent && !terminal;
             const reason = terminal
               ? t('assignments:workbench.board.terminal')
               : parent
@@ -215,14 +221,18 @@ export function TaskSelectionBoard({
                 </td>
                 <td className="pw-board-state">
                   <span className={`pw-board-state-chip pw-board-state--${task.lifecycle_state ?? 'none'}`}>
-                    {task.lifecycle_state ?? t('assignments:workbench.board.stateNone')}
+                    {task.lifecycle_state
+                      ? t(`projects:lifecycle.states.${task.lifecycle_state}`, {
+                          defaultValue: task.lifecycle_state.replace(/_/g, ' '),
+                        })
+                      : t('assignments:workbench.board.stateNone')}
                   </span>
                 </td>
                 <td className="pw-board-demand">{demandLabel(t, task)}</td>
                 <td className="pw-board-dates">{dateLabel(task)}</td>
                 <td className="pw-board-staffing">{staffingLabel(t, task)}</td>
                 <td className="pw-board-actions">
-                  {classification.kind === 'EDIT' && !terminal ? (
+                  {classification.kind === 'EDIT' && writable ? (
                     <button
                       type="button"
                       className="btn btn-ghost btn-sm"
@@ -231,7 +241,7 @@ export function TaskSelectionBoard({
                       {t('assignments:workbench.board.editExisting')}
                     </button>
                   ) : null}
-                  {classification.kind === 'REPLACE' && !terminal ? (
+                  {classification.kind === 'REPLACE' && writable ? (
                     <button
                       type="button"
                       className="btn btn-secondary btn-sm"

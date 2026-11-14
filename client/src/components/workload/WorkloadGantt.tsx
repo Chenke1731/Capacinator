@@ -659,6 +659,9 @@ export function WorkloadGantt({
           <p className="sr-only" id="pw-gantt-drag-help">
             {t('assignments:workbench.gantt.dragHelp')}
           </p>
+          <p className="sr-only" id="pw-gantt-drag-help-committed">
+            {t('assignments:workbench.gantt.dragHelpCommitted')}
+          </p>
 
           <div className="pw-gantt-body">
             {lanes.length === 0 ? (
@@ -733,7 +736,11 @@ export function WorkloadGantt({
                         style={{ ...barStyle(bar), top: `${barIndex * 26}px` }}
                         title={
                           draggable
-                            ? `${bar.label} · ${t('assignments:workbench.gantt.dragHint')}`
+                            ? `${bar.label} · ${
+                                ghostDraggable
+                                  ? t('assignments:workbench.gantt.dragHint')
+                                  : t('assignments:workbench.gantt.dragHintCommitted')
+                              }`
                             : bar.label
                         }
                         data-testid={bar.kind === 'ghost' ? 'pw-ghost-bar' : 'pw-gantt-bar'}
@@ -751,7 +758,13 @@ export function WorkloadGantt({
                           if (draggable) beginPointerDrag(event, bar, 'move');
                         }}
                         aria-label={bar.label}
-                        aria-describedby={draggable ? 'pw-gantt-drag-help' : undefined}
+                        aria-describedby={
+                          draggable
+                            ? ghostDraggable
+                              ? 'pw-gantt-drag-help'
+                              : 'pw-gantt-drag-help-committed'
+                            : undefined
+                        }
                       >
                         {showResizeHandles ? (
                           <span

@@ -166,7 +166,8 @@
       "confirm": "Confirm handover",
       "success": "Assignment handed over.",
       "failed": "Handover failed.",
-      "invalidDate": "Effective date is required."
+      "invalidDate": "Effective date is required.",
+      "peopleError": "Could not load successors."
     },
     "batch": {
       "edit": "Batch adjust (this person)",
@@ -219,7 +220,8 @@
       "shiftApplying": "Applying…",
       "shiftMoreRows": "+{{count}} more row(s)",
       "outOfRangeCommitted": "{{count}} committed assignment(s) outside the window",
-      "shiftDirectWarning": "Includes {{count}} baseline-global (direct) row(s); changes affect all scenarios."
+      "shiftDirectWarning": "Includes {{count}} baseline-global (direct) row(s); changes affect all scenarios.",
+      "finishGhostFirst": "Close the draft inspector before editing a row."
     },
     "source": {
       "direct": "Baseline (global)",
@@ -414,7 +416,8 @@
     },
     "demand": {
       "unconfigured": "unconfigured",
-      "gap": "gap {{count}}"
+      "gap": "gap {{count}}",
+      "unknownRole": "Unknown role"
     },
     "board": {
       "loading": "Loading tasks…",
@@ -489,7 +492,9 @@
       "dragTipMove": "{{start}} → {{end}} · {{days}} days ({{delta}})",
       "history": "History",
       "dragTipClamped": " · lower bound",
-      "laneOutside": "{{count}} assignment(s) outside this window"
+      "laneOutside": "{{count}} assignment(s) outside this window",
+      "dragHintCommitted": "Drag to move; side handles resize; release to review and save",
+      "dragHelpCommitted": "Committed assignment: drag the bar to move, drag the side handles to resize; release to review and save in the panel."
     },
     "inspector": {
       "title": "Draft parameters: {{name}}",
@@ -534,7 +539,8 @@
       "undoFailed": "Undo failed: the incumbent was not restored (transaction rolled back, assignment still present). Retry is safe.",
       "reconcile": "Reconcile unknown",
       "reconciling": "Reconciling…",
-      "reconcileFailed": "Reconcile failed: network unavailable, retry later"
+      "reconcileFailed": "Reconcile failed: network unavailable, retry later",
+      "batchNoChanges": "Enter at least one valid field to apply."
     },
     "errors": {
       "missing_role": "Missing role",

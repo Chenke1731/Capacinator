@@ -166,7 +166,8 @@
       "confirm": "确认交接",
       "success": "分配已交接。",
       "failed": "交接失败。",
-      "invalidDate": "请填写生效日期。"
+      "invalidDate": "请填写生效日期。",
+      "peopleError": "接手人加载失败。"
     },
     "batch": {
       "edit": "批量调整比例（本人员）",
@@ -219,7 +220,8 @@
       "shiftApplying": "应用中…",
       "shiftMoreRows": "另有 {{count}} 行",
       "outOfRangeCommitted": "{{count}} 条已提交分配在窗口外",
-      "shiftDirectWarning": "其中 {{count}} 条为基线全局（direct）行，修改会影响所有场景。"
+      "shiftDirectWarning": "其中 {{count}} 条为基线全局（direct）行，修改会影响所有场景。",
+      "finishGhostFirst": "请先关闭草稿参数面板，再编辑表格行。"
     },
     "source": {
       "direct": "基线全局",
@@ -414,7 +416,8 @@
     },
     "demand": {
       "unconfigured": "未配置",
-      "gap": "缺 {{count}}"
+      "gap": "缺 {{count}}",
+      "unknownRole": "未知角色"
     },
     "board": {
       "loading": "任务加载中…",
@@ -489,7 +492,9 @@
       "dragTipMove": "{{start}} → {{end}} · {{days}} 天（{{delta}}）",
       "history": "历史",
       "dragTipClamped": " · 已达下限",
-      "laneOutside": "{{count}} 条分配在窗口外"
+      "laneOutside": "{{count}} 条分配在窗口外",
+      "dragHintCommitted": "拖动移动，左右手柄调整起止日；松手后在面板确认保存",
+      "dragHelpCommitted": "已提交分配：拖动移动，左右手柄调整起止日；松手后在面板中确认保存。"
     },
     "inspector": {
       "title": "草稿参数：{{name}}",
@@ -534,7 +539,8 @@
       "undoFailed": "撤销失败：旧分配未恢复（事务已回滚，分配仍在），可重试",
       "reconcile": "重新核对",
       "reconciling": "核对中…",
-      "reconcileFailed": "核对失败：网络不可用，可稍后重试"
+      "reconcileFailed": "核对失败：网络不可用，可稍后重试",
+      "batchNoChanges": "请至少填写一个有效字段再套用。"
     },
     "errors": {
       "missing_role": "缺少角色",

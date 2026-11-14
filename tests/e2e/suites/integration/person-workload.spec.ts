@@ -37,6 +37,14 @@ test.describe('Person workbench v2 (dialog selection → ghost → commit)', () 
     }));
     expect(rootOverflow.scrollWidth).toBeLessThanOrEqual(rootOverflow.innerWidth + 1);
 
+    // W-03 守卫：热区与泳道共享 x 原点/宽度（同一日期同一像素）
+    const heatBox = await authenticatedPage.getByTestId('pw-gantt-heat-full').boundingBox();
+    const laneTrackBox = await authenticatedPage.locator('.pw-gantt-lane-track').first().boundingBox();
+    expect(heatBox).toBeTruthy();
+    expect(laneTrackBox).toBeTruthy();
+    expect(Math.abs(heatBox!.x - laneTrackBox!.x)).toBeLessThanOrEqual(1);
+    expect(Math.abs(heatBox!.width - laneTrackBox!.width)).toBeLessThanOrEqual(1);
+
     // G-01 守卫：bar 计算高度不得超 26px 堆叠间距（axe target-size 下限 24）；
     // 同泳道 bar 矩形零相交
     const barGeometry = await authenticatedPage.evaluate(() => {

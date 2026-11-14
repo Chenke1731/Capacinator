@@ -9,6 +9,7 @@ import { forwardRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { AlertTriangle, CheckCheck, ListPlus, PencilLine, RotateCcw, Trash2, Undo2 } from 'lucide-react';
 import type { AssignmentDraft } from '../../lib/assignmentDrafts';
+import { IsoDateInput, isIsoCalendarDate } from '../ui/iso-date-input';
 
 export interface BatchEditValue {
   allocation: string;
@@ -89,6 +90,7 @@ export const DraftCommitBar = forwardRef<HTMLDivElement, DraftCommitBarProps>(
     const { t } = useTranslation(['assignments']);
     const [batchOpen, setBatchOpen] = useState(false);
     const [batch, setBatch] = useState<BatchEditValue>({ allocation: '', dateMode: '', startDate: '', endDate: '' });
+    const [batchError, setBatchError] = useState<string | null>(null);
 
     if (total === 0) {
       // Phase 3：无草稿但可撤销刚创建的行
@@ -179,24 +181,48 @@ export const DraftCommitBar = forwardRef<HTMLDivElement, DraftCommitBarProps>(
             </select>
             {batch.dateMode === 'fixed' ? (
               <>
-                <input
-                  type="date"
-                  aria-label={t('assignments:workload.edit.startDate')}
+                <IsoDateInput
+                  ariaLabel={t('assignments:workload.edit.startDate')}
                   value={batch.startDate}
-                  onChange={(event) => setBatch((prev) => ({ ...prev, startDate: event.target.value }))}
+                  onValueChange={(value) => setBatch((prev) => ({ ...prev, startDate: value }))}
                 />
-                <input
-                  type="date"
-                  aria-label={t('assignments:workload.edit.endDate')}
+                <IsoDateInput
+                  ariaLabel={t('assignments:workload.edit.endDate')}
                   value={batch.endDate}
-                  onChange={(event) => setBatch((prev) => ({ ...prev, endDate: event.target.value }))}
+                  onValueChange={(value) => setBatch((prev) => ({ ...prev, endDate: value }))}
                 />
               </>
+            ) : null}
+            {batchError ? (
+              <span className="pw-commit-batch-error" role="alert" data-testid="pw-batch-edit-error">
+                {batchError}
+              </span>
             ) : null}
             <button
               type="button"
               className="btn btn-primary btn-sm"
               onClick={() => {
+                const allocation = batch.allocation.trim();
+                const allocationValue = Number(allocation);
+                let error: string | null = null;
+                if (allocation && (!Number.isFinite(allocationValue) || allocationValue <= 0 || allocationValue > 200)) {
+                  error = t('assignments:workload.edit.invalidAllocation');
+                } else if (batch.dateMode === 'fixed') {
+                  if (!batch.startDate || !batch.endDate) {
+                    error = t('assignments:workload.edit.invalidDates');
+                  } else if (!isIsoCalendarDate(batch.startDate) || !isIsoCalendarDate(batch.endDate)) {
+                    error = t('assignments:workload.edit.dateFormat');
+                  } else if (batch.startDate > batch.endDate) {
+                    error = t('assignments:workload.edit.invalidDateOrder');
+                  }
+                } else if (!allocation) {
+                  error = t('assignments:workbench.commit.batchNoChanges');
+                }
+                if (error) {
+                  setBatchError(error);
+                  return;
+                }
+                setBatchError(null);
                 onBatchApply(batch);
                 setBatchOpen(false);
               }}

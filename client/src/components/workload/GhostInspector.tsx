@@ -89,7 +89,7 @@ export function GhostInspector({
       closeDisabled={disabled}
       badge={
         <span className={`pw-inspector-kind pw-inspector-kind--${draft.kind.toLowerCase()}`}>
-          {t(`assignments:workbench.kind.${draft.kind}`)}
+          {t(`assignments:workbench.kind.${draft.kind.toLowerCase()}`)}
         </span>
       }
       extraTop={

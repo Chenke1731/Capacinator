@@ -118,6 +118,7 @@ export function TaskSelectionDialog(props: TaskSelectionDialogProps) {
 
   const dialogRef = useRef<HTMLDivElement | null>(null);
   const searchRef = useRef<HTMLInputElement | null>(null);
+  const searchComposingRef = useRef(false);
   const openerRef = useRef<Element | null>(null);
   // G-04（评审）：onClose 入 ref——父组件 inline 箭头函数每次渲染换身份，
   // 若入 effect deps，弹窗打开期间任一父级重渲染都会执行 cleanup 把焦点
@@ -464,6 +465,8 @@ export function TaskSelectionDialog(props: TaskSelectionDialogProps) {
             className="pw-dialog-search"
             onSubmit={(event) => {
               event.preventDefault();
+              // W-25：输入法组合态的 Enter 是确认候选词，不触发搜索
+              if (searchComposingRef.current) return;
               setSearch(searchInput.trim());
               setPage(1);
             }}
@@ -476,6 +479,12 @@ export function TaskSelectionDialog(props: TaskSelectionDialogProps) {
               aria-label={t('assignments:workbench.dialog.searchPlaceholder')}
               value={searchInput}
               onChange={(event) => setSearchInput(event.target.value)}
+              onCompositionStart={() => {
+                searchComposingRef.current = true;
+              }}
+              onCompositionEnd={() => {
+                searchComposingRef.current = false;
+              }}
             />
             <button type="submit" className="btn btn-secondary btn-sm">
               {t('assignments:workbench.dialog.search')}

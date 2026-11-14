@@ -621,6 +621,48 @@
   align-items: start;
 }
 
+.person-workload-page .pw-data-state {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-2);
+  padding: var(--space-4);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+}
+
+.person-workload-page .pw-data-state--error {
+  flex-direction: row;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--danger);
+  border-color: var(--danger);
+}
+
+.person-workload-page .pw-data-skeleton {
+  display: block;
+  border-radius: var(--radius-sm, 4px);
+  background: linear-gradient(
+    90deg,
+    var(--bg-tertiary) 25%,
+    var(--bg-hover) 37%,
+    var(--bg-tertiary) 63%
+  );
+  background-size: 100% 100%;
+}
+
+.person-workload-page .pw-data-skeleton--metrics {
+  width: min(100%, 640px);
+  height: 64px;
+}
+
+.person-workload-page .pw-data-skeleton--gantt {
+  width: 100%;
+  height: 220px;
+}
+
 .person-workload-page .pw-main {
   display: flex;
   flex-direction: column;
@@ -870,6 +912,15 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-2);
+  max-height: 50%;
+  overflow-y: auto;
+}
+
+.person-workload-page .pw-dialog-actions {
+  position: sticky;
+  bottom: 0;
+  background: var(--bg-secondary);
+  padding-top: var(--space-2);
 }
 
 .person-workload-page .pw-dialog-pagination {
@@ -1150,7 +1201,9 @@
 }
 
 .person-workload-page .pw-gantt-heat {
-  display: flex;
+  /* 与 lane 共用同一列定义，热区与 bar 的 x 原点必须一致（DV-5） */
+  display: grid;
+  grid-template-columns: 200px minmax(0, 1fr);
   gap: var(--space-2);
   align-items: stretch;
   min-height: 72px;
@@ -1163,7 +1216,7 @@
   font-size: var(--text-xs);
   color: var(--text-secondary);
   text-align: right;
-  min-width: 40px;
+  min-width: 0;
 }
 
 .person-workload-page .pw-gantt-legend {
@@ -1225,7 +1278,7 @@
 
 .person-workload-page .pw-gantt-lane {
   display: grid;
-  grid-template-columns: minmax(120px, 200px) 1fr;
+  grid-template-columns: 200px minmax(0, 1fr);
   gap: var(--space-2);
   align-items: stretch;
 }
@@ -1300,6 +1353,9 @@
 .person-workload-page .pw-gantt-bar {
   position: absolute;
   height: 24px;
+  /* W-24：禁止 left/width 布局过渡，只允许颜色/阴影反馈 */
+  transition: background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease,
+    opacity 0.15s ease;
   /* 泳道 bar 尺寸契约：解除全局 button 40px 最小尺寸（G-01/EXP-017：40px
    * bar 压过堆叠间距互相遮挡），同时满足 axe target-size ≥24×24——
    * 24px 高 + 26px 堆叠间距（WorkloadGantt 同步）。 */
@@ -1339,7 +1395,18 @@
 
 .person-workload-page .pw-gantt-bar--future,
 .person-workload-page .pw-gantt-bar--ended {
-  opacity: 0.55;
+  /* 整条降透明会连带文字跌破 AA；改为背景淡化、文字保持实色 */
+  opacity: 1;
+  background: color-mix(in srgb, var(--primary-color) 55%, var(--bg-primary));
+  color: var(--text-primary);
+}
+
+/* 派生条有明暗条纹，文字加主题底板保证对比度（W-08） */
+.person-workload-page .pw-gantt-bar--derived .pw-gantt-bar-text {
+  padding: 0 3px;
+  border-radius: 2px;
+  background: var(--bg-primary);
+  color: var(--text-primary);
 }
 
 .person-workload-page .pw-gantt-bar--ghost {
@@ -1615,8 +1682,9 @@
 }
 
 @media (max-width: 1366px) {
-  .person-workload-page .pw-gantt-lane {
-    grid-template-columns: minmax(110px, 150px) 1fr;
+  .person-workload-page .pw-gantt-lane,
+  .person-workload-page .pw-gantt-heat {
+    grid-template-columns: 150px minmax(0, 1fr);
   }
 
   .person-workload-page .pw-composer-field {

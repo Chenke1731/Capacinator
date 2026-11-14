@@ -2328,3 +2328,106 @@ test('评审 #9: 主编辑面日期统一 ISO；非 ISO 输入不提交', async 
   });
   expect(api.assignments.update).not.toHaveBeenCalled();
 });
+
+test('评审 W-05: 面板改日期即时反映到 bar/表格；拖动基准读当前可见值', async () => {
+  renderPage();
+  await waitFor(() => {
+    expect(screen.getAllByTestId('pw-gantt-bar').length).toBeGreaterThan(0);
+  });
+  fireEvent.click(findGanttBarFor('Alpha'));
+  const panel = await screen.findByTestId('pw-committed-inspector');
+  const bar = findGanttBarFor('Alpha');
+  const beforeLeft = bar.style.left;
+
+  fireEvent.change(within(panel).getByLabelText('Start date'), {
+    target: { value: '2026-01-10' },
+  });
+
+  await waitFor(() => {
+    expect(bar.style.left).not.toBe(beforeLeft);
+  });
+  const row = document.querySelector('tr[data-assignment-id="a1"]');
+  expect(row).toHaveTextContent('2026-01-10');
+});
+
+/* ===================== 交付评审（W-01/W-02/W-06/W-09/W-21/W-22） ===================== */
+
+test('W-01: 分配加载中不显示 0%/可用/空态', async () => {
+  (api.assignments.list as jest.Mock).mockReturnValue(new Promise(() => {}));
+  renderPage();
+  expect(await screen.findByTestId('pw-assignments-loading')).toBeInTheDocument();
+  expect(screen.queryByTestId('pw-total')).not.toBeInTheDocument();
+  expect(screen.queryByText('当前没有计入工作负载的分配。')).not.toBeInTheDocument();
+});
+
+test('W-02: 分配加载失败显示错误与重试，不显示假 0%', async () => {
+  (api.assignments.list as jest.Mock).mockRejectedValue(new Error('down'));
+  renderPage();
+  const error = await screen.findByTestId('pw-assignments-error');
+  expect(error).toHaveTextContent(/Could not load assignments/i);
+  expect(screen.queryByTestId('pw-total')).not.toBeInTheDocument();
+  expect(screen.getByRole('button', { name: /重试|Retry/i })).toBeInTheDocument();
+});
+
+test('W-06: 点击 minimap 当前月不回退历史左界', async () => {
+  renderPage();
+  await waitFor(() => {
+    expect(screen.getAllByTestId('pw-gantt-bar').length).toBeGreaterThan(0);
+  });
+  expect(screen.getByTestId('pw-gantt')).toHaveTextContent('2026-01-01 ~ 2026-12-31');
+  const months = screen.getByTestId('pw-minimap').querySelectorAll('button');
+  fireEvent.click(months[0]);
+  await waitFor(() => {
+    expect(screen.getByTestId('pw-gantt')).toHaveTextContent('2026-01-01 ~');
+  });
+});
+
+test('W-09: 行编辑开始后焦点进入首个比例输入', async () => {
+  renderPage();
+  await waitFor(() => {
+    expect(screen.getAllByRole('button', { name: 'Edit' }).length).toBeGreaterThan(0);
+  });
+  fireEvent.click(screen.getAllByRole('button', { name: 'Edit' })[0]);
+  await waitFor(() => {
+    expect(document.activeElement).toHaveClass('pw-allocation-input');
+  });
+});
+
+test('W-21/W-22: 接手人加载失败给出错误与重试；交接时不允许再开行编辑', async () => {
+  (api.people.list as jest.Mock).mockRejectedValue(new Error('people down'));
+  renderPage();
+  await waitFor(() => {
+    expect(screen.getAllByRole('button', { name: 'Hand over' }).length).toBeGreaterThan(0);
+  });
+  fireEvent.click(screen.getAllByRole('button', { name: 'Hand over' })[0]);
+  const handoverForm = await screen.findByText('Hand over assignment');
+  expect(handoverForm).toBeInTheDocument();
+  expect(await screen.findByText(/Could not load successors/i)).toBeInTheDocument();
+  expect(screen.getByRole('button', { name: 'Confirm handover' })).toBeDisabled();
+
+  fireEvent.click(screen.getAllByRole('button', { name: 'Edit' })[0]);
+  expect(await screen.findByText(/Finish or cancel the current handover/i)).toBeInTheDocument();
+  expect(screen.getByText('Hand over assignment')).toBeInTheDocument();
+});
+
+test('W-19: 草稿批量编辑非法值不关闭表单、不静默套用', async () => {
+  mockBoard();
+  renderPage();
+  await openDialog();
+  fireEvent.click(screen.getByTestId('pw-select-task-task-leaf'));
+  fireEvent.click(screen.getByTestId('pw-add-to-lane'));
+  await screen.findByTestId('pw-commit-bar');
+
+  fireEvent.click(screen.getByTestId('pw-batch-edit'));
+  fireEvent.change(screen.getByLabelText('Unified allocation %'), {
+    target: { value: '0' },
+  });
+  fireEvent.click(screen.getByRole('button', { name: /Apply to 1/i }));
+
+  expect(screen.getByTestId('pw-batch-edit-form')).toBeInTheDocument();
+  expect(screen.getByTestId('pw-batch-edit-error')).toHaveTextContent(/between 1 and 200/i);
+  // 草稿未被 0 覆盖
+  fireEvent.click(screen.getByTestId('pw-ghost-bar'));
+  const inspector = await screen.findByTestId('pw-ghost-inspector');
+  expect(within(inspector).getByLabelText('Allocation %')).not.toHaveValue('0');
+});

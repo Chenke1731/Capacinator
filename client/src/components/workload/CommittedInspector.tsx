@@ -121,6 +121,7 @@ export function CommittedInspector({
 
   const [convertValidationError, setConvertValidationError] = useState<string | null>(null);
   const gridRef = useRef<HTMLDivElement | null>(null);
+  const errorRef = useRef<HTMLDivElement | null>(null);
   const roleSelectRef = useRef<HTMLSelectElement | null>(null);
 
   // G-10：打开面板/进入转换时把焦点带入面板并把面板滚入视口
@@ -131,9 +132,10 @@ export function CommittedInspector({
     first?.focus();
     grid.closest('.pw-inspector')?.scrollIntoView?.({ block: 'nearest' });
   }, [row.id, convertMode]);
-  // N-04：转换失败后焦点回到角色选择，错误可被读屏关联
+  // N-04/W-23：转换失败聚焦角色选择；保存失败聚焦错误告警（含刷新出口）
   useEffect(() => {
     if (convertMode && error) roleSelectRef.current?.focus();
+    else if (error) errorRef.current?.focus();
   }, [error, convertMode]);
   useEffect(() => {
     setConvertValidationError(null);
@@ -481,7 +483,13 @@ export function CommittedInspector({
       ) : null}
 
       {error ? (
-        <div className="pw-inspector-submit-error" role="alert" data-testid="pw-committed-error">
+        <div
+          className="pw-inspector-submit-error"
+          role="alert"
+          data-testid="pw-committed-error"
+          ref={errorRef}
+          tabIndex={-1}
+        >
           <AlertTriangle size={13} aria-hidden="true" /> {error}
           {conflict ? (
             <button

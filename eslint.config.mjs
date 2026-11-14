@@ -1,5 +1,6 @@
 import eslint from '@eslint/js';
 import tseslint from 'typescript-eslint';
+import reactHooks from 'eslint-plugin-react-hooks';
 
 export default tseslint.config(
   eslint.configs.recommended,
@@ -26,6 +27,16 @@ export default tseslint.config(
       '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
       '@typescript-eslint/no-explicit-any': 'warn',
       'no-console': 'off', // Allow console for server-side logging
+    },
+  },
+  {
+    // React hooks：规则已安装但此前未接线。rules-of-hooks 阻断条件调用/
+    // 循环调用；exhaustive-deps 先以 warning 建立基线，避免一次引入大量红。
+    files: ['client/src/**/*.ts', 'client/src/**/*.tsx'],
+    plugins: { 'react-hooks': reactHooks },
+    rules: {
+      'react-hooks/rules-of-hooks': 'error',
+      'react-hooks/exhaustive-deps': 'warn',
     },
   },
   {

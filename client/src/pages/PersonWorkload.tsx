@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { useLocation, useNavigate, useParams, useSearchParams } from 'react-router-dom';
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import {
@@ -363,7 +363,6 @@ export default function PersonWorkload() {
   const hasUnsavedWorkRef = useRef(false);
   const allowHistoryLeaveRef = useRef(false);
   const historySentinelRef = useRef(false);
-  const location = useLocation();
   const leaveConfirmText = t('assignments:workbench.leaveConfirm');
   const leaveMessage = useCallback(() => {
     const { drafts, committed, other } = unsavedWorkRef.current;

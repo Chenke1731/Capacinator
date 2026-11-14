@@ -43,6 +43,7 @@ import type { AssignmentDraft } from '../lib/assignmentDrafts';
 import { useDraftAssignments } from '../hooks/useDraftAssignments';
 import { toISODateString } from '../utils/dateUtils';
 import { Badge } from '../components/ui/badge';
+import { IsoDateInput, isIsoCalendarDate } from '../components/ui/iso-date-input';
 import { ConfirmDialog } from '../components/ui/ConfirmDialog';
 import { ToastAction } from '../components/ui/toast';
 import { useToast } from '../hooks/use-toast';
@@ -820,6 +821,9 @@ export default function PersonWorkload() {
         if (!next.startDate || !next.endDate) {
           throw new Error(t('assignments:workload.edit.invalidDates'));
         }
+        if (!isIsoCalendarDate(next.startDate) || !isIsoCalendarDate(next.endDate)) {
+          throw new Error(t('assignments:workload.edit.dateFormat'));
+        }
         if (next.startDate > next.endDate) {
           throw new Error(t('assignments:workload.edit.invalidDateOrder'));
         }
@@ -1036,6 +1040,9 @@ export default function PersonWorkload() {
     }) => {
       if (!next.successorId) throw new Error(t('assignments:workload.handover.selectSuccessor'));
       if (!next.effectiveDate) throw new Error(t('assignments:workload.handover.invalidDate'));
+      if (!isIsoCalendarDate(next.effectiveDate)) {
+        throw new Error(t('assignments:workload.edit.dateFormat'));
+      }
       const allocation = Number(next.allocation);
       if (!Number.isFinite(allocation) || allocation <= 0 || allocation > 200) {
         throw new Error(t('assignments:workload.edit.invalidAllocation'));
@@ -1151,6 +1158,22 @@ export default function PersonWorkload() {
     guardLeave(() => performStaffingNavigate(personId, assignmentId));
   };
 
+  /** §12：staffing 面板与 committed 面板互斥；committed 有未保存值时不静默切换。 */
+  const openStaffingProject = (projectId: string, projectName: string) => {
+    if (committedSession) {
+      if (committedSaving || committedConverting || committedRowDirty) {
+        setBatchMessage({
+          tone: 'warning',
+          text: t('assignments:workbench.committed.finishPanelFirst'),
+        });
+        jumpToVisible('[data-testid="pw-committed-save"]');
+        return;
+      }
+      closeCommittedSession(false);
+    }
+    setStaffingProject({ id: projectId, name: projectName });
+  };
+
   // ---------------------------------------------------------------------
   // S1/S2 Phase A：已提交分配的就地编辑会话（§4.5）
   // 共享布局（CommittedInspector）但控制逻辑独立：暂存值 + 显式保存 +
@@ -1223,6 +1246,8 @@ export default function PersonWorkload() {
       }
       closeCommittedSession(false);
     }
+    // §12 互斥：committed 面板与 project staffing 面板不同时占据编辑区
+    if (staffingProject) setStaffingProject(null);
     // 同一时刻只开一个面板；ghost 草稿仍保存在 draftStore，不丢
     if (inspectorDraftId) setInspectorDraftId(null);
     committedReturnFocusRef.current = String(row.id);
@@ -1308,6 +1333,13 @@ export default function PersonWorkload() {
     if (mode === 'fixed') {
       if (!committedForm.startDate || !committedForm.endDate) {
         setCommittedError(t('assignments:workload.edit.invalidDates'));
+        return;
+      }
+      if (
+        !isIsoCalendarDate(committedForm.startDate) ||
+        !isIsoCalendarDate(committedForm.endDate)
+      ) {
+        setCommittedError(t('assignments:workload.edit.dateFormat'));
         return;
       }
       if (committedForm.startDate > committedForm.endDate) {
@@ -2028,18 +2060,20 @@ export default function PersonWorkload() {
                   <td className="pw-col-dates">
                     {editing && mode === 'fixed' ? (
                       <div className="pw-date-inputs">
-                        <input
-                          type="date"
-                          aria-label={t('assignments:workload.edit.startDate')}
+                        <IsoDateInput
+                          ariaLabel={t('assignments:workload.edit.startDate')}
                           value={draft.startDate}
-                          onChange={(event) => setDraft((prev) => ({ ...prev, startDate: event.target.value }))}
+                          onValueChange={(value) =>
+                            setDraft((prev) => ({ ...prev, startDate: value }))
+                          }
                         />
                         <span aria-hidden="true">→</span>
-                        <input
-                          type="date"
-                          aria-label={t('assignments:workload.edit.endDate')}
+                        <IsoDateInput
+                          ariaLabel={t('assignments:workload.edit.endDate')}
                           value={draft.endDate}
-                          onChange={(event) => setDraft((prev) => ({ ...prev, endDate: event.target.value }))}
+                          onValueChange={(value) =>
+                            setDraft((prev) => ({ ...prev, endDate: value }))
+                          }
                         />
                       </div>
                     ) : (
@@ -2097,7 +2131,12 @@ export default function PersonWorkload() {
                   </td>
                   <td className="pw-col-status">
                     {reason ? (
-                      <Badge variant="warning">{t(`assignments:workload.exclusion.${reason}`)}</Badge>
+                      <Badge
+                        variant="outline"
+                        className={`pw-status-badge pw-status-badge--${reason}`}
+                      >
+                        {t(`assignments:workload.exclusion.${reason}`)}
+                      </Badge>
                     ) : (
                       <Badge variant="success">{t('assignments:workload.included')}</Badge>
                     )}
@@ -2236,14 +2275,12 @@ export default function PersonWorkload() {
                         </label>
                         <label>
                           {t('assignments:workload.handover.effectiveDate')}
-                          <input
-                            type="date"
-                            aria-label={t('assignments:workload.handover.effectiveDate')}
+                          <IsoDateInput
+                            ariaLabel={t('assignments:workload.handover.effectiveDate')}
                             value={handoverDraft.effectiveDate}
-                            onChange={(event) =>
-                              setHandoverDraft((prev) => ({ ...prev, effectiveDate: event.target.value }))
+                            onValueChange={(value) =>
+                              setHandoverDraft((prev) => ({ ...prev, effectiveDate: value }))
                             }
-                            required
                           />
                         </label>
                         <label>
@@ -2455,7 +2492,7 @@ export default function PersonWorkload() {
         </div>
       ) : null}
 
-      <main className="pw-main">
+      <div className="pw-main">
       {scenarioMismatch ? (
         <div className="pw-scenario-banner" role="alert">
           <div>
@@ -2576,7 +2613,7 @@ export default function PersonWorkload() {
           if (end && end > rangeEnd) setRangeEndOverride(end);
           jumpToVisible(`[data-assignment-id="${assignmentId}"]`);
         }}
-        onProjectLaneClick={(projectId, projectName) => setStaffingProject({ id: projectId, name: projectName })}
+        onProjectLaneClick={openStaffingProject}
       />
 
       {staffingProject ? (
@@ -2584,6 +2621,7 @@ export default function PersonWorkload() {
           projectId={staffingProject.id}
           projectName={staffingProject.name}
           scenarioId={activeScenarioId}
+          asOf={asOf}
           onNavigateToPerson={handleStaffingNavigate}
           onClose={() => setStaffingProject(null)}
         />
@@ -3041,7 +3079,7 @@ export default function PersonWorkload() {
       </section>
 
       <p className="pw-note">{t('assignments:workload.note')}</p>
-      </main>
+      </div>
 
       <TaskSelectionDialog
         open={dialogOpen}

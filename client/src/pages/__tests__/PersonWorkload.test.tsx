@@ -1346,7 +1346,7 @@ test('S2: 点击已提交 fixed bar 打开面板——身份只读、比例/日�
   await waitFor(() => {
     expect(document.activeElement).toBe(allocation);
   });
-  const dateInputs = panel.querySelectorAll<HTMLInputElement>('input[type="date"]');
+  const dateInputs = panel.querySelectorAll<HTMLInputElement>('input[data-iso-date="true"]');
   expect(dateInputs).toHaveLength(2);
   expect(dateInputs[0].value).toBe('2026-01-01');
   // committed 行已开始：日期输入不得套用 ghost 的 min=asOf（评审 B2）
@@ -1534,7 +1534,7 @@ test('S2: phase 派生行可打开面板——日期只读派生、仅比例可�
 
   fireEvent.click(findGanttBarFor('Alpha'));
   const panel = await screen.findByTestId('pw-committed-inspector');
-  expect(panel.querySelector('input[type="date"]')).toBeNull();
+  expect(panel.querySelector('input[data-iso-date="true"]')).toBeNull();
   expect(panel).toHaveTextContent('2026-01-01 → 2026-12-31');
   expect(panel.querySelector('input[type="number"]')).toBeTruthy();
   // 派生行不可拖（canDragCommittedBar 拒绝 phase/project）
@@ -2224,4 +2224,107 @@ test('G-07: 转换在途时点击另一条 bar 不替换面板', async () => {
   await act(async () => {
     resolveConvert?.({ data: { data: { id: 'converted-2', version: 1 } } });
   });
+});
+
+/* ===================== 页面评审整改守卫 ===================== */
+
+test('评审 #1: 排除原因徽标按语义分色（不再统一 warning 黄底）', async () => {
+  renderPage();
+  await waitFor(() => {
+    expect(screen.getAllByTestId('pw-gantt-bar').length).toBeGreaterThan(0);
+  });
+  const paused = document.querySelector('.pw-status-badge--paused');
+  expect(paused).toBeTruthy();
+  expect(paused?.textContent).toBe('Paused');
+  expect(paused?.className).not.toContain('bg-yellow-700');
+});
+
+test('评审 #2: 全员配置状态按参考日判断——已结束不再显示“计入当前”', async () => {
+  (api.assignments.list as jest.Mock).mockImplementation(async (params: any) => {
+    if (params?.project_id) {
+      return {
+        data: {
+          data: [
+            {
+              ...staffingRow,
+              start_date: '2026-01-01',
+              end_date: '2026-02-01',
+              computed_start_date: '2026-01-01',
+              computed_end_date: '2026-02-01',
+            },
+          ],
+          pagination: { total: 1, totalPages: 1 },
+        },
+      };
+    }
+    return {
+      data: { data: assignments, pagination: { total: assignments.length, totalPages: 1 } },
+    };
+  });
+  renderPage();
+  await waitFor(() => {
+    expect(screen.getAllByTestId('pw-gantt-bar').length).toBeGreaterThan(0);
+  });
+  fireEvent.click(screen.getAllByRole('button', { name: /View staffing for/i })[0]);
+  const panel = await screen.findByTestId('pw-project-staffing');
+  await within(panel).findByTestId('pw-staffing-adjust-person-2');
+  const row = within(panel).getAllByRole('row').find((candidate) =>
+    candidate.textContent?.includes('John Smith')
+  )!;
+  expect(row).toHaveTextContent('Ended');
+  expect(row).not.toHaveTextContent('Included in current');
+});
+
+test('评审 #3: 窗口外的 lane 给出条数标记，且不再显示无实例的“已结束”图例', async () => {
+  (api.assignments.list as jest.Mock).mockResolvedValue({
+    data: {
+      data: [
+        {
+          ...assignments[0],
+          id: 'ended-row',
+          start_date: '2026-01-01',
+          end_date: '2026-02-01',
+          computed_start_date: '2026-01-01',
+          computed_end_date: '2026-02-01',
+        },
+      ],
+      pagination: { total: 1, totalPages: 1 },
+    },
+  });
+  renderPage();
+  const marker = await screen.findByTestId('pw-gantt-lane-outside');
+  expect(marker).toHaveTextContent('1 assignment(s) outside this window');
+  const gantt = screen.getByTestId('pw-gantt');
+  expect(within(gantt).queryByText('Ended')).not.toBeInTheDocument();
+});
+
+test('评审 #7: 打开已提交面板时关闭项目全员配置，互斥不叠加', async () => {
+  renderPage();
+  await waitFor(() => {
+    expect(screen.getAllByTestId('pw-gantt-bar').length).toBeGreaterThan(0);
+  });
+  fireEvent.click(screen.getAllByRole('button', { name: /View staffing for/i })[0]);
+  await screen.findByTestId('pw-project-staffing');
+
+  fireEvent.click(findGanttBarFor('Alpha'));
+  await screen.findByTestId('pw-committed-inspector');
+  expect(screen.queryByTestId('pw-project-staffing')).not.toBeInTheDocument();
+});
+
+test('评审 #9: 主编辑面日期统一 ISO；非 ISO 输入不提交', async () => {
+  renderPage();
+  await waitFor(() => {
+    expect(screen.getAllByTestId('pw-gantt-bar').length).toBeGreaterThan(0);
+  });
+  fireEvent.click(findGanttBarFor('Alpha'));
+  const panel = await screen.findByTestId('pw-committed-inspector');
+  const start = within(panel).getByLabelText('Start date') as HTMLInputElement;
+  expect(start.getAttribute('data-iso-date')).toBe('true');
+  fireEvent.change(start, { target: { value: '11/07/2026' } });
+  fireEvent.click(screen.getByTestId('pw-committed-save'));
+
+  await waitFor(() => {
+    expect(screen.getByTestId('pw-committed-error')).toHaveTextContent(/YYYY-MM-DD/);
+  });
+  expect(api.assignments.update).not.toHaveBeenCalled();
 });

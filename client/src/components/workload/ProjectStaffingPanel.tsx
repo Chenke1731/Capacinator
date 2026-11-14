@@ -29,6 +29,8 @@ export interface ProjectStaffingPanelProps {
   projectId: string;
   projectName: string;
   scenarioId: string;
+  /** 参考日：状态列判断"是否计入当前"，与人员页口径一致 */
+  asOf: string;
   /** S5：跳转必须经页面守卫（未保存 ghost/面板修改时拒绝）；面板只在允许后关闭 */
   onNavigateToPerson: (personId: string, assignmentId: string) => void;
   onClose: () => void;
@@ -38,6 +40,7 @@ export function ProjectStaffingPanel({
   projectId,
   projectName,
   scenarioId,
+  asOf,
   onNavigateToPerson,
   onClose,
 }: ProjectStaffingPanelProps) {
@@ -54,6 +57,15 @@ export function ProjectStaffingPanel({
     },
     staleTime: 30_000,
   });
+
+  const inclusionLabel = (row: StaffingRow) => {
+    if (row.status === 'paused') return t('assignments:workload.exclusion.paused');
+    const start = workloadDateOnly(row.computed_start_date ?? row.start_date);
+    const end = workloadDateOnly(row.computed_end_date ?? row.end_date);
+    if (start && start > asOf) return t('assignments:workload.exclusion.future');
+    if (end && end < asOf) return t('assignments:workload.exclusion.ended');
+    return t('assignments:workload.included');
+  };
 
   const rows = (staffingQuery.data ?? []).slice().sort((a, b) => {
     const statusRank = (row: StaffingRow) => (row.status === 'active' ? 0 : 1);
@@ -116,7 +128,7 @@ export function ProjectStaffingPanel({
                   <td>{row.phase_name ?? t('common:na')}</td>
                   <td>{start ?? '—'} → {end ?? '—'}</td>
                   <td>{Number(row.allocation_percentage ?? 0)}%</td>
-                  <td>{row.status === 'paused' ? t('assignments:workbench.gantt.paused') : t('assignments:workload.included')}</td>
+                  <td>{inclusionLabel(row)}</td>
                   <td>
                     {/* C（affordance 整改）：跨人员编辑的正路是去那个人的工作负载页 */}
                     <button

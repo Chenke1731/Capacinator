@@ -257,6 +257,25 @@
   padding-right: 0.4rem;
 }
 
+/* 排除原因徽标：按语义分色，且对比度 ≥4.5:1（旧 warning 黄底白字仅 2.97/3.93） */
+.person-workload-page .pw-status-badge--paused {
+  background: var(--warning-bg);
+  color: var(--warning);
+  border-color: color-mix(in srgb, var(--warning) 45%, transparent);
+}
+
+.person-workload-page .pw-status-badge--ended {
+  background: var(--bg-tertiary);
+  color: var(--text-secondary);
+  border-color: var(--border-color);
+}
+
+.person-workload-page .pw-status-badge--future {
+  background: color-mix(in srgb, var(--primary-color) 12%, transparent);
+  color: var(--primary-color);
+  border-color: color-mix(in srgb, var(--primary-color) 45%, transparent);
+}
+
 .person-workload-page .pw-actions-col {
   width: 15%;
 }
@@ -289,6 +308,11 @@
 
 .person-workload-page .pw-row--excluded td {
   opacity: 0.72;
+}
+
+/* 状态徽标不随排除行淡化：必须保持 ≥4.5:1 可读 */
+.person-workload-page .pw-row--excluded td.pw-col-status {
+  opacity: 1;
 }
 
 .person-workload-page .pw-project {
@@ -1114,7 +1138,8 @@
 
 .person-workload-page .pw-gantt-head h2 {
   margin: 0;
-  font-size: var(--text-md, 0.95rem);
+  font-size: var(--text-lg);
+  font-weight: var(--font-semibold, 600);
   color: var(--text-primary);
 }
 
@@ -1246,6 +1271,21 @@
     transparent 0 3px,
     color-mix(in srgb, var(--text-secondary) 45%, transparent) 3px 4px
   );
+}
+
+.person-workload-page .pw-gantt-lane-outside {
+  position: absolute;
+  left: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 0.15rem 0.45rem;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background: var(--bg-primary);
+  color: var(--text-secondary);
+  font-size: var(--text-xs);
+  white-space: nowrap;
+  pointer-events: none;
 }
 
 .person-workload-page .pw-gantt-asof {
@@ -1480,8 +1520,14 @@
 
 .person-workload-page .pw-inspector-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: var(--space-2) var(--space-3);
+}
+
+@media (min-width: 1500px) {
+  .person-workload-page .pw-inspector-grid {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
 }
 
 .person-workload-page .pw-inspector-grid label {
@@ -1638,13 +1684,13 @@
 .person-workload-page .pw-minimap {
   display: flex;
   align-items: flex-end;
-  gap: 1px;
+  gap: 3px;
   margin-left: auto;
   margin-right: var(--space-2);
   height: 34px;
-  flex: 0 1 auto;
+  flex: 0 0 auto;
   overflow-x: auto;
-  max-width: 50%;
+  max-width: 60%;
 }
 
 .person-workload-page .pw-minimap-month {
@@ -1653,7 +1699,7 @@
   flex-direction: column;
   justify-content: flex-end;
   align-items: center;
-  min-width: 26px; /* axe target-size：可点击目标 ≥24×24 */
+  min-width: 32px; /* 10px 标签 + 呼吸间距，保持 axe ≥24×24 */
   min-height: 0; /* 解除全局 button 40px 最小高（容器 34px） */
   height: 100%;
   border: none;
@@ -1682,7 +1728,7 @@
 }
 
 .person-workload-page .pw-minimap-label {
-  font-size: 9px;
+  font-size: 10px;
   color: var(--text-secondary);
   line-height: 1.4;
 }
@@ -1764,7 +1810,7 @@
 
 @media (max-width: 1366px) {
   .person-workload-page .pw-minimap {
-    max-width: 40%;
+    max-width: 50%;
   }
 }
 

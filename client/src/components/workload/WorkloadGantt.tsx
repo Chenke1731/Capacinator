@@ -529,6 +529,17 @@ export function WorkloadGantt({
     return styleForWindow(dates.startDate, dates.endDate);
   };
 
+  /** 是否与当前窗口有交集（决定 lane 内是否有可见 bar / 图例项是否出现）。 */
+  const barIntersectsWindow = (bar: BarModel): boolean => {
+    const dates = effectiveDates(bar);
+    if (!dates.startDate && !dates.endDate) return true;
+    const start = dates.startDate ? toDayNumber(dates.startDate) : rangeStartDay;
+    const end = dates.endDate ? toDayNumber(dates.endDate) : rangeEndDay;
+    return !(end < rangeStartDay || start > rangeEndDay);
+  };
+
+  const visibleLaneBars = lanes.flatMap((lane) => lane.bars).filter(barIntersectsWindow);
+
   /** 与 barStyle 同口径的宽度百分比（用于判断能否容纳两端 24px 手柄）。 */
   const MIN_RESIZE_BAR_PX = 72;
   const barWidthPercent = (bar: BarModel): number => {
@@ -627,13 +638,23 @@ export function WorkloadGantt({
             {asOfOffset > 0 ? (
               <span className="pw-legend pw-legend--history">{t('assignments:workbench.gantt.history')}</span>
             ) : null}
-            <span className="pw-legend pw-legend--derived">
-              <Lock size={11} aria-hidden="true" /> {t('assignments:workbench.gantt.derived')}
-            </span>
-            <span className="pw-legend pw-legend--paused">{t('assignments:workbench.gantt.paused')}</span>
-            <span className="pw-legend pw-legend--ghost">{t('assignments:workbench.gantt.ghost')}</span>
-            <span className="pw-legend pw-legend--future">{t('assignments:workbench.gantt.future')}</span>
-            <span className="pw-legend pw-legend--ended">{t('assignments:workbench.gantt.ended')}</span>
+            {visibleLaneBars.some((bar) => bar.kind === 'committed' && (bar.mode === 'phase' || bar.mode === 'project')) ? (
+              <span className="pw-legend pw-legend--derived">
+                <Lock size={11} aria-hidden="true" /> {t('assignments:workbench.gantt.derived')}
+              </span>
+            ) : null}
+            {visibleLaneBars.some((bar) => bar.kind === 'committed' && bar.status === 'paused') ? (
+              <span className="pw-legend pw-legend--paused">{t('assignments:workbench.gantt.paused')}</span>
+            ) : null}
+            {visibleLaneBars.some((bar) => bar.kind === 'ghost') ? (
+              <span className="pw-legend pw-legend--ghost">{t('assignments:workbench.gantt.ghost')}</span>
+            ) : null}
+            {visibleLaneBars.some((bar) => bar.kind === 'committed' && bar.startDate && bar.startDate > timeline.asOf) ? (
+              <span className="pw-legend pw-legend--future">{t('assignments:workbench.gantt.future')}</span>
+            ) : null}
+            {visibleLaneBars.some((bar) => bar.kind === 'committed' && bar.endDate && bar.endDate < timeline.asOf) ? (
+              <span className="pw-legend pw-legend--ended">{t('assignments:workbench.gantt.ended')}</span>
+            ) : null}
           </div>
           <p className="sr-only" id="pw-gantt-drag-help">
             {t('assignments:workbench.gantt.dragHelp')}
@@ -664,6 +685,15 @@ export function WorkloadGantt({
                     ref={laneIndex === 0 ? measureTrackRef : undefined}
                     style={{ minHeight: `${Math.max(lane.bars.length * 26 + 2, 30)}px` }}
                   >
+                    {(() => {
+                      const hidden = lane.bars.filter((bar) => !barIntersectsWindow(bar)).length;
+                      if (hidden === 0 || hidden < lane.bars.length) return null;
+                      return (
+                        <span className="pw-gantt-lane-outside" data-testid="pw-gantt-lane-outside">
+                          {t('assignments:workbench.gantt.laneOutside', { count: hidden })}
+                        </span>
+                      );
+                    })()}
                     {asOfOffset > 0 ? (
                       <span
                         className="pw-gantt-history"

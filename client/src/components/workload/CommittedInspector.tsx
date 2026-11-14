@@ -13,6 +13,7 @@ import { AlertTriangle, LocateFixed, Save, X } from 'lucide-react';
 import { InspectorImpact, InspectorShell } from './AssignmentInspector';
 import { isImeComposing } from '../../lib/ime';
 import { api } from '../../lib/api-client';
+import { IsoDateInput, isIsoCalendarDate } from '../ui/iso-date-input';
 import { queryKeys } from '../../lib/queryKeys';
 import type { AvailabilityOverrideInput } from '../../lib/workloadTimeline';
 import type { WorkloadAssignment } from '../../lib/personWorkload';
@@ -203,6 +204,11 @@ export function CommittedInspector({
       validationError = t('assignments:workload.edit.invalidAllocation');
     } else if (mode === 'fixed' && (!form.startDate || !form.endDate)) {
       validationError = t('assignments:workload.edit.invalidDates');
+    } else if (
+      mode === 'fixed' &&
+      (!isIsoCalendarDate(form.startDate) || !isIsoCalendarDate(form.endDate))
+    ) {
+      validationError = t('assignments:workload.edit.dateFormat');
     } else if (mode === 'fixed' && form.startDate > form.endDate) {
       validationError = t('assignments:workload.edit.invalidDateOrder');
     } else if (mode === 'phase' && !convertPhaseId) {
@@ -416,24 +422,22 @@ export function CommittedInspector({
           <>
             <label>
               <span>{t('assignments:workload.edit.startDate')}</span>
-              <input
-                type="date"
+              <IsoDateInput
                 value={form.startDate}
                 disabled={locked}
-                aria-invalid={Boolean(convertValidationError || error)}
-                aria-label={t('assignments:workload.edit.startDate')}
-                onChange={(event) => onChange({ startDate: event.target.value })}
+                invalid={Boolean(convertValidationError || error)}
+                ariaLabel={t('assignments:workload.edit.startDate')}
+                onValueChange={(value) => onChange({ startDate: value })}
               />
             </label>
             <label>
               <span>{t('assignments:workload.edit.endDate')}</span>
-              <input
-                type="date"
+              <IsoDateInput
                 value={form.endDate}
                 disabled={locked}
-                aria-invalid={Boolean(convertValidationError || error)}
-                aria-label={t('assignments:workload.edit.endDate')}
-                onChange={(event) => onChange({ endDate: event.target.value })}
+                invalid={Boolean(convertValidationError || error)}
+                ariaLabel={t('assignments:workload.edit.endDate')}
+                onValueChange={(value) => onChange({ endDate: value })}
               />
             </label>
           </>

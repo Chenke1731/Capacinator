@@ -155,7 +155,8 @@
       "pauseDirectTitle": "Pause baseline-global assignment?",
       "resumeDirectTitle": "Resume baseline-global assignment?",
       "discardEditTitle": "Discard row changes?",
-      "discardEditBody": "Unsaved changes in this row will be lost."
+      "discardEditBody": "Unsaved changes in this row will be lost.",
+      "dateFormat": "Use YYYY-MM-DD format (e.g. 2026-11-07)."
     },
     "handover": {
       "title": "Hand over assignment",
@@ -487,7 +488,8 @@
       "dragTipWindow": "{{start}} → {{end}} · {{days}} days",
       "dragTipMove": "{{start}} → {{end}} · {{days}} days ({{delta}})",
       "history": "History",
-      "dragTipClamped": " · lower bound"
+      "dragTipClamped": " · lower bound",
+      "laneOutside": "{{count}} assignment(s) outside this window"
     },
     "inspector": {
       "title": "Draft parameters: {{name}}",

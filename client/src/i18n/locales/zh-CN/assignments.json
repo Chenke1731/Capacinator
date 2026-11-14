@@ -95,7 +95,7 @@
   },
   "workload": {
     "title": "调整分配",
-    "subtitle": "审视 {{name}} 在 {{scenario}} 的工作负载并调整分配。",
+    "subtitle": "审视{{name}}在{{scenario}}的工作负载并调整分配。",
     "back": "返回人员详情",
     "asOf": "参考日 {{date}}",
     "scenarioLabel": "场景：{{name}}",
@@ -155,7 +155,8 @@
       "pauseDirectTitle": "暂停基线全局分配？",
       "resumeDirectTitle": "恢复基线全局分配？",
       "discardEditTitle": "丢弃本行修改？",
-      "discardEditBody": "本行未保存的修改将丢失。"
+      "discardEditBody": "本行未保存的修改将丢失。",
+      "dateFormat": "日期格式应为 YYYY-MM-DD（如 2026-11-07）。"
     },
     "handover": {
       "title": "交接分配",
@@ -487,7 +488,8 @@
       "dragTipWindow": "{{start}} → {{end}} · {{days}} 天",
       "dragTipMove": "{{start}} → {{end}} · {{days}} 天（{{delta}}）",
       "history": "历史",
-      "dragTipClamped": " · 已达下限"
+      "dragTipClamped": " · 已达下限",
+      "laneOutside": "{{count}} 条分配在窗口外"
     },
     "inspector": {
       "title": "草稿参数：{{name}}",

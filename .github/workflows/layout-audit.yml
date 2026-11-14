@@ -5,6 +5,19 @@
 name: layout-audit
 
 on:
+  # 首次 CI 调试 + feature 分支自检：push 也跑（advisory）。合并 main 后可评估移除。
+  push:
+    branches:
+      - 'feature/**'
+    paths:
+      - 'client/src/**'
+      - 'docs/UI_GENERATION_CONTRACT.md'
+      - 'scripts/audit-layout.mjs'
+      - 'scripts/layout-audit.config.json'
+      - 'scripts/layout-audit.allow.json'
+      - 'scripts/check-layout-audit-map.mjs'
+      - 'package.json'
+      - 'package-lock.json'
   pull_request:
     paths:
       - 'client/src/**'

@@ -149,7 +149,13 @@
       "deleteDirectConfirm": "这是基线全局分配，删除会影响所有场景。继续？",
       "pauseDirectConfirm": "这是基线全局分配，暂停会影响所有场景。继续？",
       "resumeDirectConfirm": "这是基线全局分配，恢复会影响所有场景。继续？",
-      "derivedDatesReadonly": "日期随项目/阶段，当前只能调整分配比例。"
+      "derivedDatesReadonly": "日期随项目/阶段，当前只能调整分配比例。",
+      "deleteTitle": "删除分配？",
+      "deleteDirectTitle": "删除基线全局分配？",
+      "pauseDirectTitle": "暂停基线全局分配？",
+      "resumeDirectTitle": "恢复基线全局分配？",
+      "discardEditTitle": "丢弃本行修改？",
+      "discardEditBody": "本行未保存的修改将丢失。"
     },
     "handover": {
       "title": "交接分配",
@@ -197,7 +203,7 @@
       "resumeAll": "批量恢复",
       "pauseConfirmTitle": "批量暂停分配？",
       "resumeConfirmTitle": "批量恢复分配？",
-      "pauseConfirmBody": "将暂停 {{count}} 个进行中的行，其中基线全局行 {{direct}} 个。继续？",
+      "pauseConfirmBody": "将暂停 {{count}} 个未暂停的行，其中基线全局行 {{direct}} 个。继续？",
       "resumeConfirmBody": "将恢复 {{count}} 个已暂停的行，其中基线全局行 {{direct}} 个。继续？",
       "pauseSaved": "已暂停 {{count}} 行。",
       "resumeSaved": "已恢复 {{count}} 行。",
@@ -208,7 +214,10 @@
       "undoToast": "已保存 {{count}} 行",
       "undoneToast": "已撤销 {{count}} 行。",
       "undoPartial": "撤销失败 {{failed}}/{{total}} 行。",
-      "undoFailed": "撤销失败：有分配已被修改。"
+      "undoFailed": "撤销失败：有分配已被修改。",
+      "shiftApplying": "应用中…",
+      "shiftMoreRows": "另有 {{count}} 行",
+      "outOfRangeCommitted": "{{count}} 条已提交分配在窗口外"
     },
     "source": {
       "direct": "基线全局",
@@ -568,7 +577,29 @@
       "discardTitle": "未保存的修改",
       "discardBody": "当前分配的修改尚未保存，关闭将丢失这些修改。",
       "discardConfirm": "丢弃修改",
-      "discardCancel": "继续编辑"
-    }
+      "discardCancel": "继续编辑",
+      "convertEntry": "更改角色/阶段",
+      "convertCancel": "取消转换",
+      "convertSubmit": "转换",
+      "convertConverting": "转换中…",
+      "convertPhaseNone": "无阶段",
+      "convertNoChange": "请先选择不同的角色或阶段。",
+      "convertDuplicate": "该人员在此项目下已有相同角色/阶段的分配。",
+      "convertSlotOccupied": "该 SE/MDE 槽位已被他人占用，请先选择其他角色。",
+      "convertFailed": "转换分配失败。",
+      "convertDirectUnsupported": "基线全局（direct）分配不支持转换。",
+      "convertedToast": "分配已转换",
+      "convertPhaseRequired": "请为阶段模式分配选择阶段。",
+      "convertWindowHint": "转换后将使用该阶段窗口。"
+    },
+    "leaveTitle": "离开此页面？",
+    "leaveConfirmAction": "离开",
+    "clearTitle": "清空待提交草稿？",
+    "clearConfirmAction": "清空",
+    "leaveDrafts": "你有未提交的分配草稿；离开将丢弃这些草稿。",
+    "leaveCommitted": "分配面板有未保存的修改；离开将丢弃这些修改。",
+    "leaveOther": "你有未保存的编辑；离开将丢弃这些编辑。",
+    "leaveBoth": "你有未提交的草稿和未保存的编辑；离开将全部丢弃。",
+    "outOfRangeCommitted": "{{count}} 条已提交分配在窗口外"
   }
 }

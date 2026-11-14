@@ -538,6 +538,17 @@
   font-size: var(--text-xs);
 }
 
+.person-workload-page .pw-batch-shift-form select,
+.person-workload-page .pw-batch-shift-form input,
+.person-workload-page .pw-inspector-grid select {
+  min-height: 40px;
+}
+
+.person-workload-page .btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
 .person-workload-page .pw-dates {
   display: flex;
   align-items: center;

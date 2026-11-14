@@ -149,7 +149,13 @@
       "deleteDirectConfirm": "This is a baseline-global assignment. Deleting it affects all scenarios. Continue?",
       "pauseDirectConfirm": "This is a baseline-global assignment. Pausing it affects all scenarios. Continue?",
       "resumeDirectConfirm": "This is a baseline-global assignment. Resuming it affects all scenarios. Continue?",
-      "derivedDatesReadonly": "Dates follow the project/phase; only allocation can be edited here."
+      "derivedDatesReadonly": "Dates follow the project/phase; only allocation can be edited here.",
+      "deleteTitle": "Delete assignment?",
+      "deleteDirectTitle": "Delete baseline-global assignment?",
+      "pauseDirectTitle": "Pause baseline-global assignment?",
+      "resumeDirectTitle": "Resume baseline-global assignment?",
+      "discardEditTitle": "Discard row changes?",
+      "discardEditBody": "Unsaved changes in this row will be lost."
     },
     "handover": {
       "title": "Hand over assignment",
@@ -197,7 +203,7 @@
       "resumeAll": "Batch resume",
       "pauseConfirmTitle": "Pause assignments?",
       "resumeConfirmTitle": "Resume assignments?",
-      "pauseConfirmBody": "Pause {{count}} active row(s), including {{direct}} baseline-global row(s)?",
+      "pauseConfirmBody": "Pause {{count}} non-paused row(s), including {{direct}} baseline-global row(s)?",
       "resumeConfirmBody": "Resume {{count}} paused row(s), including {{direct}} baseline-global row(s)?",
       "pauseSaved": "Paused {{count}} row(s).",
       "resumeSaved": "Resumed {{count}} row(s).",
@@ -208,7 +214,10 @@
       "undoToast": "Saved {{count}} row(s)",
       "undoneToast": "Undid {{count}} row(s).",
       "undoPartial": "Undo failed for {{failed}} of {{total}} row(s).",
-      "undoFailed": "Undo failed: one or more rows were changed."
+      "undoFailed": "Undo failed: one or more rows were changed.",
+      "shiftApplying": "Applying…",
+      "shiftMoreRows": "+{{count}} more row(s)",
+      "outOfRangeCommitted": "{{count}} committed assignment(s) outside the window"
     },
     "source": {
       "direct": "Baseline (global)",
@@ -568,7 +577,29 @@
       "discardTitle": "Unsaved changes",
       "discardBody": "The current assignment has unsaved changes; closing will discard them.",
       "discardConfirm": "Discard changes",
-      "discardCancel": "Keep editing"
-    }
+      "discardCancel": "Keep editing",
+      "convertEntry": "Change role / phase",
+      "convertCancel": "Cancel conversion",
+      "convertSubmit": "Convert",
+      "convertConverting": "Converting…",
+      "convertPhaseNone": "No phase",
+      "convertNoChange": "Choose a different role or phase first.",
+      "convertDuplicate": "An assignment with that role/phase already exists for this person and project.",
+      "convertSlotOccupied": "That SE/MDE slot is already occupied by someone else; choose another role first.",
+      "convertFailed": "Could not convert the assignment.",
+      "convertDirectUnsupported": "Baseline-global (direct) assignments cannot be converted.",
+      "convertedToast": "Assignment converted",
+      "convertPhaseRequired": "Select a phase for this phase-based assignment.",
+      "convertWindowHint": "After conversion this phase window is used."
+    },
+    "leaveTitle": "Leave this page?",
+    "leaveConfirmAction": "Leave",
+    "clearTitle": "Clear pending drafts?",
+    "clearConfirmAction": "Clear",
+    "leaveDrafts": "You have unsubmitted assignment drafts; leaving will discard them.",
+    "leaveCommitted": "The assignment panel has unsaved changes; leaving will discard them.",
+    "leaveOther": "You have unsaved edits; leaving will discard them.",
+    "leaveBoth": "You have unsubmitted drafts and unsaved edits; leaving will discard all of them.",
+    "outOfRangeCommitted": "{{count}} committed assignment(s) outside the window"
   }
 }

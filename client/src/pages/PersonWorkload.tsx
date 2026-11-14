@@ -65,7 +65,9 @@ interface PersonRow {
 interface AssignmentRow extends WorkloadAssignment {
   project_id: string;
   project_name?: string | null;
+  role_id?: string | null;
   role_name?: string | null;
+  phase_id?: string | null;
   phase_name?: string | null;
   assignment_type?: 'scenario' | 'direct' | string | null;
   assignment_date_mode?: 'fixed' | 'phase' | 'project' | string | null;
@@ -170,47 +172,15 @@ export default function PersonWorkload() {
     [assignmentsQuery.data, asOf, availability]
   );
 
-  // ---- 工作台 v2：泳道时间范围（默认未来 3 个月，§20.3；mini-map 可移动窗口）----
+  const allWorkloadRows = (): AssignmentRow[] => [
+    ...summary.current,
+    ...summary.excluded.map((excludedRow) => excludedRow.assignment),
+  ];
+
+  // ---- 工作台 v2：泳道时间范围（S8 自适应；mini-map 可移动窗口）----
   const [rangeEndOverride, setRangeEndOverride] = useState<string | null>(null);
   const [rangeStartOverride, setRangeStartOverride] = useState<string | null>(null);
   const rangeStart = rangeStartOverride ?? asOf;
-  const defaultRangeEnd = useMemo(() => shiftIsoMonths(asOf, 3), [asOf]);
-  const rangeEnd = rangeEndOverride ?? defaultRangeEnd;
-
-  // F3（DeepSeek P2 #3）：覆盖全集按时间轴窗口取数（approved-only）——
-  // 旧实现只从 utilization 行取"今天生效"的单一窗口，未来已批准休假
-  // （整周 0%）不可见，热区按默认可用率误报正常。所有容量面共用本数组。
-  const overridesWindowEnd = useMemo(() => shiftIsoMonths(asOf, 12), [asOf]);
-  const overridesQuery = useQuery<AvailabilityOverrideInput[]>({
-    queryKey: queryKeys.availability.list({
-      person_id: id,
-      is_approved: true,
-      start_date: asOf,
-      end_date: overridesWindowEnd,
-    } as never),
-    queryFn: () => fetchApprovedAvailabilityOverrides(id!, asOf, overridesWindowEnd),
-    // asOf 来自 utilization 的 as_of：必须等它落定后再取覆盖窗口，
-    // 否则先用"今天"发一轮再换键重发（多一轮请求+夹具/缓存额外键）
-    enabled: Boolean(id) && utilizationQuery.isSuccess,
-    staleTime: 60_000,
-  });
-  const availabilityOverrides = useMemo<AvailabilityOverrideInput[]>(() => {
-    if (overridesQuery.data) return overridesQuery.data;
-    // 查询未完成/失败时的保底：utilization 行的当前生效窗口（旧口径，
-    // 不丢当前信息）；查询成功后以完整集合为准
-    const start = utilizationRow?.availability_start;
-    const end = utilizationRow?.availability_end;
-    const percentage = utilizationRow?.current_availability_percentage;
-    if (!start || !end || percentage === null || percentage === undefined) return [];
-    return [
-      {
-        start: String(start).slice(0, 10),
-        end: String(end).slice(0, 10),
-        percentage: Number(percentage),
-        isApproved: true,
-      },
-    ];
-  }, [overridesQuery.data, utilizationRow]);
 
   const defaultAvailability = personQuery.data?.default_availability_percentage ?? null;
   // C2（Codex P2#4 + D-01a）：热区默认可用率=人员档案默认值，而不是当前
@@ -252,6 +222,64 @@ export default function PersonWorkload() {
     onAfterCommit: refreshAssignments,
   });
 
+  // S8（§11）：默认窗口 = clamp(最远 committed/ghost 结束日, asOf+3 月, asOf+12 月)。
+  // 不无限放大：多年后的结束日留在"范围外"入口，定位时才显式扩展。
+  const defaultRangeEnd = useMemo(() => {
+    const minimum = shiftIsoMonths(asOf, 3);
+    const maximum = shiftIsoMonths(asOf, 12);
+    let furthest = '';
+    for (const row of assignmentsQuery.data ?? []) {
+      const end = workloadDateOnly(row.computed_end_date ?? row.end_date);
+      if (end && end > furthest) furthest = end;
+    }
+    for (const draft of draftStore.drafts) {
+      if (draft.submitState === 'SUCCEEDED' || draft.submitState === 'UNKNOWN') continue;
+      if (draft.endDate && draft.endDate > furthest) furthest = draft.endDate;
+    }
+    if (!furthest || furthest < minimum) return minimum;
+    return furthest > maximum ? maximum : furthest;
+  }, [assignmentsQuery.data, draftStore.drafts, asOf]);
+  const rangeEnd = rangeEndOverride ?? defaultRangeEnd;
+
+  // F3（DeepSeek P2 #3）：覆盖全集按时间轴窗口取数（approved-only）——
+  // 旧实现只从 utilization 行取"今天生效"的单一窗口，未来已批准休假
+  // （整周 0%）不可见，热区按默认可用率误报正常。所有容量面共用本数组。
+  // S8：窗口经"范围外"定位扩展超过 12 个月时，覆盖查询同步扩展。
+  const overridesWindowEnd = useMemo(() => {
+    const standard = shiftIsoMonths(asOf, 12);
+    return rangeEnd > standard ? rangeEnd : standard;
+  }, [asOf, rangeEnd]);
+  const overridesQuery = useQuery<AvailabilityOverrideInput[]>({
+    queryKey: queryKeys.availability.list({
+      person_id: id,
+      is_approved: true,
+      start_date: asOf,
+      end_date: overridesWindowEnd,
+    } as never),
+    queryFn: () => fetchApprovedAvailabilityOverrides(id!, asOf, overridesWindowEnd),
+    // asOf 来自 utilization 的 as_of：必须等它落定后再取覆盖窗口，
+    // 否则先用"今天"发一轮再换键重发（多一轮请求+夹具/缓存额外键）
+    enabled: Boolean(id) && utilizationQuery.isSuccess,
+    staleTime: 60_000,
+  });
+  const availabilityOverrides = useMemo<AvailabilityOverrideInput[]>(() => {
+    if (overridesQuery.data) return overridesQuery.data;
+    // 查询未完成/失败时的保底：utilization 行的当前生效窗口（旧口径，
+    // 不丢当前信息）；查询成功后以完整集合为准
+    const start = utilizationRow?.availability_start;
+    const end = utilizationRow?.availability_end;
+    const percentage = utilizationRow?.current_availability_percentage;
+    if (!start || !end || percentage === null || percentage === undefined) return [];
+    return [
+      {
+        start: String(start).slice(0, 10),
+        end: String(end).slice(0, 10),
+        percentage: Number(percentage),
+        isApproved: true,
+      },
+    ];
+  }, [overridesQuery.data, utilizationRow]);
+
   // 场景绑定（§12）：草稿绑定加入时的场景；切场景→只读+禁提交
   const draftScenarioId = draftStore.drafts[0]?.scenarioId ?? activeScenarioId;
   const draftScenarioMismatch =
@@ -272,9 +300,18 @@ export default function PersonWorkload() {
     endDate: '',
   });
   const [committedSaving, setCommittedSaving] = useState(false);
+  const [committedConverting, setCommittedConverting] = useState(false);
   const [committedError, setCommittedError] = useState<string | null>(null);
   const [committedConflict, setCommittedConflict] = useState(false);
   const [committedConfirmOpen, setCommittedConfirmOpen] = useState(false);
+  /** S7：统一动作确认（删除/清空/离页/direct 暂停恢复/丢弃行编辑） */
+  const [actionConfirm, setActionConfirm] = useState<{
+    title: string;
+    message: string;
+    confirmText?: string;
+    variant?: 'default' | 'danger';
+    onConfirm: () => void;
+  } | null>(null);
   /** 面板关闭后焦点回到原 bar（§5.2/§15）；被行编辑/批量接管时不抢焦点。 */
   const committedReturnFocusRef = useRef<string | null>(null);
   const committedRowDirty = Boolean(
@@ -290,57 +327,79 @@ export default function PersonWorkload() {
 
   // CommitInFlight / 面板保存锁（§12/§4.5）：在途写请求期间锁定场景切换
   useEffect(() => {
-    if (draftStore.submitting || committedSaving) {
+    if (draftStore.submitting || committedSaving || committedConverting) {
       lockScenarioSwitching(t('assignments:workbench.commit.lockReason'));
     } else {
       unlockScenarioSwitching();
     }
     return () => unlockScenarioSwitching();
-  }, [draftStore.submitting, committedSaving, lockScenarioSwitching, unlockScenarioSwitching, t]);
+  }, [draftStore.submitting, committedSaving, committedConverting, lockScenarioSwitching, unlockScenarioSwitching, t]);
 
-  // 刷新/离开守卫（§16 + §4.5：未提交 ghost / 未保存面板修改提示丢弃）
+  // 刷新/离开守卫（§16 + §4.5 + S7）：脏来源 = ghost / committed 面板 /
+  // 行编辑 / 批量 / 交接 / 在途转换，任一成立都需确认（评审 G-02）。
   const hasPendingDrafts = draftStore.drafts.some((draft) => draft.submitState !== 'SUCCEEDED');
   const hasUnsavedCommitted = Boolean(committedSession && committedRowDirty);
+  const unsavedWorkRef = useRef({ drafts: false, committed: false, other: false });
+  const leaveConfirmText = t('assignments:workbench.leaveConfirm');
+  const leaveMessage = useCallback(() => {
+    const { drafts, committed, other } = unsavedWorkRef.current;
+    if (drafts && (committed || other)) return t('assignments:workbench.leaveBoth');
+    if (drafts) return t('assignments:workbench.leaveDrafts');
+    if (committed) return t('assignments:workbench.leaveCommitted');
+    if (other) return t('assignments:workbench.leaveOther');
+    return leaveConfirmText;
+  }, [leaveConfirmText, t]);
+  /** S7/§10：离页守卫的异步确认——确认后才显式执行导航动作。 */
+  const guardLeave = useCallback(
+    (action: () => void) => {
+      const { drafts, committed, other } = unsavedWorkRef.current;
+      if (!drafts && !committed && !other) {
+        action();
+        return;
+      }
+      setActionConfirm({
+        title: t('assignments:workbench.leaveTitle'),
+        message: leaveMessage(),
+        confirmText: t('assignments:workbench.leaveConfirmAction'),
+        variant: 'danger',
+        onConfirm: () => {
+          setActionConfirm(null);
+          action();
+        },
+      });
+    },
+    [leaveMessage, t]
+  );
   useEffect(() => {
-    if (!hasPendingDrafts && !hasUnsavedCommitted) return undefined;
     const onBeforeUnload = (event: BeforeUnloadEvent) => {
+      const { drafts, committed, other } = unsavedWorkRef.current;
+      if (!drafts && !committed && !other) return;
       event.preventDefault();
       event.returnValue = '';
     };
     window.addEventListener('beforeunload', onBeforeUnload);
     return () => window.removeEventListener('beforeunload', onBeforeUnload);
-  }, [hasPendingDrafts, hasUnsavedCommitted]);
-
-  // G-05（评审）：SPA 内导航守卫——beforeunload 只覆盖刷新/关窗，页内路由
-  // （返回按钮/侧栏链接）在有未提交 ghost 时也必须确认。捕获阶段拦站内
-  // <a href="/...">；浏览器返回键不在本守卫范围（BrowserRouter 无法拦截
-  // popstate 而不破坏历史栈，边界已记录）。
-  const hasPendingDraftsRef = useRef(false);
-  hasPendingDraftsRef.current = hasPendingDrafts;
-  const hasUnsavedCommittedRef = useRef(false);
-  hasUnsavedCommittedRef.current = hasUnsavedCommitted;
-  const leaveConfirmText = t('assignments:workbench.leaveConfirm');
-  const confirmLeaveIfPending = useCallback(() => {
-    if (!hasPendingDraftsRef.current && !hasUnsavedCommittedRef.current) return true;
-    return window.confirm(leaveConfirmText);
-  }, [leaveConfirmText]);
+  }, []);
   useEffect(() => {
     const onClickCapture = (event: MouseEvent) => {
-      if (
-        (!hasPendingDraftsRef.current && !hasUnsavedCommittedRef.current) ||
-        event.defaultPrevented
-      ) {
+      const { drafts, committed, other } = unsavedWorkRef.current;
+      if ((!drafts && !committed && !other) || event.defaultPrevented) return;
+      // 只接管未修饰的主键导航；新标签/新窗口语义保持浏览器默认
+      if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) {
         return;
       }
       const anchor = (event.target as HTMLElement | null)?.closest?.('a');
       if (!anchor) return;
+      if (anchor.getAttribute('target') && anchor.getAttribute('target') !== '_self') return;
       const href = anchor.getAttribute('href');
       if (!href || !href.startsWith('/') || href.startsWith('//')) return;
-      if (!window.confirm(leaveConfirmText)) event.preventDefault();
+      // capture 阶段不能 await：先阻止默认跳转，确认后再显式 navigate
+      event.preventDefault();
+      guardLeave(() => navigate(href));
     };
     document.addEventListener('click', onClickCapture, true);
     return () => document.removeEventListener('click', onClickCapture, true);
-  }, [leaveConfirmText]);
+  }, [guardLeave, navigate]);
 
   // S5（§8）：同一路由组件从 A 人员切到 B 人员时，上一人员的编辑会话/
   // ghost/批量/深链状态必须清掉，否则残留会话会指向他人的分配。
@@ -360,6 +419,7 @@ export default function PersonWorkload() {
     setCommittedError(null);
     setCommittedConflict(false);
     setCommittedConfirmOpen(false);
+    setCommittedConverting(false);
     committedReturnFocusRef.current = null;
     setBatchMode(false);
     setBatchDrafts({});
@@ -369,12 +429,15 @@ export default function PersonWorkload() {
     setBatchShiftPlan(null);
     setBatchShiftError(null);
     setBatchStatusConfirm(null);
+    setActionConfirm(null);
     setInspectorDraftId(null);
     setDialogOpen(false);
     setStaffingProject(null);
     setDeepLinkHint(false);
     setDeepLinkNotice(null);
     setDeepLinkHighlightId(null);
+    setRangeEndOverride(null);
+    setRangeStartOverride(null);
     deepLinkHandledRef.current = null;
     clearDrafts();
   }, [id, clearDrafts]);
@@ -427,6 +490,15 @@ export default function PersonWorkload() {
   // D-02a：场景失配时草稿只读且不进入热区投影（A 场景草稿叠加 B 场景
   // committed 的"预计值"没有业务含义）——泳道 bar 层仍显示 ghost。
   const projectedDrafts = draftScenarioMismatch ? [] : draftStore.drafts;
+  // S8：窗口 > 6 个月时热区展示粒度切到月（只换展示桶，计算口径不变）
+  const windowDays = useMemo(
+    () =>
+      Math.round(
+        (Date.parse(`${rangeEnd}T00:00:00Z`) - Date.parse(`${rangeStart}T00:00:00Z`)) /
+          86_400_000
+      ),
+    [rangeStart, rangeEnd]
+  );
   const timeline = useMemo(
     () =>
       workloadTimeline(
@@ -447,10 +519,10 @@ export default function PersonWorkload() {
           rangeEnd,
           defaultAvailability: heatDefaultAvailability,
           availabilityOverrides,
-          granularity: 'week',
+          granularity: windowDays > 183 ? 'month' : 'week',
         }
       ),
-    [committedTimelineRows, projectedDrafts, asOf, rangeStart, rangeEnd, heatDefaultAvailability, availabilityOverrides]
+    [committedTimelineRows, projectedDrafts, asOf, rangeStart, rangeEnd, heatDefaultAvailability, availabilityOverrides, windowDays]
   );
 
   const inspectorDraft = draftStore.drafts.find((draft) => draft.draftId === inspectorDraftId) ?? null;
@@ -466,7 +538,12 @@ export default function PersonWorkload() {
     });
   }, []);
 
-  // Phase 3 mini-map：12 个月月桶总览（含 ghost 投影），点击月桶移动观察窗
+  // Phase 3 mini-map：`max(12 个月, 当前窗口跨度)` 月桶总览（S8），
+  // 点击月桶移动观察窗
+  const minimapRangeEnd = useMemo(() => {
+    const standard = shiftIsoMonths(asOf, 12);
+    return rangeEnd > standard ? rangeEnd : standard;
+  }, [asOf, rangeEnd]);
   const minimapTimeline = useMemo(
     () =>
       workloadTimeline(
@@ -484,13 +561,13 @@ export default function PersonWorkload() {
         {
           asOf,
           rangeStart: asOf,
-          rangeEnd: shiftIsoMonths(asOf, 12),
+          rangeEnd: minimapRangeEnd,
           defaultAvailability: heatDefaultAvailability,
           availabilityOverrides,
           granularity: 'month',
         }
       ),
-    [committedTimelineRows, projectedDrafts, asOf, heatDefaultAvailability, availabilityOverrides]
+    [committedTimelineRows, projectedDrafts, asOf, minimapRangeEnd, heatDefaultAvailability, availabilityOverrides]
   );
 
   // Phase 2：拖动/缩放落点（钳制 start<=end、至少 1 天、且不早于参考日——
@@ -578,16 +655,38 @@ export default function PersonWorkload() {
   } | null>(null);
   const scenarioMismatch = Boolean(editingId && editScenarioId && editScenarioId !== activeScenarioId);
 
-  const beginEdit = (row: AssignmentRow) => {
-    // §4.5 互斥：committed 面板未结束时不并存第二个编辑器
-    if (committedSession) {
-      if (committedRowDirty) {
-        setBatchMessage({ tone: 'warning', text: t('assignments:workbench.committed.finishPanelFirst') });
-        jumpToVisible('[data-testid="pw-committed-save"]');
-        return;
-      }
-      closeCommittedSession(false);
-    }
+  /** 批量里是否还有未保存比例改动（平移全部成功后决定是否收起平移表单）。 */
+  const batchDraftsDirty = () =>
+    allWorkloadRows().some(
+      (row) =>
+        batchDrafts[row.id] !== undefined &&
+        batchBaselines[row.id] !== undefined &&
+        batchDrafts[row.id] !== String(batchBaselines[row.id].allocation)
+    );
+
+  const rowEditDirty = Boolean(
+    editingId &&
+      editBaseline &&
+      (Number(draft.allocation) !== editBaseline.allocation ||
+        draft.startDate !== editBaseline.startDate ||
+        draft.endDate !== editBaseline.endDate)
+  );
+  // 离页守卫的统一脏集合（每渲染同步到 ref，供同步 capture 事件读取）
+  const hasUnsavedHandover = Boolean(
+    handoverRowId &&
+      (handoverDraft.successorId || handoverDraft.effectiveDate || handoverDraft.allocation)
+  );
+  unsavedWorkRef.current = {
+    drafts: hasPendingDrafts,
+    committed: hasUnsavedCommitted,
+    other:
+      Boolean(editingId && rowEditDirty) ||
+      hasUnsavedHandover ||
+      Boolean(batchMode && (batchShiftPlan || batchDraftsDirty())) ||
+      committedConverting,
+  };
+
+  const startRowEdit = (row: AssignmentRow) => {
     setEditingId(row.id);
     setEditScenarioId(activeScenarioId || null);
     setRowError(null);
@@ -605,13 +704,63 @@ export default function PersonWorkload() {
       endDate,
     });
   };
+
+  const beginEdit = (row: AssignmentRow) => {
+    // §4.5 互斥：committed 面板未结束时不并存第二个编辑器
+    if (committedSession) {
+      if (committedSaving || committedConverting) {
+        setBatchMessage({ tone: 'warning', text: t('assignments:workbench.committed.finishPanelFirst') });
+        jumpToVisible('[data-testid="pw-committed-save"]');
+        return;
+      }
+      if (committedRowDirty) {
+        setBatchMessage({ tone: 'warning', text: t('assignments:workbench.committed.finishPanelFirst') });
+        jumpToVisible('[data-testid="pw-committed-save"]');
+        return;
+      }
+      closeCommittedSession(false);
+    }
+    // S7：切换编辑对象前，上一行有未保存修改 → 统一确认
+    if (editingId && editingId !== row.id && rowEditDirty) {
+      setActionConfirm({
+        title: t('assignments:workload.edit.discardEditTitle'),
+        message: t('assignments:workload.edit.discardEditBody'),
+        confirmText: t('assignments:workbench.committed.discardConfirm'),
+        variant: 'danger',
+        onConfirm: () => {
+          setActionConfirm(null);
+          startRowEdit(row);
+        },
+      });
+      return;
+    }
+    startRowEdit(row);
+  };
   beginEditRef.current = beginEdit;
 
-  const cancelEdit = () => {
+  const clearEdit = () => {
     setEditingId(null);
     setEditScenarioId(null);
     setRowError(null);
     setEditBaseline(null);
+  };
+
+  /** S7：行编辑有未保存修改时，取消/切走先经统一确认。 */
+  const cancelEdit = () => {
+    if (!rowEditDirty) {
+      clearEdit();
+      return;
+    }
+    setActionConfirm({
+      title: t('assignments:workload.edit.discardEditTitle'),
+      message: t('assignments:workload.edit.discardEditBody'),
+      confirmText: t('assignments:workbench.committed.discardConfirm'),
+      variant: 'danger',
+      onConfirm: () => {
+        setActionConfirm(null);
+        clearEdit();
+      },
+    });
   };
 
   const saveMutation = useMutation({
@@ -804,15 +953,34 @@ export default function PersonWorkload() {
 
   const toggleStatus = (row: AssignmentRow) => {
     const nextStatus = row.status === 'paused' ? 'active' : 'paused';
+    const apply = () =>
+      statusMutation.mutate({ row, status: nextStatus, scenarioId: activeScenarioId });
     if (row.assignment_type === 'direct') {
-      const message = t(
-        nextStatus === 'paused'
-          ? 'assignments:workload.edit.pauseDirectConfirm'
-          : 'assignments:workload.edit.resumeDirectConfirm'
-      );
-      if (!window.confirm(message)) return;
+      setActionConfirm({
+        title: t(
+          nextStatus === 'paused'
+            ? 'assignments:workload.edit.pauseDirectTitle'
+            : 'assignments:workload.edit.resumeDirectTitle'
+        ),
+        message: t(
+          nextStatus === 'paused'
+            ? 'assignments:workload.edit.pauseDirectConfirm'
+            : 'assignments:workload.edit.resumeDirectConfirm'
+        ),
+        confirmText: t(
+          nextStatus === 'paused'
+            ? 'assignments:workload.actions.pause'
+            : 'assignments:workload.actions.resume'
+        ),
+        variant: nextStatus === 'paused' ? 'danger' : 'default',
+        onConfirm: () => {
+          setActionConfirm(null);
+          apply();
+        },
+      });
+      return;
     }
-    statusMutation.mutate({ row, status: nextStatus, scenarioId: activeScenarioId });
+    apply();
   };
 
   const canHandover = (row: AssignmentRow) =>
@@ -893,11 +1061,6 @@ export default function PersonWorkload() {
     },
   });
 
-  const allWorkloadRows = (): AssignmentRow[] => [
-    ...summary.current,
-    ...summary.excluded.map((excludedRow) => excludedRow.assignment),
-  ];
-
   const deepLinkProject = searchParams.get('project');
   const deepLinkAssignment = searchParams.get('assignment');
 
@@ -920,7 +1083,7 @@ export default function PersonWorkload() {
       setDeepLinkHighlightId(String(target.id));
       window.requestAnimationFrame(() => {
         const rowElement = document.querySelector<HTMLElement>(
-          `[data-assignment-id="${target.id}"]`
+          `tr[data-assignment-id="${target.id}"]`
         );
         rowElement?.scrollIntoView?.({ block: 'center', behavior: 'smooth' });
         rowElement?.querySelector<HTMLElement>('[data-testid="pw-edit-row"]')?.focus?.();
@@ -955,10 +1118,9 @@ export default function PersonWorkload() {
 
   /**
    * S5：staffing 面板的程序化跳转必须经过页面守卫（Codex P1——capture 阶段
-   * 的 <a> 守卫拦不到 navigate）。拒绝时保留源面板。
+   * 的 <a> 守卫拦不到 navigate）。S7：确认改为 ConfirmDialog；拒绝时保留源面板。
    */
-  const handleStaffingNavigate = (personId: string, assignmentId: string) => {
-    if (!confirmLeaveIfPending()) return;
+  const performStaffingNavigate = (personId: string, assignmentId: string) => {
     const projectId = staffingProject?.id;
     setStaffingProject(null);
     const query = new URLSearchParams();
@@ -967,12 +1129,16 @@ export default function PersonWorkload() {
     navigate(`/people/${personId}/workload?${query.toString()}`);
   };
 
+  const handleStaffingNavigate = (personId: string, assignmentId: string) => {
+    guardLeave(() => performStaffingNavigate(personId, assignmentId));
+  };
+
   // ---------------------------------------------------------------------
   // S1/S2 Phase A：已提交分配的就地编辑会话（§4.5）
   // 共享布局（CommittedInspector）但控制逻辑独立：暂存值 + 显式保存 +
   // 编辑时快照版本；未保存关闭必须确认；409 保留用户值、显式刷新才换版本。
   // ---------------------------------------------------------------------
-  const { toast } = useToast();
+  const { toast, dismiss } = useToast();
   const findWorkloadRow = (assignmentId: string): AssignmentRow | undefined =>
     allWorkloadRows().find((row) => String(row.id) === String(assignmentId));
 
@@ -983,6 +1149,7 @@ export default function PersonWorkload() {
     setCommittedPreview(null);
     setCommittedError(null);
     setCommittedConflict(false);
+    setCommittedConverting(false);
     if (restoreFocus && returnId) {
       window.requestAnimationFrame(() => {
         const bar = document.querySelector<HTMLElement>(
@@ -1011,7 +1178,7 @@ export default function PersonWorkload() {
     source: 'drag' | 'click',
     preview?: CommittedDatePreview | null
   ) => {
-    if (draftStore.submitting || committedSaving) return;
+    if (draftStore.submitting || committedSaving || committedConverting) return;
     if (batchMode) {
       setBatchMessage({ tone: 'warning', text: t('assignments:workbench.committed.finishBatchFirst') });
       jumpToVisible('.person-workload-page .pw-allocation-input');
@@ -1026,6 +1193,17 @@ export default function PersonWorkload() {
       setBatchMessage({ tone: 'warning', text: t('assignments:workload.batch.finishHandoverFirst') });
       jumpToVisible(`[data-assignment-id="${handoverRowId}"]`);
       return;
+    }
+    // G-07：面板写请求在途时不得被另一条 bar 替换（错误会归因错行）
+    if (committedSession) {
+      if (committedSaving || committedConverting) return;
+      if (String(committedSession.row.id) === String(row.id)) return;
+      if (committedRowDirty) {
+        setBatchMessage({ tone: 'warning', text: t('assignments:workbench.committed.finishPanelFirst') });
+        jumpToVisible('[data-testid="pw-committed-save"]');
+        return;
+      }
+      closeCommittedSession(false);
     }
     // 同一时刻只开一个面板；ghost 草稿仍保存在 draftStore，不丢
     if (inspectorDraftId) setInspectorDraftId(null);
@@ -1050,6 +1228,7 @@ export default function PersonWorkload() {
     });
     setCommittedError(null);
     setCommittedConflict(false);
+    setCommittedConverting(false);
     setCommittedPreview(preview ?? null);
   };
 
@@ -1191,6 +1370,69 @@ export default function PersonWorkload() {
     }
   };
 
+  /**
+   * S4（§7.3）：角色/阶段转换——单请求；成功关闭面板并作废旧 id 的
+   * pending undo（dismiss toast），失败保留面板与用户值。
+   */
+  const convertCommitted = async (payload: {
+    role_id?: string;
+    phase_id?: string | null;
+    allocation_percentage?: number;
+    start_date?: string;
+    end_date?: string;
+  }) => {
+    const session = committedSession;
+    if (!session || committedSaving || committedConverting) return;
+    if (session.baseline.version === undefined) {
+      setCommittedError(t('assignments:workbench.committed.convertFailed'));
+      return;
+    }
+    setCommittedConverting(true);
+    setCommittedError(null);
+    setCommittedConflict(false);
+    try {
+      await api.assignments.convert(
+        session.row.id,
+        { ...payload, expected_version: session.baseline.version },
+        { scenarioId: session.scenarioId }
+      );
+      // 旧 id 已失效：清掉可能仍挂着的一次撤销动作
+      dismiss();
+      closeCommittedSession();
+      toast({
+        title: t('assignments:workbench.committed.convertedToast'),
+        duration: 4000,
+      });
+      void invalidateSchedulingReads(queryClient, String(session.row.project_id ?? ''));
+      void refreshAssignments();
+    } catch (error: any) {
+      const status = error?.response?.status;
+      const code = error?.response?.data?.code;
+      const serverMessage = String(
+        error?.response?.data?.message ??
+          error?.response?.data?.error ??
+          error?.message ??
+          ''
+      );
+      if (code === 'ASSIGNMENT_DUPLICATE') {
+        setCommittedError(t('assignments:workbench.committed.convertDuplicate'));
+      } else if (code === 'ASSIGNMENT_SLOT_OCCUPIED') {
+        setCommittedError(t('assignments:workbench.committed.convertSlotOccupied'));
+      } else if (status === 409) {
+        setCommittedConflict(true);
+        setCommittedError(
+          t('assignments:workbench.committed.versionConflict', { detail: serverMessage })
+        );
+      } else if (status === 400 && /direct/i.test(serverMessage)) {
+        setCommittedError(t('assignments:workbench.committed.convertDirectUnsupported'));
+      } else {
+        setCommittedError(serverMessage || t('assignments:workbench.committed.convertFailed'));
+      }
+    } finally {
+      setCommittedConverting(false);
+    }
+  };
+
   const performUndoCommitted = async (record: {
     id: string;
     scenarioId: string;
@@ -1217,6 +1459,12 @@ export default function PersonWorkload() {
         duration: 4000,
       });
     }
+  };
+
+  const focusBatchEntry = () => {
+    window.requestAnimationFrame(() => {
+      document.querySelector<HTMLElement>('[data-testid="pw-batch-entry"]')?.focus();
+    });
   };
 
   const startBatch = () => {
@@ -1281,9 +1529,9 @@ export default function PersonWorkload() {
       );
       return;
     }
-    // §4.5 互斥：committed 面板未结束时不进入批量（有未保存值则提示）
+    // §4.5 互斥：committed 面板未结束时不进入批量（有未保存值/在途写则提示）
     if (committedSession) {
-      if (committedRowDirty) {
+      if (committedSaving || committedConverting || committedRowDirty) {
         jumpTo('[data-testid="pw-committed-save"]', t('assignments:workbench.committed.finishPanelFirst'));
         return;
       }
@@ -1406,6 +1654,7 @@ export default function PersonWorkload() {
         setBatchDrafts({});
         setBatchBaselines({});
         setBatchMessage({ tone: 'success', text: t('assignments:workload.batch.saved', { count: saved }) });
+        focusBatchEntry();
       }
       // S6：成功子集（需每行都有保存版本）给 5 秒撤销，一次操作一个 toast。
       if (undoRecords && undoRecords.length > 0 && undoRecords.length === saved) {
@@ -1518,6 +1767,7 @@ export default function PersonWorkload() {
         });
         if (!batchDraftsDirty()) {
           setBatchShiftOpen(false);
+          focusBatchEntry();
         }
       } else {
         setBatchMessage({
@@ -1616,32 +1866,34 @@ export default function PersonWorkload() {
     },
   });
 
-  /** 批量里是否还有未保存比例改动（平移全部成功后决定是否收起平移表单）。 */
-  const batchDraftsDirty = () =>
-    allWorkloadRows().some(
-      (row) =>
-        batchDrafts[row.id] !== undefined &&
-        batchBaselines[row.id] !== undefined &&
-        batchDrafts[row.id] !== String(batchBaselines[row.id].allocation)
-    );
 
   const confirmDelete = (row: AssignmentRow) => {
-    const message =
-      row.assignment_type === 'direct'
-        ? t('assignments:workload.edit.deleteDirectConfirm')
-        : t('assignments:workload.edit.deleteConfirm');
-    if (window.confirm(message)) {
-      const allRows = [
-        ...summary.current,
-        ...summary.excluded.map((excludedRow) => excludedRow.assignment),
-      ];
-      const focusIndex = allRows.findIndex((candidate) => candidate.id === row.id);
-      deleteMutation.mutate({
-        row,
-        scenarioId: activeScenarioId,
-        focusIndex: focusIndex >= 0 ? focusIndex : 0,
-      });
-    }
+    setActionConfirm({
+      title: t(
+        row.assignment_type === 'direct'
+          ? 'assignments:workload.edit.deleteDirectTitle'
+          : 'assignments:workload.edit.deleteTitle'
+      ),
+      message: `${t(
+        row.assignment_type === 'direct'
+          ? 'assignments:workload.edit.deleteDirectConfirm'
+          : 'assignments:workload.edit.deleteConfirm'
+      )} ${row.project_name ?? ''} · ${row.role_name ?? ''} · ${
+        workloadDateOnly(row.computed_start_date ?? row.start_date) ?? '—'
+      } → ${workloadDateOnly(row.computed_end_date ?? row.end_date) ?? '—'}`,
+      confirmText: t('assignments:workload.actions.delete'),
+      variant: 'danger',
+      onConfirm: () => {
+        setActionConfirm(null);
+        const allRows = allWorkloadRows();
+        const focusIndex = allRows.findIndex((candidate) => candidate.id === row.id);
+        deleteMutation.mutate({
+          row,
+          scenarioId: activeScenarioId,
+          focusIndex: focusIndex >= 0 ? focusIndex : 0,
+        });
+      },
+    });
   };
 
   if (!id) return null;
@@ -1852,7 +2104,7 @@ export default function PersonWorkload() {
                           type="button"
                           className="btn btn-ghost btn-sm"
                           aria-label={t('assignments:workload.actions.cancel')}
-                          disabled={saving}
+                          disabled={saving || committedSaving || committedConverting}
                           onClick={cancelEdit}
                         >
                           <X size={14} />
@@ -1865,7 +2117,7 @@ export default function PersonWorkload() {
                             type="button"
                             className="btn btn-ghost btn-sm"
                             aria-label={t('assignments:workload.actions.handover')}
-                            disabled={saving}
+                            disabled={saving || committedSaving || committedConverting}
                             onClick={() => beginHandover(item)}
                           >
                             <ArrowRightLeft size={14} />
@@ -1879,7 +2131,7 @@ export default function PersonWorkload() {
                               ? t('assignments:workload.actions.resume')
                               : t('assignments:workload.actions.pause')
                           }
-                          disabled={saving}
+                          disabled={saving || committedSaving || committedConverting}
                           onClick={() => toggleStatus(item)}
                         >
                           {item.status === 'paused' ? <Play size={14} /> : <Pause size={14} />}
@@ -1889,6 +2141,7 @@ export default function PersonWorkload() {
                           className="btn btn-ghost btn-sm"
                           data-testid="pw-edit-row"
                           aria-label={t('assignments:workload.actions.edit')}
+                          disabled={committedSaving || committedConverting}
                           onClick={() => beginEdit(item)}
                         >
                           <Pencil size={14} />
@@ -1897,7 +2150,7 @@ export default function PersonWorkload() {
                           type="button"
                           className="btn btn-ghost btn-sm pw-delete-btn"
                           aria-label={t('assignments:workload.actions.delete')}
-                          disabled={saving}
+                          disabled={saving || committedSaving || committedConverting}
                           onClick={() => confirmDelete(item)}
                         >
                           <Trash2 size={14} />
@@ -1993,7 +2246,7 @@ export default function PersonWorkload() {
                           <button
                             type="submit"
                             className="btn btn-primary btn-sm"
-                            disabled={saving}
+                            disabled={saving || committedSaving || committedConverting}
                           >
                             {t('assignments:workload.handover.confirm')}
                           </button>
@@ -2026,7 +2279,7 @@ export default function PersonWorkload() {
         className="btn btn-ghost pw-back"
         data-testid="pw-back"
         onClick={() => {
-          if (confirmLeaveIfPending()) navigate(`/people/${person.id}`);
+          guardLeave(() => navigate(`/people/${person.id}`));
         }}
       >
         <ArrowLeft size={16} /> {t('assignments:workload.back')}
@@ -2249,6 +2502,7 @@ export default function PersonWorkload() {
         committedDragEnabled={
           !draftStore.submitting &&
           !committedSaving &&
+          !committedConverting &&
           !committedScenarioMismatch &&
           !draftScenarioMismatch &&
           !editingId &&
@@ -2275,6 +2529,13 @@ export default function PersonWorkload() {
         onNavigateRange={(monthStart) => {
           setRangeStartOverride(monthStart >= asOf ? monthStart : asOf);
           setRangeEndOverride(shiftIsoMonths(monthStart >= asOf ? monthStart : asOf, 3));
+        }}
+        onLocateCommitted={(assignmentId) => {
+          const row = findWorkloadRow(assignmentId);
+          if (!row) return;
+          const end = workloadDateOnly(row.computed_end_date ?? row.end_date);
+          if (end && end > rangeEnd) setRangeEndOverride(end);
+          jumpToVisible(`[data-assignment-id="${assignmentId}"]`);
         }}
         onProjectLaneClick={(projectId, projectName) => setStaffingProject({ id: projectId, name: projectName })}
       />
@@ -2306,10 +2567,20 @@ export default function PersonWorkload() {
         continueDisabled={draftScenarioMismatch}
         onConfirm={() => void draftStore.submit()}
         onClear={() => {
-          // N-02（评审）：清空是破坏性操作——已调参的草稿需二次确认
-          if (draftStore.drafts.length > 0 && window.confirm(t('assignments:workbench.clearConfirm'))) {
-            draftStore.clearDrafts();
-          }
+          // N-02/S7：清空是破坏性操作——已调参的草稿经统一确认框
+          if (draftStore.drafts.length === 0) return;
+          setActionConfirm({
+            title: t('assignments:workbench.clearTitle'),
+            message: t('assignments:workbench.clearConfirm'),
+            confirmText: t('assignments:workbench.clearConfirmAction', {
+              defaultValue: t('assignments:workbench.committed.discardConfirm'),
+            }),
+            variant: 'danger',
+            onConfirm: () => {
+              setActionConfirm(null);
+              draftStore.clearDrafts();
+            },
+          });
         }}
         lastSummary={draftStore.lastSummary}
         onRetryFailed={() => void draftStore.submit({ retryFailedOnly: true })}
@@ -2359,8 +2630,11 @@ export default function PersonWorkload() {
         <CommittedInspector
           row={{
             id: String(committedSession.row.id),
+            projectId: String(committedSession.row.project_id),
             projectName: committedSession.row.project_name ?? String(committedSession.row.project_id),
+            roleId: committedSession.row.role_id ?? null,
             roleName: committedSession.row.role_name ?? null,
+            phaseId: committedSession.row.phase_id ?? null,
             phaseName: committedSession.row.phase_name ?? null,
             source: committedSession.row.assignment_type ?? null,
             version: committedSession.row.version ?? null,
@@ -2379,11 +2653,19 @@ export default function PersonWorkload() {
             endDate: committedSession.baseline.endDate,
           }}
           saving={committedSaving}
+          converting={committedConverting}
           error={committedError}
           conflict={committedConflict}
           disabled={committedScenarioMismatch}
+          roleOptions={(person.roles ?? [])
+            .map((role) => ({
+              role_id: String(role.role_id ?? ''),
+              role_name: String(role.role_name ?? ''),
+            }))
+            .filter((role) => role.role_id)}
           onChange={(patch) => setCommittedForm((prev) => ({ ...prev, ...patch }))}
           onSave={() => void saveCommitted()}
+          onConvert={(payload) => void convertCommitted(payload)}
           onRefreshLatest={() => void refreshCommittedLatest()}
           onLocateInTable={() => {
             jumpToVisible(`[data-assignment-id="${committedSession.row.id}"]`);
@@ -2395,6 +2677,18 @@ export default function PersonWorkload() {
           asOf={asOf}
           rangeStart={rangeStart}
           rangeEnd={rangeEnd}
+        />
+      ) : null}
+
+      {actionConfirm ? (
+        <ConfirmDialog
+          isOpen
+          title={actionConfirm.title}
+          message={actionConfirm.message}
+          confirmText={actionConfirm.confirmText}
+          variant={actionConfirm.variant ?? 'default'}
+          onConfirm={actionConfirm.onConfirm}
+          onCancel={() => setActionConfirm(null)}
         />
       ) : null}
 
@@ -2484,6 +2778,7 @@ export default function PersonWorkload() {
                     setBatchShiftPlan(null);
                     setBatchShiftError(null);
                     setBatchMessage(null);
+                    focusBatchEntry();
                   }}
                 >
                   {t('assignments:workload.batch.cancel')}
@@ -2610,7 +2905,9 @@ export default function PersonWorkload() {
                   }}
                   data-testid="pw-batch-shift-apply"
                 >
-                  {t('assignments:workload.batch.shiftApply')}
+                  {batchShiftMutation.isPending
+                    ? t('assignments:workload.batch.shiftApplying')
+                    : t('assignments:workload.batch.shiftApply')}
                 </button>
               </div>
             ) : null}
@@ -2655,6 +2952,13 @@ export default function PersonWorkload() {
                         {row.newEnd}
                       </li>
                     ))}
+                    {batchShiftPlan.rows.length > 3 ? (
+                      <li>
+                        {t('assignments:workload.batch.shiftMoreRows', {
+                          count: batchShiftPlan.rows.length - 3,
+                        })}
+                      </li>
+                    ) : null}
                   </ul>
                 ) : null}
               </div>

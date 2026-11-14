@@ -16,6 +16,7 @@ router.post('/', controller.create);
 router.put('/:id', controller.update);
 router.post('/:id/handover', controller.handover);
 router.post('/:id/undo-replace', controller.undoReplace);
+router.post('/:id/convert', controller.convert);
 router.delete('/:id', controller.delete);
 
 // Bulk operations

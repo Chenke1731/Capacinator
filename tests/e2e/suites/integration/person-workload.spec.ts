@@ -460,7 +460,7 @@ test.describe('Person workbench v2 (S3 batch shift / status / undo)', () => {
       // 批量暂停（一次统一确认）
       await authenticatedPage.getByTestId('pw-batch-pause').click();
       const pauseDialog = authenticatedPage.getByTestId('confirm-dialog');
-      await expect(pauseDialog).toContainText('Pause 2 active row(s)');
+      await expect(pauseDialog).toContainText('Pause 2 non-paused row(s)');
       await pauseDialog.getByRole('button', { name: 'Pause', exact: true }).click();
       await expect(authenticatedPage.getByTestId('pw-batch-message')).toContainText(
         'Paused 2 row(s).',

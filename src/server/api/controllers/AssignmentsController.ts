@@ -1,3 +1,4 @@
+import { randomUUID } from 'node:crypto';
 import type { Response } from 'express';
 import type { Knex } from 'knex';
 import { BaseController, RequestWithContext } from './BaseController.js';
@@ -1315,20 +1316,323 @@ export class AssignmentsController extends BaseController {
         target.actualId,
         'DELETE',
         replacement,
-        undefined
+        undefined,
+        'assignment undo-replace [composite]'
       );
       await (req as any).logAuditEvent(
         'scenario_project_assignments',
         created.id,
         'CREATE',
         undefined,
-        created
+        created,
+        'assignment undo-replace [composite]'
       );
       return created;
     }, req, res, 'Failed to undo replacement');
 
     if (result) {
       this.sendSuccess(req, res, result, 'Replacement undone; incumbent restored');
+    }
+  })
+
+  /**
+   * S4（交互优化设计 §7.2）：角色/阶段转换——单事务删旧建新。
+   * 仅 scenario 轨；direct 行 400。字段继承显式白名单；双审计与业务同事务，
+   * 避免"转换已提交但审计/响应失败"的半提交。响应返回新行。
+   */
+  convert = this.asyncHandler(async (req: RequestWithLogging, res: Response) => {
+    const { id } = req.params;
+    const body = (req.body ?? {}) as Record<string, any>;
+    const scenarioId = resolveScenarioId(req.headers['x-scenario-id']);
+
+    const result = await this.executeQuery(async () => {
+      // §7.2：版本令牌必填——转换是删旧建新，不能用无令牌覆盖
+      const expectedVersion = Number(body.expected_version);
+      if (!Number.isInteger(expectedVersion) || expectedVersion < 1) {
+        throw this.createOperationalError('expected_version must be a positive integer', 400);
+      }
+
+      const isScenarioId = String(id).startsWith('spa-');
+      const actualId = isScenarioId ? String(id).substring(4) : String(id);
+      let newRow: any = null;
+
+      try {
+        await this.db.transaction(async (trx: any) => {
+          // 归属校验：必须是当前场景的 scenario 行；direct 轨不支持 convert
+          const existing = await trx('scenario_project_assignments')
+            .where({ id: actualId, scenario_id: scenarioId })
+            .first();
+          if (!existing) {
+            // 直接行/其他场景行：baseline 上下文对 direct 行返回明确 400；
+            // 分支场景按 404，不泄露 baseline 行存在性（与写路径一致）
+            if (!isScenarioId && scenarioId === BASELINE_SCENARIO_ID) {
+              const direct = await trx('project_assignments').where({ id: actualId }).first();
+              if (direct) {
+                throw this.createOperationalError(
+                  'Direct (baseline-global) assignments cannot be converted; only scenario assignments support convert',
+                  400
+                );
+              }
+            }
+            throw this.createOperationalError('Assignment not found', 404);
+          }
+
+          // §7.2 步骤 1：版本校验先于查重（过期版本不得被 DUPLICATE 掩盖）
+          if (Number(existing.version) !== expectedVersion) {
+            throw new AssignmentWriteConflict(409, {
+              error: 'Version conflict',
+              code: 'ASSIGNMENT_VERSION_CONFLICT',
+              message: 'This assignment was modified by someone else. Review the current value and retry.',
+              current: { ...existing, id: 'spa-' + existing.id },
+            });
+          }
+          // 墓碑行（change_type=removed）承载的是"删除效果"，转换会让旧键的
+          // 删除语义失效 → 拒绝，不做键漂移
+          if (existing.change_type === 'removed') {
+            throw this.createOperationalError(
+              'Removed (tombstone) assignments cannot be converted',
+              400
+            );
+          }
+
+          const mode: string = existing.assignment_date_mode ?? 'fixed';
+          const nextRoleId = Object.prototype.hasOwnProperty.call(body, 'role_id')
+            ? body.role_id
+            : existing.role_id;
+          const nextPhaseId = Object.prototype.hasOwnProperty.call(body, 'phase_id')
+            ? (body.phase_id === '' ? null : body.phase_id)
+            : existing.phase_id;
+          if (!nextRoleId || typeof nextRoleId !== 'string') {
+            throw this.createOperationalError('role_id must be a non-empty string', 400);
+          }
+          if (nextPhaseId !== null && typeof nextPhaseId !== 'string') {
+            throw this.createOperationalError('phase_id must be a string or null', 400);
+          }
+          if (
+            String(nextRoleId) === String(existing.role_id) &&
+            String(nextPhaseId ?? '') === String(existing.phase_id ?? '')
+          ) {
+            throw this.createOperationalError('Convert requires a role or phase change', 400);
+          }
+
+          const allocation = Object.prototype.hasOwnProperty.call(body, 'allocation_percentage')
+            ? body.allocation_percentage
+            : Number(existing.allocation_percentage);
+          const allocationError = allocationValidationError(allocation);
+          if (allocationError) throw this.createOperationalError(allocationError, 400);
+
+          const startParsed = parseAssignmentDate(
+            Object.prototype.hasOwnProperty.call(body, 'start_date')
+              ? body.start_date
+              : existing.start_date
+          );
+          const endParsed = parseAssignmentDate(
+            Object.prototype.hasOwnProperty.call(body, 'end_date')
+              ? body.end_date
+              : existing.end_date
+          );
+          if (startParsed.invalid || endParsed.invalid) {
+            throw this.createOperationalError('Invalid date format. Use YYYY-MM-DD format', 400);
+          }
+          if (mode === 'fixed') {
+            if (!startParsed.value || !endParsed.value) {
+              throw this.createOperationalError(
+                'Start date and end date are required for fixed date mode assignments',
+                400
+              );
+            }
+            if (startParsed.value > endParsed.value) {
+              throw this.createOperationalError('Start date must be before or equal to end date', 400);
+            }
+          }
+          if (mode === 'phase' && !nextPhaseId) {
+            throw this.createOperationalError('Phase ID is required for phase-based assignments', 400);
+          }
+
+          // 角色必须存在（否则 FK 会变成 500）；phase 模式必须有阶段时间线
+          const nextRole = await trx('roles').where({ id: nextRoleId }).first();
+          if (!nextRole) {
+            throw this.createOperationalError('role_id does not exist', 400);
+          }
+          if (mode === 'phase') {
+            const timeline = await trx('project_phases_timeline')
+              .where({ project_id: existing.project_id, phase_id: nextPhaseId })
+              .first();
+            if (!timeline) {
+              throw this.createOperationalError(
+                'The selected phase has no timeline in this project',
+                400
+              );
+            }
+          }
+
+          // 目标业务键查重（排除自身）
+          const duplicate = await this.findDuplicateAssignment(
+            trx,
+            'scenario_project_assignments',
+            {
+              scenarioId,
+              projectId: existing.project_id,
+              personId: existing.person_id,
+              roleId: nextRoleId,
+              phaseId: nextPhaseId ?? null,
+            },
+            actualId
+          );
+          if (duplicate) {
+            throw new AssignmentWriteConflict(409, {
+              error: 'Conflict',
+              code: 'ASSIGNMENT_DUPLICATE',
+              message: 'An assignment with the same project, person, role and phase already exists',
+              existing_id: duplicate.id,
+              current: duplicate,
+            });
+          }
+
+          // SE/MDE 单人制：新角色仍为单人槽时，不得挤占他人（排除自身）
+          const roleName = nextRole?.name;
+          const singlePersonSlot = roleName === 'SE' || roleName === 'MDE';
+          if (singlePersonSlot) {
+            const incumbents = await trx('scenario_project_assignments as spa')
+              .leftJoin('people as p', 'spa.person_id', 'p.id')
+              .where({
+                'spa.scenario_id': scenarioId,
+                'spa.project_id': existing.project_id,
+                'spa.role_id': nextRoleId,
+                'spa.status': 'active',
+              })
+              .whereNot('spa.id', actualId)
+              .select(
+                'spa.id',
+                'spa.person_id',
+                'p.name as person_name',
+                'spa.phase_id',
+                'spa.allocation_percentage',
+                'spa.version'
+              );
+            if (incumbents.length > 0) {
+              throw new AssignmentWriteConflict(409, {
+                error: 'Conflict',
+                code: 'ASSIGNMENT_SLOT_OCCUPIED',
+                message: `The ${roleName} slot is already occupied; choose another role or resolve the incumbent first`,
+                incumbents,
+              });
+            }
+          }
+
+          const now = new Date();
+          // §7.2/B3：以原行为基础只覆盖身份键/比例/日期；状态、备注、
+          // is_primary、change_type、base_assignment_id 显式继承。
+          newRow = {
+            id: randomUUID(),
+            scenario_id: scenarioId,
+            project_id: existing.project_id,
+            person_id: existing.person_id,
+            role_id: nextRoleId,
+            phase_id: nextPhaseId,
+            allocation_percentage: allocation,
+            assignment_date_mode: mode,
+            start_date: startParsed.value,
+            end_date: endParsed.value,
+            notes: existing.notes ?? null,
+            status: existing.status ?? 'active',
+            // SE/MDE 单人格不占项目主投入槽（063c 语义）；普通角色继承
+            is_primary: singlePersonSlot ? 0 : (existing.is_primary ?? 0),
+            change_type: existing.change_type ?? null,
+            base_assignment_id: existing.base_assignment_id ?? null,
+            version: 1,
+            created_at: now,
+            updated_at: now,
+          };
+          const computedDates = await this.computeAssignmentDates(newRow, trx);
+          const effectiveStart = computedDates.computed_start_date ?? newRow.start_date;
+          const effectiveEnd = computedDates.computed_end_date ?? newRow.end_date;
+          if (!effectiveStart || !effectiveEnd) {
+            throw this.createOperationalError(
+              'Unable to determine assignment dates. Check project/phase configuration.',
+              400
+            );
+          }
+          newRow.computed_start_date = computedDates.computed_start_date;
+          newRow.computed_end_date = computedDates.computed_end_date;
+
+          // 条件删除：版本必须仍等于用户看到的版本，否则整体回滚
+          const deleted = await trx('scenario_project_assignments')
+            .where({ id: actualId, scenario_id: scenarioId, version: expectedVersion })
+            .del();
+          if (deleted !== 1) {
+            const current = await trx('scenario_project_assignments')
+              .where({ id: actualId, scenario_id: scenarioId })
+              .first();
+            throw new AssignmentWriteConflict(409, {
+              error: 'Version conflict',
+              code: 'ASSIGNMENT_VERSION_CONFLICT',
+              message: 'This assignment was modified by someone else. Review the current value and retry.',
+              current: current ? { ...current, id: 'spa-' + current.id } : null,
+            });
+          }
+
+          [newRow] = await trx('scenario_project_assignments').insert(newRow).returning('*');
+
+          // §7.2/B4：双审计与业务同一事务（直接写 audit_log，随转换提交/回滚）
+          const auditBase = {
+            table_name: 'scenario_project_assignments',
+            changed_by: (req as any).user?.id || 'system',
+            request_id: (req as any).requestId ?? null,
+            ip_address: req.ip ?? null,
+            user_agent: req.get('User-Agent') ?? null,
+            comment: 'assignment convert [composite]',
+            changed_at: now,
+          };
+          await trx('audit_log').insert([
+            {
+              ...auditBase,
+              id: randomUUID(),
+              record_id: String(actualId),
+              action: 'DELETE',
+              old_values: JSON.stringify(existing),
+              new_values: null,
+              changed_fields: null,
+            },
+            {
+              ...auditBase,
+              id: randomUUID(),
+              record_id: String(newRow.id),
+              action: 'CREATE',
+              old_values: null,
+              new_values: JSON.stringify(newRow),
+              changed_fields: null,
+            },
+          ]);
+        });
+      } catch (error) {
+        if (error instanceof AssignmentWriteConflict) {
+          res.status(error.statusCode).json(error.payload);
+          return null;
+        }
+        throw error;
+      }
+
+      // 转换是人员维度的分配更新：通知在提交后尽力发送，不影响已提交结果
+      try {
+        await notificationScheduler.sendAssignmentNotification(
+          newRow.person_id,
+          'updated',
+          newRow
+        );
+      } catch (error) {
+        req.logger.error('Failed to send assignment notification:', error);
+      }
+
+      return transformDates(newRow, [
+        ...COMMON_DATE_FIELDS,
+        'computed_start_date',
+        'computed_end_date',
+      ]);
+    }, req, res, 'Failed to convert assignment');
+
+    if (result) {
+      this.sendSuccess(req, res, result, 'Assignment converted successfully');
     }
   })
 

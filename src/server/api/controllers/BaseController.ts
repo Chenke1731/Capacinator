@@ -197,8 +197,10 @@ export abstract class BaseController {
 
     // Handle operational errors (safe to show to users)
     if (error.isOperational) {
+      // CLAUDE.md 信封：新端点错误响应必须同时含 error 与 message
       res.status(error.statusCode).json({
         error: error.message,
+        message: error.message,
         requestId: req?.requestId
       });
       return;

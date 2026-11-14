@@ -415,6 +415,24 @@ export const api = {
         data,
         scenarioRequestConfig(options)
       ),
+    // S4：角色/阶段转换（单事务删旧建新；仅 scenario 轨）
+    convert: (
+      id: string,
+      data: {
+        role_id?: string;
+        phase_id?: string | null;
+        allocation_percentage?: number;
+        start_date?: string;
+        end_date?: string;
+        expected_version: number;
+      },
+      options?: ScenarioScopedRequest
+    ) =>
+      apiClient.post<{ success: boolean; data: ProjectAssignment; requestId: string; message: string }>(
+        `/assignments/${id}/convert`,
+        data,
+        scenarioRequestConfig(options)
+      ),
     // IP-07e: data 可附 expected_version 乐观锁令牌(删除他人刚改的行=丢失更新)
     delete: (id: string, data?: { expected_version?: number }, options?: ScenarioScopedRequest) => {
       const config: Record<string, unknown> = {};

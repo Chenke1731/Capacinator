@@ -2,7 +2,7 @@ import React from 'react';
 import { act, fireEvent, render, screen, waitFor, within } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { MemoryRouter, Route, Routes } from 'react-router-dom';
+import { MemoryRouter, Route, Routes, useNavigate } from 'react-router-dom';
 import PersonWorkload from '../PersonWorkload';
 import { api } from '../../lib/api-client';
 import { Toaster } from '../../components/ui/toaster';
@@ -21,6 +21,7 @@ jest.mock('../../lib/api-client', () => ({
       create: jest.fn(),
       handover: jest.fn(),
       undoReplace: jest.fn(),
+      convert: jest.fn(),
     },
     projects: {
       list: jest.fn(),
@@ -125,10 +126,18 @@ const assignments = [
   },
 ];
 
+let testNavigate: ((to: string) => void) | null = null;
+function TestNavigator() {
+  const navigate = useNavigate();
+  testNavigate = navigate;
+  return null;
+}
+
 function pageElement(queryClient: QueryClient, entry = '/people/person-1/workload') {
   return (
     <QueryClientProvider client={queryClient}>
       <MemoryRouter initialEntries={[entry]}>
+        <TestNavigator />
         <Routes>
           <Route path="/people/:id/workload" element={<PersonWorkload />} />
         </Routes>
@@ -324,7 +333,6 @@ test('switching scenario disables save and keeps the row draft', async () => {
 });
 
 test('direct assignment deletion requires the baseline-global confirmation', async () => {
-  const confirmSpy = jest.spyOn(window, 'confirm').mockReturnValue(true);
   renderPage();
 
   await waitFor(() => {
@@ -334,7 +342,10 @@ test('direct assignment deletion requires the baseline-global confirmation', asy
   // Row order: a1 scenario, a2 direct ("Beta"), a3 paused, a4 future
   fireEvent.click(screen.getAllByRole('button', { name: 'Delete' })[1]);
 
-  expect(confirmSpy).toHaveBeenCalledWith(expect.stringContaining('baseline-global'));
+  const dialog = await screen.findByTestId('confirm-dialog');
+  expect(dialog).toHaveTextContent(/baseline-global/i);
+  fireEvent.click(within(dialog).getByRole('button', { name: 'Delete' }));
+
   await waitFor(() => {
     expect(api.assignments.delete).toHaveBeenCalledWith(
       'a2',
@@ -870,9 +881,8 @@ test('B4: 弹窗打开期间父组件重渲染不夺焦点（onClose ref 化）'
   expect(document.activeElement).not.toBe(screen.getByTestId('pw-add-assignment'));
 });
 
-test('B5: 未提交 ghost 时 SPA 返回需确认；确认丢弃才离开', async () => {
+test('B5/S7: 未提交 ghost 时离页弹统一确认；取消留下、确认才离开', async () => {
   window.localStorage.clear();
-  const confirmSpy = jest.spyOn(window, 'confirm').mockReturnValue(false);
   mockBoard();
   const view = renderPage();
   await openDialog();
@@ -880,18 +890,23 @@ test('B5: 未提交 ghost 时 SPA 返回需确认；确认丢弃才离开', asyn
   fireEvent.click(screen.getByTestId('pw-add-to-lane'));
   await screen.findByTestId('pw-commit-bar');
 
-  // 拒绝离开：仍在工作负载页
+  // 拒绝离开：确认框取消后仍在工作负载页
   fireEvent.click(screen.getByTestId('pw-back'));
-  expect(confirmSpy).toHaveBeenCalledTimes(1);
+  const dialog = await screen.findByTestId('confirm-dialog');
+  expect(dialog).toHaveTextContent(/Leave this page/i);
+  fireEvent.click(within(dialog).getByRole('button', { name: 'Cancel' }));
+  await waitFor(() => {
+    expect(screen.queryByTestId('confirm-dialog')).not.toBeInTheDocument();
+  });
   expect(screen.getByRole('heading', { name: 'Adjust Assignments' })).toBeInTheDocument();
 
   // 确认离开：导航生效
-  confirmSpy.mockReturnValue(true);
   fireEvent.click(screen.getByTestId('pw-back'));
+  const confirmAgain = await screen.findByTestId('confirm-dialog');
+  fireEvent.click(within(confirmAgain).getByRole('button', { name: 'Leave' }));
   await waitFor(() => {
     expect(screen.queryByRole('heading', { name: 'Adjust Assignments' })).not.toBeInTheDocument();
   });
-  confirmSpy.mockRestore();
 });
 
 test('B8: 行编辑用编辑时版本快照——后台刷新后保存旧值必 409，不借新令牌覆盖', async () => {
@@ -1327,6 +1342,10 @@ test('S2: 点击已提交 fixed bar 打开面板——身份只读、比例/日�
 
   const allocation = panel.querySelector<HTMLInputElement>('input[type="number"]')!;
   expect(allocation.value).toBe('20');
+  // G-10：面板打开后焦点进入面板首个控件
+  await waitFor(() => {
+    expect(document.activeElement).toBe(allocation);
+  });
   const dateInputs = panel.querySelectorAll<HTMLInputElement>('input[type="date"]');
   expect(dateInputs).toHaveLength(2);
   expect(dateInputs[0].value).toBe('2026-01-01');
@@ -1635,7 +1654,7 @@ test('S3: 批量暂停 = 一次统一确认（含 direct 计数），逐行快�
 
   fireEvent.click(screen.getByTestId('pw-batch-pause'));
   const dialog = await screen.findByTestId('confirm-dialog');
-  expect(dialog).toHaveTextContent('Pause 3 active row(s), including 1 baseline-global row(s)?');
+  expect(dialog).toHaveTextContent('Pause 3 non-paused row(s), including 1 baseline-global row(s)?');
   fireEvent.click(within(dialog).getByRole('button', { name: 'Pause' }));
 
   await waitFor(() => {
@@ -1732,6 +1751,11 @@ test('S5: staffing 面板“调整此人”经守卫跳转，目标页深链定�
   expect(banner).toHaveTextContent('From project staffing');
   expect(banner).toHaveTextContent('Located the assignment');
   expect(document.querySelector('tr[data-assignment-id="staff-1"]')).toHaveClass('pw-row--deeplink');
+  await waitFor(() => {
+    expect(document.activeElement).toBe(
+      document.querySelector('tr[data-assignment-id="staff-1"] [data-testid="pw-edit-row"]')
+    );
+  });
   expect(screen.queryByTestId('pw-project-staffing')).not.toBeInTheDocument();
 });
 
@@ -1741,10 +1765,9 @@ test('S5: 目标不存在时只提示不报错', async () => {
   expect(banner).toHaveTextContent('Source assignment not found');
 });
 
-test('S5（Codex P1）: 有未提交 ghost 时跳转被拒 → 保留源面板不导航', async () => {
+test('S5（Codex P1）/S7: 有未提交 ghost 时跨人跳转经确认；拒绝保留源面板', async () => {
   mockBoard();
   mockStaffingAndTarget();
-  const confirmSpy = jest.spyOn(window, 'confirm').mockReturnValue(false);
   renderPage();
   await openDialog();
   fireEvent.click(screen.getByTestId('pw-select-task-task-leaf'));
@@ -1755,10 +1778,15 @@ test('S5（Codex P1）: 有未提交 ghost 时跳转被拒 → 保留源面板�
   const panel = await screen.findByTestId('pw-project-staffing');
   fireEvent.click(await within(panel).findByTestId('pw-staffing-adjust-person-2'));
 
-  expect(confirmSpy).toHaveBeenCalled();
+  const dialog = await screen.findByTestId('confirm-dialog');
+  expect(dialog).toHaveTextContent(/Leave this page/i);
+  fireEvent.click(within(dialog).getByRole('button', { name: 'Cancel' }));
+
+  await waitFor(() => {
+    expect(screen.queryByTestId('confirm-dialog')).not.toBeInTheDocument();
+  });
   expect(screen.getByTestId('pw-project-staffing')).toBeInTheDocument();
   expect(screen.queryByTestId('pw-deeplink')).not.toBeInTheDocument();
-  confirmSpy.mockRestore();
 });
 
 test('S6: 表格行保存也提供一次撤销（逆补丁 + 保存响应版本）', async () => {
@@ -1795,4 +1823,401 @@ test('S6: 表格行保存也提供一次撤销（逆补丁 + 保存响应版本�
     );
   });
   expect(await screen.findByText('Save undone')).toBeInTheDocument();
+});
+
+/* ===================== Phase C：S4 角色/阶段转换 ===================== */
+
+test('S4: scenario 行可转换角色；成功关闭面板并提示，转换请求带快照版本', async () => {
+  (api.people.get as jest.Mock).mockResolvedValue({
+    data: {
+      ...person,
+      roles: [
+        ...(person.roles ?? []),
+        { role_id: 'role-mde', role_name: 'MDE', is_primary: 0 },
+      ],
+    },
+  });
+  (api.assignments.convert as jest.Mock).mockResolvedValue({
+    data: { data: { id: 'converted-1', version: 1 } },
+  });
+  renderPage();
+  await waitFor(() => {
+    expect(screen.getAllByTestId('pw-gantt-bar').length).toBeGreaterThan(0);
+  });
+
+  fireEvent.click(findGanttBarFor('Alpha'));
+  const panel = await screen.findByTestId('pw-committed-inspector');
+  fireEvent.click(screen.getByTestId('pw-committed-convert-entry'));
+  fireEvent.change(screen.getByTestId('pw-committed-convert-role'), {
+    target: { value: 'role-mde' },
+  });
+  fireEvent.click(screen.getByTestId('pw-committed-convert-submit'));
+
+  await waitFor(() => {
+    expect(api.assignments.convert).toHaveBeenCalledWith(
+      'a1',
+      expect.objectContaining({
+        role_id: 'role-mde',
+        phase_id: null,
+        allocation_percentage: 20,
+        start_date: '2026-01-01',
+        end_date: '2026-12-31',
+        expected_version: 1,
+      }),
+      { scenarioId: 'baseline-0000-0000-0000-000000000000' }
+    );
+  });
+  await waitFor(() => {
+    expect(screen.queryByTestId('pw-committed-inspector')).not.toBeInTheDocument();
+  });
+  expect(await screen.findByText('Assignment converted')).toBeInTheDocument();
+});
+
+test('S4: direct 行不显示转换入口', async () => {
+  renderPage();
+  await waitFor(() => {
+    expect(screen.getAllByTestId('pw-gantt-bar').length).toBeGreaterThan(0);
+  });
+  fireEvent.click(findGanttBarFor('Beta'));
+  const panel = await screen.findByTestId('pw-committed-inspector');
+  expect(within(panel).queryByTestId('pw-committed-convert-entry')).not.toBeInTheDocument();
+});
+
+test('S4: 目标键已占 409 保留面板与用户值，并给出可操作提示', async () => {
+  (api.people.get as jest.Mock).mockResolvedValue({
+    data: {
+      ...person,
+      roles: [
+        ...(person.roles ?? []),
+        { role_id: 'role-mde', role_name: 'MDE', is_primary: 0 },
+      ],
+    },
+  });
+  (api.assignments.convert as jest.Mock).mockRejectedValue({
+    response: { status: 409, data: { code: 'ASSIGNMENT_DUPLICATE' } },
+  });
+  renderPage();
+  await waitFor(() => {
+    expect(screen.getAllByTestId('pw-gantt-bar').length).toBeGreaterThan(0);
+  });
+
+  fireEvent.click(findGanttBarFor('Alpha'));
+  await screen.findByTestId('pw-committed-inspector');
+  fireEvent.click(screen.getByTestId('pw-committed-convert-entry'));
+  fireEvent.change(screen.getByTestId('pw-committed-convert-role'), {
+    target: { value: 'role-mde' },
+  });
+  fireEvent.click(screen.getByTestId('pw-committed-convert-submit'));
+
+  await waitFor(() => {
+    expect(screen.getByTestId('pw-committed-error')).toHaveTextContent(/already exists/i);
+  });
+  expect(screen.getByTestId('pw-committed-inspector')).toBeInTheDocument();
+  expect((screen.getByTestId('pw-committed-convert-role') as HTMLSelectElement).value).toBe(
+    'role-mde'
+  );
+});
+
+/* ===================== Phase C：S7/S8 ===================== */
+
+test('S7: 行编辑有未保存修改时取消 → 统一确认；取消保留、确认丢弃', async () => {
+  renderPage();
+  await waitFor(() => {
+    expect(screen.getAllByRole('button', { name: 'Edit' }).length).toBeGreaterThan(0);
+  });
+
+  fireEvent.click(screen.getAllByRole('button', { name: 'Edit' })[0]);
+  fireEvent.change(screen.getByLabelText('Allocation %'), { target: { value: '45' } });
+  fireEvent.click(screen.getByRole('button', { name: 'Cancel' }));
+
+  const dialog = await screen.findByTestId('confirm-dialog');
+  expect(dialog).toHaveTextContent(/Discard row changes/i);
+  fireEvent.click(within(dialog).getByRole('button', { name: 'Cancel' }));
+  await waitFor(() => {
+    expect(screen.queryByTestId('confirm-dialog')).not.toBeInTheDocument();
+  });
+  // 仍在编辑，用户值未丢
+  expect(screen.getByLabelText('Allocation %')).toHaveValue(45);
+
+  fireEvent.click(screen.getByRole('button', { name: 'Cancel' }));
+  const again = await screen.findByTestId('confirm-dialog');
+  fireEvent.click(within(again).getByRole('button', { name: 'Discard changes' }));
+  await waitFor(() => {
+    expect(screen.queryByLabelText('Allocation %')).not.toBeInTheDocument();
+  });
+});
+
+test('S8: 默认窗口取最远结束日（clamp 到 3–12 个月）', async () => {
+  renderPage();
+  await waitFor(() => {
+    expect(screen.getAllByTestId('pw-gantt-bar').length).toBeGreaterThan(0);
+  });
+  // 夹具最远 end=2026-12-31；asOf=2026-03-15 → 窗口末端取 2026-12
+  expect(screen.getByTestId('pw-gantt')).toHaveTextContent('2026-03 ~ 2026-12');
+  // 跨度 > 6 个月 → 热区按月桶（约 10 个），不是周桶（约 42 个）
+  const heatBars = screen.getByTestId('pw-gantt-heat-full').querySelectorAll('.pw-heat-bar');
+  expect(heatBars.length).toBeGreaterThan(0);
+  expect(heatBars.length).toBeLessThanOrEqual(13);
+});
+
+test('S8: 超远结束日被 12 个月上限截断，并出现在范围外入口（点击扩展）', async () => {
+  (api.assignments.list as jest.Mock).mockResolvedValue({
+    data: {
+      data: [{ ...assignments[0], end_date: '2029-12-31', computed_end_date: '2029-12-31' }],
+      pagination: { total: 1, totalPages: 1 },
+    },
+  });
+  renderPage();
+  await waitFor(() => {
+    expect(screen.getAllByTestId('pw-gantt-bar').length).toBeGreaterThan(0);
+  });
+  expect(screen.getByTestId('pw-gantt')).toHaveTextContent('2026-03 ~ 2027-03');
+  const locate = await screen.findByTestId('pw-locate-committed-a1');
+  fireEvent.click(locate);
+  await waitFor(() => {
+    expect(screen.getByTestId('pw-gantt')).toHaveTextContent('2026-03 ~ 2029-12');
+  });
+});
+
+test('S8: 远未来 committed 行走“范围外”定位入口，点击才扩展窗口', async () => {
+  (api.assignments.list as jest.Mock).mockResolvedValue({
+    data: {
+      data: [
+        {
+          ...assignments[0],
+          id: 'far-row',
+          start_date: '2028-01-01',
+          end_date: '2028-12-31',
+          computed_start_date: '2028-01-01',
+          computed_end_date: '2028-12-31',
+        },
+      ],
+      pagination: { total: 1, totalPages: 1 },
+    },
+  });
+  renderPage();
+  const locate = await screen.findByTestId('pw-locate-committed-far-row');
+  expect(screen.getByTestId('pw-gantt')).toHaveTextContent('2026-03 ~ 2027-03');
+
+  fireEvent.click(locate);
+  await waitFor(() => {
+    expect(screen.getByTestId('pw-gantt')).toHaveTextContent('2026-03 ~ 2028-12');
+  });
+});
+
+/* ===================== 评审修复守卫（Phase B+C） ===================== */
+
+test('G-01: 人员切换清空动作确认，避免在 B 页误删 A 的分配', async () => {
+  renderPage();
+  await waitFor(() => {
+    expect(screen.getAllByRole('button', { name: 'Delete' }).length).toBeGreaterThan(0);
+  });
+  fireEvent.click(screen.getAllByRole('button', { name: 'Delete' })[1]);
+  expect(await screen.findByTestId('confirm-dialog')).toBeInTheDocument();
+
+  act(() => {
+    testNavigate!('/people/person-2/workload');
+  });
+
+  await waitFor(() => {
+    expect(screen.queryByTestId('confirm-dialog')).not.toBeInTheDocument();
+  });
+  expect(api.assignments.delete).not.toHaveBeenCalled();
+});
+
+test('G-02: 行编辑未保存时离页同样弹确认；取消保留输入', async () => {
+  renderPage();
+  await waitFor(() => {
+    expect(screen.getAllByRole('button', { name: 'Edit' }).length).toBeGreaterThan(0);
+  });
+  fireEvent.click(screen.getAllByRole('button', { name: 'Edit' })[0]);
+  fireEvent.change(screen.getByLabelText('Allocation %'), { target: { value: '45' } });
+
+  fireEvent.click(screen.getByTestId('pw-back'));
+  const dialog = await screen.findByTestId('confirm-dialog');
+  expect(dialog).toHaveTextContent(/unsaved edits/i);
+  fireEvent.click(within(dialog).getByRole('button', { name: 'Cancel' }));
+
+  await waitFor(() => {
+    expect(screen.queryByTestId('confirm-dialog')).not.toBeInTheDocument();
+  });
+  expect(screen.getByLabelText('Allocation %')).toHaveValue(45);
+});
+
+test('G-03: 转换提交复用字段校验——空比例/倒置日期不发送请求', async () => {
+  (api.people.get as jest.Mock).mockResolvedValue({
+    data: {
+      ...person,
+      roles: [
+        ...(person.roles ?? []),
+        { role_id: 'role-mde', role_name: 'MDE', is_primary: 0 },
+      ],
+    },
+  });
+  renderPage();
+  await waitFor(() => {
+    expect(screen.getAllByTestId('pw-gantt-bar').length).toBeGreaterThan(0);
+  });
+  fireEvent.click(findGanttBarFor('Alpha'));
+  const panel = await screen.findByTestId('pw-committed-inspector');
+  fireEvent.click(screen.getByTestId('pw-committed-convert-entry'));
+  fireEvent.change(screen.getByTestId('pw-committed-convert-role'), {
+    target: { value: 'role-mde' },
+  });
+
+  const allocation = within(panel).getByLabelText('Allocation %');
+  fireEvent.change(allocation, { target: { value: '' } });
+  fireEvent.click(screen.getByTestId('pw-committed-convert-submit'));
+  expect(screen.getByTestId('pw-committed-convert-error')).toHaveTextContent(
+    /Allocation must be between/i
+  );
+  expect(api.assignments.convert).not.toHaveBeenCalled();
+
+  fireEvent.change(allocation, { target: { value: '20' } });
+  fireEvent.change(within(panel).getByLabelText('Start date'), {
+    target: { value: '2026-12-31' },
+  });
+  fireEvent.change(within(panel).getByLabelText('End date'), {
+    target: { value: '2026-01-01' },
+  });
+  fireEvent.click(screen.getByTestId('pw-committed-convert-submit'));
+  expect(screen.getByTestId('pw-committed-convert-error')).toHaveTextContent(
+    /Start date must be before/i
+  );
+  expect(api.assignments.convert).not.toHaveBeenCalled();
+});
+
+test('G-05: phase 转换选择目标阶段后，派生窗口切到目标阶段', async () => {
+  (api.assignments.list as jest.Mock).mockResolvedValue({
+    data: {
+      data: [
+        {
+          ...assignments[0],
+          id: 'phase-row',
+          assignment_date_mode: 'phase',
+          phase_id: 'phase-design',
+          phase_name: 'Design',
+          start_date: null,
+          end_date: null,
+          computed_start_date: '2026-01-01',
+          computed_end_date: '2026-12-31',
+        },
+      ],
+      pagination: { total: 1, totalPages: 1 },
+    },
+  });
+  (api.projectPhases.list as jest.Mock).mockResolvedValue({
+    data: {
+      data: [
+        {
+          phase_id: 'phase-design',
+          phase_name: 'Design',
+          start_date: '2026-01-01',
+          end_date: '2026-12-31',
+        },
+        {
+          phase_id: 'phase-build',
+          phase_name: 'Build',
+          start_date: '2026-07-01',
+          end_date: '2026-07-31',
+        },
+      ],
+    },
+  });
+  renderPage();
+  await waitFor(() => {
+    expect(screen.getAllByTestId('pw-gantt-bar').length).toBeGreaterThan(0);
+  });
+  fireEvent.click(findGanttBarFor('Alpha'));
+  const panel = await screen.findByTestId('pw-committed-inspector');
+  fireEvent.click(screen.getByTestId('pw-committed-convert-entry'));
+
+  await waitFor(() => {
+    expect(
+      within(panel)
+        .getByTestId('pw-committed-convert-phase')
+        .querySelector('option[value="phase-build"]')
+    ).toBeTruthy();
+  });
+  fireEvent.change(within(panel).getByTestId('pw-committed-convert-phase'), {
+    target: { value: 'phase-build' },
+  });
+
+  expect(panel).toHaveTextContent('2026-07-01 → 2026-07-31');
+  expect(panel).toHaveTextContent(/After conversion this phase window is used/i);
+});
+
+test('G-06: 阶段数据加载失败时给出错误与重试，不伪装成“无阶段”', async () => {
+  (api.assignments.list as jest.Mock).mockResolvedValue({
+    data: {
+      data: [
+        {
+          ...assignments[0],
+          id: 'phase-row',
+          assignment_date_mode: 'phase',
+          phase_id: 'phase-design',
+          phase_name: 'Design',
+          start_date: null,
+          end_date: null,
+          computed_start_date: '2026-01-01',
+          computed_end_date: '2026-12-31',
+        },
+      ],
+      pagination: { total: 1, totalPages: 1 },
+    },
+  });
+  (api.projectPhases.list as jest.Mock).mockRejectedValue(new Error('phases down'));
+  renderPage();
+  await waitFor(() => {
+    expect(screen.getAllByTestId('pw-gantt-bar').length).toBeGreaterThan(0);
+  });
+  fireEvent.click(findGanttBarFor('Alpha'));
+  const panel = await screen.findByTestId('pw-committed-inspector');
+  fireEvent.click(screen.getByTestId('pw-committed-convert-entry'));
+
+  await waitFor(() => {
+    expect(within(panel).getByRole('alert')).toHaveTextContent(/Failed to load/i);
+  });
+  expect(within(panel).getByRole('button', { name: /Retry/i })).toBeInTheDocument();
+  expect(within(panel).getByTestId('pw-committed-convert-phase')).toBeDisabled();
+});
+
+test('G-07: 转换在途时点击另一条 bar 不替换面板', async () => {
+  let resolveConvert: ((value: any) => void) | null = null;
+  (api.people.get as jest.Mock).mockResolvedValue({
+    data: {
+      ...person,
+      roles: [
+        ...(person.roles ?? []),
+        { role_id: 'role-mde', role_name: 'MDE', is_primary: 0 },
+      ],
+    },
+  });
+  (api.assignments.convert as jest.Mock).mockReturnValue(
+    new Promise((resolve) => {
+      resolveConvert = resolve;
+    })
+  );
+  renderPage();
+  await waitFor(() => {
+    expect(screen.getAllByTestId('pw-gantt-bar').length).toBeGreaterThan(0);
+  });
+  fireEvent.click(findGanttBarFor('Alpha'));
+  const panel = await screen.findByTestId('pw-committed-inspector');
+  fireEvent.click(screen.getByTestId('pw-committed-convert-entry'));
+  fireEvent.change(screen.getByTestId('pw-committed-convert-role'), {
+    target: { value: 'role-mde' },
+  });
+  fireEvent.click(screen.getByTestId('pw-committed-convert-submit'));
+  await waitFor(() => {
+    expect(api.assignments.convert).toHaveBeenCalledTimes(1);
+  });
+
+  fireEvent.click(findGanttBarFor('Beta'));
+  expect(panel).toHaveTextContent('Alpha');
+  expect(screen.getByTestId('pw-committed-inspector')).toHaveTextContent('Alpha');
+
+  await act(async () => {
+    resolveConvert?.({ data: { data: { id: 'converted-2', version: 1 } } });
+  });
 });

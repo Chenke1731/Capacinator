@@ -189,7 +189,7 @@ export function AuditLog() {
             </button>
             {/* 撤销仅支持基础 CREATE/UPDATE（AuditService 三值分支）；INTAKE_*
                 等前缀事件不提供入口（I01v/R4，防"成功但零操作"谎言） */}
-            {entry.action && (entry.action === 'CREATE' || entry.action === 'UPDATE') && entry.table_name && entry.record_id && (
+            {entry.action && (entry.action === 'CREATE' || entry.action === 'UPDATE') && entry.table_name && entry.record_id && !String(entry.comment ?? '').includes('[composite]') && (
               <button
                 onClick={() => handleUndoChange(entry.table_name, entry.record_id)}
                 disabled={undoingEntry === `${entry.table_name}:${entry.record_id}`}

@@ -187,6 +187,7 @@ describe('BaseController', () => {
       expect(mockRes.status).toHaveBeenCalledWith(400);
       expect(mockRes.json).toHaveBeenCalledWith({
         error: 'Validation failed',
+        message: 'Validation failed',
         requestId: undefined
       });
     });
@@ -383,6 +384,7 @@ describe('BaseController with enableLogging', () => {
       expect(mockRes.status).toHaveBeenCalledWith(400);
       expect(mockRes.json).toHaveBeenCalledWith({
         error: 'Validation failed',
+        message: 'Validation failed',
         requestId: 'test-request-id'
       });
     });

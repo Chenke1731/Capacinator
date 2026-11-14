@@ -18,6 +18,7 @@ import { workloadDateOnly, type WorkloadAssignment } from '../../lib/personWorkl
 import type { AssignmentDraft } from '../../lib/assignmentDrafts';
 import type { WorkloadTimelineBucket, WorkloadTimelineResult } from '../../lib/workloadTimeline';
 import { canDragCommittedBar, computeCommittedDragDates } from '../../lib/committedBarDrag';
+import { shiftIsoMonths } from '../../lib/batchShift';
 import { CapacityHeatStrip } from './CapacityHeatStrip';
 
 const DAY_MS = 24 * 60 * 60 * 1000;
@@ -64,6 +65,8 @@ export interface WorkloadGanttProps {
   onCommittedDragEnd?: (preview: CommittedDatePreview) => void;
   /** S1：拖拽总开关（提交中/场景失配/只读时关闭） */
   committedDragEnabled?: boolean;
+  /** S8：窗口外 committed 行（start 在窗口末端之后）的定位入口 */
+  onLocateCommitted?: (assignmentId: string) => void;
 }
 
 type DragMode = 'move' | 'start' | 'end';
@@ -118,6 +121,7 @@ export function WorkloadGantt({
   onCommittedDragPreview,
   onCommittedDragEnd,
   committedDragEnabled = false,
+  onLocateCommitted,
 }: WorkloadGanttProps) {
   const { t } = useTranslation(['assignments']);
 
@@ -358,6 +362,17 @@ export function WorkloadGantt({
     return ordered;
   }, [committedRows, drafts, t]);
 
+  // S8：结束/开始远在窗口外的已提交行只给定位入口（不无限放大默认窗口）
+  const committedCap = shiftIsoMonths(timeline.asOf, 12);
+  const outOfRangeCommitted = onLocateCommitted
+    ? committedRows.filter((row) => {
+        const start = workloadDateOnly(row.computed_start_date ?? row.start_date);
+        const end = workloadDateOnly(row.computed_end_date ?? row.end_date);
+        return Boolean(
+          (start && start > timeline.rangeEnd) || (end && end > committedCap)
+        );
+      })
+    : [];
   const outOfRangeGhosts = drafts.filter((draft) => {
     if (draft.submitState === 'SUCCEEDED' || draft.submitState === 'UNKNOWN') return false;
     if (!draft.startDate && !draft.endDate) return false;
@@ -592,6 +607,29 @@ export function WorkloadGantt({
               ))
             )}
           </div>
+
+          {outOfRangeCommitted.length > 0 ? (
+            <div className="pw-gantt-oor" data-testid="pw-gantt-oor-committed">
+              <span>
+                {t('assignments:workbench.outOfRangeCommitted', {
+                  count: outOfRangeCommitted.length,
+                })}
+              </span>
+              {outOfRangeCommitted.map((row) => (
+                <button
+                  key={String(row.id)}
+                  type="button"
+                  className="btn btn-ghost btn-sm"
+                  onClick={() => onLocateCommitted?.(String(row.id))}
+                  data-testid={`pw-locate-committed-${row.id}`}
+                >
+                  <Crosshair size={12} aria-hidden="true" />{' '}
+                  {row.project_name ?? String(row.project_id)}
+                  {row.role_name ? ` · ${row.role_name}` : ''}
+                </button>
+              ))}
+            </div>
+          ) : null}
 
           {outOfRangeGhosts.length > 0 ? (
             <div className="pw-gantt-oor">

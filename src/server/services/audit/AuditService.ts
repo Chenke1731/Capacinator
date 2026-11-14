@@ -182,6 +182,11 @@ export class AuditService {
     }
 
     const lastChange = this.parseAuditEntry(lastChangeRaw);
+    // 复合操作（转换/撤销替换）以 DELETE+CREATE 成对审计；逐条撤销会
+    // 造成 0 行（撤销 CREATE）或重复分配（撤销 DELETE），必须整体禁用。
+    if (String(lastChange.comment ?? '').includes('[composite]')) {
+      return false;
+    }
     return this.undoSpecificChange(lastChange, undoneBy, comment);
   }
 

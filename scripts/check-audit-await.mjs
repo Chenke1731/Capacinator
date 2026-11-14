@@ -25,19 +25,24 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 /** 返回未 await 的调用点 [{line, snippet}] */
 export function scanFloatingAuditCalls(source) {
   const violations = [];
-  // 同时匹配 `x.logAuditEvent(` 与 `x.logAuditEvent?.(`（I01y/#5）
-  const callRe = /\.logAuditEvent(?:\?\.)?\s*\(/g;
-  let m;
-  while ((m = callRe.exec(source))) {
-    const before = source.slice(Math.max(0, m.index - 120), m.index);
-    const awaited = /\bawait\s[^;]*$/.test(before);
-    if (!awaited) {
-      const line = source.slice(0, m.index).split('\n').length;
-      const start = Math.max(0, m.index - 40);
-      violations.push({
-        line,
-        snippet: source.slice(start, m.index + 30).replace(/\s+/g, ' ').trim(),
-      });
+  // 1) 审计助手调用；2) 事务内直写 audit_log（I06 评审 G-5：直写绕过助手扫描面）
+  const patterns = [
+    /\.logAuditEvent(?:\?\.)?\s*\(/g,
+    /\(\s*['"]audit_log['"]\s*\)\s*\.insert\s*\(/g,
+  ];
+  for (const callRe of patterns) {
+    let m;
+    while ((m = callRe.exec(source))) {
+      const before = source.slice(Math.max(0, m.index - 120), m.index);
+      const awaited = /\bawait\s[^;]*$/.test(before);
+      if (!awaited) {
+        const line = source.slice(0, m.index).split('\n').length;
+        const start = Math.max(0, m.index - 40);
+        violations.push({
+          line,
+          snippet: source.slice(start, m.index + 30).replace(/\s+/g, ' ').trim(),
+        });
+      }
     }
   }
   return violations;
@@ -58,7 +63,7 @@ function walk(dir, acc = []) {
 
 function selfTest() {
   let pass = 0;
-  const total = 6;
+  const total = 8;
   // 1. 浮动调用（可选链）→ 红
   const bad = scanFloatingAuditCalls(
     "      (req as any).logAuditEvent?.('demand_intake', id, 'CREATE', undefined, row);"
@@ -93,6 +98,18 @@ function selfTest() {
   );
   if (plainGood.length === 0) pass++;
   else console.error('SELF_TEST 6 失败: 普通 await 调用误报', plainGood);
+  // 7. 事务内直写 audit_log 未 await → 红
+  const directBad = scanFloatingAuditCalls(
+    "      trx('audit_log').insert([{ id: 'x', action: 'CREATE' }]);"
+  );
+  if (directBad.length === 1) pass++;
+  else console.error('SELF_TEST 7 失败: 直写 audit_log 未 await 未拦', directBad);
+  // 8. 直写 await → 绿
+  const directGood = scanFloatingAuditCalls(
+    "      await trx('audit_log').insert([{ id: 'x', action: 'CREATE' }]);"
+  );
+  if (directGood.length === 0) pass++;
+  else console.error('SELF_TEST 8 失败: 直写 audit_log await 误报', directGood);
   console.log(`SELF_TEST check-audit-await: ${pass}/${total} 组通过`);
   return pass === total;
 }

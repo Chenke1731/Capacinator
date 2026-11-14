@@ -442,3 +442,11 @@ Defer：S5 回程 chip、跳过原因文案细化、paused 行是否纳入平移
   1. **热区投影 status 透传**：`workloadTimeline` 对 draft 行硬编码 `status:null`，committed 拖拽预览必须保留原状态，否则 paused 行预览会计入负载（组件测试须含该断言）。
   2. **三个高危回归验收**：拖拽成立吞 click、409 保留用户值+显式刷新换版本、未保存关闭走 ConfirmDialog。
   3. **convert 同事务审计**：`req.logAuditEvent` 无 trx 且走池连接（pool.max=1 时事务内调用会死锁）——必须用 trx 版助手或事务内直写 `audit_log`；集成矩阵补"审计失败→整体回滚"。
+
+## 20. 交付记录（Phase A，2026-11-14）
+
+- 实施：`ecf0123`（S1/S2/S6 主体）+ `1e15efd`（验收缺口：Enter/Esc、关闭焦点归还、24px 手柄命中区）。
+- 文件：`client/src/lib/committedBarDrag.ts`（纯函数边界矩阵 + 15 用例）、`AssignmentInspector.tsx`（共享 shell / draft+committed 影响预览）、`CommittedInspector.tsx`（受控面板）、`WorkloadGantt.tsx`（3px 阈值、预览定位、click 抑制、窄 bar 降级仅移动）、`PersonWorkload.tsx`（快照版本 + Saving + 409 显式刷新 + 脏关闭确认 + 逆补丁撤销 + 焦点归还 + 编辑面互斥）、i18n/CSS。
+- 验证：client 90 suites / 1734 passed（新增 15 纯函数 + 8 拖拽 + 5 面板）；person-workload E2E 3/3（拖动→面板→PUT→读回→撤销）；visual 20/20；verify:states PASS；check-collection 358/160；lint 0 error；typecheck 0。
+- 边界/范围：§5.1 的暂停恢复、交接、删除在 Phase A 仍走行内次级入口，未进面板；S3/S5 的批量与跨人能力留 Phase B；S4/S7/S8 留 Phase C。
+- 验收注意：手柄在 bar 两侧各外扩 12px（24px 命中区）；bar 宽度 <72px 时仅保留移动手势，缩放走面板日期输入（§15 R4）。

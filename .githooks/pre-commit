@@ -115,6 +115,35 @@ if [ $? -ne 0 ]; then
   echo "✗ CSS duplicate guard — commit blocked"
   exit 1
 fi
+
+# IME Enter 守卫（I03g-W2a）：文本输入 Enter 处理点 × isImeComposing 引用。
+# 单一实现在 scripts/check-ime-enter-guard.mjs（与 jest 测试共用）；staged
+# client/src 时执行（全库扫描 <1s，Codex 四漏检已修）。
+STAGED_CLIENT=$(git diff --cached --name-only -- 'client/src/**' | head -1)
+if [ -n "$STAGED_CLIENT" ]; then
+  echo "── IME Enter guard (single implementation) ──"
+  node scripts/check-ime-enter-guard.mjs
+  if [ $? -ne 0 ]; then
+    echo "✗ IME Enter guard — commit blocked"
+    exit 1
+  fi
+
+  # lint:ui 全量规则（I03g-W2b 接入：含规则 10-12 新冻结）
+  echo "── lint:ui (full rules incl. freeze baselines) ──"
+  node scripts/lint-ui-css.mjs
+  if [ $? -ne 0 ]; then
+    echo "✗ lint:ui — commit blocked"
+    exit 1
+  fi
+
+  # 接线守卫（I03g-W3b）：judged 层四方互引完整（ID 锚）
+  echo "── UI contract wiring (judged-layer cross-refs) ──"
+  node scripts/check-ui-contract-wiring.mjs
+  if [ $? -ne 0 ]; then
+    echo "✗ UI contract wiring — commit blocked"
+    exit 1
+  fi
+fi
 node scripts/check-page-css-scope.mjs
 if [ $? -ne 0 ]; then
   echo "✗ Page CSS scope guard — commit blocked"

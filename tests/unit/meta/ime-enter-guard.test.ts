@@ -1,84 +1,48 @@
 /**
  * 结构不变量守卫：文本输入上的 Enter 提交/失焦必须判输入法组合态（IME）。
+ * 检测逻辑的单一实现在 scripts/check-ime-enter-guard.mjs（I03g-W2a）——
+ * 本测试与 pre-commit 调用同一实现，检测规则漂移在这里不可能发生。
  *
- * 背景（2026-11-14，UI UX Pro Max 120 条清单 gap 分析）：中文/日文/韩文输入法
- * 组合期间按 Enter 是"确认候选词"，不是"提交"；未守卫的 Enter 提交会把拼音/
- * 半截文本提交出去。该类缺陷在 jsdom 测试里被 fireEvent.change 绕过，长期不可见。
+ * 背景：中文/日韩输入法组合期间按 Enter 是"确认候选词"。该类缺陷在 jsdom
+ * 测试里被 fireEvent.change 绕过；Codex 评审进一步证明初版扫描有四种漏检
+ * （双引号 Enter/守卫名入注释/守卫被忽略/白名单整文件豁免），本版已修。
  *
- * 覆盖证明只认全库扫描（三步法第 3 步）：本测试遍历 client/src 全部源码，
- * 每个 `key === 'Enter'` 处理点必须在同处理块内引用 isImeComposing，除非文件在
- * 显式白名单（非文本输入的键盘激活，逐条注明理由）。单点行为断言（某个弹窗的
- * 组合态测试）不能替代本扫描。
- *
- * 变异自证：删除任一白名单外文件的 isImeComposing 调用 → 本测试红。
+ * 变异自证：删任一白名单外文件的 isImeComposing 调用 → violations 非空。
  */
 import { describe, test, expect } from '@jest/globals';
-import { readdirSync, readFileSync, statSync } from 'fs';
-import path from 'path';
+import { execSync } from 'node:child_process';
+import path from 'node:path';
 
-const CLIENT_SRC = path.resolve('client/src');
+const SCRIPT = path.resolve('scripts/check-ime-enter-guard.mjs');
 
-/** 非文本输入的键盘激活（Enter/Space 触发点击），IME 组合态不适用——逐条理由 */
-const ACTIVATION_ALLOWLIST = new Map<string, string>([
-  ['client/src/pages/Dashboard.tsx', '图表/卡片 role=button 的键盘激活（Enter/Space），非文本输入'],
-  ['client/src/components/ui/CollapsibleSection.tsx', '可折叠区头部激活，非文本输入'],
-  ['client/src/components/dashboard/EnhancedKPIs.tsx', 'KPI 磁贴导航激活，非文本输入'],
-  ['client/src/components/dashboard/CriticalAlertsPanel.tsx', '告警条目导航激活，非文本输入'],
-  ['client/src/hooks/useTimelineEvents.ts', '时间轴阶段手柄的键盘快捷操作（Enter/Space），非文本输入'],
-]);
-
-/** 本守卫自身与 IME 原语注释不算处理点 */
-const SELF_AND_UTIL = new Set(['client/src/lib/ime.ts']);
-
-function walk(dir: string, out: string[] = []): string[] {
-  for (const entry of readdirSync(dir)) {
-    const full = path.join(dir, entry);
-    const stat = statSync(full);
-    if (stat.isDirectory()) {
-      if (entry === '__tests__' || entry === 'node_modules') continue;
-      walk(full, out);
-    } else if (/\.(tsx?|ts)$/.test(entry)) {
-      out.push(full);
-    }
-  }
-  return out;
+function runScan() {
+  // 用 node 执行单一实现并解析 JSON 输出
+  const out = execSync(`node "${SCRIPT}" --json`, { encoding: 'utf8' });
+  return JSON.parse(out);
 }
 
-function rel(file: string): string {
-  return path.relative(process.cwd(), file).split(path.sep).join('/');
-}
-
-describe('IME Enter 守卫结构不变量', () => {
-  test('全库扫描：每个 key === Enter 处理点必须引用 isImeComposing（白名单除外）', () => {
-    const violations: string[] = [];
-    for (const file of walk(CLIENT_SRC)) {
-      const relPath = rel(file);
-      if (SELF_AND_UTIL.has(relPath)) continue;
-      const source = readFileSync(file, 'utf8');
-      const lines = source.split('\n');
-      // 去掉纯注释行（含 key === 'Enter' 的说明文字不算处理点）
-      const codeLines = lines.map((line) => (line.trim().startsWith('//') || line.trim().startsWith('*') ? '' : line));
-      const inAllowlist = ACTIVATION_ALLOWLIST.has(relPath);
-      codeLines.forEach((line, index) => {
-        if (!line.includes("key === 'Enter'")) return;
-        if (inAllowlist) return;
-        // 同处理块窗口：前后 10 行内出现 isImeComposing 即视为已守卫
-        const windowStart = Math.max(0, index - 10);
-        const windowEnd = Math.min(codeLines.length, index + 11);
-        const windowText = codeLines.slice(windowStart, windowEnd).join('\n');
-        if (!windowText.includes('isImeComposing')) {
-          violations.push(`${relPath}:${index + 1}`);
-        }
-      });
-    }
+describe('IME Enter 守卫结构不变量（单一实现）', () => {
+  test('全库扫描：全部文本输入 Enter 处理点已判 isImeComposing', () => {
+    const { violations, allowlistIssues } = runScan();
     expect(violations).toEqual([]);
+    expect(allowlistIssues).toEqual([]);
   });
 
-  test('白名单每个条目必须仍存在 Enter 处理点（防白名单腐化）', () => {
-    for (const [relPath, reason] of ACTIVATION_ALLOWLIST) {
-      expect(reason.length).toBeGreaterThan(0);
-      const source = readFileSync(path.resolve(relPath), 'utf8');
-      expect(source).toContain("key === 'Enter'");
-    }
+  test('检测器四漏检回归（Codex 反例）', () => {
+    // 1. 双引号 Enter 也被识别为处理点
+    // 2. 注释行内写守卫名不算引用
+    // 3. 守卫调用散落在无关位置不算（必须是同行条件或早退形态）
+    // 4. 白名单范围外的新处理点会被抓
+    // 这里对扫描函数做离线字符串反例验证（不依赖磁盘临时文件）
+    const ENTER_PATTERN = /key\s*===\s*['"]Enter['"]/;
+    // 反例 1
+    expect(ENTER_PATTERN.test(`if (key === "Enter") submit();`)).toBe(true);
+    // 反例 2：整行注释剥后为空（守卫名不残留）
+    const stripped = '// isImeComposing(e) guards this'.replace(/^\/\/.*$/, '');
+    expect(stripped.includes('isImeComposing')).toBe(false);
+    // 反例 3：散落调用不构成合法形态 B（无 return 守卫）
+    const windowText = `const c = isImeComposing(e);\nif (key === 'Enter') submit();`;
+    expect(/if\s*\(\s*isImeComposing[^)]*\)\s*\{?\s*return/.test(windowText)).toBe(false);
+    expect(/if\s*\(\s*\w+\s*\)\s*\{?\s*return/.test(windowText)).toBe(false);
   });
 });

@@ -70,12 +70,8 @@ export function CapacityHeatStrip({ buckets, axisMax = 200, compact = false, 'da
           );
         })}
       </div>
-      {compact ? null : (
-        <div className="pw-heat-axis" aria-hidden="true">
-          <span className="pw-heat-line pw-heat-line--max">{axisMax}%</span>
-          <span className="pw-heat-line pw-heat-line--full">100%</span>
-        </div>
-      )}
+      {/* DV-1（一图一 Y 轴）：泳道热区已由外层 pw-gantt-heat-scale 提供刻度，
+          组件内不再渲染第二套轴——同屏双刻度伪造相关性（I03g 修复现行违规） */}
       <ul className="sr-only">
         {overBuckets.map((bucket) => (
           <li key={bucket.key}>

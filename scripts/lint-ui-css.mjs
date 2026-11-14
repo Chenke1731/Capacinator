@@ -271,6 +271,77 @@ for (const rel of dialogCssFiles) {
   }
 }
 
+// ── 规则 10-12（I03g-W2c，外部设计 skill 吸收判据的机器化）──
+
+// 规则 10: transition:all 冻结（DV-7 动效=状态 的机检半边）
+// Hallmark/frontend-design 一致判据：transition:all 会让非 transform/opacity
+// 属性意外参与动画。存量 82 处入基线冻结；新增即红。
+const TRANSITION_ALL_BASELINE = 82; // 2026-11-14 全库普查（client/src 全部 .css）
+export function countTransitionAll(texts) {
+  let n = 0;
+  for (const t of Object.values(texts)) n += (String(t).match(/transition\s*:\s*all/g) || []).length;
+  return n;
+}
+{
+  const cssTexts = {};
+  for (const rel of [...new Set([...utilScanFiles, ...listCss('client/src/styles', true), 'client/src/App.css', 'client/src/index.css', 'client/src/globals.css', ...listCss('client/src/pages', true), ...listCss('client/src/components', true)])]) {
+    try { cssTexts[rel] = readFileSync(resolve(root, rel), 'utf8'); } catch { /* skip */ }
+  }
+  const n = countTransitionAll(cssTexts);
+  if (n > TRANSITION_ALL_BASELINE) {
+    violations.push(`transition:all 计数 ${n} > 基线 ${TRANSITION_ALL_BASELINE}（规则 10，DV-7 动效=状态）→ 新增 transition:all 禁止（动画只 transition 明确的 transform/opacity 属性）；存量清减后同步降基线`);
+  }
+}
+
+// 规则 11: 动画布局属性（width/height/top/left）冻结（DV-7 机检半边之二）
+const ANIM_LAYOUT_BASELINE = 8; // 2026-11-14 普查：transition/animation 作用 width/height/top/left
+export function countAnimLayoutProps(texts) {
+  let n = 0;
+  const RX = /(?:transition|animation)[^;{}]*(?:width|height|top|left)\s*[,;]/g;
+  for (const t of Object.values(texts)) n += (String(t).match(RX) || []).length;
+  return n;
+}
+{
+  const cssTexts = {};
+  for (const rel of [...new Set([...utilScanFiles, ...listCss('client/src/styles', true), 'client/src/App.css', 'client/src/index.css', 'client/src/globals.css', ...listCss('client/src/pages', true), ...listCss('client/src/components', true)])]) {
+    try { cssTexts[rel] = readFileSync(resolve(root, rel), 'utf8'); } catch { /* skip */ }
+  }
+  const n = countAnimLayoutProps(cssTexts);
+  if (n > ANIM_LAYOUT_BASELINE) {
+    violations.push(`动画布局属性计数 ${n} > 基线 ${ANIM_LAYOUT_BASELINE}（规则 11，DV-7）→ 动画 width/height/top/left 会触发逐帧重排；用 transform 代替；存量清减后降基线`);
+  }
+}
+
+// 规则 12: window.confirm 调用点冻结（CP 确认框命名×impeccable clarify）
+// 确认按钮必须命名动作（禁 OK/Cancel）——原生 confirm 不可命名。存量按调用点
+// 登记；迁移到 Radix ConfirmDialog 后收缩基线（防旧位置获得永久新增额度）。
+export const WINDOW_CONFIRM_BASELINE = new Map([
+  ['client/src/pages/PersonDetails.tsx', 1],
+  ['client/src/pages/PersonWorkload.tsx', 5],
+  ['client/src/components/VisualPhaseManager.tsx', 1],
+]);
+export function countWindowConfirm(source) {
+  return (String(source).match(/window\.confirm/g) || []).length;
+}
+{
+  const totals = new Map();
+  for (const rel of PROD_FILES.filter((f) => f.endsWith('.tsx'))) {
+    const n = countWindowConfirm(readFileSync(resolve(root, rel), 'utf8'));
+    if (n > 0) totals.set(rel, n);
+  }
+  for (const [rel, n] of totals) {
+    const base = WINDOW_CONFIRM_BASELINE.get(rel) ?? 0;
+    if (n > base) {
+      violations.push(`${rel}: window.confirm ${n} 处 > 基线 ${base}（规则 12，确认框命名动作）→ 新增禁止；用 ui/ConfirmDialog（消息与按钮都写动作名）；存量迁移后同步降基线`);
+    }
+  }
+  for (const [rel, base] of WINDOW_CONFIRM_BASELINE) {
+    if (!totals.has(rel) || totals.get(rel) < base) {
+      console.log(`note: WINDOW_CONFIRM_BASELINE 条目 ${rel} 已收敛到 ${totals.get(rel) ?? 0}/${base},可降基线`);
+    }
+  }
+}
+
 // ── 规则 4: 未作用域 .btn* 的 hover 位移（2026-11-10 收件箱录入按钮事故）──
 // 事故链: ProjectRoadmap.css 裸定义 `.btn-primary:hover{transform:translateY(-1px)}`
 // → 随 /projects 路由全量加载 → 泄漏到收件箱的录入按钮 → 悬停上移越过 tab 栏

@@ -317,6 +317,7 @@ npm run dist:linux       # Linux package (.AppImage)
 |---|---|
 | 复用组件出现在新上下文(新锚区/新层邻居/新视口区域) | 视为新组件全量验证——验证绑定"组件×上下文",复用不继承已验证 |
 | 交付走查 | 每个新浮层/控件至少完整执行一次**末端操作**(点最后一项/最远按钮),"看一眼"不算走查 |
+| **UI diff 交付（I03g）** | **强制 ui-preflight 交付前段（verify:states+认知走查）+ ui-review 盲评派发**——评审报告必含 judged 三节逐 ID 块；两轮试运行记录"应评审/实评审/降级"计数 |
 | 即将发起用户裁决提问 | 每题先自答"为什么必须由用户决";答不出(工程事实/系统一致性可推导)即自定+给理由 |
 | 改完任一 ts/tsx 文件 | 立即 typecheck(3 秒),不等测试跑完连锁发现 |
 
@@ -332,6 +333,9 @@ npm run dist:linux       # Linux package (.AppImage)
 | lint:ui 规则 4/5 | 未作用域 `.btn*` 的 `:hover` 位移声明；任何交互态（hover/focus）的布局几何位移（按钮/链接 translate/scale、padding+负 margin 外扩）——跨路由泄漏与裁切闭包 | 生成时/提交前（`npm run lint:ui`，SELF_TEST 自证） |
 | lint:ui 规则 6/7（2026-11-10） | 共享类左端锚点×文件归属合法性（规则 6，路由 CSS 泄漏闭包）；所有者内部唯一性×注册完备性（规则 7——empty-state/chart-container 双所有者级联互踩与 badge-secondary 注册缺主两类事故的静态化；OWNER_DUPS/OWNER_MISSING 冻结存量） | 生成时/提交前（同上；冻结债 2026-12-31 到期转红） |
 | lint:ui 规则 8（2026-11-11，D-04 Stage 2） | tsx 注入 `<style>` 文本块 × 共享类/工具类定义（PhaseTimelineStyles 影子表事故：运行时注入全局定义压过 owner，规则 2/6 只扫 .css 全盲；INJECTED_STYLE_ALLOWLIST 冻结存量——当前为空） | 生成时/提交前（同上） |
+| lint:ui 规则 9（2026-11-14 已入码，I03g 补账） | 未分层 CSS 中的注释盲区×样式泄漏（lint-ui-css.mjs:210 已实现，此前账本漏登） | 生成时/提交前（同上） |
+| IME Enter 守卫（I03g） | `ime-composition × enter-commit`：文本输入 Enter 处理点 × isImeComposing 引用（tests/unit/meta/ime-enter-guard.test.ts 全库扫描+激活白名单；已知四漏检待修：双引号 Enter/守卫名入注释/守卫被忽略/白名单整文件） | 提交时刻（pre-commit，抽取 scripts/check-ime-enter-guard.mjs 单一实现后） |
+| judged 层三节（I03g） | `judged-layer × 规则 ID`：DV-1..8/CP-1..4/IX-1..6 以契约 ID 为锚，评审必填段+接线守卫互引；**守卫限度：守互引完整，守不住"评审被派发"本身** | 评审时刻（必填块）+ 提交时刻（接线守卫 check-ui-contract-wiring.mjs） |
 | useCellPopover DEV 自检 | 浮层贴锚/层顶/越界(几何闭包) | 产物时刻(每次打开) |
 | jest 语义测试 | 业务语义 | 提交前 |
 | pre-commit | 类型/迁移不可变/CSS 语法 | 提交时刻 |

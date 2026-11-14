@@ -674,11 +674,11 @@ AGENTS.md
 | D1 | ENCRYPTION_KEY 轮换范围 | **不是用户裁决**：`scripts/rotate-encryption-key.mjs` 已实现并盘点；开发库 0 行，`--rotate` 通过；生产部署机跑同一 `--check`，>0 行先 `--re-encrypt` 或暂缓 |
 | D2 | 敏感历史是否已 push | **已核实**：`.mcp.json` 在 `origin/main` 与 `origin/feature/i01-demand-intake` 历史中；按已泄露处理，立即撤销 |
 | D3 | packageManager npm@12 vs 本机 9.2.0 | 固定到所选 Node 实际自带 npm 版本；`verify:doctor` 检查，不写“以本机为准” |
-| D4 | Stryker 是否常设 | 本方案按“手动、无排期、无 CI、不 break”执行；季度化须先修订 `TEST_FRAMEWORK_DESIGN.md` §5.3 并裁决 |
+| D4 | Stryker 是否常设 | **已实施（`0671de2`）**：手动、无排期、无 CI、不 break；workCalendar 试点 85.50%；季度化须先修订 `TEST_FRAMEWORK_DESIGN.md` §5.3 并裁决 |
 | D5 | OSV 联网 | 允许联网查询包元数据；断网记“未完成”，不能当 0 漏洞通过 |
 | D6 | Playwright 升级 | 1.58 已具备本批所需；1.65 拆为独立可选项，不阻塞 P1 |
 | D7 | Jenkins MCP | **用户裁决（2026-11-14）**：已删除 `.mcp.json`（Jenkins+shadcn）；保留 Jenkinsfile；token 需外部撤销/轮换 |
-| D8 | AGENTS.md 正本 | 先做 Claude/Codex 双读兼容 spike；默认 CLAUDE.md 完整 + AGENTS.md 镜像/符号链接 + 漂移检查 |
+| D8 | AGENTS.md 正本 | **已实施（`0671de2`）**：CLAUDE.md 保持完整正本；AGENTS.md 由 `agents:sync` 生成镜像，`verify:agents` 防漂移（pre-commit + verify:pr） |
 | D9 | GitHub CI | **用户裁决（2026-11-14）**：保留 PR 推送能力，不使用 GitHub CI；3 个 workflows 已删除；`scripts/verify-pr.mjs` 已承接本地门禁 |
 
 ### 15.4 未采纳/NIT（附理由）
@@ -737,14 +737,14 @@ AGENTS.md
 1. **Jenkins token** 需在 Jenkins 侧撤销/轮换；本地已从 HEAD 删除，但历史仍在。
 2. **生产 ENCRYPTION_KEY** 需在部署机跑 `node scripts/rotate-encryption-key.mjs --check --db /var/www/capacinator/data/capacinator.db`；>0 行则先重加密或暂缓。
 3. **历史重写**未做（需用户批准）；`.gitleaksignore` 只覆盖已轮换/删除的历史 fingerprint。
-4. **OSV 160 critical/high 存量**仅基线，未清偿；按 follow-up 分批处理。
+4. **OSV critical/high 存量**：当前 156 vs baseline 160，仅基线未清偿；按 follow-up 分批处理。
 5. **Node 24** 未升级；当前固定 22，vlmkit `>=24` 为已记录例外；升级需重建 better-sqlite3 ABI，拆独立 spike。
 6. **Full E2E smoke/L3** 未在活跃 e2e 栈上重跑；`verify:pr` 已提供 `--skip-e2e`/全量两种模式。
 7. **dev.capacinator.com TLS key** 已从 HEAD 移除但历史仍在；若该域名仍使用，需重签证书。
 
 ### 16.4 下一步
 
-P1-1 `verify-tier` 已于 `e1917ac` 落地（见 §16.5）；下一步 P1-2（knip/dependency-cruiser）与 P1-3（eslint 测试插件/bundle 预算）。
+P1-1 `verify-tier` 已于 `e1917ac` 落地（见 §16.5）；P1-2/P1-3/P2/P3 已于 `0671de2` 落地（见 §16.6–16.8）。剩余为外部动作/存量清偿（§16.3），不阻塞工具链使用。
 
 ### 16.5 P1-1 实施记录（2026-11-14）
 
@@ -761,3 +761,38 @@ P1-1 `verify-tier` 已于 `e1917ac` 落地（见 §16.5）；下一步 P1-2（kn
 - `ui-profiles.mjs` 的 `chrome` 改为惰性 getter，映射守卫与 dry-run 不再要求 Chromium。
 - 验证：`verify:map` PASS；`verify-tier --self-test` PASS；T0 `batchShift.ts` 3 suites/99 tests 25.5s；T0 PersonWorkload 正确映射 profile+E2E；global CSS T0 exit 2；T1 dry-run 列出 states+Playwright；pre-commit 全门禁过。
 - 残留：wide 变更 T1 跑全部 profiles（慢）；E2E 分片仍暂缓；T0 的 states 需要 dev 栈（doctor WARN 端口占用）。
+
+### 16.6 P1-2 / P1-3 实施记录（2026-11-14）
+
+**提交**：`0671de2`
+
+- **P1-2**：`knip.jsonc`（6.45.1 report-only；69 unused files/89 unused exports/48 unused types/28 duplicate exports）；`.dependency-cruiser.cjs` + 10 条存量循环基线；`scripts/check-architecture.mjs`（`--ignore-known` 只拦新增，pre-push + verify:pr）；移除死依赖 `vitest`/`lint-staged`，显式声明 `playwright`/`uuid`/`@jest/globals`；`scripts/README.md`。
+- **P1-3**：`eslint-plugin-jest` + `eslint-plugin-testing-library` 接入；`lint` 覆盖 `tests/unit`+`tests/integration`；修复 3 处 prefer-const 与失效 `import/first` 注释；`rollup-plugin-visualizer` + `check-bundle-size.mjs` + `bundle-budget.json`；`verify:pr` 增加 build+bundle。
+- 验证：lint 0 error（1941 warnings）；`test.only` 样例被拦红；build 16.8s；bundle total 671.3/673.6 KiB、largest 275.5/276.8 KiB；`verify:arch` 0 new；`verify:pr --skip-e2e` 全绿（Jest **5064 passed/0 failed**）。
+- 残留：type-aware 规则未接；knip 仍 report-only；10 条循环基线待偿还。
+
+### 16.7 P2 实施记录（2026-11-14）
+
+**提交**：`0671de2`
+
+- **P2-1**：5 个 fast-check property 文件（固定 asOf/时钟），client 9/9 + server 7/7；Stryker `@stryker-mutator/core@10.1.1` + jest-runner，target `workCalendar`，手动/不 break；`npm run mutation`；`npm run test:coverage`；摘要 `docs/quality/mutation-workCalendar-2026-11-14.md`。
+- **P2-1 结果**：Stryker **85.50%**（107 killed/5 timeout/19 survived/0 no cov/131 mutants；增量 49s）；coverage **63.24% statements/57.89% branches/54.23% functions/64.36% lines**（5064 tests）。
+- **P2-2**：`renovate.json`；commitlint config + `commit-msg` + `_node.sh`（hooks 自动选 `.nvmrc` Node）；markdownlint-cli2 + `docs:lint`；`check-doc-links.mjs` + nightly `[4/4]`；`verify:pr` 含 docs links。
+- 验证：commitlint 红/绿样例；docs:lint 0；docs:links 115 files 0 broken；`verify:pr` 全绿。
+- 残留：Stryker 不排期/不进 CI；19 个 survived 可选 follow-up；lychee 外链未装；Renovate 需 GitHub App/CLI 实际运行。
+
+### 16.8 P3 实施记录（2026-11-14）
+
+**提交**：`0671de2`
+
+- `AGENTS.md` 由 `sync-agent-docs.mjs` 从 `CLAUDE.md` 生成；`check-agent-docs.mjs` 接入 pre-commit + verify:pr。
+- 新增 `.zcode/skills/verify`、`.zcode/skills/security`、`.zcode/commands/verify.md`、`.zcode/commands/security.md`。
+- `CLAUDE.md` 增加 Node 环境、验证分级、本地 PR 门禁、安全与 AGENTS 说明；`.gitignore` 放行 `.zcode/commands`。
+- 验证：`verify:agents` PASS；`verify:pr` PASS；pre-commit 全门禁过。
+- 残留：code-health/test-triage/release skills 与 promptfoo 延后；MCP 全部移除。
+
+### 16.9 完成审计（2026-11-14）
+
+- I19a：本地凭证治理/扫描/轮换工具完成；**外部动作未完成**：Jenkins 侧撤销 token、生产 ENCRYPTION_KEY 盘点、历史重写。
+- I19b–I19h：本地可执行部分全部落地（`888f45d`/`e1917ac`/`0671de2`），pre-commit/verify:pr/security/coverage/mutation 均有实际运行结果。
+- 剩余项均为**外部环境或存量清偿**，不影响本地工具链启用；按 §16.3 跟踪。

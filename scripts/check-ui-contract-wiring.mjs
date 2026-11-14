@@ -26,7 +26,7 @@ const SKILL = resolve(ROOT, '.zcode/skills/ui-review/SKILL.md');
 const PREFLIGHT = resolve(ROOT, '.zcode/skills/ui-preflight/SKILL.md');
 
 const JUDGED_SECTIONS = [
-  { title: '交互与状态判据', ids: ['IX-1','IX-2','IX-3','IX-4','IX-5','IX-6'] },
+  { title: '交互与状态判据', ids: ['IX-1','IX-2','IX-3','IX-4','IX-5','IX-6','IX-7'] },
   { title: '数据可视化契约', ids: ['DV-1','DV-2','DV-3','DV-4','DV-5','DV-6','DV-7','DV-8'] },
   { title: '界面文案契约', ids: ['CP-1','CP-2','CP-3','CP-4'] },
 ];
@@ -41,6 +41,12 @@ const contract = read(CONTRACT);
 if (!contract) {
   problems.push('契约文件缺失: docs/UI_GENERATION_CONTRACT.md');
 } else {
+  // 多步手势/状态矩阵是 IX-7 的落地载体：缺任一锚点=流程结构件被删
+  for (const anchor of ['交互状态矩阵', '重复同一手势']) {
+    if (!contract.includes(anchor)) {
+      problems.push(`契约缺多步手势结构件「${anchor}」→ IX-7 失去生成前约束载体`);
+    }
+  }
   for (const section of JUDGED_SECTIONS) {
     if (!contract.includes(`## ${section.title}`)) {
       problems.push(`契约缺少 judged 节「${section.title}」→ 节被删或改名时接线守卫必须同步`);
@@ -69,6 +75,9 @@ if (!reviewer) {
       problems.push(`评审员提示词缺 ID 起始锚 ${anchor} → 以 ID 为锚的引用断链`);
     }
   }
+  if (!reviewer.includes('重复手势')) {
+    problems.push('评审员提示词缺「重复手势」走查要求 → IX-7 在交付评审无执行入口');
+  }
   // 必填块声明
   if (!reviewer.includes('Mode:') || !reviewer.includes('DEGRADED')) {
     problems.push('评审员提示词缺 Mode/DEGRADED 必填块声明 → 报告模板退化为可选');
@@ -84,6 +93,9 @@ if (!skill) {
       problems.push(`ui-review skill 领域清单缺 ID 引用 ${anchor} → 派发协议与契约脱钩`);
     }
   }
+  if (!skill.includes('重复手势')) {
+    problems.push('ui-review skill 未要求重复手势走查 → 派发协议与 IX-7 脱钩');
+  }
   // 触发条件必须含交付前强制
   if (!skill.includes('UI diff 交付前必须')) {
     problems.push('ui-review skill 触发条件未声明"UI diff 交付前必须"→ 派发仍是软条件');
@@ -95,6 +107,13 @@ if (!preflight) {
   problems.push('ui-preflight skill 缺失: .zcode/skills/ui-preflight/SKILL.md');
 } else if (!preflight.includes('UI_GENERATION_CONTRACT')) {
   problems.push('ui-preflight skill 未引用契约 → 生成前协议入口断链');
+} else {
+  if (!preflight.includes('交互状态矩阵')) {
+    problems.push('ui-preflight skill 缺「交互状态矩阵」生成前步骤 → IX-7 入口断链');
+  }
+  if (!preflight.includes('重复手势')) {
+    problems.push('ui-preflight skill 缺「重复手势」交付走查要求 → IX-7 验证断链');
+  }
 }
 
 if (problems.length > 0) {

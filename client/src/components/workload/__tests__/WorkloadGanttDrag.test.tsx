@@ -169,6 +169,8 @@ describe('WorkloadGantt 已提交 bar 拖拽（S1）', () => {
     expect(onBarClick).toHaveBeenCalledWith('a1');
   });
 
+  // IX-7 守卫 / 变异自证：把 beginPointerDrag 的基准改回 bar.startDate/endDate，
+  // 本用例必须红（第二次拖动会从原始 2026-01-01 起算，而不是预览的 2026-01-16）。
   test('面板预览中的 bar 再次拖动：以当前预览为基准，不跳回原始日期', () => {
     const { onPreview } = renderGantt({
       preview: { assignmentId: 'a1', startDate: '2026-01-16', endDate: '2026-10-15' },

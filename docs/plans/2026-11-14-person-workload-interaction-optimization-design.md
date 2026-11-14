@@ -450,3 +450,12 @@ Defer：S5 回程 chip、跳过原因文案细化、paused 行是否纳入平移
 - 验证：client 90 suites / 1734 passed（新增 15 纯函数 + 8 拖拽 + 5 面板）；person-workload E2E 3/3（拖动→面板→PUT→读回→撤销）；visual 20/20；verify:states PASS；check-collection 358/160；lint 0 error；typecheck 0。
 - 边界/范围：§5.1 的暂停恢复、交接、删除在 Phase A 仍走行内次级入口，未进面板；S3/S5 的批量与跨人能力留 Phase B；S4/S7/S8 留 Phase C。
 - 验收注意：手柄在 bar 两侧各外扩 12px（24px 命中区）；bar 宽度 <72px 时仅保留移动手势，缩放走面板日期输入（§15 R4）。
+
+## 21. 交付记录（Phase B，2026-11-14）
+
+- 实施：`98398dd`（S3 + S5 + S6 收尾）。
+- S3：`lib/batchShift.ts` 纯函数（day/week/month、月底钳制、跳过分项、下限=min(原 start, asOf)）；批量工具条含「整体平移/批量暂停/批量恢复」。平移预览冻结目标清单/版本/结果并展示受影响窗口；应用逐行 PUT；blocked 行分项计数；暂停/恢复一次统一确认（含 direct 计数）。
+- S5：`ProjectStaffingPanel` 改为页面提供的受守卫回调（Codex P1）；`/people/:id/workload?project=&assignment=` 深链在数据加载后定位、高亮 2s、聚焦行编辑；人员切换清理旧编辑会话/ghost/批量状态；无深链参数返回时自动收起提示。
+- S6：批量平移与批量比例保存均提供一次撤销（逆补丁 + 保存响应版本，toast 单例）；表格行保存补上撤销；暂停/恢复按设计不纳入。
+- 验证：client 91 suites / 1750 passed；person-workload E2E 5/5；visual 20/20；verify:states PASS；check-collection 360/160；全量 Jest 4996 passed。
+- 范围：Phase C（S4 convert、S7 统一 ConfirmDialog、S8 自适应窗口）未开工。

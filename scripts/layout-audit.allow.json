@@ -1,0 +1,4 @@
+{
+  "entries": [],
+  "_README": "每条 allow 必须有 kind/reason/owner/expires(YYYY-MM-DD)。规则与治理见 docs/LAYOUT_AUDIT.md。"
+}

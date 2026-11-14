@@ -104,7 +104,10 @@
     "lint:css": "stylelint \"client/src/**/*.css\" \"client/src/styles/**/*.css\"",
     "perf:baseline": "node scripts/perf-baseline.mjs",
     "perf:ops": "node scripts/perf-ops.mjs",
-    "build:verify": "node scripts/check-build-paths.mjs"
+    "build:verify": "node scripts/check-build-paths.mjs",
+    "audit:layout": "node scripts/audit-layout.mjs",
+    "audit:layout:changed": "node scripts/audit-layout.mjs --changed",
+    "verify:layout-map": "node scripts/check-layout-audit-map.mjs"
   },
   "keywords": [],
   "author": "",

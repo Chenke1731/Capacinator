@@ -1,0 +1,279 @@
+#!/usr/bin/env node
+/**
+ * Layout audit（vlmkit 落地，2026-11-14）——advisory 多页布局体检。
+ *
+ * 触发（唯一可靠路径）：
+ *   CI:   pull_request 路径过滤 client/src/** → node scripts/audit-layout.mjs --changed
+ *   本地: node scripts/audit-layout.mjs --changed | --pages a,b | --all
+ *   试跑选页: node scripts/audit-layout.mjs --changed --dry-run
+ *
+ * 选页：scripts/layout-audit.config.json
+ *   - shared 命中（全局 CSS/i18n/ui 原语/App）→ 全量；
+ *   - route.covers 命中 → 对应页面；
+ *   - client/src/** 未映射 → 回退全量（不允许静默漏检）。
+ *
+ * 退出码：0=审计完成（无论有无 findings）；2=审计没跑成（服务/认证/浏览器/vlmkit）。
+ * 本脚本不把 findings 当失败——它是 advisory，报告进 artifact。
+ */
+import fs from 'node:fs';
+import path from 'node:path';
+import { spawnSync } from 'node:child_process';
+
+const ROOT = process.cwd();
+const CONFIG_PATH = path.join(ROOT, 'scripts/layout-audit.config.json');
+const ALLOW_PATH = path.join(ROOT, 'scripts/layout-audit.allow.json');
+
+function fail(message) {
+  console.error(`✗ layout audit 未完成：${message}`);
+  process.exit(2);
+}
+
+function parseArgs(argv) {
+  const out = { all: false, changed: false, dryRun: false, pages: null, base: process.env.GITHUB_BASE_SHA || null, outDir: null, viewports: null, vlmkit: process.env.VLMKIT_BIN || 'vlmkit', baseUrl: process.env.LAYOUT_AUDIT_BASE_URL || 'http://127.0.0.1:3120', apiUrl: process.env.LAYOUT_AUDIT_API_URL || 'http://127.0.0.1:3110' };
+  for (let i = 0; i < argv.length; i += 1) {
+    const arg = argv[i];
+    const value = () => {
+      if (i + 1 >= argv.length || argv[i + 1].startsWith('--')) fail(`${arg} 缺值`);
+      i += 1;
+      return argv[i];
+    };
+    if (arg === '--all') out.all = true;
+    else if (arg === '--changed') out.changed = true;
+    else if (arg === '--dry-run') out.dryRun = true;
+    else if (arg.startsWith('--pages=')) out.pages = arg.slice('--pages='.length).split(',').filter(Boolean);
+    else if (arg === '--pages') out.pages = value().split(',').filter(Boolean);
+    else if (arg.startsWith('--base=')) out.base = arg.slice('--base='.length);
+    else if (arg === '--base') out.base = value();
+    else if (arg.startsWith('--out=')) out.outDir = arg.slice('--out='.length);
+    else if (arg === '--out') out.outDir = value();
+    else if (arg.startsWith('--viewports=')) out.viewports = arg.slice('--viewports='.length).split(',').filter(Boolean);
+    else if (arg === '--viewports') out.viewports = value().split(',').filter(Boolean);
+    else if (arg.startsWith('--vlmkit=')) out.vlmkit = arg.slice('--vlmkit='.length);
+    else if (arg === '--vlmkit') out.vlmkit = value();
+    else if (arg.startsWith('--base-url=')) out.baseUrl = arg.slice('--base-url='.length);
+    else if (arg === '--base-url') out.baseUrl = value();
+    else if (arg.startsWith('--api-url=')) out.apiUrl = arg.slice('--api-url='.length);
+    else if (arg === '--api-url') out.apiUrl = value();
+    else if (arg === '--help' || arg === '-h') {
+      console.log(`Usage: node scripts/audit-layout.mjs [--changed|--all|--pages a,b] [--dry-run] [--base ref] [--viewports 1366x768,1600x900] [--base-url URL] [--api-url URL] [--vlmkit bin] [--out dir]`);
+      process.exit(0);
+    } else fail(`未知参数 ${arg}`);
+  }
+  if (!out.all && !out.pages) out.changed = true;
+  return out;
+}
+
+const args = parseArgs(process.argv.slice(2));
+const config = JSON.parse(fs.readFileSync(CONFIG_PATH, 'utf8'));
+const allow = JSON.parse(fs.readFileSync(ALLOW_PATH, 'utf8'));
+const viewports = args.viewports ?? config.integrity.viewports;
+const disabledRules = config.integrity.disabledRules ?? [];
+const routeById = new Map(config.routes.map((route) => [route.id, route]));
+
+function globToRegExp(pattern) {
+  let source = pattern.replace(/[.+^${}()|[\]\\]/g, '\\$&');
+  source = source.replace(/\*\*/g, '\u0000').replace(/\*/g, '[^/]*').replace(/\u0000\//g, '(?:.*/)?').replace(/\u0000/g, '.*').replace(/\?/g, '[^/]');
+  return new RegExp(`^${source}$`);
+}
+const matches = (pattern, file) => (pattern.includes('*') || pattern.includes('?') ? globToRegExp(pattern).test(file) : pattern === file);
+
+function changedFiles() {
+  const files = new Set();
+  const git = (a) => spawnSync('git', a, { cwd: ROOT, encoding: 'utf8' });
+  const bases = [args.base, 'origin/main', 'HEAD'].filter(Boolean);
+  let diffed = false;
+  for (const base of bases) {
+    const result = git(['diff', '--name-only', `${base}...HEAD`]);
+    if (result.status === 0) {
+      for (const line of result.stdout.split('\n').filter(Boolean)) files.add(line);
+      diffed = true;
+      break;
+    }
+  }
+  if (!diffed) fail(`无法计算 changed files（base=${args.base ?? 'origin/main'}）；请显式传 --base`);
+  for (const extra of [['diff', '--name-only', '--cached'], ['diff', '--name-only']]) {
+    const result = git(extra);
+    if (result.status === 0) for (const line of result.stdout.split('\n').filter(Boolean)) files.add(line);
+  }
+  return [...files];
+}
+
+function selectPages() {
+  if (args.all) return { pages: config.routes.map((route) => route.id), fallback: null, files: [] };
+  if (args.pages) {
+    const unknown = args.pages.filter((id) => !routeById.has(id));
+    if (unknown.length) fail(`未知页面 id: ${unknown.join(', ')}`);
+    return { pages: args.pages, fallback: null, files: [] };
+  }
+  const files = changedFiles();
+  const selected = new Set();
+  let fallback = null;
+  for (const file of files) {
+    if (config.exclude.some((entry) => matches(entry.match, file))) continue;
+    const shared = config.shared.find((entry) => matches(entry.match, file));
+    if (shared) {
+      if (shared.pages === '*') fallback = fallback ?? { reason: 'shared-file', file };
+      else shared.pages.forEach((id) => selected.add(id));
+      continue;
+    }
+    const hit = config.routes.find((route) => route.covers.some((cover) => matches(cover, file)));
+    if (hit) selected.add(hit.id);
+    else if (file.startsWith('client/src/')) fallback = fallback ?? { reason: 'unmapped-client-file', file };
+  }
+  if (fallback) return { pages: config.routes.map((route) => route.id), fallback, files };
+  return { pages: [...selected], fallback: null, files };
+}
+
+const selection = selectPages();
+if (args.dryRun) {
+  console.log(JSON.stringify({ selection: selection.pages, fallback: selection.fallback, changedFiles: selection.files }, null, 2));
+  process.exit(0);
+}
+const outDir = path.resolve(ROOT, args.outDir ?? path.join('tmp', 'layout-audit', new Date().toISOString().replace(/[:.]/g, '-')));
+fs.mkdirSync(outDir, { recursive: true });
+
+async function waitFor(url, label) {
+  for (let i = 0; i < 60; i += 1) {
+    try { const response = await fetch(url); if (response.ok) return; } catch {}
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+  }
+  fail(`${label} 不可达: ${url}`);
+}
+
+async function resolveFixtures() {
+  const fixtures = {};
+  const readList = async (endpoint, token) => {
+    const response = await fetch(`${args.apiUrl}${endpoint}`, { headers: token ? { Authorization: `Bearer ${token}` } : {} });
+    if (!response.ok) fail(`fixture ${endpoint} 返回 ${response.status}`);
+    const body = await response.json();
+    const rows = body.data?.data ?? body.data ?? body;
+    if (!Array.isArray(rows)) fail(`fixture ${endpoint} 响应不是数组`);
+    return rows;
+  };
+  const people = await readList(config.fixtures.personId.endpoint);
+  const person = people.find((row) => row.is_active !== false && row.is_active !== 0) ?? people[0];
+  if (!person?.id) fail('没有可用的 person fixture');
+  fixtures.personId = person.id;
+  const login = await fetch(`${args.apiUrl}/api/auth/login`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ personId: person.id }) });
+  if (!login.ok) fail(`登录失败 ${login.status}`);
+  const payload = await login.json();
+  const auth = payload.data ?? payload;
+  if (!auth.accessToken) fail('登录响应缺 accessToken');
+  for (const [name, spec] of Object.entries(config.fixtures)) {
+    if (name === 'personId') continue;
+    const rows = await readList(spec.endpoint, auth.accessToken);
+    const picked = spec.pick === 'first_active' ? rows.find((row) => row.is_active !== false && row.is_active !== 0) : rows[0];
+    if (!picked?.id) fail(`fixture ${name} 无可用行`);
+    fixtures[name] = picked.id;
+  }
+  const origin = new URL(args.baseUrl).origin;
+  const localStorage = [
+    { name: 'capacinator_current_user', value: JSON.stringify(auth.user ?? person) },
+    { name: 'auth_token', value: auth.accessToken },
+    ...(auth.refreshToken ? [{ name: 'refresh_token', value: auth.refreshToken }] : []),
+    { name: 'capacinator-language', value: 'zh-CN' },
+    { name: 'theme', value: 'light' },
+  ];
+  const storagePath = path.join(outDir, 'storage-state.json');
+  fs.writeFileSync(storagePath, JSON.stringify({ cookies: [], origins: [{ origin, localStorage }] }));
+  return { fixtures, storagePath, person };
+}
+
+const allowArgs = (allow.entries ?? []).map((entry) => {
+  const selector = entry.selector ? `@${entry.selector}` : '';
+  const viewport = entry.viewport ? `@${entry.viewport}` : '';
+  return `${entry.kind}${selector}${viewport};${entry.reason}`;
+});
+
+function runVlmkit(page, viewport, storagePath, fixtures) {
+  const route = routeById.get(page);
+  const routePath = route.path.replace(/\$\{([^}]+)\}/g, (_, name) => {
+    if (!fixtures[name]) fail(`route ${page} 需要未解析 fixture: ${name}`);
+    return fixtures[name];
+  });
+  const url = `${args.baseUrl}${routePath}`;
+  const vlmkitArgs = ['check', 'integrity', url, '--storage-state', storagePath, '--viewport', viewport, '--wait-until', 'domcontentloaded', '--timeout', '45000', '--json', '--no-ledger'];
+  for (const rule of disabledRules) vlmkitArgs.push('--rule', `check.integrity/${rule}=off`);
+  for (const entry of allowArgs) vlmkitArgs.push('--allow', entry);
+  const result = spawnSync(args.vlmkit, vlmkitArgs, { cwd: ROOT, encoding: 'utf8', maxBuffer: 20 * 1024 * 1024 });
+  const stdout = result.stdout ?? '';
+  let parsed = null;
+  try { parsed = JSON.parse(stdout); } catch {
+    const start = stdout.indexOf('{');
+    if (start >= 0) { try { parsed = JSON.parse(stdout.slice(start)); } catch {} }
+  }
+  if (!parsed || !Array.isArray(parsed.findings)) {
+    return { page, viewport, url, status: 'infra-error', exitCode: result.status, error: (result.stderr || stdout || '').slice(0, 1200) };
+  }
+  return { page, viewport, url, status: 'completed', exitCode: result.status, verdict: parsed.verdict, findings: parsed.findings, counts: parsed.counts ?? {}, exempted: parsed.exempted ?? [] };
+}
+
+const fixtureData = await resolveFixtures();
+await waitFor(`${args.apiUrl}/api/health`, 'API');
+await waitFor(args.baseUrl, 'frontend');
+
+const results = [];
+for (const page of selection.pages) {
+  for (const viewport of viewports) {
+    const result = runVlmkit(page, viewport, fixtureData.storagePath, fixtureData.fixtures);
+    results.push(result);
+    process.stdout.write(`${result.status === 'completed' ? '·' : '✗'}`);
+  }
+}
+process.stdout.write('\n');
+
+const infraFailures = results.filter((result) => result.status !== 'completed');
+const findings = results.flatMap((result) => (result.findings ?? []).map((finding) => ({ ...finding, page: result.page, viewport: result.viewport })));
+const byRule = {};
+for (const finding of findings) byRule[finding.rule] = (byRule[finding.rule] ?? 0) + 1;
+
+const trigger = {
+  generatedAt: new Date().toISOString(),
+  baseUrl: args.baseUrl,
+  apiUrl: args.apiUrl,
+  selection: selection.pages,
+  selectionFallback: selection.fallback,
+  changedFiles: selection.files,
+  viewports,
+  disabledRules,
+  allowEntries: allow.entries?.length ?? 0,
+  results: results.map(({ page, viewport, status, exitCode, verdict }) => ({ page, viewport, status, exitCode, verdict })),
+  infraFailures: infraFailures.length,
+  findings: findings.length,
+  byRule,
+};
+fs.writeFileSync(path.join(outDir, 'trigger.json'), JSON.stringify(trigger, null, 2));
+fs.writeFileSync(path.join(outDir, 'findings.json'), JSON.stringify({ trigger, results, findings }, null, 2));
+
+const lines = [
+  '# Layout audit',
+  '',
+  `- 时间: ${trigger.generatedAt}`,
+  `- 目标: ${args.baseUrl} / ${args.apiUrl}`,
+  `- 选中页面: ${selection.pages.length ? selection.pages.join(', ') : '（无 UI 变化，未运行）'}`,
+  `- 选页依据: ${selection.fallback ? `回退全量（${selection.fallback.reason}: ${selection.fallback.file}）` : args.pages ? '显式 --pages' : args.all ? '显式 --all' : 'changed 映射'}`,
+  `- 视口: ${viewports.join(', ')}`,
+  `- 禁用规则: ${disabledRules.join(', ') || '无'}`,
+  `- findings: ${findings.length}；未能运行: ${infraFailures.length}`,
+  '',
+  '## 按规则',
+  '',
+  ...(Object.keys(byRule).length ? Object.entries(byRule).map(([rule, count]) => `- ${rule}: ${count}`) : ['- 无']),
+  '',
+  '## Findings（最多 40 条）',
+  '',
+];
+if (findings.length === 0) lines.push('无。');
+for (const finding of findings.slice(0, 40)) {
+  lines.push(`- **${finding.rule}** @ ${finding.viewport} · ${finding.page} — ${finding.message}`);
+  if (finding.selector) lines.push(`  - selector: \`${finding.selector}\``);
+}
+if (infraFailures.length) {
+  lines.push('', '## 未能运行', '');
+  for (const failure of infraFailures) lines.push(`- ${failure.page} @ ${failure.viewport}: ${failure.error}`);
+}
+fs.writeFileSync(path.join(outDir, 'summary.md'), lines.join('\n') + '\n');
+
+console.log(`Layout audit: ${selection.pages.length} 页 × ${viewports.length} 视口，findings ${findings.length}，未能运行 ${infraFailures.length}`);
+console.log(`报告: ${path.relative(ROOT, path.join(outDir, 'summary.md'))}`);
+if (infraFailures.length) fail(`${infraFailures.length} 个页面/视口未能审计（详见 summary.md）`);

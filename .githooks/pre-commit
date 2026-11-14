@@ -95,6 +95,15 @@ if [ -n "$STAGED_SPEC" ] || [ -n "$STAGED_E2E_CFG" ]; then
   fi
 fi
 
+# Layout audit 触发映射（vlmkit 落地，2026-11-14）：静态守卫，<1s。
+# 失败=新增页面/路由未进审计映射，禁止提交（否则 vlmkit 触发会漏页）。
+echo "── Layout audit map ──"
+node scripts/check-layout-audit-map.mjs
+if [ $? -ne 0 ]; then
+  echo "✗ Layout audit map guard — commit blocked"
+  exit 1
+fi
+
 # 缓存键配对守卫(2026-10-13 全库审计元问题): 渲染闭包有 verify-states,
 # React Query 键闭包此前零防线——撞键/悬空失效全靠人眼。静态扫描 <3s,
 # 不随 staged 文件门控(键配对是跨文件性质,staged 子集无意义)

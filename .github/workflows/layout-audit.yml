@@ -1,0 +1,75 @@
+# Layout audit（vlmkit 落地，2026-11-14）
+# 定位：advisory 多页布局完整性体检，不是合并门禁。
+# 触发：PR 改动 client/src/**（宽路径，避免漏跑）；每周一全量。
+# 失败语义：findings 不失败；审计没跑成（服务/认证/浏览器/vlmkit）才失败。
+name: layout-audit
+
+on:
+  pull_request:
+    paths:
+      - 'client/src/**'
+      - 'docs/UI_GENERATION_CONTRACT.md'
+      - 'scripts/audit-layout.mjs'
+      - 'scripts/layout-audit.config.json'
+      - 'scripts/layout-audit.allow.json'
+      - 'scripts/check-layout-audit-map.mjs'
+      - 'package.json'
+      - 'package-lock.json'
+  schedule:
+    - cron: '17 18 * * 1'
+  workflow_dispatch:
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+
+      - name: Layout audit map guard
+        run: node scripts/check-layout-audit-map.mjs
+
+      - name: Install vlmkit (pinned)
+        run: npm install -g playwright@1.65.1 @mizchi/vlmkit@0.24.0
+
+      - name: Install browsers (project + vlmkit)
+        run: |
+          npx playwright install --with-deps chromium
+          node "$(npm root -g)/playwright/cli.js" install --with-deps chromium
+
+      - name: Start isolated e2e stack
+        run: |
+          NODE_ENV=e2e PORT=3111 npx tsx src/server/index.ts > /tmp/layout-api.log 2>&1 &
+          echo $! > /tmp/layout-api.pid
+          VITE_E2E=1 PORT=3111 npx vite --config client-vite.config.ts --port 3122 --strictPort > /tmp/layout-web.log 2>&1 &
+          echo $! > /tmp/layout-web.pid
+          npx wait-on http://localhost:3111/api/health http://localhost:3122
+
+      - name: Run layout audit
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            node scripts/audit-layout.mjs --changed --base "${{ github.event.pull_request.base.sha }}" --base-url http://localhost:3122 --api-url http://localhost:3111 --out tmp/layout-audit
+          else
+            node scripts/audit-layout.mjs --all --base-url http://localhost:3122 --api-url http://localhost:3111 --out tmp/layout-audit
+          fi
+
+      - name: Upload layout audit artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: layout-audit-${{ github.run_id }}
+          path: tmp/layout-audit
+          retention-days: 14
+
+      - name: Stop e2e stack
+        if: always()
+        run: |
+          [ -f /tmp/layout-api.pid ] && kill "$(cat /tmp/layout-api.pid)" 2>/dev/null || true
+          [ -f /tmp/layout-web.pid ] && kill "$(cat /tmp/layout-web.pid)" 2>/dev/null || true

@@ -1,0 +1,239 @@
+{
+  "fixtures": {
+    "personId": {
+      "endpoint": "/api/people?limit=50",
+      "pick": "first_active"
+    },
+    "projectId": {
+      "endpoint": "/api/projects?limit=50",
+      "pick": "first"
+    },
+    "roleId": {
+      "endpoint": "/api/roles?limit=50",
+      "pick": "first"
+    },
+    "projectTypeId": {
+      "endpoint": "/api/project-types?limit=50",
+      "pick": "first"
+    }
+  },
+  "integrity": {
+    "viewports": [
+      "1366x768",
+      "1600x900"
+    ],
+    "disabledRules": [
+      "near-misalignment",
+      "nested-scroll",
+      "clipped-content"
+    ]
+  },
+  "routes": [
+    {
+      "id": "dashboard",
+      "path": "/dashboard",
+      "covers": [
+        "client/src/pages/Dashboard.tsx",
+        "client/src/pages/Dashboard.css",
+        "client/src/components/dashboard/**"
+      ]
+    },
+    {
+      "id": "projects",
+      "path": "/projects",
+      "covers": [
+        "client/src/pages/ProjectsUnified.tsx",
+        "client/src/pages/Projects.css",
+        "client/src/pages/ProjectRoadmap.tsx",
+        "client/src/pages/ProjectTypes.tsx",
+        "client/src/pages/Projects.tsx",
+        "client/src/pages/TicketsBoard.tsx",
+        "client/src/pages/IntakeInbox.tsx",
+        "client/src/pages/AffairsBoard.tsx",
+        "client/src/components/board/**",
+        "client/src/components/intake/**"
+      ]
+    },
+    {
+      "id": "projects-roadmap",
+      "path": "/projects?tab=roadmap",
+      "covers": [
+        "client/src/pages/ProjectsUnified.tsx",
+        "client/src/pages/ProjectRoadmap.tsx",
+        "client/src/pages/ProjectRoadmap.css"
+      ]
+    },
+    {
+      "id": "project-new",
+      "path": "/projects/new",
+      "covers": [
+        "client/src/pages/ProjectNew.tsx"
+      ]
+    },
+    {
+      "id": "project-detail",
+      "path": "/projects/${projectId}",
+      "covers": [
+        "client/src/pages/ProjectDetail.tsx",
+        "client/src/pages/ProjectDetail.css"
+      ]
+    },
+    {
+      "id": "iterations",
+      "path": "/iterations",
+      "covers": [
+        "client/src/pages/Iterations.tsx",
+        "client/src/pages/Iterations.css"
+      ]
+    },
+    {
+      "id": "people",
+      "path": "/people",
+      "covers": [
+        "client/src/pages/PeopleUnified.tsx",
+        "client/src/pages/People.css",
+        "client/src/pages/People.tsx",
+        "client/src/pages/Roles.tsx",
+        "client/src/pages/Availability.tsx"
+      ]
+    },
+    {
+      "id": "person-new",
+      "path": "/people/new",
+      "covers": [
+        "client/src/pages/PersonNew.tsx"
+      ]
+    },
+    {
+      "id": "person-detail",
+      "path": "/people/${personId}",
+      "covers": [
+        "client/src/pages/PersonDetails.tsx",
+        "client/src/pages/PersonDetails.css"
+      ]
+    },
+    {
+      "id": "person-workload",
+      "path": "/people/${personId}/workload",
+      "covers": [
+        "client/src/pages/PersonWorkload.tsx",
+        "client/src/pages/PersonWorkload.css",
+        "client/src/components/workload/**"
+      ]
+    },
+    {
+      "id": "roles-detail",
+      "path": "/roles/${roleId}",
+      "covers": [
+        "client/src/pages/RoleDetails.tsx",
+        "client/src/pages/Roles.css"
+      ]
+    },
+    {
+      "id": "project-type-detail",
+      "path": "/project-types/${projectTypeId}",
+      "covers": [
+        "client/src/pages/ProjectTypeDetails.tsx",
+        "client/src/pages/ProjectTypes.css"
+      ]
+    },
+    {
+      "id": "assignments",
+      "path": "/assignments",
+      "covers": [
+        "client/src/pages/Assignments.tsx",
+        "client/src/pages/Assignments.css"
+      ]
+    },
+    {
+      "id": "scenarios",
+      "path": "/scenarios",
+      "covers": [
+        "client/src/pages/Scenarios.tsx",
+        "client/src/pages/Scenarios.css"
+      ]
+    },
+    {
+      "id": "audit-log",
+      "path": "/audit-log",
+      "covers": [
+        "client/src/pages/AuditLog.tsx",
+        "client/src/pages/AuditLog.css"
+      ]
+    },
+    {
+      "id": "reports",
+      "path": "/reports",
+      "covers": [
+        "client/src/pages/ReportsUnified.tsx",
+        "client/src/pages/ReportsTabContent.tsx"
+      ]
+    },
+    {
+      "id": "import",
+      "path": "/import",
+      "covers": [
+        "client/src/pages/ImportUnified.tsx",
+        "client/src/pages/Import.css"
+      ]
+    },
+    {
+      "id": "locations",
+      "path": "/locations",
+      "covers": [
+        "client/src/pages/Locations.tsx",
+        "client/src/pages/Locations.css"
+      ]
+    },
+    {
+      "id": "components",
+      "path": "/components",
+      "covers": [
+        "client/src/pages/Components.tsx"
+      ]
+    },
+    {
+      "id": "settings",
+      "path": "/settings",
+      "covers": [
+        "client/src/pages/Settings.tsx"
+      ]
+    }
+  ],
+  "shared": [
+    {
+      "match": "client/src/styles/**",
+      "pages": "*"
+    },
+    {
+      "match": "client/src/index.css",
+      "pages": "*"
+    },
+    {
+      "match": "client/src/App.css",
+      "pages": "*"
+    },
+    {
+      "match": "client/src/App.tsx",
+      "pages": "*"
+    },
+    {
+      "match": "client/src/components/ui/**",
+      "pages": "*"
+    },
+    {
+      "match": "client/src/components/Layout.tsx",
+      "pages": "*"
+    },
+    {
+      "match": "client/src/i18n/**",
+      "pages": "*"
+    }
+  ],
+  "exclude": [
+    {
+      "match": "client/src/pages/__tests__/**",
+      "reason": "tests, not a route"
+    }
+  ]
+}

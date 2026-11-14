@@ -252,6 +252,24 @@ test.describe('Person workbench v2 (S1/S2/S6 committed drag + panel + undo)', ()
       expect(previewStart).not.toBe(originalStart);
       await expect(panel.getByLabel('End date')).not.toHaveValue(originalEnd);
 
+      // 面板保持打开，直接进行第二次拖动：必须从"当前预览"继续，不能跳回原始日期
+      const box2 = await bar.boundingBox();
+      expect(box2).toBeTruthy();
+      const cx2 = box2!.x + box2!.width / 2;
+      const cy2 = box2!.y + box2!.height / 2;
+      await authenticatedPage.mouse.move(cx2, cy2);
+      await authenticatedPage.mouse.down();
+      await authenticatedPage.mouse.move(cx2 + 20, cy2, { steps: 4 });
+      const tip2 = authenticatedPage.getByTestId('pw-gantt-drag-tip');
+      await expect(tip2).toBeVisible();
+      const tip2Start = (await tip2.textContent())?.match(/\d{4}-\d{2}-\d{2}/)?.[0];
+      expect(tip2Start).toBeTruthy();
+      await authenticatedPage.mouse.up();
+      await expect(startInput).toHaveValue(tip2Start!);
+      // 第二次向右拖，开始日应比第一次预览更晚（而不是回到 originalStart）
+      expect(String(tip2Start) > previewStart).toBe(true);
+      const finalStart = await startInput.inputValue();
+
       // 面板内改比例 → 单 PUT（带快照版本）→ 关闭 + 撤销 toast
       await panel.getByLabel('Allocation %').fill('33');
       const [saveResponse] = await Promise.all([
@@ -274,7 +292,7 @@ test.describe('Person workbench v2 (S1/S2/S6 committed drag + panel + undo)', ()
         .poll(async () => (await readAssignment()).allocation_percentage, { timeout: 10000 })
         .toBe(33);
       const saved = await readAssignment();
-      expect(saved.start_date.slice(0, 10)).toBe(previewStart);
+      expect(saved.start_date.slice(0, 10)).toBe(finalStart);
 
       const undoButton = authenticatedPage.getByRole('button', { name: 'Undo', exact: true });
       await expect(undoButton).toBeVisible();

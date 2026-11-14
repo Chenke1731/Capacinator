@@ -60,6 +60,8 @@ function pointer(type: 'pointerdown' | 'pointermove' | 'pointerup', clientX: num
 function renderGantt(props: {
   rows?: GanttAssignmentMeta[];
   dragEnabled?: boolean;
+  dragAssignmentId?: string | null;
+  preview?: { assignmentId: string; startDate: string; endDate: string } | null;
   onPreview?: jest.Mock;
   onDragEnd?: jest.Mock;
   onBarClick?: jest.Mock;
@@ -77,6 +79,8 @@ function renderGantt(props: {
       onGhostClick={jest.fn()}
       onBarClick={onBarClick}
       committedDragEnabled={props.dragEnabled ?? true}
+      committedDragAssignmentId={props.dragAssignmentId ?? null}
+      committedPreview={props.preview ?? null}
       onCommittedDragPreview={onPreview}
       onCommittedDragEnd={onDragEnd}
     />
@@ -161,6 +165,33 @@ describe('WorkloadGantt 已提交 bar 拖拽（S1）', () => {
     });
     pointer('pointerup', 120, document);
     expect(onDragEnd).not.toHaveBeenCalled();
+    fireEvent.click(bar);
+    expect(onBarClick).toHaveBeenCalledWith('a1');
+  });
+
+  test('面板预览中的 bar 再次拖动：以当前预览为基准，不跳回原始日期', () => {
+    const { onPreview } = renderGantt({
+      preview: { assignmentId: 'a1', startDate: '2026-01-16', endDate: '2026-10-15' },
+      dragAssignmentId: 'a1',
+    });
+    const bar = screen.getByTestId('pw-gantt-bar');
+    const handle = bar.querySelector('.pw-gantt-resize--start')!;
+    pointer('pointerdown', 100, handle);
+    pointer('pointermove', 110, document);
+    expect(onPreview).toHaveBeenCalledWith({
+      assignmentId: 'a1',
+      startDate: '2026-01-26',
+      endDate: '2026-10-15',
+    });
+  });
+
+  test('其它行已打开面板时不允许在该行开始拖动', () => {
+    const { onPreview, onBarClick } = renderGantt({ dragAssignmentId: 'a2' });
+    const bar = screen.getByTestId('pw-gantt-bar');
+    expect(bar.querySelector('.pw-gantt-resize')).toBeNull();
+    pointer('pointerdown', 100, bar);
+    pointer('pointermove', 140, document);
+    expect(onPreview).not.toHaveBeenCalled();
     fireEvent.click(bar);
     expect(onBarClick).toHaveBeenCalledWith('a1');
   });

@@ -67,6 +67,8 @@ export interface WorkloadGanttProps {
   committedDragEnabled?: boolean;
   /** S8：窗口外 committed 行（start 在窗口末端之后）的定位入口 */
   onLocateCommitted?: (assignmentId: string) => void;
+  /** 已打开面板的行 id：只允许该行继续拖动（多次拖动沿用当前预览），其它行禁止 */
+  committedDragAssignmentId?: string | null;
 }
 
 type DragMode = 'move' | 'start' | 'end';
@@ -123,6 +125,7 @@ export function WorkloadGantt({
   onCommittedDragEnd,
   committedDragEnabled = false,
   onLocateCommitted,
+  committedDragAssignmentId = null,
 }: WorkloadGanttProps) {
   const { t } = useTranslation(['assignments']);
 
@@ -226,6 +229,7 @@ export function WorkloadGantt({
         onCommittedDragEnd &&
         bar.kind === 'committed' &&
         bar.assignmentId &&
+        (!committedDragAssignmentId || bar.assignmentId === committedDragAssignmentId) &&
         canDragCommittedBar(
           {
             dateMode: bar.mode,
@@ -366,14 +370,17 @@ export function WorkloadGantt({
       document.body.style.cursor = 'grabbing';
       document.body.style.userSelect = 'none';
     }
+    // 多次拖动：基准取"当前显示值"（本地/页面预览），不是服务端原始行。
+    // 否则第二次拖动会把 bar 拉回原始日期再叠加位移，造成跳变与光标偏移。
+    const displayed = effectiveDates(bar);
     dragRef.current = {
       kind: isGhost ? 'draft' : 'committed',
       id: isGhost ? bar.draftId! : bar.assignmentId!,
       mode,
       pointerStartX: event.clientX,
       trackWidth: track.getBoundingClientRect().width || 1,
-      origStart: bar.startDate ? toDayNumber(bar.startDate) : null,
-      origEnd: bar.endDate ? toDayNumber(bar.endDate) : null,
+      origStart: displayed.startDate ? toDayNumber(displayed.startDate) : null,
+      origEnd: displayed.endDate ? toDayNumber(displayed.endDate) : null,
       // 桌面点击（无位移）不进入拖动；ghost 保持即时（草稿可回退）
       started: isGhost,
     };

@@ -2511,12 +2511,33 @@ export default function PersonWorkload() {
           }
           const sameStart = preview.startDate === (workloadDateOnly(row.start_date) ?? '');
           const sameEnd = preview.endDate === (workloadDateOnly(row.end_date) ?? '');
+          // 同一行的多次拖动：沿用已打开会话，只更新"当前预览/表单日期"；
+          // baseline（服务端行/版本）保持不变，保存仍按打开时的快照做乐观锁。
+          if (committedSession && String(committedSession.row.id) === String(row.id)) {
+            setCommittedForm((prev) => ({
+              ...prev,
+              startDate: preview.startDate,
+              endDate: preview.endDate,
+            }));
+            setCommittedPreview(sameStart && sameEnd ? null : preview);
+            setCommittedError(null);
+            setCommittedConflict(false);
+            return;
+          }
           if (sameStart && sameEnd) {
+            setCommittedPreview(null);
+            return;
+          }
+          if (committedSession) {
+            // 其它行会话开着时不允许开始新拖动（Gantt 已拦截）；防御性清预览
             setCommittedPreview(null);
             return;
           }
           openCommittedSession(row, 'drag', preview);
         }}
+        committedDragAssignmentId={
+          committedSession ? String(committedSession.row.id) : null
+        }
         committedDragEnabled={
           !draftStore.submitting &&
           !committedSaving &&

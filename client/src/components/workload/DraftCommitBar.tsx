@@ -43,6 +43,8 @@ export interface DraftCommitBarProps {
   /** 含不可恢复的 REPLACE 行（旧槽位快照缺字段）时禁用撤销（不丢数据） */
   undoDisabled?: boolean;
   undoDisabledReason?: string | null;
+  /** 撤销失败原因（失败行保留在撤销记录中可重试，不静默清空） */
+  undoError?: string | null;
   /** Phase 3 批量编辑：统一参数套用到全部可编辑 ghost */
   onBatchApply?: (value: BatchEditValue) => void;
   editableDrafts?: AssignmentDraft[];
@@ -71,6 +73,7 @@ export const DraftCommitBar = forwardRef<HTMLDivElement, DraftCommitBarProps>(
       undoing = false,
       undoDisabled = false,
       undoDisabledReason,
+      undoError,
       onBatchApply,
       editableDrafts = [],
     },
@@ -86,6 +89,11 @@ export const DraftCommitBar = forwardRef<HTMLDivElement, DraftCommitBarProps>(
         return (
           <div className="pw-commit-bar pw-commit-bar--undo" ref={ref} data-testid="pw-commit-bar" tabIndex={-1}>
             <span className="pw-commit-summary">{t('assignments:workbench.commit.createdCount', { count: lastCreatedCount })}</span>
+            {undoError ? (
+              <span className="pw-commit-flag pw-commit-flag--conflict" role="alert" data-testid="pw-undo-error">
+                {t('assignments:workbench.commit.undoFailed')}
+              </span>
+            ) : null}
             <div className="pw-commit-actions">
               <button
                 type="button"

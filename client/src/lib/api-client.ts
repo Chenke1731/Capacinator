@@ -441,6 +441,29 @@ export const api = {
         requestId: string;
         message: string;
       }>(`/assignments/${id}/handover`, data, scenarioRequestConfig(options)),
+    // 撤销替换（单事务：删新行+重建旧行）——失败整体回滚，不会丢两人分配
+    undoReplace: (
+      id: string,
+      data: {
+        expected_version: number;
+        incumbent: {
+          person_id: string;
+          role_id: string;
+          phase_id?: string | null;
+          allocation_percentage: number;
+          assignment_date_mode: 'fixed' | 'phase' | 'project' | string;
+          start_date?: string | null;
+          end_date?: string | null;
+          notes?: string | null;
+        };
+      },
+      options?: ScenarioScopedRequest
+    ) =>
+      apiClient.post<{ success: boolean; data: ProjectAssignment; requestId: string; message: string }>(
+        `/assignments/${id}/undo-replace`,
+        data,
+        scenarioRequestConfig(options)
+      ),
     bulkCreate: (data: Record<string, unknown>) => apiClient.post<{ success: boolean; data: ProjectAssignment[]; requestId: string; message: string }>('/assignments/bulk', data),
     getConflicts: (personId: string, params?: PaginationParams) => apiClient.get<{ success: boolean; data: AssignmentConflictsResponse; requestId: string; message: string }>(`/assignments/conflicts/${personId}`, { params }),
     getSuggestions: (params: Record<string, unknown>) => apiClient.get<{ success: boolean; data: AssignmentSuggestionsResponse; requestId: string; message: string }>('/assignments/suggestions', { params }),

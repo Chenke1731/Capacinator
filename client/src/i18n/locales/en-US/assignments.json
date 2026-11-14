@@ -473,7 +473,8 @@
       "undoCreate": "Undo create",
       "undoing": "Undoing…",
       "createdCount": "Created {{count}} assignments",
-      "undoBlocked": "This batch contains a replacement whose incumbent fields are incomplete; undo would lose the old assignment — handle it in the table instead"
+      "undoBlocked": "This batch contains a replacement whose incumbent fields are incomplete; undo would lose the old assignment — handle it in the table instead",
+      "undoFailed": "Undo failed: the incumbent was not restored (transaction rolled back, assignment still present). Retry is safe."
     },
     "errors": {
       "missing_role": "Missing role",

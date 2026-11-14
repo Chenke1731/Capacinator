@@ -473,7 +473,8 @@
       "undoCreate": "撤销创建",
       "undoing": "撤销中…",
       "createdCount": "已创建 {{count}} 条分配",
-      "undoBlocked": "含替换的批次缺少旧分配完整字段，撤销会丢失旧分配；请到明细表手动处理"
+      "undoBlocked": "含替换的批次缺少旧分配完整字段，撤销会丢失旧分配；请到明细表手动处理",
+      "undoFailed": "撤销失败：旧分配未恢复（事务已回滚，分配仍在），可重试"
     },
     "errors": {
       "missing_role": "缺少角色",

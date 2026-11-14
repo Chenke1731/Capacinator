@@ -180,30 +180,45 @@ export function useDraftAssignments(options: UseDraftAssignmentsOptions) {
     };
   }, [drafts]);
 
-  /** 撤销 CREATE（§17 Phase 3 + Codex P1#1）：删除本会话刚创建的行；
-   * REPLACE 行删除后按原业务字段重建旧行（先删新行释放 SE/MDE 槽再建）。
-   * 旧槽位快照缺字段时 undoBlocked=true，DraftCommitBar 禁用撤销。 */
+  /** 撤销 CREATE（§17 Phase 3 + DeepSeek P1）：删除本会话刚创建的行。
+   * REPLACE 行走服务端单事务端点 undo-replace（删新行+重建旧行原子完成，
+   * 任一步失败整体回滚）——此前客户端两条独立请求会"删成功+建 409 = 两人
+   * 分配全丢"。失败行保留在撤销记录里可重试，不静默清空。 */
+  const [undoError, setUndoError] = useState<string | null>(null);
   const undoLastCreate = useCallback(async () => {
     if (undoing || lastCreated.length === 0 || undoBlocked) return;
     setUndoing(true);
+    setUndoError(null);
+    const failed: Array<{ id: string; scenarioId: string; restore?: Record<string, unknown> }> = [];
     try {
       for (const row of lastCreated) {
         try {
-          await api.assignments.delete(row.id, { expected_version: 1 }, { scenarioId: row.scenarioId });
-        } catch {
-          // 新行已不在（他人先删）：继续，重建旧行仍有意义
-        }
-        if (row.restore) {
-          try {
-            await api.assignments.create(row.restore as never, { scenarioId: row.scenarioId });
-          } catch {
-            // 重建失败：读侧刷新后旧行缺失对用户可见（明细表/泳道），
-            // 不静默吞掉——撤销批次后 undo 条消失即暴露
+          if (row.restore) {
+            await api.assignments.undoReplace(
+              row.id,
+              { expected_version: 1, incumbent: row.restore as never },
+              { scenarioId: row.scenarioId }
+            );
+          } else {
+            await api.assignments.delete(row.id, { expected_version: 1 }, { scenarioId: row.scenarioId });
           }
+        } catch (error) {
+          failed.push(row);
+          const message =
+            (error as { response?: { data?: { message?: string; error?: string } } })?.response?.data?.message ??
+            (error as { response?: { data?: { error?: string } } })?.response?.data?.error ??
+            (error as Error)?.message;
+          setUndoError(String(message ?? 'undo_failed'));
         }
       }
-      setLastCreated([]);
-      setUndoBlocked(false);
+      if (failed.length === 0) {
+        setLastCreated([]);
+        setUndoBlocked(false);
+      } else {
+        // 保留失败行：撤销记录不清空（用户可重试；服务端事务保证旧行/新行
+        // 至少一侧完整存在，不会出现静默数据丢失）
+        setLastCreated(failed);
+      }
       await onAfterCommit?.();
     } finally {
       setUndoing(false);
@@ -218,6 +233,7 @@ export function useDraftAssignments(options: UseDraftAssignmentsOptions) {
     lastCreatedCount: lastCreated.length,
     undoing,
     undoBlocked,
+    undoError,
     addDrafts,
     updateDraft,
     removeDraft,

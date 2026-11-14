@@ -1140,6 +1140,198 @@ export class AssignmentsController extends BaseController {
     }
   })
 
+  /**
+   * 撤销替换（DeepSeek P1：客户端"删新行 + 重建旧行"是两条独立请求——
+   * 删除成功、重建 409 时两条分配全丢且 undo 记录被清）。
+   *
+   * POST /api/assignments/:id/undo-replace
+   * body: {
+   *   expected_version: number,          // 替换行（新行）的版本
+   *   incumbent: { person_id, role_id, phase_id, allocation_percentage,
+   *                assignment_date_mode, start_date?, end_date? }
+   * }
+   * :id = 替换产生的新行 id（spa- 前缀或裸 id）。
+   *
+   * 单事务内：版本校验 → 旧行同键查重 → 删除替换行 → 按原字段重建旧行。
+   * 任一步失败整体回滚——替换行仍在（撤销前状态），不出现"两人的分配都
+   * 消失"的中间态。提交后补 DELETE+CREATE 双审计。
+   */
+  undoReplace = this.asyncHandler(async (req: RequestWithLogging, res: Response) => {
+    const { id } = req.params;
+    const body = (req.body ?? {}) as Record<string, any>;
+    const incumbent = (body.incumbent ?? {}) as Record<string, any>;
+    const headerScenarioId = resolveScenarioId(req.headers['x-scenario-id']);
+
+    const result = await this.executeQuery(async () => {
+      // 校验放在 executeQuery 内（项目惯例）：OperationalError 由它统一
+      // 吐 400 响应；放在 asyncHandler 早期 throw 会绕过错误信封。
+      const expectedVersion = Number(body.expected_version);
+      if (!Number.isInteger(expectedVersion) || expectedVersion < 1) {
+        throw this.createOperationalError('expected_version must be a positive integer', 400);
+      }
+      const personId = typeof incumbent.person_id === 'string' ? incumbent.person_id.trim() : '';
+      if (!personId) {
+        throw this.createOperationalError('incumbent.person_id is required', 400);
+      }
+      const roleId = typeof incumbent.role_id === 'string' ? incumbent.role_id.trim() : '';
+      if (!roleId) {
+        throw this.createOperationalError('incumbent.role_id is required', 400);
+      }
+      const allocation = Number(incumbent.allocation_percentage);
+      const allocationError = allocationValidationError(allocation);
+      if (allocationError) {
+        throw this.createOperationalError(allocationError, 400);
+      }
+      const mode = incumbent.assignment_date_mode ?? 'fixed';
+      if (!['fixed', 'phase', 'project'].includes(mode)) {
+        throw this.createOperationalError('incumbent.assignment_date_mode is invalid', 400);
+      }
+      let startDate: string | null = null;
+      let endDate: string | null = null;
+      if (mode === 'fixed') {
+        const start = parseAssignmentDate(incumbent.start_date);
+        const end = parseAssignmentDate(incumbent.end_date);
+        if (start.invalid || end.invalid || !start.value || !end.value) {
+          throw this.createOperationalError('incumbent fixed-mode dates are required (YYYY-MM-DD)', 400);
+        }
+        if (start.value > end.value) {
+          throw this.createOperationalError('incumbent start date must be before or equal to end date', 400);
+        }
+        startDate = start.value;
+        endDate = end.value;
+      }
+      const phaseId = typeof incumbent.phase_id === 'string' && incumbent.phase_id
+        ? incumbent.phase_id
+        : null;
+      if (mode === 'phase' && !phaseId) {
+        throw this.createOperationalError('incumbent.phase_id is required for phase mode', 400);
+      }
+
+      const target = await this.findAssignmentForWrite(id, headerScenarioId);
+      if (!target) {
+        this.handleNotFound(req, res, 'Assignment');
+        return null;
+      }
+      if (!target.isScenarioAssignment) {
+        throw this.createOperationalError('Undo replace is only supported for scenario assignments', 400);
+      }
+
+      let created: any = null;
+      let replacement: any = null;
+      try {
+        await this.db.transaction(async (trx: any) => {
+          replacement = await trx('scenario_project_assignments')
+            .where({ id: target.actualId, scenario_id: target.scenarioId })
+            .first();
+          if (!replacement) {
+            throw this.createOperationalError('Replacement assignment no longer exists', 409);
+          }
+          if (Number(replacement.version) !== expectedVersion) {
+            throw new AssignmentWriteConflict(409, {
+              error: 'Version conflict',
+              code: 'ASSIGNMENT_VERSION_CONFLICT',
+              message: 'This assignment was modified by someone else. Review the current value and retry.',
+              current: replacement,
+            });
+          }
+
+          // 旧行同键查重（排除替换行自身，防自撞）：有同键行说明撤销会制造
+          // 重复——409 并整体回滚，替换行留在原地
+          const duplicate = await this.findDuplicateAssignment(
+            trx,
+            'scenario_project_assignments',
+            {
+              scenarioId: target.scenarioId,
+              projectId: replacement.project_id,
+              personId,
+              roleId,
+              phaseId,
+            },
+            target.actualId
+          );
+          if (duplicate) {
+            throw new AssignmentWriteConflict(409, {
+              error: 'Conflict',
+              code: 'ASSIGNMENT_DUPLICATE',
+              message: 'The incumbent assignment key is already occupied; resolve it before undoing the replacement',
+              existing_id: duplicate.id,
+              current: duplicate,
+            });
+          }
+
+          const deleted = await trx('scenario_project_assignments')
+            .where({ id: target.actualId, scenario_id: target.scenarioId, version: expectedVersion })
+            .del();
+          if (!deleted) {
+            throw new AssignmentWriteConflict(409, {
+              error: 'Version conflict',
+              code: 'ASSIGNMENT_VERSION_CONFLICT',
+              message: 'This assignment changed before the replacement could be undone',
+              current: replacement,
+            });
+          }
+
+          // project/phase 模式的派生日期走共享原语（与写路径同算法）
+          const dates = await this.computeAssignmentDates(
+            {
+              project_id: replacement.project_id,
+              assignment_date_mode: mode,
+              phase_id: phaseId,
+              start_date: startDate,
+              end_date: endDate,
+            } as any,
+            trx
+          );
+          [created] = await trx('scenario_project_assignments')
+            .insert({
+              scenario_id: target.scenarioId,
+              project_id: replacement.project_id,
+              person_id: personId,
+              role_id: roleId,
+              phase_id: phaseId,
+              allocation_percentage: allocation,
+              status: 'active',
+              assignment_date_mode: mode,
+              start_date: startDate,
+              end_date: endDate,
+              ...dates,
+              is_primary: false,
+              notes: typeof incumbent.notes === 'string' ? incumbent.notes : null,
+              created_at: new Date(),
+              updated_at: new Date(),
+            })
+            .returning('*');
+        });
+      } catch (error) {
+        if (error instanceof AssignmentWriteConflict) {
+          res.status(error.statusCode).json(error.payload);
+          return null;
+        }
+        throw error;
+      }
+
+      await (req as any).logAuditEvent(
+        'scenario_project_assignments',
+        target.actualId,
+        'DELETE',
+        replacement,
+        undefined
+      );
+      await (req as any).logAuditEvent(
+        'scenario_project_assignments',
+        created.id,
+        'CREATE',
+        undefined,
+        created
+      );
+      return created;
+    }, req, res, 'Failed to undo replacement');
+
+    if (result) {
+      this.sendSuccess(req, res, result, 'Replacement undone; incumbent restored');
+    }
+  })
+
   delete = this.asyncHandler(async (req: RequestWithLogging, res: Response) => {
     const { id } = req.params;
     // IP-07e/F06: 可选乐观锁令牌——删除他人刚改的行=丢失更新的一种,

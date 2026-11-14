@@ -1451,6 +1451,7 @@ export default function PersonWorkload() {
         undoing={draftStore.undoing}
         undoDisabled={draftStore.undoBlocked}
         undoDisabledReason={t('assignments:workbench.commit.undoBlocked')}
+        undoError={draftStore.undoError}
         onBatchApply={handleBatchApply}
         editableDrafts={editableDrafts}
       />

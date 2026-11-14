@@ -19,6 +19,7 @@ jest.mock('../../lib/api-client', () => ({
       delete: jest.fn(),
       create: jest.fn(),
       handover: jest.fn(),
+      undoReplace: jest.fn(),
     },
     projects: {
       list: jest.fn(),
@@ -997,28 +998,84 @@ test('B7: 撤销替换恢复旧分配——删新行后按完整字段重建旧�
 
   fireEvent.click(screen.getByTestId('pw-undo-create'));
   await waitFor(() => {
-    // 1) 删除新行；2) 按旧行完整字段重建（人/比例/日期/模式）
-    expect(api.assignments.delete).toHaveBeenCalledWith(
+    // 单事务端点：删新行 + 重建旧行（人/比例/日期/模式）一次请求完成
+    expect(api.assignments.undoReplace).toHaveBeenCalledWith(
       'created-replacement',
-      { expected_version: 1 },
+      {
+        expected_version: 1,
+        incumbent: expect.objectContaining({
+          person_id: 'person-old',
+          role_id: 'role-se',
+          allocation_percentage: 60,
+          assignment_date_mode: 'fixed',
+          start_date: '2026-01-01',
+          end_date: '2026-12-31',
+        }),
+      },
       { scenarioId: 'baseline-0000-0000-0000-000000000000' }
     );
-    expect(api.assignments.create).toHaveBeenLastCalledWith(
-      expect.objectContaining({
-        project_id: 'task-slot',
-        person_id: 'person-old',
-        role_id: 'role-se',
-        allocation_percentage: 60,
-        assignment_date_mode: 'fixed',
-        start_date: '2026-01-01',
-        end_date: '2026-12-31',
-      }),
-      { scenarioId: 'baseline-0000-0000-0000-000000000000' }
-    );
+    // 不再拆分两条独立请求（删除+重建非原子=数据丢失窗口）
+    expect(api.assignments.delete).not.toHaveBeenCalled();
   });
   await waitFor(() => {
     expect(screen.queryByTestId('pw-commit-bar')).not.toBeInTheDocument();
   });
+});
+
+test('B7-fail: 撤销替换失败 → 事务回滚（不丢数据），撤销记录保留可重试 + 错误可见', async () => {
+  window.localStorage.clear();
+  mockBoard([
+    selectionTask({
+      id: 'task-slot',
+      name: 'Slot Task',
+      role_demands: [{ role_id: 'role-se', role_name: 'SE', phase_id: null, required_headcount: 1, source: 'template' }],
+      single_person_slots: [
+        {
+          role_id: 'role-se',
+          role_name: 'SE',
+          incumbent_assignment_id: 'spa-old-se',
+          incumbent_person_id: 'person-old',
+          incumbent_person_name: 'Old SE',
+          incumbent_version: 3,
+          incumbent_start_date: '2026-01-01',
+          incumbent_end_date: '2026-12-31',
+          incumbent_allocation_percentage: 60,
+          incumbent_phase_id: null,
+          incumbent_assignment_date_mode: 'fixed',
+          incumbent_raw_start_date: '2026-01-01',
+          incumbent_raw_end_date: '2026-12-31',
+        },
+      ],
+    }),
+  ]);
+  renderPage();
+  await openDialog();
+
+  fireEvent.click(screen.getByRole('button', { name: 'Replace Old SE' }));
+  await screen.findByTestId('pw-commit-bar');
+  const ghost = await screen.findByTestId('pw-ghost-bar');
+  fireEvent.click(ghost);
+  fireEvent.change(screen.getByLabelText('Start date'), { target: { value: '2026-04-01' } });
+  fireEvent.change(screen.getByLabelText('End date'), { target: { value: '2026-04-30' } });
+  fireEvent.click(screen.getByLabelText(/I confirm deleting the old row/i));
+  fireEvent.click(screen.getByRole('button', { name: 'Done' }));
+
+  (api.assignments.create as jest.Mock).mockResolvedValue({ data: { id: 'created-replacement' } });
+  fireEvent.click(screen.getByTestId('pw-confirm-assign'));
+  await screen.findByTestId('pw-undo-create');
+
+  // 撤销失败（服务端事务整体回滚）：撤销记录不得清空，错误提示可见
+  (api.assignments.undoReplace as jest.Mock).mockRejectedValueOnce({
+    response: { status: 409, data: { code: 'ASSIGNMENT_DUPLICATE', message: 'key occupied' } },
+  });
+  fireEvent.click(screen.getByTestId('pw-undo-create'));
+
+  await waitFor(() => {
+    expect(screen.getByTestId('pw-undo-create')).toBeInTheDocument();
+  });
+  expect(screen.getByTestId('pw-undo-error')).toBeInTheDocument();
+  // 未调用普通 delete（REPLACE 撤销必须走原子端点）
+  expect(api.assignments.delete).not.toHaveBeenCalled();
 });
 
 test('C1: UNKNOWN 回读命中 → 解除锁定并清空草稿（不再永远锁住）', async () => {

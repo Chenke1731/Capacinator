@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
 import {
@@ -330,6 +330,7 @@ export default function PersonWorkload() {
     confirmText?: string;
     variant?: 'default' | 'danger';
     onConfirm: () => void;
+    onCancel?: () => void;
   } | null>(null);
   /** 面板关闭后焦点回到原 bar（§5.2/§15）；被行编辑/批量接管时不抢焦点。 */
   const committedReturnFocusRef = useRef<string | null>(null);
@@ -359,6 +360,10 @@ export default function PersonWorkload() {
   const hasPendingDrafts = draftStore.drafts.some((draft) => draft.submitState !== 'SUCCEEDED');
   const hasUnsavedCommitted = Boolean(committedSession && committedRowDirty);
   const unsavedWorkRef = useRef({ drafts: false, committed: false, other: false });
+  const hasUnsavedWorkRef = useRef(false);
+  const allowHistoryLeaveRef = useRef(false);
+  const historySentinelRef = useRef(false);
+  const location = useLocation();
   const leaveConfirmText = t('assignments:workbench.leaveConfirm');
   const leaveMessage = useCallback(() => {
     const { drafts, committed, other } = unsavedWorkRef.current;
@@ -382,6 +387,7 @@ export default function PersonWorkload() {
         confirmText: t('assignments:workbench.leaveConfirmAction'),
         variant: 'danger',
         onConfirm: () => {
+          allowHistoryLeaveRef.current = true;
           setActionConfirm(null);
           action();
         },
@@ -738,6 +744,64 @@ export default function PersonWorkload() {
       Boolean(batchMode && (batchShiftPlan || batchDraftsDirty())) ||
       committedConverting,
   };
+  hasUnsavedWorkRef.current =
+    unsavedWorkRef.current.drafts ||
+    unsavedWorkRef.current.committed ||
+    unsavedWorkRef.current.other;
+
+  // W-07：BrowserRouter 下没有 useBlocker，用哨兵历史项拦截浏览器前进/后退。
+  // dirty 时压入同 URL 哨兵；回退先落到同 URL（路由不变）→ 弹确认；
+  // 取消重新压哨兵，确认后再 back 到真正上一页。
+  useEffect(() => {
+    if (hasUnsavedWorkRef.current && !historySentinelRef.current) {
+      window.history.pushState(
+        { ...(window.history.state ?? {}), __pwGuard: true },
+        '',
+        window.location.href
+      );
+      historySentinelRef.current = true;
+    } else if (!hasUnsavedWorkRef.current && historySentinelRef.current) {
+      historySentinelRef.current = false;
+      if (window.history.state?.__pwGuard) window.history.back();
+    }
+  }, [hasPendingDrafts, hasUnsavedCommitted, rowEditDirty, hasUnsavedHandover, batchMode, batchShiftPlan, committedConverting]);
+
+  useEffect(() => {
+    const onPopState = () => {
+      if (allowHistoryLeaveRef.current) {
+        allowHistoryLeaveRef.current = false;
+        historySentinelRef.current = false;
+        return;
+      }
+      if (!hasUnsavedWorkRef.current) {
+        historySentinelRef.current = Boolean(window.history.state?.__pwGuard);
+        return;
+      }
+      historySentinelRef.current = false;
+      setActionConfirm({
+        title: t('assignments:workbench.leaveTitle'),
+        message: leaveMessage(),
+        confirmText: t('assignments:workbench.leaveConfirmAction'),
+        variant: 'danger',
+        onConfirm: () => {
+          allowHistoryLeaveRef.current = true;
+          setActionConfirm(null);
+          window.history.back();
+        },
+        onCancel: () => {
+          setActionConfirm(null);
+          window.history.pushState(
+            { ...(window.history.state ?? {}), __pwGuard: true },
+            '',
+            window.location.href
+          );
+          historySentinelRef.current = true;
+        },
+      });
+    };
+    window.addEventListener('popstate', onPopState);
+    return () => window.removeEventListener('popstate', onPopState);
+  }, [leaveMessage, t]);
 
   const startRowEdit = (row: AssignmentRow) => {
     setEditingId(row.id);
@@ -2894,7 +2958,11 @@ export default function PersonWorkload() {
           confirmText={actionConfirm.confirmText}
           variant={actionConfirm.variant ?? 'default'}
           onConfirm={actionConfirm.onConfirm}
-          onCancel={() => setActionConfirm(null)}
+          onCancel={() => {
+            const cancel = actionConfirm.onCancel;
+            setActionConfirm(null);
+            cancel?.();
+          }}
         />
       ) : null}
 

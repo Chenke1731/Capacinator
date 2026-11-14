@@ -102,6 +102,9 @@ describe('WorkloadGantt 已提交 bar 拖拽（S1）', () => {
   test('阈值内（<3px）不进入拖动，click 仍按 S2 打开面板', () => {
     const { onPreview, onDragEnd, onBarClick } = renderGantt({});
     const bar = screen.getByTestId('pw-gantt-bar');
+    // committed bar 不宣称未实现的键盘操作
+    expect(bar.getAttribute('title')).not.toContain('←');
+    expect(bar.getAttribute('aria-describedby')).toBe('pw-gantt-drag-help-committed');
 
     pointer('pointerdown', 100, bar);
     pointer('pointermove', 102, document);

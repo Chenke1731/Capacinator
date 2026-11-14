@@ -222,7 +222,7 @@ export function TaskSelectionBoard({
                 <td className="pw-board-state">
                   <span className={`pw-board-state-chip pw-board-state--${task.lifecycle_state ?? 'none'}`}>
                     {task.lifecycle_state
-                      ? t(`projects:lifecycle.states.${task.lifecycle_state}`, {
+                      ? t(`projects:lifecycle.state.${task.lifecycle_state}`, {
                           defaultValue: task.lifecycle_state.replace(/_/g, ' '),
                         })
                       : t('assignments:workbench.board.stateNone')}

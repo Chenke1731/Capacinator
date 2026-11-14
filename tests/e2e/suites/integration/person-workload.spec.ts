@@ -402,6 +402,37 @@ test.describe('Person workbench v2 (S5 cross-person relay)', () => {
  * Phase B（S3/S6）：批量平移预览→应用→撤销，批量暂停/恢复。
  * 用临时人员 + 两条临时分配隔离，避免改动 seed 行；结束清理。
  */
+test.describe('Person workbench v2 (W-07 browser history guard)', () => {
+  test(`${tags.integration} dirty committed panel blocks browser back and asks before leaving`, async ({
+    authenticatedPage,
+    apiContext,
+  }) => {
+    const person = await firstPerson(apiContext);
+    test.skip(!person, 'No people fixture in e2e database');
+    await authenticatedPage.goto('/people');
+    await authenticatedPage.goto(`/people/${person.id}/workload`);
+    const bar = authenticatedPage.locator('[data-testid="pw-gantt-bar"]:visible').first();
+    await expect(bar).toBeVisible({ timeout: 15000 });
+    await bar.click();
+    const panel = authenticatedPage.getByTestId('pw-committed-inspector');
+    await expect(panel).toBeVisible();
+    await panel.getByLabel('Allocation %').fill('25');
+
+    await authenticatedPage.goBack();
+    const dialog = authenticatedPage.getByTestId('confirm-dialog');
+    await expect(dialog).toBeVisible();
+    await expect(authenticatedPage).toHaveURL(new RegExp(`/people/${person.id}/workload`));
+    await dialog.getByRole('button', { name: 'Cancel' }).click();
+    await expect(dialog).toHaveCount(0);
+    await expect(authenticatedPage).toHaveURL(new RegExp(`/people/${person.id}/workload`));
+
+    await authenticatedPage.goBack();
+    await expect(dialog).toBeVisible();
+    await dialog.getByRole('button', { name: 'Leave' }).click();
+    await expect(authenticatedPage).toHaveURL(/\/people$/);
+  });
+});
+
 test.describe('Person workbench v2 (S3 batch shift / status / undo)', () => {
   test(`${tags.integration} batch shift preview/apply/undo and batch pause/resume`, async ({
     authenticatedPage,

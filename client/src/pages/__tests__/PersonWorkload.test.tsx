@@ -500,6 +500,10 @@ test('dialog: parent/terminal rows locked, leaf selectable; scope=demand by defa
   // 父行与终态行只有锁；叶子行是复选框
   expect(screen.getByTestId('pw-select-task-task-leaf')).toBeInstanceOf(HTMLInputElement);
   expect(screen.queryByTestId('pw-select-task-task-parent')).not.toBeInTheDocument();
+  // 生命周期使用业务标签，不显示裸枚举
+  const terminalRow = document.querySelector('tr[data-task-id="task-terminal"]');
+  expect(terminalRow).toHaveTextContent('Delivered');
+  expect(terminalRow).not.toHaveTextContent('delivered');
   expect(screen.queryByTestId('pw-select-task-task-terminal')).not.toBeInTheDocument();
   expect(screen.getAllByTitle(/Delivered or cancelled/i).length).toBeGreaterThan(0);
 

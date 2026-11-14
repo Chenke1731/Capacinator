@@ -79,6 +79,8 @@ jobs:
         run: |
           if [ "${{ github.event_name }}" = "pull_request" ]; then
             node scripts/audit-layout.mjs --changed --base "${{ github.event.pull_request.base.sha }}" --base-url http://localhost:3122 --api-url http://localhost:3111 --out tmp/layout-audit
+          elif [ "${{ github.event_name }}" = "push" ]; then
+            node scripts/audit-layout.mjs --changed --base "${{ github.event.before }}" --base-url http://localhost:3122 --api-url http://localhost:3111 --out tmp/layout-audit
           else
             node scripts/audit-layout.mjs --all --base-url http://localhost:3122 --api-url http://localhost:3111 --out tmp/layout-audit
           fi

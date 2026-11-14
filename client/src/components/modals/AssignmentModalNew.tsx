@@ -1,3 +1,4 @@
+import { ImeSafeForm } from '../ui/ime-safe-form';
 import React, { useMemo } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
@@ -268,7 +269,7 @@ export const AssignmentModalNew: React.FC<AssignmentModalProps> = ({
             </Alert>
           )}
 
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <ImeSafeForm onSubmit={handleSubmit} className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-2">
               <Label htmlFor="project_id">{t('assignments:fields.project')} <span aria-hidden="true">*</span><span className="sr-only">{t('assignments:form.requiredSrOnly')}</span></Label>
@@ -456,7 +457,7 @@ export const AssignmentModalNew: React.FC<AssignmentModalProps> = ({
                 )}
               </Button>
             </DialogFooter>
-          </form>
+          </ImeSafeForm>
         </div>
       </DialogContent>
     </Dialog>

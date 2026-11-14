@@ -1,3 +1,4 @@
+import { ImeSafeForm } from '../ui/ime-safe-form';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
@@ -74,7 +75,7 @@ export const CreateScenarioModal: React.FC<CreateScenarioModalProps> = ({
             {t('scenarios:modal.createDescription')}
           </DialogDescription>
         </DialogHeader>
-        <form onSubmit={handleSubmit}>
+        <ImeSafeForm onSubmit={handleSubmit}>
           <div className="space-y-4 py-4">
             {parentScenario && (
               <div className="flex items-center gap-2 p-3 bg-blue-50 dark:bg-blue-950 rounded-md" role="status">
@@ -135,7 +136,7 @@ export const CreateScenarioModal: React.FC<CreateScenarioModalProps> = ({
               {createMutation.isPending ? t('scenarios:modal.creating') : t('scenarios:modal.createScenario')}
             </Button>
           </DialogFooter>
-        </form>
+        </ImeSafeForm>
       </DialogContent>
     </Dialog>
   );
@@ -189,7 +190,7 @@ export const EditScenarioModal: React.FC<EditScenarioModalProps> = ({
             {t('scenarios:modal.editDescription')}
           </DialogDescription>
         </DialogHeader>
-        <form onSubmit={handleSubmit}>
+        <ImeSafeForm onSubmit={handleSubmit}>
           <div className="space-y-4 py-4">
             <div className="space-y-2">
               <Label htmlFor="edit-scenario-name">{t('scenarios:modal.scenarioName')} <span aria-hidden="true">*</span><span className="sr-only">{t('scenarios:modal.a11yRequired')}</span></Label>
@@ -227,7 +228,7 @@ export const EditScenarioModal: React.FC<EditScenarioModalProps> = ({
               {updateMutation.isPending ? t('common:saving') : t('scenarios:modal.saveChanges')}
             </Button>
           </DialogFooter>
-        </form>
+        </ImeSafeForm>
       </DialogContent>
     </Dialog>
   );

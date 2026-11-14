@@ -1,3 +1,4 @@
+import { ImeSafeForm } from '../ui/ime-safe-form';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Calendar, Type, Save } from 'lucide-react';
@@ -47,7 +48,7 @@ export function PhaseEditModal({
           <DialogTitle>{t('phases:modal.editPhaseTitle', { name: editingPhase?.phase_name })}</DialogTitle>
         </DialogHeader>
 
-        <form onSubmit={onSubmit}>
+        <ImeSafeForm onSubmit={onSubmit}>
           <div className="form-group">
             <label className="form-label">
               <Type size={16} />
@@ -105,7 +106,7 @@ export function PhaseEditModal({
               {t('phases:common.saveChanges')}
             </button>
           </DialogFooter>
-        </form>
+        </ImeSafeForm>
       </DialogContent>
     </Dialog>
   );

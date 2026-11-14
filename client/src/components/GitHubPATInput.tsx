@@ -1,3 +1,4 @@
+import { ImeSafeForm } from './ui/ime-safe-form';
 /**
  * GitHubPATInput Component
  * Feature: 005-github-auth-user-link
@@ -84,7 +85,7 @@ export function GitHubPATInput({ onSuccess, onCancel }: GitHubPATInputProps) {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <ImeSafeForm onSubmit={handleSubmit} className="space-y-4">
           {/* Token Input */}
           <div className="space-y-2">
             <Label htmlFor="pat-token">
@@ -202,7 +203,7 @@ export function GitHubPATInput({ onSuccess, onCancel }: GitHubPATInputProps) {
               </Button>
             )}
           </div>
-        </form>
+        </ImeSafeForm>
       </CardContent>
     </Card>
   );

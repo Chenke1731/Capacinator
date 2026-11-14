@@ -1,3 +1,4 @@
+import { ImeSafeForm } from '../ui/ime-safe-form';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useQuery } from '@tanstack/react-query';
@@ -256,7 +257,7 @@ export const PersonModal: React.FC<PersonModalProps> = ({
             </Alert>
           )}
 
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <ImeSafeForm onSubmit={handleSubmit} className="space-y-6">
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label htmlFor="name">{t('people:fields.name')} <span aria-hidden="true">*</span><span className="sr-only">{t('people:requiredSrOnly')}</span></Label>
@@ -449,7 +450,7 @@ export const PersonModal: React.FC<PersonModalProps> = ({
                 {isEditing ? t('people:updatePerson') : t('people:createPerson')}
               </Button>
             </DialogFooter>
-          </form>
+          </ImeSafeForm>
         </div>
       </DialogContent>
     </Dialog>

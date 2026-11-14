@@ -1,3 +1,4 @@
+import { ImeSafeForm } from '../ui/ime-safe-form';
 /**
  * Create Branch Modal Component
  * Feature: 001-git-sync-integration
@@ -91,7 +92,7 @@ export const CreateBranchModal: React.FC<CreateBranchModalProps> = ({
             {t('gitSync:branches.createDescription')}
           </Dialog.Description>
 
-          <form onSubmit={handleSubmit}>
+          <ImeSafeForm onSubmit={handleSubmit}>
             {error && (
               <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded text-sm text-red-700">
                 {error}
@@ -156,7 +157,7 @@ export const CreateBranchModal: React.FC<CreateBranchModalProps> = ({
                 {isCreating ? t('gitSync:branches.creating') : t('gitSync:branches.createButton')}
               </button>
             </div>
-          </form>
+          </ImeSafeForm>
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>

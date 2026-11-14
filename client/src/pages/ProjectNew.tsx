@@ -1,3 +1,4 @@
+import { ImeSafeForm } from '../components/ui/ime-safe-form';
 import React, { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
@@ -243,7 +244,7 @@ export function ProjectNew() {
       </div>
 
       <div className="person-details-content">
-        <form onSubmit={handleSubmit}>
+        <ImeSafeForm onSubmit={handleSubmit}>
           {/* Basic Information Section */}
           <div className="detail-section">
             <div className="section-header">
@@ -454,7 +455,7 @@ export function ProjectNew() {
               {t('projects:createFailed')}
             </div>
           )}
-        </form>
+        </ImeSafeForm>
       </div>
     </div>
   );

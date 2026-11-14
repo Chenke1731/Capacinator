@@ -73,13 +73,54 @@ function stripCommentLines(lines) {
 
 const ENTER_PATTERN = /key\s*===\s*['"]Enter['"]/;
 
+const FORM_BLOCK = /<(form|ImeSafeForm)\b[\s\S]*?<\/\1>/g;
+const INPUT_TAG = /<(input|textarea)\b[^>]*>/gi;
+const NON_TEXT_INPUT_TYPES = new Set([
+  'checkbox', 'radio', 'date', 'datetime-local', 'time', 'month', 'week',
+  'number', 'range', 'color', 'file', 'hidden', 'submit', 'button', 'image', 'reset',
+]);
+
+function hasTextInput(block) {
+  for (const match of block.matchAll(INPUT_TAG)) {
+    const tag = match[0];
+    if (/^<textarea/i.test(tag)) return true;
+    const type = (tag.match(/type\s*=\s*["']([^"']+)/i) || [])[1]?.toLowerCase();
+    if (!type || !NON_TEXT_INPUT_TYPES.has(type)) return true;
+  }
+  return false;
+}
+
+/**
+ * W-25：原生 form submit 也是文本输入 Enter 的提交路径（keydown 扫描覆盖不到）。
+ * 断言：含文本 input/textarea 的 form 必须在同一表单块内声明组合态守卫
+ * （isImeComposing / isComposing / *composingRef.current）或使用 ImeSafeForm。
+ */
+export function scanFormSubmitGuardsInSource(source) {
+  const violations = [];
+  const text = stripCommentLines(source.split('\n')).join('\n');
+  for (const match of text.matchAll(FORM_BLOCK)) {
+    const block = match[0];
+    if (!hasTextInput(block)) continue;
+    if (/isImeComposing|isComposing|ComposingRef\.current|composingRef\.current|compositionRef\.current|ImeSafeForm/.test(block)) continue;
+    violations.push({
+      line: text.slice(0, match.index).split('\n').length,
+      snippet: block.slice(0, 100).replace(/\s+/g, ' ').trim(),
+    });
+  }
+  return violations;
+}
+
 export function scanImeEnterGuard() {
   const violations = [];
+  const formViolations = [];
   for (const file of walk(CLIENT_SRC)) {
     const relPath = rel(file);
     if (SELF_AND_UTIL.has(relPath)) continue;
 
     const source = readFileSync(file, 'utf8');
+    for (const formViolation of scanFormSubmitGuardsInSource(source)) {
+      formViolations.push({ file: relPath, ...formViolation });
+    }
     const lines = stripCommentLines(source.split('\n'));
 
     lines.forEach((line, index) => {
@@ -133,27 +174,55 @@ export function scanImeEnterGuard() {
     }
   }
 
-  return { violations, allowlistIssues };
+  return { violations, formViolations, allowlistIssues };
+}
+
+function selfTest() {
+  let pass = 0;
+  const total = 5;
+  const cases = [
+    ['unguarded text form', '<form onSubmit={handleSubmit}><input value={x} /></form>', 1],
+    ['ImeSafeForm', '<ImeSafeForm onSubmit={handleSubmit}><input value={x} /></ImeSafeForm>', 0],
+    ['non-text only', '<form onSubmit={handleSubmit}><input type="date" value={x} /><input type="checkbox" /></form>', 0],
+    ['search input unguarded', '<form onSubmit={handleSubmit}><input type="search" value={x} /></form>', 1],
+    ['search with composition ref', '<form onSubmit={handleSubmit}><input type="search" value={x} />{searchComposingRef.current}</form>', 0],
+  ];
+  for (const [name, code, expected] of cases) {
+    const found = scanFormSubmitGuardsInSource(code).length;
+    if (found === expected) pass++;
+    else console.error(`SELF_TEST form 「${name}」 expected ${expected}, got ${found}`);
+  }
+  console.log(`SELF_TEST check-ime-form-submit: ${pass}/${total} 组通过`);
+  return pass === total;
 }
 
 // CLI 入口（测试 import 时不执行）
 if (process.argv[1] && process.argv[1].endsWith('check-ime-enter-guard.mjs')) {
-  const { violations, allowlistIssues } = scanImeEnterGuard();
+  if (process.argv.includes('--self-test')) {
+    process.exit(selfTest() ? 0 : 1);
+  }
+  const { violations, formViolations, allowlistIssues } = scanImeEnterGuard();
   const asJson = process.argv.includes('--json');
   if (asJson) {
-    console.log(JSON.stringify({ violations, allowlistIssues }, null, 2));
+    console.log(JSON.stringify({ violations, formViolations, allowlistIssues }, null, 2));
   } else {
     if (violations.length > 0) {
       console.error(`✗ IME Enter 守卫：${violations.length} 个处理点未判 isImeComposing（漏检 1-3 已修）：`);
       for (const v of violations) console.error(`  ${v.file}:${v.line}  ${v.snippet}`);
     }
+    if (formViolations.length > 0) {
+      console.error(`✗ IME form submit 守卫：${formViolations.length} 个文本表单未跟踪组合态（W-25）：`);
+      for (const v of formViolations) console.error(`  ${v.file}:${v.line}  ${v.snippet}`);
+    }
     if (allowlistIssues.length > 0) {
       console.error(`✗ IME Enter 守卫白名单腐化：`);
       for (const a of allowlistIssues) console.error(`  ${a.file}: ${a.issue}`);
     }
-    if (violations.length === 0 && allowlistIssues.length === 0) {
-      console.log('✓ IME Enter 守卫通过：全部文本输入 Enter 处理点已判 isImeComposing');
+    if (violations.length === 0 && formViolations.length === 0 && allowlistIssues.length === 0) {
+      console.log('✓ IME Enter 守卫通过：keydown Enter 与 form submit 文本输入均已判组合态');
     }
   }
-  process.exit(violations.length > 0 || allowlistIssues.length > 0 ? 1 : 0);
+  process.exit(
+    violations.length > 0 || formViolations.length > 0 || allowlistIssues.length > 0 ? 1 : 0
+  );
 }

@@ -1,3 +1,4 @@
+import { ImeSafeForm } from '../components/ui/ime-safe-form';
 import React, { useState, useMemo } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { Calendar, Plus, Edit2, Trash2, Check, ChevronLeft, ChevronRight } from 'lucide-react';
@@ -379,7 +380,7 @@ export default function Availability() {
           <DialogHeader>
             <DialogTitle>{editingId ? t('people:availability.editTitle') : t('people:availability.addTitle')}</DialogTitle>
           </DialogHeader>
-          <form onSubmit={handleSubmit}>
+          <ImeSafeForm onSubmit={handleSubmit}>
             <div className="form-grid">
               <div className="form-group">
                 <label className="form-label">{t('people:availability.person')}</label>
@@ -468,7 +469,7 @@ export default function Availability() {
                 {t('common:cancel')}
               </button>
             </DialogFooter>
-          </form>
+          </ImeSafeForm>
         </DialogContent>
       </Dialog>
 

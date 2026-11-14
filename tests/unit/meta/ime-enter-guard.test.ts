@@ -22,10 +22,15 @@ function runScan() {
 }
 
 describe('IME Enter 守卫结构不变量（单一实现）', () => {
-  test('全库扫描：全部文本输入 Enter 处理点已判 isImeComposing', () => {
-    const { violations, allowlistIssues } = runScan();
+  test('全库扫描：keydown Enter 与 form submit 文本输入均已判组合态', () => {
+    const { violations, formViolations, allowlistIssues } = runScan();
     expect(violations).toEqual([]);
+    expect(formViolations).toEqual([]);
     expect(allowlistIssues).toEqual([]);
+  });
+
+  test('form submit 扫描器自测（W-25 盲区）', () => {
+    expect(() => execSync(`node "${SCRIPT}" --self-test`, { encoding: 'utf8' })).not.toThrow();
   });
 
   test('检测器四漏检回归（Codex 反例）', () => {

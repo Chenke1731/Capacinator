@@ -1,3 +1,4 @@
+import { ImeSafeForm } from '../components/ui/ime-safe-form';
 import React, { useState, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
@@ -214,7 +215,7 @@ export function PersonNew() {
       </div>
 
       <div className="person-details-content">
-        <form onSubmit={handleSubmit}>
+        <ImeSafeForm onSubmit={handleSubmit}>
           {/* Basic Information Section */}
           <div className="detail-section">
             <div className="section-header">
@@ -396,7 +397,7 @@ export function PersonNew() {
               {t('people:createFailed')}
             </div>
           )}
-        </form>
+        </ImeSafeForm>
       </div>
     </div>
   );

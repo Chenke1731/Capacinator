@@ -1,3 +1,4 @@
+import { ImeSafeForm } from '../ui/ime-safe-form';
 import React, { useMemo } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
@@ -283,7 +284,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
               {i18n.t('projects:board.decomposeInto', { name: presetParentName ?? '' })}
             </div>
           )}
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <ImeSafeForm onSubmit={handleSubmit} className="space-y-6">
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label htmlFor="name">{t('projects:projectName')} <span aria-hidden="true">*</span><span className="sr-only">{t('projects:a11yRequired')}</span></Label>
@@ -495,7 +496,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({
                 {isEditing ? t('projects:updateProject') : t('projects:createProject')}
               </Button>
             </DialogFooter>
-          </form>
+          </ImeSafeForm>
         </div>
       </DialogContent>
     </Dialog>

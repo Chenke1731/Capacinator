@@ -1164,11 +1164,13 @@
   color: var(--bg-secondary);
   font-size: 10px;
   white-space: nowrap;
-  overflow: hidden;
+  /* 两端 24px 缩放手柄向 bar 外扩 12px；文本由 .pw-gantt-bar-text 自身裁剪 */
+  overflow: visible;
   cursor: pointer;
 }
 
 .person-workload-page .pw-gantt-bar-text {
+  min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
 }
@@ -1470,17 +1472,18 @@
   position: absolute;
   top: 0;
   bottom: 0;
-  width: 6px;
+  /* §15 R4：两端各 24px 透明命中区（12px 在 bar 内、12px 在 bar 外） */
+  width: 24px;
   cursor: ew-resize;
   background: transparent;
 }
 
 .person-workload-page .pw-gantt-resize--start {
-  left: 0;
+  left: -12px;
 }
 
 .person-workload-page .pw-gantt-resize--end {
-  right: 0;
+  right: -12px;
 }
 
 .person-workload-page .pw-gantt-bar:focus-visible {

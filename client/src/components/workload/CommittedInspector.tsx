@@ -7,8 +7,10 @@
  * 统一走编辑会话（快照版本 + Saving 锁 + 409 显式刷新）；不含拖拽草稿逻辑。
  */
 import { useTranslation } from 'react-i18next';
+import type { KeyboardEvent } from 'react';
 import { AlertTriangle, LocateFixed, Save, X } from 'lucide-react';
 import { InspectorImpact, InspectorShell } from './AssignmentInspector';
+import { isImeComposing } from '../../lib/ime';
 import type { AvailabilityOverrideInput } from '../../lib/workloadTimeline';
 import type { WorkloadAssignment } from '../../lib/personWorkload';
 
@@ -79,6 +81,13 @@ export function CommittedInspector({
     Number(form.allocation) !== baseline.allocation ||
     (mode === 'fixed' && (form.startDate !== baseline.startDate || form.endDate !== baseline.endDate));
 
+  /** §15：面板内 Enter=保存（输入法组合中不抢 Enter）。 */
+  const onGridKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
+    if (event.key !== 'Enter' || isImeComposing(event)) return;
+    event.preventDefault();
+    if (!locked && dirty) onSave();
+  };
+
   return (
     <InspectorShell
       title={row.projectName}
@@ -143,7 +152,7 @@ export function CommittedInspector({
         </div>
       }
     >
-      <div className="pw-inspector-grid">
+      <div className="pw-inspector-grid" onKeyDown={onGridKeyDown}>
         <div className="pw-inspector-readonly">
           <span>{t('assignments:workload.picker.role')}</span>
           <strong>{row.roleName ?? t('common:na')}</strong>

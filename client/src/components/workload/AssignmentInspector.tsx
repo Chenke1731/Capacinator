@@ -51,6 +51,13 @@ export function InspectorShell({
       role="group"
       aria-label={ariaLabel}
       data-testid={testId}
+      onKeyDown={(event) => {
+        // §15：Esc 关闭当前编辑面（committed 有未保存值时由页面转确认框）
+        if (event.key === 'Escape' && !closeDisabled) {
+          event.stopPropagation();
+          onClose();
+        }
+      }}
     >
       <div className="pw-inspector-head">
         <strong>{title}</strong>

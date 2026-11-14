@@ -11,7 +11,7 @@
  * future/ended 淡化；ghost 斜纹半透明（§18 视觉验收）。范围外 ghost 给
  * 定位入口（§20.3）。可折叠为紧凑容量条（1366）。
  */
-import { useCallback, useEffect, useMemo, useRef, type CSSProperties, type PointerEvent as ReactPointerEvent, type KeyboardEvent as ReactKeyboardEvent } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState, type CSSProperties, type PointerEvent as ReactPointerEvent, type KeyboardEvent as ReactKeyboardEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ChevronDown, ChevronUp, Crosshair, Lock } from 'lucide-react';
 import { workloadDateOnly, type WorkloadAssignment } from '../../lib/personWorkload';
@@ -124,6 +124,25 @@ export function WorkloadGantt({
   const rangeStartDay = toDayNumber(timeline.rangeStart);
   const rangeEndDay = toDayNumber(timeline.rangeEnd);
   const totalDays = Math.max(rangeEndDay - rangeStartDay + 1, 1);
+  // S1 手柄命中策略（§15，Claude R4）：每条边 24px 命中区；bar 太窄时
+  // 三个手势无法共存 → 降级为"仅移动"，缩放走面板日期输入。
+  // 轨道宽度用首条泳道测量（所有泳道同宽），ResizeObserver 跟随视口。
+  const [trackWidth, setTrackWidth] = useState(0);
+  const trackResizeObserverRef = useRef<ResizeObserver | null>(null);
+  const measureTrackRef = useCallback((node: HTMLDivElement | null) => {
+    trackResizeObserverRef.current?.disconnect();
+    trackResizeObserverRef.current = null;
+    if (!node) return;
+    setTrackWidth(node.getBoundingClientRect().width || 0);
+    if (typeof ResizeObserver === 'undefined') return;
+    const observer = new ResizeObserver((entries) => {
+      const width = entries[0]?.contentRect.width ?? 0;
+      if (width > 0) setTrackWidth(width);
+    });
+    observer.observe(node);
+    trackResizeObserverRef.current = observer;
+  }, []);
+  useEffect(() => () => trackResizeObserverRef.current?.disconnect(), []);
   // S1：拖拽成立后吞掉随后 click（否则会按 S2 重开并覆盖预填）
   const suppressClickRef = useRef(false);
 
@@ -378,6 +397,24 @@ export function WorkloadGantt({
     return { left: `${left}%`, width: `${Math.max(width, 0.8)}%` };
   };
 
+  /** 与 barStyle 同口径的宽度百分比（用于判断能否容纳两端 24px 手柄）。 */
+  const MIN_RESIZE_BAR_PX = 72;
+  const barWidthPercent = (bar: BarModel): number => {
+    const dates = effectiveDates(bar);
+    if (!dates.startDate && !dates.endDate) return 100;
+    const start = dates.startDate ? toDayNumber(dates.startDate) : rangeStartDay;
+    const end = dates.endDate ? toDayNumber(dates.endDate) : rangeEndDay;
+    const clampedStart = Math.max(start, rangeStartDay);
+    const clampedEnd = Math.min(end, rangeEndDay);
+    if (clampedEnd < rangeStartDay || clampedStart > rangeEndDay) return 0;
+    return ((clampedEnd - clampedStart + 1) / totalDays) * 100;
+  };
+  /** 手柄可见性：测量前先显示（回调 ref 提交时即测量）；过窄降级仅移动。 */
+  const barWideEnoughForHandles = (bar: BarModel): boolean => {
+    if (trackWidth <= 0) return true;
+    return (barWidthPercent(bar) / 100) * trackWidth >= MIN_RESIZE_BAR_PX;
+  };
+
   const barClasses = (bar: BarModel): string => {
     const classes = ['pw-gantt-bar'];
     if (bar.kind === 'ghost') {
@@ -469,7 +506,7 @@ export function WorkloadGantt({
             {lanes.length === 0 ? (
               <div className="pw-gantt-empty">{t('assignments:workbench.gantt.empty')}</div>
             ) : (
-              lanes.map((lane) => (
+              lanes.map((lane, laneIndex) => (
                 <div className="pw-gantt-lane" key={lane.projectId} data-lane-project={lane.projectId}>
                   <div className="pw-gantt-lane-label" title={lane.projectName}>
                     {onProjectLaneClick ? (
@@ -487,6 +524,7 @@ export function WorkloadGantt({
                   </div>
                   <div
                     className="pw-gantt-lane-track"
+                    ref={laneIndex === 0 ? measureTrackRef : undefined}
                     style={{ minHeight: `${Math.max(lane.bars.length * 26 + 2, 30)}px` }}
                   >
                     <span className="pw-gantt-asof" style={{ left: `${Math.min(Math.max(asOfOffset, 0), 100)}%` }} aria-hidden="true" />
@@ -494,6 +532,8 @@ export function WorkloadGantt({
                       const ghostDraggable = bar.kind === 'ghost' && dragGhostEditable(bar.ghost);
                       const committedDraggable = bar.kind === 'committed' && dragCommittedEditable(bar);
                       const draggable = ghostDraggable || committedDraggable;
+                      const showResizeHandles =
+                        (ghostDraggable || committedDraggable) && barWideEnoughForHandles(bar);
                       const dragging =
                         committedPreview !== undefined &&
                         committedPreview !== null &&
@@ -526,7 +566,7 @@ export function WorkloadGantt({
                         aria-label={bar.label}
                         aria-describedby={draggable ? 'pw-gantt-drag-help' : undefined}
                       >
-                        {draggable ? (
+                        {showResizeHandles ? (
                           <span
                             className="pw-gantt-resize pw-gantt-resize--start"
                             role="presentation"
@@ -537,7 +577,7 @@ export function WorkloadGantt({
                           <Lock size={10} className="pw-gantt-lock" aria-hidden="true" />
                         ) : null}
                         <span className="pw-gantt-bar-text">{bar.label}</span>
-                        {draggable ? (
+                        {showResizeHandles ? (
                           <span
                             className="pw-gantt-resize pw-gantt-resize--end"
                             role="presentation"

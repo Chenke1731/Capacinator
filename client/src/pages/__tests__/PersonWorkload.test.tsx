@@ -1433,3 +1433,91 @@ test('S2: 未保存修改关闭 → 确认对话框；继续编辑保留面板�
     expect(screen.queryByTestId('pw-committed-inspector')).not.toBeInTheDocument();
   });
 });
+
+test('S2: 面板内 Enter=保存；Esc 关闭并把焦点还给原 bar', async () => {
+  (api.assignments.update as jest.Mock).mockResolvedValue({
+    data: { data: { ...assignments[0], allocation_percentage: 35, version: 2 } },
+  });
+  renderPage();
+  await waitFor(() => {
+    expect(screen.getAllByTestId('pw-gantt-bar').length).toBeGreaterThan(0);
+  });
+
+  const bar = findGanttBarFor('Alpha');
+  fireEvent.click(bar);
+  const panel = await screen.findByTestId('pw-committed-inspector');
+  const allocation = panel.querySelector<HTMLInputElement>('input[type="number"]')!;
+  fireEvent.change(allocation, { target: { value: '35' } });
+  fireEvent.keyDown(allocation, { key: 'Enter' });
+
+  await waitFor(() => {
+    expect(api.assignments.update).toHaveBeenCalledTimes(1);
+  });
+  await waitFor(() => {
+    expect(screen.queryByTestId('pw-committed-inspector')).not.toBeInTheDocument();
+  });
+  // 关闭后焦点回原 bar（§5.2/§15）
+  await waitFor(() => {
+    expect(document.activeElement).toBe(findGanttBarFor('Alpha'));
+  });
+
+  // Esc（无脏值）直接关闭；不产生第二次保存
+  fireEvent.click(findGanttBarFor('Alpha'));
+  await screen.findByTestId('pw-committed-inspector');
+  fireEvent.keyDown(screen.getByTestId('pw-committed-inspector').querySelector('input')!, {
+    key: 'Escape',
+  });
+  await waitFor(() => {
+    expect(screen.queryByTestId('pw-committed-inspector')).not.toBeInTheDocument();
+  });
+  expect(api.assignments.update).toHaveBeenCalledTimes(1);
+});
+
+test('S2: Esc 遇到未保存修改 → 确认对话框（不静默丢弃）', async () => {
+  renderPage();
+  await waitFor(() => {
+    expect(screen.getAllByTestId('pw-gantt-bar').length).toBeGreaterThan(0);
+  });
+
+  fireEvent.click(findGanttBarFor('Alpha'));
+  const panel = await screen.findByTestId('pw-committed-inspector');
+  const allocation = panel.querySelector<HTMLInputElement>('input[type="number"]')!;
+  fireEvent.change(allocation, { target: { value: '30' } });
+  fireEvent.keyDown(allocation, { key: 'Escape' });
+
+  expect(await screen.findByTestId('confirm-dialog')).toBeInTheDocument();
+  fireEvent.click(screen.getByRole('button', { name: /Keep editing/i }));
+  expect(screen.getByTestId('pw-committed-inspector')).toBeInTheDocument();
+  expect((screen.getByTestId('pw-committed-inspector').querySelector('input[type="number"]') as HTMLInputElement).value).toBe('30');
+});
+
+test('S2: phase 派生行可打开面板——日期只读派生、仅比例可改', async () => {
+  (api.assignments.list as jest.Mock).mockResolvedValue({
+    data: {
+      data: [
+        {
+          ...assignments[0],
+          id: 'phase-row',
+          assignment_date_mode: 'phase',
+          start_date: null,
+          end_date: null,
+          computed_start_date: '2026-01-01',
+          computed_end_date: '2026-12-31',
+        },
+      ],
+      pagination: { total: 1, totalPages: 1 },
+    },
+  });
+  renderPage();
+  await waitFor(() => {
+    expect(screen.getAllByTestId('pw-gantt-bar').length).toBeGreaterThan(0);
+  });
+
+  fireEvent.click(findGanttBarFor('Alpha'));
+  const panel = await screen.findByTestId('pw-committed-inspector');
+  expect(panel.querySelector('input[type="date"]')).toBeNull();
+  expect(panel).toHaveTextContent('2026-01-01 → 2026-12-31');
+  expect(panel.querySelector('input[type="number"]')).toBeTruthy();
+  // 派生行不可拖（canDragCommittedBar 拒绝 phase/project）
+  expect(findGanttBarFor('Alpha').querySelector('.pw-gantt-resize')).toBeNull();
+});

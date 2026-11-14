@@ -204,3 +204,21 @@ describe('WorkloadGantt 已提交 bar 拖拽（S1）', () => {
     expect(onPreview).not.toHaveBeenCalled();
   });
 });
+
+describe('S1 手柄命中策略（Claude R4）', () => {
+  test('过窄 bar 降级为仅移动：无手柄，拖动仍可用（缩放走面板日期输入）', () => {
+    const { onPreview } = renderGantt({
+      rows: [committedRow({ start_date: '2026-06-10', end_date: '2026-06-12' })],
+    });
+    const bar = screen.getByTestId('pw-gantt-bar');
+    expect(bar.querySelector('.pw-gantt-resize')).toBeNull();
+
+    pointer('pointerdown', 100, bar);
+    pointer('pointermove', 110, document);
+    expect(onPreview).toHaveBeenCalledWith({
+      assignmentId: 'a1',
+      startDate: '2026-06-20',
+      endDate: '2026-06-22',
+    });
+  });
+});

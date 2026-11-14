@@ -276,6 +276,8 @@ export default function PersonWorkload() {
   const [committedError, setCommittedError] = useState<string | null>(null);
   const [committedConflict, setCommittedConflict] = useState(false);
   const [committedConfirmOpen, setCommittedConfirmOpen] = useState(false);
+  /** 面板关闭后焦点回到原 bar（§5.2/§15）；被行编辑/批量接管时不抢焦点。 */
+  const committedReturnFocusRef = useRef<string | null>(null);
   const committedRowDirty = Boolean(
     committedSession &&
       (Number(committedForm.allocation) !== committedSession.baseline.allocation ||
@@ -528,7 +530,7 @@ export default function PersonWorkload() {
         jumpToVisible('[data-testid="pw-committed-save"]');
         return;
       }
-      closeCommittedSession();
+      closeCommittedSession(false);
     }
     setEditingId(row.id);
     setEditScenarioId(activeScenarioId || null);
@@ -802,11 +804,22 @@ export default function PersonWorkload() {
   const findWorkloadRow = (assignmentId: string): AssignmentRow | undefined =>
     allWorkloadRows().find((row) => String(row.id) === String(assignmentId));
 
-  const closeCommittedSession = () => {
+  const closeCommittedSession = (restoreFocus = true) => {
+    const returnId = committedReturnFocusRef.current;
+    committedReturnFocusRef.current = null;
     setCommittedSession(null);
     setCommittedPreview(null);
     setCommittedError(null);
     setCommittedConflict(false);
+    if (restoreFocus && returnId) {
+      window.requestAnimationFrame(() => {
+        const bar = document.querySelector<HTMLElement>(
+          `[data-testid="pw-gantt-bar"][data-assignment-id="${returnId}"]`
+        );
+        const row = document.querySelector<HTMLElement>(`[data-assignment-id="${returnId}"]`);
+        (bar ?? row ?? addAssignmentButtonRef.current)?.focus?.();
+      });
+    }
   };
 
   const jumpToVisible = (selector: string) => {
@@ -844,6 +857,7 @@ export default function PersonWorkload() {
     }
     // 同一时刻只开一个面板；ghost 草稿仍保存在 draftStore，不丢
     if (inspectorDraftId) setInspectorDraftId(null);
+    committedReturnFocusRef.current = String(row.id);
     const startDate = workloadDateOnly(row.start_date) ?? '';
     const endDate = workloadDateOnly(row.end_date) ?? '';
     setCommittedSession({
@@ -1096,7 +1110,7 @@ export default function PersonWorkload() {
         jumpTo('[data-testid="pw-committed-save"]', t('assignments:workbench.committed.finishPanelFirst'));
         return;
       }
-      closeCommittedSession();
+      closeCommittedSession(false);
     }
     startBatch();
   };
@@ -1689,7 +1703,7 @@ export default function PersonWorkload() {
               className="btn btn-secondary btn-sm"
               onClick={() => {
                 draftStore.clearDrafts();
-                closeCommittedSession();
+                closeCommittedSession(false);
               }}
             >
               {t('assignments:workbench.mismatch.discard')}

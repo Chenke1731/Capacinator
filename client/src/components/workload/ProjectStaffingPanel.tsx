@@ -6,6 +6,7 @@
  */
 import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 import { X } from 'lucide-react';
 import { api } from '../../lib/api-client';
 import { queryKeys } from '../../lib/queryKeys';
@@ -13,6 +14,7 @@ import { workloadDateOnly } from '../../lib/personWorkload';
 
 interface StaffingRow {
   id: string;
+  person_id: string;
   person_name?: string | null;
   role_name?: string | null;
   phase_name?: string | null;
@@ -33,6 +35,7 @@ export interface ProjectStaffingPanelProps {
 
 export function ProjectStaffingPanel({ projectId, projectName, scenarioId, onClose }: ProjectStaffingPanelProps) {
   const { t } = useTranslation(['assignments']);
+  const navigate = useNavigate();
   const staffingQuery = useQuery<StaffingRow[]>({
     queryKey: queryKeys.assignments.list({ project_id: projectId, limit: 200 }, scenarioId),
     queryFn: async () => {
@@ -93,6 +96,7 @@ export function ProjectStaffingPanel({ projectId, projectName, scenarioId, onClo
               <th>{t('assignments:workload.columns.dates')}</th>
               <th>{t('assignments:workload.columns.allocation')}</th>
               <th>{t('assignments:workload.columns.status')}</th>
+              <th>{t('assignments:workload.columns.actions')}</th>
             </tr>
           </thead>
           <tbody>
@@ -107,6 +111,21 @@ export function ProjectStaffingPanel({ projectId, projectName, scenarioId, onClo
                   <td>{start ?? '—'} → {end ?? '—'}</td>
                   <td>{Number(row.allocation_percentage ?? 0)}%</td>
                   <td>{row.status === 'paused' ? t('assignments:workbench.gantt.paused') : t('assignments:workload.included')}</td>
+                  <td>
+                    {/* C（affordance 整改）：跨人员编辑的正路是去那个人的工作负载页 */}
+                    <button
+                      type="button"
+                      className="btn btn-ghost btn-sm"
+                      data-testid={`pw-staffing-adjust-${row.person_id}`}
+                      aria-label={`${t('assignments:workbench.staffing.adjustPerson')} ${row.person_name ?? ''}`}
+                      onClick={() => {
+                        onClose();
+                        navigate(`/people/${row.person_id}/workload`);
+                      }}
+                    >
+                      {t('assignments:workbench.staffing.adjustPerson')}
+                    </button>
+                  </td>
                 </tr>
               );
             })}

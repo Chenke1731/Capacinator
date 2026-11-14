@@ -433,14 +433,17 @@
   opacity: 0.85;
 }
 
-.person-workload-page .pw-batch-bar {
+/* 批量调整入口并入"计入当前工作负载"标题区（I03f affordance 整改） */
+.person-workload-page .pw-section-actions {
   display: flex;
   align-items: center;
   gap: 0.5rem;
   flex-wrap: wrap;
+  justify-content: flex-end;
 }
 
 .person-workload-page .pw-batch-hint {
+  margin: 0.25rem 0 0;
   color: var(--text-secondary);
   font-size: var(--text-xs);
 }

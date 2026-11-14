@@ -289,3 +289,15 @@ verification: done 2026-11-14 — 浏览器实测：编辑中点击 → 警告�
 status: candidate
 note: 与 EXP-012/EXP-021 同族（入口失信）。规则：`disabled` 只允许用于"用户就在眼前、原因自明"的瞬时态；若阻止原因可能在视口外（表格行、表单项），必须改为可点击+反馈+跳转。类扫描提示：批量入口是当前唯一"阻止原因离屏"的按钮；其余 disabled 均有就地可见原因（保存中/无权/无数据）
 ```
+
+```yaml exp
+id: EXP-024
+source: incident/2026-11-14-workload-batch-placement（用户把"批量调整比例"误读为上方"全员配置"面板的操作；按钮实际编辑下方当前人员表）
+class: 操作入口×邻近误导（位置即范围）
+mechanism_slice: action-anchor × adjacency-misattribution
+disposition: GUARD
+guard: enabled — 批量入口并入其编辑对象"计入当前工作负载"标题区（区块内断言：入口位于 #pw-current-title 所在 section）；进入批量自动收起只读的全员配置面板；只读面板行提供"调整此人"跳转到对应人员页（跨人员编辑的正路）
+verification: done 2026-11-14 — 浏览器实测：入口在新位置、旧独立条移除、面板行跳转生效、进入批量面板自动收起且焦点落首个输入；页面回归新增 I03f 用例；visual 重采 20/20；states PASS
+status: candidate
+note: 按钮必须与其作用对象同区块；当只读投影（跨人员面板）与可编辑对象（本人员表）同屏且入口夹在两者之间时，位置会被读成作用域。跨对象编辑需求给"导航到正路"，而不是把写能力塞进只读投影
+```

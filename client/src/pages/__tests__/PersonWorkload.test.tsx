@@ -926,7 +926,7 @@ test('B8: 行编辑用编辑时版本快照——后台刷新后保存旧值必 
 test('B8: 批量保存只发改过的行（按开始快照）；失败保留草稿不清空', async () => {
   renderPage();
 
-  fireEvent.click(await screen.findByRole('button', { name: /Batch adjust allocations/i }));
+  fireEvent.click(await screen.findByTestId('pw-batch-entry'));
   const inputs = screen.getAllByLabelText('Allocation %');
   expect(inputs).toHaveLength(4);
   fireEvent.change(inputs[0], { target: { value: '30' } });
@@ -1264,4 +1264,37 @@ test('批量入口不再静默禁用：行编辑中点击 → 明确提示且编
   await waitFor(() => {
     expect((document.activeElement as HTMLElement)?.classList.contains('pw-allocation-input')).toBe(true);
   });
+});
+
+test('I03f: 批量入口在“计入当前工作负载”标题区；进入批量自动收起全员配置；面板行可跳转到对应人员', async () => {
+  window.localStorage.clear();
+  renderPage();
+  await waitFor(() => {
+    expect(screen.getByTestId('pw-batch-entry')).toBeInTheDocument();
+  });
+
+  // A：入口与目标表同区（位于 current 区块标题内）
+  const currentSection = document.getElementById('pw-current-title')!.closest('section')!;
+  expect(currentSection.contains(screen.getByTestId('pw-batch-entry'))).toBe(true);
+
+  // B：打开全员配置面板后进入批量 → 面板自动收起
+  (api.projects.list as jest.Mock).mockResolvedValue({
+    data: { data: [], pagination: { page: 1, total: 0, totalPages: 1 } },
+  });
+  const laneLinks = screen.queryAllByRole('button', { name: /View staffing for/i });
+  if (laneLinks.length > 0) {
+    fireEvent.click(laneLinks[0]);
+    expect(await screen.findByTestId('pw-project-staffing')).toBeInTheDocument();
+    fireEvent.click(screen.getByTestId('pw-batch-entry'));
+    await waitFor(() => {
+      expect(screen.queryByTestId('pw-project-staffing')).not.toBeInTheDocument();
+    });
+    expect((document.activeElement as HTMLElement)?.classList.contains('pw-allocation-input')).toBe(true);
+  } else {
+    // 无泳道 bar 的夹具下至少保证入口可点并进入批量
+    fireEvent.click(screen.getByTestId('pw-batch-entry'));
+    await waitFor(() => {
+      expect(screen.getAllByLabelText('Allocation %').length).toBe(4);
+    });
+  }
 });

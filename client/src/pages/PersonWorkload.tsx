@@ -757,6 +757,9 @@ export default function PersonWorkload() {
     setEditScenarioId(null);
     setHandoverRowId(null);
     setHandoverMessage(null);
+    // 批量编辑的是下方"计入当前工作负载"表：全员配置面板（只读）若开着
+    // 会挡在按钮与目标表之间，进入批量时自动收起
+    setStaffingProject(null);
     // 批量输入在明细表里：进入后把工作区带入视野并聚焦首个比例输入，
     // 否则用户在按钮附近看不到任何变化（"点了没反应"）。
     window.requestAnimationFrame(() => {
@@ -1547,47 +1550,6 @@ export default function PersonWorkload() {
         />
       ) : null}
 
-      <div className="pw-batch-bar">
-        {batchMode ? (
-          <>
-            <button
-              type="button"
-              className="btn btn-primary btn-sm"
-              disabled={batchSaveMutation.isPending}
-              onClick={() => batchSaveMutation.mutate()}
-            >
-              {t('assignments:workload.batch.save')}
-            </button>
-            <button
-              type="button"
-              className="btn btn-secondary btn-sm"
-              disabled={batchSaveMutation.isPending}
-              onClick={() => {
-                setBatchMode(false);
-                setBatchDrafts({});
-                setBatchMessage(null);
-              }}
-            >
-              {t('assignments:workload.batch.cancel')}
-            </button>
-            <span className="pw-batch-hint">{t('assignments:workload.batch.hint')}</span>
-          </>
-        ) : (
-          <button
-            type="button"
-            className="btn btn-secondary btn-sm"
-            onClick={handleBatchEntryClick}
-            data-testid="pw-batch-entry"
-          >
-            {t('assignments:workload.batch.edit')}
-          </button>
-        )}
-        {batchMessage ? (
-          <span className={`pw-batch-message pw-batch-message--${batchMessage.tone}`} role="status">
-            {batchMessage.text}
-          </span>
-        ) : null}
-      </div>
       {assignmentsQuery.isError ? (
         <div className="pw-alert" role="alert">
           <span>{t('assignments:workload.states.assignmentsError')}</span>
@@ -1603,8 +1565,51 @@ export default function PersonWorkload() {
             <h2 id="pw-current-title">{t('assignments:workload.sections.currentTitle')}</h2>
             <p>{t('assignments:workload.sections.currentDescription')}</p>
           </div>
-          <span className="pw-section-total">{summary.totalAllocation}%</span>
+          <div className="pw-section-actions">
+            <span className="pw-section-total">{summary.totalAllocation}%</span>
+            {batchMode ? (
+              <>
+                <button
+                  type="button"
+                  className="btn btn-primary btn-sm"
+                  disabled={batchSaveMutation.isPending}
+                  onClick={() => batchSaveMutation.mutate()}
+                >
+                  {t('assignments:workload.batch.save')}
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-secondary btn-sm"
+                  disabled={batchSaveMutation.isPending}
+                  onClick={() => {
+                    setBatchMode(false);
+                    setBatchDrafts({});
+                    setBatchMessage(null);
+                  }}
+                >
+                  {t('assignments:workload.batch.cancel')}
+                </button>
+              </>
+            ) : (
+              // A（affordance 整改）：入口放进它编辑的表格标题区，位置即范围
+              <button
+                type="button"
+                className="btn btn-secondary btn-sm"
+                onClick={handleBatchEntryClick}
+                data-testid="pw-batch-entry"
+                title={t('assignments:workload.batch.scopeHint')}
+              >
+                {t('assignments:workload.batch.edit')}
+              </button>
+            )}
+          </div>
         </div>
+        {batchMode ? <p className="pw-batch-hint">{t('assignments:workload.batch.hint')}</p> : null}
+        {batchMessage ? (
+          <span className={`pw-batch-message pw-batch-message--${batchMessage.tone}`} role="status">
+            {batchMessage.text}
+          </span>
+        ) : null}
         {summary.current.length === 0 ? (
           <div className="pw-empty-row">{t('assignments:workload.states.emptyCurrent')}</div>
         ) : (

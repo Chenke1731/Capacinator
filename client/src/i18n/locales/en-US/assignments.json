@@ -162,7 +162,7 @@
       "invalidDate": "Effective date is required."
     },
     "batch": {
-      "edit": "Batch adjust allocations",
+      "edit": "Batch adjust (this person)",
       "save": "Save changed rows",
       "cancel": "Cancel batch",
       "hint": "Each changed row is saved with its own version; failures stay editable.",
@@ -171,7 +171,8 @@
       "noChanges": "No allocation changed.",
       "failed": "Batch save failed.",
       "finishEditFirst": "Finish or cancel the current row edit before entering batch adjust.",
-      "finishHandoverFirst": "Finish or cancel the current handover before entering batch adjust."
+      "finishHandoverFirst": "Finish or cancel the current handover before entering batch adjust.",
+      "scopeHint": "Adjusts only this person's allocations below; the staffing panel above is a read-only project view"
     },
     "source": {
       "direct": "Baseline (global)",
@@ -505,7 +506,8 @@
       "error": "Failed to load.",
       "empty": "No assignments for this project in the current scenario.",
       "person": "Person",
-      "truncated": "This project has more than 200 assignments; showing the first 200."
+      "truncated": "This project has more than 200 assignments; showing the first 200.",
+      "adjustPerson": "Adjust this person"
     },
     "leaveConfirm": "There are unsubmitted assignment drafts. Leave and discard them?",
     "clearConfirm": "Clear all pending drafts? This cannot be undone."

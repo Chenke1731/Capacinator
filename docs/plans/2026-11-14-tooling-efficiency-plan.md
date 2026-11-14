@@ -764,4 +764,20 @@ AGENTS.md
 
 ### 16.4 下一步
 
-P1-1 `verify-tier`（T0/T1/T2 + `findRelatedTests` + page→E2E 映射 + 映射枚举守卫），随后 P1-2/P1-3。
+P1-1 `verify-tier` 已于 `e1917ac` 落地（见 §16.5）；下一步 P1-2（knip/dependency-cruiser）与 P1-3（eslint 测试插件/bundle 预算）。
+
+### 16.5 P1-1 实施记录（2026-11-14）
+
+**提交**：`e1917ac`（`feat(tooling): add change-aware verify tiers and map guard (I19c)`）
+
+- `scripts/lib/verify-map.mjs`：29 个页面 / 40 个 profile 的显式映射；页面→profile/E2E；组件 hint（workload/intake/global UI）；未知路径 fail-loud；`selfTest()`。
+- `scripts/check-verify-map.mjs`：页面、profile owner、E2E spec 存在性、自测；接入 pre-commit（新页面未映射即拦截）。
+- `scripts/verify-tier.mjs`：
+  - 变更集：`--base` + 工作区 + 暂存 + 未跟踪；`--files` 可显式；删除文件在跑测试前过滤。
+  - T0：doctor + typecheck（按域）+ changed-file ESLint + `jest --findRelatedTests` + 最多 2 个 `verify-states --quick`；wide/full 变更 exit 2 升级 T1。
+  - T1：T0 + 受影响 profile 全量 states + `verify:cache` + 映射到的 Playwright specs。
+  - T2：lint/typecheck/Jest/collection/redline/visual 分片/主+场景 E2E。
+  - `--dry-run` / `--self-test`。
+- `ui-profiles.mjs` 的 `chrome` 改为惰性 getter，映射守卫与 dry-run 不再要求 Chromium。
+- 验证：`verify:map` PASS；`verify-tier --self-test` PASS；T0 `batchShift.ts` 3 suites/99 tests 25.5s；T0 PersonWorkload 正确映射 profile+E2E；global CSS T0 exit 2；T1 dry-run 列出 states+Playwright；pre-commit 全门禁过。
+- 残留：wide 变更 T1 跑全部 profiles（慢）；E2E 分片仍暂缓；T0 的 states 需要 dev 栈（doctor WARN 端口占用）。

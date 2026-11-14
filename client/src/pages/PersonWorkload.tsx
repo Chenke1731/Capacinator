@@ -1553,8 +1553,12 @@ export default function PersonWorkload() {
       );
       if (status === 409) {
         setCommittedConflict(true);
+        const duplicated =
+          /modified by someone else|已被他人修改/i.test(serverMessage);
         setCommittedError(
-          t('assignments:workbench.committed.versionConflict', { detail: serverMessage })
+          duplicated
+            ? t('assignments:workbench.committed.versionConflictPlain')
+            : t('assignments:workbench.committed.versionConflict', { detail: serverMessage })
         );
       } else {
         setCommittedError(

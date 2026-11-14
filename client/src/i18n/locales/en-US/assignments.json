@@ -604,7 +604,8 @@
       "convertDirectUnsupported": "Baseline-global (direct) assignments cannot be converted.",
       "convertedToast": "Assignment converted",
       "convertPhaseRequired": "Select a phase for this phase-based assignment.",
-      "convertWindowHint": "After conversion this phase window is used."
+      "convertWindowHint": "After conversion this phase window is used.",
+      "versionConflictPlain": "This assignment was modified by someone else. Refresh the latest values before saving."
     },
     "leaveTitle": "Leave this page?",
     "leaveConfirmAction": "Leave",

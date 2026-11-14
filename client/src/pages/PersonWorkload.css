@@ -1205,6 +1205,7 @@
 
 .person-workload-page .pw-gantt-heat {
   /* 与 lane 共用同一列定义，热区与 bar 的 x 原点必须一致（DV-5） */
+  position: relative;
   display: grid;
   grid-template-columns: 200px minmax(0, 1fr);
   gap: var(--space-2);
@@ -1220,6 +1221,16 @@
   color: var(--text-secondary);
   text-align: right;
   min-width: 0;
+}
+
+.person-workload-page .pw-gantt-heat::after {
+  content: '';
+  position: absolute;
+  left: calc(200px + var(--space-2));
+  right: 0;
+  top: 50%;
+  border-top: 1px dashed color-mix(in srgb, var(--text-secondary) 45%, transparent);
+  pointer-events: none;
 }
 
 .person-workload-page .pw-gantt-legend {
@@ -1693,6 +1704,10 @@
   .person-workload-page .pw-gantt-lane,
   .person-workload-page .pw-gantt-heat {
     grid-template-columns: 150px minmax(0, 1fr);
+  }
+
+  .person-workload-page .pw-gantt-heat::after {
+    left: calc(150px + var(--space-2));
   }
 
   .person-workload-page .pw-composer-field {

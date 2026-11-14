@@ -604,7 +604,8 @@
       "convertDirectUnsupported": "基线全局（direct）分配不支持转换。",
       "convertedToast": "分配已转换",
       "convertPhaseRequired": "请为阶段模式分配选择阶段。",
-      "convertWindowHint": "转换后将使用该阶段窗口。"
+      "convertWindowHint": "转换后将使用该阶段窗口。",
+      "versionConflictPlain": "该分配已被他人修改，请先刷新最新值再保存。"
     },
     "leaveTitle": "离开此页面？",
     "leaveConfirmAction": "离开",

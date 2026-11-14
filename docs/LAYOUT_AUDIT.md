@@ -10,7 +10,7 @@
 | push 含 `client/src` 变更 | `.githooks/pre-push` → `audit-layout --changed` | findings 不拦；环境缺失警告放行，`REQUIRE_LAYOUT_AUDIT=1` 拦截，`SKIP_LAYOUT_AUDIT=1` 跳过 |
 | 本地改 UI 后 | `npm run audit:layout:changed` / `npm run audit:typography` | typography 违规 exit 1 |
 | 指定页面 | `npm run audit:layout -- --pages person-workload,projects` | 否 |
-| **每晚 03:17（本机 cron）** | `npm run audit:layout:nightly` | layout advisory；typography 违规 exit 1；没跑成 exit 2 |
+| **每晚 02:30（本机 cron，已装）** | `npm run audit:nightly`（map→vlmkit 布局 advisory→typography 阻塞，独占 3131/3132 栈，含已结束形状；报告 `tmp/audit-nightly/latest/report.html` 含与上次 diff/历史） | map/字号阻塞；布局 findings 默认 advisory（`--strict` 拦截）；没跑成 exit 1 |
 | 手动全量 | `npm run audit:layout -- --all` | 否 |
 | 新增页面/路由 | pre-commit `verify:layout-map` 强制补映射 | **是**（否则触发会漏页） |
 

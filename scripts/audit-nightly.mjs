@@ -18,8 +18,10 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 const ROOT = process.cwd();
-const API = 'http://127.0.0.1:3111';
-const WEB = 'http://127.0.0.1:3122';
+// 独占端口 3131/3132：3111/3122 是 Playwright e2e webServer 的端口——夜审若复用它，
+// ended 形状会往正在跑的 e2e 套件里写临时人员，且栈可能被 Playwright 中途拆掉。
+const API = process.env.AUDIT_NIGHTLY_API ?? 'http://127.0.0.1:3131';
+const WEB = process.env.AUDIT_NIGHTLY_WEB ?? 'http://127.0.0.1:3132';
 const args = process.argv.slice(2);
 const strict = args.includes('--strict');
 const keepStack = args.includes('--keep-stack');
@@ -54,10 +56,10 @@ const startStack = async () => {
   const apiOk = await fetch(`${API}/api/health`).then((r) => r.json().catch(() => null)).then((b) => b?.environment === 'e2e').catch(() => false);
   const webOk = await fetch(WEB).then((r) => r.ok).catch(() => false);
   if (apiOk && webOk) { console.log('· 复用已运行的 e2e 栈（3111/3122）'); return true; }
-  if (apiOk || webOk) { console.error(`✗ 3111/3122 只有单边可用且不是完整 e2e 栈（api=${apiOk} web=${webOk}）；先清理残留（pkill -f "PORT=3111" 等）再重试`); return false; }
+  if (apiOk || webOk) { console.error(`✗ ${API}/${WEB} 只有单边可用且不是完整 e2e 栈（api=${apiOk} web=${webOk}）；先清理残留再重试`); return false; }
   const envBase = { ...process.env, PATH: pathWithNode };
-  const api = spawn('npx', ['tsx', 'src/server/index.ts'], { cwd: ROOT, env: { ...envBase, NODE_ENV: 'e2e', PORT: '3111', FORCE_COLOR: '0' }, detached: true, stdio: 'ignore' });
-  const web = spawn('npx', ['vite', '--config', 'client-vite.config.ts', '--port', '3122', '--strictPort'], { cwd: ROOT, env: { ...envBase, VITE_E2E: '1', PORT: '3111' }, detached: true, stdio: 'ignore' });
+  const api = spawn('npx', ['tsx', 'src/server/index.ts'], { cwd: ROOT, env: { ...envBase, NODE_ENV: 'e2e', PORT: new URL(API).port, FORCE_COLOR: '0' }, detached: true, stdio: 'ignore' });
+  const web = spawn('npx', ['vite', '--config', 'client-vite.config.ts', '--port', new URL(WEB).port, '--strictPort'], { cwd: ROOT, env: { ...envBase, VITE_E2E: '1', PORT: new URL(API).port }, detached: true, stdio: 'ignore' });
   spawned.push(api.pid, web.pid);
   const ok = (await waitOk(`${API}/api/health`, 'API')) && (await waitOk(WEB, '前端'));
   return ok;
@@ -65,6 +67,12 @@ const startStack = async () => {
 const stopStack = () => {
   if (keepStack || !spawned.length) return;
   for (const pid of spawned) { try { process.kill(-pid, 'SIGTERM'); } catch { try { process.kill(pid, 'SIGTERM'); } catch {} } }
+  // npx→tsx/vite 进程组偶发漏杀（实测 vite 残留 3132）：组信号后按端口兜底强杀
+  setTimeout(() => {
+    for (const port of [new URL(API).port, new URL(WEB).port]) {
+      try { spawnSync(`fuser -k ${port}/tcp`.split(' '), { stdio: 'ignore' }); } catch {}
+    }
+  }, 2500);
 };
 
 const blocking = [];

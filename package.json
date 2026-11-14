@@ -111,8 +111,7 @@
     "audit:nightly": "node scripts/audit-nightly.mjs",
     "audit:nightly:cron": "node scripts/install-audit-cron.mjs",
     "audit:nightly:cron:remove": "node scripts/install-audit-cron.mjs --remove",
-    "verify:layout-map": "node scripts/check-layout-audit-map.mjs",
-    "audit:layout:nightly": "bash scripts/run-layout-audit-nightly.sh"
+    "verify:layout-map": "node scripts/check-layout-audit-map.mjs"
   },
   "keywords": [],
   "author": "",

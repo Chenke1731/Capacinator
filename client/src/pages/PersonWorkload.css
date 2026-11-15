@@ -246,6 +246,13 @@
   overflow-wrap: anywhere;
 }
 
+/* Role labels can be long (e.g. "MDE / 设计"); wrap inside the fixed column
+   instead of protruding past the cell. */
+.person-workload-page .pw-table td.pw-col-role {
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
 .person-workload-page .pw-col-role {
   width: 6%;
 }

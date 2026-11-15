@@ -970,6 +970,7 @@
 /* Phase Bars */
 .phase-bar {
   position: absolute;
+  z-index: 1;
   height: 36px;
   top: 50%;
   transform: translateY(-50%);
@@ -1521,9 +1522,9 @@ body.dragging * {
   bottom: 0;
   width: 2px;
   background: linear-gradient(to bottom, var(--status-danger-border), var(--status-danger-border));
-  /* Keep the today line below the sticky timeline header (z-index 10) so it
-     cannot paint over header labels such as the resize handle "↔". */
-  z-index: 8;
+  /* Keep the today line below phase bars/labels (and below the sticky header)
+     so it cannot paint over text such as the resize handle "↔". */
+  z-index: 0;
   pointer-events: none;
   box-shadow: 0 0 8px color-mix(in srgb, var(--status-danger-border) 50%, transparent);
 }
@@ -1557,7 +1558,7 @@ body.dragging * {
   font-weight: 600;
   white-space: nowrap;
   box-shadow: 0 2px 8px color-mix(in srgb, var(--status-danger-border) 30%, transparent);
-  z-index: 9;
+  z-index: 0;
   animation: todayPulse 2s ease-in-out infinite;
 }
 

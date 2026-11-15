@@ -2580,16 +2580,21 @@ body.req-col-dragging * {
   /* 22→24(2026-10-21): U17 后是 button,命中档 ≥24 接管;title 保全文不变 */
   .lifecycle-warn-chip { max-width: 24px; overflow: hidden; }
 }
-/* 挤压阶梯第二级(2026-10-11 跨列裁切族·名称列,两档位 179/175px 实测;
-   2026-11-15 触发线 190→176: 列预算含 gap 修正后默认两档名称格 185/186px,
-   不再落入本梯(名称底回到基础 70/5 字),梯子只服务用户拖窄的真窄格):
-   ≤176px 时保底集收敛到全固定件+确定性余量——间距 3/名称底 44(title 兜底)/
+/* 挤压阶梯第二级(2026-10-11 跨列裁切族·名称列;2026-11-15 复审修正:
+   触发线保持 ≤190——它守护的是 +AR 分解钮 24px 存活(裁切=0px 即门禁红,
+   B1-1 回归教训:阈值 176 与预算修正后默认轨宽 186 脱耦产生保护空档);
+   名称底 44→70——与基础档"保底 5 字"裁决同值,U06 的 44px 之痛消除,
+   70+标签底30+警示chip24+AR钮24+间距9=157 仍可在 ≤190 轨内全存活):
+   ≤190px 时保底集收敛到全固定件+确定性余量——间距 3/名称底 70/
    标签底 30(margin 8→4)/铅笔 hover 退场(与受保护 + 同弹层,零损失)——
-   换 +AR 分解钮从可见宽 0(两档位 16/16 行全灭)恢复 24px 存活 */
-@container (max-width: 176px) {
-  .requirements-name { gap: 3px; }
-  .requirements-name-text { min-width: 44px; }
-  .req-tags-inline { min-width: 30px; margin-left: 4px; }
+   换 +AR 分解钮从可见宽 0 恢复 24px 存活 */
+@container (max-width: 190px) {
+  /* gap:3 的自指规则从未生效(容器不能被锚在自身的容器查询选中,子件规则可以)
+     ——2026-11-15 改为子件负边距等效收紧 6→3;标签底 30→28 补齐 toggle 行
+     6 件套(24+70+24+28+24+5×3=185≤186) */
+  .requirements-name > :not(:last-child) { margin-right: -3px; }
+  .requirements-name-text { min-width: 70px; }
+  .req-tags-inline { min-width: 28px; margin-left: 4px; }
   .req-tags-inline:hover > .req-pencil--act { display: none; }
 }
 /* SR 状态列: 子行分布(如 2·已启动 1·待RAT) */

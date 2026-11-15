@@ -27,7 +27,6 @@
     "resourceUtilization": "Resource Utilization",
     "capacityByRole": "Capacity Status by Role",
     "quickStats": "Quick Stats",
-    "pieLabel": "{{name}}: {{value}}",
     "healthBreakdownAria": "Project health breakdown: {{items}}. Click to view all projects.",
     "healthBreakdownItem": "{{name}} {{count}} projects",
     "utilizationBreakdownAria": "Resource utilization breakdown: {{items}}. Click to view people directory.",

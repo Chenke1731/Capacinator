@@ -223,4 +223,52 @@ describe('Dashboard Component', () => {
     expect(within(screen.getByTestId('dashboard-inbox-error')).getByRole('button', { name: /retry/i })).toBeInTheDocument();
     expect(screen.queryByTestId('dashboard-inbox-count')).not.toBeInTheDocument();
   });
+
+  /* 盲评 B2-G1（2026-11-15）：堆叠条渲染数学守卫——比例=计数占比、零值键无段、空态分支。
+     变异自证：改 entry.value/100 或删 healthTotal 守卫或删零值过滤 → 必红 */
+  describe('health stacked bar (B2-G1)', () => {
+    const mockHealth = (projectHealth: Record<string, number>) => {
+      (api.reporting.getDashboard as jest.Mock).mockResolvedValue({
+        data: { success: true, data: {
+          summary: { projects: 70, people: 8, roles: 13 },
+          projectHealth,
+          capacityGaps: {}, utilization: {}, availability: {},
+          design_watch: [], lifecycle_summary: {}
+        } }
+      });
+    };
+
+    test('多状态：段数=非零键数，宽度=计数占比(±0.01)，图例含计数', async () => {
+      mockHealth({ ACTIVE: 45, PLANNING: 20, OVERDUE: 5, AT_RISK: 0 });
+      renderDashboard();
+
+      await waitFor(() => {
+        const segs = document.querySelectorAll('.health-stacked-seg');
+        expect(segs).toHaveLength(3); // AT_RISK:0 无段
+        const expectWidth = (el: Element, pct: number) =>
+          expect(parseFloat((el as HTMLElement).style.width)).toBeCloseTo(pct, 1);
+        expectWidth(segs[0], 64.28); // 45/70
+        expectWidth(segs[1], 28.57); // 20/70
+        expectWidth(segs[2], 7.14);  // 5/70
+        const legend = document.querySelectorAll('.health-legend li');
+        expect(legend).toHaveLength(3);
+        expect(legend[0].textContent).toMatch(/45/);
+        expect(legend[1].textContent).toMatch(/20/);
+        expect(legend[2].textContent).toMatch(/5/);
+        // aria 与图例同源(零键不进 aria)
+        const img = document.querySelector('.chart-container[role="img"]');
+        expect(img?.getAttribute('aria-label')).not.toMatch(/AT_RISK/i);
+      });
+    });
+
+    test('空 projectHealth：走 health-empty 分支', async () => {
+      mockHealth({});
+      renderDashboard();
+
+      await waitFor(() => {
+        expect(document.querySelector('.health-empty')).toBeTruthy();
+        expect(document.querySelectorAll('.health-stacked-seg')).toHaveLength(0);
+      });
+    });
+  });
 });

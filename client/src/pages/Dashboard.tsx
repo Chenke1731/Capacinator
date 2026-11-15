@@ -106,6 +106,7 @@ export function Dashboard() {
 
   /* ⑧(2026-11-15): 饼图退役(DV-4)→100% 堆叠条的分母与状态配色(沿原 Cell 映射) */
   const healthTotal = projectHealthData.reduce((sum, d) => sum + (d.value || 0), 0);
+  const healthSegments = projectHealthData.filter((d) => (d.value || 0) > 0);
   const healthColor = (status: string) =>
     status.includes('OVERDUE') ? COLORS.danger :
     status.includes('ACTIVE') ? COLORS.success :
@@ -250,7 +251,8 @@ export function Dashboard() {
             className="chart-container"
             role="img"
             aria-label={t('dashboard:charts.healthBreakdownAria', {
-              items: projectHealthData.map(item => t('dashboard:charts.healthBreakdownItem', { name: item.name, count: item.value })).join(', '),
+              items: (healthSegments.length ? healthSegments : projectHealthData)
+                .map(item => t('dashboard:charts.healthBreakdownItem', { name: item.name, count: item.value })).join(', '),
             })}
             tabIndex={0}
             onKeyDown={(e) => {
@@ -262,9 +264,10 @@ export function Dashboard() {
           >
             {healthTotal > 0 ? (
               <>
-                {/* DV-4(2026-11-15 ⑧): 饼图 → 100% 堆叠条 + 计数图例;点击/键盘跳转沿用卡片级 */}
+                {/* DV-4(2026-11-15 ⑧): 饼图 → 100% 堆叠条 + 计数图例;点击/键盘跳转沿用卡片级。
+                    盲评 B2-N1: 零计数键过滤(服务端现不发零键,防越约输入渲染 2px 假段),分段/图例/aria 同源 */}
                 <div className="health-stacked-bar" role="presentation">
-                  {projectHealthData.map((entry) => (
+                  {healthSegments.map((entry) => (
                     <div
                       key={entry.status}
                       className="health-stacked-seg"
@@ -274,7 +277,7 @@ export function Dashboard() {
                   ))}
                 </div>
                 <ul className="health-legend">
-                  {projectHealthData.map((entry) => (
+                  {healthSegments.map((entry) => (
                     <li key={`legend-${entry.status}`}>
                       <span className="health-legend-dot" style={{ background: healthColor(entry.status) }} aria-hidden="true" />
                       {t('dashboard:charts.healthBreakdownItem', { name: entry.name, count: entry.value })}

@@ -27,7 +27,6 @@
     "resourceUtilization": "资源利用率",
     "capacityByRole": "按角色的产能状态",
     "quickStats": "快捷统计",
-    "pieLabel": "{{name}}:{{value}}",
     "healthBreakdownAria": "项目健康度分布:{{items}}。点击查看全部项目。",
     "healthBreakdownItem": "{{name}} {{count}} 个项目",
     "utilizationBreakdownAria": "资源利用率分布:{{items}}。点击查看人员目录。",

@@ -40,10 +40,10 @@ const ALERT_CONFIG = {
   },
   project_risk: {
     icon: AlertTriangle,
-    /* orange 无对应 --status-* token（未入 token 集），暂保留调色板直书并注明 */
-    color: 'text-orange-600 dark:text-orange-400',
-    bgColor: 'bg-orange-50 dark:bg-orange-500/15',
-    borderColor: 'border-orange-200 dark:border-orange-500/30'
+    /* 2026-11-15 D1 裁决:改用 --status-risk-* token(原 orange 直书浅色 3.35:1<4.5,盲评 B1-3) */
+    color: 'text-[var(--status-risk-text)]',
+    bgColor: 'bg-[var(--status-risk-soft)]',
+    borderColor: 'border-[var(--status-risk-border)]'
   },
   deadline_warning: {
     icon: Clock,

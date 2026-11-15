@@ -1576,6 +1576,12 @@ input:focus, select:focus, textarea:focus {
   --status-info-solid: #1d4ed8;
   --status-info-soft: var(--project-hover);
   --status-info-border: var(--project-active);
+  /* 2026-11-15 D1 裁决:风险≠截止警示(区别于 warning),text/solid 遵「压深」;
+     浅色 #9a3412 对 #ffedb8 系 soft ≥4.5(盲评 B1-3 修复,原 orange 直书 3.35) */
+  --status-risk-text: #9a3412;
+  --status-risk-solid: #c2410c;
+  --status-risk-soft: #ffedd5;
+  --status-risk-border: #ea580c;
   --solid-foreground: #ffffff;
   --solid-shade: #000000;
   --timeline-tooltip-bg: rgba(0, 0, 0, 0.92);
@@ -1707,6 +1713,11 @@ input:focus, select:focus, textarea:focus {
   --status-info-solid: #1d4ed8;
   --status-info-soft: var(--project-hover);
   --status-info-border: var(--project-active);
+  /* risk 深色主题:text 提亮到 orange-300;soft/border 半透明叠底(沿面板原 dark: 变体语义) */
+  --status-risk-text: #fdba74;
+  --status-risk-solid: #c2410c;
+  --status-risk-soft: rgba(249, 115, 22, 0.15);
+  --status-risk-border: rgba(249, 115, 22, 0.3);
   --solid-foreground: #ffffff;
   --solid-shade: #000000;
   --timeline-tooltip-bg: rgba(0, 0, 0, 0.92);

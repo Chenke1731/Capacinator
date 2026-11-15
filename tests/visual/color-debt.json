@@ -9222,6 +9222,174 @@
       "semanticRole": null,
       "reason": "CSS custom-property definition; render validation is separate.",
       "evidence": []
+    },
+    {
+      "fingerprint": "1d0e989c845b49515184164d20e7e9d65b5b374478119725b31729e09eb598b8",
+      "file": "client/src/index.css",
+      "context": [],
+      "owner": "[data-theme=\"dark\"]",
+      "property": "--status-risk-solid",
+      "literal": "#c2410c",
+      "locations": [
+        {
+          "line": 1718,
+          "column": 24
+        }
+      ],
+      "count": 1,
+      "kind": "token-definition",
+      "reachability": "unverified",
+      "decision": "not-debt",
+      "semanticRole": null,
+      "reason": "CSS custom-property definition; render validation is separate.",
+      "evidence": []
+    },
+    {
+      "fingerprint": "239f0b0845d7f7da71cdbee8deea6a896c63eb89419e49323a472b7c70f4ce42",
+      "file": "client/src/index.css",
+      "context": [],
+      "owner": "[data-theme=\"dark\"]",
+      "property": "--status-risk-text",
+      "literal": "#fdba74",
+      "locations": [
+        {
+          "line": 1717,
+          "column": 23
+        }
+      ],
+      "count": 1,
+      "kind": "token-definition",
+      "reachability": "unverified",
+      "decision": "not-debt",
+      "semanticRole": null,
+      "reason": "CSS custom-property definition; render validation is separate.",
+      "evidence": []
+    },
+    {
+      "fingerprint": "2899029cb04310056f04537b042846d1e3a87163ba48f638bd193318d82ff425",
+      "file": "client/src/index.css",
+      "context": [],
+      "owner": "[data-theme=\"dark\"]",
+      "property": "--status-risk-soft",
+      "literal": "rgba(249, 115, 22, 0.15)",
+      "locations": [
+        {
+          "line": 1719,
+          "column": 23
+        }
+      ],
+      "count": 1,
+      "kind": "token-definition",
+      "reachability": "unverified",
+      "decision": "not-debt",
+      "semanticRole": null,
+      "reason": "CSS custom-property definition; render validation is separate.",
+      "evidence": []
+    },
+    {
+      "fingerprint": "4331d12b342c469e3a6424fc7d50e5da06fd03717d0df0ecf274b17ede2b6a38",
+      "file": "client/src/index.css",
+      "context": [],
+      "owner": "[data-theme=\"dark\"]",
+      "property": "--status-risk-border",
+      "literal": "rgba(249, 115, 22, 0.3)",
+      "locations": [
+        {
+          "line": 1720,
+          "column": 25
+        }
+      ],
+      "count": 1,
+      "kind": "token-definition",
+      "reachability": "unverified",
+      "decision": "not-debt",
+      "semanticRole": null,
+      "reason": "CSS custom-property definition; render validation is separate.",
+      "evidence": []
+    },
+    {
+      "fingerprint": "4fa398094165771829a957c76180fa87f1ada88be937f05cdea733758110710a",
+      "file": "client/src/index.css",
+      "context": [],
+      "owner": ":root, [data-theme=\"light\"]",
+      "property": "--status-risk-text",
+      "literal": "#9a3412",
+      "locations": [
+        {
+          "line": 1581,
+          "column": 23
+        }
+      ],
+      "count": 1,
+      "kind": "token-definition",
+      "reachability": "unverified",
+      "decision": "not-debt",
+      "semanticRole": null,
+      "reason": "CSS custom-property definition; render validation is separate.",
+      "evidence": []
+    },
+    {
+      "fingerprint": "56f57b153eeceea6f858a5bb45ba4a920aaa2e7117f04ffe74ddf1e7572600ad",
+      "file": "client/src/index.css",
+      "context": [],
+      "owner": ":root, [data-theme=\"light\"]",
+      "property": "--status-risk-border",
+      "literal": "#ea580c",
+      "locations": [
+        {
+          "line": 1584,
+          "column": 25
+        }
+      ],
+      "count": 1,
+      "kind": "token-definition",
+      "reachability": "unverified",
+      "decision": "not-debt",
+      "semanticRole": null,
+      "reason": "CSS custom-property definition; render validation is separate.",
+      "evidence": []
+    },
+    {
+      "fingerprint": "95624577f01c42f08a7a6341728f3724c771f38883b070dfdbbe5431d9d32e6c",
+      "file": "client/src/index.css",
+      "context": [],
+      "owner": ":root, [data-theme=\"light\"]",
+      "property": "--status-risk-soft",
+      "literal": "#ffedd5",
+      "locations": [
+        {
+          "line": 1583,
+          "column": 23
+        }
+      ],
+      "count": 1,
+      "kind": "token-definition",
+      "reachability": "unverified",
+      "decision": "not-debt",
+      "semanticRole": null,
+      "reason": "CSS custom-property definition; render validation is separate.",
+      "evidence": []
+    },
+    {
+      "fingerprint": "cd51f5b9618e2178b7d89b985b638cc56a28ec6259af598b2379910e3e823986",
+      "file": "client/src/index.css",
+      "context": [],
+      "owner": ":root, [data-theme=\"light\"]",
+      "property": "--status-risk-solid",
+      "literal": "#c2410c",
+      "locations": [
+        {
+          "line": 1582,
+          "column": 24
+        }
+      ],
+      "count": 1,
+      "kind": "token-definition",
+      "reachability": "unverified",
+      "decision": "not-debt",
+      "semanticRole": null,
+      "reason": "CSS custom-property definition; render validation is separate.",
+      "evidence": []
     }
   ],
   "resolutions": [
@@ -20730,19 +20898,19 @@
   ],
   "additions": [],
   "summary": {
-    "occurrences": 334,
-    "identities": 331,
-    "uniqueColors": 145,
+    "occurrences": 342,
+    "identities": 339,
+    "uniqueColors": 151,
     "files": 20,
     "byKind": {
-      "token-definition": 236,
+      "token-definition": 244,
       "data-color": 38,
       "neutral-literal": 13,
       "non-color": 20,
       "semantic-color": 27
     },
     "byDecision": {
-      "not-debt": 256,
+      "not-debt": 264,
       "accepted-literal": 38,
       "retained-unused": 40
     },
@@ -20757,7 +20925,7 @@
       "client/src/components/tags/TagManagerDialog.tsx": 8,
       "client/src/components/ui/StatCard.css": 1,
       "client/src/components/ui/StatCard.tsx": 2,
-      "client/src/index.css": 198,
+      "client/src/index.css": 206,
       "client/src/lib/project-colors.ts": 4,
       "client/src/lib/theme-colors.ts": 27,
       "client/src/pages/Availability.tsx": 5,

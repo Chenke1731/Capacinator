@@ -93,22 +93,24 @@ const VERSION_NONE = '__none__';
 const REQ_COLUMNS = [
   /* B3a 列集(设计 §1): 选择|名称|编号|组件|状态|代码规模|人力|SE|MDE|版本规划|交付计划|迭代|优先级|实名投入|操作
      选择列(2026-10-11 批量操作): 前置 26px,预算由名称列让位(210→186)净零。
-     预算(设计 §1 复核): 全列 1376≤1380@1680; 中档藏组件 1284≤1300@1600;
-     紧凑藏 组件/编号/交付/实名 1012≤1066@1366 */
+     预算(2026-11-15 修正: 旧口径漏算 8px×nGaps 与 +28 基轨,致中档等比缩 0.926/名称 186→172,U16):
+     全列 1230+28+14×8=1370≤1378@1680; 中档(藏组件) 1160+28+13×8=1292≤1298@1600;
+     紧凑(藏 组件/编号/交付/实名) 956+28+10×8=1064≤1064@1366。
+     方法: defs+28+8×nGaps≤容器-2; 富余走 gap 放宽(8→24,左松右紧),不足回 8+等比微缩 */
   { key: 'select', def: [26, 26, 26], min: 26, max: 26 },
   { key: 'name', def: [186, 186, 186], min: 120, max: 640 },
-  { key: 'number', def: [84, 80, 0], min: 56, max: 200 },
-  { key: 'component', def: [84, 84, 0], min: 72, max: 240 },
-  { key: 'lifecycle', def: [200, 200, 196], min: 170, max: 420 },
+  { key: 'number', def: [56, 56, 0], min: 56, max: 200 },
+  { key: 'component', def: [72, 84, 0], min: 72, max: 240 },
+  { key: 'lifecycle', def: [170, 176, 196], min: 170, max: 420 },
   { key: 'kloc', def: [64, 64, 64], min: 56, max: 120 },
   { key: 'effort', def: [64, 64, 64], min: 52, max: 120 },
-  { key: 'se', def: [88, 88, 88], min: 72, max: 160 },
-  { key: 'mde', def: [88, 88, 88], min: 72, max: 160 },
-  { key: 'version', def: [68, 64, 62], min: 56, max: 200 },
-  { key: 'release', def: [68, 64, 62], min: 48, max: 200 },
-  { key: 'iter', def: [80, 78, 0], min: 60, max: 200, kind: 'cap', cap: [90, 88, 0] }, /* 迭代窗口(2026-09-23 拆列) */
+  { key: 'se', def: [88, 80, 88], min: 72, max: 160 },
+  { key: 'mde', def: [88, 80, 88], min: 72, max: 160 },
+  { key: 'version', def: [56, 58, 56], min: 56, max: 200 },
+  { key: 'release', def: [56, 58, 62], min: 48, max: 200 },
+  { key: 'iter', def: [60, 60, 0], min: 60, max: 200, kind: 'cap', cap: [90, 88, 0] }, /* 迭代窗口(2026-09-23 拆列) */
   { key: 'priority', def: [44, 44, 44], min: 40, max: 120 },
-  { key: 'primary', def: [88, 80, 0], min: 56, max: 200 },
+  { key: 'primary', def: [56, 64, 0], min: 56, max: 200 },
   /* 3 钮实际 40px 命中档(3×40px)+2 间距(2×8px)=136px；112px 会让整组外凸
      23px（夜审 container-protrusion）。给 144px 留 8px 余量；CSS 四处字面量兜底同步。 */
   { key: 'actions', def: [144, 144, 144], min: 64, max: 200 }

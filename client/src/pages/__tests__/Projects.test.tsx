@@ -1058,9 +1058,9 @@ describe('Requirements Board (需求台)', () => {
 
       fireEvent.dblClick(screen.getByTestId('col-grip-component'));
 
-      // 重置回 REQ_COLUMNS 默认: component def[0]=84
+      // 重置回 REQ_COLUMNS 默认: component def[0]=72（2026-11-15 预算含 gap 修正后）
       await waitFor(() => {
-        expect(table.style.getPropertyValue('--req-w-component')).toBe('84px');
+        expect(table.style.getPropertyValue('--req-w-component')).toBe('72px');
       });
       expect(JSON.parse(localStorage.getItem('req-col-widths-v5')!)).toEqual({});
     });

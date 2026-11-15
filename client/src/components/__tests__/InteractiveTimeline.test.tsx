@@ -879,9 +879,10 @@ describe('InteractiveTimeline', () => {
         />
       );
 
-      // 2026-09-22 契约: 时间重叠的条只让最早(数组序最前)的显示文字, 后来者让位防标签互撞
-      expect(screen.getByText('Phase 1')).toBeInTheDocument();
-      expect(screen.queryByText('Phase 2')).not.toBeInTheDocument();
+      // 2026-11-15 修正：只让画在最上层（数组序最后）的条显示文字。
+      // 最早条的文字会被后条背景覆盖（vlmkit occluded-text）；其名称仍可通过 tooltip 查看。
+      expect(screen.queryByText('Phase 1')).not.toBeInTheDocument();
+      expect(screen.getByText('Phase 2')).toBeInTheDocument();
     });
 
     it('enforces minimum item duration when resizing', () => {

@@ -950,22 +950,7 @@ export default function ProjectRoadmap() {
                     day: 'numeric'
                   })
                 })}
-              >
-                <div className="today-line-indicator" style={{
-                  position: 'absolute',
-                  top: '80px', // Position below the header
-                  left: '4px',
-                  backgroundColor: 'var(--status-danger-solid)',
-                  color: 'var(--solid-foreground)',
-                  padding: '2px 6px',
-                  borderRadius: '3px',
-                  fontSize: '10px',
-                  fontWeight: 600,
-                  whiteSpace: 'nowrap'
-                }}>
-                  <span className="today-label">{t('phases:timeline.today')}</span>
-                </div>
-              </div>
+              />
             );
           }
           return null;

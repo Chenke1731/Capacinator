@@ -1544,48 +1544,8 @@ body.dragging * {
   pointer-events: none;
 }
 
-.today-line-indicator {
-  position: absolute;
-  top: 0;
-  left: 4px;
-  transform: translateY(-50%);
-  /* 深一档红: todayPulse 会在 0.75-1.0 间变透明度, 白字在任何相位都 ≥4.5:1 */
-  background: var(--status-danger-solid);
-  color: var(--solid-foreground);
-  padding: 0.25rem 0.5rem;
-  border-radius: 4px;
-  font-size: 0.75rem;
-  font-weight: 600;
-  white-space: nowrap;
-  box-shadow: 0 2px 8px color-mix(in srgb, var(--status-danger-border) 30%, transparent);
-  z-index: 0;
-  animation: todayPulse 2s ease-in-out infinite;
-}
-
-.today-label {
-  text-shadow: none;
-}
-
-@keyframes todayPulse {
-  0%, 100% {
-    transform: translateY(-50%) scale(1);
-  }
-  50% {
-    /* 不用 opacity 脉动: 透明度相位会让白字对比度周期性跌破 4.5:1 */
-    transform: translateY(-50%) scale(1.06);
-  }
-}
-
-/* Hover effect for today line */
-.today-line:hover {
-  box-shadow: 0 0 12px color-mix(in srgb, var(--status-danger-border) 70%, transparent);
-}
-
-.today-line:hover .today-line-indicator {
-  background: var(--status-danger-solid);
-  transform: translateY(-50%) scale(1.1);
-  box-shadow: 0 4px 16px color-mix(in srgb, var(--status-danger-border) 40%, transparent);
-}
+/* The today marker is a text-free line; the toolbar "今天" button carries the
+   label. The visible-date tooltip remains on .today-line-full. */
 
 /* I02h/U23：锚点高亮（.project-roadmap .project-row.project-row--anchor
    特异度 0,3,0 > 既有 :nth-child 偶数行背景 0,2,0） */

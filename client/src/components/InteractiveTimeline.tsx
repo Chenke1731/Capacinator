@@ -312,11 +312,13 @@ export function InteractiveTimeline({
 
     let position = basePosition;
 
-    // 同泳道时间上重叠的条(设计/开发并行是合法排布): 只让重叠簇中最早(数组序最前)
-    // 的条显示文字标签,避免两条都居中放标签时互撞(2026-09-22 路线图审计);
-    // 被让位的条悬停 tooltip 仍显示完整名称。
+    // 同泳道时间上重叠的条(设计/开发并行是合法排布): 只让画在最上层(数组序最后)
+    // 的条显示文字标签——DOM 后者覆盖前者,若让最早的条显示标签,它的文字会被
+    // 后一条的背景遮住(vlmkit occluded-text, 2026-11-15)。被让位的条悬停
+    // tooltip 仍显示完整名称。
+    const itemIndex = items.findIndex((candidate) => candidate.id === item.id);
     const labelSuppressed = items.some((other, oi) => {
-      if (other.id === item.id || oi > items.indexOf(item)) return false;
+      if (other.id === item.id || oi <= itemIndex) return false;
       const op = calculateItemPosition(other, viewport);
       return op.left < basePosition.left + basePosition.width && basePosition.left < op.left + op.width;
     });

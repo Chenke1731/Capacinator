@@ -937,7 +937,9 @@ export default function ProjectRoadmap() {
                   bottom: 0,
                   width: '2px',
                   backgroundColor: 'var(--status-danger-border)',
-                  zIndex: 999,
+                  // Below phase bars/handles: the line must not paint over
+                  // phase labels or the resize handle "↔".
+                  zIndex: 0,
                   pointerEvents: 'none'
                 }}
                 title={t('phases:roadmap.todayTitle', {

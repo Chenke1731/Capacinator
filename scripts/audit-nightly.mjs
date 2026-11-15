@@ -28,7 +28,10 @@ const args = process.argv.slice(2);
 const strict = args.includes('--strict');
 const keepStack = args.includes('--keep-stack');
 const pagesArg = args.includes('--pages') ? args[args.indexOf('--pages') + 1] : null;
-const dateTag = new Date().toISOString().slice(0, 10);
+// Local calendar date, not UTC: a 02:30 Asia/Shanghai run must not write into
+// yesterday's directory (and overwrite its report).
+const now = new Date();
+const dateTag = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
 const outDir = path.join(ROOT, 'tmp', 'audit-nightly', dateTag);
 const AUDIT_DB = path.join(ROOT, '.e2e-data', 'audit-nightly.db');
 const NIGHTLY_LOCK = path.join(ROOT, '.e2e-data', 'audit-nightly.lock');

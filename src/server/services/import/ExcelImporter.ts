@@ -1072,9 +1072,15 @@ export class ExcelImporter {
       result.createdEntities = [...this.createdEntities];
 
       // Collect all structured errors and warnings
+      // 2026-11-15: 出口带定位前缀——ImportError.toJSON 本就含 location(Sheet/Row/Column/Field),
+      // 旧出口 map(e=>e.detailedMessage) 压平丢失行/列/字段(V3 实测 analyze 响应无行号)
+      const withLocation = (e: { location?: string; detailedMessage?: string; message?: string }): string =>
+        e.location && e.location !== 'Unknown location'
+          ? `[${e.location}] ${e.detailedMessage || e.message || 'Unknown error'}`
+          : (e.detailedMessage || e.message || 'Unknown error');
       const errorSummary = errorCollector.toJSON();
-      result.errors.push(...errorSummary.errors.map(e => e.detailedMessage || e.message));
-      result.warnings.push(...errorSummary.warnings.map(w => w.detailedMessage || w.message));
+      result.errors.push(...errorSummary.errors.map(withLocation));
+      result.warnings.push(...errorSummary.warnings.map(withLocation));
 
       // Check if there were any errors
       if (errorCollector.hasErrors() || result.errors.length > 0) {

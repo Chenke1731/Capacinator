@@ -431,4 +431,54 @@ describe('ExcelImporterV2 Integration Tests', () => {
       expect(result.summary.totalErrors).toBe(worksheetErrorCount);
     });
   });
+
+  describe('error location prefix & bad-FK warning (2026-11-15)', () => {
+    async function buildBadFile(): Promise<string> {
+      const ExcelJS = require('exceljs');
+      const wb = new ExcelJS.Workbook();
+      const types = wb.addWorksheet('Project Types');
+      types.addRow(['Project Type', 'Description']);
+      types.addRow(['SW', 'Software']);
+      const roles = wb.addWorksheet('Roles');
+      roles.addRow(['Role', 'Plan Owner', 'Required Data Access']);
+      roles.addRow(['Dev', 'alice', 'none']);
+      const roster = wb.addWorksheet('Roster');
+      roster.addRow(['Person', 'Role', '24FW36', '24FW37']);
+      roster.addRow(['Ghost Role Person', 'Ghost-Role', 1, 1]); // bad FK: role not in Roles sheet
+      const projects = wb.addWorksheet('Projects');
+      projects.addRow(['Project/Site', 'Project Type', 'Inc. in Demand', 'Priority']);
+      projects.addRow(['BadProject-NoSite', 'SW', 'Y', '2']); // missing required (site)
+      const path = join(require('os').tmpdir(), 'capacinator-test-bad-fk.xlsx');
+      await wb.xlsx.writeFile(path);
+      return path;
+    }
+
+    it('prefixes collector errors with Sheet/Row location at the exit', async () => {
+      const file = await buildBadFile();
+      const result = await importer.importFromFile(file, {
+        clearExisting: true,
+        validateDuplicates: false
+      });
+
+      expect(result.success).toBe(false);
+      const located = result.errors.filter((e: any) => typeof e === 'string' && e.startsWith('[Sheet:'));
+      expect(located.length).toBeGreaterThan(0);
+      expect(located.some((e: string) => /Row: 2/.test(e))).toBe(true);
+    });
+
+    it('warns (not errors) when roster role is unknown; person still imported', async () => {
+      const file = await buildBadFile();
+      const result = await importer.importFromFile(file, {
+        clearExisting: true,
+        validateDuplicates: false
+      });
+
+      const w = result.warnings.find((x: any) => typeof x === 'string' && x.includes('Role not found: Ghost-Role'));
+      expect(w).toBeTruthy();
+      expect(String(w)).toMatch(/\[Sheet: Roster, Row: \d+/);
+      // 坏外键是警告不是错误: Ghost Role Person 仍应进入 createdEntities
+      expect(result.createdEntities.some((c: any) => c.type === 'person' && c.name === 'Ghost Role Person')).toBe(true);
+      expect(result.errors.some((e: any) => String(e).includes('Ghost-Role'))).toBe(false);
+    });
+  });
 });

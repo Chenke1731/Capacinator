@@ -612,7 +612,7 @@ export class ExcelImporterV2 {
     return { count, errors };
   }
 
-  private async importRoster(worksheet: ExcelWorksheet, _errorCollector: ImportErrorCollector): Promise<{ count: number; errors: string[] }> {
+  private async importRoster(worksheet: ExcelWorksheet, errorCollector: ImportErrorCollector): Promise<{ count: number; errors: string[] }> {
     const errors: string[] = [];
     let count = 0;
 
@@ -646,6 +646,16 @@ export class ExcelImporterV2 {
 
         const personId = uuidv4();
         const roleId = roleName ? this.roleMap.get(roleName) : null;
+        if (roleName && !roleId) {
+          /* 2026-11-15(V3 实测): 坏外键不再静默——人照建,但必须出警告(Ghost-Role 场景此前零提示) */
+          errorCollector.addWarning(
+            'Roster',
+            `Role not found: ${roleName} — person imported without a role`,
+            rowNumber,
+            'Role',
+            'Add the role to the Roles sheet or fix the name'
+          );
+        }
 
         // Get availability from fiscal week columns
         let defaultAvailability = 100;
@@ -1365,9 +1375,15 @@ export class ExcelImporterV2 {
       result.createdEntities = [...this.createdEntities];
 
       // Collect all structured errors and warnings
+      // 2026-11-15: 出口带定位前缀——ImportError.toJSON 本就含 location(Sheet/Row/Column/Field),
+      // 旧出口 map(e=>e.detailedMessage) 压平丢失行/列/字段(V3 实测 analyze 响应无行号)
+      const withLocation = (e: { location?: string; detailedMessage?: string; message?: string }): string =>
+        e.location && e.location !== 'Unknown location'
+          ? `[${e.location}] ${e.detailedMessage || e.message || 'Unknown error'}`
+          : (e.detailedMessage || e.message || 'Unknown error');
       const errorSummary = errorCollector.toJSON();
-      result.errors.push(...errorSummary.errors.map(e => e.detailedMessage || e.message));
-      result.warnings.push(...errorSummary.warnings.map(w => w.detailedMessage || w.message));
+      result.errors.push(...errorSummary.errors.map(withLocation));
+      result.warnings.push(...errorSummary.warnings.map(withLocation));
 
       // Check if there were any errors
       if (errorCollector.hasErrors() || result.errors.length > 0) {

@@ -1,0 +1,151 @@
+{
+ "generated_at": "2026-11-15T05:57:50.667Z",
+ "round": 2,
+ "searched": [
+  "复杂表格 设计",
+  "后台 表格 交互",
+  "表格 筛选 设计",
+  "行内编辑 表格",
+  "表格 信息密度",
+  "表格 操作列 太多",
+  "后台 侧边栏 设计",
+  "B端 菜单 交互",
+  "空状态 设计 B端",
+  "骨架屏 设计",
+  "状态徽标 设计",
+  "错误状态 页面 设计",
+  "加载状态 设计",
+  "空状态 设计",
+  "异常状态 设计",
+  "批量编辑 设计",
+  "二次确认 弹窗 设计",
+  "KPI 卡片 设计",
+  "后台 信息层级",
+  "AI 任务管理 界面",
+  "B端 过度设计",
+  "后台 信息密度 太高 怎么设计"
+ ],
+ "search_calls": 4,
+ "search_params": {
+  "page": 1,
+  "sort": "general"
+ },
+ "blocked": [],
+ "blocked_detail": [],
+ "failed": [],
+ "pool_added": 380,
+ "pool_file": "raw-pool-2.jsonl",
+ "pool_added_per_call": {
+  "call1": 101,
+  "call2": 105,
+  "call3": 112,
+  "call4": 62
+ },
+ "detail_fetched": 49,
+ "detail_file": "raw-details-2.jsonl",
+ "detail_calls": 3,
+ "per_family": {
+  "表格": {
+   "quota": 16,
+   "detailed": 15,
+   "from_search2": 4,
+   "from_pool1_backfill": 11,
+   "quota_unfilled": 1
+  },
+  "导航": {
+   "quota": 10,
+   "detailed": 10,
+   "from_search2": 10,
+   "from_pool1_backfill": 0,
+   "quota_unfilled": 0
+  },
+  "状态/空态/加载": {
+   "quota": 16,
+   "detailed": 16,
+   "from_search2": 16,
+   "from_pool1_backfill": 0,
+   "quota_unfilled": 0
+  },
+  "批量/确认": {
+   "quota": 4,
+   "detailed": 4,
+   "from_search2": 4,
+   "from_pool1_backfill": 0,
+   "quota_unfilled": 0
+  },
+  "AI": {
+   "quota": 4,
+   "detailed": 4,
+   "from_search2": 4,
+   "from_pool1_backfill": 0,
+   "quota_unfilled": 0
+  }
+ },
+ "selection_rules": {
+  "order": "saves desc, then ratio desc",
+  "blacklist_titles": [
+   "接单",
+   "代做",
+   "课程",
+   "培训",
+   "付费",
+   "广告",
+   "私信",
+   "领取"
+  ],
+  "family_keywords": {
+   "表格": [
+    "表格",
+    "筛选",
+    "行内编辑",
+    "操作列"
+   ],
+   "导航": [
+    "导航",
+    "侧边栏",
+    "菜单"
+   ],
+   "状态/空态/加载": [
+    "空状态",
+    "骨架屏",
+    "状态徽标",
+    "错误状态",
+    "加载状态",
+    "异常状态",
+    "加载",
+    "缺省页",
+    "空态",
+    "骨架",
+    "报错",
+    "错误页",
+    "占位"
+   ],
+   "批量/确认": [
+    "批量",
+    "二次确认"
+   ],
+   "AI": [
+    "AI",
+    "Agent",
+    "智能体"
+   ]
+  },
+  "relevance_gate": "title must also contain a design-context token (设计/UI/界面/交互/B端/后台/体验/UX/规范/组件/页面/排版/信息/看板/产品/系统/表单/布局); applied because raw 表格/状态 hits were dominated by Excel tutorials and OC 表格代餐 roleplay posts",
+  "ai_extra_gate": "AI family additionally requires 界面|页面|看板|任务|对话|后台|智能体|Agent|管理系统|SaaS|系统|UI",
+  "keyword_attribution": "xhs_search batches 6-8 keywords per call; cache groups results per call, so pool rows carry the whole call keyword list (batch field), not a per-note keyword"
+ },
+ "notes": [
+  "table quota short by 1: new 表格 leads were mostly Excel tutorials / OC roleplay tables; remaining gated new 表格 candidates exhausted",
+  "11 表格 items backfilled from raw-pool.jsonl (wave-1 pool, never detailed, gated)",
+  "swapped 696dc594000000000b0123e4 (title matched 二次确认 but content is a 和平精英 game video) for 6aa94b1e0000000025037951 (如何设计高风险操作的人在回路二次确认)",
+  "one 表格 pick (6908bc3e000000000700b0d1 计量经济学表格篇) is academic table layout rather than UI; kept as density/layout reference"
+ ],
+ "integrity": {
+  "pool_rows": 380,
+  "pool_unique": 380,
+  "pool_missing_token": 0,
+  "detail_rows": 49,
+  "detail_unique": 49,
+  "detail_overlap_with_round1": 0
+ }
+}

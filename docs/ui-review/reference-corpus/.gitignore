@@ -1,0 +1,11 @@
+# 语料库精简入库口径（2026-11-15 用户裁决）：
+# 入库 = README/digest/implementation-review/status-supplement/xhs-notes JSON/两份 manifest
+# 不入库 = 原始抓取件与过程件（可由 manifest+缓存复现）
+raw-*.jsonl
+analysis-wave*.json
+.detail-plan.json
+*.premerge
+*.v1.json
+*.v1.md
+*.round2-old.json
+*.round2-old.md

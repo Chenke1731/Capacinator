@@ -1,0 +1,372 @@
+[
+  {
+    "id": "E-01",
+    "source": "https://ui.shadcn.com/docs/components/empty",
+    "pattern": "六件套组装：Empty(flex flex-col items-center justify-center gap-6 rounded-lg border-dashed p-6 text-center) > EmptyHeader(max-w-sm: EmptyMedia/EmptyTitle/EmptyDescription) + EmptyContent(max-w-sm 放动作)；EmptyMedia variant=icon 为 size-10 rounded-lg bg-muted + svg size-6",
+    "target": "新增 client/src/components/ui/empty.tsx 作为唯一空态原语；替换 DataTable/ReportTable/ReportEmptyState/IntakeInbox 私有实现",
+    "verdict": "可直接借",
+    "clause": "CP-3",
+    "note": "max-w-sm 约束治 1600 视口下空态被拉成超宽单行；EmptyDescription 上游类型写 React.ComponentProps<'p'> 却渲染 div，落地时修正为 p 或改类型",
+    "existing_component": "client/src/components/ui/ 无 empty.tsx；现有三套分散实现"
+  },
+  {
+    "id": "E-02",
+    "source": "https://ant.design/components/empty",
+    "pattern": "双预制图分级 PRESENTED_IMAGE_DEFAULT（整页）/PRESENTED_IMAGE_SIMPLE（轻量内嵌）+ imageStyle 调尺寸",
+    "target": "空态原语内部只保留 size: sm|md 两档，内距由原语决定",
+    "verdict": "需改造",
+    "clause": "CP-3; lint:ui 规则 6/7（owner 唯一性）",
+    "note": "我们已有事实三档内距（.empty-state 4rem / .report-empty-state 2rem / DataTable h-64）但无契约；禁调用方自写 padding",
+    "existing_component": "client/src/App.css:840 .empty-state"
+  },
+  {
+    "id": "E-03",
+    "source": "https://ant.design/components/empty",
+    "pattern": "动作放 children（footer 语义槽），footer 负责上边距与按钮样式",
+    "target": "所有空态的『一个动作』位",
+    "verdict": "可直接借",
+    "clause": "CP-3",
+    "note": "ReportEmptyState 的 actionLink 已是此形，缺的是推广到表格类空态",
+    "existing_component": "client/src/components/reports/ReportEmptyState.tsx:29"
+  },
+  {
+    "id": "E-04",
+    "source": "https://raw.githubusercontent.com/Tencent/tdesign-react/develop/packages/components/empty/empty.md",
+    "pattern": "type 枚举把错误塞进空态组件：empty/success/fail/network-error/maintenance",
+    "target": "空态原语不得接受 error 类 type",
+    "verdict": "冲突淘汰",
+    "clause": "EXP-005; DV-6",
+    "note": "与『失败≠空态』直接冲突；IntakeInbox.tsx:299 已立规失败独立呈现可重试；失败走 Alert/错误配方",
+    "existing_component": "client/src/pages/IntakeInbox.tsx:299-307"
+  },
+  {
+    "id": "E-05",
+    "source": "https://raw.githubusercontent.com/Tencent/tdesign-react/develop/packages/components/empty/empty.md",
+    "pattern": "size: small/medium/large 三档",
+    "target": "取 small/medium 两档，弃 large",
+    "verdict": "需改造",
+    "clause": "CP-3",
+    "note": "第三档无对应容器；verify-states 按容器计量组合，多一档多一组贴锚/越界验证成本",
+    "existing_component": "none"
+  },
+  {
+    "id": "E-06",
+    "source": "https://ant.design/components/result",
+    "pattern": "status=403 独立语义：图标 + title + subTitle + extra 一个『回可访问处』按钮，不配重试",
+    "target": "页内区块空态（Empty + 权限名 + 返回上级）；全站零实现",
+    "verdict": "需改造",
+    "clause": "CP-3（四分类之权限）",
+    "note": "Ant 是整页 Result，我们是区块级需降为 Empty 形态；关键借点是 403 不给重试",
+    "existing_component": "none（grep 403/forbidden/unauthorized 仅命中权限管理页）"
+  },
+  {
+    "id": "E-07",
+    "source": "https://github.com/DouyinFE/semi-design/blob/main/packages/semi-ui/empty/index.tsx",
+    "pattern": "darkModeImage prop：组件内用 MutationObserver 监听 body[theme-mode] 切图",
+    "target": "不引入组件级主题分支",
+    "verdict": "冲突淘汰",
+    "clause": "双主题 token 化红线; verify:colors",
+    "note": "组件内主题分支产生第二套主题判定源，token 推断会漏；主题交给 CSS 变量",
+    "existing_component": "client/src/index.css --status-* / --bg-* token 块"
+  },
+  {
+    "id": "E-08",
+    "source": "local:client/src/pages/IntakeInbox.tsx",
+    "pattern": "三段独立：计数失败显示 — + role=alert + 重试（不阻断列表）；isError 独立错误块；success&&rows==0 再按 hasActiveFilters 二分 noMatch/empty",
+    "target": "所有 DataTable/ReportTable 消费方（Projects/People/Assignments/AuditLog/Locations/Reports/ProjectTypes）",
+    "verdict": "可直接借",
+    "clause": "CP-3; EXP-005; DV-8",
+    "note": "i18n 键结构可复制：inbox.empty/emptyHint/noMatch/clearFilters/countsLoadError/retry",
+    "existing_component": "client/src/pages/IntakeInbox.tsx:217-232, 300-335"
+  },
+  {
+    "id": "S-01",
+    "source": "https://ant.design/components/skeleton",
+    "pattern": "Skeleton 仅用于首次加载（Only works when loading data for the first time），内容密集处优先骨架；Spin 可替代但体验更差",
+    "target": "DataTable.tsx:120 首屏改骨架；LoadingSpinner 18 处按首次/重取分派",
+    "verdict": "可直接借",
+    "clause": "IX-6",
+    "note": "补判据：首屏=骨架，重取=保留旧内容+遮罩",
+    "existing_component": "client/src/components/ui/skeleton.tsx"
+  },
+  {
+    "id": "S-02",
+    "source": "https://ant.design/components/skeleton",
+    "pattern": "尺寸近似原语：Button block 撑满父宽、Avatar size、title.width、paragraph.rows + width 支持逐行数组",
+    "target": "表格骨架按 TableHead h-12 / TableCell p-4 生成",
+    "verdict": "需改造",
+    "clause": "IX-6",
+    "note": "我们 skeleton.tsx 只有 className，无 rows/宽度比 API；需在调用方按列宽比给宽度或加最小 rows 便利层",
+    "existing_component": "client/src/components/ui/skeleton.tsx"
+  },
+  {
+    "id": "S-03",
+    "source": "https://semi.design/zh-CN/feedback/skeleton",
+    "pattern": "文案规范：不变的固定内容直接展示，可变内容才用骨架屏",
+    "target": "ProjectDetail 骨架目前把相对静态的卡头/标题也骨架化",
+    "verdict": "可直接借",
+    "clause": "IX-6",
+    "note": "减少整屏灰块失控感；静态标签保持真实文字",
+    "existing_component": "client/src/pages/ProjectDetail.tsx:270-305"
+  },
+  {
+    "id": "S-04",
+    "source": "https://semi.design/zh-CN/feedback/skeleton",
+    "pattern": "默认尺寸可对齐：Title 24px、Paragraph 16px+10px 下边距/rows=4、Avatar 48x48、Button 115x32、Image 100%",
+    "target": "表格骨架行（目标 52px）、统计卡骨架（目标约 104px）",
+    "verdict": "需改造",
+    "clause": "IX-6",
+    "note": "数值不照抄（我们的行高由 TableCell p-4 + text-sm/20 决定 = 52px），借『骨架元素必须给显式 px 高』",
+    "existing_component": "client/src/components/ui/table.tsx:70-92"
+  },
+  {
+    "id": "S-05",
+    "source": "https://ui.shadcn.com/docs/components/skeleton",
+    "pattern": "同栈原语即无尺寸 API 的 div：animate-pulse rounded-md bg-muted + className；文档示例覆盖 Avatar/Card/Text/Form/Table 组装",
+    "target": "保持原语极简，表格按 Table 组装",
+    "verdict": "可直接借",
+    "clause": "IX-6; DV-7",
+    "note": "animate-pulse 只动 opacity，符合动画只用 transform/opacity",
+    "existing_component": "client/src/components/ui/skeleton.tsx"
+  },
+  {
+    "id": "S-06",
+    "source": "https://ant.design/components/skeleton ; https://semi.design/zh-CN/feedback/skeleton",
+    "pattern": "两份文档均无 CLS/布局抖动的明确指引，只有 width/block/size 等间接手段",
+    "target": "CLS 判据必须自建",
+    "verdict": "否",
+    "clause": "IX-6",
+    "note": "外部无权威可引，尺寸对齐只能以本地实测行高为唯一依据（见 md 6.2）",
+    "existing_component": "none"
+  },
+  {
+    "id": "S-07",
+    "source": "https://ant.design/components/skeleton",
+    "pattern": "List 组合示例：真表头 + N 行占位行，而不是居中 spinner",
+    "target": "DataTable.tsx:120-132 的 h-64 居中 spinner；ReportTable",
+    "verdict": "需改造",
+    "clause": "IX-6; DV-6",
+    "note": "h-64=256px 与真实表格高度无关，是明确 CLS 源",
+    "existing_component": "client/src/components/ui/DataTable.tsx:120"
+  },
+  {
+    "id": "R-01",
+    "source": "https://ant.design/components/alert",
+    "pattern": "action 槽把重试按钮放进持久警示条内部，与描述同一视觉单元",
+    "target": "统一 RetryableError 配方；ErrorMessage 加动作槽",
+    "verdict": "可直接借",
+    "clause": "CP-2; EXP-005",
+    "note": "IntakeInbox:300-307 已是此形（文字+Retry 同行）",
+    "existing_component": "client/src/components/ui/ErrorMessage.tsx（无动作槽）"
+  },
+  {
+    "id": "R-02",
+    "source": "https://ant.design/components/alert",
+    "pattern": "closable 是可选项；文档把可关闭与需用户处理分为两种用法",
+    "target": "规则：数据不可用类错误不可关闭",
+    "verdict": "可直接借",
+    "clause": "DV-8",
+    "note": "可关闭 = 用户能把数据损坏藏起来，退化成静默空洞",
+    "existing_component": "client/src/components/ui/alert.tsx"
+  },
+  {
+    "id": "R-03",
+    "source": "https://ant.design/components/alert",
+    "pattern": "四 type 语义 success/info/warning/error + showIcon + description 补充正文",
+    "target": "alert.tsx 扩 variant",
+    "verdict": "需改造",
+    "clause": "CP-2",
+    "note": "同 owner 内扩 variant 不算第二套实现；新增前须确认 verify:colors token 覆盖，避免硬编码色",
+    "existing_component": "client/src/components/ui/alert.tsx:7-19（仅 default/destructive）"
+  },
+  {
+    "id": "R-04",
+    "source": "https://ui.shadcn.com/r/styles/new-york-v4/alert.json",
+    "pattern": "新版用 grid 定位图标：grid-cols-[0_1fr] has-[>svg]:grid-cols-[calc(var(--spacing)*4)_1fr] [&>svg]:size-4 translate-y-0.5，标题/描述 col-start-2",
+    "target": "client/src/components/ui/alert.tsx 的绝对定位图标 + pl-7 魔法数",
+    "verdict": "需改造",
+    "clause": "verify-states 贴锚切片",
+    "note": "绝对定位+pl-7 在 1366 长标题换行时不随首行对齐；grid 版无需魔法数",
+    "existing_component": "client/src/components/ui/alert.tsx:10"
+  },
+  {
+    "id": "R-05",
+    "source": "https://ui.shadcn.com/docs/components/alert",
+    "pattern": "文档示例有 AlertAction（绝对定位右上角），但 new-york-v4 registry 源码无该导出",
+    "target": "不引入 AlertAction",
+    "verdict": "否",
+    "clause": "CP-2",
+    "note": "上游文档与源码版本不一致，行为无法确证；右上绝对定位拉大『读文案→找按钮』视线跨度",
+    "existing_component": "client/src/components/ui/alert.tsx"
+  },
+  {
+    "id": "R-06",
+    "source": "https://ant.design/components/result",
+    "pattern": "status=error 整区块错误配方：图标 + title + subTitle(原因) + extra(主次双动作)",
+    "target": "ProjectDetail 错误块已同构",
+    "verdict": "可直接借",
+    "clause": "CP-2",
+    "note": "须修：ProjectDetail 的 Retry 用 window.location.reload()，会丢筛选/滚动/展开态；改 refetch/invalidateQueries",
+    "existing_component": "client/src/pages/ProjectDetail.tsx:310-330"
+  },
+  {
+    "id": "R-07",
+    "source": "https://ant.design/components/result",
+    "pattern": "403/404 是独立 status，不与 error 共用动作语义",
+    "target": "规则：重试只对可重试错误出现（5xx/网络/解析失败），4xx 权限与不存在给返回",
+    "verdict": "需改造",
+    "clause": "CP-2; CP-3",
+    "note": "ErrorMessage 目前无法表达『该错误不该重试』，调用方各自决定，是散落重复的温床",
+    "existing_component": "client/src/components/ui/ErrorMessage.tsx"
+  },
+  {
+    "id": "R-08",
+    "source": "local:client/src/components/PersonAllocationChart.tsx",
+    "pattern": "反例：.chart-error 只有一行 failedToLoad 文案，无动作、无影响面说明",
+    "target": "图表/统计四态的 error 分支",
+    "verdict": "需改造",
+    "clause": "CP-2; DV-6",
+    "note": "尺寸稳定做对了（.chart-loading/.chart-error/.chart-empty 共用 200px），只需补重试 + 保留 brush 区间",
+    "existing_component": "client/src/components/PersonAllocationChart.tsx:352-358"
+  },
+  {
+    "id": "L-01",
+    "source": "https://ant.design/components/spin",
+    "pattern": "delay 毫秒防闪烁：若在延迟内结束，加载态干脆不出现",
+    "target": "LoadingSpinner 18 处 + DataTable + IntakeInbox 的 isLoading 分支",
+    "verdict": "可直接借",
+    "clause": "IX-6",
+    "note": "阈值 250-300ms；React Query 侧可用 placeholderData/keepPreviousData 达到同效果",
+    "existing_component": "client/src/components/ui/LoadingSpinner.tsx"
+  },
+  {
+    "id": "L-02",
+    "source": "https://ant.design/components/spin",
+    "pattern": "把内容嵌进 Spin 而不是替换：container 保留子元素 + mask + opacity 过渡",
+    "target": "所有 refetch（PersonWorkload:1437、列表刷新、场景切换）",
+    "verdict": "可直接借",
+    "clause": "IX-6",
+    "note": "二次加载旧内容仍在，高度零变化；判据：isLoading 走骨架，isFetching&&data 走遮罩",
+    "existing_component": "client/src/pages/PersonWorkload.tsx:1437 等"
+  },
+  {
+    "id": "L-03",
+    "source": "https://ant.design/components/spin",
+    "pattern": "size 语义：small=行内文字旁、medium=卡片块、large=整页",
+    "target": "spinner.tsx（sm/md/lg 16/24/32）+ LoadingSpinner（lg + min-h 200）",
+    "verdict": "需改造",
+    "clause": "IX-6",
+    "note": "已有档位但缺『哪档配哪种容器』规则；lg 档应优先改骨架",
+    "existing_component": "client/src/components/ui/spinner.tsx"
+  },
+  {
+    "id": "L-04",
+    "source": "https://ant.design/components/spin",
+    "pattern": "fullscreen + backdrop 全屏阻塞",
+    "target": "不引入",
+    "verdict": "冲突淘汰",
+    "clause": "B 支柱（决策流就绪）",
+    "note": "Electron 桌面排产常并行看多区块，全屏阻塞掐掉并行；阻塞只允许出现在破坏性确认",
+    "existing_component": "none"
+  },
+  {
+    "id": "L-05",
+    "source": "https://ant.design/components/spin",
+    "pattern": "percent / 'auto' 不确定进度条",
+    "target": "不引入",
+    "verdict": "否",
+    "clause": "IX-6",
+    "note": "已有 ProgressBar + OperationProgress 覆盖长任务，再引入即第二套进度实现",
+    "existing_component": "client/src/components/ui/ProgressBar.tsx; OperationProgress.tsx"
+  },
+  {
+    "id": "L-06",
+    "source": "https://ant.design/components/alert",
+    "pattern": "banner 模式（默认 warning）表达系统级降级",
+    "target": "不采用条幅；保留 IntakeInbox 行内计数错误位",
+    "verdict": "否",
+    "clause": "DV-6; EXP-005",
+    "note": "1366 垂直预算被表格吃掉（44/48px 命中区 + 52px 行高），条幅常驻持续挤压数据区；计数错误是局部事实",
+    "existing_component": "client/src/pages/IntakeInbox.tsx:217-232"
+  },
+  {
+    "id": "L-07",
+    "source": "https://ant.design/components/spin",
+    "pattern": "由 L-02 推出的本地判据：二次加载保留旧数据 + 轻量 busy 指示；首屏用骨架",
+    "target": "DataTable 需增加 isFetching 与 isLoading 两个入口（现只有 loading 一个）",
+    "verdict": "需改造",
+    "clause": "IX-6; DV-6",
+    "note": "现单入口无法表达『重取』，调用方只能二选一",
+    "existing_component": "client/src/components/ui/DataTable.tsx:30"
+  },
+  {
+    "id": "B-01",
+    "source": "https://ant.design/components/badge",
+    "pattern": "status + text 成对使用，状态点必须带文字标签；纯 dot 只用于『有新内容』类非语义提示",
+    "target": "所有状态徽标（我们已是文字徽标）",
+    "verdict": "可直接借",
+    "clause": "B 支柱（自标注）",
+    "note": "颜色不作唯一编码，灰度/打印/低对比场景仍可读",
+    "existing_component": "client/src/App.css:1082 .lifecycle-state-badge"
+  },
+  {
+    "id": "B-02",
+    "source": "https://ant.design/components/badge",
+    "pattern": "count=0 默认隐藏需 showZero 才显示；overflowCount 默认 99 显示 99+",
+    "target": "所有计数徽标 + IntakeInbox counts",
+    "verdict": "需改造",
+    "clause": "DV-8",
+    "note": "规则：0 显式显示 0，失败/未就绪显示 —；溢出 99+ 且详情给真值",
+    "existing_component": "client/src/pages/IntakeInbox.tsx:225-232"
+  },
+  {
+    "id": "B-03",
+    "source": "https://ui.shadcn.com/r/styles/new-york-v4/badge.json",
+    "pattern": "上游 6 variant（default/secondary/destructive/outline/ghost/link），刻意无 success/warning",
+    "target": "badge.tsx 的 success/warning fork",
+    "verdict": "需改造",
+    "clause": "单一 owner; DV-2 语义色切分",
+    "note": "fork 允许但语义色必须走 token；ghost/link 无场景不补",
+    "existing_component": "client/src/components/ui/badge.tsx:18-22"
+  },
+  {
+    "id": "B-04",
+    "source": "local:client/src/components/ui/badge.tsx",
+    "pattern": "反例：success=bg-green-700 text-white、warning=bg-yellow-700 text-white（高饱和实底+白字，不随主题）；同语义 .badge-success 用 --status-success-soft + --status-success-text",
+    "target": "badge.tsx variant 改用 status soft/text token 一族",
+    "verdict": "需改造",
+    "clause": "颜色压深不靠亮底; 单一 owner 同 token",
+    "note": "同一业务状态同屏可能出现两种视觉重量；深色主题下 text-white 与 --status-success-text 不一致",
+    "existing_component": "client/src/components/ui/badge.tsx:18-22; client/src/App.css:338"
+  },
+  {
+    "id": "B-05",
+    "source": "https://ant.design/components/badge",
+    "pattern": "13 个色预设（pink/red/yellow/orange/cyan/green/blue/purple/geekblue/magenta/volcano/gold/lime）",
+    "target": "不引入",
+    "verdict": "冲突淘汰",
+    "clause": "DV-2; Okabe-Ito 默认色板",
+    "note": "App.css 已有 5 类别色，应收敛到系列色 token 而非扩到 13；语义色与类别色二分不可混",
+    "existing_component": "client/src/App.css:363-384"
+  },
+  {
+    "id": "B-06",
+    "source": "https://ant.design/components/badge",
+    "pattern": "Badge.Ribbon 角标缎带",
+    "target": "不引入",
+    "verdict": "否",
+    "clause": "DV-2",
+    "note": "营销/电商语义，会与卡片头部状态徽标抢注意力",
+    "existing_component": "none"
+  },
+  {
+    "id": "B-07",
+    "source": "https://ui.shadcn.com/r/styles/new-york-v4/badge.json",
+    "pattern": "asChild + Slot 让徽标渲染为链接",
+    "target": "不引入",
+    "verdict": "否",
+    "clause": "44px 命中区",
+    "note": "徽标高度约 20px，可点击即获焦点语义与命中区要求，制造违规；跳转用相邻链接按钮",
+    "existing_component": "client/src/components/ui/badge.tsx"
+  }
+]

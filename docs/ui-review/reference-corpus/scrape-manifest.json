@@ -1,0 +1,137 @@
+{
+ "generated_at": "2026-11-15T11:32:58+08:00",
+ "search_keywords_done": [
+  "甘特图 设计",
+  "甘特图 交互设计",
+  "泳道图 设计",
+  "项目排期 界面",
+  "资源排期 设计",
+  "时间轴 任务管理 界面",
+  "B端 表格 设计",
+  "B端 工作台 设计",
+  "B端 数据看板 设计",
+  "B端 导航 设计",
+  "B端 批量操作 交互",
+  "AI Agent 工作台 设计",
+  "AI Agent UI 设计",
+  "Agent 界面设计",
+  "AI 前端设计",
+  "B端 排产系统 设计",
+  "资源管理 后台 界面",
+  "项目管理 经验"
+ ],
+ "search_keywords_missing": [
+  "复杂表格 设计",
+  "后台 表格 交互",
+  "表格 筛选 设计",
+  "行内编辑 表格",
+  "表格 信息密度",
+  "KPI 卡片 设计",
+  "后台 信息层级",
+  "后台 侧边栏 设计",
+  "B端 菜单 交互",
+  "空状态 设计 B端",
+  "骨架屏 设计",
+  "状态徽标 设计",
+  "错误状态 页面 设计",
+  "批量编辑 设计",
+  "二次确认 弹窗 设计",
+  "AI 任务管理 界面",
+  "B端 过度设计",
+  "表格 操作列 太多",
+  "后台 信息密度 太高 怎么设计"
+ ],
+ "search_blocked_keywords": [
+  "复杂表格 设计",
+  "后台 表格 交互",
+  "表格 筛选 设计",
+  "行内编辑 表格",
+  "表格 信息密度",
+  "KPI 卡片 设计",
+  "后台 信息层级",
+  "后台 侧边栏 设计",
+  "B端 菜单 交互",
+  "空状态 设计 B端",
+  "骨架屏 设计",
+  "状态徽标 设计",
+  "错误状态 页面 设计",
+  "批量编辑 设计",
+  "二次确认 弹窗 设计",
+  "AI 任务管理 界面",
+  "B端 过度设计",
+  "表格 操作列 太多",
+  "后台 信息密度 太高 怎么设计"
+ ],
+ "search_note": "xhs_search 5 次尝试（4 次批量 + 1 次单关键词探针）全部返回 DataFetchError、0 条结果；按协调指令停止重试。",
+ "pool_count": 340,
+ "detail_cached_before": 48,
+ "detail_fetched_now": 58,
+ "detail_total": 106,
+ "per_family": {
+  "甘特/排期": {
+   "detailed_total": 43,
+   "fetched_now": 8,
+   "quota": 6,
+   "quota_unfilled": 0
+  },
+  "表格": {
+   "detailed_total": 15,
+   "fetched_now": 14,
+   "quota": 14,
+   "quota_unfilled": 0
+  },
+  "工作台/看板": {
+   "detailed_total": 16,
+   "fetched_now": 12,
+   "quota": 12,
+   "quota_unfilled": 0
+  },
+  "导航": {
+   "detailed_total": 6,
+   "fetched_now": 6,
+   "quota": 6,
+   "quota_unfilled": 0
+  },
+  "状态/空态/加载": {
+   "detailed_total": 0,
+   "fetched_now": 0,
+   "quota": 14,
+   "quota_unfilled": 14
+  },
+  "批量/确认": {
+   "detailed_total": 14,
+   "fetched_now": 12,
+   "quota": 12,
+   "quota_unfilled": 0
+  },
+  "AI": {
+   "detailed_total": 12,
+   "fetched_now": 6,
+   "quota": 6,
+   "quota_unfilled": 0
+  }
+ },
+ "quota_unfilled": {
+  "状态/空态/加载": 14
+ },
+ "failed": [],
+ "failed_history": [
+  {
+   "note_id": "6ae571570000000018026dd1",
+   "error": "DataFetchError at 10:59; 重试成功 (11:32)"
+  },
+  {
+   "note_id": "66bdc5f50000000005039851",
+   "error": "DataFetchError at 10:59; 重试成功 (11:32)"
+  },
+  {
+   "note_id": "670f43860000000024014496",
+   "error": "DataFetchError at 10:59; 重试成功 (11:32)"
+  }
+ ],
+ "detail_block": {
+  "window": "2026-11-15T10:59:23+08:00 ~ 2026-11-15T11:31:36+08:00",
+  "symptom": "xhs_detail 批量调用返回 DataFetchError；11:31 后恢复，随后 14 条全部成功。",
+  "not_recovered_before_11_31": true
+ }
+}

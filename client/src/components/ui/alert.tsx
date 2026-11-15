@@ -4,7 +4,11 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
 const alertVariants = cva(
-  "relative w-full rounded-lg border p-4 [&>svg~*]:pl-7 [&>svg+div]:translate-y-[-3px] [&>svg]:absolute [&>svg]:left-4 [&>svg]:top-4 [&>svg]:text-foreground",
+  /* 2026-11-15 ⑨: 绝对定位图标+pl-7 魔法数 → grid 双列(上游 v4 思路,但显式
+     [&>svg~*]:col-start-2 保证任意多子件落第 2 列,不依赖上游 data-slot 包装);
+     几何等价: 16px 图标列 + gap 12px = 文本 28px 起点(原 pl-7);
+     无图标时 has-[] 不触发,单列堆叠零偏移 */
+  "relative w-full rounded-lg border p-4 grid gap-y-1 has-[>svg]:grid-cols-[calc(var(--spacing)*4)_1fr] has-[>svg]:gap-x-3 [&>svg]:translate-y-0.5 [&>svg]:text-foreground [&>svg~*]:col-start-2",
   {
     variants: {
       variant: {

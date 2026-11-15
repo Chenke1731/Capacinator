@@ -7,6 +7,14 @@ export type ErrorType = 'error' | 'warning' | 'info';
 export type ErrorSeverity = 'critical' | 'high' | 'medium' | 'low';
 export type ErrorCategory = 'structure' | 'data' | 'validation' | 'reference' | 'format' | 'system';
 
+/** 2026-11-15: 出口统一的定位前缀格式（V1/V2 importer 共用；此前两处内联重复——盲评 B1-6 收敛）。
+ *  输入是 toJSON() 后的序列化对象（含 location/detailedMessage/message）。 */
+export function formatWithLocation(e: { location?: string; detailedMessage?: string; message?: string }): string {
+  return e.location && e.location !== 'Unknown location'
+    ? `[${e.location}] ${e.detailedMessage || e.message || 'Unknown error'}`
+    : (e.detailedMessage || e.message || 'Unknown error');
+}
+
 /**
  * Progress reporting interface for import operations
  */

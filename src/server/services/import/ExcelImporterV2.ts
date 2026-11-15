@@ -25,7 +25,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { ImportOptions, ValidationResult, ValidationError, WorksheetValidation } from './ExcelImporter.js';
 import { BASELINE_SCENARIO_ID } from '../calc/effectiveAssignments.js';
 import { toISODateText } from '../calc/dateText.js';
-import { ImportErrorCollector } from './ImportError.js';
+import { ImportErrorCollector, formatWithLocation } from './ImportError.js';
 
 export interface ImportResultV2 {
   success: boolean;
@@ -1377,13 +1377,9 @@ export class ExcelImporterV2 {
       // Collect all structured errors and warnings
       // 2026-11-15: 出口带定位前缀——ImportError.toJSON 本就含 location(Sheet/Row/Column/Field),
       // 旧出口 map(e=>e.detailedMessage) 压平丢失行/列/字段(V3 实测 analyze 响应无行号)
-      const withLocation = (e: { location?: string; detailedMessage?: string; message?: string }): string =>
-        e.location && e.location !== 'Unknown location'
-          ? `[${e.location}] ${e.detailedMessage || e.message || 'Unknown error'}`
-          : (e.detailedMessage || e.message || 'Unknown error');
       const errorSummary = errorCollector.toJSON();
-      result.errors.push(...errorSummary.errors.map(withLocation));
-      result.warnings.push(...errorSummary.warnings.map(withLocation));
+      result.errors.push(...errorSummary.errors.map(formatWithLocation));
+      result.warnings.push(...errorSummary.warnings.map(formatWithLocation));
 
       // Check if there were any errors
       if (errorCollector.hasErrors() || result.errors.length > 0) {

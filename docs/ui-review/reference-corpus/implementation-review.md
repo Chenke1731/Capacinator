@@ -232,3 +232,17 @@
 - 盲评（frontend-ui-reviewer，judged 三节）：P1 簇已修销，P2 已裁决落地，P3 三项收/记
 
 **遗留清单**（不随本批）：导入覆盖/跳过策略（等 IP-05"同名≠身份"裁决）、失败行导出（#5 增量）、G2 守卫（dashboard fixture 四型告警全覆盖）、PersonWorkload.css 48 条存量色彩债、AR 长码 nowrap+全文可达（存量 NIT）、服务端 3110 常驻实例需重启才见 ⑤ 效果。
+
+### 11.1 Batch 2/3 执行结果（同日续批）
+
+| 项 | commit | 结果 |
+|---|---|---|
+| dev 重启 | — | 受管双后台任务保活（node v22，绕开 shell v18 与 better-sqlite3 ABI 不符）；⑤ 线上实测 `[Sheet: Roster, Row: 2, Column: Role] Role not found: Ghost-Role…` |
+| ⑨ Alert grid 化 | 0f5458e | 绝对定位+pl-7 → grid 双列（显式 col-start-2）；消费面 43/43；截图确认对齐 |
+| ⑧ 饼图→堆叠条 | 0fe2e6f | DV-4 销账；Dashboard 50/50（loading 断言同步 ⑥ 的 findByText）；colors 零新增；双主题实测 |
+| Batch 3 甘特条内分栏 | 9634659 | "进度"口径自解（条内本有 allocation%）；live 双主题：名称左锚/%右缘 6px/零裁切/今日线无遮挡；PersonWorkload 85/85 |
+
+- 门禁：Batch 2、Batch 3 各自 verify:pr --skip-e2e exit 0（累计四跑全绿）。
+- 过程教训（已入记忆 git-checkout-baseline-comparison）：基线对照用 `git checkout <ref> --` 覆盖了未提交的 Batch-3 改动（stash 已 pop、checkout 只认 commit），靠会话记录重放恢复——铁律的 hook 模式拦不住带 ref 的变体。
+- 新增存量记账：WorkloadGanttDrag 4 例失败在基线 bd9920e 即存在（3 拖拽基准 + 1 手柄降级，疑似 jsdom/trackWidth 量测漂移），与本三批无关，待专项排查。
+- 协议补账：Batch 2/3 的 UI diff 盲评于收口后补派（Batch 1 当时已派）；结论见评审记录。

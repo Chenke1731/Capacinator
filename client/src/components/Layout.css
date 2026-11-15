@@ -28,6 +28,7 @@
   flex-direction: column;
   align-items: center;
   gap: 0.75rem;
+  flex-shrink: 0;
 }
 
 .sidebar-header h1 {
@@ -63,6 +64,8 @@
 
 .nav-list {
   flex: 1;
+  min-height: 0;
+  overflow-y: auto;
   list-style: none;
   margin: 0;
   padding: 1rem 0;
@@ -107,6 +110,7 @@
 
 .sidebar-footer {
   padding: 1rem 1.5rem;
+  flex-shrink: 0;
   border-top: 1px solid var(--border-color);
   font-size: 0.75rem;
   color: var(--text-tertiary);

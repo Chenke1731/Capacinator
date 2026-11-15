@@ -231,6 +231,21 @@
   width: 21%;
 }
 
+/* Long project names must wrap inside the fixed-width project column instead
+   of protruding past the table cell (nightly container-protrusion). */
+.person-workload-page .pw-table td.pw-col-project {
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+.person-workload-page .pw-project {
+  min-width: 0;
+}
+
+.person-workload-page .pw-project > span {
+  overflow-wrap: anywhere;
+}
+
 .person-workload-page .pw-col-role {
   width: 6%;
 }

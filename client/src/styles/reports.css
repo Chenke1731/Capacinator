@@ -34,7 +34,7 @@
   transform: translateY(-2px);
 }
 
-.reports-tab-content .summary-card h3 {
+.reports-tab-content .summary-card h4 {
   margin: 0 0 0.5rem 0;
   font-size: 0.875rem;
   color: var(--text-secondary);
@@ -155,7 +155,7 @@
 
 .report-table-container h3 {
   margin: 0 0 1rem 0;
-  font-size: 1.25rem;
+  font-size: 1.125rem;
   color: var(--text-primary);
   font-weight: 600;
 }

@@ -22,7 +22,6 @@ import {
   Card,
   CardContent,
   CardHeader,
-  CardTitle,
 } from '../components/ui/card';
 import { Badge } from '../components/ui/badge';
 import { Skeleton } from '../components/ui/skeleton';
@@ -352,7 +351,7 @@ export function ProjectDetail() {
                   className="w-4 h-4 rounded-full flex-shrink-0"
                   style={{ backgroundColor: project.project_type?.color_code || 'var(--color-gray)' }}
                 />
-                <CardTitle className="text-2xl font-bold">
+                <h1 className="text-2xl font-bold leading-none tracking-tight m-0">
                   {project.name}
                   {/* 引用码: 截图/口头精确指代;点击复制,搜索框粘贴可定位(不入列表列) */}
                   <button
@@ -363,7 +362,7 @@ export function ProjectDetail() {
                   >
                     {projectRefCode((project as any).seq_number)}
                   </button>
-                </CardTitle>
+                </h1>
                 {(project as any).tags?.length > 0 && (
                   <span className="flex items-center gap-1.5 ml-2">
                     {(project as any).tags.map((tag: any) => (

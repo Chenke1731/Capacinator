@@ -304,7 +304,7 @@ export function TagsCell({
             onClick={(e) => { e.stopPropagation(); onFilterByTag(tag.id); }}
           >
             <span className="req-tag-dot" style={{ background: tag.color || 'var(--tag-default-color)' }} />
-            {tag.name}
+            <span>{tag.name}</span>
           </button>
         ))}
         {tags.length > 2 && (

@@ -29,6 +29,16 @@
   font-weight: 500;
 }
 
+/* Paused rows stay visible but are tinted at the row level. Never use
+   row opacity: it drops every nested badge/date below WCAG 4.5:1. */
+.assignments-page .assignment-row--paused {
+  background: var(--bg-secondary);
+}
+
+.assignments-page .assignment-row--paused:hover {
+  background: var(--table-hover-bg, var(--bg-secondary));
+}
+
 .allocation-cell {
   display: flex;
   align-items: center;

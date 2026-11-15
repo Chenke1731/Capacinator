@@ -696,7 +696,7 @@ input:focus, select:focus, textarea:focus {
 .chart-header h3 {
   margin: 0 0 5px 0;
   color: hsl(var(--foreground));
-  font-size: 1.25rem;
+  font-size: 1.125rem;
   font-weight: 600;
 }
 

@@ -52,8 +52,8 @@ Thumbs.db
 coverage/
 .nyc_output/
 
-# Test reports
-reports/
+# Test reports (root only; do not ignore client/src/components/reports)
+/reports/
 .stryker-tmp/
 test-results/
 playwright-report/

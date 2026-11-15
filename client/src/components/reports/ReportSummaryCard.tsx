@@ -27,7 +27,7 @@ export const ReportSummaryCard: React.FC<ReportSummaryCardProps> = ({
   
   return (
     <div className={`summary-card ${className}`}>
-      <h3>{title}</h3>
+      <h4>{title}</h4>
       <div className={`metric ${metricClass}`}>
         {metric}{unit}
       </div>

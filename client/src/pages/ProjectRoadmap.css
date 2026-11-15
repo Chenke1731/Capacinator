@@ -623,11 +623,15 @@
 /* Projects Timeline */
 .projects-timeline {
   padding: 0;
+  width: max-content;
+  min-width: 100%;
   background: hsl(var(--background)); /* Light mode: white, Dark mode: dark */
 }
 
 .project-row {
   display: flex;
+  width: max-content;
+  min-width: 100%;
   border-bottom: none;
   height: 52px;
   position: relative;
@@ -713,7 +717,7 @@
 }
 
 .project-phase-count-inline {
-  font-size: 0.55rem;
+  font-size: 0.625rem;
   padding: 0.15rem 0.25rem;
   border-radius: 3px;
   font-weight: 600;
@@ -763,7 +767,7 @@
 }
 
 .priority-badge {
-  font-size: 0.55rem;
+  font-size: 0.625rem;
   padding: 0.15rem 0.25rem;
   border-radius: 3px;
   font-weight: 700;
@@ -779,7 +783,7 @@
 }
 
 .project-type-compact {
-  font-size: 0.55rem;
+  font-size: 0.625rem;
   padding: 0.15rem 0.25rem;
   border-radius: 3px;
   font-weight: 600;
@@ -796,7 +800,7 @@
 }
 
 .project-status-compact {
-  font-size: 0.55rem;
+  font-size: 0.625rem;
   padding: 0.15rem 0.25rem;
   border-radius: 3px;
   font-weight: 600;
@@ -947,12 +951,14 @@
 }
 
 .project-timeline {
-  flex: 1;
+  /* Use the inline timelineWidth from the component; do not let flex stretch
+     it to the row width (that produced the 400px protrusion). */
+  flex: none;
   position: relative;
   height: 52px;
   padding: 0;
   width: max-content;
-  min-width: 100%;
+  min-width: 0;
   background: hsl(var(--background));
   display: flex;
   align-items: center;
@@ -1031,7 +1037,7 @@
   justify-content: space-between;
   cursor: move;
   color: var(--solid-foreground);
-  font-size: 0.6rem;
+  font-size: 0.625rem;
   font-weight: 600;
   text-shadow: 0 1px 3px color-mix(in srgb, var(--solid-shade) 40%, transparent);
   letter-spacing: 0;
@@ -1262,7 +1268,7 @@
   .priority-badge,
   .project-type-compact,
   .project-status-compact {
-    font-size: 0.6rem;
+    font-size: 0.625rem;
     padding: 0.1rem 0.25rem;
   }
   
@@ -1515,7 +1521,9 @@ body.dragging * {
   bottom: 0;
   width: 2px;
   background: linear-gradient(to bottom, var(--status-danger-border), var(--status-danger-border));
-  z-index: 20;
+  /* Keep the today line below the sticky timeline header (z-index 10) so it
+     cannot paint over header labels such as the resize handle "↔". */
+  z-index: 8;
   pointer-events: none;
   box-shadow: 0 0 8px color-mix(in srgb, var(--status-danger-border) 50%, transparent);
 }
@@ -1549,7 +1557,7 @@ body.dragging * {
   font-weight: 600;
   white-space: nowrap;
   box-shadow: 0 2px 8px color-mix(in srgb, var(--status-danger-border) 30%, transparent);
-  z-index: 25;
+  z-index: 9;
   animation: todayPulse 2s ease-in-out infinite;
 }
 

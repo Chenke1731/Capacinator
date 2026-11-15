@@ -246,8 +246,8 @@ export default function Assignments() {
                   padding: '2px 6px',
                   fontSize: '10px',
                   borderRadius: '4px',
-                  backgroundColor: 'var(--primary-light)',
-                  color: 'var(--primary-text)',
+                  backgroundColor: 'var(--badge-primary-bg)',
+                  color: 'var(--badge-primary-text)',
                   fontWeight: '500',
                   whiteSpace: 'nowrap'
                 }}>
@@ -656,8 +656,9 @@ export default function Assignments() {
         // route, so navigating there was a pointless round trip
         onRowClick={handleEditAssignment}
         itemsPerPage={20}
-        // paused rows stay visible (resumable) but greyed — they left capacity math
-        rowClassName={(row) => (row as any).status === 'paused' ? 'opacity-55' : undefined}
+        // paused rows stay visible (resumable) with a tinted background — do not
+        // apply row-level opacity: it pushed every badge/label below 4.5:1.
+        rowClassName={(row) => (row as any).status === 'paused' ? 'assignment-row--paused' : undefined}
       />
     </>
   );

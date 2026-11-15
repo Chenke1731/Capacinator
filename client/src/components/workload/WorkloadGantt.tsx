@@ -90,7 +90,12 @@ interface DragState {
 interface BarModel {
   key: string;
   kind: 'committed' | 'ghost';
+  /** 完整串（title/aria/OOR 列表用）；条面显示走 textMain/textTail 分栏 */
   label: string;
+  /** Batch3(2026-11-15): 条内分栏——主文本(项目·角色,左侧可 ellipsis) */
+  textMain: string;
+  /** Batch3(2026-11-15): 尾缀(投入%,右侧钉住不裁) */
+  textTail: string;
   startDate: string | null;
   endDate: string | null;
   status: string | null;
@@ -429,6 +434,8 @@ export function WorkloadGantt({
         key: String(row.id),
         kind: 'committed',
         label: `${row.project_name ?? ''} · ${row.role_name ?? ''} · ${allocation}%`,
+        textMain: `${row.project_name ?? ''} · ${row.role_name ?? ''}`,
+        textTail: `${allocation}%`,
         startDate: start,
         endDate: end,
         status: row.status ?? null,
@@ -446,6 +453,9 @@ export function WorkloadGantt({
         key: draft.draftId,
         kind: 'ghost',
         label: `${draft.projectName} · ${draft.roleName ?? ''} · ${allocation}% (${t('assignments:workbench.gantt.ghost')})`,
+        /* 草稿标记留主文本侧(窄条时随 ellipsis 让位);尾缀只放 % 保右缘锚定 */
+        textMain: `${draft.projectName} · ${draft.roleName ?? ''} (${t('assignments:workbench.gantt.ghost')})`,
+        textTail: `${allocation}%`,
         startDate: draft.startDate,
         endDate: draft.endDate,
         status: draft.submitState === 'SUBMITTING' ? 'submitting' : null,
@@ -776,7 +786,10 @@ export function WorkloadGantt({
                         {(bar.mode === 'phase' || bar.mode === 'project') && bar.kind === 'committed' ? (
                           <Lock size={10} className="pw-gantt-lock" aria-hidden="true" />
                         ) : null}
-                        <span className="pw-gantt-bar-text">{bar.label}</span>
+                        <span className="pw-gantt-bar-text">
+                          <span className="pw-gantt-bar-name">{bar.textMain}</span>
+                          <span className="pw-gantt-bar-pct">{bar.textTail}</span>
+                        </span>
                         {showResizeHandles ? (
                           <span
                             className="pw-gantt-resize pw-gantt-resize--end"

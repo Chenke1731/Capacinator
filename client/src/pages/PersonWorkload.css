@@ -1417,6 +1417,25 @@
   min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
+  /* Batch3(2026-11-15): DHTMLX 式条内分栏——简称左(可 ellipsis)/投入% 右(不裁)。
+     V4 实测: 最窄 bar 163−12px padding=151px 可用 > 最长组合 ~139px。 */
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.person-workload-page .pw-gantt-bar-name {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.person-workload-page .pw-gantt-bar-pct {
+  flex: none;
+  font-variant-numeric: tabular-nums;
 }
 
 .person-workload-page .pw-gantt-bar--derived {

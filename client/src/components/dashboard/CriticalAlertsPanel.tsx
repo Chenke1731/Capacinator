@@ -34,27 +34,28 @@ interface CriticalAlertsPanelProps {
 const ALERT_CONFIG = {
   capacity_gap: {
     icon: Users,
-    color: 'text-red-600 dark:text-red-400',
-    bgColor: 'bg-red-50 dark:bg-red-500/15',
-    borderColor: 'border-red-200 dark:border-red-500/30'
+    color: 'text-[var(--status-danger-text)]',
+    bgColor: 'bg-[var(--status-danger-soft)]',
+    borderColor: 'border-[var(--status-danger-border)]'
   },
   project_risk: {
     icon: AlertTriangle,
+    /* orange 无对应 --status-* token（未入 token 集），暂保留调色板直书并注明 */
     color: 'text-orange-600 dark:text-orange-400',
     bgColor: 'bg-orange-50 dark:bg-orange-500/15',
     borderColor: 'border-orange-200 dark:border-orange-500/30'
   },
   deadline_warning: {
     icon: Clock,
-    color: 'text-yellow-700 dark:text-yellow-400', /* 浅色 600 对 yellow-50 3.08<4.5,压深一档 4.86 */
-    bgColor: 'bg-yellow-50 dark:bg-yellow-500/15',
-    borderColor: 'border-yellow-200 dark:border-yellow-500/30'
+    color: 'text-[var(--status-warning-text)]', /* token 双主题定义，浅色 #92400e/#fed7aa 已过 4.5 */
+    bgColor: 'bg-[var(--status-warning-soft)]',
+    borderColor: 'border-[var(--status-warning-border)]'
   },
   over_allocation: {
     icon: TrendingDown,
-    color: 'text-red-600 dark:text-red-400',
-    bgColor: 'bg-red-50 dark:bg-red-500/15',
-    borderColor: 'border-red-200 dark:border-red-500/30'
+    color: 'text-[var(--status-danger-text)]',
+    bgColor: 'bg-[var(--status-danger-soft)]',
+    borderColor: 'border-[var(--status-danger-border)]'
   }
 };
 

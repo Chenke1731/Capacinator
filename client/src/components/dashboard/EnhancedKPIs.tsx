@@ -35,28 +35,30 @@ interface KPIMetric {
 }
 
 const STATUS_CONFIG = {
+  /* 状态色统一走 --status-* token（index.css:1563-1578/1694-1709 双主题定义），
+     不再直书 Tailwind 调色板——两套色语言是 2026-11-15 色家族审计已知债 */
   excellent: {
-    color: 'text-green-600',
-    bgColor: 'bg-green-50',
-    borderColor: 'border-green-200',
+    color: 'text-[var(--status-success-text)]',
+    bgColor: 'bg-[var(--status-success-soft)]',
+    borderColor: 'border-[var(--status-success-border)]',
     icon: CheckCircle
   },
   good: {
-    color: 'text-blue-600',
-    bgColor: 'bg-blue-50',
-    borderColor: 'border-blue-200',
+    color: 'text-[var(--status-info-text)]',
+    bgColor: 'bg-[var(--status-info-soft)]',
+    borderColor: 'border-[var(--status-info-border)]',
     icon: TrendingUp
   },
   warning: {
-    color: 'text-yellow-700', /* 600 对 yellow-50 仅 3.08<4.5,压深一档 4.86 */
-    bgColor: 'bg-yellow-50',
-    borderColor: 'border-yellow-200',
+    color: 'text-[var(--status-warning-text)]', /* token 组合 #92400e/#fed7aa 对比度已过 4.5 */
+    bgColor: 'bg-[var(--status-warning-soft)]',
+    borderColor: 'border-[var(--status-warning-border)]',
     icon: AlertCircle
   },
   critical: {
-    color: 'text-red-600',
-    bgColor: 'bg-red-50',
-    borderColor: 'border-red-200',
+    color: 'text-[var(--status-danger-text)]',
+    bgColor: 'bg-[var(--status-danger-soft)]',
+    borderColor: 'border-[var(--status-danger-border)]',
     icon: TrendingDown
   }
 };
@@ -290,11 +292,11 @@ export function EnhancedKPIs({ dashboard, className = '' }: EnhancedKPIsProps) {
                     <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
                       <div
                         className={`h-2 rounded-full transition-all ${
-                          kpi.value >= kpi.target 
-                            ? 'bg-green-500 dark:bg-green-400' 
-                            : kpi.value >= kpi.target * 0.8 
-                            ? 'bg-yellow-500 dark:bg-yellow-400' 
-                            : 'bg-red-500'
+                          kpi.value >= kpi.target
+                            ? 'bg-[var(--status-success-solid)]'
+                            : kpi.value >= kpi.target * 0.8
+                            ? 'bg-[var(--status-warning-solid)]'
+                            : 'bg-[var(--status-danger-solid)]'
                         }`}
                         style={{ width: `${Math.min(100, (kpi.value / kpi.target) * 100)}%` }}
                         role="progressbar"
@@ -309,11 +311,11 @@ export function EnhancedKPIs({ dashboard, className = '' }: EnhancedKPIsProps) {
                   <p className="text-xs text-muted-foreground">{kpi.description}</p>
 
                   {kpi.value === 0 && kpi.id === 'resource-efficiency' ? (
-                    <div className="text-xs text-yellow-700 mt-2 p-2 bg-yellow-50 rounded">
+                    <div className="text-xs text-[var(--status-warning-text)] mt-2 p-2 bg-[var(--status-warning-soft)] rounded">
                       {t('dashboard:kpis.noAllocations')}
                     </div>
                   ) : (
-                    <div className="text-xs font-medium text-blue-600 dark:text-blue-400 mt-2">
+                    <div className="text-xs font-medium text-[var(--status-info-text)] mt-2">
                       {kpi.actionText} →
                     </div>
                   )}

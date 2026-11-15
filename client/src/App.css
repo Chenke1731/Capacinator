@@ -2620,6 +2620,9 @@ body.req-col-dragging * {
   min-width: 0;
   max-width: 100%;
   overflow: hidden;
+  /* 2026-11-15 存量收口: AR-2026-xxx 长码在 80px 轨道换行(行高不齐)——
+     单行+ellipsis,全文经 title 兜底(IX-4,Projects.tsx 渲染处已带 value) */
+  white-space: nowrap;
   text-overflow: ellipsis;
   font-size: var(--b-fs-body); /* mono 码值统一 body 档(2026-09-23 ONES 借鉴) */
   font-weight: 400;

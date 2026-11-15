@@ -75,7 +75,8 @@ function NumberPart({ project, onSaved }: { project: any; onSaved: () => void })
   }
   return (
     <span className="req-edit-cell req-edit-cell--number" onClick={(e) => e.stopPropagation()}>
-      <button type="button" className="req-number-part req-editable" title={t('projects:number.hint')}
+      <button type="button" className="req-number-part req-editable"
+              title={value ? `${value} · ${t('projects:number.hint')}` : t('projects:number.hint')}
               onClick={() => { setDraft(value); setEditing(true); }}>
         {/* 空外部号时弱化显示 #序号: 列表截图永远携带可指代标识(# 自区分于 SR/AR 号) */}
         {value || <span className="text-muted">CAP-{project.seq_number}</span>}

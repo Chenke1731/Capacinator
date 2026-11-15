@@ -204,6 +204,25 @@ describe('CriticalAlertsPanel', () => {
       expect(screen.getByTestId('trending-down-icon')).toBeInTheDocument();
     });
 
+    /* G2（2026-11-15 盲评候选）：四型告警的图标色必须走 --status-* token——
+       此前 project_risk 直书 orange 浅色 3.35:1（B1-3/D1 修复），本断言防回退 */
+    it('assigns status-token color class per alert type (G2)', () => {
+      render(<CriticalAlertsPanel alerts={mockAlerts} />);
+
+      const expected: Array<[RegExp, string]> = [
+        [/Capacity Gap Detected/, 'text-[var(--status-danger-text)]'],
+        [/Project at Risk/, 'text-[var(--status-risk-text)]'],
+        [/Upcoming Deadline/, 'text-[var(--status-warning-text)]'],
+        [/Over Allocation/, 'text-[var(--status-danger-text)]'],
+      ];
+      for (const [titleRe, tokenClass] of expected) {
+        const title = screen.getByText(titleRe);
+        const item = title.closest('[role="listitem"]');
+        const icon = item?.querySelector('svg');
+        expect(icon?.getAttribute('class')).toContain(tokenClass);
+      }
+    });
+
     it('renders ChevronRight icon for all alerts', () => {
       render(<CriticalAlertsPanel alerts={mockAlerts} />);
 

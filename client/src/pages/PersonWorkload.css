@@ -161,7 +161,7 @@
 }
 
 .person-workload-page .pw-row--deeplink > td {
-  background: color-mix(in srgb, var(--primary-color, #2563eb) 18%, transparent);
+  background: color-mix(in srgb, var(--primary-color) 18%, transparent);
   transition: background 0.3s ease-out;
 }
 
@@ -817,7 +817,7 @@
   /* 全局层序阶梯模态档（评审 G-03）：遮罩必须盖过 AppHeader(z:1000)，
    * 否则场景切换器/个人菜单在 aria-modal 弹窗下仍可点。 */
   z-index: 1100;
-  background: color-mix(in srgb, var(--bg-primary, #0b1220) 55%, transparent);
+  background: color-mix(in srgb, var(--bg-primary) 55%, transparent);
   display: flex;
   justify-content: center;
   align-items: flex-start;
@@ -831,7 +831,7 @@
   background: var(--bg-secondary);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-lg, 12px);
-  box-shadow: var(--shadow-lg, 0 18px 48px rgba(0, 0, 0, 0.35));
+  box-shadow: var(--shadow-lg);
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -887,7 +887,7 @@
 }
 
 .person-workload-page .pw-dialog-heat-over {
-  color: var(--danger, #d92d20);
+  color: var(--danger);
   font-weight: var(--font-semibold, 600);
   margin-left: 0.5rem;
 }
@@ -1006,12 +1006,12 @@
 .person-workload-page .pw-composer-hint {
   flex-basis: 100%;
   font-size: var(--text-xs);
-  color: var(--warning, #b54708);
+  color: var(--warning);
 }
 
 .person-workload-page .pw-dialog-flash {
   font-size: var(--text-sm);
-  color: var(--success, #067647);
+  color: var(--success);
 }
 
 .person-workload-page .pw-dialog-actions {
@@ -1076,7 +1076,7 @@
 }
 
 .person-workload-page .pw-board-row--checked {
-  background: color-mix(in srgb, var(--primary-color, #2563eb) 8%, transparent);
+  background: color-mix(in srgb, var(--primary-color) 8%, transparent);
 }
 
 .person-workload-page .pw-board-subtype {
@@ -1103,7 +1103,7 @@
 
 .person-workload-page .pw-board-reason {
   font-size: var(--text-xs);
-  color: var(--warning, #b54708);
+  color: var(--warning);
 }
 
 .person-workload-page .pw-board--loading,
@@ -1115,7 +1115,7 @@
 }
 
 .person-workload-page .pw-board--error {
-  color: var(--danger, #d92d20);
+  color: var(--danger);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1153,7 +1153,7 @@
 .person-workload-page .pw-heat-bar {
   flex: 1;
   min-width: 3px;
-  background: var(--primary-color, #2563eb);
+  background: var(--primary-color);
   opacity: 0.55;
   border-radius: 2px 2px 0 0;
 }
@@ -1161,10 +1161,10 @@
 .person-workload-page .pw-heat-bar--over {
   background: repeating-linear-gradient(
     45deg,
-    var(--danger, #d92d20),
-    var(--danger, #d92d20) 3px,
-    color-mix(in srgb, var(--danger, #d92d20) 55%, transparent) 3px,
-    color-mix(in srgb, var(--danger, #d92d20) 55%, transparent) 6px
+    var(--danger),
+    var(--danger) 3px,
+    color-mix(in srgb, var(--danger) 55%, transparent) 3px,
+    color-mix(in srgb, var(--danger) 55%, transparent) 6px
   );
   opacity: 0.95;
 }
@@ -1187,7 +1187,7 @@
   align-items: center;
   gap: 0.2rem;
   font-size: var(--text-xs);
-  color: var(--danger, #d92d20);
+  color: var(--danger);
   white-space: nowrap;
 }
 
@@ -1274,7 +1274,7 @@
   width: 14px;
   height: 8px;
   border-radius: 2px;
-  background: var(--primary-color, #2563eb);
+  background: var(--primary-color);
 }
 
 .person-workload-page .pw-legend--derived::before {
@@ -1382,7 +1382,7 @@
   top: 0;
   bottom: 0;
   width: 1px;
-  background: var(--warning, #b54708);
+  background: var(--warning);
   opacity: 0.7;
 }
 
@@ -1404,7 +1404,7 @@
   gap: 2px;
   border: none;
   border-radius: 3px;
-  background: var(--primary-color, #2563eb);
+  background: var(--primary-color);
   color: var(--bg-secondary);
   font-size: 10px;
   white-space: nowrap;
@@ -1439,7 +1439,7 @@
 }
 
 .person-workload-page .pw-gantt-bar--derived {
-  background: repeating-linear-gradient(90deg, var(--primary-color, #2563eb), var(--primary-color, #2563eb) 6px, color-mix(in srgb, var(--primary-color, #256320) 40%, transparent) 6px, color-mix(in srgb, var(--primary-color, #2563eb) 40%, transparent) 10px);
+  background: repeating-linear-gradient(90deg, var(--primary-color), var(--primary-color) 6px, color-mix(in srgb, var(--primary-color) 40%, transparent) 6px, color-mix(in srgb, var(--primary-color) 40%, transparent) 10px);
   opacity: 0.85;
 }
 
@@ -1477,13 +1477,13 @@
 }
 
 .person-workload-page .pw-gantt-bar--ghost.pw-gantt-bar--conflict {
-  border-color: var(--danger, #d92d20);
-  box-shadow: 0 0 0 1px var(--danger, #d92d20);
+  border-color: var(--danger);
+  box-shadow: 0 0 0 1px var(--danger);
 }
 
 .person-workload-page .pw-gantt-bar--ghost.pw-gantt-bar--invalid {
-  border-color: var(--warning, #b54708);
-  box-shadow: 0 0 0 1px var(--warning, #b54708);
+  border-color: var(--warning);
+  box-shadow: 0 0 0 1px var(--warning);
 }
 
 .person-workload-page .pw-gantt-bar--submitting {
@@ -1492,7 +1492,7 @@
 }
 
 .person-workload-page .pw-gantt-bar--failed {
-  box-shadow: 0 0 0 2px var(--danger, #d92d20);
+  box-shadow: 0 0 0 2px var(--danger);
 }
 
 .person-workload-page .pw-gantt-empty {
@@ -1519,9 +1519,9 @@
   flex-wrap: wrap;
   gap: var(--space-2);
   padding: var(--space-2) var(--space-3);
-  border: 1px solid var(--primary-color, #2563eb);
+  border: 1px solid var(--primary-color);
   border-radius: var(--radius-md, 8px);
-  background: color-mix(in srgb, var(--primary-color, #2563eb) 6%, var(--bg-secondary));
+  background: color-mix(in srgb, var(--primary-color) 6%, var(--bg-secondary));
 }
 
 .person-workload-page .pw-commit-count {
@@ -1541,13 +1541,13 @@
 }
 
 .person-workload-page .pw-commit-flag--invalid {
-  color: var(--warning, #b54708);
-  border-color: var(--warning, #b54708);
+  color: var(--warning);
+  border-color: var(--warning);
 }
 
 .person-workload-page .pw-commit-flag--conflict {
-  color: var(--danger, #d92d20);
-  border-color: var(--danger, #d92d20);
+  color: var(--danger);
+  border-color: var(--danger);
 }
 
 .person-workload-page .pw-commit-flag--unknown {
@@ -1556,8 +1556,8 @@
 }
 
 .person-workload-page .pw-commit-flag--overload {
-  color: var(--warning, #b54708);
-  border-color: var(--warning, #b54708);
+  color: var(--warning);
+  border-color: var(--warning);
 }
 
 .person-workload-page .pw-commit-summary {
@@ -1573,7 +1573,7 @@
 }
 
 .person-workload-page .pw-commit-bar:focus {
-  outline: 2px solid var(--primary-color, #2563eb);
+  outline: 2px solid var(--primary-color);
   outline-offset: 2px;
 }
 
@@ -1613,17 +1613,17 @@
 }
 
 .person-workload-page .pw-inspector-kind--replace {
-  color: var(--danger, #d92d20);
-  border-color: var(--danger, #d92d20);
+  color: var(--danger);
+  border-color: var(--danger);
 }
 
 .person-workload-page .pw-inspector-incumbent {
   display: flex;
   gap: 0.5rem;
   padding: var(--space-2);
-  border: 1px solid var(--warning, #b54708);
+  border: 1px solid var(--warning);
   border-radius: var(--radius-md, 8px);
-  color: var(--warning, #b54708);
+  color: var(--warning);
   font-size: var(--text-sm);
 }
 
@@ -1678,17 +1678,17 @@
 }
 
 .person-workload-page .pw-error--conflict {
-  color: var(--danger, #d92d20);
+  color: var(--danger);
 }
 
 .person-workload-page .pw-error--invalid {
-  color: var(--warning, #b54708);
+  color: var(--warning);
 }
 
 .person-workload-page .pw-inspector-submit-error {
   margin: 0;
   font-size: var(--text-xs);
-  color: var(--danger, #d92d20);
+  color: var(--danger);
 }
 
 .person-workload-page .pw-inspector-unknown {
@@ -1712,7 +1712,7 @@
   display: inline-flex;
   align-items: center;
   gap: 0.25rem;
-  color: var(--warning, #b54708);
+  color: var(--warning);
   font-size: var(--text-xs);
 }
 
@@ -1777,7 +1777,7 @@
 }
 
 .person-workload-page .pw-gantt-bar:focus-visible {
-  outline: 2px solid var(--primary-color, #2563eb);
+  outline: 2px solid var(--primary-color);
   outline-offset: 1px;
 }
 
@@ -1842,20 +1842,20 @@
 }
 
 .person-workload-page .pw-minimap-month--active {
-  border-bottom-color: var(--primary-color, #2563eb);
-  background: color-mix(in srgb, var(--primary-color, #2563eb) 10%, transparent);
+  border-bottom-color: var(--primary-color);
+  background: color-mix(in srgb, var(--primary-color) 10%, transparent);
 }
 
 .person-workload-page .pw-minimap-bar {
   width: 8px;
   min-height: 3px;
-  background: var(--primary-color, #2563eb);
+  background: var(--primary-color);
   opacity: 0.55;
   border-radius: 1px 1px 0 0;
 }
 
 .person-workload-page .pw-minimap-month--over .pw-minimap-bar {
-  background: var(--danger, #d92d20);
+  background: var(--danger);
   opacity: 0.9;
 }
 
@@ -1896,8 +1896,8 @@
 }
 
 .person-workload-page .pw-commit-bar--undo {
-  border-color: var(--success, #067647);
-  background: color-mix(in srgb, var(--success, #067647) 6%, var(--bg-secondary));
+  border-color: var(--success);
+  background: color-mix(in srgb, var(--success) 6%, var(--bg-secondary));
 }
 
 .person-workload-page .pw-dialog-recent {
@@ -1916,7 +1916,7 @@
 
 .person-workload-page .pw-chip--quick {
   border-style: dashed;
-  color: var(--primary-color, #2563eb);
+  color: var(--primary-color);
 }
 
 .person-workload-page .pw-project-staffing {
@@ -1964,7 +1964,7 @@
 
 .person-workload-page .pw-staffing-truncated {
   font-size: var(--text-xs);
-  color: var(--warning, #b54708);
+  color: var(--warning);
 }
 
 .person-workload-page .pw-staffing-row--paused {

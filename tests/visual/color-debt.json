@@ -8415,7 +8415,7 @@
       "semanticRole": "class-or-token-key",
       "reason": "TC-C6: getOverrideTypeColor返回CSS变量键/徽章类后缀，调用方拼接var(--color-*)或badge-*，不作为CSS字面颜色",
       "evidence": [],
-      "classificationSourceHash": "0ce035c92465e2a4b24d588195acb8b96e68ee06eb3bae7f9ccae60ac80029ed",
+      "classificationSourceHash": "0dc22f43ebffb1f59ce5e8a05ead64caf8f041f082e67b103a0a61f51ba0296e",
       "classificationNote": "2026-11-11 重批(D-04 Stage 2):色词仍为 badge-${} 类名片段(260 行)与 --color-${} token 名片段(225 行),非颜色字面量;弹窗迁 Radix 致文件哈希陈旧,逐条复核后刷新"
     },
     {
@@ -8440,7 +8440,7 @@
       "semanticRole": "class-or-token-key",
       "reason": "TC-C6: getOverrideTypeColor返回CSS变量键/徽章类后缀，调用方拼接var(--color-*)或badge-*，不作为CSS字面颜色",
       "evidence": [],
-      "classificationSourceHash": "0ce035c92465e2a4b24d588195acb8b96e68ee06eb3bae7f9ccae60ac80029ed",
+      "classificationSourceHash": "0dc22f43ebffb1f59ce5e8a05ead64caf8f041f082e67b103a0a61f51ba0296e",
       "classificationNote": "2026-11-11 重批(D-04 Stage 2):色词仍为 badge-${} 类名片段(260 行)与 --color-${} token 名片段(225 行),非颜色字面量;弹窗迁 Radix 致文件哈希陈旧,逐条复核后刷新"
     },
     {
@@ -8465,7 +8465,7 @@
       "semanticRole": "class-or-token-key",
       "reason": "TC-C6: getOverrideTypeColor返回CSS变量键/徽章类后缀，调用方拼接var(--color-*)或badge-*，不作为CSS字面颜色",
       "evidence": [],
-      "classificationSourceHash": "0ce035c92465e2a4b24d588195acb8b96e68ee06eb3bae7f9ccae60ac80029ed",
+      "classificationSourceHash": "0dc22f43ebffb1f59ce5e8a05ead64caf8f041f082e67b103a0a61f51ba0296e",
       "classificationNote": "2026-11-11 重批(D-04 Stage 2):色词仍为 badge-${} 类名片段(260 行)与 --color-${} token 名片段(225 行),非颜色字面量;弹窗迁 Radix 致文件哈希陈旧,逐条复核后刷新"
     },
     {
@@ -8490,7 +8490,7 @@
       "semanticRole": "class-or-token-key",
       "reason": "TC-C6: getOverrideTypeColor返回CSS变量键/徽章类后缀，调用方拼接var(--color-*)或badge-*，不作为CSS字面颜色",
       "evidence": [],
-      "classificationSourceHash": "0ce035c92465e2a4b24d588195acb8b96e68ee06eb3bae7f9ccae60ac80029ed",
+      "classificationSourceHash": "0dc22f43ebffb1f59ce5e8a05ead64caf8f041f082e67b103a0a61f51ba0296e",
       "classificationNote": "2026-11-11 重批(D-04 Stage 2):色词仍为 badge-${} 类名片段(260 行)与 --color-${} token 名片段(225 行),非颜色字面量;弹窗迁 Radix 致文件哈希陈旧,逐条复核后刷新"
     },
     {
@@ -8515,7 +8515,7 @@
       "semanticRole": "class-or-token-key",
       "reason": "TC-C6: getOverrideTypeColor返回CSS变量键/徽章类后缀，调用方拼接var(--color-*)或badge-*，不作为CSS字面颜色",
       "evidence": [],
-      "classificationSourceHash": "0ce035c92465e2a4b24d588195acb8b96e68ee06eb3bae7f9ccae60ac80029ed",
+      "classificationSourceHash": "0dc22f43ebffb1f59ce5e8a05ead64caf8f041f082e67b103a0a61f51ba0296e",
       "classificationNote": "2026-11-11 重批(D-04 Stage 2):色词仍为 badge-${} 类名片段(260 行)与 --color-${} token 名片段(225 行),非颜色字面量;弹窗迁 Radix 致文件哈希陈旧,逐条复核后刷新"
     },
     {
@@ -8540,7 +8540,7 @@
       "semanticRole": "class-or-token-key",
       "reason": "TC-C6: StatCard.color类别枚举，由组件内部映射Tailwind类，不是原生SVG颜色属性",
       "evidence": [],
-      "classificationSourceHash": "babef06668c2e559e93cf190d4c6b4c4386045dbceffcf6d65d4a5a9004d20d7",
+      "classificationSourceHash": "a2ef8d942203243c07cc39547c3ff77005e58b32c9182f52a2f502ae271b286d",
       "classificationNote": "2026-11-11 重批:purple 仍为 StatCard 变体 prop/对象键(非颜色用法),B1 根类编辑致哈希陈旧,重新核对后刷新"
     },
     {
@@ -8566,7 +8566,7 @@
       "semanticRole": "class-or-token-key",
       "reason": "TC-C6: 筛选选项的语义颜色键，渲染为样式类后缀，不作为内联CSS颜色",
       "evidence": [],
-      "classificationSourceHash": "3d2be84ace8032dce1295b01b8f7096637aaa1263d20e595c856d28bee45bf92"
+      "classificationSourceHash": "5f8c9658149daf8bb340d7e8c09ad92b70c77682135fb5a09c6602776447d3ac"
     },
     {
       "fingerprint": "3f104d7937164f9913e7d41da506fc49259c5097fbac4d0120d09a380d5211e9",
@@ -8588,7 +8588,7 @@
       "semanticRole": "class-or-token-key",
       "reason": "TC-C6: 覆盖类型返回徽章类后缀或jsx类名条件分支，不作为CSS字面颜色",
       "evidence": [],
-      "classificationSourceHash": "5f55c4cc2193be513387f43030c6921e75f417425c012b52e5f53c0b4a5ca2b5",
+      "classificationSourceHash": "80417cd8e396b9770fb0f46790395de4c6547b9f1a17d46cbb941b69cea4606d",
       "classificationNote": "2026-11-11 重批(批 B):色词仍为 badge-${}/类名片段(837/869/874 行)与状态色词 switch(1299-1303,喂类名构造);删 Charts.css import 致哈希陈旧,复核后刷新"
     },
     {
@@ -8611,7 +8611,7 @@
       "semanticRole": "class-or-token-key",
       "reason": "TC-C6: 覆盖类型返回徽章类后缀或jsx类名条件分支，不作为CSS字面颜色",
       "evidence": [],
-      "classificationSourceHash": "5f55c4cc2193be513387f43030c6921e75f417425c012b52e5f53c0b4a5ca2b5",
+      "classificationSourceHash": "80417cd8e396b9770fb0f46790395de4c6547b9f1a17d46cbb941b69cea4606d",
       "classificationNote": "2026-11-11 重批(批 B):色词仍为 badge-${}/类名片段(837/869/874 行)与状态色词 switch(1299-1303,喂类名构造);删 Charts.css import 致哈希陈旧,复核后刷新"
     },
     {
@@ -8634,7 +8634,7 @@
       "semanticRole": "class-or-token-key",
       "reason": "TC-C6: 覆盖类型返回徽章类后缀或jsx类名条件分支，不作为CSS字面颜色",
       "evidence": [],
-      "classificationSourceHash": "5f55c4cc2193be513387f43030c6921e75f417425c012b52e5f53c0b4a5ca2b5",
+      "classificationSourceHash": "80417cd8e396b9770fb0f46790395de4c6547b9f1a17d46cbb941b69cea4606d",
       "classificationNote": "2026-11-11 重批(批 B):色词仍为 badge-${}/类名片段(837/869/874 行)与状态色词 switch(1299-1303,喂类名构造);删 Charts.css import 致哈希陈旧,复核后刷新"
     },
     {
@@ -8657,7 +8657,7 @@
       "semanticRole": "class-or-token-key",
       "reason": "TC-C6: 覆盖类型返回徽章类后缀或jsx类名条件分支，不作为CSS字面颜色",
       "evidence": [],
-      "classificationSourceHash": "5f55c4cc2193be513387f43030c6921e75f417425c012b52e5f53c0b4a5ca2b5",
+      "classificationSourceHash": "80417cd8e396b9770fb0f46790395de4c6547b9f1a17d46cbb941b69cea4606d",
       "classificationNote": "2026-11-11 重批(批 B):色词仍为 badge-${}/类名片段(837/869/874 行)与状态色词 switch(1299-1303,喂类名构造);删 Charts.css import 致哈希陈旧,复核后刷新"
     },
     {
@@ -8680,7 +8680,7 @@
       "semanticRole": "class-or-token-key",
       "reason": "TC-C6: 覆盖类型返回徽章类后缀或jsx类名条件分支，不作为CSS字面颜色",
       "evidence": [],
-      "classificationSourceHash": "5f55c4cc2193be513387f43030c6921e75f417425c012b52e5f53c0b4a5ca2b5",
+      "classificationSourceHash": "80417cd8e396b9770fb0f46790395de4c6547b9f1a17d46cbb941b69cea4606d",
       "classificationNote": "2026-11-11 重批(批 B):色词仍为 badge-${}/类名片段(837/869/874 行)与状态色词 switch(1299-1303,喂类名构造);删 Charts.css import 致哈希陈旧,复核后刷新"
     },
     {
@@ -8713,7 +8713,7 @@
       "semanticRole": "class-or-token-key",
       "reason": "TC-C6: 覆盖类型返回徽章类后缀或jsx类名条件分支，不作为CSS字面颜色",
       "evidence": [],
-      "classificationSourceHash": "5f55c4cc2193be513387f43030c6921e75f417425c012b52e5f53c0b4a5ca2b5",
+      "classificationSourceHash": "80417cd8e396b9770fb0f46790395de4c6547b9f1a17d46cbb941b69cea4606d",
       "classificationNote": "2026-11-11 重批(批 B):色词仍为 badge-${}/类名片段(837/869/874 行)与状态色词 switch(1299-1303,喂类名构造);删 Charts.css import 致哈希陈旧,复核后刷新"
     },
     {
@@ -8801,7 +8801,7 @@
       "semanticRole": "hex-example-text",
       "reason": "TC-C5 HTML placeholder仅显示颜色代码示例文字，不设置CSS颜色；真实色值来自用户数据",
       "evidence": [],
-      "classificationSourceHash": "530a4298a38b5457d5b823994f3c665fce8aac508307a7d2da8f8cdca65a17e9"
+      "classificationSourceHash": "1d6ee9bc4327bc2b2f3688b141fed2028bfd834c0d628720ffd18909fa03bcda"
     },
     {
       "fingerprint": "040c08ccedf93b17d8ea82990146d781217b9d19fe862ac11f8dc1b192e33d79",
@@ -9389,6 +9389,29 @@
       "decision": "not-debt",
       "semanticRole": null,
       "reason": "CSS custom-property definition; render validation is separate.",
+      "evidence": []
+    },
+    {
+      "fingerprint": "a6115ad7d61d185da68d549239dbdfe64dbebf857948ec9b718aae54083dfa7d",
+      "file": "client/src/pages/PersonDetails.tsx",
+      "context": [
+        "PersonDetails"
+      ],
+      "owner": "allocationInsights",
+      "property": "allocationInsights",
+      "literal": "gray",
+      "locations": [
+        {
+          "line": 777,
+          "column": 22
+        }
+      ],
+      "count": 1,
+      "kind": "non-color",
+      "reachability": "unverified",
+      "decision": "not-debt",
+      "semanticRole": "class-or-token-key",
+      "reason": "TC-C6: allocationInsights 里的状态变体键，经 getStatusClassName/getBadgeClassName 映射为 text-gray/badge-gray 类名，不作为 CSS 字面颜色",
       "evidence": []
     }
   ],
@@ -20898,19 +20921,19 @@
   ],
   "additions": [],
   "summary": {
-    "occurrences": 342,
-    "identities": 339,
+    "occurrences": 343,
+    "identities": 340,
     "uniqueColors": 151,
     "files": 20,
     "byKind": {
       "token-definition": 244,
       "data-color": 38,
       "neutral-literal": 13,
-      "non-color": 20,
+      "non-color": 21,
       "semantic-color": 27
     },
     "byDecision": {
-      "not-debt": 264,
+      "not-debt": 265,
       "accepted-literal": 38,
       "retained-unused": 40
     },
@@ -20931,7 +20954,7 @@
       "client/src/pages/Availability.tsx": 5,
       "client/src/pages/Dashboard.tsx": 1,
       "client/src/pages/People.tsx": 2,
-      "client/src/pages/PersonDetails.tsx": 8,
+      "client/src/pages/PersonDetails.tsx": 9,
       "client/src/pages/ProjectRoadmap.css": 3,
       "client/src/pages/ProjectTypeDetails.tsx": 1,
       "client/src/styles/design-system.css": 20

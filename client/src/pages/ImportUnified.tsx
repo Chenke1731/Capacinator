@@ -72,6 +72,25 @@ function ImportUnified() {
   const [consistency, setConsistency] = useState<ImportConsistency | null>(null);
   const [importSettings, setImportSettings] = useState<ImportSettings | null>(null);
   const [showAdvancedSettings, setShowAdvancedSettings] = useState(false);
+
+  /** 2026-11-15 存量收口（失败行导出 MVP）：错误清单 CSV 导出。错误串自带
+      [Sheet/Row/Column/Field] 定位前缀（f12e38f），拆成四列 + Message；
+      无前缀（泛化错误/取消信息）整行走 Message。BOM 兜 Excel 中文。 */
+  const exportErrorsCsv = (errors: unknown[]) => {
+    const rows: string[][] = [['Sheet', 'Row', 'Column', 'Field', 'Message']];
+    const locRe = /^\[Sheet: ([^,\]]+)(?:, Row: (\d+))?(?:, Column: ([^,\]]+))?(?:, Field: ([^,\]]+))?\]\s*([\s\S]*)$/;
+    for (const e of errors) {
+      const m = String(e ?? '').match(locRe);
+      rows.push(m ? [m[1], m[2] ?? '', m[3] ?? '', m[4] ?? '', m[5]] : ['', '', '', '', String(e ?? '')]);
+    }
+    const csv = '\ufeff' + rows.map(r => r.map(c => `"${c.replace(/"/g, '""')}"`).join(',')).join('\n');
+    const url = URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8' }));
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'import-errors.csv';
+    a.click();
+    URL.revokeObjectURL(url);
+  };
   const [settingsOverrides, setSettingsOverrides] = useState<Partial<ImportSettings>>({});
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -740,6 +759,13 @@ function ImportUnified() {
               {preview.analysis.errors.length > 0 && (
                 <div className="result-errors">
                   <h4>{t('importExport:results.errors')}</h4>
+                  <button
+                    type="button"
+                    className="btn btn-sm btn-ghost"
+                    onClick={() => exportErrorsCsv(preview.analysis.errors)}
+                  >
+                    {t('importExport:results.exportErrorsCsv')}
+                  </button>
                   <ul>
                     {preview.analysis.errors.map((error, index) => (
                       <li key={index}>{error}</li>
@@ -822,6 +848,13 @@ function ImportUnified() {
             {result.errors && result.errors.length > 0 && (
               <div className="result-errors">
                 <h4>{t('importExport:results.errors')}</h4>
+                <button
+                  type="button"
+                  className="btn btn-sm btn-ghost"
+                  onClick={() => exportErrorsCsv(result.errors ?? [])}
+                >
+                  {t('importExport:results.exportErrorsCsv')}
+                </button>
                 <ul>
                   {result.errors.map((error, index) => (
                     <li key={index}>{error}</li>

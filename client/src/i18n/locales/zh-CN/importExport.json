@@ -75,6 +75,7 @@
     "failed": "导入失败",
     "importedRecords": "已导入的记录：",
     "errors": "错误：",
+    "exportErrorsCsv": "导出错误清单（CSV）",
     "warnings": "警告："
   },
   "stats": {

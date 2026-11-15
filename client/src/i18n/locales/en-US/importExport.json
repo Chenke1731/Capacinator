@@ -75,6 +75,7 @@
     "failed": "Import Failed",
     "importedRecords": "Imported Records:",
     "errors": "Errors:",
+    "exportErrorsCsv": "Export error list (CSV)",
     "warnings": "Warnings:"
   },
   "stats": {

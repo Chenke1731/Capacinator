@@ -88,7 +88,11 @@ function renderGantt(props: {
   return { onPreview, onDragEnd, onBarClick };
 }
 
-beforeAll(() => {
+/* 2026-11-15 存量收口(诊断实证): jest restoreMocks:true 会在每条用例前
+   restoreAllMocks——beforeAll 装的量测 spy 被清,jsdom 全 0 宽走 ||1 兜底,
+   px→日换算 ×365 致 4 例必挂(该套件在 test:client 下从未绿过)。
+   改 beforeEach 每例重装,afterAll 的显式 restore 保留兜底。 */
+beforeEach(() => {
   jest
     .spyOn(HTMLElement.prototype, 'getBoundingClientRect')
     .mockReturnValue({ width: TRACK_WIDTH, height: 40, top: 0, left: 0, right: TRACK_WIDTH, bottom: 40, x: 0, y: 0, toJSON: () => ({}) } as DOMRect);

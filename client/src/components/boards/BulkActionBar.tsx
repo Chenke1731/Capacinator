@@ -251,7 +251,9 @@ export function BulkActionBar({ count, pending, onClear, onBatchUpdate, onBatchD
         onClick={doDelete}
       >
         {confirmingDelete
-          ? t('projects:board.bulkDeleteConfirmBreakdown', { n: count, sr: srCount, ar: arCount })
+          ? hiddenCount > 0
+            ? t('projects:board.bulkDeleteConfirmBreakdownHidden', { n: count, sr: srCount, ar: arCount, h: hiddenCount })
+            : t('projects:board.bulkDeleteConfirmBreakdown', { n: count, sr: srCount, ar: arCount })
           : t('projects:board.bulkDelete')}
       </button>
       <button

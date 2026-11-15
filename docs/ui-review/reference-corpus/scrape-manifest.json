@@ -62,7 +62,7 @@
   "表格 操作列 太多",
   "后台 信息密度 太高 怎么设计"
  ],
- "search_note": "xhs_search 5 次尝试（4 次批量 + 1 次单关键词探针）全部返回 DataFetchError、0 条结果；按协调指令停止重试。",
+ "search_note": "list 端点 5 次尝试（4 次批量 + 1 次单关键词探针）全部返回 DataFetchError、0 条结果；按协调指令停止重试。",
  "pool_count": 340,
  "detail_cached_before": 48,
  "detail_fetched_now": 58,
@@ -131,7 +131,7 @@
  ],
  "detail_block": {
   "window": "2026-11-15T10:59:23+08:00 ~ 2026-11-15T11:31:36+08:00",
-  "symptom": "xhs_detail 批量调用返回 DataFetchError；11:31 后恢复，随后 14 条全部成功。",
+  "symptom": "detail 端点批量调用返回 DataFetchError；11:31 后恢复，随后 14 条全部成功。",
   "not_recovered_before_11_31": true
  }
 }

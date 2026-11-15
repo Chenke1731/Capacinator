@@ -1,15 +1,14 @@
 # UI 参考语料总索引（2026-11-15）
 
-> 目的：把四轮采集收口成一份可查索引——小红书两轮、设计系统文档、内部红线审计。
+> 目的：把四轮采集收口成一份可查索引——外部设计社区两轮、设计系统文档、内部红线审计。
 > 详细数据在子文件；本页只做跨轮合并、取舍与证据折扣声明。
+> 原始调研数据文件（notes JSON / digest MD）仅保留在本地，不入库。
 
 ## 1. 文件地图
 
 | 文件 | 内容 | 用途 |
 |---|---|---|
-| `xhs-notes-2026-11-15.json` | XHS 全量 720 条（155 条 detail + 565 条池内候选） | 机器可读主数据 |
-| `xhs-digest-2026-11-15.md` | XHS 分族方法级摘要 + 关键词口径 + 缺口 | 人读摘要 |
-| `status-family-supplement.md/.json` | 状态/空态/加载族设计系统补充 37 条 | XHS 缺口补齐 |
+| `status-family-supplement.md/.json` | 状态/空态/加载族设计系统补充 37 条 | 外部缺口补齐 |
 | `raw-pool.jsonl` / `raw-pool-2.jsonl` | 两轮候选池（340 + 380） | 抓取原始候选 |
 | `raw-details.jsonl` / `raw-details-2.jsonl` | 两轮 detail 正文（106 + 49） | 分析输入 |
 | `analysis-wave1/2/3-partA/B.json` | 六份分波分析 | type/证据/可借点/裁决 |
@@ -18,9 +17,9 @@
 
 ## 2. 采集口径（先读）
 
-- **小红书第一轮**：搜索列表端点被风控（持续 `DataFetchError`），31 个关键词仅 4 个返回数据，27 个 `raw=0`；`detail` 端点全程可用，得 106 条正文。
-- **小红书第二轮**：更换新会话后搜索恢复；22 个补搜词全部成功、0 blocked；新增候选 380 条、detail 49 条。
-- **归属口径**：`xhs_search` 按批返回、缓存按调用分组，**逐词归属不可得**。family 以标题推断为主，单关键词条目用关键词兜底，批次关键词保留在 `batch_keywords`。
+- **外部采集第一轮**：搜索列表端点被风控（持续 `DataFetchError`），31 个关键词仅 4 个返回数据，27 个 `raw=0`；`detail` 端点全程可用，得 106 条正文。
+- **外部采集第二轮**：更换新会话后搜索恢复；22 个补搜词全部成功、0 blocked；新增候选 380 条、detail 49 条。
+- **归属口径**：搜索端点按批返回、缓存按调用分组，**逐词归属不可得**。family 以标题推断为主，单关键词条目用关键词兜底，批次关键词保留在 `batch_keywords`。
 - **关键词产出**：取自搜索缓存 `keyword_results.count`（API 计数），单页上限 20、`has_more` 表示还有下一页；**不要把 20 当作总量**。
 - **设计系统文档**：Mobbin 需登录、Bryntum 路径失效、Pro/Arco/TDesign/Semi 文档站为 SPA 空壳——能取到的取正文，取不到的读 GitHub 源码；未编造。
 - **内部红线**：只读审计台账 `docs/ui-review/experiences.md`、`docs/UI_GENERATION_CONTRACT.md`、相关页面源码与 git log。
@@ -54,10 +53,10 @@
 
 ### 4.1 Projects 需求台 / 复杂表格
 
-- **折叠低优先列替代横滚**：四方收敛——小红书 13 寸真实改版案例 + AntD `column.responsive` 断点 + ProTable `columnsState` + 既有 `RowDetailDrawer`。渲染派生层不写回持久化列集，否则撞 D5b；被隐字段仍由抽屉承接。
+- **折叠低优先列替代横滚**：四方收敛——外部 13 寸真实改版案例 + AntD `column.responsive` 断点 + ProTable `columnsState` + 既有 `RowDetailDrawer`。渲染派生层不写回持久化列集，否则撞 D5b；被隐字段仍由抽屉承接。
 - **列设置模型**：`columnsState{persistenceType,persistenceKey,defaultValue,value,onChange}` + `ColumnsState{show,fixed,order,disable}`；`persistenceKey` 内嵌列集版本，只存用户显式列。当前表自绘、未用 TanStack（8.x 已在依赖）→ 需手写。
 - **工具条收拢**：`options{setting,density,reload,fullScreen}` 收进单一图标（ProTable ToolBar；density 改行高需过 `verify:states`）。
-- **行高与结构**：56px 行高、可展开行、统计行克制、单元格级校验（XHS 补充批方法级）。
+- **行高与结构**：56px 行高、可展开行、统计行克制、单元格级校验（外部补充批方法级）。
 - **数字格式**：千分位、数字列右对齐、单位小写、无数据显示 `--`（AntD data-format）；**失败不得落成 `--` 或 0**，须区分不可用与失败（EXP-005/DV-8）。
 - **截断**：必须可达全文（IX-4），不能只给 `title`；AntD `ellipsis` 淘汰。
 - **虚拟滚动**：只借固定行高 `listItemHeight` 思路，不引 antd、不引横滚（IX-6/D5b）。
@@ -90,7 +89,7 @@
 - **icon 折叠 + tooltip**：`collapsible="icon"` + `SidebarMenuButton tooltip`（仅 collapsed 且非 mobile）；需补 `@radix-ui/react-tooltip`（当前唯一缺的原语）+ `aria-label`；footer 只留图标。
 - **多级**：右侧附加面板或单层 `SidebarMenuSub`，不手风琴层层嵌套（antd inline menu 淘汰）；1366 下需验主区挤压、层序全局阶梯（EXP-018）、IX-3 焦点。
 - **计数徽标**：复用 `ui/badge.tsx`，不新增 `SidebarMenuBadge`（OWNER_DUPS 冻结债）。
-- **XHS 可借**：菜单搜索、场景/工作区切换、间距分组；hover 展开面板、手势、手风琴二级淘汰（D7/IX-6/IX-7）。
+- **外部可借**：菜单搜索、场景/工作区切换、间距分组；hover 展开面板、手势、手风琴二级淘汰（D7/IX-6/IX-7）。
 
 ### 4.5 状态 / 空态 / 加载
 
@@ -100,19 +99,19 @@
 - **Spin**：`delay` 250–300ms 防闪烁；二次加载用遮罩保留旧内容（现 18 处 LoadingSpinner 一进入就闪）。
 - **错误态**：可重试且保留上下文；`ProjectDetail.tsx:321` 用 `window.location.reload()` 丢上下文；`PersonAllocationChart.tsx:352-358` 图表错误无重试。
 - **徽标**：`badge.tsx:18-22` 硬编码 `bg-green-700/text-white`、`bg-yellow-700`，与 `.badge-success` 的 `--status-*-soft/text` 是两套色语言，违反「压深不靠亮底」；须改 token（单一 owner）。
-- **空态文案**：非交互插图、帮助性文案、不伪装操作、统一 IP 承接情绪（XHS 补充批）。
+- **空态文案**：非交互插图、帮助性文案、不伪装操作、统一 IP 承接情绪（外部补充批）。
 
 ### 4.6 批量 / 确认 / 导入
 
 - **选择作用域**：全选显示「当前页 N 条 / 全部数据」（Arco `preserveSelectedRowKeys` 能力已有，我们已用 Set+sessionStorage；缺的是把作用域+条数写进批量条，U18）。
 - **确认与可逆**：破坏性二次确认 + 3 秒回退（`BulkActionBar`）+ busy 防双发 + 可逆（E1–E3）；单批 2000 上限（`Projects.tsx:136`）；入口禁静默禁用（EXP-023）。
-- **导入**：模板下载（必填/格式/示例）、逐行错误原因、失败行导出重导、重复数据覆盖/跳过（XHS SOP 长文）；断点续传对本地 SQLite 桌面端收益低，不做。
+- **导入**：模板下载（必填/格式/示例）、逐行错误原因、失败行导出重导、重复数据覆盖/跳过（外部SOP 长文）；断点续传对本地 SQLite 桌面端收益低，不做。
 - **人在回路**：六步流程（`6aa94b1e`）→ Agent 工作台分级确认与批量范围锁死（E3/U18）。
 
 ### 4.7 Agent 工作台（方向）
 
-- 以「目标输入→任务拆解→执行状态→结果可控→失败补救→历史→协作权限→交付」组织页面，替代单聊天框（XHS 421/505）。
-- 每个执行节点标「需我确认」，提供重试/回退/继续修改；多 Agent 可用时间轴表达（XHS）。
+- 以「目标输入→任务拆解→执行状态→结果可控→失败补救→历史→协作权限→交付」组织页面，替代单聊天框（外部421/505）。
+- 每个执行节点标「需我确认」，提供重试/回退/继续修改；多 Agent 可用时间轴表达（外部参考）。
 - 只借组织方式，不借视觉；与「需求进入→分流→排产→盯超载」映射。
 
 ## 5. 硬冲突淘汰（统一清单）
@@ -147,7 +146,7 @@
 ## 7. 证据折扣声明
 
 - **52 条图集未做视觉审阅**：`evidence=图集候选(未看图)`，引用时必须 discount。
-- **155 条 XHS 正文级**：type/borrow_points 由分析 agent 判定，证据等级见 `evidence` 字段。
+- **155 条正文级**：type/borrow_points 由分析 agent 判定，证据等级见 `evidence` 字段。
 - **family 是标题启发式**：跨族边界（如「AI 甘特图」「表格批量操作」）可能归类偏差；引用时以 `borrow_points.target` 为准。
 - **关键词产出是单页计数**（≤20），`has_more` 表示还有下一页；不要当总量。
 - **设计系统补充**：TDesign/Semi 部分页面不可达，已用 GitHub 源码/README 补；未取到的在 supplement 首节逐条登记。
@@ -169,6 +168,6 @@
 | Mobbin | 登录墙，`/explore` 仅缩略图 | shadcn blocks、Ant Design Pro |
 | Bryntum Gantt | 所有路径落 Suite 概览 | DHTMLX styling-guide、Frappe Gantt issues |
 | Pro/Arco/TDesign/Semi 文档站 | SPA 空壳 | GitHub 源码/README |
-| 小红书搜索 | 第一轮被风控；换新会话恢复 | 先换会话再重跑，不要长时间重试 |
-| 小红书 detail | 全程可用（中途短暂限流） | 退避重试即可 |
-| 小红书图集 | 方法在图中 | 需人工看图，不声称已审阅 |
+| 外部采集搜索 | 第一轮被风控；换新会话恢复 | 先换会话再重跑，不要长时间重试 |
+| 外部采集 detail | 全程可用（中途短暂限流） | 退避重试即可 |
+| 外部图集 | 方法在图中 | 需人工看图，不声称已审阅 |

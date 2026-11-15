@@ -132,7 +132,7 @@
   },
   "relevance_gate": "title must also contain a design-context token (设计/UI/界面/交互/B端/后台/体验/UX/规范/组件/页面/排版/信息/看板/产品/系统/表单/布局); applied because raw 表格/状态 hits were dominated by Excel tutorials and OC 表格代餐 roleplay posts",
   "ai_extra_gate": "AI family additionally requires 界面|页面|看板|任务|对话|后台|智能体|Agent|管理系统|SaaS|系统|UI",
-  "keyword_attribution": "xhs_search batches 6-8 keywords per call; cache groups results per call, so pool rows carry the whole call keyword list (batch field), not a per-note keyword"
+  "keyword_attribution": "the search endpoint batches 6-8 keywords per call; cache groups results per call, so pool rows carry the whole call keyword list (batch field), not a per-note keyword"
  },
  "notes": [
   "table quota short by 1: new 表格 leads were mostly Excel tutorials / OC roleplay tables; remaining gated new 表格 candidates exhausted",

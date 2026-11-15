@@ -202,3 +202,33 @@
 | 10 | 甘特条内"简称+进度"分栏 | 10px 字号不变；宽 <150px 的 bar 维持既有 ellipsis |
 
 **继续不做**：导入失败行导出（等 #5 落地后的增量）、覆盖/跳过策略（等产品裁决"同名≠身份"）、空态全局收编、无权限空态、导航 icon 折叠（`@radix-ui/react-tooltip` 未排期不预装）、Agent 工作台。
+
+## 11. 执行结果（2026-11-15 定版，分支 fix/ui-batch1）
+
+| 项 | commit | 结果 |
+|---|---|---|
+| 语料精简入库 | (docs) | ✓ README/digest/JSON/review/supplement/manifests，raw+备份 gitignore |
+| ① badge token | 1b5e1d6 | ✓ |
+| ⑧ dashboard token | f7d2a0f | ✓（orange 当时保留，后由 D1 收口） |
+| ② retry refetch | 5d9aa65 | ✓ |
+| ③ hidden 确认 | 14deff8 | ✓ 实测 `Delete 7? (SR 2 / AR 5 · 4 hidden)` |
+| ④ 列预算含 gap | 46933c1 | ✓ 两档 scale=1 零横滚 |
+| ⑦ 挤压梯 190→176 | 9bb212d | **引入回归**（见下） |
+| ⑤ 导入错误定位 | f12e38f | ✓ +2 集成守卫用例 |
+| ⑥ spinner 防闪 | bb02e02 | ✓ +3 守卫用例 |
+| ④' 编号列 80 恢复 | f3d58f3 | ✓（双主题截图走查抓到 56px 短码换行） |
+| ⑦' +AR 保护修复 | ff44e6c | ✓ verify-states **107/107**（盲评 B1-1，基线对照确凿回归） |
+| B1-6/7 收敛+测试 | (refactor) | ✓ formatWithLocation 单一定义点 + 新键 2 测试 |
+| D1 risk token | 2da3683 | ✓ 用户裁决 a：--status-risk-* 双主题 + ledger 登记 |
+
+**回归链复盘（EXP-NEW 候选 ×2）**
+1. **参数脱耦**：④ 的预算修正使默认 name 轨宽 186，而 ⑦ 的梯子阈值降到 176 → 176<186≤190 保护空档，+AR 分解钮被裁 0px。双防线各自命中：视觉走查抓编号列、全称检查器抓 +AR 钮。候选静态断言：「梯子阈值 ≥ 任何默认档 name 轨宽」。
+2. **容器查询死规则**：梯子内 `.requirements-name{gap:3px}` 自 2026-10-11 从未生效（container-type 在元素自身，查询选不中自身；子件规则可中）。已改子件负边距等效。
+
+**门禁终态**
+- verify:states projects：107/107（含悬停位移/贴锚/遮挡全称断言）
+- verify:colors：50 条未登记 = 基线同级，本批零新增（risk token 8 条已按 token-definition 范式入 ledger）
+- verify:pr --skip-e2e：exit 0
+- 盲评（frontend-ui-reviewer，judged 三节）：P1 簇已修销，P2 已裁决落地，P3 三项收/记
+
+**遗留清单**（不随本批）：导入覆盖/跳过策略（等 IP-05"同名≠身份"裁决）、失败行导出（#5 增量）、G2 守卫（dashboard fixture 四型告警全覆盖）、PersonWorkload.css 48 条存量色彩债、AR 长码 nowrap+全文可达（存量 NIT）、服务端 3110 常驻实例需重启才见 ⑤ 效果。

@@ -2580,11 +2580,13 @@ body.req-col-dragging * {
   /* 22→24(2026-10-21): U17 后是 button,命中档 ≥24 接管;title 保全文不变 */
   .lifecycle-warn-chip { max-width: 24px; overflow: hidden; }
 }
-/* 挤压阶梯第二级(2026-10-11 跨列裁切族·名称列,两档位 179/175px 实测):
-   ≤190px 时保底集收敛到全固定件+确定性余量——间距 3/名称底 44(title 兜底)/
+/* 挤压阶梯第二级(2026-10-11 跨列裁切族·名称列,两档位 179/175px 实测;
+   2026-11-15 触发线 190→176: 列预算含 gap 修正后默认两档名称格 185/186px,
+   不再落入本梯(名称底回到基础 70/5 字),梯子只服务用户拖窄的真窄格):
+   ≤176px 时保底集收敛到全固定件+确定性余量——间距 3/名称底 44(title 兜底)/
    标签底 30(margin 8→4)/铅笔 hover 退场(与受保护 + 同弹层,零损失)——
    换 +AR 分解钮从可见宽 0(两档位 16/16 行全灭)恢复 24px 存活 */
-@container (max-width: 190px) {
+@container (max-width: 176px) {
   .requirements-name { gap: 3px; }
   .requirements-name-text { min-width: 44px; }
   .req-tags-inline { min-width: 30px; margin-left: 4px; }

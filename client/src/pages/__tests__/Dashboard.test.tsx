@@ -171,12 +171,13 @@ describe('Dashboard Component', () => {
     });
   });
 
-  test('should show loading state', () => {
+  test('should show loading state', async () => {
     (api.reporting.getDashboard as any).mockImplementation(() => new Promise(() => {})); // Never resolves
 
     renderDashboard();
 
-    expect(screen.getByText('Loading...')).toBeInTheDocument();
+    /* 2026-11-15 ⑥: LoadingSpinner 默认 250ms 防闪延迟——同步断言改为 findBy(轮询到点) */
+    expect(await screen.findByText('Loading...')).toBeInTheDocument();
   });
 
   test('should show error state', async () => {

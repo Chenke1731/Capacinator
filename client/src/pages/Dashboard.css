@@ -172,6 +172,45 @@
   margin-bottom: 0.5rem;
 }
 
+/* ⑧(2026-11-15): 项目健康 100% 堆叠条(替代饼图,DV-4) + 计数图例 */
+.dashboard-page .health-stacked-bar {
+  display: flex;
+  height: 28px;
+  width: 100%;
+  border-radius: 6px;
+  overflow: hidden;
+  cursor: pointer; /* 卡片级点击跳转沿用 */
+}
+.dashboard-page .health-stacked-seg { min-width: 2px; }
+.dashboard-page .health-stacked-seg + .health-stacked-seg {
+  border-left: 1px solid var(--bg-primary);
+}
+.dashboard-page .health-legend {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 16px;
+  margin: 12px 0 0;
+  padding: 0;
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+.dashboard-page .health-legend-dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  margin-right: 6px;
+  vertical-align: -1px;
+}
+.dashboard-page .health-empty {
+  color: var(--text-secondary);
+  font-size: 13px;
+  text-align: center;
+  padding: 24px 0;
+  margin: 0;
+}
+
 .empty-state-message p {
   margin: 0.5rem 0;
   font-size: 0.875rem;

@@ -22,7 +22,7 @@ import { StatCard } from '../components/ui/StatCard';
 import { LoadingSpinner } from '../components/ui/LoadingSpinner';
 import { ErrorMessage } from '../components/ui/ErrorMessage';
 import { Alert, AlertDescription } from '../components/ui/alert';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { CriticalAlertsPanel } from '../components/dashboard/CriticalAlertsPanel';
 import { DateRangeSelector, DateRangePreset } from '../components/dashboard/DateRangeSelector';
 import { EnhancedKPIs } from '../components/dashboard/EnhancedKPIs';
@@ -103,6 +103,14 @@ export function Dashboard() {
         value: count,
       }))
     : [{ status: '', name: t('dashboard:noProjects'), value: 0 }];
+
+  /* ⑧(2026-11-15): 饼图退役(DV-4)→100% 堆叠条的分母与状态配色(沿原 Cell 映射) */
+  const healthTotal = projectHealthData.reduce((sum, d) => sum + (d.value || 0), 0);
+  const healthColor = (status: string) =>
+    status.includes('OVERDUE') ? COLORS.danger :
+    status.includes('ACTIVE') ? COLORS.success :
+    status.includes('PLANNING') ? COLORS.warning :
+    COLORS.primary;
 
   // Handle empty utilization data gracefully（I02f：保留原始 status，柱点击
   // 按状态过滤；不能只留本地化 name）
@@ -252,35 +260,31 @@ export function Dashboard() {
               }
             }}
           >
-            <ResponsiveContainer width="100%" height={300}>
-              <PieChart>
-                <Pie
-                  data={projectHealthData}
-                  cx="50%"
-                  cy="50%"
-                  labelLine={false}
-                  label={({ name, value }) => t('dashboard:charts.pieLabel', { name, value })}
-                  outerRadius={100}
-                  fill="var(--series-violet)"
-                  dataKey="value"
-                  onClick={() => navigate('/projects')}
-                  style={{ cursor: 'pointer' }}
-                >
-                  {projectHealthData.map((entry, index) => (
-                    <Cell
-                      key={`cell-${index}`}
-                      fill={
-                        entry.status.includes('OVERDUE') ? COLORS.danger :
-                        entry.status.includes('ACTIVE') ? COLORS.success :
-                        entry.status.includes('PLANNING') ? COLORS.warning :
-                        COLORS.primary
-                      }
+            {healthTotal > 0 ? (
+              <>
+                {/* DV-4(2026-11-15 ⑧): 饼图 → 100% 堆叠条 + 计数图例;点击/键盘跳转沿用卡片级 */}
+                <div className="health-stacked-bar" role="presentation">
+                  {projectHealthData.map((entry) => (
+                    <div
+                      key={entry.status}
+                      className="health-stacked-seg"
+                      style={{ width: `${((entry.value || 0) / healthTotal) * 100}%`, background: healthColor(entry.status) }}
+                      title={t('dashboard:charts.healthBreakdownItem', { name: entry.name, count: entry.value })}
                     />
                   ))}
-                </Pie>
-                <Tooltip />
-              </PieChart>
-            </ResponsiveContainer>
+                </div>
+                <ul className="health-legend">
+                  {projectHealthData.map((entry) => (
+                    <li key={`legend-${entry.status}`}>
+                      <span className="health-legend-dot" style={{ background: healthColor(entry.status) }} aria-hidden="true" />
+                      {t('dashboard:charts.healthBreakdownItem', { name: entry.name, count: entry.value })}
+                    </li>
+                  ))}
+                </ul>
+              </>
+            ) : (
+              <p className="health-empty">{t('dashboard:noProjects')}</p>
+            )}
           </div>
         </Card>
 

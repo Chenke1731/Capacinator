@@ -123,7 +123,7 @@ export function ProjectDetail() {
   const canDelete = localStorage.getItem('userRole') === 'admin';
 
   // Fetch project details
-  const { data: project, isLoading, error } = useQuery({
+  const { data: project, isLoading, error, refetch } = useQuery({
     queryKey: queryKeys.projects.detail(id!),
     queryFn: async () => {
       const response = await api.projects.get(id!);
@@ -318,7 +318,7 @@ export function ProjectDetail() {
             {t('projects:loadErrorDetail')}
           </AlertDescription>
           <div className="mt-4 flex space-x-2">
-            <Button variant="outline" size="sm" onClick={() => window.location.reload()}>
+            <Button variant="outline" size="sm" onClick={() => refetch()}>
               <RefreshCw className="h-4 w-4 mr-2" />
               {t('common:retry')}
             </Button>

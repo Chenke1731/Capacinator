@@ -416,7 +416,7 @@
         {
           "selector": "[data-testid=\"pw-gantt-bar\"]",
           "family": "pw-gantt-bar|",
-          "text": "分析-报表-数据脱敏 · SE · 40%",
+          "text": "分析-报表-数据脱敏 · SE40%",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(79, 70, 229)",
           "effectiveBackground": [
@@ -464,7 +464,7 @@
         {
           "selector": "[data-testid=\"pw-gantt-bar\"]",
           "family": "pw-gantt-bar|",
-          "text": "分析-报表-移动端适配 · SE · 25%",
+          "text": "分析-报表-移动端适配 · SE25%",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(79, 70, 229)",
           "effectiveBackground": [
@@ -1103,7 +1103,7 @@
         {
           "selector": "[data-testid=\"pw-gantt-bar\"]",
           "family": "pw-gantt-bar|",
-          "text": "分析-报表-数据脱敏 · SE · 40%",
+          "text": "分析-报表-数据脱敏 · SE40%",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(79, 70, 229)",
           "effectiveBackground": [
@@ -1151,7 +1151,7 @@
         {
           "selector": "[data-testid=\"pw-gantt-bar\"]",
           "family": "pw-gantt-bar|",
-          "text": "分析-报表-移动端适配 · SE · 25%",
+          "text": "分析-报表-移动端适配 · SE25%",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(79, 70, 229)",
           "effectiveBackground": [
@@ -1713,7 +1713,7 @@
         {
           "selector": "[data-testid=\"pw-gantt-bar\"]",
           "family": "pw-gantt-bar|",
-          "text": "分析-报表-数据脱敏 · SE · 40%",
+          "text": "分析-报表-数据脱敏 · SE40%",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(79, 70, 229)",
           "effectiveBackground": [
@@ -1761,7 +1761,7 @@
         {
           "selector": "[data-testid=\"pw-gantt-bar\"]",
           "family": "pw-gantt-bar|",
-          "text": "分析-报表-移动端适配 · SE · 25%",
+          "text": "分析-报表-移动端适配 · SE25%",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(79, 70, 229)",
           "effectiveBackground": [
@@ -2323,7 +2323,7 @@
         {
           "selector": "[data-testid=\"pw-gantt-bar\"]",
           "family": "pw-gantt-bar|",
-          "text": "分析-报表-数据脱敏 · SE · 40%",
+          "text": "分析-报表-数据脱敏 · SE40%",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(79, 70, 229)",
           "effectiveBackground": [
@@ -2371,7 +2371,7 @@
         {
           "selector": "[data-testid=\"pw-gantt-bar\"]",
           "family": "pw-gantt-bar|",
-          "text": "分析-报表-移动端适配 · SE · 25%",
+          "text": "分析-报表-移动端适配 · SE25%",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(79, 70, 229)",
           "effectiveBackground": [
@@ -2933,7 +2933,7 @@
         {
           "selector": "[data-testid=\"pw-gantt-bar\"]",
           "family": "pw-gantt-bar|",
-          "text": "分析-报表-数据脱敏 · SE · 40%",
+          "text": "分析-报表-数据脱敏 · SE40%",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(79, 70, 229)",
           "effectiveBackground": [
@@ -2981,7 +2981,7 @@
         {
           "selector": "[data-testid=\"pw-gantt-bar\"]",
           "family": "pw-gantt-bar|",
-          "text": "分析-报表-移动端适配 · SE · 25%",
+          "text": "分析-报表-移动端适配 · SE25%",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(79, 70, 229)",
           "effectiveBackground": [
@@ -3543,7 +3543,7 @@
         {
           "selector": "[data-testid=\"pw-gantt-bar\"]",
           "family": "pw-gantt-bar|",
-          "text": "分析-报表-数据脱敏 · SE · 40%",
+          "text": "分析-报表-数据脱敏 · SE40%",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(79, 70, 229)",
           "effectiveBackground": [
@@ -3591,7 +3591,7 @@
         {
           "selector": "[data-testid=\"pw-gantt-bar\"]",
           "family": "pw-gantt-bar|",
-          "text": "分析-报表-移动端适配 · SE · 25%",
+          "text": "分析-报表-移动端适配 · SE25%",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(79, 70, 229)",
           "effectiveBackground": [
@@ -4153,7 +4153,7 @@
         {
           "selector": "[data-testid=\"pw-gantt-bar\"]",
           "family": "pw-gantt-bar|",
-          "text": "分析-报表-数据脱敏 · SE · 40%",
+          "text": "分析-报表-数据脱敏 · SE40%",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(79, 70, 229)",
           "effectiveBackground": [
@@ -4201,7 +4201,7 @@
         {
           "selector": "[data-testid=\"pw-gantt-bar\"]",
           "family": "pw-gantt-bar|",
-          "text": "分析-报表-移动端适配 · SE · 25%",
+          "text": "分析-报表-移动端适配 · SE25%",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(79, 70, 229)",
           "effectiveBackground": [
@@ -4763,7 +4763,7 @@
         {
           "selector": "[data-testid=\"pw-gantt-bar\"]",
           "family": "pw-gantt-bar|",
-          "text": "分析-报表-数据脱敏 · SE · 40%",
+          "text": "分析-报表-数据脱敏 · SE40%",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(79, 70, 229)",
           "effectiveBackground": [
@@ -4811,7 +4811,7 @@
         {
           "selector": "[data-testid=\"pw-gantt-bar\"]",
           "family": "pw-gantt-bar|",
-          "text": "分析-报表-移动端适配 · SE · 25%",
+          "text": "分析-报表-移动端适配 · SE25%",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(79, 70, 229)",
           "effectiveBackground": [
@@ -5373,7 +5373,7 @@
         {
           "selector": "[data-testid=\"pw-gantt-bar\"]",
           "family": "pw-gantt-bar|",
-          "text": "分析-报表-数据脱敏 · SE · 40%",
+          "text": "分析-报表-数据脱敏 · SE40%",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(79, 70, 229)",
           "effectiveBackground": [
@@ -5421,7 +5421,7 @@
         {
           "selector": "[data-testid=\"pw-gantt-bar\"]",
           "family": "pw-gantt-bar|",
-          "text": "分析-报表-移动端适配 · SE · 25%",
+          "text": "分析-报表-移动端适配 · SE25%",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(79, 70, 229)",
           "effectiveBackground": [
@@ -5983,7 +5983,7 @@
         {
           "selector": "[data-testid=\"pw-gantt-bar\"]",
           "family": "pw-gantt-bar|",
-          "text": "分析-报表-数据脱敏 · SE · 40%",
+          "text": "分析-报表-数据脱敏 · SE40%",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(79, 70, 229)",
           "effectiveBackground": [
@@ -6031,7 +6031,7 @@
         {
           "selector": "[data-testid=\"pw-gantt-bar\"]",
           "family": "pw-gantt-bar|",
-          "text": "分析-报表-移动端适配 · SE · 25%",
+          "text": "分析-报表-移动端适配 · SE25%",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(79, 70, 229)",
           "effectiveBackground": [
@@ -6593,7 +6593,7 @@
         {
           "selector": "[data-testid=\"pw-gantt-bar\"]",
           "family": "pw-gantt-bar|",
-          "text": "分析-报表-数据脱敏 · SE · 40%",
+          "text": "分析-报表-数据脱敏 · SE40%",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(79, 70, 229)",
           "effectiveBackground": [
@@ -6641,7 +6641,7 @@
         {
           "selector": "[data-testid=\"pw-gantt-bar\"]",
           "family": "pw-gantt-bar|",
-          "text": "分析-报表-移动端适配 · SE · 25%",
+          "text": "分析-报表-移动端适配 · SE25%",
           "foreground": "rgb(249, 250, 251)",
           "background": "rgb(79, 70, 229)",
           "effectiveBackground": [
@@ -7203,7 +7203,7 @@
         {
           "selector": "[data-testid=\"pw-gantt-bar\"]",
           "family": "pw-gantt-bar|",
-          "text": "分析-报表-数据脱敏 · SE · 40%",
+          "text": "分析-报表-数据脱敏 · SE40%",
           "foreground": "rgb(31, 41, 55)",
           "background": "rgb(165, 180, 252)",
           "effectiveBackground": [
@@ -7251,7 +7251,7 @@
         {
           "selector": "[data-testid=\"pw-gantt-bar\"]",
           "family": "pw-gantt-bar|",
-          "text": "分析-报表-移动端适配 · SE · 25%",
+          "text": "分析-报表-移动端适配 · SE25%",
           "foreground": "rgb(31, 41, 55)",
           "background": "rgb(165, 180, 252)",
           "effectiveBackground": [
@@ -7890,7 +7890,7 @@
         {
           "selector": "[data-testid=\"pw-gantt-bar\"]",
           "family": "pw-gantt-bar|",
-          "text": "分析-报表-数据脱敏 · SE · 40%",
+          "text": "分析-报表-数据脱敏 · SE40%",
           "foreground": "rgb(31, 41, 55)",
           "background": "rgb(165, 180, 252)",
           "effectiveBackground": [
@@ -7938,7 +7938,7 @@
         {
           "selector": "[data-testid=\"pw-gantt-bar\"]",
           "family": "pw-gantt-bar|",
-          "text": "分析-报表-移动端适配 · SE · 25%",
+          "text": "分析-报表-移动端适配 · SE25%",
           "foreground": "rgb(31, 41, 55)",
           "background": "rgb(165, 180, 252)",
           "effectiveBackground": [
@@ -8500,7 +8500,7 @@
         {
           "selector": "[data-testid=\"pw-gantt-bar\"]",
           "family": "pw-gantt-bar|",
-          "text": "分析-报表-数据脱敏 · SE · 40%",
+          "text": "分析-报表-数据脱敏 · SE40%",
           "foreground": "rgb(31, 41, 55)",
           "background": "rgb(165, 180, 252)",
           "effectiveBackground": [
@@ -8548,7 +8548,7 @@
         {
           "selector": "[data-testid=\"pw-gantt-bar\"]",
           "family": "pw-gantt-bar|",
-          "text": "分析-报表-移动端适配 · SE · 25%",
+          "text": "分析-报表-移动端适配 · SE25%",
           "foreground": "rgb(31, 41, 55)",
           "background": "rgb(165, 180, 252)",
           "effectiveBackground": [
@@ -9110,7 +9110,7 @@
         {
           "selector": "[data-testid=\"pw-gantt-bar\"]",
           "family": "pw-gantt-bar|",
-          "text": "分析-报表-数据脱敏 · SE · 40%",
+          "text": "分析-报表-数据脱敏 · SE40%",
           "foreground": "rgb(31, 41, 55)",
           "background": "rgb(165, 180, 252)",
           "effectiveBackground": [
@@ -9158,7 +9158,7 @@
         {
           "selector": "[data-testid=\"pw-gantt-bar\"]",
           "family": "pw-gantt-bar|",
-          "text": "分析-报表-移动端适配 · SE · 25%",
+          "text": "分析-报表-移动端适配 · SE25%",
           "foreground": "rgb(31, 41, 55)",
           "background": "rgb(165, 180, 252)",
           "effectiveBackground": [
@@ -9720,7 +9720,7 @@
         {
           "selector": "[data-testid=\"pw-gantt-bar\"]",
           "family": "pw-gantt-bar|",
-          "text": "分析-报表-数据脱敏 · SE · 40%",
+          "text": "分析-报表-数据脱敏 · SE40%",
           "foreground": "rgb(31, 41, 55)",
           "background": "rgb(165, 180, 252)",
           "effectiveBackground": [
@@ -9768,7 +9768,7 @@
         {
           "selector": "[data-testid=\"pw-gantt-bar\"]",
           "family": "pw-gantt-bar|",
-          "text": "分析-报表-移动端适配 · SE · 25%",
+          "text": "分析-报表-移动端适配 · SE25%",
           "foreground": "rgb(31, 41, 55)",
           "background": "rgb(165, 180, 252)",
           "effectiveBackground": [
@@ -10330,7 +10330,7 @@
         {
           "selector": "[data-testid=\"pw-gantt-bar\"]",
           "family": "pw-gantt-bar|",
-          "text": "分析-报表-数据脱敏 · SE · 40%",
+          "text": "分析-报表-数据脱敏 · SE40%",
           "foreground": "rgb(31, 41, 55)",
           "background": "rgb(165, 180, 252)",
           "effectiveBackground": [
@@ -10378,7 +10378,7 @@
         {
           "selector": "[data-testid=\"pw-gantt-bar\"]",
           "family": "pw-gantt-bar|",
-          "text": "分析-报表-移动端适配 · SE · 25%",
+          "text": "分析-报表-移动端适配 · SE25%",
           "foreground": "rgb(31, 41, 55)",
           "background": "rgb(165, 180, 252)",
           "effectiveBackground": [
@@ -10940,7 +10940,7 @@
         {
           "selector": "[data-testid=\"pw-gantt-bar\"]",
           "family": "pw-gantt-bar|",
-          "text": "分析-报表-数据脱敏 · SE · 40%",
+          "text": "分析-报表-数据脱敏 · SE40%",
           "foreground": "rgb(31, 41, 55)",
           "background": "rgb(165, 180, 252)",
           "effectiveBackground": [
@@ -10988,7 +10988,7 @@
         {
           "selector": "[data-testid=\"pw-gantt-bar\"]",
           "family": "pw-gantt-bar|",
-          "text": "分析-报表-移动端适配 · SE · 25%",
+          "text": "分析-报表-移动端适配 · SE25%",
           "foreground": "rgb(31, 41, 55)",
           "background": "rgb(165, 180, 252)",
           "effectiveBackground": [
@@ -11550,7 +11550,7 @@
         {
           "selector": "[data-testid=\"pw-gantt-bar\"]",
           "family": "pw-gantt-bar|",
-          "text": "分析-报表-数据脱敏 · SE · 40%",
+          "text": "分析-报表-数据脱敏 · SE40%",
           "foreground": "rgb(31, 41, 55)",
           "background": "rgb(165, 180, 252)",
           "effectiveBackground": [
@@ -11598,7 +11598,7 @@
         {
           "selector": "[data-testid=\"pw-gantt-bar\"]",
           "family": "pw-gantt-bar|",
-          "text": "分析-报表-移动端适配 · SE · 25%",
+          "text": "分析-报表-移动端适配 · SE25%",
           "foreground": "rgb(31, 41, 55)",
           "background": "rgb(165, 180, 252)",
           "effectiveBackground": [
@@ -12160,7 +12160,7 @@
         {
           "selector": "[data-testid=\"pw-gantt-bar\"]",
           "family": "pw-gantt-bar|",
-          "text": "分析-报表-数据脱敏 · SE · 40%",
+          "text": "分析-报表-数据脱敏 · SE40%",
           "foreground": "rgb(31, 41, 55)",
           "background": "rgb(165, 180, 252)",
           "effectiveBackground": [
@@ -12208,7 +12208,7 @@
         {
           "selector": "[data-testid=\"pw-gantt-bar\"]",
           "family": "pw-gantt-bar|",
-          "text": "分析-报表-移动端适配 · SE · 25%",
+          "text": "分析-报表-移动端适配 · SE25%",
           "foreground": "rgb(31, 41, 55)",
           "background": "rgb(165, 180, 252)",
           "effectiveBackground": [
@@ -12770,7 +12770,7 @@
         {
           "selector": "[data-testid=\"pw-gantt-bar\"]",
           "family": "pw-gantt-bar|",
-          "text": "分析-报表-数据脱敏 · SE · 40%",
+          "text": "分析-报表-数据脱敏 · SE40%",
           "foreground": "rgb(31, 41, 55)",
           "background": "rgb(165, 180, 252)",
           "effectiveBackground": [
@@ -12818,7 +12818,7 @@
         {
           "selector": "[data-testid=\"pw-gantt-bar\"]",
           "family": "pw-gantt-bar|",
-          "text": "分析-报表-移动端适配 · SE · 25%",
+          "text": "分析-报表-移动端适配 · SE25%",
           "foreground": "rgb(31, 41, 55)",
           "background": "rgb(165, 180, 252)",
           "effectiveBackground": [
@@ -13380,7 +13380,7 @@
         {
           "selector": "[data-testid=\"pw-gantt-bar\"]",
           "family": "pw-gantt-bar|",
-          "text": "分析-报表-数据脱敏 · SE · 40%",
+          "text": "分析-报表-数据脱敏 · SE40%",
           "foreground": "rgb(31, 41, 55)",
           "background": "rgb(165, 180, 252)",
           "effectiveBackground": [
@@ -13428,7 +13428,7 @@
         {
           "selector": "[data-testid=\"pw-gantt-bar\"]",
           "family": "pw-gantt-bar|",
-          "text": "分析-报表-移动端适配 · SE · 25%",
+          "text": "分析-报表-移动端适配 · SE25%",
           "foreground": "rgb(31, 41, 55)",
           "background": "rgb(165, 180, 252)",
           "effectiveBackground": [

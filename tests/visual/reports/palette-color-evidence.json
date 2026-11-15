@@ -525,9 +525,9 @@
             229
           ],
           "state": "selected-hover-1",
-          "foreground": "rgb(75, 85, 99)",
+          "foreground": "rgb(77, 77, 164)",
           "background": "rgb(255, 255, 255)",
-          "ratio": 7.557378129674007,
+          "ratio": 7.208631775183582,
           "threshold": 3
         },
         {
@@ -539,9 +539,9 @@
             129
           ],
           "state": "selected-hover-1",
-          "foreground": "rgb(79, 70, 229)",
+          "foreground": "rgb(77, 78, 164)",
           "background": "rgb(255, 255, 255)",
-          "ratio": 6.287528596095884,
+          "ratio": 7.139508373293945,
           "threshold": 3
         },
         {
@@ -695,9 +695,9 @@
             229
           ],
           "state": "selected-focus-1",
-          "foreground": "rgb(75, 85, 99)",
+          "foreground": "rgb(76, 80, 146)",
           "background": "rgb(255, 255, 255)",
-          "ratio": 7.557378129674007,
+          "ratio": 7.3175097008344165,
           "threshold": 3
         },
         {
@@ -709,9 +709,9 @@
             129
           ],
           "state": "selected-focus-1",
-          "foreground": "rgb(79, 70, 229)",
+          "foreground": "rgb(78, 75, 182)",
           "background": "rgb(255, 255, 255)",
-          "ratio": 6.287528596095884,
+          "ratio": 6.986374584292433,
           "threshold": 3
         },
         {
@@ -879,9 +879,9 @@
             129
           ],
           "state": "selected-hover-2",
-          "foreground": "rgb(75, 85, 99)",
+          "foreground": "rgb(77, 78, 164)",
           "background": "rgb(255, 255, 255)",
-          "ratio": 7.557378129674007,
+          "ratio": 7.139508373293945,
           "threshold": 3
         },
         {
@@ -893,9 +893,9 @@
             11
           ],
           "state": "selected-hover-2",
-          "foreground": "rgb(79, 70, 229)",
+          "foreground": "rgb(77, 77, 164)",
           "background": "rgb(255, 255, 255)",
-          "ratio": 6.287528596095884,
+          "ratio": 7.208631775183582,
           "threshold": 3
         },
         {
@@ -1049,9 +1049,9 @@
             129
           ],
           "state": "selected-focus-2",
-          "foreground": "rgb(75, 85, 99)",
+          "foreground": "rgb(76, 80, 146)",
           "background": "rgb(255, 255, 255)",
-          "ratio": 7.557378129674007,
+          "ratio": 7.3175097008344165,
           "threshold": 3
         },
         {
@@ -1063,9 +1063,9 @@
             11
           ],
           "state": "selected-focus-2",
-          "foreground": "rgb(79, 70, 229)",
+          "foreground": "rgb(78, 75, 182)",
           "background": "rgb(255, 255, 255)",
-          "ratio": 6.287528596095884,
+          "ratio": 6.986374584292433,
           "threshold": 3
         },
         {
@@ -1233,9 +1233,9 @@
             11
           ],
           "state": "selected-hover-3",
-          "foreground": "rgb(75, 85, 99)",
+          "foreground": "rgb(77, 77, 164)",
           "background": "rgb(255, 255, 255)",
-          "ratio": 7.557378129674007,
+          "ratio": 7.208631775183582,
           "threshold": 3
         },
         {
@@ -1247,9 +1247,9 @@
             68
           ],
           "state": "selected-hover-3",
-          "foreground": "rgb(79, 70, 229)",
+          "foreground": "rgb(77, 78, 164)",
           "background": "rgb(255, 255, 255)",
-          "ratio": 6.287528596095884,
+          "ratio": 7.139508373293945,
           "threshold": 3
         },
         {
@@ -1403,9 +1403,9 @@
             11
           ],
           "state": "selected-focus-3",
-          "foreground": "rgb(75, 85, 99)",
+          "foreground": "rgb(76, 80, 146)",
           "background": "rgb(255, 255, 255)",
-          "ratio": 7.557378129674007,
+          "ratio": 7.3175097008344165,
           "threshold": 3
         },
         {
@@ -1417,9 +1417,9 @@
             68
           ],
           "state": "selected-focus-3",
-          "foreground": "rgb(79, 70, 229)",
+          "foreground": "rgb(78, 75, 182)",
           "background": "rgb(255, 255, 255)",
-          "ratio": 6.287528596095884,
+          "ratio": 6.986374584292433,
           "threshold": 3
         },
         {
@@ -1587,9 +1587,9 @@
             68
           ],
           "state": "selected-hover-4",
-          "foreground": "rgb(75, 85, 99)",
+          "foreground": "rgb(77, 78, 164)",
           "background": "rgb(255, 255, 255)",
-          "ratio": 7.557378129674007,
+          "ratio": 7.139508373293945,
           "threshold": 3
         },
         {
@@ -1601,9 +1601,9 @@
             246
           ],
           "state": "selected-hover-4",
-          "foreground": "rgb(79, 70, 229)",
+          "foreground": "rgb(77, 77, 164)",
           "background": "rgb(255, 255, 255)",
-          "ratio": 6.287528596095884,
+          "ratio": 7.208631775183582,
           "threshold": 3
         },
         {
@@ -1757,9 +1757,9 @@
             68
           ],
           "state": "selected-focus-4",
-          "foreground": "rgb(75, 85, 99)",
+          "foreground": "rgb(76, 80, 146)",
           "background": "rgb(255, 255, 255)",
-          "ratio": 7.557378129674007,
+          "ratio": 7.3175097008344165,
           "threshold": 3
         },
         {
@@ -1771,9 +1771,9 @@
             246
           ],
           "state": "selected-focus-4",
-          "foreground": "rgb(79, 70, 229)",
+          "foreground": "rgb(78, 75, 182)",
           "background": "rgb(255, 255, 255)",
-          "ratio": 6.287528596095884,
+          "ratio": 6.986374584292433,
           "threshold": 3
         },
         {
@@ -1941,9 +1941,9 @@
             246
           ],
           "state": "selected-hover-5",
-          "foreground": "rgb(75, 85, 99)",
+          "foreground": "rgb(77, 77, 164)",
           "background": "rgb(255, 255, 255)",
-          "ratio": 7.557378129674007,
+          "ratio": 7.208631775183582,
           "threshold": 3
         },
         {
@@ -1955,9 +1955,9 @@
             212
           ],
           "state": "selected-hover-5",
-          "foreground": "rgb(79, 70, 229)",
+          "foreground": "rgb(77, 78, 164)",
           "background": "rgb(255, 255, 255)",
-          "ratio": 6.287528596095884,
+          "ratio": 7.139508373293945,
           "threshold": 3
         },
         {
@@ -2111,9 +2111,9 @@
             246
           ],
           "state": "selected-focus-5",
-          "foreground": "rgb(75, 85, 99)",
+          "foreground": "rgb(76, 80, 146)",
           "background": "rgb(255, 255, 255)",
-          "ratio": 7.557378129674007,
+          "ratio": 7.3175097008344165,
           "threshold": 3
         },
         {
@@ -2125,9 +2125,9 @@
             212
           ],
           "state": "selected-focus-5",
-          "foreground": "rgb(79, 70, 229)",
+          "foreground": "rgb(78, 75, 182)",
           "background": "rgb(255, 255, 255)",
-          "ratio": 6.287528596095884,
+          "ratio": 6.986374584292433,
           "threshold": 3
         },
         {
@@ -2295,9 +2295,9 @@
             212
           ],
           "state": "selected-hover-6",
-          "foreground": "rgb(75, 85, 99)",
+          "foreground": "rgb(77, 78, 164)",
           "background": "rgb(255, 255, 255)",
-          "ratio": 7.557378129674007,
+          "ratio": 7.139508373293945,
           "threshold": 3
         },
         {
@@ -2309,9 +2309,9 @@
             22
           ],
           "state": "selected-hover-6",
-          "foreground": "rgb(79, 70, 229)",
+          "foreground": "rgb(77, 77, 164)",
           "background": "rgb(255, 255, 255)",
-          "ratio": 6.287528596095884,
+          "ratio": 7.208631775183582,
           "threshold": 3
         },
         {
@@ -2465,9 +2465,9 @@
             212
           ],
           "state": "selected-focus-6",
-          "foreground": "rgb(75, 85, 99)",
+          "foreground": "rgb(77, 78, 164)",
           "background": "rgb(255, 255, 255)",
-          "ratio": 7.557378129674007,
+          "ratio": 7.139508373293945,
           "threshold": 3
         },
         {
@@ -2479,9 +2479,9 @@
             22
           ],
           "state": "selected-focus-6",
-          "foreground": "rgb(79, 70, 229)",
+          "foreground": "rgb(77, 77, 164)",
           "background": "rgb(255, 255, 255)",
-          "ratio": 6.287528596095884,
+          "ratio": 7.208631775183582,
           "threshold": 3
         },
         {
@@ -8327,9 +8327,9 @@
             229
           ],
           "state": "selected-hover-1",
-          "foreground": "rgb(78, 75, 182)",
+          "foreground": "rgb(75, 85, 99)",
           "background": "rgb(255, 255, 255)",
-          "ratio": 6.986374584292433,
+          "ratio": 7.557378129674007,
           "threshold": 3
         },
         {
@@ -8341,9 +8341,9 @@
             129
           ],
           "state": "selected-hover-1",
-          "foreground": "rgb(76, 80, 146)",
+          "foreground": "rgb(79, 70, 229)",
           "background": "rgb(255, 255, 255)",
-          "ratio": 7.3175097008344165,
+          "ratio": 6.287528596095884,
           "threshold": 3
         },
         {
@@ -8497,9 +8497,9 @@
             229
           ],
           "state": "selected-focus-1",
-          "foreground": "rgb(78, 75, 182)",
+          "foreground": "rgb(75, 85, 99)",
           "background": "rgb(255, 255, 255)",
-          "ratio": 6.986374584292433,
+          "ratio": 7.557378129674007,
           "threshold": 3
         },
         {
@@ -8511,9 +8511,9 @@
             129
           ],
           "state": "selected-focus-1",
-          "foreground": "rgb(76, 80, 146)",
+          "foreground": "rgb(79, 70, 229)",
           "background": "rgb(255, 255, 255)",
-          "ratio": 7.3175097008344165,
+          "ratio": 6.287528596095884,
           "threshold": 3
         },
         {
@@ -8681,9 +8681,9 @@
             129
           ],
           "state": "selected-hover-2",
-          "foreground": "rgb(78, 73, 199)",
+          "foreground": "rgb(75, 85, 99)",
           "background": "rgb(255, 255, 255)",
-          "ratio": 6.7705638225499305,
+          "ratio": 7.557378129674007,
           "threshold": 3
         },
         {
@@ -8695,9 +8695,9 @@
             11
           ],
           "state": "selected-hover-2",
-          "foreground": "rgb(76, 82, 129)",
+          "foreground": "rgb(79, 70, 229)",
           "background": "rgb(255, 255, 255)",
-          "ratio": 7.417315288578938,
+          "ratio": 6.287528596095884,
           "threshold": 3
         },
         {
@@ -8851,9 +8851,9 @@
             129
           ],
           "state": "selected-focus-2",
-          "foreground": "rgb(78, 75, 182)",
+          "foreground": "rgb(75, 85, 99)",
           "background": "rgb(255, 255, 255)",
-          "ratio": 6.986374584292433,
+          "ratio": 7.557378129674007,
           "threshold": 3
         },
         {
@@ -8865,9 +8865,9 @@
             11
           ],
           "state": "selected-focus-2",
-          "foreground": "rgb(76, 80, 146)",
+          "foreground": "rgb(79, 70, 229)",
           "background": "rgb(255, 255, 255)",
-          "ratio": 7.3175097008344165,
+          "ratio": 6.287528596095884,
           "threshold": 3
         },
         {
@@ -9035,9 +9035,9 @@
             11
           ],
           "state": "selected-hover-3",
-          "foreground": "rgb(78, 73, 199)",
+          "foreground": "rgb(75, 85, 99)",
           "background": "rgb(255, 255, 255)",
-          "ratio": 6.7705638225499305,
+          "ratio": 7.557378129674007,
           "threshold": 3
         },
         {
@@ -9049,9 +9049,9 @@
             68
           ],
           "state": "selected-hover-3",
-          "foreground": "rgb(76, 82, 129)",
+          "foreground": "rgb(79, 70, 229)",
           "background": "rgb(255, 255, 255)",
-          "ratio": 7.417315288578938,
+          "ratio": 6.287528596095884,
           "threshold": 3
         },
         {
@@ -9205,9 +9205,9 @@
             11
           ],
           "state": "selected-focus-3",
-          "foreground": "rgb(78, 75, 182)",
+          "foreground": "rgb(75, 85, 99)",
           "background": "rgb(255, 255, 255)",
-          "ratio": 6.986374584292433,
+          "ratio": 7.557378129674007,
           "threshold": 3
         },
         {
@@ -9219,9 +9219,9 @@
             68
           ],
           "state": "selected-focus-3",
-          "foreground": "rgb(76, 80, 146)",
+          "foreground": "rgb(79, 70, 229)",
           "background": "rgb(255, 255, 255)",
-          "ratio": 7.3175097008344165,
+          "ratio": 6.287528596095884,
           "threshold": 3
         },
         {
@@ -9389,9 +9389,9 @@
             68
           ],
           "state": "selected-hover-4",
-          "foreground": "rgb(78, 73, 199)",
+          "foreground": "rgb(75, 85, 99)",
           "background": "rgb(255, 255, 255)",
-          "ratio": 6.7705638225499305,
+          "ratio": 7.557378129674007,
           "threshold": 3
         },
         {
@@ -9403,9 +9403,9 @@
             246
           ],
           "state": "selected-hover-4",
-          "foreground": "rgb(76, 82, 129)",
+          "foreground": "rgb(79, 70, 229)",
           "background": "rgb(255, 255, 255)",
-          "ratio": 7.417315288578938,
+          "ratio": 6.287528596095884,
           "threshold": 3
         },
         {
@@ -9559,9 +9559,9 @@
             68
           ],
           "state": "selected-focus-4",
-          "foreground": "rgb(78, 75, 182)",
+          "foreground": "rgb(75, 85, 99)",
           "background": "rgb(255, 255, 255)",
-          "ratio": 6.986374584292433,
+          "ratio": 7.557378129674007,
           "threshold": 3
         },
         {
@@ -9573,9 +9573,9 @@
             246
           ],
           "state": "selected-focus-4",
-          "foreground": "rgb(76, 80, 146)",
+          "foreground": "rgb(79, 70, 229)",
           "background": "rgb(255, 255, 255)",
-          "ratio": 7.3175097008344165,
+          "ratio": 6.287528596095884,
           "threshold": 3
         },
         {
@@ -9743,9 +9743,9 @@
             246
           ],
           "state": "selected-hover-5",
-          "foreground": "rgb(78, 73, 199)",
+          "foreground": "rgb(75, 85, 99)",
           "background": "rgb(255, 255, 255)",
-          "ratio": 6.7705638225499305,
+          "ratio": 7.557378129674007,
           "threshold": 3
         },
         {
@@ -9757,9 +9757,9 @@
             212
           ],
           "state": "selected-hover-5",
-          "foreground": "rgb(76, 82, 129)",
+          "foreground": "rgb(79, 70, 229)",
           "background": "rgb(255, 255, 255)",
-          "ratio": 7.417315288578938,
+          "ratio": 6.287528596095884,
           "threshold": 3
         },
         {
@@ -9913,9 +9913,9 @@
             246
           ],
           "state": "selected-focus-5",
-          "foreground": "rgb(78, 75, 182)",
+          "foreground": "rgb(75, 85, 99)",
           "background": "rgb(255, 255, 255)",
-          "ratio": 6.986374584292433,
+          "ratio": 7.557378129674007,
           "threshold": 3
         },
         {
@@ -9927,9 +9927,9 @@
             212
           ],
           "state": "selected-focus-5",
-          "foreground": "rgb(76, 80, 146)",
+          "foreground": "rgb(79, 70, 229)",
           "background": "rgb(255, 255, 255)",
-          "ratio": 7.3175097008344165,
+          "ratio": 6.287528596095884,
           "threshold": 3
         },
         {
@@ -10097,9 +10097,9 @@
             212
           ],
           "state": "selected-hover-6",
-          "foreground": "rgb(78, 73, 199)",
+          "foreground": "rgb(75, 85, 99)",
           "background": "rgb(255, 255, 255)",
-          "ratio": 6.7705638225499305,
+          "ratio": 7.557378129674007,
           "threshold": 3
         },
         {
@@ -10111,9 +10111,9 @@
             22
           ],
           "state": "selected-hover-6",
-          "foreground": "rgb(76, 82, 129)",
+          "foreground": "rgb(79, 70, 229)",
           "background": "rgb(255, 255, 255)",
-          "ratio": 7.417315288578938,
+          "ratio": 6.287528596095884,
           "threshold": 3
         },
         {
@@ -10267,9 +10267,9 @@
             212
           ],
           "state": "selected-focus-6",
-          "foreground": "rgb(78, 75, 182)",
+          "foreground": "rgb(75, 85, 99)",
           "background": "rgb(255, 255, 255)",
-          "ratio": 6.986374584292433,
+          "ratio": 7.557378129674007,
           "threshold": 3
         },
         {
@@ -10281,9 +10281,9 @@
             22
           ],
           "state": "selected-focus-6",
-          "foreground": "rgb(76, 80, 146)",
+          "foreground": "rgb(79, 70, 229)",
           "background": "rgb(255, 255, 255)",
-          "ratio": 7.3175097008344165,
+          "ratio": 6.287528596095884,
           "threshold": 3
         },
         {
@@ -10451,9 +10451,9 @@
             22
           ],
           "state": "selected-hover-7",
-          "foreground": "rgb(78, 73, 199)",
+          "foreground": "rgb(75, 85, 99)",
           "background": "rgb(255, 255, 255)",
-          "ratio": 6.7705638225499305,
+          "ratio": 7.557378129674007,
           "threshold": 3
         },
         {
@@ -10465,9 +10465,9 @@
             22
           ],
           "state": "selected-hover-7",
-          "foreground": "rgb(76, 82, 129)",
+          "foreground": "rgb(79, 70, 229)",
           "background": "rgb(255, 255, 255)",
-          "ratio": 7.417315288578938,
+          "ratio": 6.287528596095884,
           "threshold": 3
         },
         {
@@ -10621,9 +10621,9 @@
             22
           ],
           "state": "selected-focus-7",
-          "foreground": "rgb(78, 75, 182)",
+          "foreground": "rgb(75, 85, 99)",
           "background": "rgb(255, 255, 255)",
-          "ratio": 6.986374584292433,
+          "ratio": 7.557378129674007,
           "threshold": 3
         },
         {
@@ -10635,9 +10635,9 @@
             22
           ],
           "state": "selected-focus-7",
-          "foreground": "rgb(76, 80, 146)",
+          "foreground": "rgb(79, 70, 229)",
           "background": "rgb(255, 255, 255)",
-          "ratio": 7.3175097008344165,
+          "ratio": 6.287528596095884,
           "threshold": 3
         },
         {
@@ -10805,9 +10805,9 @@
             22
           ],
           "state": "selected-hover-8",
-          "foreground": "rgb(78, 75, 182)",
+          "foreground": "rgb(75, 85, 99)",
           "background": "rgb(255, 255, 255)",
-          "ratio": 6.986374584292433,
+          "ratio": 7.557378129674007,
           "threshold": 3
         },
         {
@@ -10819,9 +10819,9 @@
             153
           ],
           "state": "selected-hover-8",
-          "foreground": "rgb(76, 80, 146)",
+          "foreground": "rgb(79, 70, 229)",
           "background": "rgb(255, 255, 255)",
-          "ratio": 7.3175097008344165,
+          "ratio": 6.287528596095884,
           "threshold": 3
         },
         {
@@ -10975,9 +10975,9 @@
             22
           ],
           "state": "selected-focus-8",
-          "foreground": "rgb(78, 75, 182)",
+          "foreground": "rgb(75, 85, 99)",
           "background": "rgb(255, 255, 255)",
-          "ratio": 6.986374584292433,
+          "ratio": 7.557378129674007,
           "threshold": 3
         },
         {
@@ -10989,9 +10989,9 @@
             153
           ],
           "state": "selected-focus-8",
-          "foreground": "rgb(76, 80, 146)",
+          "foreground": "rgb(79, 70, 229)",
           "background": "rgb(255, 255, 255)",
-          "ratio": 7.3175097008344165,
+          "ratio": 6.287528596095884,
           "threshold": 3
         },
         {
@@ -11159,9 +11159,9 @@
             153
           ],
           "state": "selected-hover-9",
-          "foreground": "rgb(78, 75, 182)",
+          "foreground": "rgb(75, 85, 99)",
           "background": "rgb(255, 255, 255)",
-          "ratio": 6.986374584292433,
+          "ratio": 7.557378129674007,
           "threshold": 3
         },
         {
@@ -11173,9 +11173,9 @@
             128
           ],
           "state": "selected-hover-9",
-          "foreground": "rgb(76, 80, 146)",
+          "foreground": "rgb(79, 70, 229)",
           "background": "rgb(255, 255, 255)",
-          "ratio": 7.3175097008344165,
+          "ratio": 6.287528596095884,
           "threshold": 3
         },
         {
@@ -11329,9 +11329,9 @@
             153
           ],
           "state": "selected-focus-9",
-          "foreground": "rgb(78, 75, 182)",
+          "foreground": "rgb(75, 85, 99)",
           "background": "rgb(255, 255, 255)",
-          "ratio": 6.986374584292433,
+          "ratio": 7.557378129674007,
           "threshold": 3
         },
         {
@@ -11343,9 +11343,9 @@
             128
           ],
           "state": "selected-focus-9",
-          "foreground": "rgb(76, 80, 146)",
+          "foreground": "rgb(79, 70, 229)",
           "background": "rgb(255, 255, 255)",
-          "ratio": 7.3175097008344165,
+          "ratio": 6.287528596095884,
           "threshold": 3
         },
         {
@@ -12094,9 +12094,9 @@
             0
           ],
           "state": "selected-hover-1",
-          "foreground": "rgb(76, 83, 116)",
+          "foreground": "rgb(76, 82, 129)",
           "background": "rgb(255, 255, 255)",
-          "ratio": 7.508599038147347,
+          "ratio": 7.417315288578938,
           "threshold": 3
         },
         {
@@ -12108,9 +12108,9 @@
             233
           ],
           "state": "selected-hover-1",
-          "foreground": "rgb(78, 72, 212)",
+          "foreground": "rgb(78, 73, 199)",
           "background": "rgb(255, 255, 255)",
-          "ratio": 6.559262583742155,
+          "ratio": 6.7705638225499305,
           "threshold": 3
         },
         {
@@ -12572,6 +12572,1672 @@
             233
           ],
           "state": "selected-hover-2",
+          "foreground": "rgb(78, 75, 182)",
+          "background": "rgb(255, 255, 255)",
+          "ratio": 6.986374584292433,
+          "threshold": 3
+        },
+        {
+          "kind": "swatch-boundary",
+          "color": "rgb(0, 158, 115)",
+          "categoryRGB": [
+            0,
+            158,
+            115
+          ],
+          "state": "selected-hover-2",
+          "foreground": "rgb(76, 80, 146)",
+          "background": "rgb(255, 255, 255)",
+          "ratio": 7.3175097008344165,
+          "threshold": 3
+        },
+        {
+          "kind": "swatch-boundary",
+          "color": "rgb(240, 228, 66)",
+          "categoryRGB": [
+            240,
+            228,
+            66
+          ],
+          "state": "selected-hover-2",
+          "foreground": "rgb(75, 85, 99)",
+          "background": "rgb(255, 255, 255)",
+          "ratio": 7.557378129674007,
+          "threshold": 3
+        },
+        {
+          "kind": "swatch-boundary",
+          "color": "rgb(0, 114, 178)",
+          "categoryRGB": [
+            0,
+            114,
+            178
+          ],
+          "state": "selected-hover-2",
+          "foreground": "rgb(75, 85, 99)",
+          "background": "rgb(255, 255, 255)",
+          "ratio": 7.557378129674007,
+          "threshold": 3
+        },
+        {
+          "kind": "swatch-boundary",
+          "color": "rgb(213, 94, 0)",
+          "categoryRGB": [
+            213,
+            94,
+            0
+          ],
+          "state": "selected-hover-2",
+          "foreground": "rgb(75, 85, 99)",
+          "background": "rgb(255, 255, 255)",
+          "ratio": 7.557378129674007,
+          "threshold": 3
+        },
+        {
+          "kind": "swatch-boundary",
+          "color": "rgb(204, 121, 167)",
+          "categoryRGB": [
+            204,
+            121,
+            167
+          ],
+          "state": "selected-hover-2",
+          "foreground": "rgb(75, 85, 99)",
+          "background": "rgb(255, 255, 255)",
+          "ratio": 7.557378129674007,
+          "threshold": 3
+        },
+        {
+          "kind": "swatch-boundary",
+          "color": "rgb(153, 153, 153)",
+          "categoryRGB": [
+            153,
+            153,
+            153
+          ],
+          "state": "selected-hover-2",
+          "foreground": "rgb(75, 85, 99)",
+          "background": "rgb(255, 255, 255)",
+          "ratio": 7.557378129674007,
+          "threshold": 3
+        },
+        {
+          "kind": "label",
+          "text": "审计标签 1",
+          "color": "rgb(230, 159, 0)",
+          "categoryRGB": [
+            230,
+            159,
+            0
+          ],
+          "state": "selected-hover-2",
+          "foreground": "rgb(0, 0, 0)",
+          "background": "rgb(230, 159, 0)",
+          "ratio": 9.323853664396687,
+          "threshold": 4.5
+        },
+        {
+          "kind": "label",
+          "text": "审计标签 2",
+          "color": "rgb(86, 180, 233)",
+          "categoryRGB": [
+            86,
+            180,
+            233
+          ],
+          "state": "selected-hover-2",
+          "foreground": "rgb(0, 0, 0)",
+          "background": "rgb(86, 180, 233)",
+          "ratio": 9.100828435876672,
+          "threshold": 4.5
+        },
+        {
+          "kind": "label",
+          "text": "审计标签 3",
+          "color": "rgb(0, 158, 115)",
+          "categoryRGB": [
+            0,
+            158,
+            115
+          ],
+          "state": "selected-hover-2",
+          "foreground": "rgb(0, 0, 0)",
+          "background": "rgb(0, 158, 115)",
+          "ratio": 6.1383048833516805,
+          "threshold": 4.5
+        },
+        {
+          "kind": "label",
+          "text": "审计标签 4",
+          "color": "rgb(240, 228, 66)",
+          "categoryRGB": [
+            240,
+            228,
+            66
+          ],
+          "state": "selected-hover-2",
+          "foreground": "rgb(0, 0, 0)",
+          "background": "rgb(240, 228, 66)",
+          "ratio": 15.881083520828598,
+          "threshold": 4.5
+        },
+        {
+          "kind": "label",
+          "text": "审计标签 5",
+          "color": "rgb(0, 114, 178)",
+          "categoryRGB": [
+            0,
+            114,
+            178
+          ],
+          "state": "selected-hover-2",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(0, 114, 178)",
+          "ratio": 5.185446345779855,
+          "threshold": 4.5
+        },
+        {
+          "kind": "label",
+          "text": "审计标签 6",
+          "color": "rgb(213, 94, 0)",
+          "categoryRGB": [
+            213,
+            94,
+            0
+          ],
+          "state": "selected-hover-2",
+          "foreground": "rgb(0, 0, 0)",
+          "background": "rgb(213, 94, 0)",
+          "ratio": 5.430308240075319,
+          "threshold": 4.5
+        },
+        {
+          "kind": "label",
+          "text": "审计标签 7",
+          "color": "rgb(204, 121, 167)",
+          "categoryRGB": [
+            204,
+            121,
+            167
+          ],
+          "state": "selected-hover-2",
+          "foreground": "rgb(0, 0, 0)",
+          "background": "rgb(204, 121, 167)",
+          "ratio": 6.860426817125674,
+          "threshold": 4.5
+        },
+        {
+          "kind": "label",
+          "text": "审计标签 8",
+          "color": "rgb(153, 153, 153)",
+          "categoryRGB": [
+            153,
+            153,
+            153
+          ],
+          "state": "selected-hover-2",
+          "foreground": "rgb(0, 0, 0)",
+          "background": "rgb(153, 153, 153)",
+          "ratio": 7.3709355625018365,
+          "threshold": 4.5
+        },
+        {
+          "kind": "swatch-boundary",
+          "color": "rgb(230, 159, 0)",
+          "categoryRGB": [
+            230,
+            159,
+            0
+          ],
+          "state": "selected-focus-2",
+          "foreground": "rgb(75, 85, 99)",
+          "background": "rgb(255, 255, 255)",
+          "ratio": 7.557378129674007,
+          "threshold": 3
+        },
+        {
+          "kind": "swatch-boundary",
+          "color": "rgb(86, 180, 233)",
+          "categoryRGB": [
+            86,
+            180,
+            233
+          ],
+          "state": "selected-focus-2",
+          "foreground": "rgb(77, 78, 164)",
+          "background": "rgb(255, 255, 255)",
+          "ratio": 7.139508373293945,
+          "threshold": 3
+        },
+        {
+          "kind": "swatch-boundary",
+          "color": "rgb(0, 158, 115)",
+          "categoryRGB": [
+            0,
+            158,
+            115
+          ],
+          "state": "selected-focus-2",
+          "foreground": "rgb(77, 77, 164)",
+          "background": "rgb(255, 255, 255)",
+          "ratio": 7.208631775183582,
+          "threshold": 3
+        },
+        {
+          "kind": "swatch-boundary",
+          "color": "rgb(240, 228, 66)",
+          "categoryRGB": [
+            240,
+            228,
+            66
+          ],
+          "state": "selected-focus-2",
+          "foreground": "rgb(75, 85, 99)",
+          "background": "rgb(255, 255, 255)",
+          "ratio": 7.557378129674007,
+          "threshold": 3
+        },
+        {
+          "kind": "swatch-boundary",
+          "color": "rgb(0, 114, 178)",
+          "categoryRGB": [
+            0,
+            114,
+            178
+          ],
+          "state": "selected-focus-2",
+          "foreground": "rgb(75, 85, 99)",
+          "background": "rgb(255, 255, 255)",
+          "ratio": 7.557378129674007,
+          "threshold": 3
+        },
+        {
+          "kind": "swatch-boundary",
+          "color": "rgb(213, 94, 0)",
+          "categoryRGB": [
+            213,
+            94,
+            0
+          ],
+          "state": "selected-focus-2",
+          "foreground": "rgb(75, 85, 99)",
+          "background": "rgb(255, 255, 255)",
+          "ratio": 7.557378129674007,
+          "threshold": 3
+        },
+        {
+          "kind": "swatch-boundary",
+          "color": "rgb(204, 121, 167)",
+          "categoryRGB": [
+            204,
+            121,
+            167
+          ],
+          "state": "selected-focus-2",
+          "foreground": "rgb(75, 85, 99)",
+          "background": "rgb(255, 255, 255)",
+          "ratio": 7.557378129674007,
+          "threshold": 3
+        },
+        {
+          "kind": "swatch-boundary",
+          "color": "rgb(153, 153, 153)",
+          "categoryRGB": [
+            153,
+            153,
+            153
+          ],
+          "state": "selected-focus-2",
+          "foreground": "rgb(75, 85, 99)",
+          "background": "rgb(255, 255, 255)",
+          "ratio": 7.557378129674007,
+          "threshold": 3
+        },
+        {
+          "kind": "label",
+          "text": "审计标签 1",
+          "color": "rgb(230, 159, 0)",
+          "categoryRGB": [
+            230,
+            159,
+            0
+          ],
+          "state": "selected-focus-2",
+          "foreground": "rgb(0, 0, 0)",
+          "background": "rgb(230, 159, 0)",
+          "ratio": 9.323853664396687,
+          "threshold": 4.5
+        },
+        {
+          "kind": "label",
+          "text": "审计标签 2",
+          "color": "rgb(86, 180, 233)",
+          "categoryRGB": [
+            86,
+            180,
+            233
+          ],
+          "state": "selected-focus-2",
+          "foreground": "rgb(0, 0, 0)",
+          "background": "rgb(86, 180, 233)",
+          "ratio": 9.100828435876672,
+          "threshold": 4.5
+        },
+        {
+          "kind": "label",
+          "text": "审计标签 3",
+          "color": "rgb(0, 158, 115)",
+          "categoryRGB": [
+            0,
+            158,
+            115
+          ],
+          "state": "selected-focus-2",
+          "foreground": "rgb(0, 0, 0)",
+          "background": "rgb(0, 158, 115)",
+          "ratio": 6.1383048833516805,
+          "threshold": 4.5
+        },
+        {
+          "kind": "label",
+          "text": "审计标签 4",
+          "color": "rgb(240, 228, 66)",
+          "categoryRGB": [
+            240,
+            228,
+            66
+          ],
+          "state": "selected-focus-2",
+          "foreground": "rgb(0, 0, 0)",
+          "background": "rgb(240, 228, 66)",
+          "ratio": 15.881083520828598,
+          "threshold": 4.5
+        },
+        {
+          "kind": "label",
+          "text": "审计标签 5",
+          "color": "rgb(0, 114, 178)",
+          "categoryRGB": [
+            0,
+            114,
+            178
+          ],
+          "state": "selected-focus-2",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(0, 114, 178)",
+          "ratio": 5.185446345779855,
+          "threshold": 4.5
+        },
+        {
+          "kind": "label",
+          "text": "审计标签 6",
+          "color": "rgb(213, 94, 0)",
+          "categoryRGB": [
+            213,
+            94,
+            0
+          ],
+          "state": "selected-focus-2",
+          "foreground": "rgb(0, 0, 0)",
+          "background": "rgb(213, 94, 0)",
+          "ratio": 5.430308240075319,
+          "threshold": 4.5
+        },
+        {
+          "kind": "label",
+          "text": "审计标签 7",
+          "color": "rgb(204, 121, 167)",
+          "categoryRGB": [
+            204,
+            121,
+            167
+          ],
+          "state": "selected-focus-2",
+          "foreground": "rgb(0, 0, 0)",
+          "background": "rgb(204, 121, 167)",
+          "ratio": 6.860426817125674,
+          "threshold": 4.5
+        },
+        {
+          "kind": "label",
+          "text": "审计标签 8",
+          "color": "rgb(153, 153, 153)",
+          "categoryRGB": [
+            153,
+            153,
+            153
+          ],
+          "state": "selected-focus-2",
+          "foreground": "rgb(0, 0, 0)",
+          "background": "rgb(153, 153, 153)",
+          "ratio": 7.3709355625018365,
+          "threshold": 4.5
+        },
+        {
+          "kind": "swatch-boundary",
+          "color": "rgb(230, 159, 0)",
+          "categoryRGB": [
+            230,
+            159,
+            0
+          ],
+          "state": "selected-hover-3",
+          "foreground": "rgb(75, 85, 99)",
+          "background": "rgb(255, 255, 255)",
+          "ratio": 7.557378129674007,
+          "threshold": 3
+        },
+        {
+          "kind": "swatch-boundary",
+          "color": "rgb(86, 180, 233)",
+          "categoryRGB": [
+            86,
+            180,
+            233
+          ],
+          "state": "selected-hover-3",
+          "foreground": "rgb(75, 85, 99)",
+          "background": "rgb(255, 255, 255)",
+          "ratio": 7.557378129674007,
+          "threshold": 3
+        },
+        {
+          "kind": "swatch-boundary",
+          "color": "rgb(0, 158, 115)",
+          "categoryRGB": [
+            0,
+            158,
+            115
+          ],
+          "state": "selected-hover-3",
+          "foreground": "rgb(75, 85, 101)",
+          "background": "rgb(255, 255, 255)",
+          "ratio": 7.53636826306566,
+          "threshold": 3
+        },
+        {
+          "kind": "swatch-boundary",
+          "color": "rgb(240, 228, 66)",
+          "categoryRGB": [
+            240,
+            228,
+            66
+          ],
+          "state": "selected-hover-3",
+          "foreground": "rgb(79, 70, 227)",
+          "background": "rgb(255, 255, 255)",
+          "ratio": 6.329635224509166,
+          "threshold": 3
+        },
+        {
+          "kind": "swatch-boundary",
+          "color": "rgb(0, 114, 178)",
+          "categoryRGB": [
+            0,
+            114,
+            178
+          ],
+          "state": "selected-hover-3",
+          "foreground": "rgb(75, 85, 99)",
+          "background": "rgb(255, 255, 255)",
+          "ratio": 7.557378129674007,
+          "threshold": 3
+        },
+        {
+          "kind": "swatch-boundary",
+          "color": "rgb(213, 94, 0)",
+          "categoryRGB": [
+            213,
+            94,
+            0
+          ],
+          "state": "selected-hover-3",
+          "foreground": "rgb(75, 85, 99)",
+          "background": "rgb(255, 255, 255)",
+          "ratio": 7.557378129674007,
+          "threshold": 3
+        },
+        {
+          "kind": "swatch-boundary",
+          "color": "rgb(204, 121, 167)",
+          "categoryRGB": [
+            204,
+            121,
+            167
+          ],
+          "state": "selected-hover-3",
+          "foreground": "rgb(75, 85, 99)",
+          "background": "rgb(255, 255, 255)",
+          "ratio": 7.557378129674007,
+          "threshold": 3
+        },
+        {
+          "kind": "swatch-boundary",
+          "color": "rgb(153, 153, 153)",
+          "categoryRGB": [
+            153,
+            153,
+            153
+          ],
+          "state": "selected-hover-3",
+          "foreground": "rgb(75, 85, 99)",
+          "background": "rgb(255, 255, 255)",
+          "ratio": 7.557378129674007,
+          "threshold": 3
+        },
+        {
+          "kind": "label",
+          "text": "审计标签 1",
+          "color": "rgb(230, 159, 0)",
+          "categoryRGB": [
+            230,
+            159,
+            0
+          ],
+          "state": "selected-hover-3",
+          "foreground": "rgb(0, 0, 0)",
+          "background": "rgb(230, 159, 0)",
+          "ratio": 9.323853664396687,
+          "threshold": 4.5
+        },
+        {
+          "kind": "label",
+          "text": "审计标签 2",
+          "color": "rgb(86, 180, 233)",
+          "categoryRGB": [
+            86,
+            180,
+            233
+          ],
+          "state": "selected-hover-3",
+          "foreground": "rgb(0, 0, 0)",
+          "background": "rgb(86, 180, 233)",
+          "ratio": 9.100828435876672,
+          "threshold": 4.5
+        },
+        {
+          "kind": "label",
+          "text": "审计标签 3",
+          "color": "rgb(0, 158, 115)",
+          "categoryRGB": [
+            0,
+            158,
+            115
+          ],
+          "state": "selected-hover-3",
+          "foreground": "rgb(0, 0, 0)",
+          "background": "rgb(0, 158, 115)",
+          "ratio": 6.1383048833516805,
+          "threshold": 4.5
+        },
+        {
+          "kind": "label",
+          "text": "审计标签 4",
+          "color": "rgb(240, 228, 66)",
+          "categoryRGB": [
+            240,
+            228,
+            66
+          ],
+          "state": "selected-hover-3",
+          "foreground": "rgb(0, 0, 0)",
+          "background": "rgb(240, 228, 66)",
+          "ratio": 15.881083520828598,
+          "threshold": 4.5
+        },
+        {
+          "kind": "label",
+          "text": "审计标签 5",
+          "color": "rgb(0, 114, 178)",
+          "categoryRGB": [
+            0,
+            114,
+            178
+          ],
+          "state": "selected-hover-3",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(0, 114, 178)",
+          "ratio": 5.185446345779855,
+          "threshold": 4.5
+        },
+        {
+          "kind": "label",
+          "text": "审计标签 6",
+          "color": "rgb(213, 94, 0)",
+          "categoryRGB": [
+            213,
+            94,
+            0
+          ],
+          "state": "selected-hover-3",
+          "foreground": "rgb(0, 0, 0)",
+          "background": "rgb(213, 94, 0)",
+          "ratio": 5.430308240075319,
+          "threshold": 4.5
+        },
+        {
+          "kind": "label",
+          "text": "审计标签 7",
+          "color": "rgb(204, 121, 167)",
+          "categoryRGB": [
+            204,
+            121,
+            167
+          ],
+          "state": "selected-hover-3",
+          "foreground": "rgb(0, 0, 0)",
+          "background": "rgb(204, 121, 167)",
+          "ratio": 6.860426817125674,
+          "threshold": 4.5
+        },
+        {
+          "kind": "label",
+          "text": "审计标签 8",
+          "color": "rgb(153, 153, 153)",
+          "categoryRGB": [
+            153,
+            153,
+            153
+          ],
+          "state": "selected-hover-3",
+          "foreground": "rgb(0, 0, 0)",
+          "background": "rgb(153, 153, 153)",
+          "ratio": 7.3709355625018365,
+          "threshold": 4.5
+        },
+        {
+          "kind": "swatch-boundary",
+          "color": "rgb(230, 159, 0)",
+          "categoryRGB": [
+            230,
+            159,
+            0
+          ],
+          "state": "selected-focus-3",
+          "foreground": "rgb(75, 85, 99)",
+          "background": "rgb(255, 255, 255)",
+          "ratio": 7.557378129674007,
+          "threshold": 3
+        },
+        {
+          "kind": "swatch-boundary",
+          "color": "rgb(86, 180, 233)",
+          "categoryRGB": [
+            86,
+            180,
+            233
+          ],
+          "state": "selected-focus-3",
+          "foreground": "rgb(75, 85, 99)",
+          "background": "rgb(255, 255, 255)",
+          "ratio": 7.557378129674007,
+          "threshold": 3
+        },
+        {
+          "kind": "swatch-boundary",
+          "color": "rgb(0, 158, 115)",
+          "categoryRGB": [
+            0,
+            158,
+            115
+          ],
+          "state": "selected-focus-3",
+          "foreground": "rgb(75, 85, 101)",
+          "background": "rgb(255, 255, 255)",
+          "ratio": 7.53636826306566,
+          "threshold": 3
+        },
+        {
+          "kind": "swatch-boundary",
+          "color": "rgb(240, 228, 66)",
+          "categoryRGB": [
+            240,
+            228,
+            66
+          ],
+          "state": "selected-focus-3",
+          "foreground": "rgb(79, 70, 227)",
+          "background": "rgb(255, 255, 255)",
+          "ratio": 6.329635224509166,
+          "threshold": 3
+        },
+        {
+          "kind": "swatch-boundary",
+          "color": "rgb(0, 114, 178)",
+          "categoryRGB": [
+            0,
+            114,
+            178
+          ],
+          "state": "selected-focus-3",
+          "foreground": "rgb(75, 85, 99)",
+          "background": "rgb(255, 255, 255)",
+          "ratio": 7.557378129674007,
+          "threshold": 3
+        },
+        {
+          "kind": "swatch-boundary",
+          "color": "rgb(213, 94, 0)",
+          "categoryRGB": [
+            213,
+            94,
+            0
+          ],
+          "state": "selected-focus-3",
+          "foreground": "rgb(75, 85, 99)",
+          "background": "rgb(255, 255, 255)",
+          "ratio": 7.557378129674007,
+          "threshold": 3
+        },
+        {
+          "kind": "swatch-boundary",
+          "color": "rgb(204, 121, 167)",
+          "categoryRGB": [
+            204,
+            121,
+            167
+          ],
+          "state": "selected-focus-3",
+          "foreground": "rgb(75, 85, 99)",
+          "background": "rgb(255, 255, 255)",
+          "ratio": 7.557378129674007,
+          "threshold": 3
+        },
+        {
+          "kind": "swatch-boundary",
+          "color": "rgb(153, 153, 153)",
+          "categoryRGB": [
+            153,
+            153,
+            153
+          ],
+          "state": "selected-focus-3",
+          "foreground": "rgb(75, 85, 99)",
+          "background": "rgb(255, 255, 255)",
+          "ratio": 7.557378129674007,
+          "threshold": 3
+        },
+        {
+          "kind": "label",
+          "text": "审计标签 1",
+          "color": "rgb(230, 159, 0)",
+          "categoryRGB": [
+            230,
+            159,
+            0
+          ],
+          "state": "selected-focus-3",
+          "foreground": "rgb(0, 0, 0)",
+          "background": "rgb(230, 159, 0)",
+          "ratio": 9.323853664396687,
+          "threshold": 4.5
+        },
+        {
+          "kind": "label",
+          "text": "审计标签 2",
+          "color": "rgb(86, 180, 233)",
+          "categoryRGB": [
+            86,
+            180,
+            233
+          ],
+          "state": "selected-focus-3",
+          "foreground": "rgb(0, 0, 0)",
+          "background": "rgb(86, 180, 233)",
+          "ratio": 9.100828435876672,
+          "threshold": 4.5
+        },
+        {
+          "kind": "label",
+          "text": "审计标签 3",
+          "color": "rgb(0, 158, 115)",
+          "categoryRGB": [
+            0,
+            158,
+            115
+          ],
+          "state": "selected-focus-3",
+          "foreground": "rgb(0, 0, 0)",
+          "background": "rgb(0, 158, 115)",
+          "ratio": 6.1383048833516805,
+          "threshold": 4.5
+        },
+        {
+          "kind": "label",
+          "text": "审计标签 4",
+          "color": "rgb(240, 228, 66)",
+          "categoryRGB": [
+            240,
+            228,
+            66
+          ],
+          "state": "selected-focus-3",
+          "foreground": "rgb(0, 0, 0)",
+          "background": "rgb(240, 228, 66)",
+          "ratio": 15.881083520828598,
+          "threshold": 4.5
+        },
+        {
+          "kind": "label",
+          "text": "审计标签 5",
+          "color": "rgb(0, 114, 178)",
+          "categoryRGB": [
+            0,
+            114,
+            178
+          ],
+          "state": "selected-focus-3",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(0, 114, 178)",
+          "ratio": 5.185446345779855,
+          "threshold": 4.5
+        },
+        {
+          "kind": "label",
+          "text": "审计标签 6",
+          "color": "rgb(213, 94, 0)",
+          "categoryRGB": [
+            213,
+            94,
+            0
+          ],
+          "state": "selected-focus-3",
+          "foreground": "rgb(0, 0, 0)",
+          "background": "rgb(213, 94, 0)",
+          "ratio": 5.430308240075319,
+          "threshold": 4.5
+        },
+        {
+          "kind": "label",
+          "text": "审计标签 7",
+          "color": "rgb(204, 121, 167)",
+          "categoryRGB": [
+            204,
+            121,
+            167
+          ],
+          "state": "selected-focus-3",
+          "foreground": "rgb(0, 0, 0)",
+          "background": "rgb(204, 121, 167)",
+          "ratio": 6.860426817125674,
+          "threshold": 4.5
+        },
+        {
+          "kind": "label",
+          "text": "审计标签 8",
+          "color": "rgb(153, 153, 153)",
+          "categoryRGB": [
+            153,
+            153,
+            153
+          ],
+          "state": "selected-focus-3",
+          "foreground": "rgb(0, 0, 0)",
+          "background": "rgb(153, 153, 153)",
+          "ratio": 7.3709355625018365,
+          "threshold": 4.5
+        },
+        {
+          "kind": "swatch-boundary",
+          "color": "rgb(230, 159, 0)",
+          "categoryRGB": [
+            230,
+            159,
+            0
+          ],
+          "state": "selected-hover-4",
+          "foreground": "rgb(75, 85, 99)",
+          "background": "rgb(255, 255, 255)",
+          "ratio": 7.557378129674007,
+          "threshold": 3
+        },
+        {
+          "kind": "swatch-boundary",
+          "color": "rgb(86, 180, 233)",
+          "categoryRGB": [
+            86,
+            180,
+            233
+          ],
+          "state": "selected-hover-4",
+          "foreground": "rgb(75, 85, 99)",
+          "background": "rgb(255, 255, 255)",
+          "ratio": 7.557378129674007,
+          "threshold": 3
+        },
+        {
+          "kind": "swatch-boundary",
+          "color": "rgb(0, 158, 115)",
+          "categoryRGB": [
+            0,
+            158,
+            115
+          ],
+          "state": "selected-hover-4",
+          "foreground": "rgb(75, 85, 99)",
+          "background": "rgb(255, 255, 255)",
+          "ratio": 7.557378129674007,
+          "threshold": 3
+        },
+        {
+          "kind": "swatch-boundary",
+          "color": "rgb(240, 228, 66)",
+          "categoryRGB": [
+            240,
+            228,
+            66
+          ],
+          "state": "selected-hover-4",
+          "foreground": "rgb(78, 75, 182)",
+          "background": "rgb(255, 255, 255)",
+          "ratio": 6.986374584292433,
+          "threshold": 3
+        },
+        {
+          "kind": "swatch-boundary",
+          "color": "rgb(0, 114, 178)",
+          "categoryRGB": [
+            0,
+            114,
+            178
+          ],
+          "state": "selected-hover-4",
+          "foreground": "rgb(76, 80, 146)",
+          "background": "rgb(255, 255, 255)",
+          "ratio": 7.3175097008344165,
+          "threshold": 3
+        },
+        {
+          "kind": "swatch-boundary",
+          "color": "rgb(213, 94, 0)",
+          "categoryRGB": [
+            213,
+            94,
+            0
+          ],
+          "state": "selected-hover-4",
+          "foreground": "rgb(75, 85, 99)",
+          "background": "rgb(255, 255, 255)",
+          "ratio": 7.557378129674007,
+          "threshold": 3
+        },
+        {
+          "kind": "swatch-boundary",
+          "color": "rgb(204, 121, 167)",
+          "categoryRGB": [
+            204,
+            121,
+            167
+          ],
+          "state": "selected-hover-4",
+          "foreground": "rgb(75, 85, 99)",
+          "background": "rgb(255, 255, 255)",
+          "ratio": 7.557378129674007,
+          "threshold": 3
+        },
+        {
+          "kind": "swatch-boundary",
+          "color": "rgb(153, 153, 153)",
+          "categoryRGB": [
+            153,
+            153,
+            153
+          ],
+          "state": "selected-hover-4",
+          "foreground": "rgb(75, 85, 99)",
+          "background": "rgb(255, 255, 255)",
+          "ratio": 7.557378129674007,
+          "threshold": 3
+        },
+        {
+          "kind": "label",
+          "text": "审计标签 1",
+          "color": "rgb(230, 159, 0)",
+          "categoryRGB": [
+            230,
+            159,
+            0
+          ],
+          "state": "selected-hover-4",
+          "foreground": "rgb(0, 0, 0)",
+          "background": "rgb(230, 159, 0)",
+          "ratio": 9.323853664396687,
+          "threshold": 4.5
+        },
+        {
+          "kind": "label",
+          "text": "审计标签 2",
+          "color": "rgb(86, 180, 233)",
+          "categoryRGB": [
+            86,
+            180,
+            233
+          ],
+          "state": "selected-hover-4",
+          "foreground": "rgb(0, 0, 0)",
+          "background": "rgb(86, 180, 233)",
+          "ratio": 9.100828435876672,
+          "threshold": 4.5
+        },
+        {
+          "kind": "label",
+          "text": "审计标签 3",
+          "color": "rgb(0, 158, 115)",
+          "categoryRGB": [
+            0,
+            158,
+            115
+          ],
+          "state": "selected-hover-4",
+          "foreground": "rgb(0, 0, 0)",
+          "background": "rgb(0, 158, 115)",
+          "ratio": 6.1383048833516805,
+          "threshold": 4.5
+        },
+        {
+          "kind": "label",
+          "text": "审计标签 4",
+          "color": "rgb(240, 228, 66)",
+          "categoryRGB": [
+            240,
+            228,
+            66
+          ],
+          "state": "selected-hover-4",
+          "foreground": "rgb(0, 0, 0)",
+          "background": "rgb(240, 228, 66)",
+          "ratio": 15.881083520828598,
+          "threshold": 4.5
+        },
+        {
+          "kind": "label",
+          "text": "审计标签 5",
+          "color": "rgb(0, 114, 178)",
+          "categoryRGB": [
+            0,
+            114,
+            178
+          ],
+          "state": "selected-hover-4",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(0, 114, 178)",
+          "ratio": 5.185446345779855,
+          "threshold": 4.5
+        },
+        {
+          "kind": "label",
+          "text": "审计标签 6",
+          "color": "rgb(213, 94, 0)",
+          "categoryRGB": [
+            213,
+            94,
+            0
+          ],
+          "state": "selected-hover-4",
+          "foreground": "rgb(0, 0, 0)",
+          "background": "rgb(213, 94, 0)",
+          "ratio": 5.430308240075319,
+          "threshold": 4.5
+        },
+        {
+          "kind": "label",
+          "text": "审计标签 7",
+          "color": "rgb(204, 121, 167)",
+          "categoryRGB": [
+            204,
+            121,
+            167
+          ],
+          "state": "selected-hover-4",
+          "foreground": "rgb(0, 0, 0)",
+          "background": "rgb(204, 121, 167)",
+          "ratio": 6.860426817125674,
+          "threshold": 4.5
+        },
+        {
+          "kind": "label",
+          "text": "审计标签 8",
+          "color": "rgb(153, 153, 153)",
+          "categoryRGB": [
+            153,
+            153,
+            153
+          ],
+          "state": "selected-hover-4",
+          "foreground": "rgb(0, 0, 0)",
+          "background": "rgb(153, 153, 153)",
+          "ratio": 7.3709355625018365,
+          "threshold": 4.5
+        },
+        {
+          "kind": "swatch-boundary",
+          "color": "rgb(230, 159, 0)",
+          "categoryRGB": [
+            230,
+            159,
+            0
+          ],
+          "state": "selected-focus-4",
+          "foreground": "rgb(75, 85, 99)",
+          "background": "rgb(255, 255, 255)",
+          "ratio": 7.557378129674007,
+          "threshold": 3
+        },
+        {
+          "kind": "swatch-boundary",
+          "color": "rgb(86, 180, 233)",
+          "categoryRGB": [
+            86,
+            180,
+            233
+          ],
+          "state": "selected-focus-4",
+          "foreground": "rgb(75, 85, 99)",
+          "background": "rgb(255, 255, 255)",
+          "ratio": 7.557378129674007,
+          "threshold": 3
+        },
+        {
+          "kind": "swatch-boundary",
+          "color": "rgb(0, 158, 115)",
+          "categoryRGB": [
+            0,
+            158,
+            115
+          ],
+          "state": "selected-focus-4",
+          "foreground": "rgb(75, 85, 99)",
+          "background": "rgb(255, 255, 255)",
+          "ratio": 7.557378129674007,
+          "threshold": 3
+        },
+        {
+          "kind": "swatch-boundary",
+          "color": "rgb(240, 228, 66)",
+          "categoryRGB": [
+            240,
+            228,
+            66
+          ],
+          "state": "selected-focus-4",
+          "foreground": "rgb(77, 78, 164)",
+          "background": "rgb(255, 255, 255)",
+          "ratio": 7.139508373293945,
+          "threshold": 3
+        },
+        {
+          "kind": "swatch-boundary",
+          "color": "rgb(0, 114, 178)",
+          "categoryRGB": [
+            0,
+            114,
+            178
+          ],
+          "state": "selected-focus-4",
+          "foreground": "rgb(77, 77, 164)",
+          "background": "rgb(255, 255, 255)",
+          "ratio": 7.208631775183582,
+          "threshold": 3
+        },
+        {
+          "kind": "swatch-boundary",
+          "color": "rgb(213, 94, 0)",
+          "categoryRGB": [
+            213,
+            94,
+            0
+          ],
+          "state": "selected-focus-4",
+          "foreground": "rgb(75, 85, 99)",
+          "background": "rgb(255, 255, 255)",
+          "ratio": 7.557378129674007,
+          "threshold": 3
+        },
+        {
+          "kind": "swatch-boundary",
+          "color": "rgb(204, 121, 167)",
+          "categoryRGB": [
+            204,
+            121,
+            167
+          ],
+          "state": "selected-focus-4",
+          "foreground": "rgb(75, 85, 99)",
+          "background": "rgb(255, 255, 255)",
+          "ratio": 7.557378129674007,
+          "threshold": 3
+        },
+        {
+          "kind": "swatch-boundary",
+          "color": "rgb(153, 153, 153)",
+          "categoryRGB": [
+            153,
+            153,
+            153
+          ],
+          "state": "selected-focus-4",
+          "foreground": "rgb(75, 85, 99)",
+          "background": "rgb(255, 255, 255)",
+          "ratio": 7.557378129674007,
+          "threshold": 3
+        },
+        {
+          "kind": "label",
+          "text": "审计标签 1",
+          "color": "rgb(230, 159, 0)",
+          "categoryRGB": [
+            230,
+            159,
+            0
+          ],
+          "state": "selected-focus-4",
+          "foreground": "rgb(0, 0, 0)",
+          "background": "rgb(230, 159, 0)",
+          "ratio": 9.323853664396687,
+          "threshold": 4.5
+        },
+        {
+          "kind": "label",
+          "text": "审计标签 2",
+          "color": "rgb(86, 180, 233)",
+          "categoryRGB": [
+            86,
+            180,
+            233
+          ],
+          "state": "selected-focus-4",
+          "foreground": "rgb(0, 0, 0)",
+          "background": "rgb(86, 180, 233)",
+          "ratio": 9.100828435876672,
+          "threshold": 4.5
+        },
+        {
+          "kind": "label",
+          "text": "审计标签 3",
+          "color": "rgb(0, 158, 115)",
+          "categoryRGB": [
+            0,
+            158,
+            115
+          ],
+          "state": "selected-focus-4",
+          "foreground": "rgb(0, 0, 0)",
+          "background": "rgb(0, 158, 115)",
+          "ratio": 6.1383048833516805,
+          "threshold": 4.5
+        },
+        {
+          "kind": "label",
+          "text": "审计标签 4",
+          "color": "rgb(240, 228, 66)",
+          "categoryRGB": [
+            240,
+            228,
+            66
+          ],
+          "state": "selected-focus-4",
+          "foreground": "rgb(0, 0, 0)",
+          "background": "rgb(240, 228, 66)",
+          "ratio": 15.881083520828598,
+          "threshold": 4.5
+        },
+        {
+          "kind": "label",
+          "text": "审计标签 5",
+          "color": "rgb(0, 114, 178)",
+          "categoryRGB": [
+            0,
+            114,
+            178
+          ],
+          "state": "selected-focus-4",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(0, 114, 178)",
+          "ratio": 5.185446345779855,
+          "threshold": 4.5
+        },
+        {
+          "kind": "label",
+          "text": "审计标签 6",
+          "color": "rgb(213, 94, 0)",
+          "categoryRGB": [
+            213,
+            94,
+            0
+          ],
+          "state": "selected-focus-4",
+          "foreground": "rgb(0, 0, 0)",
+          "background": "rgb(213, 94, 0)",
+          "ratio": 5.430308240075319,
+          "threshold": 4.5
+        },
+        {
+          "kind": "label",
+          "text": "审计标签 7",
+          "color": "rgb(204, 121, 167)",
+          "categoryRGB": [
+            204,
+            121,
+            167
+          ],
+          "state": "selected-focus-4",
+          "foreground": "rgb(0, 0, 0)",
+          "background": "rgb(204, 121, 167)",
+          "ratio": 6.860426817125674,
+          "threshold": 4.5
+        },
+        {
+          "kind": "label",
+          "text": "审计标签 8",
+          "color": "rgb(153, 153, 153)",
+          "categoryRGB": [
+            153,
+            153,
+            153
+          ],
+          "state": "selected-focus-4",
+          "foreground": "rgb(0, 0, 0)",
+          "background": "rgb(153, 153, 153)",
+          "ratio": 7.3709355625018365,
+          "threshold": 4.5
+        },
+        {
+          "kind": "swatch-boundary",
+          "color": "rgb(230, 159, 0)",
+          "categoryRGB": [
+            230,
+            159,
+            0
+          ],
+          "state": "selected-hover-5",
+          "foreground": "rgb(75, 85, 99)",
+          "background": "rgb(255, 255, 255)",
+          "ratio": 7.557378129674007,
+          "threshold": 3
+        },
+        {
+          "kind": "swatch-boundary",
+          "color": "rgb(86, 180, 233)",
+          "categoryRGB": [
+            86,
+            180,
+            233
+          ],
+          "state": "selected-hover-5",
+          "foreground": "rgb(75, 85, 99)",
+          "background": "rgb(255, 255, 255)",
+          "ratio": 7.557378129674007,
+          "threshold": 3
+        },
+        {
+          "kind": "swatch-boundary",
+          "color": "rgb(0, 158, 115)",
+          "categoryRGB": [
+            0,
+            158,
+            115
+          ],
+          "state": "selected-hover-5",
+          "foreground": "rgb(75, 85, 99)",
+          "background": "rgb(255, 255, 255)",
+          "ratio": 7.557378129674007,
+          "threshold": 3
+        },
+        {
+          "kind": "swatch-boundary",
+          "color": "rgb(240, 228, 66)",
+          "categoryRGB": [
+            240,
+            228,
+            66
+          ],
+          "state": "selected-hover-5",
+          "foreground": "rgb(75, 85, 99)",
+          "background": "rgb(255, 255, 255)",
+          "ratio": 7.557378129674007,
+          "threshold": 3
+        },
+        {
+          "kind": "swatch-boundary",
+          "color": "rgb(0, 114, 178)",
+          "categoryRGB": [
+            0,
+            114,
+            178
+          ],
+          "state": "selected-hover-5",
+          "foreground": "rgb(76, 82, 129)",
+          "background": "rgb(255, 255, 255)",
+          "ratio": 7.417315288578938,
+          "threshold": 3
+        },
+        {
+          "kind": "swatch-boundary",
+          "color": "rgb(213, 94, 0)",
+          "categoryRGB": [
+            213,
+            94,
+            0
+          ],
+          "state": "selected-hover-5",
+          "foreground": "rgb(78, 73, 199)",
+          "background": "rgb(255, 255, 255)",
+          "ratio": 6.7705638225499305,
+          "threshold": 3
+        },
+        {
+          "kind": "swatch-boundary",
+          "color": "rgb(204, 121, 167)",
+          "categoryRGB": [
+            204,
+            121,
+            167
+          ],
+          "state": "selected-hover-5",
+          "foreground": "rgb(75, 85, 99)",
+          "background": "rgb(255, 255, 255)",
+          "ratio": 7.557378129674007,
+          "threshold": 3
+        },
+        {
+          "kind": "swatch-boundary",
+          "color": "rgb(153, 153, 153)",
+          "categoryRGB": [
+            153,
+            153,
+            153
+          ],
+          "state": "selected-hover-5",
+          "foreground": "rgb(75, 85, 99)",
+          "background": "rgb(255, 255, 255)",
+          "ratio": 7.557378129674007,
+          "threshold": 3
+        },
+        {
+          "kind": "label",
+          "text": "审计标签 1",
+          "color": "rgb(230, 159, 0)",
+          "categoryRGB": [
+            230,
+            159,
+            0
+          ],
+          "state": "selected-hover-5",
+          "foreground": "rgb(0, 0, 0)",
+          "background": "rgb(230, 159, 0)",
+          "ratio": 9.323853664396687,
+          "threshold": 4.5
+        },
+        {
+          "kind": "label",
+          "text": "审计标签 2",
+          "color": "rgb(86, 180, 233)",
+          "categoryRGB": [
+            86,
+            180,
+            233
+          ],
+          "state": "selected-hover-5",
+          "foreground": "rgb(0, 0, 0)",
+          "background": "rgb(86, 180, 233)",
+          "ratio": 9.100828435876672,
+          "threshold": 4.5
+        },
+        {
+          "kind": "label",
+          "text": "审计标签 3",
+          "color": "rgb(0, 158, 115)",
+          "categoryRGB": [
+            0,
+            158,
+            115
+          ],
+          "state": "selected-hover-5",
+          "foreground": "rgb(0, 0, 0)",
+          "background": "rgb(0, 158, 115)",
+          "ratio": 6.1383048833516805,
+          "threshold": 4.5
+        },
+        {
+          "kind": "label",
+          "text": "审计标签 4",
+          "color": "rgb(240, 228, 66)",
+          "categoryRGB": [
+            240,
+            228,
+            66
+          ],
+          "state": "selected-hover-5",
+          "foreground": "rgb(0, 0, 0)",
+          "background": "rgb(240, 228, 66)",
+          "ratio": 15.881083520828598,
+          "threshold": 4.5
+        },
+        {
+          "kind": "label",
+          "text": "审计标签 5",
+          "color": "rgb(0, 114, 178)",
+          "categoryRGB": [
+            0,
+            114,
+            178
+          ],
+          "state": "selected-hover-5",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(0, 114, 178)",
+          "ratio": 5.185446345779855,
+          "threshold": 4.5
+        },
+        {
+          "kind": "label",
+          "text": "审计标签 6",
+          "color": "rgb(213, 94, 0)",
+          "categoryRGB": [
+            213,
+            94,
+            0
+          ],
+          "state": "selected-hover-5",
+          "foreground": "rgb(0, 0, 0)",
+          "background": "rgb(213, 94, 0)",
+          "ratio": 5.430308240075319,
+          "threshold": 4.5
+        },
+        {
+          "kind": "label",
+          "text": "审计标签 7",
+          "color": "rgb(204, 121, 167)",
+          "categoryRGB": [
+            204,
+            121,
+            167
+          ],
+          "state": "selected-hover-5",
+          "foreground": "rgb(0, 0, 0)",
+          "background": "rgb(204, 121, 167)",
+          "ratio": 6.860426817125674,
+          "threshold": 4.5
+        },
+        {
+          "kind": "label",
+          "text": "审计标签 8",
+          "color": "rgb(153, 153, 153)",
+          "categoryRGB": [
+            153,
+            153,
+            153
+          ],
+          "state": "selected-hover-5",
+          "foreground": "rgb(0, 0, 0)",
+          "background": "rgb(153, 153, 153)",
+          "ratio": 7.3709355625018365,
+          "threshold": 4.5
+        },
+        {
+          "kind": "swatch-boundary",
+          "color": "rgb(230, 159, 0)",
+          "categoryRGB": [
+            230,
+            159,
+            0
+          ],
+          "state": "selected-focus-5",
+          "foreground": "rgb(75, 85, 99)",
+          "background": "rgb(255, 255, 255)",
+          "ratio": 7.557378129674007,
+          "threshold": 3
+        },
+        {
+          "kind": "swatch-boundary",
+          "color": "rgb(86, 180, 233)",
+          "categoryRGB": [
+            86,
+            180,
+            233
+          ],
+          "state": "selected-focus-5",
+          "foreground": "rgb(75, 85, 99)",
+          "background": "rgb(255, 255, 255)",
+          "ratio": 7.557378129674007,
+          "threshold": 3
+        },
+        {
+          "kind": "swatch-boundary",
+          "color": "rgb(0, 158, 115)",
+          "categoryRGB": [
+            0,
+            158,
+            115
+          ],
+          "state": "selected-focus-5",
+          "foreground": "rgb(75, 85, 99)",
+          "background": "rgb(255, 255, 255)",
+          "ratio": 7.557378129674007,
+          "threshold": 3
+        },
+        {
+          "kind": "swatch-boundary",
+          "color": "rgb(240, 228, 66)",
+          "categoryRGB": [
+            240,
+            228,
+            66
+          ],
+          "state": "selected-focus-5",
+          "foreground": "rgb(75, 85, 99)",
+          "background": "rgb(255, 255, 255)",
+          "ratio": 7.557378129674007,
+          "threshold": 3
+        },
+        {
+          "kind": "swatch-boundary",
+          "color": "rgb(0, 114, 178)",
+          "categoryRGB": [
+            0,
+            114,
+            178
+          ],
+          "state": "selected-focus-5",
           "foreground": "rgb(76, 83, 116)",
           "background": "rgb(255, 255, 255)",
           "ratio": 7.508599038147347,
@@ -12579,1682 +14245,16 @@
         },
         {
           "kind": "swatch-boundary",
-          "color": "rgb(0, 158, 115)",
+          "color": "rgb(213, 94, 0)",
           "categoryRGB": [
-            0,
-            158,
-            115
+            213,
+            94,
+            0
           ],
-          "state": "selected-hover-2",
+          "state": "selected-focus-5",
           "foreground": "rgb(78, 72, 212)",
           "background": "rgb(255, 255, 255)",
           "ratio": 6.559262583742155,
-          "threshold": 3
-        },
-        {
-          "kind": "swatch-boundary",
-          "color": "rgb(240, 228, 66)",
-          "categoryRGB": [
-            240,
-            228,
-            66
-          ],
-          "state": "selected-hover-2",
-          "foreground": "rgb(75, 85, 99)",
-          "background": "rgb(255, 255, 255)",
-          "ratio": 7.557378129674007,
-          "threshold": 3
-        },
-        {
-          "kind": "swatch-boundary",
-          "color": "rgb(0, 114, 178)",
-          "categoryRGB": [
-            0,
-            114,
-            178
-          ],
-          "state": "selected-hover-2",
-          "foreground": "rgb(75, 85, 99)",
-          "background": "rgb(255, 255, 255)",
-          "ratio": 7.557378129674007,
-          "threshold": 3
-        },
-        {
-          "kind": "swatch-boundary",
-          "color": "rgb(213, 94, 0)",
-          "categoryRGB": [
-            213,
-            94,
-            0
-          ],
-          "state": "selected-hover-2",
-          "foreground": "rgb(75, 85, 99)",
-          "background": "rgb(255, 255, 255)",
-          "ratio": 7.557378129674007,
-          "threshold": 3
-        },
-        {
-          "kind": "swatch-boundary",
-          "color": "rgb(204, 121, 167)",
-          "categoryRGB": [
-            204,
-            121,
-            167
-          ],
-          "state": "selected-hover-2",
-          "foreground": "rgb(75, 85, 99)",
-          "background": "rgb(255, 255, 255)",
-          "ratio": 7.557378129674007,
-          "threshold": 3
-        },
-        {
-          "kind": "swatch-boundary",
-          "color": "rgb(153, 153, 153)",
-          "categoryRGB": [
-            153,
-            153,
-            153
-          ],
-          "state": "selected-hover-2",
-          "foreground": "rgb(75, 85, 99)",
-          "background": "rgb(255, 255, 255)",
-          "ratio": 7.557378129674007,
-          "threshold": 3
-        },
-        {
-          "kind": "label",
-          "text": "审计标签 1",
-          "color": "rgb(230, 159, 0)",
-          "categoryRGB": [
-            230,
-            159,
-            0
-          ],
-          "state": "selected-hover-2",
-          "foreground": "rgb(0, 0, 0)",
-          "background": "rgb(230, 159, 0)",
-          "ratio": 9.323853664396687,
-          "threshold": 4.5
-        },
-        {
-          "kind": "label",
-          "text": "审计标签 2",
-          "color": "rgb(86, 180, 233)",
-          "categoryRGB": [
-            86,
-            180,
-            233
-          ],
-          "state": "selected-hover-2",
-          "foreground": "rgb(0, 0, 0)",
-          "background": "rgb(86, 180, 233)",
-          "ratio": 9.100828435876672,
-          "threshold": 4.5
-        },
-        {
-          "kind": "label",
-          "text": "审计标签 3",
-          "color": "rgb(0, 158, 115)",
-          "categoryRGB": [
-            0,
-            158,
-            115
-          ],
-          "state": "selected-hover-2",
-          "foreground": "rgb(0, 0, 0)",
-          "background": "rgb(0, 158, 115)",
-          "ratio": 6.1383048833516805,
-          "threshold": 4.5
-        },
-        {
-          "kind": "label",
-          "text": "审计标签 4",
-          "color": "rgb(240, 228, 66)",
-          "categoryRGB": [
-            240,
-            228,
-            66
-          ],
-          "state": "selected-hover-2",
-          "foreground": "rgb(0, 0, 0)",
-          "background": "rgb(240, 228, 66)",
-          "ratio": 15.881083520828598,
-          "threshold": 4.5
-        },
-        {
-          "kind": "label",
-          "text": "审计标签 5",
-          "color": "rgb(0, 114, 178)",
-          "categoryRGB": [
-            0,
-            114,
-            178
-          ],
-          "state": "selected-hover-2",
-          "foreground": "rgb(255, 255, 255)",
-          "background": "rgb(0, 114, 178)",
-          "ratio": 5.185446345779855,
-          "threshold": 4.5
-        },
-        {
-          "kind": "label",
-          "text": "审计标签 6",
-          "color": "rgb(213, 94, 0)",
-          "categoryRGB": [
-            213,
-            94,
-            0
-          ],
-          "state": "selected-hover-2",
-          "foreground": "rgb(0, 0, 0)",
-          "background": "rgb(213, 94, 0)",
-          "ratio": 5.430308240075319,
-          "threshold": 4.5
-        },
-        {
-          "kind": "label",
-          "text": "审计标签 7",
-          "color": "rgb(204, 121, 167)",
-          "categoryRGB": [
-            204,
-            121,
-            167
-          ],
-          "state": "selected-hover-2",
-          "foreground": "rgb(0, 0, 0)",
-          "background": "rgb(204, 121, 167)",
-          "ratio": 6.860426817125674,
-          "threshold": 4.5
-        },
-        {
-          "kind": "label",
-          "text": "审计标签 8",
-          "color": "rgb(153, 153, 153)",
-          "categoryRGB": [
-            153,
-            153,
-            153
-          ],
-          "state": "selected-hover-2",
-          "foreground": "rgb(0, 0, 0)",
-          "background": "rgb(153, 153, 153)",
-          "ratio": 7.3709355625018365,
-          "threshold": 4.5
-        },
-        {
-          "kind": "swatch-boundary",
-          "color": "rgb(230, 159, 0)",
-          "categoryRGB": [
-            230,
-            159,
-            0
-          ],
-          "state": "selected-focus-2",
-          "foreground": "rgb(75, 85, 99)",
-          "background": "rgb(255, 255, 255)",
-          "ratio": 7.557378129674007,
-          "threshold": 3
-        },
-        {
-          "kind": "swatch-boundary",
-          "color": "rgb(86, 180, 233)",
-          "categoryRGB": [
-            86,
-            180,
-            233
-          ],
-          "state": "selected-focus-2",
-          "foreground": "rgb(75, 84, 106)",
-          "background": "rgb(255, 255, 255)",
-          "ratio": 7.566416531421591,
-          "threshold": 3
-        },
-        {
-          "kind": "swatch-boundary",
-          "color": "rgb(0, 158, 115)",
-          "categoryRGB": [
-            0,
-            158,
-            115
-          ],
-          "state": "selected-focus-2",
-          "foreground": "rgb(79, 71, 222)",
-          "background": "rgb(255, 255, 255)",
-          "ratio": 6.385825134661483,
-          "threshold": 3
-        },
-        {
-          "kind": "swatch-boundary",
-          "color": "rgb(240, 228, 66)",
-          "categoryRGB": [
-            240,
-            228,
-            66
-          ],
-          "state": "selected-focus-2",
-          "foreground": "rgb(75, 85, 99)",
-          "background": "rgb(255, 255, 255)",
-          "ratio": 7.557378129674007,
-          "threshold": 3
-        },
-        {
-          "kind": "swatch-boundary",
-          "color": "rgb(0, 114, 178)",
-          "categoryRGB": [
-            0,
-            114,
-            178
-          ],
-          "state": "selected-focus-2",
-          "foreground": "rgb(75, 85, 99)",
-          "background": "rgb(255, 255, 255)",
-          "ratio": 7.557378129674007,
-          "threshold": 3
-        },
-        {
-          "kind": "swatch-boundary",
-          "color": "rgb(213, 94, 0)",
-          "categoryRGB": [
-            213,
-            94,
-            0
-          ],
-          "state": "selected-focus-2",
-          "foreground": "rgb(75, 85, 99)",
-          "background": "rgb(255, 255, 255)",
-          "ratio": 7.557378129674007,
-          "threshold": 3
-        },
-        {
-          "kind": "swatch-boundary",
-          "color": "rgb(204, 121, 167)",
-          "categoryRGB": [
-            204,
-            121,
-            167
-          ],
-          "state": "selected-focus-2",
-          "foreground": "rgb(75, 85, 99)",
-          "background": "rgb(255, 255, 255)",
-          "ratio": 7.557378129674007,
-          "threshold": 3
-        },
-        {
-          "kind": "swatch-boundary",
-          "color": "rgb(153, 153, 153)",
-          "categoryRGB": [
-            153,
-            153,
-            153
-          ],
-          "state": "selected-focus-2",
-          "foreground": "rgb(75, 85, 99)",
-          "background": "rgb(255, 255, 255)",
-          "ratio": 7.557378129674007,
-          "threshold": 3
-        },
-        {
-          "kind": "label",
-          "text": "审计标签 1",
-          "color": "rgb(230, 159, 0)",
-          "categoryRGB": [
-            230,
-            159,
-            0
-          ],
-          "state": "selected-focus-2",
-          "foreground": "rgb(0, 0, 0)",
-          "background": "rgb(230, 159, 0)",
-          "ratio": 9.323853664396687,
-          "threshold": 4.5
-        },
-        {
-          "kind": "label",
-          "text": "审计标签 2",
-          "color": "rgb(86, 180, 233)",
-          "categoryRGB": [
-            86,
-            180,
-            233
-          ],
-          "state": "selected-focus-2",
-          "foreground": "rgb(0, 0, 0)",
-          "background": "rgb(86, 180, 233)",
-          "ratio": 9.100828435876672,
-          "threshold": 4.5
-        },
-        {
-          "kind": "label",
-          "text": "审计标签 3",
-          "color": "rgb(0, 158, 115)",
-          "categoryRGB": [
-            0,
-            158,
-            115
-          ],
-          "state": "selected-focus-2",
-          "foreground": "rgb(0, 0, 0)",
-          "background": "rgb(0, 158, 115)",
-          "ratio": 6.1383048833516805,
-          "threshold": 4.5
-        },
-        {
-          "kind": "label",
-          "text": "审计标签 4",
-          "color": "rgb(240, 228, 66)",
-          "categoryRGB": [
-            240,
-            228,
-            66
-          ],
-          "state": "selected-focus-2",
-          "foreground": "rgb(0, 0, 0)",
-          "background": "rgb(240, 228, 66)",
-          "ratio": 15.881083520828598,
-          "threshold": 4.5
-        },
-        {
-          "kind": "label",
-          "text": "审计标签 5",
-          "color": "rgb(0, 114, 178)",
-          "categoryRGB": [
-            0,
-            114,
-            178
-          ],
-          "state": "selected-focus-2",
-          "foreground": "rgb(255, 255, 255)",
-          "background": "rgb(0, 114, 178)",
-          "ratio": 5.185446345779855,
-          "threshold": 4.5
-        },
-        {
-          "kind": "label",
-          "text": "审计标签 6",
-          "color": "rgb(213, 94, 0)",
-          "categoryRGB": [
-            213,
-            94,
-            0
-          ],
-          "state": "selected-focus-2",
-          "foreground": "rgb(0, 0, 0)",
-          "background": "rgb(213, 94, 0)",
-          "ratio": 5.430308240075319,
-          "threshold": 4.5
-        },
-        {
-          "kind": "label",
-          "text": "审计标签 7",
-          "color": "rgb(204, 121, 167)",
-          "categoryRGB": [
-            204,
-            121,
-            167
-          ],
-          "state": "selected-focus-2",
-          "foreground": "rgb(0, 0, 0)",
-          "background": "rgb(204, 121, 167)",
-          "ratio": 6.860426817125674,
-          "threshold": 4.5
-        },
-        {
-          "kind": "label",
-          "text": "审计标签 8",
-          "color": "rgb(153, 153, 153)",
-          "categoryRGB": [
-            153,
-            153,
-            153
-          ],
-          "state": "selected-focus-2",
-          "foreground": "rgb(0, 0, 0)",
-          "background": "rgb(153, 153, 153)",
-          "ratio": 7.3709355625018365,
-          "threshold": 4.5
-        },
-        {
-          "kind": "swatch-boundary",
-          "color": "rgb(230, 159, 0)",
-          "categoryRGB": [
-            230,
-            159,
-            0
-          ],
-          "state": "selected-hover-3",
-          "foreground": "rgb(75, 85, 99)",
-          "background": "rgb(255, 255, 255)",
-          "ratio": 7.557378129674007,
-          "threshold": 3
-        },
-        {
-          "kind": "swatch-boundary",
-          "color": "rgb(86, 180, 233)",
-          "categoryRGB": [
-            86,
-            180,
-            233
-          ],
-          "state": "selected-hover-3",
-          "foreground": "rgb(75, 85, 99)",
-          "background": "rgb(255, 255, 255)",
-          "ratio": 7.557378129674007,
-          "threshold": 3
-        },
-        {
-          "kind": "swatch-boundary",
-          "color": "rgb(0, 158, 115)",
-          "categoryRGB": [
-            0,
-            158,
-            115
-          ],
-          "state": "selected-hover-3",
-          "foreground": "rgb(75, 85, 99)",
-          "background": "rgb(255, 255, 255)",
-          "ratio": 7.557378129674007,
-          "threshold": 3
-        },
-        {
-          "kind": "swatch-boundary",
-          "color": "rgb(240, 228, 66)",
-          "categoryRGB": [
-            240,
-            228,
-            66
-          ],
-          "state": "selected-hover-3",
-          "foreground": "rgb(79, 70, 229)",
-          "background": "rgb(255, 255, 255)",
-          "ratio": 6.287528596095884,
-          "threshold": 3
-        },
-        {
-          "kind": "swatch-boundary",
-          "color": "rgb(0, 114, 178)",
-          "categoryRGB": [
-            0,
-            114,
-            178
-          ],
-          "state": "selected-hover-3",
-          "foreground": "rgb(75, 85, 99)",
-          "background": "rgb(255, 255, 255)",
-          "ratio": 7.557378129674007,
-          "threshold": 3
-        },
-        {
-          "kind": "swatch-boundary",
-          "color": "rgb(213, 94, 0)",
-          "categoryRGB": [
-            213,
-            94,
-            0
-          ],
-          "state": "selected-hover-3",
-          "foreground": "rgb(75, 85, 99)",
-          "background": "rgb(255, 255, 255)",
-          "ratio": 7.557378129674007,
-          "threshold": 3
-        },
-        {
-          "kind": "swatch-boundary",
-          "color": "rgb(204, 121, 167)",
-          "categoryRGB": [
-            204,
-            121,
-            167
-          ],
-          "state": "selected-hover-3",
-          "foreground": "rgb(75, 85, 99)",
-          "background": "rgb(255, 255, 255)",
-          "ratio": 7.557378129674007,
-          "threshold": 3
-        },
-        {
-          "kind": "swatch-boundary",
-          "color": "rgb(153, 153, 153)",
-          "categoryRGB": [
-            153,
-            153,
-            153
-          ],
-          "state": "selected-hover-3",
-          "foreground": "rgb(75, 85, 99)",
-          "background": "rgb(255, 255, 255)",
-          "ratio": 7.557378129674007,
-          "threshold": 3
-        },
-        {
-          "kind": "label",
-          "text": "审计标签 1",
-          "color": "rgb(230, 159, 0)",
-          "categoryRGB": [
-            230,
-            159,
-            0
-          ],
-          "state": "selected-hover-3",
-          "foreground": "rgb(0, 0, 0)",
-          "background": "rgb(230, 159, 0)",
-          "ratio": 9.323853664396687,
-          "threshold": 4.5
-        },
-        {
-          "kind": "label",
-          "text": "审计标签 2",
-          "color": "rgb(86, 180, 233)",
-          "categoryRGB": [
-            86,
-            180,
-            233
-          ],
-          "state": "selected-hover-3",
-          "foreground": "rgb(0, 0, 0)",
-          "background": "rgb(86, 180, 233)",
-          "ratio": 9.100828435876672,
-          "threshold": 4.5
-        },
-        {
-          "kind": "label",
-          "text": "审计标签 3",
-          "color": "rgb(0, 158, 115)",
-          "categoryRGB": [
-            0,
-            158,
-            115
-          ],
-          "state": "selected-hover-3",
-          "foreground": "rgb(0, 0, 0)",
-          "background": "rgb(0, 158, 115)",
-          "ratio": 6.1383048833516805,
-          "threshold": 4.5
-        },
-        {
-          "kind": "label",
-          "text": "审计标签 4",
-          "color": "rgb(240, 228, 66)",
-          "categoryRGB": [
-            240,
-            228,
-            66
-          ],
-          "state": "selected-hover-3",
-          "foreground": "rgb(0, 0, 0)",
-          "background": "rgb(240, 228, 66)",
-          "ratio": 15.881083520828598,
-          "threshold": 4.5
-        },
-        {
-          "kind": "label",
-          "text": "审计标签 5",
-          "color": "rgb(0, 114, 178)",
-          "categoryRGB": [
-            0,
-            114,
-            178
-          ],
-          "state": "selected-hover-3",
-          "foreground": "rgb(255, 255, 255)",
-          "background": "rgb(0, 114, 178)",
-          "ratio": 5.185446345779855,
-          "threshold": 4.5
-        },
-        {
-          "kind": "label",
-          "text": "审计标签 6",
-          "color": "rgb(213, 94, 0)",
-          "categoryRGB": [
-            213,
-            94,
-            0
-          ],
-          "state": "selected-hover-3",
-          "foreground": "rgb(0, 0, 0)",
-          "background": "rgb(213, 94, 0)",
-          "ratio": 5.430308240075319,
-          "threshold": 4.5
-        },
-        {
-          "kind": "label",
-          "text": "审计标签 7",
-          "color": "rgb(204, 121, 167)",
-          "categoryRGB": [
-            204,
-            121,
-            167
-          ],
-          "state": "selected-hover-3",
-          "foreground": "rgb(0, 0, 0)",
-          "background": "rgb(204, 121, 167)",
-          "ratio": 6.860426817125674,
-          "threshold": 4.5
-        },
-        {
-          "kind": "label",
-          "text": "审计标签 8",
-          "color": "rgb(153, 153, 153)",
-          "categoryRGB": [
-            153,
-            153,
-            153
-          ],
-          "state": "selected-hover-3",
-          "foreground": "rgb(0, 0, 0)",
-          "background": "rgb(153, 153, 153)",
-          "ratio": 7.3709355625018365,
-          "threshold": 4.5
-        },
-        {
-          "kind": "swatch-boundary",
-          "color": "rgb(230, 159, 0)",
-          "categoryRGB": [
-            230,
-            159,
-            0
-          ],
-          "state": "selected-focus-3",
-          "foreground": "rgb(75, 85, 99)",
-          "background": "rgb(255, 255, 255)",
-          "ratio": 7.557378129674007,
-          "threshold": 3
-        },
-        {
-          "kind": "swatch-boundary",
-          "color": "rgb(86, 180, 233)",
-          "categoryRGB": [
-            86,
-            180,
-            233
-          ],
-          "state": "selected-focus-3",
-          "foreground": "rgb(75, 85, 99)",
-          "background": "rgb(255, 255, 255)",
-          "ratio": 7.557378129674007,
-          "threshold": 3
-        },
-        {
-          "kind": "swatch-boundary",
-          "color": "rgb(0, 158, 115)",
-          "categoryRGB": [
-            0,
-            158,
-            115
-          ],
-          "state": "selected-focus-3",
-          "foreground": "rgb(75, 85, 99)",
-          "background": "rgb(255, 255, 255)",
-          "ratio": 7.557378129674007,
-          "threshold": 3
-        },
-        {
-          "kind": "swatch-boundary",
-          "color": "rgb(240, 228, 66)",
-          "categoryRGB": [
-            240,
-            228,
-            66
-          ],
-          "state": "selected-focus-3",
-          "foreground": "rgb(79, 70, 229)",
-          "background": "rgb(255, 255, 255)",
-          "ratio": 6.287528596095884,
-          "threshold": 3
-        },
-        {
-          "kind": "swatch-boundary",
-          "color": "rgb(0, 114, 178)",
-          "categoryRGB": [
-            0,
-            114,
-            178
-          ],
-          "state": "selected-focus-3",
-          "foreground": "rgb(75, 85, 99)",
-          "background": "rgb(255, 255, 255)",
-          "ratio": 7.557378129674007,
-          "threshold": 3
-        },
-        {
-          "kind": "swatch-boundary",
-          "color": "rgb(213, 94, 0)",
-          "categoryRGB": [
-            213,
-            94,
-            0
-          ],
-          "state": "selected-focus-3",
-          "foreground": "rgb(75, 85, 99)",
-          "background": "rgb(255, 255, 255)",
-          "ratio": 7.557378129674007,
-          "threshold": 3
-        },
-        {
-          "kind": "swatch-boundary",
-          "color": "rgb(204, 121, 167)",
-          "categoryRGB": [
-            204,
-            121,
-            167
-          ],
-          "state": "selected-focus-3",
-          "foreground": "rgb(75, 85, 99)",
-          "background": "rgb(255, 255, 255)",
-          "ratio": 7.557378129674007,
-          "threshold": 3
-        },
-        {
-          "kind": "swatch-boundary",
-          "color": "rgb(153, 153, 153)",
-          "categoryRGB": [
-            153,
-            153,
-            153
-          ],
-          "state": "selected-focus-3",
-          "foreground": "rgb(75, 85, 99)",
-          "background": "rgb(255, 255, 255)",
-          "ratio": 7.557378129674007,
-          "threshold": 3
-        },
-        {
-          "kind": "label",
-          "text": "审计标签 1",
-          "color": "rgb(230, 159, 0)",
-          "categoryRGB": [
-            230,
-            159,
-            0
-          ],
-          "state": "selected-focus-3",
-          "foreground": "rgb(0, 0, 0)",
-          "background": "rgb(230, 159, 0)",
-          "ratio": 9.323853664396687,
-          "threshold": 4.5
-        },
-        {
-          "kind": "label",
-          "text": "审计标签 2",
-          "color": "rgb(86, 180, 233)",
-          "categoryRGB": [
-            86,
-            180,
-            233
-          ],
-          "state": "selected-focus-3",
-          "foreground": "rgb(0, 0, 0)",
-          "background": "rgb(86, 180, 233)",
-          "ratio": 9.100828435876672,
-          "threshold": 4.5
-        },
-        {
-          "kind": "label",
-          "text": "审计标签 3",
-          "color": "rgb(0, 158, 115)",
-          "categoryRGB": [
-            0,
-            158,
-            115
-          ],
-          "state": "selected-focus-3",
-          "foreground": "rgb(0, 0, 0)",
-          "background": "rgb(0, 158, 115)",
-          "ratio": 6.1383048833516805,
-          "threshold": 4.5
-        },
-        {
-          "kind": "label",
-          "text": "审计标签 4",
-          "color": "rgb(240, 228, 66)",
-          "categoryRGB": [
-            240,
-            228,
-            66
-          ],
-          "state": "selected-focus-3",
-          "foreground": "rgb(0, 0, 0)",
-          "background": "rgb(240, 228, 66)",
-          "ratio": 15.881083520828598,
-          "threshold": 4.5
-        },
-        {
-          "kind": "label",
-          "text": "审计标签 5",
-          "color": "rgb(0, 114, 178)",
-          "categoryRGB": [
-            0,
-            114,
-            178
-          ],
-          "state": "selected-focus-3",
-          "foreground": "rgb(255, 255, 255)",
-          "background": "rgb(0, 114, 178)",
-          "ratio": 5.185446345779855,
-          "threshold": 4.5
-        },
-        {
-          "kind": "label",
-          "text": "审计标签 6",
-          "color": "rgb(213, 94, 0)",
-          "categoryRGB": [
-            213,
-            94,
-            0
-          ],
-          "state": "selected-focus-3",
-          "foreground": "rgb(0, 0, 0)",
-          "background": "rgb(213, 94, 0)",
-          "ratio": 5.430308240075319,
-          "threshold": 4.5
-        },
-        {
-          "kind": "label",
-          "text": "审计标签 7",
-          "color": "rgb(204, 121, 167)",
-          "categoryRGB": [
-            204,
-            121,
-            167
-          ],
-          "state": "selected-focus-3",
-          "foreground": "rgb(0, 0, 0)",
-          "background": "rgb(204, 121, 167)",
-          "ratio": 6.860426817125674,
-          "threshold": 4.5
-        },
-        {
-          "kind": "label",
-          "text": "审计标签 8",
-          "color": "rgb(153, 153, 153)",
-          "categoryRGB": [
-            153,
-            153,
-            153
-          ],
-          "state": "selected-focus-3",
-          "foreground": "rgb(0, 0, 0)",
-          "background": "rgb(153, 153, 153)",
-          "ratio": 7.3709355625018365,
-          "threshold": 4.5
-        },
-        {
-          "kind": "swatch-boundary",
-          "color": "rgb(230, 159, 0)",
-          "categoryRGB": [
-            230,
-            159,
-            0
-          ],
-          "state": "selected-hover-4",
-          "foreground": "rgb(75, 85, 99)",
-          "background": "rgb(255, 255, 255)",
-          "ratio": 7.557378129674007,
-          "threshold": 3
-        },
-        {
-          "kind": "swatch-boundary",
-          "color": "rgb(86, 180, 233)",
-          "categoryRGB": [
-            86,
-            180,
-            233
-          ],
-          "state": "selected-hover-4",
-          "foreground": "rgb(75, 85, 99)",
-          "background": "rgb(255, 255, 255)",
-          "ratio": 7.557378129674007,
-          "threshold": 3
-        },
-        {
-          "kind": "swatch-boundary",
-          "color": "rgb(0, 158, 115)",
-          "categoryRGB": [
-            0,
-            158,
-            115
-          ],
-          "state": "selected-hover-4",
-          "foreground": "rgb(75, 85, 99)",
-          "background": "rgb(255, 255, 255)",
-          "ratio": 7.557378129674007,
-          "threshold": 3
-        },
-        {
-          "kind": "swatch-boundary",
-          "color": "rgb(240, 228, 66)",
-          "categoryRGB": [
-            240,
-            228,
-            66
-          ],
-          "state": "selected-hover-4",
-          "foreground": "rgb(75, 85, 99)",
-          "background": "rgb(255, 255, 255)",
-          "ratio": 7.557378129674007,
-          "threshold": 3
-        },
-        {
-          "kind": "swatch-boundary",
-          "color": "rgb(0, 114, 178)",
-          "categoryRGB": [
-            0,
-            114,
-            178
-          ],
-          "state": "selected-hover-4",
-          "foreground": "rgb(79, 70, 229)",
-          "background": "rgb(255, 255, 255)",
-          "ratio": 6.287528596095884,
-          "threshold": 3
-        },
-        {
-          "kind": "swatch-boundary",
-          "color": "rgb(213, 94, 0)",
-          "categoryRGB": [
-            213,
-            94,
-            0
-          ],
-          "state": "selected-hover-4",
-          "foreground": "rgb(75, 85, 99)",
-          "background": "rgb(255, 255, 255)",
-          "ratio": 7.557378129674007,
-          "threshold": 3
-        },
-        {
-          "kind": "swatch-boundary",
-          "color": "rgb(204, 121, 167)",
-          "categoryRGB": [
-            204,
-            121,
-            167
-          ],
-          "state": "selected-hover-4",
-          "foreground": "rgb(75, 85, 99)",
-          "background": "rgb(255, 255, 255)",
-          "ratio": 7.557378129674007,
-          "threshold": 3
-        },
-        {
-          "kind": "swatch-boundary",
-          "color": "rgb(153, 153, 153)",
-          "categoryRGB": [
-            153,
-            153,
-            153
-          ],
-          "state": "selected-hover-4",
-          "foreground": "rgb(75, 85, 99)",
-          "background": "rgb(255, 255, 255)",
-          "ratio": 7.557378129674007,
-          "threshold": 3
-        },
-        {
-          "kind": "label",
-          "text": "审计标签 1",
-          "color": "rgb(230, 159, 0)",
-          "categoryRGB": [
-            230,
-            159,
-            0
-          ],
-          "state": "selected-hover-4",
-          "foreground": "rgb(0, 0, 0)",
-          "background": "rgb(230, 159, 0)",
-          "ratio": 9.323853664396687,
-          "threshold": 4.5
-        },
-        {
-          "kind": "label",
-          "text": "审计标签 2",
-          "color": "rgb(86, 180, 233)",
-          "categoryRGB": [
-            86,
-            180,
-            233
-          ],
-          "state": "selected-hover-4",
-          "foreground": "rgb(0, 0, 0)",
-          "background": "rgb(86, 180, 233)",
-          "ratio": 9.100828435876672,
-          "threshold": 4.5
-        },
-        {
-          "kind": "label",
-          "text": "审计标签 3",
-          "color": "rgb(0, 158, 115)",
-          "categoryRGB": [
-            0,
-            158,
-            115
-          ],
-          "state": "selected-hover-4",
-          "foreground": "rgb(0, 0, 0)",
-          "background": "rgb(0, 158, 115)",
-          "ratio": 6.1383048833516805,
-          "threshold": 4.5
-        },
-        {
-          "kind": "label",
-          "text": "审计标签 4",
-          "color": "rgb(240, 228, 66)",
-          "categoryRGB": [
-            240,
-            228,
-            66
-          ],
-          "state": "selected-hover-4",
-          "foreground": "rgb(0, 0, 0)",
-          "background": "rgb(240, 228, 66)",
-          "ratio": 15.881083520828598,
-          "threshold": 4.5
-        },
-        {
-          "kind": "label",
-          "text": "审计标签 5",
-          "color": "rgb(0, 114, 178)",
-          "categoryRGB": [
-            0,
-            114,
-            178
-          ],
-          "state": "selected-hover-4",
-          "foreground": "rgb(255, 255, 255)",
-          "background": "rgb(0, 114, 178)",
-          "ratio": 5.185446345779855,
-          "threshold": 4.5
-        },
-        {
-          "kind": "label",
-          "text": "审计标签 6",
-          "color": "rgb(213, 94, 0)",
-          "categoryRGB": [
-            213,
-            94,
-            0
-          ],
-          "state": "selected-hover-4",
-          "foreground": "rgb(0, 0, 0)",
-          "background": "rgb(213, 94, 0)",
-          "ratio": 5.430308240075319,
-          "threshold": 4.5
-        },
-        {
-          "kind": "label",
-          "text": "审计标签 7",
-          "color": "rgb(204, 121, 167)",
-          "categoryRGB": [
-            204,
-            121,
-            167
-          ],
-          "state": "selected-hover-4",
-          "foreground": "rgb(0, 0, 0)",
-          "background": "rgb(204, 121, 167)",
-          "ratio": 6.860426817125674,
-          "threshold": 4.5
-        },
-        {
-          "kind": "label",
-          "text": "审计标签 8",
-          "color": "rgb(153, 153, 153)",
-          "categoryRGB": [
-            153,
-            153,
-            153
-          ],
-          "state": "selected-hover-4",
-          "foreground": "rgb(0, 0, 0)",
-          "background": "rgb(153, 153, 153)",
-          "ratio": 7.3709355625018365,
-          "threshold": 4.5
-        },
-        {
-          "kind": "swatch-boundary",
-          "color": "rgb(230, 159, 0)",
-          "categoryRGB": [
-            230,
-            159,
-            0
-          ],
-          "state": "selected-focus-4",
-          "foreground": "rgb(75, 85, 99)",
-          "background": "rgb(255, 255, 255)",
-          "ratio": 7.557378129674007,
-          "threshold": 3
-        },
-        {
-          "kind": "swatch-boundary",
-          "color": "rgb(86, 180, 233)",
-          "categoryRGB": [
-            86,
-            180,
-            233
-          ],
-          "state": "selected-focus-4",
-          "foreground": "rgb(75, 85, 99)",
-          "background": "rgb(255, 255, 255)",
-          "ratio": 7.557378129674007,
-          "threshold": 3
-        },
-        {
-          "kind": "swatch-boundary",
-          "color": "rgb(0, 158, 115)",
-          "categoryRGB": [
-            0,
-            158,
-            115
-          ],
-          "state": "selected-focus-4",
-          "foreground": "rgb(75, 85, 99)",
-          "background": "rgb(255, 255, 255)",
-          "ratio": 7.557378129674007,
-          "threshold": 3
-        },
-        {
-          "kind": "swatch-boundary",
-          "color": "rgb(240, 228, 66)",
-          "categoryRGB": [
-            240,
-            228,
-            66
-          ],
-          "state": "selected-focus-4",
-          "foreground": "rgb(75, 85, 99)",
-          "background": "rgb(255, 255, 255)",
-          "ratio": 7.557378129674007,
-          "threshold": 3
-        },
-        {
-          "kind": "swatch-boundary",
-          "color": "rgb(0, 114, 178)",
-          "categoryRGB": [
-            0,
-            114,
-            178
-          ],
-          "state": "selected-focus-4",
-          "foreground": "rgb(79, 70, 229)",
-          "background": "rgb(255, 255, 255)",
-          "ratio": 6.287528596095884,
-          "threshold": 3
-        },
-        {
-          "kind": "swatch-boundary",
-          "color": "rgb(213, 94, 0)",
-          "categoryRGB": [
-            213,
-            94,
-            0
-          ],
-          "state": "selected-focus-4",
-          "foreground": "rgb(75, 85, 99)",
-          "background": "rgb(255, 255, 255)",
-          "ratio": 7.557378129674007,
-          "threshold": 3
-        },
-        {
-          "kind": "swatch-boundary",
-          "color": "rgb(204, 121, 167)",
-          "categoryRGB": [
-            204,
-            121,
-            167
-          ],
-          "state": "selected-focus-4",
-          "foreground": "rgb(75, 85, 99)",
-          "background": "rgb(255, 255, 255)",
-          "ratio": 7.557378129674007,
-          "threshold": 3
-        },
-        {
-          "kind": "swatch-boundary",
-          "color": "rgb(153, 153, 153)",
-          "categoryRGB": [
-            153,
-            153,
-            153
-          ],
-          "state": "selected-focus-4",
-          "foreground": "rgb(75, 85, 99)",
-          "background": "rgb(255, 255, 255)",
-          "ratio": 7.557378129674007,
-          "threshold": 3
-        },
-        {
-          "kind": "label",
-          "text": "审计标签 1",
-          "color": "rgb(230, 159, 0)",
-          "categoryRGB": [
-            230,
-            159,
-            0
-          ],
-          "state": "selected-focus-4",
-          "foreground": "rgb(0, 0, 0)",
-          "background": "rgb(230, 159, 0)",
-          "ratio": 9.323853664396687,
-          "threshold": 4.5
-        },
-        {
-          "kind": "label",
-          "text": "审计标签 2",
-          "color": "rgb(86, 180, 233)",
-          "categoryRGB": [
-            86,
-            180,
-            233
-          ],
-          "state": "selected-focus-4",
-          "foreground": "rgb(0, 0, 0)",
-          "background": "rgb(86, 180, 233)",
-          "ratio": 9.100828435876672,
-          "threshold": 4.5
-        },
-        {
-          "kind": "label",
-          "text": "审计标签 3",
-          "color": "rgb(0, 158, 115)",
-          "categoryRGB": [
-            0,
-            158,
-            115
-          ],
-          "state": "selected-focus-4",
-          "foreground": "rgb(0, 0, 0)",
-          "background": "rgb(0, 158, 115)",
-          "ratio": 6.1383048833516805,
-          "threshold": 4.5
-        },
-        {
-          "kind": "label",
-          "text": "审计标签 4",
-          "color": "rgb(240, 228, 66)",
-          "categoryRGB": [
-            240,
-            228,
-            66
-          ],
-          "state": "selected-focus-4",
-          "foreground": "rgb(0, 0, 0)",
-          "background": "rgb(240, 228, 66)",
-          "ratio": 15.881083520828598,
-          "threshold": 4.5
-        },
-        {
-          "kind": "label",
-          "text": "审计标签 5",
-          "color": "rgb(0, 114, 178)",
-          "categoryRGB": [
-            0,
-            114,
-            178
-          ],
-          "state": "selected-focus-4",
-          "foreground": "rgb(255, 255, 255)",
-          "background": "rgb(0, 114, 178)",
-          "ratio": 5.185446345779855,
-          "threshold": 4.5
-        },
-        {
-          "kind": "label",
-          "text": "审计标签 6",
-          "color": "rgb(213, 94, 0)",
-          "categoryRGB": [
-            213,
-            94,
-            0
-          ],
-          "state": "selected-focus-4",
-          "foreground": "rgb(0, 0, 0)",
-          "background": "rgb(213, 94, 0)",
-          "ratio": 5.430308240075319,
-          "threshold": 4.5
-        },
-        {
-          "kind": "label",
-          "text": "审计标签 7",
-          "color": "rgb(204, 121, 167)",
-          "categoryRGB": [
-            204,
-            121,
-            167
-          ],
-          "state": "selected-focus-4",
-          "foreground": "rgb(0, 0, 0)",
-          "background": "rgb(204, 121, 167)",
-          "ratio": 6.860426817125674,
-          "threshold": 4.5
-        },
-        {
-          "kind": "label",
-          "text": "审计标签 8",
-          "color": "rgb(153, 153, 153)",
-          "categoryRGB": [
-            153,
-            153,
-            153
-          ],
-          "state": "selected-focus-4",
-          "foreground": "rgb(0, 0, 0)",
-          "background": "rgb(153, 153, 153)",
-          "ratio": 7.3709355625018365,
-          "threshold": 4.5
-        },
-        {
-          "kind": "swatch-boundary",
-          "color": "rgb(230, 159, 0)",
-          "categoryRGB": [
-            230,
-            159,
-            0
-          ],
-          "state": "selected-hover-5",
-          "foreground": "rgb(75, 85, 99)",
-          "background": "rgb(255, 255, 255)",
-          "ratio": 7.557378129674007,
-          "threshold": 3
-        },
-        {
-          "kind": "swatch-boundary",
-          "color": "rgb(86, 180, 233)",
-          "categoryRGB": [
-            86,
-            180,
-            233
-          ],
-          "state": "selected-hover-5",
-          "foreground": "rgb(75, 85, 99)",
-          "background": "rgb(255, 255, 255)",
-          "ratio": 7.557378129674007,
-          "threshold": 3
-        },
-        {
-          "kind": "swatch-boundary",
-          "color": "rgb(0, 158, 115)",
-          "categoryRGB": [
-            0,
-            158,
-            115
-          ],
-          "state": "selected-hover-5",
-          "foreground": "rgb(75, 85, 99)",
-          "background": "rgb(255, 255, 255)",
-          "ratio": 7.557378129674007,
-          "threshold": 3
-        },
-        {
-          "kind": "swatch-boundary",
-          "color": "rgb(240, 228, 66)",
-          "categoryRGB": [
-            240,
-            228,
-            66
-          ],
-          "state": "selected-hover-5",
-          "foreground": "rgb(75, 85, 99)",
-          "background": "rgb(255, 255, 255)",
-          "ratio": 7.557378129674007,
-          "threshold": 3
-        },
-        {
-          "kind": "swatch-boundary",
-          "color": "rgb(0, 114, 178)",
-          "categoryRGB": [
-            0,
-            114,
-            178
-          ],
-          "state": "selected-hover-5",
-          "foreground": "rgb(76, 83, 116)",
-          "background": "rgb(255, 255, 255)",
-          "ratio": 7.508599038147347,
-          "threshold": 3
-        },
-        {
-          "kind": "swatch-boundary",
-          "color": "rgb(213, 94, 0)",
-          "categoryRGB": [
-            213,
-            94,
-            0
-          ],
-          "state": "selected-hover-5",
-          "foreground": "rgb(78, 72, 212)",
-          "background": "rgb(255, 255, 255)",
-          "ratio": 6.559262583742155,
-          "threshold": 3
-        },
-        {
-          "kind": "swatch-boundary",
-          "color": "rgb(204, 121, 167)",
-          "categoryRGB": [
-            204,
-            121,
-            167
-          ],
-          "state": "selected-hover-5",
-          "foreground": "rgb(75, 85, 99)",
-          "background": "rgb(255, 255, 255)",
-          "ratio": 7.557378129674007,
-          "threshold": 3
-        },
-        {
-          "kind": "swatch-boundary",
-          "color": "rgb(153, 153, 153)",
-          "categoryRGB": [
-            153,
-            153,
-            153
-          ],
-          "state": "selected-hover-5",
-          "foreground": "rgb(75, 85, 99)",
-          "background": "rgb(255, 255, 255)",
-          "ratio": 7.557378129674007,
-          "threshold": 3
-        },
-        {
-          "kind": "label",
-          "text": "审计标签 1",
-          "color": "rgb(230, 159, 0)",
-          "categoryRGB": [
-            230,
-            159,
-            0
-          ],
-          "state": "selected-hover-5",
-          "foreground": "rgb(0, 0, 0)",
-          "background": "rgb(230, 159, 0)",
-          "ratio": 9.323853664396687,
-          "threshold": 4.5
-        },
-        {
-          "kind": "label",
-          "text": "审计标签 2",
-          "color": "rgb(86, 180, 233)",
-          "categoryRGB": [
-            86,
-            180,
-            233
-          ],
-          "state": "selected-hover-5",
-          "foreground": "rgb(0, 0, 0)",
-          "background": "rgb(86, 180, 233)",
-          "ratio": 9.100828435876672,
-          "threshold": 4.5
-        },
-        {
-          "kind": "label",
-          "text": "审计标签 3",
-          "color": "rgb(0, 158, 115)",
-          "categoryRGB": [
-            0,
-            158,
-            115
-          ],
-          "state": "selected-hover-5",
-          "foreground": "rgb(0, 0, 0)",
-          "background": "rgb(0, 158, 115)",
-          "ratio": 6.1383048833516805,
-          "threshold": 4.5
-        },
-        {
-          "kind": "label",
-          "text": "审计标签 4",
-          "color": "rgb(240, 228, 66)",
-          "categoryRGB": [
-            240,
-            228,
-            66
-          ],
-          "state": "selected-hover-5",
-          "foreground": "rgb(0, 0, 0)",
-          "background": "rgb(240, 228, 66)",
-          "ratio": 15.881083520828598,
-          "threshold": 4.5
-        },
-        {
-          "kind": "label",
-          "text": "审计标签 5",
-          "color": "rgb(0, 114, 178)",
-          "categoryRGB": [
-            0,
-            114,
-            178
-          ],
-          "state": "selected-hover-5",
-          "foreground": "rgb(255, 255, 255)",
-          "background": "rgb(0, 114, 178)",
-          "ratio": 5.185446345779855,
-          "threshold": 4.5
-        },
-        {
-          "kind": "label",
-          "text": "审计标签 6",
-          "color": "rgb(213, 94, 0)",
-          "categoryRGB": [
-            213,
-            94,
-            0
-          ],
-          "state": "selected-hover-5",
-          "foreground": "rgb(0, 0, 0)",
-          "background": "rgb(213, 94, 0)",
-          "ratio": 5.430308240075319,
-          "threshold": 4.5
-        },
-        {
-          "kind": "label",
-          "text": "审计标签 7",
-          "color": "rgb(204, 121, 167)",
-          "categoryRGB": [
-            204,
-            121,
-            167
-          ],
-          "state": "selected-hover-5",
-          "foreground": "rgb(0, 0, 0)",
-          "background": "rgb(204, 121, 167)",
-          "ratio": 6.860426817125674,
-          "threshold": 4.5
-        },
-        {
-          "kind": "label",
-          "text": "审计标签 8",
-          "color": "rgb(153, 153, 153)",
-          "categoryRGB": [
-            153,
-            153,
-            153
-          ],
-          "state": "selected-hover-5",
-          "foreground": "rgb(0, 0, 0)",
-          "background": "rgb(153, 153, 153)",
-          "ratio": 7.3709355625018365,
-          "threshold": 4.5
-        },
-        {
-          "kind": "swatch-boundary",
-          "color": "rgb(230, 159, 0)",
-          "categoryRGB": [
-            230,
-            159,
-            0
-          ],
-          "state": "selected-focus-5",
-          "foreground": "rgb(75, 85, 99)",
-          "background": "rgb(255, 255, 255)",
-          "ratio": 7.557378129674007,
-          "threshold": 3
-        },
-        {
-          "kind": "swatch-boundary",
-          "color": "rgb(86, 180, 233)",
-          "categoryRGB": [
-            86,
-            180,
-            233
-          ],
-          "state": "selected-focus-5",
-          "foreground": "rgb(75, 85, 99)",
-          "background": "rgb(255, 255, 255)",
-          "ratio": 7.557378129674007,
-          "threshold": 3
-        },
-        {
-          "kind": "swatch-boundary",
-          "color": "rgb(0, 158, 115)",
-          "categoryRGB": [
-            0,
-            158,
-            115
-          ],
-          "state": "selected-focus-5",
-          "foreground": "rgb(75, 85, 99)",
-          "background": "rgb(255, 255, 255)",
-          "ratio": 7.557378129674007,
-          "threshold": 3
-        },
-        {
-          "kind": "swatch-boundary",
-          "color": "rgb(240, 228, 66)",
-          "categoryRGB": [
-            240,
-            228,
-            66
-          ],
-          "state": "selected-focus-5",
-          "foreground": "rgb(75, 85, 99)",
-          "background": "rgb(255, 255, 255)",
-          "ratio": 7.557378129674007,
-          "threshold": 3
-        },
-        {
-          "kind": "swatch-boundary",
-          "color": "rgb(0, 114, 178)",
-          "categoryRGB": [
-            0,
-            114,
-            178
-          ],
-          "state": "selected-focus-5",
-          "foreground": "rgb(75, 84, 106)",
-          "background": "rgb(255, 255, 255)",
-          "ratio": 7.566416531421591,
-          "threshold": 3
-        },
-        {
-          "kind": "swatch-boundary",
-          "color": "rgb(213, 94, 0)",
-          "categoryRGB": [
-            213,
-            94,
-            0
-          ],
-          "state": "selected-focus-5",
-          "foreground": "rgb(79, 71, 222)",
-          "background": "rgb(255, 255, 255)",
-          "ratio": 6.385825134661483,
           "threshold": 3
         },
         {
@@ -14716,9 +14716,9 @@
             0
           ],
           "state": "selected-focus-6",
-          "foreground": "rgb(75, 84, 106)",
+          "foreground": "rgb(76, 83, 116)",
           "background": "rgb(255, 255, 255)",
-          "ratio": 7.566416531421591,
+          "ratio": 7.508599038147347,
           "threshold": 3
         },
         {
@@ -14730,9 +14730,9 @@
             167
           ],
           "state": "selected-focus-6",
-          "foreground": "rgb(79, 71, 222)",
+          "foreground": "rgb(78, 72, 212)",
           "background": "rgb(255, 255, 255)",
-          "ratio": 6.385825134661483,
+          "ratio": 6.559262583742155,
           "threshold": 3
         },
         {
@@ -15194,9 +15194,9 @@
             167
           ],
           "state": "selected-focus-7",
-          "foreground": "rgb(75, 84, 106)",
+          "foreground": "rgb(76, 83, 116)",
           "background": "rgb(255, 255, 255)",
-          "ratio": 7.566416531421591,
+          "ratio": 7.508599038147347,
           "threshold": 3
         },
         {
@@ -15208,9 +15208,9 @@
             153
           ],
           "state": "selected-focus-7",
-          "foreground": "rgb(79, 71, 222)",
+          "foreground": "rgb(78, 72, 212)",
           "background": "rgb(255, 255, 255)",
-          "ratio": 6.385825134661483,
+          "ratio": 6.559262583742155,
           "threshold": 3
         },
         {
@@ -16129,9 +16129,9 @@
             229
           ],
           "state": "selected-hover-1",
-          "foreground": "rgb(209, 213, 219)",
+          "foreground": "rgb(187, 197, 235)",
           "background": "rgb(17, 24, 39)",
-          "ratio": 12.039064392610866,
+          "ratio": 10.389638414488862,
           "threshold": 3
         },
         {
@@ -16143,9 +16143,9 @@
             129
           ],
           "state": "selected-hover-1",
-          "foreground": "rgb(165, 180, 252)",
+          "foreground": "rgb(187, 196, 236)",
           "background": "rgb(17, 24, 39)",
-          "ratio": 8.898600916846645,
+          "ratio": 10.322957542406924,
           "threshold": 3
         },
         {
@@ -16299,9 +16299,9 @@
             229
           ],
           "state": "selected-focus-1",
-          "foreground": "rgb(209, 213, 219)",
+          "foreground": "rgb(193, 201, 231)",
           "background": "rgb(17, 24, 39)",
-          "ratio": 12.039064392610866,
+          "ratio": 10.792550962031406,
           "threshold": 3
         },
         {
@@ -16313,9 +16313,9 @@
             129
           ],
           "state": "selected-focus-1",
-          "foreground": "rgb(165, 180, 252)",
+          "foreground": "rgb(181, 192, 240)",
           "background": "rgb(17, 24, 39)",
-          "ratio": 8.898600916846645,
+          "ratio": 9.93665773995049,
           "threshold": 3
         },
         {
@@ -16483,9 +16483,9 @@
             129
           ],
           "state": "selected-hover-2",
-          "foreground": "rgb(209, 213, 219)",
+          "foreground": "rgb(187, 196, 236)",
           "background": "rgb(17, 24, 39)",
-          "ratio": 12.039064392610866,
+          "ratio": 10.322957542406924,
           "threshold": 3
         },
         {
@@ -16497,9 +16497,9 @@
             11
           ],
           "state": "selected-hover-2",
-          "foreground": "rgb(165, 180, 252)",
+          "foreground": "rgb(187, 197, 235)",
           "background": "rgb(17, 24, 39)",
-          "ratio": 8.898600916846645,
+          "ratio": 10.389638414488862,
           "threshold": 3
         },
         {
@@ -16653,9 +16653,9 @@
             129
           ],
           "state": "selected-focus-2",
-          "foreground": "rgb(209, 213, 219)",
+          "foreground": "rgb(193, 201, 231)",
           "background": "rgb(17, 24, 39)",
-          "ratio": 12.039064392610866,
+          "ratio": 10.792550962031406,
           "threshold": 3
         },
         {
@@ -16667,9 +16667,9 @@
             11
           ],
           "state": "selected-focus-2",
-          "foreground": "rgb(165, 180, 252)",
+          "foreground": "rgb(181, 192, 240)",
           "background": "rgb(17, 24, 39)",
-          "ratio": 8.898600916846645,
+          "ratio": 9.93665773995049,
           "threshold": 3
         },
         {
@@ -19432,9 +19432,9 @@
             0
           ],
           "state": "selected-hover-0",
-          "foreground": "rgb(165, 180, 252)",
+          "foreground": "rgb(166, 181, 252)",
           "background": "rgb(17, 24, 39)",
-          "ratio": 8.898600916846645,
+          "ratio": 8.985253336289142,
           "threshold": 3
         },
         {
@@ -19896,9 +19896,9 @@
             0
           ],
           "state": "selected-hover-1",
-          "foreground": "rgb(209, 213, 219)",
+          "foreground": "rgb(193, 201, 231)",
           "background": "rgb(17, 24, 39)",
-          "ratio": 12.039064392610866,
+          "ratio": 10.792550962031406,
           "threshold": 3
         },
         {
@@ -19910,9 +19910,9 @@
             233
           ],
           "state": "selected-hover-1",
-          "foreground": "rgb(165, 180, 252)",
+          "foreground": "rgb(181, 192, 240)",
           "background": "rgb(17, 24, 39)",
-          "ratio": 8.898600916846645,
+          "ratio": 9.93665773995049,
           "threshold": 3
         },
         {
@@ -20128,9 +20128,9 @@
             0
           ],
           "state": "selected-focus-1",
-          "foreground": "rgb(209, 213, 219)",
+          "foreground": "rgb(199, 205, 227)",
           "background": "rgb(17, 24, 39)",
-          "ratio": 12.039064392610866,
+          "ratio": 11.209948225556312,
           "threshold": 3
         },
         {
@@ -20142,9 +20142,9 @@
             233
           ],
           "state": "selected-focus-1",
-          "foreground": "rgb(165, 180, 252)",
+          "foreground": "rgb(175, 188, 244)",
           "background": "rgb(17, 24, 39)",
-          "ratio": 8.898600916846645,
+          "ratio": 9.56458858371851,
           "threshold": 3
         },
         {
@@ -21330,9 +21330,9 @@
             66
           ],
           "state": "selected-hover-4",
-          "foreground": "rgb(208, 213, 219)",
+          "foreground": "rgb(209, 213, 219)",
           "background": "rgb(17, 24, 39)",
-          "ratio": 12.014496941962923,
+          "ratio": 12.039064392610866,
           "threshold": 3
         },
         {
@@ -21344,9 +21344,9 @@
             178
           ],
           "state": "selected-hover-4",
-          "foreground": "rgb(166, 180, 252)",
+          "foreground": "rgb(165, 180, 252)",
           "background": "rgb(17, 24, 39)",
-          "ratio": 8.9167897474394,
+          "ratio": 8.898600916846645,
           "threshold": 3
         },
         {
@@ -24639,360 +24639,6 @@
             11
           ],
           "state": "selected-hover-3",
-          "foreground": "rgb(181, 192, 240)",
-          "background": "rgb(17, 24, 39)",
-          "ratio": 9.93665773995049,
-          "threshold": 3
-        },
-        {
-          "kind": "swatch-boundary",
-          "color": "rgb(239, 68, 68)",
-          "categoryRGB": [
-            239,
-            68,
-            68
-          ],
-          "state": "selected-hover-3",
-          "foreground": "rgb(193, 201, 231)",
-          "background": "rgb(17, 24, 39)",
-          "ratio": 10.792550962031406,
-          "threshold": 3
-        },
-        {
-          "kind": "swatch-boundary",
-          "color": "rgb(139, 92, 246)",
-          "categoryRGB": [
-            139,
-            92,
-            246
-          ],
-          "state": "selected-hover-3",
-          "foreground": "rgb(209, 213, 219)",
-          "background": "rgb(17, 24, 39)",
-          "ratio": 12.039064392610866,
-          "threshold": 3
-        },
-        {
-          "kind": "swatch-boundary",
-          "color": "rgb(6, 182, 212)",
-          "categoryRGB": [
-            6,
-            182,
-            212
-          ],
-          "state": "selected-hover-3",
-          "foreground": "rgb(209, 213, 219)",
-          "background": "rgb(17, 24, 39)",
-          "ratio": 12.039064392610866,
-          "threshold": 3
-        },
-        {
-          "kind": "swatch-boundary",
-          "color": "rgb(132, 204, 22)",
-          "categoryRGB": [
-            132,
-            204,
-            22
-          ],
-          "state": "selected-hover-3",
-          "foreground": "rgb(209, 213, 219)",
-          "background": "rgb(17, 24, 39)",
-          "ratio": 12.039064392610866,
-          "threshold": 3
-        },
-        {
-          "kind": "swatch-boundary",
-          "color": "rgb(249, 115, 22)",
-          "categoryRGB": [
-            249,
-            115,
-            22
-          ],
-          "state": "selected-hover-3",
-          "foreground": "rgb(209, 213, 219)",
-          "background": "rgb(17, 24, 39)",
-          "ratio": 12.039064392610866,
-          "threshold": 3
-        },
-        {
-          "kind": "swatch-boundary",
-          "color": "rgb(236, 72, 153)",
-          "categoryRGB": [
-            236,
-            72,
-            153
-          ],
-          "state": "selected-hover-3",
-          "foreground": "rgb(209, 213, 219)",
-          "background": "rgb(17, 24, 39)",
-          "ratio": 12.039064392610866,
-          "threshold": 3
-        },
-        {
-          "kind": "swatch-boundary",
-          "color": "rgb(107, 114, 128)",
-          "categoryRGB": [
-            107,
-            114,
-            128
-          ],
-          "state": "selected-hover-3",
-          "foreground": "rgb(209, 213, 219)",
-          "background": "rgb(17, 24, 39)",
-          "ratio": 12.039064392610866,
-          "threshold": 3
-        },
-        {
-          "kind": "label",
-          "text": "填写信息以创建新的项目类型。",
-          "color": "rgba(0, 0, 0, 0)",
-          "categoryRGB": [
-            0,
-            0,
-            0
-          ],
-          "state": "selected-hover-3",
-          "foreground": "rgb(249, 250, 251)",
-          "background": "rgb(17, 24, 39)",
-          "ratio": 16.97538624440406,
-          "threshold": 4.5
-        },
-        {
-          "kind": "label",
-          "text": "#ef4444",
-          "color": "rgba(0, 0, 0, 0)",
-          "categoryRGB": [
-            0,
-            0,
-            0
-          ],
-          "state": "selected-hover-3",
-          "foreground": "rgb(249, 250, 251)",
-          "background": "rgb(17, 24, 39)",
-          "ratio": 16.97538624440406,
-          "threshold": 4.5
-        },
-        {
-          "kind": "swatch-boundary",
-          "color": "rgb(79, 70, 229)",
-          "categoryRGB": [
-            79,
-            70,
-            229
-          ],
-          "state": "selected-focus-3",
-          "foreground": "rgb(209, 213, 219)",
-          "background": "rgb(17, 24, 39)",
-          "ratio": 12.039064392610866,
-          "threshold": 3
-        },
-        {
-          "kind": "swatch-boundary",
-          "color": "rgb(16, 185, 129)",
-          "categoryRGB": [
-            16,
-            185,
-            129
-          ],
-          "state": "selected-focus-3",
-          "foreground": "rgb(209, 213, 219)",
-          "background": "rgb(17, 24, 39)",
-          "ratio": 12.039064392610866,
-          "threshold": 3
-        },
-        {
-          "kind": "swatch-boundary",
-          "color": "rgb(245, 158, 11)",
-          "categoryRGB": [
-            245,
-            158,
-            11
-          ],
-          "state": "selected-focus-3",
-          "foreground": "rgb(187, 197, 235)",
-          "background": "rgb(17, 24, 39)",
-          "ratio": 10.389638414488862,
-          "threshold": 3
-        },
-        {
-          "kind": "swatch-boundary",
-          "color": "rgb(239, 68, 68)",
-          "categoryRGB": [
-            239,
-            68,
-            68
-          ],
-          "state": "selected-focus-3",
-          "foreground": "rgb(187, 196, 236)",
-          "background": "rgb(17, 24, 39)",
-          "ratio": 10.322957542406924,
-          "threshold": 3
-        },
-        {
-          "kind": "swatch-boundary",
-          "color": "rgb(139, 92, 246)",
-          "categoryRGB": [
-            139,
-            92,
-            246
-          ],
-          "state": "selected-focus-3",
-          "foreground": "rgb(209, 213, 219)",
-          "background": "rgb(17, 24, 39)",
-          "ratio": 12.039064392610866,
-          "threshold": 3
-        },
-        {
-          "kind": "swatch-boundary",
-          "color": "rgb(6, 182, 212)",
-          "categoryRGB": [
-            6,
-            182,
-            212
-          ],
-          "state": "selected-focus-3",
-          "foreground": "rgb(209, 213, 219)",
-          "background": "rgb(17, 24, 39)",
-          "ratio": 12.039064392610866,
-          "threshold": 3
-        },
-        {
-          "kind": "swatch-boundary",
-          "color": "rgb(132, 204, 22)",
-          "categoryRGB": [
-            132,
-            204,
-            22
-          ],
-          "state": "selected-focus-3",
-          "foreground": "rgb(209, 213, 219)",
-          "background": "rgb(17, 24, 39)",
-          "ratio": 12.039064392610866,
-          "threshold": 3
-        },
-        {
-          "kind": "swatch-boundary",
-          "color": "rgb(249, 115, 22)",
-          "categoryRGB": [
-            249,
-            115,
-            22
-          ],
-          "state": "selected-focus-3",
-          "foreground": "rgb(209, 213, 219)",
-          "background": "rgb(17, 24, 39)",
-          "ratio": 12.039064392610866,
-          "threshold": 3
-        },
-        {
-          "kind": "swatch-boundary",
-          "color": "rgb(236, 72, 153)",
-          "categoryRGB": [
-            236,
-            72,
-            153
-          ],
-          "state": "selected-focus-3",
-          "foreground": "rgb(209, 213, 219)",
-          "background": "rgb(17, 24, 39)",
-          "ratio": 12.039064392610866,
-          "threshold": 3
-        },
-        {
-          "kind": "swatch-boundary",
-          "color": "rgb(107, 114, 128)",
-          "categoryRGB": [
-            107,
-            114,
-            128
-          ],
-          "state": "selected-focus-3",
-          "foreground": "rgb(209, 213, 219)",
-          "background": "rgb(17, 24, 39)",
-          "ratio": 12.039064392610866,
-          "threshold": 3
-        },
-        {
-          "kind": "label",
-          "text": "填写信息以创建新的项目类型。",
-          "color": "rgba(0, 0, 0, 0)",
-          "categoryRGB": [
-            0,
-            0,
-            0
-          ],
-          "state": "selected-focus-3",
-          "foreground": "rgb(249, 250, 251)",
-          "background": "rgb(17, 24, 39)",
-          "ratio": 16.97538624440406,
-          "threshold": 4.5
-        },
-        {
-          "kind": "label",
-          "text": "#ef4444",
-          "color": "rgba(0, 0, 0, 0)",
-          "categoryRGB": [
-            0,
-            0,
-            0
-          ],
-          "state": "selected-focus-3",
-          "foreground": "rgb(249, 250, 251)",
-          "background": "rgb(17, 24, 39)",
-          "ratio": 16.97538624440406,
-          "threshold": 4.5
-        },
-        {
-          "kind": "swatch-boundary",
-          "color": "rgb(79, 70, 229)",
-          "categoryRGB": [
-            79,
-            70,
-            229
-          ],
-          "state": "selected-hover-4",
-          "foreground": "rgb(209, 213, 219)",
-          "background": "rgb(17, 24, 39)",
-          "ratio": 12.039064392610866,
-          "threshold": 3
-        },
-        {
-          "kind": "swatch-boundary",
-          "color": "rgb(16, 185, 129)",
-          "categoryRGB": [
-            16,
-            185,
-            129
-          ],
-          "state": "selected-hover-4",
-          "foreground": "rgb(209, 213, 219)",
-          "background": "rgb(17, 24, 39)",
-          "ratio": 12.039064392610866,
-          "threshold": 3
-        },
-        {
-          "kind": "swatch-boundary",
-          "color": "rgb(245, 158, 11)",
-          "categoryRGB": [
-            245,
-            158,
-            11
-          ],
-          "state": "selected-hover-4",
-          "foreground": "rgb(209, 213, 219)",
-          "background": "rgb(17, 24, 39)",
-          "ratio": 12.039064392610866,
-          "threshold": 3
-        },
-        {
-          "kind": "swatch-boundary",
-          "color": "rgb(239, 68, 68)",
-          "categoryRGB": [
-            239,
-            68,
-            68
-          ],
-          "state": "selected-hover-4",
           "foreground": "rgb(175, 188, 244)",
           "background": "rgb(17, 24, 39)",
           "ratio": 9.56458858371851,
@@ -25000,13 +24646,13 @@
         },
         {
           "kind": "swatch-boundary",
-          "color": "rgb(139, 92, 246)",
+          "color": "rgb(239, 68, 68)",
           "categoryRGB": [
-            139,
-            92,
-            246
+            239,
+            68,
+            68
           ],
-          "state": "selected-hover-4",
+          "state": "selected-hover-3",
           "foreground": "rgb(199, 205, 227)",
           "background": "rgb(17, 24, 39)",
           "ratio": 11.209948225556312,
@@ -25014,6 +24660,360 @@
         },
         {
           "kind": "swatch-boundary",
+          "color": "rgb(139, 92, 246)",
+          "categoryRGB": [
+            139,
+            92,
+            246
+          ],
+          "state": "selected-hover-3",
+          "foreground": "rgb(209, 213, 219)",
+          "background": "rgb(17, 24, 39)",
+          "ratio": 12.039064392610866,
+          "threshold": 3
+        },
+        {
+          "kind": "swatch-boundary",
+          "color": "rgb(6, 182, 212)",
+          "categoryRGB": [
+            6,
+            182,
+            212
+          ],
+          "state": "selected-hover-3",
+          "foreground": "rgb(209, 213, 219)",
+          "background": "rgb(17, 24, 39)",
+          "ratio": 12.039064392610866,
+          "threshold": 3
+        },
+        {
+          "kind": "swatch-boundary",
+          "color": "rgb(132, 204, 22)",
+          "categoryRGB": [
+            132,
+            204,
+            22
+          ],
+          "state": "selected-hover-3",
+          "foreground": "rgb(209, 213, 219)",
+          "background": "rgb(17, 24, 39)",
+          "ratio": 12.039064392610866,
+          "threshold": 3
+        },
+        {
+          "kind": "swatch-boundary",
+          "color": "rgb(249, 115, 22)",
+          "categoryRGB": [
+            249,
+            115,
+            22
+          ],
+          "state": "selected-hover-3",
+          "foreground": "rgb(209, 213, 219)",
+          "background": "rgb(17, 24, 39)",
+          "ratio": 12.039064392610866,
+          "threshold": 3
+        },
+        {
+          "kind": "swatch-boundary",
+          "color": "rgb(236, 72, 153)",
+          "categoryRGB": [
+            236,
+            72,
+            153
+          ],
+          "state": "selected-hover-3",
+          "foreground": "rgb(209, 213, 219)",
+          "background": "rgb(17, 24, 39)",
+          "ratio": 12.039064392610866,
+          "threshold": 3
+        },
+        {
+          "kind": "swatch-boundary",
+          "color": "rgb(107, 114, 128)",
+          "categoryRGB": [
+            107,
+            114,
+            128
+          ],
+          "state": "selected-hover-3",
+          "foreground": "rgb(209, 213, 219)",
+          "background": "rgb(17, 24, 39)",
+          "ratio": 12.039064392610866,
+          "threshold": 3
+        },
+        {
+          "kind": "label",
+          "text": "填写信息以创建新的项目类型。",
+          "color": "rgba(0, 0, 0, 0)",
+          "categoryRGB": [
+            0,
+            0,
+            0
+          ],
+          "state": "selected-hover-3",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(17, 24, 39)",
+          "ratio": 16.97538624440406,
+          "threshold": 4.5
+        },
+        {
+          "kind": "label",
+          "text": "#ef4444",
+          "color": "rgba(0, 0, 0, 0)",
+          "categoryRGB": [
+            0,
+            0,
+            0
+          ],
+          "state": "selected-hover-3",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(17, 24, 39)",
+          "ratio": 16.97538624440406,
+          "threshold": 4.5
+        },
+        {
+          "kind": "swatch-boundary",
+          "color": "rgb(79, 70, 229)",
+          "categoryRGB": [
+            79,
+            70,
+            229
+          ],
+          "state": "selected-focus-3",
+          "foreground": "rgb(209, 213, 219)",
+          "background": "rgb(17, 24, 39)",
+          "ratio": 12.039064392610866,
+          "threshold": 3
+        },
+        {
+          "kind": "swatch-boundary",
+          "color": "rgb(16, 185, 129)",
+          "categoryRGB": [
+            16,
+            185,
+            129
+          ],
+          "state": "selected-focus-3",
+          "foreground": "rgb(209, 213, 219)",
+          "background": "rgb(17, 24, 39)",
+          "ratio": 12.039064392610866,
+          "threshold": 3
+        },
+        {
+          "kind": "swatch-boundary",
+          "color": "rgb(245, 158, 11)",
+          "categoryRGB": [
+            245,
+            158,
+            11
+          ],
+          "state": "selected-focus-3",
+          "foreground": "rgb(181, 192, 240)",
+          "background": "rgb(17, 24, 39)",
+          "ratio": 9.93665773995049,
+          "threshold": 3
+        },
+        {
+          "kind": "swatch-boundary",
+          "color": "rgb(239, 68, 68)",
+          "categoryRGB": [
+            239,
+            68,
+            68
+          ],
+          "state": "selected-focus-3",
+          "foreground": "rgb(193, 201, 231)",
+          "background": "rgb(17, 24, 39)",
+          "ratio": 10.792550962031406,
+          "threshold": 3
+        },
+        {
+          "kind": "swatch-boundary",
+          "color": "rgb(139, 92, 246)",
+          "categoryRGB": [
+            139,
+            92,
+            246
+          ],
+          "state": "selected-focus-3",
+          "foreground": "rgb(209, 213, 219)",
+          "background": "rgb(17, 24, 39)",
+          "ratio": 12.039064392610866,
+          "threshold": 3
+        },
+        {
+          "kind": "swatch-boundary",
+          "color": "rgb(6, 182, 212)",
+          "categoryRGB": [
+            6,
+            182,
+            212
+          ],
+          "state": "selected-focus-3",
+          "foreground": "rgb(209, 213, 219)",
+          "background": "rgb(17, 24, 39)",
+          "ratio": 12.039064392610866,
+          "threshold": 3
+        },
+        {
+          "kind": "swatch-boundary",
+          "color": "rgb(132, 204, 22)",
+          "categoryRGB": [
+            132,
+            204,
+            22
+          ],
+          "state": "selected-focus-3",
+          "foreground": "rgb(209, 213, 219)",
+          "background": "rgb(17, 24, 39)",
+          "ratio": 12.039064392610866,
+          "threshold": 3
+        },
+        {
+          "kind": "swatch-boundary",
+          "color": "rgb(249, 115, 22)",
+          "categoryRGB": [
+            249,
+            115,
+            22
+          ],
+          "state": "selected-focus-3",
+          "foreground": "rgb(209, 213, 219)",
+          "background": "rgb(17, 24, 39)",
+          "ratio": 12.039064392610866,
+          "threshold": 3
+        },
+        {
+          "kind": "swatch-boundary",
+          "color": "rgb(236, 72, 153)",
+          "categoryRGB": [
+            236,
+            72,
+            153
+          ],
+          "state": "selected-focus-3",
+          "foreground": "rgb(209, 213, 219)",
+          "background": "rgb(17, 24, 39)",
+          "ratio": 12.039064392610866,
+          "threshold": 3
+        },
+        {
+          "kind": "swatch-boundary",
+          "color": "rgb(107, 114, 128)",
+          "categoryRGB": [
+            107,
+            114,
+            128
+          ],
+          "state": "selected-focus-3",
+          "foreground": "rgb(209, 213, 219)",
+          "background": "rgb(17, 24, 39)",
+          "ratio": 12.039064392610866,
+          "threshold": 3
+        },
+        {
+          "kind": "label",
+          "text": "填写信息以创建新的项目类型。",
+          "color": "rgba(0, 0, 0, 0)",
+          "categoryRGB": [
+            0,
+            0,
+            0
+          ],
+          "state": "selected-focus-3",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(17, 24, 39)",
+          "ratio": 16.97538624440406,
+          "threshold": 4.5
+        },
+        {
+          "kind": "label",
+          "text": "#ef4444",
+          "color": "rgba(0, 0, 0, 0)",
+          "categoryRGB": [
+            0,
+            0,
+            0
+          ],
+          "state": "selected-focus-3",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(17, 24, 39)",
+          "ratio": 16.97538624440406,
+          "threshold": 4.5
+        },
+        {
+          "kind": "swatch-boundary",
+          "color": "rgb(79, 70, 229)",
+          "categoryRGB": [
+            79,
+            70,
+            229
+          ],
+          "state": "selected-hover-4",
+          "foreground": "rgb(209, 213, 219)",
+          "background": "rgb(17, 24, 39)",
+          "ratio": 12.039064392610866,
+          "threshold": 3
+        },
+        {
+          "kind": "swatch-boundary",
+          "color": "rgb(16, 185, 129)",
+          "categoryRGB": [
+            16,
+            185,
+            129
+          ],
+          "state": "selected-hover-4",
+          "foreground": "rgb(209, 213, 219)",
+          "background": "rgb(17, 24, 39)",
+          "ratio": 12.039064392610866,
+          "threshold": 3
+        },
+        {
+          "kind": "swatch-boundary",
+          "color": "rgb(245, 158, 11)",
+          "categoryRGB": [
+            245,
+            158,
+            11
+          ],
+          "state": "selected-hover-4",
+          "foreground": "rgb(209, 213, 219)",
+          "background": "rgb(17, 24, 39)",
+          "ratio": 12.039064392610866,
+          "threshold": 3
+        },
+        {
+          "kind": "swatch-boundary",
+          "color": "rgb(239, 68, 68)",
+          "categoryRGB": [
+            239,
+            68,
+            68
+          ],
+          "state": "selected-hover-4",
+          "foreground": "rgb(181, 192, 240)",
+          "background": "rgb(17, 24, 39)",
+          "ratio": 9.93665773995049,
+          "threshold": 3
+        },
+        {
+          "kind": "swatch-boundary",
+          "color": "rgb(139, 92, 246)",
+          "categoryRGB": [
+            139,
+            92,
+            246
+          ],
+          "state": "selected-hover-4",
+          "foreground": "rgb(193, 201, 231)",
+          "background": "rgb(17, 24, 39)",
+          "ratio": 10.792550962031406,
+          "threshold": 3
+        },
+        {
+          "kind": "swatch-boundary",
           "color": "rgb(6, 182, 212)",
           "categoryRGB": [
             6,
@@ -25163,9 +25163,9 @@
             68
           ],
           "state": "selected-focus-4",
-          "foreground": "rgb(181, 192, 240)",
+          "foreground": "rgb(187, 197, 235)",
           "background": "rgb(17, 24, 39)",
-          "ratio": 9.93665773995049,
+          "ratio": 10.389638414488862,
           "threshold": 3
         },
         {
@@ -25177,9 +25177,9 @@
             246
           ],
           "state": "selected-focus-4",
-          "foreground": "rgb(193, 201, 231)",
+          "foreground": "rgb(187, 196, 236)",
           "background": "rgb(17, 24, 39)",
-          "ratio": 10.792550962031406,
+          "ratio": 10.322957542406924,
           "threshold": 3
         },
         {
@@ -25347,9 +25347,9 @@
             246
           ],
           "state": "selected-hover-5",
-          "foreground": "rgb(181, 192, 240)",
+          "foreground": "rgb(175, 188, 244)",
           "background": "rgb(17, 24, 39)",
-          "ratio": 9.93665773995049,
+          "ratio": 9.56458858371851,
           "threshold": 3
         },
         {
@@ -25361,9 +25361,9 @@
             212
           ],
           "state": "selected-hover-5",
-          "foreground": "rgb(193, 201, 231)",
+          "foreground": "rgb(199, 205, 227)",
           "background": "rgb(17, 24, 39)",
-          "ratio": 10.792550962031406,
+          "ratio": 11.209948225556312,
           "threshold": 3
         },
         {
@@ -25701,360 +25701,6 @@
             212
           ],
           "state": "selected-hover-6",
-          "foreground": "rgb(181, 192, 240)",
-          "background": "rgb(17, 24, 39)",
-          "ratio": 9.93665773995049,
-          "threshold": 3
-        },
-        {
-          "kind": "swatch-boundary",
-          "color": "rgb(132, 204, 22)",
-          "categoryRGB": [
-            132,
-            204,
-            22
-          ],
-          "state": "selected-hover-6",
-          "foreground": "rgb(193, 201, 231)",
-          "background": "rgb(17, 24, 39)",
-          "ratio": 10.792550962031406,
-          "threshold": 3
-        },
-        {
-          "kind": "swatch-boundary",
-          "color": "rgb(249, 115, 22)",
-          "categoryRGB": [
-            249,
-            115,
-            22
-          ],
-          "state": "selected-hover-6",
-          "foreground": "rgb(209, 213, 219)",
-          "background": "rgb(17, 24, 39)",
-          "ratio": 12.039064392610866,
-          "threshold": 3
-        },
-        {
-          "kind": "swatch-boundary",
-          "color": "rgb(236, 72, 153)",
-          "categoryRGB": [
-            236,
-            72,
-            153
-          ],
-          "state": "selected-hover-6",
-          "foreground": "rgb(209, 213, 219)",
-          "background": "rgb(17, 24, 39)",
-          "ratio": 12.039064392610866,
-          "threshold": 3
-        },
-        {
-          "kind": "swatch-boundary",
-          "color": "rgb(107, 114, 128)",
-          "categoryRGB": [
-            107,
-            114,
-            128
-          ],
-          "state": "selected-hover-6",
-          "foreground": "rgb(209, 213, 219)",
-          "background": "rgb(17, 24, 39)",
-          "ratio": 12.039064392610866,
-          "threshold": 3
-        },
-        {
-          "kind": "label",
-          "text": "填写信息以创建新的项目类型。",
-          "color": "rgba(0, 0, 0, 0)",
-          "categoryRGB": [
-            0,
-            0,
-            0
-          ],
-          "state": "selected-hover-6",
-          "foreground": "rgb(249, 250, 251)",
-          "background": "rgb(17, 24, 39)",
-          "ratio": 16.97538624440406,
-          "threshold": 4.5
-        },
-        {
-          "kind": "label",
-          "text": "#84cc16",
-          "color": "rgba(0, 0, 0, 0)",
-          "categoryRGB": [
-            0,
-            0,
-            0
-          ],
-          "state": "selected-hover-6",
-          "foreground": "rgb(249, 250, 251)",
-          "background": "rgb(17, 24, 39)",
-          "ratio": 16.97538624440406,
-          "threshold": 4.5
-        },
-        {
-          "kind": "swatch-boundary",
-          "color": "rgb(79, 70, 229)",
-          "categoryRGB": [
-            79,
-            70,
-            229
-          ],
-          "state": "selected-focus-6",
-          "foreground": "rgb(209, 213, 219)",
-          "background": "rgb(17, 24, 39)",
-          "ratio": 12.039064392610866,
-          "threshold": 3
-        },
-        {
-          "kind": "swatch-boundary",
-          "color": "rgb(16, 185, 129)",
-          "categoryRGB": [
-            16,
-            185,
-            129
-          ],
-          "state": "selected-focus-6",
-          "foreground": "rgb(209, 213, 219)",
-          "background": "rgb(17, 24, 39)",
-          "ratio": 12.039064392610866,
-          "threshold": 3
-        },
-        {
-          "kind": "swatch-boundary",
-          "color": "rgb(245, 158, 11)",
-          "categoryRGB": [
-            245,
-            158,
-            11
-          ],
-          "state": "selected-focus-6",
-          "foreground": "rgb(209, 213, 219)",
-          "background": "rgb(17, 24, 39)",
-          "ratio": 12.039064392610866,
-          "threshold": 3
-        },
-        {
-          "kind": "swatch-boundary",
-          "color": "rgb(239, 68, 68)",
-          "categoryRGB": [
-            239,
-            68,
-            68
-          ],
-          "state": "selected-focus-6",
-          "foreground": "rgb(209, 213, 219)",
-          "background": "rgb(17, 24, 39)",
-          "ratio": 12.039064392610866,
-          "threshold": 3
-        },
-        {
-          "kind": "swatch-boundary",
-          "color": "rgb(139, 92, 246)",
-          "categoryRGB": [
-            139,
-            92,
-            246
-          ],
-          "state": "selected-focus-6",
-          "foreground": "rgb(209, 213, 219)",
-          "background": "rgb(17, 24, 39)",
-          "ratio": 12.039064392610866,
-          "threshold": 3
-        },
-        {
-          "kind": "swatch-boundary",
-          "color": "rgb(6, 182, 212)",
-          "categoryRGB": [
-            6,
-            182,
-            212
-          ],
-          "state": "selected-focus-6",
-          "foreground": "rgb(187, 197, 235)",
-          "background": "rgb(17, 24, 39)",
-          "ratio": 10.389638414488862,
-          "threshold": 3
-        },
-        {
-          "kind": "swatch-boundary",
-          "color": "rgb(132, 204, 22)",
-          "categoryRGB": [
-            132,
-            204,
-            22
-          ],
-          "state": "selected-focus-6",
-          "foreground": "rgb(187, 196, 236)",
-          "background": "rgb(17, 24, 39)",
-          "ratio": 10.322957542406924,
-          "threshold": 3
-        },
-        {
-          "kind": "swatch-boundary",
-          "color": "rgb(249, 115, 22)",
-          "categoryRGB": [
-            249,
-            115,
-            22
-          ],
-          "state": "selected-focus-6",
-          "foreground": "rgb(209, 213, 219)",
-          "background": "rgb(17, 24, 39)",
-          "ratio": 12.039064392610866,
-          "threshold": 3
-        },
-        {
-          "kind": "swatch-boundary",
-          "color": "rgb(236, 72, 153)",
-          "categoryRGB": [
-            236,
-            72,
-            153
-          ],
-          "state": "selected-focus-6",
-          "foreground": "rgb(209, 213, 219)",
-          "background": "rgb(17, 24, 39)",
-          "ratio": 12.039064392610866,
-          "threshold": 3
-        },
-        {
-          "kind": "swatch-boundary",
-          "color": "rgb(107, 114, 128)",
-          "categoryRGB": [
-            107,
-            114,
-            128
-          ],
-          "state": "selected-focus-6",
-          "foreground": "rgb(209, 213, 219)",
-          "background": "rgb(17, 24, 39)",
-          "ratio": 12.039064392610866,
-          "threshold": 3
-        },
-        {
-          "kind": "label",
-          "text": "填写信息以创建新的项目类型。",
-          "color": "rgba(0, 0, 0, 0)",
-          "categoryRGB": [
-            0,
-            0,
-            0
-          ],
-          "state": "selected-focus-6",
-          "foreground": "rgb(249, 250, 251)",
-          "background": "rgb(17, 24, 39)",
-          "ratio": 16.97538624440406,
-          "threshold": 4.5
-        },
-        {
-          "kind": "label",
-          "text": "#84cc16",
-          "color": "rgba(0, 0, 0, 0)",
-          "categoryRGB": [
-            0,
-            0,
-            0
-          ],
-          "state": "selected-focus-6",
-          "foreground": "rgb(249, 250, 251)",
-          "background": "rgb(17, 24, 39)",
-          "ratio": 16.97538624440406,
-          "threshold": 4.5
-        },
-        {
-          "kind": "swatch-boundary",
-          "color": "rgb(79, 70, 229)",
-          "categoryRGB": [
-            79,
-            70,
-            229
-          ],
-          "state": "selected-hover-7",
-          "foreground": "rgb(209, 213, 219)",
-          "background": "rgb(17, 24, 39)",
-          "ratio": 12.039064392610866,
-          "threshold": 3
-        },
-        {
-          "kind": "swatch-boundary",
-          "color": "rgb(16, 185, 129)",
-          "categoryRGB": [
-            16,
-            185,
-            129
-          ],
-          "state": "selected-hover-7",
-          "foreground": "rgb(209, 213, 219)",
-          "background": "rgb(17, 24, 39)",
-          "ratio": 12.039064392610866,
-          "threshold": 3
-        },
-        {
-          "kind": "swatch-boundary",
-          "color": "rgb(245, 158, 11)",
-          "categoryRGB": [
-            245,
-            158,
-            11
-          ],
-          "state": "selected-hover-7",
-          "foreground": "rgb(209, 213, 219)",
-          "background": "rgb(17, 24, 39)",
-          "ratio": 12.039064392610866,
-          "threshold": 3
-        },
-        {
-          "kind": "swatch-boundary",
-          "color": "rgb(239, 68, 68)",
-          "categoryRGB": [
-            239,
-            68,
-            68
-          ],
-          "state": "selected-hover-7",
-          "foreground": "rgb(209, 213, 219)",
-          "background": "rgb(17, 24, 39)",
-          "ratio": 12.039064392610866,
-          "threshold": 3
-        },
-        {
-          "kind": "swatch-boundary",
-          "color": "rgb(139, 92, 246)",
-          "categoryRGB": [
-            139,
-            92,
-            246
-          ],
-          "state": "selected-hover-7",
-          "foreground": "rgb(209, 213, 219)",
-          "background": "rgb(17, 24, 39)",
-          "ratio": 12.039064392610866,
-          "threshold": 3
-        },
-        {
-          "kind": "swatch-boundary",
-          "color": "rgb(6, 182, 212)",
-          "categoryRGB": [
-            6,
-            182,
-            212
-          ],
-          "state": "selected-hover-7",
-          "foreground": "rgb(209, 213, 219)",
-          "background": "rgb(17, 24, 39)",
-          "ratio": 12.039064392610866,
-          "threshold": 3
-        },
-        {
-          "kind": "swatch-boundary",
-          "color": "rgb(132, 204, 22)",
-          "categoryRGB": [
-            132,
-            204,
-            22
-          ],
-          "state": "selected-hover-7",
           "foreground": "rgb(175, 188, 244)",
           "background": "rgb(17, 24, 39)",
           "ratio": 9.56458858371851,
@@ -26062,13 +25708,13 @@
         },
         {
           "kind": "swatch-boundary",
-          "color": "rgb(249, 115, 22)",
+          "color": "rgb(132, 204, 22)",
           "categoryRGB": [
-            249,
-            115,
+            132,
+            204,
             22
           ],
-          "state": "selected-hover-7",
+          "state": "selected-hover-6",
           "foreground": "rgb(199, 205, 227)",
           "background": "rgb(17, 24, 39)",
           "ratio": 11.209948225556312,
@@ -26076,6 +25722,360 @@
         },
         {
           "kind": "swatch-boundary",
+          "color": "rgb(249, 115, 22)",
+          "categoryRGB": [
+            249,
+            115,
+            22
+          ],
+          "state": "selected-hover-6",
+          "foreground": "rgb(209, 213, 219)",
+          "background": "rgb(17, 24, 39)",
+          "ratio": 12.039064392610866,
+          "threshold": 3
+        },
+        {
+          "kind": "swatch-boundary",
+          "color": "rgb(236, 72, 153)",
+          "categoryRGB": [
+            236,
+            72,
+            153
+          ],
+          "state": "selected-hover-6",
+          "foreground": "rgb(209, 213, 219)",
+          "background": "rgb(17, 24, 39)",
+          "ratio": 12.039064392610866,
+          "threshold": 3
+        },
+        {
+          "kind": "swatch-boundary",
+          "color": "rgb(107, 114, 128)",
+          "categoryRGB": [
+            107,
+            114,
+            128
+          ],
+          "state": "selected-hover-6",
+          "foreground": "rgb(209, 213, 219)",
+          "background": "rgb(17, 24, 39)",
+          "ratio": 12.039064392610866,
+          "threshold": 3
+        },
+        {
+          "kind": "label",
+          "text": "填写信息以创建新的项目类型。",
+          "color": "rgba(0, 0, 0, 0)",
+          "categoryRGB": [
+            0,
+            0,
+            0
+          ],
+          "state": "selected-hover-6",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(17, 24, 39)",
+          "ratio": 16.97538624440406,
+          "threshold": 4.5
+        },
+        {
+          "kind": "label",
+          "text": "#84cc16",
+          "color": "rgba(0, 0, 0, 0)",
+          "categoryRGB": [
+            0,
+            0,
+            0
+          ],
+          "state": "selected-hover-6",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(17, 24, 39)",
+          "ratio": 16.97538624440406,
+          "threshold": 4.5
+        },
+        {
+          "kind": "swatch-boundary",
+          "color": "rgb(79, 70, 229)",
+          "categoryRGB": [
+            79,
+            70,
+            229
+          ],
+          "state": "selected-focus-6",
+          "foreground": "rgb(209, 213, 219)",
+          "background": "rgb(17, 24, 39)",
+          "ratio": 12.039064392610866,
+          "threshold": 3
+        },
+        {
+          "kind": "swatch-boundary",
+          "color": "rgb(16, 185, 129)",
+          "categoryRGB": [
+            16,
+            185,
+            129
+          ],
+          "state": "selected-focus-6",
+          "foreground": "rgb(209, 213, 219)",
+          "background": "rgb(17, 24, 39)",
+          "ratio": 12.039064392610866,
+          "threshold": 3
+        },
+        {
+          "kind": "swatch-boundary",
+          "color": "rgb(245, 158, 11)",
+          "categoryRGB": [
+            245,
+            158,
+            11
+          ],
+          "state": "selected-focus-6",
+          "foreground": "rgb(209, 213, 219)",
+          "background": "rgb(17, 24, 39)",
+          "ratio": 12.039064392610866,
+          "threshold": 3
+        },
+        {
+          "kind": "swatch-boundary",
+          "color": "rgb(239, 68, 68)",
+          "categoryRGB": [
+            239,
+            68,
+            68
+          ],
+          "state": "selected-focus-6",
+          "foreground": "rgb(209, 213, 219)",
+          "background": "rgb(17, 24, 39)",
+          "ratio": 12.039064392610866,
+          "threshold": 3
+        },
+        {
+          "kind": "swatch-boundary",
+          "color": "rgb(139, 92, 246)",
+          "categoryRGB": [
+            139,
+            92,
+            246
+          ],
+          "state": "selected-focus-6",
+          "foreground": "rgb(209, 213, 219)",
+          "background": "rgb(17, 24, 39)",
+          "ratio": 12.039064392610866,
+          "threshold": 3
+        },
+        {
+          "kind": "swatch-boundary",
+          "color": "rgb(6, 182, 212)",
+          "categoryRGB": [
+            6,
+            182,
+            212
+          ],
+          "state": "selected-focus-6",
+          "foreground": "rgb(181, 192, 240)",
+          "background": "rgb(17, 24, 39)",
+          "ratio": 9.93665773995049,
+          "threshold": 3
+        },
+        {
+          "kind": "swatch-boundary",
+          "color": "rgb(132, 204, 22)",
+          "categoryRGB": [
+            132,
+            204,
+            22
+          ],
+          "state": "selected-focus-6",
+          "foreground": "rgb(193, 201, 231)",
+          "background": "rgb(17, 24, 39)",
+          "ratio": 10.792550962031406,
+          "threshold": 3
+        },
+        {
+          "kind": "swatch-boundary",
+          "color": "rgb(249, 115, 22)",
+          "categoryRGB": [
+            249,
+            115,
+            22
+          ],
+          "state": "selected-focus-6",
+          "foreground": "rgb(209, 213, 219)",
+          "background": "rgb(17, 24, 39)",
+          "ratio": 12.039064392610866,
+          "threshold": 3
+        },
+        {
+          "kind": "swatch-boundary",
+          "color": "rgb(236, 72, 153)",
+          "categoryRGB": [
+            236,
+            72,
+            153
+          ],
+          "state": "selected-focus-6",
+          "foreground": "rgb(209, 213, 219)",
+          "background": "rgb(17, 24, 39)",
+          "ratio": 12.039064392610866,
+          "threshold": 3
+        },
+        {
+          "kind": "swatch-boundary",
+          "color": "rgb(107, 114, 128)",
+          "categoryRGB": [
+            107,
+            114,
+            128
+          ],
+          "state": "selected-focus-6",
+          "foreground": "rgb(209, 213, 219)",
+          "background": "rgb(17, 24, 39)",
+          "ratio": 12.039064392610866,
+          "threshold": 3
+        },
+        {
+          "kind": "label",
+          "text": "填写信息以创建新的项目类型。",
+          "color": "rgba(0, 0, 0, 0)",
+          "categoryRGB": [
+            0,
+            0,
+            0
+          ],
+          "state": "selected-focus-6",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(17, 24, 39)",
+          "ratio": 16.97538624440406,
+          "threshold": 4.5
+        },
+        {
+          "kind": "label",
+          "text": "#84cc16",
+          "color": "rgba(0, 0, 0, 0)",
+          "categoryRGB": [
+            0,
+            0,
+            0
+          ],
+          "state": "selected-focus-6",
+          "foreground": "rgb(249, 250, 251)",
+          "background": "rgb(17, 24, 39)",
+          "ratio": 16.97538624440406,
+          "threshold": 4.5
+        },
+        {
+          "kind": "swatch-boundary",
+          "color": "rgb(79, 70, 229)",
+          "categoryRGB": [
+            79,
+            70,
+            229
+          ],
+          "state": "selected-hover-7",
+          "foreground": "rgb(209, 213, 219)",
+          "background": "rgb(17, 24, 39)",
+          "ratio": 12.039064392610866,
+          "threshold": 3
+        },
+        {
+          "kind": "swatch-boundary",
+          "color": "rgb(16, 185, 129)",
+          "categoryRGB": [
+            16,
+            185,
+            129
+          ],
+          "state": "selected-hover-7",
+          "foreground": "rgb(209, 213, 219)",
+          "background": "rgb(17, 24, 39)",
+          "ratio": 12.039064392610866,
+          "threshold": 3
+        },
+        {
+          "kind": "swatch-boundary",
+          "color": "rgb(245, 158, 11)",
+          "categoryRGB": [
+            245,
+            158,
+            11
+          ],
+          "state": "selected-hover-7",
+          "foreground": "rgb(209, 213, 219)",
+          "background": "rgb(17, 24, 39)",
+          "ratio": 12.039064392610866,
+          "threshold": 3
+        },
+        {
+          "kind": "swatch-boundary",
+          "color": "rgb(239, 68, 68)",
+          "categoryRGB": [
+            239,
+            68,
+            68
+          ],
+          "state": "selected-hover-7",
+          "foreground": "rgb(209, 213, 219)",
+          "background": "rgb(17, 24, 39)",
+          "ratio": 12.039064392610866,
+          "threshold": 3
+        },
+        {
+          "kind": "swatch-boundary",
+          "color": "rgb(139, 92, 246)",
+          "categoryRGB": [
+            139,
+            92,
+            246
+          ],
+          "state": "selected-hover-7",
+          "foreground": "rgb(209, 213, 219)",
+          "background": "rgb(17, 24, 39)",
+          "ratio": 12.039064392610866,
+          "threshold": 3
+        },
+        {
+          "kind": "swatch-boundary",
+          "color": "rgb(6, 182, 212)",
+          "categoryRGB": [
+            6,
+            182,
+            212
+          ],
+          "state": "selected-hover-7",
+          "foreground": "rgb(209, 213, 219)",
+          "background": "rgb(17, 24, 39)",
+          "ratio": 12.039064392610866,
+          "threshold": 3
+        },
+        {
+          "kind": "swatch-boundary",
+          "color": "rgb(132, 204, 22)",
+          "categoryRGB": [
+            132,
+            204,
+            22
+          ],
+          "state": "selected-hover-7",
+          "foreground": "rgb(181, 192, 240)",
+          "background": "rgb(17, 24, 39)",
+          "ratio": 9.93665773995049,
+          "threshold": 3
+        },
+        {
+          "kind": "swatch-boundary",
+          "color": "rgb(249, 115, 22)",
+          "categoryRGB": [
+            249,
+            115,
+            22
+          ],
+          "state": "selected-hover-7",
+          "foreground": "rgb(193, 201, 231)",
+          "background": "rgb(17, 24, 39)",
+          "ratio": 10.792550962031406,
+          "threshold": 3
+        },
+        {
+          "kind": "swatch-boundary",
           "color": "rgb(236, 72, 153)",
           "categoryRGB": [
             236,
@@ -26225,9 +26225,9 @@
             22
           ],
           "state": "selected-focus-7",
-          "foreground": "rgb(181, 192, 240)",
+          "foreground": "rgb(187, 197, 235)",
           "background": "rgb(17, 24, 39)",
-          "ratio": 9.93665773995049,
+          "ratio": 10.389638414488862,
           "threshold": 3
         },
         {
@@ -26239,9 +26239,9 @@
             22
           ],
           "state": "selected-focus-7",
-          "foreground": "rgb(193, 201, 231)",
+          "foreground": "rgb(187, 196, 236)",
           "background": "rgb(17, 24, 39)",
-          "ratio": 10.792550962031406,
+          "ratio": 10.322957542406924,
           "threshold": 3
         },
         {
@@ -26579,9 +26579,9 @@
             22
           ],
           "state": "selected-focus-8",
-          "foreground": "rgb(181, 192, 240)",
+          "foreground": "rgb(187, 197, 235)",
           "background": "rgb(17, 24, 39)",
-          "ratio": 9.93665773995049,
+          "ratio": 10.389638414488862,
           "threshold": 3
         },
         {
@@ -26593,9 +26593,9 @@
             153
           ],
           "state": "selected-focus-8",
-          "foreground": "rgb(193, 201, 231)",
+          "foreground": "rgb(187, 196, 236)",
           "background": "rgb(17, 24, 39)",
-          "ratio": 10.792550962031406,
+          "ratio": 10.322957542406924,
           "threshold": 3
         },
         {
@@ -26763,9 +26763,9 @@
             153
           ],
           "state": "selected-hover-9",
-          "foreground": "rgb(181, 192, 240)",
+          "foreground": "rgb(175, 188, 244)",
           "background": "rgb(17, 24, 39)",
-          "ratio": 9.93665773995049,
+          "ratio": 9.56458858371851,
           "threshold": 3
         },
         {
@@ -26777,9 +26777,9 @@
             128
           ],
           "state": "selected-hover-9",
-          "foreground": "rgb(193, 201, 231)",
+          "foreground": "rgb(199, 205, 227)",
           "background": "rgb(17, 24, 39)",
-          "ratio": 10.792550962031406,
+          "ratio": 11.209948225556312,
           "threshold": 3
         },
         {
@@ -26933,9 +26933,9 @@
             153
           ],
           "state": "selected-focus-9",
-          "foreground": "rgb(187, 197, 235)",
+          "foreground": "rgb(181, 192, 240)",
           "background": "rgb(17, 24, 39)",
-          "ratio": 10.389638414488862,
+          "ratio": 9.93665773995049,
           "threshold": 3
         },
         {
@@ -26947,9 +26947,9 @@
             128
           ],
           "state": "selected-focus-9",
-          "foreground": "rgb(187, 196, 236)",
+          "foreground": "rgb(193, 201, 231)",
           "background": "rgb(17, 24, 39)",
-          "ratio": 10.322957542406924,
+          "ratio": 10.792550962031406,
           "threshold": 3
         },
         {
@@ -28176,9 +28176,9 @@
             233
           ],
           "state": "selected-hover-2",
-          "foreground": "rgb(199, 205, 227)",
+          "foreground": "rgb(203, 209, 223)",
           "background": "rgb(17, 24, 39)",
-          "ratio": 11.209948225556312,
+          "ratio": 11.594197797578916,
           "threshold": 3
         },
         {
@@ -28190,9 +28190,9 @@
             115
           ],
           "state": "selected-hover-2",
-          "foreground": "rgb(175, 188, 244)",
+          "foreground": "rgb(171, 184, 248)",
           "background": "rgb(17, 24, 39)",
-          "ratio": 9.56458858371851,
+          "ratio": 9.244287728547269,
           "threshold": 3
         },
         {
@@ -29610,9 +29610,9 @@
             178
           ],
           "state": "selected-hover-5",
-          "foreground": "rgb(181, 192, 240)",
+          "foreground": "rgb(199, 205, 227)",
           "background": "rgb(17, 24, 39)",
-          "ratio": 9.93665773995049,
+          "ratio": 11.209948225556312,
           "threshold": 3
         },
         {
@@ -29624,9 +29624,9 @@
             0
           ],
           "state": "selected-hover-5",
-          "foreground": "rgb(193, 201, 231)",
+          "foreground": "rgb(175, 188, 244)",
           "background": "rgb(17, 24, 39)",
-          "ratio": 10.792550962031406,
+          "ratio": 9.56458858371851,
           "threshold": 3
         },
         {
@@ -29842,9 +29842,9 @@
             178
           ],
           "state": "selected-focus-5",
-          "foreground": "rgb(187, 197, 235)",
+          "foreground": "rgb(203, 209, 223)",
           "background": "rgb(17, 24, 39)",
-          "ratio": 10.389638414488862,
+          "ratio": 11.594197797578916,
           "threshold": 3
         },
         {
@@ -29856,9 +29856,9 @@
             0
           ],
           "state": "selected-focus-5",
-          "foreground": "rgb(187, 196, 236)",
+          "foreground": "rgb(171, 184, 248)",
           "background": "rgb(17, 24, 39)",
-          "ratio": 10.322957542406924,
+          "ratio": 9.244287728547269,
           "threshold": 3
         },
         {
@@ -30320,9 +30320,9 @@
             0
           ],
           "state": "selected-focus-6",
-          "foreground": "rgb(207, 211, 221)",
+          "foreground": "rgb(203, 209, 223)",
           "background": "rgb(17, 24, 39)",
-          "ratio": 11.839045687672792,
+          "ratio": 11.594197797578916,
           "threshold": 3
         },
         {
@@ -30334,9 +30334,9 @@
             167
           ],
           "state": "selected-focus-6",
-          "foreground": "rgb(167, 182, 250)",
+          "foreground": "rgb(171, 184, 248)",
           "background": "rgb(17, 24, 39)",
-          "ratio": 9.051228434515576,
+          "ratio": 9.244287728547269,
           "threshold": 3
         },
         {
@@ -30566,9 +30566,9 @@
             167
           ],
           "state": "selected-hover-7",
-          "foreground": "rgb(199, 205, 227)",
+          "foreground": "rgb(203, 209, 223)",
           "background": "rgb(17, 24, 39)",
-          "ratio": 11.209948225556312,
+          "ratio": 11.594197797578916,
           "threshold": 3
         },
         {
@@ -30580,9 +30580,9 @@
             153
           ],
           "state": "selected-hover-7",
-          "foreground": "rgb(175, 188, 244)",
+          "foreground": "rgb(171, 184, 248)",
           "background": "rgb(17, 24, 39)",
-          "ratio": 9.56458858371851,
+          "ratio": 9.244287728547269,
           "threshold": 3
         },
         {

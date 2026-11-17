@@ -1983,6 +1983,8 @@ test('S8: 超远结束日被 12 个月上限截断，并出现在范围外入口
     expect(screen.getAllByTestId('pw-gantt-bar').length).toBeGreaterThan(0);
   });
   expect(screen.getByTestId('pw-gantt')).toHaveTextContent('2026-01-01 ~ 2027-03-15');
+  expect(screen.getByTestId('pw-gantt-oor-committed-clipped')).toBeInTheDocument();
+  expect(screen.queryByTestId('pw-gantt-oor-committed')).not.toBeInTheDocument();
   const locate = await screen.findByTestId('pw-locate-committed-a1');
   fireEvent.click(locate);
   await waitFor(() => {
@@ -2016,7 +2018,7 @@ test('S8: 远未来 committed 行走“范围外”定位入口，点击才扩�
   });
 });
 
-test('范围编辑面板：打开聚焦起始日，Escape 关闭并回焦触发器', async () => {
+test('范围编辑面板：打开聚焦首个预设，Escape 关闭并回焦触发器', async () => {
   renderPage();
   await waitFor(() => {
     expect(screen.getAllByTestId('pw-gantt-bar').length).toBeGreaterThan(0);
@@ -2027,7 +2029,7 @@ test('范围编辑面板：打开聚焦起始日，Escape 关闭并回焦触发�
   await waitFor(() => {
     expect(screen.getByTestId('pw-range-panel')).toBeInTheDocument();
   });
-  expect(screen.getByLabelText('Start Date')).toHaveFocus();
+  expect(screen.getByRole('button', { name: 'Auto window' })).toHaveFocus();
 
   fireEvent.keyDown(screen.getByTestId('pw-range-panel'), { key: 'Escape' });
   await waitFor(() => {
@@ -2082,6 +2084,30 @@ test('历史自定义范围：from window start 取覆盖，参考日越界有�
   expect(document.querySelector('.pw-gantt-asof')).toBeNull();
 });
 
+test('可用率查询失败：历史窗口不伪造数字，显示错误与重试', async () => {
+  (api.availability.list as jest.Mock).mockRejectedValue(new Error('availability down'));
+  renderPage();
+  await waitFor(() => {
+    expect(screen.getAllByTestId('pw-gantt-bar').length).toBeGreaterThan(0);
+  });
+
+  fireEvent.click(screen.getByTestId('pw-gantt-range-toggle'));
+  fireEvent.change(screen.getByLabelText('Start Date'), {
+    target: { value: '2024-01-01' },
+  });
+  fireEvent.change(screen.getByLabelText('End Date'), {
+    target: { value: '2024-12-31' },
+  });
+  fireEvent.click(screen.getByRole('button', { name: 'Apply range' }));
+
+  const error = await screen.findByTestId('pw-gantt-availability-error');
+  expect(error).toHaveTextContent(/could not be loaded|failed/i);
+  expect(within(error).getByRole('button', { name: 'Retry' })).toBeInTheDocument();
+  expect(screen.getByTestId('pw-gantt-heat-full').getAttribute('aria-label')).toMatch(
+    /unknown|unavailable/i
+  );
+});
+
 test('自定义范围：自动窗口复位；倒置日期不写入', async () => {
   renderPage();
   await waitFor(() => {
@@ -2131,6 +2157,8 @@ test('范围外已提交行在左侧越界时也能定位扩展', async () => {
   });
   renderPage();
   const locate = await screen.findByTestId('pw-locate-committed-left-row');
+  expect(screen.getByTestId('pw-gantt-oor-committed')).toBeInTheDocument();
+  expect(screen.queryByTestId('pw-gantt-oor-committed-clipped')).not.toBeInTheDocument();
   expect(screen.getByTestId('pw-gantt')).toHaveTextContent('2026-03-15 ~ 2026-06-15');
 
   fireEvent.click(locate);

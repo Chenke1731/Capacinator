@@ -41,6 +41,7 @@ export function WorkloadRangePanel({
   const [end, setEnd] = useState(rangeEnd);
   const [error, setError] = useState<WorkloadRangeError | null>(null);
   const panelRef = useRef<HTMLDivElement>(null);
+  const autoPresetRef = useRef<HTMLButtonElement>(null);
 
   // Applied range changed externally (preset/minimap/locate) → sync the drafts.
   useEffect(() => {
@@ -50,9 +51,8 @@ export function WorkloadRangePanel({
   }, [rangeStart, rangeEnd]);
 
   useEffect(() => {
-    panelRef.current
-      ?.querySelector<HTMLInputElement>('input[data-iso-date]')
-      ?.focus();
+    // 预设位于 DOM 首位：聚焦首个预设，正向 Tab 才能覆盖全部控件。
+    autoPresetRef.current?.focus();
   }, []);
 
   const presets = useMemo(
@@ -69,7 +69,13 @@ export function WorkloadRangePanel({
   const apply = (nextStart: string, nextEnd: string) => {
     const nextError = validateWorkloadRange(nextStart, nextEnd);
     setError(nextError);
-    if (nextError) return;
+    if (nextError) {
+      // IX-2：语义错误提交后把焦点放到首个无效字段，而不是留在提交按钮
+      const target =
+        nextError === 'invalid-end' ? '#pw-range-end' : '#pw-range-start';
+      panelRef.current?.querySelector<HTMLInputElement>(target)?.focus();
+      return;
+    }
     if (nextStart === rangeStart && nextEnd === rangeEnd) return;
     onApply(nextStart, nextEnd);
   };
@@ -103,11 +109,12 @@ export function WorkloadRangePanel({
     >
       <ImeSafeForm
         className="pw-range-form"
-        aria-label={t('assignments:workbench.gantt.range.panelLabel')}
+        noValidate
         onSubmit={handleSubmit}
       >
-        <div className="pw-range-presets" role="group" aria-label={t('assignments:workbench.gantt.range.panelLabel')}>
+        <div className="pw-range-presets">
           <button
+            ref={autoPresetRef}
             type="button"
             className="btn btn-ghost btn-sm pw-range-preset"
             aria-pressed={!isCustom}

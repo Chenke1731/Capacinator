@@ -355,6 +355,19 @@ export default function PersonWorkload() {
     ];
   }, [overridesQuery.data, utilizationRow]);
 
+  // R-01：历史/自定义窗口内若 approved overrides 未加载成功，不得用人员
+  // 默认可用率伪造确定数字。未知日期保持 null（热区显示“不可用”），并由
+  // 泳道呈现加载/失败状态与重试入口；保底的当前覆盖窗口仍可服务当前段。
+  const availabilityQueryPending =
+    overridesQuery.isLoading || (overridesQuery.isFetching && !overridesQuery.data);
+  const availabilityStatus: 'ready' | 'loading' | 'error' = availabilityQueryPending
+    ? 'loading'
+    : overridesQuery.isError
+      ? 'error'
+      : 'ready';
+  const availabilityForTimeline =
+    availabilityStatus === 'ready' ? heatDefaultAvailability : null;
+
   // 场景绑定（§12）：草稿绑定加入时的场景；切场景→只读+禁提交
   const draftScenarioId = draftStore.drafts[0]?.scenarioId ?? activeScenarioId;
   const draftScenarioMismatch =
@@ -623,12 +636,12 @@ export default function PersonWorkload() {
           asOf,
           rangeStart,
           rangeEnd,
-          defaultAvailability: heatDefaultAvailability,
+          defaultAvailability: availabilityForTimeline,
           availabilityOverrides,
           granularity: workloadGranularity(rangeStart, rangeEnd),
         }
       ),
-    [committedTimelineRows, projectedDrafts, asOf, rangeStart, rangeEnd, heatDefaultAvailability, availabilityOverrides]
+    [committedTimelineRows, projectedDrafts, asOf, rangeStart, rangeEnd, availabilityForTimeline, availabilityOverrides]
   );
 
   const inspectorDraft = draftStore.drafts.find((draft) => draft.draftId === inspectorDraftId) ?? null;
@@ -664,12 +677,12 @@ export default function PersonWorkload() {
           asOf,
           rangeStart: minimapRangeStart,
           rangeEnd: minimapRangeEnd,
-          defaultAvailability: heatDefaultAvailability,
+          defaultAvailability: availabilityForTimeline,
           availabilityOverrides,
           granularity: 'month',
         }
       ),
-    [committedTimelineRows, projectedDrafts, asOf, minimapRangeStart, minimapRangeEnd, heatDefaultAvailability, availabilityOverrides]
+    [committedTimelineRows, projectedDrafts, asOf, minimapRangeStart, minimapRangeEnd, availabilityForTimeline, availabilityOverrides]
   );
 
   // Phase 2：拖动/缩放落点（钳制 start<=end、至少 1 天、且不早于参考日——
@@ -2881,6 +2894,8 @@ export default function PersonWorkload() {
         rangeIsCustom={customRange !== null}
         onApplyRange={applyRange}
         onResetRange={() => setCustomRange(null)}
+        availabilityStatus={availabilityStatus}
+        onRetryAvailability={() => void overridesQuery.refetch()}
       />
 
       {staffingProject ? (
@@ -2945,7 +2960,7 @@ export default function PersonWorkload() {
         <GhostInspector
           draft={inspectorDraft}
           assignments={assignmentsQuery.data ?? []}
-          availability={heatDefaultAvailability}
+          availability={availabilityForTimeline}
           availabilityOverrides={availabilityOverrides}
           asOf={asOf}
           rangeStart={rangeStart}
@@ -3016,7 +3031,7 @@ export default function PersonWorkload() {
           }}
           onRequestClose={requestCloseCommitted}
           assignments={assignmentsQuery.data ?? []}
-          availability={heatDefaultAvailability}
+          availability={availabilityForTimeline}
           availabilityOverrides={availabilityOverrides}
           asOf={asOf}
           rangeStart={rangeStart}

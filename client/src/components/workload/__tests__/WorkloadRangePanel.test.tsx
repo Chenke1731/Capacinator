@@ -22,9 +22,9 @@ function renderPanel(overrides: Partial<ComponentProps<typeof WorkloadRangePanel
 }
 
 describe('WorkloadRangePanel', () => {
-  test('focuses the start date and applies the next-3-months preset', () => {
+  test('focuses the first preset and applies the next-3-months preset', () => {
     const { onApply } = renderPanel();
-    expect(screen.getByLabelText('Start Date')).toHaveFocus();
+    expect(screen.getByRole('button', { name: 'Auto window' })).toHaveFocus();
     fireEvent.click(screen.getByRole('button', { name: 'Next 3 months' }));
     expect(onApply).toHaveBeenCalledWith('2026-03-15', '2026-06-15');
   });
@@ -45,6 +45,7 @@ describe('WorkloadRangePanel', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Apply range' }));
     expect(onApply).not.toHaveBeenCalled();
     expect(screen.getByRole('alert')).toHaveTextContent('Start date must not be after the end date.');
+    expect(screen.getByLabelText('Start Date')).toHaveFocus();
   });
 
   test('blocks a window longer than five years', () => {
@@ -54,6 +55,18 @@ describe('WorkloadRangePanel', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Apply range' }));
     expect(onApply).not.toHaveBeenCalled();
     expect(screen.getByRole('alert')).toHaveTextContent('The range cannot exceed 5 years.');
+    expect(screen.getByLabelText('Start Date')).toHaveFocus();
+  });
+
+  test('surfaces the localized error for a malformed date', () => {
+    const { onApply } = renderPanel();
+    fireEvent.change(screen.getByLabelText('Start Date'), { target: { value: '2024-1' } });
+    fireEvent.click(screen.getByRole('button', { name: 'Apply range' }));
+    expect(onApply).not.toHaveBeenCalled();
+    expect(screen.getByRole('alert')).toHaveTextContent(
+      'Start date must be a real date between 1900 and 2200.'
+    );
+    expect(screen.getByLabelText('Start Date')).toHaveAttribute('aria-invalid', 'true');
   });
 
   test('auto resets and Escape closes the panel', () => {

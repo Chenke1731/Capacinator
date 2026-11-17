@@ -220,6 +220,7 @@
       "shiftApplying": "Applying…",
       "shiftMoreRows": "+{{count}} more row(s)",
       "outOfRangeCommitted": "{{count}} committed assignment(s) outside the window",
+      "outOfRangeCommittedClipped": "{{count}} committed assignment(s) partly outside the window",
       "shiftDirectWarning": "Includes {{count}} baseline-global (direct) row(s); changes affect all scenarios.",
       "finishGhostFirst": "Close the draft inspector before editing a row.",
       "batchStale": "Some rows failed with stale versions; cancel batch and re-enter before retrying."
@@ -513,7 +514,9 @@
         "invalidStart": "Start date must be a real date between 1900 and 2200.",
         "invalidEnd": "End date must be a real date between 1900 and 2200.",
         "invalidOrder": "Start date must not be after the end date.",
-        "tooLong": "The range cannot exceed 5 years."
+        "tooLong": "The range cannot exceed 5 years.",
+        "availabilityLoading": "Loading availability data…",
+        "availabilityError": "Availability data could not be loaded; dates without a known override are unavailable."
       }
     },
     "inspector": {

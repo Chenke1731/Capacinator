@@ -74,6 +74,9 @@ export interface WorkloadGanttProps {
   /** 用户应用自定义窗口；提供时才显示范围编辑入口 */
   onApplyRange?: (start: string, end: string) => void;
   onResetRange?: () => void;
+  /** 可用率覆盖查询状态：未就绪时热区不得显示确定数字 */
+  availabilityStatus?: 'ready' | 'loading' | 'error';
+  onRetryAvailability?: () => void;
 }
 
 type DragMode = 'move' | 'start' | 'end';
@@ -139,8 +142,10 @@ export function WorkloadGantt({
   rangeIsCustom = false,
   onApplyRange,
   onResetRange,
+  availabilityStatus = 'ready',
+  onRetryAvailability,
 }: WorkloadGanttProps) {
-  const { t } = useTranslation(['assignments']);
+  const { t } = useTranslation(['assignments', 'common']);
   const [rangePanelOpen, setRangePanelOpen] = useState(false);
   const rangeToggleRef = useRef<HTMLButtonElement | null>(null);
 
@@ -496,9 +501,21 @@ export function WorkloadGantt({
     return ordered;
   }, [committedRows, drafts, t]);
 
-  // 范围外已提交行：未完整落在当前窗口内即给定位入口（左右越界都可定位）
-  const outOfRangeCommitted = onLocateCommitted
+  // 已提交行相对窗口分两类：完全在外（无交集）与部分裁切（有交集但越界）。
+  // 页脚文案必须与渲染谓词同源，避免“bar 可见却显示在窗口外”。
+  const outsideWindowCommitted = onLocateCommitted
     ? committedRows.filter((row) => {
+        const start = workloadDateOnly(row.computed_start_date ?? row.start_date);
+        const end = workloadDateOnly(row.computed_end_date ?? row.end_date);
+        const startDay = start ? toDayNumber(start) : Number.NEGATIVE_INFINITY;
+        const endDay = end ? toDayNumber(end) : Number.POSITIVE_INFINITY;
+        return endDay < rangeStartDay || startDay > rangeEndDay;
+      })
+    : [];
+  const outsideWindowIds = new Set(outsideWindowCommitted.map((row) => String(row.id)));
+  const clippedCommitted = onLocateCommitted
+    ? committedRows.filter((row) => {
+        if (outsideWindowIds.has(String(row.id))) return false;
         const start = workloadDateOnly(row.computed_start_date ?? row.start_date);
         const end = workloadDateOnly(row.computed_end_date ?? row.end_date);
         const startsBefore = start ? toDayNumber(start) < rangeStartDay : false;
@@ -516,6 +533,16 @@ export function WorkloadGantt({
 
   const asOfOffset = ((toDayNumber(timeline.asOf) - rangeStartDay) / totalDays) * 100;
   const asOfInRange = asOfOffset >= 0 && asOfOffset <= 100;
+  const rangeAriaLabel = [
+    t('assignments:workbench.gantt.range.open'),
+    `${timeline.rangeStart} ~ ${timeline.rangeEnd}`,
+    rangeIsCustom ? t('assignments:workbench.gantt.range.customBadge') : null,
+    asOfInRange
+      ? null
+      : t('assignments:workbench.gantt.range.asOfOutside', { date: timeline.asOf }),
+  ]
+    .filter(Boolean)
+    .join(' · ');
 
   /** 拖动中/确认面板未保存期：已提交 bar 以临时预览日期定位（不写库）。 */
   const effectiveDates = (bar: BarModel): { startDate: string | null; endDate: string | null } => {
@@ -582,6 +609,12 @@ export function WorkloadGantt({
     if (trackWidth <= 0) return true;
     return (barWidthPercent(bar) / 100) * trackWidth >= MIN_RESIZE_BAR_PX;
   };
+  /** 长窗口下一日 bar 仍按最小宽度绘制；文字塞不下时不硬裁切（title/aria 保留全文）。 */
+  const MIN_BAR_TEXT_PX = 48;
+  const barWideEnoughForText = (bar: BarModel): boolean => {
+    if (trackWidth <= 0) return true;
+    return (barWidthPercent(bar) / 100) * trackWidth >= MIN_BAR_TEXT_PX;
+  };
 
   const barClasses = (bar: BarModel): string => {
     const classes = ['pw-gantt-bar'];
@@ -602,7 +635,12 @@ export function WorkloadGantt({
   };
 
   return (
-    <section className="pw-gantt" aria-labelledby="pw-gantt-title" data-testid="pw-gantt">
+    <section
+      className="pw-gantt"
+      aria-labelledby="pw-gantt-title"
+      aria-busy={availabilityStatus === 'loading' || undefined}
+      data-testid="pw-gantt"
+    >
       <div className="pw-gantt-head">
         <h2 id="pw-gantt-title">{t('assignments:workbench.gantt.title')}</h2>
         {minimapBuckets && minimapBuckets.length > 0 && onNavigateRange ? (
@@ -636,9 +674,15 @@ export function WorkloadGantt({
             type="button"
             className="pw-gantt-range pw-gantt-range-trigger"
             onClick={() => setRangePanelOpen((open) => !open)}
+            onKeyDown={(event) => {
+              if (event.key === 'Escape' && rangePanelOpen) {
+                event.preventDefault();
+                closeRangePanel();
+              }
+            }}
             aria-expanded={rangePanelOpen}
             aria-controls="pw-gantt-range-panel"
-            aria-label={`${t('assignments:workbench.gantt.range.open')}: ${timeline.rangeStart} ~ ${timeline.rangeEnd}`}
+            aria-label={rangeAriaLabel}
             title={t('assignments:workbench.gantt.range.open')}
             data-testid="pw-gantt-range-toggle"
           >
@@ -683,6 +727,22 @@ export function WorkloadGantt({
           onReset={onResetRange}
           onClose={closeRangePanel}
         />
+      ) : null}
+
+      {availabilityStatus === 'loading' ? (
+        <p className="pw-gantt-availability-status" role="status" data-testid="pw-gantt-availability-loading">
+          {t('assignments:workbench.gantt.range.availabilityLoading')}
+        </p>
+      ) : null}
+      {availabilityStatus === 'error' ? (
+        <div className="pw-gantt-availability-error" role="alert" data-testid="pw-gantt-availability-error">
+          <span>{t('assignments:workbench.gantt.range.availabilityError')}</span>
+          {onRetryAvailability ? (
+            <button type="button" className="btn btn-ghost btn-sm" onClick={onRetryAvailability}>
+              {t('common:retry')}
+            </button>
+          ) : null}
+        </div>
       ) : null}
 
       {collapsed ? (
@@ -843,10 +903,12 @@ export function WorkloadGantt({
                         {(bar.mode === 'phase' || bar.mode === 'project') && bar.kind === 'committed' ? (
                           <Lock size={10} className="pw-gantt-lock" aria-hidden="true" />
                         ) : null}
-                        <span className="pw-gantt-bar-text">
-                          <span className="pw-gantt-bar-name">{bar.textMain}</span>
-                          <span className="pw-gantt-bar-pct">{bar.textTail}</span>
-                        </span>
+                        {barWideEnoughForText(bar) ? (
+                          <span className="pw-gantt-bar-text">
+                            <span className="pw-gantt-bar-name">{bar.textMain}</span>
+                            <span className="pw-gantt-bar-pct">{bar.textTail}</span>
+                          </span>
+                        ) : null}
                         {showResizeHandles ? (
                           <span
                             className="pw-gantt-resize pw-gantt-resize--end"
@@ -864,14 +926,37 @@ export function WorkloadGantt({
             )}
           </div>
 
-          {outOfRangeCommitted.length > 0 ? (
+          {outsideWindowCommitted.length > 0 ? (
             <div className="pw-gantt-oor" data-testid="pw-gantt-oor-committed">
               <span>
                 {t('assignments:workbench.outOfRangeCommitted', {
-                  count: outOfRangeCommitted.length,
+                  count: outsideWindowCommitted.length,
                 })}
               </span>
-              {outOfRangeCommitted.map((row) => (
+              {outsideWindowCommitted.map((row) => (
+                <button
+                  key={String(row.id)}
+                  type="button"
+                  className="btn btn-ghost btn-sm"
+                  onClick={() => onLocateCommitted?.(String(row.id))}
+                  data-testid={`pw-locate-committed-${row.id}`}
+                >
+                  <Crosshair size={12} aria-hidden="true" />{' '}
+                  {row.project_name ?? String(row.project_id)}
+                  {row.role_name ? ` · ${row.role_name}` : ''}
+                </button>
+              ))}
+            </div>
+          ) : null}
+
+          {clippedCommitted.length > 0 ? (
+            <div className="pw-gantt-oor" data-testid="pw-gantt-oor-committed-clipped">
+              <span>
+                {t('assignments:workbench.outOfRangeCommittedClipped', {
+                  count: clippedCommitted.length,
+                })}
+              </span>
+              {clippedCommitted.map((row) => (
                 <button
                   key={String(row.id)}
                   type="button"

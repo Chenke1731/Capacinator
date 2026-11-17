@@ -6,11 +6,15 @@
  * 直接操作/排产场景以“可核对的具体日”优先，这里统一为 ISO 文本 + 校验。
  */
 import type { CSSProperties } from 'react';
+import { isIsoCalendarDate } from '../../lib/isoDate';
+
+export { isIsoCalendarDate };
 
 export interface IsoDateInputProps {
   value: string;
   onValueChange: (value: string) => void;
   ariaLabel: string;
+  ariaDescribedBy?: string;
   disabled?: boolean;
   invalid?: boolean;
   className?: string;
@@ -22,6 +26,7 @@ export function IsoDateInput({
   value,
   onValueChange,
   ariaLabel,
+  ariaDescribedBy,
   disabled = false,
   invalid = false,
   className,
@@ -37,6 +42,7 @@ export function IsoDateInput({
       value={value}
       disabled={disabled}
       aria-label={ariaLabel}
+      aria-describedby={ariaDescribedBy}
       aria-invalid={invalid || undefined}
       inputMode="numeric"
       autoComplete="off"
@@ -48,11 +54,4 @@ export function IsoDateInput({
       onChange={(event) => onValueChange(event.target.value)}
     />
   );
-}
-
-/** 严格校验真实日历日（2026-02-30 不合格）。 */
-export function isIsoCalendarDate(value: string | null | undefined): boolean {
-  if (!value || !/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
-  const date = new Date(`${value}T00:00:00Z`);
-  return !Number.isNaN(date.getTime()) && date.toISOString().slice(0, 10) === value;
 }

@@ -1204,7 +1204,8 @@ test('F3: 未来已批准覆盖进热区——整窗 0% 可用率 → 热区不�
       expect.objectContaining({
         person_id: 'person-1',
         is_approved: true,
-        start_date: '2026-03-15',
+        // 覆盖查询从泳道窗口起点（a1 开始日）取数，而不是只从 asOf 起
+        start_date: '2026-01-01',
       })
     );
   });
@@ -2012,6 +2013,129 @@ test('S8: 远未来 committed 行走“范围外”定位入口，点击才扩�
   fireEvent.click(locate);
   await waitFor(() => {
     expect(screen.getByTestId('pw-gantt')).toHaveTextContent('2026-03-15 ~ 2028-12-31');
+  });
+});
+
+test('范围编辑面板：打开聚焦起始日，Escape 关闭并回焦触发器', async () => {
+  renderPage();
+  await waitFor(() => {
+    expect(screen.getAllByTestId('pw-gantt-bar').length).toBeGreaterThan(0);
+  });
+
+  const toggle = screen.getByTestId('pw-gantt-range-toggle');
+  fireEvent.click(toggle);
+  await waitFor(() => {
+    expect(screen.getByTestId('pw-range-panel')).toBeInTheDocument();
+  });
+  expect(screen.getByLabelText('Start Date')).toHaveFocus();
+
+  fireEvent.keyDown(screen.getByTestId('pw-range-panel'), { key: 'Escape' });
+  await waitFor(() => {
+    expect(screen.queryByTestId('pw-range-panel')).not.toBeInTheDocument();
+  });
+  expect(toggle).toHaveFocus();
+});
+
+test('自定义范围：未来 6 个月预设更新泳道，但不改当前统计', async () => {
+  renderPage();
+  await waitFor(() => {
+    expect(screen.getAllByTestId('pw-gantt-bar').length).toBeGreaterThan(0);
+  });
+  const total = screen.getByTestId('pw-total').textContent;
+
+  fireEvent.click(screen.getByTestId('pw-gantt-range-toggle'));
+  fireEvent.click(screen.getByRole('button', { name: 'Next 6 months' }));
+
+  await waitFor(() => {
+    expect(screen.getByTestId('pw-gantt')).toHaveTextContent('2026-03-15 ~ 2026-09-15');
+  });
+  expect(screen.getByTestId('pw-gantt')).toHaveTextContent(/Custom/);
+  expect(screen.getByTestId('pw-total').textContent).toBe(total);
+});
+
+test('历史自定义范围：from window start 取覆盖，参考日越界有提示且不画伪标记', async () => {
+  renderPage();
+  await waitFor(() => {
+    expect(screen.getAllByTestId('pw-gantt-bar').length).toBeGreaterThan(0);
+  });
+
+  fireEvent.click(screen.getByTestId('pw-gantt-range-toggle'));
+  fireEvent.change(screen.getByLabelText('Start Date'), {
+    target: { value: '2025-01-01' },
+  });
+  fireEvent.change(screen.getByLabelText('End Date'), {
+    target: { value: '2025-12-31' },
+  });
+  fireEvent.click(screen.getByRole('button', { name: 'Apply range' }));
+
+  await waitFor(() => {
+    expect(screen.getByTestId('pw-gantt')).toHaveTextContent('2025-01-01 ~ 2025-12-31');
+  });
+  await waitFor(() => {
+    expect(api.availability.list).toHaveBeenCalledWith(
+      expect.objectContaining({ start_date: '2025-01-01' })
+    );
+  });
+  expect(
+    screen.getByText(/2026-03-15 is outside this window; current workload still uses the reference date/i)
+  ).toBeInTheDocument();
+  expect(document.querySelector('.pw-gantt-asof')).toBeNull();
+});
+
+test('自定义范围：自动窗口复位；倒置日期不写入', async () => {
+  renderPage();
+  await waitFor(() => {
+    expect(screen.getAllByTestId('pw-gantt-bar').length).toBeGreaterThan(0);
+  });
+
+  fireEvent.click(screen.getByTestId('pw-gantt-range-toggle'));
+  fireEvent.click(screen.getByRole('button', { name: 'Next 3 months' }));
+  await waitFor(() => {
+    expect(screen.getByTestId('pw-gantt')).toHaveTextContent('2026-03-15 ~ 2026-06-15');
+  });
+
+  fireEvent.change(screen.getByLabelText('Start Date'), {
+    target: { value: '2026-05-01' },
+  });
+  fireEvent.change(screen.getByLabelText('End Date'), {
+    target: { value: '2026-04-01' },
+  });
+  fireEvent.click(screen.getByRole('button', { name: 'Apply range' }));
+  expect(screen.getByRole('alert')).toHaveTextContent(
+    'Start date must not be after the end date.'
+  );
+  expect(screen.getByTestId('pw-gantt')).toHaveTextContent('2026-03-15 ~ 2026-06-15');
+
+  fireEvent.click(screen.getByRole('button', { name: 'Auto window' }));
+  await waitFor(() => {
+    expect(screen.getByTestId('pw-gantt')).toHaveTextContent('2026-01-01 ~ 2026-12-31');
+  });
+  expect(screen.getByTestId('pw-gantt')).not.toHaveTextContent(/Custom/);
+});
+
+test('范围外已提交行在左侧越界时也能定位扩展', async () => {
+  (api.assignments.list as jest.Mock).mockResolvedValue({
+    data: {
+      data: [
+        {
+          ...assignments[0],
+          id: 'left-row',
+          start_date: '2025-12-01',
+          end_date: '2026-01-15',
+          computed_start_date: '2025-12-01',
+          computed_end_date: '2026-01-15',
+        },
+      ],
+      pagination: { total: 1, totalPages: 1 },
+    },
+  });
+  renderPage();
+  const locate = await screen.findByTestId('pw-locate-committed-left-row');
+  expect(screen.getByTestId('pw-gantt')).toHaveTextContent('2026-03-15 ~ 2026-06-15');
+
+  fireEvent.click(locate);
+  await waitFor(() => {
+    expect(screen.getByTestId('pw-gantt')).toHaveTextContent('2025-12-01 ~ 2026-06-15');
   });
 });
 

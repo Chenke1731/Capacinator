@@ -4867,6 +4867,20 @@
         },
         "requestId": "fixture"
       }
+    },
+    "/api/availability?person_id=eb8ecaf7-44a3-4384-a74b-2c18e9e894b1&is_approved=true&start_date=2026-11-01&end_date=2027-11-13&limit=200&page=1": {
+      "status": 200,
+      "body": {
+        "success": true,
+        "data": [],
+        "pagination": {
+          "page": 1,
+          "limit": 200,
+          "total": 0,
+          "totalPages": 0
+        },
+        "requestId": "fixture"
+      }
     }
   },
   "entities": {}

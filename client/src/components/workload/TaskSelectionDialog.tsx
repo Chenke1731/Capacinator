@@ -27,6 +27,7 @@ import {
   workloadTimeline,
   type AvailabilityOverrideInput,
 } from '../../lib/workloadTimeline';
+import { workloadGranularity } from '../../lib/workloadRange';
 import type { WorkloadAssignment } from '../../lib/personWorkload';
 import { CapacityHeatStrip } from './CapacityHeatStrip';
 import { SelectionComposer, type ComposerValue } from './SelectionComposer';
@@ -327,7 +328,7 @@ export function TaskSelectionDialog(props: TaskSelectionDialogProps) {
           rangeEnd,
           defaultAvailability: availability,
           availabilityOverrides,
-          granularity: 'week',
+          granularity: workloadGranularity(rangeStart, rangeEnd),
         }
       ),
     [assignments, laneDrafts, tempDrafts, asOf, rangeStart, rangeEnd, availability, availabilityOverrides]

@@ -13,13 +13,13 @@
  */
 import { Fragment, useCallback, useEffect, useMemo, useRef, useState, type CSSProperties, type PointerEvent as ReactPointerEvent, type KeyboardEvent as ReactKeyboardEvent } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ChevronDown, ChevronUp, Crosshair, Lock } from 'lucide-react';
+import { ChevronDown, ChevronUp, Crosshair, Lock, Calendar } from 'lucide-react';
 import { workloadDateOnly, type WorkloadAssignment } from '../../lib/personWorkload';
 import type { AssignmentDraft } from '../../lib/assignmentDrafts';
 import type { WorkloadTimelineBucket, WorkloadTimelineResult } from '../../lib/workloadTimeline';
 import { canDragCommittedBar, computeCommittedDragDates } from '../../lib/committedBarDrag';
-import { shiftIsoMonths } from '../../lib/batchShift';
 import { CapacityHeatStrip } from './CapacityHeatStrip';
+import { WorkloadRangePanel } from './WorkloadRangePanel';
 
 const DAY_MS = 24 * 60 * 60 * 1000;
 
@@ -69,6 +69,11 @@ export interface WorkloadGanttProps {
   onLocateCommitted?: (assignmentId: string) => void;
   /** 已打开面板的行 id：只允许该行继续拖动（多次拖动沿用当前预览），其它行禁止 */
   committedDragAssignmentId?: string | null;
+  /** 当前窗口是否来自用户自定义（触发器显示“自定义”） */
+  rangeIsCustom?: boolean;
+  /** 用户应用自定义窗口；提供时才显示范围编辑入口 */
+  onApplyRange?: (start: string, end: string) => void;
+  onResetRange?: () => void;
 }
 
 type DragMode = 'move' | 'start' | 'end';
@@ -131,8 +136,18 @@ export function WorkloadGantt({
   committedDragEnabled = false,
   onLocateCommitted,
   committedDragAssignmentId = null,
+  rangeIsCustom = false,
+  onApplyRange,
+  onResetRange,
 }: WorkloadGanttProps) {
   const { t } = useTranslation(['assignments']);
+  const [rangePanelOpen, setRangePanelOpen] = useState(false);
+  const rangeToggleRef = useRef<HTMLButtonElement | null>(null);
+
+  const closeRangePanel = useCallback(() => {
+    setRangePanelOpen(false);
+    window.requestAnimationFrame(() => rangeToggleRef.current?.focus());
+  }, []);
 
   const rangeStartDay = toDayNumber(timeline.rangeStart);
   const rangeEndDay = toDayNumber(timeline.rangeEnd);
@@ -481,15 +496,14 @@ export function WorkloadGantt({
     return ordered;
   }, [committedRows, drafts, t]);
 
-  // S8：结束/开始远在窗口外的已提交行只给定位入口（不无限放大默认窗口）
-  const committedCap = shiftIsoMonths(timeline.asOf, 12);
+  // 范围外已提交行：未完整落在当前窗口内即给定位入口（左右越界都可定位）
   const outOfRangeCommitted = onLocateCommitted
     ? committedRows.filter((row) => {
         const start = workloadDateOnly(row.computed_start_date ?? row.start_date);
         const end = workloadDateOnly(row.computed_end_date ?? row.end_date);
-        return Boolean(
-          (start && start > timeline.rangeEnd) || (end && end > committedCap)
-        );
+        const startsBefore = start ? toDayNumber(start) < rangeStartDay : false;
+        const endsAfter = end ? toDayNumber(end) > rangeEndDay : false;
+        return startsBefore || endsAfter;
       })
     : [];
   const outOfRangeGhosts = drafts.filter((draft) => {
@@ -501,6 +515,7 @@ export function WorkloadGantt({
   });
 
   const asOfOffset = ((toDayNumber(timeline.asOf) - rangeStartDay) / totalDays) * 100;
+  const asOfInRange = asOfOffset >= 0 && asOfOffset <= 100;
 
   /** 拖动中/确认面板未保存期：已提交 bar 以临时预览日期定位（不写库）。 */
   const effectiveDates = (bar: BarModel): { startDate: string | null; endDate: string | null } => {
@@ -615,9 +630,36 @@ export function WorkloadGantt({
             })}
           </div>
         ) : null}
-        <span className="pw-gantt-range">
-          {timeline.rangeStart} ~ {timeline.rangeEnd}
-        </span>
+        {onApplyRange && onResetRange ? (
+          <button
+            ref={rangeToggleRef}
+            type="button"
+            className="pw-gantt-range pw-gantt-range-trigger"
+            onClick={() => setRangePanelOpen((open) => !open)}
+            aria-expanded={rangePanelOpen}
+            aria-controls="pw-gantt-range-panel"
+            aria-label={`${t('assignments:workbench.gantt.range.open')}: ${timeline.rangeStart} ~ ${timeline.rangeEnd}`}
+            title={t('assignments:workbench.gantt.range.open')}
+            data-testid="pw-gantt-range-toggle"
+          >
+            <Calendar size={13} aria-hidden="true" />
+            <span>{timeline.rangeStart} ~ {timeline.rangeEnd}</span>
+            {rangeIsCustom ? (
+              <span className="pw-gantt-range-mode">
+                {t('assignments:workbench.gantt.range.customBadge')}
+              </span>
+            ) : null}
+            <ChevronDown
+              size={13}
+              aria-hidden="true"
+              className={`pw-gantt-range-chevron${rangePanelOpen ? ' is-open' : ''}`}
+            />
+          </button>
+        ) : (
+          <span className="pw-gantt-range">
+            {timeline.rangeStart} ~ {timeline.rangeEnd}
+          </span>
+        )}
         <button
           type="button"
           className="btn btn-ghost btn-sm"
@@ -629,6 +671,19 @@ export function WorkloadGantt({
           {collapsed ? <ChevronDown size={14} /> : <ChevronUp size={14} />}
         </button>
       </div>
+
+      {rangePanelOpen && onApplyRange && onResetRange ? (
+        <WorkloadRangePanel
+          id="pw-gantt-range-panel"
+          rangeStart={timeline.rangeStart}
+          rangeEnd={timeline.rangeEnd}
+          asOf={timeline.asOf}
+          isCustom={rangeIsCustom}
+          onApply={onApplyRange}
+          onReset={onResetRange}
+          onClose={closeRangePanel}
+        />
+      ) : null}
 
       {collapsed ? (
         <CapacityHeatStrip buckets={timeline.buckets} compact data-testid="pw-gantt-heat-compact" />
@@ -714,7 +769,9 @@ export function WorkloadGantt({
                         aria-hidden="true"
                       />
                     ) : null}
-                    <span className="pw-gantt-asof" style={{ left: `${Math.min(Math.max(asOfOffset, 0), 100)}%` }} aria-hidden="true" />
+                    {asOfInRange ? (
+                      <span className="pw-gantt-asof" style={{ left: `${asOfOffset}%` }} aria-hidden="true" />
+                    ) : null}
                     {lane.bars.map((bar, barIndex) => {
                       const originalOutline =
                         bar.kind === 'committed' &&

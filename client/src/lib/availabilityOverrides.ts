@@ -17,30 +17,55 @@ export async function fetchApprovedAvailabilityOverrides(
   windowStart: string,
   windowEnd: string
 ): Promise<AvailabilityOverrideInput[]> {
-  const response = await api.availability.list({
-    person_id: personId,
-    is_approved: true,
-    start_date: windowStart,
-    end_date: windowEnd,
-    limit: 200,
-  } as never);
-  const payload = response.data as unknown as {
-    data?: Array<Record<string, unknown>>;
-  };
-  return (payload.data ?? [])
-    .map((row) => ({
+  const PAGE_SIZE = 200;
+  const MAX_PAGES = 50;
+  const rows: Array<Record<string, unknown>> = [];
+  let page = 1;
+  let totalPages = 1;
+  do {
+    const response = await api.availability.list({
+      person_id: personId,
+      is_approved: true,
+      start_date: windowStart,
+      end_date: windowEnd,
+      limit: PAGE_SIZE,
+      page,
+    } as never);
+    const payload = response.data as unknown as {
+      data?: Array<Record<string, unknown>>;
+      pagination?: { totalPages?: number };
+    };
+    rows.push(...(payload.data ?? []));
+    const reported = Number(payload.pagination?.totalPages ?? 1);
+    totalPages = Number.isFinite(reported) && reported > 0 ? reported : 1;
+    page += 1;
+  } while (page <= totalPages && page <= MAX_PAGES);
+
+  const seen = new Set<string>();
+  const mapped: AvailabilityOverrideInput[] = [];
+  for (const row of rows) {
+    const key = String(
+      row.id ??
+        `${row.start_date}|${row.end_date}|${row.availability_percentage}|${row.is_approved}`
+    );
+    if (seen.has(key)) continue;
+    seen.add(key);
+    const override = {
       start: String(row.start_date ?? '').slice(0, 10),
       end: String(row.end_date ?? '').slice(0, 10),
       percentage: Number(row.availability_percentage ?? 0),
       // 服务端已按 is_approved 过滤；此处再做一次显式门（0/1/布尔三种形态）
       isApproved: Number(row.is_approved) === 1 || row.is_approved === true,
-    }))
-    .filter(
-      (override) =>
-        override.isApproved &&
-        Boolean(override.start) &&
-        Boolean(override.end) &&
-        override.start <= override.end &&
-        Number.isFinite(override.percentage)
-    )
+    };
+    if (
+      override.isApproved &&
+      Boolean(override.start) &&
+      Boolean(override.end) &&
+      override.start <= override.end &&
+      Number.isFinite(override.percentage)
+    ) {
+      mapped.push(override);
+    }
+  }
+  return mapped;
 }

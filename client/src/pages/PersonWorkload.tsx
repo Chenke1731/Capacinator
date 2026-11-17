@@ -31,6 +31,11 @@ import {
 } from '../lib/personWorkload';
 import { workloadTimeline, type AvailabilityOverrideInput } from '../lib/workloadTimeline';
 import {
+  clampWorkloadRangeEnd,
+  workloadGranularity,
+  workloadRangeDays,
+} from '../lib/workloadRange';
+import {
   batchShiftDirectCount,
   batchShiftSkipTotal,
   planBatchShift,
@@ -179,9 +184,9 @@ export default function PersonWorkload() {
     ...summary.excluded.map((excludedRow) => excludedRow.assignment),
   ];
 
-  // ---- 工作台 v2：泳道时间范围（S8 自适应；mini-map 可移动窗口）----
-  const [rangeEndOverride, setRangeEndOverride] = useState<string | null>(null);
-  const [rangeStartOverride, setRangeStartOverride] = useState<string | null>(null);
+  // ---- 工作台 v2：泳道时间范围（S8 自适应 + 用户自定义窗口）----
+  // customRange=null 时沿用自适应窗口；用户选择范围后固定为该窗口。
+  const [customRange, setCustomRange] = useState<{ start: string; end: string } | null>(null);
   // 用户反馈（2026-11-14）：已开始行的 start < asOf，若左界固定 asOf，bar 被
   // 裁剪到 0%，整块拖动前 N 天只拉伸右缘、左缘不动（越过 asOf 才跳）。
   // 修复：左界包含"跨参考日的进行中分配"的最早 start（最多回看 3 个月），
@@ -199,7 +204,7 @@ export default function PersonWorkload() {
     const floor = shiftIsoMonths(asOf, -3);
     return earliest < floor ? floor : earliest;
   }, [assignmentsQuery.data, asOf]);
-  const rangeStart = rangeStartOverride ?? historyRangeStart;
+  const rangeStart = customRange?.start ?? historyRangeStart;
 
   const defaultAvailability = personQuery.data?.default_availability_percentage ?? null;
   // C2（Codex P2#4 + D-01a）：热区默认可用率=人员档案默认值，而不是当前
@@ -258,24 +263,75 @@ export default function PersonWorkload() {
     if (!furthest || furthest < minimum) return minimum;
     return furthest > maximum ? maximum : furthest;
   }, [assignmentsQuery.data, draftStore.drafts, asOf]);
-  const rangeEnd = rangeEndOverride ?? defaultRangeEnd;
+  const rangeEnd = customRange?.end ?? defaultRangeEnd;
+
+  // 自定义窗口可能远离 asOf：minimap 以自定义起点为锚，至少展开 12 个月，
+  // 并始终覆盖完整窗口；自动模式保持原先“asOf 起 12 个月”的导航语义。
+  const minimapRangeStart = customRange?.start ?? asOf;
+  const minimapRangeEnd = useMemo(() => {
+    const minimumEnd = shiftIsoMonths(minimapRangeStart, 12);
+    const wantedEnd = customRange?.end ?? rangeEnd;
+    return wantedEnd > minimumEnd ? wantedEnd : minimumEnd;
+  }, [customRange, minimapRangeStart, rangeEnd]);
+
+  const applyRange = useCallback(
+    (start: string, end: string) => {
+      if (!start || !end) return;
+      const nextStart = start <= end ? start : end;
+      const nextEnd = start <= end ? end : start;
+      // 与当前自动窗口相同：不把自适应窗口冻结成自定义窗口
+      if (nextStart === rangeStart && nextEnd === rangeEnd) return;
+      setCustomRange({
+        start: nextStart,
+        end: clampWorkloadRangeEnd(nextStart, nextEnd),
+      });
+    },
+    [rangeStart, rangeEnd]
+  );
+
+  /** 定位范围外行：向所需方向扩展当前窗口，并受 5 年跨度上限保护。 */
+  const expandRangeToInclude = useCallback(
+    (start?: string | null, end?: string | null) => {
+      let nextStart = rangeStart;
+      let nextEnd = rangeEnd;
+      if (start && start < nextStart) nextStart = start;
+      if (start && !end && start > nextEnd) nextEnd = start;
+      if (end && end > nextEnd) nextEnd = end;
+      if (end && !start && end < nextStart) nextStart = end;
+      if (nextStart > nextEnd) {
+        const swap = nextStart;
+        nextStart = nextEnd;
+        nextEnd = swap;
+      }
+      if (nextStart === rangeStart && nextEnd === rangeEnd) return;
+      setCustomRange({
+        start: nextStart,
+        end: clampWorkloadRangeEnd(nextStart, nextEnd),
+      });
+    },
+    [rangeStart, rangeEnd]
+  );
 
   // F3（DeepSeek P2 #3）：覆盖全集按时间轴窗口取数（approved-only）——
   // 旧实现只从 utilization 行取"今天生效"的单一窗口，未来已批准休假
   // （整周 0%）不可见，热区按默认可用率误报正常。所有容量面共用本数组。
   // S8：窗口经"范围外"定位扩展超过 12 个月时，覆盖查询同步扩展。
+  // 自定义历史窗口从窗口起点取数，并始终覆盖 asOf（当前指标仍按参考日）。
+  const overridesWindowStart = rangeStart < asOf ? rangeStart : asOf;
   const overridesWindowEnd = useMemo(() => {
-    const standard = shiftIsoMonths(asOf, 12);
-    return rangeEnd > standard ? rangeEnd : standard;
-  }, [asOf, rangeEnd]);
+    let end = minimapRangeEnd;
+    if (rangeEnd > end) end = rangeEnd;
+    if (asOf > end) end = asOf;
+    return end;
+  }, [minimapRangeEnd, rangeEnd, asOf]);
   const overridesQuery = useQuery<AvailabilityOverrideInput[]>({
     queryKey: queryKeys.availability.list({
       person_id: id,
       is_approved: true,
-      start_date: asOf,
+      start_date: overridesWindowStart,
       end_date: overridesWindowEnd,
     } as never),
-    queryFn: () => fetchApprovedAvailabilityOverrides(id!, asOf, overridesWindowEnd),
+    queryFn: () => fetchApprovedAvailabilityOverrides(id!, overridesWindowStart, overridesWindowEnd),
     // asOf 来自 utilization 的 as_of：必须等它落定后再取覆盖窗口，
     // 否则先用"今天"发一轮再换键重发（多一轮请求+夹具/缓存额外键）
     enabled: Boolean(id) && utilizationQuery.isSuccess,
@@ -461,8 +517,7 @@ export default function PersonWorkload() {
     setDeepLinkHint(false);
     setDeepLinkNotice(null);
     setDeepLinkHighlightId(null);
-    setRangeEndOverride(null);
-    setRangeStartOverride(null);
+    setCustomRange(null);
     deepLinkHandledRef.current = null;
     clearDrafts();
   }, [id, clearDrafts]);
@@ -550,14 +605,6 @@ export default function PersonWorkload() {
   // committed 的"预计值"没有业务含义）——泳道 bar 层仍显示 ghost。
   const projectedDrafts = draftScenarioMismatch ? [] : draftStore.drafts;
   // S8：窗口 > 6 个月时热区展示粒度切到月（只换展示桶，计算口径不变）
-  const windowDays = useMemo(
-    () =>
-      Math.round(
-        (Date.parse(`${rangeEnd}T00:00:00Z`) - Date.parse(`${rangeStart}T00:00:00Z`)) /
-          86_400_000
-      ),
-    [rangeStart, rangeEnd]
-  );
   const timeline = useMemo(
     () =>
       workloadTimeline(
@@ -578,10 +625,10 @@ export default function PersonWorkload() {
           rangeEnd,
           defaultAvailability: heatDefaultAvailability,
           availabilityOverrides,
-          granularity: windowDays > 183 ? 'month' : 'week',
+          granularity: workloadGranularity(rangeStart, rangeEnd),
         }
       ),
-    [committedTimelineRows, projectedDrafts, asOf, rangeStart, rangeEnd, heatDefaultAvailability, availabilityOverrides, windowDays]
+    [committedTimelineRows, projectedDrafts, asOf, rangeStart, rangeEnd, heatDefaultAvailability, availabilityOverrides]
   );
 
   const inspectorDraft = draftStore.drafts.find((draft) => draft.draftId === inspectorDraftId) ?? null;
@@ -598,11 +645,7 @@ export default function PersonWorkload() {
   }, []);
 
   // Phase 3 mini-map：`max(12 个月, 当前窗口跨度)` 月桶总览（S8），
-  // 点击月桶移动观察窗
-  const minimapRangeEnd = useMemo(() => {
-    const standard = shiftIsoMonths(asOf, 12);
-    return rangeEnd > standard ? rangeEnd : standard;
-  }, [asOf, rangeEnd]);
+  // 点击月桶移动观察窗；自定义窗口以自定义起点为锚。
   const minimapTimeline = useMemo(
     () =>
       workloadTimeline(
@@ -619,14 +662,14 @@ export default function PersonWorkload() {
         })),
         {
           asOf,
-          rangeStart: asOf,
+          rangeStart: minimapRangeStart,
           rangeEnd: minimapRangeEnd,
           defaultAvailability: heatDefaultAvailability,
           availabilityOverrides,
           granularity: 'month',
         }
       ),
-    [committedTimelineRows, projectedDrafts, asOf, minimapRangeEnd, heatDefaultAvailability, availabilityOverrides]
+    [committedTimelineRows, projectedDrafts, asOf, minimapRangeStart, minimapRangeEnd, heatDefaultAvailability, availabilityOverrides]
   );
 
   // Phase 2：拖动/缩放落点（钳制 start<=end、至少 1 天、且不早于参考日——
@@ -2805,32 +2848,39 @@ export default function PersonWorkload() {
           if (!draft) return;
           setGanttCollapsed(false);
           // 左右越界都要真正移动窗口，而不是只开面板（W-14）
-          if (draft.startDate && draft.startDate < rangeStart) {
-            setRangeStartOverride(draft.startDate);
-          }
-          if (draft.endDate && draft.endDate > rangeEnd) {
-            setRangeEndOverride((prev) =>
-              draft.endDate! > (prev ?? defaultRangeEnd) ? draft.endDate : prev
-            );
-          }
+          expandRangeToInclude(draft.startDate, draft.endDate);
           setInspectorDraftId(draftId);
         }}
         onGhostDatesChange={handleGhostDatesChange}
         minimapBuckets={minimapTimeline.buckets}
         onNavigateRange={(monthStart) => {
+          if (customRange) {
+            // 自定义窗口点月份：平移并保持当前跨度
+            const spanDays = workloadRangeDays(customRange.start, customRange.end);
+            const end = shiftIsoDate(monthStart, (spanDays ?? 1) - 1, 'day', 'later');
+            if (monthStart === customRange.start && end === customRange.end) return;
+            setCustomRange({ start: monthStart, end });
+            return;
+          }
           // W-06：移动未来窗口不得回退历史左界（进行中分配的真实 start）
-          setRangeStartOverride(historyRangeStart === asOf ? null : historyRangeStart);
           const anchor = monthStart >= asOf ? monthStart : asOf;
-          setRangeEndOverride(shiftIsoMonths(anchor, 3));
+          const start = historyRangeStart;
+          const end = shiftIsoMonths(anchor, 3);
+          if (start === rangeStart && end === rangeEnd) return;
+          setCustomRange({ start, end });
         }}
         onLocateCommitted={(assignmentId) => {
           const row = findWorkloadRow(assignmentId);
           if (!row) return;
+          const start = workloadDateOnly(row.computed_start_date ?? row.start_date);
           const end = workloadDateOnly(row.computed_end_date ?? row.end_date);
-          if (end && end > rangeEnd) setRangeEndOverride(end);
+          expandRangeToInclude(start, end);
           jumpToVisible(`[data-assignment-id="${assignmentId}"]`);
         }}
         onProjectLaneClick={openStaffingProject}
+        rangeIsCustom={customRange !== null}
+        onApplyRange={applyRange}
+        onResetRange={() => setCustomRange(null)}
       />
 
       {staffingProject ? (

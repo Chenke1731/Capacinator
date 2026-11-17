@@ -496,7 +496,25 @@
       "dragTipClamped": " · 已达下限",
       "laneOutside": "{{count}} 条分配在窗口外",
       "dragHintCommitted": "拖动移动，左右手柄调整起止日；松手后在面板确认保存",
-      "dragHelpCommitted": "已提交分配：拖动移动，左右手柄调整起止日；松手后在面板中确认保存。"
+      "dragHelpCommitted": "已提交分配：拖动移动，左右手柄调整起止日；松手后在面板中确认保存。",
+      "range": {
+        "open": "调整泳道显示范围",
+        "panelLabel": "泳道显示范围",
+        "customBadge": "自定义",
+        "hint": "只改变泳道显示窗口；当前工作负载仍按参考日 {{date}} 计算。",
+        "asOfOutside": "参考日 {{date}} 不在当前范围；当前工作负载仍按参考日计算。",
+        "auto": "自动窗口",
+        "last3": "最近 3 个月",
+        "next3": "未来 3 个月",
+        "next6": "未来 6 个月",
+        "next12": "未来 12 个月",
+        "next24": "未来 24 个月",
+        "apply": "应用范围",
+        "invalidStart": "开始日期需为 1900–2200 之间的有效日期。",
+        "invalidEnd": "结束日期需为 1900–2200 之间的有效日期。",
+        "invalidOrder": "开始日期不能晚于结束日期。",
+        "tooLong": "范围最长 5 年。"
+      }
     },
     "inspector": {
       "title": "草稿参数：{{name}}",

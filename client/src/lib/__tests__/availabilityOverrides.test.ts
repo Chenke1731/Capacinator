@@ -72,4 +72,41 @@ describe('fetchApprovedAvailabilityOverrides', () => {
     const result = await fetchApprovedAvailabilityOverrides('p1', '2026-11-14', '2027-11-14');
     expect(result).toEqual([]);
   });
+
+  test('历史窗口超过一页时读取全部页并按 id 去重', async () => {
+    (api.availability.list as jest.Mock)
+      .mockResolvedValueOnce({
+        data: {
+          data: [
+            { id: 'ov1', start_date: '2024-01-01', end_date: '2024-01-07', availability_percentage: 0, is_approved: 1 },
+          ],
+          pagination: { page: 1, limit: 200, total: 2, totalPages: 2 },
+        },
+      })
+      .mockResolvedValueOnce({
+        data: {
+          data: [
+            { id: 'ov1', start_date: '2024-01-01', end_date: '2024-01-07', availability_percentage: 0, is_approved: 1 },
+            { id: 'ov2', start_date: '2024-02-01', end_date: '2024-02-03', availability_percentage: 50, is_approved: 1 },
+          ],
+          pagination: { page: 2, limit: 200, total: 2, totalPages: 2 },
+        },
+      });
+
+    const result = await fetchApprovedAvailabilityOverrides('p1', '2024-01-01', '2024-12-31');
+
+    expect(api.availability.list).toHaveBeenCalledTimes(2);
+    expect(api.availability.list).toHaveBeenNthCalledWith(
+      1,
+      expect.objectContaining({ page: 1, start_date: '2024-01-01' })
+    );
+    expect(api.availability.list).toHaveBeenNthCalledWith(
+      2,
+      expect.objectContaining({ page: 2, start_date: '2024-01-01' })
+    );
+    expect(result).toEqual([
+      { start: '2024-01-01', end: '2024-01-07', percentage: 0, isApproved: true },
+      { start: '2024-02-01', end: '2024-02-03', percentage: 50, isApproved: true },
+    ]);
+  });
 });

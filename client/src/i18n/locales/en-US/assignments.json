@@ -496,7 +496,25 @@
       "dragTipClamped": " · lower bound",
       "laneOutside": "{{count}} assignment(s) outside this window",
       "dragHintCommitted": "Drag to move; side handles resize; release to review and save",
-      "dragHelpCommitted": "Committed assignment: drag the bar to move, drag the side handles to resize; release to review and save in the panel."
+      "dragHelpCommitted": "Committed assignment: drag the bar to move, drag the side handles to resize; release to review and save in the panel.",
+      "range": {
+        "open": "Adjust swimlane display range",
+        "panelLabel": "Swimlane display range",
+        "customBadge": "Custom",
+        "hint": "Only changes the swimlane window. Current workload stays anchored at {{date}}.",
+        "asOfOutside": "{{date}} is outside this window; current workload still uses the reference date.",
+        "auto": "Auto window",
+        "last3": "Last 3 months",
+        "next3": "Next 3 months",
+        "next6": "Next 6 months",
+        "next12": "Next 12 months",
+        "next24": "Next 24 months",
+        "apply": "Apply range",
+        "invalidStart": "Start date must be a real date between 1900 and 2200.",
+        "invalidEnd": "End date must be a real date between 1900 and 2200.",
+        "invalidOrder": "Start date must not be after the end date.",
+        "tooLong": "The range cannot exceed 5 years."
+      }
     },
     "inspector": {
       "title": "Draft parameters: {{name}}",

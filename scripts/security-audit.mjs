@@ -14,6 +14,7 @@
  */
 import { spawnSync } from 'node:child_process';
 import fs from 'node:fs';
+import os from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -24,6 +25,14 @@ const OSV_BASELINE = path.join(ROOT, 'security', 'osv-baseline.json');
 const SIGNATURE_EXCEPTIONS = path.join(ROOT, 'security', 'signature-exceptions.json');
 const OSV_REPORT = path.join(TMP, 'osv.json');
 
+// Cron's default PATH does not include ~/.local/bin where gitleaks/osv-scanner
+// are installed. Prefer the user-local tools, then the project Node, then PATH.
+const TOOL_PATH = [
+  path.join(os.homedir(), '.local', 'bin'),
+  path.dirname(process.execPath),
+  process.env.PATH ?? '',
+].join(path.delimiter);
+
 const args = process.argv.slice(2);
 const has = (name) => args.includes(name);
 
@@ -32,13 +41,16 @@ function ensureTmp() {
 }
 
 function commandExists(cmd) {
-  const r = spawnSync('sh', ['-c', `command -v ${cmd}`], { encoding: 'utf8' });
+  const r = spawnSync('sh', ['-c', `command -v ${cmd}`], {
+    encoding: 'utf8',
+    env: { ...process.env, PATH: TOOL_PATH },
+  });
   return r.status === 0;
 }
 
 function run(cmd, cmdArgs, opts = {}) {
   // Hooks can run from a Node 18 login shell; force the project Node for npm/npx.
-  const PATH = `${path.dirname(process.execPath)}${path.delimiter}${process.env.PATH ?? ''}`;
+  const PATH = TOOL_PATH;
   return spawnSync(cmd, cmdArgs, {
     cwd: ROOT,
     encoding: 'utf8',
@@ -56,9 +68,13 @@ function secrets() {
   const staged = has('--staged');
   const cmdArgs = ['git', '--config', GITLEAKS_CONFIG, '--redact', '--no-banner'];
   if (staged) cmdArgs.push('--pre-commit', '--staged');
-  const r = run('gitleaks', cmdArgs);
+  const r = run('gitleaks', cmdArgs, { timeout: 120000 });
   process.stdout.write(r.stdout ?? '');
   process.stderr.write(r.stderr ?? '');
+  if (r.error) {
+    console.error(`✗ gitleaks did not complete: ${r.error.message}`);
+    return 2;
+  }
   return r.status === 0 ? 0 : 1;
 }
 
@@ -98,7 +114,11 @@ function deps() {
     return 2;
   }
   ensureTmp();
-  const r = run('osv-scanner', ['scan', '-L', 'package-lock.json', '--format', 'json', '--output-file', OSV_REPORT]);
+  const r = run('osv-scanner', ['scan', '-L', 'package-lock.json', '--format', 'json', '--output-file', OSV_REPORT], { timeout: 120000 });
+  if (r.error) {
+    console.error(`✗ osv-scanner did not complete: ${r.error.message}`);
+    return 2;
+  }
   if (!fs.existsSync(OSV_REPORT)) {
     process.stderr.write(r.stdout ?? '');
     process.stderr.write(r.stderr ?? '');
@@ -146,9 +166,13 @@ function deps() {
 }
 
 function signatures() {
-  const r = run('npm', ['audit', 'signatures']);
+  const r = run('npm', ['audit', 'signatures'], { timeout: 180000 });
   const output = `${r.stdout ?? ''}${r.stderr ?? ''}`;
   process.stdout.write(output);
+  if (r.error) {
+    console.error(`✗ npm audit signatures did not complete: ${r.error.message}`);
+    return 2;
+  }
   if (r.status === 0) return 0;
 
   let allowExpired = false;

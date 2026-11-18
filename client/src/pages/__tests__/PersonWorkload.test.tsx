@@ -2081,6 +2081,23 @@ test('日历点选：两天成范围后应用，泳道窗口更新且统计不�
   expect(screen.getByTestId('pw-total').textContent).toBe(total);
 });
 
+test('范围浮层：内部点击保持打开，外部点击关闭', async () => {
+  renderPage();
+  await waitFor(() => {
+    expect(screen.getAllByTestId('pw-gantt-bar').length).toBeGreaterThan(0);
+  });
+  fireEvent.click(screen.getByTestId('pw-gantt-range-toggle'));
+  await screen.findByTestId('pw-range-panel');
+
+  fireEvent.mouseDown(screen.getByTestId('pw-range-panel'));
+  expect(screen.getByTestId('pw-range-panel')).toBeInTheDocument();
+
+  fireEvent.mouseDown(document.body);
+  await waitFor(() => {
+    expect(screen.queryByTestId('pw-range-panel')).not.toBeInTheDocument();
+  });
+});
+
 test('历史自定义范围：from window start 取覆盖，参考日越界有提示且不画伪标记', async () => {
   renderPage();
   await waitFor(() => {

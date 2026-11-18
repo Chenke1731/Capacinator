@@ -52,10 +52,10 @@ function enumerateState({root,fonts}) {
     // 的 top + 元素相对其的 offsetTop。用相对量比较可免疫"Playwright 滚动
     // 到视口"造成的整页位移，只捕捉元素自身的悬停位移。
     // 批 R（2026-11-11，F-09）：同步取 left（横向悬停位移判定用）。
-    let clip=null,clipL=null;
+    let clip=null,clipL=null,clipRect=null;
     for(let n=e.parentElement;n&&n!==document.body;n=n.parentElement){
       const cs=getComputedStyle(n);
-      if(cs.overflowY!=='visible'||cs.overflowX!=='visible'){const pr=n.getBoundingClientRect();clip=pr.top;clipL=pr.left;break;}
+      if(cs.overflowY!=='visible'||cs.overflowX!=='visible'){const pr=n.getBoundingClientRect();clip=pr.top;clipL=pr.left;clipRect=pr;break;}
     }
     const row={selector:sel,family:`${e.className}|${e.getAttribute('data-state')??''}`,text:e.textContent.trim().slice(0,30),foreground:s.color,background:s.backgroundColor,effectiveBackground:bg,contrast,textual:text,disabled,width:r.width,height:r.height,font:parseFloat(s.fontSize),top:r.top,clipTop:clip,offsetTop:clip===null?null:r.top-clip,left:r.left,clipLeft:clipL,offsetLeft:clipL===null?null:r.left-clipL};
     rows.push(row);
@@ -63,7 +63,11 @@ function enumerateState({root,fonts}) {
     if(!disabled&&text&&contrast!==null&&contrast<4.5)issues.push({selector:sel,kind:'text-contrast',ratio:contrast});
     if(!disabled&&Math.min(r.width,r.height)<24)issues.push({selector:sel,kind:'target-size',value:Math.min(r.width,r.height)});
     if(fonts&&text&&!fonts.includes(row.font))issues.push({selector:sel,kind:'font-token',value:row.font});
-    const hit=document.elementFromPoint(r.left+r.width/2,Math.min(innerHeight-2,r.top+r.height/2));
+    const hitX=r.left+r.width/2, hitY=Math.min(innerHeight-2,r.top+r.height/2);
+    // 内部滚动容器裁掉的元素中心不在可见裁剪区内：elementFromPoint 的
+    // null/底层元素不是遮挡，而是“滚出可视区”（浮动面板常见）。
+    const outsideScrollClip=clipRect&&(hitX<clipRect.left||hitX>clipRect.right||hitY<clipRect.top||hitY>clipRect.bottom);
+    const hit=outsideScrollClip?null:document.elementFromPoint(hitX,hitY);
     if(!disabled&&hit&&!e.contains(hit)&&hit!==e&&!hit.contains(e))issues.push({selector:sel,kind:'occlusion'});
   }
   // 同排工具栏控件等高（2026-11-10 录入按钮事故）：同一 toolbar/filters/filter-bar

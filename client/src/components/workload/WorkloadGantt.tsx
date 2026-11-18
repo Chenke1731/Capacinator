@@ -11,7 +11,7 @@
  * future/ended 淡化；ghost 斜纹半透明（§18 视觉验收）。范围外 ghost 给
  * 定位入口（§20.3）。可折叠为紧凑容量条（1366）。
  */
-import { Fragment, useCallback, useEffect, useMemo, useRef, useState, type CSSProperties, type PointerEvent as ReactPointerEvent, type KeyboardEvent as ReactKeyboardEvent } from 'react';
+import { Fragment, useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, type CSSProperties, type PointerEvent as ReactPointerEvent, type KeyboardEvent as ReactKeyboardEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ChevronDown, ChevronUp, Crosshair, Lock, Calendar } from 'lucide-react';
 import { workloadDateOnly, type WorkloadAssignment } from '../../lib/personWorkload';
@@ -147,12 +147,52 @@ export function WorkloadGantt({
 }: WorkloadGanttProps) {
   const { t } = useTranslation(['assignments', 'common']);
   const [rangePanelOpen, setRangePanelOpen] = useState(false);
+  const [rangePopoverStyle, setRangePopoverStyle] = useState<CSSProperties>({});
   const rangeToggleRef = useRef<HTMLButtonElement | null>(null);
+  const rangePopoverRef = useRef<HTMLDivElement | null>(null);
 
   const closeRangePanel = useCallback(() => {
     setRangePanelOpen(false);
     window.requestAnimationFrame(() => rangeToggleRef.current?.focus());
   }, []);
+
+  // 非模态浮层：外点关闭；点击触发器自身交给 onClick 切换，避免刚开就关
+  useEffect(() => {
+    if (!rangePanelOpen) return;
+    const onPointerDown = (event: MouseEvent) => {
+      const target = event.target as Node;
+      if (rangePopoverRef.current?.contains(target)) return;
+      if (rangeToggleRef.current?.contains(target)) return;
+      setRangePanelOpen(false);
+    };
+    document.addEventListener('mousedown', onPointerDown);
+    return () => document.removeEventListener('mousedown', onPointerDown);
+  }, [rangePanelOpen]);
+
+  // 贴住触发器右缘向下弹出，并只占视口剩余高度；内容在浮层内滚动
+  useLayoutEffect(() => {
+    if (!rangePanelOpen) return;
+    const update = () => {
+      const trigger = rangeToggleRef.current?.getBoundingClientRect();
+      const card = rangePopoverRef.current?.offsetParent as HTMLElement | null;
+      const cardRect = card?.getBoundingClientRect();
+      if (!trigger || !cardRect) return;
+      const width = Math.min(680, Math.max(280, cardRect.width - 48));
+      setRangePopoverStyle({
+        top: trigger.bottom - cardRect.top + 6,
+        right: Math.max(8, cardRect.right - trigger.right),
+        width,
+        maxHeight: Math.max(200, window.innerHeight - trigger.bottom - 16),
+      });
+    };
+    update();
+    window.addEventListener('resize', update);
+    window.addEventListener('scroll', update, { passive: true });
+    return () => {
+      window.removeEventListener('resize', update);
+      window.removeEventListener('scroll', update);
+    };
+  }, [rangePanelOpen]);
 
   const rangeStartDay = toDayNumber(timeline.rangeStart);
   const rangeEndDay = toDayNumber(timeline.rangeEnd);
@@ -719,16 +759,23 @@ export function WorkloadGantt({
       </div>
 
       {rangePanelOpen && onApplyRange && onResetRange ? (
-        <WorkloadRangePanel
-          id="pw-gantt-range-panel"
-          rangeStart={timeline.rangeStart}
-          rangeEnd={timeline.rangeEnd}
-          asOf={timeline.asOf}
-          isCustom={rangeIsCustom}
-          onApply={onApplyRange}
-          onReset={onResetRange}
-          onClose={closeRangePanel}
-        />
+        <div
+          ref={rangePopoverRef}
+          className="pw-range-popover"
+          style={rangePopoverStyle}
+          data-testid="pw-range-popover"
+        >
+          <WorkloadRangePanel
+            id="pw-gantt-range-panel"
+            rangeStart={timeline.rangeStart}
+            rangeEnd={timeline.rangeEnd}
+            asOf={timeline.asOf}
+            isCustom={rangeIsCustom}
+            onApply={onApplyRange}
+            onReset={onResetRange}
+            onClose={closeRangePanel}
+          />
+        </div>
       ) : null}
 
       {availabilityStatus === 'loading' ? (

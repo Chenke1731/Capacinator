@@ -158,6 +158,15 @@ test.describe('Person workbench v2 (dialog selection → ghost → commit)', () 
     await authenticatedPage.getByTestId('pw-gantt-range-toggle').click();
     const calendar = authenticatedPage.getByTestId('pw-range-calendar');
     await expect(calendar).toBeVisible();
+    const triggerBox = await authenticatedPage.getByTestId('pw-gantt-range-toggle').boundingBox();
+    const popoverBox = await authenticatedPage.getByTestId('pw-range-popover').boundingBox();
+    expect(triggerBox).toBeTruthy();
+    expect(popoverBox).toBeTruthy();
+    // 从日期触发器下方弹出、右缘贴近触发器，而不是占满卡片
+    expect(popoverBox!.y).toBeGreaterThanOrEqual(triggerBox!.y + triggerBox!.height);
+    expect(
+      Math.abs(popoverBox!.x + popoverBox!.width - (triggerBox!.x + triggerBox!.width))
+    ).toBeLessThanOrEqual(80);
     await calendar.scrollIntoViewIfNeeded();
 
     const geometry = await authenticatedPage.evaluate(() => {

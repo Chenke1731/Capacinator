@@ -143,7 +143,7 @@ test.describe('Person workbench v2 (dialog selection → ghost → commit)', () 
     await expect(authenticatedPage.getByTestId('pw-gantt-heat-compact')).toBeVisible();
   });
 
-  test(`${tags.integration} range calendar day cells never overlap at narrow widths`, async ({
+  test(`${tags.integration} range popover keeps stable geometry across scroll positions`, async ({
     authenticatedPage,
     apiContext,
   }) => {
@@ -151,43 +151,117 @@ test.describe('Person workbench v2 (dialog selection → ghost → commit)', () 
     test.skip(!person, 'No people fixture in e2e database');
 
     // EXP-017 同族守卫：全局 button min-width 会把网格日格顶开——1024 轨道
-    // 最窄，相邻格 left 间距必须 ≥ 格宽（容器越界检查对相邻重叠是盲的）
+    // 最窄，相邻格 left 间距必须 ≥ 格宽（容器越界检查对相邻重叠是盲的）。
+    // 同时守卫用户反馈：同一视口内浮层高度不随触发器滚动位置压缩，footer/日历始终可见。
     await authenticatedPage.setViewportSize({ width: 1024, height: 768 });
     await authenticatedPage.goto(`/people/${person.id}/workload`);
     await expect(authenticatedPage.getByTestId('pw-total')).toBeVisible();
-    await authenticatedPage.getByTestId('pw-gantt-range-toggle').click();
-    const calendar = authenticatedPage.getByTestId('pw-range-calendar');
-    await expect(calendar).toBeVisible();
-    const triggerBox = await authenticatedPage.getByTestId('pw-gantt-range-toggle').boundingBox();
-    const popoverBox = await authenticatedPage.getByTestId('pw-range-popover').boundingBox();
-    expect(triggerBox).toBeTruthy();
-    expect(popoverBox).toBeTruthy();
-    // 从日期触发器下方弹出、右缘贴近触发器，而不是占满卡片
-    expect(popoverBox!.y).toBeGreaterThanOrEqual(triggerBox!.y + triggerBox!.height);
-    expect(
-      Math.abs(popoverBox!.x + popoverBox!.width - (triggerBox!.x + triggerBox!.width))
-    ).toBeLessThanOrEqual(80);
-    await calendar.scrollIntoViewIfNeeded();
 
-    const geometry = await authenticatedPage.evaluate(() => {
-      const weeks = [...document.querySelectorAll<HTMLElement>('.pw-range-cal-week')];
-      const overlaps: string[] = [];
-      let dayCount = 0;
-      for (const week of weeks) {
-        const rects = [...week.querySelectorAll<HTMLElement>('.pw-range-cal-day')].map(
-          (day) => day.getBoundingClientRect()
-        );
-        dayCount += rects.length;
-        for (let i = 1; i < rects.length; i += 1) {
-          if (rects[i].left < rects[i - 1].right - 0.5) {
-            overlaps.push(`week-${week.getBoundingClientRect().top}`);
+    const measure = () =>
+      authenticatedPage.evaluate(() => {
+        const rect = (selector: string) => {
+          const el = document.querySelector<HTMLElement>(selector);
+          return el?.getBoundingClientRect() ?? null;
+        };
+        return {
+          viewport: window.innerHeight,
+          popover: rect('[data-testid="pw-range-popover"]'),
+          trigger: rect('[data-testid="pw-gantt-range-toggle"]'),
+          calendar: rect('[data-testid="pw-range-calendar"]'),
+          footer: rect('[data-testid="pw-range-footer"]'),
+          apply: rect('.pw-range-apply'),
+        };
+      });
+
+    const measureDays = () =>
+      authenticatedPage.evaluate(() => {
+        const weeks = [...document.querySelectorAll<HTMLElement>('.pw-range-cal-week')];
+        const overlaps: string[] = [];
+        let dayCount = 0;
+        for (const week of weeks) {
+          const rects = [...week.querySelectorAll<HTMLElement>('.pw-range-cal-day')].map(
+            (day) => day.getBoundingClientRect()
+          );
+          dayCount += rects.length;
+          for (let i = 1; i < rects.length; i += 1) {
+            if (rects[i].left < rects[i - 1].right - 0.5) {
+              overlaps.push(`week-${week.getBoundingClientRect().top}`);
+            }
           }
         }
+        return { dayCount, overlaps };
+      });
+
+    const heights: number[] = [];
+    let dayCount = 0;
+    const dayOverlaps: string[] = [];
+    for (const fraction of [0, 0.5, 1]) {
+      await authenticatedPage.evaluate((f) => {
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        window.scrollTo({ top: Math.round(max * f) });
+      }, fraction);
+      await authenticatedPage.waitForTimeout(120);
+      await authenticatedPage.getByTestId('pw-gantt-range-toggle').click();
+      await expect(
+        authenticatedPage.getByTestId('pw-range-calendar'),
+        `calendar after opening at scroll fraction ${fraction}`
+      ).toBeVisible();
+      const geometry = await measure();
+      expect(geometry.popover).toBeTruthy();
+      expect(geometry.trigger).toBeTruthy();
+      expect(geometry.calendar).toBeTruthy();
+      expect(geometry.footer).toBeTruthy();
+      expect(geometry.apply).toBeTruthy();
+
+      const pop = geometry.popover!;
+      const trigger = geometry.trigger!;
+      heights.push(Math.round(pop.height));
+      // 固定高度浮层留在视口内，且上下翻转后不遮触发器
+      expect(pop.top, `popover top at scroll fraction ${fraction}`).toBeGreaterThanOrEqual(0);
+      expect(pop.bottom).toBeLessThanOrEqual(geometry.viewport + 1);
+      expect(pop.height).toBeGreaterThanOrEqual(380);
+      const separated =
+        pop.bottom <= trigger.top + 1 || pop.top >= trigger.bottom - 1;
+      expect(separated, `popover/trigger separation at scroll fraction ${fraction}`).toBe(true);
+      // 打开即可见：日历、确认 footer、应用按钮都在浮层与视口内
+      for (const box of [geometry.calendar!, geometry.footer!, geometry.apply!]) {
+        expect(box.top).toBeGreaterThanOrEqual(pop.top - 1);
+        expect(box.bottom).toBeLessThanOrEqual(pop.bottom + 1);
+        expect(box.top).toBeGreaterThanOrEqual(-1);
+        expect(box.bottom).toBeLessThanOrEqual(geometry.viewport + 1);
       }
-      return { dayCount, overlaps };
-    });
-    expect(geometry.dayCount).toBeGreaterThan(0);
-    expect(geometry.overlaps).toEqual([]);
+      expect(
+        Math.abs(pop.right - geometry.trigger!.right)
+      ).toBeLessThanOrEqual(80);
+      const dayGeometry = await measureDays();
+      dayCount += dayGeometry.dayCount;
+      dayOverlaps.push(...dayGeometry.overlaps);
+      // 打开后面板焦点在首个预设上，Escape 走面板关闭路径，避免用触发器
+      // 二次点击在布局重排瞬间变成“开→关/关→开”的竞态。
+      await authenticatedPage.keyboard.press('Escape');
+      await expect(authenticatedPage.getByTestId('pw-range-calendar')).toHaveCount(0);
+    }
+    expect(new Set(heights).size).toBe(1);
+    expect(dayCount).toBeGreaterThan(0);
+    expect(dayOverlaps).toEqual([]);
+
+    // 矮视口 + 错误态：固定高度浮层内部滚动，确认 footer/Application 仍可见
+    await authenticatedPage.setViewportSize({ width: 1024, height: 500 });
+    await authenticatedPage.evaluate(() => window.scrollTo({ top: 0 }));
+    await authenticatedPage.getByTestId('pw-gantt-range-toggle').click();
+    await expect(authenticatedPage.getByTestId('pw-range-calendar')).toBeVisible();
+    await authenticatedPage.locator('#pw-range-start').fill('2026-13-99');
+    await authenticatedPage.getByRole('button', { name: 'Apply range' }).click();
+    await expect(authenticatedPage.getByRole('alert')).toBeVisible();
+    const shortViewportGeometry = await measure();
+    const shortPop = shortViewportGeometry.popover!;
+    const shortFooter = shortViewportGeometry.footer!;
+    const shortApply = shortViewportGeometry.apply!;
+    expect(shortPop.top).toBeGreaterThanOrEqual(0);
+    expect(shortPop.bottom).toBeLessThanOrEqual(shortViewportGeometry.viewport + 1);
+    expect(shortFooter.bottom).toBeLessThanOrEqual(shortPop.bottom + 1);
+    expect(shortApply.bottom).toBeLessThanOrEqual(shortViewportGeometry.viewport + 1);
+    await expect(authenticatedPage.getByRole('button', { name: 'Apply range' })).toBeEnabled();
   });
 
   test(`${tags.integration} light and dark themes keep the workload page readable`, async ({

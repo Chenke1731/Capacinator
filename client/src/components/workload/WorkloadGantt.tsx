@@ -169,7 +169,9 @@ export function WorkloadGantt({
     return () => document.removeEventListener('mousedown', onPointerDown);
   }, [rangePanelOpen]);
 
-  // 贴住触发器右缘向下弹出，并只占视口剩余高度；内容在浮层内滚动
+  // 固定高度 + 上下翻转：同一视口内不因触发器滚动位置改变浮层形状；
+  // 极端矮视口才按视口收缩，快捷区/日历/footer 的相对顺序保持不变。
+  const RANGE_POPOVER_HEIGHT = 390;
   useLayoutEffect(() => {
     if (!rangePanelOpen) return;
     const update = () => {
@@ -178,17 +180,43 @@ export function WorkloadGantt({
       const cardRect = card?.getBoundingClientRect();
       if (!trigger || !cardRect) return;
       const width = Math.min(680, Math.max(280, cardRect.width - 48));
+      const height = Math.min(RANGE_POPOVER_HEIGHT, Math.max(320, window.innerHeight - 16));
+      const below = window.innerHeight - trigger.bottom - 8;
+      const above = trigger.top - 8;
+      let top: number | 'auto' = trigger.bottom - cardRect.top + 6;
+      let bottom: number | 'auto' = 'auto';
+      if (below < height && above >= height) {
+        // 翻转向上：贴触发器顶边，仍保持右缘对齐。top 必须显式 auto，
+        // 否则类样式里的 fallback top 会同时存在，绝对定位 over-constrained。
+        top = 'auto';
+        bottom = cardRect.bottom - trigger.top + 6;
+      } else if (below < height && above < height) {
+        // 两侧都不足：固定高度优先，视口内钳位（不随触发位置压缩内容）
+        const viewportTop = Math.max(8, window.innerHeight - height - 8);
+        top = viewportTop - cardRect.top;
+      }
       setRangePopoverStyle({
-        top: trigger.bottom - cardRect.top + 6,
+        top,
+        bottom,
         right: Math.max(8, cardRect.right - trigger.right),
         width,
-        maxHeight: Math.max(200, window.innerHeight - trigger.bottom - 16),
+        height,
       });
     };
     update();
+    // 数据/字体加载后卡片内部布局仍会移动触发器；scroll/resize 之外也要跟随
+    // 实际锚点变化，否则打开瞬间算出的翻转位置会变成负 top。
+    const raf = window.requestAnimationFrame(update);
+    const observer = new ResizeObserver(update);
+    const popoverContainer = rangePopoverRef.current?.offsetParent as HTMLElement | null;
+    const header = rangeToggleRef.current?.parentElement;
+    if (popoverContainer) observer.observe(popoverContainer);
+    if (header) observer.observe(header);
     window.addEventListener('resize', update);
     window.addEventListener('scroll', update, { passive: true });
     return () => {
+      window.cancelAnimationFrame(raf);
+      observer.disconnect();
       window.removeEventListener('resize', update);
       window.removeEventListener('scroll', update);
     };

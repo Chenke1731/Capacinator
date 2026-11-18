@@ -29,6 +29,22 @@ describe('WorkloadRangePanel', () => {
     expect(onApply).toHaveBeenCalledWith('2026-03-15', '2026-06-15');
   });
 
+  test('keeps the confirmation footer visible and drops the 24-month preset', () => {
+    renderPanel();
+    expect(screen.queryByRole('button', { name: 'Next 24 months' })).not.toBeInTheDocument();
+    expect(screen.getByTestId('pw-range-footer')).toBeInTheDocument();
+    expect(screen.getByTestId('pw-range-selected')).toHaveTextContent(
+      'Applying: 2026-01-01 ~ 2026-12-31'
+    );
+    expect(screen.getByRole('button', { name: 'Apply range' })).toBeInTheDocument();
+
+    fireEvent.click(screen.getByTestId('pw-range-day-2026-01-15'));
+    fireEvent.click(screen.getByTestId('pw-range-day-2026-02-10'));
+    expect(screen.getByTestId('pw-range-selected')).toHaveTextContent(
+      'Applying: 2026-01-15 ~ 2026-02-10'
+    );
+  });
+
   test('applies a custom range through the form', () => {
     const { onApply } = renderPanel();
     fireEvent.change(screen.getByLabelText('Start Date'), { target: { value: '2026-02-01' } });
@@ -67,6 +83,8 @@ describe('WorkloadRangePanel', () => {
       'Enter a real date between 1900 and 2200 as YYYY-MM-DD'
     );
     expect(screen.getByLabelText('Start Date')).toHaveAttribute('aria-invalid', 'true');
+    expect(screen.getByTestId('pw-range-selected')).toHaveTextContent('Applying: —');
+    expect(screen.getByTestId('pw-range-selected')).not.toHaveTextContent('2024-1');
   });
 
   test('accepts unpadded month/day and normalizes before applying', () => {

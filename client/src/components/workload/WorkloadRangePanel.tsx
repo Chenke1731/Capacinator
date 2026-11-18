@@ -76,7 +76,6 @@ export function WorkloadRangePanel({
       { key: 'next3', start: asOf, end: shiftIsoMonths(asOf, 3) },
       { key: 'next6', start: asOf, end: shiftIsoMonths(asOf, 6) },
       { key: 'next12', start: asOf, end: shiftIsoMonths(asOf, 12) },
-      { key: 'next24', start: asOf, end: shiftIsoMonths(asOf, 24) },
     ],
     [asOf]
   );
@@ -203,52 +202,6 @@ export function WorkloadRangePanel({
           }
         />
 
-        <div className="pw-range-fields">
-          <div className="pw-range-field">
-            <label htmlFor="pw-range-start">{t('common:startDate')}</label>
-            <IsoDateInput
-              id="pw-range-start"
-              className="pw-range-input"
-              value={start}
-              onValueChange={(value) => {
-                setStart(value);
-                setAnchor(null);
-                if (error) setError(null);
-              }}
-              ariaLabel={t('common:startDate')}
-              ariaDescribedBy={describedBy}
-              invalid={
-                error === 'invalid-start' ||
-                error === 'invalid-order' ||
-                error === 'too-long'
-              }
-            />
-          </div>
-          <div className="pw-range-field">
-            <label htmlFor="pw-range-end">{t('common:endDate')}</label>
-            <IsoDateInput
-              id="pw-range-end"
-              className="pw-range-input"
-              value={end}
-              onValueChange={(value) => {
-                setEnd(value);
-                setAnchor(null);
-                if (error) setError(null);
-              }}
-              ariaLabel={t('common:endDate')}
-              ariaDescribedBy={describedBy}
-              invalid={
-                error === 'invalid-end' ||
-                error === 'invalid-order' ||
-                error === 'too-long'
-              }
-            />
-          </div>
-          <button type="submit" className="btn btn-primary btn-sm pw-range-apply">
-            {t('assignments:workbench.gantt.range.apply')}
-          </button>
-        </div>
-
         {error ? (
           <p id="pw-range-error" className="pw-range-error" role="alert">
             {t(ERROR_KEYS[error])}
@@ -262,6 +215,63 @@ export function WorkloadRangePanel({
             ? t('assignments:workbench.gantt.range.asOfOutside', { date: asOf })
             : t('assignments:workbench.gantt.range.hint', { date: asOf })}
         </p>
+
+        <div className="pw-range-footer" data-testid="pw-range-footer">
+          <p
+            className="pw-range-selected"
+            data-testid="pw-range-selected"
+            title={error ? undefined : `${start} ~ ${end}`}
+          >
+            {error
+              ? t('assignments:workbench.gantt.range.selectedInvalid')
+              : t('assignments:workbench.gantt.range.selected', { start, end })}
+          </p>
+          <div className="pw-range-fields">
+            <div className="pw-range-field">
+              <label htmlFor="pw-range-start">{t('common:startDate')}</label>
+              <IsoDateInput
+                id="pw-range-start"
+                className="pw-range-input"
+                value={start}
+                onValueChange={(value) => {
+                  setStart(value);
+                  setAnchor(null);
+                  if (error) setError(null);
+                }}
+                ariaLabel={t('common:startDate')}
+                ariaDescribedBy={describedBy}
+                invalid={
+                  error === 'invalid-start' ||
+                  error === 'invalid-order' ||
+                  error === 'too-long'
+                }
+              />
+            </div>
+            <div className="pw-range-field">
+              <label htmlFor="pw-range-end">{t('common:endDate')}</label>
+              <IsoDateInput
+                id="pw-range-end"
+                className="pw-range-input"
+                value={end}
+                onValueChange={(value) => {
+                  setEnd(value);
+                  setAnchor(null);
+                  if (error) setError(null);
+                }}
+                ariaLabel={t('common:endDate')}
+                ariaDescribedBy={describedBy}
+                invalid={
+                  error === 'invalid-end' ||
+                  error === 'invalid-order' ||
+                  error === 'too-long'
+                }
+              />
+            </div>
+            <button type="submit" className="btn btn-primary btn-sm pw-range-apply">
+              {t('assignments:workbench.gantt.range.apply')}
+            </button>
+          </div>
+        </div>
       </ImeSafeForm>
     </div>
   );

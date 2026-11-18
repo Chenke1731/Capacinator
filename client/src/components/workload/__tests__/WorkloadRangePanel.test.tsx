@@ -64,9 +64,20 @@ describe('WorkloadRangePanel', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Apply range' }));
     expect(onApply).not.toHaveBeenCalled();
     expect(screen.getByRole('alert')).toHaveTextContent(
-      'Start date must be a real date between 1900 and 2200.'
+      'Enter a real date between 1900 and 2200 as YYYY-MM-DD'
     );
     expect(screen.getByLabelText('Start Date')).toHaveAttribute('aria-invalid', 'true');
+  });
+
+  test('accepts unpadded month/day and normalizes before applying', () => {
+    const { onApply } = renderPanel();
+    fireEvent.change(screen.getByLabelText('Start Date'), { target: { value: '2026-2-1' } });
+    fireEvent.change(screen.getByLabelText('End Date'), { target: { value: '2026-12-1' } });
+    fireEvent.click(screen.getByRole('button', { name: 'Apply range' }));
+    expect(onApply).toHaveBeenCalledWith('2026-02-01', '2026-12-01');
+    expect((screen.getByLabelText('Start Date') as HTMLInputElement).value).toBe('2026-02-01');
+    expect((screen.getByLabelText('End Date') as HTMLInputElement).value).toBe('2026-12-01');
+    expect(screen.queryByRole('alert')).not.toBeInTheDocument();
   });
 
   test('re-selecting the active preset restores the date drafts', () => {

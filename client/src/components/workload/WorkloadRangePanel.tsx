@@ -7,6 +7,7 @@ import {
 } from '../../lib/workloadRange';
 import { IsoDateInput } from '../ui/iso-date-input';
 import { ImeSafeForm } from '../ui/ime-safe-form';
+import { normalizeIsoDateInput } from '../../lib/isoDate';
 
 export interface WorkloadRangePanelProps {
   id: string;
@@ -67,7 +68,12 @@ export function WorkloadRangePanel({
   );
 
   const apply = (nextStart: string, nextEnd: string) => {
-    const nextError = validateWorkloadRange(nextStart, nextEnd);
+    // 接受 2026-12-1 这类自然输入，统一归一成 YYYY-MM-DD 后再校验/应用
+    const normalizedStart = normalizeIsoDateInput(nextStart) ?? nextStart;
+    const normalizedEnd = normalizeIsoDateInput(nextEnd) ?? nextEnd;
+    setStart(normalizedStart);
+    setEnd(normalizedEnd);
+    const nextError = validateWorkloadRange(normalizedStart, normalizedEnd);
     setError(nextError);
     if (nextError) {
       // IX-2：语义错误提交后把焦点放到首个无效字段，而不是留在提交按钮
@@ -76,8 +82,8 @@ export function WorkloadRangePanel({
       panelRef.current?.querySelector<HTMLInputElement>(target)?.focus();
       return;
     }
-    if (nextStart === rangeStart && nextEnd === rangeEnd) return;
-    onApply(nextStart, nextEnd);
+    if (normalizedStart === rangeStart && normalizedEnd === rangeEnd) return;
+    onApply(normalizedStart, normalizedEnd);
   };
 
   /** 预设/自动必须显式同步草稿：重复点击当前项也要把输入恢复为已应用值。 */

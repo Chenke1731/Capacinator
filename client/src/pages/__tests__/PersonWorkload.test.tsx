@@ -2038,7 +2038,9 @@ test('范围编辑面板：打开聚焦首个预设，Escape 关闭并回焦触�
   await waitFor(() => {
     expect(screen.queryByTestId('pw-range-panel')).not.toBeInTheDocument();
   });
-  expect(toggle).toHaveFocus();
+  await waitFor(() => {
+    expect(toggle).toHaveFocus();
+  });
 });
 
 test('自定义范围：未来 6 个月预设更新泳道，但不改当前统计', async () => {

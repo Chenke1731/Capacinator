@@ -363,6 +363,9 @@ npm run dist:linux       # Linux package (.AppImage)
 - **visual 迭代期一律页级过滤**(`--page`/`--profile`);**任何全量 visual 之前必须先跑冒烟**:`node scripts/verify-visual-smoke.mjs`(3 组合 ~5 min,一次性暴露死档/状态机/信封三类陈旧假设——批 C 实录:四个陈旧假设串行暴露耗了 4 次全量 ≈ 90 min)。
 - **全量 visual 用分片**:`npm run verify:visual:shards -- --shards 4`(4 进程,单组合实测 ~6s,全量预计 5-7 min;单进程 18-25 min)。分片报告带 `-shard-i-of-n` 后缀;`--record-existing-axe`/`--capture-fixtures` 会写共享文件,已禁止与 `--shard` 同用。分片只并行化独立页面组合,不减少 axe/碰撞/像素检查。
 
+### Test Selection Card(2026-11-18,写码前的测试选择函数)
+T0/T1/T2 只定时机与成本档,不定"该跑什么"。任何改动开工前先填 [`docs/quality/test-selection.md`](docs/quality/test-selection.md) 的卡片:**Changed → Fault hypotheses(H1..Hn) → 每个 H 的最低成本会红 oracle → Not run(写明观察不到哪个 H/被谁覆盖) → Stop condition(每个 H 有专属会红 oracle)**。硬规则:测试必须绑定故障假设,说不出会红原因就不跑;高层测试必须证明低层无法复现的故障(SQLite 语义→真实集成,浮层几何→浏览器,输入归一化→纯函数/组件);`verify:pr` 是批末/提交点动作,不是每个小修后的默认动作;共享面(CSS 全局规则/共享组件/API 契约/缓存键/审计与 verify 工具)单独成批。Explore/评审子代理派发必须带预算与问题清单(Explore 默认 ≤20 tools/5min;focused review ≤20 tools/6min,full review 仅新页面/共享原语/跨页行为或 P1 升级)——无预算的"全面查一遍"会自然扩展成审计。
+
 ### 探针纪律
 - 带身份取值一律用 `scripts/lib/probe.mjs`(probe/probeSession,自证 `--selftest`):手写登录样板曾致身份缺失误开 Login 对话框、误诊一个来回。
 - **探针函数体禁内联 `-e` 传参**(双引号 bash 吞反引号,批 C/D 实录 6-8 次失败):写 /tmp/*.mjs 文件后运行。

@@ -7661,13 +7661,13 @@
           "family": "btn btn-ghost btn-sm pw-delete-btn|",
           "text": "",
           "foreground": "rgb(185, 28, 28)",
-          "background": "rgb(246, 247, 249)",
+          "background": "rgb(247, 248, 250)",
           "effectiveBackground": [
-            246,
             247,
-            249
+            248,
+            250
           ],
-          "contrast": 6.035868485040851,
+          "contrast": 6.088687200849665,
           "textual": false,
           "disabled": false,
           "width": 40,

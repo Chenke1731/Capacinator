@@ -532,7 +532,9 @@ export function WorkloadGantt({
   });
 
   const asOfOffset = ((toDayNumber(timeline.asOf) - rangeStartDay) / totalDays) * 100;
-  const asOfInRange = asOfOffset >= 0 && asOfOffset <= 100;
+  // 闭区间判断：end=asOf 前一天时 offset 恰为 100%，百分比判断会误画边缘线
+  const asOfInRange =
+    timeline.rangeStart <= timeline.asOf && timeline.asOf <= timeline.rangeEnd;
   const rangeAriaLabel = [
     t('assignments:workbench.gantt.range.open'),
     `${timeline.rangeStart} ~ ${timeline.rangeEnd}`,

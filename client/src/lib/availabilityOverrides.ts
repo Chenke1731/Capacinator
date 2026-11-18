@@ -38,6 +38,12 @@ export async function fetchApprovedAvailabilityOverrides(
     rows.push(...(payload.data ?? []));
     const reported = Number(payload.pagination?.totalPages ?? 1);
     totalPages = Number.isFinite(reported) && reported > 0 ? reported : 1;
+    // 超过保护上限时不得静默返回部分集合——调用方会把它当完整 approved 全集
+    if (totalPages > MAX_PAGES) {
+      throw new Error(
+        `approved availability overrides exceed ${MAX_PAGES} pages (${totalPages}); refusing partial window`
+      );
+    }
     page += 1;
   } while (page <= totalPages && page <= MAX_PAGES);
 

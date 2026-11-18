@@ -109,4 +109,19 @@ describe('fetchApprovedAvailabilityOverrides', () => {
       { start: '2024-02-01', end: '2024-02-03', percentage: 50, isApproved: true },
     ]);
   });
+
+  test('分页超过保护上限时拒绝返回部分集合', async () => {
+    (api.availability.list as jest.Mock).mockResolvedValue({
+      data: {
+        data: [
+          { id: 'ov1', start_date: '2024-01-01', end_date: '2024-01-07', availability_percentage: 0, is_approved: 1 },
+        ],
+        pagination: { page: 1, limit: 200, total: 10200, totalPages: 51 },
+      },
+    });
+
+    await expect(
+      fetchApprovedAvailabilityOverrides('p1', '2010-01-01', '2030-12-31')
+    ).rejects.toThrow(/exceed 50 pages/);
+  });
 });

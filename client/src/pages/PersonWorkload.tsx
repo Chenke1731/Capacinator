@@ -34,6 +34,8 @@ import {
   clampWorkloadRangeEnd,
   workloadGranularity,
   workloadRangeDays,
+  WORKLOAD_RANGE_MAX_DAYS,
+  WORKLOAD_RANGE_MAX_ISO,
 } from '../lib/workloadRange';
 import {
   batchShiftDirectCount,
@@ -271,7 +273,9 @@ export default function PersonWorkload() {
   const minimapRangeEnd = useMemo(() => {
     const minimumEnd = shiftIsoMonths(minimapRangeStart, 12);
     const wantedEnd = customRange?.end ?? rangeEnd;
-    return wantedEnd > minimumEnd ? wantedEnd : minimumEnd;
+    const candidateEnd = wantedEnd > minimumEnd ? wantedEnd : minimumEnd;
+    // 2200-12 的窗口不能推导出 2201-01 的可点击月（面板会判非法）
+    return candidateEnd > WORKLOAD_RANGE_MAX_ISO ? WORKLOAD_RANGE_MAX_ISO : candidateEnd;
   }, [customRange, minimapRangeStart, rangeEnd]);
 
   const applyRange = useCallback(
@@ -289,25 +293,49 @@ export default function PersonWorkload() {
     [rangeStart, rangeEnd]
   );
 
-  /** 定位范围外行：向所需方向扩展当前窗口，并受 5 年跨度上限保护。 */
+  /**
+   * 定位范围外行：优先并集扩展；并集超过 5 年时平移窗口保证目标可见，
+   * 而不是保留旧起点把右端裁短（Codex R2：2020 窗定位 2026 行曾永远到不了）。
+   */
   const expandRangeToInclude = useCallback(
     (start?: string | null, end?: string | null) => {
-      let nextStart = rangeStart;
-      let nextEnd = rangeEnd;
-      if (start && start < nextStart) nextStart = start;
-      if (start && !end && start > nextEnd) nextEnd = start;
-      if (end && end > nextEnd) nextEnd = end;
-      if (end && !start && end < nextStart) nextStart = end;
-      if (nextStart > nextEnd) {
-        const swap = nextStart;
-        nextStart = nextEnd;
-        nextEnd = swap;
+      const targetStart = start ?? end ?? rangeStart;
+      const targetEnd = end ?? start ?? rangeEnd;
+      const intersects = targetEnd >= rangeStart && targetStart <= rangeEnd;
+      const fullyInside = intersects && targetStart >= rangeStart && targetEnd <= rangeEnd;
+      if (fullyInside) return;
+
+      const unionStart = targetStart < rangeStart ? targetStart : rangeStart;
+      const unionEnd = targetEnd > rangeEnd ? targetEnd : rangeEnd;
+      const cappedUnionEnd = clampWorkloadRangeEnd(unionStart, unionEnd);
+      if (cappedUnionEnd === unionEnd) {
+        if (unionStart === rangeStart && unionEnd === rangeEnd) return;
+        setCustomRange({ start: unionStart, end: unionEnd });
+        return;
       }
-      if (nextStart === rangeStart && nextEnd === rangeEnd) return;
-      setCustomRange({
-        start: nextStart,
-        end: clampWorkloadRangeEnd(nextStart, nextEnd),
-      });
+
+      // 并集超上限：目标整体不超过上限时整窗围绕目标；目标自身超上限时
+      // 保留靠定位方向的一端（右侧目标锚定结束日，左侧目标锚定开始日）。
+      if (targetStart > rangeStart) {
+        const winEnd = targetEnd;
+        const shiftedStart = shiftIsoDate(
+          winEnd,
+          WORKLOAD_RANGE_MAX_DAYS - 1,
+          'day',
+          'earlier'
+        );
+        const winStart = shiftedStart > targetStart ? shiftedStart : targetStart;
+        setCustomRange({ start: winStart, end: winEnd });
+        return;
+      }
+      const winStart = targetStart;
+      const winEnd = shiftIsoDate(
+        winStart,
+        WORKLOAD_RANGE_MAX_DAYS - 1,
+        'day',
+        'later'
+      );
+      setCustomRange({ start: winStart, end: winEnd });
     },
     [rangeStart, rangeEnd]
   );
@@ -358,13 +386,15 @@ export default function PersonWorkload() {
   // R-01：历史/自定义窗口内若 approved overrides 未加载成功，不得用人员
   // 默认可用率伪造确定数字。未知日期保持 null（热区显示“不可用”），并由
   // 泳道呈现加载/失败状态与重试入口；保底的当前覆盖窗口仍可服务当前段。
+  // 后台刷新失败但缓存数据完整时继续用缓存（Claude P3-1），不整体降级。
   const availabilityQueryPending =
     overridesQuery.isLoading || (overridesQuery.isFetching && !overridesQuery.data);
-  const availabilityStatus: 'ready' | 'loading' | 'error' = availabilityQueryPending
-    ? 'loading'
-    : overridesQuery.isError
-      ? 'error'
-      : 'ready';
+  const availabilityStatus: 'ready' | 'loading' | 'error' =
+    availabilityQueryPending
+      ? 'loading'
+      : overridesQuery.isError && !overridesQuery.data
+        ? 'error'
+        : 'ready';
   const availabilityForTimeline =
     availabilityStatus === 'ready' ? heatDefaultAvailability : null;
 
@@ -2868,9 +2898,10 @@ export default function PersonWorkload() {
         minimapBuckets={minimapTimeline.buckets}
         onNavigateRange={(monthStart) => {
           if (customRange) {
-            // 自定义窗口点月份：平移并保持当前跨度
+            // 自定义窗口点月份：平移并保持当前跨度；不越过年份上限
             const spanDays = workloadRangeDays(customRange.start, customRange.end);
-            const end = shiftIsoDate(monthStart, (spanDays ?? 1) - 1, 'day', 'later');
+            const shiftedEnd = shiftIsoDate(monthStart, (spanDays ?? 1) - 1, 'day', 'later');
+            const end = shiftedEnd > WORKLOAD_RANGE_MAX_ISO ? WORKLOAD_RANGE_MAX_ISO : shiftedEnd;
             if (monthStart === customRange.start && end === customRange.end) return;
             setCustomRange({ start: monthStart, end });
             return;
@@ -3387,7 +3418,7 @@ export default function PersonWorkload() {
         asOf={asOf}
         rangeStart={rangeStart}
         rangeEnd={rangeEnd}
-        availability={heatDefaultAvailability}
+        availability={availabilityForTimeline}
         availabilityOverrides={availabilityOverrides}
         onAddToLane={handleAddToLane}
         onEditExisting={handleDialogEditExisting}

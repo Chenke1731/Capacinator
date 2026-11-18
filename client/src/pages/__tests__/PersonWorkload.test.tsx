@@ -57,6 +57,9 @@ const person = {
   id: 'person-1',
   name: 'Jane Doe',
   primary_role_name: 'SE',
+  // 失败态守卫必须能用非空默认可用率变红：缺省时 heatDefaultAvailability
+  // 本来就是 null，移除查询状态保护测试仍绿（Codex R1 变异证据）
+  default_availability_percentage: 100,
   roles: [{ role_id: 'role-se', role_name: 'SE', is_primary: 1 }],
 };
 
@@ -1183,14 +1186,14 @@ test('F3: 未来已批准覆盖进热区——整窗 0% 可用率 → 热区不�
   (api.availability.list as jest.Mock).mockResolvedValue({
     data: {
       data: [
-        {
-          id: 'ov-future-leave',
-          person_id: 'person-1',
-          start_date: '2026-03-15',
-          end_date: '2027-03-15',
-          availability_percentage: 0,
-          is_approved: 1,
-        },
+          {
+            id: 'ov-future-leave',
+            person_id: 'person-1',
+            start_date: '2026-01-01',
+            end_date: '2027-03-15',
+            availability_percentage: 0,
+            is_approved: 1,
+          },
       ],
       pagination: { total: 1 },
     },
@@ -2106,6 +2109,13 @@ test('可用率查询失败：历史窗口不伪造数字，显示错误与重�
   expect(screen.getByTestId('pw-gantt-heat-full').getAttribute('aria-label')).toMatch(
     /unknown|unavailable/i
   );
+
+  // Codex R1：同一个失败态下“添加分配”弹窗不得显示确定容量数字
+  fireEvent.click(screen.getByTestId('pw-add-assignment'));
+  await screen.findByRole('dialog');
+  expect(screen.getByTestId('pw-mini-heat').getAttribute('aria-label')).toMatch(
+    /unknown|unavailable/i
+  );
 });
 
 test('自定义范围：自动窗口复位；倒置日期不写入', async () => {
@@ -2137,6 +2147,96 @@ test('自定义范围：自动窗口复位；倒置日期不写入', async () =>
     expect(screen.getByTestId('pw-gantt')).toHaveTextContent('2026-01-01 ~ 2026-12-31');
   });
   expect(screen.getByTestId('pw-gantt')).not.toHaveTextContent(/Custom/);
+});
+
+test('R2: 定位目标与当前窗口相距超过 5 年时平移窗口，而不是裁掉目标', async () => {
+  (api.assignments.list as jest.Mock).mockResolvedValue({
+    data: {
+      data: [
+        {
+          ...assignments[0],
+          id: 'far-target',
+          start_date: '2028-01-01',
+          end_date: '2028-12-31',
+          computed_start_date: '2028-01-01',
+          computed_end_date: '2028-12-31',
+        },
+      ],
+      pagination: { total: 1, totalPages: 1 },
+    },
+  });
+  renderPage();
+  const locate = await screen.findByTestId('pw-locate-committed-far-target');
+
+  fireEvent.click(screen.getByTestId('pw-gantt-range-toggle'));
+  fireEvent.change(screen.getByLabelText('Start Date'), {
+    target: { value: '2020-01-01' },
+  });
+  fireEvent.change(screen.getByLabelText('End Date'), {
+    target: { value: '2020-12-31' },
+  });
+  fireEvent.click(screen.getByRole('button', { name: 'Apply range' }));
+  await waitFor(() => {
+    expect(screen.getByTestId('pw-gantt')).toHaveTextContent('2020-01-01 ~ 2020-12-31');
+  });
+
+  fireEvent.click(locate);
+  await waitFor(() => {
+    expect(screen.getByTestId('pw-gantt')).toHaveTextContent(/ ~ 2028-12-31/);
+  });
+  expect(screen.getByTestId('pw-gantt')).not.toHaveTextContent('2020-01-01 ~ 2025');
+  await waitFor(() => {
+    expect(
+      screen.queryByTestId('pw-locate-committed-far-target')
+    ).not.toBeInTheDocument();
+  });
+});
+
+test('R5: 范围结束于参考日前一天时不画参考日伪标记', async () => {
+  renderPage();
+  await waitFor(() => {
+    expect(screen.getAllByTestId('pw-gantt-bar').length).toBeGreaterThan(0);
+  });
+
+  fireEvent.click(screen.getByTestId('pw-gantt-range-toggle'));
+  fireEvent.change(screen.getByLabelText('Start Date'), {
+    target: { value: '2026-03-14' },
+  });
+  fireEvent.change(screen.getByLabelText('End Date'), {
+    target: { value: '2026-03-14' },
+  });
+  fireEvent.click(screen.getByRole('button', { name: 'Apply range' }));
+  await waitFor(() => {
+    expect(screen.getByTestId('pw-gantt')).toHaveTextContent('2026-03-14 ~ 2026-03-14');
+  });
+  expect(document.querySelector('.pw-gantt-asof')).toBeNull();
+});
+
+test('R6: 2200 年窗口的 minimap 导航不生成面板非法年份', async () => {
+  renderPage();
+  await waitFor(() => {
+    expect(screen.getAllByTestId('pw-gantt-bar').length).toBeGreaterThan(0);
+  });
+
+  fireEvent.click(screen.getByTestId('pw-gantt-range-toggle'));
+  fireEvent.change(screen.getByLabelText('Start Date'), {
+    target: { value: '2200-12-01' },
+  });
+  fireEvent.change(screen.getByLabelText('End Date'), {
+    target: { value: '2200-12-31' },
+  });
+  fireEvent.click(screen.getByRole('button', { name: 'Apply range' }));
+  await waitFor(() => {
+    expect(screen.getByTestId('pw-gantt')).toHaveTextContent('2200-12-01 ~ 2200-12-31');
+  });
+
+  const months = screen.getByTestId('pw-minimap').querySelectorAll('button');
+  const lastMonth = months[months.length - 1];
+  expect(lastMonth).toBeTruthy();
+  fireEvent.click(lastMonth);
+  await waitFor(() => {
+    expect(screen.getByTestId('pw-gantt')).toHaveTextContent('2200-12-01 ~ 2200-12-31');
+  });
 });
 
 test('范围外已提交行在左侧越界时也能定位扩展', async () => {

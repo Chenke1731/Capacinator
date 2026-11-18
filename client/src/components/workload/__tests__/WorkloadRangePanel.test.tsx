@@ -69,6 +69,29 @@ describe('WorkloadRangePanel', () => {
     expect(screen.getByLabelText('Start Date')).toHaveAttribute('aria-invalid', 'true');
   });
 
+  test('re-selecting the active preset restores the date drafts', () => {
+    const { onApply } = renderPanel({ isCustom: true, rangeStart: '2026-03-15', rangeEnd: '2026-06-15' });
+    fireEvent.click(screen.getByRole('button', { name: 'Next 3 months' }));
+    fireEvent.change(screen.getByLabelText('Start Date'), {
+      target: { value: '2024-01-01' },
+    });
+    fireEvent.click(screen.getByRole('button', { name: 'Next 3 months' }));
+    expect((screen.getByLabelText('Start Date') as HTMLInputElement).value).toBe('2026-03-15');
+    expect((screen.getByLabelText('End Date') as HTMLInputElement).value).toBe('2026-06-15');
+    expect(onApply).not.toHaveBeenCalled();
+  });
+
+  test('auto restores the drafts even when already automatic', () => {
+    const { onReset } = renderPanel({ isCustom: false });
+    fireEvent.change(screen.getByLabelText('Start Date'), {
+      target: { value: '2024-01-01' },
+    });
+    fireEvent.click(screen.getByRole('button', { name: 'Auto window' }));
+    expect((screen.getByLabelText('Start Date') as HTMLInputElement).value).toBe('2026-01-01');
+    expect((screen.getByLabelText('End Date') as HTMLInputElement).value).toBe('2026-12-31');
+    expect(onReset).toHaveBeenCalledTimes(1);
+  });
+
   test('auto resets and Escape closes the panel', () => {
     const { onReset, onClose } = renderPanel({ isCustom: true });
     fireEvent.click(screen.getByRole('button', { name: 'Auto window' }));

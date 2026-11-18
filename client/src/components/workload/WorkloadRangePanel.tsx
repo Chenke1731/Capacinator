@@ -80,6 +80,14 @@ export function WorkloadRangePanel({
     onApply(nextStart, nextEnd);
   };
 
+  /** 预设/自动必须显式同步草稿：重复点击当前项也要把输入恢复为已应用值。 */
+  const applyPreset = (presetStart: string, presetEnd: string) => {
+    setStart(presetStart);
+    setEnd(presetEnd);
+    setError(null);
+    apply(presetStart, presetEnd);
+  };
+
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     apply(start, end);
@@ -119,6 +127,8 @@ export function WorkloadRangePanel({
             className="btn btn-ghost btn-sm pw-range-preset"
             aria-pressed={!isCustom}
             onClick={() => {
+              setStart(rangeStart);
+              setEnd(rangeEnd);
               setError(null);
               onReset();
             }}
@@ -131,7 +141,7 @@ export function WorkloadRangePanel({
               type="button"
               className="btn btn-secondary btn-sm pw-range-preset"
               aria-pressed={presetActive(preset.start, preset.end)}
-              onClick={() => apply(preset.start, preset.end)}
+              onClick={() => applyPreset(preset.start, preset.end)}
             >
               {t(`assignments:workbench.gantt.range.${preset.key}`)}
             </button>

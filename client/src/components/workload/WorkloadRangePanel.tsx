@@ -8,6 +8,16 @@ import {
 import { IsoDateInput } from '../ui/iso-date-input';
 import { ImeSafeForm } from '../ui/ime-safe-form';
 import { normalizeIsoDateInput } from '../../lib/isoDate';
+import {
+  clampViewMonth,
+  monthFirstIso,
+  monthKeyOf,
+  monthLastIso,
+} from '../../lib/workloadRangeCalendar';
+import {
+  WorkloadRangeCalendar,
+  type WorkloadRangeAnchor,
+} from './WorkloadRangeCalendar';
 
 export interface WorkloadRangePanelProps {
   id: string;
@@ -41,6 +51,8 @@ export function WorkloadRangePanel({
   const [start, setStart] = useState(rangeStart);
   const [end, setEnd] = useState(rangeEnd);
   const [error, setError] = useState<WorkloadRangeError | null>(null);
+  const [viewMonth, setViewMonth] = useState(() => clampViewMonth(monthKeyOf(rangeStart)));
+  const [anchor, setAnchor] = useState<WorkloadRangeAnchor | null>(null);
   const panelRef = useRef<HTMLDivElement>(null);
   const autoPresetRef = useRef<HTMLButtonElement>(null);
 
@@ -49,6 +61,8 @@ export function WorkloadRangePanel({
     setStart(rangeStart);
     setEnd(rangeEnd);
     setError(null);
+    setAnchor(null);
+    setViewMonth(clampViewMonth(monthKeyOf(rangeStart)));
   }, [rangeStart, rangeEnd]);
 
   useEffect(() => {
@@ -67,7 +81,25 @@ export function WorkloadRangePanel({
     [asOf]
   );
 
+  /**
+   * 日历两次点击：第一次候选成为草稿并记住锚点；第二次与锚点取并集。
+   * 顺序反置由并集自然处理，日/月候选可混用。
+   */
+  const selectCandidate = (candidateStart: string, candidateEnd: string) => {
+    setError(null);
+    if (!anchor) {
+      setStart(candidateStart);
+      setEnd(candidateEnd);
+      setAnchor({ start: candidateStart, end: candidateEnd });
+      return;
+    }
+    setStart(anchor.start < candidateStart ? anchor.start : candidateStart);
+    setEnd(anchor.end > candidateEnd ? anchor.end : candidateEnd);
+    setAnchor(null);
+  };
+
   const apply = (nextStart: string, nextEnd: string) => {
+    setAnchor(null);
     // 接受 2026-12-1 这类自然输入，统一归一成 YYYY-MM-DD 后再校验/应用
     const normalizedStart = normalizeIsoDateInput(nextStart) ?? nextStart;
     const normalizedEnd = normalizeIsoDateInput(nextEnd) ?? nextEnd;
@@ -91,6 +123,8 @@ export function WorkloadRangePanel({
     setStart(presetStart);
     setEnd(presetEnd);
     setError(null);
+    setAnchor(null);
+    setViewMonth(clampViewMonth(monthKeyOf(presetStart)));
     apply(presetStart, presetEnd);
   };
 
@@ -136,6 +170,8 @@ export function WorkloadRangePanel({
               setStart(rangeStart);
               setEnd(rangeEnd);
               setError(null);
+              setAnchor(null);
+              setViewMonth(clampViewMonth(monthKeyOf(rangeStart)));
               onReset();
             }}
           >
@@ -154,6 +190,19 @@ export function WorkloadRangePanel({
           ))}
         </div>
 
+        <WorkloadRangeCalendar
+          start={start}
+          end={end}
+          asOf={asOf}
+          viewMonth={viewMonth}
+          anchor={anchor}
+          onViewMonthChange={(month) => setViewMonth(clampViewMonth(month))}
+          onSelectDay={(iso) => selectCandidate(iso, iso)}
+          onSelectMonth={(month) =>
+            selectCandidate(monthFirstIso(month), monthLastIso(month))
+          }
+        />
+
         <div className="pw-range-fields">
           <div className="pw-range-field">
             <label htmlFor="pw-range-start">{t('common:startDate')}</label>
@@ -163,6 +212,7 @@ export function WorkloadRangePanel({
               value={start}
               onValueChange={(value) => {
                 setStart(value);
+                setAnchor(null);
                 if (error) setError(null);
               }}
               ariaLabel={t('common:startDate')}
@@ -182,6 +232,7 @@ export function WorkloadRangePanel({
               value={end}
               onValueChange={(value) => {
                 setEnd(value);
+                setAnchor(null);
                 if (error) setError(null);
               }}
               ariaLabel={t('common:endDate')}

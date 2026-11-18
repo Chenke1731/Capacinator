@@ -14,6 +14,7 @@ export const WORKLOAD_RANGE_MIN_YEAR = 1900;
 export const WORKLOAD_RANGE_MAX_YEAR = 2200;
 /** 与年份上限配套的日期闸：minimap/导航等派生入口不得越过它。 */
 export const WORKLOAD_RANGE_MAX_ISO = `${WORKLOAD_RANGE_MAX_YEAR}-12-31`;
+export const WORKLOAD_RANGE_MIN_ISO = `${WORKLOAD_RANGE_MIN_YEAR}-01-01`;
 
 export type WorkloadRangeError =
   | 'invalid-start'

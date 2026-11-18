@@ -2060,6 +2060,27 @@ test('自定义范围：未来 6 个月预设更新泳道，但不改当前统�
   expect(screen.getByTestId('pw-total').textContent).toBe(total);
 });
 
+test('日历点选：两天成范围后应用，泳道窗口更新且统计不变', async () => {
+  renderPage();
+  await waitFor(() => {
+    expect(screen.getAllByTestId('pw-gantt-bar').length).toBeGreaterThan(0);
+  });
+  const total = screen.getByTestId('pw-total').textContent;
+
+  fireEvent.click(screen.getByTestId('pw-gantt-range-toggle'));
+  await waitFor(() => {
+    expect(screen.getByTestId('pw-range-calendar')).toBeInTheDocument();
+  });
+  fireEvent.click(screen.getByTestId('pw-range-day-2026-01-15'));
+  fireEvent.click(screen.getByTestId('pw-range-day-2026-02-10'));
+  fireEvent.click(screen.getByRole('button', { name: 'Apply range' }));
+
+  await waitFor(() => {
+    expect(screen.getByTestId('pw-gantt')).toHaveTextContent('2026-01-15 ~ 2026-02-10');
+  });
+  expect(screen.getByTestId('pw-total').textContent).toBe(total);
+});
+
 test('历史自定义范围：from window start 取覆盖，参考日越界有提示且不画伪标记', async () => {
   renderPage();
   await waitFor(() => {

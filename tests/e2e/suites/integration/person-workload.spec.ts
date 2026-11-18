@@ -143,6 +143,44 @@ test.describe('Person workbench v2 (dialog selection → ghost → commit)', () 
     await expect(authenticatedPage.getByTestId('pw-gantt-heat-compact')).toBeVisible();
   });
 
+  test(`${tags.integration} range calendar day cells never overlap at narrow widths`, async ({
+    authenticatedPage,
+    apiContext,
+  }) => {
+    const person = await firstPerson(apiContext);
+    test.skip(!person, 'No people fixture in e2e database');
+
+    // EXP-017 同族守卫：全局 button min-width 会把网格日格顶开——1024 轨道
+    // 最窄，相邻格 left 间距必须 ≥ 格宽（容器越界检查对相邻重叠是盲的）
+    await authenticatedPage.setViewportSize({ width: 1024, height: 768 });
+    await authenticatedPage.goto(`/people/${person.id}/workload`);
+    await expect(authenticatedPage.getByTestId('pw-total')).toBeVisible();
+    await authenticatedPage.getByTestId('pw-gantt-range-toggle').click();
+    const calendar = authenticatedPage.getByTestId('pw-range-calendar');
+    await expect(calendar).toBeVisible();
+    await calendar.scrollIntoViewIfNeeded();
+
+    const geometry = await authenticatedPage.evaluate(() => {
+      const weeks = [...document.querySelectorAll<HTMLElement>('.pw-range-cal-week')];
+      const overlaps: string[] = [];
+      let dayCount = 0;
+      for (const week of weeks) {
+        const rects = [...week.querySelectorAll<HTMLElement>('.pw-range-cal-day')].map(
+          (day) => day.getBoundingClientRect()
+        );
+        dayCount += rects.length;
+        for (let i = 1; i < rects.length; i += 1) {
+          if (rects[i].left < rects[i - 1].right - 0.5) {
+            overlaps.push(`week-${week.getBoundingClientRect().top}`);
+          }
+        }
+      }
+      return { dayCount, overlaps };
+    });
+    expect(geometry.dayCount).toBeGreaterThan(0);
+    expect(geometry.overlaps).toEqual([]);
+  });
+
   test(`${tags.integration} light and dark themes keep the workload page readable`, async ({
     authenticatedPage,
     apiContext,

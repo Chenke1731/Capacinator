@@ -36,3 +36,8 @@ export function isoDayNumber(value: string | null | undefined): number | null {
   );
   return Number.isFinite(day) ? day : null;
 }
+
+/** Inverse of isoDayNumber; the result is always a valid ISO calendar date. */
+export function isoDateFromDayNumber(day: number): string {
+  return new Date(day * 86_400_000).toISOString().slice(0, 10);
+}

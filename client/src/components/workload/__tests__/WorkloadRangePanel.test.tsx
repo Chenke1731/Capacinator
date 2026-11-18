@@ -92,6 +92,60 @@ describe('WorkloadRangePanel', () => {
     expect(onApply).not.toHaveBeenCalled();
   });
 
+  test('calendar renders two months and selects a day range in two clicks', () => {
+    const { onApply } = renderPanel();
+    expect(screen.getByTestId('pw-range-month-2026-01')).toBeInTheDocument();
+    expect(screen.getByTestId('pw-range-month-2026-02')).toBeInTheDocument();
+    // 2026-01 网格包含上一个周的 2025-12 日期，必须禁用
+    expect(screen.getByTestId('pw-range-other-2026-01-2025-12-29')).toBeDisabled();
+    expect(screen.getByTestId('pw-range-day-2026-01-15')).toBeEnabled();
+
+    fireEvent.click(screen.getByTestId('pw-range-day-2026-01-15'));
+    expect((screen.getByLabelText('Start Date') as HTMLInputElement).value).toBe('2026-01-15');
+    expect((screen.getByLabelText('End Date') as HTMLInputElement).value).toBe('2026-01-15');
+    expect(screen.getByText(/within 5 years of 2026-01-15/)).toBeInTheDocument();
+    expect(screen.getByTestId('pw-range-day-2026-02-10').getAttribute('aria-label')).toMatch(
+      /end date/i
+    );
+    expect(screen.getByTestId('pw-range-day-2026-02-10')).toBeEnabled();
+
+    fireEvent.click(screen.getByTestId('pw-range-day-2026-02-10'));
+    expect((screen.getByLabelText('Start Date') as HTMLInputElement).value).toBe('2026-01-15');
+    expect((screen.getByLabelText('End Date') as HTMLInputElement).value).toBe('2026-02-10');
+    fireEvent.click(screen.getByRole('button', { name: 'Apply range' }));
+    expect(onApply).toHaveBeenCalledWith('2026-01-15', '2026-02-10');
+  });
+
+  test('calendar month titles select whole months and mix with day clicks', () => {
+    const { onApply } = renderPanel();
+    fireEvent.click(screen.getByTestId('pw-range-month-2026-01'));
+    expect((screen.getByLabelText('Start Date') as HTMLInputElement).value).toBe('2026-01-01');
+    expect((screen.getByLabelText('End Date') as HTMLInputElement).value).toBe('2026-01-31');
+
+    fireEvent.click(screen.getByTestId('pw-range-month-2026-02'));
+    expect((screen.getByLabelText('Start Date') as HTMLInputElement).value).toBe('2026-01-01');
+    expect((screen.getByLabelText('End Date') as HTMLInputElement).value).toBe('2026-02-28');
+    fireEvent.click(screen.getByRole('button', { name: 'Apply range' }));
+    expect(onApply).toHaveBeenCalledWith('2026-01-01', '2026-02-28');
+
+    // 日 + 月混用：具体日开始，月份标题补月末
+    fireEvent.click(screen.getByTestId('pw-range-day-2026-01-15'));
+    fireEvent.click(screen.getByTestId('pw-range-month-2026-02'));
+    expect((screen.getByLabelText('Start Date') as HTMLInputElement).value).toBe('2026-01-15');
+    expect((screen.getByLabelText('End Date') as HTMLInputElement).value).toBe('2026-02-28');
+  });
+
+  test('calendar navigation keeps the anchor and reverse order unions correctly', () => {
+    renderPanel();
+    fireEvent.click(screen.getByTestId('pw-range-day-2026-02-10'));
+    fireEvent.click(screen.getByRole('button', { name: 'Previous month' }));
+    // 翻月后锚点仍在，点上一月日期自动交换起止
+    expect(screen.getByTestId('pw-range-month-2025-12')).toBeInTheDocument();
+    fireEvent.click(screen.getByTestId('pw-range-day-2025-12-20'));
+    expect((screen.getByLabelText('Start Date') as HTMLInputElement).value).toBe('2025-12-20');
+    expect((screen.getByLabelText('End Date') as HTMLInputElement).value).toBe('2026-02-10');
+  });
+
   test('auto restores the drafts even when already automatic', () => {
     const { onReset } = renderPanel({ isCustom: false });
     fireEvent.change(screen.getByLabelText('Start Date'), {

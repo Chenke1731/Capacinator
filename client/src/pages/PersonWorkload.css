@@ -1297,6 +1297,139 @@
   color: var(--primary-color);
 }
 
+.person-workload-page .pw-range-calendar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.person-workload-page .pw-range-cal-nav {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.person-workload-page .pw-range-cal-nav-button {
+  min-width: 32px;
+  min-height: 32px;
+  padding: 0 0.35rem;
+}
+
+.person-workload-page .pw-range-cal-titles {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  justify-content: space-around;
+  gap: var(--space-2);
+}
+
+.person-workload-page .pw-range-cal-month {
+  min-height: 32px;
+  padding: 0.25rem 0.5rem;
+  color: var(--text-primary);
+  font-weight: var(--font-semibold, 600);
+}
+
+.person-workload-page .pw-range-cal-month:not(:disabled):hover {
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+}
+
+.person-workload-page .pw-range-cal-hint {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: var(--text-xs);
+}
+
+.person-workload-page .pw-range-cal-months {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: var(--space-2);
+}
+
+.person-workload-page .pw-range-cal-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: var(--space-2);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm, 6px);
+  background: var(--bg-secondary);
+}
+
+.person-workload-page .pw-range-cal-grid:focus-visible {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+.person-workload-page .pw-range-cal-weekdays,
+.person-workload-page .pw-range-cal-week {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 2px;
+}
+
+.person-workload-page .pw-range-cal-weekdays > div {
+  text-align: center;
+  color: var(--text-secondary);
+  font-size: 10px;
+  line-height: 1.6;
+}
+
+.person-workload-page .pw-range-cal-day {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  aspect-ratio: 1;
+  min-width: 0;
+  min-height: 28px;
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--text-primary);
+  font-size: 12px;
+  line-height: 1;
+  transition: background-color 120ms, border-color 120ms, color 120ms;
+}
+
+.person-workload-page .pw-range-cal-day:not(:disabled):hover {
+  border-color: var(--primary-color);
+  background: color-mix(in srgb, var(--primary-color) 8%, transparent);
+  color: var(--primary-color);
+}
+
+.person-workload-page .pw-range-cal-day:focus-visible {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 1px;
+}
+
+.person-workload-page .pw-range-cal-day:disabled {
+  background: transparent;
+  border-color: transparent;
+  color: var(--text-secondary);
+  font-weight: 400;
+  cursor: default;
+}
+
+.person-workload-page .pw-range-cal-day--in-range {
+  background: color-mix(in srgb, var(--primary-color) 10%, transparent);
+  color: var(--primary-color);
+}
+
+.person-workload-page .pw-range-cal-day--start,
+.person-workload-page .pw-range-cal-day--end {
+  border-color: var(--primary-color);
+  background: color-mix(in srgb, var(--primary-color) 18%, transparent);
+  color: var(--primary-color);
+  font-weight: var(--font-semibold, 600);
+}
+
+.person-workload-page .pw-range-cal-day--today {
+  box-shadow: inset 0 0 0 1px var(--warning);
+}
+
 .person-workload-page .pw-range-fields {
   display: flex;
   flex-wrap: wrap;

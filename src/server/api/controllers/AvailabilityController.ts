@@ -57,8 +57,7 @@ export class AvailabilityController extends BaseController {
     const limit = parseInt(req.query.limit as string, 10) || 50;
     const filters = {
       person_id: req.query.person_id,
-      override_type: req.query.override_type,
-      is_approved: req.query.is_approved
+      override_type: req.query.override_type
     };
 
     const result = await this.executeQuery(async () => {
@@ -82,6 +81,14 @@ export class AvailabilityController extends BaseController {
 
       // Filter for pending approvals
       if (req.query.pending_only === 'true') {
+        query = query.where('person_availability_overrides.is_approved', false);
+      }
+
+      // 查询参数是字符串；SQLite 布尔列存 0/1，`where('is_approved', 'true')`
+      // 恒为空（同 PeopleController.is_active 的既有口径，必须显式布尔化）
+      if (req.query.is_approved === 'true') {
+        query = query.where('person_availability_overrides.is_approved', true);
+      } else if (req.query.is_approved === 'false') {
         query = query.where('person_availability_overrides.is_approved', false);
       }
 

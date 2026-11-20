@@ -270,30 +270,11 @@ test.describe('Utilization Report Accuracy', () => {
       }
     }
   });
-  test(`${tags.reports} should show utilization trends over time`, async ({ 
-    authenticatedPage 
-  }) => {
-    // Look for trend chart
-    // flaky 加固(2026-10-13): 瞬时 isVisible 门 → 等容器就位 + poll 数据点
-    const trendChart = authenticatedPage.locator('.chart-container:has-text("Utilization Trend"), .chart-container:has-text("Over Time")').first();
-    await trendChart.waitFor({ state: 'visible', timeout: 15000 });
-    {
-      // Check for line chart elements
-      const lineElements = trendChart.locator('.recharts-line, path[d]');
-      const dotElements = trendChart.locator('.recharts-dot, circle');
-      const hasLineData = await lineElements.count() > 0 || await dotElements.count() > 0;
-      expect(hasLineData).toBeTruthy();
-      // Check for x-axis with dates
-      const xAxisLabels = trendChart.locator('.recharts-xAxis text');
-      if (await xAxisLabels.count() > 0) {
-        const firstLabel = await xAxisLabels.first().textContent();
-        expect(firstLabel).toBeTruthy();
-        // Since we have test assignments, trend should have data points
-        await expect.poll(async () => await dotElements.count(), { timeout: 10000 })
-          .toBeGreaterThan(0);
-      }
-    }
-  });
+  // "should show utilization trends over time" removed (2026-11-20): the
+  // utilization trend chart no longer exists in the product — UtilizationReport
+  // renders byPerson/byRole/distribution only (git -S confirms the removal);
+  // the test waited 15s for a container that can never appear. Dead-premise
+  // test deleted, not faked green.
   test(`${tags.reports} should export utilization data`, async ({ 
     authenticatedPage,
     testHelpers 

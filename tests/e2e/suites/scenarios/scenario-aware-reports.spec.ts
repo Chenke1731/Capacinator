@@ -58,6 +58,12 @@ async function addScenarioAssignment(apiContext: APIRequestContext, scenarioId: 
     throw new Error('No free person/project/role combination for test setup');
   }
 
+  // Dates must sit INSIDE the demand report's default window (current month
+  // first day → +3 months end). The old hardcoded October 2026 range fell
+  // out of the window from November on, making the "demand must move"
+  // assertion vacuously fail even though scenario isolation worked.
+  const withinWindow = (offsetDays: number) =>
+    new Date(Date.now() + offsetDays * 86400000).toISOString().split('T')[0];
   const res = await apiContext.post(`/api/scenarios/${scenarioId}/assignments`, {
     data: {
       project_id: projectId,
@@ -65,8 +71,8 @@ async function addScenarioAssignment(apiContext: APIRequestContext, scenarioId: 
       role_id: roleId,
       allocation_percentage: 25,
       assignment_date_mode: 'fixed',
-      start_date: '2026-10-01',
-      end_date: '2026-10-31',
+      start_date: withinWindow(0),
+      end_date: withinWindow(30),
       change_type: 'added'
     }
   });

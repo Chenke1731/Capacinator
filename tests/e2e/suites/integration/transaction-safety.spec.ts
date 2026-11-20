@@ -30,16 +30,40 @@ test.describe('Database Transaction Safety and Concurrent Operations', () => {
     const rolesRes = await apiContext.get('/api/roles');
     const rolesBody = await rolesRes.json();
     testData.roles = rolesBody.data || rolesBody;
+    // Exclusive write targets: createBulkTestData seeds assignments on the
+    // fixture people↔projects tuples, and the server enforces
+    // ASSIGNMENT_DUPLICATE (same person/project/role/phase → 409). Every
+    // write in this suite therefore goes through throwaway writer people
+    // whose tuples are collision-free by construction.
+    const writerIds: string[] = [];
+    for (let i = 0; i < 3; i++) {
+      const stamp = `${Date.now()}-${i}`;
+      const res = await apiContext.post('/api/people', {
+        data: {
+          name: `txnsafety-Writer-${stamp}`,
+          email: `txnsafety-writer-${stamp}@test.com`,
+          location_id: testData.people[0].location_id,
+          availability_percentage: 100,
+          start_date: new Date().toISOString().split('T')[0],
+        },
+      });
+      expect(res.ok()).toBeTruthy();
+      const person = unwrap(await res.json());
+      writerIds.push(person.id);
+      testContext.createdIds.people.push(person.id);
+    }
+    testData.writers = writerIds;
   });
   test.afterEach(async ({ testDataHelpers }) => {
     // Clean up all test data
     await testDataHelpers.cleanupTestContext(testContext);
   });
 
-  // Valid assignment payload builder (API contract: role_id + mode + dates)
+  // Valid assignment payload builder (API contract: role_id + mode + dates).
+  // Defaults to the first throwaway writer — never a seeded tuple.
   function assignmentPayload(overrides: Record<string, unknown> = {}) {
     return {
-      person_id: testData.people[0].id,
+      person_id: testData.writers[0],
       project_id: testData.projects[0].id,
       role_id: testData.roles[0].id,
       allocation_percentage: 30,
@@ -63,7 +87,7 @@ test.describe('Database Transaction Safety and Concurrent Operations', () => {
       const results = await Promise.allSettled([0, 1, 2].map((i) =>
         apiContext.post('/api/assignments', {
           data: assignmentPayload({
-            person_id: testData.people[i % testData.people.length].id,
+            person_id: testData.writers[i],
             project_id: testData.projects[i % testData.projects.length].id,
             allocation_percentage: 30 + i * 10,
           }),
@@ -135,9 +159,10 @@ test.describe('Database Transaction Safety and Concurrent Operations', () => {
       // NOTE: over-allocation is deliberately ALLOWED by the product (the
       // dashboard alert exists for it) — the invalid vector here is
       // end_date < start_date, which the API rejects (pinned by red line 11)
-      // Counting is scoped to THIS context's person: workers run sibling
-      // tests in parallel against the same world — a global count would race.
-      const myPersonId = testData.people[0].id;
+      // Counting is scoped to THIS context's writer person: workers run
+      // sibling tests in parallel against the same world — a global count
+      // (or a seeded person's count) would race.
+      const myPersonId = testData.writers[0];
       const rowsFor = (body: any) =>
         (unwrap(body) as any[]).filter((r) => r.person_id === myPersonId);
       const initialCount = rowsFor(await (await apiContext.get('/api/assignments')).json()).length;

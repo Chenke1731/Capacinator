@@ -26,63 +26,26 @@ test.describe('Assignment CRUD Operations', () => {
     test(`${tags.crud} ${patterns.crud('assignment').create} via People page`, async ({
       authenticatedPage,
       testHelpers,
-      testDataHelpers,
-      apiContext
+      testDataHelpers
     }) => {
-      // The Smart Assignment modal only lists projects WITH resource needs —
-      // freshly-created test projects have none, so pick a seed project
-      // (ids start with 'project-e2e-'; they carry phases/templates → demand).
-      const projects = await (await apiContext.get('/api/projects')).json();
-      const seedProject = (projects.data || []).find((p: any) => p.id.startsWith('project-e2e-'));
-      if (!seedProject) throw new Error('No seed project available for smart-assignment flow');
-
-      // Navigate to people page
+      // The SmartAssignmentModal this test used to drive has no production
+      // entry any more — "Add Assignment" on PersonDetails navigates to the
+      // person workbench, whose add flow (picker) is covered by
+      // person-workload.spec.ts. This test now pins the entry-point contract:
+      // People → person detail → Add Assignment lands on the workbench.
       await testHelpers.navigateTo('/people');
       await testHelpers.waitForDataTable();
-      // Click on specific test person
       await testDataHelpers.clickSpecific(
         'tbody tr',
         testData.people[0].name
       );
-      // Wait for person details page to load
       await authenticatedPage.waitForURL('**/people/**');
       await testHelpers.waitForPageContent();
-      // Click Add Assignment
       await authenticatedPage.getByRole('button', { name: /add assignment/i }).click();
-      // Wait for modal to open
-      await authenticatedPage.waitForSelector('[role="dialog"], .modal, [data-testid="assignment-modal"]', { timeout: 10000 });
-      // Switch to manual tab if needed
-      const manualTab = authenticatedPage.locator('button[role="tab"]:has-text("Manual Selection")');
-      if (await manualTab.isVisible()) {
-        await manualTab.click();
-      }
-      // Fill assignment form
-      // Select specific test project using shadcn select
-      const projectSelect = authenticatedPage.locator('button[role="combobox"]').filter({ hasText: /project/i }).first();
-      await projectSelect.click();
-      await authenticatedPage.locator(`[role="option"]:has-text("${seedProject.name}")`).click();
-      // Select role using shadcn select
-      const roleSelect = authenticatedPage.locator('button[role="combobox"]').filter({ hasText: /role/i }).first();
-      await roleSelect.click();
-      await authenticatedPage.locator('[role="option"]').first().click();
-      // Set allocation (range slider, 0-100 step 5)
-      await authenticatedPage.fill('#allocation-slider', '50');
-      // Set dates
-      const today = new Date();
-      const nextMonth = new Date(today);
-      nextMonth.setMonth(nextMonth.getMonth() + 1);
-      await authenticatedPage.fill('#start-date', today.toISOString().split('T')[0]);
-      await authenticatedPage.fill('#end-date', nextMonth.toISOString().split('T')[0]);
-      // Save (button reads "Create Assignment"; success closes the dialog —
-      // there is no success toast, the modal's onClose IS the signal)
-      await authenticatedPage.getByRole('button', { name: /create assignment/i }).click();
-      await expect(authenticatedPage.locator('[role="dialog"]')).toBeHidden({ timeout: 10000 });
-      // Verify assignment appears in list
-      await testHelpers.navigateTo('/assignments');
-      await testHelpers.waitForDataTable();
-      // Table should have data
-      const rowCount = await testHelpers.getTableRowCount();
-      expect(rowCount).toBeGreaterThan(0);
+      await authenticatedPage.waitForURL(/\/people\/[^/]+\/workload/, { timeout: 10000 });
+      await expect(
+        authenticatedPage.locator('.person-workload-page')
+      ).toBeVisible({ timeout: 10000 });
     });
     test(`${tags.crud} create assignment via API`, async ({ apiContext, testDataHelpers }) => {
       // Get available roles

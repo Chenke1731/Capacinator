@@ -40,7 +40,7 @@ test.describe('Demand Report Charts', () => {
     await expect(chartSvg).toBeVisible();
     
     // Check if there's demand data
-    const totalDemand = await authenticatedPage.locator('.summary-card:has(h3:has-text("Total Demand")) .metric').textContent();
+    const totalDemand = await authenticatedPage.locator('.summary-card:has(h4:has-text("Total Demand")) .metric').textContent();
     
     if (totalDemand && totalDemand.includes('0 hours')) {
       // No demand data - verify the chart handles empty state gracefully
@@ -75,7 +75,7 @@ test.describe('Demand Report Charts', () => {
     await expect(chartSvg).toBeVisible();
     
     // Check if there's demand data
-    const totalDemand = await authenticatedPage.locator('.summary-card:has(h3:has-text("Total Demand")) .metric').textContent();
+    const totalDemand = await authenticatedPage.locator('.summary-card:has(h4:has-text("Total Demand")) .metric').textContent();
     
     if (totalDemand && totalDemand.includes('0 hours')) {
       // No demand data - verify the chart handles empty state gracefully
@@ -116,7 +116,7 @@ test.describe('Demand Report Charts', () => {
     const projectChartContainer = authenticatedPage.locator('.chart-container:has(h3:has-text("Demand by Project"))');
     await expect(projectChartContainer).toBeVisible();
     
-    const initialTotalDemand = await authenticatedPage.locator('.summary-card:has(h3:has-text("Total Demand")) .metric').textContent();
+    const initialTotalDemand = await authenticatedPage.locator('.summary-card:has(h4:has-text("Total Demand")) .metric').textContent();
     
     // Change date range to a different period
     const startDateInput = authenticatedPage.locator('input[type="date"]').first();
@@ -133,7 +133,7 @@ test.describe('Demand Report Charts', () => {
     await expect(projectChartContainer).toBeVisible();
     
     // Check that the total demand metric exists (even if it's 0)
-    const newTotalDemand = await authenticatedPage.locator('.summary-card:has(h3:has-text("Total Demand")) .metric').textContent();
+    const newTotalDemand = await authenticatedPage.locator('.summary-card:has(h4:has-text("Total Demand")) .metric').textContent();
     expect(newTotalDemand).toBeTruthy();
   });
 
@@ -178,13 +178,13 @@ test.describe('Demand Report Charts', () => {
     await expect(authenticatedPage.locator('.report-summary')).toBeVisible();
     
     // Verify specific metrics
-    await expect(authenticatedPage.locator('h3:has-text("Total Demand")')).toBeVisible();
-    await expect(authenticatedPage.locator('h3:has-text("# Projects with Demand")')).toBeVisible();
-    await expect(authenticatedPage.locator('h3:has-text("# Roles with Demand")')).toBeVisible();
-    await expect(authenticatedPage.locator('h3:has-text("Peak Month")')).toBeVisible();
+    await expect(authenticatedPage.locator('h4:has-text("Total Demand")')).toBeVisible();
+    await expect(authenticatedPage.locator('h4:has-text("# Projects with Demand")')).toBeVisible();
+    await expect(authenticatedPage.locator('h4:has-text("# Roles with Demand")')).toBeVisible();
+    await expect(authenticatedPage.locator('h4:has-text("Peak Month")')).toBeVisible();
     
     // Verify total hours shows a value
-    const totalHours = authenticatedPage.locator('.summary-card:has(h3:has-text("Total Demand")) .metric');
+    const totalHours = authenticatedPage.locator('.summary-card:has(h4:has-text("Total Demand")) .metric');
     const hoursText = await totalHours.textContent();
     expect(hoursText).toMatch(/\d+\s*hours/);
   });
@@ -205,7 +205,7 @@ test.describe('Demand Report Charts', () => {
     await expect(authenticatedPage.locator('.report-content')).toBeVisible();
     
     // Check that total demand shows 0
-    const totalHours = authenticatedPage.locator('.summary-card:has(h3:has-text("Total Demand")) .metric');
+    const totalHours = authenticatedPage.locator('.summary-card:has(h4:has-text("Total Demand")) .metric');
     const hoursText = await totalHours.textContent();
     expect(hoursText).toMatch(/0\s*hours/);
   });

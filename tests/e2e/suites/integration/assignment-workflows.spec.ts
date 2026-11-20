@@ -34,110 +34,66 @@ test.describe('Assignment Integration Workflows', () => {
       }
       const personName = await availablePerson.locator('td:first-child').textContent();
       console.log(`Assigning to: ${personName}`);
-      // Navigate to person details
-      await availablePerson.getByRole('button', { name: /view/i }).click();
+      // Navigate to person details; Add Assignment now routes to the person
+      // workbench (the SmartAssignmentModal this test drove has no
+      // production entry any more). Creation mechanics through the task
+      // picker are covered by person-workload.spec.ts (§18); this test pins
+      // the cross-page entry contract.
+      await availablePerson.click();
       await authenticatedPage.waitForSelector('text=Workload Insights', { timeout: 10000 });
-      // Create assignment
       await authenticatedPage.getByRole('button', { name: /add assignment/i }).click();
-      await expect(authenticatedPage.locator('text=Smart Assignment')).toBeVisible({ timeout: 10000 });
-      // Use manual selection
-      const manualTab = authenticatedPage.locator('button[role="tab"]:has-text("Manual Selection")');
-      if (await manualTab.isVisible()) {
-        await manualTab.click();
-      }
-      // Select the project we noted earlier
-      const projectSelect = authenticatedPage.locator('#project-select, select[name="project_id"]').first();
-      const projectOptions = await projectSelect.locator('option').all();
-      let assignmentCreated = false;
-      for (const option of projectOptions) {
-        const optionText = await option.textContent();
-        if (optionText?.includes(projectName || '')) {
-          await projectSelect.selectOption(await option.getAttribute('value')!);
-          // Wait for role dropdown
-          await authenticatedPage.waitForLoadState("domcontentloaded", { timeout: 3000 }).catch(() => {});
-          // Select role if available
-          const roleSelect = authenticatedPage.locator('#role-select, select[name="role_id"]').first();
-          if (await roleSelect.isEnabled()) {
-            const roleOption = await roleSelect.locator('option[value]:not([value=""])').first();
-            if (await roleOption.count() > 0) {
-              await roleSelect.selectOption(await roleOption.getAttribute('value')!);
-            }
-          }
-          // Set allocation
-          await authenticatedPage.fill('#allocation-slider, input[name="allocation_percentage"]', '40');
-          // Submit
-          await authenticatedPage.keyboard.press('Enter');
-          assignmentCreated = true;
-          break;
-        }
-      }
-      if (assignmentCreated) {
-        // Wait for modal to close
-        await authenticatedPage.waitForSelector('text=Smart Assignment', { state: 'detached', timeout: 10000 });
-        // Verify assignment appears
-        await expect(authenticatedPage.locator(`text=${projectName}`)).toBeVisible({ timeout: 10000 });
-      }
+      await authenticatedPage.waitForURL(/\/people\/[^/]+\/workload/, { timeout: 10000 });
+      await expect(authenticatedPage.locator('.person-workload-page')).toBeVisible({ timeout: 10000 });
+      await authenticatedPage.getByTestId('pw-add-assignment').click();
+      const dialog = authenticatedPage.getByRole('dialog');
+      await expect(dialog).toBeVisible();
+      await expect(dialog.getByTestId('pw-task-board')).toBeVisible({ timeout: 15000 });
+      await authenticatedPage.keyboard.press('Escape');
     });
   });
   test.describe('Utilization Impact', () => {
-    test(`${tags.integration} assignment updates reflect in utilization metrics`, async ({ 
-      authenticatedPage, 
-      testHelpers 
+    test(`${tags.integration} assignment updates reflect in utilization metrics`, async ({
+      authenticatedPage,
+      testHelpers
     }) => {
-      // Navigate to people page
+      // Inline allocation edit on the workbench moves the person's total.
+      // Target a person WITH assignment rows (a 0-3x% person often has none).
       await testHelpers.navigateTo('/people');
       await testHelpers.waitForDataTable();
-      // Find person with low utilization
-      const underutilizedPerson = await authenticatedPage.locator('tbody tr').filter({
-        has: authenticatedPage.locator('td:nth-child(5)').filter({ hasText: /[0-3]\d%/ })
+      const personWithWork = authenticatedPage.locator('tbody tr').filter({
+        has: authenticatedPage.locator('td:nth-child(4):not(:has-text("0"))')
       }).first();
-      if (await underutilizedPerson.count() === 0) {
-        console.log('No underutilized person found');
+      if (await personWithWork.count() === 0) {
+        console.log('No person with assignments found');
         return;
       }
-      // Get initial utilization
-      const initialUtilization = await underutilizedPerson.locator('td:nth-child(5)').textContent();
-      console.log(`Initial utilization: ${initialUtilization}`);
-      // Navigate to person details
-      await underutilizedPerson.getByRole('button', { name: /view/i }).click();
+      await personWithWork.click();
       await authenticatedPage.waitForSelector('text=Workload Insights', { timeout: 10000 });
-      // Note current utilization on detail page
-      const utilizationElement = authenticatedPage.locator('text=/Current Utilization|Utilization:/').locator('..').locator('text=/%/');
-      let detailUtilization = '0%';
-      if (await utilizationElement.count() > 0) {
-        detailUtilization = await utilizationElement.textContent() || '0%';
-      }
-      // Add new assignment
       await authenticatedPage.getByRole('button', { name: /add assignment/i }).click();
-      await expect(authenticatedPage.locator('text=Smart Assignment')).toBeVisible({ timeout: 10000 });
-      // Create assignment with significant allocation
-      const manualTab = authenticatedPage.locator('button[role="tab"]:has-text("Manual Selection")');
-      if (await manualTab.isVisible()) {
-        await manualTab.click();
-      }
-      const projectSelect = authenticatedPage.locator('#project-select, select[name="project_id"]').first();
-      const projectOption = await projectSelect.locator('option[value]:not([value=""])').first();
-      if (await projectOption.count() > 0) {
-        await projectSelect.selectOption(await projectOption.getAttribute('value')!);
-        await authenticatedPage.waitForLoadState("domcontentloaded", { timeout: 3000 }).catch(() => {});
-        // Set 50% allocation
-        await authenticatedPage.fill('#allocation-slider, input[name="allocation_percentage"]', '50');
-        // Submit
-        await authenticatedPage.keyboard.press('Enter');
-        // Wait for modal to close and page to update
-        await authenticatedPage.waitForSelector('text=Smart Assignment', { state: 'detached', timeout: 10000 });
-        await authenticatedPage.waitForLoadState("networkidle", { timeout: 10000 }).catch(() => {});
-        // Check updated utilization
-        const newUtilizationElement = authenticatedPage.locator('text=/Current Utilization|Utilization:/').locator('..').locator('text=/%/');
-        if (await newUtilizationElement.count() > 0) {
-          const newUtilization = await newUtilizationElement.textContent();
-          console.log(`Updated utilization: ${newUtilization}`);
-          // Verify utilization increased
-          const oldValue = parseInt(detailUtilization, 10);
-          const newValue = parseInt(newUtilization || '0', 10);
-          expect(newValue).toBeGreaterThan(oldValue);
-        }
-      }
+      await authenticatedPage.waitForURL(/\/people\/[^/]+\/workload/, { timeout: 10000 });
+      await expect(authenticatedPage.locator('.person-workload-page')).toBeVisible({ timeout: 10000 });
+
+      const total = authenticatedPage.getByTestId('pw-total');
+      await expect(total).toBeVisible({ timeout: 15000 });
+      const before = parseInt((await total.textContent()) || '0', 10);
+
+      const firstRow = authenticatedPage.locator('.pw-allocation-input, [data-assignment-id]').first();
+      await authenticatedPage.locator('.pw-row-actions').first().getByRole('button', { name: /edit/i }).click();
+      const allocationInput = authenticatedPage.locator('.pw-allocation-input').first();
+      await expect(allocationInput).toBeVisible({ timeout: 10000 });
+      const original = await allocationInput.inputValue();
+      const bumped = Math.min(parseInt(original || '50', 10) + 10, 200);
+      await allocationInput.fill(String(bumped));
+      await authenticatedPage.locator('.pw-row-actions').first().getByRole('button', { name: /save/i }).click();
+      await expect(allocationInput).toHaveCount(0, { timeout: 10000 });
+      await expect.poll(async () => parseInt((await total.textContent()) || '0', 10), { timeout: 15000 })
+        .toBeGreaterThan(before);
+
+      // Restore the shared world (other suites read these numbers)
+      await authenticatedPage.locator('.pw-row-actions').first().getByRole('button', { name: /edit/i }).click();
+      await authenticatedPage.locator('.pw-allocation-input').first().fill(original);
+      await authenticatedPage.locator('.pw-row-actions').first().getByRole('button', { name: /save/i }).click();
+      await expect(authenticatedPage.locator('.pw-allocation-input')).toHaveCount(0, { timeout: 10000 });
     });
   });
   test.describe('Phase Timeline Integration', () => {
@@ -179,52 +135,51 @@ test.describe('Assignment Integration Workflows', () => {
     });
   });
   test.describe('Overallocation Prevention', () => {
-    test(`${tags.integration} assignment conflicts prevent overallocation`, async ({ 
-      authenticatedPage, 
-      testHelpers 
+    test(`${tags.integration} assignment conflicts prevent overallocation`, async ({
+      authenticatedPage,
+      testHelpers
     }) => {
-      // Find a person already at high utilization
+      // Premise inverted to the shipped design: over-allocation is ALLOWED
+      // and SURFACED (the People insights / dashboard alert is the intended
+      // signal), not blocked. Inline-edit one allocation to the max and
+      // verify the over state becomes visible, then restore the shared row.
       await testHelpers.navigateTo('/people');
       await testHelpers.waitForDataTable();
-      const highUtilizationPerson = await authenticatedPage.locator('tbody tr').filter({
-        has: authenticatedPage.locator('td:nth-child(5)').filter({ hasText: /[8-9]\d%|100%/ })
+      const personWithWork = authenticatedPage.locator('tbody tr').filter({
+        has: authenticatedPage.locator('td:nth-child(4):not(:has-text("0"))')
       }).first();
-      if (await highUtilizationPerson.count() === 0) {
-        console.log('No highly utilized person found');
+      if (await personWithWork.count() === 0) {
+        console.log('No person with assignments found');
         return;
       }
-      const utilization = await highUtilizationPerson.locator('td:nth-child(5)').textContent();
-      console.log(`Testing with person at ${utilization} utilization`);
-      await highUtilizationPerson.getByRole('button', { name: /view/i }).click();
+      await personWithWork.click();
       await authenticatedPage.waitForSelector('text=Workload Insights', { timeout: 10000 });
-      // Try to add assignment that would overallocate
       await authenticatedPage.getByRole('button', { name: /add assignment/i }).click();
-      await expect(authenticatedPage.locator('text=Smart Assignment')).toBeVisible({ timeout: 10000 });
-      // Check for warnings in recommended tab — the product INTENTIONALLY
-      // allows over-allocation (dashboard alerts exist for exactly this),
-      // so the modal may show hints or stay quiet; both are acceptable.
-      // What must hold: the manual flow stays usable (no hard block).
-      const recommendedTab = authenticatedPage.locator('button[role="tab"]:has-text("Recommended")');
-      if (await recommendedTab.count() > 0) {
-        await recommendedTab.click();
-      }
-      // Try manual assignment
-      const manualTab = authenticatedPage.locator('button[role="tab"]:has-text("Manual Selection")');
-      if (await manualTab.isVisible()) {
-        await manualTab.click();
-      }
-      const projectSelect = authenticatedPage.locator('#project-select, select[name="project_id"]').first();
-      const projectOption = await projectSelect.locator('option[value]:not([value=""])').first();
-      if (await projectOption.count() > 0) {
-        await projectSelect.selectOption(await projectOption.getAttribute('value')!);
-        // Set high allocation — over-allocation is permitted by design;
-        // the contract here is that the form accepts it (the dashboard's
-        // over-allocation alert is the product's intended signal)
-        await authenticatedPage.fill('#allocation-slider, input[name="allocation_percentage"]', '50');
-        const allocationField = authenticatedPage.locator('#allocation-slider, input[name="allocation_percentage"]').first();
-        await expect(allocationField).toBeVisible();
-      }
-      await authenticatedPage.keyboard.press('Escape');
+      await authenticatedPage.waitForURL(/\/people\/[^/]+\/workload/, { timeout: 10000 });
+      const total = authenticatedPage.getByTestId('pw-total');
+      await expect(total).toBeVisible({ timeout: 15000 });
+
+      await authenticatedPage.locator('.pw-row-actions').first().getByRole('button', { name: /edit/i }).click();
+      const allocationInput = authenticatedPage.locator('.pw-allocation-input').first();
+      await expect(allocationInput).toBeVisible({ timeout: 10000 });
+      const original = await allocationInput.inputValue();
+      await allocationInput.fill('200');
+      await authenticatedPage.locator('.pw-row-actions').first().getByRole('button', { name: /save/i }).click();
+      await expect(allocationInput).toHaveCount(0, { timeout: 10000 });
+      await expect.poll(async () => parseInt((await total.textContent()) || '0', 10), { timeout: 15000 })
+        .toBeGreaterThan(100);
+
+      // The surfaced signal: People page over-allocated insight is live
+      await testHelpers.navigateTo('/people');
+      await testHelpers.waitForDataTable();
+      await expect(authenticatedPage.locator('.insight-item.text-danger').first()).toBeVisible({ timeout: 10000 });
+
+      // Restore the shared row
+      await authenticatedPage.goBack();
+      await authenticatedPage.locator('.pw-row-actions').first().getByRole('button', { name: /edit/i }).click();
+      await authenticatedPage.locator('.pw-allocation-input').first().fill(original);
+      await authenticatedPage.locator('.pw-row-actions').first().getByRole('button', { name: /save/i }).click();
+      await expect(authenticatedPage.locator('.pw-allocation-input')).toHaveCount(0, { timeout: 10000 });
     });
   });
   test.describe('Bulk Operations', () => {
@@ -244,7 +199,7 @@ test.describe('Assignment Integration Workflows', () => {
       }
       const assignmentCount = await personWithMultipleAssignments.locator('td:nth-child(4)').textContent();
       console.log(`Person has ${assignmentCount} assignments`);
-      await personWithMultipleAssignments.getByRole('button', { name: /view/i }).click();
+      await personWithMultipleAssignments.click();
       await authenticatedPage.waitForSelector('text=Workload Insights', { timeout: 10000 });
       // Count assignments on detail page
       const assignmentRows = authenticatedPage.locator('table').filter({
@@ -278,46 +233,43 @@ test.describe('Assignment Integration Workflows', () => {
     });
   });
   test.describe('Cross-Page Consistency', () => {
-    test(`${tags.integration} assignment history and audit trail`, async ({ 
-      authenticatedPage, 
-      testHelpers 
+    test(`${tags.integration} assignment history and audit trail`, async ({
+      authenticatedPage,
+      testHelpers,
+      apiContext
     }) => {
-      // Create a new assignment and verify it appears in history
-      await testHelpers.navigateTo('/people');
-      await testHelpers.waitForDataTable();
-      // Go to first person
-      const firstPersonRow = authenticatedPage.locator('tbody tr').first();
-      await firstPersonRow.getByRole('button', { name: /view/i }).click();
-      await authenticatedPage.waitForSelector('text=Workload Insights', { timeout: 10000 });
-      // Note current number of assignments
-      const initialAssignments = await authenticatedPage.locator('table').filter({
-        has: authenticatedPage.locator('th:has-text("Project")')
-      }).locator('tbody tr').count();
-      // Create new assignment
-      await authenticatedPage.getByRole('button', { name: /add assignment/i }).click();
-      await expect(authenticatedPage.locator('text=Smart Assignment')).toBeVisible({ timeout: 10000 });
-      const manualTab = authenticatedPage.locator('button[role="tab"]:has-text("Manual Selection")');
-      if (await manualTab.isVisible()) {
-        await manualTab.click();
-      }
-      const projectSelect = authenticatedPage.locator('#project-select, select[name="project_id"]').first();
-      const projectOption = await projectSelect.locator('option[value]:not([value=""])').first();
-      if (await projectOption.count() > 0) {
-        const projectName = await projectOption.textContent();
-        await projectSelect.selectOption(await projectOption.getAttribute('value')!);
-        await authenticatedPage.fill('#allocation-slider, input[name="allocation_percentage"]', '25');
-        await authenticatedPage.keyboard.press('Enter');
-        // Wait for assignment to be created
-        await authenticatedPage.waitForSelector('text=Smart Assignment', { state: 'detached', timeout: 10000 });
-        await authenticatedPage.waitForLoadState("networkidle", { timeout: 10000 }).catch(() => {});
-        // Verify new assignment appears
-        const newAssignments = await authenticatedPage.locator('table').filter({
-          has: authenticatedPage.locator('th:has-text("Project")')
-        }).locator('tbody tr').count();
-        expect(newAssignments).toBe(initialAssignments + 1);
-        // Verify the specific assignment exists
-        await expect(authenticatedPage.locator(`text=${projectName}`)).toBeVisible();
-      }
+      // Assignment writes must land in the audit trail. A value-changing
+      // (+1, then restored) UPDATE guarantees an audit entry while leaving
+      // the shared world untouched afterwards.
+      const assignmentsBody = await (await apiContext.get('/api/assignments?limit=10')).json();
+      const assignment = (assignmentsBody.data || [])[0];
+      test.skip(!assignment, 'No assignments in e2e database');
+      const bumped = Math.min((assignment.allocation_percentage ?? 50) + 1, 200);
+      const update = await apiContext.put(`/api/assignments/${assignment.id}`, {
+        data: { allocation_percentage: bumped },
+      });
+      expect(update.ok()).toBeTruthy();
+
+      await testHelpers.navigateTo('/audit-log');
+      await authenticatedPage.locator('.audit-stats').first().waitFor({ timeout: 15000 });
+      // FilterBar selects are unlabeled natives — anchor by the option they
+      // carry, then filter the ledger down to assignment updates.
+      const tableSelect = authenticatedPage.locator('select.form-select').filter({
+        has: authenticatedPage.locator('option[value="scenario_project_assignments"]'),
+      }).first();
+      await tableSelect.selectOption('scenario_project_assignments');
+      const actionSelect = authenticatedPage.locator('select.form-select').filter({
+        has: authenticatedPage.locator('option[value="UPDATE"]'),
+      }).first();
+      await actionSelect.selectOption('UPDATE');
+      await authenticatedPage.waitForLoadState('networkidle', { timeout: 10000 }).catch(() => {});
+      const rows = authenticatedPage.locator('tbody tr');
+      await expect(rows.first()).toBeVisible({ timeout: 15000 });
+      expect(await rows.count()).toBeGreaterThan(0);
+      // Restore the shared row (both writes stay audited — that is the point)
+      await apiContext.put(`/api/assignments/${assignment.id}`, {
+        data: { allocation_percentage: assignment.allocation_percentage },
+      });
     });
     test(`${tags.integration} cross-page assignment consistency`, async ({
       authenticatedPage,
@@ -346,7 +298,7 @@ test.describe('Assignment Integration Workflows', () => {
       );
 
       // Navigate to person details
-      await personRow.getByRole('button', { name: /view/i }).click();
+      await personRow.click();
       await authenticatedPage.waitForSelector('text=Workload Insights', { timeout: 10000 });
       // Count assignments on detail page
       const detailAssignments = await authenticatedPage.locator('table').filter({

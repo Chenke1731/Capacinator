@@ -67,56 +67,25 @@ test.describe('Gaps Analysis Report Accuracy', () => {
       }
     }
   });
-  test(`${tags.reports} should display gaps by role table`, async ({ 
+  test(`${tags.reports} should display gaps by role table`, async ({
     authenticatedPage,
-    testDataHelpers 
+    testDataHelpers
   }) => {
-    // Look for gaps table. The outer locator can resolve on one render and
-    // the inner header vanish on the next (full-run refetch re-render) —
-    // auto-retrying assertions ride through that race instead of a
-    // count-then-expect dance that snapshots mid-flight.
-    const table = authenticatedPage.locator('table:has(th:has-text("Role"))').first();
-    if (await table.isVisible()) {
-      // Check expected headers
-      const expectedHeaders = ['Role', 'Demand', 'Capacity', 'Gap', 'Status'];
-      for (const header of expectedHeaders) {
-        const headerElement = table.locator('th', { hasText: header }).first();
-        await expect(headerElement).toBeVisible({ timeout: 10000 });
-      }
-      // Check data rows
-      const rows = table.locator('tbody tr');
-      const rowCount = await rows.count();
-      if (rowCount > 0) {
-        // Should have rows for roles from our test data
-        const uniqueRoles = new Set(testData.people.map((p: any) => p.role));
-        expect(rowCount).toBeGreaterThanOrEqual(uniqueRoles.size);
-        // Validate first row calculations
-        const firstRow = rows.first();
-        const cells = await firstRow.locator('td').all();
-        if (cells.length >= 4) {
-          // Get demand, capacity, and gap values
-          const demandText = await cells[1].textContent();
-          const capacityText = await cells[2].textContent();
-          const gapText = await cells[3].textContent();
-          const demand = parseFloat(demandText?.match(/\d+\.?\d*/)?.[0] || '0');
-          const capacity = parseFloat(capacityText?.match(/\d+\.?\d*/)?.[0] || '0');
-          const gap = parseFloat(gapText?.match(/-?\d+\.?\d*/)?.[0] || '0');
-          // Gap should equal demand - capacity
-          const calculatedGap = demand - capacity;
-          expect(Math.abs(calculatedGap - gap)).toBeLessThan(1); // Allow for rounding
-        }
-        // Check if our test data roles appear
-        let foundTestRole = false;
-        for (const person of testData.people) {
-          const roleRow = table.locator(`tr:has-text("${person.role}")`);
-          if (await roleRow.count() > 0) {
-            foundTestRole = true;
-            break;
-          }
-        }
-        expect(foundTestRole).toBe(true);
-      }
-    }
+    // Gaps-by-role is no longer a Role/Demand/Capacity/Gap/Status table —
+    // the report renders role cards (critical shortages / adequate capacity)
+    // plus the roleName chart. 20 seeded assignments guarantee shortages.
+    // Two actionable containers render (Projects first, Roles second) —
+    // anchor by section title instead of positional .first().
+    const section = authenticatedPage
+      .locator('.actionable-table-container')
+      .filter({ hasText: 'Actionable Roles' })
+      .first();
+    await section.waitFor({ state: 'visible', timeout: 15000 });
+    const items = section.locator('.actionable-item');
+    await expect(items.first()).toBeVisible({ timeout: 10000 });
+    const firstCard = items.first();
+    await expect(firstCard.locator('strong')).not.toBeEmpty();
+    await expect(firstCard.locator('.item-detail')).toContainText(/\d/);
   });
   test(`${tags.reports} should display gap visualization chart`, async ({ 
     authenticatedPage 
@@ -126,8 +95,9 @@ test.describe('Gaps Analysis Report Accuracy', () => {
     // 计数不定即败;改等容器就位 + poll 到柱数稳定
     const chartContainer = authenticatedPage.locator('.chart-container:has-text("Gap"), .chart-container:has-text("Demand vs Capacity")').first();
     await chartContainer.waitFor({ state: 'visible', timeout: 15000 });
-    // Check for chart SVG
-    const chartSvg = chartContainer.locator('svg, .recharts-wrapper');
+    // Check for chart SVG. Both selectors can match inside one container
+    // (recharts-wrapper wraps the svg) — take the first to stay unambiguous.
+    const chartSvg = chartContainer.locator('svg, .recharts-wrapper').first();
     await expect(chartSvg).toBeVisible();
     // Check for bar elements (usually showing demand vs capacity)
     const bars = chartContainer.locator('.recharts-bar, rect[width]');
@@ -288,41 +258,16 @@ test.describe('Gaps Analysis Report Accuracy', () => {
     authenticatedPage,
     testDataHelpers 
   }) => {
-    const table = authenticatedPage.locator('table').first();
-    // flaky 加固(2026-10-13): 瞬时 isVisible → 等待就位(表格必渲染,测试数据有缺口)
-    await table.waitFor({ state: 'visible', timeout: 15000 });
-    {
-      const rows = table.locator('tbody tr');
-      const rowsWithGaps = [];
-      // Find rows with actual gaps
-      for (let i = 0; i < await rows.count(); i++) {
-        const row = rows.nth(i);
-        const gapCell = row.locator('td').nth(3); // Gap column
-        if (await gapCell.isVisible()) {
-          const gapText = await gapCell.textContent();
-          const gapValue = parseFloat(gapText?.match(/\d+\.?\d*/)?.[0] || '0');
-          if (gapValue > 0) {
-            rowsWithGaps.push(row);
-          }
-        }
-      }
-      // With our test data (many assignments, few people), we should have gaps
-      expect(rowsWithGaps.length).toBeGreaterThan(0);
-      // For rows with gaps, check for action buttons
-      if (rowsWithGaps.length > 0) {
-        const firstGapRow = rowsWithGaps[0];
-        const actionCell = firstGapRow.locator('td').last();
-        // Should have some action available
-        const hasActions = 
-          await actionCell.locator('button').count() > 0 ||
-          await actionCell.locator('a').count() > 0 ||
-          await firstGapRow.locator('button[aria-label*="action"], button[aria-label*="hire"]').count() > 0;
-        if (!hasActions) {
-          // Check if actions are in a separate actions column
-          const actionsColumn = authenticatedPage.locator('.actions-column, td:has(button)');
-          expect(await actionsColumn.count()).toBeGreaterThan(0);
-        }
-      }
-    }
+    // Resolution options live on the actionable cards, not table rows:
+    // critical shortage cards offer View People / Hire More deep links
+    // (carrying gap + window params); project cards offer View Project.
+    const section = authenticatedPage.locator('.actionable-table-container').first();
+    await section.waitFor({ state: 'visible', timeout: 15000 });
+    const actionLinks = section.locator('.actionable-item .item-actions a');
+    await expect(actionLinks.first()).toBeVisible({ timeout: 10000 });
+    expect(await actionLinks.count()).toBeGreaterThan(0);
+    // The first offered action must actually navigate somewhere useful
+    const href = await actionLinks.first().getAttribute('href');
+    expect(href).toMatch(/^\/(people|projects)/);
   });
 });

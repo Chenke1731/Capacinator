@@ -21,7 +21,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { chromium } from 'playwright';
-import { auditEnvironment, authenticate, setupReadOnlyPage, getProfile, resolveProfile } from './lib/ui-profiles.mjs';
+import { auditEnvironment, authenticate, setupReadOnlyPage, getProfile, resolveProfile, profiles } from './lib/ui-profiles.mjs';
 import { resolveRoutes } from './lib/invariants/routes.mjs';
 
 const ROOT = process.cwd();
@@ -108,6 +108,56 @@ export function diffFingerprints(before, after) {
   return diffs;
 }
 
+// ── Static definition census (2026-11-20, dump→grep 两步变零步) ──
+// When a route comes back polluted, the operator needs the definition sites of
+// every flagged class — previously a manual grep chain (and the habit of only
+// grepping high-frequency classes cost a full --trace run). Candidate listing
+// only: `:where(...)` detection follows the project scoping convention, other
+// descendant scoping still shows as unscoped for a human to judge; ambiguous
+// cases keep --trace as the runtime fallback.
+let cssInventoryCache = null;
+function cssInventory() {
+  if (cssInventoryCache) return cssInventoryCache;
+  const dir = path.join(ROOT, 'client/src');
+  const texts = new Map();
+  const walk = (current, prefix) => {
+    for (const entry of fs.readdirSync(current, { withFileTypes: true })) {
+      if (entry.isDirectory()) walk(path.join(current, entry.name), `${prefix}${entry.name}/`);
+      else if (entry.name.endsWith('.css')) {
+        const rel = `client/src/${prefix}${entry.name}`;
+        texts.set(rel, fs.readFileSync(path.join(current, entry.name), 'utf8'));
+      }
+    }
+  };
+  walk(dir, '');
+  cssInventoryCache = texts;
+  return texts;
+}
+
+export function definitionSites(cls, texts) {
+  const sites = [];
+  const token = new RegExp(`(?:^|[\\s,>+~])\\.${cls}(?![\\w-])`);
+  for (const [file, raw] of texts) {
+    // Strip comments but keep line breaks so indices still map to real lines.
+    const text = raw.replace(/\/\*[\s\S]*?\*\//g, (comment) => comment.replace(/[^\n]/g, ' '));
+    for (const match of text.matchAll(/([^{}]+)\{([^{}]*)\}/g)) {
+      const selector = match[1].trim();
+      if (!selector || selector.startsWith('@') || selector.includes('@')) continue;
+      if (![...selector.split(',')].some((part) => token.test(` ${part.trim()}`))) continue;
+      sites.push({
+        file,
+        // Line of the "{" — the selector capture starts right after the
+        // previous rule's "}" and swallows intervening newlines, so
+        // match.index under-reports the line.
+        line: text.slice(0, match.index + match[1].length).split('\n').length,
+        selector: selector.replace(/\s+/g, ' ').slice(0, 120),
+        scoped: selector.includes(':where('),
+      });
+    }
+  }
+  return sites;
+}
+
 async function waitReady(page, route) {
   if (route.ready) await page.locator(route.ready).first().waitFor({ state: 'visible', timeout: 15000 });
   await page.evaluate(() => document.fonts.ready);
@@ -188,8 +238,16 @@ async function runCensus() {
         const fingerprint = await page.evaluate(captureFingerprint, classes);
         const diffs = diffFingerprints(report.baselines[route.id] || {}, fingerprint);
         if (diffs.length) {
-          report.polluted.push({ route: route.id, path: route.path, diffs: diffs.slice(0, 40), total: diffs.length });
+          const flaggedClasses = [...new Set(diffs.map((diff) => diff.class))];
+          const sources = Object.fromEntries(flaggedClasses.map((cls) => [cls, definitionSites(cls, cssInventory())]));
+          report.polluted.push({ route: route.id, path: route.path, diffs: diffs.slice(0, 40), total: diffs.length, sources });
           console.log(`POLLUTED ${route.id}: ${diffs.length} style diffs`);
+          for (const cls of flaggedClasses) {
+            const listing = sources[cls].length
+              ? sources[cls].map((site) => `${site.file}:${site.line}${site.scoped ? ' [scoped]' : ' [unscoped]'}`).join(' | ')
+              : 'no css definition (inline style / runtime-injected)';
+            console.log(`  .${cls} defined: ${listing}`);
+          }
         } else {
           console.log(`PASS ${route.id}`);
         }
@@ -237,8 +295,25 @@ async function selftest() {
   const diffs = diffFingerprints(before, after);
   const color = diffs.find((diff) => diff.property === 'color' && diff.class === 'btn');
   const count = diffFingerprints({ btn: [] }, { btn: [{ tag: 'button', text: '', values: {} }] });
+  // Route-shape contract (2026-11-20 undefined-URL incident): the inventory is
+  // shared by every consumer, so any entry must be navigable — a concrete
+  // path, or a profile reference that exists and carries no own fixture (a
+  // fixture-bearing profile would swap the process-wide scene mid-run). This
+  // turns a browser-only failure into a static red.
+  const inventory = resolveRoutes({ all: true });
+  const shapeOk = inventory.length > 20 && inventory.every((route) =>
+    (route.path && !route.path.includes(':')) ||
+    (route.profile && profiles[route.profile] && !getProfile(route.profile).fixture));
+  const synthetic = new Map([['a.css', ':where(.r) .demo{color:red}\n/* .demo noise */\n.demo{color:blue}\n.b .demo,.demo-x{margin:0}']]);
+  const sites = definitionSites('demo', synthetic);
+  const sitesOk = sites.length === 3
+    && sites.filter((site) => site.scoped).length === 1
+    && sites.some((site) => site.line === 3 && !site.scoped)
+    && sites.some((site) => site.line === 4);
   let browser;
   let browserOk = false;
+  let browserDiff;
+  let browserError = '';
   try {
     browser = await chromium.launch({ executablePath: auditEnvironment.chrome });
     const page = await browser.newPage();
@@ -246,15 +321,22 @@ async function selftest() {
     const first = await page.evaluate(captureFingerprint, ['btn']);
     await page.addStyleTag({ content: '.btn{color:rgb(255,0,0)}' });
     const second = await page.evaluate(captureFingerprint, ['btn']);
-    const browserDiff = diffFingerprints(first, second);
-    browserOk = browserDiff.some((diff) => diff.property === 'color' && diff.before === 'rgb(0, 0, 0)' && diff.after === 'rgb(255, 0, 0)');
+    browserDiff = diffFingerprints(first, second);
+    // Computed-style rgb() spacing is browser-version dependent; compare
+    // space-insensitively so a serialization tweak can't rot this check.
+    const compact = (value) => String(value).replace(/\s/g, '');
+    browserOk = browserDiff.some((diff) => diff.property === 'color' && compact(diff.before) === 'rgb(0,0,0)' && compact(diff.after) === 'rgb(255,0,0)');
+  } catch (error) {
+    browserError = String(error.message).slice(0, 200);
   } finally {
     await browser?.close();
   }
   console.log(`${color ? 'PASS' : 'FAIL'} selftest detects property change`);
   console.log(`${count.length === 1 && count[0].property === 'count' ? 'PASS' : 'FAIL'} selftest detects element count change`);
-  console.log(`${browserOk ? 'PASS' : 'FAIL'} selftest captures computed-style change in a real browser`);
-  return Boolean(color) && count.length === 1 && browserOk;
+  console.log(`${shapeOk ? 'PASS' : 'FAIL'} selftest route inventory shape (${inventory.length} routes)`);
+  console.log(`${sitesOk ? 'PASS' : 'FAIL'} selftest static definition census`);
+  console.log(`${browserOk ? 'PASS' : 'FAIL'} selftest captures computed-style change in a real browser${browserError ? ` — ${browserError}` : ''}`);
+  return Boolean(color) && count.length === 1 && shapeOk && sitesOk && browserOk;
 }
 
 if (has('--selftest')) process.exit(await selftest() ? 0 : 1);
